@@ -77,8 +77,9 @@ if ($col_curso=="curso") { }else{
 ?>
 
 <div align="center">
-<h2>
-Informe sobre el estado de los Libros de Texto: <span style=" color:#08c;"><? echo $nivel."-".strtoupper($grupo);?></span></h2>
+<div class="page-header" align="center" style="margin-top:-15px;">
+  <h1>Programa de Ayudas al Estudio <small> Informe sobre el estado de los Libros: <span style=" color:#08c;"><? echo $nivel."-".strtoupper($grupo);?></span></small></h1>
+</div>
 <br />
 <?
 foreach($_POST as $key0 => $val0)
@@ -123,7 +124,7 @@ $claveal = "";
 $curso = substr($nivel,0,1);
 //$fila_asig = $fila_asig + 1;
 
-echo "<br /><table class='table' style='width:auto'>";
+echo "<br /><table class='table table-bordered' style='width:auto;padding:5px;'>";
 
 
 echo "<thead><tr><th style='background-color:#eee'></th>";
@@ -185,16 +186,16 @@ $clave = $alumnos[4];
 		$estado0 = mysql_fetch_array($edit);
 		$estado = $estado0[0];
 ?>
-	<Label style="color:black;">N
-    <input type="radio" name="<? echo $r_nombre;?>" <? echo "checked=\"checked\""; ?> value="N" id="botones_3" /></Label>
-    <Label style="color:#3a87ad;">B
-    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "B"){echo "checked=\"checked\"";} ?> value="B" id="botones_0" /></Label>
-    <Label style="color:#f89406;">R
-    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "R"){echo "checked=\"checked\"";} ?> value="R" id="botones_1" /></Label>
-    <Label style="color:#9d261d;">M
-    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "M"){echo "checked=\"checked\"";} ?> value="M" id="botones_2" /></Label>    
-    <Label style="color:#46a546;">S
-    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "S"){echo "checked=\"checked\"";} ?> value="S" id="botones_4" /></Label> 
+	<Label class="radio" style="color:black;">
+    <input type="radio" name="<? echo $r_nombre;?>" <? echo "checked=\"checked\""; ?> value="N" id="botones_3" />N&nbsp;&nbsp;</Label>
+    <Label class="radio" style="color:#3a87ad;">
+    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "B"){echo "checked=\"checked\"";} ?> value="B" id="botones_0" />B&nbsp;&nbsp;</Label>
+    <Label class="radio" style="color:#f89406;">
+    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "R"){echo "checked=\"checked\"";} ?> value="R" id="botones_1" />R&nbsp;&nbsp;</Label>
+    <Label class="radio" style="color:#9d261d;">
+    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "M"){echo "checked=\"checked\"";} ?> value="M" id="botones_2" />M&nbsp;&nbsp;</Label>    
+    <Label class="radio" style="color:#46a546;">
+    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "S"){echo "checked=\"checked\"";} ?> value="S" id="botones_4" />S&nbsp;&nbsp;</Label> 
 <?
 //			echo $col{$i};
 		}

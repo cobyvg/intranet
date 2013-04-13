@@ -16,8 +16,10 @@ exit;
 ?>
 <? include("../../menu.php");?>
 <div align="center">
-  <h2>Programa de Ayudas al Estudio de la Junta.</h2>
-  <br />
+        <div class="page-header" align="center" style="margin-top:-15px;">
+  <h1>Programa de Ayudas al Estudio <small> Libros gratuitos de la ESO</small></h1>
+</div>
+<br />
   <div class="row-fluid">
     <div class="span1"></div>
     <div class="span3">

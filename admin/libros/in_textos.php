@@ -15,7 +15,10 @@ exit;
 }
 ?>
 <? include("../../menu.php");?>
-<div align="center"><h2>Programa de Ayudas al Estudio de la Junta.</h2><br />  
+      <div class="page-header" align="center" style="margin-top:-15px;">
+  <h1>Programa de Ayudas al Estudio <small> Importación de datos</small></h1>
+</div>
+<br />
 <?
 if($enviar == "Aceptar")
 {
@@ -45,7 +48,9 @@ Tabla de Libros de Texto Gratuitos: los datos de $nombre_nivel han sido introduc
 </div></div><br />';
 }
 ?>
-<input type="button" name="Volver atrás" onclick="history.back(1)" class="btn btn-info" />
+<div align="center">
+<input type="button" name="Volver atrás" onclick="history.back(1)" class="btn btn-primary" value="Volver atrás"/>
+</div>
 </div>
 </body>
 </html>
