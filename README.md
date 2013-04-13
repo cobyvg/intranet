@@ -4,8 +4,8 @@ Lo que aquí llamamos la Intranet del Monterroso es una aplicación web creada y
 
 Ha sido pensada para facilitar y simplificar el trabajo diario de los profesores en general, y especialmente del Equipo directivo, los Tutores, los Jefes de Departamento, etc. La aplicación es en realidad un conjunto de módulos interconectados que responden a tareas específicas que debe realizar un profesor en su trabajo diario. Estos módulos, a su vez, han surgido de necesidades planteadas por profesores determinados: el Jefe de Estudios, el Secretario, los Tutores, etc.
 
-* Código: [https://github.com/mgarcia39/intranet](https://github.com/mgarcia39/intranet)
-* Página web: [http://www.iesmonterroso.org/intranet_ies/](http://www.iesmonterroso.org/intranet_ies/)
+* Código: [https://github.com/IESMonterroso/intranet](https://github.com/IESMonterroso/intranet)
+* Página web: [http://iesmonterroso.org/intranet_ies/](http://iesmonterroso.org/intranet_ies/)
 
 
 ## Requisitos
@@ -56,5 +56,4 @@ La aplicación es compatible con las versiones 4.X y 5.X de PHP.
 
 ## Más información
 
-Más información sobre los requisitos y condiciones de la instalación de la aplicación se pueden encontrar en http://iesmonterroso.org/intranet_ies 
-g/intranet_ies 
+Más información sobre los requisitos y condiciones de la instalación de la aplicación se pueden encontrar en [http://iesmonterroso.org/intranet_ies/](http://iesmonterroso.org/intranet_ies/)
