@@ -1,0 +1,52 @@
+<?
+session_start();
+include("../../config.php");
+if($_SESSION['autentificado']!='1')
+{
+session_destroy();
+header("location:http://$dominio/intranet/salir.php");	
+exit;
+}
+registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+if(!(stristr($_SESSION['cargo'],'1') == TRUE))
+{
+header("location:http://$dominio/intranet/index.php");
+exit;	
+}
+?>
+<? include("../../menu.php");?>
+<div align="center"><h2>Programa de Ayudas al Estudio de la Junta.</h2><br />  
+<?
+if($enviar == "Aceptar")
+{
+// Nivel de los Libros
+if(substr($_FILES['archivo']['name'],0,1) == '1') {$nivel = '1E';}
+if(substr($_FILES['archivo']['name'],0,1) == '2') {$nivel = '2E';}
+if(substr($_FILES['archivo']['name'],0,1) == '3') {$nivel = '3E';}
+if(substr($_FILES['archivo']['name'],0,1) == '4') {$nivel = '4E';}
+$nombre_nivel = $_FILES['archivo']['name'];
+ // Creamos Base de datos y enlazamos con ella.
+ $base0 = "delete from textos_gratis where nivel = '$nivel'";
+ mysql_query($base0);
+// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
+$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die("<br><blockquote>No se ha podido abrir el fichero.<br> Asegúrate de que su formato es correcto.</blockquote>"); 
+while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
+{
+$datos1 = "INSERT INTO textos_gratis (materia, isbn, ean, editorial, titulo, ano, caducado, importe, utilizado, nivel) VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[3]) . "\",\"". trim($data1[4]) . "\",\"". trim($data1[5]) . "\",\"". trim($data1[6]) . "\",\"". trim($data1[7]) . "\",\"". trim($data1[8]) . "\",\"". $nivel . "\")";
+// echo $datos1."<br>";
+mysql_query($datos1);
+}
+fclose($handle);
+$borrarvacios = "delete from textos_gratis where editorial = ''";
+mysql_query($borrarvacios);
+echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Tabla de Libros de Texto Gratuitos: los datos de $nombre_nivel han sido introducidos correctamente.
+</div></div><br />';
+}
+?>
+<input type="button" name="Volver atrás" onclick="history.back(1)" class="btn btn-info" />
+</div>
+</body>
+</html>
+

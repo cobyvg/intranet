@@ -1,0 +1,12 @@
+# Table structure for table `cal`
+
+CREATE TABLE cal (
+   id int(9) NOT NULL auto_increment,
+   eventdate date DEFAULT '0000-00-00' NOT NULL,
+   html tinyint(1) DEFAULT '0' NOT NULL,
+   title varchar(255) NOT NULL,
+   event blob NOT NULL,
+   UNIQUE date (eventdate),
+   UNIQUE id (id)
+);
+

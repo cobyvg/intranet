@@ -1,0 +1,19 @@
+a.normal:link  { color: #CC3333; font-weight: bold; font-size: 11px; font-family: verdana, arial, helvetica; text-decoration: none }
+a.normal:visited  { color: #FFFFFF; font-weight: bold; font-size: 11px; font-family: verdana, arial, helvetica; text-decoration: none }
+a.normal:hover  { color: #FFFFFF; font-weight: normal; font-size: 11px; font-family: verdana, arial, helvetica; text-decoration: none }
+a.normal:active  { color: #FFFFFF; font-weight: bold; font-size: 11px; font-family: verdana, arial, helvetica; text-decoration: none }
+
+a.today:link  { color: #FFFFFF; font-weight: normal; font-size: 11px; font-family: verdana, arial, helvetica; text-decoration: none }
+a.today:visited  { color: #FFFFFF; font-weight: normal; font-size: 11px; font-family: verdana, arial, helvetica; text-decoration: underline }
+a.today:hover  { color: #FFFFFF; font-weight: normal; font-size: 11px; font-family: verdana, arial, helvetica; text-decoration: none }
+a.today:active  { color: #FFFFFF; font-weight: normal; font-size: 11px; font-family: verdana, arial, helvetica; text-decoration: none }
+
+.cellbg { background-color: #FFFFFF }
+.cellover { background-color: #DFDFDF }
+.celltoday { background-color: #000080 }
+.cellevent { background-color: #D7E1F5 }
+.normaltext { color: #000000; font-weight: normal; font-size: 11px; font-family: verdana, arial, helvetica }
+.eventtitle { color: #000080; font-weight: normal; font-size: 11px; font-weight: bold; font-family: verdana, arial, helvetica }
+.eventheading { color: #000080; font-weight: normal; font-size: 15px; font-weight: bold; font-family: verdana, arial, helvetica }
+.regheading { color: #000000; font-weight: normal; font-size: 14px; font-family: verdana, arial, helvetica }
+

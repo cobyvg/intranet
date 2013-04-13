@@ -1,0 +1,5 @@
+Observaciones sobre la Importación de faltas de asistencia a Séneca.
+1- Las fechas deben excluir los días festivos o vacaciones. Para impedir que los profesores pongan falta en fechas festivas, es necesario a principio de curso actualizar las fechas de fiestas y vacaciones en los archivos poner/insertar.php, poner2/insertar.php, y justificar/justifica.php.
+2- Es importante que los alumnos estén actualizados, pero también los archivos dentro del directorio origen/ (los que se descargan desde Séneca en el directorio seneca/origen/). Estos últimos pueden descargarse de un solo día, porque luego la aplicación coloca adecuadamente la fecha.
+3- Si hay matrículas anuladas en un grupo, debemos eliminar al alumno de la Intranet.
+4- Es muy importante asegurarse de que los horarios de los profesores están bien registrados en Séneca. Una forma rápida de comprobarlo es yendo a Séneca --> Alumnado --> Unidades, seleccionar el grupo y ver el horario del mismo: es común que alguna hora aparezca sin asignatura, lo que indica que el horario está mal.

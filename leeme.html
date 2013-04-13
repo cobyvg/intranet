@@ -1,0 +1,256 @@
+<!DOCTYPE html>  
+<html lang="es">  
+  <head>  
+    <meta charset="iso-8859-1">  
+    <title>Intranet</title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
+    <meta name="author" content="">  
+  
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <link href="./css/otros.css" rel="stylesheet">     
+       
+    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
+     
+    <link rel="shortcut icon" href="./img/favicon.ico">  
+    <link rel="apple-touch-icon" href="./img/apple-touch-icon.png">  
+    <link rel="apple-touch-icon" sizes="72x72" href="./img/apple-touch-icon-72x72.png">  
+    <link rel="apple-touch-icon" sizes="114x114" href="./img/apple-touch-icon-114x114.png"> 
+  </head>  
+  <body>  
+<h1 align="center">Intranet del IES Monterroso</h1><br /><br />
+<div class="well-2 well-large" style="width:860px; margin:auto;" align="left">
+<h3>Presentación</h3><br />
+<p>Lo que aqu&iacute; llamamos la <strong>Intranet del Monterroso</strong> es
+  una aplicaci&oacute;n web creada y probada a lo largo de m&aacute;s de seis
+  a&ntilde;os
+  en el Instituto del mismo nombre dentro del <em>Programa de
+  Autoevaluaci&oacute;n
+  y Mejora</em> de la Consejer&iacute;a de Educaci&oacute;n de la Junta de Andaluc&iacute;a.
+  Ha sido pensada para facilitar y simplificar  el trabajo diario de
+  los profesores en general, y especialmente del Equipo directivo, los Tutores,
+  los Jefes de Departamento, etc. La aplicaci&oacute;n es en realidad un conjunto
+  de m&oacute;dulos interconectados
+  que responden a tareas espec&iacute;ficas que debe realizar un profesor en
+  su trabajo diario. Estos m&oacute;dulos, a su vez, han surgido de necesidades
+  planteadas por profesores determinados: el Jefe de Estudios, el Secretario,
+  los Tutores, etc. </p>
+<p>La aplicaci&oacute;n se ha ajustado a las exigencias y necesidades del IES Monterroso,
+  pero a lo largo de los a&ntilde;os hemos visto que tanto las tareas como los
+  procedimientos para resolverlas son comunes a la mayor&iacute;a de los IES de la Comunidad
+  andaluza. As&iacute; ha sido comprobado por profesores que han permanecido un tiempo
+  en nuestro Centro, y son ellos seguramente la raz&oacute;n de que la aplicaci&oacute;n vea
+  la luz fuera del mismo. La Intranet es entregada bajo la licencia GPL, bien
+  conocida hoy por ser la licencia sobre la que descansa el Sistema Operativo
+  Linux. Puede ser ejecutada, no obstante, sobre cualquier otro Sistema operativo
+  en el que funcionen Apache (el servidor Web), PHP (el lenguaje de programaci&oacute;n
+  utilizado) y MySQL (la aplicaci&oacute;n de Bases de Datos utilizada). El c&oacute;digo que
+  liberamos puede ser editado, modificado, personalizado y, por supuesto, mejorado
+  a vuestro gusto.</p>
+<p>La Intranet funciona a partir de un conjunto de datos que son importados desde
+  S&eacute;neca: profesores, alumnos, asignaturas, etc. La compatibilidad con S&eacute;neca
+  es tan alta como lo permite la propia aplicaci&oacute;n de la Junta de Andaluc&iacute;a,
+  que, no debe olvidarse, es una aplicaci&oacute;n propietaria y cerrada. Dispone de
+  un sencillo proceso de instalaci&oacute;n que permite ajustar los datos esenciales
+  a un Centro determinado, y un sistema de importaci&oacute;n de datos a partir de S&eacute;neca
+  que en pocos minutos la pone a funcionar. Los m&oacute;dulos m&aacute;s importantes que contiene
+  son los siguientes:</p>
+<ul>
+  <li>un conjunto de p&aacute;ginas de consulta que presentan <em>datos
+      de los alumnos</em>,
+    <em>listas de grupos</em> y <em>horarios</em> tanto de grupos como de profesores y aulas.</li>
+  <li>un m&oacute;dulo para registrar los <em>problemas de convivencia</em>, las expulsiones
+    del Centro, etc. (Asociado al m&oacute;dulo de env&iacute;o
+    de SMS)</li>
+  <li>otro m&oacute;dulo para poner y justificar las <em>faltas
+      de asistencia</em> de los alumnos,
+    que posteriormente pueden ser exportadas a S&eacute;neca, y que nos ahorra el penoso
+    trabajo de realizar la misma tarea con esa aplicaci&oacute;n (Asociado al m&oacute;dulo
+    de env&iacute;o de SMS).</li>
+  <li>un m&oacute;dulo para generar <em>informes para el Tutor</em> que recibe la visita de los
+    padres de un alumno, y pide a los miembros de su equipo educativo que le
+    digan c&oacute;mo va el alumno en su asignatura.</li>
+  <li>otro m&oacute;dulo para rellenar <em>tareas para un alumno</em> que va a ser expulsado
+    del centro durante un tiempo, activado por un Tutor o el Jefe de Estudios.</li>
+  <li>un conjunto de <em>p&aacute;ginas destinadas al Tutor</em> de un grupo,
+    donde este puede ver todos los datos relevantes de los alumnos de su tutor&iacute;a
+    (faltas de asistencia, problemas de convivencia, tareas por expulsi&oacute;n, visitas
+    de padres, actividades extraescolares de su grupo, etc.), as&iacute; como registrar
+    las distintas intervenciones que realiza en su tarea de tutor. Todo ello
+    se presenta en un informe de Tutor&iacute;a que s&oacute;lo tendr&aacute; que imprimir a final
+    de curso y presentar a la Direcci&oacute;n.</li>
+  <li>un m&oacute;dulo de <em>comunicaci&oacute;n interna </em>entre los usuarios de la Intranet que
+    permite enviar y recibir <em>mensajes</em>. </li>
+  <li>un sistema de env&iacute;o de <em>mensajes SMS</em>, que se activar&aacute; autom&aacute;ticamente en
+    caso de problemas de convivencia graves, faltas de asistencia continuadas,
+    o que se podr&aacute; utilizar para poner en contacto r&aacute;pido al tutor o la Direcci&oacute;n
+    con los padres de un alumno.</li>
+  <li>un m&oacute;dulo para registrar y gestionar las <em>Actividades
+  Extraescolares</em>.</li>
+  <li>dos m&oacute;dulos para los <em>libros de texto</em>. El primero permite  crear
+    la lista de los libros de texto por Departamento para os distintos niveles
+    del centro (para consulta de padres y librer&iacute;as, por ejemplo). El segundo
+    es un m&oacute;dulo completo para la gesti&oacute;n de los libros de textos gratuitos por
+    parte de los Tutores y la Secretar&iacute;a del Centro dentro del Programa de la
+    Consejer&iacute;a de Educaci&oacute;n.</li>
+  <li>un conjunto de p&aacute;ginas destinadas a generar <em>Memorias
+    para Jefatura de estudios y Tutores</em> a final de Curso.</li>
+</ul>
+<p>La aplicaci&oacute;n ha sido pensada tambi&eacute;n para realizar tareas espec&iacute;ficas de
+  un Centro TIC. Los siguientes m&oacute;dulos est&aacute;n orientados a las tareas propias
+  de un Centro TIC:</p>
+<ul>
+  <li>un sistema de <em>reservas para los carros de port&aacute;tiles</em> o aulas con ordenadores.</li>
+  <li>otro sistema de <em>reservas para las aulas espec&iacute;ficas
+  y medios audiovisuales</em>.</li>
+  <li>un m&oacute;dulo para la gesti&oacute;n y registro de <em>incidencias
+    y problemas con los ordenadores</em>.</li>
+  <li>un m&oacute;dulo para la <em>creaci&oacute;n de los usuarios
+      TIC</em>, tanto alumnos como profesores,
+    preparado para el alta masiva en Gesuser y en la Plataforma educativa (en
+      nuestro caso, Moodle).</li>
+  <li>un m&oacute;dulo para la creaci&oacute;n de una base de datos de <em>Recursos
+    educativos</em>    por departamento, asignatura, etc.</li>
+  <li>una p&aacute;gina que concentra los <em>documentos</em> esenciales de un Centro TIC.</li>
+  <li>una p&aacute;gina de <em>estad&iacute;sticas</em> de uso de los recursos TIC por profesor, carrito,
+    etc.</li>
+</ul>
+<p>Muchos de los datos creados por los profesores en la Intranet, as&iacute; como otros
+  importados desde S&eacute;neca, pueden ser consultados por padres y alumnos desde
+  la p&aacute;gina exterior y p&uacute;blica del Centro. Estos pueden acceder de forma privada
+  a la misma y ver los datos personalizados de horario y profesores del alumno,
+  libros de texto, notas de las evaluaciones, faltas de asistencia, problemas
+  de convivencia, etc. Tambi&eacute;n pueden enviar mensajes internos al Tutor del alumno.</p>
+<p>La Intranet, por &uacute;ltimo, puede ser utilizada tanto desde dentro del Centro
+  como desde casa a trav&eacute;s de Internet. Ha sido pensada para que los profesores
+  puedan consultar datos, ver noticias y mensajes, o simplemente trabajar en
+  tareas propias desde el exterior.</p>
+<hr>
+<h3>Instalación</h3><br />
+<p>La aplicaci&oacute;n puede descargarse desde esta p&aacute;gina: <a href="http://iesmonterroso.org/intranet_ies/intranet.zip">http://iesmonterroso.org/intranet_ies/intranet.zip</a>. </p>
+<p>El primer requisito para la instalaci&oacute;n es tener d&oacute;nde hacerlo.
+  El Centro debe disponer de una m&aacute;quina (el <strong>Servidor</strong>)
+  y una l&iacute;nea
+  propia de <strong>ADSL</strong> (preferiblemente
+  con una <strong>direcci&oacute;n IP</strong> est&aacute;tica, aunque no es
+  necesario). Debe tambi&eacute;n disponer de un <strong>Dominio</strong> (<em>iesmonterroso.org</em>),
+  y este dominio debe apuntar a la IP de vuestro ADSL. Adem&aacute;s,
+  deb&eacute;is redirigir todos los <strong>Puertos</strong> del Router ADSL
+  hacia la direcci&oacute;n IP del Servidor.  Ideas b&aacute;sicas sobre instalaci&oacute;n
+  de un Servidor Linux preparado para estas tareas la pod&eacute;is encontrar
+  en nuestra p&aacute;gina principal,
+  concretamente <a href="http://iesmonterroso.org/red/linux.php" target="_blank">aquí</a>. </p>
+<p>El segundo requisito es tener un horario que pueda ser exportado a la Base
+  de datos. La Intranet est&aacute; preparada para trabajar con Horwin, pero
+  la mayor&iacute;a
+  de las aplicaciones que generan horarios pueden importar datos desde S&eacute;neca,
+  por lo que deber&iacute;a ser posible trabajar con las mismas. Por razones
+de compatibilidad con S&eacute;neca, es esencial que se den tres condiciones:<br />
+La
+primera es que los nombres de los profesores y el nombre de los grupos sean los
+mismos en S&eacute;neca
+que en Horwin, exactamente los mismos. <br />
+La segunda es que se importen los c&oacute;digos de las asignaturas
+  de S&eacute;neca dentro de Horwin (una
+  opci&oacute;n que nos permite el programa), y que naturalmente utilicemos un
+  c&oacute;digo
+de asignatura de S&eacute;neca para cada asignatura del horario.<br />
+La tercera
+  condici&oacute;n afecta al sistema para nombrar los grupos de alumnos, tanto
+  en S&eacute;neca como en Horwin, que debe seguir este esquema: &quot;<span class="style1">n&uacute;mero
+  del curso del grupo</span> ('1'
+  para primero de ESO, '2' para segundo de ESO, etc.) <strong>+</strong> <span class="style1">letra
+  inicial del nivel del grupo</span> (`E` para ESO, 'B'
+para Bachillerato, 'T' para el Ciclo de Turismo, 'P' para PCPI, etc.) <strong>+</strong> <span class="style1">letra
+del grupo</span>&quot;. Deber&iacute;a quedar algo
+  as&iacute;: 1E-A, 2B-C, 1P-A, 2T-A, etc.<br />
+  En caso de no utilizar Horwin, el programa con el que gener&aacute;is los horarios
+  debe ser capaz de importar los c&oacute;digos de las asignaturas desde S&eacute;neca,
+  as&iacute;
+  como exportar los datos del horario con cierta estructura (profesor, d&iacute;a,
+  hora, asignatura, etc.). Si es el caso, poneros en contacto para ver posibilidades. Pd&eacute;is
+  enlazarme en esta direcci&oacute;n: <a href="mailto:miguel@iesmonterroso.org">miguel@iesmonterroso.org</a>.<br />
+Por otro lado, se puede usar la Intranet sin horario, aunque las funciones quedan
+reducidas.</p>
+<p>Una vez satisfechas las condiciones iniciales pod&eacute;is comenzar el proceso
+  de instalaci&oacute;n. Para empezar, la instalaci&oacute;n
+  de la Intranet supone un <strong>directorio &quot;/home/e-smith/&quot;</strong> donde
+  se pueda crear el fichero de configuraci&oacute;n, &quot;<strong>config.php</strong>&quot;.
+  Este directorio debe tener por lo tanto permiso de escritura. Una vez completada
+  la instalaci&oacute;n,
+  se pueden reducir o cambiar los permisos.</p>
+<p>El <strong>directorio &quot;./xml&quot;</strong>, dentro de la propia Intranet,
+  tambi&eacute;n debe tener permisos
+  de escritura. En este directorio se realizan las importaciones de datos de
+  S&eacute;neca. </p>
+<p><strong>PHP</strong> debe tener activada la extensi&oacute;n <em>XSLT</em>. Si el Servidor donde se
+  ha instalado la Intranet es <a href="http://www.contribs.org"><strong>E-Smith</strong></a>, pod&eacute;is descargar desde nuestro
+  FTP (<a href="ftp://iesmonterroso.org/e-smith/xslt/" target="_blank">aquí</a>) los
+  archivos e instrucciones. Lo normal es que una instalaci&oacute;n standard de PHP
+  venga con la extensi&oacute;n activada.</p>
+<p>Una vez cumplido estos requisitos, pod&eacute;is empezar la importaci&oacute;n
+  de datos de Alumnos y Profesores desde S&eacute;neca. El &uacute;nico usuario
+  creado por la instalaci&oacute;n,
+  y el que por lo tanto deb&eacute;is utilizar, es &quot;<strong>admin</strong>&quot;:
+  dni:admin, contrase&ntilde;a:admin.
+  Entrando como <em>admin</em>, dirigiros a la p&aacute;gina de administraci&oacute;n
+  de la Intranet y comenzar el proceso.</p>
+<p>Una vez incorporado los datos desde S&eacute;neca, deb&eacute;is tambi&eacute;n
+   crear los &quot;<strong>Perfiles
+  de Profesores</strong>&quot; desde la misma p&aacute;gina de administraci&oacute;n.
+  Una vez creados los grupos (Perfiles) de Profesores, cualquier miembro del
+  perfil &quot;<em>Direcci&oacute;n</em>&quot;
+  tiene permisos de Administrador.</p>
+<hr>
+<h3>Otras cosas...</h3><br />
+<p>El archivo de configuraci&oacute;n est&aacute; preparado para que puedan ser
+  usuarios de la Intranet tanto <strong>Administrativos</strong> como la <strong>Conserjer&iacute;a</strong>. En
+  este segundo caso, basta con dar un nombre gen&eacute;rico (Conserje) y un
+  DNI al azar (c&oacute;digo del centro,
+  p. ej.).</p>
+<p>El Sistema de <strong>Reservas</strong> est&aacute; pensado para un Centro TIC con Carritos de port&aacute;tiles,
+  pero nada impide que funcione con Aulas fijas: simplemente darles el nombre
+  adecuado en la p&aacute;gina de configuraci&oacute;n para que no haya dudas (Aula TIC n&ordm; 1,
+  p. ej.)</p>
+<p>El m&oacute;dulo de env&iacute;o de <strong>SMS</strong> est&aacute; preparado para trabajar con la compa&ntilde;&iacute;a
+  <em>SMSTREND</em> (<a href="http://www.smstrend.net" title="smstrend" target="_blank">ver aquí</a>),
+  muy recomendable en cualquier caso.</p>
+<p>El m&oacute;dulo de <strong>Faltas de Asistencia</strong> supone que el Profesor
+  se lleva al Aula una hoja con su horario impreso, en la cual apunta el n&uacute;mero
+  de clase del Alumno que falta, y entrega esta hoja en Conserjer&iacute;a el
+  viernes de cada semana. El horario
+  de todos los Profesores se imprime desde la p&aacute;gina de Administraci&oacute;n
+  de la Intranet (<em>Otras cosas --&gt; Horario de Faltas para Profesores</em>). Aquellos
+  Profesores que utilicen un ordenador en el Aula pueden poner las faltas desde
+  el mismo sin necesidad de utilizar una hoja. <br />
+  Para poder colocar las Faltas en S&eacute;neca,
+  hay que descargar desde su p&aacute;gina (<em>Utilidades --&gt; Intercambios
+  de Informaci&oacute;n
+  --&gt; Exportar Faltas de Asistencia</em>) el archivo correspondiente a todos
+  los Grupos del Centro y descomprimirlo en &quot;<em>./faltas/seneca/origen/</em>&quot;.
+  Es muy conveniente tener presente el Calendario Escolar del Curso cada vez
+  que export&eacute;is
+  los datos hacia S&eacute;neca, as&iacute; como modificar anualmente la lista
+  de d&iacute;as festivos en
+  el archivo &quot;<em>insertar.php</em>&quot; dentro de los directorios .&quot;<em>/faltas/poner/</em>&quot;  y
+  &quot;<em>./faltas/poner2/</em>&quot; (de este modo evitamos que el profesor
+  ponga faltas en d&iacute;a
+  festivo), as&iacute; como &quot;<em>justificar.php</em>&quot; dentro del directorio
+  &quot;<em>./faltas/justificar/</em>&quot;.</p>
+<p>La Intranet puede funcionar en dispositivos tipo <em>PDA</em>, <em>tel&eacute;fonos</em> con
+  una pantalla grande, etc. Tanto los navegadores basados en <em>WebKit</em> (Chrome, Safari,
+  etc.) como los basados en <em>Opera</em> y <em>Firefox</em> funcionan perfectamente.
+  No as&iacute; el navegador de
+  Microsoft, con quien me temo que la Intranet es manifiestamente incompatible.</p>
+<p>El c&oacute;digo de esta aplicaci&oacute;n est&aacute; sometido a las condiciones de la licencia
+  <strong>GPL</strong> (<a href="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</a>). Una copia de la misma, <em>GPL.html</em>,
+  se encuentra en el directorio ra&iacute;z, y en la p&aacute;gina principal de la Intranet
+  (<em>index.php</em>) aparecen los t&eacute;rminos concretos de la misma.</p>
+<p>El c&oacute;digo HTML, CSS y una parte del c&oacute;digo JAVASCRIPT de esta aplicaci&oacute;n se han levantado sobre la estructura que  facilita <strong>Bootstrap, from Twitter</strong>. Pod&eacute;is conseguir m&aacute;s informaci&oacute;n <a href="http://www.anidocs.es/bootstrap/docs/index.php">en la p&aacute;gina web</a> de sus creadores.</p>
+<p>Mi direcci&oacute;n de correo aparece m&aacute;s arriba. Si quer&eacute;is consultar dudas o resolver
+  problemas poneros en contacto.</p>
+<p>Suerte.</p>
+</div>
+</body>
+
+</html>

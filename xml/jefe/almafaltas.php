@@ -1,0 +1,283 @@
+<?
+session_start();
+include("../../config.php");
+if($_SESSION['autentificado']!='1')
+{
+session_destroy();
+header("location:http://$dominio/intranet/salir.php");	
+exit;
+}
+registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+if(!(stristr($_SESSION['cargo'],'1') == TRUE))
+{
+header("location:http://$dominio/intranet/salir.php");
+exit;	
+}
+?>
+<?php  include '../../menu.php';?>
+<div align="center">
+<div class="page-header" align="center" style="margin-top:-15px;">
+  <h1>Administración <small> Creación de la tabla de alumnos</small></h1>
+</div>
+<br />
+<div class="well-2 well-large" style="width:600px;margin:auto;text-align:left">
+<?
+if($archivo1 and $archivo2){
+
+// Comprobamos si es la primera vez que se ha creado una base de datos.
+$fechorias = mysql_query("select * from Fechoria");	
+$mensajes = mysql_query("select * from mens_texto");
+$reg_int = mysql_query("select * from reg_intranet");
+
+if (mysql_num_rows($fechorias)<"5" and mysql_num_rows($mensajes)<"5" and mysql_num_rows($reg_int)<"5") {}
+else{
+	include("copia_bd.php");
+}
+	
+// Creamos Base de datos y enlazamos con ella.
+ $base0 = "DROP TABLE `alma`";
+  mysql_query($base0);
+
+ // Creación de la tabla alma
+ $alumnos = "CREATE TABLE  `alma` (
+`Alumno/a` varchar( 255 ) default NULL ,
+ `ESTADOMATRICULA` varchar( 255 ) default NULL ,
+ `CLAVEAL` varchar( 12 ) default NULL ,
+ `DNI` varchar( 10 ) default NULL ,
+ `DOMICILIO` varchar( 255 ) default NULL ,
+ `CODPOSTAL` varchar( 255 ) default NULL ,
+ `LOCALIDAD` varchar( 255 ) default NULL ,
+ `FECHA` varchar( 255 ) default NULL ,
+ `PROVINCIARESIDENCIA` varchar( 255 ) default NULL ,
+ `TELEFONO` varchar( 255 ) default NULL ,
+ `TELEFONOURGENCIA` varchar( 255 ) default NULL ,
+ `CORREO` varchar( 64 ) default NULL ,
+ `CURSO` varchar( 255 ) default NULL ,
+ `NUMEROEXPEDIENTE` varchar( 255 ) default NULL ,
+ `UNIDAD` varchar( 255 ) default NULL ,
+ `apellido1` varchar( 255 ) default NULL ,
+ `apellido2` varchar( 255 ) default NULL ,
+ `NOMBRE` varchar( 30 ) default NULL ,
+ `DNITUTOR` varchar( 255 ) default NULL ,
+ `PRIMERAPELLIDOTUTOR` varchar( 255 ) default NULL ,
+ `SEGUNDOAPELLIDOTUTOR` varchar( 255 ) default NULL ,
+ `NOMBRETUTOR` varchar( 255 ) default NULL ,
+ `SEXOPRIMERTUTOR` varchar( 255 ) default NULL ,
+ `DNITUTOR2` varchar( 255 ) default NULL ,
+ `PRIMERAPELLIDOTUTOR2` varchar( 255 ) default NULL ,
+ `SEGUNDOAPELLIDOTUTOR2` varchar( 255 ) default NULL ,
+ `NOMBRETUTOR2` varchar( 255 ) default NULL ,
+ `SEXOTUTOR2` varchar( 255 ) default NULL ,
+ `LOCALIDADNACIMIENTO` varchar( 255 ) default NULL ,
+  `FECHAMATRICULA` varchar( 255 ) default NULL ,
+ `MATRICULAS` varchar( 255 ) default NULL ,
+ `OBSERVACIONES` varchar( 255 ) default NULL,
+ `PROVINCIANACIMIENTO` varchar( 255 ) default NULL ,
+ `PAISNACIMIENTO` varchar( 255 ) default NULL ,
+ `EDAD` varchar( 2 ) default NULL ,
+ `NACIONALIDAD` varchar( 32 ) default NULL,
+ `SEXO` varchar( 1 ) default NULL 
+)";
+
+// echo $alumnos;
+mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<h5>ATENCIÓN:</h5>
+No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
+</div></div><br />
+<div align="center">
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+</div>');
+
+  $SQL6 = "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL` )";
+  $result6 = mysql_query($SQL6);
+  
+// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
+
+$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<h5>ATENCIÓN:</h5>
+No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
+</div></div><br />
+<div align="center">
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+</div>'); 
+$row = 1;
+while (($data = fgetcsv($fp, 1000, "|")) !== FALSE)
+{
+   	$datos = "INSERT INTO alma VALUES (";
+  for($i=0;$i<37;$i++){ 	
+   $datos.= "\"". trim($data[$i]) . "\", ";
+  }
+
+$datos=substr($datos,0,strlen($datos)-2);
+$datos.=")";
+// echo $datos."<br>";
+	mysql_query($datos);
+}
+fclose($fp);
+
+// Descomprimimos el zip de las calificaciones en el directorio exporta/
+include('../../lib/pclzip.lib.php');   
+$archive = new PclZip($_FILES['archivo2']['tmp_name']);  
+      if ($archive->extract(PCLZIP_OPT_PATH, '../exporta') == 0) 
+	  {
+        die("Error : ".$archive->errorInfo(true));
+      }  
+
+// Procesamos datos
+$crear = "ALTER TABLE  alma
+ADD  `COMBASI` VARCHAR( 250 ) NULL FIRST ,
+ADD  `APELLIDOS` VARCHAR( 40 ) NULL AFTER  `UNIDAD` ,
+ADD  `NIVEL` VARCHAR( 5) NULL AFTER  `APELLIDOS` ,
+ADD  `GRUPO` VARCHAR( 1 ) NULL AFTER  `NIVEL`,
+ADD  `CLAVEAL1` VARCHAR( 8 ) NULL AFTER  `CLAVEAL`,
+ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`
+";
+mysql_query($crear);
+
+// Separamos Nivel y Grupo, que viene juntos en el campo Unidad, que finalmente nos cargamos
+  $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
+  $result0 = mysql_query($SQL0);
+
+ while  ($row0 = mysql_fetch_array($result0))
+ {
+$trozounidad0 = explode("-",$row0[0]);
+$actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
+	mysql_query($actualiza);
+ }
+
+ // Apellidos unidos formando un solo campo.
+   $SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma";
+  $result2 = mysql_query($SQL2);
+ while  ($row2 = mysql_fetch_array($result2))
+ {
+ 	$apellidos = trim($row2[0]). " " . trim($row2[1]);
+	$apellidos1 = trim($apellidos);
+	$nombre = $row2[3];
+	$nombre1 = trim($nombre);
+	$actualiza1= "UPDATE alma SET APELLIDOS = \"". $apellidos1 . "\", NOMBRE = \"". $nombre1 . "\" where CLAVEAL = \"". $row2[2] . "\"";
+	mysql_query($actualiza1);
+ }
+ 
+ // Apellidos y nombre del padre.
+   $SQL3 = "SELECT PRIMERAPELLIDOTUTOR, SEGUNDOAPELLIDOTUTOR, NOMBRETUTOR, CLAVEAL FROM  alma";
+  $result3 = mysql_query($SQL3);
+ while  ($row3 = mysql_fetch_array($result3))
+ {
+ 	$apellidosP = trim($row3[2]). " " . trim($row3[0]). " " . trim($row3[1]);
+	$apellidos1P = trim($apellidosP);
+	$actualiza1P= "UPDATE alma SET PADRE = \"". $apellidos1P . "\" where CLAVEAL = \"". $row3[3] . "\"";
+	mysql_query($actualiza1P);
+ }
+ 
+  // Eliminación de campos innecesarios por repetidos
+  $SQL3 = "ALTER TABLE alma
+  DROP `apellido1`,
+  DROP `Alumno/a`,
+  DROP `apellido2`";
+  $result3 = mysql_query($SQL3);
+
+  // Eliminación de alumnos dados de baja
+    $SQL4 = "DELETE FROM alma WHERE `NIVEL` = '' AND `GRUPO` = ''";
+  $result4 = mysql_query($SQL4);
+  
+// Exportamos códigos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluación
+if(phpversion() < '5'){
+ include("exportacodigos_xslt.php");
+}
+else{
+ include("exportacodigos.php");
+}
+?>
+<?
+// Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
+$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and nivel !='2T' and nivel != '2S' and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
+$result6 = mysql_query($SQL6);
+// Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
+$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
+mysql_query($SQL7);
+
+ // Creamos versión corta para FALTAS
+mysql_query("drop table almafaltas");
+mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, NIVEL,
+ GRUPO from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<h5>ATENCIÓN:</h5>
+No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto con quien pueda resolver el problema.
+</div></div><br />
+<div align="center">
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+</div>');
+// Claveal primaria e índice
+  $SQL6 = "ALTER TABLE  `almafaltas` ADD INDEX (  `CLAVEAL` )";
+  $result6 = mysql_query($SQL6);
+ // Creamos esquema de FALUMNOS
+ $alumnos = "CREATE TABLE if not exists `FALUMNOS` (
+ `CLAVEAL` varchar( 8 ) default NULL ,
+ `NOMBRE` varchar( 30 ) default NULL ,
+ `APELLIDOS` varchar( 40 ) default NULL ,
+ `NIVEL` varchar( 5 ) default NULL ,
+ `GRUPO` varchar( 1 ) default NULL ,
+ `NC` tinyint( 2 ) default NULL 
+) TYPE = MYISAM ";
+mysql_query($alumnos);
+ // Si la tabla existe, la vaciamos.
+$vaciar = "truncate table FALUMNOS";
+mysql_query($vaciar);
+// Rellenamos datos en FALUMNOS desde almafaltas
+$SQL0 = "SELECT distinct NIVEL,GRUPO FROM  alma order by NIVEL";
+$result0 = mysql_query($SQL0);
+while  ($row0 = mysql_fetch_array($result0))
+ {
+$SQL1 = "SELECT distinct CLAVEAL, APELLIDOS, NOMBRE, NIVEL, GRUPO FROM  alma WHERE alma.NIVEL = '$row0[0]' and alma.GRUPO = '$row0[1]'";
+$result1 = mysql_query($SQL1);
+
+// Calculamos el numero de alumnos en cada curso
+$numero = mysql_num_rows($result1);
+for($i=0; $i <= $numero -1; $i++)
+ {
+while  ($row1= mysql_fetch_array($result1))
+ {
+ $i = $i + 1 ;
+ 
+// Insertamos los datos en FALUMNOS
+$SQL2 = "INSERT INTO FALUMNOS (CLAVEAL, APELLIDOS, NOMBRE, NIVEL, GRUPO, NC) VALUES
+(\"". $row1[0] . "\",\"". $row1[1] . "\",\"". $row1[2] . "\",\"". $row1[3] . "\",\"". $row1[4] . 
+"\",\"". $i . "\")";
+$result2 = mysql_query($SQL2);
+}
+}
+}
+echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Tabla <strong>Alma</strong>: los Alumnos se han introducido correctamente en la Base de datos.
+</div></div><br />';
+// Eliminamos temporales
+mysql_query("drop table almafaltas");
+// Datos para el alta masiva de usuarios TIC
+include("exportaTIC.php");
+include("crear_hermanos.php");
+// Copia de la primera versión de alma
+mysql_query("DROP TABLE alma_primera") ;
+mysql_query("create table alma_primera select * from alma");
+mysql_query("ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
+mysql_query("CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre, nivel, grupo FROM FALUMNOS WHERE claveal IN (SELECT claveal FROM alma_primera)");
+mysql_query("ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");
+}
+else{
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<h5>ATENCIÓN:</h5>
+Parece que te está olvidando de enviar todos los archivos con los datos de los alumnos. Asegúrate de enviar ambos archivos descargados desde Séneca.
+</div></div><br />';
+}
+?>
+<br />
+<div align="center">
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+</div>
+</div>
+</div>
+</body>
+</html>
