@@ -24,14 +24,14 @@ include("../../menu.php");
 </div>
 <br />
 <FORM ENCTYPE="multipart/form-data" ACTION="almafaltas.php" METHOD="post">
-  <div class="control-group success"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si has descargado los archivos de Evaluaci&oacute;n y el fichero RegAlum.tx exportados desde S&Eacute;NECAt, puedes continuar con el segundo paso.</p></div><br />
+  <div class="control-group success"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si has descargado los archivos de Evaluaci&oacute;n y el fichero RegAlum.tx exportados desde S&Eacute;NECA, puedes continuar con el segundo paso.</p></div><br />
   <div class="well-2 well-large" style="width:500px; margin:auto;" align="left">
-  <h6>Selecciona el archivo <span style="color:#9d261d">RegAlum.txt:</span><br />
+  <p class="lead">Selecciona el archivo <span style="color:#9d261d">RegAlum.txt:</span></p>
   </h6>
-  <input type="file" name="archivo1" class="input input-file span4">
+  <input type="file" name="archivo1" class="input input-file">
   <hr>
-  <h6> Selecciona el archivo comprimido <span style="color:#9d261d">Exportacion_de_Calificaciones.zip:</span><br />
-    <input type="file" name="archivo2" class="input input-file span4">
+  <p class="lead"> Selecciona el archivo comprimido <span style="color:#9d261d">Exportacion_de_Calificaciones.zip:</span></p>
+    <input type="file" name="archivo2" class="input input-file">
   </h6>
   <hr>
   <div align="center">

@@ -128,17 +128,17 @@ if (strlen($_POST['alumnos'])>0) {
 			else {$seleccion=$seleccion."','".$valor;}		
 		}
 	$seleccion=$seleccion."'";
-	$query_Recordset1 = "SELECT * FROM alma WHERE claveal In (".$seleccion.") ORDER BY Apellidos ASC";
+	$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha FROM alma WHERE claveal In (".$seleccion.") ORDER BY Apellidos ASC";
 	$opcion=2;
 	}
 
 	elseif (isset($_POST['select'])) {		#elige selección de un curso
 	$selecc=trim($_POST['select']);
-	$query_Recordset1 = "SELECT * FROM alma where Unidad = '" .$selecc ."' order by Apellidos ASC";
+	$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha FROM alma where Unidad = '" .$selecc ."' order by Apellidos ASC";
 	}
 	
 	else {
-		$query_Recordset1 = "SELECT * FROM alma order by Unidad,Apellidos"; #otro caso, es decir, todos los alumnos
+		$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha FROM alma order by Unidad, Apellidos"; #otro caso, es decir, todos los alumnos
 }
 $Recordset1 = mysql_query($query_Recordset1) or die(mysql_error("No es posible conectar"));  #crea la consulata
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);  #cantidad de registros
@@ -152,13 +152,13 @@ $pdf->AddFont('c128ab');
 $n=1; # carnet nº 1
 
 while ($row_Recordset1 = mysql_fetch_array($Recordset1)){
-$fecha = str_replace("/","-",$row_Recordset1[9]);
+$fecha = str_replace("/","-",$row_Recordset1[4]);
 //$tr = explode("-",$fecha0);
 //$fecha = "$tr[2]-$tr[1]-$tr[0]";
-$claveal = $row_Recordset1[2];
-$unidad = $row_Recordset1[16];
-$apellidos = $row_Recordset1[17];
-$nombre = $row_Recordset1[18];
+$claveal = $row_Recordset1[0];
+$unidad = $row_Recordset1[1];
+$apellidos = $row_Recordset1[2];
+$nombre = $row_Recordset1[3];
 //echo "$claveal --> $unidad --> $apellidos --> $nombre<br />";
 ########################### Comenzamos con los carnets
 
@@ -203,21 +203,11 @@ $nombre = $row_Recordset1[18];
 	#$pdf->Rect(46+$x,36+$y,33,11,F);
 	$pdf->Rect(29+$x+$dplz,36+$y,52-$dplz,12,'F');
 
-$result=mysql_query("SELECT datos, nombre FROM fotos WHERE nombre='$claveal.jpg'");
-# Array con las posibles extensiones que puede haber
 $fileExtension=".jpg";
-$row = mysql_fetch_array($result);
-if (mysql_num_rows($result)>0) {
-	$foto_al = $fotos_dir."/".$row[1];
-	# Creamos cada uno de los archivos
-	file_put_contents($foto_al,$row[0], FILE_APPEND);
-		if (file_exists($foto_al)) # Si existe la foto la imprime
- 	  {
- 	  	$pdf->Image($foto_al,2.5+$x,12.5+$y,22);
- 	  	unlink($foto_al);
+$foto_al = "../fotos/".$claveal.".jpg";
+if (file_exists($foto_al)) {
+ 	$pdf->Image($foto_al,2.5+$x,12.5+$y,22);
 }
-}
-
 	$pdf->SetFont('c128ab','',40);
     $cadena= chr(124) . chr(172). $claveal . codigo_control($claveal) . chr(126);
     $pdf->Text(32+$x+$dplz,47+$y,$cadena);    

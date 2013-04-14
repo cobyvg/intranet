@@ -181,6 +181,7 @@ Vuelve atrás e inténtalo de nuevo.
 		
 		// Si hay usuario y pertenece a alguien del Centro, comprobamos la contraseña.
 		if ($codigo == $clave) {
+			$_SESSION ['pass'] = $codigo;
 			$pr0 = mysql_query ( "SELECT profesor FROM c_profes where idea = '".$_POST['idea']."'" );
 			$pr1 = mysql_fetch_array ( $pr0 );
 			$_SESSION ['profi'] = $pr1 [0];
@@ -198,10 +199,16 @@ Vuelve atrás e inténtalo de nuevo.
 			$id_reg = mysql_query ( "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
 			$id_reg0 = mysql_fetch_array ( $id_reg );
 			$_SESSION ['id_pag'] = $id_reg0 [0];
-			
+			// Comprobamos si el usuario es Admin y entra por primera vez
+			if ($profe=="admin" and $clave == sha1("12345678")) {
+				$_SESSION ['autentificado'] = '1';			
+				header ( "location:clave.php" );
+			}
+			else{
 			//Abrimos la página principal
 			$_SESSION ['autentificado'] = '1';			
 				header ( "location:index0.php" );
+			}
 			exit ();
 		} else 
 		// La contraseña no es correcta

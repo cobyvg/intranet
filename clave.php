@@ -24,7 +24,7 @@ else {
 include("menu.php");
 ?>
  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Cambio de la clave de acceso</small>></h1>
+  <h1>Cambio de la clave de acceso</small></h1>
 </div>
 <br />
 <div align="center" class="well-2 well-large" style="width:540px;margin:auto">
@@ -44,7 +44,7 @@ Se ha producido un error:<br />No se ha podido cambiar la contraseña en la Base 
 echo '
     <div align="center"><div class="alert alert-success alert-block fade in" style="max-width:450px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-La Contraseña se ha modificado en la Base de Datos. <br />La nueva clave para entrar es <span class="label label-info">'.$codigo2.'</span>.
+La Contraseña se ha modificado en la Base de Datos. <br />La nueva clave para entrar es <span class="label label-warning">'.$codigo2.'</span>.
 Puedes volver a cambiarla en cualquier momento. Y si te olvidas de la misma, ponte en contacto para volver al principio.
 			</div>
           </div> ';

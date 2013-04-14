@@ -196,7 +196,7 @@ Tablas ASIGNATURAS y CALIFICACIONES:<br /> Los datos se han introducido correcta
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div><hr>';
   // Comprobación con Horw
-echo "<h3>Comprobación de coherencia entre las Asignaturas de Séneca y de Horw.</h3><br /> ";
+echo "<p class='lead'>Comprobación de coherencia entre las Asignaturas de Séneca y de Horw.</p><br /> ";
 $elimina = "select distinct c_asig, a_asig, asig from horw, asignaturas where c_asig NOT IN (select distinct codigo from asignaturas)";
 $elimina1 = mysql_query($elimina);
 echo "<p class='label label-important'>Asignaturas de Horw que no están en Séneca</p>";

@@ -82,7 +82,7 @@ No se ha podido crear la tabla <strong>profesores</strong> en la base de datos <
 mysql_query("ALTER TABLE ".$db_reservas.".profesores ADD INDEX (  `PROFESOR` )");
 
 // Limpiamos Tabla de Horarios de grupos que no da el profesor
-echo "<hr><span class='label label-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en Séneca.</span><br />";
+echo "<hr><p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en Séneca.</p><br />";
 
 $hor0 = "select id, prof, a_grupo, asig from horw where asig not like 'OPTATIVA EXENTOS'";
 $hor1 = mysql_query($hor0);
@@ -191,8 +191,8 @@ mysql_query("create table horw_faltas select * from horw where (a_asig not like 
   mysql_query("delete from horw_faltas where a_grupo='' or a_grupo is null");
   mysql_query("OPTIMIZE TABLE  `horw_faltas`");  
 //Profes que están en horw y no en profesores
-echo "<hr><span class='label label-warning' style='text-align:left'>Profesores en Horw que no aparecen en la tabla Profesores
-creados:</span>";
+echo "<hr><p class='lead text-important' style='text-align:left'>Profesores en Horw que no aparecen en la tabla Profesores
+creados:</p>";
 $pro0 = "select distinct prof from horw where prof not in (select distinct profesor from profesores)";
 $pro1 = mysql_query($pro0);
 while($pro = mysql_fetch_array($pro1))
