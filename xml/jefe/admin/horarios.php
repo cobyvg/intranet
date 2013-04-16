@@ -14,6 +14,7 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
+    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
 <?php
 include("../../../menu.php");
 ?>
@@ -22,8 +23,23 @@ include("../../../menu.php");
   <h1>Administración <small> Creación de Horarios y Profesores</small></h1>
 </div>
 <br />
+<div  align='center'>    
+ <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
+        <i class="icon-spinner icon-spin icon-2x pull-left"></i> Cargando los datos...
+      </div>
+</div>
+<div id='t_larga' style='display:none' >
+
 <?
 include("horario_normal.php");
 include("horario_faltas.php");
 ?>
 </div>
+ <? include("../../../pie.php");?>
+  <script>
+function espera( ) {
+        document.getElementById("t_larga").style.display = '';
+        document.getElementById("t_larga_barra").style.display = 'none';        
+}
+window.onload = espera;
+</script>  

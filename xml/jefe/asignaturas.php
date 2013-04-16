@@ -14,6 +14,7 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
+    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
 <?php
 include("../../menu.php");
 ?>
@@ -22,6 +23,13 @@ include("../../menu.php");
   <h1>Administración <small> Asignaturas y Calificaciones</small></h1>
 </div>
 <br />
+<div  align='center'>    
+ <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
+        <i class="icon-spinner icon-spin icon-2x pull-left"></i> Cargando los datos...
+      </div>
+</div>
+<div id='t_larga' style='display:none' >
+
 <div class="well-2 well-large" style="width:700px;margin:auto;text-align:left">
 <?
 // Vaciamos o borramos tablas
@@ -52,13 +60,15 @@ $crear = "CREATE TABLE  IF NOT EXISTS `materias_temp` (
 // Claveal primaria e índice
 mysql_query("ALTER TABLE  `materias_temp` ADD  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY");
 mysql_query("ALTER TABLE  `materias_temp` ADD INDEX (  `CODIGO` )");
-  
+
+mysql_query("ALTER TABLE  `calificaciones_temp` ADD INDEX (  `CODIGO` )");  
+
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir('../exporta')) {
    while (false !== ($file = readdir($handle))) {
        if ($file != "." && $file != ".."&& $file != ".xml") {
  //echo $file."<br />";
-       	
+$num+=1;       	
 $doc = new DOMDocument('1.0', 'iso-8859-1');
 
 /*Cargo el XML*/
@@ -103,6 +113,7 @@ mysql_query("INSERT INTO  `materias_temp` (
 VALUES ('$codigo',  '$nombre',  '$abrev',  '$cur', '$grupo')");}
 
 //
+if ($num=="1") {
 ///*Obtengo el nodo Calificación del XML
 //a traves del metodo getElementsByTagName,
 //este nos entregara una lista de todos los
@@ -115,7 +126,6 @@ lo puedo recorrer y obtener todo
 su contenido*/
 foreach( $calificaciones as $calificacion )
 {	
- 
 /*Obtengo el valor del primer elemento 'item(0)'
 de la lista $codigos.
 Si existiera un atributo en el nodo para obtenerlo
@@ -132,7 +142,9 @@ $orden0 = $ordenes0->item(0)->nodeValue;
 $nombre_utf = utf8_decode($nombre0);
 mysql_query("INSERT INTO  `calificaciones_temp` 
 VALUES ('$codigo0',  '$nombre_utf',  '$abrev0',  '$orden0')");
-}  
+}
+}
+  
   }
  }  
 closedir($handle);
@@ -217,5 +229,13 @@ if(strlen($pend[1]) > 0) {} else
 ?>
 
 </div>
+ <? include("../../pie.php");?>
+  <script>
+function espera( ) {
+        document.getElementById("t_larga").style.display = '';
+        document.getElementById("t_larga_barra").style.display = 'none';        
+}
+window.onload = espera;
+</script>  
 </body>
 </html>

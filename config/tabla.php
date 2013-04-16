@@ -207,14 +207,15 @@ for($i=1;$i<2;$i++){
       <td>Conserjería:
         </td>
       <td><input type="text" name="conserje<?php echo $i;?>" size="30" value="<?php if(empty(${'conserje'.$i})){ echo "conserje";}else{echo ${'conserje'.$i};}?>"/></td>
-      <td><input type="text" name="dnic<?php echo $i;?>" size="30" value="<?php if(empty(${'dnic'.$i})){ echo "12345678";}else{echo ${'dnic'.$i};}?>"/></td>
+      <td><input type="text" name="dnic<?php echo $i;?>" size="30" value="<?php if(empty(${'dnic'.$i})){ echo "1234567C";}else{echo ${'dnic'.$i};}?>"/></td>
     </tr>
     <?php
 }
 ?>
     <tr>
       <td colspan="3" style="background-color:#555;"><h2 align='center' style="color:#fff" class="lead">Configuración de las Bases de datos</h2></td>
-    </tr>
+    </tr> 
+    
     <tr>
       <td>Base de datos general<span style='color:#9d261d'> (*)</span>
         </td>

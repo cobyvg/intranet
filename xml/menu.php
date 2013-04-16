@@ -1,12 +1,7 @@
 <li class="nav-header">Configuración</li> 
 <li><a href="../config/index.php" class="enlacelateral">Cambiar Configuración</a></li>
 <hr>
-<li class="nav-header">Profesores</li> 
-<li><a href="../config/cargos.php" class="enlacelateral">Seleccionar los Perfiles de los Profesores</a></li>
-<li><a href="jefe/reset_password.php" class="enlacelateral">Reiniciar Contraseña</a></li>
-<li><a href="jefe/index_hor.php" class="enlacelateral">Copiar datos de un profesor a otro</a></li>
-<li><a href="jefe/index_fotos_profes.php" class="enlacelateral">Subir fotos de profesores</a></li>
-<hr>
+
 <li class="nav-header">A principio de curso...</li> 
 <li><a href="jefe/index2.php" class="enlacelateral">Crear Alumnos a principio de Curso</a></li>
   <? if ($mod_horario) {?>
@@ -23,6 +18,12 @@ Crear Asignaturas y sistema de Calficaciones</a></li>
   <? if ($mod_tic and $mod_horario) {?>
 <li><a href="../TIC/distribucion/crea_tabla.php" class="enlacelateral">Crear Asignación TIC</a></li>
 <?}?>
+<hr>
+<li class="nav-header">Profesores</li> 
+<li><a href="../config/cargos.php" class="enlacelateral">Seleccionar los Perfiles de los Profesores</a></li>
+<li><a href="jefe/reset_password.php" class="enlacelateral">Reiniciar Contraseña</a></li>
+<li><a href="jefe/index_hor.php" class="enlacelateral">Copiar datos de un profesor a otro</a></li>
+<li><a href="jefe/index_fotos_profes.php" class="enlacelateral">Subir fotos de profesores</a></li>
 <hr>
 <li class="nav-header">Actualizaci&oacute;n</li>
 <li><a href="jefe/index.php" class="enlacelateral">Actualizar Alumnos</a></li>

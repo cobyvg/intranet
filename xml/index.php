@@ -39,16 +39,12 @@ include("../menu.php");
 <div style="text-align:justify">
 <p>	
 Esta es la pagina de Administraci&oacute;n de la Intranet y de las Bases de Datos de la misma. A continuación siguen algunas explicaciones sobre la mayoría de los módulos que componen la aplicación.</p>
+<hr>
 <p>La <strong>primera opci&oacute;n (<span style='color:#08c'>Cambiar la Configuraci&oacute;n</span>)</strong> permite editar y modificar los datos de la configuraci&oacute;n que se crearon cuando se instal&oacute; la Intranet.</p> 
 
 <hr>
-<p>
-El <strong>segundo grupo de opciones</strong> afecta a los <strong><span style='color:#08c'>Profesores</span></strong>. 
- Una vez se han creado los Departamentos y Profesores, es necesario seleccionar los <span style='color:#08c'>Pérfiles de los Profesores</span> para que la aplicación se ajuste a las funciones propias de cada profesor ( Tutor, Dirección, Jefe de Departamento, etc. ). También desde aquí se puede <span style='color:#08c'>Reiniciar la contraseña</span> de los profesores que se hayan olvidado de la misma. Al resetearla, el profesor deberá entrar de nuevo con el DNI como contraseña, lo que le llevará a la página desde la que tendrá que cambiarla con los criterios de Séneca. La última opción, <span style='color:#08c'>Copiar datos de un profesor a otro</span> cambia el horario de un profesor que ha sido sustituido al profesor que lo sustituye, de tal manera que el nuevo profesor pueda entrar en la Intranet con su usuario iDEA normalmente.
- </p>
- <hr>
 <p>	
-El <strong>tercer grupo de opciones (<span style='color:#08c'>A Principio de curso...</span>)</strong> crea las tablas principales: Alumnos, Profesores, Asignaturas, Calificaciones y Horarios. Hay que tener a mano varios archivos que descargamos de Seneca y Horw: </p>
+El <strong>segundo grupo de opciones (<span style='color:#08c'>A Principio de curso...</span>)</strong> crea las tablas principales: Alumnos, Profesores, Asignaturas, Calificaciones y Horarios. Hay que tener a mano varios archivos que descargamos de Seneca y Horw: </p>
 <ul>
 <li>Los Alumnos se crean una sola vez a comienzo de curso, aunque luego podemos actualizarlos cuando queramos. En este proceso se crean las tablas de Alumnos y se les asigna un n&uacute;mero de aula. Tambi&eacute;n se generan dos archivos preparados para el Alta masiva de Alumnos y Profesores en Gesuser (los coloca en intranet/xml/jefe/TIC/). Necesitamos dos archivos de Séneca: 
 <ul>
@@ -65,6 +61,11 @@ El <strong>tercer grupo de opciones (<span style='color:#08c'>A Principio de cur
 </ul>
 </p>
 <hr>
+<p>
+El <strong>tercer grupo de opciones</strong> afecta a los <strong><span style='color:#08c'>Profesores</span></strong>. 
+ Una vez se han creado los Departamentos y Profesores, es necesario seleccionar los <span style='color:#08c'>Pérfiles de los Profesores</span> para que la aplicación se ajuste a las funciones propias de cada profesor ( Tutor, Dirección, Jefe de Departamento, etc. ). También desde aquí se puede <span style='color:#08c'>Reiniciar la contraseña</span> de los profesores que se hayan olvidado de la misma. Al resetearla, el profesor deberá entrar de nuevo con el DNI como contraseña, lo que le llevará a la página desde la que tendrá que cambiarla con los criterios de Séneca. La última opción, <span style='color:#08c'>Copiar datos de un profesor a otro</span> cambia el horario de un profesor que ha sido sustituido al profesor que lo sustituye, de tal manera que el nuevo profesor pueda entrar en la Intranet con su usuario iDEA normalmente.
+ </p>
+ <hr>
 <p>
     El <strong>cuarto grupo (<span style='color:#08c'>Actualizaci&oacute;n</span>)</strong> permite actualizar los datos deAlumnos y Profesores/Departamentos del Centro. Esta pensado para la actualizacion de los alumnos que se van matriculando a lo largo del Curso, así como para la puesta al día de la lista de Profesores y Departamentos. Necesita el archivo de alumnos y el de la evaluaci&oacute;n correspondiente como en la primera opci&oacute;n, ambos actualizados. Los módulos de Profesores y Departamentos requieren de sus respectivos archivos, especificados en su propia página.</p>
     <hr>
