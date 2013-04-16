@@ -249,7 +249,7 @@ mysql_close();
 </div>
 </div>
 <?
-include("../../pie.php");
+include("../../../pie.php");
 ?>
 </body>
 </html>

@@ -180,11 +180,16 @@ $nivel = $alumno[1];
   <? }
 else{?>
   <? }
-  if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE ) == TRUE)
-{}
-else{
-	echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary" >';
-}
+  if (date('m')>3 and date('m')<10) {
+  	if ( stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE ) {
+  			echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary" >';
+  	}
+  }
+  else{
+  	echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary" >';
+  }
+  
+ 
   ?>
 
 
@@ -192,7 +197,7 @@ else{
   <br /><br />
   <div class="well well-large" style="width:500px;text-align:left;">
   <div style="font-weight:bold; color:#08c;">Información sobre Transporte en las Actividades.</div>
-  <p>AUTOBUSES RICARDO<br /> 952 80 86 45 (OFICINA);<br /> 671 527 372 (MÓVIL DE CONTACTO PARA CONFIRMACIÓN);<br /> 649 45 70 99 (MÓVIL DE ANTONIO -DUEÑO DE LA EMPRESA- SÓLO EN CASO DE EMERGENCIA).</p>
+  <p>Autobusus Ricardo<br /> 952 80 86 45 (Oficina);<br /> 671 527 372 (Móvil de contacto para confirmación);<br /> 649 45 70 99 (Móvil de Antonio -Dueño de la Empresa- Sólo en caso de emergencia).</p>
   </div>
   </div>
   

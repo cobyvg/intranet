@@ -103,12 +103,6 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
       <td>Fecha de terminación del Curso Escolar. Formato: 2013-06-21</td>
     </tr>
     <tr>
-      <td>Hoja de Estilo 1:
-        </td>
-      <td><input type="text" name="css1" size="30" value="<?php if(empty($css1)) { echo "intranet/css/estilo.css"; } else { echo $css1; } ?>" onclick="this.value=''"/></td>
-      <td>Si procede, lugar donde se encuentra la Hoja de Estilo CSS suplementaria.</td>
-    </tr>
-    <tr>
     <tr>
       <td align="center" colspan="3" style="background-color:#555;"><h6 align='center' style="color:#fff" class="lead">Módulos de la Intranet</h6></td>
     </tr>

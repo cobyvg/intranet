@@ -89,11 +89,15 @@ El <strong>quinto grupo (<span style='color:#08c'>Notas de Evaluaci&oacute;n</sp
 <li>"Subir fotos de alumnos" permite hacer una subida en bloque de todas las fotos de los alumnos para se utilizadas por los distintos módulos de la Intranet. Para ello, necesitaremos crear un archivo comprimido ( .zip ) con todos los archivos de fotos de los alumnos. Cada archivo de foto tiene como nombre el NIE de Séneca (el Número de Identificación que Séneca asigna a cada alumno ) seguido de la extensión .jpg o .jpeg. El nombre típico de un archivo de foto quedaría por ejemplo así: 1526530.jpg. Las fotos de los profesores se suben del mismo modo, pero el nombre se construye a partir del usuario IdEA ( mgargon732.jpg, por ejemplo).</li>
   <li>&quot;Libros de Texto gratuitos&quot; es un conjunto de p&aacute;ginas pensadas para registrar el estado de los libros de cada alumno dentro del Programa de Ayudas al Estudio de la Junta, e imprimir los certificados correspondientes (incluidas las facturas en caso de mal estado o p&eacute;rdidad del material).</li>
     <li>&quot;Matriculación de alumnos&quot; es un módulo que permite matricular a los alumnos a través de la intranet o, en su caso, a través de internet (si el módulo se ha incorporado a la página principal del Centro). Los tutores, a final de curso, ayudan a los alumnos a matricularse en una sesión de tutoría. Posteriormente el Centro imprime los formularios de la matrícula y se los entregan a los alumnos para ser firmados por sus padres y entregados de nuevo en el IES. El Equipo directivo cuenta entonces con la ventaja de poder administrar los datos fácilmente para formar los grupos de acuerdo a una gran variedad de criterios. El módulo incluye una página que realiza previsiones de matriculación de alumnos en las distintas evaluaciones.</li> 
+    </ul>
+<hr>
+<p>El <strong>último grupo <span style='color:#08c'>(Base de datos)</span></strong> permite realizar copias de seguridad de las bases de datos que contienen los datos esenciales de la Intranet. La copia de seguridad crea un archivo, comprimido o en formato texto (SQL), en un directorio de la aplicación ( /intranet/xml/jefe/copia_db/ ). Esta compia puede ser descragada una vez creada. También podemos restaurar la copia de seguridad seleccionando el archivo que hemos creado anteriormente. </p>
+
     
   <!--   <li>&quot;Registro de Fotocopias&quot; es un módulo que permite a los Conserjes y Dirección registrar las fotocopias que se hacen en el centro. La Dirección también puede ver estadísticas por profesor y departamento.</li>
     
 <li>&quot;Importar fotos de alumnos&quot; permite insertar o reemplazar fotos de alumnos en la tabla <em>Fotos</em> de la Base de datos general. El directorio donde se encuentran las fotos debe ser registrado en la página de Administracción de la intranet, y es conveniente que se encuentre dentro del alcanze de PHP. El nombre de los archivos de las fotos debe contener como primera parte el identificador Personal del Alumno en Séneca (<strong>claveal</strong> en la tabla <strong>Alma</strong>, por ejemplo), seguido del formato de imagen (<em>.jpeg</em> o <em>.jpg</em>). Una vez insertadas o actualizadas las fotos, pueden ser consultadas desde varios módulos de la Intranet. </li>-->
-</ul>
+
 </blockquote>    
 </div>
 </div>

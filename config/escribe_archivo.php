@@ -23,7 +23,6 @@
 		fwrite($f1,"$"."db_user='".$_POST['db_user']."';\r\n");
 		fwrite($f1,"$"."db_host='".$_POST['db_host']."';\r\n");
 		fwrite($f1,"$"."db_pass='".$_POST['db_pass']."';\r\n");
-		fwrite($f1,"$"."css1='".$_POST['css1']."';\r\n");	
 		
 		if($mod_tic){fwrite($f1,"$"."mod_tic='1';\r\n");}
 		if($mod_horario){fwrite($f1,"$"."mod_horario='1';\r\n");}
