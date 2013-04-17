@@ -11,9 +11,9 @@ La Intranet se ha ajustado a las exigencias y necesidades del IES Monterroso, pe
 
 La Intranet es entregada bajo la licencia GPL, bien conocida hoy por ser la licencia sobre la que descansa el Sistema Operativo Linux. Puede funcionar sobre cualquier otro Sistema operativo en el que funcionen:
 
-* [Apache](http://www.apache.org/)
+* [Apache HTTP Server](http://httpd.apache.org/) (versión 2.4.x o anterior)
 * [PHP](http://www.php.net/) (versión 5.3.x o anterior)
-* [MySQL](http://www.php.net/)
+* [MySQL](http://www.php.net/) (versión 5.6.x o anterior)
 
 ## Módulos y funciones
 
