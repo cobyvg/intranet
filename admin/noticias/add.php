@@ -86,20 +86,20 @@ $profesor = $_SESSION ['profi'];
 </div>
 <br />
    <?
-if($submit=="Añadir Noticia")
+if($submit=="AÃ±adir Noticia")
 {
 	if($id){
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Estás intentando duplicar la misma noticia dos veces. ¿Quizás lo que buscas es cambiar una noticia y actualizar los datos?
+			<h5>ATENCIÃ“N:</h5>
+EstÃ¡s intentando duplicar la misma noticia dos veces. Â¿QuizÃ¡s lo que buscas es cambiar una noticia y actualizar los datos?
 </div></div>' ;
 	}
 	else{
 		$errorList = array ();
 		$count = 0;
 		if (! $slug) {
-			$errorList [$count] = "Entrada inválida: Asunto";
+			$errorList [$count] = "Entrada invÃ¡lida: Asunto";
 			$count ++;
 		}
 		if (! $content) {
@@ -122,19 +122,19 @@ Estás intentando duplicar la misma noticia dos veces. ¿Quizás lo que buscas es c
 			}
 			$connection = mysql_connect ( $db_host, $db_user, $db_pass ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 No es posible conectar con la base de datos! Busca ayuda.
 </div></div>' );
 			mysql_select_db ( $db ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 No es posible conectar con la base de datos! Busca ayuda.
 </div></div>'  );
 			if ($intranet) {$pagina="1";} if ($principal) {$pagina.="2";} 
 				$query2 = "INSERT INTO noticias (slug, content, contact, timestamp, clase, fechafin, pagina) VALUES('$slug', '$content', '$contact', NOW(), '$clase', '$fechafin', '$pagina')";
 			$result2 = mysql_query ( $query2 ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 Se ha producido un error grave al insertar la noticia en la base de datos(tabla News). Busca ayuda.</div></div>' );			
 			
 			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -157,7 +157,7 @@ if($submit1){
 	$errorList = array();
 	$count = 0;
 	if (!$slug) { $errorList[$count] = "Entrada invalida: Asunto"; $count++; }
-	if (!$content) { $errorList[$count] = "Entrada inválida: Texto"; $count++; }
+	if (!$content) { $errorList[$count] = "Entrada invÃ¡lida: Texto"; $count++; }
 	if (!$contact) { $contact = $def_contact; }
 	if (sizeof($errorList) == 0)		
 	{
@@ -199,7 +199,7 @@ if ($id)
 	
 	$connection = mysql_connect($db_host, $db_user, $db_pass) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 No es posible conectar con la base de datos! Busca ayuda.
 </div></div>'  );
 	mysql_select_db($db);
@@ -267,20 +267,25 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
     <fieldset class="control-group warning">
       <hr>
       <p class="lead">Noticia Fija</p>
-      <label>Número de Días para mantener la Noticia Fija:
+      <label>NÃºmero de DÃ­as para mantener la Noticia Fija:
         <input maxlength="2" type="text" name="ndias" class="input-mini" value="<? echo $diff; ?>">
       </label>
        <hr>
-      <p class="lead">Página donde se publica</p>
+      <p class="lead">PÃ¡gina donde se publica</p>
       <label class="checkbox">
       Enviar noticia a la Intranet <input type="checkbox" name="intranet" value="1" <? if (strstr($pagina,"1")==TRUE) { echo "checked";} ?> />
       </label>
       <label class="checkbox">
-      Enviar noticia a la Página del Centro <input type="checkbox" name="principal" <? if (strstr($pagina,"2")==TRUE) { echo "checked";} ?> value="2" />
+      Enviar noticia a la PÃ¡gina del Centro <input type="checkbox" name="principal" <? if (strstr($pagina,"2")==TRUE) { echo "checked";} ?> value="2" />
       </label>
       
       </fieldset>
       <?
+}
+else{
+?>
+<input type="hidden" name="intranet" value="1" />
+<?
 }
 ?>
       <hr>
@@ -293,7 +298,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
 		  <? 
       } 
 ?>
-      <input type="submit" name="submit" value="Añadir Noticia" class="btn btn-primary">
+      <input type="submit" name="submit" value="AÃ±adir Noticia" class="btn btn-primary">
  
     </form>
  
