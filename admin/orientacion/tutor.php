@@ -77,7 +77,7 @@ El registro ha sido actualizado en la Base de datos.
 ?>
 <div class="row-fluid">
 <div class="span1"></div>
-<div class="span5">
+<div class="span6">
 <h3 align="center">Registro de datos</h3>
 <br />
 <div class="well-2 well-large">
@@ -237,7 +237,7 @@ if($alumno){
 	}
 }
 ?></div>
-<div class="span5">
+<div class="span4">
 <h3 align="center">Intervenciones del Tutor</h3>
 <br />
 <? include("ultimos.php");?></div>

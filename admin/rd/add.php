@@ -19,87 +19,66 @@ $profesor = $_SESSION ['profi'];
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
 <meta name="author" content="">
-<!-- Le styles -->
 <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet">
-<?
-if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){
-		?>
-<link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">
-<?
-}
-else{
-		?>
 <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-<?	
-}
-	?>
 <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
 <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
-
-<!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->
-
-<link rel="shortcut icon" href="http://<? echo $dominio;?>/intranet/img/favicon.ico">
-<link rel="apple-touch-icon" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-114x114.png">
 <!-- TinyMCE -->
 <script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
-tinyMCE.init({
-	// General options
-	mode : "textareas",
-	theme : "advanced",
-	language : "es",
-	plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,visualblocks",
+	tinyMCE.init({
+		// General options
+		mode : "textareas",
+		theme : "advanced",
+		language : "es",
+		plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,visualblocks",
 
-	// Theme options
-	theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-	theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-	theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
-	theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft,visualblocks",
-	theme_advanced_toolbar_location : "top",
-	theme_advanced_toolbar_align : "left",
-	theme_advanced_statusbar_location : "bottom",
-	theme_advanced_resizing : true,
+		// Theme options
+		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft,visualblocks",
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "bottom",
+		theme_advanced_resizing : true,
 
-	// Example content CSS (should be your site CSS)
-	content_css : "css/content.css",
+		// Example content CSS (should be your site CSS)
+		content_css : "css/content.css",
 
-	// Drop lists for link/image/media/template dialogs
-	template_external_list_url : "lists/template_list.js",
-	external_link_list_url : "lists/link_list.js",
-	external_image_list_url : "lists/image_list.js",
-	media_external_list_url : "lists/media_list.js",
+		// Drop lists for link/image/media/template dialogs
+		template_external_list_url : "lists/template_list.js",
+		external_link_list_url : "lists/link_list.js",
+		external_image_list_url : "lists/image_list.js",
+		media_external_list_url : "lists/media_list.js",
 
-	// Style formats
-	style_formats : [
-	{title : 'Bold text', inline : 'b'},
-	{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
-	{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
-	{title : 'Example 1', inline : 'span', classes : 'example1'},
-	{title : 'Example 2', inline : 'span', classes : 'example2'},
-	{title : 'Table styles'},
-	{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
-	],
+		// Style formats
+		style_formats : [
+			{title : 'Bold text', inline : 'b'},
+			{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+			{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+			{title : 'Example 1', inline : 'span', classes : 'example1'},
+			{title : 'Example 2', inline : 'span', classes : 'example2'},
+			{title : 'Table styles'},
+			{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+		],
 
-	// Replace values for the template plugin
-	template_replace_values : {
-		username : "Some User",
-		staffid : "991234"
-	}
-});
+		// Replace values for the template plugin
+		template_replace_values : {
+			username : "Some User",
+			staffid : "991234"
+		}
+	});
 </script>
 <!-- /TinyMCE -->
+
 
 </head>
 
 <body>
+
 <?
-?>
-<?php
 include ("../../menu_solo.php");
 include ("menu.php");
    	mysql_select_db($db);
@@ -136,7 +115,7 @@ if (empty($departamento) and stristr($_SESSION['cargo'],'4') == TRUE){
 else{
 	$departament="Dirección del Centro";
 }
-		?>
+?>
 <div align="center">
 
   <?
@@ -147,6 +126,19 @@ else{
 <br />';
 		?>
 <?
+if($borrar=="1"){
+$query = "DELETE from r_departamento WHERE id = '$id'";
+$result = mysql_query($query) or die ('<div align="center">
+<div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Se ha borrado el registro de la base de datos.          
+</div>
+</div>');
+}
+if($edicion=="1"){
+$ed0 = mysql_query("select * from r_departamento where id = '$id'");
+$ed = mysql_fetch_object($ed0);
+}
    if($submit=="Registrar Acta del Departamento")
    {
    		$errorList = array ();
@@ -184,7 +176,12 @@ El Acta del Departamento ha sido registrada correctamente.
    	}
 $nm0 = mysql_query("select max(numero) from r_departamento where departamento = '$departament'");
 $numer = mysql_fetch_array($nm0);
+if ($edicion=="1") {
+	$numero = $ed->numero;
+}
+else{
 $numero = $numer[0]+1;
+}
 $fecha2 = date ( 'Y-m-d' );
 $hoy = formatea_fecha ( $fecha2 );
 $d_rd0 = mysql_query("select hora from horw where prof = '$profesor' and a_asig = 'RD'");
@@ -196,15 +193,19 @@ foreach ($reunion as $key => $val){
 		$hora = $val;
 	}
 }
+if ($edicion=="1") {
+	$fecha_r =  $ed->fecha;
+}
+
 	?>
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span9">	
-<div class="well well-large" style="width:680px; text-align:left">
+
     <form action="<? echo $PHP_SELF;?>" method="POST" name='f1' class="form-inline">
       <label style="display:inline">Fecha de la Reunión &nbsp;
       <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha" value="<? echo $fecha_r;?>" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 </label>
@@ -212,10 +213,14 @@ foreach ($reunion as $key => $val){
 <label style="display:inline">Nº de Acta &nbsp;
       <input class="input-mini" type="text" name="numero"  value="<? echo $numero; ?>">
 </label>
-
-<hr>
+<br /><br />
       <label>
         <textarea name="contenido" id="editor" style="width:100%;height:450px;">
+<? if ($edicion=="1") {
+	echo $ed->contenido;
+}
+else{
+?>	
          <script type="text/php">
 
         if ( isset($pdf) ) {
@@ -249,20 +254,22 @@ else{
 <p align="JUSTIFY"></p>
 <p align="JUSTIFY"><u>Profesores&nbsp;Ausentes:</u></p>
 <p align="JUSTIFY"></p>
-
+<?
+}
+?>
       </textarea>
       </label>
       <hr>
       <fieldset class="control-group warning">
       <label>Jefe del Departamento<br />
-        <input type="text" name='jefedep' class='span4' value='<? echo $profesor;?>' readonly>
+        <input type="text" name='jefedep' class='input-xlarge' value='<? echo $profesor;?>' readonly>
       </label>
       </fieldset>
 
       <hr>
       <input type="submit" name="submit" value="Registrar Acta del Departamento" class="btn btn-primary">
     </form>
-  </div>
+
  </div>
  <div class="span3">
 
@@ -274,7 +281,7 @@ $n_actas = mysql_num_rows($result);
 if (mysql_num_rows($result) > 0)
 {
 ?>
-	<TABLE class="table table-striped" style="width:300px;">
+	<TABLE class="table table-striped pull-left" style="width:97%;">
 	<thead><th colspan="3">Actas del departamento</th></thead><tbody>
 <?	while($row = mysql_fetch_object($result))
 	{
@@ -287,7 +294,9 @@ if (mysql_num_rows($result) > 0)
 	if(($row->departamento == $_SESSION['dpt']) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
 		?>
 <a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
-<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
+<a href="add.php?edicion=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-pencil" rel="Tooltip" title='Editar el Acta'> </i></a> 
+<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000;margin-right:10px"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
+<a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-trash" rel="Tooltip" title='Borrar el Acta'> </i></a> 
 </td>
 <?
 		}

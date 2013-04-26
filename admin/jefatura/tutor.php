@@ -69,7 +69,7 @@ $clave = $row[11];
 
 <div class="row-fluid">
 <div class="span1"></div>
-<div class="span5">
+<div class="span6">
 <h3 align="center">Registro de datos</h3><br />
 <div class="well-2 well-large">
 <FORM action="tutor.php" method="POST" name="Tutor">
@@ -216,7 +216,7 @@ echo "</table>";
 }
 	?>
   </div>
-  <div class="span5">
+  <div class="span4">
     <h3 align="center">Registro de Intervenciones</h3>
     <br />
     <? include("ultimos.php");?>

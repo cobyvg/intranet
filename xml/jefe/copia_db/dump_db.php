@@ -221,8 +221,8 @@ echo '<div class="well-2 well-large" style="width:480px;margin:auto" align="left
 	
 	if( !$error ) { 
 	    $dbconnection = @mysql_connect( $db_server, $db_username, $db_password ); 
-		mysql_query('SET NAMES utf8');
-		mysql_query('SET CHARACTER SET utf8');
+		//mysql_query('SET NAMES utf8');
+		//mysql_query('SET CHARACTER SET utf8');
 	    if( $dbconnection) 
 	        $db = mysql_select_db( $db_name );
 	    if( !$dbconnection || !$db ) { 
