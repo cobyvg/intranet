@@ -1,6 +1,6 @@
 <?
-ini_set("session.cookie_lifetime","2800"); 
-ini_set("session.gc_maxlifetime","3600");
+ini_set("session.cookie_lifetime","5600"); 
+ini_set("session.gc_maxlifetime","7200");
 session_start ();
 include ("../../config.php");
 if ($_SESSION ['autentificado'] != '1') {
@@ -84,7 +84,7 @@ include ("menu.php");
    	mysql_select_db($db);
 mysql_query("CREATE TABLE IF NOT EXISTS r_departamento (
 `id` SMALLINT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
-`contenido` TEXT NOT NULL ,
+`contenido` LONGTEXT NOT NULL ,
 `jefedep` VARCHAR( 255 ) DEFAULT NULL ,
 `timestamp` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 `departamento` VARCHAR( 48 ) DEFAULT NULL ,
@@ -96,7 +96,7 @@ PRIMARY KEY ( `id` )
 
 mysql_query("CREATE TABLE IF NOT EXISTS r_departamento_backup (
 `id` SMALLINT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
-`contenido` TEXT NOT NULL ,
+`contenido` LONGTEXT NOT NULL ,
 `jefedep` VARCHAR( 255 ) DEFAULT NULL ,
 `timestamp` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 `departamento` VARCHAR( 48 ) DEFAULT NULL ,
@@ -108,12 +108,12 @@ PRIMARY KEY ( `id` )
 if (empty($departamento) and stristr($_SESSION['cargo'],'4') == TRUE){
 	$departamento=$_SESSION['dpt'];
 	$departament=$departamento;
-/*if ($departamento=="Francés P.E.S." or $departamento=="Alemán P.E.S.") {
-		$departament=="Francés y Alemán P.E.S.";
+/*if ($departamento=="FrancÃ©s P.E.S." or $departamento=="AlemÃ¡n P.E.S.") {
+		$departament=="FrancÃ©s y AlemÃ¡n P.E.S.";
 	}*/
 }
 else{
-	$departament="Dirección del Centro";
+	$departament="DirecciÃ³n del Centro";
 }
 ?>
 <div align="center">
@@ -143,8 +143,8 @@ $ed = mysql_fetch_object($ed0);
    {
    		$errorList = array ();
    		$count = 0;
-   		if (!$contenido) { $errorList[$count] = "Entrada inválida: Contenido del Acta"; $count++; }
-   		if (!$fecha) { $errorList[$count] = "Entrada inválida: Fecha"; $count++; }		
+   		if (!$contenido) { $errorList[$count] = "Entrada invÃ¡lida: Contenido del Acta"; $count++; }
+   		if (!$fecha) { $errorList[$count] = "Entrada invÃ¡lida: Fecha"; $count++; }		
    		$tr_fecha = explode("-",$fecha);
    		$fecha = "$tr_fecha[2]-$tr_fecha[1]-$tr_fecha[0]";
    		if (sizeof ( $errorList ) == 0) {
@@ -157,7 +157,7 @@ $ed = mysql_fetch_object($ed0);
    			$query2 = "INSERT INTO r_departamento_backup ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES('$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
    			$result1 = mysql_query ( $query1 ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 Se ha producido un error grave al registar el Acta en la base de datos. Busca ayuda.</div></div>' );
    			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -173,6 +173,13 @@ El Acta del Departamento ha sido registrada correctamente.
    			}
    			echo "</ul></div></div></div><br />";
    		}
+   	}
+   	if ($actualiza) {
+   		   mysql_query("update r_departamento set contenido = '$contenido' where id = '$id'") ;
+   		   echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+El Acta del Departamento ha sido actualizada correctamente.
+</div></div><br />';
    	}
 $nm0 = mysql_query("select max(numero) from r_departamento where departamento = '$departament'");
 $numer = mysql_fetch_array($nm0);
@@ -203,14 +210,14 @@ if ($edicion=="1") {
 <div class="span9">	
 
     <form action="<? echo $PHP_SELF;?>" method="POST" name='f1' class="form-inline">
-      <label style="display:inline">Fecha de la Reunión &nbsp;
+      <label style="display:inline">Fecha de la ReuniÃ³n &nbsp;
       <div class="input-append" >
             <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha" value="<? echo $fecha_r;?>" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 </label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<label style="display:inline">Nº de Acta &nbsp;
+<label style="display:inline">NÂº de Acta &nbsp;
       <input class="input-mini" type="text" name="numero"  value="<? echo $numero; ?>">
 </label>
 <br /><br />
@@ -226,13 +233,13 @@ else{
         if ( isset($pdf) ) {
 
           $font = Font_Metrics::get_font("helvetica", "bold");
-          $pdf->page_text(542, 775, "Página: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
+          $pdf->page_text(542, 775, "PÃ¡gina: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
 
         }
         </script>
 		<p style="text-align: left;">
 		<?
-if ($departament == "Dirección del Centro") {
+if ($departament == "DirecciÃ³n del Centro") {
 	$texto_dep = $departament;
 }
 else{
@@ -242,7 +249,7 @@ else{
 		
 		<? echo $texto_dep; ?><br />I.E.S. Monterroso (Estepona) <br />Curso Escolar: <? echo $curso_actual;?><br /> Acta N&ordm; <? echo $numero; ?></p>
 <p style="text-align: center;">&nbsp;</p>
-<p style="text-align: center;"><span style="text-decoration: underline;"><strong>ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
+<p style="text-align: center;"><span style="text-decoration: underline;"><strong>ACTA DE REUNIÃ“N DEL DEPARTAMENTO</strong></p>
 <br />
 <p align="JUSTIFY">En Estepona, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del IES MONTERROSO de Estepona, con el siguiente <span style="text-decoration: underline;"> orden del d&iacute;a:</p>
 <br />
@@ -267,7 +274,16 @@ else{
       </fieldset>
 
       <hr>
-      <input type="submit" name="submit" value="Registrar Acta del Departamento" class="btn btn-primary">
+      <?
+if ($edicion=="1") {
+	echo '<input type="hidden" name="id" value="'.$id.'" class="btn btn-primary">';
+	echo '<input type="submit" name="actualiza" value="Actualizar Acta del Departamento" class="btn btn-primary">';
+}
+else{
+	echo '<input type="submit" name="submit" value="Registrar Acta del Departamento" class="btn btn-primary">';
+}
+      ?>
+
     </form>
 
  </div>
@@ -311,7 +327,7 @@ else
 ?>
 <div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-disiss="alert">&times;</button>
-            <h5>ATENCIÓN:</h5>
+            <h5>ATENCIÃ“N:</h5>
             No hay Actas disponibles en la base de datos. Tu puedes ser el primero en inaugurar la lista.
           </div></div>
 		  <?
