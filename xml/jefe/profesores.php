@@ -20,7 +20,7 @@ include("../../menu.php");
 ?>
 <div align="center">
 <div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Actualización de los profesores</small></h1>
+  <h1>AdministraciÃ³n <small> ActualizaciÃ³n de los profesores</small></h1>
 </div>
 <br />
 <div  align='center'>    
@@ -33,7 +33,7 @@ include("../../menu.php");
 <div class="well-2 well-large" style="width:700px;margin:auto;text-align:left">
 <?
 if($archivo){ 
-mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
+mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexiÃ³n");
 mysql_select_db($db);
  
  //Creamos backup de horarios
@@ -51,15 +51,15 @@ mysql_query("create table profesores_seg select * from profesores");
  $base0 = "truncate table profesores";
   mysql_query($base0);
 
-// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
+// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabÃ±a alma.
 $fp = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die
 ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se ha podido abrir el archivo RelMatProUni.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
+			<h5>ATENCIÃ“N:</h5>
+No se ha podido abrir el archivo RelMatProUni.txt. O bien te has olvidado de enviarlo o el archivo estÃ¡ corrompido.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>'); 
 
  while (!feof($fp))
@@ -72,6 +72,7 @@ No se ha podido abrir el archivo RelMatProUni.txt. O bien te has olvidado de env
     $tr=explode("|",$linea);
     
     foreach ($tr as $valor){ 
+  $valor = str_replace("&nbsp;","",$valor);
   $dato.= "\"". trim($valor) . "\", ";
         }
     $dato=substr($dato,0,strlen($dato)-2); 
@@ -100,16 +101,16 @@ mysql_query($base0);
 $faltasprofexml = "create table ".$db_reservas.".profesores select NIVEL, MATERIA, GRUPO, PROFESOR from ".$db.".profesores";
 mysql_query($faltasprofexml) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se ha podido crear la tabla <strong>profesores</strong> en la base de datos <strong>Reservas</strong>.<br> Asegúrate de que su formato es correcto.
+			<h5>ATENCIÃ“N:</h5>
+No se ha podido crear la tabla <strong>profesores</strong> en la base de datos <strong>Reservas</strong>.<br> AsegÃºrate de que su formato es correcto.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 mysql_query("ALTER TABLE ".$db_reservas.".profesores ADD INDEX (  `PROFESOR` )");
 
 // Limpiamos Tabla de Horarios de grupos que no da el profesor
-echo "<hr><p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en Séneca.</p><br />";
+echo "<hr><p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en SÃ©neca.</p><br />";
 
 $hor0 = "select id, prof, a_grupo, asig from horw where asig not like 'OPTATIVA EXENTOS'";
 $hor1 = mysql_query($hor0);
@@ -131,7 +132,7 @@ mysql_query("delete from horw where id = '$id'");
 }
 }
 //$id = "";
-// Colocar códigos y nombre de asignaturas de Horw de acuerdo con Séneca (tabla Profesores)
+// Colocar cÃ³digos y nombre de asignaturas de Horw de acuerdo con SÃ©neca (tabla Profesores)
 $sql = mysql_query("select id, prof, a_grupo, a_asig, asig, c_asig from horw where a_grupo not like 'G%' and a_grupo IS NOT NULL");
 //echo "select id, prof, a_grupo, a_asig, asig, c_asig from horw where a_grupo not like 'G%' and a_grupo IS NOT NULL<br>";
 while($row = mysql_fetch_array($sql))
@@ -159,7 +160,7 @@ $curs= $asigna[3];
 if(mysql_num_rows($asig0) == 1)
 {
 	$num+=1;
-//	echo "Unidad única.<br>";
+//	echo "Unidad Ãºnica.<br>";
 mysql_query("insert into horw_var select * from horw where id='$id'");
 mysql_query("update horw_var set clase='Actualizado' where id='$id'");
 mysql_query("update horw set a_asig = '$abrev', c_asig = '$codigo', asig = '$materia' where id= '$id'");
@@ -217,7 +218,7 @@ mysql_query("create table horw_faltas select * from horw where (a_asig not like 
   mysql_query("ALTER TABLE  ".$db."horw_faltas ADD index (`c_asig`)");
   mysql_query("delete from horw_faltas where a_grupo='' or a_grupo is null");
   mysql_query("OPTIMIZE TABLE  `horw_faltas`");  
-//Profes que están en horw y no en profesores
+//Profes que estÃ¡n en horw y no en profesores
 echo "<hr><p class='lead text-important' style='text-align:left'>Profesores en Horw que no aparecen en la tabla Profesores
 creados:</p>";
 $pro0 = "select distinct prof from horw where prof not in (select distinct profesor from profesores)";
@@ -228,7 +229,7 @@ echo "<li>$pro[0]</li>";
 }
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;"><br />
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Departamentos, una vez actualizados los Profesores.<br>Vuelve a la página de Administración y actualiza los Departamentos inmediatamente.
+Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Departamentos, una vez actualizados los Profesores.<br>Vuelve a la pÃ¡gina de AdministraciÃ³n y actualiza los Departamentos inmediatamente.
 </div></div><br />';
 $base1 = "DROP TABLE ".$db."horw_var";
 mysql_query($base1);
@@ -236,13 +237,13 @@ mysql_query($base1);
 else{
 	echo '<hr><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Parece que te está olvidando de enviar el archivo con los datos de los Profesores. Asegúrate de enviar el archivo descargado desde Séneca.
+			<h5>ATENCIÃ“N:</h5>
+Parece que te estÃ¡ olvidando de enviar el archivo con los datos de los Profesores. AsegÃºrate de enviar el archivo descargado desde SÃ©neca.
 </div></div><br />';
 }
 ?>
 <div align="center">
-<input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" class="btn btn-inverse" />
+<input type="button" value="Volver atrÃ¡s" name="boton" onclick="history.back(2)" class="btn btn-inverse" />
 </div>
 </div>
 </div>
