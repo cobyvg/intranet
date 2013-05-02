@@ -32,10 +32,10 @@ $profesor = $_SESSION ['profi'];
 		mode : "textareas",
 		theme : "advanced",
 		language : "es",
-		plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,visualblocks",
+		plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,visualblocks",
 
 		// Theme options
-		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
 		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
 		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
 		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft,visualblocks",
@@ -81,7 +81,7 @@ $profesor = $_SESSION ['profi'];
 <?
 include ("../../menu_solo.php");
 include ("menu.php");
-   	mysql_select_db($db);
+mysql_select_db($db);
 mysql_query("CREATE TABLE IF NOT EXISTS r_departamento (
 `id` SMALLINT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
 `contenido` LONGTEXT NOT NULL ,
@@ -164,6 +164,8 @@ Se ha producido un error grave al registar el Acta en la base de datos. Busca ay
 El Acta del Departamento ha sido registrada correctamente.
 </div></div><br />';
 			$result2 = mysql_query ( $query2 );
+			echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrás</a></div>';
+   		   exit();
    		} 
    		else {
    			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">Se encontraron los siguientes errores al enviar los datos del formulario: <br />';
@@ -174,12 +176,22 @@ El Acta del Departamento ha sido registrada correctamente.
    			echo "</ul></div></div></div><br />";
    		}
    	}
+<<<<<<< HEAD
    	if ($actualiza) {
+=======
+   	elseif ($actualiza) {
+>>>>>>> Correciones menores
    		   mysql_query("update r_departamento set contenido = '$contenido' where id = '$id'") ;
    		   echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido actualizada correctamente.
 </div></div><br />';
+<<<<<<< HEAD
+=======
+   		   echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrás</a></div>';
+   		   exit();
+   		   
+>>>>>>> Correciones menores
    	}
 $nm0 = mysql_query("select max(numero) from r_departamento where departamento = '$departament'");
 $numer = mysql_fetch_array($nm0);

@@ -52,7 +52,7 @@ mysql_query("create table profesores_seg select * from profesores");
   mysql_query($base0);
 
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
-$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die
+$fp = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die
 ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
@@ -61,13 +61,32 @@ No se ha podido abrir el archivo RelMatProUni.txt. O bien te has olvidado de env
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>'); 
-while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
+
+ while (!feof($fp))
+  {
+  	$linea="";
+  	$lineasalto="";
+  	$dato="";
+    $linea=fgets($fp);
+    $lineasalto = "INSERT INTO profesores (NIVEL, MATERIA, GRUPO, PROFESOR) VALUES (";
+    $tr=explode("|",$linea);
+    
+    foreach ($tr as $valor){ 
+  $dato.= "\"". trim($valor) . "\", ";
+        }
+    $dato=substr($dato,0,strlen($dato)-2); 
+    $lineasalto.=$dato;  
+    $lineasalto.=");";
+    mysql_query($lineasalto);
+  }
+  
+/*while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 {
 $mat = str_replace("&nbsp;","",$data1[1]);
 $datos1 = "INSERT INTO profesores (NIVEL, MATERIA, GRUPO, PROFESOR) VALUES (\"". trim($data1[0]) . "\",\"". trim($mat) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[3]) . "\")";
 mysql_query($datos1);
-}
-fclose($handle);
+}*/
+fclose($fp);
 $borrarvacios = "delete from profesores where MATERIA = ''";
 mysql_query($borrarvacios);
 mysql_query("delete from profesores where profesor like '%Profesor/a%'");

@@ -108,7 +108,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 
 	<?
 	
-$datatables_activado = true;
+//$datatables_activado = true;
 	if($submit1){
 		?>
 <div align="center">
@@ -119,11 +119,11 @@ $datatables_activado = true;
 <div class='container-fluid'>
   <div class="row-fluid">
   <div class="span8 offset2">
-<form name="form" action="edicion.php" method="post">
-<table class='table table-striped tabladatos' style='width: 100%;'>
+<form name="form1" action="edicion.php" method="post">
+<table class='table table-striped' style='width: 100%;'>
 <thead>
 	<tr>
-		<th><input type="checkbox" onClick="selectall(form)" /></th>
+		<th><input type="checkbox" onClick="selectall(form1)" /></th>
 		<th>Grupo </th>
 		<th>Alumno </th>
 		<th>Título </th>
