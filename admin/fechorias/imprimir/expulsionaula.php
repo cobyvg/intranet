@@ -68,7 +68,7 @@ $cuerpo2 = "Asimismo, le comunico que, según contempla el Plan de Convivencia de
 $cuerpo3 = "
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-En Estepona, a _________________________________
+En ".$localidad_del_centro.", a _________________________________
 Firmado: El Padre/Madre/Representante legal:
 
 D./Dña _____________________________________________________________________

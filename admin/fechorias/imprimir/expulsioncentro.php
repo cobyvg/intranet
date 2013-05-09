@@ -69,7 +69,7 @@ $cuerpo2 = "1.- Tipificar la conducta de este alumno(a) como contraria a las nor
 $importante1 = 'NOTA: El padre, madre o representante legal podrá presentar en el registro de entrada del Centro, en el plazo de dos días lectivos, una reclamación dirigida a la Dirección del Centro contra las correcciones impuestas.';
 $cuerpo3 = "----------------------------------------------------------------------------------------------------------------------------------------------
 
-En Estepona, a _________________________________
+En ".$localidad_del_centro.", a _________________________________
 Firmado: El Padre/Madre/Representante legal:
 
 D./Dña _____________________________________________________________________

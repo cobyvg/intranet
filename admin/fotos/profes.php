@@ -57,7 +57,7 @@ if($ver_todos){
 ?>
      <div align=center>
   <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>I.E.S. Monterroso <small><br />Claustro de Profesores <? echo " $curso ($curso_actual)";?></small></h1>
+  <h1><? echo $nombre_del_centro;?> <small><br />Claustro de Profesores <? echo " $curso ($curso_actual)";?></small></h1>
 </div>
 <br />
 <?
