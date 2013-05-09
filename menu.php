@@ -11,7 +11,7 @@
     if(strstr($_SERVER ['REQUEST_URI'], "index0.php")==TRUE or strstr($_SERVER ['REQUEST_URI'], "xml/index.php")==TRUE){
     ?>
     <link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">
-    <script type="text/javascript" src="recursos/js/buscar_alumnos.js"></script>
+    <script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>
     <?php 
     } else {
 	?>

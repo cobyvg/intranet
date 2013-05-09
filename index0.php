@@ -71,12 +71,10 @@ if (stristr ( $carg, '2' ) == TRUE) {
              
             <div class="well well-small">
             <p class="lead">Buscar alumnos</p> 
-            <form action="index0.php" method="get" class="form-search"><input
-			name="students" type="text" class="span12 search-query" id="search_students"
-			onkeyup="javascript:autocompletar('lista',this.value);"
-			value="buscar alumnos..." onclick="this.value=''" />
+            <form action="index0.php" method="GET">
+            	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
 			</form>
-			<div id="lista"></div>
+			<div id="resAlumnos"></div>
        		</div>
               <? 
 			  echo "<div class='well well-small'>";

@@ -1,5 +1,5 @@
 var Conexion=false; // Variable que manipula la conexion.
-var Servidor="includes/buscar_alumnos.php"; // Determina la pagina donde buscar
+var Servidor="buscarAlumnos.php"; // Determina la pagina donde buscar
 var Palabra=""; //Determina la ultima palabra buscada.
 
 // funcion que realiza la conexion con el objeto XMLHTTP...
@@ -99,7 +99,7 @@ function Solicitud(idContenido,Cadena)
 
 // Funcion que inicia la busqueda.
 // Tiene que recibir el identificador donde mostrar el listado, y la cadena a buscar
-function autocompletar(idContenido,Cadena)
+function buscar(idContenido,Cadena)
 {
 	// Comprovamos que la longitud de la cadena sea superior o igual a 1 caracteres
 	if(Cadena.length>=1)
@@ -119,7 +119,7 @@ function autocompletar(idContenido,Cadena)
 function selectItem(idContenido,value)
 {
 	// Cuando pulsamos sobre el desplegable, colocamos el valor en el cuadro de texto
-	document.getElementById("search_students").value=value;
+	document.getElementById("buscarAlumnos").value=value;
 	//volvemos a indicar que actualice el listado con el nuevo valor
-	autocompletar(idContenido,value);
+	buscar(idContenido,value);
 }
