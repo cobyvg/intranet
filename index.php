@@ -1,10 +1,10 @@
 <?
 /*
 
- * @autor Miguel Ángel García González <miguel@iesmonterroso.org>
- * @copyright Miguel Ángel García González, <miguel@iesmonterroso.org>, http://esmonterroso.org/intranet/
+ * @autor Miguel ï¿½ngel Garcï¿½a Gonzï¿½lez <miguel@iesmonterroso.org>
+ * @copyright Miguel ï¿½ngel Garcï¿½a Gonzï¿½lez, <miguel@iesmonterroso.org>, http://esmonterroso.org/intranet/
  * @licencia http://www.gnu.org/licenses/gpl.html GNU GPL
- * @paquete Intranet del IES Monterroso, Consejería de Educación de la junta de Andalucia.
+ * @paquete Intranet del IES Monterroso, Consejerï¿½a de Educaciï¿½n de la junta de Andalucia.
  
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -22,20 +22,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  */
 session_start();
-// Comprobamos estado del archvo de configuración.
+// Comprobamos estado del archvo de configuraciï¿½n.
 $f_config = file_get_contents('config.php');
 
 $tam_fichero = strlen($f_config);
 if (file_exists ( "config.php" ) and $tam_fichero > '10') {
 }
 else{
-// Compatibilidad con versiones anteriores: se mueve el archivo de configuración al directorio raíz.
-// Archivo de configuración en antiguo directorio se mueve al raiz de la intranet
+// Compatibilidad con versiones anteriores: se mueve el archivo de configuraciï¿½n al directorio raï¿½z.
+// Archivo de configuraciï¿½n en antiguo directorio se mueve al raiz de la intranet
 if (file_exists ("/opt/e-smith/config.php")) 
 {
 	$texto = fopen("config.php","w+");
 	if ($texto==FALSE) {
-		echo "<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el directorio de la Intranet. Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>";
+		echo "<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el directorio de la Intranet. Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicaciï¿½n necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>";
 		fclose($texto);
 		exit();
 	}
@@ -45,7 +45,7 @@ $Definitivo="";
 foreach ($lines as $line_num => $line) {
 $Definitivo.=$line;
 }
-$pepito=fwrite($texto,$Definitivo) or die("<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el archivo de configuración de la Intranet ( config.php ). Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>");
+$pepito=fwrite($texto,$Definitivo) or die("<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el archivo de configuraciï¿½n de la Intranet ( config.php ). Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicaciï¿½n necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>");
 fclose ($texto);
 }
 }
@@ -54,10 +54,10 @@ else{
 	exit ();
 }
 }
-// Arhivo de configuración cargado
+// Arhivo de configuraciï¿½n cargado
 include_once ("config.php");
 
-// Comienzo de sesión.
+// Comienzo de sesiï¿½n.
 $_SESSION ['autentificado'] = '0';
 if (isset ( $_SESSION ['profi'] )) {
 	unset ( $_SESSION ['profi'] );
@@ -88,7 +88,7 @@ var navegador = navigator.appName;
 //alert(navegador);
 switch (navegador){
 case "Microsoft Internet Explorer":
-alert("Estas usando Microsoft Ineternet Explorer para acceder a una aplicación web que es manifiestamente incompatible con este navegador. Por favor, utiliza Firefox, Chrome, Opera o Safari para acceder");
+alert("Estas usando Microsoft Ineternet Explorer para acceder a una aplicaciï¿½n web que es manifiestamente incompatible con este navegador. Por favor, utiliza Firefox, Chrome, Opera o Safari para acceder");
 break;
 }
 }
@@ -109,7 +109,7 @@ if ($_POST['submit'] == 'Entrar' and ! ($_POST['idea'] == "" or $_POST['clave'] 
 	$codigo = $pass1 [0];
 	$dni = $pass1 [2];
 	
-	// Si le Profesor entra por primera vez... (DNI es igual a Contraseña)
+	// Si le Profesor entra por primera vez... (DNI es igual a Contraseï¿½a)
 	if ($dni == strtoupper ( $clave0 ) and (strlen ( $codigo ) < '12') and ! (empty ( $dni )) and ! (empty ( $codigo ))) {
 		$_SESSION ['autentificado'] = '1';
 		$_SESSION ['profi'] = $pass1 [1];
@@ -136,9 +136,9 @@ if ($_POST['submit'] == 'Entrar' and ! ($_POST['idea'] == "" or $_POST['clave'] 
     <br />
     <div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
+			<h4>ATENCIï¿½N:</h4>
 No te has identificado, y debes
-hacerlo para entrar en la Intranet.<br />Vuelve atrás e inténtalo de nuevo.          
+hacerlo para entrar en la Intranet.<br />Vuelve atrï¿½s e intï¿½ntalo de nuevo.          
 			</div>
           </div> 
           <br />
@@ -153,16 +153,16 @@ hacerlo para entrar en la Intranet.<br />Vuelve atrás e inténtalo de nuevo.
 		exit ();
 	}
 	
-	// O no ha escrito el usuario o bien está intentando entrar ilegalmente
+	// O no ha escrito el usuario o bien estï¿½ intentando entrar ilegalmente
 	if (empty ( $codigo )) {
 		echo $cabecera;
 				?>
     <br />
     <div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
+			<h4>ATENCIï¿½N:</h4>
 El nombre de usuario no es correcto.<br />
-Vuelve atrás e inténtalo de nuevo.         
+Vuelve atrï¿½s e intï¿½ntalo de nuevo.         
 			</div>
           </div> 
           <br /><form><input name="volver" type="button" class="btn btn-primary" onClick="history.go(-1)"
@@ -179,14 +179,14 @@ Vuelve atrás e inténtalo de nuevo.
 	
 	else {
 		
-		// Si hay usuario y pertenece a alguien del Centro, comprobamos la contraseña.
+		// Si hay usuario y pertenece a alguien del Centro, comprobamos la contraseï¿½a.
 		if ($codigo == $clave) {
 			$_SESSION ['pass'] = $codigo;
 			$pr0 = mysql_query ( "SELECT profesor FROM c_profes where idea = '".$_POST['idea']."'" );
 			$pr1 = mysql_fetch_array ( $pr0 );
 			$_SESSION ['profi'] = $pr1 [0];
 			$profe = $_SESSION ['profi'];
-			// Comprobamos si da clase a algún grupo
+			// Comprobamos si da clase a algï¿½n grupo
 			$cur0 = mysql_query ( "SELECT distinct nivel FROM profesores where profesor = '$profe'" );
 			$cur1 = mysql_num_rows ( $cur0 );
 			$_SESSION ['n_cursos'] = $cur1;
@@ -205,23 +205,23 @@ Vuelve atrás e inténtalo de nuevo.
 				header ( "location:clave.php" );
 			}
 			else{
-			//Abrimos la página principal
+			//Abrimos la pï¿½gina principal
 			$_SESSION ['autentificado'] = '1';			
 				header ( "location:index0.php" );
 			}
 			exit ();
 		} else 
-		// La contraseña no es correcta
+		// La contraseï¿½a no es correcta
 {
 	echo $cabecera;
 	?>
     <br />
     <div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
+			<h4>ATENCIï¿½N:</h4>
 La clave que has escrito no es
-correcta.Vuelve atrás e inténtalo de nuevo. Y no olvides que hay que respetar la
-diferencia entre mayúsculas y minúsculas.        
+correcta.Vuelve atrï¿½s e intï¿½ntalo de nuevo. Y no olvides que hay que respetar la
+diferencia entre mayï¿½sculas y minï¿½sculas.        
 			</div>
           </div> 
           <br /><form><input name="volver" type="button" class="btn btn-primary" onClick="history.go(-1)"
@@ -244,9 +244,9 @@ if (!(is_writable('config.php'))) {
 <br />
     <div align="justify"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4 class="lead">ATENCIÓN:</h4>Parece que tenemos un problema con el archivo de configuración de la aplicación. 
+			<h4 class="lead">ATENCIï¿½N:</h4>Parece que tenemos un problema con el archivo de configuraciï¿½n de la aplicaciï¿½n. 
 			No se puede escribir en el archivo, y eso indica que hay problemas. Debes asegurarte que el directorio donde has
-			colocado lños archivos de la aplicación tiene permiso de escritura. De lo contrario, no podremos continuar...
+			colocado lï¿½os archivos de la aplicaciï¿½n tiene permiso de escritura. De lo contrario, no podremos continuar...
 			</div>
           </div> 
 <?
@@ -257,8 +257,8 @@ if (!(is_writable('config.php'))) {
 <br />
     <div align="justify"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4 class="lead">ATENCIÓN:</h4>Parece que tenemos un problema con el archivo de configuración de PHP ( php.ini ). La directiva <em>register_globals</em> está desactivada, y así no podemos seguir. 
-			Necesitas activarla en el archivo de configuración. Este se encuentra en el directorio /etc/. Edítalo, busca el texto  
+			<h4 class="lead">ATENCIï¿½N:</h4>Parece que tenemos un problema con el archivo de configuraciï¿½n de PHP ( php.ini ). La directiva <em>register_globals</em> estï¿½ desactivada, y asï¿½ no podemos seguir. 
+			Necesitas activarla en el archivo de configuraciï¿½n. Este se encuentra en el directorio /etc/. Edï¿½talo, busca el texto  
 			<em>register_globals = Off</em> y sustituyelo por <em>register_globals = On</em>. Suena initimdante, pero esa es toda la dificultad.
 			</div>
           </div> 
@@ -269,7 +269,7 @@ exit();
 <form action="index.php" method="post" align="left" class="form-signin" id = "form-signin ">
 
 <label for="idea"><h5><small>Usuario IdEA</small></h5></label><input type="text" name="idea" maxlength="12" class="input-block-level input-large" style="font-size:16px;" />
-<label for="clave"><h5><small>Contraseña</small></h5></label><input type="password" name="clave" class="input-block-level"  />
+<label for="clave"><h5><small>Contraseï¿½a</small></h5></label><input type="password" name="clave" class="input-block-level"  />
 <br /><br />
 <button type="submit" name="submit" value="Entrar" class="btn btn-large btn-primary" style="width:100%;"><i class="icon icon-signin icon-white icon-large"></i> &nbsp;Entrar</button>
 </form>
@@ -279,24 +279,24 @@ exit();
 </a>  
 <div class="modal hide fade" id="ayuda">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
+    <button type="button" class="close" data-dismiss="modal">ï¿½</button>
   </div>
   <div class="modal-body">
 <p class="help-block">Para
 acceder a la Intranet <em>por primera vez</em>, escribe tu nombre de usuario (el
-mismo nombre de usuario que utilizas para entrar en Séneca) y tu DNI
-como clave de acceso. Pasarás a una página en la que deberás introducir
-una nueva Clave de Acceso, al modo de SÉNECA, con la que entrarás a
+mismo nombre de usuario que utilizas para entrar en Sï¿½neca) y tu DNI
+como clave de acceso. Pasarï¿½s a una pï¿½gina en la que deberï¿½s introducir
+una nueva Clave de Acceso, al modo de Sï¿½NECA, con la que entrarï¿½s a
 partir de entonces. <em style="color: #08c;">Es muy recomendable que
-utilices tu clave de SÉNECA también en la Intranet, para simplificarte
-la vida y no multiplicar las contraseñas</em>.</p>
+utilices tu clave de Sï¿½NECA tambiï¿½n en la Intranet, para simplificarte
+la vida y no multiplicar las contraseï¿½as</em>.</p>
 <p> Por motivos de
 seguridad que nos afectan a todos, es necesario proteger bien la clave y
 cambiarla ante la menor duda: <em style="color: #08c;">los Alumnos nunca
 deben conocerla.</em> <br /></p>
-<p>Si has olvidado la contraseña, ponte en contacto con alguien de la Dirección del Centro. Se escribirá de nuevo tu DNI como contraseña y podrás
+<p>Si has olvidado la contraseï¿½a, ponte en contacto con alguien de la Direcciï¿½n del Centro. Se escribirï¿½ de nuevo tu DNI como contraseï¿½a y podrï¿½s
 crear una nueva como si fuera la primera vez. Para cualquier otro tipo
-de problema, ponte también en contacto. 
+de problema, ponte tambiï¿½n en contacto. 
 </p>
 </div>
 </div>
@@ -325,7 +325,7 @@ while (false !== ($entry_profes = $d_profes->read())) {
    $fotos_profes_ya+=1;
 }
 $result_profe=mysql_query("SELECT datos, nombre FROM fotos_profes");
-if (mysql_num_rows($result)>0 and $fotos_profes_ya < "10") {
+if (mysql_num_rows($result_profe)>0 and $fotos_profes_ya < "10") {
 while($row_profe = mysql_fetch_array($result_profe)){
 	$foto_profe = $fotos_profe_dir."/".$row_profe[1];
 	# Creamos cada uno de los archivos
