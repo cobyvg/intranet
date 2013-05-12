@@ -1,5 +1,5 @@
 <?php
-$result = mysql_query("SELECT id, slug, DATE_FORMAT(timestamp,'%Y-%m-%d') AS timestamp, content, clase FROM noticias WHERE pagina LIKE '%1%' AND fechafin > '$hoy' ORDER BY timestamp DESC");
+$result = mysql_query("SELECT id, slug, DATE_FORMAT(timestamp,'%Y-%m-%d') AS timestamp, content, clase FROM noticias WHERE pagina LIKE '%1%' AND fechafin > current_date() ORDER BY timestamp DESC");
 
 if (mysql_num_rows($result)>0) {
 ?>
