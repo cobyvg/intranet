@@ -67,7 +67,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
               <? 
               include("widget_buscarAlumnos.php");
 			  include("admin/calendario/index.php");
-			  include("ausencias.php"); 
+			  include("widget_ausencias.php"); 
 			  include ("widget_fijos.php");
 			  include ("widget_mensajes.php");
 			  if ($mod_horario and ($n_curso > 0)) {
