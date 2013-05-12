@@ -40,7 +40,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
    
         <div class="span3">  
         	
-        	<div class="widget widget-nopad stacked visible-desktop">
+        	<div class="widget widget-nopad stacked">
         		
         		<div class="widget-content">
           			
