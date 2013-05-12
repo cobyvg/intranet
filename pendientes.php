@@ -243,11 +243,10 @@ echo "</div>";
 if($verifica){
  mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
-$men1 = "select ahora, asunto, texto, profesor, id_profe, origen from mens_profes, mens_texto where mens_texto.id = mens_profes.id_texto and profesor = '$pr' and recibidoprofe = '0'";
-$men2 = mysql_query($men1);
+
+$men2 = mysql_query("SELECT mens_texto.ahora, mens_texto.asunto, mens_texto.texto, mens_profes.profesor, mens_profes.id_profe, origen FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE profesor = '$pr' and recibidoprofe = '0'");
 if(mysql_num_rows($men2) > 0)
 {
-		echo '<div class="well-2 well-small"><p class="lead">Mensajes recibidos</p>';
 	while($men = mysql_fetch_row($men2))
 {
 $n_mensajes = $n_mensajes+1;
@@ -262,7 +261,7 @@ $origen0 = explode(", ",$men[5]);
 $origen = $origen0[1]." ".$origen0[0];
 $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 ?>
-<div class='alert'>
+<div class='alert alert-success'>
 <button type="button" class="close" data-dismiss="alert">&times;</button>
 <a data-toggle="modal" href="#mensaje<? echo $n_mensajes;?>"  rel="tooltip" title="<? echo substr($texto,0,132)."...";?>">
 <p><? echo $asunto; ?></p>
@@ -293,7 +292,6 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 </div>
 <?
 }
-echo "</div>";
 }
 
 ?>

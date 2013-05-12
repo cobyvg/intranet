@@ -10,7 +10,8 @@ if(isset($_POST["word"]))
 	else{
 		$result=mysql_query("SELECT CONCAT(apellidos,', ',nombre) AS alumno, claveal, unidad FROM alma WHERE (CONCAT(apellidos,' ',nombre) LIKE '%".$_POST["word"]."%' and CONCAT(apellidos,' ',nombre) like '%".$_POST["word"]."%') or (CONCAT(nombre,' ',apellidos) LIKE '%".$_POST["word"]."%' and CONCAT(nombre,' ',apellidos) like '%".$_POST["word"]."%') ORDER BY alumno LIMIT 10");
 	}
-	echo '<ul class="nav">';
+	echo '<ul class="search-items">';
+	echo '<li class="nav-header">Resultados de la b&uacute;squeda:</li>';
 	while($row=mysql_fetch_array($result))
 	{
 		// Mostramos las lineas que se mostraran en el desplegable. Cada enlace
@@ -20,7 +21,7 @@ if(isset($_POST["word"]))
 		$clave_al=$row[1];
 		$curso_al=$row[2];
 		echo '
-<li><a href="admin/datos/datos.php?seleccionado=1&alumno='.$datos.' --> '.$clave_al.'" style="padding:6px 5px;"><i class="icon icon-user"></i> '.$datos.' <span class="label pull-right">'.$curso_al.'</span></a></li>';
+<li><div class="search-item-detail"><a href="admin/datos/datos.php?seleccionado=1&alumno='.$datos.' --> '.$clave_al.'"><i class="icon icon-user"></i> '.$datos.' <span class="label pull-right">'.$curso_al.'</span></a></div></li>';
 	}
 	echo '</ul>';
 }

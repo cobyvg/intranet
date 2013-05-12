@@ -34,7 +34,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	$_SESSION ['s_grupo'] = $row [1];
 }
 ?>
-<? include("menu.php");?>
+<? include("menu.php"); ?>
  <div class="container-fluid">  
    <div class="row-fluid">  
    
@@ -57,44 +57,29 @@ if (stristr ( $carg, '2' ) == TRUE) {
 		include ("admin/tutoria/control.php");
 			  }
 			  ?>
-              <? include ("pendientes.php");  ?>
-              <? include("noticias.php");?>
-              <? 
-              include("junta.php");
-              ?>
-              <div class='well-2 well-large'> 
-              <? include ("buscar.php");?>
-              </div>
+              <? include("pendientes.php");  ?>
+              <? include("widget_noticias.php");?>
+              <? include("widget_noticiasJunta.php"); ?>
+              <? include("widget_buscar.php");?>
             </div><!--/span--> 
              
-            <div class="span5">
-             
-            <div class="well well-small">
-            <p class="lead">Buscar alumnos</p> 
-            <form action="index0.php" method="GET">
-            	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
-			</form>
-			<div id="resAlumnos"></div>
-       		</div>
+            <div class="span5">     
               <? 
-			  echo "<div class='well well-small'>";
+              include("widget_buscarAlumnos.php");
 			  include("admin/calendario/index.php");
-			  echo "</div>";
 			  include("ausencias.php"); 
-			  include ("fijos.php");
-			  include ("mensajes.php");
+			  include ("widget_fijos.php");
+			  include ("widget_mensajes.php");
 			  if ($mod_horario and ($n_curso > 0)) {
-				  	echo "<div class='well well-small'>";
-					include ("horario.php");
-					echo '</div>';
+					include ("widget_horario.php");
 				}
 			  ?> 
               </div>
             </div><!--/span-->  
           </div><!--/row-->  
           <hr>  
-     <footer>  
-      </footer>  
+     <footer>
+     </footer>  
   
     </div><!--/.fluid-container-->  
 <? include("pie.php");?>  

@@ -1,7 +1,6 @@
-<?php
-$conn = mysql_connect ( $db_host, $db_user, $db_pass ) or die ( "Error en la conexión con la Base de Datos!" );
-mysql_select_db ( $db, $conn );
+<div class="clearfix widget stacked widget-table action-table">
 
+<?php
 if (isset ( $_GET ['month'] )) {
 	$month = $_GET ['month'];
 	$month = ereg_replace ( "[[:space:]]", "", $month );
@@ -84,80 +83,129 @@ if ($today > $numdays) {
 	$today --;
 }
 
-//Nombre del Mes
-echo "<p class='lead'>" . $monthlong . "</p>";
-echo "<table class='table table-striped table-bordered table-condensed'><thead><tr>";
+		//Nombre del Mes
+		echo '
+			<div class="widget-header">
+				<i class="icon icon-calendar"></i>
+				<h3>'.$monthlong.' '.$year.'</h3>
+				<div class="btn-group hidden-phone pull-right">';
+		if (stristr($carg, '1') == TRUE) {
+			echo '<a href="admin/calendario/jcal_admin/index.php" class="btn"><i class="icon-pencil"></i> <small>Añadir</small></a>';
+		}
+		else
+		{
+			echo '<a href="admin/calendario/jcal_admin/index.php" class="btn"><i class="icon-list"></i> <small>Ver eventos</small></a>';
+		}
+		echo '
+			  		<!--
+			  		<a href="javascript:;" class="btn"><i class="icon-cog"></i> <small>Pref.</small></a>
+			  		-->
+				</div>
+			</div> <!-- /widget-header -->
+		
+			<div class="widget-content">
+				
+				<table class="table table-bordered table-text-centered">
+					<thead>
+						<tr>';
+		
+		//Nombres de Días
+		foreach($alldays as $value) {
+			echo '<th>'.$value.'</th>';
+		}
+		
+		echo '
+						</tr>
+					</thead>
+					<tbody>
+						<tr>';
 
-//Nombres de Días
-foreach ( $alldays as $value ) {
-	echo "<th align=\"center\">
-  <span class='badge badge-info'>$value</span></th>";
-}
-echo "</tr></thead><tr>";
+		//Días en blanco
+		for($i = 0; $i < $dayone; $i ++) {
+			echo '<td>&nbsp;</td>';
+		}
 
-//Días en blanco
-for($i = 0; $i < $dayone; $i ++) {
-	echo "<td valign=\"middle\" align=\"center\">&nbsp;</td>\n";
-}
-
-//Días
-for($zz = 1; $zz <= $numdays; $zz ++) {
-	if ($i >= 7) {
-		print ("</tr>\n<tr>\n") ;
-		$i = 0;
-	}
-	//Comprobar si hay actividad en el día
-	$result_found = 0;
-	if ($zz == $today) { //Marcar días actuales
-    echo "<td align=\"center\" style='background-color:#46a546;color:#fff;font-size:0.8em'>$zz</td>\n";
-		$result_found = 1;
-	}
-	if ($result_found != 1) { //Buscar actividad para el dóa y marcarla
-		$sql_currentday = "$year-$month-$zz";
-		$eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
-		$eventExec = mysql_query ( $eventQuery );
-		while ( $row = mysql_fetch_array ( $eventExec ) ) {
-			if (strlen ( $row ["title"] ) > 0) {
-echo "<td valign=\"middle\" align=\"center\" style='background-color:#f89406;color:#fff;font-size:0.8em'>$zz</td>\n";
-				$result_found = 1;
+		//Días
+		for($zz = 1; $zz <= $numdays; $zz ++) {
+			if ($i >= 7) {
+				echo '
+						</tr>
+						<tr>';
+			$i = 0;
+		}
+	
+		// Comprobar si hay actividad en el día
+		$result_found = 0;
+		
+		// Marcar día actual
+		if ($zz == $today) { 
+    		echo '<td class="info text-info">'.$zz.'</td>';
+			$result_found = 1;
+		}
+		
+		// Buscar actividad para el día y marcarla
+		if ($result_found != 1) { 
+			$sql_currentday = "$year-$month-$zz";
+			$eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
+			$eventExec = mysql_query ( $eventQuery );
+			
+			while ( $row = mysql_fetch_array($eventExec)) {
+				if (strlen($row["title"])>0) {
+					echo '<td class="warning text-warning">'.$zz.'</td>';
+					$result_found = 1;
+				}
 			}
 		}
-	}
 	
-	if ($result_found != 1) { //Celda por defecto
-		echo "<td valign=\"middle\" align=\"center\" style='font-size:0.8em'>$zz</td>\n";
-	}
+		//Celda por defecto
+		if ($result_found != 1) { 
+			echo '<td>'.$zz.'</td>';
+		}
 	
-	$i ++;
-	$result_found = 0;
-}
+		$i++;
+		$result_found = 0;
+	}
 
-$create_emptys = 7 - (($dayone + $numdays) % 7);
-if ($create_emptys == 7) {
-	$create_emptys = 0;
-}
+	$create_emptys = 7 - (($dayone + $numdays) % 7);
+	
+	if ($create_emptys == 7) {
+		$create_emptys = 0;
+	}
 
-//Celdas en blanco 
-if ($create_emptys != 0) {
-	echo "<td class=\"cellbg\" valign=\"middle\" align=\"center\" colspan=\"$create_emptys\"></td>\n";
-}
+	//Celdas en blanco 
+	if ($create_emptys != 0) {
+		echo '<td colspan="'.$create_emptys.'">&nbsp;</td>';
+	}
 
-echo "</tr></table>";
-$mes = date ( 'm' );
-$dia = date ( 'd' );
-$dia7 = date ( 'd' ) + 7;
-$año = date ( 'Y' );
-$hoy = mktime ( 0, 0, 0, $mes, $dia, $año );
-$hoy7 = mktime ( 0, 0, 0, $mes, $dia7, $año );
-$rango0 = date ( 'Y-m-d', $hoy );
-$rango7 = date ( 'Y-m-d', $hoy7 );
-$query = "SELECT distinct title, eventdate, event FROM cal WHERE eventdate >= '$rango0' and eventdate < '$rango7'";
-$result = mysql_query ( $query );
-if (mysql_num_rows ( $result ) > 0) {
-	echo "<hr><h4>Próximos días</h4>";
-	$SQLcurso1 = "select distinct grupo from profesores where profesor = '$pr'";
-	//echo $SQLcurso1;
-	$resultcurso1 = mysql_query ( $SQLcurso1 );
+	echo '
+				</tr>
+			</tbody>
+		</table>';
+
+	$mes = date ( 'm' );
+	$dia = date ( 'd' );
+	$dia7 = date ( 'd' ) + 7;
+	$año = date ( 'Y' );
+	$hoy = mktime ( 0, 0, 0, $mes, $dia, $año );
+	$hoy7 = mktime ( 0, 0, 0, $mes, $dia7, $año );
+	$rango0 = date ( 'Y-m-d', $hoy );
+	$rango7 = date ( 'Y-m-d', $hoy7 );
+	
+	$query = "SELECT distinct title, eventdate, event FROM cal WHERE eventdate >= '$rango0' and eventdate < '$rango7'";
+	$result = mysql_query ( $query );
+	
+	if (mysql_num_rows ( $result ) > 0) {
+		echo '
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Próximos días</th>
+					</tr>
+				</thead>
+				<tbody>';
+		$SQLcurso1 = "select distinct grupo from profesores where profesor = '$pr'";
+		//echo $SQLcurso1;
+		$resultcurso1 = mysql_query ( $SQLcurso1 );
 	
 	while ( $rowcurso1 = mysql_fetch_array ( $resultcurso1 ) ) {
 		$curso1 = $rowcurso1 [0];
@@ -175,7 +223,7 @@ if (mysql_num_rows ( $result ) > 0) {
 		$ano = $trozos [0];
 		$mes = $trozos [1];
 		$dia = $trozos [2];
-		$fecha = "$dia-$mes-$ano";
+		$fecha = $dia.' '.nombreMesCompleto($mes);
 		$string3 = explode ( " ", $string1 );
 		
 		// echo "$aguja => $pajar<br>";
@@ -197,32 +245,23 @@ if (mysql_num_rows ( $result ) > 0) {
 echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><i  class='icon-calendar'></i><small>  $fecha. </small><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' rel='tooltip' title='$row[2]'>  $texto</a></p>";		
+		echo '<td><small>'.$fecha.' | <a href="admin/calendario/jcal_admin/index.php?year='.$ano.'&month='.$mes.'&today='.$dia.'" rel="tooltip" title="'.$row[2].'">  '.$texto.'</a></small></td>';		
 			}
 		else{
 echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><i  class='icon-exclamation-sign'></i><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha.  $texto</a></p>
+		echo "<td><i class='icon-exclamation-sign'></i><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha.  $texto</a></td>
 	";	
 			}	
 	}
+	echo '</tbody>
+	</table>';
 }
-if (stristr ( $carg, '1' ) == TRUE) {
-	?>
-	<a href='admin/calendario/jcal_admin/index.php' class='btn btn-primary'
-		style=''>Añadir Actividad</a>
-<?
-
-} else {
-	?>
-<a href='admin/calendario/jcal_admin/index.php' class='btn btn-primary'
-		style=''>Ver Calendario</a>
-<?
-}
-
 ?>
+	</div> <!-- /widget-content -->
 
+</div> <!-- /widget -->
 
 
 
