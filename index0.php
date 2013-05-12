@@ -39,15 +39,24 @@ if (stristr ( $carg, '2' ) == TRUE) {
    <div class="row-fluid">  
    
         <div class="span3">  
-        
-          <div class="well-2 sidebar-nav">  
+        	
+        	<div class="widget widget-nopad stacked visible-desktop">
+        		
+        		<div class="widget-content">
+          			
+          			<div class="sidebar-nav">  
           
-            <ul class="nav nav-list">
-            
-            <? if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {include("menu_conserje.php");}else{include("menu2.php");}?> 
-           </ul>  
-          </div><!--/.well -->  
-        </div><!--/span-->  
+            			<ul class="nav nav-list">
+            			<? if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {include("menu_conserje.php");}else{include("menu2.php");}?> 
+           				</ul>
+           			</div>
+           		
+           		</div> <!-- /widget-content -->
+           			
+           	</div> <!-- /widget -->
+         			 
+        </div>
+        
         <div class="span9">   
           <div class="row-fluid">
             
@@ -67,7 +76,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
               <? 
               include("widget_buscarAlumnos.php");
 			  include("admin/calendario/index.php");
-			  include("widget_ausencias.php"); 
+			  include("ausencias.php"); 
 			  include ("widget_fijos.php");
 			  include ("widget_mensajes.php");
 			  if ($mod_horario and ($n_curso > 0)) {
