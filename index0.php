@@ -34,29 +34,20 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	$_SESSION ['s_grupo'] = $row [1];
 }
 ?>
-<? include("menu.php"); ?>
+<? include("menu.php");?>
  <div class="container-fluid">  
    <div class="row-fluid">  
    
         <div class="span3">  
-        	
-        	<div class="widget widget-nopad stacked">
-        		
-        		<div class="widget-content">
-          			
-          			<div class="sidebar-nav">  
-          
-            			<ul class="nav nav-list">
-            			<? if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {include("menu_conserje.php");}else{include("menu2.php");}?> 
-           				</ul>
-           			</div>
-           		
-           		</div> <!-- /widget-content -->
-           			
-           	</div> <!-- /widget -->
-         			 
-        </div>
         
+          <div class="well-2 sidebar-nav">  
+          
+            <ul class="nav nav-list">
+            
+            <? if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {include("menu_conserje.php");}else{include("menu2.php");}?> 
+           </ul>  
+          </div><!--/.well -->  
+        </div><!--/span-->  
         <div class="span9">   
           <div class="row-fluid">
             
@@ -66,29 +57,44 @@ if (stristr ( $carg, '2' ) == TRUE) {
 		include ("admin/tutoria/control.php");
 			  }
 			  ?>
-              <? include("pendientes.php");  ?>
-              <? include("widget_noticias.php");?>
-              <? include("widget_noticiasJunta.php"); ?>
-              <? include("widget_buscar.php");?>
+              <? include ("pendientes.php");  ?>
+              <? include("noticias.php");?>
+              <? 
+              include("junta.php");
+              ?>
+              <div class='well-2 well-large'> 
+              <? include ("buscar.php");?>
+              </div>
             </div><!--/span--> 
              
-            <div class="span5">     
+            <div class="span5">
+             
+            <div class="well well-small">
+            <p class="lead">Buscar alumnos</p> 
+            <form action="index0.php" method="GET">
+            	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
+			</form>
+			<div id="resAlumnos"></div>
+       		</div>
               <? 
-              include("widget_buscarAlumnos.php");
+			  echo "<div class='well well-small'>";
 			  include("admin/calendario/index.php");
+			  echo "</div>";
 			  include("ausencias.php"); 
-			  include ("widget_fijos.php");
-			  include ("widget_mensajes.php");
+			  include ("fijos.php");
+			  include ("mensajes.php");
 			  if ($mod_horario and ($n_curso > 0)) {
-					include ("widget_horario.php");
+				  	echo "<div class='well well-small'>";
+					include ("horario.php");
+					echo '</div>';
 				}
 			  ?> 
               </div>
             </div><!--/span-->  
           </div><!--/row-->  
           <hr>  
-     <footer>
-     </footer>  
+     <footer>  
+      </footer>  
   
     </div><!--/.fluid-container-->  
 <? include("pie.php");?>  
