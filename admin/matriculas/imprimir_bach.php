@@ -40,126 +40,59 @@ if (substr($curso, 0, 1) == '1') {
 	$mas = ", colegio";
 }
 $n_curso = substr($curso, 0, 1);
-$result0 = mysql_query ( "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
+$result0 = mysql_query ( "select distinct id_matriculas from matriculas_bach_temp, matriculas_bach where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
 while ($id_ar = mysql_fetch_array($result0)) {
 $id = $id_ar[0];
-$result = mysql_query("select * from matriculas where id = '$id'");
-if ($row = mysql_fetch_array ( $result )) {
-	$apellidos = "Apellidos del Alumno: ". $row[2];
-	 $nombre= "Nombre: ".$row[3];
-	 $nacido= "Nacido en: ".$row[4];
-	 $provincia= "Provincia de: ".$row[5];
+$result = mysql_query("select * from matriculas_bach where id = '$id'");
+if ($datos_ya = mysql_fetch_object ( $result )) {
+
+$naci = explode("-",$datos_ya->nacimiento);
+$nacimiento = "$naci[2]-$naci[1]-$naci[0]";
+$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual;	
+
+	$apellidos = "Apellidos del Alumno: ". $apellidos;
+	 $nombre= "Nombre: ".$nombre;
+	 $nacido= "Nacido en: ".$nacido;
+	 $provincia= "Provincia de: ".$provincia;
 	 $fecha_nacimiento= "Fecha de Nacimiento: $nacimiento";
-	 $domicilio= "Domicilio: ".$row[7];
-	 $localidad= "Localidad: ".$row[8];
-	 $dni= "DNI del alumno: ".$row[9];
-	 $padre= "Apellidos y nombre del Tutor legal 1: ".$row[10];
-	 $dnitutor= "DNI: ".$row[11];
-	 $madre= "Apellidos y nombre del Tutor legal 2: ".$row[12];
-	 $dnitutor2= "DNI: ".$row[13];
-	 $telefono1= "Teléfono Casa: ".$row[14];
-	 $telefono2= "Teléfono Móvil: ".$row[15];
+	 $domicilio= "Domicilio: ".$domicilio;
+	 $localidad= "Localidad: ".$localidad;
+	 $dni= "DNI del alumno: ".$dni;
+	 $padre= "Apellidos y nombre del Tutor legal 1: ".$padre;
+	 $dnitutor= "DNI: ".$dnitutor;
+	 $madre= "Apellidos y nombre del Tutor legal 2: ".$madre;
+	 $dnitutor2= "DNI: ".$dnitutor2;
+	 $telefono1= "Teléfono Casa: ".$telefono1;
+	 $telefono2= "Teléfono Móvil: ".$telefono2;
 	 $telefonos="$telefono1\n   $telefono2";
-	 $idioma = $row[20];
-	 $religion = $row[21];
-	 $itinerario = $row['itinerario'];
-	 $matematicas4 = $row['matematicas4'];
-	 if ($row[16] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row[17]; }else{	 $colegio= "Centro de procedencia:  ".$row[16]; }
-	 $correo= "Correo electrónico de padre o madre: ".$row[19];
+
+	 if ($datos_ya->colegio == "Otro Centro") { $colegio= "Centro de procedencia:  ".$datos_ya->otrocolegio; }else{	 $colegio= "Centro de procedencia:  ".$datos_ya->colegio; }
+	 $correo= "Correo electrónico de padre o madre: ".$datos_ya->correo;
 	 // Optativas y refuerzos
 	 $n_curso = substr($curso, 0, 1);
 	 $n_curso2 = $n_curso-1;
-	 if ($n_curso == '1') {
-$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-$a1 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C.");
-	 }
-	 if ($n_curso == '2') {
-$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Métodos de la Ciencia");
-$a1 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C. II");
-$opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-$a21 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C.");
-	 }
-	 if ($n_curso == '3') {
-$opt1 = array("Alemán 2º Idioma","Cambios Sociales", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-$opt21 = array("Alemán 2º Idioma","Cambios Sociales", "Francés 2º Idioma","Métodos de la Ciencia");
-$a21 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C. II");
-	 }
-if ($n_curso == '4') {
-	$it41 = array("(Bachillerato de Ciencias y Tecnología - Vía de Ciencias de la Naturaleza y la Salud)", "Física y Química", "Biología y Geología", "Matemáticas B", "Alemán 2º Idioma", "Francés 2º Idioma", "Informática");
-	$it42 = array("(Bachillerato de Ciencias y Tecnología - Vía de Ciencias e Ingeniería)", "Física y Química", "Tecnología", "Matemáticas B", "Alemán 2º Idioma", "Francés 2º Idioma", "Informática", "Ed. Plástica y Visual");
-	$it43 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Latín", "Música", "Matemáticas A", "Matemáticas B", "Alemán 2º Idioma", "Francés 2º Idioma", "Informática", "Ed. Plástica y Visual");
-	$it44 = array("(Ciclos Formativos y Mundo Laboral)", "Informática", "Ed. Plástica y Visual", "Matemáticas A", "Alemán 2º Idioma", "Francés 2º Idioma", "Tecnología");
-	
-	$opt41=array("Alemán 2º Idioma", "Francés 2º Idioma", "Informática");
-	$opt42=array("Alemán 2º Idioma", "Francés 2º Idioma","Informática", "Ed. Plástica y Visual");
-	$opt43=array("Alemán 2º Idioma", "Francés 2º Idioma", "Informática", "Ed. Plástica y Visual");
-	$opt44=array("Alemán 2º Idioma", "Francés 2º Idioma", "Tecnología");
-	
-	$opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-}
-if ($n_curso < '4'){
-	 $optativa1= "$row[22] - $opt1[0]";
-	 $optativa2= "$row[23] - $opt1[1]";
-	 $optativa3= "$row[24] - $opt1[2]";
-	 $optativa4= "$row[25] - $opt1[3]";
-	 if($n_curso=='3'){
-	 $optativa5= "$row[52] - $opt1[4]";
-	 $optativa6= "$row[53] - $opt1[5]";
-	 $optativa7= "$row[54] - $opt1[6]";
-		 }
-}
-else{
-	$n_opt="";
-	foreach (${opt4.$itinerario} as $clave4){
-	$n_opt+=1;
-	$n_row=21+$n_opt;
-	 ${optativa.$n_opt} = "$row[$n_row] - $clave4";
-	}
-}
-	 for ($i=1;$i<6;$i++)
-	 {
-	 	if ($row[26] == $i) {
-	 		${act.$i} = " X  " . $a1[$i-1];
-	 	}
-	 	else{
-	 		${act.$i} = "      ".$a1[$i-1];
-	 	}
-	 }
+	 
+	 
+	// Optativas y modalidades de BACH
+	$it11 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "CT");
+	$it12 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "HCS");
+	$opt11=array("DT11" => "Dibujo Técnico I", "TEC11" => "Tecnología I", "BIO11"=>"Biología y Geología 11");
+	$opt12=array("GRI12-LAT12" => "Griego 1, Latín 1", "GRI12-ECO12" => "Griego 1, Economía 1", "MCS12-ECO12"=>"Matemáticas de Ciencias Sociales 1, Economía 1", "MCS12-LAT12"=>"Matemáticas de Ciencias Sociales 1, Latín 1");
+
+	$it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "CT");
+	$it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "HCS");
+	$opt21=array("FIS21_DT21" => "Física, Dibujo Técnico II", "FIS21_TEC21" => "Física, Tecnología II", "FIS21_QUI21" => "Física, Química", "BI21_QUI21" => "Biología, Química");
+	$opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
+	$opt23 =array("ingles_25" => "Inglés 2º Idioma","aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud");	 
 
 	 
-	 $optativa21= "$row[30] - $opt21[0]";
-	 $optativa22= "$row[31] - $opt21[1]";
-	 $optativa23= "$row[32] - $opt21[2]";
-	 $optativa24= "$row[33] - $opt21[3]";
- 	 $optativa25= "$row[56] - $opt21[4]";
- 	 $optativa26= "$row[57] - $opt21[5]";
- 	 $optativa27= "$row[58] - $opt21[6]";
-	 for ($i=1;$i<6;$i++)
-	 {
-	 	if ($row[34] == $i) {
-	 		${act2.$i} = " X  " . $a21[$i-1];
-	 	}
-	 	else{
-	 		${act2.$i} = "      ".$a21[$i-1];
-	 	}
-	 }
-
-	 
-	 $observaciones= "OBSERVACIONES: ".$row[38];
+	 $observaciones= "OBSERVACIONES: ".$observaciones;
 	 $texto_exencion= "El alumno solicita la exención de la Asignatura Optativa";
 	 $texto_bilinguismo= "El alumno solicita participar en el Programa de Bilinguismo";
-	 $curso = $row[41];
-	 $fecha_total = $row[42];
-	 $transporte = $row[44];
-	 $ruta_este = $row[45];
-	 $ruta_oeste = $row[46];
+	 $fecha_total = $fecha;
 	 $texto_transporte = "Transporte escolar: $ruta_este$ruta_oeste.";
-	 $sexo = $row[47];
-	 if ($row[48] == '' or $row[48] == '0') { $hermanos = ""; } else{ $hermanos = $row[48]; }
+	 if ($hermanos == '' or $hermanos == '0') { $hermanos = ""; }
 	 
-	 $nacionalidad = $row[49];
-	 $itinerario = $row[50];
-	 $matematicas4 = $row[51];
 }
 $fech = explode(" ",$fecha_total);
 $fecha = $fech[0];
@@ -193,7 +126,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->SetFillColor(230,230,230);
 	$MiPDF->Image ( '../../imag/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 8 );
-	$titulo2 = "EDUCACIÓN SECUNDARIA OBLIGATORIA                                                           MATRICULA";
+	$titulo2 = "BACHILLERATO                                                          MATRICULA";
 	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'L', 0 );
 
 	$MiPDF->Ln ( 8 );
@@ -213,8 +146,8 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(84,5,"APELLIDOS",0,0,"C");
 	$MiPDF->Cell(84,5,"NOMBRE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,5,$row[2],1,0,'C');
-	$MiPDF->Cell(84,5,$row[3],1,0,'C');
+	$MiPDF->Cell(84,5,$datos_ya->apellidos,1,0,'C');
+	$MiPDF->Cell(84,5,$datos_ya->nombre,1,0,'C');
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(40,5,"FECHA NACIMIENTO",0,0,"C");
 	$MiPDF->Cell(26,5,"DNI/NIE",0,0,"C");
@@ -224,8 +157,8 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(20,5,"SEXO",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(40,5,$nacimiento,1,0,'C');
-	$MiPDF->Cell(26,5,$row[9],1,0,'C');
-	$MiPDF->Cell(26,5,$row[14],1,0,'C');
+	$MiPDF->Cell(26,5,$datos_ya->dni,1,0,'C');
+	$MiPDF->Cell(26,5,$datos_ya->telefono1,1,0,'C');
 	$MiPDF->Cell(35,5,$nacionalidad,1,0,'C');
 	$MiPDF->Cell(21,5,$hermanos,1,0,'C');
 	$MiPDF->Cell(20,5,$sexo,1,0,'C');
@@ -235,33 +168,33 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(28,5,"COD. POSTAL",0,0,"C");
 	$MiPDF->Cell(28,5,"PROVINCIA",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(56,5,$row[7],1,0,'C');
-	$MiPDF->Cell(56,5,$row[8],1,0,'C');
+	$MiPDF->Cell(56,5,$datos_ya->domicilio,1,0,'C');
+	$MiPDF->Cell(56,5,$datos_ya->localidad,1,0,'C');
 	$MiPDF->Cell(28,5,"29680",1,0,'C');
 	$MiPDF->Cell(28,5,"Málaga",1,0,'C');
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(168,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,'C');
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(168,5,$row[19],1,0,'C');
+	$MiPDF->Cell(168,5,$datos_ya->correo,1,0,'C');
 	
-	$MiPDF->Ln ( 12 );
+	$MiPDF->Ln ( 9 );
 	$MiPDF->Cell(5,6,"2",1,0,'C',1);
 	$MiPDF->Cell(163,6,"DATOS DE LOS REPRESENTANTES LEGALES DEL ALUMNO",1,0,'C',1);
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(140,5,"APELLIDOS Y NOMBRE DEL REPRESENTANTE LEGAL 1(con quien éste convive)",0,0,"C");
 	$MiPDF->Cell(28,5,"DNI/NIE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(140,5,$row[10],1,0,'C');
-	$MiPDF->Cell(28,5,$row[11],1,0,'C');
+	$MiPDF->Cell(140,5,$datos_ya->padre,1,0,'C');
+	$MiPDF->Cell(28,5,$datos_ya->dnitutor,1,0,'C');
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(140,5,"APELLIDOS Y NOMBRE DEL REPRESENTANTE LEGAL 2",0,0,"C");
 	$MiPDF->Cell(28,5,"DNI/NIE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(140,5,$row[12],1,0,'C');
-	$MiPDF->Cell(28,5,$row[13],1,0,'C');
+	$MiPDF->Cell(140,5,$datos_ya->madre,1,0,'C');
+	$MiPDF->Cell(28,5,$datos_ya->dnitutor2,1,0,'C');
 
 	
-	$MiPDF->Ln ( 12 );
+	$MiPDF->Ln ( 9 );
 	$MiPDF->Cell(5,6,"3",1,0,'C',1);
 	$MiPDF->Cell(163,6,"DATOS DE MATRÍCULA",1,0,'C',1);
 	$MiPDF->Ln ( 8 );
@@ -275,23 +208,47 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Ln ( 8 );
 	//echo $itinerario;
 	if ($n_curso == '4') { $extra="4ESO (It. $itinerario)";}else{$extra=$curso;}
-	$MiPDF->Cell(60,5,"CURSO EN QUE SE MATRICULA",0,0,"C");
-	$MiPDF->Cell(108,5,"MATERIAS OPTATIVAS DEL CURSO EN QUE SE MATRICULA",0,0,"C");
+	$MiPDF->Cell(70,5,"CURSO EN QUE SE MATRICULA",0,0,"C");
+	$MiPDF->Cell(98,5,"MATERIAS DE LA MODALIDAD EN QUE SE MATRICULA",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(60,5,$extra,1,0,'C');
+	
 	$opt="";
-	if ($n_curso=="4" and ($itinerario == "1" or $itinerario == "4") ) {
-		$opt = "     $optativa1
-	    $optativa2
-	    $optativa3";
+	if ($n_curso=="1") {
+		$mod_registro = ${it1.$itinerario1}[3];
+		for ($i = 1; $i < 3; $i++) {		
+			foreach (${opt1.$i} as $key=>$val){
+				if ($optativa1 == $key) {
+				$opt = "$val";				
+				}
+			}
+		}
+
 	}
-	else{
-	$opt = "     $optativa1										$optativa5
-	    $optativa2											$optativa6
-	    $optativa3											$optativa7
-	    $optativa4";
-	}
-	$MiPDF->MultiCell(108,5,$opt,1);
+	if ($n_curso=="2") {
+		$mod_registro = ${it2.$itinerario2}[3];
+		for ($i = 1; $i < 3; $i++) {		
+			foreach (${opt2.$i} as $key=>$val){
+				if ($optativa2 == $key) {
+				$opt = "$val";				
+				}
+			}
+		}
+// Optativas extra de 2 de bach.
+			foreach ($opt23 as $key=>$val){
+				$n_z+=1;		
+				$opt_b = mysql_query("select optativa2b$n_z from matriculas_bach where id = '$id'");
+				$o_b = mysql_fetch_array($opt_b);
+				$reduce = substr($key,0,-3);
+				$opt_2b .= $o_b[0].". ".$val."; ";				
+				}
+			}
+		//$opt_o = "\nOptativas de Bachillerato".$opt_2b;
+	$MiPDF->Cell(70,5,$n_curso."º DE BACHILLERATO ( ".$mod_registro." )",1,0,'C');
+	$MiPDF->MultiCell(98,5,$opt,1);
+	$MiPDF->Ln ( 2 );
+	$MiPDF->Cell(165,5,"MATERIAS OPTATIVAS",0,0,"C");
+	$MiPDF->Ln ( 5 );
+	$MiPDF->MultiCell(168,5,$opt_2b,1);
 	$MiPDF->Ln ( 5 );
 	$f_hoy = "        En Estepona, a ".$hoy;
 	$sello = "                                  Sello del Centro";
@@ -299,7 +256,7 @@ for($i=1;$i<3;$i++){
 	$firma_padre= "  Firma del representante o Guardador legal 1";
 	$MiPDF->Cell(84,8,$firma_padre,0);	
 	$MiPDF->Cell(84, 8, $firma_centro,0);
-	$MiPDF->Ln ( 22 );
+	$MiPDF->Ln ( 20 );
 	$MiPDF->Cell(84, 8, $f_hoy,0);
 	$MiPDF->Cell(84, 8, $sello,0);
 	$MiPDF->Ln ( 9 );
@@ -310,7 +267,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Ln ( 3 );		
 	$MiPDF->MultiCell(168, 3, $datos_junta,1,'L',1);
 }
-	include("autorizaciones.php");
+	include("autorizaciones_bach.php");
 	}
    $MiPDF->AutoPrint(true);     
    $MiPDF->Output ();

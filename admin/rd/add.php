@@ -113,7 +113,7 @@ if (empty($departamento) and stristr($_SESSION['cargo'],'4') == TRUE){
 	}*/
 }
 else{
-	$departament="DirecciÃ³n del Centro";
+	$departament="Dirección del Centro";
 }
 ?>
 <div align="center">
@@ -143,8 +143,8 @@ $ed = mysql_fetch_object($ed0);
    {
    		$errorList = array ();
    		$count = 0;
-   		if (!$contenido) { $errorList[$count] = "Entrada invÃ¡lida: Contenido del Acta"; $count++; }
-   		if (!$fecha) { $errorList[$count] = "Entrada invÃ¡lida: Fecha"; $count++; }		
+   		if (!$contenido) { $errorList[$count] = "Entrada inválida: Contenido del Acta"; $count++; }
+   		if (!$fecha) { $errorList[$count] = "Entrada inválida: Fecha"; $count++; }		
    		$tr_fecha = explode("-",$fecha);
    		$fecha = "$tr_fecha[2]-$tr_fecha[1]-$tr_fecha[0]";
    		if (sizeof ( $errorList ) == 0) {
@@ -157,7 +157,7 @@ $ed = mysql_fetch_object($ed0);
    			$query2 = "INSERT INTO r_departamento_backup ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES('$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
    			$result1 = mysql_query ( $query1 ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÃ“N:</h5>
+			<h5>ATENCIÓN:</h5>
 Se ha producido un error grave al registar el Acta en la base de datos. Busca ayuda.</div></div>' );
    			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -176,22 +176,16 @@ El Acta del Departamento ha sido registrada correctamente.
    			echo "</ul></div></div></div><br />";
    		}
    	}
-<<<<<<< HEAD
-   	if ($actualiza) {
-=======
+
    	elseif ($actualiza) {
->>>>>>> Correciones menores
    		   mysql_query("update r_departamento set contenido = '$contenido' where id = '$id'") ;
    		   echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido actualizada correctamente.
 </div></div><br />';
-<<<<<<< HEAD
-=======
    		   echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrás</a></div>';
    		   exit();
    		   
->>>>>>> Correciones menores
    	}
 $nm0 = mysql_query("select max(numero) from r_departamento where departamento = '$departament'");
 $numer = mysql_fetch_array($nm0);
@@ -222,14 +216,14 @@ if ($edicion=="1") {
 <div class="span9">	
 
     <form action="<? echo $PHP_SELF;?>" method="POST" name='f1' class="form-inline">
-      <label style="display:inline">Fecha de la ReuniÃ³n &nbsp;
+      <label style="display:inline">Fecha de la Reunión &nbsp;
       <div class="input-append" >
             <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha" value="<? echo $fecha_r;?>" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 </label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<label style="display:inline">NÂº de Acta &nbsp;
+<label style="display:inline">Nº de Acta &nbsp;
       <input class="input-mini" type="text" name="numero"  value="<? echo $numero; ?>">
 </label>
 <br /><br />
@@ -245,13 +239,13 @@ else{
         if ( isset($pdf) ) {
 
           $font = Font_Metrics::get_font("helvetica", "bold");
-          $pdf->page_text(542, 775, "PÃ¡gina: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
+          $pdf->page_text(542, 775, "Página: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
 
         }
         </script>
 		<p style="text-align: left;">
 		<?
-if ($departament == "DirecciÃ³n del Centro") {
+if ($departament == "Dirección del Centro") {
 	$texto_dep = $departament;
 }
 else{
@@ -261,7 +255,7 @@ else{
 		
 		<? echo $texto_dep; ?><br />I.E.S. Monterroso (Estepona) <br />Curso Escolar: <? echo $curso_actual;?><br /> Acta N&ordm; <? echo $numero; ?></p>
 <p style="text-align: center;">&nbsp;</p>
-<p style="text-align: center;"><span style="text-decoration: underline;"><strong>ACTA DE REUNIÃ“N DEL DEPARTAMENTO</strong></p>
+<p style="text-align: center;"><span style="text-decoration: underline;"><strong>ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
 <br />
 <p align="JUSTIFY">En Estepona, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del IES MONTERROSO de Estepona, con el siguiente <span style="text-decoration: underline;"> orden del d&iacute;a:</p>
 <br />
@@ -303,7 +297,7 @@ else{
 
 <?
 if($pag == "") {$pag = "0";} else {$pag = $pag + 25;}
-$query = "SELECT id, fecha, departamento, contenido, numero FROM r_departamento where departamento = '$departament' ORDER BY numero DESC limit $pag,25";
+$query = "SELECT id, fecha, departamento, contenido, numero, impreso FROM r_departamento where departamento = '$departament' ORDER BY numero DESC limit $pag,25";
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 $n_actas = mysql_num_rows($result);
 if (mysql_num_rows($result) > 0)
@@ -322,9 +316,21 @@ if (mysql_num_rows($result) > 0)
 	if(($row->departamento == $_SESSION['dpt']) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
 		?>
 <a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
+<? 
+if($row->impreso<>1){
+?>
 <a href="add.php?edicion=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-pencil" rel="Tooltip" title='Editar el Acta'> </i></a> 
-<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000;margin-right:10px"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
+<a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
 <a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-trash" rel="Tooltip" title='Borrar el Acta'> </i></a> 
+<?
+}
+else{
+?>
+<a href="#"  style="color:#990000;margin-right:10px"><i class="icon icon-ok" rel="Tooltip" title='El Acta no puede editarse por haber sido impresa.'> </i></a> 
+<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000;margin-right:10px"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
+<?
+}
+?>
 </td>
 <?
 		}
@@ -339,7 +345,7 @@ else
 ?>
 <div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-disiss="alert">&times;</button>
-            <h5>ATENCIÃ“N:</h5>
+            <h5>ATENCIÓN:</h5>
             No hay Actas disponibles en la base de datos. Tu puedes ser el primero en inaugurar la lista.
           </div></div>
 		  <?

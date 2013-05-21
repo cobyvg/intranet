@@ -125,9 +125,9 @@ echo '<form action="cuaderno.php" method="post" name="imprime" class="form-inlin
   <?
 }
 ?>
-<div class="container">
-<div class="row-fluid">
-<div class="span9">
+<table style="width:auto;" align="center" cellpadding="5">
+<tr>
+<td valign="top">
 
 <?
 echo "<table class='table table-striped table-bordered table-condensed' style='width:auto'>\n"; 
@@ -311,8 +311,8 @@ echo '</table><div align=center class=no_imprimir><input name="enviar" type="sub
     if (mysql_num_rows($colu) > 0) { 
     ?>
     
-</div>
-<div class="span3">
+</td>
+<td valign="top">
 
 <div class="no_imprimir">
 
@@ -342,14 +342,14 @@ Hay varias funciones que puedes realizar sobre las columnas que contienen los da
     <?    
 	$colum= "select distinct id, nombre, orden, oculto from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";
 	$colum0 = mysql_query($colum); 
-
+    echo '<form action="cuaderno/editar.php" method="POST" id="editar">';
 	if (mysql_num_rows($colum0) > 0) {
 $h=0;
 			while($colum00=mysql_fetch_array($colum0)){
 				
 				$otra=mysql_query("select distinct ponderacion from datos where id='$colum00[0]' and ponderacion<>'1' ");
 				if (mysql_num_rows($otra) > 0){     $h+=1;}											}
-			echo "<table class='table table-striped' style='width:100%;'>"; 
+			echo "<table class='table table-striped' style='width:300px;'>"; 
 	$otra2=mysql_query("select distinct id, nombre, orden, oculto from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc");
 	while ($colum1 = mysql_fetch_array($otra2)) {
 	$n_col = $colum1[2];
@@ -396,13 +396,12 @@ $h=0;
 ?>
 <hr>   
 <h4><small>Operaciones y Funciones</small></h4>
-    <form action="cuaderno/editar.php" method="POST" id="editar">
-    <input name="media" type="submit" value="Media Aritmética" class="btn btn-info" style="width:100%"/>
-        <input name="media_pond2" type="submit" value="Media Ponderada" class="btn btn-info" style="width:100%"/>
-        <input name="estadistica" type="submit" value="Estadística" class="btn btn-info" style="width:100%"/>
-    <input name="ocultar" type="submit" value="Ocultar" class="btn btn-info" style="width:100%"/>
-        <input name="mostrar" type="submit" value="Mostrar" class="btn btn-info" style="width:100%"/>
-        <input name="eliminar" type="submit" value="Eliminar" class="btn btn-info" style="width:100%"/>
+    <input name="media" type="submit" value="Media Aritmética" class="btn btn-info" style="width:300px"/><br />
+        <input name="media_pond2" type="submit" value="Media Ponderada" class="btn btn-info" style="width:300px"/><br />
+        <input name="estadistica" type="submit" value="Estadística" class="btn btn-info" style="width:300px"/><br />
+    <input name="ocultar" type="submit" value="Ocultar" class="btn btn-info" style="width:300px"/><br />
+        <input name="mostrar" type="submit" value="Mostrar" class="btn btn-info" style="width:300px"/><br />
+        <input name="eliminar" type="submit" value="Eliminar" class="btn btn-info" style="width:300px"/><br />
   </form>
 </div>
 </div>
@@ -411,8 +410,9 @@ $h=0;
 }
 ?>
 
-</div>
-</div>
+</td>
+</tr>
+</table>
 <? 
 include("pie.php");
 ?>

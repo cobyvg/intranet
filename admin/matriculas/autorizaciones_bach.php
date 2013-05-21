@@ -34,12 +34,11 @@ NOTA: Los padres y madres son libres de firmar,  o no,  esta autorización.";
 	$MiPDF->Ln ( 3 );
 	$MiPDF->Multicell ( 0, 6, $titulo5, 0, 'C', 0 );
 	$MiPDF->Ln ( 10 );
-
-$titulo_religion = "SOLICITUD PARA CURSAR LAS ENSEÑANZAS DE RELIGIÓN";
 $an = substr($curso_actual,0,4);
 $an1 = $an+1;
 $an2 = $an+2;
 $c_escolar = $an1."/".$an2;
+$titulo_religion = "SOLICITUD PARA CURSAR LAS ENSEÑANZAS DE RELIGIÓN";
 $autoriza_religion="
 D./Dª $papa, como padre, madre o tutor legal del alumno/a $datos_ya->nombre $datos_ya->apellidos del curso ".$n_curso."º de ESO del IES Monterroso, en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación.
 

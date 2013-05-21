@@ -1,19 +1,17 @@
 <br />
 <div class="well-2 well-small" style="width:980px;">
 
-<form action="consultas.php" method="post" name="form2">
+<form action="consultas_bach.php" method="post" name="form2">
 <h4>Selecciona Nivel&nbsp;
 <select maxlength="12" name="curso" id="curso" onChange="desactivaOpcion();submit()">
 	<option><? echo $curso;?></option>
-	<option>1ESO</option>
-	<option>2ESO</option>
-	<option>3ESO</option>
-	<option>4ESO</option>
+	<option>1BACH</option>
+	<option>2BACH</option>
 </select>
-<!-- </h4> -->
+</h4>
 <label>Grupos:
 <?					
-$tipo0 = "select distinct grupo_actual from matriculas where curso = '$curso' order by grupo_actual";
+$tipo0 = "select distinct grupo_actual from matriculas_bach where curso = '$curso' order by grupo_actual";
 $tipo10 = mysql_query($tipo0);
   while($tipo20 = mysql_fetch_array($tipo10))
         {	
@@ -67,16 +65,6 @@ echo ">&nbsp;&nbsp;";
 		 />
          </label>
 		</td>
-		<td><label>Bilinguismo <select name="bilinguism">
-		<? if ($bilinguism) {
-			echo "<option>$bilinguism</option>";
-		}
-		?>
-			<option></option>
-			<option>Si</option>
-			<option>No</option>
-		</select></label>
-		</td>
 		</tr>
 		<tr>	
 		<td><label>Promoción <select name="promocion" style="width:120px;">
@@ -90,18 +78,9 @@ echo ">&nbsp;&nbsp;";
 			<option>PIL</option>
 			<option>Repite</option>
 		</select></td>
-		<td><label>Exención <select name="exencio" style="width:50px;">
-		<?php
-		if ($exencio) {
-			echo "<option>$exencio</option>";
-		}
-		?>
-			<option></option>
-			<option>Si</option>
-			<option>No</option>
-		</select></td>
+		<td></td>
 		
-		<td><label>Itinerario <select name="itinerari" style="width:50px;">
+		<td><label>Modalidad <select name="itinerari" style="width:50px;">
 		<?php
 		if ($itinerari) {
 			echo "<option>$itinerari</option>";
@@ -110,31 +89,26 @@ echo ">&nbsp;&nbsp;";
 			<option></option>
 			<option>1</option>
 			<option>2</option>
-			<option>3</option>
-			<option>4</option>
-		</select></td>
-		<td><label>Matematicas 4º <select name="matematica4" style="width:50px;">
-		<?php
-		if ($matematica4) {
-			echo "<option>$matematica4</option>";
-		}
-		?>
-			<option></option>
-			<option>A</option>
-			<option>B</option>
 		</select></td>
 	</tr>
 	<tr>
-		<td><label>Diversificación <select name="diversificacio" style="width:50px;">
+		<td><label>Optativas Modal. <select name="optativ" style="width:150px;">
 		<?php
-		if ($diversificacio) {
-			echo "<option>$diversificacio</option>";
+		if ($optativ) {
+			echo "<option>$optativ</option>";
 		}
 		?>
 			<option></option>
-			<option>Si</option>
-			<option>No</option>
-		</select></td>
+		<?
+		for ($i = 1; $i < 3; $i++) {
+			foreach(${opt.$n_curso.$i} as $key=>$val){
+			echo '<option value="'.$key.'">'.$val.'</option>';
+		}			
+		}
+
+			
+		?>	
+		</select></td>		
 		<td><label>Grupo de Origen <select name="letra_grup" style="width:50px;">
 		<?php
 		if ($letra_grup) {
@@ -149,8 +123,6 @@ echo ">&nbsp;&nbsp;";
 			<option>E</option>
 			<option>F</option>
 			<option>G</option>
-			<option>H</option>
-			<option>I</option>
 		</select></td>
 		
 		<td><label>Grupo Actual <select name="grupo_actua_seg" style="width:50px;">
@@ -168,25 +140,9 @@ echo ">&nbsp;&nbsp;";
 			<option>E</option>
 			<option>F</option>
 			<option>G</option>
-			<option>H</option>
-			<option>I</option>
 		</select></td>
 		
-		<td><label>Optativa <select name="optativ" style="width:150px;">
-		<?php
-		if ($optativ) {
-			echo "<option>$optativ</option>";
-		}
-		?>
-			<option></option>
-			<option>optativa1</option>
-			<option>optativa2</option>
-			<option>optativa3</option>
-			<option>optativa4</option>
-			<option>optativa5</option>
-			<option>optativa6</option>
-			<option>optativa7</option>
-		</select></td>
+
 		
 	</tr>
 	<tr>
@@ -227,19 +183,6 @@ echo ">&nbsp;&nbsp;";
 			echo "<option>$cole[0]</option>";
 		}
 		?>
-		</select></td>
-		<td><label>Actividades <select name="actividade" style="width:150px;">
-		<?php
-		if ($actividade) {
-			echo "<option>$actividade</option>";
-		}
-		?>
-			<option></option>
-			<option>1</option>
-			<option>2</option>
-			<option>3</option>
-			<option>4</option>
-			<option>5</option>
 		</select></td>
 		
 	</tr>

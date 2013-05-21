@@ -165,9 +165,11 @@ else{
 }
 $fech = explode(" ",$fecha_total);
 $fecha = $fech[0];
-$hoy = formatea_fecha($fech[0]);
 $titulo1 = "SOLICITUD DE MATRÍCULA EN ".$n_curso."º DE E.S.O.";
-$cuerpo3 = "En Estepona, a 22 de Junio de 2012
+$an = substr($curso_actual,0,4);
+$an1 = $an+1;
+$hoy = formatea_fecha(date('Y-m-d'));
+$cuerpo3 = "En Estepona, a $hoy
 Firma del Padre/Madre/Representante legal D/Dª
 
 

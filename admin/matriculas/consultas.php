@@ -607,13 +607,14 @@ if ($curso=="3ESO" OR $curso=="4ESO"){
 	$num_diver = mysql_num_rows($diver);
 }
 $promo = mysql_query("select promociona from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and promociona = '1'");
-	$num_promo = mysql_num_rows($promo);
+$num_promo = mysql_num_rows($promo);
+	
 $pil = mysql_query("select promociona from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and promociona = '2'");
-	$num_pil = mysql_num_rows($pil);
-//$repit = mysql_query("select promociona from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and promociona = '3'");
-$repit = mysql_query("select * from matriculas, faltas2012.alma where faltas2012.alma.claveal = matriculas.claveal and matriculas.curso = '$curso' and grupo_actual = '$grupo_actual' and faltas2012.alma.unidad like '$n_curso%'");
-
-	$num_repit = mysql_num_rows($repit);
+$num_pil = mysql_num_rows($pil);
+	
+$an_bd = substr($curso_actual,0,4);
+$repit = mysql_query("select * from matriculas_bach, ".$db.$an_bd.".alma where ".$db.$an_bd.".alma.claveal = matriculas_bach.claveal and matriculas_bach.curso = '$curso' and ".$db.$an_bd.".alma.unidad like '$n_curso%'");
+$num_repit = mysql_num_rows($repit);
 ?>
 <br />
 <table class="table table-striped table-bordered" align="center" style="width:auto">

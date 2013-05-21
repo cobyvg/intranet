@@ -15,6 +15,8 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 include("/opt/e-smith/conf_principal.php");
+include("../../funciones.php");
+variables();
 $connection = mysql_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
 mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
 
