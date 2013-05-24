@@ -49,7 +49,7 @@ INDEX (  `id_matriculas` )
 	exit();
 }
 
-echo $_POST['imprimir_caratulas'];
+//echo $_POST['imprimir_caratulas'];
 if ($caratulas == "Imprimir Carátulas") {
 	mysql_query("drop table if exists matriculas_bach_temp");
 	mysql_query("CREATE TABLE  `matriculas_bach_temp` (
@@ -169,49 +169,6 @@ if ($sin_matricula=="Alumnos sin matricular") {
 	rel="stylesheet">
 <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css"
 	rel="stylesheet" media="print">
-
-<script language="javascript">
-
-function desactivaOpcion(){ 
-    with (document.form2){ 
-     switch (curso.selectedIndex){ 
-      case 1: 
-       itinerari.disabled = true; 
-       matematica4.disabled = true;
-       diversificacio.disabled = true;
-       promocion.disabled = true;
-       actividade.disabled = false;
-       exencio.disabled = false;
-       break; 
-      case 2: 
-       itinerari.disabled = true; 
-       matematica4.disabled = true;
-       diversificacio.disabled = true;
-       promocion.disabled = false;
-       actividade.disabled = false;
-       exencio.disabled = false;
-       break; 
-      case 3: 
-    	  itinerari.disabled = true; 
-          matematica4.disabled = true;
-          actividade.disabled = true;
-          exencio.disabled = true;
-          diversificacio.disabled = false;
-          promocion.disabled = false;
-       break; 
-      case 4: 
-    	  actividade.disabled = true;
-          exencio.disabled = true;
-          itinerari.disabled = false; 
-          matematica4.disabled = false;
-          diversificacio.disabled = false;
-          promocion.disabled = false;
-       break; 
-     } 
-    } 
-   } 	
- 
- </script>
 </head>
 <body>
 <?
@@ -225,17 +182,17 @@ include("./menu.php");
 
 
 <?
-	// Optativas y modalidades de BACH
-	$it11 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud");
-	$it12 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales");
-	$opt11=array("DT11" => "Dibujo Técnico I", "TEC11" => "Tecnología I", "BIO11"=>"Biología y Geología 11");
-	$opt12=array("GRI12-LAT12" => "Griego 1, Latín 1", "GRI12-ECO12" => "Griego 1, Economía 1", "MCS12-ECO12"=>"Matemáticas de Ciencias Sociales 1, Economía 1", "MCS12-LAT12"=>"Matemáticas de Ciencias Sociales 1, Latín 1");
+// Asignaturas y Modalidades
+$it11 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "Ciencias y Tecnología");
+$it12 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
+$opt11=array("DBT11" => "Dibujo Técnico", "TIN11" => "Tecnología", "BYG11"=>"Biología y Geología");
+$opt12=array("GRI12-LAT12" => "Griego, Latín", "GRI12-ECO12" => "Griego, Economía", "MCS12-ECO12"=>"Matemáticas de Ciencias Sociales, Economía", "MCS12-LAT12"=>"Matemáticas de Ciencias Sociales, Latín");
 
-	$it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud");
-	$it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales");
-	$opt21=array("FIS21_DT21" => "Física, Dibujo Técnico II", "FIS21_TEC21" => "Física, Tecnología II", "FIS21_QUI21" => "Física, Química", "BI21_QUI21" => "Biología, Química");
-	$opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
-	$opt23 =array("ingles_25" => "Inglés 2º Idioma","aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud");
+$it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "Ciencias y Tecnología");
+$it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
+$opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico", "FIS21_TIN21" => "Física, Tecnología", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
+$opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
+$opt23 =array("ingles_25" => "Inglés 2º Idioma","aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud");
 echo '<div  class="no_imprimir">';
 
 $n_curso = substr($curso, 0, 1);
@@ -295,6 +252,10 @@ if ($transport == "ruta_oeste") { $extra.=" and ruta_oeste != ''";}
 if (strlen($dn)>5) {$extra.=" and dni = '$dn'";}
 if (strlen($apellid)>2) {$extra.=" and apellidos like '%$apellid%'";}
 if (strlen($nombr)>2) {$extra.=" and nombre like '%$nombr%'";}
+
+if ($promocion=="SI") { $extra.=" and promociona = '1'";}
+if ($promocion=="NO") { $extra.=" and promociona = '2'";}
+if ($promocion=="3/4") { $extra.=" and promociona = '3'";}
 
 if (!($orden)) {
 	$orden=" ";
@@ -361,12 +322,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		?>
 		<?
-		if ($curso=="1BACH") {
-		echo '<th class="no_imprimir" style="align:center">Sí No</th>';	
-		}
-		if ($curso=="2BACH") {
-		echo '<th class="no_imprimir" style="align:center">Sí +4 3/4</th>';
-		}
+		echo '<th class="no_imprimir" style="align:center">Sí NO 3/4</th>';
 		echo '<th class="no_imprimir">Rev.</th>';
 		echo '<th class="no_imprimir"></th>';
 		?>
@@ -427,66 +383,75 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
 						if($promociona == "2"){echo " checked";}
 						echo " />";
-						if ($curso=="2BACH") {
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
 						if($promociona == "3"){echo " checked";}
 						echo " />";
-						}
 			}
 			else{
+				if (date('m')>'04' and date('m')<'09'){
 				$val_notas="";
 				$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
 				$nota = mysql_fetch_array($not);
 				$tr_not = explode(";", $nota[0]);
-
+				$num_ord="";
+				$num_ord1="";
 				foreach ($tr_not as $val_asig) {
 					$tr_notas = explode(":", $val_asig);
 					foreach ($tr_notas as $key_nota=>$val_nota) {
+						$num_ord+=1;
 						if($key_nota == "1" and $val_nota<'427' and $val_nota !=="439" and $val_nota !==""){
 							$val_notas=$val_notas+1;
 						}
 					}
-
 				}
+				}
+				elseif (date('m')=='09'){
 				$val_notas="";
 				$tr_not2 = explode(";", $nota[1]);
 				foreach ($tr_not2 as $val_asig) {
 					$tr_notas = explode(":", $val_asig);
 					foreach ($tr_notas as $key_nota=>$val_nota) {
+						$num_ord1+=1;
 						if($key_nota == "1" and $val_nota<'427' and $val_nota !=="439" and $val_nota !==""){
 							$val_notas=$val_notas+1;
 						}
 					}
-
+				}
 				}
 				
 			if ($n_curso == "1") {
 			// Junio
-				if (date('m')>'05' and date('m')<'09'){
-					if ($val_notas<1) {$promociona="1";}
+				if (date('m')>'04' and date('m')<'09'){
+					if ($val_notas==0 and $num_ord>1) {$promociona="1";}
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
 						echo " />";
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
 						if($promociona == "2"){echo " checked";}
+						echo " />";
+						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
+						if($promociona == "3"){echo " checked";}
 						echo " />";
 				}
 				// Septiembre
 				elseif (date('m')=='09'){
-					if ($val_notas>0) {$promociona="2";}else{$promociona="1";}
+					if ($val_notas>0 and $num_ord1>1) {$promociona="2";}else{$promociona="1";}
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
 						echo " />";
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
 						if($promociona == "2"){echo " checked";}
+						echo " />";
+						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
+						if($promociona == "3"){echo " checked";}
 						echo " />";
 					}	
 				}
 				else{
 				if ($n_curso == "2") {
 			// Junio
-				if (date('m')>'05' and date('m')<'09'){					
-					if ($val_notas<1) {$promociona="1";}
+				if (date('m')>'04' and date('m')<'09'){					
+					if ($val_notas<1 and $num_ord>1) {$promociona="1";}
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
 						echo " />";
@@ -496,9 +461,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
 						if($promociona == "3"){echo " checked";}
 						echo " />";
+						//echo "$num_ord";
 				}
 				// Septiembre
-				elseif (date('m')=='09'){
+				elseif (date('m')=='09' and $num_ord1>1){
 					if ($val_notas<1) {$promociona="1";}elseif($val_notas>2 and $val_notas<5) {$promociona="3";}else{$promociona="2";}					
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -582,10 +548,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		$promo = mysql_query("select promociona from matriculas_bach where curso = '$curso' $extra and promociona = '1'");
 		$num_promo = mysql_num_rows($promo);
-		$pil = mysql_query("select promociona from matriculas_bach where curso = '$curso' $extra and promociona = '2'");
-		$num_pil = mysql_num_rows($pil);
+		$pil = mysql_query("select promociona from matriculas_bach where curso = '$curso' $extra and promociona = '3'");
+		$num_34 = mysql_num_rows($pil);
 		$an_bd = substr($curso_actual,0,4);
-		$repit = mysql_query("select * from matriculas_bach, ".$db.$an_bd.".alma where ".$db.$an_bd.".alma.claveal = matriculas_bach.claveal and matriculas_bach.curso = '$curso' and ".$db.$an_bd.".alma.unidad like '$n_curso%'");
+		$repit = mysql_query("select promociona from matriculas_bach where curso = '$curso' $extra and promociona = '2'");
 		$num_repit = mysql_num_rows($repit);
 		$it_1 = mysql_query("select itinerario1 from matriculas_bach where curso = '$curso' $extra and itinerario1 = '1'");
 		$num_it1 = mysql_num_rows($it_1);
@@ -603,6 +569,9 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 		echo "<th>Promociona</th>";
 		echo "<th>Repite</th>";
+		if ($curso=="2BACH"){
+		echo "<th>3/4</th>";
+		}
 		echo "<th>Itinerario1</th>";
 		echo "<th>Itinerario2</th>";
 		if ($curso=="2BACH"){
@@ -616,7 +585,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<?
 		echo "<td>$num_rel</td>";
 		echo "<td>$num_promo</td>";
-		echo "<td>$num_repit</td>";
+		echo "<td>$num_repit</td>";		
+		if ($curso=="2BACH"){
+		echo "<th>$num_34</th>";
+		}
 		echo "<td>$num_it1</td>";
 		echo "<td>$num_it2</td>";
 		if ($curso=="2BACH"){

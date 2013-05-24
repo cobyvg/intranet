@@ -18,7 +18,7 @@
 				$n_promo = mysql_query("select promociona, repite, claveal from matriculas_bach where id = '$id_submit'");	
 				$n_prom = mysql_fetch_array($n_promo);
 				//echo $n_prom[0];
-				if ($n_prom[0]=='2' or $n_prom[0]=='3') {
+				if (!($n_prom[0]=='2') and !($n_prom[0]=='3')) {
 				//echo $curso;	
 				if ($curso == "2BACH") {
 					
@@ -32,10 +32,9 @@
 				}				
 				}
 				elseif($curso == "1BACH"){
-				$a_bd = substr($curso_actual,0,4)+1;
+				$a_bd = substr($curso_actual,0,4);
 				mysql_query("insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
 				$ret_4 = mysql_query("select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'");
-				echo "select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'";
 				$ret = mysql_fetch_array($ret_4);
 				$sql="";				
 				$sql = "insert into matriculas VALUES (''";
@@ -43,6 +42,7 @@
 					$sql.=", '$ret[$i]'";
 				}
 				$sql.=")";
+				//echo $sql."<br>";
 				$n_afect = mysql_query($sql);
 				mysql_query("delete from matriculas_bach where id='$id_submit'");
 				}

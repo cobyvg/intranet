@@ -22,12 +22,12 @@ mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
 // Asignaturas y Modalidades
 $it11 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "Ciencias y Tecnología");
 $it12 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
-$opt11=array("DBT11" => "Dibujo Técnico I", "TIN11" => "Tecnología I", "BYG11"=>"Biología y Geología 11");
-$opt12=array("GRI12-LAT12" => "Griego 1, Latín 1", "GRI12-ECO12" => "Griego 1, Economía 1", "MCS12-ECO12"=>"Matemáticas de Ciencias Sociales 1, Economía 1", "MCS12-LAT12"=>"Matemáticas de Ciencias Sociales 1, Latín 1");
+$opt11=array("DBT11" => "Dibujo Técnico", "TIN11" => "Tecnología", "BYG11"=>"Biología y Geología");
+$opt12=array("GRI12-LAT12" => "Griego, Latín", "GRI12-ECO12" => "Griego, Economía", "MCS12-ECO12"=>"Matemáticas de Ciencias Sociales, Economía", "MCS12-LAT12"=>"Matemáticas de Ciencias Sociales, Latín");
 
 $it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "Ciencias y Tecnología");
 $it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
-$opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico II", "FIS21_TIN21" => "Física, Tecnología II", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
+$opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico", "FIS21_TIN21" => "Física, Tecnología", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
 $opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
 $opt23 =array("ingles_25" => "Inglés 2º Idioma","aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud");
 
@@ -161,10 +161,10 @@ if($enviar =="Enviar los datos de la Matrícula"){
 		
 	if ($curso=="2BACH" and $repetidor <> "1") {
 if ($itinerario1=="1"){
-	if ($optativa1=="BYG11" and strstr($optativa2,"BYG")==FALSE) {
+	if ($optativa1=="BYG11" and (strstr($optativa2,"BIO")==FALSE and strstr($optativa2,"QUI")==FALSE)) {
 		$incompat = 1;
 	}	
-	if (strstr($optativa1,"BYG")==FALSE and strstr($optativa2,"BYG")==TRUE) {
+	if (strstr($optativa1,"BYG")==FALSE and (strstr($optativa2,"BIO")==TRUE or strstr($optativa2,"QUI")==TRUE)) {
 		$incompat = 1;
 	}
 	}
@@ -560,47 +560,7 @@ exit();
 
 	<?
 	if (substr($curso,0,1) == substr($n_curso_ya,0,1) and (substr($n_curso_ya,0,1) == "1") and $cargo == '1') {$repite_1bach = "1";}
-	if (substr($curso,0,1) == substr($n_curso_ya,0,1) and (substr($n_curso_ya,0,1) == "2") and $cargo == '1') {$repite_2bach = "1";}
-	if ($cargo=="1") {
-			if ($n_curso == 2) {
-		?>
-	<tr>
-		<td colspan="3"
-			style="text-align: center; font-size: 14px; font-weight: bold; background-color: #E0E0E0; height: 24px;">
-		<b>Promoción a <?php echo $n_curso;?>º de BACHILLERATO</b></td>
-	</tr>
-	<tr>
-		<td valign=top colspan="3" style="line-height: 24px" align=center>El
-		alumno <strong>PROMOCIONA</strong> por la siguiente razón:<br />
-		<input type="radio"	name="promociona" <? if ($promociona=='1') {echo "checked"; } ?> value='1' style="margin: 2px 2px" />
-		<strong>SI.</stronG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		<input type="radio" name="promociona" <? if ($promociona=='2') {echo "checked"; }  ?> value='2'	style="margin: 2px 2px" /> 
-		<strong>NO:</stronG> por tener 5 o más suspensos.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		<input type="radio"	name="promociona" <? if ($promociona=='3') {echo "checked"; }  ?> value='3' style="margin: 2px 2px" />
-		<strong>NO:</stronG> por tener 3
-		ò 4 supensos. </td>
-	</tr>
-	<? 
-	}
-	else{
-		?>
-	<tr>
-		<td colspan="3"
-			style="text-align: center; font-size: 14px; font-weight: bold; background-color: #E0E0E0; height: 24px;">
-		<b>Promoción a <?php //echo $n_curso;?>º de BACHILLERATO</b></td>
-	</tr>
-	<tr>
-		<td valign=top colspan="3" style="line-height: 24px" align=center>El
-		alumno <strong>PROMOCIONA</strong>:<br />
-		<input type="radio"	name="promociona" <? if ($promociona=='1') {echo "checked"; } ?> value='1' style="margin: 2px 2px" />
-		<strong>SI</stronG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="radio" name="promociona" <? if ($promociona=='2') {echo "checked"; }  ?> value='2'	style="margin: 2px 2px" /> 
-		<strong>NO</stronG>
-		suspensos. </td>
-	</tr>
-	<? 
-	}  
-	}	
+	if (substr($curso,0,1) == substr($n_curso_ya,0,1) and (substr($n_curso_ya,0,1) == "2") and $cargo == '1') {$repite_2bach = "1";}	
 	?>
 
 	<tr>
@@ -864,7 +824,7 @@ if ($idio==1) {
 		</td>
 	</tr>
 	<tr>
-		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ASIGNATURAS OPTATIVAS DE 1º DE BACHILLERATO </strong><br />
+		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ASIGNATURAS OPTATIVAS DE <? echo $n_curso; ?>º DE BACHILLERATO </strong><br />
 		<span style="font-size: 10px;">(Para solicitar una modalidad o vía diferente a la que ya has cursado debes pasar por Jefatura de Estudios.)</span></td>
 	</tr>
 
@@ -995,9 +955,7 @@ if ($idio==1) {
 	if ($repetidor <> 1) {
 		?>
 	<tr id='no_repite1'>
-		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ELECCIÓN
-		DE ASIGNATURAS OPTATIVAS DE 1º DE BACHILLERATO</strong><br />
-		<span style="font-size: 10px;">Selecciona las asignaturas de la Modalidad de Bachillerato elegida (Bachillerato de Ciencias y Tecnología o Bachillerato de Humanidades y Ciencias Sociales)</span> </td>
+		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ASIGNATURAS OPTATIVAS DE 1º DE BACHILLERATO</strong></td>
 	</tr>
 	<?
 	echo " <tr><td colspan='3'>";

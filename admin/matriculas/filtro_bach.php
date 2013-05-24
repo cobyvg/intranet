@@ -74,9 +74,9 @@ echo ">&nbsp;&nbsp;";
 		}
 		?>
 			<option></option>
-			<option>Promociona</option>
-			<option>PIL</option>
-			<option>Repite</option>
+			<option>SI</option>
+			<option>NO</option>
+			<option>3/4</option>
 		</select></td>
 		<td></td>
 		
