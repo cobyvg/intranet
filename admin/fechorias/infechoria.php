@@ -1,6 +1,13 @@
 <?
-if ($submit1)
+if ( $_POST['nivel']) {
+	 $nivel = $_POST['nivel'];
+}
+if ( $_POST['grupo']) {
+	 $grupo = $_POST['grupo'];
+}
+if ($_POST['submit1'])
 {
+$notas = $_POST['notas']; $grave = $_POST['grave'];$nombre = $_POST['nombre']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida']; $claveal = $_POST['claveal']; $expulsionaula = $_POST['expulsionaula'];  $id = $_POST['id'];
 include("fechoria25.php");
 	exit;
 }
@@ -19,18 +26,19 @@ else
 	<?php
 	include("../../menu.php");
 	include("menu.php");
-	// Si se envian datos desde el campo de búsqueda de alumnos, se separa claveal para procesarlo.
-	if ($submit2) {
-	    mysql_query("update Fechoria set asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida' 
-	    where id = '$id'");
+$notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida'];  $id = $_POST['id']; $claveal = $_POST['claveal']; $expulsionaula = $_POST['expulsionaula'];
+// Actualizar datos
+	if ($_POST['submit2']) {
+	    mysql_query("update Fechoria set asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula'  where id = '$id'");
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han actualizado correctamente.
           </div></div><br />';
 	exit();
 	}
-	if ($seleccionado=="1") {
-		$tr=explode(" --> ",$nombre_al);
+// Si se envian datos desde el campo de búsqueda de alumnos, se separa claveal para procesarlo.
+	if ($_GET['seleccionado']=="1") {
+		$tr=explode(" --> ",$_GET['nombre_al']);
 		$claveal=$tr[1];
 		$nombre=$tr[0];
 		$ng_al0=mysql_query("select nivel, grupo from FALUMNOS where claveal = '$claveal'");
@@ -38,9 +46,11 @@ else
 		$nivel=$ng_al[0];
 		$grupo=$ng_al[1];
 	}
-	
-	if ($id) {
-		$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+	if ($_GET['id'] or $_POST['id']) {
+		$id = $_GET['id'];
+		$claveal = $_GET['claveal'];
+		$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+
   if ($row = mysql_fetch_array($result))
         {
 
@@ -55,7 +65,7 @@ else
 			$grave = $row[8];
 			$asunto = $row[6];
 		}
-		
+		$expulsionaula = $row[19];
 		$medida = $row[9];
 		$medidas2 = $row[10];
 		$expulsion = $row[11];
@@ -91,7 +101,7 @@ else
 <label style="display: inline">&nbsp;&nbsp;&nbsp;Grupo: 
 <select name="grupo" onChange="submit()"
 	class="input-mini">
-	<option><? echo $grupo;?></option>
+	<option><? echo $grupo;;?></option>
 	<? grupo($nivel);?>
 </select> 
 </label> 
@@ -163,6 +173,7 @@ else
 </select> </label> <label>Asunto:<br />
 <select name="asunto" onChange="submit()" class="span4">
 	<option><? 
+	
 	$sql0 = mysql_query("select tipo from listafechorias where fechoria = '$asunto'");
 	$sql1 = mysql_fetch_array($sql0);
 	if($sql1[0] !== $grave)
@@ -195,12 +206,13 @@ else
 	class="span4" style="color: #9d261d" /> </label> <label>Medidas
 Complementarias que deben tomarse:<br />
 <textarea name='medidas' cols=80 rows=6 disabled="disabled"
-	class="span4" style="color: #9d261d"><?if($medidas){ echo $medidad; }else{  medida2($asunto);} ?></textarea>
+	class="span4" style="color: #9d261d"><? if($medidas){ echo $medidad; }else{  medida2($asunto);} ?></textarea>
 </label> <?
 if($grave == 'grave' or $grave == 'muy grave'){
-	?> <label><input type="checkbox" name="expulsionaula"
-	id="expulsionaula" value="1"> <span style="color: #08c"> El Alumno ha
-sido <u>expulsado</u> del Aula</span> <? } ?> </label> <label>
+	?> 
+	<label><input type="checkbox" name="expulsionaula" id="expulsionaula" value="1" <?  if ($expulsionaula == "1") { echo " checked ";}?>> <span style="color: #08c"> El Alumno ha
+sido <u>expulsado</u> del Aula</span> <? }?> </label> 
+<label>
 Descripci&oacute;n:<br />
 <textarea name='notas' cols=80 rows=6 class="span4"><? echo $notas; ?></textarea>
 </label> 

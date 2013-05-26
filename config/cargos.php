@@ -28,7 +28,7 @@ include ("../menu.php");
 <p align="left" class="help-block well" style="width:540px"><i class="icon icon-question-sign"> </i> Si necesitas información sobre los distintos perfiles de los profesores, puedes conseguirla colocando el cursor del ratón sobre los distintos tipos de perfiles (DACE, JD, Administ., Orienta, etc.).</p>
 </div>
 <?
-if ($enviar == "Enviar") {
+if ($_POST['enviar'] == "Enviar") {
 mysql_query ( "truncate table FTUTORES" );
 mysql_query ( "truncate table cargos " );
 	

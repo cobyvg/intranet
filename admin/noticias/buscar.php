@@ -14,6 +14,7 @@ $profesor = $_SESSION['profi'];
   <?php
 include("../../menu.php");
 include("menu.php");
+$expresion = $_POST['expresion'];
 ?>
 <div class="page-header" align="center">
   <h1>Noticias del Centro <small> Buscar en las Noticias</small></h1>

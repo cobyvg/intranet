@@ -24,7 +24,9 @@ include("menu.php");
 <?
 $connection = mysql_connect($db_host, $db_user, $db_pass) or die ("No es posible conectar con la base de datos!");
 mysql_select_db($db) or die ("No es posible conectar con la base de datos!");
-
+$id = $_GET['id'];
+$fech_princ = $_GET['fech_princ'];
+$borrar = $_GET['borrar'];
 if($borrar == "1")
 {
 $query = "DELETE from noticias WHERE id = '$id'";

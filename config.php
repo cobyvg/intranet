@@ -1,7 +1,6 @@
 <?php
-$config_dir='/opt/e-smith/';
-$dominio='localhost:8888';
-$nombre_del_centro='I.E.S. Monterroso';
+$dominio='localhost';
+$nombre_del_centro='I.E.S. Monterroso 2';
 $nombre_corto='imonterroso';
 $codigo_del_centro='29002885';
 $email_del_centro='director@iesmonterroso.org';
@@ -16,20 +15,17 @@ $fax_del_centro='952804309';
 $curso_actual='2012/13';
 $inicio_curso='2012-09-17';
 $fin_curso='2013-06-21';
-$usuario_smstrend='instituto@iesmonterroso.org';
-$clave_smstrend='monterroso';
+$usuario_smstrend='';
+$clave_smstrend='';
 $db='faltas';
 $db_reservas='reservas';
-$db_user='root';
+$db_user='php';
 $db_host='localhost';
-$db_pass='root';
-$css1='intranet/estilo.css';
+$db_pass='camell';
 $mod_tic='1';
 $mod_horario='1';
 $mod_faltas='1';
-$mod_sms='1';
-$raiz_dir='/home/e-smith/files/ibays/intranet/html/';
-$doc_dir='/home/e-smith/files/ibays/Primary/files/departamentos/';
+$fotos_dir='/tmp';
 $num_administ='2';
 $num_conserje='1';
 $administ1='Fernández León, María Luisa';
@@ -76,10 +72,8 @@ $medio8='';
 $medio9='';
 $medio10='';
 
-// Conexión con MySql
 mysql_connect($db_host, $db_user, $db_pass);
 mysql_select_db($db);
-// Registramos las páginas
 function registraPagina($pagina,$host,$user,$pass,$base)
 {
 mysql_connect ($host, $user, $pass);

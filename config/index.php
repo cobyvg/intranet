@@ -49,20 +49,23 @@ function activarMod_sms() {
 </script>
 </head>
 <body>
-<?php
+<?php		
 if (strlen($_SESSION['mens_error']) > 10) {
 	echo $_SESSION['mens_error'];
 	$_SESSION['mens_error'] = "";
 }
 if ($_POST['enviar'] or $_POST['num_carrito'] or $_POST['num_aula'] or $_POST['num_medio'])
-{
+{	
 if(!(file_exists("../config.php")) OR filesize("../config.php")<10)
 {
 $primera = "1";
 }
-
-if(!(empty($db) or empty($db_reservas) or empty($db_host) or empty($db_user) or empty($db_pass) or empty($dominio) or empty($nombre_del_centro) or empty($codigo_del_centro) or empty($email_del_centro) or empty($director_del_centro) or empty($jefatura_de_estudios) or empty($secretario_del_centro) or empty($direccion_del_centro) or empty($localidad_del_centro) or empty($codigo_postal_del_centro) or empty($telefono_del_centro) or empty($curso_actual) or empty($inicio_curso) or empty($fin_curso)))
-{
+if(!(empty($_POST['db']) or empty($_POST['db_reservas']) or empty($_POST['db_host']) or empty($_POST['db_user']) or empty($_POST['db_pass']) or empty($_POST['dominio']) or empty($_POST['nombre_del_centro']) or empty($_POST['codigo_del_centro']) or empty($_POST['email_del_centro']) or empty($_POST['director_del_centro']) or empty($_POST['jefatura_de_estudios']) or empty($_POST['secretario_del_centro']) or empty($_POST['direccion_del_centro']) or empty($_POST['localidad_del_centro']) or empty($_POST['codigo_postal_del_centro']) or empty($_POST['telefono_del_centro']) or empty($_POST['curso_actual']) or empty($_POST['inicio_curso']) or empty($_POST['fin_curso'])))
+{	
+$db = $_POST['db'];
+$db_reservas = $_POST['db_reservas'];
+$db_host = $_POST['db_host'];
+$db_user = $_POST['db_user'];
 $funcion = '
 mysql_connect($db_host, $db_user, $db_pass);
 mysql_select_db($db);
@@ -87,6 +90,7 @@ Esto quiere decir que no le has concedido permiso de escritura al directorio don
 	exit();
 }
 else{
+
 include 'escribe_archivo.php';
 }
 if($primera == "1"){
@@ -124,7 +128,7 @@ $mens = '<div align="center"><div class="alert alert-success alert-block fade in
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han guardado correctamente en el archivo de configuración de la aplicación.     
 </div></div>';
-}
+} // Final de envío de datos
 
 
 if(file_exists("../config.php") AND filesize("../config.php")>10)

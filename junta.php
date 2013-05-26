@@ -1,7 +1,7 @@
 
 <p class="lead">Novedades en la Consejería</p>
 <small>(<?
-fecha_actual ();
+fecha_actual2();
 echo " " . date ( "H:i:s" );
 ?>) </small>
 <br />

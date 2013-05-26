@@ -22,7 +22,7 @@ include("menu.php");
 <div class="row-fluid">
 <div class="span10 offset1">
 <? 
-
+$id = $_GET['id'];
 $connection = mysql_connect($db_host, $db_user, $db_pass) or die ("Imposible conectar!");
 mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
 

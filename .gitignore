@@ -3,3 +3,5 @@
 *.xml
 xml/jefe/TIC/*.txt
 cache/*
+
+*.jpg
