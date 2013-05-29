@@ -76,7 +76,10 @@ echo ">&nbsp;&nbsp;";
 			<option></option>
 			<option>SI</option>
 			<option>NO</option>
+		<? if ($n_curso=="1") {?>
 			<option>3/4</option>
+			<? }?>
+			
 		</select></td>
 		<td></td>
 		

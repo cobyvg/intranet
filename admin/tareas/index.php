@@ -55,6 +55,9 @@ $resultcurso = mysql_query($SQLcurso);
 // Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en su el campo combasi	
 	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.NIVEL, tareas_alumnos.GRUPO, tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and  date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. nivel = '$nivel' and tareas_alumnos.grupo = '$grupo' and combasi like '%$codasi%' ORDER BY tareas_alumnos.FECHA asc";
 	$result = mysql_query($query);
+	$result0 = mysql_query ( "select tutor from FTUTORES where nivel = '$nivel' and grupo = '$grupo'" );
+	$row0 = mysql_fetch_array ( $result0 );	
+	$tuti = $row0[0];
 	if (mysql_num_rows($result) > 0)
 {
 	echo "<form name='consulta' method='POST' action='tutoria.php'>";
@@ -78,8 +81,11 @@ if (mysql_num_rows($si) > 0)
    <TD colspan='1' nowrap><span class='badge badge-warning'>Informe ya rellenado</span></td>";
    echo "<TD> 
 			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i> </a>
-			<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> 			
-			</td>";	
+			<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> ";			
+   if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
+   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> 	";
+   }
+			echo "</td>";	
    }
    		else
 		{
@@ -95,7 +101,11 @@ if (mysql_num_rows($si) > 0)
 	  if (mysql_num_rows($si) > 0 and $count < 1)
 		{} 
 		else{
-			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i> </a>";		}
+			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i> </a>";		
+		 if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
+   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> 	";
+   }	
+		}
 	  if (mysql_num_rows($si) > 0 and $count < 1)
 		{} 
 		else{ 

@@ -451,7 +451,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				if ($n_curso == "2") {
 			// Junio
 				if (date('m')>'04' and date('m')<'09'){					
-					if ($val_notas<1 and $num_ord>1) {$promociona="1";}
+					if ($val_notas<3 and $num_ord>1) {$promociona="1";}
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
 						echo " />";
@@ -465,7 +465,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				}
 				// Septiembre
 				elseif (date('m')=='09' and $num_ord1>1){
-					if ($val_notas<1) {$promociona="1";}elseif($val_notas>2 and $val_notas<5) {$promociona="3";}else{$promociona="2";}					
+					if ($val_notas<3) {$promociona="1";}elseif($val_notas>2 and $val_notas<5) {$promociona="3";}else{$promociona="2";}					
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
 						echo " />";
@@ -536,8 +536,8 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		else{
 			$extra="";	
 		}
-		$rel = mysql_query("select religion from matriculas_bach where curso = '$curso' $extra and religion like 'Rel%'");
-		//echo "select religion from matriculas_bach where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like 'Rel%'";
+
+		$rel = mysql_query("select religion from matriculas_bach where curso = '$curso' $extra and religion like '%Católica%'");
 		$num_rel = mysql_num_rows($rel);
 		//echo $num_rel;
 		if ($curso=="2BACH"){		
@@ -563,13 +563,13 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		style="width: auto">
 		<tr>
 		<?
-		echo "<th>Religión</td>";
+		echo "<th>Religión</th>";
 
 		//echo "<th>Optativa$n_curso</th>";
 
 		echo "<th>Promociona</th>";
 		echo "<th>Repite</th>";
-		if ($curso=="2BACH"){
+		if ($curso=="1BACH"){
 		echo "<th>3/4</th>";
 		}
 		echo "<th>Itinerario1</th>";
@@ -586,7 +586,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		echo "<td>$num_rel</td>";
 		echo "<td>$num_promo</td>";
 		echo "<td>$num_repit</td>";		
-		if ($curso=="2BACH"){
+		if ($curso=="1BACH"){
 		echo "<th>$num_34</th>";
 		}
 		echo "<td>$num_it1</td>";

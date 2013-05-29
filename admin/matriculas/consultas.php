@@ -319,7 +319,7 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	$opt44=array("Alemán2_4" => "Alemán 2º Idioma", "Francés2_4" => "Francés 2º Idioma", "Tecnología_4" => "Tecnología");
 //	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
 	$a1 = array("Actividades de refuerzo de Inglés", "Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas",  "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
-	$a2 = array("Actividades de refuerzo de Inglés", "Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas",  "Ampliación: Taller T.I.C. II");
+	$a2 = array("Actividades de refuerzo de Inglés", "Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas",  "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
 		
 	
 $sql = "select id, apellidos, nombre, curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado";
@@ -592,7 +592,7 @@ for ($i=1;$i<$num_acti+1;$i++){
 	${num_act.$i} = mysql_num_rows(${acti.$i});
 }
 }
-$rel = mysql_query("select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like 'Rel%'");
+$rel = mysql_query("select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like '%Católica%'");
 //echo "select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like 'Rel%'";
 $num_rel = mysql_num_rows($rel);
 //echo $num_rel;
@@ -620,7 +620,7 @@ $num_repit = mysql_num_rows($repit);
 <table class="table table-striped table-bordered" align="center" style="width:auto">
 <tr>
 <? 
-echo "<th>Religión</td>";
+echo "<th>Religión</th>";
 if ($curso=="1ESO" OR $curso=="2ESO"){
 	echo "<th>Exención</th>";
 }
@@ -691,7 +691,7 @@ else{
 	$nom_opt.="<span style='color:#08c;'>Opt".$nombre_optativa."</span> = ".$valor."; ";
 }
 }
-echo substr($nom_opt,0,-2);
+//echo substr($nom_opt,0,-2);
 ?>
 </td></tr></table>
 <?

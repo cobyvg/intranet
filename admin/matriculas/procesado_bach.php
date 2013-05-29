@@ -18,7 +18,7 @@
 				$n_promo = mysql_query("select promociona, repite, claveal from matriculas_bach where id = '$id_submit'");	
 				$n_prom = mysql_fetch_array($n_promo);
 				//echo $n_prom[0];
-				if (!($n_prom[0]=='2') and !($n_prom[0]=='3')) {
+				if (!($n_prom[0]=='2') and !($n_prom[0]=='3') and $n_prom[1]<>1) {
 				//echo $curso;	
 				if ($curso == "2BACH") {
 					

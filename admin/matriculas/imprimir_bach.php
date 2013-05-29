@@ -107,14 +107,6 @@ $documentacion = "1. Fotocopia del DNI. Si el alumno no dispone de DNI, una foto
 ";
 $datos_junta = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, la Consejería de Educación le informa que los datos personales obtenidos mediante la cumplimentación de este formulario y demás documentación que se adjunta van a ser incorporados, para su tratamiento, al fichero 'Séneca. Datos personales y académicos del alumnado', con la finalidad de recoger los datos personales y académicos del alumnado que cursa estudios en centros dependientes de la Conserjería de Educación, así como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría General Técnica de la Conserjería de Educación de la Junta de Andalucía en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana 41071 SEVILLA";
 
-	# insertamos la primera pagina del documento
-	$MiPDF->Addpage ();
-	$MiPDF->SetFont ( 'Times', '', 10  );
-	$MiPDF->SetTextColor ( 0, 0, 0 );
-	$MiPDF->SetFillColor(230,230,230);
-	$MiPDF->Multicell ( 0, 4, $titulo_documentacion, 0, 'C', 0 );
-	$MiPDF->Ln ( 4 );
-	$MiPDF->Multicell ( 0, 6, $documentacion, 0, 'L', 0 );
 	
 // Formulario de la junta	
 for($i=1;$i<3;$i++){
@@ -125,8 +117,8 @@ for($i=1;$i<3;$i++){
 	$MiPDF->SetFillColor(230,230,230);
 	$MiPDF->Image ( '../../imag/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 8 );
-	$titulo2 = "BACHILLERATO                                                          MATRICULA";
-	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'L', 0 );
+	$titulo2 = "MATRÍCULA DE ". $n_curso."º DE BACHILLERATO";
+	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'C', 0 );
 
 	$MiPDF->Ln ( 8 );
 	$MiPDF->SetFont ( 'Times', '', 7 );
@@ -207,8 +199,8 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Ln ( 8 );
 	//echo $itinerario;
 	if ($n_curso == '4') { $extra="4ESO (It. $itinerario)";}else{$extra=$curso;}
-	$MiPDF->Cell(70,5,"CURSO EN QUE SE MATRICULA",0,0,"C");
-	$MiPDF->Cell(98,5,"MATERIAS DE LA MODALIDAD EN QUE SE MATRICULA",0,0,"C");
+	$MiPDF->Cell(78,5,"CURSO EN QUE SE MATRICULA",0,0,"C");
+	$MiPDF->Cell(90,5,"MATERIAS DE LA MODALIDAD",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	
 	$opt="";
@@ -233,6 +225,8 @@ for($i=1;$i<3;$i++){
 			}
 		}
 // Optativas extra de 2 de bach.
+	$n_z="";
+	$opt_2b = "";
 			foreach ($opt23 as $key=>$val){
 				$n_z+=1;		
 				$opt_b = mysql_query("select optativa2b$n_z from matriculas_bach where id = '$id'");
@@ -242,8 +236,8 @@ for($i=1;$i<3;$i++){
 				}
 			}
 		//$opt_o = "\nOptativas de Bachillerato".$opt_2b;
-	$MiPDF->Cell(70,5,$n_curso."º DE BACHILLERATO ( ".$mod_registro." )",1,0,'C');
-	$MiPDF->MultiCell(98,5,$opt,1);
+	$MiPDF->Cell(78,5,$n_curso."º DE BACH. ( ".$mod_registro." )",1,0,'C');
+	$MiPDF->MultiCell(90,5,$opt,1);
 	$MiPDF->Ln ( 2 );
 	$MiPDF->Cell(165,5,"MATERIAS OPTATIVAS",0,0,"C");
 	$MiPDF->Ln ( 5 );
@@ -266,6 +260,15 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Ln ( 3 );		
 	$MiPDF->MultiCell(168, 3, $datos_junta,1,'L',1);
 }
+
+	# insertamos la pagina de documentación
+	$MiPDF->Addpage ();
+	$MiPDF->SetFont ( 'Times', '', 10  );
+	$MiPDF->SetTextColor ( 0, 0, 0 );
+	$MiPDF->SetFillColor(230,230,230);
+	$MiPDF->Multicell ( 0, 4, $titulo_documentacion, 0, 'C', 0 );
+	$MiPDF->Ln ( 4 );
+	$MiPDF->Multicell ( 0, 6, $documentacion, 0, 'L', 0 );
 	include("autorizaciones_bach.php");
 	}
    $MiPDF->AutoPrint(true);     
