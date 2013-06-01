@@ -18,7 +18,7 @@ PHP_VERSION >= 5.0 or die("DOMPDF requires PHP 5.0+");
  * The root of your DOMPDF installation
  */
 //echo  realpath(dirname(__FILE__));
-$root_dir = $raiz_dir."pdf";
+$root_dir = realpath(dirname(__FILE__));
 define("DOMPDF_DIR", str_replace(DIRECTORY_SEPARATOR, '/', $root_dir));
 //echo DOMPDF_DIR;
 /**

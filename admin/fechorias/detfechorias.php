@@ -15,7 +15,7 @@ $tutor = $_SESSION['profi'];
 include("../../menu.php");
 include("menu.php");
 $id = $_GET['id'];
-		$claveal = $_GET['claveal'];
+$claveal = $_GET['claveal'];
 include("expulsiones.php");
 if (strlen($mensaje)>"0") {
 echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">

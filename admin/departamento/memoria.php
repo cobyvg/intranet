@@ -31,6 +31,32 @@ $n_preg=15;
 
 <?
 include '../../menu.php';
+// Creación de la tabla
+mysql_query("CREATE TABLE IF NOT EXISTS `mem_dep` (
+  `departamento` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
+  `jefe` varchar(150) COLLATE latin1_spanish_ci NOT NULL,
+  `p1` text COLLATE latin1_spanish_ci NOT NULL,
+  `p2` text COLLATE latin1_spanish_ci NOT NULL,
+  `p3` text COLLATE latin1_spanish_ci NOT NULL,
+  `p4` text COLLATE latin1_spanish_ci NOT NULL,
+  `p5` text COLLATE latin1_spanish_ci NOT NULL,
+  `p6` text COLLATE latin1_spanish_ci NOT NULL,
+  `p7` text COLLATE latin1_spanish_ci NOT NULL,
+  `p8` text COLLATE latin1_spanish_ci NOT NULL,
+  `p9` text COLLATE latin1_spanish_ci NOT NULL,
+  `p10` text COLLATE latin1_spanish_ci NOT NULL,
+  `p11` text COLLATE latin1_spanish_ci NOT NULL,
+  `p12` text COLLATE latin1_spanish_ci NOT NULL,
+  `p13` text COLLATE latin1_spanish_ci NOT NULL,
+  `p14` text COLLATE latin1_spanish_ci NOT NULL,
+  `p15` text COLLATE latin1_spanish_ci NOT NULL,
+  `p16` text COLLATE latin1_spanish_ci NOT NULL,
+  `p17` text COLLATE latin1_spanish_ci NOT NULL,
+  `p18` text COLLATE latin1_spanish_ci NOT NULL,
+  `p19` text COLLATE latin1_spanish_ci NOT NULL,
+  `p20` text COLLATE latin1_spanish_ci NOT NULL,
+  PRIMARY KEY (`departamento`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 // Miembros
 $depto=$_SESSION ['dpt'];
 $dep0 = mysql_query("select nombre from departamentos where departamento = '$depto'");
@@ -112,7 +138,8 @@ if($aceptar == "Si"){
 
 foreach($campos as $nombre_del_campo)
 {
-if (!isset($_POST[$nombre_del_campo]) or ($_POST[$nombre_del_campo]=='')){$_POST[$nombre_del_campo]="";}	
+if (!isset($_POST[$nombre_del_campo]) or ($_POST[$nombre_del_campo]=='')){$_POST[$nombre_del_campo]="";
+}	
 }
 #	echo 'paso por actualizar<br>';
 
@@ -183,6 +210,35 @@ echo "<p class='text-info'>".$pregunta[$i]."</p>";
 echo "<p class='muted'>".$nota[$i]."</p>";
 if (strstr($pregunta[$i], "1.1.")==TRUE and strlen($p[$i])<"5") {
 	$contenido = $miembros;
+}
+elseif (strstr($pregunta[$i], "2. Análisis")==TRUE and strlen($p[$i])<"5") {
+	$contenido = '<p style="padding-left: 30px;">&nbsp;1. Evoluci&oacute;n de los resultados acad&eacute;micos: an&aacute;lisis seg&uacute;n niveles y grupos.</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">&nbsp;2. An&aacute;lisis de causas de las posibles divergencias.</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">&nbsp;3. Medidas adoptadas para la mejora de resultados durante el curso actual</p>
+<p style="padding-left: 30px;">&nbsp;</p>';
+}
+elseif (strstr($pregunta[$i], "3. Seguimiento")==TRUE and strlen($p[$i])<"5") {
+	$contenido = '<p style="padding-left: 30px;">1. An&aacute;lisis y descripci&oacute;n del grado de cumplimiento de la programaci&oacute;n por asignatura, nivel y grupo.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p style="padding-left: 30px;">2. Propuestas de modificaciones de la programaci&oacute;n (objetivos, contenidos, metodolog&iacute;a, temporalizaci&oacute;n...).</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>';
+}
+elseif (strstr($pregunta[$i], "5.1.")==TRUE and strlen($p[$i])<"5") {
+	$contenido = '<p style="padding-left: 30px;">1. Miembros del Departamento responsables del seguimiento del alumnado con materias pendientes</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">2. Resultados obtenidos: causas de posibles divergencias</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">3. Seguimiento del programa de recuperaci&oacute;n: caracter&iacute;sticas de los programas, plazos...</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">&nbsp;</p>';
 }
 elseif(strstr($pregunta[$i], "8. Act")==TRUE and strlen($p[$i])<"5"){
 	$contenido = $activ;

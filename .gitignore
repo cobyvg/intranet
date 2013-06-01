@@ -5,3 +5,5 @@ xml/jefe/TIC/*.txt
 cache/*
 
 *.jpg
+
+config.php
