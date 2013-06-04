@@ -201,8 +201,4 @@ NOMBRE Y  APELLIDOS  DE SUS HIJOS/AS  Y CURSO EN QUE SE MATRICULAN EN '.$c_escol
 	$MiPDF->Multicell ( 0, 6, $ampa21, 1, 'L', 1 );
 	$MiPDF->Multicell ( 0, 6, $ampa2, 0, 'L', 0 );
 	$MiPDF->Ln ( 3 );
-	$MiPDF->Multicell ( 0, 6, $ampa31, 1, 'L', 1 );
-	$MiPDF->Multicell ( 0, 6, $ampa3, 0, 'L', 0 );
-	$MiPDF->Ln ( 3 );
-	
 	?>

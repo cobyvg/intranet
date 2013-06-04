@@ -1,10 +1,10 @@
 <?
-$pa = explode(", ", $datos_ya->padre);
+$pa = explode(", ", $row[10]);
 $papa = "$pa[1] $pa[0]";
 $hoy = formatea_fecha(date('Y-m-d'));
 $titulo4 = "AUTORIZACIÓN  PARA FOTOS Y GRABACIONES";
 $autoriza_fotos="
-D./Dª $papa, con DNI $datos_ya->dnitutor, representante legal del alumno/a $datos_ya->nombre $datos_ya->apellidos
+D./Dª $papa, con DNI $row[11], representante legal del alumno/a $row[3] $row[2]
 AUTORIZA al I.E.S. Monterroso a fotografiar o grabar con video a su hijo o hija con fines educativos 
 y dentro del contexto educativo del centro o de actividades complementarias o extraescolares desarrolladas por el mismo. 
 
@@ -41,7 +41,7 @@ $an1 = $an+1;
 $an2 = $an+2;
 $c_escolar = $an1."/".$an2;
 $autoriza_religion="
-D./Dª $papa, como padre, madre o tutor legal del alumno/a $datos_ya->nombre $datos_ya->apellidos del curso ".$n_curso."º de ESO del IES Monterroso, en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación.
+D./Dª $papa, como padre, madre o tutor legal del alumno/a $row[3] $row[2] del curso ".$n_curso."º de ESO del IES Monterroso, en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación.
 
 
 
@@ -93,7 +93,6 @@ if (substr($religion, 0, 1)=="R") {
 }
 
 // AMPA
-
 $dni_papa = explode(": ", $dnitutor);
 $dnipapa = $dni_papa[1];
 $hijos = mysql_query("select apellidos, nombre, nivel from alma where dnitutor = '$dnipapa'");
@@ -154,7 +153,7 @@ ampamonterroso@gmail.com
      La  cuota  de  la Asociación  de  Madres  y  Padres  es  de  12 euros por  familia y por curso.  La  pertenencia  a la   A.M.P.A  es voluntaria. Las  madres,  padres o tutores  de  los  alumnos/as  que  deseen  pertenecer a la  A.M.P.A  deberán  presentar  éste  impreso.';
 	$ampa21='CON EL NÚMERO DE SOCIO ENTRARÁS EN EL SORTEO DE UN ORDENADOR PORTATIL Y DE UNA CAMARA DE FOTOS DIGITAL';
 	$ampa2 = '
-Nombre del Padre, Madre o Tutor Legal: '.$papa.'. DNI: '.$datos_ya->dnitutor.'
+Nombre del Padre, Madre o Tutor Legal: '.$papa.'. DNI: '.$dnipapa.'
 '.$domicilio.'
 '.$telefono1.'
 '.$correo.'

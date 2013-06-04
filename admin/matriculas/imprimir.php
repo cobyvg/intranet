@@ -48,6 +48,7 @@ if ($row = mysql_fetch_array ( $result )) {
 	$apellidos = "Apellidos del Alumno: ". $row[2];
 	 $nombre= "Nombre: ".$row[3];
 	 $nacido= "Nacido en: ".$row[4];
+	 $nacimiento = cambia_fecha($row[6]);
 	 $provincia= "Provincia de: ".$row[5];
 	 $fecha_nacimiento= "Fecha de Nacimiento: $nacimiento";
 	 $domicilio= "Domicilio: ".$row[7];
@@ -221,13 +222,13 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(21,5,$hermanos,1,0,'C');
 	$MiPDF->Cell(20,5,$sexo,1,0,'C');
 	$MiPDF->Ln ( 8 );
-	$MiPDF->Cell(56,5,"DOMICILIO",0,0,"C");
-	$MiPDF->Cell(56,5,"LOCALIDAD",0,0,"C");
+	$MiPDF->Cell(76,5,"DOMICILIO",0,0,"C");
+	$MiPDF->Cell(36,5,"LOCALIDAD",0,0,"C");
 	$MiPDF->Cell(28,5,"COD. POSTAL",0,0,"C");
 	$MiPDF->Cell(28,5,"PROVINCIA",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(56,5,$row[7],1,0,'C');
-	$MiPDF->Cell(56,5,$row[8],1,0,'C');
+	$MiPDF->Cell(76,5,$row[7],1,0,'C');
+	$MiPDF->Cell(36,5,$row[8],1,0,'C');
 	$MiPDF->Cell(28,5,"29680",1,0,'C');
 	$MiPDF->Cell(28,5,"Málaga",1,0,'C');
 	$MiPDF->Ln ( 8 );

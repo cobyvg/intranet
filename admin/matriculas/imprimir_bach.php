@@ -154,13 +154,13 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(21,5,$hermanos,1,0,'C');
 	$MiPDF->Cell(20,5,$sexo,1,0,'C');
 	$MiPDF->Ln ( 8 );
-	$MiPDF->Cell(56,5,"DOMICILIO",0,0,"C");
-	$MiPDF->Cell(56,5,"LOCALIDAD",0,0,"C");
+	$MiPDF->Cell(76,5,"DOMICILIO",0,0,"C");
+	$MiPDF->Cell(36,5,"LOCALIDAD",0,0,"C");
 	$MiPDF->Cell(28,5,"COD. POSTAL",0,0,"C");
 	$MiPDF->Cell(28,5,"PROVINCIA",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(56,5,$datos_ya->domicilio,1,0,'C');
-	$MiPDF->Cell(56,5,$datos_ya->localidad,1,0,'C');
+	$MiPDF->Cell(76,5,$datos_ya->domicilio,1,0,'C');
+	$MiPDF->Cell(36,5,$datos_ya->localidad,1,0,'C');
 	$MiPDF->Cell(28,5,"29680",1,0,'C');
 	$MiPDF->Cell(28,5,"Málaga",1,0,'C');
 	$MiPDF->Ln ( 8 );

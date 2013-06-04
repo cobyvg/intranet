@@ -32,9 +32,8 @@ include("../../../menu.php");
 				<input name="archivo" id='archivo' type="file" />
 				</div>
 				</div>
-</FORM>
 <br />
 <div align="center">
 <input class='btn btn-primary btn-large' type="submit" name="enviar" value="Aceptar" />
 </div>
-<?php include('../pie.inc.php');?>
+</FORM>
