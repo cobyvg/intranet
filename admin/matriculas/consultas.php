@@ -358,7 +358,7 @@ echo '<th>Colegio</th>';
 		}
 echo '<th>Rel.</th>';
 echo '<th>Transporte</th>';
-if ($n_curso<3) {
+if ($n_curso<4) {
 echo '<th>Bil.</th>';
 		}
 		if ($n_curso<3) {
@@ -449,11 +449,13 @@ if($ruta_este){$trans = substr($ruta_este, 0, 10).".";}
 if($ruta_oeste){$trans = substr($ruta_oeste, 0, 10).".";}
 echo '<td> '.$trans.'</td>';
 
-if ($n_curso<3) {	
+		if ($n_curso<4) {	
 echo '<td><input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
  if($bilinguismo=="Si"){echo " checked";} 
  echo ' /></td>';
- if ($exencion=="0") {$exencion="";}
+		}
+		if ($n_curso<3) {
+			 if ($exencion=="0") {$exencion="";}
 echo '<td><input name="exencion-'. $id .'" type="checkbox" value="1"';
  if($exencion=="1"){echo " checked";} 
  echo ' /></td>';

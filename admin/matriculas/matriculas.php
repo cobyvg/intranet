@@ -1040,7 +1040,7 @@ elseif ($n_curso == 3) {
 		<?
 	}
 	?>
-	<?  if(substr($curso, 0, 1) < 3) { ?>
+	<?  if(substr($curso, 0, 1) < 2) { ?>
 	<tr>
 		<td colspan="3"><input type="checkbox" name="bilinguismo" value="Si"
 		<? if($bilinguismo == 'Si'){echo "checked";} ?> /> El alumno/a

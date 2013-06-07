@@ -14,14 +14,15 @@ $tutor = $_SESSION['profi'];
  
 include("../../menu.php");
 include("menu.php");
-$id = $_GET['id'];
-$claveal = $_GET['claveal'];
+if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}
+if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
+
 include("expulsiones.php");
 if (strlen($mensaje)>"0") {
 echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-            $mensaje
+			<h5>ATENCIÓN:</h5>'.
+            $mensaje.'
           </div></div>';
 }
 $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");

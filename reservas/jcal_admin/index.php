@@ -20,7 +20,7 @@ include("../../menu.php");
 include("../menu.php");
 mysql_select_db($db_reservas);
 
-if (isset($_GET['month'])) { $month = $_GET['month']; $month = ereg_replace ("[[:space:]]", "", $month); $month = ereg_replace ("[[:punct:]]", "", $month); $month = ereg_replace ("[[:alpha:]]", "", $month); }
+if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("[[:space:]]", "", $month); $month = ereg_replace ("[[:punct:]]", "", $month); $month = ereg_replace ("[[:alpha:]]", "", $month); }
 if (isset($_GET['year'])) { $year = $_GET['year']; $year = ereg_replace ("[[:space:]]", "", $year); $year = ereg_replace ("[[:punct:]]", "", $year); $year = ereg_replace ("[[:alpha:]]", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
 if (isset($_GET['today'])) { $today = $_GET['today']; $today = ereg_replace ("[[:space:]]", "", $today); $today = ereg_replace ("[[:punct:]]", "", $today); $today = ereg_replace ("[[:alpha:]]", "", $today); }
 

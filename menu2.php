@@ -259,21 +259,13 @@ if (stristr ( $carg, '1' ) == TRUE) {
 				}
 				?>
 					<li><a href="admin/mensajes/correo.php" target="_top">Enviar Correo</a></li>
-<?
-
-				if (date ( 'm' ) == '06' or date ( 'm' ) == '09') {
-					?>
-<li><a href="sms/index.php" target="_top">Enviar SMS</a></li>
-<?
-				}
-				?>
                 <hr />
 <li class="nav-header">Otras cosas</li>
 <li><a
 		href="http://www.juntadeandalucia.es/averroes/centros-tic/29002885/moodle/">Palataforma
   Moodle</a></li>
 <li><a href="admin/cursos/calendario.php">Calendario Escolar</a></li>
-<li><a href="ftp://ftp.iesmonterroso.org/departamentos/Documentos del Centro/PC20122013/index.htm"
+<li><a href="http://iesmonterroso.org/PC20122013/index.htm"
 		target="_blank">Plan de Centro</a></li>
 <li><a href="clave.php">Cambiar Contrase&ntilde;a</a></li>
 <hr />
