@@ -58,6 +58,10 @@ include("menu_solo.php");
 ?>
 
 <?
+$dia = $_GET['dia'];
+$hora = $_GET['hora'];
+$curso = $_GET['curso'];
+$asignatura = $_GET['asignatura'];
 // Elegir Curso y Asignatura.
 if(empty($curso))
 {
@@ -65,7 +69,7 @@ include("index0.php");
 exit;
 }
 // Enviar datos y procesarlos
-if($enviar == "Enviar datos")
+if(isset($_POST['enviar']))
 {
 	include("cuaderno/poner_notas.php");
 	//include("horario.php");
@@ -90,6 +94,8 @@ while($varias = mysql_fetch_array($n_c))
 }
 $num_cursos0 = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'");
   // Todos los Grupos juntos
+  $curs = "";
+  $codigos = "";
   while($n_cur = mysql_fetch_array($num_cursos0))
   {
 	$curs .= $n_cur[0].", ";
@@ -116,6 +122,12 @@ $n_profe = explode(", ",$pr);
 echo "<h2 style='margin-top:0px' class='no_imprimir'>Cuaderno de Notas</h2>";
 echo "<h4>$n_profe[1] $n_profe[0]<br /><h6 align='center' style='color:#999'>".$curso_sin." (".$nombre_materia.")</h6></h4><br />";
 echo '<form action="cuaderno.php" method="post" name="imprime" class="form-inline">';
+if(isset($_GET['seleccionar'])){
+	$seleccionar=$_GET['seleccionar'];
+}
+else{
+	$seleccionar = "";
+}
 	if($seleccionar == "1"){
 	?>
  <div class="well" align="center" style="width:300px;">
@@ -214,7 +226,7 @@ echo '<ul style="display:inline;float:right;margin:0px;">';
 	$hay0 = "select alumnos from grupos where profesor='$pr' and asignatura = '$asignatura' and curso = '$curso_orig'";
 	$hay1 = mysql_query($hay0);
 	$hay = mysql_fetch_row($hay1);	
-	
+	$todos = "";
 	if(mysql_num_rows($hay1) == "1"){
 	$seleccionados = substr($hay[0],0,strlen($hay[0])-1);
 	$t_al = explode(",",$seleccionados);

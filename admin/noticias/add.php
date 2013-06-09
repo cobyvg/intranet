@@ -86,7 +86,7 @@ $profesor = $_SESSION ['profi'];
 </div>
 <br />
    <?
-if($_POST['submit']=="Añadir Noticia")
+if(isset($_POST['submit']) and $_POST['submit']=="Añadir Noticia")
 {
 	$slug = $_POST['slug'];
 	$content = $_POST['content'];
@@ -162,7 +162,7 @@ La noticia ha sido registrada correctamente.
 		}
 	}
 }
-if($_POST['submit1']){
+if(isset($_POST['submit1']) and $_POST['submit1']){
 	$id = $_POST['id'];
 	$slug = $_POST['slug'];
 	$content = $_POST['content'];
@@ -212,7 +212,7 @@ Se encontraron los siguientes errores: <br />';
 		}
 		
 	
-if ($_GET['id'])
+if (isset($_GET['id']))
 {
 	$id = $_GET['id'];
 	$connection = mysql_connect($db_host, $db_user, $db_pass) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
@@ -233,13 +233,28 @@ No es posible conectar con la base de datos! Busca ayuda.
 		if($dif[0] > 0) $diff = $dif[0];	
 	}
 }
-
+else{
+	$id = '';
+}
+if (!(isset($row->slug))) {
+	$row->slug="";
+}
+if (!(isset($row->content))) {
+	$row->content="";
+}
+if (!(isset($row->clase))) {
+	$row->clase="";
+}
+if (!(isset($diff))) {
+	$diff="";
+}
+if (!(isset($pagina))) {
+	$pagina="";
+}
 	?>
     
   <div class="well well-large" style="width:800px; text-align:left">
-    <form action="<?
-		echo $PHP_SELF;
-		?>" method="POST">
+    <form action="add.php" method="POST">
       <input type="hidden" name="id"  value="<? echo $id; ?>">
       <label>Asunto<br />
         <input type="text" name="slug" id="forminput" class="input-xxlarge" value="<? echo htmlspecialchars($row->slug); ?>">

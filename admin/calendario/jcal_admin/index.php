@@ -17,10 +17,17 @@ include("../../../menu.php");
 $conn = mysql_connect($db_host, $db_user, $db_pass) or die("Could not connect to database!");
 mysql_select_db($db, $conn);
 
-if (isset($_GET['month'])) { $month = $_GET['month']; $month = ereg_replace ("[[:space:]]", "", $month); $month = ereg_replace ("[[:punct:]]", "", $month); $month = ereg_replace ("[[:alpha:]]", "", $month); }
-if (isset($_GET['year'])) { $year = $_GET['year']; $year = ereg_replace ("[[:space:]]", "", $year); $year = ereg_replace ("[[:punct:]]", "", $year); $year = ereg_replace ("[[:alpha:]]", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
-if (isset($_GET['today'])) { $today = $_GET['today']; $today = ereg_replace ("[[:space:]]", "", $today); $today = ereg_replace ("[[:punct:]]", "", $today); $today = ereg_replace ("[[:alpha:]]", "", $today); }
-
+if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
+if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
+if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
+$event_title="";
+$event_event="";
+$hor="";
+$n_act0="";
+$id_act="";
+$idact="";
+$del="";
+$mens="";
 
 $month = (isset($month)) ? $month : date("n",time());
 $year = (isset($year)) ? $year : date("Y",time());
@@ -79,6 +86,8 @@ if ($today > $numdays) { $today--; }
 ?>
 <h2 align="center">Calendario de Actividades.</h2><br /><br />
 <?
+if (isset($_GET['mens'])) {
+$mes = $_GET['mens'];
 if($mens==1){ 
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -95,6 +104,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido borrada correctamente.
           </div></div>';}
+}
 
 ?>
 <div class="row-fluid">
@@ -116,6 +126,8 @@ while($row = mysql_fetch_array($eventExec)) {
 echo "<form name='jcal_post' action='jcal_post.php?year=$year&today=$today&month=$month' method='post'>";
 echo "<div align='left'>";
 		  $tr0 = explode("<br>",$event_title);
+		  $n_act="";
+		  $actividad0="";
 		  foreach($tr0 as $val0){
 			$n_act = $n_act + 1;
 		  	$actividad0.= $val0."<br>";
@@ -133,6 +145,8 @@ echo "<div align='left'>";
 	  
 	  
 	  if(strlen($idact) > "0"){
+	  	
+	  	$n_act="";
 		  $idact = (substr($idact,0,strlen($idact)-1));
 		  $tr = explode(";",$idact);
 		  foreach($tr as $val){$id_act.= "'".$val."',";}
@@ -165,7 +179,7 @@ echo "<label>Horario de las actividades<br />
 
 echo "<table class='table table-bordered' style='width:400px;' align='center'>
       <tr>";
-	  $meses = array(1=>Ene, 2=>Feb, 3=>Mar, 4=>Abr, 5=>May, 6=>Jun, 7=>Jul, 8=>Ago, 9=>Sep, 10=>Oct, 11=>Nov, 12=>Dic);
+	  $meses = array("1"=>"Ene", "2"=>"Feb", "3"=>"Mar", "4"=>"Abr", "5"=>"May", "6"=>"Jun", "7"=>"Jul", "8"=>"Ago", "9"=>"Sep", "10"=>"Oct", "11"=>"Nov", "12"=>"Dic");
 	  foreach ($meses as $num_mes => $nombre_mes) {
 	  	
 	  	if ($num_mes==$month) {

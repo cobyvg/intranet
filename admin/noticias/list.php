@@ -24,10 +24,16 @@ include("menu.php");
 <?
 $connection = mysql_connect($db_host, $db_user, $db_pass) or die ("No es posible conectar con la base de datos!");
 mysql_select_db($db) or die ("No es posible conectar con la base de datos!");
-$id = $_GET['id'];
-$fech_princ = $_GET['fech_princ'];
+if (isset($_GET['id'])) {
+$id = $_GET['id'];	
+}
+if (isset($_GET['fech_princ'])) {
+$fech_princ = $_GET['fech_princ'];	
+}
+if (isset($_GET['borrar'])) {
 $borrar = $_GET['borrar'];
-if($borrar == "1")
+}
+if(isset($borrar) and $borrar == "1")
 {
 $query = "DELETE from noticias WHERE id = '$id'";
 $result = mysql_query($query) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
@@ -42,7 +48,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 }
 ?>
 <?
-if($pag == "") {$pag = "0";} else {$pag = $pag + 100;}
+if(!(isset($pag))) {$pag = "0";} else {$pag = $pag + 100;}
 $query = "SELECT id, slug, timestamp, contact from noticias ORDER BY timestamp DESC limit $pag,100";
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 if (mysql_num_rows($result) > 0)

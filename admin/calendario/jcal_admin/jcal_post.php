@@ -37,7 +37,7 @@ $year = (isset($year)) ? $year : date("Y",time());
 $today = (isset($today))? $today : date("j", time());
 $sql_date = "$year-$month-$today";
 
-if ($_POST['del'] == "Borrar registro") {
+if (isset($_POST['del']) and $_POST['del'] == "Borrar registro") {
   $eventQuery = "DELETE FROM cal WHERE eventdate = '$sql_date'";
   $eventExec = mysql_query($eventQuery)or die("No se ha podido borrar la actividad!");
     header("Location: index.php?year=$year&month=$month&today=$today&mens=3");

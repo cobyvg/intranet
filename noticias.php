@@ -23,8 +23,7 @@ $result = mysql_query ( $query ) or die ( "Error in query: $query. " . mysql_err
 if (mysql_num_rows ( $result ) > 0) {
 	while ( $row = mysql_fetch_object ( $result ) ) {
 		$url = 'admin/noticias/story.php';
-		$url .= '?' . $PHPSESSID;
-		$url .= '&id=' . $row->id;
+		$url .= '?id=' . $row->id;
 		?>
 <blockquote><p><a href="admin/noticias/story.php?id=<?
 		echo $row->id;

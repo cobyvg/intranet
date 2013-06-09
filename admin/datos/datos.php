@@ -25,7 +25,22 @@ include("../../menu.php");
   <div class="span8">
   <?php
   // Si se envian datos desde el campo de búsqueda de alumnos, se separa claveal para procesarlo.
-   if ($seleccionado=="1") {
+  if (!(isset($_GET['seleccionado']))) {
+  	$seleccionado="";
+  }else{
+  	$seleccionado=$_GET['seleccionado'];
+  }
+    if (!(isset($_GET['alumno']))) {
+  	$alumno="";
+  }
+  else{
+  	$alumno=$_GET['alumno'];
+  }
+    if (!(isset($AUXSQL))) {
+  	$AUXSQL="";
+  }
+  
+  if (isset($seleccionado) and $seleccionado=="1") {
    	$tr=explode(" --> ",$alumno);
    	$clave_al=$tr[1];
 	$nombre_al=$tr[0];

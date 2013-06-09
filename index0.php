@@ -21,7 +21,7 @@ $_SESSION ['cargo'] = $cargo1 [0];
 $carg = $_SESSION ['cargo'];
 $_SESSION ['dpt'] = $cargo1 [1];
 $dpto = $_SESSION ['dpt'];
-if ($idea) {}
+if (isset($_POST['idea'])) {}
 else{
 $_SESSION ['ide'] = $cargo1 [2];
 $idea = $_SESSION ['ide'];

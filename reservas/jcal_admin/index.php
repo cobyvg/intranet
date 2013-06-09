@@ -19,11 +19,18 @@ $pr = $_SESSION['profi'];
 include("../../menu.php");
 include("../menu.php");
 mysql_select_db($db_reservas);
-
-if (isset($_GET['month'])) { $month = $_GET['month']; $month = ereg_replace ("[[:space:]]", "", $month); $month = ereg_replace ("[[:punct:]]", "", $month); $month = ereg_replace ("[[:alpha:]]", "", $month); }
-if (isset($_GET['year'])) { $year = $_GET['year']; $year = ereg_replace ("[[:space:]]", "", $year); $year = ereg_replace ("[[:punct:]]", "", $year); $year = ereg_replace ("[[:alpha:]]", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
-if (isset($_GET['today'])) { $today = $_GET['today']; $today = ereg_replace ("[[:space:]]", "", $today); $today = ereg_replace ("[[:punct:]]", "", $today); $today = ereg_replace ("[[:alpha:]]", "", $today); }
-
+if (isset($_GET['recurso'])) {
+	$recurso = $_GET['recurso'];
+}
+if (isset($_GET['servicio'])) {
+	$servicio = $_GET['servicio'];
+}	
+if (isset($_GET['mens'])) {
+	$mens = $_GET['mens'];
+}	
+if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
+if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
+if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
 
 $month = (isset($month)) ? $month : date("n",time());
 $year = (isset($year)) ? $year : date("Y",time());
@@ -42,13 +49,13 @@ $last_year = $year - 1;
     elseif ($daylong == "Tuesday")
 	{$daylong = "Martes";}
     elseif ($daylong == "Wednesday")
-	{$daylong = "Miªrcoles";}
+	{$daylong = "Mércoles";}
     elseif ($daylong == "Thursday")
 	{$daylong = "Jueves";}
     elseif ($daylong == "Friday")
 	{$daylong = "Viernes";}
     elseif ($daylong == "Saturday")
-	{$daylong = "Sªbado";}
+	{$daylong = "Sábado";}
     
 
     if ($monthlong == "January")
@@ -85,17 +92,19 @@ $n_servicio = strtoupper($servicio);
 </div>
 <br />
 <?
-	if($mens=="actualizar"){ 
+if (isset($_GET['mens'])) {
+	if($_GET['mens']=="actualizar"){ 
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos de la reserva han sido actualizados correctamente.
           </div></div>';
 }
-if($mens=="insertar"){
+if($_GET['mens']=="insertar"){
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos de la reserva han sido registrados correctamente.
           </div></div>';}
+}
 	?>
  <div class="row-fluid">
  <div class="span2"></div>
@@ -106,7 +115,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
-$numero_dia = $hoy[wday];
+$numero_dia = $hoy['wday'];
 $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, html FROM $servicio WHERE eventdate = '$sql_date';";
 $eventExec = mysql_query($eventQuery);
 while($row = mysql_fetch_array($eventExec)) {
@@ -125,13 +134,17 @@ echo "<form name=\"jcal_post\" action=\"jcal_post.php?servicio=$servicio&year=$y
 if($_SESSION['profi'] == 'Conserjeria' or stristr($_SESSION['cargo'],'1') == TRUE){$SQL = "select distinct nombre from $db.departamentos order by nombre";}
 else{$SQL = "select distinct nombre from $db.departamentos where nombre = '". $_SESSION['profi'] ."'";}
 
-if($servicio){$eventQuery2 = "SELECT hora1 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
+if($servicio){
+$eventQuery2 = "SELECT hora1 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
 $reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+if (mysql_numrows($reservado0) == 1) {
+$reservado1 = mysql_fetch_row($reservado0);
+}
+}
 	if(!(empty($reservado1[0]))) {echo "1ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
 	else
 	{
-if ($event_event1  == "") { echo "1ª Hora &nbsp;&nbsp; <select name=\"day_event1\" class='input-xlarge'><option></option>";
+if (empty($event_event1)) { echo "1ª Hora &nbsp;&nbsp; <select name=\"day_event1\" class='input-xlarge'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option>" . $profesor . "</option>";
@@ -147,11 +160,14 @@ if ($event_event1  == "") { echo "1ª Hora &nbsp;&nbsp; <select name=\"day_event1
 echo "<hr>";	
 if($servicio){$eventQuery2 = "SELECT hora2 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
 $reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+if (mysql_num_rows($reservado0)>0) {
+$reservado1 = mysql_fetch_row($reservado0);
+}
+}
 	if(!(empty($reservado1[0]))) {echo "2ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
 	else
 	{
-if ($event_event2  == "") { echo "2ª Hora &nbsp;&nbsp; <select name=\"day_event2\" class='input-xlarge'><option></option>";
+if (empty($event_event2)) { echo "2ª Hora &nbsp;&nbsp; <select name=\"day_event2\" class='input-xlarge'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
@@ -163,27 +179,34 @@ if ($event_event2  == "") { echo "2ª Hora &nbsp;&nbsp; <select name=\"day_event2
 	echo "<hr>";
 if($servicio){$eventQuery2 = "SELECT hora3 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
 $reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+if (mysql_num_rows($reservado0)>0) {
+$reservado1 = mysql_fetch_row($reservado0);
+}
+}
 	if(!(empty($reservado1[0]))) {echo "3ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
 	else
 	{
-if(($event_event3 == "")) { echo "3ª Hora &nbsp;&nbsp; <select name=\"day_event3\" class='input-xlarge'><option></option>";
+if(empty($event_event3)) { echo "3ª Hora &nbsp;&nbsp; <select name=\"day_event3\" class='input-xlarge'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
 	} echo "</select>";}
 	else {
+		
 	if(mb_strtolower($pr) == mb_strtolower($event_event3)) {echo "3ª Hora &nbsp;&nbsp; <fieldset class='control-group success' style='display:inline'><input class='input-xlarge' type='text' name=\"day_event3\"  value=\"$event_event3\"></fieldset>"; } 
 	else{echo "3ª Hora &nbsp;&nbsp; <fieldset class='control-group warning' style='display:inline'><input disabled class='input-xlarge' type='text'  value='$event_event3'></fieldset><input type=\"hidden\" value=\"$event_event3\" name=\"day_event3\">"; }}	}	
 		
 	echo "<hr>";
 if($servicio){$eventQuery2 = "SELECT hora4 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
 $reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+if (mysql_num_rows($reservado0)>0) {
+$reservado1 = mysql_fetch_row($reservado0);
+}
+}
 	if(!(empty($reservado1[0]))) {echo "4ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
 	else
 	{
-if ($event_event4  == "") { echo "4ª Hora &nbsp;&nbsp; <select name=\"day_event4\" class='input-xlarge'><option></option>";
+if (empty($event_event4)) { echo "4ª Hora &nbsp;&nbsp; <select name=\"day_event4\" class='input-xlarge'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
@@ -195,11 +218,14 @@ if ($event_event4  == "") { echo "4ª Hora &nbsp;&nbsp; <select name=\"day_event4
 	echo "<hr>";
 if($servicio){$eventQuery2 = "SELECT hora5 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
 $reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+if (mysql_num_rows($reservado0)>0) {
+$reservado1 = mysql_fetch_row($reservado0);
+}
+}
 	if(!(empty($reservado1[0]))) {echo "5 Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
 	else
 	{
-if ($event_event5  == "") { echo "5ª Hora &nbsp;&nbsp; <select name=\"day_event5\" class='input-xlarge'><option></option>";
+if (empty($event_event5)) { echo "5ª Hora &nbsp;&nbsp; <select name=\"day_event5\" class='input-xlarge'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
@@ -211,11 +237,14 @@ if ($event_event5  == "") { echo "5ª Hora &nbsp;&nbsp; <select name=\"day_event5
 	echo "<hr>";
 if($servicio){$eventQuery2 = "SELECT hora6 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
 $reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+if (mysql_num_rows($reservado0)>0) {
+$reservado1 = mysql_fetch_row($reservado0);
+}
+}
 	if(!(empty($reservado1[0]))) {echo "6ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
 	else
 	{
-if ($event_event6  == "") { echo "6ª Hora &nbsp;&nbsp; <select name=\"day_event6\" class='input-xlarge'><option></option>";
+if (empty($event_event6)) { echo "6ª Hora &nbsp;&nbsp; <select name=\"day_event6\" class='input-xlarge'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
@@ -227,11 +256,14 @@ if ($event_event6  == "") { echo "6ª Hora &nbsp;&nbsp; <select name=\"day_event6
 	echo "<hr>";
 if($servicio){$eventQuery2 = "SELECT hora7 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
 $reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+if (mysql_num_rows($reservado0)>0) {
+$reservado1 = mysql_fetch_row($reservado0);
+}
+}
 	if(!(empty($reservado1[0]))) {echo "7ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
 	else
 	{
-if ($event_event7  == "") { echo "7ª Hora &nbsp;&nbsp; <select name=\"day_event7\" class='input-xlarge'><option></option>";
+if (empty($event_event7)) { echo "7ª Hora &nbsp;&nbsp; <select name=\"day_event7\" class='input-xlarge'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
@@ -254,17 +286,17 @@ echo "</div>";
 </div>
 <div class="span4 pull-left">
 <?
-echo "<table class='table table-bordered table-striped' style='width:400px;'><tr><th>
+echo "<table class='table table-bordered table-striped' style='width:400px;' align='center'><tr><th>
 <div align='center'>
-	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month'>
+	<a href='".$_SERVER['PHP_SELF']."?servicio=$servicio&year=$last_year&today=$today&month=$month'>
 <i class='icon icon-arrow-left' name='calb2' style='margin-right:20px;'> </i> </a>
 <h3 style='display:inline'>$year</h3>
-<a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month'>
+<a href='".$_SERVER['PHP_SELF']."?servicio=$servicio&year=$next_year&today=$today&month=$month'>
 <i class='icon icon-arrow-right' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table>";
 
 echo "<table class='table table-bordered' style='width:400px;' align='center'>
       <tr>";
-	  $meses = array(1=>Ene, 2=>Feb, 3=>Mar, 4=>Abr, 5=>May, 6=>Jun, 7=>Jul, 8=>Ago, 9=>Sep, 10=>Oct, 11=>Nov, 12=>Dic);
+	  $meses = array("1"=>"Ene", "2"=>"Feb", "3"=>"Mar", "4"=>"Abr", "5"=>"May", "6"=>"Jun", "7"=>"Jul", "8"=>"Ago", "9"=>"Sep", "10"=>"Oct", "11"=>"Nov", "12"=>"Dic");
 	  foreach ($meses as $num_mes => $nombre_mes) {
 	  	
 	  	if ($num_mes==$month) {
@@ -284,7 +316,7 @@ echo "<table class='table table-bordered' style='width:400px;' align='center'>
 
 
 //Nombre del Mes
-echo "<table class='table table-bordered' style='width:400px'><tr>";
+echo "<table class='table table-bordered' style='width:400px' align='center'><tr>";
 echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h6 align='center'>" . $monthlong . 
 "</h6></td>";
 echo "</tr><tr>";

@@ -1,13 +1,17 @@
 <?
 // Alumnos expulsados que vuelven
-
-if ($tareas_expulsion == 'Si') {
-	mysql_query("update tareas_profesor set confirmado = 'Si' where id = '$id_tareas'");
-	//echo "update tareas_profesor set confirmado = 'Si' where id = '$id_tareas'";
+if (isset($_GET['id_tareas'])) {
+	$id_tareas = $_GET['id_tareas'];
 }
-if ($tareas_expulsion == 'No') {
+if (isset($_GET['tareas_expulsion'])) {
+if ($_GET['tareas_expulsion'] == 'Si') {
+	mysql_query("update tareas_profesor set confirmado = 'Si' where id = '$id_tareas'");
+}
+if ($_GET['tareas_expulsion'] == 'No') {
 	mysql_query("update tareas_profesor set confirmado = 'No' where id = '$id_tareas'");
 }
+}
+
 $SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
 //echo $SQLcurso;
 $resultcurso = mysql_query($SQLcurso);
@@ -15,6 +19,7 @@ while ($exp = mysql_fetch_array($resultcurso)) {
 $unidad = $exp[0];
 $materia = $exp[1];
 $a_asig0 = mysql_query("select distinct codigo from asignaturas where curso = '$exp[2]' and nombre = '$materia' and abrev not like '%\_%'");
+$cod_asig = mysql_fetch_array($a_asig0);
 $hoy = date('Y') . "-" . date('m') . "-" . date('d');
 $expul= "SELECT DISTINCT alma.apellidos, alma.nombre, alma.nivel, alma.grupo, tareas_profesor.id
 FROM tareas_alumnos, tareas_profesor, alma
@@ -26,7 +31,7 @@ OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 3 day)
 OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 4 day) 
 OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 5 day))
 AND alma.unidad =  '$unidad'
-AND alma.combasi LIKE  '%$exp[3]%' 
+AND alma.combasi LIKE  '%$cod_asig[0]%' 
 and tareas_profesor.profesor='$pr' 
 and confirmado is null
 ORDER BY tareas_alumnos.fecha";
@@ -65,6 +70,7 @@ if (mysql_num_rows($result) > '0') {
 }
 
 // Informes de Tareas
+$count0=0;
 $SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
 $resultcurso = mysql_query($SQLcurso);
 	while($rowcurso = mysql_fetch_array($resultcurso))
@@ -98,6 +104,7 @@ if (mysql_num_rows($si0) > 0)
 }
 }
 // Informes de tutoria
+$count03=0;
 $SQLcurso3 = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
 //echo $SQLcurso3."<br>";
 $resultcurso3 = mysql_query($SQLcurso3);
@@ -164,9 +171,15 @@ if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0')) OR (($count04 > '0'))){
 ?>
 
 <?
+if (isset($count0)) {
 if($count0 > '0'){include("modulos/tareas.php");}
-if($count03 > '0'){include("modulos/informes.php");} 
+	}
+if (isset($count03)) {
+if($count03 > '0'){include("modulos/informes.php");}
+	}
+if (isset($count04)) {
 if($count04 > '0'){include("modulos/absentismo.php");}
+	}
 echo "<hr>"; 
 ?>
 <?
@@ -174,16 +187,17 @@ echo "<hr>";
 
 
 // Comprobar mensajes de Padres
-
+$n_mensajesp="";
+if (isset($_GET['verifica_padres'])) {
+	$verifica_padres = $_GET['verifica_padres'];
+	 mysql_query("UPDATE mensajes SET recibidotutor = '1' WHERE id = $verifica_padres");
+}
 if(stristr($carg,'2') == TRUE)
 {
 	$nivel_m = $_SESSION ['s_nivel'];
 	$grupo_m = $_SESSION ['s_grupo'];
-	
-	if($verifica_padres){
- mysql_query("UPDATE mensajes SET recibidotutor = '1' WHERE id = $verifica_padres");
-}
- if ($asunto == "Mensaje de confirmación") {
+
+ if (isset($_GET['asunto']) and $_GET['asunto'] == "Mensaje de confirmación") {
  	 mysql_query("UPDATE mensajes SET recibidopadre = '1' WHERE id = $verifica_padres");
  }
 $men1 = "select ahora, asunto, texto, nombre, apellidos, id from mensajes, alma where mensajes.claveal = alma.claveal and mensajes.nivel = '$nivel_m' and mensajes.grupo = '$grupo_m' and recibidotutor = '0'";
@@ -239,9 +253,10 @@ echo "</div>";
 
 
 // Comprobar mensajes de profesores
-
-if($verifica){
- mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
+$n_mensajes="";
+if (isset($_GET['verifica'])) {
+	$verifica = $_GET['verifica'];
+	 mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
 $men1 = "select ahora, asunto, texto, profesor, id_profe, origen from mens_profes, mens_texto where mens_texto.id = mens_profes.id_texto and profesor = '$pr' and recibidoprofe = '0'";
 $men2 = mysql_query($men1);

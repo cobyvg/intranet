@@ -16,6 +16,9 @@ include("../menu.php");
 include("menu.php");
 ?>
 <?
+if (isset($_GET['recurso'])) {
+	$recurso = $_GET['recurso'];
+}
 if($recurso=="carrito"){$num=$num_carrito+1;$nombre_rec="Carritos de Portátiles";}elseif($recurso=="aula"){$num=$num_aula+1;$nombre_rec="Aulas compartidas";}elseif($recurso=="medio"){$num=$num_medio+1;$nombre_rec="Medios Audiovisuales";}
 ?>
 <div align="center">
@@ -131,12 +134,13 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
     $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
     //echo $eventQuery;
     $eventExec = mysql_query($eventQuery);
-    while($row = mysql_fetch_array($eventExec)) {
-      if (mysql_num_rows($eventExec) == 1) {
+    if (mysql_num_rows($eventExec)==1) {
+     while($row = mysql_fetch_array($eventExec)) {
 echo "<td valign=\"middle\" align=\"center\" style='background-color:#f89406;color:#fff'>$zz</td>\n";
         $result_found = 1;
-      }
     }
+    }
+   
   }
   if ($result_found != 1) {//Celda por defecto
    echo "<td>$zz</td>\n";
@@ -189,8 +193,8 @@ for ($i = $today; $i <= ($today + 6); $i++) {
     $sql_currentday = "$current_year-$current_month-$current_day";
     $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
     $eventExec = mysql_query($eventQuery);
+    if (mysql_num_rows($eventExec)==1) {
     while($row = mysql_fetch_array($eventExec)) {
-   if (mysql_num_rows($eventExec) == 1) {
         // $this_days_title = stripslashes($row["title"]);
    $event_event1 = stripslashes($row["event1"]);
    $event_event2 = stripslashes($row["event2"]);
@@ -199,7 +203,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
    $event_event5 = stripslashes($row["event5"]);
    $event_event6 = stripslashes($row["event6"]);
    $event_event7 = stripslashes($row["event7"]);
-      }
+    }
     }
 	echo "<p><i  class='icon-calendar'></i>&nbsp;$dayname - $current_day. </p>
 	 <a href=\"http://$dominio/intranet/reservas/jcal_admin/index.php
