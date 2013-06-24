@@ -146,34 +146,11 @@ exit();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
     <meta name="author" content="">  
-  
-    <!-- Le styles -->  
-
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet"> 
-    <?
-	if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">  
-        <?
-	}
-		else{
-		?>
     <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">     
-        <?	
-		}
-	?>
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print" >
-    <!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->  
-  
-    <link rel="shortcut icon" href="http://<? echo $dominio;?>/intranet/img/favicon.ico">  
-    <link rel="apple-touch-icon" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon.png">  
-    <link rel="apple-touch-icon" sizes="72x72" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-72x72.png">  
-    <link rel="apple-touch-icon" sizes="114x114" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-114x114.png"> 
 <script language="javascript">
-
 function desactivaOpcion(){ 
     with (document.form2){ 
      switch (curso.selectedIndex){ 
@@ -204,20 +181,21 @@ function desactivaOpcion(){
       case 4: 
     	  actividade.disabled = true;
           exencio.disabled = true;
+          bilinguism.disabled = true;
           itinerari.disabled = false; 
           matematica4.disabled = false;
           diversificacio.disabled = false;
-          promocion.disabled = false;
+          promocion.disabled = false;         
        break; 
      } 
     } 
    } 	
- 
  </script>
 </head>
 <body>
+
   <? 
- include("../../menu.php");
+ include("../../menu_solo.php");
  include("./menu.php");
   ?>
 <div align=center>
@@ -322,7 +300,7 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	$a2 = array("Actividades de refuerzo de Inglés", "Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas",  "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
 		
 	
-$sql = "select id, apellidos, nombre, curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado";
+$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado";
 
 if ($curso=="3ESO"){$num_opt = "7";}else{$num_opt = "4";}
 for ($i=1;$i<$num_opt+1;$i++)
@@ -388,7 +366,7 @@ echo '<th class="no_imprimir">SI |PIL |NO </th>';
 		echo '<th class="no_imprimir">Copia</th>';
 		echo '<th class="no_imprimir">Borrar</th>';
 ?>
-
+<th class="no_imprimir">Conv.</th>
 </tr>
 <?
 	while($consul = mysql_fetch_array($cons)){
@@ -424,7 +402,29 @@ for ($i=1;$i<$num_opt+1;$i++)
 		{
 			${optativa.$i} = $consul[$i+20];		
 		}
-		$num_al+=1;
+		
+// Problemas de Convivencia
+$n_fechorias="";
+$fechorias = mysql_query("select * from Fechoria where claveal='".$claveal."'");
+$n_fechorias = mysql_num_rows($fechorias);
+//$fechori="16 --> 1000";
+if (!(isset($fechori)) or $fechori=="") {
+	$fechori1="0";
+	$fechori2="1000";
+}
+else{
+	if ($fechori=="Sin problemas") {
+	$fechori1="0";
+	$fechori2="1";
+	}
+	else{
+	$tr_fech = explode(" --> ",$fechori);
+	$fechori1=$tr_fech[0];
+	$fechori2=$tr_fech[1];		
+	}
+}
+if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {	
+	$num_al+=1;
 	echo '<tr>
 
 	<td><input value="1" name="confirmado-'. $id .'" type="checkbox"';
@@ -489,17 +489,24 @@ echo '<td><input name="act1-'. $id .'" type="text" style="width:10px;" value="'.
 	if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
 	$contr = mysql_query("select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id'");
 	$control = mysql_fetch_array($contr);
+	
 for ($i = 0; $i < 16; $i++) {
 	if ($i%2) {
 	if ($i=="5" and strstr($control[$i], $control[$i-1])==TRUE) {}
 	else{
-		if ($control[$i]==$control[$i-1]) {}else{		
-			echo "<i class='icon icon-info-sign' rel='Tooltip' title='".$control[$i]." --> ".$control[$i-1]."'> </i>";
+		$text_contr="";
+		if ($control[$i]==$control[$i-1]) {$icon="";}else{	
+			if ($control[$i-1]<>0) {
+						$icon="icon icon-info-sign";
+						$text_contr.= $control[$i]." --> ".$control[$i-1]."; ";					
+				}	
 		}
 	}
 	}
 	//echo "$control[$i] --> ";
 }	
+		echo "<i class='$icon' rel='Tooltip' title='$text_contr'> </i>&nbsp;&nbsp;";
+
 	if ($observaciones) { echo "<i class='icon icon-bookmark' rel='Tooltip' title='Tiene observaciones en la matrícula' > </i>";}
 	echo '</td>';
 	
@@ -568,12 +575,20 @@ echo '<td class="no_imprimir"><input name="revisado-'. $id .'" type="checkbox" v
  	echo $backup;
  }
  echo "</td><td class='no_imprimir'>";
- 	echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='icon icon-trash' rel='Tooltip' title='Eliminar alumno de la tabla'> </i></a>";
- echo "</td></div>";
+ echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='icon icon-trash' rel='Tooltip' title='Eliminar alumno de la tabla'> </i></a>";
+ echo "</td>";
+echo "<td class='no_imprimir'>";
+// Problemas de Convivencia
+if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-important'>$n_fechorias</span></a>";}
+elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-warning'>$n_fechorias</span></a>";}
+elseif($n_fechorias < 5 and $n_fechorias > 0){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-info'>$n_fechorias</span></a>";}
+// Fin de Convivencia.
+echo "</td>";
+
 	echo '
 	</tr>';	
 }
-
+}
 echo "</table>";
 echo "<div align='center'>
 <input type='hidden' name='extra' value='$extra' />
@@ -583,35 +598,41 @@ echo "</div></form>";
 echo count($grupo_actua);
 ?>
 <?
-if (strlen($grupo_actual)==1) {
+if ($curso) {
+		if (count($grupo_actua)=='1') {
+			$extra = "and grupo_actual = '$grupo_actual'";
+		}
+		else{
+			$extra="";	
+		}
 if ($curso=="1ESO" OR $curso=="2ESO"){
-	$exen = mysql_query("select exencion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and exencion ='1'");
+	$exen = mysql_query("select exencion from matriculas where curso = '$curso' $extra and exencion ='1'");
 	$num_exen = mysql_num_rows($exen);
 	
 if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "4";}
 for ($i=1;$i<$num_acti+1;$i++){
-	${acti.$i} = mysql_query("select act1 from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and act1 = '$i'");
+	${acti.$i} = mysql_query("select act1 from matriculas where curso = '$curso' $extra and act1 = '$i'");
 	${num_act.$i} = mysql_num_rows(${acti.$i});
 }
 }
-$rel = mysql_query("select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like '%Católica%'");
+$rel = mysql_query("select religion from matriculas where curso = '$curso' $extra and religion like '%Católica%'");
 //echo "select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like 'Rel%'";
 $num_rel = mysql_num_rows($rel);
 //echo $num_rel;
 if ($curso=="3ESO"){$num_opta = "7";}else{$num_opta = "4";}
 for ($i=1;$i<$num_opta+1;$i++){
-	${opta.$i} = mysql_query("select optativa$i from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and optativa$i = '1'");
+	${opta.$i} = mysql_query("select optativa$i from matriculas where curso = '$curso' $extra and optativa$i = '1'");
 	${num_opta.$i} = mysql_num_rows(${opta.$i});
 }
 
 if ($curso=="3ESO" OR $curso=="4ESO"){
-	$diver = mysql_query("select diversificacion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and diversificacion = '1'");
+	$diver = mysql_query("select diversificacion from matriculas where curso = '$curso' $extra and diversificacion = '1'");
 	$num_diver = mysql_num_rows($diver);
 }
-$promo = mysql_query("select promociona from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and promociona = '1'");
+$promo = mysql_query("select promociona from matriculas where curso = '$curso' $extra and promociona = '1'");
 $num_promo = mysql_num_rows($promo);
 	
-$pil = mysql_query("select promociona from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and promociona = '2'");
+$pil = mysql_query("select promociona from matriculas where curso = '$curso' $extra and promociona = '2'");
 $num_pil = mysql_num_rows($pil);
 	
 $an_bd = substr($curso_actual,0,4);
@@ -633,10 +654,13 @@ if ($curso=="3ESO"){$num_opta = "7";}else{$num_opta = "4";}
 for ($i=1;$i<$num_opta+1;$i++){
 	echo "<th>Optativa$i</th>";
 }
-if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "4";}
-for ($i=1;$i<$num_acti+1;$i++){
+if ($curso=="1ESO" or $curso=="2ESO"){
+	$num_acti = "5";
+	for ($i=1;$i<$num_acti+1;$i++){
 	echo "<th>Act$i</th>";
 }
+}
+
 echo "<th>Promociona</th>";
 echo "<th>PIL</th>";
 echo "<th>Repite</th>";
@@ -656,7 +680,7 @@ for ($i=1;$i<$num_opta+1;$i++){
 	echo "<td>${num_opta.$i}</td>";
 }
 if ($curso=="1ESO" OR $curso=="2ESO"){
-if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "4";}
+if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "5";}
 for ($i=1;$i<$num_acti+1;$i++){
 	echo "<td>${num_act.$i}</td>";
 }
@@ -676,13 +700,16 @@ echo "<td>$num_repit</td>";
 <td>
 <?
 if ($curso=="4ESO") {
-	for ($i=1;$i<$num_opt+1;$i++){	
+
+	for ($i=1;$i<$num_opt;$i++){	
 	$nombre_optativa = "";
 	$nom_opt.= "<span style='font-weight:bold;color:#9d261d;'>Itinerario $i: </span>";
 	foreach (${opt4.$i} as $nombre_opt => $valor){
+		
 	$nombre_optativa=$nombre_optativa+1;
 	$nom_opt.="<span style='color:#08c;'>Opt".$nombre_optativa."</span> = ".$valor."; ";
 }
+//echo substr($nom_opt,0,-2);
 $nom_opt.= "<br>";
 	}
 	
@@ -693,7 +720,7 @@ else{
 	$nom_opt.="<span style='color:#08c;'>Opt".$nombre_optativa."</span> = ".$valor."; ";
 }
 }
-//echo substr($nom_opt,0,-2);
+echo substr($nom_opt,0,-2);
 ?>
 </td></tr></table>
 <?

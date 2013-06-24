@@ -182,7 +182,7 @@ $grupo = strtoupper($grupo);
 			}			 		
 		}		
  	}
- if ($n_susp > "0" and $nivel == "2B") 
+ if ($n_susp > "0" and ($nivel == "2B" or $nivel == "4E")) 
  	{		
 // 		$valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";	
  		$n_al = $n_al + 1;

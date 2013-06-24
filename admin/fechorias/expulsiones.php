@@ -1,5 +1,5 @@
- <?
-  // Aula de Convivencia
+<?
+ // Aula de Convivencia
   if($imprimir4)
   {
   	if (empty($horas)) {
@@ -134,6 +134,7 @@ if($imprimir5)
 
 if($submit){
 	if(empty($inicio) OR empty($fin) OR empty($expulsion)){
+		echo "$inicio --> $fin --> $expulsion";
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>

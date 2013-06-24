@@ -29,7 +29,7 @@ $it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeni
 $it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
 $opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico", "FIS21_TIN21" => "Física, Tecnología", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
 $opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
-$opt23 =array("ingles_25" => "Inglés 2º Idioma","aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud");
+$opt23 =array("aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud","ingles_25" => "Inglés 2º Idioma");
 
 if($enviar =="Enviar los datos de la Matrícula"){
 	// Comprobación de campos vacíos
@@ -475,7 +475,7 @@ exit();
 		$datos_ya = mysql_fetch_object($ya);
 		$naci = explode("-",$datos_ya->nacimiento);
 		$nacimiento = "$naci[2]-$naci[1]-$naci[0]";
-		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;
+		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2;
 		$n_curso = substr($curso,0,1);
 		if ($ruta_error == '1') {
 			$ruta_este = "";
@@ -680,19 +680,8 @@ exit();
 		<select name="colegio" id="" onChange="dimePropiedades()">
 			<option><? echo $colegio; ?></option>
 			<?
-			if ($curso == "1ESO") {
-				?>
-			<option>SANTO-TOMAS</option>
-			<option>SIMON-FERNANDEZ</option>
-			<option>GARCIA-LORCA</option>
-			<option>JUAN-XXIII</option>
-			<option>Otro Centro</option>
-			<?
-			}
-			else{
-				echo "<option>IES Monterroso</option>
+	echo "<option>IES Monterroso</option>
       <option>Otro Centro</option>";            	
-			}
 			?>
 		</select> <br />
 		<center><input style="<?  if ($colegio == 'Otro Centro') {	echo "visibility:visible;";}else{	echo "visibility:hidden;background-color:#FFFF66;";}?>margin-top:6px;" id = "otrocolegio" name="otrocolegio" <? if(!($otrocolegio == 'Escribe aquí el nombre del Centro')){echo "value = \"$otrocolegio\"";} ?>type="text" size="32" value="Escribe aquí el nombre del Centro" onClick="borrar()" /></center>
@@ -756,14 +745,16 @@ exit();
 		<td valign=top style="width: 300px;" align=center><br />
 <?
 echo '<select name="idioma1" style="width: 60%">';
+    if(!(empty($idioma1))){
+			echo "<option>$idioma1</option>";
+		}
 $comb1=mysql_query("select combasi from alma where claveal = '$claveal'");
 $comb2=mysql_fetch_array($comb1);
 $comba = explode(":", $comb2[0]);
 				foreach ($comba as $com1){
 					//echo $com1;
 					$abrv1 = mysql_query("select abrev, nombre from asignaturas where codigo = '$com1' and (abrev = 'ING' or abrev = 'FRA')");
-//echo "select abrev, nombre from asignaturas where codigo = '$com1' and unidad like '1B%' and (abrev = 'ING' or abrev = 'FRA')";
-$abrev1 = mysql_fetch_array($abrv1);
+					$abrev1 = mysql_fetch_array($abrv1);
 					if (!(empty($abrev1[1])) and $n_curso=="2") {
 						$idio = "1";
 						$id_1b = $abrev1[1];
@@ -771,7 +762,7 @@ $abrev1 = mysql_fetch_array($abrv1);
 					}
 					
 				}
-				if ($idio<>1) {			
+				if ($idio<>1 or $cargo=="1") {			
 						echo "
 						<option>Inglés</option>
 						<option>Francés</option>";				
@@ -789,6 +780,12 @@ if ($idio==1) {
 		if ($curso==1) {
 			?> <br />
 		<select name="idioma2" style="width: 60%">
+       <?
+	    if(!(empty($idioma2))){
+			echo "<option>$idioma2</option>";
+		}
+		?>
+        
 			<option>Alemán</option>
 			<option>Francés</option>
 			<option>Inglés</option>
@@ -824,8 +821,8 @@ if ($idio==1) {
 		</td>
 	</tr>
 	<tr>
-		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ASIGNATURAS OPTATIVAS DE <? echo $n_curso; ?>º DE BACHILLERATO </strong><br />
-		<span style="font-size: 10px;">(Para solicitar una modalidad o vía diferente a la que ya has cursado debes pasar por Jefatura de Estudios.)</span></td>
+		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>MODADLIDAD Y ASIGNATURAS OPTATIVAS DE <? echo $n_curso; ?>º DE BACHILLERATO </strong><br />
+		</td>
 	</tr>
 
 	<?
@@ -887,7 +884,7 @@ if ($idio==1) {
 					echo ' checked';
 				}
 				else{
-					if(strstr($curso_largo,${it2.$i}[3])==FALSE and !(empty($curso_largo))){
+					if(strstr($curso_largo,${it2.$i}[3])==FALSE and !(empty($curso_largo)) and !($cargo=="1")){
 						echo " disabled";
 					}
 				}
@@ -918,7 +915,7 @@ if ($idio==1) {
 			$num1="";
 			foreach ($opt23 as $optit_1 => $nombre){
 
-				if (strstr($nombre,$id_1b)==FALSE) {
+				//if (strstr($nombre,$id_1b)==FALSE) {
 				$num1+=1;
 				if ($num1==1 or $num1==4 or $num1==7 or $num1==10) {
 					echo "<td valign=top>";
@@ -942,7 +939,7 @@ if ($idio==1) {
 				if ($num1==3 or $num1==6 or $num1==9) {
 					echo "</td>";
 				}
-				}
+				//}
 				}
 			
 			?>
@@ -955,7 +952,7 @@ if ($idio==1) {
 	if ($repetidor <> 1) {
 		?>
 	<tr id='no_repite1'>
-		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ASIGNATURAS OPTATIVAS DE 1º DE BACHILLERATO</strong></td>
+		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ASIGNATURAS OPTATIVAS DE 1º DE BACHILLERATO</strong><br /><span style="font-size: 10px;">(Para solicitar una modalidad o vía diferente a la que ya has cursado debes pasar por Jefatura de Estudios.)</span></td>
 	</tr>
 	<?
 	echo " <tr><td colspan='3'>";
@@ -979,7 +976,7 @@ if ($idio==1) {
 					echo ' checked';
 				}
 			else{
-				if(strstr($curso_largo,${it1.$i}[3])==FALSE){
+				if(strstr($curso_largo,${it1.$i}[3])==FALSE and !($cargo=="1")){
 						echo " disabled";
 					}
 				$combas = explode(":", $combasi);
@@ -1017,7 +1014,9 @@ if ($idio==1) {
 					}
 					
 					else{
-						echo " disabled";
+						if (!($cargo=="1")) {
+							echo " disabled";
+						}
 					}
 				}
 			echo '  style="margin: 2px 2px" >';
@@ -1055,12 +1054,13 @@ if ($idio==1) {
 			name="claveal" <? echo "value = \"$claveal\""; ?> /> <input
 			type="hidden" name="repetidor" value="<? echo $repetidor;?>" /> 
 			<?
-			if (!($cargo=="1")) {
+$fecha_actual = strtotime(date("d-m-Y H:i:00",time()));
+$c_act = substr($curso_actual,0,4)+1;
+$fech_cad = "20-06-".$c_act." 00:00:00";
+$fecha_entrada = strtotime($fech_cad);
+if($fecha_actual < $fecha_entrada){
 				echo '<input type=hidden name="enviar" value="Enviar los datos de la Matrícula" />';
 				echo '<input type=button onClick="confirmacion();" value="Enviar los datos de la Matrícula" class="no_imprimir" />';
-			}
-			else{
-				echo '<input type=submit name="enviar" value="Enviar los datos de la Matrícula" class="no_imprimir" />';
 			}
 			?>
 			

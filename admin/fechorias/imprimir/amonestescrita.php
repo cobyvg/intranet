@@ -10,6 +10,8 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 include_once ("../../../funciones.php");
 // Consulta  en curso.
 
+if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}
+if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
 
 $actualizar = "UPDATE  Fechoria SET  recibido =  '1' WHERE  Fechoria.id = '$id'";
 mysql_query ( $actualizar );
@@ -57,7 +59,8 @@ class GranPDF extends FPDF {
 }
 
 # creamos el nuevo objeto partiendo de la clase ampliada
-$MiPDF = new GranPDF ( 'P', 'mm', A4 );
+$A4="A4";
+$MiPDF = new GranPDF ( 'P', 'mm', $A4 );
 $MiPDF->SetMargins ( 20, 20, 20 );
 # ajustamos al 100% la visualización
 $MiPDF->SetDisplayMode ( 'fullpage' );

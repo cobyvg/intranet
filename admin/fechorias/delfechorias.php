@@ -19,6 +19,8 @@ include("menu.php");
 </div>
 <br />
 <?
+if(isset($_GET['id'])){$id = $_GET['id'];}else{$id="";}
+
 $connection = mysql_connect($db_host, $db_user, $db_pass) or die ("No es posible conectar con la base de datos!");
 mysql_select_db($db) or die ("No es posible conectar con la base de datos!");
 $query = "DELETE FROM Fechoria WHERE id = '$id'";

@@ -89,7 +89,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
   <?php
 include("menu.php");
 $datatables_activado = true;
- //variables();
+if(isset($_GET['id'])){$id = $_GET['id'];}
 ?>
   <?php
     echo "<div  align='center'>";
@@ -110,12 +110,11 @@ $datatables_activado = true;
 </div>
 </div>
 <br />';
-  if ($confirma) {
+  if (isset($_POST['confirma'])) {
   	foreach ($_POST as $clave => $valor){
   		if (strlen($valor) > '0' and $clave !== 'confirma') {
   		$actualiza = "update Fechoria set confirmado = '1' where id = '$clave'";
-  		$act = mysql_query($actualiza);
-		
+  		$act = mysql_query($actualiza);		
   		} 
   	}
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -123,7 +122,7 @@ $datatables_activado = true;
             El registro ha sido confirmado.
           </div></div>';
   }
-  if($borrar=='1'){
+   if(isset($_GET['borrar']) and $_GET['borrar']=="1"){
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
 $result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">

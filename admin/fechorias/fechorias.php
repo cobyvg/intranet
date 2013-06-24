@@ -22,7 +22,6 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
     <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css">          
      <script type="text/javascript">
 function confirmacion() {
 	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar el registro de la base de datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
@@ -88,7 +87,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 
  <?
 include("menu.php");
-$imprimir_activado = true;
+//$imprimir_activado = true;
 ?>
 <div aligna="center">
 <div class="page-header" align="center">
@@ -101,12 +100,26 @@ $imprimir_activado = true;
   <div class="span12">
  
  <?
- //include '../../funciones.php';
- //variables();
- if ($confirma) {
+// include '../../funciones.php';
+// variables();
+if(isset($_POST['submit1'])){$submit1 = $_POST['submit1'];}else{ $submit1=""; }
+if(isset($_POST['nivel'])){$nivel = $_POST['nivel'];}else{ $nivel=""; }
+if(isset($_POST['grupo'])){$grupo = $_POST['grupo'];}else{ $grupo=""; }
+if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
+if(isset($_POST['APELLIDOS'])){$APELLIDOS = $_POST['APELLIDOS'];}else{ $APELLIDOS=""; }
+if(isset($_POST['NOMBRE'])){$NOMBRE = $_POST['NOMBRE'];}else{ $NOMBRE=""; }
+if(isset($_POST['DIA'])){$DIA = $_POST['DIA'];}else{ $DIA=""; }
+if(isset($_POST['MES'])){$MES = $_POST['MES'];}else{ $MES=""; }
+if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
+if(isset($_POST['confirma'])){$confirma = $_POST['confirma'];}else{ $confirma=""; }
+if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}elseif(isset($_POST['claveal'])){$claveal = $_POST['claveal'];}else{$claveal="";}
+if(isset($_GET['id'])){$id = $_GET['id'];}
+
+if (!(empty($confirma))) {
  	foreach ($_POST as $clave => $valor){
   		if (strlen($valor) > '0' and $clave !== 'confirma') {
   		$actualiza = "update Fechoria set confirmado = '1' where id = '$clave'";
+  		//echo $actualiza;
   		$act = mysql_query($actualiza);
   		} 
   	}
@@ -118,7 +131,7 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
 	onClick="history.back()"></div>';
 exit();
   }
-   if($borrar=='1'){
+   if(isset($_GET['borrar']) and $_GET['borrar']=="1"){
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
 $result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -132,14 +145,14 @@ exit();
 	   echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓn:</h4>
-            Debes seleccionar al menos un tipo de datos (Apellidos, Nombre, Nivel, etc.) para poder hacer la Consulta. Vuelve atrás selecciona algún criterio de búsqueda.
+            Debes seleccionar al menos un tipo de datos (Apellidos, Nombre, Nivel, etc.) para poder hacer la Consulta. Vuelve atrás y selecciona algún criterio de búsqueda.
           </div></div>';
 	echo " <br />
 <INPUT class='btn btn-primary' TYPE='button' VALUE='Volver atrás'
 	onClick='history.back()'>";
 exit();
     }
-	$AUXSQL == "";
+	$AUXSQL = "";
 	$clase=$_POST["clase"]; 
   #Comprobamos si se han metido Apellidos o no, etc.
   if  (TRIM("$NOMBRE")=="")
@@ -249,7 +262,7 @@ mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now
         	
    while($row = mysql_fetch_array($result))
         {
-        	$marca = '';
+        $marca = '';
 		$apellidos = $row[0];
 		$nombre = $row[1];
 		$nivel = $row[2];
@@ -311,7 +324,7 @@ if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo 
 		<td>";
 		//echo "$expulsion >  $expulsionaula";
 		if (stristr($_SESSION['cargo'],'1')) {
-			echo "<input type='checkbox' name='$id' value='1' $marca onChange='submit()' />";			
+			echo "<input type='checkbox' name='$id' value='1'  $marca onChange='submit()' />";			
 		}
 
 		

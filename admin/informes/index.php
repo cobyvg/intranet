@@ -51,6 +51,23 @@ include_once("../../funciones.php");
   <body>
 <div style="width:900px;margin:auto;">
      <?php
+     
+if(isset($_GET['todos'])){$todos = $_GET['todos'];}
+if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
+if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
+if(isset($_POST['nombre'])){$nombre = $_POST['nombre'];}else{ $nombre=""; }
+if(isset($_POST['fecha1'])){$fecha1 = $_POST['fecha1'];}else{ $fecha1=""; }
+if(isset($_POST['fecha2'])){$fecha2 = $_POST['fecha2'];}else{ $fecha2=""; }
+if(isset($_POST['faltas'])){$faltas = $_POST['faltas'];}else{ $faltas=""; }
+if(isset($_POST['faltasd'])){$faltasd = $_POST['faltasd'];}else{ $faltasd=""; }
+if(isset($_POST['fechorias'])){$fechorias = $_POST['fechorias'];}else{ $fechorias=""; }
+if(isset($_POST['notas'])){$notas = $_POST['notas'];}else{ $notas=""; }
+if(isset($_POST['tutoria'])){$tutoria = $_POST['tutoria'];}else{ $tutoria=""; }
+if(isset($_POST['horarios'])){$horarios = $_POST['horarios'];}else{ $horarios=""; }
+if(isset($_POST['act_tutoria'])){$act_tutoria = $_POST['act_tutoria'];}else{ $act_tutoria=""; }
+
+
+
 if (!($c_escolar==$curso_actual)) {
 $an=explode("/",$c_escolar);
 $c_db=$an[0]+1;

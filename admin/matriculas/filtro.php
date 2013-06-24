@@ -1,9 +1,8 @@
 <br />
 <div class="well-2 well-small" style="width:980px;">
-
-<form action="consultas.php" method="post" name="form2">
+<form action="consultas.php" method="post" name="form2" id="form2">
 <h4>Selecciona Nivel&nbsp;
-<select maxlength="12" name="curso" id="curso" onChange="desactivaOpcion();submit()">
+<select maxlength="12" name="curso" id="curso" onChange="desactivaOpcion();">
 	<option><? echo $curso;?></option>
 	<option>1ESO</option>
 	<option>2ESO</option>
@@ -89,7 +88,8 @@ echo ">&nbsp;&nbsp;";
 			<option>Promociona</option>
 			<option>PIL</option>
 			<option>Repite</option>
-		</select></td>
+		</select>
+		</td>
 		<td><label>Exención <select name="exencio" style="width:50px;">
 		<?php
 		if ($exencio) {
@@ -190,7 +190,7 @@ echo ">&nbsp;&nbsp;";
 		
 	</tr>
 	<tr>
-	<td><label>Transporte escolar <select name="transport" style="width:100px;">
+	<td><label>Transporte escolar<br /> <select name="transport" style="width:100px;">
 		<?php
 		if ($transport) {
 			echo "<option>$transport</option>";
@@ -200,7 +200,7 @@ echo ">&nbsp;&nbsp;";
 			<option>ruta_este</option>
 			<option>ruta_oeste</option>
 		</select></td>
-		<td><label>Religión</span> <select name="religio" id="religion" style="width:150px;">
+		<td><label>Religión<br /></span> <select name="religio" id="religion" style="width:150px;">
 		<?php
 		if ($religio) {
 			echo "<option>$religio</option>";
@@ -214,7 +214,7 @@ echo ">&nbsp;&nbsp;";
 			<option>Historia de las Religiones</option>
 			<option>Atención Educativa</option>
 		</select></td>
-		<td><label>Centro Origen <select name="colegi" style="width:160px;">
+		<td><label>Centro Origen <br /><select name="colegi" style="width:160px;">
 		<?php
 		if ($colegi) {
 			echo "<option>$colegi</option>";
@@ -228,7 +228,7 @@ echo ">&nbsp;&nbsp;";
 		}
 		?>
 		</select></td>
-		<td><label>Actividades <select name="actividade" style="width:150px;">
+		<td><label>Actividades <br /><select name="actividade" style="width:150px;">
 		<?php
 		if ($actividade) {
 			echo "<option>$actividade</option>";
@@ -242,6 +242,20 @@ echo ">&nbsp;&nbsp;";
 			<option>5</option>
 		</select></td>
 		
+	</tr>
+	<tr>
+	<td colspan=4><label align=center>Problemas de Convivencia <select name="fechori">
+		<? if ($fechori) {
+			echo "<option>$fechori</option>";
+		}
+		?>
+			<option></option>
+			<option>Sin problemas</option>
+			<option>1 --> 5</option>
+			<option>5 --> 15</option>
+			<option>15 --> 1000</option>
+		</select></label>
+		</td>
 	</tr>
 </table>
 <input type="submit" name="consulta" value="Ver matrículas" alt="Introducir" class="btn btn-primary" />

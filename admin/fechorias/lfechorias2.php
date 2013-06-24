@@ -13,7 +13,8 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
  <?
  include("../../menu.php");
   include("menu.php");
-  $imprimir_activado = true;
+ // $imprimir_activado = true;
+if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
   
  $nom = mysql_query("select nombre, apellidos, unidad from alma where claveal = '$clave'");
    $nom0 = mysql_fetch_array($nom);
@@ -36,10 +37,9 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <br />';
 
  echo "<table class='table table-bordered' style='width:auto' align='center'><tr><td style='background-color:#FFFF99'>Expulsión del Centro</td><td style='background-color:#CCFFCC'>Amonestación escrita</td><td style='background-color:#FF9900'>Expulsión del Aula</td><td style='background-color:#CCCCFF'>Expulsión al Aula de Convivencia</td></tr></table><br />";
-		echo "<table class='table table-bordered table-condensed tabladatos' style='width:100%'>";
+		echo "<table class='table table-striped' style='width:100%'>";
 		$fecha1 = (date("d").-date("m").-date("Y"));
-       echo "<thead><tr>
-		<th>ALUMNO</th>
+       echo "<thead>
 		<th>CURSO</th>
 		<th>FECHA</th>
 		<th>TIPO</th>
@@ -49,7 +49,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 		<th width='45'>CAD.</th>		
 		<th></th>
 		<th></th>
-		</tr></thead><tbody>";	
+		</thead><tbody>";	
    while($row = mysql_fetch_array($result))
         {
 		$apellidos = $row[0];
@@ -87,7 +87,6 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 				if(strlen($row[13]) > 0 or strlen($row[14]) > 0 ){$comentarios="<i class='icon icon-comment' title='Comentarios'> </i>";}else{$comentarios="";}
 				if($recibido == '1'){$comentarios1="<i class='icon icon-ok' title='recibido'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='icon icon-warning-sign' title='No recibido'> </i>";}else{$comentarios1="";}
 		echo "<tr>
-		<td $bgcolor><a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
 		<td >$rowcurso</td>
 		<td >$fecha</td>
 		<td >$asunto</td>
