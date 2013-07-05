@@ -124,12 +124,22 @@ if ($sin_matricula=="Alumnos sin matricular") {
 	include("menu.php");
 
 	$cur_monterroso = substr($curso, 0, 2);
-	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia from alma where claveal not in (select claveal from matriculas) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
-	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br /><br />';
-			echo "<div class='well-2 well-large' style='width:520px;margin:auto;'><ul class='unstyled'>";
+	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from matriculas) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
+	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br />';
+			echo "<div class='well-2 well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysql_fetch_array($camb)) {
 				
-			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4]</li>";
+			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5]</li>";
+		
+}
+echo "</ul></div><br />";
+
+	$canf = mysql_query("select distinct alma.apellidos, alma.nombre, alma.unidad, alma.telefono, alma.telefonourgencia, alma.fecha from alma, matriculas where alma.claveal=matriculas.claveal  and alma.nivel = '$cur_monterroso' and confirmado = '0' order by unidad, apellidos, nombre");
+	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
+			echo "<div class='well-2 well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
+	while ($cam2 = mysql_fetch_array($canf)) {
+				
+			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
 		
 }
 echo "</ul></div>";
@@ -517,12 +527,12 @@ for ($i = 0; $i < 16; $i++) {
 		for ($i=1;$i<4;$i++){	
 		echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'"';
 					if($promociona == $i){echo " checked";}
-		echo " />&nbsp;&nbsp; ";
+		echo " />&nbsp;&nbsp;";
 		}
 		}
 		else{
 	$val_notas="";
-	$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
+	$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal='".$claveal."'");
 	$nota = mysql_fetch_array($not);
 	$tr_not = explode(";", $nota[0]);
 	
@@ -533,9 +543,8 @@ for ($i = 0; $i < 16; $i++) {
 			$val_notas=$val_notas+1;
 		}
 		}
-		
 	}
-	$val_notas="";
+	
 	$tr_not2 = explode(";", $nota[1]);
 		foreach ($tr_not2 as $val_asig) {
 		$tr_notas = explode(":", $val_asig);
@@ -548,6 +557,7 @@ for ($i = 0; $i < 16; $i++) {
 	}
 	// Junio
 	if (date('m')>'05' and date('m')<'09'){
+
 	if ($val_notas<3) {$promociona="1";}
 	for ($i=1;$i<4;$i++){
 	echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';

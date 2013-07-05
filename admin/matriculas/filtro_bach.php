@@ -125,7 +125,33 @@ $n_opt2="";
 
 			
 		?>	
-		</select><? } ?></td>		
+		</select><? }
+else{
+	?>
+	<label>Idioma 1 <select name="idiom1" style="width:100px;">
+		<?php
+		if ($idiom1) {
+			echo "<option>$idiom1</option>";
+		}
+		?>
+			<option></option>
+			<option>Inglés</option>
+			<option>Francés</option>
+		</select>
+&nbsp;&nbsp;&nbsp;
+	<label style="display:inline"">Idioma 2 <select name="idiom2" style="width:100px;">
+		<?php
+		if ($idiom1) {
+			echo "<option>$idiom2</option>";
+		}
+		?>
+			<option></option>
+			<option>Alemán</option>
+			<option>Francés</option>
+			<option>Alemán</option>
+		</select>
+<? }
+		?></td>		
 	</tr>
 	<tr>
 <td><label>Promoción <select name="promocion" style="width:120px;">
@@ -220,7 +246,23 @@ $n_opt2="";
 		
 	</tr>
 		<tr>
-	<td colspan=4><label align=center>Problemas de Convivencia <select name="fechori">
+	<td colspan=4>
+	<? if ($curso=="2BACH") {		
+?>
+<label align=center>Idioma 1 <select name="idiom1" style="width:100px;">
+		<?php
+		if ($idiom1) {
+			echo "<option>$idiom1</option>";
+		}
+		?>
+			<option></option>
+			<option>Inglés</option>
+			<option>Francés</option>
+		</select>
+&nbsp;&nbsp;&nbsp;
+<? } ?>
+
+	<label align=center style="display:inline">Problemas de Convivencia <select name="fechori">
 		<? if ($fechori) {
 			echo "<option>$fechori</option>";
 		}

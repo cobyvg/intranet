@@ -151,7 +151,7 @@ $grupo = strtoupper($grupo);
  $SQL1 = "select notas3, apellidos, nombre from notas, alma where notas.claveal = alma.claveal1  and nivel = '$nivel' and grupo = '$grupo'";
  $result1 = mysql_query($SQL1);
  
- while ($num_promo0 = mysql_fetch_array($result1)) 
+/* while ($num_promo0 = mysql_fetch_array($result1)) 
 {
  	$n_susp = "";
  	$trozos0 = explode(";",$num_promo0[0]);	
@@ -187,21 +187,63 @@ $grupo = strtoupper($grupo);
 // 		$valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";	
  		$n_al = $n_al + 1;
  	}
- 	elseif($n_susp > "2" and !($nivel == "2B")) 
+ 	elseif($n_susp > "2" and !($nivel == "2B")  and !($nivel == "4E")) 
  	{		
 // 		$valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";	
  		$n_al = $n_al + 1;
  	}
-}
- 
+}*/
+
+ while ($num_promo0 = mysql_fetch_array($result1))                                                                                                                                                           
+{                                                                                                                                                                                                          
+        $n_susp = "";                                                                                                                                                                                        
+        $trozos0 = explode(";",$num_promo0[0]);                                                                                                                                                              
+        foreach ($trozos0 as $val)                                                                                                                                                                           
+        {                                                                                                                                                                                                    
+        $trozos1 = explode(":",$val);                                                                                                                                                                        
+                {                                                                                                                                                                                            
+                if ($nivel == "2B")                                                                                                                                                                          
+                        {                                                                                                                                                                                    
+                        if (($trozos1[1] > "416" and $trozos1[1] < "427") or ($trozos1[1] == "439"))          
+                                {                                                                                                                                                                            
+                $n_susp = $n_susp + 1;                                                                                                                                                                       
+                                }                                                                                                                                                                            
+                        }                                                                                                                                                                                    
+                elseif ($nivel == "1B")                                                                                                                                                                      
+                        {                                                                                                                                                                                    
+                        if (($trozos1[1] > "416" and $trozos1[1] < "427") or $trozos1[1] == "439")                                                                                                           
+                                {                                                                                                                                                                            
+                $n_susp = $n_susp + 1;                                                                                                                                                                       
+                                }                                                                                                                                                                            
+                        }                                                                                                                                                                                    
+                elseif(substr($nivel,1,1) == "E")                                                                                                                                                            
+                        {                                                                                                                                                                                    
+                if (($trozos1[1] > "336" and $trozos1[1] < "347" and $trozos1[1] !== "339" and $trozos1[1] !== ""))                                                                                          
+                                {                                                                                                                                                                            
+                $n_susp = $n_susp + 1;                                                                                                                                                                       
+                                }                                                                                                                                                                            
+                        }                                                                                                                                                                                    
+                }                                                                                                                                                                                            
+        }                                                                                                                                                                                                    
+ if ($n_susp > "0" and ($nivel == "2B" or $nivel == "4E"))                                                                                                                                                                       
+        {                                                                                                                                                                                                    
+//              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";                                                                                                            
+                $n_al = $n_al + 1;                                                                                                                                                                           
+        }                                                                                                                                                                                                    
+        elseif($n_susp > "2" and !($nivel == "2B") and !($nivel == "4E"))                                                                                                                                                          
+        {                                                                                                                                                                                                    
+//              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";                                                                                                            
+                $n_al = $n_al + 1;                                                                                                                                                                           
+        }                                                                                                                                                                                                    
+}    
 
 ?>
 <table class="table table-striped" style="width:auto;">
 <tr>
     <th>Comienzan el Curso</th>
     <th>Terminan el Curso</th>
-    <th>Promocionan</th>
     <th>No Promocionan</th>
+    <th>Promocionan</th>
     <th>Repetidores</th>
     <th>Nuevas Incorporaciones</th>
 </tr>
@@ -470,12 +512,12 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 <hr><br /><h4>
  Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</h4><br />
  <form action="memoria.php" method="POST">
- <textarea name="observaciones1" class="span7" rows="15"><? echo $obs2[0];?></textarea>
+ <textarea name="observaciones1" style="width:100%"><? echo $obs2[0];?></textarea>
  <hr>
 <br />
 <h4>
  Otras Observaciones</h4><br />
- <textarea name="observaciones2" class="span7" rows="15"><? echo $obs2[1];?></textarea>
+ <textarea name="observaciones2" style="width:100%"><? echo $obs2[1];?></textarea>
  <br />
 <input type="hidden" name="tutor" value="<? echo $tutor;?>">
 <input type="hidden" name="nivel" value="<? echo $nivel;?>">

@@ -134,15 +134,25 @@ if ($sin_matricula=="Alumnos sin matricular") {
 	include("menu.php");
 
 	$cur_monterroso = substr($curso, 0, 2);
-	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia from alma where claveal not in (select claveal from matriculas_bach) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
-	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br /><br />';
-	echo "<div class='well-2 well-large' style='width:520px;margin:auto;'><ul class='unstyled'>";
+	
+	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from matriculas_bach) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
+	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br />';
+			echo "<div class='well-2 well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysql_fetch_array($camb)) {
-
-		echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4]</li>";
-
-	}
-	echo "</ul></div>";
+				
+			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5]</li>";
+		
+}
+echo "</ul></div><br />";
+	$canf = mysql_query("select distinct apellidos, nombre, curso, telefono1, telefono2, nacimiento from matriculas_bach where confirmado NOT LIKE  '1' and curso like '$cur_monterroso%' order by apellidos, nombre");
+	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
+			echo "<div class='well-2 well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
+	while ($cam2 = mysql_fetch_array($canf)) {
+				
+			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
+		
+}
+echo "</ul></div>";
 	exit();
 }
 
@@ -209,6 +219,8 @@ if ($optativ) { $extra.=" and optativa".$n_curso." = '".$optativ."'";}
 if ($optativ2) { $extra.=" and optativa2b".$optativ2." = '1'";}
 if ($itinerari) { $extra.=" and itinerario$n_curso = '$itinerari'";}
 if ($religio) { $extra.=" and religion = '$religio'";}
+if ($idiom1) { $extra.=" and idioma1 = '$idiom1'";}
+if ($idiom2) { $extra.=" and idioma2 = '$idiom2'";}
 if ($letra_grup) { $extra.=" and letra_grupo = '$letra_grup'";}
 if ($_POST['grupo_actua']) {
 
@@ -249,7 +261,7 @@ if (!($orden)) {
 
 	include 'procesado_bach.php';
 
-	$sql = "select id, apellidos, nombre, curso, letra_grupo, colegio, otrocolegio, confirmado, grupo_actual, observaciones, religion, itinerario1, itinerario2, promociona, claveal, ruta_este, ruta_oeste, revisado, optativa1, optativa2 ";
+	$sql = "select id, apellidos, nombre, curso, letra_grupo, colegio, otrocolegio, confirmado, grupo_actual, observaciones, religion, itinerario1, itinerario2, promociona, claveal, ruta_este, ruta_oeste, revisado, optativa1, optativa2, idioma1, idioma2 ";
 
 	if ($curso=="2BACH"){
 		for ($i=1;$i<11;$i++)
@@ -291,6 +303,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		echo '<th>Centro</th>';
 		echo '<th>Rel.</th>';
 		echo '<th>Transporte</th>';
+		echo '<th>Idiom1</th>';
+		if ($curso=="1BACH") {
+		echo '<th>Idiom2</th>';
+		}		
 		echo '<th>Mod.</th>';
 		echo "<th>Opt_Mod".$n_curso."</th>";
 		if ($n_curso>1) {
@@ -312,7 +328,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		$respaldo='1';
 		$naci = explode("-",$datos_ya->nacimiento);
 		$nacimiento = "$naci[2]-$naci[1]-$naci[0]";
-		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual;
+		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2;
 		$back = mysql_query("select id from matriculas_bach_backup where id = '$id'");
 		if (mysql_num_rows($back)>0) {
 			$respaldo = '1';
@@ -362,6 +378,10 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if($ruta_este){$trans = substr($ruta_este, 0, 10).".";}
 		if($ruta_oeste){$trans = substr($ruta_oeste, 0, 10).".";}
 		echo '<td> '.$trans.'</td>';
+		echo '<td> '.$idioma1.'</td>';
+		if ($curso=="1BACH") {
+		echo '<td> '.$idioma2.'</td>';
+		}
 		echo '<td>'.${itinerario.$n_curso}.'</td>';
 		//if ($optativa1 == '0') {${optativa.$i}="";}
 		echo "<td align='center'";

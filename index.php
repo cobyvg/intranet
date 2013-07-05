@@ -104,7 +104,8 @@ break;
 if ($_POST['submit'] == 'Entrar' and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {
 	$clave0 = $_POST['clave'];
 	$clave = sha1 ( $_POST['clave'] );
-	$pass0 = mysql_query ( "SELECT pass, profesor , dni FROM c_profes where idea = '".$_POST['idea']."'" );
+	$pass0 = mysql_query ( "SELECT c_profes.pass, c_profes.profesor , departamentos.dni FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."'" );
+
 	$pass1 = mysql_fetch_array ( $pass0 );
 	$codigo = $pass1 [0];
 	$dni = $pass1 [2];

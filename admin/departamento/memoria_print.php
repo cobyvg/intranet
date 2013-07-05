@@ -66,7 +66,8 @@ if (isset($_POST['zprofe'])){$profe = $_POST['zprofe'];}
 # Lectura de los datos de la memoria
 ##############
 
-$sqlmem="SELECT * FROM mem_dep WHERE departamento='".$depto."'";
+$sqlmem="SELECT * FROM mem_dep WHERE departamento='".$_GET['depto']."'";
+//echo $sqlmem;
 $datos_memoria= mysql_query($sqlmem);
 $memoria = mysql_fetch_array($datos_memoria);
 
