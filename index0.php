@@ -109,5 +109,3 @@ if (stristr ( $carg, '2' ) == TRUE) {
   </body>  
 </html>  
 
-</html>  
-

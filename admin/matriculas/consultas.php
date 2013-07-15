@@ -306,9 +306,9 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	$opt43=array("Alemán2_3" => "Alemán 2º Idioma", "Francés2_3" => "Francés 2º Idioma", "Informatica_3" => "Informática", "EdPlástica_3" => "Ed. Plástica y Visual");
 	$opt44=array("Alemán2_4" => "Alemán 2º Idioma", "Francés2_4" => "Francés 2º Idioma", "Tecnología_4" => "Tecnología");
 //	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
-	$a1 = array("Actividades de refuerzo de Inglés", "Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas",  "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
-	$a2 = array("Actividades de refuerzo de Inglés", "Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas",  "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
-		
+	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
+	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
+	
 	
 $sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado";
 

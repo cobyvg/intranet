@@ -35,7 +35,7 @@ if (mysql_num_rows ( $result ) > 0) {
 </a>
 <small>
 Fecha: <?
-		echo fecha_actual3 ( $row->timestamp );
+		echo fecha_actual2 ( $row->timestamp );
 		?>.
 <?
 		if ($row->clase == "") {

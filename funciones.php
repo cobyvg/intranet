@@ -254,15 +254,18 @@ function fecha_actual3($valor_fecha){
 	echo "$diames0 de ".$mes0[$nmes0];
 }
 
-function fecha_actual2(){
-	$mes = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
+function fecha_actual2($valor_fecha){
+	$arr = explode("-", $valor_fecha);
+    $mes0 = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
                  8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre");
-    $dia = array("domingo", "lunes","martes","miércoles","jueves","viernes","sábado");
-	$diames = date("j");
-    $nmes = date("n");
-    $ndia = date("w");
-    $nano0 = date("Y");
-	echo "$diames de ".$mes[$nmes].", $nano0";
+    $dia0 = array("domingo", "lunes","martes","miércoles","jueves","viernes","sábado"); 
+	$diames0 = date("j",mktime(0,0,0,$arr[1],$arr[2],$arr[0]));
+	$nmes0 = $arr[1];
+	if(substr($nmes0,0,1) == "0"){$nmes0 = substr($nmes0,1,1);}	
+   // $ndia0 = $arr[2];
+	$ndia0 = date("w",mktime(0,0,0,$arr[1],$arr[2],$arr[0]));
+    $nano0 = $arr[0];
+	echo "$diames0 de ".$mes0[$nmes0].", $nano0";
 }
 
 function fecha_sin($valor_fecha){
