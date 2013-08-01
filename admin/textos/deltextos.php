@@ -11,9 +11,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include("../../menu.php");
-echo '<div align="center"><h2>Libros de Texto</h2><br />';		
-echo "<h3>
-			Borrar un Libro de la Base de Datos</h3><br />";
+		echo '<br />
+<div align="center">
+<div class="page-header">
+  <h2>Libros de Texto <small> Borrar Libro de Texto</small></h2>
+</div><br />';
  
 $connection = mysql_connect($db_host, $db_user, $db_pass) or die ("No es posible conectar con la base de datos!");
 

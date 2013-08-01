@@ -12,9 +12,9 @@ if(empty($profesor))
 <div class="row-fluid">
 <div class="span4"></div>
 <div class="span4">
-<div class="well-2 well-large">
+<div class="well well-large">
   <?
-echo "<h6 align='center'>Selecciona Tutor</h6>";
+echo "<legend align='center'>Selecciona Tutor</legend>";
 echo "<hr>";
 	?>
   <?
@@ -72,11 +72,11 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in" st
 			echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_fecha.'</div></div>';
 		}
-		        echo '<div class="well-2 well-large" style="margin-left:15px;">'; 
+		        echo '<div class="well-transparent well-large">'; 
 		        include("cal.php"); 
 ?>
       <br />
-      <table style="width:auto">
+      <table>
         <tr>
           <td style="background-color:#46a546;width:30px;"></td>
           <td>&nbsp;Faltas Justificadas&nbsp;</td>
@@ -116,7 +116,7 @@ echo "</td></tr></table><br />";
 		$nivel = $filatutor[0];
 		$grupo = $filatutor[1]; 
 		echo "<h4> $profesor: &nbsp;<span style='font-size:1.0em; color:#08c'>$nivel-$grupo</span></h4><br />";
-		echo '<div class="well-2 well-large">';
+		echo '<div class="well well-large">';
 // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
 		$nivelgrupo0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE NIVEL = '$nivel' and GRUPO = '$grupo' order by NC asc");
 		$todos = mysql_num_rows($nivelgrupo0);
@@ -147,9 +147,9 @@ while($filanivelgrupo1 = mysql_fetch_array($nivelgrupo1))
 $completo1 =  "$filanivelgrupo1[0], $filanivelgrupo1[1]";
 $alumno1 =  $filanivelgrupo1[3];
 $clave1 = $filanivelgrupo1[3];
-echo "<input name='alumno' type='radio'";
+echo "<label class='radio'><input name='alumno' type='radio'";
 if($alumno == $alumno1){echo " checked";}
-echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 <br>";
+echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 </label>";
 		        	} 
 		        	echo "</div>";
 		        	echo "<div class='span6' align='left'>";
@@ -158,9 +158,9 @@ echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 <br
 $completo2 =  "$filanivelgrupo[0], $filanivelgrupo[1]";
 $alumno2 =  $filanivelgrupo[3];
 $clave2 = $filanivelgrupo[3];
-echo "<input name='alumno' type='radio'";
+echo "<label class='radio'><input name='alumno' type='radio'";
 if($alumno == $alumno2){echo " checked";}
-echo " value = '$clave2' onclick=submit() /> $filanivelgrupo[2]. $completo2 <br>";
+echo " value = '$clave2' onclick=submit() /> $filanivelgrupo[2]. $completo2 </label>";
 		        }		         	 
 	echo "</div>";
 	echo "</div>";	

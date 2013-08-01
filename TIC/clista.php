@@ -16,7 +16,7 @@ $imprimir_activado = true;
 ?>
 <div align=center>
 <div class="page-header" align="center">
-  <h1>Centro TIC <small> Listado de incidencias</small></h1>
+  <h2>Centro TIC <small> Listado de incidencias</small></h2>
 </div>
 <br />
 </div>

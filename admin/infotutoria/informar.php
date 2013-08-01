@@ -58,7 +58,7 @@ include("../../menu_solo.php");
 include("menu.php");
 ?>
 <div class="page-header" align="center">
-  <h1>Informes de Tutoría <small> Redactar Informe por asignatura</small></h1>
+  <h2>Informes de Tutoría <small> Redactar Informe por asignatura</small></h2>
 </div>
 <br />
 <div align="center">
@@ -81,7 +81,7 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuev
 	exit;	
 }
 ?>
-<div class="well-2 well-large" style="width:600px;">
+<div class="well well-large" style="width:600px;">
  <form name="informar" method="POST" action="informar.php?id=<? echo $id;?>"> 
 <?
 echo "<input type='hidden'  name='ident' value='$id'>";

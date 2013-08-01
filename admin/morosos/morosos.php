@@ -14,7 +14,7 @@ include("../../menu.php");
 <div align="center">
 <h2>Actualizaci&oacute;n de morosos en la Biblioteca.</h2>
 <br />
-<div class="well-2 well-large" style="width:700px;margin:auto;text-align:left">
+<div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
 if($archivo){ 
 mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");

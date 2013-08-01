@@ -19,10 +19,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <? include("./menu.php");?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Matriculación de Alumnos <small> Matricular Alumnos de Bachillerato</small></h1>
+  <h2>Matriculación de Alumnos <small> Matricular Alumnos de Bachillerato</small></h2>
 </div>
 <br />
-  <div class="well-2 well-large" style="width:400px;" align="left">
+  <div class="well well-large" style="width:400px;" align="left">
     <form action="matriculas_bach.php" method="post">
       <label><p class="lead">Selecciona el Nivel</p>
         <span class="help-block">(No es obligatorio si el alumno pertenece a nuestro Centro o los Colegios adscritos que han entregado el archivo de Séneca de sus alumnos)</span>

@@ -14,19 +14,20 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 $nombre = $nombre_al;
 ?>
-
+<br />
 <div align="center">
-<div class="page-header" style="margin-top:-15px" align="center">
-  <h1>Informe del Alumno <small> Seleccionar alumno</small></h1>
+<div class="page-header" align="center">
+  <h2>Informe del Alumno <small> Seleccionar alumno</small></h2>
 </div>
 <br />
 </div>
 <div class="row-fluid">
   <div class="span3"> </div>
   <div class="span6">
-    <div class="well-2 well-large">
+    <div class="well well-large">
       <div class="row-fluid">
       <div class="span6" align="left">
+      <legend>Datos del alumno</legend>
       <form class="form-inline">
         <label>Nivel
           <select  name="nivel" onChange="submit()" class="input-mini">
@@ -89,7 +90,7 @@ echo "<option>${a.$i}</option>";
         </div>
         </div>
         <div class="span6" align="left">
-          <h4>OPCIONES DEL INFORME</h4>
+          <legend>Opciones del Informe</legend>
           <br />
           <?    if ($mod_faltas) {?>
           <label>

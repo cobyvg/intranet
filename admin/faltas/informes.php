@@ -26,8 +26,11 @@ echo "<div align='center'>";
 
   $result10 = mysql_query($SQL10);
   $row10 = mysql_fetch_array($result10);
-          echo "<br /><h3 align='center'>Informe de faltas de asistencia del alumno</h3><br />
-		  <div align='center'>";
+          echo "<div align='center'>";
+          echo '<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Informe de faltas del alumno</small></h2>
+  </div>
+<br />';
 		echo "<table class='table table-striped' style='width:auto;'>";
 
                 printf ("<tr><th>%s</th><th>%s</th>

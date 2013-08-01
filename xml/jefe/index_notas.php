@@ -50,39 +50,43 @@ exit;
 <?php
 include("../../menu.php");
 ?>
-<div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Importación de calificaciones por evaluación</small></h1>
-</div>
 <br />
-<div class="well well-large" style="width:700px;margin:auto;text-align:left">
-
+<div align="center">
+<div class="page-header" align="center">
+  <h2>Administración <small> Importación de calificaciones por evaluación</small></h2>
+</div>
 <FORM ENCTYPE="multipart/form-data" ACTION="index_notas.php" METHOD="post">
-  <div class="control-group success"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si tienes a mano los archivos de Evaluaci&oacute;n
+
+  <div class="control-group">
+ <p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si tienes a mano los archivos de Evaluaci&oacute;n
     exportados desde S&Eacute;NECA , puedes continuar con el
-    segundo paso.</p></div><br />
-  <div class="well-2 well-large" style="width:500px; margin:auto;" align="left">
-  <h6>Selecciona la Evaluación<br />
-  </h6>
-<select name="eval" class="span3">
+    segundo paso.</p>
+  <br />
+  <div class="well well-large" style="width:500px; margin:auto;" align="left">
+  <div class="controls">
+  <label class="control-label" for="eval">Selecciona la Evaluación</label>
+  <select name="eval" class="span3" id="eval">
   <option></option>
   <option>1ª Evaluación</option>
   <option>2ª Evaluación</option>
   <option>Junio</option>
   <option>Septiembre</option>
   </select>  
-  <hr>
-  <h6>Selecciona el archivo con las calificaciones<br />
-  </h6>
-  <input type="file" name="archivo2" class="input input-file span4">
+  <hr />
+  <label class="control-label" for="file">Selecciona el archivo con las calificaciones
+  </label>
+  <input type="file" name="archivo2" class="input input-file span4" id="file">
   <hr>
   <div align="center">
     <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">
   </div>
+  </div>
+  </div>
+
 </FORM>
 <br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-success" />
 </div>
 </div>
 </div>

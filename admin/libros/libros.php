@@ -77,8 +77,8 @@ if ($col_curso=="curso") { }else{
 ?>
 
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Programa de Ayudas al Estudio <small> Informe sobre el estado de los Libros: <span style=" color:#08c;"><? echo $nivel."-".strtoupper($grupo);?></span></small></h1>
+<div class="page-header" align="center">
+  <h2>Programa de Ayudas al Estudio <small> Informe sobre el estado de los Libros: <span style=" color:#08c;"><? echo $nivel."-".strtoupper($grupo);?></span></small></h2>
 </div>
 <br />
 <?

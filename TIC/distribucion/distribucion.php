@@ -22,7 +22,7 @@ $trozos = explode("-->",$curso);
 <div class="row-fluid">
 <div class="span2"></div>
 <div class="span4">
-<div class="well-2 well-large" align="left">
+<div class="well well-large" align="left">
 <?          
 if ($submit1){
 $trozos=explode("-->",$alumno);

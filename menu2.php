@@ -2,24 +2,32 @@
 if (stristr ( $carg, '1' ) == TRUE) {
 	?>
 
-<li class="nav-header"> Dirección del Centro</li>
+<li><a data-toggle="collapse" data-target="#direccion" style="cursor:pointer"> Dirección del Centro<i class="icon-chevron-down pull-right"></i> </a></li>
+<div id="direccion" class="collapse">
+  <ul class="nav nav-list">
 <li><a href="xml/index.php">Administración de la Intranet</a></li>
 <li><a href="admin/jefatura/tutor.php">Diario de Jefatura</a></li>
 <li><A HREF="xml/jefe/mem_jefatura.php" target="_top">Informes sobre Convivencia</A></li>
-<hr />
+<br />
+</ul>
+</div>
 <?
 }
 ?>
 <?
 if (stristr ( $carg, '4' ) == TRUE) {
 	?>
-<li class="nav-header">Departamento</li>
-<li><a href="admin/rd/add.php">Actas del Departamento</a></li>
+<li><a data-toggle="collapse" data-target="#Departamento" style="cursor:pointer"> Departamento<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="Departamento" class="collapse">
+  <ul class="nav nav-list">
+  <li><a href="admin/rd/add.php">Actas del Departamento</a></li>
 <li><a href="admin/textos/intextos.php">Libros de Texto</a></li>
 <li><a href="admin/inventario/introducir.php">Inventario de Material</a></li>
 <li><a href="admin/actividades/index.php" target="_top">Actividades Extraescolares</a></li>
 <li><a href="admin/departamento/memoria.php" target="_top">Memoria del Departamento</a></li>
-<hr />
+<br />
+</ul>
+</div>
 <?
 }
 ?>
@@ -27,12 +35,16 @@ if (stristr ( $carg, '4' ) == TRUE) {
 
 if (stristr ( $carg, '5' ) == TRUE) {
 	?>
-<li class="nav-header">Extraescolares</li>
+<li><a data-toggle="collapse" data-target="#Extraescolares" class="text-sucess" style="cursor:pointer"> Extraescolares<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="Extraescolares" class="collapse">
+  <ul class="nav nav-list">
 <li><a href="./admin/actividades/indexextra.php">Administrar
   Actividades</a></li>
 <li><a href="./admin/actividades/index.php">Introducir Actividades</a></li>
 <li><a href="./admin/actividades/consulta.php">Consultar Actividades</a></li>
-<hr />
+<br />
+</ul>
+</div>
 <?
 }
 ?>
@@ -40,19 +52,17 @@ if (stristr ( $carg, '5' ) == TRUE) {
 
 if (stristr ( $carg, '8' ) == TRUE) {
 	?>
-<li class="nav-header">Orientación</li>
-<li><a href="admin/orientacion/tutor.php">Página de Orientación</a></li>
+<li><a data-toggle="collapse" data-target="#Orientacion"  class="text-sucess" style="cursor:pointer"> Orientación<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="Orientacion" class="collapse">
+  <ul class="nav nav-list">
+  <li><a href="admin/orientacion/tutor.php">Página de Orientación</a></li>
 <li><a href="./admin/tutoria/">Página del Tutor </a></li>
 <li><a href="admin/actividades/index.php" target="_top">Actividades
   Extraescolares</a></li>
   <li><A HREF="xml/jefe/mem_jefatura.php" target="_top">Informes sobre Convivencia</A></li>
-<?
-	if ($mod_sms) {
-		?>
-<?
-	}
-	?>
-    <hr />
+<br />
+</ul>
+</div>
 <?
 }
 ?>
@@ -60,14 +70,20 @@ if (stristr ( $carg, '8' ) == TRUE) {
 <?
 if (stristr ( $carg, '2' ) == TRUE) {
 	?>
-<li class="nav-header">Tutoría</li>
-<li><a href="admin/tutoria/global.php">Página del Tutor</a></li>
-<hr />
+<li><a data-toggle="collapse" data-target="#tutoria" class="text-sucess" style="cursor:pointer"> Tutoría<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="tutoria" class="collapse">
+  <ul class="nav nav-list">
+  <li><a href="admin/tutoria/global.php">Página del Tutor</a></li>
+<br />
+</ul>
+</div>
 <?
 }
 ?>
-<li class="nav-header">Consultas</li>
-<li><a href="admin/cursos/ccursos.php">Listas de los Grupos</a></li>
+<li><a data-toggle="collapse" data-target="#Consultas" style="cursor:pointer"> Consultas<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="Consultas" class="collapse">
+  <ul class="nav nav-list">
+  <li><a href="admin/cursos/ccursos.php">Listas de los Grupos</a></li>
 <li><a href="admin/datos/cdatos.php">Datos de los Alumnos</a></li>
 <?
 				if ($mod_horario) {
@@ -84,10 +100,14 @@ if (stristr ( $carg, '2' ) == TRUE) {
 <li><a href="admin/fotos/fotos_profes.php">Fotos de los Profesores</a></li>
 </ul>
 </div>
-<hr />
+<br />
+</ul>
+</div>
 
-<li class="nav-header">Trabajo</li>
-<li><a data-toggle="collapse" data-target="#convivencia" style="cursor:pointer"> Problemas de Convivencia <i class="icon-chevron-down pull-right"> </i> </a></li>
+<li><a data-toggle="collapse" data-target="#Trabajo" style="cursor:pointer"> Trabajo<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="Trabajo" class="collapse">
+  <ul class="nav nav-list">
+  <li><a data-toggle="collapse" data-target="#convivencia" style="cursor:pointer"> Problemas de Convivencia <i class="icon-chevron-down pull-right"> </i> </a></li>
 <div id="convivencia" class="collapse">
   <ul class="nav nav-list">
     <!-- dropdown menu links -->
@@ -114,9 +134,17 @@ if (stristr ( $carg, '2' ) == TRUE) {
 						?>/intranet/admin/morosos/">Morosos de la Biblioteca </a></li>
     <?
 					}
+					
+$conv = mysql_query("select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'");
+if (mysql_num_rows($conv) > '0' or stristr ( $carg, '1' ) == TRUE) {
+?>
+<li><a href="admin/fechorias/convivencia.php">Aula de Convivencia</a></li>
+<?
+}
 					?>
   </ul>
 </div>
+
 <?
 	if ($mod_faltas) {
   ?>
@@ -205,24 +233,28 @@ if ($mod_horario=="1") {
     </li>
   </ul>
 </div>
-<?
-$conv = mysql_query("select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'");
-if (mysql_num_rows($conv) > '0') {
-?>
-<li><a href="admin/fechorias/convivencia.php">Aula de Convivencia</a></li>
-<?
-}
-if (stristr ( $carg, '1' ) == TRUE) {
-	?>
-<li><a href="./admin/tutoria/">Página del Tutor </a></li>
-<li><a href="admin/fechorias/convivencia_jefes.php">Aula de Convivencia</a></li>
-<?
+
+<li><a data-toggle="collapse" data-target="#Mensajes" style="cursor:pointer"> Mensajería  <i class="icon-chevron-down pull-right"> </i> </a></li>
+<div id="Mensajes" class="collapse">
+  <ul class="nav nav-list">
+    <!-- dropdown menu links -->
+    <?
 	if ($mod_sms) {
 		?>
 <li><a href="sms/index.php" target="_top">Enviar SMS</a></li>
 <?
 	}
 	?>
+	<li><a href="admin/mensajes/correo.php" target="_top">Enviar Correo</a></li>
+    <li><a href="admin/mensajes/">Enviar Mensaje </a></li>
+  </ul>
+</div>
+
+
+<?
+if (stristr ( $carg, '1' ) == TRUE) {
+	?>
+<li><a href="./admin/tutoria/">Página del Tutor </a></li>
 
 <?
 }
@@ -251,25 +283,28 @@ if (stristr ( $carg, '1' ) == TRUE) {
 				if (stristr ( $carg, '7' ) == TRUE) {
 					?>
 <?
-					if ($mod_sms) {
-						?>
-<li><a href="sms/index.php" target="_top">Enviar SMS</a></li>
-<?
-					}
 				}
 				?>
-					<li><a href="admin/mensajes/correo.php" target="_top">Enviar Correo</a></li>
-                <hr />
-<li class="nav-header">Otras cosas</li>
-<li><a
+<br />
+</ul>
+</div>					
+<li><a data-toggle="collapse" data-target="#cosas" style="cursor:pointer"> Otras cosas<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="cosas" class="collapse">
+  <ul class="nav nav-list">
+  <li><a
 		href="http://www.juntadeandalucia.es/averroes/centros-tic/29002885/moodle/">Palataforma
   Moodle</a></li>
 <li><a href="admin/cursos/calendario.php">Calendario Escolar</a></li>
 <li><a href="http://iesmonterroso.org/PC20122013/index.htm"
 		target="_blank">Plan de Centro</a></li>
 <li><a href="clave.php">Cambiar Contrase&ntilde;a</a></li>
-<hr />
-<li class="nav-header">Otras p&aacute;ginas</li>
+<br />
+</ul>
+</div>
+
+<li><a data-toggle="collapse" data-target="#paginas" style="cursor:pointer"> Otras p&aacute;ginas<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="paginas" class="collapse">
+  <ul class="nav nav-list">
 <li><a
 		href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6&vismenu=0,0,1,1,1,1,1"
 		target="_blank">Novedades de la Consejer&iacute;a</a></li>
@@ -280,3 +315,7 @@ if (stristr ( $carg, '1' ) == TRUE) {
 		target="_blank">CEP de Marbella</a></li>
 <li><a href="http://www.mec.es" target="_blank">P&aacute;gina del MEC </a></li>
 <li><a href="http://www.juntadeandalucia.es/averroes/" target="_blank">Averroes</a></li>
+<br />
+</ul>
+</div>
+

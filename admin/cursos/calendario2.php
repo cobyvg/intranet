@@ -1,3 +1,4 @@
+<br />
 <div align="center"><br /><h2>CALENDARIO ESCOLAR <? echo $curso_actual;?></h2> <br />
 </div>
 

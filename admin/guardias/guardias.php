@@ -40,14 +40,12 @@ if ($n_dia > $numerodiasemana) {
  	$g_fecha = date("Y-m-$g_dia");
  	$fecha_sp = formatea_fecha($g_fecha);
 ?>
-
-<div align=center>
- <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Guardias de Aula <small> Registro de guardias<br />Fecha de la guardia: <span style="color:#9d261d;"><? echo $fecha_sp;?></span><br />
-Profesor de guardia: <span style='color:#08c;'><? echo $profeso;?></small></h1>
-</div>
 <br />
-
+<div align=center>
+ <div class="page-header" align="center">
+  <h2>Guardias de Aula <small> Registro de guardias<br />Fecha de la guardia: <span style="color:#9d261d;"><? echo $fecha_sp;?></span><br />
+Profesor de guardia: <span style='color:#08c;'><? echo $profeso;?></small></h2>
+</div>
 </div><br />
 <?
 $sql = "SHOW TABLES FROM $db";

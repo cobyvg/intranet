@@ -255,7 +255,8 @@ function fecha_actual3($valor_fecha){
 }
 
 function fecha_actual2($valor_fecha){
-	$arr = explode("-", $valor_fecha);
+	$arr0 = explode(" ", $valor_fecha);
+	$arr = explode("-", $arr0[0]);
     $mes0 = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
                  8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre");
     $dia0 = array("domingo", "lunes","martes","miércoles","jueves","viernes","sábado"); 

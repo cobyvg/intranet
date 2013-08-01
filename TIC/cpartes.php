@@ -21,24 +21,24 @@ if(!$enviar)
 
 <div align=center>
   <div class="page-header" align="center">
-  <h1>Centro TIC <small> Registro de incidencias</small></h1>
+  <h2>Centro TIC <small> Registro de incidencias</small></h2>
 </div>
 <br />
 </div>
 <div class="row-fluid">
   <div class="span2"></div>
   <div class="span4">
-    <div class="well-2 well-large" align="left">
+    <div class="well well-large" align="left">
       <form class="form-inline" action="cpartes.php">
-        <h6>Selecciona Nivel y Grupo</h6>
+        <legend>Selecciona Nivel y Grupo</legend>
         <br />
-        <label>NIVEL
+        <label>Nivel
           <select name="nivel" id="NIVEL" onchange="submit()" class="input-mini">
             <option><? echo $nivel;?></option>
             <? nivel();?>
           </select>
         </label>
-        <label>GRUPO
+        <label>Grupo
           <select name="grupo" id="GRUPO" onchange="submit()" class="input-mini">
             <option><? echo $grupo;?></option>
             <? grupo($nivel);?>
@@ -47,7 +47,7 @@ if(!$enviar)
         </form>
         <hr />
         <form class="form-vertical" action="cpartes.php">
-        <label>ALUMNO<br />
+        <label>Alumno<br />
           <select name="alumno" id="alumno" class="input-xlarge">
             <OPTION></OPTION>
             <? 
@@ -110,8 +110,8 @@ $fecha = trim($año)."-".trim($mes)."-".trim($dia);
       </form>
     </div>
   </div>
-  <div class="well-2 well-large span4">
-  <h6>Instrucciones.</h6><br />
+  <div class="well well-large span4">
+  <legend>Instrucciones.</legend><br />
     <p>En esta p&aacute;gina se dan de alta los problemas que pod&aacute;is tener con los ordenadores, tanto port&aacute;tiles como fijos. </p>
     <p id="texto"> Los fallos pueden ser de dos tipos: bien sucede que la m&aacute;quina o alguna de sus partes presenta problemas (la m&aacute;quina no enciende, se ha fastidiado la pantalla o el teclado, etc); o bien el Sistema Operativo o alguna de sus aplicaciones no funcionan. Cualquiera de las dos clases de problemas se registran aqu&iacute;.</p>
     <p id="texto"> Los campos que es obligatorio rellenar aparecen marcados con el signo <span style="color:#cc6600">(*).</span></p>

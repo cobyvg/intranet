@@ -33,12 +33,12 @@ if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
 
 <div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Consultas</small></h1>
+  <h2>Problemas de Convivencia <small> Consultas</small></h2>
 </div>
 </div>
 <br />
 
-<div align="center" style="width:600px; margin:auto;" class="well-2">
+<div align="center" style="width:600px; margin:auto;" class="well">
 <div align="left">
 <div class="row-fluid">
 <div class="span6">

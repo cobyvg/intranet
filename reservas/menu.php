@@ -1,43 +1,20 @@
-
-    <div class="container">  
-    
-    <div class="navbar navbar-fixed-top no_imprimir visible-phone visible-tablet">
-  <div class="navbar-inner2">
-    <div class="container-fluid">
-    <div class="convive">
-      <a class="btn btn-default" data-toggle="collapse" data-target=".convive .nav-collapse" style="float:right">
-        <span class="icon-list"></span>
-      </a>
-      <a class="brand" href="http://<? echo $dominio;?>/intranet/index0.php" style="color:#2c2c2c">Reservas de Aulas y Medios Audiovisuales</a>
-      <div id="convive" class="nav-collapse collapse">
-        <ul class="nav nav-pills">
-<li><a href="http://<? echo $dominio; ?>/intranet/reservas/index.php?recurso=aula">Aulas Compartidas</a></li>
 <?
-if ($mod_horario=="1") {
+$activo1="";
+$activo2="";
+$activo3="";
+$activo4="";
+if (strstr($_SERVER['REQUEST_URI'],'index.php?recurso=aula')==TRUE OR strstr($_SERVER['REQUEST_URI'],'index.php?servicio=aula')==TRUE) {$activo1 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'recurso=aula_grupo')==TRUE OR strstr($_SERVER['REQUEST_URI'],'index_aula')==TRUE) {$activo2 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'recurso=carrito')==TRUE OR strstr($_SERVER['REQUEST_URI'],'servicio=carrito')==TRUE) {$activo3 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'recurso=medio')==TRUE OR strstr($_SERVER['REQUEST_URI'],'servicioo=medio')==TRUE) {$activo4 = ' class="active" ';}
 ?>
-    <li><a href="http://<? echo $dominio; ?>/intranet/reservas/index_aula_grupo.php?recurso=aula_grupo">Aulas de Grupo</a></li>
-<?
-}
-?>
-       <li><a href="http://<? echo $dominio; ?>/intranet/reservas/index.php?recurso=carrito">Carritos de
+ <div class="container">   
+          <ul class="nav nav-tabs">
+<li <? echo $activo1;?>><a href="http://<? echo $dominio; ?>/intranet/reservas/index.php?recurso=aula">Aulas compartidas</a></li>
+    <li <? echo $activo2;?>><a href="http://<? echo $dominio; ?>/intranet/reservas/index_aula_grupo.php?recurso=aula_grupo">Aulas de Grupo</a></li>
+    <li <? echo $activo3;?>><a href="http://<? echo $dominio; ?>/intranet/reservas/index.php?recurso=carrito">Carritos de
       Port&aacute;tiles</a></li>
-    <li><a href="http://<? echo $dominio; ?>/intranet/reservas/index.php?recurso=medio">Videoproyectores,
+    <li <? echo $activo4;?>><a href="http://<? echo $dominio; ?>/intranet/reservas/index.php?recurso=medio">Videoproyectores,
             Port&aacute;tiles</a></li>
     </ul>
-      </div><!--/.nav-collapse -->
-      </div>
-    </div>
-  </div>
-</div>
-
-        <div class="subnav subnav-fixed hidden-phone hidden-tablet">
-          <ul class="nav nav-pills">
-<li><a href="http://<? echo $dominio; ?>/intranet/reservas/index.php?recurso=aula">Aulas compartidas</a></li>
-    <li><a href="http://<? echo $dominio; ?>/intranet/reservas/index_aula_grupo.php?recurso=aula_grupo">Aulas de Grupo</a></li>
-    <li><a href="http://<? echo $dominio; ?>/intranet/reservas/index.php?recurso=carrito">Carritos de
-      Port&aacute;tiles</a></li>
-    <li><a href="http://<? echo $dominio; ?>/intranet/reservas/index.php?recurso=medio">Videoproyectores,
-            Port&aacute;tiles</a></li>
-    </ul>
-        </div>
         </div>

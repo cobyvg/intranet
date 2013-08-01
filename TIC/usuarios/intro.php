@@ -25,13 +25,13 @@ else
 
 <div align=center>
 <div class="page-header" align="center">
-  <h1>Centro TIC <small> Nombres de Usuario de Alumnos</small></h1>
+  <h2>Centro TIC <small> Nombres de Usuario de Alumnos</small></h2>
 </div>
 <br />
 </div>
 <br />
 <div align=center>
-<div class="well-2 well-large" style="width:450px; text-align:left">
+<div class="well well-large" style="width:450px; text-align:left">
   <form action="intro.php" method="post" name="form1" id="form1">
       <?
  if(stristr($_SESSION['cargo'],'1') == TRUE)

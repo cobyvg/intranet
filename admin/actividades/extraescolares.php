@@ -13,10 +13,13 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");  
   ?>
-  <div align="center">
-    <h3>Selección de alumnos para la actividad</h3>
-	<br />
-    <div class="well-2 well-large" style="width:500px;"> 
+ <div align="center">
+<div class="page-header">
+  <h2>Actividades Complementarias y Extraescolares <small> Selección de alumnos</small></h2>
+</div>
+<br />
+</div>	<br />
+    <div class="well well-large" style="width:500px;"> 
     <div align="center">         
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Alumnos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning">Desmarcarlos todos</a>

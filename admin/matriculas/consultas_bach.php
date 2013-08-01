@@ -90,7 +90,7 @@ INDEX (  `id_matriculas` )
 
 	$camb = mysql_query("select distinct id_matriculas from matriculas_bach_temp");
 	echo '<h3 align="center">Alumnos de <span style="color:#08c">'.$curso.'</span> con datos cambiados.</h3><br /><br />';
-	echo "<div class='well-2 well-large' style='width:520px;margin:auto;'>";
+	echo "<div class='well well-large' style='width:520px;margin:auto;'>";
 	while ($cam = mysql_fetch_array($camb)) {
 		$id_cambios = $cam[0];
 		if ($curso == "1BACH") {
@@ -137,7 +137,7 @@ if ($sin_matricula=="Alumnos sin matricular") {
 	
 	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from matriculas_bach) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
 	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br />';
-			echo "<div class='well-2 well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
+			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysql_fetch_array($camb)) {
 				
 			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5]</li>";
@@ -146,7 +146,7 @@ if ($sin_matricula=="Alumnos sin matricular") {
 echo "</ul></div><br />";
 	$canf = mysql_query("select distinct apellidos, nombre, curso, telefono1, telefono2, nacimiento from matriculas_bach where confirmado NOT LIKE  '1' and curso like '$cur_monterroso%' order by apellidos, nombre");
 	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
-			echo "<div class='well-2 well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
+			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysql_fetch_array($canf)) {
 				
 			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
@@ -164,7 +164,7 @@ include("./menu.php");
 ?>
 <div align=center>
 <div class="page-header" align="center">
-<h1>Matriculación de Alumnos <small> Consultas en Bachillerato</small></h1>
+<h2>Matriculación de Alumnos <small> Consultas en Bachillerato</small></h2>
 </div>
 
 

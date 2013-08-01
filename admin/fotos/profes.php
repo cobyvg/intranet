@@ -55,11 +55,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 if($ver_todos){
 ?>
+ <br />
      <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1><? echo $nombre_del_centro;?> <small><br />Claustro de Profesores <? echo " $curso ($curso_actual)";?></small></h1>
+  <div class="page-header" align="center">
+  <h2><? echo $nombre_del_centro;?> <small><br />Claustro de Profesores <? echo " $curso ($curso_actual)";?></small></h2>
 </div>
-<br />
 <?
 $dep0=mysql_query("select distinct departamento from departamentos where departamento not like 'Administracion' and departamento not like 'ADMIN' and departamento not like 'Conserjeria' order by departamento");
 while ($dep = mysql_fetch_array($dep0)) {

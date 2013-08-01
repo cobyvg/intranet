@@ -36,13 +36,13 @@ $datatables_activado = true;
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Informes de Tutoría <small> Buscar Informes</small></h1>
+  <h2>Informes de Tutoría <small> Buscar Informes</small></h2>
 </div>
  <h4><? echo $titulo;?></h4><br /> 
 <form name="buscar" method="POST" action="buscar.php">
 <div class='container'>
   <div class="row-fluid">
-  <div class="span6 offset3">
+  <div class="span8 offset2">
 <?php
 
 // Consulta
@@ -55,7 +55,7 @@ $datatables_activado = true;
   $query .=  " ORDER BY F_ENTREV DESC";
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 
-echo "<table class='table table-striped table-bordered tabladatos' align='center'><thead>";
+echo "<table class='table table-striped table-bordered tabladatos' align='center' style='width:auto'><thead>";
 echo "<tr><th>Alumno </th>
 <th>Curso</th>
 <Th>Cita con padres</th><th></th></TR></thead><tbody>";

@@ -17,12 +17,13 @@ exit;
 <?
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
-	<div class="page-header" align="center" style="margin-top:-15px;">
-  	<h1>Administración <small> Reasignar claves de acceso de profesores</small></h1>
+	<div class="page-header" align="center">
+  	<h2>Administración <small> Reasignar claves de acceso de profesores</small></h2>
 </div>
 
-  <p class="block-help" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Marca los profesores a los que quieres reiniciar la clave. Una vez enviados los datos, el NIF del profesor pasa a ser su nueva clave, y se le envía un correo para advertirle del cambio.</p><br />
+  <p class="block-help" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Marca los profesores a los que quieres reescribir la clave. Una vez enviados los datos, el NIF del profesor pasa a ser su nueva clave, y se le envía un correo para advertirle del cambio.</p><br />
 </div>
 
 <?

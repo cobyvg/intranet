@@ -25,12 +25,15 @@ include("inserta.php");
 else{
 ?>
 <div align="center">
-  <h3>Registro de Actividades Extraescolares</h3><br />
-  </div>
+<div class="page-header">
+  <h2>Actividades Complementarias y Extraescolares <small> Registro de actividades</small></h2>
+</div>
+<br />
+</div>
   <div class="row-fluid">
 <div class="span1"></div>
 <div class="span5">
-<div class="well-2 ">
+<div class="well">
   <FORM action="index.php" method="POST" name="Cursos">
            
                 <label>Fecha de la actividad:<br /> 
@@ -126,7 +129,7 @@ if($departamento == "Religión")
 </div>
 </div>
 <div class="span5">
-<div class="well-2 ">          
+<div class="well ">          
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Grupos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning pull-right">Desmarcarlos todos</a> <br />
               <br />

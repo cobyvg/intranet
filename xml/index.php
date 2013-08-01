@@ -18,23 +18,22 @@ exit;
 <?
 include("../menu.php");
 ?>
-
+<br />
 <div class="container-fluid">  
       <div class="row-fluid">  
       <div class="page-header" align="center">
-  <h1>Administración <small> Funciones, Configuración, Importación de datos...</small></h1>
+  <h2>Administración <small> Funciones, Configuración, Importación de datos...</small></h2>
 </div>
-<br />
         <div class="span1"> </div>
         <div class="span3"> 
-          <div class="well-2 well-large sidebar-nav">  
+          <div class="well well-large sidebar-nav">  
             <ul class="nav nav-list">
             <? include("menu.php");?> 
            </ul>  
           </div><!--/.well -->  
         </div><!--/span-->  
         <div class="span7"> 
-        <div class="well well-large" style="background-color:transparent">
+        <div class="well-transparent">
         <h3> Descripción de los módulos e instrucciones.</h3><br />
 <div style="text-align:justify">
 <p>	

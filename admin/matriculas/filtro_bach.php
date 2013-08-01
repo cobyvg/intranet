@@ -1,5 +1,5 @@
 <br />
-<div class="well-2 well-small" style="width:980px;">
+<div class="well well-small" style="width:980px;">
 
 <form action="consultas_bach.php" method="post" name="form2">
 <h4>Selecciona Nivel&nbsp;

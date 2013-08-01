@@ -124,7 +124,7 @@ $alumno0 = mysql_fetch_array($alumno1);
 $alumno = $alumno0[1].", ".$alumno0[0];
 if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioaula) >= strtotime($hoy)){
 	?>
-    <div class="well-2">
+    <div class="well">
 <h3>Tarea pendiente de Tutoría</h3>
 <br /><div align="left"><div class="alert alert-danger alert-block fade in" style="max-width:600px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -141,7 +141,7 @@ if($expulsion > 0 and $fechareg <= $hoy and $inicio >= $hoy) {
 $inicio= explode("-",$row1[5]);
 $fechainicio = $inicio[2] . "-" . $inicio[1] . "-" . $inicio[0];
 ?> 
-<div class="well-2">
+<div class="well">
 <h3>Tarea pendiente de Tutoría</h3>
 <br /><div align="left"><div class="alert alert-danger alert-block fade in" style="max-width:600px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -154,7 +154,7 @@ if($recibido == 0)
 { 
 if($expulsionaula == 1 and $expulsion == "0")
 {?> 
-<div class="well-2">
+<div class="well">
 <h3>Tarea pendiente de Tutoría</h3>
 <br  />
 <div align="left"><div class="alert alert-warning alert-block fade in" style="max-width:600px;">
@@ -174,7 +174,7 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 	//echo "$id<br>";
 //Amonestación Escrita	
 	?>
-<div class="well-2">
+<div class="well">
 <h3>Tarea pendiente de Tutoría</h3>
 <br /><div align="left"><div class="alert alert-warning alert-block fade in" style="max-width:600px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

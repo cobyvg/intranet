@@ -18,14 +18,15 @@ exit;
 include("../../menu.php");
 //
 ?>
+<br />
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Página del tutor <small> Entrada</small></h1>
+  <h2>Página del Tutor <small> Entrada</small></h2>
 </div>
 <br />
-   <div class="well-2 well-large" style="width:400px;">           
+   <div class="well well-large" style="width:400px;">           
     <form action="global.php" method="post" name="form1" id="form1" class="form-inline">
-       Selecciona Tutor:&nbsp;&nbsp;
+       <legend>Selecciona Tutor</legend>
         <select name="tutor" onchange='submit()' class="input-xlarge">
         <option> <? echo $profe; ?></option>		
           <?

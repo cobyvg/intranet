@@ -27,11 +27,11 @@ $cargo = $_SESSION['cargo'];
   
 <div align="center">      
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Buscar Informes</small></h1>
+  <h2>Informes de Tareas <small> Buscar Informes</small></h2>
 </div>
 <br />
     
-<div class="well-2 well-large" style="width:360px" align="left">
+<div class="well well-large" style="width:360px" align="left">
 <form action="buscar.php" method="post">  
   
     <label>Apellidos<br />

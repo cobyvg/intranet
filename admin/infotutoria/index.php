@@ -25,11 +25,11 @@ $cargo = $_SESSION['cargo'];
 ?>
  <div align="center"> 
 <div class="page-header" align="center">
-  <h1>Informes de Tutoría <small> Informes activos</small></h1>
+  <h2>Informes de Tutoría <small> Informes activos</small></h2>
 </div>
 <br />
     
- <div class="well-2 well-large" style="width:580px;">
+ <div class="well well-large" style="width:580px;">
 <? 
 // Buscamos los grupos que tiene el Profesor, con su asignatura y nivel
 	$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";

@@ -10,14 +10,10 @@ session_start();
 <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
 <meta name="author" content="">
 
-<link href="../css/bootstrap.css" rel="stylesheet">
-<? if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){?>
-<link href="../css/otros_index.css" rel="stylesheet"><?	}	else{ ?><link href="../css/otros.css" rel="stylesheet"><?}?>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/otros.css" rel="stylesheet">
 <link href="../css/bootstrap-responsive.css" rel="stylesheet">
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->
+
 <script language="javascript">
 function activarMod_faltas() {
 	var elemHorario = document.getElementById("mod_horario") ;
@@ -110,7 +106,7 @@ else{
 // Si no hay bases de datos o bien estas no contiene tablas...
 if($no_tablas=="1")
 {
-$form = "<br /><div class='well-2' align='center' style='width:500px;margin:auto'>Es el momento de crear o reparar la Base de datos y la estructura de las Tablas. <br />Presiona el botón para proceder."; 
+$form = "<br /><div class='well' align='center' style='width:500px;margin:auto'>Es el momento de crear o reparar la Base de datos y la estructura de las Tablas. <br />Presiona el botón para proceder."; 
 $form.= '<form enctype="multipart/form-data" action="crea_tablas.php" method="post">';
 $form.= '<br /><input  type="submit" name="bdatos" value="Crear Bases de Datos y Tablas" class="btn btn-primary" />';
 $form.= '</form></div><br />';

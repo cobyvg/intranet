@@ -112,8 +112,8 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 	if($submit1){
 		?>
 <div align="center">
-<div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Biblioteca <small> Consulta</small></h1>
+<div class="page-header" align="center">
+  <h2>Biblioteca <small> Consulta</small></h1>
 <p class="lead muted">Fecha elegida: <? echo $fecha;?></small></p>
 </div>
 <div class='container-fluid'>

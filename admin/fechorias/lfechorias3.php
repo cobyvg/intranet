@@ -8,7 +8,7 @@ if ($_SESSION ['autentificado'] != '1') {
 }
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 ?>
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">    
   <?php
 		include ("../../menu.php");
 		include ("menu.php");
@@ -17,7 +17,7 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 <div align="center">  <?php
  echo '<div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Ranking de Fechorías</small></h1>
+  <h2>Problemas de Convivencia <small> Ranking de Fechorías</small></h2>
 </div>
 </div>
 <br />';

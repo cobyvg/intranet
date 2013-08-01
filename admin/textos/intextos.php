@@ -16,11 +16,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 ?>
-<div align="center">
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Libros de Texto <small> Registro y Consultas</small></h1>
-</div>
 <br />
+<div align="center">
+<div class="page-header">
+  <h2>Libros de Texto <small> Registro y Consultas</small></h2>
+</div>
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span5 offset1">	
@@ -28,8 +28,8 @@ include("../../menu.php");
 { ?>
 <h3>Registro de Libros de Texto </h3>
 <br />
-<div class="well-2 well-large" style="width:95%;" align="left">
-  <p class="lead">Selecciona el Curso y los Grupos</p>
+<div class="well well-large" style="width:95%;" align="left">
+  <legend>Selecciona el Curso y los Grupos</legend>
 <hr>
     <form method="post" action="intextos.php" class="form-vertical">
   <label>
@@ -71,8 +71,8 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
     </label>
     <input name="nivel" type="hidden" value="<? echo $nivel;?>" size="4" maxlength="4">
     <br />
-    <p class="lead">Datos del Libro de
-      Texto</p>
+    <legend>Datos del Libro de
+      Texto</legend>
     <hr>
     <label>T&iacute;tulo <span style="color:#9d261d"> (*)</span><br />
       <input name="titulo" type="text" id="titulo" class="input-xxlarge" value="<? echo $titulo; ?>">
@@ -150,7 +150,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
   <form name="textos" method="post" action="textos.php">
     <h3>Consulta de Textos por Departamento. </h3>
     <br />
-    <div class="well-2 well-large" style="width:95%;" align="left">
+    <div class="well well-large" style="width:95%;" align="left">
       <label>Nivel<br />
         <select name="nivel" id="select6" class="input-xxlarge">
           <?

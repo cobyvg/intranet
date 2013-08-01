@@ -39,7 +39,7 @@ else
 {
 ?> 
 </div>
-<form name="curso" method="POST" action="infotut.php">
+<form name="curso" action="infotut.php">
     <TABLE class="tabla" width="400" align="center">
       <TR>
         <TD colspan="4" id="filaprincipal" align="center">Seleccciona el Grupo</TD>

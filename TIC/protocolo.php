@@ -16,11 +16,11 @@ include("menu.php");
 
 <div align="center">
  <div class="page-header" align="center">
-  <h1>Centro TIC <small> Normas de uso</small></h1>
+  <h2>Centro TIC <small> Normas de uso</small></h2>
 </div>
 <br />
 
-  <div class="well-2 well-large" style="width:800px;" align="left">
+  <div class="well well-large" style="width:800px;" align="left">
     <h6>1. Protocolo de uso. </h6>
     <br />
     <h5>1.1. Reserva del carro de port&aacute;tiles.</h5>

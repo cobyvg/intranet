@@ -16,8 +16,8 @@ exit;
 ?>
 <? include("../../menu.php");?>
 <div align="center">
-        <div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Programa de Ayudas al Estudio <small> Libros gratuitos de la ESO</small></h1>
+        <div class="page-header" align="center">
+  <h2>Programa de Ayudas al Estudio <small> Libros gratuitos de la ESO</small></h2>
 </div>
 <br />
   <div class="row-fluid">
@@ -25,7 +25,7 @@ exit;
     <div class="span3">
       <form enctype="multipart/form-data" action="reposicion.php" method="post" class="form-inline">
         <h3>Imprimir Certificados de Reposici&oacute;n</h3><br />
-        <div class="well-2 well-large">
+        <div class="well well-large">
         
         <label>Nivel: 
         <select name="niv" id="nivel">
@@ -44,7 +44,7 @@ exit;
     <div class="span3">
       <form enctype="multipart/form-data" action="libros.php" method="post" class="form-inline">
         <h3>Consultar el Estado de los Libros.</h3><br />
-        <div class="well-2 well-large">
+        <div class="well well-large">
         <label>Nivel: 
         <select name="nivel" id="select">
           <option value="1E">1 ESO</option>
@@ -63,7 +63,7 @@ exit;
     <div class="span4">
       <form enctype="multipart/form-data" action="in_textos.php" method="post" class="form-inline">
         <h3>Importación de Libros desde Séneca</h3><br />
-        <div class="well-2 well-large" align="left">
+        <div class="well well-large" align="left">
         <p class="text-info">Si has descargado los archivos
           de texto que contienen los Libros de este Curso escolar (desde
           Alumnado --&gt; Ayudas al Estudio --&gt; Asignación de Libros a

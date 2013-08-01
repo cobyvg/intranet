@@ -55,9 +55,10 @@ if ($mod_faltas) {
 include("../menu.php");
 include("menu.php");
 ?>
+<br />
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Faltas de Asistencia <small> Poner faltas</small></h1>
+  <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
 <br />
 <?

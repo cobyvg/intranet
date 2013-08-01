@@ -182,13 +182,13 @@ if ($memoria[1]!=''){$profe=$memoria[1];}
 echo '<div class="container-fluid"><div class="row-fluid">';
 echo "<div class='span10 offset1'>";
 ?>
-<div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Jefatura de Departamento <small> Memoria final</small></h1>
+<div class="page-header" align="center">
+  <h2>Jefatura de Departamento <small> Memoria final</small></h2>
 </div>
 <?
 echo '<h3 align ="center" class="text-info">',$_SESSION ['dpt'],'</h3><br /><br />';
 
-echo '<div class="well-2 well-large" style="max-width:980px;margin:auto;">';
+echo '<div class="well well-large" style="max-width:980px;margin:auto;">';
 # formulario
 echo '<form action="memoria.php?depto='.$depto.'" method="post" name="memoria" class="form-vertical">
   <div class="control-group">';

@@ -15,12 +15,13 @@ exit;
 }
 ?>
 <?php  include '../../menu.php';?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Creación de la tabla de alumnos</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Creación de la tabla de alumnos</small></h2>
 </div>
 <br />
-<div class="well-2 well-large" style="width:600px;margin:auto;text-align:left">
+<div class="well well-large" style="width:600px;margin:auto;text-align:left">
 <?
 if($archivo1 and $archivo2){
 

@@ -20,11 +20,11 @@ $cargo = $_SESSION['cargo'];
 include("../../menu.php");
 $datatables_activado = true;
 ?>
-<div align="center">
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Jefatura de Estudios <small>Intervenciones sobre los alumnos</small></h1>
-</div>
 <br />
+<div align="center">
+<div class="page-header" >
+  <h2>Jefatura de Estudios <small>Intervenciones sobre los alumnos</small></h2>
+</div>
 </div>
 <?
 if ($submit1 == "Registrar intervencion de Jefatura") {
@@ -71,7 +71,7 @@ $clave = $row[11];
 <div class="span1"></div>
 <div class="span6">
 <h3 align="center">Registro de datos</h3><br />
-<div class="well-2 well-large">
+<div class="well well-large">
 <FORM action="tutor.php" method="POST" name="Tutor">
      <?    
           if ($alumno and !($alumno == "Todos los Alumnos")) {

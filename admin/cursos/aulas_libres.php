@@ -20,12 +20,14 @@ if ($n_dia == 'Jueves') {	$dia = '4';}
 if ($n_dia == 'Viernes') {	$dia = '5';}
 include("../../menu.php");
   ?>
+<br />
   <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Aulas libres <small><br /> <? echo $n_dia;?></small></h1>
+  <div class="page-header" align="center">
+  <h2>Aulas libres <small><br /> <? echo $n_dia;?></small></h2>
 </div>
 </div>
 <br />
+
 <table class="table table-striped table-bordered " align="center" style="width:auto">
     <tr> 
     <th>  

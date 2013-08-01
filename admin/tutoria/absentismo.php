@@ -23,7 +23,7 @@ include("../../menu.php");
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Página del tutor <small> Alumnos absentistas<br /><? echo "$nivel_tutor-$grupo_tutor";?></small></h1>
+  <h2>Página del tutor <small> Alumnos absentistas<br /><? echo "$nivel_tutor-$grupo_tutor";?></small></h2>
 </div>
 <br />
 <?

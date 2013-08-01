@@ -86,7 +86,7 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.niv
 ?>
 <div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Informe personal del Problema</small></h1>
+  <h2>Problemas de Convivencia <small> Informe personal del Problema</small></h2>
     <h3 align="center" style="color:#08c;">
   <? echo "$nombre $apellidos ($nivel-$grupo)";?>
   </h3>
@@ -96,7 +96,7 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.niv
 <div class="t1">
 <div class="row-fluid">
   <div class="span6 offset1">
-      <div class="well-2 well-large">
+      <div class="well well-large">
       <?
             if(file_exists("../../xml/fotos/".$claveal.".jpg")){
 echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-bottom:-145px' class='img-polaroid img-circle pull-right hidden-phone' />";

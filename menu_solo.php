@@ -11,7 +11,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 <div class="no_imprimir">
  <!-- Navbar
     ================================================== -->
-<div class="navbar navbar-inverse navbar-fixed-top no_imprimir">
+<div class="navbar navbar-fixed-top navbar-inverse no_imprimir">
   <div class="navbar-inner">
     <div class="container-fluid">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">

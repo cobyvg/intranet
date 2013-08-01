@@ -14,13 +14,14 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">    
 <?php
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Actualización de los profesores</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Actualización de los profesores</small></h2>
 </div>
 <br />
 <div  align='center'>    
@@ -30,7 +31,7 @@ include("../../menu.php");
 </div>
 <div id='t_larga' style='display:none' >
 
-<div class="well-2 well-large" style="width:700px;margin:auto;text-align:left">
+<div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
 if($archivo){ 
 mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");

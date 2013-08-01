@@ -18,11 +18,11 @@ exit;
 <?php
 include("../../menu.php");
 ?>
-<div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Copiar datos de un profesor a otro</small></h1>
-</div>
 <br />
+<div align="center">
+<div class="page-header" align="center">
+  <h2>Administración <small> Copiar datos de un profesor a otro</small></h2>
+</div>
 <?
 if ($_POST['enviar']) {
 	if (empty($_POST['sustituido'])) {
@@ -61,10 +61,13 @@ Los datos han sido modificados correctamente.</div></div>';
 }
 ?>
 <FORM ENCTYPE="multipart/form-data" ACTION="index_hor.php" METHOD="post">
-  <div class="control-group success"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Para copiar los datos de un profesor que se ha dado de baja al profesor que lo sustituye, es necesario en primer lugar copiar el horario de un profesor a otro en Séneca. A continuación, debes actualizar los Departamentos y los Profesores en la página de Administración de la Intranet. Si ya lo has hecho, en este formulario selecciona el profesor de baja y luego el profesor que lo susituye, y envía los datos.</p></div><br />
-  <div class="well-2 well-large" style="width:360px; margin:auto;" align="left">
-  <p class="lead">Profesor <em>sustituido</em></p>
- <SELECT  name="sustituido" class="input-xlarge">
+  <div class="control-group"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Para copiar los datos de un profesor que se ha dado de baja al profesor que lo sustituye, es necesario en primer lugar copiar el horario de un profesor a otro en Séneca. A continuación, debes actualizar los Departamentos y los Profesores en la página de Administración de la Intranet. Si ya lo has hecho, en este formulario selecciona el profesor de baja y luego el profesor que lo susituye, y envía los datos.</p>
+  <br />
+  <div class="well well-large" style="width:360px; margin:auto;" align="left">
+    <div class="controls">
+  
+  <label class="control-label" for="prof1">Profesor sustituido</label>
+ <SELECT  name="sustituido" class="input-xlarge" id="prof1">
     <option></option>
     <?
   $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
@@ -80,8 +83,8 @@ Los datos han sido modificados correctamente.</div></div>';
 	?>
   </select>
   <hr>
-  <p class="lead"> Profesor <em>sustituto</em></p>
- <SELECT  name="sustituto" class="input-xlarge">
+  <label class="control-label" for="prof2">Profesor sustituto</label>
+ <SELECT  name="sustituto" class="input-xlarge" id="prof2">
     <option></option>
     <?
   $profe = mysql_query(" SELECT distinct profesor FROM profesores order by profesor asc");
@@ -100,6 +103,8 @@ Los datos han sido modificados correctamente.</div></div>';
   <hr>
   <div align="center">
     <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">
+  </div>
+  </div>
   </div>
 </FORM>
 

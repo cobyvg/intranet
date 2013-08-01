@@ -21,12 +21,12 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
      <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">     
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">   
   </head>  
-  <body style="margin-top:-70px;"> 
-     <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1><? echo $nombre_del_centro;?> <small><br />Alumnos de <? echo " $curso ($curso_actual)";?></small></h1>
-</div>
+  <body> 
 <br />
+     <div align=center>
+  <div class="page-header" align="center">
+  <h2><? echo $nombre_del_centro;?> <small><br />Alumnos de <? echo " $curso ($curso_actual)";?></small></h2>
+</div>
   
 <?
 

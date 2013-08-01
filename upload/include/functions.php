@@ -246,7 +246,7 @@ function place_message($title, $message, $link)
 	        <table border=\"0\" width=\"100%\">
 	          <tr>
 	            <th align=\"left\" bgcolor=\"$headercolor\" valign=\"middle\" width=\"50%\">
-	              <h1><font color=\"$headerfontcolor\" size=\"5\"><b>$uploadcentercaption</b></font></h1>
+	              <h2><font color=\"$headerfontcolor\" size=\"5\"><b>$uploadcentercaption</b></font></h1>
 	            </th>
 	            <td align=\"right\" bgcolor=\"$headercolor\" valign=\"middle\" width=\"50%\" nowrap>
 	              <p><font face=\"$font\" size=\"1\" color=\"$headerfontcolor\">

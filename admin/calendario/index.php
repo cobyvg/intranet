@@ -85,7 +85,7 @@ if ($today > $numdays) {
 }
 
 //Nombre del Mes
-echo "<p class='lead'>" . $monthlong . "</p>";
+echo "<legend><i class='icon icon-calendar-empty'> </i> " . $monthlong . "</legend>";
 echo "<table class='table table-striped table-bordered table-condensed'><thead><tr>";
 
 //Nombres de Días
@@ -154,7 +154,7 @@ $rango7 = date ( 'Y-m-d', $hoy7 );
 $query = "SELECT distinct title, eventdate, event FROM cal WHERE eventdate >= '$rango0' and eventdate < '$rango7'";
 $result = mysql_query ( $query );
 if (mysql_num_rows ( $result ) > 0) {
-	echo "<hr><h4>Próximos días</h4>";
+	echo "<br /><legend><i class='icon icon-calendar'> </i>Próximos días</legend>";
 	$SQLcurso1 = "select distinct grupo from profesores where profesor = '$pr'";
 	//echo $SQLcurso1;
 	$resultcurso1 = mysql_query ( $SQLcurso1 );
@@ -197,13 +197,13 @@ if (mysql_num_rows ( $result ) > 0) {
 echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><i  class='icon-calendar'></i><small>  $fecha. </small><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' rel='tooltip' title='$row[2]'>  $texto</a></p>";		
+		echo "<p><small>  $fecha. </small><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' rel='tooltip' title='$row[2]'>  $texto</a></p>";		
 			}
 		else{
 echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><i  class='icon-exclamation-sign'></i><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha.  $texto</a></p>
+		echo "<p><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha.  $texto</a></p>
 	";	
 			}	
 	}
@@ -211,13 +211,13 @@ echo "";
 if (stristr ( $carg, '1' ) == TRUE) {
 	?>
 	<a href='admin/calendario/jcal_admin/index.php' class='btn btn-primary'
-		style=''>Añadir Actividad</a>
+		style='margin-top:8px;'>Añadir Actividad</a>
 <?
 
 } else {
 	?>
 <a href='admin/calendario/jcal_admin/index.php' class='btn btn-primary'
-		style=''>Ver Calendario</a>
+		style='margin-top:8px;'>Ver Calendario</a>
 <?
 }
 

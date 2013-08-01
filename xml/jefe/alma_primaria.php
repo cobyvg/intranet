@@ -17,9 +17,10 @@ exit;
 <?php
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Alumnos de Primaria</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Alumnos de Primaria</small></h2>
 </div>
 <br />
 <div class="well well-large" style="width:600px;margin:auto;text-align:left">

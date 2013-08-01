@@ -1,4 +1,4 @@
-<p class="lead">Buscar...</p>
+<legend>Buscar...</legend>
 <form method="post" action="admin/noticias/buscar.php" class="form-search">
 <input
 	type="text" name="expresion" id="exp"

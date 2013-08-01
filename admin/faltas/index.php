@@ -31,16 +31,16 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("../../faltas/menu.php");
 ?>
-<div align=center>
-  <h3>Consultas de faltas de asistencia.</h3>
-  <br />
-  <br />
-</div>
+<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Consultas</small></h2>
+  </div>
+<br />
+
 <form action='index.php' method='post' name='f1' class="form-inline">
 <div class="row-fluid">
   <div class="span4">
-  <div class="well-2 well-large pull-right"  style="width:340px;">
-  <h4>Resumen de faltas de un Grupo.</h4>
+  <div class="well well-large pull-right"  style="width:340px;">
+  <legend>Resumen de faltas de un Grupo.</legend>
 <br />
   <h6>Selecciona Nivel y Grupo</h6>
     <label> Nivel:
@@ -92,8 +92,8 @@ include("../../faltas/menu.php");
   
   
    <div class="span4">
-  <div class="well-2 well-large">
-  <h4>Resumen de faltas de un alumno</h4>
+  <div class="well well-large">
+  <legend>Resumen de faltas de un alumno</legend>
   <br />
   <h6>Selecciona Nivel y Grupo</h6>
     <label> Nivel:
@@ -166,8 +166,8 @@ printf ("<OPTION></OPTION>");
 
 
 <div class="span4">
-<div class="well-2 well-large pull-left" style="width:340px;">
-  <h4> Número de faltas y días sin justificar</h4>
+<div class="well well-large pull-left" style="width:340px;">
+  <legend> Faltas y días sin justificar</legend>
   <br />
   <span class="help-block">( Alumnos que tienen un número mínimo de faltas entre el rango de fechas seleccionadas. )</span>
   <label>

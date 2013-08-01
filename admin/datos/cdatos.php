@@ -16,16 +16,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 
 ?>
-<div align="center">
-<div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Datos de los Alumnos <small> Consultas</small></h1>
-</div>
 <br />
+<div align="center">
+<div class="page-header" align="center">
+  <h2>Datos de los Alumnos <small> Consultas</small></h2>
+</div>
+
 </div>
 <div align="center">
-<div class="well-2 well-large" style="width:360px;" align="left">
+<div class="well well-large" style="width:360px;" align="left">
 <FORM action="cdatos.php" method="POST">
-  <h3>Selecciona criterios</h3>
+  <legend>Selecciona criterios</legend>
   <br />
   <label> Apellidos<br />
     <INPUT type="text" name="APELLIDOS" size="30" maxlength="32" alt="Apellidos" class="input-xlarge">

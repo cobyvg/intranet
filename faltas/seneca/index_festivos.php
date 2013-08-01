@@ -21,8 +21,8 @@ include("../menu.php");
 ?>
 <br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Faltas de Asistencia <small> Actualización de Días Festivos en la localidad</small></h1>
+<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Actualización de Días Festivos en la localidad</small></h2>
 </div>
 <br />
 <FORM ENCTYPE="multipart/form-data" ACTION="festivos.php" METHOD="post">

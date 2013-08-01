@@ -12,9 +12,12 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 <?php
 		include("../../menu.php");
-		   echo '<div align="center"><h2>Libros de Texto</<2><br />';		
-		print "<h3>
-			Departamento de $departamento</h3><br />";
+		echo '<br />
+<div align="center">
+<div class="page-header">
+  <h2>Libros de Texto <small> Departamento de '.$departamento.'</small></h2>
+</div><br />';
+
 $grupo = "$A$B$C$D$E$F$G$H";
 //Errores posibles
 if (empty($titulo) or empty($asignatura) or empty($departamento) or empty($grupo) or empty($editorial) or empty($isbn)) 

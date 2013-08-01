@@ -13,11 +13,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 ?>
+ <br />
   <div align="center">
-<div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Datos de los Alumnos <small> Consultas</small></h1>
+<div class="page-header" align="center">
+  <h2>Datos de los Alumnos <small> Consultas</small></h2>
 </div>
-<br />
  </div>
  <div class='container-fluid'>
   <div class="row-fluid">

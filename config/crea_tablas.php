@@ -1486,7 +1486,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `usuario` (
 
 echo '<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />';
 
-echo '<div align="center"><div class="well-2" style="max-width:500px" align="justify">
+echo '<div align="center"><div class="well" style="max-width:500px" align="justify">
 Las Bases de datos y sus tablas han sido creadas correctamente. Ahora debes ir a la página principal y continuar con la importación de los datos de Séneca hacia la Intranet. Esto lo haces identificándote como Administrador (usuario: <em>admin</em>; Clave de acceso: <em>12345678</em>), y yendo a la página de Administración de la Intranet (en el Menú de la Izquierda).<br><br /><div align="center"><a href="http://'.$dominio.'/intranet/" class="btn btn-primary">Ir a la Página Principal</a></div>
           </div></div>';
 }

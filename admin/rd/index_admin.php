@@ -27,8 +27,7 @@ else{
 }*/
 echo '<div align="center">';
   echo '<div class="page-header">
-  <h1>Jefaturas de los Departamentos <small> Registro de Reuniones</small></h1>
-  <h3 style="color:#08c;">'.$departament.'</h3>
+  <h2>Actas del Departamento <small> Todos los Registros</small></h2>
 </div>
 <br />';
 ?>
@@ -54,7 +53,7 @@ if ($n_col=="1" or $n_col=="5" or $n_col=="9" or $n_col=="13" or $n_col=="17") {
 }
 ?>
 <td valign="top">
-<h6 align="center"><? echo $departamento;?></h6><br />
+<h5 align="center"><? echo $departamento;?></h5><br />
 	<TABLE class="table table-striped table-bordered" style="width:300px;">
 <?	while($row = mysql_fetch_object($result))
 	{

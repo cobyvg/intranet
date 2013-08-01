@@ -15,8 +15,8 @@ exit;
 }
 ?>
 <? include("../../menu.php");?>
-      <div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Programa de Ayudas al Estudio <small> Importación de datos</small></h1>
+      <div class="page-header" align="center">
+  <h2>Programa de Ayudas al Estudio <small> Importación de datos</small></h2>
 </div>
 <br />
 <?

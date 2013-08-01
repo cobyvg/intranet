@@ -24,9 +24,10 @@ include("../../menu.php");
     }
 // Base de datos
 ?>
+<br />
 <div align="center">
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Libros de Texto <small> Búsqueda de textos</small></h1>
+<div class="page-header">
+  <h2>Libros de Texto <small> Búsqueda de textos</small></h2>
 </div>
 <?
 	print "<h3>$nivel</h3><br />"; 

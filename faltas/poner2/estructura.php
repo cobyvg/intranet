@@ -1,8 +1,9 @@
 <div class="page-header" align="center">
-  <h1>Faltas de Asistencia <small> Poner faltas</small></h1>
+  <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
+<div class="container-fluid">
 <div class="row-fluid">
-<div class="span5">
+<div class="span4">
 <?
 if(is_numeric($profesor))
 {
@@ -12,9 +13,13 @@ if(is_numeric($profesor))
 	$n_profe=$profesor."_ ".$nombre_pr[0];
 }
 else{$n_profe = $profesor;}
+if(strlen($n_profe)>0){
 ?>
-<h3><span style='font-size:0.9em; color:#08c'>&nbsp;&nbsp; <? echo $n_profe;?> &nbsp;&nbsp;</span></h3><br />
-<div class="well-2 well-large" style="margin-left:15px;">
+<h3> <? echo $n_profe;?> &nbsp;&nbsp;</h3>
+<?
+}
+?>
+
  <?
  if ($profesor) {
 		  $trozos = explode("_ ",$profesor) ;
@@ -28,12 +33,14 @@ else{$n_profe = $profesor;}
 ?>            
 <?
 		 if(!($profesor)){
-		echo '<h6 align="center">Selecciona un profesor</h6><br />';
+		echo '<h3 align="center">Selecciona un profesor</h3><br />';
+		echo '<div align="center">';
 profesor();
+echo "</div>";
 echo "<hr>";
 		 }
 		 ?>
-
+<div class="well-trasnparent well-large">
            <? 
 		if ($registro) {
 			echo '<div align="left""><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -70,9 +77,9 @@ echo "<hr>";
                               
 </div>
 </div>
-<div class="span7">
+<div class="span8">
 <?
-echo "<h3 align='center'><span  style='font-size:0.9em; color:#08c'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</span></h3><br />";
+echo "<h3 align='center'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</h3><br />";
             echo "<input type=hidden name=today value= \"$today\">";
 			echo "<input type=hidden name=year value= \"$year\">";
 			echo "<input type=hidden name=month value= \"$month\">";

@@ -17,10 +17,10 @@ include("menu.php");
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Activar Informe</small></h1>
+  <h2>Informes de Tareas <small> Activar Informe</small></h2>
 </div>
 <br />
-  <div class="well-2 well-large" style='width:380px;'>
+  <div class="well well-large" style='width:380px;'>
     <div align="left">
       <?
 if($nivel and $grupo)

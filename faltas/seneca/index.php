@@ -21,10 +21,10 @@ exit;
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Faltas de Asistencia <small> Subir faltas a Séneca</small></h1>
+  <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
 </div>
 <br />
-  <div class="well-2 well-large" align="left" style="width:500px;">
+  <div class="well well-large" align="left" style="width:500px;">
 			<div class="help-block" style="text-align:justify"><h4>Instrucciones de Uso.</h4><br />
 Es importante que las listas de Alumnos est&eacute;n actualizadas para evitar errores en la importaci&oacute;n de las Faltas. <br />Adem&aacute;s, ten en cuenta que S&eacute;neca s&oacute;lo acepta importaciones de un mes m&aacute;ximo de Faltas de Asistencia. Por esta raz&oacute;n, el Primer D&iacute;a que introduces debe ser el primer d&iacute;a del mes (o el mas pr&oacute;ximo en caso de que sea un mes de vacaciones, o puente coincidente con los primeros dias de un mes, etc.). <br />El mismo criterio se aplica para el ultimo d&iacute;a del mes. <br />Es muy importante que selecciones dias lectivos, as&iacute; que echa un vistazo al Calendario oficial de la Consejer&iacute;a para asegurarte. <br />Una vez le damos a enviar se generan los ficheros que posteriormente se importan a S&eacute;neca, as&iacute; que ya puedes abrir la pagina de S&eacute;neca y empezar a importar las Faltas de Asistencia. </div>
 	<hr>		

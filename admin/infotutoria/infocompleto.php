@@ -53,7 +53,7 @@ include("../../menu_solo.php");
   include("menu.php");
 ?>
 <div class="page-header" align="center">
-  <h1>Informes de Tutoría <small> Informes por asignatura</small></h1>
+  <h2>Informes de Tutoría <small> Informes por asignatura</small></h2>
 </div>
 <br />
 

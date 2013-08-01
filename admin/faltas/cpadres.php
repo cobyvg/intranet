@@ -20,14 +20,16 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("../../faltas/menu.php");
 ?>
-  <div align="center">  <br />
-<h3>Informe de Faltas de Asistencia para los Padres</h3><br /></div>
-  <br />
+  <div align="center"> 
+<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Informe para los Padres</small></h2>
+  </div>
+<br />
   <form enctype='multipart/form-data' action='cpadres.php' method='post'>
 <div class="row-fluid">
   <div class="span3"></div>
   <div class="span3">
-   <div class="well-2 well-large">        
+   <div class="well well-large">        
         <h6>Selecciona Nivel o Grupo</h6><br />
           <label> Nivel <select  name="nivel" class="input-mini" onChange="submit()">
             <option><? echo $nivel;?></option>
@@ -63,7 +65,7 @@ $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS
        </div>
 <div class="span3">
  
-  <div class="well-2 well-large">
+  <div class="well well-large">
           <?
 	$fecha32 = date('d')."-".date('m')."-".date('Y');
   $tr = explode("-",$inicio_curso);

@@ -15,7 +15,7 @@ include("../menu.php");
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Faltas de Asistencia <small> Justificar faltas</small></h1>
+  <h2>Faltas de Asistencia <small> Justificar faltas</small></h2>
 </div>
 <br />
 <form action="index.php" method="POST">

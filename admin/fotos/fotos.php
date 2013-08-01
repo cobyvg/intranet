@@ -14,11 +14,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 ?>
-  <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Fotos de los Alumnos <small>Registro de fotografías de <? echo $nivel."-".$grupo;?></small></h1>
-</div>
 <br />
+  <div align=center>
+  <div class="page-header" align="center">
+  <h2>Fotos de los Alumnos <small>Registro de fotografías de <? echo $nivel."-".$grupo;?></small></h2>
+</div>
 <?
 
 if ($enviar and empty($File))
@@ -101,7 +101,7 @@ echo "<OPTION></OPTION>";
 <INPUT TYPE=hidden NAME="grupo" value="<? echo $grupo;?>">
  </form>
  
- <div class="well-2 well-large" align='center' style="width:500px;">
+ <div class="well well-large" align='center' style="width:500px;">
 <?
 echo "<p class='help-block' style='text-align:left;'>Haz click en el botón de abajo para seleccionar el archivo con la fotografía que quieres registrar o actualizar. La fotografía debe tener una resolución mínima de 40KB y máxima de 600KB. El archivo de imagen debe ser JPG.</p>" ;
 if (strlen($nombre) > '5') 

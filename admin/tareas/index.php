@@ -24,10 +24,10 @@ $cargo = $_SESSION['cargo'];
   $grupo = $tuto[1];
 ?>
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Expulsión o ausencia del Alumno</small></h1>
+  <h2>Informes de Tareas <small> Expulsión o ausencia del Alumno</small></h2>
 </div>
 <br />
- <div class="well-2 well-large" style="width:580px;">
+ <div class="well well-large" style="width:580px;">
 
 <?
 // Buscamos los grupos que tiene el Profesor, con su asignatura y nivel

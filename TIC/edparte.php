@@ -16,7 +16,7 @@ include("menu.php");
 
 <div align=center>
  <div class="page-header" align="center">
-  <h1>Centro TIC <small> Editar incidencia</small></h1>
+  <h2>Centro TIC <small> Editar incidencia</small></h2>
 </div>
 <br />
 <br />
@@ -70,7 +70,7 @@ $query = "SELECT parte, nivel, grupo, carro, nserie, fecha, hora, alumno, profes
 	$nincidencia = $row[11];
 	?>
 <div align="center">
-  <div class="well-2 well-large" style="width:400px;" align="left">
+  <div class="well well-large" style="width:400px;" align="left">
   <form action='edparte.php' method='post'>
     <?
 if(stristr($_SESSION['cargo'],'1') == TRUE)

@@ -26,7 +26,7 @@ mysql_select_db($db);
 ?>
 <div align=center>
 <div class="page-header" align="center">
-  <h1>Centro TIC <small> Actualizar incidencia</small></h1>
+  <h2>Centro TIC <small> Actualizar incidencia</small></h2>
 </div>
 <br />
 <?

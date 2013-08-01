@@ -18,13 +18,13 @@ include("nombres.php");
    if ($today > $numdays) { $today--; }
 
 // Estructura de la Tabla
-echo "<table class='table table-bordered table-striped' style='width:350px;'><tr><th style='text-align:center'>
+echo "<table class='table table-bordered table-striped' style=''><tr><th style='text-align:center'>
 	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month&profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno'>
 <i class='icon icon-arrow-left' name='calb2' style='margin-right:20px;'> </i> </a>
 <h3 style='display:inline'>$year</h3>
 <a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month&profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno'>
 <i class='icon icon-arrow-right' name='calb1' style='margin-left:20px;'> </i> </a></th></tr></table>";
-     echo "<table class='table table-bordered' style='width:350px;'>
+     echo "<table class='table table-bordered' style=''>
       <tr>";
 	  $meses = array(1=>Ene, 2=>Feb, 3=>Mar, 4=>Abr, 5=>May, 6=>Jun, 7=>Jul, 8=>Ago, 9=>Sep, 10=>Oct, 11=>Nov, 12=>Dic);
 	  foreach ($meses as $num_mes => $nombre_mes) {
@@ -47,7 +47,7 @@ echo "<table class='table table-bordered table-striped' style='width:350px;'><tr
     </table>";
    
 //Nombre del Mes
-echo "<table class='table table-bordered' style='width:350px'><tr>";
+echo "<table class='table table-bordered' style=''><tr>";
 echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h6 align='center'>" . $monthlong . 
 "</h6></td>";
 echo "</tr><tr>";

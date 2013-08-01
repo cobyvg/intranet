@@ -12,10 +12,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
   include("../../menu.php"); 
-if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE)
-{
- include("menu.php");
-}  
+include("menu.php"); 
  $imprimir_activado = true;  
   if($confirmado == '1')
   {
@@ -36,8 +33,10 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
   if($detalles == '1')
   {
   ?>
-  <div align="center">
-  <h3>Información completa de Actividad Extraescolar</h3><br />
+<div align="center">
+<div class="page-header">
+  <h2>Actividades Complementarias y Extraescolares <small> Información sobre actividad</small></h2>
+</div>
 </div>
   <?
   $datos0 = "select * from actividades where id = '$id'";
@@ -87,8 +86,9 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
  } 
 ?>
 <div align="center">
-  <h3>Listado de Actividades Extraescolares
-  </h3><br />
+<div class="page-header">
+  <h2>Actividades Complementarias y Extraescolares <small> Listado</small></h2>
+</div>
 </div>
    <div class='container-fluid'>
   <div class="row-fluid">

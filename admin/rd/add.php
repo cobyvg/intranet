@@ -19,11 +19,14 @@ $profesor = $_SESSION ['profi'];
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
 <meta name="author" content="">
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-<link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">  
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css">   
 <!-- TinyMCE -->
 <script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
@@ -81,6 +84,7 @@ $profesor = $_SESSION ['profi'];
 <?
 include ("../../menu_solo.php");
 include ("menu.php");
+
 mysql_select_db($db);
 mysql_query("CREATE TABLE IF NOT EXISTS r_departamento (
 `id` SMALLINT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
@@ -120,7 +124,7 @@ else{
 
   <?
   echo '<div class="page-header">
-  <h1>Jefatura del Departamento <small> Registro de Reuniones</small></h1>
+  <h2>Actas del Departamento <small> Registro de Reuniones</small></h2>
   <h3 style="color:#08c;">'.$departament.'</h3>
 </div>
 <br />';

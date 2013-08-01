@@ -21,6 +21,10 @@ exit;
 ?>
   <div class='container-fluid'>
   <div class="row-fluid">
+<div align="center">
+<div class="page-header">
+  <h2>Actividades Complementarias y Extraescolares <small> Administración</small></h2>
+</div>
   <div class="span1"> </div>
   <div class="span10">
 <?   
@@ -111,7 +115,7 @@ La Actividad ha sido confirmada por la Autoridad.
   $registro = "$fecha1[2]-$fecha1[1]-$fecha1[0]";
   ?>
     <div align="center">
-  <h3>Información completa de Actividad Extraescolar</h3>
+  <h3>Información completa de Actividad Extraescolar</h3><br />
 </div>
   <div align="center">
 <table class="table table-striped" style="width:750px;" align="center">
@@ -152,9 +156,7 @@ La Actividad ha sido confirmada por la Autoridad.
   <?
  } 
 ?>
-<div align="center">
-  <h3>Listado de Actividades Extraescolares</h3>
-</div>
+
 <br />
 <table class="table table-striped tabladatos" style="width:100%;" align="center">
   <thead>

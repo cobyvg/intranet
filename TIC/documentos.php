@@ -17,7 +17,7 @@ include("menu.php");
 ?>
 <div align=center>
 <div class="page-header" align="center">
-  <h1>Centro TIC <small> Documentos</small></h1>
+  <h2>Centro TIC <small> Documentos</small></h2>
 </div>
 <br />
 <table class="table" style="width:920px">

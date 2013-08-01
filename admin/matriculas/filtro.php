@@ -1,5 +1,5 @@
 <br />
-<div class="well-2 well-small" style="width:980px;">
+<div class="well well-small" style="width:980px;">
 <form action="consultas.php" method="post" name="form2" id="form2">
 <h4>Selecciona Nivel&nbsp;
 <select maxlength="12" name="curso" id="curso" onChange="desactivaOpcion();">

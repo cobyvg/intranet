@@ -58,10 +58,22 @@ include("menu_solo.php");
 ?>
 
 <?
-$dia = $_GET['dia'];
+if (isset($_GET['dia'])) {
+	$dia = $_GET['dia'];
+}
+if (isset($_GET['hora'])) {
 $hora = $_GET['hora'];
+	}
+if (isset($_GET['curso'])) {
 $curso = $_GET['curso'];
+	}
+if (isset($_GET['asignatura'])) {
 $asignatura = $_GET['asignatura'];
+	}
+if (isset($_GET['clave'])) {
+$clave = $_GET['clave'];
+	}
+$pr = $_SESSION['profi'];
 // Elegir Curso y Asignatura.
 if(empty($curso))
 {
@@ -116,11 +128,12 @@ $codigos = substr($codigos,0,-1);
 	
 	echo "</div>";
 	
-	echo "<div align='center'>";
+	echo "<br /><div align='center' class='page-header'>";
 // Titulos
 $n_profe = explode(", ",$pr);
 echo "<h2 style='margin-top:0px' class='no_imprimir'>Cuaderno de Notas</h2>";
-echo "<h4>$n_profe[1] $n_profe[0]<br /><h6 align='center' style='color:#999'>".$curso_sin." (".$nombre_materia.")</h6></h4><br />";
+echo "<h4>$n_profe[1] $n_profe[0]<br /><h6 align='center' style='color:#999'>".$curso_sin." (".$nombre_materia.")</h6></h4></div>";
+echo '<div align="center">';
 echo '<form action="cuaderno.php" method="post" name="imprime" class="form-inline">';
 if(isset($_GET['seleccionar'])){
 	$seleccionar=$_GET['seleccionar'];

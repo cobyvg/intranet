@@ -15,7 +15,7 @@ include("menu.php");
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Informes de Tutoría <small> Profesores que no redactan Informe</small></h1>
+  <h2>Informes de Tutoría <small> Profesores que no redactan Informe</small></h2>
 </div>
 <br />
 </div>
@@ -24,8 +24,8 @@ $detalles = '1';
 ?>
 <div class="row-fluid">
 <div align="center">
-<FORM action="control-luis.php" method="POST" class="well-2 well-large form-inline" style="width:450px;">
-<h4>Informe sobre un Profesor</h4><br />
+<FORM action="control-luis.php" method="POST" class="well well-large form-inline" style="width:450px;">
+<legend>Informe sobre un Profesor</legend>
   <SELECT  name=profes onChange="submit()">
     <option></option>
     <?

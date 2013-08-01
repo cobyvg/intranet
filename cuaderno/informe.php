@@ -11,8 +11,9 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include("../menu.php");
-echo "<div align='center'><h2>Cuaderno de Notas</h2><br />
-	 <h3>Informe individual de los alumnos</h3><br />";
+echo "<br /><div align='center' class='page-header'><h2>Cuaderno de Notas 
+	 <small>Informe individual de los alumnos</small></h2></div>";
+echo '<div align="center">';
 
 	 
 if($siguiente == '1'){

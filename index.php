@@ -97,8 +97,8 @@ break;
   <body onLoad="detecta()">
 <div class="container">
 <br />
-<div align="center" class="well-2" style="max-width:300px;margin:auto">
-<h1>Intranet</h1><h2><small>'.$nombre_del_centro.'</small></h2><hr>';
+<div align="center" class="well" style="max-width:300px;margin:auto">
+<h2>Intranet</h1><h2><small>'.$nombre_del_centro.'</small></h2><hr>';
 
 // Entramos
 if ($_POST['submit'] == 'Entrar' and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {

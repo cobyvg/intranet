@@ -18,14 +18,15 @@ exit;
 <?php
 include("../../../menu.php");
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Restaurar la Base de Datos</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Restaurar la Base de Datos</small></h2>
 </div>
 <br />
 <form enctype="multipart/form-data" action="restore_db.php" method="post" class="form-vertical">
   <div class="control-group success"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si dispones de una copia de seguridad de la base de datos puedes realizar su restauración. Recuerda que los datos actuales se eliminarán. Una vez enviado el archivo el proceso tardará unos segundos, ten paciencia.</p></div><br />
-  <div class="well-2 well-large" style="width:600px; margin:auto;" align="left">
+  <div class="well well-large" style="width:600px; margin:auto;" align="left">
 				<div class="control-group">
 				<p class="lead">Archivo de datos:</p>
 				<div class="controls">

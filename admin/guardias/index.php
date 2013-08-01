@@ -39,6 +39,7 @@ if ($n_dia > $numerodiasemana) {
  	$g_fecha = date("Y-m-$g_dia");
  	$fecha_sp = formatea_fecha($g_fecha);
 ?>
+<br />
 <div align=center>
 <h2>Registro de Guardias</h2>
   <h3><span style="color:#9d261d;"><? echo $nombre_dia.", ".$fecha_sp.", $hora"."ª hora";?></h3><br />
@@ -153,7 +154,7 @@ No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desp
 $fech_hoy = date("Y-m-d");
 $hoy0 = mysql_query("select id, profesor, profe_aula, hora, fecha from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha'");
 if (mysql_num_rows($hoy0) > 0) {
-	echo '<div class="well-2 well-large" style="width:600px;">';
+	echo '<div class="well well-large" style="width:600px;">';
 	echo "<h3>Sustituciones registradas para la Guardia de hoy</h3><br />";
 	echo '<table class="table table-striped" align=center style="">';
 	echo "<tr><th>Profesor de Guardia</th><th>Profesor ausente</th></tr>";
@@ -163,7 +164,7 @@ if (mysql_num_rows($hoy0) > 0) {
 	echo "</table></div>";
 }
 ?>
-<div class="well-2 well-large" style="width:600px;">
+<div class="well well-large" style="width:600px;">
 <h3>Sustituciones realizadas durante la <? echo "<span style=''>".$hora."ª</span>";?> hora del <? echo "<span style=''>$nombre_dia</span>";?></h3><br />
 <div class="row-fluid" align="center">
 <div class="span6">
@@ -219,7 +220,7 @@ if ($historico == '1') {
 		$extra1 = " a ".$hora."ª hora del ".$nombre_dia;		
 	}
 	echo '<a name="marca"></a>
-<div class="well-2 well-large" style="width:600px;">';
+<div class="well well-large" style="width:600px;">';
 $h_hoy0 = mysql_query("select id, profesor, profe_aula, hora, fecha_guardia from guardias where profesor = '$h_profe' $extra");
 if (mysql_num_rows($h_hoy0) > 0) {
 	echo "<h3>Sustituciones realizadas $extra1:<br /><span style=''>$h_profe</span></h3><br />";

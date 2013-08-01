@@ -17,20 +17,14 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
     <meta name="author" content="">  
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet"> 
-    <?php
-    	if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){
-    ?>
-    	<link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">
-    <?php 
-    	} else {
-	?>
-    	<link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-    <?php
-    }
-    ?>
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">  
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css"> 
     
 <script>
 
@@ -122,10 +116,12 @@ function borrar(obj) {
 <body>
 <?
 include("../../menu_solo.php");
+include("menu.php");
 ?>
+
 <div align="center">
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Correo del Centro <small>Envío de Correo a los Profesores</small></h1>
+<div class="page-header">
+  <h2>Correo del Centro <small>Envío de Correo a los Profesores</small></h2>
 </div>
 <br />
 
@@ -180,7 +176,7 @@ El correo se ha enviado correctamente a los profesores seleccionados.
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span4 offset2">
-<div class="well-2" align="left">
+<div class="well" align="left">
 <label>Asunto:<br />
  <textarea name="tema" style="width:97%"><? echo $tema;?></textarea>
  </label>

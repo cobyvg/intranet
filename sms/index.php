@@ -28,9 +28,10 @@ function contar(form,name) {
   }
 }
 </script> 
+<br />
  <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>SMS <small> Envío de mensajes</small></h1>
+  <div class="page-header" align="center">
+  <h2>SMS <small> Envío de mensajes</small></h2>
 </div>
 <br />
 
@@ -156,7 +157,7 @@ else
 	echo '<div align="center" style="width:400px;">';	
 	}
 ?>
-<div class="well-2 well-large" align="left">
+<div class="well well-large" align="left">
 <form method="post" action="index.php" name="nameform" class="form-vertical">
 
       <? if(stristr($_SESSION['cargo'],'2') == TRUE){} else{ ?>
@@ -230,10 +231,10 @@ $extid = $n_sms[0]+1;
 		?>
 </div>
 </div>
-<div class="span3 pull-left">
+<div class="well span3 pull-left">
+<legend>Alumnos</legend>
         <?
-  		echo '<p class="lead">Alumnos<br />
-		<SELECT  name=nombre[] multiple=multiple style="padding:15px; width:100%;height:450px;">';
+  		echo '<SELECT  name=nombre[] multiple=multiple style="padding:15px; width:100%;height:450px;">';
   		if ($nivel=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE NIVEL like '$nivel%' and grupo = '$grupo'";}
   $alumno = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $alumno_sel order by APELLIDOS asc");
   

@@ -24,7 +24,7 @@ else{
 }
 echo '<div align="center">';
   echo '<div class="page-header">
-  <h1>Jefaturas de los Departamentos <small> Registro de Reuniones</small></h1>
+  <h2>Jefaturas de los Departamentos <small> Registro de Reuniones</small></h1>
   <h3 style="color:#08c;">'.$departament.'</h3>
 </div>
 <br />';

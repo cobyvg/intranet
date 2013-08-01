@@ -1,8 +1,12 @@
-
-<h2 align="center">Configuración de la Intranet</h2>
+<? include("../menu_solo.php"); ?>
+<br />
+<div align="center">
+<div class="page-header">
+  <h2>Configuración de la Intranet <small> Datos básicos de la aplicación</small></h2>
+</div>
 <br />
 <?php
-include("../menu_solo.php");
+
 if ($_POST['enviar']){echo $mens; echo $form;}
 if($mens_bd=="1"){
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
@@ -14,10 +18,9 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
 ?>
 <form enctype="multipart/form-data" action="index.php" method="post" name="configura">
 <fieldset class="control-group info">
-  <table class="table table-condensed table-bordered table-striped" style="width:860px; margin:auto">
-    <tr>
-     <td align="center" colspan="3" style="background-color:#555;"><h6 align='center' style="color:#fff" class="lead">Datos generales de la configuración (*)<span class="help-block pull-right" style="color:#ddd; display:inline"> <small>(*) Campos obligatorios</small></span></h6></td>
-          </tr>
+  <table class="table table-condensed table-bordered table-striped" style="width:60%">
+    <tr class='info'><td colspan='3' style="text-align:center"><strong>Datos generales de la configuración </strong> <small class="pull-right" style="color:#999; ">(*) Campos obligatorios</small>
+          </td></tr>
     
       <td width="190">Dominio<span style='color:#9d261d'> (*)</span>
         </td>
@@ -103,9 +106,7 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
       <td>Fecha de terminación del Curso Escolar. Formato: 2013-06-21</td>
     </tr>
     <tr>
-    <tr>
-      <td align="center" colspan="3" style="background-color:#555;"><h6 align='center' style="color:#fff" class="lead">Módulos de la Intranet</h6></td>
-    </tr>
+    <tr class='info'><td colspan='3' style="text-align:center"><strong>Módulos de la Intranet </strong></td></tr>
     <tr>
       <td>Centro TIC:
         </td>
@@ -155,9 +156,8 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
       <td><input type="text" name="doc_dir" size="30" value="<?php if(empty($doc_dir)){ echo "/home/e-smith/files/ibays/intranet/files/"; } else { echo $doc_dir; } ?>" required /></td>
       <td>Directorio en el Servidor local donde tenemos documentos que queremos gestionar con la Intranet . La ruta es absoluta (p.ej. "/home/e-smith/files/ibays/intranet/files/")</td>
     </tr>
-    <tr>
-      <td colspan="3" style="background-color:#555;"><h6 align='center' style="color:#fff" class="lead">Personal del Centro en la Intranet</h6></td>
-    </tr>
+    <tr class='info'><td colspan='3' style="text-align:center"><strong>Personal del Centro </strong></td></tr>
+
     <tr>
     <tr>
       <td>Director/a<span style='color:#9d261d'> (*)</span>
@@ -206,9 +206,8 @@ for($i=1;$i<2;$i++){
     <?php
 }
 ?>
-    <tr>
-      <td colspan="3" style="background-color:#555;"><h2 align='center' style="color:#fff" class="lead">Configuración de las Bases de datos</h2></td>
-    </tr> 
+     <tr class='info'><td colspan='3' style="text-align:center"><strong>Configuración de la Base de Datos </strong></td></tr>
+
     
     <tr>
       <td>Base de datos general<span style='color:#9d261d'> (*)</span>
@@ -234,9 +233,8 @@ for($i=1;$i<2;$i++){
       <td><input type="text" name="db_pass" size="30" value="<?php if(empty($db_pass)) { echo "contraseña_de_mysql"; } else { echo $db_pass; } ?>" required /></td>
       <td>Clave de MySQL</td>
     </tr>
-    <tr>
-      <td colspan="3" style="background-color:#555;"><h6 align='center' style="color:#fff" class="lead">Configuración de las Reservas de Medios</h6></td>
-    </tr>
+      <tr class='info'><td colspan='3' style="text-align:center"><strong>Configuración del sistema de Reservas </strong></td></tr>
+
     <tr>
       <td>Base de datos de Reservas<span style='color:#9d261d'> (*)</span>
         </td>

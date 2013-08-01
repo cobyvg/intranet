@@ -15,12 +15,11 @@ exit;
 }
 include("../../menu.php");
 ?>
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
-<div align="center" style="max-width:1250px;margin:auto;">
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h1>
-</div>
 <br />
+<div align="center" style="max-width:1250px;margin:auto;">
+<div class="page-header">
+  <h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
+</div>
 <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
         <i class="icon-spinner icon-spin icon-2x pull-left"></i> Cargando los datos...
  </div>

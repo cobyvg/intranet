@@ -15,7 +15,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Informes por expulsión</small></h1>
+  <h2>Informes de Tareas <small> Informes por expulsión</small></h2>
 </div>
 <br />
           

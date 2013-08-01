@@ -45,34 +45,18 @@ if ($no_dia> $numerodiasemana) {
  	$g_fecha = date("Y-m-$g_dia");
  	$fecha_sp = formatea_fecha($g_fecha);
 ?>
-
-<div align=center>
- <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Guardias de Aula <small> <? echo $fecha_sp;?></small></h1>
-</div>
 <br />
-
-<?
-if ($profeso) {
-echo '<h3>'.$profeso.'</h3><br />';	
-}
-?>
-  <div align="center" class="well-2 well-large" style="width:580px;;">
-
-<?
-if ($borrar=='1') {
-	mysql_query("delete from guardias where id='$id'");
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-La sustitución ha sido borrada correctamente. Puedes comprobarlo en la lista más abajo.
-          </div></div>';
-}
-?>
-
+<div align=center>
+ <div class="page-header" align="center">
+  <h2>Guardias de Aula <small> <? echo $fecha_sp;?></small></h2>
+</div>
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="well" style="width:500px;">
 	   <FORM action="guardias_admin.php" method="POST" name="Cursos">
 
-             <p class="lead">Selecciona Profesor<br /><br />
-              <SELECT  name=profeso onchange="submit()" class="input-xxlarge">
+             <legend>Selecciona Profesor</legend>
+              <SELECT  name=profeso onchange="submit()" class="input-xlarge">
               <option><? echo $profeso;?></option>
 		        <?
   $profe = mysql_query(" SELECT distinct prof FROM horw where a_asig='GU' order by prof asc");
@@ -86,10 +70,27 @@ La sustitución ha sido borrada correctamente. Puedes comprobarlo en la lista más
 	} while($filaprofe = mysql_fetch_array($profe));
         }
 	?>
-              </select>
-            </p>
-           
+              </select>         
           </FORM>
+          </div>
+<div class="span5 offset1">
+<?
+if ($profeso) {
+echo '<h3>'.$profeso.'</h3><br />';	
+echo '  <div align="center" class="well well-large">';
+}
+?>
+
+<?
+if ($borrar=='1') {
+	mysql_query("delete from guardias where id='$id'");
+	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+La sustitución ha sido borrada correctamente. Puedes comprobarlo en la lista más abajo.
+          </div></div>';
+}
+?>
+
 <? 
 	if ($profeso) {
 $link = "1";
@@ -98,12 +99,17 @@ include("../../horario.php");
 
 }
 echo "</div>";
+?>
+</div>
+<div class="span5">
+
+<?
 $fech_hoy = date("Y-m-d");
 $hoy0 = mysql_query("select id, profesor, profe_aula, hora, fecha from guardias where dia = '$no_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha'");
 if (mysql_num_rows($hoy0) > 0) {
 	echo '<br />';
 	echo "<h3>Sustituciones registradas para la Guardia de hoy</h3><br />";
-	echo '<table class="table table-striped" style="width:450px;">';
+	echo '<table class="table table-striped">';
 	echo "<tr><th>Profesor de Guardia</th><th>Profesor ausente</th></tr>";
 	while ($hoy = mysql_fetch_array($hoy0)) {
 			echo "<tr><td>$hoy[1]</td><td>$hoy[2]</td></tr>";
@@ -142,8 +148,8 @@ $extra1 = " a ".$hora."ª hora del ".$nombre_dia;
 $h_hoy0 = mysql_query("select id, profesor, profe_aula, hora, fecha_guardia, dia from guardias where profesor = '$profeso'");
 if (mysql_num_rows($h_hoy0) > 0) {
 
-	echo "<br /><h3>Sustituciones realizadas por el profesor durante el Curso escolar</h3><br />";
-	echo '<table class="table table-striped" style="width:700px">';
+	echo "<h3>Sustituciones realizadas por el profesor</h3><br />";
+	echo '<table class="table table-striped">';
 	echo "<tr><th>Profesor Ausente</th><th>Fecha de la Guardia</th><th>Día</th><th>Hora</th><th></th></tr>";
 	while ($h_hoy = mysql_fetch_array($h_hoy0)) {
 $nu_dia = $h_hoy[5];
@@ -166,6 +172,9 @@ No hay datos sobre las Guardias del profesor.
 }
 }
 ?>
+</div>
+</div>
+</div>
 <? include("../../pie.php");?>
 </BODY>
 </HTML>

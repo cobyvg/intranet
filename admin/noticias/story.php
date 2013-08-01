@@ -15,7 +15,7 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <div class="page-header" align="center">
-  <h1>Noticias del Centro <small> Noticias en la base de datos</small></h1>
+  <h2>Noticias del Centro <small> Noticias en la base de datos</small></h2>
 </div>
 
 <div class="container-fluid">
@@ -44,7 +44,7 @@ if ($row)
 ?>
 </h6>
 <br />
-<div class="well-2">
+<div class="well">
 <blockquote>
 <?             	
 			echo $row->content;

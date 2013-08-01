@@ -82,7 +82,7 @@ $profesor = $_SESSION ['profi'];
 		?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Noticias del Centro <small> Redactar Noticias</small></h1>
+  <h2>Noticias del Centro <small> Redactar Noticias</small></h2>
 </div>
 <br />
    <?

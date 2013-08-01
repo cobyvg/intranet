@@ -1,5 +1,5 @@
 <center> 
-<table class="table table-striped table-condensed table-bordered" style="width:auto; min-width:400px;">
+<table class="table table-striped table-condensed table-bordered" style="">
     <tr>
 <td></td>
 <td valign="middle" align="center">

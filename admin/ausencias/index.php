@@ -13,9 +13,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 $datatables_activado = true;
 ?>
+<br />
 <div align=center>
-<div class="page-header" align="center" style="margin-top: -15px">
-<h1>Ausencias del profesorado <small> Registro de bajas <? echo $profesor;?></small></h1>
+<div class="page-header" align="center">
+<h2>Ausencias del profesorado <small> Registro de bajas <? echo $profesor;?></small></h2>
 </div>
 
 <?
@@ -98,7 +99,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 <h4>Registro de Bajas</h4>
 </div>
 <br />
-<div class="well-2 well-large">
+<div class="well well-large">
 <form enctype='multipart/form-data' action='index.php' method='post'
 	name='f1' class="form-vertical">
 <div align='left'><label>Profesor:<br />

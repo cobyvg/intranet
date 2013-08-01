@@ -24,9 +24,9 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <div class="page-header" align="center">
-  <h1>Material del Centro <small> Seleccionar Departamento</small></h1>
+  <h2>Material del Centro <small> Seleccionar Departamento</small></h2>
 </div>
-<br /><div class="well-2 well-large" align="center" style="width:400px;margin:auto">
+<br /><div class="well well-large" align="center" style="width:400px;margin:auto">
 <br />
 <form name="textos" method="post" action="introducir.php">
                  <select name="departamento" id="departamento"  value ="Todos ...">

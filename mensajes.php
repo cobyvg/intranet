@@ -1,5 +1,5 @@
-<div class='well well-small'>
-<p class="lead">Mensajes</p>
+<div class='well'>
+<legend><i class="icon-comment"> </i> Mensajes</legend>
     <?
 				$query = "SELECT ahora, asunto, id, recibidoprofe, texto from mens_profes, mens_texto where mens_texto.id = mens_profes.id_texto and profesor = '$pr' ORDER BY ahora DESC LIMIT 0, 5";
 				//echo $query;
@@ -13,13 +13,14 @@
 		href="admin/mensajes/mensaje.php?id=<?
 					echo $row [2];
 					?>"
-		 rel='tooltip' title='<? if(strlen($row[4])>599){echo substr($row[4],0,600)."...";}else{echo $row[4];}?>'><i class="icon-comment"> </i> <?
+		 rel='tooltip' title='<? if(strlen($row[4])>599){echo substr($row[4],0,600)."...";}else{echo $row[4];}?>'><?
 					echo $row [1];
 					?></a></p>
 <?
 				}
 				?>
-<a
+<br /><a
 	href="admin/mensajes/index.php" class="btn btn-primary">Centro de
 Mensajes</a>
 </div>
+<br />

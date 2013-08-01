@@ -15,8 +15,11 @@ registraPagina($_SERVER['REQUEST_URI']);
  include("menu.php");
  ?>
  <div align="center">
-  <h3>Editar Actividades Extraescolares</h3><br />
-  </div>
+<div class="page-header">
+  <h2>Actividades Complementarias y Extraescolares <small> Edición de actividades</small></h2>
+</div>
+<br />
+</div>
  <?
 // Conexión con MySql
 mysql_connect($db_host, $db_user, $db_pass);
@@ -139,7 +142,7 @@ $justificacion = $datos[10];
 <div class="row-fluid">
 <div class="span1"></div>
 <div class="span5">
-<div class="well-2 ">            
+<div class="well ">            
 <FORM action="indexconsulta.php" method="POST" name="Cursos">
            
                 <label style="display:INLINE">Fecha de la actividad<br /> 
@@ -233,7 +236,7 @@ else{
 </div>
 </div>
 <div class="span5">
-<div class="well-2 ">          
+<div class="well ">          
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Grupos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning pull-right">Desmarcarlos todos</a> <br />
               <br />
@@ -259,8 +262,8 @@ $grupo = $alumno[0].$alumno[1];
 $nivel = $alumno[1];
 if(strstr($todosgrupos,$grupo)==TRUE){$chk=" checked ";}
 ?>
-                  <? echo "<span style='margin-right:2px;color:#08c'>".$nivel."</span>";?>
-                  <input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>" <? echo $chk;?> style="margin-right:7px;">
+                  <? echo "<span style='margin-right:1px;color:#08c'>".$nivel."</span>";?>
+                  <input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>" <? echo $chk;?> style="margin-right:7px;margin-bottom:6px">
                   <? } ?>              
             
  <? } ?>
@@ -272,8 +275,8 @@ if(strstr($todosgrupos,$grupo)==TRUE){$chk=" checked ";}
             <label>Horario: <br />
                 <input name="horario" type="text" value="<? echo $horario; ?>" size="30" maxlength="64" class="input-xlarge">
               </label>       
-            <input name="id" type="hidden" value="<? echo $id; ?>"                                                                                                               
-    <input name="fecha_origen" type="hidden" value="<? echo "$ano-$mes-$dia"; ?>"> 
+            <input name="id" type="hidden" value="<? echo $id;?>" />                                                                                                               
+    <input name="fecha_origen" type="hidden" value="<? echo '$ano-$mes-$dia'; ?>" /> 
   </div>
   </div>
   </div>

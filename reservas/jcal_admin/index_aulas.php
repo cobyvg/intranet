@@ -176,7 +176,7 @@ mysql_query($sql_hor);
 // Estructura de la Tabla
 ?>
 <div class="page-header" align="center">
-  <h1>Reserva de Medios <small> <? echo $nombre_aula; ?></small></h1>
+  <h2>Reserva de Medios <small> <? echo $nombre_aula; ?></small></h2>
 </div>
 <br />
 <?
@@ -195,7 +195,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
  <div class="row-fluid">
  <div class="span2"></div>
 <div class="span4">
-<div class="well-2 well-small">
+<div class="well well-small">
     <?
 	echo "<h4>$daylong, $monthlong $today, $year</h4><br />";	
 $sql_date = "$year-$month-$today";
@@ -347,9 +347,9 @@ echo "</div>";
 ?>
 </div>
 </div>
-<div class="span4 pull-left">
+<div class="span4">
 <?
-echo "<table class='table table-bordered table-striped' style='width:400px;'><tr><th>
+echo "<table class='table table-bordered table-striped'><tr><th>
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?servicio=$aula&year=$last_year&today=$today&month=$month'>
 <i class='icon icon-arrow-left' name='calb2' style='margin-right:20px;'> </i> </a>
@@ -357,7 +357,7 @@ echo "<table class='table table-bordered table-striped' style='width:400px;'><tr
 <a href='".$_SERVER['PHP_SELF']."?servicio=$aula&year=$next_year&today=$today&month=$month'>
 <i class='icon icon-arrow-right' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table>";
 
-echo "<table class='table table-bordered' style='width:400px;' align='center'>
+echo "<table class='table table-bordered' align='center'>
       <tr>";
 	  $meses = array(1=>Ene, 2=>Feb, 3=>Mar, 4=>Abr, 5=>May, 6=>Jun, 7=>Jul, 8=>Ago, 9=>Sep, 10=>Oct, 11=>Nov, 12=>Dic);
 	  foreach ($meses as $num_mes => $nombre_mes) {
@@ -365,7 +365,7 @@ echo "<table class='table table-bordered' style='width:400px;' align='center'>
 	  	if ($num_mes==$month) {
 	  		echo "<th  onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
 		"?servicio=$aula&year=$year&today=$today&month=1';\" style='background-color:#08c'> 
-		<a href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=$year&today=$today&month=".$num_mes."\" style='color:#efefef'>".$nombre_mes."</a> </th>";
+		<a href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=$year&today=$today&month=".$num_mes."\">".$nombre_mes."</a> </th>";
 	  	}
 	  	else{
 	  		echo "<th  onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
@@ -381,9 +381,9 @@ echo "<table class='table table-bordered' style='width:400px;' align='center'>
 
 
 //Nombre del Mes
-echo "<table class='table table-bordered' style='width:400px'><tr>";
-echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h6 align='center'>" . $monthlong . 
-"</h6></td>";
+echo "<table class='table table-bordered'><tr>";
+echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h4 align='center'>" . $monthlong . 
+"</h4></td>";
 echo "</tr><tr>";
 
 

@@ -19,14 +19,15 @@ include ("../menu.php");
 ?>
 <div class='container-fluid'>
   <div class="row-fluid">
-  <div class="span1"></div>
-   <div class="span10">  
+   <div class="span10 offset1"> 
+   <br /> 
 <div align="center">
-<div class="page-header" align="center">
-  <h1>Administración <small> Perfiles de Profesores</small></h1>
+<div class="page-header">
+  <h2>Administración <small> Perfiles de Profesores</small></h2>
 </div>
 <p align="left" class="help-block well" style="width:540px"><i class="icon icon-question-sign"> </i> Si necesitas información sobre los distintos perfiles de los profesores, puedes conseguirla colocando el cursor del ratón sobre los distintos tipos de perfiles (DACE, JD, Administ., Orienta, etc.).</p>
 </div>
+<br />
 <?
 if ($_POST['enviar'] == "Enviar") {
 mysql_query ( "truncate table FTUTORES" );

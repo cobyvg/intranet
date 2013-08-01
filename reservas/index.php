@@ -23,7 +23,7 @@ if($recurso=="carrito"){$num=$num_carrito+1;$nombre_rec="Carritos de Portátiles"
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Reserva de Medios <small> <? echo $nombre_rec; ?></small></h1>
+  <h2>Reserva de Medios <small> <? echo $nombre_rec; ?></small></h2>
 </div>
 <br />
 <?php

@@ -11,6 +11,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?php
 include("../../menu.php");
+include("menu.php");
 if(strlen($tutor) > 1)
 {
   	$tutor2 = mysql_query("SELECT  nivel, grupo FROM FTUTORES where tutor = '$tutor'");
@@ -18,7 +19,6 @@ if(strlen($tutor) > 1)
 	$nivel = $ftutor[0];
 	$grupo = $ftutor[1];
 }
-include("menu.php");
 $datatables_activado = true;
 
 if ($id) {
@@ -46,11 +46,10 @@ $clave = $row[13];
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Página del tutor <small> Diario del Tutor ( <?  echo $nivel; ?>-<? echo $grupo;?> )</small></h1>
+  <h2>Página del tutor <small> Diario del Tutor ( <?  echo $nivel; ?>-<? echo $grupo;?> )</small></h2>
 </div>
-
-
 <? 
+
 if ($eliminar=="1") {
 	mysql_query("delete from tutoria where id='$id'");
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -98,7 +97,7 @@ La Jefatura de Estudios ha registrado esta Acción Tutorial
   <div class="span6">
     <h4 align="center">Registro de datos</h4>
     <br />
-    <div class="well-2 well-large" align="left">
+    <div class="well well-large" align="left">
       <form action="tutor.php" method="POST" name="Tutor">
            <?    
           if ($alumno and !($alumno == "Todos los Alumnos")) {

@@ -13,9 +13,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top: -15px">
-<h1>Ausencias del profesorado <small> Profesores ausentes hoy</small></h1>
+<div class="page-header" align="center">
+<h2>Ausencias del profesorado <small> Profesores ausentes hoy</small></h2>
 </div>
 <?	
 $hoy = date('Y-m-d');

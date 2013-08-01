@@ -13,11 +13,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 $datatables_activado = true;
 ?>
-<div align="center">
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Orientación <small>Intervenciones sobre los alumnos</small></h1>
-</div>
 <br />
+<div align="center">
+<div class="page-header">
+  <h2>Orientación <small>Intervenciones sobre los alumnos</small></h2>
+</div>
 </div>
 <?
 $campo= mysql_query("select * from tutoria");
@@ -80,7 +80,7 @@ El registro ha sido actualizado en la Base de datos.
 <div class="span6">
 <h3 align="center">Registro de datos</h3>
 <br />
-<div class="well-2 well-large">
+<div class="well well-large">
 
 <FORM action="tutor.php" method="POST" name="Tutor"><?    
 if ($alumno) {

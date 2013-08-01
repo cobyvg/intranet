@@ -17,12 +17,12 @@ $profesor = $_SESSION['profi'];
 	$nivel1 = $tr[0];
 	$grupo1 = $tr[1];
   ?>
-   <div align=center>
-  <div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Horario del Grupo <small>  <small> <br /><? echo $curso;?></small></h1>
-</div>
-</div>
 <br />
+   <div align=center>
+  <div class="page-header" align="center">
+  <h2>Horario del Grupo <small>  <small> <br /><? echo $curso;?></small></h2>
+</div>
+</div>
 <div class="container" style="width:880px">
 <table class="table table-condensed table-striped table-bordered"  align="center">
    <tr> 
@@ -67,7 +67,7 @@ echo "</table>
 <br />
  <div align=center>
   <div class="page-header" align="center">
-  <h1>Profesores del Grupo <small><br /> <?  echo "$curso";?></small></h1>
+  <h2>Profesores del Grupo <small><br /> <?  echo "$curso";?></small></h2>
 </div>
 </div>
 <br />

@@ -34,7 +34,7 @@ $datatables_activado = true;
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Buscar Informes</small></h1>
+  <h2>Informes de Tareas <small> Buscar Informes</small></h2>
 </div>
 
 <form name="buscar" method="POST" action="buscar.php">

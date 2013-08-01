@@ -15,9 +15,10 @@ $profesor = $_SESSION['profi'];
 include("../../menu.php");
 $profe = explode(", ",$profeso);
 ?>
+<br />
 <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Horario del Profesor <small><br /> <? echo "$profe[1] $profe[0]";?></small></h1>
+  <div class="page-header" align="center">
+  <h2>Horario del Profesor <small><br /> <? echo "$profe[1] $profe[0]";?></small></h2>
 </div>
 </div>
 

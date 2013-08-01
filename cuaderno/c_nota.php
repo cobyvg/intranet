@@ -39,7 +39,7 @@ $texto =$ident0[2]; }
 <input type="hidden" name="hora" value = "<? echo $hora;?>" />
 <input type="hidden" name="id" value = "<? echo $id;?>" />
 <br />
-<div class="well-2 well-large" style="width:350px;" align="left">
+<div class="well well-large" style="width:350px;" align="left">
 <label>Nombre de la columna<br />
 <input type="text" name="nombre" size="32" value="<? echo $nombre;?>" class="span4" />
 </label>

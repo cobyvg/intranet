@@ -18,7 +18,7 @@ if($verifica){
 }
 ?>
 <div class="page-header" align="center">
-  <h1>Centro de Mensajes <small> Enviar mensajes...</small></h1>
+  <h2>Centro de Mensajes <small> Enviar mensajes...</small></h2>
 </div>
 <br />
 <? 
@@ -28,10 +28,8 @@ include("profesores.php");
 <form id="form" name="form" method="post" action="index.php">
   <fieldset>
 <div class="row-fluid">
-<div class="span2"></div>
-
-  <div class="span4">
-      <div class="well-2  well-large">
+  <div class="span4 offset2">
+      <div class="well well-large">
         <h4>Destinatario(s)</h4>
         <br />
         <div class="row-fluid">
@@ -310,17 +308,18 @@ include("profesores.php");
         </div>
       </div>
        
-      <div class="span4 well-2 well-large">
+      <div class="span4 well well-large">
         <div class="control-group" align="left">
           <input type="hidden" name="profesor"
 					value="<? echo $pr; ?>" />
           <label class="control-label" for="asunto">Asunto</label>
-          <input name="asunto" type="text" value="<? echo $asunto;?>" class="input-xlarge"/>
+          <input name="asunto" type="text" value="<? echo $asunto;?>" class="input" style="width:97%"/>
+          <hr />
           <label class="control-label" for="texto">Texto</label>
           <div class="controls">
-            <textarea id="texto" name="texto" class="input-xlarge" id="textarea" rows="8"><? echo $texto;?></textarea>
-            <br />
-            <input type="submit" class="btn btn-primary" name="submit1" value="Enviar Mensaje" />
+            <textarea id="texto" name="texto" class="input" id="textarea" rows="8" style="width:97%"><? echo $texto;?></textarea>
+            <hr />
+            <input type="submit" class="btn btn-primary btn-block" name="submit1" value="Enviar Mensaje" />
           </div>
         </div>
 </div>

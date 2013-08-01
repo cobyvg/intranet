@@ -17,9 +17,10 @@ exit;
 <?
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Administración <small> Importación de calificaciones por Evaluación</small></h1>
+  <h2>Administración <small> Importación de calificaciones por Evaluación</small></h2>
 </div>
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">

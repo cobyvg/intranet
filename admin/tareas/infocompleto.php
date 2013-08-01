@@ -55,7 +55,7 @@ include("../../menu_solo.php");
   include("menu.php");
 ?>
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Informe por asignaturas</small></h1>
+  <h2>Informes de Tareas <small> Informe por asignaturas</small></h2>
 </div>
 <br />
 <?php

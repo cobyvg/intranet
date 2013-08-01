@@ -14,9 +14,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 $pr_trozos=explode(", ",$profe_baja);		
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top: -15px">
-<h1>Ausencias del profesorado <small> Profesores ausentes</small></h1>
+<div class="page-header" align="center">
+<h2>Ausencias del profesorado <small> Profesores ausentes</small></h1>
 <h3 class="muted"><? echo "$pr_trozos[1] $pr_trozos[0]";?></h3>
 </div>
 <div class="container-fluid">
@@ -24,8 +25,8 @@ $pr_trozos=explode(", ",$profe_baja);
 <div class="span5 offset1">
 <div align="left">
 <?
-echo "<h4 align=center>Datos de la ausencia</h4><br />";
-echo "<div class='well-2 well-large'>";
+echo "<h3 align=center>Datos de la ausencia</h3><br />";
+echo "<div class='well well-large'>";
 echo '<table class="table table-striped" style="width:100$;">';
 	echo "<tr>
 		<th>Inicio</hd>
@@ -51,10 +52,8 @@ echo '<table class="table table-striped" style="width:100$;">';
 	echo "</tr></table>";
 	echo "<hr>";
 	if (strlen($tar) > '1'){
-	echo "<p class ='lead'>Tareas para los Alumnos durante la Baja</p>";
-	echo "<table class='table' style='width:450px'>
-	<tr><td>$tar</td></tr>
-	</table>";
+	echo "<legend class='text-warning'>Tareas para los Alumnos durante la Baja</legend>";
+	echo "<p class='text-info'>$tar</p>";
 	}
 ?>
 </div>
@@ -63,7 +62,7 @@ echo '<table class="table table-striped" style="width:100$;">';
 <div class="span5">
 <?	
 
-	echo "<h4>Horario del Profesor hoy</h4><br />";
+	echo "<h3>Horario del Profesor hoy</h3><br />";
 	echo "<table class='table table-striped table-bordered' style='width:auto'>
 	<tr>
 	<th>1ª Hora</th>

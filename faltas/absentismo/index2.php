@@ -68,7 +68,7 @@ Los datos de los alumnos absentistas se han actualizado.
 // Vamos a rellenar informe
 
 if ($inf=="1") {
-	echo '<div align="center" class="well-2 well-large" style="width:600px;margin:auto">';
+	echo '<div align="center" class="well well-large" style="width:600px;margin:auto">';
 echo "<h4 align='center'>Datos del Alumno</h4><br />";
 $al=mysql_query("SELECT distinct apellidos, nombre, absentismo.nivel, absentismo.grupo, numero, jefatura, orientacion, tutoria FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='$claveal' and mes='$mes' $mas2");
 

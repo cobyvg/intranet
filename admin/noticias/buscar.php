@@ -17,7 +17,7 @@ include("menu.php");
 $expresion = $_POST['expresion'];
 ?>
 <div class="page-header" align="center">
-  <h1>Noticias del Centro <small> Buscar en las Noticias</small></h1>
+  <h2>Noticias del Centro <small> Buscar en las Noticias</small></h2>
 </div>
 <br />
 <h3 align="center" class="muted">Noticias que contienen la expresión &quot;<a href="#"><? echo strtoupper($expresion);?></a>&quot;</h3><br /><br /><?

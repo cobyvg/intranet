@@ -92,7 +92,7 @@ $fecha0=$hoy;
 }
 echo '<div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Aula de Convivencia</small></h1>
+  <h2>Problemas de Convivencia <small> Aula de Convivencia</small></h2>
 ';
 echo " <h3 align='center' style='color:#08c'>";
 if (empty($hor))  {$hoy0 = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );}else {$hoy0 = $fecha0;}
@@ -104,9 +104,9 @@ $hoy0 = "$tr_h[2]-$tr_h[1]-$tr_h[0]";
 echo "$hoy0</h3>";
 echo '</div>
 </div>
-<br />';
+';
 
-	echo "<center><br><form name='conv' action='convivencia_jefes.php' method='post' enctype=multipart/form-data' class='form form-inline'>";
+	echo "<center><form name='conv' action='convivencia_jefes.php' method='post' enctype=multipart/form-data' class='form form-inline'>";
 	?>
 	<label>Selecciona el Día 
 <div class="input-append" >

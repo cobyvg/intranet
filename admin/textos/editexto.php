@@ -17,10 +17,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 echo '<div align="center">';		
 ?>
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Libros de Texto <small> Edición de libros</small></h1>
-</div>
 <br />
+<div class="page-header">
+  <h2>Libros de Texto <small> Edición de libros</small></h2>
+</div>
 <?
 echo "<h3>
 			Modificar Datos de un Libro de Texto</h3><br />";
@@ -31,7 +31,7 @@ echo "<h3>
 	$id = $row[6];
 	$nivel = $row[8];
 ?>
-<div class="well-2 well-large" style="width:450px;" align="left">
+<div class="well well-large" style="width:450px;" align="left">
   <p class="lead">Selecciona el Curso y los Grupos</p>
 <hr>
   		<form method="post" action="editexto.php" style="padding:0px; margin:0px;">

@@ -19,8 +19,9 @@ exit;
   <?
   	include("../../menu.php");
   ?>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Guardias de Aula <small> Registro de guardias</small></h1>
+<br />
+  <div class="page-header" align="center">
+  <h2>Guardias de Aula <small> Registro de guardias</small></h2>
 </div>
 <br />
  <div class="container-fluid">  
@@ -30,10 +31,10 @@ exit;
         <div class="span4">
         <? if ($mod_horario) {
 ?>
-<div align="left" class="well-2 well-large">
+<div align="left" class="well well-large">
 	   <FORM action="admin.php" method="POST" name="Cursos">
-          <label>
-             Selecciona Profesor <br />
+          <legend>
+             Selecciona Profesor </legend>
               <SELECT  name=profeso onChange="submit()" class="input input-xlarge">
               <option><? echo $profeso;?></option>
 		        <?
@@ -49,7 +50,7 @@ exit;
         }
 	?>
               </select>
-            </label>
+            
           </FORM>
 <? 
 	if ($profeso) {
@@ -62,7 +63,7 @@ include("../../horario.php");
 	}
 	?>
     </div>
-        <div class="well">
+            <div class="well">
 <blockquote style="text-align:justify"><strong>Instrucciones de uso.</strong><br>Selecciona el Profesor al que quieres apuntar una sustitución no registrada. Te aparecerá el horario del Profesor, para que puedas determinar con precisión la hora de la guardia (1ª hora, 2ª hora, etc) del día en cuestión. Seleccionas a continuación el Profesor sustituido. Al hacer click en el campo de la fecha, aparecerá una nueva ventana con el calendario en el que debes pinchar sobre la fecha elegida. Escribe la hora de la guardia (1, 2, 3, etc) y envía los datos.<br />Si quieres consultar el historial de guardias de un Profesor, pincha en <em>Consultar guardias y profesores</em>. Selecciona el Profesor y aparecerá un histórico con todas las sustituciones realizadas. Si pinchas en una de las fuardias de su horario, podrás ver las sutituciones de todos los profesores de esa guardia en esa hora a lo largo del curso.</blockquote>
 </div>
         </div>

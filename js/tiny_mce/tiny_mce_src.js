@@ -16516,7 +16516,7 @@ tinymce.ForceBlocks = function(editor) {
 					childCount = getChildCount(node);
 
 					// Remove empty nodes but only if there is multiple wrappers and they are not block
-					// elements so never remove single <h1></h1> since that would remove the currrent empty block element where the caret is at
+					// elements so never remove single <h2></h1> since that would remove the currrent empty block element where the caret is at
 					if ((newWrappers.length > 1 || !isBlock(node)) && childCount === 0) {
 						dom.remove(node, 1);
 						return;

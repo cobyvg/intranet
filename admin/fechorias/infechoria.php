@@ -81,14 +81,13 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 	?>
 <div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Registro de un problema</small></h1>
+  <h2>Problemas de Convivencia <small> Registro de un problema</small></h2>
 </div>
 </div>
 <br />
 
-<br />
 <div style="max-width: 420px; margin: auto">
-<div class="well-2 well-large" align="left">
+<div class="well well-large" align="left">
 <FORM action="infechoria.php" method="POST" name="Cursos">
 <label style="display: inline"> Nivel: 
 <select name="nivel"
@@ -105,7 +104,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 	<? grupo($nivel);?>
 </select> 
 </label> 
-
+<hr />
 <label> Alumno:<br />
 	<?
 	if ($nivel=="Cualquiera") {$alumno_sel=""; $nom = "nombre[]";  $opcion = "multiple = 'multiple' style='height:250px;width:340px;'";}else{$alumno_sel = "WHERE NIVEL like '$nivel%' and grupo = '$grupo'"; $nom = "nombre";}

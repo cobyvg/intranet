@@ -14,7 +14,7 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <div class="page-header" align="center">
-  <h1>Material del Centro <small> Inventario</small></h1>
+  <h2>Material del Centro <small> Inventario</small></h2>
 </div>
 <br />
 <?
@@ -68,7 +68,7 @@ Parece que no has escrito nada en alguno de los campos obligatorios del formular
 
 <h3>Registro de Material <span style="color:#9d261d">(<? echo $departament;?>)</span></h3>
 <br />
-<div class="well-2 well-large" align="left">
+<div class="well well-large" align="left">
 <form name="textos" method="post" action="introducir.php">
 <div align="center"><p class="help-block"> <span style="color:#9d261d">(*)</span> --> Campos obligatorios</p></div>
 <input type="hidden" name="departamento" value="<? echo $departamento;?>">

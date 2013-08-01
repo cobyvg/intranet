@@ -18,11 +18,11 @@ exit;
   <?
   	include("../../menu.php");
   ?>
+  <br />
    <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Administración <small> Crear el Carnet del Alumno</small></h1>
+  <div class="page-header" align="center">
+  <h2>Administración <small> Crear el Carnet del Alumno</small></h2>
 </div>
-<br />
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span6 offset3">
@@ -41,12 +41,13 @@ $row_Recordset2 = mysql_fetch_array($Recordset2);
 $totalRows_Recordset2 = mysql_num_rows($Recordset2);
 $unidad = $row_Recordset1[16];
 ?>
-<div align="center" class="well-2 well-large" style="width:550px">
-<p class="lead">Impresión de Carnet por Grupo</p>
+<div align="center" class="well well-large" style="width:550px">
 <form id="form1" name="form1" method="post" action="carnet.php">
-  <label>
+  <div class="control-group">
+       <div class="controls">
+<legend>Impresión de Carnet por Grupo</legend>
+  <label class="control-label" for="grupo">Selecciona un Grupo:</label>
 
-    <p class="muted">Selecciona un Grupo:  </p>
 <?
 if (stristr($_SESSION['cargo'],'2') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE) {
 	$unidad_tutor = $_SESSION ['s_nivel']."-".$_SESSION ['s_grupo'];
@@ -54,7 +55,7 @@ if (stristr($_SESSION['cargo'],'2') == TRUE and stristr($_SESSION['cargo'],'1') 
 }
 else{
 ?>
-  <select name="select" class="input-small">
+  <select name="select" class="input-small" id = "grupo">
     <?php
  while ($row_Recordset1 = mysql_fetch_array($Recordset1)) { 
  	$unidad = $row_Recordset1[0];
@@ -67,22 +68,22 @@ else{
 <?
 }
 ?>
-  </label>
-   <label> 
+<hr />
   <input type="submit" name="Submit" value="Enviar" class="btn btn-primary" />
-  </label>
+  </div>
+  </div>
 </form>
  </div>
 
 
 
 
- <div align="center" class="well-2 well-large" style="width:550px">
-<p class="lead">Impresión de Carnet por Alumno</p>
-
-<p>
+ <div align="center" class="well well-large" style="width:550px">
 
 <form name="crear" action="carnet.php" method="POST" onsubmit="placeInHidden('*', this.form.al2,this.form.profes)">
+ <div class="control-group">
+       <div class="controls">
+<legend>Impresión de Carnet por Alumno</legend>
 
 <?############################?>
 <SCRIPT language="JavaScript" type="text/javascript">
@@ -201,8 +202,9 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 
 <table align="center" cellpadding="3">
 <tr>
-<td><p class="muted">Alumnado disponible:</p>
-<select multiple size="15" textcolor="ffff99" name="al1">
+<td>
+  <label class="control-label" for="al1">Alumnos disponibles</label>
+<select multiple size="15" textcolor="ffff99" name="al1" id="al1">
 	<? $alumnos = mysql_query($query_noal);
 	while ($alumnado = mysql_fetch_row($alumnos)){ 
 		echo "<Option value='$alumnado[0]'>$alumnado[1] $alumnado[2] , $alumnado[3] "; 
@@ -214,8 +216,9 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 <input type="button" value="   <<   " onclick="move(this.form.al2,this.form.al1)" name="B6"class="btn"><br>
 
 </td>
-<td><p class="muted">Alumnado seleccionado:</p>
-<select multiple size="15" name="al2">
+<td>
+  <label class="control-label" for="al2">Alumnos seleccionados</label>
+<select multiple size="15" name="al2" id="al2">
 	<? $alumnos = mysql_query($query_al);
 	while ($alumnado = mysql_fetch_row($alumnos)){ 
 		echo "<Option value='$alumnado[0]'>$alumnado[1] $alumnado[2] , $alumnado[3] "; 
@@ -237,14 +240,16 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 
 <br />
 <input type=submit value="Aceptar" class="btn btn-primary" onclick="placeInHidden('*', this.form.al2,this.form.alumnos);">
+</div>
+</div>
 
 </form>
 </div>
 <? if(stristr($_SESSION['cargo'],'1') == TRUE) {
-	echo ' <div align="center" class="well-2 well-large" style="width:550px">';
-	echo '<p class="lead">Impresión de todos los Alumnos</p>';
+	echo ' <div align="center" class="well well-large" style="width:550px">';
+	echo '<legend>Impresión de todos los Alumnos</legend>';
 	echo "<div align='center'>";
-	echo "<a href='carnet.php?todos=1' class='btn btn-inverse'><i class='icon icon-print icon-white'> </i> Imprimir todos los cursos</a></div>";
+	echo "<a href='carnet.php?todos=1' class='btn btn-primary'><i class='icon icon-print icon-white'> </i> Imprimir todos los cursos</a></div>";
 	echo '</div>';
 }
 ?>

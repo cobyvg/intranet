@@ -1,5 +1,5 @@
 <?
-echo "<p class='lead'>Horario</p>";
+echo "<legend><i class='icon icon-time'> </i> Horario</legend>";
 echo "<table  class='table table-condensed table-bordered table-striped' style='width:100%;'><tr>";
 ?>
 <td></td>

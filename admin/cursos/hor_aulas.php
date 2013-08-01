@@ -14,9 +14,10 @@ $profesor = $_SESSION['profi'];
 <?php
 include("../../menu.php");
   ?>
+ <br />
   <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Horario del Aula <small><br /> <? echo $aula;?></small></h1>
+  <div class="page-header" align="center">
+  <h2>Horario del Aula <small><br /> <? echo $aula;?></small></h2>
 </div>
 </div>
 

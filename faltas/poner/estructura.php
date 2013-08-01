@@ -1,14 +1,13 @@
 
 <div aligna="center">
 <div class="page-header" align="center">
-  <h1>Faltas de Asistencia <small> Poner faltas</small></h1>
+  <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
-<br />
-
+<div class="container-fluid">
 <div class="row-fluid">
-<div class="span5">
-<h3><span style='font-size:0.9em; color:#08c'>&nbsp;&nbsp; <? echo $profesor;?> &nbsp;&nbsp;</span></h3><br />
-<div class="well-2 well-large" style="margin-left:15px;">
+<div class="span4">
+<h2><small class="text-success"> <? echo $profesor;?> &nbsp;&nbsp;</small></h2><hr />
+<div class="well-transparent well-large">
 <?
   if (isset($_SESSION['todo_profe'])) {
 		  $trozos = explode("_ ",$_SESSION['todo_profe']) ;
@@ -22,7 +21,7 @@
 			}
           	echo "<input type=hidden name=profesor value= \"$profesor\">";
           }
-          else {              
+          else { 
 profesor();
           }
 		if ($registro) {
@@ -63,12 +62,12 @@ profesor();
                   ?>                   
 </div>
 </div>
-<div class="span7">
+<div class="span8">
 <?          
             echo "<input type=hidden name=today value= \"$today\">";
 			echo "<input type=hidden name=year value= \"$year\">";
 			echo "<input type=hidden name=month value= \"$month\">";
-			echo "<h3 align='center'><span  style='font-size:0.9em; color:#08c'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</span></h3><br />";
+			echo "<h2 align='center'><small class='text-success'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</small></h2><hr />";
             include("profes.php"); 
             ?>
              <div align="center"> 

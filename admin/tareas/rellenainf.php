@@ -20,7 +20,7 @@ include("menu.php");
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Redactar Informe</small></h1>
+  <h2>Informes de Tareas <small> Redactar Informe</small></h2>
 </div>
 <br />
 <?

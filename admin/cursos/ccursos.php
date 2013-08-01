@@ -25,22 +25,24 @@ $profesor = $_SESSION['profi'];
 <?
 include("../../menu.php");
 ?>
-<div align=center>
-<div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Listas de Alumnos <small> Listas de grupo y partes de faltas</small></h1>
-</div>
 <br />
+<div align=center>
+<div class="page-header" align="center">
+  <h2>Listas de Alumnos <small> Listas de grupo y partes de faltas</small></h2>
+</div>
 </div>
 <div class="row-fluid">
 <div class="span2"></div>
 <div class="span4">
-<form class="well-2 well-large form-inline" action="ccursos.php" method="POST" name="listas">
-<h3>Lista de Alumnos</h3><br />
-Nivel: <SELECT  name="nivel" onChange="submit()" class="span2" style="display:inline;margin-right:15px;">
+<form class="well well-large form-inline" action="ccursos.php" method="POST" name="listas">
+<legend>Lista de Alumnos</legend>
+<label>Nivel: </label><br />
+<SELECT  name="nivel" onChange="submit()" class="span2">
             <option><? echo $nivel;?></option>
             <? nivel();?>
           </SELECT>
-Grupo: <select  name="grupo" class="span2" style="display:inline">
+          &nbsp;&nbsp;&nbsp;
+<label>Grupo: </label><select  name="grupo" class="span2" style="display:inline">
           <option></option>
           <? grupo($nivel);?>
         </select>
@@ -54,13 +56,14 @@ Grupo: <select  name="grupo" class="span2" style="display:inline">
 
 </div>
 <div class="span4">
-<FORM action="ccursos.php" method="POST" name="listas2" class="well-2 well-large form-inline">
-<h3>Partes de Faltas de Aula</h3> <br />     
+<FORM action="ccursos.php" method="POST" name="listas2" class="well well-large form-inline">
+<legend>Partes de Faltas de Aula</legend> <br />     
 Nivel: <SELECT  name="nivel" onChange="submit()" class="span2" style="display:inline;margin-right:15px;">
             <option><? echo $nivel;?></option>
             <? nivel();?>
           </SELECT>
-Grupo: <select  name="grupo" class="span2" style="display:inline">
+<label>Grupo: </label>
+<select  name="grupo" class="span2" style="display:inline">
           <option></option>
           <? grupo($nivel);?>
         </select>

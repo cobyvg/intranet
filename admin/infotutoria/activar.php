@@ -15,7 +15,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Informes de Tutoría <small> Activar Informe</small></h1>
+  <h2>Informes de Tutoría <small> Activar Informe</small></h2>
 </div>
 <br />
     

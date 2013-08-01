@@ -23,11 +23,12 @@ else {
 <?
 include("menu.php");
 ?>
- <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Cambio de la clave de acceso</small></h1>
+<br />
+ <div class="page-header" align="center">
+  <h2>Cambio de la clave de acceso</small></h2>
 </div>
 <br />
-<div align="center" class="well-2 well-large" style="width:540px;margin:auto">
+<div align="center" class="well well-large" style="width:540px;margin:auto">
 	<br />
 <?	
 if ($codigo2 === $codigo3 and !(empty($codigo2)) and !(empty($correo))) 
@@ -94,11 +95,12 @@ function validatePass(campo) {
 }
 //-->
 </script>
- <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Cambio de la clave de acceso</h1>
+ <br />
+ <div class="page-header" align="center">
+  <h2>Cambio de la clave de acceso</h1>
 </div>
 <br />
-<div align="center" class="well-2 well-large" style="width:540px;margin:auto">
+<div align="center" class="well well-large" style="width:540px;margin:auto">
 
  <?
   $dat=mysql_query("select * from c_profes where profesor='$pr'");

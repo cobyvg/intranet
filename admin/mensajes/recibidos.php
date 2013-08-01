@@ -15,14 +15,14 @@ $profesor = $_SESSION['profi'];
   <?php
 include("../../menu.php");
 ?>
-<link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
+<link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">    
 <?
 include("menu.php");
 $datatables_activado = true;  
 ?>
 <div align="center">
 <div class="page-header">
-  <h1>Centro de Mensajes <small> Recibir mensajes...</small></h1>
+  <h2>Centro de Mensajes <small> Recibir mensajes...</small></h2>
 </div>
 <br />
 <?

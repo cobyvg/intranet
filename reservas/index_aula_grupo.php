@@ -22,11 +22,11 @@ if($recurso=="aula_grupo"){$num=$num_aula_grupo+1;$nombre_rec="Aulas de Grupo";}
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Reserva de Medios <small> <? echo $nombre_rec; ?></small></h1>
+  <h2>Reserva de Medios <small> <? echo $nombre_rec; ?></small></h2>
 </div>
 <br />
  
-<form action="jcal_admin/index_aulas.php" method="post" class="well-2 well-large" style="width:400px; margin:auto;" name = "form_aula">
+<form action="jcal_admin/index_aulas.php" method="post" class="well well-large" style="width:400px; margin:auto;" name = "form_aula">
   <SELECT  name=servicio_aula onChange="submit()" class="input-xlarge">
     <option><? echo $servicio_aula;?></option>
     <?

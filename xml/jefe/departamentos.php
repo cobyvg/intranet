@@ -17,9 +17,10 @@ exit;
 <?php
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Departamentos del Centro</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Departamentos del Centro</small></h2>
 </div>
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">

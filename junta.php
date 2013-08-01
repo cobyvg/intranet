@@ -1,8 +1,7 @@
 
-<p class="lead">Novedades en la Consejería</p>
+<legend><i class="icon icon-rss"> </i> Novedades en la Consejería</legend>
 <small>(<?
-fecha_actual2();
-echo " " . date ( "H:i:s" );
+echo " " . date ( "d-M-Y H:i:s" );
 ?>) </small>
 <br />
 <br />

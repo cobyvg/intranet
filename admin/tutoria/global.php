@@ -29,10 +29,11 @@ include("menu.php");
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Página del tutor <small> Tutoría del Grupo <? echo "$nivel-$grupo";?><br /> <span style="color:#08c"> ( <? echo $tutor; ?> )</small></h1>
+  <h2 style="display:inline">Página del tutor <small> <? echo "$nivel-$grupo";?>  ( <? echo $tutor; ?> )</small></h2> 
 </div>
-<br />
 </div>
+<? 
+?>
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span4">
