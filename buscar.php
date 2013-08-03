@@ -1,25 +1,11 @@
 <legend>Buscar...</legend>
-<form method="post" action="admin/noticias/buscar.php" class="form-search">
-<input
-	type="text" name="expresion" id="exp"
-	class="search-query"
-	value="...en las Noticias y Mensajes" onclick="this.value=''" style="width:90%" />
-    </form>
-<form action="http://www.google.com/custom" method="get"
-	style="margin-top: 0px;" class="form-search">
-    <input type="text" id="exp" name="q"
-	maxlength="255" onMouseOver="select()"
-	class="search-query"
-	value="...en iesmonterroso.org" onclick="this.value=''" style="width:90%" /> 
-    <input
-	type="hidden" name="sitesearch" value="<?
-	echo $dominio;
-	?>"
-	checked="checked" /> <input type="hidden" name="cof"
-	value="S:http://<?
-	echo $dominio;
-	?>;AH:center;L:ies.gif;AWFID:12e022daa787c23d;" /> <input type="hidden"
-	name="domains" value="<?
-	echo $dominio;
-	?>" />
+<form action="admin/noticias/buscar.php" method="POST" class="form-search">
+  <input type="text" name="expresion" id="exp" class="search-query" placeholder="...en las Noticias y Mensajes" style="width:90%">
+</form>
+
+<form action="http://www.google.com/cse" method="GET" target="_blank" class="form-search" style="margin-top: 0px;">
+    <input type="text" id="exp" name="q" maxlength="255" class="search-query" placeholder="...en <?php echo $dominio; ?>" style="width:90%">
+    <input type="hidden" name="cof" value="FORID:9">
+    <input type="hidden" name="sitesearch" value="<?php echo $domain; ?>">
+    <input type="hidden" name="hl" value="es">
 </form>
