@@ -22,6 +22,9 @@ include("menu.php");
 </div>
 <br />
 <?
+if (isset($_POST['id_borrar'])) {$id_borrar = $_POST['id_borrar'];} elseif (isset($_GET['id_borrar'])) {$id_borrar = $_GET['id_borrar'];} else{$id_borrar="";}
+if (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];} elseif (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];} else{$borrar="";}
+
 $datatables_activado = true;  
 $lista = mysql_list_fields($db,"mens_texto");
 $col_oculto = mysql_field_name($lista,5);
@@ -32,7 +35,7 @@ if ($borrar=="1") {
 	mysql_query("update mens_texto set oculto='1' where id = '$id_borrar'")	;
 	echo '<div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4 class="alert-heading">Valió!</h4> 
+            <h4 class="alert-heading"> 
             El mensaje ha sido eliminado correctamente.
           </div>';
 }

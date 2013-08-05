@@ -36,6 +36,7 @@ if(mysql_num_rows($num_au)>0){
 				}
 				?>
 </ul>
+<br />
 <a	href="admin/ausencias/diario.php" class="btn btn-primary">Profesores Ausentes hoy</a>
 </div>
 <?

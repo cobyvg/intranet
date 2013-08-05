@@ -89,7 +89,36 @@ function cleanForm() {
 }
 </script>
 <?
-if ($imp_memoria == "Enviar datos") {
+
+if (isset($_POST['nivel'])) {
+	$nivel = $_POST['nivel'];
+} 
+elseif (isset($_GET['nivel'])) {
+	$nivel = $_GET['nivel'];
+} 
+else
+{
+$nivel="";
+}
+if (isset($_POST['grupo'])) {
+	$grupo = $_POST['grupo'];
+}
+elseif (isset($_GET['grupo'])) {
+	$grupo = $_GET['grupo'];
+} 
+else
+{
+$grupo="";
+}
+if (isset($_GET['tutor'])) {
+	$tutor = $_GET['tutor'];
+}
+elseif (isset($_POST['tutor'])) {
+	$tutor = $_POST['tutor'];
+}
+else{$tutor = "";}
+
+if ($_POST['imp_memoria'] == "Enviar datos") {
 	mysql_query("update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '$tutor'");
 }
 $lista = mysql_list_fields($db,"FTUTORES");

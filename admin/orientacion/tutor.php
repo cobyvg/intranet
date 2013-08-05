@@ -20,9 +20,56 @@ $datatables_activado = true;
 </div>
 </div>
 <?
-$campo= mysql_query("select * from tutoria");
-if (!(mysql_field_name($campo,1) == 'claveal')) {
-	mysql_query(" ALTER TABLE `tutoria` ADD `claveal` VARCHAR( 12 ) NOT NULL AFTER `id`");
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
+}
+elseif(isset($_POST['id'])){
+	$id = $_POST['id'];
+}
+else{
+	$id = "";
+}
+if (isset($_GET['eliminar'])) {
+	$eliminar = $_GET['eliminar'];
+}
+
+if (isset($_POST['fecha'])) {
+	$fecha = $_POST['fecha'];
+} else{$fecha="";}
+if (isset($_POST['nivel'])) {
+	$nivel = $_POST['nivel'];
+} else{$nivel="";}
+if (isset($_POST['grupo'])) {
+	$grupo = $_POST['grupo'];
+} else{$grupo="";}
+if (isset($_POST['alumno'])) {
+	$alumno = $_POST['alumno'];
+}   else{$alumno="";}
+if (isset($_POST['observaciones'])) {
+	$observaciones = $_POST['observaciones'];
+} else{$observaciones="";}
+if (isset($_POST['accion'])) {
+	$accion = $_POST['accion'];
+} else{$accion="";}
+if (isset($_POST['causa'])) {
+	$causa = $_POST['causa'];
+} else{$causa="";}
+if (isset($_POST['id2'])) {
+	$id2 = $_POST['id2'];
+} else{$id2="";}
+if (isset($_POST['nivel0'])) {
+	$nivel0 = $_POST['nivel0'];
+} else{$nivel0="";}
+if (isset($_POST['grupo0'])) {
+	$grupo0 = $_POST['grupo0'];
+} else{$grupo0="";}
+if (isset($_POST['prohibido'])) {
+	$prohibido = $_POST['prohibido'];
+}else{$prohibido="";}
+
+if (isset($_POST['submit1'])) {
+	$submit1 = $_POST['submit1'];
+		include("insertar.php");
 }
 
 if ($id) {
@@ -51,10 +98,11 @@ El registro ha sido borrado en la Base de datos.
 </div></div><br />';	
 }
 
-if ($submit1 == "Registrar intervencion de Orientación") {
-	include("insertar.php");
+if (isset($_POST['submit1'])) {
+		include("insertar.php");
 }
-if($submit2){
+
+if (isset($_POST['submit2'])) {  
 	foreach($accion as $tipos)
 	{
 		$completo .= $tipos."; ";
@@ -65,7 +113,7 @@ if($submit2){
 	//echo $actualizar;
 	mysql_query($actualizar);
 }
-if($submit3){
+if (isset($_POST['submit3']) or $eliminar=="1") {
 	$actualizar ="delete from tutoria WHERE  id = '$id2'";
 	mysql_query($actualizar);
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">

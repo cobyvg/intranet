@@ -10,10 +10,10 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
-include_once ("funciones.inc.php");
-require_once('class.ezpdf.php');
+include_once ("../../pdf/funciones.inc.php");
+require_once('../../pdf/class.ezpdf.php');
 $pdf =& new Cezpdf('a4');
-$pdf->selectFont('./fonts/Helvetica.afm');
+$pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 $options_center = array(
 				'justification' => 'center'

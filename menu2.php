@@ -1,9 +1,16 @@
+<style>
+<!--
+ul .nav-list{
+	padding-bottom:2px;
+	padding-top:12px;
+}
+-->
+</style>
 <?
 if (stristr ( $carg, '1' ) == TRUE) {
 	?>
-
-<li><a data-toggle="collapse" data-target="#direccion" style="cursor:pointer"> Dirección del Centro<i class="icon-chevron-down pull-right"></i> </a></li>
-<div id="direccion" class="collapse">
+<li class="active"><a data-toggle="collapse" data-target="#direccion" style="cursor:pointer"> Dirección del Centro<i class="icon-chevron-down pull-right"></i> </a></li>
+<div id="direccion" class="collapse in">
   <ul class="nav nav-list">
 <li><a href="xml/index.php">Administración de la Intranet</a></li>
 <li><a href="admin/jefatura/tutor.php">Diario de Jefatura</a></li>
@@ -17,8 +24,8 @@ if (stristr ( $carg, '1' ) == TRUE) {
 <?
 if (stristr ( $carg, '4' ) == TRUE) {
 	?>
-<li><a data-toggle="collapse" data-target="#Departamento" style="cursor:pointer"> Departamento<i class="icon-chevron-down pull-right"></i></a></li>
-<div id="Departamento" class="collapse">
+<li class="active"><a data-toggle="collapse" data-target="#Departamento" style="cursor:pointer"> Departamento<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="Departamento" class="collapse in">
   <ul class="nav nav-list">
   <li><a href="admin/rd/add.php">Actas del Departamento</a></li>
 <li><a href="admin/textos/intextos.php">Libros de Texto</a></li>
@@ -35,8 +42,8 @@ if (stristr ( $carg, '4' ) == TRUE) {
 
 if (stristr ( $carg, '5' ) == TRUE) {
 	?>
-<li><a data-toggle="collapse" data-target="#Extraescolares" class="text-sucess" style="cursor:pointer"> Extraescolares<i class="icon-chevron-down pull-right"></i></a></li>
-<div id="Extraescolares" class="collapse">
+<li class="active"><a data-toggle="collapse" data-target="#Extraescolares" class="text-sucess" style="cursor:pointer"> Extraescolares<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="Extraescolares" class="collapse in">
   <ul class="nav nav-list">
 <li><a href="./admin/actividades/indexextra.php">Administrar
   Actividades</a></li>
@@ -52,8 +59,8 @@ if (stristr ( $carg, '5' ) == TRUE) {
 
 if (stristr ( $carg, '8' ) == TRUE) {
 	?>
-<li><a data-toggle="collapse" data-target="#Orientacion"  class="text-sucess" style="cursor:pointer"> Orientación<i class="icon-chevron-down pull-right"></i></a></li>
-<div id="Orientacion" class="collapse">
+<li class="active"><a data-toggle="collapse" data-target="#Orientacion"  class="text-sucess" style="cursor:pointer"> Orientación<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="Orientacion" class="collapse in">
   <ul class="nav nav-list">
   <li><a href="admin/orientacion/tutor.php">Página de Orientación</a></li>
 <li><a href="./admin/tutoria/">Página del Tutor </a></li>
@@ -70,8 +77,8 @@ if (stristr ( $carg, '8' ) == TRUE) {
 <?
 if (stristr ( $carg, '2' ) == TRUE) {
 	?>
-<li><a data-toggle="collapse" data-target="#tutoria" class="text-sucess" style="cursor:pointer"> Tutoría<i class="icon-chevron-down pull-right"></i></a></li>
-<div id="tutoria" class="collapse">
+<li class="active"><a data-toggle="collapse" data-target="#tutoria" class="text-sucess" style="cursor:pointer"> Tutoría<i class="icon-chevron-down pull-right"></i></a></li>
+<div id="tutoria" class="collapse in">
   <ul class="nav nav-list">
   <li><a href="admin/tutoria/global.php">Página del Tutor</a></li>
 <br />
@@ -177,6 +184,17 @@ if (mysql_num_rows($conv) > '0' or stristr ( $carg, '1' ) == TRUE) {
 			<?
 						echo $dominio;
 						?>/intranet/faltas/seneca/"> Importar Faltas a S&eacute;neca </a></li>
+    <?
+					}
+					?>
+    </li>
+        <?
+					if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
+						?>
+    <li><a href="http://
+			<?
+						echo $dominio;
+						?>/intranet/admin/faltas/ccursos.php"> Partes de Faltas de Grupo</a></li>
     <?
 					}
 					?>

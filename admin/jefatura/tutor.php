@@ -27,10 +27,58 @@ $datatables_activado = true;
 </div>
 </div>
 <?
-if ($submit1 == "Registrar intervencion de Jefatura") {
-	include("insertar.php");
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
 }
-  if($submit2){
+elseif(isset($_POST['id'])){
+	$id = $_POST['id'];
+}
+else{
+	$id = "";
+}
+if (isset($_GET['eliminar'])) {
+	$eliminar = $_GET['eliminar'];
+}
+
+if (isset($_POST['fecha'])) {
+	$fecha = $_POST['fecha'];
+} else{$fecha="";}
+if (isset($_POST['nivel'])) {
+	$nivel = $_POST['nivel'];
+} else{$nivel="";}
+if (isset($_POST['grupo'])) {
+	$grupo = $_POST['grupo'];
+} else{$grupo="";}
+if (isset($_POST['alumno'])) {
+	$alumno = $_POST['alumno'];
+}   else{$alumno="";}
+if (isset($_POST['observaciones'])) {
+	$observaciones = $_POST['observaciones'];
+} else{$observaciones="";}
+if (isset($_POST['accion'])) {
+	$accion = $_POST['accion'];
+} else{$accion="";}
+if (isset($_POST['causa'])) {
+	$causa = $_POST['causa'];
+} else{$causa="";}
+if (isset($_POST['id2'])) {
+	$id2 = $_POST['id2'];
+} else{$id2="";}
+if (isset($_POST['nivel0'])) {
+	$nivel0 = $_POST['nivel0'];
+} else{$nivel0="";}
+if (isset($_POST['grupo0'])) {
+	$grupo0 = $_POST['grupo0'];
+} else{$grupo0="";}
+if (isset($_POST['prohibido'])) {
+	$prohibido = $_POST['prohibido'];
+}else{$prohibido="";}
+
+if (isset($_POST['submit1'])) {
+		include("insertar.php");
+}
+
+if (isset($_POST['submit2'])) {  
   $dia = explode("-",$fecha);
   $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
   	$actualizar ="UPDATE  tutoria SET observaciones = '$observaciones', causa = '$causa', accion = '$accion', fecha = '$fecha2', prohibido = '$prohibido' WHERE  id = '$id2'"; 
@@ -40,9 +88,10 @@ if ($submit1 == "Registrar intervencion de Jefatura") {
 El registro ha sido actualizado en la Base de datos.
 </div></div><br />';
   }
-    if($submit3){
-	 $borrar ="delete from tutoria WHERE  id = '$id2'"; 
-	mysql_query($borrar);
+  
+if (isset($_POST['submit3']) or $eliminar=="1") {
+$borrar ="delete from tutoria WHERE  id = '$id2'"; 
+mysql_query($borrar);
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.

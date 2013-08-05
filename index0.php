@@ -47,14 +47,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
            </ul> 
            </div> 
             <br />
-             <div class="well">
-            <legend><i class="icon icon-search"></i> Buscar alumnos</legend> 
-            <form action="index0.php" method="GET">
-            	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
-			</form>
-			<div id="resAlumnos"></div>
-			</div>
-			<br />
+            
               <? 
 
 			  include("ausencias.php"); 
@@ -84,6 +77,14 @@ if (stristr ( $carg, '2' ) == TRUE) {
             </div><!--/span--> 
              
             <div class="span5">
+            <div style='padding:0px 19px;'>
+            <legend><i class="icon icon-search"></i> Buscar alumnos</legend> 
+            <form action="index0.php" method="GET">
+            	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
+			</form>
+			<div id="resAlumnos"></div>
+			</div>
+			<br />
              <?
               echo "<div style='padding:19px;padding-top:0px;'>";
 			  include("admin/calendario/index.php");

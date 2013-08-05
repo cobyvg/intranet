@@ -52,7 +52,18 @@ $cargo = $_SESSION ['cargo'];
 <body>
 <?php 
 include("../../menu_solo.php");
-  include("menu.php");
+  include("menu.php");  
+  
+if (isset($_POST['id'])) {
+	$id = $_POST['id'];
+} 
+elseif (isset($_GET['id'])) {
+	$id = $_GET['id'];
+} 
+else
+{
+$id="";
+}
 ?>
 <div class="page-header" align="center">
   <h2>Informes de Tareas <small> Informe por asignaturas</small></h2>
@@ -61,9 +72,19 @@ include("../../menu_solo.php");
 <?php
 echo "<div align='center'>";
 
-if ($llenar) {
-	$id = $llenar;
+  if (isset($_POST['llenar'])) {
+	$llenar = $_POST['llenar'];
+} 
+elseif (isset($_GET['llenar'])) {
+	$llenar = $_GET['llenar'];
+} 
+else
+{
+$llenar="";
 }
+
+if(empty($llenar)){}else{$id = $llenar;}
+
 $c = mysql_connect ( $db_host, $db_user, $db_pass );
 echo "<div align='center'>";
 $alumno = mysql_query ( "SELECT APELLIDOS,NOMBRE,tareas_alumnos.NIVEL,tareas_alumnos.GRUPO,tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES WHERE FTUTORES.nivel = tareas_alumnos.nivel and FTUTORES.grupo = tareas_alumnos.grupo and ID='$id'", $c );

@@ -12,6 +12,28 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?php
 include("../../menu.php");
+
+if (isset($_POST['nivel'])) {
+	$nivel = $_POST['nivel'];
+} 
+elseif (isset($_GET['nivel'])) {
+	$nivel = $_GET['nivel'];
+} 
+else
+{
+$nivel="";
+}
+if (isset($_POST['grupo'])) {
+	$grupo = $_POST['grupo'];
+}
+elseif (isset($_GET['grupo'])) {
+	$grupo = $_GET['grupo'];
+} 
+else
+{
+$grupo="";
+}
+
 $nombre = $nombre_al;
 ?>
 <br />

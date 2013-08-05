@@ -1,11 +1,11 @@
 <?php
-if ($submit1)
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];} else{$nivel="";}
+if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];} else{$grupo="";}
+if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="$nivel-$grupo";}
+
+if ($_POST['submit1'] or $_GET['submit1'])
 {
 include("cursos.php");
-}
-elseif ($submit2)
-{
-include("horariofaltas_cursos.php");
 }
 else
 {
@@ -28,62 +28,30 @@ include("../../menu.php");
 <br />
 <div align=center>
 <div class="page-header" align="center">
-  <h2>Listas de Alumnos <small> Listas de grupo y partes de faltas</small></h2>
+  <h2>Listas de Alumnos <small> Listas de Grupo</small></h2>
 </div>
 </div>
+<div class="container">
 <div class="row-fluid">
-<div class="span2"></div>
-<div class="span4">
+<div class="span4 offset4">
+<div align="center">
 <form class="well well-large form-inline" action="ccursos.php" method="POST" name="listas">
-<legend>Lista de Alumnos</legend>
-<label>Nivel: </label><br />
-<SELECT  name="nivel" onChange="submit()" class="span2">
-            <option><? echo $nivel;?></option>
-            <? nivel();?>
+<legend>Lista de Alumnos por Grupo</legend>
+<label>Seleccion Grupo: </label><br />
+<SELECT  name="unidad" class="input-small">
+            <? unidad();?>
           </SELECT>
-          &nbsp;&nbsp;&nbsp;
-<label>Grupo: </label><select  name="grupo" class="span2" style="display:inline">
-          <option></option>
-          <? grupo($nivel);?>
-        </select>
         <br /><br />
          <label class="checkbox"> 
-    <input type="checkbox" name="asignaturas" value="1" class="checkbox"> Con Asignaturas
+    <input type="checkbox" name="asignaturas" value="1" class="checkbox"> &nbsp;Con Asignaturas
   </label>
   <br /><br />
   <button class="btn btn-success" type="submit" name="submit1" value="Lista del Curso">Lista del Curso</button>
 </form>
-
 </div>
-<div class="span4">
-<FORM action="ccursos.php" method="POST" name="listas2" class="well well-large form-inline">
-<legend>Partes de Faltas de Aula</legend> <br />     
-Nivel: <SELECT  name="nivel" onChange="submit()" class="span2" style="display:inline;margin-right:15px;">
-            <option><? echo $nivel;?></option>
-            <? nivel();?>
-          </SELECT>
-<label>Grupo: </label>
-<select  name="grupo" class="span2" style="display:inline">
-          <option></option>
-          <? grupo($nivel);?>
-        </select>
-        <br /><br />
-          <label>Día de la semana:
-          <select name="dia1" class="input-small">
-            <option>Lunes</option>
-            <option>Martes</option>
-            <option>Miércoles</option>
-            <option>Jueves</option>
-            <option>Viernes</option>
-          </select>
-          </label>
-          <br /><br />
-          <INPUT class="btn btn-success" type="submit" name="submit2" value="Lista del Curso">
-          </FORM>      
 </div>
-<div class="span2"></div>
 </div>
-   
+  </div> 
 
 <?  
 }

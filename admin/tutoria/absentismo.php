@@ -11,6 +11,13 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include("../../menu.php");
+if (isset($_GET['tutor'])) {
+	$tutor = $_GET['tutor'];
+}
+elseif (isset($_POST['tutor'])) {
+	$tutor = $_POST['tutor'];
+}
+else{$tutor = "";}
 
 	$tutor0=mysql_query("select nivel, grupo from FTUTORES where tutor='$tutor'");
 	$d_tutor=mysql_fetch_array($tutor0);

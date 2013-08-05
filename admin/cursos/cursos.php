@@ -10,11 +10,11 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
-include_once ("funciones.inc.php");
-# para el pdf
-require_once('class.ezpdf.php');
+include_once ("../../pdf/funciones.inc.php");
+require_once('../../pdf/class.ezpdf.php');
 $pdf =& new Cezpdf('a4');
-$pdf->selectFont('../fonts/Helvetica.afm');
+$pdf->selectFont('../../pdf/fonts/Helvetica.afm');
+
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 # hasta aquí lo del pdf
 $options_center = array(
@@ -31,7 +31,7 @@ while($asigtmp = mysql_fetch_array($codasig)) {
 	$asignatura[$asigtmp[0]] = $asigtmp[1].'('.substr($asigtmp[2],0,2).')';
 	} 
 if($asignaturas==""){
-$sqldatos="SELECT concat(apellidos,', ',nombre), nc FROM FALUMNOS WHERE nivel='".$nivel."' and grupo='".$grupo."' ORDER BY nc, apellidos, nombre";
+$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
@@ -64,7 +64,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $nivel-$grupo\n";
+$txttit = "Lista del Grupo $unidad\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);

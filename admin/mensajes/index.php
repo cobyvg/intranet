@@ -13,6 +13,38 @@ $pr = $_SESSION['profi'];
 <?
 include("../../menu.php");
 include("menu.php");
+
+if (isset($_POST['padres'])) {
+	$padres = $_POST['padres'];
+} 
+elseif (isset($_GET['padres'])) {
+	$padres = $_GET['padres'];
+} 
+else
+{
+$padres="";
+}
+if (isset($_POST['asunto'])) {
+	$asunto = $_POST['asunto'];
+} 
+elseif (isset($_GET['asunto'])) {
+	$asunto = $_GET['asunto'];
+} 
+else
+{
+$asunto="";
+}
+if (isset($_POST['origen'])) {
+	$origen = $_POST['origen'];
+} 
+elseif (isset($_GET['origen'])) {
+	$origen = $_GET['origen'];
+} 
+else
+{
+$origen="";
+}
+
 if($verifica){
  mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }

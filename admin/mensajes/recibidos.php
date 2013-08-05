@@ -19,6 +19,8 @@ include("../../menu.php");
 <?
 include("menu.php");
 $datatables_activado = true;  
+if (isset($_POST['id_borrar'])) {$id_borrar = $_POST['id_borrar'];} elseif (isset($_GET['id_borrar'])) {$id_borrar = $_GET['id_borrar'];} else{$id_borrar="";}
+if (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];} elseif (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];} else{$borrar="";}
 ?>
 <div align="center">
 <div class="page-header">

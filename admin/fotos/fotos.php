@@ -13,6 +13,27 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 <?php
 include("../../menu.php");
+if (isset($_POST['nivel'])) {
+	$nivel = $_POST['nivel'];
+} 
+elseif (isset($_GET['nivel'])) {
+	$nivel = $_GET['nivel'];
+} 
+else
+{
+$nivel="";
+}
+if (isset($_POST['grupo'])) {
+	$grupo = $_POST['grupo'];
+}
+elseif (isset($_GET['grupo'])) {
+	$grupo = $_GET['grupo'];
+} 
+else
+{
+$grupo="";
+}
+
 ?>
 <br />
   <div align=center>
@@ -21,7 +42,7 @@ include("../../menu.php");
 </div>
 <?
 
-if ($enviar and empty($File))
+if (isset($_POST['enviar']) and empty($_POST['File']))
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -29,7 +50,7 @@ if ($enviar and empty($File))
             No has seleccionado ninguna fotograf&iacute;a. Elige una archivo con la fotografía e inténtalo de nuevo.
           </div></div>';
 }
-if (!(empty($File))) {
+if (!(empty($_POST['File']))) {
 	$fotos_dir = "../../xml/fotos/";
 	if ($File_size>'30000') {
 		if (stristr($File_type,"image/jp")==TRUE) {
@@ -81,6 +102,7 @@ La fotograf&iacute;a no tiene suficiente resoluci&oacute;n, por lo que su visual
 }
 ?>
 <form action="fotos.php" method="POST">
+
 <select name="nombre"  onchange="submit()" style="" class="span3"  />
 <?
 if (strlen($nombre) > '5')

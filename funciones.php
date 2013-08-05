@@ -98,6 +98,18 @@ $profer[1] ==>  $profer[0]</li>";}
 echo "</ul>";
 }
 
+function unidad()
+{
+ // include("opt/e-smith/config.php");  
+  
+  $tipo = "select distinct unidad from alma order by unidad";
+  $tipo1 = mysql_query($tipo);
+  while($tipo2 = mysql_fetch_array($tipo1))
+        {
+echo "<option>".$tipo2[0]."</option>";
+        }
+}
+
 function nivel()
 {
  // include("opt/e-smith/config.php");  

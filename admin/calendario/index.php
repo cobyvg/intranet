@@ -158,14 +158,14 @@ if (mysql_num_rows ( $result ) > 0) {
 	$SQLcurso1 = "select distinct grupo from profesores where profesor = '$pr'";
 	//echo $SQLcurso1;
 	$resultcurso1 = mysql_query ( $SQLcurso1 );
-	
+	$string1="";
 	while ( $rowcurso1 = mysql_fetch_array ( $resultcurso1 ) ) {
 		$curso1 = $rowcurso1 [0];
 		$curso1 = str_replace ( "-", "", $curso1 );
 		$string1 .= $curso1 . " ";
 	}
 	$string1 = substr ( $string1, 0, (strlen ( $string1 ) - 1) );
-	//	echo $string1;
+	$count = "";
 	while ( $row = mysql_fetch_array ( $result ) ) {
 		$color="";
 		$pajar = "";
