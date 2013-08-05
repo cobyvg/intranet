@@ -1,54 +1,150 @@
+<div class="accordion" id="menu">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
+        <i class="pull-right icon-chevron-down"></i>
+        Trabajo
+      </a>
+    </div>
+    <div id="trabajo" class="accordion-body collapse in">
+      <div class="accordion-inner">
+        <ul class="nav nav-list">
+          <? if (strstr($_SESSION ['cargo'],"7")) { ?>
+          <li><a href="admin/matriculas/index.php">Matriculación de alumnos</a></li>
+          <? } ?>
+          
+          <li><a href="admin/cursos/ccursos.php">Listas de los grupos</a></li>
+          <li><a href="admin/datos/cdatos.php">Datos de los alumnos</a></li>
+          <li><a href="admin/cursos/chorarios.php">Horarios de profesores/grupos</a></li>
+          <li>
+            <a data-toggle="collapse" data-target="#fotos" style="cursor:pointer">
+              <i class="pull-right icon-chevron-down"></i>
+              Fotografías
+            </a>
+          </li>
+          <div id="fotos" class="accordion-body collapse">
+            <ul class="nav nav-list">
+              <li><a href="admin/fotos/index.php">Fotos de los alumnos</a></li>
+              <li><a href="admin/fotos/fotos_profes.php">Fotos de los profesores</a></li>
+            </ul>
+          </div>
+          <li><a href="sms/index.php">Enviar SMS</a></li>
+          <li>
+            <a data-toggle="collapse" data-target="#tic" style="cursor:pointer">
+              <i class="pull-right icon-chevron-down"></i>
+              Centro TIC
+            </a>
+          </li>
+          <div id="tic" class="accordion-body collapse">
+            <ul class="nav nav-list">
+              <li><a href="TIC/usuarios/intro.php">Usuario alumno</a></li>
+              <li><a href="TIC/usuarios/usuarioprofesor.php">Usuario profesor</a></li>
+              <li><a href="TIC/documentos.php">Documentos</a></li>
+              <li><a href="TIC/cpartes.php">Incidencias</a></li>
+              <!--<li><a href="admin/recursos/">Recursos Educativos</a></li>-->    
+              <li><a href="reservas/informes.php">Estadísticas </a></li>
+            </ul>
+          </div>
+          <li>
+            <a data-toggle="collapse" data-target="#reservas" style="cursor:pointer">
+              <i class="pull-right icon-chevron-down"></i>
+              Reservas de medios
+            </a>
+          </li>
+          <div id="reservas" class="accordion-body collapse">
+            <ul class="nav nav-list">
+              <li><a href="reservas/index.php?recurso=carrito">Carritos TIC</a></li>
+              <li><a href="reservas/index.php?recurso=aula">Aulas compartidas</a></li>
+              <? if ($mod_horario=="1") { ?>
+              <li><a href="reservas/index_aula_grupo.php?recurso=aula_grupo">Aulas de grupo</a></li>
+              <? } ?>
+              <li><a href="reservas/index.php?recurso=medio">Medios audiovisuales</a></li>
+              <li><a href="reservas/informes.php">Estadísticas</a></li>
+            </ul>
+          </div>
+          <li><a href="admin/textos/intextos.php">Libros de texto</a></li>
+          <li><a href="admin/actividades/consulta.php">Actividades extraescolares</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-<li  class="nav-header">Menu General</li>
-<? if (strstr($_SESSION ['cargo'],"7")) {?><li><a href="admin/matriculas/index.php" class="enlacelateral">Matriculación de alumnos<br /></a></li><?}?>
-<li><a href="admin/cursos/ccursos.php">Listas de los Grupos</a></li>
-<li><a href="admin/datos/cdatos.php">Datos de los Alumnos</a></li>
-<li><a href="admin/cursos/chorarios.php">Horarios de Profesores/Grupos</a></li>
-<li><a href="admin/fotos/index.php">Fotos de los Alumnos</a></li>
-<li><a href="admin/fotos/fotos_profes.php">Fotos de los Profesores</a></li>
-<li><A HREF="sms/index.php" target="_top">Enviar SMS</A></li>
-<?
-		if ($mod_tic) {
- ?>
-<li><a data-toggle="collapse" data-target="#tic"> Centro TIC  <i class="icon-chevron-down pull-right"> </i> </a></li>
-<div id="tic" class="collapse">
-  <ul class="nav nav-list">
-    <!-- dropdown menu links -->
-    <li><a href="http://<? echo $dominio;?>/intranet/TIC/usuarios/intro.php">Usuario Alumno</a></li>
-    <li><a href="http://<? echo $dominio;?>/intranet/TIC/usuarios/usuarioprofesor.php">Usuario Profesor</a></li>
-    <li><a href="http://<? echo $dominio;?>/intranet/TIC/documentos.php">Documentos</a></li>
-    <li><a href="http://<? echo $dominio;?>/intranet/TIC/cpartes.php">Incidencias</a></li>
-	<!--<li><a href="http://<? echo $dominio;?>/intranet/admin/recursos/">Recursos Educativos</a></li>-->    
-	<li><a	href="http://<?	echo $dominio;?>/intranet/reservas/informes.php">Estadísticas </a></li>
-  </ul>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
+        <i class="pull-right icon-chevron-down"></i>
+        Otras cosas
+      </a>
+    </div>
+    <div id="cosas" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-list">
+          <li><a href="http://www.juntadeandalucia.es/averroes/centros-tic/<? echo $codigo_del_centro; ?>/moodle/">Plataforma Moodle</a></li>
+          <li><a href="admin/cursos/calendario.php">Calendario escolar</a></li>
+          <li><a href="http://iesmonterroso.org/PC20122013/index.htm">Plan de Centro</a></li>
+          <li><a href="clave.php">Cambiar contraseña</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
+        <i class="pull-right icon-chevron-down"></i>
+        Otras páginas
+      </a>
+    </div>
+    <div id="paginas" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-list">
+          <li><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank">Novedades de la Consejería</a></li>
+          
+          <? if(substr($codigo_postal_del_centro,0,2)=="04") { ?>
+          <!-- Almería -->
+          <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=436" target="_blank">Delegación de Educación</a></li>
+          <? } ?>
+          
+          <? if(substr($codigo_postal_del_centro,0,2)=="11") { ?>
+          <!-- Cádiz -->
+          <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=437" target="_blank">Delegación de Educación</a></li>
+          <? } ?>
+          
+          <? if(substr($codigo_postal_del_centro,0,2)=="14") { ?>
+          <!-- Córdoba -->
+          <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=438" target="_blank">Delegación de Educación</a></li>
+          <? } ?>
+          
+          <? if(substr($codigo_postal_del_centro,0,2)=="18") { ?>
+          <!-- Granada -->
+          <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=439" target="_blank">Delegación de Educación</a></li>
+          <? } ?>
+          
+          <? if(substr($codigo_postal_del_centro,0,2)=="21") { ?>
+          <!-- Huelva -->
+          <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=440" target="_blank">Delegación de Educación</a></li>
+          <? } ?>
+          
+          <? if(substr($codigo_postal_del_centro,0,2)=="23") { ?>
+          <!-- Jaén -->
+          <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=441" target="_blank">Delegación de Educación</a></li>
+          <? } ?>
+          
+          <? if(substr($codigo_postal_del_centro,0,2)=="29") { ?>
+          <!-- Málaga -->
+          <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=442" target="_blank">Delegación de Educación</a></li>
+          <? } ?>
+          
+          <? if(substr($codigo_postal_del_centro,0,2)=="41") { ?>
+          <!-- Sevilla -->
+          <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=443" target="_blank">Delegación de Educación</a></li>
+          <? } ?>
+          
+          <!--<li><a href="http://www.cep-marbellacoin.org/index.html" target="_blank">CEP de Marbella-Coín</a></li>-->
+          <li><a href="http://www.mecd.gob.es" target="_blank">Página del MEC</a></li>
+          <li><a href="http://www.juntadeandalucia.es/averroes/" target="_blank">Averroes</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
-<?
-	}
- ?>
- <li><a data-toggle="collapse" data-target="#reservas"> Reservas de Medios  <i class="icon-chevron-down pull-right"> </i> </a></li>
-<div id="reservas" class="collapse">
-  <ul class="nav nav-list">
-    <!-- dropdown menu links -->
-    <li><a href="reservas/index.php?recurso=carrito" style="background-image: none;">Carritos TIC</a></li>
-    <li><a href="reservas/index.php?recurso=aula">Aulas compartidas</a></li>
-    <li><a href="reservas/index.php?recurso=medio">Medios Audiovisuales </a></li>
-    <li><a	href="http://<?	echo $dominio;?>/intranet/reservas/informes.php">Estadísticas</a></li>
-    </li>
-  </ul>
-</div>
-
-<li><a href="admin/textos/intextos.php">Libros de Texto</a></li>
-<li><A HREF="admin/actividades/consulta.php" target="_top">Actividades Extraescolares</A></li>
-
-<li class="nav-header">Otras cosas..</li>
-<li><a href="admin/cursos/calendario.php">Calendario Escolar</a></li>
-<li><a href="http://<? echo $dominio; ?>/intranet/varios/resumen_licencias_y_permisos.php">Resumen
-  sobre licencias y permisos</a></li>
-<li><a href="clave.php">Cambiar Contrase&ntilde;a</a></li>
-
-<li  class="nav-header">Otras p&aacute;ginas</li>
-<li><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6&vismenu=0,0,1,1,1,1,1" target="_blank">Novedades de la Consejer&iacute;a</a></li>
-<li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=442&vismenu=0,0,1,1,1,1,1" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
-<li><a href="http://www.cep-marbellacoin.org/index.html" target="_blank">CEP de Marbella</a></li>
-<li><a href="http://www.mec.es" target="_blank">P&aacute;gina del MEC </a></li>
-<li><a href="http://www.juntadeandalucia.es/averroes/" target="_blank">Averroes</a></li>
