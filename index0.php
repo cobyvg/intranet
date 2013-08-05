@@ -42,12 +42,11 @@ if (stristr ( $carg, '2' ) == TRUE) {
         <div class="span3">  
         <div class="well">
 			<ul class="nav nav-tabs nav-stacked">  
-			<legend><i class="icon icon-tasks"></i> Menú</legend>          
+			<legend><i class="icon icon-tasks"></i> MenÃº</legend>          
             <? if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {include("menu_conserje.php");}else{include("menu2.php");}?> 
            </ul> 
            </div> 
-            <br />
-            
+			<br />
               <? 
 
 			  include("ausencias.php"); 
@@ -77,14 +76,13 @@ if (stristr ( $carg, '2' ) == TRUE) {
             </div><!--/span--> 
              
             <div class="span5">
-            <div style='padding:0px 19px;'>
-            <legend><i class="icon icon-search"></i> Buscar alumnos</legend> 
-            <form action="index0.php" method="GET">
-            	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
-			</form>
-			<div id="resAlumnos"></div>
-			</div>
-			<br />
+             <div style='padding:19px;padding-top:0px;'>
+             <legend><i class="icon icon-search"></i> Buscar alumnos</legend> 
+             <form action="index0.php" method="GET">
+             	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
+             </form>
+             <div id="resAlumnos"></div>
+             </div>
              <?
               echo "<div style='padding:19px;padding-top:0px;'>";
 			  include("admin/calendario/index.php");
