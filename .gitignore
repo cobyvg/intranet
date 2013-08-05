@@ -1,9 +1,9 @@
 .DS_Store
 *.espressostorage
+.settings
+.project
 *.xml
+*.jpg
 xml/jefe/TIC/*.txt
 cache/*
-
-*.jpg
-
 config.php

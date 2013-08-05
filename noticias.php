@@ -1,21 +1,3 @@
-<?
-// Compatibilidad con versiones anteriores
-$hay = mysql_query("show tables");
-while ($tabla=mysql_fetch_array($hay)) {
-	if ($tabla[0]=="profes") {
-	$ya_hay = mysql_query("select * from profes");
-if (mysql_num_rows($ya_hay)>0) {
-		mysql_query("RENAME TABLE  `profes` TO  `noticias`");
-		mysql_query("ALTER TABLE  `noticias` ADD  `pagina` TINYINT( 2 ) NOT NULL");
-		mysql_query("update noticias set pagina = '1'");
-}
-	else{
-	mysql_query("RENAME TABLE  `profes` TO  `noticias`");
-	mysql_query("ALTER TABLE  `noticias` ADD  `pagina` TINYINT( 2 ) NOT NULL");
-		}
-	}
-}
-?>
 <legend><i class="icon icon-pencil"> </i> Noticias</legend> 
 <?
 $query = "SELECT id, slug, timestamp, content, clase, contact from noticias where pagina like '%1%' ORDER BY timestamp DESC LIMIT 0, 5";
