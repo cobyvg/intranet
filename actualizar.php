@@ -32,4 +32,26 @@ if (mysql_num_rows($result_profe)>0 and $fotos_profes_ya < "10") {
 		file_put_contents($foto_profe,$row_profe[0], FILE_APPEND);	
 	}   
 }
+
+/*
+	@descripcion: Actualización de la tabla de noticias
+	@fecha: 5 de agosto de 2013
+*/
+$hay = mysql_query("show tables");
+
+while ($tabla=mysql_fetch_array($hay)) {
+	if ($tabla[0]=="profes") {
+		$ya_hay = mysql_query("select * from profes");
+		
+		if (mysql_num_rows($ya_hay)>0) {
+			mysql_query("RENAME TABLE  `profes` TO  `noticias`");
+			mysql_query("ALTER TABLE  `noticias` ADD  `pagina` TINYINT( 2 ) NOT NULL");
+			mysql_query("update noticias set pagina = '1'");
+		}
+		else {
+			mysql_query("RENAME TABLE  `profes` TO  `noticias`");
+			mysql_query("ALTER TABLE  `noticias` ADD  `pagina` TINYINT( 2 ) NOT NULL");
+		}
+	}
+}
 ?>

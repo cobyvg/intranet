@@ -57,20 +57,67 @@ $inicio1 = formatea_fecha ( $inicio_aula );
 $fin1 = formatea_fecha ( $fin_aula );
 $tutor = "Jefatura de Estudios";
 
-include ("../../../pdf/fpdf.php");
-define ( 'FPDF_FONTPATH', '../../../pdf/fontsPDF/' );
+require("../../../pdf/fpdf.php");
+
+// Variables globales para el encabezado y pie de pagina
+$GLOBALS['CENTRO_NOMBRE'] = $nombre_del_centro;
+$GLOBALS['CENTRO_DIRECCION'] = $direccion_del_centro;
+$GLOBALS['CENTRO_CODPOSTAL'] = $codigo_postal_del_centro;
+$GLOBALS['CENTRO_LOCALIDAD'] = $localidad_del_centro;
+$GLOBALS['CENTRO_TELEFONO'] = $telefono_del_centro;
+$GLOBALS['CENTRO_FAX'] = $fax_del_centro;
+$GLOBALS['CENTRO_CORREO'] = $email_del_centro;
+
+
+if(substr($codigo_postal_del_centro,0,2)=="04") $GLOBALS['CENTRO_PROVINCIA'] = 'Almería';
+if(substr($codigo_postal_del_centro,0,2)=="11") $GLOBALS['CENTRO_PROVINCIA'] = 'Cádiz';
+if(substr($codigo_postal_del_centro,0,2)=="14") $GLOBALS['CENTRO_PROVINCIA'] = 'Córdoba';
+if(substr($codigo_postal_del_centro,0,2)=="18") $GLOBALS['CENTRO_PROVINCIA'] = 'Granada';
+if(substr($codigo_postal_del_centro,0,2)=="21") $GLOBALS['CENTRO_PROVINCIA'] = 'Huelva';
+if(substr($codigo_postal_del_centro,0,2)=="23") $GLOBALS['CENTRO_PROVINCIA'] = 'Jaén';
+if(substr($codigo_postal_del_centro,0,2)=="29") $GLOBALS['CENTRO_PROVINCIA'] = 'Málaga';
+if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = 'Sevilla';
+
 # creamos la clase extendida de fpdf.php 
 class GranPDF extends FPDF {
 	function Header() {
-		$this->Image ( '../../../imag/encabezado.jpg', 10, 10, 180, '', 'jpg' );
+		$this->Image ( '../../../img/encabezado.jpg',15,15,50,'','jpg');
+		$this->SetFont('ErasDemiBT','B',10);
+		$this->SetY(15);
+		$this->Cell(90);
+		$this->Cell(80,4,'CONSEJERÍA DE EDUCACIÓN',0,1);
+		$this->SetFont('ErasMDBT','I',10);
+		$this->Cell(90);
+		$this->Cell(80,4,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->Ln(8);
 	}
 	function Footer() {
-		$this->Image ( '../../../imag/pie.jpg', 0, 240, 130, '', 'jpg' );
+		$this->Image ( '../../../img/pie.jpg', 10, 245, 25, '', 'jpg' );
+		$this->SetY(265);
+		$this->SetFont('ErasMDBT','',10);
+		$this->SetTextColor(156,156,156);
+		$this->Cell(70);
+		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'],0,1);
+		$this->Cell(70);
+		$this->Cell(80,4,$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(70);
+		$this->Cell(80,4,'Tlf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(70);
+		$this->Cell(80,4,'Correo: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->Ln(8);
 	}
 }
+
+
 # creamos el nuevo objeto partiendo de la clase ampliada
 $A4="A4";
 $MiPDF = new GranPDF ( 'P', 'mm', $A4 );
+$MiPDF->AddFont('NewsGotT','','NewsGotT.php');
+$MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
+$MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
+$MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
+$MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
+$MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 $MiPDF->SetMargins ( 20, 20, 20 );
 # ajustamos al 100% la visualizaciÃ³n
 $MiPDF->SetDisplayMode ( 'fullpage' );
@@ -92,26 +139,18 @@ $cuerpo4 = "
 
 COMUNICACIÓN DE EXPULSION AL AULA DE CONVIVENCIA.
 
-	El alumno/a $nombre $apellidos del grupo $nivel-$grupo, ha sido amonestado/a con fecha $hoy con falta $grave, recibiendo la notificación mediante comunicación escrita de la misma para entregarla al padre/madre/representante legal.
+El alumno/a $nombre $apellidos del grupo $nivel-$grupo, ha sido amonestado/a con fecha $hoy con falta $grave, recibiendo la notificación mediante comunicación escrita de la misma para entregarla al padre/madre/representante legal.
 
-                                                                         Firma del alumno/a:
-	
-";
+                                                                         Firma del alumno/a:";
 
 	# insertamos la primera pagina del documento
 	$MiPDF->Addpage ();
-	#### Cabecera con dirección
-	$MiPDF->SetFont ( 'Times', '', 10 );
-	$MiPDF->SetTextColor ( 0, 0, 0 );
-	$MiPDF->Text ( 128, 35, $nombre_del_centro );
-	$MiPDF->Text ( 128, 39, $direccion_del_centro );
-	$MiPDF->Text ( 128, 43, $codigo_postal_del_centro . " (" . $localidad_del_centro . ")" );
-	$MiPDF->Text ( 128, 47, "Tlfno. " . $telefono_del_centro );
+	
 	#Cuerpo.
-	$MiPDF->Ln ( 40 );
-	$MiPDF->SetFont ( 'Times', 'B', 11 );
+	$MiPDF->Ln ( 15 );
+	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
 	$MiPDF->Multicell ( 0, 4, $titulo1, 0, 'C', 0 );
-	$MiPDF->SetFont ( 'Times', '', 10 );
+	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->Ln ( 4 );
 	$MiPDF->Multicell ( 0, 4, $cuerpo1, 0, 'J', 0 );
 	$MiPDF->Ln ( 3 );
@@ -133,13 +172,13 @@ $num = mysql_num_rows($result1);
 
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont ( 'Times', '', 10 );
+	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->Ln ( 20 );
-	$MiPDF->SetFont ( 'Times', 'B', 11 );
+	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
 	$MiPDF->Multicell ( 0, 4, $tit_fech, 0, 'C', 0 );
 	$MiPDF->Ln ( 3 );
-	$MiPDF->SetFont ( 'Times', '', 10 );
+	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	
 $result = mysql_query ("select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '2005-09-01' order by Fechoria.fecha DESC, FALUMNOS.nivel, FALUMNOS.grupo, FALUMNOS.apellidos limit 0, 24");
 
@@ -156,13 +195,13 @@ if ($num > '24' and $num < '49')
 {		
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL 2";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont ( 'Times', '', 10 );
+	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->Ln ( 20 );
-	$MiPDF->SetFont ( 'Times', 'B', 11 );
+	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
 	$MiPDF->Multicell ( 0, 4, $tit_fech, 0, 'C', 0 );
 	$MiPDF->Ln ( 3 );
-	$MiPDF->SetFont ( 'Times', '', 10 );
+	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	
 $result = mysql_query ("select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '2005-09-01' order by Fechoria.fecha DESC, FALUMNOS.nivel, FALUMNOS.grupo, FALUMNOS.apellidos limit 25, 24");
  // print "$AUXSQL";
@@ -180,13 +219,13 @@ if ($num > '48' and $num < '73')
 {		
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL 3";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont ( 'Times', '', 10 );
+	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->Ln ( 20 );
-	$MiPDF->SetFont ( 'Times', 'B', 11 );
+	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
 	$MiPDF->Multicell ( 0, 4, $tit_fech, 0, 'C', 0 );
 	$MiPDF->Ln ( 3 );
-	$MiPDF->SetFont ( 'Times', '', 10 );
+	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	
 $result = mysql_query ("select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '2005-09-01' order by Fechoria.fecha DESC, FALUMNOS.nivel, FALUMNOS.grupo, FALUMNOS.apellidos limit 50,24");
  // print "$AUXSQL";
@@ -204,13 +243,13 @@ if ($num > '74' and $num < '24')
 {		
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL 3";
 $MiPDF->Addpage ();
-	$MiPDF->SetFont ( 'Times', '', 10 );
+	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->Ln ( 20 );
-	$MiPDF->SetFont ( 'Times', 'B', 11 );
+	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
 	$MiPDF->Multicell ( 0, 4, $tit_fech, 0, 'C', 0 );
 	$MiPDF->Ln ( 3 );
-	$MiPDF->SetFont ( 'Times', '', 10 );
+	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 	
 $result = mysql_query ("select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '2005-09-01' order by Fechoria.fecha DESC, FALUMNOS.nivel, FALUMNOS.grupo, FALUMNOS.apellidos limit 75,24");
  // print "$AUXSQL";
