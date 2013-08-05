@@ -127,6 +127,7 @@ if ($_POST['submit'] == 'Entrar' and ! ($_POST['idea'] == "" or $_POST['clave'] 
 		$id_reg0 = mysql_fetch_array ( $id_reg );
 		$_SESSION ['id_pag'] = $id_reg0 [0];
 		
+		include_once('actualizar.php');
 		header ( "location:clave.php" );
 		exit ();
 	}
@@ -200,6 +201,8 @@ Vuelve atrás e inténtalo de nuevo.
 			$id_reg = mysql_query ( "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
 			$id_reg0 = mysql_fetch_array ( $id_reg );
 			$_SESSION ['id_pag'] = $id_reg0 [0];
+			
+			include_once('actualizar.php');
 			// Comprobamos si el usuario es Admin y entra por primera vez
 			if ($profe=="admin" and $clave == sha1("12345678")) {
 				$_SESSION ['autentificado'] = '1';			
@@ -280,7 +283,8 @@ if (!(is_writable('config.php'))) {
 </a>  
 <div class="modal hide fade" id="ayuda">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">ï¿½</button>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h3>Acceso a la Intranet</h3>
   </div>
   <div class="modal-body">
 <p class="help-block">Para
@@ -303,41 +307,9 @@ de problema, ponte también en contacto.
 </div>
 <br />
 
-<?
-// Fotos de alumnos y profesores en base de datos se mueven a directorio
-$fotos_dir = "./xml/fotos";
-
-$d = dir($fotos_dir);
-while (false !== ($entry = $d->read())) {
-   $fotos_ya+=1;
-}
-$result=mysql_query("SELECT datos, nombre FROM fotos");
-if (mysql_num_rows($result)>0 and $fotos_ya < "10") {
-while($row = mysql_fetch_array($result)){
-	$foto_al = $fotos_dir."/".$row[1];
-	# Creamos cada uno de los archivos
-	file_put_contents($foto_al,$row[0], FILE_APPEND);	
-}	
-} 
-
-$fotos_profe_dir = "./xml/fotos_profes"; 
-$d_profes = dir($fotos_profe_dir);
-while (false !== ($entry_profes = $d_profes->read())) {
-   $fotos_profes_ya+=1;
-}
-$result_profe=mysql_query("SELECT datos, nombre FROM fotos_profes");
-if (mysql_num_rows($result_profe)>0 and $fotos_profes_ya < "10") {
-while($row_profe = mysql_fetch_array($result_profe)){
-	$foto_profe = $fotos_profe_dir."/".$row_profe[1];
-	# Creamos cada uno de los archivos
-	file_put_contents($foto_profe,$row_profe[0], FILE_APPEND);	
-}   
-}	
+<?	
 }
 ?>
-
-     <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-modal.js"></script>  
-    <!--  Calendario de Bootstrap.  -->   
     <script src="http://<? echo $dominio;?>/intranet/js/jquery.js"></script>  
     <script src="http://<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>
 </body>
