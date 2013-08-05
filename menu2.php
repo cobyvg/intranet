@@ -6,13 +6,13 @@ if (stristr ( $carg, '1' ) == TRUE) {
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#direccion">
         <i class="pull-right icon-chevron-down"></i>
-        Dirección del centro
+        Direcci&oacute;n del centro
       </a>
     </div>
     <div id="direccion" class="accordion-body collapse in">
       <div class="accordion-inner">
         <ul class="nav nav-list">
-          <li><a href="xml/index.php">Administración de la Intranet</a></li>
+          <li><a href="xml/index.php">Administraci&oacute;n de la Intranet</a></li>
           <li><a href="admin/jefatura/tutor.php">Diario de jefatura</a></li>
           <li><a href="xml/jefe/mem_jefatura.php">Informes sobre convivencia</a></li>
         </ul>
@@ -78,14 +78,14 @@ if (stristr ( $carg, '8' ) == TRUE) {
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#orientacion">
       <i class="pull-right icon-chevron-down"></i>
-      Orientación
+      Orientaci&oacute;n
     </a>
   </div>
   <div id="orientacion" class="accordion-body collapse">
     <div class="accordion-inner">
       <ul class="nav nav-list">
-        <li><a href="admin/orientacion/tutor.php">Página de Orientación</a></li>
-        <li><a href="./admin/tutoria/">Página del tutor </a></li>
+        <li><a href="admin/orientacion/tutor.php">P&aacute;gina de Orientaci&oacute;n</a></li>
+        <li><a href="./admin/tutoria/">P&aacute;gina del tutor </a></li>
         <li><a href="admin/actividades/index.php">Actividades extraescolares</a></li>
         <li><a href="xml/jefe/mem_jefatura.php">Informes sobre convivencia</a></li>
       </ul>
@@ -102,13 +102,13 @@ if (stristr ( $carg, '2' ) == TRUE) {
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
       <i class="pull-right icon-chevron-down"></i>
-      Tutoría
+      Tutor&iacute;a
     </a>
   </div>
   <div id="tutoria" class="accordion-body collapse">
     <div class="accordion-inner">
       <ul class="nav nav-list">
-        <li><a href="admin/tutoria/global.php">Página del tutor</a></li>
+        <li><a href="admin/tutoria/global.php">P&aacute;gina del tutor</a></li>
       </ul>
     </div>
   </div>
@@ -168,7 +168,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
           <ul class="nav nav-list">
             <li><a href="admin/fechorias/infechoria.php">Registrar problema</a></li>
             <li><a href="admin/fechorias/cfechorias.php">Consultar problemas</a></li>
-            <li><a href="admin/fechorias/lfechorias.php">Últimos problemas</a></li>
+            <li><a href="admin/fechorias/lfechorias.php">&uacute;ltimos problemas</a></li>
             <li><a href="admin/fechorias/expulsados.php">Alumnos expulsados</a></li>
         	<? if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE or stristr ( $_SESSION ['cargo'], 'c' ) == TRUE) { ?>
             <li><a href="admin/morosos/">Morosos de la biblioteca</a></li>
@@ -195,7 +195,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
             <? } ?>
             <li><a href="http://<? echo $dominio; ?>/intranet/admin/faltas/index.php">Consultas</a></li>
             <? if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { ?>
-            <li><a href="faltas/seneca/">Importar faltas a Séneca</a></li>
+            <li><a href="faltas/seneca/">Importar faltas a S&eacute;neca</a></li>
             <? } ?>
             </li>
           </ul>
@@ -212,7 +212,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
           <ul class="nav nav-list">
             <li><a href="admin/informes/cinforme.php">Informe de un alumno</a></li>
             <li><a href="admin/tareas/index.php">Informe de tareas</a></li>
-            <li><a href="admin/infotutoria/index.php">Informe de tutoría </a></li>
+            <li><a href="admin/infotutoria/index.php">Informe de tutor&iacute;a </a></li>
           </ul>
         </div>
         
@@ -230,7 +230,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
             <li><a href="TIC/documentos.php">Documentos</a></li>
             <li><a href="TIC/cpartes.php">Incidencias</a></li>
             <!--<li><a href="admin/recursos/">Recursos Educativos</a></li>-->    
-            <li><a href="reservas/informes.php">Estadísticas </a></li>
+            <li><a href="reservas/informes.php">Estad&iacute;sticas </a></li>
           </ul>
         </div>
         <? } ?>
@@ -249,14 +249,14 @@ if (stristr ( $carg, '2' ) == TRUE) {
             <li><a href="reservas/index_aula_grupo.php?recurso=aula_grupo">Aulas de grupo</a></li>
             <? } ?>
             <li><a href="reservas/index.php?recurso=medio">Medios audiovisuales</a></li>
-            <li><a href="reservas/informes.php">Estadísticas</a></li>
+            <li><a href="reservas/informes.php">Estad&iacute;sticas</a></li>
           </ul>
         </div>
         
         <li>
           <a data-toggle="collapse" data-target="#mensajeria" style="cursor:pointer">
             <i class="pull-right icon-chevron-down"></i>
-            Mensajería
+            Mensajer&iacute;a
           </a>
         </li>
         <div id="mensajeria" class="accordion-body collapse">
@@ -270,7 +270,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
         </div>
         
         <? if (stristr ( $carg, '1' ) == TRUE) { ?>
-        <li><a href="admin/tutoria/">Página del tutor</a></li>
+        <li><a href="admin/tutoria/">P&aacute;gina del tutor</a></li>
         <? } ?>
         <li><a href="admin/ausencias/index.php">Registrar ausencia</a></li>
         <? if (stristr ( $carg, '1' ) == TRUE and stristr ( $carg, '4' ) == FALSE) { ?>
@@ -313,56 +313,56 @@ if (stristr ( $carg, '2' ) == TRUE) {
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
       <i class="pull-right icon-chevron-down"></i>
-      Otras páginas
+      Otras p&aacute;ginas
     </a>
   </div>
   <div id="paginas" class="accordion-body collapse">
     <div class="accordion-inner">
       <ul class="nav nav-list">
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank">Novedades de la Consejería</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank">Novedades de la Consejer&iacute;a</a></li>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="04") { ?>
         <!-- Almer�a -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=436" target="_blank">Delegación de Educación</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=436" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="11") { ?>
         <!-- C�diz -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=437" target="_blank">Delegación de Educación</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=437" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="14") { ?>
         <!-- C�rdoba -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=438" target="_blank">Delegación de Educación</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=438" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="18") { ?>
         <!-- Granada -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=439" target="_blank">Delegación de Educación</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=439" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="21") { ?>
         <!-- Huelva -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=440" target="_blank">Delegación de Educación</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=440" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="23") { ?>
         <!-- Ja�n -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=441" target="_blank">Delegación de Educación</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=441" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="29") { ?>
         <!-- M�laga -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=442" target="_blank">Delegación de Educación</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=442" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="41") { ?>
         <!-- Sevilla -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=443" target="_blank">Delegación de Educación</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=443" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
         <? } ?>
         
         <!--<li><a href="http://www.cep-marbellacoin.org/index.html" target="_blank">CEP de Marbella-Co�n</a></li>-->
-        <li><a href="http://www.mecd.gob.es" target="_blank">Página del MEC</a></li>
+        <li><a href="http://www.mecd.gob.es" target="_blank">P&aacute;gina del MEC</a></li>
         <li><a href="http://www.juntadeandalucia.es/averroes/" target="_blank">Averroes</a></li>
       </ul>
     </div>

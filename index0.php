@@ -9,7 +9,7 @@ if ($_SESSION ['autentificado'] != '1') {
 
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 $pr = $_SESSION ['profi'];
-// Comprobamos si da clase a algún grupo
+// Comprobamos si da clase a alg&uacute;n grupo
 $cur0 = mysql_query ( "SELECT distinct prof FROM horw where prof = '$pr'" );
 $cur1 = mysql_num_rows ( $cur0 );
 $_SESSION ['n_cursos'] = $cur1;
@@ -42,7 +42,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
         <div class="span3">  
         <div class="well">
 			<ul class="nav nav-tabs nav-stacked">  
-			<legend><i class="icon icon-tasks"></i> Menú</legend>          
+			<legend><i class="icon icon-tasks"></i> Men&uacute;</legend>          
             <? if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {include("menu_conserje.php");}else{include("menu2.php");}?> 
            </ul> 
            </div> 

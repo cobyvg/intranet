@@ -73,7 +73,7 @@ $cabecera = '
     <meta name="description" content="Intranet del '.$nombre_del_centro.'">  
     <meta name="author" content="">  
 
-    <link href="./css/bootstrap.css" rel="stylesheet">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/otros.css" rel="stylesheet">     
     <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     <link rel="shortcut icon" href="./img/favicon.ico">  
@@ -88,7 +88,7 @@ var navegador = navigator.appName;
 //alert(navegador);
 switch (navegador){
 case "Microsoft Internet Explorer":
-alert("Estas usando Microsoft Ineternet Explorer para acceder a una aplicaci�n web que es manifiestamente incompatible con este navegador. Por favor, utiliza Firefox, Chrome, Opera o Safari para acceder");
+alert("Estas usando Microsoft Ineternet Explorer para acceder a una aplicaci&oacute;n web que es manifiestamente incompatible con este navegador. Por favor, utiliza Firefox, Chrome, Opera o Safari para acceder");
 break;
 }
 }
