@@ -1,10 +1,3 @@
-
-<legend><i class="icon icon-rss"> </i> Novedades en la Consejería</legend>
-<small>(<?
-echo " " . date ( "d-M-Y H:i:s" );
-?>) </small>
-<br />
-<br />
 <?
 require_once ('magpierss/rss_fetch.inc');
 define ( "MAGPIE_CACHE_ON", 1 );
@@ -15,20 +8,19 @@ $num_items = 5;
 $rss = fetch_rss ( $url );
 $items = array_slice ( $rss->items, 0, $num_items );
 
+echo '<legend><i class="icon icon-rss"></i> '.$rss->channel['title'].'</legend>';
+
 foreach ( $items as $item ) {
 	$href = $item ['link'];
 	$title = $item ['title'];
-	$tit = explode ( " ", $title );
-	$num = count ( $tit );
-	echo "";
-		
-	echo "<blockquote><p><a href=$href>";
-	for($i = 0; $i < 5; $i ++)
-	echo " ".$tit [$i]." " ;
-	for($i = 5; $i < $num; $i ++)
-	echo " " . $tit [$i] . " ";
-		
-	echo "</a></p></blockquote>";
+	$time = $item ['pubdate'];
+	
+	setlocale(LC_TIME, "es_ES");
+	echo '
+	<blockquote>
+	  <p><a href="'.$href.'">'.$title.'</a></p>
+	  <small>Publicado el '.strftime('%e de %B de %Y, a las %H:%Mh',strtotime($time)).'.</small>
+	</blockquote>';
 }
 ?>
 <hr>
