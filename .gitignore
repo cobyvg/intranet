@@ -3,7 +3,7 @@
 .settings
 .project
 *.xml
-*.jpg
+xml/fotos/*.jpg
 xml/jefe/TIC/*.txt
 cache/*
 config.php
