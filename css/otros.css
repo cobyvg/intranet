@@ -3,6 +3,18 @@
 body{
 	padding-top:50px;
 }
+
+.accordion-group.well {
+	padding: 5px;
+}
+a.accordion-toggle {
+	font-size: 18px;
+	color: #777;
+}
+a.accordion-toggle:hover {
+	text-decoration: none;
+}
+
 .well-transparent {
   background-repeat:repeat; 
   min-height: 20px;

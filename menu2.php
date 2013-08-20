@@ -3,16 +3,18 @@
 if (stristr ( $carg, '1' ) == TRUE) {
 	?>
   <div class="accordion-group">
+<div class="accordion" id="menu">
+  <div class="accordion-group well">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#direccion">
         <i class="pull-right icon-chevron-down"></i>
-        Direcci&oacute;n del centro
+        Dirección del centro
       </a>
     </div>
     <div id="direccion" class="accordion-body collapse in">
       <div class="accordion-inner">
         <ul class="nav nav-list">
-          <li><a href="xml/index.php">Administraci&oacute;n de la Intranet</a></li>
+          <li><a href="xml/index.php">Administración de la Intranet</a></li>
           <li><a href="admin/jefatura/tutor.php">Diario de jefatura</a></li>
           <li><a href="xml/jefe/mem_jefatura.php">Informes sobre convivencia</a></li>
         </ul>
@@ -26,7 +28,7 @@ if (stristr ( $carg, '1' ) == TRUE) {
 <?
 if (stristr ( $carg, '4' ) == TRUE) {
 ?>
-<div class="accordion-group">
+<div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#departamento">
       <i class="pull-right icon-chevron-down"></i>
@@ -51,7 +53,7 @@ if (stristr ( $carg, '4' ) == TRUE) {
 <?
 if (stristr ( $carg, '5' ) == TRUE) {
 ?>
-<div class="accordion-group">
+<div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#extraescolares">
       <i class="pull-right icon-chevron-down"></i>
@@ -74,18 +76,18 @@ if (stristr ( $carg, '5' ) == TRUE) {
 <?
 if (stristr ( $carg, '8' ) == TRUE) {
 ?>
-<div class="accordion-group">
+<div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#orientacion">
       <i class="pull-right icon-chevron-down"></i>
-      Orientaci&oacute;n
+      Orientación
     </a>
   </div>
   <div id="orientacion" class="accordion-body collapse in">
     <div class="accordion-inner">
       <ul class="nav nav-list">
-        <li><a href="admin/orientacion/tutor.php">P&aacute;gina de Orientaci&oacute;n</a></li>
-        <li><a href="./admin/tutoria/">P&aacute;gina del tutor </a></li>
+        <li><a href="admin/orientacion/tutor.php">Página de Orientación</a></li>
+        <li><a href="./admin/tutoria/">Página del tutor </a></li>
         <li><a href="admin/actividades/index.php">Actividades extraescolares</a></li>
         <li><a href="xml/jefe/mem_jefatura.php">Informes sobre convivencia</a></li>
       </ul>
@@ -98,17 +100,17 @@ if (stristr ( $carg, '8' ) == TRUE) {
 <?
 if (stristr ( $carg, '2' ) == TRUE) {
 ?>
-<div class="accordion-group">
+<div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
       <i class="pull-right icon-chevron-down"></i>
-      Tutor&iacute;a
+      Tutoría
     </a>
   </div>
   <div id="tutoria" class="accordion-body collapse in">
     <div class="accordion-inner">
       <ul class="nav nav-list">
-        <li><a href="admin/tutoria/global.php">P&aacute;gina del tutor</a></li>
+        <li><a href="admin/tutoria/global.php">Página del tutor</a></li>
       </ul>
     </div>
   </div>
@@ -116,7 +118,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 <?
 }
 ?>
-<div class="accordion-group">
+<div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#consultas">
       <i class="pull-right icon-chevron-down"></i>
@@ -148,7 +150,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
   </div>
 </div>
 
-<div class="accordion-group">
+<div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
       <i class="pull-right icon-chevron-down"></i>
@@ -168,7 +170,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
           <ul class="nav nav-list">
             <li><a href="admin/fechorias/infechoria.php">Registrar problema</a></li>
             <li><a href="admin/fechorias/cfechorias.php">Consultar problemas</a></li>
-            <li><a href="admin/fechorias/lfechorias.php">&uacute;ltimos problemas</a></li>
+            <li><a href="admin/fechorias/lfechorias.php">Últimos problemas</a></li>
             <li><a href="admin/fechorias/expulsados.php">Alumnos expulsados</a></li>
         	<? if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE or stristr ( $_SESSION ['cargo'], 'c' ) == TRUE) { ?>
             <li><a href="admin/morosos/">Morosos de la biblioteca</a></li>
@@ -195,7 +197,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
             <? } ?>
             <li><a href="http://<? echo $dominio; ?>/intranet/admin/faltas/index.php">Consultas</a></li>
             <? if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { ?>
-            <li><a href="faltas/seneca/">Importar faltas a S&eacute;neca</a></li>
+            <li><a href="faltas/seneca/">Importar faltas a Séneca</a></li>
             <? } ?>
             </li>
                     <?
@@ -223,7 +225,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
           <ul class="nav nav-list">
             <li><a href="admin/informes/cinforme.php">Informe de un alumno</a></li>
             <li><a href="admin/tareas/index.php">Informe de tareas</a></li>
-            <li><a href="admin/infotutoria/index.php">Informe de tutor&iacute;a </a></li>
+            <li><a href="admin/infotutoria/index.php">Informe de tutoría </a></li>
           </ul>
         </div>
         
@@ -241,7 +243,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
             <li><a href="TIC/documentos.php">Documentos</a></li>
             <li><a href="TIC/cpartes.php">Incidencias</a></li>
             <!--<li><a href="admin/recursos/">Recursos Educativos</a></li>-->    
-            <li><a href="reservas/informes.php">Estad&iacute;sticas </a></li>
+            <li><a href="reservas/informes.php">Estadísticas </a></li>
           </ul>
         </div>
         <? } ?>
@@ -260,14 +262,14 @@ if (stristr ( $carg, '2' ) == TRUE) {
             <li><a href="reservas/index_aula_grupo.php?recurso=aula_grupo">Aulas de grupo</a></li>
             <? } ?>
             <li><a href="reservas/index.php?recurso=medio">Medios audiovisuales</a></li>
-            <li><a href="reservas/informes.php">Estad&iacute;sticas</a></li>
+            <li><a href="reservas/informes.php">Estadísticas</a></li>
           </ul>
         </div>
         
         <li>
           <a data-toggle="collapse" data-target="#mensajeria" style="cursor:pointer">
             <i class="pull-right icon-chevron-down"></i>
-            Mensajer&iacute;a
+            Mensajería
           </a>
         </li>
         <div id="mensajeria" class="accordion-body collapse">
@@ -281,7 +283,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
         </div>
         
         <? if (stristr ( $carg, '1' ) == TRUE) { ?>
-        <li><a href="admin/tutoria/">P&aacute;gina del tutor</a></li>
+        <li><a href="admin/tutoria/">Página del tutor</a></li>
         <? } ?>
         <li><a href="admin/ausencias/index.php">Registrar ausencia</a></li>
         <? if (stristr ( $carg, '1' ) == TRUE and stristr ( $carg, '4' ) == FALSE) { ?>
@@ -301,7 +303,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
   </div>
 </div>
 
-<div class="accordion-group">
+<div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
       <i class="pull-right icon-chevron-down"></i>
@@ -314,66 +316,66 @@ if (stristr ( $carg, '2' ) == TRUE) {
         <li><a href="http://www.juntadeandalucia.es/averroes/centros-tic/<? echo $codigo_del_centro; ?>/moodle/">Plataforma Moodle</a></li>
         <li><a href="admin/cursos/calendario.php">Calendario escolar</a></li>
         <li><a href="http://iesmonterroso.org/PC20122013/index.htm">Plan de Centro</a></li>
-        <li><a href="clave.php">Cambiar contrasÃ±a</a></li>
+        <li><a href="clave.php">Cambiar contraseña</a></li>
       </ul>
     </div>
   </div>
 </div>
 
-<div class="accordion-group">
+<div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
       <i class="pull-right icon-chevron-down"></i>
-      Otras p&aacute;ginas
+      Otras páginas
     </a>
   </div>
   <div id="paginas" class="accordion-body collapse">
     <div class="accordion-inner">
       <ul class="nav nav-list">
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank">Novedades de la Consejer&iacute;a</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank">Novedades de la Consejería</a></li>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="04") { ?>
-        <!-- Almerï¿½a -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=436" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
+        <!-- Almería -->
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=436" target="_blank">Delegación de Educación</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="11") { ?>
-        <!-- Cï¿½diz -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=437" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
+        <!-- Cádiz -->
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=437" target="_blank">Delegación de Educación</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="14") { ?>
-        <!-- Cï¿½rdoba -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=438" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
+        <!-- Córdoba -->
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=438" target="_blank">Delegación de Educación</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="18") { ?>
         <!-- Granada -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=439" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=439" target="_blank">Delegación de Educación</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="21") { ?>
         <!-- Huelva -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=440" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=440" target="_blank">Delegación de Educación</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="23") { ?>
-        <!-- Jaï¿½n -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=441" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
+        <!-- Jaén -->
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=441" target="_blank">Delegación de Educación</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="29") { ?>
-        <!-- Mï¿½laga -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=442" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
+        <!-- Málaga -->
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=442" target="_blank">Delegación de Educación</a></li>
         <? } ?>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="41") { ?>
         <!-- Sevilla -->
-        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=443" target="_blank">Delegaci&oacute;n de Educaci&oacute;n</a></li>
+        <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=443" target="_blank">Delegación de Educación</a></li>
         <? } ?>
         
-        <!--<li><a href="http://www.cep-marbellacoin.org/index.html" target="_blank">CEP de Marbella-Coï¿½n</a></li>-->
-        <li><a href="http://www.mecd.gob.es" target="_blank">P&aacute;gina del MEC</a></li>
+        <!--<li><a href="http://www.cep-marbellacoin.org/index.html" target="_blank">CEP de Marbella-Coín</a></li>-->
+        <li><a href="http://www.mecd.gob.es" target="_blank">Página del MEC</a></li>
         <li><a href="http://www.juntadeandalucia.es/averroes/" target="_blank">Averroes</a></li>
       </ul>
     </div>

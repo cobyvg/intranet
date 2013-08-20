@@ -1,5 +1,5 @@
 <div class="accordion" id="menu">
-  <div class="accordion-group">
+  <div class="accordion-group well">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
         <i class="pull-right icon-chevron-down"></i>
@@ -69,7 +69,7 @@
     </div>
   </div>
 
-  <div class="accordion-group">
+  <div class="accordion-group well">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
         <i class="pull-right icon-chevron-down"></i>
@@ -88,7 +88,7 @@
     </div>
   </div>
   
-  <div class="accordion-group">
+  <div class="accordion-group well">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
         <i class="pull-right icon-chevron-down"></i>

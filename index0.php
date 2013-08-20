@@ -40,12 +40,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
    <div class="row-fluid">  
    
         <div class="span3">  
-        <div class="well">
-			<ul class="nav nav-tabs nav-stacked">  
-			<legend><i class="icon icon-tasks"></i> Men&uacute;</legend>          
             <? if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {include("menu_conserje.php");}else{include("menu2.php");}?> 
-           </ul> 
-           </div> 
 			<br />
               <? 
 			  include("ausencias.php"); 
