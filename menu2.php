@@ -382,3 +382,5 @@ if (stristr ( $carg, '2' ) == TRUE) {
   </div>
 </div>
 </div>
+</div>
+</div>
