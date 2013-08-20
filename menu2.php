@@ -135,7 +135,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
         <li>
           <a data-toggle="collapse" data-target="#fotos" style="cursor:pointer">
             <i class="pull-right icon-chevron-down"></i>
-            Fotograf&iacute;ass
+            Fotografías
           </a>
         </li>
         <div id="fotos" class="accordion-body collapse">
