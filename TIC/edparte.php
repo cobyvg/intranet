@@ -19,14 +19,10 @@ include("menu.php");
   <h2>Centro TIC <small> Editar incidencia</small></h2>
 </div>
 <br />
-<br />
 <?
-if($ed_enviar=="Actualizar datos de la Incidencia")
+if(isset($_POST['ed_enviar']))
 {
-?>
-
-<?
-	$query = "UPDATE partestic SET nivel = '$nivel', grupo = '$grupo', carro = '$carrito', nserie = '$numero', fecha = '$fecha', hora = '$hora', alumno = '$alumno', profesor = '$profesor', descripcion = '$descripcion'";
+$query = "UPDATE partestic SET nivel = '$nivel', grupo = '$grupo', carro = '$carrito', nserie = '$numero', fecha = '$fecha', hora = '$hora', alumno = '$alumno', profesor = '$profesor', descripcion = '$descripcion'";
 if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
 $query.=", estado = '$estado', nincidencia = '$nincidencia'";
@@ -51,14 +47,14 @@ exit;
 }
 
 else{
-$query = "SELECT parte, nivel, grupo, carro, nserie, fecha, hora, alumno, profesor, descripcion, estado, nincidencia FROM  partestic where parte = $parte";
+$query = "SELECT parte, nivel, grupo, carro, nserie, fecha, hora, alumno, profesor, descripcion, estado, nincidencia FROM  partestic where parte = '$parte'";
 	$result = mysql_query($query);
 	
 	if (mysql_num_rows($result) > 0)
 	{
 	$row = mysql_fetch_array($result);
-	if(empty($nivel)){$nivel = $row[1];}
-	if(empty($grupo))$grupo = $row[2];
+	$nivel = $row[1];
+	$grupo = $row[2];
 	$carrito = $row[3];
 	$numero = $row[4];
 	$fecha = $row[5];
@@ -93,13 +89,13 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
 }
 ?>
     <label style="display:inline">Nivel
-      <select name="nivel" id="NIVEL" onChange="submit()" class="input-mini">
+      <select name="nivel" onChange="submit()" class="input-mini">
         <option><? echo $nivel;?></option>
         <? nivel();?>
       </select>
     </label>
     <label style="display:inline">&nbsp;&nbsp;&nbsp;Grupo
-      <select name="grupo" id="GRUPO" onChange="submit()" class="input-mini">
+      <select name="grupo" onChange="submit()" class="input-mini">
         <option><? echo $grupo;?></option>
         <? grupo($nivel);?>
       </select>
@@ -144,6 +140,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
     N&ordm; Carro&nbsp;&nbsp;
     <input name="carrito" type="text" id="carrito" size="2" maxlength="2" value="<? echo $carrito;?>" class="input-mini"/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </label>
     <label style="display:inline">N&ordm; del ordenador&nbsp;&nbsp;
       <input name="numeroserie" type="text" id="numeroserie"  maxlength="2" value="<? echo $numero;?>" class="input-small" />
     </label>

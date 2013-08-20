@@ -255,20 +255,6 @@ if (!(is_writable('config.php'))) {
           </div> 
 <?
 }
-	
-	if (!(ini_get('register_globals'))=="1") {
-?>
-<br />
-    <div align="justify"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4 class="lead">ATENCIÓN:</h4>Parece que tenemos un problema con el archivo de configuración de PHP ( php.ini ). La directiva <em>register_globals</em> está desactivada, y así no podemos seguir. 
-			Necesitas activarla en el archivo de configuración. Este se encuentra en el directorio /etc/. Edítalo, busca el texto  
-			<em>register_globals = Off</em> y sustitúyelo por <em>register_globals = On</em>. Suena initimdante, pero esa es toda la dificultad.
-			</div>
-          </div> 
-<?
-//exit();
-	}
 	?>    
 <form action="index.php" method="post" align="left" class="form-signin" id = "form-signin ">
 

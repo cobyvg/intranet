@@ -12,6 +12,9 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 <?php
 include("../../menu.php");
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+if (isset($_GET['profe_baja'])) {$profe_baja = $_GET['profe_baja'];}elseif (isset($_POST['profe_baja'])) {$profe_baja = $_POST['profe_baja'];}else{$profe_baja="";}
+
 $pr_trozos=explode(", ",$profe_baja);		
 ?>
 <br />
@@ -27,13 +30,13 @@ $pr_trozos=explode(", ",$profe_baja);
 <?
 echo "<h3 align=center>Datos de la ausencia</h3><br />";
 echo "<div class='well well-large'>";
-echo '<table class="table table-striped" style="width:100$;">';
-	echo "<tr>
+echo '<table class="table table-striped table-bordered" style="width:100$;">';
+	echo "<thead>
 		<th>Inicio</hd>
 		<th>Fin</hd>
 		<th>Horas</th>
 		<th>Archivo adjunto</th>";
-	echo "</tr><tr>";
+	echo "</thead><tbody><tr>";
 	// Consulta de datos del alumno.
 	$result = mysql_query ( "select inicio, fin, tareas, id, profesor, horas, archivo from ausencias  where id = '$id' order by inicio" );
 	$row = mysql_fetch_array ( $result );
@@ -48,7 +51,7 @@ echo '<table class="table table-striped" style="width:100$;">';
 	<td nowrap>$row[0]</td>
 	<td nowrap>$row[1]</td>
 	<td>$hora</td>
-	<td><a href='archivos/$row[6]'>$row[6]</a></td>";		
+	<td><a href='archivos/$row[6]' target='_blank'><i class='icon icon-file'> </i> $row[6]</a></td>";		
 	echo "</tr></table>";
 	echo "<hr>";
 	if (strlen($tar) > '1'){

@@ -14,7 +14,7 @@ include("../../menu.php");
 include("../menu.php");
 
 // Si ya hemos enviado los datos, nos vamos a alumnos.php
-if($enviar=='Enviar datos')
+if($_POST['enviar']=='Enviar datos')
 {
 include("alumnos.php");
 }
@@ -56,7 +56,8 @@ $result = mysql_query($SQL);
 ?>
           </select>
           </label>
-      <? }
+      <? 
+}
 else
 {
 echo "<h6>Selecciona el Curso</h6>";

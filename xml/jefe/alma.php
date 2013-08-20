@@ -14,6 +14,8 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 include("../../menu.php");
+if (isset($_FILES['archivo1'])) {$archivo1 = $_FILES['archivo1'];}
+if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
 ?>
 <br />
 <div align="center">

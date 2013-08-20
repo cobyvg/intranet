@@ -1,4 +1,3 @@
-
 <?
 // Justificación de las faltas.
 include("justifica.php");
@@ -68,7 +67,7 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in" st
 			El día que has seleccionado es <b>DOMINGO</b>
           </div></div>';
 		}
-		if ($mens_fecha) {
+		if (!(empty($mens_fecha))) {
 			echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_fecha.'</div></div>';
 		}
@@ -86,7 +85,7 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in" st
         </tr>
       </table>
       <?
-if ($alumno) {
+if (!(empty($alumno))) {
 $alu0 = "SELECT NC, CLAVEAL, apellidos, nombre FROM FALUMNOS WHERE claveal = '$alumno'";
 $tr = mysql_query($alu0);
 $tr1 = mysql_fetch_array($tr);

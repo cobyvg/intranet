@@ -48,7 +48,6 @@ if (stristr ( $carg, '2' ) == TRUE) {
            </div> 
 			<br />
               <? 
-
 			  include("ausencias.php"); 
 			  include ("fijos.php");
 			  include ("mensajes.php");

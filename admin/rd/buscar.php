@@ -29,8 +29,9 @@ echo '<div align="center">';
 </div>
 <br />';
 ?>
-<p class="lead" align="center">Actas que contienen la expresión<a href="#"><h6> &quot;<? echo strtoupper($expresion);?></a>&quot;</h6></p><br /><br /><?
+<p class="lead" align="center">Actas que contienen la expresión<a href="#"> &quot;<? echo $expresion;?></a>&quot;</p><br /><?
 $trozos = explode(" ",$expresion,5);
+$frase="";
 for($i=0;$i<5;$i++)
 {
 if(!(empty($trozos[$i]))){

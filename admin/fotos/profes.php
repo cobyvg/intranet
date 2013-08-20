@@ -17,35 +17,23 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
     <meta name="author" content="">  
-  
-    <!-- Le styles -->  
-
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet"> 
-    <?
-	if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">  
-        <?
-	}
-		else{
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">     
-        <?	
-		}
-	?>
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->  
-    <!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->  
-  
-    <!-- Le fav and touch icons -->  
-    <link rel="shortcut icon" href="http://<? echo $dominio;?>/intranet/img/favicon.ico">  
-    <link rel="apple-touch-icon" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon.png">  
-    <link rel="apple-touch-icon" sizes="72x72" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-72x72.png">  
-    <link rel="apple-touch-icon" sizes="114x114" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-114x114.png"> 
-    <script type="text/javascript"
-	src="http://<? echo $dominio;?>/intranet/recursos/js/buscar_alumnos.js"></script>  
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">
+    
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">
+    
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <!--[if IE 7]>
+      <link href="http://<? echo $dominio;?>/intranet/css/font-awesome-ie7.min.css" rel="stylesheet">
+    <![endif]-->
+    
+    <!--[if lt IE 9]>
+      <script src="http://<? echo $dominio;?>/intranet/js/html5shiv.js"></script>
+    <![endif]-->
+    
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
   </head>  
   <body> 
   <?
@@ -53,12 +41,12 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
   ?>
   <div align="center">
 <?
-if($ver_todos){
+if(isset($_POST['ver_todos'])){
 ?>
  <br />
      <div align=center>
   <div class="page-header" align="center">
-  <h2><? echo $nombre_del_centro;?> <small><br />Claustro de Profesores <? echo " $curso ($curso_actual)";?></small></h2>
+  <h2><? echo $nombre_del_centro;?> <small><br />Claustro de Profesores <? echo " ($curso_actual)";?></small></h2>
 </div>
 <?
 $dep0=mysql_query("select distinct departamento from departamentos where departamento not like 'Administracion' and departamento not like 'ADMIN' and departamento not like 'Conserjeria' order by departamento");

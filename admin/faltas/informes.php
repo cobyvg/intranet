@@ -53,6 +53,16 @@ else
 {
 $fechasp2="";
 }
+if (isset($_POST['fechasp3'])) {
+	$fechasp3 = $_POST['fechasp3'];
+}
+elseif (isset($_GET['fechasp3'])) {
+	$fechasp3 = $_GET['fechasp3'];
+} 
+else
+{
+$fechasp3="";
+}
 if (isset($_POST['fecha3'])) {
 	$fecha3 = $_POST['fecha3'];
 }
@@ -94,7 +104,6 @@ echo "<div align='center'>";
 	$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
   }
   $SQL10 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo from FALUMNOS where   CLAVEAL = '$claveal'";
-
   $result10 = mysql_query($SQL10);
   $row10 = mysql_fetch_array($result10);
           echo "<div align='center'>";

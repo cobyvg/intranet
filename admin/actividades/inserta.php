@@ -8,7 +8,7 @@ Todos los campos del formulario son obligatorios, así que vuelve atrás y rellena
           </div></div>';
 exit;	
 }
-
+$grupos="";
 foreach($_POST as $key => $val){
 if(substr($key,0,3) == "grt")
 {
@@ -60,8 +60,10 @@ Los datos de la actividad extraescolar se han introducido correctamente.<br />Co
 $datos0 = "select * from actividades where departamento = '$departamento' order by id desc ";
 $datos1 = mysql_query($datos0);
 ?>
+ <div class="row-fluid">
+<div class="span10 offset1">
 <div align="center">
-  <h3>Actividades registradas por el Departamento de <span style="color:#08c"><? echo $departamento ?></span></h3>
+  <legend>Actividades registradas por el Departamento de <span style="color:#08c"><? echo $departamento ?></span></legend>
 </div>
 <br />
 <table class="table table-striped" style="width:auto;" align="center">

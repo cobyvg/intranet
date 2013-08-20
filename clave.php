@@ -10,6 +10,12 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
+if (isset($_POST['usuario'])) {$usuario = $_POST['usuario'];}else{$usuario="";}
+if (isset($_POST['correo'])) {$correo = $_POST['correo'];}else{$correo="";}
+if (isset($_POST['codigo2'])) {$codigo2 = $_POST['codigo2'];}else{$codigo2="";}
+if (isset($_POST['codigo3'])) {$codigo3 = $_POST['codigo3'];}else{$codigo3="";}
+if (isset($_POST['control'])) {$control = $_POST['control'];}else{$control="";}
+
 $pr = $_SESSION['profi'] ;
 if($control=="1")
   {
@@ -32,7 +38,7 @@ include("menu.php");
 	<br />
 <?	
 if ($codigo2 === $codigo3 and !(empty($codigo2)) and !(empty($correo))) 
-{
+{	
 $cod_sha = sha1($codigo2);
 $contra = "update c_profes set   pass = '$cod_sha', correo='$correo' where profesor = '$pr' ";
 mysql_query($contra) or die('
@@ -77,7 +83,8 @@ echo "</body></html>";
   }
   else
   {
-  	include("menu.php")
+  	include("menu.php");
+  	
 ?>
 <script type="text/javascript">
 <!--

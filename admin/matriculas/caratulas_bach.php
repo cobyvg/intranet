@@ -27,7 +27,7 @@ function AutoPrintToPrinter($server, $printer, $dialog=false)
     $this->IncludeJS($script);
 }
 }
-define ( 'FPDF_FONTPATH', '../../pdf/fontsPDF/' );
+define ( 'FPDF_FONTPATH', '../../pdf/font/' );
 # creamos el nuevo objeto partiendo de la clase ampliada
 $MiPDF = new PDF_AutoPrint();
 $MiPDF->SetMargins ( 20, 20, 20 );
@@ -103,7 +103,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->SetFont ( 'Times', 'B', 10  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
-	$MiPDF->Image ( '../../imag/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 15 );
 	$titulo1 = "SOLICITUD DE MATRÍCULA EN ".$n_curso."º DE BACHILLERATO";
 	$MiPDF->Multicell ( 0, 4, $titulo1, 0, 'C', 0 );

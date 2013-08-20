@@ -8,7 +8,7 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE))
+if(stristr($_SESSION['cargo'],'1') == FALSE and stristr($_SESSION['cargo'],'8') == FALSE)
 {
 header("location:http://$dominio/intranet/salir.php");
 exit;	

@@ -28,8 +28,8 @@ exit;
   <div class="span1"> </div>
   <div class="span10">
 <?   
-  if ($eliminar=='1') {
-  	mysql_query("delete from actividades where id = '$id'");
+if ($_GET['eliminar']=="1") {
+  	mysql_query("delete from actividades where id = '".$_GET['id']."'");
   	if (mysql_affected_rows()>'0') {
 echo '
 <br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -158,7 +158,7 @@ La Actividad ha sido confirmada por la Autoridad.
 ?>
 
 <br />
-<table class="table table-striped tabladatos" style="width:100%;" align="center">
+<table class="table table-striped tabladatos" align="center">
   <thead>
   <tr>
     <th>Fecha</th>

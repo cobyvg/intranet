@@ -30,8 +30,8 @@ $profe=$_SESSION['profi'];
 ?>
 <?
 // Eliminar registro
-if ($eliminar=="1") {
-	mysql_query("delete from inventario where id='$id'");
+if ($_GET['eliminar']=="1") {
+	mysql_query("delete from inventario where id='".$_GET['id']."'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.</div></div><br />';
@@ -86,6 +86,7 @@ Parece que no has escrito nada en alguno de los campos obligatorios del formular
 </div></div><br />';
 }
 }
+
 $datos=mysql_query("select familia, inventario_clases.clase, lugar, descripcion, marca, modelo, serie, unidades, fecha from inventario, inventario_clases where inventario.clase=inventario_clases.id and inventario.id='$id'");
 $dat=mysql_fetch_row($datos);
 if (empty($familia)) {
@@ -161,7 +162,7 @@ while($lug = mysql_fetch_array($luga))
 <input type="text" name="serie" size="25" class="span8" value="<? echo $serie;?>"/>
 </label>
 <label>Nº de Unidades<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<input type="text" name="unidades" size="5" value="1" class="span2" value="<? echo $unidades;?>"/>
+<input type="text" name="unidades" size="5" class="span2" value="<? echo $unidades;?>"/>
 </label>
 <label>Fecha de Alta<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
 <input type="text" name="fecha" size="10" value="<? echo date('d-m-Y');?>" class="span4" value="<? echo $unifechadades;?>"/>

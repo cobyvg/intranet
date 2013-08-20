@@ -18,6 +18,12 @@ exit;
 
   <?
   	include("../../menu.php");
+if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];}else{$profeso="";}
+if (isset($_GET['sustituido'])) {$sustituido = $_GET['sustituido'];}elseif (isset($_POST['sustituido'])) {$sustituido = $_POST['sustituido'];}else{$sustituido="";}
+if (isset($_GET['hora'])) {$hora = $_GET['hora'];}elseif (isset($_POST['hora'])) {$hora = $_POST['hora'];}else{$hora="";}
+if (isset($_GET['submit2'])) {$submit2 = $_GET['submit2'];}elseif (isset($_POST['submit2'])) {$submit2 = $_POST['submit2'];}else{$submit2="";}
+if (isset($_GET['gu_fecha'])) {$gu_fecha = $_GET['gu_fecha'];}elseif (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="";}
+
   ?>
 <br />
   <div class="page-header" align="center">
@@ -26,9 +32,7 @@ exit;
 <br />
  <div class="container-fluid">  
       <div class="row-fluid">  
-        <div class="span2">
-        </div> 
-        <div class="span4">
+        <div class="span4 offset2" >
         <? if ($mod_horario) {
 ?>
 <div align="left" class="well well-large">
@@ -88,7 +92,7 @@ include("../../horario.php");
               </select>
               </label>
               <hr>
-	<label>Fecha de la sustitución: 
+	<label>Fecha de la sustitución<br />
 	<input type="hidden" name="profeso" value="<? echo $profeso;?>">
 	     <div class="input-append" >
             <input name="gu_fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="gu_fecha" >

@@ -20,7 +20,7 @@ exit;
 </div>
 <br />
 <?
-if($enviar == "Aceptar")
+if(isset($_POST['enviar']))
 {
 // Nivel de los Libros
 if(substr($_FILES['archivo']['name'],0,1) == '1') {$nivel = '1E';}

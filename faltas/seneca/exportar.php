@@ -9,19 +9,19 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
-    <title>Faltas de Asistencia.</title>
-   <LINK href="http://<? echo $dominio; ?>/<? echo $css1; ?>" rel="stylesheet" type="text/css">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css2; ?>" rel="stylesheet" type="text/css">
-</head>
-<body>
 <?
 include("../../menu.php");
-echo "<br>";
-//
+?>
+<div align="center">
+<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
+</div>
+<br />
+<?
+if (isset($_GET['iniciofalta'])) {$iniciofalta = $_GET['iniciofalta'];}elseif (isset($_POST['iniciofalta'])) {$iniciofalta = $_POST['iniciofalta'];}else{$iniciofalta="";}
+if (isset($_GET['finfalta'])) {$finfalta = $_GET['finfalta'];}elseif (isset($_POST['finfalta'])) {$finfalta = $_POST['finfalta'];}else{$finfalta="";}
+if (isset($_GET['Submit'])) {$Submit = $_GET['Submit'];}elseif (isset($_POST['Submit'])) {$Submit = $_POST['Submit'];}else{$Submit="";}
+
 ?>
 <?
 
@@ -120,17 +120,19 @@ $nombre_curso = substr($fichero,0,3)."_".$fecha_inicial."_".$fecha_final.".xml";
 rename("exportado/".$fichero."", "exportado/".$nombre_curso."");
 }}}}
 ?>
-<p id='texto_en_marco'>
-	 Las Faltas de Asistencia se han escrito correctamente en los archivos  del directorio exportado/. <br>Puedes proceder a importarlos a Séneca.
-	</p>
+<div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+	 Las Faltas de Asistencia se han escrito correctamente en los archivos  del directorio exportado/. <br />Puedes proceder a importarlos a Séneca.
+			</div></div><br />
 <?
 }
 else{
 	
 	?>
-	<p id='texto_en_marco'>
+<div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
 El formato de la fecha no parece correcto. No olvides que tanto los días como los meses debes escribirlos con dos cifras. No es correcto: 1/1/2011, sino 01/01/2011.
-	</p>
+			</div></div><br />	
 	<?
 }
 ?>

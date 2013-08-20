@@ -8,7 +8,7 @@ $activo7="";
 if (strstr($_SERVER['REQUEST_URI'],'festivos')==TRUE) {$activo1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'poner')==TRUE) {$activo3 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'justificar')==TRUE) {$activo5 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'faltas/index.php')==TRUE) {$activo6 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'faltas/index.php')==TRUE) {$activo3 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'absentismo')==TRUE) {$activo7 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class="active" ';}
 
@@ -38,6 +38,7 @@ if ($registrada=='1') {} else{
 	  }
 	  ?>  
          <?
+      $festivos="";   
 	  if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') == TRUE)
 	  {
 $repe0=mysql_query("select fecha from festivos");		

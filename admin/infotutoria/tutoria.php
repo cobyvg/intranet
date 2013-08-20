@@ -1,10 +1,8 @@
 <?
-if ($ver)
-{
+  if(isset($_GET['ver']) or isset($_POST['ver'])) { 
 include("infocompleto.php");
 }
-elseif ($meter)
-{
+  if(isset($_GET['meter']) or isset($_POST['meter'])) { 
 include("informar.php");
 }
 ?>

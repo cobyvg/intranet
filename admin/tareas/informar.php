@@ -1,5 +1,5 @@
 <?
-if ($submit1=="Enviar Datos") {
+if (isset($_POST['submit1']) and $_POST['submit1']=="Enviar Datos") {
 	include("rellenainf.php");
 	exit;
 }
@@ -23,40 +23,19 @@ $cargo = $_SESSION['cargo'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
     <meta name="author" content="">  
-  
-    <!-- Le styles -->  
-
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet"> 
-    <?
-	if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">  
-        <?
-	}
-		else{
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">     
-        <?	
-		}
-	?>
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->  
-    <!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->  
-  
-    <!-- Le fav and touch icons -->  
-    <link rel="shortcut icon" href="http://<? echo $dominio;?>/intranet/img/favicon.ico">  
-    <link rel="apple-touch-icon" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon.png">  
-    <link rel="apple-touch-icon" sizes="72x72" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-72x72.png">  
-    <link rel="apple-touch-icon" sizes="114x114" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-114x114.png"> 
-    <script type="text/javascript"
-	src="http://<? echo $dominio;?>/intranet/recursos/js/buscar_alumnos.js"></script>  
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
   </head>  
 <body onload='alert("TAREAS POR EXPULSION O AUSENCIA DEL ALUMNO: Aquí se redactan las TAREAS de tu asignatura para un alumno que se va a ir del Centro.");'>
 <?php
 include("../../menu_solo.php");
 include("menu.php");
+
 ?>
 <div class="page-header" align="center">
   <h2>Informes de Tareas <small> Redactar Informe</small></h2>
@@ -68,9 +47,6 @@ include("menu.php");
 <?php
  
   $c=mysql_connect ($db_host, $db_user, $db_pass);
-  
-  if($llenar)
-{$id=$_POST['llenar'];}
 
 echo "<input type='hidden'  name='ident' value='$id'>";
 echo "<input type='hidden'  name='profesor' value='$profesor'>";

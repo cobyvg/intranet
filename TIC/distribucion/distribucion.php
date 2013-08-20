@@ -16,15 +16,18 @@ include("../../menu.php");
 include("../menu.php");
 $trozos = explode("-->",$curso);
 ?>
-<div align="center">
-  <h3>Distribución del Grupo <? echo $trozos[0];?></h3><br />
+<div align=center>
+<div class="page-header" align="center">
+  <h2>Centro TIC <small> Distribución del Grupo <? echo $trozos[0];?></small></h2>
+</div>
+<br />
 
 <div class="row-fluid">
-<div class="span2"></div>
-<div class="span4">
+<div class="span4 offset2">
 <div class="well well-large" align="left">
 <?          
-if ($submit1){
+if (isset($_POST['submit1']))
+{
 $trozos=explode("-->",$alumno);
 $codigo=$trozos[1];
      if ($posicion=='Absentista' or $posicion=='Sin asignación'){    
@@ -73,8 +76,7 @@ Hay nuevos alumnos para asignar en este grupo.
 </div></div>';
 ?>
  <form action="distribucion.php?curso=<? echo $curso ?>&profe=<? echo $profe; ?>" method="post" name="form1" id="form1">
-<h6>Añadir Alumno nuevo</h6>
-<hr>
+<legend>Añadir Alumno nuevo</legend>
 <label>Alumno<br />
          <select name="n_alumno" class="input-xlarge"> 
          <option></option> 
@@ -114,8 +116,7 @@ for ($i=1;$i<$niv;$i++)
 ?>
  <form action="distribucion.php?curso=<? echo $curso ?>&profe=<? echo $profe; ?>" method="post" name="form1" id="form1">
 
- <h6>Cambio de asignacion de los Alumnos</h6>
- <hr>
+ <legend>Cambio de asignacion de los Alumnos</legend>
         <label>Alumno:<br />
 
          <select name="alumno" class="input-xlarge">  
@@ -171,7 +172,7 @@ Si es la primera vez que utilizas los ordenadores en este Agrupamiento, primero 
 <th>Ordenador</th> 
 <th>Nº Lista</th> 
 <th>Alumno</th> 
-<? if(is_dir("../../imag/fotos")){?><th>FOTO</th><? }?> 
+<? if(is_dir("../../xml/fotos")){?><th>FOTO</th><? }?> 
 <th>Grupo</th> 
 </tr> 
 <?  

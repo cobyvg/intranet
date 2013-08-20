@@ -12,6 +12,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 include("menu.php");
+
 $prof=mysql_query("SELECT TUTOR FROM FTUTORES WHERE NIVEL like '$nivel%' and GRUPO like '$grupo%'");
 $fprof = mysql_fetch_array($prof);
 if(!($tutor)){$tutor=$fprof[0];}else{$fprof[0] = $tutor;}
@@ -54,7 +55,8 @@ else
 }
 ?>  
 <?php
-echo "<div align='left'><form name='alumno' method='POST' action='activar.php'>";
+echo "<div align='left'>
+<form name='alumno' method='POST' action='activar.php'>";
 echo "<label>Alumno <br />";
 echo"<select name='alumno' class='span3'>";
 echo "<OPTION></OPTION>";
@@ -76,26 +78,17 @@ echo"<label>Tutor/a del grupo<br />";
 echo "<input type='text' value ='$fprof[0]' name='tutor' class='span3' readonly>";
 echo "</label>";
 }
-echo "<label style='display:inline'>Fecha (dd/mm/aa) prevista para la
- entrevista<br /> ";
-$today = date("j, n, Y");
-$hoy = explode(",", $today);
-$dia = $hoy[0];
-$mes = $hoy[1];
-$año = $hoy[2];
-echo "<select name='fecha[2]' class='input input-mini'>";
-echo "<option>$dia</option>";
-for ($i=1;$i<32;$i++){echo "<option>$i</option>";}
-echo "</select></label><label style='display:inline'> &nbsp;&nbsp;del ";
-echo "<select name='fecha[1]' class='input input-mini'>";
-echo "<option>$mes</option>";
-for ($i=1;$i<13;$i++){echo "<option>$i</option>";}
-echo "</select></label><label style='display:inline'>&nbsp;&nbsp; de ";
-echo "<select name='fecha[0]' class='input input-mini'>";
-echo "<option>$año</option>";
-for ($i=2012;$i<2020;$i++){echo "<option>$i</option>";}
-echo "</select> ";
-echo"</label><br />";
+?>
+         <label>Fecha de la reunión<br />
+ <div class="input-append" style="display:inline;" >
+            <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+  <span class="add-on"><i class="icon-calendar"></i></span>
+</div> 
+
+</label>
+
+<?
+echo"<br />";
 echo '<div align="center"><input type=submit value="Activar informe" class="btn btn-primary"></div>';
 ?>
  </form>
@@ -104,5 +97,14 @@ echo '<div align="center"><input type=submit value="Activar informe" class="btn 
  <?php
  include("../../pie.php");
  ?>
+ <script>  
+	$(function ()  
+	{ 
+		$('#fecha').datepicker()
+		.on('changeDate', function(ev){
+			$('#fecha').datepicker('hide');
+		});
+		});  
+	</script>
  </body>
 </html>

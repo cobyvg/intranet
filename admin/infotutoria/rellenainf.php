@@ -10,12 +10,12 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?php
+include("../../menu.php");
+include("menu.php");
 $id_alumno=$_POST['ident'];
 $asignatura=$_POST['asignatura'];
 $informe=$_POST['informe'];
 $profesor =$_POST['profesor'];
-include("../../menu.php");
-include("menu.php");
 ?>
 <div align="center"> 
 <div class="page-header" align="center">

@@ -1,11 +1,3 @@
-<?php
-if ($submit1)
-{
-include("horarios.php");
-}
-else 
-{
-?>
 <?
 session_start();
 include("../../config.php");
@@ -33,7 +25,7 @@ $profesor = $_SESSION['profi'];
 <div class="span4">
 <? if ($mod_horario) {?>
 
-<FORM action="chorarios.php" method="POST" class="well well-large form-inline">
+<FORM action="horarios.php" method="POST" class="well well-large form-inline">
  <legend> Horario de un Grupo</legend><br />
   <select name="curso">
     <?
@@ -52,7 +44,7 @@ echo "<option>".$tipo2[0]."</option>";
 <div class="span4">
 <FORM action="profes.php" method="POST" name="Cursos" class="well well-large form-inline">
 <legend>Horario de un Profesor</legend><br />
-  <SELECT  name=profeso onChange="submit()">
+  <SELECT  name=profeso>
     <option></option>
     <?
   $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
@@ -119,7 +111,7 @@ echo "<option>".$tipo2[0]."</option>";
             El módulo de Horarios debe ser activado en la Configuración general de la Intranet para poder acceder a estas páginas, y ahora mismo está desactivado. Consulta con quien pueda ayudarte.
           </div>';
  }
-}
+
 include("../../pie.php");
 ?>
 </BODY>

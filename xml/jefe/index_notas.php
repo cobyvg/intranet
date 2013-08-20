@@ -1,5 +1,7 @@
 <?
 include("../../config.php");
+if (isset($_POST['eval'])) {$eval = $_POST['eval'];}else{$eval="";}
+
 if (strlen($eval)>1) {	
 if (substr($eval,0,1)=='1') {$exporta='../exporta1';$xml='xslt/notas1.xsl';}
 if (substr($eval,0,1)=='2') {$exporta='../exporta2';$xml='xslt/notas2.xsl';}

@@ -13,6 +13,8 @@ $profesor = $_SESSION['profi'];
 ?>
 <?php
 include("../../menu.php");
+if (isset($_POST['aula'])) {$aula = $_POST['aula'];} elseif (isset($_GET['aula'])) {$aula = $_GET['aula'];} else{$aula="";}
+
   ?>
  <br />
   <div align=center>
@@ -43,6 +45,8 @@ include("../../menu.php");
   
 <?
 // Días de la semana 
+$NIVEL1="";
+$GRUPO1="";
 $a=array(1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 foreach($a as $hora => $nombre) {
 echo "<tr><th>$nombre</th>";

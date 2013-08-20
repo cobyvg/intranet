@@ -14,7 +14,6 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
-    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">    
 <?php
 include("../../menu.php");
 ?>

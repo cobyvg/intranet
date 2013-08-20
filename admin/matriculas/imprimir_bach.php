@@ -27,7 +27,7 @@ function AutoPrintToPrinter($server, $printer, $dialog=false)
     $this->IncludeJS($script);
 }
 }
-define ( 'FPDF_FONTPATH', '../../pdf/fontsPDF/' );
+define ( 'FPDF_FONTPATH', '../../pdf/font/' );
 # creamos el nuevo objeto partiendo de la clase ampliada
 $MiPDF = new PDF_AutoPrint();
 $MiPDF->SetMargins ( 20, 20, 20 );
@@ -115,7 +115,7 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->SetFont ( 'Times', 'B', 10  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
-	$MiPDF->Image ( '../../imag/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 8 );
 	$titulo2 = "MATRÍCULA DE ". $n_curso."º DE BACHILLERATO";
 	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'C', 0 );
@@ -330,7 +330,7 @@ e-mail: informacion.ced@juntadeandalucia.es
 	$MiPDF->SetFont ( 'Times', 'B', 11  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);		
-	$MiPDF->Image ( '../../imag/encabezado_junta.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado_junta.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 20 );
 	$MiPDF->Cell(168,5,$titulo_34,0,0,'C');
 	$MiPDF->SetFont ( 'Times', '', 10  );	

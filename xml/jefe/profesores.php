@@ -21,7 +21,7 @@ include("../../menu.php");
 <br />
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Administración <small> Actualización de los profesores</small></h2>
+  <h2>Administraci&oacute;n <small> Actualizaci&oacute;n de los profesores</small></h2>
 </div>
 <br />
 <div  align='center'>    
@@ -33,7 +33,7 @@ include("../../menu.php");
 
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
-if($archivo){ 
+if(isset($_FILES['archivo'])){  
 mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
 mysql_select_db($db);
  

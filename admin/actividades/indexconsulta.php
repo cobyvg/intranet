@@ -21,13 +21,11 @@ registraPagina($_SERVER['REQUEST_URI']);
 <br />
 </div>
  <?
-// Conexión con MySql
 mysql_connect($db_host, $db_user, $db_pass);
 mysql_select_db($db);
-
- if($submit2)
+ if(isset($_POST['submit2']))
   {
-  if ($dia == "" or $mes == "" or $ano == "" or $actividad == "" or $departamento == "" or $hoy == "" or $horario == "" or $descripcion == "" or $justificacion == "" or $dia == "00" or $mes == "00" or $ano == "0000") {
+  if ($actividad == "" or $departamento == "" or $hoy == "" or $horario == "" or $descripcion == "" or $justificacion == "" or $fecha_act == "") {
 
 echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -36,7 +34,7 @@ echo '<br /><div align="center"><div class="alert alert-danger alert-block fade 
           </div></div>';	
 exit;	
 }
-
+$todosgrupos="";
 foreach($_POST as $key => $val)
 {
 $todosgrupos .= $key;
@@ -75,7 +73,7 @@ for ($i=0;$i<count($profesor);$i++)
 {     
 $profe .= $profesor[$i].";";
 }   
-$fecha = "$ano-$mes-$dia";
+$fecha = cambia_fecha($fecha_act);
 mysql_query("UPDATE  actividades SET  grupos = '$grupos', actividad =  '$actividad', fecha = '$fecha', departamento = '$departamento', profesor = '$profe', descripcion = '$descripcion', justificacion = '$justificacion', horario = '$horario' WHERE id = '$id'");
 
 // Para cambiar la fecha simultaneamente, primero borramos los datos de la actividad actual en el calendario,...
@@ -145,15 +143,13 @@ $justificacion = $datos[10];
 <div class="well ">            
 <FORM action="indexconsulta.php" method="POST" name="Cursos">
            
-                <label style="display:INLINE">Fecha de la actividad<br /> 
-                 D&iacute;a:
-                  <input name="dia" type="text" value="<? echo $dia; ?>" size="2" maxlength="2" class="input-mini" style="display:inline"></label>
-                   <label style="display:INLINE">Mes:
-                  <input name="mes" type="text" value="<? echo $mes; ?>" size="2" maxlength="2" class="input-mini" style="display:inline"></label>
-                   <label style="display:INLINE">A&ntilde;o:
-                  <input name="ano" type="text" id="ano" value="<? echo $ano; ?>"  size="4" maxlength="4" class="input-mini" style="display:inline">
+                <label>Fecha de la actividad:<br /> 
+                      <div class="input-append" >
+            <input name="fecha_act" type="text" class="input input-small" value="<? echo "$dia-$mes-$ano"; ?>" data-date-format="dd-mm-yyyy" id="fecha_act" >
+  <span class="add-on"><i class="icon-calendar"></i></span>
+</div> 
               </label>
-              <br />
+              <hr>
                 <label>Titulo: <br />
                 <input name="actividad" type="text" id="actividad" value="<? echo $actividad; ?>" size="30" maxlength="128" style="width:90%"></label>
                <br />
@@ -202,16 +198,11 @@ else{
                 <SELECT multiple name='profesor[]' class="input-xlarge">
                     <?
 					if($departamento == "Actividades Extraescolares"){
-					echo "<OPTION>Mart&iacute;nez Mart&iacute;nez, M&ordf; Pilar</OPTION>";
-					}
-					elseif($departamento == "Religión"){
-					$texto = " where departamento = '$departamento'";
-					echo "<OPTION>Capilla Mata, M&ordf; Ángeles</OPTION>";
-					echo "<OPTION>Nuño López, Ángel</OPTION>";
+					echo "<OPTION selected>Mart&iacute;nez Mart&iacute;nez, M&ordf; Pilar</OPTION>";
 					}
 					elseif($departamento == "Relaciones de Género"){	
 					$texto = " where departamento = '$departamento'";
-					echo "<OPTION>Cabezas Sánchez, Esther</OPTION>";
+					echo "<OPTION selected>Cabezas Sánchez, Esther</OPTION>";
 					}
 					else{$texto = " where departamento = '$departamento'";}
 
@@ -220,7 +211,7 @@ while($filaprofe = mysql_fetch_array($profe))        {
 if($departamento == "Religión")
 {} 
 else{
-	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
+	      $opcion1 = printf ("<OPTION selected>$filaprofe[0]</OPTION>");
 	      echo "$opcion1";}
 
         }
@@ -307,5 +298,14 @@ function deseleccionar_todo(){
 			document.Cursos.elements[i].checked=0
 }
 </script>
+	<script>  
+	$(function ()  
+	{ 
+		$('#fecha_act').datepicker()
+		.on('changeDate', function(ev){
+			$('#fecha_act').datepicker('hide');
+		});
+		});  
+	</script>
   </BODY>
 </HTML>

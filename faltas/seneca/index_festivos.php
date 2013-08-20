@@ -26,17 +26,20 @@ include("../menu.php");
 </div>
 <br />
 <FORM ENCTYPE="multipart/form-data" ACTION="festivos.php" METHOD="post">
-<Table align='center' class="table table-striped table-bordered" style="width:600px">
-<tr>
-  <td align='justify'>Si has descargado el archivo <strong>200CalEscCent</strong> de Séneca (desde Séneca --> Centro --> Días festivos), puedes continuar con el segundo paso.</td></tr>
-<tr><td align="center"><p class="lead" align="center">Selecciona el
-    archivo con los datos de las Fiestas</p>
-    </td></tr> 
-<tr>
-  <td align="center" ><input type="file" name="archivo" class="input-file">
-    <br></td></tr>
-<tr><td align="center" ><div align="center"><INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary"></div></td></tr>
-</table>
+<div class="control-group">
+ <p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si has descargado el archivo <strong>200CalEscCent</strong> de Séneca (desde Séneca --> Centro --> Días festivos), puedes continuar con el segundo paso.</p>
+  <br />
+  <div class="well well-large" style="width:500px; margin:auto;" align="left">
+  <div class="controls">
+  <label class="control-label" for="file">Selecciona el archivo con los datos de las Fiestas y Vacaciones
+  </label>
+  <input type="file" name="archivo" class="input input-file span4" id="file">
+  <hr>
+  <div align="center">
+    <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">
+  </div>
+  </div>
+  </div>
 </FORM>
 <br />
 </div>

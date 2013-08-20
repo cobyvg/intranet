@@ -38,6 +38,7 @@ $_SESSION['todo_profe'] = $profesi;
 	elseif(($hora == '13' and $minutos > 45 ) or ($hora == '14' and $minutos < 45 ) ){$hora_dia = '6';}
 	else{ $hora_dia = "Fuera del Horario Escolar";}
 	}
+
 //$nl_curs10 = "select distinct a_grupo from horw where no_prof = '59' and dia = '1' and hora = '5'";
 $nl_curs10 = "select distinct a_grupo from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
 $nl_curs11 = mysql_query($nl_curs10); 

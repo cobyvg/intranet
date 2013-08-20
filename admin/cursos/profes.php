@@ -13,6 +13,8 @@ $profesor = $_SESSION['profi'];
 ?>
 <?php
 include("../../menu.php");
+if (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];} elseif (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];} else{$profeso="";}
+
 $profe = explode(", ",$profeso);
 ?>
 <br />
@@ -42,7 +44,7 @@ $profe = explode(", ",$profeso);
 </div></th>
   </tr>
 <?php
-   
+  $dia=""; 
   
 
 // Días de la semana 

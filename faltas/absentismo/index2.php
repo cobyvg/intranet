@@ -12,6 +12,13 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 include("../menu.php");
+
+if (isset($_GET['mes'])) {$mes = $_GET['mes'];}elseif (isset($_POST['mes'])) {$mes = $_POST['mes'];}else{$mes="";}
+if (isset($_GET['claveal'])) {$claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) {$claveal = $_POST['claveal'];}else{$claveal="";}
+if (isset($_GET['del'])) {$del = $_GET['del'];}elseif (isset($_POST['del'])) {$del = $_POST['del'];}else{$del="";}
+if (isset($_GET['inf'])) {$inf = $_GET['inf'];}elseif (isset($_POST['inf'])) {$inf = $_POST['inf'];}else{$inf="";}
+if (isset($_GET['texto'])) {$texto = $_GET['texto'];}elseif (isset($_POST['texto'])) {$texto = $_POST['texto'];}else{$texto="";}
+$mas2="";
 ?>
 <?
 if (strstr($_SESSION['cargo'],'8')==TRUE) {
@@ -46,7 +53,7 @@ Los datos del alumno han sido borrados de la Base de datos.
 			</div></div><br />';
 }
 // Procesamos datos si se ha dado al botón 
-if ($submit) {
+if (isset($_POST['submit'])) {
 mysql_query("update absentismo set $upd where claveal='$claveal' and mes='$mes'")	;
 // echo "update absentismo set $upd where claveal='$claveal' and mes='$mes'";
 echo '<div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
@@ -69,7 +76,7 @@ Los datos de los alumnos absentistas se han actualizado.
 
 if ($inf=="1") {
 	echo '<div align="center" class="well well-large" style="width:600px;margin:auto">';
-echo "<h4 align='center'>Datos del Alumno</h4><br />";
+echo "<legend align='center'>Datos del Alumno</legend>";
 $al=mysql_query("SELECT distinct apellidos, nombre, absentismo.nivel, absentismo.grupo, numero, jefatura, orientacion, tutoria FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='$claveal' and mes='$mes' $mas2");
 
 if (mysql_num_rows($al)>0) {
@@ -78,15 +85,14 @@ $datos=mysql_fetch_array($al);
 if (strstr($_SESSION['cargo'],'1')==TRUE) {$obs=$datos[5];}elseif (strstr($_SESSION['cargo'],'8')==TRUE){$obs=$datos[6];}else {$obs=$datos[7];}
 echo  "<center><table class='table table-striped table-bordered' style='width:auto'><tr><th align='center'> NOMBRE </th><th align='center'> CURSO </th>
 <th align='center'> MES </th><th align='center'> Nº FALTAS </th></tr>
-<tr><td align='center'>$datos[0], $datos[1]</td><td id='' align='center'>$datos[2]-$datos[3]</td><td id='' align='center'>$mes</td><td id='' align='center'>$datos[4]</td></tr></table><br />";
+<tr class='warning'><td align='center'>$datos[0], $datos[1]</td><td id='' align='center'>$datos[2]-$datos[3]</td><td id='' align='center'>$mes</td><td id='' align='center'>$datos[4]</td></tr></table><br />";
 echo "<form enctype='multipart/form-data' action='index2.php' method='post'>";
 ?>
 <input name="claveal" type="hidden" value="<? echo $claveal;?>">
 <input name="mes" type="hidden" value="<? echo $mes;?>">
-<label>Observaciones<br />
+<legend>Observaciones</legend>
 <textarea name="texto" title="Informe de Alumno absentista." class="span6" rows="12"><? echo $obs;?></textarea>
-</label>
-<br />
+<hr />
 <input type="submit" name="submit" value="Enviar Informe" class="btn btn-primary">
 <?
 echo "</form>";
@@ -120,7 +126,7 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
  	if (strlen($jefatura)>0) {$chj=" checked ";}else{$chj="";}if(strlen($orientacion)>0) {$cho=" checked ";}else{$cho="";}if (strlen($tutoria)>0) {$cht=" checked ";}else{$cht="";}
 	echo "<tr><td  align='left'>$apellidos, $nombre</td><td>$nivel-$grupo</td><td>$mes</td><td>$numero</td>";
         if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
-	echo "<td><input type='checkbox' $chj></td><td><input type='checkbox' $cho></td><td><input type='checkbox' $cht></td>";
+	echo "<td><div class='control-group warning'><div class='controls'><input type='checkbox' disabled $chj></td><td><input type='checkbox' disabled $cho></td><td><input type='checkbox' disabled $cht></div></div></td>";
         }
 	echo "<td align='center'><a href='index2.php?claveal=$claveal&mes=$mes&inf=1'> <i class='icon icon-pencil'> </i></a>";
 if (strstr($_SESSION['cargo'],'1')==TRUE) {

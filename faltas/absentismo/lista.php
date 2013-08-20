@@ -12,10 +12,14 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 include("../menu.php");
+
+if (isset($_GET['mes'])) {$mes = $_GET['mes'];}elseif (isset($_POST['mes'])) {$mes = $_POST['mes'];}else{$mes="";}
+if (isset($_GET['num_mes'])) {$num_mes = $_GET['num_mes'];}elseif (isset($_POST['num_mes'])) {$num_mes = $_POST['num_mes'];}else{$num_mes="";}
+if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{$numero="";}
 ?>
 <h3 align="center"> Alumnos absentistas </h3><br /><br />
 <?
-if ($submit) {
+if (isset($_POST['submit'])) {
 	          if($mes=='Septiembre'){$n_mes='09';}
                     if($mes=='Octubre'){$n_mes='10';}
                     if($mes=='Noviembre'){$n_mes='11';}

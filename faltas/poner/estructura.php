@@ -6,7 +6,7 @@
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span4">
-<h2><small class="text-success"> <? echo $profesor;?> &nbsp;&nbsp;</small></h2><hr />
+<h2 align="center"><small class="text-success"> <? echo $profesor;?> &nbsp;&nbsp;</small></h2><hr />
 <div class="well-transparent well-large">
 <?
   if (isset($_SESSION['todo_profe'])) {
@@ -24,33 +24,33 @@
           else { 
 profesor();
           }
-		if ($registro) {
+		if (isset($registro)) {
 			echo '<div align="left""><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			Las Faltas de Asistencia han sido registradas.
           </div></div>';
 		}
-		if ($mens1) {
+		if (isset($mens1)) {
 			echo '<div align="left""><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens1.'</div></div>';
 		}
-		if ($mens2) {
+		if (isset($mens2)) {
 			echo '<div align="left""><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens2.'</div></div>';
 		}
-		if ($mens3) {
+		if (isset($mens3)) {
 			echo '<div align="left""><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens3.'</div></div>';
 		}
-		if ($mens4) {
+		if (isset($mens4)) {
 			echo '<div align="left""><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_4.'</div></div>';
 		}
-		if ($fiesta) {
+		if (isset($fiesta)) {
 			echo '<div align="left""><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$fiesta.'</div></div>';
 		}
-		if ($mens_fecha) {
+		if (isset($mens_fecha)) {
 			echo '<div align="left""><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_fecha.'</div></div>';
 		}				
@@ -71,7 +71,7 @@ profesor();
             include("profes.php"); 
             ?>
              <div align="center"> 
-    <input type="submit" name="enviar" class="btn btn-primary" value="Registrar las faltas de asistencia">
+    <br /><input type="submit" name="enviar" class="btn btn-primary" value="Registrar las faltas de asistencia">
   </div>                   
   </div>
   </div>      

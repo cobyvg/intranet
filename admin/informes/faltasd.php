@@ -1,7 +1,4 @@
-
-<?php
-    
-    
+<?php     
      $SQLT = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALTAS.falta = 'F' and FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";
      $SQLTJ = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal
      and FALTAS.falta = 'J' and  FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";
@@ -13,10 +10,7 @@
   
     ?>
    <?php
-  	$fechasp0=explode("-",$fecha1);
-	$fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
-	$fechasp2=explode("-",$fecha2);
-	$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
+
   // Datos del Alumno
  // print $claveal;
   $SQL0 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.claveal = $claveal  and FALTAS.fecha >= '2005-09-15' GROUP BY FALUMNOS.apellidos";

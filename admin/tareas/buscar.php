@@ -1,15 +1,15 @@
-<?php
-  if($todos == "1") { 
+<?
+  if(isset($_GET['todos']) and $_GET['todos'] == "1") { 
   $titulo = "Todos los Informes en este año escolar";
 } else { 
   $titulo = "Informes que responden a los datos introducidos";
 }
-  if($ver) { 
+  if(isset($_GET['ver']) or isset($_POST['ver'])) { 
   $id = $llenar;
   include("infocompleto.php");
 exit;}
 
-  if($meter) { 
+  if(isset($_GET['meter']) or isset($_POST['meter'])) { 
   $id = $llenar;
   include("informar.php");
 exit;
@@ -31,6 +31,14 @@ $profesor = $_SESSION['profi'];
 include("../../menu.php");
 include("menu.php");
 $datatables_activado = true;
+if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];}else{$apellidos="";}
+if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
+
+if (!(empty($unidad))) {
+$tr_uni=explode("-",$unidad);
+$nivel = $tr_uni[0];
+$grupo = $tr_uni[1];
+}
 ?>
 <div align="center">
 <div class="page-header" align="center">
@@ -53,7 +61,7 @@ $datatables_activado = true;
   if(!(empty($nivel))) {$query .=  "and nivel = '$nivel'";} 
   if(!(empty($grupo))) {$query .=  "and grupo = '$grupo'";} 
   $query .=  " ORDER BY FECHA DESC";
-
+//echo $query;
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 
 echo "<table class='table table-striped table-bordered tabladatos' align='center'><thead>";
@@ -83,7 +91,7 @@ if (mysql_num_rows($result) > 0)
    $result0 = mysql_query ( "select tutor from FTUTORES where nivel = '$row->NIVEL' and grupo = '$row->GRUPO'" );
 $row0 = mysql_fetch_array ( $result0 );	
 $tuti = $row0[0];
-		 if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
+		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
    	   	echo "&nbsp;&nbsp;<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='icon icon-edit icon-white' title='Rellenar Informe'> </i> </a>";
 		echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> 	";
    }	

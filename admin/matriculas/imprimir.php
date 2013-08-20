@@ -27,7 +27,7 @@ function AutoPrintToPrinter($server, $printer, $dialog=false)
     $this->IncludeJS($script);
 }
 }
-define ( 'FPDF_FONTPATH', '../../pdf/fontsPDF/' );
+define ( 'FPDF_FONTPATH', '../../pdf/font/' );
 # creamos el nuevo objeto partiendo de la clase ampliada
 $MiPDF = new PDF_AutoPrint();
 $MiPDF->SetMargins ( 20, 20, 20 );
@@ -183,7 +183,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->SetFont ( 'Times', 'B', 10  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
-	$MiPDF->Image ( '../../imag/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 8 );
 	$titulo2 = "EDUCACIÓN SECUNDARIA OBLIGATORIA                                                           MATRICULA";
 	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'L', 0 );

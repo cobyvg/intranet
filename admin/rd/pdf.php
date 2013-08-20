@@ -10,7 +10,10 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 $profesor = $_SESSION ['profi'];
 ?>
 <?
-	require_once("../../pdf/dompdf_config.inc.php"); 
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+if (isset($_GET['imprimir'])) {$imprimir = $_GET['imprimir'];}elseif (isset($_POST['imprimir'])) {$imprimir = $_POST['imprimir'];}else{$imprimir="";}
+
+require_once("../../pdf/dompdf_config.inc.php"); 
 
 if ($imprimir=="1") {
 		mysql_query("update r_departamento set impreso = '1' where id = '$id'");

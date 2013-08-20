@@ -25,7 +25,7 @@ include("../../menu.php");
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
-if($archivo){  
+if(isset($_FILES['archivo'])){  
 mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
 mysql_select_db($db);
 
@@ -43,7 +43,8 @@ mysql_query("CREATE TABLE IF NOT EXISTS `departamento_temp` (
   `IDEA` varchar(12) NOT NULL default '',
    KEY `NOMBRE` (`NOMBRE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1");
-if($actualizar){}
+
+if(isset($_POST['actualizar'])){}
 else{
  $base0 = "delete from departamentos where idea not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria'";
 }

@@ -32,6 +32,7 @@ $nombre_asig = $rowasig[0];
 	else 	{	$asig_pend = $rowasig[2];	}	
 	}
 $califica1 = "select nombre from calificaciones where codigo = '" . $bloque[1] . "'";
+
 $numero1 = mysql_query($califica1);
 $rown1 = mysql_fetch_array($numero1);
 

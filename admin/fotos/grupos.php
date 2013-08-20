@@ -11,17 +11,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include '../../menu.php';
-if (isset($_POST['curso'])) {
-	$curso = $_POST['curso'];
-}
-elseif (isset($_GET['curso'])) {
-	$curso = $_GET['curso'];
-} 
-else
-{
-$curso="";
-}
-
+if (isset($_POST['curso'])) {$curso = $_POST['curso'];} elseif (isset($_GET['curso'])) {$curso = $_GET['curso'];} else{$curso="";}
 ?>
      <div align=center>
   <div class="page-header" align="center">

@@ -14,6 +14,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 $idea = $_SESSION ['ide'];
+if (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}
 ?>
 <br />
    <div align=center>
@@ -38,7 +39,7 @@ if(file_exists("../../xml/fotos_profes/".$idea.".jpg")){
 	}
 }
 
-if ($enviar and empty($File))
+if (isset($_POST['enviar']) and empty($_POST['File']))
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -14,27 +14,29 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Departamentos y Especialidades</title>
-<LINK href="http://<? echo $dominio; ?>/<? echo $css1; ?>" rel="stylesheet" type="text/css">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css2; ?>" rel="stylesheet" type="text/css">
-</head>
-<body>
-<div align="center" style="width:700px;margin:auto;margin-top:25px;">
-<div class="titulogeneral" align=center>Importación de Días Festivos.</div>
+<?php
+include("../../menu.php");
+include("../menu.php");
+?>
+<br />
+<div align="center">
+<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Días festivos y vacaciones</small></h2>
+</div>
+<br />
 <?
  // Conexión 
- 
 mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
 
 // Borramos datos
 mysql_query("truncate table festivos");	
 
 // Importamos los datos del fichero CSV en la tabña alma.
-$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die("<p>No se ha podido abrir el fichero de importación<br> Asegúrate de que su formato es correcto y no está vacío.</p>"); 
+$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('
+<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+No se ha podido abrir el fichero de importación<br> Asegúrate de que su formato es correcto y no está vacío.
+			</div></div><br />	'); 
 while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 {
 $tr = explode("/",trim($data1[0]));
@@ -46,8 +48,13 @@ fclose($handle);
 $borrarvacios = "delete from festivos where date(fecha) = '0000-00-00'";
  mysql_query($borrarvacios);
  if (mysql_affected_rows() > '0') {
- 	echo "<p id='texto_en_marco'>Los datos se han importado correctamente.</p>";
- }
+?>
+ 	<div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+	 Los datos se han importado correctamente.
+			</div></div><br /> 
+			<?
+			}
 ?>
 <br />
 <input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" />

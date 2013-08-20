@@ -11,18 +11,20 @@ $borrajusti1 = mysql_fetch_array($borrajusti0);
 $nombreal = trim($borrajusti1[3]);
 $apellidoal = trim($borrajusti1[2]);
 $deljusti = "DELETE FROM FALTAS WHERE FECHA = '$year-$month-$today' and CLAVEAL = '$alumno' and FALTA = 'J'";
-mysql_query($deljusti) or die("No se ha podido eliminar la Falta Justificada.<br> Ponte en contacto con Miguel.");		
+mysql_query($deljusti) or die("No se ha podido eliminar la Falta Justificada.<br> Ponte en contacto con quien pueda arreglarlo..");		
 }
 // Aquí empieza la justificación.
 else 
 {
 $justifica0 = "SELECT FALTA, FALTAS.NC, FALUMNOS.CLAVEAL, FALTAS.HORA, FALTAS.CODASI FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno'";
+// echo $justifica0."<br>";
     $justifica1 = mysql_query($justifica0);
-    
+// echo mysql_num_rows($justifica1)."<br>";
     if (mysql_num_rows($justifica1) > 0) {    	
     	while ($faltones = mysql_fetch_array($justifica1)) {
 $justificacion = "UPDATE  FALTAS SET  FALTA =  'J' WHERE  FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno' and FALTAS.FALTA = 'F'";
 mysql_query($justificacion);
+// echo $justificacion."<br>";
     	}    	
     }
 // S i el tutor quiere justificar una falta antes de que haya sido introducida en la base de datos, procedemos a rellenar todas las horas de ese día con la "J".   
@@ -43,6 +45,8 @@ mysql_query($justificacion);
  // Fiestas del Año, Vacaciones, etc.
  	$comienzo_del_curso = strtotime($inicio_curso);
 	$final_del_curso = strtotime($fin_curso);
+	$dia_festivo="";
+	$mens_fecha="";
 $repe=mysql_query("select fecha from festivos where date(fecha) = date('$fecha33')");
 if (mysql_num_rows($repe) > '0') {	
 	$dia_festivo='1';
@@ -108,6 +112,8 @@ $nombredia = $hoy[wday];
 // Insertamos la justificación en todas las horas de esa fecha para ese alumno. Si hay varias asignaturas y profesores en una hora, esos campos quedan vacío. Asunto por rematar.
 $justifica10 = "insert INTO  FALTAS (  CLAVEAL , NIVEL ,  GRUPO ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$alumno',  '$nivel',  '$grupo',  '$nc',  '$year-$month-$today', '$i', '$nombredia', '$profeso',  '$codasi', 'F')";	
 mysql_query($justifica10) or die("No se ha podido justificar las faltas.");	
+// echo $justifica10."<br>";
+
     	} 	
     }
     }

@@ -9,20 +9,10 @@
       
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">
-    
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
     <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">
-    
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
     <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
-    <!--[if IE 7]>
-      <link href="http://<? echo $dominio;?>/intranet/css/font-awesome-ie7.min.css" rel="stylesheet">
-    <![endif]-->
-    
-    <!--[if lt IE 9]>
-      <script src="http://<? echo $dominio;?>/intranet/js/html5shiv.js"></script>
-    <![endif]-->
-    
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
     <script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>                 
 </head>

@@ -1,5 +1,5 @@
 <?
-if($enviar=="Introducir datos"){
+if(isset($_POST['enviar']) and $_POST['enviar']=="Introducir datos"){
 include("intextos2.php");
 exit;
 }
@@ -15,6 +15,26 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?php
 include("../../menu.php");
+if (isset($_GET['titulo'])) {$titulo = $_GET['titulo'];}elseif (isset($_POST['titulo'])) {$titulo = $_POST['titulo'];}else{$titulo="";}
+if (isset($_GET['asignatura'])) {$asignatura = $_GET['asignatura'];}elseif (isset($_POST['asignatura'])) {$asignatura = $_POST['asignatura'];}else{$asignatura="";}
+if(stristr($_SESSION['cargo'],'4') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE)
+    {
+    	$departamento = $_SESSION['dpt'];
+    }
+    else{	
+if (isset($_GET['departamento'])) {$departamento = $_GET['departamento'];}elseif (isset($_POST['departamento'])) {$departamento = $_POST['departamento'];}else{$departamento="";}
+    }
+if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['editorial'])) {$editorial = $_GET['editorial'];}elseif (isset($_POST['editorial'])) {$editorial = $_POST['editorial'];}else{$editorial="";}
+if (isset($_GET['isbn'])) {$isbn = $_GET['isbn'];}elseif (isset($_POST['isbn'])) {$isbn = $_POST['isbn'];}else{$isbn="";}
+if (isset($_GET['ano'])) {$ano = $_GET['ano'];}elseif (isset($_POST['ano'])) {$ano = $_POST['ano'];}else{$ano="";}
+if (isset($_GET['autor'])) {$autor = $_GET['autor'];}elseif (isset($_POST['autor'])) {$autor = $_POST['autor'];}else{$autor="";}
+if (isset($_GET['NOTAS'])) {$NOTAS = $_GET['NOTAS'];}elseif (isset($_POST['NOTAS'])) {$NOTAS = $_POST['NOTAS'];}else{$NOTAS="";}
+if (isset($_GET['obligatorio'])) {$obligatorio = $_GET['obligatorio'];}elseif (isset($_POST['obligatorio'])) {$obligatorio = $_POST['obligatorio'];}else{$obligatorio="";}
+if (isset($_GET['clase'])) {$clase = $_GET['clase'];}elseif (isset($_POST['clase'])) {$clase = $_POST['clase'];}else{$clase="";}
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
+
 ?>
 <br />
 <div align="center">
@@ -24,7 +44,8 @@ include("../../menu.php");
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span5 offset1">	
-<? if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
+<? 
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
 { ?>
 <h3>Registro de Libros de Texto </h3>
 <br />
@@ -36,8 +57,10 @@ include("../../menu.php");
   Nivel:<br />
     <select name="nivel" id="select4" onChange="submit()" class="input-xxlarge">
       <?
- if($nivel)
-        {echo "<option>$nivel</option>";}
+ if(isset($_POST['nivel']))
+        {
+        $nivel = $_POST['nivel'];
+        echo "<option>$nivel</option>";}
 		else{echo "<option></option>";}
   $tipo = "select distinct curso from alma order by curso";
   $tipo1 = mysql_query($tipo);
@@ -52,7 +75,7 @@ echo "<option>$completo</option>";
      </form>
      <form method="post" action="intextos.php" class="form-vertical">   
     <label>Grupos:
-      <input name="año" type="hidden" value="<? 
+      <input name="ano" type="hidden" value="<? 
 // Cosas de la Fecha
 $fecha = (date("Y"));
 echo $fecha;
@@ -84,7 +107,17 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       <input name="editorial" type="text" id="editorial" class="input-xxlarge" value="<? echo $editorial; ?>">
     </label>
     <label>Departamento<span style="color:#9d261d"> (*)</span><br />
-      <select name="departamento" id="departamento"  value =" value="<? echo $departamento; ?>"" onChange="submit()"  class="input-xxlarge">
+    <?
+    if(stristr($_SESSION['cargo'],'4') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE)
+    {
+    ?>
+        <input type="text" name="departamento" id="departamento"  value ="<? echo  $departamento;?>" readonly class="input-xxlarge">
+    
+    <?	
+    }
+    else{
+    ?>
+    <select name="departamento" id="departamento"  value =" value="<? echo $departamento; ?>"" onChange="submit()"  class="input-xxlarge">
         <option>
         <?  echo $departamento;?>
         </option>
@@ -103,6 +136,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
 	} 
 	?>
       </select>
+      <? } ?>
     </label>
     <label>Asignatura <span style="color:#9d261d"> (*)</span><br />
       <select name="asignatura" id="asignatura" class="input-xlarge"  value="<? echo $asignatura; ?>">
@@ -147,7 +181,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
 ?>
 </div>
 <div class="span5">	
-  <form name="textos" method="post" action="textos.php">
+  <form name="intextos" method="post" action="textos.php">
     <h3>Consulta de Textos por Departamento. </h3>
     <br />
     <div class="well well-large" style="width:95%;" align="left">

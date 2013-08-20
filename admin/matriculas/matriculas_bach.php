@@ -539,7 +539,7 @@ exit();
 	}
 	?> <br />
 <div style="width: 990px; margin: auto; border: 2px solid #aaa"><img
-	src="../../imag/encabezado.jpg" width="988" height="80"
+	src="../../img/encabezado.jpg" width="988" height="80"
 	style="border-left: 1px solid #aaa;" />
 
 <table align="center">

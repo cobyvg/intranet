@@ -15,10 +15,28 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $profe = $_SESSION['profi'];
 if ($mod_sms) {
-
+	if (isset($_GET['padres2'])) {$padres2 = $_GET['padres2'];}elseif (isset($_POST['padres2'])) {$padres2 = $_POST['padres2'];}else{$padres2="";}
+	if (isset($_GET['padres3'])) {$padres3 = $_GET['padres3'];}elseif (isset($_POST['padres3'])) {$padres3 = $_POST['padres3'];}else{$padres3="";}
+	if (isset($_GET['padres4'])) {$padres4 = $_GET['padres4'];}elseif (isset($_POST['padres4'])) {$padres4 = $_POST['padres4'];}else{$padres4="";}
+	if (isset($_GET['padres5'])) {$padres5 = $_GET['padres5'];}elseif (isset($_POST['padres5'])) {$padres5 = $_POST['padres5'];}else{$padres5="";}
+	if (isset($_GET['padres6'])) {$padres6 = $_GET['padres6'];}elseif (isset($_POST['padres6'])) {$padres6 = $_POST['padres6'];}else{$padres6="";}
+	if (isset($_GET['padres7'])) {$padres7 = $_GET['padres7'];}elseif (isset($_POST['padres7'])) {$padres7 = $_POST['padres7'];}else{$padres7="";}
+	if (isset($_GET['padres8'])) {$padres8 = $_GET['padres8'];}elseif (isset($_POST['padres8'])) {$padres8 = $_POST['padres8'];}else{$padres8="";}
+	if (isset($_GET['padres9'])) {$padres9 = $_GET['padres9'];}elseif (isset($_POST['padres9'])) {$padres9 = $_POST['padres9'];}else{$padres9="";}
+	if (isset($_GET['fecha12'])) {$fecha12 = $_GET['fecha12'];}elseif (isset($_POST['fecha12'])) {$fecha12 = $_POST['fecha12'];}else{$fecha12="";}
+	if (isset($_GET['fecha22'])) {$fecha22 = $_GET['fecha22'];}elseif (isset($_POST['fecha22'])) {$fecha22 = $_POST['fecha22'];}else{$fecha22="";}
+	if (isset($_GET['hermanos'])) {$hermanos = $_GET['hermanos'];}elseif (isset($_POST['hermanos'])) {$hermanos = $_POST['hermanos'];}else{$hermanos="";}
+	if (isset($_GET['login'])) {$login = $_GET['login'];}elseif (isset($_POST['login'])) {$login = $_POST['login'];}else{$login="";}
+	if (isset($_GET['password'])) {$password = $_GET['password'];}elseif (isset($_POST['password'])) {$password = $_POST['password'];}else{$password="";}
+	if (isset($_GET['extid'])) {$extid = $_GET['extid'];}elseif (isset($_POST['extid'])) {$extid = $_POST['extid'];}else{$extid="";}
+	if (isset($_GET['tpoa'])) {$tpoa = $_GET['tpoa'];}elseif (isset($_POST['tpoa'])) {$tpoa = $_POST['tpoa'];}else{$tpoa="";}
+	if (isset($_GET['mobile'])) {$mobile = $_GET['mobile'];}elseif (isset($_POST['mobile'])) {$mobile = $_POST['mobile'];}else{$mobile="";}
+	if (isset($_GET['messageQty'])) {$messageQty = $_GET['messageQty'];}elseif (isset($_POST['messageQty'])) {$messageQty = $_POST['messageQty'];}else{$messageQty="";}
+	if (isset($_GET['messageType'])) {$messageType = $_GET['messageType'];}elseif (isset($_POST['messageType'])) {$messageType = $_POST['messageType'];}else{$messageType="";}
 // Si se han mandado datos desde el Formulario principal de mas abajo...
 if($padres2 or $padres3 or $padres4 or $padres5 or $padres6 or $padres7 or $padres8 or $padres9)
 {
+	
 	// Fechas y demás...
   $fechasp0=explode("-",$fecha12);
   $fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
@@ -37,7 +55,7 @@ if($padres2 or $padres3 or $padres4 or $padres5 or $padres6 or $padres7 or $padr
 		elseif($padres9){$nivel_sms = "and (nivel = '1P' or nivel = '2P')";}
  $SQLTEMP = "create table faltastemp2 SELECT CLAVEAL, falta, (count(*)) AS numero FROM  FALTAS where falta = 'F' 
  and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' $nivel_sms group by claveal";
- // echo $SQLTEMP;
+  //echo $SQLTEMP;
   $resultTEMP= mysql_query($SQLTEMP);
   mysql_query("ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
   $SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero > '3'";
@@ -85,8 +103,12 @@ $extid = $n_sms[0]+1;
 <?
 include("../menu.php");
 ?>
-<div align="center">
-<h2>Comunicación de Faltas de Asistencia a los Padres mediante SMS</h2><br />
+<br />
+ <div align=center>
+  <div class="page-header" align="center">
+  <h2>SMS <small> Comunicación de Faltas de Asistencia a los Padres </small></h2>
+</div>
+
   <?php
   if ($hermanos) {
 	include("hermanos.php");
@@ -165,14 +187,33 @@ $posterior = $fecha_fin[0];
 $fc2 = explode("-",$posterior);
 $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 ?>
+<br />
+
+<div class="container">
+<div class="row">
+<div class="span6 offset3 well well-large">
 <form enctype='multipart/form-data' action='sms_cpadres.php' method='post' class="form-inline"> 
-<br /><table class="table table-bordered table-striped" style="width:450px; margin:auto">
-    <tr><td colspan="2">
-    <h6 align="center">Selecciona el rango de fechas</h6>
+<br /><table class="table" style="width:450px; margin:auto">
+ 
+    <legend align="center">Selecciona el rango de fechas</legend>
+
     <tr>
-       <td align="center"><label>Inicio &nbsp;&nbsp;<input type='text' name='fecha12' value='<? if(empty($fecha12)){echo $fech1;} else {echo $fecha12;}?>' size='10' maxlength='10' class="input-small" /></label>
+       <td align="center">
+                <label>Inicio<br />
+ <div class="input-append" style="display:inline;" >
+            <input name="fecha12" type="text" class="input input-small" value="<? if(empty($fecha12)){echo $fech1;} else {echo $fecha12;}?>" data-date-format="dd-mm-yyyy" id="fecha12" >
+  <span class="add-on"><i class="icon-calendar"></i></span>
+</div> 
+</label>     
 	   </td>
-       <td align="center"><label>Fin &nbsp;&nbsp;<input type='text' name='fecha22' value='<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>' size='10' maxlength='10' class="input-small"/></label></td>
+	   <td>
+      <label>Fin<br />
+ <div class="input-append" style="display:inline;" >
+            <input name="fecha22" type="text" class="input input-small" value="<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>" data-date-format="dd-mm-yyyy" id="fecha22" >
+  <span class="add-on"><i class="icon-calendar"></i></span>
+</div> 
+    </label> 
+       </td>
     </tr>
     <tr>
     	<td colspan="2" style="azimuth:6px" align="center"><br>
@@ -198,6 +239,9 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 
 </form>
 </div>
+
+</div>
+</div>
 <?
   // Tabla temporalñ y recogida de datos
  $SQLDELF = "drop table `faltastemp2`";
@@ -212,5 +256,23 @@ El módulo de envío de SMS debe ser activado en la Configuración general de la In
  }
 ?>
 <? include("../pie.php");?>
+<script>  
+	$(function ()  
+	{ 
+		$('#fecha12').datepicker()
+		.on('changeDate', function(ev){
+			$('#fecha12').datepicker('hide');
+		});
+		});  
+	</script>
+	<script>  
+	$(function ()  
+	{ 
+		$('#fecha22').datepicker()
+		.on('changeDate', function(ev){
+			$('#fecha22').datepicker('hide');
+		});
+		});  
+	</script>
 </body>
 </html>

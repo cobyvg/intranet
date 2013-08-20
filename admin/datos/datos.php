@@ -13,27 +13,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 
-if (isset($_POST['nivel'])) {
-	$nivel = $_POST['nivel'];
-} 
-elseif (isset($_GET['nivel'])) {
-	$nivel = $_GET['nivel'];
-} 
-else
-{
-$nivel="";
-}
-if (isset($_POST['grupo'])) {
-	$grupo = $_POST['grupo'];
-}
-elseif (isset($_GET['grupo'])) {
-	$grupo = $_GET['grupo'];
-} 
-else
-{
-$grupo="";
-}
-
+if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="";}
+if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];} elseif (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];} else{$nombre="";}
+if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];} elseif (isset($_GET['apellidos'])) {$apellidos = $_GET['apellidos'];} else{$apellidos="";}
+if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al="";}
 ?>
  <br />
   <div align="center">
@@ -78,38 +61,31 @@ $grupo="";
    }
     $AUXSQL == "";
   #Comprobamos si se ha metido Apellidos o no.
-    if  (TRIM("$APELLIDOS")=="")
+    if  (TRIM("$apellidos")=="")
     {
     $AUXSQL .= " AND 1=1 ";
     }
     ELSE
     {
-    $AUXSQL .= " and alma.apellidos like '%$APELLIDOS%'";
+    $AUXSQL .= " and alma.apellidos like '%$apellidos%'";
     }
-  if  (TRIM("$NOMBRE")=="")
+  if  (TRIM("$nombre")=="")
     {
     $AUXSQL .= " AND 1=1 ";
     }
     ELSE
     {
-    $AUXSQL .= " and alma.nombre like '%$NOMBRE%'";
+    $AUXSQL .= " and alma.nombre like '%$nombre%'";
     }
-		  if  (TRIM("$grupo")=="")
+		  if  (TRIM("$unidad")=="")
     {
     $AUXSQL .= " AND 1=1 ";
     }
     ELSE
     {
-    $AUXSQL .= " and alma.grupo like '$grupo%'";
+    $AUXSQL .= " and alma.unidad like '$unidad%'";
     }
-	  if  (TRIM("$nivel")=="")
-    {
-    $AUXSQL .= " AND 1=1 ";
-    }
-    ELSE
-    {
-    $AUXSQL .= " and alma.nivel like '$nivel%'";
-    }
+	
   	if  (TRIM("$clave_al")=="")
     {
     $AUXSQL .= " AND 1=1 ";

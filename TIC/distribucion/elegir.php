@@ -60,7 +60,7 @@ $count= mysql_num_rows ($sql);
        <td id='filaprincipal' colspan='5' align='center'>Alumnos del Agrupamiento Flexible <? echo $nivel.'-'.$grupo1.'-'.$grupo2.'-'.$grupo3 ;?></td></tr>  
        	  <tr>
           <td id='filasecundaria' align='center'>NC</td>
-          <? if(is_dir("../../imag/fotos")){?><td id="filasecundaria"  align="center">FOTO</td><? }?> 
+          <? if(is_dir("../../img/fotos")){?><td id="filasecundaria"  align="center">FOTO</td><? }?> 
           <td id='filasecundaria' align='center'>GRUPO</td>
                <td id='filasecundaria' align='center' colspan='2'>ALUMNO</td>  
            </tr>
@@ -69,7 +69,7 @@ if (is_numeric($row[6])) {	$sel="";}else {$sel=" checked";}
 	?>	       
    <tr>
    <td align='center' style="vertical-align:middle; background-color: #E0E8FF"><? echo $row[3];?></td>
-   <? if(file_exists("../../imag/fotos/$row[0].jpg")){?><td align='center'><img width="55" height="68" src="../../imag/fotos/<? echo $row[0].'.jpg';?>"></td><? }?>
+   <? if(file_exists("../../xml/fotos/$row[0].jpg")){?><td align='center'><img width="55" height="68" src="../../xml/fotos/<? echo $row[0].'.jpg';?>"></td><? }?>
                <td align='center' style="vertical-align:middle; background-color: #E0E8FF"><? echo $nivel."-".$row[5];?></td>
                <td style="vertical-align:middle"><? echo $row[2].", ".$row[1];?></td>
 			   <td style='margin:0px;padding:0px; vertical-align:middle; background-color: #E0E8FF' >			

@@ -16,6 +16,13 @@ exit;
 ?>
 <?
 include("../../menu.php");
+if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];}else{$profeso="";}
+if (isset($_GET['sustituido'])) {$sustituido = $_GET['sustituido'];}elseif (isset($_POST['sustituido'])) {$sustituido = $_POST['sustituido'];}else{$sustituido="";}
+if (isset($_GET['hora'])) {$hora = $_GET['hora'];}elseif (isset($_POST['hora'])) {$hora = $_POST['hora'];}else{$hora="";}
+if (isset($_GET['submit2'])) {$submit2 = $_GET['submit2'];}elseif (isset($_POST['submit2'])) {$submit2 = $_POST['submit2'];}else{$submit2="";}
+if (isset($_GET['gu_fecha'])) {$gu_fecha = $_GET['gu_fecha'];}elseif (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="";}
+if (isset($_GET['n_dia'])) {$n_dia = $_GET['n_dia'];}elseif (isset($_POST['n_dia'])) {$n_dia = $_POST['n_dia'];}else{$n_dia="";}
+
 if ($n_dia == '1') {$nombre_dia = 'Lunes';}
 if ($n_dia == '2') {$nombre_dia = 'Martes';}
 if ($n_dia == '3') {$nombre_dia = 'Miércoles';}
@@ -50,7 +57,7 @@ Profesor de guardia: <span style='color:#08c;'><? echo $profeso;?></small></h2>
 <?
 $sql = "SHOW TABLES FROM $db";
 $result = mysql_query($sql);
-
+$guardia="";
 while ($row = mysql_fetch_row($result)) {
     $guardia.=$row[0].";";
 }
@@ -96,7 +103,7 @@ Has actualizado correctamente los datos del Profesor que sustituyes.
 			exit();
 		}
 
-		
+		$c1="";
 		$reg_sust0 = mysql_query("select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and profe_aula = '$sustituido'");
 			if (mysql_num_rows($reg_sust0) > '0') {
 		$c1 = "2";
@@ -114,7 +121,7 @@ $sustituido.' ya ha sido sustituido a la $hora hora el día '.$fecha_reg.'. <br>S
           </div></div>';
 exit();
 			}
-		if (!($c1) > '0') {				 	
+		if (!($c1 > '0')) {				 	
 			$r_profe = mb_strtoupper($profeso, "ISO-8859-1");
 			mysql_query("insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$sustituido', '$n_dia', '$hora', NOW(), '$g_fecha')");
 			if (mysql_affected_rows() > 0) {

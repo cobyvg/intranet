@@ -19,15 +19,14 @@ $profesor = $_SESSION ['profi'];
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
 <meta name="author" content="">
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">  
-    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css">   
-<!-- TinyMCE -->
+
 <script src="http://<? echo $dominio;?>/intranet/js/tinymce/tinymce.min.js"></script>
 <script>
 tinymce.init({
@@ -190,10 +189,12 @@ if ($edicion=="1") {
 <div class="row-fluid">
 <div class="span9">	
 
-    <form action="<? echo $PHP_SELF;?>" method="POST" name='f1' class="form-inline">
+    <form action="add.php" method="POST" name='f1' class="form-inline">
       <label style="display:inline">Fecha de la Reunión &nbsp;
       <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha" value="<? echo $fecha_r;?>" >
+            <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha" value="<? if (isset($fecha_r)) {
+            	echo $fecha_r;
+            }?>" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 </label>

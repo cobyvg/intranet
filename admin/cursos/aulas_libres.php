@@ -13,6 +13,7 @@ $profesor = $_SESSION['profi'];
 ?>
 
 <?php
+if (isset($_POST['n_dia'])) {$n_dia = $_POST['n_dia'];} elseif (isset($_GET['n_dia'])) {$n_dia = $_GET['n_dia'];} else{$n_dia="";}
 if ($n_dia == 'Lunes') {	$dia = '1';}
 if ($n_dia == 'Martes') { $dia = '2';}
 if ($n_dia == 'Miércoles') {	$dia = '3';}

@@ -45,6 +45,7 @@ else {
  // Fiestas del Año, Vacaciones, etc.
  	$comienzo_del_curso = strtotime($inicio_curso);
 	$final_del_curso = strtotime($fin_curso);
+	
 $repe=mysql_query("select fecha from festivos where date(fecha) = date('$fecha1')");
 if (mysql_num_rows($repe) > '0') {	
 	$dia_festivo='1';

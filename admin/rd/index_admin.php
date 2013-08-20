@@ -34,6 +34,7 @@ echo '<div align="center">';
 <table class="table table-bordered" style="width:auto">
 
 <?
+$n_col="";
 $dep0 = mysql_query("select distinct departamento from departamentos");
 while ($dep = mysql_fetch_array($dep0)) {
 	

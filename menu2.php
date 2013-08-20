@@ -1,7 +1,7 @@
+<div class="accordion" id="menu">
 <?
 if (stristr ( $carg, '1' ) == TRUE) {
 	?>
-<div class="accordion" id="menu">
   <div class="accordion-group">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#direccion">
@@ -33,7 +33,7 @@ if (stristr ( $carg, '4' ) == TRUE) {
       Departamento
     </a>
   </div>
-  <div id="departamento" class="accordion-body collapse">
+  <div id="departamento" class="accordion-body collapse in">
     <div class="accordion-inner">
       <ul class="nav nav-list">
         <li><a href="admin/rd/add.php">Actas del departamento</a></li>
@@ -58,7 +58,7 @@ if (stristr ( $carg, '5' ) == TRUE) {
       Extraescolares
     </a>
   </div>
-  <div id="extraescolares" class="accordion-body collapse">
+  <div id="extraescolares" class="accordion-body collapse in">
     <div class="accordion-inner">
       <ul class="nav nav-list">
         <li><a href="./admin/actividades/indexextra.php">Administrar actividades</a></li>
@@ -81,7 +81,7 @@ if (stristr ( $carg, '8' ) == TRUE) {
       Orientaci&oacute;n
     </a>
   </div>
-  <div id="orientacion" class="accordion-body collapse">
+  <div id="orientacion" class="accordion-body collapse in">
     <div class="accordion-inner">
       <ul class="nav nav-list">
         <li><a href="admin/orientacion/tutor.php">P&aacute;gina de Orientaci&oacute;n</a></li>
@@ -105,7 +105,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
       Tutor&iacute;a
     </a>
   </div>
-  <div id="tutoria" class="accordion-body collapse">
+  <div id="tutoria" class="accordion-body collapse in">
     <div class="accordion-inner">
       <ul class="nav nav-list">
         <li><a href="admin/tutoria/global.php">P&aacute;gina del tutor</a></li>
@@ -134,7 +134,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
         <li>
           <a data-toggle="collapse" data-target="#fotos" style="cursor:pointer">
             <i class="pull-right icon-chevron-down"></i>
-            Fotograf´as
+            Fotograf&iacute;ass
           </a>
         </li>
         <div id="fotos" class="accordion-body collapse">
@@ -198,6 +198,17 @@ if (stristr ( $carg, '2' ) == TRUE) {
             <li><a href="faltas/seneca/">Importar faltas a S&eacute;neca</a></li>
             <? } ?>
             </li>
+                    <?
+					if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
+						?>
+    <li><a href="http://
+			<?
+						echo $dominio;
+						?>/intranet/admin/faltas/ccursos.php"> Partes de Faltas de Grupo</a></li>
+    <?
+					}
+					?>
+    </li>
           </ul>
         </div>
         <? } ?>

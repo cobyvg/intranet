@@ -1,9 +1,8 @@
 
 <?php
-if (isset($_GET['month'])) { $month = $_GET['month']; $month = ereg_replace ("[[:space:]]", "", $month); $month = ereg_replace ("[[:punct:]]", "", $month); $month = ereg_replace ("[[:alpha:]]", "", $month); }
-if (isset($_GET['year'])) { $year = $_GET['year']; $year = ereg_replace ("[[:space:]]", "", $year); $year = ereg_replace ("[[:punct:]]", "", $year); $year = ereg_replace ("[[:alpha:]]", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
-if (isset($_GET['today'])) { $today = $_GET['today']; $today = ereg_replace ("[[:space:]]", "", $today); $today = ereg_replace ("[[:punct:]]", "", $today); $today = ereg_replace ("[[:alpha:]]", "", $today); }
-
+if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
+if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
+if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
 
 $month = (isset($month)) ? $month : date("n",time());
 $year = (isset($year)) ? $year : date("Y",time());
@@ -28,7 +27,7 @@ echo "<table class='table table-bordered table-striped'><tr><th style='text-alig
 <i class='icon icon-arrow-right' name='calb1' style='margin-left:20px;'> </i> </a></th></tr></table>";
      echo "<table class='table table-bordered'>
       <tr>";
-	  $meses = array(1=>Ene, 2=>Feb, 3=>Mar, 4=>Abr, 5=>May, 6=>Jun, 7=>Jul, 8=>Ago, 9=>Sep, 10=>Oct, 11=>Nov, 12=>Dic);
+	  $meses = array("1"=>"Ene" ,"2"=>"Feb" ,"3"=>"Mar" ,"4"=>"Abr" ,"5"=>"May" ,"6"=>"Jun" ,"7"=>"Jul" ,"8"=>"Ago" ,"9"=>"Sep" ,"10"=>"Oct" ,"11"=>"Nov" ,"12"=>"Dic");
 	  foreach ($meses as $num_mes => $nombre_mes) {
 	  	
 	  	if ($num_mes==$month) {

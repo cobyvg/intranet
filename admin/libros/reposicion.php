@@ -1,16 +1,16 @@
 <? 
 include ("../../config.php"); 
-	
+if (isset($_POST['niv'])) {$niv = $_POST['niv'];}else{$niv="";}	
 include_once ("../../funciones.php"); 
 include("../../pdf/fpdf.php");
-define('FPDF_FONTPATH','../../pdf/fontsPDF/');
+define('FPDF_FONTPATH','../../pdf/font/');
 # creamos la clase extendida de fpdf.php 
 class GranPDF extends FPDF {
 function Header(){
-$this->Image('../../imag/encabezado.jpg',10,10,180,'','jpg');
+$this->Image('../../img/encabezado.jpg',10,10,180,'','jpg');
 }
 function Footer(){
-$this->Image('../../imag/pie.jpg',0,240,130,'','jpg');
+$this->Image('../../img/pie.jpg',0,240,130,'','jpg');
 }
 }
 	# creamos el nuevo objeto partiendo de la clase ampliada

@@ -39,7 +39,7 @@ $nombre = $nombre_al;
 <br />
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Informe del Alumno <small> Seleccionar alumno</small></h2>
+  <h2>Informe del Alumno <small> Selecciona alumno</small></h2>
 </div>
 <br />
 </div>
@@ -115,27 +115,28 @@ echo "<option>${a.$i}</option>";
           <legend>Opciones del Informe</legend>
           <br />
           <?    if ($mod_faltas) {?>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" checked name="faltas" value="faltas">
             Resumen de Faltas de Asistencia</label>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" unchecked name="faltasd" value="faltasd">
             Faltas de Asistencia Detalladas</label>
           <? }?>
+          <label class="checkbox">
           <input type="checkbox" checked name="fechorias" value="fechorias">
           Problemas de Convivencia
           </label>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" unchecked name="tutoria" value="tutoria">
             Informes de Tutoría</label>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" unchecked name="notas" value="notas">
             Notas de Evaluación</label>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" unchecked name="act_tutoria" value="act_tutoria">
             Acciones de Tutoría</label>
           <?    if ($mod_horario) {?>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" unchecked name="horarios" value="horarios">
             Horario del Alumno</label>
           <?}?>
@@ -143,7 +144,7 @@ echo "<option>${a.$i}</option>";
         </div>
 	<input type="hidden" name="nivel" value="<? echo $nivel;?>">
 <input type="hidden" name="grupo" value="<? echo $grupo?>">
-        <input name='submit1' type='submit' value='Ver informe del alumno' class="btn btn-primary">
+        <div align="center"><input name='submit1' type='submit' value='Ver informe del alumno' class="btn btn-primary"></div>
       </form>
     </div>
   </div>

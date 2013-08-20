@@ -27,7 +27,7 @@ $cargo = $_SESSION['cargo'];
   <h2>Informes de Tareas <small> Expulsión o ausencia del Alumno</small></h2>
 </div>
 <br />
- <div class="well well-large" style="width:580px;">
+ <div class="well-transparent well-large" style="width:580px;">
 
 <?
 // Buscamos los grupos que tiene el Profesor, con su asignatura y nivel
@@ -61,7 +61,7 @@ $resultcurso = mysql_query($SQLcurso);
 	if (mysql_num_rows($result) > 0)
 {
 	echo "<form name='consulta' method='POST' action='tutoria.php'>";
-$num_informe = mysql_num_rows($sql1);
+//$num_informe = mysql_num_rows($sql1);
 echo "<h4>$curso</h4><h5>$n_asig</h5><br />";
 echo "<table align=center  class='table'><tr style='background-color:#f6f6f6'>";
 echo "<th>Alumno</th>
@@ -95,7 +95,7 @@ if (mysql_num_rows($si) > 0)
    <TD>$row[6]</td>
    ";
 	 echo "
-	 <input type='hidden' name='profesor' value='$pr'>";
+	 <input type='hidden' name='profesor' value='$profesor'>";
 			echo "
       <td>";
 	  if (mysql_num_rows($si) > 0 and $count < 1)

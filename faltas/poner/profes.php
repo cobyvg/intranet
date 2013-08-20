@@ -73,11 +73,14 @@ if($rowasignatur1[0]){echo "<div class='label' style='width:90%'>".$rowasignatur
     echo "<span class='badge badge-warning'>" .$rowasignaturas1[1]."-".$curso[0]."</span>";      	
     echo "<INPUT type=hidden name=grupo".$z.$n_hora.$curso[0]." value=$curso[0]>";
     // Cambios de fecha entre PHP y MySQL, de española a internacional.
+    if (isset($diafaltas)) {
     $fechanc = explode("-",$diafaltas);
     $dia10 = $fechanc[0];
     $mes10 = $fechanc[1];
-    $año10 = $fechanc[2];
-    $fechanc0 = "$año10-$mes10-$dia10";
+    $ano10 = $fechanc[2];
+    $fechanc0 = "$ano10-$mes10-$dia10";
+    }
+    
 // Buscamos las faltas del profesor en esa semana y las clavamos en los campos de NC.
     $faltas10 = "select NC from FALTAS where FECHA = '$fechanc0' and FALTA = 'F' and PROFESOR = '$id' and HORA = '$n_hora' and NIVEL = '$rowasignaturas1[1]' and GRUPO = '$curso[0]' order by NC asc";	
 //echo $faltas10;
@@ -97,9 +100,15 @@ $faltas14 = rtrim($faltas13, ".");
     echo "<INPUT type=hidden name=hora".$z.$n_hora.$curso[0]." value=$n_hora>";
 	
     }}}
+    if (!(isset($mes))) {
+    	$mes="";
+    }
+if (!(isset($ano))) {
+    	$ano="";
+    }
 	echo "<INPUT type=hidden name=today value=$dia10>";
 	echo "<INPUT type=hidden name=month value=$mes>";
-	echo "<INPUT type=hidden name=year value=$año>";
+	echo "<INPUT type=hidden name=year value=$ano>";
 // Termina la presentación de la primera hora de todos los días de la semanana. El resto es lo mismo para las horas siguientes. 
 ?>
     </span></div></td>

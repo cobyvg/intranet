@@ -12,6 +12,15 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <? 
 include("../menu.php");
 include("menu.php");
+// nprofe hora ndia hoy codasi profesor clave
+if (isset($_POST['nprofe'])) {$nprofe = $_POST['nprofe'];} else{$nprofe="";}
+if (isset($_POST['hora'])) {$hora = $_POST['hora'];} else{$hora="";}
+if (isset($_POST['ndia'])) {$ndia = $_POST['ndia'];} else{$ndia="";}
+if (isset($_POST['hoy'])) {$hoy = $_POST['hoy'];} else{$hoy="";}
+if (isset($_POST['codasi'])) {$codasi = $_POST['codasi'];} else{$codasi="";}
+if (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}
+if (isset($_POST['clave'])) {$clave = $_POST['clave'];} else{$clave="";}
+
 // Borramos faltas para luego colocarlas de nuevo.
 $borra = mysql_query("delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and PROFESOR = '$nprofe' and (FALTA = 'F' or FALTA = 'J')");
 $db_pass = trim($clave);

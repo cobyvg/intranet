@@ -1,7 +1,7 @@
 <?php
-if (isset($_GET['month'])) { $month = $_GET['month']; $month = ereg_replace ("[[:space:]]", "", $month); $month = ereg_replace ("[[:punct:]]", "", $month); $month = ereg_replace ("[[:alpha:]]", "", $month); }
-if (isset($_GET['year'])) { $year = $_GET['year']; $year = ereg_replace ("[[:space:]]", "", $year); $year = ereg_replace ("[[:punct:]]", "", $year); $year = ereg_replace ("[[:alpha:]]", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
-if (isset($_GET['today'])) { $today = $_GET['today']; $today = ereg_replace ("[[:space:]]", "", $today); $today = ereg_replace ("[[:punct:]]", "", $today); $today = ereg_replace ("[[:alpha:]]", "", $today); }
+if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
+if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
+if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
 
 $month = (isset($month)) ? $month : date("n",time());
 $year = (isset($year)) ? $year : date("Y",time());
@@ -26,8 +26,8 @@ echo "<table class='table table-bordered table-striped' style=''><tr><th style='
 <i class='icon icon-arrow-right' name='calb1' style='margin-left:20px;'> </i> </a></th></tr></table>";
      echo "<table class='table table-bordered' style=''>
       <tr>";
-	  $meses = array(1=>Ene, 2=>Feb, 3=>Mar, 4=>Abr, 5=>May, 6=>Jun, 7=>Jul, 8=>Ago, 9=>Sep, 10=>Oct, 11=>Nov, 12=>Dic);
-	  foreach ($meses as $num_mes => $nombre_mes) {
+	  $meses = array("1"=>"Ene" ,"2"=>"Feb" ,"3"=>"Mar" ,"4"=>"Abr" ,"5"=>"May" ,"6"=>"Jun" ,"7"=>"Jul" ,"8"=>"Ago" ,"9"=>"Sep" ,"10"=>"Oct" ,"11"=>"Nov" ,"12"=>"Dic");
+     	  foreach ($meses as $num_mes => $nombre_mes) {
 	  	
 	  	if ($num_mes==$month) {
 	  		echo "<th  onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
@@ -98,7 +98,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
       	elseif($row[0] == "J") {
 //        echo "<td valign=\"middle\" align=\"center\" style=\"background-color:#009933\"><span style=color:white>$zz</span></td>\n";
         echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
-		"?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month';\" style=\"background-color:#46a546\"><a href=\"".$_SERVER['PHP_SELF']."?falta=J&profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\"><span style=color:white>$zz</a></span></td>\n";
+		"?falta=J&profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month';\" style=\"background-color:#46a546\"><a href=\"".$_SERVER['PHP_SELF']."?falta=J&profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\"><span style=color:white>$zz</a></span></td>\n";
         $result_found = 1;
       	}
       }

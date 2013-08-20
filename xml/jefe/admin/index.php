@@ -48,6 +48,7 @@ include("../../../menu.php");
 <hr />
 <img border="0" src="exporta_horw.jpg" width="466" height="478">
 <br /><br />
+<? mysql_close($c); ?>
 </body>
 </html>
 

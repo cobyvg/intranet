@@ -18,6 +18,7 @@ $resultcurs = mysql_query($SQLcurso);
 	$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV FROM infotut_alumno, alma WHERE 
 	infotut_alumno.claveal = alma.claveal and  date(F_ENTREV)>='$hoy' and infotut_alumno. nivel = '$nivel_i' and infotut_alumno.grupo = '$grupo_i' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
 $result = mysql_query($query);
+$n_inotut="";
 if (mysql_num_rows($result) > 0)
 {
 	while($row1 = mysql_fetch_array($result))

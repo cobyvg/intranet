@@ -8,26 +8,13 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-/*if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR stristr($_SESSION['cargo'],'8') == TRUE))
-{
-header("location:http://$dominio/intranet/salir.php");
-exit;	
-}  */
 $pr = $_SESSION['profi'];
 ?>
 <?php
 include("../../menu.php");
 include("../menu.php");
 mysql_select_db($db_reservas);
-if (isset($_GET['recurso'])) {
-	$recurso = $_GET['recurso'];
-}
-if (isset($_GET['servicio'])) {
-	$servicio = $_GET['servicio'];
-}	
-if (isset($_GET['mens'])) {
-	$mens = $_GET['mens'];
-}	
+
 if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
 if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
 if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
@@ -111,7 +98,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 <div class="span4">
 <div class="well well-small">
     <?
-	echo "<h4>$daylong, $monthlong $today, $year</h4><br />";	
+	echo "<legend>$daylong, $monthlong $today, $year</legend><br />";	
 $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
@@ -317,8 +304,8 @@ echo "<table class='table table-bordered' style='' align='center'>
 
 //Nombre del Mes
 echo "<table class='table table-bordered' style='' align='center'><tr>";
-echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h4 align='center'>" . $monthlong . 
-"</h4></td>";
+echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h3 align='center'>" . $monthlong . 
+"</h3></td>";
 echo "</tr><tr>";
 
 

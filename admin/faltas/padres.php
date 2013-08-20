@@ -10,18 +10,24 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $tutor = $_SESSION['profi'];
 include_once ("../../funciones.php"); 
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
+if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
+if (isset($_GET['fecha12'])) {$fecha12 = $_GET['fecha12'];}elseif (isset($_POST['fecha12'])) {$fecha12 = $_POST['fecha12'];}else{$fecha12="";}
+if (isset($_GET['fecha22'])) {$fecha22 = $_GET['fecha22'];}elseif (isset($_POST['fecha22'])) {$fecha22 = $_POST['fecha22'];}else{$fecha22="";}
+if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{$numero="";}
 // PDF
 $fecha2 = date('Y-m-d');
 $hoy = formatea_fecha($fecha);
 include("../../pdf/fpdf.php");
-define('FPDF_FONTPATH','../../pdf/fontsPDF/');
+define('FPDF_FONTPATH','../../pdf/font/');
 # creamos la clase extendida de fpdf.php 
 class GranPDF extends FPDF {
 function Header(){
-$this->Image('../../imag/encabezado.jpg',10,10,180,'','jpg');
+$this->Image('../../img/encabezado.jpg',10,10,180,'','jpg');
 }
 function Footer(){
-$this->Image('../../imag/pie.jpg',0,240,130,'','jpg');
+$this->Image('../../img/pie.jpg',0,240,130,'','jpg');
 }
 }
 			# creamos el nuevo objeto partiendo de la clase ampliada
@@ -42,12 +48,13 @@ $claveal1 = substr($claveal0,0,strlen($claveal0)-4);
  mysql_query($SQLDELF);
  mysql_query($SQLDELJ);
 // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;
-  $fechasp0=explode("-",$fecha12);
-  $fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
-  $fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
-  $fechasp2=explode("-",$fecha22);
-  $fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
-  $fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
+ // $fechasp0=explode("-",$fecha12);
+  $fechasp1=cambia_fecha($fecha12);
+  $fechasp3=cambia_fecha($fecha22);
+//  $fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
+//  $fechasp2=explode("-",$fecha22);
+//  $fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
+//  $fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
   if(strlen($claveal1) > 5){$alum = " and (".$claveal1.")";}else{$alum = "";}
   mysql_query("drop table faltastemp2");
   mysql_query("drop table faltastemp3");
@@ -95,7 +102,7 @@ $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$clave
 		$justi = mysql_fetch_array($result3);
 		if ($justi[0] == "")
 		{
-		$justi1 = "Su hijo no ha justificado faltas de asistencia al Centro entre los días $fechasp11 y $fechasp31.";}
+		$justi1 = "Su hijo no ha justificado faltas de asistencia al Centro entre los días $fecha12 y $fecha22.";}
 		else
 		{
 		$result2 = mysql_query($SQL2);

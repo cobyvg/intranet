@@ -13,6 +13,7 @@ session_start();
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/otros.css" rel="stylesheet">
 <link href="../css/bootstrap-responsive.css" rel="stylesheet">
+<link href="../css/font-awesome.min.css" rel="stylesheet" >
 
 <script language="javascript">
 function activarMod_faltas() {

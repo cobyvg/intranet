@@ -17,19 +17,20 @@ exit;
 <?php
  include("../../menu.php");
  include("menu.php");
-
-if($submit1){
-include("inserta.php");
-}
- 
-else{
 ?>
 <div align="center">
 <div class="page-header">
   <h2>Actividades Complementarias y Extraescolares <small> Registro de actividades</small></h2>
 </div>
-<br />
 </div>
+<?
+if(isset($_POST['submit1'])){
+include("inserta.php");
+}
+ 
+else{
+?>
+
   <div class="row-fluid">
 <div class="span1"></div>
 <div class="span5">
@@ -143,7 +144,7 @@ while($curso = mysql_fetch_array($curso1))
 	echo "<br />";
 $niv = $curso[0];
 ?>
-           <? echo "<strong style='margin-right:10px;'> ".$niv." </strong>"; ?>
+           <? echo "<strong style='margin-right:12px;'> ".$niv." </strong>"; ?>
                 <?  
 $alumnos0 = "select distinct nivel, grupo from FALUMNOS where nivel = '$niv' order by grupo";
 
@@ -154,10 +155,9 @@ $grupo = $alumno[0].$alumno[1];
 $nivel = $alumno[1];
 
 ?>
-                  <? echo "<span style='margin-right:2px;color:#08c'>".$nivel."</span>";?>
-                  <input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>"  style="margin-right:7px;">
+                  <? echo "<span style='margin-right:2px;color:#08c;'>".$nivel."</span>";?>
+                  <input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>"  style="margin-right:5px;margin-top:0px;margin-bottom:2px;">
                   <? } ?>              
-            
  <? } ?>
     <br /><br />
                 <label>Justificación: <br />

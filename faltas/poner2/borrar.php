@@ -1,5 +1,6 @@
 <?
 $total0 = count($_POST);
+
 $clavesw = array_values($_POST);
 // Misma operación que en el fichero insertar.php
 $x=4;
@@ -11,8 +12,8 @@ $trozos0 = array_slice($clavesw, $x, 6);
 $fecha0 = explode('-',$trozos0[0]);
 $dia0 = $fecha0[0];
 $mes = $fecha0[1];
-$año = $fecha0[2];
-$fecha1 = $año . "-" . $mes . "-" . $dia0;
+$ano = $fecha0[2];
+$fecha1 = $ano . "-" . $mes . "-" . $dia0;
 $trozos = explode("_ ",$profesor) ;
 		  $id = $trozos[0];
 		  $profesores = $trozos[1]; 

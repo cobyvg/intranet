@@ -1,5 +1,6 @@
 <?php
 // Variables para profes.php y cal.php
+if (isset($dia)) {
 if ($dia == "D")
 	{$dia = "Domingo";}
     elseif ($dia == "L")
@@ -14,7 +15,9 @@ if ($dia == "D")
 	{$dia = "Viernes";}
     elseif ($dia == "S")
 	{$dia = "Sábado";}
+}
 
+if (isset($daylong)) {
 if ($daylong == "Sunday")
 	{$daylong = "Domingo";}
     elseif ($daylong == "Monday")
@@ -29,8 +32,9 @@ if ($daylong == "Sunday")
 	{$daylong = "Viernes";}
     elseif ($daylong == "Saturday")
 	{$daylong = "Sábado";}
-    
+}
 
+if (isset($monthlong)) {
     if ($monthlong == "January")
 	{$monthlong = "Enero";}
     elseif ($monthlong == "February")
@@ -55,7 +59,7 @@ if ($daylong == "Sunday")
 	{$monthlong = "Noviembre";}
     elseif ($monthlong == "December")
 	{$monthlong = "Diciembre";}
-
+}
 // Que dia de la semana tenemos, buscando primero el lunes de cada semana. 
 
 $semana = date( mktime(0, 0, 0, $month, $today, $year));

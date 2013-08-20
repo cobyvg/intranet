@@ -11,6 +11,8 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include("../../menu.php");
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+
 		echo '<br />
 <div align="center">
 <div class="page-header">

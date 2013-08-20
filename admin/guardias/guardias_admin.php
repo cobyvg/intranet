@@ -17,6 +17,12 @@ exit;
 
 <?
 include("../../menu.php");
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+if (isset($_GET['no_dia'])) {$no_dia = $_GET['no_dia'];}elseif (isset($_POST['no_dia'])) {$no_dia = $_POST['no_dia'];}else{$no_dia="";}
+if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];}else{$profeso="";}
+if (isset($_GET['hora'])) {$hora = $_GET['hora'];}elseif (isset($_POST['hora'])) {$hora = $_POST['hora'];}else{$hora="";}
+if (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];}elseif (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];}else{$borrar="";}
+
 if ($no_dia== '1') {$nombre_dia = 'Lunes';}
 if ($no_dia== '2') {$nombre_dia = 'Martes';}
 if ($no_dia== '3') {$nombre_dia = 'Miércoles';}
@@ -86,7 +92,7 @@ if ($borrar=='1') {
 	mysql_query("delete from guardias where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-La sustitución ha sido borrada correctamente. Puedes comprobarlo en la lista más abajo.
+La sustitución ha sido borrada correctamente. Puedes comprobarlo en la tabla de la derecha.
           </div></div>';
 }
 ?>

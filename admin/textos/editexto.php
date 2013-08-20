@@ -1,5 +1,8 @@
 <?
-if($enviar or $insertar){
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
+
+if(isset($_POST['enviar']) or isset($_POST['insertar'])){
 include("edtextos.php");
 exit;
 }
@@ -34,7 +37,8 @@ echo "<h3>
 <div class="well well-large" style="width:450px;" align="left">
   <p class="lead">Selecciona el Curso y los Grupos</p>
 <hr>
-  		<form method="post" action="editexto.php" style="padding:0px; margin:0px;">
+  		<form method="post" action="editexto.php" 
+  		echo $nivel;>
           <label>
   Nivel:
     <select name="nivel" id="select4" onChange="submit()" class="input-xlarge">
@@ -75,11 +79,11 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       Texto</p>
     <hr>
     <label>T&iacute;tulo<br />
-    <input name="titulo" type="text" id="titulo" size="45" value="<? echo $row[3];?>" class="span4">
+    <input name="titulo" type="text" id="titulo" size="45" value='<? echo $row[3];?>' class="span4">
   </label>
   
     <label>Autor<br />
-    <input name="autor" type="text" id="autor" size="50" value="<? echo $row[2];?>" class="span3">
+    <input name="autor" type="text" id="autor" size="50" value='<? echo $row[2];?>' class="span3">
   </label>
   
     <label>Editorial<br />
