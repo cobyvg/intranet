@@ -516,6 +516,7 @@ for($i=1;$i<$num_aula+1;$i++){
 ?>
   </table>
   <br />
+  </div>
  <div  align="center">
       <input  type="submit" name="enviar" value="Aplicar cambios" class="btn btn-danger btn-large" style="color:#fff" />
       </div>

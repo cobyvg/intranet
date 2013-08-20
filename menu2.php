@@ -2,7 +2,6 @@
 <?
 if (stristr ( $carg, '1' ) == TRUE) {
 	?>
-  <div class="accordion-group">
 <div class="accordion" id="menu">
   <div class="accordion-group well">
     <div class="accordion-heading">
@@ -380,7 +379,6 @@ if (stristr ( $carg, '2' ) == TRUE) {
       </ul>
     </div>
   </div>
-</div>
 </div>
 </div>
 </div>
