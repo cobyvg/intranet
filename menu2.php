@@ -373,6 +373,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
         <li><a href="http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion=443" target="_blank">Delegación de Educación</a></li>
         <? } ?>
         
+        <li><a href="https://www.juntadeandalucia.es/educacion/portaldocente/" target="_blank">Portal del Personal Docente</a></li>
         <!--<li><a href="http://www.cep-marbellacoin.org/index.html" target="_blank">CEP de Marbella-Coín</a></li>-->
         <li><a href="http://www.mecd.gob.es" target="_blank">Página del MEC</a></li>
         <li><a href="http://www.juntadeandalucia.es/averroes/" target="_blank">Averroes</a></li>
