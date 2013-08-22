@@ -182,7 +182,7 @@ else
           <? nivel(); ?>
         </select><? }?>
       <? if(stristr($_SESSION['cargo'],'2') == TRUE){} else{ ?>
-      &nbsp;&nbsp;&nbsp;Grupo: <select name="grupo" onChange="submit()" class="input-mini">
+      &nbsp;&nbsp;&nbsp;Grupo: <select name="grupo" onChange="submit()" class="input-small">
           <option><? echo $grupo;
 // Si queremos que aparezcan los alumnos de un Nivel, y no sólo los de un grupo, descomentar lo siguiente.
           
@@ -197,7 +197,7 @@ else
 		</label>
 		<? }?>  
           	<label>Causa<br />
-	<select name="causa" class="input-large">
+	<select name="causa" class="input-block-level">
  <? if(stristr($_SESSION['cargo'],'8') == TRUE){?>
 		    <option><? echo $causa; ?></option>
 		    <option>Orientación académica y profesional</option>
@@ -222,8 +222,8 @@ else
 <?
 if(empty($text)){$text = "";}
 echo "<label>Texto del mensaje<br />
-<TEXTAREA name='text' class='input-xlarge' rows='4'  onkeydown=\"contar('nameform','text')\" onkeyup=\"contar('nameform','text')\">$text</TEXTAREA></label><br />
-		<p class='help-block'>Caracteres restantes:&nbsp; <INPUT name=result value=160 class='input-mini' readonly='true'></p>";
+<TEXTAREA name='text' class='input-block-level' rows='4'  onkeydown=\"contar('nameform','text')\" onkeyup=\"contar('nameform','text')\">$text</TEXTAREA></label><br />
+		<p class='help-block'>Caracteres restantes:&nbsp; <INPUT name=result value=160 class='input-small' readonly='true'></p>";
 $sms_n = mysql_query("select max(id) from sms");
 $n_sms =mysql_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
@@ -232,7 +232,7 @@ $extid = $n_sms[0]+1;
       	<input name="login" type="hidden" value="<?  echo $usuario_smstrend;?>" />
         <input name="password" type="hidden" value="<?  echo $clave_smstrend;?>"  />
         <input name="extid" type="hidden" value="<? echo $extid;?>" />
-        <input name="tpoa" type="hidden" value="IMonterroso" />
+        <input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" />
         <input name="messageQty" type="hidden" value="GOLD" />
         <input name="messageType" type="hidden" value="PLUS" />
         <br /><input type="submit" name="submit0" value="Enviar SMS" class="btn btn-primary"/>

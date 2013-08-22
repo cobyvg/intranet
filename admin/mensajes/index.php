@@ -14,6 +14,25 @@ $pr = $_SESSION['profi'];
 include("../../menu.php");
 include("menu.php");
 
+if (isset($_POST['profes'])) {
+	$profes = $_POST['profes'];
+} 
+elseif (isset($_GET['profes'])) {
+	$profes = $_GET['profes'];
+} 
+$profeso = $_POST['profeso'];
+$tutores = $_POST['tutores'];
+$departamentos = $_POST['departamentos'];
+$equipos = $_POST['equipos'];
+$claustro = $_POST['claustro'];
+$etcp = $_POST['etcp'];
+$ca = $_POST['ca'];
+$direccion = $_POST['direccion'];
+$orientacion = $_POST['orientacion'];
+$bilingue = $_POST['bilingue'];
+$texto = $_POST['texto'];
+$profesor = $_POST['profesor'];
+
 if (isset($_POST['padres'])) {
 	$padres = $_POST['padres'];
 } 
@@ -45,6 +64,7 @@ else
 $origen="";
 }
 
+$verifica = $_GET['verifica'];
 if($verifica){
  mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
@@ -203,7 +223,7 @@ include("profesores.php");
 
 					if($claustro == '1') {
 						echo "<h4>Claustro de Profesores</h4><br /><div class='well'>";
-						$cl = mysql_query("SELECT distinct nombre FROM departamentos");
+						$cl = mysql_query("SELECT distinct nombre FROM departamentos WHERE nombre NOT LIKE 'admin'");
 						while($filacl = mysql_fetch_array($cl))
 						{
 							$t_cl .= $filacl[0].",";
@@ -250,7 +270,7 @@ include("profesores.php");
 							$t_etcp .= $filaetc[0];
 						}
 						$t_etcp = substr($t_etcp,0,strlen($t_etcp)-1);
-						
+						echo "</div>";
 					}
 
 					if($ca == '1' and !$claustro) {
@@ -267,7 +287,7 @@ include("profesores.php");
 
 					if($direccion == '1' and !$claustro) {
 						echo "<h4>Equipo Directivo</h4><br /><div class='well'>";
-						$dir = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like'%1%'");
+						$dir = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like'%1%' AND nombre NOT LIKE 'admin'");
 						while($filadir = mysql_fetch_array($dir))
 						{
 							echo "<li align='left'>$filadir[0] </li>";
