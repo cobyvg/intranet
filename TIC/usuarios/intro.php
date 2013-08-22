@@ -38,7 +38,7 @@ else
 {
  ?>
  <label>Profesor<br />
- <select name="profe" onchange='submit()' class="span3">
+ <select name="profe" onchange='submit()' class="input-block-level">
             <?
 echo "<option>$profe</option>";
 
@@ -68,7 +68,7 @@ $profe = $_SESSION['profi'];
 	  <? $SQLcurso = "select distinct GRUPO, MATERIA, NIVEL, codigo from profesores, asignaturas where materia = nombre and abrev not like '%\_%' and PROFESOR = '$profe' and nivel = curso order by grupo";
 //echo $SQLcurso;
 ?>
-          <select name="curso" class="span4">
+          <select name="curso" class="input-block-level">
             <?
 	echo "<option></option>";
 

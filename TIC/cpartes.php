@@ -69,20 +69,20 @@ Los datos de la incidencia han sido actualizados correctamente.
         <legend>Selecciona Nivel y Grupo</legend>
         <br />
         <label>Nivel
-          <select name="nivel" id="NIVEL" onchange="submit()" class="input-mini">
+          <select name="nivel" id="NIVEL" onchange="submit()" class="input-small">
             <option><? echo $nivel;?></option>
             <? nivel();?>
           </select>
         </label>
         <label>Grupo
-          <select name="grupo" id="GRUPO" onchange="submit()" class="input-mini">
+          <select name="grupo" id="GRUPO" onchange="submit()" class="input-small">
             <option><? echo $grupo;?></option>
             <? grupo($nivel);?>
           </select>
         </label>
         <hr />
         <label>Alumno<br />
-          <select name="alumno" id="alumno" class="input-xlarge">
+          <select name="alumno" id="alumno" class="input-block-level">
             <OPTION></OPTION>
             <? 
 
@@ -100,14 +100,14 @@ Los datos de la incidencia han sido actualizados correctamente.
           </select>
         </label>
         <label> Profesor<br />
-          <input type="text" value="<? echo $profes;?>" readonly class="span9"/>
+          <input type="text" value="<? echo $profes;?>" readonly class="input input-block-level"/>
           <input name="profesor" type="hidden" value="<? echo $profes;?>"  class="input-xlarge"/>
         </label>
         <label>N&ordm; Carrito<br />
-          <input name="carrito" type="text" id="carrito" size="2" maxlength="2"  class="input-mini" />
+          <input name="carrito" type="text" id="carrito" size="2" maxlength="2"  class="input-small" />
         </label>
         <label>N&ordm; del Ordenador<br />
-          <input name="numeroserie" type="text" id="numeroserie" size="2" maxlength="2"  class="input-mini"/>
+          <input name="numeroserie" type="text" id="numeroserie" size="2" maxlength="2"  class="input-small"/>
         </label>
           <?
 $today = date("j, n, Y");
@@ -117,17 +117,17 @@ $mes = $hoy[1];
 $año = $hoy[2];
 				?>
 		         <label>Fecha<br />
- <div class="input-append" style="display:inline;" >
-            <input name="fecha" type="text" class="input input-small" value="<? echo $fecha;?>" data-date-format="dd-mm-yyyy" id="fecha" >
+ <div class="input-append" >
+            <input name="fecha" type="text" class="input" value="<? echo $fecha;?>" data-date-format="dd-mm-yyyy" id="fecha" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 </label>
 
         <label>Hora (1, 2, etc.)<br />
-          <input name="hora" type="text" id="hora" maxlength="1" size="3" class="input-mini"/>
+          <input name="hora" type="text" id="hora" maxlength="1" size="3" class="input-small"/>
         </label>
         <label>Descripción del problema <span style="color:#cc6600">(*)</span><br />
-          <textarea name="descripcion" cols="46" rows="5" id="descripcion"  class="span11"></textarea>
+          <textarea name="descripcion" rows="5" id="descripcion" class="input-block-level"></textarea>
         </label>
         <br />
         <input name="estado" type="hidden" value="activo" />
