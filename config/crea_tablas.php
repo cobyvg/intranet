@@ -11,19 +11,23 @@ else
 session_start();
 include("../config.php");
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="iso-8859-1">
-<title>Configuración de la Intranet</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
-<meta name="author" content="">
-
-<link href="../css/bootstrap.css" rel="stylesheet">
-<? if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){?>
-<link href="../css/otros_index.css" rel="stylesheet"><?	}	else{ ?><link href="../css/otros.css" rel="stylesheet"><?}?>
-<link href="../css/bootstrap-responsive.css" rel="stylesheet">
+<!DOCTYPE html>  
+<html lang="es">  
+  <head>  
+    <meta charset="iso-8859-1">  
+    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
+    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+      
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>
 </head>
 <body>	
 <?

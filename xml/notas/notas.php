@@ -25,6 +25,7 @@ include("../../menu.php");
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
+$directorio = $_GET['directorio'];
 if ($directorio=="../exporta1") {
 	mysql_query("TRUNCATE TABLE notas");
 }

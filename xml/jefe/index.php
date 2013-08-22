@@ -26,7 +26,7 @@ include("../../menu.php");
 
 <FORM ENCTYPE="multipart/form-data" ACTION="alma.php" METHOD="post">
   <div class="control-group">
-  <p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si has descargado los archivos de Evaluaci&oacute;n y el fichero RegAlum.tx exportados desde S&Eacute;NECAt, puedes continuar con el segundo paso.</p>
+  <p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si has descargado los archivos de Evaluaci&oacute;n y el fichero RegAlum.txt exportados desde S&Eacute;NECA, puedes continuar con el segundo paso.</p>
   <br />
   <div class="well well-large" style="width:500px; margin:auto;" align="left">
       <div class="controls">

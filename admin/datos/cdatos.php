@@ -26,13 +26,13 @@ include("../../menu.php");
   <legend>Selecciona criterios</legend>
   <br />
   <label> Apellidos<br />
-    <INPUT type="text" name="apellidos" size="30" maxlength="32" alt="Apellidos" class="input-xlarge">
+    <INPUT type="text" name="apellidos" size="30" maxlength="32" alt="Apellidos" class="input-block-level">
   </label>
   <label>Nombre<br />
-    <INPUT type="text" name="nombre" size="30" maxlength="25" alt="Nombre" class="input-large">
+    <INPUT type="text" name="nombre" size="30" maxlength="25" alt="Nombre" class="input-block-level">
   </label>
   <label> Grupo<br />
-    <SELECT name="unidad" class="input-small">
+    <SELECT name="unidad" class="input-block-level">
       <OPTION></OPTION>
       <? unidad();?>
     </SELECT>
