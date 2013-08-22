@@ -102,7 +102,7 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.niv
 echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-bottom:-145px' class='img-polaroid img-circle pull-right hidden-phone' />";
             }
             ?>
-        <table width="auto" class="table table-striped">
+        <table class="table table-striped">
           <tr>
             <th colspan="5"><h4>Información detallada sobre el Problema</h4></th>
           </tr>

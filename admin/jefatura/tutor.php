@@ -43,15 +43,38 @@ if (isset($_GET['eliminar'])) {
 if (isset($_POST['fecha'])) {
 	$fecha = $_POST['fecha'];
 } else{$fecha="";}
+
 if (isset($_POST['nivel'])) {
 	$nivel = $_POST['nivel'];
-} else{$nivel="";}
+} 
+elseif (isset($_GET['nivel'])) {
+	$nivel = $_GET['nivel'];
+} 
+else {
+	$nivel = "";
+}
+
 if (isset($_POST['grupo'])) {
 	$grupo = $_POST['grupo'];
-} else{$grupo="";}
+} 
+elseif (isset($_GET['grupo'])) {
+	$grupo = $_GET['grupo'];
+} 
+else {
+	$grupo = "";
+}
+
 if (isset($_POST['alumno'])) {
 	$alumno = $_POST['alumno'];
-}   else{$alumno="";}
+} 
+elseif (isset($_GET['alumno'])) {
+	$alumno = $_GET['alumno'];
+} 
+else {
+	$alumno = "";
+}
+
+
 if (isset($_POST['observaciones'])) {
 	$observaciones = $_POST['observaciones'];
 } else{$observaciones="";}
@@ -136,20 +159,20 @@ $clave = $tr[1];
 		   else{ echo "<br /><br />";}   	 
 ?>
 <label>Nivel&nbsp;
-  <SELECT  name="nivel" onChange="submit()" class="input-mini">
+  <SELECT  name="nivel" onChange="submit()" class="input-small">
     <option><? echo $nivel;?></option>
     <? nivel();?>
   </SELECT>
   &nbsp;&nbsp;&nbsp;&nbsp;
   Grupo&nbsp;
-  <SELECT name="grupo" onChange="submit()" class="input-mini">
+  <SELECT name="grupo" onChange="submit()" class="input-small">
     <OPTION><? echo $grupo;?></OPTION>
     <? grupo($nivel);?>
   </SELECT>
   </label>
   <hr>
   <label  style='display:inline'>Alumno<br />
-          <select name="alumno" onChange="submit()"  class='input-xlarge'>
+          <select name="alumno" onChange="submit()"  class='input-block-level'>
     <?
   $alumno0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where nivel = '$nivel' and grupo = '$grupo' order by NC asc");
   if ($falumno = mysql_fetch_array($alumno0))
@@ -171,19 +194,19 @@ $clave = $tr[1];
  
 <hr>
         <label>Fecha
-          <?  $fecha1 = (date("d").-date("m").-date("Y")); 
+<?  $fecha1 = date("d-m-Y"); 
 if ($fecha)
   {
   echo '     
   <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input input-block-level" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> ';
   }
   else{
   	echo '     
   <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input input-small" value="'.$fecha1.'" data-date-format="dd-mm-yyyy" id="fecha" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> ';
   }
@@ -191,10 +214,10 @@ if ($fecha)
         </label>
    <hr>     
         <label> Observaciones<br />
-          <textarea name='observaciones' rows='8'  class='input-xxlarge'><? echo $observaciones; ?></textarea>
+          <textarea name='observaciones' rows='8'  class='input-block-level'><? echo $observaciones; ?></textarea>
         </label>
   <br>
-  <label style="color:#9d261d">Informe Privado:
+  <label class="checkbox" style="color:#9d261d">Informe privado
     <input name="prohibido" type="checkbox" <? if ($prohibido == "1"){echo "checked";}
  ?> id="prohibido" value="1">
 </label>
