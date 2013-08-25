@@ -119,8 +119,7 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 	} 
 	echo '</table';      
 // Eliminar Tabla temporal
- $SQLDEL = "DROP table `faltastemp2`";
- mysql_query($SQLDEL);   
+ mysql_query("DROP table `faltastemp2`");
   ?>
  <INPUT name="num_mes" type="hidden" value="<? echo $n_mes;?>"> 
  <br />

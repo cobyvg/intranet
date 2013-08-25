@@ -141,7 +141,7 @@ else{
 &nbsp;&nbsp;&nbsp;
 	<label style="display:inline"">Idioma 2 <select name="idiom2" style="width:100px;">
 		<?php
-		if ($idiom1) {
+		if ($idiom2) {
 			echo "<option>$idiom2</option>";
 		}
 		?>

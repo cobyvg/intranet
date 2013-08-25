@@ -16,9 +16,15 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 include("/opt/e-smith/conf_principal.php");
 include("../../funciones.php");
+if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
+if (isset($_GET['dni'])) {$dni = $_GET['dni'];}elseif (isset($_POST['dni'])) {$dni = $_POST['dni'];}else{$dni="";}
+if (isset($_GET['enviar'])) {$enviar = $_GET['enviar'];}elseif (isset($_POST['enviar'])) {$enviar = $_POST['enviar'];}else{$enviar="";}
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+
 //variables();
 $connection = mysql_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
 mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
+
 // Asignaturas y Modalidades
 $it11 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "Ciencias y Tecnología");
 $it12 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
@@ -32,6 +38,10 @@ $opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_L
 $opt23 =array("aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud","ingles_25" => "Inglés 2º Idioma");
 
 if($enviar =="Enviar los datos de la Matrícula"){
+		foreach($_POST as $key => $val)
+	{
+		${$key} = $val;
+	}
 	// Comprobación de campos vacíos
 	$nacimiento = str_replace("/","-",$nacimiento);
 	$fecha0 = explode("-",$nacimiento);
@@ -265,17 +275,16 @@ if ($itinerario1=="1"){
 			}
 			else{
 				?>
-<link
-	href="http://localhost/iesmonterroso.org/estilo.css" rel="stylesheet"
-	type="text/css" media="screen" />
-<div class="aviso3" align="left"
-	style="padding: 20px; margin-top: 40px; line-height: 20px;">Los datos
-de la Matrícula se han registrado correctamente en la Base de datos,<br>
-
-
-<br>
-<center><a href="./index_bach.php">Volver a la página de Matrículas</a></center>
-</div>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/otros.css" rel="stylesheet">
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">  
+    <link href="../../css/font-awesome.min.css" rel="stylesheet" >
+    <link href="../../css/imprimir.css" rel="stylesheet" media="print">
+    <br /><br />
+<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Los datos de la Matrícula se han registrado correctamente en la Base de datos.
+</div></div><br />    
 				<?
 			}
 		//	exit();
@@ -283,38 +292,22 @@ de la Matrícula se han registrado correctamente en la Base de datos,<br>
 	}
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Matrículas</title>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css1; ?>"
-	rel="stylesheet" type="text/css">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css2; ?>"
-	rel="stylesheet" type="text/css">
-<link rel="STYLESHEET" type="text/css"
-	href="http://<? echo $dominio; ?>/intranet/css/imprimir.css"
-	media="print" " media="print">
-
-<style type="text/css">
-<!--
-table {
-	width: 991px;
-	border: 1px solid #aaa;
-	border-collapse: collapse;
-}
-
-td {
-	border: 1px solid #aaa
-}
-
-td .it {
-	padding: 4px 6px;
-	border-bottom: 1px dotted #ccc;
-	border-top: 1px dotted #ccc;
-}
--->
-</style>
+<!DOCTYPE html>  
+<html lang="es">  
+  <head>  
+    <meta charset="iso-8859-1">  
+    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
+    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+      
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/otros.css" rel="stylesheet">
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="../../css/datepicker.css" rel="stylesheet">
+    <link href="../../css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="../../css/font-awesome.min.css" rel="stylesheet" >
+    <link href="../../css/imprimir.css" rel="stylesheet" media="print">
 
 <script type="text/javascript">
 function confirmacion() {
@@ -542,9 +535,8 @@ exit();
 	src="../../img/encabezado.jpg" width="988" height="80"
 	style="border-left: 1px solid #aaa;" />
 
-<table align="center">
-	<form id="form1" name="form1" method="post"
-		action="matriculas_bach.php<? if($cargo == "1"){echo "?cargo=1";}?>">
+	<form id="form1" name="form1" method="post"	action="matriculas_bach.php<? if($cargo == "1"){echo "?cargo=1";}?>">
+<table  class="table table-bordered" align="center">
 
 	<tr>
 		<td colspan="3"><?
@@ -570,12 +562,12 @@ exit();
 	</tr>
 	<tr>
 		<td valign=top width="33%" colspan="2"><strong>Apellidos del alumno/a:<br />
-		<input type="text" name="apellidos"
+		<input class="input-xxlarge" type="text" name="apellidos"
 		<? echo "value = \"$apellidos\""; ?> size="32"
 		<? if(strstr($vacios,"apellidos, ")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		</strong></td>
 		<td valign=top width="33%"><strong>Nombre</strong>:<br />
-		<input type="text" name="nombre" <? echo "value = \"$nombre\""; ?>
+		<input class="input-xlarge" type="text" name="nombre" <? echo "value = \"$nombre\""; ?>
 			size="24"
 			<? if(strstr($vacios,"nombre, ")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
@@ -594,7 +586,7 @@ exit();
 		</td>
 		<td valign=top><strong>Fecha de nacimiento </strong>(dia-mes-año:
 		01-01-1998)<br />
-		<input type="text" name="nacimiento"
+		<input class="input-xlarge" type="text" name="nacimiento"
 		<? echo "value = \"$nacimiento\""; ?> size="10" maxlength="10"
 		<? if(strstr($vacios,"nacimiento,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
@@ -614,7 +606,7 @@ exit();
 		<br />
 		</td>
 		<td valign=top><strong>D.N.I.</strong><br />
-		<input type="text" name="dni" <? echo "value = \"$dni\""; ?> size="13"
+		<input class="input-small" type="text" name="dni" <? echo "value = \"$dni\""; ?> size="13"
 			maxlength="13"
 			<? if(strstr($vacios,"dni,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
@@ -630,11 +622,11 @@ exit();
 		Hombre <br />
 		</td>
 		<td valign=top><strong>Nº de Hermanos</strong>:<br />
-		<input type="text" name="hermanos" <? echo "value = \"$hermanos\""; ?>
+		<input class="input-mini" type="text" name="hermanos" <? echo "value = \"$hermanos\""; ?>
 			size="4" /> <br />
 		</td>
 		<td valign=top><strong>Nacionalidad</strong><br />
-		<input type="text" name="nacionalidad"
+		<input class="input-xlarge" type="text" name="nacionalidad"
 		<? echo "value = \"$nacionalidad\""; ?> size="24"
 		<? if(strstr($vacios,"nacionalidad,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
@@ -644,12 +636,12 @@ exit();
 		<td valign=top colspan="2"><strong>Apellidos y nombre del
 		Representante o Guardador legal 1</strong>(<span
 			style="font-weight: normal;">con quien convive el alumno</span>):<br />
-		<input type="text" name="padre" <? echo "value = \"$padre\""; ?>
+		<input class="input-xxlarge" type="text" name="padre" <? echo "value = \"$padre\""; ?>
 			size="52"
 			<? if(strstr($vacios,"padre,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		</td>
 		<td valign=top><strong>DNI</strong>:<br />
-		<input type="text" name="dnitutor" <? echo "value = \"$dnitutor\""; ?>
+		<input class="input-small" type="text" name="dnitutor" <? echo "value = \"$dnitutor\""; ?>
 			size="13" maxlength="13"
 			<? if(strstr($vacios,"dnitutor,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
@@ -659,20 +651,20 @@ exit();
 	<tr>
 		<td valign=top colspan="2"><strong>Apellidos y nombre del
 		Representante o Guardador legal 2</strong>:<br />
-		<input type="text" name="madre" <? echo "value = \"$madre\""; ?>
+		<input class="input-xxlarge" type="text" name="madre" <? echo "value = \"$madre\""; ?>
 			size="52" /></td>
 		<td valign=top><strong>DNI</strong>:<br />
-		<input type="text" name="dnitutor2"
+		<input class="input-small" type="text" name="dnitutor2"
 		<? echo "value = \"$dnitutor2\""; ?> size="13" maxlength="13" /> <br />
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2" rowspan="2" valign=top><strong>Tel&eacute;fono casa</strong>:
-		<input type="text" name="telefono1"
+		<input class="input-small" type="text" name="telefono1"
 		<? echo "value = \"$telefono1\""; ?> size="10"
 		<? if(strstr($vacios,"telefono1,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
-		<strong>Tel&eacute;fono m&oacute;vil padres</strong>: <input type="text" name="telefono2" size="10" <? echo "value = \"$telefono2\""; ?> style="margin-top:6px;<? if(strstr($vacios,"telefono2")==TRUE){echo 'background-color:#FFFF66;';}?>" />
+		<strong>Tel&eacute;fono m&oacute;vil padres</strong>: <input class="input-small" type="text" name="telefono2" size="10" <? echo "value = \"$telefono2\""; ?> style="margin-top:6px;<? if(strstr($vacios,"telefono2")==TRUE){echo 'background-color:#FFFF66;';}?>" />
 		<br />
 		Nota: Es muy importante registrar un tel&eacute;fono m&oacute;vil para
 		poder recibir comunicaciones del Centro v&iacute;a SMS.</td>
@@ -691,7 +683,7 @@ exit();
 
 	<tr>
 		<td valign=top colspan=""><span style="margin: 2 '   x 2px;"><strong>Correo
-		electr&oacute;nico padres</strong>:</span> <input type="text"
+		electr&oacute;nico padres</strong>:</span> <input class="input-xlarge" type="text"
 			name="correo" <? echo "value = \"$correo\""; ?> size="48" /></td>
 	</tr>
 
@@ -920,7 +912,7 @@ if ($idio==1) {
 				if ($num1==1 or $num1==4 or $num1==7 or $num1==10) {
 					echo "<td valign=top>";
 				}
-						echo '<select name="'.$optit_1.'" id=""';
+						echo '<select class="input-mini" name="'.$optit_1.'" id=""';
 				echo '>';
 			
 				if (strlen(${optativa2b.$num1})>0) {
@@ -1046,7 +1038,7 @@ if ($idio==1) {
 	<tr>
 		<td colspan="3" style="border-bottom: none">
 
-		<center><br />
+		<div align="center"><br />
 		<input type="hidden" name="curso" value="<? echo $curso;?>" /> <input
 			type="hidden" name="nuevo" value="<? echo $nuevo;?>" /> <input
 			type="hidden" name="curso_matricula"
@@ -1060,13 +1052,12 @@ $fech_cad = "20-06-".$c_act." 00:00:00";
 $fecha_entrada = strtotime($fech_cad);
 if($fecha_actual < $fecha_entrada){
 				echo '<input type=hidden name="enviar" value="Enviar los datos de la Matrícula" />';
-				echo '<input type=button onClick="confirmacion();" value="Enviar los datos de la Matrícula" class="no_imprimir" />';
+				echo '<input type=button onClick="confirmacion();" value="Enviar los datos de la Matrícula" class="btn btn-primary no_imprimir" />';
 			}
 			?>
 			
 			 <br />
-		<br />
-		</center>
+		</div>
 		</td>
 	</tr>
 	</form>

@@ -244,8 +244,7 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 </div>
 <?
   // Tabla temporalñ y recogida de datos
- $SQLDELF = "drop table `faltastemp2`";
- mysql_query($SQLDELF);
+ mysql_query("DROP table `faltastemp2`");
 }
  else {
 	 echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">

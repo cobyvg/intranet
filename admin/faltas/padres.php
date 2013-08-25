@@ -186,6 +186,6 @@ Atentamente le saluda la Dirección del Centro.
 	}
 	$MiPDF->Output();
 	// Eliminar Tabla temporal
- $SQLDELF = "drop table `faltastemp2`";
- $SQLDELJ = "drop table `faltastemp3`";	
+ mysql_query("DROP table `faltastemp2`");
+ mysql_query("DROP table `faltastemp3`");
 ?>

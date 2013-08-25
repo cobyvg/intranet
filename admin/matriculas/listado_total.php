@@ -2,6 +2,7 @@
 include_once ("../../pdf/funciones.inc.php");
 # para el pdf
 require_once('../../pdf/class.ezpdf.php');
+
 $pdf =& new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);

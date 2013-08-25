@@ -7,7 +7,18 @@ if ( $_POST['grupo']) {
 }
 if ($_POST['submit1'])
 {
-$notas = $_POST['notas']; $grave = $_POST['grave'];$nombre = $_POST['nombre']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida']; $claveal = $_POST['claveal']; $expulsionaula = $_POST['expulsionaula'];  $id = $_POST['id'];
+$notas = $_POST['notas']; 
+$grave = $_POST['grave'];
+$nombre = $_POST['nombre']; 
+$asunto = $_POST['asunto'];
+$fecha = $_POST['fecha'];
+$informa = $_POST['informa']; 
+$medidaescr = $_POST['medidaescr']; 
+$medida = $_POST['medida']; 
+$claveal = $_POST['claveal']; 
+$expulsionaula = $_POST['expulsionaula'];  
+$id = $_POST['id'];
+
 include("fechoria25.php");
 	exit;
 }

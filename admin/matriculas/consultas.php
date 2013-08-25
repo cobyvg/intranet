@@ -17,17 +17,20 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
-if ($listados=="Listado en PDF") {	
+if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}
+if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
+
+if (isset($_POST['listados'])) {
 	include("listados.php");
 	exit();
 }
 
-if ($listado_total=="Listado PDF total") {	
+if (isset($_POST['listado_total'])) {
 	include("listado_total.php");
 	exit();
 }
-
-if ($imprimir=="Imprimir") {
+if (isset($_POST['imprimir'])) {
 	mysql_query("drop table if exists matriculas_temp");
 	mysql_query("CREATE TABLE  `matriculas_temp` (
  `id_matriculas` INT NOT NULL ,
@@ -47,8 +50,7 @@ INDEX (  `id_matriculas` )
 	exit();
 }
 
-echo $_POST['imprimir_caratulas'];
-if ($caratulas == "Imprimir Carátulas") {
+if (isset($_POST['caratulas'])) {
 	mysql_query("drop table if exists matriculas_temp");
 	mysql_query("CREATE TABLE  `matriculas_temp` (
  `id_matriculas` INT NOT NULL ,
@@ -70,7 +72,7 @@ INDEX (  `id_matriculas` )
 	
 
 
-if ($cambios=="Ver cambios en datos") {
+if (isset($_POST['cambios'])) {
 	include("../../menu.php");
 	include("menu.php");
 	mysql_query("drop table if exists matriculas_temp");
@@ -105,8 +107,8 @@ for ($i = 0; $i < 18; $i++) {
 	elseif ($i=="17") {}
 	else{
 		if ($control[$i]==$control[$i-1]) {}else{		
-			echo "<li>Séneca: ".$control[$i]." ==> Matrícula: ".$control[$i-1]."</li>";
-		}
+						echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
+					}
 	}
 	}
 }
@@ -114,12 +116,13 @@ for ($i = 0; $i < 18; $i++) {
 
 }
 echo "</div>";
+	mysql_query("drop table matriculas_temp");
 exit();
 	}
 	
 
 
-if ($sin_matricula=="Alumnos sin matricular") {
+if (isset($_POST['sin_matricula'])) {
 	include("../../menu.php");
 	include("menu.php");
 
@@ -209,6 +212,11 @@ function desactivaOpcion(){
   <? 
  include("../../menu_solo.php");
  include("./menu.php");
+ 
+ foreach($_POST as $key => $val)
+	{
+		${$key} = $val;
+	}
   ?>
 <div align=center>
 <div class="page-header" align="center">
@@ -221,7 +229,7 @@ function desactivaOpcion(){
 echo '<div  class="no_imprimir">';
 include 'filtro.php';
 echo "</div>";
-if ($borrar=='1') {
+if (isset($_GET['borrar'])) {
 	mysql_query("insert into matriculas_backup (select * from matriculas where id = '$id')");
 	mysql_query("delete from matriculas where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -229,7 +237,7 @@ if ($borrar=='1') {
 El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de respaldo de us datos en la tabla matriculas_backup.
 </div></div><br />' ;
 }
-if ($copia=='1') {
+if (isset($_GET['copia'])) {
 	mysql_query("delete from matriculas where id='$id'");
 	mysql_query("insert into matriculas (select * from matriculas_backup where id = '$id')");
 	mysql_query("delete from matriculas_backup where id='$id'");
@@ -238,7 +246,7 @@ if ($copia=='1') {
 Los datos originales de la matrícula del alumno han sido correctamente restaurados.
 </div></div><br />' ;
 }
-if ($consulta) {
+if (isset($_GET['consulta']) or isset($_POST['consulta'])) {
 
 	if ($curso) {$extra=" curso='$curso' ";}else{
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
@@ -282,9 +290,8 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	if ($bilinguism == "No") { $extra.=" and bilinguismo = ''";}
 	if ($itinerario == "0") { $itinerario = "";	}
 	if (strlen($dn)>5) {$extra.=" and dni = '$dn'";}
-	if (strlen($apellid)>2) {$extra.=" and apellidos like '%$apellid%'";}
-	if (strlen($nombr)>2) {$extra.=" and nombre like '%$nombr%'";}
-
+	if (strlen($apellid)>1) {$extra.=" and apellidos like '%$apellid%'";}
+	if (strlen($nombr)>1) {$extra.=" and nombre like '%$nombr%'";}
 	if (!($orden)) {
 		$orden=" ";
 		if ($curso=="1ESO") {
@@ -341,7 +348,7 @@ if ($curso) {
 	} else{ echo $curso;}?></h3><br />
 <form action="consultas.php?curso=<? echo $curso;?>&consulta=1" name="form1" method="post">
 <table class="table table-striped table-condensed" align="center" style="width:auto">
-<tr><th colspan="2"></th><th>Nombre</th><th>Curso</th><th>Gr1</th><th>Gr2</th>
+<thead><th colspan="2"></th><th>Nombre</th><th>Curso</th><th>Gr1</th><th>Gr2</th>
 <?
 if ($curso=="1ESO") {
 echo '<th>Colegio</th>';
@@ -379,7 +386,8 @@ echo '<th class="no_imprimir">SI |PIL |NO </th>';
 		echo '<th class="no_imprimir">Borrar</th>';
 ?>
 <th class="no_imprimir">Conv.</th>
-</tr>
+</thead>
+<tbody>
 <?
 	while($consul = mysql_fetch_array($cons)){
 	$backup="";

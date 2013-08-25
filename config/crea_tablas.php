@@ -440,34 +440,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FALTASJ` (
   KEY `fecha` (`fecha`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
 
-// ////////////////////////////////////////////////////////
-
-//
-// Estructura de tabla para la tabla `faltastemp2`
-//
-
-mysql_query("CREATE TABLE IF NOT EXISTS `faltastemp2` (
-  `CLAVEAL` varchar(8) NOT NULL DEFAULT '',
-  `falta` char(1) DEFAULT NULL,
-  `numero` bigint(21) NOT NULL DEFAULT '0',
-  KEY `CLAVEAL` (`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
-
-// ////////////////////////////////////////////////////////
-
-//
-// Estructura de tabla para la tabla `faltastemp3`
-//
-
-mysql_query("CREATE TABLE IF NOT EXISTS `faltastemp3` (
-  `CLAVEAL` varchar(8) NOT NULL DEFAULT '',
-  `falta` char(1) DEFAULT NULL,
-  `numero` bigint(21) NOT NULL DEFAULT '0',
-  KEY `CLAVEAL` (`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
-
-// ////////////////////////////////////////////////////////
-
 //
 // Estructura de tabla para la tabla `FALUMNOS`
 //

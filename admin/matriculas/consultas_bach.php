@@ -17,19 +17,23 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'7') 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
+if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
+
 //include("../../funciones.php");
 //variables();
-if ($listados=="Listado en PDF") {
+if (isset($_POST['listados'])) {
 	include("listados_bach.php");
 	exit();
 }
 
-if ($listado_total=="Listado PDF total") {
+if (isset($_POST['listado_total'])) {
 	include("listado_total_bach.php");
 	exit();
 }
 
-if ($imprimir=="Imprimir") {
+if (isset($_POST['imprimir'])) {
 	mysql_query("drop table if exists matriculas_bach_temp");
 	mysql_query("CREATE TABLE  `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
@@ -50,7 +54,7 @@ INDEX (  `id_matriculas` )
 }
 
 //echo $_POST['imprimir_caratulas'];
-if ($caratulas == "Imprimir Carátulas") {
+if (isset($_POST['caratulas'])) {
 	mysql_query("drop table if exists matriculas_bach_temp");
 	mysql_query("CREATE TABLE  `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
@@ -70,11 +74,11 @@ INDEX (  `id_matriculas` )
 	exit();
 }
 
-if ($cambios=="Ver cambios en datos") {
+if (isset($_POST['cambios'])) {
 	include("../../menu.php");
 	include("menu.php");
 	mysql_query("drop table if exists matriculas_bach_temp");
-	mysql_query("CREATE TABLE  `matriculas_bach_temp` (
+	mysql_query("CREATE TABLE if not exists `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
 INDEX (  `id_matriculas` )
 )");
@@ -108,6 +112,7 @@ INDEX (  `id_matriculas` )
 		$contr = mysql_query("select matriculas_bach.apellidos, $alma.apellidos, matriculas_bach.nombre, $alma.nombre, matriculas_bach.domicilio, $alma.domicilio, matriculas_bach.dni, $alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, $alma.dnitutor, matriculas_bach.telefono1, $alma.telefono, matriculas_bach.telefono2, $alma.telefonourgencia, $alma.claveal from matriculas_bach, $alma where $alma.claveal=matriculas_bach.claveal and id = '$id_cambios'");
 		//$col_datos = array()
 		$control = mysql_fetch_array($contr);
+		if (strlen($control[16])>0) {
 		echo "<p style='color:#08c'>$control[16]: $control[0], $control[2]</p>";
 		for ($i = 0; $i < 18; $i++) {
 			if ($i%2) {
@@ -115,21 +120,26 @@ INDEX (  `id_matriculas` )
 				elseif ($i=="17") {}
 				else{
 					if ($control[$i]==$control[$i-1]) {}else{
-						echo "<li>Séneca: ".$control[$i]." ==> Matrícula: ".$control[$i-1]."</li>";
+						echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
 					}
 				}
 			}
 		}
-		echo "<hr>";
+			echo "<hr>";
+		}
+		
+		
+	
 
 	}
 	echo "</div>";
+	mysql_query("drop table matriculas_bach_temp");
 	exit();
 }
 
 
 
-if ($sin_matricula=="Alumnos sin matricular") {
+if (isset($_POST['sin_matricula'])) {
 	include("../../menu.php");
 	include("menu.php");
 
@@ -161,6 +171,10 @@ echo "</ul></div>";
 <?
 include("../../menu.php");
 include("./menu.php");
+ 	foreach($_POST as $key => $val)
+	{
+		${$key} = $val;
+	}
 ?>
 <div align=center>
 <div class="page-header" align="center">
@@ -186,7 +200,7 @@ $n_curso = substr($curso, 0, 1);
 include 'filtro_bach.php';
 
 echo "</div>";
-if ($borrar=='1') {
+if (isset($_GET['borrar'])) {
 	mysql_query("insert into matriculas_bach_backup (select * from matriculas_bach where id = '$id')");
 	mysql_query("delete from matriculas_bach where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -194,7 +208,7 @@ if ($borrar=='1') {
 El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de respaldo de us datos en la tabla matriculas_bach_backup.
 </div></div><br />' ;
 }
-if ($copia=='1') {
+if (isset($_GET['copia'])) {
 	mysql_query("delete from matriculas_bach where id='$id'");
 	mysql_query("insert into matriculas_bach(select * from matriculas_bach_backup where id = '$id')");
 	mysql_query("delete from matriculas_bach_backup where id='$id'");
@@ -203,7 +217,7 @@ if ($copia=='1') {
 Los datos originales de la matrícula del alumno han sido correctamente restaurados.
 </div></div><br />' ;
 }
-if ($consulta) {
+if (isset($_GET['consulta']) or isset($_POST['consulta'])) {
 
 	if ($curso) {$extra=" curso='$curso' ";}else{
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
@@ -241,7 +255,7 @@ if ($transport == "ruta_este") { $extra.=" and ruta_este != ''";}
 if ($transport == "ruta_oeste") { $extra.=" and ruta_oeste != ''";}
 if (strlen($dn)>5) {$extra.=" and dni = '$dn'";}
 if (strlen($apellid)>2) {$extra.=" and apellidos like '%$apellid%'";}
-if (strlen($nombr)>2) {$extra.=" and nombre like '%$nombr%'";}
+if (strlen($nombr)>1) {$extra.=" and nombre like '%$nombr%'";}
 
 if ($promocion=="SI") { $extra.=" and promociona = '1'";}
 if ($promocion=="NO") { $extra.=" and promociona = '2'";}

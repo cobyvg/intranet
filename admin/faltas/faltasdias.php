@@ -66,8 +66,7 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 	}
        
 // Eliminar Tabla temporal
- $SQLDEL = "DROP table `faltastemp2`";
- mysql_query($SQLDEL);   
+ mysql_query("DROP table `faltastemp2`");
   ?>
 </tbody>
 </table>
