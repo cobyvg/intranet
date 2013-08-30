@@ -20,15 +20,14 @@ $pr = $_SESSION['profi'];
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
 <meta name="author" content="">
-<link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet">
-<link rel="shortcut icon" href="http://<? echo $dominio;?>/intranet/img/favicon.ico">
-<link rel="apple-touch-icon" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-114x114.png">
+      
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min_cerulean.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
 <style type="text/css">
 .nota {
 	border:none;
@@ -58,21 +57,62 @@ include("menu_solo.php");
 ?>
 
 <?
+// Variables
+if (isset($_GET['profesor'])) {
+	$profesor = $_GET['profesor'];
+}
+elseif (isset($_POST['profesor'])) {
+	$profesor = $_POST['profesor'];
+}
+
 if (isset($_GET['dia'])) {
 	$dia = $_GET['dia'];
 }
+elseif (isset($_POST['dia'])) {
+	$dia = $_POST['dia'];
+}
+
 if (isset($_GET['hora'])) {
 $hora = $_GET['hora'];
 	}
+elseif (isset($_POST['hora'])) {
+$hora = $_POST['hora'];
+	}
+	
 if (isset($_GET['curso'])) {
 $curso = $_GET['curso'];
 	}
+	elseif (isset($_POST['curso'])) {
+$curso = $_POST['curso'];
+	}
+	
 if (isset($_GET['asignatura'])) {
 $asignatura = $_GET['asignatura'];
 	}
+	elseif (isset($_POST['asignatura'])) {
+$asignatura = $_POST['asignatura'];
+	}
+	
+if (isset($_GET['nom_asig'])) {
+$nom_asig = $_GET['nom_asig'];
+	}
+	elseif (isset($_POST['nom_asig'])) {
+$nom_asig = $_POST['nom_asig'];
+	}
+	
 if (isset($_GET['clave'])) {
 $clave = $_GET['clave'];
 	}
+elseif (isset($_POST['clave'])) {
+$clave = $_POST['clave'];
+	}
+if (isset($_GET['seleccionar'])) {
+$seleccionar = $_GET['seleccionar'];
+	}
+elseif (isset($_POST['seleccionar'])) {
+$seleccionar = $_POST['seleccionar'];
+	}
+	
 $pr = $_SESSION['profi'];
 // Elegir Curso y Asignatura.
 if(empty($curso))
@@ -80,6 +120,15 @@ if(empty($curso))
 include("index0.php");
 exit;
 }
+
+// Titulo
+echo "<br /><div align='center' class='page-header'>";
+$n_profe = explode(", ",$pr);
+$nombre_profe = "$n_profe[1] $n_profe[0]";
+echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small>Registro de datos</small></h2>";
+echo "</div>";
+echo '<div align="center">';
+
 // Enviar datos y procesarlos
 if(isset($_POST['enviar']))
 {
@@ -87,7 +136,6 @@ if(isset($_POST['enviar']))
 	//include("horario.php");
 	//exit;
 }
-// Conecxión con la base de datos.
  
   
 if($pr and $dia and $hora)
@@ -104,14 +152,16 @@ while($varias = mysql_fetch_array($n_c))
 	$nombre_asig = $varias[1];
 	$nombre_materia = strtolower($nombre_asig);
 }
-$num_cursos0 = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'");
+$num_cursos0 = mysql_query("SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'");
   // Todos los Grupos juntos
   $curs = "";
   $codigos = "";
+  $nom_asig="";
   while($n_cur = mysql_fetch_array($num_cursos0))
   {
 	$curs .= $n_cur[0].", ";
 	$codigos.= $n_cur[1]." ";
+	$nom_asig = $n_cur[2];
 }		
 $codigos = substr($codigos,0,-1);
 // Eliminamos el espacio
@@ -119,21 +169,11 @@ $codigos = substr($codigos,0,-1);
 // Eliminamos la última coma para el título.
 	$curso_sin = substr($curs0,0,(strlen($curs0)-1));
 //Número de columnas
-	
 	$col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
 	$col0 = mysql_query($col);
 	$cols = mysql_num_rows($col0);
 	
-	
-	
-	echo "</div>";
-	
-	echo "<br /><div align='center' class='page-header'>";
-// Titulos
-$n_profe = explode(", ",$pr);
-echo "<h2 style='margin-top:0px' class='no_imprimir'>Cuaderno de Notas</h2>";
-echo "<h4>$n_profe[1] $n_profe[0]<br /><h6 align='center' style='color:#999'>".$curso_sin." (".$nombre_materia.")</h6></h4></div>";
-echo '<div align="center">';
+echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";		
 echo '<form action="cuaderno.php" method="post" name="imprime" class="form-inline">';
 if(isset($_GET['seleccionar'])){
 	$seleccionar=$_GET['seleccionar'];
@@ -165,7 +205,7 @@ echo "<tr><th>NC</th><th>Alumnos</th>";
 	$cols2 += mysql_num_rows($col2); //echo $cols2;
 	$ident= $col20[2];
 	$id = $col20[0];
-	$mens0 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&curso=$curs0&dia=$dia&hora=$hora&id=$id&orden=$ident";
+	$mens0 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&curso=$curs0&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
 	echo "<th><a href='$mens0' rel='tooltip' title='$col20[1]'>$ident</a></th>";
 	}
 	if($seleccionar == 1){echo "<th></th>";}
@@ -200,15 +240,15 @@ if($seleccionar=="1"){	$num_col += 1;	}
    	echo "<h4 align='center' style='display:inline;'>".$nombre."&nbsp;(".$curso_sin.")</h4>&nbsp;&nbsp;";
 // Enlace para crear nuevos Alumnos y para crear nuevas columnasx
 $mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1'";
-$mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0";
+$mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&nom_asig=$nom_asig&nom_asig=$nom_asig";
 echo '<ul style="display:inline;float:right;margin:0px;">';
-	   $mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1";
+	   $mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1&nom_asig=$nom_asig";
 	echo '<li style="display:inline"><i class="icon icon-user icon-large" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." rel="Tooltip" onclick="window.location=\'';	
 	echo $mens1;
 	echo '\'" style="cursor: pointer;"></i>&nbsp;&nbsp;</li>';
 	echo '<li style="display:inline"><i class="icon icon-print icon-large" title="Imprimir la tabla de alumnos" onclick="print()"';
 	echo '\'" style="cursor: pointer;"> </i>&nbsp;&nbsp;</li>';
-    $mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0";
+    $mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&nom_asig=$nom_asig&nom_asig=$nom_asig";
 	echo '<li style="display:inline"><i class="icon icon-plus-sign icon-large" rel="Tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';	
 	echo $mens2;
 	echo '\'" style="cursor: pointer;"> </i></li>';
@@ -285,7 +325,7 @@ $result = mysql_query ($resul);
 		if ($row[5] == "") {}
 		else
 			{
-$inf = "cuaderno/informe.php?profesor=$pr&curso=$curso&asignatura=$asignatura&nc=$nc&claveal=$claveal&nombre=$nombre_al&apellidos=$apellidos";
+$inf = "cuaderno/informe.php?profesor=$pr&curso=$curso&asignatura=$asignatura&nc=$nc&claveal=$claveal&nombre=$nombre_al&apellidos=$apellidos&nom_asig=$nom_asig";
 	echo "<tr>";
 	echo "<td nowrap><a href='$inf'>$row[1]</a></td><td nowrap><a href='$inf'>$row[2], $row[3]</a></td>";
   	
@@ -324,7 +364,7 @@ echo "</tr>";
         }  
 	}
 $num_col+=1;
-echo '</table><div align=center class=no_imprimir><input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary" /></div>'; 
+echo '</table><div align=center class=no_imprimir><br /><input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary" /></div>'; 
 
   ?>
 </FORM>
@@ -358,7 +398,7 @@ echo '</table><div align=center class=no_imprimir><input name="enviar" type="sub
   Instrucciones de uso.
   </p>
 <p class="help-block">
-Hay varias funciones que puedes realizar sobre las columnas que contienen los datos (ocultar, elimar, calcular medias, etc). Marca las columnas sobre las que quieres trabajar, y luego presiona el botón que realiza una determinada operación sobre esas columnas. No te olvides de seleccionar las columnas coreespondientes.
+Hay varias funciones que puedes realizar sobre las columnas que contienen los datos (ocultar, eliminar, calcular medias, etc). Marca las columnas sobre las que quieres trabajar, y luego presiona el botón que realiza una determinada operación sobre esas columnas. No te olvides de seleccionar las columnas coreespondientes.
 </p>
 </div>
 </div>
@@ -384,7 +424,7 @@ $h=0;
 	$pon=mysql_query("select distinct ponderacion from datos where id='$id'");
 	$pon0=mysql_fetch_array($pon);
 	$pond= $pon0[0];
-	$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curs0&dia=$dia&hora=$hora&id=$id&orden=$ident";
+	$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curso&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
 	  echo "<tr><td>$n_col &nbsp;&nbsp;</td><td><a href='$mens0'>$nombre</a></td>";
 	  echo "<td>";
 	  ?>
@@ -399,7 +439,7 @@ $h=0;
 	  echo "</table>";
 	// Codigo Curso
 	echo '<input name=curso type=hidden value="';
-	echo $curs0;
+	echo $curso;
 	echo '" />';
 	// Profesor
 	echo '<input name=profesor type=hidden value="'; 
@@ -409,6 +449,10 @@ $h=0;
 	echo '<input name=asignatura type=hidden value="'; 
 	echo $asignatura; 
 	echo '" />';
+	// Nombre Asignatura.
+	echo '<input name=nom_asig type=hidden value="'; 
+	echo $nom_asig; 
+	echo '" />';
 	// Día.
 	echo '<input name=dia type=hidden value="'; 
 	echo $dia; 
@@ -417,16 +461,20 @@ $h=0;
 	echo '<input name=hora type=hidden value="'; 
 	echo $hora; 
 	echo '" />';
+	// Nombre asig.
+	echo '<input name=nom_asig type=hidden value="'; 
+	echo $nom_asig; 
+	echo '" />';
 
 ?>
 <hr>   
 <h4><small>Operaciones y Funciones</small></h4>
-    <input name="media" type="submit" value="Media Aritmética" class="btn btn-info" style="width:300px"/><br />
-        <input name="media_pond2" type="submit" value="Media Ponderada" class="btn btn-info" style="width:300px"/><br />
-        <input name="estadistica" type="submit" value="Estadística" class="btn btn-info" style="width:300px"/><br />
-    <input name="ocultar" type="submit" value="Ocultar" class="btn btn-info" style="width:300px"/><br />
-        <input name="mostrar" type="submit" value="Mostrar" class="btn btn-info" style="width:300px"/><br />
-        <input name="eliminar" type="submit" value="Eliminar" class="btn btn-info" style="width:300px"/><br />
+    <input name="media" type="submit" value="Media Aritmética" class="btn btn-warning" style="width:300px" /><br />
+        <input name="media_pond2" type="submit" value="Media Ponderada" class="btn btn-warning" style="width:300px"/><br />
+        <input name="estadistica" type="submit" value="Estadística" class="btn btn-warning " style="width:300px"/><br />
+    <input name="ocultar" type="submit" value="Ocultar" class="btn btn-warning " style="width:300px"/><br />
+        <input name="mostrar" type="submit" value="Mostrar" class="btn btn-warning " style="width:300px"/><br />
+        <input name="eliminar" type="submit" value="Eliminar" class="btn btn-warning " style="width:300px"/><br />
   </form>
 </div>
 </div>

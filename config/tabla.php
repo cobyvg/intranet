@@ -29,7 +29,7 @@ if (strstr($_SERVER['REQUEST_URI'],'#tab3')==TRUE) {$activo3 = ' class="active" 
 if (strstr($_SERVER['REQUEST_URI'],'#tab4')==TRUE) {$activo4 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'#tab5')==TRUE) {$activo5 = ' class="active" ';}*/
 ?>
-
+<div class="container">
 <form enctype="multipart/form-data" action="index.php" method="post" name="configura">
 <fieldset class="control-group info">
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -44,7 +44,7 @@ if (strstr($_SERVER['REQUEST_URI'],'#tab5')==TRUE) {$activo5 = ' class="active" 
 <div class="tab-pane fade in active" id="tab1">
 <h3>Datos generales de la configuración</h3><br />
 
-  <table class="table table-condensed table-bordered table-striped" style="width:60%">
+  <table class="table table-condensed table-bordered table-striped" style="width:auto">
       <td width="190">Dominio<span style='color:#9d261d'> (*)</span>
         </td>
       
@@ -133,7 +133,7 @@ if (strstr($_SERVER['REQUEST_URI'],'#tab5')==TRUE) {$activo5 = ' class="active" 
 
 <div class="tab-pane fade in" id="tab2">
 <h3>Módulos de la Intranet</h3><br />
-   <table class="table table-condensed table-bordered table-striped" style="width:60%">
+   <table class="table table-condensed table-bordered table-striped" style="width:auto">
     <tr>
       <td>Centro TIC:
         </td>
@@ -189,7 +189,7 @@ if (strstr($_SERVER['REQUEST_URI'],'#tab5')==TRUE) {$activo5 = ' class="active" 
     
 <div class="tab-pane fade in" id="tab3">
 <h3>Personal del Centro</h3><br />
-   <table class="table table-condensed table-bordered table-striped" style="width:60%">
+   <table class="table table-condensed table-bordered table-striped" style="width:auto">
     <tr>
       <td>Director/a<span style='color:#9d261d'> (*)</span>
         </td>
@@ -243,7 +243,7 @@ for($i=1;$i<2;$i++){
     
 <div class="tab-pane fade in" id="tab4">
 <h3>Bases de datos</h3><br />
-   <table class="table table-condensed table-bordered table-striped" style="width:60%">        
+   <table class="table table-condensed table-bordered table-striped" style="width:auto">        
    <tr>
    <td>Base de datos principal</td>
       <td><input type="text" name="db" size="30" value="<?php if(empty($db)) { echo "intranet"; } else { echo $db; } ?>" required /></td>
@@ -273,7 +273,7 @@ for($i=1;$i<2;$i++){
     
 <div class="tab-pane fade in" id="tab5">
 <h3>Sistema de Reservas</h3><br />
-   <table class="table table-condensed table-bordered table-striped" style="width:60%"> 
+   <table class="table table-condensed table-bordered table-striped" style="width:auto"> 
     <tr>
       <td>Base de datos de Reservas<span style='color:#9d261d'> (*)</span>
         </td>
@@ -522,6 +522,7 @@ for($i=1;$i<$num_aula+1;$i++){
       </div>
    </fieldset>
 </form>
+</div>
 <?php include("../pie.php");?>
 </body>
 </html>

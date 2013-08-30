@@ -38,7 +38,7 @@ include("../../menu.php");
     </SELECT>
   </label>
   <br />
-  <INPUT type="submit" name="submit1" value="Buscar" class="btn btn-primary">
+  <INPUT type="submit" name="submit1" value="Buscar" class="btn btn-primary btn-block">
   </div>
   </div>
 </FORM>

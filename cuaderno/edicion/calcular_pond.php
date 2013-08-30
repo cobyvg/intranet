@@ -1,5 +1,5 @@
 <?
-if($recalcula){  echo $id;
+if(isset($_POST['recalcula'])){  
   if (is_numeric($id) and is_numeric($valor)){
 				$upd=mysql_query("update datos set ponderacion='$valor' where id='$id'") or die ("error update ponderacion");
 												}
@@ -27,8 +27,11 @@ if($recalcula){  echo $id;
 	echo '<input name=hora type=hidden value="'; 
 	echo $hora; 
 	echo '" />';
+	echo '<input name=nom_asig type=hidden value="'; 
+	echo $nom_asig; 
+	echo '" />';
 
-$volver="../cuaderno.php?dia=$dia&hora=$hora&curso=$curso&asignatura=$asignatura";
+$volver="../cuaderno.php?dia=$dia&hora=$hora&curso=$curso&asignatura=$asignatura&nom_asig=$nom_asig";
 $nums_ids=0;
 $sum='';
 foreach ($_POST as $id => $valor) {
@@ -100,21 +103,21 @@ $n_cursos = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof 
 	$curso_sin = substr($curs0,0,(strlen($curs0)-1));
 //Número de columnas
 	
-	$col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$profesor' and curso = '$curso' and oculto = '0' and ($celdas)  order by orden asc";
+	$col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$profesor' and curso like '%$curso%' and oculto = '0' and ($celdas)  order by orden asc";
 	$col0 = mysql_query($col);
 	
 	$curso_sin = substr($curso,0,strlen($curso) - 1);
 
 echo "<br /><table align='center' class='table table-striped' style='width:auto'>"; 
-echo "<tr><th>NC</th><th colspan='2' align='center'>Alumno</th>";
+echo "<thead><th>NC</th><th colspan='2' align='center'>Alumno</th>";
 // Número de las columnas de la tabla	
 	while($col20 = mysql_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
-	echo "<th align='center'>$ident</th>";
+	echo "<th align='center'><a href='#' rel='Tooltip' title='$col20[1]'>$ident</a></th>";
 	
 	}
-	echo "<th align='center'>M. Ponderada</th>";
+	echo "<th align='center'>M. Ponderada</th></thead><tbody>";
 
 // Tabla para cada Grupo
   $curso0 = "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'";
@@ -134,15 +137,9 @@ echo "<tr><th>NC</th><th colspan='2' align='center'>Alumno</th>";
 		if(strstr($curs,$curso30)){$curso = "";}	
 		else{
 		$curso = $curso_sin1;
-		echo "<tr><td colspan='$num_col'><h5 align='center'>";
-   		echo $curso." ".$nombre;
-   		echo "</h5></td></tr>";
 		}
 	}
 else{
-		echo "<tr><td colspan='$num_col'><h5 align='center'>";
-   	echo $curso." ".$nombre;
-   		echo "</h5></td></tr>";
 	}
 	mysql_select_db($db);
 	$hay0 = "select alumnos from grupos where profesor='$profesor' and asignatura = '$asignatura' and curso = '$curso'";
@@ -234,8 +231,8 @@ while ($esta=mysql_fetch_array($est)){
 				}
 	}}
 	//media del grupo
-	echo "<tr><td></td><td></td><td align='right' style='font-weight:bold; '>Media del Grupo*</td>";
-	for($j = 1;$j<=$i;$j++) {
+	echo "<tr class='inf'><td align='right' colspan='3' style='font-weight:bold;'>Media del Grupo*</td>";
+		for($j = 1;$j<=$i;$j++) {
 	$x=$sumanotas[$j]/($aprobados[$j]+$suspensos[$j]);
 	$x_total=$sumanotas[$j]/$t_alumnos;
 	echo "<td align='center'>"; redondeo($x_total); echo" ("; redondeo($x);  echo")</td>";
@@ -245,19 +242,19 @@ while ($esta=mysql_fetch_array($est)){
     echo "<td align='center' style='font-weight:bold'>"; redondeo($fin_total); echo" ("; redondeo($fin); echo")</td>";
 	
 	//aprobados
-	echo "</tr><tr><td></td><td></td><td align='right' style='font-weight:bold; '>Aprobados</td>";
-	for($j = 1;$j<=$i;$j++) {
-	echo "<td style='background-color:#dff0d8;'  align='center'>$aprobados[$j]</td>";
+	echo "</tr><tr class='success'><td colspan='3' align='right' style='font-weight:bold;'>Aprobados</td>";
+    	for($j = 1;$j<=$i;$j++) {
+	echo "<td'  align='center'>$aprobados[$j]</td>";
 	$pap=($m_ap/($t_alumnos))*100;
 							}
-    echo "<td align='center' style='background-color:#dff0d8;font-weight:bold'>$m_ap ->"; redondeo($pap);  echo"%</td>";
+    echo "<td align='center' style='font-weight:bold'>$m_ap ->"; redondeo($pap);  echo"%</td>";
 	
 	
 	//suspensos
-	echo "</tr><tr><td></td><td></td><td align='right' style='padding-right:20px;font-weight:bold;'>Suspensos*</td>";
-	for($j = 1;$j<=$i;$j++) {
+	echo "</tr><tr class='warning'><td colspan='3' style='font-weight:bold;'>Suspensos*</td>";
+    	for($j = 1;$j<=$i;$j++) {
 	  $t_s1=$t_alumnos-$aprobados[$j];
-	echo "<td style='background-color:#f2dede;' align='center'>$t_s1 ($suspensos[$j])</td>";
+	echo "<td align='center'>$t_s1 ($suspensos[$j])</td>";
 	$t_s= $t_alumnos - $m_ap;
 	$psus=($t_s/($t_alumnos))*100;	
 		

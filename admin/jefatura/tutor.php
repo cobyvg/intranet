@@ -172,7 +172,7 @@ $clave = $tr[1];
   </label>
   <hr>
   <label  style='display:inline'>Alumno<br />
-          <select name="alumno" onChange="submit()"  class='input-block-level'>
+          <select name="alumno" onChange="submit()"  class='input-xlarge'>
     <?
   $alumno0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where nivel = '$nivel' and grupo = '$grupo' order by NC asc");
   if ($falumno = mysql_fetch_array($alumno0))

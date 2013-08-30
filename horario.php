@@ -59,7 +59,7 @@ foreach ( $todas_horas as $n_hora => $nombre ) {
 		while ( $rowasignaturas1 = mysql_fetch_array ( $asignaturas1 ) ) {
 			$grupo = $rowasignaturas1 [1] . "-" . $rowasignaturas1 [2];
 			if (! ($grupo == "TUT")) {
-				echo "<a href='http://$dominio/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=1&asignatura=$rowasignatur1[0]' style='font-size:0.8em'>";
+				echo "<a href='http://$dominio/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]' style='font-size:0.8em'>";
 			}
 			if (is_numeric ( substr ( $grupo, 0, 1 ) )) {
 				echo $grupo . "<br />";
