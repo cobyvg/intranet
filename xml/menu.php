@@ -8,9 +8,9 @@
 <li><a href="jefe/admin/" class="enlacelateral">Crear Horarios</a></li>
 <?}
 if(phpversion() < '5'){
- echo '<a href="jefe/asignaturas_xslt.php" class="enlacelateral">';}
+ echo '<li><a href="jefe/asignaturas_xslt.php" class="enlacelateral">';}
 else{
- echo '<a href="jefe/asignaturas.php" class="enlacelateral">';}
+ echo '<li><a href="jefe/asignaturas.php" class="enlacelateral">';}
 ?>
 Crear Asignaturas y sistema de Calficaciones</a></li>
 <li><a href="jefe/indexprofesores.php" class="enlacelateral">Crear Profesores</a></li>

@@ -83,17 +83,28 @@ class GranPDF extends FPDF {
 	}
 }
 
+<<<<<<< HEAD
 			# creamos el nuevo objeto partiendo de la clase
 			$MiPDF=new GranPDF('P','mm',A4);
+=======
+# creamos el nuevo objeto partiendo de la clase
+$MiPDF=new GranPDF('P','mm',A4);
+>>>>>>> 95406138c3a5700e2fca8f258880a24695a1a2a4
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
 $MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
 $MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
 $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
+<<<<<<< HEAD
 			$MiPDF->SetMargins(20,20,20);
 			# ajustamos al 100% la visualizacion
 			$MiPDF->SetDisplayMode('fullpage');
+=======
+$MiPDF->SetMargins(20,20,20);
+# ajustamos al 100% la visualizacion
+$MiPDF->SetDisplayMode('fullpage');
+>>>>>>> 95406138c3a5700e2fca8f258880a24695a1a2a4
  
   
   $fecha1 = explode("-",$fecha);
@@ -112,43 +123,41 @@ while($alumno = mysql_fetch_array($alumnos1))
 mysql_query("insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
 # insertamos la primera pagina del documento
 $MiPDF->Addpage();
-$cuerpo1="		$alumno[2], con D.N.I número $alumno[8], padre, madre o tutor/a legal de  $alumno[0] $alumno[1], alumno/a del curso $alumno[9]-$alumno[10] de este Centro, se hace cargo bajo su responsabilidad de que su hijo/a participe en la siguiente actividad extraescolar o complementaria: ";
-$cuerpo2="		Fecha: $fecha.
-		Horario: $horario.
-		Actividad: $actividad.
-		Descripción: $descripcion.
-		Profesor responsable de la actividad: $profesor.";	
+$cuerpo1="$alumno[2], con D.N.I número $alumno[8], padre, madre o tutor/a legal de $alumno[0] $alumno[1], alumno/a del curso $alumno[9]-$alumno[10] de este Centro, se hace cargo bajo su responsabilidad de que su hijo/a participe en la siguiente actividad extraescolar o complementaria: ";
+$cuerpo2="Fecha: $fecha.
+Horario: $horario.
+Actividad: $actividad.
+Descripción: $descripcion.
+Profesor responsable de la actividad: $profesor.";	
 $cuerpo3 = "
 
 
 
-						(ejemplar para los padres o tutores)
-----------------------------------------------------------------------------------------------------------------------------------------------	
-						(ejemplar para el profesor responsable de la actividad)
+(ejemplar para los padres o tutores)
+----------------------------------------------------------------------------------------------------------------------------------------------
+(ejemplar para el profesor responsable de la actividad)
 
 ";
-$cuerpo4 = "	
-	ACUSE DE RECIBO
+$cuerpo4 = "ACUSE DE RECIBO
    
-	Yo, $alumno[2], Autorizo a mi hijo/a  $alumno[0] $alumno[1], alumno/a del curso $alumno[9] -$alumno[10] a que participe en la actividad complementaria siguiente:
+Yo, $alumno[2], Autorizo a mi hijo/a  $alumno[0] $alumno[1], alumno/a del curso $alumno[9] -$alumno[10] a que participe en la actividad complementaria siguiente:
    
-		Fecha: $fecha.
-		Horario: $horario.
-		Actividad: $actividad.
-		Descripción: $descripcion. 
+Fecha: $fecha.
+Horario: $horario.
+Actividad: $actividad.
+Descripción: $descripcion. 
    ";
 
 #### Cabecera con direcciÃ³n
-	$MiPDF->SetFont('Times','',10);
+	$MiPDF->SetFont('NewsGotT','',10);
 	$MiPDF->SetTextColor(0,0,0);
 	$MiPDF->Text(120,45,$alumno[2]);
 	$MiPDF->Text(120,49,$alumno[3]);
-	$MiPDF->Text(120,53,$alumno[4]." ".$alumno[5]);
-	$MiPDF->Text(120,57,"MÃ¡laga");
+	$MiPDF->Text(120,53,$alumno[4]." ".$alumno[5]." (".$alumno[6].")");
 	
 	#Cuerpo.
 	$MiPDF->Ln(45);
-	$MiPDF->SetFont('Times','',10);
+	$MiPDF->SetFont('NewsGotT','',10);
 	$MiPDF->Multicell(0,4,$cuerpo1,0,'J',0);
 	$MiPDF->Ln(3);
 	$MiPDF->Multicell(0,4,$cuerpo2,0,'J',0);
