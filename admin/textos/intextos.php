@@ -55,7 +55,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') ==
     <form method="post" action="intextos.php" class="form-vertical">
   <label>
   Nivel:<br />
-    <select name="nivel" id="select4" onChange="submit()" class="input-xxlarge">
+    <select name="nivel" id="select4" onChange="submit()" class="input-block-level">
       <?
  if(isset($_POST['nivel']))
         {
@@ -97,16 +97,16 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
     <legend>Datos del Libro de
       Texto</legend>
     <hr>
-    <label>T&iacute;tulo <span style="color:#9d261d"> (*)</span><br />
-      <input name="titulo" type="text" id="titulo" class="input-xxlarge" value="<? echo $titulo; ?>">
-    </label>
-    <label>Autor<br />
-      <input name="autor" type="text" id="autor" class="input-xxlarge" value="<? echo $autor; ?>">
-    </label>
-    <label>Editorial<span style="color:#9d261d"> (*)</span><br />
-      <input name="editorial" type="text" id="editorial" class="input-xxlarge" value="<? echo $editorial; ?>">
-    </label>
-    <label>Departamento<span style="color:#9d261d"> (*)</span><br />
+    <label>T&iacute;tulo <span style="color:#9d261d"> (*)</span></label><br />
+      <input name="titulo" type="text" id="titulo" class="input-block-level" value="<? echo $titulo; ?>">
+    
+    <label>Autor</label><br />
+      <input name="autor" type="text" id="autor" class="input-block-level" value="<? echo $autor; ?>">
+    
+    <label>Editorial<span style="color:#9d261d"> (*)</span></label><br />
+      <input name="editorial" type="text" id="editorial" class="input-block-level" value="<? echo $editorial; ?>">
+    
+    <label>Departamento<span style="color:#9d261d"> (*)</span></label><br />
     <?
     if(stristr($_SESSION['cargo'],'4') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE)
     {
@@ -117,7 +117,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
     }
     else{
     ?>
-    <select name="departamento" id="departamento"  value =" value="<? echo $departamento; ?>"" onChange="submit()"  class="input-xxlarge">
+    <select name="departamento" id="departamento"  value =" value="<? echo $departamento; ?>"" onChange="submit()"  class="input-block-level">
         <option>
         <?  echo $departamento;?>
         </option>
@@ -139,7 +139,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       <? } ?>
     </label>
     <label>Asignatura <span style="color:#9d261d"> (*)</span><br />
-      <select name="asignatura" id="asignatura" class="input-xlarge"  value="<? echo $asignatura; ?>">
+      <select name="asignatura" id="asignatura" class="input-block-level"  value="<? echo $asignatura; ?>">
         <option>
         <?
    // Datos de la Asignatura
@@ -166,10 +166,10 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       </select>
     </label>
     <label>ISBN<span style="color:#9d261d"> (*)</span><br />
-      <input name="isbn" type="text" id="isbn" class="input-xlarge" value="<? echo $isbn; ?>">
+      <input name="isbn" type="text" id="isbn" class="input-block-level" value="<? echo $isbn; ?>">
     </label>
     <label>Observaciones<br />
-      <textarea name="NOTAS" class="input-xxlarge" rows="6"> <? echo $NOTAS; ?></textarea>
+      <textarea name="NOTAS" class="input-block-level" rows="6"> <? echo $NOTAS; ?></textarea>
     </label>
     <p class="help-block"><span style="color:#9d261d">(*)</span> Campos obligatorios del formulario.</p>
     <br />
@@ -186,7 +186,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
     <br />
     <div class="well well-large" style="width:95%;" align="left">
       <label>Nivel<br />
-        <select name="nivel" id="select6" class="input-xxlarge">
+        <select name="nivel" id="select6" class="input-block-level">
           <?
   $tipo = "select distinct curso from alma order by curso";
   $tipo1 = mysql_query($tipo);
@@ -198,7 +198,7 @@ echo "<option>$completo</option>";
         </select>
       </label>
       <label>Departamento:<br />
-        <select name="departamento" id="select7"  value ="Todos ..." onChange="submit()" class="input-xxlarge">
+        <select name="departamento" id="select7"  value ="Todos ..." onChange="submit()" class="input-block-level">
           <option></option>
           <?
   $profe = mysql_query(" SELECT distinct departamento FROM departamentos order by departamento asc");
