@@ -51,7 +51,7 @@ $profe = explode(", ",$profeso);
 $a=array(1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 foreach($a as $hora => $nombre) 
 {
-echo "<tr><th>$nombre</th>";
+echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
 for($i=1;$i<6;$i++) 
 {
 // Asignaturas del Curso en un día

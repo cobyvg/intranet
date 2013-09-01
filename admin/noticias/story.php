@@ -37,12 +37,6 @@ if ($row)
             echo $row->slug;
 ?>
 </p>
-<h6 align="right">
-<?
-			$fechan = explode(" ",$row->timestamp);
-			fecha_actual($row->timestamp);
-?>
-</h6>
 <br />
 <div class="well">
 <blockquote>

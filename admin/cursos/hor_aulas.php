@@ -23,7 +23,7 @@ if (isset($_POST['aula'])) {$aula = $_POST['aula'];} elseif (isset($_GET['aula']
 </div>
 </div>
 
-<table class="table table-striped table-bordered" align="center" style="width:auto">
+<table class="table table-striped table-bordered" align="center" style="width:92%">
     <tr> 
     <th></th>
 <th valign="middle" align="center">
@@ -49,7 +49,7 @@ $NIVEL1="";
 $GRUPO1="";
 $a=array(1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 foreach($a as $hora => $nombre) {
-echo "<tr><th>$nombre</th>";
+echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
 for($i=1;$i<6;$i++) {
 echo "<td>";
 $curso = $NIVEL1."-".$GRUPO1;

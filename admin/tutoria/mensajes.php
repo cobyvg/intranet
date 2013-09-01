@@ -1,5 +1,4 @@
-<h4>Mensajes de Tutoría</h4>
-  <br />
+<p class='lead'>Mensajes de Tutoría</p>
             <?php
 // Conexión al Servidor
  
@@ -44,7 +43,7 @@ $alumno = "$row->apellidos, $row->nombre";
 <p><? echo $row->texto;?></p>  </div>
   <div class="modal-footer">
   <form name="mensaje_enviado" action="index0.php" method="post" enctype="multipart/form-data" class="form-inline">
-  <a href="#" class="btn" data-dismiss="modal">Cerrar</a>
+  <a href="#" class="btn btn-warning" data-dismiss="modal">Cerrar</a>
     <?
 
 echo '<a href="../mensajes/index.php?padres=1&asunto='.$row->asunto.'&origen='.$alumno.'" target="_top" class="btn btn-primary">Responder</a>';

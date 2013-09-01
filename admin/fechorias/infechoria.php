@@ -278,15 +278,15 @@ else{
 
 ?>
 <input type="hidden" name="claveal" id="checkbox" value="<? echo $claveal;?>"> 
-
+<hr />
 <?
 if ($id) {
 echo '<input type="hidden" name="id" value="'.$id.'">';	
 echo '<input type="hidden" name="claveal" value="'.$claveal.'">';	
-echo '<input size=25 name = "submit2" type="submit" value="Actualizar datos" class="btn btn-primary">';
+echo '<input size=25 name = "submit2" type="submit" value="Actualizar datos" class="btn btn-warning btn-block">';
 }
 else{
-	echo '<br><input name=submit1 type=submit value="Enviar datos" class="btn btn-primary">';
+	echo '<input name=submit1 type=submit value="Enviar datos" class="btn btn-primary btn-block">';
 }
 ?>
 

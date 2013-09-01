@@ -51,7 +51,7 @@ $grupo1 = $tr[1];
 	// Días y horas de la semana
 	$a=array(1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 	foreach($a as $hora => $nombre) {
-		echo "<tr><th>$nombre</th>";
+		echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
 		for($i=1;$i<6;$i++) {
 			echo "<td>";
 			$sqlasig0 = "SELECT distinct  asig, c_asig FROM  horw where a_grupo = '$curso' and dia = '$i' and hora = '$hora'";

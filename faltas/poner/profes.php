@@ -24,7 +24,7 @@
 $horas=array(1=>"1",2=>"2",3=>"3",4=>"4",5=>"5",6=>"6");
 foreach($horas as $n_hora => $nombre) 
 {
-echo "<tr><th>$nombre</th>";
+echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
 for($z=1;$z<6;$z++) 
 {
 	
@@ -50,7 +50,7 @@ for($z=1;$z<6;$z++)
 // Abreviatura de la Asignatura
 $asignatur1 = mysql_query("SELECT distinct  c_asig, a_asig FROM  horw where prof = '$profesor' and dia = '$z' and hora = '$n_hora'");
 $rowasignatur1 = mysql_fetch_row($asignatur1);
-if($rowasignatur1[0]){echo "<div class='label' style='width:90%'>".$rowasignatur1[1]."</div><br />"; }
+if($rowasignatur1[0]){echo "<div class='badge badge-success' style='width:62%'>".$rowasignatur1[1]."</div><br />"; }
  
 // Recorremos los grupos a los que da en ese hora.
 	$asignaturas1 = mysql_query("SELECT distinct  c_asig, Nivel, n_grupo FROM  horw where prof = '$profesor' and dia = '$z' and hora = '$n_hora'");
@@ -71,7 +71,7 @@ if($rowasignatur1[0]){echo "<div class='label' style='width:90%'>".$rowasignatur
     echo "<INPUT type=hidden name=fecha".$z.$n_hora.$curso[0]." value=$diafaltas>";	
 	// Nivel y Grupo en pantalla	  			
     echo "<span class='badge badge-warning'>" .$rowasignaturas1[1]."-".$curso[0]."</span>";      	
-    echo "<INPUT type=hidden name=grupo".$z.$n_hora.$curso[0]." value=$curso[0]>";
+    echo "<INPUT type=hidden name=grupo".$z.$n_hora.$curso[0]." value=$curso[0]/>";
     // Cambios de fecha entre PHP y MySQL, de española a internacional.
     if (isset($diafaltas)) {
     $fechanc = explode("-",$diafaltas);
@@ -94,7 +94,7 @@ if($rowasignatur1[0]){echo "<div class='label' style='width:90%'>".$rowasignatur
 // Eliminamos el último punto de la serie, limpiando un poco.
 $faltas14 = rtrim($faltas13, "."); 
 	  
-    echo "  <INPUT type=text name=alumnos".$z.$n_hora.$curso[0]." value='$faltas14' style='' class='input-mini'><br>";
+    echo "  <INPUT type=text name=alumnos".$z.$n_hora.$curso[0]." value='$faltas14' class='input-mini'/><br>";
     echo "<INPUT type=hidden name=nivel".$z.$n_hora.$curso[0]." value=$rowasignaturas1[1]>";
     echo "<INPUT type=hidden name=asignatura".$z.$n_hora.$curso[0]." value=$rowasignaturas1[0]>";
     echo "<INPUT type=hidden name=hora".$z.$n_hora.$curso[0]." value=$n_hora>";

@@ -21,7 +21,7 @@
 $alldays=array(1=>"L",2=>"M",3=>"X",4=>"J",5=>"V");
 foreach($alldays as $n_dia => $nombre) 
 {
-echo "<tr><th>$nombre</th>";
+echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
 for($z=1;$z<7;$z++) 
 {
 ?>   

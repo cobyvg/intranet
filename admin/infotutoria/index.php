@@ -63,7 +63,7 @@ $resultcurso = mysql_query($SQLcurso);
 {
 	echo "<form name='consulta' method='POST' action='tutoria.php'>";
 //$num_informe = mysql_num_rows($sql1);
-echo "<h4>$curso</h4><h5>$n_asig</h5><br />";
+echo "<p class='lead text-info'>$curso <br /><small>$n_asig</small></p>";
 echo "<table align=center  class='table'><tr style='background-color:#f6f6f6'>";
 echo "<th>Alumno</th>
 <th>Cita padres</th>
@@ -120,7 +120,7 @@ echo "&nbsp;&nbsp;<a href='informar.php?id=$row[0]' class='btn btn-primary btn-m
 	 echo "<br /></form><hr>";
 }
 	else{
-		echo "<h4>$curso</h4><h5>$n_asig</h5><br />";
+		echo "<p class='lead text-info'>$curso<br /><small> $n_asig</small></p>";
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 No hay Informes de Tutor&iacute;a Activos para t&iacute;</div></div><hr>';

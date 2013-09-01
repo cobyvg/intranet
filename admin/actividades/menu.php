@@ -42,7 +42,7 @@ if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'
        <li<? echo $activo2;?>><a href="index.php">Introducir Nueva Actividad</a></li>
       <li<? echo $activo3;?>><a href="consulta.php">Lista de Actividades</a></li>
           
-          <form method="post" action="consulta.php" class="form-search" style="margin-top:5px;">
+          <form method="post" action="consulta.php" class="form-search" style="margin-top:4px;"style="margin-top:4px;">
       	<div class="input-append pull-right">
     <input type="search" class="search-query" placeholder="Buscar en las Actividades" name="expresion" id="exp" onClick="this.value=''">
     <button type="submit" class="btn btn-success">Buscar</button>

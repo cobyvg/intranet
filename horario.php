@@ -23,8 +23,8 @@ echo "<table  class='table table-condensed table-bordered table-striped' style='
 // Horas del día
 $todas_horas = array (1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 foreach ( $todas_horas as $n_hora => $nombre ) {	
-				echo "<tr><td  valign='middle' align='center'  style='color:#555; font-weight:bold;'>".$nombre."ª</td>";
-
+echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
+	
 	//Días
 	for($z = 1; $z < 6; $z ++) {
 
@@ -43,11 +43,11 @@ foreach ( $todas_horas as $n_hora => $nombre ) {
 			$rowasignatur1 [1] = "CON";
 		}
 		if (is_numeric ( $rowasignatur1 [0] ) and ! ($rowasignatur1 [1] == "GU")) {
-			echo "<h5 class='badge badge-inverse'>" . $rowasignatur1 [1] . "</h5><br />";
+			echo "<div class='badge badge-inverse'>" . $rowasignatur1 [1] . "</div><br />";
 		}
 		
 		if (! (is_numeric ( $rowasignatur1 [0] )) and ! ($rowasignatur1 [1] == "GU")) {
-			echo "<h5 class='badge'>" . $rowasignatur1 [1] . "</h5><br />";
+			echo "<h5 class='badge badge-success'>" . $rowasignatur1 [1] . "</h5><br />";
 		}
 
 

@@ -17,21 +17,10 @@ if($mens_bd=="1"){
 No se encuentra el archivo de configuracion <strong>config.php</strong> en el directorio <em>/opt/e-smith/</em>. Debes crearlo en primer lugar y conceder permiso de escritura al mismo.
           </div><br /><input type="button" value="Volver atrás" name="boton" onClick="history.back(1)" class="btn btn-inverse" /></div>';
 }
-
-/*$activo1='';
-$activo2="";
-$activo3="";
-$activo4="";
-$activo5="";
-if (strstr($_SERVER['REQUEST_URI'],'#tab1')==TRUE) {$activo1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'#tab2')==TRUE) {$activo2 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'#tab3')==TRUE) {$activo3 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'#tab4')==TRUE) {$activo4 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'#tab5')==TRUE) {$activo5 = ' class="active" ';}*/
 ?>
 <div class="container">
 <form enctype="multipart/form-data" action="index.php" method="post" name="configura">
-<fieldset class="control-group info">
+<fieldset class="control-group warning">
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab">Datos generales de la configuración</a></li>
@@ -518,7 +507,7 @@ for($i=1;$i<$num_aula+1;$i++){
   <br />
   </div>
  <div  align="center">
-      <input  type="submit" name="enviar" value="Aplicar cambios" class="btn btn-danger btn-large" style="color:#fff" />
+      <input  type="submit" name="enviar" value="Aplicar cambios" class="btn btn-danger" style="color:#fff" />
       </div>
    </fieldset>
 </form>

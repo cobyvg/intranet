@@ -1,5 +1,4 @@
-  <h4>Problemas de Convivencia</h4>
-  <br />
+  <p class='lead'>Problemas de Convivencia</p>
   <?php
   $alumn = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.claveal from FALUMNOS where nivel = '$nivel' and grupo = '$grupo'";
   $alumn0 = mysql_query($alumn);

@@ -1,5 +1,4 @@
-<h4>Faltas de asistencia sin justificar</h4>
-  <br />
+<p class='lead'>Faltas de asistencia sin justificar</p>
 <?php
  echo "<table class='table table-striped table-condensed' style='width:100%'>";
 		?>

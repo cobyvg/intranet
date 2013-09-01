@@ -194,13 +194,11 @@ Adjunto:
 </label>
 <hr>
 <label>Marcar destinatarios;</label>
-<div class="btn-group">
-<a href="javascript:seleccionar_todo()" class="btn  btn-mini">Todos</span></a>
-<a href="javascript:seleccionar_tutor()" class="btn  btn-mini">Tutores</span></a>
-<a href="javascript:seleccionar_jd()" class="btn  btn-mini">J. de Departamento</span></a>
-<a href="javascript:seleccionar_ca()" class="btn  btn-mini">C. de Área</span></a>
-<a href="javascript:seleccionar_ed()" class="btn  btn-mini">Dirección</span></a>
-</div>
+<a href="javascript:seleccionar_todo()" class="btn  btn-mini btn-primary">Todos</span></a>
+<a href="javascript:seleccionar_tutor()" class="btn  btn-mini btn-primary">Tutores</span></a>
+<a href="javascript:seleccionar_jd()" class="btn  btn-mini btn-primary">J. de Departamento</span></a>
+<a href="javascript:seleccionar_ca()" class="btn  btn-mini btn-primary">C. de Área</span></a>
+<a href="javascript:seleccionar_ed()" class="btn  btn-mini btn-primary">Dirección</span></a>
 <br /><br />
 <a href="javascript:deseleccionar_todo()" class="btn btn-danger btn-mini">Desmarcarlos todos</span></a>
  </div>

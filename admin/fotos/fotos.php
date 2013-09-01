@@ -33,6 +33,16 @@ else
 {
 $grupo="";
 }
+if (isset($_POST['nombre'])) {
+	$nombre = $_POST['nombre'];
+}
+elseif (isset($_GET['nombre'])) {
+	$nombre = $_GET['nombre'];
+} 
+else
+{
+$nombre="";
+}
 
 ?>
 <br />
@@ -156,7 +166,7 @@ if (strlen($nombre) > '5')
 
 	echo "<div align='center'><hr>";
 	if ($foto_ya=='1') {
-		echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-top:10px;border:1px solid #bbb;'  /><br /><br />";
+		echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='200' height='238' style='margin-top:10px;border:1px solid #bbb;'  /><br /><br />";
 	}
 	else {
 		echo "<div style='margin-top:10px;border:1px solid #bbb;width:100px;height:119px;color:#9d261d;' />Sin Foto</div><br />";

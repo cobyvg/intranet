@@ -15,7 +15,6 @@ $profesor = $_SESSION['profi'];
 include("../../menu.php");
 include("menu.php");
 ?>
-<link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">    
 <div align="center">
 <div class="page-header">
   <h2>Centro de Mensajes <small> Mensajes enviados</small></h2>

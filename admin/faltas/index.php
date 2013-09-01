@@ -101,8 +101,8 @@ include("../../faltas/menu.php");
   Faltas
   <INPUT name="numero2" type="text" class="input-mini" maxlength="3" alt="Mes" value="1">
   </label>
-  <br /><br />
-  <input name="submit1" type="submit" id="submit1" value="Enviar Datos" class="btn btn-primary">
+  <hr />
+  <input name="submit1" type="submit" id="submit1" value="Enviar Datos" class="btn btn-primary btn-block">
   </div>
   </div>
   
@@ -173,9 +173,8 @@ printf ("<OPTION></OPTION>");
 </div> 
     </label> 
 
-  <br />
-  <br />
-  <input name=submit2 type=submit id="submit2" value='Lista detallada de Faltas' class="btn btn-primary">
+  <hr />
+  <input name=submit2 type=submit id="submit2" value='Lista detallada de Faltas' class="btn btn-primary btn-block">
   <br>
 </div>
 </div>
@@ -206,8 +205,8 @@ printf ("<OPTION></OPTION>");
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 
-    </label> <br />
-  <INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4" class="btn btn-primary">
+    </label> <hr />
+  <INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4" class="btn btn-primary btn-block">
   </div>
   </div>
   <? }?>

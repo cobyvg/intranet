@@ -24,8 +24,8 @@
 $horas=array(1=>"1",2=>"2",3=>"3",4=>"4",5=>"5",6=>"6");
 foreach($horas as $n_hora => $nombre) 
 {
-echo "<tr><th>$nombre</th>";
-for($z=1;$z<6;$z++) 
+echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
+		for($z=1;$z<6;$z++) 
 {
 	
 	if ($z == "1")
@@ -53,7 +53,7 @@ for($z=1;$z<6;$z++)
 // Abreviatura de la Asignatura
 $asignatur1 = mysql_query("SELECT distinct  c_asig, a_asig FROM  horw where prof = '$profesores' and dia = '$z' and hora = '$n_hora'");
 $rowasignatur1 = mysql_fetch_row($asignatur1);
-if($rowasignatur1[0]){echo "<div class='label' style='width:90%'>".$rowasignatur1[1]."</div><br />"; }
+if($rowasignatur1[0]){echo "<div class='badge badge-success' style='width:62%'>".$rowasignatur1[1]."</div><br />"; }
  
 // Recorremos los grupos a los que da en ese hora.
 	$asignaturas1 = mysql_query("SELECT distinct  c_asig, Nivel, n_grupo FROM  horw where prof = '$profesores' and dia = '$z' and hora = '$n_hora'");

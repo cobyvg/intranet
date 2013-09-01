@@ -21,7 +21,7 @@ include("../../../menu.php");
 <br />
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Administración <small> Creación de la tabla de alumnos</small></h2>
+  <h2>Administración <small> Creación de los Horarios</small></h2>
 </div>
 
 <FORM ENCTYPE="multipart/form-data" ACTION="horarios.php" METHOD="post">

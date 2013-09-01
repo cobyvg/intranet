@@ -258,8 +258,8 @@ if (!(is_writable('config.php'))) {
 	?>    
 <form action="index.php" method="post" align="left" class="form-signin" id = "form-signin ">
 
-<label for="idea"><h5><small>Usuario IdEA</small></h5></label><input type="text" name="idea" maxlength="12" class="input-block-level" style="font-size:16px;" />
-<label for="clave"><h5><small>Contraseña</small></h5></label><input type="password" name="clave" class="input-block-level"  />
+<label for="idea"><h5>Usuario IdEA</h5></label><input type="text" name="idea" maxlength="12" class="input-block-level" style="font-size:16px;" />
+<label for="clave"><h5>Contraseña</h5></label><input type="password" name="clave" class="input-block-level"  />
 <br /><br />
 <button type="submit" name="submit" value="Entrar" class="btn btn-large btn-primary" style="width:100%;"><i class="icon icon-signin icon-white icon-large"></i> &nbsp;Entrar</button>
 </form>

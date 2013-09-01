@@ -29,7 +29,7 @@ include("../../menu.php");
 </div>
 <br />
 
-<table class="table table-striped table-bordered " align="center" style="width:auto">
+<table class="table table-striped table-bordered " align="center" style="width:92%">
     <tr> 
     <th>  
       8.15-9.15</th>

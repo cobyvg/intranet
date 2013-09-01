@@ -17,10 +17,8 @@ foreach ( $items as $item ) {
 	
 	setlocale(LC_TIME, "es_ES");
 	echo '
-	<blockquote>
-	  <p><a href="'.$href.'">'.$title.'</a></p>
-	  <small>Publicado el '.strftime('%e de %B de %Y, a las %H:%Mh',strtotime($time)).'.</small>
-	</blockquote>';
+	  <p><a href="'.$href.'">'.$title.'</a><br /><small>Publicado el '.strftime('%e de %B de %Y, a las %H:%Mh',strtotime($time)).'.</small></p><br />
+	  ';
 }
 ?>
-<hr>
+<hr />

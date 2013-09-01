@@ -140,11 +140,11 @@ echo "<div align='left'>";
 		  	$actividad0.= $val0."<br>";
 		}
 		  echo "<label>Actividades del día<br />";
-		  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_title' rows='6' cols='45' class='span10'>$event_title</textarea>";}else{echo "<p>$actividad0</p>";}
+		  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_title' rows='6' cols='45' class='span12'>$event_title</textarea>";}else{echo "<p>$actividad0</p>";}
 		  echo "</label><br />";
       echo "<label>Infromación sobre las actividades<br />";
-	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_event' cols='45' rows='8' class='span10'>$event_event</textarea>";}else{echo "<p>$event_event</p>";}
-	  echo "<br />";
+	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_event' cols='45' rows='8' class='span12'>$event_event</textarea>";}else{echo "<p>$event_event</p>";}
+	  echo "<hr />";
 
       echo "<input type='hidden' value='$year' name='year'>
       <input type='hidden' value='$month' name='month'>
@@ -164,8 +164,9 @@ echo "<div align='left'>";
 		  		$hor.= "".$act[2]." ==> ".$act[0]."";
 		  }		
 echo "<label>Horario de las actividades<br />
-<input type='text' class='input span10' disabled value='$hor' /></label>";
-	  echo "<br />";	  
+<textarea class='input span12' disabled />$hor</textarea>
+</label>";
+	  echo "<hr />";	  
 		}	  
 	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5')== TRUE ){echo "<input type='submit' name='actualizar' value='Introducir datos' class='btn btn-primary'>";}
 	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'5') == TRUE){echo "<input type='submit' name='del' value='Borrar registro'  class='btn btn-danger' style='margin-left:40px;'>";}

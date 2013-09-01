@@ -1,5 +1,4 @@
-<h4>Visitas de los Padres</h4>
-  <br />
+<p class='lead'>Visitas de los Padres</p>
 <?php
 // Consulta
 $hoy = date('Y'). "-" .date('m'). "-" .date('d');

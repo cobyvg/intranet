@@ -21,7 +21,7 @@ $pr = $_SESSION['profi'];
 <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
 <meta name="author" content="">
       
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min_cerulean.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
     <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">

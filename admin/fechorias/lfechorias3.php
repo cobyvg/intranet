@@ -8,8 +8,7 @@ if ($_SESSION ['autentificado'] != '1') {
 }
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 ?>
-    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">    
-  <?php
+<?php
 		include ("../../menu.php");
 		include ("menu.php");
 		$datatables_activado = true;

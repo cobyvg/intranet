@@ -84,12 +84,7 @@ if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
     </label>
     </div>
     </div>
-    
-    
-    
-    
-    
-    
+        
     <label>Otros criterios:<br />      
     <select size="5" style="width:220px; padding:2px;" name = "clase[]" >
         <option>Expulsion del Centro</option>
@@ -105,7 +100,7 @@ if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
   </div>
   </div>
   <div align="center">
-  <input name="submit1" type='submit' value='Enviar Datos' class="btn btn-primary">
+  <input name="submit1" type='submit' value='Enviar Datos' class="btn btn-primary btn-block">
   </FORM>
   </div>
 </div>

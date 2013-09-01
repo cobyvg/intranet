@@ -164,7 +164,7 @@ exit();
     <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
     <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">  
+    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">  
 <script language="javascript">
 function desactivaOpcion(){ 
     with (document.form2){ 

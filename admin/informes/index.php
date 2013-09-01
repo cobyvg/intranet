@@ -23,7 +23,7 @@ include_once("../../funciones.php");
     <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
     <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css" rel="stylesheet">  
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet">  
     <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css"> 
   </head>  

@@ -1,4 +1,4 @@
-<h4>Tareas y Expulsiones</h4>
+<p class='lead'>Tareas y Expulsiones</p>
   <br />
             <?php
 

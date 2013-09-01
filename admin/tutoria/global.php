@@ -55,16 +55,14 @@ include("control.php");
 include("fechorias.php");?>
 <hr>
 <br />
-<h4>Actividades Extraescolares</h4>
-  <br />
+<p class='lead'>Actividades Extraescolares</p>
 <?  include("actividades.php");?>
 </div>
 <div class="span4">
 <? include("informes.php");?>
 <hr>
 <br />
-<h4 >Intervenciones del Tutor</h4>
-  <br />
+<p class='lead' >Intervenciones del Tutor</p>
 <?  include("ultimos.php");?>
 </div>
 </div>

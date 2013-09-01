@@ -1,5 +1,5 @@
 <?
-echo "<div class='well alert alert-warning'><p class='lead'>Informes de Tutor&iacute;a activos por visita de padres</p><br />";
+echo "<div class='well alert alert-warning'><p class='lead'>Informes de Tutor&iacute;a activos por visita de padres</p><hr />";
 $resultcurs = mysql_query($SQLcurso);
 	while($rowcurs = mysql_fetch_array($resultcurs))
 	{

@@ -15,7 +15,6 @@ $profesor = $_SESSION['profi'];
   <?php
 include("../../menu.php");
 ?>
-<link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/font-awesome/css/font-awesome.min.css">    
 <?
 include("menu.php");
 $datatables_activado = true;  

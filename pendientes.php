@@ -41,7 +41,7 @@ $result = mysql_query ($expul);
         	if (mysql_num_rows($result) == '0') {        		
         	}
         	else{
-	echo "<div class='well alert alert-info'><h4>Alumnos que se reincorporan hoy tras su Expulsión </h4><h6>$materia</h6><br />";
+	echo "<div class='well alert alert-info'><h4>Alumnos que se reincorporan hoy tras su Expulsión </h4><h6>$materia</h6><hr />";
 	echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad."</p>";
 	echo "<blockquote>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index0.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary'>SI</button></a>&nbsp;&nbsp;<a href='index0.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger'>NO</button></a></blockquote>";
 	echo "</div>";
@@ -234,7 +234,7 @@ $fechaenv = "el día $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 <p><? echo $texto;?></p>  </div>
   <div class="modal-footer">
   <form name="mensaje_enviado" action="index0.php" method="post" enctype="multipart/form-data" class="form-inline">
-  <a href="#" class="btn" data-dismiss="modal">Cerrar</a>
+  <a href="#" class="btn btn-warning" data-dismiss="modal">Cerrar</a>
     <?
 
 echo '<a href="./admin/mensajes/index.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
@@ -296,7 +296,7 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 <p><? echo $texto;?></p>  </div>
   <div class="modal-footer">
   <form name="mensaje_enviado" action="index0.php" method="post" enctype="multipart/form-data" class="form-inline">
-  <a href="#" target="_top" data-dismiss="modal"class="btn">Cerrar</a>
+  <a href="#" target="_top" data-dismiss="modal"class="btn btn-warning">Cerrar</a>
     <?
 	$asunto = str_replace('"','',$asunto);
 	echo '<a href="./admin/mensajes/index.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';

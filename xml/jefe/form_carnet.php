@@ -212,8 +212,8 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 	?>
 </select></td>
 <td>
-<input type="button" value="   >>   " onclick="move(this.form.al1,this.form.al2)" name="B5" class="btn"><br><br />
-<input type="button" value="   <<   " onclick="move(this.form.al2,this.form.al1)" name="B6"class="btn"><br>
+<input type="button" value="   >>   " onclick="move(this.form.al1,this.form.al2)" name="B5" class="btn btn-warning"><br><br />
+<input type="button" value="   <<   " onclick="move(this.form.al2,this.form.al1)" name="B6"class="btn btn-warning"><br>
 
 </td>
 <td>
