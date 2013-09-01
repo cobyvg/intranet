@@ -13,7 +13,7 @@ include("../../menu.php");
 ?>
 <div align=center>
 <div class="page-header" align="center">
-  <h2>Biblioteca <small> Ejemplares sin devolver</small></h2>
+  <h2>Morosos de la Biblioteca <small> Ejemplares sin devolver</small></h2>
 </div>
 </div>
 <?
@@ -49,6 +49,7 @@ mysql_query($crea);
   </div>
 </FORM>
 <br>
+
 <div align="center">
 <h3>Consulta de los listados.</h3>
 </div>

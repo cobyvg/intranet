@@ -11,12 +11,16 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
-<h2>Actualizaci&oacute;n de morosos en la Biblioteca.</h2>
+<div class="page-header" align="center">
+  <h2>Morosos de la Biblioteca <small> Edici&oacute;n de morosos.</small></h2>
+</div>
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
-if($archivo){ 
+if(isset($_FILES['archivo'])){ 
+$archivo = $_FILES['archivo'];
 mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
 mysql_select_db($db);
 ini_set('auto_detect_line_endings',TRUE);

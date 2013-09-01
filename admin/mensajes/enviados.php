@@ -60,8 +60,7 @@ if ($numero > 0)
 ?>
 <div class="container-fluid">  
 	<div class="row-fluid">
-<div class="span2"></div>
-<div class="span8">
+<div class="span10 offset1">
  <div align="center">
 
     <table class="table table-striped tabladatos" style="width:100%">
@@ -73,7 +72,7 @@ if ($numero > 0)
 	?>
       
       <TR> 
-		<TD nowrap><? echo fecha_actual($row->ahora); ?></td>        
+		<TD nowrap><? echo fecha_actual2($row->ahora); ?></td>        
         <TD><a href="mensaje.php?id=<? echo $row->id;?>&profesor=<? echo $profesor;?>">
 	<? echo $row->asunto; ?></a></td>
 	<TD  width="260">

@@ -1,7 +1,8 @@
 <?php
 
-if ($submit2)
-{
+	if(isset($_POST['submit2'])){
+	$fecha = $_POST['fecha'];
+	$fecha_act = $_POST['fecha_act'];
 	include("lpdf.php");
 	//echo $fecha;
 }
@@ -26,24 +27,13 @@ else
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
     <meta name="author" content="">  
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet"> 
-    <?php
-    	if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){
-    ?>
-    	<link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">
-    <?php 
-    	} else {
-	?>
-    	<link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-    <?php
-    }
-    ?>
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css">          
-   
-    
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">    
     <!--[if lt IE 9]>  
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
     <![endif]-->  
@@ -109,11 +99,12 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 	<?
 	
 //$datatables_activado = true;
-	if($submit1){
+	if(isset($_POST['submit1'])){
+	$fecha = $_POST['fecha'];		
 		?>
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Biblioteca <small> Consulta</small></h1>
+  <h2>Morosos de la Biblioteca <small> Consulta</small></h1>
 <p class="lead muted">Fecha elegida: <? echo $fecha;?></small></p>
 </div>
 <div class='container-fluid'>

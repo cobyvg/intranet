@@ -20,12 +20,14 @@ function enviarForm()
 <?php
 include("../../menu.php");
 ?>
-<div align="center">
-<h2>Actualizaci&oacute;n de morosos en la Biblioteca.</h2>
 <br />
+<div align="center">
+<div class="page-header" align="center">
+  <h2>Morosos de la Biblioteca <small> Edici&oacute;n de morosos.</small></h2>
 </div>
+<br />
 <?
-if($borrar){
+if(isset($_POST['borrar'])){
 	//echo $fecha;
 	$i=0;
 	$j=0;
@@ -33,7 +35,8 @@ if($borrar){
 	{
 		if(($ide<>'borrar') and (!empty( $valor))){
 			for($i=0; $i <= count($valor)-1; $i++){ $j+=1;
-			$bor = mysql_query ("delete from morosos where id=$valor[$i]") or die("No se ha podido borrar");
+			//echo "delete from morosos where id=$valor[$i]";
+			$bor = mysql_query ("delete from morosos where id='$valor[$i]'") or die("No se ha podido borrar");
 			}
 
 			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -59,8 +62,9 @@ No se ha podido borrar porque no has elegido ning&uacute;n alumno de la lista. V
 		}
 	}
 }
-elseif ($registro or $sms)
-{
+elseif(isset($_POST['registro']) or isset($_POST['sms'])){
+if(isset($_POST['registro'])){$registro=$_POST['registro'];}
+if(isset($_POST['sms'])){$sms=$_POST['sms'];}
 	$i=0;
 	$j=0;
 	$asunto='Retraso injustificado en la devoluci�n de material a la Biblioteca del Centro';
@@ -92,7 +96,7 @@ if($duplicados[0]=='NO'){
 	
 	<? 
 
-	if ($registro) {
+if ($registro) {
 		$upd = mysql_query ("update morosos set amonestacion='SI' where id=$valor[$i]") or die ("No se ha podido actualizar el registro");
 		//localizo el alumno a través de la id de la tabla morosos.
 	}
@@ -111,7 +115,7 @@ if($duplicados[0]=='NO'){
 			$nivel=$clav[1]; //echo $nivel;
 			$grupo=$clav[2]; //echo $grupo;
 			//insertamos, por fín, la fechoría
-			if ($registro) {
+if ($registro) {
 				$fechoria = mysql_query( "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechoría");
 				//ahora registramos la intervencion en la tabla tutoría, debido al tema de los SMS
 				$tutoria=mysql_query ( "insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $nivel . "','" . $grupo . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
@@ -201,6 +205,7 @@ Los mensajes SMS de aviso por retraso en la devoluci�n de ejemplares de la Bibli
 Amonestaciones en PDF</button>
 </div>
 </form>
+<hr />
 <? 
 	}
 	elseif ($j==0)     {
