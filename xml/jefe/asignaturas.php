@@ -211,13 +211,13 @@ Tablas ASIGNATURAS y CALIFICACIONES:<br /> Los datos se han introducido correcta
 echo "<p class='lead'>Comprobación de coherencia entre las Asignaturas de Séneca y de Horw.</p><br /> ";
 $elimina = "select distinct c_asig, a_asig, asig from horw, asignaturas where c_asig NOT IN (select distinct codigo from asignaturas)";
 $elimina1 = mysql_query($elimina);
-echo "<p class='label label-important'>Asignaturas de Horw que no están en Séneca</p>";
+echo "<p class='badge badge-important'>Asignaturas de Horw que no están en Séneca</p>";
 while($elimina2 = mysql_fetch_array($elimina1))
 {
 echo "<li>". $elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] . "</li>";
 }
 $elimina = "select distinct codigo, abrev, nombre, curso from asignaturas, horw where codigo NOT IN (select distinct c_asig from horw)";
-echo "<br /><p class='label label-warning'>Asignaturas de Séneca que no están en Horw.</p>";
+echo "<br /><p class='badge badge-warning'>Asignaturas de Séneca que no están en Horw.</p>";
 $elimina1 = mysql_query($elimina);
 while($elimina2 = mysql_fetch_array($elimina1))
 {

@@ -20,7 +20,7 @@ if(isset($_POST["word"]))
 		$clave_al=$row[1];
 		$curso_al=$row[2];
 		echo '
-<li><a href="admin/datos/datos.php?seleccionado=1&alumno='.$datos.' --> '.$clave_al.'"> '.$datos.' <span class="label pull-right">'.$curso_al.'</span></a></li>';
+<li><a href="admin/datos/datos.php?seleccionado=1&alumno='.$datos.' --> '.$clave_al.'"> '.$datos.' <span class="pull-right">'.$curso_al.'</span></a></li>';
 	}
 	echo '</ul>';
 }

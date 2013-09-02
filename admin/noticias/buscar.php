@@ -61,12 +61,12 @@ if(($row->contact == $profesor) or (strstr($_SESSION['cargo'],"1") == TRUE))
           $buffer0 = strip_tags($row->content);
 								if(strlen($row->content) <= 150)	  
 								{
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo strip_tags($buffer);}
 								else
 								{ 
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo strip_tags(substr($buffer,0,200));
 								echo "...";
@@ -124,12 +124,12 @@ if (mysql_num_rows($result) > 0)
           $buffer0 = strip_tags($row->texto,'<br>');
 								if(strlen($row->texto) <= 150)	  
 								{
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo $buffer;}
 								else
 								{ 
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo substr($buffer,0,200);
 								echo "...";
@@ -192,12 +192,12 @@ if (mysql_num_rows($result) > 0)
           $buffer0 = strip_tags($row->texto,'<br>');
 								if(strlen($row->texto) <= 150)	  
 								{
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo $buffer;}
 								else
 								{ 
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo substr($buffer,0,200);
 								echo "...";

@@ -222,7 +222,7 @@ else{$SQL = "select distinct nombre from $db.departamentos where nombre = '". $_
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='1' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
 $reservado0 = mysql_query($eventQuery2);
 $reservado1 = mysql_fetch_row($reservado0);}
-	if(!(empty($reservado1[0]))) {echo "1ª Hora &nbsp;&nbsp; <span class='label label-warning'>Asignada por Horario</span>"; }
+	if(!(empty($reservado1[0]))) {echo "1ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>Asignada por Horario</span>"; }
 	else
 	{
 if ($event_event1  == "") { echo "1ª Hora &nbsp;&nbsp; <select name=\"day_event1\" class='input-xlarge'><option></option>";
@@ -242,7 +242,7 @@ echo "<hr>";
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='2' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
 $reservado0 = mysql_query($eventQuery2);
 $reservado1 = mysql_fetch_row($reservado0);}
-	if(!(empty($reservado1[0]))) {echo "2ª Hora &nbsp;&nbsp; <span class='label label-warning'>Asignada por Horario</span>"; }
+	if(!(empty($reservado1[0]))) {echo "2ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>Asignada por Horario</span>"; }
 	else
 	{
 if ($event_event2  == "") { echo "2ª Hora &nbsp;&nbsp; <select name=\"day_event2\" class='input-xlarge'><option></option>";
@@ -258,7 +258,7 @@ if ($event_event2  == "") { echo "2ª Hora &nbsp;&nbsp; <select name=\"day_event2
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='3' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
 $reservado0 = mysql_query($eventQuery2);
 $reservado1 = mysql_fetch_row($reservado0);}
-	if(!(empty($reservado1[0]))) {echo "3ª Hora &nbsp;&nbsp; <span class='label label-warning'>Asignada por Horario</span>"; }
+	if(!(empty($reservado1[0]))) {echo "3ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>Asignada por Horario</span>"; }
 	else
 	{
 if(($event_event3 == "")) { echo "3ª Hora &nbsp;&nbsp; <select name=\"day_event3\" class='input-xlarge'><option></option>";
@@ -274,7 +274,7 @@ if(($event_event3 == "")) { echo "3ª Hora &nbsp;&nbsp; <select name=\"day_event3
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='4' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
 $reservado0 = mysql_query($eventQuery2);
 $reservado1 = mysql_fetch_row($reservado0);}
-	if(!(empty($reservado1[0]))) {echo "4ª Hora &nbsp;&nbsp; <span class='label label-warning'>Asignada por Horario</span>"; }
+	if(!(empty($reservado1[0]))) {echo "4ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>Asignada por Horario</span>"; }
 	else
 	{
 if ($event_event4  == "") { echo "4ª Hora &nbsp;&nbsp; <select name=\"day_event4\" class='input-xlarge'><option></option>";
@@ -290,7 +290,7 @@ if ($event_event4  == "") { echo "4ª Hora &nbsp;&nbsp; <select name=\"day_event4
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='5' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
 $reservado0 = mysql_query($eventQuery2);
 $reservado1 = mysql_fetch_row($reservado0);}
-	if(!(empty($reservado1[0]))) {echo "5ª Hora &nbsp;&nbsp; <span class='label label-warning'>Asignada por Horario</span>"; }
+	if(!(empty($reservado1[0]))) {echo "5ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>Asignada por Horario</span>"; }
 	else
 	{
 if ($event_event5  == "") { echo "5ª Hora &nbsp;&nbsp; <select name=\"day_event5\" class='input-xlarge'><option></option>";
@@ -306,7 +306,7 @@ if ($event_event5  == "") { echo "5ª Hora &nbsp;&nbsp; <select name=\"day_event5
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='6' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
 $reservado0 = mysql_query($eventQuery2);
 $reservado1 = mysql_fetch_row($reservado0);}
-	if(!(empty($reservado1[0]))) {echo "6ª Hora &nbsp;&nbsp; <span class='label label-warning'>Asignada por Horario</span>"; }
+	if(!(empty($reservado1[0]))) {echo "6ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>Asignada por Horario</span>"; }
 	else
 	{
 if ($event_event6  == "") { echo "6ª Hora &nbsp;&nbsp; <select name=\"day_event6\" class='input-xlarge'><option></option>";
@@ -322,7 +322,7 @@ if ($event_event6  == "") { echo "6ª Hora &nbsp;&nbsp; <select name=\"day_event6
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='7' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
 $reservado0 = mysql_query($eventQuery2);
 $reservado1 = mysql_fetch_row($reservado0);}
-	if(!(empty($reservado1[0]))) {echo "7ª Hora &nbsp;&nbsp; <span class='label label-warning'>Asignada por Horario</span>"; }
+	if(!(empty($reservado1[0]))) {echo "7ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>Asignada por Horario</span>"; }
 	else
 	{
 if ($event_event7  == "") { echo "7ª Hora &nbsp;&nbsp; <select name=\"day_event7\" class='input-xlarge'><option></option>";

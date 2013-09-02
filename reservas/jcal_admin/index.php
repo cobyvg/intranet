@@ -128,7 +128,7 @@ if (mysql_numrows($reservado0) == 1) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "1ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "1ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event1)) { echo "1ª Hora &nbsp;&nbsp; <select name=\"day_event1\" class='input-xlarge'><option></option>";
@@ -151,7 +151,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "2ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "2ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event2)) { echo "2ª Hora &nbsp;&nbsp; <select name=\"day_event2\" class='input-xlarge'><option></option>";
@@ -170,7 +170,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "3ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "3ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if(empty($event_event3)) { echo "3ª Hora &nbsp;&nbsp; <select name=\"day_event3\" class='input-xlarge'><option></option>";
@@ -190,7 +190,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "4ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "4ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event4)) { echo "4ª Hora &nbsp;&nbsp; <select name=\"day_event4\" class='input-xlarge'><option></option>";
@@ -209,7 +209,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "5 Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "5 Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event5)) { echo "5ª Hora &nbsp;&nbsp; <select name=\"day_event5\" class='input-xlarge'><option></option>";
@@ -228,7 +228,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "6ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "6ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event6)) { echo "6ª Hora &nbsp;&nbsp; <select name=\"day_event6\" class='input-xlarge'><option></option>";
@@ -247,7 +247,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "7ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "7ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event7)) { echo "7ª Hora &nbsp;&nbsp; <select name=\"day_event7\" class='input-xlarge'><option></option>";

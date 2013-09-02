@@ -404,7 +404,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
         <th>Comunicaciones</th>
 </tr>
 <tr>
-    <td><span class="label label-success"><? echo $nivel; ?></span></td>
+    <td><span class="badge badge-success"><? echo $nivel; ?></span></td>
     <td><? echo $num_faltas; ?></td>	
 	<td><span style="color:#abc"><span style="color:#abc">1T.</span> </span> <? echo $num_conv1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_conv2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_conv3; ?><hr><strong><? echo $num_conv; ?></td>
     <td><span style="color:#abc">1T.</span>  <? echo $num_leves1; ?><br /><span style="color:#abc">2T.</span>  <? echo $num_leves2; ?><br /><span style="color:#abc">3T.</span>  <? echo $num_leves3; ?><hr><strong><? echo $num_leves; ?></td>
@@ -582,7 +582,7 @@ $num_acciones = $num_acciones1 + $num_acciones2 + $num_acciones3;
 $num_informes = $num_informes1 + $num_informes2 + $num_informes3;
 $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 ?>
-<h3 align="center"><span  class="label label-info"><? echo $unidad;?></span></h3><br />
+<h3 align="center"><span  class="badge badge-info"><? echo $unidad;?></span></h3><br />
 <table class="table table-striped" style="width:auto">
 <tr>
          <th>Absentismo</th>

@@ -204,7 +204,7 @@ $men1 = "select ahora, asunto, texto, nombre, apellidos, id from mensajes, alma 
 $men2 = mysql_query($men1);
 if(mysql_num_rows($men2) > 0)
 {
-	echo '<div class="well well-small"><p class="lead">Mensajes recibidos de padres o alumnos</p>';
+	echo '<div class="well well-small"><p class="lead text-success"><i class="icon-comment"> </i> Mensajes recibidos de padres o alumnos</p>';
 while($men = mysql_fetch_row($men2))
 {
 $n_mensajesp=$n_mensajesp+1;
@@ -262,7 +262,7 @@ $men1 = "select ahora, asunto, texto, profesor, id_profe, origen from mens_profe
 $men2 = mysql_query($men1);
 if(mysql_num_rows($men2) > 0)
 {
-		echo '<div class="well well-small"><p class="lead">Mensajes recibidos</p>';
+		echo '<div class="well well-small"><p class="lead text-success"><i class="icon-comment"> </i> Mensajes recibidos</p>';
 	while($men = mysql_fetch_row($men2))
 {
 $n_mensajes = $n_mensajes+1;

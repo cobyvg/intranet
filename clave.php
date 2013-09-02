@@ -51,7 +51,7 @@ Se ha producido un error:<br />No se ha podido cambiar la contraseña en la Base 
 echo '
     <div align="center"><div class="alert alert-success alert-block fade in" style="max-width:450px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-La Contraseña se ha modificado en la Base de Datos. <br />La nueva clave para entrar es <span class="label label-warning">'.$codigo2.'</span>.
+La Contraseña se ha modificado en la Base de Datos. <br />La nueva clave para entrar es <span class="badge badge-warning">'.$codigo2.'</span>.
 Puedes volver a cambiarla en cualquier momento. Y si te olvidas de la misma, ponte en contacto para volver al principio.
 			</div>
           </div> ';

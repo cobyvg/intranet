@@ -83,28 +83,22 @@ class GranPDF extends FPDF {
 	}
 }
 
-<<<<<<< HEAD
 			# creamos el nuevo objeto partiendo de la clase
 			$MiPDF=new GranPDF('P','mm',A4);
-=======
 # creamos el nuevo objeto partiendo de la clase
 $MiPDF=new GranPDF('P','mm',A4);
->>>>>>> 95406138c3a5700e2fca8f258880a24695a1a2a4
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
 $MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
 $MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
 $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
-<<<<<<< HEAD
 			$MiPDF->SetMargins(20,20,20);
 			# ajustamos al 100% la visualizacion
 			$MiPDF->SetDisplayMode('fullpage');
-=======
 $MiPDF->SetMargins(20,20,20);
 # ajustamos al 100% la visualizacion
 $MiPDF->SetDisplayMode('fullpage');
->>>>>>> 95406138c3a5700e2fca8f258880a24695a1a2a4
  
   
   $fecha1 = explode("-",$fecha);
