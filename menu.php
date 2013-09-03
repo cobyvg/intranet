@@ -46,7 +46,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 		          <li><a href="http://<? echo $dominio;	?>">P&aacute;gina del centro</a></li>
 		          <li<? echo $activo2;?>><a href="http://<? echo $dominio;	?>/intranet/admin/mensajes/">Mensajes</a></li>
 		          <li<? echo $activo3;?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
-		          <li><a href="https://www.juntadeandalucia.es/educacion/seneca/" target="_blank">S&eacute;neca</a></li>
+		          <li><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank">S&eacute;neca</a></li>
 		        </ul>
 		        
 		        <ul class="nav pull-right">
@@ -55,7 +55,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 		        			<i class="icon-user icon-white"></i> <? echo $idea; ?> <b class="caret"></b>
 		        		</a>
 		        		<ul class="dropdown-menu">
-		        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="icon-edit"></i> Cambiar contraseña</a></li>
+		        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="icon-edit"></i> Cambiar contraseï¿½a</a></li>
 		        			<li class="divider"></li>
 		        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="icon-off"></i> Cerrar sesi&oacute;n</a></li>
 		        		</ul>
