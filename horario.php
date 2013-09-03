@@ -1,29 +1,21 @@
-<?
-echo "<legend><i class='icon icon-time'> </i> Horario</legend>";
-echo "<table  class='table table-condensed table-bordered table-striped' style='width:100%;'><tr>";
-?>
-<td></td>
-<td valign="middle" align="center">
-<div align="center"><span align="center" class="badge badge-info">L</span></div>
-</td>
-<td valign="middle" align="center">
-<div align="center"><span align="center" class="badge badge-info">M</span></div>
-</td>
-<td valign="middle" align="center">
-<div align="center"><span align="center" class="badge badge-info">X</span></div>
-</td>
-<td valign="middle" align="center">
-<div align="center"><span align="center" class="badge badge-info">J</span></div>
-</td>
-<td valign="middle" align="center">
-<div align="center"><span align="center" class="badge badge-info">V</span></div>
-</div></td>
-</tr>
+<legend><i class="icon icon-time"></i> Horario</legend>
+<table class="table table-bordered table-condensed table-striped table-centered">
+<thead>
+  <tr>
+	<th width="20">&nbsp;</th>
+	<th width="20">L</th>
+	<th width="20">M</th>
+	<th width="20">X</th>
+	<th width="20">J</th>
+	<th width="20">V</th>
+  </tr>
+</thead>
+<tbody>
 <?php	
 // Horas del día
 $todas_horas = array (1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 foreach ( $todas_horas as $n_hora => $nombre ) {	
-echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
+echo '<tr><th>'.$nombre.'ª</th>';
 	
 	//Días
 	for($z = 1; $z < 6; $z ++) {
@@ -76,6 +68,7 @@ echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
 	?></tr><?
 }
 ?>
+</tbody>
 </table>
 
 

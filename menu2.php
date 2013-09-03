@@ -1,8 +1,7 @@
 <div class="accordion" id="menu">
 <?
 if (stristr ( $carg, '1' ) == TRUE) {
-	?>
-<div class="accordion" id="menu">
+?>
   <div class="accordion-group well">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#direccion">
@@ -23,8 +22,6 @@ if (stristr ( $carg, '1' ) == TRUE) {
 
 <?
 }
-?>
-<?
 if (stristr ( $carg, '4' ) == TRUE) {
 ?>
 <div class="accordion-group well">
@@ -48,8 +45,6 @@ if (stristr ( $carg, '4' ) == TRUE) {
 </div>
 <?
 }
-?>
-<?
 if (stristr ( $carg, '5' ) == TRUE) {
 ?>
 <div class="accordion-group well">
@@ -71,8 +66,6 @@ if (stristr ( $carg, '5' ) == TRUE) {
 </div>
 <?
 }
-?>
-<?
 if (stristr ( $carg, '8' ) == TRUE) {
 ?>
 <div class="accordion-group well">
@@ -95,8 +88,6 @@ if (stristr ( $carg, '8' ) == TRUE) {
 </div>
 <?
 }
-?>
-<?
 if (stristr ( $carg, '2' ) == TRUE) {
 ?>
 <div class="accordion-group well">
@@ -199,17 +190,14 @@ if (stristr ( $carg, '2' ) == TRUE) {
             <li><a href="faltas/seneca/">Importar faltas a Séneca</a></li>
             <? } ?>
             </li>
-                    <?
-					if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
-						?>
-    <li><a href="http://
-			<?
-						echo $dominio;
-						?>/intranet/admin/faltas/ccursos.php"> Partes de Faltas de Grupo</a></li>
-    <?
-					}
-					?>
-    </li>
+            <? 
+            if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
+            ?>
+            <li><a href="http://<? echo $dominio; ?>/intranet/admin/faltas/ccursos.php"> Partes de Faltas de Grupo</a></li>
+            <? 
+            }
+            ?>
+    		</li>
           </ul>
         </div>
         <? } ?>
@@ -380,6 +368,5 @@ if (stristr ( $carg, '2' ) == TRUE) {
       </ul>
     </div>
   </div>
-</div>
 </div>
 </div>

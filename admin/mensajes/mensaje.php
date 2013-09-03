@@ -37,7 +37,7 @@ echo "<br /><br /><div align='CENTER'> <table class='table table-striped' style=
             <th style='width:630px;'>$row[0]
 				</th>
 			<th><small class='muted'>";
-			fecha_actual($row[1]);
+			fecha_actual2($row[1]);
 			echo "
              	</small></th>
               </tr>
@@ -72,7 +72,7 @@ echo "<span style='color:#9d261d;'>$n_profesor; </span>";
 	echo "</td></tr>";	
 		?> 
          <tr>
-            <td style='padding:10px;' colspan=2><h6><small>Enviada: <? echo fecha_actual($row->timestamp); ?><br> Autor: <? echo $row[3]; ?>
+            <td style='padding:10px;' colspan=2><h6><small>Enviada: <? echo fecha_actual2($row[1]); ?><br> Autor: <? echo $row[3]; ?>
               </small></h6></td></tr>
               
               </table>

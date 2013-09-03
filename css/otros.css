@@ -67,10 +67,10 @@ h3{
 	color:#666;	
 }
 
-.calendario thead th {
+.table thead th {
 	background-color: #e9eae9;
 } 
-.calendario th, .calendario td {
+.table-centered th, .table-centered td {
 	text-align: center;
 }
 .alert a{

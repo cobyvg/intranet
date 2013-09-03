@@ -23,7 +23,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
       <div class="nav-collapse collapse">
         <ul class="nav">
            <li <? echo $activo1;?>><a href="http://<? echo $dominio;?>/intranet/index0.php">Inicio</a></li>
-          <li><a href="http://<? echo $dominio;	?>">P�gina del centro</a></li>
+          <li><a href="http://<? echo $dominio;	?>">P&aacute;gina del centro</a></li>
           <li<? echo $activo2;?>><a href="http://<? echo $dominio;	?>/intranet/admin/mensajes/">Mensajes</a></li>
           <li<? echo $activo3;?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
           <li><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio">S&eacute;neca</a></li>
@@ -35,9 +35,9 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
         			<i class="icon-user icon-white"></i> <? echo $idea; ?> <b class="caret"></b>
         		</a>
         		<ul class="dropdown-menu">
-        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="icon-edit"></i> Cambiar contrase�a</a></li>
+        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="icon-edit"></i> Cambiar contrase&ntilde;a</a></li>
         			<li class="divider"></li>
-        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="icon-off"></i> Cerrar sesi�n</a></li>
+        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="icon-signout"></i> Cerrar sesi&oacute;n</a></li>
         		</ul>
         	</li>
         </ul>

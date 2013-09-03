@@ -55,9 +55,9 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 		        			<i class="icon-user icon-white"></i> <? echo $idea; ?> <b class="caret"></b>
 		        		</a>
 		        		<ul class="dropdown-menu">
-		        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="icon-edit"></i> Cambiar contrase�a</a></li>
+		        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="icon-edit"></i> Cambiar contrase&ntilde;a</a></li>
 		        			<li class="divider"></li>
-		        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="icon-off"></i> Cerrar sesi&oacute;n</a></li>
+		        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="icon-signout"></i> Cerrar sesi&oacute;n</a></li>
 		        		</ul>
 		        	</li>
 		        </ul>

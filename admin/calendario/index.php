@@ -65,7 +65,7 @@ if ($today > $numdays) {
 
 //Nombre del Mes
 echo "<legend><i class='icon icon-calendar-empty'> </i> " . $monthlong . "</legend>";
-echo "<table class='table table-bordered table-condensed calendario'><thead><tr>";
+echo "<table class='table table-bordered table-condensed table-centered'><thead><tr>";
 
 //Nombres de Días
 foreach ( $alldays as $value ) {
