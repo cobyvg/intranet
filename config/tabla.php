@@ -169,7 +169,7 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
     <tr>
       <td>Directorio de Documentos<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="doc_dir" size="30" value="<?php if(empty($doc_dir)){ echo "/home/e-smith/files/ibays/intranet/files/"; } else { echo $doc_dir; } ?>" required /></td>
+      <td><input type="text" name="doc_dir" size="30" value="<?php if(empty($doc_dir)){ echo "/home/e-smith/files/ibays/intranet/files/"; } else { echo $doc_dir; } ?>" /></td>
       <td>Directorio en el Servidor local donde tenemos documentos que queremos gestionar con la Intranet . La ruta es absoluta (p.ej. "/home/e-smith/files/ibays/intranet/files/")</td>
     </tr> 
     </table> 

@@ -299,11 +299,18 @@ mysql_query("CREATE TABLE IF NOT EXISTS `c_profes` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=213 ");
 
 // Usuario admin y conntraseña
+$ya_adm = mysql_query("select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
+if (mysql_num_rows($ya_adm)>0) {
+}
+else {
 $adm=sha1("12345678");
 mysql_query("INSERT INTO c_profes ( `pass` , `PROFESOR` , `dni`, `idea` )
 VALUES (
 '$adm', 'admin', '12345678', 'admin'
 );");
+}
+
+
 // Conserjes 
 if($num_conserje > '0')
 {
@@ -357,9 +364,15 @@ mysql_query("CREATE TABLE IF NOT EXISTS `departamentos` (
   KEY `NOMBRE` (`NOMBRE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
 
+
 // Usuario admin y conntraseña
-$adm=sha1("12345678");
+$ya_adm = mysql_query("select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
+if (mysql_num_rows($ya_adm)>0) {
+}
+else {
 mysql_query("insert into departamentos (nombre, dni, departamento, cargo, idea) values ('admin', '12345678', 'Admin', '1', 'admin')");
+}
+
 // Conserjes y Administrativos
 if($num_conserje > '0')
 {

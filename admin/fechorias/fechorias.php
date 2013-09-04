@@ -63,7 +63,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
           <li><a href="http://<? echo $dominio;	?>">Página del centro</a></li>
           <li<? echo $activo2;?>><a href="http://<? echo $dominio;	?>/intranet/admin/mensajes/">Mensajes</a></li>
           <li<? echo $activo3;?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
-          <li><a href="https://www.juntadeandalucia.es/educacion/seneca/" target="_blank">Séneca</a></li>
+          <li><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank">Séneca</a></li>
         </ul>
         
         <ul class="nav pull-right">

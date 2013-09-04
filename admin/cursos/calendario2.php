@@ -805,7 +805,7 @@
     }
   }
 </script>
-<link rel="stylesheet" href="https://www.juntadeandalucia.es/educacion/seneca/seneca/include/pasen/estiloTablon.css" type="text/css" />
+<link rel="stylesheet" href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicioseneca/include/pasen/estiloTablon.css" type="text/css" />
 <script>
 var checkSumInicialFormulario_='';
   function inicioPagina() {
