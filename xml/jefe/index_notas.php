@@ -27,7 +27,7 @@ if(phpversion() < '5'){
 	header("location:http://$dominio/intranet/xml/notas/notas_xslt.php?directorio=$exporta&trans=$xml");
 }
 else{
-	header("location:http://$dominio/intranet/xml/notas/notas.php?directorio=$exporta&trans=$xml");
+	header("location:http://$dominio/intranet/xml/notas/notas.php?directorio=$exporta");
 }	  	  
 exit;	
 }

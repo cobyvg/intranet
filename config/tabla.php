@@ -1,6 +1,7 @@
 <? include("../menu_solo.php"); ?>
 <br />
-<div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Configuración de la Intranet <small> Datos básicos de la aplicación</small></h2>
 </div>
@@ -18,10 +19,11 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
           </div><br /><input type="button" value="Volver atrás" name="boton" onClick="history.back(1)" class="btn btn-inverse" /></div>';
 }
 ?>
-<div class="container">
 <form enctype="multipart/form-data" action="index.php" method="post" name="configura">
 <fieldset class="control-group warning">
+
 <div class="tabbable" style="margin-bottom: 18px;">
+
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab">Datos generales de la configuración</a></li>
 <li><a href="#tab2" data-toggle="tab">Módulos de la Intranet</a></li>
@@ -29,7 +31,9 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
 <li><a href="#tab4" data-toggle="tab">Base de Datos</a></li>
 <li><a href="#tab5" data-toggle="tab">Sistema de Reservas</a></li>
 </ul>
+
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+
 <div class="tab-pane fade in active" id="tab1">
 <h3>Datos generales de la configuración</h3><br />
 
@@ -506,12 +510,15 @@ for($i=1;$i<$num_aula+1;$i++){
   </table>
   <br />
   </div>
+ 
  <div  align="center">
       <input  type="submit" name="enviar" value="Aplicar cambios" class="btn btn-danger" style="color:#fff" />
-      </div>
+ </div>
+
+</div>
+</div>
+
    </fieldset>
 </form>
-</div>
-<?php include("../pie.php");?>
-</body>
-</html>
+
+

@@ -152,8 +152,13 @@ exit();
 ?>
 <? 
 }
-include 'tabla.php';
-include("../pie.php");
+include("tabla.php");
+
+?>
+    <script src="../js/jquery.js"></script>  
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap-datepicker.js"></script> 
+<?
 ?>
 </body>
 </html>

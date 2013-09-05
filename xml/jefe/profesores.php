@@ -57,10 +57,10 @@ $fp = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die
 ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
-No se ha podido abrir el archivo RelMatProUni.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
+No se ha podido abrir el archivo RelMatProUni.txt. O bien te has olvidado de enviarlo o el archivo est&aacute; corrompido.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>'); 
 
  while (!feof($fp))
@@ -103,15 +103,15 @@ $faltasprofexml = "create table ".$db_reservas.".profesores select NIVEL, MATERI
 mysql_query($faltasprofexml) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
-No se ha podido crear la tabla <strong>profesores</strong> en la base de datos <strong>Reservas</strong>.<br> Asegúrate de que su formato es correcto.
+No se ha podido crear la tabla <strong>profesores</strong> en la base de datos <strong>Reservas</strong>.<br> Aseg&uacute;rate de que su formato es correcto.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 mysql_query("ALTER TABLE ".$db_reservas.".profesores ADD INDEX (  `PROFESOR` )");
 
 // Limpiamos Tabla de Horarios de grupos que no da el profesor
-echo "<hr><p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en Séneca.</p><br />";
+echo "<hr><p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en S&eacute;neca.</p><br />";
 
 $hor0 = "select id, prof, a_grupo, asig from horw where asig not like 'OPTATIVA EXENTOS'";
 $hor1 = mysql_query($hor0);
@@ -221,7 +221,7 @@ mysql_query("create table horw_faltas select * from horw where (a_asig not like 
   mysql_query("OPTIMIZE TABLE  `horw_faltas`");  
 //Profes que están en horw y no en profesores
 echo "<hr><p class='lead text-important' style='text-align:left'>Profesores en Horw que no aparecen en la tabla Profesores
-creados:</p>";
+creados desde S&eacute;neca:</p>";
 $pro0 = "select distinct prof from horw where prof not in (select distinct profesor from profesores)";
 $pro1 = mysql_query($pro0);
 while($pro = mysql_fetch_array($pro1))
@@ -230,7 +230,7 @@ echo "<li>$pro[0]</li>";
 }
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;"><br />
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Departamentos, una vez actualizados los Profesores.<br>Vuelve a la página de Administración y actualiza los Departamentos inmediatamente.
+Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Departamentos, una vez actualizados los Profesores.<br>Vuelve a la p&aacute;gina de Administraci&oacute;n y actualiza los Departamentos inmediatamente.
 </div></div><br />';
 $base1 = "DROP TABLE ".$db."horw_var";
 mysql_query($base1);
@@ -239,12 +239,12 @@ else{
 	echo '<hr><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
-Parece que te está olvidando de enviar el archivo con los datos de los Profesores. Asegúrate de enviar el archivo descargado desde Séneca.
+Parece que te est&aacute;s olvidando de enviar el archivo con los datos de los Profesores. Aseg&uacute;rate de enviar el archivo descargado desde S&eacute;neca.
 </div></div><br />';
 }
 ?>
 <div align="center">
-<input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" class="btn btn-inverse" />
+<input type="button" value="Volver atr&aacute;s" name="boton" onclick="history.back(2)" class="btn btn-inverse" />
 </div>
 </div>
 </div>
