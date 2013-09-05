@@ -62,7 +62,7 @@ mysql_query("ALTER TABLE  `materias_temp` ADD  `id` INT NOT NULL AUTO_INCREMENT 
 mysql_query("ALTER TABLE  `materias_temp` ADD INDEX (  `CODIGO` )");
 
 mysql_query("ALTER TABLE  `calificaciones_temp` ADD INDEX (  `CODIGO` )");  
-
+$num="";
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir('../exporta')) {
    while (false !== ($file = readdir($handle))) {

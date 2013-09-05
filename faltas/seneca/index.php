@@ -19,6 +19,7 @@ exit;
  include("../../menu.php");
  include("../menu.php");
 ?>
+<br />
 <div align="center">
 <div class="page-header" align="center">
   <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>

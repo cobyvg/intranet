@@ -12,26 +12,66 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
 <div class="page-header" align="center">
   <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
 </div>
 <br />
 <?
-if (isset($_GET['iniciofalta'])) {$iniciofalta = $_GET['iniciofalta'];}elseif (isset($_POST['iniciofalta'])) {$iniciofalta = $_POST['iniciofalta'];}else{$iniciofalta="";}
-if (isset($_GET['finfalta'])) {$finfalta = $_GET['finfalta'];}elseif (isset($_POST['finfalta'])) {$finfalta = $_POST['finfalta'];}else{$finfalta="";}
-if (isset($_GET['Submit'])) {$Submit = $_GET['Submit'];}elseif (isset($_POST['Submit'])) {$Submit = $_POST['Submit'];}else{$Submit="";}
+if (isset($_GET['iniciofalta'])) {$iniciofalta = $_GET['iniciofalta'];}elseif (isset($_POST['iniciofalta'])) {$iniciofalta = $_POST['iniciofalta'];}
+if (isset($_GET['finfalta'])) {$finfalta = $_GET['finfalta'];}elseif (isset($_POST['finfalta'])) {$finfalta = $_POST['finfalta'];}
+if (isset($_GET['Submit'])) {$Submit = $_GET['Submit'];}elseif (isset($_POST['Submit'])) {$Submit = $_POST['Submit'];}
 
 ?>
 <?
 
-if (strlen($iniciofalta) == '10' and strlen($finfalta) == '10') {
+if (isset($iniciofalta) and isset($finfalta)) {
+
+	$dir = "./origen/";
+	
+// Refrescamos la tabla de los tramos
+mysql_query("truncate table tramos");
+
+// Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
+if ($handle = opendir($dir)) {
+   while (false !== ($file = readdir($handle))) {
+       if (strstr($file,"1EA") == TRUE or strstr($file,"1BA") == TRUE) {       	
+
+$doc = new DOMDocument('1.0', 'iso-8859-1');
+
+/*Cargo el XML*/
+$doc->load( './origen/'.$file );
+
+$tramos = $doc->getElementsByTagName( "TRAMO_HORARIO" );
+ 
+/*Al ser $calificaciones una lista de nodos
+lo puedo recorrer y obtener todo
+su contenido*/
+foreach( $tramos as $tramo )
+{	
+/*Obtengo el valor del primer elemento 'item(0)'
+de la lista $codigos.
+Si existiera un atributo en el nodo para obtenerlo
+usaria $codigos->getAttribute('atributo');
+*/
+$codigos0 = $tramo->getElementsByTagName( "X_TRAMO" );
+$codigo0 = $codigos0->item(0)->nodeValue;
+$nombres0 = $tramo->getElementsByTagName( "T_HORCEN" );
+$nombre0 = $nombres0->item(0)->nodeValue;
+
+mysql_query("INSERT INTO  `tramos` 
+VALUES ('$nombre0',  '$codigo0')");
+}	
+       }
+   }
+}
+sleep(5);	
 $fecha0 = explode("/",$iniciofalta);
 $fecha10 = explode("/",$finfalta);
 
 // Construimos el fichero de exportación para Séneca. Este fichero elimina datos innecesarios y coloca sólo los datos del alumno y sus notas. Hay que ir recortando los trozos necesarios para luego soldarlos en la variable total.
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
-$dir = "./origen/";
 // Abrir un directorio conocido, y proceder a leer sus contenidos
 if (is_dir($dir)) {
     if ($gd = opendir($dir)) {
@@ -83,7 +123,9 @@ $total = $inicio1.$string8;
  $nivel = strtoupper(substr($curso[0],0,2));
  $grupo = strtoupper(substr($curso[0],2,1));
 
-$fp=fopen("./exportado/" . $fichero . "","w")  or die("<p id='texto_en_marco'>No se han podido abrir los archivos de Faltas de Séneca. ¿Estás seguro de haberlos colocado en el directorio correspondiente (intranet/faltas/seneca/origen/)?</p>");
+$fp=fopen("./exportado/" . $fichero . "","w")  or die(
+"<p id='texto_en_marco'>No se han podido abrir los archivos de Faltas de Séneca. ¿Estás seguro de haberlos colocado en el directorio correspondiente (intranet/faltas/seneca/origen/)?</p>"
+);
 if (flock($fp, LOCK_EX)) {
    $pepito=fwrite($fp,$total);
    flock($fp, LOCK_UN);

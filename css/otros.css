@@ -73,7 +73,7 @@ h3{
 .table-centered th, .table-centered td {
 	text-align: center;
 }
-.alert a{
+.alert a, .alert legend{
 	color:#fff;
 	
 }
