@@ -33,6 +33,8 @@ include_once("../../funciones.php");
      
 if(isset($_GET['todos'])){$todos = $_GET['todos'];}
 if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
+if(isset($_GET['nivel'])){$nivel = $_GET['nivel'];}else{$nivel = $_POST['nivel'];}
+if(isset($_GET['grupo'])){$grupo = $_GET['grupo'];}else{$grupo = $_POST['grupo'];}
 if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
 if(isset($_POST['nombre'])){$nombre = $_POST['nombre'];}else{ $nombre=""; }
 if(isset($_POST['fecha1'])){$fecha1 = $_POST['fecha1'];}else{ $fecha1=""; }
@@ -121,7 +123,7 @@ if($row2[6] > 1){  $repite = "SI";  }else{  $repite = "NO";  }
 				echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
-No hay datos del Alumno durante el Curso escolar $c_escolar.
+No hay datos del Alumno durante el Curso escolar '.$c_escolar.'. ¿Has seleccionado alg&uacute;n alumno para ver su informe?
 </div></div>';
 exit;
     }

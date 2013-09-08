@@ -125,9 +125,14 @@ exit();
 if (isset($_POST['sin_matricula'])) {
 	include("../../menu.php");
 	include("menu.php");
-
+if ($curso=="4ESO") {
+	$tabla ='matriculas_bach';
+}
+else{
+	$tabla = 'matriculas';
+}
 	$cur_monterroso = substr($curso, 0, 2);
-	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from matriculas) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
+	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from $tabla) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
 	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br />';
 			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysql_fetch_array($camb)) {
@@ -532,7 +537,7 @@ for ($i = 0; $i < 16; $i++) {
 	
 	// Promocionan o no
 	if ($n_curso>1) {
-		echo "<td style='background-color:#efeefd' class='no_imprimir'>";
+		echo "<td style='background-color:#efeefd' class='no_imprimir' nowrap>";
 		if (!($promociona =='') and !($promociona == '0')) {
 		for ($i=1;$i<4;$i++){	
 		echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'"';
@@ -549,7 +554,7 @@ for ($i = 0; $i < 16; $i++) {
 	foreach ($tr_not as $val_asig) {
 		$tr_notas = explode(":", $val_asig);
 		foreach ($tr_notas as $key_nota=>$val_nota) {
-		if($key_nota == "1" and $val_nota<'347' and $val_nota !=="339" and $val_nota !==""){
+			if($key_nota == "1" and ($val_nota<'347' and $val_nota !=="339" and $val_nota !=="") or $val_nota == '397' ){
 			$val_notas=$val_notas+1;
 		}
 		}
@@ -559,7 +564,7 @@ for ($i = 0; $i < 16; $i++) {
 		foreach ($tr_not2 as $val_asig) {
 		$tr_notas = explode(":", $val_asig);
 		foreach ($tr_notas as $key_nota=>$val_nota) {
-		if($key_nota == "1" and $val_nota<'347' and $val_nota !=="339" and $val_nota !==""){
+			if($key_nota == "1" and ($val_nota<'347' and $val_nota !=="339" and $val_nota !=="") or $val_nota == '397' ){
 			$val_notas=$val_notas+1;
 		}
 		}
@@ -567,8 +572,8 @@ for ($i = 0; $i < 16; $i++) {
 	}
 	// Junio
 	if (date('m')>'05' and date('m')<'09'){
-
 	if ($val_notas<3) {$promociona="1";}
+	echo "<span class='muted'> $val_notas&nbsp;</span>";
 	for ($i=1;$i<4;$i++){
 	echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
 					if($promociona == $i){echo " checked";}
@@ -578,6 +583,7 @@ for ($i = 0; $i < 16; $i++) {
 	// Septiembre
 	elseif (date('m')=='09'){
 	if ($val_notas>2) {$promociona="3";}else{$promociona="1";}
+	echo "<span class='muted'> $val_notas&nbsp;</span>";
 	for ($i=1;$i<4;$i++){
 	echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
 					if($promociona == $i){echo " checked";}

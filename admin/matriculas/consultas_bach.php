@@ -379,7 +379,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
 	<td><input name="grupo_actual-'. $id .'" type="text" class="input-mini" style="width:12px;" value="'. $grupo_actual .'" /></td>';
-		echo '<td>'. $otrocolegio .'</td>';
+		echo '<td>'. $colegio .'</td>';
 		$color_rel = "";
 		if (strstr($religion,"Cat")==TRUE) {
 			$color_rel = " style='background-color:#FFFF99;'";
@@ -409,7 +409,8 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 
 		// Promocionan o no
 		if ($n_curso) {
-			echo "<td class='no_imprimir' style='background-color:#efeefd;text-align:center;'>";
+			$val_notas="";
+			echo "<td class='no_imprimir' style='background-color:#efeefd;text-align:center;' nowrap>";
 			if (!($promociona =='') and !($promociona == '0')) {
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -420,6 +421,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
 						if($promociona == "3"){echo " checked";}
 						echo " />";
+						//echo "&nbsp; ".$promociona;
 			}
 			else{
 				$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
@@ -433,28 +435,46 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 					$tr_notas = explode(":", $val_asig);
 					foreach ($tr_notas as $key_nota=>$val_nota) {
 						$num_ord+=1;
+					if ($n_curso == "1") {
+						if($key_nota == "1" and ($val_nota<'347' and $val_nota !=="339" and $val_nota !=="") or $val_nota == '397' ){
+							$val_notas=$val_notas+1;
+						}
+						}
+					if ($n_curso == "2") {
 						if($key_nota == "1" and $val_nota<'427' and $val_nota !=="439" and $val_nota !==""){
 							$val_notas=$val_notas+1;
+						}
 						}
 					}
 				}
 				}
 				elseif (date('m')=='09'){
-				$val_notas="";
+					$val_notas="";
+					if (empty($nota[1])) {}
+					else{
+					
 				$tr_not2 = explode(";", $nota[1]);
 				$num_ord1="";
 				foreach ($tr_not2 as $val_asig) {
 					$tr_notas = explode(":", $val_asig);
 					foreach ($tr_notas as $key_nota=>$val_nota) {
 						$num_ord1+=1;
+					if ($n_curso == "1") {
+						if($key_nota == "1" and ($val_nota<'347' and $val_nota !=="339" and $val_nota !=="") or $val_nota == '397' ){
+							$val_notas=$val_notas+1;
+						}
+						}
+					if ($n_curso == "2") {
 						if($key_nota == "1" and $val_nota<'427' and $val_nota !=="439" and $val_nota !==""){
 							$val_notas=$val_notas+1;
 						}
+						}
+					}
+					}				
 					}
 				}
-				}
 				
-			if ($n_curso == "1") {
+			if ($n_curso == "1") {				
 			// Junio
 				if (date('m')>'05' and date('m')<'09'){
 					if ($val_notas==0 and $num_ord>1) {$promociona="1";}
@@ -470,6 +490,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 				}
 				// Septiembre
 				elseif (date('m')=='09'){
+					echo "<span class='muted'> $val_notas&nbsp;</span>";					
 					if ($val_notas>0 and $num_ord1>1) {$promociona="2";}else{$promociona="1";}
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -481,6 +502,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 						if($promociona == "3"){echo " checked";}
 						echo " />";
 					}	
+					
 				}
 				else{
 				if ($n_curso == "2") {
@@ -500,6 +522,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 				}
 				// Septiembre
 				elseif (date('m')=='09' and $num_ord1>1){
+					echo "<span class='muted'> $val_notas&nbsp;</span>";
 					if ($val_notas<3) {$promociona="1";}elseif($val_notas>2 and $val_notas<5) {$promociona="3";}else{$promociona="2";}					
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -512,8 +535,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 						echo " />";
 						}	
 					}	
-				}
-				
+				}				
 			}
 			echo "</td>";
 		}

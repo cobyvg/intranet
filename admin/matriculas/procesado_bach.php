@@ -32,9 +32,11 @@
 				}				
 				}
 				elseif($curso == "1BACH"){
+				//	echo "Tarari que te vi";
 				$a_bd = substr($curso_actual,0,4);
 				mysql_query("insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
 				$ret_4 = mysql_query("select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'");
+				//echo "select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'";
 				$ret = mysql_fetch_array($ret_4);
 				$sql="";				
 				$sql = "insert into matriculas VALUES (''";
