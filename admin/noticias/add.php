@@ -233,7 +233,7 @@ if (!(isset($pagina))) {
     <form action="add.php" method="POST">
       <input type="hidden" name="id"  value="<? echo $id; ?>">
       <label>Asunto<br />
-        <input type="text" name="slug" id="forminput" class="input-xxlarge" value="<? echo htmlspecialchars($row->slug); ?>">
+        <input type="text" name="slug" id="forminput" class="input-block-level" value="<? echo htmlspecialchars($row->slug); ?>">
       </label>
       <label>Texto<br />
         <textarea name="content" id="editor" style="height: 500px; width: 100%;">
@@ -273,7 +273,7 @@ if(strlen($_SESSION['cargo']) > '0')
 if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
 ?>
-    <fieldset class="control-group warning">
+    <fieldset class="control-group">
       <hr>
       <p class="lead">Noticia Fija</p>
       <label>Número de Días para mantener la Noticia Fija:
@@ -282,10 +282,12 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
        <hr>
       <p class="lead">Página donde se publica</p>
       <label class="checkbox">
-      Enviar noticia a la Intranet <input type="checkbox" name="intranet" value="1" <? if (strstr($pagina,"1")==TRUE) { echo "checked";} ?> />
+        <input type="checkbox" name="intranet" value="1" <? if (strstr($pagina,"1")==TRUE) { echo "checked";} ?> />
+        <p>Enviar noticia a la Intranet</p> 
       </label>
       <label class="checkbox">
-      Enviar noticia a la Página del Centro <input type="checkbox" name="principal" <? if (strstr($pagina,"2")==TRUE) { echo "checked";} ?> value="2" />
+        <input type="checkbox" name="principal" <? if (strstr($pagina,"2")==TRUE) { echo "checked";} ?> value="2" />
+        <p>Enviar noticia a la Página del Centro</p>
       </label>
       
       </fieldset>
