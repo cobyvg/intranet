@@ -229,11 +229,11 @@ else{
 }
 		?>
 		
-		<? echo $texto_dep; ?><br />I.E.S. Monterroso (Estepona) <br />Curso Escolar: <? echo $curso_actual;?><br /> Acta N&ordm; <? echo $numero; ?></p>
+		<? echo $texto_dep; ?><br /><? echo $nombre_del_centro ?> (<? echo $localidad_del_centro ?>) <br />Curso Escolar: <? echo $curso_actual;?><br /> Acta N&ordm; <? echo $numero; ?></p>
 <p style="text-align: center;">&nbsp;</p>
 <p style="text-align: center;"><span style="text-decoration: underline;"><strong>ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
 <br />
-<p align="JUSTIFY">En Estepona, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del IES MONTERROSO de Estepona, con el siguiente <span style="text-decoration: underline;"> orden del d&iacute;a:</p>
+<p align="JUSTIFY">En Estepona, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del <? echo $nombre_del_centro ?> de <? echo $localidad_del_centro ?>, con el siguiente <span style="text-decoration: underline;"> orden del d&iacute;a:</p>
 <br />
 <br />
 <br />
