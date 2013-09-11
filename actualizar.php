@@ -58,4 +58,62 @@ while ($tabla=mysql_fetch_array($hay)) {
 		}
 	}
 }
+
+
+
+/*
+	@descripcion: Actualización juego de caracteres
+	@fecha: 11 de septiembre de 2013
+	
+	@nota: Esta tarea puede demorarse unos segundos
+
+*/
+
+$flag = FALSE;
+
+// Comprobamos el juego de caracteres de la base de datos principal
+$schema_faltas = mysql_fetch_array(mysql_query("SELECT default_collation_name FROM information_schema.SCHEMATA WHERE schema_name = '$db'"));
+
+
+if ( $schema_faltas[0] != "latin1_spanish_ci" ) {
+
+	// Cambiamos el juego de caracteres de la base de datos
+	mysql_query("ALTER DATABASE $db CHARACTER SET latin1 COLLATE latin1_spanish_ci") or die (mysql_error());
+	
+	// Cambiamos el juego de caracteres de cada tabla de la base de datos
+	$todas_tablas = mysql_query("SHOW TABLES FROM $db");
+	while ($tabla = mysql_fetch_array($todas_tablas)) {
+		$nomtabla = $tabla[0];
+		mysql_query("ALTER TABLE $nomtabla CONVERT TO CHARACTER SET latin1 COLLATE latin1_spanish_ci") or die (mysql_error());
+	}
+	
+	$flag = TRUE;
+}
+
+// Comprobamos el juego de caracteres de la base de datos de reservas
+$schema_reservas = mysql_fetch_array(mysql_query("SELECT default_collation_name FROM information_schema.SCHEMATA WHERE schema_name = '$db_reservas'"));
+
+if ( $schema_reservas[0] != "latin1_spanish_ci" ) {
+	
+	// Cambiamos el juego de caracteres de la base de datos
+	mysql_query("ALTER DATABASE $db_reservas CHRACTER SET latin1 COLLATE latin1_spanish_ci") or die (mysql_error());;
+	
+	// Cambiamos el juego de caracteres de cada tabla de la base de datos
+	$todas_tablas = mysql_query("SHOW TABLES FROM $db_reservas");
+	while ($tabla = mysql_fetch_array($todas_tablas)) {
+		$nomtabla = $tabla[0];
+		mysql_query("ALTER TABLE $nomtabla CONVERT TO CHARACTER SET latin1 COLLATE latin1_spanish_ci") or die (mysql_error());;
+	}
+	
+	$flag = TRUE;
+}
+
+unset($schema_faltas);
+unset($schema_reservas);
+
+if ( $flag ) {
+	unset($todas_tablas);
+	unset($tabla);
+	unset($nomtabla);
+}
 ?>
