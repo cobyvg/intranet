@@ -1,15 +1,15 @@
 <div align="center">
 <?
-  
+//$ocultar = $_POST['ocultar'];
 // Procesamos los datos
  foreach ($_POST as $id => $valor) {
 // Condiciones para procesar los datos
-  		if (is_numeric($id) and is_numeric($valor)){
-  		mysql_query("update notas_cuaderno set oculto = '$ocultar' where id = '$id'") or die ("<br>No ha sido posible eliminar la columna.<br>Ponte en contacto con quien lo entienda.");
+  		if (is_numeric($id) and is_numeric($valor)){  			
+  		$actual = mysql_query("update notas_cuaderno set oculto = '$ocultar' where id = '$id'") or die ("<br>No ha sido posible eliminar la columna.<br>Ponte en contacto con quien lo entienda.");
   		$n_1 = mysql_affected_rows();
   	}	
 	}		
-	if (empty($n_1)) {
+	if ($n_1==0) {
  echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>

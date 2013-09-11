@@ -8,19 +8,18 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE))
+if(stristr($_SESSION['cargo'],'1') == FALSE and stristr($_SESSION['cargo'],'8') == FALSE)
 {
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 include("../../menu.php");
 ?>
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
-<div align="center" style="max-width:1250px;margin:auto;">
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h1>
-</div>
 <br />
+<div align="center" style="max-width:1250px;margin:auto;">
+<div class="page-header">
+  <h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
+</div>
 <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
         <i class="icon-spinner icon-spin icon-2x pull-left"></i> Cargando los datos...
  </div>
@@ -405,7 +404,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
         <th>Comunicaciones</th>
 </tr>
 <tr>
-    <td><span class="label label-success"><? echo $nivel; ?></span></td>
+    <td><span class="badge badge-success"><? echo $nivel; ?></span></td>
     <td><? echo $num_faltas; ?></td>	
 	<td><span style="color:#abc"><span style="color:#abc">1T.</span> </span> <? echo $num_conv1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_conv2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_conv3; ?><hr><strong><? echo $num_conv; ?></td>
     <td><span style="color:#abc">1T.</span>  <? echo $num_leves1; ?><br /><span style="color:#abc">2T.</span>  <? echo $num_leves2; ?><br /><span style="color:#abc">3T.</span>  <? echo $num_leves3; ?><hr><strong><? echo $num_leves; ?></td>
@@ -583,7 +582,7 @@ $num_acciones = $num_acciones1 + $num_acciones2 + $num_acciones3;
 $num_informes = $num_informes1 + $num_informes2 + $num_informes3;
 $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 ?>
-<h3 align="center"><span  class="label label-info"><? echo $unidad;?></span></h3><br />
+<h3 align="center"><span  class="badge badge-info"><? echo $unidad;?></span></h3><br />
 <table class="table table-striped" style="width:auto">
 <tr>
          <th>Absentismo</th>

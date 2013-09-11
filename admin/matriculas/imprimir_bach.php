@@ -27,7 +27,7 @@ function AutoPrintToPrinter($server, $printer, $dialog=false)
     $this->IncludeJS($script);
 }
 }
-define ( 'FPDF_FONTPATH', '../../pdf/fontsPDF/' );
+define ( 'FPDF_FONTPATH', '../../pdf/font/' );
 # creamos el nuevo objeto partiendo de la clase ampliada
 $MiPDF = new PDF_AutoPrint();
 $MiPDF->SetMargins ( 20, 20, 20 );
@@ -83,11 +83,9 @@ $it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeni
 $it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
 $opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico", "FIS21_TIN21" => "Física, Tecnología", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
 $opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
-$opt23 =array("ingles_25" => "Inglés 2º Idioma","aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud");
-	 
+$opt23 =array("aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud","ingles_25" => "Inglés 2º Idioma");
+	 	 
 	 $observaciones= "OBSERVACIONES: ".$observaciones;
-	 $texto_exencion= "El alumno solicita la exención de la Asignatura Optativa";
-	 $texto_bilinguismo= "El alumno solicita participar en el Programa de Bilinguismo";
 	 $fecha_total = $fecha;
 	 $texto_transporte = "Transporte escolar: $ruta_este$ruta_oeste.";
 	 if ($hermanos == '' or $hermanos == '0') { $hermanos = ""; }
@@ -109,13 +107,15 @@ $datos_junta = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley
 
 	
 // Formulario de la junta	
-for($i=1;$i<3;$i++){
+$pags = array("1","2");
+foreach ($pags as $pag_pdf){
+
 	$MiPDF->Addpage ();
 	#### Cabecera con dirección
 	$MiPDF->SetFont ( 'Times', 'B', 10  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
-	$MiPDF->Image ( '../../imag/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 8 );
 	$titulo2 = "MATRÍCULA DE ". $n_curso."º DE BACHILLERATO";
 	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'C', 0 );
@@ -238,10 +238,12 @@ for($i=1;$i<3;$i++){
 		//$opt_o = "\nOptativas de Bachillerato".$opt_2b;
 	$MiPDF->Cell(78,5,$n_curso."º DE BACH. ( ".$mod_registro." )",1,0,'C');
 	$MiPDF->MultiCell(90,5,$opt,1);
+	if ($curso=="2BACH") {
 	$MiPDF->Ln ( 2 );
 	$MiPDF->Cell(165,5,"MATERIAS OPTATIVAS",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	$MiPDF->MultiCell(168,5,$opt_2b,1);
+	}
 	$MiPDF->Ln ( 5 );
 	$f_hoy = "        En Estepona, a ".$hoy;
 	$sello = "                                  Sello del Centro";
@@ -269,6 +271,79 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Multicell ( 0, 4, $titulo_documentacion, 0, 'C', 0 );
 	$MiPDF->Ln ( 4 );
 	$MiPDF->Multicell ( 0, 6, $documentacion, 0, 'L', 0 );
+	
+	
+	
+	if ($promociona=="3") {
+		if (date('m')=='09'){
+				$materias="";
+				$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
+				$nota = mysql_fetch_array($not);
+				$val_notas="";
+				$tr_not2 = explode(";", $nota[1]);
+				foreach ($tr_not2 as $val_asig) {
+					$tr_notas = explode(":", $val_asig);
+					foreach ($tr_notas as $key_nota=>$val_nota) {
+						if($key_nota == "1" and $val_nota<'427' and $val_nota !=="439" and $val_nota !==""){
+							$mat = mysql_query("select nombre from asignaturas where codigo = '$tr_notas[0]'");
+							//echo "select nombre from asignaturas where codigo = '$tr_notas[0]'<br>";
+							$mater = mysql_fetch_array($mat);
+							$materias.="x ".$mater[0]."\n ";
+						}
+					}
+				}
+
+				
+$titulo_34 = "REPETIDORES DE 1º DE BACHILLERATO";
+$an = substr($curso_actual,0,4);
+$an1 = $an+1;
+$an2 = $an+2;
+$c_escolar = $an1."/".$an2;
+$autoriza_34="
+D./Dª $papa, como padre, madre o tutor legal del alumno/a ".$datos_ya->nombre." ".$datos_ya->apellidos." del curso ".$n_curso."º de Bachillerato, matriculado en el IES Monterroso (Estepona) durante el curso académico $c_escolar:
+
+
+
+SOLICITA:
+
+   1) Que su hijo/a sea matriculado exclusivamente de las materias que se exponen a continuación por no haber sido superadas en el curso anterior. De este modo se autoriza a que cuando no tenga clase abandone el Centro. 
+   
+ $materias
+
+   2) Que su hijo/a sea matriculado de nuevo en segundo curso de Bachillerato en su totalidad, de forma que tenga la oportunidad de consolidar su formación en las materias.
+";
+$firma_34 = "		
+En Estepona, a $hoy
+
+
+
+ Firma del padre/madre/tutor/a.
+";
+
+$direccion_junta = "
+Ed. Torretriana. C/. Juan A. de Vizarrón, s/n. 41071 Sevilla
+Telf. 95 506 40 00. Fax: 95 506 40 03.
+e-mail: informacion.ced@juntadeandalucia.es
+";
+	$MiPDF->Addpage ();
+	#### Cabecera con dirección
+	$MiPDF->SetFont ( 'Times', 'B', 11  );
+	$MiPDF->SetTextColor ( 0, 0, 0 );
+	$MiPDF->SetFillColor(230,230,230);		
+	$MiPDF->Image ( '../../img/encabezado_junta.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Ln ( 20 );
+	$MiPDF->Cell(168,5,$titulo_34,0,0,'C');
+	$MiPDF->SetFont ( 'Times', '', 10  );	
+	$MiPDF->Ln ( 4 );
+	$MiPDF->Multicell ( 0, 6, $autoriza_34, 0, 'L', 0 );
+	$MiPDF->Ln ( 3 );
+	$MiPDF->Multicell ( 0, 6, $firma_34, 0, 'C', 0 );
+	$MiPDF->Ln ( 8 );
+	$MiPDF->SetFont ( 'Times', '', 9  );
+	$MiPDF->Multicell ( 0, 6, $direccion_junta, 0, 'L', 0 );
+	}	
+}
+		
 	include("autorizaciones_bach.php");
 	}
    $MiPDF->AutoPrint(true);     

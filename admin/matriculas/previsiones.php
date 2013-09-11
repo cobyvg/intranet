@@ -19,7 +19,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 echo '
 <div align=center>
 <div class="page-header" align="center">
-  <h1>Matriculación de Alumnos <small> Previsiones</small></h1>
+  <h2>Matriculación de Alumnos <small> Previsiones</small></h2>
 </div>
 <br />';
  

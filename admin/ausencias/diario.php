@@ -13,9 +13,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top: -15px">
-<h1>Ausencias del profesorado <small> Profesores ausentes hoy</small></h1>
+<div class="page-header" align="center">
+<h2>Ausencias del profesorado <small> Profesores ausentes hoy</small></h2>
 </div>
 <?	
 $hoy = date('Y-m-d');
@@ -78,7 +79,7 @@ $result2 = mysql_query ( "select inicio, fin, tareas, id, profesor, horas, archi
 	<tr><td>$tar</td></tr>
 	";
 	if (strlen($row2[6])>0) {
-		echo "<tr class='warning'><td>Archivo adjunto: <a href='archivos/$row2[6]'>$row2[6]</a></td></tr>";
+		echo "<tr class='info'><td>Archivo adjunto:&nbsp; <a href='archivos/$row2[6]'><i class='icon icon-file'> </i> $row2[6]</a></td></tr>";
 	}
 	echo "</table><br />";
 	}

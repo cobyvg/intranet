@@ -13,12 +13,64 @@ $pr = $_SESSION['profi'];
 <?
 include("../../menu.php");
 include("menu.php");
+
+if (isset($_POST['profes'])) {
+	$profes = $_POST['profes'];
+} 
+elseif (isset($_GET['profes'])) {
+	$profes = $_GET['profes'];
+} 
+$profeso = $_POST['profeso'];
+$tutores = $_POST['tutores'];
+$departamentos = $_POST['departamentos'];
+$equipos = $_POST['equipos'];
+$claustro = $_POST['claustro'];
+$etcp = $_POST['etcp'];
+$ca = $_POST['ca'];
+$direccion = $_POST['direccion'];
+$orientacion = $_POST['orientacion'];
+$bilingue = $_POST['bilingue'];
+$texto = $_POST['texto'];
+$profesor = $_POST['profesor'];
+
+if (isset($_POST['padres'])) {
+	$padres = $_POST['padres'];
+} 
+elseif (isset($_GET['padres'])) {
+	$padres = $_GET['padres'];
+} 
+else
+{
+$padres="";
+}
+if (isset($_POST['asunto'])) {
+	$asunto = $_POST['asunto'];
+} 
+elseif (isset($_GET['asunto'])) {
+	$asunto = $_GET['asunto'];
+} 
+else
+{
+$asunto="";
+}
+if (isset($_POST['origen'])) {
+	$origen = $_POST['origen'];
+} 
+elseif (isset($_GET['origen'])) {
+	$origen = $_GET['origen'];
+} 
+else
+{
+$origen="";
+}
+
+$verifica = $_GET['verifica'];
 if($verifica){
  mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
 ?>
 <div class="page-header" align="center">
-  <h1>Centro de Mensajes <small> Enviar mensajes...</small></h1>
+  <h2>Centro de Mensajes <small> Enviar mensajes...</small></h2>
 </div>
 <br />
 <? 
@@ -28,10 +80,8 @@ include("profesores.php");
 <form id="form" name="form" method="post" action="index.php">
   <fieldset>
 <div class="row-fluid">
-<div class="span2"></div>
-
-  <div class="span4">
-      <div class="well-2  well-large">
+  <div class="span4 offset2">
+      <div class="well well-large">
         <h4>Destinatario(s)</h4>
         <br />
         <div class="row-fluid">
@@ -173,7 +223,7 @@ include("profesores.php");
 
 					if($claustro == '1') {
 						echo "<h4>Claustro de Profesores</h4><br /><div class='well'>";
-						$cl = mysql_query("SELECT distinct nombre FROM departamentos");
+						$cl = mysql_query("SELECT distinct nombre FROM departamentos WHERE nombre NOT LIKE 'admin'");
 						while($filacl = mysql_fetch_array($cl))
 						{
 							$t_cl .= $filacl[0].",";
@@ -220,7 +270,7 @@ include("profesores.php");
 							$t_etcp .= $filaetc[0];
 						}
 						$t_etcp = substr($t_etcp,0,strlen($t_etcp)-1);
-						
+						echo "</div>";
 					}
 
 					if($ca == '1' and !$claustro) {
@@ -237,7 +287,7 @@ include("profesores.php");
 
 					if($direccion == '1' and !$claustro) {
 						echo "<h4>Equipo Directivo</h4><br /><div class='well'>";
-						$dir = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like'%1%'");
+						$dir = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like'%1%' AND nombre NOT LIKE 'admin'");
 						while($filadir = mysql_fetch_array($dir))
 						{
 							echo "<li align='left'>$filadir[0] </li>";
@@ -310,17 +360,18 @@ include("profesores.php");
         </div>
       </div>
        
-      <div class="span4 well-2 well-large">
+      <div class="span4 well well-large">
         <div class="control-group" align="left">
           <input type="hidden" name="profesor"
 					value="<? echo $pr; ?>" />
           <label class="control-label" for="asunto">Asunto</label>
-          <input name="asunto" type="text" value="<? echo $asunto;?>" class="input-xlarge"/>
+          <input name="asunto" type="text" value="<? echo $asunto;?>" class="input" style="width:97%"/>
+          <hr />
           <label class="control-label" for="texto">Texto</label>
           <div class="controls">
-            <textarea id="texto" name="texto" class="input-xlarge" id="textarea" rows="8"><? echo $texto;?></textarea>
-            <br />
-            <input type="submit" class="btn btn-primary" name="submit1" value="Enviar Mensaje" />
+            <textarea id="texto" name="texto" class="input" id="textarea" rows="8" style="width:97%"><? echo $texto;?></textarea>
+            <hr />
+            <input type="submit" class="btn btn-primary btn-block" name="submit1" value="Enviar Mensaje" />
           </div>
         </div>
 </div>

@@ -630,8 +630,9 @@ echo "<center>";
 ?>
 <? 
 echo "
-<div class='page-header' style='margin-top:-15px'>
-  <h1>Documentos del Centro <small> Directorio público</small></h1>
+<br />
+<div class='page-header'>
+  <h2>Documentos del Centro <small> Directorio público</small></h2>
 </div>
 <br />
 <div align='CENTER' style='width:860px;margin:auto;'>";
@@ -662,7 +663,7 @@ if ($grants[$user_status][VIEW])
 }
 if ($grants[$user_status][UPLOAD])
 {
-  echo "<div align='center' style='width:860px;'><div style='width:360px;margin:auto;text-align:left' class='well-2 pull-left'>";
+  echo "<div align='center' style='width:860px;'><div style='width:360px;margin:auto;text-align:left' class='well pull-left'>";
   echo "<h6 align='center'>$mess[20]</h6><hr>";
 
   echo "        <form name=\"upload\" action=\"index.$phpExt?".SID."\" enctype=\"multipart/form-data\" method=\"post\" style=\"margin: 0\">\n";
@@ -682,7 +683,7 @@ if ($grants[$user_status][UPLOAD])
 
 if ($grants[$user_status][MKDIR])
 {
-  echo "<div style='width:360px;margin:auto;text-align:left' class='well-2 pull-right'>";
+  echo "<div style='width:360px;margin:auto;text-align:left' class='well pull-right'>";
   echo "<h6 align='center'>$mess[186]</h6><hr>";
 
   echo "        <form name=\"newdir\" action=\"index.$phpExt?".SID."\" enctype=\"multipart/form-data\" method=\"post\" style=\"margin: 0\">\n";

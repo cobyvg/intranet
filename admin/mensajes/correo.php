@@ -17,19 +17,12 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
     <meta name="author" content="">  
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet"> 
-    <?php
-    	if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){
-    ?>
-    	<link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">
-    <?php 
-    	} else {
-	?>
-    	<link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-    <?php
-    }
-    ?>
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
     
 <script>
@@ -122,10 +115,12 @@ function borrar(obj) {
 <body>
 <?
 include("../../menu_solo.php");
+include("menu.php");
 ?>
+
 <div align="center">
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Correo del Centro <small>Envío de Correo a los Profesores</small></h1>
+<div class="page-header">
+  <h2>Correo del Centro <small>Envío de Correo a los Profesores</small></h2>
 </div>
 <br />
 
@@ -141,6 +136,7 @@ $mail = new PHPMailer();
 $mail->Host = "localhost";
 $mail->From = $mail_from;
 $mail->FromName = $profe_envia;
+$mail->Sender = $mail_from;
 $mail->Subject = $tema;
 $mail->Body = $texto;
 
@@ -180,7 +176,7 @@ El correo se ha enviado correctamente a los profesores seleccionados.
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span4 offset2">
-<div class="well-2" align="left">
+<div class="well" align="left">
 <label>Asunto:<br />
  <textarea name="tema" style="width:97%"><? echo $tema;?></textarea>
  </label>
@@ -198,13 +194,11 @@ Adjunto:
 </label>
 <hr>
 <label>Marcar destinatarios;</label>
-<div class="btn-group">
-<a href="javascript:seleccionar_todo()" class="btn  btn-mini">Todos</span></a>
-<a href="javascript:seleccionar_tutor()" class="btn  btn-mini">Tutores</span></a>
-<a href="javascript:seleccionar_jd()" class="btn  btn-mini">J. de Departamento</span></a>
-<a href="javascript:seleccionar_ca()" class="btn  btn-mini">C. de Área</span></a>
-<a href="javascript:seleccionar_ed()" class="btn  btn-mini">Dirección</span></a>
-</div>
+<a href="javascript:seleccionar_todo()" class="btn  btn-mini btn-primary">Todos</span></a>
+<a href="javascript:seleccionar_tutor()" class="btn  btn-mini btn-primary">Tutores</span></a>
+<a href="javascript:seleccionar_jd()" class="btn  btn-mini btn-primary">J. de Departamento</span></a>
+<a href="javascript:seleccionar_ca()" class="btn  btn-mini btn-primary">C. de Área</span></a>
+<a href="javascript:seleccionar_ed()" class="btn  btn-mini btn-primary">Dirección</span></a>
 <br /><br />
 <a href="javascript:deseleccionar_todo()" class="btn btn-danger btn-mini">Desmarcarlos todos</span></a>
  </div>

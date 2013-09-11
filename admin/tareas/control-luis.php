@@ -12,10 +12,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 include("menu.php");
+if (isset($_POST['profes'])) {$profes = $_POST['profes'];}else{$profes="";}
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Profesores que no redactan Informes</small></h1>
+  <h2>Informes de Tareas <small> Profesores que no redactan Informes</small></h2>
 </div>
 
 <?
@@ -23,8 +24,7 @@ $detalles = '1';
 ?>
 <div class="row-fluid">
 <h3 class="text-info" align="center"><? echo $profes;?></h3><br />
-<div class="span1"></div> 
-<div class="span6" align="left">   
+<div class="span4 offset2" align="left">   
 
 <?
 $hoy = date('Y-m-d');

@@ -32,10 +32,10 @@ else {
 	$fecha0 = explode('-',$trozos[0]);
 	$dia0 = $fecha0[0];
 	$mes = $fecha0[1];
-	$año = $fecha0[2];
-	$fecha1 = $año . "-" . $mes . "-" . $dia0;
-	$fecha11 = $dia0 . "-" . $mes . "-" . $año;
-	$fecha2 = mktime(0,0,0,$mes,$dia0,$año);
+	$ano = $fecha0[2];
+	$fecha1 = $ano . "-" . $mes . "-" . $dia0;
+	$fecha11 = $dia0 . "-" . $mes . "-" . $ano;
+	$fecha2 = mktime(0,0,0,$mes,$dia0,$ano);
 	$diames = date("j");
     	$nmes = date("n");
 	$nano = date("Y");
@@ -44,7 +44,7 @@ else {
 
  	$comienzo_del_curso = strtotime($inicio_curso);
 	$final_del_curso = strtotime($fin_curso);
-	
+
 $repe=mysql_query("select fecha from festivos where date(fecha) = date('$fecha1')");
 if (mysql_num_rows($repe) > '0') {	
 	$dia_festivo='1';
@@ -64,8 +64,8 @@ if (mysql_num_rows($repe) > '0') {
 $fecha0 = explode('-',$trozos[0]);
 $dia0 = $fecha0[0];
 $mes = $fecha0[1];
-$año = $fecha0[2];
-$fecha1 = $año . "-" . $mes . "-" . $dia0;
+$ano = $fecha0[2];
+$fecha1 = $ano . "-" . $mes . "-" . $dia0;
 
 // Caso de faltas para TODOS los alumnos en una hora	
 if ($trozos[2] == "T" OR $trozos[2] == "t") {
@@ -86,7 +86,7 @@ $jt0 = mysql_query($jt);
 $jt1 = mysql_num_rows($jt0);
 // Si la falta no se ha metido, insertamos los datos.
 if ($duplicadosT1 == "0" and $jt1 == "0") {		
-$semana = date( mktime(0, 0, 0, $mes, $dia0, $año));
+$semana = date( mktime(0, 0, 0, $mes, $dia0, $ano));
 $hoy = getdate($semana);
 $nombredia = $hoy[wday];
 // Insertamos las faltas de TODOS los alumnos.
@@ -134,7 +134,7 @@ $jt0 = mysql_query($jt);
 $jt1 = mysql_num_rows($jt0);
 // Si la falta no se ha metido, insertamos los datos.
 if ($duplicados1 == "0" and $jt1 == "0") {	
-$semana = date( mktime(0, 0, 0, $mes, $dia0, $año));
+$semana = date( mktime(0, 0, 0, $mes, $dia0, $ano));
 $hoy = getdate($semana);
 $nombredia = $hoy[wday];
 $insert = "insert INTO  FALTAS (  CLAVEAL , NIVEL ,  GRUPO ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$trozos[3]',  '$trozos[1]',  '$nc',  '$fecha1',  '$trozos[5]', '$nombredia',  '$num_profe',  '$trozos[4]', 'F')";
@@ -172,13 +172,13 @@ $i += 6;
 if(!(empty($mens_fecha)) or !(empty($mens1)) or !(empty($mens2)) or !(empty($mens3)) or !(empty($mens4)))
 {
 ?>
-setTimeout("window.location='index.php?year=<? echo $año;?>&today=<? echo $today;?>&month=<? echo $mes;?>'", 5000) 
+setTimeout("window.location='index.php?year=<? echo $ano;?>&today=<? echo $today;?>&month=<? echo $mes;?>'", 3000) 
 <?
 }
 else
 {
 ?>
-setTimeout("window.location='index.php?registro=1&year=<? echo $año;?>&today=<? echo $today;?>&month=<? echo $mes;?>'", 5) 
+setTimeout("window.location='index.php?registro=1&year=<? echo $ano;?>&today=<? echo $today;?>&month=<? echo $mes;?>'", 5) 
 <?
 }
 ?>

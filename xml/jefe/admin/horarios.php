@@ -14,13 +14,13 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
 <?php
 include("../../../menu.php");
 ?>
+<br />
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Administración <small> Creación de Horarios y Profesores</small></h1>
+  <h2>Administración <small> Creación de Horarios y Profesores</small></h2>
 </div>
 <br />
 <div  align='center'>    

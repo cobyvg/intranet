@@ -18,14 +18,15 @@ exit;
 <?php
 include("../../../menu.php");
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Copia de seguridad de la base de datos</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Copia de seguridad de la base de datos</small></h2>
 </div>
 </div>
 <br />
 <?
-echo '<div class="well-2 well-large" style="width:480px;margin:auto" align="left">';
+echo '<div class="well well-large" style="width:480px;margin:auto" align="left">';
 
 	//  Conexión con la Base de Datos.
 	

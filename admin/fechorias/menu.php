@@ -1,24 +1,30 @@
-         <!-- Navbar
-    ================================================== -->
-    
-    <div class="navbar navbar-fixed-top no_imprimir visible-phone visible-tablet">
-  <div class="navbar-inner2">
-    <div class="container-fluid">
-    <div class="convive">
-      <a class="btn btn-default" data-toggle="collapse" data-target=".convive .nav-collapse" style="float:right">
-        <span class="icon-list"></span>
-      </a>
-      <a class="brand" href="http://<? echo $dominio;?>/intranet/index0.php" style="color:#2c2c2c">Problemas de Convivencia</a>
-      <div id="convive" class="nav-collapse collapse">
-        <ul class="nav nav-pills">
+<?
+$activo1="";
+$activo2="";
+$activo3="";
+$activo4="";
+$activo5="";
+$activo6="";
+$activo7="";
+if (strstr($_SERVER['REQUEST_URI'],'cfechorias.php')==TRUE) {$activo1 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'infechoria.php')==TRUE){ $activo2 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'lfechorias.php')==TRUE){ $activo3 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'expulsados.php')==TRUE){ $activo4 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'convivencia.php')==TRUE){ $activo5 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'lfechorias3.php')==TRUE){ $activo6 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'convivencia_jefes.php')==TRUE){ $activo7 = ' class="active" ';}
+?>
+        <div class="container">
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
 
-     <li> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/cfechorias.php">
+     <li <? echo $activo1;?>> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/cfechorias.php">
       Consultar Problemas</a></li>
-     <li> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/infechoria.php">
+     <li <? echo $activo2;?>> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/infechoria.php">
       Registrar Problema</a></li>
-     <li> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/lfechorias.php">
+     <li <? echo $activo3;?>> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/lfechorias.php">
       Últimos Problemas</a></li>
-     <li> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/expulsados.php">
+     <li <? echo $activo4;?>> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/expulsados.php">
       Alumnos expulsados</a></li>
       <?
       $pr_conv = $_SESSION['profi'];
@@ -26,56 +32,17 @@ $conv = mysql_query("select distinct prof from horw where a_asig = 'GUCON' and p
 // echo "select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'";
 if (mysql_num_rows($conv) > '0') {
 ?>
-      <li><a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/convivencia.php">Aula de Convivencia</a></li>  
+      <li <? echo $activo5;?>><a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/convivencia.php">Aula de Convivencia</a></li>  
 <?
 }
       ?>
-     <li> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/lfechorias3.php">
+     <li <? echo $activo6;?>> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/lfechorias3.php">
       Ranking</a></li>
       
 <?   
 if(stristr($_SESSION['cargo'],'1') == TRUE){
 ?>
-      <li><a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula de Convivencia</a></li>
-<?
-}
-?>           
-  
-    </ul>
-      </div><!--/.nav-collapse -->
-      </div>
-    </div>
-  </div>
-</div>
-
-        <div class="subnav subnav-fixed hidden-phone hidden-tablet">
-          <ul class="nav nav-pills">
-
-     <li> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/cfechorias.php">
-      Consultar Problemas</a></li>
-     <li> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/infechoria.php">
-      Registrar Problema</a></li>
-     <li> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/lfechorias.php">
-      Últimos Problemas</a></li>
-     <li> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/expulsados.php">
-      Alumnos expulsados</a></li>
-      <?
-      $pr_conv = $_SESSION['profi'];
-$conv = mysql_query("select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr_conv'");
-// echo "select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'";
-if (mysql_num_rows($conv) > '0') {
-?>
-      <li><a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/convivencia.php">Aula de Convivencia</a></li>  
-<?
-}
-      ?>
-     <li> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/lfechorias3.php">
-      Ranking</a></li>
-      
-<?   
-if(stristr($_SESSION['cargo'],'1') == TRUE){
-?>
-      <li><a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula de Convivencia</a></li>
+      <li <? echo $activo7;?>><a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula de Convivencia</a></li>
 <?
 }
 ?>           

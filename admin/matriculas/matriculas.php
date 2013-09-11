@@ -18,8 +18,16 @@ include("/opt/e-smith/conf_principal.php");
 include("../../funciones.php");
 $connection = mysql_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
 mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
+if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
+if (isset($_GET['dni'])) {$dni = $_GET['dni'];}elseif (isset($_POST['dni'])) {$dni = $_POST['dni'];}else{$dni="";}
+if (isset($_GET['enviar'])) {$enviar = $_GET['enviar'];}elseif (isset($_POST['enviar'])) {$enviar = $_POST['enviar'];}else{$enviar="";}
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 
 if($enviar =="Enviar los datos de la Matrícula"){
+		foreach($_POST as $key => $val)
+	{
+		${$key} = $val;
+	}
 	$cargo = "1";
 	$opt41=array("Alemán2_1", "Francés2_1", "Informatica_1");
 	$opt42=array("Alemán2_2", "Francés2_2", "Informatica_2", "EdPlástica_2");
@@ -218,9 +226,17 @@ mysql_query("insert into matriculas (apellidos, nombre, nacido, provincia, nacim
 			}
 			else{
 			?>
-            <link href="http://iesmonterroso.org/estilo.css" rel="stylesheet" type="text/css" media="screen" />
-			<div class="aviso3" align="left" style="padding:20px; margin-top:40px; line-height:20px;">Los datos de la Matrícula se han registrado correctamente en la Base de datos,<br><br>
-			<center><a href="./index.php">Volver al página de Matrículas</a></center></div>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/otros.css" rel="stylesheet">
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">  
+    <link href="../../css/font-awesome.min.css" rel="stylesheet" >
+    <link href="../../css/imprimir.css" rel="stylesheet" media="print">
+    <br /><br />
+<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Los datos de la Matrícula se han registrado correctamente en la Base de datos.
+</div></div><br />    
+    			
             <?
 			}
 			exit();
@@ -228,33 +244,21 @@ mysql_query("insert into matriculas (apellidos, nombre, nacido, provincia, nacim
 	}
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Matrículas</title>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css1; ?>" rel="stylesheet" type="text/css">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css2; ?>" rel="stylesheet" type="text/css">
-<link rel="STYLESHEET" type="text/css" href="http://<? echo $dominio; ?>/intranet/css/imprimir.css" media="print"" media="print"> 
-
-<style type="text/css">
-<!--
-table {
-	width: 991px;
-	border: 1px solid #aaa;
-	border-collapse: collapse;
-}
-
-td {
-	border: 1px solid #aaa
-}
-td .it{
-	padding:4px 6px;
-	border-bottom:1px dotted #ccc;
-	border-top:1px dotted #ccc;
-}
--->
-</style>
+<!DOCTYPE html>  
+<html lang="es">  
+  <head>  
+    <meta charset="iso-8859-1">  
+    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
+    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/otros.css" rel="stylesheet">
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="../../css/datepicker.css" rel="stylesheet">
+    <link href="../../css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="../../css/font-awesome.min.css" rel="stylesheet" >
+    <link href="../../css/imprimir.css" rel="stylesheet" media="print">
 
  <script type="text/javascript">
 function confirmacion() {
@@ -325,18 +329,17 @@ if ($dni or $claveal or $id) {
 		?>
 <form id="form2" name="form1" method="post"
 	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
-<div class="aviso3" align="left">Elige el Alumno que quieres matricular
-en nuestro Centro:
-<div style="height: 5px;"></div>
+<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Elige el alumno que quieres matricular en nuestro Centro:
 		<?
 		while ($row_alma = mysql_fetch_array($ya_alma)) {
 			?> <input type="radio" name="claveal"
 	value="<? echo $row_alma[0]; ?>"
 	style="margin: 6px 2px; line-height: 18px; vertical-align: top;"
 	onclick="submit()" />
-<div
-	style="color: brown; line-height: 18px; display: inline; vertical-align: top;"><? echo $row_alma[2]." ".$row_alma[1]; ?></div>
-<br />
+</div></div><br />  
+
 			<?
 		}
 		?></div>
@@ -356,18 +359,17 @@ exit();
 		?>
 <form id="form2" name="form1" method="post"
 	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
-<div class="aviso3" align="left">Elige el Alumno que quieres matricular
-en nuestro Centro:
-<div style="height: 5px;"></div>
+<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Elige el alumno que quieres matricular en nuestro Centro:
 		<?
 		while ($row_alma = mysql_fetch_array($ya_primaria)) {
 			?> <input type="radio" name="claveal"
 	value="<? echo $row_alma[0]; ?>"
 	style="margin: 6px 2px; line-height: 18px; vertical-align: top;"
 	onclick="submit()" />
-<div
-	style="color: brown; line-height: 18px; display: inline; vertical-align: top;"><? echo $row_alma[2]." ".$row_alma[1]; ?></div>
-<br />
+</div></div><br />  
+
 			<?
 		}
 		?></div>
@@ -381,18 +383,17 @@ exit();
 		?>
 <form id="form2" name="form1" method="post"
 	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
-<div class="aviso3" align="left">Elige el Alumno que quieres matricular
-en nuestro Centro:
-<div style="height: 5px;"></div>
+<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Elige el alumno que quieres matricular en nuestro Centro:
 		<?
 		while ($row_alma = mysql_fetch_array($ya_matricula)) {
 			?> <input type="radio" name="claveal"
 	value="<? echo $row_alma[0]; ?>"
 	style="margin: 6px 2px; line-height: 18px; vertical-align: top;"
 	onclick="submit()" />
-<div
-	style="color: brown; line-height: 18px; display: inline; vertical-align: top;"><? echo $row_alma[2]." ".$row_alma[1]; ?></div>
-<br />
+</div></div><br />  
+
 			<?
 		}
 		?></div>
@@ -475,13 +476,11 @@ exit();
 
 		?> <br />
 <div style="width: 990px; margin: auto; border: 2px solid #aaa"><img
-	src="../../imag/encabezado.jpg" width="988" height="80"
+	src="../../img/encabezado.jpg" width="988" height="80"
 	style="border-left: 1px solid #aaa;" />
 
-<table align="center">
-	<form id="form1" name="form1" method="post"
-		action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
-
+	<form class="form-vertical" id="form1" name="form1" method="post"	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
+	<table  class="table table-bordered" align="center">
 	<tr>
 		<td colspan="3">
 		<?
@@ -508,19 +507,24 @@ exit();
 	<tr>
 		<td valign=top colspan="2" style="line-height: 24px">El alumno <strong>promociona</strong>
 		por la siguiente razón:<br />
+		<label class="radio">
 		<input type="radio" name="promociona"
 		<? if ($promociona=='1') {echo "checked"; }  ?> value='1'
-			style="margin: 2px 2px" /> Tener 0, 1 o 2 suspensos<br> <input
-			type="radio" name="promociona"
+			 /> Tener 0, 1 o 2 suspensos
+			</label>
+			<label class="radio">
+			<input	type="radio" name="promociona"
 			<? if ($promociona=='2') {echo "checked"; }  ?> value='2'
-			style="margin: 2px 2px" /> Repetir este año <? echo substr($curso, 0, 1); ?>º de ESO <br />
+			 /> Repetir este año <? echo substr($curso, 0, 1); ?>º de ESO 
+			</label>
 		
 		</td>
 		<td valign=top style="line-height: 24px">El alumno <strong>no
 		promociona</strong> por la siguiente razón: </br>
+		<label class="radio">
 		<input type="radio" name="promociona"
 		<? if ($promociona=='3') {echo "checked"; }  ?> value='3'
-			style="margin: 2px 2px"?> Tener más de 2 asignaturas suspensas</td>
+			?> Tener más de 2 asignaturas suspensas</label></td>
 	</tr>
 	<?
 	}
@@ -534,7 +538,7 @@ exit();
 	<tr>
 		<td valign=top width="33%" colspan="2"><strong>Apellidos del alumno/a:<br />
 		<input type="text" name="apellidos"
-		<? echo "value = \"$apellidos\""; ?> size="32"
+		<? echo "value = \"$apellidos\""; ?> size="32" class="input-xxlarge"
 		<? if(strstr($vacios,"apellidos, ")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		</strong></td>
 		<td valign=top width="33%"><strong>Nombre</strong>:<br />
@@ -585,12 +589,14 @@ exit();
 	</tr>
 	<tr>
 		<td valign="middle"><strong>Sexo</strong>:<br />
-		<input type="radio" name="sexo" value="mujer" style="margin: 2px 2px"
-			<? if($sexo == 'mujer' or $sexo == 'M'){echo "checked";} ?> /> Mujer
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"
-			name="sexo" value="hombre" style="margin: 2px 2px"
+		<label class="radio">
+		<input type="radio" name="sexo" value="mujer"
+			<? if($sexo == 'mujer' or $sexo == 'M'){echo "checked";} ?> /> &nbsp;Mujer</label>
+		<label class="radio"><input type="radio"
+			name="sexo" value="hombre" 
 			<? if($sexo == 'hombre' or $sexo == 'H'){echo "checked";} ?> />
-		Hombre <br />
+		&nbsp;Hombre 
+		</label>
 		</td>
 		<td valign=top><strong>Nº de Hermanos</strong>:<br />
 		<input type="text" name="hermanos" <? echo "value = \"$hermanos\""; ?>
@@ -607,7 +613,7 @@ exit();
 		<td valign=top colspan="2"><strong>Apellidos y nombre del
 		Representante o Guardador legal 1</strong>(<span
 			style="font-weight: normal;">con quien convive el alumno</span>):<br />
-		<input type="text" name="padre" <? echo "value = \"$padre\""; ?>
+		<input class="input-xxlarge" type="text" name="padre" <? echo "value = \"$padre\""; ?>
 			size="52"
 			<? if(strstr($vacios,"padre,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		</td>
@@ -622,7 +628,7 @@ exit();
 	<tr>
 		<td valign=top colspan="2"><strong>Apellidos y nombre del
 		Representante o Guardador legal 2</strong>:<br />
-		<input type="text" name="madre" <? echo "value = \"$madre\""; ?>
+		<input class="input-xxlarge" type="text" name="madre" <? echo "value = \"$madre\""; ?>
 			size="52" /></td>
 		<td valign=top><strong>DNI</strong>:<br />
 		<input type="text" name="dnitutor2"
@@ -631,11 +637,11 @@ exit();
 	</tr>
 	<tr>
 		<td colspan="2" rowspan="2" valign=top><strong>Tel&eacute;fono casa</strong>:
-		<input type="text" name="telefono1"
+		<input class="input-small" type="text" name="telefono1"
 		<? echo "value = \"$telefono1\""; ?> size="10"
 		<? if(strstr($vacios,"telefono1,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
-		<strong>Tel&eacute;fono m&oacute;vil padres</strong>: <input type="text" name="telefono2" size="10" <? echo "value = \"$telefono2\""; ?> style="margin-top:6px;<? if(strstr($vacios,"telefono2")==TRUE){echo 'background-color:#FFFF66;';}?>" />
+		<strong>Tel&eacute;fono m&oacute;vil padres</strong>: <input class="input-small" type="text" name="telefono2" size="10" <? echo "value = \"$telefono2\""; ?> style="margin-top:6px;<? if(strstr($vacios,"telefono2")==TRUE){echo 'background-color:#FFFF66;';}?>" />
 		<br />
 		Nota: Es muy importante registrar un tel&eacute;fono m&oacute;vil para
 		poder recibir comunicaciones del Centro v&iacute;a SMS.</td>
@@ -664,8 +670,8 @@ exit();
 	</tr>
 
 	<tr>
-		<td valign=top colspan=""><span style="margin: 2 ' x 2px;"><strong>Correo
-		electr&oacute;nico padres</strong>:</span> <input type="text"
+		<td valign=top colspan=""><strong>Correo
+		electr&oacute;nico padres</strong>: <input type="text" class="input-xlarge"
 			name="correo" <? echo "value = \"$correo\""; ?> size="48" /></td>
 	</tr>
 
@@ -709,33 +715,35 @@ exit();
 		una)</td>
 	</tr>
 	<tr>
-		<td valign=top style="width: 332px;"><input type="text" name="idioma"
+		<td valign=top style="width: 332px;"><input class="input-small" type="text" name="idioma"
 			value="Inglés" readonly size="8" /><br />
 		Materia Obligatoria</td>
-		<td valign=top style="width: 332px;"><input type="radio"
-			name="religion" value="Religión Catolica" style="margin: 2px 2px"
+		<td valign=top style="width: 332px;"
+		><label class="radio">
+		<input type="radio"
+			name="religion" value="Religión Catolica" 
 		<? if($religion == 'Religión Catolica'){echo "checked";} ?> />
-		Religi&oacute;n Cat&oacute;lica <br />
-		<input type="radio" name="religion" value="Religión Islámica"
-			style="margin: 2px 2px"
+		Religi&oacute;n Cat&oacute;lica </label>
+		<label class="radio"><input type="radio" name="religion" value="Religión Islámica"
+			
 		<? if($religion == 'Religión Islámica'){echo "checked";} ?> />
-		Religi&oacute;n Isl&aacute;mica<br />
-		<input type="radio" name="religion" value="Religión Judía"
-			style="margin: 2px 2px"
+		Religi&oacute;n Isl&aacute;mica</label>
+		<label class="radio"><input type="radio" name="religion" value="Religión Judía"
+			
 		<? if($religion == 'Religión Judía'){echo "checked";} ?> />
-		Religi&oacute;n Jud&iacute;a</td>
-		<td valign=top style="width: 332px;"><input type="radio"
-			name="religion" value="Religión Evangélica" style="margin: 2px 2px"
+		Religi&oacute;n Jud&iacute;a</label></td>
+		<td valign=top style="width: 332px;"><label class="radio"><input type="radio"
+			name="religion" value="Religión Evangélica" 
 		<? if($religion == 'Religión Evangélica'){echo "checked";} ?> />
-		Religi&oacute;n Evang&eacute;lica<br />
-		<input type="radio"
-			name="religion" value="Historia de las Religiones" style="margin: 2px 2px"
+		Religi&oacute;n Evang&eacute;lica</label>
+		<label class="radio"><input type="radio"
+			name="religion" value="Historia de las Religiones" 
 		<? if($religion == 'Historia de las Religiones'){echo "checked";} ?> />
-		Historia de las Religiones<br />
-		<input type="radio"
-			name="religion" value="Atención Educativa" style="margin: 2px 2px"
+		Historia de las Religiones</label>
+		<label class="radio"><input type="radio"
+			name="religion" value="Atención Educativa" 
 		<? if($religion == 'Atención Educativa'){echo "checked";} ?> />
-		Atención Educativa</td>
+		Atención Educativa</label></td>
 	</tr>
 	<?
 	if ($n_curso < 3) {
@@ -761,19 +769,19 @@ exit();
 			if (substr($curso, 0, 1) == $i) {
 				foreach (${opt.$i} as $opt_1){
 					$num1+=1;
-					echo '<select name="optativa'.$num1.'" id="optativa'.$num1.'" >';
+					echo '<select class="input-mini" name="optativa'.$num1.'" id="optativa'.$num1.'" >';
 					
 					echo '<option>'.${optativa.$num1}.'</option>';
 					for ($z=1;$z<5;$z++){
 						echo '<option>'.$z.'</option>';
 					}
 					echo '</select>';
-					echo '<span style="margin:2px 2px" >'.$opt_1.'</span><br />';
+					echo ' <span >'.$opt_1.'</span><br />';
 				}
 			}
 		}
 		?></td>
-		<td valign=top bgcolor="#E6E6E6" colspan="2"><? 
+		<td valign=top colspan="2"><? 
 		$num1="";
 		for ($i = 1; $i < 5; $i++) {
 			if (substr($curso, 0, 1) == $i) {
@@ -782,10 +790,10 @@ exit();
 					$num1+=1;
 					if (${act.$num1} == '0') {${act.$num1}='';}
 					//    if (mysql_num_rows($ya_primaria) > '0' or $cargo == '1' ) { $sl = "";}else{$sl = " disabled ";}
-					echo '<input type="radio" name = "act1" value="'.$num1.'"'; echo $sl; echo ' style="margin:2px 2px"';
+					echo '<label class="radio"><input type="radio" name = "act1" value="'.$num1.'"'; echo $sl; echo '';
 					if($act1 == $num1){echo "checked";}
 					echo " />";
-					echo '<span style="margin:2px 2px" >'.$act_1.'</span><br />';
+					echo '<span >'.$act_1.'</span></label>';
 				}
 			}
 		}
@@ -810,13 +818,13 @@ elseif ($n_curso == 3) {
 			if (substr($curso, 0, 1) == $i) {
 				foreach (${opt.$i} as $opt_1){
 					$num1+=1;
-					echo '<select name="optativa'.$num1.'" id="">';
+					echo '<select class="input-mini" name="optativa'.$num1.'" id="">';
 					echo '<option>'.${optativa.$num1}.'</option>';
 					for ($z=1;$z<8;$z++){
 						echo '<option>'.$z.'</option>';
 					}
 					echo '</select>';
-					echo '<span style="margin:2px 2px" >'.$opt_1.'</span><br />';
+					echo ' <span >'.$opt_1.'</span><br />';
 					if ($num1==4) {echo "</td><td colspan='2' style='border-left:none;";
 					if ($opt_rep == "1") {
 						echo "background-color:yellow;";
@@ -854,7 +862,7 @@ elseif ($n_curso == 3) {
 	for ($i = 1; $i < 5; $i++) {
 		echo "<td align='center' width='25%' valign='top'><strong>";
 
-		echo '<input type="radio" name="itinerario" value="'.$i.'" style="margin: 2px 2px" onClick="';
+		echo '<label class="radio"><input type="radio" name="itinerario" value="'.$i.'"  onClick="';
 		foreach (${opt4.$i} as $optit_1 => $val_opt){
 			echo 'document.form1.'.$optit_1.'.disabled = false;';
 					/*$arriba = $i+1;	
@@ -872,7 +880,8 @@ elseif ($n_curso == 3) {
 		echo '"';
 		if($itinerario == $i){echo " checked";} 
 		echo ' /> ';
-		echo " Itinerario $i</strong><br /><span style='font-size:9px;'>".${it4.$i}[0]."</span></td>";
+		echo " Itinerario $i</label>
+		<small class='muted'>".${it4.$i}[0]."</small></td>";
 	}
 	echo "</tr><tr>";
 	for ($i = 1; $i < 5; $i++) {
@@ -882,14 +891,14 @@ elseif ($n_curso == 3) {
 	for ($i = 1; $i < 5; $i++) {
 		echo "<td align='left' class='it'>";
 		if ($i=='3') { 
-			echo "<input type='radio' name = 'matematicas4' value='A' style='margin: 2px 2px' ";
+			echo "<label class='radio'><input type='radio' name = 'matematicas4' value='A' ";
 			if ($matematicas4=="A") { echo "checked";}
-			echo "/>".${it4.$i}[3]."<br /><input type='radio' name = 'matematicas4' value='B' style='margin: 2px 2px' ";
+			echo "/>".${it4.$i}[3]."</label><label class='radio'><input type='radio' name = 'matematicas4' value='B' ";
 			if ($matematicas4=="B") { echo "checked";}
 			echo "/>".${it4.$i}[4];	
 		}
 		else{ echo ${it4.$i}[3]; }	
-		echo "</td>";
+		echo "</label></td>";
 	}
 	echo "</tr><tr>";
 	for ($i = 1; $i < 5; $i++) {
@@ -900,7 +909,7 @@ elseif ($n_curso == 3) {
 		foreach (${opt4.$i} as $optit_1 => $nombre){
 					$num1+=1;
 					if (${optativa.$num1}=="0") {${optativa.$num1}="";}
-					echo '<select name="'.$optit_1.'" id=""';
+					echo '<select class="input-mini" name="'.$optit_1.'" id=""';
 					if (!($itinerario == $i)) {
 						echo 'disabled="disabled"';
 					}
@@ -913,8 +922,8 @@ elseif ($n_curso == 3) {
 					for ($z=1;$z<$num_it+1;$z++){
 						echo '<option>'.$z.'</option>';
 					}
-					echo '</select>';
-					echo '<span style="margin:2px 2px" >'.$nombre.'</span><br />';
+					echo '</select> ';
+					echo '<span >'.$nombre.'</span><br />';
 				}	 
 			
 		echo "</td>";
@@ -940,13 +949,13 @@ elseif ($n_curso == 3) {
 			if (substr($curso, 0, 1)-1 == $i) {
 				foreach (${opt.$i} as $opt_1){
 					$num1+=1;
-					echo '<select name="optativa2'.$num1.'" id="">';
+					echo '<select class="input-mini" name="optativa2'.$num1.'" id="">';
 					echo '<option>'.${optativa2.$num1}.'</option>';
 					for ($z=1;$z<8;$z++){
 						echo '<option>'.$z.'</option>';
 					}
 					echo '</select>';
-					echo '<span style="margin:2px 2px" >'.$opt_1.'</span><br />';
+					echo ' <span >'.$opt_1.'</span><br />';
 					if ($num1==4) {echo "</td><td colspan='2' style='border-left:none;";
 					if ($opt_rep2 == "1") {
 						echo "background-color:yellow";
@@ -991,18 +1000,18 @@ elseif ($n_curso == 3) {
 			if ((substr($curso, 0, 1)-1) == $i) {
 				foreach (${opt.$i} as $opt_1){
 					$num1+=1;
-					echo '<select name="optativa2'.$num1.'" id="">';
+					echo '<select class="input-mini" name="optativa2'.$num1.'" id="">';
 					echo '<option>'.${optativa2.$num1}.'</option>';
 					for ($z=1;$z<5;$z++){
 						echo '<option>'.$z.'</option>';
 					}
 					echo '</select>';
-					echo '<span style="margin:2px 2px" >'.$opt_1.'</span><br />';
+					echo ' <span >'.$opt_1.'</span><br />';
 				}
 			}
 		}
 		?></td>
-		<td valign=top bgcolor="#E6E6E6" colspan="2"><?    
+		<td valign=top colspan="2"><?    
 		$num1="";
 		for ($i = 1; $i < 5; $i++) {
 			if ((substr($curso, 0, 1) -1) == $i) {
@@ -1011,10 +1020,10 @@ elseif ($n_curso == 3) {
 					//	if($cargo == '1'){
 					$num1+=1;
 					if (${act.$num1} == '0') {${act.$num1}='';}
-					echo '<input type="radio" name = "act21" value="'.$num1.'"'.$sl.' style="margin:2px 2px"';
+					echo '<label class="radio"><input type="radio" name = "act21" value="'.$num1.'"'.$sl.'';
 					if($act1 == $num1){echo "checked";}
 					echo " />";
-					echo '<span style="margin:2px 2px" >'.$act_1.'</span><br />';
+					echo '<span >'.$act_1.'</span></label>';
 				}
 			}
 		}
@@ -1024,17 +1033,18 @@ elseif ($n_curso == 3) {
 <? if(substr($curso, 0, 1)<3) { ?>
 	<tr>
 		<td colspan="3" style="background-color: #CCCCCC"><?
-		echo '<input'; echo ' type="checkbox" name="exencion" value="1" '; echo " disabled"; if($exencion == '1'){echo "checked";} echo " />"; ?>
-		<span style="font-weight: bold">Exenci&oacute;n de la asignatura
+		echo '<label class="checkbox"><input'; 
+		echo ' type="checkbox" name="exencion" value="1" '; echo " disabled"; if($exencion == '1'){echo "checked";} echo " />"; ?>
+		<strong>Exenci&oacute;n de la asignatura
 		optativa (a rellenar por el Dep. de Orientaci&oacute;n previo acuerdo
-		con la familia)</span></td>
+		con la familia)</strong></label></td>
 	</tr>
 	<? }?>	
     <? if(substr($curso, 0, 1)>2) { ?>
     <tr>
 		<td colspan="3" style="background-color: #CCCCCC"><?
-		echo '<input'; echo ' type="checkbox" name="diversificacion" value="1" '; echo " disabled"; if($diversificacion == '1'){echo "checked";} echo " />"; ?>
-		<span style="font-weight: bold">El alumno participa en el Programa de Diversificación</span></td>
+		echo '<label class="checkbox"><input'; echo ' type="checkbox" name="diversificacion" value="1" '; echo " disabled"; if($diversificacion == '1'){echo "checked";} echo " />"; ?>
+		<strong>El alumno participa en el Programa de Diversificación</strong></label></td>
 	</tr>
     <? } ?>
 		<?
@@ -1042,9 +1052,9 @@ elseif ($n_curso == 3) {
 	?>
 	<?  if(substr($curso, 0, 1) < 2) { ?>
 	<tr>
-		<td colspan="3"><input type="checkbox" name="bilinguismo" value="Si"
+		<td colspan="3" style="background-color: #CCCCCC"><label class="checkbox"><input type="checkbox" name="bilinguismo" value="Si"
 		<? if($bilinguismo == 'Si'){echo "checked";} ?> /> El alumno/a
-		solicita participar en el <strong>Programa de Biling&uuml;ismo </strong>(Ingl&eacute;s).</td>
+		solicita participar en el <strong>Programa de Biling&uuml;ismo (Ingl&eacute;s).</strong></label></td>
 	</tr>
 	<? } ?>
 	<tr>
@@ -1060,16 +1070,16 @@ elseif ($n_curso == 3) {
 	<tr>
 		<td colspan="3" style="border-bottom: none">
 
-		<center><br />
+		<div align="center"><br />
 		<input type="hidden" name="curso" value="<? echo $curso;?>" /> 
 		<input type="hidden" name="nuevo" value="<? echo $nuevo;?>" /> 		
 		<input type="hidden" name="curso_matricula"	value="<? echo $curso_matricula;?>" /> 
 		<input type="hidden" name="claveal" <? echo "value = \"$claveal\""; ?> />
 		<input type="hidden" name="repite" value="<? echo $repetidor;?>" />  
-		<input type="submit" name="enviar"	value="Enviar los datos de la Matrícula" class="no_imprimir"  />
+		<input type="submit" name="enviar"	value="Enviar los datos de la Matrícula" class="btn btn-primary no_imprimir"  />
 		<br />
 		<br />
-		</center>
+		</div>
 		</td>
 	</tr>
 	</form>
@@ -1081,10 +1091,16 @@ elseif ($n_curso == 3) {
 else{
 
 	if ($dni == "" and $dnitutor == '') {
-		echo '<div class="aviso3">Ha surgido un problema con el Formulario de Inscripción: debes escribir el <strong style="color:brown">DNI</strong> del alumno o padre que solicita la Matriculación en este Centro. Vuelve atrás e inténtalo de nuevo. </div>';
+		echo '<div align="center"><div class="alert alert-error alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Ha surgido un problema con el Formulario de Inscripción: debes escribir el <strong class="text-info">DNI</strong> del alumno o padre que solicita la Matriculación en este Centro. Vuelve atrás e inténtalo de nuevo.
+</div></div><br />  ';
 	}
 	if ($curso == "") {
-		echo '<div class="aviso3">Ha surgido un problema con el Formulario de Inscripción: debes seleccionar el <strong style="color:brown">Curso</strong> del alumno que solicita la Matriculación en este Centro. Vuelve atrás e inténtalo de nuevo. </div>';
+				echo '<div align="center"><div class="alert alert-error alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Ha surgido un problema con el Formulario de Inscripción: debes seleccionar el <strong class="text-info">Curso</strong> del alumno que solicita la Matriculación en este Centro. Vuelve atrás e inténtalo de nuevo. 
+</div></div><br />  ';
 	}
 }
 ?> <br />

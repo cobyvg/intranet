@@ -14,20 +14,21 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 $idea = $_SESSION ['ide'];
+if (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}
 ?>
-<div class="row-fluid">
-   <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Fotos de los Profesores <small></small></h1>
-</div>
-</div>
 <br />
+   <div align=center>
+  <div class="page-header" align="center">
+  <h2>Fotos de los Profesores <small></small></h2>
+</div>
+</div>
+<div class="row-fluid">
 <div class="span1"></div>
 <div class="span5">
 <h3 align="center"><? echo mb_strtolower($_SESSION['profi']); ?></h3><br />
- <div class="well-2 well-large" align='center' style="width:100%">
+ <div class="well" align='center' style="width:100%">
 <?
-	echo "<p class='lead'>Registro de fotos</p>";
+	echo "<legend>Registro de fotos</legend>";
 echo "<p class='help-block' style='text-align:left;'>Haz click en el botón de abajo para seleccionar el archivo con la fotografía que quieres registrar o actualizar. La fotografía debe tener una resolución mínima de 40KB y máxima de 1MB. El archivo de imagen debe ser JPG.</p>" ;
 if (strlen($idea) > '5') 
 {
@@ -38,7 +39,7 @@ if(file_exists("../../xml/fotos_profes/".$idea.".jpg")){
 	}
 }
 
-if ($enviar and empty($File))
+if (isset($_POST['enviar']) and empty($_POST['File']))
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -159,8 +160,8 @@ La fotograf&iacute;a tiene excesiva resoluci&oacute;n. Es conveniente que actual
 </div>
 <div class="span4">
 <h3 align="center">Ver fotos</h3><br />
-<div class="well-2 well pull-right" style="width:80%">
-  <p class='lead'> Selecciona profesor</p>
+<div class="well pull-right" style="width:80%">
+  <legend> Selecciona profesor</legend>
 <FORM action="fotos_profes.php" method="POST" name="fotos">
   <label>
     <select  name="profesor" class="input-xlarge" onChange="submit()">
@@ -188,7 +189,7 @@ if(file_exists("../../xml/fotos_profes/".$idea.".jpg")){
    </form>
     <hr>
    <FORM action="profes.php" method="POST" name="fotos">
-   <p class='lead'>Fotos del Claustro de Profesores</p>
+   <legend>Fotos del Claustro de Profesores</legend>
   <label>
     <INPUT TYPE=SUBMIT NAME='ver_todos' VALUE='Ver todas las fotos' class='btn btn-primary'>
   </label>

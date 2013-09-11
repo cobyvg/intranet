@@ -14,7 +14,7 @@ include ("menu.php");
 ?>
 <div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Informe del alumno</small></h1>
+  <h2>Problemas de Convivencia <small> Informe del alumno</small></h2>
 </div>
 </div>
 <br />
@@ -69,7 +69,6 @@ $notas = $_POST['notas']; $grave = $_POST['grave'];$nombre = $_POST['nombre']; $
 		exit ();
 	}
 	$alumno = mysql_query ( " SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
-	echo " SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'";
 	$rowa = mysql_fetch_array ( $alumno );
 	echo "<table class='tabla' style='padding:2px 10px;'>";
 	$apellidos = trim ( $rowa [0] );
@@ -179,7 +178,7 @@ enviarForm();
 	<td>$row[6]</td>
 	<td>$row[7]</td>
 	<td>$row[9]</td>
-	<td nowrap><a href='detfechorias.php?id= $row[10]&claveal=$claveal'><i class='icon icon-search' title='Detalles'></i></a><a href='delfechorias.php?id= $row[10]'><i class='icon icon-trash' title='Borrar'></i></a></td>
+	<td nowrap><a href='detfechorias.php?id= $row[10]&claveal=$claveal'><i class='icon icon-search' title='Detalles'></i></a>&nbsp;&nbsp;<a href='delfechorias.php?id= $row[10]'><i class='icon icon-trash' title='Borrar'></i></a></td>
 	</tr>";
 	}
 	echo "</table>\n";

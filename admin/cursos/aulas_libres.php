@@ -13,6 +13,7 @@ $profesor = $_SESSION['profi'];
 ?>
 
 <?php
+if (isset($_POST['n_dia'])) {$n_dia = $_POST['n_dia'];} elseif (isset($_GET['n_dia'])) {$n_dia = $_GET['n_dia'];} else{$n_dia="";}
 if ($n_dia == 'Lunes') {	$dia = '1';}
 if ($n_dia == 'Martes') { $dia = '2';}
 if ($n_dia == 'Miércoles') {	$dia = '3';}
@@ -20,13 +21,15 @@ if ($n_dia == 'Jueves') {	$dia = '4';}
 if ($n_dia == 'Viernes') {	$dia = '5';}
 include("../../menu.php");
   ?>
+<br />
   <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Aulas libres <small><br /> <? echo $n_dia;?></small></h1>
+  <div class="page-header" align="center">
+  <h2>Aulas libres <small><br /> <? echo $n_dia;?></small></h2>
 </div>
 </div>
 <br />
-<table class="table table-striped table-bordered " align="center" style="width:auto">
+
+<table class="table table-striped table-bordered " align="center" style="width:92%">
     <tr> 
     <th>  
       8.15-9.15</th>

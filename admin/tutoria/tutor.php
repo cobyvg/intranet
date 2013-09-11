@@ -11,15 +11,49 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?php
 include("../../menu.php");
-if(strlen($tutor) > 1)
-{
-  	$tutor2 = mysql_query("SELECT  nivel, grupo FROM FTUTORES where tutor = '$tutor'");
- 	$ftutor = mysql_fetch_array($tutor2);
-	$nivel = $ftutor[0];
-	$grupo = $ftutor[1];
-}
 include("menu.php");
 $datatables_activado = true;
+
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
+}
+elseif(isset($_POST['id'])){
+	$id = $_POST['id'];
+}
+else{
+	$id = "";
+}
+if (isset($_GET['eliminar'])) {
+	$eliminar = $_GET['eliminar'];
+}
+if (isset($_POST['fecha'])) {
+	$fecha = $_POST['fecha'];
+} else{$fecha="";}
+
+if (isset($_POST['alumno'])) {
+	$alumno = $_POST['alumno'];
+}   else{$alumno="";}
+if (isset($_POST['observaciones'])) {
+	$observaciones = $_POST['observaciones'];
+} else{$observaciones="";}
+if (isset($_POST['accion'])) {
+	$accion = $_POST['accion'];
+} else{$accion="";}
+if (isset($_POST['causa'])) {
+	$causa = $_POST['causa'];
+} else{$causa="";}
+if (isset($_POST['id2'])) {
+	$id2 = $_POST['id2'];
+} else{$id2="";}
+if (isset($_POST['nivel0'])) {
+	$nivel0 = $_POST['nivel0'];
+} else{$nivel0="";}
+if (isset($_POST['grupo0'])) {
+	$grupo0 = $_POST['grupo0'];
+} else{$grupo0="";}
+if (isset($_POST['prohibido'])) {
+	$prohibido = $_POST['prohibido'];
+}else{$prohibido="";}
 
 if ($id) {
 $alumno = "";
@@ -46,11 +80,10 @@ $clave = $row[13];
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Página del tutor <small> Diario del Tutor ( <?  echo $nivel; ?>-<? echo $grupo;?> )</small></h1>
+  <h2>Página del tutor <small> Diario del Tutor ( <?  echo $nivel; ?>-<? echo $grupo;?> )</small></h2>
 </div>
-
-
 <? 
+
 if ($eliminar=="1") {
 	mysql_query("delete from tutoria where id='$id'");
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -59,14 +92,14 @@ El registro ha sido borrado en la Base de datos.
 </div></div><br />';		
 }
 
-if ($submit1 == "Registrar intervencion de tutoria") {
-	include("insertar.php");
+if (isset($_POST['submit1'])) {
+		include("insertar.php");
 }
-  if($submit2){
+  if (isset($_POST['submit2'])) {
   $dia = explode("-",$fecha);
   $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
   	$actualizar ="UPDATE  tutoria SET observaciones = '$observaciones', causa = '$causa', accion = '$accion', fecha = '$fecha2' WHERE  id = '$id2'"; 
-//	echo $actualizar;
+	echo $actualizar;
 	mysql_query($actualizar);
   }
   if($orientacion == '1')
@@ -98,7 +131,7 @@ La Jefatura de Estudios ha registrado esta Acción Tutorial
   <div class="span6">
     <h4 align="center">Registro de datos</h4>
     <br />
-    <div class="well-2 well-large" align="left">
+    <div class="well well-large" align="left">
       <form action="tutor.php" method="POST" name="Tutor">
            <?    
           if ($alumno and !($alumno == "Todos los Alumnos")) {

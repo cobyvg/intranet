@@ -22,11 +22,12 @@ if($recurso=="aula_grupo"){$num=$num_aula_grupo+1;$nombre_rec="Aulas de Grupo";}
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Reserva de Medios <small> <? echo $nombre_rec; ?></small></h1>
+  <h2>Reserva de Medios <small> <? echo $nombre_rec; ?></small></h2>
 </div>
 <br />
  
-<form action="jcal_admin/index_aulas.php" method="post" class="well-2 well-large" style="width:400px; margin:auto;" name = "form_aula">
+<form action="jcal_admin/index_aulas.php" method="post" class="well well-large" style="width:400px; margin:auto;" name = "form_aula">
+<legend>Selecciona el aula</legend>
   <SELECT  name=servicio_aula onChange="submit()" class="input-xlarge">
     <option><? echo $servicio_aula;?></option>
     <?
@@ -42,8 +43,6 @@ if($recurso=="aula_grupo"){$num=$num_aula_grupo+1;$nombre_rec="Aulas de Grupo";}
         }
 	?>
   </select>
-  <br />
-  <button class="btn btn-primary" name="Ver aula" value="Ver aula" onclick="window.open("#")">Ver Reservas del aula</button>
 </FORM>
 <br />
 </div>
@@ -52,9 +51,9 @@ if($recurso=="aula_grupo"){$num=$num_aula_grupo+1;$nombre_rec="Aulas de Grupo";}
 $conn = mysql_connect($db_host, $db_user, $db_pass) or die("Error en la conexión con la Base de Datos!");
 mysql_select_db($db_reservas, $conn);
 
-if (isset($_GET['month'])) { $month = $_GET['month']; $month = ereg_replace ("[[:space:]]", "", $month); $month = ereg_replace ("[[:punct:]]", "", $month); $month = ereg_replace ("[[:alpha:]]", "", $month); }
-if (isset($_GET['year'])) { $year = $_GET['year']; $year = ereg_replace ("[[:space:]]", "", $year); $year = ereg_replace ("[[:punct:]]", "", $year); $year = ereg_replace ("[[:alpha:]]", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
-if (isset($_GET['today'])) { $today = $_GET['today']; $today = ereg_replace ("[[:space:]]", "", $today); $today = ereg_replace ("[[:punct:]]", "", $today); $today = ereg_replace ("[[:alpha:]]", "", $today); }
+if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
+if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
+if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
 
 
 $month = (isset($month)) ? $month : date("n",time());

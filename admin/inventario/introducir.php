@@ -14,7 +14,7 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <div class="page-header" align="center">
-  <h1>Material del Centro <small> Inventario</small></h1>
+  <h2>Material del Centro <small> Inventario</small></h2>
 </div>
 <br />
 <?
@@ -27,8 +27,8 @@ else{
 }
 ?>
 <?
-if ($eliminar=="1") {
-	mysql_query("delete from inventario where id='$id'");
+if ($_GET['eliminar']=="1") {
+	mysql_query("delete from inventario where id='".$_GET['id']."'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.
@@ -68,7 +68,7 @@ Parece que no has escrito nada en alguno de los campos obligatorios del formular
 
 <h3>Registro de Material <span style="color:#9d261d">(<? echo $departament;?>)</span></h3>
 <br />
-<div class="well-2 well-large" align="left">
+<div class="well well-large" align="left">
 <form name="textos" method="post" action="introducir.php">
 <div align="center"><p class="help-block"> <span style="color:#9d261d">(*)</span> --> Campos obligatorios</p></div>
 <input type="hidden" name="departamento" value="<? echo $departamento;?>">
@@ -125,7 +125,10 @@ while($lug = mysql_fetch_array($luga))
 <input type="text" name="unidades" size="5" value="1" class="span2"/>
 </label>
 <label>Fecha de Alta<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<input type="text" name="fecha" size="10" value="<? echo date('d-m-Y');?>" class="span4"/>
+<div class="input-append" style="display:inline;" >
+            <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+  <span class="add-on"><i class="icon-calendar"></i></span>
+</div> 
 </label>
 <br />
 <input type="submit" name="enviar"  value="Enviar datos" class="btn btn-primary"/>
@@ -160,6 +163,15 @@ while($item = mysql_fetch_row($it))
 ?>
 </div>
 </div>
-<? include("../../pie.php");?>		
+<? include("../../pie.php");?>	
+<script>  
+	$(function ()  
+	{ 
+		$('#fecha').datepicker()
+		.on('changeDate', function(ev){
+			$('#fecha').datepicker('hide');
+		});
+		});  
+	</script>	
 </body>
 </html>

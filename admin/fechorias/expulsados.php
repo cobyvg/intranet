@@ -14,7 +14,7 @@ include("../../menu.php");
 include("menu.php");
  echo '<div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Alumnos expulsados</small></h1>
+  <h2>Problemas de Convivencia <small> Alumnos expulsados</small></h2>
 </div>
 </div>';     
   $hoy = date('Y') . "-" . date('m') . "-" . date('d');

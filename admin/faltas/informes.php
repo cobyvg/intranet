@@ -12,6 +12,87 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 include("../../faltas/menu.php");
+
+if (isset($_POST['nombre'])) {
+	$nombre = $_POST['nombre'];
+} 
+elseif (isset($_GET['nombre'])) {
+	$nombre = $_GET['nombre'];
+} 
+else
+{
+$nombre="";
+}
+if (isset($_POST['claveal'])) {
+	$claveal = $_POST['claveal'];
+} 
+elseif (isset($_GET['claveal'])) {
+	$claveal = $_GET['claveal'];
+} 
+else
+{
+$claveal="";
+}
+if (isset($_POST['fechasp1'])) {
+	$fechasp1 = $_POST['fechasp1'];
+}
+elseif (isset($_GET['fechasp1'])) {
+	$fechasp1 = $_GET['fechasp1'];
+} 
+else
+{
+$fechasp1="";
+}
+if (isset($_POST['fechasp2'])) {
+	$fechasp2 = $_POST['fechasp2'];
+}
+elseif (isset($_GET['fechasp2'])) {
+	$fechasp2 = $_GET['fechasp2'];
+} 
+else
+{
+$fechasp2="";
+}
+if (isset($_POST['fechasp3'])) {
+	$fechasp3 = $_POST['fechasp3'];
+}
+elseif (isset($_GET['fechasp3'])) {
+	$fechasp3 = $_GET['fechasp3'];
+} 
+else
+{
+$fechasp3="";
+}
+if (isset($_POST['fecha3'])) {
+	$fecha3 = $_POST['fecha3'];
+}
+elseif (isset($_GET['fecha3'])) {
+	$fecha3 = $_GET['fecha3'];
+} 
+else
+{
+$fecha3="";
+}
+if (isset($_POST['fecha4'])) {
+	$fecha4 = $_POST['fecha4'];
+}
+elseif (isset($_GET['fecha4'])) {
+	$fecha4 = $_GET['fecha4'];
+} 
+else
+{
+$fecha4="";
+}
+if (isset($_POST['submit2'])) {
+	$submit2 = $_POST['submit2'];
+}
+elseif (isset($_GET['submit2'])) {
+	$submit2 = $_GET['submit2'];
+} 
+else
+{
+$submit2="";
+}
 echo "<div align='center'>";
    $claveal0 = explode(" --> ",$nombre);
   if(empty($claveal)){$claveal = $claveal0[1];} 
@@ -23,11 +104,13 @@ echo "<div align='center'>";
 	$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
   }
   $SQL10 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo from FALUMNOS where   CLAVEAL = '$claveal'";
-
   $result10 = mysql_query($SQL10);
   $row10 = mysql_fetch_array($result10);
-          echo "<br /><h3 align='center'>Informe de faltas de asistencia del alumno</h3><br />
-		  <div align='center'>";
+          echo "<div align='center'>";
+          echo '<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Informe de faltas del alumno</small></h2>
+  </div>
+<br />';
 		echo "<table class='table table-striped' style='width:auto;'>";
 
                 printf ("<tr><th>%s</th><th>%s</th>
@@ -39,7 +122,7 @@ echo "<div align='center'>";
 if($submit2)
 {
  $SQL0 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
-// echo $SQL0;
+ //echo $SQL0;
   $result0 = mysql_query($SQL0);
   $row0 = mysql_fetch_array($result0);
   // Justificadas

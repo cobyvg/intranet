@@ -12,15 +12,15 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
   <?
   	include("../../menu.php");
   ?>
-   <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Fotos de los Alumnos <small></small></h1>
-</div>
 <br />
+   <div align=center>
+  <div class="page-header" align="center">
+  <h2>Fotos de los Alumnos <small></small></h2>
+</div>
 
-<div class="well-2 well-small" style="width:33%;margin:auto;">
+<div class="well well-small" style="width:33%;margin:auto;">
 <FORM action="grupos.php" method="POST" name="fotos">
-  <h4> Selecciona el Grupo de alumnos</h4><br />
+  <legend> Selecciona el Grupo de alumnos</legend><br />
   <label> Grupo: 
     <select  name="curso" style="width:80px" onChange="submit()">
       <option></option>

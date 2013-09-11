@@ -14,13 +14,13 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
 <?php
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Asignaturas y Calificaciones</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Asignaturas y Calificaciones</small></h2>
 </div>
 <br />
 <div  align='center'>    
@@ -30,7 +30,7 @@ include("../../menu.php");
 </div>
 <div id='t_larga' style='display:none' >
 
-<div class="well-2 well-large" style="width:700px;margin:auto;text-align:left">
+<div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
 // Vaciamos o borramos tablas
 mysql_query("TRUNCATE TABLE calificaciones");
@@ -62,7 +62,7 @@ mysql_query("ALTER TABLE  `materias_temp` ADD  `id` INT NOT NULL AUTO_INCREMENT 
 mysql_query("ALTER TABLE  `materias_temp` ADD INDEX (  `CODIGO` )");
 
 mysql_query("ALTER TABLE  `calificaciones_temp` ADD INDEX (  `CODIGO` )");  
-
+$num="";
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir('../exporta')) {
    while (false !== ($file = readdir($handle))) {
@@ -211,13 +211,13 @@ Tablas ASIGNATURAS y CALIFICACIONES:<br /> Los datos se han introducido correcta
 echo "<p class='lead'>Comprobación de coherencia entre las Asignaturas de Séneca y de Horw.</p><br /> ";
 $elimina = "select distinct c_asig, a_asig, asig from horw, asignaturas where c_asig NOT IN (select distinct codigo from asignaturas)";
 $elimina1 = mysql_query($elimina);
-echo "<p class='label label-important'>Asignaturas de Horw que no están en Séneca</p>";
+echo "<p class='badge badge-important'>Asignaturas de Horw que no están en Séneca</p>";
 while($elimina2 = mysql_fetch_array($elimina1))
 {
 echo "<li>". $elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] . "</li>";
 }
 $elimina = "select distinct codigo, abrev, nombre, curso from asignaturas, horw where codigo NOT IN (select distinct c_asig from horw)";
-echo "<br /><p class='label label-warning'>Asignaturas de Séneca que no están en Horw.</p>";
+echo "<br /><p class='badge badge-warning'>Asignaturas de Séneca que no están en Horw.</p>";
 $elimina1 = mysql_query($elimina);
 while($elimina2 = mysql_fetch_array($elimina1))
 {

@@ -11,17 +11,29 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include("../menu.php");
-echo "<div align='center'><h2>Cuaderno de Notas</h2><br />
-	 <h3>Edición de datos</h3><br />";
+// Titulo
+echo "<br /><div align='center' class='page-header'>";
+$n_profe = explode(", ",$pr);
+$nombre_profe = "$n_profe[1] $n_profe[0]";
+echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small> Operaciones con los datos</small></h2>";
+echo "</div><br />";
+echo '<div align="center">';
+
+ foreach($_POST as $key => $val)
+	{
+		${$key} = $val;
+	}
+echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";		
+	
 // Procesamos los datos
 if ($eliminar) {
 include("edicion/eliminar.php");
-exit;	
+
 }
 elseif ($ocultar) {
 $ocultar = "1";
 include("edicion/ocultar.php");	
-exit;	
+
 }
 elseif ($mostrar) {
 $ocultar = "0";
@@ -30,28 +42,29 @@ exit;
 }	
 elseif ($media) {
 include("edicion/calcular.php");
-exit;	
+
 }
 elseif ($recalcula) {
 include("edicion/calcular_pond.php");
-exit;	
+
 }
 
 elseif ($media_pond2) {
 
 
 include("edicion/calcular_pond.php");
-exit;	
+
 }
 
 elseif ($estadistica) {
 
 
 include("edicion/estadistica.php");
-exit;	
+
 }
-
-
+?>
+<?
+include("../pie.php")
 ?>
 </body>
 </html>

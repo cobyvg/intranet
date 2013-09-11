@@ -20,7 +20,7 @@ include_once("../../funciones.php");
 </head>
 <body>
 <div align="center">
-
+<br />
 <?php
   $SQL1 = "select distinct alma.apellidos, alma.nombre, alma.nivel, alma.grupo, alma.claveal from alma where alma.claveal = '$claveal' order BY alma.apellidos";
   // print ("$AUXSQL");
@@ -31,8 +31,8 @@ include_once("../../funciones.php");
   	$grupo=$row1[3];
   $nom="$row1[0], $row1[1]";
    echo '<div align="center">
-<div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Informe del alumno <small>'. $nom .' ('.$row1[2].'-'.$row1[3],')</small></h1>
+<div class="page-header" align="center">
+  <h2>Informe del alumno <small>'. $nom .' ('.$row1[2].'-'.$row1[3],')</small></h2>
 </div>
 <br />';		
 if (!($todos == 'Ver Informe Completo del Alumno') ){

@@ -12,10 +12,12 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 include("menu.php");
+if (isset($_POST['profes'])) {$profes = $_POST['profes'];}else{$profes="";}
+
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Informes de Tutoría <small> Profesores que no redactan Informe</small></h1>
+  <h2>Informes de Tutoría <small> Profesores que no redactan Informe</small></h2>
 </div>
 <br />
 </div>
@@ -23,9 +25,7 @@ include("menu.php");
 $detalles = '1'; 
 ?>
 <div class="row-fluid">
-<div class="span1"></div> 
-<div class="span6" align="left">   
-<br />    
+<div class="span4 offset2" align="left">   
 <?
 $hoy = date('Y-m-d');
 //echo $hoy;
@@ -132,7 +132,7 @@ echo "<br />";
 }
 ?>
 </div>
-<br />
+<div class="span4">
 <?
 echo '<h4>Resultados globales por Profesor</h4><br />';
 $malo0 = "select profesor, count(*) as total from infotut_temp group by profesor";
@@ -160,6 +160,7 @@ echo "<tr><td>$malo2[0]</td><td>$malo2[1]</td></tr>";
 </table>
 </div>
 </div>
+
 
 <? 
 mysql_query("drop table infotut_temp");

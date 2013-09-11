@@ -19,57 +19,30 @@ $profesor = $_SESSION ['profi'];
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
 <meta name="author" content="">
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-<link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
-<!-- TinyMCE -->
-<script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-	tinyMCE.init({
-		// General options
-		mode : "textareas",
-		theme : "advanced",
-		language : "es",
-		plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,visualblocks",
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
 
-		// Theme options
-		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
-		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft,visualblocks",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_statusbar_location : "bottom",
-		theme_advanced_resizing : true,
+<script src="http://<? echo $dominio;?>/intranet/js/tinymce/tinymce.min.js"></script>
+<script>
+tinymce.init({
+        selector: "textarea",
+        language: "es",
+        plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality template textcolor paste fullpage textcolor"
+        ],
 
-		// Example content CSS (should be your site CSS)
-		content_css : "css/content.css",
+        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | spellchecker | styleselect",
+        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
 
-		// Drop lists for link/image/media/template dialogs
-		template_external_list_url : "lists/template_list.js",
-		external_link_list_url : "lists/link_list.js",
-		external_image_list_url : "lists/image_list.js",
-		media_external_list_url : "lists/media_list.js",
-
-		// Style formats
-		style_formats : [
-			{title : 'Bold text', inline : 'b'},
-			{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
-			{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
-			{title : 'Example 1', inline : 'span', classes : 'example1'},
-			{title : 'Example 2', inline : 'span', classes : 'example2'},
-			{title : 'Table styles'},
-			{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
-		],
-
-		// Replace values for the template plugin
-		template_replace_values : {
-			username : "Some User",
-			staffid : "991234"
-		}
-	});
+        menubar: false
+});
 </script>
 <!-- /TinyMCE -->
 
@@ -81,6 +54,7 @@ $profesor = $_SESSION ['profi'];
 <?
 include ("../../menu_solo.php");
 include ("menu.php");
+
 mysql_select_db($db);
 mysql_query("CREATE TABLE IF NOT EXISTS r_departamento (
 `id` SMALLINT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
@@ -120,7 +94,7 @@ else{
 
   <?
   echo '<div class="page-header">
-  <h1>Jefatura del Departamento <small> Registro de Reuniones</small></h1>
+  <h2>Actas del Departamento <small> Registro de Reuniones</small></h2>
   <h3 style="color:#08c;">'.$departament.'</h3>
 </div>
 <br />';
@@ -215,10 +189,12 @@ if ($edicion=="1") {
 <div class="row-fluid">
 <div class="span9">	
 
-    <form action="<? echo $PHP_SELF;?>" method="POST" name='f1' class="form-inline">
+    <form action="add.php" method="POST" name='f1' class="form-inline">
       <label style="display:inline">Fecha de la Reunión &nbsp;
       <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha" value="<? echo $fecha_r;?>" >
+            <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha" value="<? if (isset($fecha_r)) {
+            	echo $fecha_r;
+            }?>" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 </label>
@@ -253,11 +229,11 @@ else{
 }
 		?>
 		
-		<? echo $texto_dep; ?><br />I.E.S. Monterroso (Estepona) <br />Curso Escolar: <? echo $curso_actual;?><br /> Acta N&ordm; <? echo $numero; ?></p>
+		<? echo $texto_dep; ?><br /><? echo $nombre_del_centro ?> (<? echo $localidad_del_centro ?>) <br />Curso Escolar: <? echo $curso_actual;?><br /> Acta N&ordm; <? echo $numero; ?></p>
 <p style="text-align: center;">&nbsp;</p>
 <p style="text-align: center;"><span style="text-decoration: underline;"><strong>ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
 <br />
-<p align="JUSTIFY">En Estepona, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del IES MONTERROSO de Estepona, con el siguiente <span style="text-decoration: underline;"> orden del d&iacute;a:</p>
+<p align="JUSTIFY">En Estepona, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del <? echo $nombre_del_centro ?> de <? echo $localidad_del_centro ?>, con el siguiente <span style="text-decoration: underline;"> orden del d&iacute;a:</p>
 <br />
 <br />
 <br />

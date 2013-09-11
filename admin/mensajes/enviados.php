@@ -15,13 +15,15 @@ $profesor = $_SESSION['profi'];
 include("../../menu.php");
 include("menu.php");
 ?>
-<link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
 <div align="center">
 <div class="page-header">
-  <h1>Centro de Mensajes <small> Mensajes enviados</small></h1>
+  <h2>Centro de Mensajes <small> Mensajes enviados</small></h2>
 </div>
 <br />
 <?
+if (isset($_POST['id_borrar'])) {$id_borrar = $_POST['id_borrar'];} elseif (isset($_GET['id_borrar'])) {$id_borrar = $_GET['id_borrar'];} else{$id_borrar="";}
+if (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];} elseif (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];} else{$borrar="";}
+
 $datatables_activado = true;  
 $lista = mysql_list_fields($db,"mens_texto");
 $col_oculto = mysql_field_name($lista,5);
@@ -32,7 +34,7 @@ if ($borrar=="1") {
 	mysql_query("update mens_texto set oculto='1' where id = '$id_borrar'")	;
 	echo '<div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4 class="alert-heading">Valió!</h4> 
+            <h4 class="alert-heading"> 
             El mensaje ha sido eliminado correctamente.
           </div>';
 }
@@ -58,8 +60,7 @@ if ($numero > 0)
 ?>
 <div class="container-fluid">  
 	<div class="row-fluid">
-<div class="span2"></div>
-<div class="span8">
+<div class="span10 offset1">
  <div align="center">
 
     <table class="table table-striped tabladatos" style="width:100%">
@@ -71,7 +72,7 @@ if ($numero > 0)
 	?>
       
       <TR> 
-		<TD nowrap><? echo fecha_actual($row->ahora); ?></td>        
+		<TD nowrap><? echo fecha_actual2($row->ahora); ?></td>        
         <TD><a href="mensaje.php?id=<? echo $row->id;?>&profesor=<? echo $profesor;?>">
 	<? echo $row->asunto; ?></a></td>
 	<TD  width="260">

@@ -17,7 +17,7 @@ include("menu.php");
 $expresion = $_POST['expresion'];
 ?>
 <div class="page-header" align="center">
-  <h1>Noticias del Centro <small> Buscar en las Noticias</small></h1>
+  <h2>Noticias del Centro <small> Buscar en las Noticias</small></h2>
 </div>
 <br />
 <h3 align="center" class="muted">Noticias que contienen la expresión &quot;<a href="#"><? echo strtoupper($expresion);?></a>&quot;</h3><br /><br /><?
@@ -61,12 +61,12 @@ if(($row->contact == $profesor) or (strstr($_SESSION['cargo'],"1") == TRUE))
           $buffer0 = strip_tags($row->content);
 								if(strlen($row->content) <= 150)	  
 								{
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo strip_tags($buffer);}
 								else
 								{ 
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo strip_tags(substr($buffer,0,200));
 								echo "...";
@@ -124,12 +124,12 @@ if (mysql_num_rows($result) > 0)
           $buffer0 = strip_tags($row->texto,'<br>');
 								if(strlen($row->texto) <= 150)	  
 								{
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo $buffer;}
 								else
 								{ 
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo substr($buffer,0,200);
 								echo "...";
@@ -192,12 +192,12 @@ if (mysql_num_rows($result) > 0)
           $buffer0 = strip_tags($row->texto,'<br>');
 								if(strlen($row->texto) <= 150)	  
 								{
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo $buffer;}
 								else
 								{ 
-								$cambiado = "<span class='label label-important'>$expresion</span>";
+								$cambiado = "<span class='badge badge-important'>$expresion</span>";
 								$buffer = str_replace($expresion,$cambiado,$buffer0);
 								echo substr($buffer,0,200);
 								echo "...";

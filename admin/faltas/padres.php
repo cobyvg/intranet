@@ -10,22 +10,75 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $tutor = $_SESSION['profi'];
 include_once ("../../funciones.php"); 
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
+if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
+if (isset($_GET['fecha12'])) {$fecha12 = $_GET['fecha12'];}elseif (isset($_POST['fecha12'])) {$fecha12 = $_POST['fecha12'];}else{$fecha12="";}
+if (isset($_GET['fecha22'])) {$fecha22 = $_GET['fecha22'];}elseif (isset($_POST['fecha22'])) {$fecha22 = $_POST['fecha22'];}else{$fecha22="";}
+if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{$numero="";}
 // PDF
 $fecha2 = date('Y-m-d');
 $hoy = formatea_fecha($fecha);
 include("../../pdf/fpdf.php");
-define('FPDF_FONTPATH','../../pdf/fontsPDF/');
+define('FPDF_FONTPATH','../../pdf/font/');
+// Variables globales para el encabezado y pie de pagina
+$GLOBALS['CENTRO_NOMBRE'] = $nombre_del_centro;
+$GLOBALS['CENTRO_DIRECCION'] = $direccion_del_centro;
+$GLOBALS['CENTRO_CODPOSTAL'] = $codigo_postal_del_centro;
+$GLOBALS['CENTRO_LOCALIDAD'] = $localidad_del_centro;
+$GLOBALS['CENTRO_TELEFONO'] = $telefono_del_centro;
+$GLOBALS['CENTRO_FAX'] = $fax_del_centro;
+$GLOBALS['CENTRO_CORREO'] = $email_del_centro;
+
+
+if(substr($codigo_postal_del_centro,0,2)=="04") $GLOBALS['CENTRO_PROVINCIA'] = 'Almería';
+if(substr($codigo_postal_del_centro,0,2)=="11") $GLOBALS['CENTRO_PROVINCIA'] = 'Cádiz';
+if(substr($codigo_postal_del_centro,0,2)=="14") $GLOBALS['CENTRO_PROVINCIA'] = 'Córdoba';
+if(substr($codigo_postal_del_centro,0,2)=="18") $GLOBALS['CENTRO_PROVINCIA'] = 'Granada';
+if(substr($codigo_postal_del_centro,0,2)=="21") $GLOBALS['CENTRO_PROVINCIA'] = 'Huelva';
+if(substr($codigo_postal_del_centro,0,2)=="23") $GLOBALS['CENTRO_PROVINCIA'] = 'Jaén';
+if(substr($codigo_postal_del_centro,0,2)=="29") $GLOBALS['CENTRO_PROVINCIA'] = 'Málaga';
+if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = 'Sevilla';
+
 # creamos la clase extendida de fpdf.php 
 class GranPDF extends FPDF {
-function Header(){
-$this->Image('../../imag/encabezado.jpg',10,10,180,'','jpg');
+	function Header() {
+		$this->Image ( '../../img/encabezado.jpg',15,15,50,'','jpg');
+		$this->SetFont('ErasDemiBT','B',10);
+		$this->SetY(15);
+		$this->Cell(90);
+		$this->Cell(80,4,'CONSEJERÍA DE EDUCACIÓN',0,1);
+		$this->SetFont('ErasMDBT','I',10);
+		$this->Cell(90);
+		$this->Cell(80,4,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->Ln(8);
+	}
+	function Footer() {
+		$this->Image ( '../../img/pie.jpg', 10, 245, 25, '', 'jpg' );
+		$this->SetY(265);
+		$this->SetFont('ErasMDBT','',10);
+		$this->SetTextColor(156,156,156);
+		$this->Cell(70);
+		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'],0,1);
+		$this->Cell(70);
+		$this->Cell(80,4,$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(70);
+		$this->Cell(80,4,'Tlf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(70);
+		$this->Cell(80,4,'Correo: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->Ln(8);
+	}
 }
-function Footer(){
-$this->Image('../../imag/pie.jpg',0,240,130,'','jpg');
-}
-}
-			# creamos el nuevo objeto partiendo de la clase ampliada
-			$MiPDF=new GranPDF('P','mm',A4);
+
+			# creamos el nuevo objeto partiendo de la clase
+$MiPDF=new GranPDF('P','mm',A4);
+$MiPDF->AddFont('NewsGotT','','NewsGotT.php');
+$MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
+$MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
+$MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
+$MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
+$MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
+
 			$MiPDF->SetMargins(20,20,20);
 			# ajustamos al 100% la visualizacion
 			$MiPDF->SetDisplayMode('fullpage');
@@ -42,12 +95,13 @@ $claveal1 = substr($claveal0,0,strlen($claveal0)-4);
  mysql_query($SQLDELF);
  mysql_query($SQLDELJ);
 // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;
-  $fechasp0=explode("-",$fecha12);
-  $fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
-  $fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
-  $fechasp2=explode("-",$fecha22);
-  $fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
-  $fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
+ // $fechasp0=explode("-",$fecha12);
+  $fechasp1=cambia_fecha($fecha12);
+  $fechasp3=cambia_fecha($fecha22);
+//  $fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
+//  $fechasp2=explode("-",$fecha22);
+//  $fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
+//  $fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
   if(strlen($claveal1) > 5){$alum = " and (".$claveal1.")";}else{$alum = "";}
   mysql_query("drop table faltastemp2");
   mysql_query("drop table faltastemp3");
@@ -95,7 +149,7 @@ $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$clave
 		$justi = mysql_fetch_array($result3);
 		if ($justi[0] == "")
 		{
-		$justi1 = "Su hijo no ha justificado faltas de asistencia al Centro entre los días $fechasp11 y $fechasp31.";}
+		$justi1 = "Su hijo no ha justificado faltas de asistencia al Centro entre los días $fecha12 y $fecha22.";}
 		else
 		{
 		$result2 = mysql_query($SQL2);
@@ -179,6 +233,6 @@ Atentamente le saluda la Dirección del Centro.
 	}
 	$MiPDF->Output();
 	// Eliminar Tabla temporal
- $SQLDELF = "drop table `faltastemp2`";
- $SQLDELJ = "drop table `faltastemp3`";	
+ mysql_query("DROP table `faltastemp2`");
+ mysql_query("DROP table `faltastemp3`");
 ?>

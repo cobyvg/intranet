@@ -1,4 +1,4 @@
-<div class='well alert alert-error'><p class="lead">Tareas Activas por Expulsión o Ausencia del Alumno</p><br />
+<div class='well alert alert-warning'><p class="lead">Tareas Activas por Expulsión o Ausencia del Alumno</p><hr />
 <?
 $resultcurs = mysql_query($SQLcurso);
 	while($rowcurs = mysql_fetch_array($resultcurs))
@@ -30,7 +30,7 @@ if (mysql_num_rows($si) > 0)
    		else
 		{
 	$fechac = explode("-",$row1[6]);
-	echo "<p>$fechac[2]-$fechac[1]-$fechac[0] <a data-toggle='modal' href='#tarea$n_tareas'> $row1[3] $row1[2]</a> -- $curso $row[6]  &nbsp;&nbsp;&nbsp;&nbsp;
+	echo "<p>$fechac[2]-$fechac[1]-$fechac[0] <a data-toggle='modal' href='#tarea$n_tareas' style='color:#fff'> $row1[3] $row1[2]</a> -- $curso $row[6]  &nbsp;&nbsp;&nbsp;&nbsp;
 	<a href='./admin/tareas/infocompleto.php?id=$row1[0]'> <i class='icon icon-search' title='Ver informe'> </i> </a>
 	<a href='./admin/tareas/informar.php?id=$row1[0]' /> <i class='icon icon-pencil' title='Rellenar informe'> </i> </a>
 	</p>";

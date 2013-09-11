@@ -88,6 +88,5 @@ $fc2 = explode("-",$posterior);
 $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 
 // Tabla temporalñ y recogida de datos
- $SQLDELF = "drop table `faltastemp2`";
- mysql_query($SQLDELF);
+ mysql_query("DROP table `faltastemp2`");
 ?>

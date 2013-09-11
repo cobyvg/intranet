@@ -35,7 +35,7 @@ if ($enviar) {
 ?>
 <FORM ENCTYPE="multipart/form-data" ACTION="actualiza_git.php" METHOD="post">
   <div class="control-group success"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si has descargado el archivo comprimido del repositorio de GitHub, puedes proceder a actualizar la Intranet. Si has personalizado algún archivo o módulo, no te olvides hacer una copia de seguridad desde la que puedas restaurarlo posteriormente. En cualquier caso, haz una copia de seguridad...</p></div><br />
-  <div class="well-2 well-large" style="width:500px; margin:auto;" align="left">
+  <div class="well well-large" style="width:500px; margin:auto;" align="left">
   <h6>Selecciona el archivo comprimido.<br />
   </h6>
   <input type="file" name="archivo" class="input input-file span4">

@@ -15,14 +15,15 @@ $profesor = $_SESSION['profi'];
   <?php
 include("../../menu.php");
 ?>
-<link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
 <?
 include("menu.php");
 $datatables_activado = true;  
+if (isset($_POST['id_borrar'])) {$id_borrar = $_POST['id_borrar'];} elseif (isset($_GET['id_borrar'])) {$id_borrar = $_GET['id_borrar'];} else{$id_borrar="";}
+if (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];} elseif (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];} else{$borrar="";}
 ?>
 <div align="center">
 <div class="page-header">
-  <h1>Centro de Mensajes <small> Recibir mensajes...</small></h1>
+  <h2>Centro de Mensajes <small> Recibir mensajes...</small></h2>
 </div>
 <br />
 <?
@@ -57,8 +58,7 @@ if (mysql_num_rows($result) > 0)
 
 <div class="container-fluid">  
 	<div class="row-fluid">
-<div class="span2"></div>
-<div class="span8">
+<div class="span10 offset1">
  <div align="center">
     <table class="table table-striped tabladatos" style="width:100%">
 <thead>
@@ -67,7 +67,7 @@ if (mysql_num_rows($result) > 0)
 	{
 	?>
       <TR> 
-		<TD align="left" nowrap id="filasecundaria"><? echo fecha_actual($row->ahora); ?></td>        
+		<TD align="left" nowrap id="filasecundaria"><? echo fecha_actual2($row->ahora); ?></td>        
         <TD style="padding-left:8px;"><a href="mensaje.php?id=<? echo $row->id;?>&profesor=<? echo $profesor;?>">
 	<? echo $row->asunto; ?></a></td><td nowrap align="left" id="filaprincipal"><? echo $row->origen;?></td>
 	<td nowrap align="left" id=""><a href="recibidos.php?borrar=1&id_borrar=<? echo $row->id_profe;?>"><i class="icon-trash"></i></a></td>

@@ -15,14 +15,14 @@ include("../TIC/menu.php");
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Centro TIC <small> Estadísticas de uso de Portátiles</small></h1>
+  <h2>Centro TIC <small> Estadísticas de uso de Portátiles</small></h2>
 </div>
 
  <div class="row-fluid">
  <div class="span2"></div>
 <div class="span3">
 <h3>Datos de Carritos</h3><br />
-<div class="well-2 well-large">
+<div class="well well-large">
  
   
 		<?
@@ -66,7 +66,7 @@ echo "</table>";
 </div>
 <div class="span5 pull-left">
   <h3>Datos de Profesores</h3><br />
-  <div class="well-2 well-large">
+  <div class="well well-large">
 <?	
 // Datos de uso de los profesores en sus carritos
 mysql_query("truncate table usuario");

@@ -16,9 +16,15 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 include("/opt/e-smith/conf_principal.php");
 include("../../funciones.php");
+if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
+if (isset($_GET['dni'])) {$dni = $_GET['dni'];}elseif (isset($_POST['dni'])) {$dni = $_POST['dni'];}else{$dni="";}
+if (isset($_GET['enviar'])) {$enviar = $_GET['enviar'];}elseif (isset($_POST['enviar'])) {$enviar = $_POST['enviar'];}else{$enviar="";}
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+
 //variables();
 $connection = mysql_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
 mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
+
 // Asignaturas y Modalidades
 $it11 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "Ciencias y Tecnología");
 $it12 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
@@ -29,9 +35,13 @@ $it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeni
 $it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
 $opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico", "FIS21_TIN21" => "Física, Tecnología", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
 $opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
-$opt23 =array("ingles_25" => "Inglés 2º Idioma","aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud");
+$opt23 =array("aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud","ingles_25" => "Inglés 2º Idioma");
 
 if($enviar =="Enviar los datos de la Matrícula"){
+		foreach($_POST as $key => $val)
+	{
+		${$key} = $val;
+	}
 	// Comprobación de campos vacíos
 	$nacimiento = str_replace("/","-",$nacimiento);
 	$fecha0 = explode("-",$nacimiento);
@@ -265,17 +275,16 @@ if ($itinerario1=="1"){
 			}
 			else{
 				?>
-<link
-	href="http://localhost/iesmonterroso.org/estilo.css" rel="stylesheet"
-	type="text/css" media="screen" />
-<div class="aviso3" align="left"
-	style="padding: 20px; margin-top: 40px; line-height: 20px;">Los datos
-de la Matrícula se han registrado correctamente en la Base de datos,<br>
-
-
-<br>
-<center><a href="./index_bach.php">Volver a la página de Matrículas</a></center>
-</div>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/otros.css" rel="stylesheet">
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">  
+    <link href="../../css/font-awesome.min.css" rel="stylesheet" >
+    <link href="../../css/imprimir.css" rel="stylesheet" media="print">
+    <br /><br />
+<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Los datos de la Matrícula se han registrado correctamente en la Base de datos.
+</div></div><br />    
 				<?
 			}
 		//	exit();
@@ -283,38 +292,22 @@ de la Matrícula se han registrado correctamente en la Base de datos,<br>
 	}
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Matrículas</title>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css1; ?>"
-	rel="stylesheet" type="text/css">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css2; ?>"
-	rel="stylesheet" type="text/css">
-<link rel="STYLESHEET" type="text/css"
-	href="http://<? echo $dominio; ?>/intranet/css/imprimir.css"
-	media="print" " media="print">
-
-<style type="text/css">
-<!--
-table {
-	width: 991px;
-	border: 1px solid #aaa;
-	border-collapse: collapse;
-}
-
-td {
-	border: 1px solid #aaa
-}
-
-td .it {
-	padding: 4px 6px;
-	border-bottom: 1px dotted #ccc;
-	border-top: 1px dotted #ccc;
-}
--->
-</style>
+<!DOCTYPE html>  
+<html lang="es">  
+  <head>  
+    <meta charset="iso-8859-1">  
+    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
+    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+      
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/otros.css" rel="stylesheet">
+    <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="../../css/datepicker.css" rel="stylesheet">
+    <link href="../../css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="../../css/font-awesome.min.css" rel="stylesheet" >
+    <link href="../../css/imprimir.css" rel="stylesheet" media="print">
 
 <script type="text/javascript">
 function confirmacion() {
@@ -475,7 +468,7 @@ exit();
 		$datos_ya = mysql_fetch_object($ya);
 		$naci = explode("-",$datos_ya->nacimiento);
 		$nacimiento = "$naci[2]-$naci[1]-$naci[0]";
-		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;
+		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2;
 		$n_curso = substr($curso,0,1);
 		if ($ruta_error == '1') {
 			$ruta_este = "";
@@ -539,12 +532,11 @@ exit();
 	}
 	?> <br />
 <div style="width: 990px; margin: auto; border: 2px solid #aaa"><img
-	src="../../imag/encabezado.jpg" width="988" height="80"
+	src="../../img/encabezado.jpg" width="988" height="80"
 	style="border-left: 1px solid #aaa;" />
 
-<table align="center">
-	<form id="form1" name="form1" method="post"
-		action="matriculas_bach.php<? if($cargo == "1"){echo "?cargo=1";}?>">
+	<form id="form1" name="form1" method="post"	action="matriculas_bach.php<? if($cargo == "1"){echo "?cargo=1";}?>">
+<table  class="table table-bordered" align="center">
 
 	<tr>
 		<td colspan="3"><?
@@ -570,12 +562,12 @@ exit();
 	</tr>
 	<tr>
 		<td valign=top width="33%" colspan="2"><strong>Apellidos del alumno/a:<br />
-		<input type="text" name="apellidos"
+		<input class="input-xxlarge" type="text" name="apellidos"
 		<? echo "value = \"$apellidos\""; ?> size="32"
 		<? if(strstr($vacios,"apellidos, ")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		</strong></td>
 		<td valign=top width="33%"><strong>Nombre</strong>:<br />
-		<input type="text" name="nombre" <? echo "value = \"$nombre\""; ?>
+		<input class="input-xlarge" type="text" name="nombre" <? echo "value = \"$nombre\""; ?>
 			size="24"
 			<? if(strstr($vacios,"nombre, ")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
@@ -594,7 +586,7 @@ exit();
 		</td>
 		<td valign=top><strong>Fecha de nacimiento </strong>(dia-mes-año:
 		01-01-1998)<br />
-		<input type="text" name="nacimiento"
+		<input class="input-xlarge" type="text" name="nacimiento"
 		<? echo "value = \"$nacimiento\""; ?> size="10" maxlength="10"
 		<? if(strstr($vacios,"nacimiento,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
@@ -614,7 +606,7 @@ exit();
 		<br />
 		</td>
 		<td valign=top><strong>D.N.I.</strong><br />
-		<input type="text" name="dni" <? echo "value = \"$dni\""; ?> size="13"
+		<input class="input-small" type="text" name="dni" <? echo "value = \"$dni\""; ?> size="13"
 			maxlength="13"
 			<? if(strstr($vacios,"dni,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
@@ -630,11 +622,11 @@ exit();
 		Hombre <br />
 		</td>
 		<td valign=top><strong>Nº de Hermanos</strong>:<br />
-		<input type="text" name="hermanos" <? echo "value = \"$hermanos\""; ?>
+		<input class="input-mini" type="text" name="hermanos" <? echo "value = \"$hermanos\""; ?>
 			size="4" /> <br />
 		</td>
 		<td valign=top><strong>Nacionalidad</strong><br />
-		<input type="text" name="nacionalidad"
+		<input class="input-xlarge" type="text" name="nacionalidad"
 		<? echo "value = \"$nacionalidad\""; ?> size="24"
 		<? if(strstr($vacios,"nacionalidad,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
@@ -644,12 +636,12 @@ exit();
 		<td valign=top colspan="2"><strong>Apellidos y nombre del
 		Representante o Guardador legal 1</strong>(<span
 			style="font-weight: normal;">con quien convive el alumno</span>):<br />
-		<input type="text" name="padre" <? echo "value = \"$padre\""; ?>
+		<input class="input-xxlarge" type="text" name="padre" <? echo "value = \"$padre\""; ?>
 			size="52"
 			<? if(strstr($vacios,"padre,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		</td>
 		<td valign=top><strong>DNI</strong>:<br />
-		<input type="text" name="dnitutor" <? echo "value = \"$dnitutor\""; ?>
+		<input class="input-small" type="text" name="dnitutor" <? echo "value = \"$dnitutor\""; ?>
 			size="13" maxlength="13"
 			<? if(strstr($vacios,"dnitutor,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
@@ -659,20 +651,20 @@ exit();
 	<tr>
 		<td valign=top colspan="2"><strong>Apellidos y nombre del
 		Representante o Guardador legal 2</strong>:<br />
-		<input type="text" name="madre" <? echo "value = \"$madre\""; ?>
+		<input class="input-xxlarge" type="text" name="madre" <? echo "value = \"$madre\""; ?>
 			size="52" /></td>
 		<td valign=top><strong>DNI</strong>:<br />
-		<input type="text" name="dnitutor2"
+		<input class="input-small" type="text" name="dnitutor2"
 		<? echo "value = \"$dnitutor2\""; ?> size="13" maxlength="13" /> <br />
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2" rowspan="2" valign=top><strong>Tel&eacute;fono casa</strong>:
-		<input type="text" name="telefono1"
+		<input class="input-small" type="text" name="telefono1"
 		<? echo "value = \"$telefono1\""; ?> size="10"
 		<? if(strstr($vacios,"telefono1,")==TRUE){echo ' style="background-color:#FFFF66;"';}?> />
 		<br />
-		<strong>Tel&eacute;fono m&oacute;vil padres</strong>: <input type="text" name="telefono2" size="10" <? echo "value = \"$telefono2\""; ?> style="margin-top:6px;<? if(strstr($vacios,"telefono2")==TRUE){echo 'background-color:#FFFF66;';}?>" />
+		<strong>Tel&eacute;fono m&oacute;vil padres</strong>: <input class="input-small" type="text" name="telefono2" size="10" <? echo "value = \"$telefono2\""; ?> style="margin-top:6px;<? if(strstr($vacios,"telefono2")==TRUE){echo 'background-color:#FFFF66;';}?>" />
 		<br />
 		Nota: Es muy importante registrar un tel&eacute;fono m&oacute;vil para
 		poder recibir comunicaciones del Centro v&iacute;a SMS.</td>
@@ -680,19 +672,8 @@ exit();
 		<select name="colegio" id="" onChange="dimePropiedades()">
 			<option><? echo $colegio; ?></option>
 			<?
-			if ($curso == "1ESO") {
-				?>
-			<option>SANTO-TOMAS</option>
-			<option>SIMON-FERNANDEZ</option>
-			<option>GARCIA-LORCA</option>
-			<option>JUAN-XXIII</option>
-			<option>Otro Centro</option>
-			<?
-			}
-			else{
-				echo "<option>IES Monterroso</option>
+	echo "<option>IES Monterroso</option>
       <option>Otro Centro</option>";            	
-			}
 			?>
 		</select> <br />
 		<center><input style="<?  if ($colegio == 'Otro Centro') {	echo "visibility:visible;";}else{	echo "visibility:hidden;background-color:#FFFF66;";}?>margin-top:6px;" id = "otrocolegio" name="otrocolegio" <? if(!($otrocolegio == 'Escribe aquí el nombre del Centro')){echo "value = \"$otrocolegio\"";} ?>type="text" size="32" value="Escribe aquí el nombre del Centro" onClick="borrar()" /></center>
@@ -702,7 +683,7 @@ exit();
 
 	<tr>
 		<td valign=top colspan=""><span style="margin: 2 '   x 2px;"><strong>Correo
-		electr&oacute;nico padres</strong>:</span> <input type="text"
+		electr&oacute;nico padres</strong>:</span> <input class="input-xlarge" type="text"
 			name="correo" <? echo "value = \"$correo\""; ?> size="48" /></td>
 	</tr>
 
@@ -756,14 +737,16 @@ exit();
 		<td valign=top style="width: 300px;" align=center><br />
 <?
 echo '<select name="idioma1" style="width: 60%">';
+    if(!(empty($idioma1))){
+			echo "<option>$idioma1</option>";
+		}
 $comb1=mysql_query("select combasi from alma where claveal = '$claveal'");
 $comb2=mysql_fetch_array($comb1);
 $comba = explode(":", $comb2[0]);
 				foreach ($comba as $com1){
 					//echo $com1;
 					$abrv1 = mysql_query("select abrev, nombre from asignaturas where codigo = '$com1' and (abrev = 'ING' or abrev = 'FRA')");
-//echo "select abrev, nombre from asignaturas where codigo = '$com1' and unidad like '1B%' and (abrev = 'ING' or abrev = 'FRA')";
-$abrev1 = mysql_fetch_array($abrv1);
+					$abrev1 = mysql_fetch_array($abrv1);
 					if (!(empty($abrev1[1])) and $n_curso=="2") {
 						$idio = "1";
 						$id_1b = $abrev1[1];
@@ -771,7 +754,7 @@ $abrev1 = mysql_fetch_array($abrv1);
 					}
 					
 				}
-				if ($idio<>1) {			
+				if ($idio<>1 or $cargo=="1") {			
 						echo "
 						<option>Inglés</option>
 						<option>Francés</option>";				
@@ -789,6 +772,12 @@ if ($idio==1) {
 		if ($curso==1) {
 			?> <br />
 		<select name="idioma2" style="width: 60%">
+       <?
+	    if(!(empty($idioma2))){
+			echo "<option>$idioma2</option>";
+		}
+		?>
+        
 			<option>Alemán</option>
 			<option>Francés</option>
 			<option>Inglés</option>
@@ -824,8 +813,8 @@ if ($idio==1) {
 		</td>
 	</tr>
 	<tr>
-		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ASIGNATURAS OPTATIVAS DE <? echo $n_curso; ?>º DE BACHILLERATO </strong><br />
-		<span style="font-size: 10px;">(Para solicitar una modalidad o vía diferente a la que ya has cursado debes pasar por Jefatura de Estudios.)</span></td>
+		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>MODADLIDAD Y ASIGNATURAS OPTATIVAS DE <? echo $n_curso; ?>º DE BACHILLERATO </strong><br />
+		</td>
 	</tr>
 
 	<?
@@ -887,7 +876,7 @@ if ($idio==1) {
 					echo ' checked';
 				}
 				else{
-					if(strstr($curso_largo,${it2.$i}[3])==FALSE and !(empty($curso_largo))){
+					if(strstr($curso_largo,${it2.$i}[3])==FALSE and !(empty($curso_largo)) and !($cargo=="1")){
 						echo " disabled";
 					}
 				}
@@ -918,12 +907,12 @@ if ($idio==1) {
 			$num1="";
 			foreach ($opt23 as $optit_1 => $nombre){
 
-				if (strstr($nombre,$id_1b)==FALSE) {
+				//if (strstr($nombre,$id_1b)==FALSE) {
 				$num1+=1;
 				if ($num1==1 or $num1==4 or $num1==7 or $num1==10) {
 					echo "<td valign=top>";
 				}
-						echo '<select name="'.$optit_1.'" id=""';
+						echo '<select class="input-mini" name="'.$optit_1.'" id=""';
 				echo '>';
 			
 				if (strlen(${optativa2b.$num1})>0) {
@@ -942,7 +931,7 @@ if ($idio==1) {
 				if ($num1==3 or $num1==6 or $num1==9) {
 					echo "</td>";
 				}
-				}
+				//}
 				}
 			
 			?>
@@ -955,7 +944,7 @@ if ($idio==1) {
 	if ($repetidor <> 1) {
 		?>
 	<tr id='no_repite1'>
-		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ASIGNATURAS OPTATIVAS DE 1º DE BACHILLERATO</strong></td>
+		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ASIGNATURAS OPTATIVAS DE 1º DE BACHILLERATO</strong><br /><span style="font-size: 10px;">(Para solicitar una modalidad o vía diferente a la que ya has cursado debes pasar por Jefatura de Estudios.)</span></td>
 	</tr>
 	<?
 	echo " <tr><td colspan='3'>";
@@ -979,7 +968,7 @@ if ($idio==1) {
 					echo ' checked';
 				}
 			else{
-				if(strstr($curso_largo,${it1.$i}[3])==FALSE){
+				if(strstr($curso_largo,${it1.$i}[3])==FALSE and !($cargo=="1")){
 						echo " disabled";
 					}
 				$combas = explode(":", $combasi);
@@ -1017,7 +1006,9 @@ if ($idio==1) {
 					}
 					
 					else{
-						echo " disabled";
+						if (!($cargo=="1")) {
+							echo " disabled";
+						}
 					}
 				}
 			echo '  style="margin: 2px 2px" >';
@@ -1047,7 +1038,7 @@ if ($idio==1) {
 	<tr>
 		<td colspan="3" style="border-bottom: none">
 
-		<center><br />
+		<div align="center"><br />
 		<input type="hidden" name="curso" value="<? echo $curso;?>" /> <input
 			type="hidden" name="nuevo" value="<? echo $nuevo;?>" /> <input
 			type="hidden" name="curso_matricula"
@@ -1055,18 +1046,18 @@ if ($idio==1) {
 			name="claveal" <? echo "value = \"$claveal\""; ?> /> <input
 			type="hidden" name="repetidor" value="<? echo $repetidor;?>" /> 
 			<?
-			if (!($cargo=="1")) {
+$fecha_actual = strtotime(date("d-m-Y H:i:00",time()));
+$c_act = substr($curso_actual,0,4)+1;
+$fech_cad = "20-06-".$c_act." 00:00:00";
+$fecha_entrada = strtotime($fech_cad);
+if($fecha_actual < $fecha_entrada){
 				echo '<input type=hidden name="enviar" value="Enviar los datos de la Matrícula" />';
-				echo '<input type=button onClick="confirmacion();" value="Enviar los datos de la Matrícula" class="no_imprimir" />';
-			}
-			else{
-				echo '<input type=submit name="enviar" value="Enviar los datos de la Matrícula" class="no_imprimir" />';
+				echo '<input type=button onClick="confirmacion();" value="Enviar los datos de la Matrícula" class="btn btn-primary no_imprimir" />';
 			}
 			?>
 			
 			 <br />
-		<br />
-		</center>
+		</div>
 		</td>
 	</tr>
 	</form>

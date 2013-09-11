@@ -15,12 +15,12 @@ exit;
 }
 ?>
 <? include("../../menu.php");?>
-      <div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Programa de Ayudas al Estudio <small> Importación de datos</small></h1>
+      <div class="page-header" align="center">
+  <h2>Programa de Ayudas al Estudio <small> Importación de datos</small></h2>
 </div>
 <br />
 <?
-if($enviar == "Aceptar")
+if(isset($_POST['enviar']))
 {
 // Nivel de los Libros
 if(substr($_FILES['archivo']['name'],0,1) == '1') {$nivel = '1E';}

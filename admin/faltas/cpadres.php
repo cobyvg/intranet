@@ -1,5 +1,5 @@
 <?
-if($padres=="Enviar Datos")
+if(isset($_POST['padres']))
 {
 include("padres.php");
 exit;
@@ -19,15 +19,24 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
   <?php
 include("../../menu.php");
 include("../../faltas/menu.php");
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
+if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
+if (isset($_GET['fecha12'])) {$fecha12 = $_GET['fecha12'];}elseif (isset($_POST['fecha12'])) {$fecha12 = $_POST['fecha12'];}else{$fecha12="";}
+if (isset($_GET['fecha22'])) {$fecha22 = $_GET['fecha22'];}elseif (isset($_POST['fecha22'])) {$fecha22 = $_POST['fecha22'];}else{$fecha22="";}
+if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{$numero="";}
+
 ?>
-  <div align="center">  <br />
-<h3>Informe de Faltas de Asistencia para los Padres</h3><br /></div>
-  <br />
+  <div align="center"> 
+<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Informe para los Padres</small></h2>
+  </div>
+<br />
   <form enctype='multipart/form-data' action='cpadres.php' method='post'>
 <div class="row-fluid">
   <div class="span3"></div>
   <div class="span3">
-   <div class="well-2 well-large">        
+   <div class="well well-large">        
         <h6>Selecciona Nivel o Grupo</h6><br />
           <label> Nivel <select  name="nivel" class="input-mini" onChange="submit()">
             <option><? echo $nivel;?></option>
@@ -63,7 +72,7 @@ $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS
        </div>
 <div class="span3">
  
-  <div class="well-2 well-large">
+  <div class="well well-large">
           <?
 	$fecha32 = date('d')."-".date('m')."-".date('Y');
   $tr = explode("-",$inicio_curso);

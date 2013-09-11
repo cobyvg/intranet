@@ -1,7 +1,4 @@
 <?
-if($submit1 == "Buscar"){include("datos.php");
-exit;
-}
 session_start();
 include("../../config.php");
 if($_SESSION['autentificado']!='1')
@@ -16,37 +13,32 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 
 ?>
-<div align="center">
-<div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Datos de los Alumnos <small> Consultas</small></h1>
-</div>
 <br />
+<div align="center">
+<div class="page-header" align="center">
+  <h2>Datos de los Alumnos <small> Consultas</small></h2>
+</div>
+
 </div>
 <div align="center">
-<div class="well-2 well-large" style="width:360px;" align="left">
-<FORM action="cdatos.php" method="POST">
-  <h3>Selecciona criterios</h3>
+<div class="well well-large" style="width:360px;" align="left">
+<FORM action="datos.php" method="POST">
+  <legend>Selecciona criterios</legend>
   <br />
   <label> Apellidos<br />
-    <INPUT type="text" name="APELLIDOS" size="30" maxlength="32" alt="Apellidos" class="input-xlarge">
+    <INPUT type="text" name="apellidos" size="30" maxlength="32" alt="Apellidos" class="input-block-level">
   </label>
   <label>Nombre<br />
-    <INPUT type="text" name="NOMBRE" size="30" maxlength="25" alt="Nombre" class="input-large">
+    <INPUT type="text" name="nombre" size="30" maxlength="25" alt="Nombre" class="input-block-level">
   </label>
-  <label> Nivel<br />
-    <SELECT name="nivel" onChange="submit()" class="input-mini">
-      <OPTION><? echo $nivel;?></OPTION>
-      <? nivel();?>
-    </SELECT>
-  </label>
-  <label>Grupo<br />
-    <SELECT name="grupo" class="input-mini">
-      <OPTION><? echo $grupo;?></OPTION>
-      <? grupo($nivel);?>
+  <label> Grupo<br />
+    <SELECT name="unidad" class="input-block-level">
+      <OPTION></OPTION>
+      <? unidad();?>
     </SELECT>
   </label>
   <br />
-  <INPUT type="submit" name="submit1" value="Buscar" class="btn btn-primary">
+  <INPUT type="submit" name="submit1" value="Buscar" class="btn btn-primary btn-block">
   </div>
   </div>
 </FORM>

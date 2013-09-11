@@ -18,22 +18,27 @@ exit;
 
   <?
   	include("../../menu.php");
+if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];}else{$profeso="";}
+if (isset($_GET['sustituido'])) {$sustituido = $_GET['sustituido'];}elseif (isset($_POST['sustituido'])) {$sustituido = $_POST['sustituido'];}else{$sustituido="";}
+if (isset($_GET['hora'])) {$hora = $_GET['hora'];}elseif (isset($_POST['hora'])) {$hora = $_POST['hora'];}else{$hora="";}
+if (isset($_GET['submit2'])) {$submit2 = $_GET['submit2'];}elseif (isset($_POST['submit2'])) {$submit2 = $_POST['submit2'];}else{$submit2="";}
+if (isset($_GET['gu_fecha'])) {$gu_fecha = $_GET['gu_fecha'];}elseif (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="";}
+
   ?>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Guardias de Aula <small> Registro de guardias</small></h1>
+<br />
+  <div class="page-header" align="center">
+  <h2>Guardias de Aula <small> Registro de guardias</small></h2>
 </div>
 <br />
  <div class="container-fluid">  
       <div class="row-fluid">  
-        <div class="span2">
-        </div> 
-        <div class="span4">
+        <div class="span4 offset2" >
         <? if ($mod_horario) {
 ?>
-<div align="left" class="well-2 well-large">
+<div align="left" class="well well-large">
 	   <FORM action="admin.php" method="POST" name="Cursos">
-          <label>
-             Selecciona Profesor <br />
+          <legend>
+             Selecciona Profesor </legend>
               <SELECT  name=profeso onChange="submit()" class="input input-xlarge">
               <option><? echo $profeso;?></option>
 		        <?
@@ -49,7 +54,7 @@ exit;
         }
 	?>
               </select>
-            </label>
+            
           </FORM>
 <? 
 	if ($profeso) {
@@ -62,7 +67,7 @@ include("../../horario.php");
 	}
 	?>
     </div>
-        <div class="well">
+            <div class="well">
 <blockquote style="text-align:justify"><strong>Instrucciones de uso.</strong><br>Selecciona el Profesor al que quieres apuntar una sustitución no registrada. Te aparecerá el horario del Profesor, para que puedas determinar con precisión la hora de la guardia (1ª hora, 2ª hora, etc) del día en cuestión. Seleccionas a continuación el Profesor sustituido. Al hacer click en el campo de la fecha, aparecerá una nueva ventana con el calendario en el que debes pinchar sobre la fecha elegida. Escribe la hora de la guardia (1, 2, 3, etc) y envía los datos.<br />Si quieres consultar el historial de guardias de un Profesor, pincha en <em>Consultar guardias y profesores</em>. Selecciona el Profesor y aparecerá un histórico con todas las sustituciones realizadas. Si pinchas en una de las fuardias de su horario, podrás ver las sutituciones de todos los profesores de esa guardia en esa hora a lo largo del curso.</blockquote>
 </div>
         </div>
@@ -87,7 +92,7 @@ include("../../horario.php");
               </select>
               </label>
               <hr>
-	<label>Fecha de la sustitución: 
+	<label>Fecha de la sustitución<br />
 	<input type="hidden" name="profeso" value="<? echo $profeso;?>">
 	     <div class="input-append" >
             <input name="gu_fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="gu_fecha" >

@@ -30,7 +30,7 @@ include("../menu.php");
  if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
  ?> 
-  	<div class="well-2 well-large" align="center" style="width:450px;">
+  	<div class="well well-large" align="center" style="width:450px;">
   	<form action="intro.php" method="post" name="form1" id="form1">
 			
         <label>Profesor<br />

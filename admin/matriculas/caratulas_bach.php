@@ -27,7 +27,7 @@ function AutoPrintToPrinter($server, $printer, $dialog=false)
     $this->IncludeJS($script);
 }
 }
-define ( 'FPDF_FONTPATH', '../../pdf/fontsPDF/' );
+define ( 'FPDF_FONTPATH', '../../pdf/font/' );
 # creamos el nuevo objeto partiendo de la clase ampliada
 $MiPDF = new PDF_AutoPrint();
 $MiPDF->SetMargins ( 20, 20, 20 );
@@ -48,7 +48,7 @@ if ($datos_ya = mysql_fetch_object ( $result )) {
 
 $naci = explode("-",$datos_ya->nacimiento);
 $nacimiento = "$naci[2]-$naci[1]-$naci[0]";
-$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual;	
+$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2;
 
 	$apellidos = "Apellidos del Alumno: ". $apellidos;
 	 $nombre= "Nombre: ".$nombre;
@@ -82,9 +82,9 @@ $it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeni
 $it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
 $opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico", "FIS21_TIN21" => "Física, Tecnología", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
 $opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
-$opt23 =array("ingles_25" => "Inglés 2º Idioma","aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud");
-	 
-	 $observaciones= "OBSERVACIONES: ".$observaciones;
+$opt23 =array("aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud","ingles_25" => "Inglés 2º Idioma");
+
+	$observaciones= "OBSERVACIONES: ".$observaciones;
 	 $texto_exencion= "El alumno solicita la exención de la Asignatura Optativa";
 	 $texto_bilinguismo= "El alumno solicita participar en el Programa de Bilinguismo";
 	 $fecha_total = $fecha;
@@ -103,7 +103,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->SetFont ( 'Times', 'B', 10  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
-	$MiPDF->Image ( '../../imag/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 15 );
 	$titulo1 = "SOLICITUD DE MATRÍCULA EN ".$n_curso."º DE BACHILLERATO";
 	$MiPDF->Multicell ( 0, 4, $titulo1, 0, 'C', 0 );
@@ -132,13 +132,13 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(21,5,$hermanos,1,0,'C');
 	$MiPDF->Cell(20,5,$sexo,1,0,'C');
 	$MiPDF->Ln ( 8 );
-	$MiPDF->Cell(56,5,"DOMICILIO",0,0,"C");
-	$MiPDF->Cell(56,5,"LOCALIDAD",0,0,"C");
+	$MiPDF->Cell(86,5,"DOMICILIO",0,0,"C");
+	$MiPDF->Cell(26,5,"LOCALIDAD",0,0,"C");
 	$MiPDF->Cell(28,5,"COD. POSTAL",0,0,"C");
 	$MiPDF->Cell(28,5,"PROVINCIA",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(56,5,$datos_ya->domicilio,1,0,'C');
-	$MiPDF->Cell(56,5,$datos_ya->localidad,1,0,'C');
+	$MiPDF->Cell(86,5,$datos_ya->domicilio,1,0,'C');
+	$MiPDF->Cell(26,5,$datos_ya->localidad,1,0,'C');
 	$MiPDF->Cell(28,5,"29680",1,0,'C');
 	$MiPDF->Cell(28,5,"Málaga",1,0,'C');
 	$MiPDF->Ln ( 8 );
@@ -167,15 +167,32 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(5,6,"3",1,0,'C',1);
 	$MiPDF->Cell(163,6,"DATOS DE MATRÍCULA",1,0,'C',1);
 	$MiPDF->Ln ( 8 );
-	$MiPDF->Cell(76,5,"CENTRO DOCENTE EN EL QUE SE MATRICULA",0,0,"C");
+	$MiPDF->Cell(76,5,"CENTRO EN EL QUE SE MATRICULA",0,0,"C");
 	$MiPDF->Cell(46,5,"LOCALIDAD",0,0,"C");
 	$MiPDF->Cell(46,5,"CODIGO",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(76,5,"I.E.S. Monterroso",1,0,'C');
 	$MiPDF->Cell(46,5,"Estepona",1,0,'C');
 	$MiPDF->Cell(46,5,"29002885",1,0,'C');
-	$MiPDF->Ln ( 8 );
-	//echo $itinerario;
+	$MiPDF->Ln ( 10 );
+	if ($curso=="2BACH") {
+	$MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
+	$MiPDF->Cell(84,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');
+	$MiPDF->Ln ( 6);
+	$MiPDF->Cell(84,5,$idioma1,1,0,'C');
+	$MiPDF->Cell(84,5,$religion,1,0,'C');	
+	}
+	else{
+	$MiPDF->Cell(56,6,"1º IDIOMA EXTRANJERO",0,0,'C');
+	$MiPDF->Cell(56,6,"2º IDIOMA EXTRANJERO",0,0,'C');
+	$MiPDF->Cell(56,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');
+	$MiPDF->Ln ( 6);
+	$MiPDF->Cell(56,5,$idioma1,1,0,'C');
+	$MiPDF->Cell(56,5,$idioma2,1,0,'C');
+	$MiPDF->Cell(56,5,$religion,1,0,'C');
+	}
+
+	$MiPDF->Ln ( 7 );	//echo $itinerario;
 	if ($n_curso == '4') { $extra="4ESO (It. $itinerario)";}else{$extra=$curso;}
 	$MiPDF->Cell(70,5,"CURSO EN QUE SE MATRICULA",0,0,"C");
 	$MiPDF->Cell(98,5,"MATERIAS DE LA MODALIDAD",0,0,"C");

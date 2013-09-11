@@ -14,20 +14,28 @@ $cargo = $_SESSION['cargo'];
 ?>
 <?php
 include("../../../menu.php");
+?>
+<br />
+  <div class="page-header" align="center">
+  <h2>Calendario de actividades <small> Crear o editar registros</small></h2>
+</div>
+<br />
+<?
 $conn = mysql_connect($db_host, $db_user, $db_pass) or die("Could not connect to database!");
 mysql_select_db($db, $conn);
 
-if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
-if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
-if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
-$event_title="";
+/*$event_title="";
 $event_event="";
 $hor="";
 $n_act0="";
 $id_act="";
 $idact="";
 $del="";
-$mens="";
+$mens="";*/
+if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
+if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
+if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
+
 
 $month = (isset($month)) ? $month : date("n",time());
 $year = (isset($year)) ? $year : date("Y",time());
@@ -84,7 +92,6 @@ if ($today > $numdays) { $today--; }
 
 // Estructura de la Tabla
 ?>
-<h2 align="center">Calendario de Actividades.</h2><br /><br />
 <?
 if (isset($_GET['mens'])) {
 $mes = $_GET['mens'];
@@ -92,25 +99,25 @@ if($mens==1){
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido actualizada correctamente.
-          </div></div>';
+          </div></div><br />';
 }
 if($mens==2){
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido actualizada correctamente.
-          </div></div>';}
+          </div></div><br />';}
 if($mens==3){
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido borrada correctamente.
-          </div></div>';}
+          </div></div><br />';}
 }
 
 ?>
 <div class="row-fluid">
  <div class="span2"></div>
 <div class="span4">
-<div class="well-2 well-small">
+<div class="well well-small">
 <?
 echo "<h3>$daylong, $monthlong $today, $year</h3><br />";
 
@@ -133,11 +140,11 @@ echo "<div align='left'>";
 		  	$actividad0.= $val0."<br>";
 		}
 		  echo "<label>Actividades del día<br />";
-		  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_title' rows='6' cols='45' class='span10'>$event_title</textarea>";}else{echo "<p>$actividad0</p>";}
+		  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_title' rows='6' cols='45' class='span12'>$event_title</textarea>";}else{echo "<p>$actividad0</p>";}
 		  echo "</label><br />";
       echo "<label>Infromación sobre las actividades<br />";
-	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_event' cols='45' rows='8' class='span10'>$event_event</textarea>";}else{echo "<p>$event_event</p>";}
-	  echo "<br />";
+	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_event' cols='45' rows='8' class='span12'>$event_event</textarea>";}else{echo "<p>$event_event</p>";}
+	  echo "<hr />";
 
       echo "<input type='hidden' value='$year' name='year'>
       <input type='hidden' value='$month' name='month'>
@@ -157,8 +164,9 @@ echo "<div align='left'>";
 		  		$hor.= "".$act[2]." ==> ".$act[0]."";
 		  }		
 echo "<label>Horario de las actividades<br />
-<input type='text' class='input span10' disabled value='$hor' /></label>";
-	  echo "<br />";	  
+<textarea class='input span12' disabled />$hor</textarea>
+</label>";
+	  echo "<hr />";	  
 		}	  
 	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5')== TRUE ){echo "<input type='submit' name='actualizar' value='Introducir datos' class='btn btn-primary'>";}
 	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'5') == TRUE){echo "<input type='submit' name='del' value='Borrar registro'  class='btn btn-danger' style='margin-left:40px;'>";}

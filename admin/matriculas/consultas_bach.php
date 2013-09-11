@@ -17,19 +17,23 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'7') 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
+if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
+
 //include("../../funciones.php");
 //variables();
-if ($listados=="Listado en PDF") {
+if (isset($_POST['listados'])) {
 	include("listados_bach.php");
 	exit();
 }
 
-if ($listado_total=="Listado PDF total") {
+if (isset($_POST['listado_total'])) {
 	include("listado_total_bach.php");
 	exit();
 }
 
-if ($imprimir=="Imprimir") {
+if (isset($_POST['imprimir'])) {
 	mysql_query("drop table if exists matriculas_bach_temp");
 	mysql_query("CREATE TABLE  `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
@@ -50,7 +54,7 @@ INDEX (  `id_matriculas` )
 }
 
 //echo $_POST['imprimir_caratulas'];
-if ($caratulas == "Imprimir Carátulas") {
+if (isset($_POST['caratulas'])) {
 	mysql_query("drop table if exists matriculas_bach_temp");
 	mysql_query("CREATE TABLE  `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
@@ -70,11 +74,11 @@ INDEX (  `id_matriculas` )
 	exit();
 }
 
-if ($cambios=="Ver cambios en datos") {
+if (isset($_POST['cambios'])) {
 	include("../../menu.php");
 	include("menu.php");
 	mysql_query("drop table if exists matriculas_bach_temp");
-	mysql_query("CREATE TABLE  `matriculas_bach_temp` (
+	mysql_query("CREATE TABLE if not exists `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
 INDEX (  `id_matriculas` )
 )");
@@ -90,7 +94,7 @@ INDEX (  `id_matriculas` )
 
 	$camb = mysql_query("select distinct id_matriculas from matriculas_bach_temp");
 	echo '<h3 align="center">Alumnos de <span style="color:#08c">'.$curso.'</span> con datos cambiados.</h3><br /><br />';
-	echo "<div class='well-2 well-large' style='width:520px;margin:auto;'>";
+	echo "<div class='well well-large' style='width:520px;margin:auto;'>";
 	while ($cam = mysql_fetch_array($camb)) {
 		$id_cambios = $cam[0];
 		if ($curso == "1BACH") {
@@ -108,6 +112,7 @@ INDEX (  `id_matriculas` )
 		$contr = mysql_query("select matriculas_bach.apellidos, $alma.apellidos, matriculas_bach.nombre, $alma.nombre, matriculas_bach.domicilio, $alma.domicilio, matriculas_bach.dni, $alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, $alma.dnitutor, matriculas_bach.telefono1, $alma.telefono, matriculas_bach.telefono2, $alma.telefonourgencia, $alma.claveal from matriculas_bach, $alma where $alma.claveal=matriculas_bach.claveal and id = '$id_cambios'");
 		//$col_datos = array()
 		$control = mysql_fetch_array($contr);
+		if (strlen($control[16])>0) {
 		echo "<p style='color:#08c'>$control[16]: $control[0], $control[2]</p>";
 		for ($i = 0; $i < 18; $i++) {
 			if ($i%2) {
@@ -115,69 +120,65 @@ INDEX (  `id_matriculas` )
 				elseif ($i=="17") {}
 				else{
 					if ($control[$i]==$control[$i-1]) {}else{
-						echo "<li>Séneca: ".$control[$i]." ==> Matrícula: ".$control[$i-1]."</li>";
+						echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
 					}
 				}
 			}
 		}
-		echo "<hr>";
+			echo "<hr>";
+		}
+		
+		
+	
 
 	}
 	echo "</div>";
+	mysql_query("drop table matriculas_bach_temp");
 	exit();
 }
 
 
 
-if ($sin_matricula=="Alumnos sin matricular") {
+if (isset($_POST['sin_matricula'])) {
 	include("../../menu.php");
 	include("menu.php");
 
 	$cur_monterroso = substr($curso, 0, 2);
-	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia from alma where claveal not in (select claveal from matriculas_bach) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
-	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br /><br />';
-	echo "<div class='well-2 well-large' style='width:520px;margin:auto;'><ul class='unstyled'>";
+	
+	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from matriculas_bach) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
+	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br />';
+			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysql_fetch_array($camb)) {
-
-		echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4]</li>";
-
-	}
-	echo "</ul></div>";
+				
+			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5]</li>";
+		
+}
+echo "</ul></div><br />";
+	$canf = mysql_query("select distinct apellidos, nombre, curso, telefono1, telefono2, nacimiento from matriculas_bach where confirmado NOT LIKE  '1' and curso like '$cur_monterroso%' order by apellidos, nombre");
+	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
+			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
+	while ($cam2 = mysql_fetch_array($canf)) {
+				
+			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
+		
+}
+echo "</ul></div>";
 	exit();
 }
 
 
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="iso-8859-1">
-<title>Intranet</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description"
-	content="Intranet del http://<? echo $nombre_del_centro;?>/">
-<meta name="author" content="">
-
-<!-- Le styles -->
-
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css"
-	rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/otros_index.css"
-	rel="stylesheet">
-<link
-	href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css"
-	rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/imprimir.css"
-	rel="stylesheet" media="print">
-</head>
-<body>
 <?
 include("../../menu.php");
 include("./menu.php");
+ 	foreach($_POST as $key => $val)
+	{
+		${$key} = $val;
+	}
 ?>
 <div align=center>
 <div class="page-header" align="center">
-<h1>Matriculación de Alumnos <small> Consultas en Bachillerato</small></h1>
+<h2>Matriculación de Alumnos <small> Consultas en Bachillerato</small></h2>
 </div>
 
 
@@ -192,14 +193,14 @@ $it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeni
 $it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
 $opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico", "FIS21_TIN21" => "Física, Tecnología", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
 $opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
-$opt23 =array("ingles_25" => "Inglés 2º Idioma","aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud");
+$opt23 =array("aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud","ingles_25" => "Inglés 2º Idioma");
 echo '<div  class="no_imprimir">';
 
 $n_curso = substr($curso, 0, 1);
 include 'filtro_bach.php';
 
 echo "</div>";
-if ($borrar=='1') {
+if (isset($_GET['borrar'])) {
 	mysql_query("insert into matriculas_bach_backup (select * from matriculas_bach where id = '$id')");
 	mysql_query("delete from matriculas_bach where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -207,7 +208,7 @@ if ($borrar=='1') {
 El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de respaldo de us datos en la tabla matriculas_bach_backup.
 </div></div><br />' ;
 }
-if ($copia=='1') {
+if (isset($_GET['copia'])) {
 	mysql_query("delete from matriculas_bach where id='$id'");
 	mysql_query("insert into matriculas_bach(select * from matriculas_bach_backup where id = '$id')");
 	mysql_query("delete from matriculas_bach_backup where id='$id'");
@@ -216,7 +217,7 @@ if ($copia=='1') {
 Los datos originales de la matrícula del alumno han sido correctamente restaurados.
 </div></div><br />' ;
 }
-if ($consulta) {
+if (isset($_GET['consulta']) or isset($_POST['consulta'])) {
 
 	if ($curso) {$extra=" curso='$curso' ";}else{
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
@@ -229,14 +230,17 @@ No has seleccionado el Nivel. Así no podemos seguir...
 }
 
 if ($optativ) { $extra.=" and optativa".$n_curso." = '".$optativ."'";}
+if ($optativ2) { $extra.=" and optativa2b".$optativ2." = '1'";}
 if ($itinerari) { $extra.=" and itinerario$n_curso = '$itinerari'";}
 if ($religio) { $extra.=" and religion = '$religio'";}
+if ($idiom1) { $extra.=" and idioma1 = '$idiom1'";}
+if ($idiom2) { $extra.=" and idioma2 = '$idiom2'";}
 if ($letra_grup) { $extra.=" and letra_grupo = '$letra_grup'";}
 if ($_POST['grupo_actua']) {
 
 	$extra.=" and ( ";
 	foreach ($_POST['grupo_actua'] as $grup_actua){
-		if($grup_actua=="Ninguno"){$extra.=" grupo_actual is null or";}
+		if($grup_actua=="Ninguno"){$extra.=" grupo_actual = '' or";}
 		else{
 			$extra.=" grupo_actual = '$grup_actua' or";
 		}
@@ -251,7 +255,7 @@ if ($transport == "ruta_este") { $extra.=" and ruta_este != ''";}
 if ($transport == "ruta_oeste") { $extra.=" and ruta_oeste != ''";}
 if (strlen($dn)>5) {$extra.=" and dni = '$dn'";}
 if (strlen($apellid)>2) {$extra.=" and apellidos like '%$apellid%'";}
-if (strlen($nombr)>2) {$extra.=" and nombre like '%$nombr%'";}
+if (strlen($nombr)>1) {$extra.=" and nombre like '%$nombr%'";}
 
 if ($promocion=="SI") { $extra.=" and promociona = '1'";}
 if ($promocion=="NO") { $extra.=" and promociona = '2'";}
@@ -271,7 +275,7 @@ if (!($orden)) {
 
 	include 'procesado_bach.php';
 
-	$sql = "select id, apellidos, nombre, curso, letra_grupo, colegio, otrocolegio, confirmado, grupo_actual, observaciones, religion, itinerario1, itinerario2, promociona, claveal, ruta_este, ruta_oeste, revisado, optativa1, optativa2 ";
+	$sql = "select id, apellidos, nombre, curso, letra_grupo, colegio, otrocolegio, confirmado, grupo_actual, observaciones, religion, itinerario1, itinerario2, promociona, claveal, ruta_este, ruta_oeste, revisado, optativa1, optativa2, idioma1, idioma2 ";
 
 	if ($curso=="2BACH"){
 		for ($i=1;$i<11;$i++)
@@ -313,6 +317,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		echo '<th>Centro</th>';
 		echo '<th>Rel.</th>';
 		echo '<th>Transporte</th>';
+		echo '<th>Idiom1</th>';
+		if ($curso=="1BACH") {
+		echo '<th>Idiom2</th>';
+		}		
 		echo '<th>Mod.</th>';
 		echo "<th>Opt_Mod".$n_curso."</th>";
 		if ($n_curso>1) {
@@ -326,6 +334,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		echo '<th class="no_imprimir">Rev.</th>';
 		echo '<th class="no_imprimir"></th>';
 		?>
+		<th class="no_imprimir">Conv.</th>
 	</tr>
 	<?
 	while($datos_ya = mysql_fetch_object($cons)){
@@ -333,13 +342,34 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		$respaldo='1';
 		$naci = explode("-",$datos_ya->nacimiento);
 		$nacimiento = "$naci[2]-$naci[1]-$naci[0]";
-		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual;
+		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2;
 		$back = mysql_query("select id from matriculas_bach_backup where id = '$id'");
 		if (mysql_num_rows($back)>0) {
 			$respaldo = '1';
 			$backup="<a href='consultas_bach.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='icon icon-refresh' rel='Tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
 		}
-
+// Problemas de Convivencia
+$n_fechorias="";
+$fechorias = mysql_query("select * from Fechoria where claveal='".$claveal."'");
+$n_fechorias = mysql_num_rows($fechorias);
+//$fechori="16 --> 1000";
+if (!(isset($fechori)) or $fechori=="") {
+	$fechori1="0";
+	$fechori2="1000";
+}
+else{
+	if ($fechori=="Sin problemas") {
+	$fechori1="0";
+	$fechori2="1";
+	}
+	else{
+	$tr_fech = explode(" --> ",$fechori);
+	$fechori1=$tr_fech[0];
+	$fechori2=$tr_fech[1];		
+	}
+}
+if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {	
+		$num_al+=1;
 		echo '<tr>
 
 	<td><input value="1" name="confirmado-'. $id .'" type="checkbox"';
@@ -349,7 +379,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
 	<td><input name="grupo_actual-'. $id .'" type="text" class="input-mini" style="width:12px;" value="'. $grupo_actual .'" /></td>';
-		echo '<td>'. $otrocolegio .'</td>';
+		echo '<td>'. $colegio .'</td>';
 		$color_rel = "";
 		if (strstr($religion,"Cat")==TRUE) {
 			$color_rel = " style='background-color:#FFFF99;'";
@@ -362,6 +392,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		if($ruta_este){$trans = substr($ruta_este, 0, 10).".";}
 		if($ruta_oeste){$trans = substr($ruta_oeste, 0, 10).".";}
 		echo '<td> '.$trans.'</td>';
+		echo '<td> '.$idioma1.'</td>';
+		if ($curso=="1BACH") {
+		echo '<td> '.$idioma2.'</td>';
+		}
 		echo '<td>'.${itinerario.$n_curso}.'</td>';
 		//if ($optativa1 == '0') {${optativa.$i}="";}
 		echo "<td align='center'";
@@ -375,7 +409,8 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 		// Promocionan o no
 		if ($n_curso) {
-			echo "<td class='no_imprimir' style='background-color:#efeefd;text-align:center;'>";
+			$val_notas="";
+			echo "<td class='no_imprimir' style='background-color:#efeefd;text-align:center;' nowrap>";
 			if (!($promociona =='') and !($promociona == '0')) {
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -386,42 +421,62 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
 						if($promociona == "3"){echo " checked";}
 						echo " />";
+						//echo "&nbsp; ".$promociona;
 			}
 			else{
-				if (date('m')>'04' and date('m')<'09'){
-				$val_notas="";
 				$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
 				$nota = mysql_fetch_array($not);
+				
+				if (date('m')>'05' and date('m')<'09'){
+				$val_notas="";				
 				$tr_not = explode(";", $nota[0]);
 				$num_ord="";
-				$num_ord1="";
 				foreach ($tr_not as $val_asig) {
 					$tr_notas = explode(":", $val_asig);
 					foreach ($tr_notas as $key_nota=>$val_nota) {
 						$num_ord+=1;
+					if ($n_curso == "1") {
+						if($key_nota == "1" and ($val_nota<'347' and $val_nota !=="339" and $val_nota !=="") or $val_nota == '397' ){
+							$val_notas=$val_notas+1;
+						}
+						}
+					if ($n_curso == "2") {
 						if($key_nota == "1" and $val_nota<'427' and $val_nota !=="439" and $val_nota !==""){
 							$val_notas=$val_notas+1;
+						}
 						}
 					}
 				}
 				}
 				elseif (date('m')=='09'){
-				$val_notas="";
+					$val_notas="";
+					if (empty($nota[1])) {}
+					else{
+					
 				$tr_not2 = explode(";", $nota[1]);
+				$num_ord1="";
 				foreach ($tr_not2 as $val_asig) {
 					$tr_notas = explode(":", $val_asig);
 					foreach ($tr_notas as $key_nota=>$val_nota) {
 						$num_ord1+=1;
+					if ($n_curso == "1") {
+						if($key_nota == "1" and ($val_nota<'347' and $val_nota !=="339" and $val_nota !=="") or $val_nota == '397' ){
+							$val_notas=$val_notas+1;
+						}
+						}
+					if ($n_curso == "2") {
 						if($key_nota == "1" and $val_nota<'427' and $val_nota !=="439" and $val_nota !==""){
 							$val_notas=$val_notas+1;
 						}
+						}
+					}
+					}				
 					}
 				}
-				}
 				
-			if ($n_curso == "1") {
+			if ($n_curso == "1") {				
 			// Junio
-				if (date('m')>'04' and date('m')<'09'){
+				if (date('m')>'05' and date('m')<'09'){
 					if ($val_notas==0 and $num_ord>1) {$promociona="1";}
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -435,6 +490,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				}
 				// Septiembre
 				elseif (date('m')=='09'){
+					echo "<span class='muted'> $val_notas&nbsp;</span>";					
 					if ($val_notas>0 and $num_ord1>1) {$promociona="2";}else{$promociona="1";}
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -446,6 +502,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 						if($promociona == "3"){echo " checked";}
 						echo " />";
 					}	
+					
 				}
 				else{
 				if ($n_curso == "2") {
@@ -465,6 +522,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				}
 				// Septiembre
 				elseif (date('m')=='09' and $num_ord1>1){
+					echo "<span class='muted'> $val_notas&nbsp;</span>";
 					if ($val_notas<3) {$promociona="1";}elseif($val_notas>2 and $val_notas<5) {$promociona="3";}else{$promociona="2";}					
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -477,8 +535,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 						echo " />";
 						}	
 					}	
-				}
-				
+				}				
 			}
 			echo "</td>";
 		}
@@ -489,28 +546,41 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		if (!($colegio == "IES Monterroso")) {$alma="alma_secundaria";}else{$alma="alma";}
 		$contr = mysql_query("select matriculas_bach.apellidos, $alma.apellidos, matriculas_bach.nombre, $alma.nombre, matriculas_bach.domicilio, $alma.domicilio, matriculas_bach.dni, $alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, $alma.dnitutor, matriculas_bach.telefono1, $alma.telefono, matriculas_bach.telefono2, $alma.telefonourgencia from matriculas_bach, $alma where $alma.claveal=matriculas_bach.claveal and id = '$id'");
 		$control = mysql_fetch_array($contr);
+$text_contr="";
 		for ($i = 0; $i < 16; $i++) {
 			if ($i%2) {
 				if ($i=="5" and strstr($control[$i], $control[$i-1])==TRUE) {}
-				else{
-					if ($control[$i]==$control[$i-1]) {}else{
-						echo "<i class='icon icon-info-sign' rel='Tooltip' title='".$control[$i]." --> ".$control[$i-1]."'> </i>&nbsp;&nbsp;";
-					}
-				}
+	else{
+		if ($control[$i]==$control[$i-1]) {$icon="";}else{	
+			if ($control[$i-1]<>0) {
+						$icon="icon icon-info-sign";
+						$text_contr.= $control[$i]." --> ".$control[$i-1]."; ";					
+				}	
+		}
+	}
 			}
 			//echo "$control[$i] --> ";
 		}
+		echo "<i class='$icon' title='".$text_contr."'> </i>&nbsp;&nbsp;";
+		
+
 		if ($observaciones) { echo "<i class='icon icon-bookmark' rel='Tooltip' title='Tiene observaciones en la matrícula' > </i>";}
 
 		if ($respaldo=='1') {
 			echo "&nbsp;".$backup;
 		}
 		echo "&nbsp;<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='icon icon-trash' rel='Tooltip' title='Eliminar alumno de la tabla'> </i></a>";
-		echo "</td></div>";
-		echo '
-	</tr>';	
+		echo "</td>";
+echo "<td class='no_imprimir'>";
+// Problemas de Convivencia
+if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1'><span class='badge badge-important' target='blank'>$n_fechorias</span></a>";}
+elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-warning'>$n_fechorias</span></a>";}
+elseif($n_fechorias < 5 and $n_fechorias > 0){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-info'>$n_fechorias</span></a>";}
+// Fin de Convivencia.
+echo "</td>";
+echo '</tr>';	
 	}
-
+	}
 	echo "</table>";
 	echo "<div align='center'>
 <input type='hidden' name='extra' value='$extra' />
@@ -553,10 +623,16 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		$an_bd = substr($curso_actual,0,4);
 		$repit = mysql_query("select promociona from matriculas_bach where curso = '$curso' $extra and promociona = '2'");
 		$num_repit = mysql_num_rows($repit);
-		$it_1 = mysql_query("select itinerario1 from matriculas_bach where curso = '$curso' $extra and itinerario1 = '1'");
-		$num_it1 = mysql_num_rows($it_1);
-		$it_2 = mysql_query("select itinerario2 from matriculas_bach where curso = '$curso' $extra and itinerario2 = '2'");
-		$num_it2 = mysql_num_rows($it_2);
+		
+		$it_11 = mysql_query("select itinerario1 from matriculas_bach where curso = '$curso' $extra and itinerario1 = '1'");
+		$num_it11 = mysql_num_rows($it_11);
+		$it_12 = mysql_query("select itinerario1 from matriculas_bach where curso = '$curso' $extra and itinerario1 = '2'");
+		$num_it12 = mysql_num_rows($it_12);
+				
+		$it_21 = mysql_query("select itinerario2 from matriculas_bach where curso = '$curso' $extra and itinerario1 = '1'");
+		$num_it21 = mysql_num_rows($it_21);
+		$it_22 = mysql_query("select itinerario2 from matriculas_bach where curso = '$curso' $extra and itinerario2 = '2'");
+		$num_it22 = mysql_num_rows($it_22);
 		?>
 	<br />
 	<table class="table table-striped table-bordered" align="center"
@@ -572,6 +648,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		if ($curso=="1BACH"){
 		echo "<th>3/4</th>";
 		}
+		
 		echo "<th>Itinerario1</th>";
 		echo "<th>Itinerario2</th>";
 		if ($curso=="2BACH"){
@@ -589,8 +666,17 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		if ($curso=="1BACH"){
 		echo "<th>$num_34</th>";
 		}
-		echo "<td>$num_it1</td>";
-		echo "<td>$num_it2</td>";
+		
+				if ($curso=="1BACH"){
+		echo "<td>$num_it11</td>";
+		echo "<td>$num_it12</td>";
+		}
+		else{
+		echo "<td>$num_it21</td>";
+		echo "<td>$num_it22</td>";
+		}
+		
+
 		if ($curso=="2BACH"){
 		for ($i=1;$i<11;$i++){
 			echo "<td>${optativb.$i}</td>";

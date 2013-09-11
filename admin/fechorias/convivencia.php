@@ -18,13 +18,13 @@ $ayer = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . (date ( 'd' ) - 1);
 
 echo '<div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Aula de Convivencia</small></h1>
+  <h2>Problemas de Convivencia <small> Aula de Convivencia</small></h2>
 ';
 echo " <h3 align='center' style='color:#08c'>";
 echo "$hoy2</h3>";
 echo '</div>
 </div>
-<br />';
+';
 
 
 if ($enviar == 'Registrar'){

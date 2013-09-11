@@ -1,5 +1,5 @@
-<div align="center"><br /><h4>
- Datos del Alumno</h4><br /></div>
+<h4>
+ Datos del Alumno</h4><br />
   <?php
    
   

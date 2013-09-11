@@ -24,10 +24,10 @@ $cargo = $_SESSION['cargo'];
   $grupo = $tuto[1];
 ?>
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Expulsión o ausencia del Alumno</small></h1>
+  <h2>Informes de Tareas <small> Expulsión o ausencia del Alumno</small></h2>
 </div>
 <br />
- <div class="well-2 well-large" style="width:580px;">
+ <div class="well-transparent well-large" style="width:580px;">
 
 <?
 // Buscamos los grupos que tiene el Profesor, con su asignatura y nivel
@@ -61,8 +61,8 @@ $resultcurso = mysql_query($SQLcurso);
 	if (mysql_num_rows($result) > 0)
 {
 	echo "<form name='consulta' method='POST' action='tutoria.php'>";
-$num_informe = mysql_num_rows($sql1);
-echo "<h4>$curso</h4><h5>$n_asig</h5><br />";
+//$num_informe = mysql_num_rows($sql1);
+echo "<p class='lead text-info'>$curso <br /><small>$n_asig</small></p>";
 echo "<table align=center  class='table'><tr style='background-color:#f6f6f6'>";
 echo "<th>Alumno</th>
 <th>Fecha Inicio</th>
@@ -95,7 +95,7 @@ if (mysql_num_rows($si) > 0)
    <TD>$row[6]</td>
    ";
 	 echo "
-	 <input type='hidden' name='profesor' value='$pr'>";
+	 <input type='hidden' name='profesor' value='$profesor'>";
 			echo "
       <td>";
 	  if (mysql_num_rows($si) > 0 and $count < 1)
@@ -121,8 +121,8 @@ echo "&nbsp;&nbsp;<a href='informar.php?id=$row[0]' class='btn btn-primary btn-m
 }
 else{
 
-		echo "<h4>$curso</h4><h5>$n_asig</h5><br />";
-			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+		echo "<p class='lead text-info'>$curso<br /><small> $n_asig</small></p>";
+				echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 No hay Informes de Tareas Activos para t&iacute;</div></div><hr>';
 }

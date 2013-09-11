@@ -64,47 +64,45 @@ if (isset ( $_SESSION ['profi'] )) {
 	session_destroy ();
 }
 $cabecera = '
-<!DOCTYPE html>  
-<html lang="es">  
-  <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet del '.$nombre_del_centro.'</title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del '.$nombre_del_centro.'">  
-    <meta name="author" content="">  
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="iso-8859-1">
+<title>Configuración de la Intranet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
+<meta name="author" content="">
 
-    <link href="./css/bootstrap.css" rel="stylesheet">
-    <link href="./css/otros.css" rel="stylesheet">     
-    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
-    <link rel="shortcut icon" href="./img/favicon.ico">  
-    <link rel="apple-touch-icon" href="./img/apple-touch-icon.png">  
-    <link rel="apple-touch-icon" sizes="72x72" href="./img/apple-touch-icon-72x72.png">  
-    <link rel="apple-touch-icon" sizes="114x114" href="./img/apple-touch-icon-114x114.png"> 
-        <link href="./css/font-awesome.min.css" rel="stylesheet">
-   
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/otros.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet" >
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+
 <script language="javascript" type="text/javascript">
 function detecta(){
 var navegador = navigator.appName;
 //alert(navegador);
 switch (navegador){
 case "Microsoft Internet Explorer":
-alert("Estas usando Microsoft Ineternet Explorer para acceder a una aplicaciï¿½n web que es manifiestamente incompatible con este navegador. Por favor, utiliza Firefox, Chrome, Opera o Safari para acceder");
+alert("Estas usando Microsoft Ineternet Explorer para acceder a una aplicaci&oacute;n web que es manifiestamente incompatible con este navegador. Por favor, utiliza Firefox, Chrome, Opera o Safari para acceder");
 break;
 }
 }
 </script>
   </head>  
   <body onLoad="detecta()">
-<div class="container">
+<div class="container-fluid">
+<div class="row-fluid">
 <br />
-<div align="center" class="well-2" style="max-width:300px;margin:auto">
-<h1>Intranet</h1><h2><small>'.$nombre_del_centro.'</small></h2><hr>';
+<div align="center" class="well" style="max-width:300px;margin:auto">
+<h2>Intranet</h1><h2><small>'.$nombre_del_centro.'</small></h2><hr>';
 
 // Entramos
 if ($_POST['submit'] == 'Entrar' and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {
 	$clave0 = $_POST['clave'];
 	$clave = sha1 ( $_POST['clave'] );
-	$pass0 = mysql_query ( "SELECT pass, profesor , dni FROM c_profes where idea = '".$_POST['idea']."'" );
+	$pass0 = mysql_query ( "SELECT c_profes.pass, c_profes.profesor , departamentos.dni FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."'" );
+
 	$pass1 = mysql_fetch_array ( $pass0 );
 	$codigo = $pass1 [0];
 	$dni = $pass1 [2];
@@ -126,6 +124,7 @@ if ($_POST['submit'] == 'Entrar' and ! ($_POST['idea'] == "" or $_POST['clave'] 
 		$id_reg0 = mysql_fetch_array ( $id_reg );
 		$_SESSION ['id_pag'] = $id_reg0 [0];
 		
+		include_once('actualizar.php');
 		header ( "location:clave.php" );
 		exit ();
 	}
@@ -199,6 +198,8 @@ Vuelve atrás e inténtalo de nuevo.
 			$id_reg = mysql_query ( "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
 			$id_reg0 = mysql_fetch_array ( $id_reg );
 			$_SESSION ['id_pag'] = $id_reg0 [0];
+			
+			include_once('actualizar.php');
 			// Comprobamos si el usuario es Admin y entra por primera vez
 			if ($profe=="admin" and $clave == sha1("12345678")) {
 				$_SESSION ['autentificado'] = '1';			
@@ -251,25 +252,11 @@ if (!(is_writable('config.php'))) {
           </div> 
 <?
 }
-	
-	if (!(ini_get('register_globals'))=="1") {
-?>
-<br />
-    <div align="justify"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4 class="lead">ATENCIÓN:</h4>Parece que tenemos un problema con el archivo de configuración de PHP ( php.ini ). La directiva <em>register_globals</em> está desactivada, y así no podemos seguir. 
-			Necesitas activarla en el archivo de configuración. Este se encuentra en el directorio /etc/. Edítalo, busca el texto  
-			<em>register_globals = Off</em> y sustitúyelo por <em>register_globals = On</em>. Suena initimdante, pero esa es toda la dificultad.
-			</div>
-          </div> 
-<?
-//exit();
-	}
 	?>    
 <form action="index.php" method="post" align="left" class="form-signin" id = "form-signin ">
 
-<label for="idea"><h5><small>Usuario IdEA</small></h5></label><input type="text" name="idea" maxlength="12" class="input-block-level input-large" style="font-size:16px;" />
-<label for="clave"><h5><small>Contraseña</small></h5></label><input type="password" name="clave" class="input-block-level"  />
+<label for="idea"><h5>Usuario IdEA</h5></label><input type="text" name="idea" maxlength="12" class="input-block-level" style="font-size:16px;" />
+<label for="clave"><h5>Contraseña</h5></label><input type="password" name="clave" class="input-block-level"  />
 <br /><br />
 <button type="submit" name="submit" value="Entrar" class="btn btn-large btn-primary" style="width:100%;"><i class="icon icon-signin icon-white icon-large"></i> &nbsp;Entrar</button>
 </form>
@@ -279,7 +266,8 @@ if (!(is_writable('config.php'))) {
 </a>  
 <div class="modal hide fade" id="ayuda">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">ï¿½</button>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h3>Acceso a la Intranet</h3>
   </div>
   <div class="modal-body">
 <p class="help-block">Para
@@ -302,41 +290,9 @@ de problema, ponte también en contacto.
 </div>
 <br />
 
-<?
-// Fotos de alumnos y profesores en base de datos se mueven a directorio
-$fotos_dir = "./xml/fotos";
-
-$d = dir($fotos_dir);
-while (false !== ($entry = $d->read())) {
-   $fotos_ya+=1;
-}
-$result=mysql_query("SELECT datos, nombre FROM fotos");
-if (mysql_num_rows($result)>0 and $fotos_ya < "10") {
-while($row = mysql_fetch_array($result)){
-	$foto_al = $fotos_dir."/".$row[1];
-	# Creamos cada uno de los archivos
-	file_put_contents($foto_al,$row[0], FILE_APPEND);	
-}	
-} 
-
-$fotos_profe_dir = "./xml/fotos_profes"; 
-$d_profes = dir($fotos_profe_dir);
-while (false !== ($entry_profes = $d_profes->read())) {
-   $fotos_profes_ya+=1;
-}
-$result_profe=mysql_query("SELECT datos, nombre FROM fotos_profes");
-if (mysql_num_rows($result_profe)>0 and $fotos_profes_ya < "10") {
-while($row_profe = mysql_fetch_array($result_profe)){
-	$foto_profe = $fotos_profe_dir."/".$row_profe[1];
-	# Creamos cada uno de los archivos
-	file_put_contents($foto_profe,$row_profe[0], FILE_APPEND);	
-}   
-}	
+<?	
 }
 ?>
-
-     <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-modal.js"></script>  
-    <!--  Calendario de Bootstrap.  -->   
     <script src="http://<? echo $dominio;?>/intranet/js/jquery.js"></script>  
     <script src="http://<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>
 </body>

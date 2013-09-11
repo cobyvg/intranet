@@ -9,29 +9,69 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
-    <title>Faltas de Asistencia.</title>
-   <LINK href="http://<? echo $dominio; ?>/<? echo $css1; ?>" rel="stylesheet" type="text/css">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css2; ?>" rel="stylesheet" type="text/css">
-</head>
-<body>
 <?
 include("../../menu.php");
-echo "<br>";
-//
+?>
+<br />
+<div align="center">
+<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
+</div>
+<br />
+<?
+if (isset($_GET['iniciofalta'])) {$iniciofalta = $_GET['iniciofalta'];}elseif (isset($_POST['iniciofalta'])) {$iniciofalta = $_POST['iniciofalta'];}
+if (isset($_GET['finfalta'])) {$finfalta = $_GET['finfalta'];}elseif (isset($_POST['finfalta'])) {$finfalta = $_POST['finfalta'];}
+if (isset($_GET['Submit'])) {$Submit = $_GET['Submit'];}elseif (isset($_POST['Submit'])) {$Submit = $_POST['Submit'];}
+
 ?>
 <?
 
-if (strlen($iniciofalta) == '10' and strlen($finfalta) == '10') {
+if (isset($iniciofalta) and isset($finfalta)) {
+
+	$dir = "./origen/";
+	
+// Refrescamos la tabla de los tramos
+mysql_query("truncate table tramos");
+
+// Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
+if ($handle = opendir($dir)) {
+   while (false !== ($file = readdir($handle))) {
+       if (strstr($file,"1EA") == TRUE or strstr($file,"1BA") == TRUE) {       	
+
+$doc = new DOMDocument('1.0', 'iso-8859-1');
+
+/*Cargo el XML*/
+$doc->load( './origen/'.$file );
+
+$tramos = $doc->getElementsByTagName( "TRAMO_HORARIO" );
+ 
+/*Al ser $calificaciones una lista de nodos
+lo puedo recorrer y obtener todo
+su contenido*/
+foreach( $tramos as $tramo )
+{	
+/*Obtengo el valor del primer elemento 'item(0)'
+de la lista $codigos.
+Si existiera un atributo en el nodo para obtenerlo
+usaria $codigos->getAttribute('atributo');
+*/
+$codigos0 = $tramo->getElementsByTagName( "X_TRAMO" );
+$codigo0 = $codigos0->item(0)->nodeValue;
+$nombres0 = $tramo->getElementsByTagName( "T_HORCEN" );
+$nombre0 = $nombres0->item(0)->nodeValue;
+
+mysql_query("INSERT INTO  `tramos` 
+VALUES ('$nombre0',  '$codigo0')");
+}	
+       }
+   }
+}
+sleep(5);	
 $fecha0 = explode("/",$iniciofalta);
 $fecha10 = explode("/",$finfalta);
 
 // Construimos el fichero de exportación para Séneca. Este fichero elimina datos innecesarios y coloca sólo los datos del alumno y sus notas. Hay que ir recortando los trozos necesarios para luego soldarlos en la variable total.
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
-$dir = "./origen/";
 // Abrir un directorio conocido, y proceder a leer sus contenidos
 if (is_dir($dir)) {
     if ($gd = opendir($dir)) {
@@ -83,7 +123,9 @@ $total = $inicio1.$string8;
  $nivel = strtoupper(substr($curso[0],0,2));
  $grupo = strtoupper(substr($curso[0],2,1));
 
-$fp=fopen("./exportado/" . $fichero . "","w")  or die("<p id='texto_en_marco'>No se han podido abrir los archivos de Faltas de Séneca. ¿Estás seguro de haberlos colocado en el directorio correspondiente (intranet/faltas/seneca/origen/)?</p>");
+$fp=fopen("./exportado/" . $fichero . "","w")  or die(
+"<p id='texto_en_marco'>No se han podido abrir los archivos de Faltas de Séneca. ¿Estás seguro de haberlos colocado en el directorio correspondiente (intranet/faltas/seneca/origen/)?</p>"
+);
 if (flock($fp, LOCK_EX)) {
    $pepito=fwrite($fp,$total);
    flock($fp, LOCK_UN);
@@ -120,17 +162,19 @@ $nombre_curso = substr($fichero,0,3)."_".$fecha_inicial."_".$fecha_final.".xml";
 rename("exportado/".$fichero."", "exportado/".$nombre_curso."");
 }}}}
 ?>
-<p id='texto_en_marco'>
-	 Las Faltas de Asistencia se han escrito correctamente en los archivos  del directorio exportado/. <br>Puedes proceder a importarlos a Séneca.
-	</p>
+<div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+	 Las Faltas de Asistencia se han escrito correctamente en los archivos  del directorio exportado/. <br />Puedes proceder a importarlos a Séneca.
+			</div></div><br />
 <?
 }
 else{
 	
 	?>
-	<p id='texto_en_marco'>
+<div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
 El formato de la fecha no parece correcto. No olvides que tanto los días como los meses debes escribirlos con dos cifras. No es correcto: 1/1/2011, sino 01/01/2011.
-	</p>
+			</div></div><br />	
 	<?
 }
 ?>

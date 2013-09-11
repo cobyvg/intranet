@@ -8,26 +8,13 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-/*if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR stristr($_SESSION['cargo'],'8') == TRUE))
-{
-header("location:http://$dominio/intranet/salir.php");
-exit;	
-}  */
 $pr = $_SESSION['profi'];
 ?>
 <?php
 include("../../menu.php");
 include("../menu.php");
 mysql_select_db($db_reservas);
-if (isset($_GET['recurso'])) {
-	$recurso = $_GET['recurso'];
-}
-if (isset($_GET['servicio'])) {
-	$servicio = $_GET['servicio'];
-}	
-if (isset($_GET['mens'])) {
-	$mens = $_GET['mens'];
-}	
+
 if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
 if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
 if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
@@ -88,7 +75,7 @@ $n_servicio = strtoupper($servicio);
 // Estructura de la Tabla
 ?>
 <div class="page-header" align="center">
-  <h1>Reserva de Medios <small> Reserva del <? echo $n_servicio; ?></small></h1>
+  <h2>Reserva de Medios <small> Reserva del <? echo $n_servicio; ?></small></h2>
 </div>
 <br />
 <?
@@ -109,9 +96,9 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
  <div class="row-fluid">
  <div class="span2"></div>
 <div class="span4">
-<div class="well-2 well-small">
+<div class="well well-small">
     <?
-	echo "<h4>$daylong, $monthlong $today, $year</h4><br />";	
+	echo "<legend>$daylong, $monthlong $today, $year</legend><br />";	
 $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
@@ -141,7 +128,7 @@ if (mysql_numrows($reservado0) == 1) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "1ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "1ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event1)) { echo "1ª Hora &nbsp;&nbsp; <select name=\"day_event1\" class='input-xlarge'><option></option>";
@@ -164,7 +151,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "2ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "2ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event2)) { echo "2ª Hora &nbsp;&nbsp; <select name=\"day_event2\" class='input-xlarge'><option></option>";
@@ -183,7 +170,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "3ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "3ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if(empty($event_event3)) { echo "3ª Hora &nbsp;&nbsp; <select name=\"day_event3\" class='input-xlarge'><option></option>";
@@ -203,7 +190,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "4ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "4ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event4)) { echo "4ª Hora &nbsp;&nbsp; <select name=\"day_event4\" class='input-xlarge'><option></option>";
@@ -222,7 +209,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "5 Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "5 Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event5)) { echo "5ª Hora &nbsp;&nbsp; <select name=\"day_event5\" class='input-xlarge'><option></option>";
@@ -241,7 +228,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "6ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "6ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event6)) { echo "6ª Hora &nbsp;&nbsp; <select name=\"day_event6\" class='input-xlarge'><option></option>";
@@ -260,7 +247,7 @@ if (mysql_num_rows($reservado0)>0) {
 $reservado1 = mysql_fetch_row($reservado0);
 }
 }
-	if(!(empty($reservado1[0]))) {echo "7ª Hora &nbsp;&nbsp; <span class='label label-warning'>$reservado1[0]</span>"; }
+	if(!(empty($reservado1[0]))) {echo "7ª Hora &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
 if (empty($event_event7)) { echo "7ª Hora &nbsp;&nbsp; <select name=\"day_event7\" class='input-xlarge'><option></option>";
@@ -284,9 +271,9 @@ echo "</div>";
 ?>
 </div>
 </div>
-<div class="span4 pull-left">
+<div class="span4">
 <?
-echo "<table class='table table-bordered table-striped' style='width:400px;' align='center'><tr><th>
+echo "<table class='table table-bordered table-striped' style='' align='center'><tr><th>
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?servicio=$servicio&year=$last_year&today=$today&month=$month'>
 <i class='icon icon-arrow-left' name='calb2' style='margin-right:20px;'> </i> </a>
@@ -294,7 +281,7 @@ echo "<table class='table table-bordered table-striped' style='width:400px;' ali
 <a href='".$_SERVER['PHP_SELF']."?servicio=$servicio&year=$next_year&today=$today&month=$month'>
 <i class='icon icon-arrow-right' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table>";
 
-echo "<table class='table table-bordered' style='width:400px;' align='center'>
+echo "<table class='table table-bordered' style='' align='center'>
       <tr>";
 	  $meses = array("1"=>"Ene", "2"=>"Feb", "3"=>"Mar", "4"=>"Abr", "5"=>"May", "6"=>"Jun", "7"=>"Jul", "8"=>"Ago", "9"=>"Sep", "10"=>"Oct", "11"=>"Nov", "12"=>"Dic");
 	  foreach ($meses as $num_mes => $nombre_mes) {
@@ -316,9 +303,9 @@ echo "<table class='table table-bordered' style='width:400px;' align='center'>
 
 
 //Nombre del Mes
-echo "<table class='table table-bordered' style='width:400px' align='center'><tr>";
-echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h6 align='center'>" . $monthlong . 
-"</h6></td>";
+echo "<table class='table table-bordered' style='' align='center'><tr>";
+echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h3 align='center'>" . $monthlong . 
+"</h3></td>";
 echo "</tr><tr>";
 
 

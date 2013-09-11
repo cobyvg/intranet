@@ -1,5 +1,5 @@
 <?
-$total0 = count($_POST);
+$total0 = count($_POST);	
 $clavesw = array_values($_POST);
 // Misma operación que en el fichero insertar.php
 $x=4;
@@ -11,8 +11,8 @@ $trozos0 = array_slice($clavesw, $x, 6);
 $fecha0 = explode('-',$trozos0[0]);
 $dia0 = $fecha0[0];
 $mes = $fecha0[1];
-$año = $fecha0[2];
-$fecha1 = $año . "-" . $mes . "-" . $dia0;
+$ano = $fecha0[2];
+$fecha1 = $ano . "-" . $mes . "-" . $dia0;
 $profe22 = "select no_prof from horw where prof = '$profesor'";
 $profe20 = mysql_query($profe22);
 $profe21 = mysql_fetch_row($profe20);

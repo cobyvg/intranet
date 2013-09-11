@@ -14,7 +14,7 @@ include("../../menu.php");
 include("../menu.php");
 
 // Si ya hemos enviado los datos, nos vamos a alumnos.php
-if($enviar=='Enviar datos')
+if($_POST['enviar']=='Enviar datos')
 {
 include("alumnos.php");
 }
@@ -25,20 +25,20 @@ else
 
 <div align=center>
 <div class="page-header" align="center">
-  <h1>Centro TIC <small> Nombres de Usuario de Alumnos</small></h1>
+  <h2>Centro TIC <small> Nombres de Usuario de Alumnos</small></h2>
 </div>
 <br />
 </div>
 <br />
 <div align=center>
-<div class="well-2 well-large" style="width:450px; text-align:left">
+<div class="well well-large" style="width:450px; text-align:left">
   <form action="intro.php" method="post" name="form1" id="form1">
       <?
  if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
  ?>
  <label>Profesor<br />
- <select name="profe" onchange='submit()' class="span3">
+ <select name="profe" onchange='submit()' class="input-block-level">
             <?
 echo "<option>$profe</option>";
 
@@ -56,7 +56,8 @@ $result = mysql_query($SQL);
 ?>
           </select>
           </label>
-      <? }
+      <? 
+}
 else
 {
 echo "<h6>Selecciona el Curso</h6>";
@@ -67,7 +68,7 @@ $profe = $_SESSION['profi'];
 	  <? $SQLcurso = "select distinct GRUPO, MATERIA, NIVEL, codigo from profesores, asignaturas where materia = nombre and abrev not like '%\_%' and PROFESOR = '$profe' and nivel = curso order by grupo";
 //echo $SQLcurso;
 ?>
-          <select name="curso" class="span4">
+          <select name="curso" class="input-block-level">
             <?
 	echo "<option></option>";
 

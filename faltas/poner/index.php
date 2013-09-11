@@ -14,12 +14,18 @@ include("../../menu.php");
 include("../menu.php");
 ?>
 <?
+if (isset($_GET['year'])) {$year = $_GET['year'];}elseif (isset($_POST['year'])) {$year = $_POST['year'];}
+if (isset($_GET['month'])) {$month = $_GET['month'];}elseif (isset($_POST['month'])) {$month = $_POST['month'];}
+if (isset($_GET['today'])) {$today = $_GET['today'];}elseif (isset($_POST['today'])) {$today = $_POST['today'];}
+if (isset($_GET['hoy'])) {$hoy = $_GET['hoy'];}elseif (isset($_POST['hoy'])) {$hoy = $_POST['hoy'];}
+if (isset($_GET['registro'])) {$registro = $_GET['registro'];}elseif (isset($_POST['registro'])) {$$registro = $_POST['registro'];}
+if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];} elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}
 $pr = $_SESSION['profi'];
-if(!(isset($profesor))){
+if(empty($profesor)){
 $profesor = $_SESSION['profi'];}
 function profesor()
 {
-if($submit) {$continuar = "";}
+if($_POST['submit']) {$continuar = "";}
 echo "<SELECT name=profesor id='idprofe' onChange='submit()'>";
 echo "<OPTION>";
 echo "</OPTION>";	
@@ -54,7 +60,7 @@ mysql_query("delete from FALTAS where claveal = '$claveal' and date(fecha) >= '$
 }
 
 // Si se ha pulsado el botón de Enviar, se llama a insertar.php para meter los datos en la tabla
-if($enviar){ include("insertar.php"); }
+if(isset($_POST['enviar'])){ include("insertar.php"); }
 ?>
 <form action="index.php" method="POST" name="form1">
   

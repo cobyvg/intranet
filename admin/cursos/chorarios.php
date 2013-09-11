@@ -1,11 +1,3 @@
-<?php
-if ($submit1)
-{
-include("horarios.php");
-}
-else 
-{
-?>
 <?
 session_start();
 include("../../config.php");
@@ -22,19 +14,19 @@ $profesor = $_SESSION['profi'];
 <?
   	include("../../menu.php");
   ?>
+ <br />
   <div align=center>
-  <div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Horarios <small> Grupos, Profesores y Aulas</small></h1>
+  <div class="page-header" align="center">
+  <h2>Horarios del Centro <small> Grupos, Profesores y Aulas</small></h2>
 </div>
-<br />
 </div>
 <div class="row-fluid">
 <div class="span2"></div>
 <div class="span4">
 <? if ($mod_horario) {?>
 
-<FORM action="chorarios.php" method="POST" class="well-2 well-large form-inline">
- <h3> Horario de un Grupo</h3><br />
+<FORM action="horarios.php" method="POST" class="well well-large form-inline">
+ <legend> Horario de un Grupo</legend><br />
   <select name="curso">
     <?
   $tipo = "select distinct a_grupo from horw where a_grupo not like 'G%' order by a_grupo";
@@ -50,9 +42,9 @@ echo "<option>".$tipo2[0]."</option>";
 
 </div>
 <div class="span4">
-<FORM action="profes.php" method="POST" name="Cursos" class="well-2 well-large form-inline">
-<h3>Horario de un Profesor</h3><br />
-  <SELECT  name=profeso onChange="submit()">
+<FORM action="profes.php" method="POST" name="Cursos" class="well well-large form-inline">
+<legend>Horario de un Profesor</legend><br />
+  <SELECT  name=profeso>
     <option></option>
     <?
   $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
@@ -75,8 +67,8 @@ echo "<option>".$tipo2[0]."</option>";
 <div class="row-fluid">
 <div class="span2"></div>
 <div class="span4">
-<form action="hor_aulas.php" method="post" class="well-2 well-large form-inline">
- <h3> Horario de un Aula</h3><br />
+<form action="hor_aulas.php" method="post" class="well well-large form-inline">
+ <legend> Horario de un Aula</legend><br />
   <SELECT  name=aula onChange="submit()">
     <option></option>
     <?
@@ -97,9 +89,9 @@ echo "<option>".$tipo2[0]."</option>";
 
 </div>
 <div class="span4">
-<form action="aulas_libres.php" method="post" class="well-2 well-large form-inline">
-  <h3>Aulas libres por día
-  de la Semana</h3><br />
+<form action="aulas_libres.php" method="post" class="well well-large form-inline">
+  <legend>Aulas libres por día
+  de la Semana</legend><br />
   <select name="n_dia">
     <option>Lunes</option>
     <option>Martes</option>
@@ -119,7 +111,7 @@ echo "<option>".$tipo2[0]."</option>";
             El módulo de Horarios debe ser activado en la Configuración general de la Intranet para poder acceder a estas páginas, y ahora mismo está desactivado. Consulta con quien pueda ayudarte.
           </div>';
  }
-}
+
 include("../../pie.php");
 ?>
 </BODY>

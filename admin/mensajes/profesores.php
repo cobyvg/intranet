@@ -1,5 +1,5 @@
 <?
- if($submit1)
+ if($_POST['submit1'])
 {
   if(!$asunto or !$texto or empty($profesor))
   { 
@@ -17,6 +17,12 @@ elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$etcp and !$ca
 }
 else
 {
+
+$msg_success = '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        El mensaje se ha enviado correctamente.
+      </div></div>';
+      
 $query0="insert into mens_texto (asunto,texto, origen) values ('".$asunto."','".$texto."','".$profesor."')";
 mysql_query($query0);
 $id0 = mysql_query("select id from mens_texto where asunto = '$asunto' and texto = '$texto' and origen = '$profesor'");
@@ -32,6 +38,7 @@ $profiso = $_POST["profeso"];
 	mysql_query($query1);
 	$t_nombres.=$nombre."; ";
 	}
+	echo $msg_success;
 	mysql_query("update mens_texto set destino = '$t_nombres' where id = '$id'");	
 	}
 	
@@ -49,6 +56,7 @@ $tu = $_POST["tutor"];
 	$t_nombres.=$nombre_tuto."; ";
 	}
 	mysql_query("update mens_texto set destino = '$t_nombres' where id = '$id'");
+	echo $msg_success;
 	}
 
 if($departamento)
@@ -66,6 +74,7 @@ $dep = $_POST["departamento"];
 	$t_nombres.="Departamento de ".$nombre_dep."; ";
 	}
 	mysql_query("update mens_texto set destino = '$t_nombres' where id = '$id'");
+	echo $msg_success;
 	}	
 	
 if($equipo)
@@ -84,6 +93,7 @@ foreach($eq as $nombre_eq)
 	$t_nombres.="Equipo Educativo de ".$nombre_eq."; ";
 	}
 	mysql_query("update mens_texto set destino = '$t_nombres' where id = '$id'");
+	echo $msg_success;
 	}
 
 if($ca == '1')
@@ -98,6 +108,7 @@ if($ca == '1')
 	}
 	 mysql_query("update mens_texto set destino = 'CA' where id = '$id'");
 	//echo "update mens_texto set destino = 'CA' where id = '$id'";
+	echo $msg_success;
 	}
 
 if($etcp == '1')
@@ -112,6 +123,7 @@ if($etcp == '1')
 	}
 	 mysql_query("update mens_texto set destino = 'ETCP' where id = '$id'");
 	//echo "update mens_texto set destino = 'ETCP' where id = '$id'";
+	echo $msg_success;
 	}	
 
 	
@@ -125,6 +137,7 @@ if($claustro == '1')
 	mysql_query("insert into mens_profes (id_texto, profesor) values ('".$id."','".$cl1[0]."')");
 	}
 	mysql_query("update mens_texto set destino = 'Claustro del Centro' where id = '$id'");
+	echo $msg_success;
 	}
 
 if($direccion == '1')
@@ -137,6 +150,7 @@ if($direccion == '1')
 	mysql_query("insert into mens_profes (id_texto, profesor) values ('".$id."','".$dir1[0]."')");
 	}
 	mysql_query("update mens_texto set destino = 'Equipo Directivo' where id = '$id'");
+	echo $msg_success;
 	}
 
 if($orientacion == '1')
@@ -149,6 +163,7 @@ if($orientacion == '1')
 	mysql_query("insert into mens_profes (id_texto, profesor) values ('".$id."','".$orienta1[0]."')");
 	}
 	mysql_query("update mens_texto set destino = 'Departamento de Orientaci&oacute;n' where id = '$id'");
+	echo $msg_success;
 	}
 	
 if($bilingue == '1')
@@ -161,6 +176,7 @@ if($bilingue == '1')
 	mysql_query("insert into mens_profes (id_texto, profesor) values ('".$id."','".$bilingue1[0]."')");
 	}
 	mysql_query("update mens_texto set destino = 'Bilinguismo' where id = '$id'");
+	echo $msg_success;
 	}
 	
 if($padres)
@@ -173,12 +189,9 @@ $pa = $_POST["padres"];
 	$t_nombres.=$nombre."; ";
 	}
 	mysql_query("update mens_texto set destino = '$t_nombres' where id = '$id'");	
+	echo $msg_success;
 	}
 }
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            El mensaje se ha enviado correctamente.
-          </div></div>';
 }
 
 ?>

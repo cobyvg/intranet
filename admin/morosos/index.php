@@ -12,8 +12,8 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 ?>
 <div align=center>
-<div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Biblioteca <small> Ejemplares sin devolver</small></h1>
+<div class="page-header" align="center">
+  <h2>Morosos de la Biblioteca <small> Ejemplares sin devolver</small></h2>
 </div>
 </div>
 <?
@@ -38,7 +38,7 @@ mysql_query($crea);
   <div  class="control-group success" style="width:500px;">
   <p class="help-block" style="text-align:center"><span style="color:#9d261d">(*) </span>Primero debes proceder a importar los datos de los morosos del archivo que has generado con Abies. Si ya has exportado el archivo de Abies en formato .txt, puedes continuar con el segundo paso (Consulta de los Listados).</p>
   </div>
-  <div class="well-2 well-large" style="width:450px; margin:auto;" align="center">
+  <div class="well well-large" style="width:450px; margin:auto;" align="center">
   <h5 align="center">Selecciona el archivo de Abies</h5>
   <hr>
   <input type="file" name="archivo">
@@ -49,11 +49,12 @@ mysql_query($crea);
   </div>
 </FORM>
 <br>
+
 <div align="center">
 <h3>Consulta de los listados.</h3>
 </div>
 <FORM action="consulta.php" method="POST" class="form-inline"">
-  <div class="well-2 well-large" style="width:450px; margin:auto;" align="center">
+  <div class="well well-large" style="width:450px; margin:auto;" align="center">
  <h5> Elige una fecha</h5>
  <hr>
   <select name="fecha" class="input-medium">

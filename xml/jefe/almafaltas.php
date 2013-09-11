@@ -14,16 +14,20 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
-<?php  include '../../menu.php';?>
+<?php  
+include '../../menu.php';
+if (isset($_FILES['archivo1'])) {$archivo1 = $_FILES['archivo1'];}
+if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
+?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Creación de la tabla de alumnos</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Creación de la tabla de alumnos</small></h2>
 </div>
 <br />
-<div class="well-2 well-large" style="width:600px;margin:auto;text-align:left">
+<div class="well well-large" style="width:600px;margin:auto;text-align:left">
 <?
 if($archivo1 and $archivo2){
-
 // Comprobamos si es la primera vez que se ha creado una base de datos.
 $fechorias = mysql_query("select * from Fechoria");	
 $mensajes = mysql_query("select * from mens_texto");

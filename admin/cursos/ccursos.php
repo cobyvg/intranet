@@ -1,11 +1,11 @@
 <?php
-if ($submit1)
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];} else{$nivel="";}
+if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];} else{$grupo="";}
+if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="$nivel-$grupo";}
+
+if ($_POST['submit1'] or $_GET['submit1'])
 {
-include("cursos.php");
-}
-elseif ($submit2)
-{
-include("horariofaltas_cursos.php");
+	include("cursos.php");
 }
 else
 {
@@ -25,62 +25,31 @@ $profesor = $_SESSION['profi'];
 <?
 include("../../menu.php");
 ?>
-<div align=center>
-<div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Listas de Alumnos <small> Listas de grupo y partes de faltas</small></h1>
-</div>
 <br />
+<div align=center>
+<div class="page-header" align="center">
+  <h2>Listas de Alumnos <small> Listas de Grupo</small></h2>
 </div>
+</div>
+<div class="container">
 <div class="row-fluid">
-<div class="span2"></div>
-<div class="span4">
-<form class="well-2 well-large form-inline" action="ccursos.php" method="POST" name="listas">
-<h3>Lista de Alumnos</h3><br />
-Nivel: <SELECT  name="nivel" onChange="submit()" class="span2" style="display:inline;margin-right:15px;">
-            <option><? echo $nivel;?></option>
-            <? nivel();?>
+<div class="span4 offset4">
+<form class="well well-large form-inline" action="ccursos.php" method="POST" name="listas">
+<legend>Lista de Alumnos por Grupo</legend>
+<label>Seleccion Grupo: </label><br />
+<SELECT  name="unidad[]" multiple class="input-block-level">
+            <? unidad();?>
           </SELECT>
-Grupo: <select  name="grupo" class="span2" style="display:inline">
-          <option></option>
-          <? grupo($nivel);?>
-        </select>
         <br /><br />
          <label class="checkbox"> 
-    <input type="checkbox" name="asignaturas" value="1" class="checkbox"> Con Asignaturas
+    <input type="checkbox" name="asignaturas" value="1"> &nbsp; Mostrar asignaturas
   </label>
   <br /><br />
-  <button class="btn btn-success" type="submit" name="submit1" value="Lista del Curso">Lista del Curso</button>
+  <button class="btn btn-primary btn-block" type="submit" name="submit1" value="Lista del Curso">Lista del curso</button>
 </form>
-
 </div>
-<div class="span4">
-<FORM action="ccursos.php" method="POST" name="listas2" class="well-2 well-large form-inline">
-<h3>Partes de Faltas de Aula</h3> <br />     
-Nivel: <SELECT  name="nivel" onChange="submit()" class="span2" style="display:inline;margin-right:15px;">
-            <option><? echo $nivel;?></option>
-            <? nivel();?>
-          </SELECT>
-Grupo: <select  name="grupo" class="span2" style="display:inline">
-          <option></option>
-          <? grupo($nivel);?>
-        </select>
-        <br /><br />
-          <label>Día de la semana:
-          <select name="dia1" class="input-small">
-            <option>Lunes</option>
-            <option>Martes</option>
-            <option>Miércoles</option>
-            <option>Jueves</option>
-            <option>Viernes</option>
-          </select>
-          </label>
-          <br /><br />
-          <INPUT class="btn btn-success" type="submit" name="submit2" value="Lista del Curso">
-          </FORM>      
 </div>
-<div class="span2"></div>
-</div>
-   
+  </div> 
 
 <?  
 }

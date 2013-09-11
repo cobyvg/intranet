@@ -12,7 +12,13 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 include("../../faltas/menu.php");
-echo "<div align='center'><h3>Resumen de faltas de asistencia de un Grupo</h3><br />";
+?>
+<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Resumen de faltas por Nivel y Grupo</small></h2>
+  </div>
+<br />
+<?
+echo "<div align='center'>";
   $AUXSQL == "";
   #Comprobamos Grupo del mismo modo.
  IF (TRIM("$grupo")=="")

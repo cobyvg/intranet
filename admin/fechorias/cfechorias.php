@@ -1,7 +1,8 @@
 <?
-if ($submit1)
+if (isset($_POST['submit1']))
 {
 include("fechorias.php");
+exit();
 }
 else
 {
@@ -19,16 +20,25 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 include("menu.php");
+
+if(isset($_POST['nivel'])){$nivel = $_POST['nivel'];}else{ $nivel=""; }
+if(isset($_POST['grupo'])){$grupo = $_POST['grupo'];}else{ $grupo=""; }
+if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
+if(isset($_POST['APELLIDOS'])){$APELLIDOS = $_POST['APELLIDOS'];}else{ $APELLIDOS=""; }
+if(isset($_POST['NOMBRE'])){$NOMBRE = $_POST['NOMBRE'];}else{ $NOMBRE=""; }
+if(isset($_POST['DIA'])){$DIA = $_POST['DIA'];}else{ $DIA=""; }
+if(isset($_POST['MES'])){$MES = $_POST['MES'];}else{ $MES=""; }
+if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
 ?>
 
 <div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Consultas</small></h1>
+  <h2>Problemas de Convivencia <small> Consultas</small></h2>
 </div>
 </div>
 <br />
 
-<div align="center" style="width:600px; margin:auto;" class="well-2">
+<div align="center" style="width:600px; margin:auto;" class="well">
 <div align="left">
 <div class="row-fluid">
 <div class="span6">
@@ -74,12 +84,7 @@ include("menu.php");
     </label>
     </div>
     </div>
-    
-    
-    
-    
-    
-    
+        
     <label>Otros criterios:<br />      
     <select size="5" style="width:220px; padding:2px;" name = "clase[]" >
         <option>Expulsion del Centro</option>
@@ -95,7 +100,7 @@ include("menu.php");
   </div>
   </div>
   <div align="center">
-  <input name="submit1" type='submit' value='Enviar Datos' class="btn btn-primary">
+  <input name="submit1" type='submit' value='Enviar Datos' class="btn btn-primary btn-block">
   </FORM>
   </div>
 </div>

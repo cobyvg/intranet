@@ -12,10 +12,22 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 $datatables_activado = true;
+
+if (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];}elseif (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];}else{$borrar="";}
+if (isset($_GET['submit2'])) {$submit2 = $_GET['submit2'];}elseif (isset($_POST['submit2'])) {$submit2 = $_POST['submit2'];}else{$submit2="";}
+if (isset($_GET['inicio'])) {$inicio = $_GET['inicio'];}elseif (isset($_POST['inicio'])) {$inicio = $_POST['inicio'];}else{$inicio="";}
+if (isset($_GET['fin'])) {$fin = $_GET['fin'];}elseif (isset($_POST['fin'])) {$fin = $_POST['fin'];}else{$fin="";}
+if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];}elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];}else{$profesor="";}
+if (isset($_GET['tareas'])) {$tareas = $_GET['tareas'];}elseif (isset($_POST['tareas'])) {$tareas = $_POST['tareas'];}else{$tareas="";}
+if (isset($_GET['horas'])) {$horas = $_GET['horas'];}elseif (isset($_POST['horas'])) {$horas = $_POST['horas'];}else{$horas="";}
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+if (isset($_GET['pra'])) {$pra = $_GET['pra'];}elseif (isset($_POST['pra'])) {$pra = $_POST['pra'];}else{$pra="";}
+
 ?>
+<br />
 <div align=center>
-<div class="page-header" align="center" style="margin-top: -15px">
-<h1>Ausencias del profesorado <small> Registro de bajas <? echo $profesor;?></small></h1>
+<div class="page-header" align="center">
+<h2>Ausencias del profesorado <small> Registro de bajas <? echo $profesor;?></small></h2>
 </div>
 
 <?
@@ -98,7 +110,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 <h4>Registro de Bajas</h4>
 </div>
 <br />
-<div class="well-2 well-large">
+<div class="well well-large">
 <form enctype='multipart/form-data' action='index.php' method='post'
 	name='f1' class="form-vertical">
 <div align='left'><label>Profesor:<br />
@@ -137,7 +149,8 @@ else{
 	<? if($inicio){echo "value=$inicio";}?> data-date-format="dd-mm-yyyy"
 	id="inicio"> <span class="add-on"><i class="icon-calendar"></i></span>
 </div>
-</label> <br />
+</label> 
+<br />
 <label>Final de la ausencia<br />
 <div class="input-append" style="display: inline;"><input name="fin"
 	type="text" class="input input-small" <? if($fin){echo "value=$fin";}?>
@@ -147,7 +160,7 @@ else{
 <hr>
 <label>Horas sueltas <i class="icon-question-sign"
 	style="margin-left: 2px;" rel='tooltip'
-	title='Escribe las horas concreats en las que vas a estar ausente y una detrás de otra. De este modo, si escribes "456" quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día.'></i><br />
+	title='Escribe las horas concretas en las que vas a estar ausente y una detrás de otra. De este modo, si escribes "456" quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día.'></i><br />
 <input type="text" name="horas" value="" class="input-small" /> </label>
 <label>Tareas para los alumnos<br />
 <textarea name='tareas'style="width:95%; height:100px"></textarea>
@@ -202,7 +215,7 @@ if ($profesor) {
 ?>
 </form>
 <?
-if ($pra) {
+if (empty($pra)) {}else{
 	echo '<a name="aqui" id="aqui"></a>';
 	$pr_trozos=explode(", ",$pra);
 	echo "

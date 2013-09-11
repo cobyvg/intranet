@@ -16,22 +16,24 @@ $cargo = $_SESSION['cargo'];
   <?php
  include("../../menu.php");
  include("menu.php"); 
- $c= 
-  $tut = mysql_query("select nivel, grupo from FTUTORES where tutor = '$pr'");
+  $tut = mysql_query("select nivel, grupo, unidad from FTUTORES where tutor = '$pr'");
   //echo "select nivel, grupo from FTUTORES where tutor = '$pr'";
-  $borrar = mysql_num_rows($tut);
+  if (mysql_num_rows($tut) > 0) {
   $tuto = mysql_fetch_array($tut);
   $nivel = $tuto[0];
   $grupo = $tuto[1];
+  $unidad = $tuto[2];
+  }
+
 ?>
   
 <div align="center">      
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Buscar Informes</small></h1>
+  <h2>Informes de Tareas <small> Buscar Informes</small></h2>
 </div>
 <br />
     
-<div class="well-2 well-large" style="width:360px" align="left">
+<div class="well well-large" style="width:360px" align="left">
 <form action="buscar.php" method="post">  
   
     <label>Apellidos<br />
@@ -42,18 +44,13 @@ $cargo = $_SESSION['cargo'];
     <input name="nombre" type="text" class="input-large" alt="nombre" />
   </label>
   
-   <label> Nivel<br />
-<SELECT name="nivel" onChange="submit()" class="input-mini">
-      <OPTION><? echo $nivel;?></OPTION>
-      <? nivel();?>
+   <label> Grupo<br />
+<SELECT name="unidad" class="input-small">
+      <OPTION><? echo $unidad;?></OPTION>
+      <? unidad();?>
     </SELECT>
         </label>   
-    <label>Grupo<br />
-<SELECT name="grupo" class="input-mini">
-      <OPTION><? echo $grupo;?></OPTION>
-      <? grupo($nivel);?>
-    </SELECT>
-      </label>
+
   
     <br />
       <input type="submit" name="submit1" value="Buscar Informes" class="btn btn-primary">

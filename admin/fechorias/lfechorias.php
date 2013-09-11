@@ -17,12 +17,13 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
     <meta name="author" content="">  
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
     <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">  
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css">   
      <script type="text/javascript">
 function confirmacion() {
@@ -45,14 +46,13 @@ return false;
 <?
 include ("../../funciones.php");
 $idea = $_SESSION ['ide'];
-if (strstr($_SERVER['REQUEST_URI'],'index0.php')==TRUE) {$activo1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activo2 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'index0.php')==TRUE) {$activ1 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activ2 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activ3 = ' class="active" ';}
 ?>
   <!-- Navbar
- <!-- Navbar
     ================================================== -->
-<div class="navbar navbar-inverse navbar-fixed-top no_imprimir">
+<div class="navbar navbar-fixed-top navbar-inverse no_imprimir">
   <div class="navbar-inner">
     <div class="container-fluid">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -63,11 +63,11 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
       <a class="brand" href="http://<? echo $dominio;?>/intranet/index0.php">Intranet del <?php echo $nombre_del_centro; ?></a>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li <? echo $activo1;?>><a href="http://<? echo $dominio;?>/intranet/index0.php">Inicio</a></li>
+          <li <? echo $activ1;?>><a href="http://<? echo $dominio;?>/intranet/index0.php">Inicio</a></li>
           <li><a href="http://<? echo $dominio;	?>">Página del centro</a></li>
-          <li<? echo $activo2;?>><a href="http://<? echo $dominio;	?>/intranet/admin/mensajes/"> Mensajes</a></li>
-          <li<? echo $activo3;?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
-          <li><a href="https://www.juntadeandalucia.es/educacion/seneca/" style="color:#51a351" target="_blank"> Séneca</a></li>
+          <li<? echo $activ2;?>><a href="http://<? echo $dominio;	?>/intranet/admin/mensajes/"> Mensajes</a></li>
+          <li<? echo $activ3;?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
+          <li><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank"> Séneca</a></li>
         </ul>
         
         <ul class="nav pull-right">
@@ -89,7 +89,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
   <?php
 include("menu.php");
 $datatables_activado = true;
- //variables();
+if(isset($_GET['id'])){$id = $_GET['id'];}
 ?>
   <?php
     echo "<div  align='center'>";
@@ -106,16 +106,15 @@ $datatables_activado = true;
   <div class="span12">';
   echo '<div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h1>
+  <h2>Problemas de Convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
 </div>
 </div>
 <br />';
-  if ($confirma) {
+  if (isset($_POST['confirma'])) {
   	foreach ($_POST as $clave => $valor){
   		if (strlen($valor) > '0' and $clave !== 'confirma') {
   		$actualiza = "update Fechoria set confirmado = '1' where id = '$clave'";
-  		$act = mysql_query($actualiza);
-		
+  		$act = mysql_query($actualiza);		
   		} 
   	}
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -123,7 +122,7 @@ $datatables_activado = true;
             El registro ha sido confirmado.
           </div></div>';
   }
-  if($borrar=='1'){
+   if(isset($_GET['borrar']) and $_GET['borrar']=="1"){
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
 $result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -137,7 +136,6 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
   mysql_query("ALTER TABLE  `Fechcaduca` ADD INDEX (  `id` )");
   mysql_query("ALTER TABLE  `Fechcaduca` ADD INDEX (  `fecha` )");
   $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, confirmado, horas from Fechoria, FALUMNOS, Fechcaduca where Fechcaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal  order by Fechoria.fecha desc limit 500";
-  //echo $query0;
   $result = mysql_query ($query0);
  echo "<form action='lfechorias.php' method='post' name='cnf'>
  <table class='table table-bordered' style='width:auto' align='center'><tr><td style='background-color:#FFFF99'>Expulsión del Centro</td><td style='background-color:#CCFFCC'>Amonestación escrita</td><td style='background-color:#FF9900'>Expulsión del Aula</td><td style='background-color:#CCCCFF'>Aula de Convivencia: Jefatura</td><td style='background-color:#dea9cd'>Aula de Convivencia: Profesor</td></tr></table><br />";

@@ -1,4 +1,21 @@
 <?
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
+if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['mes'])) {$mes = $_GET['mes'];}elseif (isset($_POST['mes'])) {$mes = $_POST['mes'];}else{$mes="";}
+if (isset($_GET['FALTA'])) {$FALTA = $_GET['FALTA'];}elseif (isset($_POST['FALTA'])) {$FALTA = $_POST['FALTA'];}else{$FALTA="";}
+if (isset($_GET['numero2'])) {$numero2 = $_GET['numero2'];}elseif (isset($_POST['numero2'])) {$numero2 = $_POST['numero2'];}else{$numero2="";}
+if (isset($_GET['submit1'])) {$submit1 = $_GET['submit1'];}elseif (isset($_POST['submit1'])) {$submit1 = $_POST['submit1'];}else{$submit1="";}
+if (isset($_GET['nivel1'])) {$nivel1 = $_GET['nivel1'];}elseif (isset($_POST['nivel1'])) {$nivel1 = $_POST['nivel1'];}else{$nivel1="";}
+if (isset($_GET['grupo1'])) {$grupo1 = $_GET['grupo1'];}elseif (isset($_POST['grupo1'])) {$grupo1 = $_POST['grupo1'];}else{$grupo1="";}
+if (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
+if (isset($_GET['fecha4'])) {$fecha4 = $_GET['fecha4'];}elseif (isset($_POST['fecha4'])) {$fecha4 = $_POST['fecha4'];}else{$fecha4="";}
+if (isset($_GET['fecha3'])) {$fecha3 = $_GET['fecha3'];}elseif (isset($_POST['fecha3'])) {$fecha3 = $_POST['fecha3'];}else{$fecha3="";}
+if (isset($_GET['submit2'])) {$submit2 = $_GET['submit2'];}elseif (isset($_POST['submit2'])) {$submit2 = $_POST['submit2'];}else{$submit2="";}
+if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{$numero="";}
+if (isset($_GET['fecha10'])) {$fecha10 = $_GET['fecha10'];}elseif (isset($_POST['fecha10'])) {$fecha10 = $_POST['fecha10'];}else{$fecha10="";}
+if (isset($_GET['fecha20'])) {$fecha20 = $_GET['fecha20'];}elseif (isset($_POST['fecha20'])) {$fecha20 = $_POST['fecha20'];}else{$fecha20="";}
+if (isset($_GET['submit4'])) {$submit4 = $_GET['submit4'];}elseif (isset($_POST['submit4'])) {$submit4 = $_POST['submit4'];}else{$submit4="";}
+
 if ($submit1)
 {
 include("faltas.php");
@@ -31,16 +48,16 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("../../faltas/menu.php");
 ?>
-<div align=center>
-  <h3>Consultas de faltas de asistencia.</h3>
-  <br />
-  <br />
-</div>
+<div class="page-header" align="center">
+  <h2>Faltas de Asistencia <small> Consultas</small></h2>
+  </div>
+<br />
+
 <form action='index.php' method='post' name='f1' class="form-inline">
 <div class="row-fluid">
   <div class="span4">
-  <div class="well-2 well-large pull-right"  style="width:340px;">
-  <h4>Resumen de faltas de un Grupo.</h4>
+  <div class="well well-large pull-right"  style="width:340px;">
+  <legend>Resumen de faltas de un Grupo.</legend>
 <br />
   <h6>Selecciona Nivel y Grupo</h6>
     <label> Nivel:
@@ -84,16 +101,16 @@ include("../../faltas/menu.php");
   Faltas
   <INPUT name="numero2" type="text" class="input-mini" maxlength="3" alt="Mes" value="1">
   </label>
-  <br /><br />
-  <input name="submit1" type="submit" id="submit1" value="Enviar Datos" class="btn btn-primary">
+  <hr />
+  <input name="submit1" type="submit" id="submit1" value="Enviar Datos" class="btn btn-primary btn-block">
   </div>
   </div>
   
   
   
    <div class="span4">
-  <div class="well-2 well-large">
-  <h4>Resumen de faltas de un alumno</h4>
+  <div class="well well-large">
+  <legend>Resumen de faltas de un alumno</legend>
   <br />
   <h6>Selecciona Nivel y Grupo</h6>
     <label> Nivel:
@@ -156,9 +173,8 @@ printf ("<OPTION></OPTION>");
 </div> 
     </label> 
 
-  <br />
-  <br />
-  <input name=submit2 type=submit id="submit2" value='Lista detallada de Faltas' class="btn btn-primary">
+  <hr />
+  <input name=submit2 type=submit id="submit2" value='Lista detallada de Faltas' class="btn btn-primary btn-block">
   <br>
 </div>
 </div>
@@ -166,8 +182,8 @@ printf ("<OPTION></OPTION>");
 
 
 <div class="span4">
-<div class="well-2 well-large pull-left" style="width:340px;">
-  <h4> Número de faltas y días sin justificar</h4>
+<div class="well well-large pull-left" style="width:340px;">
+  <legend> Faltas y días sin justificar</legend>
   <br />
   <span class="help-block">( Alumnos que tienen un número mínimo de faltas entre el rango de fechas seleccionadas. )</span>
   <label>
@@ -189,8 +205,8 @@ printf ("<OPTION></OPTION>");
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 
-    </label> <br />
-  <INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4" class="btn btn-primary">
+    </label> <hr />
+  <INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4" class="btn btn-primary btn-block">
   </div>
   </div>
   <? }?>

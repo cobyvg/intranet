@@ -2,30 +2,9 @@
 $conn = mysql_connect ( $db_host, $db_user, $db_pass ) or die ( "Error en la conexión con la Base de Datos!" );
 mysql_select_db ( $db, $conn );
 
-if (isset ( $_GET ['month'] )) {
-	$month = $_GET ['month'];
-	$month = ereg_replace ( "[[:space:]]", "", $month );
-	$month = ereg_replace ( "[[:punct:]]", "", $month );
-	$month = ereg_replace ( "[[:alpha:]]", "", $month );
-}
-if (isset ( $_GET ['year'] )) {
-	$year = $_GET ['year'];
-	$year = ereg_replace ( "[[:space:]]", "", $year );
-	$year = ereg_replace ( "[[:punct:]]", "", $year );
-	$year = ereg_replace ( "[[:alpha:]]", "", $year );
-	if ($year < 1990) {
-		$year = 1990;
-	}
-	if ($year > 2035) {
-		$year = 2035;
-	}
-}
-if (isset ( $_GET ['today'] )) {
-	$today = $_GET ['today'];
-	$today = ereg_replace ( "[[:space:]]", "", $today );
-	$today = ereg_replace ( "[[:punct:]]", "", $today );
-	$today = ereg_replace ( "[[:alpha:]]", "", $today );
-}
+if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
+if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
+if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
 
 $month = (isset ( $month )) ? $month : date ( "n", time () );
 $year = (isset ( $year )) ? $year : date ( "Y", time () );
@@ -85,13 +64,12 @@ if ($today > $numdays) {
 }
 
 //Nombre del Mes
-echo "<p class='lead'>" . $monthlong . "</p>";
-echo "<table class='table table-striped table-bordered table-condensed'><thead><tr>";
+echo "<legend><i class='icon icon-calendar-empty'> </i> " . $monthlong . "</legend>";
+echo "<table class='table table-bordered table-condensed table-centered'><thead><tr>";
 
 //Nombres de Días
 foreach ( $alldays as $value ) {
-	echo "<th align=\"center\">
-  <span class='badge badge-info'>$value</span></th>";
+	echo "<th>$value</th>";
 }
 echo "</tr></thead><tr>";
 
@@ -154,18 +132,18 @@ $rango7 = date ( 'Y-m-d', $hoy7 );
 $query = "SELECT distinct title, eventdate, event FROM cal WHERE eventdate >= '$rango0' and eventdate < '$rango7'";
 $result = mysql_query ( $query );
 if (mysql_num_rows ( $result ) > 0) {
-	echo "<hr><h4>Próximos días</h4>";
+	echo "<br /><legend><i class='icon icon-calendar'> </i>Próximos días</legend>";
 	$SQLcurso1 = "select distinct grupo from profesores where profesor = '$pr'";
 	//echo $SQLcurso1;
 	$resultcurso1 = mysql_query ( $SQLcurso1 );
-	
+	$string1="";
 	while ( $rowcurso1 = mysql_fetch_array ( $resultcurso1 ) ) {
 		$curso1 = $rowcurso1 [0];
 		$curso1 = str_replace ( "-", "", $curso1 );
 		$string1 .= $curso1 . " ";
 	}
 	$string1 = substr ( $string1, 0, (strlen ( $string1 ) - 1) );
-	//	echo $string1;
+	$count = "";
 	while ( $row = mysql_fetch_array ( $result ) ) {
 		$color="";
 		$pajar = "";
@@ -197,13 +175,13 @@ if (mysql_num_rows ( $result ) > 0) {
 echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><i  class='icon-calendar'></i><small>  $fecha. </small><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' rel='tooltip' title='$row[2]'>  $texto</a></p>";		
+		echo "<p><small>  $fecha. </small><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' rel='tooltip' title='$row[2]'>  $texto</a></p>";		
 			}
 		else{
 echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><i  class='icon-exclamation-sign'></i><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha.  $texto</a></p>
+		echo "<p><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha.  $texto</a></p>
 	";	
 			}	
 	}
@@ -211,13 +189,13 @@ echo "";
 if (stristr ( $carg, '1' ) == TRUE) {
 	?>
 	<a href='admin/calendario/jcal_admin/index.php' class='btn btn-primary'
-		style=''>Añadir Actividad</a>
+		style='margin-top:8px;'>Añadir Actividad</a>
 <?
 
 } else {
 	?>
 <a href='admin/calendario/jcal_admin/index.php' class='btn btn-primary'
-		style=''>Ver Calendario</a>
+		style='margin-top:8px;'>Ver Calendario</a>
 <?
 }
 

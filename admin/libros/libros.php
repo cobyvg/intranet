@@ -13,9 +13,49 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') 
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
-if($imprimir == "si")
+if (isset($_POST['nivel'])) {
+	$nivel = $_POST['nivel'];
+} 
+elseif (isset($_GET['nivel'])) {
+	$nivel = $_GET['nivel'];
+} 
+else
 {
-	
+$nivel="";
+}
+if (isset($_POST['grupo'])) {
+	$grupo = $_POST['grupo'];
+}
+elseif (isset($_GET['grupo'])) {
+	$grupo = $_GET['grupo'];
+} 
+else
+{
+$grupo="";
+}
+if (isset($_POST['claveal'])) {
+	$claveal = $_POST['claveal'];
+}
+elseif (isset($_GET['claveal'])) {
+	$claveal = $_GET['claveal'];
+} 
+else
+{
+$claveal="";
+}
+if (isset($_POST['tutor'])) {
+	$tutor = $_POST['tutor'];
+}
+elseif (isset($_GET['tutor'])) {
+	$tutor = $_GET['tutor'];
+} 
+else
+{
+$tutor="";
+}
+
+if(isset($_GET['imprimir']) and $_GET['imprimir'] == "si")
+{
 	include("cert_pdf.php");
 	exit;
 }
@@ -28,35 +68,14 @@ if($imprimir == "si")
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
     <meta name="author" content="">  
-  
-    <!-- Le styles -->  
-
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet"> 
-    <?
-	if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">  
-        <?
-	}
-		else{
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">     
-        <?	
-		}
-	?>
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->  
-    <!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->  
-  
-    <!-- Le fav and touch icons -->  
-    <link rel="shortcut icon" href="http://<? echo $dominio;?>/intranet/img/favicon.ico">  
-    <link rel="apple-touch-icon" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon.png">  
-    <link rel="apple-touch-icon" sizes="72x72" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-72x72.png">  
-    <link rel="apple-touch-icon" sizes="114x114" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-114x114.png"> 
-    <script type="text/javascript"
-	src="http://<? echo $dominio;?>/intranet/recursos/js/buscar_alumnos.js"></script>  
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet">  
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css"> 
     <SCRIPT LANGUAGE=javascript>
 
 function wait(){
@@ -69,6 +88,7 @@ setInterval(string,540000);
 <body onload=wait()>
 <?
 include("../../menu.php");
+
 $lista = mysql_list_fields($db,"mens_texto");
 $col_curso = mysql_field_name($lista,6);
 if ($col_curso=="curso") { }else{
@@ -77,11 +97,12 @@ if ($col_curso=="curso") { }else{
 ?>
 
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Programa de Ayudas al Estudio <small> Informe sobre el estado de los Libros: <span style=" color:#08c;"><? echo $nivel."-".strtoupper($grupo);?></span></small></h1>
+<div class="page-header" align="center">
+  <h2>Programa de Ayudas al Estudio <small> Informe sobre el estado de los Libros: <span style=" color:#08c;"><? echo $nivel."-".strtoupper($grupo);?></span></small></h2>
 </div>
 <br />
 <?
+$tarari="";
 foreach($_POST as $key0 => $val0)
 {
 if(strlen($val0) > "0"){$tarari=$tarari+1;}
@@ -109,7 +130,7 @@ if(is_numeric($claveal) and ($val == "B" or $val == "R" or $val == "M" or $val =
 		}
 }
 }
-if($procesar == "Enviar"){
+if(isset($_POST['procesar']) and $_POST['procesar'] == "Enviar"){
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han actualizado correctamente en la base de datos.
@@ -212,7 +233,7 @@ $clave = $alumnos[4];
 				echo '<td>';
 
 ?>
-<a  href="libros.php?claveal=<? echo $claveal;?>&imprimir=si&nivel=<? echo $nivel;?>" ><button class="btn btn-primary"><i class="icon icon-print icon-white" title="imprimir"> </i> </button></a> <br><br>
+<a  href="libros.php?claveal=<? echo $claveal;?>&imprimir=si&nivel=<? echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="icon icon-print icon-white" title="imprimir"> </i></a> <br><br>
 <?
 	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="icon icon-ok icon-white" title="Devueltos"> </i> </button>';}
 	echo "</td>";

@@ -25,10 +25,10 @@ $profe=$_SESSION['profi'];
 if (empty($buscar)) {
 ?>
 <div class="page-header" align="center">
-  <h1>Material del Centro <small> Buscar en el Inventario</small></h1>
+  <h2>Material del Centro <small> Buscar en el Inventario</small></h2>
 </div>
 <br />
-<div class="well-2 well-large" align="center" style="width:400px;margin:auto">
+<div class="well well-large" align="center" style="width:400px;margin:auto">
 <br />
             <form method="post" action="buscar.php">
                   <input type="text" name="expresion" id="exp" value="<? echo $expresion;?>" class="input-xlarge" />

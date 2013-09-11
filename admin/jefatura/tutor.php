@@ -20,17 +20,88 @@ $cargo = $_SESSION['cargo'];
 include("../../menu.php");
 $datatables_activado = true;
 ?>
-<div align="center">
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Jefatura de Estudios <small>Intervenciones sobre los alumnos</small></h1>
-</div>
 <br />
+<div align="center">
+<div class="page-header" >
+  <h2>Jefatura de Estudios <small>Intervenciones sobre los alumnos</small></h2>
+</div>
 </div>
 <?
-if ($submit1 == "Registrar intervencion de Jefatura") {
-	include("insertar.php");
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
 }
-  if($submit2){
+elseif(isset($_POST['id'])){
+	$id = $_POST['id'];
+}
+else{
+	$id = "";
+}
+if (isset($_GET['eliminar'])) {
+	$eliminar = $_GET['eliminar'];
+}
+
+if (isset($_POST['fecha'])) {
+	$fecha = $_POST['fecha'];
+} else{$fecha="";}
+
+if (isset($_POST['nivel'])) {
+	$nivel = $_POST['nivel'];
+} 
+elseif (isset($_GET['nivel'])) {
+	$nivel = $_GET['nivel'];
+} 
+else {
+	$nivel = "";
+}
+
+if (isset($_POST['grupo'])) {
+	$grupo = $_POST['grupo'];
+} 
+elseif (isset($_GET['grupo'])) {
+	$grupo = $_GET['grupo'];
+} 
+else {
+	$grupo = "";
+}
+
+if (isset($_POST['alumno'])) {
+	$alumno = $_POST['alumno'];
+} 
+elseif (isset($_GET['alumno'])) {
+	$alumno = $_GET['alumno'];
+} 
+else {
+	$alumno = "";
+}
+
+
+if (isset($_POST['observaciones'])) {
+	$observaciones = $_POST['observaciones'];
+} else{$observaciones="";}
+if (isset($_POST['accion'])) {
+	$accion = $_POST['accion'];
+} else{$accion="";}
+if (isset($_POST['causa'])) {
+	$causa = $_POST['causa'];
+} else{$causa="";}
+if (isset($_POST['id2'])) {
+	$id2 = $_POST['id2'];
+} else{$id2="";}
+if (isset($_POST['nivel0'])) {
+	$nivel0 = $_POST['nivel0'];
+} else{$nivel0="";}
+if (isset($_POST['grupo0'])) {
+	$grupo0 = $_POST['grupo0'];
+} else{$grupo0="";}
+if (isset($_POST['prohibido'])) {
+	$prohibido = $_POST['prohibido'];
+}else{$prohibido="";}
+
+if (isset($_POST['submit1'])) {
+		include("insertar.php");
+}
+
+if (isset($_POST['submit2'])) {  
   $dia = explode("-",$fecha);
   $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
   	$actualizar ="UPDATE  tutoria SET observaciones = '$observaciones', causa = '$causa', accion = '$accion', fecha = '$fecha2', prohibido = '$prohibido' WHERE  id = '$id2'"; 
@@ -40,9 +111,10 @@ if ($submit1 == "Registrar intervencion de Jefatura") {
 El registro ha sido actualizado en la Base de datos.
 </div></div><br />';
   }
-    if($submit3){
-	 $borrar ="delete from tutoria WHERE  id = '$id2'"; 
-	mysql_query($borrar);
+  
+if (isset($_POST['submit3']) or $eliminar=="1") {
+$borrar ="delete from tutoria WHERE  id = '$id2'"; 
+mysql_query($borrar);
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.
@@ -71,7 +143,7 @@ $clave = $row[11];
 <div class="span1"></div>
 <div class="span6">
 <h3 align="center">Registro de datos</h3><br />
-<div class="well-2 well-large">
+<div class="well well-large">
 <FORM action="tutor.php" method="POST" name="Tutor">
      <?    
           if ($alumno and !($alumno == "Todos los Alumnos")) {
@@ -87,13 +159,13 @@ $clave = $tr[1];
 		   else{ echo "<br /><br />";}   	 
 ?>
 <label>Nivel&nbsp;
-  <SELECT  name="nivel" onChange="submit()" class="input-mini">
+  <SELECT  name="nivel" onChange="submit()" class="input-small">
     <option><? echo $nivel;?></option>
     <? nivel();?>
   </SELECT>
   &nbsp;&nbsp;&nbsp;&nbsp;
   Grupo&nbsp;
-  <SELECT name="grupo" onChange="submit()" class="input-mini">
+  <SELECT name="grupo" onChange="submit()" class="input-small">
     <OPTION><? echo $grupo;?></OPTION>
     <? grupo($nivel);?>
   </SELECT>
@@ -122,19 +194,19 @@ $clave = $tr[1];
  
 <hr>
         <label>Fecha
-          <?  $fecha1 = (date("d").-date("m").-date("Y")); 
+<?  $fecha1 = date("d-m-Y"); 
 if ($fecha)
   {
   echo '     
   <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input input-block-level" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> ';
   }
   else{
   	echo '     
   <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input input-small" value="'.$fecha1.'" data-date-format="dd-mm-yyyy" id="fecha" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> ';
   }
@@ -142,10 +214,10 @@ if ($fecha)
         </label>
    <hr>     
         <label> Observaciones<br />
-          <textarea name='observaciones' rows='8'  class='input-xxlarge'><? echo $observaciones; ?></textarea>
+          <textarea name='observaciones' rows='8'  class='input-block-level'><? echo $observaciones; ?></textarea>
         </label>
   <br>
-  <label style="color:#9d261d">Informe Privado:
+  <label class="checkbox" style="color:#9d261d">Informe privado
     <input name="prohibido" type="checkbox" <? if ($prohibido == "1"){echo "checked";}
  ?> id="prohibido" value="1">
 </label>

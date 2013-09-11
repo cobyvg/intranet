@@ -34,7 +34,7 @@ var asInitVals = new Array();
                     { 
                     "sExtends": "print", 
                     "sButtonText": "Imprimir", 
-                    "sInfo": "<br><center><h1>PRESIONAR ESCAPE AL TERMINAR</h1></center>", 
+                    "sInfo": "<br><center><h2>PRESIONAR ESCAPE AL TERMINAR</h1></center>", 
                     "sMessage": "<center><h2><b>TITULO!</b></h2></center>", 
                     "sTitle": "Listado x Obra Social", 
                     } 

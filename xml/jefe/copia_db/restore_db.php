@@ -18,13 +18,14 @@ exit;
 <?php
 include("../../../menu.php");
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Restaurar la Base de Datos</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Restaurar la Base de Datos</small></h2>
 </div>
 <br />
 <?
-echo '<div class="well-2 well-large span6 offset3" align="left"><center><p class="lead muted">Restaurar la Base de Datos de la Intranet</p>';
+echo '<div class="well well-large span6 offset3" align="left"><center><p class="lead muted">Restaurar la Base de Datos de la Intranet</p>';
 echo '</center>';
 
 		//  Conexión con la Base de Datos.

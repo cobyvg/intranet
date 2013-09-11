@@ -9,7 +9,7 @@ if ($_SESSION ['autentificado'] != '1') {
 
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 $pr = $_SESSION ['profi'];
-// Comprobamos si da clase a algún grupo
+// Comprobamos si da clase a alg&uacute;n grupo
 $cur0 = mysql_query ( "SELECT distinct prof FROM horw where prof = '$pr'" );
 $cur1 = mysql_num_rows ( $cur0 );
 $_SESSION ['n_cursos'] = $cur1;
@@ -35,18 +35,18 @@ if (stristr ( $carg, '2' ) == TRUE) {
 }
 ?>
 <? include("menu.php");?>
- <div class="container-fluid">  
+
+ <div class="container-fluid" style="padding-top:22px;">  
    <div class="row-fluid">  
    
         <div class="span3">  
-        
-          <div class="well-2 sidebar-nav">  
-          
-            <ul class="nav nav-list">
-            
             <? if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {include("menu_conserje.php");}else{include("menu2.php");}?> 
-           </ul>  
-          </div><!--/.well -->  
+			<br />
+              <? 
+			  include("ausencias.php"); 
+			  include ("fijos.php");
+			  include ("mensajes.php");
+			  ?>
         </div><!--/span-->  
         <div class="span9">   
           <div class="row-fluid">
@@ -58,36 +58,37 @@ if (stristr ( $carg, '2' ) == TRUE) {
 			  }
 			  ?>
               <? include ("pendientes.php");  ?>
-              <? include("noticias.php");?>
+              <? 
+              echo "<div style='padding:19px;padding-top:0px;'>";
+              include("noticias.php");
+              ?>
               <? 
               include("junta.php");
+              echo "</div>";
               ?>
-              <div class='well-2 well-large'> 
-              <? include ("buscar.php");?>
-              </div>
+ 
             </div><!--/span--> 
              
             <div class="span5">
-             
-            <div class="well well-small">
-            <p class="lead">Buscar alumnos</p> 
-            <form action="index0.php" method="GET">
-            	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
-			</form>
-			<div id="resAlumnos"></div>
-       		</div>
-              <? 
-			  echo "<div class='well well-small'>";
+             <div style='padding:19px;padding-top:0px;'>
+             <legend><i class="icon icon-search"></i> Buscar alumnos</legend> 
+             <form action="index0.php" method="GET">
+             	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
+             </form>
+             <div id="resAlumnos"></div>
+             </div>
+             <?
+              echo "<div style='padding:19px;padding-top:0px;'>";
 			  include("admin/calendario/index.php");
-			  echo "</div>";
-			  include("ausencias.php"); 
-			  include ("fijos.php");
-			  include ("mensajes.php");
+
 			  if ($mod_horario and ($n_curso > 0)) {
-				  	echo "<div class='well well-small'>";
+				echo "<hr /><br />";
 					include ("horario.php");
-					echo '</div>';
+				
 				}
+			echo "<hr /><br />";	
+			include ("buscar.php");
+			 echo "</div>";
 			  ?> 
               </div>
             </div><!--/span-->  
@@ -107,7 +108,5 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	});  
 	</script>
   </body>  
-</html>  
-
 </html>  
 

@@ -1,9 +1,16 @@
-
-<h2 align="center">Configuración de la Intranet</h2>
+<? include("../menu_solo.php"); ?>
 <br />
+<div class="container">
+<div class="row">
+<div class="page-header">
+  <h2>Configuración de la Intranet <small> Datos básicos de la aplicación</small></h2>
+</div>
 <?php
-include("../menu_solo.php");
-if ($_POST['enviar']){echo $mens; echo $form;}
+
+if (isset($_POST['enviar'])){
+	echo $mens; 
+	echo $form;
+}
 if($mens_bd=="1"){
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -13,12 +20,24 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
 }
 ?>
 <form enctype="multipart/form-data" action="index.php" method="post" name="configura">
-<fieldset class="control-group info">
-  <table class="table table-condensed table-bordered table-striped" style="width:860px; margin:auto">
-    <tr>
-     <td align="center" colspan="3" style="background-color:#555;"><h6 align='center' style="color:#fff" class="lead">Datos generales de la configuración (*)<span class="help-block pull-right" style="color:#ddd; display:inline"> <small>(*) Campos obligatorios</small></span></h6></td>
-          </tr>
-    
+<fieldset class="control-group warning">
+
+<div class="tabbable" style="margin-bottom: 18px;">
+
+<ul class="nav nav-tabs">
+<li class="active"><a href="#tab1" data-toggle="tab">Datos generales de la configuración</a></li>
+<li><a href="#tab2" data-toggle="tab">Módulos de la Intranet</a></li>
+<li><a href="#tab3" data-toggle="tab">Personal del Centro</a></li>
+<li><a href="#tab4" data-toggle="tab">Base de Datos</a></li>
+<li><a href="#tab5" data-toggle="tab">Sistema de Reservas</a></li>
+</ul>
+
+<div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+
+<div class="tab-pane fade in active" id="tab1">
+<h3>Datos generales de la configuración</h3><br />
+
+  <table class="table table-condensed table-bordered table-striped" style="width:auto">
       <td width="190">Dominio<span style='color:#9d261d'> (*)</span>
         </td>
       
@@ -102,10 +121,12 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
       <td><input type="text" name="fin_curso" size="30" value="<?php if(empty($fin_curso)) { echo "2013-06-21"; } else { echo $fin_curso; }?>" required /></td>
       <td>Fecha de terminación del Curso Escolar. Formato: 2013-06-21</td>
     </tr>
-    <tr>
-    <tr>
-      <td align="center" colspan="3" style="background-color:#555;"><h6 align='center' style="color:#fff" class="lead">Módulos de la Intranet</h6></td>
-    </tr>
+    </table>
+</div>
+
+<div class="tab-pane fade in" id="tab2">
+<h3>Módulos de la Intranet</h3><br />
+   <table class="table table-condensed table-bordered table-striped" style="width:auto">
     <tr>
       <td>Centro TIC:
         </td>
@@ -152,13 +173,16 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
     <tr>
       <td>Directorio de Documentos<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="doc_dir" size="30" value="<?php if(empty($doc_dir)){ echo "/home/e-smith/files/ibays/intranet/files/"; } else { echo $doc_dir; } ?>" required /></td>
+      <td><input type="text" name="doc_dir" size="30" value="<?php if(empty($doc_dir)){ echo "/home/e-smith/files/ibays/intranet/files/"; } else { echo $doc_dir; } ?>" /></td>
       <td>Directorio en el Servidor local donde tenemos documentos que queremos gestionar con la Intranet . La ruta es absoluta (p.ej. "/home/e-smith/files/ibays/intranet/files/")</td>
-    </tr>
-    <tr>
-      <td colspan="3" style="background-color:#555;"><h6 align='center' style="color:#fff" class="lead">Personal del Centro en la Intranet</h6></td>
-    </tr>
-    <tr>
+    </tr> 
+    </table> 
+     
+    </div>
+    
+<div class="tab-pane fade in" id="tab3">
+<h3>Personal del Centro</h3><br />
+   <table class="table table-condensed table-bordered table-striped" style="width:auto">
     <tr>
       <td>Director/a<span style='color:#9d261d'> (*)</span>
         </td>
@@ -206,13 +230,15 @@ for($i=1;$i<2;$i++){
     <?php
 }
 ?>
-    <tr>
-      <td colspan="3" style="background-color:#555;"><h2 align='center' style="color:#fff" class="lead">Configuración de las Bases de datos</h2></td>
-    </tr> 
+</table>
+
+    </div>
     
-    <tr>
-      <td>Base de datos general<span style='color:#9d261d'> (*)</span>
-        </td>
+<div class="tab-pane fade in" id="tab4">
+<h3>Bases de datos</h3><br />
+   <table class="table table-condensed table-bordered table-striped" style="width:auto">        
+   <tr>
+   <td>Base de datos principal</td>
       <td><input type="text" name="db" size="30" value="<?php if(empty($db)) { echo "intranet"; } else { echo $db; } ?>" required /></td>
       <td>Nombre de la base de datos principal.</td>
     </tr>
@@ -234,9 +260,13 @@ for($i=1;$i<2;$i++){
       <td><input type="text" name="db_pass" size="30" value="<?php if(empty($db_pass)) { echo "contraseña_de_mysql"; } else { echo $db_pass; } ?>" required /></td>
       <td>Clave de MySQL</td>
     </tr>
-    <tr>
-      <td colspan="3" style="background-color:#555;"><h6 align='center' style="color:#fff" class="lead">Configuración de las Reservas de Medios</h6></td>
-    </tr>
+    </table>
+    
+        </div>
+    
+<div class="tab-pane fade in" id="tab5">
+<h3>Sistema de Reservas</h3><br />
+   <table class="table table-condensed table-bordered table-striped" style="width:auto"> 
     <tr>
       <td>Base de datos de Reservas<span style='color:#9d261d'> (*)</span>
         </td>
@@ -477,14 +507,18 @@ for($i=1;$i<$num_aula+1;$i++){
 }
 }
 ?>
+  </table>
+  <br />
+  </div>
+ 
+ <div  align="center">
+      <input  type="submit" name="enviar" value="Aplicar cambios" class="btn btn-danger" style="color:#fff" />
+ </div>
+
+</div>
+</div>
 
    </fieldset>
-    <tr>
-      <td colspan="3"><div  align="center">
-      <input  type="submit" name="enviar" value="Aceptar" class="btn btn-primary" style="color:#fff" /></div></td>
-    </tr>
-  </table>
 </form>
-<?php include("../pie.php");?>
-</body>
-</html>
+
+

@@ -1,7 +1,10 @@
 .DS_Store
 *.espressostorage
+.settings
+.project
 *.xml
+xml/fotos/*.jpg
+xml/fotos_profes/*.jpg
 xml/jefe/TIC/*.txt
 cache/*
-
-*.jpg
+config.php

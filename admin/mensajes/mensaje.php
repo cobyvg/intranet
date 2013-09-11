@@ -20,7 +20,9 @@ include("menu.php");
 ?>
 </div>
 <?
- 
+if (isset($_POST['id'])) {$id = $_POST['id'];} elseif (isset($_GET['id'])) {$id = $_GET['id'];} else{$id="";}
+if (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} elseif (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];} else{$profesor="";}
+
 mysql_connect($db_host, $db_user, $db_pass) or die ("Imposible conectar!");
 mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
 $query = "SELECT asunto, ahora, texto, origen FROM mens_texto where id = '$id'";
@@ -32,12 +34,12 @@ if ($row)
 <?
 echo "<br /><br /><div align='CENTER'> <table class='table table-striped' style='width:800px;'>
             <tr valign=Top> 
-            <th>$row[0]
+            <th style='width:630px;'>$row[0]
 				</th>
-			<th><h6><small>";
-			fecha_actual($row[1]);
+			<th><small class='muted'>";
+			fecha_actual2($row[1]);
 			echo "
-             	</small></h6></th>
+             	</small></th>
               </tr>
            <tr> 
             <td colspan=2><blockquote>$row[2]</blockquote>
@@ -70,16 +72,21 @@ echo "<span style='color:#9d261d;'>$n_profesor; </span>";
 	echo "</td></tr>";	
 		?> 
          <tr>
-            <td style='padding:10px;' colspan=2><h6><small>Enviada: <? echo fecha_actual($row->timestamp); ?><br> Autor: <? echo $row[3]; ?>
+            <td style='padding:10px;' colspan=2><h6><small>Enviada: <? echo fecha_actual2($row[1]); ?><br> Autor: <? echo $row[3]; ?>
               </small></h6></td></tr>
               
               </table>
+              <br />
               <a href="../../index0.php" class="btn btn-primary">Volver a la página principal</a></div>
 							 
   <?
 }
 else
 {
+	 echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			El Mensaje no se encuentra en la base de datos.
+          </div></div>';
 ?>
 <p>El Mensaje no se encuentra en la base de datos.</p>
 <?

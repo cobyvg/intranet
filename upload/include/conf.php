@@ -40,7 +40,6 @@ $installurl = 'http://' . $domain_name . '/' . $script_folder_path;
 $users_folder_name = 'users';
 $userstat_folder_name = 'userstat';
 $uploads_folder_name = $doc_dir;
-//$uploads_folder_name = '/home/e-smith/departamentos/';
 $languages_folder_name = 'languages';
 
 //

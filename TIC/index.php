@@ -14,7 +14,5 @@ include("../menu.php");
 ?>
 
 <?
-include("menu.php");
+include("pie.php");
 ?>
-</body>
-</html>

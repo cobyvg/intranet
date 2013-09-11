@@ -9,67 +9,43 @@ if ($_SESSION ['autentificado'] != '1') {
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 $profesor = $_SESSION ['profi'];
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="iso-8859-1">
-<title>Intranet</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
-<meta name="author" content="">
-<!-- Le styles -->
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-<!-- TinyMCE -->
-<script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-	tinyMCE.init({
-		// General options
-		mode : "textareas",
-		theme : "advanced",
-		language : "es",
-		plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave,visualblocks",
+<!DOCTYPE html>  
+<html lang="es">  
+  <head>  
+    <meta charset="iso-8859-1">  
+    <title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Intranet del <?php echo $nombre_del_centro; ?>o">  
+    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+      
+    <link href="//<?php echo $dominio; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//<?php echo $dominio; ?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="//<?php echo $dominio; ?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="//<?php echo $dominio; ?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="//<?php echo $dominio; ?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="//<?php echo $dominio; ?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="//<?php echo $dominio; ?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <script type="text/javascript" src="//<?php echo $dominio; ?>/intranet/js/buscarAlumnos.js"></script>                 
 
-		// Theme options
-		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
-		theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft,visualblocks",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_statusbar_location : "bottom",
-		theme_advanced_resizing : true,
-
-		// Example content CSS (should be your site CSS)
-		content_css : "css/content.css",
-
-		// Drop lists for link/image/media/template dialogs
-		template_external_list_url : "lists/template_list.js",
-		external_link_list_url : "lists/link_list.js",
-		external_image_list_url : "lists/image_list.js",
-		media_external_list_url : "lists/media_list.js",
-
-		// Style formats
-		style_formats : [
-			{title : 'Bold text', inline : 'b'},
-			{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
-			{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
-			{title : 'Example 1', inline : 'span', classes : 'example1'},
-			{title : 'Example 2', inline : 'span', classes : 'example2'},
-			{title : 'Table styles'},
-			{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
-		],
-
-		// Replace values for the template plugin
-		template_replace_values : {
-			username : "Some User",
-			staffid : "991234"
-		}
+	<!-- TinyMCE -->
+	<script src="//<?php echo $dominio; ?>/intranet/js/tinymce/tinymce.min.js"></script>
+	<script>
+	tinymce.init({
+	        selector: "textarea",
+	        language: "es",
+	        plugins: [
+	                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+	                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+	                "table contextmenu directionality template textcolor paste fullpage textcolor"
+	        ],
+	
+	        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | spellchecker | styleselect",
+	        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
+	
+	        menubar: false
 	});
-</script>
-<!-- /TinyMCE -->
+	</script>
+	<!-- /TinyMCE -->
 
 </head>
 
@@ -82,7 +58,7 @@ $profesor = $_SESSION ['profi'];
 		?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Noticias del Centro <small> Redactar Noticias</small></h1>
+  <h2>Noticias del Centro <small> Redactar Noticias</small></h2>
 </div>
 <br />
    <?
@@ -257,7 +233,7 @@ if (!(isset($pagina))) {
     <form action="add.php" method="POST">
       <input type="hidden" name="id"  value="<? echo $id; ?>">
       <label>Asunto<br />
-        <input type="text" name="slug" id="forminput" class="input-xxlarge" value="<? echo htmlspecialchars($row->slug); ?>">
+        <input type="text" name="slug" id="forminput" class="input-block-level" value="<? echo htmlspecialchars($row->slug); ?>">
       </label>
       <label>Texto<br />
         <textarea name="content" id="editor" style="height: 500px; width: 100%;">
@@ -297,7 +273,7 @@ if(strlen($_SESSION['cargo']) > '0')
 if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
 ?>
-    <fieldset class="control-group warning">
+    <fieldset class="control-group">
       <hr>
       <p class="lead">Noticia Fija</p>
       <label>Número de Días para mantener la Noticia Fija:
@@ -306,10 +282,12 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
        <hr>
       <p class="lead">Página donde se publica</p>
       <label class="checkbox">
-      Enviar noticia a la Intranet <input type="checkbox" name="intranet" value="1" <? if (strstr($pagina,"1")==TRUE) { echo "checked";} ?> />
+        <input type="checkbox" name="intranet" value="1" <? if (strstr($pagina,"1")==TRUE) { echo "checked";} ?> />
+        <p>Enviar noticia a la Intranet</p> 
       </label>
       <label class="checkbox">
-      Enviar noticia a la Página del Centro <input type="checkbox" name="principal" <? if (strstr($pagina,"2")==TRUE) { echo "checked";} ?> value="2" />
+        <input type="checkbox" name="principal" <? if (strstr($pagina,"2")==TRUE) { echo "checked";} ?> value="2" />
+        <p>Enviar noticia a la Página del Centro</p>
       </label>
       
       </fieldset>

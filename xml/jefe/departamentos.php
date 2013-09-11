@@ -17,14 +17,15 @@ exit;
 <?php
 include("../../menu.php");
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Departamentos del Centro</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Departamentos del Centro</small></h2>
 </div>
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
-if($archivo){  
+if(isset($_FILES['archivo'])){  
 mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
 mysql_select_db($db);
 
@@ -42,7 +43,8 @@ mysql_query("CREATE TABLE IF NOT EXISTS `departamento_temp` (
   `IDEA` varchar(12) NOT NULL default '',
    KEY `NOMBRE` (`NOMBRE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1");
-if($actualizar){}
+
+if(isset($_POST['actualizar'])){}
 else{
  $base0 = "delete from departamentos where idea not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria'";
 }

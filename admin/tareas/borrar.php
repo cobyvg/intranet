@@ -15,13 +15,13 @@ include("menu.php");
 ?>
 <div align="center">
  <div align="center"><div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Borrar Informe</small></h1>
+  <h2>Informes de Tareas <small> Borrar Informe</small></h2>
 </div>
 <br />
 <?
 $alumno=mysql_query("SELECT APELLIDOS, NOMBRE, NIVEL, GRUPO, profesor, fecha FROM tareas_alumnos WHERE ID='$id_alumno'");
 $dalumno = mysql_fetch_array($alumno);
-echo "<h3>Borrar informe de Tareas</h3><br />
+echo "
 <h4 align='center'>$dalumno[1] $dalumno[0] ($dalumno[2]-$dalumno[3])<br> Visita: $dalumno[5]<br>Tutor: $dalumno[4]</h4><br />";
 if ($del=='1') {
 	mysql_query("delete from tareas_profesor where id = '$id_del'");

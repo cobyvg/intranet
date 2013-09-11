@@ -14,19 +14,25 @@ $cargo = $_SESSION['cargo'];
 <?php
 include("../../menu.php");
 include("menu.php");
+
+$prof=mysql_query("SELECT TUTOR FROM FTUTORES WHERE NIVEL like '$nivel%' and GRUPO like '$grupo%'");
+$fprof = mysql_fetch_array($prof);
+if(!($tutor)){$tutor=$fprof[0];}else{$fprof[0] = $tutor;}
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Informes de Tareas <small> Activar Informe</small></h1>
+  <h2>Informes de Tareas <small> Activar Informe</small></h2>
 </div>
 <br />
-  <div class="well-2 well-large" style='width:380px;'>
+  <div class="well well-large" style='width:380px;'>
     <div align="left">
       <?
 if($nivel and $grupo)
 {
 echo '<h4>Grupo: <span style="color:#08c">';
 echo $nivel."-".$grupo;
+echo '</span><br /> Tutor: <span class="text-info">';
+echo $tutor;
 echo '</span></h4><br />';
 }
 else
@@ -73,25 +79,21 @@ echo "</select></label>";
 echo"<label>Profesor que activa el informe<br />";
 echo "<input size='35' name='tutor' type='text' value='$profesor'  class='span3' readonly>";
 echo "</label>";
-echo "<label><br />Fecha prevista de ausencia<br />";
 $today = date("j, n, Y");
 $hoy = explode(",", $today);
 $dia = $hoy[0];
 $mes = $hoy[1];
 $año = $hoy[2];
-echo "<select name='fecha[2]' class='input input-mini'>";
-echo "<option>$dia</option>";
-for ($i=1;$i<32;$i++){echo "<option>$i</option>";}
-echo "</select> de ";
-echo "<select name='fecha[1]' class='input input-mini'>";
-echo "<option>$mes</option>";
-for ($i=1;$i<13;$i++){echo "<option>$i</option>";}
-echo "</select> de ";
-echo "<select name='fecha[0]' class='input input-mini'>";
-echo "<option>$año</option>";
-for ($i=2005;$i<2010;$i++){echo "<option>$i</option>";}
-echo "</select> ";
-echo"</label>";
+?>
+         <label>Fecha prevista de la ausencia<br />
+ <div class="input-append" style="display:inline;" >
+            <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+  <span class="add-on"><i class="icon-calendar"></i></span>
+</div> 
+
+</label>
+
+<?
 
 echo "<label>Duracion de la ausencia (en d&iacute;as)<br />";
 echo "<select name='duracion' class='input-mini'>";
@@ -99,11 +101,21 @@ for ($i=1;$i<32;$i++){echo "<option>$i</option>";}
 echo "</select> ";
 echo"</label><br />";
 echo '<div align="center"><input type="submit" value="Activar informe de Tareas" class="btn btn-primary"></div>';
-
-	include("../../pie.php");
 ?>
     </form>
   </div>
 </div>
+<? 	
+include("../../pie.php");
+?>
+<script>  
+	$(function ()  
+	{ 
+		$('#fecha').datepicker()
+		.on('changeDate', function(ev){
+			$('#fecha').datepicker('hide');
+		});
+		});  
+	</script>
 </body>
 </html>

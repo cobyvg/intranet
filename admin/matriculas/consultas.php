@@ -17,17 +17,20 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
-if ($listados=="Listado en PDF") {	
+if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}
+if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
+
+if (isset($_POST['listados'])) {
 	include("listados.php");
 	exit();
 }
 
-if ($listado_total=="Listado PDF total") {	
+if (isset($_POST['listado_total'])) {
 	include("listado_total.php");
 	exit();
 }
-
-if ($imprimir=="Imprimir") {
+if (isset($_POST['imprimir'])) {
 	mysql_query("drop table if exists matriculas_temp");
 	mysql_query("CREATE TABLE  `matriculas_temp` (
  `id_matriculas` INT NOT NULL ,
@@ -47,8 +50,7 @@ INDEX (  `id_matriculas` )
 	exit();
 }
 
-echo $_POST['imprimir_caratulas'];
-if ($caratulas == "Imprimir Carátulas") {
+if (isset($_POST['caratulas'])) {
 	mysql_query("drop table if exists matriculas_temp");
 	mysql_query("CREATE TABLE  `matriculas_temp` (
  `id_matriculas` INT NOT NULL ,
@@ -70,7 +72,7 @@ INDEX (  `id_matriculas` )
 	
 
 
-if ($cambios=="Ver cambios en datos") {
+if (isset($_POST['cambios'])) {
 	include("../../menu.php");
 	include("menu.php");
 	mysql_query("drop table if exists matriculas_temp");
@@ -91,7 +93,7 @@ INDEX (  `id_matriculas` )
 	
 	$camb = mysql_query("select distinct id_matriculas from matriculas_temp");
 	echo '<h3 align="center">Alumnos de <span style="color:#08c">'.$curso.'</span> con datos cambiados.</h3><br /><br />';
-		echo "<div class='well-2 well-large' style='width:520px;margin:auto;'>";
+		echo "<div class='well well-large' style='width:520px;margin:auto;'>";
 	while ($cam = mysql_fetch_array($camb)) {
 		$id_cambios = $cam[0];
 		if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
@@ -105,8 +107,8 @@ for ($i = 0; $i < 18; $i++) {
 	elseif ($i=="17") {}
 	else{
 		if ($control[$i]==$control[$i-1]) {}else{		
-			echo "<li>Séneca: ".$control[$i]." ==> Matrícula: ".$control[$i-1]."</li>";
-		}
+						echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
+					}
 	}
 	}
 }
@@ -114,22 +116,38 @@ for ($i = 0; $i < 18; $i++) {
 
 }
 echo "</div>";
+	mysql_query("drop table matriculas_temp");
 exit();
 	}
 	
 
 
-if ($sin_matricula=="Alumnos sin matricular") {
+if (isset($_POST['sin_matricula'])) {
 	include("../../menu.php");
 	include("menu.php");
-
+if ($curso=="4ESO") {
+	$tabla ='matriculas_bach';
+}
+else{
+	$tabla = 'matriculas';
+}
 	$cur_monterroso = substr($curso, 0, 2);
-	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia from alma where claveal not in (select claveal from matriculas) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
-	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br /><br />';
-			echo "<div class='well-2 well-large' style='width:520px;margin:auto;'><ul class='unstyled'>";
+	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from $tabla) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
+	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br />';
+			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysql_fetch_array($camb)) {
 				
-			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4]</li>";
+			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5]</li>";
+		
+}
+echo "</ul></div><br />";
+
+	$canf = mysql_query("select distinct alma.apellidos, alma.nombre, alma.unidad, alma.telefono, alma.telefonourgencia, alma.fecha from alma, matriculas where alma.claveal=matriculas.claveal  and alma.nivel = '$cur_monterroso' and confirmado = '0' order by unidad, apellidos, nombre");
+	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
+			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
+	while ($cam2 = mysql_fetch_array($canf)) {
+				
+			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
 		
 }
 echo "</ul></div>";
@@ -146,34 +164,13 @@ exit();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
     <meta name="author" content="">  
-  
-    <!-- Le styles -->  
-
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet"> 
-    <?
-	if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">  
-        <?
-	}
-		else{
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">     
-        <?	
-		}
-	?>
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print" >
-    <!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->  
-  
-    <link rel="shortcut icon" href="http://<? echo $dominio;?>/intranet/img/favicon.ico">  
-    <link rel="apple-touch-icon" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon.png">  
-    <link rel="apple-touch-icon" sizes="72x72" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-72x72.png">  
-    <link rel="apple-touch-icon" sizes="114x114" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-114x114.png"> 
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">  
 <script language="javascript">
-
 function desactivaOpcion(){ 
     with (document.form2){ 
      switch (curso.selectedIndex){ 
@@ -204,25 +201,31 @@ function desactivaOpcion(){
       case 4: 
     	  actividade.disabled = true;
           exencio.disabled = true;
+          bilinguism.disabled = true;
           itinerari.disabled = false; 
           matematica4.disabled = false;
           diversificacio.disabled = false;
-          promocion.disabled = false;
+          promocion.disabled = false;         
        break; 
      } 
     } 
    } 	
- 
  </script>
 </head>
 <body>
+
   <? 
- include("../../menu.php");
+ include("../../menu_solo.php");
  include("./menu.php");
+ 
+ foreach($_POST as $key => $val)
+	{
+		${$key} = $val;
+	}
   ?>
 <div align=center>
 <div class="page-header" align="center">
-  <h1>Matriculación de Alumnos <small> Consultas</small></h1>
+  <h2>Matriculación de Alumnos <small> Consultas</small></h2>
 </div>
 
 <h3 class="no_imprimir">Alumnos matriculados</h3>
@@ -231,7 +234,7 @@ function desactivaOpcion(){
 echo '<div  class="no_imprimir">';
 include 'filtro.php';
 echo "</div>";
-if ($borrar=='1') {
+if (isset($_GET['borrar'])) {
 	mysql_query("insert into matriculas_backup (select * from matriculas where id = '$id')");
 	mysql_query("delete from matriculas where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -239,7 +242,7 @@ if ($borrar=='1') {
 El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de respaldo de us datos en la tabla matriculas_backup.
 </div></div><br />' ;
 }
-if ($copia=='1') {
+if (isset($_GET['copia'])) {
 	mysql_query("delete from matriculas where id='$id'");
 	mysql_query("insert into matriculas (select * from matriculas_backup where id = '$id')");
 	mysql_query("delete from matriculas_backup where id='$id'");
@@ -248,7 +251,7 @@ if ($copia=='1') {
 Los datos originales de la matrícula del alumno han sido correctamente restaurados.
 </div></div><br />' ;
 }
-if ($consulta) {
+if (isset($_GET['consulta']) or isset($_POST['consulta'])) {
 
 	if ($curso) {$extra=" curso='$curso' ";}else{
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
@@ -272,7 +275,7 @@ No has seleccionado el Nivel. Así no podemos seguir...
 			
 			$extra.=" and ( ";
 		foreach ($_POST['grupo_actua'] as $grup_actua){
-			if($grup_actua=="Ninguno"){$extra.=" grupo_actual is null or";}
+			if($grup_actua=="Ninguno"){$extra.=" grupo_actual = '' or";}
 			else{
 			  $extra.=" grupo_actual = '$grup_actua' or";
 			}
@@ -292,9 +295,8 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	if ($bilinguism == "No") { $extra.=" and bilinguismo = ''";}
 	if ($itinerario == "0") { $itinerario = "";	}
 	if (strlen($dn)>5) {$extra.=" and dni = '$dn'";}
-	if (strlen($apellid)>2) {$extra.=" and apellidos like '%$apellid%'";}
-	if (strlen($nombr)>2) {$extra.=" and nombre like '%$nombr%'";}
-
+	if (strlen($apellid)>1) {$extra.=" and apellidos like '%$apellid%'";}
+	if (strlen($nombr)>1) {$extra.=" and nombre like '%$nombr%'";}
 	if (!($orden)) {
 		$orden=" ";
 		if ($curso=="1ESO") {
@@ -318,11 +320,11 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	$opt43=array("Alemán2_3" => "Alemán 2º Idioma", "Francés2_3" => "Francés 2º Idioma", "Informatica_3" => "Informática", "EdPlástica_3" => "Ed. Plástica y Visual");
 	$opt44=array("Alemán2_4" => "Alemán 2º Idioma", "Francés2_4" => "Francés 2º Idioma", "Tecnología_4" => "Tecnología");
 //	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
-	$a1 = array("Actividades de refuerzo de Inglés", "Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas",  "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
-	$a2 = array("Actividades de refuerzo de Inglés", "Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas",  "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
-		
+	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
+	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
 	
-$sql = "select id, apellidos, nombre, curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado";
+	
+$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado";
 
 if ($curso=="3ESO"){$num_opt = "7";}else{$num_opt = "4";}
 for ($i=1;$i<$num_opt+1;$i++)
@@ -351,7 +353,7 @@ if ($curso) {
 	} else{ echo $curso;}?></h3><br />
 <form action="consultas.php?curso=<? echo $curso;?>&consulta=1" name="form1" method="post">
 <table class="table table-striped table-condensed" align="center" style="width:auto">
-<tr><th colspan="2"></th><th>Nombre</th><th>Curso</th><th>Gr1</th><th>Gr2</th>
+<thead><th colspan="2"></th><th>Nombre</th><th>Curso</th><th>Gr1</th><th>Gr2</th>
 <?
 if ($curso=="1ESO") {
 echo '<th>Colegio</th>';
@@ -388,8 +390,9 @@ echo '<th class="no_imprimir">SI |PIL |NO </th>';
 		echo '<th class="no_imprimir">Copia</th>';
 		echo '<th class="no_imprimir">Borrar</th>';
 ?>
-
-</tr>
+<th class="no_imprimir">Conv.</th>
+</thead>
+<tbody>
 <?
 	while($consul = mysql_fetch_array($cons)){
 	$backup="";
@@ -424,7 +427,29 @@ for ($i=1;$i<$num_opt+1;$i++)
 		{
 			${optativa.$i} = $consul[$i+20];		
 		}
-		$num_al+=1;
+		
+// Problemas de Convivencia
+$n_fechorias="";
+$fechorias = mysql_query("select * from Fechoria where claveal='".$claveal."'");
+$n_fechorias = mysql_num_rows($fechorias);
+//$fechori="16 --> 1000";
+if (!(isset($fechori)) or $fechori=="") {
+	$fechori1="0";
+	$fechori2="1000";
+}
+else{
+	if ($fechori=="Sin problemas") {
+	$fechori1="0";
+	$fechori2="1";
+	}
+	else{
+	$tr_fech = explode(" --> ",$fechori);
+	$fechori1=$tr_fech[0];
+	$fechori2=$tr_fech[1];		
+	}
+}
+if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {	
+	$num_al+=1;
 	echo '<tr>
 
 	<td><input value="1" name="confirmado-'. $id .'" type="checkbox"';
@@ -489,51 +514,57 @@ echo '<td><input name="act1-'. $id .'" type="text" style="width:10px;" value="'.
 	if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
 	$contr = mysql_query("select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id'");
 	$control = mysql_fetch_array($contr);
+	
 for ($i = 0; $i < 16; $i++) {
 	if ($i%2) {
 	if ($i=="5" and strstr($control[$i], $control[$i-1])==TRUE) {}
 	else{
-		if ($control[$i]==$control[$i-1]) {}else{		
-			echo "<i class='icon icon-info-sign' rel='Tooltip' title='".$control[$i]." --> ".$control[$i-1]."'> </i>";
+		$text_contr="";
+		if ($control[$i]==$control[$i-1]) {$icon="";}else{	
+			if ($control[$i-1]<>0) {
+						$icon="icon icon-info-sign";
+						$text_contr.= $control[$i]." --> ".$control[$i-1]."; ";					
+				}	
 		}
 	}
 	}
 	//echo "$control[$i] --> ";
 }	
+		echo "<i class='$icon' rel='Tooltip' title='$text_contr'> </i>&nbsp;&nbsp;";
+
 	if ($observaciones) { echo "<i class='icon icon-bookmark' rel='Tooltip' title='Tiene observaciones en la matrícula' > </i>";}
 	echo '</td>';
 	
 	// Promocionan o no
 	if ($n_curso>1) {
-		echo "<td style='background-color:#efeefd' class='no_imprimir'>";
+		echo "<td style='background-color:#efeefd' class='no_imprimir' nowrap>";
 		if (!($promociona =='') and !($promociona == '0')) {
 		for ($i=1;$i<4;$i++){	
 		echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'"';
 					if($promociona == $i){echo " checked";}
-		echo " />&nbsp;&nbsp; ";
+		echo " />&nbsp;&nbsp;";
 		}
 		}
 		else{
 	$val_notas="";
-	$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
+	$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal='".$claveal."'");
 	$nota = mysql_fetch_array($not);
 	$tr_not = explode(";", $nota[0]);
 	
 	foreach ($tr_not as $val_asig) {
 		$tr_notas = explode(":", $val_asig);
 		foreach ($tr_notas as $key_nota=>$val_nota) {
-		if($key_nota == "1" and $val_nota<'347' and $val_nota !=="339" and $val_nota !==""){
+			if($key_nota == "1" and ($val_nota<'347' and $val_nota !=="339" and $val_nota !=="") or $val_nota == '397' ){
 			$val_notas=$val_notas+1;
 		}
 		}
-		
 	}
-	$val_notas="";
+	
 	$tr_not2 = explode(";", $nota[1]);
 		foreach ($tr_not2 as $val_asig) {
 		$tr_notas = explode(":", $val_asig);
 		foreach ($tr_notas as $key_nota=>$val_nota) {
-		if($key_nota == "1" and $val_nota<'347' and $val_nota !=="339" and $val_nota !==""){
+			if($key_nota == "1" and ($val_nota<'347' and $val_nota !=="339" and $val_nota !=="") or $val_nota == '397' ){
 			$val_notas=$val_notas+1;
 		}
 		}
@@ -542,6 +573,7 @@ for ($i = 0; $i < 16; $i++) {
 	// Junio
 	if (date('m')>'05' and date('m')<'09'){
 	if ($val_notas<3) {$promociona="1";}
+	echo "<span class='muted'> $val_notas&nbsp;</span>";
 	for ($i=1;$i<4;$i++){
 	echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
 					if($promociona == $i){echo " checked";}
@@ -551,6 +583,7 @@ for ($i = 0; $i < 16; $i++) {
 	// Septiembre
 	elseif (date('m')=='09'){
 	if ($val_notas>2) {$promociona="3";}else{$promociona="1";}
+	echo "<span class='muted'> $val_notas&nbsp;</span>";
 	for ($i=1;$i<4;$i++){
 	echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
 					if($promociona == $i){echo " checked";}
@@ -568,12 +601,20 @@ echo '<td class="no_imprimir"><input name="revisado-'. $id .'" type="checkbox" v
  	echo $backup;
  }
  echo "</td><td class='no_imprimir'>";
- 	echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='icon icon-trash' rel='Tooltip' title='Eliminar alumno de la tabla'> </i></a>";
- echo "</td></div>";
+ echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='icon icon-trash' rel='Tooltip' title='Eliminar alumno de la tabla'> </i></a>";
+ echo "</td>";
+echo "<td class='no_imprimir'>";
+// Problemas de Convivencia
+if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-important'>$n_fechorias</span></a>";}
+elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-warning'>$n_fechorias</span></a>";}
+elseif($n_fechorias < 5 and $n_fechorias > 0){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-info'>$n_fechorias</span></a>";}
+// Fin de Convivencia.
+echo "</td>";
+
 	echo '
 	</tr>';	
 }
-
+}
 echo "</table>";
 echo "<div align='center'>
 <input type='hidden' name='extra' value='$extra' />
@@ -583,35 +624,41 @@ echo "</div></form>";
 echo count($grupo_actua);
 ?>
 <?
-if (strlen($grupo_actual)==1) {
+if ($curso) {
+		if (count($grupo_actua)=='1') {
+			$extra = "and grupo_actual = '$grupo_actual'";
+		}
+		else{
+			$extra="";	
+		}
 if ($curso=="1ESO" OR $curso=="2ESO"){
-	$exen = mysql_query("select exencion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and exencion ='1'");
+	$exen = mysql_query("select exencion from matriculas where curso = '$curso' $extra and exencion ='1'");
 	$num_exen = mysql_num_rows($exen);
 	
 if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "4";}
 for ($i=1;$i<$num_acti+1;$i++){
-	${acti.$i} = mysql_query("select act1 from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and act1 = '$i'");
+	${acti.$i} = mysql_query("select act1 from matriculas where curso = '$curso' $extra and act1 = '$i'");
 	${num_act.$i} = mysql_num_rows(${acti.$i});
 }
 }
-$rel = mysql_query("select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like '%Católica%'");
+$rel = mysql_query("select religion from matriculas where curso = '$curso' $extra and religion like '%Católica%'");
 //echo "select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like 'Rel%'";
 $num_rel = mysql_num_rows($rel);
 //echo $num_rel;
 if ($curso=="3ESO"){$num_opta = "7";}else{$num_opta = "4";}
 for ($i=1;$i<$num_opta+1;$i++){
-	${opta.$i} = mysql_query("select optativa$i from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and optativa$i = '1'");
+	${opta.$i} = mysql_query("select optativa$i from matriculas where curso = '$curso' $extra and optativa$i = '1'");
 	${num_opta.$i} = mysql_num_rows(${opta.$i});
 }
 
 if ($curso=="3ESO" OR $curso=="4ESO"){
-	$diver = mysql_query("select diversificacion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and diversificacion = '1'");
+	$diver = mysql_query("select diversificacion from matriculas where curso = '$curso' $extra and diversificacion = '1'");
 	$num_diver = mysql_num_rows($diver);
 }
-$promo = mysql_query("select promociona from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and promociona = '1'");
+$promo = mysql_query("select promociona from matriculas where curso = '$curso' $extra and promociona = '1'");
 $num_promo = mysql_num_rows($promo);
 	
-$pil = mysql_query("select promociona from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and promociona = '2'");
+$pil = mysql_query("select promociona from matriculas where curso = '$curso' $extra and promociona = '2'");
 $num_pil = mysql_num_rows($pil);
 	
 $an_bd = substr($curso_actual,0,4);
@@ -633,10 +680,13 @@ if ($curso=="3ESO"){$num_opta = "7";}else{$num_opta = "4";}
 for ($i=1;$i<$num_opta+1;$i++){
 	echo "<th>Optativa$i</th>";
 }
-if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "4";}
-for ($i=1;$i<$num_acti+1;$i++){
+if ($curso=="1ESO" or $curso=="2ESO"){
+	$num_acti = "5";
+	for ($i=1;$i<$num_acti+1;$i++){
 	echo "<th>Act$i</th>";
 }
+}
+
 echo "<th>Promociona</th>";
 echo "<th>PIL</th>";
 echo "<th>Repite</th>";
@@ -656,7 +706,7 @@ for ($i=1;$i<$num_opta+1;$i++){
 	echo "<td>${num_opta.$i}</td>";
 }
 if ($curso=="1ESO" OR $curso=="2ESO"){
-if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "4";}
+if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "5";}
 for ($i=1;$i<$num_acti+1;$i++){
 	echo "<td>${num_act.$i}</td>";
 }
@@ -676,13 +726,16 @@ echo "<td>$num_repit</td>";
 <td>
 <?
 if ($curso=="4ESO") {
-	for ($i=1;$i<$num_opt+1;$i++){	
+
+	for ($i=1;$i<$num_opt;$i++){	
 	$nombre_optativa = "";
 	$nom_opt.= "<span style='font-weight:bold;color:#9d261d;'>Itinerario $i: </span>";
 	foreach (${opt4.$i} as $nombre_opt => $valor){
+		
 	$nombre_optativa=$nombre_optativa+1;
 	$nom_opt.="<span style='color:#08c;'>Opt".$nombre_optativa."</span> = ".$valor."; ";
 }
+//echo substr($nom_opt,0,-2);
 $nom_opt.= "<br>";
 	}
 	
@@ -693,7 +746,7 @@ else{
 	$nom_opt.="<span style='color:#08c;'>Opt".$nombre_optativa."</span> = ".$valor."; ";
 }
 }
-//echo substr($nom_opt,0,-2);
+echo substr($nom_opt,0,-2);
 ?>
 </td></tr></table>
 <?

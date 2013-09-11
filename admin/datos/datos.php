@@ -12,12 +12,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 <?
 include("../../menu.php");
+
+if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="";}
+if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];} elseif (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];} else{$nombre="";}
+if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];} elseif (isset($_GET['apellidos'])) {$apellidos = $_GET['apellidos'];} else{$apellidos="";}
+if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al="";}
 ?>
+ <br />
   <div align="center">
-<div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Datos de los Alumnos <small> Consultas</small></h1>
+<div class="page-header" align="center">
+  <h2>Datos de los Alumnos <small> Consultas</small></h2>
 </div>
-<br />
  </div>
  <div class='container-fluid'>
   <div class="row-fluid">
@@ -56,38 +61,31 @@ include("../../menu.php");
    }
     $AUXSQL == "";
   #Comprobamos si se ha metido Apellidos o no.
-    if  (TRIM("$APELLIDOS")=="")
+    if  (TRIM("$apellidos")=="")
     {
     $AUXSQL .= " AND 1=1 ";
     }
     ELSE
     {
-    $AUXSQL .= " and alma.apellidos like '%$APELLIDOS%'";
+    $AUXSQL .= " and alma.apellidos like '%$apellidos%'";
     }
-  if  (TRIM("$NOMBRE")=="")
+  if  (TRIM("$nombre")=="")
     {
     $AUXSQL .= " AND 1=1 ";
     }
     ELSE
     {
-    $AUXSQL .= " and alma.nombre like '%$NOMBRE%'";
+    $AUXSQL .= " and alma.nombre like '%$nombre%'";
     }
-		  if  (TRIM("$grupo")=="")
+		  if  (TRIM("$unidad")=="")
     {
     $AUXSQL .= " AND 1=1 ";
     }
     ELSE
     {
-    $AUXSQL .= " and alma.grupo like '$grupo%'";
+    $AUXSQL .= " and alma.unidad like '$unidad%'";
     }
-	  if  (TRIM("$nivel")=="")
-    {
-    $AUXSQL .= " AND 1=1 ";
-    }
-    ELSE
-    {
-    $AUXSQL .= " and alma.nivel like '$nivel%'";
-    }
+	
   	if  (TRIM("$clave_al")=="")
     {
     $AUXSQL .= " AND 1=1 ";
@@ -111,7 +109,7 @@ if ($seleccionado=='1') {
   if ($row = mysql_fetch_array($result))
         {
 
-echo "<div align=center><table  class='table table-striped tabladatos' style='width:100%;'>";
+echo "<div align=center><table  class='table table-striped tabladatos' style='width:auto;'>";
 	echo "<thead><tr><th>
 	        Clave</th><th>
 		Nombre</th><th width='60'>
@@ -146,7 +144,7 @@ echo "<td> $row[9]</td>
 if ($seleccionado=='1'){
 	$todo = '&todos=Ver Informe Completo del Alumno';
 }
-echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='icon icon-search' title='Ver detalles'> </i> ";
+echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='icon icon-search' rel='Tooltip' title='Ver detalles'> </i> ";
 echo '</a></td></tr>';
         } while($row = mysql_fetch_array($result));
         echo "</tbody></table></font></center>\n";
@@ -161,24 +159,27 @@ No hubo suerte, bien porque te has equivocado
         
         }
   ?>
+  <br />
+  <div class="btn-group">
   <?
+  echo "<a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno' class='btn btn-success'>Datos completos</a>";
   if ($seleccionado=='1'){
-  echo "<a class='btn btn-primary' href='http://$dominio/intranet/admin/informes/cinforme.php?nombre_al=$alumno&nivel=$un[1]&grupo=$un[2]'>Informe histórico del Alumno</a>&nbsp;&nbsp;";
-   	echo "<a class='btn btn-primary' href='../fechorias/infechoria.php?seleccionado=1&nombre_al=$alumno'>Problema de disciplina</a>&nbsp;&nbsp;";
-   	echo "<a class='btn btn-primary' href='http://$dominio/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>&nbsp;&nbsp;";
+  echo "<a class='btn btn-success' href='http://$dominio/intranet/admin/informes/cinforme.php?nombre_al=$alumno&nivel=$un[1]&grupo=$un[2]'>Informe histórico del Alumno</a>";
+   	echo "<a class='btn btn-success' href='../fechorias/infechoria.php?seleccionado=1&nombre_al=$alumno'>Problema de disciplina</a>";
+   	echo "<a class='btn btn-success' href='http://$dominio/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
    	if (stristr($_SESSION['cargo'],'1') == TRUE) {
    		$dat = mysql_query("select nivel, grupo from FALUMNOS where claveal='$clave_al'");
    		$tut=mysql_fetch_row($dat);
    		$nivel=$tut[0];
    		$grupo=$tut[1];
-   		echo "<a class='btn btn-primary' href='../jefatura/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo'>Acción de Tutoría</a>&nbsp;&nbsp;";
+   		echo "<a class='btn btn-success' href='../jefatura/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo'>Acción de Tutoría</a>";
    	}
    	if (stristr($_SESSION['cargo'],'8') == TRUE) {
    		$dat = mysql_query("select nivel, grupo from FALUMNOS where claveal='$clave_al'");
    		$tut=mysql_fetch_row($dat);
    		$nivel=$tut[0];
    		$grupo=$tut[1];
-   		echo "<a class='btn btn-primary' href='../orientacion/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo'>Acción de Tutoría</a>&nbsp;&nbsp;";
+   		echo "<a class='btn btn-success' href='../orientacion/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo'>Acción de Tutoría</a>";
    	}
    	if (stristr($_SESSION['cargo'],'2') == TRUE) {
    		$tutor = $_SESSION['profi'];
@@ -191,11 +192,12 @@ No hubo suerte, bien porque te has equivocado
    		$nivel_tutor=$tut2[0];
    		$grupo_tutor=$tut2[1];
    		if ($nivel==$nivel_tutor and $grupo==$grupo_tutor) {
-   		echo "<a class='btn btn-primary' href='../tutoria/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo&tutor=$tutor'>Acción de Tutoría</a>&nbsp;&nbsp;";	
+   		echo "<a class='btn btn-success' href='../tutoria/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo&tutor=$tutor'>Acción de Tutoría</a>";	
    		}
    	}
   }
 	?>
+	</div>
     <? include("../../pie.php");?>
 </BODY>
 </HTML>

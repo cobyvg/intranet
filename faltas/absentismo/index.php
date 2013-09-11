@@ -15,17 +15,19 @@ include("../menu.php");
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h1>Faltas de Asistencia <small> Alumnos Absentistas</small></h1>
+  <h2>Faltas de Asistencia <small> Alumnos Absentistas</small></h2>
 </div>
 <br />
-<div class="well-2 well-large" style="width:350px; text-align:left;">
+<div class="container">
+<div class="row">
+<div class="span5 offset1">
+<div class="well well-large" style="text-align:left;">
 <?
 	  if(stristr($_SESSION['cargo'],'1') == TRUE)
 	  {
 ?>
 <form enctype='multipart/form-data' action='lista.php' method='post'>
-<h6 align="center"> Selección de Mes y Número de Faltas.</h6>
-<hr>
+<legend> Consulta por Mes y Número de Faltas.</legend>
 		
                     <label>Mes: <br />
                     <select name='mes' type='text' class="input-large">
@@ -52,11 +54,12 @@ include("../menu.php");
 <?
 	  }
 ?>
-<br />
+</div>
+</div>
+<div class="span5">
+<div class="well well-large" style="text-align:left;">
 <form enctype='multipart/form-data' action='index2.php' method='post'>
-<br />
-<h6 align="center"> Consulta de Absentismo por mes.</h6>
-<hr>
+<legend> Consulta de Absentismo por mes.</legend>
                     <label>Mes<br />
                     <select name='mes' type='text' class="input-large">
                     <option>Septiembre</option>
@@ -74,6 +77,8 @@ include("../menu.php");
 <br />
                     <INPUT name="submit5" type="submit" value="Ir a la Página de Informes" class="btn btn-primary"> 
 </form>
+</div>
+</div>
 </div>
 </div>
 </body>

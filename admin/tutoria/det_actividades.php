@@ -10,7 +10,22 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 if(!$tutor){$tutor = $_SESSION['profi'];}
 ?>
-<? if(stristr($_SESSION['cargo'],'1') == TRUE and strstr($tutor," ==> ")==TRUE){
+<? 
+include("../../menu.php");
+include("menu.php");
+  
+if (isset($_POST['id'])) {
+	$id = $_POST['id'];
+} 
+elseif (isset($_GET['id'])) {
+	$id = $_GET['id'];
+} 
+else
+{
+$id="";
+}
+
+if(stristr($_SESSION['cargo'],'1') == TRUE and strstr($tutor," ==> ")==TRUE){
 $tr = explode(" ==> ",$tutor);
 $tutor = $tr[0];
 $tr1 = explode("-",$tr[1]);
@@ -24,8 +39,6 @@ $SQL = "select nivel, grupo from FTUTORES where tutor = '$tutor'";
 	$nivel = $row[0];
 	$grupo = $row[1];
 }
-include("../../menu.php");
-include("menu.php");
 ?>
   <div align="center">
   <h3>Información completa de Actividad Extraescolar

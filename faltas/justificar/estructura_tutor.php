@@ -34,7 +34,7 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in" st
           </div></div>';
 		}
 
-		        echo '<div class="well-2 well-large" style="margin-left:15px;">'; 
+		        echo '<div class="well-trasparent well-large">'; 
 		        include("cal.php"); 
 ?>                   
                    </center>  
@@ -81,7 +81,7 @@ echo "</td></tr></table><br />";
 		$nivel = $filatutor[0];
 		$grupo = $filatutor[1]; 
 		echo "<h4> $profesor: &nbsp;<span style='font-size:1.0em; color:#08c'>$nivel-$grupo</span></h4><br />";
-		echo '<div class="well-2 well-large">';
+		echo '<div class="well well-large">';
 // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
 		$nivelgrupo0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC FROM FALUMNOS WHERE NIVEL = '$nivel' and GRUPO = '$grupo' order by NC asc");
 		$todos = mysql_num_rows($nivelgrupo0);

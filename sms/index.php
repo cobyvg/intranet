@@ -15,6 +15,20 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 include("../menu.php");
+if (isset($_GET['submit0'])) {$submit0 = $_GET['submit0'];}elseif (isset($_POST['submit0'])) {$submit0 = $_POST['submit0'];}else{$submit0="";}
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
+if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['text'])) {$text = $_GET['text'];}elseif (isset($_POST['text'])) {$text = $_POST['text'];}else{$text="";}
+if (isset($_GET['causa'])) {$causa = $_GET['causa'];}elseif (isset($_POST['causa'])) {$causa = $_POST['causa'];}else{$causa="";}
+if (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
+if (isset($_GET['login'])) {$login = $_GET['login'];}elseif (isset($_POST['login'])) {$login = $_POST['login'];}else{$login="";}
+if (isset($_GET['password'])) {$password = $_GET['password'];}elseif (isset($_POST['password'])) {$password = $_POST['password'];}else{$password="";}
+if (isset($_GET['extid'])) {$extid = $_GET['extid'];}elseif (isset($_POST['extid'])) {$extid = $_POST['extid'];}else{$extid="";}
+if (isset($_GET['tpoa'])) {$tpoa = $_GET['tpoa'];}elseif (isset($_POST['tpoa'])) {$tpoa = $_POST['tpoa'];}else{$tpoa="";}
+if (isset($_GET['mobile'])) {$mobile = $_GET['mobile'];}elseif (isset($_POST['mobile'])) {$mobile = $_POST['mobile'];}else{$mobile="";}
+if (isset($_GET['messageQty'])) {$messageQty = $_GET['messageQty'];}elseif (isset($_POST['messageQty'])) {$messageQty = $_POST['messageQty'];}else{$messageQty="";}
+if (isset($_GET['messageType'])) {$messageType = $_GET['messageType'];}elseif (isset($_POST['messageType'])) {$messageType = $_POST['messageType'];}else{$messageType="";}
+
 ?>
 <script>
 function contar(form,name) {
@@ -28,9 +42,10 @@ function contar(form,name) {
   }
 }
 </script> 
+<br />
  <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>SMS <small> Envío de mensajes</small></h1>
+  <div class="page-header" align="center">
+  <h2>SMS <small> Envío de mensajes</small></h2>
 </div>
 <br />
 
@@ -156,7 +171,7 @@ else
 	echo '<div align="center" style="width:400px;">';	
 	}
 ?>
-<div class="well-2 well-large" align="left">
+<div class="well well-large" align="left">
 <form method="post" action="index.php" name="nameform" class="form-vertical">
 
       <? if(stristr($_SESSION['cargo'],'2') == TRUE){} else{ ?>
@@ -167,7 +182,7 @@ else
           <? nivel(); ?>
         </select><? }?>
       <? if(stristr($_SESSION['cargo'],'2') == TRUE){} else{ ?>
-      &nbsp;&nbsp;&nbsp;Grupo: <select name="grupo" onChange="submit()" class="input-mini">
+      &nbsp;&nbsp;&nbsp;Grupo: <select name="grupo" onChange="submit()" class="input-small">
           <option><? echo $grupo;
 // Si queremos que aparezcan los alumnos de un Nivel, y no sólo los de un grupo, descomentar lo siguiente.
           
@@ -175,16 +190,14 @@ else
 //          	$grup=" and grupo = '$grupo'";
 //          }
           ?></option>
-          <? grupo($nivel);
-          if ($strlen) {
-          	
-          }
+          <? 
+          grupo($nivel);
           ?>
         </select>
 		</label>
 		<? }?>  
           	<label>Causa<br />
-	<select name="causa" class="input-large">
+	<select name="causa" class="input-block-level">
  <? if(stristr($_SESSION['cargo'],'8') == TRUE){?>
 		    <option><? echo $causa; ?></option>
 		    <option>Orientación académica y profesional</option>
@@ -209,8 +222,8 @@ else
 <?
 if(empty($text)){$text = "";}
 echo "<label>Texto del mensaje<br />
-<TEXTAREA name='text' class='input-xlarge' rows='4'  onkeydown=\"contar('nameform','text')\" onkeyup=\"contar('nameform','text')\">$text</TEXTAREA></label><br />
-		<p class='help-block'>Caracteres restantes:&nbsp; <INPUT name=result value=160 class='input-mini' readonly='true'></p>";
+<TEXTAREA name='text' class='input-block-level' rows='4'  onkeydown=\"contar('nameform','text')\" onkeyup=\"contar('nameform','text')\">$text</TEXTAREA></label><br />
+		<p class='help-block'>Caracteres restantes:&nbsp; <INPUT name=result value=160 class='input-small' readonly='true'></p>";
 $sms_n = mysql_query("select max(id) from sms");
 $n_sms =mysql_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
@@ -219,7 +232,7 @@ $extid = $n_sms[0]+1;
       	<input name="login" type="hidden" value="<?  echo $usuario_smstrend;?>" />
         <input name="password" type="hidden" value="<?  echo $clave_smstrend;?>"  />
         <input name="extid" type="hidden" value="<? echo $extid;?>" />
-        <input name="tpoa" type="hidden" value="IMonterroso" />
+        <input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" />
         <input name="messageQty" type="hidden" value="GOLD" />
         <input name="messageType" type="hidden" value="PLUS" />
         <br /><input type="submit" name="submit0" value="Enviar SMS" class="btn btn-primary"/>
@@ -230,10 +243,10 @@ $extid = $n_sms[0]+1;
 		?>
 </div>
 </div>
-<div class="span3 pull-left">
+<div class="well span3 pull-left">
+<legend>Alumnos</legend>
         <?
-  		echo '<p class="lead">Alumnos<br />
-		<SELECT  name=nombre[] multiple=multiple style="padding:15px; width:100%;height:450px;">';
+  		echo '<SELECT  name=nombre[] multiple=multiple style="padding:15px; width:100%;height:450px;">';
   		if ($nivel=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE NIVEL like '$nivel%' and grupo = '$grupo'";}
   $alumno = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $alumno_sel order by APELLIDOS asc");
   

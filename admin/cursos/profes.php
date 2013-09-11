@@ -13,11 +13,14 @@ $profesor = $_SESSION['profi'];
 ?>
 <?php
 include("../../menu.php");
+if (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];} elseif (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];} else{$profeso="";}
+
 $profe = explode(", ",$profeso);
 ?>
+<br />
 <div align=center>
-  <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Horario del Profesor <small><br /> <? echo "$profe[1] $profe[0]";?></small></h1>
+  <div class="page-header" align="center">
+  <h2>Horario del Profesor <small><br /> <? echo "$profe[1] $profe[0]";?></small></h2>
 </div>
 </div>
 
@@ -41,14 +44,14 @@ $profe = explode(", ",$profeso);
 </div></th>
   </tr>
 <?php
-   
+  $dia=""; 
   
 
 // Días de la semana 
 $a=array(1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 foreach($a as $hora => $nombre) 
 {
-echo "<tr><th>$nombre</th>";
+echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
 for($i=1;$i<6;$i++) 
 {
 // Asignaturas del Curso en un día

@@ -18,11 +18,12 @@ exit;
 <?
 include("../../menu.php");
 ?>
-<div align="center">
-<h2>Distribución de los Alumnos TIC.</h2>
+ <br />
+   <div align=center>
+  <div class="page-header" align="center">
+  <h2>Administración <small> Distribución de los Alumnos TIC</small></h2>
+</div>
 <br />
-<br />
-<div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <? 
 // Creación de tabla temporal.
 mysql_query("CREATE TABLE IF NOT EXISTS `AsignacionMesasTICtmp` (
@@ -161,9 +162,8 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 Los Ordenadores TIC han sido asignados correctamente a los Alumnos.
 </div></div><br />';
 ?>
-<br />
 <div align="center">
-<input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" class="btn btn-inverse" />
+<input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" class="btn btn-success" />
 </div>
 </div>
 </body>

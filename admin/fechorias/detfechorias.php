@@ -11,11 +11,30 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $tutor = $_SESSION['profi'];
 ?>
 <?php
- 
+//include("../../funciones.php");
+//variables();
 include("../../menu.php");
 include("menu.php");
 if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}
 if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
+if (isset($_POST['expulsion'])) { $expulsion = $_POST['expulsion']; }
+if (isset($_POST['inicio'])) { $inicio = $_POST['inicio']; }
+if (isset($_POST['fin'])) { $fin = $_POST['fin']; }
+if (isset($_POST['mens_movil'])) { $mens_movil = $_POST['mens_movil']; }
+if (isset($_POST['submit'])) { $submit = $_POST['submit']; }
+if (isset($_POST['convivencia'])) { $convivencia = $_POST['convivencia']; }
+if (isset($_POST['horas'])) { $horas = $_POST['horas']; }
+if (isset($_POST['fechainicio'])) { $fechainicio = $_POST['fechainicio']; }
+if (isset($_POST['fechafin'])) { $fechafin = $_POST['fechafin']; }
+if (isset($_POST['tareas'])) { $tareas = $_POST['tareas']; }
+if (isset($_POST['imprimir4'])) { $imprimir4 = $_POST['imprimir4']; }
+if (isset($_POST['imprimir'])) { $imprimir = $_POST['imprimir']; }
+if (isset($_POST['imprimir5'])) { $imprimir5 = $_POST['imprimir5']; }
+if (isset($_POST['imprimir2'])) { $imprimir2 = $_POST['imprimir2']; }
+if (isset($_POST['imprimir3'])) { $imprimir3 = $_POST['imprimir3']; }
+if (isset($_POST['inicio_aula'])) { $inicio_aula = $_POST['inicio_aula']; }
+if (isset($_POST['fin_aula'])) { $fin_aula = $_POST['fin_aula']; }
+if (isset($_POST['convivencia'])) { $convivencia = $_POST['convivencia']; }
 
 include("expulsiones.php");
 if (strlen($mensaje)>"0") {
@@ -67,7 +86,7 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.niv
 ?>
 <div aligna="center">
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Informe personal del Problema</small></h1>
+  <h2>Problemas de Convivencia <small> Informe personal del Problema</small></h2>
     <h3 align="center" style="color:#08c;">
   <? echo "$nombre $apellidos ($nivel-$grupo)";?>
   </h3>
@@ -77,13 +96,13 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.niv
 <div class="t1">
 <div class="row-fluid">
   <div class="span6 offset1">
-      <div class="well-2 well-large">
+      <div class="well well-large">
       <?
             if(file_exists("../../xml/fotos/".$claveal.".jpg")){
 echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-bottom:-145px' class='img-polaroid img-circle pull-right hidden-phone' />";
             }
             ?>
-        <table width="auto" class="table table-striped">
+        <table class="table table-striped">
           <tr>
             <th colspan="5"><h4>Información detallada sobre el Problema</h4></th>
           </tr>
@@ -179,7 +198,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
     <form id="form1" name="form1" method="post" action="detfechorias.php" class="form-inline">
       <label> N&ordm; de D&iacute;as:
         <input name="expulsion" type="text" id="textfield" <? if($expulsion > 0){echo "value=$expulsion";}?> size="2" maxlength="2" class="input input-mini" />
-      </label>
+      </label> 
       <input name="id" type="hidden" value="<? echo $id; ?>"/>
       <input name="claveal" type="hidden" value="<? echo $claveal; ?>"/>
       <hr>

@@ -12,21 +12,44 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?php
 include("../../menu.php");
+
+if (isset($_POST['nivel'])) {
+	$nivel = $_POST['nivel'];
+} 
+elseif (isset($_GET['nivel'])) {
+	$nivel = $_GET['nivel'];
+} 
+else
+{
+$nivel="";
+}
+if (isset($_POST['grupo'])) {
+	$grupo = $_POST['grupo'];
+}
+elseif (isset($_GET['grupo'])) {
+	$grupo = $_GET['grupo'];
+} 
+else
+{
+$grupo="";
+}
+
 $nombre = $nombre_al;
 ?>
-
+<br />
 <div align="center">
-<div class="page-header" style="margin-top:-15px" align="center">
-  <h1>Informe del Alumno <small> Seleccionar alumno</small></h1>
+<div class="page-header" align="center">
+  <h2>Informe del Alumno <small> Selecciona alumno</small></h2>
 </div>
 <br />
 </div>
 <div class="row-fluid">
   <div class="span3"> </div>
   <div class="span6">
-    <div class="well-2 well-large">
+    <div class="well well-large">
       <div class="row-fluid">
       <div class="span6" align="left">
+      <legend>Datos del alumno</legend>
       <form class="form-inline">
         <label>Nivel
           <select  name="nivel" onChange="submit()" class="input-mini">
@@ -89,30 +112,31 @@ echo "<option>${a.$i}</option>";
         </div>
         </div>
         <div class="span6" align="left">
-          <h4>OPCIONES DEL INFORME</h4>
+          <legend>Opciones del Informe</legend>
           <br />
           <?    if ($mod_faltas) {?>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" checked name="faltas" value="faltas">
             Resumen de Faltas de Asistencia</label>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" unchecked name="faltasd" value="faltasd">
             Faltas de Asistencia Detalladas</label>
           <? }?>
+          <label class="checkbox">
           <input type="checkbox" checked name="fechorias" value="fechorias">
           Problemas de Convivencia
           </label>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" unchecked name="tutoria" value="tutoria">
             Informes de Tutoría</label>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" unchecked name="notas" value="notas">
             Notas de Evaluación</label>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" unchecked name="act_tutoria" value="act_tutoria">
             Acciones de Tutoría</label>
           <?    if ($mod_horario) {?>
-          <label>
+          <label class="checkbox">
             <input type="checkbox" unchecked name="horarios" value="horarios">
             Horario del Alumno</label>
           <?}?>
@@ -120,7 +144,7 @@ echo "<option>${a.$i}</option>";
         </div>
 	<input type="hidden" name="nivel" value="<? echo $nivel;?>">
 <input type="hidden" name="grupo" value="<? echo $grupo?>">
-        <input name='submit1' type='submit' value='Ver informe del alumno' class="btn btn-primary">
+        <div align="center"><input name='submit1' type='submit' value='Ver informe del alumno' class="btn btn-primary"></div>
       </form>
     </div>
   </div>

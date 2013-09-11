@@ -13,7 +13,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 //Conecxión con la base de datos.
  
 include("../../menu.php");
-	$AUXSQL == "";
+if (isset($_GET['departamento'])) {$departamento = $_GET['departamento'];}elseif (isset($_POST['departamento'])) {$departamento = $_POST['departamento'];}else{$departamento="";}
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
+
+$AUXSQL = "";
   if  (TRIM("$departamento")=="")
     {
     $AUXSQL .= " AND 1=1 ";
@@ -24,9 +27,10 @@ include("../../menu.php");
     }
 // Base de datos
 ?>
+<br />
 <div align="center">
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Libros de Texto <small> Búsqueda de textos</small></h1>
+<div class="page-header">
+  <h2>Libros de Texto <small> Búsqueda de textos</small></h2>
 </div>
 <?
 	print "<h3>$nivel</h3><br />"; 
@@ -34,7 +38,7 @@ $textos = mysql_query("SELECT distinct Departamento, Asignatura, Autor, Titulo, 
    if ($row = mysql_fetch_array($textos))
    {
 
-	echo "<br /><table class='table table-striped' style='width:auto'>
+	echo "<br /><table class='table table-striped' style='width:90%'>
   <tr> 
     
     <th>DEPARTAMENTO</th>

@@ -1,9 +1,9 @@
 <br />
-<div class="well-2 well-small" style="width:980px;">
+<div class="well well-small no_imprimir" style="width:980px;">
 
 <form action="consultas_bach.php" method="post" name="form2">
 <h4>Selecciona Nivel&nbsp;
-<select maxlength="12" name="curso" id="curso" onChange="desactivaOpcion();submit()">
+<select maxlength="12" name="curso" id="curso" onChange="submit()">
 	<option><? echo $curso;?></option>
 	<option>1BACH</option>
 	<option>2BACH</option>
@@ -67,21 +67,8 @@ echo ">&nbsp;&nbsp;";
 		</td>
 		</tr>
 		<tr>	
-		<td><label>Promoción <select name="promocion" style="width:120px;">
-		<?php
-		if ($promocion) {
-			echo "<option>$promocion</option>";
-		}
-		?>
-			<option></option>
-			<option>SI</option>
-			<option>NO</option>
-		<? if ($n_curso=="1") {?>
-			<option>3/4</option>
-			<? }?>
-			
-		</select></td>
-		<td></td>
+		
+		
 		
 		<td><label>Modalidad <select name="itinerari" style="width:50px;">
 		<?php
@@ -93,9 +80,7 @@ echo ">&nbsp;&nbsp;";
 			<option>1</option>
 			<option>2</option>
 		</select></td>
-	</tr>
-	<tr>
-		<td><label>Optativas Modal. <select name="optativ" style="width:150px;">
+<td><label>Optativas Modal. <select name="optativ" style="width:150px;">
 		<?php
 		if ($optativ) {
 			echo "<option>$optativ</option>";
@@ -111,7 +96,78 @@ echo ">&nbsp;&nbsp;";
 
 			
 		?>	
-		</select></td>		
+		</select></td>
+		<td>
+<? if($curso=="2BACH"){ ?>
+<label>Otras Optativas <select name="optativ2" style="width:150px;">
+		<?php
+
+
+		if ($optativ2) {
+			foreach(${opt23} as $key0=>$val0){
+			$n_opt2+=1;
+			  if($n_opt2==$optativ2){
+			echo '<option value="'.$n_opt2.'">'.$val0.'</option>';
+		}
+
+		}
+		}
+		?>
+			<option></option>
+		<?
+$n_opt2="";
+		for ($i = 1; $i < 11; $i++) {
+			foreach(${opt23} as $key=>$val){
+			$n_opt2+=1;
+			echo '<option value="'.$n_opt2.'">'.$val.'</option>';
+		}			
+		}
+
+			
+		?>	
+		</select><? }
+else{
+	?>
+	<label>Idioma 1 <select name="idiom1" style="width:100px;">
+		<?php
+		if ($idiom1) {
+			echo "<option>$idiom1</option>";
+		}
+		?>
+			<option></option>
+			<option>Inglés</option>
+			<option>Francés</option>
+		</select>
+&nbsp;&nbsp;&nbsp;
+	<label style="display:inline"">Idioma 2 <select name="idiom2" style="width:100px;">
+		<?php
+		if ($idiom2) {
+			echo "<option>$idiom2</option>";
+		}
+		?>
+			<option></option>
+			<option>Alemán</option>
+			<option>Francés</option>
+			<option>Alemán</option>
+		</select>
+<? }
+		?></td>		
+	</tr>
+	<tr>
+<td><label>Promoción <select name="promocion" style="width:120px;">
+		<?php
+		if ($promocion) {
+			echo "<option>$promocion</option>";
+		}
+		?>
+			<option></option>
+			<option>SI</option>
+			<option>NO</option>
+		<? if ($n_curso=="1") {?>
+			<option>3/4</option>
+			<? }?>
+			
+		</select></td>	
 		<td><label>Grupo de Origen <select name="letra_grup" style="width:50px;">
 		<?php
 		if ($letra_grup) {
@@ -181,13 +237,43 @@ echo ">&nbsp;&nbsp;";
 		?>
 		<option></option>
 		<?php 
-		$coleg=mysql_query("select distinct colegio from matriculas order by colegio");
+		$coleg=mysql_query("select distinct colegio from matriculas_bach order by colegio");
 		while ($cole=mysql_fetch_array($coleg)) {
 			echo "<option>$cole[0]</option>";
 		}
 		?>
 		</select></td>
 		
+	</tr>
+		<tr>
+	<td colspan=4>
+	<? if ($curso=="2BACH") {		
+?>
+<label align=center>Idioma 1 <select name="idiom1" style="width:100px;">
+		<?php
+		if ($idiom1) {
+			echo "<option>$idiom1</option>";
+		}
+		?>
+			<option></option>
+			<option>Inglés</option>
+			<option>Francés</option>
+		</select>
+&nbsp;&nbsp;&nbsp;
+<? } ?>
+
+	<label align=center style="display:inline">Problemas de Convivencia <select name="fechori">
+		<? if ($fechori) {
+			echo "<option>$fechori</option>";
+		}
+		?>
+			<option></option>
+			<option>Sin problemas</option>
+			<option>1 --> 5</option>
+			<option>5 --> 15</option>
+			<option>15 --> 1000</option>
+		</select></label>
+		</td>
 	</tr>
 </table>
 <input type="submit" name="consulta" value="Ver matrículas" alt="Introducir" class="btn btn-primary" />

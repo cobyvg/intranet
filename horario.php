@@ -1,30 +1,22 @@
-<?
-echo "<p class='lead'>Horario</p>";
-echo "<table  class='table table-condensed table-bordered table-striped' style='width:100%;'><tr>";
-?>
-<td></td>
-<td valign="middle" align="center">
-<div align="center"><span align="center" class="badge badge-info">L</span></div>
-</td>
-<td valign="middle" align="center">
-<div align="center"><span align="center" class="badge badge-info">M</span></div>
-</td>
-<td valign="middle" align="center">
-<div align="center"><span align="center" class="badge badge-info">X</span></div>
-</td>
-<td valign="middle" align="center">
-<div align="center"><span align="center" class="badge badge-info">J</span></div>
-</td>
-<td valign="middle" align="center">
-<div align="center"><span align="center" class="badge badge-info">V</span></div>
-</div></td>
-</tr>
+<legend><i class="icon icon-time"></i> Horario</legend>
+<table class="table table-bordered table-condensed table-striped table-centered">
+<thead>
+  <tr>
+	<th width="20">&nbsp;</th>
+	<th width="20">L</th>
+	<th width="20">M</th>
+	<th width="20">X</th>
+	<th width="20">J</th>
+	<th width="20">V</th>
+  </tr>
+</thead>
+<tbody>
 <?php	
 // Horas del día
 $todas_horas = array (1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
 foreach ( $todas_horas as $n_hora => $nombre ) {	
-				echo "<tr><td  valign='middle' align='center'  style='color:#555; font-weight:bold;'>".$nombre."ª</td>";
-
+echo '<tr><th>'.$nombre.'ª</th>';
+	
 	//Días
 	for($z = 1; $z < 6; $z ++) {
 
@@ -43,11 +35,11 @@ foreach ( $todas_horas as $n_hora => $nombre ) {
 			$rowasignatur1 [1] = "CON";
 		}
 		if (is_numeric ( $rowasignatur1 [0] ) and ! ($rowasignatur1 [1] == "GU")) {
-			echo "<h5 class='badge badge-inverse'>" . $rowasignatur1 [1] . "</h5><br />";
+			echo "<div class='badge badge-inverse'>" . $rowasignatur1 [1] . "</div><br />";
 		}
 		
 		if (! (is_numeric ( $rowasignatur1 [0] )) and ! ($rowasignatur1 [1] == "GU")) {
-			echo "<h5 class='badge'>" . $rowasignatur1 [1] . "</h5><br />";
+			echo "<h5 class='badge badge-success'>" . $rowasignatur1 [1] . "</h5><br />";
 		}
 
 
@@ -59,7 +51,7 @@ foreach ( $todas_horas as $n_hora => $nombre ) {
 		while ( $rowasignaturas1 = mysql_fetch_array ( $asignaturas1 ) ) {
 			$grupo = $rowasignaturas1 [1] . "-" . $rowasignaturas1 [2];
 			if (! ($grupo == "TUT")) {
-				echo "<a href='http://$dominio/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=1&asignatura=$rowasignatur1[0]' style='font-size:0.8em'>";
+				echo "<a href='http://$dominio/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]' style='font-size:0.8em'>";
 			}
 			if (is_numeric ( substr ( $grupo, 0, 1 ) )) {
 				echo $grupo . "<br />";
@@ -76,6 +68,7 @@ foreach ( $todas_horas as $n_hora => $nombre ) {
 	?></tr><?
 }
 ?>
+</tbody>
 </table>
 
 

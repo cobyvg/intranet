@@ -38,9 +38,10 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 </div>');
       }  
 ?>
+<br />
 <div align="center">
-<div class="page-header" align="center" style="margin-top:-15px;">
-  <h1>Administración <small> Importación masiva de fotos</small></h1>
+<div class="page-header" align="center">
+  <h2>Administración <small> Importación masiva de fotos</small></h2>
 </div>
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">

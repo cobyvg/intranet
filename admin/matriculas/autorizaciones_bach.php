@@ -25,7 +25,7 @@ NOTA: Los padres y madres son libres de firmar,  o no,  esta autorización.";
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
 	#Cuerpo.
-	$MiPDF->Image ( '../../imag/encabezado.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 20 );
 	$MiPDF->Cell(168,5,$titulo4,0,0,'C');
 	$MiPDF->SetFont ( 'Times', '', 10  );	
@@ -76,7 +76,7 @@ if (substr($religion, 0, 1)=="R") {
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
 	#Cuerpo.
-	$MiPDF->Image ( '../../imag/encabezado_junta.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado_junta.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 20 );
 	$MiPDF->Cell(168,5,$titulo_religion,0,0,'C');
 	$MiPDF->SetFont ( 'Times', '', 10  );	
@@ -191,7 +191,7 @@ NOMBRE Y  APELLIDOS  DE SUS HIJOS/AS  Y CURSO EN QUE SE MATRICULAN EN '.$c_escol
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
 	#Cuerpo.
-	$MiPDF->Image ( '../../imag/ampa.jpg', 8, 8, 170, '', 'jpg' );
+	$MiPDF->Image ( '../../img/ampa.jpg', 8, 8, 170, '', 'jpg' );
 	$MiPDF->Ln ( 20 );
 	$MiPDF->Cell(168,8,"ASOCIACIÓN DE MADRES Y PADRES BACCALAUREATUS",1,1,'C');
 	$MiPDF->SetFont ( 'Times', '', 10  );	

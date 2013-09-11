@@ -4,7 +4,7 @@ $num_au = mysql_query("SELECT profesor, id, tareas from ausencias where  date(in
 if(mysql_num_rows($num_au)>0){
 ?>
 <div class='well'>
-<p class="lead">Profesores de Baja</p>
+<legend><i class="icon icon-user"> </i> Profesores de Baja</legend>
 <ul class="unstyled">
     <?
     $hoy = date('Y')."-".date('m')."-".date('d');
@@ -36,6 +36,7 @@ if(mysql_num_rows($num_au)>0){
 				}
 				?>
 </ul>
+<br />
 <a	href="admin/ausencias/diario.php" class="btn btn-primary">Profesores Ausentes hoy</a>
 </div>
 <?

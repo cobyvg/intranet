@@ -13,6 +13,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 <?
 include("../../menu.php");
+
+if (isset($_GET['n_dia'])) {$n_dia = $_GET['n_dia'];}elseif (isset($_POST['n_dia'])) {$n_dia = $_POST['n_dia'];}else{$n_dia="";}
+if (isset($_GET['hora'])) {$hora = $_GET['hora'];}elseif (isset($_POST['hora'])) {$hora = $_POST['hora'];}else{$hora="";}
+if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];}else{$profeso="";}
+if (isset($_GET['h_profe'])) {$h_profe = $_GET['h_profe'];}elseif (isset($_POST['h_profe'])) {$h_profe = $_POST['h_profe'];}else{$h_profe="";}
+if (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];}elseif (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];}else{$borrar="";}
+if (isset($_GET['submit'])) {$submit = $_GET['submit'];}elseif (isset($_POST['submit'])) {$submit = $_POST['submit'];}else{$submit="";}
+if (isset($_GET['sustituido'])) {$sustituido = $_GET['sustituido'];}elseif (isset($_POST['sustituido'])) {$sustituido = $_POST['sustituido'];}else{$sustituido="";}
+if (isset($_GET['historico'])) {$historico = $_GET['historico'];}elseif (isset($_POST['historico'])) {$historico = $_POST['historico'];}else{$historico="";}
+
+
 if ($n_dia == '1') {$nombre_dia = 'Lunes';}
 if ($n_dia == '2') {$nombre_dia = 'Martes';}
 if ($n_dia == '3') {$nombre_dia = 'Miércoles';}
@@ -39,9 +50,13 @@ if ($n_dia > $numerodiasemana) {
  	$g_fecha = date("Y-m-$g_dia");
  	$fecha_sp = formatea_fecha($g_fecha);
 ?>
-<div align=center>
-<h2>Registro de Guardias</h2>
-  <h3><span style="color:#9d261d;"><? echo $nombre_dia.", ".$fecha_sp.", $hora"."ª hora";?></h3><br />
+<br />
+<div align="center">
+<div class="page-header" align="center">
+  <h2>Guardias de Aula <small> Registro de guardias</small></h2>
+</div>
+
+  <h3 class="text-info"><? echo $nombre_dia.", ".$fecha_sp.", $hora"."ª hora";?></h3><br />
 
 <?
 if ($borrar=='1') {
@@ -54,7 +69,7 @@ La sustitución ha sido borrada correctamente.
 
 $sql = "SHOW TABLES FROM $db";
 $result = mysql_query($sql);
-
+$guardia="";
 while ($row = mysql_fetch_row($result)) {
     $guardia.=$row[0].";";
 }
@@ -75,7 +90,7 @@ if ($submit) {
 	
 	if (!(empty($sustituido))) {
 		
-					if ($dif2 > '1') {
+					if (isset($dif2) and $dif2 > '1') {
 						echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
@@ -153,8 +168,8 @@ No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desp
 $fech_hoy = date("Y-m-d");
 $hoy0 = mysql_query("select id, profesor, profe_aula, hora, fecha from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha'");
 if (mysql_num_rows($hoy0) > 0) {
-	echo '<div class="well-2 well-large" style="width:600px;">';
-	echo "<h3>Sustituciones registradas para la Guardia de hoy</h3><br />";
+	echo '<div class="well-transparent well-large" style="width:600px;">';
+	echo "<legend class='text-warning'>Sustituciones registradas para la Guardia de hoy</legend>";
 	echo '<table class="table table-striped" align=center style="">';
 	echo "<tr><th>Profesor de Guardia</th><th>Profesor ausente</th></tr>";
 	while ($hoy = mysql_fetch_array($hoy0)) {
@@ -163,8 +178,8 @@ if (mysql_num_rows($hoy0) > 0) {
 	echo "</table></div>";
 }
 ?>
-<div class="well-2 well-large" style="width:600px;">
-<h3>Sustituciones realizadas durante la <? echo "<span style=''>".$hora."ª</span>";?> hora del <? echo "<span style=''>$nombre_dia</span>";?></h3><br />
+<div class="well-transparent well-large" style="width:600px;">
+<legend class='text-warning'>Sustituciones realizadas durante la <? echo "<span style=''>".$hora."ª</span>";?> hora del <? echo "<span style=''>$nombre_dia</span>";?></legend>
 <div class="row-fluid" align="center">
 <div class="span6">
 <?
@@ -186,10 +201,10 @@ echo "</table>";
 ?>
 </div>
 <div class="span6">
-<div class="well well-large">
-<label>Selecciona el Profesor que vas a cubrir
+<div class="well-transparent well-large">
 <form action="index.php" method="POST">
-<select name="sustituido" class="span10">
+<label>Selecciona el Profesor que vas a cubrir
+<select name="sustituido" class="span12">
 <option></option>
 <?
 $sust0 = mysql_query("select distinct prof from horw where dia = '$n_dia' and hora = '$hora' and a_asig not like 'GU' and a_grupo not like '' order by prof");
@@ -219,10 +234,10 @@ if ($historico == '1') {
 		$extra1 = " a ".$hora."ª hora del ".$nombre_dia;		
 	}
 	echo '<a name="marca"></a>
-<div class="well-2 well-large" style="width:600px;">';
+<div class="well-transparent well-large" style="width:600px;">';
 $h_hoy0 = mysql_query("select id, profesor, profe_aula, hora, fecha_guardia from guardias where profesor = '$h_profe' $extra");
 if (mysql_num_rows($h_hoy0) > 0) {
-	echo "<h3>Sustituciones realizadas $extra1:<br /><span style=''>$h_profe</span></h3><br />";
+	echo "<legend class='text-warning'>Sustituciones realizadas $extra1:<br /><span style=''>$h_profe</span></legend>";
 	echo '<table class="table table-striped" align="center" style="width:600px;">';
 	echo "<tr><th>Profesor Ausente</th><th>Fecha de la Guardia</th><th></th></tr>";
 	while ($h_hoy = mysql_fetch_array($h_hoy0)) {

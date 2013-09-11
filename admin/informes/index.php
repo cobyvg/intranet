@@ -18,39 +18,37 @@ include_once("../../funciones.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
     <meta name="author" content="">  
-  
-    <!-- Le styles -->  
-
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.css" rel="stylesheet"> 
-    <?
-	if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros_index.css" rel="stylesheet">  
-        <?
-	}
-		else{
-		?>
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">     
-        <?	
-		}
-	?>
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->  
-    <!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->  
-  
-    <!-- Le fav and touch icons -->  
-    <link rel="shortcut icon" href="http://<? echo $dominio;?>/intranet/img/favicon.ico">  
-    <link rel="apple-touch-icon" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon.png">  
-    <link rel="apple-touch-icon" sizes="72x72" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-72x72.png">  
-    <link rel="apple-touch-icon" sizes="114x114" href="http://<? echo $dominio;?>/intranet/img/apple-touch-icon-114x114.png"> 
-    <script type="text/javascript"
-	src="http://<? echo $dominio;?>/intranet/recursos/js/buscar_alumnos.js"></script>  
+      <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet">  
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css"> 
   </head>  
   <body>
 <div style="width:900px;margin:auto;">
      <?php
+     
+if(isset($_GET['todos'])){$todos = $_GET['todos'];}
+if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
+if(isset($_GET['nivel'])){$nivel = $_GET['nivel'];}else{$nivel = $_POST['nivel'];}
+if(isset($_GET['grupo'])){$grupo = $_GET['grupo'];}else{$grupo = $_POST['grupo'];}
+if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
+if(isset($_POST['nombre'])){$nombre = $_POST['nombre'];}else{ $nombre=""; }
+if(isset($_POST['fecha1'])){$fecha1 = $_POST['fecha1'];}else{ $fecha1=""; }
+if(isset($_POST['fecha2'])){$fecha2 = $_POST['fecha2'];}else{ $fecha2=""; }
+if(isset($_POST['faltas'])){$faltas = $_POST['faltas'];}else{ $faltas=""; }
+if(isset($_POST['faltasd'])){$faltasd = $_POST['faltasd'];}else{ $faltasd=""; }
+if(isset($_POST['fechorias'])){$fechorias = $_POST['fechorias'];}else{ $fechorias=""; }
+if(isset($_POST['notas'])){$notas = $_POST['notas'];}else{ $notas=""; }
+if(isset($_POST['tutoria'])){$tutoria = $_POST['tutoria'];}else{ $tutoria=""; }
+if(isset($_POST['horarios'])){$horarios = $_POST['horarios'];}else{ $horarios=""; }
+if(isset($_POST['act_tutoria'])){$act_tutoria = $_POST['act_tutoria'];}else{ $act_tutoria=""; }
+
+
+
 if (!($c_escolar==$curso_actual)) {
 $an=explode("/",$c_escolar);
 $c_db=$an[0]+1;
@@ -88,8 +86,8 @@ if (!($c_escolar==$curso_actual)) {
     mysql_select_db($db);
     		}
     echo '<div align="center">
-<div class="page-header" style="margin-top:-15px;" align="center">
-  <h1>Informe del alumno <small>'. $nombrepil.' '. $apellido.' ('.$nivel.'-'.$grupo,')</small></h1>
+<div class="page-header" align="center">
+  <h2>Informe del alumno <small>'. $nombrepil.' '. $apellido.' ('.$nivel.'-'.$grupo,')</small></h2>
 </div>
 <br />
 </div>';		
@@ -125,7 +123,7 @@ if($row2[6] > 1){  $repite = "SI";  }else{  $repite = "NO";  }
 				echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
-No hay datos del Alumno durante el Curso escolar $c_escolar.
+No hay datos del Alumno durante el Curso escolar '.$c_escolar.'. ¿Has seleccionado alg&uacute;n alumno para ver su informe?
 </div></div>';
 exit;
     }

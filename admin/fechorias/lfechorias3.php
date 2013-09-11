@@ -8,17 +8,16 @@ if ($_SESSION ['autentificado'] != '1') {
 }
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 ?>
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">    
-  <?php
+<?php
 		include ("../../menu.php");
 		include ("menu.php");
 		$datatables_activado = true;
 		?>
-<div align="center">  <?php
- echo '<div aligna="center">
+<div align="center">  
+<?php
+ echo '
 <div class="page-header" align="center">
-  <h1>Problemas de Convivencia <small> Ranking de Fechorías</small></h1>
-</div>
+  <h2>Problemas de Convivencia <small> Ranking de Fechorías</small></h2>
 </div>
 <br />';
 		
@@ -31,8 +30,7 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
     
 		echo "<div class='container'>";
 		echo '<div class="row-fluid">
-  <div class="span2"></div>
-  <div class="span10">';
+  <div class="span10 offset1">';
 		echo "<table class='table table-striped tabladatos' align='center'>";
 		$fecha1 = (date ( "d" ) . - date ( "m" ) . - date ( "Y" ));
 		echo "<thead><tr>

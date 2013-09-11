@@ -11,19 +11,23 @@ else
 session_start();
 include("../config.php");
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="iso-8859-1">
-<title>Configuración de la Intranet</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
-<meta name="author" content="">
-
-<link href="../css/bootstrap.css" rel="stylesheet">
-<? if($_SERVER ['REQUEST_URI'] == "/intranet/index0.php"){?>
-<link href="../css/otros_index.css" rel="stylesheet"><?	}	else{ ?><link href="../css/otros.css" rel="stylesheet"><?}?>
-<link href="../css/bootstrap-responsive.css" rel="stylesheet">
+<!DOCTYPE html>  
+<html lang="es">  
+  <head>  
+    <meta charset="iso-8859-1">  
+    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
+    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+      
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>
 </head>
 <body>	
 <?
@@ -295,11 +299,18 @@ mysql_query("CREATE TABLE IF NOT EXISTS `c_profes` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=213 ");
 
 // Usuario admin y conntraseña
+$ya_adm = mysql_query("select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
+if (mysql_num_rows($ya_adm)>0) {
+}
+else {
 $adm=sha1("12345678");
 mysql_query("INSERT INTO c_profes ( `pass` , `PROFESOR` , `dni`, `idea` )
 VALUES (
 '$adm', 'admin', '12345678', 'admin'
 );");
+}
+
+
 // Conserjes 
 if($num_conserje > '0')
 {
@@ -353,9 +364,15 @@ mysql_query("CREATE TABLE IF NOT EXISTS `departamentos` (
   KEY `NOMBRE` (`NOMBRE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
 
+
 // Usuario admin y conntraseña
-$adm=sha1("12345678");
+$ya_adm = mysql_query("select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
+if (mysql_num_rows($ya_adm)>0) {
+}
+else {
 mysql_query("insert into departamentos (nombre, dni, departamento, cargo, idea) values ('admin', '12345678', 'Admin', '1', 'admin')");
+}
+
 // Conserjes y Administrativos
 if($num_conserje > '0')
 {
@@ -435,34 +452,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FALTASJ` (
   KEY `claveal` (`claveal`),
   KEY `fecha` (`fecha`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
-
-// ////////////////////////////////////////////////////////
-
-//
-// Estructura de tabla para la tabla `faltastemp2`
-//
-
-mysql_query("CREATE TABLE IF NOT EXISTS `faltastemp2` (
-  `CLAVEAL` varchar(8) NOT NULL DEFAULT '',
-  `falta` char(1) DEFAULT NULL,
-  `numero` bigint(21) NOT NULL DEFAULT '0',
-  KEY `CLAVEAL` (`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
-
-// ////////////////////////////////////////////////////////
-
-//
-// Estructura de tabla para la tabla `faltastemp3`
-//
-
-mysql_query("CREATE TABLE IF NOT EXISTS `faltastemp3` (
-  `CLAVEAL` varchar(8) NOT NULL DEFAULT '',
-  `falta` char(1) DEFAULT NULL,
-  `numero` bigint(21) NOT NULL DEFAULT '0',
-  KEY `CLAVEAL` (`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
-
-// ////////////////////////////////////////////////////////
 
 //
 // Estructura de tabla para la tabla `FALUMNOS`
@@ -1486,7 +1475,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `usuario` (
 
 echo '<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />';
 
-echo '<div align="center"><div class="well-2" style="max-width:500px" align="justify">
+echo '<div align="center"><div class="well" style="max-width:500px" align="justify">
 Las Bases de datos y sus tablas han sido creadas correctamente. Ahora debes ir a la página principal y continuar con la importación de los datos de Séneca hacia la Intranet. Esto lo haces identificándote como Administrador (usuario: <em>admin</em>; Clave de acceso: <em>12345678</em>), y yendo a la página de Administración de la Intranet (en el Menú de la Izquierda).<br><br /><div align="center"><a href="http://'.$dominio.'/intranet/" class="btn btn-primary">Ir a la Página Principal</a></div>
           </div></div>';
 }

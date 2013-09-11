@@ -24,14 +24,10 @@ echo "<br /><h3>Faltas de asistencia al Centro</h3><br>";
 		  	if($rowtj[5]=="")
 		$rowtj[5]="0";
 		echo "<h4>Faltas de asistencia al Centro</h4><br />";
-		printf ("<p>Número de faltas sin justificar desde principio de curso: %s<br />", $rowt[5]);
-		printf ("Número de faltas justificadas desde principio de curso: %s</p>", $rowtj[5]);
+		printf ("<p>Número de faltas sin justificar desde principio de curso: <strong class='text-error'>%s</strong><br />", $rowt[5]);
+		printf ("Número de faltas justificadas desde principio de curso: <strong class='text-success'>%s</strong></p>", $rowtj[5]);
         } while($rowt = mysql_fetch_array($resultt) or $rowtj = mysql_fetch_array($resulttj));
         }
-	$fechasp0=explode("-",$fecha1);
-	$fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
-	$fechasp2=explode("-",$fecha2);
-	$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
   $SQLF = "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = $claveal group by FALUMNOS.APELLIDOS, FALTAS.fecha";
  // print $SQLF;
   $resultf = mysql_query($SQLF);

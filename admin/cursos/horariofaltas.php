@@ -10,9 +10,9 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?php  
-require_once('class.ezpdf.php');
+require_once('../../pdf/class.ezpdf.php');
 $pdf =& new Cezpdf('a4','landscape');
-$pdf->selectFont('./fonts/Helvetica.afm');
+$pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 
 // Días de la semana 

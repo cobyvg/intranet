@@ -12,8 +12,19 @@ $pr = $_SESSION['profi'];
 ?>
 <?
 include("../menu.php");
-echo "<div align='center'><h2>Cuaderno de Notas</h2><br />
-	 <h3>Nueva Columna</span></h3><br />";
+
+ echo "<br /><div align='center' class='page-header'>";
+$n_profe = explode(", ",$pr);
+$nombre_profe = "$n_profe[1] $n_profe[0]";
+echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small> Crear nueva columna de datos</small></h2>";
+echo "</div><br />";
+echo '<div align="center">';
+
+ foreach($_POST as $key => $val)
+	{
+		${$key} = $val;
+	}
+echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";	
 if(empty($nombre)){
 	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

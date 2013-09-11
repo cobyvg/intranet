@@ -13,10 +13,16 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");  
   ?>
-  <div align="center">
-    <h3>Selección de alumnos para la actividad</h3>
-	<br />
-    <div class="well-2 well-large" style="width:500px;"> 
+ <div align="center">
+<div class="page-header">
+  <h2>Actividades Complementarias y Extraescolares <small> Selección de alumnos</small></h2>
+</div>
+<br />
+</div>
+<div class="container-fluid">
+<div class="row-fluid">
+<div class="span4 offset4">
+    <div class="well well-large"> 
     <div align="center">         
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Alumnos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning">Desmarcarlos todos</a>
@@ -64,7 +70,7 @@ $descripcion = $datos[4];
 <input name="actividad" type="hidden" id="A" value="<? echo $actividad;?>">
 <input name="descripcion" type="hidden" id="A" value="<? echo $descripcion;?>">
 <input name="id" type="hidden" id="A" value="<? echo $id;?>">   
-<table class="table table-striped table-condensed" style="width:450px;" align="center">
+<table class="table table-striped table-condensed">
 <tr><td colspan="2"><h4><? echo "Alumnos de $nivel - $grupo";?></h4></td>
 </tr>
 
@@ -87,9 +93,13 @@ echo " $nc. $apellidos $nombre</td></tr>";
 }}
 }
 ?>
+<br />
 <button type="submit" name="submit" value="Imprimir Carta para los Padres" class="btn btn-primary">Imprimir Carta para los Padres</button>
   </FORM>
   </div>
+  </div>
+  </div>
+</div> 
   <script>
 function seleccionar_todo(){
 	for (i=0;i<document.imprime.elements.length;i++)
@@ -103,5 +113,3 @@ function deseleccionar_todo(){
 }
 </script>
 <? include("../../pie.php");?>
-  </BODY>
-</HTML>

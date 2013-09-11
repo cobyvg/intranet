@@ -24,13 +24,14 @@ else{
 }
 echo '<div align="center">';
   echo '<div class="page-header">
-  <h1>Jefaturas de los Departamentos <small> Registro de Reuniones</small></h1>
+  <h2>Jefaturas de los Departamentos <small> Registro de Reuniones</small></h1>
   <h3 style="color:#08c;">'.$departament.'</h3>
 </div>
 <br />';
 ?>
-<p class="lead" align="center">Actas que contienen la expresión<a href="#"><h6> &quot;<? echo strtoupper($expresion);?></a>&quot;</h6></p><br /><br /><?
+<p class="lead" align="center">Actas que contienen la expresión<a href="#"> &quot;<? echo $expresion;?></a>&quot;</p><br /><?
 $trozos = explode(" ",$expresion,5);
+$frase="";
 for($i=0;$i<5;$i++)
 {
 if(!(empty($trozos[$i]))){

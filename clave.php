@@ -10,6 +10,12 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
+if (isset($_POST['usuario'])) {$usuario = $_POST['usuario'];}else{$usuario="";}
+if (isset($_POST['correo'])) {$correo = $_POST['correo'];}else{$correo="";}
+if (isset($_POST['codigo2'])) {$codigo2 = $_POST['codigo2'];}else{$codigo2="";}
+if (isset($_POST['codigo3'])) {$codigo3 = $_POST['codigo3'];}else{$codigo3="";}
+if (isset($_POST['control'])) {$control = $_POST['control'];}else{$control="";}
+
 $pr = $_SESSION['profi'] ;
 if($control=="1")
   {
@@ -23,15 +29,16 @@ else {
 <?
 include("menu.php");
 ?>
- <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Cambio de la clave de acceso</small></h1>
+<br />
+ <div class="page-header" align="center">
+  <h2>Cambio de la clave de acceso</small></h2>
 </div>
 <br />
-<div align="center" class="well-2 well-large" style="width:540px;margin:auto">
+<div align="center" class="well well-large" style="width:540px;margin:auto">
 	<br />
 <?	
 if ($codigo2 === $codigo3 and !(empty($codigo2)) and !(empty($correo))) 
-{
+{	
 $cod_sha = sha1($codigo2);
 $contra = "update c_profes set   pass = '$cod_sha', correo='$correo' where profesor = '$pr' ";
 mysql_query($contra) or die('
@@ -44,7 +51,7 @@ Se ha producido un error:<br />No se ha podido cambiar la contraseña en la Base 
 echo '
     <div align="center"><div class="alert alert-success alert-block fade in" style="max-width:450px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-La Contraseña se ha modificado en la Base de Datos. <br />La nueva clave para entrar es <span class="label label-warning">'.$codigo2.'</span>.
+La Contraseña se ha modificado en la Base de Datos. <br />La nueva clave para entrar es <span class="badge badge-warning">'.$codigo2.'</span>.
 Puedes volver a cambiarla en cualquier momento. Y si te olvidas de la misma, ponte en contacto para volver al principio.
 			</div>
           </div> ';
@@ -76,7 +83,8 @@ echo "</body></html>";
   }
   else
   {
-  	include("menu.php")
+  	include("menu.php");
+  	
 ?>
 <script type="text/javascript">
 <!--
@@ -94,11 +102,12 @@ function validatePass(campo) {
 }
 //-->
 </script>
- <div class="page-header" align="center" style="margin-top:-15px">
-  <h1>Cambio de la clave de acceso</h1>
+ <br />
+ <div class="page-header" align="center">
+  <h2>Cambio de la clave de acceso</h1>
 </div>
 <br />
-<div align="center" class="well-2 well-large" style="width:540px;margin:auto">
+<div align="center" class="well well-large" style="width:540px;margin:auto">
 
  <?
   $dat=mysql_query("select * from c_profes where profesor='$pr'");

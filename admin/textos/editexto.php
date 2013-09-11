@@ -1,5 +1,8 @@
 <?
-if($enviar or $insertar){
+if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
+if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
+
+if(isset($_POST['enviar']) or isset($_POST['insertar'])){
 include("edtextos.php");
 exit;
 }
@@ -17,10 +20,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 echo '<div align="center">';		
 ?>
-<div class="page-header" style="margin-top:-15px;">
-  <h1>Libros de Texto <small> Edición de libros</small></h1>
-</div>
 <br />
+<div class="page-header">
+  <h2>Libros de Texto <small> Edición de libros</small></h2>
+</div>
 <?
 echo "<h3>
 			Modificar Datos de un Libro de Texto</h3><br />";
@@ -31,10 +34,11 @@ echo "<h3>
 	$id = $row[6];
 	$nivel = $row[8];
 ?>
-<div class="well-2 well-large" style="width:450px;" align="left">
+<div class="well well-large" style="width:450px;" align="left">
   <p class="lead">Selecciona el Curso y los Grupos</p>
 <hr>
-  		<form method="post" action="editexto.php" style="padding:0px; margin:0px;">
+  		<form method="post" action="editexto.php" 
+  		echo $nivel;>
           <label>
   Nivel:
     <select name="nivel" id="select4" onChange="submit()" class="input-xlarge">
@@ -75,11 +79,11 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       Texto</p>
     <hr>
     <label>T&iacute;tulo<br />
-    <input name="titulo" type="text" id="titulo" size="45" value="<? echo $row[3];?>" class="span4">
+    <input name="titulo" type="text" id="titulo" size="45" value='<? echo $row[3];?>' class="span4">
   </label>
   
     <label>Autor<br />
-    <input name="autor" type="text" id="autor" size="50" value="<? echo $row[2];?>" class="span3">
+    <input name="autor" type="text" id="autor" size="50" value='<? echo $row[2];?>' class="span3">
   </label>
   
     <label>Editorial<br />

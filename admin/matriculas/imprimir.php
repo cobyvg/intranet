@@ -2,7 +2,6 @@
 include("/opt/e-smith/conf_principal.php");
 include_once ("../../funciones.php");
 require("../../pdf/pdf_js.php");
-//require("../pdf/mc_table.php");
 
 class PDF_AutoPrint extends PDF_JavaScript
 {
@@ -19,15 +18,15 @@ function AutoPrintToPrinter($server, $printer, $dialog=false)
     //Print on a shared printer (requires at least Acrobat 6)
     $script = "var pp = getPrintParams();";
     if($dialog)
-        $script .= "pp.interactive = pp.constants.interactionLevel.full;";
+    $script .= "pp.interactive = pp.constants.interactionLevel.full;";
     else
-        $script .= "pp.interactive = pp.constants.interactionLevel.automatic;";
+    $script .= "pp.interactive = pp.constants.interactionLevel.automatic;";
     $script .= "pp.printerName = '\\\\\\\\".$server."\\\\".$printer."';";
     $script .= "print(pp);";
     $this->IncludeJS($script);
 }
 }
-define ( 'FPDF_FONTPATH', '../../pdf/fontsPDF/' );
+define ( 'FPDF_FONTPATH', '../../pdf/font/' );
 # creamos el nuevo objeto partiendo de la clase ampliada
 $MiPDF = new PDF_AutoPrint();
 $MiPDF->SetMargins ( 20, 20, 20 );
@@ -41,6 +40,7 @@ if (substr($curso, 0, 1) == '1') {
 }
 $n_curso = substr($curso, 0, 1);
 $result0 = mysql_query ( "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
+//echo "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre";
 while ($id_ar = mysql_fetch_array($result0)) {
 $id = $id_ar[0];
 $result = mysql_query("select * from matriculas where id = '$id'");
@@ -183,7 +183,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->SetFont ( 'Times', 'B', 10  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
-	$MiPDF->Image ( '../../imag/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 8 );
 	$titulo2 = "EDUCACIÓN SECUNDARIA OBLIGATORIA                                                           MATRICULA";
 	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'L', 0 );

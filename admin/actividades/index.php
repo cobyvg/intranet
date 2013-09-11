@@ -17,20 +17,24 @@ exit;
 <?php
  include("../../menu.php");
  include("menu.php");
-
-if($submit1){
+?>
+<div align="center">
+<div class="page-header">
+  <h2>Actividades Complementarias y Extraescolares <small> Registro de actividades</small></h2>
+</div>
+</div>
+<?
+if(isset($_POST['submit1'])){
 include("inserta.php");
 }
  
 else{
 ?>
-<div align="center">
-  <h3>Registro de Actividades Extraescolares</h3><br />
-  </div>
+
   <div class="row-fluid">
 <div class="span1"></div>
 <div class="span5">
-<div class="well-2 ">
+<div class="well">
   <FORM action="index.php" method="POST" name="Cursos">
            
                 <label>Fecha de la actividad:<br /> 
@@ -126,7 +130,7 @@ if($departamento == "Religión")
 </div>
 </div>
 <div class="span5">
-<div class="well-2 ">          
+<div class="well ">          
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Grupos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning pull-right">Desmarcarlos todos</a> <br />
               <br />
@@ -140,7 +144,7 @@ while($curso = mysql_fetch_array($curso1))
 	echo "<br />";
 $niv = $curso[0];
 ?>
-           <? echo "<strong style='margin-right:10px;'> ".$niv." </strong>"; ?>
+           <? echo "<strong style='margin-right:12px;'> ".$niv." </strong>"; ?>
                 <?  
 $alumnos0 = "select distinct nivel, grupo from FALUMNOS where nivel = '$niv' order by grupo";
 
@@ -151,10 +155,9 @@ $grupo = $alumno[0].$alumno[1];
 $nivel = $alumno[1];
 
 ?>
-                  <? echo "<span style='margin-right:2px;color:#08c'>".$nivel."</span>";?>
-                  <input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>"  style="margin-right:7px;">
+                  <? echo "<span style='margin-right:2px;color:#08c;'>".$nivel."</span>";?>
+                  <input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>"  style="margin-right:5px;margin-top:0px;margin-bottom:2px;">
                   <? } ?>              
-            
  <? } ?>
     <br /><br />
                 <label>Justificación: <br />
