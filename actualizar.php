@@ -25,13 +25,17 @@ while (false !== ($entry_profes = $d_profes->read())) {
    $fotos_profes_ya+=1;
 }
 $result_profe=mysql_query("SELECT datos, nombre FROM fotos_profes");
-if (mysql_num_rows($result_profe)>0 and $fotos_profes_ya < "10") {
+if ($result_profe) {
+$fila = mysql_num_rows($result_profe);	
+if ($fila > "0" and $fotos_profes_ya < "10") {
 	while($row_profe = mysql_fetch_array($result_profe)){
 		$foto_profe = $fotos_profe_dir."/".$row_profe[1];
 		# Creamos cada uno de los archivos
 		file_put_contents($foto_profe,$row_profe[0], FILE_APPEND);	
 	}   
 }
+}
+
 
 /*
 	@descripcion: Actualización de la tabla de noticias
