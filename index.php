@@ -78,19 +78,17 @@ $cabecera = '
 <link href="css/font-awesome.min.css" rel="stylesheet" >
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 
-<script language="javascript" type="text/javascript">
-function detecta(){
-var navegador = navigator.appName;
-//alert(navegador);
-switch (navegador){
-case "Microsoft Internet Explorer":
-alert("Estas usando Microsoft Ineternet Explorer para acceder a una aplicaci&oacute;n web que es manifiestamente incompatible con este navegador. Por favor, utiliza Firefox, Chrome, Opera o Safari para acceder");
-break;
+<script>
+function navegador(){
+	if (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion < 8) {
+		alert("Estás usando una versión antigua de Internet Explorer que ya no es compatible con esta aplicación. Es posible que algunos módulos de la aplicación no funcione correctamente con la versión actual de su navegador. Actualice a una versión superior o utilice otro navegador compatible como Mozilla Firefox, Google Chrome u Opera");
+	}
 }
-}
+
+window.onload = navegador;
 </script>
   </head>  
-  <body onLoad="detecta()">
+  <body>
 <div class="container-fluid">
 <div class="row-fluid">
 <br />
