@@ -12,6 +12,7 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
  $activo1="";
 if (strstr($_SERVER['REQUEST_URI'],'previsiones.php')==TRUE) {$activo1 = ' class="active" ';}
 ?>
+<div class="no_imprimir">
  <div class="container">   
           <ul class="nav nav-tabs">
       <li <? echo $activo1;?>><a href="previsiones.php"> Previsones de matrícula</a></li>

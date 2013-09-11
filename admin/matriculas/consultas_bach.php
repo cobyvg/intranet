@@ -127,13 +127,10 @@ INDEX (  `id_matriculas` )
 		}
 			echo "<hr>";
 		}
-		
-		
-	
-
 	}
 	echo "</div>";
 	mysql_query("drop table matriculas_bach_temp");
+	include("../../pie.php");
 	exit();
 }
 
@@ -163,7 +160,8 @@ echo "</ul></div><br />";
 		
 }
 echo "</ul></div>";
-	exit();
+include("../../pie.php");
+exit();
 }
 
 
@@ -177,7 +175,7 @@ include("./menu.php");
 	}
 ?>
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header no_imprimir" align="center">
 <h2>Matriculación de Alumnos <small> Consultas en Bachillerato</small></h2>
 </div>
 
@@ -193,13 +191,12 @@ $it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeni
 $it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
 $opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico", "FIS21_TIN21" => "Física, Tecnología", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
 $opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
-$opt23 =array("aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud","ingles_25" => "Inglés 2º Idioma");
-echo '<div  class="no_imprimir">';
-
+$opt23 =array("aleman_25" => "Alem
+án 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud","ingles_25" => "Inglés 2º Idioma");
 $n_curso = substr($curso, 0, 1);
+
 include 'filtro_bach.php';
 
-echo "</div>";
 if (isset($_GET['borrar'])) {
 	mysql_query("insert into matriculas_bach_backup (select * from matriculas_bach where id = '$id')");
 	mysql_query("delete from matriculas_bach where id='$id'");
@@ -582,9 +579,9 @@ echo '</tr>';
 	}
 	}
 	echo "</table>";
-	echo "<div align='center'>
+	echo "<div align='center'><br />
 <input type='hidden' name='extra' value='$extra' />
-<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary no_imprimir' /><br><br>
+<input type='submit' name='enviar' value='Enviar datos' class='btn btn-danger btn-large no_imprimir' /><br><br>
 <input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success no_imprimir' />&nbsp;&nbsp;
 <input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success no_imprimir' />&nbsp;&nbsp;
 <input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning no_imprimir' />&nbsp;&nbsp;

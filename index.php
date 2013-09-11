@@ -64,24 +64,20 @@ if (isset ( $_SESSION ['profi'] )) {
 	session_destroy ();
 }
 $cabecera = '
-<!DOCTYPE html>  
-<html lang="es">  
-  <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet del '.$nombre_del_centro.'</title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del '.$nombre_del_centro.'">  
-    <meta name="author" content="">  
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="iso-8859-1">
+<title>Configuración de la Intranet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
+<meta name="author" content="">
 
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/otros.css" rel="stylesheet">     
-    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
-    <link rel="shortcut icon" href="./img/favicon.ico">  
-    <link rel="apple-touch-icon" href="./img/apple-touch-icon.png">  
-    <link rel="apple-touch-icon" sizes="72x72" href="./img/apple-touch-icon-72x72.png">  
-    <link rel="apple-touch-icon" sizes="114x114" href="./img/apple-touch-icon-114x114.png"> 
-        <link href="./css/font-awesome.min.css" rel="stylesheet">
-   
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/otros.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet" >
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+
 <script language="javascript" type="text/javascript">
 function detecta(){
 var navegador = navigator.appName;
@@ -95,7 +91,8 @@ break;
 </script>
   </head>  
   <body onLoad="detecta()">
-<div class="container">
+<div class="container-fluid">
+<div class="row-fluid">
 <br />
 <div align="center" class="well" style="max-width:300px;margin:auto">
 <h2>Intranet</h1><h2><small>'.$nombre_del_centro.'</small></h2><hr>';

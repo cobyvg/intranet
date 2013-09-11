@@ -8,7 +8,6 @@ if (strstr($_SERVER['REQUEST_URI'],'index0.php')==TRUE) {$activo1 = ' class="act
 if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activo2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active" ';}
 ?>
-<div class="no_imprimir">
  <!-- Navbar
     ================================================== -->
 <div class="navbar navbar-fixed-top navbar-inverse no_imprimir">

@@ -116,7 +116,8 @@ for ($i = 0; $i < 18; $i++) {
 
 }
 echo "</div>";
-	mysql_query("drop table matriculas_temp");
+mysql_query("drop table matriculas_temp");
+include("../../pie.php");
 exit();
 	}
 	
@@ -151,6 +152,7 @@ echo "</ul></div><br />";
 		
 }
 echo "</ul></div>";
+include("../../pie.php");
 exit();
 	}
 	
@@ -224,7 +226,7 @@ function desactivaOpcion(){
 	}
   ?>
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header no_imprimir" align="center">
   <h2>Matriculación de Alumnos <small> Consultas</small></h2>
 </div>
 
@@ -616,9 +618,9 @@ echo "</td>";
 }
 }
 echo "</table>";
-echo "<div align='center'>
+echo "<div align='center'><br />
 <input type='hidden' name='extra' value='$extra' />
-<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary no_imprimir' /><br><br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success no_imprimir' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success no_imprimir' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning no_imprimir' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger no_imprimir' />";
+<input type='submit' name='enviar' value='Enviar datos' class='btn btn-danger btn-large no_imprimir' /><br><br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success no_imprimir' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success no_imprimir' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning no_imprimir' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger no_imprimir' />";
 if(count($grupo_actua)=='1'){ echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse no_imprimir' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse no_imprimir' />";} 
 echo "</div></form>";
 echo count($grupo_actua);
