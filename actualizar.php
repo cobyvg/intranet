@@ -96,7 +96,7 @@ $schema_reservas = mysql_fetch_array(mysql_query("SELECT default_collation_name 
 if ( $schema_reservas[0] != "latin1_spanish_ci" ) {
 	
 	// Cambiamos el juego de caracteres de la base de datos
-	mysql_query("ALTER DATABASE $db_reservas CHRACTER SET latin1 COLLATE latin1_spanish_ci") or die (mysql_error());;
+	mysql_query("ALTER DATABASE $db_reservas CHARACTER SET latin1 COLLATE latin1_spanish_ci") or die (mysql_error());;
 	
 	// Cambiamos el juego de caracteres de cada tabla de la base de datos
 	$todas_tablas = mysql_query("SHOW TABLES FROM $db_reservas");
