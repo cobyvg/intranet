@@ -37,7 +37,7 @@ include("../../menu.php");
 <form class="well well-large form-inline" action="ccursos.php" method="POST" name="listas">
 <legend>Lista de Alumnos por Grupo</legend>
 <label>Seleccion Grupo: </label><br />
-<SELECT  name="unidad" class="input-block-level">
+<SELECT  name="unidad[]" multiple class="input-block-level">
             <? unidad();?>
           </SELECT>
         <br /><br />
@@ -45,7 +45,7 @@ include("../../menu.php");
     <input type="checkbox" name="asignaturas" value="1"> &nbsp; Mostrar asignaturas
   </label>
   <br /><br />
-  <button class="btn btn-primary" type="submit" name="submit1" value="Lista del Curso">Lista del curso</button>
+  <button class="btn btn-primary btn-block" type="submit" name="submit1" value="Lista del Curso">Lista del curso</button>
 </form>
 </div>
 </div>

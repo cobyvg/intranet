@@ -14,7 +14,6 @@ include_once ("../../pdf/funciones.inc.php");
 require_once('../../pdf/class.ezpdf.php');
 $pdf =& new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
-
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 # hasta aquí lo del pdf
 $options_center = array(
@@ -30,6 +29,9 @@ $codasig= mysql_query("SELECT codigo, abrev, curso FROM asignaturas");
 while($asigtmp = mysql_fetch_array($codasig)) {
 	$asignatura[$asigtmp[0]] = $asigtmp[1].'('.substr($asigtmp[2],0,2).')';
 	} 
+	
+foreach ($_POST['unidad'] as $unidad){
+	
 if($_POST['asignaturas']==""){
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 $lista= mysql_query($sqldatos );
@@ -71,6 +73,7 @@ $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
 $pdf->ezText("\n\n\n", 10);
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_right);
+$pdf->ezNewPage();
 }
 
 if ($_POST['asignaturas']=='1'){
@@ -120,7 +123,8 @@ $pdf->ezText($txttit, 12,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
 $pdf->ezText("\n\n\n", 10);
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 9,$options_right);
-
+$pdf->ezNewPage();
 } 
+}
 $pdf->ezStream();
 ?>
