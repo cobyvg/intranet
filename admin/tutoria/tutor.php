@@ -129,8 +129,7 @@ La Jefatura de Estudios ha registrado esta Acción Tutorial
 <div class="row-fluid">
   <div class="span1"></div>
   <div class="span6">
-    <h4 align="center">Registro de datos</h4>
-    <br />
+    <legend align="center">Registro de datos</legend>
     <div class="well well-large" align="left">
       <form action="tutor.php" method="POST" name="Tutor">
            <?    
@@ -140,7 +139,7 @@ $al = $tr[0];
 $clave = $tr[1];
    	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {
-		echo "<img src='../../xml/fotos/$clave.jpg' border='2' width='120' height='145' style='border:1px solid #bbb;display:inline;float:right;'  />";
+		echo "<img src='../../xml/fotos/$clave.jpg' width='120' height='145' class='img-polaroid pull-right'  />";
 
 	}           	
            } 
@@ -254,8 +253,7 @@ echo "</tbody></table>";
 	?>
   </div>
   <div class="span4">
-    <h4 align="center">Intervenciones del Tutor</h4>
-    <br />
+    <legend align="center">Intervenciones del Tutor</legend>
     <? include("ultimos.php");?>
   </div>
 </div>

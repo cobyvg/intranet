@@ -126,8 +126,7 @@ El registro ha sido actualizado en la Base de datos.
 <div class="row-fluid">
 <div class="span1"></div>
 <div class="span6">
-<h3 align="center">Registro de datos</h3>
-<br />
+<legend align="center">Registro de datos</legend>
 <div class="well well-large">
 
 <FORM action="tutor.php" method="POST" name="Tutor"><?    
@@ -137,8 +136,7 @@ if ($alumno) {
 	$clave = $tr[1];
    	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {
-		echo "<img src='../../xml/fotos/$clave.jpg' border='2'
-width='120' height='145' style='margin:4px;border:1px solid #bbb;float:right;' />";
+		echo "<img src='../../xml/fotos/$clave.jpg' width='120' height='145' class='img-polaroid pull-right'  />";
 	}
 }
 ?> <label style="display: inline;"> Nivel <SELECT name="nivel"
@@ -286,8 +284,7 @@ if($alumno){
 }
 ?></div>
 <div class="span4">
-<h3 align="center">Intervenciones del Tutor</h3>
-<br />
+<legend align="center">Intervenciones del Tutor</legend>
 <? include("ultimos.php");?></div>
 </div>
 <? include("../../pie.php");?>

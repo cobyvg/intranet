@@ -25,8 +25,8 @@ $options_left = array(
 		$sqldatos.="itinerario2, optativa2, optativa2b1, optativa2b2, optativa2b3, optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, optativa2b9, optativa2b10, ";	
 		$num_opc = 14;
 		}
-		$sqldatos .= "religion FROM matriculas_bach WHERE curso = '$curso' and grupo_actual='".$grupo_actual[0]."' ORDER BY apellidos, nombre";
-
+		$sqldatos .= "religion FROM matriculas_bach WHERE curso = '$curso' and grupo_actual='".$cur_actual."' ORDER BY apellidos, nombre";
+//echo $sqldatos;
 $lista= mysql_query($sqldatos );
 $nc=0;
 unset($data);
@@ -41,6 +41,14 @@ while($datatmp = mysql_fetch_array($lista)) {
 $nc+=1;
 
 if ($curso=="2BACH") {
+for ($i = 3; $i < 13; $i++) {
+		if ($datatmp[$i]=="1") {
+			$datatmp[$i]="X";
+		}
+		else{
+			$datatmp[$i]="";
+		}
+	}
 		
 		if (strstr($datatmp[13],"Rel")==TRUE) {
 			//$datatmp[$i]="X";
@@ -49,7 +57,7 @@ if ($curso=="2BACH") {
 	$opt = '
 	
 	Optativas:
-1 => Inglés 2º Idioma; 2 => Alemán 2º Idioma;  3 => Francés 2º Idioma;  4 => T.I.C.;  5 => Ciencias de la Tierra y Medioambientales;  6 => Historia de la Música y la Danza;  7 => Literatura Universal;  8 => Educación Física;  9 => Estadística;  10 => Introducción a las Ciencias de la Salud)
+	Opt.1 = Alemán 2º Idioma; Opt.2 = Francés 2º Idioma; Opt.3 = T.I.C.; Opt.4 = Ciencias de la Tierra y Medioambientales; Opt.5 = Historia de la Música y la Danza; Opt.6 = Literatura Universal; Opt.7 = Educación Física; Opt.8 = Estadística; Opt.9 = Introducción a las Ciencias de la Salud; Opt.10 = Inglés 2º Idioma;
 	';
 	$optas = str_replace("21","",$datatmp[2]);
 	$optas = str_replace("22","",$optas);
@@ -121,7 +129,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $curso-$grupo_actual[0]\n";
+$txttit = "Lista del Grupo $curso-$cur_actual\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);

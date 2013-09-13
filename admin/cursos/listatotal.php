@@ -80,6 +80,7 @@ $pdf->ezText("\n\n\n", 10);
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_right);
 $pdf->ezText("<b>Hora:</b> ".date("H:i:s")."\n\n", 10,$options_right);
 $pdf->ezNewPage();
-}}
+}
+}
 $pdf->ezStream();
 ?>

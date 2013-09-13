@@ -16,19 +16,43 @@ $options_right = array(
 $options_left = array(
 				'justification' => 'left'
 					);
-					
+//$grupo_actual = $_POST['grupo_actual'];					
 	if ($curso=="3ESO") {
-		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, optativa5, optativa6, optativa7, act1, religion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual[0]."' ORDER BY apellidos, nombre";
+		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, optativa5, optativa6, optativa7, act1, religion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$cur_actual."' ORDER BY apellidos, nombre";
 	}
 	else{
-		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, act1, itinerario, religion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual[0]."' ORDER BY apellidos, nombre";
+		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, act1, itinerario, religion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$cur_actual."' ORDER BY apellidos, nombre";
 	}
+	//echo $sqldatos;
 $lista= mysql_query($sqldatos );
 $nc=0;
 unset($data);
 while($datatmp = mysql_fetch_array($lista)) { 
-	$religion = "";
-	for ($i = 0; $i < 10; $i++) {
+$religion = "";
+
+if ($curso=="3ESO") {
+for ($i = 2; $i < 9; $i++) {
+		if ($datatmp[$i]=="1") {
+			$datatmp[$i]="X";
+		}
+		else{
+			$datatmp[$i]="";
+		}
+	}
+}
+else 
+{
+for ($i = 2; $i < 6; $i++) {
+if ($datatmp[$i]=="1") {
+			$datatmp[$i]="X";
+		}
+		else{
+			$datatmp[$i]="";
+		}
+	}	
+}
+
+for ($i = 0; $i < 10; $i++) {
 		if ($datatmp[$i]=="0") {
 			$datatmp[$i]="";
 		}
@@ -216,7 +240,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $curso-$grupo_actual[0]\n";
+$txttit = "Lista del Grupo $curso-$cur_actual[0]\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
