@@ -28,7 +28,6 @@ include("../../menu.php");
 if(isset($_FILES['archivo'])){  
 mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
 mysql_select_db($db);
-
 // BacKup de la tabla
 mysql_query("drop table departamentos_seg");
 mysql_query("create table departamentos_seg select * from departamentos");
@@ -43,6 +42,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `departamento_temp` (
   `IDEA` varchar(12) NOT NULL default '',
    KEY `NOMBRE` (`NOMBRE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1");
+mysql_query("ALTER TABLE departamento_temp CONVERT TO CHARACTER SET latin1 COLLATE latin1_spanish_ci");
 
 if(isset($_POST['actualizar'])){}
 else{
@@ -63,6 +63,7 @@ while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE)
 {
 $datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[6]) . "\")";
 mysql_query($datos1);
+//echo "$datos1<br>";
 }
 fclose($handle);
 $borrarvacios = "delete from departamento_temp where DNI = ''";
@@ -71,6 +72,7 @@ $borrarpuesto = "delete from departamento_temp where DEPARTAMENTO LIKE '%Puesto%
 mysql_query($borrarpuesto);
 // Eliminar duplicados e insertar nuevos
 $elimina = "select distinct NOMBRE, DNI, DEPARTAMENTO, IDEA from departamento_temp where dni NOT IN (select distinct dni from departamentos where departamento not like '%Conserjeria%' and departamento not like 'Administracion' and idea not like 'admin')";
+//echo "$elimina<br>";
 $elimina1 = mysql_query($elimina);
  if(mysql_num_rows($elimina1) > 0)
 {
@@ -81,6 +83,7 @@ while($elimina2 = mysql_fetch_array($elimina1))
 echo "<li>".$elimina2[0] . " -- " . $elimina2[1] . " -- " . $elimina2[2] . "</li>";
   $SQL6 = "insert into departamentos  (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". $elimina2[0] . "\",\"". $elimina2[1] . "\",\"". $elimina2[2] . "\",\"". $elimina2[3] . "\")";
   $result6 = mysql_query($SQL6);
+  //echo "$SQL6<br>";
 }
 echo "<br />";
 }

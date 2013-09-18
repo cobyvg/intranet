@@ -8,3 +8,5 @@ xml/fotos_profes/*.jpg
 xml/jefe/TIC/*.txt
 cache/*
 config.php
+
+*.gz
