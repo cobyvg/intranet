@@ -23,7 +23,7 @@ include("menu.php");
   FALUMNOS.grupo, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria,
   FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.fin = '$ayer'
   order by Fechoria.fecha ");
-echo "<h4 align='center'>Alumnos que se reincorporan hoy tras su expulsión</h4><br />";
+echo "<legend align='center'>Alumnos que se reincorporan hoy tras su expulsión</legend>";
      if ($row = mysql_fetch_array($result))
         {
 
@@ -59,7 +59,7 @@ while( $row = mysql_fetch_array($result));
 			 }
   
   
-echo "<br /><h4 align='center'>Alumnos expulsados del Centro actualmente</h4><br />";
+echo "<br /><legend align='center'>Alumnos expulsados del Centro actualmente</legend>";
   $result = mysql_query ("select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel,
   FALUMNOS.grupo, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria,
   FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.fin >= '$hoy'

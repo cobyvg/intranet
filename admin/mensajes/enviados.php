@@ -34,7 +34,6 @@ if ($borrar=="1") {
 	mysql_query("update mens_texto set oculto='1' where id = '$id_borrar'")	;
 	echo '<div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4 class="alert-heading"> 
             El mensaje ha sido eliminado correctamente.
           </div>';
 }

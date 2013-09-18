@@ -133,7 +133,7 @@ if ($_POST['submit'] == 'Entrar' and ! ($_POST['idea'] == "" or $_POST['clave'] 
     <br />
     <div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
+			<legend>ATENCIÓN:</legend>
 No te has identificado, y debes
 hacerlo para entrar en la Intranet.<br />Vuelve atrás e inténtalo de nuevo.          
 			</div>
@@ -157,7 +157,7 @@ hacerlo para entrar en la Intranet.<br />Vuelve atrás e inténtalo de nuevo.
     <br />
     <div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
+			<legend>ATENCIÓN:</legend>
 El nombre de usuario no es correcto.<br />
 Vuelve atrás e inténtalo de nuevo.         
 			</div>
@@ -217,7 +217,7 @@ Vuelve atrás e inténtalo de nuevo.
     <br />
     <div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
+			<legend>ATENCIÓN:</legend>
 La clave que has escrito no es
 correcta.Vuelve atrás e inténtalo de nuevo. Y no olvides que hay que respetar la
 diferencia entre mayúsculas y minúsculas.        
@@ -243,7 +243,7 @@ if (!(is_writable('config.php'))) {
 <br />
     <div align="justify"><div class="alert alert-danger alert-block fade in" style="max-width:360px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4 class="lead">ATENCIÓN:</h4>Parece que tenemos un problema con el archivo de configuración de la aplicación. 
+			<legend class="lead">ATENCIÓN:</legend>Parece que tenemos un problema con el archivo de configuración de la aplicación. 
 			No se puede escribir en el archivo, y eso indica que hay problemas. Debes asegurarte que el directorio donde has
 			colocado los archivos de la aplicación tiene permiso de escritura. De lo contrario, no podremos continuar...
 			</div>

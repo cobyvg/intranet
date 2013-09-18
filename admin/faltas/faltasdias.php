@@ -25,7 +25,7 @@ $imprimir_activado = true;
   <h2>Faltas de Asistencia <small> Informe de faltas</small></h2>
   </div>
 ';
-        echo "<h4 align='center'>Alumnos con más de $numero faltas de asistencia sin justificar<br> entre los días $fechasq1 y $fechasq3</h4><br />
+        echo "<legend align='center'>Alumnos con más de $numero faltas de asistencia sin justificar<br> entre los días $fechasq1 y $fechasq3</legend>
 		<table class='table table-striped tabladatos' style='width:100%;'>";
         echo "<thead><tr><th>Alumno</th><th>Curso</th>
         <th>Nº faltas</th><th>Nº días</th></tr></thead><tbody>";

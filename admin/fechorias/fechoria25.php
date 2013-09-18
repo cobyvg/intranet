@@ -25,7 +25,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave'];$nombre = $_POST['nombre']; $
 	if (! $notas or ! $grave or ($nombre == 'Selecciona un Alumno') or ! $asunto or ! $fecha or ! $informa) {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
+			<legend>ATENCIÓN:</legend>
             No has introducido datos en alguno de los campos, y <strong>todos son obligatorios</strong>.<br> Vuelve atrás, rellena los campos vacíos e inténtalo de nuevo.
           </div></div>';
 		  echo " <br />
@@ -36,7 +36,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave'];$nombre = $_POST['nombre']; $
  	if (($grave == 'grave' OR $grave == 'muy grave') AND strlen ($notas) < '60' ) {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
+			<legend>ATENCIÓN:</legend>
             La descripción de lo sucedido es demasiado breve. Es necesario que proporciones más detalles de lo ocurrido para que Jefatura de Estudios pueda hacerse una idea precisa del suceso.<br />Vuelve atrás e inténtalo de nuevo.
           </div></div>';
 		  echo " <br />
@@ -47,7 +47,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave'];$nombre = $_POST['nombre']; $
 	if ($grave == 'leve' AND strlen ($notas) < '25' ) {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
+			<legend>ATENCIÓN:</legend>
             La descripción de lo sucedido es demasiado breve. Es necesario que proporciones más detalles de lo ocurrido para que Jefatura de Estudios pueda hacerse una idea precisa del suceso.<br />Vuelve atrás e inténtalo de nuevo.
           </div></div>';
 		  echo " <br />
@@ -143,7 +143,7 @@ enviarForm();
 	// Mensaje SMS a la base de datos
 	
 
-	printf ("<h4 style='color:#08c'>$rowa[1] $rowa[0] --> $rowa[2]-$rowa[3]</h4><br />");
+	printf ("<legend class='text-info'>$rowa[1] $rowa[0] --> $rowa[2]-$rowa[3]</legend>");
 	$dia = explode ( "-", $fecha );
 	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 	$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "')";

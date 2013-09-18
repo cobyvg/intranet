@@ -85,7 +85,7 @@ echo "<li>".$elimina2[0] . " -- " . $elimina2[1] . " -- " . $elimina2[2] . "</li
 echo "<br />";
 }
 else {
-	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Tabla <strong>Departamentos</strong>: No se ha añadido ningún registro a la tabla.
@@ -179,6 +179,41 @@ No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permis
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de los profesores se han importado correctamente en la tabla <strong>usuarioprofesor</strong>.<br> Se ha generado un fichero (profesores.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva en el Servidor TIC.
 </div></div><br />';
+ 
+// Moodle
+$codigo1 = "select  usuario, nombre, perfil, dni, correo from usuarioprofesor, c_profes where usuarioprofesor.usuario = c_profes.idea";
+//echo $codigo . "<br>";
+$sqlcod1 = mysql_query ($codigo1);
+while($rowprof = mysql_fetch_array($sqlcod1))
+{
+$n_pro = explode(", ",$rowprof[1]);
+$nombre_profe = $n_pro[1];	
+$apellidos_profe = $n_pro[0];
+
+$linea_moodle = "$rowprof[0];$rowprof[3];$nombre_profe;$apellidos_profe;$rowprof[4];Estepona;ES;\n";
+$todos_moodle.=$linea_moodle;
+}
+ if (!(file_exists("TIC/moodle.txt")))
+{
+$fpprof1=fopen("TIC/moodle.txt","w+");
+ }
+ else
+ {
+ $fpprof1=fopen("TIC/moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<h5>ATENCIÓN:</h5>
+No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permiso de escritura en ese directorio?
+</div></div><br />
+<div align="center">
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+</div>'); 
+ }
+ $pepito1=fwrite($fpprof1,$todos_moodle);
+ fclose ($fpprof1);
+ echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+ Se ha generado un fichero (moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en la Plataforma Moodle.
+</div></div><br />'; 
 }
 else{
 	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
