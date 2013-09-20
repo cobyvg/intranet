@@ -119,7 +119,6 @@ function codigo_control($x){
 	}
 }
 ############### Abrimos la base de datos y creamos la consulta
-#mysql_select_db($database_intranet, $c);  #abre la base de datos
 if (strlen($_POST['alumnos'])>0) {
 		#elige selección múltiple
 		$sel=explode("*",$_POST['alumnos']);
@@ -145,21 +144,25 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);  #cantidad de registros
 
 $pdf=new PDF();
 $curso='Curso '.$curso_actual;
-$curso_an=substr($curso,6,4)+1;
+$curso_an=date('Y');
+$mes_an=date('m');
+//$curso_an=substr($curso,6,4)+1;
+//echo "$curso_actual => $curso_an<br />";
 $pdf->SetFillColor(255,255,255);
 $pdf->AddPage();
 $pdf->AddFont('c128ab');
 $n=1; # carnet nº 1
 
 while ($row_Recordset1 = mysql_fetch_array($Recordset1)){
-$fecha = str_replace("/","-",$row_Recordset1[4]);
-//$tr = explode("-",$fecha0);
-//$fecha = "$tr[2]-$tr[1]-$tr[0]";
+$fecha0 = str_replace("/","-",$row_Recordset1[4]);
+$tr = explode("-",$fecha0);
+$fecha = "$tr[2]-$tr[1]-$tr[0]";
+$fecha4 = "$tr[1]-$tr[0]-$tr[2]";
 $claveal = $row_Recordset1[0];
 $unidad = $row_Recordset1[1];
 $apellidos = $row_Recordset1[2];
 $nombre = $row_Recordset1[3];
-//echo "$claveal --> $unidad --> $apellidos --> $nombre<br />";
+//echo "$claveal --> $unidad --> $apellidos --> $nombre --> $fecha<br />";
 ########################### Comenzamos con los carnets
 
 	#posición del carnet
@@ -169,21 +172,21 @@ $nombre = $row_Recordset1[3];
 	else {$x=96;}
 	$fech_ano=substr($fecha,0,4);
 	$fech_mes=substr($fecha,5,2);
-	$naranja=0;
-	
-	if (isset($_POST['alumnos']) && isset($_POST['checkbox'])) { $pdf->fondoverde($x,$y);}
 
-	elseif ($curso_an-$fech_ano>18) {
-		$pdf->fondoverde($x,$y);
-		$pdf->uno($x,$y); }
-	elseif (($curso_an-$fech_ano==18) && ($fech_mes<4)) {
-		$pdf->fondoverde($x,$y);
-		$pdf->dos($x,$y); }
-	elseif (($curso_an-$fech_ano==18) && ($fech_mes<6)) {
-		$pdf->fondoverde($x,$y);
-		$pdf->tres($x,$y); }
-	else {
+$fechaFinal = mktime(0,0,0,$tr[1],$tr[0],$tr[2]);
+$fechaInicio = mktime(0,0,0,date('m'),date('d'),date('Y'));
+$segundos = ($fechaInicio - $fechaFinal);
+$anyos = floor(($segundos-$sumadiasBis)/31536000);
+
+
+	$naranja=0;
+	if (isset($_POST['alumnos']) && isset($_POST['checkbox'])) { $pdf->fondoverde($x,$y);
+		}
+	elseif ($anyos >= '18') {
 		$pdf->fondonaranja($x,$y);
+		$pdf->uno($x,$y); }
+	else {
+		$pdf->fondoverde($x,$y);
 		$naranja=1;}
 	#Hasta aquí el fondo, ahora el texto:
 	if ($naranja==1) {
