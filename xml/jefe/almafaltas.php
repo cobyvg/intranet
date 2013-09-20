@@ -22,7 +22,7 @@ if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
 <br />
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Administración <small> Creación de la tabla de alumnos</small></h2>
+  <h2>AdministraciÃ³n <small> CreaciÃ³n de la tabla de alumnos</small></h2>
 </div>
 <br />
 <div class="well well-large" style="width:600px;margin:auto;text-align:left">
@@ -35,14 +35,14 @@ $reg_int = mysql_query("select * from reg_intranet");
 
 if (mysql_num_rows($fechorias)<"5" and mysql_num_rows($mensajes)<"5" and mysql_num_rows($reg_int)<"5") {}
 else{
-	include("copia_bd.php");
+//	include("copia_bd.php");
 }
 	
 // Creamos Base de datos y enlazamos con ella.
  $base0 = "DROP TABLE `alma`";
   mysql_query($base0);
 
- // Creación de la tabla alma
+ // CreaciÃ³n de la tabla alma
  $alumnos = "CREATE TABLE  `alma` (
 `Alumno/a` varchar( 255 ) default NULL ,
  `ESTADOMATRICULA` varchar( 255 ) default NULL ,
@@ -86,39 +86,44 @@ else{
 // echo $alumnos;
 mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 
   $SQL6 = "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL` )";
   $result6 = mysql_query($SQL6);
   
-// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
+// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabÃ±a alma.
 
 $fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
+			<h5>ATENCIÃ“N:</h5>
+No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo estÃ¡ corrompido.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>'); 
 $row = 1;
-while (($data = fgetcsv($fp, 1000, "|")) !== FALSE)
-{
-   	$datos = "INSERT INTO alma VALUES (";
-  for($i=0;$i<37;$i++){ 	
-   $datos.= "\"". trim($data[$i]) . "\", ";
+ while (!feof($fp))
+  {
+  	$linea="";
+  	$lineasalto="";
+  	$dato="";
+    $linea=fgets($fp);
+    $lineasalto = "INSERT INTO alma VALUES (";
+    $tr=explode("|",$linea);
+    
+    foreach ($tr as $valor){ 
+  $dato.= "\"". trim($valor) . "\", ";
+        }
+    $dato=substr($dato,0,strlen($dato)-2); 
+    $lineasalto.=$dato;  
+    $lineasalto.=");";
+    mysql_query($lineasalto);
   }
-
-$datos=substr($datos,0,strlen($datos)-2);
-$datos.=")";
-// echo $datos."<br>";
-	mysql_query($datos);
-}
 fclose($fp);
 
 // Descomprimimos el zip de las calificaciones en el directorio exporta/
@@ -175,18 +180,18 @@ $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[
 	mysql_query($actualiza1P);
  }
  
-  // Eliminación de campos innecesarios por repetidos
+  // EliminaciÃ³n de campos innecesarios por repetidos
   $SQL3 = "ALTER TABLE alma
   DROP `apellido1`,
   DROP `Alumno/a`,
   DROP `apellido2`";
   $result3 = mysql_query($SQL3);
 
-  // Eliminación de alumnos dados de baja
+  // EliminaciÃ³n de alumnos dados de baja
     $SQL4 = "DELETE FROM alma WHERE `NIVEL` = '' AND `GRUPO` = ''";
   $result4 = mysql_query($SQL4);
   
-// Exportamos códigos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluación
+// Exportamos cÃ³digos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluaciÃ³n
 if(phpversion() < '5'){
  include("exportacodigos_xslt.php");
 }
@@ -196,24 +201,24 @@ else{
 ?>
 <?
 // Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
-$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and nivel !='2T' and nivel != '2S' and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
+$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and nivel !='2T' and nivel != '2S' and ESTADOMATRICULA != 'Obtiene TÃ­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
 $result6 = mysql_query($SQL6);
 // Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
-$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
+$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene TÃ­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
 mysql_query($SQL7);
 
- // Creamos versión corta para FALTAS
+ // Creamos versiÃ³n corta para FALTAS
 mysql_query("drop table almafaltas");
 mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, NIVEL,
  GRUPO from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
-// Claveal primaria e índice
+// Claveal primaria e Ã­ndice
   $SQL6 = "ALTER TABLE  `almafaltas` ADD INDEX (  `CLAVEAL` )";
   $result6 = mysql_query($SQL6);
  // Creamos esquema de FALUMNOS
@@ -262,7 +267,7 @@ mysql_query("drop table almafaltas");
 // Datos para el alta masiva de usuarios TIC
 include("exportaTIC.php");
 include("crear_hermanos.php");
-// Copia de la primera versión de alma
+// Copia de la primera versiÃ³n de alma
 mysql_query("DROP TABLE alma_primera") ;
 mysql_query("create table alma_primera select * from alma");
 mysql_query("ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
@@ -272,14 +277,14 @@ mysql_query("ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");
 else{
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Parece que te está olvidando de enviar todos los archivos con los datos de los alumnos. Asegúrate de enviar ambos archivos descargados desde Séneca.
+			<h5>ATENCIÃ“N:</h5>
+Parece que te estÃ¡ olvidando de enviar todos los archivos con los datos de los alumnos. AsegÃºrate de enviar ambos archivos descargados desde SÃ©neca.
 </div></div><br />';
 }
 ?>
 <br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>
 </div>
 </div>
