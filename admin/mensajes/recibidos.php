@@ -32,7 +32,6 @@ if ($borrar=='1') {
 	// echo "delete from mens_profes where id_profe='$id_borrar'";
        echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4 class="alert-heading">Valió!</h4> 
             El mensaje ha sido eliminado correctamente.
           </div></div>';
 }

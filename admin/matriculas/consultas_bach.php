@@ -24,6 +24,12 @@ if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_PO
 //include("../../funciones.php");
 //variables();
 if (isset($_POST['listados'])) {
+foreach ($_POST as $key=>$val)
+	{
+		if (strlen($val)==1 and !(is_numeric($val))) {
+			$cur_actual=$val;
+		}
+	}
 	include("listados_bach.php");
 	exit();
 }
@@ -34,8 +40,7 @@ if (isset($_POST['listado_total'])) {
 }
 
 if (isset($_POST['imprimir'])) {
-	mysql_query("drop table if exists matriculas_bach_temp");
-	mysql_query("CREATE TABLE  `matriculas_bach_temp` (
+	mysql_query("CREATE TABLE if not exists  `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
 INDEX (  `id_matriculas` )
 )");
@@ -50,6 +55,7 @@ INDEX (  `id_matriculas` )
 		}
 	}
 	include("imprimir_bach.php");
+	mysql_query("drop table if exists matriculas_bach_temp");
 	exit();
 }
 
@@ -128,12 +134,10 @@ INDEX (  `id_matriculas` )
 			echo "<hr>";
 		}
 		
-		
-	
-
 	}
 	echo "</div>";
 	mysql_query("drop table matriculas_bach_temp");
+	include("../../pie.php");
 	exit();
 }
 
@@ -163,6 +167,7 @@ echo "</ul></div><br />";
 		
 }
 echo "</ul></div>";
+include("../../pie.php");
 	exit();
 }
 
@@ -177,7 +182,7 @@ include("./menu.php");
 	}
 ?>
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header no_imprimir" align="center">
 <h2>Matriculación de Alumnos <small> Consultas en Bachillerato</small></h2>
 </div>
 
@@ -242,12 +247,11 @@ if ($_POST['grupo_actua']) {
 	foreach ($_POST['grupo_actua'] as $grup_actua){
 		if($grup_actua=="Ninguno"){$extra.=" grupo_actual = '' or";}
 		else{
-			$extra.=" grupo_actual = '$grup_actua' or";
+			$extra.=" grupo_actual = '$grup_actua' or grupo_actual = '' or";
 		}
 	}
 	$extra = substr($extra,0,strlen($extra)-2);
 	$extra.=")";
-
 }
 //if ($grupo_actua) { if($grupo_actua=="Ninguno"){$extra.=" and grupo_actual = ''";} else{  $extra.=" and grupo_actual = '$grupo_actua'";}}
 if ($colegi) { $extra.=" and colegio = '$colegi'";}
@@ -286,7 +290,9 @@ if (!($orden)) {
 	$sql.=", repite from matriculas_bach where ". $extra ." order by ". $orden ."curso, grupo_actual, apellidos, nombre ";
 	//echo $sql;
 	$cons = mysql_query($sql);
-	if(mysql_num_rows($cons) < 1){
+
+	$n_cons = mysql_num_rows($cons);
+	if($n_cons=="0"){
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
@@ -295,6 +301,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	}
 	else{
 		if ($curso) {
+			//$n_cons = mysql_num_rows($cons);
 			?>
 <h3><? if($_POST['grupo_actua']){ 
 	echo $curso." ";
@@ -338,12 +345,14 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	</tr>
 	<?
 	while($datos_ya = mysql_fetch_object($cons)){
+
 		$backup="";
 		$respaldo='1';
 		$naci = explode("-",$datos_ya->nacimiento);
 		$nacimiento = "$naci[2]-$naci[1]-$naci[0]";
 		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2;
 		$back = mysql_query("select id from matriculas_bach_backup where id = '$id'");
+
 		if (mysql_num_rows($back)>0) {
 			$respaldo = '1';
 			$backup="<a href='consultas_bach.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='icon icon-refresh' rel='Tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
@@ -582,9 +591,9 @@ echo '</tr>';
 	}
 	}
 	echo "</table>";
-	echo "<div align='center'>
+	echo "<div align='center'><br />
 <input type='hidden' name='extra' value='$extra' />
-<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary no_imprimir' /><br><br>
+-<input type='submit' name='enviar' value='Enviar datos' class='btn btn-danger btn-large no_imprimir' /><br><br>
 <input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success no_imprimir' />&nbsp;&nbsp;
 <input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success no_imprimir' />&nbsp;&nbsp;
 <input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning no_imprimir' />&nbsp;&nbsp;

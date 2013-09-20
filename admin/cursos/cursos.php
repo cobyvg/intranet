@@ -31,14 +31,21 @@ while($asigtmp = mysql_fetch_array($codasig)) {
 	} 
 
 	if (isset($_GET['unidad'])) {
+<<<<<<< HEAD
 		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+=======
+		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+>>>>>>> cabb3dbcea9c89fe1cc1a708ab68f898ac4b9130
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
 while($datatmp = mysql_fetch_array($lista)) { 
+<<<<<<< HEAD
 	if ($datatmp[2]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
 	}
+=======
+>>>>>>> cabb3dbcea9c89fe1cc1a708ab68f898ac4b9130
 	$data[] = array(
 				'num'=>$datatmp[1],
 				'nombre'=>$datatmp[0],
@@ -81,7 +88,11 @@ $pdf->ezNewPage();
 	
 foreach ($unidad as $unida){	
 if($_POST['asignaturas']==""){
+<<<<<<< HEAD
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unida."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+=======
+$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unida."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+>>>>>>> cabb3dbcea9c89fe1cc1a708ab68f898ac4b9130
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
@@ -129,7 +140,11 @@ $pdf->ezNewPage();
 
 if ($_POST['asignaturas']=='1'){
 
+<<<<<<< HEAD
 $sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal and Unidad='".$unida."' ORDER BY NC";
+=======
+$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal and Unidad='".$unida."' ORDER BY NC";
+>>>>>>> cabb3dbcea9c89fe1cc1a708ab68f898ac4b9130
 //echo $sqldatos;
 $lista= mysql_query($sqldatos);
 $num=0;

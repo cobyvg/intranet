@@ -32,12 +32,34 @@ $nc=0;
 unset($data);
 while($datatmp = mysql_fetch_array($lista)) { 
 	$religion = "";
-	for ($i = 0; $i < 10; $i++) {
+	
+if ($curso=="3ESO") {
+for ($i = 2; $i < 9; $i++) {
+		if ($datatmp[$i]=="1") {
+			$datatmp[$i]="X";
+		}
+		else{
+			$datatmp[$i]="";
+		}
+	}
+}
+else {
+for ($i = 2; $i < 6; $i++) {
+if ($datatmp[$i]=="1") {
+			$datatmp[$i]="X";
+		}
+		else{
+			$datatmp[$i]="";
+		}
+	}	
+}
+
+for ($i = 0; $i < 10; $i++) {
 		if ($datatmp[$i]=="0") {
 			$datatmp[$i]="";
 		}
 	}
-
+	
 $nc+=1;
 if ($curso=="3ESO") {	
 		if (strstr($datatmp[10],"Rel")==TRUE) {

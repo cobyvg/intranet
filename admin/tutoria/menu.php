@@ -28,7 +28,7 @@ else{$tutor = $_SESSION['profi'];}
       <? }?>
        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Consultas <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="../cursos/ccursos.php?submit1=1&nivel=<? echo $nivel;?>&grupo=<? echo $grupo;?>">Lista del Grupo</a></li>
+          <li><a href="../cursos/ccursos.php?submit1=1&unidad=<? echo $nivel;?>-<? echo $grupo;?>">Lista del Grupo</a></li>
           <li><a  href="../fotos/grupos.php?curso=<? echo $nivel;?>-<? echo $grupo;?>">Fotos del Grupo</a></li>
           <li><a  href="../fotos/fotos.php?nivel=<? echo $nivel;?>&grupo=<? echo $grupo;?>">Registrar Fotos</a></li>
                     <li><a  href="../../xml/jefe/form_carnet.php">Crear Carnet del Alumno</a></li>

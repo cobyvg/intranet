@@ -22,6 +22,12 @@ if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = 
 if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
 
 if (isset($_POST['listados'])) {
+foreach ($_POST as $key=>$val)
+	{
+		if (strlen($val)==1 and !(is_numeric($val))) {
+			$cur_actual=$val;
+		}
+	}
 	include("listados.php");
 	exit();
 }

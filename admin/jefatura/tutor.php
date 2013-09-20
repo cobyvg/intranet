@@ -142,7 +142,7 @@ $clave = $row[11];
 <div class="row-fluid">
 <div class="span1"></div>
 <div class="span6">
-<h3 align="center">Registro de datos</h3><br />
+<legend align="center">Registro de datos</legend>
 <div class="well well-large">
 <FORM action="tutor.php" method="POST" name="Tutor">
      <?    
@@ -152,8 +152,7 @@ $al = $tr[0];
 $clave = $tr[1];
   	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {
-		echo "<img src='../../xml/fotos/$clave.jpg' border='2' width='120' height='145' style='border:1px solid #bbb;display:inline;float:right;'  />";
-
+		echo "<img src='../../xml/fotos/$clave.jpg' width='120' height='145' class='img-polaroid pull-right'  />";
 	}           	
            } 
 		   else{ echo "<br /><br />";}   	 
@@ -289,8 +288,7 @@ echo "</table>";
 	?>
   </div>
   <div class="span4">
-    <h3 align="center">Registro de Intervenciones</h3>
-    <br />
+    <legend align="center">Registro de Intervenciones</legend>
     <? include("ultimos.php");?>
   </div>
 </div>
