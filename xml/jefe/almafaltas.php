@@ -35,7 +35,7 @@ $reg_int = mysql_query("select * from reg_intranet");
 
 if (mysql_num_rows($fechorias)<"5" and mysql_num_rows($mensajes)<"5" and mysql_num_rows($reg_int)<"5") {}
 else{
-//	include("copia_bd.php");
+	include("copia_bd.php");
 }
 	
 // Creamos Base de datos y enlazamos con ella.
