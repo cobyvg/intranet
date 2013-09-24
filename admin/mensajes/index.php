@@ -22,8 +22,11 @@ elseif (isset($_GET['profes'])) {
 } 
 $profeso = $_POST['profeso'];
 $tutores = $_POST['tutores'];
+$tutor = $_POST['tutor'];
 $departamentos = $_POST['departamentos'];
+$departamento = $_POST['departamento'];
 $equipos = $_POST['equipos'];
+$equipo = $_POST['equipo'];
 $claustro = $_POST['claustro'];
 $etcp = $_POST['etcp'];
 $ca = $_POST['ca'];
