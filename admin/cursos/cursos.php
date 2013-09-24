@@ -32,7 +32,6 @@ while($asigtmp = mysql_fetch_array($codasig)) {
 
 	if (isset($_GET['unidad'])) {
 		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
-		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
@@ -81,9 +80,18 @@ $pdf->ezNewPage();
 	
 	
 foreach ($unidad as $unida){	
+$tr_c = explode(" -> ",$unida);
+$tr_unidad = $tr_c[0];
+$tr_codasi = $tr_c[2];
+
 if($_POST['asignaturas']==""){
-$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unida."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
-$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unida."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
+
+if(strlen($tr_codasi)>1){
+$sqldatos.=" and combasi like '%$tr_codasi%'";
+} 
+$sqldatos.=" and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
@@ -119,7 +127,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $unida\n";
+$txttit = "Lista del Grupo $tr_unidad\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
@@ -131,9 +139,13 @@ $pdf->ezNewPage();
 
 if ($_POST['asignaturas']=='1'){
 
-$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal and Unidad='".$unida."' ORDER BY NC";
-$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal and Unidad='".$unida."' ORDER BY NC";
-//echo $sqldatos;
+$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
+//echo 
+if(strlen($tr_codasi)>1){
+$sqldatos.=" and combasi like '%$tr_codasi%'";
+} 
+$sqldatos.=" and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+;
 $lista= mysql_query($sqldatos);
 $num=0;
 unset($data);
@@ -174,8 +186,8 @@ $options = array(
 				'fontSize' => 8,
 				'width'=>500
 			);
-$txttit = "<b>Alumnos del grupo: $unida</b>\n";
-	
+$txttit = "<b>Alumnos del grupo: $tr_unidad</b>\n";
+$txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";	
 $pdf->ezText($txttit, 12,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
 $pdf->ezText("\n\n\n", 10);

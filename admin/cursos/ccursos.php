@@ -33,12 +33,38 @@ include("../../menu.php");
 </div>
 <div class="container">
 <div class="row-fluid">
-<div class="span4 offset4">
+<?
+if(stristr($_SESSION['cargo'],'1') == TRUE){
+ echo '<div class="span4 offset4">';
+}
+else{
+echo '<div class="span6 offset3">';
+}
+?>
+
 <form class="well well-large form-inline" action="ccursos.php" method="POST" name="listas">
 <legend>Lista de Alumnos por Grupo</legend>
-<label>Seleccion Grupo: </label><br />
 <SELECT  name="unidad[]" multiple class="input-block-level">
-            <? unidad();?>
+<?
+if(stristr($_SESSION['cargo'],'1') == TRUE){
+ unidad();
+}
+else{
+$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$profesor'";
+$resultcurso = mysql_query($SQLcurso);
+	while($rowcurso = mysql_fetch_array($resultcurso))
+	{
+	$curso = $rowcurso[0];
+	$asignatura = $rowcurso[1];
+	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurso[2]' and abrev not like '%\_%'";
+
+	$asigna1 = mysql_query($asigna0);
+	$asigna2 = mysql_fetch_array($asigna1);
+	$codasi = $asigna2[0];	
+	echo "<option>$curso -> $asignatura -> $codasi</option>";
+ }
+}
+?>
           </SELECT>
         <br /><br />
          <label class="checkbox"> 
