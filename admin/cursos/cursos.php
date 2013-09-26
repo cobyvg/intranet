@@ -29,23 +29,33 @@ $codasig= mysql_query("SELECT codigo, abrev, curso FROM asignaturas");
 while($asigtmp = mysql_fetch_array($codasig)) {
 	$asignatura[$asigtmp[0]] = $asigtmp[1].'('.substr($asigtmp[2],0,2).')';
 	} 
-
-	if (isset($_GET['unidad'])) {
-<<<<<<< HEAD
-		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
-=======
-		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
->>>>>>> cabb3dbcea9c89fe1cc1a708ab68f898ac4b9130
+$libd12 = "
+LIBD1: Ref. Lengua; LIBD2: Ref. Matemáticas; LIBD3: Ref. Inglés; LIBD4: Taller TIC; LIBD5: Taller Teatro.
+";
+$lc3 = "
+OPLC1: TALLER TIC; OPLC2: TALLER CERÁMICA; OPLC3: TALLER TEATRO.
+";
+$lc1b = "
+OPLC1: Ed. Física; OPLC2: Estadística; OPLC3: Francés.
+";
+if (isset($_GET['unidad'])) {
+		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
 while($datatmp = mysql_fetch_array($lista)) { 
-<<<<<<< HEAD
 	if ($datatmp[2]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
 	}
-=======
->>>>>>> cabb3dbcea9c89fe1cc1a708ab68f898ac4b9130
+	if(strstr($unidad,"E-")==TRUE){
+	$m_ex = "select exencion from matriculas where claveal = '$datatmp[3]'";
+	$m_exen = mysql_query($m_ex);
+	$m_exento = mysql_fetch_array($m_exen);
+	if($m_exento[0]=="1"){
+	$datatmp[0]=$datatmp[0]." (Ex)";
+	}
+	}
+	
 	$data[] = array(
 				'num'=>$datatmp[1],
 				'nombre'=>$datatmp[0],
@@ -87,18 +97,32 @@ $pdf->ezNewPage();
 	
 	
 foreach ($unidad as $unida){	
+$tr_c = explode(" -> ",$unida);
+$tr_unidad = $tr_c[0];
+$tr_codasi = $tr_c[2];
+
 if($_POST['asignaturas']==""){
-<<<<<<< HEAD
-$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unida."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
-=======
-$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unida."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
->>>>>>> cabb3dbcea9c89fe1cc1a708ab68f898ac4b9130
+$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
+
+if(strlen($tr_codasi)>1){
+$sqldatos.=" and combasi like '%$tr_codasi%'";
+} 
+$sqldatos.=" and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
 while($datatmp = mysql_fetch_array($lista)) { 
 	if ($datatmp[2]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
+	}
+	if(strstr($tr_unidad,"E-")==TRUE){
+	$m_ex = "select exencion from matriculas where claveal = '$datatmp[3]'";
+	$m_exen = mysql_query($m_ex);
+	$m_exento = mysql_fetch_array($m_exen);
+	if($m_exento[0]=="1"){
+	$datatmp[0]=$datatmp[0]." (Ex)";
+	}
 	}
 	$data[] = array(
 				'num'=>$datatmp[1],
@@ -128,7 +152,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $unida\n";
+$txttit = "Lista del Grupo $tr_unidad\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
@@ -140,18 +164,27 @@ $pdf->ezNewPage();
 
 if ($_POST['asignaturas']=='1'){
 
-<<<<<<< HEAD
-$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal and Unidad='".$unida."' ORDER BY NC";
-=======
-$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal and Unidad='".$unida."' ORDER BY NC";
->>>>>>> cabb3dbcea9c89fe1cc1a708ab68f898ac4b9130
-//echo $sqldatos;
+$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
+//echo 
+if(strlen($tr_codasi)>1){
+$sqldatos.=" and combasi like '%$tr_codasi%'";
+} 
+$sqldatos.=" and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+;
 $lista= mysql_query($sqldatos);
 $num=0;
 unset($data);
 while($datatmp = mysql_fetch_array($lista)) { 
 	if ($datatmp[4]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
+	}
+	if(strstr($tr_unidad,"E-")==TRUE){
+	$m_ex = "select exencion from matriculas where claveal = '$datatmp[5]'";
+	$m_exen = mysql_query($m_ex);
+	$m_exento = mysql_fetch_array($m_exen);
+	if($m_exento[0]=="1"){
+	$datatmp[0]=$datatmp[0]." (Ex)";
+	}
 	}
 	$unidadn = substr($datatmp[3],0,1);
 	$mat="";
@@ -186,11 +219,30 @@ $options = array(
 				'fontSize' => 8,
 				'width'=>500
 			);
-$txttit = "<b>Alumnos del grupo: $unida</b>\n";
-	
+$txttit = "<b>Alumnos del grupo: $tr_unidad</b>\n";
+$txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";	
 $pdf->ezText($txttit, 12,$options_center);
+
 $pdf->ezTable($data, $titles, '', $options);
-$pdf->ezText("\n\n\n", 10);
+
+if (strstr($tr_unidad,"1E")==TRUE or strstr($tr_unidad,"2E")==TRUE) {
+	$pdf->ezText($libd12, 9,$options);
+	$pdf->ezText("\n\n\n", 5);
+}
+
+if (strstr($tr_unidad,"3E")==TRUE) {
+	$pdf->ezText($lc3, 9,$options);
+	$pdf->ezText("\n\n\n", 5);
+}
+
+if (strstr($tr_unidad,"1B")==TRUE) {
+	$pdf->ezText($lc1b, 9,$options);
+	$pdf->ezText("\n\n\n", 5);
+}
+else{
+	$pdf->ezText("\n\n\n", 10);
+}
+
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 9,$options_right);
 $pdf->ezNewPage();
 } 

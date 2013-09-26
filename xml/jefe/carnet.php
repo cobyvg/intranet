@@ -58,7 +58,24 @@ class PDF extends FPDF {
 		  }
 				
 	}
-
+	
+function fondoazul($x,$y) {
+      $tam=8.4;
+	  $dib=0;
+		 for ($n=1;$n<=10;$n+=1) {  #columnas
+		   for ($s=1;$s<=6;$s+=1)	{	#fila
+				if ($dib==1) {	$this->Image('./carnet/JUNTA_azul1.jpg',$x,$y,$tam);}
+				if ($dib==0) {	$this->Image('./carnet/JUNTA_azul2.jpg',$x,$y,$tam);}
+				if ($dib==0) {$dib=1;} else {$dib=0;}
+		    	$y=$y+$tam; 
+			}
+		  if ($dib==0) {$dib=1;} else {$dib=0;}
+		  $y=$y-6*$tam;
+		  $x=$x+$tam;
+		  }
+				
+	}
+	
 	function uno($x,$y) {
       $tam=8.4;
 	  $this->Image('./carnet/JUNTA14.jpg',$x+5*$tam,$y+$tam,$tam);
@@ -127,17 +144,17 @@ if (strlen($_POST['alumnos'])>0) {
 			else {$seleccion=$seleccion."','".$valor;}		
 		}
 	$seleccion=$seleccion."'";
-	$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha FROM alma WHERE claveal In (".$seleccion.") ORDER BY Apellidos ASC";
+	$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha, combasi FROM alma WHERE claveal In (".$seleccion.") ORDER BY Apellidos ASC";
 	$opcion=2;
 	}
 
 	elseif (isset($_POST['select'])) {		#elige selección de un curso
 	$selecc=trim($_POST['select']);
-	$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha FROM alma where Unidad = '" .$selecc ."' order by Apellidos ASC";
+	$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha, combasi FROM alma where Unidad = '" .$selecc ."' order by Apellidos ASC";
 	}
 	
 	else {
-		$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha FROM alma order by Unidad, Apellidos"; #otro caso, es decir, todos los alumnos
+		$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha, combasi FROM alma order by Unidad, Apellidos"; #otro caso, es decir, todos los alumnos
 }
 $Recordset1 = mysql_query($query_Recordset1) or die(mysql_error("No es posible conectar"));  #crea la consulata
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);  #cantidad de registros
@@ -162,7 +179,8 @@ $claveal = $row_Recordset1[0];
 $unidad = $row_Recordset1[1];
 $apellidos = $row_Recordset1[2];
 $nombre = $row_Recordset1[3];
-//echo "$claveal --> $unidad --> $apellidos --> $nombre --> $fecha<br />";
+$combasi = $row_Recordset1[5];
+
 ########################### Comenzamos con los carnets
 
 	#posición del carnet
@@ -178,12 +196,15 @@ $fechaInicio = mktime(0,0,0,date('m'),date('d'),date('Y'));
 $segundos = ($fechaInicio - $fechaFinal);
 $anyos = floor(($segundos-$sumadiasBis)/31536000);
 
-
+//echo strlen($combasi)." ".$claveal."<br>";
 	$naranja=0;
 	if (isset($_POST['alumnos']) && isset($_POST['checkbox'])) { $pdf->fondoverde($x,$y);
 		}
 	elseif ($anyos >= '18') {
 		$pdf->fondonaranja($x,$y);
+		$pdf->uno($x,$y); }
+	elseif (strlen($combasi) < '28') {
+		$pdf->fondoazul($x,$y);
 		$pdf->uno($x,$y); }
 	else {
 		$pdf->fondoverde($x,$y);
