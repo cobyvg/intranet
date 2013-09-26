@@ -41,14 +41,15 @@ mysql_query("CREATE TABLE IF NOT EXISTS `departamento_temp` (
   `CARGO` varchar(16) default NULL,
   `IDEA` varchar(12) NOT NULL default '',
    KEY `NOMBRE` (`NOMBRE`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1");
-mysql_query("ALTER TABLE departamento_temp CONVERT TO CHARACTER SET latin1 COLLATE latin1_spanish_ci");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci");
 
-if(isset($_POST['actualizar'])){}
-else{
- $base0 = "delete from departamentos where idea not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria'";
+if(isset($_POST['actualizar'])){	
 }
+else{
+ $base0 = "delete from departamentos where idea not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' and cargo not like '%1%'";
   mysql_query($base0);
+}
+ 
 
 // Importamos los datos del fichero CSV 
 $handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
@@ -63,7 +64,6 @@ while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE)
 {
 $datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[6]) . "\")";
 mysql_query($datos1);
-//echo "$datos1<br>";
 }
 fclose($handle);
 $borrarvacios = "delete from departamento_temp where DNI = ''";
@@ -72,7 +72,6 @@ $borrarpuesto = "delete from departamento_temp where DEPARTAMENTO LIKE '%Puesto%
 mysql_query($borrarpuesto);
 // Eliminar duplicados e insertar nuevos
 $elimina = "select distinct NOMBRE, DNI, DEPARTAMENTO, IDEA from departamento_temp where dni NOT IN (select distinct dni from departamentos where departamento not like '%Conserjeria%' and departamento not like 'Administracion' and idea not like 'admin')";
-//echo "$elimina<br>";
 $elimina1 = mysql_query($elimina);
  if(mysql_num_rows($elimina1) > 0)
 {
@@ -83,7 +82,6 @@ while($elimina2 = mysql_fetch_array($elimina1))
 echo "<li>".$elimina2[0] . " -- " . $elimina2[1] . " -- " . $elimina2[2] . "</li>";
   $SQL6 = "insert into departamentos  (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". $elimina2[0] . "\",\"". $elimina2[1] . "\",\"". $elimina2[2] . "\",\"". $elimina2[3] . "\")";
   $result6 = mysql_query($SQL6);
-  //echo "$SQL6<br>";
 }
 echo "<br />";
 }
@@ -184,25 +182,28 @@ Los datos de los profesores se han importado correctamente en la tabla <strong>u
 </div></div><br />';
  
 // Moodle
-$codigo1 = "select  usuario, nombre, perfil, dni, correo from usuarioprofesor, c_profes where usuarioprofesor.usuario = c_profes.idea";
-//echo $codigo . "<br>";
+$codigo1 = "select  c_profes.idea, c_profes.dni, c_profes.profesor, correo, cargo from c_profes, departamentos where c_profes.idea = departamentos.idea";
 $sqlcod1 = mysql_query ($codigo1);
+$todos_moodle="usuario;pass;nombre;apellidos;correo;ciudad;pais\n";
 while($rowprof = mysql_fetch_array($sqlcod1))
 {
-$n_pro = explode(", ",$rowprof[1]);
+if (!($rowprof[0]=='admin') and !($rowprof[0]=='conserje') and !($rowprof[4]=='7')) {
+		$n_pro = explode(", ",$rowprof[2]);
 $nombre_profe = $n_pro[1];	
 $apellidos_profe = $n_pro[0];
 
-$linea_moodle = "$rowprof[0];$rowprof[3];$nombre_profe;$apellidos_profe;$rowprof[4];Estepona;ES;\n";
+$linea_moodle = "$rowprof[0];$rowprof[1];$nombre_profe;$apellidos_profe;$rowprof[3];Estepona;ES\n";
 $todos_moodle.=$linea_moodle;
+	}
 }
- if (!(file_exists("TIC/moodle.txt")))
+
+ if (!(file_exists("TIC/profesores_moodle.txt")))
 {
-$fpprof1=fopen("TIC/moodle.txt","w+");
+$fpprof1=fopen("TIC/profesores_moodle.txt","w+");
  }
  else
  {
- $fpprof1=fopen("TIC/moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+ $fpprof1=fopen("TIC/profesores_moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permiso de escritura en ese directorio?
@@ -215,7 +216,7 @@ No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permis
  fclose ($fpprof1);
  echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
- Se ha generado un fichero (moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en la Plataforma Moodle.
+ Se ha generado un fichero (profesores_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en la Plataforma Moodle.
 </div></div><br />'; 
 }
 else{

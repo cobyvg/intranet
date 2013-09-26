@@ -68,7 +68,7 @@ $cabecera = '
 <html lang="es">
 <head>
 <meta charset="iso-8859-1">
-<title>Configuración de la Intranet</title>
+<title>Intranet &middot; '.$nombre_del_centro.'</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
 <meta name="author" content="">

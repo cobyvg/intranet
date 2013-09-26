@@ -6,7 +6,7 @@ exit;
 }
 
 $borrar = "truncate table usuarioalumno";
-	mysql_query($borrar);
+mysql_query($borrar);
 $alumnos = "select distinct CLAVEAL, APELLIDOS, NOMBRE, UNIDAD from alma";
 $sqlal = mysql_query($alumnos);
 while ($sqlprof0 = mysql_fetch_array($sqlal)) {
@@ -45,11 +45,11 @@ while ($sqlprof0 = mysql_fetch_array($sqlal)) {
 	$userpass = str_replace("º","",$userpass);
 	
 	$usuario  = $userpass;
-	//$passw = $userpass . preg_replace('/([ ])/e', 'rand(0,9)', '   ');
+	$passw = $userpass . preg_replace('/([ ])/e', 'rand(0,9)', '   ');
 	$unidad = $sqlprof0[3];
 	$claveal = $sqlprof0[0];
 	
-	$insertar = "insert into usuarioalumno set nombre = '$nombreorig', usuario = '$usuario', pass = '$usuario', perfil = 'a', unidad = '$unidad', claveal = '$claveal'";
+	$insertar = "insert into usuarioalumno set nombre = '$nombreorig', usuario = '$usuario', pass = '$passw', perfil = 'a', unidad = '$unidad', claveal = '$claveal'";
 	mysql_query($insertar);
 }
 
@@ -93,5 +93,42 @@ $fp=fopen("TIC/alumnos.txt","w+");
  }
  $pepito=fwrite($fp,$todo);
  fclose ($fp);
+ 
+  
+// Moodle
+$codigo1 = "select usuario, pass, nombre, unidad from usuarioalumno";
+$sqlcod1 = mysql_query ($codigo1);
+$todos_moodle="usuario;pass;nombre;apellidos;unidad;ciudad;pais\n";
+while($rowprof = mysql_fetch_array($sqlcod1))
+{
+$n_pro = explode(", ",$rowprof[2]);
+$nombre_profe = $n_pro[1];	
+$apellidos_profe = $n_pro[0];
+
+$linea_moodle = "$rowprof[0];$rowprof[1];$nombre_profe;$apellidos_profe;$rowprof[3];Estepona;ES\n";
+$todos_moodle.=$linea_moodle;
+}
+
+ if (!(file_exists("TIC/alumnos_moodle.txt")))
+{
+$fpprof1=fopen("TIC/alumnos_moodle.txt","w+");
+ }
+ else
+ {
+ $fpprof1=fopen("TIC/alumnos_moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<h5>ATENCIÓN:</h5>
+No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permiso de escritura en ese directorio?
+</div></div><br />
+<div align="center">
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+</div>'); 
+ }
+ $pepito1=fwrite($fpprof1,$todos_moodle);
+ fclose ($fpprof1);
+ echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+ Se ha generado un fichero (alumnos_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en la Plataforma Moodle.
+</div></div><br />'; 
  ?>
 

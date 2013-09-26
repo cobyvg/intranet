@@ -15,6 +15,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 $idea = $_SESSION ['ide'];
 if (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}
+if (isset($_POST['idea'])) {$idea = $_POST['idea'];}
 ?>
 <br />
    <div align=center>
@@ -30,28 +31,18 @@ if (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor=
 <?
 	echo "<legend>Registro de fotos</legend>";
 echo "<p class='help-block' style='text-align:left;'>Haz click en el botón de abajo para seleccionar el archivo con la fotografía que quieres registrar o actualizar. La fotografía debe tener una resolución mínima de 40KB y máxima de 1MB. El archivo de imagen debe ser JPG.</p>" ;
-if (strlen($idea) > '5') 
-{
 
-if(file_exists("../../xml/fotos_profes/".$idea.".jpg")){
-		$grande=filesize("../../xml/fotos_profes/".$idea.".jpg");
-		$foto_ya='1';	
-	}
-}
-
-if (isset($_POST['enviar']) and empty($_POST['File']))
+if (isset($_POST['enviar']))
 {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-            No has seleccionado ninguna fotograf&iacute;a. Elige una archivo con la fotografía e inténtalo de nuevo.
-          </div></div>';
-}
-if (!(empty($File))) {
-		$fotos_dir = "../../xml/fotos_profes/";
-	if ($File_size>'30000' and $File_size<'1200000') {
+	$ok=0;
+	if ($_FILES['File']['size']>0) {
+	
+	$fotos_dir = "../../xml/fotos_profes/";
+	
+	if ($_FILES['File']['size']>'30000' and $_FILES['File']['size']<'2000000') {
 		
-		if (stristr($File_type,"image/jp")==TRUE) {
+		if (stristr($_FILES['File']['type'],"image/jp")==TRUE) {
+			
 			$extension="jpg";
 			$n_foto=$idea.".".$extension;
 			$n_foto0=$idea."0.".$extension;
@@ -81,31 +72,52 @@ if (!(empty($File))) {
 			redimensionar_jpeg($arch0,$arch,600,$cent_alto,100);
 			$nuevo_tamaño = filesize($arch);
 			$foto_ya='1';
+			copy($arch0,"../../xml/fotos/".$idea.".jpg");
 			unlink($arch0);
 		}
 		else {
+			$ok.="1";
 			echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 El archivo que est&aacute;s enviando no es un tipo de imagen v&aacute;lido. Selecciona un archivo de imagen con formato JPG.
           </div></div>';
 		}
 	}
 	else{
-		if ($File_size< '30000') {
+		
+		if ($_FILES['File']['size']< '30000') {
+			$ok.="1";
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-La fotograf&iacute;a no tiene suficiente resoluci&oacute;n, por lo que su visualizaci&oacute;n ser&aacute; necesariamente defectuosa. Es conveniente que actualizes la foto eligiendo una nueva con mayor calidad. 
+			<legend>ATENCIÓN:</legend>
+La fotograf&iacute;a no tiene suficiente resoluci&oacute;n, por lo que su visualizaci&oacute;n ser&aacute; necesariamente defectuosa. Es conveniente que actualices la foto eligiendo una nueva con mayor calidad. 
           </div></div>';
 		}
 		else{
+		$ok.="1";
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 La fotograf&iacute;a tiene excesiva resoluci&oacute;n. Es conveniente que actualices la foto eligiendo una nueva con menor resolución (o tamaño, como quieras). 
           </div></div>';	
 		}
+	}
+	if ($ok==0) {
+		echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>ATENCIÓN:</legend>
+            La fotografía se ha actualizado correctamente. Si la foto que ves abajo es la antigua, sal de est página y vuelve a entrar: comprobarás que la foto se ha actualizado.
+          </div></div>';	
+	}	
+	}
+	else{
+		$ok.="1";
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>ATENCIÓN:</legend>
+            No has seleccionado ninguna fotograf&iacute;a. Elige una archivo con la fotografía e inténtalo de nuevo.
+          </div></div>';
 	}
 }
 
@@ -136,22 +148,6 @@ if(file_exists("../../xml/fotos_profes/".$idea.".jpg")){
 	}
 	else {
 		echo "<div style='margin-top:10px;border:1px solid #bbb;width:100px;height:119px;color:#9d261d;' />Sin Foto</div><br />";
-	}
-	if ($foto_ya=='1' and $grande < '30000') {
-						
-		
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-La fotograf&iacute;a no tiene suficiente resoluci&oacute;n, por lo que su visualizaci&oacute;n ser&aacute; necesariamente defectuosa. Es conveniente que actualices la foto eligiendo una nueva con mayor calidad. 
-          </div></div>';
-	}
-	if ($foto_ya=='1' and $grande > '1200000') {
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-La fotograf&iacute;a tiene excesiva resoluci&oacute;n. Es conveniente que actualices la foto eligiendo una nueva con menor resolución (o tamaño, como quieras). 
-          </div></div>';
 	}
 }
   ?>

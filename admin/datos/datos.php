@@ -55,7 +55,7 @@ if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al=""
    	
   	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {
-		echo "<div align='center'><img src='../../xml/fotos/$clave.jpg_al' border='2' width='100' height='119' style='margin:auto;border:1px solid #bbb;'  /></div>";
+		echo "<div align='center'><img src='../../xml/fotos/$clave_al.jpg' border='2' width='100' height='119' style='margin:auto;border:1px solid #bbb;'  /></div>";
 			  echo "<br />";
 	}    
    }
