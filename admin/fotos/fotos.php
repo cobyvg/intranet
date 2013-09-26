@@ -95,7 +95,7 @@ if (isset($_POST['enviar']))
 			$ok.="1";
 			echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 El archivo que est&aacute;s enviando no es un tipo de imagen v&aacute;lido. Selecciona un archivo de imagen con formato JPG.
           </div></div>';
 		}
@@ -107,7 +107,7 @@ El archivo que est&aacute;s enviando no es un tipo de imagen v&aacute;lido. Sele
 			$ok.="1";
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 La fotograf&iacute;a no tiene suficiente resoluci&oacute;n, por lo que su visualizaci&oacute;n ser&aacute; necesariamente defectuosa. Es conveniente que actualices la foto eligiendo una nueva con mayor calidad. 
           </div></div>';
 		}
@@ -115,7 +115,7 @@ La fotograf&iacute;a no tiene suficiente resoluci&oacute;n, por lo que su visual
 			$ok.="1";
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 La fotograf&iacute;a tiene excesiva resoluci&oacute;n. Es conveniente que actualices la foto eligiendo una nueva con menor resolución (o tamaño, como quieras). 
           </div></div>';	
 		}
@@ -124,7 +124,6 @@ La fotograf&iacute;a tiene excesiva resoluci&oacute;n. Es conveniente que actual
 	if ($ok==0) {
 		echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
             La fotografía se ha actualizado correctamente. Si la foto que ves abajo es la antigua, sal de esta página y vuelve a entrar: comprobarás que la foto se ha actualizado.
           </div></div>';	
 	}	
@@ -133,7 +132,7 @@ La fotograf&iacute;a tiene excesiva resoluci&oacute;n. Es conveniente que actual
 		$ok.="1";
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
             No has seleccionado ninguna fotograf&iacute;a. Elige una archivo con la fotografía e inténtalo de nuevo.
           </div></div>';
 	}
@@ -200,7 +199,7 @@ if (strlen($_POST['nombre']) > '5')
 	if ($foto_ya=='1' and $grande < '30000') {
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 La fotograf&iacute;a no tiene suficiente resoluci&oacute;n, por lo que su visualizaci&oacute;n ser&aacute; necesariamente defectuosa. Es conveniente que actualizes la foto eligiendo una nueva con mayor calidad. 
           </div></div>';
 	}

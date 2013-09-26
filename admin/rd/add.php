@@ -192,7 +192,7 @@ if ($edicion=="1") {
     <form action="add.php" method="POST" name='f1' class="form-inline">
       <label style="display:inline">Fecha de la Reunión &nbsp;
       <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha" value="<? if (isset($fecha_r)) {
+            <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" required id="fecha" value="<? if (isset($fecha_r)) {
             	echo $fecha_r;
             }?>" >
   <span class="add-on"><i class="icon-calendar"></i></span>
