@@ -29,7 +29,6 @@ $codasig= mysql_query("SELECT codigo, abrev, curso FROM asignaturas");
 while($asigtmp = mysql_fetch_array($codasig)) {
 	$asignatura[$asigtmp[0]] = $asigtmp[1].'('.substr($asigtmp[2],0,2).')';
 	} 
-<<<<<<< HEAD
 $libd12 = "
 LIBD1: Ref. Lengua; LIBD2: Ref. Matemáticas; LIBD3: Ref. Inglés; LIBD4: Taller TIC; LIBD5: Taller Teatro.
 ";
@@ -41,11 +40,6 @@ OPLC1: Ed. Física; OPLC2: Estadística; OPLC3: Francés.
 ";
 if (isset($_GET['unidad'])) {
 		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
-=======
-
-	if (isset($_GET['unidad'])) {
-		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
->>>>>>> c82f12d00a7c23c376e3e7e577e071746d4eb268
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
@@ -53,7 +47,6 @@ while($datatmp = mysql_fetch_array($lista)) {
 	if ($datatmp[2]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
 	}
-<<<<<<< HEAD
 	if(strstr($unidad,"E-")==TRUE){
 	$m_ex = "select exencion from matriculas where claveal = '$datatmp[3]'";
 	$m_exen = mysql_query($m_ex);
@@ -63,8 +56,6 @@ while($datatmp = mysql_fetch_array($lista)) {
 	}
 	}
 	
-=======
->>>>>>> c82f12d00a7c23c376e3e7e577e071746d4eb268
 	$data[] = array(
 				'num'=>$datatmp[1],
 				'nombre'=>$datatmp[0],
@@ -111,11 +102,7 @@ $tr_unidad = $tr_c[0];
 $tr_codasi = $tr_c[2];
 
 if($_POST['asignaturas']==""){
-<<<<<<< HEAD
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
-=======
-$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
->>>>>>> c82f12d00a7c23c376e3e7e577e071746d4eb268
 
 if(strlen($tr_codasi)>1){
 $sqldatos.=" and combasi like '%$tr_codasi%'";
@@ -177,11 +164,7 @@ $pdf->ezNewPage();
 
 if ($_POST['asignaturas']=='1'){
 
-<<<<<<< HEAD
 $sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
-=======
-$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
->>>>>>> c82f12d00a7c23c376e3e7e577e071746d4eb268
 //echo 
 if(strlen($tr_codasi)>1){
 $sqldatos.=" and combasi like '%$tr_codasi%'";
