@@ -87,7 +87,7 @@ Los datos han sido modificados correctamente.</div></div>';
  <SELECT  name="sustituto" class="input-xlarge" id="prof2">
     <option></option>
     <?
-  $profe = mysql_query(" SELECT distinct profesor FROM profesores order by profesor asc");
+  $profe = mysql_query(" SELECT distinct nombre FROM departamentos where nombre not like 'admin' and nombre not like 'conserje' and departamento not like 'Administ%' order by nombre asc");
   if ($filaprofe = mysql_fetch_array($profe))
         {
         do {

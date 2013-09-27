@@ -8,7 +8,7 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR stristr($_SESSION['cargo'],'8') == TRUE))
+if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'8') == TRUE))
 {
 header("location:http://$dominio/intranet/salir.php");
 exit;	
@@ -39,7 +39,7 @@ else{
            
                 <label>Fecha de la actividad:<br /> 
                       <div class="input-append" >
-            <input name="fecha_act" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha_act" >
+            <input name="fecha_act" type="text" class="input input-small" value="<? echo $fecha_act; ?>" data-date-format="dd-mm-yyyy" id="fecha_act" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
               </label>
@@ -70,7 +70,6 @@ else{
 	?>
 	    <OPTION>Actividades Extraescolares</OPTION>
         <OPTION>Relaciones de Género</OPTION>
-		<OPTION>Religión</OPTION>
 	<?
   // Datos del alumno que hace la consulta. No aparece el nombre del a&ntilde;o de la nota. Se podr&iacute;a incluir.
   $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where departamento not like '%Admin%' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%' order by departamento asc");
@@ -94,11 +93,6 @@ else{
                     <?
 					if($departamento == "Actividades Extraescolares"){
 					echo "<OPTION>Mart&iacute;nez Mart&iacute;nez, M&ordf; Pilar</OPTION>";
-					}
-					elseif($departamento == "Religión"){
-					$texto = "where departamento = '$departamento'";
-					echo "<OPTION>Capilla Mata, M&ordf; Ángeles</OPTION>";
-					echo "<OPTION>Nuño López, Ángel</OPTION>";
 					}
 					elseif($departamento == "Relaciones de Género"){	
 					$texto = "where departamento = '$departamento'";
@@ -183,7 +177,7 @@ $nivel = $alumno[1];
   <? }
 else{?>
   <? }
-  if (date('m')>3 and date('m')<10) {
+  if (!(date('m')>3 and date('m')<10)) {
   	if ( stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE ) {
   			echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary" >';
   	}
