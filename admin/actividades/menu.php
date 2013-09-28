@@ -17,7 +17,7 @@ if (isset($_GET['horario'])) {$horario = $_GET['horario'];}elseif (isset($_POST[
 if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];}elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];}else{$profesor="";}
 if (isset($_GET['actividad'])) {$actividad = $_GET['actividad'];}elseif (isset($_POST['actividad'])) {$actividad = $_POST['actividad'];}else{$actividad="";}
 if (isset($_GET['descripcion'])) {$descripcion = $_GET['descripcion'];}elseif (isset($_POST['descripcion'])) {$descripcion = $_POST['descripcion'];}else{$descripcion="";}
-if (isset($_GET['justificacion'])) {$justificacion = $_GET['justificacion'];}elseif (isset($_POST['justijustificacionficacion'])) {$justificacion = $_POST['justificacion'];}else{$justificacion="";}
+if (isset($_GET['justificacion'])) {$justificacion = $_GET['justificacion'];}elseif (isset($_POST['justificacion'])) {$justificacion = $_POST['justificacion'];}else{$justificacion="";}
 if (isset($_GET['hoy'])) {$hoy = $_GET['hoy'];}elseif (isset($_POST['hoy'])) {$hoy = $_POST['hoy'];}else{$hoy="";}
 if (isset($_GET['expresion'])) {$expresion = $_GET['expresion'];}elseif (isset($_POST['expresion'])) {$expresion = $_POST['expresion'];}else{$expresion="";}
 

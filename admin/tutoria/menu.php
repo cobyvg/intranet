@@ -31,8 +31,8 @@ else{$tutor = $_SESSION['profi'];}
           <li><a href="../cursos/ccursos.php?submit1=1&unidad=<? echo $nivel;?>-<? echo $grupo;?>">Lista del Grupo</a></li>
           <li><a  href="../fotos/grupos.php?curso=<? echo $nivel;?>-<? echo $grupo;?>">Fotos del Grupo</a></li>
           <li><a  href="../fotos/fotos.php?nivel=<? echo $nivel;?>&grupo=<? echo $grupo;?>">Registrar Fotos</a></li>
-                    <li><a  href="../../xml/jefe/form_carnet.php">Crear Carnet del Alumno</a></li>
-          <li><a  href="../datos/datos.php?nivel=<? echo $nivel;?>&grupo=<? echo $grupo;?>">Datos de los Alumnos</a></li>
+          <li><a  href="../../xml/jefe/form_carnet.php">Crear Carnet del Alumno</a></li>
+          <li><a  href="../datos/datos.php?unidad=<? echo $nivel.'-'.$grupo; ?>">Datos de los Alumnos</a></li>
           <li><a  href="absentismo.php?tutor=<? echo $tutor;?>" >Alumnos Absentistas</a></li>
           <li><a  href="http://<? echo $dominio; ?>/intranet/upload/index.php?&direction=0&order=&directory=programaciones/orientacion" >Materiales de Orientación</a></li>
         </ul>
