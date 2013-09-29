@@ -50,19 +50,32 @@ if(stristr($_SESSION['cargo'],'1') == TRUE){
  unidad();
 }
 else{
-$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$profesor'";
+
+$SQLcurso = "select grupo, materia, nivel from profesores where profesor = '$profesor'";
 $resultcurso = mysql_query($SQLcurso);
+$curso="";
+$asignatura="";	
 	while($rowcurso = mysql_fetch_array($resultcurso))
 	{
 	$curso = $rowcurso[0];
 	$asignatura = $rowcurso[1];
+	$n_curs = substr($rowcurso[2],0,1);
+	if (stristr($rowcurso[2],"bach")) {
+		$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso like '%bach%' and curso like '$n_curs%' and abrev not like '%\_%'";
+	}
+	else{
 	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurso[2]' and abrev not like '%\_%'";
-
+	}
 	$asigna1 = mysql_query($asigna0);
-	$asigna2 = mysql_fetch_array($asigna1);
-	$codasi = $asigna2[0];	
-	echo "<option>$curso -> $asignatura -> $codasi</option>";
+	$codasi="";
+	while ($asigna2 = mysql_fetch_array($asigna1)) {
+		$codasi.=$asigna2[0]."-";
+	}
+	$codasi = substr($codasi,0,-1)	;
+	//echo "<option>select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurso[2]' and abrev not like '%\_%'</option>";
+	echo "<option value='$curso -> $asignatura -> $codasi'>$curso -> $asignatura</option>";
  }
+ 
 }
 ?>
           </SELECT>

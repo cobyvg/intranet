@@ -39,7 +39,7 @@ $lc1b = "
 OPLC1: Ed. Física; OPLC2: Estadística; OPLC3: Francés.
 ";
 if (isset($_GET['unidad'])) {
-		$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
@@ -96,17 +96,20 @@ $pdf->ezNewPage();
 	
 	
 	
-foreach ($unidad as $unida){	
+foreach ($unidad as $unida){
+		
 $tr_c = explode(" -> ",$unida);
 $tr_unidad = $tr_c[0];
-$tr_codasi = $tr_c[2];
+$tr_codasi = explode("-",$tr_c[2]);
 
 if($_POST['asignaturas']==""){
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
-
-if(strlen($tr_codasi)>1){
-$sqldatos.=" and combasi like '%$tr_codasi%'";
-} 
+if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
+$sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";
+	} 
+	else{
+$sqldatos.=" and combasi like '%$tr_codasi[0]%'";		
+	}
 $sqldatos.=" and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 
 $lista= mysql_query($sqldatos );
@@ -165,12 +168,15 @@ $pdf->ezNewPage();
 if ($_POST['asignaturas']=='1'){
 
 $sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
-//echo 
-if(strlen($tr_codasi)>1){
-$sqldatos.=" and combasi like '%$tr_codasi%'";
-} 
+if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
+$sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";
+	} 
+	else{
+$sqldatos.=" and combasi like '%$tr_codasi[0]%'";		
+	}
 $sqldatos.=" and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
-;
+
+//echo $sqldatos;
 $lista= mysql_query($sqldatos);
 $num=0;
 unset($data);
