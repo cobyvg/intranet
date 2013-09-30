@@ -221,7 +221,7 @@ $datos[2]= str_replace("\\","",$datos[2]);
 ?>
   
    <? if($autoriz=="1"){}else{ ?> 
-    <a href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1">' <i class="icon icon-ok-circle" title='Autorizar actividad'> </i> </a>
+    <a href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1"> <i class="icon icon-ok-circle" title='Autorizar actividad'> </i> </a>
     <? } ?>
 </td>
 <td nowrap>	
