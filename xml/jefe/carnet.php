@@ -30,8 +30,8 @@ class PDF extends FPDF {
 	  $div=0;
 		 for ($n=1;$n<=10;$n+=1) {  #columnas
 		   for ($s=1;$s<=6;$s+=1)	{	#fila
-				if ($dib==1) {	$this->Image('./carnet/JUNTA3.jpg',$x,$y,$tam);}
-				if ($dib==0) {	$this->Image('./carnet/JUNTA4.jpg',$x,$y,$tam);}
+				if ($dib==1) {	$this->Image('./carnet/tramado_verde_logo.jpg',$x,$y,$tam);}
+				if ($dib==0) {	$this->Image('./carnet/tramado_verde_fondo.jpg',$x,$y,$tam);}
 				if ($dib==0) {$dib=1;} else {$dib=0;}
 		    	$y=$y+$tam; 
 			}
@@ -47,8 +47,8 @@ class PDF extends FPDF {
 	  $dib=0;
 		 for ($n=1;$n<=10;$n+=1) {  #columnas
 		   for ($s=1;$s<=6;$s+=1)	{	#fila
-				if ($dib==1) {	$this->Image('./carnet/JUNTA15.jpg',$x,$y,$tam);}
-				if ($dib==0) {	$this->Image('./carnet/JUNTA16.jpg',$x,$y,$tam);}
+				if ($dib==1) {	$this->Image('./carnet/tramado_naranja_logo.jpg',$x,$y,$tam);}
+				if ($dib==0) {	$this->Image('./carnet/tramado_naranja_fondo.jpg',$x,$y,$tam);}
 				if ($dib==0) {$dib=1;} else {$dib=0;}
 		    	$y=$y+$tam; 
 			}
@@ -58,58 +58,42 @@ class PDF extends FPDF {
 		  }
 				
 	}
-	
-function fondoazul($x,$y) {
-      $tam=8.4;
-	  $dib=0;
-		 for ($n=1;$n<=10;$n+=1) {  #columnas
-		   for ($s=1;$s<=6;$s+=1)	{	#fila
-				if ($dib==1) {	$this->Image('./carnet/JUNTA_azul1.jpg',$x,$y,$tam);}
-				if ($dib==0) {	$this->Image('./carnet/JUNTA_azul2.jpg',$x,$y,$tam);}
-				if ($dib==0) {$dib=1;} else {$dib=0;}
-		    	$y=$y+$tam; 
-			}
-		  if ($dib==0) {$dib=1;} else {$dib=0;}
-		  $y=$y-6*$tam;
-		  $x=$x+$tam;
-		  }
-				
-	}
+
 	
 	function uno($x,$y) {
       $tam=8.4;
-	  $this->Image('./carnet/JUNTA14.jpg',$x+5*$tam,$y+$tam,$tam);
-      $this->Image('./carnet/JUNTA14.jpg',$x+6*$tam,$y+2*$tam,$tam);
-	  $this->Image('./carnet/JUNTA14.jpg',$x+6*$tam,$y+4*$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+6*$tam,$y+$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+6*$tam,$y+3*$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+6*$tam,$y+5*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+5*$tam,$y+$tam,$tam);
+      $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+6*$tam,$y+2*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+6*$tam,$y+4*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+6*$tam,$y+$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+6*$tam,$y+3*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+6*$tam,$y+5*$tam,$tam);
 	}
 
 	function dos($x,$y) {
       $tam=8.4;
-	  $this->Image('./carnet/JUNTA14.jpg',$x+5*$tam,$y+$tam,$tam);
-      $this->Image('./carnet/JUNTA14.jpg',$x+7*$tam,$y+$tam,$tam);
-	  $this->Image('./carnet/JUNTA14.jpg',$x+5*$tam,$y+5*$tam,$tam);
-      $this->Image('./carnet/JUNTA14.jpg',$x+7*$tam,$y+5*$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+6*$tam,$y+$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+7*$tam,$y+2*$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+5*$tam,$y+4*$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+6*$tam,$y+3*$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+6*$tam,$y+5*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+5*$tam,$y+$tam,$tam);
+      $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+7*$tam,$y+$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+5*$tam,$y+5*$tam,$tam);
+      $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+7*$tam,$y+5*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+6*$tam,$y+$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+7*$tam,$y+2*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+5*$tam,$y+4*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+6*$tam,$y+3*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+6*$tam,$y+5*$tam,$tam);
 	}
 	function tres($x,$y) {
       $tam=8.4;
-	  $this->Image('./carnet/JUNTA14.jpg',$x+5*$tam,$y+$tam,$tam);
-      $this->Image('./carnet/JUNTA14.jpg',$x+7*$tam,$y+$tam,$tam);
-	  $this->Image('./carnet/JUNTA14.jpg',$x+5*$tam,$y+5*$tam,$tam);
-      $this->Image('./carnet/JUNTA14.jpg',$x+7*$tam,$y+5*$tam,$tam);
-	  $this->Image('./carnet/JUNTA14.jpg',$x+7*$tam,$y+3*$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+6*$tam,$y+$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+7*$tam,$y+2*$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+7*$tam,$y+4*$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+6*$tam,$y+3*$tam,$tam);
-	  $this->Image('./carnet/JUNTA13.jpg',$x+6*$tam,$y+5*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+5*$tam,$y+$tam,$tam);
+      $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+7*$tam,$y+$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+5*$tam,$y+5*$tam,$tam);
+      $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+7*$tam,$y+5*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_fondo.jpg',$x+7*$tam,$y+3*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+6*$tam,$y+$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+7*$tam,$y+2*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+7*$tam,$y+4*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+6*$tam,$y+3*$tam,$tam);
+	  $this->Image('./carnet/tramado_oscuro_logo.jpg',$x+6*$tam,$y+5*$tam,$tam);
 	}
 }
 
@@ -208,21 +192,25 @@ $anyos = floor(($segundos-$sumadiasBis)/31536000);
 		$pdf->uno($x,$y); }
 	else {
 		$pdf->fondoverde($x,$y);
-		$naranja=1;}
+		$naranja=0;}
+		
 	#Hasta aquí el fondo, ahora el texto:
-	if ($naranja==1) {
-		$pdf->Image('./carnet/junta62.jpg',$x+3,$y+4,24);
-	    $pdf->Image('./carnet/Junta10.jpg',$x+57,$y+4,24);}
-	else {
-		$pdf->Image('./carnet/Junta6.jpg',$x+3,$y+4,24);
-		$pdf->Image('./carnet/Junta10.jpg',$x+57,$y+4,24);}
 	
-		$longnie=strlen($claveal);
-	    $dplz=0;
-		if ($longnie<7) {$dplz=4;}
-
+	// CABECERA
+	$pdf->Image('./carnet/junta.png',$x+3,$y+4,24);
+	$pdf->Image('./carnet/consejeria.png',$x+57,$y+4,24);
+	$pdf->SetTextColor(59,113,59);
 	$pdf->SetFont('Arial','B',7);
-	$pdf->Text(33+$x,6+$y,$curso);
+	$pdf->Text(33+$x,6.1+$y,$curso);
+	$pdf->SetFont('Arial','B',5);
+	$pdf->Text(57.2+$x,7.7+$y,$nombre_del_centro);
+	$pdf->SetTextColor(0,0,0);
+
+	$longnie=strlen($claveal);
+    $dplz=0;
+	if ($longnie<7) {$dplz=4;}
+
+	
 	$pdf->Rect(2+$x,12+$y,23,30,'F');
 	#$pdf->Rect(46+$x,36+$y,33,11,F);
 	$pdf->Rect(29+$x+$dplz,36+$y,52-$dplz,12,'F');
@@ -232,6 +220,7 @@ $foto_al = "../fotos/".$claveal.".jpg";
 if (file_exists($foto_al)) {
  	$pdf->Image($foto_al,2.5+$x,12.5+$y,22);
 }
+	
 	$pdf->SetFont('c128ab','',40);
     $cadena= chr(124) . chr(172). $claveal . codigo_control($claveal) . chr(126);
     $pdf->Text(32+$x+$dplz,47+$y,$cadena);    
