@@ -12,7 +12,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include_once ("../../pdf/funciones.inc.php");
 require_once('../../pdf/class.ezpdf.php');
-$pdf =& new Cezpdf('a4');
+$pdf = new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 # hasta aquí lo del pdf
@@ -96,12 +96,13 @@ $pdf->ezNewPage();
 	
 	
 	
-foreach ($unidad as $unida){
-		
+foreach ($_POST['unidad'] as $unida){
+		//echo "$unida<br>";
+$n_uni+=1;
 $tr_c = explode(" -> ",$unida);
 $tr_unidad = $tr_c[0];
 $tr_codasi = explode("-",$tr_c[2]);
-
+$cuenta = count($_POST['unidad']);
 if($_POST['asignaturas']==""){
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
 if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
@@ -111,7 +112,7 @@ $sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]
 $sqldatos.=" and combasi like '%$tr_codasi[0]%'";		
 	}
 $sqldatos.=" and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
-
+//echo $sqldatos;
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
@@ -162,7 +163,15 @@ $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
 $pdf->ezText("\n\n\n", 10);
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_right);
-$pdf->ezNewPage();
+//echo "Cuenta = $cuenta; grupos = $n_uni;<br>";
+if ($cuenta>1) {
+	if ($n_uni==$cuenta) {
+	}
+	else{
+	$pdf->ezNewPage();			
+	}
+		
+}
 }
 
 if ($_POST['asignaturas']=='1'){

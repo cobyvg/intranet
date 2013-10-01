@@ -72,7 +72,7 @@ else{
         <OPTION>Relaciones de Género</OPTION>
 	<?
   // Datos del alumno que hace la consulta. No aparece el nombre del a&ntilde;o de la nota. Se podr&iacute;a incluir.
-  $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where departamento not like '%Admin%' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%' order by departamento asc");
+  $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%' order by departamento asc");
   if ($filaprofe = mysql_fetch_array($profe))
         {
         do {
@@ -91,16 +91,24 @@ else{
                 <label>Profesor: <br />
                 <SELECT multiple name='profesor[]' class="input-xlarge">
                     <?
-					if($departamento == "Actividades Extraescolares"){
-					echo "<OPTION>Mart&iacute;nez Mart&iacute;nez, M&ordf; Pilar</OPTION>";
+                    if($_POST['departamento'] == "Actividades Extraescolares" or $_POST['departamento'] == "Relaciones de Género"){
+                    if($_POST['departamento'] == "Actividades Extraescolares"){
+						$acti = mysql_query("select nombre from departamentos where cargo like '%5%'");
+						while ($activ = mysql_fetch_array($acti)) {
+							echo "<OPTION>$activ[0]</OPTION>";
+						}
 					}
-					elseif($departamento == "Relaciones de Género"){	
-					$texto = "where departamento = '$departamento'";
-					echo "<OPTION>Cabezas Sánchez, Esther</OPTION>";
+					elseif($_POST['departamento'] == "Relaciones de Género"){
+						$rg = mysql_query("select nombre from departamentos where cargo like '%d%'");
+						while ($rgen = mysql_fetch_array($rg)) {
+							echo "<OPTION>$rgen[0]</OPTION>";
+						}
 					}
-					else{$texto = "where departamento = '$departamento'";}
+					$texto = "and departamento = ''";
+                    }
+					else{$texto = "and departamento = '$departamento'";}
 
-  $profe = mysql_query(" SELECT distinct NOMBRE FROM departamentos " . $texto. " order by NOMBRE asc");
+  $profe = mysql_query("SELECT distinct NOMBRE FROM departamentos where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%'" . $texto. " order by NOMBRE asc");
   if ($filaprofe = mysql_fetch_array($profe))
         {
         do {

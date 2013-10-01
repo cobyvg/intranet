@@ -46,7 +46,7 @@ echo '<div class="span6 offset3">';
 <legend>Lista de Alumnos por Grupo</legend>
 <SELECT  name="unidad[]" multiple class="input-block-level">
 <?
-if(stristr($_SESSION['cargo'],'1') == TRUE){
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE){
  unidad();
 }
 else{

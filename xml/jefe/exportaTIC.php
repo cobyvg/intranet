@@ -6,7 +6,7 @@ exit;
 }
 
 $borrar = "truncate table usuarioalumno";
-mysql_query($borrar);
+	mysql_query($borrar);
 $alumnos = "select distinct CLAVEAL, APELLIDOS, NOMBRE, UNIDAD from alma";
 $sqlal = mysql_query($alumnos);
 while ($sqlprof0 = mysql_fetch_array($sqlal)) {
@@ -93,19 +93,14 @@ $fp=fopen("TIC/alumnos.txt","w+");
  }
  $pepito=fwrite($fp,$todo);
  fclose ($fp);
- 
-  
+   
 // Moodle
-$codigo1 = "select usuario, pass, nombre, unidad from usuarioalumno";
+$codigo1 = "select usuario, pass, alma.apellidos, alma.nombre, alma.unidad from usuarioalumno, alma where alma.claveal=usuarioalumno.claveal";
 $sqlcod1 = mysql_query ($codigo1);
 $todos_moodle="usuario;pass;nombre;apellidos;unidad;ciudad;pais\n";
 while($rowprof = mysql_fetch_array($sqlcod1))
 {
-$n_pro = explode(", ",$rowprof[2]);
-$nombre_profe = $n_pro[1];	
-$apellidos_profe = $n_pro[0];
-
-$linea_moodle = "$rowprof[0];$rowprof[1];$nombre_profe;$apellidos_profe;$rowprof[3];Estepona;ES\n";
+$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[4];Estepona;ES\n";
 $todos_moodle.=$linea_moodle;
 }
 
@@ -117,8 +112,8 @@ $fpprof1=fopen("TIC/alumnos_moodle.txt","w+");
  {
  $fpprof1=fopen("TIC/alumnos_moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permiso de escritura en ese directorio?
+			<h5>ATENCIN:</h5>
+No se ha podido escribir en el archivo TIC/profesores.txt. Has concedido permiso de escritura en ese directorio?
 </div></div><br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
@@ -126,9 +121,10 @@ No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permis
  }
  $pepito1=fwrite($fpprof1,$todos_moodle);
  fclose ($fpprof1);
- echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+ echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
- Se ha generado un fichero (alumnos_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en la Plataforma Moodle.
+ Se ha generado un fichero (alumnos_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en cualquier Plataforma Moodle distinta a la de la Red TIC de la Junta de Andalucía.
 </div></div><br />'; 
+ 
  ?>
 

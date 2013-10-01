@@ -54,6 +54,10 @@ No se han podido cambiar los datos del horario de faltas. Busca ayuda si lo cons
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<strong>Atención:</strong><br />
 No se han podido cambiar los datos de Tutoría. Busca ayuda si lo consideras necesario, o bien cambia los datos en la tabla FTUTORES manualmente.</div></div>');
+				mysql_query("update profesores set profesor = '$sustituto' where profesor = '$sustituido'") or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>Atención:</strong><br />
+No se han podido cambiar los datos de la tabla Profesores. Busca ayuda si lo consideras necesario, o bien cambia los datos en la tabla profesores manualmente.</div></div>');
 	}
 	echo'<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

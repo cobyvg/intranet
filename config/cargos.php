@@ -19,7 +19,7 @@ include ("../menu.php");
 ?>
 <div class='container-fluid'>
   <div class="row-fluid">
-   <div class="span10 offset1"> 
+   <div class="span12"> 
    <br /> 
 <div align="center">
 <div class="page-header">
@@ -85,6 +85,7 @@ $head = '<thead>
 		<th align="center"><span rel="Tooltip" title="Profesores que participan en el Plan de Bilinguismo">Bilingue</span></th>
 		<th align="center"><span rel="Tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conviven.</span></th>
 		<th align="center"><span rel="Tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>
+		<th align="center"><span rel="Tooltip" title="Profesor encargado de las Relaciones de Género">Genero</span></th>
 	</tr>
 	</thead>';
 ?>
@@ -240,7 +241,15 @@ while ( $carg1 = mysql_fetch_array ( $carg0 ) ) {
 		echo "checked";
 	}
 	?> /></td>
-
+	<td align="center"><input type="checkbox" name="<?
+	echo $dni;
+	?>11"
+			value="d" id="dato0"
+			<?
+	if (stristr ( $car, 'd' ) == TRUE) {
+		echo "checked";
+	}
+	?> /></td>
 	</tr>
 <?
 	}
