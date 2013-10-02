@@ -8,7 +8,7 @@ exit;
 // Conexión
 $c=mysql_connect($db_host,$db_user,$db_pass); 
 mysql_select_db($db,$c);  
-$fp = fopen ( $HTTP_POST_FILES['archivo']['tmp_name'] , "r" );
+$fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
 mysql_query("drop table horw"); 
 $crea =" CREATE TABLE IF NOT EXISTS horw (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
