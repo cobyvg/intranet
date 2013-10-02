@@ -41,7 +41,8 @@ Crear Asignaturas y sistema de Calficaciones</a></li>
 <hr>
 <li class="nav-header">Faltas de asistencia</li>
 <li><a href="../faltas/absentismo/index.php" class="enlacelateral">Alumnos Absentistas</a></li>
-<li><a href="../admin/cursos/horariototal_faltas.php" class="enlacelateral">Parte de Faltas Completo</a></li>
+<li><a href="../admin/cursos/horariototal_faltas.php" class="enlacelateral" target="_blank">Parte de faltas completo (por días)</a></li>
+<li><a href="../admin/faltas/horario_semanal.php" class="enlacelateral" target="_blank">Parte de faltas completo (semanal)</a></li>
 <li><a href="../admin/faltas/cpadres.php" class="enlacelateral">Informe de Faltas para Padres</a></li>
 <? }?>
 <? if ($mod_horario and $mod_faltas) {?>
