@@ -60,7 +60,7 @@ $sqlasig0 = "SELECT a_grupo FROM  horw where a_aula = '$aul[0]' and dia = '$dia'
 $asignaturas1 = mysql_query($sqlasig0);
 
 $rowasignaturas1 = mysql_fetch_array($asignaturas1);
-$aula_libre = strtolower($aul[1]);
+$aula_libre = $aul[1];
 if ($rowasignaturas1[0] == '') {
 
 echo "<span style=''><a href='hor_aulas.php?aula=$aul[1]'>$aula_libre</a></span><br /><br />";
