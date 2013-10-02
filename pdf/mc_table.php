@@ -6,6 +6,12 @@ class PDF_MC_Table extends FPDF
 var $widths;
 var $aligns;
 
+function Footer() {
+	$this->SetY(-15);
+	$this->SetFont('NewsGotT','B',9);
+	$this->Cell(273,5,"A - Ir al Aseo. B - Ir a beber agua. F - Falta de Asistencia. R - Retraso injustificado. J - Viene de Jefatura.",0,0,'C');
+}
+
 function SetWidths($w)
 {
     //Set the array of column widths
@@ -24,7 +30,7 @@ function Row($data,$bg)
     $nb=0;
     for($i=0;$i<count($data);$i++)
         $nb=max($nb, $this->NbLines($this->widths[$i], $data[$i]));
-    $h=6*$nb;
+    $h=5.1*$nb;
     //Issue a page break first if needed
     $this->CheckPageBreak($h);
     //Draw the cells of the row
@@ -38,7 +44,7 @@ function Row($data,$bg)
         //Draw the border
         $this->Rect($x, $y, $w, $h, $bg);
         //Print the text
-        $this->MultiCell($w, 6, $data[$i], 0, $a);
+        $this->MultiCell($w, 5.1, $data[$i], 0, $a);
         //Put the position to the right of the cell
         $this->SetXY($x+$w, $y);
     }
