@@ -97,18 +97,20 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 Tabla <strong>Profesores</strong>: los datos han sido introducidos correctamente.
 </div></div><br />';
 
-$base0 = "DROP TABLE ".$db_reservas.".profesores";
-mysql_query($base0);
-$faltasprofexml = "create table ".$db_reservas.".profesores select NIVEL, MATERIA, GRUPO, PROFESOR from ".$db.".profesores";
-mysql_query($faltasprofexml) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se ha podido crear la tabla <strong>profesores</strong> en la base de datos <strong>Reservas</strong>.<br> Aseg&uacute;rate de que su formato es correcto.
-</div></div><br />
-<div align="center">
-  <input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div>');
-mysql_query("ALTER TABLE ".$db_reservas.".profesores ADD INDEX (  `PROFESOR` )");
+if ($db_reservas != $db) {
+	$base0 = "DROP TABLE ".$db_reservas.".profesores";
+	mysql_query($base0);
+	$faltasprofexml = "create table ".$db_reservas.".profesores select NIVEL, MATERIA, GRUPO, PROFESOR from ".$db.".profesores";
+	mysql_query($faltasprofexml) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	            <button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h5>ATENCIÓN:</h5>
+	No se ha podido crear la tabla <strong>profesores</strong> en la base de datos <strong>Reservas</strong>.<br> Aseg&uacute;rate de que su formato es correcto.
+	</div></div><br />
+	<div align="center">
+	  <input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+	</div>'.mysql_error());
+	mysql_query("ALTER TABLE ".$db_reservas.".profesores ADD INDEX (  `PROFESOR` )");
+}
 
 // Limpiamos Tabla de Horarios de grupos que no da el profesor
 echo "<hr><p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en S&eacute;neca.</p><br />";
