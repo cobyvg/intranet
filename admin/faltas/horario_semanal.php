@@ -20,6 +20,10 @@ $pdf->Open();
 $pdf->SetMargins(11,10,11);
 $pdf->SetDisplayMode('fullpage');
 
+// Cargamos las fuentes corporativas
+$pdf->AddFont('NewsGotT','','NewsGotT.php');
+$pdf->AddFont('NewsGotT','B','NewsGotTb.php');
+
 // En el caso de haber seleccionado una unidad, se muestra el listado de alumnos de dicha unidad,
 // en otro caso mostramos el listado de faltas de todas las unidades.
 $query = "SELECT DISTINCT NIVEL, GRUPO FROM FALUMNOS";
@@ -34,10 +38,6 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$grupo = $unidad[1];
 
 	$pdf->AddPage('L','A4');
-	
-	// Cargamos las fuentes corporativas
-	$pdf->AddFont('NewsGotT','','NewsGotT.php');
-	$pdf->AddFont('NewsGotT','B','NewsGotTb.php');
 	
 	// CABECERA DEL DOCUMENTO
 	
@@ -59,7 +59,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->Cell(96,5,"PARTE DE FALTAS DEL GRUPO $nivel-$grupo",0,0,'L');
 	$pdf->Cell(81,5,"SEMANA: $inicio - $fin",0,0,'C');
 	$pdf->Cell(96,5,"TUTOR/A: $tutor[0]",0,1,'R');
-	$pdf->Ln(3);
+	$pdf->Ln(1);
 	
 	
 	// PRIMERA FILA
