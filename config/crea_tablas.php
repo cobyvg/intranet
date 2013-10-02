@@ -967,23 +967,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS `mens_texto` (
 // ////////////////////////////////////////////////////////
 
 //
-// Estructura de tabla para la tabla `news`
-//
-
-mysql_query("CREATE TABLE IF NOT EXISTS `news` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `slug` text NOT NULL,
-  `content` text NOT NULL,
-  `contact` varchar(255) DEFAULT NULL,
-  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `clase` varchar(48) DEFAULT NULL,
-  `fechafin` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
-
-// ////////////////////////////////////////////////////////
-
-//
 // Estructura de tabla para la tabla `nombres_maquinas`
 //
 
@@ -1057,7 +1040,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `partestic` (
 // Estructura de tabla para la tabla `profes`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `profes` (
+mysql_query("CREATE TABLE IF NOT EXISTS `noticias` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `slug` text NOT NULL,
   `content` text NOT NULL,
@@ -1065,6 +1048,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `profes` (
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `clase` varchar(48) DEFAULT NULL,
   `fechafin` date DEFAULT NULL,
+  `pagina` TINYINT(2) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
