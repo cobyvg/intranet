@@ -75,8 +75,15 @@ while ($alumno = mysql_fetch_array($result)) {
 	$i++;
 }
 
+$pdf->SetFont('NewsGotT','B',10);
+$pdf->SetWidths(array(63,42,42,42,42,42));
+$pdf->SetAligns(array('L','C','C','C','C','C'));
+$pdf->Row(array("OBSERVACIONES:\n\n\n\n\n\n\n",'','','','',''));
+
+
 // FIN DE LA PÁGINA
 $pdf->Ln(3);
+$pdf->SetFont('NewsGotT','B',10);
 $pdf->Cell(273,5,"A - Ir al Aseo. B - Ir a beber agua. F - Falta de Asistencia. R - Retraso injustificado. J - Viene de Jefatura.",0,0,'C');
 
 mysql_free_result($result);
