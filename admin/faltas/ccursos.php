@@ -4,7 +4,12 @@ if (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];} elseif (isset($_GET['gru
 
 if ($_POST['submit2'])
 {
-include("horariofaltas_cursos.php");
+	if ($_POST['dia1']!="Formato semanal") {
+		include("horariofaltas_cursos.php");
+	}
+	else {
+		include("horario_semanal.php");
+	}
 }
 else
 {
@@ -47,12 +52,13 @@ Nivel: <SELECT  name="nivel" onChange="submit()" class="input-mini" style="displ
         </select>
         <br /><br />
           <label>Día de la semana:
-          <select name="dia1" class="input-small">
+          <select name="dia1" class="input-xsmall">
             <option>Lunes</option>
             <option>Martes</option>
             <option>Miércoles</option>
             <option>Jueves</option>
             <option>Viernes</option>
+            <option>Formato semanal</option>
           </select>
           </label>
           <br /><br />
