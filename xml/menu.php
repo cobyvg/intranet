@@ -27,10 +27,11 @@ Crear Asignaturas y sistema de Calficaciones</a></li>
 <hr>
 <li class="nav-header">Actualizaci&oacute;n</li>
 <li><a href="jefe/index.php" class="enlacelateral">Actualizar Alumnos</a></li>
+<li><a href="jefe/admin/actualiza_horario.php" class="enlacelateral">Actualizar Horarios</a></li>
 <li><a href="jefe/indexprofesores.php" class="enlacelateral">Actualizar Profesores</a></li>
 <li><a href="jefe/indexdepartamentos2.php" class="enlacelateral">Actualizar Departamentos</a></li>
 <? if ($mod_horario) {?>
-<li><a href="jefe/admin/actualiza_horario.php" class="enlacelateral">Actualizar Horarios</a></li>
+<li><a href="jefe/index_limpia.php" class="enlacelateral">Limpiar Horarios</a></li>
 <?}?>
 <hr>
 <li class="nav-header">Notas de evaluaci&oacute;n</li>

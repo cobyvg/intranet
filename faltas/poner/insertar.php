@@ -2,7 +2,6 @@
 // Eliminamos de FALTAS las faltas borradas por el profesor. La tarea es cosa del fichero borrar.php
 include("borrar.php");
 // Conexión
-
 // Contamos el total de variables que se han enviado desde el Formulario. 
 $total = count($_POST);
 $claves = array_values($_POST);

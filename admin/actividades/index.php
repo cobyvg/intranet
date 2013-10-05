@@ -185,9 +185,9 @@ $nivel = $alumno[1];
   <? }
 else{?>
   <? }
-  if (!(date('m')>3 and date('m')<10)) {
+  if ((date('m')>4 and date('m')<10)) {
   	if ( stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE ) {
-  			echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary" >';
+  	echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary" >';
   	}
   }
   else{

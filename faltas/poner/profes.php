@@ -68,10 +68,10 @@ if($rowasignatur1[0]){echo "<div class='badge badge-success' style='width:62%'>"
  // Como esto es un formulario, y cada elemento del formulario debe tener una identificación única para poder convertirse en una variable válida, hay que producir un mogollón de nombres distintos para cada elemento del formulario. L estrucruraes: primera hora del lunes, del martes, etc. Y luego segunda hora del lunes, etc.	
   	$curso = substr($rowasignaturas1[2],$i,1);  
   	   // Fecha exacta de cada día, referida a los cálculos de nombres.php 
-    echo "<INPUT type=hidden name=fecha".$z.$n_hora.$curso[0]." value=$diafaltas>";	
+    echo "<INPUT type=hidden name=fecha".$z.$n_hora.$curso[0]." value='$diafaltas'>";	
 	// Nivel y Grupo en pantalla	  			
     echo "<span class='badge badge-warning'>" .$rowasignaturas1[1]."-".$curso[0]."</span>";      	
-    echo "<INPUT type=hidden name=grupo".$z.$n_hora.$curso[0]." value=$curso[0]/>";
+    echo "<INPUT type=hidden name=grupo".$z.$n_hora.$curso[0]." value='$curso[0]' />";
     // Cambios de fecha entre PHP y MySQL, de española a internacional.
     if (isset($diafaltas)) {
     $fechanc = explode("-",$diafaltas);
@@ -94,10 +94,10 @@ if($rowasignatur1[0]){echo "<div class='badge badge-success' style='width:62%'>"
 // Eliminamos el último punto de la serie, limpiando un poco.
 $faltas14 = rtrim($faltas13, "."); 
 	  
-    echo "  <INPUT type=text name=alumnos".$z.$n_hora.$curso[0]." value='$faltas14' class='input-mini'/><br>";
-    echo "<INPUT type=hidden name=nivel".$z.$n_hora.$curso[0]." value=$rowasignaturas1[1]>";
-    echo "<INPUT type=hidden name=asignatura".$z.$n_hora.$curso[0]." value=$rowasignaturas1[0]>";
-    echo "<INPUT type=hidden name=hora".$z.$n_hora.$curso[0]." value=$n_hora>";
+    echo "  <INPUT type=text name='alumnos".$z.$n_hora.$curso[0]."' value='$faltas14' class='input-mini'/><br>";
+    echo "<INPUT type=hidden name='nivel".$z.$n_hora.$curso[0]."' value='$rowasignaturas1[1]'>";
+    echo "<INPUT type=hidden name='asignatura".$z.$n_hora.$curso[0]."' value=$rowasignaturas1[0]>";
+    echo "<INPUT type=hidden name='hora".$z.$n_hora.$curso[0]."' value=$n_hora>";
 	
     }}}
     if (!(isset($mes))) {
@@ -106,9 +106,9 @@ $faltas14 = rtrim($faltas13, ".");
 if (!(isset($ano))) {
     	$ano="";
     }
-	echo "<INPUT type=hidden name=today value=$dia10>";
-	echo "<INPUT type=hidden name=month value=$mes>";
-	echo "<INPUT type=hidden name=year value=$ano>";
+	echo "<INPUT type=hidden name='today' value='$dia10'>";
+	echo "<INPUT type=hidden name='month' value='$mes10'>";
+	echo "<INPUT type=hidden name='year' value='$ano10'>";
 // Termina la presentación de la primera hora de todos los días de la semanana. El resto es lo mismo para las horas siguientes. 
 ?>
     </span></div></td>

@@ -112,29 +112,6 @@ if ($db_reservas != $db) {
 	mysql_query("ALTER TABLE ".$db_reservas.".profesores ADD INDEX (  `PROFESOR` )");
 }
 
-// Limpiamos Tabla de Horarios de grupos que no da el profesor
-echo "<hr><p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en S&eacute;neca.</p><br />";
-
-$hor0 = "select id, prof, a_grupo, asig from horw where asig not like 'OPTATIVA EXENTOS'";
-$hor1 = mysql_query($hor0);
-while($hor = mysql_fetch_array($hor1))
-{
-$id = $hor[0];
-$profesor = $hor[1];
-$grupo = substr($hor[2],0,4);
-$materia = $hor[3];
-if(is_numeric(substr($grupo,0,1)))
-{
-$prof0 = "select * from profesores where profesor = '$profesor' and grupo = '$grupo'";
-$prof1 = mysql_query($prof0);
-if(mysql_num_rows($prof1) < 1)
-{
-echo "<li>Borrado: $profesor => $materia  => $grupo</li>";
-mysql_query("delete from horw where id = '$id'");
-}
-}
-}
-//$id = "";
 // Colocar códigos y nombre de asignaturas de Horw de acuerdo con Séneca (tabla Profesores)
 $sql = mysql_query("select id, prof, a_grupo, a_asig, asig, c_asig from horw where a_grupo not like 'G%' and a_grupo IS NOT NULL");
 //echo "select id, prof, a_grupo, a_asig, asig, c_asig from horw where a_grupo not like 'G%' and a_grupo IS NOT NULL<br>";
@@ -208,8 +185,7 @@ mysql_query("update horw_var set clase='Sin corresp' where id='$id'");
 }
 }
 } 
-mysql_query("OPTIMIZE TABLE  `horw`");  
-
+mysql_query("OPTIMIZE TABLE `horw`");  
 // creamos Horw para las Faltas
 $base0 = "DROP TABLE horw_faltas";
 mysql_query($base0);
@@ -234,7 +210,7 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Departamentos, una vez actualizados los Profesores.<br>Vuelve a la p&aacute;gina de Administraci&oacute;n y actualiza los Departamentos inmediatamente.
 </div></div><br />';
-$base1 = "DROP TABLE ".$db."horw_var";
+$base1 = "DROP TABLE ".$db.".horw_var";
 mysql_query($base1);
 }
 else{
