@@ -87,6 +87,48 @@ while ($unidad = mysql_fetch_array($unidades)) {
 		$i++;
 	}
 	
+	// En una hoja caben 32 filas, si es menor añadimos el cuadrante de faltas en otra hoja;
+	// en otro caso, la tabla aparecerá a continuación del listado de alumnos.
+	if ($i<32) $pdf->AddPage('L','A4');
+	else $pdf->Ln(10);
+	
+	// CUADRANTE DE FIRMAS
+		// Primera fila
+		$pdf->SetFont('NewsGotT','B',10);
+		$pdf->SetWidths(array(273));
+		$pdf->SetAligns(array('C'));
+		$pdf->Row(array('CUADRANTE DE FIRMAS DEL PROFESORADO'));
+		
+		// Segunda fila
+		$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
+		$pdf->SetAligns(array('C','C','C','C','C'));
+		$pdf->Row(array('LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES'));
+		
+		// Resto de la tabla
+		$pdf->SetFont('NewsGotT','',10);
+		$pdf->SetTextColor(102,102,102);
+		$pdf->SetAligns(array('L','L','L','L','L'));
+		
+		$horas = array(1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
+		
+		foreach($horas as $hora => $nombre) {
+	
+			for($i=1;$i<6;$i++) {
+				$result = mysql_query("SELECT DISTINCT a_asig, asig FROM horw WHERE a_grupo='$nivel-$grupo' AND dia='$i' AND hora='$hora'");
+				
+				unset($asignaturas);
+				while ($asignatura = mysql_fetch_array($result)) {
+					$asignaturas .= $asignatura[0]." | ";
+				}
+				$asignaturas = trim($asignaturas," | ");
+				$row[$i] = $asignaturas."\n\n\n";
+			}
+			
+			$pdf->Row(array($row[1],$row[2],$row[3],$row[4],$row[5]));
+		}
+		
+		$pdf->SetTextColor(0,0,0);
+	
 	
 	mysql_free_result($result);
 		
