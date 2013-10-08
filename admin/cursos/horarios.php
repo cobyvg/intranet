@@ -58,7 +58,7 @@ $grupo1 = $tr[1];
 			$asignaturas1 = mysql_query($sqlasig0);
 			while ($rowasignaturas1 = mysql_fetch_array($asignaturas1))
 			{
-				echo $rowasignaturas1[0];
+				echo $rowasignaturas1[0].'<br>';
 			}
 			echo "</td>";
 		}

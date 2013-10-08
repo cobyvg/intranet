@@ -60,7 +60,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `absentismo` (
   `orientacion` text,
   PRIMARY KEY (`id`),
   KEY `claveal` (`claveal`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='absentismo_seg' AUTO_INCREMENT=68 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -73,7 +73,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `actividadalumno` (
   `claveal` varchar(12) NOT NULL DEFAULT '',
   `cod_actividad` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=128 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -94,7 +94,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `actividades` (
   `confirmado` tinyint(1) NOT NULL DEFAULT '0',
   `justificacion` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 PACK_KEYS=0 AUTO_INCREMENT=104 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -109,7 +109,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `almafaltas` (
   `NIVEL` varchar(5) DEFAULT NULL,
   `GRUPO` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`CLAVEAL`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 
 // ////////////////////////////////////////////////////////
@@ -122,7 +122,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `alumnos` (
   `nombre` varchar(71) DEFAULT NULL,
   `unidad` varchar(255) DEFAULT NULL,
   `claveal` varchar(8) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -140,7 +140,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `AsignacionMesasTIC` (
   PRIMARY KEY (`id`),
   KEY `CLAVEAL` (`CLAVEAL`),
   KEY `prof` (`prof`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12287 ");
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -155,7 +155,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `asignaturas` (
   `CURSO` varchar(64) DEFAULT NULL,
   KEY `CODIGO` (`CODIGO`),
   KEY `ABREV` (`ABREV`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -173,7 +173,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `ausencias` (
   `ahora` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `archivo` VARCHAR( 186 ) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=68 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -190,7 +190,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `cal` (
   `idact` varchar(32) DEFAULT NULL,
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `eventdate` (`eventdate`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1115 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -204,7 +204,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `calificaciones` (
   `abreviatura` varchar(4) DEFAULT NULL,
   `orden` varchar(4) DEFAULT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -216,7 +216,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `cargos` (
   `dni` varchar(9) NOT NULL DEFAULT '',
   `cargo` varchar(8) NOT NULL DEFAULT '0',
   KEY `dni` (`dni`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -229,7 +229,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `categorias` (
   `categoria` varchar(30) NOT NULL DEFAULT '',
   `apartado` varchar(30) NOT NULL DEFAULT '',
   KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=74 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -249,7 +249,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `competencias` (
   `grupo` varchar(6) NOT NULL DEFAULT '',
   KEY `claveal` (`claveal`),
   KEY `materia` (`materia`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -262,7 +262,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `competencias_lista` (
   `nombre` varchar(64) NOT NULL DEFAULT '',
   `abreviatura` varchar(12) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -279,7 +279,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `convivencia` (
   `fecha` date NOT NULL DEFAULT '0000-00-00',
   PRIMARY KEY (`id`),
   KEY `claveal` (`claveal`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=165 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -296,7 +296,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `c_profes` (
   `correo` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `PROFESOR` (`PROFESOR`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=213 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // Usuario admin y conntraseña
 $ya_adm = mysql_query("select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
@@ -347,7 +347,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `datos` (
   `ponderacion` char(3) DEFAULT NULL,
   `claveal` varchar(12) NOT NULL DEFAULT '',
   KEY `id` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -362,7 +362,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `departamentos` (
   `CARGO` varchar(5) DEFAULT NULL,
   `idea` varchar(12) NOT NULL DEFAULT '',
   KEY `NOMBRE` (`NOMBRE`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 
 // Usuario admin y conntraseña
@@ -412,7 +412,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `direcciones` (
   `http` varchar(200) NOT NULL DEFAULT '',
   `comentario` text NOT NULL,
   KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=321 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -438,7 +438,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FALTAS` (
   KEY `NC` (`NC`),
   KEY `FECHA` (`FECHA`),
   KEY `FALTA` (`FALTA`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=67778 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -451,7 +451,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FALTASJ` (
   `claveal` varchar(8) NOT NULL DEFAULT '',
   KEY `claveal` (`claveal`),
   KEY `fecha` (`fecha`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 //
 // Estructura de tabla para la tabla `FALUMNOS`
@@ -466,7 +466,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FALUMNOS` (
   `GRUPO` char(1) DEFAULT NULL,
   KEY `CLAVEAL` (`CLAVEAL`),
   KEY `NC` (`NC`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -478,7 +478,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FechCaduca` (
   `id` int(11) NOT NULL DEFAULT '0',
   `fecha` date NOT NULL DEFAULT '0000-00-00',
   `dias` int(7) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -511,7 +511,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `Fechoria` (
   PRIMARY KEY (`id`),
   KEY `CLAVEAL` (`CLAVEAL`),
   KEY `FECHA` (`FECHA`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3167 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -525,7 +525,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `festivos` (
   `docentes` char(2) NOT NULL DEFAULT '',
   `ambito` varchar(10) NOT NULL DEFAULT '',
   KEY `fecha` (`fecha`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -541,7 +541,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `fotocopias` (
   `tipo` tinyint(1) NOT NULL DEFAULT '0',
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -556,7 +556,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FTUTORES` (
   `observaciones1` text NOT NULL,
   `observaciones2` text NOT NULL,
   KEY `TUTOR` (`TUTOR`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -572,7 +572,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `grupos` (
   `alumnos` varchar(124) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -589,7 +589,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `guardias` (
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `fecha_guardia` date NOT NULL DEFAULT '0000-00-00',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1116 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -603,7 +603,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `hermanos` (
   `hermanos` bigint(21) NOT NULL DEFAULT '0',
   KEY `telefono` (`telefono`),
   KEY `telefonourgencia` (`telefonourgencia`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -630,7 +630,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `horw` (
   PRIMARY KEY (`id`),
   KEY `prof` (`prof`),
   KEY `c_asig` (`c_asig`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3028 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -656,7 +656,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `horw_faltas` (
   `clase` varchar(16) NOT NULL DEFAULT '',
   KEY `prof` (`prof`),
   KEY `c_asig` (`c_asig`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -681,7 +681,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `infotut_alumno` (
   KEY `NIVEL` (`NIVEL`),
   KEY `CURSO` (`GRUPO`),
   KEY `F_ENTREV` (`F_ENTREV`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=639 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -697,7 +697,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `infotut_profesor` (
   `informe` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_alumno` (`id_alumno`,`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5468 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -719,10 +719,20 @@ mysql_query("CREATE TABLE IF NOT EXISTS `inventario` (
   `departamento` varchar(48) NOT NULL DEFAULT '',
   `profesor` varchar(48) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=931 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
+//
+// Estructura de tabla para la tabla `inventario_clases`
+//
+
+mysql_query("CREATE TABLE IF NOT EXISTS `inventario_clases` (
+  `id` int(11) NOT NULL auto_increment,
+  `familia` varchar(64) collate latin1_spanish_ci NOT NULL default '',
+  `clase` varchar(64) collate latin1_spanish_ci NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 mysql_query("INSERT INTO `inventario_clases` (`id`, `familia`, `clase`) VALUES 
 (0, 'Mobiliario', 'Amarios'),
@@ -776,7 +786,7 @@ mysql_query("CREATE TABLE  IF NOT EXISTS `inventario_lugares` (
   `id` int(11) NOT NULL auto_increment,
   `lugar` varchar(64) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci");
 
 mysql_query("INSERT INTO `inventario_lugares` (`id`, `lugar`) VALUES 
 (1, 'Aulas planta baja ed. Antiguo.'),
@@ -811,7 +821,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `listafechorias` (
   `medidas2` mediumtext,
   `tipo` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // Datos de listafechorias
 
@@ -881,7 +891,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `maquinas` (
   `numero` int(2) DEFAULT NULL,
   `observaciones` varchar(128) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=228 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -896,7 +906,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `materias` (
   `CURSO` varchar(64) DEFAULT NULL,
   `GRUPO` varchar(6) DEFAULT NULL,
   KEY `CODIGO` (`CODIGO`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -918,7 +928,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `mensajes` (
   `nivel` char(2) NOT NULL DEFAULT '',
   `grupo` char(1) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=469 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -934,7 +944,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `mens_profes` (
   `recibidojefe` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_profe`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=128873 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -952,24 +962,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `mens_texto` (
   `oculto` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `profesor` (`origen`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13359 ");
-
-// ////////////////////////////////////////////////////////
-
-//
-// Estructura de tabla para la tabla `news`
-//
-
-mysql_query("CREATE TABLE IF NOT EXISTS `news` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `slug` text NOT NULL,
-  `content` text NOT NULL,
-  `contact` varchar(255) DEFAULT NULL,
-  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `clase` varchar(48) DEFAULT NULL,
-  `fechafin` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3489 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -981,7 +974,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `nombres_maquinas` (
   `IP` varchar(18) DEFAULT NULL,
   `MAC` varchar(24) DEFAULT NULL,
   `NOMBRE` varchar(24) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -996,7 +989,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `notas` (
   `notas3` varchar(200) DEFAULT NULL,
   `notas4` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1017,7 +1010,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
   `orden` tinyint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=111 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1039,7 +1032,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `partestic` (
   `estado` varchar(12) NOT NULL DEFAULT 'activo',
   `nincidencia` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`parte`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 PACK_KEYS=0 AUTO_INCREMENT=1722 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1047,7 +1040,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `partestic` (
 // Estructura de tabla para la tabla `profes`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `profes` (
+mysql_query("CREATE TABLE IF NOT EXISTS `noticias` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `slug` text NOT NULL,
   `content` text NOT NULL,
@@ -1055,8 +1048,9 @@ mysql_query("CREATE TABLE IF NOT EXISTS `profes` (
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `clase` varchar(48) DEFAULT NULL,
   `fechafin` date DEFAULT NULL,
+  `pagina` TINYINT(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4717 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1070,7 +1064,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `profesores` (
   `grupo` varchar(255) DEFAULT NULL,
   `profesor` varchar(255) DEFAULT NULL,
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1091,7 +1085,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `recursos` (
   `asignatura` varchar(32) DEFAULT NULL,
   `fecha` date NOT NULL DEFAULT '0000-00-00',
   KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=135 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1105,7 +1099,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `reg_intranet` (
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ip` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 PACK_KEYS=0 AUTO_INCREMENT=26084 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1119,7 +1113,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `reg_paginas` (
   `pagina` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_reg` (`id_reg`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 PACK_KEYS=0 AUTO_INCREMENT=274574 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1135,7 +1129,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `reg_principal` (
   `dni` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13721 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1150,7 +1144,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `sistcal` (
   `nota` varchar(72) DEFAULT NULL,
   `abrev` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1165,7 +1159,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `sms` (
   `mensaje` varchar(160) NOT NULL DEFAULT '',
   `profesor` varchar(48) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1545 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1190,7 +1184,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tareas_alumnos` (
   KEY `NOMBRE` (`NOMBRE`),
   KEY `NIVEL` (`NIVEL`),
   KEY `CURSO` (`GRUPO`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=126 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1207,7 +1201,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tareas_profesor` (
   `confirmado` char(2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_alumno` (`id_alumno`,`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=960 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1230,7 +1224,7 @@ CREATE TABLE IF NOT EXISTS `Textos` (
   `Clase` varchar(8) NOT NULL DEFAULT 'Texto',
   `isbn` varchar(18) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=277 ;");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1248,7 +1242,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `textos_alumnos` (
   `curso` varchar(7) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `claveal` (`claveal`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=283 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1269,7 +1263,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `textos_gratis` (
   `utilizado` char(2) NOT NULL DEFAULT '',
   `nivel` char(2) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=186 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1281,7 +1275,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tramos` (
   `hora` int(1) NOT NULL DEFAULT '0',
   `tramo` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`hora`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1307,7 +1301,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tutoria` (
   PRIMARY KEY (`id`),
   KEY `claveal` (`claveal`),
   KEY `tutor` (`tutor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 PACK_KEYS=0 AUTO_INCREMENT=7019 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1320,7 +1314,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(25) NOT NULL DEFAULT '',
   `password` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1336,7 +1330,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `usuarioalumno` (
   `unidad` varchar(5) NOT NULL DEFAULT '',
   `claveal` varchar(12) NOT NULL DEFAULT '',
   KEY `claveal` (`claveal`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -1349,7 +1343,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `usuarioprofesor` (
   `nombre` varchar(64) DEFAULT NULL,
   `perfil` varchar(10) DEFAULT NULL,
   KEY `usuario` (`usuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 
 // Base de datos de Reservas
@@ -1377,7 +1371,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `aula".$ci."` (
   `event7` varchar(64) NOT NULL default '',
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `date` (`eventdate`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=443 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // Estructura de tabla para la tabla `aulahor`
 
@@ -1412,7 +1406,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `medio".$ci."` (
   `event7` varchar(64) NOT NULL default '',
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `date` (`eventdate`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=443 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // Estructura de tabla para la tabla `mediohor`
 
@@ -1447,7 +1441,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `carrito".$ci."` (
   `event7` varchar(64) NOT NULL default '',
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `date` (`eventdate`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=443 ");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 }
 
 // Tabla de Usuarios TIC

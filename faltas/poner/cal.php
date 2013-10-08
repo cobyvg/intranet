@@ -1,4 +1,3 @@
-
 <?php
 // include("http://$dominio/intranet/menu.php");
 if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
@@ -17,7 +16,6 @@ $next_year = $year + 1;
 $last_year = $year - 1;
 $result_found="";
 include("nombres.php");
-   
    if ($today > $numdays) { $today--; }
 
 // Estructura de la Tabla

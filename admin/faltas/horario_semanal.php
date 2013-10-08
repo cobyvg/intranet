@@ -54,7 +54,11 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$tutor = mysql_fetch_array($result);
 	mysql_free_result($result);
 	
+<<<<<<< HEAD
 	// Impresi?n de la cabecera
+=======
+	// Impresión de la cabecera
+>>>>>>> a36cb825b06042aa496cc461657f8947205c100b
 	$pdf->SetFont('NewsGotT','B',10);
 	$pdf->Cell(96,5,"PARTE DE FALTAS DEL GRUPO $nivel-$grupo",0,0,'L');
 	$pdf->Cell(81,5,"SEMANA: $inicio - $fin",0,0,'C');
@@ -87,8 +91,13 @@ while ($unidad = mysql_fetch_array($unidades)) {
 		$i++;
 	}
 	
+<<<<<<< HEAD
 	// En una hoja caben 32 filas, si es menor a?adimos el cuadrante de faltas en otra hoja;
 	// en otro caso, la tabla aparecer? a continuaci?n del listado de alumnos.
+=======
+	// En una hoja caben 32 filas, si es menor añadimos el cuadrante de faltas en otra hoja;
+	// en otro caso, la tabla aparecerá a continuación del listado de alumnos.
+>>>>>>> a36cb825b06042aa496cc461657f8947205c100b
 	if ($i<32) $pdf->AddPage('L','A4');
 	else $pdf->Ln(10);
 	
@@ -133,5 +142,9 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	mysql_free_result($result);
 		
 }
+<<<<<<< HEAD
 $pdf->Output('Parte de faltas semanal '.$inicio.'.pdf','I');
+=======
+$pdf->Output('Parte de faltas semana '.$inicio.'.pdf','I');
+>>>>>>> a36cb825b06042aa496cc461657f8947205c100b
 ?>

@@ -169,7 +169,7 @@ if ($existe == "1") {}else{
   `event7` varchar(64) NOT NULL DEFAULT '',
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `date` (`eventdate`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci AUTO_INCREMENT=1";
 	//echo $sql_hor;
 mysql_query($sql_hor);
 }

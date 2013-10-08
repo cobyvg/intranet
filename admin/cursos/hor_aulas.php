@@ -58,7 +58,7 @@ $asignaturas1 = mysql_query($sqlasig0);
  while ($rowasignaturas1 = mysql_fetch_array($asignaturas1))
 { 
 echo "<span>$rowasignaturas1[0]</span><br>";
-echo "<span style='color:#08c'>$rowasignaturas1[1]</span>";
+echo "<span style='color:#08c'>$rowasignaturas1[1]</span><br>";
 }
 echo "</td>";
 }

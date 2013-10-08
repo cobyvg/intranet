@@ -27,10 +27,11 @@ Crear Asignaturas y sistema de Calficaciones</a></li>
 <hr>
 <li class="nav-header">Actualizaci&oacute;n</li>
 <li><a href="jefe/index.php" class="enlacelateral">Actualizar Alumnos</a></li>
+<li><a href="jefe/admin/actualiza_horario.php" class="enlacelateral">Actualizar Horarios</a></li>
 <li><a href="jefe/indexprofesores.php" class="enlacelateral">Actualizar Profesores</a></li>
 <li><a href="jefe/indexdepartamentos2.php" class="enlacelateral">Actualizar Departamentos</a></li>
 <? if ($mod_horario) {?>
-<li><a href="jefe/admin/actualiza_horario.php" class="enlacelateral">Actualizar Horarios</a></li>
+<li><a href="jefe/index_limpia.php" class="enlacelateral">Limpiar Horarios</a></li>
 <?}?>
 <hr>
 <li class="nav-header">Notas de evaluaci&oacute;n</li>
@@ -41,7 +42,8 @@ Crear Asignaturas y sistema de Calficaciones</a></li>
 <hr>
 <li class="nav-header">Faltas de asistencia</li>
 <li><a href="../faltas/absentismo/index.php" class="enlacelateral">Alumnos Absentistas</a></li>
-<li><a href="../admin/cursos/horariototal_faltas.php" class="enlacelateral">Parte de Faltas Completo</a></li>
+<li><a href="../admin/cursos/horariototal_faltas.php" class="enlacelateral" target="_blank">Parte de faltas completo (por días)</a></li>
+<li><a href="../admin/faltas/horario_semanal.php" class="enlacelateral" target="_blank">Parte de faltas completo (semanal)</a></li>
 <li><a href="../admin/faltas/cpadres.php" class="enlacelateral">Informe de Faltas para Padres</a></li>
 <? }?>
 <? if ($mod_horario and $mod_faltas) {?>

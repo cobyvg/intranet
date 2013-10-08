@@ -5,10 +5,23 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 
-// Conexión
+$fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
+if (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) { 
+$num_col=count($data);
+if ($num_col<>13) {
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>Atención:</legend>
+El archivo de Horwin que estás intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>13 columnas</strong>. Asegúrate de que el archivo de Horwin sigue las instrucciones de la imagen, y vuelve a intentarlo.
+</div></div><br />
+<div align="center">
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+</div><br />';
+	exit();
+}
+}	
 $c=mysql_connect($db_host,$db_user,$db_pass); 
 mysql_select_db($db,$c);  
-$fp = fopen ( $HTTP_POST_FILES['archivo']['tmp_name'] , "r" );
 mysql_query("drop table horw"); 
 $crea =" CREATE TABLE IF NOT EXISTS horw (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -45,11 +58,6 @@ while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 $sql="INSERT INTO horw (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a_aula,n_aula,a_grupo,nivel,n_grupo) ";
 $sql.=" VALUES ( ";
 foreach ($data as $indice=>$clave){
-if($indice=="5"){
-	$clave=mb_strtoupper($clave,'iso-8859-1');
-	$clave=mb_strtolower($clave,'iso-8859-1');
-	$clave=ucwords($clave);
-}
 $sql.="'".trim($clave)."', ";
 }
 $sql=substr($sql,0,strlen($sql)-2);
