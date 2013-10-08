@@ -66,7 +66,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetFont('NewsGotT','B',10);
 	$pdf->SetWidths(array(63,42,42,42,42,42));
 	$pdf->SetAligns(array('L','C','C','C','C','C'));
-	$pdf->Row(array('','LUNES','MARTES','MIERCOLES','JUEVES','VIERNES'));
+	$pdf->Row(array('','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES'));
 	
 	// SEGUNDA FILA
 	$pdf->SetWidths(array(8,55,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7));
@@ -91,7 +91,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	// En una hoja caben 32 filas, si es menor añadimos el cuadrante de faltas en otra hoja;
 	// en otro caso, la tabla aparecerá a continuación del listado de alumnos.
 	if ($i<32) $pdf->AddPage('L','A4');
-	else $pdf->Ln(10);
+	else $pdf->Ln(5);
 	
 	$pdf->SetFillColor(61,61,61);
 	$pdf->SetTextColor(255,255,255);

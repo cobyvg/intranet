@@ -158,7 +158,7 @@ function FPDF($orientation='P', $unit='mm', $size='A4')
 	// Line width (0.2 mm)
 	$this->LineWidth = .567/$this->k;
 	// Automatic page break
-	$this->SetAutoPageBreak(true,1.5*$margin);
+	$this->SetAutoPageBreak(true,$margin);
 	// Default display mode
 	$this->SetDisplayMode('default');
 	// Enable compression
