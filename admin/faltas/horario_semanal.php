@@ -127,6 +127,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	// Segunda fila
 	$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
 	$pdf->SetAligns(array('C','C','C','C','C'));
+	$pdf->SetTextColor(0,0,0);
 	$pdf->Row(array('LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES'));
 	
 	// Resto de la tabla
