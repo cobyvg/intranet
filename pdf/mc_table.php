@@ -6,12 +6,6 @@ class PDF_MC_Table extends FPDF
 var $widths;
 var $aligns;
 
-function Footer() {
-	$this->SetY(-15);
-	$this->SetFont('NewsGotT','B',9);
-	$this->Cell(273,5,"A - Ir al Aseo. B - Ir a beber agua. F - Falta de Asistencia. R - Retraso injustificado. J - Viene de Jefatura.",0,0,'C');
-}
-
 function SetWidths($w)
 {
     //Set the array of column widths

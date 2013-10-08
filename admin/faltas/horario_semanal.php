@@ -104,7 +104,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetAligns(array('C','C','C','C','C'));
 	$pdf->SetTextColor(0,0,0);
 	$pdf->Row(array("LUNES",'MARTES','MIÉRCOLES','JUEVES','VIERNES'));
-	$pdf->Row(array("\n\n\n\n\n\n\n\n\n\n",'','','','','',''));
+	$pdf->Row(array("\n\n\n\n\n\n\n\n",'','','','','',''));
 	
 	$pdf->Ln(5);
 	
@@ -146,6 +146,10 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	}
 	
 	$pdf->SetTextColor(0,0,0);
+	
+	$pdf->Ln(5);
+	$pdf->SetFont('NewsGotT','B',9);
+	$pdf->Cell(273,5,"A - Ir al Aseo. B - Ir a beber agua. F - Falta de Asistencia. R - Retraso injustificado. J - Viene de Jefatura.",0,0,'C');
 	
 	mysql_free_result($result);
 		
