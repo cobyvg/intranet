@@ -39,7 +39,11 @@ $lc1b = "
 OPLC1: Ed. Física; OPLC2: Estadística; OPLC3: Francés.
 ";
 if (isset($_GET['unidad'])) {
-$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+$tr_uni = explode("-",$_GET['unidad']);	
+if (strlen($tr_uni[1])>1) {
+		$text = " and (combasi like '%30562%' or combasi like '%31322%') ";
+	}	
+$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' $texto ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
@@ -98,12 +102,20 @@ $pdf->ezNewPage();
 	
 foreach ($_POST['unidad'] as $unida){
 		//echo "$unida<br>";
-$n_uni+=1;
 $tr_c = explode(" -> ",$unida);
 $tr_unidad = $tr_c[0];
 $tr_codasi = explode("-",$tr_c[2]);
+$n_uni+=1;
 $cuenta = count($_POST['unidad']);
 if($_POST['asignaturas']==""){
+	
+	$tr_uni = explode("-",$tr_unidad);	
+	if (strlen($tr_uni[1])>1) {
+		$text = " and (combasi like '%30562%' or combasi like '%31322%') ";
+		$tr_unidad = substr($tr_unidad,0,-1);
+		$text2 = "Diversificación";
+	}	
+	
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
 if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
 $sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";
@@ -111,7 +123,7 @@ $sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]
 	else{
 $sqldatos.=" and combasi like '%$tr_codasi[0]%'";		
 	}
-$sqldatos.=" and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+$sqldatos.=" $text and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 //echo $sqldatos;
 $lista= mysql_query($sqldatos );
 $num=0;
@@ -156,7 +168,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $tr_unidad\n";
+$txttit = "Lista del Grupo $tr_unidad $text2\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
@@ -175,7 +187,12 @@ if ($cuenta>1) {
 }
 
 if ($_POST['asignaturas']=='1'){
-
+	$tr_uni = explode("-",$tr_unidad);	
+	if (strlen($tr_uni[1])>1) {
+		$text = " and (combasi like '%30562%' or combasi like '%31322%') ";
+		$tr_unidad = substr($tr_unidad,0,-1);
+		$text2 = "Diversificación";
+	}	
 $sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
 if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
 $sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";
@@ -183,7 +200,7 @@ $sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]
 	else{
 $sqldatos.=" and combasi like '%$tr_codasi[0]%'";		
 	}
-$sqldatos.=" and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+$sqldatos.=" $text and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 
 //echo $sqldatos;
 $lista= mysql_query($sqldatos);
@@ -234,7 +251,7 @@ $options = array(
 				'fontSize' => 8,
 				'width'=>500
 			);
-$txttit = "<b>Alumnos del grupo: $tr_unidad</b>\n";
+$txttit = "<b>Alumnos del grupo: $tr_unidad $text2</b>\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";	
 $pdf->ezText($txttit, 12,$options_center);
 
@@ -259,7 +276,13 @@ else{
 }
 
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 9,$options_right);
-$pdf->ezNewPage();
+if ($cuenta>1) {
+	if ($n_uni==$cuenta) {
+	}
+	else{
+	$pdf->ezNewPage();			
+	}
+}
 } 
 }
 $pdf->ezStream();

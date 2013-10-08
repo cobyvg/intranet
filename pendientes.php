@@ -41,9 +41,9 @@ $result = mysql_query ($expul);
         	if (mysql_num_rows($result) == '0') {        		
         	}
         	else{
-	echo "<div class='well alert alert-info'><h4>Alumnos que se reincorporan hoy tras su Expulsión </h4><h6>$materia</h6><hr />";
+	echo "<div class='well alert alert-info'><legend>Alumnos que se reincorporan tras su Expulsión<br /> <small>$materia</small></legend><hr />";
 	echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad."</p>";
-	echo "<blockquote>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index0.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary'>SI</button></a>&nbsp;&nbsp;<a href='index0.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger'>NO</button></a></blockquote>";
+	echo "<p>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index0.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary'>SI</button></a>&nbsp;&nbsp;<a href='index0.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger'>NO</button></a></p>";
 	echo "</div>";
         }
         }          	

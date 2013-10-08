@@ -97,14 +97,14 @@ $fp=fopen("TIC/alumnos.txt","w+");
 // Moodle
 $codigo1 = "select usuario, pass, alma.apellidos, alma.nombre, alma.unidad from usuarioalumno, alma where alma.claveal=usuarioalumno.claveal";
 $sqlcod1 = mysql_query ($codigo1);
-$todos_moodle="usuario;pass;nombre;apellidos;unidad;ciudad;pais\n";
+$todos_moodle="username;password;firstname;lastname;email;city;country\n";
 while($rowprof = mysql_fetch_array($sqlcod1))
 {
-$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[4];Estepona;ES\n";
+$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3] $rowprof[2];$rowprof[3]@$dominio;Estepona;ES\n";
 $todos_moodle.=$linea_moodle;
 }
 
- if (!(file_exists("TIC/alumnos_moodle.txt")))
+if (!(file_exists("TIC/alumnos_moodle.txt")))
 {
 $fpprof1=fopen("TIC/alumnos_moodle.txt","w+");
  }

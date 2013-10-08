@@ -24,8 +24,8 @@ echo "<a href='../distribucion/distribucion.php?curso=$grupo&profe=$profe&asigna
 
 <table  class="table table-striped" style="width:auto">
 <tr><th>Alumno</th>
-<th>Usuario T.I.C.</th>
-
+<th>Usuario</th>
+<th>Clave</th>
 <th>Ordenador</th>
 </tr>
 <?
@@ -45,7 +45,7 @@ $no_mesa=$mes_al[0];
 echo "<tr>
 <td>$row[4], $row[3]</td>
 <td>$row[1]</td>
-
+<td>$row[5]</td>
 <td>$no_mesa</td>
 </tr>";
 $linea = "$row[1];$row[1];$row[4];$row[3]\n";

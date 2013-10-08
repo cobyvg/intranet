@@ -182,9 +182,9 @@ Los datos de los profesores se han importado correctamente en la tabla <strong>u
 </div></div><br />';
  
 // Moodle
-$codigo1 = "select  c_profes.idea, c_profes.dni, c_profes.profesor, correo, cargo from c_profes, departamentos where c_profes.idea = departamentos.idea";
+$codigo1 = "select  c_profes.idea, c_profes.dni, c_profes.profesor, correo from c_profes, departamentos where c_profes.idea = departamentos.idea";
 $sqlcod1 = mysql_query ($codigo1);
-$todos_moodle="usuario;pass;nombre;apellidos;correo;ciudad;pais\n";
+$todos_moodle="username;password;firstname;lastname;email;city;country\n";
 while($rowprof = mysql_fetch_array($sqlcod1))
 {
 if (!($rowprof[0]=='admin') and !($rowprof[0]=='conserje') and !($rowprof[4]=='7')) {

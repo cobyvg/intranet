@@ -20,9 +20,10 @@ include("menu.php");
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido confirmada por la Autoridad.
-          </div></div>';  }
-  if ($eliminar=='1') {
-  	mysql_query("delete from actividades where id = '$id'");
+          </div></div>';  
+  }
+  if ($_GET['eliminar']=='1') {
+  	mysql_query("delete from actividades where id = '".$_GET['id']."'");
   	if (mysql_affected_rows()>'0') {
     	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

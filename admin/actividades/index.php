@@ -53,9 +53,10 @@ else{
                     <OPTION><? echo $departamento; ?></OPTION>
 
                     <?
+$dept_pes = str_ireplace(" P.E.S.","",$_SESSION['dpt']);                    
 if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE)) {
 	  // Datos del alumno que hace la consulta. No aparece el nombre del a&ntilde;o de la nota. Se podr&iacute;a incluir.
-  $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where departamento = '". $_SESSION['dpt'] ."' order by departamento asc");
+  $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where departamento like '". $dept_pes ."%' order by departamento asc");
   if ($filaprofe = mysql_fetch_array($profe))
         {
         do {
@@ -72,8 +73,8 @@ else{
         <OPTION>Relaciones de Género</OPTION>
 	<?
   // Datos del alumno que hace la consulta. No aparece el nombre del a&ntilde;o de la nota. Se podr&iacute;a incluir.
-  $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%' order by departamento asc");
-  if ($filaprofe = mysql_fetch_array($profe))
+ $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%' order by departamento asc");
+ if ($filaprofe = mysql_fetch_array($profe))
         {
         do {
 
@@ -106,9 +107,11 @@ else{
 					}
 					$texto = "and departamento = ''";
                     }
-					else{$texto = "and departamento = '$departamento'";}
-
-  $profe = mysql_query("SELECT distinct NOMBRE FROM departamentos where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%'" . $texto. " order by NOMBRE asc");
+					else{
+						$dept_texto = str_ireplace(" P.E.S.","",$departamento);                    
+						$texto = "and departamento like '$dept_texto%'";
+					}
+$profe = mysql_query("SELECT distinct NOMBRE FROM departamentos where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%'" . $texto. " order by NOMBRE asc");
   if ($filaprofe = mysql_fetch_array($profe))
         {
         do {
@@ -185,9 +188,9 @@ $nivel = $alumno[1];
   <? }
 else{?>
   <? }
-  if (!(date('m')>3 and date('m')<10)) {
+  if ((date('m')>4 and date('m')<10)) {
   	if ( stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE ) {
-  			echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary" >';
+  	echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary" >';
   	}
   }
   else{
