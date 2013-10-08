@@ -88,28 +88,16 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	}
 	
 
-	// En una hoja caben 32 filas, si es menor añadimos el cuadrante de faltas en otra hoja;
+	// En una hoja caben 34 filas, si es menor añadimos el cuadrante de faltas en otra hoja;
 	// en otro caso, la tabla aparecerá a continuación del listado de alumnos.
-	if ($i<32) $pdf->AddPage('L','A4');
+	if ($i<34) $pdf->AddPage('L','A4');
 	else $pdf->Ln(5);
 	
-	$pdf->SetFillColor(61,61,61);
-	$pdf->SetTextColor(255,255,255);
-	
-	$pdf->SetFont('NewsGotT','B',10);
-	$pdf->SetWidths(array(273));
-	$pdf->SetAligns(array('C'));
-	$pdf->Row(array('OBSERVACIONES'),'DF');
-	$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
-	$pdf->SetAligns(array('C','C','C','C','C'));
-	$pdf->SetTextColor(0,0,0);
-	$pdf->Row(array("LUNES",'MARTES','MIÉRCOLES','JUEVES','VIERNES'));
-	$pdf->Row(array("\n\n\n\n\n\n\n\n",'','','','','',''));
-	
-	$pdf->Ln(5);
-	
+		
 	// CUADRANTE DE FIRMAS
 	// Primera fila
+	$pdf->SetFillColor(61,61,61);
+	$pdf->SetTextColor(255,255,255);
 	$pdf->SetFont('NewsGotT','B',10);
 	$pdf->SetWidths(array(273));
 	$pdf->SetAligns(array('C'));
@@ -146,6 +134,21 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	}
 	
 	$pdf->SetTextColor(0,0,0);
+	
+	$pdf->Ln(5);
+	
+	$pdf->SetFillColor(61,61,61);
+	$pdf->SetTextColor(255,255,255);
+	$pdf->SetFont('NewsGotT','B',10);
+	$pdf->SetWidths(array(273));
+	$pdf->SetAligns(array('C'));
+	$pdf->Row(array('OBSERVACIONES'),'DF');
+	$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
+	$pdf->SetAligns(array('C','C','C','C','C'));
+	$pdf->SetTextColor(0,0,0);
+	$pdf->Row(array("LUNES",'MARTES','MIÉRCOLES','JUEVES','VIERNES'));
+	$pdf->Row(array("\n\n\n\n\n\n\n\n",'','','','','',''));
+	
 	
 	$pdf->Ln(5);
 	$pdf->SetFont('NewsGotT','B',9);
