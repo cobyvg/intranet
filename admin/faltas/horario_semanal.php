@@ -61,6 +61,12 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->Cell(96,5,"TUTOR/A: $tutor[0]",0,1,'R');
 	$pdf->Ln(1);
 	
+	$pdf->SetLineWidth(0.6); // Grosor de linea
+	for ($i=0; $i<6; $i++) {
+		$pdf->Line(74+42*$i, 16.2, 74+42*$i, 16+10);
+	}
+	$pdf->SetLineWidth(0.2); // Grosor por defecto
+	
 	// PRIMERA FILA
 	$pdf->SetFont('NewsGotT','B',10);
 	$pdf->SetWidths(array(63,42,42,42,42,42));
@@ -82,16 +88,15 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$i=0;
 	while ($alumno = mysql_fetch_array($result)) {
 		if ($i%2==0) $somb='DF'; else $somb='';
-		$pdf->Row(array($alumno['nc'],substr($alumno['alumno'],0,50),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
+		$pdf->Row(array($alumno['nc'],substr($alumno['alumno'],0,40),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
+		
+		$pdf->SetLineWidth(0.6); // Grosor de linea
+		for ($j=0; $j<6; $j++) {
+			$pdf->Line(74+42*$j, 26+5*$i, 74+42*$j, 26+5+5*$i+0.1*$i);
+		}
+		$pdf->SetLineWidth(0.2); // Grosor por defecto
+		
 		$i++;
-	}
-	
-	$filas=$i;
-	
-	$pdf->SetLineWidth(0.6); // Grosor de linea
-	
-	for ($i=0; $i<6; $i++) {
-		$pdf->Line(74+42*$i, 16.2, 74+42*$i, 16+10+5*$filas+0.1*$filas);
 	}
 
 	// En una hoja caben 34 filas, si es menor añadimos el cuadrante de faltas en otra hoja;
