@@ -61,7 +61,6 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->Cell(96,5,"TUTOR/A: $tutor[0]",0,1,'R');
 	$pdf->Ln(1);
 	
-	
 	// PRIMERA FILA
 	$pdf->SetFont('NewsGotT','B',10);
 	$pdf->SetWidths(array(63,42,42,42,42,42));
@@ -87,13 +86,21 @@ while ($unidad = mysql_fetch_array($unidades)) {
 		$i++;
 	}
 	
+	$filas=$i;
+	
+	$pdf->SetLineWidth(0.6); // Grosor de linea
+	
+	for ($i=0; $i<6; $i++) {
+		$pdf->Line(74+42*$i, 16.2, 74+42*$i, 16+10+5*$filas+0.1*$filas);
+	}
 
 	// En una hoja caben 34 filas, si es menor añadimos el cuadrante de faltas en otra hoja;
 	// en otro caso, la tabla aparecerá a continuación del listado de alumnos.
 	if ($i<34) $pdf->AddPage('L','A4');
 	else $pdf->Ln(5);
 	
-		
+	$pdf->SetLineWidth(0.2);
+	
 	// CUADRANTE DE FIRMAS
 	// Primera fila
 	$pdf->SetFillColor(61,61,61);
@@ -102,7 +109,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetWidths(array(273));
 	$pdf->SetAligns(array('C'));
 	$pdf->SetTextColor(255,255,255);
-	$pdf->Row(array('CUADRANTE DE FIRMAS DEL PROFESORADO'),'DF');
+	$pdf->Row(array("CUADRANTE DE FIRMAS DEL PROFESORADO$i"),'DF');
 	
 	// Segunda fila
 	$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
