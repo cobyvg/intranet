@@ -82,7 +82,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$i=0;
 	while ($alumno = mysql_fetch_array($result)) {
 		if ($i%2==0) $somb='DF'; else $somb='';
-		$pdf->Row(array($alumno['nc'],$alumno['alumno'],'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
+		$pdf->Row(array($alumno['nc'],substr($alumno['alumno'],0,50),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
 		$i++;
 	}
 	
