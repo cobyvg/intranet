@@ -115,7 +115,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetWidths(array(273));
 	$pdf->SetAligns(array('C'));
 	$pdf->SetTextColor(255,255,255);
-	$pdf->Row(array("CUADRANTE DE FIRMAS DEL PROFESORADO$i"),'DF');
+	$pdf->Row(array("CUADRANTE DE FIRMAS DEL PROFESORADO"),'DF');
 	
 	// Segunda fila
 	$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
