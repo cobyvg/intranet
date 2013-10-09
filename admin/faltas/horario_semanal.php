@@ -92,7 +92,8 @@ while ($unidad = mysql_fetch_array($unidades)) {
 		
 		$pdf->SetLineWidth(0.6); // Grosor de linea
 		for ($j=0; $j<6; $j++) {
-			$pdf->Line(74+42*$j, 26+5*$i, 74+42*$j, 26+5+5*$i+0.1*$i);
+			if ($i<34) { $inicio=26; $f=$i; } else { $inicio=5.1; $f=mysql_num_rows($result)-$i; }
+			$pdf->Line(74+42*$j, $inicio+5*$f, 74+42*$j, $inicio+5+5*$f+0.1*$f);
 		}
 		$pdf->SetLineWidth(0.2); // Grosor por defecto
 		
