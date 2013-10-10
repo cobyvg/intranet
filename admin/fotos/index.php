@@ -19,7 +19,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 </div>
 
 <div class="well well-small" style="width:33%;margin:auto;">
-<FORM action="grupos.php" method="POST" name="fotos">
+<FORM action="fotos_alumnos.php" method="POST" name="fotos" target="_blank">
   <legend> Selecciona el Grupo de alumnos</legend><br />
   <label> Grupo: 
     <select  name="curso" style="width:80px" onChange="submit()">
