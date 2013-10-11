@@ -87,13 +87,13 @@ if (isset($_POST['enviar']))
 			$cent_alto = $cent *$alto0 / 100;
 
 			redimensionar_jpeg($arch0,$arch,600,$cent_alto,100);
-			$nuevo_tamaño = filesize($arch);
+			$nuevo_tamano = filesize($arch);
 			copy($arch0,"../../xml/fotos/".$claveal.".jpg");
 			$exterior = mysql_query("select * from fotos");
 			if (mysql_num_rows($exterior)>0) {
-			$ruta="/home/e-smith/files/ibays/intranet/html/xml/fotos/".$claveal.".jpg";
+			$ruta="../../xml/fotos/".$claveal.".jpg";
 			$nombre=$claveal.".jpg";
-			mysql_query("insert INTO faltas.fotos (nombre, datos, fecha, tamaño) VALUES('$nombre', LOAD_FILE('$ruta'),now(), '$nuevo_tamaño')") or die("Imposible poner foto en tabla");				
+			mysql_query("insert INTO faltas.fotos (nombre, datos, fecha, tamaño) VALUES('$nombre', LOAD_FILE('$ruta'),now(), '$nuevo_tamano')") or die("Imposible poner foto en tabla");				
 			}
 
 			unlink($arch0);
