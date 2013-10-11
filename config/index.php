@@ -64,6 +64,8 @@ $db_reservas = $_POST['db_reservas'];
 $db_host = $_POST['db_host'];
 $db_user = $_POST['db_user'];
 $funcion = '
+error_reporting(0); // Elimina los mensajes de PHP
+
 mysql_connect($db_host, $db_user, $db_pass);
 mysql_select_db($db);
 function registraPagina($pagina,$host,$user,$pass,$base)
