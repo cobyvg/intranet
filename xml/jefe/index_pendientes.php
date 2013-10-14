@@ -7,7 +7,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS pendientes (
   claveal varchar(9) collate latin1_spanish_ci NOT NULL default '',
   codigo varchar(8) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (id),
-  KEY NIE (NIE),
+  KEY  claveal (claveal),
   KEY codigo (codigo)
 ) DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
 //echo $exporta;
@@ -18,11 +18,11 @@ $archive = new PclZip($_FILES['archivo2']['tmp_name']);
 	  {
         die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo está corrompido.
+			<h5>ATENCIï¿½N:</h5>
+No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo estï¿½ corrompido.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrï¿½s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>'); 
       }  
 	  
@@ -53,12 +53,12 @@ include("../../menu.php");
 <br />
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Administración <small> Importación de alumnos con asignaturas pendientes</small></h2>
+  <h2>Administraciï¿½n <small> Importaciï¿½n de alumnos con asignaturas pendientes</small></h2>
 </div>
 <FORM ENCTYPE="multipart/form-data" ACTION="index_pendientes.php" METHOD="post">
 
   <div class="control-group">
- <p class="help-block" style="width:540px; text-align:left"><span style="color:#9d261d">(*) </span>La importación de alumnos con asignaturas pendientes necesita el archivo comprimido (.zip) de calificaciones de la Evaluación Extraordinaria (Septiembre) del curso anterior. El archivo se descarga desde S&Eacute;NECA --> Utilidades --> Importación / Exportación --> Exportación de calificaciones del alumno. Asegúrate de que estás descargando el archivo del curso anterior, no del actual.</p>
+ <p class="help-block" style="width:540px; text-align:left"><span style="color:#9d261d">(*) </span>La importaciï¿½n de alumnos con asignaturas pendientes necesita el archivo comprimido (.zip) de calificaciones de la Evaluaciï¿½n Extraordinaria (Septiembre) del curso anterior. El archivo se descarga desde S&Eacute;NECA --> Utilidades --> Importaciï¿½n / Exportaciï¿½n --> Exportaciï¿½n de calificaciones del alumno. Asegï¿½rate de que estï¿½s descargando el archivo del curso anterior, no del actual.</p>
   <br />
   <div class="well well-large" style="width:500px; margin:auto;" align="left">
   <div class="controls">
@@ -76,7 +76,7 @@ include("../../menu.php");
 </FORM>
 <br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-success" />
+  <input type="button" value="Volver atrï¿½s" name="boton" onClick="history.back(2)" class="btn btn-success" />
 </div>
 </div>
 </div>
