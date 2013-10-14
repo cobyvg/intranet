@@ -1,7 +1,7 @@
 <? 
 // Buscamos los registros de almafaltas, que es actualizada desde Seneca cuando hay nuevas altas (a traves de intranet/xml/alma.php, y luego de intranet/faltas/almafaltas.php)), que no aparecen en FALUMNOS.
 // Creamos versión corta para FALTAS
- mysql_query("drop table almafaltas");
+mysql_query("drop table almafaltas");
 mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, NIVEL, GRUPO from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
@@ -108,15 +108,15 @@ echo "<div class='control-group warning'><p class='help-block' style='text-align
 // Cambio de grupo de un alumno.
 $cambio0 = mysql_query("select claveal, grupo, nivel, apellidos, nombre from alma");
 while($cambio = mysql_fetch_array($cambio0)){
-$f_cambio0 = mysql_query("select grupo from FALUMNOS where claveal = '$cambio[0]'");
+$f_cambio0 = mysql_query("select grupo, nivel from FALUMNOS where claveal = '$cambio[0]'");
 $f_cambio = mysql_fetch_array($f_cambio0);
-if($cambio[1] == $f_cambio[0]){}
+if($cambio[1] == $f_cambio[0] and $cambio[2] == $f_cambio[1]){}
 else{
 	$cambio_al+=1;
 $resultf = mysql_query("select MAX(NC) from FALUMNOS where NIVEL = '$cambio[2]' and GRUPO = '$cambio[1]'");
 $f_result = mysql_fetch_array($resultf);
 $f_numero = $f_result[0] + 1;
-mysql_query("update FALUMNOS set NC = '$f_numero', grupo = '$cambio[1]' where claveal = '$cambio[0]'");
+mysql_query("update FALUMNOS set NC = '$f_numero', grupo = '$cambio[1]', nivel = '$cambio[2]' where claveal = '$cambio[0]'");
 echo "<li>".$cambio[3] . ", " . $cambio[4]. " -- " . $cambio[2]. "-" . $cambio[1]. " " . $f_numero . "</li>";
 }
 }

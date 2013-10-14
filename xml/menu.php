@@ -15,6 +15,7 @@ else{
 Crear Asignaturas y sistema de Calficaciones</a></li>
 <li><a href="jefe/indexprofesores.php" class="enlacelateral">Crear Profesores</a></li>
 <li><a href="jefe/indexdepartamentos.php" class="enlacelateral">Crear Departamentos</a></li>
+<li><a href="jefe/index_pendientes.php" class="enlacelateral">Crear lista de Alumnos con pendientes</a></li>
   <? if ($mod_tic and $mod_horario) {?>
 <li><a href="../TIC/distribucion/crea_tabla.php" class="enlacelateral">Crear Asignación TIC</a></li>
 <?}?>

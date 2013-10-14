@@ -55,6 +55,7 @@ El <strong>segundo grupo de opciones (<span style='color:#08c'>A Principio de cu
   <li>Asignaturas y Calificaciones supone que los archivos XML de alguna de las Evaluaciones del curso se encuentren en el directorio exporta/, porque ya se ha creado la tabla de los alumnos o se ha actualizado la misma.</li>
   <li>Los Departamentos. Se descarga desde S&eacute;neca --&gt; Personal --&gt; Personal del centro  --&gt; Exportar (arriba a la izquierda) --&gt; Exportar datos al formato: Texto plano.</li>
   <li>Los Horarios (que generamos con Horw). S&oacute;lo se genera una vez a principio de Curso. Las instrucciones de la descarga est&aacute;n en el formulario correspondiente, al pinchar en el enlace.</li>
+ <li>La lista de alumnos pendientes permite crear una tabla con los alumnos con asignaturas pendientes de cursos anteriores, que posteriormente puede consultarse en Consultas --> Listas de alumnos. Este módulo necesita el archivo comprimido de calificaciones de la evaluación extraordinaria del curso escolar anterior. Las instrucciones vienen en la misma página.</li>
  
       <li>La Asignaci&oacute;n TIC, en caso de que se hayan marcado las opciones 'Horario' y 'Centro TIC' en la p&aacute;gina de configuraci&oacute;n, permiten asignar a cada alumno un ordenador TIC en cada clase que este tenga, de tal modo que sea posible seguir la historia de un ordenador TIC a trav&eacute;s de los alumnos que lo han utilizado.</li>
 </ul>
