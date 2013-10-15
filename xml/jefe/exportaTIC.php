@@ -5,9 +5,9 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 
-$borrar = "truncate table usuarioalumno";
-	mysql_query($borrar);
-$alumnos = "select distinct CLAVEAL, APELLIDOS, NOMBRE, UNIDAD from alma";
+//$borrar = "truncate table usuarioalumno";
+//mysql_query($borrar);
+$alumnos = "select distinct CLAVEAL, APELLIDOS, NOMBRE, UNIDAD from alma where claveal not in (select claveal from usuarioalumno)";
 $sqlal = mysql_query($alumnos);
 while ($sqlprof0 = mysql_fetch_array($sqlal)) {
 	$apellidos = $sqlprof0[1];
@@ -100,7 +100,7 @@ $sqlcod1 = mysql_query ($codigo1);
 $todos_moodle="username;password;firstname;lastname;email;city;country\n";
 while($rowprof = mysql_fetch_array($sqlcod1))
 {
-$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3] $rowprof[2];$rowprof[3]@$dominio;Estepona;ES\n";
+$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[0]@$dominio;Estepona;ES\n";
 $todos_moodle.=$linea_moodle;
 }
 
