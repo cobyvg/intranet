@@ -129,7 +129,7 @@ $hoy = mktime ( 0, 0, 0, $mes, $dia, $año );
 $hoy7 = mktime ( 0, 0, 0, $mes, $dia7, $año );
 $rango0 = date ( 'Y-m-d', $hoy );
 $rango7 = date ( 'Y-m-d', $hoy7 );
-$query = "SELECT distinct title, eventdate, event FROM cal WHERE eventdate >= '$rango0'";
+$query = "SELECT distinct title, eventdate, event FROM cal WHERE eventdate >= '$rango0' limit 5";
 $result = mysql_query ( $query );
 if (mysql_num_rows ( $result ) > 0) {
 	echo "<br /><legend><i class='icon icon-calendar'> </i>Próximos días</legend>";

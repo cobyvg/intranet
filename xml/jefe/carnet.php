@@ -187,9 +187,6 @@ $anyos = floor(($segundos-$sumadiasBis)/31536000);
 	elseif ($anyos >= '18') {
 		$pdf->fondonaranja($x,$y);
 		$pdf->uno($x,$y); }
-	elseif (strlen($combasi) < '28') {
-		$pdf->fondoazul($x,$y);
-		$pdf->uno($x,$y); }
 	else {
 		$pdf->fondoverde($x,$y);
 		$naranja=0;}

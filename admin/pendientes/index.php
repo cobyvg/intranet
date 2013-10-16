@@ -70,9 +70,11 @@ Listado de pendientes por Unidad</legend>
   <select name="select1[]" size="10" multiple class="input-xlarge">
     <?php 
 do {  
+	if (strstr($row_Recordset2['Unidad'],"E") or strstr($row_Recordset2['Unidad'],"B")) {	
 ?>
     <option value="<?php  echo $row_Recordset2['Unidad']?>"><?php  echo $row_Recordset2['Unidad']?></option>
     <?php 
+	}
 } while ($row_Recordset2 = mysql_fetch_assoc($Recordset2));
   $rows = mysql_num_rows($Recordset2);
   if($rows > 0) {

@@ -160,6 +160,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetAligns(array('C','C','C','C','C'));
 	$pdf->SetTextColor(0,0,0);
 	$pdf->Row(array("LUNES",'MARTES','MI�RCOLES','JUEVES','VIERNES'));
+(null)
 	$pdf->Row(array("\n\n\n\n\n\n",'','','','','',''));
 	
 	

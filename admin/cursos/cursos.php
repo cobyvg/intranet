@@ -45,6 +45,7 @@ if (strlen($tr_uni[1])>1) {
 	}	
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' $texto ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 $lista= mysql_query($sqldatos );
+
 $num=0;
 unset($data);
 while($datatmp = mysql_fetch_array($lista)) { 

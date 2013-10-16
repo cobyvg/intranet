@@ -39,20 +39,20 @@ if ($_POST['pdf']==1) {
 		$MiPDF->Multicell(0,4,"".$valor,0,'J',0);
 		$MiPDF->Ln(3);
 		$val_nivel=substr($valor,0,1);
-		$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc
+		$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc, pendientes.claveal
 FROM pendientes, asignaturas, alma, FALUMNOS
 WHERE asignaturas.codigo = pendientes.codigo
 AND FALUMNOS.claveal=alma.claveal
 AND alma.claveal = pendientes.claveal
-AND unidad NOT LIKE  "%p-%"
-AND asignaturas.nombre =  "'.$valor.'"
+AND unidad NOT LIKE  "%p-%"  
+AND asignaturas.nombre =  "'.$valor.'" and unidad not like "1%"
 AND abrev LIKE  "%\_%"
 ORDER BY alma.curso, unidad, nc';
 		/*$sql = "SELECT alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, nc
 FROM alma,  pendientes , asignaturas, FALUMNOS
 WHERE Unidad='$valor' and alma.claveal = pendientes.claveal and FALUMNOS.claveal = pendientes.claveal
 AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas.curso like '$val_nivel%' ORDER BY Apellidos, Nombre";*/
-			//echo $sql;
+			//echo $sql."<br>";
 		$Recordset1 = mysql_query($sql) or die(mysql_error());  #crea la consulata
 
 		$MiPDF->SetFont('Times','',11);
@@ -61,20 +61,25 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 		$cuenta=1;
 		$alumno='';
 		while ($salida = mysql_fetch_array($Recordset1)){
-
-			if ($salida[0]<>$alumno){
+			
+		$c_unidad = substr($salida[2],0,1);
+		$c_curso = substr($salida[4],-2,1);
+		//echo "$c_unidad => $c_curso<br>";
+		if ($c_unidad>$c_curso) {
+			$n1+=1;
+//echo "$c_unidad => $c_curso<br>";
 				$alumno=$salida[0];
 				$MiPDF->SetFont('Times','',10);
 				if ($linea!=''){$MiPDF->ln(2);$MiPDF->Multicell(0,4,$linea,0,'J',0);}
 				#$MiPDF->Text(20,35+$x,$salida[1].', '.$salida[2]);$x=$x+5;
-				$linea=$salida[2].' | '.$salida[6] .'. '.$salida[0].', '.$salida[1]." ";
-			}
+				$linea=$salida[2].' | '.$salida[6] .'. '.$salida[0].', '.$salida[1]." | ".$salida[4];
+			
 
 			if ($x>189){
 				$x=0;
 				$MiPDF->Addpage();
-			}
-
+			}		
+		}
 
 		}#del while
 		$MiPDF->ln(2);$MiPDF->Multicell(0,4,$linea,0,'J',0);
@@ -106,22 +111,37 @@ echo "<button class='btn btn-primary pull-right' name='submit10' type='submit' v
 echo "</form><br />";	
 foreach($_POST["select"] as  $valor) {	
 echo '<legend class="text-info" align="center"><strong>'.$valor.'</strong></legend><hr />';	
-echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th></thead><tbody>";
-$pend = mysql_query("SELECT * from asignaturas where nombre='$valor' and abrev like '%\_%' and asignaturas.nombre in (select distinct materia from profesores) order by curso");
-while ($pendi = mysql_fetch_array($pend)) {
-		$val_nivel=substr($pendi[3],0,1);
+echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th>Asignatura</th></thead><tbody>";
+//$pend = mysql_query("SELECT * from asignaturas where nombre='$valor' and abrev like '%\_%' and asignaturas.nombre in (select distinct materia from profesores) order by curso");
+//while ($pendi = mysql_fetch_array($pend)) {
+
 	
-	$sql = "SELECT distinct alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, alma.unidad, FALUMNOS.nc
+	/*$sql = "SELECT distinct alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, alma.unidad, FALUMNOS.nc, asignaturas.nombre
 FROM alma,  pendientes , asignaturas, FALUMNOS
 WHERE pendientes.codigo='".$pendi[0]."' and alma.claveal = pendientes.claveal and alma.claveal = FALUMNOS.claveal
-AND asignaturas.codigo = pendientes.codigo and asignaturas.curso like '$val_nivel%' and alma.unidad like '$val_nivel%' ORDER BY alma.curso, Unidad, nc, alma.Apellidos, alma.Nombre";
-		//echo $sql."<br>";
+AND asignaturas.codigo = pendientes.codigo and asignaturas.curso like '$val_nivel%' and alma.unidad like '$val_nivel%' and asignaturas.nombre not like 'Ámbito %'  ORDER BY alma.curso, unidad, nc, alma.Apellidos, alma.Nombre";*/
+$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc,  pendientes.claveal
+FROM pendientes, asignaturas, alma, FALUMNOS
+WHERE asignaturas.codigo = pendientes.codigo
+AND FALUMNOS.claveal=alma.claveal
+AND alma.claveal = pendientes.claveal
+AND unidad NOT LIKE  "%p-%" 
+AND asignaturas.nombre =  "'.$valor.'" and unidad not like "1%"
+AND abrev LIKE  "%\_%"
+ORDER BY alma.curso, unidad, nc';
+		//echo $sql."<br><br>";
 		$Recordset1 = mysql_query($sql) or die(mysql_error());  #crea la consulata;
 		while ($salida = mysql_fetch_array($Recordset1)){
-		
-		echo "<tr><td>$salida[6]</td><td>$salida[7]</td><td nowrap><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$salida[0]&todos=Ver Informe Completo del Alumno'>$salida[1], $salida[2]</a></td></tr>";
+		$val_nivel=substr($pendi[5],0,1);
+		$c_unidad = substr($salida[2],0,1);
+		$c_curso = substr($salida[4],-2,1);
+		//echo "$c_unidad => $c_curso<br>";
+			if ($c_unidad>$c_curso) {	
+				$n1+=1;	
+		echo "<tr><td>$salida[2]</td><td>$salida[6]</td><td nowrap><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a></td><td>$salida[4] </td></tr>";
 		}
-}
+		}
+//}
 
 		echo "</tbody></table>";
 		echo "<hr />";	
