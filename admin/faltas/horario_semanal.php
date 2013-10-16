@@ -57,7 +57,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	// Impresiï¿½n de la cabecera
 	$pdf->SetFont('NewsGotT','B',10);
 	$pdf->Cell(96,5,"PARTE DE FALTAS DEL GRUPO $nivel-$grupo",0,0,'L');
-	$pdf->Cell(81,5,"SEMANA: $inicio - $fin",0,0,'C');
+	$pdf->Cell(81,5,"SEMANA: _______________________",0,0,'C');
 	$pdf->Cell(96,5,"TUTOR/A: $tutor[0]",0,1,'R');
 	$pdf->Ln(1);
 	
@@ -71,7 +71,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetFont('NewsGotT','B',10);
 	$pdf->SetWidths(array(63,42,42,42,42,42));
 	$pdf->SetAligns(array('L','C','C','C','C','C'));
-	$pdf->Row(array('','LUNES','MARTES','MIï¿½RCOLES','JUEVES','VIERNES'));
+	$pdf->Row(array('','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES'));
 	
 	// SEGUNDA FILA
 	$pdf->SetWidths(array(8,55,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7));
@@ -121,7 +121,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
 	$pdf->SetAligns(array('C','C','C','C','C'));
 	$pdf->SetTextColor(0,0,0);
-	$pdf->Row(array('LUNES','MARTES','MIï¿½RCOLES','JUEVES','VIERNES'));
+	$pdf->Row(array('LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES'));
 	
 	// Resto de la tabla
 	$pdf->SetFont('NewsGotT','',10);
@@ -159,8 +159,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetWidths(array(54.6,54.6,54.6,54.6,54.6));
 	$pdf->SetAligns(array('C','C','C','C','C'));
 	$pdf->SetTextColor(0,0,0);
-	$pdf->Row(array("LUNES",'MARTES','MIï¿½RCOLES','JUEVES','VIERNES'));
-(null)
+	$pdf->Row(array("LUNES",'MARTES','MIÉRCOLES','JUEVES','VIERNES'));
 	$pdf->Row(array("\n\n\n\n\n\n",'','','','','',''));
 	
 	
@@ -172,5 +171,5 @@ while ($unidad = mysql_fetch_array($unidades)) {
 		
 }
 
-$pdf->Output('Parte de faltas semana '.$inicio.'.pdf','I');
+$pdf->Output('Parte de faltas semanal '.$inicio.'.pdf','I');
 ?>
