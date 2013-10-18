@@ -103,6 +103,16 @@ mysql_query($actualiza);
   mysql_query("delete from horw_faltas where a_grupo = ''");
   mysql_query("OPTIMIZE TABLE  `horw_faltas`");   
   
+  // Cambiamos los numeros de Horw para dejarlos en orden alfabético.
+ $hor = mysql_query("select distinct prof from horw order by prof");
+while($hor_profe = mysql_fetch_array($hor)){
+	$np+=1;
+	$sql = "update horw set no_prof='$np' where prof = '$hor_profe[0]'";
+	$sql0 = "update horw_faltas set no_prof='$np' where prof = '$hor_profe[0]'";
+	//echo "$sql<br>";
+	$sql1 = mysql_query($sql);
+	$sql2 = mysql_query($sq0);
+}
   // Copia del horario en Reservas
   mysql_query("DROP TABLE IF EXISTS  `reservas`.`horw`");
 

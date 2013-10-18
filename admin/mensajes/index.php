@@ -1,19 +1,62 @@
 <?
-session_start();
-include("../../config.php");
-if($_SESSION['autentificado']!='1')
-{
-	session_destroy();
-	header("location:http://$dominio/intranet/salir.php");
-	exit;
+session_start ();
+include ("../../config.php");
+if ($_SESSION ['autentificado'] != '1') {
+	session_destroy ();
+	header ( "location:http://$dominio/intranet/salir.php" );
+	exit ();
 }
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 $pr = $_SESSION['profi'];
+//$profesor = $_SESSION ['profi'];
 ?>
-<?
-include("../../menu.php");
-include("menu.php");
+<!DOCTYPE html>  
+<html lang="es">  
+  <head>  
+    <meta charset="iso-8859-1">  
+    <title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Intranet del <?php echo $nombre_del_centro; ?>o">  
+    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+      
+    <link href="//<?php echo $dominio; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//<?php echo $dominio; ?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="//<?php echo $dominio; ?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="//<?php echo $dominio; ?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="//<?php echo $dominio; ?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="//<?php echo $dominio; ?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="//<?php echo $dominio; ?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <script type="text/javascript" src="//<?php echo $dominio; ?>/intranet/js/buscarAlumnos.js"></script>                 
 
+	<!-- TinyMCE -->
+	<script src="//<?php echo $dominio; ?>/intranet/js/tinymce/tinymce.min.js"></script>
+	<script>
+	tinymce.init({
+	        selector: "textarea",
+	        language: "es",
+	        plugins: [
+	                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+	                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+	                "table contextmenu directionality template textcolor paste fullpage textcolor"
+	        ],
+	
+	        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | spellchecker",
+	        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak | styleselect",
+	
+	        menubar: false
+	});
+	</script>
+	<!-- /TinyMCE -->
+
+</head>
+
+<body>
+<?
+?>
+<?php
+		include ("../../menu_solo.php");
+		include ("menu.php");
+		
 if (isset($_POST['profes'])) {
 	$profes = $_POST['profes'];
 } 
@@ -83,7 +126,7 @@ include("profesores.php");
 <form id="form" name="form" method="post" action="index.php">
   <fieldset>
 <div class="row-fluid">
-  <div class="span4 offset2">
+  <div class="span4 offset1">
       <div class="well well-large">
         <h4>Destinatario(s)</h4>
         <br />
@@ -363,7 +406,7 @@ include("profesores.php");
         </div>
       </div>
        
-      <div class="span4 well well-large">
+      <div class="span6 well">
         <div class="control-group" align="left">
           <input type="hidden" name="profesor"
 					value="<? echo $pr; ?>" />
@@ -372,7 +415,10 @@ include("profesores.php");
           <hr />
           <label class="control-label" for="texto">Texto</label>
           <div class="controls">
-            <textarea id="texto" name="texto" class="input" id="textarea" rows="8" style="width:97%"><? echo $texto;?></textarea>
+          <textarea name="texto" id="editor" style="height: 200px; width: 100%;">
+		<? echo $texto;?>
+      </textarea>
+      
             <hr />
             <input type="submit" class="btn btn-primary btn-block" name="submit1" value="Enviar Mensaje" />
           </div>

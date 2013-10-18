@@ -32,10 +32,10 @@ $row = mysql_fetch_array($result);
 if ($row)
 {?>
 <?
-echo "<br /><br /><div align='CENTER'> <table class='table table-striped' style='width:800px;'>
+echo "<br /><br /><div align='CENTER'> <table class='table table-striped table-bordered' style='width:800px;'>
             <tr valign=Top> 
-            <th style='width:630px;'>$row[0]
-				</th>
+            <td style='width:630px;' class='lead text-warning'>$row[0]
+				</td>
 			<th><small class='muted'>";
 			fecha_actual2($row[1]);
 			echo "

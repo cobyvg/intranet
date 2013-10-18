@@ -12,8 +12,7 @@
 <p><a  style="text-align:left;" 
 		href="admin/mensajes/mensaje.php?id=<?
 					echo $row [2];
-					?>"
-		 rel='tooltip' title='<? if(strlen($row[4])>599){echo substr($row[4],0,600)."...";}else{echo $row[4];}?>'><?
+					?>"><?
 					echo $row [1];
 					?></a></p>
 <?

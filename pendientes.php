@@ -279,7 +279,7 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 ?>
 <div class='alert'>
 <button type="button" class="close" data-dismiss="alert">&times;</button>
-<a data-toggle="modal" href="#mensaje<? echo $n_mensajes;?>"  rel="tooltip" title="<? echo substr($texto,0,132)."...";?>">
+<a data-toggle="modal" href="#mensaje<? echo $n_mensajes;?>">
 <p><? echo $asunto; ?></p>
 </a>
 <p><i class="icon-comment"> </i>  <? echo "<span style='font-size:1.0em'>".$origen."</span>";?></p>
@@ -289,10 +289,10 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h4>Mensaje de <? echo $origen;?> </h4><br /><small>Enviado <? echo $fechaenv;?></small>
+    <h4>Mensaje de <span class="text-success"><? echo $origen;?> </span></h4><small>Enviado <? echo $fechaenv;?></small>
   </div>
   <div class="modal-body">
-<p><? echo $asunto;?></p>
+<p class="lead text-success"><? echo $asunto;?></p><hr />
 <p><? echo $texto;?></p>  </div>
   <div class="modal-footer">
   <form name="mensaje_enviado" action="index0.php" method="post" enctype="multipart/form-data" class="form-inline">

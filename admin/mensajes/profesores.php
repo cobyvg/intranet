@@ -1,6 +1,6 @@
 <?
  if($_POST['submit1'])
-{
+{	
   if(!$asunto or !$texto or empty($profesor))
   { 
   echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">

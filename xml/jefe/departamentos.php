@@ -62,7 +62,9 @@ No se ha podido abrir el archivo RelPerCen.txt. O bien te has olvidado de enviar
 </div><br />'); 
 while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 {
-$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[6]) . "\")";
+$e_bil0 = trim($data1[2]);
+$e_bil = str_replace("(Inglés) ","",$e_bil0);
+$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". $e_bil . "\",\"". trim($data1[6]) . "\")";
 mysql_query($datos1);
 }
 fclose($handle);

@@ -32,7 +32,7 @@ $row = mysql_fetch_object($result);
 
 if ($row)
 {?>
-<p class="lead" align="center">
+<p class="lead text-warning" align="center">
 <?          
             echo $row->slug;
 ?>

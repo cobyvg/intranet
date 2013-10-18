@@ -29,6 +29,13 @@ include ("../menu.php");
 </div>
 <br />
 <?
+if ($_GET['borrar']=='1') {
+	mysql_query("delete from departamentos where dni = '".$_GET['dni_profe']."'");
+	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+El profesor ha sido borrado de la base de datos..
+          </div></div><br />';
+}
 if ($_POST['enviar'] == "Enviar") {
 mysql_query ( "truncate table FTUTORES" );
 mysql_query ( "truncate table cargos " );
@@ -67,7 +74,7 @@ mysql_query ( "truncate table cargos " );
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han actualizado correctamente.
-          </div></div>';
+          </div></div><br />';
 }
 
 $head = '<thead>
@@ -86,6 +93,7 @@ $head = '<thead>
 		<th align="center"><span rel="Tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conviven.</span></th>
 		<th align="center"><span rel="Tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>
 		<th align="center"><span rel="Tooltip" title="Profesor encargado de las Relaciones de Género">Genero</span></th>
+		<th align="center"><span rel="Tooltip" title="Eliminar profesor de la tabla. Sólo desaparece el profesor, pero se mantienen sus datos."></span></th>
 	</tr>
 	</thead>';
 ?>
@@ -250,6 +258,7 @@ while ( $carg1 = mysql_fetch_array ( $carg0 ) ) {
 		echo "checked";
 	}
 	?> /></td>
+	<td><a href="cargos.php?borrar=1&dni_profe=<?echo $dni;?>"><i class="icon icon-trash icon-large"></i></a></td>
 	</tr>
 <?
 	}
