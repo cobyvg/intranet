@@ -1,4 +1,18 @@
 <?
+if ($_POST['submit1']=="Ver datos") {
+	include 'datos.php';
+	exit();
+}
+elseif ($_POST['submit2']=="PDF para imprimir") {
+	include 'lista_grupo.php';
+	exit();
+}
+elseif ($_POST['submit0']=="Buscar alumnos") {
+	include 'datos.php';
+	exit();
+}
+?>
+<?
 session_start();
 include("../../config.php");
 if($_SESSION['autentificado']!='1')
@@ -18,30 +32,39 @@ include("../../menu.php");
 <div class="page-header" align="center">
   <h2>Datos de los Alumnos <small> Consultas</small></h2>
 </div>
-
 </div>
-<div align="center">
-<div class="well well-large" style="width:360px;" align="left">
-<FORM action="datos.php" method="POST">
-  <legend>Selecciona criterios</legend>
+<div class="container-fluid">
+<div class="row-fluid">
+<div class=" span4 offset2 well well-large">
+<FORM name="form0" id="form1" action="cdatos.php" method="POST">
+  <legend>Datos de los alumnos</legend>
   <br />
   <label> Apellidos<br />
-    <INPUT type="text" name="apellidos" size="30" maxlength="32" alt="Apellidos" class="input-block-level">
+    <INPUT type="text" name="apellidos" size="30" maxlength="32" alt="Apellidos" class="input-block-level" />
   </label>
   <label>Nombre<br />
-    <INPUT type="text" name="nombre" size="30" maxlength="25" alt="Nombre" class="input-block-level">
+    <INPUT type="text" name="nombre" size="30" maxlength="25" alt="Nombre" class="input-block-level" />
   </label>
-  <label> Grupo<br />
-    <SELECT name="unidad" class="input-block-level">
-      <OPTION></OPTION>
+  <p class="help-block">No es necesario excribir el nombre o los apellidos completos de los alumnos.</p>
+ <div align="center"> <button type="submit" name="submit0" value="Buscar alumnos" class="btn btn-primary btn-block"><i class="icon icon-search"></i> Buscar alumnos</button></div> 
+</div>
+</form>
+<div class="span4 well well-large" >
+<FORM name="form1" id="form1" action="cdatos.php" method="POST">
+  <legend>Datos de los Grupos</legend>
+  <label>
+    <SELECT name="unidad[]" class="input-block-level" multiple style="height:140px" required>
       <? unidad();?>
     </SELECT>
   </label>
-  <br />
-  <INPUT type="submit" name="submit1" value="Buscar" class="btn btn-primary btn-block">
+  <p class="help-block">Mantén apretada la tecla Ctrl mientras haces click con el ratón para seleccionar múltiples grupos.</p>
+ <div align="center"> <button type="submit" name="submit1" value="Ver datos" class="btn btn-primary"><i class="icon icon-search"></i> Ver datos</button>  <button type="submit" name="submit2" value="PDF para imprimir" class="btn btn-primary" ><i class="icon icon-print"></i> PDF para imprimir</button></div>
+ </FORM>
+ 
   </div>
   </div>
-</FORM>
+  </div>
+  
 <? include("../../pie.php");?>
 </BODY>
 </HTML>

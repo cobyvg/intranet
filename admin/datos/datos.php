@@ -13,7 +13,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../../menu.php");
 
-if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="";}
+if (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];} elseif (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];} else{$grupo="";}
 if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];} elseif (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];} else{$nombre="";}
 if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];} elseif (isset($_GET['apellidos'])) {$apellidos = $_GET['apellidos'];} else{$apellidos="";}
 if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al="";}
@@ -26,8 +26,7 @@ if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al=""
  </div>
  <div class='container-fluid'>
   <div class="row-fluid">
-  <div class="span2"></div>
-  <div class="span8">
+  <div class="span12">
   <?php
   // Si se envian datos desde el campo de búsqueda de alumnos, se separa claveal para procesarlo.
   if (!(isset($_GET['seleccionado']))) {
@@ -63,7 +62,6 @@ if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al=""
   #Comprobamos si se ha metido Apellidos o no.
     if  (TRIM("$apellidos")=="")
     {
-    $AUXSQL .= " AND 1=1 ";
     }
     ELSE
     {
@@ -71,24 +69,24 @@ if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al=""
     }
   if  (TRIM("$nombre")=="")
     {
-    $AUXSQL .= " AND 1=1 ";
     }
     ELSE
     {
     $AUXSQL .= " and alma.nombre like '%$nombre%'";
     }
-		  if  (TRIM("$unidad")=="")
+  
+    if  (isset($_POST['unidad']))
     {
-    $AUXSQL .= " AND 1=1 ";
-    }
-    ELSE
-    {
-    $AUXSQL .= " and alma.unidad like '$unidad%'";
+    	$AUXSQL=" and (";
+    	foreach ($_POST['unidad'] as $grupo){
+    	$AUXSQL .= " alma.unidad like '$grupo' or";
+    	}
+    	$AUXSQL=substr($AUXSQL,0,-2);
+    	$AUXSQL.=")";
     }
 	
   	if  (TRIM("$clave_al")=="")
     {
-    $AUXSQL .= " AND 1=1 ";
     }
     ELSE
     {
@@ -99,48 +97,52 @@ if ($seleccionado=='1') {
 }
   
   $SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.nivel, alma.grupo,\n
-  alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.telefonourgencia from alma
-  where 1 " . $AUXSQL . " order BY alma.apellidos";
+  alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.telefonourgencia, padre, matriculas from alma
+  where 1 " . $AUXSQL . " order BY nivel, grupo, alma.apellidos, nombre";
   // echo $SQL;
   $result = mysql_query($SQL);
   if (mysql_num_rows($result)>25 and !($seleccionado=="1")) {
-  	$imprimir_activado = true;
+  	$datatables_activado = true;
   }
   if ($row = mysql_fetch_array($result))
         {
 
 echo "<div align=center><table  class='table table-striped tabladatos' style='width:auto;'>";
-	echo "<thead><tr><th>
-	        Clave</th><th>
-		Nombre</th><th width='60'>
-		Grupo</th><th>
-        		Domicilio</th><th>Teléfono</th>";
-				if(stristr($_SESSION['cargo'],'5') == TRUE)
-{
-echo "
-<th> Tfno. Urgencias</th>
-<th> Fecha</th>
-<th> DNI</th>";
-}
+	echo "<thead><tr>
+			<th>Clave</th>
+	        <th> DNI</th>
+	        <th>Nombre</th>
+	        <th width='60'>Grupo</th>
+	        <th> Fecha</th>
+	        <th>Repite</th>
+	        <th>Domicilio</th>
+        	<th>Padre</th>
+        	<th>Tfno. Urgencias</th>					
+		";
+
 echo "</th><th></th>";			
 				echo "</tr></thead><tbody>";
                 do {
+                	if ($row[11]==2) {
+                		$repite="Sí";
+                	}
+                	else{
+                		$repite="No";
+                	}
                 	$nom=$row[1].", ".$row[2];
                 	$unidad = $row[3]."-".$row[4];
 		$claveal = $row[0];
-		echo "<tr><td>
-$row[0]</td><td>
-$nom</td><td>
-$unidad</td><td>
- $row[7]</td><td>
- $row[8]</td>";
-
-if(stristr($_SESSION['cargo'],'5') == TRUE)
-{
-echo "<td> $row[9]</td>
-<td> $row[6]</td>
-<td> $row[5]</td>";
-}  
+		echo "<tr>
+<td>$row[0]</td>
+<td>$row[5]</td>
+<td>$nom</td>
+<td>$unidad</td>
+<td>$row[6]</td>
+<td>$repite</td>
+<td>$row[7]</td>
+<td>$row[10]</td>
+<td>$row[9]</td>";
+ 
 if ($seleccionado=='1'){
 	$todo = '&todos=Ver Informe Completo del Alumno';
 }
@@ -160,26 +162,26 @@ No hubo suerte, bien porque te has equivocado
         }
   ?>
   <br />
-  <div class="btn-group">
   <?
-  echo "<a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno' class='btn btn-success'>Datos completos</a>";
-  if ($seleccionado=='1'){
-  echo "<a class='btn btn-success' href='http://$dominio/intranet/admin/informes/cinforme.php?nombre_al=$alumno&nivel=$un[1]&grupo=$un[2]'>Informe histórico del Alumno</a>";
-   	echo "<a class='btn btn-success' href='../fechorias/infechoria.php?seleccionado=1&nombre_al=$alumno'>Problema de disciplina</a>";
-   	echo "<a class='btn btn-success' href='http://$dominio/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
+  if ($_GET['seleccionado']=='1'){
+  	
+  	  echo "<a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno' class='btn btn-primary'>Datos completos</a>";
+  echo "&nbsp;<a class='btn btn-primary' href='http://$dominio/intranet/admin/informes/cinforme.php?nombre_al=$alumno&nivel=$un[1]&grupo=$un[2]'>Informe histórico del Alumno</a> ";
+   	echo "&nbsp;<a class='btn btn-primary' href='../fechorias/infechoria.php?seleccionado=1&nombre_al=$alumno'>Problema de disciplina</a> ";
+   	echo "&nbsp;<a class='btn btn-primary' href='http://$dominio/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
    	if (stristr($_SESSION['cargo'],'1') == TRUE) {
    		$dat = mysql_query("select nivel, grupo from FALUMNOS where claveal='$clave_al'");
    		$tut=mysql_fetch_row($dat);
    		$nivel=$tut[0];
    		$grupo=$tut[1];
-   		echo "<a class='btn btn-success' href='../jefatura/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo'>Acción de Tutoría</a>";
+   		echo "&nbsp;<a class='btn btn-primary' href='../jefatura/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo'>Acción de Tutoría</a>";
    	}
    	if (stristr($_SESSION['cargo'],'8') == TRUE) {
    		$dat = mysql_query("select nivel, grupo from FALUMNOS where claveal='$clave_al'");
    		$tut=mysql_fetch_row($dat);
    		$nivel=$tut[0];
    		$grupo=$tut[1];
-   		echo "<a class='btn btn-success' href='../orientacion/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo'>Acción de Tutoría</a>";
+   		echo "&nbsp;<a class='btn btn-primary' href='../orientacion/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo'>Acción de Tutoría</a>";
    	}
    	if (stristr($_SESSION['cargo'],'2') == TRUE) {
    		$tutor = $_SESSION['profi'];
@@ -192,12 +194,11 @@ No hubo suerte, bien porque te has equivocado
    		$nivel_tutor=$tut2[0];
    		$grupo_tutor=$tut2[1];
    		if ($nivel==$nivel_tutor and $grupo==$grupo_tutor) {
-   		echo "<a class='btn btn-success' href='../tutoria/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo&tutor=$tutor'>Acción de Tutoría</a>";	
+   		echo "&nbsp;<a class='btn btn-primary' href='../tutoria/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo&tutor=$tutor'>Acción de Tutoría</a>";	
    		}
    	}
   }
 	?>
-	</div>
     <? include("../../pie.php");?>
 </BODY>
 </HTML>

@@ -33,8 +33,13 @@ else
 {
 $grupo="";
 }
+if (isset($_GET['nombre_al'])) {
+	$nombre = $_GET['nombre_al'];
+}
+else{
+	$nombre = $nombre_al;
+}
 
-$nombre = $nombre_al;
 ?>
 <br />
 <div align="center">
