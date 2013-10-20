@@ -8,9 +8,16 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+if(!(stristr($_SESSION['cargo'],'1') == TRUE))
+{
+header("location:http://$dominio/intranet/salir.php");
+exit;	
+}
 ?>
 <?
-include("../../menu.php");
+ include("../../menu.php");
+ include("../menu.php");
 ?>
 <br />
 <div align="center">
@@ -29,32 +36,33 @@ if (isset($_GET['Submit'])) {$Submit = $_GET['Submit'];}elseif (isset($_POST['Su
 if (isset($iniciofalta) and isset($finfalta)) {
 
 	$dir = "./origen/";
-	
+	$fecha0 = explode("/",$iniciofalta);
+	$fecha10 = explode("/",$finfalta);
 // Refrescamos la tabla de los tramos
 mysql_query("truncate table tramos");
 
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir($dir)) {
-   while (false !== ($file = readdir($handle))) {
-       if (strstr($file,"1EA") == TRUE or strstr($file,"1BA") == TRUE) {       	
-
+	$ni=0;
+while (false !== ($file = readdir($handle))) {
+//header('Content-Type: text/xml');
+   	
 $doc = new DOMDocument('1.0', 'iso-8859-1');
-
 /*Cargo el XML*/
 $doc->load( './origen/'.$file );
+// Variables comunes
+$curso = explode("_",$file);
+$nivel = strtoupper(substr($curso[0],0,2));
+$grupo = strtoupper(substr($curso[0],2,1));
+
+// Un archivo de ESO y otro de Bach para los tramos
+if (strstr($file,"1EA") == TRUE or strstr($file,"1BA") == TRUE) {       	
+$ni+=1;
 
 $tramos = $doc->getElementsByTagName( "TRAMO_HORARIO" );
  
-/*Al ser $calificaciones una lista de nodos
-lo puedo recorrer y obtener todo
-su contenido*/
 foreach( $tramos as $tramo )
 {	
-/*Obtengo el valor del primer elemento 'item(0)'
-de la lista $codigos.
-Si existiera un atributo en el nodo para obtenerlo
-usaria $codigos->getAttribute('atributo');
-*/
 $codigos0 = $tramo->getElementsByTagName( "X_TRAMO" );
 $codigo0 = $codigos0->item(0)->nodeValue;
 $nombres0 = $tramo->getElementsByTagName( "T_HORCEN" );
@@ -63,108 +71,85 @@ $nombre0 = $nombres0->item(0)->nodeValue;
 mysql_query("INSERT INTO  `tramos` 
 VALUES ('$nombre0',  '$codigo0')");
 }	
-       }
-   }
 }
-sleep(5);	
-$fecha0 = explode("/",$iniciofalta);
-$fecha10 = explode("/",$finfalta);
 
-// Construimos el fichero de exportaciÛn para SÈneca. Este fichero elimina datos innecesarios y coloca sÛlo los datos del alumno y sus notas. Hay que ir recortando los trozos necesarios para luego soldarlos en la variable total.
-// Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
-// Abrir un directorio conocido, y proceder a leer sus contenidos
-if (is_dir($dir)) {
-    if ($gd = opendir($dir)) {
-        while (($fichero = readdir($gd)) !== false) {
-		if ($fichero != "." && $fichero != ".."&& $fichero != ".xml")
-		{	
-$xml = file_get_contents("./origen/" . $fichero . "");
-// Texto a selecionar para la cirugÌa.
-$principio1 = "<SERVICIO>";
-$principio2 = "<TRAMOS_HORARIOS>";
-$principio3 = "<CURSOS>";
-
-// Trozos de texto
-$id1 = strstr ($xml, $principio1);
-$id2 = strstr ($id1, $principio2);
-$inicio0 = substr($id1,0,strlen($id1)-strlen($id2));
-
-// Sustituir el intercambio de ExportaciÛn a ImportaciÛn.
-$inic0 = str_replace("<TIPO_INTERCAMBIO>E</TIPO_INTERCAMBIO>", "<TIPO_INTERCAMBIO>I</TIPO_INTERCAMBIO> ", $inicio0);
+$x_ofert = $doc->getElementsByTagName( "X_OFERTAMATRIG" );
+$d_ofert = $doc->getElementsByTagName( "D_OFERTAMATRIG" );
+$x_unida = $doc->getElementsByTagName( "X_UNIDAD" );
+$t_nombr = $doc->getElementsByTagName( "T_NOMBRE" );
+$x_oferta = $x_ofert->item(0)->nodeValue;
+$d_oferta = $d_ofert->item(0)->nodeValue;
+$x_unidad = $x_unida->item(0)->nodeValue;
+$t_nombre = $t_nombr->item(0)->nodeValue;
+$n_curso=utf8_decode($d_oferta); 
+$n_curso1 = utf8_decode($n_curso);     
 $hoy = date('d/m/Y')." 08:00:00"; 
-$inic1 = ereg_replace("[<^]FECHA[>]([0-9]{1,2}/([0-9]{1,2})/([0-9]{4})) ([0-9]{1,2}:([0-9]{1,2}):([0-9]{1,2}))[<]\/FECHA[>$]", "<FECHA>$hoy</FECHA>", $inic0);
-$inic2 = ereg_replace("[<^]FECHA_DESDE[>]([0-9]{1,2}/([0-9]{1,2})/([0-9]{4}))[<]\/FECHA_DESDE[>$]", "<FECHA_DESDE>$iniciofalta</FECHA_DESDE>", $inic1);
-$inic3 = ereg_replace("[<^]FECHA_HASTA[>]([0-9]{1,2}/([0-9]{1,2})/([0-9]{4}))[<]\/FECHA_HASTA[>$]", "<FECHA_HASTA>$finfalta</FECHA_HASTA>", $inic2);
-$inicio1 = $inic3;
-$id3 = strstr($id1, $principio3);
-$id4 = strstr($id1,$principio4);
-$inicio2 = substr($id3,0,strlen($id3)-strlen($id4));
+$ano_curso=substr($inicio_curso,0,4); 
+$xml="<SERVICIO>
+  <DATOS_GENERALES>
+    <MODULO>FALTAS DE ASISTENCIA</MODULO>
+    <TIPO_INTERCAMBIO>I</TIPO_INTERCAMBIO> 
+    <AUTOR>SENECA</AUTOR>
+    <FECHA>$hoy</FECHA>
+    <C_ANNO>$ano_curso</C_ANNO>
+    <FECHA_DESDE>$iniciofalta</FECHA_DESDE>
+    <FECHA_HASTA>$finfalta</FECHA_HASTA>
+    <CODIGO_CENTRO>29002885</CODIGO_CENTRO>
+    <NOMBRE_CENTRO>I.E.S. Monterroso</NOMBRE_CENTRO>
+    <LOCALIDAD_CENTRO>Estepona (M·laga)</LOCALIDAD_CENTRO>
+  </DATOS_GENERALES>
+  <CURSOS>
+    <CURSO>
+      <X_OFERTAMATRIG>$x_oferta</X_OFERTAMATRIG>
+      <D_OFERTAMATRIG>$n_curso</D_OFERTAMATRIG>
+      <UNIDADES>
+        <UNIDAD>
+          <X_UNIDAD>$x_unidad</X_UNIDAD>
+          <T_NOMBRE>$t_nombre</T_NOMBRE>
+          <ALUMNOS>";
+//echo "$cabecera";
+$alumn = $doc->getElementsByTagName( "ALUMNO" );
+foreach ($alumn as $alumno){
+	$x_matricul = $alumno->getElementsByTagName( "X_MATRICULA" );
+	$x_matricula = $x_matricul->item(0)->nodeValue;	
+	$clavea = $alumno->getElementsByTagName( "C_NUMESCOLAR" );
+	$claveal = $clavea->item(0)->nodeValue;
 
-$string = str_replace("<T_APELLIDO2></T_APELLIDO2>", "", $inicio2);
-$string0 = str_replace("", " ", $string);
-$string1 = ereg_replace("[<^]C_NUMESCOLAR[>$][0-9a-zA-Z·ÈÌÛˆ˙™Ò¡…Õ”⁄¸_-]+[<^]\/C_NUMESCOLAR[>$]\n", "", $string0);
-//$string2 = ereg_replace("[<^]T_NOMBRE_ALU[>][a-zA-Z·ÈÌÛˆ˙™Ò¡…Õ”⁄¸‡\.'®- ]+[<]\/T_NOMBRE_ALU[>$]\n", "", $string1);
-//$string3 = ereg_replace("[<^]T_APELLIDO1[>][a-zA-Z·ÈÌÛˆ˙™Ò¡…Õ”⁄¸‡\.'®- ]+[<]\/T_APELLIDO1[>$]\n", "", $string2);
-//$string4 = ereg_replace("[<^]T_APELLIDO2[>][a-zA-Z·ÈÌÛˆ˙™Ò¡…Õ”⁄¸‡\.\n\n\n'®- ]+[<]\/T_APELLIDO2[>$]\n", "", $string3);
+	$xml.="
+	<ALUMNO>
+       <X_MATRICULA>$x_matricula</X_MATRICULA>
+       <FALTAS_ASISTENCIA>";
 
-$string2 = ereg_replace("[<^]T_NOMBRE_ALU[>][a-zA-Z·ÈÌÛˆ˙™Ò¡…Õ”⁄¸‡\.'-® ]+[<]\/T_NOMBRE_ALU[>$]\n", "", $string1);
-$string3 = ereg_replace("[<^]T_APELLIDO1[>][a-zA-Z·ÈÌÛˆ˙™Ò¡…Õ”⁄¸‡\.'-® ]+[<]\/T_APELLIDO1[>$]\n", "", $string2);
-$string4 = ereg_replace("[<^]T_APELLIDO2[>][a-zA-Z·ÈÌÛˆ˙™Ò¡…Õ”⁄¸‡\.'-® ]+[<]\/T_APELLIDO2[>$]\n", "", $string3);
+	include 'exportado.php';
+	
+	$xml.="
+        </FALTAS_ASISTENCIA>
+       </ALUMNO>";
 
-$string5 = ereg_replace("                                                                      ", "			  ", $string4);
-$string6 = ereg_replace("                            \n", "", $string5);
-$string7 = ereg_replace("                                             <FALTAS_ASISTENCIA>", "                 <FALTAS_ASISTENCIA>", $string6);
-$string8 = ereg_replace("                                          <FALTAS_ASISTENCIA>", "             <FALTAS_ASISTENCIA>", $string7);
-$total = $inicio1.$string8;
-
-
- //echo htmlentities($total); 
- $curso = explode("_",$fichero);
- $nivel = strtoupper(substr($curso[0],0,2));
- $grupo = strtoupper(substr($curso[0],2,1));
-
-$fp=fopen("./exportado/" . $fichero . "","w")  or die(
-"<p id='texto_en_marco'>No se han podido abrir los archivos de Faltas de SÈneca. øEst·s seguro de haberlos colocado en el directorio correspondiente (intranet/faltas/seneca/origen/)?</p>"
-);
-if (flock($fp, LOCK_EX)) {
-   $pepito=fwrite($fp,$total);
-   flock($fp, LOCK_UN);
-} else {
-   sleep (10);
-   $pepito=fwrite($fp,$total);
-   flock($fp, LOCK_UN);//
 }
-fclose ($fp);	
-include("exportado.php");
-	   }
-        }
-	//	unlink($fichero);
-        closedir($gd);
-    }
+$xml.="         
+     </ALUMNOS>
+    </UNIDAD>
+   </UNIDADES>
+  </CURSO>
+ </CURSOS>
+</SERVICIO>";
+$fp1=fopen("exportado/".$file."","w");
+$pepito2=fwrite($fp1,$xml);
+}
 }
 
-	$dir2 = "./exportado/";
-	if (is_dir($dir2)) {
-    if ($gd = opendir($dir2)) {
-        while (($fichero = readdir($gd)) !== false) {
-		if ($fichero != "." && $fichero != ".."&& $fichero != ".xml")
-		{	
-$fecha_inicial = $fecha0[2].$fecha0[1].$fecha0[0];
-$fecha_final = $fecha10[2].$fecha10[1].$fecha10[0];
-if(strlen($fichero) == '27')
-{
-$nombre_curso = substr($fichero,0,3)."_".$fecha_inicial."_".$fecha_final."_1.xml";
-} 
-else
-{
-$nombre_curso = substr($fichero,0,3)."_".$fecha_inicial."_".$fecha_final.".xml";
+if ($ni==0) {
+	echo '<div align="center""><div class="alert alert-error alert-block fade in" style="max-width:500px;" align="left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+	Parece que no hay archivos que se puedan procesar en el directorio /faltas/seneca/origen/. Aseg˙rate de que el directorio contiene los archivos exportados desde SÈneca..
+			</div></div><br />';
+exit();
 }
-rename("exportado/".$fichero."", "exportado/".$nombre_curso."");
-}}}}
 ?>
 <div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-	 Las Faltas de Asistencia se han escrito correctamente en los archivos  del directorio exportado/. <br />Puedes proceder a importarlos a SÈneca.
+	 Las Faltas de Asistencia se han escrito correctamente en los archivos  del directorio /exportado/. <br />Puedes proceder a importarlos a SÈneca.
 			</div></div><br />
 <?
 }
@@ -173,7 +158,7 @@ else{
 	?>
 <div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El formato de la fecha no parece correcto. No olvides que tanto los dÌas como los meses debes escribirlos con dos cifras. No es correcto: 1/1/2011, sino 01/01/2011.
+Selecciona las fechas de comienzo y final del regsistro de faltas en el formulario.
 			</div></div><br />	
 	<?
 }

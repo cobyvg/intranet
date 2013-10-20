@@ -33,14 +33,14 @@ Es importante que las listas de Alumnos est&eacute;n actualizadas para evitar er
         
          <label >Primer d&iacute;a: 
       <div class="input-append" >
-            <input name="iniciofalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="iniciofalta" >
+            <input name="iniciofalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="iniciofalta" required />
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Ultimo d&iacute;a: 
  <div class="input-append" >
-  <input name="finfalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="finfalta" >
+  <input name="finfalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="finfalta" required />
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 
