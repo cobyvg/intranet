@@ -95,7 +95,7 @@ Los datos se han registrado correctamente.
 	else{
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
+			<legend>ATENCIÓN:</legend>
 No se pueden procesar los datos. Has dejado campos vacíos en el formulario que es necesario rellenar. Vuelve atrás e inténtalo de nuevo.
           </div></div>';
 
@@ -107,7 +107,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 <div class="row-fluid">
 <div class="span5">
 <div align='center'>
-<h4>Registro de Bajas</h4>
+<legend>Registro de Bajas</legend>
 </div>
 <br />
 <div class="well well-large">
@@ -178,7 +178,7 @@ else{
 </div>
 <div class="span7"><?
 if ($profesor) {
-	echo "<div align='center'><h4>Bajas del Profesor en este Curso.</h4></div><br />";
+	echo "<div align='center'><legend>Bajas del Profesor en este Curso.</legend></div><br />";
 	echo "<table class='table table-striped' style='width:100%;' align='center'>
 ";
 	echo "<thead><tr>
@@ -219,7 +219,7 @@ if (empty($pra)) {}else{
 	echo '<a name="aqui" id="aqui"></a>';
 	$pr_trozos=explode(", ",$pra);
 	echo "
-<div align='center'><h4>Bajas del Profesor/a $pr_trozos[1] $pr_trozos[0]</h4></div><br />";
+<div align='center'><legend>Bajas del Profesor/a $pr_trozos[1] $pr_trozos[0]</legend></div><br />";
 	echo "<table class='table table-striped' style='width:100%;' align='center'>";
 	echo "<thead><tr>
 		<th>Profesor</th>
@@ -253,7 +253,7 @@ if (empty($pra)) {}else{
 	echo "</tbody></table><hr><br />";
 }
 ?> <?
-echo "<div align='center'><h4>Últimas Bajas de Profesores</h4></div><br />";
+echo "<div align='center'><legend>Últimas Bajas de Profesores</legend></div><br />";
 echo "<table class='table table-striped tabladatos' style='width:100%;' align='center'>";
 echo "<thead><tr>
 		<th>Profesor</td>

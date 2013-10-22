@@ -90,7 +90,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave'];$nombre = $_POST['nombre']; $
 		} else {
 			$mobile = $tfno_u;
 		}
-		$message = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
+		$message = "Su hijo/a ha cometido una falta contra las normas de convivencia del Centro. Hable con su hijo/a y, ante cualquier duda, consulte en http://".$dominio;
 		mysql_query ( "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
 		$login = $usuario_smstrend;
 		$password = $clave_smstrend;

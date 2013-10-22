@@ -24,7 +24,13 @@ if($recurso=="carrito"){$num=$num_carrito+1;$nombre_rec="Carritos de Portátiles"
 </div>
 <br />
 <?php
- 
+if ($recurso=="aula") {
+ 		echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <legend>Atención:</legend>
+            El espacio preferido para reservar las Aulas y dependencias varias del Centro es la opción <em><b>Aulas de Grupo</b></em>, que puedes encontrar en el menú de las reservas más arriba. Esta sección esta en vías de desaparición. Por lo tanto, busca el aula entre las Aulas de Grupo y procede con la reserva.
+          </div></div>';
+ } 
 $conn = mysql_connect($db_host, $db_user, $db_pass) or die("Error en la conexión con la Base de Datos!");
 mysql_select_db($db_reservas, $conn);
 

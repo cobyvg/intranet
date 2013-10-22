@@ -116,7 +116,7 @@ while($hor_profe = mysql_fetch_array($hor)){
   // Copia del horario en Reservas
   mysql_query("DROP TABLE IF EXISTS  `reservas`.`horw`");
 
-mysql_query("CREATE TABLE  `reservas`.`horw` (
+mysql_query("CREATE TABLE IF NOT EXISTS  `reservas`.`horw` (
 `id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
  `dia` CHAR( 1 ) NOT NULL DEFAULT  '',
  `hora` CHAR( 2 ) NOT NULL DEFAULT  '',
@@ -137,7 +137,7 @@ KEY  `prof` (  `prof` ) ,
 KEY  `c_asig` (  `c_asig` )
 ) ENGINE = MYISAM DEFAULT CHARSET = latin1");
 
-mysql_query("INSERT INTO  `reservas`.`horw` s
+mysql_query("INSERT INTO  `reservas`.`horw`
 SELECT * 
 FROM  `faltas`.`horw`");
   

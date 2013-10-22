@@ -77,9 +77,8 @@ while($n_cur = mysql_fetch_array($n_curs1))
  if($mensaje){
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            Las Faltas han sido registradas.
+            Las Faltas han sido registradas correctamente.
           </div></div>'; 
-	echo "<div style='color:brown; text-decoration:underline;'>Las Faltas han sido registradas.</div>";
 	}  
 
   	$t_grupos = $curs;

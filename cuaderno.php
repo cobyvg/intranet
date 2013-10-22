@@ -12,22 +12,21 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $pr = $_SESSION['profi'];
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="iso-8859-1">
-<title>Intranet</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
-<meta name="author" content="">
+<!DOCTYPE html>  
+<html lang="es">  
+  <head>  
+    <meta charset="iso-8859-1">  
+    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
+    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
       
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
-    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
     <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    
 <style type="text/css">
 .nota {
 	border:none;
@@ -122,7 +121,7 @@ exit;
 }
 
 // Titulo
-echo "<br /><div align='center' class='page-header'>";
+echo "<br /><div align='center' class='page-header no_imprimir'>";
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
 echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small>Registro de datos</small></h2>";
@@ -196,7 +195,7 @@ else{
 
 <?
 echo "<table class='table table-striped table-bordered table-condensed' style='width:auto'>\n"; 
-echo "<tr><th>NC</th><th>Alumnos</th>";
+echo "<tr class='no_imprimir'><th>NC</th><th>Alumnos</th>";
 // Número de las columnas de la tabla	
 	$cols2=0;
 	while($col20 = mysql_fetch_array($col0)){
@@ -236,20 +235,20 @@ echo "<tr><th>NC</th><th>Alumnos</th>";
 	}
 else{
 if($seleccionar=="1"){	$num_col += 1;	}
-	echo "<tr><td colspan='$num_col'>";
+	echo "<tr class='no_imprimir'><td colspan='$num_col'>";
    	echo "<h4 align='center' style='display:inline;'>".$nombre."&nbsp;(".$curso_sin.")</h4>&nbsp;&nbsp;";
 // Enlace para crear nuevos Alumnos y para crear nuevas columnasx
 $mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1'";
 $mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&nom_asig=$nom_asig&nom_asig=$nom_asig";
-echo '<ul style="display:inline;float:right;margin:0px;">';
+echo '<ul style="display:inline;float:right;margin:0px;" class="no_imprimir">';
 	   $mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1&nom_asig=$nom_asig";
-	echo '<li style="display:inline"><i class="icon icon-user icon-large" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." rel="Tooltip" onclick="window.location=\'';	
+	echo '<li style="display:inline"><i class="icon icon-user icon-large no_imprimir" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." rel="Tooltip" onclick="window.location=\'';	
 	echo $mens1;
 	echo '\'" style="cursor: pointer;"></i>&nbsp;&nbsp;</li>';
-	echo '<li style="display:inline"><i class="icon icon-print icon-large" title="Imprimir la tabla de alumnos" onclick="print()"';
+	echo '<li style="display:inline"><i class="icon icon-print icon-large no_imprimir" title="Imprimir la tabla de alumnos" onclick="print()"';
 	echo '\'" style="cursor: pointer;"> </i>&nbsp;&nbsp;</li>';
     $mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&nom_asig=$nom_asig&nom_asig=$nom_asig";
-	echo '<li style="display:inline"><i class="icon icon-plus-sign icon-large" rel="Tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';	
+	echo '<li style="display:inline"><i class="icon icon-plus-sign icon-large no_imprimir" rel="Tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';	
 	echo $mens2;
 	echo '\'" style="cursor: pointer;"> </i></li>';
 	echo ''; 
@@ -325,10 +324,11 @@ $result = mysql_query ($resul);
 		if ($row[5] == "") {}
 		else
 			{
-$inf = "cuaderno/informe.php?profesor=$pr&curso=$curso&asignatura=$asignatura&nc=$nc&claveal=$claveal&nombre=$nombre_al&apellidos=$apellidos&nom_asig=$nom_asig";
+$inf = 'cuaderno/informe.php?profesor='.$pr.'&curso='.$curso.'&asignatura='.$asignatura.'&nc='.$nc.'&claveal='.$claveal.'&nombre='.$nombre_al.'&apellidos='.$apellidos.'&nom_asig='.$nom_asig.'';
 	echo "<tr>";
-	echo "<td nowrap><a href='$inf'>$row[1]</a></td><td nowrap><a href='$inf'>$row[2], $row[3]</a></td>";
-  	
+	?>
+	<td nowrap><? echo $row[1];?></td><td nowrap><a href="" onclick="window.open('<? echo $inf;?>')"  class=""><? echo $row[2].', '.$row[3];?></a></td>
+  <?	
 // Si hay datos escritos rellenamos la casilla correspondiente
 	$colu10 = "select distinct id from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by id";
 	$colu20 = mysql_query($colu10);
@@ -364,10 +364,11 @@ echo "</tr>";
         }  
 	}
 $num_col+=1;
-echo '</table><div align=center class=no_imprimir><br /><input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary" /></div>'; 
+echo '</table>
+<div align="center" class="no_imprimir"><br /><input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary" /></div></FORM>'; 
 
   ?>
-</FORM>
+
 
 <?
 	
@@ -469,12 +470,14 @@ $h=0;
 ?>
 <hr>   
 <h4><small>Operaciones y Funciones</small></h4>
-    <input name="media" type="submit" value="Media Aritmética" class="btn btn-warning" style="width:300px" /><br />
-        <input name="media_pond2" type="submit" value="Media Ponderada" class="btn btn-warning" style="width:300px"/><br />
-        <input name="estadistica" type="submit" value="Estadística" class="btn btn-warning " style="width:300px"/><br />
-    <input name="ocultar" type="submit" value="Ocultar" class="btn btn-warning " style="width:300px"/><br />
-        <input name="mostrar" type="submit" value="Mostrar" class="btn btn-warning " style="width:300px"/><br />
-        <input name="eliminar" type="submit" value="Eliminar" class="btn btn-warning " style="width:300px"/><br />
+
+    <p><input name="media" type="submit" value="Media Aritmética" class="btn btn-primary btn-block"  /></p>
+    <p>    <input name="media_pond2" type="submit" value="Media Ponderada" class="btn btn-primary btn-block" /></p>
+        <lpi><input name="estadistica" type="submit" value="Estadística" class="btn btn-primary btn-block" /></p>
+    <p><input name="ocultar" type="submit" value="Ocultar" class="btn btn-primary btn-block" /></p>
+        <p><input name="mostrar" type="submit" value="Mostrar" class="btn btn-primary btn-block" /></p>
+        <p><input name="eliminar" type="submit" value="Eliminar" class="btn btn-primary btn-block" /></p>
+
   </form>
 </div>
 </div>

@@ -58,7 +58,7 @@ if($padres2 or $padres3 or $padres4 or $padres5 or $padres6 or $padres7 or $padr
   //echo $SQLTEMP;
   $resultTEMP= mysql_query($SQLTEMP);
   mysql_query("ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
-  $SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero > '3'";
+  $SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero > '4'";
   $result0 = mysql_query($SQL0);
 while ($row0 = mysql_fetch_array($result0)): 
 $claveal = $row0[0]; 
@@ -118,7 +118,8 @@ if($padres2 or $padres3 or $padres4 or $padres5 or $padres6 or $padres7 or $padr
   {
   	// Variables del memnsaje
 if($padres2)$niv = "1º de ESO";if($padres3)$niv = "2º de ESO";if($padres4)$niv = "3º de ESO";if($padres5)$niv = "4º de ESO";if($padres6)$niv = "1º Bach.";if($padres7)$niv = "2º Bach.";if($padres8)$niv = "Ciclos Form.";if($padres9)$niv = "PCPI";
-$text = "Le comunicamos que su hijo/a de $niv tiene Faltas de Asistencia sin justificar dentro del periodo del ".$fecha12." al ".$fecha22.". Contacte con su Tutor";
+
+$text = "Entre el ".$fecha12." y el ".$fecha12." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Más info en nuestra web: http://".$dominio;
 $login = $usuario_smstrend;
 $password = $clave_smstrend;
 ?>

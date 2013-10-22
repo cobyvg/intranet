@@ -134,7 +134,7 @@ echo "</center></tr><tr>";
 //Nombres de Días
 foreach ( $alldays as $value ) {
 	echo "<th>
-  <span class='badge'>$value</span></th>";
+  <span class='badge badge-info'>$value</span></th>";
 }
 echo "</tr></thead><tr>";
 
