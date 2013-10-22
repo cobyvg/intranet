@@ -94,9 +94,9 @@ $xml="<SERVICIO>
     <C_ANNO>$ano_curso</C_ANNO>
     <FECHA_DESDE>$iniciofalta</FECHA_DESDE>
     <FECHA_HASTA>$finfalta</FECHA_HASTA>
-    <CODIGO_CENTRO>29002885</CODIGO_CENTRO>
-    <NOMBRE_CENTRO>I.E.S. Monterroso</NOMBRE_CENTRO>
-    <LOCALIDAD_CENTRO>Estepona (Málaga)</LOCALIDAD_CENTRO>
+    <CODIGO_CENTRO>$codigo_del_centro</CODIGO_CENTRO>
+    <NOMBRE_CENTRO>$nombre_del_centro</NOMBRE_CENTRO>
+    <LOCALIDAD_CENTRO>$localidad_del_centro</LOCALIDAD_CENTRO>
   </DATOS_GENERALES>
   <CURSOS>
     <CURSO>
@@ -158,7 +158,7 @@ else{
 	?>
 <div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Selecciona las fechas de comienzo y final del regsistro de faltas en el formulario.
+Selecciona las fechas de comienzo y final del registro de faltas en el formulario.
 			</div></div><br />	
 	<?
 }
