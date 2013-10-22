@@ -34,14 +34,9 @@ $pr = $_SESSION['profi'];
 	tinymce.init({
 	        selector: "textarea",
 	        language: "es",
-	        plugins: [
-	                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-	                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-	                "table contextmenu directionality template textcolor paste fullpage textcolor"
-	        ],
+	        plugins: ["advlist lists"],
 	
-	        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | spellchecker",
-	        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak | styleselect",
+	        toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote",
 	
 	        menubar: false
 	});
