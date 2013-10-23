@@ -19,9 +19,9 @@ if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al=""
 # para el pdf
 include('../../funciones.php');
 require_once('../../pdf/class.ezpdf.php');
-$pdf =& new Cezpdf('a4','landscape');
+$pdf=new Cezpdf('a4','landscape');
 
-$pdf->selectFont('../../pdf/fonts/helvetica.afm');
+$pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 
 $options_center = array(
@@ -52,11 +52,17 @@ $ixx = 0;
 while($datatmp = mysql_fetch_array($lista)) { 
 	$ixx = $ixx+1;
 	$tels = $datatmp[6]." ".$datatmp[8];
+	if ($datatmp[2]>1) {
+                		$repite="Sí";
+                	}
+                	else{
+                		$repite="No";
+                	}
 	$data[] = array(
 				'num'=>$datatmp[9],
 				'nombre'=>$datatmp[0],
 				'fecha'=>cambia_fecha($datatmp[1]),
-				'Repite'=>$datatmp[2],
+				'Repite'=>$repite,
 				'NIE'=>$datatmp[7],
 				'Tutor'=>$datatmp[4],
 				'Domicilio'=>$datatmp[5],
@@ -87,7 +93,7 @@ $txttit = "<b>Datos del Grupo ".$grupo1."</b>\n";
 $pdf->ezText($txttit, 14,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
 $pdf->ezText("\n\n", 4);
-$pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_right);
+$pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_left);
 #####  Hasta aquí la lista con cuadrícula
 
 //echo $numg;

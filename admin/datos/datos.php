@@ -17,6 +17,13 @@ if (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];} elseif (isset($_GET['gru
 if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];} elseif (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];} else{$nombre="";}
 if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];} elseif (isset($_GET['apellidos'])) {$apellidos = $_GET['apellidos'];} else{$apellidos="";}
 if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al="";}
+if (isset($_GET['unidad'])) {
+	$unidad = $_GET['unidad'];
+	$tr_uni = explode("-",$_GET['unidad']);
+	$nivel = $tr_uni[0];
+	$grupo = $tr_uni[1];
+	$AUXSQL = " and unidad = '$nivel-$grupo'";
+} else{$unidad="";}
 ?>
  <br />
   <div align="center">
@@ -99,7 +106,7 @@ if ($seleccionado=='1') {
   $SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.nivel, alma.grupo,\n
   alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.telefonourgencia, padre, matriculas from alma
   where 1 " . $AUXSQL . " order BY nivel, grupo, alma.apellidos, nombre";
-  // echo $SQL;
+   //echo $SQL;
   $result = mysql_query($SQL);
   if (mysql_num_rows($result)>25 and !($seleccionado=="1")) {
   	$datatables_activado = true;
@@ -123,7 +130,7 @@ echo "<div align=center><table  class='table table-striped tabladatos' style='wi
 echo "</th><th></th>";			
 				echo "</tr></thead><tbody>";
                 do {
-                	if ($row[11]==2) {
+                	if ($row[11]>1) {
                 		$repite="Sí";
                 	}
                 	else{
