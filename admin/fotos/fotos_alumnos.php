@@ -20,7 +20,7 @@ require('../../pdf/mc_table.php');
 
 $pdf = new PDF_MC_Table();
 $pdf->Open();
-$pdf->SetMargins(20,10,20);
+$pdf->SetMargins(13,10,13);
 $pdf->SetDisplayMode('fullpage');
 
 // Cargamos las fuentes corporativas
@@ -52,18 +52,18 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$result = mysql_query("SELECT claveal, apellidos, nombre FROM FALUMNOS WHERE NIVEL='$nivel' AND GRUPO='$grupo'");
 	
 	$i=1;
-	$x_texto1=38.5;
-	$y_texto1=63;
-	$x_image=26.5;
+	$x_texto1=29.5;
+	$y_texto1=56;
+	$x_image=20;
 	$y_image=21;
 	while ($alumno = mysql_fetch_object($result)) {
-		if($i%4==0) $ln=1; else $ln=0;
+		if($i%5==0) $ln=1; else $ln=0;
 		
-		$pdf->Cell(43,50,'',1,$ln,'C'); // Dibuja una cuadrícula
+		$pdf->Cell(37,43,'',1,$ln,'C'); // Dibuja una cuadrícula
 		
 		$foto = "../../xml/fotos/$alumno->claveal.jpg";
 		if (file_exists($foto)) {
-			$pdf->Image($foto,$x_image,$y_image,30,37,'JPG');
+			$pdf->Image($foto,$x_image,$y_image,23,30,'JPG');
 		}
 		$pdf->SetFont('NewsGotT','B',9);
 		$pdf->Text($x_texto1-strlen($alumno->apellidos)/2,$y_texto1,$alumno->apellidos);
@@ -71,21 +71,21 @@ while ($unidad = mysql_fetch_array($unidades)) {
 		$pdf->Text($x_texto1-strlen($alumno->nombre)/2,$y_texto1+4,$alumno->nombre);
 		
 		// Texto
-		$x_texto1+=43;
-		if($ln) { $x_texto1=38.5; $y_texto1+=50; }
+		$x_texto1+=37;
+		if($ln) { $x_texto1=29.5; $y_texto1+=43; }
 		
 		// Imagen
-		$x_image+=43;
-		if($ln) { $x_image=26.5; $y_image+=50; }
+		$x_image+=37;
+		if($ln) { $x_image=20; $y_image+=43; }
 		
 		
-		// En una hoja caben 20 fotos, se añade una nueva hoja y se reinicializan las variables
-		if($i%20==0) {
+		// En una hoja caben 30 fotos, se añade una nueva hoja y se reinicializan las variables
+		if($i%30==0) {
 			$pdf->AddPage('P','A4');
 			$pdf->Ln(10);
-			$x_texto1=38.5;
-			$y_texto1=63;
-			$x_image=26.5;
+			$x_texto1=29.5;
+			$y_texto1=56;
+			$x_image=20;
 			$y_image=21;
 		}
 		
