@@ -43,8 +43,8 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->AddPage('P','A4');
 	
 	// CABECERA DEL DOCUMENTO
-	$pdf->SetFont('NewsGotT','B',10);
-	$pdf->Cell(170,5,"FOTOS DE ALUMNOS DEL GRUPO $nivel-$grupo",0,1,'C');
+	$pdf->SetFont('NewsGotT','B',12);
+	$pdf->Cell(170,5,"ALUMNOS DEL GRUPO $nivel-$grupo",0,1,'C');
 	
 	$pdf->Ln(5);
 	
@@ -52,31 +52,42 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$result = mysql_query("SELECT claveal, apellidos, nombre FROM FALUMNOS WHERE NIVEL='$nivel' AND GRUPO='$grupo'");
 	
 	$i=1;
-	$x_texto1=36;
-	$y_texto1=47;
-	$x_image=29;
+	$x_texto1=38.5;
+	$y_texto1=63;
+	$x_image=26.5;
 	$y_image=21;
 	while ($alumno = mysql_fetch_object($result)) {
-		if($i%5==0) $ln=1; else $ln=0;
+		if($i%4==0) $ln=1; else $ln=0;
 		
-		//$pdf->Cell(34,33,'',1,$ln,'C'); // Dibuja una cuadrícula
+		$pdf->Cell(43,50,'',1,$ln,'C'); // Dibuja una cuadrícula
 		
 		$foto = "../../xml/fotos/$alumno->claveal.jpg";
 		if (file_exists($foto)) {
-			$pdf->Image($foto,$x_image,$y_image,17,23,'JPG');
+			$pdf->Image($foto,$x_image,$y_image,30,37,'JPG');
 		}
-		$pdf->SetFont('NewsGotT','B',8);
+		$pdf->SetFont('NewsGotT','B',9);
 		$pdf->Text($x_texto1-strlen($alumno->apellidos)/2,$y_texto1,$alumno->apellidos);
-		$pdf->SetFont('NewsGotT','',8);
-		$pdf->Text($x_texto1-strlen($alumno->nombre)/2,$y_texto1+3,$alumno->nombre);
+		$pdf->SetFont('NewsGotT','',9);
+		$pdf->Text($x_texto1-strlen($alumno->nombre)/2,$y_texto1+4,$alumno->nombre);
 		
 		// Texto
-		$x_texto1+=34;
-		if($ln) { $x_texto1=36; $y_texto1+=33; }
+		$x_texto1+=43;
+		if($ln) { $x_texto1=38.5; $y_texto1+=50; }
 		
 		// Imagen
-		$x_image+=34;
-		if($ln) { $x_image=29; $y_image+=33; }
+		$x_image+=43;
+		if($ln) { $x_image=26.5; $y_image+=50; }
+		
+		
+		// En una hoja caben 20 fotos, se añade una nueva hoja y se reinicializan las variables
+		if($i%20==0) {
+			$pdf->AddPage('P','A4');
+			$pdf->Ln(10);
+			$x_texto1=38.5;
+			$y_texto1=63;
+			$x_image=26.5;
+			$y_image=21;
+		}
 		
 		$i++;
 	}
