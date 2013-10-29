@@ -36,7 +36,7 @@ $profesor = $_SESSION ['profi'];
 	        plugins: [
 	                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
 	                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-	                "table contextmenu directionality template textcolor paste fullpage textcolor"
+	                "table contextmenu directionality template textcolor paste fullpage textcolor filemanager"
 	        ],
 	
 	        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | spellchecker | styleselect",
