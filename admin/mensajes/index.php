@@ -34,10 +34,21 @@ $pr = $_SESSION['profi'];
 	tinymce.init({
 	        selector: "textarea",
 	        language: "es",
-	        plugins: ["advlist lists autolink link image media filemanager"],
+	        plugins: [
+	                "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+	                "searchreplace wordcount visualblocks visualchars code fullscreen",
+	                "insertdatetime media nonbreaking save table contextmenu directionality",
+	                "emoticons template paste textcolor filemanager"
+	            ],
 	
-	        toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote",
-	        toolbar2: "link unlink | filemanager image media",
+	        toolbar1: "bold italic underline strikethrough | forecolor backcolor | emoticons | alignleft aligncenter alignright alignjustify | bullist numlist",
+	        toolbar2: "outdent indent blockquote | link unlink image media",
+	        
+	        relative_urls: false,
+	        browser_spellcheck : true ,
+	        filemanager_title:"Administrador de archivos",
+	        external_filemanager_path:"../../filemanager/",
+	        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},
 	
 	        menubar: false
 	});

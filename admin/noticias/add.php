@@ -36,11 +36,17 @@ $profesor = $_SESSION ['profi'];
 	        plugins: [
 	                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
 	                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-	                "table contextmenu directionality template textcolor paste fullpage textcolor filemanager"
+	                "table contextmenu directionality template textcolor paste fullpage textcolor responsivefilemanager"
 	        ],
 	
 	        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | spellchecker | styleselect",
-	        toolbar2: "cut copy paste | searchreplace | link unlink anchor filemanager image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
+	        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
+	        
+	        relative_urls: false,
+	        browser_spellcheck : true ,
+	        filemanager_title:"Administrador de archivos",
+	        external_filemanager_path:"../../filemanager/",
+	        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},
 	
 	        menubar: false
 	});
