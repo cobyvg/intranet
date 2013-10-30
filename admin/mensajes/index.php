@@ -34,9 +34,10 @@ $pr = $_SESSION['profi'];
 	tinymce.init({
 	        selector: "textarea",
 	        language: "es",
-	        plugins: ["advlist lists"],
+	        plugins: ["advlist lists autolink link image media filemanager"],
 	
 	        toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote",
+	        toolbar2: "link unlink | filemanager image media",
 	
 	        menubar: false
 	});

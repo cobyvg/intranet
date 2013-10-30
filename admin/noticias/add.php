@@ -40,7 +40,7 @@ $profesor = $_SESSION ['profi'];
 	        ],
 	
 	        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | spellchecker | styleselect",
-	        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
+	        toolbar2: "cut copy paste | searchreplace | link unlink anchor filemanager image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
 	
 	        menubar: false
 	});
