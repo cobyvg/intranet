@@ -187,7 +187,7 @@ if ($edicion=="1") {
 	?>
 <div class="container-fluid">
 <div class="row-fluid">
-<div class="span9">	
+<div class="span7 offset1">	
 
     <form action="add.php" method="POST" name='f1' class="form-inline">
       <label style="display:inline">Fecha de la Reunión &nbsp;
@@ -279,6 +279,7 @@ $n_actas = mysql_num_rows($result);
 if (mysql_num_rows($result) > 0)
 {
 ?>
+<p class="help-block" align="left">(*) Tened en cuenta que las actas se bloquean en el momento en que hagáis click en el botón de '<b>Imprimir</b>'. A partir de entonces pueden verse (botón de la lupa) pero no es posible editarlas.</p>
 	<TABLE class="table table-striped pull-left" style="width:97%;">
 	<thead><th colspan="3">Actas del departamento</th></thead><tbody>
 <?	while($row = mysql_fetch_object($result))

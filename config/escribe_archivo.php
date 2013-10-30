@@ -28,6 +28,8 @@
 		if($_POST['mod_horario']){fwrite($f1,"$"."mod_horario='1';\r\n");}
 		if($_POST['mod_faltas']){fwrite($f1,"$"."mod_faltas='1';\r\n");}
 		if($_POST['mod_sms']){fwrite($f1,"$"."mod_sms='1';\r\n");}
+		if($_POST['mod_biblio']){fwrite($f1,"$"."mod_biblio='1';\r\n");}
+		if($_POST['p_biblio']){fwrite($f1,"$"."p_biblio='".$_POST['p_biblio']."';\r\n");}
 		if($_POST['raiz_dir']){fwrite($f1,"$"."raiz_dir='".$_POST['raiz_dir']."';\r\n");}
 		if($_POST['doc_dir']){fwrite($f1,"$"."doc_dir='".$_POST['doc_dir']."';\r\n");}
 		fwrite($f1,"$"."fotos_dir='/tmp';\r\n");

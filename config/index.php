@@ -43,6 +43,18 @@ function activarMod_sms() {
 	}
 	
 }
+function activarMod_biblio() {
+	var p_bibli = document.getElementById("p_biblio") ;
+	var bibli = document.getElementById("mod_biblio") ;
+	
+	 if (bibli.checked == false) {
+		p_bibli.disabled = true ;
+	}
+	else {
+		p_bibli.disabled = false ;
+	}
+	
+}
 </script>
 </head>
 <body>

@@ -99,7 +99,7 @@ $head = '<thead>
 ?>
 
 <form name="cargos" action="cargos.php" method="post">
-<table class="table table-bordered table-striped" style="width:100%" align="center">
+<table class="table table-bordered table-striped" style="width:auto" align="center">
 <? echo $head;?>
 	<tbody>
 <?

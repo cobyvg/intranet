@@ -151,7 +151,19 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
       <td><input type="checkbox" id = "mod_sms" name="mod_sms" onclick="activarMod_sms()" <?php if($mod_sms) { echo "checked"; } ?> /></td>
       <td>Pone en funcionamiento el envío de SMS en distintos lugares de la Intranet (Problemas de convivencia, faltas de asistencia, etc.)</td>
     </tr>
+     <tr>
+      <td>Biblioteca del Centro
+        </td>
+      <td><input type="checkbox" id="mod_biblio" name="mod_biblio" <?php if($mod_biblio) { echo "checked";} ?> onclick="activarMod_biblio()" /></td>
+      <td>Si el Centro dispone de Biblioteca que funciona con Abies, y cuenta con un equipo de profesores dedicados a su mantenimiento, puedes activar este módulo.</td>
+    </tr>
     <tr>
+      <td>Página web de la Biblioteca del Centro
+        </td>
+      <td><input type="text" id="p_biblio" name="p_biblio" <?php if(!($mod_biblio=='1')){ echo "disabled";} ?> value="<?php echo $p_biblio; ?>"  /></td>
+      <td>Dirección de la página de la Biblioteca del Centro</td>
+    </tr>
+        <tr>
       <td>Usuario SMS:
         </td>
       <td><input type="text" name="usuario_smstrend" id="usuario_smstrend" size="30" <?php if(!($mod_sms=='1')){ echo "disabled";} ?> value="<?php echo $usuario_smstrend; ?>" /></td>

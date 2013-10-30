@@ -108,6 +108,32 @@ if (stristr ( $carg, '2' ) == TRUE) {
 <?
 }
 ?>
+<?
+if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
+?>
+<div class="accordion-group well">
+  <div class="accordion-heading">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
+      <i class="pull-right icon-chevron-down"></i>
+      Biblioteca
+    </a>
+  </div>
+  <div id="tutoria" class="accordion-body collapse in">
+    <div class="accordion-inner">
+      <ul class="nav nav-list">
+        <li><a href="<? echo $p_biblio;?>" target="_blank">Página de la Biblioteca</a></li>	
+        <li><a href="admin/cursos/hor_aulas.php?aula=Biblioteca" target="_blank">Horario de la Biblioteca</a></li>	
+        <li><a href="admin/morosos/">Gestión de los Préstamos</a></li>
+        <li><a href="admin/biblioteca/index.php">Consultar fondos de la Biblioteca</a></li>
+        
+        <li><a href="admin/biblioteca/index_biblio.php">Importar datos de Abies</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<?
+}
+?>
 <div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#consultas">
@@ -173,7 +199,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
             <li><a href="admin/fechorias/cfechorias.php">Consultar problemas</a></li>
             <li><a href="admin/fechorias/lfechorias.php">Últimos problemas</a></li>
             <li><a href="admin/fechorias/expulsados.php">Alumnos expulsados</a></li>
-        	<? if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE or stristr ( $_SESSION ['cargo'], 'c' ) == TRUE) { ?>
+        	<? if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE and $mod_bilio=="1") { ?>
             <li><a href="admin/morosos/">Morosos de la biblioteca</a></li>
             <? }
         	$conv = mysql_query("SELECT DISTINCT prof FROM horw WHERE a_asig = 'GUCON' AND prof = '$pr'");
