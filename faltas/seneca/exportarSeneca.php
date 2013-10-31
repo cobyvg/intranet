@@ -160,7 +160,7 @@ while ($archivo = readdir($directorio)) {
         	// COMIENZO FALTAS DE ASISTENCIA
         	$docXML .= "              <FALTAS_ASISTENCIAS>\n";
         	
-        	$result = mysql_query("SELECT faltas.fecha, faltas.hora FROM faltas JOIN alma ON faltas.claveal=alma.claveal WHERE faltas.fecha >= '$MYSQL_FECHA_DESDE' AND faltas.fecha <= '$MYSQL_FECHA_HASTA' AND alma.claveal1='$X_MATRICULA' AND faltas.falta = 'F' ORDER BY faltas.fecha DESC");
+        	$result = mysql_query("SELECT FALTAS.FECHA, FALTAS.HORA FROM FALTAS JOIN alma ON FALTAS.CLAVEAL=alma.claveal WHERE FALTAS.FECHA >= '$MYSQL_FECHA_DESDE' AND FALTAS.FECHA <= '$MYSQL_FECHA_HASTA' AND alma.claveal1='$X_MATRICULA' AND FALTAS.FECHA = 'F' ORDER BY FALTAS.FECHA DESC");
         	if (!$result) echo mysql_error();
         	
         	while($faltas = mysql_fetch_array($result)) {
