@@ -158,7 +158,7 @@ while ($archivo = readdir($directorio)) {
         	$docXML .= "              <X_MATRICULA>$X_MATRICULA</X_MATRICULA>\n";
         	
         	// COMIENZO FALTAS DE ASISTENCIA
-        	$docXML .= "              <FALTAS_ASISTENCIAS>\n";
+        	$docXML .= "              <FALTAS_ASISTENCIA>\n";
         	
         	$result = mysql_query("SELECT FALTAS.FECHA, FALTAS.HORA FROM FALTAS JOIN alma ON FALTAS.CLAVEAL=alma.CLAVEAL WHERE FALTAS.FECHA BETWEEN '$MYSQL_FECHA_DESDE' AND '$MYSQL_FECHA_HASTA' AND FALTAS.FALTA='F' AND alma.CLAVEAl1='$X_MATRICULA'");
         	if (!$result) echo mysql_error();
@@ -182,7 +182,7 @@ while ($archivo = readdir($directorio)) {
 
         	
         	// FIN FALTAS DE ASISTENCIA
-        	$docXML .= "              </FALTAS_ASISTENCIAS>\n";
+        	$docXML .= "              </FALTAS_ASISTENCIA>\n";
         	
         	// FIN ALUMNO
         	$docXML .= "            </ALUMNO>\n";
