@@ -15,6 +15,17 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 
+/***************************************************
+ *	MODO DEPURACION: (0) Desactivado | (1) Activado
+ ***************************************************/
+$MODO_DEPURACION=0;
+
+// No tocar las siguientes variables de control
+$cont_alum=0;
+$cont_falt=0;
+
+
+
 if (!isset($_POST['iniciofalta']) && !isset($_POST['finfalta'])) {
 	die("Error: Debe introducir los parámetros FECHA_DESDE y FECHA_HASTA para generar el archivo.");
 }
@@ -97,17 +108,21 @@ while ($archivo = readdir($directorio)) {
         $tramos = $doc->getElementsByTagName("TRAMO_HORARIO");
         
         if (!$flag) {
+        	mysql_query("TRUNCATE TABLE tramos") or die (mysql_error());
+        	
+        	mysql_query("ALTER TABLE tramos CHANGE hora  hora VARCHAR( 80 ) NOT NULL DEFAULT '0',
+        	CHANGE tramo  tramo INT( 6 ) NOT NULL DEFAULT '0'") or die (mysql_error());
+        	
         	foreach( $tramos as $tramo ) {
         		$tag_tramo = $tramo->getElementsByTagName("X_TRAMO");
 	        	$tag_horcen = $tramo->getElementsByTagName("T_HORCEN");
 	        	$X_TRAMO = $tag_tramo->item(0)->nodeValue;
 	        	$T_HORCEN = $tag_horcen->item(0)->nodeValue;
 	        	
-	        	mysql_query('TRUNCATE TABLE tramos');
-	        	$result = mysql_query("INSERT INTO tramos VALUES ('$T_HORCEN', '$X_TRAMO')");
-	        	if (!$result) echo mysql_error();
-	        	else $flag=1;
+	        	mysql_query("INSERT INTO tramos VALUES ('$T_HORCEN', '$X_TRAMO')");
 	        }
+	        
+	        $flag=1;
         }
         
         // Obtenemos los datos del curso
@@ -157,6 +172,12 @@ while ($archivo = readdir($directorio)) {
         	$docXML .= "            <ALUMNO>\n";
         	$docXML .= "              <X_MATRICULA>$X_MATRICULA</X_MATRICULA>\n";
         	
+        	if ($MODO_DEPURACION) {
+        		$alumnos[$cont_alum] = $X_MATRICULA;
+        		$cont_alum++;
+        	}
+        		
+        	
         	// COMIENZO FALTAS DE ASISTENCIA
         	$docXML .= "              <FALTAS_ASISTENCIA>\n";
         	
@@ -169,6 +190,7 @@ while ($archivo = readdir($directorio)) {
 	        	$F_FALASI = fecha_seneca($faltas[0]);
 	        	
 	        	// Obtenemos el código de tramo
+	        	if ($faltas[1] > 3) $faltas[1]++; // No es lo más óptimo, pero soluciona el problema... :/
 	        	$result_tramos = mysql_query("SELECT tramo FROM tramos WHERE hora='$faltas[1]'");
 	        	$tramos = mysql_fetch_array($result_tramos);
 	        	
@@ -178,6 +200,11 @@ while ($archivo = readdir($directorio)) {
 	        	$docXML .= "                  <C_TIPFAL>I</C_TIPFAL>\n";
 	        	$docXML .= "                  <L_DIACOM>N</L_DIACOM>\n";
 	        	$docXML .= "                </FALTA_ASISTENCIA>\n";
+        	}
+        	
+        	if ($MODO_DEPURACION) {
+        		$dias[$cont_falt] = $F_FALASI;
+        		$cont_falt++;
         	}
 
         	
@@ -209,6 +236,57 @@ $archivo = "Importacion_Faltas_Alumnado.xml";
 $fopen = fopen($directorio.$archivo, "w");
 fwrite($fopen, $docXML);
 
-header("Content-disposition: attachment; filename=$archivo");
-header("Content-type: application/octet-stream");
-readfile($directorio.$archivo);
+
+if ($MODO_DEPURACION) {
+	echo "<h2>COMPROBACION ALUMNOS</h2>";
+	$i=0;
+	while ($alumnos[$i] != FALSE) {
+		$todos = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM alma"));
+		$result = mysql_query("SELECT CONCAT(APELLIDOS,', ',NOMBRE) AS alumnos, unidad FROM alma WHERE claveal1='$alumnos[$i]'");
+		$filas = mysql_num_rows($result);
+		$alumno = mysql_fetch_array($result);
+		
+		if (!$filas>1) echo "<span style='color:red'>$alumnos[$i]  -->  $alumno[1] - $alumno[0]</span><br>";
+		
+		$i++;
+	}
+	$reg = $i;
+	if ($reg != $todos[0]) echo "Faltan alumnos";
+	else echo "CORRECTO!";
+	
+	echo "<h2>COMPROBACION DIAS</h2>";
+	$i=0;
+	while ($dias[$i] != FALSE) {
+		$dia = fecha_mysql($dias[$i]);
+		$diasem = strftime('%w', strtotime("$dia"));
+		
+		$result = mysql_query("SELECT * FROM festivos WHERE fecha='$dia'");
+		$filas = mysql_num_rows($result);
+		
+		$error=0;
+		if ($diasem == 0 || $diasem == 6 || $filas>1) {
+			echo "<span style='color:red'>$dias[$i]  -->  $diasem (Es día festivo o fin de semana: (6) Sábado, (0) Domingo)</span><br>";
+			$error=1;
+		}
+		
+		$i++;
+	}
+	if (!$error) echo "CORRECTO!";
+	
+	echo "<h2>COMPROBACION TRAMOS</h2>";
+	$tramos = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM tramos"));
+	$result = mysql_query("SELECT * FROM tramos");
+	
+	while($tramo = mysql_fetch_array($result)) {
+		echo "ID: $tramo[1] --> HORA: $tramo[0] (la hora debe ser un valor numerico)<br>";
+	}
+	
+	if (!$tramos>1) echo "No hay tramos horarios";
+	else echo "CORRECTO!";
+	
+}
+else {
+	header("Content-disposition: attachment; filename=$archivo");
+	header("Content-type: application/octet-stream");
+	readfile($directorio.$archivo);
+}
