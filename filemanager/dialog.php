@@ -11,6 +11,10 @@ include('upload.php');
 
 include('include/utils.php');
 
+if (!file_exists($current_path)) {
+	create_folder($current_path);
+}
+
 if (isset($_GET['fldr'])
     && !empty($_GET['fldr'])
     && strpos($_GET['fldr'],'../')===FALSE
