@@ -70,7 +70,6 @@ echo "</td></tr>";
 </div>
 </div>
 </div>
-</
 <? include("../pie.php");?>
 </body>
 </html>

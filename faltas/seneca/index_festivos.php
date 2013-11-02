@@ -43,5 +43,8 @@ include("../menu.php");
 </FORM>
 <br />
 </div>
+    <? 
+include("../../pie.php");
+?>
 </body>
 </html>
