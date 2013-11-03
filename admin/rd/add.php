@@ -233,7 +233,7 @@ else{
 <p style="text-align: center;">&nbsp;</p>
 <p style="text-align: center;"><span style="text-decoration: underline;"><strong>ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
 <br />
-<p align="JUSTIFY">En Estepona, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del <? echo $nombre_del_centro ?> de <? echo $localidad_del_centro ?>, con el siguiente <span style="text-decoration: underline;"> orden del d&iacute;a:</p>
+<p align="JUSTIFY">En <? echo $localidad_del_centro ?>, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del <? echo $nombre_del_centro ?> de <? echo $localidad_del_centro ?>, con el siguiente <span style="text-decoration: underline;"> orden del d&iacute;a:</p>
 <br />
 <br />
 <br />
