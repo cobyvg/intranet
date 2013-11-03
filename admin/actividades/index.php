@@ -202,8 +202,8 @@ else{?>
 
 
   </FORM>
-  <!-- Información Autobuses de Estepona
   <br /><br />
+  <!-- Información Autobuses de Estepona
   <div class="well well-large" style="width:500px;text-align:left;">
   <div style="font-weight:bold; color:#08c;">Información sobre Transporte en las Actividades.</div>
   <p>Autobusus Ricardo<br /> 952 80 86 45 (Oficina);<br /> 671 527 372 (Móvil de contacto para confirmación);<br /> 649 45 70 99 (Móvil de Antonio -Dueño de la Empresa- Sólo en caso de emergencia).</p>
