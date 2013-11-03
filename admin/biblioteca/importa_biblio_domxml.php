@@ -51,14 +51,59 @@ $reg=0;
 
 echo "<legend align='center'>Listados de libros procesados</legend>";
 
-while (( $data = fgetcsv ( $fp , 1000 )) !== FALSE ) {
+if ($handle = opendir('.')) {
+   while (false !== ($file = readdir($handle))) {
+       if ($file == "Informe.htm") {
+$doc = new DOMDocument('1.0', 'iso-8859-1');
+/*Cargo el XML*/
+$doc->load($file );
+
+//$doc = domxml_open_file($file);
+
+// Ver estructura
+$root = $doc->document_element( );
+function process_node($node) {
+if ($node->has_child_nodes( )) {
+foreach($node->child_nodes( ) as $n) { process_node($n);
+} }
+// process leaves
+if ($node->node_type( ) == XML_TEXT_NODE) {
+$content = rtrim($node->node_value( )); 
+if (!empty($content)) {
+print "$content\n"; }
+}
+} 
+process_node($root);
+
+// Procesar datos
+$tablas = $doc->getElementsByTagName( "table" );
+
+$tramos = $tablas->getElementsByTagName( "tr" );
+
+$sql="";
+foreach( $tramos as $tramo )
+{		
+$codigos0 = $tramo->getElementsByTagName( "td" );
+
+foreach ($codigos0 as $td){
+	$codigos1 = $td->getElementsByTagName( "td" );
+	$td1 = $codigos1->item(0)->nodeValue;
+	echo $td1;
+	$sql.="$td1, ";
+}
+echo "$sql<br>";
 $reg+=1;
+}
+}
+// Sql para importar datos
 $sql="	INSERT INTO  biblioteca (Autor, Titulo, Editorial, ISBN, Tipo, anoEdicion, extension, serie, lugaredicion, tipoEjemplar, Ubicacion) VALUES (";
 $sql.="	'$data[0]',  '$data[1]',  '$data[2]',  '$data[3]',  '$data[4]',  '$data[5]',  '$data[6]',  '$data[7]',  '$data[8]',  '$data[9]',  '$data[10]')";
 //echo $sql."<br>";	
 mysql_query($sql);		     
-} 
-fclose ( $fp ); 
+}
+}
+
+fclose ( $handle ); 
 mysql_close();
 echo "<div align='center' class='text-info'><b>Se han importado un total de ",$reg," libros a la base de datos</b></div>";
 echo "</div></div></div>";

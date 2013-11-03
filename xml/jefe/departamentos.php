@@ -62,9 +62,15 @@ No se ha podido abrir el archivo RelPerCen.txt. O bien te has olvidado de enviar
 </div><br />'); 
 while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 {
-$e_bil0 = trim($data1[2]);
-$e_bil = str_replace("(Inglés) ","",$e_bil0);
-$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". $e_bil . "\",\"". trim($data1[6]) . "\")";
+$dep_mod = trim($data1[2]);
+$dep_mod = str_replace("(Inglés)","",$dep_mod);
+$dep_mod = str_replace("(Francés)","",$dep_mod);
+$dep_mod = str_replace("(Alemán)","",$dep_mod);
+$dep_mod = str_replace("P.E.S.","",$dep_mod);
+$dep_mod = str_replace(" P.T.F.P","",$dep_mod);
+$dep_mod = str_replace("(Secundaria)","",$dep_mod);
+$dep_mod = trim($dep_mod);
+$datos1 = "INSERT INTO departamento_temp (NOMBRE, DNI, DEPARTAMENTO, IDEA) VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". $dep_mod . "\",\"". trim($data1[6]) . "\")";
 mysql_query($datos1);
 }
 fclose($handle);

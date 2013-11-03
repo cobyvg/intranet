@@ -58,6 +58,3 @@ exit;
 </div>
   </div>
 <? include("../../pie.php");?>
-
-xt-info'><b>Se han importado un total de ",$reg," libros a la base de datos</b></div>";
-echo
