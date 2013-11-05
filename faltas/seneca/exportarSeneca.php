@@ -26,12 +26,12 @@ $cont_falt=0;
 
 
 
-if (!isset($_POST['iniciofalta']) && !isset($_POST['finfalta'])) {
+if (!isset($_GET['iniciofalta']) && !isset($_GET['finfalta'])) {
 	die("Error: Debe introducir los parámetros FECHA_DESDE y FECHA_HASTA para generar el archivo.");
 }
 
-$FECHA_DESDE = $_POST['iniciofalta'];
-$FECHA_HASTA = $_POST['finfalta'];
+$FECHA_DESDE = $_GET['iniciofalta'];
+$FECHA_HASTA = $_GET['finfalta'];
 
 function fecha_mysql($fecha) {
 	$trozo = explode("/", $fecha);
