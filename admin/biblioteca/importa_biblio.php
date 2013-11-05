@@ -21,7 +21,7 @@ exit;
 <br />
 <div align="center">
 <div class="page-header">
-  <h2>Biblioteca del Centro <small> Importación de libros desde Abbies</small></h2>
+  <h2>Biblioteca del Centro <small> Importación de libros desde Abies</small></h2>
 </div>
 </div>
 <div class="container-fluid">
@@ -45,18 +45,21 @@ mysql_query("CREATE TABLE if not exists `biblioteca` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
 mysql_query("drop table biblioteca_seg");
 mysql_query("create table biblioteca_seg select * from biblioteca");
-//$fp = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die ("<br><blockquote>No se ha podido abrir el fichero.<br> Asegúrate de que su formato es correcto.</blockquote>");
+
+ini_set('auto_detect_line_endings', true);
+$fp = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die ("<br><blockquote>No se ha podido abrir el fichero.<br> Asegúrate de que su formato es correcto.</blockquote>");
+
 mysql_query("truncate table biblioteca");
 $reg=0;
 
 echo "<legend align='center'>Listados de libros procesados</legend>";
 
-while (( $data = fgetcsv ( $fp , 1000 )) !== FALSE ) {
-$reg+=1;
-$sql="	INSERT INTO  biblioteca (Autor, Titulo, Editorial, ISBN, Tipo, anoEdicion, extension, serie, lugaredicion, tipoEjemplar, Ubicacion) VALUES (";
-$sql.="	'$data[0]',  '$data[1]',  '$data[2]',  '$data[3]',  '$data[4]',  '$data[5]',  '$data[6]',  '$data[7]',  '$data[8]',  '$data[9]',  '$data[10]')";
-//echo $sql."<br>";	
-mysql_query($sql);		     
+while (( $data = fgetcsv ( $fp , 1000, ';' )) !== FALSE ) {
+	$reg+=1;
+	$sql="	INSERT INTO  biblioteca (Autor, Titulo, Editorial, ISBN, Tipo, anoEdicion, extension, serie, lugaredicion, tipoEjemplar, Ubicacion) VALUES (";
+	$sql.="	'$data[0]',  '$data[1]',  '$data[2]',  '$data[3]',  '$data[4]',  '$data[5]',  '$data[6]',  '$data[7]',  '$data[8]',  '$data[9]',  '$data[10]')";
+	//echo $sql."<br>";	
+	mysql_query($sql);    
 } 
 fclose ( $fp ); 
 mysql_close();
