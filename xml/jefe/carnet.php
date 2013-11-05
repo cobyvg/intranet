@@ -184,7 +184,7 @@ $anyos = floor(($segundos-$sumadiasBis)/31536000);
 	$naranja=0;
 	if (isset($_POST['alumnos']) && isset($_POST['checkbox'])) { $pdf->fondoverde($x,$y);
 		}
-	elseif ($anyos >= '18') {
+	elseif ($anyos >= '18' or (strstr($row_Recordset1[1],"B-")==TRUE and strlen($row_Recordset1[5])<"54")) {
 		$pdf->fondonaranja($x,$y);
 		$pdf->uno($x,$y); }
 	else {
@@ -252,3 +252,4 @@ $pdf->Output();
 
 mysql_free_result($Recordset1);
 ?>
+                                                                               

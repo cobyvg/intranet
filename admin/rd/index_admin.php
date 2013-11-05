@@ -38,7 +38,7 @@ $n_col="";
 $dep0 = mysql_query("select distinct departamento from departamentos");
 while ($dep = mysql_fetch_array($dep0)) {
 	
-if (strstr($dep[0],"P.E.S.") == TRUE and !(strstr($dep[0],"Informática") == TRUE) and !(strstr($dep[0],"Economía") == TRUE)) {
+if (!(strstr($dep[0],"Informática") == TRUE) and !(strstr($dep[0],"Economía") == TRUE) and !(strstr($dep[0],"Religión") == TRUE) and !(stristr($dep[0],"Programas Cual") == TRUE) and !(strstr($dep[0],"Pcpi") == TRUE) and !(strstr($dep[0],"Pedagogía") == TRUE) and !(strstr($dep[0],"Apoyo") == TRUE) and !(strstr($dep[0],"Latín") == TRUE) and !(strstr($dep[0],"Interculturalidad") == TRUE)) {
 $n_col+=1;
 $departamento = $dep[0];
 if (!($pag)) {

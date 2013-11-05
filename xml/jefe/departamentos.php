@@ -100,6 +100,9 @@ else {
 Tabla <strong>Departamentos</strong>: No se ha añadido ningún registro a la tabla.
 </div></div><br />';
 	}
+
+// Actualizamos nombre de los depratmentos en la tabla y tablas relacionadas
+include("actualiza_dep.php");
 // Registramos los tutores desde FTUTORES
 $tut0=mysql_query("select distinct tutor from FTUTORES");
 while($tut=mysql_fetch_array($tut0))
