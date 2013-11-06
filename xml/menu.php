@@ -19,6 +19,7 @@ Crear Asignaturas y sistema de Calficaciones</a></li>
   <? if ($mod_tic and $mod_horario) {?>
 <li><a href="../TIC/distribucion/crea_tabla.php" class="enlacelateral">Crear Asignación TIC</a></li>
 <?}?>
+<li><a href="jefe/rof/index.php" class="enlacelateral">Modificar ROF</a></li>
 <hr>
 <li class="nav-header">Profesores</li> 
 <li><a href="../config/cargos.php" class="enlacelateral">Seleccionar los Perfiles de los Profesores</a></li>
