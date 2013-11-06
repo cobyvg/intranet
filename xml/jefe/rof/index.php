@@ -30,7 +30,7 @@ include("../../../menu.php");
 ?>
 <br />
 <div class="page-header" align="center">
-  <h2>Reglas de Organización y Funcionamiento del Centro</h2>
+  <h2>Reglamento de Organización y Funcionamiento del Centro</h2>
 </div>
 
 <div class="row">
