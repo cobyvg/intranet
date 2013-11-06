@@ -49,7 +49,7 @@ include("../../../menu.php");
 	  <table class="table table-hover table-bordered">
 	    <thead>
 	      <tr>
-	        <th>Fechoria</th>
+	        <th>Asunto</th>
 	        <th>Medida</th>
 	        <th>Medida complementaria</th>
 	        <th></th>
