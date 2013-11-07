@@ -35,10 +35,9 @@ echo '<div align="center">';
 
 <?
 $n_col="";
-$dep0 = mysql_query("select distinct departamento from departamentos");
+$dep0 = mysql_query("select distinct departamento from departamentos where departamento not like '' order by departamento");
 while ($dep = mysql_fetch_array($dep0)) {
 	
-if (!(strstr($dep[0],"Informática") == TRUE) and !(strstr($dep[0],"Economía") == TRUE) and !(strstr($dep[0],"Religión") == TRUE) and !(stristr($dep[0],"Programas Cual") == TRUE) and !(strstr($dep[0],"Pcpi") == TRUE) and !(strstr($dep[0],"Pedagogía") == TRUE) and !(strstr($dep[0],"Apoyo") == TRUE) and !(strstr($dep[0],"Latín") == TRUE) and !(strstr($dep[0],"Interculturalidad") == TRUE)) {
 $n_col+=1;
 $departamento = $dep[0];
 if (!($pag)) {
@@ -54,7 +53,7 @@ if ($n_col=="1" or $n_col=="5" or $n_col=="9" or $n_col=="13" or $n_col=="17") {
 }
 ?>
 <td valign="top">
-<h5 align="center"><? echo $departamento;?></h5><br />
+<p class="lead text-info" align="center"><? echo $departamento;?></p>
 	<TABLE class="table table-striped table-bordered" style="width:300px;">
 <?	while($row = mysql_fetch_object($result))
 	{
@@ -95,7 +94,7 @@ else{
 if ($n_col=="4" or $n_col=="8" or $n_col=="12" or $n_col=="16" or $n_col=="18") {
 	echo "</tr>";
 }
-}
+
 echo "</table>";
 ?>
 <br />

@@ -38,10 +38,10 @@ if($padres2 or $padres3 or $padres4 or $padres5 or $padres6 or $padres7 or $padr
 {
 	
 	// Fechas y demás...
-  $fechasp0=explode("-",$fecha12);
+  $fechasp0=explode("-",$_POST['fecha12']);
   $fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
   $fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
-  $fechasp2=explode("-",$fecha22);
+  $fechasp2=explode("-",$_POST['fecha22']);
   $fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
   $fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
 
@@ -119,7 +119,7 @@ if($padres2 or $padres3 or $padres4 or $padres5 or $padres6 or $padres7 or $padr
   	// Variables del memnsaje
 if($padres2)$niv = "1º de ESO";if($padres3)$niv = "2º de ESO";if($padres4)$niv = "3º de ESO";if($padres5)$niv = "4º de ESO";if($padres6)$niv = "1º Bach.";if($padres7)$niv = "2º Bach.";if($padres8)$niv = "Ciclos Form.";if($padres9)$niv = "PCPI";
 
-$text = "Entre el ".$fecha12." y el ".$fecha12." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Más info en nuestra web: http://".$dominio;
+$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Más info en nuestra web: http://".$dominio;
 $login = $usuario_smstrend;
 $password = $clave_smstrend;
 ?>
@@ -194,7 +194,7 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 <div class="row">
 <div class="span6 offset3 well well-large">
 <form enctype='multipart/form-data' action='sms_cpadres.php' method='post' class="form-inline"> 
-<br /><table class="table" style="width:450px; margin:auto">
+<br /><table class="table" style="width:auto">
  
     <legend align="center">Selecciona el rango de fechas</legend>
 
