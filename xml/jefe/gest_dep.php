@@ -26,7 +26,7 @@ include("../../menu.php");
 
 <div class="container-fluid">
 <div class="row-fluid">
-<div class="span6 offset1">
+<div class="span7">
 <p class="help-block" align="left">(*) Este formulario permite tanto <em>Cambiar el nombre</em> a una Especialidad o Departamento como <em>Incorporar a los miembros</em> de una Especialidad en otro Departamento. Para cambiar el nombre simplemente escribe el nuevo nombre en el campo de texto; para incorporar una Especialidad en un Departamento, selecciónalo en la lista desplegable. Una vez realizados los cambios, haz click en el botón <em><b>Enviar datos</b></em>. Si actualizas los Departamentos, no te olvides incorporar a los profesores nuevos en el Departamento correspondiente, ya que aparecerán asociados a su <em>Especialidad de Séneca</em>.</p><br />
 <?
 if (isset($_POST['enviar']) and $_POST['enviar'] == "Enviar datos") {
@@ -93,7 +93,7 @@ El Departamento ha sido borrado de la base de datos..
 <form action="gest_dep.php" method="POST" name="form1">
 <table class="table table-striped table-condensed">
 <thead>
-<th>Departamento</th><th>Cambiar el nombre</th><th>Incorporar a otro Departamento</th></th><th></th>
+<th>Departamento</th><th>Cambiar el nombre</th><th>Incorporar a Departamento</th></th><th></th>
 </thead>
 <tbody>
 <?
@@ -102,9 +102,9 @@ $dep1 = mysql_query($dep0);
 $n_d="";
 while ($dep = mysql_fetch_array($dep1)) {
 	$n_d+=1;
-	echo "<tr><td>$dep[0]</td><td><input class='input-large' type='text' name=\"$n_d#$dep[0]\" /></td>";
+	echo "<tr><td>$dep[0]</td><td><input type='text' name=\"$n_d#$dep[0]\" /></td>";
   
-echo '<td><select name="'.$dep[0].'" id="departamento" class="input-large"><option></option>';
+echo '<td><select name="'.$dep[0].'" id="departamento" class="input-medium"><option></option>';
 $profe = mysql_query(" SELECT distinct departamento FROM departamentos where departamento not like '' order by departamento asc");
   while($filaprofe = mysql_fetch_array($profe))
 	{
@@ -121,7 +121,7 @@ $profe = mysql_query(" SELECT distinct departamento FROM departamentos where dep
 </form>
 </div>
 
-<div class="span4">
+<div class="span5">
 <p class="help-block" align="left">(*) Este formulario permite cambiar el Departamento al que pertenece un profesor. Selecciona el Departamento al queires asignar al Profesor y envía los datos. Si actualizas los Departamentos, no te olvides incorporar a los profesores nuevos en el Departamento correspondiente, ya que aparecerán asociados a su <em>Especialidad de Séneca</em>.</p><br />
 <?
 if (isset($_POST['cambiar']) and $_POST['cambiar'] == "Cambiar Departamento") {
