@@ -8,7 +8,7 @@
             Es necesario que rellenes todos los campos del formulario: Profesor, Asunto y Texto del mensaje.<br />Por favor, escribe los datos requeridos y vuelve a enviarlos.
           </div></div>';
   }
-elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$etcp and !$ca and !$claustro and !$direccion and !$orientacion and !$bilingue and !($padres))
+elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$etcp and !$ca and !$claustro and !$direccion and !$orientacion and !$bilingue and !$biblio and !($padres))
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -178,6 +178,19 @@ if($bilingue == '1')
 	mysql_query("update mens_texto set destino = 'Bilinguismo' where id = '$id'");
 	echo $msg_success;
 	}
+	
+if($biblio == '1')
+	{
+	$biblio0 = mysql_query("select distinct nombre from departamentos where cargo like '%c%'");
+	while($biblio1 = mysql_fetch_array($biblio0)){
+	$rep0 = mysql_query("select * from mens_profes where id = '$id' and profesor = '$biblio1[0]'");
+	$num0 = mysql_fetch_row($rep0);
+	if(strlen($num0[0]) < 1)	
+	mysql_query("insert into mens_profes (id_texto, profesor) values ('".$id."','".$biblio1[0]."')");
+	}
+	mysql_query("update mens_texto set destino = 'Biblioteca' where id = '$id'");
+	echo $msg_success;
+	}	
 	
 if($padres)
 	{

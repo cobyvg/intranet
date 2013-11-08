@@ -83,6 +83,7 @@ $ca = $_POST['ca'];
 $direccion = $_POST['direccion'];
 $orientacion = $_POST['orientacion'];
 $bilingue = $_POST['bilingue'];
+$biblio = $_POST['biblio'];
 $texto = $_POST['texto'];
 $profesor = $_POST['profesor'];
 
@@ -135,8 +136,7 @@ include("profesores.php");
 <div class="row-fluid">
   <div class="span4 offset1">
       <div class="well well-large">
-        <h4>Destinatario(s)</h4>
-        <br />
+        <legend class='text-warning'>Destinatario(s)</legend>
         <div class="row-fluid">
           <div class="span6" align="left">
             <input
@@ -165,6 +165,10 @@ include("profesores.php");
 					onClick="submit()" <? if($claustro=='1') echo 'checked'; ?> />
               Todo
               el Claustro</label>
+            <label class="checkbox">
+              <input name="biblio" type="checkbox" value="1" onClick="submit()"
+<? if($biblio=='1' and !$claustro) echo 'checked'; ?> />
+              Biblioteca</label>
           </div>
           <div class="span6" align="left">
             <label class="checkbox">
@@ -190,20 +194,22 @@ include("profesores.php");
 <? if($bilingue=='1' and !$claustro) echo 'checked'; ?> />
               Centro
               Bilingue</label>
+   
             <label class="checkbox">
               <input name="padres" type="checkbox"
 					value="1" onClick="submit()"
 <? if($padres=='1' and !$claustro) echo 'checked'; ?> />
               Padres de
               Alumnos</label>
-        <br />
+ <br />
  </div>
+ 
             <?
 
 					if($profes == '1' and !$claustro) {
-						echo "<h4>Selecciona los Profesores</h4>
+						echo "<hr /><legend class='text-warning'>Selecciona los Profesores</legend>
 						<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
-						<br /><div class='well'>";
+						<div class='well well-transparent'>";
 						$s_origen=mb_strtoupper($origen);
 						echo '
 						<SELECT  name=profeso[] multiple=multiple size=27 class="span10">';
@@ -221,9 +227,9 @@ include("profesores.php");
 						echo  '</select></div>';
 					}
 
-					if($tutores == '1' and !$claustro) {echo "<h4>Selecciona los Tutores de Grupo</h4>
-					<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div><br />
-					<div class='well'>";
+					if($tutores == '1' and !$claustro) {echo "<hr /><legend class='text-warning'>Selecciona los Tutores de Grupo</legend>
+					<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
+					<div class='well well-transparent'>";
 					echo '<SELECT  name=tutor[] multiple=multiple size=25  style="width:100%">';
 					// Datos del Profesor que hace la consulta. No aparece el nombre del aÃ±o de la nota. Se podrÃ­a incluir.
 					$tutor = mysql_query(" SELECT distinct tutor, nivel, grupo  FROM FTUTORES order by nivel, grupo asc");
@@ -242,9 +248,9 @@ include("profesores.php");
 					echo  '</select></div>';
 					}
 
-					if($departamentos == '1' and !$claustro) {echo "<h4>Selecciona los Departamentos o Áreas</h4>
+					if($departamentos == '1' and !$claustro) {echo "<hr /><legend class='text-warning'>Selecciona los Departamentos o Áreas</legend>
 					<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
-					<br /><div class='well'>";
+					<div class='well well-transparent'>";
 					echo '<SELECT  name=departamento[] multiple=multiple size=25 class="span9" >';
 					$dep = mysql_query("SELECT distinct departamento FROM departamentos order by departamento asc");
 					while($filadep = mysql_fetch_array($dep))
@@ -254,9 +260,9 @@ include("profesores.php");
 					echo  '</select></div>';
 					}
 
-					if($equipos == '1' and !$claustro) {echo "<h4>Selecciona Equipos Educativos</h4>
-					<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div><br />
-					<div class='well'>";
+					if($equipos == '1' and !$claustro) {echo "<hr /><legend class='text-warning'>Selecciona Equipos Educativos</legend>
+					<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
+					<div class='well well-transparent'>";
 					echo '<SELECT  name=equipo[] multiple=multiple size=25 class="span9"  >';
 					$eq = mysql_query("SELECT distinct grupo  FROM profesores order by grupo asc");
 					while($filaeq = mysql_fetch_array($eq))
@@ -275,7 +281,7 @@ include("profesores.php");
 					}
 
 					if($claustro == '1') {
-						echo "<h4>Claustro de Profesores</h4><br /><div class='well'>";
+						echo "<hr /><legend class='text-warning'>Claustro de Profesores</legend>";
 						$cl = mysql_query("SELECT distinct nombre FROM departamentos WHERE nombre NOT LIKE 'admin'");
 						while($filacl = mysql_fetch_array($cl))
 						{
@@ -284,11 +290,11 @@ include("profesores.php");
 							$t_cl2 = "<li align='left'>".$ok[1]." ".$ok[0]."</li>";
 							echo "$t_cl2";
 						}
-						echo "</div>";
+						echo "";
 						}
 
 					if($orientacion == '1' and !$claustro) {
-						echo "<h4>Departamento de Orientación</h4><br /><div class='well'>";
+						echo "<hr /><legend class='text-warning'>Departamento de Orientación</legend><div class='well well-transparent'>";
 						$orienta = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like '%8%'");
 						while($filaor = mysql_fetch_array($orienta))
 						{
@@ -300,7 +306,7 @@ include("profesores.php");
 					}
 
 					if($bilingue == '1' and !$claustro) {
-						echo "<h4>Centro Bilingue</h4><br /><div class='well'>";
+						echo "<hr /><legend class='text-warning'>Centro Bilingue</legend><div class='well well-transparent'>";
 						$bilingue = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like '%a%'");
 						while($filabi = mysql_fetch_array($bilingue))
 						{
@@ -311,11 +317,22 @@ include("profesores.php");
 					echo "</div>";
 					}
 					
+					if($biblio == '1' and !$claustro) {
+						echo "<hr /><legend class='text-warning'>Biblioteca</legend><div class='well well-transparent'>";
+						$bibliote = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like '%c%'");
+						while($filabiblio = mysql_fetch_array($bibliote))
+						{
+							echo "<li align='left'>$filabiblio[0] </li>";
+							$t_biblio .= $filabiblio[0].",";
+						}
+						$t_biblio = substr($t_biblio,0,strlen($t_biblio)-1);
+					echo "</div>";
+					}					
 
 
 
 					if($etcp == '1' and !$claustro) {
-						echo "<h4>Equipo Técnico de Coordinación Pedagógica</h4><br /><div class='well'>";
+						echo "<hr /><legend class='text-warning'>Equipo Técnico de Coordinación Pedagógica</legend><div class='well well-transparent'>";
 						$etc = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like '%4%'");
 						while($filaetc = mysql_fetch_array($etc))
 						{
@@ -327,7 +344,7 @@ include("profesores.php");
 					}
 
 					if($ca == '1' and !$claustro) {
-						echo "<h4>Coordinación de Área</h4><br /><div class='well'>";
+						echo "<hr /><legend class='text-warning'>Coordinación de Área</legend><div class='well well-transparent'>";
 						$ca0 = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like '%9%'");
 						while($filaca = mysql_fetch_array($ca0))
 						{
@@ -339,7 +356,7 @@ include("profesores.php");
 					}
 
 					if($direccion == '1' and !$claustro) {
-						echo "<h4>Equipo Directivo</h4><br /><div class='well'>";
+						echo "<hr /><legend class='text-warning'>Equipo Directivo</legend><div class='well well-transparent'>";
 						$dir = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like'%1%' AND nombre NOT LIKE 'admin'");
 						while($filadir = mysql_fetch_array($dir))
 						{
@@ -361,7 +378,7 @@ include("profesores.php");
 						}
 					
 					if($padres == '1' and $perfil == '1') {
-						echo "<h4>Padres de Alumnos</h4><br /><div class='well'>";
+						echo "<hr /><legend class='text-warning'>Padres de Alumnos</legend><div class='well well-transparent'>";
 						echo '<SELECT  name=padres[] multiple=multiple size=15 >';
 						$tut = mysql_query("select distinct grupo from profesores $extra0");
 						while ($tuto = mysql_fetch_array($tut)) {
@@ -391,9 +408,9 @@ include("profesores.php");
 						$unidad = "$tuto[0]-$tuto[1]";
 
 						if(stristr($perfil,'2') == TRUE){$extra = "where unidad='$unidad'";}
-						if($padres == '1') {echo "<h4>Padres de Alumnos</h4>
+						if($padres == '1') {echo "<hr /><legend class='text-warning'>Padres de Alumnos</legend>
 						<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
-						<br /><div class='well'>";
+						<div class='well well-transparent'>";
 						echo '<SELECT  name=padres[] multiple=multiple size=27 class="span10" >';
 						$padre = mysql_query("SELECT distinct APELLIDOS, NOMBRE  FROM alma $extra order by apellidos");
 						while($filapadre = mysql_fetch_array($padre))
