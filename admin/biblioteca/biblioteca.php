@@ -84,15 +84,15 @@ exit;
   {
   echo "<p class='lead muted'>Datos del volumen seleccionado</p>";
 
- $informe0 = "select idFondo, Autor, Titulo, Editorial, ISBN, TipoFondo, AnoEdicion, Extension, Serie, CDU2.TEXTO, LugarEdicion from qrFondos, CDU, CDU2 where idFondo = CDU.idFondo and CDU.CDU = CDU2.CDU and idFondo = '$idfondo'";
+ $informe0 = "select  id, Autor, Titulo, Editorial, ISBN, tipoEjemplar, anoEdicion, extension, serie, ubicacion, LugarEdicion from biblioteca where id = '$idfondo'";
  $sqlinforme0 = mysql_query($informe0);
 $filas = mysql_num_rows($sqlinforme0);
 if ($filas > 0) {
- $informe = "select idFondo, Autor, Titulo, Editorial, ISBN, TipoFondo, AnoEdicion, Extension, Serie, LugarEdicion, CDU2.TEXTO from qrFondos, CDU, CDU2 where idFondo = CDU.idFondo and CDU.CDU = CDU2.CDU and idFondo = '$idfondo'";	
+ $informe = "select id, Autor, Titulo, Editorial, ISBN, tipoEjemplar, anoEdicion, extension, serie, ubicacion, lugaredicion from biblioteca where id = '$idfondo'";	
 }
 else 
 {
-$informe = "select idFondo, Autor, Titulo, Editorial, ISBN, TipoFondo, AnoEdicion, Extension, Serie, LugarEdicion from qrFondos where idFondo = '$idfondo'";
+$informe = "select id, Autor, Titulo, Editorial, ISBN, tipoEjemplar, anoEdicion, extension, serie, ubicacion, lugaredicion from biblioteca where id = '$idfondo'";
 }
 $sqlinforme = mysql_query($informe);
 if($rowinforme = mysql_fetch_array($sqlinforme))
@@ -106,13 +106,13 @@ if($rowinforme = mysql_fetch_array($sqlinforme))
 	$anoedicion = $rowinforme[6];
 	$extension = $rowinforme[7];
 	$serie = $rowinforme[8];
-	$LugarEdicion = $rowinforme[9];
-	$cdu = $rowinforme[10];	
-$numero = "select idFondo from qrFondos where Titulo = '$titulo0' and Autor = '$autor'";
+	$LugarEdicion = $rowinforme[10];
+	$ubicacion = $rowinforme[9];	
+$numero = "select id from biblioteca where Titulo = '$titulo0' and Autor = '$autor'";
 $numero1 = mysql_query($numero);
 $numero2 = mysql_num_rows($numero1);
 $ejemplares = $numero2;
-echo "<table class='table table-striped tanle-bordered' style='width:auto;'>
+echo "<table class='table table-striped tanle-bordered' style='width:600px;'>
   <tr>
     <td>T&Iacute;TULO: <span class='text-info'>$tituloa</span></td>
       <td>AUTOR: <span class='text-info'>$autor0</span></td>
@@ -129,7 +129,7 @@ echo "<table class='table table-striped tanle-bordered' style='width:auto;'>
     
       <tr>
     <td>P&Aacute;GINAS: <span class='text-info'>$extension</span></td>
-      <td>CLASIFICACI&Oacute;N: <span class='text-info'>$cdu </span></td>
+      <td>UBICACI&Oacute;N: <span class='text-info'>$ubicacion </span></td>
     </tr>
       <tr>
     <td>N&Uacute;MERO DE EJEMPLARES: <span class='text-info'>$ejemplares</span></td>
@@ -142,7 +142,7 @@ echo "<table class='table table-striped tanle-bordered' style='width:auto;'>
   
   	if (!($autor == "" and $titulo0 == "" and $editorial == "")) {
  
-  $result = mysql_query ("select idFondo, Autor, Titulo, Editorial from qrFondos where 1 " . $AUXSQL . " order by Autor asc");
+  $result = mysql_query ("select id, Autor, Titulo, Editorial from biblioteca where 1 " . $AUXSQL . " order by Autor asc");
 if (mysql_num_rows($result) > 0) {
 print "<p class='lead muted'>Búsqueda de Libros en la Biblioteca</p>";
 echo "<table class='table table-striped table-bordered'>";
