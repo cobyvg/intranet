@@ -93,8 +93,8 @@ include("../../../menu.php");
 
 <br>
 <div align="center">
-  <a href="../../index.php" class="btn btn-info">Volver</a>
-  <a href="regla.php" class="btn btn-success">Añadir regla</a>
+  <a href="../../index.php" class="btn btn-default">Volver</a>
+  <a href="regla.php" class="btn btn-primary">Añadir regla</a>
 </div>
 <br>
 <br>

@@ -55,7 +55,7 @@ include("../../../menu.php");
 ?>
 <br />
 <div class="page-header" align="center">
-  <h2>Reglas de Organización y Funcionamiento del Centro</h2>
+  <h2>Reglamento de Organización y Funcionamiento del Centro</h2>
 </div>
 
 
@@ -121,8 +121,8 @@ include("../../../menu.php");
 
 <br>
 <div align="center">
-  <a href="index.php" class="btn btn-info">Cancelar</a>
-  <input type="submit" name="submit" class="btn btn-success" value="<?php echo $boton; ?>">
+  <a href="index.php" class="btn btn-default">Cancelar</a>
+  <input type="submit" name="submit" class="btn btn-primary" value="<?php echo $boton; ?>">
 </div>
 <br>
 <br>
