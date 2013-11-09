@@ -16,7 +16,8 @@ exit;
 ?>
 <?php
  include("../../menu.php");
-?>
+ include("menu.php");
+ ?>
 <br />
 <div align="center">
 <div class="page-header">

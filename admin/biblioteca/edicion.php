@@ -19,11 +19,12 @@ function enviarForm()
 </script>
 <?php
 include("../../menu.php");
+ include("menu.php");
 ?>
 <br />
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Morosos de la Biblioteca <small> Edici&oacute;n de morosos.</small></h2>
+  <h2>Biblioteca del Centro <small> Edici&oacute;n de morosos.</small></h2>
 </div>
 <br />
 <?

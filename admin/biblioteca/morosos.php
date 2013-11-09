@@ -10,6 +10,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?php
 include("../../menu.php");
+ include("menu.php");
 ?>
 <br />
 <div align="center">
@@ -33,7 +34,7 @@ No se ha podido abrir el archivo exportado. O bien te has olvidado de enviarlo o
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>'); 
-while (($data1 = fgetcsv($handle, 1000, ",")) !== FALSE) 
+while (($data1 = fgetcsv($handle, 1000, ";")) !== FALSE) 
 {	
 	
 		$tr_f = explode("/",$data1[4]);
@@ -44,7 +45,7 @@ while (($data1 = fgetcsv($handle, 1000, ",")) !== FALSE)
 	if (mysql_num_rows($dup)==0) {
 		$datos1 = mysql_query("INSERT INTO morosos (curso, apellidos, nombre, ejemplar, devolucion, hoy) VALUES ('". $data1[0]. "','". $data1[1]. "','". $data1[2] . "','". $data1[3] ."','". $fecha_ed ."', '".$hoy."')");
 	}
-	mysql_query("delete from morosos where curso = 'Informe'");
+	mysql_query("delete from morosos where apellidos = '' and nombre = '' and ejemplar = ''");
 }
 
 fclose($handle);

@@ -96,7 +96,8 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
   </div>
 </div>
 
-	<?
+	<? 
+include("menu.php");
 	
 //$datatables_activado = true;
 	if(isset($_POST['submit1'])){
@@ -104,14 +105,14 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 		?>
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Morosos de la Biblioteca <small> Consulta</small></h1>
+  <h2>Biblioteca del Centro <small> Consulta de Morosos</small></h1>
 <p class="lead muted">Fecha elegida: <? echo $fecha;?></small></p>
 </div>
 <div class='container-fluid'>
   <div class="row-fluid">
   <div class="span8 offset2">
 <form name="form1" action="edicion.php" method="post">
-<table class='table table-striped' style='width: 100%;'>
+<table class='table table-striped' style='width: 90%;'>
 <thead>
 	<tr>
 		<th><input type="checkbox" onClick="selectall(form1)" /></th>
@@ -140,7 +141,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 		<td><? echo $list[1].', '.$list[2];   ?></td>
 		<td><? echo $list[3];   ?></td>
 		<td style="text-align: center"><? echo $list[4];   ?></td>
-		<td style="text-align: left" nowrap><i class="icon-remove-sign" style="margin-left:15px;"></i>
+		<td style="text-align: left" nowrap>
 		<?
 		if ($list[7] == "SI") {
 			echo '<i class="icon-comment" style="margin-left:6px;" rel="tooltip" title="Se ha enviado SMS de advertencia"></i>';

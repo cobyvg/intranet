@@ -119,8 +119,12 @@ function codigo_control($x){
 		return (chr($codigo+70));
 	}
 }
+	$bib = mysql_query("select * from biblioteca_lectores");
+	$n_bib = mysql_num_rows($bib);
+	//echo $n_bib;
 ############### Abrimos la base de datos y creamos la consulta
 if (strlen($_POST['alumnos'])>0) {
+
 		#elige selección múltiple
 		$sel=explode("*",$_POST['alumnos']);
 		foreach($sel as  $valor) {
@@ -128,18 +132,52 @@ if (strlen($_POST['alumnos'])>0) {
 			else {$seleccion=$seleccion."','".$valor;}		
 		}
 	$seleccion=$seleccion."'";
-	$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha, combasi FROM alma WHERE claveal In (".$seleccion.") ORDER BY Apellidos ASC";
-	$opcion=2;
+if ($n_bib>0) {
+		$query_Recordset1 = "SELECT claveal, unidad, alma.apellidos, alma.nombre, fecha, combasi, biblioteca_lectores.codigo
+FROM alma
+INNER JOIN biblioteca_lectores ON alma.apellidos = biblioteca_lectores.apellidos
+AND alma.nombre = biblioteca_lectores.nombre
+AND alma.unidad = biblioteca_lectores.grupo 
+AND claveal In (".$seleccion.")
+ORDER BY Apellidos ASC ";
+	}
+	else{
+		$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha, combasi FROM alma WHERE claveal In (".$seleccion.") ORDER BY Apellidos ASC";
+	}
+		$opcion=2;
 	}
 
-	elseif (isset($_POST['select'])) {		#elige selección de un curso
+	elseif (isset($_POST['select'])) {		
+	#elige selección de un curso
 	$selecc=trim($_POST['select']);
-	$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha, combasi FROM alma where Unidad = '" .$selecc ."' order by Apellidos ASC";
+	if ($n_bib>0) {
+		$query_Recordset1 = "SELECT claveal, unidad, alma.apellidos, alma.nombre, fecha, combasi, biblioteca_lectores.codigo
+FROM alma
+INNER JOIN biblioteca_lectores ON alma.apellidos = biblioteca_lectores.apellidos
+AND alma.nombre = biblioteca_lectores.nombre
+AND alma.unidad = biblioteca_lectores.grupo 
+AND Unidad = '" .$selecc ."'
+ORDER BY Apellidos ASC ";
 	}
+	else{
+		$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha, combasi FROM alma where Unidad = '" .$selecc ."' order by Apellidos ASC";
+	}
+		}
 	
 	else {
+		if ($n_bib>0) {
+		$query_Recordset1 = "SELECT claveal, unidad, alma.apellidos, alma.nombre, fecha, combasi, biblioteca_lectores.codigo
+FROM alma
+INNER JOIN biblioteca_lectores ON alma.apellidos = biblioteca_lectores.apellidos
+AND alma.nombre = biblioteca_lectores.nombre
+AND alma.unidad = biblioteca_lectores.grupo
+ORDER BY Apellidos ASC ";
+	}
+	else{
 		$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha, combasi FROM alma order by Unidad, Apellidos"; #otro caso, es decir, todos los alumnos
-}
+	}
+	}
+//	echo $query_Recordset1;
 $Recordset1 = mysql_query($query_Recordset1) or die(mysql_error("No es posible conectar"));  #crea la consulata
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);  #cantidad de registros
 
@@ -164,7 +202,10 @@ $unidad = $row_Recordset1[1];
 $apellidos = $row_Recordset1[2];
 $nombre = $row_Recordset1[3];
 $combasi = $row_Recordset1[5];
-
+if ($n_bib>0) {
+$c_bib = $row_Recordset1[6];
+$claveal_bib.=" ".$c_bib;
+}
 ########################### Comenzamos con los carnets
 
 	#posición del carnet
@@ -235,10 +276,17 @@ if (file_exists($foto_al)) {
 #	$pdf->Text(60+$x,30+$y,);
 #	$pdf->Text(60+$x,42+$y,$claveal);
 	$pdf->SetFont('Arial','',7);
-	$pdf->Text(5+$x,49+($y-2),'NIE: ');
-    $pdf->SetFont('Arial','B',8);
-	$pdf->Text(10+$x,49+($y-2),$claveal);
-
+   
+    if ($n_bib>0) {
+    	$pdf->SetFont('Arial','B',8);
+   		$pdf->Text(2+$x,49+($y-2),$claveal."   ".$c_bib);
+    }
+    else{
+		$pdf->Text(5+$x,49+($y-2),'NIE: ');
+    	$pdf->SetFont('Arial','B',8);
+		$pdf->Text(10+$x,49+($y-2),$claveal);
+    }
+    
 $n++;		#siguiente carnet
 if ($n%10==1){		#cada 10 carnets empezamos en la página siguiente
 	$pdf->AddPage();

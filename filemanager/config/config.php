@@ -19,7 +19,7 @@ mb_internal_encoding('UTF-8');
 //    |   |   |   |- responsivefilemanager
 //    |   |   |   |   |- plugin.min.js
 
-include_once('../config.php');
+include('../config.php');
 $dir_prof = $_SESSION['profi'];
 
 $base_url="http://$dominio/intranet";  // base url (only domain) of site (without final /). If you prefer relative urls leave empty

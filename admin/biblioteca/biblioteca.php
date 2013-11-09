@@ -16,7 +16,8 @@ exit;
 ?>
 <?php
  include("../../menu.php");
-?>
+ include("menu.php");
+ ?>
 <br />
 <div align="center">
 <div class="page-header">
@@ -145,7 +146,7 @@ echo "<table class='table table-striped tanle-bordered' style='width:600px;'>
   $result = mysql_query ("select id, Autor, Titulo, Editorial from biblioteca where 1 " . $AUXSQL . " order by Autor asc");
 if (mysql_num_rows($result) > 0) {
 print "<p class='lead muted'>Búsqueda de Libros en la Biblioteca</p>";
-echo "<table class='table table-striped table-bordered'>";
+echo "<table class='table table-striped table-bordered' style='width:auto'>";
 echo "<thead><th>Autor</th><th>Título</th><th>Editorial</th><th></th></thead><tbody>";
 
 while($row = mysql_fetch_array($result))

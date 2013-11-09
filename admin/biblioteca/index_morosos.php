@@ -10,6 +10,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include("../../menu.php");
+include("menu.php");
 ?>
 <div align=center>
 <div class="page-header" align="center">
@@ -32,30 +33,16 @@ $crea ="CREATE TABLE IF NOT EXISTS `morosos` (
 mysql_query($crea);
 
 ?>
-<div align="center">
-<h3>Actualizaci&oacute;n de la lista de ejemplares sin devolver.</h3>
-<FORM ENCTYPE="multipart/form-data" ACTION="morosos.php" METHOD="post" class="form-inline">
-  <div  class="control-group success" style="width:500px;">
-  <p class="help-block" style="text-align:center"><span style="color:#9d261d">(*) </span>Primero debes proceder a importar los datos de los morosos del archivo que has generado con Abies. Si ya has exportado el archivo de Abies en formato .txt, puedes continuar con el segundo paso (Consulta de los Listados).</p>
-  </div>
-  <div class="well well-large" style="width:450px; margin:auto;" align="center">
-  <h5 align="center">Selecciona el archivo de Abies</h5>
-  <hr>
-  <input type="file" name="archivo">
-  <hr>
-  <div align="center">
-    <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">
-  </div>
-  </div>
-</FORM>
-<br>
+<br />
+<div class="container-fluid">
+<div class="row-fluid">
 
-<div align="center">
-<h3>Consulta de los listados.</h3>
-</div>
+
+<div class="span4 offset4">
+<legend>Consulta de los listados.</legend>
 <FORM action="consulta.php" method="POST" class="form-inline"">
-  <div class="well well-large" style="width:450px; margin:auto;" align="center">
- <h5> Elige una fecha</h5>
+  <div class="well well-large" align="center">
+ <p class='lead text-info'> Elige una fecha</p>
  <hr>
   <select name="fecha" class="input-medium">
     <?
@@ -71,7 +58,8 @@ echo "<option>".$tipo2[0]."</option>";
   </div>
 </FORM>
 </div>
-
+</div>
+</div>
 
 
 

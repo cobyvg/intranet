@@ -123,7 +123,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
       <ul class="nav nav-list">
         <li><a href="<? echo $p_biblio;?>" target="_blank">Página de la Biblioteca</a></li>	
         <li><a href="admin/cursos/hor_aulas.php?aula=Biblioteca" target="_blank">Horario de la Biblioteca</a></li>	
-        <li><a href="admin/morosos/">Gestión de los Préstamos</a></li>
+        <li><a href="admin/biblioteca/index_morosos.php">Gestión de los Préstamos</a></li>
         <li><a href="admin/biblioteca/index.php">Consultar fondos de la Biblioteca</a></li>
         
         <li><a href="admin/biblioteca/index_biblio.php">Importar datos de Abies</a></li>
@@ -199,9 +199,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
             <li><a href="admin/fechorias/cfechorias.php">Consultar problemas</a></li>
             <li><a href="admin/fechorias/lfechorias.php">Últimos problemas</a></li>
             <li><a href="admin/fechorias/expulsados.php">Alumnos expulsados</a></li>
-        	<? if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE and $mod_bilio=="1") { ?>
-            <li><a href="admin/morosos/">Morosos de la biblioteca</a></li>
-            <? }
+            <? 
         	$conv = mysql_query("SELECT DISTINCT prof FROM horw WHERE a_asig = 'GUCON' AND prof = '$pr'");
         	if (mysql_num_rows($conv) > '0' or stristr ( $carg, '1' ) == TRUE) { ?>
         	<li><a href="admin/fechorias/convivencia.php">Aula de convivencia</a></li>
