@@ -48,8 +48,8 @@ $grupo = $tr_uni[1];
 <form name="buscar" method="POST" action="buscar.php">
 <div class='container'>
   <div class="row-fluid">
-  <div class="span2"></div>
-  <div class="span8">
+  <div class="span3"></div>
+  <div class="span6">
  <h3><? echo $titulo;?></h3><br /> 
  <form name="buscar" method="POST" action="buscar.php">
 <?php

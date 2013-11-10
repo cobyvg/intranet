@@ -40,7 +40,7 @@ $datatables_activado = true;
 <form name="buscar" method="POST" action="buscar.php">
 <div class='container'>
   <div class="row-fluid">
-  <div class="span8 offset2">
+  <div class="span6 offset3">
 <?php
 if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];}else{$apellidos="";}
 if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
@@ -59,7 +59,7 @@ $grupo = $tr_uni[1];
   $query .=  " ORDER BY F_ENTREV DESC";
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 
-echo "<table class='table table-striped table-bordered tabladatos' align='center' style='width:auto'><thead>";
+echo "<table class='table table-striped table-bordered tabladatos' align='center'><thead>";
 echo "<th>Alumno </th>
 <th>Curso</th>
 <Th>Cita con padres</th><th></th></thead><tbody>";
@@ -68,10 +68,10 @@ if (mysql_num_rows($result) > 0)
 
 	while($row = mysql_fetch_object($result))
 	{
-   echo "<tr><td> $row->NOMBRE $row->APELLIDOS</TD>
-   <TD>$row->NIVEL $row->GRUPO</TD>
-   <TD>$row->F_ENTREV</TD>";
-echo "<td><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i></a>";	
+   echo "<tr><td nowrap> $row->NOMBRE $row->APELLIDOS</TD>
+   <TD nowrap>$row->NIVEL $row->GRUPO</TD>
+   <TD nowrap>$row->F_ENTREV</TD>";
+echo "<td nowrap><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i></a>";	
 
 $result0 = mysql_query ( "select tutor from FTUTORES where nivel = '$row->NIVEL' and grupo = '$row->GRUPO'" );
 $row0 = mysql_fetch_array ( $result0 );	

@@ -21,7 +21,7 @@ else
 $msg_success = '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         El mensaje se ha enviado correctamente.
-      </div></div>';
+      </div></div><br />';
       
 $query0="insert into mens_texto (asunto,texto, origen) values ('".$asunto."','".$texto."','".$profesor."')";
 mysql_query($query0);

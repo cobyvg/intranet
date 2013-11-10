@@ -118,7 +118,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
       Biblioteca
     </a>
   </div>
-  <div id="tutoria" class="accordion-body collapse in">
+  <div id="tutoria" class="accordion-body collapse">
     <div class="accordion-inner">
       <ul class="nav nav-list">
         <li><a href="<? echo $p_biblio;?>" target="_blank">Página de la Biblioteca</a></li>	
@@ -336,6 +336,11 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
     <div class="accordion-inner">
       <ul class="nav nav-list">
         <li><a href="http://www.juntadeandalucia.es/averroes/centros-tic/<? echo $codigo_del_centro; ?>/moodle/">Plataforma Moodle</a></li>
+        <?
+        if ($mod_biblio==1) {
+        	echo '<li><a href="admin/biblioteca/index.php">Fondos de la Biblioteca</a></li>';
+        }
+        ?>
         <li><a href="admin/cursos/calendario.php">Calendario escolar</a></li>
         <li><a href="http://iesmonterroso.org/PC20122013/index.htm">Plan de Centro</a></li>
         <li><a href="clave.php">Cambiar contraseña</a></li>

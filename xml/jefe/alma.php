@@ -217,7 +217,7 @@ mysql_query($SQL8);
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>ALMA</strong>: los Alumnos se han introducido correctamente en la Base de datos.
-</div></div><br />';
+</div></div>';
 ?>	
 <?
 include("actualizar.php");
