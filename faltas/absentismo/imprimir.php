@@ -87,7 +87,7 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
                     if($mes=='04'){$n_mes='Abril';}
                     if($mes=='05'){$n_mes='Mayo';}
                     if($mes=='06'){$n_mes='Junio';}
-$alumnos0 = "select numero, unidad, apellidos, nombre, jefatura, orientacion, tutoria, padre, domicilio, provinciaresidencia, telefono, fecha, alma.claveal from absentismo, alma where absentismo.claveal=alma.claveal and mes='$mes'";
+$alumnos0 = "select numero, unidad, apellidos, nombre, jefatura, orientacion, tutoria, padre, domicilio, provinciaresidencia, telefono, fecha, alma.claveal, serv_sociales from absentismo, alma where absentismo.claveal=alma.claveal and mes='$mes'";
 $alumnos1 = mysql_query($alumnos0);
 while($alumno = mysql_fetch_array($alumnos1))
 {
@@ -124,6 +124,10 @@ if (strlen($alumno[6])>0) {
 $cuerpo5="Informe del Tutor del Curso";
 $cuerpo55="$alumno[6]";	
 }
+if (strlen($alumno[13])>0) {
+$cuerpo6="Informe de los Servicios Sociales";
+$cuerpo66="$alumno[13]";	
+}
 #### Cabecera con dirección
 	$MiPDF->SetFont('Helvetica','',11);
 	$MiPDF->SetTextColor(0,0,0);
@@ -145,7 +149,7 @@ $cuerpo55="$alumno[6]";
 		$MiPDF->SetFont('Helvetica','I');
 	$MiPDF->Multicell(0,4,$cuerpo33,0,'J',0);
 	$MiPDF->Ln(5);
-	if (strlen($alumno[5])>0) {
+if (strlen($alumno[5])>0) {
 		$MiPDF->SetFont('Helvetica','B');
 	$MiPDF->Multicell(0,4,$cuerpo4,0,'C',0);	
 	$MiPDF->Ln(1);
@@ -159,6 +163,14 @@ if (strlen($alumno[6])>0) {
 	$MiPDF->Ln(1);
 		$MiPDF->SetFont('Helvetica','I');
 	$MiPDF->Multicell(0,4,$cuerpo55,0,'J',0);
+	$MiPDF->Ln(5);
+	}
+if (strlen($alumno[13])>0) {
+	$MiPDF->SetFont('Helvetica','B');
+	$MiPDF->Multicell(0,4,$cuerpo6,0,'C',0);
+	$MiPDF->Ln(1);
+		$MiPDF->SetFont('Helvetica','I');
+	$MiPDF->Multicell(0,4,$cuerpo66,0,'J',0);
 	$MiPDF->Ln(15);
 	}
 	$MiPDF->SetFont('Helvetica','',10);

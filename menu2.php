@@ -14,7 +14,6 @@ if (stristr ( $carg, '1' ) == TRUE) {
         <ul class="nav nav-list">
           <li><a href="xml/index.php">Administración de la Intranet</a></li>
           <li><a href="admin/jefatura/tutor.php">Diario de jefatura</a></li>
-          <li><a href="xml/jefe/mem_jefatura.php">Informes sobre convivencia</a></li>
         </ul>
       </div>
     </div>
@@ -199,6 +198,13 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
             <li><a href="admin/fechorias/cfechorias.php">Consultar problemas</a></li>
             <li><a href="admin/fechorias/lfechorias.php">Últimos problemas</a></li>
             <li><a href="admin/fechorias/expulsados.php">Alumnos expulsados</a></li>
+                        <? 
+            if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
+            ?>
+            <li><a href="xml/jefe/mem_jefatura.php">Informes sobre convivencia</a></li>
+            <? 
+            }
+            ?>
             <? 
         	$conv = mysql_query("SELECT DISTINCT prof FROM horw WHERE a_asig = 'GUCON' AND prof = '$pr'");
         	if (mysql_num_rows($conv) > '0' or stristr ( $carg, '1' ) == TRUE) { ?>
@@ -307,6 +313,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         <? if (stristr ( $carg, '1' ) == TRUE) { ?>
         <li><a href="admin/tutoria/">Página del tutor</a></li>
         <? } ?>
+        <li><a href="admin/calendario/diario/index.php">Registrar Examen o Actividad</a></li>
         <li><a href="admin/ausencias/index.php">Registrar ausencia</a></li>
         <? if (stristr ( $carg, '1' ) == TRUE and stristr ( $carg, '4' ) == FALSE) { ?>
         <li><a href="admin/rd/index_admin.php">Actas de los departamentos</a></li>
@@ -359,6 +366,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
   <div id="paginas" class="accordion-body collapse">
     <div class="accordion-inner">
       <ul class="nav nav-list">
+      	<li><a href="http://<? echo $dominio;	?>">P&aacute;gina del centro</a></li>
         <li><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank">Novedades de la Consejería</a></li>
         
         <? if(substr($codigo_postal_del_centro,0,2)=="04") { ?>
