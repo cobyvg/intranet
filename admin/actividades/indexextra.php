@@ -14,6 +14,17 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }                                                                                    
 ?>  
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?
  include("../../menu.php");
   include("menu.php");
@@ -213,7 +224,7 @@ $datos[2]= str_replace("\\","",$datos[2]);
 		 // echo  $_SESSION['dpt']." == ".$datos[4];
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 ?>  
-    <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1"> <i class="icon icon-trash" title='Eliminar actividad'> </i> </a>
+    <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1"> <i class="icon icon-trash" title='Eliminar actividad' onClick='return confirmacion();'> </i> </a>
   <? } ?>
   
       <?

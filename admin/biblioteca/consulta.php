@@ -48,6 +48,17 @@ else
       }  
     }  
     </script>  
+    <script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 </head>
 
 <body>
@@ -177,7 +188,7 @@ consultarla.</div>
 	<? }
 	else {?>
 <hr>
-<button class="btn btn-danger" type="submit" name="borrar" value="Borrar"><i class="icon-trash icon-white"></i> Borrar</button>
+<button class="btn btn-danger" type="submit" name="borrar" value="Borrar"><i class="icon-trash icon-white" onClick='return confirmacion();'></i> Borrar</button>
 &nbsp;&nbsp; &nbsp;&nbsp;
 <button class="btn btn-info" type="submit" name="sms" value="sms"><i class="icon-play-circle icon-white"></i> Enviar SMS</button>
 &nbsp;&nbsp; &nbsp;&nbsp;

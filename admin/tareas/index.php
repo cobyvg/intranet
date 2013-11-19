@@ -12,6 +12,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $profesor = $_SESSION['profi'];
 $cargo = $_SESSION['cargo'];
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar el registro de la base de datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <? 
 	include("../../menu.php");
   	include("menu.php");
@@ -81,9 +92,9 @@ if (mysql_num_rows($si) > 0)
    <TD colspan='1' nowrap><span class='badge badge-warning'>Informe ya rellenado</span></td>";
    echo "<TD> 
 			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i> </a>
-			<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> ";			
+			<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> ";			
    if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> 	";
+   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
    }
 			echo "</td>";	
    }
@@ -103,7 +114,7 @@ if (mysql_num_rows($si) > 0)
 		else{
 			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i> </a>";		
 		 if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> 	";
+   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
    }	
 		}
 	  if (mysql_num_rows($si) > 0 and $count < 1)

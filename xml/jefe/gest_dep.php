@@ -15,6 +15,17 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?php
 include("../../menu.php");
 ?>
@@ -112,7 +123,7 @@ $profe = mysql_query(" SELECT distinct departamento FROM departamentos where dep
 	echo "<OPTION>$departamen</OPTION>";	
 	} 
   echo "</select>
-  </td><td><a href='gest_dep.php?borrar=1&departament=$dep[0]'><i class='icon icon-trash icon-large'></i></a></td></tr>";	
+  </td><td><a href='gest_dep.php?borrar=1&departament=$dep[0]'><i class='icon icon-trash icon-large' onClick='return confirmacion();'></i></a></td></tr>";	
   }
 ?>
 </tbody>
@@ -172,3 +183,4 @@ while ($prof = mysql_fetch_array($prof1)) {
 </div>
 </body>
 </html>
+ü 

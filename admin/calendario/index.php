@@ -94,9 +94,14 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 		$sql_currentday = "$year-$month-$zz";
 		$eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
 		$eventExec = mysql_query ( $eventQuery );
+		$diari = mysql_query("SELECT id FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and profesor='".$_SESSION['profi']."'");
 		while ( $row = mysql_fetch_array ( $eventExec ) ) {
 			if (strlen ( $row ["title"] ) > 0) {
-echo "<td valign=\"middle\" align=\"center\" style='background-color:#f89406;color:#fff;font-size:0.8em'>$zz</td>\n";
+				$bg = "#f89406";
+				if (mysql_num_rows($diari)>0) {
+					$bg = "#007FFF";
+				}
+echo "<td valign=\"middle\" align=\"center\" style='background-color:$bg;color:#fff;font-size:0.8em'>$zz</td>\n";
 				$result_found = 1;
 			}
 		}
@@ -120,19 +125,41 @@ if ($create_emptys != 0) {
 	echo "<td class=\"cellbg\" valign=\"middle\" align=\"center\" colspan=\"$create_emptys\"></td>\n";
 }
 
-echo "</tr></table>";
+echo "</tr></table><br />";
+
 $mes = date ( 'm' );
+$mes8 = date ( 'm' ) + 1;
 $dia = date ( 'd' );
 $dia7 = date ( 'd' ) + 7;
 $año = date ( 'Y' );
 $hoy = mktime ( 0, 0, 0, $mes, $dia, $año );
 $hoy7 = mktime ( 0, 0, 0, $mes, $dia7, $año );
+$hoy8 = mktime ( 0, 0, 0, $mes8, $dia, $año );
 $rango0 = date ( 'Y-m-d', $hoy );
 $rango7 = date ( 'Y-m-d', $hoy7 );
-$query = "SELECT distinct title, eventdate, event FROM cal WHERE eventdate >= '$rango0' limit 5";
+$rango8 = date ( 'Y-m-d', $hoy8 );
+
+$sql_diario="SELECT id, fecha, titulo, observaciones, grupo FROM diario WHERE (profesor='".$_SESSION['profi']."' ";
+$asig = mysql_query("select distinct grupo from profesores where profesor = '".$_SESSION['profi']."'");
+while ($asign = mysql_fetch_array($asig)) {
+	//$sql_diario.=" or grupo like '%$asign[0]%'";
+}
+$sql_diario.=") and date(fecha) >= '$rango0' and date(fecha) <= '$rango8' and calendario = '1'  order by fecha limit 3";
+
+$diari = mysql_query($sql_diario);
+if (mysql_num_rows ( $diari ) > 0){
+	echo "<legend style='margin-bottom:3px;'><small style='color:#777'><i class='icon icon-calendar'> </i>Calendario personal</small></legend>";
+	while ( $diar = mysql_fetch_array ( $diari ) ) {
+		$n_reg+=1;
+		echo "<p><small>  $diar[1] - </small><a href='admin/calendario/diario/index.php?id=$diar[0]' rel='tooltip' title='$diar[2] - $diar[3]'>  $diar[2]</a></p>";	
+	}
+}
+$n_noticias=5-$n_reg;
+$query = "SELECT distinct title, eventdate, event FROM cal WHERE date(eventdate) >= '$rango0'  order by eventdate asc limit $n_noticias";
 $result = mysql_query ( $query );
+
 if (mysql_num_rows ( $result ) > 0) {
-	echo "<br /><legend><i class='icon icon-calendar'> </i>Próximos días</legend>";
+	echo "<legend style='margin-bottom:3px;'><small style='color:#777'><i class='icon icon-calendar'> </i>Calendario del Centro</small></legend>";
 	$SQLcurso1 = "select distinct grupo from profesores where profesor = '$pr'";
 	//echo $SQLcurso1;
 	$resultcurso1 = mysql_query ( $SQLcurso1 );
@@ -175,13 +202,13 @@ if (mysql_num_rows ( $result ) > 0) {
 echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><small>  $fecha. </small><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' rel='tooltip' title='$row[2]'>  $texto</a></p>";		
+		echo "<p><small>  $fecha - </small><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' rel='tooltip' title='$row[2]'>  $texto</a></p>";		
 			}
 		else{
 echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha.  $texto</a></p>
+		echo "<p><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha -   $texto</a></p>
 	";	
 			}	
 	}
@@ -204,3 +231,4 @@ if (stristr ( $carg, '1' ) == TRUE) {
 
 
 
+ùÿøøøÿøøøÿøøøÿøøøÿø

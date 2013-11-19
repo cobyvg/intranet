@@ -9,7 +9,17 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
-
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?php
 include("../../menu.php");
 include("menu.php");
@@ -191,7 +201,7 @@ while($item = mysql_fetch_row($it))
 		$marca = $item[1];
 	}
 ?>
-<tr><td><? echo $item[0];?></td><td><? echo $marca;?></td><td><? echo $item[3];?></td><td><a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="icon icon-trash" title="Borrar registro"> </i> </a></td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Editar registro"> </i> </a></td></tr>
+<tr><td><? echo $item[0];?></td><td><? echo $marca;?></td><td><? echo $item[3];?></td><td><a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="icon icon-trash" title="Borrar registro" onClick='return confirmacion();'> </i> </a></td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Editar registro"> </i> </a></td></tr>
 <?
 }
 	echo '

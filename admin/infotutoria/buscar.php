@@ -26,6 +26,17 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
   <?php
 
 include("../../menu.php");
@@ -77,7 +88,7 @@ $result0 = mysql_query ( "select tutor from FTUTORES where nivel = '$row->NIVEL'
 $row0 = mysql_fetch_array ( $result0 );	
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> 	";
+   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
    	echo "&nbsp;&nbsp;<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='icon icon-edit icon-white' title='Rellenar Informe'> </i> </a>";
    }	
 echo '</td></tr>';

@@ -9,6 +9,17 @@ if($_SESSION['autentificado']!='1')
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?
 include("../../menu.php");
 $datatables_activado = true;
@@ -206,7 +217,7 @@ if ($profesor) {
 
 		if(stristr($_SESSION['cargo'],'1') == TRUE)
 		{
-			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='icon icon-trash' title='Borrar baja' /> </i> </a></td>";
+			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='icon icon-trash' title='Borrar baja' onClick='return confirmacion();' /> </i> </a></td>";
 		}
 		echo "</tr>";
 	}
@@ -246,7 +257,7 @@ if (empty($pra)) {}else{
 	<td>$tr</td>";		
 		if(stristr($_SESSION['cargo'],'1') == TRUE)
 		{
-			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='icon icon-trash' title='Borrar' /> </i> </a></td>";
+			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();' /> </i> </a></td>";
 		}
 		echo "</tr>";
 	}
@@ -283,7 +294,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	<td width='60'>$tr</td>";		
 	if(stristr($_SESSION['cargo'],'1') == TRUE)
 	{
-		echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='icon icon-trash' title='Borrar' /> </i> </a></td>";
+		echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();' /> </i> </a></td>";
 	}
 	echo "</tr>";
 }

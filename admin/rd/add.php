@@ -45,7 +45,17 @@ tinymce.init({
 });
 </script>
 <!-- /TinyMCE -->
-
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 
 </head>
 
@@ -298,7 +308,7 @@ if($row->impreso<>1){
 ?>
 <a href="add.php?edicion=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-pencil" rel="Tooltip" title='Editar el Acta'> </i></a> 
 <a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
-<a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-trash" rel="Tooltip" title='Borrar el Acta'> </i></a> 
+<a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-trash" rel="Tooltip" title='Borrar el Acta' onClick='return confirmacion();'> </i></a> 
 <?
 }
 else{

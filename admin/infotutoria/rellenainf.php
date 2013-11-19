@@ -9,6 +9,17 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?php
 include("../../menu.php");
 include("menu.php");
@@ -64,7 +75,7 @@ if($informe[0] == $asignatura){$fondo="background-color:#ffc40d;";}
 	echo "<tr><td style='color:black;$fondo' nowrap>$informe[0]</td>
 		  <td style='$fondo'>$informe[1]</td>";
 	if (strlen($fondo) > '0') {
-		echo "<td><a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id_alumno&asignatura=$asignatura&profesor=$profesor'><i class='icon icon-trash' title='Borrar'> </i> </a></td>";
+		echo "<td><a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id_alumno&asignatura=$asignatura&profesor=$profesor'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();'> </i> </a></td>";
 	}
 	echo"</tr>";
 }

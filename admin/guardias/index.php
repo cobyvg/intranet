@@ -10,7 +10,17 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 ?>
-
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?
 include("../../menu.php");
 
@@ -245,7 +255,7 @@ if (mysql_num_rows($h_hoy0) > 0) {
 			echo "<tr><td>$h_hoy[2]</td><td>$fecha_sp</td>
 			<td>";
 			if ($h_profe==$_SESSION['profi']) {
-			echo "<a href='index.php?id=$h_hoy[0]&borrar=1&profeso=$profeso&n_dia=$n_dia&hora=$hora' style='margin-top:5px;color:brown;'><i class='icon icon-trash' title='Borrar'> </i> </a>";				
+			echo "<a href='index.php?id=$h_hoy[0]&borrar=1&profeso=$profeso&n_dia=$n_dia&hora=$hora' style='margin-top:5px;color:brown;'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();'> </i> </a>";				
 			}
 			echo "</td></tr>";
 	}

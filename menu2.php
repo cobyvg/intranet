@@ -310,10 +310,23 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
           </ul>
         </div>
         
+        <li>
+          <a data-toggle="collapse" data-target="#prueba" style="cursor:pointer">
+            <i class="pull-right icon-chevron-down"></i>
+            Registro de Examen/Actividad
+          </a>
+        </li>
+        <div id="prueba" class="accordion-body collapse">
+          <ul class="nav nav-list">
+        <li><a href="admin/calendario/diario/index.php">Nuevo Examen/Actividad</a></li>
+        <li><a href="admin/calendario/diario/index_cal.php">Calendario por Grupos</a></li>
+          </ul>
+        </div>
+        
         <? if (stristr ( $carg, '1' ) == TRUE) { ?>
         <li><a href="admin/tutoria/">Página del tutor</a></li>
         <? } ?>
-        <li><a href="admin/calendario/diario/index.php">Registrar Examen o Actividad</a></li>
+
         <li><a href="admin/ausencias/index.php">Registrar ausencia</a></li>
         <? if (stristr ( $carg, '1' ) == TRUE and stristr ( $carg, '4' ) == FALSE) { ?>
         <li><a href="admin/rd/index_admin.php">Actas de los departamentos</a></li>

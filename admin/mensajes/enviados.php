@@ -11,6 +11,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 $profesor = $_SESSION['profi'];
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
   <?php
 include("../../menu.php");
 include("menu.php");
@@ -83,7 +94,7 @@ if ($numero > 0)
 	 ?>
      
      </td> 
-     <TD><a href="enviados.php?borrar=1&id_borrar=<? echo $row->id;?>"><i class="icon-trash"></i></a></td>
+     <TD><a href="enviados.php?borrar=1&id_borrar=<? echo $row->id;?>"><i class="icon-trash" onClick='return confirmacion();'></i></a></td>
       </tr>
 	<?
 	}

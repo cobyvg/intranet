@@ -14,6 +14,17 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?php
 include ("../../menu.php");
 include ("menu.php");
@@ -187,7 +198,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	}
 	echo "<td>";
 	if (!empty($id0)) {
-		echo "<A HREF='convivencia_jefes.php?id=$id0&borrar=1&hoy=$hoy'><i title='Borrar' class='icon icon-trash'> </i> </A>";
+		echo "<A HREF='convivencia_jefes.php?id=$id0&borrar=1&hoy=$hoy'><i title='Borrar' class='icon icon-trash' onClick='return confirmacion();'> </i> </A>";
 	}
 	echo "</td><td>";
 	$foto="";

@@ -52,6 +52,3 @@ if (isset($_POST['id']) and strlen($_POST['id'])>0) {
 
 mysql_close($conn);
 ?>
-gust")
-	{$monthlong = "Agosto";}
-    elseif ($monthlo

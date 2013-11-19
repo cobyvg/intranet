@@ -12,7 +12,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $pr = $_SESSION['profi'];
 $cargo = $_SESSION['cargo'];
 ?>
-
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar el registro de la base de datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
   <?php
  include("../../menu.php");
  include("menu.php"); 
@@ -85,7 +95,7 @@ if ($activos > 0)
 	if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
 			echo "<TD> 
 			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i></a>
-			&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> 			
+			&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'  onClick='return confirmacion();'> </i> </a> 			
 			</td>";		
 		}
 		echo "</tr>";	
@@ -104,7 +114,7 @@ if ($activos > 0)
 		{} else{ 
 			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i></a>";	
 			if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-				echo "&nbsp;&nbsp;&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'> </i> </a> 	";
+				echo "&nbsp;&nbsp;&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
 			}
 		}	  
 	  if (mysql_num_rows($si) > 0 and $count < 1)

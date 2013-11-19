@@ -9,6 +9,17 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?php
 //Conecxión con la base de datos.
  
@@ -63,7 +74,7 @@ do
 		  <td>$row[8]</td>";
 		   if(stristr($_SESSION['cargo'],'1') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['depto'] == $row[0]))
 {
-	echo "<td><a href='editexto.php?id=$row[6]'><i class='icon icon-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;'><i class='icon icon-trash' title='Borrar'> </i></a></td>";
+	echo "<td><a href='editexto.php?id=$row[6]'><i class='icon icon-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();'> </i></a></td>";
 			 }
 		  
 		  echo "</tr>";

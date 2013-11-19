@@ -9,7 +9,17 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
-
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?php
 include("../../menu.php");
 include("menu.php");
@@ -86,7 +96,7 @@ $fecha=$dat[8];
 $id=$dat[9];
 $departamento=$dat[10];
 ?>
-<tr><td><? echo $familia;?></td><td><? echo $clase;?></td><td><? echo $lugar;?></td><td><? echo $descripcion;?></td><td><? echo $marca;?></td><td><? echo $modelo;?></td><td><? echo $serie;?></td><td><? echo $unidades;?></td><td><? echo $departamento;?></td><td><a href="introducir.php?id=<? echo $id;?>&eliminar=1"><i class="icon icon-trash" title="Borrar"> </i> </a></td><td><a href="editar.php?id=<? echo $id;?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Modificar"> </i> </a></td></tr>
+<tr><td><? echo $familia;?></td><td><? echo $clase;?></td><td><? echo $lugar;?></td><td><? echo $descripcion;?></td><td><? echo $marca;?></td><td><? echo $modelo;?></td><td><? echo $serie;?></td><td><? echo $unidades;?></td><td><? echo $departamento;?></td><td><a href="introducir.php?id=<? echo $id;?>&eliminar=1"><i class="icon icon-trash" title="Borrar" onClick='return confirmacion();'> </i> </a></td><td><a href="editar.php?id=<? echo $id;?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Modificar"> </i> </a></td></tr>
 <?
 }
 	echo '</table>';

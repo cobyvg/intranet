@@ -9,6 +9,17 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?
 include("../../menu.php");
 include("../menu.php");
@@ -149,7 +160,7 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
         }
 	echo "<td align='center'><a href='index2.php?claveal=$claveal&mes=$mes&inf=1'> <i class='icon icon-pencil'> </i></a>";
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
-		echo "<a href='index2.php?claveal=$claveal&mes=$mes&del=1'> <i class='icon icon-trash'> </i></a>";
+		echo "<a href='index2.php?claveal=$claveal&mes=$mes&del=1'> <i class='icon icon-trash' onClick='return confirmacion();'> </i></a>";
 }
 
 	echo "</td>";

@@ -25,6 +25,17 @@ if(isset($_GET['eliminar'])) {
 	}
 }
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?php
 include("../../../menu.php");
 ?>
@@ -77,7 +88,7 @@ include("../../../menu.php");
 	    		echo "  <td>$fechoria[3]</td>\n";
 	    		echo "  <td nowrap>\n";
 	    		echo "    <a href=\"regla.php?id=$id\"><i class=\"icon-edit icon-large\"></i></a>\n";
-	    		echo "    <a href=\"index.php?eliminar=$id\"><i class=\"icon-trash icon-large\"></i></a>\n";
+	    		echo "    <a href=\"index.php?eliminar=$id\"><i class=\"icon-trash icon-large\" onClick='return confirmacion();'></i></a>\n";
 	    		echo "  </td>\n";
 	    		echo "</tr>\n";
 	    	}

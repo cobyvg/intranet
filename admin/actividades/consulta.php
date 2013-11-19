@@ -10,6 +10,17 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?
   include("../../menu.php"); 
 include("menu.php"); 
@@ -160,7 +171,7 @@ $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
     //echo $_SESSION['depto'] ."== $datos[4]";
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE){
 				echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><i class="icon icon-pencil"> </i> </a>';	
-			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1"><i class="icon icon-trash"> </i> </a>';
+			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1"><i class="icon icon-trash" onClick="return confirmacion();"> </i> </a>';
 }
 elseif ($_SESSION['depto'] == $datos[4]){	 
 			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><i class="icon icon-pencil"> </i>  </a>';	

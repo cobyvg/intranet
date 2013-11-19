@@ -10,6 +10,17 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
  <?
  include("../../menu.php");
   include("menu.php");
@@ -96,7 +107,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		<td >$caducada</td>
 		<td  nowrap>$comentarios1 $comentarios</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' style='margin-top:5px;color:brown;'><i class='icon icon-trash' title='Borrar'> </i></a></div>";}	
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' style='margin-top:5px;color:brown;'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();'> </i></a></div>";}	
 		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='icon icon-search' title='Detalles'> </i></A></td>";
 		echo "</tr>";
         }

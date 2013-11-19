@@ -9,6 +9,17 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?php
 include("../../menu.php");
 include("menu.php");
@@ -245,7 +256,7 @@ do{
   $fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 echo "<tr><td>$fecha3</td><td>$row[3]</td><td>$row[4]</a></td><td>
 <a href='tutor.php?id=$row[6]'><i class='icon icon-search' title='Detalles'> </i> </a>
-<a href='tutor.php?id=$row[6]&eliminar=1'><i class='icon icon-trash' title='Borrar'> </i></a></td></tr>";
+<a href='tutor.php?id=$row[6]&eliminar=1'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();'> </i></a></td></tr>";
 }while($row = mysql_fetch_array($result));
 echo "</tbody></table>";
 }

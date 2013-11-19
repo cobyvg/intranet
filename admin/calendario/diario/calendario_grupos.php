@@ -57,24 +57,14 @@ if ($today > $numdays) { $today--; }
 
 // Estructura de la Tabla
 ?>
-<br />
-<div class="row-fluid">
-<div class=span6>
-<legend class='text-warning' align='center'><br />Instrucciones de uso</legend>
-<p class="help-block text-info" style="text-align:justify">
-A través de esta página puedes registrar las pruebas, controles o actividades de distinto tipo para los alumnos de los Grupos a los que das clase, o bien puedes utilizar esta página para registrar entradas pèrsonales como si fuera un calendario. <em>Los registros que estén relacionados con tus Grupos y Asignaturas aparecerán en el Calendario de la Intranet, pero también en la página personal del alumno en la Página del Centro</em>, de tal modo que Padres y Alumnos puedan ver en todo momento las fechas de las pruebas; <em>si la actividad no contiene Grupo alguno aparecerá sólo en el Calendario de la Intranet a modo de recordatorio</em>. La fecha y el Tíulo de la actividad son los únicos campos obligatorios. Puedes editar, ver y borrar los registros mediante los iconos de la tabla que presenta todas tus actividades.
-</p>
-</div>
-<div class=span6>
+
     <?
-	echo "<legend class='text-warning' align='center'><br />$daylong $today, $year</legend>";	
-	
 	echo "<table class='table table-bordered table-striped' style='width:100%;margin:auto'><tr><th>
 <div align='center'>
-	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month'>
+	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month&curso=$curso&curso=$curso'>
 <i class='icon icon-arrow-left icon-2x' name='calb2' style='margin-right:20px;'> </i> </a>
 <h3 style='display:inline'>$year</h3>
-<a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month'>
+<a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month&curso=$curso'>
 <i class='icon icon-arrow-right icon-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table><br />";
 
 echo "<table class='table table-bordered' style='width:100%;' align='center'>
@@ -84,25 +74,25 @@ echo "<table class='table table-bordered' style='width:100%;' align='center'>
 	  	
 	  	if ($num_mes==$month) {
 	  		echo "<th style='background-color:#08c'> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes' style='color:#efefef'>".$nombre_mes."</a> </th>";
+		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes&curso=$curso' style='color:#efefef'>".$nombre_mes."</a> </th>";
 	  	}
 	  	else{
 	  		echo "<th> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes'>".$nombre_mes."</a> </th>";
+		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes&curso=$curso'>".$nombre_mes."</a> </th>";
 	  	}
 	  if ($num_mes=='6') {
 	  		echo "</tr><tr>";
 	  	}
 	  }
 	  echo "</tr></table>";
-	  
+
 $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
 
 //Nombre del Mes
-echo "<table class='table table-bordered table-striped' style='' align='center'><thead>";
+echo "<table class='table table-bordered table-striped' align='center'><thead>";
 echo "<th colspan=\"7\" align=\"center\"><div align='center'>" . $monthlong . 
 "</div></th>";
 echo "</thead><tr>";
@@ -129,24 +119,24 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   $result_found = 0;
   if ($zz == $today) { 
     echo "<td onClick=\"window.location='" 
-	.$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='background-color:#08c;color:#fff;cursor:pointer;'>$zz</td>";
+	.$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month&curso=$curso';\" style='background-color:#08c;color:#fff;cursor:pointer;'>$zz</td>";
     $result_found = 1;
   }
   if ($result_found != 1) {//Buscar actividad  y marcarla.
     $sql_currentday = "$year-$month-$zz";
-    $eventQuery = "SELECT distinct fecha FROM diario WHERE profesor = '$profe' and fecha = '$sql_currentday';";
+    $eventQuery = "SELECT distinct fecha FROM diario WHERE grupo like '%$curso%' and fecha = '$sql_currentday';";
     //echo $eventQuery;
     $eventExec = mysql_query($eventQuery);
     while($row = mysql_fetch_array($eventExec)) {
       if (mysql_num_rows($eventExec) == 1) {
-echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='background-color:#f89406;color:#fff;cursor:pointer;'>$zz</td>";
+echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month&curso=$curso';\" style='background-color:#f89406;color:#fff;cursor:pointer;'>$zz</td>";
         $result_found = 1;
       }
     }
   }
 
   if ($result_found != 1) {
-    echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='cursor:pointer;'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>";
+    echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month&curso=$curso';\" style='cursor:pointer;'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month&curso=$curso'>$zz</a></td>";
   }
 
   $i++; $result_found = 0;
@@ -161,6 +151,5 @@ if ($create_emptys != 0) {
 
 echo "</tr>";
 echo "</table>";
-echo "</div>";
 ?>
 

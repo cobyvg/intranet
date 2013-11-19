@@ -16,6 +16,17 @@ exit;
 $profesor = $_SESSION['profi'];
 $cargo = $_SESSION['cargo'];
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?php
 include("../../menu.php");
 $datatables_activado = true;
@@ -279,7 +290,7 @@ do{
   $fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 echo "<tr><td>$fecha3</td><td>$row[3]</a></td><td>$row[4]</a></td><td >
 <a href='tutor.php?id=$row[6]'><i class='icon icon-search' title='Detalles'> </i> </a>
-<a href='tutor.php?id=$row[6]&eliminar=1' title='Borrar'><i class='icon icon-trash'> </i></a>
+<a href='tutor.php?id=$row[6]&eliminar=1' title='Borrar'><i class='icon icon-trash' onClick='return confirmacion();'> </i></a>
 </td></tr>";
 }while($row = mysql_fetch_array($result));
 echo "</table>";

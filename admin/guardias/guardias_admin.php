@@ -14,7 +14,17 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
-
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?
 include("../../menu.php");
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
@@ -165,7 +175,7 @@ if ($nu_dia == '3') {$nom_dia = 'Miércoles';}
 if ($nu_dia == '4') {$nom_dia = 'Jueves';}
 if ($nu_dia == '5') {$nom_dia = 'Viernes';}
 $fecha_sp = formatea_fecha($h_hoy[4]);
-echo "<tr><td>$h_hoy[2]</td><td >$fecha_sp</td><td >$nom_dia</td><td >$h_hoy[3]</td><td ><a href='guardias_admin.php?id=$h_hoy[0]&borrar=1&profeso=$profeso' style='margin-top:5px;color:brown;'><i class='icon icon-trash' title='Borrar'> </i> </a>";
+echo "<tr><td>$h_hoy[2]</td><td >$fecha_sp</td><td >$nom_dia</td><td >$h_hoy[3]</td><td ><a href='guardias_admin.php?id=$h_hoy[0]&borrar=1&profeso=$profeso' style='margin-top:5px;color:brown;'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();'> </i> </a>";
 	}
 	echo "</table>";
 }

@@ -13,6 +13,17 @@ if (! (stristr ( $_SESSION ['cargo'], '1' ) == TRUE)) {
 	exit ();
 }
 ?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
 <?
 include ("../menu.php");
 // $datatables_activado = true;
@@ -258,7 +269,7 @@ while ( $carg1 = mysql_fetch_array ( $carg0 ) ) {
 		echo "checked";
 	}
 	?> /></td>
-	<td><a href="cargos.php?borrar=1&dni_profe=<?echo $dni;?>"><i class="icon icon-trash icon-large"></i></a></td>
+	<td><a href="cargos.php?borrar=1&dni_profe=<?echo $dni;?>"><i class="icon icon-trash icon-large" onClick='return confirmacion();'></i></a></td>
 	</tr>
 <?
 	}
