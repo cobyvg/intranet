@@ -90,8 +90,9 @@ $docXML .= "  </DATOS_GENERALES>\n";
 $docXML .= "  <CURSOS>\n";
 
 
-$directorio = opendir("./origen/");
-while ($archivo = readdir($directorio)) {
+$directorio = scandir("./origen/");
+sort($directorio);
+foreach ($directorio as $archivo) {
 	
     if (!is_dir($archivo))
     {
