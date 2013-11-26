@@ -10,7 +10,7 @@ $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
 $dayone = date("w",mktime(1,1,1,$month,1,$year));
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Dom','Lun','Mar','Mie','Jue','Vie','Sab');
+$alldays = array('Do','Lu','Ma','Mi','Ju','Vi','Sa');
 $next_year = $year + 1;
 $last_year = $year - 1;
     if ($daylong == "Sunday")
@@ -73,9 +73,9 @@ A través de esta página puedes registrar las pruebas, controles o actividades de
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month'>
 <i class='icon icon-arrow-left icon-2x' name='calb2' style='margin-right:20px;'> </i> </a>
-<h3 style='display:inline'>$year</h3>
+<h style='display:inline'>$year</h3>
 <a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month'>
-<i class='icon icon-arrow-right icon-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table><br />";
+<i class='icon icon-arrow-right icon-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table>";
 
 echo "<table class='table table-bordered' style='width:100%;' align='center'>
       <tr>";
@@ -133,18 +133,43 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
     $result_found = 1;
   }
   if ($result_found != 1) {//Buscar actividad  y marcarla.
-    $sql_currentday = "$year-$month-$zz";
-    $eventQuery = "SELECT distinct fecha FROM diario WHERE profesor = '$profe' and fecha = '$sql_currentday';";
-    //echo $eventQuery;
-    $eventExec = mysql_query($eventQuery);
-    while($row = mysql_fetch_array($eventExec)) {
-      if (mysql_num_rows($eventExec) == 1) {
-echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='background-color:#f89406;color:#fff;cursor:pointer;'>$zz</td>";
-        $result_found = 1;
-      }
-    }
-  }
+  	
 
+
+    $sql_currentday = "$year-$month-$zz";
+    $eventQuery = "SELECT fecha, profesor FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and (grupo='Sin grupo' ";
+    
+$asig = mysql_query("select distinct grupo from profesores where profesor = '".$_SESSION['profi']."'");
+while ($asign = mysql_fetch_array($asig)) {
+	$eventQuery.=" or grupo like '%$asign[0]%'";
+}
+$eventQuery.=")";
+$n_ex="";
+$n_pr="";
+    //echo $eventQuery."<br>";
+    $eventExec = mysql_query($eventQuery);
+    $colores="";
+    while($row = mysql_fetch_array($eventExec)) {
+    	$n_ex+=1;
+      if (mysql_num_rows($eventExec) > 0) {
+      	if ($row[1]!==$_SESSION['profi']) {
+      		$yo='';
+      	}
+      	else{
+      		$yo+='1';
+      	}
+      	if ($yo>0) {
+      		$colores="background-color:#f89406;color:#fff;";
+      	}
+      	else{
+      		$colores="background-color:#41BB19;color:#fff;";
+      	}
+        //break;
+      }
+  }
+        echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='$colores cursor:pointer;'>$zz</td>";
+        $result_found = 1;
+    }
   if ($result_found != 1) {
     echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='cursor:pointer;'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>";
   }
@@ -161,6 +186,11 @@ if ($create_emptys != 0) {
 
 echo "</tr>";
 echo "</table>";
+?>
+<hr />
+<table><tr><td style="background-color:#f89406;width:15px"></td><td> <small>Exámenes propios</small></td></tr><tr><td style="background-color:#41BB19"></td><td> <small>Exámenes de otros Profesores</small></td></tr></table>
+
+<?
 echo "</div>";
 ?>
 

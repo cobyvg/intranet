@@ -24,8 +24,8 @@ echo "<br /><h3>Faltas de asistencia al Centro</h3><br>";
 		  	if($rowtj[5]=="")
 		$rowtj[5]="0";
 		echo "<h4>Faltas de asistencia al Centro</h4><br />";
-		printf ("<p>Número de faltas sin justificar desde principio de curso: <strong class='text-error'>%s</strong><br />", $rowt[5]);
-		printf ("Número de faltas justificadas desde principio de curso: <strong class='text-success'>%s</strong></p>", $rowtj[5]);
+		printf ("<p>Número de faltas sin justificar desde principio de curso: <strong class='label-warning' style='color:white'>&nbsp;&nbsp;%s&nbsp;&nbsp;</strong><br />", $rowt[5]);
+		printf ("Número de faltas justificadas desde principio de curso: <strong class='label-success' style='color:white'> &nbsp;&nbsp;%s&nbsp;&nbsp;</strong></p>", $rowtj[5]);
         } while($rowt = mysql_fetch_array($resultt) or $rowtj = mysql_fetch_array($resulttj));
         }
   $SQLF = "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = $claveal group by FALUMNOS.APELLIDOS, FALTAS.fecha";
@@ -36,7 +36,7 @@ echo "<br /><h3>Faltas de asistencia al Centro</h3><br>";
 	{
 	$nf = "";
 $numdias=mysql_num_rows($resultf);
-	echo "<br /><h4>Días con faltas de asistencia injustificadas <span  style='display:inline;color:#9d261d'>(".$numdias.")</h4><br />";
+	echo "<br /><h4>Días con faltas de asistencia injustificadas <span class='label-warning' style='display:inline;color:white;'>&nbsp;&nbsp;".$numdias."&nbsp;&nbsp;</h4><br />";
 		echo "<p>";
 					do {
 			$nf = $nf + 1;		

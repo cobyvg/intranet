@@ -33,13 +33,15 @@ if (isset($_GET['Submit'])) {$Submit = $_GET['Submit'];}elseif (isset($_POST['Su
 ?>
 <?
 
-if (isset($iniciofalta) and isset($finfalta)) {
+if (isset($_GET['iniciofalta']) and isset($_GET['finfalta'])) {
+$iniciofalta = $_GET['iniciofalta'];
+$finfalta = $_GET['finfalta'];
 
 	$dir = "./origen/";
-	$fecha0 = explode("/",$iniciofalta);
-	$fecha10 = explode("/",$finfalta);
+	$fecha0 = explode("/",$_GET['iniciofalta']);
+	$fecha10 = explode("/",$_GET['finfalta']);
 // Refrescamos la tabla de los tramos
-mysql_query("truncate table tramos");
+//mysql_query("truncate table tramos");
 
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir($dir)) {
@@ -162,4 +164,4 @@ Selecciona las fechas de comienzo y final del registro de faltas en el formulari
 			</div></div><br />	
 	<?
 }
-?>
+?>ÿ

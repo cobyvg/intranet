@@ -78,7 +78,7 @@ include("../../faltas/menu.php");
    <label>
   Mes:&nbsp;
   <SELECT name='mes' class="input-mini">
-    <OPTION><? echo date(m); ?></OPTION>
+    <OPTION></OPTION>
     <?
 	for($i=1;$i<13;$i++){
 	echo "<OPTION>$i</OPTION>";	
@@ -253,3 +253,4 @@ printf ("<OPTION></OPTION>");
 	</script>
 </body>
 </html>
+                     

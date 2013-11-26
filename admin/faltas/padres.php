@@ -47,7 +47,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(90);
-		$this->Cell(80,4,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
+		$this->Cell(80,4,'CONSEJERÍA DE EDUCACIÓN',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(90);
 		$this->Cell(80,4,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -192,14 +192,12 @@ $justi2
 $justi3
 ";	
 	}
-$cuerpo3 = "Rogamos que se ponga en contacto, a la mayor brevedad, con el tutor o tutora del grupo. El tutor o tutora puede atenderle los lunes de 17 a 18 horas. Aconsejamos que, previamente, concierte una cita con el o ella a través de su hijo/a o llamando por teléfono a la Conserjería del Instituto. 
-Asimismo, le recordamos que: 
- - Si su hijo o hija es menor de dieciséis años, tenemos la obligación de enviar el informe de faltas a la Delegación de Asuntos Sociales del Ayuntamiento para que tome las medidas legales oportunas.
- - En E.S.O., si el número de faltas de asistencia injustificadas es muy elevado, se podría no firmar la escolarización correspondiente a este curso.
- - En cualquier curso y, en especial, en Bachillerato y Ciclos Formativos, el alumno con un número elevado de faltas de asistencia puede perder el derecho a la evaluación continua.
- 
+	$cuerpo3 = "Ante las reiteradas faltas de asistencia a clase de su hijo/a pongo en su conocimiento que esta situación atenta contra los derechos del niño/a a una escolarización obligatoria y continuada.
+Por tanto está incumpliendo las obligaciones recogidas en los artículos 154 y 269, 1 y 2 del Código Civil por el que los padres o tutores legales están obligados a cumplir los deberes legales de asistencia inherentes a la patria potestad, tutela, guarda o acogimiento familiar y en su caso sería de aplización lo dispuesto en el artículo 226 del Código Penal.
+De no tener respuesta positiva, justificando estas ausencias e incorporándose su hijo/a a las clases correspondientes, nos veremos en la obligación de poner esta situación en conocimiento del organismo competente.
+
 Atentamente le saluda la Dirección del Centro.
-";
+	";
 
 #### Cabecera con dirección
 	$MiPDF->SetFont('Times','',10);

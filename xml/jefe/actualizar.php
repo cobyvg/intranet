@@ -84,7 +84,7 @@ $result2 = mysql_query($SQL2);
 	$userpass = str_replace("ö","o",$userpass);
 	
 	$usuario  = $userpass;
-	// $passw = $userpass . preg_replace('/([ ])/e', 'rand(0,9)', '   ');
+	$passw = $userpass . preg_replace('/([ ])/e', 'rand(0,9)', '   ');
 	$unidad = $row1[3]."-".$row1[4] ;
 
 $repetidos = mysql_query("select usuario from usuarioalumno where usuario like '$usuario%'");

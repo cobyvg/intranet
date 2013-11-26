@@ -48,18 +48,30 @@ else {
     
 
 // Consulta de Expulsiones.
-  $exp = mysql_query ("select distinct expulsion, inicio, fin, asunto from Fechoria where Fechoria.claveal = '$claveal' and expulsion > '0' and Fechoria.fecha >= '$inicio_curso' order by Fechoria.fecha");
+  $exp = mysql_query ("select expulsion, inicio, fin, asunto, aula_conv, inicio_aula, fin_aula from Fechoria where Fechoria.claveal = '$claveal' and (expulsion > '0' or aula_conv>0) and Fechoria.fecha >= '$inicio_curso' order by Fechoria.fecha");
 if (mysql_num_rows($exp) > "0") {
-echo "h4>EXPULSIONES DEL CENTRO</h4><br />";
+
+echo "<h4>Expulsiones del Alumno</h4><br />";
 		echo "<table class='table table-striped' style=''>
-		<TR><th nowrap>Inicio</th>
+		<TR><th></th>
+		<th nowrap>Inicio</th>
 		<th>Final</th><th 
 		 nowrapth>Asunto</th></tr>";
 while($row = mysql_fetch_array($exp)) {
+		if ($row[0]>1) {
 	$f_inicio = cambia_fecha($row[1]);
 	$f_final = cambia_fecha($row[2]);
-		printf ("<tr><td>%s</td><td>%s</td>
-		<td >%s</td></tr>",  $f_inicio, $f_final, $row[3]);
+		echo "<tr><td>Expulsión del Centro</td><td>$f_inicio</td><td>$f_final</td>
+		<td >$row[3]</td></tr>";
+	}
+	else{
+	$f_inicio0 = cambia_fecha($row[5]);
+	$f_final0 = cambia_fecha($row[6]);
+		echo "<tr><td>Aula de Convivencia</td><td>$f_inicio0</td><td>$f_final0</td>
+		<td >$row[3]</td></tr>";
+
+	}
+
         } 
         echo "</table>";	
 	}

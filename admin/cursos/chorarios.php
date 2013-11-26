@@ -21,13 +21,13 @@ $profesor = $_SESSION['profi'];
 </div>
 </div>
 <div class="row-fluid">
-<div class="span2"></div>
-<div class="span4">
+<div class="span3"></div>
+<div class="span3">
 <? if ($mod_horario) {?>
 
-<FORM action="horarios.php" method="POST" class="well well-large form-inline">
+<FORM action="horarios.php" method="POST" class="well well-large">
  <legend> Horario de un Grupo</legend><br />
-  <select name="curso">
+  <select name="curso" class="span12">
     <?
   $tipo = "select distinct a_grupo from horw where a_grupo not like 'G%' order by a_grupo";
   $tipo1 = mysql_query($tipo);
@@ -37,14 +37,15 @@ echo "<option>".$tipo2[0]."</option>";
         }				
 					?>
   </select>
-  <button class="btn btn-primary" type="submit" name="submit1" value="Enviar datos">Enviar datos</button>
+   <hr />
+  <button class="btn btn-primary btn-block" type="submit" name="submit1" value="Enviar datos">Enviar datos</button>
 </FORM>
 
 </div>
-<div class="span4">
-<FORM action="profes.php" method="POST" name="Cursos" class="well well-large form-inline">
+<div class="span3">
+<FORM action="profes.php" method="POST" name="Cursos" class="well well-large">
 <legend>Horario de un Profesor</legend><br />
-  <SELECT  name=profeso>
+  <SELECT  name=profeso class="span12">
     <option></option>
     <?
   $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
@@ -59,17 +60,18 @@ echo "<option>".$tipo2[0]."</option>";
         }
 	?>
   </select>
-  <button class="btn btn-primary" type="submit" name="Listar" value="Enviar datos">Consultar horario</button>
+  <hr />
+  <button class="btn btn-primary btn-block" type="submit" name="Listar" value="Enviar datos">Consultar horario</button>
 </FORM>
 </div>
 <div class="span2"></div>
 </div>
 <div class="row-fluid">
-<div class="span2"></div>
-<div class="span4">
-<form action="hor_aulas.php" method="post" class="well well-large form-inline">
+<div class="span3"></div>
+<div class="span3">
+<form action="hor_aulas.php" method="post" class="well well-large">
  <legend> Horario de un Aula</legend><br />
-  <SELECT  name=aula onChange="submit()">
+  <SELECT  name=aula onChange="submit()" class="span12">
     <option></option>
     <?
   $profe = mysql_query(" SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY n_aula ASC");
@@ -84,22 +86,24 @@ echo "<option>".$tipo2[0]."</option>";
         }
 	?>
   </select>
-  <button class="btn btn-primary" type="submit" name="Ver horarios" value="Ver Horarios">Ver Horarios</button>
+   <hr />
+  <button class="btn btn-primary btn-block btn-block" type="submit" name="Ver horarios" value="Ver Horarios">Ver Horarios</button>
 </FORM>
 
 </div>
-<div class="span4">
-<form action="aulas_libres.php" method="post" class="well well-large form-inline">
+<div class="span3">
+<form action="aulas_libres.php" method="post" class="well well-large">
   <legend>Aulas libres por día
   de la Semana</legend><br />
-  <select name="n_dia">
+  <select name="n_dia" class="span12">
     <option>Lunes</option>
     <option>Martes</option>
     <option>Miércoles</option>
     <option>Jueves</option>
     <option>Viernes</option>
   </select>
-  <button class="btn btn-primary" type="submit" name="Aulas" value="Ver Aulas libres">Ver Aulas libres</button>
+   <hr />
+  <button class="btn btn-primary btn-block" type="submit" name="Aulas" value="Ver Aulas libres">Ver Aulas libres</button>
 </FORM>
 </div>
 <div class="span2"></div>
