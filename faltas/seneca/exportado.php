@@ -29,10 +29,3 @@ $xml.= "
           </FALTA_ASISTENCIA>";
 }
 ?>
-
-ero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{$numero="";}
-// PDF
-$fecha2 = date('Y-m-d');
-$hoy = formatea_fecha($fecha);
-include("../../pdf/fpdf.php");
-define('FPDF_
