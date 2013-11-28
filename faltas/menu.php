@@ -100,17 +100,10 @@ $festivos='actualizar';
 	  if(stristr($_SESSION['cargo'],'1') == TRUE)
 	  {
 	  ?>
-	   <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Séneca
-        <b class="caret"></b>
-        </a>
-	  <ul class="dropdown-menu">
+
 	  <li><a href="http://<? echo $dominio; ?>/intranet/faltas/seneca/">
       Subir Faltas a S&eacute;neca</a></li> 
-      <li><a href="http://<? echo $dominio; ?>/intranet/faltas/seneca/subir.php">
-      Actualizar archivos de faltas desde S&eacute;neca</a></li>
-      </ul>
-      </li>
+
 	  <? 
 	  }
 	  ?> 
