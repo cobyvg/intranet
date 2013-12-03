@@ -33,18 +33,24 @@ tinymce.init({
         selector: "textarea",
         language: "es",
         plugins: [
-                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
                 "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                "table contextmenu directionality template textcolor paste fullpage textcolor"
+                "table contextmenu directionality template textcolor paste fullpage textcolor responsivefilemanager"
         ],
 
-        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | spellchecker | styleselect",
+        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | styleselect",
         toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
+        
+        relative_urls: false,
+        filemanager_title:"Administrador de archivos",
+        external_filemanager_path:"../../filemanager/",
+        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},
 
         menubar: false
 });
 </script>
 <!-- /TinyMCE -->
+
 <script>
 function confirmacion() {
 	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
