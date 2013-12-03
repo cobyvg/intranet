@@ -45,7 +45,6 @@ $pr = $_SESSION['profi'];
 	        toolbar2: "outdent indent blockquote | link unlink image media",
 	        
 	        relative_urls: false,
-	        browser_spellcheck : true ,
 	        filemanager_title:"Administrador de archivos",
 	        external_filemanager_path:"../../filemanager/",
 	        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},

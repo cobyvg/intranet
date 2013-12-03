@@ -20,7 +20,7 @@ mb_internal_encoding('UTF-8');
 //    |   |   |   |   |- plugin.min.js
 
 include('../config.php');
-$dir_prof = $_SESSION['profi'];
+$dir_prof = $_SESSION['ide'];
 
 $base_url="http://$dominio/intranet";  // base url (only domain) of site (without final /). If you prefer relative urls leave empty
 $upload_dir = "/varios/$dir_prof/"; // path from base_url to base of upload folder (with start and final /)
@@ -29,9 +29,9 @@ $current_path = "../varios/$dir_prof/"; // relative path from filemanager folder
 //thumbs folder can't put inside upload folder
 $thumbs_base_path = "../varios/thumbs/"; // relative path from filemanager folder to thumbs folder (with final /)
 
-//------------------------------------------------------------------------------
-// YOU CAN COPY AND CHANGE THESE VARIABLES IN FOLDERS config.php FILES
-//------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+// YOU CAN COPY AND CHANGE THESE VARIABLES INTO FOLDERS config.php FILES TO CUSTOMIZE EACH FOLDER OPTIONS
+//--------------------------------------------------------------------------------------------------------
 
 $MaxSizeUpload=100; //Mb
 
@@ -40,6 +40,7 @@ $icon_theme="ico"; //ico or ico_dark you can cusatomize just putting a folder in
 $show_folder_size=true; //Show or not show folder size in list view feature in filemanager (is possible, if there is a large folder, to greatly increase the calculations)
 $show_sorting_bar=true; //Show or not show sorting feature in filemanager
 $loading_bar=true; //Show or not show loading bar
+$transliteration=false; //active or deactive the transliteration (mean convert all strange characters in A..Za..z0..9 characters)
 
 //*******************************************
 //Images limit and resizing configuration

@@ -77,3 +77,7 @@ h3{
 	color:#fff;
 	
 }
+
+.alert .modal p a {
+	color: #08c;
+}
