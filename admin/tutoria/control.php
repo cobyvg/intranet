@@ -125,8 +125,8 @@ $alumno = $alumno0[1].", ".$alumno0[0];
 if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioaula) >= strtotime($hoy)){
 	?>
     <div class="well">
-<h3>Tarea pendiente de Tutoría</h3>
-<br /><div align="left"><div class="alert alert-danger alert-block fade in" style="max-width:600px;">
+<p class="lead"><i class="icon icon-warning-sign"> </i> Tarea pendiente de Tutoría</p>
+<hr /><div align="left"><div class="alert alert-danger alert-block fade in" style="max-width:600px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El siguiente alumno ha sido expulsado al <strong>Aula de Convivencia</strong> entre los días <strong><? echo $inicioaula;?></strong> y <strong><? echo $finaula;?></strong>. Ponte en contacto con Jefatura de Estudios si necesitas detalles.
 <br /><br /><pre> <strong><? echo $alumno;?></strong>&nbsp;&nbsp;<A HREF='http://<? echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<? echo $claveal;?>&id=<? echo $id;?>'><i class="icon icon-search" title="ver detalles"> </i></A> </pre>
@@ -155,8 +155,8 @@ if($recibido == 0)
 if($expulsionaula == 1 and $expulsion == "0")
 {?> 
 <div class="well">
-<h3>Tarea pendiente de Tutoría</h3>
-<br  />
+<p class="lead"><i class="icon icon-warning-sign"> </i> Tarea pendiente de Tutoría</p>
+<hr />
 <div align="left"><div class="alert alert-warning alert-block fade in" style="max-width:600px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El siguiente alumno ha sido <strong>expulsado del Aula</strong> y está pendiente de la Amonestación escrita del Tutor.<strong> Debes imprimir una copia de la carta, firmarla y entregarla en la Jefatura de Estudios</strong>.
@@ -174,10 +174,10 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 	//echo "$id<br>";
 //Amonestación Escrita	
 	?>
-<div class="well">
-<h3>Tarea pendiente de Tutoría</h3>
-<br /><div align="left"><div class="alert alert-warning alert-block fade in" style="max-width:600px;">
+<div class="well alert alert-warning alert-block fade in" style="max-width:600px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
+<p class="lead"><i class="icon icon-warning-sign"> </i> Tarea pendiente de Tutoría</p>
+<hr /><div align="left">
 El siguiente alumno está pendiente de la <strong>Amonestación escrita</strong> del Tutor. <strong>Debes imprimir una copia de la carta, firmarla y entregarla en la Jefatura de Estudios</strong>.
 <br /><br /><pre> <strong><? echo $alumno;?></strong>&nbsp;&nbsp;<A HREF='http://<? echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<? echo $claveal;?>&id=<? echo $id;?>'><i class="icon icon-search" title="ver detalles"> </i></A> </pre>
 <br />
@@ -185,7 +185,7 @@ El siguiente alumno está pendiente de la <strong>Amonestación escrita</strong> d
 <input name="id" type="hidden" value="<? echo $id; ?>" />
 <input name="amonestacion" type="submit" value="Imprimir Amonestación escrita" class="btn btn-primary" />
 </form>
-</div></div> </div>
+</div></div>
 <? }?>
 <? 
 }

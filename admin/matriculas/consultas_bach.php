@@ -104,16 +104,16 @@ INDEX (  `id_matriculas` )
 	while ($cam = mysql_fetch_array($camb)) {
 		$id_cambios = $cam[0];
 		if ($curso == "1BACH") {
-			$c_clave = mysql_query("select * fom alma, matriculas_bach where alma.claveal = matriculas_bach.claveal and id = '$id_cambios'");
+			$c_clave = mysql_query("select * from alma_primera, matriculas_bach where alma_primera.claveal = matriculas_bach.claveal and id = '$id_cambios'");
 			if(mysql_num_rows($c_clave)>0){
-			$alma="alma";
+			$alma="alma_primera";
 			}
 			else{
 			$alma="alma_secundaria";
 			}
 		}
 		else{
-			$alma="alma";
+			$alma="alma_primera";
 		}
 		$contr = mysql_query("select matriculas_bach.apellidos, $alma.apellidos, matriculas_bach.nombre, $alma.nombre, matriculas_bach.domicilio, $alma.domicilio, matriculas_bach.dni, $alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, $alma.dnitutor, matriculas_bach.telefono1, $alma.telefono, matriculas_bach.telefono2, $alma.telefonourgencia, $alma.claveal from matriculas_bach, $alma where $alma.claveal=matriculas_bach.claveal and id = '$id_cambios'");
 		//$col_datos = array()

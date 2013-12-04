@@ -101,10 +101,11 @@ INDEX (  `id_matriculas` )
 		echo "<div class='well well-large' style='width:520px;margin:auto;'>";
 	while ($cam = mysql_fetch_array($camb)) {
 		$id_cambios = $cam[0];
-		if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
+		if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma_primera";}
 	$contr = mysql_query("select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia, $alma.claveal from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id_cambios'");
 	//$col_datos = array()
 	$control = mysql_fetch_array($contr);
+	if (strlen($control[16])>0) {	
 	echo "<p style='color:#08c'>$control[16]: $control[0], $control[2]</p>";
 for ($i = 0; $i < 18; $i++) {
 	if ($i%2) {
@@ -112,13 +113,14 @@ for ($i = 0; $i < 18; $i++) {
 	elseif ($i=="17") {}
 	else{
 		if ($control[$i]==$control[$i-1]) {}else{		
-						echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
+			echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
 					}
 	}
 	}
 }
 		echo "<hr>";
 
+}
 }
 echo "</div>";
 	mysql_query("drop table matriculas_temp");

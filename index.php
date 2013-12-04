@@ -251,12 +251,20 @@ if (!(is_writable('config.php'))) {
 <?
 }
 	?>    
-<form action="index.php" method="post" align="left" class="form-signin" id = "form-signin ">
+<form action="index.php" method="post" align="left" class="form-signin" id = "form-signin">
 
-<label for="idea"><h5>Usuario IdEA</h5></label><input type="text" name="idea" maxlength="12" class="input-block-level" style="font-size:16px;" />
-<label for="clave"><h5>Contraseña</h5></label><input type="password" name="clave" class="input-block-level"  />
-<br /><br />
-<button type="submit" name="submit" value="Entrar" class="btn btn-large btn-primary" style="width:100%;"><i class="icon icon-signin icon-white icon-large"></i> &nbsp;Entrar</button>
+<div class="input-prepend" style="width:90%">
+    <span class="add-on"><i class="icon icon-user">&nbsp;</i></span>
+    <input type="text" placeholder="Usuario" name="idea" class="span12">
+</div>
+<br />
+<div class="input-prepend" style="width:90%">
+    <span class="add-on"><i class="icon icon-key"></i></span>
+    <input type="password" placeholder="Clave" name="clave" class="span12">
+</div>
+<br />
+<br />
+<button type="submit" name="submit" value="Entrar" class="btn btn-block btn-primary"><i class="icon icon-signin icon-white icon-large"></i> &nbsp;Entrar</button>
 </form>
   
 <a data-toggle="modal" href="#ayuda">

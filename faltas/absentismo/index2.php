@@ -9,7 +9,25 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
-<script>
+<!DOCTYPE html>  
+<html lang="es">  
+  <head>  
+    <meta charset="iso-8859-1">  
+    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
+    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+      
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
+    <script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>   
+    <script>
 function confirmacion() {
 	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
 	if (answer){
@@ -19,11 +37,18 @@ return true;
 return false;
 	}
 }
-</script>
-<?
-include("../../menu.php");
-include("../menu.php");
+</script>              
+</head>
 
+<body>
+
+<div class="no_imprimir">
+<?
+include("../../menu_solo.php");
+include("../menu.php");
+?>
+</div>
+<?
 $result = mysql_query("SHOW COLUMNS FROM absentismo");
 while ($row=mysql_fetch_array($result)) {
 	$n_ss.=$row[0]." ";
@@ -138,7 +163,7 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
         <th align='center'>MES</th><th align='center'>Nº FALTAS</th>";
 
         if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
-        	echo "<th>Jef.</th><th>Orienta.</th><th>Tut.</th><th>S. Soc.</th><th></th>";
+        	echo "<th>Jef.</th><th>Orienta.</th><th>Tut.</th><th>S. Soc.</th><th class='no_imprimir'></th>";
         }
 		echo "</tr>";
  while  ($row0 = mysql_fetch_array($result0)){
@@ -158,7 +183,7 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
         if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
 	echo "<td><div class='control-group warning'><div class='controls'><input type='checkbox' disabled $chj></td><td><input type='checkbox' disabled $cho></td><td><input type='checkbox' disabled $cht></td><td><input type='checkbox' disabled $chs></div></div></td>";
         }
-	echo "<td align='center'><a href='index2.php?claveal=$claveal&mes=$mes&inf=1'> <i class='icon icon-pencil'> </i></a>";
+	echo "<td align='center' class='no_imprimir'><a href='index2.php?claveal=$claveal&mes=$mes&inf=1'> <i class='icon icon-pencil'> </i></a>";
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
 		echo "<a href='index2.php?claveal=$claveal&mes=$mes&del=1'> <i class='icon icon-trash' onClick='return confirmacion();'> </i></a>";
 }
@@ -168,7 +193,7 @@ if (strstr($_SESSION['cargo'],'1')==TRUE) {
 	echo "</tr>";
 	}
 	echo "</table>";
-	echo "<br /><input type='button' value='Imprimir todos' name='boton2' class='btn btn-primary' onclick='window.location=\"imprimir.php?mes=".$mes."\"' /></center>";   
+	echo "<div class='no_imprimir'><br /><input type='button' value='Imprimir todos' name='boton2' class='btn btn-primary' onclick='window.location=\"imprimir.php?mes=".$mes."\"' /></div></center>";   
 	}
 else
 {

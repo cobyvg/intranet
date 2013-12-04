@@ -90,19 +90,24 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		$rownumero= mysql_num_rows($numero);
 		$rowcurso = $nivel."-".$grupo;
         $rowalumno = $nombre."&nbsp;".$apellidos;
-					$bgcolor="style='background-color:white;'";
+				$bgcolor="style='background-color:white;'";
 				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="style='background-color:#CCFFCC;'";}
 				if($expulsionaula == "1"){$bgcolor="style='background-color:#FF9900;'";}
 				if($aula_conv > 0){$bgcolor="style='background-color:#CCCCFF;'";}	
 				if($expulsion > 0){$bgcolor="style='background-color:#FFFF99;'";}		
-				if(strlen($row[13]) > 0 or strlen($row[14]) > 0 ){$comentarios="<i class='icon icon-comment' title='Comentarios'> </i>";}else{$comentarios="";}
-				if($recibido == '1'){$comentarios1="<i class='icon icon-ok' title='recibido'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='icon icon-warning-sign' title='No recibido'> </i>";}else{$comentarios1="";}
+				if($recibido == '1'){
+					$comentarios1="<i class='icon icon-ok' title='recibido'> </i>";
+				}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){
+					$comentarios1="<i class='icon icon-warning-sign' title='No recibido'> </i>";
+				}else{
+					$comentarios1="";
+				}
 		echo "<tr>
 		<td >$rowcurso</td>
 		<td >$fecha</td>
 		<td >$asunto</td>
 		<td ><span  style='font-size:0.9em'>$informa</span></td>
-		<td >$grave</td>
+		<td $bgcolor>$grave</td>
 		<td ><center>$rownumero</center></td>
 		<td >$caducada</td>
 		<td  nowrap>$comentarios1 $comentarios</td>

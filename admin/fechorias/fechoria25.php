@@ -32,6 +32,22 @@ include ("menu.php");
 <div align="center">
  <?
 $notas = $_POST['notas']; $grave = $_POST['grave'];$nombre = $_POST['nombre']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida']; $expulsionaula = $_POST['expulsionaula']; $id = $_POST['id']; $claveal = $_POST['claveal'];
+
+$tr0 = explode ( " --> ", $nombre );
+$claveal0 = $tr0[1];
+$dia0 = explode ( "-", $fecha );
+$fecha3 = "$dia0[2]-$dia0[1]-$dia0[0]";
+$ya_esta = mysql_query("select claveal, fecha, grave, asunto, notas, informa from Fechoria where claveal = '$claveal0' and fecha = '$fecha3' and grave = '$grave' and asunto = '$asunto' and informa = '$informa'");
+
+if (mysql_num_rows($ya_esta)>0) {
+		echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <legend>Atenci&oacute;n:</legend>
+            Ya hay un problema de convivencia registrado que contiene los mismos datos que estás enviando, y no queremos repetirlos... .
+          </div></div><br />';
+		$back=2;
+}
+else{
  	// Control de errores
 	if (! $notas or ! $grave or ($nombre == 'Selecciona un Alumno') or ! $asunto or ! $fecha or ! $informa) {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
@@ -193,10 +209,11 @@ enviarForm();
 	</tr>";
 	}
 	echo "</table>\n";
+	$back=1;
+}
 	?>
  <br />
-<INPUT class='btn btn-primary' TYPE='button' VALUE='Volver atrás'
-	onClick='history.back()'>
+<a href="infechoria.php" class='btn btn-primary'>Registrar otro problema</a>
     </div>
 <? include("../../pie.php");?>
     </body>

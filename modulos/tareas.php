@@ -1,4 +1,4 @@
-<div class='well alert alert-warning'><p class="lead">Tareas Activas por Expulsión o Ausencia del Alumno</p><hr />
+<div class='well alert alert-warning'><p class="lead"><i class='icon icon-bell-alt'> </i> Tareas Activas por Expulsión o Ausencia del Alumno</p><hr />
 <?
 $resultcurs = mysql_query($SQLcurso);
 	while($rowcurs = mysql_fetch_array($resultcurs))
