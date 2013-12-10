@@ -58,7 +58,7 @@ $apell = $trozo[3] . " " . $trozo[4];
 $actualiza = "UPDATE alma SET CLAVEAL1=\"".$trozo[1]."\",COMBASI=\"".$trozo[2]."\" WHERE APELLIDOS = \"".trim($apell)."\" AND NOMBRE = \"".$trozo[5]."\" AND UNIDAD = \"".$trozo[6]."\"" ;
 $sql = mysql_query($actualiza) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 Ha surgido un error al insertar los registros en la Base de datos. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />');
 }

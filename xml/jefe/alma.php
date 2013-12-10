@@ -188,7 +188,7 @@ $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[
 mysql_query($cambiar_nombre);
 
   // Eliminación de alumnos dados de baja
-    $SQL4 = "DELETE FROM alma WHERE `NIVEL` = '' AND `GRUPO` = ''";
+  $SQL4 = "DELETE FROM alma WHERE `unidad` = ''";
   $result4 = mysql_query($SQL4);
    // Eliminación de alumnos dados de baja
   $SQL5 = "DELETE FROM alma WHERE `NIVEL` = 'Unida'";
@@ -206,11 +206,12 @@ else{
 mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
 
 // Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
-$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and nivel !='2T' and nivel != '2S' and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmación de traslado')";
+$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (unidad like '%E-' or unidad like '%B-' or unidad like '%P-') and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
 $result6 = mysql_query($SQL6);
 // Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
-$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmación de traslado'";
+$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene Tí­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
 mysql_query($SQL7);
+
 // Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
 $SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
 mysql_query($SQL8);
@@ -237,7 +238,7 @@ Parece que te está olvidando de enviar todos los archivos con los datos de los a
 
 // Si se ha creado la tabla matriculas y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas.
 $matr = mysql_query("select * from matriculas");
-  if (mysql_num_rows($matr)>0 and (date('m')>8 and date('m')<12)) {
+  if (mysql_num_rows($matr)>0 and (date('m')>8 and date('m')<=12)) {
 		$pro = mysql_query("select claveal,	apellidos,	nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas where curso like '1E%' or curso like '2E%' or curso like '3E%' or curso like '4E%'");
 	while ($prf = mysql_fetch_array($pro)) {
 		

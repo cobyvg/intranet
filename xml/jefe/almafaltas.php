@@ -86,7 +86,7 @@ else{
 // echo $alumnos;
 mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÃ“N:</h5>
+			<legend>ATENCIÓN:</legend>
 No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
@@ -188,7 +188,7 @@ $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[
   $result3 = mysql_query($SQL3);
 
   // EliminaciÃ³n de alumnos dados de baja
-    $SQL4 = "DELETE FROM alma WHERE `NIVEL` = '' AND `GRUPO` = ''";
+  $SQL4 = "DELETE FROM alma WHERE `unidad` = ''";
   $result4 = mysql_query($SQL4);
   
 // Exportamos cÃ³digos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluaciÃ³n
@@ -199,24 +199,26 @@ else{
  include("exportacodigos.php");
 }
 ?>
-<?
+<?		
 // Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
-$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and nivel !='2T' and nivel != '2S' and ESTADOMATRICULA != 'Obtiene TÃ­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
+$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (unidad like '%E-' or unidad like '%B-' or unidad like '%P-') and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
 $result6 = mysql_query($SQL6);
 // Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
-$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene TÃ­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
+$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene Tí­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
 mysql_query($SQL7);
+// Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
+$SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
+mysql_query($SQL8);
 
  // Creamos versiÃ³n corta para FALTAS
 mysql_query("drop table almafaltas");
-mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, NIVEL,
- GRUPO from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, NIVEL, GRUPO from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÃ“N:</h5>
+			<legend>ATENCIÓN:</legend>
 No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 // Claveal primaria e Ã­ndice
   $SQL6 = "ALTER TABLE  `almafaltas` ADD INDEX (  `CLAVEAL` )";
@@ -277,14 +279,14 @@ mysql_query("ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");
 else{
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÃ“N:</h5>
-Parece que te estÃ¡ olvidando de enviar todos los archivos con los datos de los alumnos. AsegÃºrate de enviar ambos archivos descargados desde SÃ©neca.
+			<legend>ATENCIÓ“N:</legend>
+Parece que te estás olvidando de enviar todos los archivos con los datos de los alumnos. Asegúrate de enviar ambos archivos descargados desde Séneca.
 </div></div><br />';
 }
 ?>
 <br />
 <div align="center">
-  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>
 </div>
 </div>

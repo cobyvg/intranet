@@ -45,12 +45,14 @@ Esta es la pagina de Administraci&oacute;n de la Intranet y de las Bases de Dato
 <p>	
 El <strong>segundo grupo de opciones (<span style='color:#08c'>A Principio de curso...</span>)</strong> crea las tablas principales: Alumnos, Profesores, Asignaturas, Calificaciones y Horarios. Hay que tener a mano varios archivos que descargamos de Seneca y Horw: </p>
 <ul>
+
 <li>Los Alumnos se crean una sola vez a comienzo de curso, aunque luego podemos actualizarlos cuando queramos. En este proceso se crean las tablas de Alumnos y se les asigna un n&uacute;mero de aula. Tambi&eacute;n se generan dos archivos preparados para el Alta masiva de Alumnos y Profesores en Gesuser (los coloca en intranet/xml/jefe/TIC/). Necesitamos dos archivos de S&eacute;neca: 
 <ul>
   <li>el de los alumnos. Lo descargamos desde S&eacute;neca. Alumnado --&gt; Alumnado --&gt; Alumnado del Centro --&gt; Aceptar (arriba a la derecha) --&gt; Exportar (arriba a la izquierda) --&gt; Exportar datos al formato: Texto plano. El archivo que se descarga se llama RelPerCen.txt</li>
   <li>el de las evaluaciones. Se descarga de Seneca desde &quot;Intercambio de Informacion --&gt; Exportacion desde Seneca --&gt; Exportacion de Calificaciones&quot;. Arriba a la derecha hay un icono para crear un nuevo documento con los datos de las evaluaciones; seleccionar todos los grupos del Centro para una evaluaci&oacute;n (la primera vale, por ejemplo) y añadirlos a la lista. Cuando hayais terminado, haced click en el icono de confirmaci&oacute;n y al cabo de un minuto volved a la p&aacute;gina de exportaci&oacute;n de calificaciones y ver&eacute;is que se ha generado un archivo comprimido que pod&eacute;is descargaros. </li>
 </ul>
 </li>
+<li>Los datos generales del Centro. Este módulo se encarga de importar la relación de <strong>cursos</strong> y <strong>unidades</strong> del Centro registrados en Séneca, asi como la relación de <strong>materias</strong> que se imparten y <strong>actividades</strong> del personal docente. Se importará también la relación de <strong>dependencias</strong>, que se utilizará para realizar reservas de aulas o consultar el horario de aulas.</li>
   <li>Los profesores. Se descarga desde S&eacute;neca --&gt; Personal --&gt; Personal del centro --&gt; Unidades y Materias  --&gt; Exportar (arriba a la izquierda) --&gt; Exportar datos al formato: Texto plano.</li>
   <li>Asignaturas y Calificaciones supone que los archivos XML de alguna de las Evaluaciones del curso se encuentren en el directorio exporta/, porque ya se ha creado la tabla de los alumnos o se ha actualizado la misma.</li>
   <li>Los Departamentos. Se descarga desde S&eacute;neca --&gt; Personal --&gt; Personal del centro  --&gt; Exportar (arriba a la izquierda) --&gt; Exportar datos al formato: Texto plano.</li>
