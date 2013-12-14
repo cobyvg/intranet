@@ -79,7 +79,3 @@ if ($num==2) {
 		      </div>
 		    </div>
 		  </div>
-		</div>
-    </div>
-  </div>
-</div>

@@ -136,13 +136,13 @@ function get_filesize($filename)
 	$size = filesize($filename);
 
 	if ($size >= 1073741824)
-		$size = round($size / 1073741824 * 100) / 100 . ' Gb';
+		$size = intval(round($size / 1073741824 * 100) / 100) . ' GB';
 	elseif ($size >= 1048576)
-		$size = round($size / 1048576 * 100) / 100 . ' Mb';
+		$size = intval(round($size / 1048576 * 100) / 100) . ' MB';
 	elseif ($size >= 1024)
-		$size = round($size / 1024 * 100) / 100 . ' Kb';
+		$size = intval(round($size / 1024 * 100) / 100) . ' KB';
 	elseif ($size > 0)
-		$size = $size . ' b';
+		$size = intval($size) . ' B';
 	else
 		$size = '-';
 
@@ -655,6 +655,7 @@ function add_file($filename)
 //
 function split_dir($directory)
 {
+	global $index;
 	global $uploads_folder_name, $direction, $order, $phpExt;
 
 	$directory = clean_path($directory);
@@ -666,14 +667,14 @@ function split_dir($directory)
 	$arr = explode("/", $directory);
 
 	$address = '';
-	$nav="<a href=\"index.${phpExt}?direction=$direction&order=$order\">Inicio</a>";
+	$nav="<a href=\"index.${phpExt}?index=$index&direction=$direction&order=$order\">Inicio</a>";
 	foreach ($arr as $value)
 	{
 		if ($address == '')
 			$address.="$value";
 		else
 			$address.="/$value";
-		$nav.=" / <a href=\"index.${phpExt}?direction=$direction&order=$order&directory=$address\">$value</a>";
+		$nav.=" / <a href=\"index.${phpExt}?index=$index&direction=$direction&order=$order&directory=$address\">$value</a>";
 	}
 
 	return($nav);

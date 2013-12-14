@@ -155,15 +155,8 @@ function delete_file($filename)
 {
 	if (file_exists($filename))
 		unlink($filename);
-
-//	if (file_exists("$filename.desc"))
-//		unlink("$filename.desc");
-
-//	if (file_exists("$filename.dlcnt"))
-//		unlink("$filename.dlcnt");
 }
 
-//echo "<br>";
 
 function scan_dir_for_digest($current_dir, &$message)
 {
@@ -368,13 +361,13 @@ function listing($current_dir)
 	$liste = assemble_tables($list_dir, $list_file);
 
 	if ($totalsize >= 1073741824)
-		$totalsize = round($totalsize / 1073741824 * 100) / 100 . " Gb";
+		$totalsize = round($totalsize / 1073741824 * 100) / 100 . " GB";
 	elseif ($totalsize >= 1048576)
-		$totalsize = round($totalsize / 1048576 * 100) / 100 . " Mb";
+		$totalsize = round($totalsize / 1048576 * 100) / 100 . " MB";
 	elseif ($totalsize >= 1024)
-		$totalsize = round($totalsize / 1024 * 100) / 100 . " Kb";
+		$totalsize = round($totalsize / 1024 * 100) / 100 . " KB";
 	else
-		$totalsize = $totalsize . " b";
+		$totalsize = $totalsize . " B";
 
     return array($liste, $totalsize);
 }
@@ -383,10 +376,11 @@ function listing($current_dir)
 
 function contents_dir($current_dir, $directory)
 {
-  global $font,$direction,$order,$totalsize,$mess,$tablecolor,$lightcolor;
-  global $file_out_max_caracters,$normalfontcolor, $phpExt, $hidden_dirs, $showhidden;
-  global $comment_max_caracters,$datetimeformat, $logged_user_name;
-  global $user_status,$activationcode,$max_filesize_to_mail,$mail_functions_enabled, $timeoffset, $grants;
+	global $index;
+	global $font,$direction,$order,$totalsize,$mess,$tablecolor,$lightcolor;
+	global $file_out_max_caracters,$normalfontcolor, $phpExt, $hidden_dirs, $showhidden;
+	global $comment_max_caracters,$datetimeformat, $logged_user_name;
+	global $user_status,$activationcode,$max_filesize_to_mail,$mail_functions_enabled, $timeoffset, $grants;
 
   // Read directory
   list($liste, $totalsize) = listing($current_dir);
@@ -403,7 +397,7 @@ function contents_dir($current_dir, $directory)
       		continue;
       	}
 
-        $filenameandpath = "index.$phpExt?".SID."&direction=$direction&order=$order&directory=";
+        $filenameandpath = "index.$phpExt?index=$index&direction=$direction&order=$order&directory=";
 
         if ($directory != '')
         	$filenameandpath .= "$directory/";
@@ -420,100 +414,71 @@ function contents_dir($current_dir, $directory)
         $filenameandpath .= $filename;
       }
 
-echo "
-    <tr valign=\"top\">
-      <td nowrap>
-        <div align=\"left\">
-
-    		  <img src=\"images/".get_mimetype_img("$current_dir/$filename")."\"align=\"ABSMIDDLE\" border=\"0\" style='margin-right:5px;'>";
-		          if (is_dir("$current_dir/$filename"))
-		          {
-		          	echo "<a href=\"$filenameandpath\">";
-		          }
-		          else
-		          {
-		          	if (is_viewable($filename) || is_image($filename) || is_browsable($filename))
-		            	{echo "<a href=\"javascript:popup('$filename', '$directory')\">";}
-		          }
-		echo      substr($filename,0,$file_out_max_caracters);
-		          if(is_viewable($filename) || is_image($filename) || is_browsable($filename) || is_dir("$current_dir/$filename"))
-		            {echo "</a>\n";}
-
-		// Load description
-		list($upl_user, $upl_ip, $contents) = get_file_description("$current_dir/$filename", $comment_max_caracters);
-
-		echo "$contents";
-		echo "</td>
-      <td nowrap>
-        <div align=\"left\">";
-
-
-if ($grants[$user_status][DELALL] || ($upl_user == $logged_user_name && $grants[$user_status][DELOWN]))
-{
-	if (!is_dir("$current_dir/$filename"))
+	echo "    <tr>\n";
+	
+    echo "      <td>\n";
+	echo "        <img src=\"images/".get_mimetype_img("$current_dir/$filename")."\" width=\"32\" alt=\"\">\n"; 		  
+	if (is_dir("$current_dir/$filename")) echo "<a href=\"$filenameandpath\">";
+	echo substr($filename,0,$file_out_max_caracters);
+	if (is_dir("$current_dir/$filename")) echo "</a>";
+	echo "        $content\n";
+	echo "      </td>\n";
+	
+	echo "      <td nowrap>\n";
+	if ($grants[$user_status][DELALL] || ($upl_user == $logged_user_name && $grants[$user_status][DELOWN]))
 	{
-		echo "&nbsp;
-		      <a href=\"index.${phpExt}?action=deletefile&filename=$filename&directory=$directory\">
-		        <i class='icon icon-trash' title='Borrar' alt=\"$mess[169]\" > &nbsp;&nbsp;</i></a>";
-    }
-    else
-    {
-    	if ($grants[$user_status][DELALL])
-    	{
-		    echo "&nbsp;
-		      <a href=\"index.${phpExt}?action=deletedir&filename=$filename&directory=$directory\">
-		        <i class='icon icon-trash' title='Borrar' alt=\"$mess[169]\" > &nbsp;&nbsp;</i></a>";
+		if (!is_dir("$current_dir/$filename"))
+		{
+			echo "<a href=\"index.${phpExt}?index=$index&action=deletefile&filename=$filename&directory=$directory\" onclick=\"javascript:return confirm('Esta acción eliminará permanentemente el archivo seleccionado ¿Está seguro que desea continuar?');\">
+			        <i class=\"icon icon-trash icon-large icon-fixed-width\" alt=\"$mess[169]\"></i>
+			      </a>";
+	    }
+	    else
+	    {
+	    	if ($grants[$user_status][DELALL])
+	    	{
+			    echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" onclick=\"javascript:return confirm('Esta acción eliminará permanentemente la carpeta y su contenido. ¿Está seguro que desea continuar?');\">
+			        <i class=\"icon icon-trash icon-large icon-fixed-width\" alt=\"$mess[169]\" ></i>
+			          </a>";
+			}
+	    }
+	}
+
+
+	if ($grants[$user_status][MODALL] || ($upl_user == $logged_user_name && $grants[$user_status][MODOWN]))
+	{
+		if (!is_dir("$current_dir/$filename") || $grants[$user_status][MODALL])
+		{
+	    }
+	}
+
+
+	if ($grants[$user_status][DOWNLOAD] && !is_dir("$current_dir/$filename")) {
+		
+		//	DESCARGAR ARCHIVO
+		echo "<a href=\"index.${phpExt}?action=downloadfile&filename=$filename&directory=$directory\">
+		        <i class=\"icon icon-download-alt icon-large icon-fixed-width\" alt=\"$mess[23]\"></i>
+		      </a>";
 		}
-    }
-}
-else
-{
-	echo "&nbsp; ";
-}
-
-//
-//
-if ($grants[$user_status][MODALL] || ($upl_user == $logged_user_name && $grants[$user_status][MODOWN]))
-{
-	if (!is_dir("$current_dir/$filename") || $grants[$user_status][MODALL])
-	{
-    }
-}
-else
-{
-	echo "&nbsp;";
-}
-
-
-//
-//
-//
-if ($grants[$user_status][DOWNLOAD] && !is_dir("$current_dir/$filename"))
-{
-echo "        <a href=\"index.${phpExt}?action=downloadfile&filename=$filename&directory=$directory\">
-              <i class='icon icon-download-alt' title='Descargar' alt=\"$mess[23]\" > &nbsp;&nbsp;</i>&nbsp;</a>";
-echo       count_file_download("$current_dir/$filename");
-}
-else
-	echo " ";
-
-echo "    </div>
-      </td>
-      <td  nowrap>";
-
-if (is_dir("$current_dir/$filename"))
-	echo "directorio";
-else
-	echo      get_filesize("$current_dir/$filename");
-
-
-echo "</td>
-      <td  nowrap>";
-$file_modif_time = filemtime("$current_dir/$filename") - $timeoffset * 3600;
-echo      date($datetimeformat, $file_modif_time);
-
-echo " </td></tr>\n";
-    }
+	
+	
+		echo "</td>";
+		echo "<td class=\"hidden-phone hidden-tablet\" nowrap>";
+		echo "<span class=\"muted\">";
+		// TIPO DE ARCHIVO
+		if (is_dir("$current_dir/$filename")) echo "directorio";
+		else echo get_filesize("$current_dir/$filename");
+		echo "</span>";
+		echo "</td>";
+		echo "<td class=\"hidden-phone hidden-tablet\" nowrap>";
+		
+		// FECHA DE MODIFICACIÓN
+		$file_modif_time = filemtime("$current_dir/$filename") - $timeoffset * 3600;
+		echo "<span class=\"muted\">".date($datetimeformat, $file_modif_time)."</span>";
+		
+		echo "</td>\n";
+		echo "</tr>\n";
+	}
   }
 }
 
@@ -528,44 +493,24 @@ function list_dir($directory)
 	$current_dir = init($directory);
 	$filenameandpath = ($directory != '') ? "&directory=".$directory : '';
 
-	echo "<script language=\"javascript\">\n";
-	echo "function popup(file, dir) {";
-	echo "var fen=window.open('index.${phpExt}?action=view&filename='+file+'&directory='+dir+'','filemanager','status=yes,scrollbars=yes,resizable=yes,width=500,height=400');\n";
-	echo "}\n";
-	echo "function popupmail(file, dir) {\n";
-	echo "var fen=window.open('index.${phpExt}?action=mailfile&filename='+file+'&directory='+dir+'','filemanager','status=yes,scrollbars=yes,resizable=yes,width=500,height=400');\n";
-	echo "}\n";
-	echo "</script>\n";
+	echo "<table class=\"table table-hover\">";
+	echo "  <thead>\n";
+	echo "    <tr>\n";
+	echo "      <th>$mess[15]</th>\n";
+	echo "      <th>$mess[16]</th>\n";
+	echo "      <th class=\"hidden-phone hidden-tablet\">$mess[17]</th>\n";
+	echo "      <th class=\"hidden-phone hidden-tablet\">$mess[18]</th>\n";
+	echo "    </tr>\n";
+	echo "  </thead>\n";
 
-		echo "
-
-	  <table class='table table-striped table-bordered' style='width:860px'>
-	    <tr>
-	      <th>$mess[15]<a href=\"index.${phpExt}?order=nom&direction=$direction".$filenameandpath."\">\n";
-	          
-	echo "</th>
-	      <th nowrap>
-	        $mess[16]<b>
-	          <a href=\"index.${phpExt}?order=rating&direction=$direction".$filenameandpath."\">\n";
-	       
-	echo "
-	      </th>
-	      <th nowrap>$mess[17]
-	          <a href=\"index.${phpExt}?order=taille&direction=$direction".$filenameandpath."\">\n";
-	         
-	echo "</th>
-	      <th nowrap>
-	        $mess[18]</th>";
-	echo " </tr>\n";
-
-	    $direction = ($direction == DIRECTION_DOWN) ? DIRECTION_UP : DIRECTION_DOWN;
-        contents_dir($current_dir, $directory);
-echo "<tr>
-      <td align=\"right\" colspan=\"4\">
-        <h5>$mess[43]: $totalsize</h5></td>
-    </tr>
-  </table>
-	<br>";
+    contents_dir($current_dir, $directory);
+    
+    echo "</table>\n";
+    
+    // PIE DE TABLA
+    echo "<hr>";
+	echo "  <p class=\"pull-right muted\">$mess[43]: $totalsize</p>\n";
+	
 }
 
 //
@@ -620,101 +565,112 @@ function normalize_filename($name)
 
 //
 //
-function show_contents()
-{
-global $current_dir,$directory,$uploads_folder_name,$mess,$direction,$timeoffset;
-global $order,$totalsize,$font,$tablecolor,$bordercolor,$headercolor;
-global $headerfontcolor,$normalfontcolor,$user_status, $grants, $phpExt;
+function show_contents() {
+	global $index;
+	global $current_dir,$directory,$uploads_folder_name,$mess,$direction,$timeoffset;
+	global $order,$totalsize,$font,$tablecolor,$bordercolor,$headercolor;
+	global $headerfontcolor,$normalfontcolor,$user_status, $grants, $phpExt;
 
-echo "<center>";
-?>
-<? 
-echo "
-<br />
-<div class='page-header'>
-  <h2>Documentos del Centro <small> Directorio público</small></h2>
-</div>
-<br />
-<div align='CENTER' style='width:860px;margin:auto;'>";
-$directory = clean_path($directory);
-if (!file_exists("$uploads_folder_name/$directory"))
-{
-	$directory = '';
+	switch ($index) {
+		default :
+		case 'publico' : $activo1 = 'class="active"'; $titulo='Carpeta pública del centro'; break;
+		case 'privado' : $activo2 = 'class="active"'; $titulo='Carpeta personal'; break;
+	}
+	
+	echo "<div class=\"container-fluid\">\n";
+	echo "  <ul class=\"nav nav-tabs\">\n";
+	echo "    <li $activo1><a href=\"index.${phpExt}?index=publico\">Carpeta pública</a></li>\n";
+	echo "    <li $activo2><a href=\"index.${phpExt}?index=privado\">Carpeta personal</a></li>\n";
+	echo "  </ul>\n";
+	
+	echo "   <div class='page-header'>\n";
+    echo "      <h2>$titulo</h2>\n";
+    echo "   </div>\n";
+    
+	echo "   <div class=\"row-fluid\">\n";
+	
+	// COLUMNA IZQUIERDA
+	echo "      <div class=\"span8\">\n";
+	echo "        <div class=\"row-fluid\">\n";
+
+	$directory = clean_path($directory);
+	if (!file_exists("$uploads_folder_name/$directory")) {
+		$directory = '';
+	}
+	if ($directory != '') {
+	    $name = dirname($directory);
+	    if ($directory == $name || $name == '.') $name = '';
+	    
+	    echo "<div class=\"span12\">\n";
+	    echo "  <a href=\"index.${phpExt}?index=$index&direction=$direction&order=$order&directory=$name\">\n";
+	    echo "   <i class=\"icon icon-chevron-up iconf-fixed-width\"></i>\n";
+	    echo "  </a>\n";
+		echo split_dir("$directory");
+		echo "</div>";
+	}
+	
+	if ($grants[$user_status][VIEW]) {
+		list_dir($directory);
+	}
+    echo "        </div>\n";
+	echo "      </div>\n";
+	
+	// COLUMNA DERECHA
+	echo "   <div class=\"span4\">\n";
+	echo "     <div class=\"row-fluid\">\n";
+	echo "        <div class=\"span12\">\n";
+	
+	if ($grants[$user_status][UPLOAD]) {
+		
+		echo "          <div class=\"well\">\n";
+		echo "            <form name=\"upload\" enctype=\"multipart/form-data\" method=\"POST\">\n";
+		echo "              <fieldset>\n";
+		echo "                <legend class=\"text-warning\">$mess[20]</legend>\n";
+		echo "                <input type=\"hidden\" name=\"action\" value=\"upload\">\n";
+		echo "                <input type=\"hidden\" name=\"directory\" value=\"$directory\">\n";
+		echo "                <input type=\"hidden\" name=\"order\" value=\"$order\">\n";
+		echo "                <input type=\"hidden\" name=\"index\" value=\"$index\">\n";
+		echo "                <input type=\"hidden\" name=\"direction\" value=\"$direction\">\n";
+		echo "                <input type=\"file\" name=\"userfile\" class=\"input-block-level\">\n";
+		echo "                <hr>\n";
+		echo "                <input type=\"submit\" class=\"btn btn-primary\" value=\"$mess[20]\">\n";
+		echo "              </fieldset>\n";
+		echo "            </form>\n";
+		echo "          </div>\n";
+	}
+	
+	if ($grants[$user_status][MKDIR]) {
+		echo "          <div class=\"well\">\n";
+		echo "            <form name=\"newdir\" enctype=\"multipart/form-data\" method=\"POST\">\n";
+		echo "              <fieldset>\n";
+		echo "                <legend class=\"text-warning\">$mess[186]</legend>";
+		echo "                <input type=\"hidden\" name=\"action\" value=\"createdir\">\n";
+		echo "                <input type=\"hidden\" name=\"directory\" value=\"$directory\">\n";
+		echo "                <input type=\"hidden\" name=\"order\" value=\"$order\">\n";
+		echo "                <input type=\"hidden\" name=\"index\" value=\"$index\">\n";
+		echo "                <input type=\"hidden\" name=\"direction\" value=\"$direction\">\n";
+		echo "                <input type=\"text\" name=\"filename\" class=\"input-block-level\" placeholder=\"$mess[187]\">";
+		echo "                <hr>\n";
+		echo "                <input type=\"submit\" class=\"btn btn-primary\" value=\"$mess[188]\">\n";
+		echo "              </fieldset>\n";
+		echo "            </form>\n";
+		echo "          </div>\n";
+		
+	}
+	
+	echo "        </div>\n";
+	echo "     </div>\n";
+	echo "   </div>\n";
 }
 
-if ($directory != '')
-{
 
-    $name = dirname($directory);
-    if ($directory == $name || $name == '.')
-    	$name = '';
-echo "<h6 align='left'><a href=\"index.${phpExt}?direction=$direction&order=$order&directory=$name\">";
-    echo "<i class='icon icon-chevron-up'> &nbsp;&nbsp;</i> \n";
-    echo "</a>\n";
-	echo split_dir("$directory");
-	echo "</h6><br />";	
-
-}
-
-
-if ($grants[$user_status][VIEW])
-{
-  list_dir($directory);
-}
-if ($grants[$user_status][UPLOAD])
-{
-  echo "<div align='center' style='width:860px;'><div style='width:360px;margin:auto;text-align:left' class='well pull-left'>";
-  echo "<h6 align='center'>$mess[20]</h6><hr>";
-
-  echo "        <form name=\"upload\" action=\"index.$phpExt?".SID."\" enctype=\"multipart/form-data\" method=\"post\" style=\"margin: 0\">\n";
-  echo "          <input type=\"hidden\" name=\"action\" value=\"upload\">\n";
-  echo "          <input type=\"hidden\" name=\"directory\" value=\"$directory\">\n";
-  echo "          <input type=\"hidden\" name=\"order\" value=\"$order\">\n";
-  echo "          <input type=\"hidden\" name=\"direction\" value=\"$direction\">\n";
-
-  echo "<label>$mess[21]<br />";
-  echo "                <input type=\"file\" name=\"userfile\" class='input-file span3' /></label>";
-  echo "              <label>$mess[22]</br />";
-  echo "                <input type=\"text\" name=\"description\" class=\"span3\" size=62></label>";
-  echo "<input type=\"submit\" class=\"btn btn-primary\" value=\"$mess[20]\" />\n";
-  echo "        </form></div>";
-
-}
-
-if ($grants[$user_status][MKDIR])
-{
-  echo "<div style='width:360px;margin:auto;text-align:left' class='well pull-right'>";
-  echo "<h6 align='center'>$mess[186]</h6><hr>";
-
-  echo "        <form name=\"newdir\" action=\"index.$phpExt?".SID."\" enctype=\"multipart/form-data\" method=\"post\" style=\"margin: 0\">\n";
-  echo "          <input type=\"hidden\" name=\"action\" value=\"createdir\">\n";
-  echo "          <input type=\"hidden\" name=\"directory\" value=\"$directory\">\n";
-  echo "          <input type=\"hidden\" name=\"order\" value=\"$order\">\n";
-  echo "          <input type=\"hidden\" name=\"direction\" value=\"$direction\">\n";
-  echo "            <tr> \n";
-  echo "              <label>$mess[187]";
-  echo "                <input type=\"text\" name=\"filename\" class=\"span3\"></label>";
-  echo "                <input type=\"submit\" class=\"btn btn-primary\" value=\"$mess[188]\" />\n";
-  echo "        </form></div>";
-
-}
-
-echo "</div>\n";
-}
-
-//
-function is_path_safe(&$path, &$filename)
-{
+function is_path_safe(&$path, &$filename) {
 	global $uploads_folder_name;
 
 	$path = clean_path($path);
 	$filename = clean_path($filename);
 
-	if (!file_exists("$uploads_folder_name/$path")
-//		|| eregi("\.desc$|\.dlcnt$|^index\.|\.$",  $filename)
-		|| !show_hidden_files($filename)
-	   )
-	{
+	if (!file_exists("$uploads_folder_name/$path") || !show_hidden_files($filename)) {
 		return false;
 	}
 
@@ -736,7 +692,7 @@ switch($action)
 
 		if (!file_exists("$current_dir/$filename"))
 		{
-			//place_header($mess[125]);
+			include("../menu.php");
 			show_Contents();
 			break;
 		}
@@ -748,16 +704,7 @@ switch($action)
 			if ($grants[$user_status][DELALL] || ($upl_user == $logged_user_name && $grants[$user_status][DELOWN]))
 			{
 				delete_file("$current_dir/$filename");
-//				place_header($mess[180]);
 			}
-			else
-			{
-				place_header($mess[181]);
-			}
-		}
-		else
-		{
-			place_header($mess[181]);
 		}
 
 	    include("../menu.php");
@@ -774,7 +721,7 @@ switch($action)
 
 		if (!file_exists("$current_dir/$filename"))
 		{
-			//place_header($mess[125]);
+			include("../menu.php");
 			show_Contents();
 			break;
 		}
@@ -784,16 +731,7 @@ switch($action)
 			if ($grants[$user_status][DELALL])
 			{
 				delete_dir("$current_dir/$filename");
-			//	place_header($mess[182]);
 			}
-			else
-			{
-				place_header($mess[183]);
-			}
-		}
-		else
-		{
-			place_header($mess[183]);
 		}
 	    include("../menu.php");
 		show_contents();
@@ -809,7 +747,7 @@ switch($action)
 
       	if (eregi($hidden_dirs, $filename) && !$showhidden)
       	{
-      		place_header($mess[206]);
+      		include("../menu.php");
       		show_contents();
 			break;
       	}
@@ -825,44 +763,12 @@ switch($action)
 					if (!file_exists("$current_dir/$filename"))
 					{
 						mkdir("$current_dir/$filename", 0777);
-//						copy('include/index.html', "$current_dir/$filename/index.html");
-//						copy('include/.htaccess', "$current_dir/$filename/.htaccess");
-						//place_header($mess[184]);
-					}
-					else
-					{
-//						place_header($mess[189]);
 					}
 				}
-				else
-				{
-//					place_header($mess[185]);
-				}
 			}
-			else
-			{
-//				place_header($mess[190]);
-			}
-		}
-		else
-		{
-//			place_header($mess[185]);
 		}
 
 	    include("../menu.php");
-		show_contents();
-		break;
-
-	case 'selectskin';
-		setcookie("skinindex", $skinindex, time() + $cookievalidity * 3600);
-		$bordercolor = $skins[$skinindex]['bordercolor'];
-		$headercolor = $skins[$skinindex]['headercolor'];
-		$tablecolor = $skins[$skinindex]['tablecolor'];
-		$lightcolor = $skins[$skinindex]['lightcolor'];
-		$headerfontcolor = $skins[$skinindex]['headerfontcolor'];
-		$normalfontcolor = $skins[$skinindex]['normalfontcolor'];
-		$selectedfontcolor = $skins[$skinindex]['selectedfontcolor'];
-		place_header($mess[96]);
 		show_contents();
 		break;
 
@@ -875,27 +781,26 @@ switch($action)
 
 		if (!$grants[$user_status][DOWNLOAD])
 		{
-			place_header($mess[111]);
+			include("../menu.php");
 			show_Contents();
 			break;
 		}
 
 		if (!file_exists("$current_dir/$filename"))
 		{
-			place_header($mess[125]);
+			include("../menu.php");
 			show_Contents();
 			break;
 		}
 
 		if (!is_path_safe($directory, $filename))
 		{
-			place_header($mess[111]);
+			include("../menu.php");
 			show_Contents();
 			break;
 		}
 
 		$size = filesize("$current_dir/$filename");
-//		increasefiledownloadcount("$current_dir/$filename");
 
 		if (($user_status != ANONYMOUS) && ($logged_user_name != ''))  // Update user statistics
 		{
@@ -990,97 +895,6 @@ switch($action)
 		exit;
 		break;
 
-	case 'mailfile';
-
-		$current_dir = $uploads_folder_name;
-		if ($directory != '')
-			$current_dir.="/$directory";
-
-		$filename = basename($filename);
-
-		if (!$grants[$user_status][MAIL] && !$grants[$user_status][MAILALL])
-		{
-			header("Status: 404 Not Found");
-			exit;
-		}
-
-		if (!is_path_safe($directory, $filename) || !file_exists("$current_dir/$filename"))
-		{
-			header("Status: 404 Not Found");
-			exit;
-		}
-
-		page_header($mess[26].": ".$filename);
-
-		echo "<center><h4>$mess[26] : ";
-		echo "<img src=\"images/".get_mimetype_img("$current_dir/$filename")."\" align=\"ABSMIDDLE\">\n";
-		echo "<b>".$filename."</b><br><br><hr>\n";
-		echo "<a href=\"javascript:window.close()\"><i class='icon icon-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
-		echo "</h4>\n";
-
-		if (($user_status != ANONYMOUS) && ($activationcode == USER_ACTIVE))
-		{
-			if ($grants[$user_status][MAILALL] || ((filesize("$current_dir/$filename") < $max_filesize_to_mail * 1024) && $grants[$user_status][MAIL]))
-			{
-				$body = $sendfile_email_body;
-				// Load file description
-				list($upl_user, $upl_ip, $contents) = get_file_description("$current_dir/$filename", 0, 0);
-
-				if ($upl_user != '')
-					$body .= sprintf($mess[70], $upl_user);
-				$body .= "\n";
-				if ($user_status == ADMIN) // If admin
-					$body .= "IP: ".$upl_ip;
-				$body .= "\n";
-				$body .= $mess[92];
-				$body .= get_filesize("$current_dir/$filename");
-				$body .= "\n";
-				$body .= $mess[90];
-				$file_modif_time = file_time("$current_dir/$filename");
-				$body .= date($datetimeformat, $file_modif_time);
-				$body .= "\n\n";
-				$body .= $mess[22].":\n";
-				$body .= $contents;
-				$body .= "\n
-				$sendfile_email_end,
-				$admin_name
-				Email: mailto:$admin_email
-				Web Page: $installurl";
-
-				$mm = new MIME_MAIL("$admin_name <$admin_email>", $sendfile_email_subject, $body);
-				$mm -> add_file("$current_dir/$filename");
-				if ($mm -> send($user_email))
-				{
-					// Update statistics
-					increasefiledownloadcount("$current_dir/$filename");
-					if (($user_status != ANONYMOUS) && ($logged_user_name != ''))  // Update user statistics
-					{
-						list($files_uploaded, $files_downloaded, $files_emailed) = load_userstat($logged_user_name);
-						$files_emailed++;
-						save_userstat($logged_user_name, $files_uploaded, $files_downloaded, $files_emailed, time());
-					}
-					echo "<p><font face=\"$font\" size=\"3\" color=\"$normalfontcolor\">";
-					echo sprintf($mess[69], "<b>".$user_email."</b>");
-					echo "</p>";
-				}
-				else
-				{
-					echo "<p><font face=\"$font\" size=\"3\" color=\"$normalfontcolor\">";
-					echo $mess[177]." ".$mess[179];
-					echo "</p>";
-				}
-			}
-		}
-
-		echo "<hr>\n";
-		echo "<a href=\"javascript:window.close()\"><i class='icon icon-chevron-left' alt=\"$mess[28]\" border=\"0\"&nbsp;</a>\n";
-		echo "<hr></center>\n";
-		echo "</body>\n";
-		echo "</html>\n";
-		exit;
-		break;
-
-
 	case 'upload';
 		$message = $mess[40];
 		$userfile_name = $userfile['name'];
@@ -1140,7 +954,6 @@ switch($action)
 
 				// Save description
 				$ip = getenv('REMOTE_ADDR');
-//				save_file_description("$destination/$userfile_name.desc", $description, $logged_user_name, $ip);
 
 				if (!move_uploaded_file($userfile['tmp_name'], "$destination/$userfile_name"))
 					$message="$mess[33] $userfile_name";
@@ -1149,7 +962,6 @@ switch($action)
 				chmod("$destination/$userfile_name",0777);
 				}
 		}
-//		place_header($message);
 	    include("../menu.php");
 		show_contents();
 		break;
@@ -1255,23 +1067,9 @@ switch($action)
 					if (!is_dir("$current_dir/$userfile") && ($old_description != $new_description))
 					{
 						list($upl_user, $upl_ip, $contents) = get_file_description("$current_dir/$userfile", 0, 0);
-//						save_file_description("$current_dir/$userfile.desc", $new_description, $upl_user, $upl_ip);
 					}
-				//	place_header($mess[194]); 
-				}
-				else
-				{
-					place_header($mess[198]); 
 				}
 			}
-			else
-			{
-				place_header($mess[201]); 
-			}
-		}
-		else
-		{
-			place_header($mess[195]); 
 		}
 
 

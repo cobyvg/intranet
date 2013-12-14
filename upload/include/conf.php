@@ -39,7 +39,13 @@ $installurl = 'http://' . $domain_name . '/' . $script_folder_path;
 //
 $users_folder_name = 'users';
 $userstat_folder_name = 'userstat';
-$uploads_folder_name = $doc_dir;
+
+switch ($_GET['index']) {
+	default :
+	case 'publico' : $uploads_folder_name = $doc_dir; $index="publico"; break;
+	case 'privado' : $uploads_folder_name = '../varios/'.$_SESSION['ide'].'/'; $index="privado"; break;
+}
+
 $languages_folder_name = 'languages';
 
 //
@@ -106,7 +112,11 @@ $dft_language = 'es';
 $max_allowed_filesize = 50000;
 
 //
-$datetimeformat = 'd.m.Y H:i';
+$direction = 1;
+
+
+//
+$datetimeformat = 'd/m/Y H:i';
 
 //
 $file_name_max_caracters = 150;
@@ -149,42 +159,47 @@ $font = 'Verdana';
 //
 //
 $mimetypes = array (
-'.txt'  => array('img' => 'txt.gif',    'mime' => 'text/plain'),
-'.html' => array('img' => 'html.gif',   'mime' => 'text/html'),
-'.htm'  => array('img' => 'html.gif',   'mime' => 'text/html'),
-'.doc'  => array('img' => 'doc.gif',    'mime' => 'application/msword'),
-'.pdf'  => array('img' => 'pdf.gif',    'mime' => 'application/pdf'),
-'.xls'  => array('img' => 'xls.gif',    'mime' => 'application/msexcel'),
-'.gif'  => array('img' => 'gif.gif',    'mime' => 'image/gif'),
-'.jpg'  => array('img' => 'jpg.gif',    'mime' => 'image/jpeg'),
-'.jpeg' => array('img' => 'jpg.gif',    'mime' => 'image/jpeg'),
-'.bmp'  => array('img' => 'bmp.gif',    'mime' => 'image/bmp'),
-'.png'  => array('img' => 'gif.gif',    'mime' => 'image/png'),
-'.zip'  => array('img' => 'zip.gif',    'mime' => 'application/zip'),
-'.rar'  => array('img' => 'rar.gif',    'mime' => 'application/x-rar-compressed'),
-'.gz'   => array('img' => 'zip.gif',    'mime' => 'application/x-compressed'),
-'.tgz'  => array('img' => 'zip.gif',    'mime' => 'application/x-compressed'),
-'.z'    => array('img' => 'zip.gif',    'mime' => 'application/x-compress'),
-'.exe'  => array('img' => 'exe.gif',    'mime' => 'application/x-msdownload'),
-'.mid'  => array('img' => 'mid.gif',    'mime' => 'audio/mid'),
-'.midi' => array('img' => 'mid.gif',    'mime' => 'audio/mid'),
-'.wav'  => array('img' => 'wav.gif',    'mime' => 'audio/x-wav'),
-'.mp3'  => array('img' => 'mp3.gif',    'mime' => 'audio/x-mpeg'),
-'.avi'  => array('img' => 'avi.gif',    'mime' => 'video/x-msvideo'),
-'.mpg'  => array('img' => 'mpg.gif',    'mime' => 'video/mpeg'),
-'.mpeg' => array('img' => 'mpg.gif',    'mime' => 'video/mpeg'),
-'.mov'  => array('img' => 'avi.gif',    'mime' => 'video/quicktime'),
-'.swf'  => array('img' => 'flash.gif',  'mime' => 'application/x-shockwave-flash'),
-'.gtar' => array('img' => 'rar.gif',    'mime' => 'application/x-gtar'),
-'.tar'  => array('img' => 'rar.gif',    'mime' => 'application/x-tar'),
-'.tiff' => array('img' => 'defaut.gif', 'mime' => 'image/tiff'),
-'.tif'  => array('img' => 'defaut.gif', 'mime' => 'image/tiff'),
-'.rtf'  => array('img' => 'doc.gif',    'mime' => 'application/rtf'),
-'.eps'  => array('img' => 'defaut.gif', 'mime' => 'application/postscript'),
-'.ps'   => array('img' => 'defaut.gif', 'mime' => 'application/postscript'),
-'.qt'   => array('img' => 'avi.gif'  ,  'mime' => 'video/quicktime'),
-'directory' => array('img' => 'dossier.gif', 'mime' => ''),
-'default' =>   array('img' => 'defaut.gif',  'mime' => 'application/octet-stream')
+'.txt'  => array('img' => 'txt.jpg',    'mime' => 'text/plain'),
+'.html' => array('img' => 'html.jpg',   'mime' => 'text/html'),
+'.htm'  => array('img' => 'html.jpg',   'mime' => 'text/html'),
+'.doc'  => array('img' => 'doc.jpg',    'mime' => 'application/msword'),
+'.docx'  => array('img' => 'docx.jpg',    'mime' => 'application/msword'),
+'.pdf'  => array('img' => 'pdf.jpg',    'mime' => 'application/pdf'),
+'.xls'  => array('img' => 'xls.jpg',    'mime' => 'application/msexcel'),
+'.xlsx'  => array('img' => 'xlsx.jpg',    'mime' => 'application/msexcel'),
+'.odt'  => array('img' => 'odt.jpg',    'mime' => 'application/vnd.oasis.opendocument.text'),
+'.ots'  => array('img' => 'ots.jpg',    'mime' => 'application/vnd.oasis.opendocument.text'),
+'.ott'  => array('img' => 'ott.jpg',    'mime' => 'application/vnd.oasis.opendocument.text'),
+'.gif'  => array('img' => 'gif.jpg',    'mime' => 'image/gif'),
+'.jpg'  => array('img' => 'jpg.jpg',    'mime' => 'image/jpeg'),
+'.jpeg' => array('img' => 'jpg.jpg',    'mime' => 'image/jpeg'),
+'.bmp'  => array('img' => 'bmp.jpg',    'mime' => 'image/bmp'),
+'.png'  => array('img' => 'gif.jpg',    'mime' => 'image/png'),
+'.zip'  => array('img' => 'zip.jpg',    'mime' => 'application/zip'),
+'.rar'  => array('img' => 'rar.jpg',    'mime' => 'application/x-rar-compressed'),
+'.gz'   => array('img' => 'zip.jpg',    'mime' => 'application/x-compressed'),
+'.tgz'  => array('img' => 'zip.jpg',    'mime' => 'application/x-compressed'),
+'.z'    => array('img' => 'zip.jpg',    'mime' => 'application/x-compress'),
+'.exe'  => array('img' => 'exe.jpg',    'mime' => 'application/x-msdownload'),
+'.mid'  => array('img' => 'mid.jpg',    'mime' => 'audio/mid'),
+'.midi' => array('img' => 'mid.jpg',    'mime' => 'audio/mid'),
+'.wav'  => array('img' => 'wav.jpg',    'mime' => 'audio/x-wav'),
+'.mp3'  => array('img' => 'mp3.jpg',    'mime' => 'audio/x-mpeg'),
+'.avi'  => array('img' => 'avi.jpg',    'mime' => 'video/x-msvideo'),
+'.mpg'  => array('img' => 'mpg.jpg',    'mime' => 'video/mpeg'),
+'.mpeg' => array('img' => 'mpg.jpg',    'mime' => 'video/mpeg'),
+'.mov'  => array('img' => 'avi.jpg',    'mime' => 'video/quicktime'),
+'.swf'  => array('img' => 'flash.jpg',  'mime' => 'application/x-shockwave-flash'),
+'.gtar' => array('img' => 'rar.jpg',    'mime' => 'application/x-gtar'),
+'.tar'  => array('img' => 'tar.jpg',    'mime' => 'application/x-tar'),
+'.tiff' => array('img' => 'tiff.jpg', 'mime' => 'image/tiff'),
+'.tif'  => array('img' => 'tiff.jpg', 'mime' => 'image/tiff'),
+'.rtf'  => array('img' => 'rtf.jpg',    'mime' => 'application/rtf'),
+'.eps'  => array('img' => 'defaut.jpg', 'mime' => 'application/postscript'),
+'.ps'   => array('img' => 'defaut.jpg', 'mime' => 'application/postscript'),
+'.qt'   => array('img' => 'avi.jpg'  ,  'mime' => 'video/quicktime'),
+'directory' => array('img' => 'folder.png', 'mime' => ''),
+'default' =>   array('img' => 'txt.jpg',  'mime' => 'application/octet-stream')
 );
 
 //
