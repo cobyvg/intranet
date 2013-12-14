@@ -21,6 +21,9 @@ $departamento2 = "programaciones/$departamento1";
 define('IN_PHPATM', true);
 include('include/conf.php');
 include('include/common.'.$phpExt);
+
+if($index=='privado' && !file_exists($uploads_folder_name)) mkdir("$uploads_folder_name", 0777);
+
 //
 function msdos_time_to_unix($DOSdate, $DOStime)
 {
