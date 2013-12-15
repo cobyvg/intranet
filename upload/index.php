@@ -1,6 +1,12 @@
 <?
-session_start();
-include("../config.php");
+session_start ();
+include ("config.php");
+if ($_SESSION ['autentificado'] != '1') {
+	session_destroy ();
+	header ( "location:http://$dominio/intranet/salir.php" );
+	exit ();
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $departamento = str_replace(" P.E.S.","",$_SESSION['depto']);
 $departamento1 = str_replace("·","a",$departamento);
