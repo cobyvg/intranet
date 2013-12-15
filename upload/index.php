@@ -1,6 +1,6 @@
 <?
 session_start ();
-include ("config.php");
+include ("../config.php");
 if ($_SESSION ['autentificado'] != '1') {
 	session_destroy ();
 	header ( "location:http://$dominio/intranet/salir.php" );
