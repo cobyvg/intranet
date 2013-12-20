@@ -251,16 +251,16 @@ if (!(is_writable('config.php'))) {
 <?
 }
 	?>    
-<form action="index.php" method="post" align="left" class="form-signin" id = "form-signin">
+<form action="index.php" method="post" align="left" autocomplete="off">
 <div  align="center">
-<div class="input-prepend">
-    <span class="add-on"><i class="icon icon-user">&nbsp;</i></span>
-    <input type="text" placeholder="Usuario" name="idea">
+<div class="input-prepend" style="width:100%">
+    <span class="add-on"><i class="icon icon-user icon-fixed-width"></i></span>
+    <input type="text" placeholder="Usuario IdEA" name="idea">
 </div>
 <br />
-<div class="input-prepend"">
-    <span class="add-on"><i class="icon icon-key"></i></span>
-    <input type="password" placeholder="Clave" name="clave">
+<div class="input-prepend" style="width:100%">
+    <span class="add-on"><i class="icon icon-key icon-fixed-width"></i></span>
+    <input type="password" placeholder="Contraseña" name="clave">
 </div>
 </div>
 <br />

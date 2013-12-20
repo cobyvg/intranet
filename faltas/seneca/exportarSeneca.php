@@ -67,7 +67,6 @@ $anio_curso = substr($inicio_curso,0,4);
 $provincia = utf8_decode(obtenerProvincia($codigo_postal_del_centro));
 
 // FLAGS DE CONTROL
-$flag=0;			// Controla que la creación de la tabla tramos se ejecute una vez.
 $flag_fincurso=0;	// Controla que no imprima las etiquetas </UNIDADES> u </CURSO> al comienzo.
 $flag_curso="";		// Controla que no imprima el curso por cada unidad.
 
