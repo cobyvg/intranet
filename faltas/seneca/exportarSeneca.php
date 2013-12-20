@@ -94,37 +94,15 @@ $directorio = scandir("./origen/");
 sort($directorio);
 foreach ($directorio as $archivo) {
 	
-    if (!is_dir($archivo))
+    if (!is_dir($archivo) and stristr($archivo,".xml")==TRUE)
     {
     	// Obtenemos el nivel y grupo
         $curso = explode("_",$archivo);
         $nivel = strtoupper(substr($curso[0],0,2));
         $grupo = strtoupper(substr($curso[0],2,1));
-        
-        
+               
         $doc = new DOMDocument('1.0', 'iso-8859-1');
         $doc->load( './origen/'.$archivo );
-        
-        // CREACION DE LA TABLA TRAMOS
-        $tramos = $doc->getElementsByTagName("TRAMO_HORARIO");
-        
-        if (!$flag) {
-        	mysql_query("TRUNCATE TABLE tramos") or die (mysql_error());
-        	
-        	mysql_query("ALTER TABLE tramos CHANGE hora  hora VARCHAR( 80 ) NOT NULL DEFAULT '0',
-        	CHANGE tramo  tramo INT( 6 ) NOT NULL DEFAULT '0'") or die (mysql_error());
-        	
-        	foreach( $tramos as $tramo ) {
-        		$tag_tramo = $tramo->getElementsByTagName("X_TRAMO");
-	        	$tag_horcen = $tramo->getElementsByTagName("T_HORCEN");
-	        	$X_TRAMO = $tag_tramo->item(0)->nodeValue;
-	        	$T_HORCEN = $tag_horcen->item(0)->nodeValue;
-	        	
-	        	mysql_query("INSERT INTO tramos VALUES ('$T_HORCEN', '$X_TRAMO')");
-	        }
-	        
-	        $flag=1;
-        }
         
         // Obtenemos los datos del curso
         $tag_xofertamatrig	= $doc->getElementsByTagName("X_OFERTAMATRIG");
@@ -291,3 +269,4 @@ else {
 	header("Content-type: application/octet-stream");
 	readfile($directorio.$archivo);
 }
+?>

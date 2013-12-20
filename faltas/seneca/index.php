@@ -143,7 +143,6 @@ puente coincidente con los primeros dias de un mes, etc.). <br />El mismo criter
         
 </div>
 <div class="span4">
-<legend align="center">Calendario escolar</legend>
 <?
 include("../..//admin/cursos/calendario2.php");
 ?>
