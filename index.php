@@ -251,7 +251,7 @@ if (!(is_writable('config.php'))) {
 <?
 }
 	?>    
-<form action="index.php" method="post" align="left" autocomplete="off">
+<form action="index.php" method="post" align="left" autocomplete="on">
 <div  align="center">
 <div class="input-prepend" style="width:100%">
     <span class="add-on"><i class="icon icon-user icon-fixed-width"></i></span>
