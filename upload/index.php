@@ -465,7 +465,7 @@ function contents_dir($current_dir, $directory)
 	if ($grants[$user_status][DOWNLOAD] && !is_dir("$current_dir/$filename")) {
 		
 		//	DESCARGAR ARCHIVO
-		echo "<a href=\"index.${phpExt}?action=downloadfile&filename=$filename&directory=$directory\">
+		echo "<a href=\"index.${phpExt}?index=$index&action=downloadfile&filename=$filename&directory=$directory\">
 		        <i class=\"icon icon-download-alt icon-large icon-fixed-width\" alt=\"$mess[23]\"></i>
 		      </a>";
 		}
