@@ -129,13 +129,11 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   $result_found = 0;
   if ($zz == $today) { 
     echo "<td onClick=\"window.location='" 
-	.$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='background-color:#08c;color:#fff;cursor:pointer;'>$zz</td>";
+	.$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='background-color:#0072E6;color:#fff;cursor:pointer;'>$zz</td>";
     $result_found = 1;
   }
-  if ($result_found != 1) {//Buscar actividad  y marcarla.
-  	
 
-
+if ($result_found != 1) {//Buscar actividad  y marcarla.
     $sql_currentday = "$year-$month-$zz";
     $eventQuery = "SELECT fecha, profesor FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and (grupo='Sin grupo' ";
     
@@ -162,13 +160,22 @@ $n_pr="";
       		$colores="background-color:#f89406;color:#fff;";
       	}
       	else{
-      		$colores="background-color:#41BB19;color:#fff;";
+      		$colores="background-color:#333;color:#fff;";
       	}
         //break;
       }
   }
-        echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='$colores cursor:pointer;'>$zz</td>";
-        $result_found = 1;
+  
+  $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
+		if (mysql_num_rows($fest)>0) {
+		$festiv=mysql_fetch_array($fest);
+			echo "<td valign=\"middle\" align=\"center\" style='background-color:#46A546;color:#fff;font-size:0.8em;'>$zz</td>\n";
+				$result_found = 1;
+				}
+				else{
+        		echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='$colores cursor:pointer;'>$zz</td>";					
+				}
+          $result_found = 1;
     }
   if ($result_found != 1) {
     echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='cursor:pointer;'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>";
@@ -188,7 +195,7 @@ echo "</tr>";
 echo "</table>";
 ?>
 <hr />
-<table><tr><td style="background-color:#f89406;width:15px"></td><td> <small>Exámenes propios</small></td></tr><tr><td style="background-color:#41BB19"></td><td> <small>Exámenes de otros Profesores</small></td></tr></table>
+<table><tr><td style="background-color:#f89406;width:15px"></td><td> <small>Exámenes propios</small></td></tr><tr><td style="background-color:#333"></td><td> <small>Exámenes de otros Profesores</small></td></tr></table>
 
 <?
 echo "</div>";

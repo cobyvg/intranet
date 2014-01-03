@@ -25,7 +25,7 @@ if($recurso=="carrito"){$num=$num_carrito+1;$nombre_rec="Carritos de Portátiles"
 <br />
 <?php
 if ($recurso=="aula") {
- 		echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+ 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <legend>Atención:</legend>
             El espacio preferido para reservar las Aulas y dependencias varias del Centro es la opción <em><b>Aulas de Grupo</b></em>, que puedes encontrar en el menú de las reservas más arriba. Esta sección esta en vías de desaparición. Por lo tanto, busca el aula entre las Aulas de Grupo y procede con la reserva.
@@ -107,14 +107,14 @@ echo $servicio;
 echo '></a>';
 
 echo "<table class='table table-striped table-condensed table-bordered' style=''><thead>";
-echo "<tr><th colspan='7' style='text-align:center'><h3 style='color:#9d261d'>$servicio</h3><h6>( $lugar )</h6></th></tr>
-<tr><th colspan='7'><center><h4>" 
-. $monthlong . "</h4></th>";
+echo "<tr><th colspan='7' style='text-align:center'><h3 style='color:#9d261d'>$servicio</h3><h4>( $lugar )</h4></th></tr>
+<tr><th colspan='7'><center><p class='lead text-info'>" 
+. $monthlong . "</p></th>";
 echo "</center></tr><tr>";
 //Nombres de Días
 foreach ( $alldays as $value ) {
 	echo "<th>
-  <span class='badge badge'>$value</span></th>";
+  <span class='badge badge-info'>$value</span></th>";
 }
 echo "</tr></thead><tr>";
 
@@ -129,10 +129,36 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el días
   $result_found = 0;
   if ($zz == $today) { 
-    echo "<td valign=\"middle\" align=\"center\" style='background-color:#46a546;color:#fff'>$zz</td>\n";
+    echo "<td valign=\"middle\" align=\"center\" style='background-color:#0072E6;color:#fff'>$zz</td>\n";
 		$result_found = 1;
   }
-  if ($result_found != 1) {//Buscar actividad  y marcarla.
+  
+  
+  if ($result_found != 1) { 
+		//Buscar actividad para el dóa y marcarla
+		$sql_currentday = "$year-$month-$zz";
+    	$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
+		$eventExec = mysql_query ( $eventQuery );
+		if (mysql_num_rows($eventExec)>0) {
+			while ( $row = mysql_fetch_array ( $eventExec ) ) {
+echo "<td valign=\"middle\" align=\"center\" style='background-color:#f89406;color:#fff'>$zz</td>\n";
+$result_found = 1;
+		}	
+		}
+		else{
+		$sql_currentday = "$year-$month-$zz";
+		$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
+		if (mysql_num_rows($fest)>0) {
+		$festiv=mysql_fetch_array($fest);
+			        echo "<td style='background-color:#46A546;'><a style='color:#fff'>$zz</a></td>\n";
+				$result_found = 1;
+				}	
+		}		
+	}
+  
+  
+/*  if ($result_found != 1) {
+  	//Buscar actividad  y marcarla.
     $sql_currentday = "$year-$month-$zz";
     $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
     //echo $eventQuery;
@@ -144,7 +170,7 @@ echo "<td valign=\"middle\" align=\"center\" style='background-color:#f89406;col
     }
     }
    
-  }
+  }*/
   if ($result_found != 1) {//Celda por defecto
    echo "<td>$zz</td>\n";
   }
@@ -164,7 +190,7 @@ echo "</tr>";
 echo "</table>";
 
 //Semana
-	echo "<div class='well' align='left' style=''><h4>Próximos días</h4><hr>";
+	echo "<div class='well' align='left' style=''><legend class='text-success'>Próximos días</legend>";
 
 for ($i = $today; $i <= ($today + 6); $i++) {
   $current_day = $i;
@@ -249,7 +275,7 @@ echo "</a></p>";
    $event_event6 = "";
    $event_event7 = "";
 }
-echo "<br /><div align='center'><a href=\"http://$dominio/intranet/reservas/jcal_admin/index.php?servicio=$servicio\"><button  class='btn btn-primary'>Reservar...</button></a><br /></div>";
+echo "<br /><div align='center'><a href=\"http://$dominio/intranet/reservas/jcal_admin/index.php?servicio=$servicio\"><button  class='btn btn-block btn-primary'>Reservar...</button></a><br /></div>";
 echo '</div>';
 echo '</div>';
 if ($ci==3 or $ci==6 or $ci==9 or $ci==12){echo '</div>';}

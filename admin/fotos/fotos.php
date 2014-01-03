@@ -52,13 +52,12 @@ elseif (isset($_GET['claveal'])) {
   <h2>Fotos de los Alumnos <small>Registro de fotografías de <? echo $nivel."-".$grupo;?></small></h2>
 </div>
 <?
-
 if (isset($_POST['enviar']))
 {
 	$ok=0;
 	if ($_FILES['File']['size']>0) {
 	$fotos_dir = "../../xml/fotos/";
-	if ($_FILES['File']['size']>'30000' and $_FILES['File']['size']<'2000000') {
+	if ($_FILES['File']['size']>'30000' and $_FILES['File']['size']<'2500000') {
 		if (stristr($_FILES['File']['type'],"image/jp")==TRUE) {			
 			$extension="jpg";
 			$n_foto=$claveal.".".$extension;
@@ -89,20 +88,36 @@ if (isset($_POST['enviar']))
 			redimensionar_jpeg($arch0,$arch,600,$cent_alto,100);
 			$nuevo_tamano = filesize($arch);
 			copy($arch0,"../../xml/fotos/".$claveal.".jpg");
+			//Comprobamos que el módulo de la página pública del Centro está operativo.
 			$exterior = mysql_query("select * from fotos");
 			if (mysql_num_rows($exterior)>0) {
-			$ruta="../../xml/fotos/".$claveal.".jpg";
-			$nombre=$claveal.".jpg";
-			mysql_query("insert INTO faltas.fotos (nombre, datos, fecha, tamaño) VALUES('$nombre', LOAD_FILE('$ruta'),now(), '$nuevo_tamano')") or die("Imposible poner foto en tabla");				
+			$pth = realpath("../../xml/fotos/");
+			$ruta=$pth."/".$claveal.".jpg";
+			$nombre_foto=$claveal.".jpg";
+			
+			$control_bd = mysql_query("select * from $db.fotos where nombre = '$nombre_foto'");
+			if (mysql_num_rows($control_bd)>0) {
+			$foto_bd = mysql_query("update $db.fotos set datos = LOAD_FILE('$ruta'), fecha = now(), tamaño = '$nuevo_tamano' where nombre = '$nombre_foto'");	
+			}
+			else{
+				$foto_bd = mysql_query("insert INTO $db.fotos (nombre, datos, fecha, tamaño) VALUES('$nombre_foto', LOAD_FILE('$ruta'),now(), '$nuevo_tamano')");
 			}
 
+			if ($foto_bd==FALSE){
+			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>ATENCIÓN:</legend>
+No ha sido posible colocar la foto del alumno en la Base de datos. Busca ayuda. 
+          </div></div>';
+			}						
+			}
 			unlink($arch0);
 		}
 		else {
 			$ok.="1";
 			echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 El archivo que est&aacute;s enviando no es un tipo de imagen v&aacute;lido. Selecciona un archivo de imagen con formato JPG.
           </div></div>';
 		}
@@ -114,7 +129,7 @@ El archivo que est&aacute;s enviando no es un tipo de imagen v&aacute;lido. Sele
 			$ok.="1";
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 La fotograf&iacute;a no tiene suficiente resoluci&oacute;n, por lo que su visualizaci&oacute;n ser&aacute; necesariamente defectuosa. Es conveniente que actualices la foto eligiendo una nueva con mayor calidad. 
           </div></div>';
 		}
@@ -122,16 +137,15 @@ La fotograf&iacute;a no tiene suficiente resoluci&oacute;n, por lo que su visual
 			$ok.="1";
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 La fotograf&iacute;a tiene excesiva resoluci&oacute;n. Es conveniente que actualices la foto eligiendo una nueva con menor resolución (o tamaño, como quieras). 
           </div></div>';	
-		}
-		
+		}	
 	}
 	if ($ok==0) {
 		echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
             La fotografía se ha actualizado correctamente. Si la foto que ves abajo es la antigua, sal de esta página y vuelve a entrar: comprobarás que la foto se ha actualizado.
           </div></div>';	
 	}	
@@ -140,7 +154,7 @@ La fotograf&iacute;a tiene excesiva resoluci&oacute;n. Es conveniente que actual
 		$ok.="1";
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
             No has seleccionado ninguna fotograf&iacute;a. Elige una archivo con la fotografía e inténtalo de nuevo.
           </div></div>';
 	}
@@ -207,7 +221,7 @@ if (strlen($_POST['nombre']) > '5')
 	if ($foto_ya=='1' and $grande < '30000') {
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 La fotograf&iacute;a no tiene suficiente resoluci&oacute;n, por lo que su visualizaci&oacute;n ser&aacute; necesariamente defectuosa. Es conveniente que actualizes la foto eligiendo una nueva con mayor calidad. 
           </div></div>';
 	}

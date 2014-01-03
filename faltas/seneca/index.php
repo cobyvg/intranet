@@ -72,7 +72,7 @@ Los archivos de los alumnos han sido descragados correctamente en el directorio 
 
 <div class="container-fluid">
 <div class="row-fluid">
-<div class="span4">
+<div class="span4 offset2">
 <legend align="center">Importar datos de los Alumnos</legend>
 <FORM ENCTYPE="multipart/form-data" ACTION="index.php" METHOD="post">
   <div class="control-group">
@@ -141,11 +141,6 @@ Para poder importar las faltas de los alumnos, es necesario en primer lugar desc
         Es importante que los datos de los Alumnos est&eacute;n actualizados para evitar errores en la importaci&oacute;n de las Faltas. El formulario de la izquierda permite actualizar la información.<br />Adem&aacute;s, ten en cuenta que S&eacute;neca s&oacute;lo acepta importaciones de un mes m&aacute;ximo de Faltas de Asistencia. Por esta raz&oacute;n, el Primer D&iacute;a que introduces debe ser el primer d&iacute;a del mes (o el mas pr&oacute;ximo en caso de que sea un mes de vacaciones, o 
 puente coincidente con los primeros dias de un mes, etc.). <br />El mismo criterio se aplica para el ultimo d&iacute;a del mes. <br />Es muy importante que selecciones dias lectivos, as&iacute; que echa un vistazo al Calendario oficial de la Consejer&iacute;a para asegurarte. <br />Una vez le damos a enviar se generan los ficheros (o el fichero comprimido, según la opción elegida) que posteriormente se importan a S&eacute;neca, as&iacute; que ya puedes abrir la pagina de S&eacute;neca para hacerlo.<br /> Los archivos se encuentran en el directorio de la intranet /faltas/seneca/exportado/; el archivo comprimido se genera en el navegador preparado para subirlo.</div>
         
-</div>
-<div class="span4">
-<?
-include("../..//admin/cursos/calendario2.php");
-?>
 </div>
 </div>
 

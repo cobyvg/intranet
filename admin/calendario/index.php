@@ -87,24 +87,41 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 	//Comprobar si hay actividad en el día
 	$result_found = 0;
 	if ($zz == $today) { //Marcar días actuales
-    echo "<td align=\"center\" style='background-color:#46a546;color:#fff;font-size:0.8em'>$zz</td>\n";
+    echo "<td align=\"center\" style='background-color:#0072E6;color:#fff;font-size:0.8em'>$zz</td>\n";
 		$result_found = 1;
 	}
 	if ($result_found != 1) { //Buscar actividad para el dóa y marcarla
+		
+		
+
+		// Principio
 		$sql_currentday = "$year-$month-$zz";
 		$eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
 		$eventExec = mysql_query ( $eventQuery );
 		$diari = mysql_query("SELECT id FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and profesor='".$_SESSION['profi']."'");
-		while ( $row = mysql_fetch_array ( $eventExec ) ) {
+		
+		if (mysql_num_rows($eventExec)>0) {
+			while ( $row = mysql_fetch_array ( $eventExec ) ) {
 			if (strlen ( $row ["title"] ) > 0) {
-				$bg = "#f89406";
+			$bg = "#f89406";
 				if (mysql_num_rows($diari)>0) {
 					$bg = "#007FFF";
 				}
-echo "<td valign=\"middle\" align=\"center\" style='background-color:$bg;color:#fff;font-size:0.8em'>$zz</td>\n";
+				echo "<td valign=\"middle\" align=\"center\" style='background-color:$bg;color:#fff;font-size:0.8em'>$zz</td>\n";
 				$result_found = 1;
 			}
+		}	
 		}
+		else{
+		$sql_currentday = "$year-$month-$zz";
+		$fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
+		if (mysql_num_rows($fest)>0) {
+		$festiv=mysql_fetch_array($fest);
+			echo "<td valign=\"middle\" align=\"center\" style='background-color:#46A546;color:#fff;font-size:0.8em;'>$zz</td>\n";
+				$result_found = 1;
+				}	
+		}
+		// Fin					
 	}
 	
 	if ($result_found != 1) { //Celda por defecto
@@ -151,7 +168,8 @@ if (mysql_num_rows ( $diari ) > 0){
 	echo "<legend style='margin-bottom:3px;'><small style='color:#777'><i class='icon icon-calendar'> </i>Calendario personal</small></legend>";
 	while ( $diar = mysql_fetch_array ( $diari ) ) {
 		$n_reg+=1;
-		echo "<p><small>  $diar[1] - </small><a href='admin/calendario/diario/index.php?id=$diar[0]' rel='tooltip' title='$diar[2] - $diar[3]'>  $diar[2]</a></p>";	
+		$fecha_reg = cambia_fecha($diar[1]);
+		echo "<p><small>  $fecha_reg - </small><a href='admin/calendario/diario/index.php?id=$diar[0]' rel='tooltip' title='$diar[2] - $diar[3]'>  $diar[2]</a></p>";	
 	}
 }
 $n_noticias=5-$n_reg;

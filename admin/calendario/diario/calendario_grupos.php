@@ -122,18 +122,30 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 	.$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month&curso=$curso';\" style='background-color:#08c;color:#fff;cursor:pointer;'>$zz</td>";
     $result_found = 1;
   }
-  if ($result_found != 1) {//Buscar actividad  y marcarla.
-    $sql_currentday = "$year-$month-$zz";
+  
+ if ($result_found != 1) { 
+		//Buscar actividad para el dóa y marcarla
+		$sql_currentday = "$year-$month-$zz";
+
     $eventQuery = "SELECT distinct fecha FROM diario WHERE grupo like '%$curso%' and fecha = '$sql_currentday';";
-    //echo $eventQuery;
-    $eventExec = mysql_query($eventQuery);
-    while($row = mysql_fetch_array($eventExec)) {
-      if (mysql_num_rows($eventExec) == 1) {
+		$eventExec = mysql_query ( $eventQuery );
+		if (mysql_num_rows($eventExec)>0) {
+			while ( $row = mysql_fetch_array ( $eventExec ) ) {
 echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month&curso=$curso';\" style='background-color:#f89406;color:#fff;cursor:pointer;'>$zz</td>";
-        $result_found = 1;
-      }
-    }
-  }
+			$result_found = 1;
+			}
+		}	
+		else{
+		$sql_currentday = "$year-$month-$zz";
+        $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
+		if (mysql_num_rows($fest)>0) {
+		$festiv=mysql_fetch_array($fest);
+		echo "<td style='background-color:#46A546;'><a style='color:#fff'>$zz</a></td>\n";
+		$result_found = 1;
+				}	
+		}
+		
+	}
 
   if ($result_found != 1) {
     echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month&curso=$curso';\" style='cursor:pointer;'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month&curso=$curso'>$zz</a></td>";

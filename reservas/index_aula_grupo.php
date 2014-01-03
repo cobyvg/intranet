@@ -111,7 +111,7 @@ if ($today > $numdays) { $today--; }
 <div class="container-fluid">        
 <?
 // Lugares y situación
-$a1=mysql_query("select distinct a_aula, n_aula from horw where a_aula not like 'G%' and a_aula not like '' and n_aula not like 'audi%' and a_aula not like 'DIR%' order by a_aula");
+$a1=mysql_query("select distinct a_aula, n_aula from $db.horw where a_aula not like 'G%' and a_aula not like '' and a_aula not like 'DIR%' order by a_aula");
 
 $num_aula_grupo=mysql_num_rows($a1);
 while($au_grupo = mysql_fetch_array($a1)){
@@ -127,9 +127,9 @@ echo $servicio;
 echo '></a>';
 
 echo "<table class='table table-striped table-condensed table-bordered' style=''><thead>";
-echo "<tr><th colspan='7' style='text-align:center'><h3 style='color:#9d261d'>$servicio</h3><h6>( $lugar )</h6></th></tr>
-<tr><th colspan='7'><center><h4>" 
-. $monthlong . "</h4></th>";
+echo "<tr><th colspan='7' style='text-align:center'><h3 style='color:#9d261d'>$servicio</h3><h4>( $lugar )</h4></th></tr>
+<tr><th colspan='7'><center><p class='lead text-info'>" 
+. $monthlong . "</p></th>";
 echo "</center></tr><tr>";
 //Nombres de Días
 foreach ( $alldays as $value ) {
@@ -149,21 +149,37 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el días
   $result_found = 0;
   if ($zz == $today) { 
-    echo "<td valign=\"middle\" align=\"center\" style='background-color:#46a546;color:#fff'>$zz</td>\n";
+    echo "<td valign=\"middle\" align=\"center\" style='background-color:#0072E6;color:#fff'>$zz</td>\n";
 		$result_found = 1;
   }
-  if ($result_found != 1) {//Buscar actividad  y marcarla.
-    $sql_currentday = "$year-$month-$zz";
+  
+  
+  if ($result_found != 1) { 
+		//Buscar actividad para el dóa y marcarla
+		$sql_currentday = "$year-$month-$zz";
+
     $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
-    //echo $eventQuery;
-    $eventExec = mysql_query($eventQuery);
-    while($row = mysql_fetch_array($eventExec)) {
-      if (mysql_num_rows($eventExec) == 1) {
+				$eventExec = mysql_query ( $eventQuery );
+		if (mysql_num_rows($eventExec)>0) {
+			while ( $row = mysql_fetch_array ( $eventExec ) ) {
+			if (strlen ( $row ["title"] ) > 0) {
 echo "<td valign=\"middle\" align=\"center\" style='background-color:#f89406;color:#fff'>$zz</td>\n";
-        $result_found = 1;
-      }
-    }
-  }
+$result_found = 1;
+			}
+		}	
+		}
+		else{
+		$sql_currentday = "$year-$month-$zz";
+		$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
+		if (mysql_num_rows($fest)>0) {
+		$festiv=mysql_fetch_array($fest);
+			        echo "<td style='background-color:#46A546;'><a style='color:#fff'>$zz</a></td>\n";
+				$result_found = 1;
+				}	
+		}
+		
+	}
+ 
   if ($result_found != 1) {//Celda por defecto
    echo "<td>$zz</td>\n";
   }
@@ -183,7 +199,7 @@ echo "</tr>";
 echo "</table>";
 
 //Semana
-	echo "<div class='well' align='left' style=''><h4>Próximos días</h4><hr>";
+	echo "<div class='well' align='left' style=''><legend class='text-success'>Próximos días</legend>";
 
 for ($i = $today; $i <= ($today + 6); $i++) {
   $current_day = $i;

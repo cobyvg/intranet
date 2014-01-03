@@ -340,7 +340,7 @@ echo "<input type=\"hidden\" value=\"$year\" name=\"year\">
       <input type=\"hidden\" value=\"$month\" name=\"month\">
       <input type=\"hidden\" value=\"$today\" name=\"today\">
        <hr><center>
-      <input name = 'enviar' type=\"submit\" id='formsubmit' value='Enviar datos' class='btn btn-primary'> </center>
+      <input name = 'enviar' type=\"submit\" id='formsubmit' value='Enviar datos' class='btn btn-block btn-primary'> </center>
     </form>";
 echo "</div>";
 ?>
@@ -407,10 +407,34 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   $result_found = 0;
   if ($zz == $today) { 
     echo "<td onClick=\"window.location='" 
-	.$_SERVER['PHP_SELF']. "?servicio=$aula&year=$year&today=$zz&month=$month';\" style='background-color:#08c;color:#fff;cursor:pointer;'>$zz</td>";
+	.$_SERVER['PHP_SELF']. "?servicio=$aula&year=$year&today=$zz&month=$month';\" style='background-color:#0072E6;color:#fff;cursor:pointer;'>$zz</td>";
     $result_found = 1;
   }
-  if ($result_found != 1) {//Buscar actividad  y marcarla.
+  
+  if ($result_found != 1) { 
+		//Buscar actividad para el dóa y marcarla
+		$sql_currentday = "$year-$month-$zz";
+    	$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$aula` WHERE eventdate = '$sql_currentday';";
+ 		$eventExec = mysql_query ( $eventQuery );
+		if (mysql_num_rows($eventExec)>0) {
+			while ( $row = mysql_fetch_array ( $eventExec ) ) {
+echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?servicio=$aula&year=$year&today=$zz&month=$month';\" style='background-color:#f89406;color:#fff;cursor:pointer;'>$zz</td>";
+$result_found = 1;
+		}	
+		}
+		else{
+		$sql_currentday = "$year-$month-$zz";
+		$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
+		if (mysql_num_rows($fest)>0) {
+		$festiv=mysql_fetch_array($fest);
+			        echo "<td style='background-color:#46A546;'><a style='color:#fff'>$zz</a></td>\n";
+				$result_found = 1;
+				}	
+		}
+		
+	}
+	
+/*  if ($result_found != 1) {//Buscar actividad  y marcarla.
     $sql_currentday = "$year-$month-$zz";
     $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$aula` WHERE eventdate = '$sql_currentday';";
     //echo $eventQuery;
@@ -421,7 +445,7 @@ echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?servicio=$aula&y
         $result_found = 1;
       }
     }
-  }
+  }*/
 
   if ($result_found != 1) {
     echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?servicio=$aula&year=$year&today=$zz&month=$month';\" style='cursor:pointer;'><a href='".$_SERVER['PHP_SELF']."?servicio=$aula&year=$year&today=$zz&month=$month'>$zz</a></td>";

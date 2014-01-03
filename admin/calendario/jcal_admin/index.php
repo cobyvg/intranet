@@ -117,11 +117,32 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 <div class="row-fluid">
  <div class="span2"></div>
 <div class="span4">
-<div class="well well-small">
+<div class="well well-large">
 <?
-echo "<h3>$daylong, $monthlong $today, $year</h3><br />";
+echo "<h3>$daylong, $monthlong $today, $year</h3><hr />";
+
 
 $sql_date = "$year-$month-$today";
+$eventQuery = "SELECT title, event, idact FROM cal WHERE eventdate = '$sql_date'";
+$eventExec = mysql_query($eventQuery);
+if (mysql_num_rows($eventExec)>0) {
+while($row = mysql_fetch_array($eventExec)) {
+   $event_title = $row[0];
+   $title = $row[0];
+   $event_event = $row[1];
+   $idact = $row[2];
+}	
+}
+else{
+$fest = mysql_query("select distinct nombre from festivos WHERE fecha = '$sql_date'");
+		if (mysql_num_rows($fest)>0) {
+		$festiv=mysql_fetch_array($fest);
+		$event_title = "Festivo: ".$festiv[0];
+				}
+}
+
+
+/*$sql_date = "$year-$month-$today";
 $eventQuery = "SELECT title, event, idact FROM cal WHERE eventdate = '$sql_date'";
 $eventExec = mysql_query($eventQuery);
 while($row = mysql_fetch_array($eventExec)) {
@@ -130,6 +151,7 @@ while($row = mysql_fetch_array($eventExec)) {
    $event_event = $row[1];
    $idact = $row[2];
 }
+*/
 echo "<form name='jcal_post' action='jcal_post.php?year=$year&today=$today&month=$month' method='post'>";
 echo "<div align='left'>";
 		  $tr0 = explode("<br>",$event_title);
@@ -139,10 +161,10 @@ echo "<div align='left'>";
 			$n_act = $n_act + 1;
 		  	$actividad0.= $val0."<br>";
 		}
-		  echo "<label>Actividades del día<br />";
+		  echo "<p class='lead text-warning'>Actividades del día</p>";
 		  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_title' rows='6' cols='45' class='span12'>$event_title</textarea>";}else{echo "<p>$actividad0</p>";}
-		  echo "</label><br />";
-      echo "<label>Infromación sobre las actividades<br />";
+		  echo "<hr />";
+      echo "<p class='lead text-warning'>Información sobre las actividades</p>";
 	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_event' cols='45' rows='8' class='span12'>$event_event</textarea>";}else{echo "<p>$event_event</p>";}
 	  echo "<hr />";
 
@@ -163,9 +185,8 @@ echo "<div align='left'>";
 			  	$n_act0 = $n_act0 + 1;
 		  		$hor.= "".$act[2]." ==> ".$act[0]."";
 		  }		
-echo "<label>Horario de las actividades<br />
-<textarea class='input span12' disabled />$hor</textarea>
-</label>";
+echo "<p class='lead text-warning'>Horario de las actividades</p>
+<textarea class='input span12' disabled />$hor</textarea>";
 	  echo "<hr />";	  
 		}	  
 	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5')== TRUE ){echo "<input type='submit' name='actualizar' value='Introducir datos' class='btn btn-primary'>";}
@@ -237,7 +258,36 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 	"?year=$year&today=$zz&month=$month' style='color:#fff'>$zz</a></td>\n";
     $result_found = 1;
   }
-  if ($result_found != 1) {
+  
+  
+	if ($result_found != 1) { 
+		//Buscar actividad para el dóa y marcarla
+		$sql_currentday = "$year-$month-$zz";
+
+		$eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
+		$eventExec = mysql_query ( $eventQuery );
+		if (mysql_num_rows($eventExec)>0) {
+			while ( $row = mysql_fetch_array ( $eventExec ) ) {
+			if (strlen ( $row ["title"] ) > 0) {
+        echo "<td style='background-color:#f89406;cursor:pointer;' onClick='window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month' style='color:#fff'>$zz</a></td>\n";				
+				$result_found = 1;
+			}
+		}	
+		}
+		else{
+		$sql_currentday = "$year-$month-$zz";
+		$fest = mysql_query("select distinct fecha, nombre from festivos WHERE fecha = '$sql_currentday'");
+		if (mysql_num_rows($fest)>0) {
+		$festiv=mysql_fetch_array($fest);
+			        echo "<td style='background-color:#46A546;cursor:pointer;' onClick='window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month' style='color:#fff'>$zz</a></td>\n";
+				$result_found = 1;
+				}	
+		}
+		
+	}
+  
+  
+/*  if ($result_found != 1) {
   //Buscar actividad  y marcarla.
     $sql_currentday = "$year-$month-$zz";
     $eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
@@ -248,7 +298,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
         $result_found = 1;
       }
     }
-  }
+  }*/
 
   if ($result_found != 1) {
     echo "<td style='cursor:pointer;' onClick='window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>\n";
