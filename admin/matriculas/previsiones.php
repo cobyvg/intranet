@@ -23,7 +23,6 @@ echo '
 </div>
 <br />';
  
- mysql_query("drop table suspensos");
  $crea_tabla = "CREATE TABLE IF NOT EXISTS `suspensos` (
   `claveal` varchar(12) NOT NULL,
   `suspensos` tinyint(4) NOT NULL,
@@ -188,6 +187,8 @@ else{
 </td>
 <?
 }
+ mysql_query("drop table suspensos");
+
 ?>
 </tr>
 </table>
