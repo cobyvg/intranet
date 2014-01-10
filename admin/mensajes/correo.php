@@ -164,7 +164,7 @@ for ($i=1;$i<6;$i++)
     }
 }
 
-$mail->Send();	
+$mail->Send();
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El correo se ha enviado correctamente a los profesores seleccionados.            
