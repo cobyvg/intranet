@@ -39,7 +39,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 		        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="icon-signout"></i> Cerrar sesi&oacute;n</a></li>
 		        		</ul>
 		        	</li>
-					<li style="margin-top:4px;margin-left:15px;"><small style='color:#d9d9d9;'><i class="icon icon-large icon-time"></i> Última conexión: <br />
+					<li style="margin-top:4px;margin-left:15px;"><small style='color:#d9d9d9;'><i class="icon icon-large icon-time"></i>&Uacute;ltima conexi&oacute;n: <br />
             <?
 $time = mysql_query("select fecha from reg_intranet where profesor = '".$_SESSION['profi']."' order by fecha desc limit 2");
 while($last = mysql_fetch_array($time)){
