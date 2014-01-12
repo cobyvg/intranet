@@ -8,11 +8,6 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-if(stristr($_SESSION['cargo'],'1') == FALSE and stristr($_SESSION['cargo'],'8') == FALSE)
-{
-header("location:http://$dominio/intranet/salir.php");
-exit;	
-}
 include("../../menu.php");
 ?>
 <br />
@@ -29,7 +24,12 @@ include("../../menu.php");
 <li class="active"><a href="#tab1" data-toggle="tab">Resumen general</a></li>
 <li><a href="#tab2" data-toggle="tab">Resumen por Nivel</a></li>
 <li><a href="#tab3" data-toggle="tab">Resumen por Grupo</a></li>
-<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>
+<?
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
+{
+echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';	
+}
+?>
 <li><a href="#tab5" data-toggle="tab">Informe por Tipo</a></li>
 </ul>
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
@@ -639,7 +639,10 @@ $ini0 = mysql_query("SELECT distinct asunto, COUNT( * ) FROM  `$tabla` group by 
   }
   ?>
  </div>
-
+<?
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
+{
+?>
 <div class="tab-pane fade in" id="tab4">
 <h3>Informe por Profesor</h3><br />
 <div class="container-fluid">
@@ -665,7 +668,7 @@ for ($i=$cur;$i>$cur-3;$i--)
 <div class="span4">
 <h4 align="center">Curso <?php echo $i-1; echo "-".$i;?></h4>
 <br />
-<table class="table table-striped tabladatos" align="center" style="width:auto">
+<table class="table table-striped" align="center" style="width:auto">
 <thead>
 <tr>
 <th>Profesor</th><th width="62">Número</th>
@@ -698,6 +701,9 @@ mysql_query("drop table fech_temp");
 ?>
 </div>
 </div>
+<?
+}
+?>
 <div class="tab-pane fade in" id="tab5">
 <div class="span8 offset2">
 <h3>Informe por Tipo de problema</h3><br />
@@ -763,41 +769,5 @@ function espera( ) {
 }
 window.onload = espera;
 </script>  
-<script src="http://<? echo $dominio;?>/intranet/js/datatables/jquery.dataTables.js"></script>
-<script src="http://<? echo $dominio;?>/intranet/js/datatables/dataTables.bootstrap.js"></script>
-<script src="http://<? echo $dominio;?>/intranet/js/datatables/TableTools.min.js"></script>
-<script type="text/javascript">
-$(function() {			
-	$('.tabladatos').dataTable( {
-		"oLanguage": {
-			"sProcessing":     "Procesando...",
-		    "sLengthMenu":     "",
-		    "sZeroRecords":    "No se encontraron resultados",
-		    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-		    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-		    "sInfoEmpty":      "",
-		    "sInfoFiltered":   "",
-		    "sInfoPostFix":    "",
-		    "sSearch":         "Buscar:",
-		    "sUrl":            "",
-		    "sInfoThousands":  ",",
-		    "sLoadingRecords": "Cargando...",
-		    "oPaginate": {
-		        "sFirst":    "Primero",
-		        "sLast":     "Último",
-		        "sNext":     "",
-		        "sPrevious": ""
-		    },
-		    "oAria": {
-		        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-		        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-		    }
-				
-		},
-		"aaSorting": [],
-		"bProcessing": true,
-			});
- });
-</script>
 </body>
 </html>

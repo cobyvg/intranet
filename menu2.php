@@ -80,7 +80,6 @@ if (stristr ( $carg, '8' ) == TRUE) {
         <li><a href="admin/orientacion/tutor.php">Página de Orientación</a></li>
         <li><a href="./admin/tutoria/">Página del tutor </a></li>
         <li><a href="admin/actividades/index.php">Actividades extraescolares</a></li>
-        <li><a href="xml/jefe/mem_jefatura.php">Informes sobre convivencia</a></li>
       </ul>
     </div>
   </div>
@@ -171,6 +170,18 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
             <li><a href="admin/fotos/fotos_profes.php">Fotos de los profesores</a></li>
           </ul>
         </div>
+        <li>
+          <a data-toggle="collapse" data-target="#estadisticas" style="cursor:pointer">
+            <i class="pull-right icon-chevron-down"></i>
+            Estadísticas y datos
+          </a>
+        </li>
+        <div id="estadisticas" class="accordion-body collapse">
+          <ul class="nav nav-list">
+            <li><a href="admin/informes/informe_notas1.php">Informes sobre las Evaluaciones</a></li>
+            <li><a href="admin/fechorias/informe_convivencia.php">Informes sobre Convivencia</a></li>
+          </ul>
+        </div>
       </ul>
     </div>
   </div>
@@ -198,13 +209,6 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
             <li><a href="admin/fechorias/cfechorias.php">Consultar problemas</a></li>
             <li><a href="admin/fechorias/lfechorias.php">Últimos problemas</a></li>
             <li><a href="admin/fechorias/expulsados.php">Alumnos expulsados</a></li>
-                        <? 
-            if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
-            ?>
-            <li><a href="xml/jefe/mem_jefatura.php">Informes sobre convivencia</a></li>
-            <? 
-            }
-            ?>
             <? 
         	$conv = mysql_query("SELECT DISTINCT prof FROM horw WHERE a_asig = 'GUCON' AND prof = '$pr'");
         	if (mysql_num_rows($conv) > '0' or stristr ( $carg, '1' ) == TRUE) { ?>
