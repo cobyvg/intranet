@@ -54,7 +54,7 @@ INDEX (  `claveal` )
 ) ENGINE = INNODB";
  mysql_query($crea_tabla2); 
  mysql_query("ALTER TABLE  `temp` ADD INDEX (  `asignatura` )");
-	if ($key == '1') {$activ = ' active';}
+	$key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
 <?

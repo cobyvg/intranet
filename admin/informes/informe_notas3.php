@@ -57,7 +57,7 @@ foreach ($titulos as $key=>$val){
 INDEX (  `claveal` )
 ) ENGINE = INNODB";
  mysql_query($crea_tabla2); 
-	if ($key == '1') {$activ = ' active';}
+	$key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
 

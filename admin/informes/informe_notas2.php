@@ -59,7 +59,7 @@ foreach ($titulos as $key=>$val){
 )";
  mysql_query($crea_tabla);
 
-	if ($key == '1') {$activ = ' active';}
+	$key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
 <h3>Resultados de los Alumnos por Grupo</h3><br />
