@@ -20,8 +20,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <br />
           
 <?
+$tutor = $_POST['tutor'];
+$alumno = $_POST['alumno'];
 
-if(empty($alumno) or empty($tutor))
+if(empty($_POST['alumno']) or empty($_POST['tutor']))
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -64,8 +66,7 @@ echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" 
 else{
 
 $insertar=mysql_query("INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,NIVEL,GRUPO,FECHA,DURACION,PROFESOR,FIN)
- VALUES ('$dalumno[0]','$dalumno[1]','$dalumno[2]','$dalumno[3]','$dalumno[4]',
- '$fecha',$duracion,'$tutor',date_add('$fecha',interval $duracion2 day))") or die ("Error, no se ha podido activar el informe:".mysql_error());
+ VALUES ('$dalumno[0]','$dalumno[1]','$dalumno[2]','$dalumno[3]','$dalumno[4]','$fecha',$duracion,'$tutor',date_add('$fecha',interval $duracion2 day))") or die ("Error, no se ha podido activar el informe:".mysql_error());
   echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>';
 			echo "El <b>Informe de tareas</b> del alumno/a <b> $nombre $apellidos </b>para el día <b>";
