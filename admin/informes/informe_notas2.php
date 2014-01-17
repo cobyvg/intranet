@@ -18,7 +18,57 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);?>
 <div class="page-header" align="center">
   <h2>Informe de Evaluaciones <small> Estadísticas de Calificaciones</small></h2>
 </div>
-<br />
+
+<?
+if (isset($_POST['f_curso']) and !($_POST['f_curso'] == "Curso actual")) {
+	$f_curs = substr($_POST['f_curso'],5,4);
+	$base_actual = $db.$f_curs;
+	//echo $base_actual;
+	$conex = mysql_select_db($base_actual);
+	if (!$conex) {
+		echo "Fallo al seleccionar la base de datos $base_actual";
+	}
+	else{
+		mysql_query("drop table cursos");
+		mysql_query("create table cursos select * from $db.cursos");
+		//echo "create table if not exists cursos select * from $db.cursos";
+	}
+}
+else{
+	$conex = mysql_select_db($db);
+}
+$act1 = substr($curso_actual,0,4);
+$b_act1 = ($act1-1)."-".$act1;
+$base=$db.$act1;
+$act2=$act1-1;
+$b_act2 = ($act2-1)."-".$act2;
+$act3=$act1-2;
+$b_act3 = ($act3-1)."-".$act3;
+$act4=$act1-3;
+$b_act4 = ($act4-1)."-".$act4;
+
+if (mysql_query("select * from $base.notas")) {
+?>
+<form method="POST" class="well well-large" style="width:450px; margin:auto">
+<p class="lead">Informe Histórico</p>
+<select name="f_curso" onchange="submit()">
+<?
+echo "<option>".$_POST['f_curso']."</option>";
+echo "<option>Curso actual</option>";
+for ($i=1;$i<5;$i++){
+	$base_contr = $db.($act1-$i);
+	$sql_contr = mysql_query("select * from $base_contr.notas");
+	if (mysql_num_rows($sql_contr)>0) {
+		echo "<option>${b_act.$i}</option>";
+	}
+}
+?>
+</select>
+</form>
+<hr />
+<?
+}
+?>
 
 <div class="tabbable" style="margin-bottom: 18px;">
 
@@ -63,7 +113,7 @@ foreach ($titulos as $key=>$val){
 ?>
 <div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
 <h3>Resultados de los Alumnos por Grupo</h3><br />
-
+<p class="help-block text-warning" align="left">En 4º de ESO y 2º de Bachillerato, los alumnos titulan con <strong>0</strong> asignaturas suspensas. En el resto de los grupos de ESO y Bachillerato los alumnos promocionan con <strong>2 o menos</strong> asignaturas suspensas. </p>
 <?
 
 // CURSOS
@@ -85,7 +135,7 @@ while ($orden_nivel = mysql_fetch_array($nivele)){
 <th>3-5 Susp.</th>
 <th>6-8 Susp.</th>
 <th>9+ Susp.</th>
-<th class='text-success'>Promocionan</th>
+<th class='text-success'>Promo./Tit.</th>
 </thead>
 <tbody>
 <?

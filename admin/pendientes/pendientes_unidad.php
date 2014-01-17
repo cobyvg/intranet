@@ -114,7 +114,7 @@ $val_nivel=substr($valor,0,1);
 $pend = mysql_query("select distinct pendientes.claveal, alma.apellidos, alma.nombre, nc from pendientes, alma, FALUMNOS where pendientes.claveal=alma.claveal and alma.claveal = FALUMNOS.claveal  and alma.unidad = '$valor' order by nc, apellidos, nombre");
 $n1="";
 while ($pendi = mysql_fetch_array($pend)) {
-	$uni = mysql_query("select combasi from alma where claveal = '$pendi[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%')");
+	$uni = mysql_query("select combasi from alma where claveal = '$pendi[0]' and (combasi like '%2522%' or combasi like '%25227%' or combasi like '%25205%' or combasi like '%25204%')");
 	if (mysql_num_rows($uni)>0) {}
 			else{
 	echo "<tr><td>$pendi[3]</td><td nowrap><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$pendi[0]&todos=Ver Informe Completo del Alumno'>$pendi[1], $pendi[2]</a></td><td>";

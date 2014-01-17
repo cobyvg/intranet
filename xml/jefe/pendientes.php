@@ -25,9 +25,20 @@ include("../../menu.php");
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
+mysql_query("drop TABLE pendientes");
+mysql_query("CREATE TABLE IF NOT EXISTS pendientes (
+  id int(11) NOT NULL auto_increment,
+  claveal varchar(9) collate latin1_spanish_ci NOT NULL default '',
+  codigo varchar(8) collate latin1_spanish_ci NOT NULL default '',
+  nota int(2) NOT NULL,
+  grupo varchar(6) collate latin1_spanish_ci NOT NULL default '',  
+  PRIMARY KEY  (id),
+  KEY  claveal (claveal),
+  KEY codigo (codigo)
+) DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
+
 $directorio = "../pendientes";
 //echo $directorio."<br>";
-mysql_query("TRUNCATE TABLE pendientes");
 
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir($directorio)) {
@@ -37,6 +48,9 @@ if ($handle = opendir($directorio)) {
 $doc = new DOMDocument('1.0', 'utf-8');
 
 $doc->load( $directorio.'/'.$file );
+
+$grupo0 = $doc->getElementsByTagName( "T_NOMBRE" );
+$grupo1 = $grupo0->item(0)->nodeValue;
 
 $claves = $doc->getElementsByTagName( "ALUMNO" );
  
@@ -53,15 +67,12 @@ $codigos = $materia->getElementsByTagName( "X_MATERIAOMG" );
 $codigo = $codigos->item(0)->nodeValue;
 $notas = $materia->getElementsByTagName( "X_CALIFICA" );
 $nota = $notas->item(0)->nodeValue;
-if (strstr($file,"1B") == TRUE or strstr($file,"2B") == TRUE) {
-if ($nota=='417' or $nota=='419' or $nota=='421' or $nota=='423' or $nota=='425' or $nota=='439') {
-	$cod = "INSERT INTO pendientes VALUES ('', '$clave3', '$codigo')";	
-	mysql_query($cod);
-}
-}
-else{
-if ($nota=='337' or $nota=='341' or $nota=='343' or $nota=='345' or $nota=='397') {
-	$cod = "INSERT INTO pendientes VALUES ('', '$clave3', '$codigo')";	
+if (strstr($file,"1") == FALSE) {
+	$c_nota = mysql_query("select nombre from calificaciones where codigo = '$nota'");
+	$c_notas = mysql_fetch_row($c_nota);
+	
+if ($c_notas[0]<5) {
+	$cod = "INSERT INTO pendientes VALUES ('', '$clave3', '$codigo','$c_notas[0]', '$grupo1')";	
 	mysql_query($cod);
 }
 }

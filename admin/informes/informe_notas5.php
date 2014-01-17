@@ -17,7 +17,57 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);?>
 <div class="page-header" align="center">
   <h2>Informe de Evaluaciones <small> Estadísticas de Calificaciones</small></h2>
 </div>
-<br />
+
+<?
+if (isset($_POST['f_curso']) and !($_POST['f_curso'] == "Curso actual")) {
+	$f_curs = substr($_POST['f_curso'],5,4);
+	$base_actual = $db.$f_curs;
+	//echo $base_actual;
+	$conex = mysql_select_db($base_actual);
+	if (!$conex) {
+		echo "Fallo al seleccionar la base de datos $base_actual";
+	}
+	else{
+		mysql_query("drop table cursos");
+		mysql_query("create table cursos select * from $db.cursos");
+		//echo "create table if not exists cursos select * from $db.cursos";
+	}
+}
+else{
+	$conex = mysql_select_db($db);
+}
+$act1 = substr($curso_actual,0,4);
+$b_act1 = ($act1-1)."-".$act1;
+$base=$db.$act1;
+$act2=$act1-1;
+$b_act2 = ($act2-1)."-".$act2;
+$act3=$act1-2;
+$b_act3 = ($act3-1)."-".$act3;
+$act4=$act1-3;
+$b_act4 = ($act4-1)."-".$act4;
+
+if (mysql_query("select * from $base.notas")) {
+?>
+<form method="POST" class="well well-large" style="width:450px; margin:auto">
+<p class="lead">Informe Histórico</p>
+<select name="f_curso" onchange="submit()">
+<?
+echo "<option>".$_POST['f_curso']."</option>";
+echo "<option>Curso actual</option>";
+for ($i=1;$i<5;$i++){
+	$base_contr = $db.($act1-$i);
+	$sql_contr = mysql_query("select * from $base_contr.notas");
+	if (mysql_num_rows($sql_contr)>0) {
+		echo "<option>${b_act.$i}</option>";
+	}
+}
+?>
+</select>
+</form>
+<hr />
+<?
+}
+?>
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab">1ª Evaluación</a></li>
@@ -53,6 +103,14 @@ foreach ($titulos as $key=>$val){
 INDEX (  `claveal` )
 ) ENGINE = INNODB";
  mysql_query($crea_tabla2); 
+ if (!($_POST['f_curso'] == "Curso actual") AND strstr($base_actual,"2013")==FALSE  AND !($base_actual=="")) {
+ 	 mysql_query("ALTER TABLE `cursos` CHANGE `idcurso` `idcurso` INT( 12 ) UNSIGNED NOT NULL , CHANGE `nomcurso` `nomcurso` VARCHAR( 80 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL");
+ 	 mysql_query("ALTER TABLE  `temp` CHANGE  `claveal`  `claveal` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL");
+ }
+else {
+ 	  mysql_query("ALTER TABLE `cursos` CHANGE `idcurso` `idcurso` INT( 12 ) UNSIGNED NOT NULL , CHANGE `nomcurso` `nomcurso` VARCHAR( 80 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
+ 	 mysql_query("ALTER TABLE  `temp` CHANGE  `claveal`  `claveal` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
+ }
  mysql_query("ALTER TABLE  `temp` ADD INDEX (  `asignatura` )");
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
@@ -188,7 +246,7 @@ if ($porcient_asig>0) {
 ?>
 </div>
 <?
-mysql_query("drop table temp");
+//mysql_query("drop table temp");
 }
 ?>
 </div>
@@ -196,7 +254,4 @@ mysql_query("drop table temp");
 </div>
 </div>
 
-<? include("../../pie.php");?>
-
-</body>
-</html>
+<? include("../../pie.php"); ?>

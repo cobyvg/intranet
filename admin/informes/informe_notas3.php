@@ -19,7 +19,57 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);?>
 <div class="page-header" align="center">
   <h2>Informe de Evaluaciones <small> Estadísticas de Calificaciones</small></h2>
 </div>
-<br />
+
+<?
+if (isset($_POST['f_curso']) and !($_POST['f_curso'] == "Curso actual")) {
+	$f_curs = substr($_POST['f_curso'],5,4);
+	$base_actual = $db.$f_curs;
+	//echo $base_actual;
+	$conex = mysql_select_db($base_actual);
+	if (!$conex) {
+		echo "Fallo al seleccionar la base de datos $base_actual";
+	}
+	else{
+		mysql_query("drop table cursos");
+		mysql_query("create table cursos select * from $db.cursos");
+		//echo "create table if not exists cursos select * from $db.cursos";
+	}
+}
+else{
+	$conex = mysql_select_db($db);
+}
+$act1 = substr($curso_actual,0,4);
+$b_act1 = ($act1-1)."-".$act1;
+$base=$db.$act1;
+$act2=$act1-1;
+$b_act2 = ($act2-1)."-".$act2;
+$act3=$act1-2;
+$b_act3 = ($act3-1)."-".$act3;
+$act4=$act1-3;
+$b_act4 = ($act4-1)."-".$act4;
+
+if (mysql_query("select * from $base.notas")) {
+?>
+<form method="POST" class="well well-large" style="width:450px; margin:auto">
+<p class="lead">Informe Histórico</p>
+<select name="f_curso" onchange="submit()">
+<?
+echo "<option>".$_POST['f_curso']."</option>";
+echo "<option>Curso actual</option>";
+for ($i=1;$i<5;$i++){
+	$base_contr = $db.($act1-$i);
+	$sql_contr = mysql_query("select * from $base_contr.notas");
+	if (mysql_num_rows($sql_contr)>0) {
+		echo "<option>${b_act.$i}</option>";
+	}
+}
+?>
+</select>
+</form>
+<hr />
+<?
+}
+?>
 <div class="tabbable" style="margin-bottom: 18px;">
 
 <ul class="nav nav-tabs">
@@ -55,8 +105,17 @@ foreach ($titulos as $key=>$val){
 `asignatura` INT( 8 ) NOT NULL ,
 `nota` TINYINT( 2 ) NOT NULL ,
 INDEX (  `claveal` )
-) ENGINE = INNODB";
+)";
  mysql_query($crea_tabla2); 
+
+if (!($_POST['f_curso'] == "Curso actual") AND strstr($base_actual,"2013")==FALSE AND !($base_actual=="")) {
+ 	 mysql_query("ALTER TABLE `cursos` CHANGE `idcurso` `idcurso` INT( 12 ) UNSIGNED NOT NULL , CHANGE `nomcurso` `nomcurso` VARCHAR( 80 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL");
+ 	 mysql_query("ALTER TABLE  `temp` CHANGE  `claveal`  `claveal` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL");
+ }
+else {
+ 	  mysql_query("ALTER TABLE `cursos` CHANGE `idcurso` `idcurso` INT( 12 ) UNSIGNED NOT NULL , CHANGE `nomcurso` `nomcurso` VARCHAR( 80 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
+ 	 mysql_query("ALTER TABLE  `temp` CHANGE  `claveal`  `claveal` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
+ }
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
@@ -108,17 +167,6 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 	}
 		mysql_query("insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
 	}
-	
-mysql_query("insert into suspensos  (
-`claveal` ,
-`suspensos` ,
-`pil` ,
-`grupo`,
-`nivel`
-)
-VALUES (
-'$claveal',  '$susp',  '$pil', '$grupo', '$curso'
-)");
 	}
 
 ?>
@@ -143,12 +191,15 @@ while ($orden_nivel = mysql_fetch_array($nivele)){
 <tbody>	
 	<?
 $as = mysql_query("select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%'");
+// echo "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%'";
 while ($asi = mysql_fetch_array($as)) {
 	$n_c = mysql_query("select distinct nivel from alma where curso = '$orden_nivel[1]'");
+	//echo "select distinct nivel from alma where curso = '$orden_nivel[1]'";
 	$niv_cur = mysql_fetch_array($n_c);
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
 	$cod_nota = mysql_query("select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[1]'");
+	//echo "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[1]'";
 	$cod_apro = mysql_query("select id from temp, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[1]'");
 	
 	//echo "select id from temp where asignatura = '$codasi'<br>";
