@@ -69,7 +69,7 @@ A través de esta página puedes registrar las pruebas, controles o actividades de
     <?
 	echo "<legend class='text-warning' align='center'><br />$daylong $today, $year</legend>";	
 	
-	echo "<table class='table table-bordered table-striped' style='width:100%;margin:auto'><tr><th>
+	echo "<table class='table table-bordered table-striped table-condensed' style='width:100%;margin:auto'><tr><th>
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month'>
 <i class='icon icon-arrow-left icon-2x' name='calb2' style='margin-right:20px;'> </i> </a>
@@ -128,8 +128,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el dÃ­as
   $result_found = 0;
   if ($zz == $today) { 
-    echo "<td onClick=\"window.location='" 
-	.$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='background-color:#0072E6;color:#fff;cursor:pointer;'>$zz</td>";
+    echo "<td style='background-color:#0072E6;color:#fff;'>$zz</td>";
     $result_found = 1;
   }
 
@@ -173,12 +172,12 @@ $n_pr="";
 				$result_found = 1;
 				}
 				else{
-        		echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='$colores cursor:pointer;'>$zz</td>";					
+        		echo "<td style='$colores'>$zz</td>";					
 				}
           $result_found = 1;
     }
   if ($result_found != 1) {
-    echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';\" style='cursor:pointer;'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>";
+    echo "<td>$zz</td>";
   }
 
   $i++; $result_found = 0;

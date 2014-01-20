@@ -120,11 +120,12 @@ echo "<div align=center><table  class='table table-striped tabladatos' style='wi
 	        <th> DNI</th>
 	        <th>Nombre</th>
 	        <th width='60'>Grupo</th>
-	        <th> Fecha</th>
-	        <th>Repite</th>
+	        <th> Fecha</th>	        
 	        <th>Domicilio</th>
         	<th>Padre</th>
-        	<th>Tfno. Urgencias</th>					
+        	<th>Tlfno. 1</th>	
+        	<th>Tlfno. 2</th>
+        	<th>Repite</th>				
 		";
 
 echo "</th><th></th>";			
@@ -145,10 +146,11 @@ echo "</th><th></th>";
 <td>$nom</td>
 <td>$unidad</td>
 <td>$row[6]</td>
-<td>$repite</td>
 <td>$row[7]</td>
 <td>$row[10]</td>
-<td>$row[9]</td>";
+<td>$row[8]</td>
+<td>$row[9]</td>
+<td>$repite</td>";
  
 if ($seleccionado=='1'){
 	$todo = '&todos=Ver Informe Completo del Alumno';

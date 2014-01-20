@@ -142,7 +142,11 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
   <div id="consultas" class="accordion-body collapse">
     <div class="accordion-inner">
       <ul class="nav nav-list">
-      <li>
+              <li><a href="admin/datos/cdatos.php">Datos de los alumnos</a></li>
+      <? if ($mod_horario) { ?>
+        <li><a href="admin/cursos/chorarios.php">Horarios de profesores/grupos</a></li>
+        <? } ?>
+         <li>
         <a data-toggle="collapse" data-target="#listas" style="cursor:pointer">
             <i class="pull-right icon-chevron-down"></i>
             Listas
@@ -154,10 +158,8 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
             <li><a href="admin/pendientes/index.php">Listas de Pendientes</a></li>
           </ul>
         </div>
-        <li><a href="admin/datos/cdatos.php">Datos de los alumnos</a></li>
-        <? if ($mod_horario) { ?>
-        <li><a href="admin/cursos/chorarios.php">Horarios de profesores/grupos</a></li>
-        <? } ?>
+
+       
         <li>
           <a data-toggle="collapse" data-target="#fotos" style="cursor:pointer">
             <i class="pull-right icon-chevron-down"></i>

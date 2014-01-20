@@ -87,7 +87,7 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 	//Comprobar si hay actividad en el día
 	$result_found = 0;
 	if ($zz == $today) { //Marcar días actuales
-    echo "<td align=\"center\" style='background-color:#0072E6;color:#fff;font-size:0.8em'>$zz</td>\n";
+    echo "<td align=\"center\" style='background-color:#555;color:#fff;font-size:0.8em'>$zz</td>\n";
 		$result_found = 1;
 	}
 	if ($result_found != 1) { //Buscar actividad para el dóa y marcarla

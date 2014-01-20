@@ -118,8 +118,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el días
   $result_found = 0;
   if ($zz == $today) { 
-    echo "<td onClick=\"window.location='" 
-	.$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month&curso=$curso';\" style='background-color:#08c;color:#fff;cursor:pointer;'>$zz</td>";
+    echo "<td style='background-color:#555;color:#fff;'>$zz</td>";
     $result_found = 1;
   }
   
@@ -131,7 +130,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		$eventExec = mysql_query ( $eventQuery );
 		if (mysql_num_rows($eventExec)>0) {
 			while ( $row = mysql_fetch_array ( $eventExec ) ) {
-echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month&curso=$curso';\" style='background-color:#f89406;color:#fff;cursor:pointer;'>$zz</td>";
+echo "<td style='background-color:#f89406;color:#fff;'>$zz</td>";
 			$result_found = 1;
 			}
 		}	
@@ -140,7 +139,7 @@ echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today
         $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-		echo "<td style='background-color:#46A546;'><a style='color:#fff'>$zz</a></td>\n";
+		echo "<td style='background-color:#46A546;color:#fff'>$zz</td>\n";
 		$result_found = 1;
 				}	
 		}
@@ -148,7 +147,7 @@ echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today
 	}
 
   if ($result_found != 1) {
-    echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month&curso=$curso';\" style='cursor:pointer;'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month&curso=$curso'>$zz</a></td>";
+    echo "<td style=''>$zz</td>";
   }
 
   $i++; $result_found = 0;
