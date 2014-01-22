@@ -179,7 +179,7 @@ else{
 <hr>
 <label class="file">Adjuntar archivo con tareas<br />
 <input name="userfile" type="file"> </label>
-<p class="block-help text-warning">* Sólo se puede adjuntar un archivo. Si queréis adjuntar múltiples archivos, debéis comprimirlos en uno sólo.</p>
+<p class="block-help text-warning">* Sólo se puede adjuntar un archivo. Si queréis adjuntar múltiples archivos, debéis comprimirlos en uno sólo. El tamaño máximo permitido es de <?php echo ini_get('post_max_size'); ?>b.</p>
 <hr>
 <button name="submit2" type="submit" id="submit2"
 	value='Registrar datos' class="btn btn-primary">Registrar datos</button>
