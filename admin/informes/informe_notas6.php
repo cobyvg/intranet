@@ -144,8 +144,8 @@ $asig = mysql_query($nombreasig);
 $cali = mysql_fetch_row($asig);	
 	if($cali[0] < '5' and !($cali[0] == ''))	{		
 	$susp+=1; 
+	}	
 	mysql_query("insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
-	}			
 }
 }
   }
@@ -276,10 +276,10 @@ else{
 	$porciento_asig22 = "<span class='text-error'>".substr($porcient_asig22,0,4)."%</span>";	
 }
 
-if ($porcient_asig2>0) {
+//if ($porcient_asig2>0) {
 			echo "<tr><th>$nomasi2</th><td>$num_matr2</td><td>";
 	echo $porciento_asig2."<span class='pull-right'>(".$num_susp2.")</span></td><td>$porciento_asig22 <span class='pull-right'>(".$num_apro2.")</span></td></tr>";
-	}
+//	}
 
 }
 ?>
