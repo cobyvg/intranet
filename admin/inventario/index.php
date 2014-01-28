@@ -29,22 +29,15 @@ include("menu.php");
 <br /><div class="well well-large" align="center" style="width:400px;margin:auto">
 <br />
 <form name="textos" method="post" action="introducir.php">
-                 <select name="departamento" id="departamento"  value ="Todos ...">
-        <option>
-        <? // echo $departamento;?>
-        </option>
+                 <select name="departamento" id="departamento" class="input input-xlarge"  value ="Todos ...">
+        <option> </option>
         <?
   $profe = mysql_query(" SELECT distinct departamento FROM departamentos, profesores where departamento not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' order by departamento asc");
   while($filaprofe = mysql_fetch_array($profe))
 	{
-	if ($filaprofe[0] == "Lengua Castellana" or $filaprofe[0] == "Lengua Extranjera-Inglés (Secundaria)" or $filaprofe[0] == "Matemáticas" or strstr($filaprofe[0],"Religi")==TRUE or strstr($filaprofe[0],"Apoyo")==TRUE or strstr($filaprofe[0],"Pedagog")==TRUE)
-	{}
-	else
-	{
 	$departamen = $filaprofe[0]; 
 	$opcion1 = printf ("<OPTION>$departamen</OPTION>");
 	echo "$opcion1";
-	}
 	} 
 	?>
     <option>-------------------------------</option>
@@ -55,7 +48,7 @@ include("menu.php");
     <option>Centro TIC</option>    
       </select>
                   <br /><br />
-                  <button type="submit" name="enviar2" value="Enviar" class="btn btn-primary"><i class="icon icon-search icon-white"> </i> Enviar </button>
+                  <button type="submit" name="enviar2" value="Enviar" class="btn btn-primary btn-block"><i class="icon icon-search icon-white"> </i> Enviar </button>
             </form>
 </div>
 <br />

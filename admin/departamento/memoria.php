@@ -13,21 +13,30 @@ $profesor = $_SESSION ['profi'];
 $n_preg=15;
 ?>
 
-<script type="text/javascript" src="../../js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-	tinyMCE.init({
-		language: "es",
-		mode : "textareas",
-		plugins : "table", 
-		theme : "advanced",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_statusbar_location : "none",
-		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect,|,forecolor,backcolor",
-		theme_advanced_buttons2 : "bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,hr,removeformat,visualaid,|,sub,sup,|,charmap",
-		theme_advanced_buttons3 : "tablecontrols"
+	<!-- TinyMCE -->
+	<script src="../../js/tinymce/tinymce.min.js"></script>
+	<script>
+	tinymce.init({
+	        selector: "textarea",
+	        language: "es",
+	        plugins: [
+	                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
+	                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+	                "table contextmenu directionality template textcolor paste fullpage textcolor responsivefilemanager"
+	        ],
+	
+	        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | styleselect",
+	        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
+	        
+	        relative_urls: false,
+	        filemanager_title:"Administrador de archivos",
+	        external_filemanager_path:"../../filemanager/",
+	        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},
+	
+	        menubar: false
 	});
-</script>
+	</script>
+	<!-- /TinyMCE -->
 
 <?
 include '../../menu.php';
@@ -127,56 +136,55 @@ $nota[19]='';
 $pregunta[20]='Esta es la 20º pregunta';
 $nota[20]='';
 
-$profe = $_SESSION['profi'];
-##########################
-# Actualización de datos
-##########################
-# Se comprueba si hay envío y se actualiza el registro correspondiente con update
+// Jefe del departamento
+$j_dep = mysql_query("select nombre from departamentos where departamento = '$depto' and cargo like '%4%'");
+$jef_dep = mysql_fetch_array($j_dep);
+$profe = $jef_dep[0];
+
+// Actualización de datos
+// Se comprueba si hay envío y se actualiza el registro correspondiente con update
 if (isset($_POST['aceptar'])){$aceptar=$_POST['aceptar'];}else{$aceptar='';}
 
 if($aceptar == "Si"){
+
+//Comprobamos si está el registro para crearlo si no lo encontramos;
+	$sqlmem="SELECT departamento FROM mem_dep WHERE departamento='".$depto."'";
+	$datos_memoria= mysql_query($sqlmem);
+	$memoria = mysql_fetch_array($datos_memoria);
+	if ($memoria[0]=='') {
+		mysql_query("INSERT INTO  mem_dep (departamento, jefe) VALUES ('".$depto."', '".$profe."')");
+	}
+	else{
+		mysql_query("update mem_dep set jefe = '$profe' where departamento = '$depto'");
+	}
 
 foreach($campos as $nombre_del_campo)
 {
 if (!isset($_POST[$nombre_del_campo]) or ($_POST[$nombre_del_campo]=='')){$_POST[$nombre_del_campo]="";
 }	
 }
-#	echo 'paso por actualizar<br>';
 
 
 $actualiza = "UPDATE  mem_dep SET  ";
 for ($i=1; $i<=$n_preg; $i++){ $actualiza.="p".$i." = '".$_POST[$campos[$i-1]]."',";}
 $actualiza.=" jefe = '".$profe."'";
 $actualiza.=" WHERE departamento =  '".$depto."' LIMIT 1 ";
-#echo $actualiza.'<br>';
+//echo $actualiza.'<br>';
 mysql_query($actualiza);	
 }
-##########################
-# Fin Actualización de datos
-###########################
+// Fin Actualización de datos
 
-###############
-# Lectura de los datos de la memoria
-##############
-#Comprobamos si está el registro para crearlo si no lo encontramos;
-	$sqlmem="SELECT departamento FROM mem_dep WHERE departamento='".$depto."'";
-	$datos_memoria= mysql_query($sqlmem);
-	$memoria = mysql_fetch_array($datos_memoria);
-	#echo 'Grupo: ',$memoria[0],'kjhd'.$grupo.'<br>';
-	if ($memoria[0]=='') {mysql_query("INSERT INTO  mem_dep (departamento, jefe) VALUES ('".$depto."', '".$profe."')");}
+// Lectura de los datos de la memoria
 #Seleccionamos ahora el registro del grupo
 $sqlmem="SELECT * FROM mem_dep WHERE departamento='".$depto."'";
+//echo $sqlmem;
 $datos_memoria= mysql_query($sqlmem);
 $memoria = mysql_fetch_array($datos_memoria);
 # Se le asigna a los campo un valor más manejable
 for ( $i = 1 ; $i <= $n_preg ; $i ++) {
 $p[$i]=$memoria[$i+1];
 }
-if ($memoria[1]!=''){$profe=$memoria[1];}
-
-####################
-# Fin de la lectura de datos de la memoria
-####################
+if (!($memoria[1]=='')){$profe=$memoria[1];}
 
 
 echo '<div class="container-fluid"><div class="row-fluid">';
@@ -186,12 +194,14 @@ echo "<div class='span10 offset1'>";
   <h2>Jefatura de Departamento <small> Memoria final</small></h2>
 </div>
 <?
-echo '<h3 align ="center" class="text-info">',$_SESSION ['dpt'],'</h3><br /><br />';
+echo '<h3 align ="center" class="text-info">Departamento de ',$_SESSION ['dpt'],'</h3><br />';
 
 echo '<div class="well well-large" style="max-width:980px;margin:auto;">';
 # formulario
-echo '<form action="memoria.php?depto='.$depto.'" method="post" name="memoria" class="form-vertical">
-  <div class="control-group">';
+	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
+echo '<form action="memoria.php?depto='.$depto.'" method="post" name="memoria" class="form-vertical">';
+	}
+	echo '<div class="control-group">';
 echo '<input type="hidden" name="aceptar" value="Si" />';
 #  preguntas
 echo '<label class="control-label" for="inputZprofe">Jefe del Departamento</label> ';
@@ -251,15 +261,12 @@ echo '<div class="controls">
 echo $contenido;
 echo '</TEXTAREA></div><hr>';
 }
+	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
 echo '<center><button class="btn btn-primary" type="submit" name="procesar" value="Guardar" ><i class="icon icon-edit icon-white"> </i> Guardar</button>';
 echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" target="_blank" href="memoria_print.php?depto='.$depto.'"><i class="icon icon-print icon-white"> </i> Imprimir</a></center>';
-echo '</div>'; # del primer cuadro de preguntas
-
-
-
-# aqui el </form ....
+	}
+echo '</div>';
 echo "</form>";
 
 mysql_close();
-##############################
 include('../../pie.php');?>

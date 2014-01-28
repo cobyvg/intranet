@@ -21,8 +21,8 @@ if (stristr ( $carg, '1' ) == TRUE) {
 
 <?
 }
-if (stristr ( $carg, '4' ) == TRUE) {
-?>
+if (stristr ( $carg, '4' ) == TRUE) { $j_d = 'in'; } else { $j_d = ''; }
+$menu_dep = '
 <div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#departamento">
@@ -30,20 +30,41 @@ if (stristr ( $carg, '4' ) == TRUE) {
       Departamento
     </a>
   </div>
-  <div id="departamento" class="accordion-body collapse in">
+  <div id="departamento" class="accordion-body collapse '.$j_d.'">
     <div class="accordion-inner">
-      <ul class="nav nav-list">
+      <ul class="nav nav-list">';
+if (stristr($carg, '1')==FALSE) {
+$menu_dep.='
         <li><a href="admin/rd/add.php">Actas del departamento</a></li>
         <li><a href="admin/textos/intextos.php">Libros de texto</a></li>
+        <li><a href="admin/inventario/introducir.php">Inventario de material</a></li>';
+if (stristr ( $carg, '4' ) == TRUE){
+	$menu_dep.='<li><a href="admin/actividades/index.php">Actividades extraescolares</a></li>';
+}
+else{
+	$menu_dep.='<li><a href="admin/actividades/consulta.php">Actividades extraescolares</a></li>';
+}
+}
+else{
+	$menu_dep.='       
+        <li><a href="admin/rd/index_admin.php">Actas de los departamentos</a></li>
+        <li><a href="admin/textos/intextos.php">Libros de texto</a></li>
         <li><a href="admin/inventario/introducir.php">Inventario de material</a></li>
-        <li><a href="admin/actividades/index.php">Actividades extraescolares</a></li>
-        <li><a href="admin/departamento/memoria.php">Memoria del departamento</a></li>
+        <li><a href="admin/actividades/indexextra.php">Actividades extraescolares</a></li>';
+}
+
+$menu_dep.='        
+				<li><a href="admin/departamento/memoria.php">Memoria del departamento</a></li>
       </ul>
     </div>
   </div>
-</div>
-<?
+</div>';
+
+// Menu del Jefe de Departamehto
+if (stristr ( $carg, '4' ) == TRUE) {
+	echo $menu_dep;
 }
+
 if (stristr ( $carg, '5' ) == TRUE) {
 ?>
 <div class="accordion-group well">
@@ -331,26 +352,20 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         
         <? if (stristr ( $carg, '1' ) == TRUE) { ?>
         <li><a href="admin/tutoria/">Página del tutor</a></li>
-        <? } ?>
-
-        <li><a href="admin/ausencias/index.php">Registrar ausencia</a></li>
-        <? if (stristr ( $carg, '1' ) == TRUE and stristr ( $carg, '4' ) == FALSE) { ?>
-        <li><a href="admin/rd/index_admin.php">Actas de los departamentos</a></li>
-        <li><a href="admin/textos/intextos.php">Libros de texto</a></li>
-        <li><a href="admin/inventario/introducir.php">Inventario de material</a></li>
-        <li><a href="admin/actividades/indexextra.php">Actividades extraescolares</a></li>
         <li><a href="admin/guardias/admin.php">Registro de guardias</a></li>
-        <? }
-        elseif(stristr ( $carg, '1' ) == FALSE and stristr ( $carg, '4' ) == FALSE) { ?>
-        <li><a href="admin/textos/intextos.php">Libros de texto</a></li>
-        <li><a href="admin/actividades/consulta.php">Actividades extraescolares</a></li>
         <? } ?>
-        <!--<li><a href="admin/libros/indextextos.php">Libros gratuitos ESO</a></li>-->
       </ul>
     </div>
   </div>
 </div>
-
+<?
+if (stristr ( $carg, '4' ) == FALSE and stristr ( $carg, '1' ) == FALSE) {
+	echo $menu_dep;
+}
+if (stristr ( $carg, '1' ) == TRUE) {
+	echo $menu_dep;
+}
+?>
 <div class="accordion-group well">
   <div class="accordion-heading">
     <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">

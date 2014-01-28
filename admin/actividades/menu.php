@@ -31,15 +31,18 @@ if (strstr($_SERVER['REQUEST_URI'],'consulta.php')==TRUE){ $activo3 = ' class="a
     <div class="container">  
           <ul class="nav nav-tabs">
 <?
-
 if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
-	?>
+?>
     
        <li<? echo $activo1;?>><a href="indexextra.php">Administrar Actividades</a></li>
  <?
 }
+if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE or stristr ( $_SESSION ['cargo'], '4' ) == TRUE) {
 ?>
        <li<? echo $activo2;?>><a href="index.php">Introducir Nueva Actividad</a></li>
+<?
+}
+?>
       <li<? echo $activo3;?>><a href="consulta.php">Lista de Actividades</a></li>
           
           <form method="post" action="consulta.php" class="form-search" style="margin-top:4px;"style="margin-top:4px;">

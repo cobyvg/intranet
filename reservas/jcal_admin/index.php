@@ -343,7 +343,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 				$eventExec = mysql_query ( $eventQuery );
 		if (mysql_num_rows($eventExec)>0) {
 			while ( $row = mysql_fetch_array ( $eventExec ) ) {
-        echo "<td style='background-color:#f89406;cursor:pointer;' onClick='window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month' style='color:#fff'>$zz</a></td>\n";				
+        echo "<td style='background-color:#f89406;cursor:pointer;' onClick='window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month&servicio=$servicio';'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month&servicio=$servicio' style='color:#fff'>$zz</a></td>\n";				
 				$result_found = 1;
 			}
 		}	

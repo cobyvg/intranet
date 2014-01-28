@@ -153,5 +153,8 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
 </form>
 </div>
 </div>
+<?php
+	include("../../pie.php");
+?>
 </body>
 </html>

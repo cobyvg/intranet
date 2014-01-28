@@ -170,13 +170,15 @@ $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
     <?
     //echo $_SESSION['depto'] ."== $datos[4]";
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE){
-				echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><i class="icon icon-pencil"> </i> </a>';	
+			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><i class="icon icon-pencil"> </i> </a>';	
 			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1"><i class="icon icon-trash" onClick="return confirmacion();"> </i> </a>';
 }
 elseif ($_SESSION['depto'] == $datos[4]){	 
+		if(stristr($_SESSION['cargo'],'4') == TRUE){
 			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><i class="icon icon-pencil"> </i>  </a>';	
 			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1"> <i class="icon icon-trash"> </i> </a>';
 	}
+}
 	?>
 
     </td>

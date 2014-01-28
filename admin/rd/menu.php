@@ -19,7 +19,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 ?>
  <div class="container">   
           <ul class="nav nav-tabs">
- <li <? echo $activo1;?>><a href="add.php">Nueva Acta</a></li>                 		
+ <li <? echo $activo1;?>><a href="add.php">Nueva Acta / Lista de Actas</a></li>                 		
  <?
           if (strstr($_SESSION['cargo'],"1") == TRUE) {
           	?>

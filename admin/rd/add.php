@@ -10,6 +10,7 @@ if ($_SESSION ['autentificado'] != '1') {
 }
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 $profesor = $_SESSION ['profi'];
+if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = 'disabled'; }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -95,15 +96,14 @@ mysql_query("CREATE TABLE IF NOT EXISTS r_departamento_backup (
 PRIMARY KEY ( `id` )
 ) ENGINE = MYISAM DEFAULT CHARSET = latin1");
 
-if (empty($departamento) and stristr($_SESSION['cargo'],'4') == TRUE){
-	$departamento=$_SESSION['dpt'];
-	$departament=$departamento;
-/*if ($departamento=="Francés P.E.S." or $departamento=="Alemán P.E.S.") {
-		$departament=="Francés y Alemán P.E.S.";
-	}*/
+if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE){
+	$departament="Direcci�n del Centro";
 }
 else{
-	$departament="Direcci�n del Centro";
+	if (empty($departamento)) {
+	$departamento=$_SESSION['dpt'];
+	$departament=$departamento;
+	}	
 }
 ?>
 <div align="center">
@@ -275,10 +275,10 @@ else{
       <?
 if ($edicion=="1") {
 	echo '<input type="hidden" name="id" value="'.$id.'" class="btn btn-primary">';
-	echo '<input type="submit" name="actualiza" value="Actualizar Acta del Departamento" class="btn btn-primary">';
+	echo '<input type="submit" name="actualiza" value="Actualizar Acta del Departamento" class="btn btn-primary"'.$j_s.'>';
 }
 else{
-	echo '<input type="submit" name="submit" value="Registrar Acta del Departamento" class="btn btn-primary">';
+	echo '<input type="submit" name="submit" value="Registrar Acta del Departamento" class="btn btn-primary" '.$j_s.'>';
 }
       ?>
 
@@ -311,17 +311,22 @@ if (mysql_num_rows($result) > 0)
 <a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
 <? 
 if($row->impreso<>1){
+if ($j_s == 'disabled') {} else {
 ?>
-<a href="add.php?edicion=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-pencil" rel="Tooltip" title='Editar el Acta'> </i></a> 
 <a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
-<a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-trash" rel="Tooltip" title='Borrar el Acta' onClick='return confirmacion();'> </i></a> 
+<a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-trash" rel="Tooltip" title='Borrar el Acta' onClick='return confirmacion();'> </i></a> <a href="add.php?edicion=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-pencil" rel="Tooltip" title='Editar el Acta'> </i></a> 
 <?
+}
 }
 else{
 ?>
 <a href="#"  style="color:#990000;margin-right:10px"><i class="icon icon-ok" rel="Tooltip" title='El Acta no puede editarse por haber sido impresa.'> </i></a> 
+<?
+if ($j_s == 'disabled') {} else {
+?>
 <a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000;margin-right:10px"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
 <?
+}
 }
 ?>
 </td>

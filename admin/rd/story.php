@@ -8,7 +8,7 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
+if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = 'disabled'; }
 ?>
 <?
 include("../../menu.php");
@@ -36,22 +36,23 @@ if ($row)
 <div class="span10">
 <?
 		?>
-<h4>
+<h3>
 <?
 
 		fecha_actual($row->fecha);
+if (!($j_s=='disabled')) {
 ?>
 <a href="pdf.php?id=<? echo $id; ?>&imprimir=1"  style="margin-right:20px;" class="btn btn-primary pull-right"> <i class="icon icon-print icon-white" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i> Imprimir Acta</a>
-
-</h4>
+<?
+}
+?>
+</h3>
 
 <br />
-<div class="well">
-<blockquote>
+<div class="well-transparent">
 <?  
 			echo $row->contenido;
 ?>
- </blockquote>
  </div>
 <br /> 
   <?

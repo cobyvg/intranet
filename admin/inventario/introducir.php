@@ -8,6 +8,7 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = '1'; }
 ?>
 <script>
 function confirmacion() {
@@ -29,13 +30,29 @@ include("menu.php");
 </div>
 <br />
 <?
-if (empty($departamento) and stristr($_SESSION['cargo'],'4') == TRUE){
+/*if (empty($departamento) or stristr ( $_SESSION ['cargo'], '1' ) == FALSE){
 	$departamento=$_SESSION['dpt'];
 	$departament=$departamento;
 }
 else{
 	$departament="Dirección";
 }
+*/
+
+if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE and empty($departamento)){
+	$departament="Dirección";
+	$departamento=$departament;
+}
+else{
+	if (empty($departamento)) {
+	$departamento=$_SESSION['dpt'];
+	$departament=$departamento;
+	}	
+	else{
+	$departament=$departamento;
+	}
+}
+
 ?>
 <?
 if ($_GET['eliminar']=="1") {
@@ -74,8 +91,10 @@ Parece que no has escrito nada en alguno de los campos obligatorios del formular
 }
 ?>
 <div class="row-fluid">
-<div class="span2"></div>
-<div class="span4">
+<? 
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
+{ ?>
+<div class="span4 offset2">
 
 <h3>Registro de Material <span style="color:#9d261d">(<? echo $departament;?>)</span></h3>
 <br />
@@ -135,18 +154,27 @@ while($lug = mysql_fetch_array($luga))
 <label>Nº de Unidades<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
 <input type="text" name="unidades" size="5" value="1" class="span2"/>
 </label>
-<label>Fecha de Alta<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<div class="input-append" style="display:inline;" >
-            <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+
+<label>Fecha de Alta<span style="color:#9d261d;"> (*) </span><br />
+<div class="input-append" >
+  <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha">
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
 </label>
 <br />
-<input type="submit" name="enviar"  value="Enviar datos" class="btn btn-primary"/>
+<input type="submit" name="enviar"  value="Enviar datos" class="btn btn-primary btn-block"/>
 </form>
 </div>
 </div>
-<div class="span4">
+  <?
+}
+if ($j_s == '1') {
+	echo '<div class="span4 offset4">';
+}
+else{
+	echo '<div class="span4">';
+}
+?>
 <?
 $it = mysql_query("select inventario_clases.clase, marca, modelo, unidades, inventario.id from inventario, inventario_clases where inventario_clases.id=inventario.clase and departamento='$departamento'");
 if (mysql_num_rows($it)>0) {
@@ -165,7 +193,15 @@ while($item = mysql_fetch_row($it))
 		$marca = $item[1];
 	}
 ?>
-<tr><td><? echo $item[0];?></td><td><? echo $marca;?></td><td><? echo $item[3];?></td><td><a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="icon icon-trash" title="Borrar registro" onClick='return confirmacion();'> </i> </a></td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Editar registro"> </i> </a></td></tr>
+<tr><td><? echo $item[0];?></td><td><? echo $marca;?></td><td><? echo $item[3];?></td><td>
+<?
+if ($j_s == '') {
+?>
+<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="icon icon-trash" title="Borrar registro" onClick='return confirmacion();'> </i> </a>
+<?
+}
+?>
+</td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Editar registro"> </i> </a></td></tr>
 <?
 }
 	echo '

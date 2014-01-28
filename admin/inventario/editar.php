@@ -8,6 +8,7 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = '1'; }
 ?>
 <script>
 function confirmacion() {
@@ -29,13 +30,28 @@ include("menu.php");
 </div>
 <br />
 <?
-if (empty($departamento) and stristr($_SESSION['cargo'],'4') == TRUE){
+/*if (empty($departamento) or stristr ( $_SESSION ['cargo'], '1' ) == FALSE){
 	$departamento=$_SESSION['dpt'];
 	$departament=$departamento;
 }
 else{
 	$departament="Dirección";
+}*/
+
+if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE and empty($departamento)){
+	$departament="Dirección";
+	$departamento=$departament;
 }
+else{
+	if (empty($departamento)) {
+	$departamento=$_SESSION['dpt'];
+	$departament=$departamento;
+	}	
+	else{
+	$departament=$departamento;
+	}
+}
+
 $profe=$_SESSION['profi'];
 ?>
 <?
@@ -117,8 +133,13 @@ $fecha=$dat[8];
 <h3>Cambio de datos <span style="color:#9d261d">(<? echo $departament;?>)</span></h3>
 <br />
 <div class="well well-large" align="left">
-
+<?
+if ($j_s == '') {
+?>
 <form name="textos" method="post" action="editar.php">
+<?
+}
+?>
 <div align="center"><p class="help-block"> <span style="color:#9d261d">(*)</span> --> Campos obligatorios</p></div>
 <input type="hidden" name="id" value="<? echo $id;?>">
 <input type="hidden" name="departamento" value="<? echo $departamento;?>">
@@ -178,7 +199,11 @@ while($lug = mysql_fetch_array($luga))
 <input type="text" name="fecha" size="10" value="<? echo date('d-m-Y');?>" class="span4" value="<? echo $unifechadades;?>"/>
 </label>
 <br />
-<input type="submit" name="enviar"  value="Cambiar datos" class="btn btn-primary"/>
+<input type="submit" name="enviar"  value="Cambiar datos" class="btn btn-primary btn-block"
+<?
+if ($j_s == '1') { echo "disabled";}
+?>
+/>
 </form>
 </div>
 </div>
@@ -201,7 +226,15 @@ while($item = mysql_fetch_row($it))
 		$marca = $item[1];
 	}
 ?>
-<tr><td><? echo $item[0];?></td><td><? echo $marca;?></td><td><? echo $item[3];?></td><td><a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="icon icon-trash" title="Borrar registro" onClick='return confirmacion();'> </i> </a></td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Editar registro"> </i> </a></td></tr>
+<tr><td><? echo $item[0];?></td><td><? echo $marca;?></td><td><? echo $item[3];?></td><td>
+<?
+if ($j_s == '') {
+?>
+<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="icon icon-trash" title="Borrar registro" onClick='return confirmacion();'> </i> </a>
+<?
+}
+?>
+</td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Editar registro"> </i> </a></td></tr>
 <?
 }
 	echo '

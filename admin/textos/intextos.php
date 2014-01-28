@@ -12,18 +12,23 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = '1'; }
 ?>
 <?php
 include("../../menu.php");
 if (isset($_GET['titulo'])) {$titulo = $_GET['titulo'];}elseif (isset($_POST['titulo'])) {$titulo = $_POST['titulo'];}else{$titulo="";}
 if (isset($_GET['asignatura'])) {$asignatura = $_GET['asignatura'];}elseif (isset($_POST['asignatura'])) {$asignatura = $_POST['asignatura'];}else{$asignatura="";}
-if(stristr($_SESSION['cargo'],'4') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE)
+
+if(stristr($_SESSION['cargo'],'4') == TRUE or stristr($_SESSION['cargo'],'1') == FALSE)
     {
     	$departamento = $_SESSION['dpt'];
     }
     else{	
-if (isset($_GET['departamento'])) {$departamento = $_GET['departamento'];}elseif (isset($_POST['departamento'])) {$departamento = $_POST['departamento'];}else{$departamento="";}
-    }
+		if (isset($_GET['departamento'])) {$departamento = $_GET['departamento'];}
+		elseif (isset($_POST['departamento'])) {$departamento = $_POST['departamento'];}
+		else{$departamento="";}
+    }    
+  
 if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
 if (isset($_GET['editorial'])) {$editorial = $_GET['editorial'];}elseif (isset($_POST['editorial'])) {$editorial = $_POST['editorial'];}else{$editorial="";}
 if (isset($_GET['isbn'])) {$isbn = $_GET['isbn'];}elseif (isset($_POST['isbn'])) {$isbn = $_POST['isbn'];}else{$isbn="";}
@@ -43,12 +48,11 @@ if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel
 </div>
 <div class="container-fluid">
 <div class="row-fluid">
-<div class="span5 offset1">	
 <? 
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
 { ?>
-<h3>Registro de Libros de Texto </h3>
-<br />
+<div class="span5 offset1">	
+<legend>Registro de Libros de Texto </legend>
 <div class="well well-large" style="width:95%;" align="left">
   <legend>Selecciona el Curso y los Grupos</legend>
 <hr>
@@ -97,16 +101,16 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
     <legend>Datos del Libro de
       Texto</legend>
     <hr>
-    <label>T&iacute;tulo <span style="color:#9d261d"> (*)</span></label><br />
-      <input name="titulo" type="text" id="titulo" class="input-block-level" value="<? echo $titulo; ?>">
+    <label>T&iacute;tulo <span style="color:#9d261d"> (*)</span></label>
+      <input name="titulo" type="text" id="titulo" class="input-block-level" value="<? echo $titulo; ?>" required>
     
-    <label>Autor</label><br />
+    <label>Autor</label>
       <input name="autor" type="text" id="autor" class="input-block-level" value="<? echo $autor; ?>">
     
-    <label>Editorial<span style="color:#9d261d"> (*)</span></label><br />
-      <input name="editorial" type="text" id="editorial" class="input-block-level" value="<? echo $editorial; ?>">
+    <label>Editorial<span style="color:#9d261d"> (*)</span></label>
+      <input name="editorial" type="text" id="editorial" class="input-block-level" value="<? echo $editorial; ?>" required>
     
-    <label>Departamento<span style="color:#9d261d"> (*)</span></label><br />
+    <label>Departamento<span style="color:#9d261d"> (*)</span></label>
     <?
     if(stristr($_SESSION['cargo'],'4') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE)
     {
@@ -125,21 +129,17 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
   $profe = mysql_query(" SELECT distinct departamento FROM departamentos, profesores where departamento not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' order by departamento asc");
   while($filaprofe = mysql_fetch_array($profe))
 	{
-	if ($filaprofe[0] == "Lengua Castellana" or $filaprofe[0] == "Lengua Extranjera-Inglés (Secundaria)" or $filaprofe[0] == "Matemáticas")
-	{}
-	else
-	{
+
 	$departamen = $filaprofe[0]; 
 	$opcion1 = printf ("<OPTION>$departamen</OPTION>");
 	echo "$opcion1";
-	}
 	} 
 	?>
       </select>
       <? } ?>
     </label>
     <label>Asignatura <span style="color:#9d261d"> (*)</span><br />
-      <select name="asignatura" id="asignatura" class="input-block-level"  value="<? echo $asignatura; ?>">
+      <select name="asignatura" id="asignatura" class="input-block-level"  value="<? echo $asignatura; ?>" required>
         <option>
         <?
    // Datos de la Asignatura
@@ -166,25 +166,29 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       </select>
     </label>
     <label>ISBN<span style="color:#9d261d"> (*)</span><br />
-      <input name="isbn" type="text" id="isbn" class="input-block-level" value="<? echo $isbn; ?>">
+      <input name="isbn" type="text" id="isbn" class="input-block-level" value="<? echo $isbn; ?>" required>
     </label>
     <label>Observaciones<br />
       <textarea name="NOTAS" class="input-block-level" rows="6"> <? echo $NOTAS; ?></textarea>
     </label>
     <p class="help-block"><span style="color:#9d261d">(*)</span> Campos obligatorios del formulario.</p>
     <br />
-    <input type="submit" name="enviar" value="Introducir datos" size=15 maxlength=25 alt="Introducir" class="btn btn-primary ">
+    <input type="submit" name="enviar" value="Introducir datos" size=15 maxlength=25 alt="Introducir" class="btn btn-primary btn-block">
   </form>
+  </div>
   </div>
   <?
 }
+if ($j_s == '1') {
+	echo '<div class="span4 offset4">';
+}
+else{
+	echo '<div class="span5">';
+}
 ?>
-</div>
-<div class="span5">	
-  <form name="intextos" method="post" action="textos.php">
-    <h3>Consulta de Textos por Departamento. </h3>
-    <br />
-    <div class="well well-large" style="width:95%;" align="left">
+    <legend>Consulta de Textos por Departamento. </legend>
+    <div class="well well-large" align="left">
+      <form name="intextos" method="post" action="textos.php">
       <label>Nivel<br />
         <select name="nivel" id="select6" class="input-block-level">
           <?
@@ -204,18 +208,14 @@ echo "<option>$completo</option>";
   $profe = mysql_query(" SELECT distinct departamento FROM departamentos order by departamento asc");
   while($filaprofe = mysql_fetch_array($profe))
 	{
-	if ($filaprofe[0] == "Lengua Castellana" or $filaprofe[0] == "Lengua Extranjera-Inglés (Secundaria)" or $filaprofe[0] == "Matemáticas")
-	{}
-	else
-	{
-	$departamen = $filaprofe[0]; }
+	$departamen = $filaprofe[0]; 
 	$opcion1 = printf ("<OPTION>$departamen</OPTION>");
 	echo "$opcion1";
 	} 
 	?>
         </select>
       </label>
-      <input type="submit" name="enviar2" value="Buscar Textos" size=15 maxlength=25 alt="Introducir" class="btn btn-primary ">
+      <input type="submit" name="enviar2" value="Buscar Textos" size=15 maxlength=25 alt="Introducir" class="btn btn-primary btn-block">
     </div>
   </form>
 </div>
