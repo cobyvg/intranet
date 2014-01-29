@@ -354,6 +354,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         <li><a href="admin/tutoria/">Página del tutor</a></li>
         <li><a href="admin/guardias/admin.php">Registro de guardias</a></li>
         <? } ?>
+        <li><a href="admin/ausencias/index.php">Registrar ausencia</a></li>
       </ul>
     </div>
   </div>
