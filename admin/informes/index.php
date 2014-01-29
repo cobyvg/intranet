@@ -95,7 +95,7 @@ if (!($c_escolar==$curso_actual)) {
 $foto = '../../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto)) {
 		echo "<div class='well well-small' style='width:110px;margin:auto;'>";
-		echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' class='img-polaroid'  />";
+		echo "<img src='$foto' border='2' width='100' height='119' class='img-polaroid'  />";
 		echo "</div><br /><br />";
 	}
 	if (!($c_escolar==$curso_actual)) {
