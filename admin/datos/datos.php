@@ -191,8 +191,8 @@ No hubo suerte, bien porque te has equivocado
 if ($_GET['seleccionado']=='1'){
 
 	// Comprobamos si el centro cuenta con módulo de la página principal para el acceso de los alumnos
-	$sql_control = mysql_query("select * from control");
-	if ($sql_control) {
+	$sql_control = mysql_query("select * from control where claveal = '$claveal'");
+	if (mysql_num_rows($sql_control)>0) {
 		$s_control = '1';
 	}
 	// Menú del alumno
@@ -238,4 +238,4 @@ if ($_GET['seleccionado']=='1'){
 }
 ?> <? include("../../pie.php");?>
 </BODY>
-</HTML>
+</HTML>                                                                    

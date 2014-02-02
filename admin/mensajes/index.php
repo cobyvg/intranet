@@ -41,7 +41,7 @@ $pr = $_SESSION['profi'];
 	                "emoticons template paste textcolor filemanager"
 	            ],
 	
-	        toolbar1: "bold italic underline strikethrough | forecolor backcolor | emoticons | alignleft aligncenter alignright alignjustify | bullist numlist",
+	        toolbar1: "cut copy paste | bold italic underline strikethrough | forecolor backcolor | emoticons | alignleft aligncenter alignright alignjustify | bullist numlist",
 	        toolbar2: "outdent indent blockquote | link unlink image media",
 	        
 	        relative_urls: false,
