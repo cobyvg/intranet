@@ -304,9 +304,9 @@ if (mysql_num_rows($result) > 0)
       <TR> 
       <TD nowrap><? echo $row->numero; ?></td> 
 		<TD nowrap><? echo fecha_sin($row->fecha); ?></td>        
-        <TD>
+        <TD nowrap>
         <?
-	if(($row->departamento == $_SESSION['dpt']) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
+	//if(($row->departamento == $_SESSION['dpt']) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
 		?>
 <a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
 <? 
@@ -331,7 +331,7 @@ if ($j_s == 'disabled') {} else {
 ?>
 </td>
 <?
-		}
+	//	}
 		?>
       </tr>
 	<?

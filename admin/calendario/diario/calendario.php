@@ -69,26 +69,26 @@ A través de esta página puedes registrar las pruebas, controles o actividades de
     <?
 	echo "<legend class='text-warning' align='center'><br />$daylong $today, $year</legend>";	
 	
-	echo "<table class='table table-bordered table-striped table-condensed' style='width:100%;margin:auto'><tr><th>
+	echo "<table class='table table-bordered table-striped table-condensed' style='width:100%;'><tr><td>
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month'>
 <i class='icon icon-arrow-left icon-2x' name='calb2' style='margin-right:20px;'> </i> </a>
 <h style='display:inline'>$year</h3>
 <a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month'>
-<i class='icon icon-arrow-right icon-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table>";
+<i class='icon icon-arrow-right icon-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></td></tr></table>";
 
-echo "<table class='table table-bordered' style='width:100%;' align='center'>
+echo "<table class='table table-bordered table-condensed' style='width:100%;' align='center'>
       <tr>";
 	  $meses = array("1"=>"Ene", "2"=>"Feb", "3"=>"Mar", "4"=>"Abr", "5"=>"May", "6"=>"Jun", "7"=>"Jul", "8"=>"Ago", "9"=>"Sep", "10"=>"Oct", "11"=>"Nov", "12"=>"Dic");
 	  foreach ($meses as $num_mes => $nombre_mes) {
 	  	
 	  	if ($num_mes==$month) {
-	  		echo "<th style='background-color:#08c'> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes' style='color:#efefef'>".$nombre_mes."</a> </th>";
+	  		echo "<td style='background-color:#08c'> 
+		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes' style='color:#efefef'>".$nombre_mes."</a> </td>";
 	  	}
 	  	else{
-	  		echo "<th> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes'>".$nombre_mes."</a> </th>";
+	  		echo "<td> 
+		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes'>".$nombre_mes."</a> </td>";
 	  	}
 	  if ($num_mes=='6') {
 	  		echo "</tr><tr>";
@@ -102,9 +102,9 @@ $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
 
 //Nombre del Mes
-echo "<table class='table table-bordered table-striped' style='' align='center'><thead>";
-echo "<th colspan=\"7\" align=\"center\"><div align='center'>" . $monthlong . 
-"</div></th>";
+echo "<table class='table table-bordered table-striped table-condensed' style='' align='center'><thead>";
+echo "<td colspan=\"7\" align=\"center\"><div align='center'>" . $monthlong . 
+"</div></td>";
 echo "</thead><tr>";
 
 

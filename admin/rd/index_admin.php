@@ -34,6 +34,7 @@ echo '<div align="center">';
 <table class="table table-bordered" style="width:auto">
 
 <?
+$datatables_activado = true; 
 $n_col="";
 $dep0 = mysql_query("select distinct departamento from departamentos where departamento not like '' order by departamento");
 while ($dep = mysql_fetch_array($dep0)) {
@@ -54,14 +55,14 @@ if ($n_col=="1" or $n_col=="5" or $n_col=="9" or $n_col=="13" or $n_col=="17") {
 ?>
 <td valign="top">
 <p class="lead text-info" align="center"><? echo $departamento;?></p>
-	<TABLE class="table table-striped table-bordered" style="width:300px;">
+	<TABLE class="table table-striped table-bordered tabladatos" style="width:auto;">
 <?	while($row = mysql_fetch_object($result))
 	{
 	?>
       <TR> 
         <TD nowrap><? echo $row->numero; ?></td> 
 		<TD nowrap><? echo fecha_sin($row->fecha); ?></td>        
-        <TD>
+        <TD nowrap>
         <?
 	if(($row->departamento == $_SESSION['dpt']) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
 		?>
@@ -102,5 +103,8 @@ echo "</table>";
 <input type="submit" name="imp_todas" value="Imprimir actas no impresas" class="btn btn-primary">
 </form>
 --></div>
+<?
+include("../../pie.php");
+?>
 </body>
 </html>

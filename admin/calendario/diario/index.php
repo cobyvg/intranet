@@ -75,7 +75,7 @@ if (isset($_GET['id'])) {
 }
 	?>
  <div class="row-fluid">
-<div class="span4 offset1">
+<div class="span6">
 
 <?
 	echo "<legend class='text-warning' align='center'>Nueva actividad</legend>";
@@ -86,8 +86,11 @@ if (isset($_GET['id'])) {
 <div class="input-append" >
   <input required name="fecha" type="text" class="input input-block-level" data-date-format="yyyy-mm-dd" id="fecha" value="<?if($fecha == "") { echo date('Y-m-d'); } else { echo $fecha;}?>" >
   <span class="add-on"><i class="icon-calendar"></i></span>
-</div> 
 </div>
+
+</div>
+
+
 <hr />
 <div class="row-fluid">
 <div class="span6">
@@ -142,7 +145,7 @@ echo "</form>";
 <div class="span6">
 <legend class='text-warning' align='center'>Registro de actividades</legend>
 <?
-$eventQuery = mysql_query("SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE profesor='".$_SESSION['profi']."'");
+$eventQuery = mysql_query("SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE profesor='".$_SESSION['profi']."' order by fecha desc");
 echo "<table class='table table-striped' style='width:auto' align='center'><thead style='font-size:14px'><th>Fecha</th><th>Grupo</th><th>Materia</th><th>Título</th><th></th></thead><tbody>";
 while ($reg=mysql_fetch_array($eventQuery)) {
 	echo "<tr style='font-size:12px'>
