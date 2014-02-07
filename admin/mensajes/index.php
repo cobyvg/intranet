@@ -101,9 +101,11 @@ return false;
         <?php 
         while($row = mysql_fetch_array($result)):
         $texto = htmlentities($row[5]);
-        $pos = strpos($texto,'a href');
-        $pos = strpos($texto,'img src');
-        $pos = strpos($texto,'iframe src');
+        
+        if(strpos($texto,'a href')) $pos = true;
+        elseif(strpos($texto,'img src')) $pos = true;
+        elseif(strpos($texto,'iframe src')) $pos = true;
+        else $pos=false;
         
         $_buzon=='recibidos' ? $leido = $row[6] : $leido=1;
         ?>
