@@ -102,6 +102,8 @@ return false;
         while($row = mysql_fetch_array($result)):
         $texto = htmlentities($row[5]);
         $pos = strpos($texto,'a href');
+        $pos = strpos($texto,'img src');
+        $pos = strpos($texto,'iframe src');
         
         $_buzon=='recibidos' ? $leido = $row[6] : $leido=1;
         ?>

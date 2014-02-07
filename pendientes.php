@@ -240,7 +240,7 @@ $fechaenv = "el día $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
   <a href="#" class="btn btn-warning" data-dismiss="modal">Cerrar</a>
     <?
 
-echo '<a href="./admin/mensajes/index.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
+echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
 ?>
 <a href="index0.php?verifica_padres=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a> 
 <input type='hidden' name = 'id_ver' value = '$id' />
@@ -306,7 +306,7 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
   <a href="#" target="_top" data-dismiss="modal"class="btn btn-warning">Cerrar</a>
     <?
 	$asunto = str_replace('"','',$asunto);
-	echo '<a href="./admin/mensajes/index.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
+	echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
 ?>
 <a href="index0.php?verifica=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a>  
 <input type='hidden' name = 'id_ver' value = '$id' />
