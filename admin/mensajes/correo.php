@@ -123,7 +123,7 @@ include("../../menu.php");
 			 ?>
 			   <div class="accordion-group">
 			     <div class="accordion-heading">
-			       <a class="accordion-toggle" data-toggle="collapse" data-parent="#departamento<?php echo $i; ?>" href="#departamento<?php echo $i; ?>">
+			       <a class="accordion-toggle" data-toggle="collapse" data-parent="#departamentos" href="#departamento<?php echo $i; ?>">
 			         <span class="text-warning"><?php echo $departamento['departamento']; ?></span>
 			       </a>
 			     </div>
