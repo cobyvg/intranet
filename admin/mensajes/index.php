@@ -101,7 +101,7 @@ return false;
         <?php 
         while($row = mysql_fetch_array($result)):
         $texto = htmlentities($row[5]);
-        $pos = strpos($texto,'<a ');
+        $pos = strpos($texto,'a href');
         
         $_buzon=='recibidos' ? $leido = $row[6] : $leido=1;
         ?>
