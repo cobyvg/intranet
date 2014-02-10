@@ -14,8 +14,6 @@ elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$etcp and !$ca
 }
 else
 {
-
-$msg_success = '<div class="alert alert-success alert-block">El mensaje se ha enviado correctamente.</div></div><br />';
       
 $query0="insert into mens_texto (asunto,texto, origen) values ('".$asunto."','".$texto."','".$profesor."')";
 mysql_query($query0);
@@ -203,5 +201,5 @@ $pa = $_POST["padres"];
 }
 }
 
-if($ok) echo $msg_success;
+if($ok) header('Location:'.'index.php?inbox=recibidos&action=send');
 ?>

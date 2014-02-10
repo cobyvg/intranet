@@ -68,6 +68,8 @@ if($verifica){
  mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
 
+include("profesores.php");
+
 include('../../menu.php');
 $page_header = "Redactar mensaje";
 ?>
@@ -87,7 +89,6 @@ $page_header = "Redactar mensaje";
     </div>
     
     <br><br><br>
-    <?php include("profesores.php"); ?>
     
     <div class="row-fluid">
       

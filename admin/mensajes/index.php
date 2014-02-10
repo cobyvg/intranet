@@ -77,6 +77,13 @@ return false;
       </div>
       <?php endif; ?>
       
+      <!-- Mensaje enviado -->
+      <?php if($_GET['action']=='send'): ?>
+      <div class="alert alert-success alert-block alert-fadeout">
+        El mensaje ha sido enviado.
+      </div>
+      <?php endif; ?>
+      
       <style class="text/css">
         a, a:hover { color: #444; display: block; text-decoration:none; }
         #DataTables_Table_0_wrapper div.row-fluid:nth-child(1) { display: none; }

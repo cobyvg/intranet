@@ -13,6 +13,8 @@ registraPagina($_SERVER['REQUEST_URI']);
 $conn = mysql_connect($db_host, $db_user, $db_pass) or die("Could not connect to database!");
 
 $fecha = $_POST['fecha']; 
+if (isset($_POST['id'])) { $id = $_POST['id']; }
+elseif (isset($_GET['id'])) { $id = $_GET['id']; }
 if (isset($_POST['tipo'])) { $tipo = $_POST['tipo']; }
 elseif (isset($_GET['tipo'])) { $tipo = $_GET['tipo']; }
 else{$tipo="";}
@@ -27,7 +29,7 @@ elseif (isset($_GET['calendario'])) { $calendario = $_GET['calendario']; }
 else{$calendario="";}
 
 if (isset($_POST['grupos'])) { 
-foreach ($grupos as $grup){
+foreach ($_POST['grupos'] as $grup){
 $tr_gr = explode(" => ",$grup);	
 $grupo.=$tr_gr[0]."; ";
 $materia.=$tr_gr[1]."; ";

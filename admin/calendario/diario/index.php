@@ -8,19 +8,7 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-?>
-<script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>
-<?php
+
 include("../../../menu.php");
 include("menu.php");
 echo "<br />";
@@ -29,7 +17,7 @@ $profe = $_SESSION['profi'];
 ?>
 <div class="page-header" align="center">
 <? $tr_pr=explode(", ",$profe);?>
-  <h2>Calendario de Pruebas y Actividades <small> <? echo mb_strtolower($tr_pr[1]." ".$tr_pr[0]); ?></small></h2>
+  <h2>Calendario de Pruebas y Actividades <small> <? echo $tr_pr[1]." ".$tr_pr[0]; ?></small></h2>
 </div>
 <br />
 <?
@@ -176,6 +164,18 @@ include("../../../pie.php");
 			$('#fecha').datepicker('hide');
 		});
 		});  
+	</script>
+	
+	<script>
+	function confirmacion() {
+		var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+		if (answer){
+	return true;
+		}
+		else{
+	return false;
+		}
+	}
 	</script>
 </body>
 </html>
