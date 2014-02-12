@@ -35,11 +35,11 @@ echo '<div align="center">';
 
 <?
 $datatables_activado = true; 
-$n_col="";
+$n_col=0;
+$n_fila=0;
 $dep0 = mysql_query("select distinct departamento from departamentos where departamento not like '' order by departamento");
 while ($dep = mysql_fetch_array($dep0)) {
 	
-$n_col+=1;
 $departamento = $dep[0];
 if (!($pag)) {
 	$pag = "";
@@ -49,13 +49,16 @@ $query = "SELECT id, fecha, departamento, contenido, impreso, numero FROM r_depa
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 $n_actas = mysql_num_rows($result);
 
-if ($n_col=="1" or $n_col=="5" or $n_col=="9" or $n_col=="13" or $n_col=="17") {
-	echo "</tr>";
+if($n_col%4==0) {
+	echo "<tr>";
+	$n_filas++;
 }
+
+$n_col++;
 ?>
 <td valign="top">
 <p class="lead text-info" align="center"><? echo $departamento;?></p>
-	<TABLE class="table table-striped table-bordered tabladatos" style="width:auto;">
+	<TABLE class="table table-striped table-bordered" style="width:auto;">
 <?	while($row = mysql_fetch_object($result))
 	{
 	?>
@@ -92,9 +95,8 @@ else{
 ?>
 </td>
 <?
-if ($n_col=="4" or $n_col=="8" or $n_col=="12" or $n_col=="16" or $n_col=="18") {
-	echo "</tr>";
-}
+if($n_actas < ($n_col * $n_filas)) echo '<td></td>';
+if($n_col%4==0) echo "</tr>";
 
 echo "</table>";
 ?>
