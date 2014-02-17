@@ -71,15 +71,13 @@ if($verifica){
 include("profesores.php");
 
 include('../../menu.php');
+include('menu.php');
 $page_header = "Redactar mensaje";
 ?>
-
-<div class="container-fluid">
-  
-  <div class="page-header">
-    <h2><?php echo $page_header; ?></h2>
+  <div class="container-fluid">
+  <div class="page-header" align="center">
+    <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
   </div>
-  
   <div class="row-fluid">
     
     <form method="POST">
@@ -96,7 +94,6 @@ $page_header = "Redactar mensaje";
          
          <input type="text" class="input-block-level" name="asunto" placeholder="Asunto del mensaje" value="<?php echo $asunto; ?>" maxlength="100" autofocus>
          <textarea class="input-block-level" name="texto" rows="15"><?php echo stripslashes($texto); ?></textarea>
-         <a href="javascript:void(0);" class="btn btn-warning" onclick="tinymce.execCommand('mceToggleEditor',false,'texto');" style="margin-top: 5px;">Act./des. editor</a>
          
       </div>
       
@@ -135,7 +132,7 @@ $page_header = "Redactar mensaje";
     <? if($biblio=='1' and !$claustro) echo 'checked'; ?> />
                   Biblioteca</label>
               </div>
-              <div class="span6" align="left">
+              <div class="span6">
                 <label class="checkbox">
                   <input name="etcp" type="checkbox" value="1" onClick="submit()"
     <? if($etcp=='1' and !$claustro) echo 'checked'; ?> />

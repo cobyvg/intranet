@@ -25,16 +25,16 @@ if(mysql_num_rows($result)<1) {
 
 mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$idprof'");
 
-$page_header = "Mensaje: ".$mensaje['asunto'];
+$page_header = $mensaje['asunto'];
 include("../../menu.php");
+include("menu.php");
 ?>
 
 <div class="container-fluid">
   
   <div class="page-header">
-    <h2><?php echo $page_header; ?> <br><small>Enviado por <?php echo $mensaje['origen']; ?> el <?php echo fecha_actual2($mensaje['ahora']); ?></small></h2>
+    <h2>Mensaje: <?php echo $page_header; ?> <br><small>Enviado por <?php echo $mensaje['origen']; ?> el <?php echo fecha_actual2($mensaje['ahora']); ?></small></h2>
   </div>
-  
   <div class="row-fluid no_imprimir">
     <div class="span12">
       <a href="index.php" class="btn btn-default"><span class="icon icon-remove"></span> Cerrar</a>
@@ -50,7 +50,7 @@ include("../../menu.php");
   <br>
   
   <div class="row-fluid">
-    
+  
     <div class="span8">
       <?php echo $mensaje['texto']; ?>
     </div>

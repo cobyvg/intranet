@@ -12,6 +12,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $profesor = $_SESSION['profi'];
 
 include("../../menu.php");
+include("menu.php");
 
 $datatables_activado = true;  
 
@@ -30,7 +31,7 @@ switch ($_buzon) {
 		}
 		
 		$tabla_encabezado = array('De', 'Asunto', 'Fecha', ' ');
-		$result = mysql_query("SELECT ahora, asunto, id, origen, id_profe, texto, recibidoprofe FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE profesor = '$profesor' ORDER BY ahora DESC");
+		$result = mysql_query("SELECT ahora, asunto, id, origen, id_profe, texto, recibidoprofe FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE profesor = '$profesor' ORDER BY ahora DESC LIMIT 0, 200");
 		break;
 	
 	case 'enviados'  :
@@ -43,7 +44,7 @@ switch ($_buzon) {
 		}
 		
 		$tabla_encabezado = array('Para', 'Asunto', 'Fecha', ' ');
-		$result = mysql_query("SELECT ahora, asunto, id, destino, id, texto FROM mens_texto WHERE origen = '$profesor' AND oculto NOT LIKE '1' ORDER BY ahora DESC");
+		$result = mysql_query("SELECT ahora, asunto, id, destino, id, texto FROM mens_texto WHERE origen = '$profesor' AND oculto NOT LIKE '1' ORDER BY ahora DESC LIMIT 0, 200");
 		break;
 }
 ?>
@@ -61,8 +62,8 @@ return false;
 
 <div class="container-fluid">
   
-  <div class="page-header">
-    <h2><?php echo $page_header; ?></h2>
+  <div class="page-header" align="center">
+    <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
   </div>
   
   <div class="row-fluid">
@@ -85,7 +86,7 @@ return false;
       <?php endif; ?>
       
       <style class="text/css">
-        a, a:hover { color: #444; display: block; text-decoration:none; }
+        a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; }
         #DataTables_Table_0_wrapper div.row-fluid:nth-child(1) { display: none; }
       </style>
       
@@ -117,10 +118,10 @@ return false;
         $_buzon=='recibidos' ? $leido = $row[6] : $leido=1;
         ?>
           <tr> 
-            <td width="25%"><?php if(!$leido) echo '<strong>'; ?><a href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[3]; ?><?php if(!$leido) echo '</strong>'; ?></a></td>        
-            <td width="55%"><?php if(!$leido) echo '<strong>'; ?><a href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[1]; if($pos !== false) echo ' <span class="pull-right icon icon-paperclip icon-large"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
-            <td width="15%" nowrap><?php if(!$leido) echo '<strong>'; ?><a href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php echo fecha_actual2($row[0]); ?></a><?php if(!$leido) echo '</strong>'; ?></td>
-            <td width="5%"><a href="?inbox=<?php echo $_buzon; ?>&delete=<? echo $row[4] ;?>" onclick="return confirm('Esta acción eliminará permanentemente el mensaje seleccionado ¿Está seguro que desea continuar?');"><span class="icon icon-trash icon-large"></span></a></td>
+            <td width="25%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[3]; ?><?php if(!$leido) echo '</strong>'; ?></a></td>        
+            <td width="55%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[1]; if($pos !== false) echo ' <span class="pull-right icon icon-paperclip icon-large"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
+            <td width="15%" nowrap><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php echo fecha_actual2($row[0]); ?></a><?php if(!$leido) echo '</strong>'; ?></td>
+            <td width="5%"><a class="link-msg" href="?inbox=<?php echo $_buzon; ?>&delete=<? echo $row[4] ;?>" onclick="return confirm('Esta acción eliminará permanentemente el mensaje seleccionado ¿Está seguro que desea continuar?');"><span class="icon icon-trash icon-large"></span></a></td>
           </tr>
       	<?php endwhile; ?>
       	</tbody>
