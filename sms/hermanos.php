@@ -27,7 +27,7 @@ $claveal = $row0[0];
 	$nivel = $rowsql3[5];
 	$grupo = $rowsql3[6];	
 	// Telefonos móviles
-	if(substr($tfno2,0,1)=="6"){$mobil2=$tfno2;}elseif(substr($tfno_u2,0,1)=="6" and !(substr($tfno2,0,1)=="6")){$mobil2=$tfno_u2;}else{$mobil2="";}
+	if(substr($tfno2,0,1)=="6" OR substr($tfno2,0,1)=="7"){$mobil2=$tfno2;}elseif((substr($tfno_u2,0,1)=="6" OR substr($tfno_u2,0,1)=="7") and !(substr($tfno2,0,1)=="6" OR substr($tfno2,0,1)=="7")){$mobil2=$tfno_u2;}else{$mobil2="";}
 	//echo $mobil2;	
 	// Variables para la acción de tutoría
 	$causa = "Faltas de Asistencia";	

@@ -25,7 +25,7 @@ $claveal = trim($rowa[4]);
 $tfno = trim($rowa[5]);
 $tfno_u = trim($rowa[6]);
 // SMS
-if(($grave == "grave" or $grave == "muy grave") and (substr($tfno,0,1)=="6" or substr($tfno_u,0,1)=="6"))
+if(($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7"))
 {
 $sms_n = mysql_query("select max(id) from sms");
 $n_sms =mysql_fetch_array($sms_n);

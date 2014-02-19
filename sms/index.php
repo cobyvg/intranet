@@ -89,7 +89,9 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto
 	$nivel = $tel1[4];
 	$grupo = $tel1[5];
 	$tutor_mens = $tel1[6];
-	if(substr($tfno,0,1)=="6"){$mobil=$tfno;}elseif(substr($tfno_u,0,1)=="6" and !(substr($tfno,0,1)=="6")){$mobil=$tfno_u;}else{$mobil="";}
+	if(substr($tfno,0,1)=="6" OR substr($tfno,0,1)=="7"){$mobil=$tfno;}elseif((substr($tfno_u,0,1)=="6" OR substr($tfno_u,0,1)=="7") and !(substr($tfno,0,1)=="6" OR substr($tfno,0,1)=="7")){$mobil=$tfno_u;}else{$mobil="";}
+	
+	//if(substr($tfno,0,1)=="6"){$mobil=$tfno;}elseif(substr($tfno_u,0,1)=="6" and !(substr($tfno,0,1)=="6")){$mobil=$tfno_u;}else{$mobil="";}
 	if (strlen($mobil)>2) {
 		$mobile.=$mobil.",";
 	}

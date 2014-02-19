@@ -77,7 +77,7 @@ $clave_carta .= $claveal.",";
 	$grupo = $rowsql3[6];	
 	
 	// Telefonos móviles o sin telefono
-	if(substr($tfno2,0,1)=="6"){$mobil2=$tfno2;$sin="";}elseif(substr($tfno_u2,0,1)=="6" and !(substr($tfno2,0,1)=="6")){$mobil2=$tfno_u2;$sin="";}else{$mobil2="";$sin=$claveal;}
+	if(substr($tfno2,0,1)=="6" or substr($tfno2,0,1)=="7"){$mobil2=$tfno2;$sin="";}elseif((substr($tfno_u2,0,1)=="6" or substr($tfno_u2,0,1)=="7") and !(substr($tfno2,0,1)=="6") or substr($tfno2,0,1)=="7"){$mobil2=$tfno_u2;$sin="";}else{$mobil2="";$sin=$claveal;}
 		
 	if(strlen($mobil2) > 0)
 	{

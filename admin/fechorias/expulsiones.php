@@ -61,14 +61,14 @@ mysql_query($actualizar);
 		}
 // SMS		
 if ($mod_sms and $mens_movil == 'envia_sms') {
-if((substr($tfno,0,1)=="6" or substr($tfno_u,0,1)=="6"))
+if((substr($tfno,0,1)=="6" or substr($tfno,0,1)=="7" or substr($tfno_u,0,1)=="6" or substr($tfno_u,0,1)=="7"))
 {
 $sms_n = mysql_query("select max(id) from sms");
 $n_sms =mysql_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 $login=$usuario_smstrend;
 $password=$clave_smstrend;;
-if(substr($tfno,0,1)=="6"){$mobile=$tfno;}else{$mobile=$tfno_u;}
+if(substr($tfno,0,1)=="6" or substr($tfno,0,1)=="6"){$mobile=$tfno;}else{$mobile=$tfno_u;}
 $message1 = "Le comunicamos que su hijo/a va a ser expulsado al Aula de Convivencia. ";
 $message2= "Por favor, p&oacute;ngase en contacto con nosotros.";
 $repe0 = mysql_query("select * from sms where telefono = '$mobile' and mensaje like '%$message1%' and profesor = '$tutor' and date(fecha) = date(now())");

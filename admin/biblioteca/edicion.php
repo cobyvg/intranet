@@ -139,7 +139,7 @@ if ($sms) {
 			$n_sms = mysql_fetch_array ( $sms_n );
 			$extid = $n_sms [0] + 1;
 
-			if (substr ( $tfno, 0, 1 ) == "6") {
+			if (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7") {
 				$mobile = $tfno;
 			} else {
 				$mobile = $tfno_u;

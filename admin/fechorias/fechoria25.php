@@ -107,12 +107,12 @@ else{
 	$tfno_u = trim ( $rowa [6] );
 	// SMS
 	$hora_f = date ( "G" );
-	if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "6") and $hora_f > '8' and $hora_f < '17') {
+	if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '17') {
 		$sms_n = mysql_query ( "select max(id) from sms" );
 		$n_sms = mysql_fetch_array ( $sms_n );
 		$extid = $n_sms [0] + 1;
 		
-		if (substr ( $tfno, 0, 1 ) == "6") {
+		if (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "6") {
 			$mobile = $tfno;
 		} else {
 			$mobile = $tfno_u;

@@ -54,7 +54,7 @@ $result2 = mysql_query($SQL2);
 // Usuario TIC
 	$apellidos = $row1[1] ;
 	$apellido = explode(" ",$row1[1] );
-	$alternativo = strtolower(substr($row1[3] ,0,2));
+	$alternativo = strtolower(substr($row1[3],0,2));
 	$nombreorig = $row1[2]  . " " . $row1[1] ;
 	$nombre = $row1[2] ;
 	$claveal = $row1[0] ;
@@ -117,11 +117,7 @@ $resultf = mysql_query("select MAX(NC) from FALUMNOS where NIVEL = '$cambio[2]' 
 $f_result = mysql_fetch_array($resultf);
 $f_numero = $f_result[0] + 1;
 mysql_query("update FALUMNOS set NC = '$f_numero', grupo = '$cambio[1]', nivel = '$cambio[2]' where claveal = '$cambio[0]'");
-echo "<li>".$cambio[3] . ", " . $cambio[4]. " -- " . $cambio[2]. "-" . $cambio[1]. " " . $f_numero . "</li>";
 }
-}
-if ($cambio_al>0) {
-	echo "<div class='control-group danger'><p class='help-block' style='text-align:left'>Tabla FALUMNOS: Los siguientes alumnos han cambiado de grupo:</p></div><br />";
 }
 ?>
 
