@@ -70,6 +70,11 @@ $grants = array(
 	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
 );
 }
+elseif($_GET['index']=='privado') {
+$grants = array(
+	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
+);
+}
 else
 {
 $grants = array(
