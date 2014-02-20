@@ -62,9 +62,7 @@ $grants = array(
 	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
 );
 }
-else
-{
-if(!(strstr($directory,$departamento2)) == FALSE)
+elseif(strstr($_GET['directory'],$departamento2) == TRUE)
 {
 $grants = array(
 	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
@@ -80,7 +78,6 @@ else
 $grants = array(
 	POWER     => array(TRUE,    FALSE,    FALSE,    TRUE,     FALSE,    FALSE,    FALSE,    FALSE,    FALSE ,   FALSE,     FALSE ),
 );
-}
 }
 
 //
