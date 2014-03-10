@@ -11,7 +11,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?php
 include("../../menu.php");
-$datatables_activado = true;
+$datatables_min = true;
 ?>
 <br />
 <div align="center">
@@ -140,18 +140,18 @@ if ($alumno) {
 	}
 }
 ?> <label style="display: inline;"> Nivel <SELECT name="nivel"
-	onChange="submit()" class="input-mini">
+	onChange="submit()" class="input-small">
 	<option><? echo $nivel;?></option>
 	<? nivel();?>
 </SELECT> </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
 	style="display: inline;"> Grupo <SELECT name="grupo"
-	onChange="submit()" class="input-mini">
+	onChange="submit()" class="input-small">
 	<OPTION><? echo $grupo;?></OPTION>
 	<? grupo($nivel);?>
 </SELECT> </label>
 <hr>
 
-<label> Alumno:<br />
+<label> Alumno:
 <SELECT name=alumno onChange="submit()" class="input-xlarge">
 
 <?
@@ -178,32 +178,30 @@ if ($fecha)
 {
 	echo '
   <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input input-block-level" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> ';
 }
 else{
 	echo '
   <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input input-block-level" value="" data-date-format="dd-mm-yyyy" id="fecha" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> ';
 }
 ?> </label>
 <hr>
 <label> Observaciones<br />
-<textarea name='observaciones' rows='8' class='input-xxlarge'><? echo $observaciones; ?></textarea>
+<textarea name='observaciones' rows='8' class='input-block-level'><? echo $observaciones; ?></textarea>
+</label>
+  <label class="checkbox" style="color:#9d261d">Informe privado
+    <input name="prohibido" type="checkbox" <? if ($prohibido == "1"){echo "checked";}
+ ?> id="prohibido" value="1">
 </label>
 
-<div style="height: 18px; margin-top: 18px;"><span
-	style="padding-bottom: 2px; vertical-align: top; color: brown; font-weight: bold;">Informe
-Privado: </span> <input name="prohibido" type="checkbox"
-<? if ($prohibido == "1"){echo "checked";}
-?> id="prohibido" value="1"
-	style="margin: 0px; margin-bottom: 10px; padding: 0px;"></div>
 <hr>
-<div class="span6"><label>Causa de la Intervenci&oacute;n:<br />
-<select name="causa" class='input-large'>
+<label>Causa: 
+<select name="causa" class='input-xlarge'>
 	<option><? echo $causa; ?></option>
 	<option>Orientación académica y profesional</option>
 	<option>Evoluci&oacute;n acad&eacute;mica</option>
@@ -214,9 +212,10 @@ Privado: </span> <input name="prohibido" type="checkbox"
 	<option>Dificultades de Aprendizaje</option>
 	<option>Faltas de Asistencia</option>
 	<option>Otras</option>
-</select> </label> <label style='display: inline'></div>
-<div style='display: inline'>Tipo de Intervenci&oacute;n: <br>
-<select name="accion[]" multiple class='input-large'>
+</select> </label> 
+<label>
+Tipo:&nbsp;&nbsp;&nbsp;
+<select name="accion[]" multiple class='input-xlarge'>
 
 
 <?
@@ -240,16 +239,19 @@ foreach ($opcion as $opc)
 	echo "<option $sel>$opc</option>";
 }
 ?>
-</select></div>
+</select>
 </label>
 <hr>
+<div align="center">
 <input name="id2" type="hidden" value="<? echo $id; ?>" /> <input
 	name='submit1' type='submit'
-	value='Registrar intervencion de Orientación' class='btn btn-primary'>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input name='submit2' type='submit'
+	value='Registrar intervención' class='btn btn-primary'>
+&nbsp; <input name='submit2' type='submit'
 	value='Actualizar datos' class='btn btn-warning'>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input name=submit3 type=submit
-	value='Eliminar' class='btn btn-danger'></form>
+&nbsp;<input name=submit3 type=submit
+	value='Eliminar' class='btn btn-danger'>
+</div>
+</form>
 </div>
 <?
 if($alumno){
@@ -299,3 +301,4 @@ if($alumno){
 	</script>
 </BODY>
 </HTML>
+	

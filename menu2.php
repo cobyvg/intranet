@@ -234,9 +234,19 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
             <li><a href="admin/fechorias/expulsados.php">Alumnos expulsados</a></li>
             <? 
         	$conv = mysql_query("SELECT DISTINCT prof FROM horw WHERE a_asig = 'GUCON' AND prof = '$pr'");
-        	if (mysql_num_rows($conv) > '0' or stristr ( $carg, '1' ) == TRUE) { ?>
+        	if (mysql_num_rows($conv) > '0' or stristr ( $carg, '1' ) == TRUE) { 
+        	if(stristr ( $carg, '1' ) == TRUE){
+        	?>
+        	<li><a href="admin/fechorias/convivencia_jefes.php">Aula de convivencia</a></li>
+        	<?
+        	}
+        	else{
+        	?>
         	<li><a href="admin/fechorias/convivencia.php">Aula de convivencia</a></li>
-        	<? } ?>
+        	<? 
+        	} 
+        	}
+        	?>
           </ul>
         </div>
         

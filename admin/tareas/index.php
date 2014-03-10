@@ -91,10 +91,10 @@ if (mysql_num_rows($si) > 0)
 		echo "<tr><TD> $row[3] $row[2]</td>
    <TD colspan='1' nowrap><span class='badge badge-warning'>Informe ya rellenado</span></td>";
    echo "<TD> 
-			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i> </a>
-			<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> ";			
+			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='icon icon-search' title='Ver Informe'> </i> </a>
+			&nbsp; <a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini'><i class='icon icon-trash' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> ";			
    if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
+   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini'><i class='icon icon-trash' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
    }
 			echo "</td>";	
    }
@@ -112,15 +112,15 @@ if (mysql_num_rows($si) > 0)
 	  if (mysql_num_rows($si) > 0 and $count < 1)
 		{} 
 		else{
-			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i> </a>";		
+			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='icon icon-search' title='Ver Informe'> </i> </a>";		
 		 if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
+   	echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini'><i class='icon icon-trash' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
    }	
 		}
 	  if (mysql_num_rows($si) > 0 and $count < 1)
 		{} 
 		else{ 
-echo "&nbsp;&nbsp;<a href='informar.php?id=$row[0]' class='btn btn-primary btn-mini'><i class='icon icon-edit icon-white' title='Redactar Informe'> </i> </a>";
+echo "&nbsp;<a href='informar.php?id=$row[0]' class=' btn-mini'><i class='icon icon-edit' title='Redactar Informe'> </i> </a>";
 			}
 		}
 	}	

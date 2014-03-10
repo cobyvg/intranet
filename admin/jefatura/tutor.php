@@ -29,7 +29,7 @@ return false;
 </script>
 <?php
 include("../../menu.php");
-$datatables_activado = true;
+$datatables_min = true;
 ?>
 <br />
 <div align="center">
@@ -151,8 +151,7 @@ $clave = $row[11];
 ?>
 
 <div class="row-fluid">
-<div class="span1"></div>
-<div class="span6">
+<div class="span6 offset1">
 <legend align="center">Registro de datos</legend>
 <div class="well well-large">
 <FORM action="tutor.php" method="POST" name="Tutor">
@@ -181,7 +180,7 @@ $clave = $tr[1];
   </SELECT>
   </label>
   <hr>
-  <label  style='display:inline'>Alumno<br />
+  <label  style='display:inline'>Alumno 
           <select name="alumno" onChange="submit()"  class='input-xlarge'>
     <?
   $alumno0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where nivel = '$nivel' and grupo = '$grupo' order by NC asc");
@@ -216,7 +215,7 @@ if ($fecha)
   else{
   	echo '     
   <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" value="'.$fecha1.'" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input input-block-level" value="'.$fecha1.'" data-date-format="dd-mm-yyyy" id="fecha" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> ';
   }
@@ -232,8 +231,8 @@ if ($fecha)
  ?> id="prohibido" value="1">
 </label>
   <hr>
-  <label style='display:inline'>Causa
-          <select name="causa"  class="input-large" style='display:inline'>
+  <label>Causa 
+          <select name="causa"  class="input-xlarge">
     <option><? echo $causa; ?></option>
     <option>Estado general del Alumno</option>
     <option>Evoluci&oacute;n acad&eacute;mica</option>
@@ -244,9 +243,9 @@ if ($fecha)
     <option>Otras</option>
   </select>
   </label>
- &nbsp;&nbsp;
-        <label style='display:inline'> Tipo
-          <select name="accion" class="input-large" style='display:inline'>
+
+        <label> Tipo&nbsp;&nbsp;&nbsp;
+          <select name="accion" class="input-xlarge">
     <option><? echo $accion; ?></option>
     <option>Entrevista telef&oacute;nica</option>
     <option>Entrevista personal</option>
@@ -258,11 +257,13 @@ if ($fecha)
   <input name="id2" type="hidden" value="<? echo $id; ?>" />
   <input name="nivel0" type="hidden" value="<? echo $nivel; ?>" />
   <input name="grupo0" type="hidden" value="<? echo $grupo; ?>" />
-  <input name='submit1' type='submit' value='Registrar intervencion de Jefatura' class='btn btn-primary'>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <div align="center">
+  <input name='submit1' type='submit' value='Registrar intervención' class='btn btn-primary'>
+        &nbsp;
         <input name='submit2' type='submit' value='Actualizar datos'  class='btn btn-warning'>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;
   <input name=submit3 type=submit value='Eliminar' class='btn btn-danger'>
+  </div>
   </FORM>
   </div>
   <?
@@ -311,7 +312,7 @@ echo "</table>";
 		.on('changeDate', function(ev){
 			$('#fecha').datepicker('hide');
 		});
-		});  
-	</script>
+		});
+</script>
 </BODY>
 </HTML>

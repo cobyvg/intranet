@@ -11,7 +11,12 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 <?php
 include ("../../menu.php");
 include ("menu.php");
-
+$id = $_GET['id'];
+$claveal = $_GET['claveal'];
+if(isset($_GET['hor'])) {$hor = $_GET['hor'];} elseif(isset($_POST['hor'])) {$hor = $_POST['hor'];}
+$fecha1 = $_POST['fecha1'];
+$fecha11 = $_POST['fecha11'];
+if(isset($_GET['hoy'])) {$hoy = $_GET['hoy'];} elseif(isset($_POST['hoy'])) {$hoy = $_POST['hoy'];}else{$hoy = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );}
 $hoy = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );
 $hoy2 = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );
 $ayer = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . (date ( 'd' ) - 1);
@@ -27,7 +32,7 @@ echo '</div>
 ';
 
 
-if ($enviar == 'Registrar'){
+if ($_POST['enviar'] == 'Registrar'){
 foreach ( $_POST as $clave => $valor ) {
 	if(is_numeric($clave)) {
 	$tr=explode("-", $valor);
@@ -95,7 +100,7 @@ if (empty ( $hora_dia )) {
 $result = mysql_query ( "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel,
   FALUMNOS.grupo, aula_conv, inicio_aula, fin_aula, id, Fechoria.claveal, horas from Fechoria,
   FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and aula_conv > '0' and inicio_aula <= '$hoy' and fin_aula >= '$hoy' and horas like '%$hora_dia%' order by apellidos, nombre " );
-?>
+?>hor
 <?php
 echo "<br /><center><table class='table table-striped' style='width:auto'>";
 	echo "<tr><th>Alumno</td>

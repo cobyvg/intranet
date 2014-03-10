@@ -12,6 +12,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $tutor = $_SESSION['profi'];
 include_once ("../../funciones.php"); 
 // PDF
+$mes = $_GET['mes'];
 $fecha2 = date('Y-m-d');
 $hoy = formatea_fecha($fecha);
 include("../../pdf/fpdf.php");

@@ -59,7 +59,7 @@ if ($today > $numdays) { $today--; }
 ?>
 
     <?
-	echo "<table class='table table-bordered table-striped' style='width:100%;margin:auto'><tr><th>
+echo "<table class='table table-bordered table-striped' style='width:100%;margin:auto'><tr><th>
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month&curso=$curso&curso=$curso'>
 <i class='icon icon-arrow-left icon-2x' name='calb2' style='margin-right:20px;'> </i> </a>
@@ -92,7 +92,7 @@ $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
 
 //Nombre del Mes
-echo "<table class='table table-bordered table-striped' align='center'><thead>";
+echo "<table class='table table-bordered table-striped' align='center' style='width:100%'><thead>";
 echo "<th colspan=\"7\" align=\"center\"><div align='center'>" . $monthlong . 
 "</div></th>";
 echo "</thead><tr>";

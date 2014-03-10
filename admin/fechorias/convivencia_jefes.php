@@ -28,6 +28,15 @@ return false;
 <?php
 include ("../../menu.php");
 include ("menu.php");
+$borrar = $_GET['borrar'];
+$id = $_GET['id'];
+$claveal = $_GET['claveal'];
+if(isset($_GET['hoy'])) {$hoy = $_GET['hoy'];} else {$hoy = $_POST['hoy'];}
+$fecha0 = $_POST['fecha0'];
+if(isset($_GET['hor'])) {$hor = $_GET['hor'];} else {$hor = $_POST['hor'];}
+$fecha1 = $_POST['fecha1'];
+$fecha11 = $_POST['fecha11'];
+
 if ($borrar == '1') {
 	$del = mysql_query("delete from convivencia where id='$id'");
 	$comprobar = mysql_query("select id from convivencia where id = '$id'");
@@ -46,7 +55,7 @@ if ($borrar == '1') {
 	}
 }
 
-if ($enviar == 'Registrar'){
+if ($_POST['enviar'] == 'Registrar'){
 if (empty($hoy)) {
 		$hoy = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );
 	}
@@ -101,7 +110,7 @@ else
 {
 $fecha0=$hoy;
 }
-echo '<div aligna="center">
+echo '<div align="center">
 <div class="page-header" align="center">
   <h2>Problemas de Convivencia <small> Aula de Convivencia</small></h2>
 ';
@@ -117,15 +126,15 @@ echo '</div>
 </div>
 ';
 
-	echo "<center><form name='conv' action='convivencia_jefes.php' method='post' enctype=multipart/form-data' class='form form-inline'>";
+	echo "<center><form name='conv' action='convivencia_jefes.php' method='post' enctype=multipart/form-data' class='form-inline'>";
 	?>
 	<label>Selecciona el Día 
 <div class="input-append" >
-            <input name="fecha0" type="text" class="input input-small" value="<? echo $hoy0;?>" data-date-format="dd-mm-yyyy" id="fecha0" >
+  <input name="fecha0" type="text" class="input input-block-level" value="<? echo $hoy0;?>" data-date-format="dd-mm-yyyy" id="fecha0" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div>   
 	</label>
-    <label style="margin-left:15px;">
+    <label style="margin-left:35px;">
 	<?
 	echo "  y la Hora ";
 	echo "<select name = 'hor' class='input input-mini'>";

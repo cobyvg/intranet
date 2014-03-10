@@ -86,7 +86,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 
  <?
 include("menu.php");
-//$imprimir_activado = true;
+$imprimir_activado = true;
 ?>
 <div aligna="center">
 <div class="page-header" align="center">
@@ -99,7 +99,7 @@ include("menu.php");
   <div class="span12">
  
  <?
-// include '../../funciones.php';
+ include '../../funciones.php';
 // variables();
 if(isset($_POST['submit1'])){$submit1 = $_POST['submit1'];}elseif(isset($_GET['submit1'])){$submit1 = $_GET['submit1'];}else{ $submit1=""; }
 if(isset($_POST['nivel'])){$nivel = $_POST['nivel'];}else{ $nivel=""; }
@@ -130,6 +130,7 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
 	onClick="history.back()"></div>';
 exit();
   }
+  
    if(isset($_GET['borrar']) and $_GET['borrar']=="1"){
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
 $result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
@@ -139,11 +140,11 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
           </div></div>';	
 exit();
 }
-	if(empty($NOMBRE) and empty($APELLIDOS) and empty($MES) and empty($DIA) and empty($nivel) and empty($grupo) and empty($claveal))
+	if(empty($NOMBRE) and empty($APELLIDOS) and empty($MES) and empty($DIA) and empty($nivel) and empty($grupo) and empty($claveal) and empty($clase))
 	   {
 	   echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓn:</h4>
+			<h4>ATENCIÓN:</h4>
             Debes seleccionar al menos un tipo de datos (Apellidos, Nombre, Nivel, etc.) para poder hacer la Consulta. Vuelve atrás y selecciona algún criterio de búsqueda.
           </div></div>';
 	echo " <br />
@@ -185,7 +186,7 @@ exit();
     }
     ELSE
     {
-    $AUXSQL .= " and (month(Fechoria.fecha)) = $MES";
+    $AUXSQL .= " and (month(Fechoria.fecha)) = '$MES'";
     }
       IF (TRIM("$DIA")=="")
     {
@@ -193,7 +194,8 @@ exit();
     }
     ELSE
     {
-    $AUXSQL .= " and (dayofmonth(Fechoria.fecha)) = $DIA";
+    $DIA = cambia_fecha($DIA);
+    $AUXSQL .= " and (date(Fechoria.fecha)) = '$DIA'";
     }
         if  (TRIM("$nivel")=="")
     {
@@ -232,12 +234,12 @@ exit();
     $AUXSQL .= " AND grave = 'muy grave' ";
     }
 	
-if ($submit1)
+if (isset($_POST['submit1']))
 	{	
 mysql_query("drop table Fechcaduca");
 mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
   $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas from Fechoria, FALUMNOS, Fechcaduca where Fechcaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, FALUMNOS.nivel, FALUMNOS.grupo, FALUMNOS.apellidos";
-  //echo $query0;
+
   $result = mysql_query ($query0);
  echo "<br /><center>
  <form action='fechorias.php' method='post' name='cnf'>

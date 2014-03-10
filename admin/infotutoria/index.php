@@ -94,8 +94,8 @@ if ($activos > 0)
    <TD colspan='2' nowrap><span class='badge badge-warning'>Informe ya rellenado</span></td>";
 	if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
 			echo "<TD> 
-			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i></a>
-			&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe'  onClick='return confirmacion();'> </i> </a> 			
+			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='icon icon-search' title='Ver Informe'> </i></a>
+			&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''><i class='icon icon-trash' title='Borrar Informe'  onClick='return confirmacion();'> </i> </a> 			
 			</td>";		
 		}
 		echo "</tr>";	
@@ -112,14 +112,14 @@ if ($activos > 0)
 	 <input type='hidden' name='profesor' value='$profesor'>";
 		 if (mysql_num_rows($si) > 0 and $count < 1)
 		{} else{ 
-			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i></a>";	
+			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='icon icon-search' title='Ver Informe'> </i></a>";	
 			if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-				echo "&nbsp;&nbsp;&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
+				echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''><i class='icon icon-trash' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
 			}
 		}	  
 	  if (mysql_num_rows($si) > 0 and $count < 1)
 		{} else{ 
-echo "&nbsp;&nbsp;<a href='informar.php?id=$row[0]' class='btn btn-primary btn-mini'><i class='icon icon-edit icon-white' title='Redactar Informe'> </i> </a>";
+echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='icon icon-edit' title='Redactar Informe'> </i> </a>";
 				}
    echo "</td>
    </tr>";

@@ -142,7 +142,7 @@ $inicio= explode("-",$row1[5]);
 $fechainicio = $inicio[2] . "-" . $inicio[1] . "-" . $inicio[0];
 ?> 
 <div class="well">
-<h3>Tarea pendiente de Tutoría</h3>
+<p class="lead"><i class="icon icon-warning-sign"> </i> Tarea pendiente de Tutoría</p>
 <br /><div align="left"><div class="alert alert-danger alert-block fade in" style="max-width:600px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El siguiente alumno ha sido <strong>expulsado del Centro</strong> . Ponte en contacto con Jefatura de Estudios si necesitas detalles.

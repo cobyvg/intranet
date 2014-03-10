@@ -60,7 +60,7 @@ while ($reg=mysql_fetch_array($eventQuery)) {
 echo "</tbody></table>";
 ?>
 </div>
-<div class="span3">
+<div class="span4">
 <?
 include("calendario_grupos.php");
 ?>

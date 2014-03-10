@@ -73,20 +73,31 @@ if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
     
     
     <div class="row-fluid">
-    <div class="span6">
-    <label>Mes:     
-    <INPUT type="text" name="MES" class="span4" alt="Mes" style="display:inline">
+    <div class="span5">
+    <label>Mes:
+    <select name="MES" class="input-mini">
+    <option></option>
+    <?
+    for($i=1;$i<13;$i++){
+    ?>
+    <option><? echo $i; ?></option>
+    <? } ?>
+    </select>
     </label>
     </div>
-    <div class="span6">
-    <label>D&iacute;a:      
-    <INPUT type="text" name="DIA" alt="Dia" class="span4" style="display:inline">
-    </label>
+    <div class="span7">
+
+    <label>Día: 
+<div class="input-append">
+  <input name="DIA" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="DIA" style="display:inline">
+  <span class="add-on"><i class="icon-calendar"></i></span>
+</div>
+</label>
     </div>
     </div>
         
     <label>Otros criterios:<br />      
-    <select size="5" style="width:220px; padding:2px;" name = "clase[]" >
+    <select size="5" class="input-block-level" name = "clase[]" >
         <option>Expulsion del Centro</option>
         <option>Expulsion del Aula</option>
         <option>Aula de Convivencia</option>
@@ -104,7 +115,17 @@ if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
   </FORM>
   </div>
 </div>
+
 <?php
 	include("../../pie.php");
 ?>
+<script>  
+	$(function ()  
+	{ 
+		$('#DIA').datepicker()
+		.on('changeDate', function(ev){
+			$('#DIA').datepicker('hide');
+		});
+		});  
+	</script>
 </BODY></HTML>

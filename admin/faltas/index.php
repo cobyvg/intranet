@@ -52,12 +52,14 @@ include("../../faltas/menu.php");
   <h2>Faltas de Asistencia <small> Consultas</small></h2>
   </div>
 <br />
-
-<form action='index.php' method='post' name='f1' class="form-inline">
+<div class="container-fluid">
 <div class="row-fluid">
+  <form action='index.php' method='post' name='f1' class="form-inline">
+
   <div class="span4">
-  <div class="well well-large pull-right"  style="width:340px;">
-  <legend>Resumen de faltas de un Grupo.</legend>
+  <div class="well well-large">
+
+  <legend>Faltas de un Grupo.</legend>
 <br />
   <h6>Selecciona Nivel y Grupo</h6>
     <label> Nivel:
@@ -85,7 +87,7 @@ include("../../faltas/menu.php");
 	}
 	?>    
   </SELECT>
-  <!-- <INPUT name="mes" type="text" value="<? echo date(m); ?>" class="input-mini" maxlength="2" >-->
+  <!-- <INPUT name="mes" type="text" value="<? //echo date(m); ?>" class="input-mini" maxlength="2" >-->
   </label>
   <br />
   <label>
@@ -110,7 +112,7 @@ include("../../faltas/menu.php");
   
    <div class="span4">
   <div class="well well-large">
-  <legend>Resumen de faltas de un alumno</legend>
+  <legend>Faltas de un alumno</legend>
   <br />
   <h6>Selecciona Nivel y Grupo</h6>
     <label> Nivel:
@@ -182,7 +184,7 @@ printf ("<OPTION></OPTION>");
 
 
 <div class="span4">
-<div class="well well-large pull-left" style="width:340px;">
+<div class="well well-large pull-left">
   <legend> Faltas y días sin justificar</legend>
   <br />
   <span class="help-block">( Alumnos que tienen un número mínimo de faltas entre el rango de fechas seleccionadas. )</span>
@@ -210,8 +212,10 @@ printf ("<OPTION></OPTION>");
   </div>
   </div>
   <? }?>
-</div>  
 </form>
+</div>  
+</div>  
+ 
 <? include("../../pie.php");?>
 
 <script>  
@@ -253,4 +257,3 @@ printf ("<OPTION></OPTION>");
 	</script>
 </body>
 </html>
-                     

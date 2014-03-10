@@ -18,6 +18,13 @@ if ($imprimir_activado){
 }        
 }
 ?>
+ <?
+if (isset($datatables_min)){
+if ($datatables_min){
+	include("js/datatables/datatables_min.php");
+}        
+}
+?>
 
  <script type="text/javascript">
     $("[rel=tooltip]").tooltip();
