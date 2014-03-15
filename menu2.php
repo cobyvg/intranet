@@ -1,4 +1,40 @@
-<div class="accordion" id="menu">
+<script>
+function CambiarEstilo(id) {
+	var elemento = document.getElementById(id);
+	elemento.className = "visible-phone";
+}
+</script>
+<div class="visible-phone">
+<ul class="nav nav-pills">
+  <li>
+      <a class="btn btn-link" href="faltas/index.php">
+        <span class="icon icon-time icon-2x"></span><br>
+        <h5>Asistencia</h5>
+      </a>
+    </li>
+  
+   <li>
+      <a class="btn btn-link" href="admin/fechorias/infechoria.php">
+        <span class="icon icon-legal icon-2x"></span><br>
+        <h5>Convivencia</h5>
+      </a>
+    </li>    
+   <li>
+      <a class="btn btn-link" href="admin/mensajes/redactar.php">
+        <span class="icon icon-comments icon-2x"></span><br>
+        <h5>Mensaje</h5>
+      </a>
+    </li>
+   <li>
+      <a class="btn btn-link" href="javascript:CambiarEstilo('menu')">
+        <span class="icon icon-cogs icon-2x"></span><br>
+        <h5>Menú</h5>
+      </a>
+    </li>
+    </ul>
+</div>
+
+<div class="accordion hidden-phone" id="menu">
 <?
 if (stristr ( $carg, '1' ) == TRUE) {
 ?>

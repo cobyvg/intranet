@@ -60,7 +60,7 @@ return false;
 }
 </script>
 
-<div class="container-fluid">
+<div class="container">
   
   <div class="page-header" align="center">
     <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
@@ -73,16 +73,18 @@ return false;
     
       <!-- Mensaje eliminado -->
       <?php if(isset($msg_delete) && $msg_delete==1): ?>
-      <div class="alert alert-success alert-block alert-fadeout">
+      <div class="alert alert-success alert-block alert-fadeout" style="width:400px;margin:auto">
         El mensaje ha sido eliminado.
       </div>
+      <br />
       <?php endif; ?>
       
       <!-- Mensaje enviado -->
       <?php if($_GET['action']=='send'): ?>
-      <div class="alert alert-success alert-block alert-fadeout">
-        El mensaje ha sido enviado.
+      <div class="alert alert-success alert-block alert-fadeout" style="width:400px;margin:auto">
+        El mensaje ha sido enviado correctamente.
       </div>
+      <br />
       <?php endif; ?>
       
       <style class="text/css">
@@ -92,7 +94,7 @@ return false;
       
       <ul class="nav nav-tabs">
         <li><a href="redactar.php" class="btn-danger"><span class="icon icon-edit"></span> Redactar mensaje</a></li>
-        <li><a href="correo.php" class="btn-info"><span class="icon icon-envelope-alt"></span> Enviar correo</a></li>
+        <li><a href="correo.php" class="btn-info"><span class="icon icon-envelope-alt"></span> Redactar correo</a></li>
         <li <?php echo $active1; ?>><a href="?inbox=recibidos"><span class="icon icon-inbox"></span> Recibidos</a></li>
         <li <?php echo $active2; ?>><a href="?inbox=enviados"><span class="icon icon-reply"></span> Enviados</a></li>
       </ul>
@@ -139,7 +141,7 @@ return false;
 
 <script>
 $(document).ready(function() {
-	$('.alert-fadeout').delay(2500).fadeOut('slow');
+	$('.alert-fadeout').delay(5000).fadeOut('slow');
 	
     $('.table-datatable').dataTable( {
         "sPaginationType": "bootstrap",

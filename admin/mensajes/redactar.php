@@ -74,7 +74,7 @@ include('../../menu.php');
 include('menu.php');
 $page_header = "Redactar mensaje";
 ?>
-  <div class="container-fluid">
+  <div class="container">
   <div class="page-header" align="center">
     <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
   </div>
