@@ -6,13 +6,14 @@ function CambiarEstilo(id) {
 </script>
 <div class="visible-phone">
 <ul class="nav nav-pills">
+  <? if ($mod_faltas) { ?>
   <li>
       <a class="btn btn-link" href="faltas/index.php">
         <span class="icon icon-time icon-2x"></span><br>
         <h6>Asistencia</h6>
       </a>
     </li>
-  
+  <?php } ?>
    <li>
       <a class="btn btn-link" href="admin/fechorias/infechoria.php">
         <span class="icon icon-legal icon-2x"></span><br>
