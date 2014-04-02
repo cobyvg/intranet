@@ -131,7 +131,8 @@ while ($ni = mysql_fetch_array($niv)) {
 	$nivel = $ni[1];
 	$rep = ""; 
 	$promo = "";
-$notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso'";
+$notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel from alma, notas where alma.CLAVEAL1 = notas.claveal 
+and alma.curso = '$curso'";
 //echo $notas1."<br>";
 
 $result1 = mysql_query($notas1);
@@ -190,7 +191,8 @@ while ($orden_nivel = mysql_fetch_array($nivele)){
 </thead>
 <tbody>	
 	<?
-$as = mysql_query("select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%'");
+$as = mysql_query("select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%' and asignaturas.codigo not in 
+(select distinct codigo from asignaturas where nombre like 'Libre Disp%')");
 // echo "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%'";
 while ($asi = mysql_fetch_array($as)) {
 	$n_c = mysql_query("select distinct nivel from alma where curso = '$orden_nivel[1]'");

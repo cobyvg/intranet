@@ -30,7 +30,7 @@ include("../../menu.php");
 include("menu.php");
 ?>
 
-<div class="container-fluid">
+<div class="container">
   
   <div class="page-header">
     <h2>Mensaje: <?php echo $page_header; ?> <br><small>Enviado por <?php echo $mensaje['origen']; ?> el <?php echo fecha_actual2($mensaje['ahora']); ?></small></h2>

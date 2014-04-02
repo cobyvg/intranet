@@ -187,7 +187,8 @@ echo '<th colspan="2" style="text-align:center">'.$a_asig[0].'</th>';
 echo "</tr>";
 
 $sql = "select distinct asignaturas.nombre, asignaturas.codigo, abrev from asignaturas, profesores where profesores.materia = asignaturas.nombre
- and asignaturas.curso = '$orden_nivel[1]' and abrev not like '%\_%' order by asignaturas.nombre";
+ and asignaturas.curso = '$orden_nivel[1]' and abrev not like '%\_%' and asignaturas.codigo not in 
+(select distinct asignaturas.codigo from asignaturas where asignaturas.nombre like 'Libre Disp%') order by asignaturas.nombre";
 //echo $sql;	
 $as = mysql_query($sql);
 while ($asi = mysql_fetch_array($as)) {

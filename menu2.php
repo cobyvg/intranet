@@ -9,7 +9,7 @@ function CambiarEstilo(id) {
   <li>
       <a class="btn btn-link" href="faltas/index.php">
         <span class="icon icon-time icon-2x"></span><br>
-        <h5>Asistencia</h5>
+        <h6>Asistencia</h6>
       </a>
     </li>
   
@@ -28,7 +28,7 @@ function CambiarEstilo(id) {
    <li>
       <a class="btn btn-link" href="javascript:CambiarEstilo('menu')">
         <span class="icon icon-cogs icon-2x"></span><br>
-        <h5>Menú</h5>
+        <h5>&nbsp;Menú&nbsp;&nbsp;</h5>
       </a>
     </li>
     </ul>
@@ -498,4 +498,4 @@ if (stristr ( $carg, '1' ) == TRUE) {
     </div>
   </div>
 </div>
-</div>
+</div>                                                                                                                                                              

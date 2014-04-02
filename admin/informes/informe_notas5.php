@@ -190,7 +190,8 @@ while ($ni = mysql_fetch_array($niv)) {
 <tbody>	
 	<?
 $sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre
- and asignaturas.curso = '$orden_nivel[1]' and profesores.grupo = '$unidad' and abrev not like '%\_%'";
+ and asignaturas.curso = '$orden_nivel[1]' and profesores.grupo = '$unidad' and abrev not like '%\_%' and asignaturas.codigo not in 
+(select distinct asignaturas.codigo from asignaturas where asignaturas.nombre like 'Libre Disp%')";
 //echo $sql;	
 $as = mysql_query($sql);
 while ($asi = mysql_fetch_array($as)) {
