@@ -32,34 +32,45 @@ $asig = mysql_fetch_array($asig1);
 $asignatura = $asig[0];
 
 if(strlen($orden) > '0'){
-$ident1 = mysql_query("select id, nombre, texto, texto_pond from notas_cuaderno where id='$id'") or die ("error notas_cuaderno"); //echo $ident2; 
+$ident1 = mysql_query("select id, nombre, texto, texto_pond, visible_nota from notas_cuaderno where id='$id'") or die ("error notas_cuaderno"); //echo $ident2; 
 $ident0 = mysql_fetch_array($ident1);
 $id = $ident0[0];
 $nombre = $ident0[1];
-$texto =$ident0[2]; } 
+$texto =$ident0[2];
+
+$ident0[4] ? $visible_nota = 1 : $visible_nota = 0;
+} 
 
 
 // Formulario general y datos ocultos
 ?>
 <form action="n_col.php" method="post">
-<input type="hidden" name="asignatura" value = "<? echo $asignatura;?>" />
-<input type="hidden" name="curso" value = "<? echo $curso;?>" />
-<input type="hidden" name="dia" value = "<? echo $dia;?>" />
-<input type="hidden" name="hora" value = "<? echo $hora;?>" />
-<input type="hidden" name="id" value = "<? echo $id;?>" />
-<input type="hidden" name="nom_asig" value = "<? echo $nom_asig;?>" />
-<br />
-<div class="well well-large" style="width:350px;" align="left">
-<label>Nombre de la columna<br />
-<input type="text" name="nombre" size="32" value="<? echo $nombre;?>" class="span4" />
-</label>
-<label>Observaciones<br />
-<textarea name="texto" rows="6" class="span4"><? echo $texto;?></textarea>
-</label>
-<br />
-<input type="submit" name="crear" value="Crear o Modificar" class="btn btn-primary"/>
+	<input type="hidden" name="asignatura" value = "<? echo $asignatura;?>" />
+	<input type="hidden" name="curso" value = "<? echo $curso;?>" />
+	<input type="hidden" name="dia" value = "<? echo $dia;?>" />
+	<input type="hidden" name="hora" value = "<? echo $hora;?>" />
+	<input type="hidden" name="id" value = "<? echo $id;?>" />
+	<input type="hidden" name="nom_asig" value = "<? echo $nom_asig;?>" />
+	
+	<div class="well well-large" style="width:350px;" align="left">
+	
+		<label for="cmp_nombre">Nombre de la columna</label>
+		<input type="text" id="cmp_nombre" name="nombre" size="32" value="<? echo $nombre;?>" class="input-block-level" />
+		
+		<label for="cmp_observaciones">Observaciones</label>
+		<textarea name="texto" rows="6" id="cmp_observaciones" class="input-block-level"><? echo $texto;?></textarea>
+		
+		<div class="checkbox">
+			<input type="checkbox" id="cmp_visible_nota" name="visible_nota" value="1" <?php if($visible_nota) echo 'checked'; ?>>
+			<label for="cmp_visible_nota">Visible en la página externa <strong rel="tooltip" title="Si está marcada, permite a los padres y alumnos ver la nota de la actividad o examen en la página externa">(?)</strong></label>
+		</div>
+		<br />
+		<input type="submit" name="crear" value="Crear o Modificar" class="btn btn-primary"/>
+	</div>
 </form>
-</div>
+
+<?php include('../pie.php'); ?>
+
   <script type="text/javascript">
   document.forms[0].elements['nombre'].focus(); 
   </script>

@@ -36,12 +36,12 @@ exit;
 }
 // Nueva Columna
 
- 
+if (!$visible_nota) $visible_nota = 0;
 
 $fecha = date('Y-m-d');
 // Si hay datos, actualizamos
 if(strlen($id) > 0){
-$sql = "UPDATE  notas_cuaderno set nombre='$nombre', texto='$texto' where id = '$id'";
+$sql = "UPDATE  notas_cuaderno set nombre='$nombre', texto='$texto', visible_nota='$visible_nota' where id = '$id'";
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han modificado correctamente.          
@@ -52,15 +52,15 @@ else{
 	$num_col = mysql_fetch_array($serie);
 	$orden = $num_col[0] + 1;
 	// Si no, insertamos
-$sql = "INSERT INTO  notas_cuaderno ( profesor ,  fecha ,  nombre ,  texto ,  asignatura, curso, orden ) 
-VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso', '$orden')";
+$sql = "INSERT INTO  notas_cuaderno ( profesor ,  fecha ,  nombre ,  texto ,  asignatura, curso, orden, visible_nota ) 
+VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso', '$orden', '$visible_nota')";
 //echo $sql;
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La nueva columna ha sido añadida a la tabla del Cuaderno.
 </div></div>';
 }
-mysql_query($sql);
+mysql_query($sql) or die (mysql_error());
 mysql_close();
 echo $mens10;
 ?>

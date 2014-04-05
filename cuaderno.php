@@ -168,7 +168,7 @@ $codigos = substr($codigos,0,-1);
 // Eliminamos la última coma para el título.
 	$curso_sin = substr($curs0,0,(strlen($curs0)-1));
 //Número de columnas
-	$col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
+	$col = "select distinct id, nombre, orden, visible_nota from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
 	$col0 = mysql_query($col);
 	$cols = mysql_num_rows($col0);
 	
@@ -205,7 +205,8 @@ echo "<tr class='no_imprimir'><th>NC</th><th>Alumnos</th>";
 	$ident= $col20[2];
 	$id = $col20[0];
 	$mens0 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&curso=$curs0&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
-	echo "<th><a href='$mens0' rel='tooltip' title='$col20[1]'>$ident</a></th>";
+	$col20[3] ? $icon_eye = '<i class="icon icon-eye-open"></i>' : $icon_eye  = '<i class="icon icon-eye-close"></i>';
+	echo "<th><a href='$mens0' rel='tooltip' title='$col20[1]'>$ident</a> $icon_eye</th>";
 	}
 	if($seleccionar == 1){echo "<th></th>";}
 

@@ -116,4 +116,13 @@ if ( $flag ) {
 	unset($tabla);
 	unset($nomtabla);
 }
+
+
+/*
+	@descripcion: Actualización tabla notas_cuaderno
+	@fecha: 5 de abril de 2014
+
+*/
+
+mysql_query("ALTER TABLE  `notas_cuaderno` ADD  `visible_nota` INT( 1 ) UNSIGNED NOT NULL DEFAULT  '0' AFTER  `oculto`");
 ?>
