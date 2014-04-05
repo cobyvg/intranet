@@ -28,6 +28,7 @@ Importar Asignaturas y sistema de Calficaciones</a></li>
 <li><a href="jefe/reset_password.php" class="enlacelateral">Reiniciar Contraseña</a></li>
 <li><a href="jefe/index_hor.php" class="enlacelateral">Copiar datos de un profesor a otro</a></li>
 <li><a href="jefe/index_fotos_profes.php" class="enlacelateral">Subir fotos de profesores</a></li>
+<li><a href="jefe/informes/accesos.php" class="enlacelateral">Informe de accesos</a></li>
 <hr>
 <li class="nav-header">Actualizaci&oacute;n</li>
 <li><a href="jefe/index.php" class="enlacelateral">Actualizar Alumnos</a></li>
