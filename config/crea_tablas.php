@@ -1007,6 +1007,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
   `asignatura` int(6) NOT NULL DEFAULT '0',
   `curso` varchar(36) NOT NULL DEFAULT '',
   `oculto` tinyint(1) NOT NULL DEFAULT '0',
+  `visible_nota` int(1) NOT NULL DEFAULT '0',
   `orden` tinyint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `profesor` (`profesor`)

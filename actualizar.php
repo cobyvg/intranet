@@ -124,5 +124,7 @@ if ( $flag ) {
 
 */
 
-mysql_query("ALTER TABLE  `notas_cuaderno` ADD  `visible_nota` INT( 1 ) UNSIGNED NOT NULL DEFAULT  '0' AFTER  `oculto`");
+if ( mysql_num_rows(mysql_query("SHOW COLUMNS FROM notas_cuaderno LIKE 'visible_nota'")) == 0 ) {
+	mysql_query("ALTER TABLE  `notas_cuaderno` ADD  `visible_nota` INT( 1 ) UNSIGNED NOT NULL DEFAULT  '0' AFTER  `oculto`");
+}
 ?>
