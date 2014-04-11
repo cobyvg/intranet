@@ -17,7 +17,10 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE)) {
 	exit;	
 }
 ?>
-<?php include("../../../menu.php"); ?>
+<?
+include("../../../menu.php"); 
+$datatables_activado=true;
+?>
 	
 	<div class="container">
 	
@@ -35,7 +38,7 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE)) {
 		<!-- CONTENIDO DE LA PAGINA -->
 		
 		<div class="row">
-			<div class="span12">
+			<div class="span8 offset2">
 			
 			    <div class="no_imprimir">
 			      <a href="../../index.php" class="btn btn-default">Volver</a>
@@ -43,7 +46,7 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE)) {
 			      <br><br>
 			    </div>
 				
-				<table class="table table-bordered table-condensed table-striped">
+				<table class="table table-bordered table-condensed table-striped tabladatos">
 					<thead>
 						<tr>
 							<th>Profesor/a</th>
