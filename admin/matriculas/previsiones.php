@@ -192,5 +192,4 @@ else{
 ?>
 </tr>
 </table>
-</body>
-</html>
+<? include("../../pie.php");

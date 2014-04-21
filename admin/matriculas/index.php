@@ -35,11 +35,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
         </select>
       </label>
       <hr>
-      <label><p class="lead">D.N.I. del Alumno o del Tutor legal</p>
-        <input type="input" maxlength="13" name="dni" id="dni"   >
+      
+      <label><p class="lead">Clave del alumno (NIE)</p>
+        <input type="input" name="claveal" id="claveal"   >
       </label>
       <hr>
-      <input type="submit" name="matricular" value="Proceder a la Matrículación" maxlength="25" alt="Introducir" class="btn btn-primary"/>
+      
+      <label><p class="lead">DNI del alumno o Tutor Legal</p>
+        <input type="input" name="dni" id="dni"   >
+      </label>
+      <hr>
+      <input type="submit" name="matricular" value="Proceder a la Matrículación" alt="Introducir" class="btn btn-primary btn-block"/>
     </form>
   </div>
 </div>

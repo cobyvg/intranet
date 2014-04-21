@@ -20,9 +20,11 @@ $connection = mysql_connect($db_host,$db_user,$db_pass) or die ("Imposible conec
 mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
 if (isset($_GET['dni'])) {$dni = $_GET['dni'];}elseif (isset($_POST['dni'])) {$dni = $_POST['dni'];}else{$dni="";}
+if (isset($_GET['claveal'])) {$claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) {$claveal = $_POST['claveal'];}else{$claveal="";}
 if (isset($_GET['enviar'])) {$enviar = $_GET['enviar'];}elseif (isset($_POST['enviar'])) {$enviar = $_POST['enviar'];}else{$enviar="";}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 
+// Se han enviado datos para procesar....
 if($enviar =="Enviar los datos de la Matrícula"){
 		foreach($_POST as $key => $val)
 	{
@@ -255,10 +257,6 @@ Los datos de la Matrícula se han registrado correctamente en la Base de datos.
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/otros.css" rel="stylesheet">
     <link href="../../css/bootstrap-responsive.min.css" rel="stylesheet">    
-    <link href="../../css/datepicker.css" rel="stylesheet">
-    <link href="../../css/DataTable.bootstrap.css" rel="stylesheet">    
-    <link href="../../css/font-awesome.min.css" rel="stylesheet" >
-    <link href="../../css/imprimir.css" rel="stylesheet" media="print">
 
  <script type="text/javascript">
 function confirmacion() {
@@ -475,12 +473,12 @@ exit();
 	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
 
 		?> <br />
-<div style="width: 990px; margin: auto; border: 2px solid #aaa"><img
-	src="../../img/encabezado.jpg" width="988" height="80"
-	style="border-left: 1px solid #aaa;" />
-
 	<form class="form-vertical" id="form1" name="form1" method="post"	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
-	<table  class="table table-bordered" align="center">
+<table align="center" class="table table-bordered" style="width: 92%">
+	<tr>
+		<td colspan="3"><img src="../../img/encabezado2.jpg" width="96%"
+			align="center" /></td>
+	</tr>
 	<tr>
 		<td colspan="3">
 		<?
@@ -1062,7 +1060,7 @@ elseif ($n_curso == 3) {
 		Indique aquellas cuestiones que considere sean importantes para
 		conocimiento del Centro (enfermedades,  situación familiar, etc.) <br />
 		<textarea name="observaciones" id="textarea" rows="5"
-			style="width: 80%" onKeyDown="contar('form1','observaciones')"
+			style="width: 98%" onKeyDown="contar('form1','observaciones')"
 			onkeyup="contar('form1','observaciones')"><? echo $observaciones; ?></textarea>
 		</td>
 	</tr>
@@ -1070,14 +1068,13 @@ elseif ($n_curso == 3) {
 	<tr>
 		<td colspan="3" style="border-bottom: none">
 
-		<div align="center"><br />
+		<div align="center">
 		<input type="hidden" name="curso" value="<? echo $curso;?>" /> 
 		<input type="hidden" name="nuevo" value="<? echo $nuevo;?>" /> 		
 		<input type="hidden" name="curso_matricula"	value="<? echo $curso_matricula;?>" /> 
 		<input type="hidden" name="claveal" <? echo "value = \"$claveal\""; ?> />
 		<input type="hidden" name="repite" value="<? echo $repetidor;?>" />  
-		<input type="submit" name="enviar"	value="Enviar los datos de la Matrícula" class="btn btn-primary no_imprimir"  />
-		<br />
+		<input type="submit" name="enviar"	value="Enviar los datos de la Matrícula" class="btn btn-primary btn-large no_imprimir"  />
 		<br />
 		</div>
 		</td>
