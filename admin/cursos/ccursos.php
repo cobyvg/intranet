@@ -48,7 +48,7 @@ echo '<div class="span5 offset1">';
 <hr />
 <SELECT  name="unidad[]" multiple class="input-block-level" required>
 <?
-if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE){
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE){
  unidad();
  $SQLcurso = "SELECT DISTINCT a_grupo
 FROM horw

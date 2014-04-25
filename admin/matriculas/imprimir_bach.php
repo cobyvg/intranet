@@ -48,7 +48,7 @@ if ($datos_ya = mysql_fetch_object ( $result )) {
 
 $naci = explode("-",$datos_ya->nacimiento);
 $nacimiento = "$naci[2]-$naci[1]-$naci[0]";
-$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual;	
+$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacimiento; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite;$revisado = $datos_ya->revisado; $confirmado = $datos_ya->confirmado; $grupo_actual = $datos_ya->grupo_actual; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2;
 
 	$apellidos = "Apellidos del Alumno: ". $apellidos;
 	 $nombre= "Nombre: ".$nombre;
@@ -154,20 +154,23 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Cell(21,5,$hermanos,1,0,'C');
 	$MiPDF->Cell(20,5,$sexo,1,0,'C');
 	$MiPDF->Ln ( 8 );
-	$MiPDF->Cell(76,5,"DOMICILIO",0,0,"C");
-	$MiPDF->Cell(36,5,"LOCALIDAD",0,0,"C");
-	$MiPDF->Cell(28,5,"COD. POSTAL",0,0,"C");
+	$MiPDF->Cell(100,5,"DOMICILIO",0,0,"C");
+	$MiPDF->Cell(25,5,"LOCALIDAD",0,0,"C");
+	$MiPDF->Cell(15,5,"C.P.",0,0,"C");
 	$MiPDF->Cell(28,5,"PROVINCIA",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(76,5,$datos_ya->domicilio,1,0,'C');
-	$MiPDF->Cell(36,5,$datos_ya->localidad,1,0,'C');
-	$MiPDF->Cell(28,5,"29680",1,0,'C');
+	$MiPDF->Cell(100,5,$datos_ya->domicilio,1,0,'C');
+	$MiPDF->Cell(25,5,$datos_ya->localidad,1,0,'C');
+	$MiPDF->Cell(15,5,"29680",1,0,'C');
 	$MiPDF->Cell(28,5,"Málaga",1,0,'C');
 	$MiPDF->Ln ( 8 );
-	$MiPDF->Cell(168,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,'C');
+
+	$MiPDF->Cell(84,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,"C");
+	$MiPDF->Cell(84,5,"Transporte Escolar",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(168,5,$datos_ya->correo,1,0,'C');
-	
+	$MiPDF->Cell(84,5,$datos_ya->correo,1,0,'C');
+	$MiPDF->Cell(84,5,$datos_ya->ruta_este.$datos_ya->ruta_oeste,1,0,'C');
+		
 	$MiPDF->Ln ( 9 );
 	$MiPDF->Cell(5,6,"2",1,0,'C',1);
 	$MiPDF->Cell(163,6,"DATOS DE LOS REPRESENTANTES LEGALES DEL ALUMNO",1,0,'C',1);
@@ -197,6 +200,25 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Cell(46,5,"Estepona",1,0,'C');
 	$MiPDF->Cell(46,5,"29002885",1,0,'C');
 	$MiPDF->Ln ( 8 );
+	
+	if ($curso=="2BACH") {
+	$MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
+	$MiPDF->Cell(84,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');
+	$MiPDF->Ln ( 6);
+	$MiPDF->Cell(84,5,$idioma1,1,0,'C');
+	$MiPDF->Cell(84,5,$religion,1,0,'C');	
+	}
+	else{
+	$MiPDF->Cell(56,6,"1º IDIOMA EXTRANJERO",0,0,'C');
+	$MiPDF->Cell(56,6,"2º IDIOMA EXTRANJERO",0,0,'C');
+	$MiPDF->Cell(56,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');
+	$MiPDF->Ln ( 6);
+	$MiPDF->Cell(56,5,$idioma1,1,0,'C');
+	$MiPDF->Cell(56,5,$idioma2,1,0,'C');
+	$MiPDF->Cell(56,5,$religion,1,0,'C');
+	}
+	$MiPDF->Ln ( 8 );
+	
 	//echo $itinerario;
 	if ($n_curso == '4') { $extra="4ESO (It. $itinerario)";}else{$extra=$curso;}
 	$MiPDF->Cell(78,5,"CURSO EN QUE SE MATRICULA",0,0,"C");

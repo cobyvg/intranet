@@ -431,7 +431,7 @@ if (stristr ( $carg, '1' ) == TRUE) {
         }
         ?>
         <li><a href="admin/cursos/calendario.php">Calendario escolar</a></li>
-        <li><a href="http://iesmonterroso.org/PC20122013/index.htm">Plan de Centro</a></li>
+        <li><a href="http://iesmonterroso.org/PC/index.htm">Plan de Centro</a></li>
         <li><a href="clave.php">Cambiar contraseña</a></li>
       </ul>
     </div>

@@ -222,19 +222,22 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(21,5,$hermanos,1,0,'C');
 	$MiPDF->Cell(20,5,$sexo,1,0,'C');
 	$MiPDF->Ln ( 8 );
-	$MiPDF->Cell(76,5,"DOMICILIO",0,0,"C");
-	$MiPDF->Cell(36,5,"LOCALIDAD",0,0,"C");
-	$MiPDF->Cell(28,5,"COD. POSTAL",0,0,"C");
+	$MiPDF->Cell(100,5,"DOMICILIO",0,0,"C");
+	$MiPDF->Cell(25,5,"LOCALIDAD",0,0,"C");
+	$MiPDF->Cell(15,5,"C.P.",0,0,"C");
 	$MiPDF->Cell(28,5,"PROVINCIA",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(76,5,$row[7],1,0,'C');
-	$MiPDF->Cell(36,5,$row[8],1,0,'C');
-	$MiPDF->Cell(28,5,"29680",1,0,'C');
+	$MiPDF->Cell(100,5,$row[7],1,0,'C');
+	$MiPDF->Cell(25,5,$row[8],1,0,'C');
+	$MiPDF->Cell(15,5,"29680",1,0,'C');
 	$MiPDF->Cell(28,5,"Málaga",1,0,'C');
 	$MiPDF->Ln ( 8 );
-	$MiPDF->Cell(168,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,'C');
+		
+	$MiPDF->Cell(84,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,"C");
+	$MiPDF->Cell(84,5,"Transporte Escolar",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(168,5,$row[19],1,0,'C');
+	$MiPDF->Cell(84,5,$row[19],1,0,'C');
+	$MiPDF->Cell(84,5,$ruta_est.$ruta_oeste,1,0,'C');
 	
 	$MiPDF->Ln ( 12 );
 	$MiPDF->Cell(5,6,"2",1,0,'C',1);
