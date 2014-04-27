@@ -81,3 +81,17 @@ h3{
 .alert .modal p a {
 	color: #08c;
 }
+
+.Rotate-90
+{
+  -webkit-transform: rotate(-80deg);
+  -moz-transform: rotate(-80deg);
+  -ms-transform: rotate(-80deg);
+  -o-transform: rotate(-80deg);
+  transform: rotate(-80deg);
+
+  font-size: 10px;
+  width:40px;
+  position:relative;
+  top:98px;
+}

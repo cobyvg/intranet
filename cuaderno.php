@@ -192,24 +192,34 @@ else{
 <table style="width:auto;" align="center" cellpadding="5">
 <tr>
 <td valign="top">
-
 <?
-echo "<table class='table table-striped table-bordered table-condensed' style='width:auto'>\n"; 
-echo "<tr class='no_imprimir'><th>NC</th><th>Alumnos</th>";
+echo "<table class='table table-striped table-bordered table-condensed' style='width:100%'>"; 
+echo "<thead class='no_imprimir'><th style='vertical-align:bottom;background-color:#fff'>NC</th><th style='vertical-align:bottom;background-color:#fff'>Alumnos</th>";
 // Número de las columnas de la tabla	
 	$cols2=0;
 	while($col20 = mysql_fetch_array($col0)){
-	
+	$icon_eye="";
+	$nombre_col="";
 	$col2=mysql_query("select distinct id from datos where id = '$col20[0]' ");
 	$cols2 += mysql_num_rows($col2); //echo $cols2;
 	$ident= $col20[2];
 	$id = $col20[0];
+	$nombre_col = $col20[1];
 	$mens0 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&curso=$curs0&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
-	$col20[3] ? $icon_eye = '<i class="icon icon-eye-open"></i>' : $icon_eye  = '<i class="icon icon-eye-close"></i>';
-	echo "<th><a href='$mens0' rel='tooltip' title='$col20[1]'>$ident</a> $icon_eye</th>";
+	if (strlen($nombre_col)>26) {
+		$col_vert = substr($nombre_col,0,25)."..";
 	}
-	if($seleccionar == 1){echo "<th></th>";}
-
+	else {
+		$col_vert = $nombre_col;
+	}
+	
+	echo "<td nowrap>
+<div style='width:40px;height:130px;'>
+<div class='Rotate-90'><a href='$mens0' style='font-size:9px;'>$col_vert</a> </div>
+</div> </td>";
+	}
+	if($seleccionar == 1){echo "<td></td>";}	
+	echo "</thead>";
 // Tabla para cada Grupo
   $curso0 = "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
   //echo $curso0;
@@ -416,18 +426,20 @@ $h=0;
 				
 				$otra=mysql_query("select distinct ponderacion from datos where id='$colum00[0]' and ponderacion<>'1' ");
 				if (mysql_num_rows($otra) > 0){     $h+=1;}											}
-			echo "<table class='table table-striped' style='width:300px;'>"; 
-	$otra2=mysql_query("select distinct id, nombre, orden, oculto from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc");
+			echo "<table class='table table-striped' style='width:auto;'>"; 
+	$otra2=mysql_query("select distinct id, nombre, orden, oculto, visible_nota from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc");
 	while ($colum1 = mysql_fetch_array($otra2)) {
 	$n_col = $colum1[2];
 	$id = $colum1[0];
 	$nombre = $colum1[1];
 	$oculto = $colum1[3];
+	$visible_not= $colum1[4];
 	$pon=mysql_query("select distinct ponderacion from datos where id='$id'");
 	$pon0=mysql_fetch_array($pon);
 	$pond= $pon0[0];
 	$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curso&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
-	  echo "<tr><td>$n_col &nbsp;&nbsp;</td><td><a href='$mens0'>$nombre</a></td>";
+		$colum1[4] ? $icon_eye = '<i class="icon icon-eye-open" rel="Tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="icon icon-eye-close" rel="Tooltip" title="Columna oculta en la página pública del Centro"></i>';
+	  echo "<tr><td>$n_col &nbsp;&nbsp;$icon_eye </td><td><a href='$mens0'>$nombre</a></td>";
 	  echo "<td>";
 	  ?>
     &nbsp;&nbsp;<input name="<? echo $id;?>" type="checkbox"  value="<? if(mysql_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>" />
