@@ -69,7 +69,7 @@ $profesor = $_SESSION ['profi'];
    <?
 if(isset($_POST['submit']) and $_POST['submit']=="Añadir Noticia")
 {
-	$slug = $_POST['slug'];
+	$slug = htmlspecialchars($_POST['slug']);
 	$content = $_POST['content'];
 	$contact = $_POST['contact'];
 	$ndias = $_POST['ndias'];
@@ -145,7 +145,7 @@ La noticia ha sido registrada correctamente.
 }
 if(isset($_POST['submit1']) and $_POST['submit1']){
 	$id = $_POST['id'];
-	$slug = $_POST['slug'];
+	$slug = htmlspecialchars($_POST['slug']);
 	$content = $_POST['content'];
 	$contact = $_POST['contact'];
 	$ndias = $_POST['ndias'];
@@ -238,7 +238,7 @@ if (!(isset($pagina))) {
     <form action="add.php" method="POST">
       <input type="hidden" name="id"  value="<? echo $id; ?>">
       <label>Asunto<br />
-        <input type="text" name="slug" id="forminput" class="input-block-level" value="<? echo htmlspecialchars($row->slug); ?>">
+        <input type="text" name="slug" id="forminput" class="input-block-level" value="<? echo $row->slug; ?>">
       </label>
       <label>Texto<br />
         <textarea name="content" id="editor" style="height: 500px; width: 100%;">
