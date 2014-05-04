@@ -37,6 +37,11 @@ return false;
 	}
 }
 </script>
+<style type="text/css">
+.table td{
+	vertical-align:middle;
+}
+</style>
   <?php
 
 include("../../menu.php");
@@ -47,9 +52,9 @@ $datatables_activado = true;
 <div class="page-header" align="center">
   <h2>Informes de Tutoría <small> Buscar Informes</small></h2>
 </div>
- <h4><? echo $titulo;?></h4><br /> 
+ <h3><? echo $titulo;?></h3><br /> 
 <form name="buscar" method="POST" action="buscar.php">
-<div class='container'>
+<div class='container-fluid'>
   <div class="row-fluid">
   <div class="span6 offset3">
 <?php
@@ -79,7 +84,11 @@ if (mysql_num_rows($result) > 0)
 
 	while($row = mysql_fetch_object($result))
 	{
-   echo "<tr><td nowrap> $row->NOMBRE $row->APELLIDOS</TD>
+   echo "<tr><td nowrap>";
+		$foto="";
+		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64' class=''  />";
+		echo $foto."&nbsp;&nbsp;";	
+   echo "$row->NOMBRE $row->APELLIDOS</TD>
    <TD nowrap>$row->NIVEL $row->GRUPO</TD>
    <TD nowrap>$row->F_ENTREV</TD>";
 echo "<td nowrap><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i></a>";	

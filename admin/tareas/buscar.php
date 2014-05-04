@@ -26,6 +26,11 @@ return false;
 	}
 }
 </script>
+<style type="text/css">
+.table td{
+	vertical-align:middle;
+}
+</style>
 <?
 session_start();
 include("../../config.php");
@@ -57,10 +62,9 @@ $grupo = $tr_uni[1];
 </div>
 
 <form name="buscar" method="POST" action="buscar.php">
-<div class='container'>
+<div class='container-fluid'>
   <div class="row-fluid">
-  <div class="span3"></div>
-  <div class="span6">
+  <div class="span8 offset2">
  <h3><? echo $titulo;?></h3><br /> 
  <form name="buscar" method="POST" action="buscar.php">
 <?php
@@ -95,7 +99,11 @@ if (mysql_num_rows($result) > 0)
 		$nulo = mysql_num_rows($vacio);
 		if ($nulo > 0){ $bola = "<i class='icon icon-ok' title='confirmado' />"; } else{ $bola = "<i class='icon icon-warning-sign' title='No confirmado' />"; }
 
-   echo "<tr><TD><input type='radio' name='llenar' value='$row->ID'></td><td> $row->APELLIDOS $row->NOMBRE</TD>
+   echo "<tr><TD><input type='radio' name='llenar' value='$row->ID'></td><td>";
+		$foto="";
+		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64' class=''  />";
+		echo $foto."&nbsp;&nbsp;";	
+   echo "$row->APELLIDOS $row->NOMBRE</TD>
    <TD>$row->NIVEL $row->GRUPO</TD>
    <TD>$row->FECHA</TD><TD>$si</TD><TD>$no</TD><TD>$bola</TD>";
    echo "<td><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i></a>";

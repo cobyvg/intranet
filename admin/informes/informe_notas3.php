@@ -131,6 +131,7 @@ while ($ni = mysql_fetch_array($niv)) {
 	$nivel = $ni[1];
 	$rep = ""; 
 	$promo = "";
+	$todos="";
 $notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel from alma, notas where alma.CLAVEAL1 = notas.claveal 
 and alma.curso = '$curso'";
 //echo $notas1."<br>";

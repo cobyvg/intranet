@@ -12,6 +12,13 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
  <? 
  include("../../menu.php");
 include("../../faltas/menu.php");
+?>
+<style type="text/css">
+.table td{
+	vertical-align:middle;
+}
+</style>
+<?
 $imprimir_activado = true;
   $fechasq0=explode("-",$fecha10);
   $fechasq1=$fechasq0[2]."-".$fechasq0[1]."-".$fechasq0[0];
@@ -25,7 +32,7 @@ $imprimir_activado = true;
   <h2>Faltas de Asistencia <small> Informe de faltas</small></h2>
   </div>
 ';
-        echo "<legend align='center'>Alumnos con más de $numero faltas de asistencia sin justificar<br> entre los días $fechasq1 y $fechasq3</legend>
+        echo "<legend align='center' class='text-warning'>Alumnos con más de <strong class='text-info'>$numero</strong> faltas de asistencia sin justificar<br> entre los días <strong class='text-info'>$fechasq1</strong> y <strong class='text-info'>$fechasq3</strong></legend>
 		<table class='table table-striped tabladatos' style='width:100%;'>";
         echo "<thead><tr><th>Alumno</th><th>Curso</th>
         <th>Nº faltas</th><th>Nº días</th></tr></thead><tbody>";
@@ -51,7 +58,11 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 // Bucle de Consulta.
   if ($rowF = mysql_fetch_array($resultF))
         {
-	echo "<tr><td >$rowF[2] $rowF[1]</td><td>$rowF[3]-$rowF[4]</td>
+	echo "<tr><td >";
+	$foto="";
+	$foto = "<img src='../../xml/fotos/$rowF[0].jpg' width='55' height='64' class=''  />";
+	echo $foto."&nbsp;&nbsp;";
+	echo "$rowF[2] $rowF[1]</td><td>$rowF[3]-$rowF[4]</td>
 	<td><strong style='color:#9d261d'>$rowF[6]</strong></td>";
 # Segunda parte.
 

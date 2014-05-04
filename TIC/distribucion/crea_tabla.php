@@ -163,7 +163,7 @@ Los Ordenadores TIC han sido asignados correctamente a los Alumnos.
 </div></div><br />';
 ?>
 <div align="center">
-<input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" class="btn btn-success" />
+<input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" class="btn btn-primary" />
 </div>
 </div>
 </body>

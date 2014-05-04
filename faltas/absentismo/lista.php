@@ -17,6 +17,12 @@ if (isset($_GET['mes'])) {$mes = $_GET['mes'];}elseif (isset($_POST['mes'])) {$m
 if (isset($_GET['num_mes'])) {$num_mes = $_GET['num_mes'];}elseif (isset($_POST['num_mes'])) {$num_mes = $_POST['num_mes'];}else{$num_mes="";}
 if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{$numero="";}
 ?>
+<style type="text/css">
+.table td{
+	vertical-align:middle;
+}
+</style>
+
 <h3 align="center"> Alumnos absentistas </h3><br /><br />
 <?
 if (isset($_POST['submit'])) {
@@ -108,7 +114,11 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
         	if (mysql_num_rows($registrado)>0) {
         		$sel=" checked";
         	}
-	echo "<tr><td align='center'><input name='$rowF[0]' type='checkbox' value='$n_mes;$rowF[6];$rowF[3]-$rowF[4]' $sel/></td>";
+	echo "<tr><td align='center'>";
+        $foto="";
+		$foto = "<img src='../../xml/fotos/$rowF[0].jpg' width='55' height='64'  />";
+		echo $foto."&nbsp;&nbsp;&nbsp;";	
+	echo "<input name='$rowF[0]' type='checkbox' value='$n_mes;$rowF[6];$rowF[3]-$rowF[4]' $sel /></td>";
 	echo "<td  align='left'>$rowF[2] $rowF[1]</td><td>$rowF[3]-$rowF[4]</td>
 	<td>$rowF[6]</td>";
   $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL like '$claveal' and month(FALTAS.fecha) = '$n_mes'";

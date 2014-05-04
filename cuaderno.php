@@ -215,7 +215,7 @@ echo "<thead class='no_imprimir'><th style='vertical-align:bottom;background-col
 	
 	echo "<td nowrap>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><a href='$mens0' style='font-size:9px;'>$col_vert</a> </div>
+<div class='Rotate-90'><a href='$mens0' style='font-size:10px;'>$col_vert</a> </div>
 </div> </td>";
 	}
 	if($seleccionar == 1){echo "<td></td>";}	
@@ -338,7 +338,13 @@ $result = mysql_query ($resul);
 $inf = 'cuaderno/informe.php?profesor='.$pr.'&curso='.$curso.'&asignatura='.$asignatura.'&nc='.$nc.'&claveal='.$claveal.'&nombre='.$nombre_al.'&apellidos='.$apellidos.'&nom_asig='.$nom_asig.'';
 	echo "<tr>";
 	?>
-	<td nowrap><? echo $row[1];?></td><td nowrap><a href="" onclick="window.open('<? echo $inf;?>')"  class=""><? echo $row[2].', '.$row[3];?></a></td>
+	<td nowrap style='vertical-align:middle'>
+<?
+$foto="";
+$foto = "<img src='xml/fotos/$claveal.jpg' width='50' height='60' class=''  />";
+echo $foto."&nbsp;&nbsp;";
+?>
+	<? echo $row[1];?></td><td nowrap style='vertical-align:middle'><a href="" onclick="window.open('<? echo $inf;?>')"  class=""><? echo $row[2].', '.$row[3];?></a></td>
   <?	
 // Si hay datos escritos rellenamos la casilla correspondiente
 	$colu10 = "select distinct id from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by id";
@@ -348,7 +354,7 @@ $inf = 'cuaderno/informe.php?profesor='.$pr.'&curso='.$curso.'&asignatura='.$asi
     $dato0 = mysql_query("select nota,ponderacion from datos where claveal = '$claveal' and id = '$id'");
 	$dato1 = mysql_fetch_array($dato0);
 	if($dato1[0] < 5){$color="#9d261d";}else{$color="navy";}
-echo "<td><input type='text' name='$id-$claveal' value='$dato1[0]' class='input-mini' style='color:$color;max-width:28px;height:15px;'></td>";             
+echo "<td style='vertical-align:middle'><input type='text' name='$id-$claveal' value='$dato1[0]' class='input-mini' style='color:$color;max-width:28px;height:15px;'></td>";             
 
 
 }}	
@@ -368,7 +374,7 @@ echo "<td><input type='text' name='$id-$claveal' value='$dato1[0]' class='input-
 	}
 	if(!(empty($div))){$curso = $div;}
 	?>
-  <td style="border:1px solid #62c462; border-bottom:none;background-color:#dff0d8"><input name="select_<? echo $row[1]."_".$curso;?>" type="checkbox" <? if ($marcado == "1") {echo "checked ";}?> value="1" /></td>
+  <td style="vertical-align:middle;background-color:#999"><input name="select_<? echo $row[1]."_".$curso;?>" type="checkbox" <? if ($marcado == "1") {echo "checked ";}?> value="1" /></td>
   <?
 	}
 echo "</tr>";              	

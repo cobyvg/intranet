@@ -13,6 +13,11 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 		include ("menu.php");
 		$datatables_activado = true;
 		?>
+<style type="text/css">
+.table td{
+	vertical-align:middle;
+}
+</style>
 <div align="center">  
 <?php
  echo '
@@ -71,7 +76,11 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 		if ($conv== '0'){$conv='';}
 		if(!(empty($apellidos))){
 			echo "<tr>
-		<td nowrap><a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
+		<td nowrap>";
+		$foto="";
+		$foto = "<img src='../../xml/fotos/$claveal.jpg' width='55' height='64' class=''  />";
+		echo $foto."&nbsp;&nbsp;";			
+		echo "<a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
 		<td $bgcolor>$rowcurso</td>
 		<td $bgcolor>$rownumero</td>
 		<td $bgcolor>$leve</td>

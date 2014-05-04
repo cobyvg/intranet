@@ -85,7 +85,7 @@ $resultcurso = mysql_query($SQLcurso);
           </select>
           </label>
           <br />
-          <input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary">
+          <input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-block">
   </form>
 </div>
 </div>

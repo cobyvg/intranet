@@ -204,19 +204,23 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 				if($expulsion > 0){$bgcolor="style='background-color:#FFFF99;'";}		
 				if($recibido == '1'){$comentarios1="<i class='icon icon-ok' rel='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='icon icon-warning-sign'  rel='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
 		echo "<tr>
-		<td $bgcolor><a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
-		<td>$rowcurso</td>
-		<td nowrap>$fecha</td>
-		<td>$asunto</td>
-		<td><span  style='font-size:0.9em'>$informa</span></td>
-		<td>$grave</td>
-		<td><center>$rownumero</center></td>
-		<td>$caducada</td>
-		<td nowrap>$comentarios1 $comentarios</td><td nowrap>"; 
+		<td $bgcolor nowrap>";
+		$foto="";
+		$foto = "<img src='../../xml/fotos/$claveal.jpg' width='55' height='64' class=''  />";
+		echo $foto."&nbsp;&nbsp;";
+		echo "<a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
+		<td style='vertical-align:middle'>$rowcurso</td>
+		<td nowrap style='vertical-align:middle'>$fecha</td>
+		<td style='vertical-align:middle'>$asunto</td>
+		<td style='vertical-align:middle'><span  style='font-size:0.9em'>$informa</span></td>
+		<td style='vertical-align:middle'>$grave</td>
+		<td style='vertical-align:middle' style='vertical-align:middle'><center>$rownumero</center></td>
+		<td style='vertical-align:middle'>$caducada</td>
+		<td nowrap style='vertical-align:middle'>$comentarios1 $comentarios</td><td nowrap style='vertical-align:middle'>"; 
 if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' style='margin-top:5px;color:brown;'><i class='icon icon-trash'  rel='tooltip' title='Borrar el registro' onClick='return confirmacion();'> </i></a>&nbsp;&nbsp;";}	
 
 		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='icon icon-search' rel='tooltip' title='Detalles del problema'> </i></A></td>
-		<td>";
+		<td style='vertical-align:middle'>";
 		//echo "$expulsion >  $expulsionaula";
 		if (stristr($_SESSION['cargo'],'1')) {
 			echo "<input type='checkbox' name='$id' value='1' $marca onChange='submit()' />";			

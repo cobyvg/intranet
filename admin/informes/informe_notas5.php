@@ -126,6 +126,7 @@ while ($ni = mysql_fetch_array($niv)) {
 	$nivel = $ni[1];
 	$rep = ""; 
 	$promo = "";
+		$todos="";
 $notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso'";
 //echo $notas1."<br>";
 
@@ -247,7 +248,7 @@ if ($porcient_asig>0) {
 ?>
 </div>
 <?
-//mysql_query("drop table temp");
+mysql_query("drop table temp");
 }
 ?>
 </div>

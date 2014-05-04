@@ -111,6 +111,12 @@ echo "<div align='center'>";
   <h2>Faltas de Asistencia <small> Informe de faltas del alumno</small></h2>
   </div>
 <br />';
+    $foto = '../../xml/fotos/'.$row10[0].'.jpg';
+	if (file_exists($foto)) {
+		echo "<div class='well well-small' style='width:110px;margin:auto;'>";
+		echo "<img src='$foto' border='2' width='100' height='119' class='img-polaroid'  />";
+		echo "</div><br /><br />";
+	}         
 		echo "<table class='table table-striped' style='width:auto;'>";
 
                 printf ("<tr><th>%s</th><th>%s</th>
@@ -141,7 +147,7 @@ if($submit2)
 		$rowF[6]="0";
 	if($rowJ[6]=="")
 		$rowJ[6]="0";
-		echo "<br /><h4>El Alumno tiene  <span style='color:#9d261d'>$row0[6]</span> Faltas de Asistencia en total.</h4></br />		
+		echo "<br /><p class='lead'>El Alumno tiene  <span style='color:#9d261d'>$row0[6]</span> Faltas de Asistencia en total.</p>		
 		<table class='table' style='width:auto;'><tr><th> No justificadas</th><td> <strong style='color:#9d261d'>$rowF[6] </strong></td></tr>
 		<tr><th> Justificadas </th><td> <strong style='color:#46a546'>$rowJ[6] </strong></td></tr></table>";
         } else
@@ -156,7 +162,7 @@ if($submit2)
   FALTAS.FECHA, FALTAS.HORA, FALTAS.CODASI, FALTAS.falta, asignaturas.abrev
   FROM alma, FALTAS, asignaturas where  alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.codasi = asignaturas.codigo and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' and alma.CLAVEAL = '$claveal' and asignaturas.abrev not like '%\_%' order BY FALTAS.FECHA, FALTAS.HORA";
    $result = mysql_query($SQL);
-echo "<br /><h4>Lista detallada de Faltas de Asistencia.</h4><br />";
+echo "<br /><br /><p class='lead'>Lista detallada de Faltas de Asistencia.</p>";
    if ($rowsql = mysql_fetch_array($result))
         {
 		echo "<div class='well' align='left' style='width:600px'>";

@@ -36,6 +36,11 @@ return false;
 	}
 }
 </script>  
+<style type="text/css">
+.table td{
+	vertical-align:middle;
+}
+</style>
 </head>
 <body>
   
@@ -310,7 +315,11 @@ mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now
 				if($expulsion > 0){$bgcolor="style='background-color:#FFFF99;'";}		
 				if($recibido == '1'){$comentarios1="<i class='icon icon-ok' title='recibido'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='icon icon-warning-sign' title='No recibido'> </i>";}else{$comentarios1="";}
 		echo "<tr>
-		<td $bgcolor nowrap><a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
+		<td $bgcolor nowrap>";
+		$foto="";
+		$foto = "<img src='../../xml/fotos/$claveal.jpg' width='55' height='64' class=''  />";
+		echo $foto."&nbsp;&nbsp;";
+		echo "<a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
 		<td>$rowcurso</td>
 		<td nowrap>$fecha</td>
 		<td>$asunto</td>

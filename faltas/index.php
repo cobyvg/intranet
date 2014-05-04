@@ -83,9 +83,9 @@ while($n_cur = mysql_fetch_array($n_curs1))
 
   	$t_grupos = $curs;
 	if(!($t_grupos=="")){
-	echo "<h4><span style='color:#9d261d'>Día</span>: $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Hora:</span> $hora_dia";
+	echo "<p class='lead'><span style='color:#9d261d'>Día</span>: $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Hora:</span> $hora_dia";
 	if(!($hora_dia == "Fuera del Horario Escolar")){echo "ª hora";}
-	echo "</h4><br />";
+	echo "</p><br />";
 	}
 	
 	//$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '59' and dia = '1' and hora = '5'";
@@ -97,8 +97,8 @@ while($n_cur = mysql_fetch_array($n_curs1))
 	$curso = $hora2[1];
 	$asignatura = $hora2[2];
 	
-	echo "<table align='center' class='table table-striped' style='width:auto'>\n";  			     
-        	$filaprincipal = "<tr><th colspan='3'><h6 align='center'>$curso $asignatura</h6></th></tr>";  
+	echo "<table align='center' class='table table-striped table-bordered table-condensed' style='width:auto'>\n";  			     
+        	$filaprincipal = "<tr><th colspan='4'><br /><p class='lead text-info' align='center'>$curso $asignatura</p></th></tr>";  
 	// Diversificación
 if(substr($curso,4,1) == 'd')
 	{
@@ -148,7 +148,7 @@ if(substr($curso,4,1) == 'd')
 	echo $clave; 
 	echo '" />';
   	$c_a="";
-	$res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and unidad = '$curso' and ( ";	 
+$res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and unidad = '$curso' and ( ";	 
 //$n_curs10 = "select distinct c_asig from horw where no_prof = '59' and dia = '1' and hora = '5'";
 $n_curs10 = "select distinct c_asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
 $n_curs11 = mysql_query($n_curs10); 
@@ -167,10 +167,17 @@ $nm = mysql_num_rows($n_curs11);
         	$combasi = $row[5];         	
 					if ($row[5] == "") {}
 					else{
-				echo "<tr><td>$row[1]</td><td>$row[2], $row[3]";			   
+				echo "<tr>";
+				$foto="";
+				$foto = "<img src='../xml/fotos/$row[0].jpg' width='50' height='60' class=''  />";
+				echo "<td>".$foto."</td>";
+				
+				echo "<td style='vertical-align:middle'>$row[1]</td><td style='vertical-align:middle'>$row[2], $row[3]";			   
  				 if ($row[4] == "2" or $row[4] == "3") {echo " (R)";}
 				} 
-				echo "</td><td>";
+				echo "</td><td style='vertical-align:middle'>";
+				
+
 $fecha_hoy = date('Y')."-".date('m')."-".date('d');
 $falta_d = mysql_query("select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$fecha_hoy'");
 $falta_dia = mysql_fetch_array($falta_d);
@@ -185,7 +192,7 @@ if ($falta_dia[0] == "F") {
                 }   	
                 } 
         echo '</table><br />';
-		if(!(empty($codasi))){echo '<input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary"/>';} 
+		if(!(empty($codasi))){echo '<input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large"/>';} 
 
   ?>
   

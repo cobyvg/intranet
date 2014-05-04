@@ -37,7 +37,12 @@ return true;
 return false;
 	}
 }
-</script>              
+</script>   
+<style type="text/css">
+.table td{
+	vertical-align:middle;
+}
+</style>           
 </head>
 
 <body>
@@ -179,9 +184,13 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
  	$tutoria=$row0[9];
  	$s_sociales=$row0[10];
  	if (strlen($jefatura)>0) {$chj=" checked ";}else{$chj="";}if(strlen($orientacion)>0) {$cho=" checked ";}else{$cho="";}if (strlen($tutoria)>0) {$cht=" checked ";}else{$cht="";} if (strlen($s_sociales)>0) {$chs=" checked ";}else{$chs="";}
-	echo "<tr><td  align='left'>$apellidos, $nombre</td><td>$nivel-$grupo</td><td>$mes</td><td>$numero</td>";
+	echo "<tr><td  align='left'>";
+	    $foto="";
+		$foto = "<img src='../../xml/fotos/$claveal.jpg' width='55' height='64'  />";
+		echo $foto."&nbsp;&nbsp;&nbsp;";
+	echo "$apellidos, $nombre</td><td>$nivel-$grupo</td><td>$mes</td><td>$numero</td>";
         if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
-	echo "<td><div class='control-group warning'><div class='controls'><input type='checkbox' disabled $chj></td><td><input type='checkbox' disabled $cho></td><td><input type='checkbox' disabled $cht></td><td><input type='checkbox' disabled $chs></div></div></td>";
+	echo "<td><input type='checkbox' disabled $chj></td><td><input type='checkbox' disabled $cho></td><td><input type='checkbox' disabled $cht></td><td><input type='checkbox' disabled $chs></td>";
         }
 	echo "<td align='center' class='no_imprimir'><a href='index2.php?claveal=$claveal&mes=$mes&inf=1'> <i class='icon icon-pencil'> </i></a>";
 if (strstr($_SESSION['cargo'],'1')==TRUE) {

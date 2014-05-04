@@ -7,6 +7,12 @@ if (empty($profe)) {
 $profe=$_SESSION['profi'];	
 }
 ?>
+<style type="text/css">
+.table td{
+	vertical-align:middle;
+}
+</style>
+
 <div align=center>
 <div class="page-header" align="center">
   <h2>Centro TIC <small> Usuarios del Grupo <? echo $grupo;?> .</small></h2>
@@ -43,7 +49,11 @@ $mes_al= mysql_fetch_array($mes);
 $no_mesa=$mes_al[0];
 
 echo "<tr>
-<td>$row[4], $row[3]</td>
+<td>";
+        $foto="";
+		$foto = "<img src='../../xml/fotos/$row[6].jpg' width='55' height='64' />";
+		echo $foto."&nbsp;&nbsp;";
+echo "$row[4], $row[3]</td>
 <td>$row[1]</td>
 <td>$row[5]</td>
 <td>$no_mesa</td>

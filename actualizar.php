@@ -127,4 +127,63 @@ if ( $flag ) {
 if ( mysql_num_rows(mysql_query("SHOW COLUMNS FROM notas_cuaderno LIKE 'visible_nota'")) == 0 ) {
 	mysql_query("ALTER TABLE  `notas_cuaderno` ADD  `visible_nota` INT( 1 ) UNSIGNED NOT NULL DEFAULT  '0' AFTER  `oculto`");
 }
+
+/*
+	@descripcion: Reducción del tamaño de las fotos de los alumnos (fotos superiores a 40 KB).
+	@fecha: 1 de mayo de 2014
+
+*/
+
+function redimensionar_jpeg($img_original, $img_nueva, $img_nueva_anchura, $img_nueva_altura, $img_nueva_calidad)
+{ 
+	$img = ImageCreateFromJPEG($img_original); 
+	$thumb = imagecreatetruecolor($img_nueva_anchura,$img_nueva_altura); 
+	ImageCopyResized($thumb,$img,0,0,0,0,$img_nueva_anchura,$img_nueva_altura,ImageSX($img),ImageSY($img)); 
+	ImageJPEG($thumb,$img_nueva,$img_nueva_calidad);
+	ImageDestroy($img);
+}
+
+for ($i = 0; $i < 4; $i++) {
+	
+$d=dir("./xml/fotos");
+
+while($archivo=$d->read()){
+
+$img_fuente=$d->path.'/'.$archivo; 
+$img_destino='./xml/fotos/'.$archivo; 
+
+$size=getimagesize($img_fuente);
+$size2 = filesize($img_fuente);
+
+if($size[0]>40 and $size[0]<200){ 
+$img_nueva_anchura = $size[0]/1.2;
+$img_nueva_altura = $size[1]/1.2;
+}
+if($size[0]>200 and $size[0]<300){ 
+$img_nueva_anchura = $size[0]/1.5;
+$img_nueva_altura = $size[1]/1.5;
+}
+if($size[0]>300 and $size[0]<400){ 
+$img_nueva_anchura = $size[0]/1.8;
+$img_nueva_altura = $size[1]/1.8;
+}
+if($size[0]>400 and $size[0]<500){ 
+$img_nueva_anchura = $size[0]/2.1;
+$img_nueva_altura = $size[1]/2.1;
+}
+if($size[0]>500){ 
+$img_nueva_anchura = $size[0]/2.6;
+$img_nueva_altura = $size[1]/2.6;
+}
+
+if($size2>40000){ 
+$img_nueva_calidad = "95";
+redimensionar_jpeg($img_fuente, $img_destino, $img_nueva_anchura, $img_nueva_altura, $img_nueva_calidad);
+}
+} 
+
+$d->close();
+
+}
+
 ?>

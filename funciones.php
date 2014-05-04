@@ -319,7 +319,7 @@ while ($sqlr=mysql_fetch_array($sql)){
 
 function alumno($curso,$profi){
 $sql=mysql_query("select CLAVEAL,no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' and no_mesa not like ' '");
-//echo "select CLAVEAL,no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' and no_mesa not like ' '";
+echo "select CLAVEAL,no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' and no_mesa not like ' '";
 while ($sqlr=mysql_fetch_array($sql)){
 $al=mysql_query("select NOMBRE,APELLIDOS from FALUMNOS where CLAVEAL='$sqlr[0]' order by APELLIDOS");
 while ($alr=mysql_fetch_array($al)){

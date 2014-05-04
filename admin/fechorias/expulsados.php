@@ -9,6 +9,11 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
+<style type="text/css">
+.table td{
+	vertical-align:middle;
+}
+</style>
 <?php
 include("../../menu.php");
 include("menu.php");
