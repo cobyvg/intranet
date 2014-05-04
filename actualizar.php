@@ -38,7 +38,7 @@ if ($fila > "0" and $fotos_profes_ya < "10") {
 
 
 /*
-	@descripcion: Actualización de la tabla de noticias
+	@descripcion: Actualizaciï¿½n de la tabla de noticias
 	@fecha: 5 de agosto de 2013
 */
 $hay = mysql_query("show tables");
@@ -62,7 +62,7 @@ while ($tabla=mysql_fetch_array($hay)) {
 
 
 /*
-	@descripcion: Actualización juego de caracteres
+	@descripcion: Actualizaciï¿½n juego de caracteres
 	@fecha: 11 de septiembre de 2013
 	
 	@nota: Esta tarea puede demorarse unos segundos
@@ -119,7 +119,7 @@ if ( $flag ) {
 
 
 /*
-	@descripcion: Actualización tabla notas_cuaderno
+	@descripcion: Actualizaciï¿½n tabla notas_cuaderno
 	@fecha: 5 de abril de 2014
 
 */
@@ -129,7 +129,7 @@ if ( mysql_num_rows(mysql_query("SHOW COLUMNS FROM notas_cuaderno LIKE 'visible_
 }
 
 /*
-	@descripcion: Reducción del tamaño de las fotos de los alumnos (fotos superiores a 40 KB).
+	@descripcion: Reducciï¿½n del tamaï¿½o de las fotos de los alumnos (fotos superiores a 40 KB).
 	@fecha: 1 de mayo de 2014
 
 */
@@ -178,7 +178,7 @@ $img_nueva_altura = $size[1]/2.6;
 
 if($size2>40000){ 
 $img_nueva_calidad = "95";
-redimensionar_jpeg($img_fuente, $img_destino, $img_nueva_anchura, $img_nueva_altura, $img_nueva_calidad);
+// redimensionar_jpeg($img_fuente, $img_destino, $img_nueva_anchura, $img_nueva_altura, $img_nueva_calidad);
 }
 } 
 
