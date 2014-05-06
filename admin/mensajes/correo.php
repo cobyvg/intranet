@@ -39,10 +39,10 @@ if (isset($_POST['enviar'])) {
 		$mail->AddAddress($direccion, $profes);
 	}
 
-	for ($i=1;$i<6;$i++) {
+	for ($i=0;$i<5;$i++) {
 		$varname{$i} = $_FILES['fil'.$i]['name'];
 		$vartemp{$i} = $_FILES['fil'.$i]['tmp_name'];
-		if ($varname != "") {
+		if($varname != "") {
 			$mail->AddAttachment($vartemp{$i}, $varname{$i});
 		}
 	}
