@@ -176,9 +176,9 @@ $img_nueva_anchura = $size[0]/2.6;
 $img_nueva_altura = $size[1]/2.6;
 }
 
-if($size2>40000){ 
+if($size2>40000 and size<1500000){ 
 $img_nueva_calidad = "95";
-// redimensionar_jpeg($img_fuente, $img_destino, $img_nueva_anchura, $img_nueva_altura, $img_nueva_calidad);
+redimensionar_jpeg($img_fuente, $img_destino, $img_nueva_anchura, $img_nueva_altura, $img_nueva_calidad);
 }
 } 
 
