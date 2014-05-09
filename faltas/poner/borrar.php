@@ -17,14 +17,13 @@ $profe22 = "select no_prof from horw where prof = '$profesor'";
 $profe20 = mysql_query($profe22);
 $profe21 = mysql_fetch_row($profe20);
 $profe23 = $profe21[0];
-//echo $profe23;
+$fecha_dia = date('N', strtotime($fecha1)); 
 
 // Borramos registros que no coincidan con los que se mantienen.
-$del ="DELETE FROM FALTAS WHERE FECHA = '$fecha1' and NIVEL = '$trozos0[3]' AND GRUPO = '$trozos0[1]' and CODASI = '$trozos0[4]' and PROFESOR = '$profe23' and FALTA = 'F' and NC not like '$trozos0[2]'";
-//echo $del;
+$del ="DELETE FROM FALTAS WHERE FECHA = '$fecha1' and NIVEL = '$trozos0[3]' AND GRUPO = '$trozos0[1]' and hora = '$trozos0[5]' and dia =  '$fecha_dia' and PROFESOR = '$profe23' and FALTA = 'F' and NC not like '$trozos0[2]'";
 $del0 = mysql_query($del);	
 // Pasamos al siguiente bloque de 6 variables hasta el final
 $x += 6;	
 }	
-
+//exit();
 ?>
