@@ -3,7 +3,7 @@
 <hr>
 
 <li class="nav-header">A principio de curso...</li>
-<li><a href="jefe/index2.php" class="enlacelateral">Importar Alumnos a principio de Curso</a></li>
+<li><a href="jefe/index2.php" class="enlacelateral">Importar Alumnos</a></li>
 <li><a href="jefe/index_xml.php" class="enlacelateral">Importar datos del Centro</a></li>
   <? if ($mod_horario) {?>
 <li><a href="jefe/admin/" class="enlacelateral">Importar Horarios</a></li>
@@ -13,12 +13,12 @@ if(phpversion() < '5'){
 else{
  echo '<li><a href="jefe/asignaturas.php" class="enlacelateral">';}
 ?>
-Importar Asignaturas y sistema de Calficaciones</a></li>
+Importar Asignaturas</a></li>
 <li><a href="jefe/indexprofesores.php" class="enlacelateral">Importar Profesores</a></li>
 <li><a href="jefe/indexdepartamentos.php" class="enlacelateral">Importar Departamentos</a></li>
-<li><a href="jefe/index_pendientes.php" class="enlacelateral">Crear lista de Alumnos con pendientes</a></li>
+<li><a href="jefe/index_pendientes.php" class="enlacelateral">Lista de Alumnos con pendientes</a></li>
   <? if ($mod_tic and $mod_horario) {?>
-<li><a href="../TIC/distribucion/crea_tabla.php" class="enlacelateral">Crear Asignación TIC</a></li>
+<!--<li><a href="../TIC/distribucion/crea_tabla.php" class="enlacelateral">Crear Asignación TIC</a></li>-->
 <?}?>
 <li><a href="jefe/rof/index.php" class="enlacelateral">Modificar ROF</a></li>
 <hr>

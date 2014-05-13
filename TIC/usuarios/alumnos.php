@@ -20,19 +20,19 @@ $profe=$_SESSION['profi'];
 <br />
 
 <?
-$mes0 = mysql_query("select distinct agrupamiento, c_asig from AsignacionMesasTIC where prof='$profe' and agrupamiento like '%$grupo%'");
-
-$mes_al0= mysql_fetch_array($mes0);
-$agrup0=str_replace(":",",",$mes_al0[0]);
-$agrup0=substr($agrup0,0,-1)."-->$mes_al0[1]";
-echo "<a href='../distribucion/distribucion.php?curso=$grupo&profe=$profe&asignatura=$cod' class='btn btn-primary'> Cambiar Alumnos y Ordenadores </a><br /><br /><br />";
+//$mes0 = mysql_query("select distinct agrupamiento, c_asig from AsignacionMesasTIC where prof='$profe' and agrupamiento like '%$grupo%'");
+//
+//$mes_al0= mysql_fetch_array($mes0);
+//$agrup0=str_replace(":",",",$mes_al0[0]);
+//$agrup0=substr($agrup0,0,-1)."-->$mes_al0[1]";
+//echo "<a href='../distribucion/distribucion.php?curso=$grupo&profe=$profe&asignatura=$cod' class='btn btn-primary'> Cambiar Alumnos y Ordenadores </a><br /><br /><br />";
 ?>
 
-<table  class="table table-striped" style="width:auto">
+<table  class="table table-striped table-bordered" style="width:auto;min-width:480px;">
 <tr><th>Alumno</th>
 <th>Usuario</th>
 <th>Clave</th>
-<th>Ordenador</th>
+<!--<th>Ordenador</th>-->
 </tr>
 <?
 // Código y abreviatura de la asignatura.
@@ -41,12 +41,12 @@ $codigo = "select distinct usuarioalumno.nombre, usuarioalumno.usuario, usuarioa
 $sqlcod = mysql_query ($codigo);
 while($row = mysql_fetch_array($sqlcod))
 {
-
-$no_mesa="";
-$agrup="";
-$mes = mysql_query("select distinct no_mesa from AsignacionMesasTIC where prof='$profe' and AsignacionMesasTIC.claveal='$row[6]' and agrupamiento like '%$grupo%'");
-$mes_al= mysql_fetch_array($mes);
-$no_mesa=$mes_al[0];
+//
+//$no_mesa="";
+//$agrup="";
+//$mes = mysql_query("select distinct no_mesa from AsignacionMesasTIC where prof='$profe' and AsignacionMesasTIC.claveal='$row[6]' and agrupamiento like '%$grupo%'");
+//$mes_al= mysql_fetch_array($mes);
+//$no_mesa=$mes_al[0];
 
 echo "<tr>
 <td>";
@@ -54,10 +54,10 @@ echo "<tr>
 		$foto = "<img src='../../xml/fotos/$row[6].jpg' width='55' height='64' />";
 		echo $foto."&nbsp;&nbsp;";
 echo "$row[4], $row[3]</td>
-<td>$row[1]</td>
-<td>$row[5]</td>
-<td>$no_mesa</td>
-</tr>";
+<td class='text-info'>$row[1]</td>
+<td class='text-warning'>$row[5]</td>";
+//echo "<td>$no_mesa</td>";
+echo "</tr>";
 $linea = "$row[1];$row[1];$row[4];$row[3]\n";
 $todo .= $linea;
 		}
