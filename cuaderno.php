@@ -354,7 +354,7 @@ echo $foto."&nbsp;&nbsp;";
     $dato0 = mysql_query("select nota,ponderacion from datos where claveal = '$claveal' and id = '$id'");
 	$dato1 = mysql_fetch_array($dato0);
 	if($dato1[0] < 5){$color="#9d261d";}else{$color="navy";}
-echo "<td style='vertical-align:middle'><input type='text' name='$id-$claveal' value='$dato1[0]' class='input-mini' style='color:$color;max-width:28px;height:15px;'></td>";             
+echo "<td style='vertical-align:middle'><input type='text' name='$id-$claveal' value='$dato1[0]' class='input-mini' rel='Tooltip' title='$dato1[0]' style='color:$color;max-width:28px;height:15px;'></td>";             
 
 
 }}	

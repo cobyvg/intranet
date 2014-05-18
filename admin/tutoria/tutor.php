@@ -150,13 +150,13 @@ $al = $tr[0];
 $clave = $tr[1];
    	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {
-		echo "<img src='../../xml/fotos/$clave.jpg' width='120' height='145' class='img-polaroid pull-right'  />";
+		echo "<img src='../../xml/fotos/$clave.jpg' width='100' height='125' class='img-polaroid pull-right'  />";
 
 	}           	
            } 
 		   else{ echo "<br /><br />";}   	 
 ?>
-        <label  style='display:inline'>Alumno<br />
+        <label>Alumno<br />
           <select name="alumno" onChange="submit()"  class='input-xlarge'>
             <option><? echo $alumno; ?></option>
             <option>Todos, todos</option>
@@ -174,34 +174,37 @@ $clave = $tr[1];
 	?>
           </select>
         </label>
-        
-        <hr>
-        <label>Fecha
+        <label>Fecha <br />
           <?  $fecha1 = (date("d").-date("m").-date("Y")); 
 if ($fecha)
   {
+ ?>
+
+ <? 	
   echo '     
-  <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
+  <div class="input-append">
+            <input name="fecha" type="text" class="input input-small input-block-level" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> ';
   }
   else{
   	echo '     
   <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input input-small input-block-level" value="" data-date-format="dd-mm-yyyy" id="fecha" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> ';
   }
 ?>
-        </label>
+ </label>      
         <hr>
 
         <label> Observaciones<br />
           <textarea name='observaciones' rows='8'  class='input-xxlarge'><? echo $observaciones; ?></textarea>
         </label>
         <hr>
-        <label style='display:inline'>Causa
+          <div class="row-fluid">
+  <div class="span6">
+        <label style='display:inline'>Causa<br />
           <select name="causa"  class="input-xlarge" style='display:inline'>
             <option><? echo $causa; ?></option>
             <option>Estado general del Alumno</option>
@@ -211,8 +214,9 @@ if ($fecha)
             <option>Otras</option>
           </select>
         </label>
-        &nbsp;&nbsp;&nbsp;
-        <label style='display:inline'> Tipo
+</div>
+  <div class="span6">
+        <label style='display:inline'> Tipo<br />
           <select name="accion" class="input-large" style='display:inline'>
             <option><? echo $accion; ?></option>
             <option>Entrevista telef&oacute;nica</option>
@@ -220,14 +224,17 @@ if ($fecha)
             <option>Comunicaci&oacute;n por escrito</option>
           </select>
         </label>
+        </div>
+        </div>
        <hr>
         <input name="nivel" type="hidden" value="<? echo $nivel; ?>" />
         <input name="grupo" type="hidden" value="<? echo $grupo; ?>" />
         <input name="tutor" type="hidden" value="<? echo $tutor; ?>" />
         <input name="id2" type="hidden" value="<? echo $id; ?>" />
-        <input name='submit1' type='submit' value='Registrar intervencion de tutoria' class='btn btn-primary'>
+        <center><input name='submit1' type='submit' value='Registrar intervencion de tutoria' class='btn btn-primary'>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input name='submit2' type='submit' value='Actualizar datos'  class='btn btn-warning'>
+        </center>
       </form>
     </div>
     <?

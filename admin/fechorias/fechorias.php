@@ -239,7 +239,7 @@ exit();
     $AUXSQL .= " AND grave = 'muy grave' ";
     }
 	
-if (isset($_POST['submit1']))
+if (isset($submit1))
 	{	
 mysql_query("drop table Fechcaduca");
 mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");

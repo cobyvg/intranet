@@ -167,7 +167,7 @@ $clave = $tr[1];
            } 
 		   else{ echo "<br /><br />";}   	 
 ?>
-<label>Nivel&nbsp;
+<center><label>Nivel&nbsp;
   <SELECT  name="nivel" onChange="submit()" class="input-small">
     <option><? echo $nivel;?></option>
     <? nivel();?>
@@ -179,8 +179,10 @@ $clave = $tr[1];
     <? grupo($nivel);?>
   </SELECT>
   </label>
+  </center>
   <hr>
-  <label  style='display:inline'>Alumno 
+ 
+  <label  style='display:inline'>Alumno <br />
           <select name="alumno" onChange="submit()"  class='input-xlarge'>
     <?
   $alumno0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where nivel = '$nivel' and grupo = '$grupo' order by NC asc");
@@ -201,8 +203,7 @@ $clave = $tr[1];
   </select>
   </label>
  
-<hr>
-        <label>Fecha
+        <label>Fecha<br />
 <?  $fecha1 = date("d-m-Y"); 
 if ($fecha)
   {
@@ -221,7 +222,10 @@ if ($fecha)
   }
 ?>
         </label>
-   <hr>     
+
+  
+<hr>
+     
         <label> Observaciones<br />
           <textarea name='observaciones' rows='8'  class='input-block-level'><? echo $observaciones; ?></textarea>
         </label>
@@ -231,7 +235,9 @@ if ($fecha)
  ?> id="prohibido" value="1">
 </label>
   <hr>
-  <label>Causa 
+  <div class="row-fluid">
+  <div class="span6">
+  <label>Causa <br />
           <select name="causa"  class="input-xlarge">
     <option><? echo $causa; ?></option>
     <option>Estado general del Alumno</option>
@@ -243,8 +249,9 @@ if ($fecha)
     <option>Otras</option>
   </select>
   </label>
-
-        <label> Tipo&nbsp;&nbsp;&nbsp;
+</div>
+  <div class="span6">
+        <label> Tipo<br />
           <select name="accion" class="input-xlarge">
     <option><? echo $accion; ?></option>
     <option>Entrevista telef&oacute;nica</option>
@@ -252,7 +259,8 @@ if ($fecha)
     <option>Comunicaci&oacute;n por escrito</option>
   </select>
   </label>
-  <br />
+  </div>
+  </div>
   <br />
   <input name="id2" type="hidden" value="<? echo $id; ?>" />
   <input name="nivel0" type="hidden" value="<? echo $nivel; ?>" />

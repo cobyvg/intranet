@@ -139,7 +139,9 @@ if ($alumno) {
 		echo "<img src='../../xml/fotos/$clave.jpg' width='120' height='145' class='img-polaroid pull-right'  />";
 	}
 }
-?> <label style="display: inline;"> Nivel <SELECT name="nivel"
+?> 
+<center>
+<label style="display: inline;"> Nivel <SELECT name="nivel"
 	onChange="submit()" class="input-small">
 	<option><? echo $nivel;?></option>
 	<? nivel();?>
@@ -149,9 +151,10 @@ if ($alumno) {
 	<OPTION><? echo $grupo;?></OPTION>
 	<? grupo($nivel);?>
 </SELECT> </label>
+</center>
 <hr>
 
-<label> Alumno:
+<label> Alumno:<br />
 <SELECT name=alumno onChange="submit()" class="input-xlarge">
 
 <?
@@ -171,9 +174,7 @@ if ($falumno = mysql_fetch_array($alumno0))
 ?>
 </select> </label>
 
-<hr>
-
-<label> Fecha <?  $fecha1 = (date("d").-date("m").-date("Y")); 
+<label> Fecha <br /><?  $fecha1 = (date("d").-date("m").-date("Y")); 
 if ($fecha)
 {
 	echo '
@@ -200,7 +201,9 @@ else{
 </label>
 
 <hr>
-<label>Causa: 
+  <div class="row-fluid">
+  <div class="span6">
+<label>Causa<br />
 <select name="causa" class='input-xlarge'>
 	<option><? echo $causa; ?></option>
 	<option>Orientación académica y profesional</option>
@@ -213,8 +216,10 @@ else{
 	<option>Faltas de Asistencia</option>
 	<option>Otras</option>
 </select> </label> 
+</div>
+  <div class="span6">
 <label>
-Tipo:&nbsp;&nbsp;&nbsp;
+Tipo<br />
 <select name="accion[]" multiple class='input-xlarge'>
 
 
@@ -241,6 +246,8 @@ foreach ($opcion as $opc)
 ?>
 </select>
 </label>
+</div>
+</div>
 <hr>
 <div align="center">
 <input name="id2" type="hidden" value="<? echo $id; ?>" /> <input
