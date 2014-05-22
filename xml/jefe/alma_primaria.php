@@ -25,10 +25,10 @@ include("../../menu.php");
 <br />
 <div class="well well-large" style="width:600px;margin:auto;text-align:left">
 <?
-if($archivo1){
+if($_FILES['archivo1']){
 // Creamos Base de datos y enlazamos con ella.
  $base0 = "DROP TABLE `alma_primaria`";
-  mysql_query($base0);
+ mysql_query($base0);
 
  // Creación de la tabla alma
  $alumnos = "CREATE TABLE  `alma_primaria` (
@@ -118,20 +118,29 @@ No se han podido abrir los archivos de datos. ¿Están los archivos de los Colegio
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>'); 
 $row = 1;
-while (($data = fgetcsv($fp, 1000, "|")) !== FALSE)
+ while (!feof($fp))
 {
-   	$datos = "INSERT INTO alma_primaria VALUES (";
-  for($i=0;$i<37;$i++){ 	
-   $datos.= "\"". trim($data[$i]) . "\", ";
-  }
-
-$datos=substr($datos,0,strlen($datos)-2);
-$datos.=", \"$colegio\"";
-$datos.=")";
-// echo $datos."<br>";
-	mysql_query($datos);
+  	$linea="";
+  	$lineasalto="";
+  	$dato="";
+    $linea=fgets($fp);
+    $lineasalto = "INSERT INTO alma_primaria VALUES (";
+    $tr=explode("|",$linea);
+    
+    foreach ($tr as $valor){ 
+      $dato.= "\"". trim($valor) . "\", ";
+        }
+    $dato=substr($dato,0,strlen($dato)-2); 
+    $lineasalto.=$dato; 
+    $lineasalto.=", \"$colegio\"";
+    $lineasalto.=");";
+  //  echo $lineasalto."<br>";
+    mysql_query($lineasalto);
 }
 fclose($fp);
+
+
+
 
       }
       

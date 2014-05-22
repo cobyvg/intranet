@@ -32,9 +32,9 @@ if (strstr($_SERVER['REQUEST_URI'],'previsiones.php')==TRUE) {$activo1 = ' class
       </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Importar datos <b class="caret"></b></a>
         <ul class="dropdown-menu">
-     <li><a href="index_primaria.php">Alumnos de Primaria</a></li>
+     <li><a href="index_primaria.php">Alumnos de Primaria</a></li><!--
         <li><a href="index_secundaria.php">Alumnos de Secundaria</a></li>
-        </ul>
+        --></ul>
       </li>          
        
     </ul>

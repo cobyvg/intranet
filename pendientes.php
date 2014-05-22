@@ -29,7 +29,10 @@ AND (date(tareas_alumnos.fin) =  date_sub('$hoy', interval 1 day)
 OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 2 day) 
 OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 3 day) 
 OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 4 day) 
-OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 5 day))
+OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 5 day)
+OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 6 day)
+OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 7 day)
+)
 AND alma.unidad =  '$unidad'
 AND alma.combasi LIKE  '%$cod_asig[0]%' 
 and tareas_profesor.profesor='$pr' 
