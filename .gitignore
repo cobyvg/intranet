@@ -10,3 +10,5 @@ cache/*
 /config.php
 
 *.gz
+
+pdf/lib/fonts/log.htm

@@ -37,19 +37,19 @@ else{
 <div class="well">
   <FORM action="index.php" method="POST" name="Cursos">
            
-                <label>Fecha de la actividad:<br /> 
+                <center><label>Fecha de la actividad:<br /> 
                       <div class="input-append" >
-            <input name="fecha_act" type="text" class="input input-small" value="<? echo $fecha_act; ?>" data-date-format="dd-mm-yyyy" id="fecha_act" >
+            <input name="fecha_act" type="text" class="input input-medium" value="<? echo $fecha_act; ?>" data-date-format="dd-mm-yyyy" id="fecha_act" >
   <span class="add-on"><i class="icon-calendar"></i></span>
 </div> 
-              </label>
+              </label></center>
               <hr>
                 <label>Titulo: <br />
                 <input name="actividad" type="text" id="actividad" value="<? echo $actividad; ?>" class="span10">
                 </label>
                <hr>
                 <label>Departamento:  <br />
-                <SELECT name="departamento" onChange="submit()">
+                <SELECT name="departamento" onChange="submit()" class="span10">
                     <OPTION><? echo $departamento; ?></OPTION>
 
                     <?
@@ -69,6 +69,7 @@ if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],
 }
 else{
 	?>
+	    <OPTION>Múltiples Departamentos</OPTION>
 	    <OPTION>Actividades Extraescolares</OPTION>
         <OPTION>Relaciones de Género</OPTION>
 	<?
@@ -90,7 +91,7 @@ else{
                 </label>
                <hr>
                 <label>Profesor: <br />
-                <SELECT multiple name='profesor[]' class="input-xlarge">
+                <SELECT multiple name='profesor[]' class="span10" style="height:150px;">
                     <?
                     if($_POST['departamento'] == "Actividades Extraescolares" or $_POST['departamento'] == "Relaciones de Género"){
                     if($_POST['departamento'] == "Actividades Extraescolares"){
@@ -107,11 +108,15 @@ else{
 					}
 					$texto = "and departamento = ''";
                     }
+                    elseif ($_POST['departamento']=="Múltiples Departamentos")
+                    {
+                    	$texto = "";
+                    }
 					else{
 						$dept_texto = str_ireplace(" P.E.S.","",$departamento);                    
 						$texto = "and departamento like '$dept_texto%'";
 					}
-$profe = mysql_query("SELECT distinct NOMBRE FROM departamentos where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%'" . $texto. " order by NOMBRE asc");
+$profe = mysql_query("SELECT distinct NOMBRE FROM departamentos where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%'" . $texto. " and departamento not like '' order by NOMBRE asc");
   if ($filaprofe = mysql_fetch_array($profe))
         {
         do {
@@ -129,7 +134,7 @@ if($departamento == "Religión")
                   <p class="help-block" > (*) Para seleccionar varios profesores, mantén apretada la tecla Ctrl mientras los vas marcando con el ratón.</p> <hr>
                     <input type="hidden" name="hoy"  value="<? $hoy = date('Y\-m\-d'); echo $hoy;?>">
                 <label>Descripci&oacute;n: <br />
-                <textarea name="descripcion" id="textarea" cols="35" rows="4" class="span11"><? echo $descripcion; ?></textarea>
+                <textarea name="descripcion" id="textarea" rows="4" class="span10"><? echo $descripcion; ?></textarea>
               </label>
               
 </div>
@@ -166,11 +171,11 @@ $nivel = $alumno[1];
  <? } ?>
     <br /><br />
                 <label>Justificación: <br />
-                <textarea name="justificacion" id="textarea" cols="35" rows="4" class="span11"><? echo $justificacion; ?></textarea>
+                <textarea name="justificacion" id="textarea" cols="35" rows="4" class="span10"><? echo $justificacion; ?></textarea>
               </label>
 			   <br />
             <label>Horario: <br />
-                <input name="horario" type="text" value="<? echo $horario; ?>" size="30" maxlength="64" class="input-xlarge">
+                <input name="horario" type="text" value="<? echo $horario; ?>" size="30" maxlength="64" class="span10">
               </label>        
             <input name="id" type="hidden" value="<? echo $id; ?>">
             
@@ -190,11 +195,11 @@ else{?>
   <? }
   if ((date('m')>4 and date('m')<10)) {
   	if ( stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE ) {
-  	echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary" >';
+  	echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary btn-large" >';
   	}
   }
   else{
-  	echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary" >';
+  	echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary btn-large" >';
   }
   
  

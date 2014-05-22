@@ -85,7 +85,7 @@ while($n_cur = mysql_fetch_array($n_curs1))
 	if(!($t_grupos=="")){
 	echo "<p class='lead'><span style='color:#9d261d'>Día</span>: $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Hora:</span> $hora_dia";
 	if(!($hora_dia == "Fuera del Horario Escolar")){echo "ª hora";}
-	echo "</p><br />";
+	echo "</p>";
 	}
 	
 	//$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '59' and dia = '1' and hora = '5'";
@@ -96,7 +96,11 @@ while($n_cur = mysql_fetch_array($n_curs1))
 	$codasi= $hora2[0];
 	$curso = $hora2[1];
 	$asignatura = $hora2[2];
-	
+	?>
+	<div class="btn-group" style="margin-bottom:15px;">
+<a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos</a>
+<a href="javascript:deseleccionar_todo()" class="btn btn-warning">Desmarcar todos</a> </div>
+	<?
 	echo "<table align='center' class='table table-striped table-bordered table-condensed' style='width:auto'>\n";  			     
         	$filaprincipal = "<tr><th colspan='4'><br /><p class='lead text-info' align='center'>$curso $asignatura</p></th></tr>";  
 	// Diversificación
@@ -116,7 +120,7 @@ if(substr($curso,4,1) == 'd')
 		echo $filaprincipal;
 	}
 ?>
-<form action="poner_falta.php" method="post">
+<form action="poner_falta.php" method="post" name="Cursos">
   <?php
 
   // Codigo del profe
@@ -212,5 +216,18 @@ El módulo de Faltas de Asistencia debe ser activado en la Configuración general 
     <? 
 include("../pie.php");
 ?>
+<script>
+
+function seleccionar_todo(){
+	for (i=0;i<document.Cursos.elements.length;i++)
+		if(document.Cursos.elements[i].type == "checkbox")	
+			document.Cursos.elements[i].checked=1
+}
+function deseleccionar_todo(){
+	for (i=0;i<document.Cursos.elements.length;i++)
+		if(document.Cursos.elements[i].type == "checkbox")	
+			document.Cursos.elements[i].checked=0
+}
+</script>
 </body>
 </html>
