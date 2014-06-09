@@ -1019,7 +1019,7 @@ elseif ($n_curso == 3) {
 					$num1+=1;
 					if (${act.$num1} == '0') {${act.$num1}='';}
 					echo '<label class="radio"><input type="radio" name = "act21" value="'.$num1.'"'.$sl.'';
-					if($act1 == $num1){echo "checked";}
+					if($act21 == $num1){echo "checked";}
 					echo " />";
 					echo '<span >'.$act_1.'</span></label>';
 				}

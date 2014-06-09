@@ -289,7 +289,7 @@ else{
 
 <?
 if($pag == "") {$pag = "0";} else {$pag = $pag + 25;}
-$query = "SELECT id, fecha, departamento, contenido, numero, impreso FROM r_departamento where departamento = '$departament' ORDER BY numero DESC limit $pag,25";
+$query = "SELECT id, fecha, departamento, contenido, numero, impreso FROM r_departamento where departamento = '$departament' ORDER BY numero DESC limit $pag,50";
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 $n_actas = mysql_num_rows($result);
 if (mysql_num_rows($result) > 0)

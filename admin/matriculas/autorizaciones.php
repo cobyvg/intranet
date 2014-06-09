@@ -7,12 +7,9 @@ $autoriza_fotos="
 D./Dª $papa, con DNI $row[11], representante legal del alumno/a $row[3] $row[2]
 AUTORIZA al I.E.S. Monterroso a fotografiar o grabar con video a su hijo o hija con fines educativos 
 y dentro del contexto educativo del centro o de actividades complementarias o extraescolares desarrolladas por el mismo. 
-
-
 ";
 $titulo5 = "		
 En Estepona, a $hoy
-
 
 
 Firmado. D./Dª
@@ -25,7 +22,7 @@ NOTA: Los padres y madres son libres de firmar,  o no,  esta autorización.";
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
 	#Cuerpo.
-	$MiPDF->Image ( '../../img/encabezado.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
 	$MiPDF->Ln ( 20 );
 	$MiPDF->Cell(168,5,$titulo4,0,0,'C');
 	$MiPDF->SetFont ( 'Times', '', 10  );	
@@ -43,24 +40,18 @@ $c_escolar = $an1."/".$an2;
 $autoriza_religion="
 D./Dª $papa, como padre, madre o tutor legal del alumno/a $row[3] $row[2] del curso ".$n_curso."º de ESO del IES Monterroso, en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación.
 
-
-
 SOLICITA:
 
 Cursar a partir del curso escolar $c_escolar. mientras no modifique expresamente esta decisión, la enseñanza de Religión:
 x $religion
-
 ";
 $firma_religion = "		
 En Estepona, a $hoy
 
 
-
 Firmado. D./Dª
 ";
 $final_religion="
-
-
 SR./SRA. DIRECTOR/A -----------------------------------------------------------------------------------------------------";
 $direccion_junta = "
 Ed. Torretriana. C/. Juan A. de Vizarrón, s/n. 41071 Sevilla
@@ -70,24 +61,18 @@ e-mail: informacion.ced@juntadeandalucia.es
 // Religion
 
 if (substr($religion, 0, 1)=="R") {
-	
-	$MiPDF->Addpage ();
-	#### Cabecera con dirección
+	$MiPDF->Cell(168,5,"----------------------------------------------------------------------------------------------------------------------------------------",0,0,'C');
+	$MiPDF->Ln ( 10 );
 	$MiPDF->SetFont ( 'Times', 'B', 11  );
-	$MiPDF->SetTextColor ( 0, 0, 0 );
-	$MiPDF->SetFillColor(230,230,230);
-	#Cuerpo.
-	$MiPDF->Image ( '../../img/encabezado_junta.jpg', 10, 10, 180, '', 'jpg' );
-	$MiPDF->Ln ( 20 );
 	$MiPDF->Cell(168,5,$titulo_religion,0,0,'C');
 	$MiPDF->SetFont ( 'Times', '', 10  );	
 	$MiPDF->Ln ( 4 );
 	$MiPDF->Multicell ( 0, 6, $autoriza_religion, 0, 'L', 0 );
 	$MiPDF->Ln ( 3 );
 	$MiPDF->Multicell ( 0, 6, $firma_religion, 0, 'C', 0 );
-	$MiPDF->Ln ( 50 );
-	$MiPDF->Multicell ( 0, 6, $final_religion, 0, 'L', 0 );
 	$MiPDF->Ln ( 8 );
+	$MiPDF->Multicell ( 0, 6, $final_religion, 0, 'L', 0 );
+	$MiPDF->Ln ( 5 );
 	$MiPDF->SetFont ( 'Times', '', 9  );
 	$MiPDF->Multicell ( 0, 6, $direccion_junta, 0, 'L', 0 );
 }

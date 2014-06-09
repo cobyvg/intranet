@@ -59,6 +59,8 @@ $apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nom
 	 $localidad= "Localidad: ".$localidad;
 	 $dni= "DNI del alumno: ".$dni;
 	 $padre= "Apellidos y nombre del Tutor legal 1: ".$padre;
+	 $pa = explode(", ", $datos_ya->padre);
+	 $papa = "$pa[1] $pa[0]";
 	 $dnitutor= "DNI: ".$dnitutor;
 	 $madre= "Apellidos y nombre del Tutor legal 2: ".$madre;
 	 $dnitutor2= "DNI: ".$dnitutor2;
@@ -100,11 +102,28 @@ $hoy = formatea_fecha(date('Y-m-d'));
 $titulo_documentacion = "DOCUMENTACIÓN NECESARIA PARA LA MATRICULACIÓN";
 $documentacion = "1. Fotocopia del DNI. Si el alumno no dispone de DNI, una fotocopia del Libro de Familia o Certificado de Nacimiento. El alumnado extranjero deberá entregar una fotocopia del Pasaporte y Tarjeta de Residencia.
 2. El alumnado procedente de otros Institutos o de Colegios no adscritos a nuestro Centro deben aportar el Certificado de expediente académico..
-3. Los alumnos que se matriculen a partir de 3º de ESO tienen que abonar 3 euros para la cuota obligatoria del Seguro Escolar.
+3. Los alumnos que se matriculen a partir de 3º de ESO tienen que abonar 2 euros para la cuota obligatoria del Seguro Escolar.
 4. Cuota voluntaria de 12 euros para la Asociación de Padres y Madres del Centro.
 ";
 $datos_junta = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, la Consejería de Educación le informa que los datos personales obtenidos mediante la cumplimentación de este formulario y demás documentación que se adjunta van a ser incorporados, para su tratamiento, al fichero 'Séneca. Datos personales y académicos del alumnado', con la finalidad de recoger los datos personales y académicos del alumnado que cursa estudios en centros dependientes de la Conserjería de Educación, así como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría General Técnica de la Conserjería de Educación de la Junta de Andalucía en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana 41071 SEVILLA";
+// Normas de telefonía móvil
+$titulo_moviles = "SOBRE EL USO DE TELÉFONOS MÓVILES Y OTROS DISPOSITIVOS EN EL CENTRO";
 
+$texto_moviles="
+           Estimadas familias:
+
+     Les informamos de que está prohibido el uso de teléfonos móviles y otros dispositivos de grabación/reproducción multimedia por parte del alumnado durante el horario escolar. Dicha medida es consecuencia de salvaguardar la intimidad tanto del alumnado como del profesorado, quienes pudieran ver vulnerados sus derechos de protección por grabaciones y/o difusiones de imágenes capturadas de forma ajena a su voluntad. Por este motivo, recordamos que la utilización de estos aparatos está prohibida en el Centro. En caso de que algún alumno sea sorprendido con cualquier dispositivo electrónico, éste le será requisado aplicándose las medidas que en materia de convivencia hay estipuladas en nuestro Reglamento al efecto.
+     El teléfono móvil en el Centro es absolutamente innecesario y constituye un elemento perturbador del clima de estudio y trabajo en el mismo. En aquellos casos en los que el alumnado tenga que comunicarse con la familia (que se entienden como situaciones graves o de urgencia), los teléfonos del Centro están siempre a disposición del alumnado. 
+     Por último anunciar que dado que se ha dejado claro que están prohibidos estos dispositivos en el instituto, informamos que el Centro no se hace responsable ni va a mediar en situaciones donde se produzcan <<desapariciones>> de dichos dispositivos dentro de nuestras instalaciones.";
+
+$final_moviles="
+D./Dª. $papa, con DNI número $datos_ya->dnitutor, padre/madre/tutor legal del alumno/ a $datos_ya->nombre $datos_ya->apellidos del curso $curso, teniendo en cuenta la información aportada, es conocedor de la prohibición de la tenencia y uso de los teléfonos móviles, así como de cualquier otro dispositivo electrónico que difunda o grabe imágenes de vídeo/audio.
+";
+$firma_moviles="
+Firmado,
+
+
+Padre/madre/tutor legal.";
 	
 // Formulario de la junta	
 $pags = array("1","2");
@@ -285,14 +304,34 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->MultiCell(168, 3, $datos_junta,1,'L',1);
 }
 
-	# insertamos la pagina de documentación
+	# insertamos la primera pagina del documento
 	$MiPDF->Addpage ();
+	$MiPDF->SetFont ( 'Times', 'B', 11  );
+	$MiPDF->SetTextColor ( 0, 0, 0 );
+	$MiPDF->SetFillColor(230,230,230);
+	$MiPDF->Image ( '../../img/encabezado2.jpg', 10, 10, 180, '', 'jpg' );
+	$MiPDF->Ln ( 12 );
+	$MiPDF->Multicell ( 0, 4, $titulo_documentacion, 0, 'C', 0 );
+	$MiPDF->Ln ( 4 );
 	$MiPDF->SetFont ( 'Times', '', 10  );
 	$MiPDF->SetTextColor ( 0, 0, 0 );
 	$MiPDF->SetFillColor(230,230,230);
-	$MiPDF->Multicell ( 0, 4, $titulo_documentacion, 0, 'C', 0 );
-	$MiPDF->Ln ( 4 );
 	$MiPDF->Multicell ( 0, 6, $documentacion, 0, 'L', 0 );
+	$MiPDF->Ln ( 5 );
+	$MiPDF->Multicell ( 0, 6, "------------------------------------------------------------------------------------------------------------------------------------------", 0, 'L', 0 );
+	$MiPDF->Multicell ( 0, 6, "------------------------------------------------------------------------------------------------------------------------------------------", 0, 'L', 0 );
+	$MiPDF->Ln ( 8 );
+	$MiPDF->SetFont ( 'Times', 'B', 11  );
+	$MiPDF->SetTextColor ( 0, 0, 0 );
+	$MiPDF->SetFillColor(230,230,230);
+	$MiPDF->Multicell ( 0, 4, $titulo_moviles, 0, 'C', 0 );
+	$MiPDF->Ln ( 2 );
+	$MiPDF->SetFont ( 'Times', '', 10  );
+	$MiPDF->Multicell ( 0, 6, $texto_moviles, 0, 'L', 0 );
+	$MiPDF->Ln ( 1 );
+	$MiPDF->Multicell ( 0, 6, $final_moviles, 0, 'L', 0 );
+	$MiPDF->Ln ( 3 );
+	$MiPDF->Multicell ( 0, 6, $firma_moviles, 0, 'C', 0 );
 	
 	
 	
@@ -316,7 +355,35 @@ foreach ($pags as $pag_pdf){
 				}
 
 				
-$titulo_34 = "REPETIDORES DE 1º DE BACHILLERATO";
+	# insertamos la primera pagina del documento
+	$MiPDF->Addpage ();
+	$MiPDF->SetFont ( 'Times', 'B', 11  );
+	$MiPDF->SetTextColor ( 0, 0, 0 );
+	$MiPDF->SetFillColor(230,230,230);
+	$MiPDF->Ln ( 4 );
+	$MiPDF->Multicell ( 0, 4, $titulo_documentacion, 0, 'C', 0 );
+	$MiPDF->Ln ( 4 );
+	$MiPDF->SetFont ( 'Times', '', 10  );
+	$MiPDF->SetTextColor ( 0, 0, 0 );
+	$MiPDF->SetFillColor(230,230,230);
+	$MiPDF->Multicell ( 0, 6, $documentacion, 0, 'L', 0 );
+	$MiPDF->Ln ( 5 );
+	$MiPDF->Multicell ( 0, 6, "------------------------------------------------------------------------------------------------------------------------------------------", 0, 'L', 0 );
+	$MiPDF->Multicell ( 0, 6, "------------------------------------------------------------------------------------------------------------------------------------------", 0, 'L', 0 );
+	$MiPDF->Ln ( 8 );
+	$MiPDF->SetFont ( 'Times', 'B', 11  );
+	$MiPDF->SetTextColor ( 0, 0, 0 );
+	$MiPDF->SetFillColor(230,230,230);
+	$MiPDF->Multicell ( 0, 4, $titulo_moviles, 0, 'C', 0 );
+	$MiPDF->Ln ( 2 );
+	$MiPDF->SetFont ( 'Times', '', 10  );
+	$MiPDF->Multicell ( 0, 6, $texto_moviles, 0, 'L', 0 );
+	$MiPDF->Ln ( 1 );
+	$MiPDF->Multicell ( 0, 6, $final_moviles, 0, 'L', 0 );
+	$MiPDF->Ln ( 3 );
+	$MiPDF->Multicell ( 0, 6, $firma_moviles, 0, 'C', 0 );
+	
+	$titulo_34 = "REPETIDORES DE 1º DE BACHILLERATO";
 $an = substr($curso_actual,0,4);
 $an1 = $an+1;
 $an2 = $an+2;

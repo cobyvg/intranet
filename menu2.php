@@ -247,6 +247,10 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
           <ul class="nav nav-list">
             <li><a href="admin/informes/informe_notas1.php">Informes sobre las Evaluaciones</a></li>
             <li><a href="admin/fechorias/informe_convivencia.php">Informes sobre Convivencia</a></li>
+
+      <? if ($mod_horario) { ?>
+                <li><a href="admin/cursos/hor_guardias.php">Informes sobre Guardias</a></li>  
+	  <? } ?>
           </ul>
         </div>
       </ul>
