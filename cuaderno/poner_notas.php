@@ -34,17 +34,31 @@ foreach($cursos as $unidad)
 }
 }
 
+  	// Borramos datos en casillas de verificación visibles
+  	$contr = mysql_query("select id from notas_cuaderno where profesor = '$profesor' and Tipo like 'Casilla%' and oculto = '0'");
+  	while($control_veri = mysql_fetch_array($contr)){
+  		//echo "Borramos registro $claveal ==> $id<br />";
+  		$borra_veri = "delete from datos  WHERE datos.id = '$control_veri[0]'";
+		$borra1 = mysql_query($borra_veri);
+  	}
+ 
+ 
   foreach ($_POST as $key => $val) {
+  	// echo "$key --> $val<br />";
   	$trozos = explode("-",$key);
   	$id = $trozos[0];
   	$claveal = $trozos[1];
+  	
+	// Duplicados
   	$dupli = mysql_query("select * from datos where id = '$id' and claveal = '$claveal'");
 	$duplic = mysql_fetch_array($dupli);
-// Condiciones para procesar los datosxxx
+
+	// Condiciones para procesar los datos
   	if (is_numeric($claveal) and is_numeric($id)) {
-  		//echo "$id - $claveal - $val<br>";
+
 		if(!(empty($duplic[1]))){
 		$actualiza = "UPDATE datos SET nota = '$val' WHERE datos.id = '$id' AND datos.claveal = '$claveal'";
+		//echo $actualiza."<br />";
 		$actua0 = mysql_query($actualiza);
 		}
 		elseif(empty($val) and !($val=="0")){
@@ -54,7 +68,7 @@ foreach($cursos as $unidad)
 		else{
   		$insert = "insert into datos (id, claveal, nota, ponderacion) values ('$id','$claveal','$val','1')";
   		$insert0 = mysql_query($insert);	
-
+		//echo $insert."<br />";
   		}
 		}
   }  
@@ -63,13 +77,5 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los Alumnos han sido registrados en esta Asignatura.          
 </div></div>';
+?>
 
-?>
-<script language="javascript">
-<? 
-// Redireccionamos al Cuaderno    
-// $mens = "cuaderno.php?dia=$dia&hora=$hora&asignatura=$asignatura&profesor=$pr";
-$mens = "index0.php";
-?>
-setTimeout("window.location='<? echo $mens; ?>'", 800) 
-</script>
