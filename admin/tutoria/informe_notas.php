@@ -131,7 +131,7 @@ if ($porcient_asig>0) {
 <hr />
 <?
 ?>
-</div>
+
 <?
 }
 mysql_query("drop table temp");

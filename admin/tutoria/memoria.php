@@ -96,7 +96,14 @@ else{$tutor = "";}
 if (isset($_GET['imprimir'])) {
 	$imprimir = $_GET['imprimir'];
 }
+if (isset($_POST['observaciones1'])) {
+	$observaciones1 = $_POST['observaciones1'];
+}
+if (isset($_POST['observaciones2'])) {
+	$observaciones2 = $_POST['observaciones2'];
+}
 if ($_POST['imp_memoria'] == "Enviar datos") {
+	
 	mysql_query("update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '$tutor'");
 }
 $lista = mysql_list_fields($db,"FTUTORES");
