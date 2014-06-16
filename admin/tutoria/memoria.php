@@ -93,6 +93,9 @@ elseif (isset($_POST['tutor'])) {
 }
 else{$tutor = "";}
 
+if (isset($_GET['imprimir'])) {
+	$imprimir = $_GET['imprimir'];
+}
 if ($_POST['imp_memoria'] == "Enviar datos") {
 	mysql_query("update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '$tutor'");
 }
@@ -104,7 +107,7 @@ if ($col_obs=="observaciones1") { }else{
 }
 $grupo = strtoupper($grupo);
 ?>
-<div style="width:750px;margin:auto;padding:25px; border:1px solid #ddd">
+<div style="width:900px;margin:auto;padding:25px; border:1px solid #ddd">
 <h3 align="center">
  Tutoría del grupo: <? echo "$nivel-$grupo";?> <br /><small>Tutor: <? echo $tutor; ?></small></h2>
  <br />
@@ -120,7 +123,7 @@ $grupo = strtoupper($grupo);
 </div>
  
 <br>
- 
+<br />
  <h3>Datos Generales de los Alumnos</h3><br />
 
  <? 
@@ -356,8 +359,10 @@ $grupo = strtoupper($grupo);
 
  
  <hr><br /><h3>Información de Tutoría por Alumno</h3>
- <hr><br /><h4>Alumnos absentistas</h4>
-                    <br />
+  <div class="row-fluid">     
+ <div class="span6">
+ <hr><br /><legend>Alumnos absentistas</legend>
+
 <?
 $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, FALUMNOS where absentismo.claveal = FALUMNOS.claveal and absentismo.nivel = '$nivel' and absentismo.grupo = '$grupo' group by apellidos, nombre";
  $faltas0 = mysql_query($faltas);
@@ -373,8 +378,11 @@ $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from 
  echo '</table>';
  }
  ?>
-                    <hr><br /><h4>Faltas sin Justificar</h4>
-                    <br />
+ </div> 
+
+  <div class="span6">       
+ <hr><br /><legend>Faltas sin Justificar</legend>
+
 <?php
  echo "<table class='table table-striped' style='width:auto;'>";
 		
@@ -391,8 +399,12 @@ $result = mysql_query($SQL);
         }
 		        echo "</table>";
   ?>
-                    <hr><br /><h4>Problemas de Convivencia</h4>
-                    <br />
+</div>
+</div>
+  <div class="row-fluid">     
+ <div class="span4">
+  <hr><br /><legend>Problemas de Convivencia</legend>
+
 <?
 $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and date(fecha) > '$inicio_curso' group by NC";
  $faltas0 = mysql_query($faltas);
@@ -408,8 +420,10 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
  ?>
-                    <hr><br /><h4>Alumnos expulsados</h4>
-                    <br />
+                   </div>
+                    <div class="span4">
+                    <hr><br /><legend>Alumnos expulsados</legend>
+
 <?
   
  
@@ -427,8 +441,8 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
  ?>
- <hr><br /><h4>Alumnos expulsados del aula</h4>
-                    <br />
+ </div> <div class="span4"><hr><br /><legend>Alumnos expulsados del aula</legend>
+
  <?
 $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and expulsionaula = '1' and date(fecha) > '$inicio_curso' group by NC";
  $faltas0 = mysql_query($faltas);
@@ -444,8 +458,11 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
  ?>
- <hr><br /><h4>Informes de Tutoría por visita de padres</h4>
-                    <br />
+ </div>
+ </div>
+ 
+ <hr><br /><legend>Informes de Tutoría por visita de padres</legend>
+
 <?
  $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where nivel = '$nivel' and grupo = '$grupo' and date(F_ENTREV) > '$inicio_curso' group by apellidos";
  $faltas0 = mysql_query($faltas);
@@ -461,8 +478,10 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
  ?>
-<hr><br /><h4>Intervenciones del Tutor</h4>
-                    <br />
+ <div class="row-fluid">
+  <div class="span5">
+<hr><br /><legend>Intervenciones del Tutor</legend>
+
 <?
  $faltas = "select distinct apellidos, nombre, count(*) from tutoria where nivel = '$nivel' and grupo = '$grupo' and prohibido not like '1' and date(fecha) > '$inicio_curso' group by apellidos";
  $faltas0 = mysql_query($faltas);
@@ -483,8 +502,9 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  if(mysql_num_rows($faltas0) > 0)
  {
 	 ?>
- <hr><br /><h4>Intervenciones de Tutoría (excluidos SMS)</h4>
-                    <br />    
+	 </div> <div class="span7">
+ <hr><br /><legend>Intervenciones de Tutoría (excluidos SMS)</legend>
+
      <?
  echo '<table class="table table-striped" style="width:auto;">';
  while($tutoria = mysql_fetch_array($faltas0))
@@ -499,10 +519,13 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
   $n_activ = mysql_query("select * from actividades where  grupos like '%$nivel$grupo-%' and date(fecha) > '$inicio_curso'");
   if(mysql_num_rows($n_activ) > "0"){
  ?>
+  </div>
+  </div>
   
- <hr><br /><h4>Informe sobre Actividades Extraescolares del Grupo</h4><br />
+ <hr><br /><legend>Informe sobre Actividades Extraescolares del Grupo</legend>
  <?
 include("actividades.php");
+include("informe_notas.php");
  ?>
  <?
  }
@@ -513,14 +536,14 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 {
 ?>
 <a name="observaciones" id="obs"></a>
-<hr><br /><h4>
- Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</h4><br />
+<hr><br /><legend>
+ Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</legend>
  <form action="memoria.php" method="POST">
  <textarea name="observaciones1" style="width:100%"><? echo $obs2[0];?></textarea>
  <hr>
 <br />
-<h4>
- Otras Observaciones</h4><br />
+<legend>
+ Otras Observaciones</legend>
  <textarea name="observaciones2" style="width:100%"><? echo $obs2[1];?></textarea>
  <br />
 <input type="hidden" name="tutor" value="<? echo $tutor;?>">

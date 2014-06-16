@@ -182,6 +182,8 @@ else{
 			<option>E</option>
 			<option>F</option>
 			<option>G</option>
+			<option>H</option>
+			<option>I</option>
 		</select></td>
 		
 		<td><label>Grupo Actual <select name="grupo_actua_seg" style="width:50px;">
@@ -199,7 +201,9 @@ else{
 			<option>E</option>
 			<option>F</option>
 			<option>G</option>
-		</select></td>
+			<option>H</option>
+			<option>I</option>
+			</select></td>
 		
 
 		
