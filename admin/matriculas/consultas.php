@@ -138,16 +138,45 @@ if ($curso=="4ESO") {
 else{
 	$tabla = 'matriculas';
 }
+if ($curso=="1ESO") {
+	$tabla_origen='alma_primaria';
+	$cur_monterroso = "6P";
+	$cole_nene = ", colegio";
+	$cole_order = "colegio,";
+	
+	$tabla_origen2='alma';
+	$cur_monterroso2 = "1E";
+}
+else{
+	$tabla_origen = 'alma';
 	$cur_monterroso = substr($curso, 0, 2);
-	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from $tabla) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
-	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br />';
-			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
+	$cole_nene = "";
+	$cole_order = "";
+}
+
+	
+	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha $cole_nene from $tabla_origen where claveal not in (select claveal from $tabla) and nivel = '$cur_monterroso' order by $cole_order unidad, apellidos, nombre");
+	
+	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de Colegios de Primaria.</h3><br />';
+			echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysql_fetch_array($camb)) {
 				
-			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5]</li>";
+			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] ($cam[6])</li>";
 		
 }
 echo "</ul></div><br />";
+
+	
+	$camb2 = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from $tabla_origen2 where claveal not in (select claveal from $tabla) and nivel = '$cur_monterroso2' order by unidad, apellidos, nombre");
+	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de nuestro Centro.</h3><br />';
+			echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
+	while ($cam2 = mysql_fetch_array($camb2)) {
+				
+			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5] ($cam2[6])</li>";
+		
+}
+echo "</ul></div><br />";
+
 
 	$canf = mysql_query("select distinct alma.apellidos, alma.nombre, alma.unidad, alma.telefono, alma.telefonourgencia, alma.fecha from alma, matriculas where alma.claveal=matriculas.claveal  and alma.nivel = '$cur_monterroso' and confirmado = '0' order by unidad, apellidos, nombre");
 	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';

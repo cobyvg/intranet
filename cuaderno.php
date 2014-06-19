@@ -207,7 +207,7 @@ todos</a></div>
 	<tr>
 		<td valign="top"><?
 		echo "<table class='table table-striped table-bordered table-condensed' style='width:100%'>";
-		echo "<thead class='no_imprimir'><th style='vertical-align:bottom;background-color:#eed'>NC</th><th style='vertical-align:bottom;background-color:#eed'>Alumnos</th>";
+		echo "<thead class=''><th style='vertical-align:bottom;background-color:#eed'>NC</th><th style='vertical-align:bottom;background-color:#eed'>Alumnos</th>";
 		// Número de las columnas de la tabla
 		$cols2=0;
 		while($col20 = mysql_fetch_array($col0)){
@@ -226,10 +226,10 @@ todos</a></div>
 				$col_vert = $nombre_col;
 			}
 
-			echo "<td nowrap style='background-color:#eec'>
+			echo "<th nowrap style='background-color:#eec'>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><a href='$mens0' style='font-size:10px;'>$col_vert</a> </div>
-</div> </td>";
+<div class='Rotate-90'><span class='text-info'>$col_vert</span> </div>
+</div> </th>";
 		}
 		if($seleccionar == 1){
 			echo "<td nowrap style='background-color:#ccc; color:#fff'>
