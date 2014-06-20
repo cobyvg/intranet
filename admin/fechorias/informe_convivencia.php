@@ -363,7 +363,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $SQL = "select distinct id from tutoria where nivel = '$nivel' and causa = 'Faltas de Asistencia' and month(fecha) >='01' and month(fecha) <= '03' and date(fecha) > '$inicio_curso' order by id";
  $result = mysql_query($SQL);
  $num_comunica2 = mysql_num_rows($result);
- $SQL = "select distinct id from tutoria where causa = 'Faltas de Asistencia' and month(fecha) >='04' and month(fecha) <= '06' and date(fecha) > '$inicio_curso' order by id";
+ $SQL = "select distinct id from tutoria where nivel = '$nivel' and causa = 'Faltas de Asistencia' and month(fecha) >='04' and month(fecha) <= '06' and date(fecha) > '$inicio_curso' order by id";
  $result = mysql_query($SQL);
  $num_comunica3 = mysql_num_rows($result);
  ?>
