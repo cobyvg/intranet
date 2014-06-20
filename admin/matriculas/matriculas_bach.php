@@ -957,14 +957,9 @@ if ($idio==1) {
 			name="claveal" <? echo "value = \"$claveal\""; ?> /> <input
 			type="hidden" name="repetidor" value="<? echo $repetidor;?>" /> 
 			<?
-$fecha_actual = strtotime(date("d-m-Y H:i:00",time()));
-$c_act = substr($curso_actual,0,4)+1;
-$fech_cad = "20-06-".$c_act." 00:00:00";
-$fecha_entrada = strtotime($fech_cad);
-if($fecha_actual < $fecha_entrada){
 				echo '<input type=hidden name="enviar" value="Enviar los datos de la Matrícula" />';
 				echo '<input type=button onClick="confirmacion();" value="Enviar los datos de la Matrícula" class="btn btn-primary btn-large no_imprimir" />';
-			}
+			
 			?>
 			
 			 <br />
