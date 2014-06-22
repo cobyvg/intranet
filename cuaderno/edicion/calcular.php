@@ -69,15 +69,24 @@ $n_cursos = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof 
 // Titulos
 
 echo "<br /><table align='center' class='table table-striped' style='width:auto'>"; 
-echo "<thead><th>NC</th><th colspan='2' >Alumno</th>";
+echo "<thead><th style='vertical-align:bottom;background-color:#ddd'>NC</th><th colspan='2' style='vertical-align:bottom;background-color:#ddd'>Alumno</th>";
 // Número de las columnas de la tabla	
 	while($col20 = mysql_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
-	echo "<th><a href='#' rel='Tooltip' title='$col20[1]'>$ident</a></th>";
+	echo "<th nowrap style='background-color:#ddd'>
+<div style='width:40px;height:130px;'>
+<div class='Rotate-90'><span class='text-info'>$col20[1]</span> </div>
+</div> </th>";
+				
+	// echo "<th><a href='#' rel='Tooltip' title='$col20[1]'>$ident</a></th>";
 	}
-	echo "<th>M. Aritm&eacute;tica</th></thead><tbody>";
-
+	//echo "<th style='vertical-align:bottom;background-color:#eec'>M. Aritm&eacute;tica</th></thead><tbody>";
+	echo "<th nowrap style='background-color:#ddd'>
+<div style='width:40px;height:130px;'>
+<div class='Rotate-90'><span class='text-error'><b>Media Aritmética</b></span> </div>
+</div> </th></thead>";
+	
 // Tabla para cada Grupo
   $curso0 = "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'";
   $curso20 = mysql_query($curso0);
@@ -146,14 +155,15 @@ echo "<tr><td>$row[1]</td><td colspan='2' nowrap>$row[2], $row[3]</td>";
 	$dato1 = mysql_fetch_array($dato0);
 	$suma += $dato1[0];
 	if ($dato1[0]==''){$dato1[0]='0';} 
-echo "<td >$dato1[0]</td>";}
+	if ($dato1[0]<'5'){ $color = ' class="text-error" ';}else{ $color = ' class="text-success" ';} 
+echo "<td $color>$dato1[0]</td>";}
 $media = $suma / $num_ids;
 	$mediatotal+=$media;
     if($media <> 0){
 	if($media < 5 ){$mediasuspensos+=1;}
 	else{$mediaaprobados+=1;}
 					}
-echo "<td style='color:brown;font-weight:bold'>";
+echo "<td class='text-error' style='font-weight:bold;background-color:#eee'>";
 if ($media == "" ) {
 	$media = "0";
 					}
@@ -188,28 +198,28 @@ while ($esta=mysql_fetch_array($est)){
 	}}
 	
 	//media del grupo
-	echo "<tr class='info'><td align='right' colspan='3' style='font-weight:bold;'>Media del Grupo*</td>";
+	echo "<tr class='info'><td align='right' colspan='3' style='font-weight:bold;'>Media del Grupo</td>";
 	for($j = 1;$j<=$i;$j++) {
 	$x_total=$sumanotas[$j]/$t_alumnos;
 	$x=$sumanotas[$j]/($aprobados[$j]+$suspensos[$j]);
            // redondeamos o truncamos con la funcion redondeo
-	echo "<td align='center'>";redondeo($x_total); echo " ("; redondeo($x); echo")</td>";
+	echo "<td align='center'>";redondeo($x_total);  echo"</td>";
 							}
 	$fin=$toti/($m_ap+$m_sus);
 	$fin_total=$toti/($t_alumnos);
 
-    echo "<td align='center' style='font-weight:bold'>"; redondeo($fin_total); echo" ("; redondeo($fin); echo")</td>";
+    echo "<td align='center' style='font-weight:bold'>"; redondeo($fin_total);  echo"</td>";
 	
 	echo "</tr><tr class='success'><td colspan='3' align='right' style='font-weight:bold;'>Aprobados</td>";
 	for($j = 1;$j<=$i;$j++) {
 	echo "<td align='center'>$aprobados[$j]</td>";
 	$pap=($mediaaprobados/($t_alumnos))*100;
 							}
-    echo "<td align='center' style='color:black;font-weight:bold'>$mediaaprobados => "; redondeo($pap); echo"%</td>";
-	echo "</tr><tr class='warning'><td colspan='3' style='font-weight:bold;'>Suspensos*</td>";
+    echo "<td align='center' style='font-weight:bold'>$mediaaprobados => "; redondeo($pap); echo"%</td>";
+	echo "</tr><tr class='error'><td colspan='3' style='font-weight:bold;'>Suspensos</td>";
 	for($j = 1;$j<=$i;$j++) {
 	  $t_s1=$t_alumnos-$aprobados[$j];
-	echo "<td align='center'>$t_s1 ($suspensos[$j])</td>";
+	echo "<td align='center'>$t_s1 </td>";
 		$t_s= $t_alumnos - $mediaaprobados;
 
 	$psus=($t_s/($t_alumnos))*100;	
@@ -217,7 +227,6 @@ while ($esta=mysql_fetch_array($est)){
     echo "<td align='center' style='font-weight:bold'>$t_s => "; redondeo($psus);  echo"%</td>";
 	echo "</tr>";	
 echo '</table>';
-echo "<p class='help-block' align=center>(*)  ---> Entre par&eacute;ntesis si no contamos las notas que sean 0</p>";
 echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary'>";	
 ?>
 </div>

@@ -6,18 +6,10 @@
 // Condiciones para procesar los datos
   		if (is_numeric($id) and is_numeric($valor)){  			
   		$actual = mysql_query("update notas_cuaderno set oculto = '$ocultar' where id = '$id'") or die ("<br>No ha sido posible eliminar la columna.<br>Ponte en contacto con quien lo entienda.");
-  		$n_1 = mysql_affected_rows();
+  		$n_1 = mysql_affected_rows($actual);
   	}	
 	}		
-	if ($n_1==0) {
- echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-Debes seleccionar al menos una Columna del cuaderno para poder operar.
-</div></div>';
- echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary'>";				
-		}
-		else {	
+
 		if($ocultar == "1"){$ms = "ocultada";}else{$ms = "restaurada";}
 		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -33,5 +25,5 @@ $mens = "../cuaderno.php?profesor=$profesor&asignatura=$asignatura&dia=$dia&hora
 setTimeout("window.location='<? echo $mens; ?>'", 1000) 
 </script>
 <?
-		}
+
 ?></div>

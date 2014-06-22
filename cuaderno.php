@@ -207,7 +207,7 @@ todos</a></div>
 	<tr>
 		<td valign="top"><?
 		echo "<table class='table table-striped table-bordered table-condensed' style='width:100%'>";
-		echo "<thead class=''><th style='vertical-align:bottom;background-color:#eed'>NC</th><th style='vertical-align:bottom;background-color:#eed'>Alumnos</th>";
+		echo "<thead><th colspan=2 style='vertical-align:bottom;background-color:#eee'></th>";
 		// Número de las columnas de la tabla
 		$cols2=0;
 		while($col20 = mysql_fetch_array($col0)){
@@ -226,13 +226,13 @@ todos</a></div>
 				$col_vert = $nombre_col;
 			}
 
-			echo "<th nowrap style='background-color:#eec'>
+			echo "<th nowrap style='background-color:#eee'>
 <div style='width:40px;height:130px;'>
 <div class='Rotate-90'><span class='text-info'>$col_vert</span> </div>
 </div> </th>";
 		}
 		if($seleccionar == 1){
-			echo "<td nowrap style='background-color:#ccc; color:#fff'>
+			echo "<td nowrap style='background-color:#999; color:#fff'>
 <div style='width:40px;height:130px;'>
 <div class='Rotate-90'> Selección de alumnos </div>
 </div> </td>";
@@ -380,13 +380,13 @@ input[type=number]::-webkit-inner-spin-button {
 				$tipo_dato = "<input type='number'step='any'  name='$id-$claveal' value='$dato1[0]' class='input-mini' rel='Tooltip' title='$dato1[0]' style='max-width:26px;color:$color;height:15px;background-color:#de9'>";
 			}
 			elseif (stristr($t_dato,"Texto corto")==TRUE) {
-				$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' class='input-mini' rel='Tooltip' title='$dato1[0]' style='height:15px;maxlength:3;max-width:27px;background-color:#adc'>";
+				$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' class='input-mini' rel='Tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:15px;maxlength:3;max-width:27px;background-color:#adc'>";
 			}
 			else{
 				$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' class='input-small' rel='Tooltip' title='$dato1[0]' style='height:15px;maxlength:48;background-color:#dbf'>";
 			}
 
-			echo "<td style='vertical-align:middle; text-align:center;'>$tipo_dato</td>";
+			echo "<td style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;'>$tipo_dato</td>";
 
 
 		}
@@ -519,7 +519,7 @@ input[type=number]::-webkit-inner-spin-button {
 			while($colum00=mysql_fetch_array($colum0)){
 
 				$otra=mysql_query("select distinct ponderacion from datos where id='$colum00[0]' and ponderacion<>'1' ");
-				if (mysql_num_rows($otra) > 0){     $h+=1;}											}
+				if ($otra){$h+=1;}											}
 				echo "<table class='table table-striped' style='width:100%;'>";
 				$otra2=mysql_query("select distinct id, nombre, orden, oculto, visible_nota from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc");
 				while ($colum1 = mysql_fetch_array($otra2)) {
@@ -535,13 +535,10 @@ input[type=number]::-webkit-inner-spin-button {
 					$colum1[4] ? $icon_eye = '<i class="fa fa-eye" rel="Tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" rel="Tooltip" title="Columna oculta en la página pública del Centro"></i>';
 					echo "<tr><td nowrap>$n_col &nbsp;&nbsp;$icon_eye </td><td><a href='$mens0'>$nombre</a></td>";
 					echo "<td>";
-					?> &nbsp;&nbsp;<input name="<? echo $id;?>" type="checkbox"
-			value="<? if(mysql_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>" />
+					?> <label class="checkbox"><input type="checkbox" name="<? echo $id;?>" value="<? if(mysql_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>">
 			<?
-	  echo "</td>";
-
-	  if ($h > 0 ) {echo "<td align='center'>$pond</td>"; }
-	  echo "</tr>";
+	  if ($pon0[0] > "1" ) {echo "<span align='center' class='muted' Rel='Tooltip' title='Ponderación de la columna'> ($pond)</span>"; }
+	  echo "</label></td></tr>";
 				}
 		}
 		echo "</table>";
@@ -572,15 +569,12 @@ input[type=number]::-webkit-inner-spin-button {
 
 
 		?>
-		<hr>
-
-		<h4><small>Operaciones y Funciones</small></h4>
-
+		<br>
 		<p><input name="media" type="submit" value="Media Aritmética"
 			class="btn btn-primary btn-block" /></p>
 		<p><input name="media_pond2" type="submit" value="Media Ponderada"
 			class="btn btn-primary btn-block" /></p>
-		<lpi><input name="estadistica" type="submit" value="Estadística"
+		<p><input name="estadistica" type="submit" value="Estadística"
 			class="btn btn-primary btn-block" />
 		</p>
 		<p><input name="ocultar" type="submit" value="Ocultar"

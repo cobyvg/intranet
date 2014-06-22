@@ -108,16 +108,21 @@ $n_cursos = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof 
 	
 	$curso_sin = substr($curso,0,strlen($curso) - 1);
 
-echo "<br /><table align='center' class='table table-striped' style='width:auto'>"; 
-echo "<thead><th>NC</th><th colspan='2' align='center'>Alumno</th>";
+echo "<br /><table align='center' class='table table-striped table-bordered' style='width:auto'>"; 
+echo "<thead><th style='background-color:#eee'>NC</th><th style='background-color:#eee' colspan='2' align='center'>Alumno</th>";
 // Número de las columnas de la tabla	
 	while($col20 = mysql_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
-	echo "<th align='center'><a href='#' rel='Tooltip' title='$col20[1]'>$ident</a></th>";
-	
+		echo "<th nowrap style='background-color:#eee'>
+<div style='width:40px;height:130px;'>
+<div class='Rotate-90'><span class='text-info'>$col20[1]</span> </div>
+</div> </th>";	
 	}
-	echo "<th align='center'>M. Ponderada</th></thead><tbody>";
+		echo "<th nowrap style='background-color:#eee'>
+<div style='width:40px;height:130px;'>
+<div class='Rotate-90'><span class='text-warning'>Media Ponderada</span> </div>
+</div> </th></thead>";
 
 // Tabla para cada Grupo
   $curso0 = "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'";
@@ -203,7 +208,7 @@ $mediatotal+=$media;
 	if($media < 5 ){$mediasuspensos+=1;}
 	else{$mediaaprobados+=1; }
 					}
-echo "<td align='center' style='color:brown;font-weight:bold'>";
+echo "<td align='center' class='text-warning' style='font-weight:bold; background-color:#eee'>";
 if ($media == "" ) {
 	$media = "0";
 					}
@@ -231,43 +236,41 @@ while ($esta=mysql_fetch_array($est)){
 				}
 	}}
 	//media del grupo
-	echo "<tr class='inf'><td align='right' colspan='3' style='font-weight:bold;'>Media del Grupo*</td>";
+	echo "<tr class='info'><td align='right' colspan='3' style='font-weight:bold;'>Media del Grupo</td>";
 		for($j = 1;$j<=$i;$j++) {
 	$x=$sumanotas[$j]/($aprobados[$j]+$suspensos[$j]);
 	$x_total=$sumanotas[$j]/$t_alumnos;
-	echo "<td align='center'>"; redondeo($x_total); echo" ("; redondeo($x);  echo")</td>";
+	echo "<td align='center'>"; redondeo($x_total);  echo"</td>";
 							}
 	$fin_total=$toti/$t_alumnos;
 	$fin=$toti/($m_ap+$m_sus);
-    echo "<td align='center' style='font-weight:bold'>"; redondeo($fin_total); echo" ("; redondeo($fin); echo")</td>";
+    echo "<td align='center' style='font-weight:bold'>"; redondeo($fin_total); echo"</td>";
 	
 	//aprobados
 	echo "</tr><tr class='success'><td colspan='3' align='right' style='font-weight:bold;'>Aprobados</td>";
     	for($j = 1;$j<=$i;$j++) {
-	echo "<td'  align='center'>$aprobados[$j]</td>";
+	echo "<td align='center'>$aprobados[$j]</td>";
 	$pap=($m_ap/($t_alumnos))*100;
 							}
-    echo "<td align='center' style='font-weight:bold'>$m_ap ->"; redondeo($pap);  echo"%</td>";
+    echo "<td align='center' style='font-weight:bold'>$m_ap -> "; redondeo($pap);  echo"%</td>";
 	
 	
 	//suspensos
-	echo "</tr><tr class='warning'><td colspan='3' style='font-weight:bold;'>Suspensos*</td>";
+	echo "</tr><tr class='error'><td colspan='3' style='font-weight:bold;'>Suspensos</td>";
     	for($j = 1;$j<=$i;$j++) {
 	  $t_s1=$t_alumnos-$aprobados[$j];
-	echo "<td align='center'>$t_s1 ($suspensos[$j])</td>";
+	echo "<td align='center'>$t_s1</td>";
 	$t_s= $t_alumnos - $m_ap;
 	$psus=($t_s/($t_alumnos))*100;	
 		
 						}
-    echo "<td align='center' style='background-color:#f2dede;font-weight:bold'>$t_s ->"; redondeo($psus);  echo"%</td>";
+    echo "<td align='center' style='font-weight:bold'>$t_s -> "; redondeo($psus);  echo"%</td>";
 	echo "</tr>";	
 
 echo '</table>';
-echo "<p class='help-block' align=center>(*)  ---> Entre par&eacute;ntesis si no contamos las notas que sean 0</p>";
 ?>
 <br />
-<h4>Para cambiar la ponderaci&oacute;n de las notas</h4>
-<br />
+<legend>Cambiar la ponderaci&oacute;n de las notas</legend>
 	<?
 	$nid='';
 	$name="";

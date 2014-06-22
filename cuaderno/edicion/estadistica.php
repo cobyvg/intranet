@@ -69,14 +69,17 @@ $n_cursos = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof 
 // Titulos
 
 echo "<br /><table align='center' class='table table-striped' style='width:auto'>"; 
-echo "<tr><th>NC</th><th colspan='2' >Alumno</th>";
+echo "<thead><th style='vertical-align:bottom;background-color:#eee'>NC</th><th colspan='2' style='vertical-align:bottom;background-color:#eee'>Alumno</th>";
 // Número de las columnas de la tabla	
 	while($col20 = mysql_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
-	echo "<th><a href='#' rel='Tooltip' title='$col20[1]'>$ident</a></th>";
+		echo "<th nowrap style='background-color:#eee'>
+<div style='width:40px;height:130px;'>
+<div class='Rotate-90'><span class='text-info'>$col20[1]</span> </div>
+</div> </th>";
 		}
-
+echo "</thead>";
 // Tabla para cada Grupo
   $curso0 = "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'";
   $curso20 = mysql_query($curso0);
@@ -142,7 +145,8 @@ echo "<tr><td>$row[1]</td><td colspan='2' nowrap >$row[2], $row[3]</td>";
 	$dato1 = mysql_fetch_array($dato0);
 	$suma += $dato1[0];
 	if ($dato1[0]==''){$dato1[0]='0';} 
-echo "<td align='center'>$dato1[0]</td>";}
+	if ($dato1[0]<'5'){ $color = ' class="text-error" ';}else{ $color = ' class="text-success" ';} 
+echo "<td align='center' $color>$dato1[0]</td>";}
 
 mysql_select_db($db);
 echo "</tr>"; 
@@ -173,7 +177,7 @@ while ($esta=mysql_fetch_array($est)){
 		for($j = 1;$j<=$i;$j++) {
 	$x_real=$sumanotas[$j]/$t_alumnos;
 	$x=$sumanotas[$j]/($aprobados[$j]+$suspensos[$j]);
-	echo "<td align='center'><b>"; redondeo($x_real); echo"</b> ("; redondeo($x); echo")</td>";
+	echo "<td align='center'><b>"; redondeo($x_real); echo"</b></td>";
 							}
 
 
@@ -183,14 +187,13 @@ while ($esta=mysql_fetch_array($est)){
 							}
 
 
-	echo "</tr><tr class='warning'><td colspan='3' align='right' style='font-weight:bold;'>Suspensos</td>";
+	echo "</tr><tr class='error'><td colspan='3' align='right' style='font-weight:bold;'>Suspensos</td>";
 								for($j = 1;$j<=$i;$j++) {
 	  $t_s[$j]=$t_alumnos-$aprobados[$j];
-	echo "<td align='center'>$t_s[$j] ($suspensos[$j])</td>";
+	echo "<td align='center'>$t_s[$j]</td>";
 						}
   
 	echo "</tr>";	
 echo '</table>';
-echo "<p class='help-block' align=center>(*)  ---> Entre par&eacute;ntesis si no contamos las notas que sean 0</p>";
 echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary'>";	
 ?>
