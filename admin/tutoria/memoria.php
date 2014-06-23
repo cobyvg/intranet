@@ -25,8 +25,6 @@ exit;
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
-    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
     <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
     <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
 <script language="JavaScript">
@@ -71,20 +69,14 @@ if (isset($_POST['nivel'])) {
 elseif (isset($_GET['nivel'])) {
 	$nivel = $_GET['nivel'];
 } 
-else
-{
-$nivel="";
-}
+
 if (isset($_POST['grupo'])) {
 	$grupo = $_POST['grupo'];
 }
 elseif (isset($_GET['grupo'])) {
 	$grupo = $_GET['grupo'];
 } 
-else
-{
-$grupo="";
-}
+
 if (isset($_GET['tutor'])) {
 	$tutor = $_GET['tutor'];
 }
@@ -102,9 +94,28 @@ if (isset($_POST['observaciones1'])) {
 if (isset($_POST['observaciones2'])) {
 	$observaciones2 = $_POST['observaciones2'];
 }
+$grupo = strtoupper($grupo);
 if ($_POST['imp_memoria'] == "Enviar datos") {
-	
+	include("../../menu.php");
+}
+?>
+<br />
+<div style="width:960px;margin:auto;padding:25px; border:1px solid #ddd">
+<h3 align="center">
+ Tutoría del grupo: <? echo "$nivel-$grupo";?> <br /><small>Tutor: <? echo $tutor; ?></small></h2>
+ <br />
+
+ <?
+if ($_POST['imp_memoria'] == "Enviar datos") {
+
 	mysql_query("update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '$tutor'");
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Las observaciones que has redactado han sido guardadas. Puedes añadir y editar el texto tantas veces como quieras. O puedes volver a la página de la memoria e imprimirla para entregarla en Jefatura.
+</div></div><br />';
+	echo '<center><input type="button" value="Volver a la Memoria de Tutoría" name="boton" onclick="history.back(1)" class="btn btn-primary" /></center>';
+	echo "</div>";
+	exit();
 }
 $lista = mysql_list_fields($db,"FTUTORES");
 $col_obs = mysql_field_name($lista,3);
@@ -112,13 +123,7 @@ if ($col_obs=="observaciones1") { }else{
 	mysql_query("ALTER TABLE  `FTUTORES` ADD  `observaciones1` TEXT NOT NULL ,
 						        ADD  `observaciones2` TEXT NOT NULL");
 }
-$grupo = strtoupper($grupo);
-?>
-<div style="width:900px;margin:auto;padding:25px; border:1px solid #ddd">
-<h3 align="center">
- Tutoría del grupo: <? echo "$nivel-$grupo";?> <br /><small>Tutor: <? echo $tutor; ?></small></h2>
- <br />
- <?
+
  $obs1=mysql_query("select observaciones1, observaciones2 from FTUTORES where tutor = '$tutor'");
  $obs2=mysql_fetch_array($obs1);
  if (empty($obs2[0]) and empty($obs[1]) and date('m')=='06') {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.open('memoria.php?nivel=$nivel&tutor=$tutor&grupo=$grupo&imprimir=1#observaciones',null,'')\"";}
@@ -557,14 +562,14 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 <input type="hidden" name="nivel" value="<? echo $nivel;?>">
 <input type="hidden" name="grupo" value="<? echo $grupo;?>">
 <br />
-<input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-danger no_imprimir">
+<input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-danger btn-block no_imprimir">
 </form>
 <?
 if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
 {
 ?>
 <br />
-  <p align="center">En <?php echo $localidad_del_centro; ?> a   <? $today = date("d") . "/" . date("m") . "/" . date("Y"); echo $today;?></p>
+  <p align="center">En Estepona a   <? $today = date("d") . "/" . date("m") . "/" . date("Y"); echo $today;?></p>
   <br>
 <p align="center">EL Tutor</p>
 <br>
