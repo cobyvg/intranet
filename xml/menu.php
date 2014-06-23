@@ -68,6 +68,7 @@ Importar Asignaturas</a></li>
 </a></li>
 <li><a href="../admin/matriculas/index.php" class="enlacelateral">Matriculación de alumnos
 </a></li>
+<li><a href="jefe/informes/accesos_alumnos.php" class="enlacelateral">Informe de accesos</a></li>
 <hr>
 <li class="nav-header">Bases de datos</li>
 <li><a href="jefe/copia_db/dump_db.php" class="enlacelateral">Copia de seguridad de la Base de datos</a></li>
