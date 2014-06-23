@@ -76,7 +76,7 @@ if (mysql_num_rows($result) > 0)
         <?
 	if(($row->contact == $profesor) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
 		?>
-<TD nowrap><a href="add.php?id=<? echo $row->id; ?>"  style="color:#08c"><i class="icon icon-pencil" rel="Tooltip" title='Editar la noticia'> </i></a> <a href="list.php?id=<? echo $row->id; ?>&fech_princ=<? echo $row->timestamp;?>&borrar=1"  style="color:#990000"> <i class="icon icon-trash" rel="Tooltip" title='Borrar noticia de la lista' onClick='return confirmacion();'> </i></a></td>
+<TD nowrap><a href="add.php?id=<? echo $row->id; ?>"  style="color:#08c"><i class="fa fa-pencil" rel="Tooltip" title='Editar la noticia'> </i></a> <a href="list.php?id=<? echo $row->id; ?>&fech_princ=<? echo $row->timestamp;?>&borrar=1"  style="color:#990000"> <i class="fa fa-trash-o" rel="Tooltip" title='Borrar noticia de la lista' onClick='return confirmacion();'> </i></a></td>
 <?
 		}
 		?>

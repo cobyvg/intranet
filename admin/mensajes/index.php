@@ -93,10 +93,10 @@ return false;
       </style>
       
       <ul class="nav nav-tabs">
-        <li><a href="redactar.php" class="btn-danger"><span class="icon icon-edit"></span> Redactar mensaje</a></li>
-        <li><a href="correo.php" class="btn-info"><span class="icon icon-envelope-alt"></span> Redactar correo</a></li>
-        <li <?php echo $active1; ?>><a href="?inbox=recibidos"><span class="icon icon-inbox"></span> Recibidos</a></li>
-        <li <?php echo $active2; ?>><a href="?inbox=enviados"><span class="icon icon-reply"></span> Enviados</a></li>
+        <li><a href="redactar.php" class="btn-danger"><span class="fa fa-pencil-square-o"></span> Redactar mensaje</a></li>
+        <li><a href="correo.php" class="btn-info"><span class="fa fa-envelope-o"></span> Redactar correo</a></li>
+        <li <?php echo $active1; ?>><a href="?inbox=recibidos"><span class="fa fa-inbox"></span> Recibidos</a></li>
+        <li <?php echo $active2; ?>><a href="?inbox=enviados"><span class="fa fa-reply"></span> Enviados</a></li>
       </ul>
       
       <table class="table table-striped table-hover table-condensed table-datatable">
@@ -121,9 +121,9 @@ return false;
         ?>
           <tr> 
             <td width="25%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[3]; ?><?php if(!$leido) echo '</strong>'; ?></a></td>        
-            <td width="55%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[1]; if($pos !== false) echo ' <span class="pull-right icon icon-paperclip icon-large"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
+            <td width="55%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[1]; if($pos !== false) echo ' <span class="pull-right fa fa-paperclip fa-lg"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
             <td width="15%" nowrap><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php echo fecha_actual2($row[0]); ?></a><?php if(!$leido) echo '</strong>'; ?></td>
-            <td width="5%"><a class="link-msg" href="?inbox=<?php echo $_buzon; ?>&delete=<? echo $row[4] ;?>" onclick="return confirm('Esta acción eliminará permanentemente el mensaje seleccionado ¿Está seguro que desea continuar?');"><span class="icon icon-trash icon-large"></span></a></td>
+            <td width="5%"><a class="link-msg" href="?inbox=<?php echo $_buzon; ?>&delete=<? echo $row[4] ;?>" onclick="return confirm('Esta acción eliminará permanentemente el mensaje seleccionado ¿Está seguro que desea continuar?');"><span class="fa fa-trash-o fa-lg"></span></a></td>
           </tr>
       	<?php endwhile; ?>
       	</tbody>

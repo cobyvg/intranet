@@ -192,9 +192,9 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
         if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
 	echo "<td><input type='checkbox' disabled $chj></td><td><input type='checkbox' disabled $cho></td><td><input type='checkbox' disabled $cht></td><td><input type='checkbox' disabled $chs></td>";
         }
-	echo "<td align='center' class='no_imprimir'><a href='index2.php?claveal=$claveal&mes=$mes&inf=1'> <i class='icon icon-pencil'> </i></a>";
+	echo "<td align='center' class='no_imprimir'><a href='index2.php?claveal=$claveal&mes=$mes&inf=1'> <i class='fa fa-pencil'> </i></a>";
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
-		echo "<a href='index2.php?claveal=$claveal&mes=$mes&del=1'> <i class='icon icon-trash' onClick='return confirmacion();'> </i></a>";
+		echo "<a href='index2.php?claveal=$claveal&mes=$mes&del=1'> <i class='fa fa-trash-o' onClick='return confirmacion();'> </i></a>";
 }
 
 	echo "</td>";

@@ -172,7 +172,7 @@ if ($row = mysql_fetch_array($result))
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';
 		}
-		echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='icon icon-search' rel='Tooltip' title='Ver detalles'> </i> ";
+		echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search' rel='Tooltip' title='Ver detalles'> </i> ";
 		echo '</a></td></tr>';
 	} while($row = mysql_fetch_array($result));
 	echo "</tbody></table></font></center>\n";

@@ -454,7 +454,7 @@ input[type=number]::-webkit-inner-spin-button {
 		<div class="well-transparent well-small" align="left">
 		<legend><small>Operaciones básicas</small>
 		<a data-toggle="modal" href="#ayuda2"> <i
-			class="icon icon-large icon-border icon-question-sign icon-large pull-right"
+			class="fa fa-question-circle fa-lg fa-border fa-lg pull-right"
 			style="color: #888"> </i> </a>
 		<div class="modal hide fade" id="ayuda2" style="display: inline">
 		<div class="modal-header">
@@ -476,10 +476,10 @@ input[type=number]::-webkit-inner-spin-button {
 	
 	echo '<ul class="no_imprimir unstyled">';
 	$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1&nom_asig=$nom_asig";
-	   echo '<li><i class="icon icon-user icon-large no_imprimir" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." rel="Tooltip"></i> &nbsp;<a href="'.$mens1.'">Seleccionar alumnos</a></li>';
-	   echo '<li><i class="icon icon-print icon-large no_imprimir"  rel="Tooltip" title="Imprimir la tabla de alumnos con los datos registrados" onclick="print()"';
+	   echo '<li><i class="fa fa-user fa-lg no_imprimir" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." rel="Tooltip"></i> &nbsp;<a href="'.$mens1.'">Seleccionar alumnos</a></li>';
+	   echo '<li><i class="fa fa-print fa-lg no_imprimir"  rel="Tooltip" title="Imprimir la tabla de alumnos con los datos registrados" onclick="print()"';
 	   echo '\'" style="cursor: pointer;"> </i> <a onclick="print()" style="cursor: pointer;">Imprimir tabla</a></li>';
-	   echo '<li><i class="icon icon-plus-sign icon-large no_imprimir" rel="Tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';
+	   echo '<li><i class="fa fa-plus-circle fa-lg no_imprimir" rel="Tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';
 	   echo $mens2;
 	   echo '\'" style="cursor: pointer;"> </i> <a href="'.$mens2.'">Nueva columna de datos</a></li>';
 	   echo '';
@@ -492,7 +492,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 
 		<a data-toggle="modal" href="#ayuda"> <i
-			class="icon icon-large icon-border icon-question-sign icon-large pull-right"
+			class="fa fa-question-circle fa-lg fa-border fa-lg pull-right"
 			style="color: #888"> </i> </a>
 		<div class="modal hide fade" id="ayuda" style="display: inline">
 		<div class="modal-header">
@@ -532,7 +532,7 @@ input[type=number]::-webkit-inner-spin-button {
 					$pon0=mysql_fetch_array($pon);
 					$pond= $pon0[0];
 					$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curso&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
-					$colum1[4] ? $icon_eye = '<i class="icon icon-eye-open" rel="Tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="icon icon-eye-close" rel="Tooltip" title="Columna oculta en la página pública del Centro"></i>';
+					$colum1[4] ? $icon_eye = '<i class="fa fa-eye" rel="Tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" rel="Tooltip" title="Columna oculta en la página pública del Centro"></i>';
 					echo "<tr><td nowrap>$n_col &nbsp;&nbsp;$icon_eye </td><td><a href='$mens0'>$nombre</a></td>";
 					echo "<td>";
 					?> &nbsp;&nbsp;<input name="<? echo $id;?>" type="checkbox"

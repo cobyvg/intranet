@@ -56,9 +56,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activ3 = ' class="active" 
   <div class="navbar-inner">
     <div class="container-fluid">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="fa fa-bars"></span>
       </a>
       <a class="brand" href="http://<? echo $dominio;?>/intranet/index0.php">Intranet del <?php echo $nombre_del_centro; ?></a>
       <div class="nav-collapse collapse">
@@ -73,12 +71,12 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activ3 = ' class="active" 
         <ul class="nav pull-right">
         	<li class="dropdown">
         		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        			<i class="icon-user icon-white"></i> <? echo $idea; ?> <b class="caret"></b>
+        			<i class="fa fa-user "></i> <? echo $idea; ?> <b class="caret"></b>
         		</a>
         		<ul class="dropdown-menu">
-        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="icon-edit"></i> Cambiar contraseña</a></li>
+        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="fa fa-pencil-square-o"></i> Cambiar contraseña</a></li>
         			<li class="divider"></li>
-        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="icon-off"></i> Cerrar sesión</a></li>
+        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
         		</ul>
         	</li>
         </ul>
@@ -95,7 +93,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
     echo "<div  align='center'>";
     
     echo ' <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
-        <i class="icon-spinner icon-spin icon-2x pull-left"></i> Cargando los datos...
+        <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
       </div>
    ';
     echo "</div>";
@@ -202,7 +200,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 				}	
 				
 				if($expulsion > 0){$bgcolor="style='background-color:#FFFF99;'";}		
-				if($recibido == '1'){$comentarios1="<i class='icon icon-ok' rel='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='icon icon-warning-sign'  rel='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
+				if($recibido == '1'){$comentarios1="<i class='fa fa-check' rel='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle'  rel='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
 		echo "<tr>
 		<td $bgcolor nowrap>";
 		$foto="";
@@ -217,9 +215,9 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 		<td style='vertical-align:middle' style='vertical-align:middle'><center>$rownumero</center></td>
 		<td style='vertical-align:middle'>$caducada</td>
 		<td nowrap style='vertical-align:middle'>$comentarios1 $comentarios</td><td nowrap style='vertical-align:middle'>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' style='margin-top:5px;color:brown;'><i class='icon icon-trash'  rel='tooltip' title='Borrar el registro' onClick='return confirmacion();'> </i></a>&nbsp;&nbsp;";}	
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o'  rel='tooltip' title='Borrar el registro' onClick='return confirmacion();'> </i></a>&nbsp;&nbsp;";}	
 
-		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='icon icon-search' rel='tooltip' title='Detalles del problema'> </i></A></td>
+		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search' rel='tooltip' title='Detalles del problema'> </i></A></td>
 		<td style='vertical-align:middle'>";
 		//echo "$expulsion >  $expulsionaula";
 		if (stristr($_SESSION['cargo'],'1')) {

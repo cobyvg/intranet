@@ -46,7 +46,7 @@ include("../../menu.php");
     <INPUT type="text" name="nombre" size="30" maxlength="25" alt="Nombre" class="input-block-level" />
   </label>
   <p class="help-block">No es necesario excribir el nombre o los apellidos completos de los alumnos.</p>
- <div align="center"> <button type="submit" name="submit0" value="Buscar alumnos" class="btn btn-primary btn-block"><i class="icon icon-search"></i> Buscar alumnos</button></div> 
+ <div align="center"> <button type="submit" name="submit0" value="Buscar alumnos" class="btn btn-primary btn-block"><i class="fa fa-search"></i> Buscar alumnos</button></div> 
 </div>
 </form>
 <div class="span4 well well-large" >
@@ -58,7 +58,7 @@ include("../../menu.php");
     </SELECT>
   </label>
   <p class="help-block">Mantén apretada la tecla Ctrl mientras haces click con el ratón para seleccionar múltiples grupos.</p>
- <div align="center"> <button type="submit" name="submit1" value="Ver datos" class="btn btn-primary"><i class="icon icon-search"></i> Ver datos</button>  <button type="submit" name="submit2" value="PDF para imprimir" class="btn btn-primary" ><i class="icon icon-print"></i> PDF para imprimir</button></div>
+ <div align="center"> <button type="submit" name="submit1" value="Ver datos" class="btn btn-primary"><i class="fa fa-search"></i> Ver datos</button>  <button type="submit" name="submit2" value="PDF para imprimir" class="btn btn-primary" ><i class="fa fa-print"></i> PDF para imprimir</button></div>
  </FORM>
  
   </div>

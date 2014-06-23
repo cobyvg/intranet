@@ -82,7 +82,7 @@ $fondo = "";
 if($informe[0] == $asignatura){$fondo="background-color:#ffc40d;";}
 	echo "<tr><td id='filasecundaria' style='color:black;$fondo;' nowrap >$informe[0]</td>
 		  <td style='$fondo'>$informe[1]</td>";
-	echo "<td><a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id_alumno&asignatura=$asignatura&profesor=$profesor'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();'> </i> </a></td>";
+	echo "<td><a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id_alumno&asignatura=$asignatura&profesor=$profesor'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();'> </i> </a></td>";
 	echo"</tr>";
 }
 echo"</table>";

@@ -8,7 +8,7 @@ $n_fijas = mysql_num_rows ( $result );
 if ($n_fijas > "0") {
 	?>
 <div class='well'>
-<legend><i class="icon-bookmark"> </i> Sección fija</legend>
+<legend><i class="fa fa-bookmark"> </i> Sección fija</legend>
 	<?
 }
 

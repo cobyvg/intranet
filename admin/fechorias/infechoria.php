@@ -171,7 +171,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 <label>Fecha:<br />
 <div class="input-append" >
   <input name="fecha" type="text" class="input input-block-level" data-date-format="dd-mm-yyyy" id="fecha" value="<?if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 </label> 
 <label> Gravedad:<br />

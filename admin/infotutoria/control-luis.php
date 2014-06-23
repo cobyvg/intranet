@@ -119,7 +119,7 @@ echo "<p>$row[6] --> <span style='color:#08c'>$row[4] $row[5]</span> --> $row[2]
 ?>
 <ul  class='unstyled'>
 <?
-echo "<li><i class='icon icon-user'> </i> $profesores ==> $nomasi[0]</li>";
+echo "<li><i class='fa fa-user'> </i> $profesores ==> $nomasi[0]</li>";
 echo "</ul>";
 echo "<br />";
 } 

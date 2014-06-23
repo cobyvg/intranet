@@ -76,9 +76,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
   <div class="navbar-inner">
     <div class="container-fluid">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="fa fa-bars"></span>
       </a>
       <a class="brand" href="http://<? echo $dominio;?>/intranet/index0.php">Intranet del <?php echo $nombre_del_centro; ?></a>
       <div class="nav-collapse collapse">
@@ -93,12 +91,12 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
         <ul class="nav pull-right">
         	<li class="dropdown">
         		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        			<i class="icon-user icon-white"></i> <? echo $idea; ?> <b class="caret"></b>
+        			<i class="fa fa-user "></i> <? echo $idea; ?> <b class="caret"></b>
         		</a>
         		<ul class="dropdown-menu">
-        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="icon-edit"></i> Cambiar contraseña</a></li>
+        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="fa fa-pencil-square-o"></i> Cambiar contraseña</a></li>
         			<li class="divider"></li>
-        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="icon-off"></i> Cerrar sesión</a></li>
+        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
         		</ul>
         	</li>
         </ul>
@@ -155,7 +153,7 @@ include("menu.php");
 		<td style="text-align: left" nowrap>
 		<?
 		if ($list[7] == "SI") {
-			echo '<i class="icon-comment" style="margin-left:6px;" rel="tooltip" title="Se ha enviado SMS de advertencia"></i>';
+			echo '<i class="fa fa-comment" style="margin-left:6px;" rel="tooltip" title="Se ha enviado SMS de advertencia"></i>';
 		}
 		?>
 		</td>
@@ -166,7 +164,7 @@ include("menu.php");
 		<td><? echo $list[1].', '.$list[2];   ?></td>
 		<td><? echo $list[3];   ?></td>
 		<td style="text-align: center"><? echo $list[4];   ?></td>
-		<td style="text-align: center"><i class="icon-ok"></i></td>
+		<td style="text-align: center"><i class="fa fa-check"></i></td>
 
 		<? } ?>
 	</tr>
@@ -188,11 +186,11 @@ consultarla.</div>
 	<? }
 	else {?>
 <hr>
-<button class="btn btn-danger" type="submit" name="borrar" value="Borrar"><i class="icon-trash icon-white" onClick='return confirmacion();'></i> Borrar</button>
+<button class="btn btn-danger" type="submit" name="borrar" value="Borrar"><i class="fa fa-trash-o " onClick='return confirmacion();'></i> Borrar</button>
 &nbsp;&nbsp; &nbsp;&nbsp;
-<button class="btn btn-info" type="submit" name="sms" value="sms"><i class="icon-play-circle icon-white"></i> Enviar SMS</button>
+<button class="btn btn-info" type="submit" name="sms" value="sms"><i class="fa fa-play-circle "></i> Enviar SMS</button>
 &nbsp;&nbsp; &nbsp;&nbsp;
-<button class="btn btn-warning" type="submit" name="registro" value="registro"><i class="icon-play-circle icon-white"></i> Registrar Amonestaciones</button>
+<button class="btn btn-warning" type="submit" name="registro" value="registro"><i class="fa fa-play-circle "></i> Registrar Amonestaciones</button>
 
 	<? } ?></form>
 
@@ -201,7 +199,7 @@ consultarla.</div>
 <input type="hidden" name="fecha" value="<? echo $fecha; ?>" />
 <input type="hidden" name="fecha_act" value="<? echo $fecha_act; ?>" />
 <button class="btn btn-success" type="submit" name="submit2"
-	value="Lista del Curso"><i class="icon-file  icon-white"></i> Listado
+	value="Lista del Curso"><i class="fa fa-file-o  "></i> Listado
 en pdf</button>
 </form>
 	<? }  ?> 

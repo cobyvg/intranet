@@ -123,7 +123,7 @@ $profe = mysql_query(" SELECT distinct departamento FROM departamentos where dep
 	echo "<OPTION>$departamen</OPTION>";	
 	} 
   echo "</select>
-  </td><td><a href='gest_dep.php?borrar=1&departament=$dep[0]'><i class='icon icon-trash icon-large' onClick='return confirmacion();'></i></a></td></tr>";	
+  </td><td><a href='gest_dep.php?borrar=1&departament=$dep[0]'><i class='fa fa-trash-o fa-lg' onClick='return confirmacion();'></i></a></td></tr>";	
   }
 ?>
 </tbody>

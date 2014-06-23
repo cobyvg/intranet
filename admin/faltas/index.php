@@ -163,7 +163,7 @@ printf ("<OPTION></OPTION>");
          <label>Inicio<br />
  <div class="input-append" style="display:inline;" >
             <input name="fecha4" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha4" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 
 </label>
@@ -171,7 +171,7 @@ printf ("<OPTION></OPTION>");
 <label>Fin<br />
  <div class="input-append" style="display:inline;" >
             <input name="fecha3" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha3" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
     </label> 
 
@@ -196,7 +196,7 @@ printf ("<OPTION></OPTION>");
          <label>Inicio<br />
  <div class="input-append" style="display:inline;" >
             <input name="fecha10" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha10" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 
 </label>
@@ -204,7 +204,7 @@ printf ("<OPTION></OPTION>");
 <label>Fin<br />
  <div class="input-append" style="display:inline;">
             <input name="fecha20" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha20" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 
     </label> <hr />

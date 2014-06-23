@@ -42,7 +42,7 @@ if (empty($buscar)) {
 <br />
             <form method="post" action="buscar.php">
                   <input type="text" name="expresion" id="exp" value="<? echo $expresion;?>" class="input-xlarge" />
-                  <br /><br /><button type="submit"  name="buscar" value="Buscar datos" class="btn btn-primary"><i class="icon icon-search icon-white"> </i> Buscar datos </button>
+                  <br /><br /><button type="submit"  name="buscar" value="Buscar datos" class="btn btn-primary"><i class="fa fa-search "> </i> Buscar datos </button>
             </form>
 </div>
 <br />
@@ -96,7 +96,7 @@ $fecha=$dat[8];
 $id=$dat[9];
 $departamento=$dat[10];
 ?>
-<tr><td><? echo $familia;?></td><td><? echo $clase;?></td><td><? echo $lugar;?></td><td><? echo $descripcion;?></td><td><? echo $marca;?></td><td><? echo $modelo;?></td><td><? echo $serie;?></td><td><? echo $unidades;?></td><td><? echo $departamento;?></td><td><a href="introducir.php?id=<? echo $id;?>&eliminar=1"><i class="icon icon-trash" title="Borrar" onClick='return confirmacion();'> </i> </a></td><td><a href="editar.php?id=<? echo $id;?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Modificar"> </i> </a></td></tr>
+<tr><td><? echo $familia;?></td><td><? echo $clase;?></td><td><? echo $lugar;?></td><td><? echo $descripcion;?></td><td><? echo $marca;?></td><td><? echo $modelo;?></td><td><? echo $serie;?></td><td><? echo $unidades;?></td><td><? echo $departamento;?></td><td><a href="introducir.php?id=<? echo $id;?>&eliminar=1"><i class="fa fa-trash-o" title="Borrar" onClick='return confirmacion();'> </i> </a></td><td><a href="editar.php?id=<? echo $id;?>&departamento=<? echo $departamento;?>"><i class="fa fa-pencil" title="Modificar"> </i> </a></td></tr>
 <?
 }
 	echo '</table>';

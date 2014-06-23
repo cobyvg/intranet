@@ -82,14 +82,14 @@ $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS
          <label> Inicio: 
       <div class="input-append" >
             <input name="fecha12" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="fecha12" value="<?if($fecha12){ echo $fecha12;}?>" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Fin: 
  <div class="input-append" >
   <input name="fecha22" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="fecha22" value="<?if($fecha22){ echo $fecha22;}?>" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
       </label>
  <hr>

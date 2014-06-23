@@ -109,7 +109,7 @@ if (mysql_num_rows($result0)>0) {
 		$tutoria=$row0[9];
 		if (strlen($jefatura)>0) {$chj=" checked ";}else{$chj="";}if(strlen($orientacion)>0) {$cho=" checked ";}else{$cho="";}if (strlen($tutoria)>0) {$cht=" checked ";}else{$cht="";}
 		echo "<tr><td >$apellidos, $nombre</td><td>$nivel-$grupo</td><td>$mes</td><td>$numero</td>";
-		echo "<td><a href='absentismo.php?claveal=$claveal&mes=$mes&inf=1&tutor=$tutor'> <i class='icon icon-search' title='Detalles'> </i> </a>";
+		echo "<td><a href='absentismo.php?claveal=$claveal&mes=$mes&inf=1&tutor=$tutor'> <i class='fa fa-search' title='Detalles'> </i> </a>";
 		echo "</td>";
 
 		echo "</tr>";

@@ -255,7 +255,7 @@ if (mysql_num_rows($h_hoy0) > 0) {
 			echo "<tr><td>$h_hoy[2]</td><td>$fecha_sp</td>
 			<td>";
 			if ($h_profe==$_SESSION['profi']) {
-			echo "<a href='index.php?id=$h_hoy[0]&borrar=1&profeso=$profeso&n_dia=$n_dia&hora=$hora' style='margin-top:5px;color:brown;'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();'> </i> </a>";				
+			echo "<a href='index.php?id=$h_hoy[0]&borrar=1&profeso=$profeso&n_dia=$n_dia&hora=$hora' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();'> </i> </a>";				
 			}
 			echo "</td></tr>";
 	}

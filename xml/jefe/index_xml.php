@@ -36,12 +36,12 @@ include("../../menu.php");
 				?>
 				<div class="alert alert-warning">
 				  
-				  <legend><i class="icon icon-warning-sign"> </i> Advertencia:</legend>Ya existe información relativa a este curso escolar. Este proceso sustituirá parte de la información almacenada. Los cambios realizados manualmente en las dependencias y departamentos no se verán afectadas. Es recomendable realizar una <a class="alert-link" href="#">copia de seguridad</a> antes de proceder a la importación de los datos.
+				  <legend><i class="fa fa-exclamation-triangle"> </i> Advertencia:</legend>Ya existe información relativa a este curso escolar. Este proceso sustituirá parte de la información almacenada. Los cambios realizados manualmente en las dependencias y departamentos no se verán afectadas. Es recomendable realizar una <a class="alert-link" href="#">copia de seguridad</a> antes de proceder a la importación de los datos.
 				</div>
 				<?php } 
 				elseif(isset($_FILES['ExpGenHor'])){
 					echo '<div class="alert alert-success">
-				  <i class="icon icon-info-sign"> </i> Los datos del Centro se han importado correctamente en la Base de datos.
+				  <i class="fa fa-info-circle"> </i> Los datos del Centro se han importado correctamente en la Base de datos.
 				</div>';
 				}
 				?>

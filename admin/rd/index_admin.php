@@ -69,17 +69,17 @@ $n_col++;
         <?
 	if(($row->departamento == $_SESSION['dpt']) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
 		?>
-<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
-<a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px;"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
+<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
+<a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px;"> <i class="fa fa-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
 <? 
 if ($row->impreso == '0') {
 ?>
-<i class="icon-warning-sign" rel="Tooltip" title='El Acta aún no ha sido imprimida.'> </i>
+<i class="fa fa-exclamation-triangle" rel="Tooltip" title='El Acta aún no ha sido imprimida.'> </i>
 <?
 }
 else{
 ?>
-<i class="icon icon-ok" rel="Tooltip" title='El Acta ya ha sido imprimida.'> </i>
+<i class="fa fa-check" rel="Tooltip" title='El Acta ya ha sido imprimida.'> </i>
 <?
 }
 ?>

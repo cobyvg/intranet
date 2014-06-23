@@ -40,7 +40,7 @@ else{
                 <label>Fecha de la actividad:<br /> 
                       <div class="input-append" >
             <input name="fecha_act" type="text" class="input input-small" value="<? echo $fecha_act; ?>" data-date-format="dd-mm-yyyy" id="fecha_act" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
               </label>
               <hr>

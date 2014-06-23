@@ -57,9 +57,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
   <div class="navbar-inner">
     <div class="container-fluid">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="fa fa-bars"></span>
       </a>
       <a class="brand" href="http://<? echo $dominio;?>/intranet/index0.php">Intranet del <?php echo $nombre_del_centro; ?></a>
       <div class="nav-collapse collapse">
@@ -74,12 +72,12 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
         <ul class="nav pull-right">
         	<li class="dropdown">
         		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        			<i class="icon-user icon-white"></i> <? echo $idea; ?> <b class="caret"></b>
+        			<i class="fa fa-user "></i> <? echo $idea; ?> <b class="caret"></b>
         		</a>
         		<ul class="dropdown-menu">
-        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="icon-edit"></i> Cambiar contraseña</a></li>
+        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="fa fa-pencil-square-o"></i> Cambiar contraseña</a></li>
         			<li class="divider"></li>
-        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="icon-off"></i> Cerrar sesión</a></li>
+        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
         		</ul>
         	</li>
         </ul>
@@ -313,7 +311,7 @@ mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now
 				}	
 				
 				if($expulsion > 0){$bgcolor="style='background-color:#FFFF99;'";}		
-				if($recibido == '1'){$comentarios1="<i class='icon icon-ok' title='recibido'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='icon icon-warning-sign' title='No recibido'> </i>";}else{$comentarios1="";}
+				if($recibido == '1'){$comentarios1="<i class='fa fa-check' title='recibido'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle' title='No recibido'> </i>";}else{$comentarios1="";}
 		echo "<tr>
 		<td $bgcolor nowrap>";
 		$foto="";
@@ -329,8 +327,8 @@ mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now
 		<td nowrap>$caducada</td>
 		<td nowrap>$comentarios1</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='fechorias.php?id=$id&borrar=1' style='margin-top:5px;color:brown;'><i class='icon icon-trash'  rel='tooltip' title='Borrar el registro' onClick='return confirmacion();' style='margin-right:10px;'> </i></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='icon icon-pencil' rel='tooltip' title='Editar el problema de convivencia' style='margin-right:5px;'> </i></A></div>";}	
-		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='icon icon-search'  rel='tooltip' title='Detalles concretos del problema' style='margin-right:5px;'> </i></A></td>
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='fechorias.php?id=$id&borrar=1' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o'  rel='tooltip' title='Borrar el registro' onClick='return confirmacion();' style='margin-right:10px;'> </i></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil' rel='tooltip' title='Editar el problema de convivencia' style='margin-right:5px;'> </i></A></div>";}	
+		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search'  rel='tooltip' title='Detalles concretos del problema' style='margin-right:5px;'> </i></A></td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";
 		if (stristr($_SESSION['cargo'],'1')) {

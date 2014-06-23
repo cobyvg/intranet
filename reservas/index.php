@@ -234,7 +234,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
    $event_event7 = stripslashes($row["event7"]);
     }
     }
-	echo "<p><i  class='icon-calendar'></i>&nbsp;$dayname - $current_day. </p>
+	echo "<p><i  class='fa fa-calendar'></i>&nbsp;$dayname - $current_day. </p>
 	 <a href=\"http://$dominio/intranet/reservas/jcal_admin/index.php
 	?year=$current_year&today=$current_day&month=$current_month&servicio=$servicio\">";
 

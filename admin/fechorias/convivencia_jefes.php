@@ -131,7 +131,7 @@ echo '</div>
 	<label>Selecciona el Día 
 <div class="input-append" >
   <input name="fecha0" type="text" class="input input-block-level" value="<? echo $hoy0;?>" data-date-format="dd-mm-yyyy" id="fecha0" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div>   
 	</label>
     <label style="margin-left:35px;">
@@ -182,7 +182,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 		<td>$row[3]</td>
 		<td>$row[4]</td>
 		<td>$row[5]</td>
-		<td align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i title='Detalles' class='icon icon-search'> </i> </A>$comentarios</td>
+		<td align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i title='Detalles' class='fa fa-search'> </i> </A>$comentarios</td>
 		<td align='center'>
 	
 		<input type='checkbox' name='$row[8]' value='$row[8]-$ndia-$hora_dia' $ch /></td>
@@ -198,16 +198,16 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 		$asiste1 = mysql_query($asiste0);
 			$asiste = mysql_fetch_array($asiste1);
 			if ($asiste[1] == '0') {
-			echo "<center><i title='No trabaja' class='icon icon-warning-sign'> </i> </center";
+			echo "<center><i title='No trabaja' class='fa fa-exclamation-triangle'> </i> </center";
 			}
 			if ($asiste[1] == '1') {
-			echo "<center><i title='Trabaja' class='icon icon-ok'> </i> </center";
+			echo "<center><i title='Trabaja' class='fa fa-check'> </i> </center";
 			}
 		echo "</td>";
 	}
 	echo "<td>";
 	if (!empty($id0)) {
-		echo "<A HREF='convivencia_jefes.php?id=$id0&borrar=1&hoy=$hoy'><i title='Borrar' class='icon icon-trash' onClick='return confirmacion();'> </i> </A>";
+		echo "<A HREF='convivencia_jefes.php?id=$id0&borrar=1&hoy=$hoy'><i title='Borrar' class='fa fa-trash-o' onClick='return confirmacion();'> </i> </A>";
 	}
 	echo "</td><td>";
 	$foto="";

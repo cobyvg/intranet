@@ -36,7 +36,7 @@ include ("../menu.php");
 <div class="page-header">
   <h2>Administración <small> Perfiles de Profesores</small></h2>
 </div>
-<p align="left" class="help-block well" style="width:540px"><i class="icon icon-question-sign"> </i> Si necesitas información sobre los distintos perfiles de los profesores, puedes conseguirla colocando el cursor del ratón sobre los distintos tipos de perfiles (DACE, JD, Administ., Orienta, etc.).</p>
+<p align="left" class="help-block well" style="width:540px"><i class="fa fa-question-circle"> </i> Si necesitas información sobre los distintos perfiles de los profesores, puedes conseguirla colocando el cursor del ratón sobre los distintos tipos de perfiles (DACE, JD, Administ., Orienta, etc.).</p>
 </div>
 <br />
 <?
@@ -269,7 +269,7 @@ while ( $carg1 = mysql_fetch_array ( $carg0 ) ) {
 		echo "checked";
 	}
 	?> /></td>
-	<td><a href="cargos.php?borrar=1&dni_profe=<?echo $dni;?>"><i class="icon icon-trash icon-large" onClick='return confirmacion();'></i></a></td>
+	<td><a href="cargos.php?borrar=1&dni_profe=<?echo $dni;?>"><i class="fa fa-trash-o fa-lg" onClick='return confirmacion();'></i></a></td>
 	</tr>
 <?
 	}

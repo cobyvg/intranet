@@ -1,4 +1,4 @@
-<legend><i class="icon icon-pencil"> </i> Noticias</legend> 
+<legend><i class="fa fa-pencil"> </i> Noticias</legend> 
 <?
 $query = "SELECT id, slug, timestamp, content, clase, contact from noticias where pagina like '%1%' ORDER BY timestamp DESC LIMIT 0, 5";
 $result = mysql_query ( $query ) or die ( "Error in query: $query. " . mysql_error () );
@@ -45,7 +45,7 @@ Categoría:  <?
 
 ?>
 <br />
- <a href="admin/noticias/add.php" class="btn btn-primary"><i class="icon icon-plus-sign icon-white"></i>&nbsp;Añadir</a>&nbsp;&nbsp;&nbsp;
+ <a href="admin/noticias/add.php" class="btn btn-primary"><i class="fa fa-plus-circle "></i>&nbsp;Añadir</a>&nbsp;&nbsp;&nbsp;
 
-<a href="admin/noticias/list.php" class="btn btn-primary"><i class="icon icon-list-alt icon-white"></i>&nbsp;M&aacute;s Noticias </a>
+<a href="admin/noticias/list.php" class="btn btn-primary"><i class="fa fa-list-alt "></i>&nbsp;M&aacute;s Noticias </a>
     <hr /><br /> 

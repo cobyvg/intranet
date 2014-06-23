@@ -2,7 +2,7 @@
   <div class="accordion-group well">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
-        <i class="pull-right icon-chevron-down"></i>
+        <i class="pull-right fa fa-chevron-down"></i>
         Trabajo
       </a>
     </div>
@@ -18,7 +18,7 @@
           <li><a href="admin/cursos/chorarios.php">Horarios de profesores/grupos</a></li>
           <li>
             <a data-toggle="collapse" data-target="#fotos" style="cursor:pointer">
-              <i class="pull-right icon-chevron-down"></i>
+              <i class="pull-right fa fa-chevron-down"></i>
               Fotografías
             </a>
           </li>
@@ -31,7 +31,7 @@
           <li><a href="sms/index.php">Enviar SMS</a></li>
           <li>
             <a data-toggle="collapse" data-target="#tic" style="cursor:pointer">
-              <i class="pull-right icon-chevron-down"></i>
+              <i class="pull-right fa fa-chevron-down"></i>
               Centro TIC
             </a>
           </li>
@@ -47,7 +47,7 @@
           </div>
           <li>
             <a data-toggle="collapse" data-target="#reservas" style="cursor:pointer">
-              <i class="pull-right icon-chevron-down"></i>
+              <i class="pull-right fa fa-chevron-down"></i>
               Reservas de medios
             </a>
           </li>
@@ -72,7 +72,7 @@
   <div class="accordion-group well">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
-        <i class="pull-right icon-chevron-down"></i>
+        <i class="pull-right fa fa-chevron-down"></i>
         Otras cosas
       </a>
     </div>
@@ -91,7 +91,7 @@
   <div class="accordion-group well">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
-        <i class="pull-right icon-chevron-down"></i>
+        <i class="pull-right fa fa-chevron-down"></i>
         Otras páginas
       </a>
     </div>

@@ -439,9 +439,9 @@
 		},
 		headTemplate: '<thead>'+
 							'<tr>'+
-								'<th class="prev"><i class="icon-arrow-left"> </i></th>'+
+								'<th class="prev"><i class="fa fa-arrow-circle-o-left"> </i></th>'+
 								'<th colspan="5" class="switch"></th>'+
-								'<th class="next"><i class="icon-arrow-right"> </i></th>'+
+								'<th class="next"><i class="fa fa-arrow-circle-o-right"> </i></th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'

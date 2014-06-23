@@ -1,5 +1,5 @@
 <div class='well'>
-<legend><i class="icon-comment"> </i> Mensajes</legend>
+<legend><i class="fa fa-comment"> </i> Mensajes</legend>
     <?
 				$query = "SELECT ahora, asunto, id, recibidoprofe, texto from mens_profes, mens_texto where mens_texto.id = mens_profes.id_texto and profesor = '$pr' ORDER BY ahora DESC LIMIT 0, 5";
 				//echo $query;

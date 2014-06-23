@@ -214,17 +214,17 @@ $datos[2]= str_replace("\\","",$datos[2]);
         <?
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 ?>
- <?  if($datos[9] == '1'){echo ' <i class="icon icon-ok-sign" title="Confirmada"> </i> ';}else{echo ' <i class="icon icon-question-sign title="Sin confirmar""> </i> ';}?>
+ <?  if($datos[9] == '1'){echo ' <i class="fa fa-check-circle" title="Confirmada"> </i> ';}else{echo ' <i class="fa fa-question-circle title="Sin confirmar""> </i> ';}?>
     <a href="extraescolares.php?id=<? echo $datos[0];?>"><span style="color:#269">Seleccionar</a>
     <? } ?>
     </td>
     <td><? echo $mes2;?></td>
-    <td nowrap><a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1"> <i class="icon icon-search" title='Ver detalles de activida'> </i> </a>
+    <td nowrap><a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1"> <i class="fa fa-search" title='Ver detalles de activida'> </i> </a>
           <?
 		 // echo  $_SESSION['dpt']." == ".$datos[4];
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 ?>  
-    <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1"> <i class="icon icon-trash" title='Eliminar actividad' onClick='return confirmacion();'> </i> </a>
+    <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1"> <i class="fa fa-trash-o" title='Eliminar actividad' onClick='return confirmacion();'> </i> </a>
   <? } ?>
   
       <?
@@ -232,7 +232,7 @@ $datos[2]= str_replace("\\","",$datos[2]);
 ?>
   
    <? if($autoriz=="1"){}else{ ?> 
-    <a href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1"> <i class="icon icon-ok-circle" title='Autorizar actividad'> </i> </a>
+    <a href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1"> <i class="fa fa-check-circle" title='Autorizar actividad'> </i> </a>
     <? } ?>
 </td>
 <td nowrap>	
@@ -245,9 +245,9 @@ $datos[2]= str_replace("\\","",$datos[2]);
 	   if(ereg($cal_idact, $br)) {$si = "1";} else{$si = "0";}
 	   $n_idact = strstr($br,$cal_idact);
 // No hay nada registrado para ese día en el Calendario
-	    if(strlen($id[0]) == 0){echo " <a href='indexextra.php?id=$datos[0]&calendario=1'> <i class='icon icon-calendar'  title='Enviar al Calendario'> </i> </a>";}
+	    if(strlen($id[0]) == 0){echo " <a href='indexextra.php?id=$datos[0]&calendario=1'> <i class='fa fa-calendar'  title='Enviar al Calendario'> </i> </a>";}
 // hay datos en el Calendario pero la actividad no ha sido registrada.	
-		if(strlen($id[0]) > 0 and ($si == "0")){echo " <a href='indexextra.php?id=$datos[0]&act_calendario=1'> <i class='icon icon-arrow-up' title='Actualizar el Calendario'> </i> </a>";}?>
+		if(strlen($id[0]) > 0 and ($si == "0")){echo " <a href='indexextra.php?id=$datos[0]&act_calendario=1'> <i class='fa fa-arrow-o-up' title='Actualizar el Calendario'> </i> </a>";}?>
 		
 	  </td>
       <? }?>

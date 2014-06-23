@@ -1,4 +1,4 @@
-<legend> <i class="icon icon-search"></i> Buscar...</legend>
+<legend> <i class="fa fa-search"></i> Buscar...</legend>
 <form action="admin/noticias/buscar.php" method="POST" class="form-search">
   <input type="text" name="expresion" id="exp" class="search-query" placeholder="...en las Noticias y Mensajes" style="width:90%">
 </form>

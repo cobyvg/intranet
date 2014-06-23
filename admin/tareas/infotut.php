@@ -88,7 +88,7 @@ $año = $hoy[2];
          <label>Fecha prevista de la ausencia<br />
  <div class="input-append" style="display:inline;" >
             <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 
 </label>

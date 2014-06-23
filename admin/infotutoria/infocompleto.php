@@ -94,7 +94,7 @@ if($informe[0] == $c_asig){$fondo="background-color:#dff0d8;";}
 		  <td>$informe[1]</td>";
 		if (strlen($fondo) > '0') {
 		echo "<td><a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id&asignatura=$asignatura&profesor=$informe[3]'><i
-		class='icon icon-trash' title='Borrar'></a></td>";
+		class='fa fa-trash-o' title='Borrar'></a></td>";
 	}
 	echo"</tr>";
 }

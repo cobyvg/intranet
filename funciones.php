@@ -93,7 +93,7 @@ echo "</table><hr>";
  $profe = "SELECT  distinct PROFESOR, MATERIA FROM profesores, alma where alma.unidad = profesores.grupo and alma.nivel = '$NIVEL1' and alma.grupo = '$GRUPO1'";
  $profeq = mysql_query($profe);
  while($profer = mysql_fetch_array($profeq)){
- echo "<li><i class='icon icon-user'> </i> 
+ echo "<li><i class='fa fa-user'> </i> 
 $profer[1] ==>  $profer[0]</li>";}
 echo "</ul>";
 }

@@ -230,11 +230,11 @@ while($item = mysql_fetch_row($it))
 <?
 if ($j_s == '') {
 ?>
-<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="icon icon-trash" title="Borrar registro" onClick='return confirmacion();'> </i> </a>
+<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="fa fa-trash-o" title="Borrar registro" onClick='return confirmacion();'> </i> </a>
 <?
 }
 ?>
-</td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Editar registro"> </i> </a></td></tr>
+</td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="fa fa-pencil" title="Editar registro"> </i> </a></td></tr>
 <?
 }
 	echo '

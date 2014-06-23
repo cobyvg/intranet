@@ -64,7 +64,7 @@ if ($today > $numdays) {
 }
 
 //Nombre del Mes
-echo "<legend><i class='icon icon-calendar-empty'> </i> " . $monthlong . "</legend>";
+echo "<legend><i class='fa fa-calendar-o'> </i> " . $monthlong . "</legend>";
 echo "<table class='table table-bordered table-condensed table-centered'><thead><tr>";
 
 //Nombres de Días
@@ -165,7 +165,7 @@ $sql_diario.=") and date(fecha) >= '$rango0' and date(fecha) <= '$rango8' and ca
 
 $diari = mysql_query($sql_diario);
 if (mysql_num_rows ( $diari ) > 0){
-	echo "<legend style='margin-bottom:3px;'><small style='color:#777'><i class='icon icon-calendar'> </i>Calendario personal</small></legend>";
+	echo "<legend style='margin-bottom:3px;'><small style='color:#777'><i class='fa fa-calendar'></i> Calendario personal</small></legend>";
 	while ( $diar = mysql_fetch_array ( $diari ) ) {
 		$n_reg+=1;
 		$fecha_reg = cambia_fecha($diar[1]);
@@ -177,7 +177,7 @@ $query = "SELECT distinct title, eventdate, event FROM cal WHERE date(eventdate)
 $result = mysql_query ( $query );
 
 if (mysql_num_rows ( $result ) > 0) {
-	echo "<legend style='margin-bottom:3px;'><small style='color:#777'><i class='icon icon-calendar'> </i>Calendario del Centro</small></legend>";
+	echo "<legend style='margin-bottom:3px;'><small style='color:#777'><i class='fa fa-calendar'></i> Calendario del Centro</small></legend>";
 	$SQLcurso1 = "select distinct grupo from profesores where profesor = '$pr'";
 	//echo $SQLcurso1;
 	$resultcurso1 = mysql_query ( $SQLcurso1 );

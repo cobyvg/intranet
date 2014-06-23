@@ -254,21 +254,21 @@ if (!(is_writable('config.php'))) {
 <form action="index.php" method="post" align="left" autocomplete="on">
 <div  align="center">
 <div class="input-prepend" style="width:100%">
-    <span class="add-on"><i class="icon icon-user icon-fixed-width"></i></span>
+    <span class="add-on"><i class="fa fa-user fa-fw"></i></span>
     <input type="text" placeholder="Usuario IdEA" name="idea">
 </div>
 <br />
 <div class="input-prepend" style="width:100%">
-    <span class="add-on"><i class="icon icon-key icon-fixed-width"></i></span>
+    <span class="add-on"><i class="fa fa-key fa-fw"></i></span>
     <input type="password" placeholder="Contraseña" name="clave">
 </div>
 </div>
 <br />
-<button type="submit" name="submit" value="Entrar" class="btn btn-block btn-primary"><i class="icon icon-signin icon-white icon-large"></i> &nbsp;Entrar</button>
+<button type="submit" name="submit" value="Entrar" class="btn btn-block btn-primary"><i class="fa fa-sign-in  fa-lg"></i> &nbsp;Entrar</button>
 </form>
   
 <a data-toggle="modal" href="#ayuda">
-<i class="icon icon-large icon-border icon-question-sign pull-right" style="color:#888"> </i>
+<i class="fa fa-question-circle fa-lg fa-border  pull-right" style="color:#888"> </i>
 </a>  
 <div class="modal hide fade" id="ayuda">
   <div class="modal-header">

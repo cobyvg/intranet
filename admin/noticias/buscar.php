@@ -63,7 +63,7 @@ if (mysql_num_rows($result) > 0)
 if(($row->contact == $profesor) or (strstr($_SESSION['cargo'],"1") == TRUE))	
 {
 ?>
-        <a href="add.php?id=<? echo $row->id; ?>"><i class="icon icon-pencil" rel="Tooltip" title="Editar la noticia"> </i> </a> | <a href="delete.php?id=<? echo $row->id; ?>&fech_princ=<? echo $row->timestamp; ?>"><i class="icon icon-trash" rel="Tooltip" title="Borrar la noticia" onClick='return confirmacion();'> </i></a>
+        <a href="add.php?id=<? echo $row->id; ?>"><i class="fa fa-pencil" rel="Tooltip" title="Editar la noticia"> </i> </a> | <a href="delete.php?id=<? echo $row->id; ?>&fech_princ=<? echo $row->timestamp; ?>"><i class="fa fa-trash-o" rel="Tooltip" title="Borrar la noticia" onClick='return confirmacion();'> </i></a>
 <? } else{echo $row->contact;}?>
         </td>
       </tr>

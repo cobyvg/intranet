@@ -59,7 +59,7 @@
 			"aButtons": [ 
 		                    { 
 		                    "sExtends": "print", 
-		                    "sButtonText": "<i class='icon icon-print icon-white icon-large'></i> Imprimir"		                    } 
+		                    "sButtonText": "<i class='fa fa-print  fa-lg'></i> Imprimir"		                    } 
 		                    ]
 		}
 	});

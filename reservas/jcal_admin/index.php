@@ -276,10 +276,10 @@ echo "</div>";
 echo "<table class='table table-bordered table-striped' style='' align='center'><tr><th>
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?servicio=$servicio&year=$last_year&today=$today&month=$month'>
-<i class='icon icon-arrow-left' name='calb2' style='margin-right:20px;'> </i> </a>
+<i class='fa fa-arrow-o-left' name='calb2' style='margin-right:20px;'> </i> </a>
 <h3 style='display:inline'>$year</h3>
 <a href='".$_SERVER['PHP_SELF']."?servicio=$servicio&year=$next_year&today=$today&month=$month'>
-<i class='icon icon-arrow-right' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table>";
+<i class='fa fa-arrow-o-right' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table>";
 
 echo "<table class='table table-bordered' style='' align='center'>
       <tr>";

@@ -97,7 +97,7 @@ if (mysql_num_rows($result) > 0)
 		$si = mysql_num_rows($t_si);
 		$no = mysql_num_rows($t_no);
 		$nulo = mysql_num_rows($vacio);
-		if ($nulo > 0){ $bola = "<i class='icon icon-ok' title='confirmado' />"; } else{ $bola = "<i class='icon icon-warning-sign' title='No confirmado' />"; }
+		if ($nulo > 0){ $bola = "<i class='fa fa-check' title='confirmado' />"; } else{ $bola = "<i class='fa fa-exclamation-triangle' title='No confirmado' />"; }
 
    echo "<tr><TD><input type='radio' name='llenar' value='$row->ID'></td><td>";
 		$foto="";
@@ -106,13 +106,13 @@ if (mysql_num_rows($result) > 0)
    echo "$row->APELLIDOS $row->NOMBRE</TD>
    <TD>$row->NIVEL $row->GRUPO</TD>
    <TD>$row->FECHA</TD><TD>$si</TD><TD>$no</TD><TD>$bola</TD>";
-   echo "<td><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i></a>";
+   echo "<td><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-search ' title='Ver Informe'> </i></a>";
    $result0 = mysql_query ( "select tutor from FTUTORES where nivel = '$row->NIVEL' and grupo = '$row->GRUPO'" );
 $row0 = mysql_fetch_array ( $result0 );	
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	   	echo "&nbsp;&nbsp;<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='icon icon-edit icon-white' title='Rellenar Informe'> </i> </a>";
-		echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
+   	   	echo "&nbsp;&nbsp;<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
+		echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='fa fa-trash-o ' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
    }	
 echo  '</td></tr>';
 	}

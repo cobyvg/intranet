@@ -107,7 +107,7 @@ else{
 echo "<form action='lista_pendientes.php' method='post'>";	
 echo "<input type='hidden' name='grupos' value='".$grupos."' />";
 echo "<input type='hidden' name='pdf' value='1' />";
-echo "<button class='btn btn-primary pull-right' name='submit10' type='submit' value='Crear PDF para imprimir'><i class='icon icon-print'> Crear PDF para imprimir</i></button>";
+echo "<button class='btn btn-primary pull-right' name='submit10' type='submit' value='Crear PDF para imprimir'><i class='fa fa-print'> Crear PDF para imprimir</i></button>";
 echo "</form><br />";	
 foreach($_POST["select"] as  $valor) {	
 echo '<legend class="text-info" align="center"><strong>'.$valor.'</strong></legend><hr />';	

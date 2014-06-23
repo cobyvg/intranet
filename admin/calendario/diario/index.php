@@ -73,7 +73,7 @@ if (isset($_GET['id'])) {
 ?>
 <div class="input-append" >
   <input required name="fecha" type="text" class="input input-block-level" data-date-format="yyyy-mm-dd" id="fecha" value="<?if($fecha == "") { echo date('Y-m-d'); } else { echo $fecha;}?>" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div>
 
 </div>
@@ -142,8 +142,8 @@ while ($reg=mysql_fetch_array($eventQuery)) {
 	<td>$reg[3]</td>
 	<td>$reg[5]</td>
 	<td nowrap>
-	<a href='index.php?id=$reg[0]'><i class='icon icon-search'></i></a>&nbsp;
-	<a href='index.php?id=$reg[0]&borrar=1'><i class='icon icon-trash' onClick='return confirmacion();'></i></a>
+	<a href='index.php?id=$reg[0]'><i class='fa fa-search'></i></a>&nbsp;
+	<a href='index.php?id=$reg[0]&borrar=1'><i class='fa fa-trash-o' onClick='return confirmacion();'></i></a>
 	</td></tr>";
 }
 echo "</tbody></table>";

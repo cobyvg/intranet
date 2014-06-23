@@ -27,7 +27,7 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 <br />';
 		
     echo ' <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
-        <i class="icon-spinner icon-spin icon-2x pull-left"></i> Cargando los datos...
+        <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
       </div>
    ';
     echo "</div>";

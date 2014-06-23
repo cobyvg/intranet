@@ -79,7 +79,7 @@ $result2 = mysql_query ( "select inicio, fin, tareas, id, profesor, horas, archi
 	<tr><td>$tar</td></tr>
 	";
 	if (strlen($row2[6])>0) {
-		echo "<tr class='info'><td>Archivo adjunto:&nbsp; <a href='archivos/$row2[6]'><i class='icon icon-file'> </i> $row2[6]</a></td></tr>";
+		echo "<tr class='info'><td>Archivo adjunto:&nbsp; <a href='archivos/$row2[6]'><i class='fa fa-file-o'> </i> $row2[6]</a></td></tr>";
 	}
 	echo "</table><br />";
 	}

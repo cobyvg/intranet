@@ -233,9 +233,9 @@ $clave = $alumnos[4];
 				echo '<td>';
 
 ?>
-<a  href="libros.php?claveal=<? echo $claveal;?>&imprimir=si&nivel=<? echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="icon icon-print icon-white" title="imprimir"> </i></a> <br><br>
+<a  href="libros.php?claveal=<? echo $claveal;?>&imprimir=si&nivel=<? echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="fa fa-print " title="imprimir"> </i></a> <br><br>
 <?
-	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="icon icon-ok icon-white" title="Devueltos"> </i> </button>';}
+	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="fa fa-check " title="Devueltos"> </i> </button>';}
 	echo "</td>";
 	}
 

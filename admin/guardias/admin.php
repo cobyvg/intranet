@@ -96,7 +96,7 @@ include("../../horario.php");
 	<input type="hidden" name="profeso" value="<? echo $profeso;?>">
 	     <div class="input-append" >
             <input name="gu_fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="gu_fecha" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div>    
 </label>
 <hr>

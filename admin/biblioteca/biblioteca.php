@@ -162,7 +162,7 @@ while($row = mysql_fetch_array($result))
 				}
 				// echo $dospuntos;
 				$limpia = explode(":",$row[3]);
-printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo=$titulo0&editorial=$editorial'><i class='icon icon-search' rel='Tooltip' title='Ver detalles del volumen'> </i></a></td></tr>", $row[1], $row[2], $row[3]);
+printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo=$titulo0&editorial=$editorial'><i class='fa fa-search' rel='Tooltip' title='Ver detalles del volumen'> </i></a></td></tr>", $row[1], $row[2], $row[3]);
         }
             echo "</table>";
         }

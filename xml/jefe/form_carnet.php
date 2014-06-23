@@ -249,7 +249,7 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 	echo ' <div align="center" class="well well-large" style="width:550px">';
 	echo '<legend>Impresión de todos los Alumnos</legend>';
 	echo "<div align='center'>";
-	echo "<a href='carnet.php?todos=1' class='btn btn-primary'><i class='icon icon-print icon-white'> </i> Imprimir todos los cursos</a></div>";
+	echo "<a href='carnet.php?todos=1' class='btn btn-primary'><i class='fa fa-print '> </i> Imprimir todos los cursos</a></div>";
 	echo '</div>';
 }
 ?>

@@ -91,14 +91,14 @@ if (mysql_num_rows($result) > 0)
    echo "$row->NOMBRE $row->APELLIDOS</TD>
    <TD nowrap>$row->NIVEL $row->GRUPO</TD>
    <TD nowrap>$row->F_ENTREV</TD>";
-echo "<td nowrap><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='icon icon-search icon-white' title='Ver Informe'> </i></a>";	
+echo "<td nowrap><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-search ' title='Ver Informe'> </i></a>";	
 
 $result0 = mysql_query ( "select tutor from FTUTORES where nivel = '$row->NIVEL' and grupo = '$row->GRUPO'" );
 $row0 = mysql_fetch_array ( $result0 );	
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='icon icon-trash icon-white' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
-   	echo "&nbsp;&nbsp;<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='icon icon-edit icon-white' title='Rellenar Informe'> </i> </a>";
+   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='fa fa-trash-o ' title='Borrar Informe' onClick='return confirmacion();'> </i> </a> 	";
+   	echo "&nbsp;&nbsp;<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
    }	
 echo '</td></tr>';
 	}

@@ -176,7 +176,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 	<td nowrap>$row[0]</td>
 	<td>$row[1]</td>
 	<td>$row[2]</td>
-	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal'><i class='icon icon-search' title='Detalles'></i></a><a href='delfechorias.php?id= $row[3]'><i class='icon icon-trash' title='Borrar'></i></a></td>
+	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal'><i class='fa fa-search' title='Detalles'></i></a><a href='delfechorias.php?id= $row[3]'><i class='fa fa-trash-o' title='Borrar'></i></a></td>
 	</tr>";
 	}
 	echo "</table>\n";
@@ -206,7 +206,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
       <div class="input-append" >
             <input name="inicio" type="text" class="input input-small" <? if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?> 
 data-date-format="dd-mm-yyyy" id="inicio" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
@@ -214,7 +214,7 @@ data-date-format="dd-mm-yyyy" id="inicio" >
  <div class="input-append" >
   <input name="fin" type="text" class="input input-small"  <? if(strlen($fin) > '0' and !($fin == '00-00-0000') ){echo "value='$fin'";}?> 
 data-date-format="dd-mm-yyyy" id="fin" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 
       </label>
@@ -281,7 +281,7 @@ else{
 	echo "value='$def_inicio'";}}
 ?>
  data-date-format="dd-mm-yyyy" id="fechainicio" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
@@ -289,7 +289,7 @@ else{
 <div class="input-append" >
             <input name="fechafin" type="text" class="input input-small" <? if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}}?> 
              data-date-format="dd-mm-yyyy" id="fechafin" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
       </label>
       <hr>        

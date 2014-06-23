@@ -71,7 +71,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
              
             <div class="span5">
              <div style='padding:19px;padding-top:0px;'>
-             <legend><i class="icon icon-search"></i> Buscar alumnos</legend> 
+             <legend><i class="fa fa-search"></i> Buscar alumnos</legend> 
              <form action="index0.php" method="GET">
              	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
              </form>

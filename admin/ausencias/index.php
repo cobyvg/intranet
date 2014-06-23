@@ -158,7 +158,7 @@ else{
 <div class="input-append" style="display: inline;"><input name="inicio"
 	type="text" class="input input-small"
 	<? if($inicio){echo "value=$inicio";}?> data-date-format="dd-mm-yyyy"
-	id="inicio"> <span class="add-on"><i class="icon-calendar"></i></span>
+	id="inicio"> <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div>
 </label> 
 <br />
@@ -166,10 +166,10 @@ else{
 <div class="input-append" style="display: inline;"><input name="fin"
 	type="text" class="input input-small" <? if($fin){echo "value=$fin";}?>
 	data-date-format="dd-mm-yyyy" id="fin"> <span class="add-on"><i
-	class="icon-calendar"></i></span></div>
+	class="fa fa-calendar"></i></span></div>
 </label>
 <hr>
-<label>Horas sueltas <i class="icon-question-sign"
+<label>Horas sueltas <i class="fa fa-question-circle"
 	style="margin-left: 2px;" rel='tooltip'
 	title='Escribe las horas concretas en las que vas a estar ausente y una detrás de otra. De este modo, si escribes "456" quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día.'></i><br />
 <input type="text" name="horas" value="" class="input-small" /> </label>
@@ -217,7 +217,7 @@ if ($profesor) {
 
 		if(stristr($_SESSION['cargo'],'1') == TRUE)
 		{
-			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='icon icon-trash' title='Borrar baja' onClick='return confirmacion();' /> </i> </a></td>";
+			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='fa fa-trash-o' title='Borrar baja' onClick='return confirmacion();' /> </i> </a></td>";
 		}
 		echo "</tr>";
 	}
@@ -257,7 +257,7 @@ if (empty($pra)) {}else{
 	<td>$tr</td>";		
 		if(stristr($_SESSION['cargo'],'1') == TRUE)
 		{
-			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();' /> </i> </a></td>";
+			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();' /> </i> </a></td>";
 		}
 		echo "</tr>";
 	}
@@ -294,7 +294,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	<td width='60'>$tr</td>";		
 	if(stristr($_SESSION['cargo'],'1') == TRUE)
 	{
-		echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();' /> </i> </a></td>";
+		echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();' /> </i> </a></td>";
 	}
 	echo "</tr>";
 }

@@ -80,7 +80,7 @@ $grupo1 = $tr[1];
 	$profe = "SELECT  distinct PROFESOR, MATERIA FROM profesores, horw where profesores.grupo = horw.a_grupo and a_grupo='$curso'";
 	$profeq = mysql_query($profe);
 	while($profer = mysql_fetch_array($profeq)){
-		echo "<li><i class='icon icon-user icon-large'> </i>
+		echo "<li><i class='fa fa-user fa-lg'> </i>
 		$profer[1] -->  <span style='color:#08c;');'>$profer[0]</span></li>";}
 echo "</ul></div>";
 ?>

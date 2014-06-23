@@ -76,7 +76,7 @@ if($siguiente == '1'){
   if($nc > 1){$mens_ant = "informe.php?profesor=$profesor&clave=$clave&nc=$nc&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&anterior=1";
   echo '<button class="btn btn-success btn-small" name="anterior" onclick="window.location=\'';	
   echo $mens_ant;
-  echo '\'" style="cursor: pointer;"><i class="icon icon-chevron-left">&nbsp; </i> Anterior</button>';}
+  echo '\'" style="cursor: pointer;"><i class="fa fa-chevron-left">&nbsp; </i> Anterior</button>';}
   
   echo "&nbsp;&nbsp;$nc => $apellidos $nombre &nbsp;&nbsp;"; 
    
@@ -84,7 +84,7 @@ if($siguiente == '1'){
  $mens_sig = "informe.php?profesor=$profesor&clave=$clave&nc=$nc&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&siguiente=1";
 	echo ' <button class="btn btn-success btn-small" name="siguiente" onclick="window.location=\'';	
 	echo $mens_sig;
-	echo '\'" style="cursor: pointer;">Siguiente &nbsp;<i class="icon icon-chevron-right icon-white"> </i> </button>';}
+	echo '\'" style="cursor: pointer;">Siguiente &nbsp;<i class="fa fa-chevron-right "> </i> </button>';}
 
   echo "</strong></div>"; 
 

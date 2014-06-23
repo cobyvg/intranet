@@ -72,10 +72,10 @@ A través de esta página puedes registrar las pruebas, controles o actividades de
 	echo "<table class='table table-bordered table-striped table-condensed' style='width:100%;'><tr><td>
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month'>
-<i class='icon icon-arrow-left icon-2x' name='calb2' style='margin-right:20px;'> </i> </a>
+<i class='fa fa-arrow-o-left fa-2x' name='calb2' style='margin-right:20px;'> </i> </a>
 <h style='display:inline'>$year</h3>
 <a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month'>
-<i class='icon icon-arrow-right icon-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></td></tr></table>";
+<i class='fa fa-arrow-o-right fa-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></td></tr></table>";
 
 echo "<table class='table table-bordered table-condensed' style='width:100%;' align='center'>
       <tr>";

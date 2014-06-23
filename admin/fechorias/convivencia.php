@@ -116,7 +116,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 		<td>$row[3]</td>
 		<td>$row[4]</td>
 		<td>$row[5]</td>
-		<td align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i title='Detalles' class='icon icon-search'> </i> </A>$comentarios</td>
+		<td align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i title='Detalles' class='fa fa-search'> </i> </A>$comentarios</td>
 		<td align='center'>
 	
 		<input type='checkbox' name='$row[8]' value='$row[8]-$ndia-$hora_dia' $ch /></td>
@@ -132,10 +132,10 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 		$asiste1 = mysql_query($asiste0);
 			$asiste = mysql_fetch_array($asiste1);
 			if ($asiste[1] == '0') {
-			echo "<center><i title='No trabaja' class='icon icon-warning-sign'> </i> </center";
+			echo "<center><i title='No trabaja' class='fa fa-exclamation-triangle'> </i> </center";
 			}
 			if ($asiste[1] == '1') {
-			echo "<center><i title='Trabaja' class='icon icon-ok'> </i> </center";
+			echo "<center><i title='Trabaja' class='fa fa-check'> </i> </center";
 			}
 		echo "</td>";
 	}

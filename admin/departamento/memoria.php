@@ -262,8 +262,8 @@ echo $contenido;
 echo '</TEXTAREA></div><hr>';
 }
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
-echo '<center><button class="btn btn-primary" type="submit" name="procesar" value="Guardar" ><i class="icon icon-edit icon-white"> </i> Guardar</button>';
-echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" target="_blank" href="memoria_print.php?depto='.$depto.'"><i class="icon icon-print icon-white"> </i> Imprimir</a></center>';
+echo '<center><button class="btn btn-primary" type="submit" name="procesar" value="Guardar" ><i class="fa fa-pencil-square-o "> </i> Guardar</button>';
+echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" target="_blank" href="memoria_print.php?depto='.$depto.'"><i class="fa fa-print "> </i> Imprimir</a></center>';
 	}
 echo '</div>';
 echo "</form>";

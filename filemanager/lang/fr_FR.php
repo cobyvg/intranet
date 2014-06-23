@@ -27,7 +27,7 @@ define('lang_Back','Retour');
 define('lang_View','Vue');
 define('lang_View_list','Vue par liste');
 define('lang_View_columns_list','Vue par listes de colonne');
-define('lang_View_boxes','Vue par icones');
+define('lang_View_boxes','Vue par icônes');
 define('lang_Toolbar','Barre d\'outils');
 define('lang_Actions','Actions');
 define('lang_Rename_existing_file','Ce fichier existe déjà');
@@ -42,17 +42,56 @@ define('lang_Upload_base_help',"Drag & Drop file/s inside above area or click in
 define('lang_Type_dir','dir');
 define('lang_Type','Type');
 define('lang_Dimension','Dimension');
-define('lang_Size','Size');
+define('lang_Size','Taille');
 define('lang_Date','Date');
-define('lang_Filename','Name');
-define('lang_Operations','Operations');
-define('lang_Date_type','y-m-d');
+define('lang_Filename','Nom');
+define('lang_Operations','Opérations');
+define('lang_Date_type','d/m/Y');
 define('lang_OK','OK');
-define('lang_Cancel','Cancel');
-define('lang_Sorting','sorting');
-define('lang_Show_url','show URL');
-define('lang_Extract','extract here');
-define('lang_File_info','file info');
-define('lang_Edit_image','edit image');
-define('lang_Duplicate','Duplicate');
+define('lang_Cancel','Annuler');
+define('lang_Sorting','Trier');
+define('lang_Show_url','Afficher l\'URL');
+define('lang_Extract','Extraire ici');
+define('lang_File_info','Information');
+define('lang_Edit_image','Editer l\'image');
+define('lang_Duplicate','Dupliquer');
+define('lang_Folders', 'Folders');
+define('lang_Copy','Copy');
+define('lang_Cut','Cut');
+define('lang_Paste','Paste');
+define('lang_CB', 'CB'); // clipboard
+define('lang_Paste_Here','Paste to this directory');
+define('lang_Paste_Confirm','Are you sure you want to paste to this directory? This will overwrite existing files/folders if encountered any.');
+define('lang_Paste_Failed','Failed to paste file(s)');
+define('lang_Clear_Clipboard','Clear clipboard');
+define('lang_Clear_Clipboard_Confirm','Are you sure you want to clear the clipboard?');
+define('lang_Files_ON_Clipboard','There are files on the clipboard.');
+define('lang_Copy_Cut_Size_Limit','The selected files/folders are too big to %s. Limit: %d MB/operation'); // %s = cut or copy
+define('lang_Copy_Cut_Count_Limit','You selected too many files/folders to %s. Limit: %d files/operation'); // %s = cut or copy
+define('lang_Copy_Cut_Not_Allowed','You are not allowed to %s files.'); // %s(1) = cut or copy, %s(2) = files or folders
+define('lang_Aviary_No_Save', 'Could not save image');
+define('lang_Zip_No_Extract', 'Could not extract. File might be corrupt.');
+define('lang_Zip_Invalid', 'This extension is not supported. Valid: zip, gz, tar.');
+define('lang_Dir_No_Write', 'The directory you selected is not writable.');
+define('lang_Function_Disabled', 'The %s function has been disabled by the server.'); // %s = cut or copy
+define('lang_File_Permission', 'File permission');
+define('lang_File_Permission_Not_Allowed', 'Changing %s permissions are not allowed.'); // %s = files or folders
+define('lang_File_Permission_Recursive', 'Apply recursively?');
+define('lang_File_Permission_Wrong_Mode', "The supplied permission mode is incorrect.");
+define('lang_User', 'User');
+define('lang_Group', 'Group');
+define('lang_Yes', 'Yes');
+define('lang_No', 'No');
+define('lang_Lang_Not_Found', 'Could not find language.');
+define('lang_Lang_Change', 'Change the language');
+define('lang_File_Not_Found', 'Could not find the file.');
+define('lang_File_Open_Edit_Not_Allowed', 'You are not allowed to %s this file.'); // %s = open or edit
+define('lang_Edit', 'Edit');
+define('lang_Edit_File', "Edit file's content");
+define('lang_File_Save_OK', "File successfully saved.");
+define('lang_File_Save_Error', "There was an error while saving the file.");
+define('lang_New_File','New File');
+define('lang_No_Extension','You have to add a file extension.'); 
+define('lang_Valid_Extensions','Valid extensions: %s'); // %s = txt,log etc.
+
 ?>

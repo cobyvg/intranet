@@ -202,7 +202,7 @@ Los mensajes SMS de aviso por retraso en la devolución de ejemplares de la Bibli
 ?>
 <div align="center">
 <button class="btn btn-primary" type="submit" name="impreso"
-	value="impreso"><i class="icon-file  icon-white"></i> Imprimir
+	value="impreso"><i class="fa fa-file-o  "></i> Imprimir
 Amonestaciones en PDF</button>
 </div>
 </form>

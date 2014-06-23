@@ -55,13 +55,13 @@ $obs = substr($row[9],0,115)."...";
 	echo "<tr>";
 echo "<td>$row[8]</td><td nowrap>$row[5]</td>
 <td>$row[4]</td><td>$obs</td><td>";
-		if($row[10] == 'activo'){echo "<i class='icon icon-warning-sign'> </i>";}else{echo "<i class='icon icon-ok'> </i>";}
+		if($row[10] == 'activo'){echo "<i class='fa fa-exclamation-triangle'> </i>";}else{echo "<i class='fa fa-check'> </i>";}
 		echo "</td>
 <td>$row[3]</td>
 ";
 echo "<TD>
-	<a href='edparte.php?parte=$row[0]'><i class='icon icon-pencil'> </i> </a>";
-echo "<a href='clista.php?borrar=1&parte=$row[0]'><i class='icon icon-trash'> </i> </a>";	
+	<a href='edparte.php?parte=$row[0]'><i class='fa fa-pencil'> </i> </a>";
+echo "<a href='clista.php?borrar=1&parte=$row[0]'><i class='fa fa-trash-o'> </i> </a>";	
 echo "</td></tr>";
         } while($row = mysql_fetch_array($result));
 		  echo "</tbody></table>";

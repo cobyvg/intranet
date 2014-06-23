@@ -203,7 +203,7 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
                 <label>Inicio<br />
  <div class="input-append" style="display:inline;" >
             <input name="fecha12" type="text" class="input input-small" value="<? if(empty($fecha12)){echo $fech1;} else {echo $fecha12;}?>" data-date-format="dd-mm-yyyy" id="fecha12" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>     
 	   </td>
@@ -211,7 +211,7 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
       <label>Fin<br />
  <div class="input-append" style="display:inline;" >
             <input name="fecha22" type="text" class="input input-small" value="<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>" data-date-format="dd-mm-yyyy" id="fecha22" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
     </label> 
        </td>

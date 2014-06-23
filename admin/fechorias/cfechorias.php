@@ -90,7 +90,7 @@ if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
     <label>Día: 
 <div class="input-append">
   <input name="DIA" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="DIA" style="display:inline">
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div>
 </label>
     </div>

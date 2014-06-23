@@ -48,7 +48,7 @@ include("menu.php");
     <option>Centro TIC</option>    
       </select>
                   <br /><br />
-                  <button type="submit" name="enviar2" value="Enviar" class="btn btn-primary btn-block"><i class="icon icon-search icon-white"> </i> Enviar </button>
+                  <button type="submit" name="enviar2" value="Enviar" class="btn btn-primary btn-block"><i class="fa fa-search "> </i> Enviar </button>
             </form>
 </div>
 <br />

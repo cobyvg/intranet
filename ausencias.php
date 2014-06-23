@@ -4,7 +4,7 @@ $num_au = mysql_query("SELECT profesor, id, tareas from ausencias where  date(in
 if(mysql_num_rows($num_au)>0){
 ?>
 <div class='well'>
-<legend><i class="icon icon-user"> </i> Profesores de Baja</legend>
+<legend><i class="fa fa-user"> </i> Profesores de Baja</legend>
 <ul class="unstyled">
     <?
     $hoy = date('Y')."-".date('m')."-".date('d');
@@ -15,10 +15,10 @@ if(mysql_num_rows($num_au)>0){
 				while ( $row = mysql_fetch_array ( $result ) ) {
 					$t_b='';
 					if (strlen($row[2]) > '1') {
-						$t_b='<i class="icon icon-star"> </i>';
+						$t_b='<i class="fa fa-star"> </i>';
 					}
 					else{
-						$t_b='<i class="icon icon-star-empty"> </i>';
+						$t_b='<i class="fa fa-star-o"> </i>';
 					}
 					?>
 

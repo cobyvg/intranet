@@ -211,7 +211,7 @@ if ($edicion=="1") {
             <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" required id="fecha" value="<? if (isset($fecha_r)) {
             	echo $fecha_r;
             }?>" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -308,23 +308,23 @@ if (mysql_num_rows($result) > 0)
         <?
 	//if(($row->departamento == $_SESSION['dpt']) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
 		?>
-<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
+<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
 <? 
 if($row->impreso<>1){
 if ($j_s == 'disabled') {} else {
 ?>
-<a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
-<a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-trash" rel="Tooltip" title='Borrar el Acta' onClick='return confirmacion();'> </i></a> <a href="add.php?edicion=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-pencil" rel="Tooltip" title='Editar el Acta'> </i></a> 
+<a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px"> <i class="fa fa-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
+<a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-trash-o" rel="Tooltip" title='Borrar el Acta' onClick='return confirmacion();'> </i></a> <a href="add.php?edicion=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-pencil" rel="Tooltip" title='Editar el Acta'> </i></a> 
 <?
 }
 }
 else{
 ?>
-<a href="#"  style="color:#990000;margin-right:10px"><i class="icon icon-ok" rel="Tooltip" title='El Acta no puede editarse por haber sido impresa.'> </i></a> 
+<a href="#"  style="color:#990000;margin-right:10px"><i class="fa fa-check" rel="Tooltip" title='El Acta no puede editarse por haber sido impresa.'> </i></a> 
 <?
 if ($j_s == 'disabled') {} else {
 ?>
-<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000;margin-right:10px"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
+<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000;margin-right:10px"> <i class="fa fa-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
 <?
 }
 }

@@ -62,10 +62,10 @@ if ($today > $numdays) { $today--; }
 echo "<table class='table table-bordered table-striped' style='width:100%;margin:auto'><tr><th>
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month&curso=$curso&curso=$curso'>
-<i class='icon icon-arrow-left icon-2x' name='calb2' style='margin-right:20px;'> </i> </a>
+<i class='fa fa-arrow-o-left fa-2x' name='calb2' style='margin-right:20px;'> </i> </a>
 <h3 style='display:inline'>$year</h3>
 <a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month&curso=$curso'>
-<i class='icon icon-arrow-right icon-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table><br />";
+<i class='fa fa-arrow-o-right fa-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table><br />";
 
 echo "<table class='table table-bordered' style='width:100%;' align='center'>
       <tr>";

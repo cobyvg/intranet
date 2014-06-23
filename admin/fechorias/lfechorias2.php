@@ -96,9 +96,9 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 				if($aula_conv > 0){$bgcolor="style='background-color:#CCCCFF;'";}	
 				if($expulsion > 0){$bgcolor="style='background-color:#FFFF99;'";}		
 				if($recibido == '1'){
-					$comentarios1="<i class='icon icon-ok' title='recibido'> </i>";
+					$comentarios1="<i class='fa fa-check' title='recibido'> </i>";
 				}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){
-					$comentarios1="<i class='icon icon-warning-sign' title='No recibido'> </i>";
+					$comentarios1="<i class='fa fa-exclamation-triangle' title='No recibido'> </i>";
 				}else{
 					$comentarios1="";
 				}
@@ -112,8 +112,8 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		<td >$caducada</td>
 		<td  nowrap>$comentarios1 $comentarios</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' style='margin-top:5px;color:brown;'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();'> </i></a></div>";}	
-		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='icon icon-search' title='Detalles'> </i></A></td>";
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();'> </i></a></div>";}	
+		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search' title='Detalles'> </i></A></td>";
 		echo "</tr>";
         }
         echo "</tbody></table>";

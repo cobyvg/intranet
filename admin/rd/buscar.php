@@ -72,8 +72,8 @@ if (mysql_num_rows($result) > 0)
 	?>	
 </td>
 <td style="text-align:right;">
-<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="icon icon-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
-<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000"> <i class="icon icon-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>  
+<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
+<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000"> <i class="fa fa-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>  
 </div>
         </td>
       </tr>

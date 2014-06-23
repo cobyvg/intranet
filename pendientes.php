@@ -44,7 +44,7 @@ $result = mysql_query ($expul);
         	if (mysql_num_rows($result) == '0') {        		
         	}
         	else{
-	echo "<div class='well alert alert-info'><legend><i class='icon warning-sign'> </i> Alumnos que se reincorporan tras su Expulsión<br /> <small>$materia</small></legend><hr />";
+	echo "<div class='well alert alert-info'><legend><i class='fa warning-sign'> </i> Alumnos que se reincorporan tras su Expulsión<br /> <small>$materia</small></legend><hr />";
 	echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad."</p>";
 	echo "<p>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index0.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary'>SI</button></a>&nbsp;&nbsp;<a href='index0.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger'>NO</button></a></p>";
 	echo "</div>";
@@ -209,7 +209,7 @@ if(mysql_num_rows($men2) > 0)
 {
 echo '<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p class="lead">	
-	<i class="icon-comment"> </i> Mensajes de Padres o Alumnos</p><hr /><ul>';
+	<i class="fa fa-comment"> </i> Mensajes de Padres o Alumnos</p><hr /><ul>';
 while($men = mysql_fetch_row($men2))
 {
 $n_mensajesp=$n_mensajesp+1;
@@ -270,7 +270,7 @@ $men2 = mysql_query($men1);
 if(mysql_num_rows($men2) > 0)
 {
 
-	echo "<div class='well alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><p class='lead'><i class='icon icon-comment'> </i> Mensajes de Profesores</p><hr /><ul>";
+	echo "<div class='well alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><p class='lead'><i class='fa fa-comment'> </i> Mensajes de Profesores</p><hr /><ul>";
 	while($men = mysql_fetch_row($men2))
 {
 $n_mensajes+=1;

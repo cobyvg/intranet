@@ -26,7 +26,7 @@ include("../../menu.php");
 <br />
 <div  align='center'>    
  <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
-        <i class="icon-spinner icon-spin icon-2x pull-left"></i> Cargando los datos...
+        <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
       </div>
 </div>
 <div id='t_larga' style='display:none' >

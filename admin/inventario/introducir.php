@@ -158,7 +158,7 @@ while($lug = mysql_fetch_array($luga))
 <label>Fecha de Alta<span style="color:#9d261d;"> (*) </span><br />
 <div class="input-append" >
   <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha">
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
 <br />
@@ -197,11 +197,11 @@ while($item = mysql_fetch_row($it))
 <?
 if ($j_s == '') {
 ?>
-<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="icon icon-trash" title="Borrar registro" onClick='return confirmacion();'> </i> </a>
+<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="fa fa-trash-o" title="Borrar registro" onClick='return confirmacion();'> </i> </a>
 <?
 }
 ?>
-</td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="icon icon-pencil" title="Editar registro"> </i> </a></td></tr>
+</td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="fa fa-pencil" title="Editar registro"> </i> </a></td></tr>
 <?
 }
 	echo '

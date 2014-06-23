@@ -439,7 +439,7 @@ function contents_dir($current_dir, $directory)
 		if (!is_dir("$current_dir/$filename"))
 		{
 			echo "<a href=\"index.${phpExt}?index=$index&action=deletefile&filename=$filename&directory=$directory\" onclick=\"javascript:return confirm('Esta acción eliminará permanentemente el archivo seleccionado ¿Está seguro que desea continuar?');\">
-			        <i class=\"icon icon-trash icon-large icon-fixed-width\" alt=\"$mess[169]\"></i>
+			        <i class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></i>
 			      </a>";
 	    }
 	    else
@@ -447,7 +447,7 @@ function contents_dir($current_dir, $directory)
 	    	if ($grants[$user_status][DELALL])
 	    	{
 			    echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" onclick=\"javascript:return confirm('Esta acción eliminará permanentemente la carpeta y su contenido. ¿Está seguro que desea continuar?');\">
-			        <i class=\"icon icon-trash icon-large icon-fixed-width\" alt=\"$mess[169]\" ></i>
+			        <i class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\" ></i>
 			          </a>";
 			}
 	    }
@@ -466,7 +466,7 @@ function contents_dir($current_dir, $directory)
 		
 		//	DESCARGAR ARCHIVO
 		echo "<a href=\"index.${phpExt}?index=$index&action=downloadfile&filename=$filename&directory=$directory\">
-		        <i class=\"icon icon-download-alt icon-large icon-fixed-width\" alt=\"$mess[23]\"></i>
+		        <i class=\"fa fa-download fa-lg fa-fw\" alt=\"$mess[23]\"></i>
 		      </a>";
 		}
 	
@@ -612,7 +612,7 @@ function show_contents() {
 	    
 	    echo "<div class=\"span12\">\n";
 	    echo "  <a href=\"index.${phpExt}?index=$index&direction=$direction&order=$order&directory=$name\">\n";
-	    echo "   <i class=\"icon icon-chevron-up iconf-fixed-width\"></i>\n";
+	    echo "   <i class=\"fa fa-chevron-up iconf-fixed-width\"></i>\n";
 	    echo "  </a>\n";
 		echo split_dir("$directory");
 		echo "</div>";
@@ -854,9 +854,9 @@ switch($action)
 		echo "<center><h4>$mess[26] : ";
 		echo "<img src=\"images/".get_mimetype_img("$current_dir/$filename")."\" align=\"ABSMIDDLE\">\n";
 		echo "".$filenametoview."<br><br><hr>\n";
-		echo "<a href=\"javascript:window.print()\"><i class='icon icon-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
-		echo "<a href=\"index.${phpExt}?action=downloadfile&filename=".$filename."&directory=".$directory."h.php\"><i class='icon icon-download-alt' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
-		echo "<a href=\"javascript:window.close()\"><i class='icon icon-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"javascript:window.print()\"><i class='fa fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"index.${phpExt}?action=downloadfile&filename=".$filename."&directory=".$directory."h.php\"><i class='fa fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
+		echo "<a href=\"javascript:window.close()\"><i class='fa fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
 		echo "</h4>\n";
 
 
@@ -895,9 +895,9 @@ switch($action)
 			echo "<img src=\"getimg.${phpExt}?image=$directory/$filename\">\n";
 		}
 		echo "<hr>\n";
-		echo "<a href=\"javascript:window.print()\"><i class='icon icon-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
-		echo "<a href=\"index.${phpExt}?action=downloadfile&filename=$filename&directory=$directory\"><i class='icon icon-download-alt' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
-		echo "<a href=\"javascript:window.close()\"><i class='icon icon-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"javascript:window.print()\"><i class='fa fa-print' alt=\"$mess[27]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
+		echo "<a href=\"index.${phpExt}?action=downloadfile&filename=$filename&directory=$directory\"><i class='fa fa-download' alt=\"$mess[23]\" width=\"20\" height=\"20\" border=\"0\"> &nbsp;&nbsp;</i></a>";
+		echo "<a href=\"javascript:window.close()\"><i class='fa fa-chevron-left' alt=\"$mess[28]\" border=\"0\"> &nbsp;&nbsp;</i></a>\n";
 		echo "<hr></center>\n";
 		echo "</body>\n";
 		echo "</html>\n";

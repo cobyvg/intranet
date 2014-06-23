@@ -184,14 +184,14 @@ if ($fecha)
   echo '     
   <div class="input-append">
             <input name="fecha" type="text" class="input input-small input-block-level" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> ';
   }
   else{
   	echo '     
   <div class="input-append" >
             <input name="fecha" type="text" class="input input-small input-block-level" value="" data-date-format="dd-mm-yyyy" id="fecha" >
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> ';
   }
 ?>
@@ -262,8 +262,8 @@ do{
   $dia3 = explode("-",$row[2]);
   $fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 echo "<tr><td>$fecha3</td><td>$row[3]</td><td>$row[4]</a></td><td>
-<a href='tutor.php?id=$row[6]'><i class='icon icon-search' title='Detalles'> </i> </a>
-<a href='tutor.php?id=$row[6]&eliminar=1'><i class='icon icon-trash' title='Borrar' onClick='return confirmacion();'> </i></a></td></tr>";
+<a href='tutor.php?id=$row[6]'><i class='fa fa-search' title='Detalles'> </i> </a>
+<a href='tutor.php?id=$row[6]&eliminar=1'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();'> </i></a></td></tr>";
 }while($row = mysql_fetch_array($result));
 echo "</tbody></table>";
 }

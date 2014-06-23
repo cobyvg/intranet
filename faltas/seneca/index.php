@@ -106,14 +106,14 @@ Para poder importar las faltas de los alumnos, es necesario en primer lugar desc
          <label >Primer d&iacute;a: 
       <div class="input-append" >
             <input name="iniciofalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="iniciofalta" required />
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Ultimo d&iacute;a: 
  <div class="input-append" >
   <input name="finfalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="finfalta" required />
-  <span class="add-on"><i class="icon-calendar"></i></span>
+  <span class="add-on"><i class="fa fa-calendar"></i></span>
 </div> 
 
       </label>

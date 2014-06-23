@@ -161,7 +161,7 @@ else{
 			echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysql_fetch_array($camb)) {
 				
-			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] ($cam[6])</li>";
+			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] ($cam[6])</li>";
 		
 }
 echo "</ul></div><br />";
@@ -172,7 +172,7 @@ echo "</ul></div><br />";
 			echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysql_fetch_array($camb2)) {
 				
-			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5] ($cam2[6])</li>";
+			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5] ($cam2[6])</li>";
 		
 }
 echo "</ul></div><br />";
@@ -183,7 +183,7 @@ echo "</ul></div><br />";
 			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysql_fetch_array($canf)) {
 				
-			echo "<li><i class='icon icon-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
+			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
 		
 }
 echo "</ul></div>";
@@ -467,7 +467,7 @@ echo '<th class="no_imprimir">SI |PIL |NO </th>';
 	$back = mysql_query("select id from matriculas_backup where id = '$id'");
 	if (mysql_num_rows($back)>0) {
 			$respaldo = '1';
-			$backup="<a href='consultas.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='icon icon-refresh' rel='Tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
+			$backup="<a href='consultas.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-refresh' rel='Tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
 	}
 		//echo $ruta_este;
 for ($i=1;$i<$num_opt+1;$i++)
@@ -569,7 +569,7 @@ for ($i = 0; $i < 16; $i++) {
 		$text_contr="";
 		if ($control[$i]==$control[$i-1]) {$icon="";}else{	
 			if ($control[$i-1]<>0) {
-						$icon="icon icon-info-sign";
+						$icon="fa fa-info-circle";
 						$text_contr.= $control[$i]." --> ".$control[$i-1]."; ";					
 				}	
 		}
@@ -579,7 +579,7 @@ for ($i = 0; $i < 16; $i++) {
 }	
 		echo "<i class='$icon' rel='Tooltip' title='$text_contr'> </i>&nbsp;&nbsp;";
 
-	if ($observaciones) { echo "<i class='icon icon-bookmark' rel='Tooltip' title='Tiene observaciones en la matrícula' > </i>";}
+	if ($observaciones) { echo "<i class='fa fa-bookmark' rel='Tooltip' title='Tiene observaciones en la matrícula' > </i>";}
 	echo '</td>';
 	
 	// Promocionan o no
@@ -648,7 +648,7 @@ echo '<td class="no_imprimir"><input name="revisado-'. $id .'" type="checkbox" v
  	echo $backup;
  }
  echo "</td><td class='no_imprimir'>";
- echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='icon icon-trash' rel='Tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
+ echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
  echo "</td>";
 echo "<td class='no_imprimir'>";
 // Problemas de Convivencia

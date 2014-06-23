@@ -51,7 +51,7 @@ echo '<table class="table table-striped table-bordered" style="width:100$;">';
 	<td nowrap>$row[0]</td>
 	<td nowrap>$row[1]</td>
 	<td>$hora</td>";
-	if($row[6]!="") echo "<td><a href='archivos/$row[6]' target='_blank'><i class='icon icon-file'> </i> $row[6]</a></td>";
+	if($row[6]!="") echo "<td><a href='archivos/$row[6]' target='_blank'><i class='fa fa-file-o'> </i> $row[6]</a></td>";
 	else echo "<td><em class=\"muted\">No hay archivo adjunto</em></td>";		
 	echo "</tr></table>";
 	echo "<hr>";

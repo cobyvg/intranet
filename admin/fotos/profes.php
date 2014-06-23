@@ -25,9 +25,6 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
     <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">
     
     <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
-    <!--[if IE 7]>
-      <link href="http://<? echo $dominio;?>/intranet/css/font-awesome-ie7.min.css" rel="stylesheet">
-    <![endif]-->
     
     <!--[if lt IE 9]>
       <script src="http://<? echo $dominio;?>/intranet/js/html5shiv.js"></script>

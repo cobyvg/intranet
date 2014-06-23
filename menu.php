@@ -35,9 +35,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 		  <div class="navbar-inner">
 		    <div class="container-fluid">
 		      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
+		        <span class="fa fa-bars"></span>
 		      </a>
 		      <a class="brand" href="http://<? echo $dominio;?>/intranet/index0.php">Intranet del <?php echo $nombre_del_centro; ?></a>
 		      <div class="nav-collapse collapse">
@@ -52,15 +50,15 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 		       
 		        	<li class="dropdown">
 		        		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		        			<i class="icon-user icon-white"></i> <? echo $idea; ?> <b class="caret"></b>
+		        			<i class="fa fa-user "></i> <? echo $idea; ?> <b class="caret"></b>
 		        		</a>
 		        		<ul class="dropdown-menu">
-		        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="icon-edit"></i> Cambiar contrase&ntilde;a</a></li>
+		        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="fa fa-pencil-square-o"></i> Cambiar contrase&ntilde;a</a></li>
 		        			<li class="divider"></li>
-		        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="icon-signout"></i> Cerrar sesi&oacute;n</a></li>
+		        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="fa fa-sign-out"></i> Cerrar sesi&oacute;n</a></li>
 		        		</ul>
 		        	</li>
-					<li style="margin-top:4px;margin-left:15px;"><small style='color:#d9d9d9;'><i class="icon icon-large icon-time"></i> Última conexión: <br />
+					<li style="margin-top:4px;margin-left:15px;"><small style='color:#d9d9d9;'><i class="fa fa-clock-o fa-lg"></i> Última conexión: <br />
             <?
 $time = mysql_query("select fecha from reg_intranet where profesor = '".$_SESSION['profi']."' order by fecha desc limit 2");
 while($last = mysql_fetch_array($time)){
