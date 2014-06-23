@@ -49,7 +49,7 @@ while (($data1 = fgetcsv($handle, 1000, ";")) !== FALSE)
 }
 
 fclose($handle);
-$borrar = mysql_query("delete from morosos where curso = 'ANT' or curso='' or curso='IES Monterroso' or curso like 'Abies%'");
+$borrar = mysql_query("delete from morosos where curso = 'ANT' or curso='' or curso='$nombre_del_centro' or curso like 'Abies%'");
 
 ?> <div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
 			<h5>ATENCI&Oacute;N:</h5>

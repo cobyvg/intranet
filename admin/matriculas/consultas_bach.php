@@ -563,7 +563,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if($revisado=="1"){echo " checked";}
 		echo ' /></td>';
 		echo '<td class="no_imprimir" style="text-align:right">';
-		if (!($colegio == "IES Monterroso")) {$alma="alma_secundaria";}else{$alma="alma";}
+		if (!($colegio == $nombre_del_centro)) {$alma="alma_secundaria";}else{$alma="alma";}
 		$contr = mysql_query("select matriculas_bach.apellidos, $alma.apellidos, matriculas_bach.nombre, $alma.nombre, matriculas_bach.domicilio, $alma.domicilio, matriculas_bach.dni, $alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, $alma.dnitutor, matriculas_bach.telefono1, $alma.telefono, matriculas_bach.telefono2, $alma.telefonourgencia from matriculas_bach, $alma where $alma.claveal=matriculas_bach.claveal and id = '$id'");
 		$control = mysql_fetch_array($contr);
 $text_contr="";

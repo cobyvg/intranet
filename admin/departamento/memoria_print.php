@@ -88,7 +88,7 @@ $html.='<script type="text/php">
 </script> '; 
 $html.=  '<div style=" font: 8pt Helvetica, Arial, sans-serif; width: 720px; align: center;">';
 #Cabecera
-$html.=  '<div align=center><h1>I.E.S. Monterroso</h1><hr style="color:#eee; height:1px; width:720px;">';
+$html.=  '<div align=center><h1>' . $nombre_del_centro . '</h1><hr style="color:#eee; height:1px; width:720px;">';
 $html.=  '<h2>Memoria final del Departamento<br /> '.$depto.'</h2>';
 $html.=  '<h3>Curso: '.$curso_actual.'</h3><hr style="color:#eee; height:1px; width:720px;"></div>';
 

@@ -100,7 +100,7 @@ $sqlcod1 = mysql_query ($codigo1);
 $todos_moodle="username;password;firstname;lastname;email;city;country\n";
 while($rowprof = mysql_fetch_array($sqlcod1))
 {
-$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[0]@$dominio;Estepona;ES\n";
+$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[0]@$dominio;$localidad_del_centro;ES\n";
 $todos_moodle.=$linea_moodle;
 }
 

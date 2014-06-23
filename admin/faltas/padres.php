@@ -205,7 +205,17 @@ Atentamente le saluda la Dirección del Centro.
 	$MiPDF->Text(120,35,$padre);
 	$MiPDF->Text(120,39,$direcion);
 	$MiPDF->Text(120,43,$localidad);
-	$MiPDF->Text(120,47,"Málaga");
+	
+	if(substr($codigo_postal_del_centro,0,2)=="04") $provincia_del_centro = 'Almería';
+	if(substr($codigo_postal_del_centro,0,2)=="11") $provincia_del_centro = 'Cádiz';
+	if(substr($codigo_postal_del_centro,0,2)=="14") $provincia_del_centro = 'Córdoba';
+	if(substr($codigo_postal_del_centro,0,2)=="18") $provincia_del_centro = 'Granada';
+	if(substr($codigo_postal_del_centro,0,2)=="21") $provincia_del_centro = 'Huelva';
+	if(substr($codigo_postal_del_centro,0,2)=="23") $provincia_del_centro = 'Jaén';
+	if(substr($codigo_postal_del_centro,0,2)=="29") $provincia_del_centro = 'Málaga';
+	if(substr($codigo_postal_del_centro,0,2)=="41") $provincia_del_centro = 'Sevilla';
+	
+	$MiPDF->Text(120,47,$provincia_del_centro);
 	$MiPDF->Text(120,58,$fecha);
 	
 	#Cuerpo.

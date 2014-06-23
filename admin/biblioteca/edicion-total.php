@@ -180,7 +180,7 @@ Pongo en su conocimiento que con  fecha $hoy su hijo/a $nombre $apellido alumno 
 $cuerpo2 = utf8_decode("Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.");
 $cuerpo3 = utf8_decode("----------------------------------------------------------------------------------------------------------------------------------------------
 
-En Estepona, a _________________________________
+En $localidad_del_centro, a _________________________________
 Firmado: El Padre/Madre/Representante legal:
 
 

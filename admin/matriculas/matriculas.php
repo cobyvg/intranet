@@ -172,7 +172,7 @@ $opt_rep2="1";
 			echo '
 <script> 
  alert("ATENCIÓN:\n';
-			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y sólo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de Estepona.\nElige una sola parada y vuelve a enviar los datos.")
+			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y sólo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de '.$localidad_del_centro.'.\nElige una sola parada y vuelve a enviar los datos.")
  </script>
 ';
 			$ruta_error = "";
@@ -181,7 +181,7 @@ $opt_rep2="1";
 			echo '
 <script> 
  alert("ATENCIÓN:\n';
-			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y sólo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de Estepona.\nElige una sola parada y vuelve a enviar los datos.")
+			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y sólo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de '.$localidad_del_centro.'.\nElige una sola parada y vuelve a enviar los datos.")
  </script>
 ';
 			$ruta_error = "";
@@ -463,7 +463,7 @@ exit();
 				$repetidor = '1';
 			}
 			$nacimiento= str_replace("/","-",$nacimiento);
-			$colegio = 'IES Monterroso';
+			$colegio = $nombre_del_centro;
 		}
 	}
 	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
@@ -657,7 +657,7 @@ exit();
 			<?
 			}
 			else{
-				echo "<option>IES Monterroso</option>
+				echo "<option>$nombre_del_centro</option>
       <option>Otro Centro</option>";            	
 			}
 			?>

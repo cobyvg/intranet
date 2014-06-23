@@ -60,7 +60,7 @@ La contraseña del alumno para el acceso a la página pública del Centro se ha rei
 		</div></div>';    
 		if (strstr($_GET['correo'],'@')==TRUE) {
 		$direccion = $_GET['correo'];
-		$tema = "Contraseña de acceso privado reiniciada en iesmonterroso.org";
+		$tema = "Contraseña de acceso privado reiniciada en $dominio";
 		$texto = "La clave de acceso privada del alumno/a ha sido reiniciada. Para entrar en las páginas personales del alumno deberás introducir de nuevo el NIE (Número de Identificación Escolar) que el Centro te ha proporcionado en los dos campos del formulario de acceso. Si a pesar de todo persisten los problemas y no puedes entrar, ponte en contacto con el Tutor o Jefatura de Estudios. Dsiculpa las molestias. ";
 		mail($direccion, $tema, $texto);  
 		}  

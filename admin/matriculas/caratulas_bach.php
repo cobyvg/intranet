@@ -139,8 +139,18 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(100,5,$datos_ya->domicilio,1,0,'C');
 	$MiPDF->Cell(25,5,$datos_ya->localidad,1,0,'C');
-	$MiPDF->Cell(15,5,"29680",1,0,'C');
-	$MiPDF->Cell(28,5,"Málaga",1,0,'C');
+	$MiPDF->Cell(15,5,$codigo_postal_del_centro,1,0,'C');
+	
+	if(substr($codigo_postal_del_centro,0,2)=="04") $provincia_del_centro = 'Almería';
+	if(substr($codigo_postal_del_centro,0,2)=="11") $provincia_del_centro = 'Cádiz';
+	if(substr($codigo_postal_del_centro,0,2)=="14") $provincia_del_centro = 'Córdoba';
+	if(substr($codigo_postal_del_centro,0,2)=="18") $provincia_del_centro = 'Granada';
+	if(substr($codigo_postal_del_centro,0,2)=="21") $provincia_del_centro = 'Huelva';
+	if(substr($codigo_postal_del_centro,0,2)=="23") $provincia_del_centro = 'Jaén';
+	if(substr($codigo_postal_del_centro,0,2)=="29") $provincia_del_centro = 'Málaga';
+	if(substr($codigo_postal_del_centro,0,2)=="41") $provincia_del_centro = 'Sevilla';
+	
+	$MiPDF->Cell(28,5,$provincia_del_centro,1,0,'C');
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(168,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,'C');
 	$MiPDF->Ln ( 5 );
@@ -171,9 +181,9 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(46,5,"LOCALIDAD",0,0,"C");
 	$MiPDF->Cell(46,5,"CODIGO",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(76,5,"I.E.S. Monterroso",1,0,'C');
-	$MiPDF->Cell(46,5,"Estepona",1,0,'C');
-	$MiPDF->Cell(46,5,"29002885",1,0,'C');
+	$MiPDF->Cell(76,5,$nombre_del_centro,1,0,'C');
+	$MiPDF->Cell(46,5,$localidad_del_centro,1,0,'C');
+	$MiPDF->Cell(46,5,$codigo_del_centro,1,0,'C');
 	$MiPDF->Ln ( 10 );
 	if ($curso=="2BACH") {
 	$MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
@@ -244,7 +254,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Ln ( 5 );
 	}
 	$hoy = formatea_fecha(date('Y-m-d'));
-	$f_hoy = "        En Estepona, a ".$hoy;
+	$f_hoy = "        En $localidad_del_centro, a ".$hoy;
 	$sello = "                                  Sello del Centro";
 	$firma_centro = "                                El/La Funcionario/a";
 	$firma_padre= "  Firma del representante o Guardador legal 1";

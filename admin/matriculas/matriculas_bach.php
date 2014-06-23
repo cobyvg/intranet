@@ -221,7 +221,7 @@ if ($itinerario1=="1"){
 			echo '
 <script> 
  alert("ATENCIÓN:\n';
-			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y sólo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de Estepona.\nElige una sola parada y vuelve a enviar los datos.")
+			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y sólo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de '.$localidad_del_centro.'.\nElige una sola parada y vuelve a enviar los datos.")
  </script>
 ';
 			$ruta_error = "";
@@ -440,7 +440,7 @@ if ($dni or $claveal or $id) {
 				// ${repetidor.$n_curso} = "1";
 			}
 			$nacimiento= str_replace("/","-",$nacimiento);
-			$colegio = 'IES Monterroso';
+			$colegio = $nombre_del_centro;
 		}
 	}
 	?> <br />
@@ -584,7 +584,7 @@ if ($dni or $claveal or $id) {
 		<select name="colegio" id="" onChange="dimePropiedades()">
 			<option><? echo $colegio; ?></option>
 			<?
-	echo "<option>IES Monterroso</option>
+	echo "<option>$nombre_del_centro</option>
       <option>Otro Centro</option>";            	
 			?>
 		</select> <br />
