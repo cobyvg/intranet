@@ -569,7 +569,7 @@ if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
 {
 ?>
 <br />
-  <p align="center">En Estepona a   <? $today = date("d") . "/" . date("m") . "/" . date("Y"); echo $today;?></p>
+  <p align="center">En <?php echo $localidad_del_centro; ?> a   <? $today = date("d") . "/" . date("m") . "/" . date("Y"); echo $today;?></p>
   <br>
 <p align="center">EL Tutor</p>
 <br>
