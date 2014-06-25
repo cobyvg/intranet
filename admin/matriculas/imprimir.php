@@ -189,7 +189,7 @@ $texto_moviles="
      Por último anunciar que dado que se ha dejado claro que están prohibidos estos dispositivos en el instituto, informamos que el Centro no se hace responsable ni va a mediar en situaciones donde se produzcan <<desapariciones>> de dichos dispositivos dentro de nuestras instalaciones.";
 
 $final_moviles="
-D./Dª. $papa, con DNI número $row[9], padre/madre/tutor legal del alumno/ a $row[3] $row[2] del curso $curso, teniendo en cuenta la información aportada, es conocedor de la prohibición de la tenencia y uso de los teléfonos móviles, así como de cualquier otro dispositivo electrónico que difunda o grabe imágenes de vídeo/audio.
+D./Dª. $papa, con DNI número $row[11], padre/madre/tutor legal del alumno/ a $row[3] $row[2] del curso $curso, teniendo en cuenta la información aportada, es conocedor de la prohibición de la tenencia y uso de los teléfonos móviles, así como de cualquier otro dispositivo electrónico que difunda o grabe imágenes de vídeo/audio.
 ";
 $firma_moviles="
 Firmado,

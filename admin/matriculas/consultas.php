@@ -595,6 +595,7 @@ for ($i = 0; $i < 16; $i++) {
 		else{
 	$val_notas="";
 	$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal='".$claveal."'");
+
 	$nota = mysql_fetch_array($not);
 	$tr_not = explode(";", $nota[0]);
 	
@@ -618,13 +619,16 @@ for ($i = 0; $i < 16; $i++) {
 		
 	}
 	// Junio
-	if (date('m')>'05' and date('m')<'09'){
+		
+
+	if (date('m')=='6'){
+		//echo " ".$val_notas;
 	if ($val_notas<3) {$promociona="1";}
-	echo "<span class='muted'> $val_notas&nbsp;</span>";
+	echo "<span class='muted' style='font-size:11px'> $val_notas&nbsp;</span>";
 	for ($i=1;$i<4;$i++){
 	echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
-					if($promociona == $i){echo " checked";}
-	echo " />&nbsp;&nbsp; ";	
+	if($promociona == $i){echo " checked";}
+	echo " />&nbsp;&nbsp;";	
 	}
 	}
 	// Septiembre
