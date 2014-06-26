@@ -12,7 +12,9 @@ if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'
 ?>
 <?
 include("../../menu.php");
+echo '<div class="no_imprimir">';
 include("menu.php");
+echo '</div>';
 ?>
 
 <? 
@@ -29,27 +31,30 @@ if ($row)
 <div class="page-header" align="center">
   <h2>Actas del Departamento <small> Registro de Reuniones ( <?  echo $row->departamento;?> )</small></h2>
 </div>
-
+</div>
 <div class="container-fluid">
 <div class="row-fluid">
 <div class="span1"></div>
 <div class="span10">
 <?
 		?>
-<h3>
-<?
 
-		fecha_actual($row->fecha);
+<div class="well-transparent" style="width:925px;margin:auto;">
+<legend class="no_imprimir">
+<?
+//fecha_actual($row->fecha);
+?>
+</legend>
+<?
 if (!($j_s=='disabled')) {
 ?>
-<a href="pdf.php?id=<? echo $id; ?>&imprimir=1"  style="margin-right:20px;" class="btn btn-primary pull-right"> <i class="fa fa-print " rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i> Imprimir Acta</a>
+<a href="pdf.php?id=<? echo $id; ?>&imprimir=1"  style="margin-right:20px;" class="btn btn-primary pull-right no_imprimir"> 
+<i class="fa fa-print " rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i> Imprimir PDF</a>
 <?
 }
 ?>
-</h3>
 
-<br />
-<div class="well-transparent">
+
 <?  
 			echo $row->contenido;
 ?>
