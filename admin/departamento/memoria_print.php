@@ -82,7 +82,7 @@ $html.='<script type="text/php">
  if ( isset($pdf) ) {
 
           $font = Font_Metrics::get_font("helvetica", "bold");
-          $pdf->page_text(542, 775, "Página: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
+          $pdf->page_text(542, 775, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
 
         }
 </script> '; 
@@ -99,7 +99,7 @@ if ($i==8) {$html.=  "<p style='font-size:15px'>"."5. Medidas de atención a la d
 $html.=  "<p style='font-size:13px'>".$pregunta[$i]."</p>";
 $html.=  "<p style='font-size:11px'>".$nota[$i]."</p>";
 $html.=  '<div style="border:1px solid #aaa; padding: 10px; width:695px;">';
-$html.=  $p[$i].'</div><br>';
+$html.=  strip_tags($p[$i], '<br><p><strong><em><b><i><ul><ol><li>').'</div><br>';
 }
 
 ####################
@@ -117,8 +117,6 @@ $html.=  '<br><br><br><br>';
 $html.=  'Fdo.: '.$memoria[1];
 
 $html.=  '</div></div></body></html>';
-
-
 
 
 $dompdf = new DOMPDF();
