@@ -99,7 +99,7 @@ if ($i==8) {$html.=  "<p style='font-size:15px'>"."5. Medidas de atención a la d
 $html.=  "<p style='font-size:13px'>".$pregunta[$i]."</p>";
 $html.=  "<p style='font-size:11px'>".$nota[$i]."</p>";
 $html.=  '<div style="border:1px solid #aaa; padding: 10px; width:695px;">';
-$html.=  strip_tags($p[$i], '<br><p><strong><em><b><i><ul><ol><li>').'</div><br>';
+$html.=  strip_tags($p[$i], '<br><p><strong><em><b><i><ul><ol><li><table><tr><td><th>').'</div><br>';
 }
 
 ####################
