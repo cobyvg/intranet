@@ -24,6 +24,8 @@ return false;
 //Conecxión con la base de datos.
  
 include("../../menu.php");
+include 'menu.php';
+
 if (isset($_GET['departamento'])) {$departamento = $_GET['departamento'];}elseif (isset($_POST['departamento'])) {$departamento = $_POST['departamento'];}else{$departamento="";}
 if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
 
@@ -74,7 +76,7 @@ do
 		  <td>$row[8]</td>";
 		   if(stristr($_SESSION['cargo'],'1') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['depto'] == $row[0]))
 {
-	echo "<td><a href='editexto.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();'> </i></a></td>";
+	echo "<td nowrap><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a>&nbsp;&nbsp;<a href=deltextos.php?id=$row[6] style='color:brown;'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();'> </i></a></td>";
 			 }
 		  
 		  echo "</tr>";

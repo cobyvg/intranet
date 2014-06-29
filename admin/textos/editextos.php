@@ -18,6 +18,8 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?php
 include("../../menu.php");
+include 'menu.php';
+
 echo '<div align="center">';		
 ?>
 <br />
@@ -29,19 +31,20 @@ echo "<h3>
 			Modificar Datos de un Libro de Texto</h3><br />";
  
 
-  $textos = mysql_query("SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, isbn, nivel, grupo FROM Textos where Id='$id'");
+  $textos = mysql_query("SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, isbn, nivel, grupo, Obligatorio FROM Textos where Id='$id'");
 	$row = mysql_fetch_array($textos);
 	$id = $row[6];
 	$nivel = $row[8];
+	$obliga = $row[10];
 ?>
 <div class="well well-large" style="width:450px;" align="left">
   <p class="lead">Selecciona el Curso y los Grupos</p>
 <hr>
-  		<form method="post" action="editexto.php" 
+  		<form method="post" action="editextos.php" 
   		echo $nivel;>
           <label>
   Nivel:
-    <select name="nivel" id="select4" onChange="submit()" class="input-xlarge">
+    <select name="nivel" id="select4" onChange="submit()" style="width:100%">
             <?
  echo "<option>$nivel</option>";
   $tipo = "select distinct curso from alma order by NIVEL";
@@ -60,7 +63,7 @@ else{
           <input type="hidden" name="id" value="<? echo $id; ?>" />
      </form>
      
-  <form name="textos" method="post" action="editexto.php">
+  <form name="textos" method="post" action="editextos.php">
   <input type="hidden" name="id" value="<? echo $id; ?>" />
   <input type="hidden" name="nivel" value="<? echo $nivel; ?>" />      
   <label>Grupos:
@@ -79,19 +82,19 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       Texto</p>
     <hr>
     <label>T&iacute;tulo<br />
-    <input name="titulo" type="text" id="titulo" size="45" value='<? echo $row[3];?>' class="span4">
+    <input name="titulo" type="text" id="titulo" size="45" value='<? echo $row[3];?>' style="width:97%">
   </label>
   
     <label>Autor<br />
-    <input name="autor" type="text" id="autor" size="50" value='<? echo $row[2];?>' class="span3">
+    <input name="autor" type="text" id="autor" size="50" value='<? echo $row[2];?>' style="width:97%">
   </label>
   
     <label>Editorial<br />
-    <input name="editorial" type="text" id="editorial" size="50" value="<? echo $row[4];?>" class="span3">
+    <input name="editorial" type="text" id="editorial" size="50" value="<? echo $row[4];?>" style="width:97%">
   </label>
   
     <label>Departamento<br />
-    <select name="departamento" id="departamento"  value ="Todos ..." onChange="submit()" class="input-xlarge">
+    <select name="departamento" id="departamento"  value ="Todos ..." onChange="submit()" style="width:100%">
         <option><? if($departamento){echo $departamento;}else{echo $row[0];}?></option>
         <?
   $profe = mysql_query(" SELECT distinct departamento FROM departamentos order by departamento asc");
@@ -109,7 +112,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
   
   
     <label>Asignatura<br />
-    <select name="asignatura" id="asignatura" class="input-xlarge">
+    <select name="asignatura" id="asignatura" style="width:100%">
         <option><? if($asignatura){echo $asignatura;}else{echo $row[1];}?></option>
         <option>
         <?
@@ -130,26 +133,30 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
   </label>
   
     <label>Tipo de Libro<br />
-    <select name="clase" class="input-small">
+    <select name="clase" style="width:100%">
         <option>Texto</option>
         <option>Lectura</option>
       </select>
-      <select name="obligatorio" class="input-large">
+      <select name="obligatorio" style="width:100%">
+              <option><? if($obliga){echo $obliga;}?></option>
+      
         <option>Obligatorio</option>
         <option>Recomendado</option>
       </select>
   </label>
   
     <label>Observaciones<br />
-    <textarea name="NOTAS" cols="50" rows="6" class="span4"><? echo $row[5];?></textarea>
+    <textarea name="NOTAS" cols="50" rows="6" style="width:97%"><? echo $row[5];?></textarea>
   </label>
   
     <label>ISBN<br />
-    <input name="isbn" type="text" id="isbn" size="50" value="<? echo $row[7];?>" class="span3">
+    <input name="isbn" type="text" id="isbn" size="50" value="<? echo $row[7];?>" style="width:97%">
   </label>
   
-    <input type="submit" name="enviar" value="Actualizar datos" size=15 maxlength=25 alt="Introducir" class="btn btn-primary">
-      <input type="submit" name="insertar" value="Insertar como nuevo Libro" size=15 maxlength=25 alt="Introducir2"  class="btn btn-primary">
+<center>
+<input type="submit" name="enviar" value="Actualizar datos" size=15 maxlength=25 alt="Introducir" class="btn btn-warning" style="width:45%">
+<input type="submit" name="insertar" value="Insertar como nuevo Libro" size=15 maxlength=25 alt="Introducir2"  class="btn btn-success" style="width:45%">
+</center>
 </form>
 </div>
 </div>

@@ -66,8 +66,8 @@ $grupo = "$A$B$C$D$E$F$G$H";
 //Introducción de datos si todo va bién
 		$query="UPDATE Textos SET Titulo = '$titulo', Autor = '$autor', 
 		Editorial = '$editorial', Departamento = '$departamento', 
-		Asignatura = '$asignatura', Notas = '$NOTAS', isbn = '$isbn', nivel = '$nivel', grupo = '$grupo' where Id = '$id'";
-//		echo $query;
+		Asignatura = '$asignatura', Notas = '$NOTAS', isbn = '$isbn', nivel = '$nivel', grupo = '$grupo', obligatorio = '$obligatorio' where Id = '$id'";
+		//echo $query;
 		mysql_query($query);
 		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -95,7 +95,7 @@ do
 			 <td>$row[3]</td>
 			 <td>$row[4]</td>
 		  <td>$row[8]</td>
-		  <td><a href='editexto.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();'> </i></a></td>
+		  <td><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();'> </i></a></td>
 		  </tr>";
 
         } while($row = mysql_fetch_array($textos));	

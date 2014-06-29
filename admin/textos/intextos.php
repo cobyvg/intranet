@@ -40,20 +40,20 @@ if (isset($_GET['clase'])) {$clase = $_GET['clase'];}elseif (isset($_POST['clase
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
 
+include 'menu.php';
 ?>
 <br />
 <div align="center">
 <div class="page-header">
-  <h2>Libros de Texto <small> Registro y Consultas</small></h2>
+  <h2>Libros de Texto <small> Registro de Libros</small></h2>
 </div>
-<div class="container-fluid">
-<div class="row-fluid">
+<div class="container">
+<div class="row">
 <? 
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
 { ?>
-<div class="span5 offset1">	
-<legend>Registro de Libros de Texto </legend>
-<div class="well well-large" style="width:95%;" align="left">
+<div class="span6 offset3">	
+<div class="well well-large" style="width:80%;" align="left">
   <legend>Selecciona el Curso y los Grupos</legend>
 <hr>
     <form method="post" action="intextos.php" class="form-vertical">
@@ -172,53 +172,16 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       <textarea name="NOTAS" class="input-block-level" rows="6"> <? echo $NOTAS; ?></textarea>
     </label>
     <p class="help-block"><span style="color:#9d261d">(*)</span> Campos obligatorios del formulario.</p>
-    <br />
+    <hr />
     <input type="submit" name="enviar" value="Introducir datos" size=15 maxlength=25 alt="Introducir" class="btn btn-primary btn-block">
   </form>
   </div>
   </div>
-  <?
-}
-if ($j_s == '1') {
-	echo '<div class="span4 offset4">';
-}
-else{
-	echo '<div class="span5">';
+ </div>
+ </div>
+ <?
 }
 ?>
-    <legend>Consulta de Textos por Departamento. </legend>
-    <div class="well well-large" align="left">
-      <form name="intextos" method="post" action="textos.php">
-      <label>Nivel<br />
-        <select name="nivel" id="select6" class="input-block-level">
-          <?
-  $tipo = "select distinct curso from alma order by curso";
-  $tipo1 = mysql_query($tipo);
-  while($tipo2 = mysql_fetch_array($tipo1))
-        {
-$completo = $tipo2[0];
-echo "<option>$completo</option>";
-} ?>
-        </select>
-      </label>
-      <label>Departamento:<br />
-        <select name="departamento" id="select7"  value ="Todos ..." onChange="submit()" class="input-block-level">
-          <option></option>
-          <?
-  $profe = mysql_query(" SELECT distinct departamento FROM departamentos order by departamento asc");
-  while($filaprofe = mysql_fetch_array($profe))
-	{
-	$departamen = $filaprofe[0]; 
-	$opcion1 = printf ("<OPTION>$departamen</OPTION>");
-	echo "$opcion1";
-	} 
-	?>
-        </select>
-      </label>
-      <input type="submit" name="enviar2" value="Buscar Textos" size=15 maxlength=25 alt="Introducir" class="btn btn-primary btn-block">
-    </div>
-  </form>
-</div>
 <?php
 	include("../../pie.php");
 ?>
