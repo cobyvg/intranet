@@ -1,7 +1,15 @@
 @charset "ISO-8859-1";
 /* CSS Document */
-body{
+body {
 	padding-top:50px;
+}
+
+.navbar .dropdown-menu>li>a {
+	color: #333;
+}
+
+.navbar .dropdown-menu>li>a:hover {
+	color: #fff;
 }
 
 .accordion-group.well {
@@ -51,12 +59,6 @@ a.accordion-toggle:hover {
 	vertical-align: top;
 	background-color: #f5f5f5;
 	border-bottom: #c9c682 dotted 1px;
-}
-
-.nav > li > a:hover {
-  text-decoration: none;
-  background-color: #08c;
-  color:#fff;
 }
 
 legend{
