@@ -46,7 +46,7 @@ $result = mysql_query ($expul);
         	else{
 	echo "<div class='well alert alert-info'><legend><i class='fa warning-sign'> </i> Alumnos que se reincorporan tras su Expulsión<br /> <small>$materia</small></legend><hr />";
 	echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad."</p>";
-	echo "<p>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index0.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary'>SI</button></a>&nbsp;&nbsp;<a href='index0.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger'>NO</button></a></p>";
+	echo "<p>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary'>SI</button></a>&nbsp;&nbsp;<a href='index.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger'>NO</button></a></p>";
 	echo "</div>";
         }
         }          	
@@ -239,13 +239,13 @@ $fechaenv = "el día $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 <span style="color:#333"><? echo $texto;?></span>
 </div>
   <div class="modal-footer">
-  <form name="mensaje_enviado" action="index0.php" method="post" enctype="multipart/form-data" class="form-inline">
+  <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
   <a href="#" class="btn btn-warning" data-dismiss="modal">Cerrar</a>
     <?
 
 echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
 ?>
-<a href="index0.php?verifica_padres=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a> 
+<a href="index.php?verifica_padres=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a> 
 <input type='hidden' name = 'id_ver' value = '$id' />
 </form>
 </div>
@@ -305,13 +305,13 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 <span style="color:#333"><? echo $texto;?></span>
   </div>
   <div class="modal-footer">
-  <form name="mensaje_enviado" action="index0.php" method="post" enctype="multipart/form-data" class="form-inline">
+  <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
   <a href="#" target="_top" data-dismiss="modal"class="btn btn-warning">Cerrar</a>
     <?
 	$asunto = str_replace('"','',$asunto);
 	echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
 ?>
-<a href="index0.php?verifica=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a>  
+<a href="index.php?verifica=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a>  
 <input type='hidden' name = 'id_ver' value = '$id' />
 </form>
 </div>

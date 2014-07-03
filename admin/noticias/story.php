@@ -48,7 +48,7 @@ if ($row)
  <p>
             Publicada: <? echo fecha_actual($row->timestamp); ?><br />
             Autor: <? echo $row->contact; ?><br /></p>  
-            <div align="center"><a href="../../index0.php" class="btn btn-success">Volver a la página principal</a></div>
+            <div align="center"><a href="../../index.php" class="btn btn-success">Volver a la página principal</a></div>
 <br /> 
   <?
 }

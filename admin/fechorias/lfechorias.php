@@ -46,7 +46,7 @@ return false;
 <?
 include ("../../funciones.php");
 $idea = $_SESSION ['ide'];
-if (strstr($_SERVER['REQUEST_URI'],'index0.php')==TRUE) {$activ1 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activ1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activ2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activ3 = ' class="active" ';}
 ?>
@@ -58,10 +58,10 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activ3 = ' class="active" 
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="fa fa-bars"></span>
       </a>
-      <a class="brand" href="http://<? echo $dominio;?>/intranet/index0.php">Intranet del <?php echo $nombre_del_centro; ?></a>
+      <a class="brand" href="http://<? echo $dominio;?>/intranet/index.php">Intranet del <?php echo $nombre_del_centro; ?></a>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li <? echo $activ1;?>><a href="http://<? echo $dominio;?>/intranet/index0.php">Inicio</a></li>
+          <li <? echo $activ1;?>><a href="http://<? echo $dominio;?>/intranet/index.php">Inicio</a></li>
           <li><a href="http://<? echo $dominio;	?>">Página del centro</a></li>
           <li<? echo $activ2;?>><a href="http://<? echo $dominio;	?>/intranet/admin/mensajes/"> Mensajes</a></li>
           <li<? echo $activ3;?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>

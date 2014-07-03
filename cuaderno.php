@@ -125,7 +125,7 @@ $pr = $_SESSION['profi'];
 // Elegir Curso y Asignatura.
 if(empty($curso))
 {
-	include("index0.php");
+	include("index.php");
 	exit;
 }
 mysql_query("ALTER TABLE  datos CHANGE  nota VARCHAR( 48 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  '' ");

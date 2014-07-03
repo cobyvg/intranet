@@ -55,7 +55,7 @@ La Contraseña se ha modificado en la Base de Datos. <br />La nueva clave para en
 Puedes volver a cambiarla en cualquier momento. Y si te olvidas de la misma, ponte en contacto para volver al principio.
 			</div>
           </div> ';
-		  echo '<br><form><input name="volver" type="button" onClick="location.href=\'http://'.$dominio.'/intranet/index0.php\'" value="Ir a la Página Principal" class="btn btn-primary"></form>';
+		  echo '<br><form><input name="volver" type="button" onClick="location.href=\'http://'.$dominio.'/intranet/index.php\'" value="Ir a la Página Principal" class="btn btn-primary"></form>';
 }
 else {
 if(empty($correo))

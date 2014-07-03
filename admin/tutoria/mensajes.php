@@ -42,7 +42,7 @@ $alumno = "$row->apellidos, $row->nombre";
 <p><? echo $row->asunto;?></p>
 <p><? echo $row->texto;?></p>  </div>
   <div class="modal-footer">
-  <form name="mensaje_enviado" action="index0.php" method="post" enctype="multipart/form-data" class="form-inline">
+  <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
   <a href="#" class="btn btn-warning" data-dismiss="modal">Cerrar</a>
     <?
 
