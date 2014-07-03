@@ -13,7 +13,7 @@ else $activo1=' class="active" ';
    <ul class="nav nav-tabs">
      <li <? echo $activo1;?>><a href="index.php?inbox=recibidos">Mensajes recibidos</a></li>
      <li <? echo $activo2;?>><a href="index.php?inbox=enviados">Mensajes enviados</a></li>
-     <li <? echo $activo3;?>><a href="redactar.php">Redactar mensaje...</a></li>
+     <li <? echo $activo3;?>><a href="redactar.php">Redactar mensaje</a></li>
      <li <? echo $activo4;?>><a href="correo.php">Redactar correo</a></li>
     </ul>
  </div>
