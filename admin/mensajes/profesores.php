@@ -102,7 +102,7 @@ if($ca == '1')
 	}
 	 mysql_query("update mens_texto set destino = 'CA' where id = '$id'");
 	//echo "update mens_texto set destino = 'CA' where id = '$id'";
-	echo $msg_success;
+	$ok=1;
 	}
 
 if($etcp == '1')
@@ -144,7 +144,7 @@ if($direccion == '1')
 	mysql_query("insert into mens_profes (id_texto, profesor) values ('".$id."','".$dir1[0]."')");
 	}
 	mysql_query("update mens_texto set destino = 'Equipo Directivo' where id = '$id'");
-	echo $msg_success;
+	$ok=1;
 	}
 
 if($orientacion == '1')
