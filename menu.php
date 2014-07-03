@@ -25,7 +25,7 @@ $idea = $_SESSION ['ide'];
 $activo1="";
 $activo2="";
 $activo3="";
-if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activo1 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE) {$activo1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activo2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active" ';}
 ?>

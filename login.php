@@ -22,40 +22,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
  */
 session_start();
-// Comprobamos estado del archvo de configuraciï¿½n.
-$f_config = file_get_contents('config.php');
 
-$tam_fichero = strlen($f_config);
-if (file_exists ( "config.php" ) and $tam_fichero > '10') {
-}
-else{
-// Compatibilidad con versiones anteriores: se mueve el archivo de configuraciï¿½n al directorio raï¿½z.
-// Archivo de configuraciï¿½n en antiguo directorio se mueve al raiz de la intranet
-if (file_exists ("/opt/e-smith/config.php")) 
-{
-	$texto = fopen("config.php","w+");
-	if ($texto==FALSE) {
-		echo "<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el directorio de la Intranet. Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>";
-		fclose($texto);
-		exit();
-	}
-	else{
-$lines = file('/opt/e-smith/config.php');
-$Definitivo="";
-foreach ($lines as $line_num => $line) {
-$Definitivo.=$line;
-}
-$pepito=fwrite($texto,$Definitivo) or die("<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el archivo de configuración de la Intranet ( config.php ). Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>");
-fclose ($texto);
-}
-}
-else{
-	header ( "location:config/index.php" );
-	exit ();
-}
-}
-// Arhivo de configuraciï¿½n cargado
-include_once ("config.php");
+include("config.php");
 
 // Comienzo de sesiï¿½n.
 $_SESSION ['autentificado'] = '0';
