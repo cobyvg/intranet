@@ -37,7 +37,7 @@ Los datos de la incidencia se han borrado correctamente.
 ?>
 <?
 if(stristr($_SESSION['cargo'],'1') == TRUE){$user="";}else{$user=" where profesor = '".$_SESSION['profi']."' ";}
-  $SQL = "SELECT parte, nivel, grupo, carro, nserie, fecha, hora, alumno, profesor, descripcion, estado FROM  partestic $user ORDER BY parte DESC";
+  $SQL = "SELECT parte, unidad, nincidencia, carro, nserie, fecha, hora, alumno, profesor, descripcion, estado FROM  partestic $user ORDER BY parte DESC";
   $result = mysql_query($SQL);
   if(mysql_num_rows($result)<"1"){
 	  echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
@@ -51,7 +51,8 @@ Parece que no has registrado ninguna incidencia que puedas editar. Sólo pueden s
 echo "<br /><table class='table table-bordered table-striped tabladatos' style='width:auto'>";
 echo "<thead><th>Profesor</th><th>Fecha</th><th>Número</th><th>Descripción</th><th>Estado</th><th>Carro</th><th></th></thead><tbody>";
 		do {
-$obs = substr($row[9],0,115)."...";
+			
+$obs = substr($row[9],0,84)."...";
 	echo "<tr>";
 echo "<td>$row[8]</td><td nowrap>$row[5]</td>
 <td>$row[4]</td><td>$obs</td><td>";

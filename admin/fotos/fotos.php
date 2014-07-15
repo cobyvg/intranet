@@ -13,26 +13,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 <?php
 include("../../menu.php");
-if (isset($_POST['nivel'])) {
-	$nivel = $_POST['nivel'];
+if (isset($_POST['unidad'])) {
+	$unidad = $_POST['unidad'];
 } 
-elseif (isset($_GET['nivel'])) {
-	$nivel = $_GET['nivel'];
-} 
-else
-{
-$nivel="";
-}
-if (isset($_POST['grupo'])) {
-	$grupo = $_POST['grupo'];
-}
-elseif (isset($_GET['grupo'])) {
-	$grupo = $_GET['grupo'];
+elseif (isset($_GET['unidad'])) {
+	$unidad = $_GET['unidad'];
 } 
 else
 {
-$grupo="";
+$unidad="";
 }
+
 if (isset($_POST['nombre'])) {
 	$nombre = $_POST['nombre'];
 }
@@ -49,7 +40,7 @@ elseif (isset($_GET['claveal'])) {
 <br />
   <div align=center>
   <div class="page-header" align="center">
-  <h2>Fotos de los Alumnos <small>Registro de fotografías de <? echo $nivel."-".$grupo;?></small></h2>
+  <h2>Fotos de los Alumnos <small>Registro de fotografías de <? echo $unidad;?></small></h2>
 </div>
 <?
 if (isset($_POST['enviar']))
@@ -57,7 +48,7 @@ if (isset($_POST['enviar']))
 	$ok=0;
 	if ($_FILES['File']['size']>0) {
 	$fotos_dir = "../../xml/fotos/";
-	if ($_FILES['File']['size']>'30000' and $_FILES['File']['size']<'2500000') {
+	if ($_FILES['File']['size']<'2500000') {
 		if (stristr($_FILES['File']['type'],"image/jp")==TRUE) {			
 			$extension="jpg";
 			$n_foto=$claveal.".".$extension;
@@ -125,7 +116,7 @@ El archivo que est&aacute;s enviando no es un tipo de imagen v&aacute;lido. Sele
 	}
 	else{
 	
-		if ($_FILES['File']['size']< '30000') {
+		if ($_FILES['File']['size']< '3000') {
 			$ok.="1";
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -166,20 +157,21 @@ La fotograf&iacute;a tiene excesiva resoluci&oacute;n. Es conveniente que actual
 <?
 if (strlen($nombre) > '5')
     {
+    	$tr_nombre = explode("-->",$nombre);
+    	$nombre2 = $tr_nombre[0];
 ?>
-<OPTION><? echo $nombre;?></OPTION>
+<OPTION><? echo $nombre2;?></OPTION>
 <?
     }
-$alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE , CLAVEAL FROM FALUMNOS WHERE NIVEL = '$nivel' AND GRUPO = '$grupo' order by NC asc");
+$alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE , CLAVEAL FROM FALUMNOS WHERE unidad = '$unidad' order by NC asc");
 echo "<OPTION></OPTION>";
     while ($falumno = mysql_fetch_array($alumno))
        {
-          echo "<OPTION>$falumno[0], $falumno[1] --> $falumno[2] </OPTION>";
+          echo "<OPTION value='$falumno[0], $falumno[1] --> $falumno[2]'>$falumno[0], $falumno[1] </OPTION>";
        }
 ?>
 </select>
-<INPUT TYPE=hidden NAME="nivel" value="<? echo $nivel;?>">
-<INPUT TYPE=hidden NAME="grupo" value="<? echo $grupo;?>">
+<INPUT TYPE=hidden NAME="unidad" value="<? echo $unidad;?>">
  </form>
  
  <div class="well well-large" align='center' style="width:500px;">
@@ -199,8 +191,7 @@ if (strlen($_POST['nombre']) > '5')
 	echo '<INPUT TYPE="hidden" NAME="claveal" value="'.$claveal.'">';
 	echo '<INPUT TYPE="hidden" NAME="nombre" value="'.$nombre.'">';
 	?>
-	<INPUT TYPE=hidden NAME="nivel" value="<? echo $nivel;?>">
-	<INPUT TYPE=hidden NAME="grupo" value="<? echo $grupo;?>">	
+	<INPUT TYPE=hidden NAME="unidad" value="<? echo $unidad;?>">
 	<?
 	print("<INPUT TYPE='file' NAME='File' ><br /> ");
 	echo "<br />";
@@ -218,7 +209,7 @@ if (strlen($_POST['nombre']) > '5')
 	else {
 		echo "<div style='margin-top:10px;border:1px solid #bbb;width:100px;height:119px;color:#9d261d;' />Sin Foto</div><br />";
 	}
-	if ($foto_ya=='1' and $grande < '30000') {
+	if ($foto_ya=='1' and $grande < '3000') {
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>

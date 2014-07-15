@@ -14,8 +14,7 @@ include("../../menu.php");
 include("menu.php");
 
 $profe = $_SESSION ['tut'];
-$unidad=$_SESSION ['s_nivel']."-".$_SESSION ['s_grupo'];
-$grupo=$_GET['grupo'];
+$unidad=$_SESSION ['s_unidad'];
 
 mysql_query("CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
   `unidad` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
@@ -57,24 +56,23 @@ exit;
 
 
 echo '<div class="span12" align="center">
-<legend >Asignación de puestos de la tutoría de ',$_GET['grupo'].'</legend>';
+<legend >Asignación de puestos de la tutoría de ',$_GET['unidad'].'</legend>';
 
-echo "<a class='btn btn-primary' target='_blank' href='puestos_print.php?grupo=$grupo'>Versión para imprimir</a><hr />";
+echo "<a class='btn btn-primary' target='_blank' href='puestos_print.php?unidad=$unidad'>Versión para imprimir</a><hr />";
 #mysql_close();
 ############################## si se han guardado
 if (isset($_POST['listOfItems'])){
-mysql_query("UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$grupo."'");
-#	echo 'jhkjshfd: '.$_POST['listOfItems'];
-# crear registr en la tabla puestos o actualizar (unidad y cadena de asignacion)
+mysql_query("UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$unidad."'");
 
+# crear registr en la tabla puestos o actualizar (unidad y cadena de asignacion)
 
 }
 
 # cargar la cadena de asignación. Si no existe crear el registro
-$qry="SELECT * FROM puestos_alumnos WHERE unidad='".$grupo."' limit 1";
+$qry="SELECT * FROM puestos_alumnos WHERE unidad='".$unidad."' limit 1";
 $resultado = mysql_query($qry);
 $numero_rows = mysql_num_rows($resultado);
-if ($numero_rows<>1){mysql_query("INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$grupo."', '')");}
+if ($numero_rows<>1){mysql_query("INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$unidad."', '')");}
 else {$qrypuestos = mysql_fetch_array($resultado);
 	$cadena_puestos=$qrypuestos[1];}
 #echo $cadena_puestos;
@@ -628,7 +626,7 @@ window.onload = initDragDropScript;
 		<ul id="allItems">
 	<?php 	
 	$sql="SELECT Apellidos, Nombre, claveal FROM alma
-	 WHERE (Unidad='".$grupo."') ORDER BY Apellidos, Nombre ";
+	 WHERE (Unidad='".$unidad."') ORDER BY Apellidos, Nombre ";
 	//echo $sql;
 		$res_alumnos=mysql_query($sql);
 					
@@ -657,7 +655,7 @@ for ($i=1;$i<7;$i++){
 	echo "<td><div><p align='center'>".$nbox."</p>";
 	#Comprobar si existe para colocar.
 	echo	'<ul id="'.$nbox.'">';
-	if (isset($con_puesto[$nbox])){echo '<li id='.$con_puesto[$nbox].'>'.al_con_nie($con_puesto[$nbox],$grupo).'</li>'; }				   
+	if (isset($con_puesto[$nbox])){echo '<li id='.$con_puesto[$nbox].'>'.al_con_nie($con_puesto[$nbox],$unidad).'</li>'; }				   
 	echo '</ul></div></td>';
 	if ($j==2 or $j==$mesas_col-3) {echo '<td>|</td>';}
 	$nbox--;
@@ -673,7 +671,7 @@ echo '</table>';
 </div>
 </div>
 <div id='footerpie'>
-	<form name="myForm" method="post" action="puestos.php?grupo=<?php  echo $grupo;?>" onsubmit="saveDragDropNodes()">
+	<form name="myForm" method="post" action="puestos.php?unidad=<?php  echo $unidad;?>" onsubmit="saveDragDropNodes()">
 	<input type="hidden" name="listOfItems" value="">
 	<center><input class='btn btn-primary' type="submit" value="Guardar" name="saveButton"></center><hr />
 	</form>

@@ -10,8 +10,7 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $tutor = $_SESSION['profi'];
 include_once ("../../funciones.php"); 
-if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
-if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 if (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
 if (isset($_GET['fecha12'])) {$fecha12 = $_GET['fecha12'];}elseif (isset($_POST['fecha12'])) {$fecha12 = $_POST['fecha12'];}else{$fecha12="";}
 if (isset($_GET['fecha22'])) {$fecha22 = $_GET['fecha22'];}elseif (isset($_POST['fecha22'])) {$fecha22 = $_POST['fecha22'];}else{$fecha22="";}
@@ -123,11 +122,11 @@ $claveal1 = substr($claveal0,0,strlen($claveal0)-4);
 while  ($row0 = mysql_fetch_array($result0)):
 $claveal = $row0[0];
 // Justificadas
-$SQLJ = "select faltastemp3.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, FALTAS.falta,  faltastemp3.numero from faltastemp3, FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and faltastemp3.claveal = FALTAS.claveal and FALTAS.falta = 'J' and FALTAS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos";
+$SQLJ = "select faltastemp3.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta,  faltastemp3.numero from faltastemp3, FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and faltastemp3.claveal = FALTAS.claveal and FALTAS.falta = 'J' and FALTAS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos";
   	$resultJ = mysql_query($SQLJ);
   	$rowJ = mysql_fetch_array($resultJ);
 // No justificadas
- $SQLF = "select faltastemp2.claveal, alma.apellidos, alma.nombre, alma.nivel, alma.grupo,
+ $SQLF = "select faltastemp2.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.matriculas,
 FALTAS.falta,  faltastemp2.numero, alma.DOMICILIO, alma.CODPOSTAL, alma.LOCALIDAD,
 alma.PADRE from faltastemp2, FALTAS, alma where alma.claveal = FALTAS.claveal and faltastemp2.claveal =
 FALTAS.claveal and FALTAS.claveal = '$claveal' and FALTAS.falta = 'F' GROUP BY alma.apellidos";
@@ -177,7 +176,7 @@ $justi4 = $nojustidias;
 $MiPDF->Addpage();
 $cuerpo1="											
 Muy Señor/Sra. mío/a:
-Nos dirigimos a usted para enviarle un informe completo sobre las faltas de asistencia al Centro de su hijo/a, $rowF[2] $rowF[1], perteneciente al Grupo $rowF[3]-$rowF[4].";
+Nos dirigimos a usted para enviarle un informe completo sobre las faltas de asistencia al Centro de su hijo/a, $rowF[2] $rowF[1], perteneciente al Grupo $rowF[3].";
 	if($justi1=="Su hijo no ha justificado ninguno de los días en los que no ha asistido al Centro")
 	{
 $cuerpo2="$justi1

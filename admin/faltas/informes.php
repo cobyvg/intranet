@@ -103,7 +103,7 @@ echo "<div align='center'>";
 	$fechasp2=explode("-",$fecha3);
 	$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
   }
-  $SQL10 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo from FALUMNOS where   CLAVEAL = '$claveal'";
+  $SQL10 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad from FALUMNOS where   CLAVEAL = '$claveal'";
   $result10 = mysql_query($SQL10);
   $row10 = mysql_fetch_array($result10);
           echo "<div align='center'>";
@@ -120,23 +120,23 @@ echo "<div align='center'>";
 		echo "<table class='table table-striped' style='width:auto;'>";
 
                 printf ("<tr><th>%s</th><th>%s</th>
-				<th>%s</th><th>%s</th></tr>\n", $row10[1], $row10[2],$row10[3], $row10[4]);
+				<th>%s</th></tr>\n", $row10[1], $row10[2],$row10[3]);
         
         echo "</table>";
   // Datos del Alumno
  
 if($submit2)
 {
- $SQL0 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
+ $SQL0 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
  //echo $SQL0;
   $result0 = mysql_query($SQL0);
   $row0 = mysql_fetch_array($result0);
   // Justificadas
-  $SQLJ = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.falta = 'J' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
+  $SQLJ = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.falta = 'J' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
   $resultJ = mysql_query($SQLJ);
   $rowJ = mysql_fetch_array($resultJ);
   // Sin justificar
-  $SQLF = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.falta = 'F' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
+  $SQLF = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.falta = 'F' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
 
   $resultF = mysql_query($SQLF);
   $rowF = mysql_fetch_array($resultF);  
@@ -158,7 +158,7 @@ if($submit2)
 			No hay registros de faltas de asistencia para el alumno seleccionado.
 			</div></div><br />';
         }
-  $SQL = "SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.NIVEL, alma.GRUPO,
+  $SQL = "SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.GRUPO,
   FALTAS.FECHA, FALTAS.HORA, FALTAS.CODASI, FALTAS.falta, asignaturas.abrev
   FROM alma, FALTAS, asignaturas where  alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.codasi = asignaturas.codigo and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' and alma.CLAVEAL = '$claveal' and asignaturas.abrev not like '%\_%' order BY FALTAS.FECHA, FALTAS.HORA";
    $result = mysql_query($SQL);

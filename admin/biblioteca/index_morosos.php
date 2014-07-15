@@ -20,7 +20,7 @@ include("menu.php");
 <?
 $crea ="CREATE TABLE IF NOT EXISTS `morosos` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
-  `curso` varchar(50) NOT NULL,
+  `curso` varchar(64) NOT NULL,
   `apellidos` varchar(60) NOT NULL,
   `nombre` varchar(25) NOT NULL,
   `ejemplar` varchar(100) NOT NULL,

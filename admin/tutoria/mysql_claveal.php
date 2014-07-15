@@ -1,6 +1,6 @@
 <?
 include("../../config.php");
-  $al0 = mysql_query("select distinct id, FALUMNOS.claveal, tutoria.claveal from tutoria, FALUMNOS where tutoria.apellidos=FALUMNOS.apellidos and tutoria.nombre=FALUMNOS.nombre and tutoria.nivel=FALUMNOS.nivel and tutoria.grupo=FALUMNOS.grupo order by id");
+  $al0 = mysql_query("select distinct id, FALUMNOS.claveal, tutoria.claveal from tutoria, FALUMNOS where tutoria.apellidos=FALUMNOS.apellidos and tutoria.nombre=FALUMNOS.nombre and tutoria.unidad=FALUMNOS.unidad order by id");
   while($al1 = mysql_fetch_array($al0))
   {
  $claveal = $al1[1];

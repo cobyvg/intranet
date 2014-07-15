@@ -70,7 +70,7 @@ echo "</table>";
 <?	
 // Datos de uso de los profesores en sus carritos
 mysql_query("truncate table usuario");
-$query4 = "select distinct profesor from profesores order by profesor";
+$query4 = "select distinct profesor from $bd.profesores order by profesor";
 $result4 = mysql_query($query4);
 while ($row4 = mysql_fetch_array($result4))
 {

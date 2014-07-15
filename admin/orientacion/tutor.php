@@ -36,12 +36,10 @@ if (isset($_GET['eliminar'])) {
 if (isset($_POST['fecha'])) {
 	$fecha = $_POST['fecha'];
 } else{$fecha="";}
-if (isset($_POST['nivel'])) {
-	$nivel = $_POST['nivel'];
-} else{$nivel="";}
-if (isset($_POST['grupo'])) {
-	$grupo = $_POST['grupo'];
-} else{$grupo="";}
+if (isset($_POST['unidad'])) {
+	$unidad = $_POST['unidad'];
+} else{$unidad="";}
+
 if (isset($_POST['alumno'])) {
 	$alumno = $_POST['alumno'];
 }   else{$alumno="";}
@@ -57,12 +55,12 @@ if (isset($_POST['causa'])) {
 if (isset($_POST['id2'])) {
 	$id2 = $_POST['id2'];
 } else{$id2="";}
-if (isset($_POST['nivel0'])) {
-	$nivel0 = $_POST['nivel0'];
-} else{$nivel0="";}
-if (isset($_POST['grupo0'])) {
-	$grupo0 = $_POST['grupo0'];
-} else{$grupo0="";}
+if (isset($_GET['id3'])) {
+	$id2 = $_GET['id3'];
+} else{$id3="";}
+if (isset($_POST['unidad0'])) {
+	$unidad0 = $_POST['unidad0'];
+} else{$unidad0="";}
 if (isset($_POST['prohibido'])) {
 	$prohibido = $_POST['prohibido'];
 }else{$prohibido="";}
@@ -73,21 +71,20 @@ if (isset($_POST['submit1'])) {
 }
 
 if ($id) {
-	$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, nivel, grupo, tutor, id, prohibido, claveal from tutoria where id = '$id'");
+	$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, unidad, tutor, id, prohibido, claveal from tutoria where id = '$id'");
 	$row = mysql_fetch_array($result);
-	$alumno = $row[0].", ".$row[1]." --> ".$row[11];
+	$alumno = $row[0].", ".$row[1]." --> ".$row[10];
 	$fecha0 = $row[2];
 	$dia = explode("-",$fecha0);
 	$fecha = "$dia[2]-$dia[1]-$dia[0]";
 	$accion0 = $row[3];
 	$causa = $row[4];
 	$observaciones = $row[5];
-	$nivel = $row[6];
-	$grupo = $row[7];
-	$tutor = $row[8];
-	$id = $row[9];
-	$prohibido = $row[10];
-	$clave = $row[11];
+	$unidad = $row[6];
+	$tutor = $row[7];
+	$id = $row[8];
+	$prohibido = $row[9];
+	$clave = $row[10];
 }
 
 if ($eliminar=="1") {
@@ -96,10 +93,6 @@ if ($eliminar=="1") {
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.
 </div></div><br />';	
-}
-
-if (isset($_POST['submit1'])) {
-		include("insertar.php");
 }
 
 if (isset($_POST['submit2'])) {  
@@ -113,7 +106,7 @@ if (isset($_POST['submit2'])) {
 	//echo $actualizar;
 	mysql_query($actualizar);
 }
-if (isset($_POST['submit3']) or $eliminar=="1") {
+if (isset($_POST['submit3'])) {
 	$actualizar ="delete from tutoria WHERE  id = '$id2'";
 	mysql_query($actualizar);
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -141,15 +134,10 @@ if ($alumno) {
 }
 ?> 
 <center>
-<label style="display: inline;"> Nivel <SELECT name="nivel"
-	onChange="submit()" class="input-small">
-	<option><? echo $nivel;?></option>
-	<? nivel();?>
-</SELECT> </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
-	style="display: inline;"> Grupo <SELECT name="grupo"
-	onChange="submit()" class="input-small">
-	<OPTION><? echo $grupo;?></OPTION>
-	<? grupo($nivel);?>
+<label style="display: inline;"> Grupo: <SELECT name="unidad"
+	onChange="submit()" class="input">
+	<option><? echo $unidad;?></option>
+	<? unidad();?>
 </SELECT> </label>
 </center>
 <hr>
@@ -159,7 +147,7 @@ if ($alumno) {
 
 <?
 
-$alumno0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where nivel = '$nivel' and grupo = '$grupo' order by NC asc");
+$alumno0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where unidad = '$unidad' order by NC asc");
 if ($falumno = mysql_fetch_array($alumno0))
 {
 	?>
@@ -271,7 +259,7 @@ if($alumno){
 	?>
 <hr>
 <h4 align="center">Intervenciones sobre <br />
-	<? echo $nombre." ".$apellidos." (".$nivel."-".$grupo.")"; ?></h4>
+	<? echo $nombre." ".$apellidos." (".$unidad.")"; ?></h4>
 <br />
 	<?
 

@@ -143,7 +143,12 @@ mysql_query("ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL1` )");
 mysql_query("ALTER TABLE  `alma` ADD INDEX (  `NOMBRE` )");
 mysql_query("ALTER TABLE  `alma` ADD INDEX (  `APELLIDOS` )");
 
-// Separamos Nivel y Grupo, que viene juntos en el campo Unidad, que finalmente nos cargamos
+// Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
+  $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
+  $result_1 = mysql_query($SQL_1);
+  $row_1 = mysql_fetch_row($result_1);
+  if (strstr("-",$row_1[0])==TRUE) {
+  	 
   $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
   $result0 = mysql_query($SQL0);
 
@@ -153,7 +158,9 @@ $trozounidad0 = explode("-",$row0[0]);
 $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
 	mysql_query($actualiza);
  }
-
+  	
+  }
+  
  // Apellidos unidos formando un solo campo.
    $SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma";
   $result2 = mysql_query($SQL2);
@@ -188,10 +195,10 @@ $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[
 mysql_query($cambiar_nombre);
 
   // Eliminación de alumnos dados de baja
-  $SQL4 = "DELETE FROM alma WHERE `unidad` = ''";
+  $SQL4 = "DELETE FROM alma WHERE unidad = ''";
   $result4 = mysql_query($SQL4);
    // Eliminación de alumnos dados de baja
-  $SQL5 = "DELETE FROM alma WHERE `NIVEL` = 'Unida'";
+  $SQL5 = "DELETE FROM alma WHERE unidad = 'Unida'";
   $result5 = mysql_query($SQL5);
 
 // Exportamos códigos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluación
@@ -206,7 +213,7 @@ else{
 mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
 
 // Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
-$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (unidad like '%E-' or unidad like '%B-' or unidad like '%P-') and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
+$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.' or unidad like '%Bach' or unidad like 'P.C.P.I.') and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
 $result6 = mysql_query($SQL6);
 // Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
 $SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene Tí­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
@@ -239,7 +246,7 @@ Parece que te está olvidando de enviar todos los archivos con los datos de los a
 // Si se ha creado la tabla matriculas y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas.
 $matr = mysql_query("select * from matriculas");
   if (mysql_num_rows($matr)>0 and (date('m')>8 and date('m')<=12)) {
-		$pro = mysql_query("select claveal,	apellidos,	nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas where curso like '1E%' or curso like '2E%' or curso like '3E%' or curso like '4E%'");
+		$pro = mysql_query("select claveal,	apellidos,	nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas where curso like '%ESO%'");
 	while ($prf = mysql_fetch_array($pro)) {
 		
 		$pap = explode(", ",$prf[7]);

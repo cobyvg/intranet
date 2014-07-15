@@ -39,11 +39,8 @@ $lc1b = "
 OPLC1: Ed. Física; OPLC2: Estadística; OPLC3: Francés.
 ";
 if (isset($_GET['unidad'])) {
-$tr_uni = explode("-",$_GET['unidad']);	
-if (strlen($tr_uni[1])>1) {
-		$text = " and (combasi like '%30562%' or combasi like '%31322%') ";
-	}	
-$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and unidad='".$unidad."' $texto ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+	
+$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and alma.unidad='".$unidad."' $texto ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 $lista= mysql_query($sqldatos );
 
 $num=0;
@@ -52,7 +49,7 @@ while($datatmp = mysql_fetch_array($lista)) {
 	if ($datatmp[2]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
 	}
-	if(strstr($unidad,"E-")==TRUE){
+	if(strstr($datatmp[4],"E.S.O.")==TRUE){
 	$m_ex = "select exencion from matriculas where claveal = '$datatmp[3]'";
 	$m_exen = mysql_query($m_ex);
 	$m_exento = mysql_fetch_array($m_exen);
@@ -89,7 +86,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $unida\n";
+$txttit = "Lista del Grupo $unidad\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
@@ -110,21 +107,14 @@ $n_uni+=1;
 $cuenta = count($_POST['unidad']);
 if($_POST['asignaturas']==""){
 	
-	$tr_uni = explode("-",$tr_unidad);	
-	if (strlen($tr_uni[1])>1) {
-		$text = " and (combasi like '%30562%' or combasi like '%31322%') ";
-		$tr_unidad = substr($tr_unidad,0,-1);
-		$text2 = "Diversificación";
-	}	
-	
-$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
+$sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
 if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
 $sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";
 	} 
 	else{
 $sqldatos.=" and combasi like '%$tr_codasi[0]%'";		
 	}
-$sqldatos.=" $text and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+$sqldatos.=" $text and alma.unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 //echo $sqldatos;
 $lista= mysql_query($sqldatos );
 $num=0;
@@ -133,7 +123,7 @@ while($datatmp = mysql_fetch_array($lista)) {
 	if ($datatmp[2]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
 	}
-	if(strstr($tr_unidad,"E-")==TRUE){
+	if(strstr($datatmp[4],"E.S.O.")==TRUE){
 	$m_ex = "select exencion from matriculas where claveal = '$datatmp[3]'";
 	$m_exen = mysql_query($m_ex);
 	$m_exento = mysql_fetch_array($m_exen);
@@ -188,20 +178,15 @@ if ($cuenta>1) {
 }
 
 if ($_POST['asignaturas']=='1'){
-	$tr_uni = explode("-",$tr_unidad);	
-	if (strlen($tr_uni[1])>1) {
-		$text = " and (combasi like '%30562%' or combasi like '%31322%') ";
-		$tr_unidad = substr($tr_unidad,0,-1);
-		$text2 = "Diversificación";
-	}	
-$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas, FALUMNOS.claveal FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
+
+$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas, FALUMNOS.claveal, CURSO FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
 if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
 $sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";
 	} 
 	else{
 $sqldatos.=" and combasi like '%$tr_codasi[0]%'";		
 	}
-$sqldatos.=" $text and unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
+$sqldatos.=" $text and alma.unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 
 //echo $sqldatos;
 $lista= mysql_query($sqldatos);
@@ -211,7 +196,7 @@ while($datatmp = mysql_fetch_array($lista)) {
 	if ($datatmp[4]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
 	}
-	if(strstr($tr_unidad,"E-")==TRUE){
+	if(strstr($datatmp[4],"E.S.O.")==TRUE){
 	$m_ex = "select exencion from matriculas where claveal = '$datatmp[5]'";
 	$m_exen = mysql_query($m_ex);
 	$m_exento = mysql_fetch_array($m_exen);
@@ -219,7 +204,7 @@ while($datatmp = mysql_fetch_array($lista)) {
 	$datatmp[0]=$datatmp[0]." (Ex)";
 	}
 	}
-	$unidadn = substr($datatmp[3],0,1);
+	$unidadn = $datatmp[4];
 	$mat="";
 	$asignat = substr($datatmp[1],0,strlen($datatmp[1])-1);
 	$asignat = $datatmp[1];
@@ -258,17 +243,17 @@ $pdf->ezText($txttit, 12,$options_center);
 
 $pdf->ezTable($data, $titles, '', $options);
 
-if (strstr($tr_unidad,"1E")==TRUE or strstr($tr_unidad,"2E")==TRUE) {
+if (strstr($unidadn,"E.S.O.")==TRUE AND (strstr($unidadn,"1")==TRUE OR strstr($unidadn,"2")==TRUE)) {
 	$pdf->ezText($libd12, 9,$options);
 	$pdf->ezText("\n\n\n", 5);
 }
 
-if (strstr($tr_unidad,"3E")==TRUE) {
+if (strstr($unidadn,"3")==TRUE) {
 	$pdf->ezText($lc3, 9,$options);
 	$pdf->ezText("\n\n\n", 5);
 }
 
-if (strstr($tr_unidad,"1B")==TRUE) {
+if (strstr($unidadn,"BACH.")==TRUE AND strstr($unidadn,"1")==TRUE) {
 	$pdf->ezText($lc1b, 9,$options);
 	$pdf->ezText("\n\n\n", 5);
 }

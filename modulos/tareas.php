@@ -5,9 +5,7 @@ $resultcurs = mysql_query($SQLcurso);
 	{
 	$n_tareas = $n_tareas+1;
 	$curso = $rowcurs[0];
-	$curso0 = explode("-",$curso);
-	$nivel_t = $curso0[0];	
-	$grupo_t = $curso0[1];	
+	$unidad_t = $curso;	
 	$asignatura = str_replace("nbsp;","",$rowcurs[1]);
 	$asignatura = str_replace("&","",$asignatura);
 	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurs[2]' and abrev not like '%\_%'";
@@ -16,8 +14,8 @@ $resultcurs = mysql_query($SQLcurso);
 	$asigna2 = mysql_fetch_array($asigna1);
 	$codasi = $asigna2[0];
 	$hoy = date('Y-m-d');
-	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.NIVEL, tareas_alumnos.GRUPO, tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and 
-	date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. nivel = '$nivel_t' and tareas_alumnos.grupo = '$grupo_t' and combasi like '%$codasi%' ORDER BY tareas_alumnos.FECHA asc";
+	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, alma.matriculas, tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and 
+	date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos.unidad = '$unidad_t' and combasi like '%$codasi%' ORDER BY tareas_alumnos.FECHA asc";
 $result = mysql_query($query);
 if (mysql_num_rows($result) > 0)
 {
@@ -42,8 +40,8 @@ if (mysql_num_rows($si) > 0)
   </div>
   <div class="modal-body">
 <?	
-$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,tareas_alumnos.NIVEL,tareas_alumnos.GRUPO,tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES 
-WHERE FTUTORES.nivel = tareas_alumnos.nivel and FTUTORES.grupo = tareas_alumnos.grupo and ID='$id'",$c);
+$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.GRUPO,tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES 
+WHERE FTUTORES.unidad = tareas_alumnos.unidad and FTUTORES.grupo = tareas_alumnos.grupo and ID='$id'",$c);
 $dalumno = mysql_fetch_array($alumno);
 $claveal=$dalumno[7];
 $datos=mysql_query("SELECT asignatura, tarea FROM tareas_profesor WHERE id_alumno='$id'",$c);

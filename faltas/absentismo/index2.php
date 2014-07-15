@@ -78,9 +78,9 @@ if (strstr($_SESSION['cargo'],'8')==TRUE) {
 }
 if (strstr($_SESSION['cargo'],'2')==TRUE and strstr($_SESSION['cargo'],'8')==FALSE) {
 	$tut=$_SESSION['profi'];
-	$tutor=mysql_query("select nivel, grupo from FTUTORES where tutor='$tut'");
+	$tutor=mysql_query("select unidad from FTUTORES where tutor='$tut'");
 	$d_tutor=mysql_fetch_array($tutor);
-	$mas=" and absentismo.nivel='$d_tutor[0]' and absentismo.grupo='$d_tutor[1]' and tutoria IS NULL ";
+	$mas=" and absentismo.unidad='$d_tutor[0]' and tutoria IS NULL ";
 	$mas2=" and tutoria IS NULL ";
 	$titulo="Tutor: $d_tutor[0]";
 	$upd=" tutoria='$texto' ";
@@ -127,7 +127,7 @@ Los datos de los alumnos absentistas se han actualizado.
 if ($inf=="1") {
 	echo '<div align="center" class="well well-large" style="width:600px;margin:auto">';
 echo "<legend align='center'>Datos del Alumno</legend>";
-$al=mysql_query("SELECT distinct apellidos, nombre, absentismo.nivel, absentismo.grupo, numero, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='$claveal' and mes='$mes' $mas2");
+$al=mysql_query("SELECT distinct apellidos, nombre, absentismo.unidad, matriculas, numero, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='$claveal' and mes='$mes' $mas2");
 
 if (mysql_num_rows($al)>0) {
 
@@ -135,7 +135,7 @@ $datos=mysql_fetch_array($al);
 if (strstr($_SESSION['cargo'],'1')==TRUE) {$obs=$datos[5];$obs2=$datos[8];}elseif (strstr($_SESSION['cargo'],'8')==TRUE){$obs=$datos[6];}else {$obs=$datos[7];}
 echo  "<center><table class='table table-striped table-bordered' style='width:auto'><tr><th align='center'> NOMBRE </th><th align='center'> CURSO </th>
 <th align='center'> MES </th><th align='center'> Nº FALTAS </th></tr>
-<tr class='warning'><td align='center'>$datos[0], $datos[1]</td><td id='' align='center'>$datos[2]-$datos[3]</td><td id='' align='center'>$mes</td><td id='' align='center'>$datos[4]</td></tr></table><br />";
+<tr class='warning'><td align='center'>$datos[0], $datos[1]</td><td id='' align='center'>$datos[2]</td><td id='' align='center'>$mes</td><td id='' align='center'>$datos[4]</td></tr></table><br />";
 echo "<form enctype='multipart/form-data' action='index2.php' method='post'>";
 ?>
 <input name="claveal" type="hidden" value="<? echo $claveal;?>">
@@ -160,7 +160,7 @@ echo "</div></center><br /><br /><br />";
 }
 
 
-$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.nivel, absentismo.grupo, numero, mes, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and mes='$mes' $mas  order by nivel, grupo";
+$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, matriculas, numero, mes, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and mes='$mes' $mas  order by unidad, grupo";
   $result0 = mysql_query($SQL0);
   if (mysql_num_rows($result0)>0) {
 echo  "<center><table class='table table-striped table-bordered' style='width:auto'>\n";
@@ -175,8 +175,7 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
  	$claveal=$row0[0];
  	$mes=$row0[6];
  	$numero=$row0[5];
- 	$grupo=$row0[4];
- 	$nivel=$row0[3];
+ 	$unidad=$row0[3];
  	$nombre=$row0[2];
  	$apellidos=$row0[1];
  	$jefatura=$row0[7];
@@ -188,7 +187,7 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
 	    $foto="";
 		$foto = "<img src='../../xml/fotos/$claveal.jpg' width='55' height='64'  />";
 		echo $foto."&nbsp;&nbsp;&nbsp;";
-	echo "$apellidos, $nombre</td><td>$nivel-$grupo</td><td>$mes</td><td>$numero</td>";
+	echo "$apellidos, $nombre</td><td>$unidad</td><td>$mes</td><td>$numero</td>";
         if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
 	echo "<td><input type='checkbox' disabled $chj></td><td><input type='checkbox' disabled $cho></td><td><input type='checkbox' disabled $cht></td><td><input type='checkbox' disabled $chs></td>";
         }

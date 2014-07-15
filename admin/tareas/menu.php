@@ -1,6 +1,5 @@
 <?
-if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
-if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 if (isset($_GET['alumno'])) {$alumno = $_GET['alumno'];}elseif (isset($_POST['alumno'])) {$alumno = $_POST['alumno'];}else{$alumno="";}
 if (isset($_GET['fecha'])) {$fecha = $_GET['fecha'];}elseif (isset($_POST['fecha'])) {$fecha = $_POST['fecha'];}else{$fecha="";}
 if (isset($_GET['tutor'])) {$tutor = $_GET['tutor'];}elseif (isset($_POST['tutor'])) {$tutor = $_POST['tutor'];}else{$tutor="";}
@@ -11,7 +10,6 @@ if (isset($_GET['todos'])) {$todos = $_GET['todos'];}elseif (isset($_POST['todos
 if (isset($_GET['id_del'])) {$id_del = $_GET['id_del'];}elseif (isset($_POST['id_del'])) {$id_del = $_POST['id_del'];}else{$id_del="";}
 if (isset($_GET['id_alumno'])) {$id_alumno = $_GET['id_alumno'];}elseif (isset($_POST['id_alumno'])) {$id_alumno = $_POST['id_alumno'];}else{$id_alumno="";}
 if (isset($_GET['c_asig'])) {$c_asig = $_GET['c_asig'];}elseif (isset($_POST['c_asig'])) {$c_asig = $_POST['c_asig'];}else{$c_asig="";}
-if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 
 $activo1="";
 $activo2="";
@@ -35,7 +33,7 @@ if(stristr($_SESSION ['cargo'],'2') == TRUE or stristr($_SESSION ['cargo'],'1') 
 	$tutor = $_SESSION ['tut'];
 }
 ?>
-     <li <? echo $activo2;?>><a href="infotut.php?<? if (isset($_SESSION ['s_nivel'])) {echo  "nivel=".$_SESSION ['s_nivel'];}?><? if (isset($_SESSION ['s_grupo'])) {echo  "&grupo=".$_SESSION ['s_grupo'];}?>&tutor=<? echo $tutor;?>">Activar Nuevo Informe</a></li>
+     <li <? echo $activo2;?>><a href="infotut.php?<? if (isset($_SESSION ['s_unidad'])) {echo  "unidad=".$_SESSION ['s_unidad'];}?>">Activar Nuevo Informe</a></li>
      <? }?>
      <li <? echo $activo3;?>> <a href="buscar.php?todos=1">Ver Todos los Informes</a></li>
      <li <? echo $activo4;?>> <a href="index_buscar.php">Buscar Informes</a></li>

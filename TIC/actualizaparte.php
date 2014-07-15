@@ -32,7 +32,7 @@ mysql_select_db($db);
 <?
 	
 // generate and execute query
-$query = "UPDATE partestic SET nivel = '$nivel', grupo = '$grupo', carro = '$carrito', nserie = '$numeroserie', fecha = '$fecha', hora = '$hora', alumno = '$alumno', profesor = '$profesor', descripcion = '$descripcion', estado = '$estado', nincidencia = '$nincidencia' WHERE parte = '$parte'";
+$query = "UPDATE partestic SET unidad = '$unidad', carro = '$carrito', nserie = '$numeroserie', fecha = '$fecha', hora = '$hora', alumno = '$alumno', profesor = '$profesor', descripcion = '$descripcion', estado = '$estado', nincidencia = '$nincidencia' WHERE parte = '$parte'";
 $result = mysql_query($query) or die ("Error en la actualización: $query. " . mysql_error());
 if($result == "1")
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">

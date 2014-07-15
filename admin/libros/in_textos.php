@@ -23,10 +23,10 @@ exit;
 if(isset($_POST['enviar']))
 {
 // Nivel de los Libros
-if(substr($_FILES['archivo']['name'],0,1) == '1') {$nivel = '1E';}
-if(substr($_FILES['archivo']['name'],0,1) == '2') {$nivel = '2E';}
-if(substr($_FILES['archivo']['name'],0,1) == '3') {$nivel = '3E';}
-if(substr($_FILES['archivo']['name'],0,1) == '4') {$nivel = '4E';}
+if(substr($_FILES['archivo']['name'],0,1) == '1') {$nivel = '1º de E.S.O.';}
+if(substr($_FILES['archivo']['name'],0,1) == '2') {$nivel = '2º de E.S.O.';}
+if(substr($_FILES['archivo']['name'],0,1) == '3') {$nivel = '3º de E.S.O.';}
+if(substr($_FILES['archivo']['name'],0,1) == '4') {$nivel = '4º de E.S.O.';}
 $nombre_nivel = $_FILES['archivo']['name'];
  // Creamos Base de datos y enlazamos con ella.
  $base0 = "delete from textos_gratis where nivel = '$nivel'";

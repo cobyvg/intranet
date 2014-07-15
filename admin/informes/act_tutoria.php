@@ -1,11 +1,11 @@
 <?php
-$tuto = mysql_query("select tutor from FTUTORES where nivel = '$nivel' and grupo = '$grupo'");
+$tuto = mysql_query("select tutor from FTUTORES where unidad = '$unidad'");
 $tut = mysql_fetch_array($tuto);
 $tutor = $tut[0];
 if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'8') or $_SESSION['profi']==$tutor) {
 echo "<br /><h3>Acciones de Tutoría</h3>";
 if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'8')) {$prohibido="";}else{$prohibido=" and prohibido = '0'";}
-$alumno=mysql_query("select tutoria.fecha, accion, causa, tutoria.observaciones from tutoria, alma where tutoria.nombre=alma.nombre and tutoria.apellidos=alma.apellidos and tutoria.nivel=alma.nivel and tutoria.grupo=alma.grupo and tutoria.claveal = '$claveal' $prohibido");
+$alumno=mysql_query("select tutoria.fecha, accion, causa, tutoria.observaciones from tutoria where tutoria.claveal = '$claveal' $prohibido");
 
 if (mysql_num_rows($alumno) < 1)
 { 

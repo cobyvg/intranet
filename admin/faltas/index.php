@@ -1,12 +1,10 @@
 <?
-if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
-if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
+if (isset($_GET['unidad1'])) {$unidad1 = $_GET['unidad1'];}elseif (isset($_POST['unidad1'])) {$unidad1 = $_POST['unidad1'];}else{$unidad1="";}
 if (isset($_GET['mes'])) {$mes = $_GET['mes'];}elseif (isset($_POST['mes'])) {$mes = $_POST['mes'];}else{$mes="";}
 if (isset($_GET['FALTA'])) {$FALTA = $_GET['FALTA'];}elseif (isset($_POST['FALTA'])) {$FALTA = $_POST['FALTA'];}else{$FALTA="";}
 if (isset($_GET['numero2'])) {$numero2 = $_GET['numero2'];}elseif (isset($_POST['numero2'])) {$numero2 = $_POST['numero2'];}else{$numero2="";}
 if (isset($_GET['submit1'])) {$submit1 = $_GET['submit1'];}elseif (isset($_POST['submit1'])) {$submit1 = $_POST['submit1'];}else{$submit1="";}
-if (isset($_GET['nivel1'])) {$nivel1 = $_GET['nivel1'];}elseif (isset($_POST['nivel1'])) {$nivel1 = $_POST['nivel1'];}else{$nivel1="";}
-if (isset($_GET['grupo1'])) {$grupo1 = $_GET['grupo1'];}elseif (isset($_POST['grupo1'])) {$grupo1 = $_POST['grupo1'];}else{$grupo1="";}
 if (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
 if (isset($_GET['fecha4'])) {$fecha4 = $_GET['fecha4'];}elseif (isset($_POST['fecha4'])) {$fecha4 = $_POST['fecha4'];}else{$fecha4="";}
 if (isset($_GET['fecha3'])) {$fecha3 = $_GET['fecha3'];}elseif (isset($_POST['fecha3'])) {$fecha3 = $_POST['fecha3'];}else{$fecha3="";}
@@ -61,20 +59,11 @@ include("../../faltas/menu.php");
 
   <legend>Faltas de un Grupo.</legend>
 <br />
-  <h6>Selecciona Nivel y Grupo</h6>
-    <label> Nivel:
-    <SELECT name="nivel" onChange="submit()" class="input-mini"  style="display:inline">
-      <OPTION><? echo $nivel;?></OPTION>
-      <? nivel();?>
+    <label> Grupo:<br />
+    <SELECT name="unidad" onChange="submit()" class="input"  style="display:inline">
+      <OPTION><? echo $_POST['unidad'];?></OPTION>
+      <? unidad();?>
     </SELECT>
-  </label>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <label style="display:inline">
-  Grupo:
-  <SELECT name="grupo" onChange="submit()" class="input-mini"  style="display:inline">
-    <OPTION><? echo $grupo;?></OPTION>
-    <? grupo($nivel);?>
-  </SELECT>
   </label>
   <hr>
    <label>
@@ -114,23 +103,13 @@ include("../../faltas/menu.php");
   <div class="well well-large">
   <legend>Faltas de un alumno</legend>
   <br />
-  <h6>Selecciona Nivel y Grupo</h6>
-    <label> Nivel:
-    <SELECT name="nivel1" onChange="submit()" class="input-mini"  style="display:inline">
-      <OPTION><? echo $nivel1;?></OPTION>
-      <? nivel();?>
+  <label> Grupo:<br />
+    <SELECT name="unidad1" onChange="submit()" class="input"  style="display:inline">
+      <OPTION><? echo $unidad1;?></OPTION>
+      <? unidad();?>
     </SELECT>
   </label>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <label style="display:inline">
-  Grupo:
-  <SELECT name="grupo1" onChange="submit()" class="input-mini"  style="display:inline">
-    <OPTION><? echo $grupo1;?></OPTION>
-    <? grupo($nivel1);?>
-  </SELECT>
-  </label>
   <hr>
-  <h6>Selecciona el alumno</h6>
   <label>
   Alumno:
   <select name='nombre' class="input-xlarge">
@@ -138,7 +117,7 @@ include("../../faltas/menu.php");
 printf ("<OPTION></OPTION>"); 
   
   // Datos del alumno que hace la consulta. No aparece el nombre del a&iuml;&iquest;&frac12; de la nota. Se podr&iuml;&iquest;&frac12; incluir.
-  $alumnosql = mysql_query("SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE NIVEL like '$nivel1%' AND GRUPO like '$grupo1%' order by APELLIDOS asc");
+  $alumnosql = mysql_query("SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad like '$unidad1%' order by APELLIDOS asc");
 
   if ($falumno = mysql_fetch_array($alumnosql))
         {
@@ -159,7 +138,7 @@ printf ("<OPTION></OPTION>");
   </select>
   </label>
   <hr>
-    <h6>Rango de fechas...</h6>
+    <legend>Rango de fechas...</legend>
          <label>Inicio<br />
  <div class="input-append" style="display:inline;" >
             <input name="fecha4" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha4" >
@@ -192,7 +171,7 @@ printf ("<OPTION></OPTION>");
   Número mínimo de Faltas <INPUT name="numero" type="text" id="numero" class="input-mini" maxlength="3" value="1">
   </label>
  <hr>
-   <h6>Rango de fechas...</h6>
+   <legend>Rango de fechas...</legend>
          <label>Inicio<br />
  <div class="input-append" style="display:inline;" >
             <input name="fecha10" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha10" >

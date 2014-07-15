@@ -194,7 +194,7 @@ $page_header = "Redactar mensaje";
     					<div class='well well-transparent'>";
     					echo '<SELECT  name=tutor[] multiple=multiple size=25  style="width:100%">';
     					// Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
-    					$tutor = mysql_query(" SELECT distinct tutor, nivel, grupo  FROM FTUTORES order by nivel, grupo asc");
+    					$tutor = mysql_query(" SELECT distinct tutor, unidad FROM FTUTORES order by unidad asc");
     					while($filatutor = mysql_fetch_array($tutor))
     					{
     						$fondo = "";
@@ -365,9 +365,9 @@ $page_header = "Redactar mensaje";
     
     					if(stristr($perfil,'2') == TRUE or stristr($perfil,'1') == TRUE)
     					{
-    						$tut = mysql_query("select nivel, grupo from FTUTORES where tutor = '$pr'");
+    						$tut = mysql_query("select unidad from FTUTORES where tutor = '$pr'");
     						$tuto = mysql_fetch_array($tut);
-    						$unidad = "$tuto[0]-$tuto[1]";
+    						$unidad = "$tuto[0]";
     
     						if(stristr($perfil,'2') == TRUE){$extra = "where unidad='$unidad'";}
     						if($padres == '1') {echo "<hr /><legend class='text-warning'>Padres de Alumnos</legend>

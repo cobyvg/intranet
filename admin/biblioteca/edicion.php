@@ -108,32 +108,30 @@ if ($registro) {
 		$apellido=$alu[0];
 		$curso=$alu[2];
 		//localizo la clave del alumno en Falumnos.
-		$cla=mysql_query("select CLAVEAL, NIVEL, GRUPO from alma where NOMBRE='$nombre' and APELLIDOS='$apellido' and unidad = '$curso'");
+		$cla=mysql_query("select CLAVEAL, unidad from alma where NOMBRE='$nombre' and APELLIDOS='$apellido' and unidad = '$curso'");
 		while($clav=mysql_fetch_array($cla)){
 
 			$dia= date ('Y-m-d',time());
 			$clave=$clav[0];// echo $clave.'---'. $dia;
-			$nivel=$clav[1]; //echo $nivel;
-			$grupo=$clav[2]; //echo $grupo;
+			$unidad=$clav[1]; //echo $nivel;
 			//insertamos, por fín, la fechoría
 if ($registro) {
 				$fechoria = mysql_query( "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechoría");
 				//ahora registramos la intervencion en la tabla tutoría, debido al tema de los SMS
-				$tutoria=mysql_query ( "insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $nivel . "','" . $grupo . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
+				$tutoria=mysql_query ( "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
 			}
 if ($sms) {
 		mysql_query ("update morosos set sms='SI' where id=$valor[$i]") or die ("No se ha podido actualizar el registro SMS");
 	}
-			$alumno = mysql_query ( " SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$clave'" );
+			$alumno = mysql_query ( " SELECT distinct APELLIDOS, NOMBRE, unidad, CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE claveal = '$clave'" );
 			$rowa = mysql_fetch_array ( $alumno );
 			echo "<table class='tabla' style='padding:2px 10px;'>";
 			$apellidos = trim ( $rowa [0] );
 			$nombre = trim ( $rowa [1] );
-			$nivel = trim ( $rowa [2] );
-			$grupo = trim ( $rowa [3] );
-			$claveal = trim ( $rowa [4] );
-			$tfno = trim ( $rowa [5] );
-			$tfno_u = trim ( $rowa [6] );
+			$unidad = trim ( $rowa [2] );
+			$claveal = trim ( $rowa [3] );
+			$tfno = trim ( $rowa [4] );
+			$tfno_u = trim ( $rowa [5] );
 			// SMS
 			$sms_n = mysql_query ( "select max(id) from sms" );
 			$n_sms = mysql_fetch_array ( $sms_n );

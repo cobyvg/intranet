@@ -52,19 +52,17 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tareas_temp` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=313 ");
 
 // Control de tutores
-$tut = mysql_query("select nivel, grupo from FTUTORES where tutor = '$profes'");
+$tut = mysql_query("select unidad from FTUTORES where tutor = '$profes'");
 if (mysql_num_rows($tut)>0) {
 	$tutor = mysql_fetch_array($tut);
-	$tutoria = "$tutor[0]-$tutor[1]";
+	$tutoria = "$tutor[0]";
 }
 $luis1 = mysql_query("select distinct grupo from profesores where profesor like '$profes' and grupo not like '$tutoria' order by grupo");
 while ($luis = mysql_fetch_array($luis1)) {
-	$tr_g = explode("-",$luis[0]);
-	$nivel = $tr_g[0];
-	$grupo = $tr_g[1];
+	$unidad = $luis[0];
 	echo "<h4 align='left'>Grupo: $luis[0]</h4><br />";
 
-$query = "SELECT id, claveal, nivel, grupo, nombre, apellidos, FECHA FROM tareas_alumnos where nivel = '$nivel' and grupo = '$grupo' order by FECHA desc";
+$query = "SELECT id, claveal, unidad, duracion, nombre, apellidos, FECHA FROM tareas_alumnos where unidad = '$unidad' order by FECHA desc";
 $result = mysql_query($query);
 
 while($row = mysql_fetch_array($result))
@@ -80,16 +78,16 @@ while($cadena = mysql_fetch_array($comp))
 //echo $todas."<br>";
 
 //echo "$todos<br>";
-$combasi0 = "select combasi, nivel from alma where claveal = '$row[1]'";
+$combasi0 = "select combasi, unidad, curso from alma where claveal = '$row[1]'";
 //echo "$combasi0<br>";
 $combasi1 = mysql_query($combasi0);
 $combasi2 = mysql_fetch_array($combasi1);
-$l_nivel = substr($combasi2[1],0,1);
+$l_unidad = $combasi2[2];
 $combasi = substr($combasi2[0],0,strlen($combasi2[0]) - 1);
 $trozo = explode(":",$combasi);
 foreach($trozo as $asignatura)
 {
-$nomasi0 = "select distinct nombre from asignaturas where codigo = '$asignatura' and abrev not like '%\_%' and curso like '$l_nivel%'";
+$nomasi0 = "select distinct nombre from asignaturas where codigo = '$asignatura' and abrev not like '%\_%' and curso like '$l_unidad%'";
 //echo "$nomasi0<br>";
 $nomasi1 = mysql_query($nomasi0);
 while($nomasi = mysql_fetch_array($nomasi1))
@@ -99,13 +97,13 @@ $pos = strpos($todas,$nomasi[0]);
 if($pos === FALSE)
 {
 
-$profe0 = "select distinct profesor from profesores where  profesores.grupo = '$row[2]-$row[3]' and materia like '$nomasi[0]' and profesor not in (select tutor from FTUTORES where nivel = '$row[2]' and grupo = '$row[3]') and profesor like '$profes'";
+$profe0 = "select distinct profesor from profesores where  profesores.grupo = '$row[2]' and materia like '$nomasi[0]' and profesor not in (select tutor from FTUTORES where unidad = '$row[2]') and profesor like '$profes'";
 
 $profe1 = mysql_query($profe0);
 while($profe2 = mysql_fetch_array($profe1))
 {
 	
-$query = "insert into tareas_temp (id_tareas, asignatura, profesor, alumno, fecha, curso) values ('$row[0]','$nomasi[0]','$profe2[0]','$row[1]','$row[6]','$row[2]-$row[3]')";
+$query = "insert into tareas_temp (id_tareas, asignatura, profesor, alumno, fecha, curso) values ('$row[0]','$nomasi[0]','$profe2[0]','$row[1]','$row[6]','$row[2]')";
 mysql_query($query);
 $profesores .= $profe2[0]."; ";
 }
@@ -116,7 +114,7 @@ if(strlen($profesores) > 0)
 {
 if($detalles == '1')
 {  
-echo "<p>$row[6] --> <span style='color:#08c'>$row[4] $row[5]</span> --> $row[2]-$row[3]</p>";
+echo "<p>$row[6] --> <span style='color:#08c'>$row[4] $row[5]</span> --> $row[2]</p>";
 ?>
 <ul  class='unstyled'>
 <?

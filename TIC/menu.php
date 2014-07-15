@@ -5,8 +5,7 @@ if (isset($_GET['curso1'])) {$curso1 = $_GET['curso1'];}elseif (isset($_POST['cu
 if (isset($_GET['asignatura'])) {$asignatura = $_GET['asignatura'];}elseif (isset($_POST['asignatura'])) {$asignatura = $_POST['asignatura'];}else{$asignatura="";}
 if (isset($_GET['alumno'])) {$alumno = $_GET['alumno'];}elseif (isset($_POST['alumno'])) {$alumno = $_POST['alumno'];}else{$alumno="";}
 if (isset($_GET['posicion'])) {$posicion = $_GET['posicion'];}elseif (isset($_POST['posicion'])) {$posicion = $_POST['posicion'];}else{$posicion="";}
-if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
-if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 if (isset($_GET['carrito'])) {$carrito = $_GET['carrito'];}elseif (isset($_POST['carrito'])) {$carrito = $_POST['carrito'];}else{$carrito="";}
 if (isset($_GET['numeroserie'])) {$numeroserie = $_GET['numeroserie'];}elseif (isset($_POST['numeroserie'])) {$numeroserie = $_POST['numeroserie'];}else{$numeroserie="";}
 if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];}elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];}else{$profesor="";}

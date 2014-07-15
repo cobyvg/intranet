@@ -71,18 +71,18 @@ $fecha1 = $año . "-" . $mes . "-" . $dia0;
 // Caso de faltas para TODOS los alumnos en una hora	
 	if ($trozos[2] == "T" OR $trozos[2] == "t") {
 // Buscamos en FALUMNOS los datos que necesitamos, claveal y nc, porque los demás los cogemos del formulario.
-$claveT ="select CLAVEAL, NC from FALUMNOS where NIVEL = '$trozos[3]' AND GRUPO = '$trozos[1]' order by NC";
+$claveT ="select CLAVEAL, NC from FALUMNOS where unidad = '$trozos[3]'  order by NC";
 $claveT0 = mysql_query($claveT);
 while ($claveT1 = mysql_fetch_array($claveT0)) 
 {
 $clavealT = $claveT1[0];
 $ncT = $claveT1[1];
 // Comprobamos si se está volviendo a meter una falta que ya ha sido metida.
-$duplicadosT = "select NC from FALTAS where NIVEL = '$trozos[3]' and GRUPO = '$trozos[1]' and NC = '$ncT' and HORA = '$trozos[5]' and FECHA = '$fecha1' and CODASI = '$trozos[4]' and FALTA = 'F'";
+$duplicadosT = "select NC from FALTAS where unidad = '$trozos[3]'  and NC = '$ncT' and HORA = '$trozos[5]' and FECHA = '$fecha1' and CODASI = '$trozos[4]' and FALTA = 'F'";
 $duplicadosT0 = mysql_query($duplicadosT);
 $duplicadosT1 = mysql_num_rows($duplicadosT0);
 // O si hay al menos una justicación introducida por el Tutor en ese día
-$jt ="select NC from FALTAS where NIVEL = '$trozos[3]' and GRUPO = '$trozos[1]' and NC = '$ncT' and FECHA = '$fecha1' and FALTA = 'J'";
+$jt ="select NC from FALTAS where unidad = '$trozos[3]'  and NC = '$ncT' and FECHA = '$fecha1' and FALTA = 'J'";
 $jt0 = mysql_query($jt);
 $jt1 = mysql_num_rows($jt0);
 // Si la falta no se ha metido, insertamos los datos.
@@ -91,13 +91,13 @@ $semana = date( mktime(0, 0, 0, $mes, $dia0, $año));
 $hoy = getdate($semana);
 $nombredia = $hoy[wday];
 // Insertamos las faltas de TODOS los alumnos.
-$t0 = "insert INTO  FALTAS (  CLAVEAL , NIVEL ,  GRUPO ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) 
-VALUES ('$clavealT',  '$trozos[3]',  '$trozos[1]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombredia',  '$id',  '$trozos[4]', 'F')";
+$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) 
+VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombredia',  '$id',  '$trozos[4]', 'F')";
 
 mysql_query($t0) or die("No se ha podido insertar datos");	
 }
 if ($jt1 > 0) {
-	$mens4.="El Tutor ya ha justificado las Faltas del Alumno Nº <b >$ncT</b> de <b >$trozos[3]-$trozos[1]</b> en ese día.<br>";	
+	$mens4.="El Tutor ya ha justificado las Faltas del Alumno Nº <b >$ncT</b> de <b >$trozos[3]</b> en ese día.<br>";	
 }
 }
 }
@@ -112,7 +112,7 @@ $c = 0;
 while ($c < ($num)) {
 $nc = $nnc[$c];
 // Para cada falta, comprobamos si existe el alumno, o sea, si tiene CLAVEAL en FALUMNOS.
-$clave ="select CLAVEAL from FALUMNOS where NIVEL = '$trozos[3]' AND GRUPO = '$trozos[1]' AND NC = '$nc'";
+$clave ="select CLAVEAL from FALUMNOS where unidad = '$trozos[3]'  AND NC = '$nc'";
 $clave0 = mysql_query($clave);
 $clave1 = mysql_fetch_row($clave0);
 $claveal = $clave1[0];
@@ -123,16 +123,16 @@ if (is_numeric($nc))
 if ( strlen($claveal) < 5) 
 {
 // mensaje de error: no existe el Alumno.
-$mens1.="<b>$nc</b> no es el número de ningún alumno de <b>$trozos[3] - $trozos[1]</b>.<br>";
+$mens1.="<b>$nc</b> no es el número de ningún alumno de <b>$trozos[3]</b>.<br>";
 }
 else {
 	
 // Si hemos pasado los filtros, hay que comprobar si se está volviendo a meter una falta que ya ha sido metida.
-$duplicados = "select NC, FALTA from FALTAS where NIVEL = '$trozos[3]' and GRUPO = '$trozos[1]' and NC = '$nc' and HORA = '$trozos[5]' and FECHA = '$fecha1' and CODASI = '$trozos[4]' and FALTA = 'F'";
+$duplicados = "select NC, FALTA from FALTAS where unidad = '$trozos[3]'  and NC = '$nc' and HORA = '$trozos[5]' and FECHA = '$fecha1' and CODASI = '$trozos[4]' and FALTA = 'F'";
 $duplicados0 = mysql_query($duplicados);
 $duplicados1 = mysql_num_rows($duplicados0);
 // O si hay al menos una justicación introducida por el Tutor en ese día
-$jt ="select NC from FALTAS where NIVEL = '$trozos[3]' and GRUPO = '$trozos[1]' and NC = '$nc' and FECHA = '$fecha1' and FALTA = 'J'";
+$jt ="select NC from FALTAS where unidad = '$trozos[3]'  and NC = '$nc' and FECHA = '$fecha1' and FALTA = 'J'";
 $jt0 = mysql_query($jt);
 $jt1 = mysql_num_rows($jt0);
 // Si la falta no se ha metido, insertamos los datos.
@@ -140,7 +140,7 @@ if ($duplicados1 == "0" and $jt1 == "0") {
 $semana = date( mktime(0, 0, 0, $mes, $dia0, $año));
 $hoy = getdate($semana);
 $nombredia = $hoy[wday];
-$insert = "insert INTO  FALTAS (  CLAVEAL , NIVEL ,  GRUPO ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$trozos[3]',  '$trozos[1]',  '$nc',  '$fecha1',  '$trozos[5]', '$nombredia',  '$id',  '$trozos[4]', 'F')";
+$insert = "insert INTO  FALTAS (  CLAVEAL , unidad ,   NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$trozos[3]',  '$nc',  '$fecha1',  '$trozos[5]', '$nombredia',  '$id',  '$trozos[4]', 'F')";
 mysql_query($insert) or die("No se ha podido insertar datos");	
 }
 // Otras posibilidades
@@ -149,7 +149,7 @@ elseif ($duplicados1 > 0 or $jt1 > 0)
 $duplicados2 = mysql_fetch_row($duplicados0);
 // La falta está justificada
 if ($jt1 > 0) {
-	$mens3.="El Tutor ya ha justificado las Faltas del Alumno Nº <b>$nc</b> de <b>$trozos[3]-$trozos[1]</b> en ese día.<br>";
+	$mens3.="El Tutor ya ha justificado las Faltas del Alumno Nº <b>$nc</b> de <b>$trozos[3]</b> en ese día.<br>";
 }
 // La falta ha sido metida ya.
 elseif ($duplicados2[1] == "F") {
@@ -159,7 +159,7 @@ elseif ($duplicados2[1] == "F") {
 }
 else {
 // Mensaje de error: no es un número correcto, porque no existe ("45", o un alumno que se ha dado de baja, o bien porque se han incluido letras o signos inválidos)	
-$mens2.="<b>$nc</b> no es el número de ningún alumno de <b>$trozos[3] - $trozos[1]</b>.<br>";
+$mens2.="<b>$nc</b> no es el número de ningún alumno de <b>$trozos[3]</b>.<br>";
 }
 $c++;
 }

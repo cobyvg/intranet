@@ -12,7 +12,7 @@ $grupos="";
 foreach($_POST as $key => $val){
 if(substr($key,0,3) == "grt")
 {
-$grupos .= $val."-";
+$grupos .= $val.";";
 }
 }
  if ($grupos == "") {

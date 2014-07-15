@@ -53,8 +53,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `absentismo` (
   `claveal` varchar(12) NOT NULL DEFAULT '',
   `mes` char(2) NOT NULL DEFAULT '',
   `numero` bigint(21) NOT NULL DEFAULT '0',
-  `nivel` varchar(5) DEFAULT NULL,
-  `grupo` char(1) DEFAULT NULL,
+  `unidad` varchar(64) DEFAULT NULL,
   `jefatura` text,
   `tutoria` text,
   `orientacion` text,
@@ -83,7 +82,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `actividadalumno` (
 
 mysql_query("CREATE TABLE IF NOT EXISTS `actividades` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `grupos` varchar(156) NOT NULL DEFAULT '',
+  `grupos` text COLLATE latin1_spanish_ci,
   `actividad` varchar(164) NOT NULL DEFAULT '',
   `descripcion` text NOT NULL,
   `departamento` varchar(48) NOT NULL DEFAULT '',
@@ -106,8 +105,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `almafaltas` (
   `CLAVEAL` varchar(12) NOT NULL DEFAULT '',
   `NOMBRE` varchar(30) DEFAULT NULL,
   `APELLIDOS` varchar(40) DEFAULT NULL,
-  `NIVEL` varchar(5) DEFAULT NULL,
-  `GRUPO` varchar(1) DEFAULT NULL,
+  `unidad` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`CLAVEAL`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
@@ -423,8 +421,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `direcciones` (
 mysql_query("CREATE TABLE IF NOT EXISTS `FALTAS` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `CLAVEAL` varchar(8) NOT NULL DEFAULT '',
-  `NIVEL` char(2) DEFAULT NULL,
-  `GRUPO` char(1) DEFAULT NULL,
+  `UNIDAD` varchar(64) DEFAULT NULL,
   `NC` tinyint(2) DEFAULT NULL,
   `FECHA` date DEFAULT NULL,
   `DIA` tinyint(1) NOT NULL DEFAULT '0',
@@ -433,8 +430,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FALTAS` (
   `CODASI` varchar(5) DEFAULT NULL,
   `FALTA` char(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `NIVEL` (`NIVEL`),
-  KEY `GRUPO` (`GRUPO`),
+  KEY `unidad` (`UNIDAD`),
   KEY `NC` (`NC`),
   KEY `FECHA` (`FECHA`),
   KEY `FALTA` (`FALTA`)
@@ -462,8 +458,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FALUMNOS` (
   `NC` double DEFAULT NULL,
   `APELLIDOS` char(30) DEFAULT NULL,
   `NOMBRE` char(24) DEFAULT NULL,
-  `NIVEL` char(5) DEFAULT NULL,
-  `GRUPO` char(1) DEFAULT NULL,
+  `unidad` varchar(64) DEFAULT NULL,
   KEY `CLAVEAL` (`CLAVEAL`),
   KEY `NC` (`NC`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
@@ -550,8 +545,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `fotocopias` (
 //
 
 mysql_query("CREATE TABLE IF NOT EXISTS `FTUTORES` (
-  `NIVEL` char(3) NOT NULL DEFAULT '',
-  `GRUPO` char(1) NOT NULL DEFAULT '',
+  `UNIDAD` varchar(64) NOT NULL DEFAULT '',
   `TUTOR` varchar(48) NOT NULL DEFAULT '',
   `observaciones1` text NOT NULL,
   `observaciones2` text NOT NULL,
@@ -624,8 +618,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS `horw` (
   `a_aula` varchar(5) NOT NULL DEFAULT '',
   `n_aula` varchar(64) NOT NULL DEFAULT '',
   `a_grupo` varchar(10) NOT NULL DEFAULT '',
-  `nivel` varchar(10) NOT NULL DEFAULT '',
-  `n_grupo` varchar(10) NOT NULL DEFAULT '',
   `clase` varchar(16) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `prof` (`prof`),
@@ -651,8 +643,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS `horw_faltas` (
   `a_aula` varchar(5) NOT NULL DEFAULT '',
   `n_aula` varchar(64) NOT NULL DEFAULT '',
   `a_grupo` varchar(10) NOT NULL DEFAULT '',
-  `nivel` varchar(10) NOT NULL DEFAULT '',
-  `n_grupo` varchar(10) NOT NULL DEFAULT '',
   `clase` varchar(16) NOT NULL DEFAULT '',
   KEY `prof` (`prof`),
   KEY `c_asig` (`c_asig`)
@@ -669,8 +659,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `infotut_alumno` (
   `CLAVEAL` varchar(12) NOT NULL DEFAULT '',
   `APELLIDOS` varchar(30) NOT NULL DEFAULT '',
   `NOMBRE` varchar(24) NOT NULL DEFAULT '',
-  `NIVEL` varchar(5) NOT NULL DEFAULT '',
-  `GRUPO` char(1) NOT NULL DEFAULT '',
+  `UNIDAD` varchar(64) NOT NULL DEFAULT '',
   `F_ENTREV` date NOT NULL DEFAULT '0000-00-00',
   `TUTOR` varchar(40) NOT NULL DEFAULT '',
   `FECHA_REGISTRO` date NOT NULL DEFAULT '0000-00-00',
@@ -678,8 +667,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `infotut_alumno` (
   KEY `CLAVEAL` (`CLAVEAL`),
   KEY `APELLIDOS` (`APELLIDOS`),
   KEY `NOMBRE` (`NOMBRE`),
-  KEY `NIVEL` (`NIVEL`),
-  KEY `CURSO` (`GRUPO`),
+  KEY `UNIDAD` (`UNIDAD`),
   KEY `F_ENTREV` (`F_ENTREV`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
@@ -925,8 +913,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `mensajes` (
   `recibidotutor` tinyint(1) NOT NULL DEFAULT '0',
   `recibidopadre` tinyint(1) NOT NULL DEFAULT '0',
   `correo` varchar(72) DEFAULT NULL,
-  `nivel` char(2) NOT NULL DEFAULT '',
-  `grupo` char(1) NOT NULL DEFAULT '',
+  `unidad` varchar(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
@@ -1021,8 +1008,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
 
 mysql_query("CREATE TABLE IF NOT EXISTS `partestic` (
   `parte` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `nivel` varchar(4) DEFAULT NULL,
-  `grupo` char(1) DEFAULT NULL,
+  `unidad` varchar(64) DEFAULT NULL,
   `carro` char(2) DEFAULT NULL,
   `nserie` varchar(15) NOT NULL DEFAULT '',
   `fecha` date NOT NULL DEFAULT '0000-00-00',
@@ -1065,27 +1051,6 @@ mysql_query("CREATE TABLE IF NOT EXISTS `profesores` (
   `grupo` varchar(255) DEFAULT NULL,
   `profesor` varchar(255) DEFAULT NULL,
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
-
-// ////////////////////////////////////////////////////////
-
-//
-// Estructura de tabla para la tabla `recursos`
-//
-
-mysql_query("CREATE TABLE IF NOT EXISTS `recursos` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `categoria` varchar(32) NOT NULL DEFAULT '',
-  `departamento` varchar(24) NOT NULL DEFAULT '',
-  `subclase` varchar(64) DEFAULT NULL,
-  `profesor` varchar(32) NOT NULL DEFAULT '',
-  `titulo` varchar(128) NOT NULL DEFAULT '',
-  `direccion` varchar(128) NOT NULL DEFAULT '',
-  `descripcion` text NOT NULL,
-  `nivel` varchar(48) DEFAULT NULL,
-  `asignatura` varchar(32) DEFAULT NULL,
-  `fecha` date NOT NULL DEFAULT '0000-00-00',
-  KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
@@ -1173,8 +1138,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tareas_alumnos` (
   `CLAVEAL` varchar(12) NOT NULL DEFAULT '',
   `APELLIDOS` varchar(30) NOT NULL DEFAULT '',
   `NOMBRE` varchar(24) NOT NULL DEFAULT '',
-  `NIVEL` varchar(5) NOT NULL DEFAULT '',
-  `GRUPO` char(1) NOT NULL DEFAULT '',
+  `UNIDAD` varchar(64) NOT NULL DEFAULT '',
   `FECHA` date NOT NULL DEFAULT '0000-00-00',
   `FIN` date NOT NULL DEFAULT '0000-00-00',
   `DURACION` smallint(2) NOT NULL DEFAULT '3',
@@ -1183,8 +1147,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tareas_alumnos` (
   KEY `CLAVEAL` (`CLAVEAL`),
   KEY `APELLIDOS` (`APELLIDOS`),
   KEY `NOMBRE` (`NOMBRE`),
-  KEY `NIVEL` (`NIVEL`),
-  KEY `CURSO` (`GRUPO`)
+  KEY `UNIDAD` (`UNIDAD`),
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
@@ -1217,7 +1180,7 @@ CREATE TABLE IF NOT EXISTS `Textos` (
   `Titulo` varchar(128) NOT NULL DEFAULT '',
   `Editorial` varchar(64) NOT NULL DEFAULT '',
   `Nivel` varchar(64) NOT NULL DEFAULT '',
-  `Grupo` varchar(10) NOT NULL DEFAULT '',
+  `Grupo` text COLLATE latin1_spanish_ci,
   `Notas` text,
   `Departamento` varchar(48) NOT NULL DEFAULT '',
   `Asignatura` varchar(48) NOT NULL DEFAULT '',
@@ -1262,7 +1225,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `textos_gratis` (
   `caducado` char(2) NOT NULL DEFAULT '',
   `importe` int(11) NOT NULL DEFAULT '0',
   `utilizado` char(2) NOT NULL DEFAULT '',
-  `nivel` char(2) NOT NULL DEFAULT '',
+  `nivel` varchar(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
@@ -1290,8 +1253,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tutoria` (
   `apellidos` varchar(42) NOT NULL DEFAULT '',
   `nombre` varchar(24) NOT NULL DEFAULT '',
   `tutor` varchar(48) NOT NULL DEFAULT '',
-  `nivel` char(2) NOT NULL DEFAULT '',
-  `grupo` char(1) NOT NULL DEFAULT '',
+  `unidad` varchar(64) NOT NULL DEFAULT '',
   `observaciones` text NOT NULL,
   `causa` varchar(42) NOT NULL DEFAULT '',
   `accion` varchar(200) NOT NULL DEFAULT '',

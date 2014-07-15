@@ -1,7 +1,6 @@
 <?php
-if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];} else{$nivel="";}
-if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];} else{$grupo="";}
-if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="$nivel-$grupo";}
+if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="";}
+if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="$unidad-$grupo";}
 
 if ($_POST['submit1'] or $_GET['submit1'])
 {

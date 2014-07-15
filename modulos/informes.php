@@ -5,8 +5,7 @@ $resultcurs = mysql_query($SQLcurso);
 	{
 	$curso = $rowcurs[0];
 	$curso0 = explode("-",$curso);
-	$nivel_i = $curso0[0];	
-	$grupo_i = $curso0[1];	
+	$nivel_i = $curso;	
 	$asignatura = trim($rowcurs[1]);
 	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurs[2]' and abrev not like '%\_%'";
 	//echo $asigna0."<br>";
@@ -16,7 +15,7 @@ $resultcurs = mysql_query($SQLcurso);
 	if(is_numeric($c_asig)){
 	$hoy = date('Y-m-d');
 	$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV FROM infotut_alumno, alma WHERE 
-	infotut_alumno.claveal = alma.claveal and  date(F_ENTREV)>='$hoy' and infotut_alumno. nivel = '$nivel_i' and infotut_alumno.grupo = '$grupo_i' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
+	infotut_alumno.claveal = alma.claveal and  date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
 $result = mysql_query($query);
 $n_inotut="";
 if (mysql_num_rows($result) > 0)
@@ -42,7 +41,7 @@ if (mysql_num_rows($si) > 0)
   </div>
   <div class="modal-body">
 <?
-$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,NIVEL,GRUPO,TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'");
+$alumno=mysql_query("SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'");
 $dalumno = mysql_fetch_array($alumno);
 $claveal=$dalumno[6];
 $datos=mysql_query("SELECT asignatura, informe, id, profesor FROM infotut_profesor WHERE id_alumno='$row1[0]'");

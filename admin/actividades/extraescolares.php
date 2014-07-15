@@ -44,12 +44,11 @@ $profesor.=$profe[1]." ".$profe[0].", ";
 //$profesor.=$profeso.",";
 }
 $profesor = substr($profesor,0,-5);
-$trozos = explode("-",$cursos[0]);
+$trozos = explode(";",$cursos[0]);
 foreach($trozos as $valor)
 {
-$nivel = substr($valor,0,2);
-$grupo = substr($valor,2,1); 
-$alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.nivel = '$nivel' and alma.grupo = '$grupo' order by NC";
+$unidad = $valor;
+$alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.unidad = '$unidad' order by NC";
 //echo $alumnos0;
 $alumnos1 = mysql_query($alumnos0);
 $num = mysql_num_rows($alumnos1);
@@ -71,7 +70,7 @@ $descripcion = $datos[4];
 <input name="descripcion" type="hidden" id="A" value="<? echo $descripcion;?>">
 <input name="id" type="hidden" id="A" value="<? echo $id;?>">   
 <table class="table table-striped table-condensed">
-<tr><td colspan="2"><h4><? echo "Alumnos de $nivel - $grupo";?></h4></td>
+<tr><td colspan="2"><h4><? echo "Alumnos de $unidad";?></h4></td>
 </tr>
 
 <?

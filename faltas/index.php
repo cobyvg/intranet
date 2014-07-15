@@ -22,7 +22,6 @@ $_SESSION['todo_profe'] = $profesi;
 	if($ndia == "3"){$nom_dia = "Miércoles";}
 	if($ndia == "4"){$nom_dia = "Jueves";}
 	if($ndia == "5"){$nom_dia = "Viernes";}
-	
 	$minutos = date("i");
 	$diames = date("j");
     $nmes = date("n");
@@ -38,7 +37,6 @@ $_SESSION['todo_profe'] = $profesi;
 	elseif(($hora == '13' and $minutos > 45 ) or ($hora == '14' and $minutos < 45 ) ){$hora_dia = '6';}
 	else{ $hora_dia = "Fuera del Horario Escolar";}
 	}
-
 //$nl_curs10 = "select distinct a_grupo from horw where no_prof = '59' and dia = '1' and hora = '5'";
 $nl_curs10 = "select distinct a_grupo from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
 $nl_curs11 = mysql_query($nl_curs10); 
@@ -61,7 +59,6 @@ include("menu.php");
 <div class="page-header" align="center">
   <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
-<br />
 <?
 	// Unir todos los grupos para luego comprobar que no hay duplicaciones (4E-E,4E-Dd)
 //$n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '59' and dia = '1' and hora = '5'";
@@ -70,9 +67,7 @@ $n_curs1 = mysql_query($n_curs0);
 while($n_cur = mysql_fetch_array($n_curs1))
   {
   	$curs .= $n_cur[0].", ";
-  	 $niv =  substr($n_cur[0],0,1);
-  	 $niv2 = substr($n_cur[0],1,1);
-  	 $cod.=$n_cur[1]." ";
+    $cod.=$n_cur[1]." ";
   } 
  if($mensaje){
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -89,7 +84,7 @@ while($n_cur = mysql_fetch_array($n_curs1))
 	}
 	
 	//$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '59' and dia = '1' and hora = '5'";
-	$hora1 = "select distinct c_asig, a_grupo, asig, nivel, n_grupo from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
+	$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
 	$hora0 = mysql_query($hora1); 
 	while($hora2 = mysql_fetch_row($hora0))
 	{
@@ -104,21 +99,9 @@ while($n_cur = mysql_fetch_array($n_curs1))
 	echo "<table align='center' class='table table-striped table-bordered table-condensed' style='width:auto'>\n";  			     
         	$filaprincipal = "<tr><th colspan='4'><br /><p class='lead text-info' align='center'>$curso $asignatura</p></th></tr>";  
 	// Diversificación
-if(substr($curso,4,1) == 'd')
-	{
-		$curso30 = substr($curso,0,strlen($curso) - 1).",";
-		if(strstr($t_grupos,$curso30)){$curso = "";}
-		else {
-	//	Problemas con Diversificación (4E-Dd)
-		$curso_sin1 =  substr($curso,0,strlen($curso) - 1);
-		$curso = $curso_sin1;
-		echo $filaprincipal;
-		}
-	}
-	else {
 		$curso = $hora2[1];
 		echo $filaprincipal;
-	}
+	
 ?>
 <form action="poner_falta.php" method="post" name="Cursos">
   <?php
@@ -152,7 +135,7 @@ if(substr($curso,4,1) == 'd')
 	echo $clave; 
 	echo '" />';
   	$c_a="";
-$res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and unidad = '$curso' and ( ";	 
+$res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and FALUMNOS.unidad = '$curso' and ( ";	 
 //$n_curs10 = "select distinct c_asig from horw where no_prof = '59' and dia = '1' and hora = '5'";
 $n_curs10 = "select distinct c_asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
 $n_curs11 = mysql_query($n_curs10); 

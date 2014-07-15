@@ -86,7 +86,7 @@ echo $fecha;
 ?>" size="4" maxlength="4">
       <?	
 //$cur = explode(" --> ",$nivel);					
-$tipo0 = "select distinct GRUPO from alma where curso = '$nivel' order by GRUPO";
+$tipo0 = "select distinct unidad from alma where curso = '$nivel' order by unidad";
 $tipo10 = mysql_query($tipo0);
   while($tipo20 = mysql_fetch_array($tipo10))
         {	
@@ -138,6 +138,9 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       </select>
       <? } ?>
     </label>
+    <?
+    echo "SELECT DISTINCT asignaturas.NOMBRE, ABREV FROM asignaturas, departamentos, profesores where asignaturas.nombre=profesores.materia and profesores.profesor=departamentos.nombre and curso = '$nivel' and departamento like '$departamento%' ORDER BY NOMBRE asc";
+    ?>
     <label>Asignatura <span style="color:#9d261d"> (*)</span><br />
       <select name="asignatura" id="asignatura" class="input-block-level"  value="<? echo $asignatura; ?>" required>
         <option>

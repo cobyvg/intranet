@@ -18,7 +18,7 @@ while ($profer=mysql_fetch_array($profe)){
 	while ($diahorar=mysql_fetch_array($diahora))
 	{
 		$c_asig=$diahorar[2];
-		$agrup=mysql_query("select distinct a_grupo from horw where dia='$diahorar[0]' and hora='$diahorar[1]' and c_asig='$diahorar[2]' and prof='$profer[0]' order by n_grupo");
+		$agrup=mysql_query("select distinct a_grupo from horw where dia='$diahorar[0]' and hora='$diahorar[1]' and c_asig='$diahorar[2]' and prof='$profer[0]' order by a_grupo");
 
 		$n=mysql_num_rows($agrup); //// echo$n;
 		//if($n=='3'){

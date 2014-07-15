@@ -68,6 +68,15 @@ legend{
 h3{
 	color:#666;	
 }
+h6{
+	color:#666;
+	font-weight:bold;
+	font-size:1.1em;
+}
+h4{
+	color:#555;
+	font-size:1.2em;
+}
 
 .table thead th {
 	background-color: #e9eae9;

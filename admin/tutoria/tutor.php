@@ -56,21 +56,19 @@ if (isset($_POST['causa'])) {
 if (isset($_POST['id2'])) {
 	$id2 = $_POST['id2'];
 } else{$id2="";}
-if (isset($_POST['nivel0'])) {
-	$nivel0 = $_POST['nivel0'];
-} else{$nivel0="";}
-if (isset($_POST['grupo0'])) {
-	$grupo0 = $_POST['grupo0'];
-} else{$grupo0="";}
+if (isset($_POST['unidad0'])) {
+	$unidad0 = $_POST['unidad0'];
+} else{$unidad0="";}
+
 if (isset($_POST['prohibido'])) {
 	$prohibido = $_POST['prohibido'];
 }else{$prohibido="";}
 
 if ($id) {
 $alumno = "";
-$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, tutoria.nivel, tutoria.grupo, FTUTORES.tutor, id, prohibido, orienta, jefatura, claveal from tutoria, FTUTORES where tutoria.nivel = FTUTORES.nivel and tutoria.grupo = FTUTORES.grupo and id = '$id'");
+$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, tutoria.unidad, FTUTORES.tutor, id, prohibido, orienta, jefatura, claveal from tutoria, FTUTORES where tutoria.unidad = FTUTORES.unidad and id = '$id'");
 $row = mysql_fetch_array($result);
-$alumno = $row[0].", ".$row[1]." --> ".$row[13];
+$alumno = $row[0].", ".$row[1]." --> ".$row[12];
 $apellidos = $row[0];
 $nombre = $row[1];
 $fecha0 = $row[2];
@@ -79,19 +77,18 @@ $fecha = "$dia[2]-$dia[1]-$dia[0]";
 $accion = $row[3];
 $causa = $row[4];
 $observaciones = $row[5];
-$nivel = $row[6];
-$grupo = $row[7];
-$tutor = $row[8];
-$id = $row[9];
-$prohibido = $row[10];
-$orientacion = $row[11];
-$jefatura = $row[12];
-$clave = $row[13];
+$unidad = $row[6];
+$tutor = $row[7];
+$id = $row[8];
+$prohibido = $row[9];
+$orientacion = $row[10];
+$jefatura = $row[11];
+$clave = $row[12];
   }
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Página del tutor <small> Diario del Tutor ( <?  echo $nivel; ?>-<? echo $grupo;?> )</small></h2>
+  <h2>Página del tutor <small> Diario del Tutor ( <?  echo $unidad; ?> )</small></h2>
 </div>
 <? 
 
@@ -110,7 +107,7 @@ if (isset($_POST['submit1'])) {
   $dia = explode("-",$fecha);
   $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
   	$actualizar ="UPDATE  tutoria SET observaciones = '$observaciones', causa = '$causa', accion = '$accion', fecha = '$fecha2' WHERE  id = '$id2'"; 
-	echo $actualizar;
+	//echo $actualizar;
 	mysql_query($actualizar);
   }
   if($orientacion == '1')
@@ -162,7 +159,7 @@ $clave = $tr[1];
             <option>Todos, todos</option>
             <?
 
-  $alumno0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where nivel = '$nivel' and grupo = '$grupo'order by NC asc");
+  $alumno0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where unidad = '$unidad' order by NC asc");
   if ($falumno = mysql_fetch_array($alumno0))
         {
         	
@@ -227,8 +224,7 @@ if ($fecha)
         </div>
         </div>
        <hr>
-        <input name="nivel" type="hidden" value="<? echo $nivel; ?>" />
-        <input name="grupo" type="hidden" value="<? echo $grupo; ?>" />
+        <input name="unidad" type="hidden" value="<? echo $unidad; ?>" />
         <input name="tutor" type="hidden" value="<? echo $tutor; ?>" />
         <input name="id2" type="hidden" value="<? echo $id; ?>" />
         <center><input name='submit1' type='submit' value='Registrar intervencion de tutoria' class='btn btn-primary'>
@@ -247,12 +243,12 @@ $apellidos = $trozos[0];
 $nombre = $trozos[1];
 	  ?>
     <hr>
-    <h4 align="center">Intervenciones sobre <br /> <? echo $nombre." ".$apellidos." (".$nivel."-".$grupo.")"; ?></h4>
+    <h4 align="center">Intervenciones sobre <br /> <? echo $nombre." ".$apellidos." (".$unidad.")"; ?></h4>
     <br />
     <?
  
 $result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, id from tutoria where claveal='$clave' and prohibido = '0' and
- nivel = '$nivel' and grupo = '$grupo' order by fecha");
+ unidad = '$unidad' order by fecha");
   if ($row = mysql_fetch_array($result))
 {
 echo "<table class='table table-striped' style='width:100%'><thead>";  	

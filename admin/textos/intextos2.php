@@ -21,7 +21,7 @@ return false;
 }
 </script>
 <?php
-		include("../../menu.php");
+include("../../menu.php");
 if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
 if (isset($_GET['titulo'])) {$titulo = $_GET['titulo'];}elseif (isset($_POST['titulo'])) {$titulo = $_POST['titulo'];}else{$titulo="";}
 if (isset($_GET['asignatura'])) {$asignatura = $_GET['asignatura'];}elseif (isset($_POST['asignatura'])) {$asignatura = $_POST['asignatura'];}else{$asignatura="";}
@@ -35,22 +35,21 @@ if (isset($_GET['NOTAS'])) {$NOTAS = $_GET['NOTAS'];}elseif (isset($_POST['NOTAS
 if (isset($_GET['obligatorio'])) {$obligatorio = $_GET['obligatorio'];}elseif (isset($_POST['obligatorio'])) {$obligatorio = $_POST['obligatorio'];}else{$obligatorio="";}
 if (isset($_GET['clase'])) {$clase = $_GET['clase'];}elseif (isset($_POST['clase'])) {$clase = $_POST['clase'];}else{$clase="";}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
-if (isset($_GET['A'])) {$A = $_GET['A'];}elseif (isset($_POST['A'])) {$A = $_POST['A'];}else{$A="";}
-if (isset($_GET['B'])) {$B = $_GET['B'];}elseif (isset($_POST['B'])) {$B = $_POST['B'];}else{$B="";}
-if (isset($_GET['C'])) {$C = $_GET['C'];}elseif (isset($_POST['C'])) {$C = $_POST['C'];}else{$C="";}
-if (isset($_GET['D'])) {$D = $_GET['D'];}elseif (isset($_POST['D'])) {$D = $_POST['D'];}else{$D="";}
-if (isset($_GET['E'])) {$E = $_GET['E'];}elseif (isset($_POST['E'])) {$E = $_POST['E'];}else{$E="";}
-if (isset($_GET['F'])) {$F = $_GET['F'];}elseif (isset($_POST['F'])) {$F = $_POST['F'];}else{$F="";}
-if (isset($_GET['G'])) {$G = $_GET['G'];}elseif (isset($_POST['G'])) {$G = $_POST['G'];}else{$G="";}
-if (isset($_GET['H'])) {$H = $_GET['H'];}elseif (isset($_POST['H'])) {$H = $_POST['H'];}else{$H="";}
+$uni = mysql_query("select distinct unidad from alma where curso = '$nivel'");
+while ($unid = mysql_fetch_array($uni)) {
+	$unida = $unid[0];
+	if (isset($_GET[$unida])) {$unida = $_GET[$unida];}elseif (isset($_POST[$unida])) {$unida = $_POST[$unida];}else{$unida="";}
+	$grupo .= $unida.";";
+}
 		
-		echo '<br />
+	// echo $grupo;
+	echo '<br />
 <div align="center">
 <div class="page-header">
   <h2>Libros de Texto <small> Departamento de '.$departamento.'</small></h2>
 </div><br />';
 
-$grupo = "$A$B$C$D$E$F$G$H";
+//$grupo = "$A$B$C$D$E$F$G$H";
 //Errores posibles
 if (empty($titulo) or empty($asignatura) or empty($departamento) or empty($grupo) or empty($editorial) or empty($isbn)) 
 { 
@@ -63,6 +62,7 @@ No has introducido todos los datos.<br> Vuelve atrás e inténtalo de nuevo.
 else
 {  
 $query="insert into Textos (Autor,Titulo,Editorial,Nivel,Grupo,Notas,Departamento, Asignatura,Obligatorio, Clase, isbn) values ('".$autor."','".$titulo."','".$editorial."','".$nivel."','".$grupo."','".$NOTAS."','".$departamento."','".$asignatura."','".$obligatorio."','".$clase."','".$isbn."')";
+//echo $query;
 mysql_query($query);
 
 	$textos = mysql_query("SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, nivel, grupo  
@@ -85,7 +85,7 @@ while($row = mysql_fetch_array($textos))
 			 <td>$row[1]</td>
 			 <td>$row[2]</td><td>$row[3]</td><td>$row[4]</td>
 		  	<td>$row[8]</td>
-			<td><a href='editexto.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();'> </i></a></td>
+			<td><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;'><i class='fa fa-trash-o' title='Borrar' onClick='return confirmacion();'> </i></a></td>
 			</tr>";
         }
 		echo '</table>';

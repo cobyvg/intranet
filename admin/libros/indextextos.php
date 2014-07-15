@@ -14,7 +14,17 @@ header("location:http://$dominio/intranet/index.php");
 exit;	
 }
 ?>
-<? include("../../menu.php");?>
+<? 
+include("../../menu.php");
+// Actualizamos el campo nivel
+mysql_query("ALTER TABLE  `textos_gratis` CHANGE  `nivel`  `nivel` VARCHAR( 48 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  '' ");
+
+mysql_query("update `textos_gratis` set nivel = '1º de E.S.O.' WHERE nivel = '1E'");
+mysql_query("update `textos_gratis` set nivel = '2º de E.S.O.' WHERE nivel = '2E'");
+mysql_query("update `textos_gratis` set nivel = '3º de E.S.O.' WHERE nivel = '3E'");
+mysql_query("update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E'");
+
+?>
 <div align="center">
         <div class="page-header" align="center">
   <h2>Programa de Ayudas al Estudio <small> Libros gratuitos de la ESO</small></h2>
@@ -29,10 +39,12 @@ exit;
         
         <label>Nivel: 
         <select name="niv" id="nivel">
-          <option value="1E" selected="selected">1 ESO</option>
-          <option value="2E">2 ESO</option>
-          <option value="3E">3 ESO</option>
-          <option value="4E">4 ESO</option>
+        <?
+        $niv_sen = mysql_query("select nomcurso from cursos where nomcurso like '%E.S.O.'");
+        while ($nivel_seneca = mysql_fetch_array($niv_sen)) {
+        	echo '<option value="'.$nivel_seneca[0].'">'.$nivel_seneca[0].'</option>';
+        }
+        ?>
         </select>
         </label>
         <br />
@@ -47,10 +59,12 @@ exit;
         <div class="well well-large">
         <label>Nivel: 
         <select name="nivel" id="select">
-          <option value="1E">1 ESO</option>
-          <option value="2E">2 ESO</option>
-          <option value="3E">3 ESO</option>
-          <option value="4E">4 ESO</option>
+       <?
+        $niv_sen = mysql_query("select nomcurso from cursos where nomcurso like '%E.S.O.'");
+        while ($nivel_seneca = mysql_fetch_array($niv_sen)) {
+        	echo '<option value="'.$nivel_seneca[0].'">'.$nivel_seneca[0].'</option>';
+        }
+        ?>
         </select>
         </label>
         <br />

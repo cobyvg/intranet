@@ -25,10 +25,10 @@ $grupo=$_POST['select'];
 $uni = substr($grupo,0,1);
 
 	if($tipo==1) {
-		$sql="SELECT nc as num, concat(alma.apellidos,', ',alma.nombre) as alumno FROM alma, FALUMNOS WHERE FALUMNOS.claveal=alma.claveal and Unidad='".$grupo."' ORDER BY nc";}
+		$sql="SELECT nc as num, concat(alma.apellidos,', ',alma.nombre) as alumno FROM alma, FALUMNOS WHERE FALUMNOS.claveal=alma.claveal and alma.unidad='".$grupo."' ORDER BY nc";}
 	
 		if($tipo==2) {
-		$sql="SELECT concat(alma.apellidos,', ',alma.nombre) as alumno, combasi as asignaturas, nc as num FROM alma, FALUMNOS WHERE alma.claveal=FALUMNOS.claveal and Unidad='".$grupo."' ORDER BY nc";
+		$sql="SELECT concat(alma.apellidos,', ',alma.nombre) as alumno, combasi as asignaturas, nc as num FROM alma, FALUMNOS WHERE alma.claveal=FALUMNOS.claveal and alma.Unidad='".$grupo."' ORDER BY nc";
 	}	
 
 

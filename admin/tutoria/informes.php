@@ -2,7 +2,7 @@
 <?php
 // Consulta
 $hoy = date('Y'). "-" .date('m'). "-" .date('d');
-$query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, F_ENTREV FROM infotut_alumno where nivel = '$nivel' and grupo = '$grupo' ORDER BY id desc";
+$query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, F_ENTREV FROM infotut_alumno where unidad = '$unidad' ORDER BY id desc";
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 
 if (mysql_num_rows($result) > 0)

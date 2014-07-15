@@ -1,9 +1,6 @@
 <?
-if ( $_POST['nivel']) {
-	 $nivel = $_POST['nivel'];
-}
-if ( $_POST['grupo']) {
-	 $grupo = $_POST['grupo'];
+if ( $_POST['unidad']) {
+	 $unidad = $_POST['unidad'];
 }
 if ($_POST['submit1'])
 {
@@ -52,22 +49,20 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 		$tr=explode(" --> ",$_GET['nombre_al']);
 		$claveal=$tr[1];
 		$nombre=$tr[0];
-		$ng_al0=mysql_query("select nivel, grupo from FALUMNOS where claveal = '$claveal'");
+		$ng_al0=mysql_query("select unidad from FALUMNOS where claveal = '$claveal'");
 		$ng_al=mysql_fetch_array($ng_al0);
-		$nivel=$ng_al[0];
-		$grupo=$ng_al[1];
+		$unidad=$ng_al[0];
 	}
 	if ($_GET['id'] or $_POST['id']) {
 		$id = $_GET['id'];
 		$claveal = $_GET['claveal'];
-		$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+		$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
 
   if ($row = mysql_fetch_array($result))
         {
 
 		$nombre = "$row[0], $row[1] --> $claveal";
-		$nivel = $row[2];
-		$grupo = $row[3];
+		$unidad = $row[2];
 		$fecha = $row[4];
 		$notas = $row[5];
 		
@@ -100,25 +95,18 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 <div style="max-width: 420px; margin: auto">
 <div class="well well-large" align="left">
 <FORM action="infechoria.php" method="POST" name="Cursos">
-<label style="display: inline"> Nivel: 
-<select name="nivel"
-	onChange="submit()" class="input-small" class="form-inline">
-	<option><? echo $nivel;?></option>
+<label style="display: inline"> Grupo:<br /> 
+<select name="unidad"
+	onChange="submit()" class="input" class="form-inline">
+	<option><? echo $unidad;?></option>
 	<? if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<option>Cualquiera</option>";} ?>
-	<? nivel();?>
-</select> 
-</label> 
-<label style="display: inline">&nbsp;&nbsp;&nbsp;Grupo: 
-<select name="grupo" onChange="submit()"
-	class="input-small">
-	<option><? echo $grupo;;?></option>
-	<? grupo($nivel);?>
+	<? unidad();?>
 </select> 
 </label> 
 <hr />
 <label> Alumno:<br />
 	<?
-	if ($nivel=="Cualquiera") {$alumno_sel=""; $nom = "nombre[]";  $opcion = "multiple = 'multiple' style='height:250px;width:340px;'";}else{$alumno_sel = "WHERE NIVEL like '$nivel%' and grupo = '$grupo'"; $nom = "nombre";}
+	if ($unidad=="Cualquiera") {$alumno_sel=""; $nom = "nombre[]";  $opcion = "multiple = 'multiple' style='height:250px;width:340px;'";}else{$alumno_sel = "WHERE unidad like '$unidad%'"; $nom = "nombre";}
 	?> <select name="<? echo $nom;?>" class="input input-block-level"
 	<? echo $opcion;?>>
 	<?
@@ -131,8 +119,8 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 	if ($claveal == "")
 	{
 		$alumnos = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS $alumno_sel order by APELLIDOS asc");
-		if ($nivel=="Cualquiera"){}else{echo "<OPTION>Selecciona un Alumno</OPTION>";}
-		if ($nivel and $grupo)
+		if ($unidad=="Cualquiera"){}else{echo "<OPTION>Selecciona un Alumno</OPTION>";}
+		if ($unidad)
 		{
 			echo "<OPTION>Todos los alumnos</OPTION>";
 		}

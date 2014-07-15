@@ -103,7 +103,7 @@ foreach ($titulos as $key=>$val){
   `claveal` varchar(12) NOT NULL,
   `suspensos` tinyint(4) NOT NULL,
   `pil` tinyint(4) NOT NULL,
-  `grupo` varchar( 6 ) NOT NULL,
+  `grupo` varchar( 64 ) NOT NULL,
   `nivel` varchar( 64 ) NOT NULL,
   KEY `claveal` (`claveal`)
 )";
@@ -141,18 +141,23 @@ while ($orden_nivel = mysql_fetch_array($nivele)){
 <?
 
 // UNIDADES DEL CURSO
-$niv = mysql_query("select distinct curso, nivel, unidad from alma where curso = '$orden_nivel[1]' order by unidad");
+$niv = mysql_query("select distinct curso, nivel, unidad, idcurso from alma, cursos where curso=nomcurso and curso = '$orden_nivel[1]' order by unidad");
 while ($ni = mysql_fetch_array($niv)) {
 	$unidad = $ni[2];
-?>
-
-<?
+	
+	$idn = $ini[3];
+	if ($idn=="101140") { $nivel="1E"; }
+	elseif ($idn=="101141") { $nivel="2E"; }
+	elseif ($idn=="101142") { $nivel="3E"; }
+	elseif ($idn=="6029" or $idn=="2063") { $nivel="1B"; }
+	else{ $nivel = $ni[1]; }
+	$n_grupo+=1;
+	
 	$n_grupo+=1;
 	$curso = $ni[0];
-	$nivel = $ni[1];
 	$rep = ""; 
 	$promo = "";
-$notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.unidad = '$unidad'";
+$notas1 = "select notas". $key .", claveal1, matriculas, unidad, curso from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.unidad = '$unidad'";
 //echo $notas1."<br>";
 
 $result1 = mysql_query($notas1);
@@ -232,12 +237,12 @@ $total=mysql_num_rows($tota);
 
 // Promocion
 	$extra1 = " and suspensos = '0'";
-	$prom1 = mysql_query("select distinct claveal, grupo from suspensos where grupo = '$grupo' and grupo not like '1E%' and grupo not like '2E%' and grupo not like '3E%' and grupo not like '1B%'  $extra1");
+	$prom1 = mysql_query("select distinct claveal, grupo from suspensos where grupo = '$grupo' and nivel not like '1E%' and nivel not like '2E%' and nivel not like '3E%' and nivel not like '1B%'  $extra1");
 	$promo1=mysql_num_rows($prom1);
 	if ($promo1==0) { $promo1=""; }
 
 	$extra2 = " and suspensos < '3'";
-	$prom2 = mysql_query("select distinct claveal, grupo from suspensos where grupo = '$grupo' and (grupo like '1E%' or grupo like '2E%' or grupo like '3E%' or grupo like '1B%')  $extra2");
+	$prom2 = mysql_query("select distinct claveal, grupo from suspensos where grupo = '$grupo' and (nivel like '1E%' or nivel like '2E%' or nivel like '3E%' or nivel like '1B%')  $extra2");
 	$promo2=mysql_num_rows($prom2);
 	if ($promo2==0) { $promo2=""; }
 

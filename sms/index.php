@@ -16,8 +16,7 @@ exit;
 }
 include("../menu.php");
 if (isset($_GET['submit0'])) {$submit0 = $_GET['submit0'];}elseif (isset($_POST['submit0'])) {$submit0 = $_POST['submit0'];}else{$submit0="";}
-if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
-if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
+if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 if (isset($_GET['text'])) {$text = $_GET['text'];}elseif (isset($_POST['text'])) {$text = $_POST['text'];}else{$text="";}
 if (isset($_GET['causa'])) {$causa = $_GET['causa'];}elseif (isset($_POST['causa'])) {$causa = $_POST['causa'];}else{$causa="";}
 if (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
@@ -79,15 +78,14 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto
 	{
 	$trozos = explode(" --> ",$tel);
 	$claveal = trim($trozos[0]);
-	$tel0 = mysql_query("select telefono, telefonourgencia, apellidos, nombre, alma.nivel, alma.grupo, tutor from alma, FTUTORES where FTUTORES.nivel = alma.nivel and FTUTORES.grupo = alma.grupo and claveal = '$claveal'");
+	$tel0 = mysql_query("select telefono, telefonourgencia, apellidos, nombre, alma.unidad, alma.matriculas, tutor from alma, FTUTORES where FTUTORES.unidad = alma.unidad and claveal = '$claveal'");
 	
 	$tel1 = mysql_fetch_array($tel0);
 	$tfno = $tel1[0];	
 	$tfno_u = $tel1[1];
 	$apellidos = $tel1[2];
 	$nombre = $tel1[3];
-	$nivel = $tel1[4];
-	$grupo = $tel1[5];
+	$unidad = $tel1[4];
 	$tutor_mens = $tel1[6];
 	if(substr($tfno,0,1)=="6" OR substr($tfno,0,1)=="7"){$mobil=$tfno;}elseif((substr($tfno_u,0,1)=="6" OR substr($tfno_u,0,1)=="7") and !(substr($tfno,0,1)=="6" OR substr($tfno,0,1)=="7")){$mobil=$tfno_u;}else{$mobil="";}
 	
@@ -99,7 +97,7 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto
 $fecha2 = date('Y-m-d');
 $observaciones = $text;
 $accion = "Envío de SMS";
-mysql_query("insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$nivel."','".$grupo."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+mysql_query("insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
 
 // Mensaje al Tutor
 if (stristr($_SESSION['cargo'],'1') == TRUE) {
@@ -162,7 +160,7 @@ El mensaje SMS se ha enviado correctamente.<br>Una nueva acción tutorial ha sido
 }
 else
 {
-	 if((!(empty($nivel)) and !(empty($grupo))) or (stristr($_SESSION['cargo'],'1') == TRUE)){
+	 if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE)){
 		?>
 <div class="row-fluid">
  <div class="span2"></div>
@@ -177,27 +175,13 @@ else
 <form method="post" action="index.php" name="nameform" class="form-vertical">
 
       <? if(stristr($_SESSION['cargo'],'2') == TRUE){} else{ ?>
-      <label>Nivel: 
-		<select  name="nivel" class="input-small" onChange="submit()">
-          <option><? echo $nivel;?></option>
+      <label>Grupo: 
+		<select  name="unidad" class="input" onChange="submit()">
+          <option><? echo $unidad;?></option>
           <? if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<option>Cualquiera</option>";} ?>
-          <? nivel(); ?>
+          <? unidad(); ?>
         </select><? }?>
-      <? if(stristr($_SESSION['cargo'],'2') == TRUE){} else{ ?>
-      &nbsp;&nbsp;&nbsp;Grupo: <select name="grupo" onChange="submit()" class="input-small">
-          <option><? echo $grupo;
-// Si queremos que aparezcan los alumnos de un Nivel, y no sólo los de un grupo, descomentar lo siguiente.
-          
-//          if (strlen($grupo)>0) {
-//          	$grup=" and grupo = '$grupo'";
-//          }
-          ?></option>
-          <? 
-          grupo($nivel);
-          ?>
-        </select>
-		</label>
-		<? }?>  
+      
           	<label>Causa<br />
 	<select name="causa" class="input-block-level">
  <? if(stristr($_SESSION['cargo'],'8') == TRUE){?>
@@ -240,7 +224,7 @@ $extid = $n_sms[0]+1;
         <br /><input type="submit" name="submit0" value="Enviar SMS" class="btn btn-primary"/>
 
   <?	  
-  if((!(empty($nivel)) and !(empty($grupo))) or (stristr($_SESSION['cargo'],'1') == TRUE))
+  if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE))
 	    {	
 		?>
 </div>
@@ -249,7 +233,7 @@ $extid = $n_sms[0]+1;
 <legend>Alumnos</legend>
         <?
   		echo '<SELECT  name=nombre[] multiple=multiple style="padding:15px; width:100%;height:450px;">';
-  		if ($nivel=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE NIVEL like '$nivel%' and grupo = '$grupo'";}
+  		if ($unidad=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE unidad like '$unidad%'";}
   $alumno = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $alumno_sel order by APELLIDOS asc");
   
        while($falumno = mysql_fetch_array($alumno)) 
@@ -274,7 +258,7 @@ El módulo de envío de SMS debe ser activado en la Configuración general de la In
           </div></div>';
  }
  
- if((!(empty($nivel)) and !(empty($grupo))) or (stristr($_SESSION['cargo'],'1') == TRUE))
+ if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE))
 	    {	
 		echo '</div>
 </div>';

@@ -44,7 +44,7 @@ while($hor = mysql_fetch_array($hor1))
 {
 $id = $hor[0];
 $profesor = $hor[1];
-$grupo = substr($hor[2],0,4);
+$grupo = $hor[2];
 $materia = $hor[3];
 if(is_numeric(substr($grupo,0,1)))
 {

@@ -12,9 +12,7 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 // VARIABLES DEL FORMULARIO
-$curso = explode('-',$_POST['curso']);
-$nivel = $curso[0];
-$grupo = $curso[1];
+$curso = $_POST['curso'];
 
 require('../../pdf/mc_table.php');
 
@@ -29,27 +27,26 @@ $pdf->AddFont('NewsGotT','B','NewsGotTb.php');
 
 // En el caso de haber seleccionado una unidad, se muestra el listado de alumnos de dicha unidad,
 // en otro caso mostramos el listado de faltas de todas las unidades.
-$query = "SELECT DISTINCT NIVEL, GRUPO FROM FALUMNOS";
-if ($nivel && $grupo) $query .= " WHERE NIVEL='$nivel' AND GRUPO='$grupo'";
+$query = "SELECT DISTINCT unidad FROM FALUMNOS";
+if ($curso) $query .= " WHERE unidad='$curso'";
 
 
 $unidades = mysql_query($query);
 
 while ($unidad = mysql_fetch_array($unidades)) {
 	
-	$nivel = $unidad[0];
-	$grupo = $unidad[1];
+	$grupo = $unidad[0];
 
 	$pdf->AddPage('P','A4');
 	
 	// CABECERA DEL DOCUMENTO
 	$pdf->SetFont('NewsGotT','B',12);
-	$pdf->Cell(170,5,"ALUMNOS DEL GRUPO $nivel-$grupo",0,1,'C');
+	$pdf->Cell(170,5,"ALUMNOS DEL GRUPO $grupo",0,1,'C');
 	
 	$pdf->Ln(5);
 	
 	// Consultamos los alumnos del grupo seleccionado
-	$result = mysql_query("SELECT claveal, apellidos, nombre FROM FALUMNOS WHERE NIVEL='$nivel' AND GRUPO='$grupo'");
+	$result = mysql_query("SELECT claveal, apellidos, nombre FROM FALUMNOS WHERE unidad='$grupo'");
 	
 	$i=1;
 	$x_texto1=29.5;

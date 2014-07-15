@@ -1,6 +1,6 @@
   <p class='lead'>Problemas de Convivencia</p>
   <?php
-  $alumn = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.claveal from FALUMNOS where nivel = '$nivel' and grupo = '$grupo'";
+  $alumn = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.claveal from FALUMNOS where unidad = '$unidad'";
   $alumn0 = mysql_query($alumn);
 
   echo "<table class='table table-striped table-condensed' style='width:100%'>";

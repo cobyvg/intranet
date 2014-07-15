@@ -4,7 +4,7 @@
 
 // Conexión al Servidor
 $query0 = "SELECT ID, FECHA, DURACION
-  FROM tareas_alumnos where nivel = '$nivel' and grupo = '$grupo' ORDER BY FECHA desc";
+  FROM tareas_alumnos where unidad = '$unidad' ORDER BY FECHA desc";
 
 
 $result0 = mysql_query($query0) or die ("Error in query: $query. " . mysql_error());

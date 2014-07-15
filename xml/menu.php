@@ -7,13 +7,8 @@
 <li><a href="jefe/index_xml.php" class="enlacelateral">Importar datos del Centro</a></li>
   <? if ($mod_horario) {?>
 <li><a href="jefe/admin/" class="enlacelateral">Importar Horarios</a></li>
-<?}
-if(phpversion() < '5'){
- echo '<li><a href="jefe/asignaturas_xslt.php" class="enlacelateral">';}
-else{
- echo '<li><a href="jefe/asignaturas.php" class="enlacelateral">';}
-?>
-Importar Asignaturas</a></li>
+<?}?>
+<li><a href="jefe/asignaturas.php" class="enlacelateral">Importar Asignaturas</a></li>
 <li><a href="jefe/indexprofesores.php" class="enlacelateral">Importar Profesores</a></li>
 <li><a href="jefe/indexdepartamentos.php" class="enlacelateral">Importar Departamentos</a></li>
 <li><a href="jefe/index_pendientes.php" class="enlacelateral">Lista de Alumnos con pendientes</a></li>

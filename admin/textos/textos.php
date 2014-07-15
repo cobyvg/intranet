@@ -27,6 +27,9 @@ include("../../menu.php");
 include 'menu.php';
 
 if (isset($_GET['departamento'])) {$departamento = $_GET['departamento'];}elseif (isset($_POST['departamento'])) {$departamento = $_POST['departamento'];}else{$departamento="";}
+if (strstr(" P.E.S.",$departamento)==TRUE) {
+	$departamento = str_replace(" P.E.S","",$departamento);
+}
 if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
 
 $AUXSQL = "";

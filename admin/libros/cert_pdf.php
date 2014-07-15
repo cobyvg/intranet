@@ -65,7 +65,9 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 			# ajustamos al 100% la visualización
 			$MiPDF->SetDisplayMode('fullpage');
 
-	$sqlal="SELECT concat(Nombre,' ',Apellidos),Unidad,Domicilio,Localidad,codpostal,Tutor FROM alma, FTUTORES WHERE alma.nivel = FTUTORES.nivel and alma.grupo = FTUTORES.grupo and claveal='".$claveal."'";
+
+	$sqlal="SELECT concat(Nombre,' ',Apellidos),Unidad,Domicilio,Localidad,codpostal,padre FROM alma WHERE claveal='".$claveal."'";
+	//echo $sqlal;
 	$resultadoal=mysql_query($sqlal);
 	$registroal = mysql_fetch_row($resultadoal);
 	// $nivel = substr($registroal[1],0,2);

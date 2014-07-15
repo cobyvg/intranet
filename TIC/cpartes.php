@@ -34,7 +34,7 @@ Hay un problema en el Formulario que quieres enviar:<br>No has introducido datos
 else
 	{
 $fecha = cambia_fecha($fecha);		
-$query="insert into partestic (nivel,grupo,carro,nserie,fecha,hora,alumno,profesor,descripcion,estado) values	('".$nivel."','".$grupo."','".$carrito."','".$numeroserie."','".$fecha."','".$hora."','".$alumno."','".$profesor."','".$descripcion."','".$estado."')";
+$query="insert into partestic (unidad,carro,nserie,fecha,hora,alumno,profesor,descripcion,estado) values	('".$unidad."','".$carrito."','".$numeroserie."','".$fecha."','".$hora."','".$alumno."','".$profesor."','".$descripcion."','".$estado."')";
 		$prueba = mysql_query($query);
 
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -44,8 +44,7 @@ Los datos de la incidencia han sido actualizados correctamente.
 		$direccion = "admin@$dominio";
 		$tema = "Nuevo parte de incidencia";
 		$texto = "Datos de la incidencia:
-		Nivel --> '$nivel';
-		Grupo --> '$grupo';
+		Grupo --> '$unidad';
 		Carrito --> '$carrito';
 		Nª de Serie --> '$numeroserie';
 		Fecha --> '$fecha';
@@ -66,20 +65,14 @@ Los datos de la incidencia han sido actualizados correctamente.
   <div class="span4">
     <div class="well well-large" align="left">
       <form class="form-vertical" action="cpartes.php">
-        <legend>Selecciona Nivel y Grupo</legend>
-        <br />
-        <label>Nivel
-          <select name="nivel" id="NIVEL" onchange="submit()" class="input-small">
-            <option><? echo $nivel;?></option>
-            <? nivel();?>
+        <legend>Selecciona Grupo</legend>
+        <label>
+          <select name="unidad" id="unidad" onchange="submit()" class="input">
+            <option><? echo $unidad;?></option>
+            <? unidad();?>
           </select>
         </label>
-        <label>Grupo
-          <select name="grupo" id="GRUPO" onchange="submit()" class="input-small">
-            <option><? echo $grupo;?></option>
-            <? grupo($nivel);?>
-          </select>
-        </label>
+       
         <hr />
         <label>Alumno<br />
           <select name="alumno" id="alumno" class="input-block-level">
@@ -87,7 +80,7 @@ Los datos de la incidencia han sido actualizados correctamente.
             <? 
 
   // Datos del alumno que hace la consulta. No aparece el nombre del a&iuml;&iquest;&frac12; de la nota. Se podr&iuml;&iquest;&frac12; incluir.
-  $alumnosql = mysql_query("SELECT distinct APELLIDOS, NOMBRE FROM FALUMNOS WHERE NIVEL like '$nivel%' AND GRUPO like '$grupo%' order by APELLIDOS asc");
+  $alumnosql = mysql_query("SELECT distinct APELLIDOS, NOMBRE FROM FALUMNOS WHERE unidad like '$unidad' order by APELLIDOS asc");
 
   if ($falumno = mysql_fetch_array($alumnosql))
         {
@@ -131,7 +124,7 @@ $año = $hoy[2];
         </label>
         <br />
         <input name="estado" type="hidden" value="activo" />
-        <input name="enviar" type="submit" value="Registrar Incidencia" class="btn btn-primary" />
+        <input name="enviar" type="submit" value="Registrar Incidencia" class="btn btn-primary btn-block" />
       </form>
     </div>
   </div>

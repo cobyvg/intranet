@@ -39,7 +39,7 @@ $nombre_comp = $trozos[0];
 $trozos1 = explode (", ", $nombre_comp);
 $apellidos = $trozos1[0];
 $nombre = $trozos1[1];
-$falumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, NIVEL, GRUPO, COMBASI FROM alma WHERE claveal ='$claveal'");
+$falumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad, matriculas, COMBASI FROM alma WHERE claveal ='$claveal'");
 $dalumno = mysql_fetch_array($falumno);
 $asignaturas=chunk_split($dalumno[5],3,"-");
 $asig=explode("-",$asignaturas);
@@ -60,8 +60,8 @@ echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" 
 exit;
 }
 
- $insertar=mysql_query("INSERT infotut_alumno (CLAVEAL,APELLIDOS,NOMBRE,NIVEL,GRUPO,F_ENTREV,TUTOR,FECHA_REGISTRO)
-VALUES ('$dalumno[0]',\"$dalumno[1]\",'$dalumno[2]','$dalumno[3]','$dalumno[4]',
+ $insertar=mysql_query("INSERT infotut_alumno (CLAVEAL,APELLIDOS,NOMBRE,unidad,F_ENTREV,TUTOR,FECHA_REGISTRO)
+VALUES ('$dalumno[0]',\"$dalumno[1]\",'$dalumno[2]','$dalumno[3]',
 '$fecha','".$_POST['tutor']."', '$hoy')") or die ("Error en la activación del informe: " . mysql_error());
 
  echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">

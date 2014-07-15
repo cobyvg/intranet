@@ -23,8 +23,8 @@ $mes1 = $mes[0];
    echo "</div>";
  echo "</th>
   </tr>";
-$datos0 = "select * from actividades where month(fecha) = '$mes1' and grupos like '%$nivel$grupo-%' order by fecha";
-//echo $datos0;
+ $grupo_activ = str_replace("-","",$unidad);
+$datos0 = "select * from actividades where month(fecha) = '$mes1' and grupos like '%$grupo_activ-%' order by fecha";
   $datos1 = mysql_query($datos0);
 while($datos = mysql_fetch_array($datos1))
 {

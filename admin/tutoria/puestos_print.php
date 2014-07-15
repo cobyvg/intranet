@@ -9,7 +9,7 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
-$grupo=$_GET['grupo'];
+$grupo=$_GET['unidad'];
 
 ## estrutura de la clase
 #$estructura_clase='222';
@@ -28,7 +28,7 @@ function al_con_nie($var_nie,$var_grupo)
 
 
 echo '<div align="center">';
-echo '<h3><br>Asignación de puestos de los Alumnos de ',$_GET['grupo'],'<br><br></h3>';
+echo '<h3><br>Asignación de puestos de los Alumnos de ',$_GET['undad'],'<br><br></h3>';
 
 #mysql_close();
 ############################## si se han guardado

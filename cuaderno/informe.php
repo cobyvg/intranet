@@ -30,37 +30,32 @@ echo '<div align="center">';
 echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";	
 	 
 if($siguiente == '1'){
-  $trozos = explode("-",$curso);
-  $nivel = $trozos[0]; 
-  $grupo = $trozos[1];
-  $adelante1 = "select nc, claveal from FALUMNOS where nivel = '$nivel' and grupo = '$grupo' and nc>$nc order by nc asc limit 2";
+  $unidad = $curso;
+  $adelante1 = "select nc, claveal from FALUMNOS where unidad = '$unidad' and nc>$nc order by nc asc limit 2";
   $adelante0 = mysql_query($adelante1);
   $adelante = mysql_fetch_array($adelante0);
   $nc = $adelante[0];
   $claveal = $adelante[1];
   }
    if($anterior == '1'){
-  $trozos = explode("-",$curso);
-  $nivel = $trozos[0]; 
-  $grupo = $trozos[1];
+  $unidad = $curso;
   $menor = $nc - 1;
-  $anterior1 = "select nc, claveal from FALUMNOS where nivel = '$nivel' and grupo = '$grupo' and nc < '$nc' order by nc desc limit 1";
+  $anterior1 = "select nc, claveal from FALUMNOS where unidad = '$unidad' and nc < '$nc' order by nc desc limit 1";
   $anterior0 = mysql_query($anterior1);
   $anterior = mysql_fetch_array($anterior0);
   $nc = $anterior[0];
   $claveal = $anterior[1];
   }
-  $alum = mysql_query("select nc, nivel, grupo , nombre, apellidos from FALUMNOS where claveal = '$claveal'");
+  $alum = mysql_query("select nc, unidad , nombre, apellidos from FALUMNOS where claveal = '$claveal'");
   $alumno = mysql_fetch_array($alum);
   $nc = $alumno[0];
-  $nivel = $alumno[1];
-  $grupo = $alumno[2];    
-  $nombre = $alumno[4];
-  $apellidos = $alumno[3];
-  $curso = $nivel."-".$grupo;
+  $unidad = $alumno[1];
+  $nombre = $alumno[3];
+  $apellidos = $alumno[2];
+  $curso = $unidad;
 
 	
-	$max_nc = mysql_query("select max(nc) from FALUMNOS where nivel = '$nivel' and grupo = '$grupo'");
+	$max_nc = mysql_query("select max(nc) from FALUMNOS where unidad = '$unidad'");
   	$max = mysql_fetch_row($max_nc);
 	$ultimo = $max[0];
 	

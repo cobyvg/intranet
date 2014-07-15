@@ -28,16 +28,13 @@ $id="";
 if(stristr($_SESSION['cargo'],'1') == TRUE and strstr($tutor," ==> ")==TRUE){
 $tr = explode(" ==> ",$tutor);
 $tutor = $tr[0];
-$tr1 = explode("-",$tr[1]);
-$nivel = $tr1[0];
-$grupo = $tr1[1];
+$unidad = $tr[1];
 	}
 else{
-$SQL = "select nivel, grupo from FTUTORES where tutor = '$tutor'";
+$SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 	$result = mysql_query($SQL);
 	$row = mysql_fetch_array($result);
-	$nivel = $row[0];
-	$grupo = $row[1];
+	$unidad = $row[0];
 }
 ?>
   <div align="center">
@@ -48,6 +45,7 @@ $SQL = "select nivel, grupo from FTUTORES where tutor = '$tutor'";
  
 
   $datos0 = "select * from actividades where id = '$id'";
+  //echo $datos0;
   $datos1 = mysql_query($datos0);
   $datos = mysql_fetch_array($datos1);
   $fecha0 = explode("-",$datos[7]);

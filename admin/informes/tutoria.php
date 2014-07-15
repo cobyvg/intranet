@@ -1,7 +1,7 @@
 <?php
 echo "<br /><h3>Informes de Tutoría</h3>";
 
-$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,NIVEL,GRUPO,TUTOR,CLAVEAL, F_ENTREV, ID FROM infotut_alumno WHERE CLAVEAL = '$claveal'");
+$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,unidad,TUTOR,CLAVEAL, F_ENTREV, ID FROM infotut_alumno WHERE CLAVEAL = '$claveal'");
 
 if (mysql_num_rows($alumno) < 1)
 { 
@@ -12,7 +12,7 @@ El Alumno no tiene Informes de Tutor&iacute;a.
 }
 else 
 {
-$tuto = mysql_query("select tutor from FTUTORES where nivel = '$nivel' and grupo = '$grupo'");
+$tuto = mysql_query("select tutor from FTUTORES where unidad = '$unidad'");
 $tut = mysql_fetch_array($tuto);
 $tutor = $tut[0];
 echo "<h4>Tutor/a: $tutor</h4>
@@ -20,8 +20,8 @@ echo "<h4>Tutor/a: $tutor</h4>
 
 while ($dalumno = mysql_fetch_array($alumno))
 {
-$id = $dalumno[7];
-echo "<br /><h4>Fecha: $dalumno[6]</h4><br />";
+$id = $dalumno[6];
+echo "<br /><h4>Fecha: $dalumno[5]</h4><br />";
 $datos=mysql_query("SELECT asignatura, informe FROM infotut_profesor WHERE id_alumno = '$id'");
 echo "<table class='table table-striped' style='width:95%'>
 		<TR><Th nowrap>Asignatura</th>

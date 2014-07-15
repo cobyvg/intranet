@@ -13,16 +13,16 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
   	include("../../menu.php");
   	include("menu.php");
   ?>
-<?
-// Creamos la tabla
 
-echo '
 <div align=center>
 <div class="page-header" align="center">
   <h2>Matriculación de Alumnos <small> Previsiones</small></h2>
 </div>
-<br />';
- 
+<br />
+<div class="container">
+<div class="row">
+
+<? 
  $crea_tabla = "CREATE TABLE IF NOT EXISTS `suspensos` (
   `claveal` varchar(12) NOT NULL,
   `suspensos` tinyint(4) NOT NULL,
@@ -46,21 +46,19 @@ else{
           </div></div>';
 	exit();
 }
-// Evaluaciones ESO
-$niv = mysql_query("select distinct curso, nivel from alma where nivel like '%E%' or nivel like '%B%' order by nivel, curso");
-//echo "select distinct nivel from FALUMNOS where nivel like '%E-%' order by nivel";
 ?>
 <table align="center" style="width:auto" cellpadding=6>
 <tr>
 
 <?
+// Evaluaciones ESO
+$niv = mysql_query("select nomcurso from cursos where nomcurso like '%E.S.O.%' or nomcurso like '%Bach%'");
 while ($ni = mysql_fetch_array($niv)) {
 	$n_grupo+=1;
 	$curso = $ni[0];
-	$nivel = $ni[1];
 	$rep = ""; 
 	$promo = "";
-$notas1 = "select ". $n_eval .", claveal1, matriculas, unidad from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.nivel = '$nivel' and alma.curso = '$curso'";
+$notas1 = "select ". $n_eval .", claveal1, matriculas, unidad from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso'";
 // echo $notas1."<br>";
 echo "<td style='text-align:center;' valign='top'>";
 
@@ -108,22 +106,22 @@ VALUES (
 	}
 
 // Calculamos
-$mas_cuatr = mysql_query("select distinct claveal, grupo from suspensos where grupo like '$nivel-%' and nivel = '$curso' and suspensos > '4'");
+$mas_cuatr = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos > '4'");
 $mas_cuatro=mysql_num_rows($mas_cuatr);
-$cuatr = mysql_query("select distinct claveal, grupo from suspensos where grupo like '$nivel-%' and nivel = '$curso' and suspensos = '4'");
+$cuatr = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos = '4'");
 $cuatro=mysql_num_rows($cuatr);
-$menos_cuatr = mysql_query("select distinct claveal, grupo from suspensos where grupo like '$nivel-%' and nivel = '$curso' and suspensos < '4'");
+$menos_cuatr = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos < '4'");
 $menos_cuatro=mysql_num_rows($menos_cuatr);
-$n_pil = mysql_query("select distinct claveal, grupo from suspensos where grupo like '$nivel-%' and nivel = '$curso' and pil = '1'");
+$n_pil = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and pil = '1'");
 $num_pil=mysql_num_rows($n_pil);
-$pil_mas_cuatr = mysql_query("select distinct claveal, grupo from suspensos where grupo like '$nivel-%' and nivel = '$curso' and suspensos > '4' and pil = '1'");
+$pil_mas_cuatr = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos > '4' and pil = '1'");
 $pil_mas_cuatro=mysql_num_rows($pil_mas_cuatr);
-$pil_menos_cuatr = mysql_query("select distinct claveal, grupo from suspensos where grupo like '$nivel-%' and nivel = '$curso' and suspensos < '4' and pil = '1'");
+$pil_menos_cuatr = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos < '4' and pil = '1'");
 $pil_menos_cuatro=mysql_num_rows($pil_menos_cuatr);
-$pil_cuatr = mysql_query("select distinct claveal, grupo from suspensos where grupo like '$nivel-%' and nivel = '$curso' and suspensos = '4' and pil = '1'");
+$pil_cuatr = mysql_query("select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos = '4' and pil = '1'");
 $pil_cuatro=mysql_num_rows($pil_cuatr);
 
-if (strstr($nivel, "E") == TRUE) {
+if (strstr($nivel, "E.S.O.") == TRUE) {
 	$rep="";
 	$promo="";
 	$rep = ($mas_cuatro - $pil_mas_cuatro) + (($cuatro - $pil_cuatro)/2); 
@@ -138,27 +136,28 @@ if ($n_grupo=="5") {
 }
 ?>
 
-<table class="table table-striped" align="center" style="width:auto" valign="top">
+<table class="table table-striped" align="center" style="width:96%" valign="top">
 <?
-if (strstr($nivel, "E") == TRUE) {
- echo "<h5>".$nivel."SO</h5>";
+if (strstr($nivel, "E.S.O.") == TRUE) {
+ echo "<h4>".$nivel."</h4>";
  $rep_pil = "PIL <br /><small class='muted'>(+4: $pil_mas_cuatro; 4: $pil_cuatro; -4: $pil_menos_cuatro)</small>";
 }
 else{
-	if (strstr($curso, "(Ciencias y Tecnología)") == TRUE) {
-		$curso = $nivel."-CT";
+	if (strstr($nivel, "(Ciencias y Tecnología)") == TRUE) {
+		$curso = $nivel;
 	}
-	if (strstr($curso, "(Humanidades y Ciencias Sociales)") == TRUE) {
-		$curso = $nivel."-HCS";
+	if (strstr($nivel, "(Humanidades y Ciencias Sociales)") == TRUE) {
+		$curso = $nivel;
 	}
- echo "<h5>".$curso."</h5>";	
+ echo "<h4>".$curso."</h4>";	
  $rep_pil="Repetidores";
 }
 ?>
-<tr>
+<thead>
 <th>Suspensos</th>
 <th>Nº Alumnos</th>
-</tr>
+</thead>
+<tbody>
 <tr>
 <th>Más de 4</th>
 <td style='text-align:right'><? echo $mas_cuatro;?></td>
@@ -174,7 +173,7 @@ else{
 <td  style='text-align:right'> <? echo $num_pil;?></td>
 </tr>
 </table>
-<table class="table table-bordered" align="center" style="width:100%">
+<table class="table table-bordered" align="center" style="width:96%">
 <tr>
 <th style="color:#9d261d">Repiten</th>
 <td  style='text-align:right'><? echo $rep;?></td>
@@ -192,4 +191,7 @@ else{
 ?>
 </tr>
 </table>
+
+</div>
+</div>
 <? include("../../pie.php");

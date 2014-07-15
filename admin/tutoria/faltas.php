@@ -5,9 +5,8 @@
                     
 <?
  $SQLTEMP = "create table FALTASTEMP select distinct FALTAS.claveal, FALTAS.falta, count(*) as NUMERO, apellidos, nombre from FALTAS, FALUMNOS  
- where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.nivel = '$nivel' and FALTAS.grupo = '$grupo' group BY FALTAS.claveal";
- 
-//echo $SQLTEMP;
+ where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '$unidad' group BY FALTAS.claveal";
+ //echo $SQLTEMP;
 $resultTEMP= mysql_query($SQLTEMP);
 $SQL = "select FALTASTEMP.claveal, FALTASTEMP.apellidos, FALTASTEMP.nombre, FALTASTEMP.NUMERO from FALTASTEMP order BY FALTASTEMP.numero desc";
 $result = mysql_query($SQL);

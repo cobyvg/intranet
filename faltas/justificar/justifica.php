@@ -81,7 +81,7 @@ $num_dia = $ndia['wday'];
     $unica1 = mysql_fetch_row($unica0);
     $combasi=$unica1[0];
     //echo $combasi."<br>";
-$codasi10 = "select prof, a_asig, c_asig, no_prof from horw_faltas where a_grupo like '%$nivel-$grupo%' and dia = '$num_dia' and hora = '$i'";
+$codasi10 = "select prof, a_asig, c_asig, no_prof from horw_faltas where a_grupo like '%$unidad%' and dia = '$num_dia' and hora = '$i'";
 //echo $codasi10."<br>";
 $codasi0 = mysql_query($codasi10);
 	while ($codasi1 = mysql_fetch_row($codasi0)) {
@@ -102,7 +102,7 @@ $codasi0 = mysql_query($codasi10);
     	$nc = $clavenc1[0];   	
     	$enviada = "$year-$month-$today";
 // Excluimos otras posibilidades de error.
-    	if (($nivel == "") or ($grupo == "") or ($today == "")) {
+    	if (($unidad == "") or ($today == "")) {
     	}
     	else {
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
@@ -110,7 +110,7 @@ $hoy = getdate($semana);
 $nombredia = $hoy[wday];	
 
 // Insertamos la justificación en todas las horas de esa fecha para ese alumno. Si hay varias asignaturas y profesores en una hora, esos campos quedan vacío. Asunto por rematar.
-$justifica10 = "insert INTO  FALTAS (  CLAVEAL , NIVEL ,  GRUPO ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$alumno',  '$nivel',  '$grupo',  '$nc',  '$year-$month-$today', '$i', '$nombredia', '$profeso',  '$codasi', 'F')";	
+$justifica10 = "insert INTO  FALTAS (  CLAVEAL , unidad  ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$alumno',  '$unidad', '$nc',  '$year-$month-$today', '$i', '$nombredia', '$profeso',  '$codasi', 'F')";	
 mysql_query($justifica10) or die("No se ha podido justificar las faltas.");	
 // echo $justifica10."<br>";
 
@@ -119,7 +119,7 @@ mysql_query($justifica10) or die("No se ha podido justificar las faltas.");
     }
     }
 }
-$borrapend = mysql_query("select combasi, claveal, unidad from alma where unidad like '%b%'order by unidad");
+$borrapend = mysql_query("select combasi, claveal, curso from alma where curso like '%bach%'order by curso");
 while ($com=mysql_fetch_array($borrapend)) {
 	if (strlen($com[0])<49) {	
 		mysql_query("delete from FALTAS where claveal='$com[1]' and codasi='' and profesor=''");		

@@ -17,13 +17,10 @@ $cargo = $_SESSION['cargo'];
  include("../../menu.php");
  include("menu.php"); 
 
-  $tut = mysql_query("select nivel, grupo, unidad from FTUTORES where tutor = '$pr'");
-  //echo "select nivel, grupo from FTUTORES where tutor = '$pr'";
+  $tut = mysql_query("select unidad from FTUTORES where tutor = '$pr'");
   if (mysql_num_rows($tut) > 0) {
   $tuto = mysql_fetch_array($tut);
-  $nivel = $tuto[0];
-  $grupo = $tuto[1];
-  $unidad = $tuto[2];
+  $unidad = $tuto[0];
   }
 ?>
   

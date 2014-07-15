@@ -124,17 +124,16 @@ else {
 // Evaluaciones ESO
 $nivele = mysql_query("select * from cursos");
 while ($orden_nivel = mysql_fetch_array($nivele)){
-$niv = mysql_query("select distinct curso, nivel from alma where curso = '$orden_nivel[1]'");
+$niv = mysql_query("select distinct curso from alma where curso = '$orden_nivel[1]'");
 while ($ni = mysql_fetch_array($niv)) {
 	$n_grupo+=1;
 	$curso = $ni[0];
-	$nivel = $ni[1];
 	$rep = ""; 
 	$promo = "";
 	$todos="";
-$notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel from alma, notas where alma.CLAVEAL1 = notas.claveal 
+$notas1 = "select notas". $key .", claveal1, matriculas, curso from alma, notas where alma.CLAVEAL1 = notas.claveal 
 and alma.curso = '$curso'";
-//echo $notas1."<br>";
+// echo $notas1."<br>";
 
 $result1 = mysql_query($notas1);
 $todos = mysql_num_rows($result1);
@@ -147,8 +146,7 @@ if ($todos < '1') {
 while($row1 = mysql_fetch_array($result1)){
 $asignatura1 = substr($row1[0], 0, strlen($row1[0])-1);
 $claveal = $row1[1];
-$grupo = $row1[3];
-$nivel_curso = $row1[4];
+$nivel_curso = $row1[3];
 if ($row1[2]>"1") {
 	$pil = "1";
 }
@@ -196,7 +194,7 @@ $as = mysql_query("select asignaturas.nombre, asignaturas.codigo from asignatura
 (select distinct codigo from asignaturas where nombre like 'Libre Disp%')");
 // echo "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%'";
 while ($asi = mysql_fetch_array($as)) {
-	$n_c = mysql_query("select distinct nivel from alma where curso = '$orden_nivel[1]'");
+	$n_c = mysql_query("select distinct curso from alma where curso = '$orden_nivel[1]'");
 	//echo "select distinct nivel from alma where curso = '$orden_nivel[1]'";
 	$niv_cur = mysql_fetch_array($n_c);
 	$nomasi = $asi[0];
@@ -210,7 +208,7 @@ while ($asi = mysql_fetch_array($as)) {
 	$num_susp = mysql_num_rows($cod_nota);
 	$num_apro='';
 	$num_apro = mysql_num_rows($cod_apro);
-	$combas = mysql_query("select claveal from alma where combasi like '%$codasi%' and nivel like '$niv_cur[0]%' and curso = '$orden_nivel[1]'");
+	$combas = mysql_query("select claveal from alma where combasi like '%$codasi%' and curso = '$orden_nivel[1]'");
 	//echo "select claveal from alma where combasi like '%$codasi%'  and nivel like '$niv_cur[0]%' and curso = '$orden_nivel[1]'<br>";
 	$num_matr='';
 	$num_matr = mysql_num_rows($combas);

@@ -50,7 +50,7 @@ include("menu.php");
 
 echo "<input type='hidden'  name='ident' value='$id'>";
 echo "<input type='hidden'  name='profesor' value='$profesor'>";
-$alumno=mysql_query("SELECT tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.NIVEL, tareas_alumnos.GRUPO, tareas_alumnos.fecha, duracion, curso FROM tareas_alumnos, alma WHERE alma.claveal=tareas_alumnos.claveal and ID='$id'",$c);
+$alumno=mysql_query("SELECT tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.id, tareas_alumnos.fecha, duracion, curso FROM tareas_alumnos, alma WHERE alma.claveal=tareas_alumnos.claveal and ID='$id'",$c);
 $dalumno = mysql_fetch_array($alumno);
 $n_cur=$dalumno[7];
 
@@ -68,7 +68,7 @@ echo "<table align=center class='table table-striped'  style='margin-top:2px;wid
 echo "<tr><th>Alumno/a </th>
  <th>Grupo</th><th nowrap>Fecha Expulsión</th><th>Duración</th></tr>
 <TR><td nowrap>$dalumno[1], $dalumno[2]</td>
-<td>$dalumno[3] $dalumno[4]</td><td>$dalumno[5]</td><td>$dalumno[6]</td></tr></TABLE>";
+<td>$dalumno[3]</td><td>$dalumno[5]</td><td>$dalumno[6]</td></tr></TABLE>";
 
    	$foto = '../../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto) and !(empty($dalumno[0]))) {
@@ -81,7 +81,7 @@ echo"<tr><th>";
 echo "ASIGNATURA";
 echo "</Th><Th>INFORME</Th></tr><TR>";
 echo "<TD>";
-$coinciden = mysql_query("SELECT materia FROM profesores WHERE profesor='$profesor' and grupo = '$dalumno[3]-$dalumno[4]'", $c);
+$coinciden = mysql_query("SELECT materia FROM profesores WHERE profesor='$profesor' and grupo = '$dalumno[3]'", $c);
 while($coinciden0 = mysql_fetch_row($coinciden)){
 $asignatur = $coinciden0[0];
 $asignatur = str_replace("nbsp;","",$asignatur);
@@ -108,10 +108,10 @@ $as=mysql_query("SELECT COMBASI FROM alma WHERE CLAVEAL='$claveal' ");
 $asi=mysql_fetch_array($as);
 $asi1 = substr($asi[0],0,strlen($asi[0]) -1);
 
-$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]-$dalumno[4]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$profesor'");
+$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$profesor'");
 echo "<select name='asignatura' class='input-large'>";
 if(mysql_num_rows($coinciden)<1 and stristr($_SESSION['cargo'],'1') == TRUE){
-$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]-$dalumno[4]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");
+$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");
 }
 echo"<OPTION></OPTION>";
 while($coinciden0 = mysql_fetch_row($coinciden)){

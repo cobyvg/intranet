@@ -31,15 +31,14 @@ include("../../menu.php");
         <option> <? echo $profe; ?></option>		
           <?
   // Seleccion de Profesor en profes.
-$SQL = "select distinct tutor, nivel, grupo from FTUTORES order by nivel, grupo asc";
+$SQL = "select distinct tutor, unidad from FTUTORES order by unidad asc";
 $result = mysql_query($SQL);
 
 	while($row = mysql_fetch_array($result))
 	{
 	$tutor0 = $row[0];
 	$nivel = $row[1];
-	$grupo = $row[2];
-	echo "<option  class=content>$tutor0 ==> $nivel-$grupo</option>";
+	echo "<option  class=content>$tutor0 ==> $nivel</option>";
 }
 ?>
         </select>

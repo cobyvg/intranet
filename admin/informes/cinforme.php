@@ -13,25 +13,15 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 
-if (isset($_POST['nivel'])) {
-	$nivel = $_POST['nivel'];
+if (isset($_POST['unidad'])) {
+	$unidad = $_POST['unidad'];
 } 
-elseif (isset($_GET['nivel'])) {
-	$nivel = $_GET['nivel'];
-} 
-else
-{
-$nivel="";
-}
-if (isset($_POST['grupo'])) {
-	$grupo = $_POST['grupo'];
-}
-elseif (isset($_GET['grupo'])) {
-	$grupo = $_GET['grupo'];
+elseif (isset($_GET['unidad'])) {
+	$unidad = $_GET['unidad'];
 } 
 else
 {
-$grupo="";
+$unidad="";
 }
 if (isset($_GET['nombre_al'])) {
 	$nombre = $_GET['nombre_al'];
@@ -56,17 +46,10 @@ else{
       <div class="span6" align="left">
       <legend>Datos del alumno</legend>
       <form class="form-inline">
-        <label>Nivel
-          <select  name="nivel" onChange="submit()" class="input-mini">
-            <option  class="opcion"><? echo $nivel;?></option>
-            <? nivel();?>
-          </select>
-        </label>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <label>Grupo
-          <select name="grupo" onChange="submit()" class="input-mini">
-            <option class="opcion"><? echo $grupo;?></option>
-            <? grupo($nivel);?>
+        <label>Grupo<br>
+          <select  name="unidad" onChange="submit()" class="input">
+            <option  class="opcion"><? echo $unidad;?></option>
+            <? unidad();?>
           </select>
         </label>
       </form>
@@ -81,7 +64,7 @@ echo "<option>$nombre</option>";
   $fecha1 = (date("d").-date("m").-date("Y"));
   // Datos del alumno que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
 //  echo "<option>$nombre</option>";
-  $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE NIVEL = '$nivel' AND GRUPO = '$grupo' order by APELLIDOS asc");
+  $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad = '$unidad' order by APELLIDOS asc");
 
   if ($falumno = mysql_fetch_array($alumno))
         {
@@ -147,8 +130,7 @@ echo "<option>${a.$i}</option>";
           <?}?>
         </div>
         </div>
-	<input type="hidden" name="nivel" value="<? echo $nivel;?>">
-<input type="hidden" name="grupo" value="<? echo $grupo?>">
+	<input type="hidden" name="unidad" value="<? echo $unidad;?>">
         <div align="center"><input name='submit1' type='submit' value='Ver informe del alumno' class="btn btn-primary"></div>
       </form>
     </div>

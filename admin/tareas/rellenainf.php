@@ -68,9 +68,9 @@ El Informe ha sido guardado correctamente. Puedes comprobar los datos más abajo.
 
 
 echo "<div align='center'>";
-$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,tareas_alumnos.NIVEL,tareas_alumnos.GRUPO,tutor, FECHA, duracion FROM tareas_alumnos, FTUTORES WHERE FTUTORES.nivel = tareas_alumnos.nivel and FTUTORES.grupo = tareas_alumnos.grupo and ID='$id_alumno'");
+$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.id,tutor, FECHA, duracion FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and ID='$id_alumno'");
 $dalumno = mysql_fetch_array($alumno);
-echo "<br /><h4>$dalumno[1] $dalumno[0] <span>($dalumno[2]-$dalumno[3])</span><br> <span>Fecha de Expulsión:</span> $dalumno[5] ($dalumno[6] días)<br><span>Tutor:</span> $dalumno[4]</h4><br />";
+echo "<br /><h4>$dalumno[1] $dalumno[0] <span>($dalumno[2])</span><br> <span>Fecha de Expulsión:</span> $dalumno[5] ($dalumno[6] días)<br><span>Tutor:</span> $dalumno[4]</h4><br />";
 $datos=mysql_query("SELECT asignatura, tarea, id FROM tareas_profesor WHERE id_alumno='$id_alumno'");
 // echo "SELECT asignatura, tarea FROM tareas_profesor WHERE id_alumno='$id'";
 if(mysql_num_rows($datos) > 0)

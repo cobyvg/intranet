@@ -31,19 +31,17 @@ if(strlen(strstr($clave,"falta_")) > 0)
 $nc0 = explode("_",$clave);
 $nc = $nc0[1];
 // Nivel y grupo
-$grupos = $nc0[2];
-$niv_grupo = explode("-",$grupos);
-$nivel = $niv_grupo[0];
-$grupo = $niv_grupo[1];
-	$clave1 = "select claveal from FALUMNOS where NC = '$nc' and nivel = '$nivel' and grupo = '$grupo'";
+$unidad = $nc0[2];
+
+	$clave1 = "select claveal from FALUMNOS where NC = '$nc' and unidad = '$unidad'";
 	$clave0 = mysql_query($clave1); 
 	$clave2 = mysql_fetch_row($clave0);
 	$claveal = $clave2[0];
 
 // Insertamos las faltas de TODOS los alumnos.
-$t0 = "insert INTO  FALTAS (  CLAVEAL , NIVEL ,  GRUPO ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) 
-VALUES ('$claveal',  '$nivel',  '$grupo',  '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";
-$t1 = mysql_query($t0) or die("No se ha podido insertr datos");	
+$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) 
+VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";
+$t1 = mysql_query($t0) or die("No se ha podido insertar los datos");	
 $count += mysql_affected_rows();
 }
 }

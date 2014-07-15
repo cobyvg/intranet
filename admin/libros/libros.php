@@ -23,16 +23,17 @@ else
 {
 $nivel="";
 }
-if (isset($_POST['grupo'])) {
-	$grupo = $_POST['grupo'];
-}
-elseif (isset($_GET['grupo'])) {
-	$grupo = $_GET['grupo'];
+if (isset($_POST['unidad'])) {
+	$unidad = $_POST['unidad'];
+} 
+elseif (isset($_GET['unidad'])) {
+	$unidad = $_GET['unidad'];
 } 
 else
 {
-$grupo="";
+$unidad="";
 }
+
 if (isset($_POST['claveal'])) {
 	$claveal = $_POST['claveal'];
 }
@@ -89,7 +90,7 @@ setInterval(string,540000);
 <?
 include("../../menu.php");
 
-$lista = mysql_list_fields($db,"mens_texto");
+$lista = mysql_list_fields($db,"textos_alumnos");
 $col_curso = mysql_field_name($lista,6);
 if ($col_curso=="curso") { }else{
 	mysql_query("ALTER TABLE  `textos_alumnos` ADD  `curso` VARCHAR( 7 ) NOT NULL ");
@@ -98,7 +99,7 @@ if ($col_curso=="curso") { }else{
 
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Programa de Ayudas al Estudio <small> Informe sobre el estado de los Libros: <span style=" color:#08c;"><? echo $nivel."-".strtoupper($grupo);?></span></small></h2>
+  <h2>Programa de Ayudas al Estudio <small> Informe sobre el estado de los Libros: <span style=" color:#08c;"><? echo $nivel;?></span></small></h2>
 </div>
 <br />
 <?
@@ -142,15 +143,16 @@ $claveal = "";
 <form action="libros.php" method="post" name="libros" class="formu">
 <p class="help-block">OPCIONES: <span class="badge badge-info">R</span> = Bien, <span class="badge badge-warning">R</span> = Regular, <span class="badge badge-important">M</span> = Mal, <span class="badge badge-inverse">N</span> = No hay Libro, <span class="badge badge-success">S</span> = Septiembre.</p>
 <?
-$curso = substr($nivel,0,1);
+$curso = $nivel;
 //$fila_asig = $fila_asig + 1;
 
 echo "<br /><table class='table table-bordered' style='width:auto;padding:5px;'>";
 
-
-echo "<thead><tr><th style='background-color:#eee'></th>";
-$asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where (curso like '".$curso."º de E%' or curso like '".$curso."º E%' or curso like '".$curso."º Curs%') and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where nivel = '".$curso."E') order by codigo";
-
+if(stristr($_SESSION['cargo'],'1') == TRUE){
+echo "<tr><th style='background-color:#eee'></th>";
+}
+$asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where (curso like '".$curso."') and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where textos_gratis.nivel = '".$curso."') order by codigo";
+//echo $asignaturas0;
 $num_col = 1;
 $asignaturas1 = mysql_query($asignaturas0);
 $num_asig = mysql_num_rows($asignaturas1);
@@ -159,19 +161,33 @@ while ($asignaturas = mysql_fetch_array($asignaturas1)) {
 	echo "<th style='background-color:#eee;'>$asignaturas[2]</th>";
 	$num_col = $num_col + 1;
 }
-if(!(empty($grupo))){$extra=" and FALUMNOS.grupo = '$grupo' ";}
-if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<th style='background-color:#eee'>Estado</th></tr></thead><tbody>";}
+if(!(empty($unidad))){
+	$extra=" and FALUMNOS.unidad = '$unidad'";
+	$un = mysql_query("select distinct alma.curso from alma where unidad = '$unidad'");
+	$cur = mysql_fetch_array($un);
+	$nivel = $cur[0];
+	$curso = $nivel;
+	$fila=1;
+}
+if(stristr($_SESSION['cargo'],'1') == TRUE){
+	$jefe=1;
+	$fila=0;
+	echo "<th style='background-color:#eee'>Estado</th></tr></thead><tbody>";
+}
 
-$alumnos0 = "select nc, FALUMNOS.apellidos, FALUMNOS.nombre, combasi, FALUMNOS.claveal, unidad from FALUMNOS, alma where alma.claveal = FALUMNOS.claveal and FALUMNOS.nivel = '$nivel' $extra order by FALUMNOS.apellidos, FALUMNOS.nombre, nc"; 
+$alumnos0 = "select nc, FALUMNOS.apellidos, FALUMNOS.nombre, combasi, FALUMNOS.claveal, FALUMNOS.unidad from FALUMNOS, alma where alma.claveal = FALUMNOS.claveal and alma.curso = '$nivel' $extra order by FALUMNOS.apellidos, FALUMNOS.nombre, nc"; 
 //echo $alumnos0;
+$fila_asig=0;
 $alumnos1 = mysql_query($alumnos0);
 while ($alumnos = mysql_fetch_array($alumnos1)) {
 	if(empty($jefe)){$nc="$alumnos[0]. $alumnos[1], $alumnos[2]";}else{$nc="$alumnos[1], $alumnos[2] ($alumnos[5])";}
-	$fila_asig = $alumnos[0];
-	if($fila_asig == "5" or $fila_asig == "10" or $fila_asig == "15" or $fila_asig == "20" or $fila_asig == "25" or $fila_asig == "30" or $fila_asig == "35" or $fila_asig == "40")
+	
+	$fila_asig+=1;
+	if(stristr($_SESSION['cargo'],'1') == TRUE){}else{}
+	if($fila_asig == $fila or $fila_asig == "5" or $fila_asig == "10" or $fila_asig == "15" or $fila_asig == "20" or $fila_asig == "25" or $fila_asig == "30" or $fila_asig == "35" or $fila_asig == "40")
 {
-echo "<tr><td style='background-color:#eee'></td>";
-$asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where (curso like '".$curso."º de E%' or curso like '".$curso."º E%' or curso like '".$curso."º Curs%') and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where nivel = '".$curso."E') order by codigo";
+echo "</thead><tbody><tr><td style='background-color:#eee'></td>";
+$asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where curso like '".$curso."' and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where textos_gratis.nivel = '".$curso."') order by codigo";
 // echo $asignaturas0."<br>";
 $num_col = 1;
 $asignaturas1 = mysql_query($asignaturas0);
@@ -181,7 +197,7 @@ while ($asignaturas = mysql_fetch_array($asignaturas1)) {
 	echo "<th style='background-color:#eee'>$asignaturas[2]</th>";
 	$num_col = $num_col + 1;
 }
-if(stristr($_SESSION['cargo'],'1')){$extra=" order by apellidos";}else{$extra=" and FALUMNOS.grupo = '$grupo' order by nc";}
+if(stristr($_SESSION['cargo'],'1')){$extra=" order by apellidos";}else{$extra=" and FALUMNOS.unidad = '$unidad' order by nc";}
 if(stristr($_SESSION['cargo'],'1')){echo "<th style='background-color:#eee'>Estado</th></tr>";}
 }
 
@@ -233,7 +249,7 @@ $clave = $alumnos[4];
 				echo '<td>';
 
 ?>
-<a  href="libros.php?claveal=<? echo $claveal;?>&imprimir=si&nivel=<? echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="fa fa-print " title="imprimir"> </i></a> <br><br>
+<a  href="libros.php?claveal=<? echo $claveal;?>&imprimir=si&nivel=<? echo $nivel;?>" class="btn btn-primary btn-block" target="_blank"><i class="fa fa-print " title="imprimir"> </i></a> <br><br>
 <?
 	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="fa fa-check " title="Devueltos"> </i> </button>';}
 	echo "</td>";
@@ -246,7 +262,7 @@ echo "</table>";
 <br />
 <input type="hidden" name="nivel" value="<? echo $nivel;?>" />
 <input type="hidden" name="grupo" value="<? echo $grupo;?>" />
-<input type="submit" name="procesar" value="Enviar" class="btn btn-primary" />
+<input type="submit" name="procesar" value="Enviar" class="btn btn-primary btn-large" />
 </form>
 </div>
 <? include("../../pie.php");?>		

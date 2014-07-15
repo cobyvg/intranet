@@ -34,10 +34,10 @@ for($i=1;$i<6;$i++)
 {
 	
 ${'a'.$i}="";
-$asignaturas1 = mysql_query("SELECT distinct a_asig, nivel, n_grupo FROM  horw_faltas where prof = '$profesor' and dia = '$i' and hora = '$n_hora'");
+$asignaturas1 = mysql_query("SELECT distinct a_asig, a_grupo FROM  horw_faltas where prof = '$profesor' and dia = '$i' and hora = '$n_hora'");
 while($rowasignaturas1 = mysql_fetch_array($asignaturas1))
  {
- 	$grupo = $rowasignaturas1[1]."-".$rowasignaturas1[2];
+ 	$grupo = $rowasignaturas1[1];
 	${'a'.$i}.= "<b>".$grupo."</b> - <i>".$rowasignaturas1[0]."</i>\n\n"; 
  }
  ${'a'.$i}=substr(${'a'.$i},0,strlen(${'a'.$i})-1);

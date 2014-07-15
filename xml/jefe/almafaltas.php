@@ -138,14 +138,19 @@ $archive = new PclZip($_FILES['archivo2']['tmp_name']);
 $crear = "ALTER TABLE  alma
 ADD  `COMBASI` VARCHAR( 250 ) NULL FIRST ,
 ADD  `APELLIDOS` VARCHAR( 40 ) NULL AFTER  `UNIDAD` ,
-ADD  `NIVEL` VARCHAR( 5) NULL AFTER  `APELLIDOS` ,
-ADD  `GRUPO` VARCHAR( 1 ) NULL AFTER  `NIVEL`,
 ADD  `CLAVEAL1` VARCHAR( 8 ) NULL AFTER  `CLAVEAL`,
-ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`
+ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`,
+ADD  `NIVEL` VARCHAR( 5) NULL AFTER  `APELLIDOS` ,
+ADD  `GRUPO` VARCHAR( 1 ) NULL AFTER  `NIVEL`
 ";
 mysql_query($crear);
 
-// Separamos Nivel y Grupo, que viene juntos en el campo Unidad, que finalmente nos cargamos
+// Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
+  $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
+  $result_1 = mysql_query($SQL_1);
+  $row_1 = mysql_fetch_row($result_1);
+  if (strstr("-",$row_1[0])==TRUE) {
+  	 
   $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
   $result0 = mysql_query($SQL0);
 
@@ -155,7 +160,10 @@ $trozounidad0 = explode("-",$row0[0]);
 $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
 	mysql_query($actualiza);
  }
-
+  	
+  }
+  
+ 
  // Apellidos unidos formando un solo campo.
    $SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma";
   $result2 = mysql_query($SQL2);
@@ -212,7 +220,7 @@ mysql_query($SQL8);
 
  // Creamos versiÃ³n corta para FALTAS
 mysql_query("drop table almafaltas");
-mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, NIVEL, GRUPO from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto con quien pueda resolver el problema.
@@ -228,8 +236,7 @@ No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto co
  `CLAVEAL` varchar( 8 ) default NULL ,
  `NOMBRE` varchar( 30 ) default NULL ,
  `APELLIDOS` varchar( 40 ) default NULL ,
- `NIVEL` varchar( 5 ) default NULL ,
- `GRUPO` varchar( 1 ) default NULL ,
+ `unidad` varchar( 64 ) default NULL ,
  `NC` tinyint( 2 ) default NULL 
 ) TYPE = MYISAM ";
 mysql_query($alumnos);
@@ -237,11 +244,11 @@ mysql_query($alumnos);
 $vaciar = "truncate table FALUMNOS";
 mysql_query($vaciar);
 // Rellenamos datos en FALUMNOS desde almafaltas
-$SQL0 = "SELECT distinct NIVEL,GRUPO FROM  alma order by NIVEL";
+$SQL0 = "SELECT distinct unidad FROM  alma order by unidad";
 $result0 = mysql_query($SQL0);
 while  ($row0 = mysql_fetch_array($result0))
  {
-$SQL1 = "SELECT distinct CLAVEAL, APELLIDOS, NOMBRE, NIVEL, GRUPO FROM  alma WHERE alma.NIVEL = '$row0[0]' and alma.GRUPO = '$row0[1]'";
+$SQL1 = "SELECT distinct CLAVEAL, APELLIDOS, NOMBRE, unidad FROM  alma WHERE unidad = '$row0[0]'";
 $result1 = mysql_query($SQL1);
 
 // Calculamos el numero de alumnos en cada curso
@@ -253,9 +260,8 @@ while  ($row1= mysql_fetch_array($result1))
  $i = $i + 1 ;
  
 // Insertamos los datos en FALUMNOS
-$SQL2 = "INSERT INTO FALUMNOS (CLAVEAL, APELLIDOS, NOMBRE, NIVEL, GRUPO, NC) VALUES
-(\"". $row1[0] . "\",\"". $row1[1] . "\",\"". $row1[2] . "\",\"". $row1[3] . "\",\"". $row1[4] . 
-"\",\"". $i . "\")";
+$SQL2 = "INSERT INTO FALUMNOS (CLAVEAL, APELLIDOS, NOMBRE, unidad, NC) VALUES
+(\"". $row1[0] . "\",\"". $row1[1] . "\",\"". $row1[2] . "\",\"". $row1[3] . "\",\"". $i . "\")";
 $result2 = mysql_query($SQL2);
 }
 }
@@ -273,7 +279,7 @@ include("crear_hermanos.php");
 mysql_query("DROP TABLE alma_primera") ;
 mysql_query("create table alma_primera select * from alma");
 mysql_query("ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
-mysql_query("CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre, nivel, grupo FROM FALUMNOS WHERE claveal IN (SELECT claveal FROM alma_primera)");
+mysql_query("CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre, unidad FROM FALUMNOS WHERE claveal IN (SELECT claveal FROM alma_primera)");
 mysql_query("ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");
 }
 else{

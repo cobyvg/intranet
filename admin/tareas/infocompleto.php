@@ -65,7 +65,7 @@ if(empty($llenar)){}else{$id = $llenar;}
 
 $c = mysql_connect ( $db_host, $db_user, $db_pass );
 echo "<div align='center'>";
-$alumno = mysql_query ( "SELECT APELLIDOS,NOMBRE,tareas_alumnos.NIVEL,tareas_alumnos.GRUPO,tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES WHERE FTUTORES.nivel = tareas_alumnos.nivel and FTUTORES.grupo = tareas_alumnos.grupo and ID='$id'", $c );
+$alumno = mysql_query ( "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.id, tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and ID='$id'", $c );
 $dalumno = mysql_fetch_array ( $alumno );
 $claveal = $dalumno [7];
 $fecha_t = $dalumno[5];
@@ -85,7 +85,7 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuev
 	exit();
 }
 
-echo "<h4>$dalumno[1] $dalumno[0] <span>($dalumno[2]-$dalumno[3])</span><br><br /> <span>Fecha de Expulsión:</span> $dalumno[5] ($dalumno[6] días)<br><span>Tutor:</span> $dalumno[4]</h4><br />";
+echo "<h4>$dalumno[1] $dalumno[0] <span>($dalumno[2])</span><br><br /> <span>Fecha de Expulsión:</span> $dalumno[5] ($dalumno[6] días)<br><span>Tutor:</span> $dalumno[4]</h4><br />";
 
 $datos = mysql_query ( "SELECT asignatura, tarea, confirmado, profesor FROM tareas_profesor WHERE id_alumno='$id'", $c );
 if (mysql_num_rows ( $datos ) > 0) {
@@ -110,7 +110,7 @@ foreach ($tr_comb as $codasi)
 }
 $frase = substr($frase,0,-19).")";
 
-$datos1 = mysql_query("SELECT distinct materia, profesor from profesores, asignaturas WHERE materia = nombre and profesores.grupo = '$dalumno[2]-$dalumno[3]' and profesor not in (SELECT profesor FROM tareas_profesor WHERE id_alumno='$id') and materia not in (SELECT asignatura FROM tareas_profesor WHERE id_alumno='$id')  and abrev not like '%\_%' $frase");
+$datos1 = mysql_query("SELECT distinct materia, profesor from profesores, asignaturas WHERE materia = nombre and profesores.grupo = '$dalumno[2]' and profesor not in (SELECT profesor FROM tareas_profesor WHERE id_alumno='$id') and materia not in (SELECT asignatura FROM tareas_profesor WHERE id_alumno='$id')  and abrev not like '%\_%' $frase");
 while($informe1 = mysql_fetch_array($datos1))
 {
 	echo "<tr><td style='width:160px;'><strong>$informe1[0]</strong></td>

@@ -52,7 +52,7 @@ $datatables_activado = true;
 <div class="page-header" align="center">
   <h2>Informes de Tutoría <small> Buscar Informes</small></h2>
 </div>
- <h3><? echo $titulo;?></h3><br /> 
+ <legend><? echo $titulo;?></legend><br /> 
 <form name="buscar" method="POST" action="buscar.php">
 <div class='container-fluid'>
   <div class="row-fluid">
@@ -61,17 +61,14 @@ $datatables_activado = true;
 if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];}else{$apellidos="";}
 if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
 if (!(empty($unidad))) {
-$tr_uni=explode("-",$unidad);
-$nivel = $tr_uni[0];
-$grupo = $tr_uni[1];
+$grupo = $unidad;
 }
 // Consulta
- $query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, NIVEL, GRUPO, F_ENTREV
+ $query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, unidad, tutor, F_ENTREV
   FROM infotut_alumno WHERE 1=1 "; 
   if(!(empty($apellidos))) {$query .= "and apellidos like '%$apellidos%'";} 
   if(!(empty($nombre))) {$query .=  "and nombre like '%$nombre%'";} 
-  if(!(empty($nivel))) {$query .=  "and nivel = '$nivel'";} 
-  if(!(empty($grupo))) {$query .=  "and grupo = '$grupo'";} 
+  if(!(empty($unidad))) {$query .=  "and unidad = '$unidad'";} 
   $query .=  " ORDER BY F_ENTREV DESC";
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 
@@ -89,11 +86,11 @@ if (mysql_num_rows($result) > 0)
 		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64' class=''  />";
 		echo $foto."&nbsp;&nbsp;";	
    echo "$row->NOMBRE $row->APELLIDOS</TD>
-   <TD nowrap>$row->NIVEL $row->GRUPO</TD>
+   <TD nowrap>$row->unidad</TD>
    <TD nowrap>$row->F_ENTREV</TD>";
 echo "<td nowrap><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-search ' title='Ver Informe'> </i></a>";	
 
-$result0 = mysql_query ( "select tutor from FTUTORES where nivel = '$row->NIVEL' and grupo = '$row->GRUPO'" );
+$result0 = mysql_query ( "select tutor from FTUTORES where unidad = '$row->unidad'" );
 $row0 = mysql_fetch_array ( $result0 );	
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {

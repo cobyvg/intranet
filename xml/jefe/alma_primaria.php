@@ -157,17 +157,24 @@ ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `GRUPO`
 ";
 mysql_query($crear);
 
-// Separamos Nivel y Grupo, que viene juntos en el campo Unidad, que finalmente nos cargamos
-  $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma_primaria";
+// Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
+  $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma_primaria";
+  $result_1 = mysql_query($SQL_1);
+  $row_1 = mysql_fetch_row($result_1);
+  if (strstr("-",$row_1[0])==TRUE) {
+  	 
+  $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
   $result0 = mysql_query($SQL0);
 
  while  ($row0 = mysql_fetch_array($result0))
  {
 $trozounidad0 = explode("-",$row0[0]);
-$actualiza= "UPDATE alma_primaria SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
+$actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
 	mysql_query($actualiza);
  }
-
+  	
+  }
+  
  // Apellidos unidos formando un solo campo.
    $SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma_primaria";
   $result2 = mysql_query($SQL2);
@@ -201,7 +208,7 @@ $actualiza= "UPDATE alma_primaria SET NIVEL = '$trozounidad0[0]', GRUPO = '$troz
   $result3 = mysql_query($SQL3);
 
   // Eliminación de alumnos dados de baja
-    $SQL4 = "DELETE FROM alma_primaria WHERE `NIVEL` = '' AND `GRUPO` = ''";
+    $SQL4 = "DELETE FROM alma_primaria WHERE `unidad` = ''";
     $SQL5 = "DELETE FROM alma_primaria WHERE `claveal` = 'Nº Id. Escol'";
     $result4 = mysql_query($SQL4);
     $result5 = mysql_query($SQL5);

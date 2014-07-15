@@ -22,12 +22,12 @@ INDEX (  `claveal` )
 ?>
 <?
 $todos="";
-$notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel, alma.curso from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.unidad = '$nivel-$grupo'";
+$notas1 = "select notas". $key .", claveal1, matriculas, unidad, alma.curso from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.unidad = '$unidad'";
 //echo $notas1."<br>";
-$notas2 = mysql_query("select notas3 from notas");
+$notas2 = mysql_query("select notas3 from notasl");
 $result1 = mysql_query($notas1);
-$todos = mysql_num_rows($result2);
-if ($todos < '1') {
+$todos = mysql_num_rows($result1);
+if ($todos < '1' or $todos == "") {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>No se han registrado las calificaciones de la Evaluación Ordinaria todavía. Es importante que <strong><u>no imprimas</u></strong> la Memoria de Tutoría hasta que las notas de la Evaluación Ordinaria se hayan registrado. De lo contrario, las Estadísticas de la Evaluación Ordinaria no aparecerán en la Memoria.
@@ -37,8 +37,7 @@ while($row1 = mysql_fetch_array($result1)){
 $asignatura1 = substr($row1[0], 0, strlen($row1[0])-1);
 $claveal = $row1[1];
 $grupo = $row1[3];
-$curso_actual = $row1[5];
-$nivel_curso = $row1[4];
+$curso_actual = $row1[4];
 if ($row1[2]>"1") {
 	$pil = "1";
 }
@@ -82,9 +81,6 @@ $sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas,
 //echo $sql;	
 $as = mysql_query($sql);
 while ($asi = mysql_fetch_array($as)) {
-	$n_c = mysql_query("select distinct nivel from alma where curso = '$curso_actual'");
-	//echo "select distinct nivel from alma where curso = '$curso_actual'<br>";
-	$niv_cur = mysql_fetch_array($n_c);
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
 	$cod_nota = mysql_query("select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and unidad = '$unidad'");

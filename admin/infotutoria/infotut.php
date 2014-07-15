@@ -13,7 +13,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 
-$prof=mysql_query("SELECT TUTOR FROM FTUTORES WHERE NIVEL like '$nivel%' and GRUPO like '$grupo%'");
+$prof=mysql_query("SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
 $fprof = mysql_fetch_array($prof);
 if(!($tutor)){$tutor=$fprof[0];}else{$fprof[0] = $tutor;}
 ?>
@@ -27,7 +27,7 @@ if(!($tutor)){$tutor=$fprof[0];}else{$fprof[0] = $tutor;}
 if($nivel and $grupo)
 {
 echo '<h4>Grupo: <span style="color:#08c">';
-echo $nivel."-".$grupo;
+echo $nivel;
 echo '</span><br /> Tutor: <span style="color:#08c">';
 echo $fprof[0];
 echo '</span></h4><br />';
@@ -36,18 +36,13 @@ else
 {
 ?> 
 <form name="curso" method="POST" action="infotut.php" class="form-inline">
-        <label>Nivel
-        <SELECT name="nivel" onChange="submit()" class="input input-mini">
-            <option style="width:30px;"><? echo $nivel;?></option>
-            <? nivel();?>
+        <label>Grupo:<br>
+        <SELECT name="unidad" onChange="submit()" class="input">
+            <option><? echo $unidad;?></option>
+            <? unidad();?>
           </SELECT>
           </label>
-        &nbsp;&nbsp;&nbsp;<label>Grupo
-        <select  name="grupo" onChange="submit()" class="input input-mini">
-          <option style="width:30px;"><? echo $grupo;?></option>
-          <? grupo($nivel);?>
-        </select>
-        </label>
+
                 </FORM>
                 </div>
                 <hr>
@@ -60,10 +55,10 @@ echo "<div align='left'>
 echo "<label>Alumno <br />";
 echo"<select name='alumno' class='span3'>";
 echo "<OPTION></OPTION>";
-if ($nivel == "" and $grupo == ""){ echo "<OPTION></OPTION>";} 
+if ($unidad == ""){ echo "<OPTION></OPTION>";} 
 else
 {
-$alumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, NIVEL, GRUPO FROM alma WHERE NIVEL like '$nivel%' and GRUPO like '$grupo%' ORDER BY APELLIDOS ASC, NOMBRE ASC");
+$alumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad FROM alma WHERE unidad like '$unidad%' ORDER BY APELLIDOS ASC, NOMBRE ASC");
  while($falumno = mysql_fetch_array($alumno))
  {
 	 echo "<OPTION>$falumno[1], $falumno[2] --> $falumno[0]</OPTION>";
@@ -71,7 +66,7 @@ $alumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, NIVEL, GRUPO FROM alma W
 	}
 echo "</select></label>";
 
-if ($nivel == "" or $grupo == ""){ echo "";} 
+if ($unidad == ""){ echo "";} 
 else
 {
 echo"<label>Tutor/a del grupo<br />";
@@ -79,6 +74,7 @@ echo "<input type='text' value ='$fprof[0]' name='tutor' class='span3' readonly>
 echo "</label>";
 }
 ?>
+<hr />
          <label>Fecha de la reunión<br />
  <div class="input-append" style="display:inline;" >
             <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >

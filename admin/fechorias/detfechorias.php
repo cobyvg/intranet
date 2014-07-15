@@ -44,13 +44,12 @@ echo '<div align="center"><div class="alert alert-warning alert-block fade in" s
             $mensaje.'
           </div></div>';
 }
-$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
   if ($row = mysql_fetch_array($result))
         {
 		$apellidos = $row[0];
 		$nombre = $row[1];
-		$nivel = $row[2];
-		$grupo = $row[3];
+		$unidad = $row[2];
 		$fecha = $row[4];
 		$notas = $row[5];
 		$asunto = $row[6];
@@ -88,7 +87,7 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.niv
 <div class="page-header" align="center">
   <h2>Problemas de Convivencia <small> Informe personal del Problema</small></h2>
     <h3 align="center" style="color:#08c;">
-  <? echo "$nombre $apellidos ($nivel-$grupo)";?>
+  <? echo "$nombre $apellidos ($unidad)";?>
   </h3>
 </div>
 </div>
@@ -112,8 +111,8 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
             </td>
           </tr>
           <tr>
-            <th>NIVEL - GRUPO</th>
-            <td colspan="4"><? echo $nivel." - ".$grupo; ?></td>
+            <th>GRUPO</th>
+            <td colspan="4"><? echo $unidad; ?></td>
           </tr>
           <tr>
             <th>FECHA</th>
@@ -155,7 +154,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
         <div align="center"><a href="../informes/index.php?claveal=<? echo $claveal;?>&todos=1" target="_blank" class="btn btn-primary">
         Ver Informe del Alumno
         </a> 
-        <a href="../jefatura/tutor.php?alumno=<? echo $apellidos.", ".$nombre;?>&nivel=<? echo $nivel;?>&grupo=<? echo $grupo;?>" target="_blank" class="btn btn-primary">Registrar intervención de Jefatura</a></div>
+        <a href="../jefatura/tutor.php?alumno=<? echo $apellidos.", ".$nombre;?>&unidad=<? echo $unidad;?>&grupo=<? echo $grupo;?>" target="_blank" class="btn btn-primary">Registrar intervención de Jefatura</a></div>
     </div>
     <hr>
     <br />

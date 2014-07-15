@@ -50,7 +50,7 @@ $unidad = $row_Recordset1[16];
 
 <?
 if (stristr($_SESSION['cargo'],'2') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE) {
-	$unidad_tutor = $_SESSION ['s_nivel']."-".$_SESSION ['s_grupo'];
+	$unidad_tutor = $_SESSION ['s_unidad'];
 	echo "<input type='text' name='select' value='$unidad_tutor' readonly class='input-small'/>"; 
 }
 else{

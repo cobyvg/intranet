@@ -22,7 +22,7 @@ $crea =" CREATE TABLE IF NOT EXISTS horw_faltas (
   c_prof varchar(30) NOT NULL default '',
   a_aula varchar(5) NOT NULL default '',
   n_aula varchar(64) NOT NULL default '',
-  a_grupo varchar(10) NOT NULL default '',
+  a_grupo varchar(64) NOT NULL default '',
   nivel varchar(10) NOT NULL default '',
   n_grupo varchar(10) NOT NULL default '',
   clase varchar(16) NOT NULL default ''
@@ -58,8 +58,11 @@ No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en 
 }
 fclose ( $fp );
 
-// Separamos Nivel y Grupo, que viene juntos en el campo Unidad, que finalmente nos cargamos
-  $SQL0 = "SELECT a_grupo, id FROM  horw_faltas";
+// Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
+  $SQL_1 = "SELECT a_grupo  FROM  horw where a_grupo is not null and a_grupo not like ''";
+  $result_1 = mysql_query($SQL_1);
+  $row_1 = mysql_fetch_row($result_1);
+  if (strstr("-",$row_1[0])==TRUE) {  $SQL0 = "SELECT a_grupo, id FROM  horw_faltas";
   $result0 = mysql_query($SQL0);
  while  ($row0 = mysql_fetch_array($result0))
  {
@@ -75,6 +78,7 @@ $actualiza= "UPDATE horw_faltas SET nivel = '$nivel0', n_grupo = '$grupo0' where
 $actualiza= "UPDATE horw_faltas SET nivel = '', n_grupo = '' where a_grupo = '$row0[0]'";
  	}
 mysql_query($actualiza); 
+ }
  }
  // Eliminamos residuos y cambiamos alguna cosa.
  
@@ -128,7 +132,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS  `reservas`.`horw` (
  `c_prof` VARCHAR( 30 ) NOT NULL DEFAULT  '',
  `a_aula` VARCHAR( 5 ) NOT NULL DEFAULT  '',
  `n_aula` VARCHAR( 64 ) NOT NULL DEFAULT  '',
- `a_grupo` VARCHAR( 10 ) NOT NULL DEFAULT  '',
+ `a_grupo` VARCHAR( 64 ) NOT NULL DEFAULT  '',
  `nivel` VARCHAR( 10 ) NOT NULL DEFAULT  '',
  `n_grupo` VARCHAR( 10 ) NOT NULL DEFAULT  '',
  `clase` VARCHAR( 16 ) NOT NULL DEFAULT  '',

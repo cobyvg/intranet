@@ -97,14 +97,14 @@ if (empty ( $hora_dia )) {
 	}	
 }
 
-$result = mysql_query ( "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel,
-  FALUMNOS.grupo, aula_conv, inicio_aula, fin_aula, id, Fechoria.claveal, horas from Fechoria,
+$result = mysql_query ( "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad,
+  FALUMNOS.nc, aula_conv, inicio_aula, fin_aula, id, Fechoria.claveal, horas from Fechoria,
   FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and aula_conv > '0' and inicio_aula <= '$hoy' and fin_aula >= '$hoy' and horas like '%$hora_dia%' order by apellidos, nombre " );
 ?>hor
 <?php
 echo "<br /><center><table class='table table-striped' style='width:auto'>";
 	echo "<tr><th>Alumno</td>
-		<th>Nivel</th><th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></tr>";
+		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></tr>";
 	echo '<form name="conviv" action="convivencia.php" method="post" enctype="multipart/form-data">';
 while ( $row = mysql_fetch_array ( $result ) ) {
 	$sel =  mysql_query("select * from convivencia where claveal = '$row[8]' and dia = '$ndia' and hora = '$hora_dia' and fecha = '$hoy'");
@@ -113,7 +113,6 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	if ($ya[4] == 0) {$ch_tr = '';$trab = "";} else{$ch_tr=" checked";}
 		echo "<tr ><td>$row[0], $row[1]</td>
 		<td>$row[2]</td>
-		<td>$row[3]</td>
 		<td>$row[4]</td>
 		<td>$row[5]</td>
 		<td align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i title='Detalles' class='fa fa-search'> </i> </A>$comentarios</td>

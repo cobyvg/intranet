@@ -19,7 +19,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 include 'menu.php';
-
+	
 echo '<div align="center">';		
 ?>
 <br />
@@ -68,12 +68,19 @@ else{
   <input type="hidden" name="nivel" value="<? echo $nivel; ?>" />      
   <label>Grupos:
       <?	
-$tipo0 = "select distinct GRUPO from alma where curso = '$nivel' order by GRUPO";
+$tipo0 = "select distinct unidad from alma where curso = '$nivel' order by unidad";
 $tipo10 = mysql_query($tipo0);
   while($tipo20 = mysql_fetch_array($tipo10))
         {	
+$sql = mysql_query("select grupo from Textos where id = '$id'");
+
+while ($sql_w = mysql_fetch_array($sql)) {	
+	if (strstr($sql_w[0],$tipo20[0])==TRUE) {
+		$extra = " checked";		
+	}
+}
 echo "<span class='badge badge-info'>".$tipo20[0]."</span>&nbsp;";
-echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' checked>&nbsp;&nbsp;";
+echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' $extra >&nbsp;&nbsp;";
         }
 						
 	?>

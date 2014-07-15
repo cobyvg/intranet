@@ -147,7 +147,7 @@ if($departamento == "Religión")
               <h4>Grupos de alumnos que realizan la actividad</h4>
             
 <?
-$curso0 = "select distinct nivel from FALUMNOS order by nivel";
+$curso0 = "select distinct curso from alma order by curso";
 $curso1 = mysql_query($curso0);
 while($curso = mysql_fetch_array($curso1))
 {
@@ -156,16 +156,14 @@ $niv = $curso[0];
 ?>
            <? echo "<strong style='margin-right:12px;'> ".$niv." </strong>"; ?>
                 <?  
-$alumnos0 = "select distinct nivel, grupo from FALUMNOS where nivel = '$niv' order by grupo";
-
+$alumnos0 = "select distinct unidad from alma where curso = '$niv'";
+//echo $alumnos0;
 $alumnos1 = mysql_query($alumnos0);
 while($alumno = mysql_fetch_array($alumnos1))
 {
-$grupo = $alumno[0].$alumno[1];
-$nivel = $alumno[1];
-
+$grupo = $alumno[0];
 ?>
-                  <? echo "<span style='margin-right:2px;color:#08c;'>".$nivel."</span>";?>
+                  <? echo "<span style='margin-right:2px;color:#08c;'>".$grupo."</span>";?>
                   <input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>"  style="margin-right:5px;margin-top:0px;margin-bottom:2px;">
                   <? } ?>              
  <? } ?>

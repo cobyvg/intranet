@@ -55,9 +55,10 @@ foreach($_POST as $key => $val)
 {
 if(substr($key,0,3) == "grt")
 {
-$grupos .= $val."-";
+$grupos .= $val.";";
 }
 }
+
 $profesor=$_POST["profesor"]; 
 if(empty($profesor))
 {
@@ -75,7 +76,6 @@ $profe .= $profesor[$i].";";
 }   
 $fecha = cambia_fecha($fecha_act);
 mysql_query("UPDATE  actividades SET  grupos = '$grupos', actividad =  '$actividad', fecha = '$fecha', departamento = '$departamento', profesor = '$profe', descripcion = '$descripcion', justificacion = '$justificacion', horario = '$horario' WHERE id = '$id'");
-
 // Para cambiar la fecha simultaneamente, primero borramos los datos de la actividad actual en el calendario,...
 
 //$idactiv="$id;";
@@ -234,7 +234,7 @@ else{
               <h4>Grupos de alumnos que realizan la actividad</h4>
             
 <?
-$curso0 = "select distinct nivel from FALUMNOS order by nivel";
+$curso0 = "select distinct curso from alma order by curso";
 $curso1 = mysql_query($curso0);
 while($curso = mysql_fetch_array($curso1))
 {
@@ -243,17 +243,16 @@ $niv = $curso[0];
 ?>
            <? echo "<strong style='margin-right:10px;'> ".$niv." </strong>"; ?>
                 <?  
-$alumnos0 = "select distinct nivel, grupo from FALUMNOS where nivel = '$niv' order by grupo";
+$alumnos0 = "select distinct unidad from alma where curso = '$niv' order by curso";
 
 $alumnos1 = mysql_query($alumnos0);
 while($alumno = mysql_fetch_array($alumnos1))
 {
 $chk="";
-$grupo = $alumno[0].$alumno[1];
-$nivel = $alumno[1];
+$grupo = $alumno[0];
 if(strstr($todosgrupos,$grupo)==TRUE){$chk=" checked ";}
 ?>
-                  <? echo "<span style='margin-right:1px;color:#08c'>".$nivel."</span>";?>
+                  <? echo "<span style='margin-right:1px;color:#08c'>".$grupo."</span>";?>
                   <input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>" <? echo $chk;?> style="margin-right:7px;margin-bottom:6px">
                   <? } ?>              
             

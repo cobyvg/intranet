@@ -35,7 +35,7 @@ $crea =" CREATE TABLE IF NOT EXISTS horw (
   c_prof varchar(30) NOT NULL default '',
   a_aula varchar(5) NOT NULL default '',
   n_aula varchar(64) NOT NULL default '',
-  a_grupo varchar(10) NOT NULL default '',
+  a_grupo varchar(64) NOT NULL default '',
   nivel varchar(10) NOT NULL default '',
   n_grupo varchar(10) NOT NULL default '',
   clase varchar(16) NOT NULL default ''
@@ -73,8 +73,13 @@ No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en 
 </div>');	
 }
 fclose ( $fp );
-// Separamos Nivel y Grupo, que viene juntos en el campo Unidad, que finalmente nos cargamos
-  $SQL0 = "SELECT a_grupo, id FROM  horw";
+
+// Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
+  $SQL_1 = "SELECT a_grupo  FROM  horw where a_grupo is not null and a_grupo not like ''";
+  $result_1 = mysql_query($SQL_1);
+  $row_1 = mysql_fetch_row($result_1);
+  if (strstr("-",$row_1[0])==TRUE) {
+    $SQL0 = "SELECT a_grupo, id FROM  horw";
   $result0 = mysql_query($SQL0);
  while  ($row0 = mysql_fetch_array($result0))
  {
@@ -89,6 +94,8 @@ $actualiza= "UPDATE horw SET nivel = '', n_grupo = '' where a_grupo = '$row0[0]'
  	}
 mysql_query($actualiza); 
  }
+  }
+
  // Eliminamos el Recreo como 4ª Hora.
  $recreo = "DELETE FROM horw WHERE hora ='4'";
  mysql_query($recreo);
@@ -127,7 +134,7 @@ else{
  $tabla_tut = mysql_query("select * from FTUTORES");
 if(mysql_num_rows($tabla_tut) > 0){}
 	else{
-mysql_query("insert into FTUTORES (nivel, grupo, tutor) select distinct nivel, n_grupo, prof from horw where a_asig like '%TUT%'");	
+mysql_query("insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where a_asig like '%TUT%'");	
 
 //Primera version de Profesores.
 mysql_query("truncate table profesores");

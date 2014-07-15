@@ -9,18 +9,17 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 exit();	
 }
 else{
-$todos0 = mysql_query("select distinct claveal from FALUMNOS where nivel = '$nivel' and grupo = '$grupo'");
+$todos0 = mysql_query("select distinct claveal from FALUMNOS where unidad = '$unidad'");
 while ($todos = mysql_fetch_array($todos0)) {
 $claveal=$todos[0];	
 
 	
-$alumno = mysql_query(" SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'");
+$alumno = mysql_query(" SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'");
 $rowa = mysql_fetch_array($alumno);
 echo "<div class='oculto'><center><table class='tabla' style='padding:2px 10px;'>";
 $apellidos = trim($rowa[0]);
 $nombre = trim($rowa[1]);
-$nivel = trim($rowa[2]);
-$grupo = trim($rowa[3]);
+$unidad = trim($rowa[2]);
 $claveal = trim($rowa[4]);
 $tfno = trim($rowa[5]);
 $tfno_u = trim($rowa[6]);
@@ -65,7 +64,7 @@ $fecha2 = date('Y-m-d');
 $observaciones = $message;
 $accion = "Envío de SMS";
 $causa = "Problemas de convivencia";
-mysql_query("insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha, claveal) values ('".$apellidos."','".$nombre."','".$informa."','".$nivel."','".$grupo."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+mysql_query("insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('".$apellidos."','".$nombre."','".$informa."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
 }
 else
 {

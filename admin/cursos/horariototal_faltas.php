@@ -25,12 +25,11 @@ $options_left = array(
 				'justification' => 'left'
 					);
 # hasta aquí lo del pdf
-$cursos = mysql_query ("select distinct nivel,grupo from alma order by nivel, grupo");
+$cursos = mysql_query ("select distinct unidad from alma order by unidad");
 while ($rowcursos = mysql_fetch_row($cursos))
 {
-$nivel = $rowcursos[0];
-$grupo = $rowcursos[1];
-if (empty($nivel) and empty($grupo)) {
+$unidad = $rowcursos[0];
+if (empty($unidad)) {
 	
 }
 else
@@ -43,7 +42,7 @@ foreach($a as $dia) {
 		if($dia=='4'){$dia1 = "<b>Jueves</b>";}
 		if($dia=='5'){$dia1 = "<b>Viernes</b>";}	
 			
-$sqldatos="SELECT concat(apellidos,', ',nombre), NC FROM FALUMNOS WHERE nivel='$nivel' and grupo ='$grupo' ORDER BY NC";
+$sqldatos="SELECT concat(apellidos,', ',nombre), NC FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC";
 // echo $sqldatos;
 $lista= mysql_query($sqldatos );
 $num=0;
@@ -62,7 +61,7 @@ $data[]=array(
 			'nombre'=>$firma
 			);
 for($i=1;$i<7;$i++){
-$curso0 = $nivel."-".$grupo;
+$curso0 = $unidad;
 $rowasignaturas1="";
 ${'a'.$i}="";
 $asignaturas1 = mysql_query("SELECT distinct a_asig FROM horw where  dia= '$dia' and hora = '$i' and a_grupo like '%$curso0%'");
@@ -90,7 +89,7 @@ $options = array(
 				'innerLineThickness'=>0.5,
   				'outerLineThickness'=>0.8
 			);
-$txttit = "<b>Parte de faltas del Alumno</b>     <b>Grupo $nivel-$grupo</b>     $dia1      Fecha: ____/____/_________\n";
+$txttit = "<b>Parte de faltas del Alumno</b>     <b>Grupo $unidad</b>     $dia1      Fecha: ____/____/_________\n";
 		
 $pdf->ezText($txttit, 11,$options_center);
 $pdf->ezTable($data, $titles, '', $options);

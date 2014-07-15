@@ -16,7 +16,7 @@
   $result0 = mysql_query($SQL0);
 while ($row0 = mysql_fetch_array($result0)): 
 $claveal = $row0[0]; 			
-	$SQL3 = "SELECT distinct alma.claveal, alma.telefono, alma.telefonourgencia, alma.apellidos, alma.nombre, alma.nivel, alma.grupo 
+	$SQL3 = "SELECT distinct alma.claveal, alma.telefono, alma.telefonourgencia, alma.apellidos, alma.nombre, alma.unidad 
 	from alma where alma.claveal like '$claveal'";
 	$result3 = mysql_query($SQL3);	
 	$rowsql3 = mysql_fetch_array($result3);
@@ -24,8 +24,7 @@ $claveal = $row0[0];
 	$tfno_u2 = $rowsql3[2];
 	$apellidos = $rowsql3[3];
 	$nombre = $rowsql3[4];
-	$nivel = $rowsql3[5];
-	$grupo = $rowsql3[6];	
+	$unidad = $rowsql3[5];
 	// Telefonos móviles
 	if(substr($tfno2,0,1)=="6" OR substr($tfno2,0,1)=="7"){$mobil2=$tfno2;}elseif((substr($tfno_u2,0,1)=="6" OR substr($tfno_u2,0,1)=="7") and !(substr($tfno2,0,1)=="6" OR substr($tfno2,0,1)=="7")){$mobil2=$tfno_u2;}else{$mobil2="";}
 	//echo $mobil2;	
@@ -35,7 +34,7 @@ $claveal = $row0[0];
 	$accion = "Envío de SMS";
 	$tuto = "Jefatura de Estudios";
 	$fecha2 = date('Y-m-d');
-	mysql_query("insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$nivel."','".$grupo."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+	mysql_query("insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
 $nombrecor = explode(" ",$nombre);
 $nombrecorto = $nombrecor[0];
 $text = "Le comunicamos que su hijo/a $nombrecorto tiene Faltas de Asistencia sin justificar dentro del periodo del ".$fecha12." al ".$fecha22.". Contacte con su Tutor";

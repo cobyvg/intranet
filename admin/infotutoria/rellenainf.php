@@ -61,9 +61,9 @@ El Informe ha sido guardado correctamente. Puedes comprobar los datos más abajo.
 		</div></div>';	
 }
 
-$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,NIVEL,GRUPO,TUTOR, F_ENTREV FROM infotut_alumno WHERE ID='$id_alumno'");
+$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,unidad,id,TUTOR, F_ENTREV FROM infotut_alumno WHERE ID='$id_alumno'");
 $dalumno = mysql_fetch_array($alumno);
-echo "<br /><h4>$dalumno[1] $dalumno[0] ($dalumno[2]-$dalumno[3])<br> Visita: $dalumno[5]<br>Tutor: $dalumno[4]</h4><br />";
+echo "<br /><h4>$dalumno[1] $dalumno[0] ($dalumno[2])<br> Visita: $dalumno[5]<br>Tutor: $dalumno[4]</h4><br />";
 $datos=mysql_query("SELECT asignatura, informe, id FROM infotut_profesor WHERE id_alumno='$id_alumno'");
 if(mysql_num_rows($datos) > 0)
 {

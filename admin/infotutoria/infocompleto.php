@@ -60,7 +60,7 @@ $llenar="";
 
 if(empty($llenar)){}else{$id = $llenar;}
 echo "<div align='center'>";
-$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,NIVEL,GRUPO,TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$id'");
+$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$id'");
 
 $dalumno = mysql_fetch_array($alumno);
 $claveal=$dalumno[6];
@@ -79,7 +79,7 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuev
 </div></div><hr>';
 	exit;	
 }
-echo "<h3>$dalumno[1] $dalumno[0] ($dalumno[2]-$dalumno[3])</h3><h4><br>Visita: $dalumno[5]<br>Tutor: $dalumno[4]</h4><br />";
+echo "<h3>$dalumno[1] $dalumno[0] ($dalumno[2])</h3><h4><br>Visita: $dalumno[5]<br>Tutor: $dalumno[4]</h4><br />";
 
 $datos=mysql_query("SELECT asignatura, informe, id, profesor FROM infotut_profesor WHERE id_alumno='$id'");
 if(mysql_num_rows($datos) > 0)
@@ -109,7 +109,7 @@ foreach ($tr_comb as $codasi)
 }
 $frase = substr($frase,0,-19).")";
 
-$datos1 = mysql_query("SELECT distinct materia, profesor from profesores, asignaturas WHERE materia = nombre and profesores.grupo = '$dalumno[2]-$dalumno[3]' and profesor not in (SELECT profesor FROM infotut_profesor WHERE id_alumno='$id') and materia not in (SELECT asignatura FROM infotut_profesor WHERE id_alumno='$id')  and abrev not like '%\_%' $frase");
+$datos1 = mysql_query("SELECT distinct materia, profesor from profesores, asignaturas WHERE materia = nombre and profesores.grupo = '$dalumno[2]' and profesor not in (SELECT profesor FROM infotut_profesor WHERE id_alumno='$id') and materia not in (SELECT asignatura FROM infotut_profesor WHERE id_alumno='$id')  and abrev not like '%\_%' $frase");
 while($informe1 = mysql_fetch_array($datos1))
 {
 	echo "<tr><td style='width:160px;'><strong>$informe1[0]</strong></td>

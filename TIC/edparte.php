@@ -22,7 +22,7 @@ include("menu.php");
 <?
 if(isset($_POST['ed_enviar']))
 {
-$query = "UPDATE partestic SET nivel = '$nivel', grupo = '$grupo', carro = '$carrito', nserie = '$numero', fecha = '$fecha', hora = '$hora', alumno = '$alumno', profesor = '$profesor', descripcion = '$descripcion'";
+$query = "UPDATE partestic SET unidad = '$unidad', carro = '$carrito', nserie = '$numero', fecha = '$fecha', hora = '$hora', alumno = '$alumno', profesor = '$profesor', descripcion = '$descripcion'";
 if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
 $query.=", estado = '$estado', nincidencia = '$nincidencia'";
@@ -47,14 +47,13 @@ exit;
 }
 
 else{
-$query = "SELECT parte, nivel, grupo, carro, nserie, fecha, hora, alumno, profesor, descripcion, estado, nincidencia FROM  partestic where parte = '$parte'";
+$query = "SELECT parte, unidad, nincidencia, carro, nserie, fecha, hora, alumno, profesor, descripcion, estado, nincidencia FROM  partestic where parte = '$parte'";
 	$result = mysql_query($query);
 	
 	if (mysql_num_rows($result) > 0)
 	{
 	$row = mysql_fetch_array($result);
-	$nivel = $row[1];
-	$grupo = $row[2];
+	$unidad = $row[1];
 	$carrito = $row[3];
 	$numero = $row[4];
 	$fecha = $row[5];
@@ -88,24 +87,19 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
 <?
 }
 ?>
-    <label style="display:inline">Nivel
-      <select name="nivel" onChange="submit()" class="input-mini">
-        <option><? echo $nivel;?></option>
-        <? nivel();?>
+    <label>Grupo
+      <select name="unidad" onChange="submit()" class="input">
+        <option><? echo $unidad;?></option>
+        <? unidad();?>
       </select>
     </label>
-    <label style="display:inline">&nbsp;&nbsp;&nbsp;Grupo
-      <select name="grupo" onChange="submit()" class="input-mini">
-        <option><? echo $grupo;?></option>
-        <? grupo($nivel);?>
-      </select>
-    </label>
+
     <hr>
     <label>Alumno<br />
       <select name="alumno"  class="span4">
         <option><? echo $alumno;?></option>
         <?
-  $alumnosql = mysql_query("SELECT distinct APELLIDOS, NOMBRE FROM FALUMNOS where nivel='$nivel' and grupo='$grupo'  order by APELLIDOS asc");
+  $alumnosql = mysql_query("SELECT distinct APELLIDOS, NOMBRE FROM FALUMNOS where unidad='$unidad'  order by APELLIDOS asc");
 
   if ($falumno = mysql_fetch_array($alumnosql))
         {
@@ -174,7 +168,7 @@ if(mysql_num_rows($n_serie0) == "1")
     </label>
     <br />
     <input name="parte" type="hidden" id="parte" value="<? echo $parte;?>"/>
-    <input name="ed_enviar" type="submit" id="enviar" value="Actualizar datos de la Incidencia" class="btn btn-primary" />
+    <input name="ed_enviar" type="submit" id="enviar" value="Actualizar datos de la Incidencia" class="btn btn-primary btn-block" />
     </div>
   </form>
 </div>

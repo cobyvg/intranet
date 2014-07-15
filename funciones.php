@@ -45,11 +45,11 @@ echo "<option>$tipofechoria2[0]</option>";
         }
 }
 
-function horario_alumno($NIVEL1,$GRUPO1)
+function horario_alumno($NIVEL1)
 {
 //  include("opt/e-smith/config.php");  
   
-   echo "<br /><h3>Horario del Grupo $NIVEL1-$GRUPO1</h3><br />";
+   echo "<br /><h3>Horario del Grupo $NIVEL1</h3><br />";
   ?>
 <table class="table table-striped" width="95%">
     <tr> 
@@ -75,7 +75,7 @@ foreach($a as $dia => $nombre) {
 echo "<tr><th style='background-color:#f6f6f6;border-right:1px solid #ccc'>$nombre</th>";
 for($i=1;$i<7;$i++) {
 echo "<td>";
-$curso = $NIVEL1."-".$GRUPO1;
+$curso = $NIVEL1;
 $sqlasig0 = "SELECT distinct  asig, c_asig FROM  horw where a_grupo = '$curso' and dia = '$dia' and hora = '$i'";
 $asignaturas1 = mysql_query($sqlasig0);
  while ($rowasignaturas1 = mysql_fetch_array($asignaturas1))
@@ -88,9 +88,9 @@ echo "<tr>";
 }
 echo "</table><hr>";
 
- echo "<br /><h3>Profesores del Grupo $NIVEL1-$GRUPO1</h3><br />";
+ echo "<br /><h3>Profesores del Grupo $NIVEL1</h3><br />";
  echo "<ul class='unstyled'>";
- $profe = "SELECT  distinct PROFESOR, MATERIA FROM profesores, alma where alma.unidad = profesores.grupo and alma.nivel = '$NIVEL1' and alma.grupo = '$GRUPO1'";
+ $profe = "SELECT  distinct PROFESOR, MATERIA FROM profesores, alma where alma.unidad = profesores.grupo and alma.unidad = '$NIVEL1'";
  $profeq = mysql_query($profe);
  while($profer = mysql_fetch_array($profeq)){
  echo "<li><i class='fa fa-user'> </i> 
@@ -109,7 +109,7 @@ function unidad()
 echo "<option>".$tipo2[0]."</option>";
         }
 }
-
+/*
 function nivel()
 {
  // include("opt/e-smith/config.php");  
@@ -133,7 +133,7 @@ function grupo($niveles)
 echo "<option>".$tipo2[0]."</option>";
         }
 }
-
+*/
 function variables()
 {
 foreach($_POST as $key => $val)

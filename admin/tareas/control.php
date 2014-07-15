@@ -70,7 +70,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tareas_temp` (
   KEY `profesor` (`profesor`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=313 ");
 
-$query = "SELECT id, claveal, nivel, grupo, nombre, apellidos, FECHA FROM tareas_alumnos order by FECHA desc";
+$query = "SELECT id, claveal, unidad, duracion, nombre, apellidos, FECHA FROM tareas_alumnos order by FECHA desc";
 $result = mysql_query($query);
 if($detalles == '1')
 { 
@@ -89,17 +89,17 @@ while($cadena = mysql_fetch_array($comp))
 //echo $todas."<br>";
 if($detalles == '1')
 { 
-	echo "<p>$row[6] --> <span style='color:#08c'>$row[6] --> $row[4] $row[5] --> $row[2]-$row[3]</p>";
+	echo "<p>$row[6] --> <span style='color:#08c'>$row[6] --> $row[4] $row[5] --> $row[2]</p>";
 	
 } 
 echo "<ul  class='unstyled'>";
 
 //echo "$todos<br>";
-$combasi0 = "select combasi, nivel from alma where claveal = '$row[1]'";
+$combasi0 = "select combasi, curso from alma where claveal = '$row[1]'";
 //echo "$combasi0<br>";
 $combasi1 = mysql_query($combasi0);
 $combasi2 = mysql_fetch_array($combasi1);
-$l_nivel = substr($combasi2[1],0,1);
+$l_nivel = $combasi2[1];
 $combasi = substr($combasi2[0],0,strlen($combasi2[0]) - 1);
 $trozo = explode(":",$combasi);
 foreach($trozo as $asignatura)
@@ -114,12 +114,12 @@ $pos = strpos($todas,$nomasi[0]);
 if($pos === FALSE)
 {
 
-$profe0 = "select distinct profesor from profesores where  profesores.grupo = '$row[2]-$row[3]' and materia like '$nomasi[0]' and profesor not in (select tutor from FTUTORES where nivel = '$row[2]' and grupo = '$row[3]') ";
+$profe0 = "select distinct profesor from profesores where  profesores.grupo = '$row[2]' and materia like '$nomasi[0]' and profesor not in (select tutor from FTUTORES where unidad = '$row[2]') ";
 
 $profe1 = mysql_query($profe0);
 while($profe2 = mysql_fetch_array($profe1))
 {
-$query = "insert into tareas_temp (id_tareas, asignatura, profesor, alumno, fecha, curso) values ('$row[0]','$nomasi[0]','$profe2[0]','$row[1]','$row[6]','$row[2]-$row[3]')";
+$query = "insert into tareas_temp (id_tareas, asignatura, profesor, alumno, fecha, curso) values ('$row[0]','$nomasi[0]','$profe2[0]','$row[1]','$row[6]','$row[2]')";
 mysql_query($query);
 $profesores .= $profe2[0]."; ";
 }

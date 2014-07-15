@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];} elseif (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];} else{$nivel="";}
+if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="";}
 if (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];} elseif (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];} else{$grupo="";}
 
 if ($_POST['submit2'])
@@ -41,15 +41,12 @@ include("../../menu.php");
 <div align="center">
 <FORM action="ccursos.php" method="POST" name="listas2" class="well well-large form-inline">
 <legend>Partes de Faltas de Aula</legend> <br />     
-Nivel: <SELECT  name="nivel" onChange="submit()" class="input-mini" style="display:inline;margin-right:15px;">
-            <option><? echo $nivel;?></option>
-            <? nivel();?>
+<label>
+Grupo: <SELECT  name="unidad" onChange="submit()" class="input-mini" style="display:inline;margin-right:15px;">
+            <option><? echo $unidad;?></option>
+            <? unidad();?>
           </SELECT>
-<label>Grupo: </label>
-<select  name="grupo" class="input-mini" style="display:inline">
-          <option></option>
-          <? grupo($nivel);?>
-        </select>
+</label>
         <br /><br />
           <label>Día de la semana:
           <select name="dia1" class="input-xsmall">

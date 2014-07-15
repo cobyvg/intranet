@@ -31,16 +31,15 @@ El formato de las fechas no es correcto. Lo correcto es "dia-mes-año" (p.ej. 15-
 	else{
 $actualizar ="UPDATE  Fechoria SET  recibido =  '1', aula_conv = '$convivencia', inicio_aula = '$inicio_aula', fin_aula = '$fin_aula', horas = '$horas' WHERE  Fechoria.id = '$id'"; 
 mysql_query($actualizar);
- $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, 
-  FALUMNOS.grupo, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, 
+ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, 
+  FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, 
   Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia,  alma.telefono, alma.telefonourgencia from Fechoria, FALUMNOS, alma, listafechorias where Fechoria.claveal = alma.claveal and Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
 
   if ($row = mysql_fetch_array($result))
         {
 		$apellidos = $row[0];
 		$nombre = $row[1];
-		$nivel = $row[2];
-		$grupo = $row[3];
+		$unidad = $row[2];
 		$fecha = $row[4];
 		$notas = $row[5];
 		$asunto = $row[6];
@@ -117,7 +116,7 @@ if(!(empty($tareas)))
 $repe = mysql_query("select * from tareas_alumnos where claveal = '$claveal' and fecha = '$inicio_aula'");
 if(mysql_num_rows($repe)=="0")
 {
-$insertar=mysql_query("INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,NIVEL,GRUPO,FECHA,DURACION,PROFESOR, FIN) VALUES ('$claveal','$apellidos','$nombre','$nivel','$grupo', '$inicio_aula','$convivencia','$tutor', '$fin_aula')") or die ("Error: no se ha podido activar el informe:".mysql_error());
+$insertar=mysql_query("INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR, FIN) VALUES ('$claveal','$apellidos','$nombre','$unidad', '$inicio_aula','$convivencia','$tutor', '$fin_aula')") or die ("Error: no se ha podido activar el informe:".mysql_error());
 }
 else
 {
@@ -155,13 +154,12 @@ if($fin){ $fin1 = explode("-",$fin); $fin = $fin1[2] . "-" . $fin1[1] ."-" . $fi
 $actualizar ="UPDATE  Fechoria SET  expulsion =  '$expulsion', inicio = '$inicio', fin = '$fin' WHERE  Fechoria.id = '$id'"; 
 //echo $actualizar;
 mysql_query($actualizar);
-$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia from Fechoria, FALUMNOS, listafechorias, alma where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto and FALUMNOS.claveal = alma.claveal and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia from Fechoria, FALUMNOS, listafechorias, alma where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto and FALUMNOS.claveal = alma.claveal and Fechoria.id = '$id' order by Fechoria.fecha DESC");
   if ($row = mysql_fetch_array($result))
         {
 		$apellidos = $row[0];
 		$nombre = $row[1];
-		$nivel = $row[2];
-		$grupo = $row[3];
+		$unidad = $row[2];
 		$expulsion = $row[11];
 		$claveal = $row[13];
 		$tfno = $row[14];
@@ -213,7 +211,7 @@ $fecha2 = date('Y-m-d');
 $tutor = "Jefatura de Estudios";
 $causa = "Problemas de Convivencia";
 $accion = "Envío de SMS";
-mysql_query("insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha,jefatura) values ('".$apellidos."','".$nombre."','".$tutor."','".$nivel."','".$grupo."','".$message."','".$causa."','".$accion."','".$fecha2."','1')");
+mysql_query("insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,jefatura) values ('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$message."','".$causa."','".$accion."','".$fecha2."','1')");
 }
 }
 }

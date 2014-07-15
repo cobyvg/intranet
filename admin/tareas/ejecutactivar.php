@@ -44,7 +44,7 @@ $nombre_comp = $trozos[0];
 $trozos1 = explode (", ", $nombre_comp);
 $apellidos = $trozos1[0];
 $nombre = $trozos1[1];
-$falumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, NIVEL, GRUPO,
+$falumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad, matriculas,
 COMBASI FROM alma WHERE claveal = '$claveal'");
 $dalumno = mysql_fetch_array($falumno);
 $asignaturas=chunk_split($dalumno[5],3,"-");
@@ -65,8 +65,8 @@ echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" 
 }
 else{
 
-$insertar=mysql_query("INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,NIVEL,GRUPO,FECHA,DURACION,PROFESOR,FIN)
- VALUES ('$dalumno[0]','$dalumno[1]','$dalumno[2]','$dalumno[3]','$dalumno[4]','$fecha',$duracion,'$tutor',date_add('$fecha',interval $duracion2 day))") or die ("Error, no se ha podido activar el informe:".mysql_error());
+$insertar=mysql_query("INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR,FIN)
+ VALUES ('$dalumno[0]','$dalumno[1]','$dalumno[2]','$dalumno[3]','$fecha',$duracion,'$tutor',date_add('$fecha',interval $duracion2 day))") or die ("Error, no se ha podido activar el informe:".mysql_error());
   echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>';
 			echo "El <b>Informe de tareas</b> del alumno/a <b> $nombre $apellidos </b>para el día <b>";

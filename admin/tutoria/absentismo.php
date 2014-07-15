@@ -19,18 +19,17 @@ elseif (isset($_POST['tutor'])) {
 }
 else{$tutor = "";}
 
-	$tutor0=mysql_query("select nivel, grupo from FTUTORES where tutor='$tutor'");
+	$tutor0=mysql_query("select unidad from FTUTORES where tutor='$tutor'");
 	$d_tutor=mysql_fetch_array($tutor0);
-	$nivel_tutor = $d_tutor[0];
-	$grupo_tutor = $d_tutor[1];
-	$mas=" and absentismo.nivel='$d_tutor[0]' and absentismo.grupo='$d_tutor[1]' ";
+	$grupo_tutor = $d_tutor[0];
+	$mas=" and absentismo.unidad='$grupo_tutor' ";
 	$mas2=" and tutoria IS NULL ";
 	$titulo=" DEL TUTOR ";
 	$upd=" tutoria='$texto' ";
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h2>Página del tutor <small> Alumnos absentistas<br /><? echo "$nivel_tutor-$grupo_tutor";?></small></h2>
+  <h2>Página del tutor <small> Alumnos absentistas<br /><? echo "$grupo_tutor";?></small></h2>
 </div>
 <br />
 <?
@@ -57,16 +56,17 @@ if($mes=='Marzo'){$mes='03';}
 if($mes=='Abril'){$mes='04';}
 if($mes=='Mayo'){$mes='05';}
 if($mes=='Junio'){$mes='06';}
+
 // Vamos a rellenar informe
 if ($inf=="1") {
-	$al=mysql_query("SELECT distinct apellidos, nombre, absentismo.nivel, absentismo.grupo, numero, jefatura, orientacion, tutoria FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='$claveal' and mes='$mes'");
+$al=mysql_query("SELECT distinct apellidos, nombre, absentismo.unidad, alma.matriculas, numero, jefatura, orientacion, tutoria FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='$claveal' and mes='$mes'");
 
 	if (mysql_num_rows($al)>0) {
 		$datos=mysql_fetch_array($al);
 		$obs=$datos[7];
 		echo  "<br /><table class='table table-striped' style='width:auto'><tr><th> Nombre </th><th> Curso </th>
 <th> Mes </th><th> Nº faltas </th></tr>
-<tr><td>$datos[0], $datos[1]</td><td>$datos[2]-$datos[3]</td><td>$mes</td><td>$datos[4]</td></tr></table><hr><br />";
+<tr><td>$datos[0], $datos[1]</td><td>$datos[2]</td><td>$mes</td><td>$datos[4]</td></tr></table><hr><br />";
 		echo "<form enctype='multipart/form-data' action='absentismo.php' method='post'>";
 ?>
 <input name="claveal" type="hidden" value="<? echo $claveal;?>">
@@ -90,7 +90,7 @@ echo "</form>";
 	}
 }
 
-$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.nivel, absentismo.grupo, numero, mes, jefatura, orientacion, tutoria FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas  order by mes, nivel, grupo";
+$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes, jefatura, orientacion, tutoria FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas  order by mes, absentismo.unidad";
 $result0 = mysql_query($SQL0);
 if (mysql_num_rows($result0)>0) {
 	echo  "<br /><table class='table table-striped' style='width:auto'>";
@@ -100,15 +100,14 @@ if (mysql_num_rows($result0)>0) {
 		$claveal=$row0[0];
 		$mes=$row0[6];
 		$numero=$row0[5];
-		$grupo=$row0[4];
-		$nivel=$row0[3];
+		$unidad=$row0[3];
 		$nombre=$row0[2];
 		$apellidos=$row0[1];
 		$jefatura=$row0[7];
 		$orientacion=$row0[8];
 		$tutoria=$row0[9];
 		if (strlen($jefatura)>0) {$chj=" checked ";}else{$chj="";}if(strlen($orientacion)>0) {$cho=" checked ";}else{$cho="";}if (strlen($tutoria)>0) {$cht=" checked ";}else{$cht="";}
-		echo "<tr><td >$apellidos, $nombre</td><td>$nivel-$grupo</td><td>$mes</td><td>$numero</td>";
+		echo "<tr><td >$apellidos, $nombre</td><td>$unidad</td><td>$mes</td><td>$numero</td>";
 		echo "<td><a href='absentismo.php?claveal=$claveal&mes=$mes&inf=1&tutor=$tutor'> <i class='fa fa-search' title='Detalles'> </i> </a>";
 		echo "</td>";
 

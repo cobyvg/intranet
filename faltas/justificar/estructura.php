@@ -109,15 +109,14 @@ echo "</td></tr></table><br />";
            }
           if ($profesor) {
 // Buscamos el grupo del que $profesor es tutor.
-	$tutor = mysql_query("SELECT NIVEL, GRUPO FROM FTUTORES WHERE TUTOR = '$profesor'") ;
+	$tutor = mysql_query("SELECT unidad FROM FTUTORES WHERE TUTOR = '$profesor'") ;
 	if($filatutor = mysql_fetch_row($tutor))  
 	{     			
 		$nivel = $filatutor[0];
-		$grupo = $filatutor[1]; 
-		echo "<h4> $profesor: &nbsp;<span style='font-size:1.0em; color:#08c'>$nivel-$grupo</span></h4><br />";
+		echo "<h4> $profesor: &nbsp;<span style='font-size:1.0em; color:#08c'>$nivel</span></h4><br />";
 		echo '<div class="well well-large">';
 // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
-		$nivelgrupo0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE NIVEL = '$nivel' and GRUPO = '$grupo' order by NC asc");
+		$nivelgrupo0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$nivel' order by NC asc");
 		$todos = mysql_num_rows($nivelgrupo0);
 	function IS_ODD($number) { return($number & 1); }
 		if(IS_ODD($todos))
@@ -138,8 +137,8 @@ echo "</td></tr></table><br />";
 			$numselec = $ncselec0[2];
 		}
 		}
-$nivelgrupo1 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE NIVEL = '$nivel' and GRUPO = '$grupo' order by NC asc limit 0,$mitad");
-$nivelgrupo = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE NIVEL = '$nivel' and GRUPO = '$grupo' order by NC asc limit $mitad, $resto");
+$nivelgrupo1 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$nivel' order by NC asc limit 0,$mitad");
+$nivelgrupo = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$nivel' order by NC asc limit $mitad, $resto");
 echo "<div class='row-fluid'><div class='span6' align='left'>";
 while($filanivelgrupo1 = mysql_fetch_array($nivelgrupo1))
 		        {		        	
@@ -170,8 +169,7 @@ echo " value = '$clave2' onclick=submit() /> $filanivelgrupo[2]. $completo2 </la
 			<a href='index.php?year=$year&today=$today&month=$month' class='btn btn-primary'>Volver al principio</a></center>";
           	echo "<br>";
           	echo "<input type=hidden name=profesor value= \"$profesor\">";
-          	echo "<input type=hidden name=nivel value= \"$nivel\">";
-          	echo "<input type=hidden name=grupo value= \"$grupo\">";   
+          	echo "<input type=hidden name=unidad value= \"$nivel\">";
           }     
 }
 ?>

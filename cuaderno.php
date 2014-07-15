@@ -181,7 +181,7 @@ if($pr and $dia and $hora)
 	$col = "select distinct id, nombre, orden, visible_nota from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
 	$col0 = mysql_query($col);
 	$cols = mysql_num_rows($col0);
-	$sin_coma=substr($curso,0,-1);
+	$sin_coma=$curso;
 	echo "<p class='lead'>$sin_coma <span class='muted'>( $nom_asig )</span></p>";
 	echo '<form action="cuaderno.php" method="post" name="imprime" class="form-inline">';
 	if(isset($_GET['seleccionar'])){
@@ -305,7 +305,7 @@ todos</a></div>
 			}
 
 			// Alumnos para presentar que tengan esa asignatura en combasi
-			$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.nivel, alma.grupo from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and unidad = '$curso' and (";
+			$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
 			//Alumnos de 2º de Bachillerato
 			if (stristr($curso,"1B")==TRUE or stristr($curso,"2B")==TRUE) {
 				if (strlen($codigos)>'6') {
@@ -334,7 +334,7 @@ todos</a></div>
 				$nombre_al =   $row[3];
 				$apellidos =   $row[2];
 				$nc =   $row[1];
-				$grupo_simple =  $row[6]."-".$row[7];
+				$grupo_simple =  $row[6];
 				if ($row[5] == "") {}
 				else
 				{

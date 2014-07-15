@@ -89,14 +89,13 @@ INDEX (  `claveal` )
 $nivele = mysql_query("select * from cursos");
 while ($orden_nivel = mysql_fetch_array($nivele)){
 	
-$niv = mysql_query("select distinct curso, nivel from alma where curso = '$orden_nivel[1]' and curso not like '1%'");
+$niv = mysql_query("select distinct curso from alma where curso = '$orden_nivel[1]' and curso not like '1%'");
 while ($ni = mysql_fetch_array($niv)) {
 	$n_grupo+=1;
 	$curso = $ni[0];
-	$nivel = $ni[1];
 	$rep = ""; 
 	$promo = "";
-$notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel, alma.claveal from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso' and alma.claveal in (select distinct claveal from pendientes) and curso not like '1%'";
+$notas1 = "select notas". $key .", claveal1, matriculas, unidad, curso, alma.claveal from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso' and alma.claveal in (select distinct claveal from pendientes) and curso not like '1%'";
 //echo $notas1."<br>";
 
 $result1 = mysql_query($notas1);

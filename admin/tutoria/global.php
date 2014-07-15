@@ -17,21 +17,19 @@ include("menu.php");
 if((stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE) and strstr($tutor," ==> ")==TRUE){
 $tr = explode(" ==> ",$tutor);
 $tutor = $tr[0];
-$tr1 = explode("-",$tr[1]);
-$nivel = $tr1[0];
-$grupo = $tr1[1];
+$unidad = $tr[1];
 	}
 else{
-$SQL = "select nivel, grupo from FTUTORES where tutor = '$tutor'";
+$SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 	$result = mysql_query($SQL);
 	$row = mysql_fetch_array($result);
-	$nivel = $row[0];
-	$grupo = $row[1];
+	$unidad = $row[0];
+	
 }
 ?>
 <div align="center">
 <div class="page-header" align="center">
-  <h2 style="display:inline">Página del tutor <small> <? echo "$nivel-$grupo";?>  ( <? echo $tutor; ?> )</small></h2> 
+  <h2 style="display:inline">Página del tutor <small> <? echo $unidad;?>  ( <? echo $tutor; ?> )</small></h2> 
 </div>
 </div>
 <? 

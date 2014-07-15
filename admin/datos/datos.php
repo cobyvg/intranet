@@ -19,10 +19,7 @@ if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];} elseif (isse
 if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al="";}
 if (isset($_GET['unidad'])) {
 	$unidad = $_GET['unidad'];
-	$tr_uni = explode("-",$_GET['unidad']);
-	$nivel = $tr_uni[0];
-	$grupo = $tr_uni[1];
-	$AUXSQL = " and unidad = '$nivel-$grupo'";
+	$AUXSQL = " and unidad = '$unidad'";
 } else{$unidad="";}
 ?>
 <br />
@@ -71,7 +68,7 @@ if (isset($seleccionado) and $seleccionado=="1") {
 	$tr=explode(" --> ",$alumno);
 	$clave_al=$tr[1];
 	$nombre_al=$tr[0];
-	$uni=mysql_query("select unidad, nivel, grupo from alma where claveal='$clave_al'");
+	$uni=mysql_query("select unidad from alma where claveal='$clave_al'");
 	$un=mysql_fetch_array($uni);
 	$unidad=$un[0];
 
@@ -119,10 +116,10 @@ if ($seleccionado=='1') {
 	$AUXSQL = " and alma.claveal = '$clave_al'";
 }
 
-$SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.nivel, alma.grupo,\n
+$SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad, 
   alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.telefonourgencia, padre, matriculas, correo from alma
-  where 1 " . $AUXSQL . " order BY nivel, grupo, alma.apellidos, nombre";
-//echo $SQL;
+  where 1 " . $AUXSQL . " order BY unidad, alma.apellidos, nombre";
+// echo $SQL;
 $result = mysql_query($SQL);
 if (mysql_num_rows($result)>25 and !($seleccionado=="1")) {
 	$datatables_activado = true;
@@ -154,19 +151,19 @@ if ($row = mysql_fetch_array($result))
 			$repite="No";
 		}
 		$nom=$row[1].", ".$row[2];
-		$unidad = $row[3]."-".$row[4];
+		$unidad = $row[3];
 		$claveal = $row[0];
 		$correo = $row[12];
 		echo "<tr>
 <td>$row[0]</td>
-<td>$row[5]</td>
+<td>$row[4]</td>
 <td>$nom</td>
 <td>$unidad</td>
+<td>$row[5]</td>
 <td>$row[6]</td>
-<td>$row[7]</td>
-<td>$row[10]</td>
-<td>$row[8]</td>
 <td>$row[9]</td>
+<td>$row[7]</td>
+<td>$row[8]</td>
 <td>$repite</td>";
 
 		if ($seleccionado=='1'){
@@ -180,7 +177,7 @@ if ($row = mysql_fetch_array($result))
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</hlegend5>
+			<legend>ATENCIÓN:</legend>
 No hubo suerte, bien porque te has equivocado
         al introducir los datos, bien porque ningún dato se ajusta a tus criterios.
 		</div></div>';
@@ -197,41 +194,37 @@ if ($_GET['seleccionado']=='1'){
 	}
 	// Menú del alumno
 	echo "<a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno' class='btn btn-primary'>Datos completos</a>";
-	echo "&nbsp;<a class='btn btn-primary' href='http://$dominio/intranet/admin/informes/cinforme.php?nombre_al=$alumno&nivel=$un[1]&grupo=$un[2]'>Informe histórico del Alumno</a> ";
+	echo "&nbsp;<a class='btn btn-primary' href='http://$dominio/intranet/admin/informes/cinforme.php?nombre_al=$alumno&unidad=$unidad'>Informe histórico del Alumno</a> ";
 	echo "&nbsp;<a class='btn btn-primary' href='../fechorias/infechoria.php?seleccionado=1&nombre_al=$alumno'>Problema de disciplina</a> ";
 	echo "&nbsp;<a class='btn btn-primary' href='http://$dominio/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
 	if (stristr($_SESSION['cargo'],'1') == TRUE) {
-		$dat = mysql_query("select nivel, grupo from FALUMNOS where claveal='$clave_al'");
+		$dat = mysql_query("select unidad from FALUMNOS where claveal='$clave_al'");
 		$tut=mysql_fetch_row($dat);
-		$nivel=$tut[0];
-		$grupo=$tut[1];
-		echo "&nbsp;<a class='btn btn-primary' href='../jefatura/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo'>Acción de Tutoría</a>";
+		$unidad=$tut[0];
+		echo "&nbsp;<a class='btn btn-primary' href='../jefatura/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad'>Acción de Tutoría</a>";
 			if ($s_control=='1') {
-			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo&correo=$correo'  rel='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
+			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  rel='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
 		}
 
 	}
 	if (stristr($_SESSION['cargo'],'8') == TRUE) {
-		$dat = mysql_query("select nivel, grupo from FALUMNOS where claveal='$clave_al'");
+		$dat = mysql_query("select unidad from FALUMNOS where claveal='$clave_al'");
 		$tut=mysql_fetch_row($dat);
-		$nivel=$tut[0];
-		$grupo=$tut[1];
-		echo "&nbsp;<a class='btn btn-primary' href='../orientacion/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo'>Acción de Tutoría</a>";
+		$unidad=$tut[0];
+		echo "&nbsp;<a class='btn btn-primary' href='../orientacion/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad'>Acción de Tutoría</a>";
 	}
 	if (stristr($_SESSION['cargo'],'2') == TRUE) {
 		$tutor = $_SESSION['profi'];
-		$dat = mysql_query("select nivel, grupo from FALUMNOS where claveal='$clave_al'");
-		$dat_tutor = mysql_query("select nivel, grupo from FTUTORES where tutor='$tutor'");
+		$dat = mysql_query("select unidad from FALUMNOS where claveal='$clave_al'");
+		$dat_tutor = mysql_query("select unidad from FTUTORES where tutor='$tutor'");
 		$tut=mysql_fetch_row($dat);
 		$tut2=mysql_fetch_array($dat_tutor);
-		$nivel=$tut[0];
-		$grupo=$tut[1];
-		$nivel_tutor=$tut2[0];
-		$grupo_tutor=$tut2[1];
-		if ($nivel==$nivel_tutor and $grupo==$grupo_tutor) {
-			echo "&nbsp;<a class='btn btn-primary' href='../tutoria/tutor.php?seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo&tutor=$tutor'>Acción de Tutoría</a>";
+		$unidad=$tut[0];
+		$unidad_tutor=$tut2[0];
+		if ($unidad==$unidad_tutor) {
+			echo "&nbsp;<a class='btn btn-primary' href='../tutoria/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad&tutor=$tutor'>Acción de Tutoría</a>";
 		if ($s_control=='1') {
-			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&nivel=$nivel&grupo=$grupo&correo=$correo'  rel='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
+			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  rel='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
 		}
 		}
 	}

@@ -10,8 +10,8 @@ exit;
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 // VARIABLES DEL FORMULARIO
-$nivel = $_POST['nivel'];
-$grupo = $_POST['grupo'];
+$unidad = $_POST['unidad'];
+
 
 require('../../pdf/mc_table.php');
 
@@ -26,16 +26,15 @@ $pdf->AddFont('NewsGotT','B','NewsGotTb.php');
 
 // En el caso de haber seleccionado una unidad, se muestra el listado de alumnos de dicha unidad,
 // en otro caso mostramos el listado de faltas de todas las unidades.
-$query = "SELECT DISTINCT NIVEL, GRUPO FROM FALUMNOS";
-if ($nivel && $grupo) $query .= " WHERE NIVEL='$nivel' AND GRUPO='$grupo'";
-
-
+$query = "SELECT DISTINCT unidad FROM FALUMNOS where unidad not like '' ";
+if ($unidad) $query .= " and unidad='$unidad'";
+$query .= " order by unidad";
+// echo $query;
 $unidades = mysql_query($query);
 
 while ($unidad = mysql_fetch_array($unidades)) {
 	
-	$nivel = $unidad[0];
-	$grupo = $unidad[1];
+	$unidad = $unidad[0];
 
 	$pdf->AddPage('L','A4');
 	
@@ -50,13 +49,13 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$fin = date('d-m-Y', $fin);
 	
 	// Consultamos el tutor del grupo
-	$result = mysql_query("SELECT TUTOR FROM FTUTORES WHERE NIVEL='$nivel' AND GRUPO='$grupo'");
+	$result = mysql_query("SELECT TUTOR FROM FTUTORES WHERE unidad='$unidad'");
 	$tutor = mysql_fetch_array($result);
 	mysql_free_result($result);
 	
 	// Impresi�n de la cabecera
 	$pdf->SetFont('NewsGotT','B',10);
-	$pdf->Cell(96,5,"PARTE DE FALTAS DEL GRUPO $nivel-$grupo",0,0,'L');
+	$pdf->Cell(96,5,"PARTE DE FALTAS DEL GRUPO $unidad",0,0,'L');
 	$pdf->Cell(81,5,"SEMANA: _______________________",0,0,'C');
 	$pdf->Cell(96,5,"TUTOR/A: $tutor[0]",0,1,'R');
 	$pdf->Ln(1);
@@ -83,7 +82,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetFillColor(239,240,239);	// Color de sombreado
 	
 	// Consultamos los alumnos del grupo seleccionado
-	$result = mysql_query("SELECT nc, CONCAT(apellidos,', ',nombre) AS alumno FROM FALUMNOS WHERE grupo='$grupo' AND nivel='$nivel' ORDER BY nc ASC");
+	$result = mysql_query("SELECT nc, CONCAT(apellidos,', ',nombre) AS alumno FROM FALUMNOS WHERE unidad='$unidad' ORDER BY nc ASC");
 	
 	$i=0;
 	while ($alumno = mysql_fetch_array($result)) {
@@ -133,7 +132,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	foreach($horas as $hora => $nombre) {
 
 		for($i=1;$i<6;$i++) {
-			$result = mysql_query("SELECT DISTINCT a_asig, asig FROM horw WHERE a_grupo='$nivel-$grupo' AND dia='$i' AND hora='$hora'");
+			$result = mysql_query("SELECT DISTINCT a_asig, asig FROM horw WHERE a_grupo='$unidad' AND dia='$i' AND hora='$hora'");
 			
 			unset($asignaturas);
 			while ($asignatura = mysql_fetch_array($result)) {

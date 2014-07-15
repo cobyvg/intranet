@@ -63,18 +63,11 @@ function cleanForm() {
 </script>
 <?
 
-if (isset($_POST['nivel'])) {
-	$nivel = $_POST['nivel'];
+if (isset($_POST['unidad'])) {
+	$unidad = $_POST['unidad'];
 } 
-elseif (isset($_GET['nivel'])) {
-	$nivel = $_GET['nivel'];
-} 
-
-if (isset($_POST['grupo'])) {
-	$grupo = $_POST['grupo'];
-}
-elseif (isset($_GET['grupo'])) {
-	$grupo = $_GET['grupo'];
+elseif (isset($_GET['unidad'])) {
+	$unidad = $_GET['unidad'];
 } 
 
 if (isset($_GET['tutor'])) {
@@ -94,7 +87,6 @@ if (isset($_POST['observaciones1'])) {
 if (isset($_POST['observaciones2'])) {
 	$observaciones2 = $_POST['observaciones2'];
 }
-$grupo = strtoupper($grupo);
 if ($_POST['imp_memoria'] == "Enviar datos") {
 	include("../../menu.php");
 }
@@ -102,7 +94,7 @@ if ($_POST['imp_memoria'] == "Enviar datos") {
 <br />
 <div style="width:960px;margin:auto;padding:25px; border:1px solid #ddd">
 <h3 align="center">
- Tutoría del grupo: <? echo "$nivel-$grupo";?> <br /><small>Tutor: <? echo $tutor; ?></small></h2>
+ Tutoría del grupo: <? echo "$unidad-";?> <br /><small>Tutor: <? echo $tutor; ?></small></h2>
  <br />
 
  <?
@@ -126,7 +118,7 @@ if ($col_obs=="observaciones1") { }else{
 
  $obs1=mysql_query("select observaciones1, observaciones2 from FTUTORES where tutor = '$tutor'");
  $obs2=mysql_fetch_array($obs1);
- if (empty($obs2[0]) and empty($obs[1]) and date('m')=='06') {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.open('memoria.php?nivel=$nivel&tutor=$tutor&grupo=$grupo&imprimir=1#observaciones',null,'')\"";}
+ if (empty($obs2[0]) and empty($obs[1]) and date('m')=='06') {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.open('memoria.php?unidad=$unidad&tutor=$tutor&imprimir=1#observaciones',null,'')\"";}
  	else{
 		$boton = "Imprimir Memoria final de Tutoría";$click="onClick=print()";}
  ?>
@@ -139,12 +131,17 @@ if ($col_obs=="observaciones1") { }else{
  <h3>Datos Generales de los Alumnos</h3><br />
 
  <? 
+ // Curso
+ $SQL0 = "select distinct curso from alma where unidad = '$unidad'";
+ $result0 = mysql_query($SQL0);
+ $max00 = mysql_fetch_row($result0);
+ $curso_seneca = $max00[0];
 // Alumnos que se integran a lo largo del Curso
- $SQL = "select max(NC) from FALUMNOS_primero where nivel = '$nivel' and grupo = '$grupo'";
+ $SQL = "select max(NC) from FALUMNOS_primero where unidad = '$unidad'";
  $result = mysql_query($SQL);
  $max0 = mysql_fetch_row($result);
  $num_0 =  $max0[0];
- $SQL1 = "select max(NC) from FALUMNOS where nivel = '$nivel' and grupo = '$grupo'";
+ $SQL1 = "select max(NC) from FALUMNOS where unidad = '$unidad'";
  $result1 = mysql_query($SQL1);
  $max1 = mysql_fetch_row($result1);
  $num_1 =  $max1[0];
@@ -152,22 +149,22 @@ if ($col_obs=="observaciones1") { }else{
  $nuevos = str_replace("-","",$nuevos);
  
 // Alumnos repetidores
- $SQL = "select * from alma where nivel = '$nivel' and grupo = '$grupo' and matriculas > '1'";
+ $SQL = "select * from alma where unidad = '$unidad' and matriculas > '1'";
  $result = mysql_query($SQL);
  $num_repetidores = mysql_num_rows($result);
 
 // Alumnos a comienzo de Curso
- $SQL = "select * from FALUMNOS_primero where nivel = '$nivel' and grupo = '$grupo'";
+ $SQL = "select * from FALUMNOS_primero where unidad = '$unidad'";
  $result = mysql_query($SQL);
  $num_empiezan = mysql_num_rows($result);
  
  // Alumnos a final de Curso
- $SQL = "select * from alma where nivel = '$nivel' and grupo = '$grupo'";
+ $SQL = "select * from alma where unidad = '$unidad'";
  $result = mysql_query($SQL);
  $num_acaban = mysql_num_rows($result);
 
  // Alumnos que promocionan en Junio
- $SQL1 = "select notas3, apellidos, nombre from notas, alma where notas.claveal = alma.claveal1  and nivel = '$nivel' and grupo = '$grupo'";
+ $SQL1 = "select notas3, apellidos, nombre from notas, alma where notas.claveal = alma.claveal1  and unidad = '$unidad'";
  $result1 = mysql_query($SQL1);
  
 /* while ($num_promo0 = mysql_fetch_array($result1)) 
@@ -178,21 +175,21 @@ if ($col_obs=="observaciones1") { }else{
  	{
 	$trozos1 = explode(":",$val);	
  		{			
- 		if ($nivel == "2B") 
+ 		if ($unidad == "2B") 
  			{
  			if (($trozos1[1] > "416" and $trozos1[1] < "427") or ($trozos1[1] == "439") or ($trozos1[1] > "32" and $trozos1[1] < "37") or ($trozos1[1] == "42" or $trozos1[1] == "43")) 
 				{
 		$n_susp = $n_susp + 1;
 				}		
  			}		
- 		elseif ($nivel == "1B") 
+ 		elseif ($unidad == "1B") 
  			{
  			if (($trozos1[1] > "416" and $trozos1[1] < "427") or $trozos1[1] == "439") 
 				{
 		$n_susp = $n_susp + 1;	
 				}	
  			} 			
- 		elseif(substr($nivel,1,1) == "E")
+ 		elseif(substr($unidad,1,1) == "E")
  			{
  		if (($trozos1[1] > "336" and $trozos1[1] < "347")) 
 				{
@@ -201,12 +198,12 @@ if ($col_obs=="observaciones1") { }else{
 			}			 		
 		}		
  	}
- if ($n_susp > "0" and ($nivel == "2B" or $nivel == "4E")) 
+ if ($n_susp > "0" and ($unidad == "2B" or $unidad == "4E")) 
  	{		
 // 		$valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";	
  		$n_al = $n_al + 1;
  	}
- 	elseif($n_susp > "2" and !($nivel == "2B")  and !($nivel == "4E")) 
+ 	elseif($n_susp > "2" and !($unidad == "2B")  and !($unidad == "4E")) 
  	{		
 // 		$valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";	
  		$n_al = $n_al + 1;
@@ -221,21 +218,14 @@ if ($col_obs=="observaciones1") { }else{
         {                                                                                                                                                                                                    
         $trozos1 = explode(":",$val);                                                                                                                                                                        
                 {                                                                                                                                                                                            
-                if ($nivel == "2B")                                                                                                                                                                          
+                if (stristr($curso_seneca."Bach")==TRUE)                                                                                                                                                                          
                         {                                                                                                                                                                                    
                         if (($trozos1[1] > "416" and $trozos1[1] < "427") or ($trozos1[1] == "439"))          
                                 {                                                                                                                                                                            
                 $n_susp = $n_susp + 1;                                                                                                                                                                       
                                 }                                                                                                                                                                            
-                        }                                                                                                                                                                                    
-                elseif ($nivel == "1B")                                                                                                                                                                      
-                        {                                                                                                                                                                                    
-                        if (($trozos1[1] > "416" and $trozos1[1] < "427") or $trozos1[1] == "439")                                                                                                           
-                                {                                                                                                                                                                            
-                $n_susp = $n_susp + 1;                                                                                                                                                                       
-                                }                                                                                                                                                                            
-                        }                                                                                                                                                                                    
-                elseif(substr($nivel,1,1) == "E")                                                                                                                                                            
+                        }                                                                                                                                                                                                                                                                                                                                                                       
+                else                                                                                                                                                            
                         {                                                                                                                                                                                    
                 if (($trozos1[1] > "336" and $trozos1[1] < "347" and $trozos1[1] !== "339" and $trozos1[1] !== ""))                                                                                          
                                 {                                                                                                                                                                            
@@ -244,12 +234,12 @@ if ($col_obs=="observaciones1") { }else{
                         }                                                                                                                                                                                    
                 }                                                                                                                                                                                            
         }                                                                                                                                                                                                    
- if ($n_susp > "0" and ($nivel == "2B" or $nivel == "4E"))                                                                                                                                                                       
+ if ($n_susp > "0" and (((stristr($curso_seneca."2")==TRUE) and (stristr($curso_seneca."Bach")==TRUE))  or (stristr($curso_seneca."4")==TRUE)))                                                                                                                                                                       
         {                                                                                                                                                                                                    
 //              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";                                                                                                            
                 $n_al = $n_al + 1;                                                                                                                                                                           
         }                                                                                                                                                                                                    
-        elseif($n_susp > "2" and !($nivel == "2B") and !($nivel == "4E"))                                                                                                                                                          
+        elseif($n_susp > "2" and !(((stristr($curso_seneca."2")==TRUE) and (stristr($curso_seneca."Bach")==TRUE))  or (stristr($curso_seneca."4")==TRUE)))                                                                                                                                                          
         {                                                                                                                                                                                                    
 //              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";                                                                                                            
                 $n_al = $n_al + 1;                                                                                                                                                                           
@@ -277,57 +267,58 @@ if ($col_obs=="observaciones1") { }else{
 </table>
 <?
 // Tabla de Absentismo.
- $faltas = "select distinct claveal from absentismo where nivel = '$nivel' and grupo = '$grupo' order by claveal";
+ $faltas = "select distinct claveal from absentismo where unidad = '$unidad' order by claveal";
  $faltas0 = mysql_query($faltas);
  $num_faltas = mysql_num_rows($faltas0);
   ?>
  <? 
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_conv = mysql_num_rows($result);
  ?>
   <?    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and grave = 'leve' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and grave = 'leve' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_leves = mysql_num_rows($result);
  ?>
   <?    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and grave = 'grave' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and grave = 'grave' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_graves = mysql_num_rows($result);
  ?>
    <?    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and grave = 'muy grave' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and grave = 'muy grave' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_muygraves = mysql_num_rows($result);
  ?>
   <?    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and expulsion > '0' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsion > '0' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_expulsion = mysql_num_rows($result);
  ?>
   <?    
- $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and expulsion > '0' order by Fechoria.claveal";
+ $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsion > '0' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_expulsados = mysql_num_rows($result);
  ?>
    <?    
- $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and expulsionaula = '1' order by Fechoria.claveal";
+ $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsionaula = '1' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_expulsadosaula = mysql_num_rows($result);
  ?>
    <?    
- $SQL = "select distinct id from infotut_alumno where nivel = '$nivel' and grupo = '$grupo' order by claveal";
+ $SQL = "select distinct id from infotut_alumno where unidad = '$unidad' order by claveal";
  $result = mysql_query($SQL);
  $num_informes = mysql_num_rows($result);
  ?>
    <?    
- $SQL = "select id from tutoria where nivel = '$nivel' and grupo = '$grupo' and prohibido not like '1' order by id";
+ $SQL = "select id from tutoria where unidad = '$unidad' and prohibido not like '1' order by id";
  $result = mysql_query($SQL);
  $num_acciones = mysql_num_rows($result);
  ?>
-   <?    
- $SQL = "select * from actividades where grupos like '%$nivel$grupo%' order by id";
+   <?  
+ $grupo_act = str_replace("-","",$unidad);  
+ $SQL = "select * from actividades where grupos like '%$grupo_act%' order by id";
  $result = mysql_query($SQL);
  $num_actividades = mysql_num_rows($result);
  ?>
@@ -376,7 +367,7 @@ if ($col_obs=="observaciones1") { }else{
  <hr><br /><legend>Alumnos absentistas</legend>
 
 <?
-$faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, FALUMNOS where absentismo.claveal = FALUMNOS.claveal and absentismo.nivel = '$nivel' and absentismo.grupo = '$grupo' group by apellidos, nombre";
+$faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, FALUMNOS where absentismo.claveal = FALUMNOS.claveal and absentismo.unidad = '$unidad'  group by apellidos, nombre";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -398,7 +389,7 @@ $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from 
 <?php
  echo "<table class='table table-striped' style='width:auto;'>";
 		
-$SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, FALUMNOS  where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.nivel = '$nivel' and FALTAS.grupo = '$grupo' and date(fecha) > '$inicio_curso' group BY apellidos, nombre";
+$SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, FALUMNOS  where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '$unidad' and date(fecha) > '$inicio_curso' group BY apellidos, nombre";
 $result = mysql_query($SQL);
 
   if ($row = mysql_fetch_array($result))
@@ -418,7 +409,7 @@ $result = mysql_query($SQL);
   <hr><br /><legend>Problemas de Convivencia</legend>
 
 <?
-$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and date(fecha) > '$inicio_curso' group by NC";
+$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and date(fecha) > '$inicio_curso' group by NC";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -439,7 +430,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 <?
   
  
- $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and expulsion > '0' and date(fecha) > '$inicio_curso' group by NC";
+ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsion > '0' and date(fecha) > '$inicio_curso' group by NC";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -456,7 +447,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  </div> <div class="span4"><hr><br /><legend>Alumnos expulsados del aula</legend>
 
  <?
-$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and nivel = '$nivel' and grupo = '$grupo' and expulsionaula = '1' and date(fecha) > '$inicio_curso' group by NC";
+$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsionaula = '1' and date(fecha) > '$inicio_curso' group by NC";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -476,7 +467,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  <hr><br /><legend>Informes de Tutoría por visita de padres</legend>
 
 <?
- $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where nivel = '$nivel' and grupo = '$grupo' and date(F_ENTREV) > '$inicio_curso' group by apellidos";
+ $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where unidad = '$unidad' and date(F_ENTREV) > '$inicio_curso' group by apellidos";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -495,7 +486,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 <hr><br /><legend>Intervenciones del Tutor</legend>
 
 <?
- $faltas = "select distinct apellidos, nombre, count(*) from tutoria where nivel = '$nivel' and grupo = '$grupo' and prohibido not like '1' and date(fecha) > '$inicio_curso' group by apellidos";
+ $faltas = "select distinct apellidos, nombre, count(*) from tutoria where unidad = '$unidad' and prohibido not like '1' and date(fecha) > '$inicio_curso' group by apellidos";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -509,7 +500,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
  
- $faltas = "select distinct apellidos, nombre, causa, accion, observaciones from tutoria where nivel = '$nivel' and grupo = '$grupo' and prohibido not like '1' and accion not like '%SMS%'  and date(fecha) > '$inicio_curso' order by apellidos";
+ $faltas = "select distinct apellidos, nombre, causa, accion, observaciones from tutoria where unidad = '$unidad' and prohibido not like '1' and accion not like '%SMS%'  and date(fecha) > '$inicio_curso' order by apellidos";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -527,8 +518,8 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  }
  echo '</table>';
  }
- 
-  $n_activ = mysql_query("select * from actividades where  grupos like '%$nivel$grupo-%' and date(fecha) > '$inicio_curso'");
+  $grupo_act2 = str_replace("-","",$unidad);  
+  $n_activ = mysql_query("select * from actividades where  grupos like '%$grupo_act2-%' and date(fecha) > '$inicio_curso'");
   if(mysql_num_rows($n_activ) > "0"){
  ?>
   </div>
@@ -559,8 +550,7 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
  <textarea name="observaciones2" style="width:100%"><? echo $obs2[1];?></textarea>
  <br />
 <input type="hidden" name="tutor" value="<? echo $tutor;?>">
-<input type="hidden" name="nivel" value="<? echo $nivel;?>">
-<input type="hidden" name="grupo" value="<? echo $grupo;?>">
+<input type="hidden" name="unidad" value="<? echo $unidad;?>">
 <br />
 <input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-danger btn-block no_imprimir">
 </form>

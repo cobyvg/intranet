@@ -56,14 +56,12 @@ mysql_query ( "truncate table cargos " );
 			continue;
 		} elseif (strlen ( $cargo_profe ) > "1") {
 			$dni = substr ( $dni, 0, -2 );
-			$trozos = explode ( "-", $cargo_profe );
 			$n_profe = mysql_query ( "select nombre from departamentos where dni='$dni'" );
 			$n_prof = mysql_fetch_array ( $n_profe );
-			$nivel = $trozos [0];
-			$grupo = $trozos [1];
+			$unidad = $cargo_profe;
 			$n_tutor = mb_strtoupper ( $n_prof [0], 'iso-8859-1' );
 			
-			mysql_query ( "insert INTO `FTUTORES` ( `nivel` , `grupo`, `tutor` ) VALUES ('$nivel', '$grupo', '$n_tutor')" );
+			mysql_query ( "insert INTO `FTUTORES` ( `unidad` , `tutor` ) VALUES ('$unidad', '$n_tutor')" );
 		
 		} elseif (strlen ( $cargo_profe ) < "2") {
 			mysql_query ( "update departamentos set cargo = ''" );
@@ -151,9 +149,9 @@ while ( $carg1 = mysql_fetch_array ( $carg0 ) ) {
 	echo $dni;
 	?>2t" style="vertical-align: top;">
   <?
-	$curso_tut = mysql_query ( "select nivel, grupo from FTUTORES, departamentos where tutor=nombre and dni='$dni'" );
+	$curso_tut = mysql_query ( "select unidad from FTUTORES, departamentos where tutor=nombre and dni='$dni'" );
 	$curso_tut0 = mysql_fetch_array ( $curso_tut );
-	$unidad = $curso_tut0 [0] . "-" . $curso_tut0 [1];
+	$unidad = $curso_tut0 [0];
 	?>
   <option><?
   if (strlen($unidad) > '1') {
@@ -162,7 +160,7 @@ while ( $carg1 = mysql_fetch_array ( $carg0 ) ) {
 	?></option>
 <?
 	echo "<option></option>";
-	$tipo = "select distinct unidad from alma order by nivel, grupo";
+	$tipo = "select distinct unidad from alma order by unidad";
 	$tipo1 = mysql_query ( $tipo );
 	while ( $tipo2 = mysql_fetch_array ( $tipo1 ) ) {
 		echo "<option>" . $tipo2 [0] . "</option>";

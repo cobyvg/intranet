@@ -15,10 +15,10 @@ El Alumno no tiene Problemas de Convivencia</div></div>';
 }
 else {
 
-  $result = mysql_query ("select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, Fechoria.fecha, 
+  $result = mysql_query ("select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, 
   Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal
-   and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '2005-09-01' order by Fechoria.fecha DESC, FALUMNOS.nivel, 
-   FALUMNOS.grupo, FALUMNOS.apellidos");
+   and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '2005-09-01' order by Fechoria.fecha DESC, FALUMNOS.unidad, 
+   FALUMNOS.apellidos");
  // print "$AUXSQL";
   if ($row = mysql_fetch_array($result))
 
@@ -37,10 +37,10 @@ else {
 		// $numero1 = "select claveal from Fechoria where claveal = '$claveal' and Fechoria.fecha >= '2005-09-01' "; 
 		// print $numero1;
 		$rownumero= mysql_num_rows($numero);
-		$rowcurso = $row[2]."-".$row[3];
+		$rowcurso = $row[2];
         $rowalumno = $row[0].",&nbsp;".$row[1];
 		printf ("<tr><td nowrap>%s</td><td>%s</td><td>%s</td>
-		<td width='250'>%s</td></tr>",  $row[4], $row[9], $row[6], $row[7]);
+		<td width='250'>%s</td></tr>",  $row[3], $row[8], $row[5], $row[6]);
         } while($row = mysql_fetch_array($result));
         echo "</table></center>\n";
         }

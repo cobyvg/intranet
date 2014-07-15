@@ -98,7 +98,7 @@ foreach ($titulos as $key=>$val){
   `claveal` varchar(12) NOT NULL,
   `suspensos` tinyint(4) NOT NULL,
   `pil` tinyint(4) NOT NULL,
-  `grupo` varchar( 6 ) NOT NULL,
+  `grupo` varchar( 64 ) NOT NULL,
   `nivel` varchar( 64 ) NOT NULL,
   KEY `claveal` (`claveal`)
 )";
@@ -126,11 +126,17 @@ foreach ($titulos as $key=>$val){
 // Evaluaciones ESO
 $nivele = mysql_query("select * from cursos");
 while ($orden_nivel = mysql_fetch_array($nivele)){
-$niv = mysql_query("select distinct curso, nivel from alma where curso = '$orden_nivel[1]'");
+$niv = mysql_query("select distinct curso, nivel, idcurso from alma, cursos where curso=nomcurso and curso = '$orden_nivel[1]'");
 while ($ni = mysql_fetch_array($niv)) {
+	$idn = $ini[2];
+	if ($idn=="101140") { $nivel="1E"; }
+	elseif ($idn=="101141") { $nivel="2E"; }
+	elseif ($idn=="101142") { $nivel="3E"; }
+	elseif ($idn=="6029" or $idn=="2063") { $nivel="1B"; }
+	else{ $nivel = $ni[1]; }
 	$n_grupo+=1;
 	$curso = $ni[0];
-	$nivel = $ni[1];
+	
 	$rep = ""; 
 	$promo = "";
 $notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso'";

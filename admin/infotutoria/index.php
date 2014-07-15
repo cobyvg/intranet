@@ -26,12 +26,10 @@ return false;
   <?php
  include("../../menu.php");
  include("menu.php"); 
-  $tut = mysql_query("select nivel, grupo from FTUTORES where tutor = '$pr'");
-  //echo "select nivel, grupo from FTUTORES where tutor = '$pr'";
+  $tut = mysql_query("select unidad from FTUTORES where tutor = '$pr'");
   $borrar = mysql_num_rows($tut);
   $tuto = mysql_fetch_array($tut);
-  $nivel = $tuto[0];
-  $grupo = $tuto[1];
+  $unidad = $tuto[0];
 ?>
  <div align="center"> 
 <div class="page-header" align="center">
@@ -46,10 +44,7 @@ return false;
 $resultcurso = mysql_query($SQLcurso);
 	while($rowcurso = mysql_fetch_array($resultcurso))
 	{
-	$curso = $rowcurso[0];
-	$trozos = explode("-",$curso);
-	$nivel = $trozos[0];
-	$grupo = $trozos[1];
+	$grupo = $rowcurso[0];
 	$asignatura = trim($rowcurso[1]);
 	
 
@@ -62,10 +57,10 @@ $resultcurso = mysql_query($SQLcurso);
 	$n_asig = $asigna2[1];
 	$hoy = date('Y-m-d');
 // Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en su el campo combasi	
-	$query = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, FECHA_REGISTRO FROM infotut_alumno, alma WHERE alma.claveal = infotut_alumno.claveal and date(F_ENTREV)>='$hoy' and alma.NIVEL = '$nivel' and alma.GRUPO = '$grupo' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
+	$query = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, FECHA_REGISTRO FROM infotut_alumno, alma WHERE alma.claveal = infotut_alumno.claveal and date(F_ENTREV)>='$hoy' and alma.unidad = '$grupo' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
 	//echo $query."<br>";
 	$result = mysql_query($query);
-	$result0 = mysql_query ( "select tutor from FTUTORES where nivel = '$nivel' and grupo = '$grupo'" );
+	$result0 = mysql_query ( "select tutor from FTUTORES where unidad = '$grupo'" );
 	$row0 = mysql_fetch_array ( $result0 );	
 	$tuti = $row0[0];	
 	//echo $tuti." == ",$_SESSION['profi'];

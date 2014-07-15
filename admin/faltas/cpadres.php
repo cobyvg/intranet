@@ -19,7 +19,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
   <?php
 include("../../menu.php");
 include("../../faltas/menu.php");
-if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
+if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 if (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];}elseif (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];}else{$grupo="";}
 if (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
 if (isset($_GET['fecha12'])) {$fecha12 = $_GET['fecha12'];}elseif (isset($_POST['fecha12'])) {$fecha12 = $_POST['fecha12'];}else{$fecha12="";}
@@ -37,27 +37,19 @@ if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['nu
   <div class="span3"></div>
   <div class="span3">
    <div class="well well-large">        
-        <h6>Selecciona Nivel o Grupo</h6><br />
-          <label> Nivel <select  name="nivel" class="input-mini" onChange="submit()">
-            <option><? echo $nivel;?></option>
+        <h6>Selecciona unidad o Grupo</h6><br />
+          <label> Grupo: <select  name="unidad" class="input" onChange="submit()">
+            <option><? echo $unidad;?></option>
             <?
-nivel();
+unidad();
 ?>
-          </select>
-          &nbsp;&nbsp;Grupo 
-          <select name="grupo" onChange="submit()"  class="input-mini" >
-            <option><? echo $grupo;?></option>
-            <?
-grupo($nivel);
-?>
-            </select>
             </label>
 <hr>
             <h6>
         Selecciona los Alumnos...</h6><br />
           <select name="nombre[]" multiple style="height:560px;">
             <? 
-$alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE NIVEL like '$nivel%' AND GRUPO like '$grupo%' order by APELLIDOS asc");
+$alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad like '$unidad%'  order by APELLIDOS asc");
   while($falumno = mysql_fetch_array($alumno))
         {
 	      echo "<OPTION>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>";

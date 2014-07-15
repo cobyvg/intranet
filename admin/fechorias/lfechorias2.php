@@ -31,7 +31,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
    $nom0 = mysql_fetch_array($nom);
   mysql_query("drop table FechCaduca");
   mysql_query("create table FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
-  $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.id from Fechoria, FALUMNOS, FechCaduca where FechCaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal and Fechoria.claveal = '$clave' order by Fechoria.fecha DESC, FALUMNOS.nivel, FALUMNOS.grupo, FALUMNOS.apellidos";
+  $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.id from Fechoria, FALUMNOS, FechCaduca where FechCaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal and Fechoria.claveal = '$clave' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos";
   $result = mysql_query ($query0);
   echo "<div class='container-fluid'>";
   echo '<div class="row-fluid">
@@ -65,8 +65,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
         {
 		$apellidos = $row[0];
 		$nombre = $row[1];
-		$nivel = $row[2];
-		$grupo = $row[3];
+		$unidad = $row[2];
 		$fecha = $row[4];
 		$asunto = $row[5];
 		$informa = $row[6];
@@ -88,7 +87,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		$numero = mysql_query ("select Fechoria.claveal from Fechoria where Fechoria.claveal 
 		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' order by Fechoria.fecha"); 
 		$rownumero= mysql_num_rows($numero);
-		$rowcurso = $nivel."-".$grupo;
+		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
 				$bgcolor="style='background-color:white;'";
 				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="style='background-color:#CCFFCC;'";}

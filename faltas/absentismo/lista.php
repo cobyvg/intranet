@@ -45,15 +45,13 @@ $trozos=explode(";",$key);
 $n_mes=$trozos[0];
 $n_faltas=$trozos[1];
 $curso=$trozos[2];
-$trozos2=explode("-",$curso);
-$nivel=$trozos2[0];
-$grupo=$trozos2[1];
+
  $insert0=mysql_query("select claveal, mes from absentismo where claveal='$claveal' and mes='$n_mes'");
  
  	if (mysql_num_rows($insert0)>0) {}
  	else {
  		if (is_numeric($claveal)) {
-  	 	$abs = mysql_query("insert into absentismo (  claveal ,  mes ,  numero ,  nivel ,  grupo )  VALUES (  '$claveal', '$n_mes', '$n_faltas', '$nivel', '$grupo' )");	
+  	 	$abs = mysql_query("insert into absentismo (  claveal ,  mes ,  numero ,  unidad )  VALUES (  '$claveal', '$n_mes', '$n_faltas', '$curso' )");	
 		
  		}
  	}
@@ -86,17 +84,17 @@ else
         <th align='center'>Nº faltas</th><th align='center'>Nº días</th></tr>";
 
 // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
-  $SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero, FALTAS.nivel, FALTAS.grupo FROM FALTAS, FALUMNOS where FALTAS.CLAVEAL=FALUMNOS.claveal and  falta = 'F' and month(FALTAS.fecha)= '$n_mes'   group by apellidos, nombre";
+  $SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero, FALTAS.unidad FROM FALTAS, FALUMNOS where FALTAS.CLAVEAL=FALUMNOS.claveal and  falta = 'F' and month(FALTAS.fecha)= '$n_mes'   group by apellidos, nombre";
   $resultTEMP= mysql_query($SQLTEMP);
   mysql_query("ALTER TABLE faltastemp2 ADD INDEX (CLAVEAL)");
-  $SQL0 = "SELECT CLAVEAL  FROM  faltastemp2 WHERE numero > '$numero' order by nivel, grupo";
+  $SQL0 = "SELECT CLAVEAL  FROM  faltastemp2 WHERE numero > '$numero' order by unidad";
   //print $SQL0;
   $result0 = mysql_query($SQL0);
  while  ($row0 = mysql_fetch_array($result0)){
  	//reset($claveal);
 $claveal = $row0[0];
 // No justificadas
-  $SQLF = "select faltastemp2.claveal, alma.apellidos, alma.nombre, alma.nivel, alma.grupo,
+  $SQLF = "select faltastemp2.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.matriculas,
   FALTAS.falta,  faltastemp2.numero, alma.DOMICILIO, alma.CODPOSTAL, alma.LOCALIDAD  
   from faltastemp2, FALTAS, alma where alma.claveal = FALTAS.claveal  
   and faltastemp2.claveal = FALTAS.claveal and FALTAS.claveal like '$claveal' 
@@ -118,8 +116,8 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
         $foto="";
 		$foto = "<img src='../../xml/fotos/$rowF[0].jpg' width='55' height='64'  />";
 		echo $foto."&nbsp;&nbsp;&nbsp;";	
-	echo "<input name='$rowF[0]' type='checkbox' value='$n_mes;$rowF[6];$rowF[3]-$rowF[4]' $sel /></td>";
-	echo "<td  align='left'>$rowF[2] $rowF[1]</td><td>$rowF[3]-$rowF[4]</td>
+	echo "<input name='$rowF[0]' type='checkbox' value='$n_mes;$rowF[6];$rowF[3]' $sel /></td>";
+	echo "<td  align='left'>$rowF[2] $rowF[1]</td><td>$rowF[3]</td>
 	<td>$rowF[6]</td>";
   $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL like '$claveal' and month(FALTAS.fecha) = '$n_mes'";
   $result2 = mysql_query($SQL2);

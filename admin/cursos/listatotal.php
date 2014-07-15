@@ -16,15 +16,13 @@ $pdf =& new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 # hasta aquí lo del pdf
-	$nivel="";
-  	$grupo="";
+	$unidad="";
   // Cursos en total
-$cursos = mysql_query ("select distinct nivel, grupo from FALUMNOS order by nivel, grupo");
+$cursos = mysql_query ("select distinct unidad from FALUMNOS order by unidad");
 while ($rowcursos = mysql_fetch_row($cursos))
 {
-$nivel = $rowcursos[0];
-$grupo = $rowcursos[1];	
-if (empty($nivel) and empty($grupo)) {
+$unidad = $rowcursos[0];
+if (empty($unidad)) {
 	
 }
 else
@@ -38,7 +36,7 @@ $options_right = array(
 $options_left = array(
 				'justification' => 'left'
 					);
-$sqldatos="SELECT concat(apellidos,', ',nombre), nc FROM FALUMNOS WHERE nivel='".$nivel."' and grupo='".$grupo."' ORDER BY apellidos,nombre";
+$sqldatos="SELECT concat(apellidos,', ',nombre), nc FROM FALUMNOS WHERE unidad='".$unidad."' ORDER BY nc";
 $lista= mysql_query($sqldatos );
 $num=0;
 unset($data);
@@ -71,7 +69,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $nivel-$grupo\n";
+$txttit = "Lista del Grupo $unidad\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);

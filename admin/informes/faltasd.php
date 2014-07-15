@@ -1,6 +1,6 @@
 <?php     
-     $SQLT = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALTAS.falta = 'F' and FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";
-     $SQLTJ = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal
+     $SQLT = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALTAS.falta = 'F' and FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";
+     $SQLTJ = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal
      and FALTAS.falta = 'J' and  FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";
  
      $resultt = mysql_query($SQLT);
@@ -13,13 +13,13 @@
 
   // Datos del Alumno
  // print $claveal;
-  $SQL0 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.claveal = $claveal  and FALTAS.fecha >= '2005-09-15' GROUP BY FALUMNOS.apellidos";
+  $SQL0 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.claveal = $claveal  and FALTAS.fecha >= '2005-09-15' GROUP BY FALUMNOS.apellidos";
    
   $result0 = mysql_query($SQL0);
   $row0 = mysql_fetch_array($result0);
   $numF = mysql_num_rows($result0);
   // Justificadas
-  $SQLJ = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal 
+  $SQLJ = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal 
   and FALUMNOS.claveal = $claveal  and FALTAS.fecha >= '2005-09-15'
   and FALTAS.falta = 'J' GROUP BY FALUMNOS.apellidos";
 
@@ -27,7 +27,7 @@
   $rowJ = mysql_fetch_array($resultJ);
   $numJ = mysql_num_rows($resultJ);
   // Sin justificar
-  $SQLF = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal 
+  $SQLF = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal 
   and FALUMNOS.claveal = $claveal  and FALTAS.fecha >= '2005-09-15'
   and FALTAS.falta = 'F' GROUP BY FALUMNOS.apellidos";
 
@@ -38,7 +38,7 @@
         {
 echo "<br /><h4>Informe completo de horas y asignaturas</h4>";
 
-  $SQL = "SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.NIVEL, alma.GRUPO,
+  $SQL = "SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.unidad,
   FALTAS.FECHA, FALTAS.HORA, asignaturas.abrev, FALTAS.falta FROM alma, FALTAS, asignaturas where  alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.codasi = asignaturas.codigo  and alma.claveal = $claveal  and FALTAS.fecha >= '2005-09-15' and asignaturas.abrev not like '%\_%' order BY FALTAS.FECHA, FALTAS.HORA";
  //print $SQL;
    $result = mysql_query($SQL);
@@ -50,17 +50,17 @@ echo "<BR><p>";
         $horas = "";
                 do
                    {
-	$fechasp=explode("-",$rowsql[5]);
+	$fechasp=explode("-",$rowsql[4]);
 	$fechasp1=$fechasp[2]."-".$fechasp[1]."-".$fechasp[0];
                 if ($fechasp1 == $f)
                         {
-                         $horas .= $rowsql[6] . "&nbsp;" . $rowsql[7] . " (" . $rowsql[8] . ") - ";
+                         $horas .= $rowsql[5] . "&nbsp;" . $rowsql[6] . " (" . $rowsql[7] . ") - ";
                         }
                 else
                         {
                         if ($horas <> "")
                         printf ("" . $horas . "<br>");
-                        $horas = "<b>" . $fechasp1 . "</b>:&nbsp;&nbsp;&nbsp;" ." " . $rowsql[6] .  "&nbsp;" . "" . $rowsql[7] . " </span> " . "(" . " " . $rowsql[8] . "" . ") - ";
+                        $horas = "<b>" . $fechasp1 . "</b>:&nbsp;&nbsp;&nbsp;" ." " . $rowsql[5] .  "&nbsp;" . "" . $rowsql[6] . " </span> " . "(" . " " . $rowsql[7] . "" . ") - ";
                         $f = $fechasp1;
                         }
                         }

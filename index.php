@@ -62,11 +62,10 @@ $_SESSION ['ide'] = $cargo1 [2];
 $idea = $_SESSION ['ide'];
 }
 if (stristr ( $carg, '2' ) == TRUE) {
-	$result = mysql_query ( "select distinct nivel, grupo from FTUTORES where tutor = '$pr'" );
+	$result = mysql_query ( "select distinct unidad from FTUTORES where tutor = '$pr'" );
 	$row = mysql_fetch_array ( $result );
 	$_SESSION ['tut'] = $pr;
-	$_SESSION ['s_nivel'] = $row [0];
-	$_SESSION ['s_grupo'] = $row [1];
+	$_SESSION ['s_unidad'] = $row [0];
 }
 ?>
 <? include("menu.php");?>

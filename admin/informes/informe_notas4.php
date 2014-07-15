@@ -120,14 +120,13 @@ else {
 // Evaluaciones ESO
 $nivele = mysql_query("select * from cursos");
 while ($orden_nivel = mysql_fetch_array($nivele)){
-$niv = mysql_query("select distinct curso, nivel from alma where curso = '$orden_nivel[1]'");
+$niv = mysql_query("select distinct curso from alma where curso = '$orden_nivel[1]'");
 while ($ni = mysql_fetch_array($niv)) {
 	$n_grupo+=1;
 	$curso = $ni[0];
-	$nivel = $ni[1];
 	$rep = ""; 
 	$promo = "";
-$notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso'";
+$notas1 = "select notas". $key .", claveal1, matriculas, unidad, curso from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso'";
 //echo $notas1."<br>";
 
 $result1 = mysql_query($notas1);

@@ -21,8 +21,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 
-if(isset($_POST['nivel'])){$nivel = $_POST['nivel'];}else{ $nivel=""; }
-if(isset($_POST['grupo'])){$grupo = $_POST['grupo'];}else{ $grupo=""; }
+if(isset($_POST['unidad'])){$unidad = $_POST['unidad'];}else{ $unidad=""; }
 if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
 if(isset($_POST['APELLIDOS'])){$APELLIDOS = $_POST['APELLIDOS'];}else{ $APELLIDOS=""; }
 if(isset($_POST['NOMBRE'])){$NOMBRE = $_POST['NOMBRE'];}else{ $NOMBRE=""; }
@@ -44,22 +43,15 @@ if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
 <div class="span6">
   <FORM action="cfechorias.php" method="POST" name="Fechorias" class="">
    <div class="row-fluid">
-    <div class="span6">
-    <label>Nivel:      
-    <SELECT name="nivel" id="NIVEL"  onChange="submit()" class="span6" style="display:inline">
-        <OPTION><? echo $nivel;?></OPTION>
-        <? nivel();?>
+    <div class="span12">
+    <label>Grupo:      
+    <SELECT name="unidad" id="unidad"  onChange="submit()" class="span6" style="display:inline">
+        <OPTION><? echo $unidad;?></OPTION>
+        <? unidad();?>
       </SELECT>
     </label>
     </div>
-    <div class="span6">
-    <label style="display:inline">Grupo:     
-    <SELECT name="grupo" id="GRUPO" class="span6" style="display:inline">
-        <OPTION><? echo $grupo;?></OPTION>
-        <? grupo($nivel);?>
-      </SELECT>
-    </label>
-    </div>
+ 
     </div>
     <label>Apellidos:<br />      
     <INPUT type="text" name="APELLIDOS" size="40" maxlength="32" alt="Apellidos">

@@ -41,6 +41,8 @@ if ($fila > "0" and $fotos_profes_ya < "10") {
 	@descripcion: Actualizaciï¿½n de la tabla de noticias
 	@fecha: 5 de agosto de 2013
 */
+$actua = mysql_query("select modulo from actualizacion where modulo = 'Tabla de Noticias'");
+if (mysql_num_rows($actua)>0) {}else{
 $hay = mysql_query("show tables");
 
 while ($tabla=mysql_fetch_array($hay)) {
@@ -58,7 +60,8 @@ while ($tabla=mysql_fetch_array($hay)) {
 		}
 	}
 }
-
+mysql_query("insert into actualizacion (modulo, fecha) values ('Tabla de Noticias', NOW())");	
+}
 
 
 /*
@@ -68,7 +71,9 @@ while ($tabla=mysql_fetch_array($hay)) {
 	@nota: Esta tarea puede demorarse unos segundos
 
 */
-
+$actua = mysql_query("select modulo from actualizacion where modulo = 'Base de datos espanol'");
+if (mysql_num_rows($actua)>0) {}
+else{
 $flag = FALSE;
 
 // Comprobamos el juego de caracteres de la base de datos principal
@@ -116,24 +121,31 @@ if ( $flag ) {
 	unset($tabla);
 	unset($nomtabla);
 }
-
-
+mysql_query("insert into actualizacion (modulo, fecha) values ('Base de datos espanol', NOW())");	
+}
 /*
 	@descripcion: Actualizaciï¿½n tabla notas_cuaderno
 	@fecha: 5 de abril de 2014
 
 */
-
+$actua = mysql_query("select modulo from actualizacion where modulo = 'Cuaderno visible exterior'");
+if (mysql_num_rows($actua)>0) {}
+else{
+	
 if ( mysql_num_rows(mysql_query("SHOW COLUMNS FROM notas_cuaderno LIKE 'visible_nota'")) == 0 ) {
 	mysql_query("ALTER TABLE  `notas_cuaderno` ADD  `visible_nota` INT( 1 ) UNSIGNED NOT NULL DEFAULT  '0' AFTER  `oculto`");
 }
-
+mysql_query("insert into actualizacion (modulo, fecha) values ('Cuaderno visible exterior', NOW())");	
+}
 /*
 	@descripcion: Reducciï¿½n del tamaï¿½o de las fotos de los alumnos (fotos superiores a 40 KB).
 	@fecha: 1 de mayo de 2014
 
 */
-
+$actua = mysql_query("select modulo from actualizacion where modulo = 'Tamano de las fotos'");
+if (mysql_num_rows($actua)>0) {}
+else{
+	
 function redimensionar_jpeg($img_original, $img_nueva, $img_nueva_anchura, $img_nueva_altura, $img_nueva_calidad)
 { 
 	$img = ImageCreateFromJPEG($img_original); 
@@ -185,5 +197,39 @@ redimensionar_jpeg($img_fuente, $img_destino, $img_nueva_anchura, $img_nueva_alt
 $d->close();
 
 }
+mysql_query("insert into actualizacion (modulo, fecha) values ('Tamano de las fotos', NOW())");	
+}
 
+// Elimiación de Nivel y Grupo
+$actua = mysql_query("select modulo from actualizacion where modulo = 'Final Nivel-Grupo'");
+if (mysql_num_rows($actua)>0) {}else{	
+	$base_datos = $db;
+	$db_tabla2 = mysql_query("show tables from $base_datos");
+	while ($arr2 = mysql_fetch_array($db_tabla2)) {
+		
+		$query2 = mysql_query("select distinct nivel, grupo from $arr2[0]");
+		$tabla2 = $arr2[0];	
+		if ($query2 and $tabla2 !== "profesores" and $tabla2 !== "alma" and $tabla2 !== "Textos") {
+		mysql_query("ALTER TABLE  `$tabla2` ADD  `unidad` VARCHAR( 64 ) NOT NULL AFTER  `nivel`");
+		while ($result3 = mysql_fetch_array($query2)) {
+				
+		$insert2 = mysql_query("select distinct unidad from $base_datos.alma where nivel='$result3[0]' and grupo='$result3[1]' ");
+		$inserta2 = mysql_fetch_array($insert2);
+		mysql_query("update $base_datos.$tabla2 set unidad = '$inserta2[0]' where nivel = '$result3[0]' and grupo = '$result3[1]'");
+		}
+
+		mysql_query("ALTER TABLE `$tabla2` DROP `nivel`");
+		mysql_query("ALTER TABLE `$tabla2` DROP `grupo`");
+		}			
+	}
+	mysql_query("insert into actualizacion (modulo, fecha) values ('Final Nivel-Grupo', NOW())");	
+}
+	// Actualizar datos de libros de texto a la desaparición de nivel-grupo
+$actua = mysql_query("select modulo from actualizacion where modulo = 'Tamano de a_grupo'");
+if (mysql_num_rows($actua)>0) {}else{
+mysql_query("ALTER TABLE  `horw` CHANGE  `a_grupo`  `a_grupo` VARCHAR( 64 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
+mysql_query("ALTER TABLE  `horw_faltas` CHANGE  `a_grupo`  `a_grupo` VARCHAR( 64 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
+mysql_query("insert into actualizacion (modulo, fecha) values ('Tamano de a_grupo', NOW())");	
+}
+	
 ?>

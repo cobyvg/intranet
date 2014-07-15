@@ -53,11 +53,12 @@ $rowasignatur1 = mysql_fetch_row($asignatur1);
 if($rowasignatur1[0]){echo "<div class='badge badge-success' style='width:62%'>".$rowasignatur1[1]."</div><br />"; }
  
 // Recorremos los grupos a los que da en ese hora.
-	$asignaturas1 = mysql_query("SELECT distinct  c_asig, Nivel, n_grupo FROM  horw where prof = '$profesor' and dia = '$z' and hora = '$n_hora'");
-  while ($rowasignaturas1 = mysql_fetch_array($asignaturas1))
-    { 
-    $n = strlen($rowasignaturas1[2]);
+	$asignaturas1 = mysql_query("SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$profesor' and dia = '$z' and hora = '$n_hora' AND a_grupo not like 'G%'");
+   $n = count($asignaturas1);
 
+   while ($rowasignaturas1 = mysql_fetch_array($asignaturas1))
+    { 
+ 
 // Si no hay Nivel, pasamos del negocio y continuamos el Horario buscando las celdas que tienen datos.     	    	  
   if($rowasignaturas1[1] !== "") 
     	    {	
@@ -65,13 +66,13 @@ if($rowasignatur1[0]){echo "<div class='badge badge-success' style='width:62%'>"
 // Si hay más de un grupo, separamos para cada grupo un conjunto de variables distintas  	    	
     for ($i=0;$i<$n;$i++) 
     {   	    	  	    
- // Como esto es un formulario, y cada elemento del formulario debe tener una identificación única para poder convertirse en una variable válida, hay que producir un mogollón de nombres distintos para cada elemento del formulario. L estrucruraes: primera hora del lunes, del martes, etc. Y luego segunda hora del lunes, etc.	
+ // Como esto es un formulario, y cada elemento del formulario debe tener una identificación única para poder convertirse en una variable válida, hay que producir un mogollón de nombres distintos para cada elemento del formulario. La estructura es: primera hora del lunes, del martes, etc. Y luego segunda hora del lunes, etc.	
   	$curso = substr($rowasignaturas1[2],$i,1);  
   	   // Fecha exacta de cada día, referida a los cálculos de nombres.php 
-    echo "<INPUT type=hidden name=fecha".$z.$n_hora.$curso[0]." value='$diafaltas'>";	
+    echo "<INPUT type=hidden name=fecha".$z.$n_hora.$rowasignaturas1[1]." value='$diafaltas'>";	
 	// Nivel y Grupo en pantalla	  			
-    echo "<span class='badge badge-warning'>" .$rowasignaturas1[1]."-".$curso[0]."</span>";      	
-    echo "<INPUT type=hidden name=grupo".$z.$n_hora.$curso[0]." value='$curso[0]' />";
+    echo "<span class='badge badge-warning'>" .$rowasignaturas1[1]."</span>";      	
+    echo "<INPUT type=hidden name=grupo".$z.$n_hora.$rowasignaturas1[1]." value='$rowasignaturas1[1]' />";
     // Cambios de fecha entre PHP y MySQL, de española a internacional.
     if (isset($diafaltas)) {
     $fechanc = explode("-",$diafaltas);
@@ -82,7 +83,7 @@ if($rowasignatur1[0]){echo "<div class='badge badge-success' style='width:62%'>"
     }
     
 // Buscamos las faltas del profesor en esa semana y las clavamos en los campos de NC.
-    $faltas10 = "select NC from FALTAS where FECHA = '$fechanc0' and FALTA = 'F' and PROFESOR = '$id' and HORA = '$n_hora' and NIVEL = '$rowasignaturas1[1]' and GRUPO = '$curso[0]' order by NC asc";	
+    $faltas10 = "select NC from FALTAS where FECHA = '$fechanc0' and FALTA = 'F' and PROFESOR = '$id' and HORA = '$n_hora' and unidad = '$rowasignaturas1[1]' order by NC asc";	
 //echo $faltas10;
     $faltas11 = mysql_query($faltas10);
     $faltas13 = "";
@@ -94,10 +95,10 @@ if($rowasignatur1[0]){echo "<div class='badge badge-success' style='width:62%'>"
 // Eliminamos el último punto de la serie, limpiando un poco.
 $faltas14 = rtrim($faltas13, "."); 
 	  
-    echo "  <INPUT type=text name='alumnos".$z.$n_hora.$curso[0]."' value='$faltas14' class='input-mini'/><br>";
-    echo "<INPUT type=hidden name='nivel".$z.$n_hora.$curso[0]."' value='$rowasignaturas1[1]'>";
-    echo "<INPUT type=hidden name='asignatura".$z.$n_hora.$curso[0]."' value=$rowasignaturas1[0]>";
-    echo "<INPUT type=hidden name='hora".$z.$n_hora.$curso[0]."' value=$n_hora>";
+    echo "<INPUT type=text name='alumnos".$z.$n_hora.$rowasignaturas1[1]."' value='$faltas14' class='input-mini'/><br>";
+    echo "<INPUT type=hidden name='unidad".$z.$n_hora.$rowasignaturas1[1]."' value='$rowasignaturas1[1]'>";
+    echo "<INPUT type=hidden name='asignatura".$z.$n_hora.$rowasignaturas1[1]."' value=$rowasignaturas1[0]>";
+    echo "<INPUT type=hidden name='hora".$z.$n_hora.$rowasignaturas1[1]."' value=$n_hora>";
 	
     }}}
     if (!(isset($mes))) {

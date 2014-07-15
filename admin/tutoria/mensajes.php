@@ -6,7 +6,7 @@
   
 
 // Consulta
-$query = "SELECT id, ahora, apellidos, nombre, asunto, texto from alma, mensajes where alma.claveal = mensajes.claveal and mensajes.nivel = '$nivel' and mensajes.grupo = '$grupo' and date(ahora) > '$inicio_curso' ORDER BY id desc";
+$query = "SELECT id, ahora, apellidos, nombre, asunto, texto from alma, mensajes where alma.claveal = mensajes.claveal and mensajes.unidad = '$unidad' and date(ahora) > '$inicio_curso' ORDER BY id desc";
 // echo $query;
 $result = mysql_query($query,$c) or die ("Error in query: $query. " . mysql_error());
 

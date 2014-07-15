@@ -1,24 +1,22 @@
 <?
-if (!($nivel) or !($grupo)) {
-$nivel = $_SESSION ['s_nivel'];
-$grupo = $_SESSION ['s_grupo'];	
+if (!($unidad)) {
+$unidad = $_SESSION ['s_unidad'];
 }
 
 // Cobntrol de faltas leves reiteradas
-$rep0 = mysql_query("select id, Fechoria.claveal, count(*) as numero from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and nivel = '$nivel' and grupo = '$grupo' and grave = 'Leve' and medida not like 'Sancionada' group by Fechoria.claveal");
+$rep0 = mysql_query("select id, Fechoria.claveal, count(*) as numero from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '$unidad' and grave = 'Leve' and medida not like 'Sancionada' group by Fechoria.claveal");
 while ($rep = mysql_fetch_array($rep0)) {
 	
 	if ($rep[2] > 4) {
 		$claveal = $rep[1];	
-		$alumno = mysql_query ( "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
+		$alumno = mysql_query ( "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
 		
 	$rowa = mysql_fetch_array ( $alumno );
 	$asunto = "Reiteración en el mismo trimestre de cinco o más faltas leves";
 	$medida = "Amonestación escrita";
 	$apellidos = trim ( $rowa [0] );
 	$nombre = trim ( $rowa [1] );
-	$nivel = trim ( $rowa [2] );
-	$grupo = trim ( $rowa [3] );
+	$unidad = trim ( $rowa [2] );
 	$claveal = trim ( $rowa [4] );
 	$tfno = trim ( $rowa [5] );
 	$tfno_u = trim ( $rowa [6] );
@@ -83,7 +81,7 @@ enviarForm();
 		$observaciones = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
 		$accion = "Envío de SMS";
 		$causa = "Problemas de convivencia";
-		mysql_query ( "insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre . "','" . $informa . "','" . $nivel . "','" . $grupo . "','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
+		mysql_query ( "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
 
 	
 	// Mensaje SMS a la base de datos
@@ -101,7 +99,7 @@ enviarForm();
 ?>
 <?
 // Expulsión al Aula de Convivencia
-$result1 = mysql_query ("select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and nivel = '$nivel' and grupo = '$grupo' and medida = 'Amonestación escrita'");
+$result1 = mysql_query ("select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '$unidad' and medida = 'Amonestación escrita'");
 if($row1 = mysql_fetch_array($result1))
 {
 	do

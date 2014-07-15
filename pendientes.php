@@ -21,7 +21,7 @@ $materia = $exp[1];
 $a_asig0 = mysql_query("select distinct codigo from asignaturas where curso = '$exp[2]' and nombre = '$materia' and abrev not like '%\_%'");
 $cod_asig = mysql_fetch_array($a_asig0);
 $hoy = date('Y') . "-" . date('m') . "-" . date('d');
-$expul= "SELECT DISTINCT alma.apellidos, alma.nombre, alma.nivel, alma.grupo, tareas_profesor.id
+$expul= "SELECT DISTINCT alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, tareas_profesor.id
 FROM tareas_alumnos, tareas_profesor, alma
 WHERE alma.claveal = tareas_alumnos.claveal
 AND tareas_alumnos.id = tareas_profesor.id_alumno
@@ -61,7 +61,7 @@ $materia = $exp[1];
 $hoy = date('Y') . "-" . date('m') . "-" . date('d');
 $ayer0 = time() + (1 * 24 * 60 * 60);
 $ayer = date('Y-m-d', $ayer0);
-$result = mysql_query ("select distinct alma.apellidos, alma.nombre, alma.nivel, alma.grupo, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria, alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' order by Fechoria.fecha ");
+$result = mysql_query ("select distinct alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria, alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' order by Fechoria.fecha ");
 if (mysql_num_rows($result) > '0') {
      while ($row = mysql_fetch_array($result))
         {
@@ -79,9 +79,7 @@ $resultcurso = mysql_query($SQLcurso);
 	while($rowcurso = mysql_fetch_array($resultcurso))
 	{
 	$curso = $rowcurso[0];
-	$trozos = explode("-",$curso);
-	$nivel_t = $trozos[0];
-	$grupo_t = $trozos[1];
+	$unidad_t = $curso;
 	$asignatura = str_replace("nbsp;","",$rowcurso[1]);
 	$asignatura = str_replace("&","",$asignatura);	
 	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurso[2]' and abrev not like '%\_%'";
@@ -89,8 +87,8 @@ $resultcurso = mysql_query($SQLcurso);
 	$asigna2 = mysql_fetch_array($asigna1);
 	$codasi = $asigna2[0];	
 	$hoy = date('Y-m-d');
-	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.NIVEL, tareas_alumnos.GRUPO, 
-	tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. nivel = '$nivel_t' and tareas_alumnos.grupo = '$grupo_t' and combasi like '%$codasi:%' ORDER BY tareas_alumnos.FECHA asc";
+	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.FIN, 
+	tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. unidad = '$unidad_t' and combasi like '%$codasi:%' ORDER BY tareas_alumnos.FECHA asc";
 $result = mysql_query($query);
 if (mysql_num_rows($result) > 0)
 {
@@ -114,9 +112,7 @@ $resultcurso3 = mysql_query($SQLcurso3);
 	while($rowcurso3 = mysql_fetch_array($resultcurso3))
 	{
 	$curso3 = $rowcurso3[0];
-	$trozos3 = explode("-",$curso3);
-	$nivel3 = $trozos3[0];
-	$grupo3 = $trozos3[1];
+	$unidad3 = $curso3;
 	$asignatura3 = trim($rowcurso3[1]);
 	$asigna03 = "select codigo from asignaturas where nombre = '$asignatura3' and curso = '$rowcurso3[2]' and abrev not like '%\_%'";
 	//echo $asigna03."<br>";
@@ -128,7 +124,7 @@ $resultcurso3 = mysql_query($SQLcurso3);
 	//echo $hoy;
 	
 	$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and
-	 date(F_ENTREV) >= '$hoy' and infotut_alumno. nivel = '$nivel3' and infotut_alumno.grupo = '$grupo3' and combasi like '%$c_asig3:%' ORDER BY F_ENTREV asc";
+	 date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and combasi like '%$c_asig3:%' ORDER BY F_ENTREV asc";
 	 //echo $query3."<br>";
 $result3 = mysql_query($query3);
 if (mysql_num_rows($result3) > 0)
@@ -151,9 +147,9 @@ $count04=0;
 // Informes de absentismo.
 if (strstr($_SESSION['cargo'],'2')==TRUE) {
 	$tut=$_SESSION['profi'];
-	$tutor=mysql_query("select nivel, grupo from FTUTORES where tutor='$tut'");
+	$tutor=mysql_query("select unidad from FTUTORES where tutor='$tut'");
 	$d_tutor=mysql_fetch_array($tutor);
-	$mas=" and absentismo.nivel='$d_tutor[0]' and absentismo.grupo='$d_tutor[1]' and tutoria IS NULL ";
+	$mas=" and absentismo.unidad='$d_tutor[0]' and tutoria IS NULL ";
 }
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
 	$mas=" and (jefatura IS NULL or jefatura = '')";
@@ -162,7 +158,7 @@ if (strstr($_SESSION['cargo'],'8')==TRUE) {
 	$mas=" and orientacion IS NULL ";
 }
 if (strstr($_SESSION['cargo'],'1')==TRUE or strstr($_SESSION['cargo'],'2')==TRUE or strstr($_SESSION['cargo'],'8')==TRUE) {	
-  $SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.nivel, absentismo.grupo, numero, mes FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas order by nivel, grupo";
+  $SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas order by unidad";
  // echo $SQL0;	
 $result0 = mysql_query($SQL0);
 if (mysql_num_rows($result0) > 0)
@@ -197,13 +193,12 @@ if (isset($_GET['verifica_padres'])) {
 }
 if(stristr($carg,'2') == TRUE)
 {
-	$nivel_m = $_SESSION ['s_nivel'];
-	$grupo_m = $_SESSION ['s_grupo'];
+	$unidad_m = $_SESSION ['s_unidad'];
 
  if (isset($_GET['asunto']) and $_GET['asunto'] == "Mensaje de confirmación") {
  	 mysql_query("UPDATE mensajes SET recibidopadre = '1' WHERE id = $verifica_padres");
  }
-$men1 = "select ahora, asunto, texto, nombre, apellidos, id from mensajes, alma where mensajes.claveal = alma.claveal and mensajes.nivel = '$nivel_m' and mensajes.grupo = '$grupo_m' and recibidotutor = '0'";
+$men1 = "select ahora, asunto, texto, nombre, apellidos, id from mensajes, alma where mensajes.claveal = alma.claveal and mensajes.unidad = '$unidad_m' and recibidotutor = '0'";
 $men2 = mysql_query($men1);
 if(mysql_num_rows($men2) > 0)
 {

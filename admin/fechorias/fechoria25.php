@@ -91,17 +91,16 @@ else{
 		$claveal = $tr [1];
 	}
 	
-	if ($nivel == "Cualquiera") {
+	if ($unidad == "Cualquiera") {
 		include ("todos_alumnos_centro.php");
 		exit ();
 	}
-	$alumno = mysql_query ( " SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.NIVEL, FALUMNOS.GRUPO, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
+	$alumno = mysql_query ( " SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
 	$rowa = mysql_fetch_array ( $alumno );
 	echo "<table class='tabla' style='padding:2px 10px;'>";
 	$apellidos = trim ( $rowa [0] );
 	$nombre = trim ( $rowa [1] );
-	$nivel = trim ( $rowa [2] );
-	$grupo = trim ( $rowa [3] );
+	$unidad = trim ( $rowa [2] );
 	$claveal = trim ( $rowa [4] );
 	$tfno = trim ( $rowa [5] );
 	$tfno_u = trim ( $rowa [6] );
@@ -162,7 +161,7 @@ enviarForm();
 		$observaciones = $message;
 		$accion = "Envío de SMS";
 		$causa = "Problemas de convivencia";
-		mysql_query ( "insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre . "','" . $informa . "','" . $nivel . "','" . $grupo . "','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
+		mysql_query ( "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
 	} else {
 		echo "<body>";
 	}
@@ -188,17 +187,17 @@ enviarForm();
 		<th></th>
 		</tr>";
 	// Consulta de datos del alumno.
-	$result = mysql_query ( "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.nivel, FALUMNOS.grupo, 
+	$result = mysql_query ( "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc,
   Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, Fechoria.grave, Fechoria.id from Fechoria, 
   FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = '$claveal' and Fechoria.fecha >= '$inicio_curso' 
-  order by Fechoria.fecha DESC, Fechoria.grave, FALUMNOS.nivel, FALUMNOS.grupo, FALUMNOS.apellidos" );
+  order by Fechoria.fecha DESC, Fechoria.grave, FALUMNOS.unidad, FALUMNOS.apellidos" );
 	
 	while ( $row = mysql_fetch_array ( $result ) ) {
 		$claveal = $row [8];
 		//print $claveal;
 		$numero = mysql_query ( "select claveal from Fechoria where claveal = '$claveal' and Fechoria.fecha >= '$inicio_curso'" );
 		$rownumero = mysql_num_rows ( $numero );
-		$rowcurso = $row [2] . "-" . $row [3];
+		$rowcurso = $row [2];
 		$rowalumno = $row [0] . ",&nbsp;" . $row [1];
 		echo "<tr>
 	<td nowrap>$row[4]</td>

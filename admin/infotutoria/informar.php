@@ -43,7 +43,7 @@ include("menu.php");
         
 <?php
 
-$alumno=mysql_query("SELECT infotut_alumno.CLAVEAL, infotut_alumno.APELLIDOS, infotut_alumno.NOMBRE, infotut_alumno.NIVEL, infotut_alumno.GRUPO, curso FROM infotut_alumno, alma WHERE alma.claveal=infotut_alumno.claveal and ID='$id'");
+$alumno=mysql_query("SELECT infotut_alumno.CLAVEAL, infotut_alumno.APELLIDOS, infotut_alumno.NOMBRE, infotut_alumno.unidad, infotut_alumno.id, curso FROM infotut_alumno, alma WHERE alma.claveal=infotut_alumno.claveal and ID='$id'");
 $dalumno = mysql_fetch_array($alumno);
 $n_cur=$dalumno[5];
 if (empty($dalumno[0])) {
@@ -75,7 +75,7 @@ echo "<table align=center class='table table-striped'  style='margin-top:2px;wid
 echo "<tr><th>ALUMNO/A </th>
  <th>CURSO</Th></tr>
 <TR><td>$dalumno[1], $dalumno[2]</td>
-<td>$dalumno[3] $dalumno[4]</td></tr></TABLE>";
+<td>$dalumno[3]</td></tr></TABLE>";
    	$foto = '../../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto) and !(empty($dalumno[0]))) {
 		echo "<div style='width:150px;margin:auto;'>";
@@ -87,7 +87,7 @@ echo"<tr><th>";
 echo "ASIGNATURA";
 echo "</Th><Th>INFORME</Th></tr><TR>";
 echo "<TD>";
-$coinciden = mysql_query("SELECT materia FROM profesores WHERE profesor='$pr' and grupo = '$dalumno[3]-$dalumno[4]'");
+$coinciden = mysql_query("SELECT materia FROM profesores WHERE profesor='$pr' and grupo = '$dalumno[3]'");
 while($coinciden0 = mysql_fetch_row($coinciden)){
 $asignatur = $coinciden0[0];
 $asignatur = str_replace("nbsp;","",$asignatur);
@@ -97,9 +97,9 @@ $asignatur = str_replace("&","",$asignatur);
 $as=mysql_query("SELECT COMBASI FROM alma WHERE CLAVEAL='$claveal' ");
 $asi=mysql_fetch_array($as);
 $asi1 = substr($asi[0],0,strlen($asi[0]) -1);
-$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]-$dalumno[4]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$pr'");
+$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$pr'");
 if(mysql_num_rows($coinciden)<1 and stristr($_SESSION['cargo'],'1') == TRUE){
-$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]-$dalumno[4]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");	
+$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");	
 }
 echo "<select name='asignatura' class='input-large'>";
 echo"<OPTION></OPTION>";

@@ -19,10 +19,10 @@ include("nombres.php");
 
 // Estructura de la Tabla
 echo "<table class='table table-bordered table-striped' style=''><tr><th style='text-align:center'>
-	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month&profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno'>
+	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month&profesor=$profesor&unidad=$unidad&alumno=$alumno'>
 <i class='fa fa-arrow-o-left' name='calb2' style='margin-right:20px;'> </i> </a>
 <h3 style='display:inline'>$year</h3>
-<a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month&profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno'>
+<a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month&profesor=$profesor&unidad=$unidad&alumno=$alumno'>
 <i class='fa fa-arrow-o-right' name='calb1' style='margin-left:20px;'> </i> </a></th></tr></table>";
      echo "<table class='table table-bordered' style=''>
       <tr>";
@@ -31,13 +31,13 @@ echo "<table class='table table-bordered table-striped' style=''><tr><th style='
 	  	
 	  	if ($num_mes==$month) {
 	  		echo "<th  onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
-		"?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$today&month=1';\" style='background-color:#08c'> 
-		<a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&month=".$num_mes."\" style='color:#efefef'>".$nombre_mes."</a> </th>";
+		"?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$today&month=1';\" style='background-color:#08c'> 
+		<a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&month=".$num_mes."\" style='color:#efefef'>".$nombre_mes."</a> </th>";
 	  	}
 	  	else{
 	  		echo "<th  onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
-		"?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$today&month=1';\" > 
-		<a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&month=".$num_mes."\">".$nombre_mes."</a> </th>";
+		"?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$today&month=1';\" > 
+		<a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&month=".$num_mes."\">".$nombre_mes."</a> </th>";
 	  	}
 	  if ($num_mes=='6') {
 	  		echo "</tr><tr>";
@@ -76,7 +76,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   if ($result_found != 1) {
 /*	  if ($zz == $today) { 
     echo "<td onClick=\"window.location='" 
-	.$_SERVER['PHP_SELF']. "?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month';\" style=\"background-color:#08c;color:#efefef\">$zz</td>";
+	.$_SERVER['PHP_SELF']. "?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month';\" style=\"background-color:#08c;color:#efefef\">$zz</td>";
     $result_found = 1;
   }*/
 
@@ -92,13 +92,13 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
       	if ($row[0] == "F") {
 			
       	echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
-		"?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month';\" style=\"background-color:#9d261d\"><a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\"><span style=color:white>$zz</a></span></td>\n";
+		"?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month';\" style=\"background-color:#9d261d\"><a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\"><span style=color:white>$zz</a></span></td>\n";
         $result_found = 1;
       	}
       	elseif($row[0] == "J") {
 //        echo "<td valign=\"middle\" align=\"center\" style=\"background-color:#009933\"><span style=color:white>$zz</span></td>\n";
         echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
-		"?falta=J&profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month';\" style=\"background-color:#46a546\"><a href=\"".$_SERVER['PHP_SELF']."?falta=J&profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\"><span style=color:white>$zz</a></span></td>\n";
+		"?falta=J&profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month';\" style=\"background-color:#46a546\"><a href=\"".$_SERVER['PHP_SELF']."?falta=J&profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\"><span style=color:white>$zz</a></span></td>\n";
         $result_found = 1;
       	}
       }
@@ -107,8 +107,8 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 
   if ($result_found != 1) {
     echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
-    "?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month;\" class=\"cellbg\"><a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\">
-	<a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&nivel=$nivel&grupo=$grupo&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\">
+    "?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month;\" class=\"cellbg\"><a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\">
+	<a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\">
     $zz</a></td>\n";
   }
 

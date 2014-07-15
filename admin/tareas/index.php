@@ -29,9 +29,9 @@ return false;
 ?>
 <div align="center">
   <?php
-  $tut = mysql_query("select nivel, grupo from FTUTORES where tutor = '$profesor'");
+  $tut = mysql_query("select unidad, grupo from FTUTORES where tutor = '$profesor'");
   $tuto = mysql_fetch_array($tut);
-  $nivel = $tuto[0];
+  $unidad = $tuto[0];
   $grupo = $tuto[1];
 ?>
 <div class="page-header" align="center">
@@ -48,9 +48,7 @@ $resultcurso = mysql_query($SQLcurso);
 	while($rowcurso = mysql_fetch_array($resultcurso))
 	{
 	$curso = $rowcurso[0];
-	$trozos = explode("-",$curso);
-	$nivel = $trozos[0];
-	$grupo = $trozos[1];
+	$unidad = $trozos[0];
 	$asignatura = str_replace("nbsp;","",$rowcurso[1]);
 	$asignatura = str_replace("&","",$asignatura);
 	
@@ -64,9 +62,9 @@ $resultcurso = mysql_query($SQLcurso);
 	$n_asig = $asigna2[1];
 	$hoy=date('Y-m-d');
 // Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en su el campo combasi	
-	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.NIVEL, tareas_alumnos.GRUPO, tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and  date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. nivel = '$nivel' and tareas_alumnos.grupo = '$grupo' and combasi like '%$codasi%' ORDER BY tareas_alumnos.FECHA asc";
+	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, alma.matriculas, tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and  date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. unidad = '$unidad' and combasi like '%$codasi%' ORDER BY tareas_alumnos.FECHA asc";
 	$result = mysql_query($query);
-	$result0 = mysql_query ( "select tutor from FTUTORES where nivel = '$nivel' and grupo = '$grupo'" );
+	$result0 = mysql_query ( "select tutor from FTUTORES where unidad = '$unidad'" );
 	$row0 = mysql_fetch_array ( $result0 );	
 	$tuti = $row0[0];
 	if (mysql_num_rows($result) > 0)

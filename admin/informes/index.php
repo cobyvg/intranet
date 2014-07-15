@@ -33,8 +33,7 @@ include_once("../../funciones.php");
      
 if(isset($_GET['todos'])){$todos = $_GET['todos'];}
 if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
-if(isset($_GET['nivel'])){$nivel = $_GET['nivel'];}else{$nivel = $_POST['nivel'];}
-if(isset($_GET['grupo'])){$grupo = $_GET['grupo'];}else{$grupo = $_POST['grupo'];}
+if(isset($_GET['unidad'])){$unidad = $_GET['unidad'];}else{$unidad = $_POST['unidad'];}
 if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
 if(isset($_POST['nombre'])){$nombre = $_POST['nombre'];}else{ $nombre=""; }
 if(isset($_POST['fecha1'])){$fecha1 = $_POST['fecha1'];}else{ $fecha1=""; }
@@ -56,18 +55,17 @@ $base=$db.$c_db;
 mysql_select_db($base);
 }
   if ($claveal) {
-  	 $SQL1 = "select distinct alma.apellidos, alma.nombre, alma.nivel, alma.grupo, alma.claveal, claveal1 from alma
+  	 $SQL1 = "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.claveal, claveal1 from alma
   where claveal = '$claveal' order BY alma.apellidos";
   // print ("$AUXSQL");
   $result1= mysql_query($SQL1);
   if ($row1 = mysql_fetch_array($result1))
   {
-  $claveal = $row1[4];
-  $nivel = $row1[2];
-  $grupo = $row1[3];
-  $claveal1 = $row1[5];
-	$apellido = $row1[0];
-	$nombrepil = $row1[1];
+  $claveal = $row1[3];
+  $unidad = $row1[2];
+  $claveal1 = $row1[4];
+  $apellido = $row1[0];
+  $nombrepil = $row1[1];
     } 
   }
  
@@ -87,7 +85,7 @@ if (!($c_escolar==$curso_actual)) {
     		}
     echo '<div align="center">
 <div class="page-header" align="center">
-  <h2>Informe del alumno <small>'. $nombrepil.' '. $apellido.' ('.$nivel.'-'.$grupo,')</small></h2>
+  <h2>Informe del alumno <small>'. $nombrepil.' '. $apellido.' ('.$unidad.')</small></h2>
 </div>
 <br />
 </div>';		
@@ -178,7 +176,7 @@ echo "";}
   else
   {
   	$tutori = $_SESSION['profi'];
-  	$activ = mysql_query("select * from FTUTORES where tutor='$tutori' and nivel = '$nivel' and grupo = '$grupo'");
+  	$activ = mysql_query("select * from FTUTORES where tutor='$tutori' and unidad = '$unidad' o'");
   	if (mysql_num_rows($activ) > 0 OR stristr($_SESSION['cargo'],'1') == TRUE) {
   	  	echo "<hr>";
 		include("act_tutoria.php");	
