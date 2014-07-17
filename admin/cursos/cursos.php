@@ -101,19 +101,25 @@ $pdf->ezNewPage();
 foreach ($_POST['unidad'] as $unida){
 		//echo "$unida<br>";
 $tr_c = explode(" -> ",$unida);
-$tr_unidad = $tr_c[0];
+$tr_unidad0 = $tr_c[0];
+$tr_unidad = str_replace(" DIV","",$tr_unidad0);
 $tr_codasi = explode("-",$tr_c[2]);
 $n_uni+=1;
 $cuenta = count($_POST['unidad']);
 if($_POST['asignaturas']==""){
 	
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
+if (strstr($tr_unidad0,"DIV")==TRUE) {
+	$sqldatos.= " and (combasi like '%25204%' or combasi LIKE '%25226%')";
+}
+
 if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
 $sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";
 	} 
 	else{
 $sqldatos.=" and combasi like '%$tr_codasi[0]%'";		
 	}
+	
 $sqldatos.=" $text and alma.unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 //echo $sqldatos;
 $lista= mysql_query($sqldatos );
@@ -159,7 +165,7 @@ $options = array(
 				'xOrientation'=>'center',
 				'width'=>500
 			);
-$txttit = "Lista del Grupo $tr_unidad $text2\n";
+$txttit = "Lista del Grupo $tr_unidad0 $text2\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
@@ -179,7 +185,10 @@ if ($cuenta>1) {
 
 if ($_POST['asignaturas']=='1'){
 
-$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),combasi, NC, alma.unidad, matriculas, FALUMNOS.claveal, CURSO FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
+$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre), combasi, NC, alma.unidad, matriculas, FALUMNOS.claveal, CURSO FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
+if (strstr($tr_unidad0,"DIV")==TRUE) {
+	$sqldatos.= " and (combasi like '%25204%' or combasi LIKE '%25226%')";
+}
 if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
 $sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";
 	} 
@@ -204,7 +213,7 @@ while($datatmp = mysql_fetch_array($lista)) {
 	$datatmp[0]=$datatmp[0]." (Ex)";
 	}
 	}
-	$unidadn = $datatmp[4];
+	$unidadn = $datatmp[6];
 	$mat="";
 	$asignat = substr($datatmp[1],0,strlen($datatmp[1])-1);
 	$asignat = $datatmp[1];
@@ -237,7 +246,7 @@ $options = array(
 				'fontSize' => 8,
 				'width'=>500
 			);
-$txttit = "<b>Alumnos del grupo: $tr_unidad $text2</b>\n";
+$txttit = "<b>Alumnos del grupo: $tr_unidad0 $text2</b>\n";
 $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";	
 $pdf->ezText($txttit, 12,$options_center);
 

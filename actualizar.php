@@ -203,25 +203,36 @@ mysql_query("insert into actualizacion (modulo, fecha) values ('Tamano de las fo
 // Elimiación de Nivel y Grupo
 $actua = mysql_query("select modulo from actualizacion where modulo = 'Final Nivel-Grupo'");
 if (mysql_num_rows($actua)>0) {}else{	
-	$base_datos = $db;
+	
+	$cur = substr($inicio_curso,0,4)+1;
+for ($i=$cur;$i>$cur-5;$i--)
+{
+	//$b_d = "";
+	if ($i == $cur){
+		$b_d = $db;
+	}
+	else{
+		$b_d = $db.$i;
+	}
+	mysql_select_db($b_d);	
+	
+	$base_datos = $b_d;
 	$db_tabla2 = mysql_query("show tables from $base_datos");
 	while ($arr2 = mysql_fetch_array($db_tabla2)) {
 		
-		$query2 = mysql_query("select distinct nivel, grupo from $arr2[0]");
 		$tabla2 = $arr2[0];	
+		$query2 = mysql_query("select distinct nivel, grupo from $tabla2");
 		if ($query2 and $tabla2 !== "profesores" and $tabla2 !== "alma" and $tabla2 !== "Textos") {
 		mysql_query("ALTER TABLE  `$tabla2` ADD  `unidad` VARCHAR( 64 ) NOT NULL AFTER  `nivel`");
 		while ($result3 = mysql_fetch_array($query2)) {
-				
-		$insert2 = mysql_query("select distinct unidad from $base_datos.alma where nivel='$result3[0]' and grupo='$result3[1]' ");
-		$inserta2 = mysql_fetch_array($insert2);
-		mysql_query("update $base_datos.$tabla2 set unidad = '$inserta2[0]' where nivel = '$result3[0]' and grupo = '$result3[1]'");
+		mysql_query("update $base_datos.$tabla2 set unidad = '$result3[0]-$result3[1]' where nivel = '$result3[0]' and grupo = '$result3[1]'");
 		}
 
 		mysql_query("ALTER TABLE `$tabla2` DROP `nivel`");
 		mysql_query("ALTER TABLE `$tabla2` DROP `grupo`");
 		}			
 	}
+}
 	mysql_query("insert into actualizacion (modulo, fecha) values ('Final Nivel-Grupo', NOW())");	
 }
 	// Actualizar datos de libros de texto a la desaparición de nivel-grupo

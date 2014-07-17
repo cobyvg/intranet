@@ -49,21 +49,13 @@ echo '<div class="span5 offset1">';
 <?
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE){
  unidad();
- $SQLcurso = "SELECT DISTINCT a_grupo
-FROM horw
-WHERE a_grupo LIKE '%AD'
-OR a_grupo LIKE '%BD'
-OR a_grupo LIKE '%CD'
-OR a_grupo LIKE '%DD'
-OR a_grupo LIKE '%ED'
-OR a_grupo LIKE '%FD'
-OR a_grupo LIKE '%GD'
-OR a_grupo LIKE '%HD'
-OR a_grupo LIKE '%ID'
-OR a_grupo LIKE '%JD'";
+ $SQLcurso = "SELECT DISTINCT unidad
+FROM alma
+WHERE combasi like '%25204%' or combasi LIKE '%25226%'
+";
 $resultcurso = mysql_query($SQLcurso);
 while($rowcurso = mysql_fetch_array($resultcurso)){
-	echo "<option>$rowcurso[0]</option>";	
+	echo "<option>$rowcurso[0] DIV</option>";	
 }
 }
 else{

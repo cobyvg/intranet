@@ -20,6 +20,7 @@ while($i < $total - 2)
 	
 // Dividimos los valores en grupos de 6, cada uno conteniendo todos los datos necesarios para una hora de un dia de la semana, con su fecha, nivel grupo, etc.
 $trozos = array_slice($claves, $i, 6);
+$cod_asig = $trozos[4];
 
 // Comienzan los controles para validar los datos.
 // Primero comprobamos si se han puesto faltas. Si no, pasamos al siguiente bloque.
@@ -78,7 +79,7 @@ while ($claveT1 = mysql_fetch_array($claveT0))
 $clavealT = $claveT1[0];
 $ncT = $claveT1[1];
 // Comprobamos si se está volviendo a meter una falta que ya ha sido metida.
-$duplicadosT = "select NC from FALTAS where unidad = '$trozos[3]'  and NC = '$ncT' and HORA = '$trozos[5]' and FECHA = '$fecha1' and CODASI = '$trozos[4]' and FALTA = 'F'";
+$duplicadosT = "select NC from FALTAS where unidad = '$trozos[3]'  and NC = '$ncT' and HORA = '$trozos[5]' and FECHA = '$fecha1' and CODASI = '$cod_asig' and FALTA = 'F'";
 $duplicadosT0 = mysql_query($duplicadosT);
 $duplicadosT1 = mysql_num_rows($duplicadosT0);
 // O si hay al menos una justicación introducida por el Tutor en ese día
@@ -92,7 +93,7 @@ $hoy = getdate($semana);
 $nombredia = $hoy[wday];
 // Insertamos las faltas de TODOS los alumnos.
 $t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) 
-VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombredia',  '$id',  '$trozos[4]', 'F')";
+VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombredia',  '$id',  '$cod_asig', 'F')";
 
 mysql_query($t0) or die("No se ha podido insertar datos");	
 }
@@ -128,7 +129,7 @@ $mens1.="<b>$nc</b> no es el número de ningún alumno de <b>$trozos[3]</b>.<br>";
 else {
 	
 // Si hemos pasado los filtros, hay que comprobar si se está volviendo a meter una falta que ya ha sido metida.
-$duplicados = "select NC, FALTA from FALTAS where unidad = '$trozos[3]'  and NC = '$nc' and HORA = '$trozos[5]' and FECHA = '$fecha1' and CODASI = '$trozos[4]' and FALTA = 'F'";
+$duplicados = "select NC, FALTA from FALTAS where unidad = '$trozos[3]'  and NC = '$nc' and HORA = '$trozos[5]' and FECHA = '$fecha1' and CODASI = '$cod_asig' and FALTA = 'F'";
 $duplicados0 = mysql_query($duplicados);
 $duplicados1 = mysql_num_rows($duplicados0);
 // O si hay al menos una justicación introducida por el Tutor en ese día
@@ -140,7 +141,8 @@ if ($duplicados1 == "0" and $jt1 == "0") {
 $semana = date( mktime(0, 0, 0, $mes, $dia0, $año));
 $hoy = getdate($semana);
 $nombredia = $hoy[wday];
-$insert = "insert INTO  FALTAS (  CLAVEAL , unidad ,   NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$trozos[3]',  '$nc',  '$fecha1',  '$trozos[5]', '$nombredia',  '$id',  '$trozos[4]', 'F')";
+$insert = "insert INTO  FALTAS (  CLAVEAL , unidad ,   NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$trozos[3]',  '$nc',  '$fecha1',  '$trozos[5]', '$nombredia',  '$id',  '$cod_asig', 'F')";
+//echo $insert."<br>";
 mysql_query($insert) or die("No se ha podido insertar datos");	
 }
 // Otras posibilidades
