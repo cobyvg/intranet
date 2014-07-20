@@ -22,6 +22,8 @@ $_SESSION['todo_profe'] = $profesi;
 	if($ndia == "3"){$nom_dia = "Miércoles";}
 	if($ndia == "4"){$nom_dia = "Jueves";}
 	if($ndia == "5"){$nom_dia = "Viernes";}
+	
+	
 	$minutos = date("i");
 	$diames = date("j");
     $nmes = date("n");
@@ -37,7 +39,8 @@ $_SESSION['todo_profe'] = $profesi;
 	elseif(($hora == '13' and $minutos > 45 ) or ($hora == '14' and $minutos < 45 ) ){$hora_dia = '6';}
 	else{ $hora_dia = "Fuera del Horario Escolar";}
 	}
-//$nl_curs10 = "select distinct a_grupo from horw where no_prof = '59' and dia = '1' and hora = '5'";
+
+	//$nl_curs10 = "select distinct a_grupo from horw where no_prof = '59' and dia = '1' and hora = '5'";
 $nl_curs10 = "select distinct a_grupo from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
 $nl_curs11 = mysql_query($nl_curs10); 
 $nml0 = mysql_fetch_array($nl_curs11); 
@@ -88,9 +91,21 @@ while($n_cur = mysql_fetch_array($n_curs1))
 	$hora0 = mysql_query($hora1); 
 	while($hora2 = mysql_fetch_row($hora0))
 	{
+		
 	$codasi= $hora2[0];
 	$curso = $hora2[1];
 	$asignatura = $hora2[2];
+		
+		$nivel_curso = substr($curso,0,1);				
+//	Problemas con Diversificación (4E-Dd)
+			$profe_div = mysql_query("select * from profesores where grupo = '$curso'");
+			if (mysql_num_rows($profe_div)<1) {		
+				$diversificacion = 1;
+				$div = $curso;
+				$grupo_div = mysql_query("select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+				$grupo_diver = mysql_fetch_row($grupo_div);
+				$curso = $grupo_diver[0];
+			}						
 	?>
 	<div class="btn-group" style="margin-bottom:15px;">
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos</a>
@@ -98,7 +113,9 @@ while($n_cur = mysql_fetch_array($n_curs1))
 	<?
 	echo "<table align='center' class='table table-striped table-bordered table-condensed' style='width:auto'>\n";  			     
         $filaprincipal = "<tr><th colspan='4'><br /><p class='lead text-info' align='center'>$curso $asignatura</p></th></tr>";  
-		$curso = $hora2[1];
+        if ($diversificacion!==1) {
+        	$curso = $hora2[1];
+        }		
 		echo $filaprincipal;
 	
 ?>
@@ -145,6 +162,7 @@ $nm = mysql_num_rows($n_curs11);
 	
 	$res.=substr($c_a,0,strlen($c_a)-3);
 	$res.=") order by NC";
+	//echo $res;
 	$result = mysql_query ($res);
 
 

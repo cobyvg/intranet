@@ -27,7 +27,7 @@ if (empty($trozos[2]))
  }
 
 else {
- echo "$trozos[0] $trozos[1] $trozos[2] $trozos[3] $trozos[4] $trozos[5]<br>";
+ //echo "$trozos[0] $trozos[1] $trozos[2] $trozos[3] $trozos[4] $trozos[5]<br>";
 // Bloquear Fechas futuras y pasadas
 	$fecha0 = explode('-',$trozos[0]);
 	$dia0 = $fecha0[0];
@@ -167,7 +167,7 @@ $c++;
 // Pasamos al siguiente bloque de 6 variables hasta el final
 $i += 6;
 }
-exit();
+//exit();
 ?>
 <script language="javascript">
 <?
