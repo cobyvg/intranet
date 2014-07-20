@@ -39,7 +39,7 @@ mysql_query($crea);
 
 
 <div class="span4 offset4">
-<legend>Consulta de los listados.</legend>
+<legend align = 'center'>Consulta de los listados.</legend>
 <FORM action="consulta.php" method="POST" class="form-inline"">
   <div class="well well-large" align="center">
  <p class='lead text-info'> Elige una fecha</p>

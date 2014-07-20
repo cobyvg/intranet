@@ -5,7 +5,7 @@ echo "<h4>Evaluaciones del Alumno</h4><br />";
 		<TR><Th nowrap>Asignatura</th><th>1ª </th><th>2ª </th><th>Jun. </th><th>Sept. </th></tr>";
 
 // Evaluaciones  
-$notas1 = "select notas1, notas2, notas3, notas4, NIVEL from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.CLAVEAL like '%" . $claveal . "%'";
+$notas1 = "select notas1, notas2, notas3, notas4 from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.CLAVEAL like '%" . $claveal . "%'";
 //echo $notas1;
 $result1 = mysql_query($notas1);
 $row1 = mysql_fetch_array($result1);

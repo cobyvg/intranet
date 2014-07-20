@@ -182,7 +182,7 @@ if($pr and $dia and $hora)
 	$col0 = mysql_query($col);
 	$cols = mysql_num_rows($col0);
 	$sin_coma=$curso;
-	echo "<p class='lead'>$sin_coma <span class='muted'>( $nom_asig )</span></p>";
+	echo "<p class='lead'>$curso_sin <span class='muted'>( $nom_asig )</span></p>";
 	echo '<form action="cuaderno.php" method="post" name="imprime" class="form-inline">';
 	if(isset($_GET['seleccionar'])){
 		$seleccionar=$_GET['seleccionar'];
@@ -205,7 +205,9 @@ todos</a></div>
 	?>
 <table style="width: auto;" align="center" cellpadding="5">
 	<tr>
-		<td valign="top"><?
+		<td valign="top">
+		
+	<?
 		echo "<table class='table table-striped table-bordered table-condensed' style='width:100%'>";
 		echo "<thead><th colspan=2 style='vertical-align:bottom;background-color:#eee'></th>";
 		// Número de las columnas de la tabla
@@ -232,10 +234,10 @@ todos</a></div>
 </div> </th>";
 		}
 		if($seleccionar == 1){
-			echo "<td nowrap style='background-color:#999; color:#fff'>
+			echo "<th nowrap style='background-color:#999; color:#fff'>
 <div style='width:40px;height:130px;'>
 <div class='Rotate-90'> Selección de alumnos </div>
-</div> </td>";
+</div> </th>";
 		}
 		echo "</thead>";
 		// Tabla para cada Grupo
@@ -245,22 +247,20 @@ todos</a></div>
 		while ($curso11 = mysql_fetch_array($curso20))
 		{
 			$curso = $curso11[0];
+			$nivel_curso = substr($curso,0,1);			
 			$nombre = $curso11[2];
+			
 			// Número de Columnas para crear la tabla
 			$num_col = 2 + $cols + $cols2;
-			if(substr($curso,4,1) == 'd')
-			{
+			
+			//	Problemas con Diversificación (4E-Dd)
+			$profe_div = mysql_query("select * from profesores where grupo = '$curso'");
+			if (mysql_num_rows($profe_div)<1) {		
+				
 				$div = $curso;
-				//	Problemas con Diversificación (4E-Dd)
-				$curso_sin1 =  substr($curso,0,strlen($curso) - 1);
-				$curso30 = substr($curso,0,strlen($curso) - 1).",";
-				if(strstr($curs,$curso30)){$curso = "";}
-				else{
-					$curso = $curso_sin1;
-					echo "<tr><td colspan='$num_col'>";
-					echo $curso." ".$nombre;
-					echo "</td></tr>";
-				}
+				$grupo_div = mysql_query("select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+				$grupo_diver = mysql_fetch_row($grupo_div);
+				$curso = $grupo_diver[0];
 			}
 			else{
 				if($seleccionar=="1"){	$num_col += 1;	}
@@ -305,7 +305,7 @@ todos</a></div>
 			}
 
 			// Alumnos para presentar que tengan esa asignatura en combasi
-			$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
+			$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
 			//Alumnos de 2º de Bachillerato
 			if (stristr($curso,"1B")==TRUE or stristr($curso,"2B")==TRUE) {
 				if (strlen($codigos)>'6') {
@@ -444,7 +444,6 @@ input[type=number]::-webkit-inner-spin-button {
 
 		$colum24= "select distinct id, nombre, orden from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";
 		$colu = mysql_query($colum24);
-		if (mysql_num_rows($colu) > 0) {
 			?>
 
 		</td>
@@ -452,7 +451,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 		<div class="no_imprimir">
 		<div class="well-transparent well-small" align="left">
-		<legend><small>Operaciones básicas</small>
+		<legend><small>Operaciones básicas</small></legend>
 		<a data-toggle="modal" href="#ayuda2"> <i
 			class="fa fa-question-circle fa-lg fa-border fa-lg pull-right"
 			style="color: #888"> </i> </a>
@@ -468,7 +467,7 @@ input[type=number]::-webkit-inner-spin-button {
 		Por último, puedes imprimir la tabla con los datos de los alumnos. La impresión sólo contiene la tabla y sus datos.</p>
 		</div>
 		</div>
-		</legend>
+		
 		<?
 		// Enlace para crear nuevos Alumnos y para crear nuevas columnasx
 	$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1'";
@@ -488,7 +487,7 @@ input[type=number]::-webkit-inner-spin-button {
 		</div>
 		<div class="well-transparent well-small" align="left" style="min-width:250px;">
 		
-		<legend><small>Cosas que puedes hacer...</small>
+		<legend><small>Cosas que puedes hacer...</small></legend>
 
 
 		<a data-toggle="modal" href="#ayuda"> <i
@@ -508,7 +507,7 @@ input[type=number]::-webkit-inner-spin-button {
 		correspondientes.</p>
 		</div>
 		</div>
-		</legend>
+		
 		
 		<?
 		$colum= "select distinct id, nombre, orden, oculto from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";
@@ -540,8 +539,9 @@ input[type=number]::-webkit-inner-spin-button {
 	  if ($pon0[0] > "1" ) {echo "<span align='center' class='muted' Rel='Tooltip' title='Ponderación de la columna'> ($pond)</span>"; }
 	  echo "</label></td></tr>";
 				}
+						echo "</table>";
+				
 		}
-		echo "</table>";
 		// Codigo Curso
 		echo '<input name=curso type=hidden value="';
 		echo $curso;
@@ -588,7 +588,6 @@ input[type=number]::-webkit-inner-spin-button {
 		</div>
 		</div>
 		<?
-}
 }
 ?></td>
 	</tr>

@@ -13,9 +13,6 @@ $profesor = $_SESSION['profi'];
 <?
 include("../../menu.php");
 if (isset($_POST['curso'])) {$curso = $_POST['curso'];} elseif (isset($_GET['curso'])) {$curso = $_GET['curso'];} else{$curso="";}
-$tr = explode("-",$curso);
-$nivel1 = $tr[0];
-$grupo1 = $tr[1];
 ?>
 <br />
 <div align=center>
@@ -77,10 +74,19 @@ $grupo1 = $tr[1];
 	<br />
 	<?
 	echo "<ul class='unstyled'>";
-	$profe = "SELECT  distinct PROFESOR, MATERIA FROM profesores, horw where profesores.grupo = horw.a_grupo and a_grupo='$curso'";
+	$profe = "SELECT  distinct PROFESOR, MATERIA FROM profesores where profesores.grupo = '$curso'";
 	$profeq = mysql_query($profe);
+	if (mysql_num_rows($profeq)>0) {	}
+	else{
+		$curso = substr($curso,0,-1);
+		$profe = "SELECT  distinct PROFESOR, MATERIA FROM profesores where profesores.grupo = '$curso'";
+		$profeq = mysql_query($profe);
+	}
 	while($profer = mysql_fetch_array($profeq)){
 		echo "<li><i class='fa fa-user fa-lg'> </i>
 		$profer[1] -->  <span style='color:#08c;');'>$profer[0]</span></li>";}
 echo "</ul></div>";
 ?>
+ <? include("../../pie.php"); ?>
+</body>
+</html>

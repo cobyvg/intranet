@@ -134,18 +134,16 @@ echo "<thead><th style='background-color:#eee'>NC</th><th style='background-colo
 	$nombre = $curso11[2];
 // Número de Columnas para crear la tabla
 	$num_col = 4 + $num_ids;
-	if(substr($curso,4,1) == 'd')
-	{
-	//	Problemas con Diversificación (4E-Dd)
-		$curso_sin1 =  substr($curso,0,strlen($curso) - 1);
-		$curso30 = substr($curso,0,strlen($curso) - 1).",";
-		if(strstr($curs,$curso30)){$curso = "";}	
-		else{
-		$curso = $curso_sin1;
-		}
-	}
-else{
-	}
+	$nivel_curso = substr($curso,0,1);				
+//	Problemas con Diversificaci�n (4E-Dd)
+			$profe_div = mysql_query("select * from profesores where grupo = '$curso'");
+			if (mysql_num_rows($profe_div)<1) {		
+				
+				$div = $curso;
+				$grupo_div = mysql_query("select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+				$grupo_diver = mysql_fetch_row($grupo_div);
+				$curso = $grupo_diver[0];
+			}
 	mysql_select_db($db);
 	$hay0 = "select alumnos from grupos where profesor='$profesor' and asignatura = '$asignatura' and curso = '$curso'";
 	$hay1 = mysql_query($hay0);
@@ -170,7 +168,7 @@ else{
     $mediatotal=0;
 
 // Alumnos para presentar que tengan esa asignatura en combasi
-$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and unidad = '$curso' and (combasi like '%$asignatura0:%' $otras) ".$todos ." order by NC";
+$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (combasi like '%$asignatura0:%' $otras) ".$todos ." order by NC";
   $result = mysql_query ($resul);	
   $t_alumnos += mysql_num_rows ($result);
         while($row = mysql_fetch_array($result))

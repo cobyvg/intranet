@@ -97,8 +97,7 @@ while($n_cur = mysql_fetch_array($n_curs1))
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning">Desmarcar todos</a> </div>
 	<?
 	echo "<table align='center' class='table table-striped table-bordered table-condensed' style='width:auto'>\n";  			     
-        	$filaprincipal = "<tr><th colspan='4'><br /><p class='lead text-info' align='center'>$curso $asignatura</p></th></tr>";  
-	// Diversificación
+        $filaprincipal = "<tr><th colspan='4'><br /><p class='lead text-info' align='center'>$curso $asignatura</p></th></tr>";  
 		$curso = $hora2[1];
 		echo $filaprincipal;
 	

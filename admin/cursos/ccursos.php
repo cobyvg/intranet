@@ -1,6 +1,7 @@
 <?php
-if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="";}
-if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="$unidad-$grupo";}
+if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} 
+if (isset($_POST['todos'])) {$todos = $_POST['todos'];} elseif (isset($_GET['todos'])) {$todos = $_GET['todos'];}else{$todos="";}
+
 
 if ($_POST['submit1'] or $_GET['submit1'])
 {
@@ -47,7 +48,7 @@ echo '<div class="span5 offset1">';
 <hr />
 <SELECT  name="unidad[]" multiple class="input-block-level" required>
 <?
-if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE){
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE or $todos=="1"){
  unidad();
  $SQLcurso = "SELECT DISTINCT unidad
 FROM alma
@@ -93,13 +94,28 @@ $asignatura="";
          <label class="checkbox"> 
     <input type="checkbox" name="asignaturas" value="1"> &nbsp; Mostrar asignaturas
   </label>
+  <br />
+           <label class="checkbox"> 
+<?           
+   echo '<input type="checkbox" name="todos" value="1" ';
+   if ($todos==1) {
+   	echo "checked";
+   } 
+   echo ' onClick=submit();> &nbsp; Mostrar todos los Grupos';
+?>  
+    </label>
   <br /><br />
   <button class="btn btn-primary btn-block" type="submit" name="submit1" value="Lista del Curso">Lista del curso</button>
 </form>
 </div>
 <div  class="span4">
 <?
-$query_Recordset1 = "SELECT distinct unidad FROM alma ORDER BY unidad ASC";
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE or $todos == "1"){
+	$query_Recordset1 = "SELECT distinct unidad FROM alma ORDER BY unidad ASC";
+}
+else{
+	$query_Recordset1 = "select grupo, materia, nivel from profesores where profesor = '$profesor'";
+}
 $Recordset1 = mysql_query($query_Recordset1) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_array($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);

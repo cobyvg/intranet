@@ -115,7 +115,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
     if(stristr($_SESSION['cargo'],'4') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE)
     {
     ?>
-        <input type="text" name="departamento" id="departamento"  value ="<? echo  $departamento;?>" readonly class="input-xxlarge">
+        <input type="text" name="departamento" id="departamento"  value ="<? echo  $departamento;?>" readonly class="input-block-level">
     
     <?	
     }
@@ -138,9 +138,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       </select>
       <? } ?>
     </label>
-    <?
-    echo "SELECT DISTINCT asignaturas.NOMBRE, ABREV FROM asignaturas, departamentos, profesores where asignaturas.nombre=profesores.materia and profesores.profesor=departamentos.nombre and curso = '$nivel' and departamento like '$departamento%' ORDER BY NOMBRE asc";
-    ?>
+
     <label>Asignatura <span style="color:#9d261d"> (*)</span><br />
       <select name="asignatura" id="asignatura" class="input-block-level"  value="<? echo $asignatura; ?>" required>
         <option>
