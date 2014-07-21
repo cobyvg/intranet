@@ -78,23 +78,25 @@ fclose ( $fp );
   $SQL_1 = "SELECT a_grupo  FROM  horw where a_grupo is not null and a_grupo not like ''";
   $result_1 = mysql_query($SQL_1);
   $row_1 = mysql_fetch_row($result_1);
-  if (strstr("-",$row_1[0])==TRUE) {
-    $SQL0 = "SELECT a_grupo, id FROM  horw";
+  
+  if (strstr($row_1[0],"-")==TRUE) {  	
+  $SQL0 = "SELECT a_grupo, id FROM  horw";
   $result0 = mysql_query($SQL0);
+
  while  ($row0 = mysql_fetch_array($result0))
  {
- 	if (is_numeric(substr($row0[0],0,1))) 
+	if (is_numeric(substr($row0[0],0,1))) 
  	{
 $nivel0 = substr($row0[0], 0, 2);
 $grupo0 = substr($row0[0], 3, 1);
 $actualiza= "UPDATE horw SET nivel = '$nivel0', n_grupo = '$grupo0' where id = '$row0[1]'";
  	}
- 	else {
+/* 	else {
 $actualiza= "UPDATE horw SET nivel = '', n_grupo = '' where a_grupo = '$row0[0]'";
- 	}
+ 	}*/
 mysql_query($actualiza); 
+ } 	
  }
-  }
 
  // Eliminamos el Recreo como 4ª Hora.
  $recreo = "DELETE FROM horw WHERE hora ='4'";
@@ -130,11 +132,53 @@ else{
 	}
 }
 
- // Tutores
- $tabla_tut = mysql_query("select * from FTUTORES");
-if(mysql_num_rows($tabla_tut) > 0){}
-	else{
-mysql_query("insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where a_asig like '%TUT%'");	
+// Cargos varios
+$carg = mysql_query("select distinct prof from horw where a_grupo = '' or a_asig = 'GUCON' or a_asig = 'TUT' or a_asig like '%TABC%'");
+while ($cargo = mysql_fetch_array($carg)) {
+	$cargos="";
+
+$profe_dep = mysql_query("select distinct a_asig from horw where prof = '$cargo[0]' and (a_grupo = '' or a_asig = 'GUCON' or a_asig = 'TUT' or a_asig like '%TABC%')");
+while ($profe_dpt = mysql_fetch_array($profe_dep)) {
+	
+	if ($profe_dpt[0]=="DD") {
+		$cargos="1";
+	}
+if ($profe_dpt[0]=="JD") {
+		$cargos.="4";
+	}
+if ($profe_dpt[0]=="ORI") {
+		$cargos.="8";
+	}
+if ($profe_dpt[0]=="BIL") {
+		$cargos.="a";
+	}
+if ($profe_dpt[0]=="JDA") {
+		$cargos.="9";
+	}
+if ($profe_dpt[0]=="CFFA") {
+		$cargos.="3";
+	}
+if ($profe_dpt[0]=="OFBC") {
+		$cargos.="c";
+	}
+if ($profe_dpt[0]=="GUCON") {
+		$cargos.="b";
+	}
+if ($profe_dpt[0]=="TUT" or $profe_dpt[0]=="TABC") {
+	$cargos.="2";
+	}
+}
+// Tutores
+$tabla_tut = mysql_query("select * from FTUTORES where tutor = '$cargo[0]'");
+	if(mysql_num_rows($tabla_tut) > 0){}
+	else{	
+if(strstr($cargos,"2")==TRUE)
+{
+	mysql_query("insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where (a_asig like '%TUT%' or a_asig like '%TABC%') and prof = '$cargo[0]'");
+	}		
+}
+	mysql_query("update departamentos set cargo = '$cargos' where nombre = '$cargo[0]'");
+}
 
 //Primera version de Profesores.
 mysql_query("truncate table profesores");
@@ -144,5 +188,5 @@ mysql_query("insert into reservas.profesores SELECT DISTINCT alma.curso, asignat
 FROM alma, asignaturas, horw
 WHERE alma.unidad = horw.a_grupo
 AND asignaturas.codigo = c_asig");
-}
+
 ?> 

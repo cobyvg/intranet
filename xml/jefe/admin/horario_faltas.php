@@ -62,23 +62,24 @@ fclose ( $fp );
   $SQL_1 = "SELECT a_grupo  FROM  horw where a_grupo is not null and a_grupo not like ''";
   $result_1 = mysql_query($SQL_1);
   $row_1 = mysql_fetch_row($result_1);
-  if (strstr("-",$row_1[0])==TRUE) {  $SQL0 = "SELECT a_grupo, id FROM  horw_faltas";
+    
+  if (strstr($row_1[0],"-")==TRUE) {  	
+  $SQL0 = "SELECT a_grupo, id FROM  horw";
   $result0 = mysql_query($SQL0);
+
  while  ($row0 = mysql_fetch_array($result0))
  {
- 	if (is_numeric(substr($row0[0],0,1))) 
+	if (is_numeric(substr($row0[0],0,1))) 
  	{
 $nivel0 = substr($row0[0], 0, 2);
-
 $grupo0 = substr($row0[0], 3, 1);
-
-$actualiza= "UPDATE horw_faltas SET nivel = '$nivel0', n_grupo = '$grupo0' where id = '$row0[1]'";
+$actualiza= "UPDATE horw SET nivel = '$nivel0', n_grupo = '$grupo0' where id = '$row0[1]'";
  	}
- 	else {
-$actualiza= "UPDATE horw_faltas SET nivel = '', n_grupo = '' where a_grupo = '$row0[0]'";
- 	}
+/* 	else {
+$actualiza= "UPDATE horw SET nivel = '', n_grupo = '' where a_grupo = '$row0[0]'";
+ 	}*/
 mysql_query($actualiza); 
- }
+ } 	
  }
  // Eliminamos residuos y cambiamos alguna cosa.
  

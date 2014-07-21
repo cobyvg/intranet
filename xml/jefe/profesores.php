@@ -209,7 +209,7 @@ echo "<li>$pro[0]</li>";
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;"><br />
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Departamentos, una vez actualizados los Profesores.<br>Vuelve a la p&aacute;gina de Administraci&oacute;n y actualiza los Departamentos inmediatamente.
-</div></div><br />';
+</div></div>';
 $base1 = "DROP TABLE ".$db.".horw_var";
 mysql_query($base1);
 }
