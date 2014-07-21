@@ -144,11 +144,10 @@ mysql_query("ALTER TABLE  `alma` ADD INDEX (  `NOMBRE` )");
 mysql_query("ALTER TABLE  `alma` ADD INDEX (  `APELLIDOS` )");
 
 // Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
-  $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
+  $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma where unidad not like 'Unida%' and unidad not like ''";  
   $result_1 = mysql_query($SQL_1);
-  $row_1 = mysql_fetch_row($result_1);
-  if (strstr("-",$row_1[0])==TRUE) {
-  	 
+  $row_1 = mysql_fetch_array($result_1);
+  if (strstr($row_1[0],"-")==TRUE) {  	
   $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
   $result0 = mysql_query($SQL0);
 
@@ -157,10 +156,9 @@ mysql_query("ALTER TABLE  `alma` ADD INDEX (  `APELLIDOS` )");
 $trozounidad0 = explode("-",$row0[0]);
 $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
 	mysql_query($actualiza);
+ } 	
  }
-  	
-  }
-  
+ 
  // Apellidos unidos formando un solo campo.
    $SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma";
   $result2 = mysql_query($SQL2);

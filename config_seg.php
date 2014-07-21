@@ -1,0 +1,91 @@
+<?php
+$dominio='localhost';
+$nombre_del_centro='I.E.S. Monterroso';
+$nombre_corto='monterroso3';
+$codigo_del_centro='29002885';
+$email_del_centro='director@iesmonterroso.org';
+$director_del_centro='Francisco Javier Márquez';
+$jefatura_de_estudios='Juan Serrano Pérez';
+$secretario_del_centro='Lourdes Barrutia';
+$direccion_del_centro='C/ Santo Tomás de Aquino, s/n';
+$localidad_del_centro='Estepona';
+$codigo_postal_del_centro='29680';
+$telefono_del_centro='952795802';
+$fax_del_centro='952804309';
+$curso_actual='2013/14';
+$inicio_curso='2013-09-17';
+$fin_curso='2014-06-21';
+$usuario_smstrend='instituto@iesmonterroso.org';
+$clave_smstrend='29002885';
+$db='faltas';
+$db_reservas='reservas';
+$db_user='php';
+$db_host='localhost';
+$db_pass='camell';
+$mod_tic='1';
+$mod_horario='1';
+$mod_faltas='1';
+$mod_sms='1';
+$mod_biblio='1';
+$p_biblio='http://iesmonterroso.org/dbiblioteca/';
+$raiz_dir='/home/e-smith/files/ibays/intranet/html/';
+$doc_dir='/opt/e-smith/';
+$fotos_dir='/tmp';
+$num_administ='2';
+$num_conserje='1';
+$administ1='Fernández León, María Luisa';
+$dnia1='25936726V';
+$idea1='mferleo726';
+$administ2='Jiménez Serrano, Manuela';
+$dnia2='25952622C';
+$idea2='mjimser622';
+$administ3='';
+$dnia3='';
+$conserje1='conserje';
+$dnic1='290028856';
+$num_carrito='10';
+$carrito1='Planta Baja: Almacen';
+$carrito2='Módulo de Bachilleratos: Planta baja';
+$carrito3='Módulo de Bachilleratos: Segundo piso';
+$carrito4='Primera Planta: Centro del pasillo';
+$carrito5='Primera Planta: Detrás del Seminario de Historia';
+$carrito6='Segunda planta: Aula Desdoble 2 (ATAL)';
+$carrito7='Segunda planta: Aula Desdoble 2 (ATAL)';
+$carrito8='Tarari1';
+$carrito9='';
+$carrito10='';
+$carrito11='';
+$carrito12='';
+$carrito13='';
+$carrito14='';
+$carrito15='';
+$num_aula='4';
+$aula1='Aula Magna';
+$aula2='Audiovisuales nº 2';
+$aula3='Audiovisuales nº 3';
+$aula4='Audiovisuales nº 1';
+$aula5='';
+$num_medio='5';
+$medio1='Portátl nº 1 ';
+$medio2='Portátl nº 2 ';
+$medio3='Portátil nº 3';
+$medio4='Videoproyector nº 1';
+$medio5='Videoproyector nº 2';
+$medio6='';
+$medio7='';
+$medio8='';
+$medio9='';
+$medio10='';
+
+error_reporting(0); // Elimina los mensajes de PHP
+
+mysql_connect($db_host, $db_user, $db_pass);
+mysql_select_db($db);
+function registraPagina($pagina,$host,$user,$pass,$base)
+{
+mysql_connect ($host, $user, $pass);
+mysql_select_db ($base);
+$id_reg = $_SESSION['id_pag'];
+mysql_query("insert into reg_paginas (id_reg,pagina) values ('$id_reg','$pagina')");	
+}
+?>

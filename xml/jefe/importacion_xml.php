@@ -126,7 +126,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `cursos` (
 			$idcurso = utf8_decode($curso->dato[0]);
 			$nomcurso = utf8_decode($curso->dato[1]);
 			
-			$result = mysql_query("INSERT cursos (idcurso, nomcurso) VALUES ($idcurso,'$nomcurso')");
+			$result = mysql_query("INSERT cursos (idcurso, nomcurso) VALUES ('$idcurso','$nomcurso')");
 			if (!$result) echo '<span class="text-error">ERROR en la Importación</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
@@ -142,7 +142,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `cursos` (
 		 * ----------------------------------------------------------------------*/
 mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
   `idunidad` int(12) unsigned NOT NULL,
-  `nomunidad` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
+  `nomunidad` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   `idcurso` int(12) unsigned NOT NULL,
   PRIMARY KEY (`idunidad`,`idcurso`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
@@ -157,7 +157,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
 			$nomunidad = utf8_decode($tramos->dato[1]);
 			$idcurso = utf8_decode($tramos->dato[2]);
 			
-			$result = mysql_query("INSERT unidades (idunidad, nomunidad, idcurso) VALUES ($idunidad,'$nomunidad',$idcurso)");
+			$result = mysql_query("INSERT unidades (idunidad, nomunidad, idcurso) VALUES ('$idunidad','$nomunidad','$idcurso')");
 			if (!$result) echo '<span class="text-error">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
@@ -192,7 +192,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
 			$result = mysql_query("SELECT nomcurso FROM cursos WHERE idcurso='$idcurso'");
 			$nomcurso = mysql_fetch_array($result);
 			
-			$result = mysql_query("INSERT materias_seneca (idmateria, nommateria, idcurso) VALUES ($idmateria,'$nommateria',$idcurso)");
+			$result = mysql_query("INSERT materias_seneca (idmateria, nommateria, idcurso) VALUES ('$nommateria','$idmateria','$idcurso')");
 			if (!$result) echo '<span class="text-error">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
@@ -258,9 +258,9 @@ mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
 			$iddependencia = utf8_decode($actividades->dato[0]);
 			$nomdependencia = utf8_decode($actividades->dato[1]);
 			
-			$result = mysql_query("INSERT dependencias (iddependencia, nomdependencia, descdependencia, reservadependencia) VALUES ($iddependencia,'$nomdependencia','$nomdependencia',0)");
+			$result = mysql_query("INSERT dependencias (iddependencia, nomdependencia, descdependencia, reservadependencia) VALUES ('$iddependencia','$nomdependencia','$nomdependencia',0)");
 			
-			if(mysql_errno()==1062) mysql_query("UPDATE dependencias SET nomdependecia='$nomdependencia' WHERE iddependencia=$iddependencia");
+			if(mysql_errno()==1062) mysql_query("UPDATE dependencias SET nomdependecia='$nomdependencia' WHERE iddependencia='$iddependencia'");
 			elseif(mysql_errno()!=0) echo '<span class="text-error">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
@@ -293,7 +293,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
 			$horini = utf8_decode($tramos->dato[2]);
 			$horfin = utf8_decode($tramos->dato[3]);
 			
-			$result = mysql_query("INSERT tramos (tramo, hora, horini, horfin) VALUES ($idtramo,'$nomtramo',$horini,$horfin)");
+			$result = mysql_query("INSERT tramos (tramo, hora, horini, horfin) VALUES ('$idtramo','$nomtramo','$horini','$horfin')");
 			if (!$result) echo '<span class="text-error">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP

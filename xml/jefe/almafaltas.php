@@ -22,7 +22,7 @@ if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
 <br />
 <div align="center">
 <div class="page-header" align="center">
-  <h2>AdministraciÃ³n <small> CreaciÃ³n de la tabla de alumnos</small></h2>
+  <h2>Administración <small> Creación de la tabla de alumnos</small></h2>
 </div>
 <br />
 <div class="well well-large" style="width:600px;margin:auto;text-align:left">
@@ -146,11 +146,10 @@ ADD  `GRUPO` VARCHAR( 1 ) NULL AFTER  `NIVEL`
 mysql_query($crear);
 
 // Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
-  $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
+  $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma where unidad not like 'Unida%' and unidad not like ''";  
   $result_1 = mysql_query($SQL_1);
-  $row_1 = mysql_fetch_row($result_1);
-  if (strstr("-",$row_1[0])==TRUE) {
-  	 
+  $row_1 = mysql_fetch_array($result_1);
+  if (strstr($row_1[0],"-")==TRUE) {  	
   $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
   $result0 = mysql_query($SQL0);
 
@@ -159,9 +158,8 @@ mysql_query($crear);
 $trozounidad0 = explode("-",$row0[0]);
 $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
 	mysql_query($actualiza);
+ } 	
  }
-  	
-  }
   
  
  // Apellidos unidos formando un solo campo.
