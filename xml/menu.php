@@ -11,6 +11,7 @@
 <?}?>
 <li><a href="jefe/asignaturas.php" class="enlacelateral">Importar Asignaturas</a></li>
 <li><a href="jefe/indexprofesores.php" class="enlacelateral">Importar Profesores</a></li>
+<li><a href="jefe/horario_xml.php" class="enlacelateral">Exportación de los Horarios a Séneca</a></li>
 <li><a href="jefe/index_pendientes.php" class="enlacelateral">Lista de Alumnos con pendientes</a></li>
   <? if ($mod_tic and $mod_horario) {?>
 <!--<li><a href="../TIC/distribucion/crea_tabla.php" class="enlacelateral">Crear Asignación TIC</a></li>-->

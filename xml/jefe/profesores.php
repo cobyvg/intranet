@@ -103,7 +103,7 @@ if ($db_reservas != $db) {
 	$faltasprofexml = "create table ".$db_reservas.".profesores select NIVEL, MATERIA, GRUPO, PROFESOR from ".$db.".profesores";
 	mysql_query($faltasprofexml) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
 	            <button type="button" class="close" data-dismiss="alert">&times;</button>
-				<h5>ATENCIÓN:</h5>
+				<legend>ATENCIӓN:</legend>
 	No se ha podido crear la tabla <strong>profesores</strong> en la base de datos <strong>Reservas</strong>.<br> Aseg&uacute;rate de que su formato es correcto.
 	</div></div><br />
 	<div align="center">
@@ -216,7 +216,7 @@ mysql_query($base1);
 else{
 	echo '<hr><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCI�N:</legend>
 Parece que te est&aacute;s olvidando de enviar el archivo con los datos de los Profesores. Aseg&uacute;rate de enviar el archivo descargado desde S&eacute;neca.
 </div></div><br />';
 }
