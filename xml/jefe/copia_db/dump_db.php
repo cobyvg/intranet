@@ -201,7 +201,7 @@ echo '<div class="well well-large" style="width:480px;margin:auto" align="left">
 //  Main
 ?>
 
-<center><p class="lead muted">Copia y descarga de la Base de Datos de la intranet</p></center>
+<center><p class="lead text-muted">Copia y descarga de la Base de Datos de la intranet</p></center>
 <p class='text-success'>
 <?php 
 	@set_time_limit( 0 );

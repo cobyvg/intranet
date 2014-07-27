@@ -25,7 +25,7 @@ include("../../menu.php");
 </div>
 <FORM ENCTYPE="multipart/form-data" ACTION="limpia_hor.php" METHOD="post">
 
-  <div class="control-group">
+  <div class="form-group">
   <div class="well well-large" style="width:500px; margin:auto;" align="left">
   <div class="controls">
   <p class="help-block" style="text-align:left">La depuración del horario se debe realizar cuando los horarios de los profesores se encuentran en Séneca y han sido completamente revisados. Si consideras que ya no caben más cambios en los horarios, comienza actualizando los profesores con el archivo RelPerCen.txt de Séneca. Una vez actualizados los profesores, puedes proceder a ejecutar esta función, la cual eliminará los elementos del horario generado por Horwin que ya no son necesarios.</p>

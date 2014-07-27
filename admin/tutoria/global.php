@@ -35,8 +35,8 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 <? 
 ?>
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span4">
+<div class="row">
+<div class="col-sm-4">
 <?  include("faltas.php");?>
 <hr>
 <br />
@@ -47,7 +47,7 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 <hr>
 <br />
 </div>
-<div class="span4">
+<div class="col-sm-4">
 <?
 include("control.php");
 include("fechorias.php");?>
@@ -56,7 +56,7 @@ include("fechorias.php");?>
 <p class='lead'>Actividades Extraescolares</p>
 <?  include("actividades.php");?>
 </div>
-<div class="span4">
+<div class="col-sm-4">
 <? include("informes.php");?>
 <hr>
 <br />

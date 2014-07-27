@@ -10,47 +10,56 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-?>
-<?
+
+if($_GET['recurso'] == "aula_grupo"){
+	$naulas = $num_aula_grupo+1;
+	$nombre_rec = "Aulas de grupo";
+}
+
 include("../menu.php");
-?>
-<?
 include("menu.php");
 ?>
-<?
-if($recurso=="aula_grupo"){$num=$num_aula_grupo+1;$nombre_rec="Aulas de Grupo";}
-?>
-<div align="center">
-<div class="page-header" align="center">
-  <h2>Reserva de Medios <small> <? echo $nombre_rec; ?></small></h2>
-</div>
-<br />
- 
-<form action="jcal_admin/index_aulas.php" method="post" class="well well-large" style="width:400px; margin:auto;" name = "form_aula">
-<legend>Selecciona el aula</legend>
-  <SELECT  name=servicio_aula onChange="submit()" class="input-xlarge">
-    <option><? echo $servicio_aula;?></option>
-    <?
-  $profe = mysql_query(" SELECT DISTINCT a_aula, n_aula FROM horw where a_aula not like 'G%' and a_aula not like ''  and n_aula not like 'audi%' and a_aula not like 'dir%' ORDER BY a_aula ASC");
-  if ($filaprofe = mysql_fetch_array($profe))
-        {
-        do {
+<div class="container">
 
-	      $opcion1 = printf ("<OPTION>$filaprofe[0] ==> $filaprofe[1]</OPTION>");
-	      echo "$opcion1";
-
-	} while($filaprofe = mysql_fetch_array($profe));
-        }
-	?>
-  </select>
-</FORM>
-<br />
-</div>
+	<div class="page-header">
+	  <h2>Reserva de medios <small><?php echo $nombre_rec; ?></small></h2>
+	</div>
+	
+	<div class="row">
+	
+		<div class="col-sm-4 col-sm-offset-4">
+			
+			<div class="well">
+				<form method="post" action="jcal_admin/index_aulas.php">
+					<fieldset>
+						<legend>Selecciona el aula</legend>
+						
+						<div class="form-group">
+							<?php $result = mysql_query("SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' AND n_aula NOT LIKE 'audi%' AND a_aula NOT LIKE 'dir%' ORDER BY n_aula ASC"); ?>
+							<?php if(mysql_num_rows($result)): ?>
+							<select class="form-control" name="servicio_aula" onchange="submit()">
+								<option value=""></option>
+								<?php while ($row = mysql_fetch_array($result)):?>
+								<?php $value = $row['a_aula'].' ==> '.$row['n_aula']; ?>
+								<option value="<?php echo $value; ?>"><?php echo $row['n_aula']; ?></option>
+								<?php endwhile; ?>
+							</select>
+							<?php else: ?>
+							<select class="form-control" name="servicio_aula" disabled>
+								<option></option>
+							</select>
+							<?php endif; ?>
+						</div>
+						
+					</fieldset>
+				</form>
+			</div>
+			
+		</div>
+		
+	</div>
+	
 <?php
- 
-$conn = mysql_connect($db_host, $db_user, $db_pass) or die("Error en la conexión con la Base de Datos!");
-mysql_select_db($db_reservas, $conn);
-
 if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
 if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
 if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
@@ -63,7 +72,7 @@ $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
 $dayone = date("w",mktime(1,1,1,$month,1,$year));
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Dom','Lun','Mar','Mie','Jue','Vie','Sab');
+$alldays = array('D','L','M','X','J','V','S');
 $next_year = $year + 1;
 $last_year = $year - 1;
     if ($daylong == "Sunday")
@@ -107,41 +116,46 @@ $last_year = $year - 1;
     elseif ($monthlong == "December")
 	{$monthlong = "Diciembre";}
 if ($today > $numdays) { $today--; }
-?>
-<div class="container-fluid">        
-<?
+
 // Lugares y situación
 $a1=mysql_query("select distinct a_aula, n_aula from $db.horw where a_aula not like 'G%' and a_aula not like '' and a_aula not like 'DIR%' order by a_aula");
 
 $num_aula_grupo=mysql_num_rows($a1);
+$ci = 0;
+$primero = 0;
 while($au_grupo = mysql_fetch_array($a1)){
 	$servicio=$au_grupo[0];
 	$lugar = $au_grupo[1];	
-	$ci+=1;
 	
-if ($ci==1 or $ci==4 or $ci==7 or $ci==10 or $ci==13 or $ci==16 or $ci==19 or $ci==22 or $ci==25 or $ci==28 or $ci==31 or $ci==34 or $ci==37 or $ci==40 or $ci==43 or $ci==46 or $ci==49 or $ci==52 or $ci==55 or $ci==58 or $ci==61 or $ci==64 or $ci==67){echo '<div class="row-fluid">';}					
+	
+if ($ci % 3 == 0 || $ci == 0){
+	echo ($primero) ? '</div> <hr>' : '';
+	echo '<div class="row">';
+	$primero = 1;
+}					
 					
-echo '<div class="span4" style="overflow:auto;">';
-echo '<a name=';
-echo $servicio;
-echo '></a>';
-
-echo "<table class='table table-striped table-condensed table-bordered' style=''><thead>";
-echo "<tr><th colspan='7' style='text-align:center'><h3 style='color:#9d261d'>$servicio</h3><h4>( $lugar )</h4></th></tr>
-<tr><th colspan='7'><center><p class='lead text-info'>" 
-. $monthlong . "</p></th>";
-echo "</center></tr><tr>";
-//Nombres de Días
-foreach ( $alldays as $value ) {
-	echo "<th>
-  <span class='badge badge-info'>$value</span></th>";
+echo '<div class="col-sm-4">';
+?>
+	<a name="<?php echo $servicio; ?>"></a>
+	<h3 class="text-center"><?php echo $lugar; ?> <br><small><?php echo $servicio; ?></small></h3>
+	
+	<table class="table table-bordered table-centered">
+		<thead>
+			<tr>
+				<th colspan="7"><h4><?php echo $monthlong; ?></h4></th>
+			</tr>
+			<tr>
+				<?php foreach ($alldays as $value): ?>
+				<th><?php echo $value; ?></th>
+				<?php endforeach; ?>
+			</tr>
+		</thead>
+<?
+//Días vacíos
+for ($i = 0; $i < $dayone; $i++) {
+  echo "<td>&nbsp;</td>";
 }
-echo "</tr></thead><tr>";
 
-//Días en blanco
-for($i = 0; $i < $dayone; $i ++) {
-	echo "<td>&nbsp;</td>\n";
-}
 
 //Días
 for ($zz = 1; $zz <= $numdays; $zz++) {
@@ -149,23 +163,19 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el días
   $result_found = 0;
   if ($zz == $today) { 
-    echo "<td valign=\"middle\" align=\"center\" style='background-color:#0072E6;color:#fff'>$zz</td>\n";
-		$result_found = 1;
+    echo "<td class=\"calendar-today\">$zz</td>";
+    $result_found = 1;
   }
   
-  
   if ($result_found != 1) { 
-		//Buscar actividad para el dóa y marcarla
+		//Buscar actividad para el día y marcarla
 		$sql_currentday = "$year-$month-$zz";
-
-    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
-				$eventExec = mysql_query ( $eventQuery );
+    	$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
+ 		$eventExec = mysql_query ( $eventQuery );
 		if (mysql_num_rows($eventExec)>0) {
 			while ( $row = mysql_fetch_array ( $eventExec ) ) {
-			if (strlen ( $row ["title"] ) > 0) {
-echo "<td valign=\"middle\" align=\"center\" style='background-color:#f89406;color:#fff'>$zz</td>\n";
+echo "<td class=\"calendar-orange\">$zz</td>";
 $result_found = 1;
-			}
 		}	
 		}
 		else{
@@ -173,15 +183,15 @@ $result_found = 1;
 		$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-			        echo "<td style='background-color:#46A546;'><a style='color:#fff'>$zz</a></td>\n";
+			        echo "<td class=\"calendar-red\">$zz</a></td>\n";
 				$result_found = 1;
 				}	
 		}
 		
 	}
- 
-  if ($result_found != 1) {//Celda por defecto
-   echo "<td>$zz</td>\n";
+
+  if ($result_found != 1) {
+    echo "<td>$zz</td>";
   }
 
   $i++; $result_found = 0;
@@ -190,17 +200,16 @@ $result_found = 1;
 $create_emptys = 7 - (($dayone + $numdays) % 7);
 if ($create_emptys == 7) { $create_emptys = 0; }
 
-//Celdas en blanco 
 if ($create_emptys != 0) {
-	echo "<td class=\"cellbg\"></td>\n";
+  echo "<td colspan=\"$create_emptys\">&nbsp;</td>";
 }
 
 echo "</tr>";
 echo "</table>";
-
-//Semana
-	echo "<div class='well' align='left' style=''><legend class='text-success'>Próximos días</legend>";
-
+?>
+	<div class="well">
+		<h4 class="text-info">Próximos días</h4>
+<?
 for ($i = $today; $i <= ($today + 6); $i++) {
   $current_day = $i;
   $current_year = $year;
@@ -229,7 +238,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
 	{$dayname = "Sábado";}
     
     $sql_currentday = "$current_year-$current_month-$current_day";
-    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
+    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
     $eventExec = mysql_query($eventQuery);
     while($row = mysql_fetch_array($eventExec)) {
    if (mysql_num_rows($eventExec) == 1) {
@@ -243,33 +252,33 @@ for ($i = $today; $i <= ($today + 6); $i++) {
    $event_event7 = stripslashes($row["event7"]);
       }
     }
-	echo "<p><i  class='fa fa-calendar'></i>&nbsp;$dayname - $current_day. </p>
-	 <a href=\"http://$dominio/intranet/reservas/jcal_admin/index_aulas.php
-	?year=$current_year&today=$current_day&month=$current_month&servicio=$servicio\">";
+    
+	echo '<p><span class="fa fa-calendar-o fa-fw"></span> '.$dayname.' - '.$current_day.'</p>';
+	echo '<a href="http://'.$dominio.'/intranet/reservas/jcal_admin/index_aulas.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
 
   //Nombre del día
  if (mysql_num_rows($eventExec) == 1) 
  {
  	 if ($event_event1 !== "") { 
- 	    echo "<p>1 Hora -->   $event_event1</p>";
+ 	    echo "<p>1ª hora: $event_event1</p>";
  	}
  	 	 if ($event_event2 !== "") { 
- 	    echo "<p>2 Hora -->  $event_event2</p>";
+ 	    echo "<p>2ª hora: $event_event2</p>";
  	}
  	 	 if ($event_event3 !== "") { 
- 	    echo "<p>3 Hora --> $event_event3</p>";
+ 	    echo "<p>3ª hora: $event_event3</p>";
  	}
  	 	 if ($event_event4 !== "") { 
- 	    echo "<p>4 Hora -->  $event_event4</p>";
+ 	    echo "<p>4ª hora: $event_event4</p>";
  	}
  	 	 if ($event_event5 !== "") { 
- 	    echo "<p>5 Hora -->  $event_event5</p>";
+ 	    echo "<p>5ª hora: $event_event5</p>";
  	}
  	 	 if ($event_event6 !== "") { 
- 	    echo "<p>6 Hora -->  $event_event6</p>";
+ 	    echo "<p>6ª hora: $event_event6</p>";
  	}
  	 	 if ($event_event7 !== "") { 
- 	    echo "<p>7 Hora -->  $event_event7</p>";
+ 	    echo "<p>7ª hora: $event_event7</p>";
  	}
  }
 
@@ -284,14 +293,18 @@ echo "</a></p>";
    $event_event6 = "";
    $event_event7 = "";
 }
-echo "<br /><div align='center'><a href=\"http://$dominio/intranet/reservas/jcal_admin/index_aulas.php?servicio=$servicio\"><button  class='btn btn-primary'>Reservar...</button></a><br /></div>";
+echo '<br>';
+echo '<a class="btn btn-primary btn-block" href="http://'.$dominio.'/intranet/reservas/jcal_admin/index_aulas.php?servicio='.$servicio.'">Reservar...</a>';
 echo '</div>';
-echo '<hr></div>';
-if ($ci==3 or $ci==6 or $ci==9 or $ci==12 or $ci==15 or $ci==18 or $ci==21 or $ci==24 or $ci==27 or $ci==30 or $ci==33 or $ci==36 or $ci==39 or $ci==42 or $ci==45 or $ci==48 or $ci==51 or $ci==54 or $ci==57 or $ci==60 or $ci==63 or $ci==66 or $ci==69){echo '</div>';}
-}
 echo '</div>';
+
+$ci+=1;
+}		
 echo '</div>';
 ?>
+
+</div>
+
 <? include("../pie.php");?>  
 
 </body>

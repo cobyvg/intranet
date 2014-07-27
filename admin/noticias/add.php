@@ -238,7 +238,7 @@ if (!(isset($pagina))) {
     <form action="add.php" method="POST">
       <input type="hidden" name="id"  value="<? echo $id; ?>">
       <label>Asunto<br />
-        <input type="text" name="slug" id="forminput" class="input-block-level" value="<? echo $row->slug; ?>">
+        <input type="text" name="slug" id="forminput" class="form-control" value="<? echo $row->slug; ?>">
       </label>
       <label>Texto<br />
         <textarea name="content" id="editor" style="height: 500px; width: 100%;">
@@ -246,7 +246,7 @@ if (!(isset($pagina))) {
       </textarea>
       </label>
       <hr>
-      <fieldset class="control-group warning">
+      <fieldset class="form-group warning">
       <label>Autor<br />
         <input type="text" name='contact' class='input-xlarge' value='<? echo $profesor;?>' readonly>
       </label>
@@ -255,7 +255,7 @@ if (!(isset($pagina))) {
 if(strlen($_SESSION['cargo']) > '0')
 {
 ?>
-    <fieldset class="control-group success">
+    <fieldset class="form-group success">
       <hr>
       <label>Clase<br />
         <SELECT name='clase' class='input-xlarge' value=''>
@@ -278,7 +278,7 @@ if(strlen($_SESSION['cargo']) > '0')
 if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
 ?>
-    <fieldset class="control-group">
+    <fieldset class="form-group">
       <hr>
       <p class="lead">Noticia Fija</p>
       <label>Número de Días para mantener la Noticia Fija:

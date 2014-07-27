@@ -1088,13 +1088,13 @@ elseif ($n_curso == 3) {
 else{
 
 	if ($dni == "" and $dnitutor == '') {
-		echo '<div align="center"><div class="alert alert-error alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Ha surgido un problema con el Formulario de Inscripción: debes escribir el <strong class="text-info">DNI</strong> del alumno o padre que solicita la Matriculación en este Centro. Vuelve atrás e inténtalo de nuevo.
 </div></div><br />  ';
 	}
 	if ($curso == "") {
-				echo '<div align="center"><div class="alert alert-error alert-block fade in" style="max-width:500px;">
+				echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Ha surgido un problema con el Formulario de Inscripción: debes seleccionar el <strong class="text-info">Curso</strong> del alumno que solicita la Matriculación en este Centro. Vuelve atrás e inténtalo de nuevo. 
 </div></div><br />  ';

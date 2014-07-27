@@ -191,7 +191,7 @@ if(strlen($sin2) > '0'){
 
 <div class="container">
 <div class="row">
-<div class="span4 offset4 well well-large">
+<div class="col-sm-4 col-sm-offset-4 well well-large">
 <form enctype='multipart/form-data' action='sms_cpadres.php'
 	method='post' class="form-inline"><br />
 <table class="table" style="width: auto">
@@ -200,17 +200,17 @@ if(strlen($sin2) > '0'){
 
 	<tr>
 		<td align="center"><label>Inicio<br />
-		<div class="input-append" style="display: inline;"><input
+		<div class="input-group" style="display: inline;"><input
 			name="fecha12" type="text" class="input input-small"
 			value="<? if(empty($fecha12)){echo $fech1;} else {echo $fecha12;}?>"
-			data-date-format="dd-mm-yyyy" id="fecha12"> <span class="add-on"><i
+			data-date-format="dd-mm-yyyy" id="fecha12"> <span class="input-group-addon"><i
 			class="fa fa-calendar"></i></span></div>
 		</label></td>
 		<td><label>Fin<br />
-		<div class="input-append" style="display: inline;"><input
+		<div class="input-group" style="display: inline;"><input
 			name="fecha22" type="text" class="input input-small"
 			value="<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>"
-			data-date-format="dd-mm-yyyy" id="fecha22"> <span class="add-on"><i
+			data-date-format="dd-mm-yyyy" id="fecha22"> <span class="input-group-addon"><i
 			class="fa fa-calendar"></i></span></div>
 		</label></td>
 	</tr>

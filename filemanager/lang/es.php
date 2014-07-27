@@ -90,7 +90,7 @@ define('lang_Edit', 'Edit');
 define('lang_Edit_File', "Edit file's content");
 define('lang_File_Save_OK', "File successfully saved.");
 define('lang_File_Save_Error', "There was an error while saving the file.");
-define('lang_New_File','Nuevo archivo');
+define('lang_New_File','New File');
 define('lang_No_Extension','You have to add a file extension.'); 
 define('lang_Valid_Extensions','Valid extensions: %s'); // %s = txt,log etc.
 

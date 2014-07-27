@@ -31,13 +31,13 @@ return false;
    $imprimir_activado = true;  
 ?>
   <div class='container-fluid'>
-  <div class="row-fluid">
+  <div class="row">
 <div align="center">
 <div class="page-header">
   <h2>Actividades Complementarias y Extraescolares <small> Administración</small></h2>
 </div>
-  <div class="span1"> </div>
-  <div class="span10">
+  <div class="col-sm-1"> </div>
+  <div class="col-sm-10">
 <?   
 if ($_GET['eliminar']=="1") {
   	mysql_query("delete from actividades where id = '".$_GET['id']."'");

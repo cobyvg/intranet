@@ -26,9 +26,9 @@ exit;
 </div>
 <br />
 <div class="container-fluid">
-<div class="row-fluid">
+<div class="row">
            
- <div class="span10 offset1">
+ <div class="col-sm-10 col-sm-offset-1">
  <div align="center">
   <?php
   if (isset($_POST['autor'])) {
@@ -83,7 +83,7 @@ exit;
 
   if(!(empty($idfondo)))
   {
-  echo "<p class='lead muted'>Datos del volumen seleccionado</p>";
+  echo "<p class='lead text-muted'>Datos del volumen seleccionado</p>";
 
  $informe0 = "select  id, Autor, Titulo, Editorial, ISBN, tipoEjemplar, anoEdicion, extension, serie, ubicacion, LugarEdicion from biblioteca where id = '$idfondo'";
  $sqlinforme0 = mysql_query($informe0);
@@ -145,7 +145,7 @@ echo "<table class='table table-striped tanle-bordered' style='width:600px;'>
  
   $result = mysql_query ("select id, Autor, Titulo, Editorial from biblioteca where 1 " . $AUXSQL . " order by Autor asc");
 if (mysql_num_rows($result) > 0) {
-print "<p class='lead muted'>Búsqueda de Libros en la Biblioteca</p>";
+print "<p class='lead text-muted'>Búsqueda de Libros en la Biblioteca</p>";
 echo "<table class='table table-striped table-bordered' style='width:auto'>";
 echo "<thead><th>Autor</th><th>Título</th><th>Editorial</th><th></th></thead><tbody>";
 

@@ -27,7 +27,7 @@ include("../../menu.php");
 
 <div class="row">
 
-<div class="span6 offset3"><?php
+<div class="col-sm-6 col-sm-offset-3"><?php
 $result = mysql_query("SELECT COUNT(*) FROM cursos");
 $datos = mysql_fetch_array($result);
 

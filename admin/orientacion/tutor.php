@@ -116,9 +116,9 @@ El registro ha sido actualizado en la Base de datos.
 }
 
 ?>
-<div class="row-fluid">
-<div class="span1"></div>
-<div class="span6">
+<div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-6">
 <legend align="center">Registro de datos</legend>
 <div class="well well-large">
 
@@ -129,7 +129,7 @@ if ($alumno) {
 	$clave = $tr[1];
    	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {
-		echo "<img src='../../xml/fotos/$clave.jpg' width='120' height='145' class='img-polaroid pull-right'  />";
+		echo "<img src='../../xml/fotos/$clave.jpg' width='120' height='145' class='img-thumbnail pull-right'  />";
 	}
 }
 ?> 
@@ -166,22 +166,22 @@ if ($falumno = mysql_fetch_array($alumno0))
 if ($fecha)
 {
 	echo '
-  <div class="input-append" >
-            <input name="fecha" type="text" class="input input-block-level" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <div class="input-group" >
+            <input name="fecha" type="text" class="input form-control" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
 }
 else{
 	echo '
-  <div class="input-append" >
-            <input name="fecha" type="text" class="input input-block-level" value="" data-date-format="dd-mm-yyyy" id="fecha" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <div class="input-group" >
+            <input name="fecha" type="text" class="input form-control" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
 }
 ?> </label>
 <hr>
 <label> Observaciones<br />
-<textarea name='observaciones' rows='8' class='input-block-level'><? echo $observaciones; ?></textarea>
+<textarea name='observaciones' rows='8' class='form-control'><? echo $observaciones; ?></textarea>
 </label>
   <label class="checkbox" style="color:#9d261d">Informe privado
     <input name="prohibido" type="checkbox" <? if ($prohibido == "1"){echo "checked";}
@@ -189,8 +189,8 @@ else{
 </label>
 
 <hr>
-  <div class="row-fluid">
-  <div class="span6">
+  <div class="row">
+  <div class="col-sm-6">
 <label>Causa<br />
 <select name="causa" class='input-xlarge'>
 	<option><? echo $causa; ?></option>
@@ -205,7 +205,7 @@ else{
 	<option>Otras</option>
 </select> </label> 
 </div>
-  <div class="span6">
+  <div class="col-sm-6">
 <label>
 Tipo<br />
 <select name="accion[]" multiple class='input-xlarge'>
@@ -280,7 +280,7 @@ if($alumno){
 	}
 }
 ?></div>
-<div class="span4">
+<div class="col-sm-4">
 <legend align="center">Intervenciones del Tutor</legend>
 <? include("ultimos.php");?></div>
 </div>

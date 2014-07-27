@@ -100,8 +100,8 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
     echo "<div id='t_larga' style='display:none' >";
 
   echo "<div class='container-fluid'>";
-  echo '<div class="row-fluid">
-  <div class="span12">';
+  echo '<div class="row">
+  <div class="col-sm-12">';
   echo '<div aligna="center">
 <div class="page-header" align="center">
   <h2>Problemas de Convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>

@@ -127,9 +127,9 @@ $serie=$dat[6];
 $unidades=$dat[7];
 $fecha=$dat[8];
 ?>
-<div class="row-fluid">
-<div class="span2"></div>
-<div class="span4">
+<div class="row">
+<div class="col-sm-2"></div>
+<div class="col-sm-4">
 <h3>Cambio de datos <span style="color:#9d261d">(<? echo $departament;?>)</span></h3>
 <br />
 <div class="well well-large" align="left">
@@ -145,7 +145,7 @@ if ($j_s == '') {
 <input type="hidden" name="departamento" value="<? echo $departamento;?>">
 
 <label>Familia<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<select name="familia" onchange="submit()" class="span10">
+<select name="familia" onchange="submit()" class="col-sm-10">
         <?
 echo "<option>$familia</option>";
 $famil = mysql_query(" SELECT distinct familia FROM inventario_clases order by familia asc");
@@ -157,7 +157,7 @@ while($fam = mysql_fetch_array($famil))
 </select>
 </label>
 <label>Clase<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<select name="clase" class="span7">
+<select name="clase" class="col-sm-7">
         <?
 echo "<option>$clase</option>";
 $cla = mysql_query(" SELECT distinct clase FROM inventario_clases where familia='$familia' order by familia asc");
@@ -169,7 +169,7 @@ while($clas = mysql_fetch_array($cla))
 </select>
 </label>
 <label>Lugar<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<select name="lugar" class="span9">
+<select name="lugar" class="col-sm-9">
         <?
 echo "<option>$lugar</option>";
 $luga = mysql_query(" SELECT distinct lugar FROM inventario_lugares order by lugar asc");
@@ -181,22 +181,22 @@ while($lug = mysql_fetch_array($luga))
 </select>
 </label>
 <label>Descipción<br />
-<textarea name="descripcion" cols="45" rows="5" class="span11"><? echo $descripcion;?></textarea>
+<textarea name="descripcion" cols="45" rows="5" class="col-sm-11"><? echo $descripcion;?></textarea>
 </label>
 <label>Marca<br />
-<input type="text" name="marca" size="40" class="span8" value="<? echo $marca;?>"/>
+<input type="text" name="marca" size="40" class="col-sm-8" value="<? echo $marca;?>"/>
 </label>
 <label>Modelo<br />
-<input type="text" name="modelo" size="40"class="span8" value="<? echo $modelo;?>" />
+<input type="text" name="modelo" size="40"class="col-sm-8" value="<? echo $modelo;?>" />
 </label>
 <label>Nº Serie<br />
-<input type="text" name="serie" size="25" class="span8" value="<? echo $serie;?>"/>
+<input type="text" name="serie" size="25" class="col-sm-8" value="<? echo $serie;?>"/>
 </label>
 <label>Nº de Unidades<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<input type="text" name="unidades" size="5" class="span2" value="<? echo $unidades;?>"/>
+<input type="text" name="unidades" size="5" class="col-sm-2" value="<? echo $unidades;?>"/>
 </label>
 <label>Fecha de Alta<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<input type="text" name="fecha" size="10" value="<? echo date('d-m-Y');?>" class="span4" value="<? echo $unifechadades;?>"/>
+<input type="text" name="fecha" size="10" value="<? echo date('d-m-Y');?>" class="col-sm-4" value="<? echo $unifechadades;?>"/>
 </label>
 <br />
 <input type="submit" name="enviar"  value="Cambiar datos" class="btn btn-primary btn-block"
@@ -207,7 +207,7 @@ if ($j_s == '1') { echo "disabled";}
 </form>
 </div>
 </div>
-<div class="span4">
+<div class="col-sm-4">
 <?
 $it = mysql_query("select inventario_clases.clase, marca, modelo, unidades, inventario.id from inventario, inventario_clases where inventario_clases.id=inventario.clase and departamento='$departamento'");
 if (mysql_num_rows($it)>0) {

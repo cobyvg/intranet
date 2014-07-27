@@ -9,114 +9,149 @@ exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
-$profesor = $_SESSION['profi'];
+if (!$mod_horario) header('location:'.'http://'.$dominio.'/intranet/');
+
+include("../../menu.php");
 ?>
-<?
-  	include("../../menu.php");
-  ?>
- <br />
-  <div align=center>
-  <div class="page-header" align="center">
-  <h2>Horarios del Centro <small> Grupos, Profesores y Aulas</small></h2>
-</div>
-</div>
-<div class="row-fluid">
-<div class="span3"></div>
-<div class="span3">
-<? if ($mod_horario) {?>
 
-<FORM action="horarios.php" method="POST" class="well well-large">
- <legend> Horario de un Grupo</legend><br />
-  <select name="curso" class="span12">
-    <?
-  $tipo = "select distinct a_grupo from horw where a_grupo not like 'G%' order by a_grupo";
-  $tipo1 = mysql_query($tipo);
-  while($tipo2 = mysql_fetch_array($tipo1))
-        {
-echo "<option>".$tipo2[0]."</option>";
-        }				
-					?>
-  </select>
-   <hr />
-  <button class="btn btn-primary btn-block" type="submit" name="submit1" value="Enviar datos">Enviar datos</button>
-</FORM>
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Horarios <small>Consulta por grupos, profesores y aulas</small></h2>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA 1 -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="horarios.php">
+					<fieldset>
+						<legend>Grupos</legend>
+						
+						<div class="form-group">
+							<?php $result = mysql_query("SELECT DISTINCT a_grupo FROM horw WHERE a_grupo NOT LIKE 'G%' AND a_grupo NOT LIKE '' ORDER BY a_grupo"); ?>
+							<?php if(mysql_num_rows($result)): ?>
+					    <select class="form-control" name="curso">
+					    	<?php while($row = mysql_fetch_array($result)): ?>
+					    	<option value="<?php echo $row['a_grupo']; ?>"><?php echo $row['a_grupo']; ?></option>
+					    	<?php endwhile; ?>
+					    </select>
+					    <?php else: ?>
+					     <select class="form-control" name="curso" disabled></select>
+					    <?php endif; ?>
+					    <?php mysql_free_result($result); ?>
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<!-- COLUMNA 2 -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="profes.php">
+					<fieldset>
+						<legend>Profesores</legend>
+						
+						<div class="form-group">
+							<?php $result = mysql_query("SELECT DISTINCT prof FROM horw ORDER BY prof ASC"); ?>
+					    <?php if(mysql_num_rows($result)): ?>
+					    <select class="form-control" name="profeso">
+					    	<?php while($row = mysql_fetch_array($result)): ?>
+					    	<option value="<?php echo $row['prof']; ?>"><?php echo $row['prof']; ?></option>
+					    	<?php endwhile; ?>
+					    </select>
+					    <?php else: ?>
+					     <select class="form-control" name="profeso" disabled></select>
+					    <?php endif; ?>
+					    <?php mysql_free_result($result); ?>
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit2">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<!-- COLUMNA 3 -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="hor_aulas.php">
+					<fieldset>
+						<legend>Aulas</legend>
+						
+						<div class="form-group">
+							<?php $result = mysql_query("SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY n_aula ASC"); ?>
+						  <?php if(mysql_num_rows($result)): ?>
+						  <select class="form-control" name="aula">
+						  	<?php while($row = mysql_fetch_array($result)): ?>
+						  	<option value="<?php echo $row['n_aula']; ?>"><?php echo $row['n_aula']; ?></option>
+						  	<?php endwhile; ?>
+						  </select>
+						  <?php else: ?>
+						   <select class="form-control" name="aula" disabled></select>
+						  <?php endif; ?>
+						  <?php mysql_free_result($result); ?>
+						</div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit3">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<!-- COLUMNA 4 -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="aulas_libres.php">
+					<fieldset>
+						<legend>Aulas libres</legend>
+						
+						<div class="form-group">
+							<?php $dias = array('Lunes','Martes','Miércoles','Jueves','Viernes'); ?>
+					    <select class="form-control" name="n_dia">
+					    	<?php for($i = 0; $i < count($dias); $i++): ?>
+					    	<option value="<?php echo $dias[$i]; ?>"><?php echo $dias[$i]; ?></option>
+					    	<?php endfor; ?>
+					    </select>
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit4">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
 
-</div>
-<div class="span3">
-<FORM action="profes.php" method="POST" name="Cursos" class="well well-large">
-<legend>Horario de un Profesor</legend><br />
-  <SELECT  name=profeso class="span12">
-    <option></option>
-    <?
-  $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
-  if ($filaprofe = mysql_fetch_array($profe))
-        {
-        do {
+<?php include("../../pie.php"); ?>
 
-	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
-	      echo "$opcion1";
-
-	} while($filaprofe = mysql_fetch_array($profe));
-        }
-	?>
-  </select>
-  <hr />
-  <button class="btn btn-primary btn-block" type="submit" name="Listar" value="Enviar datos">Consultar horario</button>
-</FORM>
-</div>
-<div class="span2"></div>
-</div>
-<div class="row-fluid">
-<div class="span3"></div>
-<div class="span3">
-<form action="hor_aulas.php" method="post" class="well well-large">
- <legend> Horario de un Aula</legend><br />
-  <SELECT  name=aula onChange="submit()" class="span12">
-    <option></option>
-    <?
-  $profe = mysql_query(" SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY n_aula ASC");
-  if ($filaprofe = mysql_fetch_array($profe))
-        {
-        do {
-
-	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
-	      echo "$opcion1";
-
-	} while($filaprofe = mysql_fetch_array($profe));
-        }
-	?>
-  </select>
-   <hr />
-  <button class="btn btn-primary btn-block btn-block" type="submit" name="Ver horarios" value="Ver Horarios">Ver Horarios</button>
-</FORM>
-
-</div>
-<div class="span3">
-<form action="aulas_libres.php" method="post" class="well well-large">
-  <legend>Aulas libres por día
-  de la Semana</legend><br />
-  <select name="n_dia" class="span12">
-    <option>Lunes</option>
-    <option>Martes</option>
-    <option>Miércoles</option>
-    <option>Jueves</option>
-    <option>Viernes</option>
-  </select>
-   <hr />
-  <button class="btn btn-primary btn-block" type="submit" name="Aulas" value="Ver Aulas libres">Ver Aulas libres</button>
-</FORM>
-</div>
-<div class="span2"></div>
-</div>
-<? }
- else {
- 	echo '<div class="alert alert-success alert-block fade in" style="max-width:500px;" align="center">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            El módulo de Horarios debe ser activado en la Configuración general de la Intranet para poder acceder a estas páginas, y ahora mismo está desactivado. Consulta con quien pueda ayudarte.
-          </div>';
- }
-
-include("../../pie.php");
-?>
-</BODY>
-</HTML>
+</body>
+</html>

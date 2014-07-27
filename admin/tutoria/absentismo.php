@@ -72,15 +72,15 @@ $al=mysql_query("SELECT distinct apellidos, nombre, absentismo.unidad, alma.matr
 <input name="claveal" type="hidden" value="<? echo $claveal;?>">
 <input name="mes" type="hidden" value="<? echo $mes;?>">
 <label>Observaciones del Tutor<br />
-<textarea name="texto" title="Informe de Alumno absentista." rows="5" class="span5"><? echo $obs;?></textarea>
+<textarea name="texto" title="Informe de Alumno absentista." rows="5" class="col-sm-5"><? echo $obs;?></textarea>
 </label>
 <br />
 <label>Observaciones de Jefatura<br />
-<textarea disabled name="texto_jefe"  class="span5" rows="5"><? echo $datos[5];?></textarea>
+<textarea disabled name="texto_jefe"  class="col-sm-5" rows="5"><? echo $datos[5];?></textarea>
 </label>
 <br />
 <label>Observaciones de Orientación<br />
-<textarea disabled name="texto_orienta"  class="span5" rows="5"><? echo $datos[6];?></textarea>
+<textarea disabled name="texto_orienta"  class="col-sm-5" rows="5"><? echo $datos[6];?></textarea>
 </label>
 <br />
 <input type="submit" name="submit" value="Enviar Informe" class="btn btn-primary">

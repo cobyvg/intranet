@@ -55,8 +55,8 @@ $datatables_activado = true;
  <legend><? echo $titulo;?></legend><br /> 
 <form name="buscar" method="POST" action="buscar.php">
 <div class='container-fluid'>
-  <div class="row-fluid">
-  <div class="span6 offset3">
+  <div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
 <?php
 if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];}else{$apellidos="";}
 if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}

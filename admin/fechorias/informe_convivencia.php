@@ -666,7 +666,7 @@ for ($i=$cur;$i>$cur-3;$i--)
 	if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
 ?>
-<div class="span4">
+<div class="col-sm-4">
 <h4 align="center">Curso <?php echo $i-1; echo "-".$i;?></h4>
 <br />
 <table class="table table-striped" align="center" style="width:auto">
@@ -706,7 +706,7 @@ mysql_query("drop table fech_temp");
 }
 ?>
 <div class="tab-pane fade in" id="tab5">
-<div class="span8 offset2">
+<div class="col-sm-8 col-sm-offset-2">
 <h3>Informe por Tipo de problema</h3><br />
 <?
 $cur = substr($inicio_curso,0,4)+1;

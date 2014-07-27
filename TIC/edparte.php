@@ -96,7 +96,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
 
     <hr>
     <label>Alumno<br />
-      <select name="alumno"  class="span4">
+      <select name="alumno"  class="col-sm-4">
         <option><? echo $alumno;?></option>
         <?
   $alumnosql = mysql_query("SELECT distinct APELLIDOS, NOMBRE FROM FALUMNOS where unidad='$unidad'  order by APELLIDOS asc");
@@ -112,7 +112,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
       </select>
     </label>
     <label>Profesor<br />
-      <select name="profesor" class="span4">
+      <select name="profesor" class="col-sm-4">
         <OPTION><? echo $profesor;?></OPTION>
         <?
   // Datos del Profesor que hace la consulta. No aparece el nombre del a&ntilde;o de la nota. Se podr&iacute;a incluir.
@@ -164,7 +164,7 @@ if(mysql_num_rows($n_serie0) == "1")
     </label>
     <hr>
     <label>Descripción del problema <br />
-      <textarea name="descripcion" rows="5"  class="span4" id="descripcion"><? echo $descripcion;?></textarea>
+      <textarea name="descripcion" rows="5"  class="col-sm-4" id="descripcion"><? echo $descripcion;?></textarea>
     </label>
     <br />
     <input name="parte" type="hidden" id="parte" value="<? echo $parte;?>"/>

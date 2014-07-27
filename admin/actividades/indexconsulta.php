@@ -137,16 +137,16 @@ $justificacion = $datos[10];
                 	$jd = "readonly";
                 }
                 ?>
-<div class="row-fluid">
-<div class="span1"></div>
-<div class="span5">
+<div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-5">
 <div class="well ">            
 <FORM action="indexconsulta.php" method="POST" name="Cursos">
            
                 <label>Fecha de la actividad:<br /> 
-                      <div class="input-append" >
+                      <div class="input-group" >
             <input name="fecha_act" type="text" class="input input-small" value="<? echo "$dia-$mes-$ano"; ?>" data-date-format="dd-mm-yyyy" id="fecha_act" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
               </label>
               <hr>
@@ -226,7 +226,7 @@ else{
               
 </div>
 </div>
-<div class="span5">
+<div class="col-sm-5">
 <div class="well ">          
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Grupos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning pull-right">Desmarcarlos todos</a> <br />
@@ -259,7 +259,7 @@ if(strstr($todosgrupos,$grupo)==TRUE){$chk=" checked ";}
  <? } ?>
      <br /><br />
                 <label>Justificacion: <br />
-                <textarea name="justificacion" id="textarea" cols="35" rows="4" class="span11"><? echo $justificacion; ?></textarea>
+                <textarea name="justificacion" id="textarea" cols="35" rows="4" class="col-sm-11"><? echo $justificacion; ?></textarea>
               </label>
 			   <br />
             <label>Horario: <br />

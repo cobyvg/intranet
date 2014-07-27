@@ -67,7 +67,7 @@ if ($no_dia> $numerodiasemana) {
   <h2>Guardias de Aula <small> <? echo $fecha_sp;?></small></h2>
 </div>
 <div class="container-fluid">
-<div class="row-fluid">
+<div class="row">
 <div class="well" style="width:500px;">
 	   <FORM action="guardias_admin.php" method="POST" name="Cursos">
 
@@ -89,7 +89,7 @@ if ($no_dia> $numerodiasemana) {
               </select>         
           </FORM>
           </div>
-<div class="span5 offset1">
+<div class="col-sm-5 col-sm-offset-1">
 <?
 if ($profeso) {
 echo '<h3>'.$profeso.'</h3><br />';	
@@ -117,7 +117,7 @@ include("../../horario.php");
 echo "</div>";
 ?>
 </div>
-<div class="span5">
+<div class="col-sm-5">
 
 <?
 $fech_hoy = date("Y-m-d");

@@ -122,7 +122,7 @@ $ya_hay=mysql_query("select informe from infotut_profesor where asignatura = '$m
 $ya_hay1=mysql_fetch_row($ya_hay);
 $informe=$ya_hay1[0];
 echo "<TD >";
-echo "<textarea rows='6' cols='42' name='informe' class='span4'>$informe</textarea>";
+echo "<textarea rows='6' cols='42' name='informe' class='col-sm-4'>$informe</textarea>";
 echo "</TD>";
 echo "</TABLE>";
 ?>

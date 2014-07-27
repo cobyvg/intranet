@@ -51,10 +51,10 @@ include("../../faltas/menu.php");
   </div>
 <br />
 <div class="container-fluid">
-<div class="row-fluid">
+<div class="row">
   <form action='index.php' method='post' name='f1' class="form-inline">
 
-  <div class="span4">
+  <div class="col-sm-4">
   <div class="well well-large">
 
   <legend>Faltas de un Grupo.</legend>
@@ -99,7 +99,7 @@ include("../../faltas/menu.php");
   
   
   
-   <div class="span4">
+   <div class="col-sm-4">
   <div class="well well-large">
   <legend>Faltas de un alumno</legend>
   <br />
@@ -140,17 +140,17 @@ printf ("<OPTION></OPTION>");
   <hr>
     <legend>Rango de fechas...</legend>
          <label>Inicio<br />
- <div class="input-append" style="display:inline;" >
+ <div class="input-group" style="display:inline;" >
             <input name="fecha4" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha4" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 
 </label>
   &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Fin<br />
- <div class="input-append" style="display:inline;" >
+ <div class="input-group" style="display:inline;" >
             <input name="fecha3" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha3" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
     </label> 
 
@@ -162,7 +162,7 @@ printf ("<OPTION></OPTION>");
 
 
 
-<div class="span4">
+<div class="col-sm-4">
 <div class="well well-large pull-left">
   <legend> Faltas y días sin justificar</legend>
   <br />
@@ -173,17 +173,17 @@ printf ("<OPTION></OPTION>");
  <hr>
    <legend>Rango de fechas...</legend>
          <label>Inicio<br />
- <div class="input-append" style="display:inline;" >
+ <div class="input-group" style="display:inline;" >
             <input name="fecha10" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha10" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 
 </label>
   &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Fin<br />
- <div class="input-append" style="display:inline;">
+ <div class="input-group" style="display:inline;">
             <input name="fecha20" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha20" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 
     </label> <hr />

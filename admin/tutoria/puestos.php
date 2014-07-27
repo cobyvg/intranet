@@ -27,7 +27,7 @@ echo '<div align="center">
   <h2>Página del tutor <small> Asignación de puestos en el Aula ('. $unidad.' )</small></h2>
 </div>
 <div class="container-fluid">
-<div class="row-fluid">';
+<div class="row">';
 ## estrutura de la clase
 // descomentar la línea de la opción elegida
 #$estructura_clase='222';
@@ -46,7 +46,7 @@ function al_con_nie($var_nie,$var_grupo)
 }
 if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'2') == TRUE))
 {
-echo "<div class='well' align='center'><p class='text-error'>La página a la que estás accediendo está restringida.</p>";
+echo "<div class='well' align='center'><p class='text-danger'>La página a la que estás accediendo está restringida.</p>";
 echo '<p class="text-info">Si piensas que es un error consulta con el administrador.</p>';
 echo "<a class='btn' href='../index.php'>Volver a la Intranet</a></div>";
 
@@ -55,7 +55,7 @@ exit;
 }
 
 
-echo '<div class="span12" align="center">
+echo '<div class="col-sm-12" align="center">
 <legend >Asignación de puestos de la tutoría de ',$_GET['unidad'].'</legend>';
 
 echo "<a class='btn btn-primary' target='_blank' href='puestos_print.php?unidad=$unidad'>Versión para imprimir</a><hr />";
@@ -615,8 +615,8 @@ window.onload = initDragDropScript;
 </script>
 
 
-<div class='row-fluid'>
-<div class='span10 offset1'><center>
+<div class='row'>
+<div class='col-sm-10 col-sm-offset-1'><center>
 
 <div id="dhtmlgoodies_dragDropContainer">
 
@@ -679,7 +679,7 @@ echo '</table>';
 <ul id="dragContent"></ul>
 <div id="dragDropIndicator"><img src="images/insert.gif"></div>
 </center>
-</div> <!-- del span10-->
+</div> <!-- del col-sm-10-->
 </div> <!-- del row-->
 </div>
 <?php 

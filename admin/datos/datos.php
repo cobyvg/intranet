@@ -29,8 +29,8 @@ if (isset($_GET['unidad'])) {
 </div>
 </div>
 <div class='container-fluid'>
-<div class="row-fluid">
-<div class="span12"><?php
+<div class="row">
+<div class="col-sm-12"><?php
 // Si se envian datos desde el campo de búsqueda de alumnos, se separa claveal para procesarlo.
 if (!(isset($_GET['seleccionado']))) {
 	$seleccionado="";

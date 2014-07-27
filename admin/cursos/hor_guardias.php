@@ -74,7 +74,7 @@ FROM  `recreo` where profesor not like ''
 ORDER BY  profesor, numero ASC ";
 ?>
 
-<div class="span4">
+<div class="col-sm-4">
 <legend align="center" class="text-info">Guardias de Pasillo</legend>
 <table class="table table-striped table-bordered tabladatos" align="center">
 <thead>
@@ -116,7 +116,7 @@ echo "</table>";
 ?>
 </div>
 
-<div class="span4">
+<div class="col-sm-4">
 <legend align="center" class="text-info">Guardias de Biblioteca</legend>
 <table class="table table-striped table-bordered" align="center">
 <thead>
@@ -177,7 +177,7 @@ echo "</table>";
 
 </div>
 
-<div class="span4">
+<div class="col-sm-4">
 <legend align="center" class="text-info">Guardias en las Aulas</legend>
 <table class="table table-striped table-bordered tabladatos">
 <thead>

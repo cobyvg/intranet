@@ -9,7 +9,7 @@ if (strstr($_SERVER['REQUEST_URI'],'add.php')==TRUE) {$activo1 = ' class="active
  
  
 <form method="post" action="buscar.php" class="form-search" style="margin-top:4px;">
-      	<div class="input-append pull-right">
+      	<div class="input-group pull-right">
     <input type="search" class="search-query" placeholder="Buscar en Noticias y Mensajes" name="expresion" onClick="this.value=''">   
     <button type="submit" class="btn btn-success">Buscar</button>
   		</div>    

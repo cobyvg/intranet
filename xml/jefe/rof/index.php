@@ -45,7 +45,7 @@ include("../../../menu.php");
 </div>
 
 <div class="row">
-	<div class="offset1 span11">
+	<div class="col-sm-offset-1 col-sm-11">
 	  
 	  <?php 
 	  if($msg) {

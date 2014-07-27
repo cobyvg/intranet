@@ -34,8 +34,8 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
     echo "<div id='t_larga' style='display:none' >";
     
 		echo "<div class='container'>";
-		echo '<div class="row-fluid">
-  <div class="span10 offset1">';
+		echo '<div class="row">
+  <div class="col-sm-10 col-sm-offset-1">';
 		echo "<table class='table table-striped tabladatos' align='center'>";
 		$fecha1 = (date ( "d" ) . - date ( "m" ) . - date ( "Y" ));
 		echo "<thead><tr>

@@ -31,25 +31,25 @@ include("inserta.php");
 else{
 ?>
 
-  <div class="row-fluid">
-<div class="span1"></div>
-<div class="span5">
+  <div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-5">
 <div class="well">
   <FORM action="index.php" method="POST" name="Cursos">
            
                 <center><label>Fecha de la actividad:<br /> 
-                      <div class="input-append" >
+                      <div class="input-group" >
             <input name="fecha_act" type="text" class="input input-medium" value="<? echo $fecha_act; ?>" data-date-format="dd-mm-yyyy" id="fecha_act" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
               </label></center>
               <hr>
                 <label>Titulo: <br />
-                <input name="actividad" type="text" id="actividad" value="<? echo $actividad; ?>" class="span10">
+                <input name="actividad" type="text" id="actividad" value="<? echo $actividad; ?>" class="col-sm-10">
                 </label>
                <hr>
                 <label>Departamento:  <br />
-                <SELECT name="departamento" onChange="submit()" class="span10">
+                <SELECT name="departamento" onChange="submit()" class="col-sm-10">
                     <OPTION><? echo $departamento; ?></OPTION>
 
                     <?
@@ -91,7 +91,7 @@ else{
                 </label>
                <hr>
                 <label>Profesor: <br />
-                <SELECT multiple name='profesor[]' class="span10" style="height:150px;">
+                <SELECT multiple name='profesor[]' class="col-sm-10" style="height:150px;">
                     <?
                     if($_POST['departamento'] == "Actividades Extraescolares" or $_POST['departamento'] == "Relaciones de Género"){
                     if($_POST['departamento'] == "Actividades Extraescolares"){
@@ -134,12 +134,12 @@ if($departamento == "Religión")
                   <p class="help-block" > (*) Para seleccionar varios profesores, mantén apretada la tecla Ctrl mientras los vas marcando con el ratón.</p> <hr>
                     <input type="hidden" name="hoy"  value="<? $hoy = date('Y\-m\-d'); echo $hoy;?>">
                 <label>Descripci&oacute;n: <br />
-                <textarea name="descripcion" id="textarea" rows="4" class="span10"><? echo $descripcion; ?></textarea>
+                <textarea name="descripcion" id="textarea" rows="4" class="col-sm-10"><? echo $descripcion; ?></textarea>
               </label>
               
 </div>
 </div>
-<div class="span5">
+<div class="col-sm-5">
 <div class="well ">          
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Grupos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning pull-right">Desmarcarlos todos</a> <br />
@@ -169,11 +169,11 @@ $grupo = $alumno[0];
  <? } ?>
     <br /><br />
                 <label>Justificación: <br />
-                <textarea name="justificacion" id="textarea" cols="35" rows="4" class="span10"><? echo $justificacion; ?></textarea>
+                <textarea name="justificacion" id="textarea" cols="35" rows="4" class="col-sm-10"><? echo $justificacion; ?></textarea>
               </label>
 			   <br />
             <label>Horario: <br />
-                <input name="horario" type="text" value="<? echo $horario; ?>" size="30" maxlength="64" class="span10">
+                <input name="horario" type="text" value="<? echo $horario; ?>" size="30" maxlength="64" class="col-sm-10">
               </label>        
             <input name="id" type="hidden" value="<? echo $id; ?>">
             

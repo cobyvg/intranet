@@ -24,8 +24,8 @@ $pr_trozos=explode(", ",$profe_baja);
 <h3 class="muted"><? echo "$pr_trozos[1] $pr_trozos[0]";?></h3>
 </div>
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span5 offset1">
+<div class="row">
+<div class="col-sm-5 col-sm-offset-1">
 <div align="left">
 <?
 echo "<h3 align=center>Datos de la ausencia</h3><br />";
@@ -63,7 +63,7 @@ echo '<table class="table table-striped table-bordered" style="width:100$;">';
 </div>
 </div>
 </div>
-<div class="span5">
+<div class="col-sm-5">
 <?	
 
 	echo "<h3>Horario del Profesor hoy</h3><br />";

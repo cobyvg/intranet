@@ -100,7 +100,7 @@ else{
 </div>
 </div>
 <div class="container">
-<div class="row-fluid"><div class="span6 offset3">';
+<div class="row"><div class="col-sm-6 col-sm-offset-3">';
 	foreach($_POST["select"] as  $val) {
 		$grupos.=$val.";";
 	}

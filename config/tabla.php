@@ -20,7 +20,7 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
 }
 ?>
 <form enctype="multipart/form-data" action="index.php" method="post" name="configura">
-<fieldset class="control-group warning">
+<fieldset class="form-group warning">
 
 <div class="tabbable" style="margin-bottom: 18px;">
 

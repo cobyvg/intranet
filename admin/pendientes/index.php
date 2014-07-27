@@ -28,9 +28,9 @@ $totalRows_Recordset2 = mysql_num_rows($Recordset2);
 </div>
 </div>
 <div class="container">
-<div class="row-fluid">';
+<div class="row">';
 ?>
-<div class="span4 offset2 well well-large">
+<div class="col-sm-4 col-sm-offset-2 well well-large">
 
 <legend>
 Listado de pendientes por Asignatura</legend>
@@ -59,7 +59,7 @@ do {
   </label>
 </form>
 </div>
-<div class="span4 well well-large">
+<div class="col-sm-4 well well-large">
 <legend>
 Listado de pendientes por Unidad</legend>
 <form id="form2" name="form2" method="post" action="pendientes_unidad.php">

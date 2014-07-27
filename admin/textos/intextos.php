@@ -52,14 +52,14 @@ include 'menu.php';
 <? 
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
 { ?>
-<div class="span6 offset3">	
+<div class="col-sm-6 col-sm-offset-3">	
 <div class="well well-large" style="width:80%;" align="left">
   <legend>Selecciona el Curso y los Grupos</legend>
 <hr>
     <form method="post" action="intextos.php" class="form-vertical">
   <label>
   Nivel:<br />
-    <select name="nivel" id="select4" onChange="submit()" class="input-block-level">
+    <select name="nivel" id="select4" onChange="submit()" class="form-control">
       <?
  if(isset($_POST['nivel']))
         {
@@ -102,26 +102,26 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       Texto</legend>
     <hr>
     <label>T&iacute;tulo <span style="color:#9d261d"> (*)</span></label>
-      <input name="titulo" type="text" id="titulo" class="input-block-level" value="<? echo $titulo; ?>" required>
+      <input name="titulo" type="text" id="titulo" class="form-control" value="<? echo $titulo; ?>" required>
     
     <label>Autor</label>
-      <input name="autor" type="text" id="autor" class="input-block-level" value="<? echo $autor; ?>">
+      <input name="autor" type="text" id="autor" class="form-control" value="<? echo $autor; ?>">
     
     <label>Editorial<span style="color:#9d261d"> (*)</span></label>
-      <input name="editorial" type="text" id="editorial" class="input-block-level" value="<? echo $editorial; ?>" required>
+      <input name="editorial" type="text" id="editorial" class="form-control" value="<? echo $editorial; ?>" required>
     
     <label>Departamento<span style="color:#9d261d"> (*)</span></label>
     <?
     if(stristr($_SESSION['cargo'],'4') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE)
     {
     ?>
-        <input type="text" name="departamento" id="departamento"  value ="<? echo  $departamento;?>" readonly class="input-block-level">
+        <input type="text" name="departamento" id="departamento"  value ="<? echo  $departamento;?>" readonly class="form-control">
     
     <?	
     }
     else{
     ?>
-    <select name="departamento" id="departamento"  value =" value="<? echo $departamento; ?>"" onChange="submit()"  class="input-block-level">
+    <select name="departamento" id="departamento"  value =" value="<? echo $departamento; ?>"" onChange="submit()"  class="form-control">
         <option>
         <?  echo $departamento;?>
         </option>
@@ -140,7 +140,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
     </label>
 
     <label>Asignatura <span style="color:#9d261d"> (*)</span><br />
-      <select name="asignatura" id="asignatura" class="input-block-level"  value="<? echo $asignatura; ?>" required>
+      <select name="asignatura" id="asignatura" class="form-control"  value="<? echo $asignatura; ?>" required>
         <option>
         <?
    // Datos de la Asignatura
@@ -167,10 +167,10 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
       </select>
     </label>
     <label>ISBN<span style="color:#9d261d"> (*)</span><br />
-      <input name="isbn" type="text" id="isbn" class="input-block-level" value="<? echo $isbn; ?>" required>
+      <input name="isbn" type="text" id="isbn" class="form-control" value="<? echo $isbn; ?>" required>
     </label>
     <label>Observaciones<br />
-      <textarea name="NOTAS" class="input-block-level" rows="6"> <? echo $NOTAS; ?></textarea>
+      <textarea name="NOTAS" class="form-control" rows="6"> <? echo $NOTAS; ?></textarea>
     </label>
     <p class="help-block"><span style="color:#9d261d">(*)</span> Campos obligatorios del formulario.</p>
     <hr />

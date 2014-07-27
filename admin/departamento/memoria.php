@@ -187,8 +187,8 @@ $p[$i]=$memoria[$i+1];
 if (!($memoria[1]=='')){$profe=$memoria[1];}
 
 
-echo '<div class="container-fluid"><div class="row-fluid">';
-echo "<div class='span10 offset1'>";
+echo '<div class="container-fluid"><div class="row">';
+echo "<div class='col-sm-10 col-sm-offset-1'>";
 ?>
 <div class="page-header" align="center">
   <h2>Jefatura de Departamento <small> Memoria final</small></h2>
@@ -201,7 +201,7 @@ echo '<div class="well well-large" style="max-width:980px;margin:auto;">';
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
 echo '<form action="memoria.php?depto='.$depto.'" method="post" name="memoria" class="form-vertical">';
 	}
-	echo '<div class="control-group">';
+	echo '<div class="form-group">';
 echo '<input type="hidden" name="aceptar" value="Si" />';
 #  preguntas
 echo '<label class="control-label" for="inputZprofe">Jefe del Departamento</label> ';

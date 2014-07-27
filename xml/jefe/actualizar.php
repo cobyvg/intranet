@@ -16,7 +16,7 @@ $elimina = "select distinct FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombr
 $elimina1 = mysql_query($elimina);
 if(mysql_num_rows($elimina1) > 0)
 {
-echo "<br /><div class='control-group success'><p class='help-block' style='text-align:left'>Tabla FALUMNOS: los siguientes alumnos han sido eliminados de la tabla FALUMNOS. <br>Comprueba los registros 
+echo "<br /><div class='form-group success'><p class='help-block' style='text-align:left'>Tabla FALUMNOS: los siguientes alumnos han sido eliminados de la tabla FALUMNOS. <br>Comprueba los registros 
 creados:</p></div>";
 while($elimina2 = mysql_fetch_array($elimina1))
 {
@@ -35,7 +35,7 @@ $result1 = mysql_query($SQL1);
 $total = mysql_num_rows($result1);
 if ($total !== 0)
 {
-echo "<br /><div class='control-group warning'><p class='help-block' style='text-align:left'>Tabla FALUMNOS: los nuevos alumnos han sido añadidos a la tabla FALUMNOS. <br>Comprueba en la lista de abajo los registros 
+echo "<br /><div class='form-group warning'><p class='help-block' style='text-align:left'>Tabla FALUMNOS: los nuevos alumnos han sido añadidos a la tabla FALUMNOS. <br>Comprueba en la lista de abajo los registros 
 creados:</p></div>";
 while  ($row1= mysql_fetch_array($result1))
  {
@@ -102,7 +102,7 @@ echo "<li>TIC: ".$nombreorig . " " . $usuario . " -- " . $unidad . "  " . $clave
 }
 else 
 {
-echo "<div class='control-group warning'><p class='help-block' style='text-align:left'>Tabla FALUMNOS: No se ha encontrado ningun registro nuevo para añadir en FALUMNOS.<br>Si crees que hay un problema, ponte en contacto con quien sepa arreglarlo</p></div><br />";	
+echo "<div class='form-group warning'><p class='help-block' style='text-align:left'>Tabla FALUMNOS: No se ha encontrado ningun registro nuevo para añadir en FALUMNOS.<br>Si crees que hay un problema, ponte en contacto con quien sepa arreglarlo</p></div><br />";	
 }
 
 // Cambio de grupo de un alumno.

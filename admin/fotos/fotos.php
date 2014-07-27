@@ -153,7 +153,7 @@ La fotograf&iacute;a tiene excesiva resoluci&oacute;n. Es conveniente que actual
 ?>
 <form action="fotos.php" method="POST">
 
-<select name="nombre"  onchange="submit()" style="" class="span3"  />
+<select name="nombre"  onchange="submit()" style="" class="col-sm-3"  />
 <?
 if (strlen($nombre) > '5')
     {

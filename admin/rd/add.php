@@ -202,16 +202,16 @@ if ($edicion=="1") {
 
 	?>
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span7 offset1">	
+<div class="row">
+<div class="col-sm-7 col-sm-offset-1">	
 
     <form action="add.php" method="POST" name='f1' class="form-inline">
       <label style="display:inline">Fecha de la Reunión &nbsp;
-      <div class="input-append" >
+      <div class="input-group" >
             <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" required id="fecha" value="<? if (isset($fecha_r)) {
             	echo $fecha_r;
             }?>" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -265,7 +265,7 @@ else{
       </textarea>
       </label>
       <hr>
-      <fieldset class="control-group warning">
+      <fieldset class="form-group warning">
       <label>Jefe del Departamento<br />
         <input type="text" name='jefedep' class='input-xlarge' value='<? echo $profesor;?>' readonly>
       </label>
@@ -285,7 +285,7 @@ else{
     </form>
 
  </div>
- <div class="span3">
+ <div class="col-sm-3">
 
 <?
 if($pag == "") {$pag = "0";} else {$pag = $pag + 25;}

@@ -103,9 +103,9 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
 </div>
 </div>
    <div class='container-fluid'>
-  <div class="row-fluid">
-  <div class="span1"> </div>
-  <div class="span10">
+  <div class="row">
+  <div class="col-sm-1"> </div>
+  <div class="col-sm-10">
 <table class="table table-striped tabladatos" style="width:100%;" align="center">
   <thead><tr>
     <th>Actividad</th>

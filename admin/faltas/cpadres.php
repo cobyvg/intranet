@@ -33,9 +33,9 @@ if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['nu
   </div>
 <br />
   <form enctype='multipart/form-data' action='cpadres.php' method='post'>
-<div class="row-fluid">
-  <div class="span3"></div>
-  <div class="span3">
+<div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-3">
    <div class="well well-large">        
         <h6>Selecciona unidad o Grupo</h6><br />
           <label> Grupo: <select  name="unidad" class="input" onChange="submit()">
@@ -62,7 +62,7 @@ $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS
          
          
        </div>
-<div class="span3">
+<div class="col-sm-3">
  
   <div class="well well-large">
           <?
@@ -72,16 +72,16 @@ $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS
 ?>
          <h6> Rango de fechas</h6><br />      
          <label> Inicio: 
-      <div class="input-append" >
+      <div class="input-group" >
             <input name="fecha12" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="fecha12" value="<?if($fecha12){ echo $fecha12;}?>" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Fin: 
- <div class="input-append" >
+ <div class="input-group" >
   <input name="fecha22" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="fecha22" value="<?if($fecha22){ echo $fecha22;}?>" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
       </label>
  <hr>

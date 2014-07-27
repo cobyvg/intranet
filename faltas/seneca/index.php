@@ -71,11 +71,11 @@ Los archivos de los alumnos han sido descragados correctamente en el directorio 
 ?>
 
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span4 offset2">
+<div class="row">
+<div class="col-sm-4 col-sm-offset-2">
 <legend align="center">Importar datos de los Alumnos</legend>
 <FORM ENCTYPE="multipart/form-data" ACTION="index.php" METHOD="post">
-  <div class="control-group">
+  <div class="form-group">
   <div class="well well-large" align="left">
       <div class="controls">
   <label class="control-label" for="file1">Selecciona el archivo comprimido descargado desde Séneca <span style="color:#9d261d">Exportacion_Faltas_Alumnado.zip</span>
@@ -88,7 +88,7 @@ Los archivos de los alumnos han sido descragados correctamente en el directorio 
     <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary btn-block">
   </div> <!-- center -->
   
-  </div> <!-- control-group -->
+  </div> <!-- form-group -->
   </div> <!-- well -->
 </div> <!-- control -->
 <hr />
@@ -99,21 +99,21 @@ Para poder importar las faltas de los alumnos, es necesario en primer lugar desc
 </FORM>
 
 </div>
-<div class="span4"><legend align="center">Exportar Faltas a Séneca</legend>
+<div class="col-sm-4"><legend align="center">Exportar Faltas a Séneca</legend>
 <div class="well" align="left">	
         <form id="form1" name="form1" method="post" action="index.php">
         
          <label >Primer d&iacute;a: 
-      <div class="input-append" >
+      <div class="input-group" >
             <input name="iniciofalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="iniciofalta" required />
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Ultimo d&iacute;a: 
- <div class="input-append" >
+ <div class="input-group" >
   <input name="finfalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="finfalta" required />
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 
       </label>

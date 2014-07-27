@@ -53,7 +53,7 @@ else
 echo "<div align='left'>
 <form name='alumno' method='POST' action='activar.php'>";
 echo "<label>Alumno <br />";
-echo"<select name='alumno' class='span3'>";
+echo"<select name='alumno' class='col-sm-3'>";
 echo "<OPTION></OPTION>";
 if ($unidad == ""){ echo "<OPTION></OPTION>";} 
 else
@@ -70,15 +70,15 @@ if ($unidad == ""){ echo "";}
 else
 {
 echo"<label>Tutor/a del grupo<br />";
-echo "<input type='text' value ='$fprof[0]' name='tutor' class='span3' readonly>";
+echo "<input type='text' value ='$fprof[0]' name='tutor' class='col-sm-3' readonly>";
 echo "</label>";
 }
 ?>
 <hr />
          <label>Fecha de la reunión<br />
- <div class="input-append" style="display:inline;" >
+ <div class="input-group" style="display:inline;" >
             <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 
 </label>

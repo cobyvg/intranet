@@ -21,8 +21,8 @@ $datatables_activado = true;
 <br />
 </div>
 <div class="container-fluid">
-  <div class="row-fluid">
-  <div class="span10 offset1">
+  <div class="row">
+  <div class="col-sm-10 col-sm-offset-1">
 <?
 if (isset($borrar) and $borrar=='1') {
 		$result1 = mysql_query("DELETE FROM partestic WHERE parte = $parte");

@@ -14,7 +14,7 @@ include("../menu.php");
 ?>
 <div class="container">
 <div class="row">
-<div class="span8 offset2">
+<div class="col-sm-8 col-sm-offset-2">
 <?
 echo "<br /><div align='center' class='page-header'>";
 $n_profe = explode(", ",$pr);
@@ -62,7 +62,7 @@ if($siguiente == '1'){
    	$foto = '../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto)) {
 		echo "<div style='width:150px;margin:auto;'>";
-		echo "<img src='../xml/fotos/$claveal.jpg' border='2' width='100' height='119' class='img-polaroid'  />";
+		echo "<img src='../xml/fotos/$claveal.jpg' border='2' width='100' height='119' class='img-thumbnail'  />";
 		echo "</div>";
 	}
 	

@@ -27,7 +27,7 @@ include("../../menu.php");
 <p class="help-block" style="width:600px; text-align:left"><span style="color:#9d261d">(*) </span>Para importar las fotos de todos los profesores, necesitaremos crear un archivo comprimido ( .zip ) conteniendo todos los archivos de fotos de los profesores. Cada archivo de foto tiene como nombre el usuario IdEA de Séneca seguido de la extensión .jpg o .jpeg. El nombre típico de un archivo de foto quedaría por ejemplo así: mgargon732.jpg. Las fotos se colocan en el directorio <em>/xml/fotos_profes/</em></p>
  <br />
   <div class="well well-large" style="width:480px; margin:auto;" align="left">
-  <div class="control-group">
+  <div class="form-group">
        <div class="controls">
         <label class="control-label" for="file">Selecciona el archivo comprimido con las fotos de los profesores</label>
       

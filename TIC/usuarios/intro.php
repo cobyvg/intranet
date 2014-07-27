@@ -14,7 +14,7 @@ include("../../menu.php");
 include("../menu.php");
 
 // Si ya hemos enviado los datos, nos vamos a alumnos.php
-if($_POST['enviar']=='Enviar datos')
+if(isset($_POST['enviar']))
 {
 include("alumnos.php");
 }
@@ -23,76 +23,81 @@ else
 
 ?>
 
-<div align=center>
-<div class="page-header" align="center">
-  <h2>Centro TIC <small> Nombres de Usuario de Alumnos</small></h2>
-</div>
-<br />
-</div>
-<br />
-<div align=center>
-<div class="well well-large" style="width:450px; text-align:left">
-  <form action="intro.php" method="post" name="form1" id="form1">
-      <?
- if(stristr($_SESSION['cargo'],'1') == TRUE)
-{
- ?>
- <label>Profesor<br />
- <select name="profe" onchange='submit()' class="input-block-level">
-            <?
-echo "<option>$profe</option>";
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Centro TIC <small>Perfiles de alumnos</small></h2>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA IZQUIERDA -->
+		<div class="col-sm-6 col-sm-offset-3">
+			
+			<div class="well">
+				
+				<form method="post" action="">
+					<fieldset>
+						<legend>Perfiles de alumnos</legend>
+						
+						<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+						<div class="form-group">
+					    <label for="profe">Profesor</label>
+					    <?php $result = mysql_query("SELECT DISTINCT PROFESOR FROM profesores ORDER BY PROFESOR ASC"); ?>
+					    <?php if(mysql_num_rows($result)): ?>
+					    <select class="form-control" id="profe" name="profe" onchange="submit()">
+						    <?php while($row = mysql_fetch_array($result)): ?>
+						    <option value="<?php echo $row['PROFESOR']; ?>" <?php echo (isset($profe) && $profe == $row['PROFESOR']) ? 'selected' : ''; ?>><?php echo $row['PROFESOR']; ?></option>
+						    <?php endwhile; ?>
+						    <?php mysql_free_result($result); ?>
+						   </select>
+						   <?php else: ?>
+						   <select class="form-control" id="profe" name="profe" disabled>
+						   	<option value=""></option>
+						   </select>
+						   <?php endif; ?>
+					  </div>
+					  <?php else: ?>
+					  <?php $profe = $_SESSION['profi']; ?>
+					  <?php endif; ?>
+					  
+					  <div class="form-group">
+					    <label for="curso">Unidad (Asignatura)</label>
+					    
+					    <?php $result = mysql_query("SELECT DISTINCT GRUPO, MATERIA, NIVEL, codigo FROM profesores, asignaturas WHERE materia = nombre AND abrev NOT LIKE '%\_%' AND PROFESOR = '$profe' AND nivel = curso ORDER BY grupo ASC"); ?>
+					    <?php if(mysql_num_rows($result)): ?>
+					    <select class="form-control" id="curso" name="curso">
+					      <?php while($row = mysql_fetch_array($result)): ?>
+					      <?php $key = $row['GRUPO'].'-->'.$row['MATERIA'].'-->'.$row['NIVEL'].'-->'.$row['codigo']; ?>
+					      <option value="<?php echo $key; ?>" <?php echo (isset($curso) && $curso == $key) ? 'selected' : ''; ?>><?php echo $row['GRUPO'].' ('.$row['MATERIA'].')'; ?></option>
+					      <?php endwhile; ?>
+					      <?php mysql_free_result($result); ?>
+					     </select>
+					     <?php else: ?>
+					     <select class="form-control" id="profesor" name="profesor" disabled>
+					     	<option value=""></option>
+					     </select>
+					     <?php endif; ?>
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary" name="enviar">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
+  
+<?php include("../../pie.php"); ?>
 
-// Seleccion de Profesor en profes.
-$SQL = "select distinct PROFESOR from profesores order by PROFESOR asc";
-//echo $SQL;
-$result = mysql_query($SQL);
-
-	while($row = mysql_fetch_array($result))
-	{
-	$profesor = $row[0];
-	echo "<option>" . $profesor . "</option>";
-}
-	// Selección de las asignaturas del profesor
-?>
-          </select>
-          </label>
-      <? 
-}
-else
-{
-echo "<h6>Selecciona el Curso</h6>";
-$profe = $_SESSION['profi'];
-}
-?>
-      <label>Curso<br /> 
-	  <? $SQLcurso = "select distinct GRUPO, MATERIA, NIVEL, codigo from profesores, asignaturas where materia = nombre and abrev not like '%\_%' and PROFESOR = '$profe' and nivel = curso order by grupo";
-//echo $SQLcurso;
-?>
-          <select name="curso" class="input-block-level">
-            <?
-	echo "<option></option>";
-
-$resultcurso = mysql_query($SQLcurso);
-	while($rowcurso = mysql_fetch_array($resultcurso))
-	{
-	$curso = $rowcurso[0];
-	$materia = $rowcurso[1];
-	$nivel = $rowcurso[2];
-	$codigo = $rowcurso[3];
-	echo "<option>" . $curso . "-->" . $materia . "-->" . $nivel . "-->" . $codigo . "</option>";
-}
-?>
-          </select>
-          </label>
-          <br />
-          <input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-block">
-  </form>
-</div>
-</div>
-<?
-}
-
-include("../../pie.php");
-?>
 </body>
 </html>
+<?php } ?>

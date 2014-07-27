@@ -61,7 +61,7 @@ $mail=mysql_fetch_row($mail0);
 ?>
 <form name="cargos" action="reset_password.php" method="post">
 <div class="container-fluid">
-<div class="row-fluid">
+<div class="row">
 <?
 $n_carg=mysql_query("select distinct profesor, dni from c_profes order by profesor");
 $num_profes=mysql_num_rows($n_carg);
@@ -71,7 +71,7 @@ $n2 = $n_p;
 $n3 = $n_p*2;
 $n4 = $n_p*3;
 for ($i=1;$i<4;$i++){
-echo '<div class="span4"><div class="well well-large"><ul class="unstyled">';	
+echo '<div class="col-sm-4"><div class="well well-large"><ul class="unstyled">';	
 $carg0=mysql_query("select distinct profesor, dni from c_profes order by profesor limit ".${n.$i}.",".$n_p."");
 while($carg1=mysql_fetch_array($carg0))
 {

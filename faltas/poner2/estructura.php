@@ -2,8 +2,8 @@
   <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span4">
+<div class="row">
+<div class="col-sm-4">
 <?
 if(is_numeric($profesor))
 {
@@ -77,7 +77,7 @@ echo "</div>";
                               
 </div>
 </div>
-<div class="span8">
+<div class="col-sm-8">
 <?
 echo "<h3 align='center'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</h3><br />";
             echo "<input type=hidden name=today value= \"$today\">";

@@ -141,13 +141,13 @@ echo "<form enctype='multipart/form-data' action='index2.php' method='post'>";
 <input name="claveal" type="hidden" value="<? echo $claveal;?>">
 <input name="mes" type="hidden" value="<? echo $mes;?>">
 <legend>Observaciones</legend>
-<textarea name="texto" title="Informe de Alumno absentista." class="span6" rows="12"><? echo $obs;?></textarea>
+<textarea name="texto" title="Informe de Alumno absentista." class="col-sm-6" rows="12"><? echo $obs;?></textarea>
 <hr />
 <?
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
 ?>
 <legend>Informe de Servicios Sociales</legend>
-<textarea name="texto2" title="Informe de Alumno absentista." class="span6" rows="12"><? echo $obs2;?></textarea>
+<textarea name="texto2" title="Informe de Alumno absentista." class="col-sm-6" rows="12"><? echo $obs2;?></textarea>
 <hr />
 <?
 }

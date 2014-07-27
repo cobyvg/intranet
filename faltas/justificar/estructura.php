@@ -8,9 +8,9 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') ==
 if(empty($profesor))
 {
 ?>
-<div class="row-fluid">
-<div class="span4"></div>
-<div class="span4">
+<div class="row">
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
 <div class="well well-large">
   <?
 echo "<legend align='center'>Selecciona Tutor</legend>";
@@ -18,7 +18,7 @@ echo "<hr>";
 	?>
   <?
 				echo "<div align='center'>         
-<SELECT name=profesor onchange='submit()' class='span10'>
+<SELECT name=profesor onchange='submit()' class='col-sm-10'>
               <OPTION></OPTION>";
 		        // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
 		        $profe = mysql_query("SELECT TUTOR FROM FTUTORES order by TUTOR asc");
@@ -43,9 +43,9 @@ $month=date("m");
 $today=date("d");
 }
 ?>
-  <div class="row-fluid">
-    <div class="span1"></div>
-    <div class="span5">
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
       <?	
 echo "<h4 align='center'>FECHA SELECCIONADA: &nbsp;<span style='font-size:1.0em; color:#08c'>$today-$month-$year</span></h4><br />
 ";		        	
@@ -102,7 +102,7 @@ echo "</td></tr></table><br />";
 ?>
     </div>
   </div>
-  <div class="span5">
+  <div class="col-sm-5">
     <? 
            if (empty($profesor)) {
            	echo "<br><h6>Selecciona Tutor:</h6><hr>";
@@ -139,7 +139,7 @@ echo "</td></tr></table><br />";
 		}
 $nivelgrupo1 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$nivel' order by NC asc limit 0,$mitad");
 $nivelgrupo = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$nivel' order by NC asc limit $mitad, $resto");
-echo "<div class='row-fluid'><div class='span6' align='left'>";
+echo "<div class='row'><div class='col-sm-6' align='left'>";
 while($filanivelgrupo1 = mysql_fetch_array($nivelgrupo1))
 		        {		        	
 $completo1 =  "$filanivelgrupo1[0], $filanivelgrupo1[1]";
@@ -150,7 +150,7 @@ if($alumno == $alumno1){echo " checked";}
 echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 </label>";
 		        	} 
 		        	echo "</div>";
-		        	echo "<div class='span6' align='left'>";
+		        	echo "<div class='col-sm-6' align='left'>";
 		         	while ($filanivelgrupo = mysql_fetch_array($nivelgrupo))
 		        {		        	
 $completo2 =  "$filanivelgrupo[0], $filanivelgrupo[1]";

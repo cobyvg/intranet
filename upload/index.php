@@ -472,18 +472,18 @@ function contents_dir($current_dir, $directory)
 	
 	
 		echo "</td>";
-		echo "<td class=\"hidden-phone hidden-tablet\" nowrap>";
-		echo "<span class=\"muted\">";
+		echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
+		echo "<span class=\"text-muted\">";
 		// TIPO DE ARCHIVO
 		if (is_dir("$current_dir/$filename")) echo "directorio";
 		else echo get_filesize("$current_dir/$filename");
 		echo "</span>";
 		echo "</td>";
-		echo "<td class=\"hidden-phone hidden-tablet\" nowrap>";
+		echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
 		
 		// FECHA DE MODIFICACIÓN
 		$file_modif_time = filemtime("$current_dir/$filename") - $timeoffset * 3600;
-		echo "<span class=\"muted\">".date($datetimeformat, $file_modif_time)."</span>";
+		echo "<span class=\"text-muted\">".date($datetimeformat, $file_modif_time)."</span>";
 		
 		echo "</td>\n";
 		echo "</tr>\n";
@@ -507,8 +507,8 @@ function list_dir($directory)
 	echo "    <tr>\n";
 	echo "      <th>$mess[15]</th>\n";
 	echo "      <th>$mess[16]</th>\n";
-	echo "      <th class=\"hidden-phone hidden-tablet\">$mess[17]</th>\n";
-	echo "      <th class=\"hidden-phone hidden-tablet\">$mess[18]</th>\n";
+	echo "      <th class=\"hidden-xs hidden-sm\">$mess[17]</th>\n";
+	echo "      <th class=\"hidden-xs hidden-sm\">$mess[18]</th>\n";
 	echo "    </tr>\n";
 	echo "  </thead>\n";
 
@@ -518,7 +518,7 @@ function list_dir($directory)
     
     // PIE DE TABLA
     echo "<hr>";
-	echo "  <p class=\"pull-right muted\">$mess[43]: $totalsize</p>\n";
+	echo "  <p class=\"pull-right text-muted\">$mess[43]: $totalsize</p>\n";
 	
 }
 
@@ -596,11 +596,11 @@ function show_contents() {
     echo "      <h2>$titulo</h2>\n";
     echo "   </div>\n";
     
-	echo "   <div class=\"row-fluid\">\n";
+	echo "   <div class=\"row\">\n";
 	
 	// COLUMNA IZQUIERDA
-	echo "      <div class=\"span8\">\n";
-	echo "        <div class=\"row-fluid\">\n";
+	echo "      <div class=\"col-sm-8\">\n";
+	echo "        <div class=\"row\">\n";
 
 	$directory = clean_path($directory);
 	if (!file_exists("$uploads_folder_name/$directory")) {
@@ -610,7 +610,7 @@ function show_contents() {
 	    $name = dirname($directory);
 	    if ($directory == $name || $name == '.') $name = '';
 	    
-	    echo "<div class=\"span12\">\n";
+	    echo "<div class=\"col-sm-12\">\n";
 	    echo "  <a href=\"index.${phpExt}?index=$index&direction=$direction&order=$order&directory=$name\">\n";
 	    echo "   <i class=\"fa fa-chevron-up iconf-fixed-width\"></i>\n";
 	    echo "  </a>\n";
@@ -625,9 +625,9 @@ function show_contents() {
 	echo "      </div>\n";
 	
 	// COLUMNA DERECHA
-	echo "   <div class=\"span4\">\n";
-	echo "     <div class=\"row-fluid\">\n";
-	echo "        <div class=\"span12\">\n";
+	echo "   <div class=\"col-sm-4\">\n";
+	echo "     <div class=\"row\">\n";
+	echo "        <div class=\"col-sm-12\">\n";
 	
 	if ($grants[$user_status][UPLOAD]) {
 		
@@ -640,7 +640,7 @@ function show_contents() {
 		echo "                <input type=\"hidden\" name=\"order\" value=\"$order\">\n";
 		echo "                <input type=\"hidden\" name=\"index\" value=\"$index\">\n";
 		echo "                <input type=\"hidden\" name=\"direction\" value=\"$direction\">\n";
-		echo "                <input type=\"file\" name=\"userfile\" class=\"input-block-level\">\n";
+		echo "                <input type=\"file\" name=\"userfile\">\n";
 		echo "                <hr>\n";
 		echo "                <input type=\"submit\" class=\"btn btn-primary\" value=\"$mess[20]\">\n";
 		echo "              </fieldset>\n";
@@ -658,7 +658,7 @@ function show_contents() {
 		echo "                <input type=\"hidden\" name=\"order\" value=\"$order\">\n";
 		echo "                <input type=\"hidden\" name=\"index\" value=\"$index\">\n";
 		echo "                <input type=\"hidden\" name=\"direction\" value=\"$direction\">\n";
-		echo "                <input type=\"text\" name=\"filename\" class=\"input-block-level\" placeholder=\"$mess[187]\">";
+		echo "                <input type=\"text\" name=\"filename\" class=\"form-control\" placeholder=\"$mess[187]\">";
 		echo "                <hr>\n";
 		echo "                <input type=\"submit\" class=\"btn btn-primary\" value=\"$mess[188]\">\n";
 		echo "              </fieldset>\n";

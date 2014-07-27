@@ -61,11 +61,11 @@ include("../../../menu.php");
 
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
 <div class="row">
-	<div class="offset3 span7 well">
+	<div class="col-sm-offset-3 col-sm-7 well">
 	
 	<?php 
 	if($msg) {
-	 echo "<div class=\"alert alert-error\">\n";
+	 echo "<div class=\"alert alert-danger\">\n";
 	 echo "  $msg";
 	 echo "</div>\n";
 	}
@@ -80,10 +80,10 @@ include("../../../menu.php");
 	$fechoria = mysql_fetch_array($result);
 		
 	echo '  <label for="asunto">Asunto</label>';
-	echo '  <input type="text" id="asunto" class="input-block-level" name="asunto" value="'.$fechoria[0].'" required>';
+	echo '  <input type="text" id="asunto" class="form-control" name="asunto" value="'.$fechoria[0].'" required>';
 	echo '  <br><br>';
 	echo '  <label for="medida">Medida</label>';
-	echo '  <select class="input-block-level" name="medida" required>';
+	echo '  <select class="form-control" name="medida" required>';
 	
 	if($fechoria[1]=="Amonestación oral") $selected1="selected";
 	if($fechoria[1]=="Amonestación oral. Llamada telefónica.") $selected2="selected";
@@ -97,10 +97,10 @@ include("../../../menu.php");
 	echo '  </select>';
 	echo '  <br><br>';
 	echo '  <label for="medida2">Medida complementaria</label>';
-	echo '  <textarea type="text" id="medida2" class="input-block-level" name="medida2" rows="5" required>'.$fechoria[2].'</textarea>';
+	echo '  <textarea type="text" id="medida2" class="form-control" name="medida2" rows="5" required>'.$fechoria[2].'</textarea>';
 	echo '  <br>';
 	echo '  <label for="gravedad">Gravedad</label>';
-	echo '  <select class="input-block-level" name="gravedad" required>';
+	echo '  <select class="form-control" name="gravedad" required>';
 	
 	if($fechoria[3]=="leve") $selected2_1="selected";
 	if($fechoria[3]=="grave") $selected2_2="selected";

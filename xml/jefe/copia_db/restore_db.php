@@ -25,7 +25,7 @@ include("../../../menu.php");
 </div>
 <br />
 <?
-echo '<div class="well well-large span6 offset3" align="left"><center><p class="lead muted">Restaurar la Base de Datos de la Intranet</p>';
+echo '<div class="well well-large col-sm-6 col-sm-offset-3" align="left"><center><p class="lead text-muted">Restaurar la Base de Datos de la Intranet</p>';
 echo '</center>';
 
 		//  Conexión con la Base de Datos.

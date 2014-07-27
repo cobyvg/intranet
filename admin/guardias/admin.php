@@ -31,8 +31,8 @@ if (isset($_GET['gu_fecha'])) {$gu_fecha = $_GET['gu_fecha'];}elseif (isset($_PO
 </div>
 <br />
  <div class="container-fluid">  
-      <div class="row-fluid">  
-        <div class="span4 offset2" >
+      <div class="row">  
+        <div class="col-sm-4 col-sm-offset-2" >
         <? if ($mod_horario) {
 ?>
 <div align="left" class="well well-large">
@@ -71,7 +71,7 @@ include("../../horario.php");
 <blockquote style="text-align:justify"><strong>Instrucciones de uso.</strong><br>Selecciona el Profesor al que quieres apuntar una sustitución no registrada. Te aparecerá el horario del Profesor, para que puedas determinar con precisión la hora de la guardia (1ª hora, 2ª hora, etc) del día en cuestión. Seleccionas a continuación el Profesor sustituido. Al hacer click en el campo de la fecha, aparecerá una nueva ventana con el calendario en el que debes pinchar sobre la fecha elegida. Escribe la hora de la guardia (1, 2, 3, etc) y envía los datos.<br />Si quieres consultar el historial de guardias de un Profesor, pincha en <em>Consultar guardias y profesores</em>. Selecciona el Profesor y aparecerá un histórico con todas las sustituciones realizadas. Si pinchas en una de las fuardias de su horario, podrás ver las sutituciones de todos los profesores de esa guardia en esa hora a lo largo del curso.</blockquote>
 </div>
         </div>
-        <div class="span4">
+        <div class="col-sm-4">
         <div class="well well-large" align="left">
    	<FORM action="guardias.php" method="POST" name="f1" class="form-inline">
 	<label>Profesor a sustituir<br />
@@ -94,9 +94,9 @@ include("../../horario.php");
               <hr>
 	<label>Fecha de la sustitución<br />
 	<input type="hidden" name="profeso" value="<? echo $profeso;?>">
-	     <div class="input-append" >
+	     <div class="input-group" >
             <input name="gu_fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="gu_fecha" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>    
 </label>
 <hr>

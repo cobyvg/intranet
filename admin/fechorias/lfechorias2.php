@@ -34,8 +34,8 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
   $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.id from Fechoria, FALUMNOS, FechCaduca where FechCaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal and Fechoria.claveal = '$clave' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos";
   $result = mysql_query ($query0);
   echo "<div class='container-fluid'>";
-  echo '<div class="row-fluid">
-  <div class="span10 offset1">';
+  echo '<div class="row">
+  <div class="col-sm-10 col-sm-offset-1">';
   
   echo '<div aligna="center">
 <div class="page-header" align="center">

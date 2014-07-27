@@ -35,10 +35,10 @@ mysql_query($crea);
 ?>
 <br />
 <div class="container-fluid">
-<div class="row-fluid">
+<div class="row">
 
 
-<div class="span4 offset4">
+<div class="col-sm-4 col-sm-offset-4">
 <legend align = 'center'>Consulta de los listados.</legend>
 <FORM action="consulta.php" method="POST" class="form-inline"">
   <div class="well well-large" align="center">

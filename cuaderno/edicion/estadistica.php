@@ -145,7 +145,7 @@ echo "<tr><td>$row[1]</td><td colspan='2' nowrap >$row[2], $row[3]</td>";
 	$dato1 = mysql_fetch_array($dato0);
 	$suma += $dato1[0];
 	if ($dato1[0]==''){$dato1[0]='0';} 
-	if ($dato1[0]<'5'){ $color = ' class="text-error" ';}else{ $color = ' class="text-success" ';} 
+	if ($dato1[0]<'5'){ $color = ' class="text-danger" ';}else{ $color = ' class="text-success" ';} 
 echo "<td align='center' $color>$dato1[0]</td>";}
 
 mysql_select_db($db);

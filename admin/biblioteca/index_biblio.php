@@ -26,13 +26,13 @@ exit;
 </div>
 </div>
 <div class="container-fluid">
-<div class="row-fluid">
-<div class='well span4'>  
+<div class="row">
+<div class='well col-sm-4'>  
 <p class='lead text-info'>Catálogo de Fondos</p>
 	<form enctype="multipart/form-data" action="importa_biblio.php" method="post">
-				<div class="control-group">
+				<div class="form-group">
 				<div class="controls">
-  				<input type="file" name="archivo1" class="input input-file span4" id="file">
+  				<input type="file" name="archivo1" class="input input-file col-sm-4" id="file">
   				</div>
 				</div>
 				<hr />
@@ -49,12 +49,12 @@ exit;
 	</ul>
 	<hr />
 </div>
-<div class='well span4'>      
+<div class='well col-sm-4'>      
 <p class='lead text-info'>Lectores de la Biblioteca</p>        
 	<form enctype="multipart/form-data" action="importa_biblio.php" method="post">
-				<div class="control-group">
+				<div class="form-group">
 				<div class="controls">
-  				<input type="file" name="archivo2" class="input input-file span4" id="file">
+  				<input type="file" name="archivo2" class="input input-file col-sm-4" id="file">
   				</div>
 				</div>
 				<hr />
@@ -74,7 +74,7 @@ exit;
 	</p>
 	<hr />
 </div>
-<div class=" well span4">
+<div class=" well col-sm-4">
 <p class='lead text-info'>Préstamos de Ejemplares</p>
 <FORM ENCTYPE="multipart/form-data" ACTION="morosos.php" METHOD="post" class="form-inline">
   <input type="file" name="archivo">
@@ -83,7 +83,7 @@ exit;
     <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary btn-block">
   </div>
   <br />
-    <div  class="control-group success" style="width:auto;">
+    <div  class="form-group success" style="width:auto;">
              <p>La importación de los Préstamos de ejemplares permite gestionar las Devoluciones de los libros como asuntos de Disciplina (considerar elretraso en la devolución como falta grave, enviar SMS de advertencia, etc.) en <em>Gestón de Préstamos</em>.El archivo que se solicita es el informe  de <b>Préstamos</b> que 
 	genera el programa Abbies siguiendo los siguientes pasos:</p>
 	<ul class="">

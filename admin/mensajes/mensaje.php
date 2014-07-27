@@ -35,8 +35,8 @@ include("menu.php");
   <div class="page-header">
     <h2>Mensaje: <?php echo $page_header; ?> <br><small>Enviado por <?php echo $mensaje['origen']; ?> el <?php echo fecha_actual2($mensaje['ahora']); ?></small></h2>
   </div>
-  <div class="row-fluid no_imprimir">
-    <div class="span12">
+  <div class="row no_imprimir">
+    <div class="col-sm-12">
       <a href="index.php" class="btn btn-default"><span class="fa fa-times"></span> Cerrar</a>
       <a href="redactar.php?profes=1&origen=<?php echo $mensaje['origen']; ?>&asunto=RE: <?php echo $mensaje['asunto']; ?>" class="btn btn-primary"><span class="fa fa-reply"></span> Responder</a>
       <a href="javascript:void(0);" class="btn btn-info" onclick="print()"><span class="fa fa-print"></span> Imprimir</a>
@@ -49,13 +49,13 @@ include("menu.php");
   
   <br>
   
-  <div class="row-fluid">
+  <div class="row">
   
-    <div class="span8">
+    <div class="col-sm-8">
       <?php echo $mensaje['texto']; ?>
     </div>
     
-    <div class="span4">
+    <div class="col-sm-4">
       <div class="well no_imprimir">
         <fieldset>
           <legend class="text-warning">Destinatario(s)</legend>
@@ -68,7 +68,7 @@ include("menu.php");
 	        	echo "<span class=\"text-success\">$n_profesor; </span>";
 	        }
 	        else {
-	        	echo "<span class=\"text-error\">$n_profesor; </span>";
+	        	echo "<span class=\"text-danger\">$n_profesor; </span>";
 	        }
         }
         ?>

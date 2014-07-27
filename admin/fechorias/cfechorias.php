@@ -39,13 +39,13 @@ if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
 
 <div align="center" style="width:600px; margin:auto;" class="well">
 <div align="left">
-<div class="row-fluid">
-<div class="span6">
+<div class="row">
+<div class="col-sm-6">
   <FORM action="cfechorias.php" method="POST" name="Fechorias" class="">
-   <div class="row-fluid">
-    <div class="span12">
+   <div class="row">
+    <div class="col-sm-12">
     <label>Grupo:      
-    <SELECT name="unidad" id="unidad"  onChange="submit()" class="span6" style="display:inline">
+    <SELECT name="unidad" id="unidad"  onChange="submit()" class="col-sm-6" style="display:inline">
         <OPTION><? echo $unidad;?></OPTION>
         <? unidad();?>
       </SELECT>
@@ -61,11 +61,11 @@ if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
     </label>
    
     </div>
-    <div class="span6">
+    <div class="col-sm-6">
     
     
-    <div class="row-fluid">
-    <div class="span5">
+    <div class="row">
+    <div class="col-sm-5">
     <label>Mes:
     <select name="MES" class="input-mini">
     <option></option>
@@ -77,19 +77,19 @@ if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
     </select>
     </label>
     </div>
-    <div class="span7">
+    <div class="col-sm-7">
 
     <label>Día: 
-<div class="input-append">
+<div class="input-group">
   <input name="DIA" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="DIA" style="display:inline">
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </label>
     </div>
     </div>
         
     <label>Otros criterios:<br />      
-    <select size="5" class="input-block-level" name = "clase[]" >
+    <select size="5" class="form-control" name = "clase[]" >
         <option>Expulsion del Centro</option>
         <option>Expulsion del Aula</option>
         <option>Aula de Convivencia</option>

@@ -162,9 +162,9 @@ else
 {
 	 if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE)){
 		?>
-<div class="row-fluid">
- <div class="span2"></div>
-<div class="span4">
+<div class="row">
+ <div class="col-sm-2"></div>
+<div class="col-sm-4">
         <?
 	}
 	else{
@@ -183,7 +183,7 @@ else
         </select><? }?>
       
           	<label>Causa<br />
-	<select name="causa" class="input-block-level">
+	<select name="causa" class="form-control">
  <? if(stristr($_SESSION['cargo'],'8') == TRUE){?>
 		    <option><? echo $causa; ?></option>
 		    <option>Orientación académica y profesional</option>
@@ -208,7 +208,7 @@ else
 <?
 if(empty($text)){$text = "";}
 echo "<label>Texto del mensaje<br />
-<TEXTAREA name='text' class='input-block-level' rows='4'  onkeydown=\"contar('nameform','text')\" onkeyup=\"contar('nameform','text')\">$text</TEXTAREA></label><br />
+<TEXTAREA name='text' class='form-control' rows='4'  onkeydown=\"contar('nameform','text')\" onkeyup=\"contar('nameform','text')\">$text</TEXTAREA></label><br />
 		<p class='help-block'>Caracteres restantes:&nbsp; <INPUT name=result value=160 class='input-small' readonly='true'></p>";
 $sms_n = mysql_query("select max(id) from sms");
 $n_sms =mysql_fetch_array($sms_n);
@@ -229,7 +229,7 @@ $extid = $n_sms[0]+1;
 		?>
 </div>
 </div>
-<div class="well span3 pull-left">
+<div class="well col-sm-3 pull-left">
 <legend>Alumnos</legend>
         <?
   		echo '<SELECT  name=nombre[] multiple=multiple style="padding:15px; width:100%;height:450px;">';

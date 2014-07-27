@@ -27,7 +27,7 @@ include("../../menu.php");
  <p class="help-block" style="width:600px; text-align:left"><span style="color:#9d261d">(*) </span>Para importar las fotos de todos los alumnos, necesitaremos crear un archivo comprimido ( .zip ) conteniendo todos los archivos de fotos de los alumnos. Cada archivo de foto tiene como nombre el NIE de Séneca (el Número de Identificación que Séneca asigna a cada alumno ) seguido de la extensión .jpg o .jpeg. El nombre típico de un archivo de foto quedaría por ejemplo así: 1526530.jpg. Las fotos se colocan en el directorio <em>/xml/fotos/</em></p>
  <br />
   <div class="well well-large" style="width:480px; margin:auto;" align="left">
-  <div class="control-group">
+  <div class="form-group">
  
   <br />
       <div class="controls">

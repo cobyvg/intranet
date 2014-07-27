@@ -83,7 +83,7 @@ $elimina = "select distinct NOMBRE, DNI, DEPARTAMENTO, IDEA from departamento_te
 $elimina1 = mysql_query($elimina);
  if(mysql_num_rows($elimina1) > 0)
 {
-echo "<div class='control-group success'><p class='help-block' style='text-align:left'>
+echo "<div class='form-group success'><p class='help-block' style='text-align:left'>
 Tabla Departamentos: los siguientes Profesores han sido añadidos a la tabla. <br>Comprueba los registros creados:</p></div>";
 while($elimina2 = mysql_fetch_array($elimina1))
 {
@@ -121,7 +121,7 @@ $result1 = mysql_query($SQL1);
 $total = mysql_num_rows($result1);
 if ($total !== 0)
 {
-	echo "<div class='control-group success'><p class='help-block' style='text-align:left'>Tabla <strong>c_profes</strong>: los nuevos Profesores han sido añadidos a la tabla de usuarios de la Intranet. <br>Comprueba en la lista de abajo los registros creados:</p></div>";
+	echo "<div class='form-group success'><p class='help-block' style='text-align:left'>Tabla <strong>c_profes</strong>: los nuevos Profesores han sido añadidos a la tabla de usuarios de la Intranet. <br>Comprueba en la lista de abajo los registros creados:</p></div>";
 while  ($row1= mysql_fetch_array($result1))
  {
 $SQL2 = "INSERT INTO c_profes (profesor, dni, pass, idea) VALUES (\"". $row1[0]. "\",\"". $row1[1] . "\",\"". $row1[1] . "\",\"". $row1[2] . "\")";

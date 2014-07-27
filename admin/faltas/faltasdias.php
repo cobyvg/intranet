@@ -25,9 +25,9 @@ $imprimir_activado = true;
   $fechasq2=explode("-",$fecha20);
   $fechasq3=$fechasq2[2]."-".$fechasq2[1]."-".$fechasq2[0];
   echo '<div class="container">
-  <div class="row-fluid">
-  <div class="span2"></div>
-  <div class="span8">';
+  <div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">';
   echo '<div class="page-header" align="center">
   <h2>Faltas de Asistencia <small> Informe de faltas</small></h2>
   </div>

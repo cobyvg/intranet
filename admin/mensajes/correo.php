@@ -48,7 +48,7 @@ if (isset($_POST['enviar'])) {
 	}
 
 	if(!$mail->Send()) {
-		$msg_class = "alert-error";
+		$msg_class = "alert-danger";
 		$msg = "Error: " . $mail->ErrorInfo;
 	} else {
 		$msg_class = "alert-success";
@@ -68,11 +68,11 @@ include("menu.php");
 <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
 </div>
 
-<div class="row-fluid">
+<div class="row">
 
 <form name="cargos" method="post" enctype="multipart/form-data"
 	role="form">
-<div class="span12">
+<div class="col-sm-12">
 <button type="submit" class="btn btn-primary" name="enviar">Enviar
 correo</button>
 <a href="index.php" class="btn btn-default">Cancelar</a></div>
@@ -86,11 +86,11 @@ correo</button>
 </div>
 <?php endif; ?>
 
-<div class="row-fluid">
+<div class="row">
 
-<div class="span7"><input type="text" class="input-block-level"
+<div class="col-sm-7"><input type="text" class="form-control"
 	name="tema" placeholder="Asunto del correo"> <br />
-<textarea class="input-block-level" name="texto" rows="10"></textarea>
+<textarea class="form-control" name="texto" rows="10"></textarea>
 <br>
 <br>
 
@@ -105,7 +105,7 @@ archivos máximo)</small></legend> <input type="button"
 
 </div>
 
-<div class="span5">
+<div class="col-sm-5">
 
 <div class="well">
 	<a href="javascript:seleccionar_todo()"	class="btn btn-small btn-info">Todos</a>&nbsp;
@@ -116,21 +116,21 @@ archivos máximo)</small></legend> <input type="button"
 <br>
 <br>
 
-<div class="accordion" id="departamentos">
+<div class="panel-group" id="departamentos">
 
 <?php
 $result = mysql_query("select distinct departamento from departamentos where departamento not like '%conserje%' order by departamento");
 $i=0;
 while ($departamento = mysql_fetch_array($result)):
 ?>
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#departamentos" href="#departamento<?php echo $i; ?>">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <a class="panel-group-toggle" data-toggle="collapse" data-parent="#departamentos" href="#departamento<?php echo $i; ?>">
         <span class="text-warning"><?php echo $departamento['departamento']; ?></span>
       </a>
     </div>
-    <div id="departamento<?php echo $i; ?>" class="accordion-body collapse <?php if($i==0) echo 'in'; ?>">
-      <div class="accordion-inner">
+    <div id="departamento<?php echo $i; ?>" class="panel-collapse collapse <?php if($i==0) echo 'in'; ?>">
+      <div class="panel-body">
   
 <?php
     $profesores = mysql_query("SELECT distinct profesor, c_profes.dni, correo, cargo FROM c_profes, departamentos WHERE departamentos.idea = c_profes.idea AND departamento='$departamento[0]' AND correo IS NOT NULL ORDER BY profesor");

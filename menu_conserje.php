@@ -1,13 +1,13 @@
-<div class="accordion" id="menu">
-  <div class="accordion-group well">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
+<div class="panel-group" id="menu">
+  <div class="panel panel-default well">
+    <div class="panel-heading">
+      <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
         <i class="pull-right fa fa-chevron-down"></i>
         Trabajo
       </a>
     </div>
-    <div id="trabajo" class="accordion-body collapse in">
-      <div class="accordion-inner">
+    <div id="trabajo" class="panel-collapse collapse in">
+      <div class="panel-body">
         <ul class="nav nav-list">
           <? if (strstr($_SESSION ['cargo'],"7")) { ?>
           <li><a href="admin/matriculas/index.php">Matriculación de alumnos</a></li>
@@ -22,7 +22,7 @@
               Fotografías
             </a>
           </li>
-          <div id="fotos" class="accordion-body collapse">
+          <div id="fotos" class="panel-collapse collapse">
             <ul class="nav nav-list">
               <li><a href="admin/fotos/index.php">Fotos de los alumnos</a></li>
               <li><a href="admin/fotos/fotos_profes.php">Fotos de los profesores</a></li>
@@ -35,7 +35,7 @@
               Centro TIC
             </a>
           </li>
-          <div id="tic" class="accordion-body collapse">
+          <div id="tic" class="panel-collapse collapse">
             <ul class="nav nav-list">
               <li><a href="TIC/usuarios/intro.php">Usuario alumno</a></li>
               <li><a href="TIC/usuarios/usuarioprofesor.php">Usuario profesor</a></li>
@@ -51,7 +51,7 @@
               Reservas de medios
             </a>
           </li>
-          <div id="reservas" class="accordion-body collapse">
+          <div id="reservas" class="panel-collapse collapse">
             <ul class="nav nav-list">
               <li><a href="reservas/index.php?recurso=carrito">Carritos TIC</a></li>
               <li><a href="reservas/index.php?recurso=aula">Aulas compartidas</a></li>
@@ -69,15 +69,15 @@
     </div>
   </div>
 
-  <div class="accordion-group well">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
+  <div class="panel panel-default well">
+    <div class="panel-heading">
+      <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
         <i class="pull-right fa fa-chevron-down"></i>
         Otras cosas
       </a>
     </div>
-    <div id="cosas" class="accordion-body collapse">
-      <div class="accordion-inner">
+    <div id="cosas" class="panel-collapse collapse">
+      <div class="panel-body">
         <ul class="nav nav-list">
           <li><a href="http://www.juntadeandalucia.es/averroes/centros-tic/<? echo $codigo_del_centro; ?>/moodle/">Plataforma Moodle</a></li>
           <li><a href="admin/cursos/calendario.php">Calendario escolar</a></li>
@@ -88,15 +88,15 @@
     </div>
   </div>
   
-  <div class="accordion-group well">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
+  <div class="panel panel-default well">
+    <div class="panel-heading">
+      <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
         <i class="pull-right fa fa-chevron-down"></i>
         Otras páginas
       </a>
     </div>
-    <div id="paginas" class="accordion-body collapse">
-      <div class="accordion-inner">
+    <div id="paginas" class="panel-collapse collapse">
+      <div class="panel-body">
         <ul class="nav nav-list">
           <li><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank">Novedades de la Consejería</a></li>
           

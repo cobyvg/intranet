@@ -44,7 +44,7 @@ $result = mysql_query ($expul);
         	if (mysql_num_rows($result) == '0') {        		
         	}
         	else{
-	echo "<div class='well alert alert-info'><legend><i class='fa warning-sign'> </i> Alumnos que se reincorporan tras su Expulsión<br /> <small>$materia</small></legend><hr />";
+	echo "<div class='alert alert-info'><legend><i class='fa warning-sign'> </i> Alumnos que se reincorporan tras su Expulsión<br /> <small>$materia</small></legend><hr />";
 	echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad."</p>";
 	echo "<p>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary'>SI</button></a>&nbsp;&nbsp;<a href='index.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger'>NO</button></a></p>";
 	echo "</div>";
@@ -65,7 +65,7 @@ $result = mysql_query ("select distinct alma.apellidos, alma.nombre, alma.unidad
 if (mysql_num_rows($result) > '0') {
      while ($row = mysql_fetch_array($result))
         {
-    echo "<div class='well alert alert-info'><h4>Alumnos que mañana abandonan el Centro por Expulsión </h4><h6>$materia</h6><br />";
+    echo "<div class='alert alert-info'><h4>Alumnos que mañana abandonan el Centro por Expulsión </h4><h6>$materia</h6><br />";
 	echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad." (Expulsado $row[4] días) </p>";
 	echo "</div>";
         }
@@ -223,12 +223,14 @@ $fechaenv = "el día $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 <br />
  <? echo "<span style='font-size:0.8em;color:#eee'>".mb_strtolower($origen)." (".formatea_fecha($fechacompl[0])." ".$fechacompl[1].")</span>";?>
 </li>
-<div class="modal hide fade" id="mensajep<? echo $n_mensajesp;?>">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <p class="lead text-info">Mensaje de <? echo $origen;?> </p><small class="muted">Enviado <? echo $fechaenv;?></small>
+<div class="modal fade" id="mensajep<? echo $n_mensajesp;?>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+    <h4 class="modal-title">Mensaje de <? echo $origen;?> </p><small class="muted">Enviado <? echo $fechaenv;?></small></h4>
   </div>
-  <hr />
+  
   <div class="modal-body">
 <p class="text-info"><? echo $asunto;?></p>
 <span style="color:#333"><? echo $texto;?></span>
@@ -243,6 +245,8 @@ echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen=
 <a href="index.php?verifica_padres=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a> 
 <input type='hidden' name = 'id_ver' value = '$id' />
 </form>
+</div>
+</div>
 </div>
 </div>
 <?
@@ -265,7 +269,7 @@ $men2 = mysql_query($men1);
 if(mysql_num_rows($men2) > 0)
 {
 
-	echo "<div class='well alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><p class='lead'><i class='fa fa-comment'> </i> Mensajes de Profesores</p><hr /><ul>";
+	echo "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><p class='lead'><i class='fa fa-comment'> </i> Mensajes de Profesores</p><hr /><ul>";
 	while($men = mysql_fetch_row($men2))
 {
 $n_mensajes+=1;
@@ -288,13 +292,15 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
  <? echo "<span style='font-size:0.8em;color:#eee'>".mb_strtolower($origen)." (".formatea_fecha($fechacompl[0])." ".$fechacompl[1].")</span>";?>
  </li>
 
-<div class="modal hide fade" id="mensaje<? echo $n_mensajes;?>">
+<div class="modal fade" id="mensaje<? echo $n_mensajes;?>">
 
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <p class="text-success">Mensaje de <? echo $origen;?> </p><small class="muted">Enviado <? echo $fechaenv;?></small>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+    <h4 class="modal-title">Mensaje de <? echo $origen;?> </p><small class="muted">Enviado <? echo $fechaenv;?></small></h4>
   </div>
-  <hr />
+  
   <div class="modal-body">
 <p class="text-success"><? echo $asunto;?></p>
 <span style="color:#333"><? echo $texto;?></span>
@@ -310,6 +316,8 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 <a href="index.php?verifica=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a>  
 <input type='hidden' name = 'id_ver' value = '$id' />
 </form>
+</div>
+</div>
 </div>
 </div>
 <?

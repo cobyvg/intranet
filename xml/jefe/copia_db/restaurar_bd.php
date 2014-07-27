@@ -25,9 +25,9 @@ include("../../../menu.php");
 </div>
 <br />
 <form enctype="multipart/form-data" action="restore_db.php" method="post" class="form-vertical">
-  <div class="control-group success"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si dispones de una copia de seguridad de la base de datos puedes realizar su restauración. Recuerda que los datos actuales se eliminarán. Una vez enviado el archivo el proceso tardará unos segundos, ten paciencia.</p></div><br />
+  <div class="form-group success"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si dispones de una copia de seguridad de la base de datos puedes realizar su restauración. Recuerda que los datos actuales se eliminarán. Una vez enviado el archivo el proceso tardará unos segundos, ten paciencia.</p></div><br />
   <div class="well well-large" style="width:600px; margin:auto;" align="left">
-				<div class="control-group">
+				<div class="form-group">
 				<p class="lead">Archivo de datos:</p>
 				<div class="controls">
 				<input name="archivo" id='archivo' type="file" />

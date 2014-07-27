@@ -38,7 +38,7 @@ $datatables_activado=true;
 		<!-- CONTENIDO DE LA PAGINA -->
 		
 		<div class="row">
-			<div class="span8 offset2">
+			<div class="col-sm-8 col-sm-offset-2">
 			
 			    <div class="no_imprimir">
 			      <a href="../../index.php" class="btn btn-default">Volver</a>
@@ -83,7 +83,7 @@ $datatables_activado=true;
 					</tbody>
 				</table>
 				
-			</div><!-- /.span12 -->
+			</div><!-- /.col-sm-12 -->
 		</div><!-- /.row -->
 	  
 	</div><!-- /.container -->

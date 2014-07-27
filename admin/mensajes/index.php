@@ -66,10 +66,10 @@ return false;
     <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
   </div>
   
-  <div class="row-fluid">
+  <div class="row">
     
     <!-- MENSAJES -->
-    <div class="span12">
+    <div class="col-sm-12">
     
       <!-- Mensaje eliminado -->
       <?php if(isset($msg_delete) && $msg_delete==1): ?>
@@ -89,7 +89,7 @@ return false;
       
       <style class="text/css">
         a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; }
-        #DataTables_Table_0_wrapper div.row-fluid:nth-child(1) { display: none; }
+        #DataTables_Table_0_wrapper div.row:nth-child(1) { display: none; }
       </style>
       
       <ul class="nav nav-tabs">

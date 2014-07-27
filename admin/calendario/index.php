@@ -64,7 +64,7 @@ if ($today > $numdays) {
 }
 
 //Nombre del Mes
-echo "<legend><i class='fa fa-calendar-o'> </i> " . $monthlong . "</legend>";
+echo '<h3><span class="fa fa-calendar-o fa-fw"></span> ' . $monthlong . '</h3>';
 echo "<table class='table table-bordered table-condensed table-centered'><thead><tr>";
 
 //Nombres de Días
@@ -75,7 +75,7 @@ echo "</tr></thead><tr>";
 
 //Días en blanco
 for($i = 0; $i < $dayone; $i ++) {
-	echo "<td valign=\"middle\" align=\"center\">&nbsp;</td>\n";
+	echo "<td >&nbsp;</td>\n";
 }
 
 //Días
@@ -87,10 +87,10 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 	//Comprobar si hay actividad en el día
 	$result_found = 0;
 	if ($zz == $today) { //Marcar días actuales
-    echo "<td align=\"center\" style='background-color:#555;color:#fff;font-size:0.8em'>$zz</td>\n";
+    echo "<td class=\"calendar-today\">$zz</td>\n";
 		$result_found = 1;
 	}
-	if ($result_found != 1) { //Buscar actividad para el dóa y marcarla
+	if ($result_found != 1) { //Buscar actividad para el día y marcarla
 		
 		
 
@@ -103,11 +103,11 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 		if (mysql_num_rows($eventExec)>0) {
 			while ( $row = mysql_fetch_array ( $eventExec ) ) {
 			if (strlen ( $row ["title"] ) > 0) {
-			$bg = "#f89406";
+			$bg = "calendar-orange";
 				if (mysql_num_rows($diari)>0) {
-					$bg = "#007FFF";
+					$bg = "calendar-blue";
 				}
-				echo "<td valign=\"middle\" align=\"center\" style='background-color:$bg;color:#fff;font-size:0.8em'>$zz</td>\n";
+				echo "<td class=\"$bg\">$zz</td>\n";
 				$result_found = 1;
 			}
 		}	
@@ -117,7 +117,7 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 		$fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-			echo "<td valign=\"middle\" align=\"center\" style='background-color:#46A546;color:#fff;font-size:0.8em;'>$zz</td>\n";
+			echo "<td class=\"calendar-red\">$zz</td>\n";
 				$result_found = 1;
 				}	
 		}
@@ -125,7 +125,7 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 	}
 	
 	if ($result_found != 1) { //Celda por defecto
-		echo "<td valign=\"middle\" align=\"center\" style='font-size:0.8em'>$zz</td>\n";
+		echo "<td style=''>$zz</td>\n";
 	}
 	
 	$i ++;
@@ -139,10 +139,10 @@ if ($create_emptys == 7) {
 
 //Celdas en blanco 
 if ($create_emptys != 0) {
-	echo "<td class=\"cellbg\" valign=\"middle\" align=\"center\" colspan=\"$create_emptys\"></td>\n";
+	echo "<td class=\"cellbg\"  colspan=\"$create_emptys\"></td>\n";
 }
 
-echo "</tr></table><br />";
+echo "</tr></table>";
 
 $mes = date ( 'm' );
 $mes8 = date ( 'm' ) + 1;
@@ -163,21 +163,25 @@ while ($asign = mysql_fetch_array($asig)) {
 }
 $sql_diario.=") and date(fecha) >= '$rango0' and date(fecha) <= '$rango8' and calendario = '1'  order by fecha limit 3";
 
+$flag_hr = 0;
 $diari = mysql_query($sql_diario);
 if (mysql_num_rows ( $diari ) > 0){
-	echo "<legend style='margin-bottom:3px;'><small style='color:#777'><i class='fa fa-calendar'></i> Calendario personal</small></legend>";
+	echo "<h5><span class='fa fa-calendar fa-fw'></span> Calendario personal</h5>";
 	while ( $diar = mysql_fetch_array ( $diari ) ) {
 		$n_reg+=1;
 		$fecha_reg = cambia_fecha($diar[1]);
 		echo "<p><small>  $fecha_reg - </small><a href='admin/calendario/diario/index.php?id=$diar[0]' rel='tooltip' title='$diar[2] - $diar[3]'>  $diar[2]</a></p>";	
 	}
+	$flag_hr = 1;
 }
 $n_noticias=5-$n_reg;
 $query = "SELECT distinct title, eventdate, event FROM cal WHERE date(eventdate) >= '$rango0'  order by eventdate asc limit $n_noticias";
 $result = mysql_query ( $query );
 
 if (mysql_num_rows ( $result ) > 0) {
-	echo "<legend style='margin-bottom:3px;'><small style='color:#777'><i class='fa fa-calendar'></i> Calendario del Centro</small></legend>";
+	if($flag_hr) echo '<hr>';
+	
+	echo "<h5><span class='fa fa-calendar fa-w'></span> Calendario del centro</h5>";
 	$SQLcurso1 = "select distinct grupo from profesores where profesor = '$pr'";
 	//echo $SQLcurso1;
 	$resultcurso1 = mysql_query ( $SQLcurso1 );
@@ -220,28 +224,17 @@ if (mysql_num_rows ( $result ) > 0) {
 echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><small>  $fecha - </small><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' rel='tooltip' title='$row[2]'>  $texto</a></p>";		
+		echo "<p><small>  $fecha - </small><a href='admin/calendario/eventos/index.php?year=$ano&month=$mes&today=$dia' rel='tooltip' title='$row[2]'>  $texto</a></p>";		
 			}
 		else{
 echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><a href='admin/calendario/jcal_admin/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha -   $texto</a></p>
+		echo "<p><a href='admin/calendario/eventos/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha -   $texto</a></p>
 	";	
 			}	
 	}
 }
-if (stristr ( $carg, '1' ) == TRUE) {
-	?>
-	<a href='admin/calendario/jcal_admin/index.php' class='btn btn-primary'
-		style='margin-top:8px;'>Añadir Actividad</a>
-<?
-
-} else {
-	?>
-<a href='admin/calendario/jcal_admin/index.php' class='btn btn-primary'
-		style='margin-top:8px;'>Ver Calendario</a>
-<?
-}
-
 ?>
+	<br>
+	<a class="btn btn-primary btn-sm" href="admin/calendario/eventos/index.php"><?php echo (stristr($carg, '1') == TRUE) ? 'Añadir Actividad' : 'Ver calendario'; ?></a>

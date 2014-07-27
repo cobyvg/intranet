@@ -91,7 +91,7 @@ else{
 </div>
 </div>
 <div class="container">
-<div class="row-fluid"><div class="span8 offset2">';
+<div class="row"><div class="col-sm-8 col-sm-offset-2">';
 	foreach($_POST["select1"] as  $val) {
 		$grupos.=$val.";";
 	}

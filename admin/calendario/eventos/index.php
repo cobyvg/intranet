@@ -114,9 +114,9 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 }
 
 ?>
-<div class="row-fluid">
- <div class="span2"></div>
-<div class="span4">
+<div class="row">
+ <div class="col-sm-2"></div>
+<div class="col-sm-4">
 <div class="well well-large">
 <?
 echo "<h3>$daylong, $monthlong $today, $year</h3><hr />";
@@ -162,10 +162,10 @@ echo "<div align='left'>";
 		  	$actividad0.= $val0."<br>";
 		}
 		  echo "<p class='lead text-warning'>Actividades del día</p>";
-		  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_title' rows='6' cols='45' class='span12'>$event_title</textarea>";}else{echo "<p>$actividad0</p>";}
+		  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_title' rows='6' cols='45' class='form-control'>$event_title</textarea>";}else{echo "<p>$actividad0</p>";}
 		  echo "<hr />";
       echo "<p class='lead text-warning'>Información sobre las actividades</p>";
-	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_event' cols='45' rows='8' class='span12'>$event_event</textarea>";}else{echo "<p>$event_event</p>";}
+	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_event' cols='45' rows='8' class='form-control'>$event_event</textarea>";}else{echo "<p>$event_event</p>";}
 	  echo "<hr />";
 
       echo "<input type='hidden' value='$year' name='year'>
@@ -186,7 +186,7 @@ echo "<div align='left'>";
 		  		$hor.= "".$act[2]." ==> ".$act[0]."";
 		  }		
 echo "<p class='lead text-warning'>Horario de las actividades</p>
-<textarea class='input span12' disabled />$hor</textarea>";
+<textarea class='form-control' disabled />$hor</textarea>";
 	  echo "<hr />";	  
 		}	  
 	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5')== TRUE ){echo "<input type='submit' name='actualizar' value='Introducir datos' class='btn btn-primary'>";}
@@ -195,7 +195,7 @@ echo "<p class='lead text-warning'>Horario de las actividades</p>
 ?>
 </div>
 </div>
-<div class="span4 pull-left">
+<div class="col-sm-4 pull-left">
 
 <?             
 	echo "<table class='table table-bordered table-striped' style='width:400px;margin:auto'><tr><th>

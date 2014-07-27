@@ -20,8 +20,8 @@ include("menu.php");
 <br />
 </div>
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span4 offset4">
+<div class="row">
+<div class="col-sm-4 col-sm-offset-4">
     <div class="well well-large"> 
     <div align="center">         
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Alumnos</a>

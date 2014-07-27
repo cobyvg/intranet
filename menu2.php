@@ -1,10 +1,10 @@
 <script>
 function CambiarEstilo(id) {
 	var elemento = document.getElementById(id);
-	elemento.className = "visible-phone";
+	elemento.className = "visible-xs";
 }
 </script>
-<div class="visible-phone">
+<div class="visible-xs">
 <ul class="nav nav-pills">
   <? if ($mod_faltas) { ?>
   <li>
@@ -35,19 +35,19 @@ function CambiarEstilo(id) {
     </ul>
 </div>
 
-<div class="accordion hidden-phone" id="menu">
+<div class="panel-group hidden-xs" id="menu">
 <?
 if (stristr ( $carg, '1' ) == TRUE) {
 ?>
-  <div class="accordion-group well">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#direccion">
-        <i class="pull-right icon-chevron-down"></i>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#direccion">
+        <i class="pull-right fa fa-chevron-down"></i>
         Dirección del centro
       </a>
     </div>
-    <div id="direccion" class="accordion-body collapse in">
-      <div class="accordion-inner">
+    <div id="direccion" class="panel-collapse collapse in">
+      <div class="panel-body">
         <ul class="nav nav-list">
           <li><a href="xml/index.php">Administración de la Intranet</a></li>
           <li><a href="admin/jefatura/tutor.php">Diario de jefatura</a></li>
@@ -67,15 +67,15 @@ if (stristr ( $carg, '1' ) == TRUE) {
 }
 if (stristr ( $carg, '4' ) == TRUE) { $j_d = 'in'; } else { $j_d = ''; }
 $menu_dep = '
-<div class="accordion-group well">
-  <div class="accordion-heading">
-    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#departamento">
-      <i class="pull-right icon-chevron-down"></i>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#departamento">
+      <i class="pull-right fa fa-chevron-down"></i>
       Departamento
     </a>
   </div>
-  <div id="departamento" class="accordion-body collapse '.$j_d.'">
-    <div class="accordion-inner">
+  <div id="departamento" class="panel-collapse collapse '.$j_d.'">
+    <div class="panel-body">
       <ul class="nav nav-list">';
 if (stristr($carg, '1')==FALSE) {
 $menu_dep.='
@@ -111,15 +111,15 @@ if (stristr ( $carg, '4' ) == TRUE) {
 
 if (stristr ( $carg, '5' ) == TRUE) {
 ?>
-<div class="accordion-group well">
-  <div class="accordion-heading">
-    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#extraescolares">
-      <i class="pull-right icon-chevron-down"></i>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#extraescolares">
+      <i class="pull-right fa fa-chevron-down"></i>
       Extraescolares
     </a>
   </div>
-  <div id="extraescolares" class="accordion-body collapse in">
-    <div class="accordion-inner">
+  <div id="extraescolares" class="panel-collapse collapse in">
+    <div class="panel-body">
       <ul class="nav nav-list">
         <li><a href="./admin/actividades/indexextra.php">Administrar actividades</a></li>
         <li><a href="./admin/actividades/index.php">Introducir actividades</a></li>
@@ -132,15 +132,15 @@ if (stristr ( $carg, '5' ) == TRUE) {
 }
 if (stristr ( $carg, '8' ) == TRUE) {
 ?>
-<div class="accordion-group well">
-  <div class="accordion-heading">
-    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#orientacion">
-      <i class="pull-right icon-chevron-down"></i>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#orientacion">
+      <i class="pull-right fa fa-chevron-down"></i>
       Orientación
     </a>
   </div>
-  <div id="orientacion" class="accordion-body collapse in">
-    <div class="accordion-inner">
+  <div id="orientacion" class="panel-collapse collapse in">
+    <div class="panel-body">
       <ul class="nav nav-list">
         <li><a href="admin/orientacion/tutor.php">Página de Orientación</a></li>
         <li><a href="./admin/tutoria/">Página del tutor </a></li>
@@ -153,15 +153,15 @@ if (stristr ( $carg, '8' ) == TRUE) {
 }
 if (stristr ( $carg, '2' ) == TRUE) {
 ?>
-<div class="accordion-group well">
-  <div class="accordion-heading">
-    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
-      <i class="pull-right icon-chevron-down"></i>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
+      <i class="pull-right fa fa-chevron-down"></i>
       Tutoría
     </a>
   </div>
-  <div id="tutoria" class="accordion-body collapse in">
-    <div class="accordion-inner">
+  <div id="tutoria" class="panel-collapse collapse in">
+    <div class="panel-body">
       <ul class="nav nav-list">
         <li><a href="admin/tutoria/global.php">Página del tutor</a></li>
       </ul>
@@ -174,15 +174,15 @@ if (stristr ( $carg, '2' ) == TRUE) {
 <?
 if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
 ?>
-<div class="accordion-group well">
-  <div class="accordion-heading">
-    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
-      <i class="pull-right icon-chevron-down"></i>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
+      <i class="pull-right fa fa-chevron-down"></i>
       Biblioteca
     </a>
   </div>
-  <div id="tutoria" class="accordion-body collapse">
-    <div class="accordion-inner">
+  <div id="tutoria" class="panel-collapse collapse">
+    <div class="panel-body">
       <ul class="nav nav-list">
         <li><a href="<? echo $p_biblio;?>" target="_blank">Página de la Biblioteca</a></li>	
         <li><a href="admin/cursos/hor_aulas.php?aula=Biblioteca" target="_blank">Horario de la Biblioteca</a></li>	
@@ -197,27 +197,27 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
 <?
 }
 ?>
-<div class="accordion-group well">
-  <div class="accordion-heading">
-    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#consultas">
-      <i class="pull-right icon-chevron-down"></i>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#consultas">
+      <i class="pull-right fa fa-chevron-down"></i>
       Consultas
     </a>
   </div>
-  <div id="consultas" class="accordion-body collapse">
-    <div class="accordion-inner">
+  <div id="consultas" class="panel-collapse collapse">
+    <div class="panel-body">
       <ul class="nav nav-list">
               <li><a href="admin/datos/cdatos.php">Datos de los alumnos</a></li>
       <? if ($mod_horario) { ?>
-        <li><a href="admin/cursos/chorarios.php">Horarios de profesores/grupos</a></li>
+        <li><a href="admin/cursos/chorarios.php">Horarios</a></li>
         <? } ?>
          <li>
         <a data-toggle="collapse" data-target="#listas" style="cursor:pointer">
-            <i class="pull-right icon-chevron-down"></i>
+            <i class="pull-right fa fa-chevron-down"></i>
             Listas
           </a>
         </li>
-        <div id="listas" class="accordion-body collapse">
+        <div id="listas" class="panel-collapse collapse">
           <ul class="nav nav-list">
         <li><a href="admin/cursos/ccursos.php">Listas de los Grupos</a></li>
             <li><a href="admin/pendientes/index.php">Listas de Pendientes</a></li>
@@ -227,11 +227,11 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
        
         <li>
           <a data-toggle="collapse" data-target="#fotos" style="cursor:pointer">
-            <i class="pull-right icon-chevron-down"></i>
+            <i class="pull-right fa fa-chevron-down"></i>
             Fotografías
           </a>
         </li>
-        <div id="fotos" class="accordion-body collapse">
+        <div id="fotos" class="panel-collapse collapse">
           <ul class="nav nav-list">
             <li><a href="admin/fotos/index.php">Fotos de los alumnos</a></li>
             <li><a href="admin/fotos/fotos_profes.php">Fotos de los profesores</a></li>
@@ -239,11 +239,11 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         </div>
         <li>
           <a data-toggle="collapse" data-target="#estadisticas" style="cursor:pointer">
-            <i class="pull-right icon-chevron-down"></i>
+            <i class="pull-right fa fa-chevron-down"></i>
             Estadísticas y datos
           </a>
         </li>
-        <div id="estadisticas" class="accordion-body collapse">
+        <div id="estadisticas" class="panel-collapse collapse">
           <ul class="nav nav-list">
             <li><a href="admin/informes/informe_notas1.php">Informes sobre las Evaluaciones</a></li>
             <li><a href="admin/fechorias/informe_convivencia.php">Informes sobre Convivencia</a></li>
@@ -258,23 +258,23 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
   </div>
 </div>
 
-<div class="accordion-group well">
-  <div class="accordion-heading">
-    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
-      <i class="pull-right icon-chevron-down"></i>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
+      <i class="pull-right fa fa-chevron-down"></i>
       Trabajo
     </a>
   </div>
-  <div id="trabajo" class="accordion-body collapse">
-    <div class="accordion-inner">
+  <div id="trabajo" class="panel-collapse collapse">
+    <div class="panel-body">
       <ul class="nav nav-list">
         <li>
           <a data-toggle="collapse" data-target="#convivencia" style="cursor:pointer">
-            <i class="pull-right icon-chevron-down"></i>
+            <i class="pull-right fa fa-chevron-down"></i>
             Problemas de convivencia
           </a>
         </li>
-        <div id="convivencia" class="accordion-body collapse">
+        <div id="convivencia" class="panel-collapse collapse">
           <ul class="nav nav-list">
             <li><a href="admin/fechorias/infechoria.php">Registrar problema</a></li>
             <li><a href="admin/fechorias/cfechorias.php">Consultar problemas</a></li>
@@ -301,11 +301,11 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         <? if ($mod_faltas) { ?>
         <li>
           <a data-toggle="collapse" data-target="#asistencia" style="cursor:pointer">
-            <i class="pull-right icon-chevron-down"></i>
+            <i class="pull-right fa fa-chevron-down"></i>
             Faltas de asistencia
           </a>
         </li>
-        <div id="asistencia" class="accordion-body collapse">
+        <div id="asistencia" class="panel-collapse collapse">
           <ul class="nav nav-list">
             <li><a href="faltas/index.php">Poner faltas</a></li>
             <? if (stristr ( $_SESSION ['cargo'], '2' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE or stristr ( $_SESSION ['cargo'], '3' ) == TRUE) { ?>
@@ -330,11 +330,11 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         
         <li>
           <a data-toggle="collapse" data-target="#informes" style="cursor:pointer">
-            <i class="pull-right icon-chevron-down"></i>
+            <i class="pull-right fa fa-chevron-down"></i>
             Informes
           </a>
         </li>
-        <div id="informes" class="accordion-body collapse">
+        <div id="informes" class="panel-collapse collapse">
           <ul class="nav nav-list">
             <li><a href="admin/informes/cinforme.php">Informe de un alumno</a></li>
             <li><a href="admin/tareas/index.php">Informe de tareas</a></li>
@@ -345,11 +345,11 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         <? if ($mod_tic) { ?>
         <li>
           <a data-toggle="collapse" data-target="#tic" style="cursor:pointer">
-            <i class="pull-right icon-chevron-down"></i>
+            <i class="pull-right fa fa-chevron-down"></i>
             Centro TIC
           </a>
         </li>
-        <div id="tic" class="accordion-body collapse">
+        <div id="tic" class="panel-collapse collapse">
           <ul class="nav nav-list">
             <li><a href="TIC/usuarios/intro.php">Usuario alumno</a></li>
             <li><a href="TIC/usuarios/usuarioprofesor.php">Usuario profesor</a></li>
@@ -363,11 +363,11 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         
         <li>
           <a data-toggle="collapse" data-target="#reservas" style="cursor:pointer">
-            <i class="pull-right icon-chevron-down"></i>
+            <i class="pull-right fa fa-chevron-down"></i>
             Reservas de medios
           </a>
         </li>
-        <div id="reservas" class="accordion-body collapse">
+        <div id="reservas" class="panel-collapse collapse">
           <ul class="nav nav-list">
             <li><a href="reservas/index.php?recurso=carrito">Carritos TIC</a></li>
             <li><a href="reservas/index.php?recurso=aula">Aulas compartidas</a></li>
@@ -381,11 +381,11 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         
         <li>
           <a data-toggle="collapse" data-target="#mensajeria" style="cursor:pointer">
-            <i class="pull-right icon-chevron-down"></i>
+            <i class="pull-right fa fa-chevron-down"></i>
             Mensajería
           </a>
         </li>
-        <div id="mensajeria" class="accordion-body collapse">
+        <div id="mensajeria" class="panel-collapse collapse">
           <ul class="nav nav-list">
             <? if ($mod_sms) { ?>
             <li><a href="sms/index.php">Enviar SMS</a></li>
@@ -397,11 +397,11 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         
         <li>
           <a data-toggle="collapse" data-target="#prueba" style="cursor:pointer">
-            <i class="pull-right icon-chevron-down"></i>
+            <i class="pull-right fa fa-chevron-down"></i>
             Registro de Examen/Actividad
           </a>
         </li>
-        <div id="prueba" class="accordion-body collapse">
+        <div id="prueba" class="panel-collapse collapse">
           <ul class="nav nav-list">
         <li><a href="admin/calendario/diario/index.php">Nuevo Examen/Actividad</a></li>
         <li><a href="admin/calendario/diario/index_cal.php">Calendario por Grupos</a></li>
@@ -425,15 +425,15 @@ if (stristr ( $carg, '1' ) == TRUE) {
 	echo $menu_dep;
 }
 ?>
-<div class="accordion-group well">
-  <div class="accordion-heading">
-    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
-      <i class="pull-right icon-chevron-down"></i>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
+      <i class="pull-right fa fa-chevron-down"></i>
       Otras cosas
     </a>
   </div>
-  <div id="cosas" class="accordion-body collapse">
-    <div class="accordion-inner">
+  <div id="cosas" class="panel-collapse collapse">
+    <div class="panel-body">
       <ul class="nav nav-list">
         <li><a href="http://www.juntadeandalucia.es/averroes/centros-tic/<? echo $codigo_del_centro; ?>/moodle/">Plataforma Moodle</a></li>
         <?
@@ -443,21 +443,20 @@ if (stristr ( $carg, '1' ) == TRUE) {
         ?>
         <li><a href="admin/cursos/calendario.php">Calendario escolar</a></li>
         <li><a href="http://iesmonterroso.org/PC/index.htm">Plan de Centro</a></li>
-        <li><a href="clave.php">Cambiar contraseña</a></li>
       </ul>
     </div>
   </div>
 </div>
 
-<div class="accordion-group well">
-  <div class="accordion-heading">
-    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
-      <i class="pull-right icon-chevron-down"></i>
-      Otras páginas
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
+      <i class="pull-right fa fa-chevron-down"></i>
+      Páginas de interés
     </a>
   </div>
-  <div id="paginas" class="accordion-body collapse">
-    <div class="accordion-inner">
+  <div id="paginas" class="panel-collapse collapse">
+    <div class="panel-body">
       <ul class="nav nav-list">
       	<li><a href="http://<? echo $dominio;	?>">P&aacute;gina del centro</a></li>
         <li><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank">Novedades de la Consejería</a></li>

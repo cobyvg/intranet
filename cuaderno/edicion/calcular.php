@@ -84,7 +84,7 @@ echo "<thead><th style='vertical-align:bottom;background-color:#ddd'>NC</th><th 
 	//echo "<th style='vertical-align:bottom;background-color:#eec'>M. Aritm&eacute;tica</th></thead><tbody>";
 	echo "<th nowrap style='background-color:#ddd'>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-error'><b>Media Aritmética</b></span> </div>
+<div class='Rotate-90'><span class='text-danger'><b>Media Aritmética</b></span> </div>
 </div> </th></thead>";
 	
 // Tabla para cada Grupo
@@ -155,7 +155,7 @@ echo "<tr><td>$row[1]</td><td colspan='2' nowrap>$row[2], $row[3]</td>";
 	$dato1 = mysql_fetch_array($dato0);
 	$suma += $dato1[0];
 	if ($dato1[0]==''){$dato1[0]='0';} 
-	if ($dato1[0]<'5'){ $color = ' class="text-error" ';}else{ $color = ' class="text-success" ';} 
+	if ($dato1[0]<'5'){ $color = ' class="text-danger" ';}else{ $color = ' class="text-success" ';} 
 echo "<td $color>$dato1[0]</td>";}
 $media = $suma / $num_ids;
 	$mediatotal+=$media;
@@ -163,7 +163,7 @@ $media = $suma / $num_ids;
 	if($media < 5 ){$mediasuspensos+=1;}
 	else{$mediaaprobados+=1;}
 					}
-echo "<td class='text-error' style='font-weight:bold;background-color:#eee'>";
+echo "<td class='text-danger' style='font-weight:bold;background-color:#eee'>";
 if ($media == "" ) {
 	$media = "0";
 					}

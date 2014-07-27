@@ -25,14 +25,14 @@ include("../../menu.php");
 </div>
 <FORM ENCTYPE="multipart/form-data" ACTION="departamentos.php" METHOD="post">
 
-  <div class="control-group">
+  <div class="form-group">
  <p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si has descargado el archivo RelPerCen.txt de Séneca (desde Personal --> Personal del Centro), puedes continuar con el segundo paso.</p>
   <br />
   <div class="well well-large" style="width:500px; margin:auto;" align="left">
   <div class="controls">
   <label class="control-label" for="file">Selecciona el archivo con los datos de los Departamentos
   </label>
-  <input type="file" name="archivo" class="input input-file span4" id="file">
+  <input type="file" name="archivo" class="input input-file col-sm-4" id="file">
   <hr>
   <div align="center">
     <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">

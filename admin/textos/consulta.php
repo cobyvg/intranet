@@ -48,11 +48,11 @@ include 'menu.php';
 </div>
 <div class="container">
 <div class="row">
-<div class="span6 offset3">
+<div class="col-sm-6 col-sm-offset-3">
     <div class="well well-large" align="left" style="width:80%">
       <form name="intextos" method="post" action="textos.php">
       <label>Nivel<br />
-        <select name="nivel" id="select6" class="input-block-level">
+        <select name="nivel" id="select6" class="form-control">
           <?
   $tipo = "select distinct curso from alma order by curso";
   $tipo1 = mysql_query($tipo);
@@ -65,7 +65,7 @@ echo "<option>$completo</option>";
       </label>
       <hr />
       <label>Departamento:<br />
-        <select name="departamento" id="select7"  value ="Todos ..." onChange="submit()" class="input-block-level">
+        <select name="departamento" id="select7"  value ="Todos ..." onChange="submit()" class="form-control">
           <option></option>
           <?
   $profe = mysql_query(" SELECT distinct departamento FROM departamentos order by departamento asc");

@@ -102,7 +102,7 @@ if ($porcient_asig>49) {
 	$porciento_asig = "<span class='text-success'>".substr($porcient_asig,0,4)."%</span>";
 }
 else{
-	$porciento_asig = "<span class='text-error'>".substr($porcient_asig,0,4)."%</span>";	
+	$porciento_asig = "<span class='text-danger'>".substr($porcient_asig,0,4)."%</span>";	
 }
 	
 	$porcient_asig2 = ($num_apro*100)/$num_matr;
@@ -111,7 +111,7 @@ if ($porcient_asig2>49) {
 	$porciento_asig2 = "<span class='text-success'>".substr($porcient_asig2,0,4)."%</span>";
 }
 else{
-	$porciento_asig2 = "<span class='text-error'>".substr($porcient_asig2,0,4)."%</span>";	
+	$porciento_asig2 = "<span class='text-danger'>".substr($porcient_asig2,0,4)."%</span>";	
 }
 
 if ($porcient_asig>0) {

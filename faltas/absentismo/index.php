@@ -20,7 +20,7 @@ include("../menu.php");
 <br />
 <div class="container">
 <div class="row">
-<div class="span5 offset1">
+<div class="col-sm-5 col-sm-offset-1">
 <div class="well well-large" style="text-align:left;">
 <?
 	  if(stristr($_SESSION['cargo'],'1') == TRUE)
@@ -56,7 +56,7 @@ include("../menu.php");
 ?>
 </div>
 </div>
-<div class="span5">
+<div class="col-sm-5">
 <div class="well well-large" style="text-align:left;">
 <form enctype='multipart/form-data' action='index2.php' method='post'>
 <legend> Consulta de Absentismo por mes.</legend>

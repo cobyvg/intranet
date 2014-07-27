@@ -30,10 +30,10 @@ if ($_GET['horarios']==1) {
 
 <div class="row">
 
-<div class="span6 offset3">';
+<div class="col-sm-6 col-sm-offset-3">';
 				echo "<legend align='center'>Errores y Advertencias sobre el Horario.</legend>";
 		
-		echo  "<div align'center><div class='alert alert-error alert-block fade in'><br />
+		echo  "<div align'center><div class='alert alert-danger alert-block fade in'><br />
             <button type='button' class='close' data-dismiss='alert'>&times;</button>
 El archivo generado por Horwin ha sido procesado y se ha creado una copia modificada preparada para subir a Séneca. 
 <br>Los mesajes que aparecen más abajo indican los cambios realizados y las advertencias sobre problemas que podrías encontrar al importar los datos a Séneca.
@@ -116,7 +116,7 @@ No existe la asignatura <u>'.$X_MATERIAOMG.'</u> (<em>'.$nombre_asignatura.'</em
 			}
 			else{
 				if ($_GET['depurar']==1) {
-				echo  "<br /><div align'center><div class='alert alert-error alert-block fade in'><br />
+				echo  "<br /><div align'center><div class='alert alert-danger alert-block fade in'><br />
             <button type='button' class='close' data-dismiss='alert'>&times;</button>
 <strong>$uni[2]</strong>: No existe ninguna asignatura con este código (<u>$X_MATERIAOMG</u>) en la tabla de asignaturas de la base de datos.
 </div></div>";	

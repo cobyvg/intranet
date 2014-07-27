@@ -362,8 +362,8 @@ if ($col_obs=="observaciones1") { }else{
 
  
  <hr><br /><h3>Información de Tutoría por Alumno</h3>
-  <div class="row-fluid">     
- <div class="span6">
+  <div class="row">     
+ <div class="col-sm-6">
  <hr><br /><legend>Alumnos absentistas</legend>
 
 <?
@@ -383,7 +383,7 @@ $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from 
  ?>
  </div> 
 
-  <div class="span6">       
+  <div class="col-sm-6">       
  <hr><br /><legend>Faltas sin Justificar</legend>
 
 <?php
@@ -404,8 +404,8 @@ $result = mysql_query($SQL);
   ?>
 </div>
 </div>
-  <div class="row-fluid">     
- <div class="span4">
+  <div class="row">     
+ <div class="col-sm-4">
   <hr><br /><legend>Problemas de Convivencia</legend>
 
 <?
@@ -424,7 +424,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  }
  ?>
                    </div>
-                    <div class="span4">
+                    <div class="col-sm-4">
                     <hr><br /><legend>Alumnos expulsados</legend>
 
 <?
@@ -444,7 +444,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
  ?>
- </div> <div class="span4"><hr><br /><legend>Alumnos expulsados del aula</legend>
+ </div> <div class="col-sm-4"><hr><br /><legend>Alumnos expulsados del aula</legend>
 
  <?
 $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsionaula = '1' and date(fecha) > '$inicio_curso' group by NC";
@@ -481,8 +481,8 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
  ?>
- <div class="row-fluid">
-  <div class="span5">
+ <div class="row">
+  <div class="col-sm-5">
 <hr><br /><legend>Intervenciones del Tutor</legend>
 
 <?
@@ -505,7 +505,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  if(mysql_num_rows($faltas0) > 0)
  {
 	 ?>
-	 </div> <div class="span7">
+	 </div> <div class="col-sm-7">
  <hr><br /><legend>Intervenciones de Tutoría (excluidos SMS)</legend>
 
      <?

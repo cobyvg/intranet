@@ -127,7 +127,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `cursos` (
 			$nomcurso = utf8_decode($curso->dato[1]);
 			
 			$result = mysql_query("INSERT cursos (idcurso, nomcurso) VALUES ('$idcurso','$nomcurso')");
-			if (!$result) echo '<span class="text-error">ERROR en la Importación</span><br>';
+			if (!$result) echo '<span class="text-danger">ERROR en la Importación</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
 			
@@ -158,7 +158,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
 			$idcurso = utf8_decode($tramos->dato[2]);
 			
 			$result = mysql_query("INSERT unidades (idunidad, nomunidad, idcurso) VALUES ('$idunidad','$nomunidad','$idcurso')");
-			if (!$result) echo '<span class="text-error">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
+			if (!$result) echo '<span class="text-danger">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
 			
@@ -193,7 +193,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
 			$nomcurso = mysql_fetch_array($result);
 			
 			$result = mysql_query("INSERT materias_seneca (idmateria, nommateria, idcurso) VALUES ('$nommateria','$idmateria','$idcurso')");
-			if (!$result) echo '<span class="text-error">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
+			if (!$result) echo '<span class="text-danger">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
 			
@@ -228,7 +228,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
 			$reqmateria = utf8_decode($actividades->dato[4]);
 			
 			$result = mysql_query("INSERT actividades_seneca (regactividad, idactividad, nomactividad, requnidadactividad, reqmateriaactividad) VALUES ('$regular',$idactividad,'$nomactividad','$requnidad','$reqmateria')");
-			if (!$result) echo '<span class="text-error">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
+			if (!$result) echo '<span class="text-danger">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
 			
@@ -261,7 +261,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
 			$result = mysql_query("INSERT dependencias (iddependencia, nomdependencia, descdependencia, reservadependencia) VALUES ('$iddependencia','$nomdependencia','$nomdependencia',0)");
 			
 			if(mysql_errno()==1062) mysql_query("UPDATE dependencias SET nomdependecia='$nomdependencia' WHERE iddependencia='$iddependencia'");
-			elseif(mysql_errno()!=0) echo '<span class="text-error">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
+			elseif(mysql_errno()!=0) echo '<span class="text-danger">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
 			
@@ -294,7 +294,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
 			$horfin = utf8_decode($tramos->dato[3]);
 			
 			$result = mysql_query("INSERT tramos (tramo, hora, horini, horfin) VALUES ('$idtramo','$nomtramo','$horini','$horfin')");
-			if (!$result) echo '<span class="text-error">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
+			if (!$result) echo '<span class="text-danger">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
 			
@@ -333,7 +333,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `unidades` (
 			$result = mysql_query("INSERT profesores_seneca (idprofesor, ape1profesor, ape2profesor, nomprofesor, deptoprofesor) VALUES ($idprofesor,'$ape1profesor','$ape2profesor','$nomprofesor','$deptoprofesor')");
 			
 			if(mysql_errno()==1062) mysql_query("UPDATE profesores_seneca SET ape1profesor='$ape1profesor', ape2profesor='$ape2profesor', nomprofesor='$nomprofesor', deptoprofesor='$deptoprofesor' WHERE idprofesor=$idprofesor");
-			elseif(mysql_errno()!=0) echo '<span class="text-error">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
+			elseif(mysql_errno()!=0) echo '<span class="text-danger">ERROR '.mysql_errno().': '.mysql_error().'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP
 			flush();

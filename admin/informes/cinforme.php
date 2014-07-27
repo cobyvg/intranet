@@ -15,7 +15,7 @@ include("../../menu.php");
 
 if (isset($_POST['unidad'])) {
 	$unidad = $_POST['unidad'];
-} 
+}
 elseif (isset($_GET['unidad'])) {
 	$unidad = $_GET['unidad'];
 } 
@@ -31,110 +31,164 @@ else{
 }
 
 ?>
-<br />
-<div align="center">
-<div class="page-header" align="center">
-  <h2>Informe del Alumno <small> Selecciona alumno</small></h2>
-</div>
-<br />
-</div>
-<div class="row-fluid">
-  <div class="span3"> </div>
-  <div class="span6">
-    <div class="well well-large">
-      <div class="row-fluid">
-      <div class="span6" align="left">
-      <legend>Datos del alumno</legend>
-      <form class="form-inline">
-        <label>Grupo<br>
-          <select  name="unidad" onChange="submit()" class="input">
-            <option  class="opcion"><? echo $unidad;?></option>
-            <? unidad();?>
-          </select>
-        </label>
-      </form>
-      <hr />
-      <form enctype='multipart/form-data' action='index.php' method='post'>
-        <label>Alumno<br />
-          <select  name="nombre" class="span10">
-            <?
-echo "<option>$nombre</option>";
- 
-  
-  $fecha1 = (date("d").-date("m").-date("Y"));
-  // Datos del alumno que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
-//  echo "<option>$nombre</option>";
-  $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad = '$unidad' order by APELLIDOS asc");
-
-  if ($falumno = mysql_fetch_array($alumno))
-        {
-	$claveal = $falumno[2];
+<div class="container">
 	
-        do {
-      $nombre = printf ("<OPTION>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>");
-	      //echo "$nombre";
-
-	}while($falumno = mysql_fetch_array($alumno));
-        }
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Informes de alumnos <small>Consulta individual</small></h2>
+	</div>
 	
-	?>
-          </select>
-        </label>
-        <label>Curso Escolar</label>
-        <div class="control-group warning">
-          <div class="controls">
-            <select name="c_escolar" class="inputwarning input-small">
-              <?
-$ano=explode("/",$curso_actual);
-for ($i=0;$i<5;$i++)
-{
-${b.$i}=$ano[0]-$i;
-${c.$i}=$ano[1]-$i;
-${a.$i}=${b.$i}."/".${c.$i};
-echo "<option>${a.$i}</option>";	
-}
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- MODULO -->
+		<div class="col-sm-8 col-sm-offset-2">
+			
+			<div class="well">
+				
+				<form method="post" action="">
+					
+					<div class="row">
+						
+						<div class="col-sm-6">
+							
+							<fieldset>
+								<legend>Datos del alumno</legend>
+								
+								<div class="row">
+									<!--FORMLISTACURSOS
+									<div class="col-sm-6">
+											<div class="form-group">
+												<label for="curso">Curso</label>
+											</div>
+									</div>
+									FORMLISTACURSOS//-->
+									
+									<div class="col-sm-12">
+										<div class="form-group">
+										  <label for="unidad">Unidad</label>
+											<?php $result = mysql_query("SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
+											<?php if(mysql_num_rows($result)): ?>
+											<select class="form-control" id="unidad" name="unidad" onchange="submit()">
+												<option></option>
+												<?php while($row = mysql_fetch_array($result)): ?>
+												<option value="<?php echo $row['unidad']; ?>" <?php echo ($row['unidad'] == $unidad) ? 'selected' : ''; ?>><?php echo $row['unidad']; ?></option>
+												<?php endwhile; ?>
+												<?php mysql_free_result($result); ?>
+											</select>
+											<?php else: ?>
+											<select class="form-control" name="unidad" disabled>
+												<option></option>
+											</select>
+											<?php endif; ?>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+							    <label for="nombre">Alumno/a</label>
+							    <?php $result = mysql_query("SELECT DISTINCT APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad='$unidad' ORDER BY APELLIDOS ASC"); ?>
+							    <?php if(mysql_num_rows($result)): ?>
+							    <select class="form-control" id="nombre" name="nombre">
+							    	<option></option>
+							    	<?php while($row = mysql_fetch_array($result)): ?>
+							    	<option value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['CLAVEAL']; ?>" <?php echo (isset($nombre) && $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['CLAVEAL'] == $nombre) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
+							    	<?php endwhile; ?>
+							    	<?php mysql_free_result($result); ?>
+							    </select>
+							    <?php else: ?>
+							    <select class="form-control" name="nombre" disabled>
+							    	<option></option>
+							    </select>
+							    <?php endif; ?>
+							  </div>
+							  
+							  <div class="form-group">
+							    <label for="c_escolar">Curso escolar</label>
+							    
+							    <select class="form-control" id="c_escolar" name="c_escolar">
+							    	<?php $ano=explode("/",$curso_actual); ?>
+							    	<?php for($i = 0; $i < 5; $i++): ?>
+							    	<?php ${b.$i}=$ano[0]-$i; ?>
+							    	<?php ${c.$i}=$ano[1]-$i; ?>
+							    	<?php ${a.$i}=${b.$i}."/".${c.$i}; ?>
+							    	<option><?php echo ${a.$i}; ?></option>
+							    	<?php endfor; ?>
+							    </select>
+							  </div>
+							  
+							</fieldset>
+							
+						</div><!-- /.col-sm-6 -->
+						
+						
+						
+						<div class="col-sm-6">
+							
+							<fieldset>
+								<legend>Opciones del informe</legend>
+								
+								
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="faltas" value="faltas" <?php echo ($mod_faltas == '1') ? '' : 'disabled' ?> checked> Resumen de faltas de asistencia
+									</label>
+								</div>
+								
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="faltasd" value="faltasd" <?php echo ($mod_faltas == '1') ? '' : 'disabled' ?>> Faltas de asistencia detalladas
+									</label>
+								</div>
+								
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="fechorias" value="fechorias" checked> Problemas de convivencia
+									</label>
+								</div>
+								
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="tutoria" value="tutoria"> Informes de tutoría
+									</label>
+								</div>
+								
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="notas" value="notas"> Notas de evaluación
+									</label>
+								</div>
+								
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="act_tutoria" value="act_tutoria"> Acciones de tutoría
+									</label>
+								</div>
+								
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="horarios" value="horarios" <?php echo ($mod_horario == '1') ? '' : 'disabled' ?>> Horario del alumno
+									</label>
+								</div>
+							</fieldset>
+							
+							<button type="submit" class="btn btn-primary" name="submit1" formaction="index.php">Consultar</button>
+							
+						</div><!-- /.col-sm-6 -->
+						
+					</div><!-- /.row -->
+					
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-8 -->
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
 
-?>
-            </select>
-          </div>
-        </div>
-        </div>
-        <div class="span6" align="left">
-          <legend>Opciones del Informe</legend>
-          <br />
-          <?    if ($mod_faltas) {?>
-          <label class="checkbox">
-            <input type="checkbox" checked name="faltas" value="faltas">
-            Resumen de Faltas de Asistencia</label>
-          <label class="checkbox">
-            <input type="checkbox" unchecked name="faltasd" value="faltasd">
-            Faltas de Asistencia Detalladas</label>
-          <? }?>
-          <label class="checkbox">
-          <input type="checkbox" checked name="fechorias" value="fechorias">
-          Problemas de Convivencia
-          </label>
-          <label class="checkbox">
-            <input type="checkbox" unchecked name="tutoria" value="tutoria">
-            Informes de Tutoría</label>
-          <label class="checkbox">
-            <input type="checkbox" unchecked name="notas" value="notas">
-            Notas de Evaluación</label>
-          <label class="checkbox">
-            <input type="checkbox" unchecked name="act_tutoria" value="act_tutoria">
-            Acciones de Tutoría</label>
-          <?    if ($mod_horario) {?>
-          <label class="checkbox">
-            <input type="checkbox" unchecked name="horarios" value="horarios">
-            Horario del Alumno</label>
-          <?}?>
-        </div>
-        </div>
-	<input type="hidden" name="unidad" value="<? echo $unidad;?>">
-        <div align="center"><input name='submit1' type='submit' value='Ver informe del alumno' class="btn btn-primary"></div>
-      </form>
-    </div>
-  </div>
-</div>
-<? include("../../pie.php");?>
-</BODY></HTML>
+<?php include("../../pie.php"); ?>
+</body>
+</html>

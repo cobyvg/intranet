@@ -26,9 +26,9 @@ exit;
 </div>
 <br />
 <div class="container-fluid">
-<div class="row-fluid">
+<div class="row">
 
-<div class='well well-large span6 offset3'>  
+<div class='well well-large col-sm-6 col-sm-offset-3'>  
 
   <p>
     La Biblioteca del Centro ha registrado más de 10.000 volúmenes en el Fondo general, y el trabajo continúa. En estas páginas puedes buscar textos u otros materiales en nuestra base de datos.</p>
@@ -38,7 +38,7 @@ exit;
 
   <hr />
   <form action="biblioteca.php" method="post" name="libros" id="libros" class="form-horizontal">
-  <div class="control-group">
+  <div class="form-group">
         <label class="control-label" for="autor">Autor</label>
         <div class="controls">
                   <input type="text" name="autor" id="autor" class="input-xlarge" /> 

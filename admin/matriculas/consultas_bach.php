@@ -126,7 +126,7 @@ INDEX (  `id_matriculas` )
 				elseif ($i=="17") {}
 				else{
 					if ($control[$i]==$control[$i-1]) {}else{
-						echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
+						echo "<li><span class='text-danger'>Séneca:</span> ".$control[$i]." ==> <span class='text-danger'>Matrícula:</span> ".$control[$i-1]."</li>";
 					}
 				}
 			}

@@ -30,9 +30,9 @@ mysql_query("update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E
   <h2>Programa de Ayudas al Estudio <small> Libros gratuitos de la ESO</small></h2>
 </div>
 <br />
-  <div class="row-fluid">
-    <div class="span1"></div>
-    <div class="span3">
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-3">
       <form enctype="multipart/form-data" action="reposicion.php" method="post" class="form-inline">
         <h3>Imprimir Certificados de Reposici&oacute;n</h3><br />
         <div class="well well-large">
@@ -53,7 +53,7 @@ mysql_query("update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E
         </div>
       </form>
     </div>
-    <div class="span3">
+    <div class="col-sm-3">
       <form enctype="multipart/form-data" action="libros.php" method="post" class="form-inline">
         <h3>Consultar el Estado de los Libros.</h3><br />
         <div class="well well-large">
@@ -74,7 +74,7 @@ mysql_query("update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E
         </div>
       </form>
     </div>
-    <div class="span4">
+    <div class="col-sm-4">
       <form enctype="multipart/form-data" action="in_textos.php" method="post" class="form-inline">
         <h3>Importación de Libros desde Séneca</h3><br />
         <div class="well well-large" align="left">

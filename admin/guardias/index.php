@@ -190,8 +190,8 @@ if (mysql_num_rows($hoy0) > 0) {
 ?>
 <div class="well-transparent well-large" style="width:600px;">
 <legend class='text-warning'>Sustituciones realizadas durante la <? echo "<span style=''>".$hora."ª</span>";?> hora del <? echo "<span style=''>$nombre_dia</span>";?></legend>
-<div class="row-fluid" align="center">
-<div class="span6">
+<div class="row" align="center">
+<div class="col-sm-6">
 <?
 echo '<table class="table table-striped" align="center">';
 $h_gu0= mysql_query("select prof from horw where dia = '$n_dia' and hora = '$hora' and a_asig = 'GU'");
@@ -210,11 +210,11 @@ while ($h_gu = mysql_fetch_array($h_gu0)) {
 echo "</table>";
 ?>
 </div>
-<div class="span6">
+<div class="col-sm-6">
 <div class="well-transparent well-large">
 <form action="index.php" method="POST">
 <label>Selecciona el Profesor que vas a cubrir
-<select name="sustituido" class="span12">
+<select name="sustituido" class="col-sm-12">
 <option></option>
 <?
 $sust0 = mysql_query("select distinct prof from horw where dia = '$n_dia' and hora = '$hora' and a_asig not like 'GU' and a_grupo not like '' order by prof");

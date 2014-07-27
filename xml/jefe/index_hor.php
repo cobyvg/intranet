@@ -69,7 +69,7 @@ Los datos han sido modificados correctamente.</div></div>';
 }
 ?>
 <FORM ENCTYPE="multipart/form-data" ACTION="index_hor.php" METHOD="post">
-  <div class="control-group"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Para copiar los datos de un profesor que se ha dado de baja al profesor que lo sustituye, es necesario en primer lugar copiar el horario de un profesor a otro en Séneca. A continuación, debes actualizar los Departamentos y los Profesores en la página de Administración de la Intranet. Si ya lo has hecho, en este formulario selecciona el profesor de baja y luego el profesor que lo susituye, y envía los datos.</p>
+  <div class="form-group"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Para copiar los datos de un profesor que se ha dado de baja al profesor que lo sustituye, es necesario en primer lugar copiar el horario de un profesor a otro en Séneca. A continuación, debes actualizar los Departamentos y los Profesores en la página de Administración de la Intranet. Si ya lo has hecho, en este formulario selecciona el profesor de baja y luego el profesor que lo susituye, y envía los datos.</p>
   <br />
   <div class="well well-large" style="width:360px; margin:auto;" align="left">
     <div class="controls">

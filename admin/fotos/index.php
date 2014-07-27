@@ -8,36 +8,48 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-?>
-  <?
-  	include("../../menu.php");
-  ?>
-<br />
-   <div align=center>
-  <div class="page-header" align="center">
-  <h2>Fotos de los Alumnos <small></small></h2>
-</div>
 
-<div class="well well-small" style="width:33%;margin:auto;">
-<FORM action="fotos_alumnos.php" method="POST" name="fotos" target="_blank">
-  <legend> Selecciona el Grupo de alumnos</legend><br />
-  <label> Grupo: 
-    <select  name="curso" style="width:80px" onChange="submit()">
-      <option></option>
-                    <?
-  $tipo = "select distinct unidad from alma order by unidad";
-  $tipo1 = mysql_query($tipo);
-  while($tipo2 = mysql_fetch_array($tipo1))
-        {
-echo "<option>".$tipo2[0]."</option>";
-        }				
-					?>
-    </select>
-  </label>
-  <br /><INPUT type="submit" name="submit1" value="Enviar datos" class="btn btn-primary">          
-          </FORM>  
+
+include("../../menu.php");
+?>
   
-  </div>
-  <?php
-  	include("../../pie.php");
-  ?>
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Fotografías <small>Alumnado</small></h2>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<div class="col-sm-6 col-sm-offset-3">
+			
+			<div class="well">
+				
+				<form method="post" action="fotos_alumnos.php" target="_blank">
+					<fieldset>
+						<legend>Seleccione grupo</legend>
+						
+						<div class="form-group">
+						  <select class="form-control" name="curso">
+						  	 <?php unidad(); ?>
+						  </select>
+						</div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->  
+
+<?php include("../../pie.php"); ?>
+</body>
+</html>

@@ -19,8 +19,8 @@ include("menu.php");
 </div>
 
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span10 offset1">
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1">
 <? 
 $id = $_GET['id'];
 $connection = mysql_connect($db_host, $db_user, $db_pass) or die ("Imposible conectar!");
@@ -55,7 +55,7 @@ if ($row)
 else
 {
 ?>
-<div class="alert alert-error alert-block fade in" style="max-width:500px;">
+<div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h4>ATENCIÓN:</h4>Esa noticia no se encuentra en la base de datos
           </div>

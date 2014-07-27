@@ -29,8 +29,8 @@ include ("../menu.php");
 // $datatables_activado = true;
 ?>
 <div class='container-fluid'>
-  <div class="row-fluid">
-   <div class="span12"> 
+  <div class="row">
+   <div class="col-sm-12"> 
    <br /> 
 <div align="center">
 <div class="page-header">

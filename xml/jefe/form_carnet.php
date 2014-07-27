@@ -24,8 +24,8 @@ exit;
   <h2>Administración <small> Crear el Carnet del Alumno</small></h2>
 </div>
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span6 offset3">
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
 <?
 $id=$_POST['seleccion'];
 if ($id>0){$modificar=1;}
@@ -43,7 +43,7 @@ $unidad = $row_Recordset1[16];
 ?>
 <div align="center" class="well well-large" style="width:550px">
 <form id="form1" name="form1" method="post" action="carnet.php">
-  <div class="control-group">
+  <div class="form-group">
        <div class="controls">
 <legend>Impresión de Carnet por Grupo</legend>
   <label class="control-label" for="grupo">Selecciona un Grupo:</label>
@@ -81,7 +81,7 @@ else{
  <div align="center" class="well well-large" style="width:550px">
 
 <form name="crear" action="carnet.php" method="POST" onsubmit="placeInHidden('*', this.form.al2,this.form.profes)">
- <div class="control-group">
+ <div class="form-group">
        <div class="controls">
 <legend>Impresión de Carnet por Alumno</legend>
 

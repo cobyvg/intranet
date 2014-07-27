@@ -1,18 +1,19 @@
-<?
-if ($_POST['submit1']=="Ver datos") {
+<?php
+// VALIDACION DE FORMULARIOS
+if (isset($_POST['submit1'])) {
 	include 'datos.php';
 	exit();
 }
-elseif ($_POST['submit2']=="PDF para imprimir") {
+elseif (isset($_POST['submit2'])) {
 	include 'lista_grupo.php';
 	exit();
 }
-elseif ($_POST['submit0']=="Buscar alumnos") {
+elseif (isset($_POST['submit0'])) {
 	include 'datos.php';
 	exit();
 }
-?>
-<?
+
+
 session_start();
 include("../../config.php");
 if($_SESSION['autentificado']!='1')
@@ -22,49 +23,80 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-?>
-<?php
-include("../../menu.php");
 
+include("../../menu.php");
 ?>
-<br />
-<div align="center">
-<div class="page-header" align="center">
-  <h2>Datos de los Alumnos <small> Consultas</small></h2>
-</div>
-</div>
-<div class="container-fluid">
-<div class="row-fluid">
-<div class=" span4 offset2 well well-large">
-<FORM name="form0" id="form1" action="cdatos.php" method="POST">
-  <legend>Datos de los alumnos</legend>
-  <br />
-  <label> Apellidos<br />
-    <INPUT type="text" name="apellidos" size="30" maxlength="32" alt="Apellidos" class="input-block-level" />
-  </label>
-  <label>Nombre<br />
-    <INPUT type="text" name="nombre" size="30" maxlength="25" alt="Nombre" class="input-block-level" />
-  </label>
-  <p class="help-block">No es necesario excribir el nombre o los apellidos completos de los alumnos.</p>
- <div align="center"> <button type="submit" name="submit0" value="Buscar alumnos" class="btn btn-primary btn-block"><i class="fa fa-search"></i> Buscar alumnos</button></div> 
-</div>
-</form>
-<div class="span4 well well-large" >
-<FORM name="form1" id="form1" action="cdatos.php" method="POST">
-  <legend>Datos de los Grupos</legend>
-  <label>
-    <SELECT name="unidad[]" class="input-block-level" multiple style="height:140px" required>
-      <? unidad();?>
-    </SELECT>
-  </label>
-  <p class="help-block">Mantén apretada la tecla Ctrl mientras haces click con el ratón para seleccionar múltiples grupos.</p>
- <div align="center"> <button type="submit" name="submit1" value="Ver datos" class="btn btn-primary"><i class="fa fa-search"></i> Ver datos</button>  <button type="submit" name="submit2" value="PDF para imprimir" class="btn btn-primary" ><i class="fa fa-print"></i> PDF para imprimir</button></div>
- </FORM>
- 
-  </div>
-  </div>
-  </div>
+
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Alumnos del centro <small>Consultas</small></h2>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA IZQUIERDA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="">
+					<fieldset>
+						<legend>Criterios de búsqueda</legend>
+						
+						<div class="form-group">
+					    <label for="campoApellidos">Apellidos</label>
+					    <input type="text" class="form-control" name="apellidos" id="campoApellidos" placeholder="Apellidos" maxlength="60">
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="campoNombre">Nombre</label>
+					    <input type="text" class="form-control" name="nombre" id="campoNombre" placeholder="Nombre" maxlength="60">
+					    <p class="help-block">No es necesario escribir el nombre o los apellidos completos de los alumnos.</p>
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit0">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<!-- COLUMNA DERECHA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="">
+					<fieldset>
+						<legend>Información por grupos</legend>
+						
+						<div class="form-group">
+					    <select class="form-control" name="unidad[]" multiple size="6">
+					    	 <?php unidad(); ?>
+					    </select>
+					    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
+					  <button type="submit" class="btn btn-primary" name="submit2">Imprimir</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
   
-<? include("../../pie.php");?>
-</BODY>
-</HTML>
+<?php include("../../pie.php"); ?>
+
+</body>
+</html>

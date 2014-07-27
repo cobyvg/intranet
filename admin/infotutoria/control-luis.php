@@ -24,8 +24,8 @@ if (isset($_POST['profes'])) {$profes = $_POST['profes'];}else{$profes="";}
 <?
 $detalles = '1'; 
 ?>
-<div class="row-fluid">
-<div class="span4 offset2" align="left">   
+<div class="row">
+<div class="col-sm-4 col-sm-offset-2" align="left">   
 <?
 $hoy = date('Y-m-d');
 //echo $hoy;
@@ -131,7 +131,7 @@ echo "<hr />";
 }
 ?>
 </div>
-<div class="span4">
+<div class="col-sm-4">
 <?
 echo '<h4>Resultados globales por Profesor</h4><br />';
 $malo0 = "select profesor, count(*) as total from infotut_temp group by profesor";

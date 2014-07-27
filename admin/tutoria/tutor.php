@@ -134,9 +134,9 @@ La Jefatura de Estudios ha registrado esta Acción Tutorial
 }
 ?>
 <div class="container-fluid">
-<div class="row-fluid">
-  <div class="span1"></div>
-  <div class="span6">
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-6">
     <legend align="center">Registro de datos</legend>
     <div class="well well-large" align="left">
       <form action="tutor.php" method="POST" name="Tutor">
@@ -147,7 +147,7 @@ $al = $tr[0];
 $clave = $tr[1];
    	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {
-		echo "<img src='../../xml/fotos/$clave.jpg' width='100' height='125' class='img-polaroid pull-right'  />";
+		echo "<img src='../../xml/fotos/$clave.jpg' width='100' height='125' class='img-thumbnail pull-right'  />";
 
 	}           	
            } 
@@ -179,16 +179,16 @@ if ($fecha)
 
  <? 	
   echo '     
-  <div class="input-append">
-            <input name="fecha" type="text" class="input input-small input-block-level" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <div class="input-group">
+            <input name="fecha" type="text" class="input input-small form-control" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
   }
   else{
   	echo '     
-  <div class="input-append" >
-            <input name="fecha" type="text" class="input input-small input-block-level" value="" data-date-format="dd-mm-yyyy" id="fecha" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <div class="input-group" >
+            <input name="fecha" type="text" class="input input-small form-control" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
   }
 ?>
@@ -199,8 +199,8 @@ if ($fecha)
           <textarea name='observaciones' rows='8'  class='input-xxlarge'><? echo $observaciones; ?></textarea>
         </label>
         <hr>
-          <div class="row-fluid">
-  <div class="span6">
+          <div class="row">
+  <div class="col-sm-6">
         <label style='display:inline'>Causa<br />
           <select name="causa"  class="input-xlarge" style='display:inline'>
             <option><? echo $causa; ?></option>
@@ -212,7 +212,7 @@ if ($fecha)
           </select>
         </label>
 </div>
-  <div class="span6">
+  <div class="col-sm-6">
         <label style='display:inline'> Tipo<br />
           <select name="accion" class="input-large" style='display:inline'>
             <option><? echo $accion; ?></option>
@@ -266,7 +266,7 @@ echo "</tbody></table>";
 }
 	?>
   </div>
-  <div class="span4">
+  <div class="col-sm-4">
     <legend align="center">Intervenciones del Tutor</legend>
     <? include("ultimos.php");?>
   </div>

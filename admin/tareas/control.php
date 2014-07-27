@@ -22,7 +22,7 @@ include("menu.php");
 <?
 $detalles = '1';
 ?>
-<div class="row-fluid">
+<div class="row">
 <div align="center">
 <FORM action="control-luis.php" method="POST" class="well well-large form-inline" style="width:450px;">
 <legend>Informe sobre un Profesor</legend>
@@ -45,8 +45,8 @@ $detalles = '1';
 </FORM>
 </div>
 
-<div class="span1"></div> 
-<div class="span6" align="left">    
+<div class="col-sm-1"></div> 
+<div class="col-sm-6" align="left">    
 <br />     
 <?
 $hoy = date('Y-m-d');
@@ -143,7 +143,7 @@ echo "<hr width='90%' />";}
 }
 ?>
 </div>
-<div class="span4">
+<div class="col-sm-4">
 <br />
 <?
 echo '<h4>Resultados globales por Profesor</h4><br />';

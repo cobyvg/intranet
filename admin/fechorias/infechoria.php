@@ -107,7 +107,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 <label> Alumno:<br />
 	<?
 	if ($unidad=="Cualquiera") {$alumno_sel=""; $nom = "nombre[]";  $opcion = "multiple = 'multiple' style='height:250px;width:340px;'";}else{$alumno_sel = "WHERE unidad like '$unidad%'"; $nom = "nombre";}
-	?> <select name="<? echo $nom;?>" class="input input-block-level"
+	?> <select name="<? echo $nom;?>" class="input form-control"
 	<? echo $opcion;?>>
 	<?
 
@@ -157,19 +157,19 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 	?>
 </select> </label> 
 <label>Fecha:<br />
-<div class="input-append" >
-  <input name="fecha" type="text" class="input input-block-level" data-date-format="dd-mm-yyyy" id="fecha" value="<?if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+<div class="input-group" >
+  <input name="fecha" type="text" class="input form-control" data-date-format="dd-mm-yyyy" id="fecha" value="<?if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>" >
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label> 
 <label> Gravedad:<br />
-<select name="grave" onChange="submit()" class="input-block-level">
+<select name="grave" onChange="submit()" class="form-control">
 	<option><? echo $grave;?></option>
 	<?
 	tipo();
 	?>
 </select> </label> <label>Asunto:<br />
-<select name="asunto" onChange="submit()" class="input-block-level">
+<select name="asunto" onChange="submit()" class="form-control">
 	<option><? 
 	
 	$sql0 = mysql_query("select tipo from listafechorias where fechoria = '$asunto'");
@@ -201,17 +201,17 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 	}
 
 	?> <input type="text" value="<? echo $medidaescr;?>" disabled
-	class="input-block-level" style="color: #9d261d" /> </label> <label>Medidas
+	class="form-control" style="color: #9d261d" /> </label> <label>Medidas
 Complementarias que deben tomarse:<br />
 <textarea name='medidas' rows="6" disabled="disabled"
-	class="input-block-level" style="color: #9d261d"><? if($medidas){ echo $medidad; }else{  medida2($asunto);} ?></textarea>
+	class="form-control" style="color: #9d261d"><? if($medidas){ echo $medidad; }else{  medida2($asunto);} ?></textarea>
 </label> <?
 if($grave == 'grave' or $grave == 'muy grave'){
 	?> 
 	<label class="checkbox"><input type="checkbox" name="expulsionaula" id="expulsionaula" value="1" <?  if ($expulsionaula == "1") { echo " checked ";}?>> <span style="color: #08c"> El Alumno ha sido <u>expulsado</u> del aula</span> <? }?> </label> 
 <label>
 Descripci&oacute;n:<br />
-<textarea name='notas' rows="6" class="input-block-level"><? echo $notas; ?></textarea>
+<textarea name='notas' rows="6" class="form-control"><? echo $notas; ?></textarea>
 </label> 
 
 <? 
@@ -219,7 +219,7 @@ if ($id) {
 	?>
 <hr>
 	<label>Profesor<br />
- <SELECT  name="informa" class="input input-block-level">
+ <SELECT  name="informa" class="input form-control">
     <?
     if ($id) {
     echo "<OPTION>".$informa."</OPTION>";	
@@ -239,7 +239,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'b') ==
 	?>
 	<hr>
 	<label>Profesor<br />
- <SELECT  name="informa" class="input input-block-level">
+ <SELECT  name="informa" class="input form-control">
     <?
     if ($id) {
     echo "<OPTION>".$informa."</OPTION>";	

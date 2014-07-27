@@ -198,7 +198,7 @@ if ($porcient>49) {
 	$porciento = "<span class='text-success'>".substr($porcient,0,5)."%</span>";
 }
 else{
-	$porciento = "<span class='text-error'>".substr($porcient,0,5)."%</span>";	
+	$porciento = "<span class='text-danger'>".substr($porcient,0,5)."%</span>";	
 }
 
 ?>
@@ -262,7 +262,7 @@ if ($porcient_asig2>49) {
 	$porciento_asig2 = "<span class='text-success'>".substr($porcient_asig2,0,4)."%</span>";
 }
 else{
-	$porciento_asig2 = "<span class='text-error'>".substr($porcient_asig2,0,4)."%</span>";	
+	$porciento_asig2 = "<span class='text-danger'>".substr($porcient_asig2,0,4)."%</span>";	
 }
 	$num_apro2 = "";
 	$num_apro2 = $num_matr2-$num_susp2;
@@ -272,7 +272,7 @@ if ($porcient_asig22>49) {
 	$porciento_asig22 = "<span class='text-success'>".substr($porcient_asig22,0,4)."%</span>";
 }
 else{
-	$porciento_asig22 = "<span class='text-error'>".substr($porcient_asig22,0,4)."%</span>";	
+	$porciento_asig22 = "<span class='text-danger'>".substr($porcient_asig22,0,4)."%</span>";	
 }
 
 //if ($porcient_asig2>0) {

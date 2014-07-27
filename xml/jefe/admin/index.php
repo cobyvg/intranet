@@ -25,14 +25,14 @@ include("../../../menu.php");
 </div>
 
 <FORM ENCTYPE="multipart/form-data" ACTION="horarios.php" METHOD="post">
-  <div class="control-group">
+  <div class="form-group">
   <p class="help-block" style="width:500px; text-align:left"><span style="color:#9d261d">(*) </span>El archivo que se debe importar se obtiene de HORW exportando los datos en formato DEL como muestra la imagen de abajo. El Horario se extrae de Horw incluyendo todos los datos del mismo, y lo utilizan los m&oacute;dulos que presentan Horarios de Profesores y Grupos.</p>
   <br />
   <div class="well well-large" style="width:500px; margin:auto;" align="left">
   <div class="controls">
   <label class="control-label" for="file">Selecciona el archivo con los datos del Horario
   </label>
-  <input type="file" name="archivo" class="input input-file span4" id="file">
+  <input type="file" name="archivo" class="input input-file col-sm-4" id="file">
   <hr>
  
   <div align="center">

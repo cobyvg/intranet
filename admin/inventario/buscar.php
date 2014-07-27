@@ -73,9 +73,9 @@ $datos=mysql_query("select familia, inventario_clases.clase, lugar, descripcion,
 if (mysql_num_rows($datos) > 0)
 {
 	echo '<div class="container-fluid">  
-	<div class="row-fluid">
-<div class="span1"></div>
-<div class="span10">';
+	<div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-10">';
 	echo '<div align="center">';
 echo '<h3>Material encontrado en el Inventario</h3><br />
 <table class="table table-striped table-bordered tabladatos" style="width:100%">

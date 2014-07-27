@@ -119,6 +119,15 @@ else $popup=0;
 //Sanitize popup
 $popup=!!$popup;
 
+if (isset($_GET['crossdomain'])) 
+{
+   $crossdomain = strip_tags($_GET['crossdomain']);
+}
+else $crossdomain=0;
+
+//Sanitize crossdomain
+$crossdomain=!!$crossdomain;
+
 //view type
 if(!isset($_SESSION['RF']["view_type"]))
 { 
@@ -211,6 +220,7 @@ $get_params = http_build_query(array(
     'type'      => $type_param,
     'lang'      => $lang,
     'popup'     => $popup,
+    'crossdomain' => $crossdomain,
     'field_id'  => $field_id,
     'akey' 		=> (isset($_GET['akey']) && $_GET['akey'] != '' ? $_GET['akey'] : 'key'),
     'fldr'      => ''
@@ -375,6 +385,7 @@ $get_params = http_build_query(array(
     </head>
     <body>
 	<input type="hidden" id="popup" value="<?php echo $popup; ?>" />
+	<input type="hidden" id="crossdomain" value="<?php echo $crossdomain; ?>" />
 	<input type="hidden" id="view" value="<?php echo $view; ?>" />
 	<input type="hidden" id="cur_dir" value="<?php echo $cur_dir; ?>" />
 	<input type="hidden" id="cur_dir_thumb" value="<?php echo $thumbs_path.$subdir; ?>" />
@@ -490,7 +501,11 @@ foreach($files as $k=>$file){
     elseif($file=="..") $prev_folder=array('file'=>$file);
     elseif(is_dir($current_path.$rfm_subfolder.$subdir.$file)){
 	$date=filemtime($current_path.$rfm_subfolder.$subdir. $file);
-	$size=foldersize($current_path.$rfm_subfolder.$subdir. $file);
+	if($show_folder_size){
+		$size=foldersize($current_path.$rfm_subfolder.$subdir. $file);
+	} else {
+		$size=0;
+	}
 	$file_ext=lang_Type_dir;
 	$sorted[$k]=array('file'=>$file,'date'=>$date,'size'=>$size,'extension'=>$file_ext);
     }else{
@@ -954,14 +969,16 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
     <!-- loading div end -->
     
     <!-- player div start -->
-    <div class="modal hide fade" id="previewAV">
-      <div class="modal-header">
+    <div class="modal fade" id="previewAV">
+      <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3><?php echo lang_Preview; ?></h3>
+        <h4 class="modal-title">><?php echo lang_Preview; ?></h4>
       </div>
       <div class="modal-body">
       	<div class="row-fluid body-preview">
 	</div>
+      </div>
+      </div>
       </div>
       
     </div>

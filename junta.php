@@ -8,7 +8,7 @@ $num_items = 5;
 $rss = fetch_rss ( $url );
 $items = array_slice ( $rss->items, 0, $num_items );
 
-echo '<legend><i class="fa fa-rss"></i> '.$rss->channel['title'].'</legend>';
+echo '<h3><span class="fa fa-rss fa-fw"></span> '.$rss->channel['title'].'</h3>';
 
 foreach ( $items as $item ) {
 	$href = $item ['link'];
@@ -21,4 +21,3 @@ foreach ( $items as $item ) {
 	  ';
 }
 ?>
-<hr />

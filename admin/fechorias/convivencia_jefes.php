@@ -129,9 +129,9 @@ echo '</div>
 	echo "<center><form name='conv' action='convivencia_jefes.php' method='post' enctype=multipart/form-data' class='form-inline'>";
 	?>
 	<label>Selecciona el Día 
-<div class="input-append" >
-  <input name="fecha0" type="text" class="input input-block-level" value="<? echo $hoy0;?>" data-date-format="dd-mm-yyyy" id="fecha0" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+<div class="input-group" >
+  <input name="fecha0" type="text" class="input form-control" value="<? echo $hoy0;?>" data-date-format="dd-mm-yyyy" id="fecha0" >
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>   
 	</label>
     <label style="margin-left:35px;">

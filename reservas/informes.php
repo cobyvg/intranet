@@ -18,9 +18,9 @@ include("../TIC/menu.php");
   <h2>Centro TIC <small> Estadísticas de uso de Portátiles</small></h2>
 </div>
 
- <div class="row-fluid">
- <div class="span2"></div>
-<div class="span3">
+ <div class="row">
+ <div class="col-sm-2"></div>
+<div class="col-sm-3">
 <h3>Datos de Carritos</h3><br />
 <div class="well well-large">
  
@@ -64,7 +64,7 @@ echo "</table>";
 ?>
 </div>
 </div>
-<div class="span5 pull-left">
+<div class="col-sm-5 pull-left">
   <h3>Datos de Profesores</h3><br />
   <div class="well well-large">
 <?	

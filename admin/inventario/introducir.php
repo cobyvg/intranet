@@ -90,11 +90,11 @@ Parece que no has escrito nada en alguno de los campos obligatorios del formular
 }
 }
 ?>
-<div class="row-fluid">
+<div class="row">
 <? 
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
 { ?>
-<div class="span4 offset2">
+<div class="col-sm-4 col-sm-offset-2">
 
 <h3>Registro de Material <span style="color:#9d261d">(<? echo $departament;?>)</span></h3>
 <br />
@@ -104,7 +104,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') ==
 <input type="hidden" name="departamento" value="<? echo $departamento;?>">
 
 <label>Familia<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<select name="familia" onchange="submit()" class="span10">
+<select name="familia" onchange="submit()" class="col-sm-10">
         <?
 echo "<option>$familia</option>";
 $famil = mysql_query(" SELECT distinct familia FROM inventario_clases order by familia asc");
@@ -116,7 +116,7 @@ while($fam = mysql_fetch_array($famil))
 </select>
 </label>
 <label>Clase<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<select name="clase" class="span7">
+<select name="clase" class="col-sm-7">
         <?
 echo "<option></option>";
 $cla = mysql_query(" SELECT distinct clase FROM inventario_clases where familia='$familia' order by familia asc");
@@ -128,7 +128,7 @@ while($clas = mysql_fetch_array($cla))
 </select>
 </label>
 <label>Lugar<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<select name="lugar" class="span9">
+<select name="lugar" class="col-sm-9">
         <?
 echo "<option></option>";
 $luga = mysql_query(" SELECT distinct lugar FROM inventario_lugares order by lugar asc");
@@ -140,25 +140,25 @@ while($lug = mysql_fetch_array($luga))
 </select>
 </label>
 <label>Descipción<br />
-<textarea name="descripcion" cols="45" rows="5" class="span11"></textarea>
+<textarea name="descripcion" cols="45" rows="5" class="col-sm-11"></textarea>
 </label>
 <label>Marca<br />
-<input type="text" name="marca" size="40" class="span8"/>
+<input type="text" name="marca" size="40" class="col-sm-8"/>
 </label>
 <label>Modelo<br />
-<input type="text" name="modelo" size="40"class="span8" />
+<input type="text" name="modelo" size="40"class="col-sm-8" />
 </label>
 <label>Nº Serie<br />
-<input type="text" name="serie" size="25" class="span8"/>
+<input type="text" name="serie" size="25" class="col-sm-8"/>
 </label>
 <label>Nº de Unidades<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<input type="text" name="unidades" size="5" value="1" class="span2"/>
+<input type="text" name="unidades" size="5" value="1" class="col-sm-2"/>
 </label>
 
 <label>Fecha de Alta<span style="color:#9d261d;"> (*) </span><br />
-<div class="input-append" >
+<div class="input-group" >
   <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha">
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
 <br />
@@ -169,10 +169,10 @@ while($lug = mysql_fetch_array($luga))
   <?
 }
 if ($j_s == '1') {
-	echo '<div class="span4 offset4">';
+	echo '<div class="col-sm-4 col-sm-offset-4">';
 }
 else{
-	echo '<div class="span4">';
+	echo '<div class="col-sm-4">';
 }
 ?>
 <?

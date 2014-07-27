@@ -58,14 +58,14 @@ if ($today > $numdays) { $today--; }
 // Estructura de la Tabla
 ?>
 <br />
-<div class="row-fluid">
-<div class=span6>
+<div class="row">
+<div class=col-sm-6>
 <legend class='text-warning' align='center'><br />Instrucciones de uso</legend>
 <p class="help-block text-info" style="text-align:justify">
 A través de esta página puedes registrar las pruebas, controles o actividades de distinto tipo para los alumnos de los Grupos a los que das clase, o bien puedes utilizar esta página para registrar entradas pèrsonales como si fuera un calendario. <em>Los registros que estén relacionados con tus Grupos y Asignaturas aparecerán en el Calendario de la Intranet, pero también en la página personal del alumno en la Página del Centro</em>, de tal modo que Padres y Alumnos puedan ver en todo momento las fechas de las pruebas; <em>si la actividad no contiene Grupo alguno aparecerá sólo en el Calendario de la Intranet a modo de recordatorio</em>. La fecha y el Tíulo de la actividad son los únicos campos obligatorios. Puedes editar, ver y borrar los registros mediante los iconos de la tabla que presenta todas tus actividades.
 </p>
 </div>
-<div class=span6>
+<div class=col-sm-6>
     <?
 	echo "<legend class='text-warning' align='center'><br />$daylong $today, $year</legend>";	
 	

@@ -115,8 +115,8 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 }
 ?>
 <div class='container'>
-<div class="row-fluid">
-<div class="span5">
+<div class="row">
+<div class="col-sm-5">
 <div align='center'>
 <legend>Registro de Bajas</legend>
 </div>
@@ -155,17 +155,17 @@ else{
 ?>
 <hr>
 <label>Comienzo de la ausencia<br />
-<div class="input-append" style="display: inline;"><input name="inicio"
+<div class="input-group" style="display: inline;"><input name="inicio"
 	type="text" class="input input-small"
 	<? if($inicio){echo "value=$inicio";}?> data-date-format="dd-mm-yyyy"
-	id="inicio"> <span class="add-on"><i class="fa fa-calendar"></i></span>
+	id="inicio"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </label> 
 <br />
 <label>Final de la ausencia<br />
-<div class="input-append" style="display: inline;"><input name="fin"
+<div class="input-group" style="display: inline;"><input name="fin"
 	type="text" class="input input-small" <? if($fin){echo "value=$fin";}?>
-	data-date-format="dd-mm-yyyy" id="fin"> <span class="add-on"><i
+	data-date-format="dd-mm-yyyy" id="fin"> <span class="input-group-addon"><i
 	class="fa fa-calendar"></i></span></div>
 </label>
 <hr>
@@ -187,7 +187,7 @@ else{
 
 </div>
 </div>
-<div class="span7"><?
+<div class="col-sm-7"><?
 if ($profesor) {
 	echo "<div align='center'><legend>Bajas del Profesor en este Curso.</legend></div><br />";
 	echo "<table class='table table-striped' style='width:100%;' align='center'>

@@ -56,7 +56,7 @@ else
 
 echo "<div align='left'><form name='alumno' method='POST' action='activar.php'>";
 echo "<label>Alumno <br />";
-echo"<select name='alumno' class='span3'>";
+echo"<select name='alumno' class='col-sm-3'>";
 echo "<OPTION></OPTION>";
 if ($unidad == ""){ echo "<OPTION></OPTION>";} 
 else
@@ -70,7 +70,7 @@ $alumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad FROM alma WHERE u
 echo "</select></label>";
 
 echo"<label>Profesor que activa el informe<br />";
-echo "<input size='35' name='tutor' type='text' value='$profesor'  class='span3' readonly>";
+echo "<input size='35' name='tutor' type='text' value='$profesor'  class='col-sm-3' readonly>";
 echo "</label>";
 $today = date("j, n, Y");
 $hoy = explode(",", $today);
@@ -79,9 +79,9 @@ $mes = $hoy[1];
 $ano = $hoy[2];
 ?>
          <label>Fecha prevista de la ausencia<br />
- <div class="input-append" style="display:inline;" >
+ <div class="input-group" style="display:inline;" >
             <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 
 </label>

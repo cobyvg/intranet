@@ -1,14 +1,13 @@
 <?php
-if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} 
+if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="";}
 if (isset($_POST['todos'])) {$todos = $_POST['todos'];} elseif (isset($_GET['todos'])) {$todos = $_GET['todos'];}else{$todos="";}
 
-
-if ($_POST['submit1'] or $_GET['submit1'])
+if(isset($_POST['submit1']) || (isset($_GET['submit1']) && ($_GET['submit1'] == 1)))
 {
 	include("cursos.php");
+	exit();
 }
-else
-{
+
 ?>
 <?
 session_start();
@@ -25,35 +24,33 @@ $profesor = $_SESSION['profi'];
 <?
 include("../../menu.php");
 ?>
-<br />
-<div align=center>
-<div class="page-header" align="center">
-  <h2>Listas de Alumnos <small> Listas de Grupo</small></h2>
-</div>
-</div>
-<div class="container-fluid">
-<div class="row-fluid">
-<?
-if(stristr($_SESSION['cargo'],'1') == TRUE){
- echo '<div class="span4 offset2">';
-}
-else{
-echo '<div class="span5 offset1">';
-}
-?>
 
-<form class="well well-large form-inline" action="ccursos.php" method="POST" name="listas">
-<legend>Lista PDF de Alumnos por Grupo</legend>
-<p class="block-help">Selecciona múltiples Grupos manteniendo apretada la tecla Ctrl mientras los seleccionas.</p>
-<hr />
-<SELECT  name="unidad[]" multiple class="input-block-level" required>
-<?
-if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE or $todos=="1"){
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Listado de alumnos <small>Consultas</small></h2>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA IZQUIERDA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="">
+					<fieldset>
+						<legend>Alumnos por grupo</legend>
+						
+						<div class="form-group">
+						    <select class="form-control" name="unidad[]" multiple size="6">
+<?php
+if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'8') == TRUE || stristr($_SESSION['cargo'],'5') == TRUE || stristr($_SESSION['cargo'],'d') == TRUE || $todos=="1"){
  unidad();
- $SQLcurso = "SELECT DISTINCT unidad
-FROM alma
-WHERE combasi like '%25204%' or combasi LIKE '%25226%'
-";
+ $SQLcurso = "SELECT DISTINCT unidad FROM alma WHERE combasi LIKE '%25204%' OR combasi LIKE '%25226%'";
 $resultcurso = mysql_query($SQLcurso);
 while($rowcurso = mysql_fetch_array($resultcurso)){
 	echo "<option>$rowcurso[0] DIV</option>";	
@@ -61,7 +58,7 @@ while($rowcurso = mysql_fetch_array($resultcurso)){
 }
 else{
 
-$SQLcurso = "select grupo, materia, nivel from profesores where profesor = '$profesor'";
+$SQLcurso = "SELECT grupo, materia, nivel FROM profesores WHERE profesor = '$profesor'";
 $resultcurso = mysql_query($SQLcurso);
 $curso="";
 $asignatura="";	
@@ -71,10 +68,10 @@ $asignatura="";
 	$asignatura = $rowcurso[1];
 	$n_curs = substr($rowcurso[2],0,1);
 	if (stristr($rowcurso[2],"bach")) {
-		$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso like '%bach%' and curso like '$n_curs%' and abrev not like '%\_%'";
+		$asigna0 = "SELECT codigo FROM asignaturas WHERE nombre = '$asignatura' AND curso LIKE '%bach%' AND curso LIKE '$n_curs%' AND abrev NOT LIKE '%\_%'";
 	}
 	else{
-	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurso[2]' and abrev not like '%\_%'";
+	$asigna0 = "SELECT codigo FROM asignaturas WHERE nombre = '$asignatura' AND curso = '$rowcurso[2]' AND abrev NOT LIKE '%\_%'";
 	}
 	$asigna1 = mysql_query($asigna0);
 	$codasi="";
@@ -88,33 +85,45 @@ $asignatura="";
  
 }
 ?>
-          </SELECT>
-        <br /><br />
-         
-         <label class="checkbox"> 
-    <input type="checkbox" name="asignaturas" value="1"> &nbsp; Mostrar asignaturas
-  </label>
-  <br />
-           <label class="checkbox"> 
-<?           
-   echo '<input type="checkbox" name="todos" value="1" ';
-   if ($todos==1) {
-   	echo "checked";
-   } 
-   echo ' onClick=submit();> &nbsp; Mostrar todos los Grupos';
-?>  
-    </label>
-  <br /><br />
-  <button class="btn btn-primary btn-block" type="submit" name="submit1" value="Lista del Curso">Lista del curso</button>
-</form>
-</div>
-<div  class="span4">
+
+						    </select>
+						    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
+						  </div>
+						  
+						  <div class="checkbox">
+						  	<label>
+						    	<input type="checkbox" name="asignaturas" value="1"> Mostrar asignaturas
+						    </label>
+						  </div>
+						  
+						  <div class="checkbox">
+						  	<label>
+						    	<input type="checkbox" name="todos" value="1" <?php echo (isset($todos) && $todos == 1) ? 'checked' : '' ;?>> Mostrar todos los grupos
+						    </label>
+						  </div>
+						  
+						  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
+						</fieldset>
+						
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<!-- COLUMNA DERECHA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="excel.php">
 <?
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE or $todos == "1"){
 	$query_Recordset1 = "SELECT distinct unidad FROM alma ORDER BY unidad ASC";
 }
 else{
-	$query_Recordset1 = "select grupo, materia, nivel from profesores where profesor = '$profesor'";
+	$query_Recordset1 = "SELECT grupo, materia, nivel FROM profesores WHERE profesor = '$profesor'";
 }
 $Recordset1 = mysql_query($query_Recordset1) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_array($Recordset1);
@@ -124,35 +133,41 @@ $Recordset2 = mysql_query($query_Recordset2) or die(mysql_error());
 $row_Recordset2 = mysql_fetch_array($Recordset2);
 $totalRows_Recordset2 = mysql_num_rows($Recordset2);
 ?>
-<form id="form1" name="form1" method="post" action="excel.php" class="well well-large ">
-<legend>Lista para Hoja de Cálculo</legend>
-<p class="block-help">Selecciona el Grupo para exportar los datos al formato de las Hojas de Cálculo, como Calc o Excel.</p>
-<hr />
- <label><select name="select" class="input-block-level" required>
-    <?php 
-do {  
-?>
-    <option><?php  echo $row_Recordset1[0]?></option>
-    <?php 
-} while ($row_Recordset1 = mysql_fetch_array($Recordset1));
-  $rows = mysql_num_rows($Recordset1);
-?>
-  </select>
- </label>
- <br />
-    <label class="checkbox"><input type="checkbox" name="tipo" value="2"> Mostrar asignaturas
- </label>
-  <br /><br />
-   <button class="btn btn-primary btn-block" type="submit" name="boton1" value="Enviar">Lista del curso</button>
- 
-</form>
-</div>
-</div>
-  </div> 
+					<fieldset>
+						<legend>Exportar en formato XLS</legend>
+						
+						<div class="form-group">
+					    <select class="form-control" name="select">
+					    	     <?php 
+					    	 do {  
+					    	 ?>
+					    	     <option><?php  echo $row_Recordset1[0]?></option>
+					    	     <?php 
+					    	 } while ($row_Recordset1 = mysql_fetch_array($Recordset1));
+					    	   $rows = mysql_num_rows($Recordset1);
+					    	 ?>
+					    </select>
+					    <p class="help-block">Selecciona el grupo para exportar los datos al formato de las hojas de cálculo, como Calc o Excel.</p>
+					  </div>
+					  
+					  <div class="checkbox">
+					  	<label>
+					    	<input type="checkbox" name="tipo" value="2"> Mostrar asignaturas
+					    </label>
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary" name="boton1">Exportar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
 
-<?  
-}
-	include("../../pie.php");
-?>
-</BODY>
-</HTML>
+<?php include("../../pie.php"); ?>
+</body>
+</html>

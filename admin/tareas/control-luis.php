@@ -22,9 +22,9 @@ if (isset($_POST['profes'])) {$profes = $_POST['profes'];}else{$profes="";}
 <?
 $detalles = '1'; 
 ?>
-<div class="row-fluid">
+<div class="row">
 <h3 class="text-info" align="center"><? echo $profes;?></h3><br />
-<div class="span4 offset2" align="left">   
+<div class="col-sm-4 col-sm-offset-2" align="left">   
 
 <?
 $hoy = date('Y-m-d');
@@ -131,7 +131,7 @@ echo "<br />";
 }
 ?>
 </div>
-<div class="span4">
+<div class="col-sm-4">
 
 <?
 echo '<h4>Resultados globales por Profesor</h4><br />';

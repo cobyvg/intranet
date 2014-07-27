@@ -93,12 +93,12 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.uni
 </div>
 <br />
 <div class="t1">
-<div class="row-fluid">
-  <div class="span6 offset1">
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-1">
       <div class="well well-large">
       <?
             if(file_exists("../../xml/fotos/".$claveal.".jpg")){
-echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-bottom:-145px' class='img-polaroid img-circle pull-right hidden-phone' />";
+echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-bottom:-145px' class='img-thumbnail img-circle pull-right hidden-phone' />";
             }
             ?>
         <table class="table table-striped">
@@ -183,7 +183,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
     
   </div>
   
-  <div class="span4">
+  <div class="col-sm-4">
     <?
    $pr = $_SESSION ['profi'];
    $conv = mysql_query("select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'");
@@ -202,18 +202,18 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
       <input name="claveal" type="hidden" value="<? echo $claveal; ?>"/>
       <hr>
       <label >Inicio: 
-      <div class="input-append" >
+      <div class="input-group" >
             <input name="inicio" type="text" class="input input-small" <? if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?> 
 data-date-format="dd-mm-yyyy" id="inicio" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Fin: 
- <div class="input-append" >
+ <div class="input-group" >
   <input name="fin" type="text" class="input input-small"  <? if(strlen($fin) > '0' and !($fin == '00-00-0000') ){echo "value='$fin'";}?> 
 data-date-format="dd-mm-yyyy" id="fin" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 
       </label>
@@ -272,7 +272,7 @@ data-date-format="dd-mm-yyyy" id="fin" >
         <input name="claveal" type="hidden" value="<? echo $claveal;?>" />
      <hr>
       <label >Inicio:    
-<div class="input-append" >
+<div class="input-group" >
 <input name="fechainicio" type="text" class="input input-small" <? if($inicio_aula){echo "value=$inicio_aula";}
 else{
 	if ($gucon == '1'){
@@ -280,15 +280,15 @@ else{
 	echo "value='$def_inicio'";}}
 ?>
  data-date-format="dd-mm-yyyy" id="fechainicio" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Fin
-<div class="input-append" >
+<div class="input-group" >
             <input name="fechafin" type="text" class="input input-small" <? if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}}?> 
              data-date-format="dd-mm-yyyy" id="fechafin" >
-  <span class="add-on"><i class="fa fa-calendar"></i></span>
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
       </label>
       <hr>        

@@ -59,7 +59,7 @@ $tipo = $ident0[5];
 	<div class="well well-large" style="width:450px;" align="left">
 	
 		<label for="cmp_nombre">Nombre de la columna</label>
-		<input type="text" id="cmp_nombre" name="nombre" size="32" value="<? echo $nombre;?>" class="input-block-level" />
+		<input type="text" id="cmp_nombre" name="nombre" size="32" value="<? echo $nombre;?>" class="form-control" />
 		<hr />
 		<div class="select">
 			<label for="select_tipo">Tipo de datos</label>
@@ -79,7 +79,7 @@ $tipo = $ident0[5];
 		</div>
 		<hr />	
 		<label for="cmp_observaciones">Observaciones</label>
-		<textarea name="texto" rows="6" id="cmp_observaciones" class="input-block-level"><? echo $texto;?></textarea>
+		<textarea name="texto" rows="6" id="cmp_observaciones" class="form-control"><? echo $texto;?></textarea>
 		<hr />
 		<div class="checkbox">
 			<input type="checkbox" id="cmp_visible_nota" name="visible_nota" value="1" <?php if($visible_nota) echo 'checked'; ?>>

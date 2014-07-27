@@ -49,7 +49,7 @@ include("../../menu.php");
 
 <div class="row">
 
-<div class="span6 offset3">
+<div class="col-sm-6 col-sm-offset-3">
 
 <form class="form-horizontal" method="POST"
 	enctype="multipart/form-data" action="horario_xml.php">

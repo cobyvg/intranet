@@ -70,69 +70,86 @@ if (stristr ( $carg, '2' ) == TRUE) {
 ?>
 <? include("menu.php");?>
 
- <div class="container-fluid" style="padding-top:22px;">  
-   <div class="row-fluid">  
-   
-        <div class="span3">  
-            <? if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {include("menu_conserje.php");}else{include("menu2.php");}?> 
-			<br />
-              <? 
-			  include("ausencias.php"); 
-			  include ("fijos.php");
-			  include ("mensajes.php");
-			  ?>
-        </div><!--/span-->  
-        <div class="span9">   
-          <div class="row-fluid">
-            
-            <div class="span7"> 
-              <?
-			  if (stristr ( $carg, '2' ) == TRUE) {
-		include ("admin/tutoria/control.php");
-			  }
-			  ?>
-              <? include ("pendientes.php");  ?>
-              <? 
-              echo "<div style='padding:19px;padding-top:0px;'>";
-              include("noticias.php");
-              ?>
-              <? 
-              include("junta.php");
-              echo "</div>";
-              ?>
- 
-            </div><!--/span--> 
-             
-            <div class="span5">
-             <div style='padding:19px;padding-top:0px;'>
-             <legend><i class="fa fa-search"></i> Buscar alumnos</legend> 
-             <form action="index.php" method="GET">
-             	<input name="buscarAlumnos" type="text" class="span12" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar alumnos...">
-             </form>
-             <div id="resAlumnos"></div>
-             </div>
-             <?
-              echo "<div style='padding:19px;padding-top:0px;'>";
-			  include("admin/calendario/index.php");
-
-			  if ($mod_horario and ($n_curso > 0)) {
-				echo "<hr /><br />";
-					include ("horario.php");
+	<div class="container-fluid" style="padding-top: 15px;">
+		
+		<div class="row">
+			
+			<!-- COLUMNA IZQUIERDA -->
+			<div class="col-sm-3">
 				
+				<?php
+				if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {
+					include("menu_conserje.php");
 				}
-			echo "<hr /><br />";	
-			include ("buscar.php");
-			 echo "</div>";
-			  ?> 
-              </div>
-            </div><!--/span-->  
-          </div><!--/row-->  
-          <hr>  
-     <footer>  
-      </footer>  
-  
-    </div><!--/.fluid-container-->  
-<? include("pie.php");?>  
+				else {
+					include("menu2.php");
+				}
+				?>
+				
+				<div class="bs-module hidden-xs">
+				<?php include("ausencias.php"); ?>
+				</div>
+				
+				<div class="bs-module hidden-xs">
+				<?php include ("fijos.php"); ?>
+				</div>
+	
+			</div><!-- /.col-sm-3 -->
+			
+			
+			<!-- COLUMNA CENTRAL -->
+			<div class="col-sm-5">
+				
+				<?php 
+				if (stristr ( $carg, '2' ) == TRUE) {
+					include("admin/tutoria/control.php");
+				}
+				?>
+				<?php include ("pendientes.php"); ?>
+				          
+        <div class="bs-module">
+        <?php include("noticias.php"); ?>
+        </div>
+        
+        <br>
+        
+        <div class="bs-module hidden-xs">
+        <?php include("junta.php"); ?>
+        </div>
+				
+			</div><!-- /.col-sm-5 -->
+			
+			
+			
+			<!-- COLUMNA DERECHA -->
+			<div class="col-sm-4">
+				
+				<div class="bs-module">
+				<?php include("buscar.php"); ?>
+				</div>
+				
+				<br>
+				
+				<div class="bs-module">
+				<?php include("admin/calendario/index.php"); ?>
+				</div>
+				
+				<br>
+				
+				<?php if($mod_horario and ($n_curso > 0)): ?>
+				<div class="bs-module">
+				<?php include ("horario.php"); ?>
+				</div>
+				<?php endif; ?>
+				
+			</div><!-- /.col-sm-4 -->
+			
+		</div><!-- /.row -->
+		
+	</div><!-- /.container-fluid -->
+
+<?php include("pie.php"); ?>
+
 <script type="text/javascript">
     $("[rel=tooltip]").tooltip();
 </script> 
@@ -141,6 +158,5 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	{ $("#pop1").popover();  
 	});  
 	</script>
-  </body>  
-</html>  
-
+</body>
+</html>

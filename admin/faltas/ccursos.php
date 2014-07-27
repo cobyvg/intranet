@@ -36,8 +36,8 @@ include("../../menu.php");
 </div>
 </div>
 <div class="container">
-<div class="row-fluid">
-<div class="span4 offset4">
+<div class="row">
+<div class="col-sm-4 col-sm-offset-4">
 <div align="center">
 <FORM action="ccursos.php" method="POST" name="listas2" class="well well-large form-inline">
 <legend>Partes de Faltas de Aula</legend> <br />     

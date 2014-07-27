@@ -60,8 +60,8 @@ if (!(empty($unidad))) {
 
 <form name="buscar" method="POST" action="buscar.php">
 <div class='container-fluid'>
-  <div class="row-fluid">
-  <div class="span8 offset2">
+  <div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
  <h3><? echo $titulo;?></h3><br /> 
  <form name="buscar" method="POST" action="buscar.php">
 <?php

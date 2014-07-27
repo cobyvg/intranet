@@ -115,11 +115,11 @@ include("menu.php");
 <div align="center">
 <div class="page-header" align="center">
   <h2>Biblioteca del Centro <small> Consulta de Morosos</small></h1>
-<p class="lead muted">Fecha elegida: <? echo $fecha;?></small></p>
+<p class="lead text-muted">Fecha elegida: <? echo $fecha;?></small></p>
 </div>
 <div class='container-fluid'>
-  <div class="row-fluid">
-  <div class="span8 offset2">
+  <div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
 <form name="form1" action="edicion.php" method="post">
 <table class='table table-striped' style='width: 90%;'>
 <thead>

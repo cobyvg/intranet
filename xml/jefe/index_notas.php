@@ -59,7 +59,7 @@ include("../../menu.php");
 </div>
 <FORM ENCTYPE="multipart/form-data" ACTION="index_notas.php" METHOD="post">
 
-  <div class="control-group">
+  <div class="form-group">
  <p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si tienes a mano los archivos de Evaluaci&oacute;n
     exportados desde S&Eacute;NECA , puedes continuar con el
     segundo paso.</p>
@@ -67,7 +67,7 @@ include("../../menu.php");
   <div class="well well-large" style="width:500px; margin:auto;" align="left">
   <div class="controls">
   <label class="control-label" for="eval">Selecciona la Evaluación</label>
-  <select name="eval" class="span3" id="eval">
+  <select name="eval" class="col-sm-3" id="eval">
   <option></option>
   <option>1ª Evaluación</option>
   <option>2ª Evaluación</option>
@@ -77,7 +77,7 @@ include("../../menu.php");
   <hr />
   <label class="control-label" for="file">Selecciona el archivo con las calificaciones
   </label>
-  <input type="file" name="archivo2" class="input input-file span4" id="file">
+  <input type="file" name="archivo2" class="input input-file col-sm-4" id="file">
   <hr>
   <div align="center">
     <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">

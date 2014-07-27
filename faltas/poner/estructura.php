@@ -4,8 +4,8 @@
   <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span4">
+<div class="row">
+<div class="col-sm-4">
 <h2 align="center"><small class="text-success"> <? echo $profesor;?> &nbsp;&nbsp;</small></h2><hr />
 <div class="well-transparent well-large">
 <?
@@ -62,7 +62,7 @@ profesor();
                   ?>                   
 </div>
 </div>
-<div class="span8">
+<div class="col-sm-8">
 <?          
             echo "<input type=hidden name=today value= \"$today\">";
 			echo "<input type=hidden name=year value= \"$year\">";

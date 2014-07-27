@@ -256,7 +256,7 @@ if ($porcient>49) {
 	$porciento = "<span class='text-success'>".substr($porcient,0,5)."%</span>";
 }
 else{
-	$porciento = "<span class='text-error'>".substr($porcient,0,5)."%</span>";	
+	$porciento = "<span class='text-danger'>".substr($porcient,0,5)."%</span>";	
 }
 
 ?>

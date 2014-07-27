@@ -78,30 +78,30 @@ $page_header = "Redactar mensaje";
   <div class="page-header" align="center">
     <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
   </div>
-  <div class="row-fluid">
+  <div class="row">
     
     <form method="POST">
-    <div class="span12">
+    <div class="col-sm-12">
       <button type="submit" class="btn btn-primary" name="submit1">Enviar mensaje</button>
       <a href="index.php" class="btn btn-default">Cancelar</a>
     </div>
     
     <br><br><br>
     
-    <div class="row-fluid">
+    <div class="row">
       
-      <div class="span7">
+      <div class="col-sm-7">
          
-         <input type="text" class="input-block-level" name="asunto" placeholder="Asunto del mensaje" value="<?php echo $asunto; ?>" maxlength="100" autofocus>
-         <textarea class="input-block-level" name="texto" rows="15"><?php echo stripslashes($texto); ?></textarea>
+         <input type="text" class="form-control" name="asunto" placeholder="Asunto del mensaje" value="<?php echo $asunto; ?>" maxlength="100" autofocus>
+         <textarea class="form-control" name="texto" rows="15"><?php echo stripslashes($texto); ?></textarea>
          
       </div>
       
-      <div class="span5">
+      <div class="col-sm-5">
         <div class="well">
             <legend class='text-warning'>Destinatario(s)</legend>
-            <div class="row-fluid">
-              <div class="span6">
+            <div class="row">
+              <div class="col-sm-6">
                 <input type="hidden" name="profesor" value="<? echo $pr; ?>">
                 
                 <label class="checkbox">
@@ -132,7 +132,7 @@ $page_header = "Redactar mensaje";
     <? if($biblio=='1' and !$claustro) echo 'checked'; ?> />
                   Biblioteca</label>
               </div>
-              <div class="span6">
+              <div class="col-sm-6">
                 <label class="checkbox">
                   <input name="etcp" type="checkbox" value="1" onClick="submit()"
     <? if($etcp=='1' and !$claustro) echo 'checked'; ?> />
@@ -174,7 +174,7 @@ $page_header = "Redactar mensaje";
     						<div class='well well-transparent'>";
     						$s_origen=mb_strtoupper($origen);
     						echo '
-    						<SELECT  name=profeso[] multiple=multiple size=27 class="span10">';
+    						<SELECT  name=profeso[] multiple=multiple size=27 class="col-sm-10">';
     						// Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
     						// echo "SELECT distinct PROFESOR  FROM profesores order by PROFESOR asc";
     						$profe = mysql_query("SELECT distinct nombre  FROM departamentos order by nombre asc");
@@ -213,7 +213,7 @@ $page_header = "Redactar mensaje";
     					if($departamentos == '1' and !$claustro) {echo "<hr /><legend class='text-warning'>Selecciona los Departamentos o �reas</legend>
     					<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
     					<div class='well well-transparent'>";
-    					echo '<SELECT  name=departamento[] multiple=multiple size=25 class="span9" >';
+    					echo '<SELECT  name=departamento[] multiple=multiple size=25 class="col-sm-9" >';
     					$dep = mysql_query("SELECT distinct departamento FROM departamentos order by departamento asc");
     					while($filadep = mysql_fetch_array($dep))
     					{
@@ -225,7 +225,7 @@ $page_header = "Redactar mensaje";
     					if($equipos == '1' and !$claustro) {echo "<hr /><legend class='text-warning'>Selecciona Equipos Educativos</legend>
     					<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
     					<div class='well well-transparent'>";
-    					echo '<SELECT  name=equipo[] multiple=multiple size=25 class="span9"  >';
+    					echo '<SELECT  name=equipo[] multiple=multiple size=25 class="col-sm-9"  >';
     					$eq = mysql_query("SELECT distinct grupo  FROM profesores order by grupo asc");
     					while($filaeq = mysql_fetch_array($eq))
     					{
@@ -373,7 +373,7 @@ $page_header = "Redactar mensaje";
     						if($padres == '1') {echo "<hr /><legend class='text-warning'>Padres de Alumnos</legend>
     						<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
     						<div class='well well-transparent'>";
-    						echo '<SELECT  name=padres[] multiple=multiple size=27 class="span10" >';
+    						echo '<SELECT  name=padres[] multiple=multiple size=27 class="col-sm-10" >';
     						$padre = mysql_query("SELECT distinct APELLIDOS, NOMBRE  FROM alma $extra order by apellidos");
     						while($filapadre = mysql_fetch_array($padre))
     						{

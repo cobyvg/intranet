@@ -1,7 +1,12 @@
 @charset "ISO-8859-1";
 /* CSS Document */
+html,
 body {
-	padding-top:50px;
+  height: 100%;
+}
+
+body {
+	padding-top:70px;
 }
 
 .navbar .dropdown-menu>li>a {
@@ -12,29 +17,70 @@ body {
 	color: #fff;
 }
 
-.accordion-group.well {
-	padding: 5px;
-}
+
 a.accordion-toggle {
-	font-size: 18px;
-	color: #777;
+	display: block;
+	font-size: 1.2em;
+	color: #2c3e50;
 }
 a.accordion-toggle:hover {
 	text-decoration: none;
 }
 
 .well-transparent {
-  background-repeat:repeat; 
+  background-color: transparent;
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
   border: 1px solid #e3e3e3;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+/* DataTables Overrides */
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+    background-color: #ebf0f1;
+    cursor: pointer;
+}
+
+table.dataTable thead .sorting_asc:after {
+    content: "\f0de";
+    float: right;
+    font-family: fontawesome;
+}
+
+table.dataTable thead .sorting_desc:after {
+    content: "\f0dd";
+    float: right;
+    font-family: fontawesome;
+}
+
+table.dataTable thead .sorting:after {
+    content: "\f0dc";
+    float: right;
+    font-family: fontawesome;
+    color: rgba(50,50,50,.5);
+}
+
+.bs-module {
+	display: block;
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+.bs-module h3 {
+	font-weight: 300;
+	margin-top: 0;
+	margin-bottom: 15px;
 }
 
 #lista {
@@ -61,38 +107,17 @@ a.accordion-toggle:hover {
 	border-bottom: #c9c682 dotted 1px;
 }
 
-legend{
-	color:#777;	
+.table thead th {
+	background-color: #ebf0f1;
+	text-transform: uppercase;
 }
 
-h3{
-	color:#666;	
-}
-h6{
-	color:#666;
-	font-weight:bold;
-	font-size:1.1em;
-}
-h4{
-	color:#555;
-	font-size:1.2em;
-}
-.page-header h2 small{
-	color:#aaa;
-}
-.table thead th {
-	background-color: #e9eae9;
-} 
 .table-centered th, .table-centered td {
 	text-align: center;
 }
-.alert a, .alert legend{
-	color:#fff;
-	
-}
 
-.alert .modal p a {
-	color: #08c;
+.alert a, .alert legend{
+	color: #fff;	
 }
 
 .Rotate-90
@@ -107,4 +132,96 @@ h4{
   width:40px;
   position:relative;
   top:98px;
+}
+
+li.nav-header {
+	padding-top: 15px;
+	padding-bottom: 5px;
+	font-weight: bold;
+}
+
+.dropdown-messages {
+	min-width: 310px;
+}
+
+.calendar-today {
+	background-color: #2b3d4f;
+	color: #fffffe;
+}
+
+.calendar-orange {
+	background-color: #f29b12;
+	color: #fffffe;
+}
+
+.calendar-blue {
+	background-color: #3397db;
+	color: #fffffe;
+}
+
+.calendar-red {
+	background-color: #e14939;
+	color: #fffffe;
+}
+
+.modal .modal-header {
+	background-color: #2c3e50;
+	color: #fff;
+	-webkit-border-top-radius: 2px;
+	   -moz-border-top-radius: 2px;
+	        border-top-radius: 2px;
+}
+
+.modal .close {
+	color: #fff;
+}
+
+/* LOGIN FORM */
+.form-signin {
+  max-width: 350px;
+  padding: 15px;
+  margin: 30px auto;
+}
+.form-signin .form-signin-heading {
+  margin-bottom: 10px;
+}
+.form-signin .form-signin-footer {
+  margin-top: 10px;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -120px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 120px;
 }

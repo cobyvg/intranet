@@ -6,9 +6,9 @@ $month=date("m");
 $today=date("d");
 }
 ?>
-  <div class="row-fluid">
-    <div class="span1"></div>
-    <div class="span5">
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
     
       <?
 echo "<h4 align='center'>FECHA SELECCIONADA: &nbsp;<span style='font-size:1.0em; color:#08c'>$today-$month-$year</span></h4><br />
@@ -66,7 +66,7 @@ echo "</td></tr></table><br />";
 ?>
  </div>
   </div>
-  <div class="span5">
+  <div class="col-sm-5">
 
            <? 
            if (empty($profesor)) {
@@ -106,7 +106,7 @@ echo "</td></tr></table><br />";
 $nivelgrupo1 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$unidad' order by NC asc limit 0,$mitad");
 $nivelgrupo = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$unidad' order by NC asc limit $mitad, $resto");
 
-echo "<div class='row-fluid'><div class='span6' align='left'>";
+echo "<div class='row'><div class='col-sm-6' align='left'>";
 
 while($filanivelgrupo1 = mysql_fetch_array($nivelgrupo1))
 		        {		        	
@@ -118,7 +118,7 @@ if($alumno == $alumno1){echo " checked";}
 echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 <br>";
 		        	} 
 		        	echo "</div>";
-		        	echo "<div class='span6' align='left'>";
+		        	echo "<div class='col-sm-6' align='left'>";
 		         	while ($filanivelgrupo = mysql_fetch_array($nivelgrupo))
 		        {		        	
 $completo2 =  "$filanivelgrupo[0], $filanivelgrupo[1]";

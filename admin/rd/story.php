@@ -33,9 +33,9 @@ if ($row)
 </div>
 </div>
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span1"></div>
-<div class="span10">
+<div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-10">
 <?
 		?>
 
@@ -71,9 +71,9 @@ else
 </div>
 
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="span4 offset4">
-<div class="alert alert-error alert-block fade in" style="max-width:500px;">
+<div class="row">
+<div class="col-sm-4 col-sm-offset-4">
+<div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h4>ATENCIÓN:</h4>Esa noticia no se encuentra en la base de datos
           </div>
