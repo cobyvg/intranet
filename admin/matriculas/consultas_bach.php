@@ -126,7 +126,7 @@ INDEX (  `id_matriculas` )
 				elseif ($i=="17") {}
 				else{
 					if ($control[$i]==$control[$i-1]) {}else{
-						echo "<li><span class='text-danger'>Séneca:</span> ".$control[$i]." ==> <span class='text-danger'>Matrícula:</span> ".$control[$i-1]."</li>";
+						echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
 					}
 				}
 			}
@@ -172,19 +172,6 @@ include("../../pie.php");
 }
 
 
-?>
-<script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>
-<?
 include("../../menu.php");
 include("./menu.php");
  	foreach($_POST as $key => $val)
@@ -192,10 +179,11 @@ include("./menu.php");
 		${$key} = $val;
 	}
 ?>
-<div align=center>
-<div class="page-header no_imprimir" align="center">
-<h2>Matriculación de Alumnos <small> Consultas en Bachillerato</small></h2>
-</div>
+<div class="container">
+
+	<div class="page-header">
+		<h2>Matriculación de alumnos <small> Alumnos/as matriculados en Bachillerato</small></h2>
+	</div>
 
 
 <?
@@ -210,7 +198,7 @@ $it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanid
 $opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico", "FIS21_TIN21" => "Física, Tecnología", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
 $opt22=array("HAR22_LAT22_GRI22" => "Historia del Arte, Latín, Griego", "HAR22_LAT22_MCS22" => "Historia del Arte, Latín, Matemáticas de las C. Sociales", "HAR22_ECO22_GRI22" => "Historia del Arte, Economía, Griego", "HAR22_ECO22_MCS22" => "Historia del Arte, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_MCS22" => "Geografía, Economía, Matemáticas de las C. Sociales", "GEO22_ECO22_GRI22" => "Geografía, Economía, Griego", "GEO22_LAT22_MCS22" => "Geografía, Latín, Matemáticas de las C. Sociales", "GEO22_LAT22_GRI22" => "Geografía, Latín, Griego");
 $opt23 =array("aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idioma", "tic_25" => "T.I.C.", "ciencias_25" => "Ciencias de la Tierra y Medioambientales", "musica_25" => "Historia de la Música y la Danza", "literatura_25" => "Literatura Universal", "edfisica_25"=>"Educación Física", "estadistica_25"=>"Estadística", "salud_25"=>"Introducción a las Ciencias de la Salud","ingles_25" => "Inglés 2º Idioma");
-echo '<div  class="no_imprimir">';
+echo '<div  class="hidden-print">';
 
 $n_curso = substr($curso, 0, 1);
 include 'filtro_bach.php';
@@ -348,11 +336,11 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		?>
 		<?
-		echo '<th class="no_imprimir" style="align:center">Sí NO 3/4</th>';
-		echo '<th class="no_imprimir">Rev.</th>';
-		echo '<th class="no_imprimir"></th>';
+		echo '<th class="hidden-print" style="align:center">Sí NO 3/4</th>';
+		echo '<th class="hidden-print">Rev.</th>';
+		echo '<th class="hidden-print"></th>';
 		?>
-		<th class="no_imprimir">Conv.</th>
+		<th class="hidden-print">Conv.</th>
 	</tr>
 	<?
 	while($datos_ya = mysql_fetch_object($cons)){
@@ -430,7 +418,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		// Promocionan o no
 		if ($n_curso) {
 			$val_notas="";
-			echo "<td class='no_imprimir' style='background-color:#efeefd;text-align:center;' nowrap>";
+			echo "<td class='hidden-print' style='background-color:#efeefd;text-align:center;' nowrap>";
 			if (!($promociona =='') and !($promociona == '0')) {
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -559,10 +547,10 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 			}
 			echo "</td>";
 		}
-		echo '<td class="no_imprimir"><input name="revisado-'. $id .'" type="checkbox" value="1"';
+		echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
 		if($revisado=="1"){echo " checked";}
 		echo ' /></td>';
-		echo '<td class="no_imprimir" style="text-align:right">';
+		echo '<td class="hidden-print" style="text-align:right">';
 		if (!($colegio == $nombre_del_centro)) {$alma="alma_secundaria";}else{$alma="alma";}
 		$contr = mysql_query("select matriculas_bach.apellidos, $alma.apellidos, matriculas_bach.nombre, $alma.nombre, matriculas_bach.domicilio, $alma.domicilio, matriculas_bach.dni, $alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, $alma.dnitutor, matriculas_bach.telefono1, $alma.telefono, matriculas_bach.telefono2, $alma.telefonourgencia from matriculas_bach, $alma where $alma.claveal=matriculas_bach.claveal and id = '$id'");
 		$control = mysql_fetch_array($contr);
@@ -591,7 +579,7 @@ $text_contr="";
 		}
 		echo "&nbsp;<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
 		echo "</td>";
-echo "<td class='no_imprimir'>";
+echo "<td class='hidden-print'>";
 // Problemas de Convivencia
 if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1'><span class='badge badge-important' target='blank'>$n_fechorias</span></a>";}
 elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-warning'>$n_fechorias</span></a>";}
@@ -604,17 +592,17 @@ echo '</tr>';
 	echo "</table>";
 	echo "<div align='center'><br />
 <input type='hidden' name='extra' value='$extra' />
--<input type='submit' name='enviar' value='Enviar datos' class='btn btn-danger btn-large no_imprimir' /><br><br>
-<input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success no_imprimir' />&nbsp;&nbsp;
-<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success no_imprimir' />&nbsp;&nbsp;
-<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning no_imprimir' />&nbsp;&nbsp;
-<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger no_imprimir' />";
+-<input type='submit' name='enviar' value='Enviar datos' class='btn btn-danger btn-large hidden-print' /><br><br>
+<input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' />&nbsp;&nbsp;
+<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hidden-print' />&nbsp;&nbsp;
+<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hidden-print' />&nbsp;&nbsp;
+<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hidden-print' />";
 	if(count($grupo_actua)=='1'){ echo "
 	<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;
-	<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse no_imprimir' />";} 
+	<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hidden-print' />";} 
 	else{ 
 	echo "&nbsp;&nbsp;
-	<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse no_imprimir' />";
+	<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />";
 	}
 	echo "</div></form>";
 	?>
@@ -711,7 +699,7 @@ echo '</tr>';
 		?>
 
 	<br />
-	<table class="table table-striped table-bordered no_imprimir"
+	<table class="table table-striped table-bordered hidden-print"
 		align="center" style="width:500px;">
 		<tr>
 			<td><?

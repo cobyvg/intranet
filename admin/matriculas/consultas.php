@@ -113,7 +113,7 @@ for ($i = 0; $i < 18; $i++) {
 	elseif ($i=="17") {}
 	else{
 		if ($control[$i]==$control[$i-1]) {}else{		
-			echo "<li><span class='text-danger'>Séneca:</span> ".$control[$i]." ==> <span class='text-danger'>Matrícula:</span> ".$control[$i-1]."</li>";
+			echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
 					}
 	}
 	}
@@ -190,79 +190,8 @@ echo "</ul></div>";
 exit();
 	}
 	
-	
-?>
-<!DOCTYPE html>  
-<html lang="es">  
-  <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet</title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
-    <meta name="author" content="">  
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">  
-<script language="javascript">
-function desactivaOpcion(){ 
-    with (document.form2){ 
-     switch (curso.selectedIndex){ 
-      case 1: 
-       itinerari.disabled = true; 
-       matematica4.disabled = true;
-       diversificacio.disabled = true;
-       promocion.disabled = true;
-       actividade.disabled = false;
-       exencio.disabled = false;
-       break; 
-      case 2: 
-       itinerari.disabled = true; 
-       matematica4.disabled = true;
-       diversificacio.disabled = true;
-       promocion.disabled = false;
-       actividade.disabled = false;
-       exencio.disabled = false;
-       break; 
-      case 3: 
-    	  itinerari.disabled = true; 
-          matematica4.disabled = true;
-          actividade.disabled = true;
-          exencio.disabled = true;
-          diversificacio.disabled = false;
-          promocion.disabled = false;
-       break; 
-      case 4: 
-    	  actividade.disabled = true;
-          exencio.disabled = true;
-          bilinguism.disabled = true;
-          itinerari.disabled = false; 
-          matematica4.disabled = false;
-          diversificacio.disabled = false;
-          promocion.disabled = false;         
-       break; 
-     } 
-    } 
-   } 	
- </script>
- <script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>
-</head>
-<body>
 
-  <? 
- include("../../menu_solo.php");
+ include("../../menu.php");
  include("./menu.php");
  
  foreach($_POST as $key => $val)
@@ -270,17 +199,16 @@ return false;
 		${$key} = $val;
 	}
   ?>
-<div align=center>
-<div class="page-header" align="center">
-  <h2>Matriculación de Alumnos <small> Consultas</small></h2>
-</div>
+<div class="container">
 
-<h3 class="no_imprimir">Alumnos matriculados</h3>
+	<div class="page-header">
+	  <h2>Matriculación de alumnos <small> Alumnos/as matriculados en ESO</small></h2>
+	</div>
 
-<? 
-echo '<div  class="no_imprimir">';
-include 'filtro.php';
-echo "</div>";
+<?php include('filtro.php'); ?>
+
+<?php
+
 if (isset($_GET['borrar'])) {
 	mysql_query("insert into matriculas_backup (select * from matriculas where id = '$id')");
 	mysql_query("delete from matriculas where id='$id'");
@@ -382,7 +310,7 @@ for ($i=1;$i<$num_opt+1;$i++)
 $sql.=" from matriculas where ". $extra ." order by ". $orden ."curso, grupo_actual, apellidos, nombre ";
 //echo $sql;
 $cons = mysql_query($sql);
-if(mysql_num_rows($cons) < 1){
+if(isset($_POST['consulta']) && mysql_num_rows($cons) < 1){
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
@@ -428,16 +356,16 @@ echo '<th>Act.</th>';
 		}	
 ?>
 
-<th class="no_imprimir">Opciones</th>
+<th class="hidden-print">Opciones</th>
 <?
 		if ($n_curso>1) {
-echo '<th class="no_imprimir">SI |PIL |NO </th>';
+echo '<th class="hidden-print">SI |PIL |NO </th>';
 		}	
-		echo '<th class="no_imprimir">Rev.</th>';
-		echo '<th class="no_imprimir">Copia</th>';
-		echo '<th class="no_imprimir">Borrar</th>';
+		echo '<th class="hidden-print">Rev.</th>';
+		echo '<th class="hidden-print">Copia</th>';
+		echo '<th class="hidden-print">Borrar</th>';
 ?>
-<th class="no_imprimir">Conv.</th>
+<th class="hidden-print">Conv.</th>
 </thead>
 <tbody>
 <?
@@ -505,7 +433,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 	<td><a href="matriculas.php?id='. $id .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
 	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
-	<td><input name="grupo_actual-'. $id .'" type="text" class="input-mini" style="width:12px;" value="'. $grupo_actual .'" /></td>';
+	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control" value="'. $grupo_actual .'" size="1"></td>';
 	if ($curso=="1ESO") {
 		echo '<td>'. $colegio .'</td>';
 		}
@@ -555,9 +483,9 @@ for ($i=1;$i<$num_opt+1;$i++)
 		if ($act1==0) {
 			$act1="";
 		}
-echo '<td><input name="act1-'. $id .'" type="text" style="width:10px;" value="'. $act1 .'" /></td>';
+echo '<td><input name="act1-'. $id .'" type="text" class="form-control" value="'. $act1 .'" size="1"></td>';
 		}	
-	echo '<td class="no_imprimir">';
+	echo '<td class="hidden-print">';
 	if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
 	$contr = mysql_query("select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id'");
 	$control = mysql_fetch_array($contr);
@@ -584,7 +512,7 @@ for ($i = 0; $i < 16; $i++) {
 	
 	// Promocionan o no
 	if ($n_curso>1) {
-		echo "<td style='background-color:#efeefd' class='no_imprimir' nowrap>";
+		echo "<td style='background-color:#efeefd' class='hidden-print' nowrap>";
 		if (!($promociona =='') and !($promociona == '0')) {
 		for ($i=1;$i<4;$i++){	
 		echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'"';
@@ -644,17 +572,17 @@ for ($i = 0; $i < 16; $i++) {
 	}
 	echo "</td>";
 	}
-echo '<td class="no_imprimir"><input name="revisado-'. $id .'" type="checkbox" value="1"';
+echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
  if($revisado=="1"){echo " checked";} 
  echo ' /></td>';
- echo "<td class='no_imprimir'>";
+ echo "<td class='hidden-print'>";
  if ($respaldo=='1') { 
  	echo $backup;
  }
- echo "</td><td class='no_imprimir'>";
+ echo "</td><td class='hidden-print'>";
  echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
  echo "</td>";
-echo "<td class='no_imprimir'>";
+echo "<td class='hidden-print'>";
 // Problemas de Convivencia
 if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-important'>$n_fechorias</span></a>";}
 elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-warning'>$n_fechorias</span></a>";}
@@ -669,8 +597,8 @@ echo "</td>";
 echo "</table>";
 echo "<div align='center'>
 <input type='hidden' name='extra' value='$extra' />
-<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary no_imprimir' /><br><br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success no_imprimir' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success no_imprimir' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning no_imprimir' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger no_imprimir' />";
-if(count($grupo_actua)=='1'){ echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse no_imprimir' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse no_imprimir' />";} 
+<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hidden-print' /><br><br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hidden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hidden-print' />";
+if(count($grupo_actua)=='1'){ echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hidden-print' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />";} 
 echo "</div></form>";
 echo count($grupo_actua);
 ?>
@@ -773,7 +701,7 @@ echo "<td>$num_repit</td>";
 ?>
 
 <br />
-<table class="table table-striped table-bordered no_imprimir" align="center" style="width:auto"><tr>
+<table class="table table-striped table-bordered hidden-print" align="center" style="width:auto"><tr>
 <td>
 <?
 if ($curso=="4ESO") {
@@ -802,7 +730,7 @@ echo substr($nom_opt,0,-2);
 </td></tr></table>
 <?
 if ($n_curso<3){
-	echo '<table class="table table-striped table-bordered no_imprimir" align="center" style="width:auto"><tr>
+	echo '<table class="table table-striped table-bordered hidden-print" align="center" style="width:auto"><tr>
 <td>';
 	foreach (${a.$n_curso} as $nombre_a => $valora){
 	$nombre_act=$nombre_a+1;
@@ -816,5 +744,57 @@ echo substr($nom_a,0,-2).'</td></tr></table>';
 ?>
 </div>
  <? include("../../pie.php"); ?>
+ <script language="javascript">
+ function desactivaOpcion(){ 
+     with (document.form2){ 
+      switch (curso.selectedIndex){ 
+       case 1: 
+        itinerari.disabled = true; 
+        matematica4.disabled = true;
+        diversificacio.disabled = true;
+        promocion.disabled = true;
+        actividade.disabled = false;
+        exencio.disabled = false;
+        break; 
+       case 2: 
+        itinerari.disabled = true; 
+        matematica4.disabled = true;
+        diversificacio.disabled = true;
+        promocion.disabled = false;
+        actividade.disabled = false;
+        exencio.disabled = false;
+        break; 
+       case 3: 
+     	  itinerari.disabled = true; 
+           matematica4.disabled = true;
+           actividade.disabled = true;
+           exencio.disabled = true;
+           diversificacio.disabled = false;
+           promocion.disabled = false;
+        break; 
+       case 4: 
+     	  actividade.disabled = true;
+           exencio.disabled = true;
+           bilinguism.disabled = true;
+           itinerari.disabled = false; 
+           matematica4.disabled = false;
+           diversificacio.disabled = false;
+           promocion.disabled = false;         
+        break; 
+      } 
+     } 
+    } 	
+  </script>
+  <script>
+ function confirmacion() {
+ 	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+ 	if (answer){
+ return true;
+ 	}
+ 	else{
+ return false;
+ 	}
+ }
+ </script>
 </body>
 </html>
