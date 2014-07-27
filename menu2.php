@@ -41,7 +41,7 @@ if (stristr ( $carg, '1' ) == TRUE) {
 ?>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#direccion">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#direccion">
         <i class="pull-right fa fa-chevron-down"></i>
         Dirección del centro
       </a>
@@ -69,7 +69,7 @@ if (stristr ( $carg, '4' ) == TRUE) { $j_d = 'in'; } else { $j_d = ''; }
 $menu_dep = '
 <div class="panel panel-default">
   <div class="panel-heading">
-    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#departamento">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#departamento">
       <i class="pull-right fa fa-chevron-down"></i>
       Departamento
     </a>
@@ -113,7 +113,7 @@ if (stristr ( $carg, '5' ) == TRUE) {
 ?>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#extraescolares">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#extraescolares">
       <i class="pull-right fa fa-chevron-down"></i>
       Extraescolares
     </a>
@@ -134,7 +134,7 @@ if (stristr ( $carg, '8' ) == TRUE) {
 ?>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#orientacion">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#orientacion">
       <i class="pull-right fa fa-chevron-down"></i>
       Orientación
     </a>
@@ -155,7 +155,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 ?>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
       <i class="pull-right fa fa-chevron-down"></i>
       Tutoría
     </a>
@@ -176,7 +176,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
 ?>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#tutoria">
       <i class="pull-right fa fa-chevron-down"></i>
       Biblioteca
     </a>
@@ -199,7 +199,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
 ?>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#consultas">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#consultas">
       <i class="pull-right fa fa-chevron-down"></i>
       Consultas
     </a>
@@ -260,7 +260,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
       <i class="pull-right fa fa-chevron-down"></i>
       Trabajo
     </a>
@@ -427,7 +427,7 @@ if (stristr ( $carg, '1' ) == TRUE) {
 ?>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
       <i class="pull-right fa fa-chevron-down"></i>
       Otras cosas
     </a>
@@ -450,7 +450,7 @@ if (stristr ( $carg, '1' ) == TRUE) {
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
       <i class="pull-right fa fa-chevron-down"></i>
       Páginas de interés
     </a>
