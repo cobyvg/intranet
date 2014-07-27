@@ -34,7 +34,7 @@ $(function() {
         "bFilter": true,
         "bSort": true,
         "bInfo": false,
-		"sDom": "<'row-fluid'<'span12'f>>t<'row-fluid'<'span12'p>>",
+		"sDom": "<'row-fluid'<'col-sm-12'f>>t<'row-fluid'<'col-sm-12'p>>",
 			});
  });
 </script>

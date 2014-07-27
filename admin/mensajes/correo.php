@@ -125,7 +125,7 @@ while ($departamento = mysql_fetch_array($result)):
 ?>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <a class="panel-group-toggle" data-toggle="collapse" data-parent="#departamentos" href="#departamento<?php echo $i; ?>">
+      <a data-toggle="collapse" data-parent="#departamentos" href="#departamento<?php echo $i; ?>">
         <span class="text-warning"><?php echo $departamento['departamento']; ?></span>
       </a>
     </div>

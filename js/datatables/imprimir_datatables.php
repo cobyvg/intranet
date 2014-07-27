@@ -54,7 +54,7 @@
 		},
 		"aaSorting": [],
 		"bProcessing": true,
-		"sDom": "<'row-fluid'<'span3'l><'span8'f><'span1'T>r>t<'row-fluid'<'span4'i><'span8'p>>",
+		"sDom": "<'row-fluid'<'col-sm-3'l><'col-sm-8'f><'col-sm-1'T>r>t<'row-fluid'<'col-sm-4'i><'col-sm-8'p>>",
 		"oTableTools": {
 			"aButtons": [ 
 		                    { 

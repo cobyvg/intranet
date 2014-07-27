@@ -142,16 +142,6 @@ return false;
 <script>
 $(document).ready(function() {
 	$('.alert-fadeout').delay(5000).fadeOut('slow');
-	
-    $('.table-datatable').dataTable( {
-        "sPaginationType": "bootstrap",
-        "bPaginate": true,
-        "bLengthChange": false,
-        "bFilter": false,
-        "bSort": false,
-        "bInfo": false,
-        "bAutoWidth": false 
-    });
 });
 </script>
    

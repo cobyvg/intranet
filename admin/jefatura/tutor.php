@@ -306,8 +306,7 @@ $clave = $row[10];
 					  $dia3 = explode("-",$row[2]);
 					  $fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 						echo "<tr><td>$fecha3</td><td>$row[3]</a></td><td>$row[4]</a></td><td >
-						<a href='tutor.php?id=$row[6]'><i class='fa fa-search' title='Detalles'> </i> </a>
-						<a href='tutor.php?id=$row[6]&eliminar=1' title='Borrar'><i class='fa fa-trash-o fa-fw' onClick='return confirmacion();'> </i></a>
+						<a href='tutor.php?id=$row[6]' rel='tooltip' title='Ver informe'><i class='fa fa-search fa-lg fa-fw'></i></a>
 						</td></tr>";
 					}
 					while($row = mysql_fetch_array($result));

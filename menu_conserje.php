@@ -1,7 +1,7 @@
 <div class="panel-group" id="menu">
   <div class="panel panel-default well">
     <div class="panel-heading">
-      <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#trabajo">
+      <a data-toggle="collapse" data-parent="#menu" href="#trabajo">
         <i class="pull-right fa fa-chevron-down"></i>
         Trabajo
       </a>
@@ -71,7 +71,7 @@
 
   <div class="panel panel-default well">
     <div class="panel-heading">
-      <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#cosas">
+      <a data-toggle="collapse" data-parent="#menu" href="#cosas">
         <i class="pull-right fa fa-chevron-down"></i>
         Otras cosas
       </a>
@@ -90,7 +90,7 @@
   
   <div class="panel panel-default well">
     <div class="panel-heading">
-      <a class="panel-group-toggle" data-toggle="collapse" data-parent="#menu" href="#paginas">
+      <a data-toggle="collapse" data-parent="#menu" href="#paginas">
         <i class="pull-right fa fa-chevron-down"></i>
         Otras páginas
       </a>
