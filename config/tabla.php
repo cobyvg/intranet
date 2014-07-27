@@ -41,84 +41,84 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
       <td width="190">Dominio<span style='color:#9d261d'> (*)</span>
         </td>
       
-      <td><input type="text" name="dominio" size="30" value="<?php if($dominio){echo $dominio;}else{echo "iesmonterroso.org";} ?>" required onclick="this.value=''" /></td>
+      <td><input type="text" class="form-control" name="dominio" size="30" value="<?php if($dominio){echo $dominio;}else{echo "iesmonterroso.org";} ?>" required onclick="this.value=''" /></td>
       <td>Nombre del dominio contratado por el IES donde se encuentra la Intranet..</td>
     </tr>
     <tr>
       <td>Nombre del Centro<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="nombre_del_centro" size="30" value="<?php if($nombre_del_centro){echo $nombre_del_centro;}else{echo "I.E.S. Monterroso";} ?>" required onclick="this.value=''" /></td>
+      <td><input type="text" class="form-control" name="nombre_del_centro" size="30" value="<?php if($nombre_del_centro){echo $nombre_del_centro;}else{echo "I.E.S. Monterroso";} ?>" required onclick="this.value=''" /></td>
       <td>Eso mismo.</td>
     </tr>
     <tr>
       <td>Nombre corto
         </td>
-      <td><input type="text" name="nombre_corto" size="30" value="<?php if($nombre_corto){echo $nombre_corto;}else{echo "Monterroso";} ?>" onclick="this.value=''" /></td>
+      <td><input type="text" class="form-control" name="nombre_corto" size="30" value="<?php if($nombre_corto){echo $nombre_corto;}else{echo "Monterroso";} ?>" onclick="this.value=''" /></td>
       <td>Versi&oacute;n corta del anterior.</td>
     </tr>
     <tr>
       <td>Código  del Centro<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="codigo_del_centro"  size="30"  value="<?php if($codigo_del_centro){echo $codigo_del_centro;}else{echo "29002885";} ?>" required onclick="this.value=''" /></td>
+      <td><input type="text" class="form-control" name="codigo_del_centro"  size="30"  value="<?php if($codigo_del_centro){echo $codigo_del_centro;}else{echo "29002885";} ?>" required onclick="this.value=''" /></td>
       <td>Eso mismo.</td>
     </tr>
     <tr>
       <td>Email del Centro<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="email_del_centro" size="30" value="<?php if($email_del_centro){echo $email_del_centro;}else{echo "director@iesmonterroso.org";} ?>" required onclick="this.value=''" /></td>
+      <td><input type="text" class="form-control" name="email_del_centro" size="30" value="<?php if($email_del_centro){echo $email_del_centro;}else{echo "director@iesmonterroso.org";} ?>" required onclick="this.value=''" /></td>
       <td>Correo del IES para recibir mensajes, normalmente el correo
         de la Direcci&oacute;n del Centro</td>
     </tr>
     <tr>
       <td>Dirección<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="direccion_del_centro" size="30" value="<?php if($direccion_del_centro){echo $direccion_del_centro;}else{ echo"C/. Santo Tomás de Aquino, s/n";}?>" required /></td>
+      <td><input type="text" class="form-control" name="direccion_del_centro" size="30" value="<?php if($direccion_del_centro){echo $direccion_del_centro;}else{ echo"C/. Santo Tomás de Aquino, s/n";}?>" required /></td>
       <td>Direcci&oacute;n postal del Centro para recibir correspondencia.</td>
     </tr>
     <tr>
       <td>Localidad<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="localidad_del_centro" size="30" value="<?php if($localidad_del_centro){echo $localidad_del_centro;}else{echo "Estepona";} ?>" required /></td>
+      <td><input type="text" class="form-control" name="localidad_del_centro" size="30" value="<?php if($localidad_del_centro){echo $localidad_del_centro;}else{echo "Estepona";} ?>" required /></td>
       <td>Eso
         mismo.</td>
     </tr>
     <tr>
       <td>Código postal<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="codigo_postal_del_centro" size="30" value="<?php if($codigo_postal_del_centro){echo $codigo_postal_del_centro;}else{echo "29680";} ?>" required /></td>
+      <td><input type="text" class="form-control" name="codigo_postal_del_centro" size="30" value="<?php if($codigo_postal_del_centro){echo $codigo_postal_del_centro;}else{echo "29680";} ?>" required /></td>
       <td>Eso
         mismo.</td>
     </tr>
     <tr>
       <td>Teléfono<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="telefono_del_centro" size="30" value="<?php if($telefono_del_centro){echo $telefono_del_centro;}else{echo "952795802";} ?>" required /></td>
+      <td><input type="text" class="form-control" name="telefono_del_centro" size="30" value="<?php if($telefono_del_centro){echo $telefono_del_centro;}else{echo "952795802";} ?>" required /></td>
       <td>Eso
         mismo.</td>
     </tr>
     <tr>
       <td>Fax:
         </td>
-      <td><input type="text" name="fax_del_centro" size="30" value="<?php echo $fax_del_centro; ?>"/></td>
+      <td><input type="text" class="form-control" name="fax_del_centro" size="30" value="<?php echo $fax_del_centro; ?>"/></td>
       <td>Eso
         mismo.</td>
     </tr>
     <tr>
       <td>Curso actual<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="curso_actual" size="30" value="<?php if(empty($curso_actual)) { echo "2012/13"; } else { echo $curso_actual; } ?>" required /></td>
+      <td><input type="text" class="form-control" name="curso_actual" size="30" value="<?php if(empty($curso_actual)) { echo "2012/13"; } else { echo $curso_actual; } ?>" required /></td>
       <td>A&ntilde;os acad&eacute;micos, en la forma 2012/13, por ejemplo.</td>
     </tr>
     <tr>
       <td>Inicio del Curso Escolar<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="inicio_curso" size="30" value="<?php if(empty($inicio_curso)) { echo "2012-09-17"; } else { echo $inicio_curso; } ?>" required /></td>
+      <td><input type="text" class="form-control" name="inicio_curso" size="30" value="<?php if(empty($inicio_curso)) { echo "2012-09-17"; } else { echo $inicio_curso; } ?>" required /></td>
       <td>Fecha de comienzo del Curso Escolar. Formato: 2012-09-17</td>
     </tr>
     <tr>
       <td>Final del Curso Escolar<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="fin_curso" size="30" value="<?php if(empty($fin_curso)) { echo "2013-06-21"; } else { echo $fin_curso; }?>" required /></td>
+      <td><input type="text" class="form-control" name="fin_curso" size="30" value="<?php if(empty($fin_curso)) { echo "2013-06-21"; } else { echo $fin_curso; }?>" required /></td>
       <td>Fecha de terminación del Curso Escolar. Formato: 2013-06-21</td>
     </tr>
     </table>
@@ -160,32 +160,32 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
     <tr>
       <td>Página web de la Biblioteca del Centro
         </td>
-      <td><input type="text" id="p_biblio" name="p_biblio" <?php if(!($mod_biblio=='1')){ echo "disabled";} ?> value="<?php echo $p_biblio; ?>"  /></td>
+      <td><input type="text" class="form-control" id="p_biblio" name="p_biblio" <?php if(!($mod_biblio=='1')){ echo "disabled";} ?> value="<?php echo $p_biblio; ?>"  /></td>
       <td>Dirección de la página de la Biblioteca del Centro</td>
     </tr>
         <tr>
       <td>Usuario SMS:
         </td>
-      <td><input type="text" name="usuario_smstrend" id="usuario_smstrend" size="30" <?php if(!($mod_sms=='1')){ echo "disabled";} ?> value="<?php echo $usuario_smstrend; ?>" /></td>
+      <td><input type="text" class="form-control" name="usuario_smstrend" id="usuario_smstrend" size="30" <?php if(!($mod_sms=='1')){ echo "disabled";} ?> value="<?php echo $usuario_smstrend; ?>" /></td>
       <td>Nombre del usuario registrado para enviar mensajes SMS a los
         padres.</td>
     </tr>
     <tr>
       <td>Clave SMS:
         </td>
-      <td><input type="text" name="clave_smstrend" size="30" id="clave_smstrend" <?php if(!($mod_sms=='1')){ echo "disabled";} ?> value="<?php echo $clave_smstrend; ?>" /></td>
+      <td><input type="text" class="form-control" name="clave_smstrend" size="30" id="clave_smstrend" <?php if(!($mod_sms=='1')){ echo "disabled";} ?> value="<?php echo $clave_smstrend; ?>" /></td>
       <td>Clave o contrase&ntilde;a del usuario SMS.</td>
     </tr>
     <tr>
       <td>Directorio raiz de la Intranet<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="raiz_dir" size="30" value="<?php if(empty($raiz_dir)){ echo "/home/e-smith/files/ibays/intranet/html/"; } else { echo $raiz_dir; }?>" required /></td>
+      <td><input type="text" class="form-control" name="raiz_dir" size="30" value="<?php if(empty($raiz_dir)){ echo "/home/e-smith/files/ibays/intranet/html/"; } else { echo $raiz_dir; }?>" required /></td>
       <td>Lugar dentro del Sistema de Archivos en el que se encuentra la carpeta con la Intranet. La ruta es absoluta (p.ej. "/home/e-smith/files/ibays/intranet/html/")</td>
     </tr>
     <tr>
       <td>Directorio de Documentos<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="doc_dir" size="30" value="<?php if(empty($doc_dir)){ echo "/home/e-smith/files/ibays/intranet/files/"; } else { echo $doc_dir; } ?>" /></td>
+      <td><input type="text" class="form-control" name="doc_dir" size="30" value="<?php if(empty($doc_dir)){ echo "/home/e-smith/files/ibays/intranet/files/"; } else { echo $doc_dir; } ?>" /></td>
       <td>Directorio en el Servidor local donde tenemos documentos que queremos gestionar con la Intranet . La ruta es absoluta (p.ej. "/home/e-smith/files/ibays/intranet/files/")</td>
     </tr> 
     </table> 
@@ -198,19 +198,19 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
     <tr>
       <td>Director/a<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="director_del_centro" size="30" value="<?php echo $director_del_centro; ?>" required /></td>
+      <td><input type="text" class="form-control" name="director_del_centro" size="30" value="<?php echo $director_del_centro; ?>" required /></td>
       <td>Nombre y apellidos.</td>
     </tr>
     <tr>
       <td>Jefe/a de Estudios<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="jefatura_de_estudios" size="30" value="<?php echo $jefatura_de_estudios; ?>" required /></td>
+      <td><input type="text" class="form-control" name="jefatura_de_estudios" size="30" value="<?php echo $jefatura_de_estudios; ?>" required /></td>
       <td>Nombre y apellidos.</td>
     </tr>
     <tr>
       <td>Secretario/a<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="secretario_del_centro" size="30" value="<?php echo $secretario_del_centro; ?>" required /></td>
+      <td><input type="text" class="form-control" name="secretario_del_centro" size="30" value="<?php echo $secretario_del_centro; ?>" required /></td>
       <td>Nombre y apellidos.</td>
     </tr>
     <tr>
@@ -220,10 +220,10 @@ for($i=1;$i<3;$i++){
     <tr>
       <td>Administrativos <?php echo $i;?>:
         </td>
-      <td valign="top"><input type="text" name="administ<?php echo $i;?>" size="30" value="<?php if(empty(${'administ'.$i})){ echo "Administrativo $i";}else{echo ${'administ'.$i};}?>"/></td>
-      <td><input type="text" name="dnia<?php echo $i;?>" size="30" value="<?php if(empty(${'dnia'.$i})){ echo "1234567$i";}else{echo ${'dnia'.$i};}?>"/>
+      <td valign="top"><input type="text" class="form-control" name="administ<?php echo $i;?>" size="30" value="<?php if(empty(${'administ'.$i})){ echo "Administrativo $i";}else{echo ${'administ'.$i};}?>"/></td>
+      <td><input type="text" class="form-control" name="dnia<?php echo $i;?>" size="30" value="<?php if(empty(${'dnia'.$i})){ echo "1234567$i";}else{echo ${'dnia'.$i};}?>"/>
         NIF <br />
-        <input type="text" name="idea<?php echo $i;?>" size="30" value="<?php if(empty(${'idea'.$i})){ echo "";}else{echo ${'idea'.$i};}?>"/>
+        <input type="text" class="form-control" name="idea<?php echo $i;?>" size="30" value="<?php if(empty(${'idea'.$i})){ echo "";}else{echo ${'idea'.$i};}?>"/>
         Usuario Idea de Séneca</td>
     </tr>
     <?php
@@ -236,8 +236,8 @@ for($i=1;$i<2;$i++){
     <tr>
       <td>Conserjería:
         </td>
-      <td><input type="text" name="conserje<?php echo $i;?>" size="30" value="<?php if(empty(${'conserje'.$i})){ echo "conserje";}else{echo ${'conserje'.$i};}?>"/></td>
-      <td><input type="text" name="dnic<?php echo $i;?>" size="30" value="<?php if(empty(${'dnic'.$i})){ echo "1234567C";}else{echo ${'dnic'.$i};}?>"/></td>
+      <td><input type="text" class="form-control" name="conserje<?php echo $i;?>" size="30" value="<?php if(empty(${'conserje'.$i})){ echo "conserje";}else{echo ${'conserje'.$i};}?>"/></td>
+      <td><input type="text" class="form-control" name="dnic<?php echo $i;?>" size="30" value="<?php if(empty(${'dnic'.$i})){ echo "1234567C";}else{echo ${'dnic'.$i};}?>"/></td>
     </tr>
     <?php
 }
@@ -251,25 +251,25 @@ for($i=1;$i<2;$i++){
    <table class="table table-condensed table-bordered table-striped" style="width:auto">        
    <tr>
    <td>Base de datos principal</td>
-      <td><input type="text" name="db" size="30" value="<?php if(empty($db)) { echo "intranet"; } else { echo $db; } ?>" required /></td>
+      <td><input type="text" class="form-control" name="db" size="30" value="<?php if(empty($db)) { echo "intranet"; } else { echo $db; } ?>" required /></td>
       <td>Nombre de la base de datos principal.</td>
     </tr>
     <tr>
       <td>Servidor<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="db_host" size="30" value="<?php if(empty($db_host)) { echo "localhost"; } else { echo $db_host; } ?>" required /></td>
+      <td><input type="text" class="form-control" name="db_host" size="30" value="<?php if(empty($db_host)) { echo "localhost"; } else { echo $db_host; } ?>" required /></td>
       <td>Servidor de MySQL</td>
     </tr>
     <tr>
       <td>Usuario<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="db_user" size="30" value="<?php if(empty($db_user)) { echo "usuario_de_mysql"; } else { echo $db_user; } ?>" required /></td>
+      <td><input type="text" class="form-control" name="db_user" size="30" value="<?php if(empty($db_user)) { echo "usuario_de_mysql"; } else { echo $db_user; } ?>" required /></td>
       <td>Usuario de MySQL</td>
     </tr>
     <tr>
       <td>Contraseña<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="db_pass" size="30" value="<?php if(empty($db_pass)) { echo "contraseña_de_mysql"; } else { echo $db_pass; } ?>" required /></td>
+      <td><input type="text" class="form-control" name="db_pass" size="30" value="<?php if(empty($db_pass)) { echo "contraseña_de_mysql"; } else { echo $db_pass; } ?>" required /></td>
       <td>Clave de MySQL</td>
     </tr>
     </table>
@@ -282,7 +282,7 @@ for($i=1;$i<2;$i++){
     <tr>
       <td>Base de datos de Reservas<span style='color:#9d261d'> (*)</span>
         </td>
-      <td><input type="text" name="db_reservas" size="30" value="<?php if(empty($db_reservas)) { echo "reservas"; } else { echo $db_reservas; } ?>" required /></td>
+      <td><input type="text" class="form-control" name="db_reservas" size="30" value="<?php if(empty($db_reservas)) { echo "reservas"; } else { echo $db_reservas; } ?>" required /></td>
       <td>Nombre
         de la base de datos para las reservas de port&aacute;tiles, aulas
         y medios diversos.</td>
@@ -294,7 +294,7 @@ if(empty($num_carrito))
     <tr>
       <td>Número de Carritos TIC:
         </td>
-      <td><select name="num_carrito" onchange="carritos();">
+      <td><select class="form-control" name="num_carrito" onchange="carritos();">
           <option value="0"></option>
           <?php
 		for($i=1;$i<16;$i++) { echo '<option value="'.$i.'">'.$i.'</option>'; }
@@ -341,7 +341,7 @@ else
     <tr>
       <th>Número de Carritos TIC:
         </th>
-      <td><select name="num_carrito" onchange="carritos();">
+      <td><select class="form-control" name="num_carrito" onchange="carritos();">
           <option>
           <?php if($num_carrito){echo $num_carrito;}?>
           </option>
@@ -359,7 +359,7 @@ for($i=1;$i<$num_carrito+1;$i++){
     <tr>
       <td>Carrito<?php echo $i;?>:
         </td>
-      <td><input type="text" name="carrito<?php echo $i;?>" size="30" value="<?php if(empty(${'carrito'.$i})){ echo "";}else{echo ${'carrito'.$i};}?>"/></td>
+      <td><input type="text" class="form-control" name="carrito<?php echo $i;?>" size="30" value="<?php if(empty(${'carrito'.$i})){ echo "";}else{echo ${'carrito'.$i};}?>"/></td>
       <td>Nombre o Lugar del Carrito nº <?php echo $i;?></td>
     </tr>
     <?php
@@ -373,7 +373,7 @@ if(empty($num_medio))
     <tr>
       <td>Número de Medios Audiovisuales:
         </td>
-      <td><select name="num_medio" onchange="medios()">
+      <td><select class="form-control" name="num_medio" onchange="medios()">
           <option value="0"><?php echo $num_medio;?>
           <?php
 for($i=1;$i-11;$i++){ echo '<option value="'.$i.'">'.$i.'</option>'; }
@@ -417,7 +417,7 @@ else
     <tr>
       <th nowrap>Número de Medios Audiovisuales:
         </th>
-      <td><select name="num_medio" onchange="submit()">
+      <td><select class="form-control" name="num_medio" onchange="submit()">
           <option>
           <?php if(empty($num_medio)){ echo "";}else{echo $num_medio;}?>
           </option>
@@ -435,7 +435,7 @@ for($i=1;$i<$num_medio+1;$i++){
     <tr>
       <td>Medio<?php echo $i;?>:
         </td>
-      <td><input type="text" name="medio<?php echo $i;?>" size="30" value="<?php if(empty(${'medio'.$i})){ echo "";}else{echo ${'medio'.$i};}?>"/></td>
+      <td><input type="text" class="form-control" name="medio<?php echo $i;?>" size="30" value="<?php if(empty(${'medio'.$i})){ echo "";}else{echo ${'medio'.$i};}?>"/></td>
       <td>Nombre o Lugar del Medio Audiovisual nº <?php echo $i;?></td>
     </tr>
     <?php
@@ -449,7 +449,7 @@ if(empty($num_aula))
     <tr>
       <td>Número de Aulas Específicas:
         </td>
-      <td><select name="num_aula" onchange="aulas()">
+      <td><select class="form-control" name="num_aula" onchange="aulas()">
           <option value="0"><?php echo $num_aula;?>
           <?php
 for($i=1;$i-6;$i++){ echo '<option value="'.$i.'">'.$i; }
@@ -494,7 +494,7 @@ else
     <tr>
       <th>Número de Aulas para compartir:
         </th>
-      <td><select name="num_aula" onchange="submit()">
+      <td><select class="form-control" name="num_aula" onchange="submit()">
           <option>
           <?php if(empty($num_aula)){ echo "";}else{echo $num_aula;}?>
           </option>
@@ -512,7 +512,7 @@ for($i=1;$i<$num_aula+1;$i++){
     <tr>
       <td>Aula<?php echo $i;?>:
         </td>
-      <td><input type="text" name="aula<?php echo $i;?>" size="30" value="<?php if(empty(${'aula'.$i})){ echo "";}else{echo ${'aula'.$i};}?>"/></td>
+      <td><input type="text" class="form-control" name="aula<?php echo $i;?>" size="30" value="<?php if(empty(${'aula'.$i})){ echo "";}else{echo ${'aula'.$i};}?>"/></td>
       <td>Nombre o Lugar del Aula nº <?php echo $i;?></td>
     </tr>
     <?php
