@@ -48,17 +48,7 @@ switch ($_buzon) {
 		break;
 }
 ?>
-<script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>
+
 
 <div class="container">
   
@@ -66,7 +56,7 @@ return false;
     <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
   </div>
   
-  <div class="row">
+  <div class="row-fluid">
     
     <!-- MENSAJES -->
     <div class="col-sm-12">
@@ -89,7 +79,7 @@ return false;
       
       <style class="text/css">
         a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; }
-        #DataTables_Table_0_wrapper div.row:nth-child(1) { display: none; }
+        #DataTables_Table_0_wrapper div.row-fluid:nth-child(1) { display: none; }
       </style>
       
       <ul class="nav nav-tabs">
@@ -142,6 +132,40 @@ return false;
 <script>
 $(document).ready(function() {
 	$('.alert-fadeout').delay(5000).fadeOut('slow');
+	
+    $('.table-datatable').dataTable( {
+    		"oLanguage": {
+    			"sProcessing":     "Procesando...",
+    		    "sLengthMenu":     "Mostrar _MENU_ registros",
+    		    "sZeroRecords":    "No se encontraron resultados",
+    		    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+    		    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    		    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    		    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    		    "sInfoPostFix":    "",
+    		    "sSearch":         "Buscar:",
+    		    "sUrl":            "",
+    		    "sInfoThousands":  ",",
+    		    "sLoadingRecords": "Cargando...",
+    		    "oPaginate": {
+    		        "sFirst":    "Primero",
+    		        "sLast":     "Último",
+    		        "sNext":     "&raquo;",
+    		        "sPrevious": "&laquo;"
+    		    },
+    		    "oAria": {
+    		        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+    		        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    		    }
+    				
+    		},
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": false,
+        "bInfo": false,
+        "bAutoWidth": false
+    });
 });
 </script>
    
