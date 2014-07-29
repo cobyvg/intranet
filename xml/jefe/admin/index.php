@@ -14,42 +14,73 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
-?>
-<?php
+
 include("../../../menu.php");
 ?>
-<br />
-<div align="center">
-<div class="page-header" align="center">
-  <h2>Administración <small> Creación de los Horarios</small></h2>
-</div>
 
-<FORM ENCTYPE="multipart/form-data" ACTION="horarios.php" METHOD="post">
-  <div class="form-group">
-  <p class="help-block" style="width:500px; text-align:left"><span style="color:#9d261d">(*) </span>El archivo que se debe importar se obtiene de HORW exportando los datos en formato DEL como muestra la imagen de abajo. El Horario se extrae de Horw incluyendo todos los datos del mismo, y lo utilizan los m&oacute;dulos que presentan Horarios de Profesores y Grupos.</p>
-  <br />
-  <div class="well well-large" style="width:500px; margin:auto;" align="left">
-  <div class="controls">
-  <label class="control-label" for="file">Selecciona el archivo con los datos del Horario
-  </label>
-  <input type="file" name="archivo" class="input input-file col-sm-4" id="file">
-  <hr>
- 
-  <div align="center">
-    <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">
-  </div>
-  </div>
-  </div>
-</FORM>
-<br />
-<div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-success" />
-</div>
-<hr />
-<img border="0" src="exporta_horw.jpg" width="466" height="478">
-<br /><br />
-<? mysql_close($c); ?>
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Administración <small>Importación de horarios</small></h2>
+	</div>
+	
+	<?php $result = mysql_query("SELECT * FROM horw LIMIT 1"); ?>
+	<?php if(mysql_num_rows($result)): ?>
+	<div class="alert alert-warning">
+		Ya existe información en la base de datos. Si desea actualizar la información de los horarios, diríjase al apartado <em><a href="actualiza_horario.php">Actualizar horarios</a></em>. Es recomendable realizar una <a class="../copia_db/dump_db.php">copia de seguridad</a> antes de proceder a la importación de los datos.
+	</div>
+	<?php endif; ?>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA IZQUIERDA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form enctype="multipart/form-data" method="post" action="horarios.php">
+					<fieldset>
+						<legend>Importación de horarios</legend>
+						
+						<div class="form-group">
+						  <label for="archivo"><span class="text-info">Horario.del</span></label>
+						  <input type="file" id="archivo" name="archivo" accept="text/*">
+						</div>
+						
+						<br>
+						
+					  <button type="submit" class="btn btn-primary" name="enviar">Importar</button>
+					  <a class="btn btn-default" href="../../index.php">Cancelar</a>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<div class="col-sm-6">
+			
+			<h3>Información sobre la importación</h3>
+			
+			<p>Este apartado se encarga de importar los <strong>horarios</strong> de los profesores. Esto permitirá consultar los horarios de las unidades, dependencias y profesores del centro. También será necesario para realizar reservas de las dependencias.</p>
+			
+			
+			<p>Para obtener el archivo debe haber generado el horario con la aplicación <a href="http://www.horw.es" target="_blank">Horw</a>. Diríjase al apartado <strong>Archivo</strong>, <strong>Exportar como...</strong>, <strong>Exportar a DEL</strong>. Marque las casillas que aparece en la imagen inferior y haga click en <strong>Aceptar</strong> para generar el fichero.</p>
+			
+			<img class="img-thumbnail" src="exporta_horw.jpg">
+			
+		</div>
+		
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
+  
+<?php include("../../../pie.php"); ?>
+	
 </body>
 </html>
-
-

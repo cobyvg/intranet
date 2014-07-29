@@ -8,52 +8,12 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-?>
-<!DOCTYPE html>  
-<html lang="es">  
-  <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
-    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
-      
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
-    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
-    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-    <script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>   
-    <script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>   
-<style type="text/css">
-.table td{
-	vertical-align:middle;
-}
-</style>           
-</head>
 
-<body>
-
-<div class="no_imprimir">
-<?
-include("../../menu_solo.php");
+include("../../menu.php");
 include("../menu.php");
-?>
-</div>
-<?
+
+
+
 $result = mysql_query("SHOW COLUMNS FROM absentismo");
 while ($row=mysql_fetch_array($result)) {
 	$n_ss.=$row[0]." ";

@@ -14,37 +14,63 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
-?>
-<?php
+
 include("../../menu.php");
 ?>
-<br />
-<div align="center">
-<div class="page-header" align="center">
-  <h2>Administración <small> Actualización de la tabla de Profesores</small></h2>
-</div>
-<FORM ENCTYPE="multipart/form-data" ACTION="profesores.php" METHOD="post">
 
-  <div class="form-group">
- <p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si has descargado el archivo RelMatProUni.txt de Séneca (desde Personal --> Personal del Centro --> Unidades y Materias (icono arriba a la derecha)), puedes continuar con el segundo paso.</p>
-  <br />
-  <div class="well well-large" style="width:500px; margin:auto;" align="left">
-  <div class="controls">
-  <label class="control-label" for="file">Selecciona el archivo con los datos de los Profesores
-  </label>
-  <input type="file" name="archivo" class="input input-file col-sm-4" id="file">
-  <hr>
-  <div align="center">
-    <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">
-  </div>
-  </div>
-  </div>
 
-</FORM>
-<br />
-<div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-success" />
-</div>
-</div>
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Administración <small>Importación de profesores</small></h2>
+	</div>
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA IZQUIERDA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form enctype="multipart/form-data" method="post" action="profesores.php">
+					<fieldset>
+						<legend>Importación de profesores</legend>
+						
+						<div class="form-group">
+						  <label for="archivo"><span class="text-info">RelMatProUni.txt</span></label>
+						  <input type="file" id="archivo" name="archivo" accept="text/plain">
+						</div>
+						
+						<br>
+						
+					  <button type="submit" class="btn btn-primary" name="enviar">Importar</button>
+					  <a class="btn btn-default" href="../index.php">Cancelar</a>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<div class="col-sm-6">
+			
+			<h3>Información sobre la importación</h3>
+			
+			<p>Este apartado se encarga de importar la relación de <strong>profesores, aulas y asignaturas</strong> que imparten. Esto permitirá comprobar incoherencias en el horario de Horw y Séneca.</p>
+			
+			<p>Para obtener el archivo de exportación de alumnos debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>, <strong>Unidades y materias</strong> <em>(icono arriba a la derecha)</em>. Muestre todos los profesores y haga clic en el botón <strong>Exportar datos</strong>. El formato de exportación debe ser <strong>Texto plano</strong>.</p>
+
+		</div>
+		
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
+  
+<?php include("../../pie.php"); ?>
+	
 </body>
 </html>

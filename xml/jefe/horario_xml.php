@@ -35,55 +35,71 @@ header("Location:"."exportarHorariosSeneca.php?horarios=1&archivo_origen=$name&d
 break;
 	}
 	
-?>
-<?
+
 include("../../menu.php");
 
 ?>
-<br />
-<div class="page-header" align="center">
-<h2>Administración. <small> Preparación de la Importación del Horario a Séneca</small></h2>
-</div>
-<br />
+
+
 <div class="container">
-
-<div class="row">
-
-<div class="col-sm-6 col-sm-offset-3">
-
-<form class="form-horizontal" method="POST"
-	enctype="multipart/form-data" action="horario_xml.php">
-<fieldset><legend>Exportación a Séneca de los Horarios del Centro </legend>
-
-<p class="help-block">
-Este módulo se encarga de preparar el archivo que crean los programas de Horarios (Horwin, etc.) para subirlo a Séneca, evitando tener que registrar manualmente los horarios de cada profesor. La adaptación que realiza este módulo es conveniente, ya que la compatibilidad con Séneca de los generadores de horarios tiene limitaciones (Código único de las asignaturas de Bachillerato, Diversificación, etc.). Es necesario tener a mano el archivo en formato XML que se exporta desde Horwin.<br />
-La opción <strong>Modo Depuración </strong> permite ver los mensajes de error y advertencias varias que afectan al horario de Horwin. También presenta los cambios que se han realizado en el archivo para adpatarlo a las necesidades de Séneca. Es conveniente echarle un vistazo antes de subir los Horarios a Séneca. Con esta opción no se descarga ningún archivo, sólo se ven los problemas.
-</p>
-
-<br>
-
-<div class="well">
-<label for="file1">Selecciona el archivo descargado desde Horwin: </label>
-<hr />
-<input type="file" name="archivo" accept="text/xml" id="file1" required /> 
-<hr />
-<label class="radio" for="depurar">Modo Depuración 
-<input type="radio" name="depurar" id = "depurar" value="1" />
-</label>
-</div>
-
-<hr>
-
-<div align="center">
-<input class="btn btn-primary btn-block" type="submit" name='enviar' value='Procesar datos' />
-</div>
-<br>
-<br>
-<br>	
-</fieldset>
-</form>
-
-</div>
-</div>
-</div>
-<? include("../../pie.php");?>
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Administración <small>Preparación de la importación del horario a Séneca</small></h2>
+	</div>
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA IZQUIERDA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form enctype="multipart/form-data" method="post" action="">
+					<fieldset>
+						<legend>Preparación de la importación del horario a Séneca</legend>
+						
+						<div class="form-group">
+						  <label for="archivo"><span class="text-info">ExportacionHorarios.xml</span></label>
+						  <input type="file" id="archivo" name="archivo" accept="text/xml">
+						</div>
+						
+						<div class="checkbox">
+						  <label>
+						  	<input type="checkbox" id="depurar" name="depurar">
+						  	Modo depuración
+						  </label>
+						</div>
+						
+						<br>
+						
+					  <button type="submit" class="btn btn-primary" name="enviar">Aceptar</button>
+					  <a class="btn btn-default" href="../index.php">Cancelar</a>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<div class="col-sm-6">
+			
+			<h3>Información sobre la importación</h3>
+			
+			<p>Este módulo se encarga de preparar el archivo de importación que genera la aplicación de horarios para subirlo a Séneca, evitando tener que registrar manualmente los horarios de cada profesor. La adaptación que realiza este módulo es conveniente, ya que la compatibilidad con Séneca de los generadores de horarios tiene limitaciones (código único de las asignaturas de Bachillerato, Diversificación, etc.). Es necesario tener el fichero en formato XML que se exporta desde Horw.</p>
+			
+			<p>La opción <strong>Modo depuración</strong> permite ver los mensajes de error y advertencias que afectan al horario de Horw. También se mostrará los cambios que se han realizado para adaptado a las necesidades de Séneca. Es conveniente consultar los cambios antes de subir el horario a Séneca. Si la opción está marcada no generará ningún fichero de descarga.</p>
+			
+		</div>
+		
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
+  
+<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

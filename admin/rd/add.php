@@ -11,65 +11,8 @@ if ($_SESSION ['autentificado'] != '1') {
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 $profesor = $_SESSION ['profi'];
 if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = 'disabled'; }
-?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="iso-8859-1">
-<title>Intranet</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">
-<meta name="author" content="">
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
-    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
-    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
 
-<script src="http://<? echo $dominio;?>/intranet/js/tinymce/tinymce.min.js"></script>
-<script>
-tinymce.init({
-        selector: "textarea",
-        language: "es",
-        plugins: [
-                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                "table contextmenu directionality template textcolor paste fullpage textcolor responsivefilemanager"
-        ],
-
-        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | styleselect",
-        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
-        
-        relative_urls: false,
-        filemanager_title:"Administrador de archivos",
-        external_filemanager_path:"../../filemanager/",
-        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},
-
-        menubar: false
-});
-</script>
-<!-- /TinyMCE -->
-
-<script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>
-
-</head>
-
-<body>
-
-<?
-include ("../../menu_solo.php");
+include ("../../menu.php");
 include ("menu.php");
 
 mysql_select_db($db);
@@ -369,6 +312,29 @@ if ($n_actas > 24) {
 			$('#fecha').datepicker('hide');
 		});
 		});  
+	</script>
+	
+	<script src="http://<? echo $dominio;?>/intranet/js/tinymce/tinymce.min.js"></script>
+	<script>
+	tinymce.init({
+	        selector: "textarea",
+	        language: "es",
+	        plugins: [
+	                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
+	                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+	                "table contextmenu directionality template textcolor paste fullpage textcolor responsivefilemanager"
+	        ],
+	
+	        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | styleselect",
+	        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
+	        
+	        relative_urls: false,
+	        filemanager_title:"Administrador de archivos",
+	        external_filemanager_path:"../../filemanager/",
+	        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},
+	
+	        menubar: false
+	});
 	</script>
 </body>
 </html>
