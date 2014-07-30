@@ -40,7 +40,7 @@ if (isset($_POST['enviar'])) {
 		while (false != ($archivo = readdir($dir))) {
 			
 			if(!in_array($archivo, $lista_archivos)) {
-				$command = "mv $archivo $directorio.$archivo";
+				$command = "mv -u -f $archivo $directorio.$archivo";
 				shell_exec($command);
 			}
 		}
@@ -48,6 +48,9 @@ if (isset($_POST['enviar'])) {
 		closedir($dir);
 		
 	}
+	
+	unlink($filename);
+	unlink($directorio.'intranet-master');
 }
 
 include("../../../menu.php");
