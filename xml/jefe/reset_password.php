@@ -95,7 +95,7 @@ if($n_i % 10 == 0)
 </div>
 
 <button type="submit" class="btn btn-primary" name="enviar" value="Reasignar clave">Reiniciar contraseñas</button>
-<a class="btn btn-default" href="../index.php">Cancelar</a>
+<a class="btn btn-default" href="../index.php">Volver</a>
 
 
 </form>

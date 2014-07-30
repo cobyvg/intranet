@@ -132,10 +132,10 @@ echo '</center>';
 					}
 					else {
 							while ($row = mysql_fetch_row($result)) {
-									$deleteIt = mysql_query("DROP TABLE $row[0]");
+									$deleteIt = mysql_query("DROP TABLE IF EXIST $row[0]");
 									if( !$deleteIt ) {
 	        						echo( "<br>" );
-											print "- Lo siento, error al borrar la tabla $row[0].<br>";
+											print "- Lo siento, error al borrar la tabla $row[0].<br>".mysql_error();
 											$error = true;
 											break;
 									}

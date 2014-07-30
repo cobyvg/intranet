@@ -91,7 +91,7 @@ include("../../../menu.php");
 		  </table>
 		  
 		  <a class="btn btn-primary" href="regla.php">Nueva regla</a>
-		  <a class="btn btn-default" href="../../index.php">Cancelar</a>
+		  <a class="btn btn-default" href="../../index.php">Volver</a>
 		  
 		</div><!-- /.col-sm-12 -->
 		

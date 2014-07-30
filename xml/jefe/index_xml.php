@@ -62,7 +62,7 @@ include("../../menu.php");
 						<br>
 						
 					  <button type="submit" class="btn btn-primary" name="enviar">Importar</button>
-					  <a class="btn btn-default" href="../index.php">Cancelar</a>
+					  <a class="btn btn-default" href="../index.php">Volver</a>
 				  </fieldset>
 				</form>
 				

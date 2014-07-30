@@ -123,7 +123,7 @@ include("../../../menu.php");
 					?>
 					
 					<button type="submit" class="btn btn-primary" name="submit"><?php echo $boton; ?></button>
-					<a class="btn btn-default" href="index.php">Cancelar</a>
+					<a class="btn btn-default" href="index.php">Volver</a>
 					
 				</form>
 				

@@ -14,27 +14,61 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
-?>
-<?php
+
 include("../../../menu.php");
 ?>
-<br />
-<div align="center">
-<div class="page-header" align="center">
-  <h2>Administración <small> Restaurar la Base de Datos</small></h2>
-</div>
-<br />
-<form enctype="multipart/form-data" action="restore_db.php" method="post" class="form-vertical">
-  <div class="form-group success"><p class="help-block" style="width:400px; text-align:left"><span style="color:#9d261d">(*) </span>Si dispones de una copia de seguridad de la base de datos puedes realizar su restauración. Recuerda que los datos actuales se eliminarán. Una vez enviado el archivo el proceso tardará unos segundos, ten paciencia.</p></div><br />
-  <div class="well well-large" style="width:600px; margin:auto;" align="left">
-				<div class="form-group">
-				<p class="lead">Archivo de datos:</p>
-				<div class="controls">
-				<input name="archivo" id='archivo' type="file" />
-				</div>
-				</div>
-<br />
-<div align="center">
-<input class='btn btn-primary btn-large' type="submit" name="enviar" value="Aceptar" />
-</div>
-</FORM>
+
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Administración <small>Restaurar base de datos</small></h2>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA IZQUIERDA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form enctype="multipart/form-data" method="post" action="restore_db.php">
+					<fieldset>
+						<legend>Restaurar base de datos</legend>
+
+						<div class="form-group">
+						  <label for="archivo"><span class="text-info">db-backup.gz</span></label>
+						  <input type="file" id="archivo" name="archivo" accept="application/gzip">
+						</div>
+						
+						<br>
+						
+					  <button type="submit" class="btn btn-primary" name="enviar">Restaurar</button>
+					  <a class="btn btn-default" href="dump_db.php">Volver</a>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<div class="col-sm-6">
+			
+			<h3>Información sobre la restauración</h3>
+			
+			<p>Si dispones de una copia de seguridad de la base de datos puedes realizar su restauración. Recuerda que los datos actuales se eliminarán. Una vez enviado el archivo el proceso tardará unos segundos, ten paciencia.</p>
+			
+		</div>
+		
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
+  
+<?php include("../../../pie.php"); ?>
+	
+</body>
+</html>

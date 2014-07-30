@@ -277,7 +277,7 @@ include ("../menu.php");
 		</div>
 
 	<button type="submit" class="btn btn-primary" name="enviar">Guardar cambios</button>
-	<a class="btn btn-default" href="../xml/index.php">Cancelar</a>
+	<a class="btn btn-default" href="../xml/index.php">Volver</a>
 </form>
             </div></div></div>
 <? include("../pie.php");?>
