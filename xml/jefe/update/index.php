@@ -32,20 +32,8 @@ if (isset($_POST['enviar'])) {
 		$command = "unzip $filename -d $directorio";
 		shell_exec($command);
 		
-		
-		$dir = opendir($directorio.'/intranet-master');
-		
-		$lista_archivos = array('.','..','.gitignore');
-		
-		while (false != ($archivo = readdir($dir))) {
-			
-			if(!in_array($archivo, $lista_archivos)) {
-				$command = "mv -u -f $archivo $directorio.$archivo";
-				shell_exec($command);
-			}
-		}
-		
-		closedir($dir);
+		$command = "mv $directorio/intranet-master $directorio/";
+		shell_exec($command);
 		
 	}
 	
