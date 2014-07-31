@@ -15,7 +15,7 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 
-function backup_tables($host,$user,$pass,$name) {
+function copia_bd($host,$user,$pass,$name) {
    
    $backup_file = 'db-backup_'.$name.'_'.date('YmdHis').'.sql.gz';
    
@@ -26,45 +26,38 @@ function backup_tables($host,$user,$pass,$name) {
    return $output;   
 }
 
-
-function mb_file($bytes)
+function mb_file($bytes) {
+    if ($bytes >= 1073741824)
     {
-        if ($bytes >= 1073741824)
-        {
-            $bytes = number_format($bytes / 1073741824, 2) . ' GB';
-        }
-        elseif ($bytes >= 1048576)
-        {
-            $bytes = number_format($bytes / 1048576, 2) . ' MB';
-        }
-        elseif ($bytes >= 1024)
-        {
-            $bytes = number_format($bytes / 1024, 2) . ' KB';
-        }
-        elseif ($bytes > 1)
-        {
-            $bytes = $bytes . ' bytes';
-        }
-        elseif ($bytes == 1)
-        {
-            $bytes = $bytes . ' byte';
-        }
-        else
-        {
-            $bytes = '0 bytes';
-        }
+        $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+    }
+    elseif ($bytes >= 1048576)
+    {
+        $bytes = number_format($bytes / 1048576, 2) . ' MB';
+    }
+    elseif ($bytes >= 1024)
+    {
+        $bytes = number_format($bytes / 1024, 2) . ' KB';
+    }
+    elseif ($bytes > 1)
+    {
+        $bytes = $bytes . ' bytes';
+    }
+    elseif ($bytes == 1)
+    {
+        $bytes = $bytes . ' byte';
+    }
+    else
+    {
+        $bytes = '0 bytes';
+    }
 
-        return $bytes;
+    return $bytes;
 }
 
-if((isset($_GET['action']) && $_GET['action']=="descargar") && (isset($_GET['archivo']) && file_exists($_GET['archivo']))) {
-	header("Content-disposition: attachment; filename=".$_GET['archivo']."");
-	header("Content-type: application/octet-stream");
-	readfile($_GET['archivo']);
-}
-
+// CREAR COPIA DE SEGURIDAD
 if(isset($_GET['action']) && $_GET['action']=="crear") {
-	$result = backup_tables($db_host, $db_user, $db_pass, $db);
+	$result = copia_bd($db_host, $db_user, $db_pass, $db);
 	
 	if($result) {
 		$msg_error = "No ha sido posible crear la copia de seguridad. Asegúrese de que el directorio <?php echo __DIR__; ?>/ tiene permiso de escritura.";
@@ -74,6 +67,14 @@ if(isset($_GET['action']) && $_GET['action']=="crear") {
 	}
 }
 
+// DESCARGA DE ARCHIVO
+if((isset($_GET['action']) && $_GET['action']=="descargar") && (isset($_GET['archivo']) && file_exists($_GET['archivo']))) {
+	header("Content-disposition: attachment; filename=".$_GET['archivo']."");
+	header("Content-type: application/octet-stream");
+	readfile($_GET['archivo']);
+}
+
+// ELIMINAR COPIA DE SEGURIDAD
 if((isset($_GET['action']) && $_GET['action']=="eliminar") && (isset($_GET['archivo']) && file_exists($_GET['archivo']))) {
 	unlink($_GET['archivo']);
 }
@@ -115,16 +116,16 @@ include("../../../menu.php");
 				</thead>
 				<?php $directorio = opendir(__DIR__); ?>
 				<?php while (($archivo = readdir($directorio)) !== false): ?>
-				<?php if(!in_array($archivo, array('.','..','dump_db.php','restaurar_bd.php','restore_db.php'))): ?>
+				<?php if(!in_array($archivo, array('.','..','index.php','restaurar.php','php.ini'))): ?>
 				<tbody>
 					<tr>
 						<td><?php echo $archivo; ?></td>
 						<td><?php echo mb_file(filesize($archivo)); ?></td>
 						<td><?php echo date("d-m-Y H:i:s", filectime($archivo)); ?></td>
 						<td>
-							<a href="dump_db.php?action=descargar&archivo=<?php echo $archivo; ?>" rel="tooltip" title="Restaurar"><span class="fa fa-undo fa-lg fa-fw"></span></a>
-							<a href="dump_db.php?action=descargar&archivo=<?php echo $archivo; ?>" rel="tooltip" title="Descargar"><span class="fa fa-cloud-download fa-lg fa-fw"></span></a>
-							<a href="dump_db.php?action=eliminar&archivo=<?php echo $archivo; ?>" onclick="return confirmacion()" rel="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
+							<a href="restaurar.php?archivo=<?php echo $archivo; ?>" rel="tooltip" title="Restaurar"><span class="fa fa-undo fa-lg fa-fw"></span></a>
+							<a href="index.php?action=restaurar&archivo=<?php echo $archivo; ?>" rel="tooltip" title="Descargar"><span class="fa fa-cloud-download fa-lg fa-fw"></span></a>
+							<a href="index.php?action=eliminar&archivo=<?php echo $archivo; ?>" onclick="return confirmacion()" rel="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
 						</td>
 					</tr>
 				</tbody>
@@ -132,8 +133,8 @@ include("../../../menu.php");
 				<?php endwhile; ?>
 			</table>
 			
-			<a class="btn btn-primary" href="dump_db.php?action=crear">Crear copia</a>
-			<a class="btn btn-default" href="restaurar_bd.php">Restaurar desde archivo</a>
+			<a class="btn btn-primary" href="index.php?action=crear">Crear copia</a>
+			<a class="btn btn-default" href="restaurar.php">Restaurar desde archivo</a>
 			<a class="btn btn-default" href="../../index.php">Volver</a>
 			
 		</div>

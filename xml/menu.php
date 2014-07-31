@@ -67,7 +67,6 @@
 	<li><a href="jefe/informes/accesos_alumnos.php" class="enlacelateral">Informe de accesos</a></li>
 
 	<li class="nav-header">Bases de datos</li>
-	<li><a href="jefe/copia_db/dump_db.php" class="enlacelateral">Copia de seguridad de la Base de datos</a></li>
-	<li><a href="jefe/copia_db/restaurar_bd.php" class="enlacelateral">Restaurar Base de datos</a></li>
+	<li><a href="jefe/copia_db/index.php" class="enlacelateral">Copias de seguridad</a></li>
 	</a></li>
 </ul>
