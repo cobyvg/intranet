@@ -135,7 +135,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `asignaturas` (
   `CODIGO` varchar(10) DEFAULT NULL,
   `NOMBRE` varchar(96) DEFAULT NULL,
   `ABREV` varchar(10) DEFAULT NULL,
-  `CURSO` varchar(64) DEFAULT NULL,
+  `CURSO` varchar(128) DEFAULT NULL,
   KEY `CODIGO` (`CODIGO`),
   KEY `ABREV` (`ABREV`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
@@ -788,7 +788,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `materias` (
   `CODIGO` varchar(10) DEFAULT NULL,
   `NOMBRE` varchar(64) DEFAULT NULL,
   `ABREV` varchar(10) DEFAULT NULL,
-  `CURSO` varchar(64) DEFAULT NULL,
+  `CURSO` varchar(128) DEFAULT NULL,
   `GRUPO` varchar(6) DEFAULT NULL,
   KEY `CODIGO` (`CODIGO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");

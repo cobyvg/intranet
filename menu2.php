@@ -281,7 +281,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
             <li><a href="admin/fechorias/lfechorias.php">Últimos problemas</a></li>
             <li><a href="admin/fechorias/expulsados.php">Alumnos expulsados</a></li>
             <? 
-        	$conv = mysql_query("SELECT DISTINCT prof FROM horw WHERE a_asig = 'GUCON' AND prof = '$pr'");
+        	$conv = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr'");
         	if (mysql_num_rows($conv) > '0' or stristr ( $carg, '1' ) == TRUE) { 
         	if(stristr ( $carg, '1' ) == TRUE){
         	?>
