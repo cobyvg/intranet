@@ -17,7 +17,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tutoría <small> Redactar Informe por asignatura</small></h2>
 </div>
 <br />

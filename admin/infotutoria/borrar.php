@@ -14,7 +14,7 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tutoría <small> Borrar Informe</small></h2>
 </div>
 <br />

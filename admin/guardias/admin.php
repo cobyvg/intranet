@@ -26,7 +26,7 @@ if (isset($_GET['gu_fecha'])) {$gu_fecha = $_GET['gu_fecha'];}elseif (isset($_PO
 
   ?>
 <br />
-  <div class="page-header" align="center">
+  <div class="page-header">
   <h2>Guardias de Aula <small> Registro de guardias</small></h2>
 </div>
 <br />

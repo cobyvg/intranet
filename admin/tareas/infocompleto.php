@@ -25,7 +25,7 @@ else
 $id="";
 }
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tareas <small> Informe por asignaturas</small></h2>
 </div>
 <br />

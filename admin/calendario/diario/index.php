@@ -15,7 +15,7 @@ echo "<br />";
 $profe = $_SESSION['profi'];
 // Estructura de la Tabla
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
 <? $tr_pr=explode(", ",$profe);?>
   <h2>Calendario de Pruebas y Actividades <small> <? echo $tr_pr[1]." ".$tr_pr[0]; ?></small></h2>
 </div>

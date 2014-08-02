@@ -14,7 +14,7 @@ include("menu.php");
 $imprimir_activado = true;
 ?>
 <div aligna="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Problemas de Convivencia <small> Consultas</small></h2>
 </div>
 </div>

@@ -27,6 +27,8 @@
 		if($_POST['mod_tic']){fwrite($f1,"$"."mod_tic='1';\r\n");}
 		if($_POST['mod_horario']){fwrite($f1,"$"."mod_horario='1';\r\n");}
 		if($_POST['mod_faltas']){fwrite($f1,"$"."mod_faltas='1';\r\n");}
+		if($_POST['mod_bilingue']){fwrite($f1,"$"."mod_bilingue='1';\r\n");}
+		if($_POST['mod_transporte']){fwrite($f1,"$"."mod_transporte='1';\r\n");}
 		if($_POST['mod_sms']){fwrite($f1,"$"."mod_sms='1';\r\n");}
 		if($_POST['mod_biblio']){fwrite($f1,"$"."mod_biblio='1';\r\n");}
 		if($_POST['p_biblio']){fwrite($f1,"$"."p_biblio='".$_POST['p_biblio']."';\r\n");}

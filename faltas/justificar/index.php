@@ -21,7 +21,7 @@ if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['un
 if (isset($_GET['falta'])) {$falta = $_GET['falta'];}elseif (isset($_POST['falta'])) {$falta = $_POST['falta'];}else{$falta="";}
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Faltas de Asistencia <small> Justificar faltas</small></h2>
 </div>
 <br />

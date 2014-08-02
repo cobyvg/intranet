@@ -40,7 +40,7 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 ?>
 <br />
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Administración <small> Importación masiva de fotos de Profesores</small></h2>
 </div>
 <br />

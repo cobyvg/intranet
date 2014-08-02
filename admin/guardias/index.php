@@ -62,7 +62,7 @@ if ($n_dia > $numerodiasemana) {
 ?>
 <br />
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Guardias de Aula <small> Registro de guardias</small></h2>
 </div>
 

@@ -14,7 +14,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Noticias del Centro <small> Noticias en la base de datos</small></h2>
 </div>
 

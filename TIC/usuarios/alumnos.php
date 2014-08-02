@@ -14,7 +14,7 @@ $profe=$_SESSION['profi'];
 </style>
 
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Centro TIC <small> Usuarios del Grupo <? echo $grupo;?> .</small></h2>
 </div>
 <br />

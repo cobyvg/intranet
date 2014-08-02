@@ -28,7 +28,7 @@ $imprimir_activado = true;
   <div class="row">
   <div class="col-sm-2"></div>
   <div class="col-sm-8">';
-  echo '<div class="page-header" align="center">
+  echo '<div class="page-header">
   <h2>Faltas de Asistencia <small> Informe de faltas</small></h2>
   </div>
 ';

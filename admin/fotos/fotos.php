@@ -39,7 +39,7 @@ elseif (isset($_GET['claveal'])) {
 ?>
 <br />
   <div align=center>
-  <div class="page-header" align="center">
+  <div class="page-header">
   <h2>Fotos de los Alumnos <small>Registro de fotografías de <? echo $unidad;?></small></h2>
 </div>
 <?

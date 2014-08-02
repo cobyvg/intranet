@@ -32,7 +32,7 @@ return false;
   $unidad = $tuto[0];
 ?>
  <div align="center"> 
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tutoría <small> Informes activos</small></h2>
 </div>
 <br />

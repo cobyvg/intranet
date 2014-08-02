@@ -1,4 +1,4 @@
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
 <div class="container-fluid">

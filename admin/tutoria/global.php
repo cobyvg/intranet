@@ -28,7 +28,7 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 }
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2 style="display:inline">Página del tutor <small> <? echo $unidad;?>  ( <? echo $tutor; ?> )</small></h2> 
 </div>
 </div>

@@ -15,7 +15,7 @@ include("menu.php");
 $datatables_activado = true;
 ?>
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Centro TIC <small> Listado de incidencias</small></h2>
 </div>
 <br />

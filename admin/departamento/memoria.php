@@ -190,7 +190,7 @@ if (!($memoria[1]=='')){$profe=$memoria[1];}
 echo '<div class="container-fluid"><div class="row">';
 echo "<div class='col-sm-10 col-sm-offset-1'>";
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Jefatura de Departamento <small> Memoria final</small></h2>
 </div>
 <?

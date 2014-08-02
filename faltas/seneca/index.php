@@ -39,7 +39,7 @@ if(isset($_POST['Submit'])) {
  include("../menu.php");
  ?>
  <br />
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
 </div>
 <br />

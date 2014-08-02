@@ -23,7 +23,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 echo '<div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Página del tutor <small> Asignación de puestos en el Aula ('. $unidad.' )</small></h2>
 </div>
 <div class="container-fluid">

@@ -28,7 +28,7 @@ echo '</div>';
 if ($row)
 {?>
  <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Actas del Departamento <small> Registro de Reuniones ( <?  echo $row->departamento;?> )</small></h2>
 </div>
 </div>
@@ -66,7 +66,7 @@ else
 {
 ?>
  <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Actas del Departamento <small> Contenido de la Reunión ( <?  echo $row->departamento;?> )</small></h2>
 </div>
 

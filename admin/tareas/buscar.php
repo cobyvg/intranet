@@ -54,7 +54,7 @@ if (!(empty($unidad))) {
 }
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tareas <small> Buscar Informes</small></h2>
 </div>
 

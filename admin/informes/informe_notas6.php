@@ -14,7 +14,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);?>
 ?>
 <br />
 <div align="center" style="max-width:980px;margin:auto;">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informe de Evaluaciones <small> Estadísticas de Calificaciones</small></h2>
 </div>
 

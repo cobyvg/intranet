@@ -1,6 +1,6 @@
 
 <br />
-<div class="page-header" align="center">
+<div class="page-header">
 <br /><h2>CALENDARIO ESCOLAR <? echo $curso_actual;?></h2> <br />
 </div>
 <CENTER>

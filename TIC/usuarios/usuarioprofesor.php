@@ -16,7 +16,7 @@ include("../../menu.php");
 include("../menu.php");
 ?>
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Centro TIC <small> Nombre de usuario del Profesor</small></h2>
 </div>
 <br />

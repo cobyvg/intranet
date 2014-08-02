@@ -79,18 +79,15 @@ function list_zip($filename)
 
 	// Read central dir entries
 	echo "<h3>$mess[46]</h3><br />";
-	echo "<table class='table table-bordered'>";
+	echo "<table class='table table-bordered table-striped'>";
+	echo "<thead>";
 	echo "<tr>
-	<td>
-		<b>$mess[15]</b>
-	</td>
-	<td>
-		<b>$mess[17]</b>
-	</td>
-	<td>
-		<b>$mess[47]</b>
-	</td>
+	<th>$mess[15]</th>
+	<th>$mess[17]</th>
+	<th>$mess[47]</th>
 	</tr>";
+	echo "</thead>";
+	echo "<tbody>";
 
 	for ($i = 1; $i <= $numberentries; $i++)
 	{
@@ -135,6 +132,7 @@ function list_zip($filename)
 		echo '</td>';
 		echo '</tr>';
 	}
+	echo "</tbody>";
 	echo '</table></p>';
 	fclose($fp);
 	return;
@@ -438,17 +436,14 @@ function contents_dir($current_dir, $directory)
 	{
 		if (!is_dir("$current_dir/$filename"))
 		{
-			echo "<a href=\"index.${phpExt}?index=$index&action=deletefile&filename=$filename&directory=$directory\" onclick=\"javascript:return confirm('Esta acción eliminará permanentemente el archivo seleccionado ¿Está seguro que desea continuar?');\">
-			        <i class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></i>
-			      </a>";
+			echo "<a href=\"index.${phpExt}?index=$index&action=deletefile&filename=$filename&directory=$directory\" onclick=\"javascript:return confirmacion();\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
 	    }
 	    else
 	    {
 	    	if ($grants[$user_status][DELALL])
 	    	{
-			    echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" onclick=\"javascript:return confirm('Esta acción eliminará permanentemente la carpeta y su contenido. ¿Está seguro que desea continuar?');\">
-			        <i class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\" ></i>
-			          </a>";
+			    echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" onclick=\"javascript:return confirmacion();\" rel=\"tooltip\" title=\"Eliminar\">
+			        <span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
 			}
 	    }
 	}
@@ -465,11 +460,16 @@ function contents_dir($current_dir, $directory)
 	if ($grants[$user_status][DOWNLOAD] && !is_dir("$current_dir/$filename")) {
 		
 		//	DESCARGAR ARCHIVO
-		echo "<a href=\"index.${phpExt}?index=$index&action=downloadfile&filename=$filename&directory=$directory\">
-		        <i class=\"fa fa-download fa-lg fa-fw\" alt=\"$mess[23]\"></i>
-		      </a>";
+		echo "<a href=\"index.${phpExt}?index=$index&action=downloadfile&filename=$filename&directory=$directory\" rel=\"tooltip\" title=\"Descargar\"><span class=\"fa fa-cloud-download fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
 		}
-	
+		
+		if ($_GET['index'] == 'privado' && !is_dir("$current_dir/$filename")) {
+			// COMPARTIR ARCHIVO
+			$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"../../varios/".$_SESSION['ide']."/$filename\">$filename</a>");
+			
+			echo "<a href=\"../admin/mensajes/redactar.php?texto=$share_string\" rel=\"tooltip\" title=\"Compartir\"><span class=\"fa fa-share-alt fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
+		}
+		
 	
 		echo "</td>";
 		echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
@@ -502,7 +502,7 @@ function list_dir($directory)
 	$current_dir = init($directory);
 	$filenameandpath = ($directory != '') ? "&directory=".$directory : '';
 
-	echo "<table class=\"table table-hover\">";
+	echo "<table class=\"table table-striped table-hover\">";
 	echo "  <thead>\n";
 	echo "    <tr>\n";
 	echo "      <th>$mess[15]</th>\n";
@@ -514,11 +514,12 @@ function list_dir($directory)
 
     contents_dir($current_dir, $directory);
     
+    echo "  <tfoot>\n";
+    echo "    <tr>\n";
+    echo "      <td colspan=\"4\"><p class=\"text-right text-muted\">$mess[43]: $totalsize</p></td>\n";
+    echo "    </tr>\n";
+    echo "	</tfooter>\n";
     echo "</table>\n";
-    
-    // PIE DE TABLA
-    echo "<hr>";
-	echo "  <p class=\"pull-right text-muted\">$mess[43]: $totalsize</p>\n";
 	
 }
 
@@ -586,22 +587,17 @@ function show_contents() {
 		case 'privado' : $activo2 = 'class="active"'; $titulo='Carpeta personal'; break;
 	}
 	
-	echo "<div class=\"container-fluid\">\n";
+	echo "<div class=\"container\">\n";
 	echo "  <ul class=\"nav nav-tabs\">\n";
 	echo "    <li $activo1><a href=\"index.${phpExt}?index=publico\">Carpeta pública</a></li>\n";
 	echo "    <li $activo2><a href=\"index.${phpExt}?index=privado\">Carpeta personal</a></li>\n";
 	echo "  </ul>\n";
 	
-	echo "   <div class='page-header'>\n";
-    echo "      <h2>$titulo</h2>\n";
-    echo "   </div>\n";
+	echo "   <div class=\"page-header\">\n";
+  echo "      <h2>$titulo</h2>\n";
+  echo "   </div>\n";
     
-	echo "   <div class=\"row\">\n";
-	
-	// COLUMNA IZQUIERDA
-	echo "      <div class=\"col-sm-8\">\n";
-	echo "        <div class=\"row\">\n";
-
+	// BREADCUMB
 	$directory = clean_path($directory);
 	if (!file_exists("$uploads_folder_name/$directory")) {
 		$directory = '';
@@ -610,38 +606,49 @@ function show_contents() {
 	    $name = dirname($directory);
 	    if ($directory == $name || $name == '.') $name = '';
 	    
-	    echo "<div class=\"col-sm-12\">\n";
-	    echo "  <a href=\"index.${phpExt}?index=$index&direction=$direction&order=$order&directory=$name\">\n";
-	    echo "   <i class=\"fa fa-chevron-up iconf-fixed-width\"></i>\n";
-	    echo "  </a>\n";
-		echo split_dir("$directory");
-		echo "</div>";
+			echo "<div class=\"text-uppercase\">\n";
+			echo "  <a href=\"index.${phpExt}?index=$index&direction=$direction&order=$order&directory=$name\">\n";
+			echo "   <i class=\"fa fa-chevron-up iconf-fixed-width\"></i>\n";
+			echo "  </a>\n";
+			echo split_dir("$directory");
+			echo "</div>";
+			echo "<br>";
 	}
+	
+	if ($grants[$user_status][UPLOAD] || $grants[$user_status][MKDIR]) {
+		$col_sm = 'col-sm-8';
+	}
+	else {
+		$col_sm = 'col-sm-12';
+	}
+	
+	// COLUMNA IZQUIERDA
+	
+	echo "      <div class=\"row\">\n";
+	echo "        <div class=\"$col_sm\">\n";
 	
 	if ($grants[$user_status][VIEW]) {
 		list_dir($directory);
 	}
-    echo "        </div>\n";
-	echo "      </div>\n";
+  echo "        </div>\n";
 	
 	// COLUMNA DERECHA
-	echo "   <div class=\"col-sm-4\">\n";
-	echo "     <div class=\"row\">\n";
-	echo "        <div class=\"col-sm-12\">\n";
+	echo "        <div class=\"col-sm-4\">\n";
 	
 	if ($grants[$user_status][UPLOAD]) {
 		
 		echo "          <div class=\"well\">\n";
 		echo "            <form name=\"upload\" enctype=\"multipart/form-data\" method=\"POST\">\n";
 		echo "              <fieldset>\n";
-		echo "                <legend class=\"text-warning\">$mess[20]</legend>\n";
+		echo "                <legend>$mess[20]</legend>\n";
 		echo "                <input type=\"hidden\" name=\"action\" value=\"upload\">\n";
 		echo "                <input type=\"hidden\" name=\"directory\" value=\"$directory\">\n";
 		echo "                <input type=\"hidden\" name=\"order\" value=\"$order\">\n";
 		echo "                <input type=\"hidden\" name=\"index\" value=\"$index\">\n";
 		echo "                <input type=\"hidden\" name=\"direction\" value=\"$direction\">\n";
+		echo "                <div class=\"form-group\">\n";
 		echo "                <input type=\"file\" name=\"userfile\">\n";
-		echo "                <hr>\n";
+		echo "                </div>\n";
 		echo "                <input type=\"submit\" class=\"btn btn-primary\" value=\"$mess[20]\">\n";
 		echo "              </fieldset>\n";
 		echo "            </form>\n";
@@ -652,14 +659,15 @@ function show_contents() {
 		echo "          <div class=\"well\">\n";
 		echo "            <form name=\"newdir\" enctype=\"multipart/form-data\" method=\"POST\">\n";
 		echo "              <fieldset>\n";
-		echo "                <legend class=\"text-warning\">$mess[186]</legend>";
+		echo "                <legend>$mess[186]</legend>";
 		echo "                <input type=\"hidden\" name=\"action\" value=\"createdir\">\n";
 		echo "                <input type=\"hidden\" name=\"directory\" value=\"$directory\">\n";
 		echo "                <input type=\"hidden\" name=\"order\" value=\"$order\">\n";
 		echo "                <input type=\"hidden\" name=\"index\" value=\"$index\">\n";
 		echo "                <input type=\"hidden\" name=\"direction\" value=\"$direction\">\n";
-		echo "                <input type=\"text\" name=\"filename\" class=\"form-control\" placeholder=\"$mess[187]\">";
-		echo "                <hr>\n";
+		echo "                <div class=\"form-group\">\n";
+		echo "                    <input type=\"text\" name=\"filename\" class=\"form-control\" placeholder=\"$mess[187]\">";
+		echo "                </div>\n";
 		echo "                <input type=\"submit\" class=\"btn btn-primary\" value=\"$mess[188]\">\n";
 		echo "              </fieldset>\n";
 		echo "            </form>\n";
@@ -667,9 +675,9 @@ function show_contents() {
 		
 	}
 	
-	echo "        </div>\n";
-	echo "     </div>\n";
-	echo "   </div>\n";
+	echo "       </div>\n";
+	
+	echo "    </div>\n";
 }
 
 
@@ -702,7 +710,8 @@ switch($action)
 		if (!file_exists("$current_dir/$filename"))
 		{
 			include("../menu.php");
-			show_Contents();
+			show_contents();
+			include("../pie.php");
 			break;
 		}
 
@@ -716,8 +725,9 @@ switch($action)
 			}
 		}
 
-	    include("../menu.php");
-		show_contents();
+	  include("../menu.php");
+	  show_contents();
+	  include("../pie.php");
 		break;
 
 
@@ -731,7 +741,8 @@ switch($action)
 		if (!file_exists("$current_dir/$filename"))
 		{
 			include("../menu.php");
-			show_Contents();
+			show_contents();
+			include("../pie.php");
 			break;
 		}
 
@@ -742,8 +753,9 @@ switch($action)
 				delete_dir("$current_dir/$filename");
 			}
 		}
-	    include("../menu.php");
-		show_contents();
+	  include("../menu.php");
+	  show_contents();
+	  include("../pie.php");
 		break;
 
 	case 'createdir';
@@ -758,6 +770,7 @@ switch($action)
       	{
       		include("../menu.php");
       		show_contents();
+      		include("../pie.php");
 			break;
       	}
 
@@ -777,8 +790,9 @@ switch($action)
 			}
 		}
 
-	    include("../menu.php");
-		show_contents();
+	  include("../menu.php");
+	  show_contents();
+	  include("../pie.php");
 		break;
 
 	case 'downloadfile';
@@ -791,21 +805,21 @@ switch($action)
 		if (!$grants[$user_status][DOWNLOAD])
 		{
 			include("../menu.php");
-			show_Contents();
+			show_contents();
 			break;
 		}
 
 		if (!file_exists("$current_dir/$filename"))
 		{
 			include("../menu.php");
-			show_Contents();
+			show_contents();
 			break;
 		}
 
 		if (!is_path_safe($directory, $filename))
 		{
 			include("../menu.php");
-			show_Contents();
+			show_contents();
 			break;
 		}
 
@@ -913,14 +927,18 @@ switch($action)
 		if (!$grants[$user_status][UPLOAD])
 		{
 			place_header(sprintf($mess[49], "<b>$userfile_name</b>"));
+			include("../menu.php");
 			show_contents();
+			include("../pie.php");
 			break;
 		}
 
 		if (!is_path_safe($directory, $userfile_name))
 		{
 			place_header(sprintf($mess[49], "<b>$userfile_name</b>"));
+			include("../menu.php");
 			show_contents();
+			include("../pie.php");
 			break;
 		}
 
@@ -971,8 +989,9 @@ switch($action)
 				chmod("$destination/$userfile_name",0777);
 				}
 		}
-	    include("../menu.php");
-		show_contents();
+	  include("../menu.php");
+	  show_contents();
+	  include("../pie.php");
 		break;
 
 
@@ -986,35 +1005,45 @@ switch($action)
 		if (!$grants[$user_status][WEBCOPY])
 		{
 			place_header(sprintf($mess[49], "<b>$filename</b>"));
+			include("../menu.php");
 			show_contents();
+			include("../pie.php");
 			break;
 		}
 
 		if (!is_path_safe($directory, $filename))
 		{
 			place_header(sprintf($mess[49], "<b>$filename</b>"));
+			include("../menu.php");
 			show_contents();
+			include("../pie.php");
 			break;
 		}
 
 		if (!eregi("^http://|^ftp://", $fileurl))
 		{
 			place_header($mess[202]);
+			include("../menu.php");
 			show_contents();
+			include("../pie.php");
 			break;
 		}
 
 		if ($filename == '')
 		{
 			place_header($mess[34]);
+			include("../menu.php");
 			show_contents();
+			include("../pie.php");
 			break;
 		}
 
 		if (file_exists("$destination/$filename") || eregi($rejectedfiles, basename($filename)))
 		{
 			place_header("$mess[38] <b>$filename</b> $mess[39]");
+			include("../menu.php");
 			show_contents();
+			include("../pie.php");
 			break;
 
 		}
@@ -1022,7 +1051,9 @@ switch($action)
 		if (eregi($rejectedfiles, basename($filename)))
 		{
 			place_header(sprintf($mess[49], "<b>$filename</b>"));
+			include("../menu.php");
 			show_contents();
+			include("../pie.php");
 			break;
 		}
 
@@ -1038,7 +1069,9 @@ switch($action)
 		if (!file_exists("$current_dir/$filename"))
 		{
 		//	place_header($mess[125]);
-			show_Contents();
+			include("../menu.php");
+			show_contents();
+			include("../pie.php");
 			break;
 		}
 
@@ -1047,7 +1080,9 @@ switch($action)
 	      	if (eregi($hidden_dirs, $userfile) && !$showhidden)
 	      	{
 	      		place_header($mess[206]);
+	      		include("../menu.php");
 	      		show_contents();
+	      		include("../pie.php");
 				break;
 	      	}
       	}
@@ -1055,7 +1090,9 @@ switch($action)
 		if (!is_path_safe($directory, $filename) || !is_path_safe($directory, $userfile))
 		{
 			place_header($mess[201]);
-			show_Contents();
+			include("../menu.php");
+			show_contents();
+			include("../pie.php");
 			break;
 		}
 
@@ -1082,8 +1119,8 @@ switch($action)
 		}
 
 
-	    include("../menu.php");
-		show_Contents();
+	  include("../menu.php");
+		show_contents();
 		include("../pie.php");
 		break;
 
@@ -1093,11 +1130,12 @@ switch($action)
 
 	default;
 	    
-	    include("../menu.php");
-		show_contents();
-		include("../pie.php");
+	  include("../menu.php");
+	  show_contents();
+	  include("../pie.php");
 		break;
 }
 ?>
-        </body>
+
+</body>
 </html>

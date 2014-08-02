@@ -34,7 +34,7 @@ else{
 $profe=$_SESSION['profi'];
 if (empty($buscar)) {
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Material del Centro <small> Buscar en el Inventario</small></h2>
 </div>
 <br />

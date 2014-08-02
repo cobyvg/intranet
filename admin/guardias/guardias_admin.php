@@ -63,7 +63,7 @@ if ($no_dia> $numerodiasemana) {
 ?>
 <br />
 <div align=center>
- <div class="page-header" align="center">
+ <div class="page-header">
   <h2>Guardias de Aula <small> <? echo $fecha_sp;?></small></h2>
 </div>
 <div class="container-fluid">

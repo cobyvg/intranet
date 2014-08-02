@@ -113,7 +113,7 @@ include("menu.php");
 	$fecha = $_POST['fecha'];		
 		?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Biblioteca del Centro <small> Consulta de Morosos</small></h1>
 <p class="lead text-muted">Fecha elegida: <? echo $fecha;?></small></p>
 </div>

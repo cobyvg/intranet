@@ -20,7 +20,7 @@ exit;
   ?>
   <br />
    <div align=center>
-  <div class="page-header" align="center">
+  <div class="page-header">
   <h2>Administración <small> Crear el Carnet del Alumno</small></h2>
 </div>
 <div class="container-fluid">

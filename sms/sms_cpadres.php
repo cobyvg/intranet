@@ -107,7 +107,7 @@ echo ${padres.$pc};
 	?>
 <br />
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header">
 <h2>SMS <small> Comunicación de Faltas de Asistencia a los Padres </small></h2>
 </div>
 

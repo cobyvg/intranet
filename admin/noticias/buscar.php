@@ -27,7 +27,7 @@ include("../../menu.php");
 include("menu.php");
 $expresion = $_POST['expresion'];
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Noticias del Centro <small> Buscar en las Noticias</small></h2>
 </div>
 <br />

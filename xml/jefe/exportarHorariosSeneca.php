@@ -22,7 +22,7 @@ if ($_GET['horarios']==1) {
 	if ($_GET['depurar']==1) {
 		include_once '../../menu.php';
 		echo '<br />
-<div class="page-header" align="center">
+<div class="page-header">
 <h2>Administración. <small> Preparación de la Importación del Horario a Séneca</small></h2>
 </div>
 <br />

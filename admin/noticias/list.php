@@ -27,7 +27,7 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Noticias del Centro <small> Noticias en la base de datos</small></h2>
 </div>
 <br />

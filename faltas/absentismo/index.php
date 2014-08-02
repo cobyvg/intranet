@@ -14,7 +14,7 @@ include("../../menu.php");
 include("../menu.php");
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Faltas de Asistencia <small> Alumnos Absentistas</small></h2>
 </div>
 <br />

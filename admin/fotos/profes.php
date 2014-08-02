@@ -42,7 +42,7 @@ if(isset($_POST['ver_todos'])){
 ?>
  <br />
      <div align=center>
-  <div class="page-header" align="center">
+  <div class="page-header">
   <h2><? echo $nombre_del_centro;?> <small><br />Claustro de Profesores <? echo " ($curso_actual)";?></small></h2>
 </div>
 <?

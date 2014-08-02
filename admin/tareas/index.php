@@ -34,7 +34,7 @@ return false;
   $unidad = $tuto[0];
   $grupo = $tuto[1];
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tareas <small> Expulsión o ausencia del Alumno</small></h2>
 </div>
 <br />

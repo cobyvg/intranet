@@ -28,7 +28,7 @@ if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['nu
 
 ?>
   <div align="center"> 
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Faltas de Asistencia <small> Informe para los Padres</small></h2>
   </div>
 <br />

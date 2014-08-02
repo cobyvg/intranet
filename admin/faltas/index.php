@@ -46,7 +46,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("../../faltas/menu.php");
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Faltas de Asistencia <small> Consultas</small></h2>
   </div>
 <br />

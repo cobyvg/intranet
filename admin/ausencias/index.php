@@ -37,7 +37,7 @@ if (isset($_GET['pra'])) {$pra = $_GET['pra'];}elseif (isset($_POST['pra'])) {$p
 ?>
 <br />
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header">
 <h2>Ausencias del profesorado <small> Registro de bajas <? echo $profesor;?></small></h2>
 </div>
 

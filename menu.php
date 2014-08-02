@@ -6,14 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
     <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
-      
+     
+    <!-- BOOTSTRAP CSS CORE -->
     <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CUSTOM CSS THEME -->
     <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+    
+    <!-- PLUGINS CSS -->
+    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="http://<? echo $dominio;?>/intranet/css/summernote.css" rel="stylesheet">
        
     <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
-    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
-    <script type="text/javascript" src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>                 
+    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">                
 </head>
 
 <body>

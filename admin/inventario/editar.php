@@ -25,7 +25,7 @@ return false;
 include("../../menu.php");
 include("menu.php");
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Material del Centro <small> Edición de datos</small></h2>
 </div>
 <br />

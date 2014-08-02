@@ -20,7 +20,7 @@ include("../../menu.php");
 ?>
 <br />
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Administraci&oacute;n <small> Depuraci&oacute;n y limpieza de las tablas de Horarios</small></h2>
 </div>
 <br />

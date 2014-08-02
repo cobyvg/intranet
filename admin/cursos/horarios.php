@@ -9,84 +9,101 @@ if($_SESSION['autentificado']!='1')
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $profesor = $_SESSION['profi'];
-?>
-<?
-include("../../menu.php");
-if (isset($_POST['curso'])) {$curso = $_POST['curso'];} elseif (isset($_GET['curso'])) {$curso = $_GET['curso'];} else{$curso="";}
-?>
-<br />
-<div align=center>
-<div class="page-header" align="center">
-<h2>Horario del Grupo <small> <small> <br />
-<? echo $curso;?></small></h2>
-</div>
-</div>
-<div class="container" style="width: 880px">
-<table class="table table-condensed table-striped table-bordered"
-	align="center">
-	<tr>
-		<th></th>
-		<th valign="middle" align="center">
-		<div align="center"><span align="center" class="badge badge-info">L</span></div>
-		</th>
-		<th valign="middle" align="center">
-		<div align="center"><span align="center" class="badge badge-info">M</span></div>
-		</th>
-		<th valign="middle" align="center">
-		<div align="center"><span align="center" class="badge badge-info">X</span></div>
-		</th>
-		<th valign="middle" align="center">
-		<div align="center"><span align="center" class="badge badge-info">J</span></div>
-		</th>
-		<th valign="middle" align="center">
-		<div align="center"><span align="center" class="badge badge-info">V</span></div>
-		</div>
-		</th>
-	</tr>
 
-	<?
-	// Días y horas de la semana
-	$a=array(1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
-	foreach($a as $hora => $nombre) {
-		echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
-		for($i=1;$i<6;$i++) {
-			echo "<td>";
-			$sqlasig0 = "SELECT distinct  asig, c_asig FROM  horw where a_grupo = '$curso' and dia = '$i' and hora = '$hora'";
-			$asignaturas1 = mysql_query($sqlasig0);
-			while ($rowasignaturas1 = mysql_fetch_array($asignaturas1))
-			{
-				echo $rowasignaturas1[0].'<br>';
-			}
-			echo "</td>";
-		}
-		echo "<tr>";
-	}
-	echo "</table>
-";
-	?>
-	<br />
-	<div align=center>
-	<div class="page-header" align="center">
-	<h2>Profesores del Grupo <small><br />
-	<?  echo "$curso";?></small></h2>
-	</div>
-	</div>
-	<br />
-	<?
-	echo "<ul class='unstyled'>";
-	$profe = "SELECT  distinct PROFESOR, MATERIA FROM profesores where profesores.grupo = '$curso'";
-	$profeq = mysql_query($profe);
-	if (mysql_num_rows($profeq)>0) {	}
-	else{
-		$curso = substr($curso,0,-1);
-		$profe = "SELECT  distinct PROFESOR, MATERIA FROM profesores where profesores.grupo = '$curso'";
-		$profeq = mysql_query($profe);
-	}
-	while($profer = mysql_fetch_array($profeq)){
-		echo "<li><i class='fa fa-user fa-lg'> </i>
-		$profer[1] -->  <span style='color:#08c;');'>$profer[0]</span></li>";}
-echo "</ul></div>";
+if (isset($_POST['curso'])) {$curso = $_POST['curso'];} elseif (isset($_GET['curso'])) {$curso = $_GET['curso'];} else{$curso="";}
+
+include("../../menu.php");
 ?>
- <? include("../../pie.php"); ?>
+
+	<div class="container">
+		
+		<!-- TITULO DE LA PAGINA -->
+		<div class="page-header">
+			<h2><?php echo $curso; ?> <small>Consulta de horario y profesores</small></h2>
+		</div>
+		
+		<!-- SCAFFOLDING -->
+		<div class="row">
+		
+			<div class="col-sm-12">
+				
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>&nbsp;</th>
+								<th>Lunes</th>
+								<th>Martes</th>
+								<th>Miércoles</th>
+								<th>Jueves</th>
+								<th>Viernes</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php $horas = array(1 => "1ª", 2 => "2ª", 3 => "3ª", 4 => "4ª", 5 => "5ª", 6 => "6ª" ); ?>
+							<?php foreach($horas as $hora => $desc): ?>
+							<tr>
+								<th><?php echo $desc; ?></th>
+								<?php for($i = 1; $i < 6; $i++): ?>
+								<td width="20%">
+									<?php $result = mysql_query("SELECT DISTINCT asig, c_asig FROM horw WHERE a_grupo='$curso' AND dia='$i' AND hora='$hora'"); ?>
+									<?php while($row = mysql_fetch_array($result)): ?>
+									<?php echo $row[0]."<br>\n"; ?>
+									<?php endwhile; ?>
+								</td>
+								<?php endfor; ?>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			
+			</div><!-- /.col-sm-12 -->
+		
+		</div><!-- /.row -->
+	
+		
+		<div class="row">
+		
+			<div class="col-sm-12">
+	
+				<h3>Equipo educativo de la unidad</h3>
+				
+				<?php $result = mysql_query("SELECT DISTINCT MATERIA, PROFESOR FROM profesores WHERE grupo='$curso'"); ?>
+				<?php if(mysql_num_rows($result)): ?>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th class="col-sm-4">Asignatura</th>
+								<th class="col-sm-8">Profesor/a</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php while($row = mysql_fetch_array($result)): ?>
+							<tr>
+								<td><?php echo $row[0]; ?></td>
+								<td><?php echo $row[1]; ?></td>
+							</tr>
+						<?php endwhile; ?>
+						<?php mysql_free_result($result); ?>
+						</tbody>
+					</table>
+				</div>
+				<?php endif; ?>
+			
+			</div><!-- /.col-sm-12 -->
+			
+		</div><!-- /.row -->
+		
+		<div class="hidden-print">
+			<a class="btn btn-primary" href="#" onclick="javascript:print();">Imprimir</a>
+			<a class="btn btn-default" href="chorarios.php">Volver</a>
+		</div>
+		
+	</div><!-- /.container -->
+
+<?php include("../../pie.php"); ?>
+
 </body>
 </html>

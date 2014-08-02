@@ -21,7 +21,7 @@ if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
 ?>
 <br />
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Administración <small> Creación de la tabla de alumnos</small></h2>
 </div>
 <br />

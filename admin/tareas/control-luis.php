@@ -15,7 +15,7 @@ include("menu.php");
 if (isset($_POST['profes'])) {$profes = $_POST['profes'];}else{$profes="";}
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tareas <small> Profesores que no redactan Informes</small></h2>
 </div>
 

@@ -16,9 +16,15 @@
     	</div>
     </footer>
     
+    <!-- BOOTSTRAP JS CORE -->
     <script src="http://<? echo $dominio;?>/intranet/js/jquery.js"></script>  
     <script src="http://<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-datepicker.js"></script>  
+    
+    <!-- PLUGINS JS -->
+    <script src="http://<? echo $dominio;?>/intranet/js/summernote.min.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/summernote-es-ES.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-datepicker.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>
     
     <!--  Tablas de Bootstrap DataTables.  -->   
 
@@ -50,7 +56,7 @@ if ($datatables_min){
 
 <script>
 function confirmacion() {
-	var answer = confirm("ATENCIÃ“N:\n Â¿EstÃ¡s seguro de que quieres borrar los datos? Esta acciÃ³n es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
 	if (answer){
 return true;
 	}

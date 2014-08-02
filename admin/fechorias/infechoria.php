@@ -86,7 +86,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 	}
 	?>
 <div aligna="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Problemas de Convivencia <small> Registro de un problema</small></h2>
 </div>
 </div>

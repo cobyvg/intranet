@@ -14,7 +14,7 @@ include '../../menu.php';
 if (isset($_POST['curso'])) {$curso = $_POST['curso'];} elseif (isset($_GET['curso'])) {$curso = $_GET['curso'];} else{$curso="";}
 ?>
      <div align=center>
-  <div class="page-header" align="center">
+  <div class="page-header">
   <h2><? echo $nombre_del_centro;?> <small><br />Alumnos de <? echo " $curso ($curso_actual)";?></small></h2>
 </div>
   

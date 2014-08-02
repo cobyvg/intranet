@@ -29,7 +29,7 @@ $informe=$_POST['informe'];
 $profesor =$_POST['profesor'];
 ?>
 <div align="center"> 
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tutoría <small> Redactar Informe</small></h2>
 </div>
 <br />

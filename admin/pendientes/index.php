@@ -23,7 +23,7 @@ $row_Recordset2 = mysql_fetch_assoc($Recordset2);
 $totalRows_Recordset2 = mysql_num_rows($Recordset2);
 	echo '<br />
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Listas de Alumnos <small> Lista de Alumnos con asignaturas pendientes</small></h2>
 </div>
 </div>

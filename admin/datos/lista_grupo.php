@@ -43,15 +43,15 @@ foreach ($grupo as $grupo1)
 $numg++;
 //$g=$grupo[$i];
 
-$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),Fecha,matriculas,Sexo,padre,Domicilio,Telefonourgencia,alma.claveal, Telefono, nc FROM alma, FALUMNOS WHERE FALUMNOS.claveal=alma.claveal and Unidad='".$grupo1."' ORDER BY nc";
+$sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),Fecha,matriculas,Sexo,padre,Domicilio,Telefonourgencia,alma.claveal, Telefono, nc FROM alma, FALUMNOS WHERE FALUMNOS.claveal=alma.claveal and alma.unidad='".$grupo1."' ORDER BY nc";
 //echo $sqldatos;
-$lista= mysql_query($sqldatos);
+$lista= mysql_query($sqldatos) or die (mysql_error());
 $num=0;
 unset($data);
 $ixx = 0;
 while($datatmp = mysql_fetch_array($lista)) { 
 	$ixx = $ixx+1;
-	$tels = $datatmp[6]." ".$datatmp[8];
+	$tels = trim($datatmp[6]."    ".$datatmp[8]);
 	if ($datatmp[2]>1) {
                 		$repite="Sí";
                 	}
@@ -71,12 +71,12 @@ while($datatmp = mysql_fetch_array($lista)) {
 }
 $titles = array(
 				'num'=>'<b>Nº</b>',
-				'nombre'=>'<b>Alumno</b>',
-				'fecha'=>'<b>Fecha:</b>',
-				'Repite'=>'<b>Rep:</b>',
-				'NIE'=>'<b>NIE:</b>',
-				'Tutor'=>'<b>Padre/Madre:</b>',
-				'Domicilio'=>'<b>Direccion</b>',
+				'nombre'=>'<b>Alumno/a</b>',
+				'fecha'=>'<b>Fecha ncto.</b>',
+				'Repite'=>'<b>Rep.</b>',
+				'NIE'=>'<b>NIE</b>',
+				'Tutor'=>'<b>Padre / madre</b>',
+				'Domicilio'=>'<b>Domicilio</b>',
 				'Telefonos'=>'<b>Teléfono(s)</b>'
 				#'direccion'=>'<b>Direccion</b>',
 				#'telefono'=>'<b>Telefono</b>'
@@ -88,7 +88,7 @@ $options = array(
 				'fontSize' => 8,
 				'width'=>775
 			);
-$txttit = "<b>Datos del Grupo ".$grupo1."</b>\n";
+$txttit = "<b>Datos del grupo ".$grupo1."</b>\n";
 	
 $pdf->ezText($txttit, 14,$options_center);
 $pdf->ezTable($data, $titles, '', $options);

@@ -20,7 +20,7 @@ include("../../menu.php");
 ?>
 <br />
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Página del Tutor <small> Entrada</small></h2>
 </div>
 <br />

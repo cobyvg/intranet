@@ -14,7 +14,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 ?>
   <br />
-  <div class="page-header" align="center">
+  <div class="page-header">
 <h2>CALENDARIO ESCOLAR <? echo $curso_actual;?></h2> 
 </div>
 <br />

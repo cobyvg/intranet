@@ -14,7 +14,7 @@ include("../../menu.php");
 include("menu.php");
  ?>
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Problemas de Convivencia <small> Borrar problema</small></h2>
 </div>
 <br />

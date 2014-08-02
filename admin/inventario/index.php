@@ -23,7 +23,7 @@ exit;
 include("../../menu.php");
 include("menu.php");
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Material del Centro <small> Seleccionar Departamento</small></h2>
 </div>
 <br /><div class="well well-large" align="center" style="width:400px;margin:auto">

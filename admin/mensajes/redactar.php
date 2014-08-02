@@ -15,6 +15,13 @@ if (isset($_POST['profes'])) {
 elseif (isset($_GET['profes'])) {
 	$profes = $_GET['profes'];
 } 
+
+if (isset($_POST['texto'])) {
+	$texto = $_POST['texto'];
+} 
+elseif (isset($_GET['texto'])) {
+	$texto = $_GET['texto'];
+} 
 $profeso = $_POST['profeso'];
 $tutores = $_POST['tutores'];
 $tutor = $_POST['tutor'];
@@ -29,7 +36,7 @@ $direccion = $_POST['direccion'];
 $orientacion = $_POST['orientacion'];
 $bilingue = $_POST['bilingue'];
 $biblio = $_POST['biblio'];
-$texto = $_POST['texto'];
+
 $profesor = $_POST['profesor'];
 
 if (isset($_POST['padres'])) {
@@ -74,30 +81,50 @@ include('../../menu.php');
 include('menu.php');
 $page_header = "Redactar mensaje";
 ?>
-  <div class="container">
-  <div class="page-header" align="center">
-    <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
-  </div>
-  <div class="row">
+	<div class="container">
+  	
+  	
+  	<!-- TITULO DE LA PAGINA -->
+		<div class="page-header">
+	    <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
+	  </div>
+	  
+	  
+	  <form method="post" action="">
+	  
+	  <!-- SCALLFODING -->
+		<div class="row">
     
-    <form method="POST">
-    <div class="col-sm-12">
-      <button type="submit" class="btn btn-primary" name="submit1">Enviar mensaje</button>
-      <a href="index.php" class="btn btn-default">Cancelar</a>
-    </div>
-    
-    <br><br><br>
-    
-    <div class="row">
-      
+    	<!-- COLUMNA IZQUIERDA -->
       <div class="col-sm-7">
-         
-         <input type="text" class="form-control" name="asunto" placeholder="Asunto del mensaje" value="<?php echo $asunto; ?>" maxlength="100" autofocus>
-         <textarea class="form-control" name="texto" rows="15"><?php echo stripslashes($texto); ?></textarea>
-         
-      </div>
       
+      	<div class="well">
+      		
+      		<fieldset>
+      			<legend>Redactar mensaje</legend>
+      		
+	      		<div class="form-group">
+	      			<label for="asunto">Asunto</label>
+	      			<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto del mensaje" value="<?php echo (isset($asunto)) ? $asunto : ''; ?>" maxlength="120" autofocus>
+	      		</div>
+	      		
+	      		<div class="form-group">
+	      			<label for="texto" class="sr-only">Contenido</label>
+	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000"><?php echo (isset($texto)) ? stripslashes($texto) : ''; ?></textarea>
+	      		</div>
+	      		
+	      		<button type="submit" class="btn btn-primary" name="submit1">Enviar mensaje</button>
+	      		<a href="index.php" class="btn btn-default">Volver</a>
+      		
+      		</fieldset>
+      		
+      	</div><!-- /.well-->
+         
+      </div><!-- /.col-sm-7 -->
+      
+      <!-- COLUMNA DERECHA -->
       <div class="col-sm-5">
+      
         <div class="well">
             <legend class='text-warning'>Destinatario(s)</legend>
             <div class="row">
@@ -390,45 +417,26 @@ $page_header = "Redactar mensaje";
     					?>
               </div>
             </div>
-      </div>
+      </div><!-- /.col-sm-5 -->
       
-    </div>
+    </div><!-- /.row -->
     
-  </div>
+    </form>
+    
+  </div><!-- /.container -->
   
-</div>
-</form>
-</div>
-</div>
+
 <?php include("../../pie.php"); ?>
 
-<!-- TinyMCE -->
-<script src="//<?php echo $dominio; ?>/intranet/js/tinymce/tinymce.min.js"></script>
-<script>
-tinymce.init({
-        selector: "textarea",
-        language: "es",
-        plugins: [
-                "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars code fullscreen",
-                "insertdatetime media nonbreaking save table contextmenu directionality",
-                "emoticons template paste textcolor filemanager"
-            ],
+	<script>
+	$(document).ready(function() {
+	  $('#texto').summernote({
+	  	height: 300,
+	  	lang: 'es-ES'
+	  });
+	});
+	</script>
 
-        toolbar1: "bold italic underline strikethrough | forecolor backcolor  | alignleft aligncenter alignright alignjustify | outdent indent blockquote | bullist numlist",
-        toolbar2: "cut copy paste | link unlink image media | emoticons",
-        
-        relative_urls: false,
-        filemanager_title:"Administrador de archivos",
-        external_filemanager_path:"../../filemanager/",
-        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},
-        
-
-        menubar: false,
-        statusbar: false
-});
-
-<!-- /TinyMCE -->
-</script>
+	
 </body>
 </html>

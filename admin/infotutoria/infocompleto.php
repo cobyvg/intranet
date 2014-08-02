@@ -23,7 +23,7 @@ else
 $id="";
 }
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tutoría <small> Informes por asignatura</small></h2>
 </div>
 <br />

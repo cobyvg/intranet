@@ -103,7 +103,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
   echo '<div class="row">
   <div class="col-sm-12">';
   echo '<div aligna="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Problemas de Convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
 </div>
 </div>

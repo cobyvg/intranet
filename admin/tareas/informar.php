@@ -19,7 +19,7 @@ include("../../menu.php");
 include("menu.php");
 
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tareas <small> Redactar Informe</small></h2>
 </div>
 <br />

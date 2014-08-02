@@ -14,7 +14,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
  include("menu.php");
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tareas <small> Informes por expulsión</small></h2>
 </div>
 <br />

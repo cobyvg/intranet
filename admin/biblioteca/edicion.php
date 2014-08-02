@@ -23,7 +23,7 @@ include("../../menu.php");
 ?>
 <br />
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Biblioteca del Centro <small> Edici&oacute;n de morosos.</small></h2>
 </div>
 <br />

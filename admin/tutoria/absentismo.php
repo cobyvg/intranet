@@ -28,7 +28,7 @@ else{$tutor = "";}
 	$upd=" tutoria='$texto' ";
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Página del tutor <small> Alumnos absentistas<br /><? echo "$grupo_tutor";?></small></h2>
 </div>
 <br />

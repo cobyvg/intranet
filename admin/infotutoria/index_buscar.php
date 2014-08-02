@@ -25,7 +25,7 @@ $cargo = $_SESSION['cargo'];
 ?>
   
 <div align="center">      
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informes de Tutoría <small> Buscar Informes</small></h2>
 </div>
 <br />

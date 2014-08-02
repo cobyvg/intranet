@@ -19,7 +19,7 @@ include("../../menu.php");
 ?>
 <br />
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Administración <small> Alumnos con asignaturas pendientes</small></h2>
 </div>
 <br />

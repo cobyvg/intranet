@@ -111,7 +111,7 @@ else
 $fecha0=$hoy;
 }
 echo '<div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Problemas de Convivencia <small> Aula de Convivencia</small></h2>
 ';
 echo " <h3 align='center' style='color:#08c'>";

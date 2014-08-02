@@ -21,7 +21,7 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 <div align="center">  
 <?php
  echo '
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Problemas de Convivencia <small> Ranking de Fechorías</small></h2>
 </div>
 <br />';

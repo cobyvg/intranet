@@ -185,6 +185,18 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
       <td>El módulo de faltas permite gestionar las faltas a través de la Intranet para luego exportarlas a Séneca.</td>
     </tr>
     <tr>
+      <td>Centro Bilingüe
+        </td>
+      <td><input  type="checkbox" id="mod_bilingue" name="mod_bilingue" <?php if($mod_bilingue) { echo "checked"; } ?> /></td>
+      <td>Activa características para los centros bilingües</td>
+    </tr>
+    <tr>
+      <td>Transporte escolar
+        </td>
+      <td><input type="checkbox" id="mod_transporte" name="mod_transporte" <?php if($mod_transporte) { echo "checked"; } ?> /></td>
+      <td>Activa características para los centros con transporte escolar</td>
+    </tr>
+    <tr>
       <td>Activar envío de SMS:
         </td>
       <td><input type="checkbox" id = "mod_sms" name="mod_sms" onclick="activarMod_sms()" <?php if($mod_sms) { echo "checked"; } ?> /></td>

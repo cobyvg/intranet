@@ -8,10 +8,6 @@ if($_SESSION['autentificado']!='1')
 	exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-?>
-
-<?
-include("../../menu.php");
 
 if (isset($_POST['grupo'])) {$grupo = $_POST['grupo'];} elseif (isset($_GET['grupo'])) {$grupo = $_GET['grupo'];} else{$grupo="";}
 if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];} elseif (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];} else{$nombre="";}
@@ -21,16 +17,21 @@ if (isset($_GET['unidad'])) {
 	$unidad = $_GET['unidad'];
 	$AUXSQL = " and unidad = '$unidad'";
 } else{$unidad="";}
+
+include("../../menu.php");
 ?>
-<br />
-<div align="center">
-<div class="page-header" align="center">
-<h2>Datos de los Alumnos <small> Consultas</small></h2>
-</div>
-</div>
-<div class='container-fluid'>
-<div class="row">
-<div class="col-sm-12"><?php
+
+<div class="container">
+	
+	<div class="page-header">
+		<h2>Datos de los alumnos <small>Consultas</small></h2>
+	</div>
+	
+
+	<div class="row">
+	
+		<div class="col-sm-12">
+<?php
 // Si se envian datos desde el campo de búsqueda de alumnos, se separa claveal para procesarlo.
 if (!(isset($_GET['seleccionado']))) {
 	$seleccionado="";
@@ -83,14 +84,14 @@ $AUXSQL == "";
 if  (TRIM("$apellidos")=="")
 {
 }
-ELSE
+else
 {
 	$AUXSQL .= " and alma.apellidos like '%$apellidos%'";
 }
 if  (TRIM("$nombre")=="")
 {
 }
-ELSE
+else
 {
 	$AUXSQL .= " and alma.nombre like '%$nombre%'";
 }
@@ -108,7 +109,7 @@ if  (isset($_POST['unidad']))
 if  (TRIM("$clave_al")=="")
 {
 }
-ELSE
+else
 {
 	$AUXSQL .= " and alma.claveal = '$clave_al'";
 }
@@ -127,7 +128,7 @@ if (mysql_num_rows($result)>25 and !($seleccionado=="1")) {
 if ($row = mysql_fetch_array($result))
 {
 
-	echo "<div align=center><table  class='table table-striped tabladatos' style='width:auto;'>";
+	echo "<div align=center><table  class='table table-striped tabladatos'>";
 	echo "<thead><tr>
 			<th>Clave</th>
 	        <th> DNI</th>
@@ -229,6 +230,8 @@ if ($_GET['seleccionado']=='1'){
 		}
 	}
 }
-?> <? include("../../pie.php");?>
-</BODY>
-</HTML>                                                                    
+?>
+
+<? include("../../pie.php");?>
+</body>
+</html>                                                                    

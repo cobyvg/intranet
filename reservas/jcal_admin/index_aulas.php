@@ -175,7 +175,7 @@ mysql_query($sql_hor);
 }
 // Estructura de la Tabla
 ?>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Reserva de Medios <small><strong><? echo $nombre_aula; ?></strong></small></h2>
 </div>
 <br />

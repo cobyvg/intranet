@@ -34,7 +34,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 			
 			<div class="well">
 				
-				<form method="post" action="">
+				<form method="post" action="" target="_blank">
 					<fieldset>
 						<legend>Información del alumno/a</legend>
 						

@@ -15,7 +15,7 @@ include("menu.php");
 ?>
 
 <div align=center>
- <div class="page-header" align="center">
+ <div class="page-header">
   <h2>Centro TIC <small> Editar incidencia</small></h2>
 </div>
 <br />

@@ -84,7 +84,7 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.uni
 		$numeroexpulsiones= mysql_num_rows($numeroexpulsiones0);
 ?>
 <div aligna="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Problemas de Convivencia <small> Informe personal del Problema</small></h2>
     <h3 align="center" style="color:#08c;">
   <? echo "$nombre $apellidos ($unidad)";?>

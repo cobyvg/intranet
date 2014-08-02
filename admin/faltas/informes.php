@@ -107,7 +107,7 @@ echo "<div align='center'>";
   $result10 = mysql_query($SQL10);
   $row10 = mysql_fetch_array($result10);
           echo "<div align='center'>";
-          echo '<div class="page-header" align="center">
+          echo '<div class="page-header">
   <h2>Faltas de Asistencia <small> Informe de faltas del alumno</small></h2>
   </div>
 <br />';

@@ -87,7 +87,7 @@ $clave = $row[12];
   }
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Página del tutor <small> Diario del Tutor ( <?  echo $unidad; ?> )</small></h2>
 </div>
 <? 

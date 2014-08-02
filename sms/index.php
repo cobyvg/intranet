@@ -43,7 +43,7 @@ function contar(form,name) {
 </script> 
 <br />
  <div align=center>
-  <div class="page-header" align="center">
+  <div class="page-header">
   <h2>SMS <small> Envío de mensajes</small></h2>
 </div>
 <br />

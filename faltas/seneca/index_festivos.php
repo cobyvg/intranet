@@ -21,7 +21,7 @@ include("../menu.php");
 ?>
 <br />
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Faltas de Asistencia <small> Actualización de Días Festivos en la localidad</small></h2>
 </div>
 <br />

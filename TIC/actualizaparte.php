@@ -25,7 +25,7 @@ mysql_connect($db_host, $db_user, $db_pass);
 mysql_select_db($db);
 ?>
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Centro TIC <small> Actualizar incidencia</small></h2>
 </div>
 <br />

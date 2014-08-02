@@ -31,7 +31,7 @@ include("../../menu.php");
 ?>
 <br />
 <div align=center>
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Listas de Alumnos <small> Partes de faltas de Aula</small></h2>
 </div>
 </div>

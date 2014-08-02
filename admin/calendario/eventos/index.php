@@ -16,7 +16,7 @@ $cargo = $_SESSION['cargo'];
 include("../../../menu.php");
 ?>
 <br />
-  <div class="page-header" align="center">
+  <div class="page-header">
   <h2>Calendario de actividades <small> Crear o editar registros</small></h2>
 </div>
 <br />

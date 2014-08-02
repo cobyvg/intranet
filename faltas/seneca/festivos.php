@@ -20,7 +20,7 @@ include("../menu.php");
 ?>
 <br />
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Faltas de Asistencia <small> Días festivos y vacaciones</small></h2>
 </div>
 <br />

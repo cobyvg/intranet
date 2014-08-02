@@ -64,7 +64,7 @@ include("menu.php");
 
 <div class="container">
 
-<div class="page-header" align="center">
+<div class="page-header">
 <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
 </div>
 

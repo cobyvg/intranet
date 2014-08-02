@@ -14,7 +14,7 @@ include ("menu.php");
 ?>
 
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Noticias del Centro <small> Redactar Noticias</small></h2>
 </div>
 <br />

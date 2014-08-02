@@ -20,7 +20,7 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Matriculación de Alumnos <small> Importar Alumnos de Secundaria</small></h2>
 </div>
 <br />

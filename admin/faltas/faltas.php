@@ -13,7 +13,7 @@ include("../../menu.php");
 include("../../faltas/menu.php");
 ?>
 
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Faltas de Asistencia <small> Resumen de faltas por Grupo</small></h2>
   </div>
 <br />

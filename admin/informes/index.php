@@ -84,7 +84,7 @@ if (!($c_escolar==$curso_actual)) {
     mysql_select_db($db);
     		}
     echo '<div align="center">
-<div class="page-header" align="center">
+<div class="page-header">
   <h2>Informe del alumno <small>'. $nombrepil.' '. $apellido.' ('.$unidad.')</small></h2>
 </div>
 <br />
