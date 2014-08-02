@@ -56,40 +56,30 @@ switch ($_buzon) {
     <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
   </div>
   
-  <div class="row-fluid">
+  <div class="row">
     
     <!-- MENSAJES -->
     <div class="col-sm-12">
     
       <!-- Mensaje eliminado -->
       <?php if(isset($msg_delete) && $msg_delete==1): ?>
-      <div class="alert alert-success alert-block alert-fadeout" style="width:400px;margin:auto">
+      <div class="alert alert-success alert-fadeout">
         El mensaje ha sido eliminado.
       </div>
-      <br />
       <?php endif; ?>
       
       <!-- Mensaje enviado -->
       <?php if($_GET['action']=='send'): ?>
-      <div class="alert alert-success alert-block alert-fadeout" style="width:400px;margin:auto">
+      <div class="alert alert-success alert-fadeout">
         El mensaje ha sido enviado correctamente.
       </div>
-      <br />
       <?php endif; ?>
       
       <style class="text/css">
         a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; }
-        #DataTables_Table_0_wrapper div.row-fluid:nth-child(1) { display: none; }
       </style>
       
-      <ul class="nav nav-tabs">
-        <li><a href="redactar.php" class="btn-danger"><span class="fa fa-pencil-square-o"></span> Redactar mensaje</a></li>
-        <li><a href="correo.php" class="btn-info"><span class="fa fa-envelope-o"></span> Redactar correo</a></li>
-        <li <?php echo $active1; ?>><a href="?inbox=recibidos"><span class="fa fa-inbox"></span> Recibidos</a></li>
-        <li <?php echo $active2; ?>><a href="?inbox=enviados"><span class="fa fa-reply"></span> Enviados</a></li>
-      </ul>
-      
-      <table class="table table-striped table-hover table-condensed table-datatable">
+      <table class="table table-striped table-hover table-datatable">
         <thead>
           <tr>
             <?php $i=0; while ($tabla_encabezado[$i] != FALSE): ?>
@@ -160,10 +150,10 @@ $(document).ready(function() {
     				
     		},
         "bPaginate": true,
-        "bLengthChange": false,
-        "bFilter": false,
+        "bLengthChange": true,
+        "bFilter": true,
         "bSort": false,
-        "bInfo": false,
+        "bInfo": true,
         "bAutoWidth": false
     });
 });

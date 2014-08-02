@@ -62,117 +62,116 @@ include("../../menu.php");
 include("menu.php");
 ?>
 
-<div class="container">
+	<div class="container">
 
-<div class="page-header">
-<h2>Mensajes <small><?php echo $page_header; ?></small></h2>
-</div>
+		<div class="page-header">
+			<h2>Mensajes <small><?php echo $page_header; ?></small></h2>
+		</div>
+		
+		<?php if($msg): ?>
+		<div class="alert <?php echo $msg_class; ?> alert-block"><?php echo $msg; ?>
+		</div>
+		<?php endif; ?>
+		
+		
+		<form enctype="multipart/form-data" method="post" name="cargos">
+		
+		<div class="row">
 
-<div class="row">
+			<div class="col-sm-7">
+			
+				<div class="well">
+				
+					<fieldset>
+						<legend>Redactar correo</legend>
+						
+						<div class="form-group">
+							<label for="tema">Asunto</label>
+							<input type="text" class="form-control" id="tema" name="tema" placeholder="Asunto del correo">
+						</div>
+						
+						<div class="form-group">
+							<label for="texto" class="sr-only">Contenido</label>
+							<textarea class="form-control" id="texto" name="texto" rows="10"></textarea>
+						</div>
+										
+						
+						<div id="adjuntos"></div>
+						
+						<br>
+						
+						<button type="submit" class="btn btn-primary" name="enviar">Enviar correo</button>
+						<button type="button" class="btn btn-default" onclick="crear(this)">Adjuntar archivo</button>
+						<a class="btn btn-default" href="index.php">Cancelar</a>
+						
+					</fieldset>
+					
+				</div>
+				
+			</div>
 
-<form name="cargos" method="post" enctype="multipart/form-data"
-	role="form">
-<div class="col-sm-12">
-<button type="submit" class="btn btn-primary" name="enviar">Enviar
-correo</button>
-<a href="index.php" class="btn btn-default">Cancelar</a></div>
+			<div class="col-sm-5">
 
-<br>
-<br>
-<br>
+				<div id="botones_grupos">
+					<a href="javascript:seleccionar_todo()"	class="btn btn-sm btn-info">Todos</a>&nbsp;
+					<a href="javascript:seleccionar_tutor()" class="btn btn-sm btn-info">Tutores</a>&nbsp;
+					<a href="javascript:seleccionar_jd()" class="btn btn-sm btn-info">Jefes Deptos.</a>&nbsp;
+					<a href="javascript:seleccionar_ca()" class="btn btn-sm btn-info">C. de Areas</a>&nbsp;
+					<a href="javascript:seleccionar_ed()" class="btn btn-sm btn-info">Dirección</a>
+				</div>
+			
+				<br>
 
-<?php if($msg): ?>
-<div class="alert <?php echo $msg_class; ?> alert-block"><?php echo $msg; ?>
-</div>
-<?php endif; ?>
-
-<div class="row">
-
-<div class="col-sm-7"><input type="text" class="form-control"
-	name="tema" placeholder="Asunto del correo"> <br />
-<textarea class="form-control" name="texto" rows="10"></textarea>
-<br>
-<br>
-
-<div class="well">
-<fieldset id="fiel"><legend class="text-warning">Archivos adjuntos <small>(5
-archivos máximo)</small></legend> <input type="button"
-	class="btn btn-success" value="Añadir archivo adjunto"
-	onclick="crear(this)"> <br>
-<br>
-</fieldset>
-</div>
-
-</div>
-
-<div class="col-sm-5">
-
-<div class="well">
-	<a href="javascript:seleccionar_todo()"	class="btn btn-small btn-info">Todos</a>&nbsp;
-	<a href="javascript:seleccionar_tutor()" class="btn btn-small btn-info">Tutores</a>&nbsp;
-	<a href="javascript:seleccionar_jd()" class="btn btn-small btn-info">J.de Departamento</a>&nbsp;
-	<a href="javascript:seleccionar_ca()" class="btn btn-small btn-info">C. de Área</a>&nbsp;
-	<a href="javascript:seleccionar_ed()" class="btn btn-small btn-info">Dirección</a>
-<br>
-<br>
-
-<div class="panel-group" id="departamentos">
-
-<?php
-$result = mysql_query("select distinct departamento from departamentos where departamento not like '%conserje%' order by departamento");
-$i=0;
-while ($departamento = mysql_fetch_array($result)):
-?>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <a data-toggle="collapse" data-parent="#departamentos" href="#departamento<?php echo $i; ?>">
-        <span class="text-warning"><?php echo $departamento['departamento']; ?></span>
-      </a>
-    </div>
-    <div id="departamento<?php echo $i; ?>" class="panel-collapse collapse <?php if($i==0) echo 'in'; ?>">
-      <div class="panel-body">
+				<div class="panel-group" id="departamentos">
+					<?php $result = mysql_query("SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
+					<?php $i = 0; ?>
+					<?php while ($departamento = mysql_fetch_array($result)): ?>
+				  <div class="panel panel-default">
+				    <div class="panel-heading">
+				    	<h4 class="panel-title">
+				    		<a data-toggle="collapse" data-parent="#departamentos" href="#departamento<?php echo $i; ?>">
+				        	<?php echo $departamento['departamento']; ?>
+				      </a>
+				    </div>
+				    <div id="departamento<?php echo $i; ?>" class="panel-collapse collapse <?php if($i==0) echo 'in'; ?>">
+				      <div class="panel-body">
+				      
+				      <?php $profesores = mysql_query("SELECT distinct profesor, c_profes.dni, correo, cargo FROM c_profes, departamentos WHERE departamentos.idea = c_profes.idea AND departamento='$departamento[0]' AND correo IS NOT NULL ORDER BY profesor"); ?>
+				      <?php if(mysql_num_rows($profesores)>0): ?>
   
-<?php
-    $profesores = mysql_query("SELECT distinct profesor, c_profes.dni, correo, cargo FROM c_profes, departamentos WHERE departamentos.idea = c_profes.idea AND departamento='$departamento[0]' AND correo IS NOT NULL ORDER BY profesor");
-    
-    if(mysql_num_rows($profesores)>0):
-    
-        while($profesor = mysql_fetch_array($profesores)):
-	         $pro = $profesor[0];
-	         $dni = $profesor[1];
-	         $correo = $profesor[2];
-	         $perf = $profesor[3];
-	         $n_i = $n_i + 1;
-?>        
-        <label class="checkbox">
-           <input type="checkbox" name="<? echo $dni;?>" value="cambio" id="dato0"> <?php echo $pro; ?>
-        </label>
-        <input type="hidden" name="<? echo $dni.":".$perf;?>" value="<? echo $perf;?>">
-<?php
-		endwhile;
-	else:
-?>
-	     <p class="muted">No hay profesores en este departamento</p>
-<?php
-	endif;
-?>
+			        <?php while($profesor = mysql_fetch_array($profesores)): ?>
+	        			<?php $pro = $profesor[0]; ?>
+	        			<?php $dni = $profesor[1]; ?>
+	         			<?php $correo = $profesor[2]; ?>
+	         			<?php $perf = $profesor[3]; ?>
+	         			<?php $n_i = $n_i + 1; ?>       
+      					
+      					<div class="checkbox">
+      						<label>
+         						<input type="checkbox" id="dato0" name="<? echo $dni;?>" value="cambio"> <?php echo $pro; ?>
+         					</label>
+      					</div>
+      					<input type="hidden" name="<? echo $dni.":".$perf;?>" value="<? echo $perf;?>">
+							<?php endwhile; ?>
+							
+							<?php else: ?>
+     						<p class="muted">No hay profesores en este departamento</p>
+							<?php endif; ?>
 
-</div>
-</div>
-</div>
-	<?php
-	$i++;
-	endwhile;
-	?></div>
-</div>
+							</div>
+						</div>
+					</div>
+					
+					<?php $i++; ?>
+					<?php endwhile; ?>
+				</div>
+			</div>
 
-</div>
-
-</div>
-
-</form>
-
-</div>
+		</div>
+	
+	</div>
+	
+	</form>
 
 </div>
 
@@ -239,7 +238,7 @@ function seleccionar_ca(){
 num=0;
 function crear(obj) {
   if(num<5) {
-	  fi = document.getElementById('fiel'); // 1
+	  fi = document.getElementById('adjuntos'); // 1
 	  contenedor = document.createElement('div'); // 2
 	  contenedor.id = 'div'+num; // 3
 	  fi.appendChild(contenedor); // 4
@@ -251,8 +250,8 @@ function crear(obj) {
 	  
 	  ele = document.createElement('input'); // 5
 	  ele.type = 'button'; // 6
-	  ele.className = 'btn btn-danger';
-	  ele.value = 'Borrar'; // 8
+	  ele.className = 'btn btn-danger btn-sm';
+	  ele.value = 'Eliminar'; // 8
 	  ele.name = 'div'+num; // 8
 	  ele.onclick = function () {borrar(this.name)} // 9
 	  contenedor.appendChild(ele); // 7
@@ -260,39 +259,23 @@ function crear(obj) {
   }
 }
 function borrar(obj) {
-  fi = document.getElementById('fiel'); // 1 
+  fi = document.getElementById('adjuntos'); // 1 
   fi.removeChild(document.getElementById(obj)); // 10
   num--;
 }
 </script>
-<!-- TinyMCE -->
-<script
-	src="//<?php echo $dominio; ?>/intranet/js/tinymce/tinymce.min.js"></script>
-<script>
-tinymce.init({
-        selector: "textarea",
-        language: "es",
-        plugins: [
-                "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars code fullscreen",
-                "insertdatetime media nonbreaking save table contextmenu directionality",
-                "emoticons template paste textcolor filemanager"
-            ],
-
-        toolbar1: "bold italic underline strikethrough | forecolor backcolor  | alignleft aligncenter alignright alignjustify | outdent indent blockquote | bullist numlist",
-        toolbar2: "cut copy paste | link unlink image media | emoticons",
-        
-        relative_urls: false,
-        filemanager_title:"Administrador de archivos",
-        external_filemanager_path:"../../filemanager/",
-        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},
-        
-
-        menubar: false,
-        statusbar: false
-});
-
-<!-- /TinyMCE -->
-</script>
+	
+	<script>
+	$(document).ready(function() {
+	
+		// EDITOR DE TEXTO
+	  $('#texto').summernote({
+	  	height: 300,
+	  	lang: 'es-ES'
+	  });
+	  
+	});
+	</script>
+	
 </body>
 </html>

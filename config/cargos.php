@@ -91,11 +91,11 @@ include ("../menu.php");
 				<th><span rel="tooltip" title="Miembro del departamento de Actividades Complementarias y Extraescolares.">DACE</span></th>
 				<th><span rel="tooltip" title="Miembros del personal de Administracción y Servicios: Conserjes.">Conserje</span></th>
 				<th><span rel="tooltip" title="Miembros del personal de Administracción y Servicios: Administrativos">Administ.</span></th>
-				<th><span rel="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientación, incluídos ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>
-				<th><span rel="tooltip" title="Profesores que participan en el Plan de Bilinguismo">Bilingüe</span></th>
-				<th><span rel="tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conv.</span></th>
-				<th><span rel="tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>
-				<th><span rel="tooltip" title="Profesor encargado de las Relaciones de Género">Género</span></th>
+				<th><span rel="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientación, incluídos ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>';
+		if($mod_bilingue) $head .= '<th><span rel="tooltip" title="Profesores que participan en el Plan de Bilinguismo">Bilingüe</span></th>';
+		$head .= '<th><span rel="tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conv.</span></th>';
+		if($mod_biblio) $head .= '<th><span rel="tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>';
+		$head .= '<th><span rel="tooltip" title="Profesor encargado de las Relaciones de Género">Género</span></th>
 				<th>&nbsp;</th>
 			</tr>
 			</thead>';
@@ -231,6 +231,7 @@ include ("../menu.php");
 				echo "checked";
 			}
 			?> /></td>
+			<?php if($mod_bilingue) { ?>
 				<td class="text-center"><input type="checkbox" name="<?
 			echo $dni;
 			?>9"
@@ -240,6 +241,7 @@ include ("../menu.php");
 				echo "checked";
 			}
 			?> /></td>
+			<?php } ?>
 			<td class="text-center"><input type="checkbox" name="<?
 			echo $dni;
 			?>10"
@@ -249,6 +251,7 @@ include ("../menu.php");
 				echo "checked";
 			}
 			?> /></td>
+			<?php if($mod_biblio) { ?>
 			<td class="text-center"><input type="checkbox" name="<?
 			echo $dni;
 			?>11"
@@ -258,6 +261,7 @@ include ("../menu.php");
 				echo "checked";
 			}
 			?> /></td>
+			<?php } ?>
 			<td class="text-center"><input type="checkbox" name="<?
 			echo $dni;
 			?>11"

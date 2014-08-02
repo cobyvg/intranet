@@ -2,15 +2,11 @@
  if(isset($_POST['submit1']))
 {	
   if(!$asunto or !$texto or empty($profesor)) { 
-  	echo '<div class="alert alert-info alert-block">';
-    echo '  Es necesario que rellenes todos los campos del formulario: Destinatario, asunto y texto del mensaje.';
-    echo '</div>';
+  	$msg_error = "Todos los campos del formulario son obligatorios.";
   }
 elseif(!$profeso and !$tutor and !$departamento and !$equipo and !$etcp and !$ca and !$claustro and !$direccion and !$orientacion and !$bilingue and !$biblio and !($padres))
 {
-	echo '<div class="alert alert-info alert-block">';
-    echo '  No has elegido el destinatario del mensaje.';
-    echo '</div>';
+	$msg_error = "Debes seleccionar al menos un destinatario.";
 }
 else
 {

@@ -34,7 +34,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 			
 			<div class="well">
 				
-				<form method="post" action="" target="_blank">
+				<form method="post" action="">
 					<fieldset>
 						<legend>Información del alumno/a</legend>
 						
@@ -60,7 +60,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 					    <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI/Pasaporte del alumno/a o tutor/a legal" maxlength="12">
 					  </div>
 					  
-					  <button type="submit" class="btn btn-primary" name="matricular" formaction="matriculas.php">Matricular</button>
+					  <button type="submit" class="btn btn-primary" name="matricular" formaction="matriculas.php" formtarget="_blank">Matricular</button>
 				  </fieldset>
 				</form>
 				

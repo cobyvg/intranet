@@ -96,7 +96,7 @@ include("../../menu.php");
 		</thead>
 		<tbody>
 		<?
-		$dep0 = "select distinct departamento from departamentos where departamento not like '' order by departamento";
+		$dep0 = "select distinct departamento from departamentos order by departamento";
 		$dep1 = mysql_query($dep0);
 		$n_d="";
 		while ($dep = mysql_fetch_array($dep1)) {

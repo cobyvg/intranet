@@ -89,6 +89,13 @@ $page_header = "Redactar mensaje";
 	    <h2>Mensajes <small><?php echo $page_header; ?></small></h2>
 	  </div>
 	  
+	  <!-- MENSAJES -->
+	  <?php if (isset($msg_error)): ?>
+	  <div class="alert alert-danger">
+	  	<?php echo $msg_error; ?>
+	  </div>
+	  <?php endif; ?>
+	  
 	  
 	  <form method="post" action="">
 	  
@@ -125,318 +132,572 @@ $page_header = "Redactar mensaje";
       <!-- COLUMNA DERECHA -->
       <div class="col-sm-5">
       
-        <div class="well">
-            <legend class='text-warning'>Destinatario(s)</legend>
+      	<div id="grupos_destinatarios" class="well">
+      		
+      		<fieldset>
+      			<legend>Grupos de destinatarios</legend>
+      			
+      			<input type="hidden" name="profesor" value="<?php echo $pr; ?>">
+      		
             <div class="row">
+            	
+            	<!-- COLUMNA IZQUIERDA -->
               <div class="col-sm-6">
-                <input type="hidden" name="profesor" value="<? echo $pr; ?>">
                 
-                <label class="checkbox">
-                  <input name="profes" type="checkbox" value="1" onClick="submit()"<? if($profes=='1' and !$claustro) echo 'checked'; ?>> Profesores
-                </label>
-                <label class="checkbox">
-                  <input name="tutores" type="checkbox" value="1"
-    					onClick="submit()"
-    <? if($tutores=='1' and !$claustro) echo 'checked'; ?> />
-                  Tutores</label>
-                <label class="checkbox">
-                  <input name="departamentos" type="checkbox" value="1"
-    					onClick="submit()"
-    <? if($departamentos=='1' and !$claustro) echo 'checked'; ?> />
-                  Departamentos</label>
-                <label class="checkbox">
-                  <input name="equipos" type="checkbox" value="1" onClick="submit()"
-    <? if($equipos=='1' and !$claustro) echo 'checked'; ?> />
-                  Equipos
-                  Educativos</label>
-                <label class="checkbox">
-                  <input name="claustro" type="checkbox" value="1"
-    					onClick="submit()" <? if($claustro=='1') echo 'checked'; ?> />
-                  Todo
-                  el Claustro</label>
-                <label class="checkbox">
-                  <input name="biblio" type="checkbox" value="1" onClick="submit()"
-    <? if($biblio=='1' and !$claustro) echo 'checked'; ?> />
-                  Biblioteca</label>
+                <div class="form-group">
+                	<div class="checkbox">
+                		<label>
+                			<input name="profes" type="checkbox" value="1" onClick="submit()" <?php if($profes=='1' and !$claustro) echo 'checked'; ?>> Profesores
+                		</label>
+                	</div>
+                </div>
+                
+                <div class="form-group">
+                	<div class="checkbox">
+                		<label>
+                			<input name="tutores" type="checkbox" value="1" onClick="submit()" <?php if($tutores=='1' and !$claustro) echo 'checked'; ?>> Tutores
+                		</label>
+                	</div>
+                </div>
+                
+                <div class="form-group">
+                	<div class="checkbox">
+                		<label>
+                			<input name="departamentos" type="checkbox" value="1" onClick="submit()" <?php if($departamentos=='1' and !$claustro) echo 'checked'; ?>> Departamentos
+                		</label>
+                	</div>
+                </div>
+                
+                <div class="form-group">
+                	<div class="checkbox">
+                		<label>
+                			<input name="equipos" type="checkbox" value="1" onClick="submit()" <?php if($equipos=='1' and !$claustro) echo 'checked'; ?>> Equipos educativos
+                		</label>
+                	</div>
+                </div>
+                
+                <div class="form-group">
+                	<div class="checkbox">
+                		<label>
+                			<input name="claustro" type="checkbox" value="1" onClick="submit()" <?php if($claustro=='1') echo 'checked'; ?>> Todo el claustro
+                		</label>
+                	</div>
+                </div>
+                
+                <?php if(isset($mod_biblio) && $mod_biblio): ?>
+                <div class="form-group">
+                	<div class="checkbox">
+                		<label>
+                			<input name="biblio" type="checkbox" value="1" onClick="submit()" <?php if($biblio=='1' and !$claustro) echo 'checked'; ?>> Biblioteca
+                		</label>
+                	</div>
+                </div>
+                <?php endif; ?>
+                
               </div>
+              
+              
+              <!-- COLUMNA DERECHA -->
               <div class="col-sm-6">
-                <label class="checkbox">
-                  <input name="etcp" type="checkbox" value="1" onClick="submit()"
-    <? if($etcp=='1' and !$claustro) echo 'checked'; ?> />
-                  JD</label>
-                <label class="checkbox">
-                  <input name="ca" type="checkbox" value="1" onClick="submit()"
-    <? if($ca=='1' and !$claustro) echo 'checked'; ?> />
-                  CA</label>
-                <label class="checkbox">
-                  <input name="direccion" type="checkbox" value="1" onClick="submit()"
-    <? if($direccion=='1' and !$claustro) echo 'checked'; ?> />
-                  Equipo
-                  Directivo</label>
-                <label class="checkbox">
-                  <input name="orientacion" type="checkbox" value="1"
-    					onClick="submit()"
-    <? if($orientacion=='1' and !$claustro) echo 'checked'; ?> />
-                  Orientación</label>
-                <label class="checkbox">
-                  <input name="bilingue" type="checkbox" value="1" onClick="submit()"
-    <? if($bilingue=='1' and !$claustro) echo 'checked'; ?> />
-                  Centro
-                  Bilingue</label>
-       
-                <label class="checkbox">
-                  <input name="padres" type="checkbox"
-    					value="1" onClick="submit()"
-    <? if($padres=='1' and !$claustro) echo 'checked'; ?> />
-                  Padres de
-                  Alumnos</label>
-     <br />
-     </div>
-     
-                <?
-    
-    					if($profes == '1' and !$claustro) {
-    						echo "<hr /><legend class='text-warning'>Selecciona los Profesores</legend>
-    						<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
-    						<div class='well well-transparent'>";
-    						$s_origen=mb_strtoupper($origen);
-    						echo '
-    						<SELECT  name=profeso[] multiple=multiple size=27 class="col-sm-10">';
-    						// Datos del Profesor que hace la consulta. No aparece el nombre del aÃ±o de la nota. Se podrÃ­a incluir.
-    						// echo "SELECT distinct PROFESOR  FROM profesores order by PROFESOR asc";
-    						$profe = mysql_query("SELECT distinct nombre  FROM departamentos order by nombre asc");
-    						while($filaprofe = mysql_fetch_array($profe))
-    						{
-    							$profe_sel = mb_strtoupper($filaprofe[0]);
-    							if ($profe_sel==$s_origen) {
-    								$seleccionado='selected';
-    							}else{$seleccionado="";}
-    							echo "<OPTION $seleccionado>$filaprofe[0]</OPTION>";
-    						}
-    						echo  '</select></div>';
-    					}
-    
-    					if($tutores == '1' and !$claustro) {echo "<hr /><legend class='text-warning'>Selecciona los Tutores de Grupo</legend>
-    					<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
-    					<div class='well well-transparent'>";
-    					echo '<SELECT  name=tutor[] multiple=multiple size=25  style="width:100%">';
-    					// Datos del Profesor que hace la consulta. No aparece el nombre del aÃ±o de la nota. Se podrÃ­a incluir.
-    					$tutor = mysql_query(" SELECT distinct tutor, unidad FROM FTUTORES order by unidad asc");
-    					while($filatutor = mysql_fetch_array($tutor))
-    					{
-    						$fondo = "";
-    						if($filatutor[1] == "1E"){$fondo = "style=background-color:#ffFFCC;";}
-    						if($filatutor[1] == "2E"){$fondo = "style=background-color:#99FF88;";}
-    						if($filatutor[1] == "3E"){$fondo = "style=background-color:#bbFFCC;";}
-    						if($filatutor[1] == "4E"){$fondo = "style=background-color:#88FFCC;";}
-    						if($filatutor[1] == "1B"){$fondo = "style=background-color:#ddFFCC;";}
-    						if($filatutor[1] == "2B"){$fondo = "style=background-color:#FFCC66;";}
-    						if($filatutor[1] == "1P"){$fondo = "style=background-color:#eeaaCC;";}
-    						echo "<OPTION $fondo>$filatutor[0] --> $filatutor[1]-$filatutor[2]</OPTION>";
-    					}
-    					echo  '</select></div>';
-    					}
-    
-    					if($departamentos == '1' and !$claustro) {echo "<hr /><legend class='text-warning'>Selecciona los Departamentos o Áreas</legend>
-    					<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
-    					<div class='well well-transparent'>";
-    					echo '<SELECT  name=departamento[] multiple=multiple size=25 class="col-sm-9" >';
-    					$dep = mysql_query("SELECT distinct departamento FROM departamentos order by departamento asc");
-    					while($filadep = mysql_fetch_array($dep))
-    					{
-    						echo "<OPTION>$filadep[0]</OPTION>";
-    					}
-    					echo  '</select></div>';
-    					}
-    
-    					if($equipos == '1' and !$claustro) {echo "<hr /><legend class='text-warning'>Selecciona Equipos Educativos</legend>
-    					<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
-    					<div class='well well-transparent'>";
-    					echo '<SELECT  name=equipo[] multiple=multiple size=25 class="col-sm-9"  >';
-    					$eq = mysql_query("SELECT distinct grupo  FROM profesores order by grupo asc");
-    					while($filaeq = mysql_fetch_array($eq))
-    					{
-    						$fondo = "";
-    						if(substr($filaeq[0],0,2) == "1E"){$fondo = "style=background-color:#ffFFCC;";}
-    						if(substr($filaeq[0],0,2) == "2E"){$fondo = "style=background-color:#99FF88;";}
-    						if(substr($filaeq[0],0,2) == "3E"){$fondo = "style=background-color:#bbFFCC;";}
-    						if(substr($filaeq[0],0,2) == "4E"){$fondo = "style=background-color:#88FFCC;";}
-    						if(substr($filaeq[0],0,2) == "1B"){$fondo = "style=background-color:#ddFFCC;";}
-    						if(substr($filaeq[0],0,2) == "2B"){$fondo = "style=background-color:#FFCC66;";}
-    						if(substr($filaeq[0],0,2) == "1P"){$fondo = "style=background-color:#eeaaCC;";}
-    						echo "<OPTION $fondo>$filaeq[0]</OPTION>";
-    					}
-    					echo  '</select></div>';
-    					}
-    
-    					if($claustro == '1') {
-    						echo "<hr /><legend class='text-warning'>Claustro de Profesores</legend>";
-    						$cl = mysql_query("SELECT distinct nombre FROM departamentos WHERE nombre NOT LIKE 'admin'");
-    						while($filacl = mysql_fetch_array($cl))
-    						{
-    							$t_cl .= $filacl[0].",";
-    							$ok = explode(", ",$filacl[0]);
-    							$t_cl2 = "<li align='left'>".$ok[1]." ".$ok[0]."</li>";
-    							echo "$t_cl2";
-    						}
-    						echo "";
-    						}
-    
-    					if($orientacion == '1' and !$claustro) {
-    						echo "<hr /><legend class='text-warning'>Departamento de Orientación</legend><div class='well well-transparent'>";
-    						$orienta = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like '%8%'");
-    						while($filaor = mysql_fetch_array($orienta))
-    						{
-    							echo "<li align='left'>$filaor[0] </li>";
-    							$t_or .= $filaor[0].",";
-    						}
-    						$t_or = substr($t_or,0,strlen($t_or)-1);
-    						echo "</div>";
-    					}
-    
-    					if($bilingue == '1' and !$claustro) {
-    						echo "<hr /><legend class='text-warning'>Centro Bilingue</legend><div class='well well-transparent'>";
-    						$bilingue = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like '%a%'");
-    						while($filabi = mysql_fetch_array($bilingue))
-    						{
-    							echo "<li align='left'>$filabi[0] </li>";
-    							$t_bi .= $filabi[0].",";
-    						}
-    						$t_bi = substr($t_bi,0,strlen($t_bi)-1);
-    					echo "</div>";
-    					}
-    					
-    					if($biblio == '1' and !$claustro) {
-    						echo "<hr /><legend class='text-warning'>Biblioteca</legend><div class='well well-transparent'>";
-    						$bibliote = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like '%c%'");
-    						while($filabiblio = mysql_fetch_array($bibliote))
-    						{
-    							echo "<li align='left'>$filabiblio[0] </li>";
-    							$t_biblio .= $filabiblio[0].",";
-    						}
-    						$t_biblio = substr($t_biblio,0,strlen($t_biblio)-1);
-    					echo "</div>";
-    					}					
-    
-    
-    
-    					if($etcp == '1' and !$claustro) {
-    						echo "<hr /><legend class='text-warning'>Equipo Técnico de Coordinación Pedagógica</legend><div class='well well-transparent'>";
-    						$etc = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like '%4%'");
-    						while($filaetc = mysql_fetch_array($etc))
-    						{
-    							echo "<li align='left'>$filaetc[0] </li>";
-    							$t_etcp .= $filaetc[0];
-    						}
-    						$t_etcp = substr($t_etcp,0,strlen($t_etcp)-1);
-    						echo "</div>";
-    					}
-    
-    					if($ca == '1' and !$claustro) {
-    						echo "<hr /><legend class='text-warning'>Coordinación de Área</legend><div class='well well-transparent'>";
-    						$ca0 = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like '%9%'");
-    						while($filaca = mysql_fetch_array($ca0))
-    						{
-    							echo "<li align='left'>$filaca[0] </li>";
-    							$t_ca .= $filaca[0];
-    						}
-    						$t_ca = substr($t_ca,0,strlen($t_ca)-1);
-    						echo "</div>";
-    					}
-    
-    					if($direccion == '1' and !$claustro) {
-    						echo "<hr /><legend class='text-warning'>Equipo Directivo</legend><div class='well well-transparent'>";
-    						$dir = mysql_query("SELECT distinct nombre  FROM departamentos where cargo like'%1%' AND nombre NOT LIKE 'admin'");
-    						while($filadir = mysql_fetch_array($dir))
-    						{
-    							echo "<li align='left'>$filadir[0] </li>";
-    							$t_dir .= $filadir[0].",";
-    						}
-    						$t_dir = substr($t_dir,0,strlen($t_dir)-1);
-    						echo "</div>";
-    					}
-    
-    
-    					$perfil = $_SESSION['cargo'];
-    					// Queda preparado para que todos los profesores puedan enviar mensajes a los padres en la página exterior.
-    					//Sólo hay que eliminar $perfil == '1', y añadir la posibilidad de responder al mensaje del profesor
-    					//desde la página principal(actualmente sólo es posible responder al tutor del grupo).
-    					/*					
-    					 	if (!($perfil == '1')) {
-    						$extra0 = "where profesor = '$pr'";
-    						}
-    					
-    					if($padres == '1' and $perfil == '1') {
-    						echo "<hr /><legend class='text-warning'>Padres de Alumnos</legend><div class='well well-transparent'>";
-    						echo '<SELECT  name=padres[] multiple=multiple size=15 >';
-    						$tut = mysql_query("select distinct grupo from profesores $extra0");
-    						while ($tuto = mysql_fetch_array($tut)) {
-    						$unidad = $tuto[0];
-    						echo "<OPTION style='color:brown;background-color:#cf9;' disabled>$unidad</OPTION>";
-    						$extra = "where unidad='$unidad'";
-    						$padre = mysql_query("SELECT distinct APELLIDOS, NOMBRE  FROM alma $extra order by unidad, apellidos");
-    						while($filapadre = mysql_fetch_array($padre))
-    						{
-    						$al_sel = "$filapadre[0], $filapadre[1]";
-    						if ($al_sel==$origen) {
-    						$seleccionado='selected';
-    						}else{$seleccionado="";}
-    						echo "<OPTION $seleccionado>$filapadre[0], $filapadre[1]</OPTION>";
-    						}
-    
-    						}
-    						}
-    						echo  '</select>';
-    						echo "</div>";
-    						*/
-    
-    					if(stristr($perfil,'2') == TRUE or stristr($perfil,'1') == TRUE)
-    					{
-    						$tut = mysql_query("select unidad from FTUTORES where tutor = '$pr'");
-    						$tuto = mysql_fetch_array($tut);
-    						$unidad = "$tuto[0]";
-    
-    						if(stristr($perfil,'2') == TRUE){$extra = "where unidad='$unidad'";}
-    						if($padres == '1') {echo "<hr /><legend class='text-warning'>Padres de Alumnos</legend>
-    						<div class='help-block'>* Puedes seleccionar varios manteniendo pulsada la tecla Control.</div>
-    						<div class='well well-transparent'>";
-    						echo '<SELECT  name=padres[] multiple=multiple size=27 class="col-sm-10" >';
-    						$padre = mysql_query("SELECT distinct APELLIDOS, NOMBRE  FROM alma $extra order by apellidos");
-    						while($filapadre = mysql_fetch_array($padre))
-    						{
-    							$al_sel = "$filapadre[0], $filapadre[1]";
-    							if ($al_sel==$origen) {
-    								$seleccionado='selected';
-    							}else{$seleccionado="";}
-    							echo "<OPTION $seleccionado>$filapadre[0], $filapadre[1]</OPTION>";
-    						}
-    						echo  '</select>';
-    						echo "</div>";
-    						}
-    					}
-    					?>
+              	
+              	<div class="form-group">
+              		<div class="checkbox">
+              			<label>
+              				<input name="etcp" type="checkbox" value="1" onClick="submit()" <?php if($etcp=='1' and !$claustro) echo 'checked'; ?>> Jefes/as de departamento
+              			</label>
+              		</div>
+              	</div>
+              	
+              	<div class="form-group">
+              		<div class="checkbox">
+              			<label>
+              				<input name="ca" type="checkbox" value="1" onClick="submit()" <?php if($ca=='1' and !$claustro) echo 'checked'; ?>> Coordinadores de area
+              			</label>
+              		</div>
+              	</div>
+              	
+              	<div class="form-group">
+              		<div class="checkbox">
+              			<label>
+              				<input name="direccion" type="checkbox" value="1" onClick="submit()" <?php if($direccion=='1' and !$claustro) echo 'checked'; ?>> Equipo directivo
+              			</label>
+              		</div>
+              	</div>
+              	
+              	<div class="form-group">
+              		<div class="checkbox">
+              			<label>
+              				<input name="orientacion" type="checkbox" value="1" onClick="submit()" <?php if($orientacion=='1' and !$claustro) echo 'checked'; ?>> Orientación
+              			</label>
+              		</div>
+              	</div>
+              	
+              	<?php if(isset($mod_bilingue) && $mod_bilingue): ?>
+              	<div class="form-group">
+              		<div class="checkbox">
+              			<label>
+              				<input name="bilingue" type="checkbox" value="1" onClick="submit()" <?php if($bilingue=='1' and !$claustro) echo 'checked'; ?>> Profesores bilingüe
+              			</label>
+              		</div>
+              	</div>
+              	<?php endif; ?>
+              	
+              	<div class="form-group">
+              		<div class="checkbox">
+              			<label>
+              				<input name="padres" type="checkbox" value="1" onClick="submit()" <?php if($padres=='1' and !$claustro) echo 'checked'; ?>> Familias y alumnos
+              			</label>
+              		</div>
+              	</div>
+              
               </div>
-            </div>
-      </div><!-- /.col-sm-5 -->
-      
-    </div><!-- /.row -->
-    
-    </form>
-    
-  </div><!-- /.container -->
+            
+      		</fieldset>
+      	
+      	</div>
+      	
+				
+				<?php if(isset($profes) && $profes == 1 && !isset($claustro)): ?>
+				<!-- PROFESORES -->
+				<div id="grupo_profesores" class="well">
+					
+					<fieldset>
+						<legend>Seleccione profesores</legend>
+						
+						<?php $s_origen = mb_strtoupper($origen); ?>
+						
+						<div class="form-group">
+							<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos ORDER BY nombre ASC"); ?>
+							<?php if(mysql_num_rows($result)): ?>
+							<select class="form-control" name="profeso[]" multiple="multiple" size="23">
+								<?php while($row = mysql_fetch_array($result)): ?>
+								<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($origen) && mb_strtoupper($origen) == mb_strtoupper($row['nombre'])) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
+								<?php endwhile; ?>
+								<?php mysql_free_result($result); ?>
+							</select>
+							<?php else: ?>
+							<select class="form-control" name="profeso[]" multiple="multiple" disabled>
+								<option value=""></option>
+							</select>
+							<?php endif; ?>
+							
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples profesores.</div>
+						</div>
+						
+					</fieldset>
+					
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+     
+     
+    		<?php if(isset($tutores) && $tutores == 1 && !isset($claustro)): ?>
+				<!-- TUTORES -->
+				<div id="grupo_tutores" class="well">
+					
+					<fieldset>
+						<legend>Seleccione tutores</legend>
+						
+						<div class="form-group">
+							<?php $result = mysql_query("SELECT DISTINCT tutor, unidad FROM FTUTORES ORDER BY unidad ASC"); ?>
+							<?php if(mysql_num_rows($result)): ?>
+							<select class="form-control" name="tutor[]" multiple="multiple" size="23">
+								<?php while($row = mysql_fetch_array($result)): ?>
+								<option value="<?php echo $row['tutor']; ?> --> <?php echo $row['unidad']; ?>-"><?php echo $row['unidad']; ?> - <?php echo $row['tutor']; ?></option>
+								<?php endwhile; ?>
+								<?php mysql_free_result($result); ?>
+							</select>
+							<?php else: ?>
+							<select class="form-control" name="tutor[]" multiple="multiple" disabled>
+								<option value=""></option>
+							</select>
+							<?php endif; ?>
+							
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples tutores.</div>
+						</div>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				
+				<?php if(isset($departamentos) && $departamentos == 1 && !isset($claustro)): ?>
+				<!-- JEFES DE DEPARTAMENTO -->
+				<div id="grupo_departamentos" class="well">
+					
+					<fieldset>
+						<legend>Seleccione departamentos</legend>
+						
+						<div class="form-group">
+							<?php $result = mysql_query("SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
+							<?php if(mysql_num_rows($result)): ?>
+							<select class="form-control" name="departamento[]" multiple="multiple" size="23">
+								<?php while($row = mysql_fetch_array($result)): ?>
+								<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
+								<?php endwhile; ?>
+								<?php mysql_free_result($result); ?>
+							</select>
+							<?php else: ?>
+							<select class="form-control" name="departamento[]" multiple="multiple" disabled>
+								<option value=""></option>
+							</select>
+							<?php endif; ?>
+							
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples departamentos.</div>
+						</div>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				
+				<?php if(isset($equipos) && $equipos == 1 && !isset($claustro)): ?>
+				<!-- EQUIPOS EDUCATIVOS -->
+				<div id="grupo_equipos" class="well">
+					
+					<fieldset>
+						<legend>Seleccione equipos educativos</legend>
+						
+						<div class="form-group">
+							<?php $result = mysql_query("SELECT DISTINCT grupo FROM profesores ORDER BY grupo ASC"); ?>
+							<?php if(mysql_num_rows($result)): ?>
+							<select class="form-control" name="equipo[]" multiple="multiple" size="23">
+								<?php while($row = mysql_fetch_array($result)): ?>
+								<option value="<?php echo $row['grupo']; ?>"><?php echo $row['grupo']; ?></option>
+								<?php endwhile; ?>
+								<?php mysql_free_result($result); ?>
+							</select>
+							<?php else: ?>
+							<select class="form-control" name="equipo[]" multiple="multiple" disabled>
+								<option value=""></option>
+							</select>
+							<?php endif; ?>
+							
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples equipos educativos.</div>
+						</div>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				
+				<?php if(isset($claustro)): ?>
+				<!-- CLAUSTRO DEL CENTRO -->
+				<div id="grupo_claustro" class="well">
+					
+					<fieldset>
+						<legend>Claustro de profesores</legend>
+						
+						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos ORDER BY nombre ASC"); ?>
+						<?php if(mysql_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysql_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysql_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				
+				<?php if(isset($biblio) && $biblio == 1 && !isset($claustro)): ?>
+				<!-- BIBLIOTECA -->
+				<div id="grupo_biblioteca" class="well">
+					
+					<fieldset>
+						<legend>Biblioteca</legend>
+						
+						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%c%' ORDER BY nombre ASC"); ?>
+						<?php if(mysql_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysql_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysql_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				
+				<?php if(isset($etcp) && $etcp == 1 && !isset($claustro)): ?>
+				<!-- JEFES DE DEPARTAMENTO -->
+				<div id="grupo_etcp" class="well">
+					
+					<fieldset>
+						<legend>Jefes de departamento</legend>
+						
+						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%4%' ORDER BY nombre ASC"); ?>
+						<?php if(mysql_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysql_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysql_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				
+				<?php if(isset($ca) && $ca == 1 && !isset($claustro)): ?>
+				<!-- COORDINADORES DE AREA -->
+				<div id="grupo_coordinadores" class="well">
+					
+					<fieldset>
+						<legend>Coordinadores de área</legend>
+						
+						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
+						<?php if(mysql_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysql_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysql_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				
+				<?php if(isset($direccion) && $direccion == 1 && !isset($claustro)): ?>
+				<!-- EQUIPO DIRECTIVO -->
+				<div id="grupo_directivo" class="well">
+					
+					<fieldset>
+						<legend>Equipo directivo</legend>
+						
+						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%1%' ORDER BY nombre ASC"); ?>
+						<?php if(mysql_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysql_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysql_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				
+				<?php if(isset($orientacion) && $orientacion == 1 && !isset($claustro)): ?>
+				<!-- ORIENTACION -->
+				<div id="grupo_orientacion" class="well">
+					
+					<fieldset>
+						<legend>Orientación</legend>
+						
+						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%8%' ORDER BY nombre ASC"); ?>
+						<?php if(mysql_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysql_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysql_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				
+				
+				<?php if(isset($bilingue) && $bilingue == 1 && !isset($claustro)): ?>
+				<!-- BILINGÜE -->
+				<div id="grupo_bilingue" class="well">
+					
+					<fieldset>
+						<legend>Orientación</legend>
+						
+						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%a%' ORDER BY nombre ASC"); ?>
+						<?php if(mysql_num_rows($result)): ?>
+						<ul style="height: auto; max-height: 520px; overflow: scroll;">
+							<?php while($row = mysql_fetch_array($result)): ?>
+							<li><?php echo $row['nombre'] ; ?></li>
+							<?php endwhile; ?>
+							<?php mysql_free_result($result); ?>
+						</ul>
+						<?php endif; ?>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				
+				<?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>
+				
+				<?php $sql_where = ""; ?>
+				
+				<?php if(stristr($_SESSION['cargo'],'2')): ?>
+					<?php $result = mysql_query("SELECT unidad FROM FTUTORES WHERE tutor='$pr'"); ?>
+					<?php $unidad = mysql_fetch_array($result); ?>
+					<?php $unidad = $unidad['unidad']; ?>
+					<?php mysql_free_result($result); ?>
+					
+					<?php $sql_where = "WHERE unidad='$unidad'"; ?>
+				<?php endif; ?>
+										
+				
+				<?php if(isset($padres) && $padres == 1 && !isset($claustro)): ?>
+				<!-- FAMILIAS Y ALUMNOS -->
+				<div id="grupo_padres" class="well">
+					
+					<fieldset>
+						<legend>Familias y alumnos</legend>
+						
+						<div class="form-group">
+							<?php $result = mysql_query("SELECT DISTINCT apellidos, nombre, unidad FROM alma $sql_where ORDER BY unidad ASC, apellidos ASC, nombre ASC"); ?>
+							<?php if(mysql_num_rows($result)): ?>
+							<select class="form-control" name="padres[]" multiple="multiple" size="23">
+								<?php while($row = mysql_fetch_array($result)): ?>
+								<option value="<?php echo $row['apellidos'].', '.$row['nombre']; ?>" <?php echo (isset($origen) && $origen == $row['apellidos'].', '.$row['nombre']) ? 'selected' : ''; ?>><?php echo $row['unidad'].' - '.$row['apellidos'].', '.$row['nombre']; ?></option>
+								<?php endwhile; ?>
+								<?php mysql_free_result($result); ?>
+							</select>
+							<?php else: ?>
+							<select class="form-control" name="padres[]" multiple="multiple" disabled>
+								<option value=""></option>
+							</select>
+							<?php endif; ?>
+							
+							<div class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples alumnos.</div>
+						</div>
+						
+					</fieldset>
+				</div>
+				
+				<?php $ocultar_grupos = 1; ?>
+				<?php endif; ?>
+				
+				<?php endif; ?>
+				
+				<?php if(isset($ocultar_grupos)): ?>
+				<button type="button" class="btn btn-primary btn-block" id="mostrar_grupos">Seleccionar otro grupo de destinatarios</button>
+				<?php endif; ?>
+				
+				
+<?php
+//$perfil = $_SESSION['cargo'];
+// Queda preparado para que todos los profesores puedan enviar mensajes a los padres en la página exterior.
+//Sólo hay que eliminar $perfil == '1', y añadir la posibilidad de responder al mensaje del profesor
+//desde la página principal(actualmente sólo es posible responder al tutor del grupo).
+/*					
+if (!($perfil == '1')) {
+$extra0 = "where profesor = '$pr'";
+}
+
+if($padres == '1' and $perfil == '1') {
+echo "<hr /><legend class='text-warning'>Padres de Alumnos</legend><div class='well well-transparent'>";
+echo '<SELECT  name=padres[] multiple=multiple size=15 >';
+$tut = mysql_query("select distinct grupo from profesores $extra0");
+while ($tuto = mysql_fetch_array($tut)) {
+$unidad = $tuto[0];
+echo "<OPTION style='color:brown;background-color:#cf9;' disabled>$unidad</OPTION>";
+$extra = "where unidad='$unidad'";
+$padre = mysql_query("SELECT distinct APELLIDOS, NOMBRE  FROM alma $extra order by unidad, apellidos");
+while($filapadre = mysql_fetch_array($padre))
+{
+$al_sel = "$filapadre[0], $filapadre[1]";
+if ($al_sel==$origen) {
+$seleccionado='selected';
+}else{$seleccionado="";}
+echo "<OPTION $seleccionado>$filapadre[0], $filapadre[1]</OPTION>";
+}
+
+}
+}
+echo  '</select>';
+echo "</div>";
+*/
+?>
+
+			</div><!-- /.col-sm-5 -->
+			
+		</div><!-- /.row -->
+		
+		</form>
+	
+	</div><!-- /.container -->
   
 
 <?php include("../../pie.php"); ?>
-
+	
 	<script>
 	$(document).ready(function() {
+	
+		// EDITOR DE TEXTO
 	  $('#texto').summernote({
 	  	height: 300,
 	  	lang: 'es-ES'
 	  });
+	  
+	  function ocultar_grupos() {
+	  	$('#grupos_destinatarios').slideUp();
+	  	
+	  	$('#mostrar_grupos').show();
+	  }
+	  
+	  function mostrar_grupos() {
+	  	$('#grupos_destinatarios').slideDown();
+	  	
+	  	$('#grupo_profesores').slideUp();
+	  	$('#grupo_tutores').slideUp();
+	  	$('#grupo_departamentos').slideUp();
+	  	$('#grupo_equipos').slideUp();
+	  	$('#grupo_claustro').slideUp();
+	  	$('#grupo_biblioteca').slideUp();
+	  	$('#grupo_etcp').slideUp();
+	  	$('#grupo_coordinadores').slideUp();
+	  	$('#grupo_directivo').slideUp();
+	  	$('#grupo_orientacion').slideUp();
+	  	$('#grupo_padres').slideUp();
+	  	
+	  	$('#mostrar_grupos').hide();
+	  }
+	  
+	  <?php if($ocultar_grupos): ?>
+	  ocultar_grupos();
+	  <?php endif; ?>
+	  
+	  $('#mostrar_grupos').click(function() {
+	  	mostrar_grupos();
+	  });
+	  
 	});
 	</script>
 
-	
 </body>
 </html>
