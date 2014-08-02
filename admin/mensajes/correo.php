@@ -10,6 +10,9 @@ if($_SESSION['autentificado']!='1')
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
+if($_POST['token']) $token = $_POST['token'];
+if(!isset($token)) $token = time(); 
+
 if (isset($_POST['enviar'])) {
 	$profe_envia = $_SESSION['profi'];
 	$cor_pr = mysql_query("select correo from c_profes where profesor = '$profe_envia'");
@@ -85,6 +88,8 @@ include("menu.php");
 					<fieldset>
 						<legend>Redactar correo</legend>
 						
+						<input type="hidden" name="token" value="<?php echo $token; ?>">
+						
 						<div class="form-group">
 							<label for="tema">Asunto</label>
 							<input type="text" class="form-control" id="tema" name="tema" placeholder="Asunto del correo">
@@ -131,7 +136,8 @@ include("menu.php");
 				    	<h4 class="panel-title">
 				    		<a data-toggle="collapse" data-parent="#departamentos" href="#departamento<?php echo $i; ?>">
 				        	<?php echo $departamento['departamento']; ?>
-				      </a>
+				      	</a>
+				    	</h4>
 				    </div>
 				    <div id="departamento<?php echo $i; ?>" class="panel-collapse collapse <?php if($i==0) echo 'in'; ?>">
 				      <div class="panel-body">
@@ -191,6 +197,7 @@ function deseleccionar_todo(){
 			document.cargos.elements[i].checked=0
 }
 function seleccionar_tutor(){
+	deseleccionar_todo()
 for (i=0;i<document.cargos.elements.length;i++){
 		if(document.cargos.elements[i].type == "hidden"){
 		valorCasilla = document.cargos.elements[i].value;		
@@ -202,6 +209,7 @@ for (i=0;i<document.cargos.elements.length;i++){
 }
 }
 function seleccionar_jd(){
+	deseleccionar_todo()
 	for (i=0;i<document.cargos.elements.length;i++){
 		if(document.cargos.elements[i].type == "hidden"){
 		valorCasilla = document.cargos.elements[i].value;		
@@ -213,6 +221,7 @@ function seleccionar_jd(){
 }
 }
 function seleccionar_ed(){
+	deseleccionar_todo()
 	for (i=0;i<document.cargos.elements.length;i++){
 		if(document.cargos.elements[i].type == "hidden"){
 		valorCasilla = document.cargos.elements[i].value;		
@@ -224,6 +233,7 @@ function seleccionar_ed(){
 }
 }
 function seleccionar_ca(){
+	deseleccionar_todo()
 	for (i=0;i<document.cargos.elements.length;i++){
 		if(document.cargos.elements[i].type == "hidden"){
 		valorCasilla = document.cargos.elements[i].value;		
@@ -269,10 +279,17 @@ function borrar(obj) {
 	$(document).ready(function() {
 	
 		// EDITOR DE TEXTO
-	  $('#texto').summernote({
-	  	height: 300,
-	  	lang: 'es-ES'
-	  });
+		$('#texto').summernote({
+			height: 300,
+			lang: 'es-ES',
+			
+			onChange: function(content) {
+				var sHTML = $('#texto').code();
+		    localStorage['summernote-<?php echo $token; ?>'] = sHTML;
+			}
+		});
+		
+		$('#texto').code(localStorage['summernote-<?php echo $token; ?>']);
 	  
 	});
 	</script>

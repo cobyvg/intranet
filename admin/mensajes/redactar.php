@@ -16,12 +16,10 @@ elseif (isset($_GET['profes'])) {
 	$profes = $_GET['profes'];
 } 
 
-if (isset($_POST['texto'])) {
-	$texto = $_POST['texto'];
-} 
-elseif (isset($_GET['texto'])) {
-	$texto = $_GET['texto'];
-} 
+
+if($_POST['token']) $token = $_POST['token'];
+if(!isset($token)) $token = time(); 
+
 $profeso = $_POST['profeso'];
 $tutores = $_POST['tutores'];
 $tutor = $_POST['tutor'];
@@ -36,7 +34,6 @@ $direccion = $_POST['direccion'];
 $orientacion = $_POST['orientacion'];
 $bilingue = $_POST['bilingue'];
 $biblio = $_POST['biblio'];
-
 $profesor = $_POST['profesor'];
 
 if (isset($_POST['padres'])) {
@@ -59,6 +56,12 @@ else
 {
 $asunto="";
 }
+if (isset($_POST['texto'])) {
+	$texto = $_POST['texto'];
+} 
+elseif (isset($_GET['texto'])) {
+	$texto = $_GET['texto'];
+} 
 if (isset($_POST['origen'])) {
 	$origen = $_POST['origen'];
 } 
@@ -69,6 +72,8 @@ else
 {
 $origen="";
 }
+
+
 
 $verifica = $_GET['verifica'];
 if($verifica){
@@ -109,6 +114,8 @@ $page_header = "Redactar mensaje";
       		
       		<fieldset>
       			<legend>Redactar mensaje</legend>
+      			
+      			<input type="hidden" name="token" value="<?php echo $token; ?>">
       		
 	      		<div class="form-group">
 	      			<label for="asunto">Asunto</label>
@@ -117,7 +124,7 @@ $page_header = "Redactar mensaje";
 	      		
 	      		<div class="form-group">
 	      			<label for="texto" class="sr-only">Contenido</label>
-	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000"><?php echo (isset($texto)) ? stripslashes($texto) : ''; ?></textarea>
+	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000"><?php echo (isset($texto) && $texto) ? $texto : ''; ?></textarea>
 	      		</div>
 	      		
 	      		<button type="submit" class="btn btn-primary" name="submit1">Enviar mensaje</button>
@@ -659,10 +666,17 @@ echo "</div>";
 	$(document).ready(function() {
 	
 		// EDITOR DE TEXTO
-	  $('#texto').summernote({
-	  	height: 300,
-	  	lang: 'es-ES'
-	  });
+		$('#texto').summernote({
+			height: 300,
+			lang: 'es-ES',
+			
+			onChange: function(content) {
+				var sHTML = $('#texto').code();
+		    localStorage['summernote-<?php echo $token; ?>'] = sHTML;
+			}
+		});
+		
+		$('#texto').code(localStorage['summernote-<?php echo $token; ?>']);
 	  
 	  function ocultar_grupos() {
 	  	$('#grupos_destinatarios').slideUp();
