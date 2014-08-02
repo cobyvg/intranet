@@ -72,7 +72,7 @@ if (isset($_GET['id'])) {
 	echo "<p class='lead'><small>Fecha</small></p>";
 ?>
 <div class="input-group" >
-  <input required name="fecha" type="text" class="input form-control" data-date-format="yyyy-mm-dd" id="fecha" value="<?if($fecha == "") { echo date('Y-m-d'); } else { echo $fecha;}?>" >
+  <input required name="fecha" type="text" class="input form-control" data-date-format="yyyy-mm-dd" id="fecha" value="" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 

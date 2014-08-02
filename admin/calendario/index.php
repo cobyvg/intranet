@@ -163,25 +163,23 @@ while ($asign = mysql_fetch_array($asig)) {
 }
 $sql_diario.=") and date(fecha) >= '$rango0' and date(fecha) <= '$rango8' and calendario = '1'  order by fecha limit 3";
 
-$flag_hr = 0;
 $diari = mysql_query($sql_diario);
 if (mysql_num_rows ( $diari ) > 0){
-	echo "<h5><span class='fa fa-calendar fa-fw'></span> Calendario personal</h5>";
+	echo "<h4>Calendario personal</h4>";
+	echo "<div class=\"list-group\">";
 	while ( $diar = mysql_fetch_array ( $diari ) ) {
 		$n_reg+=1;
 		$fecha_reg = cambia_fecha($diar[1]);
-		echo "<p><small>  $fecha_reg - </small><a href='admin/calendario/diario/index.php?id=$diar[0]' rel='tooltip' title='$diar[2] - $diar[3]'>  $diar[2]</a></p>";	
+		echo "<a class=\"list-group-item\" href=\"admin/calendario/diario/index.php?id=$diar[0]\"><span class=\"pull-right badge\">".strftime('%d %b', strtotime($fecha_reg))."</span> $diar[2]</a>";	
 	}
-	$flag_hr = 1;
+	echo "</div>";
 }
 $n_noticias=5-$n_reg;
 $query = "SELECT distinct title, eventdate, event FROM cal WHERE date(eventdate) >= '$rango0'  order by eventdate asc limit $n_noticias";
 $result = mysql_query ( $query );
 
 if (mysql_num_rows ( $result ) > 0) {
-	if($flag_hr) echo '<hr>';
 	
-	echo "<h5><span class='fa fa-calendar fa-w'></span> Calendario del centro</h5>";
 	$SQLcurso1 = "select distinct grupo from profesores where profesor = '$pr'";
 	//echo $SQLcurso1;
 	$resultcurso1 = mysql_query ( $SQLcurso1 );
@@ -193,6 +191,9 @@ if (mysql_num_rows ( $result ) > 0) {
 	}
 	$string1 = substr ( $string1, 0, (strlen ( $string1 ) - 1) );
 	$count = "";
+	
+	echo "<h4>Calendario del centro</h4>";
+	echo "<div class=\"list-group\">";
 	while ( $row = mysql_fetch_array ( $result ) ) {
 		$color="";
 		$pajar = "";
@@ -202,7 +203,6 @@ if (mysql_num_rows ( $result ) > 0) {
 		$ano = $trozos [0];
 		$mes = $trozos [1];
 		$dia = $trozos [2];
-		$fecha = "$dia-$mes-$ano";
 		$string3 = explode ( " ", $string1 );
 		
 		// echo "$aguja => $pajar<br>";
@@ -220,21 +220,21 @@ if (mysql_num_rows ( $result ) > 0) {
 
 		
 		}
+		
 		if($color == ""){
-echo "";	
+		echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><small>  $fecha - </small><a href='admin/calendario/eventos/index.php?year=$ano&month=$mes&today=$dia' rel='tooltip' title='$row[2]'>  $texto</a></p>";		
+		echo "<a class=\"list-group-item\" href=\"admin/calendario/eventos/index.php?year=$ano&month=$mes&today=$dia\"><span class=\"pull-right badge\">".strftime('%d %b', strtotime($row[1]))."</span> $texto</a>";		
 			}
 		else{
-echo "";	
+		echo "";	
 		$texto = $row[0];
 		$titulo = nl2br ( $texto );
-		echo "<p><a href='admin/calendario/eventos/index.php?year=$ano&month=$mes&today=$dia' style='color:#f89406' rel='tooltip' title='$row[2]' >$fecha -   $texto</a></p>
-	";	
+		echo "<a class=\"list-group-item\" href=\"admin/calendario/eventos/index.php?year=$ano&month=$mes&today=$dia\"><span class=\"pull-right badge\">".strftime('%d %b', strtotime($row[1]))."</span> <span class=\"text-warning\">$texto</span></a>";	
 			}	
 	}
+	echo "</div>";
 }
 ?>
-	<br>
-	<a class="btn btn-primary btn-sm" href="admin/calendario/eventos/index.php"><?php echo (stristr($carg, '1') == TRUE) ? 'Añadir Actividad' : 'Ver calendario'; ?></a>
+	<a class="btn btn-primary btn-sm" href="admin/calendario/eventos/index.php"><?php echo (stristr($carg, '1') == TRUE) ? 'Añadir actividad' : 'Ver calendario'; ?></a>

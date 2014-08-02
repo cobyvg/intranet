@@ -46,6 +46,5 @@ Categoría:  <?
 
 ?>
 <br />
- <a href="admin/noticias/add.php" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle fa-fw"></i>&nbsp;Añadir</a>&nbsp;&nbsp;&nbsp;
-
-<a href="admin/noticias/list.php" class="btn btn-primary btn-sm"><i class="fa fa-list-alt fa-fw"></i>&nbsp;M&aacute;s Noticias </a>
+ <a class="btn btn-primary btn-sm" href="admin/noticias/add.php"><span class="fa fa-plus-circle fa-fw"></span> Nueva noticia</a>
+ <a class="btn btn-default btn-sm" href="admin/noticias/list.php"><span class="fa fa-list-alt fa-fw"></span> Ver noticias </a>

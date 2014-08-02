@@ -583,14 +583,14 @@ function show_contents() {
 
 	switch ($index) {
 		default :
-		case 'publico' : $activo1 = 'class="active"'; $titulo='Carpeta pública del centro'; break;
-		case 'privado' : $activo2 = 'class="active"'; $titulo='Carpeta personal'; break;
+		case 'publico' : $activo1 = 'class="active"'; $titulo='Documentos públicos'; break;
+		case 'privado' : $activo2 = 'class="active"'; $titulo='Documentos personales'; break;
 	}
 	
 	echo "<div class=\"container\">\n";
 	echo "  <ul class=\"nav nav-tabs\">\n";
-	echo "    <li $activo1><a href=\"index.${phpExt}?index=publico\">Carpeta pública</a></li>\n";
-	echo "    <li $activo2><a href=\"index.${phpExt}?index=privado\">Carpeta personal</a></li>\n";
+	echo "    <li $activo1><a href=\"index.${phpExt}?index=publico\">Documentos públicos</a></li>\n";
+	echo "    <li $activo2><a href=\"index.${phpExt}?index=privado\">Documentos personales</a></li>\n";
 	echo "  </ul>\n";
 	
 	echo "   <div class=\"page-header\">\n";
