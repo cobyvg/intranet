@@ -27,11 +27,15 @@ echo '<tr><th>'.$nombre.'ª</th>';
 		if (! (empty ( $z ) and ! ($n_hora))) {
 			$extra = "and dia = '$z' and hora = '$n_hora'";
 		}
+	$conv = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr'");
+	if(mysql_num_rows($conv) > '0'){
+	$gucon = "1";
+	}
 		$asignatur1 = mysql_query ( "SELECT distinct  c_asig, a_asig FROM  horw where prof = '$pr' $extra" );
 		//echo "SELECT distinct  c_asig, a_asig FROM  horw where prof = '$pr' $extra<br>";
 		
 		$rowasignatur1 = mysql_fetch_row ( $asignatur1 );
-		if (($rowasignatur1 [1] == "GUCON")) {
+		if ($gucon=='1') {
 			$rowasignatur1 [1] = "CON";
 		}
 		if (is_numeric ( $rowasignatur1 [0] ) and ! ($rowasignatur1 [1] == "GU")) {

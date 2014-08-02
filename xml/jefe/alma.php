@@ -294,7 +294,12 @@ $matr = mysql_query("select * from matriculas");
 			<h5>ATENCIÓN:</h5>
 Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
 }
+
+// Alumnos TIC
 include("exportaTIC.php");
+
+// Importación de las asignaturas
+include 'asignaturas.php';
  ?>
 <br />
 <div align="center">

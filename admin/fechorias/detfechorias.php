@@ -186,8 +186,8 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
   <div class="col-sm-4">
     <?
    $pr = $_SESSION ['profi'];
-   $conv = mysql_query("select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'");
-	if (mysql_num_rows($conv) > '0') {$gucon = '1';}
+   $conv = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr'");
+   if (mysql_num_rows($conv) > '0') {$gucon = '1';}
 	if(stristr($_SESSION['cargo'],'1') == TRUE or $gucon == '1' or stristr($_SESSION['cargo'],'8') == TRUE)
 		{
 	if (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE) {

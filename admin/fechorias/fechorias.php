@@ -8,86 +8,8 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-?>
-<!DOCTYPE html>  
-<html lang="es">  
-  <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet</title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
-    <meta name="author" content="">  
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet">  
-    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css"> 
-     <script type="text/javascript">
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar el registro de la base de datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>  
-<style type="text/css">
-.table td{
-	vertical-align:middle;
-}
-</style>
-</head>
-<body>
-  
-<?
 
-$idea = $_SESSION ['ide'];
-if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activo1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activo2 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active" ';}
-?>
- <!-- Navbar
-    ================================================== -->
-<div class="navbar navbar-inverse navbar-fixed-top no_imprimir">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="fa fa-bars"></span>
-      </a>
-      <a class="brand" href="http://<? echo $dominio;?>/intranet/index.php">Intranet del <?php echo $nombre_del_centro; ?></a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li <? echo $activo1;?>><a href="http://<? echo $dominio;?>/intranet/index.php">Inicio</a></li>
-          <li><a href="http://<? echo $dominio;	?>">Página del centro</a></li>
-          <li<? echo $activo2;?>><a href="http://<? echo $dominio;	?>/intranet/admin/mensajes/">Mensajes</a></li>
-          <li<? echo $activo3;?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
-          <li><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank">Séneca</a></li>
-        </ul>
-        
-        <ul class="nav pull-right">
-        	<li class="dropdown">
-        		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        			<i class="fa fa-user "></i> <? echo $idea; ?> <b class="caret"></b>
-        		</a>
-        		<ul class="dropdown-menu">
-        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="fa fa-pencil-square-o"></i> Cambiar contraseña</a></li>
-        			<li class="divider"></li>
-        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
-        		</ul>
-        	</li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </div>
-</div>
-
-
- <?
+include("../../menu.php");
 include("menu.php");
 $imprimir_activado = true;
 ?>
@@ -107,10 +29,10 @@ $imprimir_activado = true;
 if(isset($_POST['submit1'])){$submit1 = $_POST['submit1'];}elseif(isset($_GET['submit1'])){$submit1 = $_GET['submit1'];}else{ $submit1=""; }
 if(isset($_POST['unidad'])){$unidad = $_POST['unidad'];}else{ $unidad=""; }
 if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
-if(isset($_POST['APELLIDOS'])){$APELLIDOS = $_POST['APELLIDOS'];}else{ $APELLIDOS=""; }
-if(isset($_POST['NOMBRE'])){$NOMBRE = $_POST['NOMBRE'];}else{ $NOMBRE=""; }
-if(isset($_POST['DIA'])){$DIA = $_POST['DIA'];}else{ $DIA=""; }
-if(isset($_POST['MES'])){$MES = $_POST['MES'];}else{ $MES=""; }
+if(isset($_POST['apellidos'])){$APELLIDOS = $_POST['apellidos'];}else{ $APELLIDOS=""; }
+if(isset($_POST['nombre'])){$NOMBRE = $_POST['nombre'];}else{ $NOMBRE=""; }
+if(isset($_POST['dia'])){$DIA = $_POST['dia'];}else{ $DIA=""; }
+if(isset($_POST['mes'])){$MES = $_POST['mes'];}else{ $MES=""; }
 if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
 if(isset($_POST['confirma'])){$confirma = $_POST['confirma'];}else{ $confirma=""; }
 if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}elseif(isset($_POST['claveal'])){$claveal = $_POST['claveal'];}else{$claveal="";}
@@ -161,7 +83,7 @@ exit();
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and FALUMNOS.nombre like '$NOMBRE%'";
     }
@@ -169,7 +91,7 @@ exit();
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and FALUMNOS.claveal = '$claveal'";
     }
@@ -177,7 +99,7 @@ exit();
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and FALUMNOS.apellidos like '$APELLIDOS%'";
     }
@@ -186,7 +108,7 @@ exit();
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and (month(Fechoria.fecha)) = '$MES'";
     }
@@ -194,7 +116,7 @@ exit();
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $DIA = cambia_fecha($DIA);
     $AUXSQL .= " and (date(Fechoria.fecha)) = '$DIA'";
@@ -203,7 +125,7 @@ exit();
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and FALUMNOS.unidad like '$unidad'";
     }

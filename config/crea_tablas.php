@@ -135,7 +135,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `asignaturas` (
   `CODIGO` varchar(10) DEFAULT NULL,
   `NOMBRE` varchar(96) DEFAULT NULL,
   `ABREV` varchar(10) DEFAULT NULL,
-  `CURSO` varchar(64) DEFAULT NULL,
+  `CURSO` varchar(128) DEFAULT NULL,
   KEY `CODIGO` (`CODIGO`),
   KEY `ABREV` (`ABREV`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
@@ -788,7 +788,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `materias` (
   `CODIGO` varchar(10) DEFAULT NULL,
   `NOMBRE` varchar(64) DEFAULT NULL,
   `ABREV` varchar(10) DEFAULT NULL,
-  `CURSO` varchar(64) DEFAULT NULL,
+  `CURSO` varchar(128) DEFAULT NULL,
   `GRUPO` varchar(6) DEFAULT NULL,
   KEY `CODIGO` (`CODIGO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
@@ -884,6 +884,24 @@ mysql_query("CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
   PRIMARY KEY (`id`),
   KEY `profesor` (`profesor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+// ////////////////////////////////////////////////////////
+
+//
+// Estructura de tabla para la tabla `noticias`
+//
+
+mysql_query("CREATE TABLE IF NOT EXISTS `noticias` (
+  `id` int(11) NOT NULL auto_increment,
+  `slug` text collate latin1_spanish_ci NOT NULL,
+  `content` longtext collate latin1_spanish_ci,
+  `contact` varchar(255) collate latin1_spanish_ci default NULL,
+  `timestamp` datetime NOT NULL default '0000-00-00 00:00:00',
+  `clase` varchar(48) collate latin1_spanish_ci default NULL,
+  `fechafin` date default NULL,
+  `pagina` tinyint(2) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 

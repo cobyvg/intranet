@@ -38,41 +38,63 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
-?>
 
-<?php
 include("../../menu.php");
 ?>
-<br />
-<div align="center">
-<div class="page-header" align="center">
-  <h2>Administración <small> Importación de alumnos con asignaturas pendientes</small></h2>
-</div>
-<FORM ENCTYPE="multipart/form-data" ACTION="index_pendientes.php" METHOD="post">
 
-  <div class="form-group">
- <p class="help-block" style="width:540px; text-align:left"><span style="color:#9d261d">(*) </span>La importación de alumnos con asignaturas pendientes necesita el archivo comprimido (.zip) de calificaciones de la Evaluación Extraordinaria (Septiembre) del curso anterior. El archivo se descarga desde S&Eacute;NECA --> Utilidades --> Importación / Exportación --> Exportación de calificaciones del alumno. Asegúrate de que estás descargando el archivo del curso anterior, no del actual.</p>
-  <br />
-  <div class="well well-large" style="width:500px; margin:auto;" align="left">
-  <div class="controls">
- 
-  <label class="control-label" for="archivo2">Selecciona el archivo con las calificaciones extraordinarias
-  </label>
-  <input type="file" name="archivo2" class="input input-file col-sm-4" id="file">
-  <hr>
-  <div align="center">
-    <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">
-  </div>
-  </div>
-  </div>
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Administración <small>Importación de alumnos con asignaturas pendientes</small></h2>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA IZQUIERDA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form enctype="multipart/form-data" method="post" action="">
+					<fieldset>
+						<legend>Importación de alumnos con asignaturas pendientes</legend>
+						
+						<div class="form-group">
+						  <label for="archivo2"><span class="text-info">Exportacion_de_Calificaciones.zip</span></label>
+						  <input type="file" id="archivo2" name="archivo2" accept="application/zip">
+						</div>
+						
+						<br>
+						
+					  <button type="submit" class="btn btn-primary" name="enviar">Importar</button>
+					  <a class="btn btn-default" href="../index.php">Volver</a>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<div class="col-sm-6">
+			
+			<h3>Información sobre la importación</h3>
+			
+			<p>Este apartado se encarga de importar los <strong>alumnos matriculados en el centro con asignaturas pendientes</strong>.</p>
 
-</FORM>
-<br />
-<div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-success" />
-</div>
-</div>
-</div>
+			<p>Para obtener el archivo de exportación de calificaciones debe dirigirse al apartado <strong>Utilidades</strong>, <strong>Importación/Exportación de datos</strong>. Seleccione <strong>Exportación de Calificaciones</strong>. Seleccione la convocatoria <strong>Evaluación extraordinaria</strong> del curso anterior y añada todas las unidades de todos los cursos del centro. Proceda a descargar el archivo comprimido.<p>
+			
+		</div>
+		
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
+  
+<?php include("../../pie.php"); ?>
+	
 </body>
 </html>
-

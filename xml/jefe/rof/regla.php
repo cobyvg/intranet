@@ -53,83 +53,89 @@ if(isset($_POST['submit'])) {
 <?php
 include("../../../menu.php");
 ?>
-<br />
-<div class="page-header" align="center">
-  <h2>Reglamento de Organización y Funcionamiento del Centro</h2>
-</div>
-
-
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-<div class="row">
-	<div class="col-sm-offset-3 col-sm-7 well">
+<div class="container">
 	
-	<?php 
-	if($msg) {
-	 echo "<div class=\"alert alert-danger\">\n";
-	 echo "  $msg";
-	 echo "</div>\n";
-	}
-	?>
-	
-	<?php
-	echo '<fieldset>';
-	echo '  <legend>'.$titulo.'</legend>';
-	
-	$result = mysql_query("SELECT fechoria, medidas, medidas2, tipo FROM listafechorias WHERE id='$id'");
-	
-	$fechoria = mysql_fetch_array($result);
-		
-	echo '  <label for="asunto">Asunto</label>';
-	echo '  <input type="text" id="asunto" class="form-control" name="asunto" value="'.$fechoria[0].'" required>';
-	echo '  <br><br>';
-	echo '  <label for="medida">Medida</label>';
-	echo '  <select class="form-control" name="medida" required>';
-	
-	if($fechoria[1]=="Amonestación oral") $selected1="selected";
-	if($fechoria[1]=="Amonestación oral. Llamada telefónica.") $selected2="selected";
-	if($fechoria[1]=="Amonestación escrita") $selected3="selected";
-	if($fechoria[1]=="Llamada telefónica. Comunicación escrita") $selected4="selected";
-	
-	echo '    <option '.$selected1.'>Amonestación oral</option>';
-	echo '    <option '.$selected2.'>Amonestación oral. Llamada telefónica.</option>';
-	echo '    <option '.$selected3.'>Amonestación escrita</option>';
-	echo '    <option '.$selected4.'>Llamada telefónica. Comunicación escrita</option>';
-	echo '  </select>';
-	echo '  <br><br>';
-	echo '  <label for="medida2">Medida complementaria</label>';
-	echo '  <textarea type="text" id="medida2" class="form-control" name="medida2" rows="5" required>'.$fechoria[2].'</textarea>';
-	echo '  <br>';
-	echo '  <label for="gravedad">Gravedad</label>';
-	echo '  <select class="form-control" name="gravedad" required>';
-	
-	if($fechoria[3]=="leve") $selected2_1="selected";
-	if($fechoria[3]=="grave") $selected2_2="selected";
-	if($fechoria[3]=="muy grave") $selected2_3="selected";
-	
-	echo '    <option '.$selected2_1.'>leve</option>';
-	echo '    <option '.$selected2_2.'>grave</option>';
-	echo '    <option '.$selected2_3.'>muy grave</option>';
-	echo '  </select>';
-	echo '  <br><br>';
-	echo "</tr>\n";
-	
-	echo '</fieldset>';
-	
-	?>
+	<div class="page-header">
+	  <h2>ROF <small>Añadir nueva regla</small></h2>
 	</div>
-</div>
+	
+	
+	<div class="row">
+	
+		<div class="col-sm-6 col-sm-offset-3">
+		
+			<div class="well">
+		
+				<form method="post" action="">
+			
+					<?php 
+					if($msg) {
+					 echo "<div class=\"alert alert-danger\">\n";
+					 echo "  $msg";
+					 echo "</div>\n";
+					}
+					?>
+					
+					<?php
+					echo '<fieldset>';
+					echo '  <legend>'.$titulo.'</legend>';
+					
+					$result = mysql_query("SELECT fechoria, medidas, medidas2, tipo FROM listafechorias WHERE id='$id'");
+					
+					$fechoria = mysql_fetch_array($result);
+						
+					echo '  <label for="asunto">Asunto</label>';
+					echo '  <input type="text" id="asunto" class="form-control" name="asunto" value="'.$fechoria[0].'" required>';
+					echo '  <br><br>';
+					echo '  <label for="medida">Medida</label>';
+					echo '  <select class="form-control" name="medida" required>';
+					
+					if($fechoria[1]=="Amonestación oral") $selected1="selected";
+					if($fechoria[1]=="Amonestación oral. Llamada telefónica.") $selected2="selected";
+					if($fechoria[1]=="Amonestación escrita") $selected3="selected";
+					if($fechoria[1]=="Llamada telefónica. Comunicación escrita") $selected4="selected";
+					
+					echo '    <option '.$selected1.'>Amonestación oral</option>';
+					echo '    <option '.$selected2.'>Amonestación oral. Llamada telefónica.</option>';
+					echo '    <option '.$selected3.'>Amonestación escrita</option>';
+					echo '    <option '.$selected4.'>Llamada telefónica. Comunicación escrita</option>';
+					echo '  </select>';
+					echo '  <br><br>';
+					echo '  <label for="medida2">Medida complementaria</label>';
+					echo '  <textarea type="text" id="medida2" class="form-control" name="medida2" rows="5" required>'.$fechoria[2].'</textarea>';
+					echo '  <br>';
+					echo '  <label for="gravedad">Gravedad</label>';
+					echo '  <select class="form-control" name="gravedad" required>';
+					
+					if($fechoria[3]=="leve") $selected2_1="selected";
+					if($fechoria[3]=="grave") $selected2_2="selected";
+					if($fechoria[3]=="muy grave") $selected2_3="selected";
+					
+					echo '    <option '.$selected2_1.'>leve</option>';
+					echo '    <option '.$selected2_2.'>grave</option>';
+					echo '    <option '.$selected2_3.'>muy grave</option>';
+					echo '  </select>';
+					echo '  <br><br>';
+					echo "</tr>\n";
+					
+					echo '</fieldset>';
+					
+					?>
+					
+					<button type="submit" class="btn btn-primary" name="submit"><?php echo $boton; ?></button>
+					<a class="btn btn-default" href="index.php">Volver</a>
+					
+				</form>
+				
+			</div>
+			
+		</div><!-- /.col-sm-6 -->
+		
+	</div><!-- /.row -->
 
-<br>
-<div align="center">
-  <a href="index.php" class="btn btn-default">Cancelar</a>
-  <input type="submit" name="submit" class="btn btn-primary" value="<?php echo $boton; ?>">
-</div>
-<br>
-<br>
-</form>
+</div><!-- /.container -->
 
-<?php
-include("../../../pie.php");
-?>
+<?php include("../../../pie.php"); ?>
+
 </body>
 </html>

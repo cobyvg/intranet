@@ -11,60 +11,9 @@ if($_SESSION['autentificado']!='1')
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $pr = $_SESSION['profi'];
-?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="iso-8859-1">
-<title>Intranet &middot; <? echo $nombre_del_centro; ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description"
-	content="Intranet del <? echo $nombre_del_centro; ?>">
-<meta name="author"
-	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/otros.css"
-	rel="stylesheet">
-<link
-	href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css"
-	rel="stylesheet">
-<link
-	href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css"
-	rel="stylesheet">
-<link href="http://<? echo $dominio;?>/intranet/css/imprimir.css"
-	rel="stylesheet" media="print">
+include("menu.php");
 
-<style type="text/css">
-.nota {
-	border: none;
-	color: #9d261d;
-}
-</style>
-<?
-echo "
-<script>
-function seleccionar_tod(){
-	for (i=0;i<document.imprime.elements.length;i++)
-		if(document.imprime.elements[i].id == 'selal')	
-			document.imprime.elements[i].checked=1
-}
-function deseleccionar_tod(){
-	for (i=0;i<document.imprime.elements.length;i++)
-		if(document.imprime.elements[i].id == 'selal')	
-			document.imprime.elements[i].checked=0
-}
-</script>
-";
-?>
-</head>
-<body>
-<?
-include("menu_solo.php");
-?>
-
-<?
 // Variables
 if (isset($_GET['profesor'])) {
 	$profesor = $_GET['profesor'];
@@ -592,8 +541,20 @@ input[type=number]::-webkit-inner-spin-button {
 ?></td>
 	</tr>
 </table>
-<? 
-include("pie.php");
-?>
+<?php include("pie.php"); ?>
+
+	<script>
+	function seleccionar_tod(){
+		for (i=0;i<document.imprime.elements.length;i++)
+			if(document.imprime.elements[i].id == 'selal')	
+				document.imprime.elements[i].checked=1
+	}
+	function deseleccionar_tod(){
+		for (i=0;i<document.imprime.elements.length;i++)
+			if(document.imprime.elements[i].id == 'selal')	
+				document.imprime.elements[i].checked=0
+	}
+	</script>
+	
 </body>
 </html>

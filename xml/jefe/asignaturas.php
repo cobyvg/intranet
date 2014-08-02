@@ -1,40 +1,9 @@
 <?
-session_start();
-include("../../config.php");
-if($_SESSION['autentificado']!='1')
-{
-session_destroy();
-header("location:http://$dominio/intranet/salir.php");	
-exit;
-}
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header("location:http://$dominio/intranet/salir.php");
-exit;	
-}
-?>
-<?php
-include("../../menu.php");
-?>
-<br />
-<div align="center">
-<div class="page-header" align="center">
-  <h2>Administración <small> Asignaturas y Calificaciones</small></h2>
-</div>
-<br />
-<div  align='center'>    
- <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
-        <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
-      </div>
-</div>
-<div id='t_larga' style='display:none' >
-
-<div class="well well-large" style="width:700px;margin:auto;text-align:left">
-<?
 // Vaciamos o borramos tablas
 mysql_query("TRUNCATE TABLE calificaciones");
 mysql_query("TRUNCATE TABLE asignaturas");
+mysql_query("ALTER TABLE  `asignaturas` CHANGE  `CURSO`  `CURSO` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL
+");
 mysql_query("drop table materias");
 
 // Asignaturas de Horw
@@ -46,11 +15,11 @@ $crear = "CREATE TABLE  IF NOT EXISTS `materias_temp` (
 	`CODIGO` varchar( 10 ) default NULL ,
  	`NOMBRE` varchar( 64 ) default NULL ,
  	`ABREV` varchar( 10 ) default NULL ,
-	`CURSO` varchar( 64 ) default NULL,
+	`CURSO` varchar( 128 ) default NULL,
 	`GRUPO` varchar( 6 ) default NULL
 	)" ;
-	mysql_query($crear);
-	mysql_query("CREATE TABLE if not exists `calificaciones_temp` (
+mysql_query($crear);
+mysql_query("CREATE TABLE if not exists `calificaciones_temp` (
   `codigo` varchar(5) CHARACTER SET latin1 NOT NULL DEFAULT '',
   `nombre` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
   `abreviatura` varchar(4) CHARACTER SET latin1 DEFAULT NULL,
@@ -197,17 +166,14 @@ No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
 </div>'); 
 
     // Y luego creamos la tabla con los sistemas de calificación y sus equivalencias
- //  include("calificaciones.php");
    
 echo '<br />
 <div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tablas ASIGNATURAS y CALIFICACIONES:<br /> Los datos se han introducido correctamente en la Base de Datos.
-</div></div><br />
-<div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div><hr>';
-  // Comprobación con Horw
+</div></div><br />';
+/* 
+// Comprobación con Horw
 echo "<p class='lead'>Comprobación de coherencia entre las Asignaturas de Séneca y de Horw.</p><br /> ";
 $elimina = "select distinct c_asig, a_asig, asig from horw, asignaturas where c_asig NOT IN (select distinct codigo from asignaturas)";
 $elimina1 = mysql_query($elimina);
@@ -225,17 +191,6 @@ $pend = explode("_",$elimina2[1]);
 if(strlen($pend[1]) > 0) {} else
 {echo "<li>".$elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] .  " --> " . $elimina2[3] ."</li>";}
 }
-
+*/
 ?>
 
-</div>
- <? include("../../pie.php");?>
-  <script>
-function espera( ) {
-        document.getElementById("t_larga").style.display = '';
-        document.getElementById("t_larga_barra").style.display = 'none';        
-}
-window.onload = espera;
-</script>  
-</body>
-</html>

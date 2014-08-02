@@ -8,50 +8,10 @@ header("location:http://$dominio/intranet/salir.php");
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-?>
-<!DOCTYPE html>  
-<html lang="es">  
-  <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet</title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
-    <meta name="author" content="">  
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">  
-    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css">   
-     <script type="text/javascript">
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar el registro de la base de datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>
-    <!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->    
-</head>
 
-<body>
- 
-<?
-include("../../menu_solo.php");
+include("../../menu.php");
 include("../../faltas/menu.php");
 ?>
-<style type="text/css">
-.table td{
-	vertical-align:middle;
-}
-</style>
 
 <div class="page-header" align="center">
   <h2>Faltas de Asistencia <small> Resumen de faltas por Grupo</small></h2>
@@ -68,7 +28,7 @@ include("../../faltas/menu.php");
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and FALUMNOS.unidad like '%$unidad%'";
     }
@@ -77,7 +37,7 @@ include("../../faltas/menu.php");
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and (month(fecha)) = $mes";
     }

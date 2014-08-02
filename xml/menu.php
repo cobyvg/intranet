@@ -4,14 +4,12 @@
 
 	
 	<li class="nav-header">A principio de curso...</li>
-	<li><a href="jefe/index2.php" class="enlacelateral">Importar Alumnos</a></li>
+	<li><a href="jefe/index2.php" class="enlacelateral">Importar Alumnos y Asignaturas</a></li>
 	<li><a href="jefe/index_xml.php" class="enlacelateral">Importar datos del Centro</a></li>
 	  <? if ($mod_horario) {?>
-	<li><a href="jefe/admin/" class="enlacelateral">Importar Horarios</a></li>
+	<li><a href="jefe/horario_xml.php" class="enlacelateral">Importar/Preparar Horarios </a></li>
 	<?}?>
-	<li><a href="jefe/asignaturas.php" class="enlacelateral">Importar Asignaturas</a></li>
 	<li><a href="jefe/indexprofesores.php" class="enlacelateral">Importar Profesores</a></li>
-	<li><a href="jefe/horario_xml.php" class="enlacelateral">Exportación de los Horarios a Séneca</a></li>
 	<li><a href="jefe/index_pendientes.php" class="enlacelateral">Lista de Alumnos con pendientes</a></li>
 	  <? if ($mod_tic and $mod_horario) {?>
 	<!--<li><a href="../TIC/distribucion/crea_tabla.php" class="enlacelateral">Crear Asignación TIC</a></li>-->
@@ -67,7 +65,6 @@
 	<li><a href="jefe/informes/accesos_alumnos.php" class="enlacelateral">Informe de accesos</a></li>
 
 	<li class="nav-header">Bases de datos</li>
-	<li><a href="jefe/copia_db/dump_db.php" class="enlacelateral">Copia de seguridad de la Base de datos</a></li>
-	<li><a href="jefe/copia_db/restaurar_bd.php" class="enlacelateral">Restaurar Base de datos</a></li>
+	<li><a href="jefe/copia_db/index.php" class="enlacelateral">Copias de seguridad</a></li>
 	</a></li>
 </ul>

@@ -28,7 +28,7 @@ $crea =" CREATE TABLE IF NOT EXISTS horw (
   dia char(1) NOT NULL default '',
   hora char(2) NOT NULL default '',
   a_asig varchar(8) NOT NULL default '',
-  asig varchar(64) NOT NULL default '',
+  asig varchar(128) NOT NULL default '',
   c_asig varchar(30) NOT NULL default '',
   prof varchar(50) NOT NULL default '',
   no_prof tinyint default NULL,
