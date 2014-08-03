@@ -17,8 +17,6 @@ if(!isset($token)) $token = time();
 
 if (isset($_GET['id'])) $id = $_GET['id'];
 
-
-
 // ENVIO DEL FORMULARIO
 if (isset($_POST['enviar'])) {
 	
@@ -34,7 +32,7 @@ if (isset($_POST['enviar'])) {
 	$pagina = $intranet.$principal;
 	
 	if (empty($slug) || empty($content) || empty($fecha)) {
-		echo $msg_error = "Todos los campos del formulario son obligatorios.";
+		$msg_error = "Todos los campos del formulario son obligatorios.";
 	}
 	else {
 		
@@ -46,19 +44,23 @@ if (isset($_POST['enviar'])) {
 			if ($ndias == 0) $fechafin = '0000-00-00';
 			else $fechafin = date("Y-m-d", strtotime("$fecha +$ndias days"));
 			
-			
-			// COMPROBAMOS SI INSERTAMOS O ACTUALIZAMOS
-			if(isset($id)) {
-				// ACTUALIZAMOS LA NOTICIA
-				$result = mysql_query("UPDATE noticias SET slug='$slug', content='$content', contact='$contact', timestamp='$fecha', clase='$clase', fechafin='$fechafin', pagina=$pagina WHERE id=$id LIMIT 1");
-				if (!$result) $msg_error = "No se ha podido actualizar la noticia. Error: ".mysql_error();
-				else $msg_success = "La noticia ha sido actualizada correctamente.";
+			if(empty($intranet) && empty($principal)) {
+				$msg_error = "Debe indicar dónde desea publicar la noticia.";
 			}
 			else {
-				// INSERTAMOS LA NOTICIA
-				$result = mysql_query("INSERT INTO noticias (slug, content, contact, timestamp, clase, fechafin, pagina) VALUES ('$slug','$content','$contact','$fecha','$clase','$fechafin',$pagina)");
-				if (!$result) $msg_error = "No se ha podido publicar la noticia. Error: ".mysql_error();
-				else $msg_success = "La noticia ha sido publicada correctamente.";
+				// COMPROBAMOS SI INSERTAMOS O ACTUALIZAMOS
+				if(isset($id)) {
+					// ACTUALIZAMOS LA NOTICIA
+					$result = mysql_query("UPDATE noticias SET slug='$slug', content='$content', contact='$contact', timestamp='$fecha', clase='$clase', fechafin='$fechafin', pagina=$pagina WHERE id=$id LIMIT 1");
+					if (!$result) $msg_error = "No se ha podido actualizar la noticia. Error: ".mysql_error();
+					else $msg_success = "La noticia ha sido actualizada correctamente.";
+				}
+				else {
+					// INSERTAMOS LA NOTICIA
+					$result = mysql_query("INSERT INTO noticias (slug, content, contact, timestamp, clase, fechafin, pagina) VALUES ('$slug','$content','$contact','$fecha','$clase','$fechafin',$pagina)");
+					if (!$result) $msg_error = "No se ha podido publicar la noticia. Error: ".mysql_error();
+					else $msg_success = "La noticia ha sido publicada correctamente.";
+				}
 			}
 			
 		}
@@ -78,19 +80,25 @@ if (isset($id) && (int) $id) {
 	else {
 		$row = mysql_fetch_array($result, MYSQL_ASSOC);
 		
-		$slug = (strstr($row['slug'], ' (Actualizado)') == true) ? $row['slug'] : $row['slug'].' (Actualizado)';
-		$content = $row['content'];
-		$contact = $row['contact'];
-		$fecha = $row['timestamp'];
-		$clase = $row['clase'];
-		$ndias = $row['ndias'];
-		$pagina = $row['pagina'];
+		if (stristr($_SESSION['cargo'],'1') == TRUE || $row['contact'] == $_SESSION['profi']) {
+			$slug = (strstr($row['slug'], ' (Actualizado)') == true) ? $row['slug'] : $row['slug'].' (Actualizado)';
+			$content = $row['content'];
+			$contact = $row['contact'];
+			$fecha = $row['timestamp'];
+			$clase = $row['clase'];
+			$ndias = $row['ndias'];
+			$pagina = $row['pagina'];
+			
+			// OBTENEMOS LOS LUGARES DONDE SE HA PUBLICADO LA NOTICIA
+			if (strstr($pagina, '1') == true) $intranet = 1;
+			if (strstr($pagina, '2') == true) $principal = 2;
+		}
+		else {
+			$msg_error = "No eres el autor o no tienes privilegios administrativos para editar esta noticia.";
+			unset($id);
+		}
 		
-		
-		// OBTENEMOS LOS LUGARES DONDE SE HA PUBLICADO LA NOTICIA
-		if (strstr($pagina, '1') == true) $intranet = 1;
-		if (strstr($pagina, '2') == true) $principal = 2;
-		
+		mysql_free_result($result);
 	}
 	
 }
