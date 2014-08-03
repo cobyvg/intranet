@@ -1,21 +1,22 @@
-<?
-$activo1="";
-$activo2="";
-if (strstr($_SERVER['REQUEST_URI'],'add.php')==TRUE) $activo1 = ' class="active" ';
-if (strstr($_SERVER['REQUEST_URI'],'list.php')==TRUE) $activo2 = ' class="active" ';
-?>
- <div class="container">   
-          <ul class="nav nav-tabs">
- 			<li <? echo $activo1;?>><a href="add.php">Añadir noticia</a></li>           
-      		<li <? echo $activo2;?>><a href="list.php">Todas las noticias</a></li>
- 
- 
-<form method="post" action="buscar.php" class="form-search" style="margin-top:4px;">
-      	<div class="input-group pull-right">
-    <input type="search" class="search-query" placeholder="Buscar en Noticias y Mensajes" name="expresion" onClick="this.value=''">   
-    <button type="submit" class="btn btn-success">Buscar</button>
-  		</div>    
-</form>
- 
-    	</ul>
-        </div>
+	<div class="container">
+		
+		<form method="get" action="buscar.php">
+		
+			<div class="pull-right col-lg-3">
+			   <div class="input-group">
+			     <input type="text" class="form-control input-sm" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar...">
+			     <span class="input-group-btn">
+			       <button class="btn btn-default btn-sm" type="submit"><span class="fa fa-search fa-lg"></span></button>
+			     </span>
+			   </div><!-- /input-group -->
+			 </div><!-- /.col-lg-3-->
+			 
+		</form>
+		
+		<ul class="nav nav-tabs">
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'redactar.php')==TRUE) ? ' class="active"' : ''; ?>><a href="redactar.php">Redactar noticia</a></li>
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php">Listado de noticias</a></li>
+		</ul>
+		
+	</div>
+	

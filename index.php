@@ -91,7 +91,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 				</div>
 				
 				<div class="bs-module hidden-xs">
-				<?php include ("fijos.php"); ?>
+				<?php include ("admin/noticias/widget_destacadas.php"); ?>
 				</div>
 	
 			</div><!-- /.col-sm-3 -->
@@ -108,7 +108,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 				<?php include ("pendientes.php"); ?>
 				          
         <div class="bs-module">
-        <?php include("noticias.php"); ?>
+        <?php include("admin/noticias/widget_noticias.php"); ?>
         </div>
         
         <br>

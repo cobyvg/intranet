@@ -17,228 +17,129 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 $profesor = $_SESSION['profi'];
 
-?>
-<script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
+if (isset($_GET['q'])) $search_query = urldecode($_GET['q']); else $search_query = '';
+$expresion = explode(' ', $search_query);
+
+$i = 0;
+$sql_where = "";
+
+while (false != $expresion[$i]) {
+
+	if ($i == 0) $sql_where .= "WHERE"; else $sql_where .= " AND";
+	$sql_where .= " (slug LIKE '%".$expresion[$i]."%' OR content LIKE '%".$expresion[$i]."%')";
+	
+	$i++;
 }
-</script>
-  <?php
+
 include("../../menu.php");
 include("menu.php");
-$expresion = $_POST['expresion'];
-?>
-<div class="page-header">
-  <h2>Noticias del Centro <small> Buscar en las Noticias</small></h2>
-</div>
-<br />
-<h3 align="center" class="muted">Noticias que contienen la expresión &quot;<a href="#"><? echo strtoupper($expresion);?></a>&quot;</h3><br /><br /><?
-$trozos = explode(" ",$expresion,5);
-for($i=0;$i<5;$i++)
-{
-if(!(empty($trozos[$i]))){
-$frase.=" and (slug like '%$trozos[$i]%' or content like '%$trozos[$i]%')";
-}
-}
-$query = "SELECT distinctrow id, slug, content, timestamp, contact from noticias where 1=1 ".$frase." order BY id DESC limit 50";
-$result = mysql_query($query);
-
-if (mysql_num_rows($result) > 0)
-{
-?>
-	<div align="center">
-    <TABLE class="table table-striped" style="width:900px;">
-<?	while($row = mysql_fetch_object($result))
-	{
-	?>      <tr> 
-		<td nowrap><? echo fecha_sin($row->timestamp); ?></td>        
-        <td>       
-        <a href="story.php?id=<? echo $row->id;?>">
-        <?
-	echo strip_tags($row->slug,'<br>'); 
-	?>	
-
-	</a></td>
-		<td nowrap>
-<?        	
-if(($row->contact == $profesor) or (strstr($_SESSION['cargo'],"1") == TRUE))	
-{
-?>
-        <a href="add.php?id=<? echo $row->id; ?>"><i class="fa fa-pencil" rel="Tooltip" title="Editar la noticia"> </i> </a> | <a href="delete.php?id=<? echo $row->id; ?>&fech_princ=<? echo $row->timestamp; ?>"><i class="fa fa-trash-o" rel="Tooltip" title="Borrar la noticia" onClick='return confirmacion();'> </i></a>
-<? } else{echo $row->contact;}?>
-        </td>
-      </tr>
-      <tr><td colspan="3">
-      <?
-          $buffer0 = strip_tags($row->content);
-								if(strlen($row->content) <= 150)	  
-								{
-								$cambiado = "<span class='badge badge-important'>$expresion</span>";
-								$buffer = str_replace($expresion,$cambiado,$buffer0);
-								echo strip_tags($buffer);}
-								else
-								{ 
-								$cambiado = "<span class='badge badge-important'>$expresion</span>";
-								$buffer = str_replace($expresion,$cambiado,$buffer0);
-								echo strip_tags(substr($buffer,0,200));
-								echo "...";
-								}
-								?>
-      </td></tr>
-	
-	<?
-	}
-		echo "</TABLE></div><hr>";
-
-}
-else
-{
-?>
-<div align="center"><div class="alert alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-Lo sentimos, pero ninguna noticia responde a ese criterio de búsqueda.          
-</div>
-</div>
-<?
-}
-?>
-<h3 align="center">Mensajes Enviados que contienen la expresión &quot;<a href="#"><? echo strtoupper($expresion);?></a>&quot;</h3><br /><?
-$trozos = explode(" ",$expresion,5);
-for($i=0;$i<5;$i++)
-{
-if(!(empty($trozos[$i]))){
-$frase0.=" and (asunto like '%$trozos[$i]%' or texto like '%$trozos[$i]%')";
-}
-}
-$query = "SELECT distinctrow id, asunto, texto, ahora, origen FROM mens_texto where 1=1 ".$frase0." and origen = '$profesor'order BY id DESC";
-$result = mysql_query($query);
-
-if (mysql_num_rows($result) > 0)
-{
-?>
-	<div align="center">
-    <TABLE class="table table-striped" style="width:900px;">
-<?	while($row = mysql_fetch_object($result))
-	{
-	?>      <tr > 
-		<td ><? echo fecha_sin($row->ahora); ?></td>        
-        <td >       
-        <a href="../mensajes/mensaje.php?id=<? echo $row->id;?>">
-        <?
-	echo strip_tags($row->asunto,'<br>'); 
-	?>	
-
-	</a></td>
-		<td nowrap><? echo $row->origen;?></td>
-      </tr>
-      <tr><td colspan="3" >
-      <?
-          $buffer0 = strip_tags($row->texto,'<br>');
-								if(strlen($row->texto) <= 150)	  
-								{
-								$cambiado = "<span class='badge badge-important'>$expresion</span>";
-								$buffer = str_replace($expresion,$cambiado,$buffer0);
-								echo $buffer;}
-								else
-								{ 
-								$cambiado = "<span class='badge badge-important'>$expresion</span>";
-								$buffer = str_replace($expresion,$cambiado,$buffer0);
-								echo substr($buffer,0,200);
-								echo "...";
-								}
-								?>
-      </td></tr>
-	
-	<?
-	}
-		echo "</TABLE></div><hr>";
-
-}
-else
-{
-?>
-<div align="center"><div class="alert alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-Lo sentimos, pero ningún mensaje enviado responde a ese criterio de búsqueda.          
-</div>
-</div>
-<?
-}
 ?>
 
-<h3 align="center">Mensajes Recibidos que contienen la expresión &quot;<a href="#"><? echo strtoupper($expresion);?></a>&quot;</h3><br />
+	<div class="container">
+		
+		<!-- TITULO DE LA PAGINA -->
+		<div class="page-header">
+			<h2>Noticias <small>Resultados de la búsqueda</small></h2>
+		</div>
+		
+		<!-- MENSAJES -->
+		<?php if(isset($msg_error)): ?>
+		<div class="alert alert-danger" role="alert">
+			<?php echo $msg_error; ?>
+		</div>
+		<?php endif; ?>
+		
+		<?php if(isset($msg_success)): ?>
+		<div class="alert alert-success" role="alert">
+			<?php echo $msg_success; ?>
+		</div>
+		<?php endif; ?>
+		
+		
+		<div class="row">
+			
+			<div class="col-sm-12">
+			
+				<form method="get" action="">
+				   <div class="input-group">
+				     <input type="text" class="form-control" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar por título o contenido de la noticia">
+				     <span class="input-group-btn">
+				       <button class="btn btn-default" type="submit"><span class="fa fa-search fa-lg"></span></button>
+				     </span>
+				   </div><!-- /input-group -->
+				</form>
+				
+				<br>
+				
+				<?php $result = mysql_query("SELECT id, slug, timestamp, contact, pagina FROM noticias $sql_where ORDER BY timestamp DESC"); ?>
+				
+				<?php if (mysql_num_rows($result)): ?>
+					
+					<style class="text/css">
+						a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; }
+					</style>
+					
+					<div class="table-responsive">
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Título</th>
+									<th nowrap>Fecha publicación</th>
+									<th>Autor</th>
+									<th>Int.</th>
+									<th>Ext.</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php while ($row = mysql_fetch_array($result)): ?>
+									<tr>
+										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['id']; ?></a></td>
+										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['slug']) > 60) ? substr($row['slug'],0,60).'...' : $row['slug']; ?></a></td>
+										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['timestamp'])); ?></a></td>
+										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['contact']; ?></a></td>
+										<td class="text-center">
+											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-star' : 'fa-star-o'; ?> fa-lg" rel="tooltip" title="Publicada en la intranet"></span>
+										</td>
+										<td class="text-center">
+											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-star' : 'fa-star-o'; ?> fa-lg" rel="tooltip" title="Publicada en la página externa"></span>
+										</td>
+										<td nowrap>
+											<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $_SESSION['profi'] == $row['contact']): ?>
+											<a href="redactar.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" rel="tooltip" title="Editar"></span></a>
+											<a href="index.php?id=<?php echo $row['id']; ?>&timestamp=<?php echo $row['timestamp']; ?>&borrar=1" onclick="return confirmacion();"><span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Eliminar"></span></a>
+											<?php endif; ?>
+										</td>
+									</tr>
+								<?php endwhile; ?>
+							</tbody>
+						</table>
+						<tfoot>
+							<tr>
+								<td colspan="5">
+									<div class="text-right text-muted">Total: <?php echo mysql_num_rows($result); ?> resultados</div>
+								</td>
+							</tr>
+						</tfoot>
+					</div>
+					
+					<?php mysql_free_result($result); ?>
+					
+				<?php else: ?>
+					
+					<h3>No se han encontrado resultados.</h3>
+					
+					
+				<?php endif; ?>
+				
+			</div><!-- /.col-sm-12 -->
+					
+		</div><!-- /.row -->
+		
+	</div><!-- /.container -->
 
-<?
-$trozos = explode(" ",$expresion,5);
-for($i=0;$i<5;$i++)
-{
-if(!(empty($trozos[$i]))){
-$frase0.=" and (asunto like '%$trozos[$i]%' or texto like '%$trozos[$i]%')";
-}
-}
-
-$query = "SELECT id, asunto, texto, ahora, origen FROM mens_texto, mens_profes where mens_texto.id = mens_profes.id_texto ".$frase0." and profesor = '$profesor' order BY id DESC";
-$result = mysql_query($query);
-
-if (mysql_num_rows($result) > 0)
-{
-?>
-	<div align="center">
-    <TABLE class="table table-striped" style="width:900px;">
-<?	while($row = mysql_fetch_object($result))
-	{
-
-	?>      <tr> 
-		<td><? echo fecha_sin($row->ahora); ?></td>        
-        <td>       
-        <a href="../mensajes/mensaje.php?id=<? echo $row->id;?>">
-        <?
-	echo strip_tags($row->asunto,'<br>'); 
-	?>	
-
-	</a></td>
-		<td nowrap><? echo $row->origen;?></td>
-      </tr>
-      <tr><td colspan="3">
-      <?
-          $buffer0 = strip_tags($row->texto,'<br>');
-								if(strlen($row->texto) <= 150)	  
-								{
-								$cambiado = "<span class='badge badge-important'>$expresion</span>";
-								$buffer = str_replace($expresion,$cambiado,$buffer0);
-								echo $buffer;}
-								else
-								{ 
-								$cambiado = "<span class='badge badge-important'>$expresion</span>";
-								$buffer = str_replace($expresion,$cambiado,$buffer0);
-								echo substr($buffer,0,200);
-								echo "...";
-								}
-								?>
-      </td></tr>
-	
-	<?
-	}
-		echo "</TABLE></div><hr>";
-
-}
-else
-{
-?>
-<br /><div align="center"><div class="alert alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-Lo sentimos, pero ningún mensaje recibido responde a ese criterio de búsqueda.          
-</div>
-</div><?
-}
-include("../../pie.php");
-?>
+<?php include("../../pie.php"); ?>
 
 </body>
 </html>
