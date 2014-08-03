@@ -1,6 +1,8 @@
 <?
 $activo1="";
-if (strstr($_SERVER['REQUEST_URI'],'add.php')==TRUE) {$activo1 = ' class="active" ';}else{$activo2 = ' class="active" ';}
+$activo2="";
+if (strstr($_SERVER['REQUEST_URI'],'add.php')==TRUE) $activo1 = ' class="active" ';
+if (strstr($_SERVER['REQUEST_URI'],'list.php')==TRUE) $activo2 = ' class="active" ';
 ?>
  <div class="container">   
           <ul class="nav nav-tabs">

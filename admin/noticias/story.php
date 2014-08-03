@@ -14,65 +14,67 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
+setlocale(LC_TIME, "es_ES");
 
-
-?>
-<?
 include("../../menu.php");
 include("menu.php");
 ?>
-<div class="page-header">
-  <h2>Noticias del Centro <small> Noticias en la base de datos</small></h2>
-</div>
 
-<div class="container-fluid">
-<div class="row">
-<div class="col-sm-10 col-sm-offset-1">
-<? 
-$id = $_GET['id'];
-$connection = mysql_connect($db_host, $db_user, $db_pass) or die ("Imposible conectar!");
-mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
+	<div class="container">
+		
+		<!-- TITULO DE LA PAGINA -->
+		<div class="page-header">
+			<h2>Noticias <small>Noticias y novedades del centro</small></h2>
+		</div>
+		
+		
+		<div class="row">
+			
+			<div class="col-sm-12">
+				
+				<?php $result = mysql_query("SELECT slug, content, contact, timestamp FROM noticias WHERE id='".$_GET['id']."'"); ?>
+				
+				<?php if (mysql_num_rows($result)): ?>
+					
+					<?php $row = mysql_fetch_array($result); ?>
+					<?php $exp_profesor = explode(',', $row['contact']); ?>
+					<?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
+					
+					<h3 class="text-info"><?php echo $row['slug']; ?></h3>
+					<h5 class="text-muted">Por <?php echo $profesor; ?> el <?php echo strftime('%A, %e de %B de %G',strtotime($row['timestamp'])); ?></h5>
+					
+					<br>
+					
+					<?php echo $row['content']; ?>
+					
+					<br>
+					<br>
+					
+					<?php mysql_free_result($result); ?>
+					
+					<div class="hidden-print">
+						<a class="btn btn-primary" href="#" onclick="javascript:print();">Imprimir</a>
+						<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $_SESSION['profi'] == $row['contact']): ?>
+						<a class="btn btn-info" href="add.php?id=<?php echo $_GET['id']; ?>">Editar</a>
+						<a class="btn btn-danger" href="list.php?id=<?php echo $_GET['id']; ?>&fech_princ=<?php echo $row['timestamp']; ?>&borrar=1">Eliminar</a>
+						<?php endif; ?>
+						<a class="btn btn-default" href="../../index.php">Volver</a>
+					</div>
+					
+				<?php else: ?>
+					
+					<h3>La noticia a la que intenta acceder no existe.</h3>
+					
+					
+				<?php endif; ?>
+				
+			</div><!-- /.col-sm-12 -->
+					
+		</div><!-- /.row -->
+		
+	</div><!-- /.container -->
 
-$query = "SELECT slug, content, contact, timestamp from noticias where id = '$id'";
-$result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
-$row = mysql_fetch_object($result);
+<?php include("../../pie.php"); ?>
 
-if ($row)
-{?>
-<p class="lead text-warning" align="center">
-<?          
-            echo $row->slug;
-?>
-</p>
-<br />
-<div class="well">
-<blockquote>
-<?             	
-			echo $row->content;
-?>
- </blockquote>
- </div>
- <p>
-            Publicada: <? echo fecha_actual($row->timestamp); ?><br />
-            Autor: <? echo $row->contact; ?><br /></p>  
-            <div align="center"><a href="../../index.php" class="btn btn-success">Volver a la página principal</a></div>
-<br /> 
-  <?
-}
-else
-{
-?>
-<div class="alert alert-danger alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>ATENCIÓN:</h4>Esa noticia no se encuentra en la base de datos
-          </div>
-<?
-}
-mysql_close($connection);
-?>
-</div>
-</div>
-</div>
-<? include("../../pie.php");?>
 </body>
 </html>
