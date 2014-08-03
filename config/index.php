@@ -99,7 +99,14 @@ else{
 	$adm=sha1("12345678");
 	mysql_query("INSERT INTO c_profes ( `pass` , `PROFESOR` , `dni`, `idea` ) VALUES ('$adm', 'admin', '12345678', 'admin');");
 	mysql_query("insert into departamentos (nombre, dni, departamento, cargo, idea) values ('admin', '12345678', 'Admin', '1', 'admin')");
+
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
 if (!($primera==1)) {
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {

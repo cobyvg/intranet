@@ -14,7 +14,14 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'7') 
 	header("location:http://$dominio/intranet/salir.php");
 	exit;
 }
+
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
 ?>
 <?
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}

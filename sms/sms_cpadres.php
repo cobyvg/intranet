@@ -12,7 +12,14 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 	header("location:http://$dominio/intranet/salir.php");
 	exit;
 }
+
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
 $profe = $_SESSION['profi'];
 if ($mod_sms) {
 	if (isset($_GET['padres2'])) {$padres2 = $_GET['padres2'];}elseif (isset($_POST['padres2'])) {$padres2 = $_POST['padres2'];}else{$padres2="";}

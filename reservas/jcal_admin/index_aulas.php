@@ -7,7 +7,14 @@ session_destroy();
 header("location:http://$dominio/intranet/salir.php");	
 exit;
 }
+
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
 /*if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR stristr($_SESSION['cargo'],'8') == TRUE))
 {
 header("location:http://$dominio/intranet/salir.php");

@@ -29,7 +29,14 @@ else
 		header("location:http://$dominio/intranet/salir.php");
 		exit;
 	}
-	registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+	
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
+registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
 	?>
 	<?php
 	include("../../menu.php");

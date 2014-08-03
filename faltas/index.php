@@ -49,7 +49,14 @@ $nml = $nml0[0];
 		header('Location:poner/index.php');
 		exit;
 	}
-	registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+	
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
+registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
 
 ?>
 <?

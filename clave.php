@@ -7,7 +7,14 @@ session_destroy();
 header("location:http://$dominio/intranet/salir.php");	
 exit;
 }
+
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
 
 $pr = $_SESSION['profi'] ;
 
@@ -72,6 +79,7 @@ if (isset($_POST['submit'])) {
 						$msg_error = "No se ha podido cambiar la contraseña, así que mejor te pongas en contacto con quien pueda arreglar el asunto.";
 					}
 					else {
+						$_SESSION['cambiar_clave'] = 0;
 						// Redirigimos a la página principal
 						header("Location:"."index.php");
 					}

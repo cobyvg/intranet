@@ -7,7 +7,14 @@ if ($_SESSION ['autentificado'] != '1') {
 	exit ();
 }
 
+
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
 $departamento = str_replace(" P.E.S.","",$_SESSION['depto']);
 $departamento1 = str_replace("·","a",$departamento);
 $departamento1 = str_replace("È","e",$departamento1);

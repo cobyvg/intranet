@@ -23,6 +23,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	// Si le Profesor entra por primera vez... (DNI es igual a Contrase�a)
 	if ($dni == strtoupper ( $clave0 ) and (strlen ( $codigo ) < '12') and ! (empty ( $dni )) and ! (empty ( $codigo ))) {
 		$_SESSION ['autentificado'] = '1';
+		$_SESSION['cambiar_clave'] = 1;	
 		$_SESSION ['profi'] = $pass1 [1];
 		$profe = $_SESSION ['profi'];
 		
@@ -66,7 +67,8 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		include_once('actualizar.php');
 		// Comprobamos si el usuario es Admin y entra por primera vez
 		if ($profe=="admin" and $clave == sha1("12345678")) {
-			$_SESSION ['autentificado'] = '1';			
+			$_SESSION ['autentificado'] = '1';
+			$_SESSION['cambiar_clave'] = 1;			
 			header ( "location:clave.php" );
 		}
 		else{

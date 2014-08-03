@@ -8,7 +8,14 @@ if($_SESSION['autentificado']!='1')
 	header("location:http://$dominio/intranet/salir.php");
 	exit;
 }
+
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
 
 $idea = $_SESSION ['ide'];
 if (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}
