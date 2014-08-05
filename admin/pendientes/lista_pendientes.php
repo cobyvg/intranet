@@ -51,10 +51,10 @@ FROM pendientes, asignaturas, alma, FALUMNOS
 WHERE asignaturas.codigo = pendientes.codigo
 AND FALUMNOS.claveal=alma.claveal
 AND alma.claveal = pendientes.claveal
-AND unidad NOT LIKE  "%p-%"  
-AND asignaturas.nombre =  "'.$valor.'" and unidad not like "1%"
+AND alma.unidad NOT LIKE  "%p-%"  
+AND asignaturas.nombre =  "'.$valor.'" and alma.unidad not like "1%"
 AND abrev LIKE  "%\_%"
-ORDER BY alma.curso, unidad, nc';
+ORDER BY alma.curso, alma.unidad, nc';
 		/*$sql = "SELECT alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, nc
 FROM alma,  pendientes , asignaturas, FALUMNOS
 WHERE Unidad='$valor' and alma.claveal = pendientes.claveal and FALUMNOS.claveal = pendientes.claveal
@@ -132,10 +132,10 @@ FROM pendientes, asignaturas, alma, FALUMNOS
 WHERE asignaturas.codigo = pendientes.codigo
 AND FALUMNOS.claveal=alma.claveal
 AND alma.claveal = pendientes.claveal
-AND unidad NOT LIKE  "%p-%" 
-AND asignaturas.nombre =  "'.$valor.'" and unidad not like "1%"
+AND alma.unidad NOT LIKE  "%p-%" 
+AND asignaturas.nombre =  "'.$valor.'" and alma.unidad not like "1%"
 AND abrev LIKE  "%\_%"
-ORDER BY alma.curso, unidad, nc';
+ORDER BY alma.curso, alma.unidad, nc';
 		//echo $sql."<br><br>";
 		$Recordset1 = mysql_query($sql) or die(mysql_error());  #crea la consulata;
 		while ($salida = mysql_fetch_array($Recordset1)){

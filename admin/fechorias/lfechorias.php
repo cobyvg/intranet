@@ -15,83 +15,12 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-?>
-<!DOCTYPE html>  
-<html lang="es">  
-  <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet</title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
-    <meta name="author" content="">  
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">   
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-    <link href="http://<? echo $dominio;?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css">  
-    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css">   
-     <script type="text/javascript">
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar el registro de la base de datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>
-    <!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->    
-</head>
-
-<body>
-  
-<?
-include ("../../funciones.php");
 $idea = $_SESSION ['ide'];
 if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activ1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activ2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activ3 = ' class="active" ';}
-?>
-  <!-- Navbar
-    ================================================== -->
-<div class="navbar navbar-fixed-top navbar-inverse no_imprimir">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="fa fa-bars"></span>
-      </a>
-      <a class="brand" href="http://<? echo $dominio;?>/intranet/index.php">Intranet del <?php echo $nombre_del_centro; ?></a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li <? echo $activ1;?>><a href="http://<? echo $dominio;?>/intranet/index.php">Inicio</a></li>
-          <li><a href="http://<? echo $dominio;	?>">Página del centro</a></li>
-          <li<? echo $activ2;?>><a href="http://<? echo $dominio;	?>/intranet/admin/mensajes/"> Mensajes</a></li>
-          <li<? echo $activ3;?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
-          <li><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank"> Séneca</a></li>
-        </ul>
-        
-        <ul class="nav pull-right">
-        	<li class="dropdown">
-        		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        			<i class="fa fa-user "></i> <? echo $idea; ?> <b class="caret"></b>
-        		</a>
-        		<ul class="dropdown-menu">
-        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="fa fa-pencil-square-o"></i> Cambiar contraseña</a></li>
-        			<li class="divider"></li>
-        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
-        		</ul>
-        	</li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </div>
-</div>
-  <?php
+
+include("../../menu.php");
 include("menu.php");
 $datatables_activado = true;
 if(isset($_GET['id'])){$id = $_GET['id'];}

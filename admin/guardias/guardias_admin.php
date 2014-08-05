@@ -21,17 +21,7 @@ header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
 ?>
-<script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>
+
 <?
 include("../../menu.php");
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}

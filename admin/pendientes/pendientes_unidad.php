@@ -49,7 +49,7 @@ if ($_POST['pdf']==1) {
 		
 		$sql = "SELECT alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, nc
 FROM alma,  pendientes , asignaturas, FALUMNOS
-WHERE Unidad='$valor' and alma.claveal = pendientes.claveal and FALUMNOS.claveal = pendientes.claveal
+WHERE alma.unidad='$valor' and alma.claveal = pendientes.claveal and FALUMNOS.claveal = pendientes.claveal
 AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas.curso like '$val_nivel%' ORDER BY Apellidos, Nombre";
 		//	echo $sql;
 		$Recordset1 = mysql_query($sql) or die(mysql_error());  #crea la consulata

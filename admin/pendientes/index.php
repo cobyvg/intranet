@@ -7,14 +7,7 @@ session_destroy();
 header("location:http://$dominio/intranet/salir.php");	
 exit;
 }
-
-if($_SESSION['cambiar_clave']) {
-	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
-}
-
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
-
 ?>
 <?
 include("../../menu.php"); 
@@ -28,26 +21,32 @@ $query_Recordset2 = "SELECT Unidad FROM alma GROUP BY unidad ORDER BY Unidad";
 $Recordset2 = mysql_query($query_Recordset2) or die(mysql_error());
 $row_Recordset2 = mysql_fetch_assoc($Recordset2);
 $totalRows_Recordset2 = mysql_num_rows($Recordset2);
-	echo '<br />
-<div align=center>
-<div class="page-header">
-  <h2>Listas de Alumnos <small> Lista de Alumnos con asignaturas pendientes</small></h2>
-</div>
-</div>
-<div class="container">
-<div class="row">';
-?>
-<div class="col-sm-4 col-sm-offset-2 well well-large">
 
-<legend>
-Listado de pendientes por Asignatura</legend>
-<form id="form1" name="form1" method="post" action="lista_pendientes.php">
-  <label>
-	<div class="text-info">
-    <p>Selecciona la(s) asignatura(s):  </p>
-  </div>
-  <select name="select[]" multiple size="10" class="input-xlarge">
-    <?php 
+?>
+
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Listado de alumnos <small>Alumnos con asignaturas pendientes</small></h2>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA IZQUIERDA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="lista_pendientes.php">
+					<fieldset>
+						<legend>Listado de pendientes por asignatura</legend>
+						
+						<div class="form-group">
+						  <select class="form-control" name="select[]" multiple size="6">
+<?php 
 do {  
 ?>
     <option><?php  echo $row_Recordset1[1]?></option>
@@ -59,23 +58,31 @@ do {
 	  $row_Recordset1 = mysql_fetch_array($Recordset1);
   }
 ?>
-  </select>
-  </label><br>
-  <label> 
-  <input class='btn btn-primary btn-block' type="submit" name="Submit" value="Enviar" />
-  </label>
-</form>
-</div>
-<div class="col-sm-4 well well-large">
-<legend>
-Listado de pendientes por Unidad</legend>
-<form id="form2" name="form2" method="post" action="pendientes_unidad.php">
-  <label>
-	<div class="text-info">
-    <p>Selecciona la(s) unidad(es):</p>
-  </div>
-  <select name="select1[]" size="10" multiple class="input-xlarge">
-    <?php 
+						  </select>
+						  <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples asignaturas.</p>
+						</div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+		
+		<!-- COLUMNA DERECHA -->
+		<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="pendientes_unidad.php">
+					<fieldset>
+						<legend>Listado de pendientes por grupos</legend>
+						
+						<div class="form-group">
+					    <select class="form-control" name="select1[]" multiple size="6">
+<?php 
 do {  
 	if (strstr($row_Recordset2['Unidad'],"E") or strstr($row_Recordset2['Unidad'],"B")) {	
 ?>
@@ -89,16 +96,22 @@ do {
 	  $row_Recordset2 = mysql_fetch_assoc($Recordset2);
   }
 ?>
-  </select>
-  </label><br>
-  <label> 
-  <input class='btn btn-primary btn-block' type="submit" name="Submit" value="Enviar" />
-  </label>
-</form>
-</div>
-</div>
-</div>
-	<?php 	
-mysql_free_result($Recordset1);
-?>
+					    </select>
+					    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit2">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
+
+<?php include("../../pie.php"); ?>
+</body>
 </html>
