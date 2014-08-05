@@ -7,8 +7,9 @@
 	<li><a href="jefe/index2.php" class="enlacelateral">Importar Alumnos y Asignaturas</a></li>
 	<li><a href="jefe/index_xml.php" class="enlacelateral">Importar datos del Centro</a></li>
 	  <? if ($mod_horario) {?>
-	<li><a href="jefe/horario_xml.php" class="enlacelateral">Importar/Preparar Horarios </a></li>
+	<li><a href="jefe/horario.php" class="enlacelateral">Importar/Preparar Horarios </a></li>
 	<?}?>
+	<li><a href="jefe/indexdepartamentos.php" class="enlacelateral">Importar Departamentos y Especialidades</a></li>
 	<li><a href="jefe/indexprofesores.php" class="enlacelateral">Importar Profesores</a></li>
 	<li><a href="jefe/index_pendientes.php" class="enlacelateral">Lista de Alumnos con pendientes</a></li>
 	  <? if ($mod_tic and $mod_horario) {?>
@@ -26,7 +27,7 @@
 
 	<li class="nav-header">Actualizaci&oacute;n</li>
 	<li><a href="jefe/index.php" class="enlacelateral">Actualizar Alumnos</a></li>
-	<li><a href="jefe/admin/actualiza_horario.php" class="enlacelateral">Actualizar Horarios</a></li>
+	<li><a href="jefe/horario.php" class="enlacelateral">Actualizar Horarios</a></li>
 	<li><a href="jefe/indexprofesores.php" class="enlacelateral">Actualizar Profesores</a></li>
 	<li><a href="jefe/indexdepartamentos2.php" class="enlacelateral">Actualizar Departamentos</a></li>
 	<? if ($mod_horario) {?>

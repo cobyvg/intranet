@@ -44,7 +44,7 @@ include("../../menu.php");
 // Limpiamos Tabla de Horarios de grupos que no da el profesor
 echo "<p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en S&eacute;neca.</p>";
 
-$hor0 = "select id, prof, a_grupo, asig from horw where asig not like 'OPTATIVA EXENTOS'";
+$hor0 = "select id, prof, a_grupo, asig from horw where a_grupo in (select nomunidad from unidades) and asig not like 'OPTATIVA EXENTOS'";
 $hor1 = mysql_query($hor0);
 echo "<ul>";
 while($hor = mysql_fetch_array($hor1))
@@ -53,8 +53,7 @@ $id = $hor[0];
 $profesor = $hor[1];
 $grupo = $hor[2];
 $materia = $hor[3];
-if(is_numeric(substr($grupo,0,1)))
-{
+
 $prof0 = "select * from profesores where profesor = '$profesor' and grupo = '$grupo'";
 $prof1 = mysql_query($prof0);
 if(mysql_num_rows($prof1) < 1)
@@ -63,7 +62,7 @@ echo "<li>Borrado: $profesor => $materia  => $grupo</li>";
 mysql_query("delete from horw where id = '$id'");
 }
 }
-}
+
 echo "</ul>";
 mysql_query("OPTIMIZE TABLE `horw`");  
 
