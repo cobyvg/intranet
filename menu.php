@@ -64,22 +64,23 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 				 	$mensajes_sin_leer = mysql_num_rows($result_mensajes);
 				 	mysql_free_result($result_mensajes);
 				 	?>
-			 		<li class="dropdown">
+				 	<li class="visible-xs"><a href="http://<? echo $dominio;?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
+			 		<li class="dropdown hidden-xs">
 			 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-			 				<span class="fa fa-envelope <?php echo ($mensajes_sin_leer > 0) ? 'text-warning' : ''; ?>"></span> <b class="caret"></b>
+			 				<span class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer > 0) ? 'text-warning' : ''; ?>"></span> <b class="caret"></b>
 			 			</a>
 			 			<ul class="dropdown-menu dropdown-messages">
-			 				<?php $result_mensajes = mysql_query("SELECT ahora, asunto, id, recibidoprofe, texto, origen from mens_profes, mens_texto where mens_texto.id = mens_profes.id_texto and profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
+			 				<?php $result_mensajes = mysql_query("SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
 			 				<?php if(mysql_num_rows($result_mensajes)): ?>
 			 				<?php while ($row = mysql_fetch_array($result_mensajes)): ?>
 			 				<?php $fecha = date_create($row['ahora']); ?>
 			 				<li>
-			 					<a href="http://<?php echo $dominio; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row['id']; ?>">
-			 						<div>
+			 					<a href="http://<?php echo $dominio; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
+			 						<div <?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
 			 							<span class="pull-right text-muted"><em><?php echo date_format($fecha, 'd M') ?></em></span>
 			 							<strong><?php echo $row['origen']; ?></strong>
 			 						</div>
-			 						<?php echo $row['asunto']; ?>
+			 						<div <?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>><?php echo $row['asunto']; ?></div>
 			 					</a>
 			 				</li>
 			 				<li class="divider"></li>

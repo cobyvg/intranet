@@ -1,20 +1,23 @@
-<?
+<?php
+// COMPROBAMOS LA VERSI�N DE PHP
+if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versi�n de PHP incompatible</h1>\n<p>Necesita PHP 5.3.0 o superior para poder utilizar esta aplicaci�n.</p>");
+
 session_start();
 
-// Comprobamos estado del archvo de configuraciï¿½n.
+// Comprobamos estado del archvo de configuraci�n.
 $f_config = file_get_contents('config.php');
 
 $tam_fichero = strlen($f_config);
 if (file_exists ( "config.php" ) and $tam_fichero > '10') {
 }
 else{
-// Compatibilidad con versiones anteriores: se mueve el archivo de configuraciï¿½n al directorio raï¿½z.
-// Archivo de configuraciï¿½n en antiguo directorio se mueve al raiz de la intranet
+// Compatibilidad con versiones anteriores: se mueve el archivo de configuraci�n al directorio ra�z.
+// Archivo de configuraci�n en antiguo directorio se mueve al raiz de la intranet
 if (file_exists ("/opt/e-smith/config.php")) 
 {
 	$texto = fopen("config.php","w+");
 	if ($texto==FALSE) {
-		echo "<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el directorio de la Intranet. Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>";
+		echo "<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el directorio de la Intranet. Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicaci�n necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>";
 		fclose($texto);
 		exit();
 	}
@@ -24,7 +27,7 @@ $Definitivo="";
 foreach ($lines as $line_num => $line) {
 $Definitivo.=$line;
 }
-$pepito=fwrite($texto,$Definitivo) or die("<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el archivo de configuración de la Intranet ( config.php ). Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>");
+$pepito=fwrite($texto,$Definitivo) or die("<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el archivo de configuraci�n de la Intranet ( config.php ). Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicaci�n necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>");
 fclose ($texto);
 }
 }
@@ -33,7 +36,7 @@ else{
 	exit();
 }
 }
-// Archivo de configuración cargado
+// Archivo de configuraci�n cargado
 include_once("config.php");
 
 if ($_SESSION ['autentificado'] != '1') {

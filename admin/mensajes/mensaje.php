@@ -46,11 +46,11 @@ include("menu.php");
     <div class="col-sm-12">
       <a href="index.php" class="btn btn-default"><span class="fa fa-times"></span> Cerrar</a>
       <a href="redactar.php?profes=1&origen=<?php echo $mensaje['origen']; ?>&asunto=RE: <?php echo $mensaje['asunto']; ?>" class="btn btn-primary"><span class="fa fa-reply"></span> Responder</a>
-      <a href="javascript:void(0);" class="btn btn-info" onclick="print()"><span class="fa fa-print"></span> Imprimir</a>
+      <a href="#" class="btn btn-info" onclick="javascript:print();"><span class="fa fa-print"></span> Imprimir</a>
       <?php
       $id !== $idprof ? $buzon='recibidos' : $buzon='enviados';
       ?>
-      <a href="index.php?inbox=<?php echo $buzon; ?>&delete=<?php echo $idprof; ?>" class="btn btn-danger"><span class="fa fa-trash-o"></span> Eliminar</a>
+      <a href="index.php?inbox=<?php echo $buzon; ?>&delete=<?php echo $idprof; ?>" class="btn btn-danger" data-bb="confirm-delete"><span class="fa fa-trash-o"></span> Eliminar</a>
     </div>
   </div>
   
