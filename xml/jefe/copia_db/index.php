@@ -111,34 +111,36 @@ include("../../../menu.php");
 	<div class="row">
 		
 		<div class="col-sm-12">
-		
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Archivo</th>
-						<th>Tamaño</th>
-						<th>Fecha</th>
-						<th>&nbsp;</th>
-					</tr>
-				</thead>
-				<?php $directorio = opendir(__DIR__); ?>
-				<?php while (($archivo = readdir($directorio)) !== false): ?>
-				<?php if(!in_array($archivo, array('.','..','index.php','restaurar.php','php.ini'))): ?>
-				<tbody>
-					<tr>
-						<td><?php echo $archivo; ?></td>
-						<td><?php echo mb_file(filesize($archivo)); ?></td>
-						<td><?php echo date("d-m-Y H:i:s", filectime($archivo)); ?></td>
-						<td>
-							<a href="restaurar.php?archivo=<?php echo $archivo; ?>" rel="tooltip" title="Restaurar"><span class="fa fa-undo fa-lg fa-fw"></span></a>
-							<a href="index.php?action=restaurar&archivo=<?php echo $archivo; ?>" rel="tooltip" title="Descargar"><span class="fa fa-cloud-download fa-lg fa-fw"></span></a>
-							<a href="index.php?action=eliminar&archivo=<?php echo $archivo; ?>" data-bb="confirm-delete" rel="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
-						</td>
-					</tr>
-				</tbody>
-				<?php endif; ?>
-				<?php endwhile; ?>
-			</table>
+			
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Archivo</th>
+							<th>Tamaño</th>
+							<th>Fecha</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+					<?php $directorio = opendir(__DIR__); ?>
+					<?php while (($archivo = readdir($directorio)) !== false): ?>
+					<?php if(!in_array($archivo, array('.','..','index.php','restaurar.php','php.ini'))): ?>
+					<tbody>
+						<tr>
+							<td><?php echo $archivo; ?></td>
+							<td><?php echo mb_file(filesize($archivo)); ?></td>
+							<td><?php echo date("d-m-Y H:i:s", filectime($archivo)); ?></td>
+							<td nowrap>
+								<a href="restaurar.php?archivo=<?php echo $archivo; ?>" rel="tooltip" title="Restaurar"><span class="fa fa-undo fa-lg fa-fw"></span></a>
+								<a href="index.php?action=restaurar&archivo=<?php echo $archivo; ?>" rel="tooltip" title="Descargar"><span class="fa fa-cloud-download fa-lg fa-fw"></span></a>
+								<a href="index.php?action=eliminar&archivo=<?php echo $archivo; ?>" data-bb="confirm-delete" rel="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
+							</td>
+						</tr>
+					</tbody>
+					<?php endif; ?>
+					<?php endwhile; ?>
+				</table>
+			</div>
 			
 			<a class="btn btn-primary" href="index.php?action=crear">Crear copia</a>
 			<a class="btn btn-default" href="restaurar.php">Restaurar desde archivo</a>
