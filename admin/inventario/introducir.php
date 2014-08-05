@@ -194,7 +194,7 @@ while($item = mysql_fetch_row($it))
 <?
 if ($j_s == '') {
 ?>
-<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="fa fa-trash-o" title="Borrar registro" onClick='return confirmacion();'> </i> </a>
+<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="fa fa-trash-o" title="Borrar registro" data-bb='confirm-delete'> </i> </a>
 <?
 }
 ?>

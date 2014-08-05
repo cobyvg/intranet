@@ -221,7 +221,7 @@ $datos[2]= str_replace("\\","",$datos[2]);
 		 // echo  $_SESSION['dpt']." == ".$datos[4];
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 ?>  
-    <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1"> <i class="fa fa-trash-o" title='Eliminar actividad' onClick='return confirmacion();'> </i> </a>
+    <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1"> <i class="fa fa-trash-o" title='Eliminar actividad' data-bb='confirm-delete'> </i> </a>
   <? } ?>
   
       <?

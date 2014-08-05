@@ -257,7 +257,7 @@ if($row->impreso<>1){
 if ($j_s == 'disabled') {} else {
 ?>
 <a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px"> <i class="fa fa-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
-<a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-trash-o" rel="Tooltip" title='Borrar el Acta' onClick='return confirmacion();'> </i></a> <a href="add.php?edicion=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-pencil" rel="Tooltip" title='Editar el Acta'> </i></a> 
+<a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-trash-o" rel="Tooltip" title='Borrar el Acta' data-bb='confirm-delete'> </i></a> <a href="add.php?edicion=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-pencil" rel="Tooltip" title='Editar el Acta'> </i></a> 
 <?
 }
 }

@@ -118,7 +118,7 @@ include("../../menu.php");
 			echo "<OPTION>$departamen</OPTION>";	
 			} 
 		  echo "</select>
-		  </td><td><a href='gest_dep.php?borrar=1&departament=$dep[0]'><i class='fa fa-trash-o fa-lg fa-fw' onClick='return confirmacion();'></i></a></td></tr>";	
+		  </td><td><a href='gest_dep.php?borrar=1&departament=$dep[0]'><i class='fa fa-trash-o fa-lg fa-fw' data-bb='confirm-delete'></i></a></td></tr>";	
 		  }
 		?>
 		</tbody>

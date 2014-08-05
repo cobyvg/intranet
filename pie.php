@@ -4,7 +4,7 @@
     		<hr>
     		
     		<p class="text-center">
-    			<small class="text-muted"><?php echo date('Y'); ?> &copy;  IESMonterroso. Todos los derechos reservados.</small>
+    			<small class="text-muted"><?php echo date('Y'); ?> &copy; IESMonterroso</small>
     		</p>
     		<p class="text-center">
     			<small>
@@ -23,6 +23,7 @@
     <!-- PLUGINS JS -->
     <script src="http://<? echo $dominio;?>/intranet/js/summernote.min.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/summernote-es-ES.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/bootbox.min.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-datepicker.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>
     
@@ -50,18 +51,31 @@ if ($datatables_min){
 }
 ?>
 
- <script type="text/javascript">
-    $("[rel=tooltip]").tooltip();
-</script>
+	<script type="text/javascript">
+		$("[rel=tooltip]").tooltip();
+	</script>
 
-<script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>
+	<script>
+	$(document).on("click", "a[data-bb]", function(e) {
+	    e.preventDefault();
+	    var type = $(this).data("bb");
+			var link = $(this).attr("href");
+			
+			if (type == 'confirm-delete') {
+				bootbox.setDefaults({
+				  locale: "es",
+				  show: true,
+				  backdrop: true,
+				  closeButton: true,
+				  animate: true,
+				  title: "Confirmación para eliminar",
+				});
+				
+				bootbox.confirm("Esta acción eliminará permanentemente el elemento seleccionado ¿Seguro que desea continuar?", function(result) {
+				    if (result) {
+				    	document.location.href = link;
+				    }
+				});
+			}
+	});
+	</script>

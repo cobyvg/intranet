@@ -247,7 +247,7 @@ mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now
 		<td nowrap>$caducada</td>
 		<td nowrap>$comentarios1</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='fechorias.php?id=$id&borrar=1' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o'  rel='tooltip' title='Borrar el registro' onClick='return confirmacion();' style='margin-right:10px;'> </i></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil' rel='tooltip' title='Editar el problema de convivencia' style='margin-right:5px;'> </i></A></div>";}	
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='fechorias.php?id=$id&borrar=1' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o'  rel='tooltip' title='Borrar el registro' data-bb='confirm-delete' style='margin-right:10px;'> </i></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil' rel='tooltip' title='Editar el problema de convivencia' style='margin-right:5px;'> </i></A></div>";}	
 		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search'  rel='tooltip' title='Detalles concretos del problema' style='margin-right:5px;'> </i></A></td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";

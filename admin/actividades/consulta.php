@@ -168,7 +168,7 @@ $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
     //echo $_SESSION['depto'] ."== $datos[4]";
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE){
 			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><i class="fa fa-pencil"> </i> </a>';	
-			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1"><i class="fa fa-trash-o" onClick="return confirmacion();"> </i> </a>';
+			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1"><i class="fa fa-trash-o" data-bb="confirm-delete"> </i> </a>';
 }
 elseif ($_SESSION['depto'] == $datos[4]){	 
 		if(stristr($_SESSION['cargo'],'4') == TRUE){

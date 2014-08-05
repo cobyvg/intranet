@@ -183,7 +183,7 @@ consultarla.</div>
 	<? }
 	else {?>
 <hr>
-<button class="btn btn-danger" type="submit" name="borrar" value="Borrar"><i class="fa fa-trash-o " onClick='return confirmacion();'></i> Borrar</button>
+<button class="btn btn-danger" type="submit" name="borrar" value="Borrar"><i class="fa fa-trash-o " data-bb='confirm-delete'></i> Borrar</button>
 &nbsp;&nbsp; &nbsp;&nbsp;
 <button class="btn btn-info" type="submit" name="sms" value="sms"><i class="fa fa-play-circle "></i> Enviar SMS</button>
 &nbsp;&nbsp; &nbsp;&nbsp;

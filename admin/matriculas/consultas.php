@@ -587,7 +587,7 @@ echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" 
  	echo $backup;
  }
  echo "</td><td class='hidden-print'>";
- echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
+ echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' data-bb='confirm-delete'> </i></a>";
  echo "</td>";
 echo "<td class='hidden-print'>";
 // Problemas de Convivencia

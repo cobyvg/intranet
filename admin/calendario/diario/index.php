@@ -150,7 +150,7 @@ while ($reg=mysql_fetch_array($eventQuery)) {
 	<td>$reg[5]</td>
 	<td nowrap>
 	<a href='index.php?id=$reg[0]'><i class='fa fa-search'></i></a>&nbsp;
-	<a href='index.php?id=$reg[0]&borrar=1'><i class='fa fa-trash-o' onClick='return confirmacion();'></i></a>
+	<a href='index.php?id=$reg[0]&borrar=1'><i class='fa fa-trash-o' data-bb='confirm-delete'></i></a>
 	</td></tr>";
 }
 echo "</tbody></table>";

@@ -150,7 +150,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 		<td style='vertical-align:middle' style='vertical-align:middle'><center>$rownumero</center></td>
 		<td style='vertical-align:middle'>$caducada</td>
 		<td nowrap style='vertical-align:middle'>$comentarios1 $comentarios</td><td nowrap style='vertical-align:middle'>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o'  rel='tooltip' title='Borrar el registro' onClick='return confirmacion();'> </i></a>&nbsp;&nbsp;";}	
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o'  rel='tooltip' title='Borrar el registro' data-bb='confirm-delete'> </i></a>&nbsp;&nbsp;";}	
 
 		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search' rel='tooltip' title='Detalles del problema'> </i></A></td>
 		<td style='vertical-align:middle'>";

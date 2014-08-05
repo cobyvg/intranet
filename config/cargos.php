@@ -271,7 +271,7 @@ include ("../menu.php");
 				echo "checked";
 			}
 			?> /></td>
-			<td class="text-center"><a href="cargos.php?borrar=1&dni_profe=<?echo $dni;?>"><span class="fa fa-trash-o fa-lg fa-fw" onClick='return confirmacion();'></span></a></td>
+			<td class="text-center"><a href="cargos.php?borrar=1&dni_profe=<?echo $dni;?>"><span class="fa fa-trash-o fa-lg fa-fw" data-bb='confirm-delete'></span></a></td>
 			</tr>
 		<?
 			}

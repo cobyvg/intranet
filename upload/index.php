@@ -443,13 +443,13 @@ function contents_dir($current_dir, $directory)
 	{
 		if (!is_dir("$current_dir/$filename"))
 		{
-			echo "<a href=\"index.${phpExt}?index=$index&action=deletefile&filename=$filename&directory=$directory\" onclick=\"javascript:return confirmacion();\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
+			echo "<a href=\"index.${phpExt}?index=$index&action=deletefile&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
 	    }
 	    else
 	    {
 	    	if ($grants[$user_status][DELALL])
 	    	{
-			    echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" onclick=\"javascript:return confirmacion();\" rel=\"tooltip\" title=\"Eliminar\">
+			    echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" data-bb=\"confirm\" rel=\"tooltip\" title=\"Eliminar\">
 			        <span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
 			}
 	    }
