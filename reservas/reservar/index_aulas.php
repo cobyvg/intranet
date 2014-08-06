@@ -54,7 +54,7 @@ $today = (isset($today))? $today : date("j", time());
 $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
-$numero_dia = $hoy[wday];
+$numero_dia = $hoy['wday'];
 
 $eventQuery = "SELECT id FROM `$db_reservas`.`$servicio` WHERE eventdate = '$sql_date';";
 //echo $eventQuery;
@@ -79,7 +79,7 @@ if ($event_found == 1) {
     // echo $postQuery;
     $postExec = mysql_query($postQuery) or die("Could not Post UPDATE `$db_reservas`.`$servicio` Event to database!");
     mysql_query("DELETE FROM `$db_reservas`.`$servicio` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' ");
-$mens="actulaizar";
+$mens="actualizar";
 } else {
   //INSERT   `reservas`.`A1B-C` (
     $postQuery = "INSERT INTO `$servicio` (eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html) VALUES ('$sql_date','$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST['day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST['day_event6']."','".$_POST['day_event7']."','$show_html');";
@@ -182,32 +182,133 @@ mysql_query($sql_hor);
 }
 // Estructura de la Tabla
 ?>
-<div class="page-header">
-  <h2>Reserva de Medios <small><strong><? echo $nombre_aula; ?></strong></small></h2>
-</div>
-<br />
-<?
-	if($mens=="actualizar"){ 
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            Los datos de la reserva han sido actualizados correctamente.
-          </div></div>';
-}
-if($mens=="insertar"){
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            Los datos de la reserva han sido registrados correctamente.
-          </div></div>';}
-	?>
+
+<div class="container">
+
+	<div class="page-header">
+	  <h2>Reservas <small> Reserva del <?php echo $servicio; ?></small></h2>
+	</div>
+
+	<?php if (isset($mens)): ?>
+	<?php if ($mens == 'actualizar'): ?>
+		<div class="alert alert-success">
+			La reserva se ha actualizado correctamente.
+	  </div>
+	<?php elseif ($mens == 'insertar'): ?>
+		<div class="alert alert-success">
+			La reserva se ha realizado correctamente.
+		</div>
+	<?php endif; ?>
+	<?php endif; ?>
+	
  <div class="row">
-<div class="col-sm-4 col-sm-offset-2">
-<div class="well well-small">
+ 
+ <div class="col-sm-5">
+ <?
+ $mes_sig = $month+1;
+ $mes_ant = $month-1;
+ $ano_ant = $ano_sig = $year;
+ if ($mes_ant == 0) {
+ 	$mes_ant = 12;
+ 	$ano_ant = $year-1;
+ }
+ if ($mes_sig == 13) {
+ 	$mes_sig = 1;
+ 	$ano_sig = $year+1;
+ }
+ 
+ //Nombre del Mes
+ echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
+ echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=".$ano_ant."&month=".$mes_ant."\"><span class=\"fa fa-arrow-circle-left fa-fw fa-lg\"></span></a></h4></th>";
+ echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
+ echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=".$ano_sig."&month=".$mes_sig."\"><span class=\"fa fa-arrow-circle-right fa-fw fa-lg\"></span></a></h4></th>";
+ echo "</tr></thead><tbody><tr>";
+ 
+ 
+ //Nombre de Días
+ foreach($alldays as $value) {
+   echo "<th style='background-color:#eee'>
+   $value</th>";
+ }
+ echo "</tr><tr>";
+ 
+ 
+ //Dí­as vací­os
+ for ($i = 0; $i < $dayone; $i++) {
+   echo "<td>&nbsp;</td>";
+ }
+ 
+ //DÃ­as
+ for ($zz = 1; $zz <= $numdays; $zz++) {
+   if ($i >= 7) {  print("</tr><tr>"); $i=0; }
+   
+   // Enlace
+   $enlace = $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.$aula;
+   
+   // Mirar a ver si hay alguna ctividad en el dÃ­as
+   $result_found = 0;
+   if ($zz == $today) { 
+     echo '<td class="calendar-today"><a href="'.$enlace.'">'.$zz.'</a></td>';
+     $result_found = 1;
+   }
+   
+   // Enlace
+   $enlace = $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.$aula;
+   
+   if ($result_found != 1) { 
+ 		//Buscar actividad para el dóa y marcarla
+ 		$sql_currentday = "$year-$month-$zz";
+ 
+     $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$aula` WHERE eventdate = '$sql_currentday';";
+ 				$eventExec = mysql_query ( $eventQuery );
+ 		if (mysql_num_rows($eventExec)>0) {
+ 			while ( $row = mysql_fetch_array ( $eventExec ) ) {
+         echo '<td class="calendar-orange"><a href="'.$enlace.'">'.$zz.'</a></td>';				
+ 				$result_found = 1;
+ 			}
+ 		}	
+ 		else{
+ 		$sql_currentday = "$year-$month-$zz";
+ 		$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
+ 		if (mysql_num_rows($fest)>0) {
+ 		$festiv=mysql_fetch_array($fest);
+ 			       echo '<td class="calendar-red">'.$zz.'</td>';
+ 				$result_found = 1;
+ 				}	
+ 		}
+ 		
+ 	}
+ 
+   if ($result_found != 1) {
+     echo '<td><a href="'.$enlace.'">'.$zz.'</a></td>';
+   }
+ 
+   $i++; $result_found = 0;
+ }
+ 
+ $create_emptys = 7 - (($dayone + $numdays) % 7);
+ if ($create_emptys == 7) { $create_emptys = 0; }
+ 
+ if ($create_emptys != 0) {
+   echo "<td colspan=\"$create_emptys\">&nbsp;</td>";
+ }
+ 
+ echo "</tr></tbody>";
+ echo "</table>";
+ echo "";
+ ?>
+ </div>
+ 
+		<div class="col-sm-7">
+		
+			<div class="well">
     <?
-	echo "<legend>$daylong, $monthlong $today, $year</legend><br />";	
+  echo "<form method=\"post\" action=\"index_aulas.php?servicio=$aula&year=$year&today=$today&month=$month\" name=\"jcal_post\">";
+	echo "<legend>Reserva para el $daylong, $today de $monthlong</legend><br />";	
 $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
-$numero_dia = $hoy[wday];
+$numero_dia = $hoy['wday'];
 $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, html FROM `$aula` WHERE eventdate = '$sql_date'";
 $eventExec = mysql_query($eventQuery);
 while($row = mysql_fetch_array($eventExec)) {
@@ -219,9 +320,6 @@ while($row = mysql_fetch_array($eventExec)) {
    $event_event6 = stripslashes($row["event6"]);
    $event_event7 = stripslashes($row["event7"]);
 }
-
-echo "<form name=\"jcal_post\" action=\"index_aulas.php?servicio=$aula&year=$year&today=$today&month=$month\" method=\"post\" class='form-vertical'>
-<div align='left'>";
 
 if($_SESSION['profi'] == 'conserje' or stristr($_SESSION['cargo'],'1') == TRUE){$SQL = "select distinct nombre from $db.departamentos order by nombre";}
 else{$SQL = "select distinct nombre from $db.departamentos where nombre = '". $_SESSION['profi'] ."'";}
@@ -360,137 +458,16 @@ if ($event_event7  == "") { echo "<label>7ª hora</label> &nbsp;&nbsp; <select na
 echo "<input type=\"hidden\" value=\"$year\" name=\"year\">
       <input type=\"hidden\" value=\"$month\" name=\"month\">
       <input type=\"hidden\" value=\"$today\" name=\"today\">
-       <hr><center>
-      <input name = 'enviar' type=\"submit\" id='formsubmit' value='Enviar datos' class='btn btn-block btn-primary'> </center>
+      <input type=\"submit\" class=\"btn btn-primary\" id=\"formsubmit\" name=\"enviar\" value=\"Reservar\">
     </form>";
 echo "</div>";
 ?>
 </div>
 </div>
-<div class="col-sm-4">
+</div>
+</div>
+
 <?
-echo "<table class='table table-bordered table-striped'><tr><th>
-<div align='center'>
-	<a href='".$_SERVER['PHP_SELF']."?servicio=$aula&year=$last_year&today=$today&month=$month'>
-<i class='fa fa-arrow-o-left' name='calb2' style='margin-right:20px;'> </i> </a>
-<h3 style='display:inline'>$year</h3>
-<a href='".$_SERVER['PHP_SELF']."?servicio=$aula&year=$next_year&today=$today&month=$month'>
-<i class='fa fa-arrow-o-right' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table>";
-
-echo "<table class='table table-bordered' align='center'>
-      <tr>";
-	  $meses = array(1=>Ene, 2=>Feb, 3=>Mar, 4=>Abr, 5=>May, 6=>Jun, 7=>Jul, 8=>Ago, 9=>Sep, 10=>Oct, 11=>Nov, 12=>Dic);
-	  foreach ($meses as $num_mes => $nombre_mes) {
-	  	
-	  	if ($num_mes==$month) {
-	  		echo "<th  onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
-		"?servicio=$aula&year=$year&today=$today&month=1';\" style='background-color:#08c'> 
-		<a href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=$year&today=$today&month=".$num_mes."\" style='color:#efefef'>".$nombre_mes."</a> </th>";
-	  	}
-	  	else{
-	  		echo "<th  onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
-		"?servicio=$aula&year=$year&today=$today&month=1';\" > 
-		<a href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=$year&today=$today&month=".$num_mes."\">".$nombre_mes."</a> </th>";
-	  	}
-	  if ($num_mes=='6') {
-	  		echo "</tr><tr>";
-	  	}
-	  }
-	  echo "</tr>
-    </table>";
-
-
-//Nombre del Mes
-echo "<table class='table table-bordered'><tr>";
-echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h3 align='center'>" . $monthlong . 
-"</h3></td>";
-echo "</tr><tr>";
-
-
-//Nombre de Días
-foreach($alldays as $value) {
-  echo "<th style='background-color:#eee'>
-  $value</th>";
-}
-echo "</tr><tr>";
-
-
-//Días vacíos
-for ($i = 0; $i < $dayone; $i++) {
-  echo "<td>&nbsp;</td>";
-}
-
-
-//Días
-for ($zz = 1; $zz <= $numdays; $zz++) {
-  if ($i >= 7) {  print("</tr><tr>"); $i=0; }
-  // Mirar a ver si hay alguna ctividad en el días
-  $result_found = 0;
-  if ($zz == $today) { 
-    echo "<td onClick=\"window.location='" 
-	.$_SERVER['PHP_SELF']. "?servicio=$aula&year=$year&today=$zz&month=$month';\" style='background-color:#0072E6;color:#fff;cursor:pointer;'>$zz</td>";
-    $result_found = 1;
-  }
-  
-  if ($result_found != 1) { 
-		//Buscar actividad para el dóa y marcarla
-		$sql_currentday = "$year-$month-$zz";
-    	$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$aula` WHERE eventdate = '$sql_currentday';";
- 		$eventExec = mysql_query ( $eventQuery );
-		if (mysql_num_rows($eventExec)>0) {
-			while ( $row = mysql_fetch_array ( $eventExec ) ) {
-echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?servicio=$aula&year=$year&today=$zz&month=$month';\" style='background-color:#f89406;color:#fff;cursor:pointer;'>$zz</td>";
-$result_found = 1;
-		}	
-		}
-		else{
-		$sql_currentday = "$year-$month-$zz";
-		$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
-		if (mysql_num_rows($fest)>0) {
-		$festiv=mysql_fetch_array($fest);
-			        echo "<td style='background-color:#46A546;'><a style='color:#fff'>$zz</a></td>\n";
-				$result_found = 1;
-				}	
-		}
-		
-	}
-	
-/*  if ($result_found != 1) {//Buscar actividad  y marcarla.
-    $sql_currentday = "$year-$month-$zz";
-    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$aula` WHERE eventdate = '$sql_currentday';";
-    //echo $eventQuery;
-    $eventExec = mysql_query($eventQuery);
-    while($row = mysql_fetch_array($eventExec)) {
-      if (mysql_num_rows($eventExec) == 1) {
-echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?servicio=$aula&year=$year&today=$zz&month=$month';\" style='background-color:#f89406;color:#fff;cursor:pointer;'>$zz</td>";
-        $result_found = 1;
-      }
-    }
-  }*/
-
-  if ($result_found != 1) {
-    echo "<td onClick=\"window.location='" .$_SERVER['PHP_SELF']. "?servicio=$aula&year=$year&today=$zz&month=$month';\" style='cursor:pointer;'><a href='".$_SERVER['PHP_SELF']."?servicio=$aula&year=$year&today=$zz&month=$month'>$zz</a></td>";
-  }
-
-  $i++; $result_found = 0;
-}
-
-$create_emptys = 7 - (($dayone + $numdays) % 7);
-if ($create_emptys == 7) { $create_emptys = 0; }
-
-if ($create_emptys != 0) {
-  echo "<td colspan=\"$create_emptys\">&nbsp;</td>";
-}
-
-echo "</tr>";
-echo "</table>";
-echo "";
-?>
-</div>
-</div>
-</div>
-<?
-
 include("../../pie.php");
 ?>
 </body>

@@ -82,30 +82,127 @@ if ($today > $numdays) { $today--; }
 ?>
 
 <div class="container">
+
 	<div class="page-header">
-	  <h2>Reserva de Medios <small> Reserva del <?php echo $servicio; ?></small></h2>
+	  <h2>Reservas <small> Reserva del <?php echo $servicio; ?></small></h2>
 	</div>
-<br />
-<?
-if (isset($_GET['mens'])) {
-	if($_GET['mens']=="actualizar"){ 
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            Los datos de la reserva han sido actualizados correctamente.
-          </div></div>';
-}
-if($_GET['mens']=="insertar"){
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            Los datos de la reserva han sido registrados correctamente.
-          </div></div>';}
-}
-	?>
+
+	<?php if (isset($_GET['mens'])): ?>
+	<?php if ($_GET['mens'] == 'actualizar'): ?>
+		<div class="alert alert-success">
+			La reserva se ha actualizado correctamente.
+	  </div>
+	<?php elseif ($_GET['mens'] == 'insertar'): ?>
+		<div class="alert alert-success">
+			La reserva se ha realizado correctamente.
+		</div>
+	<?php endif; ?>
+	<?php endif; ?>
+	
  <div class="row">
-<div class="col-sm-5 col-sm-offset-1">
-<div class="well">
+	
+	<div class="col-sm-5">
+	<?
+	$mes_sig = $month+1;
+	$mes_ant = $month-1;
+	$ano_ant = $ano_sig = $year;
+	if ($mes_ant == 0) {
+		$mes_ant = 12;
+		$ano_ant = $year-1;
+	}
+	if ($mes_sig == 13) {
+		$mes_sig = 1;
+		$ano_sig = $year+1;
+	}
+	
+	//Nombre del Mes
+	echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
+	echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?servicio=$servicio&year=".$ano_ant."&month=".$mes_ant."\"><span class=\"fa fa-arrow-circle-left fa-fw fa-lg\"></span></a></h4></th>";
+	echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
+	echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?servicio=$servicio&year=".$ano_sig."&month=".$mes_sig."\"><span class=\"fa fa-arrow-circle-right fa-fw fa-lg\"></span></a></h4></th>";
+	echo "</tr></thead><tbody><tr>";
+	
+	
+	//Nombre de DÃ­as
+	foreach($alldays as $value) {
+	  echo "<th style='background-color:#eee'>
+	  $value</th>";
+	}
+	echo "</tr><tr>";
+	
+	
+	//DÃ­as vacÃ­os
+	for ($i = 0; $i < $dayone; $i++) {
+	  echo "<td>&nbsp;</td>";
+	}
+	
+	//DÃ­as
+	for ($zz = 1; $zz <= $numdays; $zz++) {
+	  if ($i >= 7) {  print("</tr><tr>"); $i=0; }
+	  
+	  // Enlace
+	  $enlace = $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.$servicio;
+	  
+	  // Mirar a ver si hay alguna ctividad en el dÃ­as
+	  $result_found = 0;
+	  if ($zz == $today) { 
+	    echo '<td class="calendar-today"><a href="'.$enlace.'">'.$zz.'</a></td>';
+	    $result_found = 1;
+	  }
+	  
+	  // Enlace
+	  $enlace = $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.$servicio;
+	  
+	  if ($result_found != 1) { 
+			//Buscar actividad para el dóa y marcarla
+			$sql_currentday = "$year-$month-$zz";
+	
+	    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
+					$eventExec = mysql_query ( $eventQuery );
+			if (mysql_num_rows($eventExec)>0) {
+				while ( $row = mysql_fetch_array ( $eventExec ) ) {
+	        echo '<td class="calendar-orange"><a href="'.$enlace.'">'.$zz.'</a></td>';				
+					$result_found = 1;
+				}
+			}	
+			else{
+			$sql_currentday = "$year-$month-$zz";
+			$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
+			if (mysql_num_rows($fest)>0) {
+			$festiv=mysql_fetch_array($fest);
+				       echo '<td class="calendar-red">'.$zz.'</td>';
+					$result_found = 1;
+					}	
+			}
+			
+		}
+	
+	  if ($result_found != 1) {
+	    echo '<td><a href="'.$enlace.'">'.$zz.'</a></td>';
+	  }
+	
+	  $i++; $result_found = 0;
+	}
+	
+	$create_emptys = 7 - (($dayone + $numdays) % 7);
+	if ($create_emptys == 7) { $create_emptys = 0; }
+	
+	if ($create_emptys != 0) {
+	  echo "<td colspan=\"$create_emptys\">&nbsp;</td>";
+	}
+	
+	echo "</tr></tbody>";
+	echo "</table>";
+	echo "";
+	?>
+	</div>
+	
+	<div class="col-sm-7">
+	
+		<div class="well">
     <?
-	echo "<legend>$daylong, $today de $monthlong</legend><br />";	
+  echo "<form method=\"post\" action=\"jcal_post.php?servicio=$servicio&year=$year&today=$today&month=$month\" name=\"jcal_post\">";
+	echo "<legend>Reserva para el $daylong, $today de $monthlong</legend><br />";	
 $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
@@ -122,9 +219,6 @@ while($row = mysql_fetch_array($eventExec)) {
    $event_event7 = stripslashes($row["event7"]);
 }
 
-echo "<form name=\"jcal_post\" action=\"jcal_post.php?servicio=$servicio&year=$year&today=$today&month=$month\" method=\"post\" class='form-vertical'>
-<div align='left'>";
-
 if($_SESSION['profi'] == 'conserje' or stristr($_SESSION['cargo'],'1') == TRUE){$SQL = "select distinct nombre from $db.departamentos order by nombre";}
 else{$SQL = "select distinct nombre from $db.departamentos where nombre = '". $_SESSION['profi'] ."'";}
 
@@ -139,16 +233,16 @@ $reservado1 = mysql_fetch_row($reservado0);
 	if(!(empty($reservado1[0]))) {echo "<label>1ª hora</label> &nbsp;&nbsp; <span class='badge badge-warning'>$reservado1[0]</span>"; }
 	else
 	{
-if (empty($event_event1)) { echo "<label>1ª hora</label> &nbsp;&nbsp; <select name=\"day_event1\" class='form-control'><option></option>";
+if (empty($event_event1)) { echo "<label>1ª hora</label> &nbsp;&nbsp; <select name=\"day_event1\" class=\"form-control\"><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
-	if(mb_strtolower($pr) == mb_strtolower($event_event1)) {echo "<label>1ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class='form-control' type='text' name=\"day_event1\"  value=\"$event_event1\"></div>";
+	if(mb_strtolower($pr) == mb_strtolower($event_event1)) {echo "<label>1ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event1\"  value=\"$event_event1\"></div>";
 	 } 
 	else{
-		echo "<label>1ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class='form-control' type='text'  value='$event_event1'></div><input type=\"hidden\" value=\"$event_event1\" name=\"day_event1\">"; }
+		echo "<label>1ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event1'></div><input type=\"hidden\" value=\"$event_event1\" name=\"day_event1\">"; }
 	}
 	}	
 	echo '</div>';
@@ -167,11 +261,11 @@ $reservado1 = mysql_fetch_row($reservado0);
 if (empty($event_event2)) { echo "<label>2ª hora</label> &nbsp;&nbsp; <select name=\"day_event2\" class='form-control'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
-	echo "<option  >" . $profesor . "</option>";
+	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
-	if(mb_strtolower($pr) == mb_strtolower($event_event2)) {echo "2 Hora &nbsp;&nbsp; <div class=\"form-group\"><input class='form-control' type='text' name=\"day_event2\"  value=\"$event_event2\"></div>"; } 
-	else{echo "<label>2ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class='form-control' type='text'  value='$event_event2'></div><input type=\"hidden\" value=\"$event_event2\" name=\"day_event2\">"; }}	}	
+	if(mb_strtolower($pr) == mb_strtolower($event_event2)) {echo "2 Hora &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event2\"  value=\"$event_event2\"></div>"; } 
+	else{echo "<label>2ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event2'></div><input type=\"hidden\" value=\"$event_event2\" name=\"day_event2\">"; }}	}	
 	echo '</div>';
 		
 	
@@ -188,12 +282,12 @@ $reservado1 = mysql_fetch_row($reservado0);
 if(empty($event_event3)) { echo "<label>3ª hora</label> &nbsp;&nbsp; <select name=\"day_event3\" class='form-control'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
-	echo "<option  >" . $profesor . "</option>";
+	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";}
 	else {
 		
-	if(mb_strtolower($pr) == mb_strtolower($event_event3)) {echo "<label>3ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class='form-control' type='text' name=\"day_event3\"  value=\"$event_event3\"></div>"; } 
-	else{echo "<label>3ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class='form-control' type='text'  value='$event_event3'></div><input type=\"hidden\" value=\"$event_event3\" name=\"day_event3\">"; }}	}	
+	if(mb_strtolower($pr) == mb_strtolower($event_event3)) {echo "<label>3ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event3\"  value=\"$event_event3\"></div>"; } 
+	else{echo "<label>3ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event3'></div><input type=\"hidden\" value=\"$event_event3\" name=\"day_event3\">"; }}	}	
 	echo '</div>';
 		
 	
@@ -210,11 +304,11 @@ $reservado1 = mysql_fetch_row($reservado0);
 if (empty($event_event4)) { echo "<label>4ª hora</label> &nbsp;&nbsp; <select name=\"day_event4\" class='form-control'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
-	echo "<option  >" . $profesor . "</option>";
+	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
-	if(mb_strtolower($pr) == mb_strtolower($event_event4)) {echo "<label>4ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class='form-control' type='text' name=\"day_event4\"  value=\"$event_event4\"></div>"; } 
-	else{echo "<label>4ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class='form-control' type='text'  value='$event_event4'></div><input type=\"hidden\" value=\"$event_event4\" name=\"day_event4\">"; } }	}	
+	if(mb_strtolower($pr) == mb_strtolower($event_event4)) {echo "<label>4ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event4\"  value=\"$event_event4\"></div>"; } 
+	else{echo "<label>4ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event4'></div><input type=\"hidden\" value=\"$event_event4\" name=\"day_event4\">"; } }	}	
 	echo '</div>';
 		
 	
@@ -231,11 +325,11 @@ $reservado1 = mysql_fetch_row($reservado0);
 if (empty($event_event5)) { echo "<label>5ª hora</label> &nbsp;&nbsp; <select name=\"day_event5\" class='form-control'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
-	echo "<option  >" . $profesor . "</option>";
+	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
-	if(mb_strtolower($pr) == mb_strtolower($event_event5)) {echo "<label>5ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class='form-control' type='text' name=\"day_event5\"  value=\"$event_event5\"></div>"; } 
-	else{echo "5Âª Hora &nbsp;&nbsp; <div class=\"form-group\"><input disabled class='form-control' type='text'  value='$event_event5'></div><input type=\"hidden\" value=\"$event_event5\" name=\"day_event5\">"; }}	}	
+	if(mb_strtolower($pr) == mb_strtolower($event_event5)) {echo "<label>5ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event5\"  value=\"$event_event5\"></div>"; } 
+	else{echo "5Âª Hora &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event5'></div><input type=\"hidden\" value=\"$event_event5\" name=\"day_event5\">"; }}	}	
 	echo '</div>';
 		
 	
@@ -252,11 +346,11 @@ $reservado1 = mysql_fetch_row($reservado0);
 if (empty($event_event6)) { echo "<label>6ª hora</label> &nbsp;&nbsp; <select name=\"day_event6\" class='form-control'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
-	echo "<option  >" . $profesor . "</option>";
+	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
-	if(mb_strtolower($pr) == mb_strtolower($event_event6)) {echo "<label>6ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class='form-control' type='text' name=\"day_event6\"  value=\"$event_event6\"></div>"; } 
-	else{echo "<label>6ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class='form-control' type='text'  value='$event_event6'></div><input type=\"hidden\" value=\"$event_event6\" name=\"day_event6\">"; } }	}	
+	if(mb_strtolower($pr) == mb_strtolower($event_event6)) {echo "<label>6ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event6\"  value=\"$event_event6\"></div>"; } 
+	else{echo "<label>6ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event6'></div><input type=\"hidden\" value=\"$event_event6\" name=\"day_event6\">"; } }	}	
 	echo '</div>';
 		
 	
@@ -273,11 +367,11 @@ $reservado1 = mysql_fetch_row($reservado0);
 if (empty($event_event7)) { echo "<label>7ª hora</label> &nbsp;&nbsp; <select name=\"day_event7\" class='form-control'><option></option>";
 	$result1 = mysql_query($SQL);
 	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
-	echo "<option  >" . $profesor . "</option>";
+	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
-	if(mb_strtolower($pr) == mb_strtolower($event_event7)) {echo "<label>7ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class='form-control' type='text' name=\"day_event7\"  value=\"$event_event7\"></div>"; } 
-	else{echo "<label>7ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class='form-control' type='text'  value='$event_event7'></div><input type=\"hidden\" value=\"$event_event7\" name=\"day_event7\">"; }}
+	if(mb_strtolower($pr) == mb_strtolower($event_event7)) {echo "<label>7ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event7\"  value=\"$event_event7\"></div>"; } 
+	else{echo "<label>7ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value=\"$event_event7\"></div><input type=\"hidden\" value=\"$event_event7\" name=\"day_event7\">"; }}
 	}
 	echo '</div>';
 
@@ -285,122 +379,9 @@ if (empty($event_event7)) { echo "<label>7ª hora</label> &nbsp;&nbsp; <select na
 echo "<input type=\"hidden\" value=\"$year\" name=\"year\">
       <input type=\"hidden\" value=\"$month\" name=\"month\">
       <input type=\"hidden\" value=\"$today\" name=\"today\">
-       <hr><center>
-      <input type=\"submit\" id='formsubmit' value='Reservar' class='btn btn-block btn-primary'> </center>
+      <input type=\"submit\" class=\"btn btn-primary\" id=\"formsubmit\" value=\"Reservar\">
     </form>";
 echo "</div>";
-?>
-</div>
-</div>
-<div class="col-sm-4">
-<?
-echo "<table class='table table-bordered table-centered' style='' align='center'><tr><th>
-<div align='center'>
-	<a href='".$_SERVER['PHP_SELF']."?servicio=$servicio&year=$last_year&today=$today&month=$month'>
-<i class='fa fa-arrow-o-left' name='calb2' style='margin-right:20px;'> </i> </a>
-<h3 style='display:inline'>$year</h3>
-<a href='".$_SERVER['PHP_SELF']."?servicio=$servicio&year=$next_year&today=$today&month=$month'>
-<i class='fa fa-arrow-o-right' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table>";
-
-echo "<table class='table table-bordered' style='' align='center'>
-      <tr>";
-	  $meses = array("1"=>"Ene", "2"=>"Feb", "3"=>"Mar", "4"=>"Abr", "5"=>"May", "6"=>"Jun", "7"=>"Jul", "8"=>"Ago", "9"=>"Sep", "10"=>"Oct", "11"=>"Nov", "12"=>"Dic");
-	  foreach ($meses as $num_mes => $nombre_mes) {
-	  	
-	  	if ($num_mes==$month) {
-	  		echo "<th class=\"calendar-today\"> 
-		<a href=\"".$_SERVER['PHP_SELF']."?servicio=$servicio&year=$year&month=".$num_mes."\">".$nombre_mes."</a> </th>";
-	  	}
-	  	else{
-	  		echo "<th> 
-		<a href=\"".$_SERVER['PHP_SELF']."?servicio=$servicio&year=$year&month=".$num_mes."\">".$nombre_mes."</a> </th>";
-	  	}
-	  if ($num_mes=='6') {
-	  		echo "</tr><tr>";
-	  	}
-	  }
-	  echo "</tr>
-    </table>";
-
-
-//Nombre del Mes
-echo "<table class='table table-bordered table-centered' style='' align='center'><tr>";
-echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h3 align='center'>" . $monthlong . 
-"</h3></td>";
-echo "</tr><tr>";
-
-
-//Nombre de DÃ­as
-foreach($alldays as $value) {
-  echo "<th style='background-color:#eee'>
-  $value</th>";
-}
-echo "</tr><tr>";
-
-
-//DÃ­as vacÃ­os
-for ($i = 0; $i < $dayone; $i++) {
-  echo "<td>&nbsp;</td>";
-}
-
-//DÃ­as
-for ($zz = 1; $zz <= $numdays; $zz++) {
-  if ($i >= 7) {  print("</tr><tr>"); $i=0; }
-  
-  // Enlace
-  $enlace = $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.$servicio;
-  
-  // Mirar a ver si hay alguna ctividad en el dÃ­as
-  $result_found = 0;
-  if ($zz == $today) { 
-    echo '<td class="calendar-today"><a href="'.$enlace.'">'.$zz.'</a></td>';
-    $result_found = 1;
-  }
-  
-  // Enlace
-  $enlace = $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.$servicio;
-  
-  if ($result_found != 1) { 
-		//Buscar actividad para el dóa y marcarla
-		$sql_currentday = "$year-$month-$zz";
-
-    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
-				$eventExec = mysql_query ( $eventQuery );
-		if (mysql_num_rows($eventExec)>0) {
-			while ( $row = mysql_fetch_array ( $eventExec ) ) {
-        echo '<td class="calendar-orange"><a href="'.$enlace.'">'.$zz.'</a></td>';				
-				$result_found = 1;
-			}
-		}	
-		else{
-		$sql_currentday = "$year-$month-$zz";
-		$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
-		if (mysql_num_rows($fest)>0) {
-		$festiv=mysql_fetch_array($fest);
-			       echo '<td class="calendar-red"><a href="'.$enlace.'">'.$zz.'</a></td>';
-				$result_found = 1;
-				}	
-		}
-		
-	}
-
-  if ($result_found != 1) {
-    echo '<td><a href="'.$enlace.'">'.$zz.'</a></td>';
-  }
-
-  $i++; $result_found = 0;
-}
-
-$create_emptys = 7 - (($dayone + $numdays) % 7);
-if ($create_emptys == 7) { $create_emptys = 0; }
-
-if ($create_emptys != 0) {
-  echo "<td colspan=\"$create_emptys\">&nbsp;</td>";
-}
-
-echo "</tr>";
-echo "</table>";
-echo "";
 ?>
 </div>
 </div>

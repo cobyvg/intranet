@@ -104,6 +104,10 @@ table.dataTable thead .sorting:after {
 	text-transform: uppercase;
 }
 
+.table tbody a {
+	display: block;
+}
+
 .table-centered th, .table-centered td {
 	text-align: center;
 }
@@ -157,6 +161,11 @@ li.nav-header {
 	background-color: #e14939;
 	color: #fffffe;
 }
+
+.calendar-today a, .calendar-orange a, .calendar-blue a, .calendar-red a {
+	color: #fff;
+}
+
 
 /* MODAL */
 

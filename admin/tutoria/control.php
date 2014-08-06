@@ -40,39 +40,23 @@ while ($rep = mysql_fetch_array($rep0)) {
 		$password = $clave_smstrend;
 	}
 ?>	
-	<script language="javascript">
-function enviarForm() 
-{
-ventana=window.open("", "ventanaForm", "top=100, left=100, toolbar=no,location=no, status=no,menubar=no,scrollbars=no, resizable=no, width=100,height=66,directories=no")
-document.enviar.submit()
-/*AQUÕ PUEDES PONER UN TIEMPO*/
-/*ventana.close()*/
+<script>
+function enviarForm()  {
+	ventana = window.open("", "ventanaForm", "top=100, left=100, toolbar=no,location=no, status=no,menubar=no,scrollbars=no, resizable=no, width=100,height=66,directories=no");
+	document.enviar.submit();
 }
 </script>
-<form name="enviar"
-	action="http://www.smstrend.net/esp/sendMessageFromPost.oeg"
-	target="ventanaForm" method="POST"
-	enctype="application/x-www-form-urlencoded">
+<form name="enviar" action="http://www.smstrend.net/esp/sendMessageFromPost.oeg" target="ventanaForm" method="POST" enctype="application/x-www-form-urlencoded">
+	<input name="login" type="hidden" value="<? echo $usuario_smstrend; ?>" />
+	<input name="password" type="hidden" value="<? echo $clave_smstrend; ?>" />
+	<input name="extid" type="hidden" value="<? echo $extid; ?>" />
+	<input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" />
+	<input name="mobile" type="hidden" value="<? echo $mobile; ?>" />
+	<input name="messageQty" type="hidden" value="GOLD" />
+	<input name="messageType" type="hidden" value="PLUS" />
+	<input name="message" type="hidden" value="<? echo $message; ?>" maxlength="159" size="60" />
+</form>
 
-<input name="login"
-	type="hidden" value="<?
-		echo $usuario_smstrend;
-		?>" /> <input name="password" type="hidden"
-	value="<?
-		echo $clave_smstrend;
-		?>" /> <input name="extid" type="hidden"
-	value="<?
-		echo $extid;
-		?>" /> <input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" /> <input
-	name="mobile" type="hidden" value="<?
-		echo $mobile;
-		?>" /> <input name="messageQty" type="hidden" value="GOLD" /> <input
-	name="messageType" type="hidden" value="PLUS" /> <input name="message"
-	type="hidden" value="<?
-		echo $message;
-		?>" maxlength="159"
-	size="60" />
-		</form>
 <script>
 enviarForm();
 </script>
@@ -98,10 +82,14 @@ enviarForm();
 }
 ?>
 <?
-// Expulsión al Aula de Convivencia
+
 $result1 = mysql_query ("select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '$unidad' and medida = 'Amonestación escrita'");
-if($row1 = mysql_fetch_array($result1))
+if(mysql_num_rows($result1)>0)
 {
+?>
+<h3><span class="fa fa-exclamation-triangle fa-fw fw-lg"></span> Tareas pendientes de tutoría</h3>
+<hr>
+<?
 	do
 	{
 $id=$row1[0];
@@ -120,15 +108,21 @@ $hoy = date('Y')."-".date('m')."-".date('d');
 $alumno1 = mysql_query("select nombre, apellidos from alma where claveal = '$claveal'");
 $alumno0 = mysql_fetch_array($alumno1);
 $alumno = $alumno0[1].", ".$alumno0[0];
+
+// Expulsión al Aula de Convivencia
 if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioaula) >= strtotime($hoy)){
 	?>
-    <div class="well">
-<p class="lead"><i class="fa fa-exclamation-triangle"> </i> Tarea pendiente de Tutoría</p>
-<hr /><div align="left"><div class="alert alert-danger alert-block fade in" style="max-width:600px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-El siguiente alumno ha sido expulsado al <strong>Aula de Convivencia</strong> entre los días <strong><? echo $inicioaula;?></strong> y <strong><? echo $finaula;?></strong>. Ponte en contacto con Jefatura de Estudios si necesitas detalles.
-<br /><br /><pre> <strong><? echo $alumno;?></strong>&nbsp;&nbsp;<A HREF='http://<? echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<? echo $claveal;?>&id=<? echo $id;?>'><i class="fa fa-search" title="ver detalles"> </i></A> </pre>
-</div></div> </div>
+
+<div class="alert alert-warning">
+	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	<h4><?php echo $alumno; ?> ha sido expulsado al Aula de convivencia</h4>
+	<p>El siguiente alumno ha sido expulsado al Aula de convivencia entre los días <strong><?php echo $inicioaula; ?></strong> y <strong><?php echo $finaula; ?></strong>. Ponte en contacto con Jefatura de estudios si necesitas detalles.</p>
+	
+	<br>
+
+	<a class="btn btn-primary btn-sm" href="http://<?php echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+</div>
+
 <? 
 }
 
@@ -139,54 +133,65 @@ if($expulsion > 0 and $fechareg <= $hoy and $inicio >= $hoy) {
 $inicio= explode("-",$row1[5]);
 $fechainicio = $inicio[2] . "-" . $inicio[1] . "-" . $inicio[0];
 ?> 
-<div class="well">
-<p class="lead"><i class="fa fa-exclamation-triangle"> </i> Tarea pendiente de Tutoría</p>
-<br /><div align="left"><div class="alert alert-danger alert-block fade in" style="max-width:600px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-El siguiente alumno ha sido <strong>expulsado del Centro</strong> . Ponte en contacto con Jefatura de Estudios si necesitas detalles.
-<br /><br /><pre> <strong><? echo $alumno;?></strong>&nbsp;&nbsp;<A HREF='http://<? echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<? echo $claveal;?>&id=<? echo $id;?>'><i class="fa fa-search" title="ver detalles"> </i></A> </pre>
-</div></div> </div>
+
+<div class="alert alert-danger">
+	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	<h4><?php echo $alumno; ?> ha sido expulsado del centro</h4>
+	<p>El alumno/a ha sido expulsado del centro. Ponte en contacto con Jefatura de estudios si necesitas detalles.</p>
+	
+	<br>
+
+	<a class="btn btn-primary btn-sm" href="http://<?php echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+</div>
+
 <? 
 }
 if($recibido == 0)
 { 
 if($expulsionaula == 1 and $expulsion == "0")
 {?> 
-<div class="well">
-<p class="lead"><i class="fa fa-exclamation-triangle"> </i> Tarea pendiente de Tutoría</p>
-<hr />
-<div align="left"><div class="alert alert-warning alert-block fade in" style="max-width:600px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-El siguiente alumno ha sido <strong>expulsado del Aula</strong> y está pendiente de la Amonestación escrita del Tutor.<strong> Debes imprimir una copia de la carta, firmarla y entregarla en la Jefatura de Estudios</strong>.
-<br /><br /><pre> <strong><? echo $alumno;?></strong>&nbsp;&nbsp;<A HREF='http://<? echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<? echo $claveal;?>&id=<? echo $id;?>'><i class="fa fa-search" title="ver detalles"> </i></A> </pre>
-<br />
-<form action="http://<? echo $dominio;?>/intranet/admin/fechorias/imprimir/expulsionaula.php">
-<input name="id" type="hidden" value="<? echo $id; ?>" />
-<input name="amonestacion" type="submit" value="Imprimir Parte de Expulsión del Aula" class="btn btn-primary" />
-</form>
-</div></div> </div>
+
+<div class="alert alert-warning">
+	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	<h4><?php echo $alumno; ?> ha sido expulsado del aula</h4>
+	<p>El alumno/a ha sido expulsado del aula y está pendiente de la amonestación escrita del tutor. Debes imprimir una copia de la carta, firmarla y entregarla en la Jefatura de estudios.</p>
+	
+	<br>
+
+	<form method="post" action="http://<? echo $dominio;?>/intranet/admin/fechorias/imprimir/expulsionaula.php">
+		<input type="hidden" name="id" value="<?php echo $id; ?>">
+		<a class="btn btn-primary btn-sm" href="http://<?php echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir parte de expulsión</button>
+	</form>
+</div>
 
 <? } 
 elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación escrita") 
 {
-	//echo "$id<br>";
 //Amonestación Escrita	
 	?>
-<div class="well alert alert-warning alert-block fade in" style="max-width:600px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-<p class="lead"><i class="fa fa-exclamation-triangle"> </i> Tarea pendiente de Tutoría</p>
-<hr /><div align="left">
-El siguiente alumno está pendiente de la <strong>Amonestación escrita</strong> del Tutor. <strong>Debes imprimir una copia de la carta, firmarla y entregarla en la Jefatura de Estudios</strong>.
-<br /><br /><pre> <strong><? echo $alumno;?></strong>&nbsp;&nbsp;<A HREF='http://<? echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<? echo $claveal;?>&id=<? echo $id;?>'><i class="fa fa-search" title="ver detalles"> </i></A> </pre>
-<br />
-<form action="http://<? echo $dominio;?>/intranet/admin/fechorias/imprimir/amonestescrita.php">
-<input name="id" type="hidden" value="<? echo $id; ?>" />
-<input name="amonestacion" type="submit" value="Imprimir Amonestación escrita" class="btn btn-primary" />
-</form>
-</div></div>
+	
+<div class="alert alert-info">
+	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+	<h4><?php echo $alumno; ?> tiene una amonestación escrita</h4>
+	<p>El alumno/a está pendiente de la amonestación escrita del tutor. Debes imprimir una copia de la carta, firmarla y entregarla en la Jefatura de estudios.</p>
+	
+	<br>
+
+	<form method="post" action="http://<? echo $dominio;?>/intranet/admin/fechorias/imprimir/amonestescrita.php">
+		<input type="hidden" name="id" value="<?php echo $id; ?>">
+		<a class="btn btn-primary btn-sm" href="http://<?php echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir amonestación escrita</button>
+	</form>
+</div>
+
+
 <? }?>
 <? 
 }
 }while($row1 = mysql_fetch_array($result1));
+?>
+<hr>
+<?php
 }
 ?>

@@ -17,10 +17,15 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-
-if($_GET['recurso'] == "aula_grupo"){
-	$naulas = $num_aula_grupo+1;
-	$nombre_rec = "Aulas de grupo";
+if (isset($_GET['recurso'])) {
+	
+	switch ($_GET['recurso']) {
+		case 'aula_grupo'    : $naulas = $num_aula_grupo+1; $nombre_rec = "Aulas de grupo"; break;
+	}
+	
+}
+else {
+	header('Location:'.'index_aula.php?recurso=aula_grupo');
 }
 
 include("../menu.php");
@@ -29,7 +34,7 @@ include("menu.php");
 <div class="container">
 
 	<div class="page-header">
-	  <h2>Reserva de medios <small><?php echo $nombre_rec; ?></small></h2>
+	  <h2>Reservas <small><?php echo $nombre_rec; ?></small></h2>
 	</div>
 	
 	<div class="row">
@@ -37,9 +42,9 @@ include("menu.php");
 		<div class="col-sm-4 col-sm-offset-4">
 			
 			<div class="well">
-				<form method="post" action="jcal_admin/index_aulas.php">
+				<form method="post" action="reservar/index_aulas.php">
 					<fieldset>
-						<legend>Selecciona el aula</legend>
+						<legend>Seleccione aula</legend>
 						
 						<div class="form-group">
 							<?php $result = mysql_query("SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' AND n_aula NOT LIKE 'audi%' AND a_aula NOT LIKE 'dir%' ORDER BY n_aula ASC"); ?>
@@ -177,7 +182,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   if ($result_found != 1) { 
 		//Buscar actividad para el día y marcarla
 		$sql_currentday = "$year-$month-$zz";
-    	$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
+    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
  		$eventExec = mysql_query ( $eventQuery );
 		if (mysql_num_rows($eventExec)>0) {
 			while ( $row = mysql_fetch_array ( $eventExec ) ) {
@@ -245,7 +250,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
 	{$dayname = "Sábado";}
     
     $sql_currentday = "$current_year-$current_month-$current_day";
-    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM $servicio WHERE eventdate = '$sql_currentday';";
+    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
     $eventExec = mysql_query($eventQuery);
     while($row = mysql_fetch_array($eventExec)) {
    if (mysql_num_rows($eventExec) == 1) {
@@ -261,7 +266,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
     }
     
 	echo '<p><span class="fa fa-calendar-o fa-fw"></span> '.$dayname.' - '.$current_day.'</p>';
-	echo '<a href="http://'.$dominio.'/intranet/reservas/jcal_admin/index_aulas.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
+	echo '<a href="http://'.$dominio.'/intranet/reservas/reservar/index_aulas.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
 
   //Nombre del día
  if (mysql_num_rows($eventExec) == 1) 
@@ -301,7 +306,7 @@ echo "</a></p>";
    $event_event7 = "";
 }
 echo '<br>';
-echo '<a class="btn btn-primary btn-block" href="http://'.$dominio.'/intranet/reservas/jcal_admin/index_aulas.php?servicio='.$servicio.'">Reservar...</a>';
+echo '<a class="btn btn-primary btn-block" href="http://'.$dominio.'/intranet/reservas/reservar/index_aulas.php?servicio='.$servicio.'">Reservar...</a>';
 echo '</div>';
 echo '</div>';
 

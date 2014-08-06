@@ -15,12 +15,6 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-
-?>
-<? 
-include("../../menu.php");
-include("menu.php");
-
 if((stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE) and strstr($tutor," ==> ")==TRUE){
 $tr = explode(" ==> ",$tutor);
 $tutor = $tr[0];
@@ -33,44 +27,100 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 	$unidad = $row[0];
 	
 }
+
+include("../../menu.php");
+include("menu.php");
 ?>
-<div align="center">
-<div class="page-header">
-  <h2 style="display:inline">Página del tutor <small> <? echo $unidad;?>  ( <? echo $tutor; ?> )</small></h2> 
-</div>
-</div>
-<? 
-?>
-<div class="container-fluid">
-<div class="row">
-<div class="col-sm-4">
-<?  include("faltas.php");?>
-<hr>
-<br />
-<?  include("mensajes.php");?>
-<hr>
-<br />
-<? include("tareas.php");?>
-<hr>
-<br />
-</div>
-<div class="col-sm-4">
-<?
-include("control.php");
-include("fechorias.php");?>
-<hr>
-<br />
-<p class='lead'>Actividades Extraescolares</p>
-<?  include("actividades.php");?>
-</div>
-<div class="col-sm-4">
-<? include("informes.php");?>
-<hr>
-<br />
-<p class='lead' >Intervenciones del Tutor</p>
-<?  include("ultimos.php");?>
-</div>
-</div>
-<? include("../../pie.php");?>		
+
+	<div class="container">
+		
+		<!-- TITULO DE LA PAGINA -->
+		<div class="page-header">
+			<h2>Tutoría de <?php echo $unidad; ?> <small><?php echo $tutor; ?></small></h2>
+		</div>
+		
+		
+		<!-- SCAFFOLDING -->
+		<div class="row">
+			
+			<div class="col-sm-12">
+				
+				<?php include("control.php"); ?>
+				
+			</div>
+			
+		</div>
+		
+		
+		<div class="row">
+		
+			<!-- COLUMNA IZQUIERDA -->
+			<div class="col-sm-4">
+				
+				<div class="well">
+					
+					<?php include("faltas.php"); ?>
+					
+				</div><!-- /.well -->
+				
+				<div class="well">
+					
+					<?php include("mensajes.php"); ?>
+					
+				</div><!-- /.well -->
+				
+				<div class="well">
+					
+					<?php include("tareas.php"); ?>
+					
+				</div><!-- /.well -->
+				
+			</div><!-- /.col-sm-4 -->
+			
+			
+			
+			<!-- COLUMNA CENTRAL -->
+			<div class="col-sm-4">
+				
+				<div class="well">
+					
+					<?php include("fechorias.php"); ?>
+					
+				</div><!-- /.well -->
+				
+				<div class="well">
+					
+					<?php include("actividades.php"); ?>
+					
+				</div><!-- /.well -->
+				
+			</div><!-- /.col-sm-4 -->
+			
+			
+			
+			<!-- COLUMNA DERECHA -->
+			<div class="col-sm-4">
+				
+				<div class="well">
+					
+					<?php include("informes.php"); ?>
+					
+				</div><!-- /.well -->
+				
+				<div class="well">
+					
+					<?php include("ultimos.php"); ?>
+					
+				</div><!-- /.well -->
+				
+			</div><!-- /.col-sm-4 -->
+			
+		
+		</div><!-- /.row -->
+		
+	</div><!-- /.container -->
+  
+<?php include("../../pie.php"); ?>
+
 </body>
 </html>

@@ -51,7 +51,7 @@ $today = (isset($today))? $today : date("j", time());
 $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
-$numero_dia = $hoy[wday];
+$numero_dia = $hoy['wday'];
 
 $eventQuery = "SELECT id FROM $servicio WHERE eventdate = '$sql_date'";
 $eventExec = mysql_query($eventQuery); 

@@ -20,38 +20,63 @@ if(!(strstr($_SESSION['cargo'],'1') == TRUE) and !(strstr($_SESSION['cargo'],'8'
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
-?>
-        <?php	
-include("../../menu.php");
-//
-?>
-<br />
-<div align="center">
-<div class="page-header">
-  <h2>Página del Tutor <small> Entrada</small></h2>
-</div>
-<br />
-   <div class="well well-large" style="width:400px;">           
-    <form action="global.php" method="post" name="form1" id="form1" class="form-inline">
-       <legend>Selecciona Tutor</legend>
-        <select name="tutor" onchange='submit()' class="input-xlarge">
-        <option> <? echo $profe; ?></option>		
-          <?
-  // Seleccion de Profesor en profes.
-$SQL = "select distinct tutor, unidad from FTUTORES order by unidad asc";
-$result = mysql_query($SQL);
 
-	while($row = mysql_fetch_array($result))
-	{
-	$tutor0 = $row[0];
-	$nivel = $row[1];
-	echo "<option  class=content>$tutor0 ==> $nivel</option>";
-}
+
+include("../../menu.php");
 ?>
-        </select>
-        </form>
-<?php
-	include("../../pie.php");
-?>
+
+	<div class="container">
+		
+		<!-- TITULO DE LA PAGINA -->
+		<div class="page-header">
+			<h2>Tutoría <small>Selección de tutoría</small></h2>
+		</div>
+		
+		
+		<!-- SCAFFOLDING -->
+		<div class="row">
+		
+			<!-- COLUMNA CENTRAL -->
+			<div class="col-sm-6 col-sm-offset-3">
+				
+				<div class="well">
+					
+					<form method="post" action="global.php">
+						<fieldset>
+							<legend>Seleccione tutor</legend>
+							
+							<div class="form-group">
+						    <label for="tutor">Tutores/as de grupo</label>
+						    <?php $result = mysql_query("SELECT DISTINCT unidad, tutor FROM FTUTORES ORDER BY unidad ASC"); ?>
+						    <?php if(mysql_num_rows($result)): ?>
+						    <select class="form-control" id="tutor" name="tutor">
+						    	<?php while($row = mysql_fetch_array($result)): ?>
+						    	<option value="<?php echo $row['tutor'].' ==> '.$row['unidad']; ?>"><?php echo $row['unidad'].' - '.$row['tutor']; ?></option>
+						    	<?php endwhile; ?>
+						    </select>
+						    <?php else: ?>
+						    <select class="form-control" id="tutor" name="tutor" disabled>
+						    	<option value=""></option> 
+						    </select>
+						    <?php endif; ?>
+						    <?php mysql_free_result($result); ?>
+						    
+						  </div>
+						  
+						  <button type="submit" class="btn btn-primary" name="enviar">Consultar</button>
+					  </fieldset>
+					</form>
+					
+				</div><!-- /.well -->
+				
+			</div><!-- /.col-sm-6 -->
+			
+		
+		</div><!-- /.row -->
+		
+	</div><!-- /.container -->
+  
+<?php include("../../pie.php"); ?>
+
 </body>
 </html>
