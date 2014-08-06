@@ -104,10 +104,6 @@ table.dataTable thead .sorting:after {
 	text-transform: uppercase;
 }
 
-.table tbody a {
-	display: block;
-}
-
 .table-centered th, .table-centered td {
 	text-align: center;
 }

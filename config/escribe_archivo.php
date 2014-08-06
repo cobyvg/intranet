@@ -67,13 +67,6 @@
 		fwrite($f1,"$"."carrito14='".$_POST['carrito14']."';\r\n");	
 		fwrite($f1,"$"."carrito15='".$_POST['carrito15']."';\r\n");	
 		
-		fwrite($f1,"$"."num_aula='".$_POST['num_aula']."';\r\n");	
-		fwrite($f1,"$"."aula1='".$_POST['aula1']."';\r\n");	
-		fwrite($f1,"$"."aula2='".$_POST['aula2']."';\r\n");	
-		fwrite($f1,"$"."aula3='".$_POST['aula3']."';\r\n");	
-		fwrite($f1,"$"."aula4='".$_POST['aula4']."';\r\n");	
-		fwrite($f1,"$"."aula5='".$_POST['aula5']."';\r\n");	
-		
 		fwrite($f1,"$"."num_medio='".$_POST['num_medio']."';\r\n");	
 		fwrite($f1,"$"."medio1='".$_POST['medio1']."';\r\n");	
 		fwrite($f1,"$"."medio2='".$_POST['medio2']."';\r\n");	

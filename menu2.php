@@ -351,12 +351,13 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         </li>
         <div id="tic" class="panel-collapse collapse">
           <ul class="nav nav-list">
-            <li><a href="TIC/usuarios/intro.php">Usuario alumno</a></li>
-            <li><a href="TIC/usuarios/usuarioprofesor.php">Usuario profesor</a></li>
-            <li><a href="TIC/documentos.php">Documentos</a></li>
-            <li><a href="TIC/cpartes.php">Incidencias</a></li>
-            <!--<li><a href="admin/recursos/">Recursos Educativos</a></li>-->    
-            <li><a href="reservas/informes.php">Estadísticas </a></li>
+          	<li><a href="TIC/index.php">Nueva incidencia</a></li>
+          	<li><a href="TIC/incidencias.php">Listado de incidencias</a></li>
+            <li><a href="TIC/perfiles_alumnos.php">Perfiles alumnos</a></li>
+            <li><a href="TIC/perfiles_profesores.php">Perfiles profesores</a></li>
+            <li><a href="TIC/documentos.php">Documentos y manuales</a></li>
+            <li><a href="TIC/protocolo.php">Protocolo de uso</a></li> 
+            <li><a href="TIC/estadisticas.php">Estadísticas TIC</a></li>
           </ul>
         </div>
         <? } ?>
@@ -364,18 +365,16 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         <li>
           <a data-toggle="collapse" data-target="#reservas" style="cursor:pointer">
             <i class="pull-right fa fa-chevron-down"></i>
-            Reservas de medios
+            Reservas
           </a>
         </li>
         <div id="reservas" class="panel-collapse collapse">
           <ul class="nav nav-list">
+	          <? if ($mod_horario=="1") { ?>
+	          <li><a href="reservas/index_aula.php?recurso=aula_grupo">Aulas de grupo</a></li>
+	          <? } ?>
             <li><a href="reservas/index.php?recurso=carrito">Carritos TIC</a></li>
-            <li><a href="reservas/index.php?recurso=aula">Aulas compartidas</a></li>
-            <? if ($mod_horario=="1") { ?>
-            <li><a href="reservas/index_aula_grupo.php?recurso=aula_grupo">Aulas de grupo</a></li>
-            <? } ?>
             <li><a href="reservas/index.php?recurso=medio">Medios audiovisuales</a></li>
-            <li><a href="reservas/informes.php">Estadísticas</a></li>
           </ul>
         </div>
         

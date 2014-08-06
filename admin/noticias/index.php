@@ -110,18 +110,18 @@ include("menu.php");
 									</tr>
 								<?php endwhile; ?>
 							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="5">
+										<div class="text-right text-muted">Mostrando <?php echo mysql_num_rows($result); ?> de <?php echo $limit; ?>. Total: <?php echo $total; ?> resultados</div>
+									</td>
+								</tr>
+							</tfoot>
 						</table>
-						<tfoot>
-							<tr>
-								<td colspan="5">
-									<div class="text-right text-muted">Mostrando <?php echo mysql_num_rows($result); ?> de <?php echo $limit; ?>. Total: <?php echo $total; ?> resultados</div>
-								</td>
-							</tr>
-						</tfoot>
 					</div>
 					
 					<ul class="pager">
-					  <li class="previous<?php echo ($pag == $n_paginas) ? ' disabled' : ''; ?>"><a href="<?php echo ($pag == $n_paginas) ? '#' : 'index.php?pag='.$pag_sig; ?>">&larr; Antiguas</a></li>
+					  <li class="previous<?php echo ($pag == $n_paginas || $total < $limit) ? ' disabled' : ''; ?>"><a href="<?php echo ($pag == $n_paginas || $total < $limit) ? '#' : 'index.php?pag='.$pag_sig; ?>">&larr; Antiguas</a></li>
 					  <li class="next<?php echo ($pag == 0) ? ' disabled' : '' ?>"><a href="<?php echo ($pag == 0) ? '#' : 'index.php?pag='.$pag_ant; ?>">Recientes &rarr;</a></li>
 					</ul>
 					

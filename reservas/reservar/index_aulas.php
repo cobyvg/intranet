@@ -15,11 +15,6 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-/*if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR stristr($_SESSION['cargo'],'8') == TRUE))
-{
-header("location:http://$dominio/intranet/salir.php");
-exit;	
-}  */
 $pr = $_SESSION['profi'];   
 ?>
 <?php
