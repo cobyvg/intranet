@@ -1,32 +1,9 @@
 <?
-session_start();
-include("../../config.php");
-if($_SESSION['autentificado']!='1')
-{
-session_destroy();
-header("location:http://$dominio/intranet/salir.php");	
-exit;
-}
-
-if($_SESSION['cambiar_clave']) {
-	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
-}
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
-
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header("location:http://$dominio/intranet/salir.php");
-exit;	
-}
-	
-if ($_GET['horarios']==1) {
-	$directorio = "../../varios/";
+    $directorio = "../../varios/";
 	$archivo = "Importacion_horarios_Seneca.xml";
-	$archivo_origen = $_GET['archivo_origen'];
-	if ($_GET['depurar']==1) {
+	$archivo_origen = $HorExpSen;
+	
+	if ($depurar==1) {
 		include_once '../../menu.php';
 		echo '<br />
 <div class="page-header">
@@ -46,17 +23,15 @@ El archivo generado por Horwin ha sido procesado y se ha creado una copia modifi
 <br>Los mesajes que aparecen más abajo indican los cambios realizados y las advertencias sobre problemas que podrías encontrar al importar los datos a Séneca.
 </div></div>";		
 	}
+	
 	$doc = new DOMDocument('1.0', 'utf-8');
 	
-	$doc->load( $directorio.$archivo_origen ) or die("No se ha podido leer el archivo para ser procesado.");
-
-
+	$doc->load( $archivo_origen ) or die("No se ha podido leer el archivo para ser procesado.");
 
 	$profes = $doc->getElementsByTagName( "grupo_datos");
 
 	foreach ($profes as $materia) {
-		//$texto="";
-
+		$texto="";
 		$codigos = $materia->getElementsByTagName( "dato" );
 
 		$N_DIASEMANA=$codigos->item(0)->nodeValue;
@@ -95,7 +70,7 @@ El archivo generado por Horwin ha sido procesado y se ha creado una copia modifi
 					if (stristr($asignatura,$X_MATERIAOMG)==FALSE) {
 						if (strstr($texto,$asignatura)==FALSE) {
 							$asig_corta = substr($asignatura,0,-1);
-							if ($_GET['depurar']==1) {
+							if ($depurar==1) {
 							echo  "<br /><div align'center><div class='alert alert-success alert-block fade in'><br />
             <button type='button' class='close' data-dismiss='alert'>&times;</button>
 El código de la asignatura <u>$X_MATERIAOMG</u> (<em>$nombre_asignatura</em>) no corresponde al Curso $uni[1], sino este código: <strong>$asig_corta</strong>. <br><span clas='text-warning'>Código sustituído..</span>
@@ -109,7 +84,7 @@ El código de la asignatura <u>$X_MATERIAOMG</u> (<em>$nombre_asignatura</em>) no
 				}
 				else{
 					if (strstr($texto,$X_MATERIAOMG)==FALSE) {
-						if ($_GET['depurar']==1) {
+						if ($depurar==1) {
 						echo  '<br /><div align="center"><div class="alert alert-warning alert-block fade in"><br />
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 No existe la asignatura <u>'.$X_MATERIAOMG.'</u> (<em>'.$nombre_asignatura.'</em>) en la tabla de asignaturas de'. $uni[1].'.
@@ -122,7 +97,7 @@ No existe la asignatura <u>'.$X_MATERIAOMG.'</u> (<em>'.$nombre_asignatura.'</em
 				}
 			}
 			else{
-				if ($_GET['depurar']==1) {
+				if ($depurar==1) {
 				echo  "<br /><div align'center><div class='alert alert-danger alert-block fade in'><br />
             <button type='button' class='close' data-dismiss='alert'>&times;</button>
 <strong>$uni[2]</strong>: No existe ninguna asignatura con este código (<u>$X_MATERIAOMG</u>) en la tabla de asignaturas de la base de datos.
@@ -138,12 +113,12 @@ No existe la asignatura <u>'.$X_MATERIAOMG.'</u> (<em>'.$nombre_asignatura.'</em
 	$archivo = "Importacion_horarios_Seneca.xml";
 	$fopen = fopen($directorio.$archivo, "w");
 	fwrite($fopen, $contenido);
-	if ($_GET['depurar']==1) {
+	if ($depurar==1) {
 		echo "<hr /><legend align='center'>Texto del archivo XML resultante</legend>";
 	}
 	header("Content-disposition: attachment; filename=$archivo");
 	header("Content-type: application/octet-stream");
 	readfile($directorio.$archivo);
 	
-}
+
 ?>

@@ -17,7 +17,7 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 
 $HorExpSen = $_FILES['HorExpSen']['tmp_name'];
 
-if (isset($_POST['s_seneca']) and isset($HorExpSen)) {
+if (isset($_POST['s_seneca']) and isset($_FILES['HorExpSen'])) {
 	include("exportarHorariosSeneca.php");
 	exit();
 }

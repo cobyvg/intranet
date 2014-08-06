@@ -68,7 +68,7 @@ include("../../menu.php");
 			</div><!-- /.col-sm-12 -->
 		
 		</div><!-- /.row -->
-	
+	<hr>
 		
 		<div class="row">
 		

@@ -56,6 +56,7 @@ else
 					    <?php $result = mysql_query("SELECT DISTINCT PROFESOR FROM profesores ORDER BY PROFESOR ASC"); ?>
 					    <?php if(mysql_num_rows($result)): ?>
 					    <select class="form-control" id="profe" name="profe" onchange="submit()">
+					    <option></option>
 						    <?php while($row = mysql_fetch_array($result)): ?>
 						    <option value="<?php echo $row['PROFESOR']; ?>" <?php echo (isset($profe) && $profe == $row['PROFESOR']) ? 'selected' : ''; ?>><?php echo $row['PROFESOR']; ?></option>
 						    <?php endwhile; ?>
