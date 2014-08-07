@@ -1,31 +1,29 @@
-<p class='lead'>Faltas de asistencia sin justificar</p>
-<?php
- echo "<table class='table table-striped table-condensed' style='width:100%'>";
-		?>
-                    
-<?
- $SQLTEMP = "create table FALTASTEMP select distinct FALTAS.claveal, FALTAS.falta, count(*) as NUMERO, apellidos, nombre from FALTAS, FALUMNOS  
- where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '$unidad' group BY FALTAS.claveal";
- //echo $SQLTEMP;
-$resultTEMP= mysql_query($SQLTEMP);
-$SQL = "select FALTASTEMP.claveal, FALTASTEMP.apellidos, FALTASTEMP.nombre, FALTASTEMP.NUMERO from FALTASTEMP order BY FALTASTEMP.numero desc";
-$result = mysql_query($SQL);
+<h3>Faltas sin justificar</h3>
 
-  if ($row = mysql_fetch_array($result))
-        {
-	$hoy = date("d"). "-" . date("m") . "-" . date("Y");
-        echo "<tr><th>Alumno
-        </th><th>TOTAL</th></tr>";
-                do {
-	$claveal = $row[0];
-	$comienzo=explode("-",$inicio_curso);
-	$comienzo_curso=$comienzo[2]."/".$comienzo[1]."/".$comienzo[0];
-                printf ("<tr align='left'><td ><A HREF='../faltas/informes.php?claveal=$claveal&fecha4=$inicio_curso&fecha3=$hoy&submit2=2'>%s, %s</a></td><td style='color:#9d261d'>%s</td></tr>", $row[1], $row[2],$row[3]);
-        } while($row = mysql_fetch_array($result));
-        }
-		        echo "</table></center>\n";
- // Eliminar Tabla temporal
- $SQLDEL = "DROP table `FALTASTEMP`";
- mysql_query($SQLDEL);
-  ?>
+<?php $exp_inicio_curso = explode('-', $inicio_curso); ?>
+<?php $inicio_curso2 = $exp_inicio_curso[2].'-'.$exp_inicio_curso[1].'-'.$exp_inicio_curso[0]; ?>
 
+<?php mysql_query("CREATE TABLE FALTASTEMP SELECT DISTINCT FALTAS.claveal, FALTAS.falta, COUNT(*) AS NUMERO, apellidos, nombre FROM FALTAS, FALUMNOS  
+ WHERE FALTAS.claveal = FALUMNOS.claveal AND FALTAS.falta = 'F' AND FALTAS.unidad = '$unidad' GROUP BY FALTAS.claveal") or die(mysql_error()); ?>
+
+<?php $result = mysql_query("SELECT FALTASTEMP.claveal, FALTASTEMP.apellidos, FALTASTEMP.nombre, FALTASTEMP.NUMERO FROM FALTASTEMP ORDER BY FALTASTEMP.numero DESC"); ?>
+
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Alumno/a</th>
+			<th class="text-center">Faltas</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php while ($row = mysql_fetch_array($result)): ?>
+		<tr>
+			<td><a href="../faltas/informes.php?claveal=<?php echo $row['claveal']; ?>&fecha4=<?php echo $inicio_curso2; ?>&fecha3=<?php echo date('d-m-Y'); ?>&submit2=2"><?php echo $row['apellidos'].', '.$row['nombre']; ?></a></td>
+			<td class="text-center"><span class="text-info"><?php echo $row['NUMERO']; ?></span></td>
+		</tr>
+		<?php endwhile; ?>
+		<?php mysql_free_result($result); ?>
+	</tbody>
+</table>
+
+<?php mysql_query("DROP TABLE FALTASTEMP"); ?>

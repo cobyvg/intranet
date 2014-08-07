@@ -14,6 +14,9 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
+if(!stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE || stristr($_SESSION['cargo'],'8') == TRUE) {
+	header('Location:'.'../../index.php');
+}
 
 if((stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE) and strstr($tutor," ==> ")==TRUE){
 $tr = explode(" ==> ",$tutor);
@@ -57,11 +60,9 @@ include("menu.php");
 			<!-- COLUMNA IZQUIERDA -->
 			<div class="col-sm-4">
 				
-				<div class="well">
 					
-					<?php include("faltas.php"); ?>
+				<?php include("faltas.php"); ?>
 					
-				</div><!-- /.well -->
 				
 				<div class="well">
 					

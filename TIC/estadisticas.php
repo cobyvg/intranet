@@ -142,6 +142,7 @@ include("../TIC/menu.php");
 						</tbody>
 					</table>
 				</div>
+				<p class="text-muted"><small class="pull-right">Total de días que el profesor/a ha reservado un carro TIC.</small></p>
 								
 			</div><!-- /.col-sm-8 -->
 					

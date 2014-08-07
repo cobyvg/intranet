@@ -33,25 +33,26 @@ $alumno = "$row->apellidos, $row->nombre";
    <TD nowrap>$fecha_mens</TD></tr>";
 ?>
 
-<div class="modal hide fade" id="mensaje<? echo $n_mensajes;?>">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h4>Mensaje de <? echo $alumno;?> </h4><br /><small>Enviado <? echo $fechaenv;?></small>
-  </div>
-  <div class="modal-body">
-<p><? echo $row->asunto;?></p>
-<p><? echo $row->texto;?></p>  </div>
-  <div class="modal-footer">
-  <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
-  <a href="#" class="btn btn-warning" data-dismiss="modal">Cerrar</a>
-    <?
-
-echo '<a href="../mensajes/index.php?padres=1&asunto='.$row->asunto.'&origen='.$alumno.'" target="_top" class="btn btn-primary">Responder</a>';
-?>
-<input type='hidden' name = 'id_ver' value = '$id' />
-</form>
-</div>
-</div>
+<div id="mensaje<?php echo $n_mensajes; ?>" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+        <h4 class="modal-title"><?php echo $row->asunto;?><br /><small>Enviado por <?php echo $alumno; ?> <?php echo $fechaenv; ?></small></h4>
+      </div>
+      <div class="modal-body">
+        <p><?php echo $row->texto;?></p>
+      </div>
+      <div class="modal-footer">
+        <form method="post" name="mensaje_enviado" action="index.php" class="form-inline">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	        <a class="btn btn-primary" href="../mensajes/redactar.php?padres=1&asunto=<?php echo $row->asunto; ?>&origen=<?php echo $alumno; ?>">Responder</a>
+	        <input type="hidden" name="id_ver" value="<?php echo $id; ?>">
+	      </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <?
 	}
 echo " </table>";
