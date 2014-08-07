@@ -25,7 +25,7 @@
     <script src="http://<? echo $dominio;?>/intranet/js/summernote-es-ES.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/bootbox.min.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-datepicker.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/ajax_alumnos.js"></script>
     
     <!--  Tablas de Bootstrap DataTables.  -->   
 

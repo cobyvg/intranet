@@ -1,6 +1,7 @@
 <h3><span class="fa fa-search fa-fw"></span> Buscar...</h3>
 
-<form action="admin/noticias/buscar.php" method="POST">
-	<input name="expresion" type="text" class="form-control" id="buscarAlumnos" onkeyup="javascript:buscar('resAlumnos',this.value);" placeholder="Buscar...">
+<form method="get" action="admin/noticias/buscar.php">
+	<input type="text" class="form-control" name="q" id="buscarAlumnos" onkeyup="javascript:buscar('list_alumnos',this.value);" placeholder="Buscar...">
 </form>
-<div id="resAlumnos"></div>
+
+<div id="list_alumnos"></div>

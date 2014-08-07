@@ -1,5 +1,5 @@
 var Conexion=false; // Variable que manipula la conexion.
-var Servidor="buscarAlumnos.php"; // Determina la pagina donde buscar
+var Servidor="ajax_alumnos.php"; // Determina la pagina donde buscar
 var Palabra=""; //Determina la ultima palabra buscada.
 
 // funcion que realiza la conexion con el objeto XMLHTTP...
@@ -113,13 +113,4 @@ function buscar(idContenido,Cadena)
 		Solicitud(idContenido,Cadena);
 	}else
 		document.getElementById(idContenido).style.display="none";
-}
-
-// Funcion que se ejecuta cuando seleccionamos un valor del desplegable
-function selectItem(idContenido,value)
-{
-	// Cuando pulsamos sobre el desplegable, colocamos el valor en el cuadro de texto
-	document.getElementById("buscarAlumnos").value=value;
-	//volvemos a indicar que actualice el listado con el nuevo valor
-	buscar(idContenido,value);
 }
