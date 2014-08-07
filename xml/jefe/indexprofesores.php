@@ -25,13 +25,19 @@ exit;
 include("../../menu.php");
 ?>
 
-
 <div class="container">
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 		<h2>Administración <small>Importación de profesores</small></h2>
 	</div>
+	
+	<?php $result = mysql_query("SELECT * FROM profesores LIMIT 1"); ?>
+	<?php if(mysql_num_rows($result)): ?>
+	<div class="alert alert-warning">
+		Ya existe información en la base de datos. Este proceso actualizará la información de los profesores. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
+	</div>
+	<?php endif; ?>
 	
 	<!-- SCAFFOLDING -->
 	<div class="row">
@@ -53,7 +59,7 @@ include("../../menu.php");
 						<br>
 						
 					  <button type="submit" class="btn btn-primary" name="enviar">Importar</button>
-					  <a class="btn btn-default" href="../index.php">Cancelar</a>
+					  <a class="btn btn-default" href="../index.php">Volver</a>
 				  </fieldset>
 				</form>
 				
