@@ -1,3 +1,5 @@
+<?php include("funciones.php"); ?>
+<?php $idea = $_SESSION['ide']; ?>
 <!DOCTYPE html>  
 <html lang="es">  
   <head>  
@@ -23,18 +25,7 @@
 </head>
 
 <body>
-  
-<?
-include ("funciones.php");
-$idea = $_SESSION ['ide'];
-$activo1="";
-$activo2="";
-$activo3="";
-if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE) {$activo1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activo2 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active" ';}
-?>
-
+	
 	<nav class="navbar navbar-default navbar-fixed-top hidden-print" role="navigation">
 		<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -51,8 +42,8 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 		 <!-- Collect the nav links, forms, and other content for toggling -->
 		 <div class="collapse navbar-collapse" id="navbar">
 		 	<ul class="nav navbar-nav">
-		 		<li <? echo $activo1;?>><a href="http://<? echo $dominio;?>/intranet/index.php">Inicio</a></li>
-		 		<li<? echo $activo3;?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
+		 		<li <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')) ? 'class="active"' : ''; ?>><a href="http://<? echo $dominio;?>/intranet/index.php">Inicio</a></li>
+		 		<li <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/upload/')) ? 'class="active"' : ''; ?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
 		 		<li><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank">Séneca</a></li>
 		 	</ul>
 		 	
@@ -64,7 +55,7 @@ if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active"
 				 	$mensajes_sin_leer = mysql_num_rows($result_mensajes);
 				 	mysql_free_result($result_mensajes);
 				 	?>
-				 	<li class="visible-xs"><a href="http://<? echo $dominio;?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
+				 	<li class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/')) ? 'active' : ''; ?>"><a href="http://<? echo $dominio;?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
 			 		<li class="dropdown hidden-xs">
 			 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			 				<span class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer > 0) ? 'text-warning' : ''; ?>"></span> <b class="caret"></b>
