@@ -50,11 +50,11 @@ if (stristr ( $carg, '1' ) == TRUE) {
       <div class="panel-body">
         <ul class="nav nav-list">
           <li><a href="xml/index.php">Administración de la Intranet</a></li>
-          <li><a href="admin/jefatura/tutor.php">Diario de jefatura</a></li>
+          <li><a href="admin/jefatura/index.php">Diario de jefatura</a></li>
  <?
  if (date("m")>5 and date("m")<12) {
  ?>
-           <li><a href="admin/matriculas/index.php">Matriculación de Alumnos</a></li>
+           <li><a href="admin/matriculas/index.php">Matriculación de alumnos</a></li>
  <?	
  }
  ?>

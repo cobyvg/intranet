@@ -1,3 +1,7 @@
+<?php if (! defined('INC_TUTORIA')) die ('<h1>Forbidden</h1>'); ?>
+
+<!-- FALTAS DE ASISTENCIA -->
+
 <h3>Faltas sin justificar</h3>
 
 <?php $exp_inicio_curso = explode('-', $inicio_curso); ?>
@@ -7,23 +11,33 @@
  WHERE FALTAS.claveal = FALUMNOS.claveal AND FALTAS.falta = 'F' AND FALTAS.unidad = '$unidad' GROUP BY FALTAS.claveal") or die(mysql_error()); ?>
 
 <?php $result = mysql_query("SELECT FALTASTEMP.claveal, FALTASTEMP.apellidos, FALTASTEMP.nombre, FALTASTEMP.NUMERO FROM FALTASTEMP ORDER BY FALTASTEMP.numero DESC"); ?>
-
-<table class="table table-bordered table-striped">
+<?php if (mysql_num_rows($result)): ?>
+<table class="table table-hover">
 	<thead>
 		<tr>
 			<th>Alumno/a</th>
-			<th class="text-center">Faltas</th>
+			<th class="text-center">Total</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php while ($row = mysql_fetch_array($result)): ?>
 		<tr>
-			<td><a href="../faltas/informes.php?claveal=<?php echo $row['claveal']; ?>&fecha4=<?php echo $inicio_curso2; ?>&fecha3=<?php echo date('d-m-Y'); ?>&submit2=2"><?php echo $row['apellidos'].', '.$row['nombre']; ?></a></td>
-			<td class="text-center"><span class="text-info"><?php echo $row['NUMERO']; ?></span></td>
+			<td><a href="../faltas/informes.php?claveal=<?php echo $row['claveal']; ?>&fecha4=<?php echo $inicio_curso2; ?>&fecha3=<?php echo date('d-m-Y'); ?>&submit2=2"><?php echo $row['nombre'].' '.$row['apellidos']; ?></a></td>
+			<td class="text-center"><div class="badge"><?php echo $row['NUMERO']; ?></div></td>
 		</tr>
 		<?php endwhile; ?>
 		<?php mysql_free_result($result); ?>
 	</tbody>
 </table>
 
+<?php else: ?>
+
+<br>
+<p class="lead text-muted">No hay faltas de asistencias registradas para esta unidad.</p>
+<br>
+
+<?php endif; ?>
+
 <?php mysql_query("DROP TABLE FALTASTEMP"); ?>
+
+<!-- FIN FALTAS DE ASISTENCIA -->

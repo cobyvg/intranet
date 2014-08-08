@@ -31,6 +31,9 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 	
 }
 
+// SE DEFINE UNA VARIABLE PARA CARGAR LOS INCLUDES
+define('INC_TUTORIA',1);
+
 include("../../menu.php");
 include("menu.php");
 ?>
@@ -39,7 +42,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Tutoría de <?php echo $unidad; ?> <small><?php echo $tutor; ?></small></h2>
+			<h2>Tutoría de <?php echo $unidad; ?> <small>Resumen global</small></h2>
 		</div>
 		
 		
@@ -60,21 +63,10 @@ include("menu.php");
 			<!-- COLUMNA IZQUIERDA -->
 			<div class="col-sm-4">
 				
-					
-				<?php include("faltas.php"); ?>
-					
+				<?php include("inc_asistencias.php"); ?>
 				
-				<div class="well">
-					
-					<?php include("mensajes.php"); ?>
-					
-				</div><!-- /.well -->
+				<?php include("inc_actividades.php"); ?>
 				
-				<div class="well">
-					
-					<?php include("tareas.php"); ?>
-					
-				</div><!-- /.well -->
 				
 			</div><!-- /.col-sm-4 -->
 			
@@ -83,17 +75,9 @@ include("menu.php");
 			<!-- COLUMNA CENTRAL -->
 			<div class="col-sm-4">
 				
-				<div class="well">
-					
-					<?php include("fechorias.php"); ?>
-					
-				</div><!-- /.well -->
+				<?php include("inc_convivencia.php"); ?>
 				
-				<div class="well">
-					
-					<?php include("actividades.php"); ?>
-					
-				</div><!-- /.well -->
+				<?php include("inc_informes_tareas.php"); ?>
 				
 			</div><!-- /.col-sm-4 -->
 			
@@ -102,17 +86,11 @@ include("menu.php");
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-4">
 				
-				<div class="well">
-					
-					<?php include("informes.php"); ?>
-					
-				</div><!-- /.well -->
+				<?php include("inc_mensajes.php"); ?>
 				
-				<div class="well">
-					
-					<?php include("ultimos.php"); ?>
-					
-				</div><!-- /.well -->
+				<?php include("inc_informes_tutoria.php"); ?>
+				
+				<?php include("inc_intervenciones.php"); ?>
 				
 			</div><!-- /.col-sm-4 -->
 			

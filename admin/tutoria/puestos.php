@@ -215,9 +215,11 @@ foreach ($matriz_puestos as $value) {
 					<ul class="list-unstyled">
 						<?php $result = mysql_query("SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$unidad' ORDER BY apellidos ASC, nombre ASC"); ?>
 						<?php while ($row = mysql_fetch_array($result)): ?>
+						<?php if (!in_array($row['claveal'],$con_puesto)): ?>
 					  <li id="<?php echo $row['claveal']; ?>">
 					    <?php echo $row['apellidos'].', '.$row['nombre']; ?>
 					  </li>
+					  <?php endif; ?>
 					  <?php endwhile; ?>
 					</ul>
 				</div>

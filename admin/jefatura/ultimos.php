@@ -26,7 +26,7 @@ $fecha20 = "$fecha10[2]-$fecha10[1]-$fecha10[0]";
 $id3 = $row[8];
 $prohibido = $row[9];
 
-echo "<tr><td>$row[8]</td><td><a href='tutor.php?id=$id3'>$row[1] $row[0]</a></div></td><td nowrap>$fecha20</td></tr>";
+echo "<tr><td>$row[8]</td><td><a href='index.php?id=$id3'>$row[1] $row[0]</a></div></td><td nowrap>$fecha20</td></tr>";
 }	
   }
 echo "</tbody></table>";
