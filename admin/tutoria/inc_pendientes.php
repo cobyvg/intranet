@@ -1,10 +1,7 @@
-<?
-if (!($unidad)) {
-$unidad = $_SESSION ['s_unidad'];
-}
-
+<?php if (! defined('INC_TUTORIA')) die ('<h1>Forbidden</h1>'); ?>
+<?php
 // Cobntrol de faltas leves reiteradas
-$rep0 = mysql_query("select id, Fechoria.claveal, count(*) as numero from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '$unidad' and grave = 'Leve' and medida not like 'Sancionada' group by Fechoria.claveal");
+$rep0 = mysql_query("select id, Fechoria.claveal, count(*) as numero from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'Leve' and medida not like 'Sancionada' group by Fechoria.claveal");
 while ($rep = mysql_fetch_array($rep0)) {
 	
 	if ($rep[2] > 4) {
@@ -65,7 +62,7 @@ enviarForm();
 		$observaciones = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
 		$accion = "Envío de SMS";
 		$causa = "Problemas de convivencia";
-		mysql_query ( "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
+		mysql_query ( "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre . "','" . $informa . "','".$_SESSION['mod_tutoria']['unidad']."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
 
 	
 	// Mensaje SMS a la base de datos
@@ -83,7 +80,7 @@ enviarForm();
 ?>
 <?
 
-$result1 = mysql_query ("select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '$unidad' and medida = 'Amonestación escrita'");
+$result1 = mysql_query ("select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and medida = 'Amonestación escrita'");
 if(mysql_num_rows($result1)>0)
 {
 ?>

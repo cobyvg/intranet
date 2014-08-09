@@ -13,21 +13,39 @@ if($_SESSION['cambiar_clave']) {
 	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
 }
 
-if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'2') == TRUE)) {
-	echo "<div class='well' align='center'><p class='text-danger'>La página a la que estás accediendo está restringida.</p>";
-	echo '<p class="text-info">Si piensas que es un error consulta con el administrador.</p>';
-	echo "<a class='btn' href='../index.php'>Volver a la Intranet</a></div>";
+// COMPROBACION DE ACCESO AL MODULO
+if(!stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE || stristr($_SESSION['cargo'],'8') == TRUE) {
+	
+	if (isset($_SESSION['mod_tutoria'])) unset($_SESSION['mod_tutoria']);
+	die ("<h1>FORBIDDEN</h1>");
+	
+}
+else {
+	
+	// COMPROBAMOS SI ES EL TUTOR, SINO ES DEL EQ. DIRECTIVO U ORIENTADOR
+	if (stristr($_SESSION['cargo'],'2') == TRUE) {
+		
+		$_SESSION['mod_tutoria']['tutor']  = $_SESSION['tut'];
+		$_SESSION['mod_tutoria']['unidad'] = $_SESSION['s_unidad'];
+		
+	}
+	else {
+	
+		if(isset($_POST['tutor'])) {
+			$exp_tutor = explode('==>', $_POST['tutor']);
+			$_SESSION['mod_tutoria']['tutor'] = trim($exp_tutor[0]);
+			$_SESSION['mod_tutoria']['unidad'] = trim($exp_tutor[1]);
+		}
+		else{
+			if (!isset($_SESSION['mod_tutoria'])) {
+				header('Location:'.'tutores.php');
+			}
+		}
+		
+	}
 }
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
-
-include("../../menu.php");
-include("menu.php");
-
-$profe = $_SESSION ['tut'];
-if(isset($_SESSION['s_unidad'])) $unidad = $_SESSION['s_unidad'];
-else $unidad = $_GET['unidad'];
 
 
 // TABLA DE PUESTOS
@@ -39,7 +57,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
 
 
 // ESTRUCTURA DE LA CLASE, SE AJUSTA AL NUMERO DE ALUMNOS
-$result = mysql_query("SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$unidad' ORDER BY apellidos ASC, nombre ASC");
+$result = mysql_query("SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC");
 $n_alumnos = mysql_num_rows($result);
 mysql_free_result($result);
 
@@ -62,7 +80,7 @@ function al_con_nie($var_nie,$var_grupo) {
 
 // ACTUALIZAR PUESTOS
 if (isset($_POST['listOfItems'])){
-	$result = mysql_query("UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$unidad."'");
+	$result = mysql_query("UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
 	
 	if(!$result) $msg_error = "La asignación de puestos en el aula no se ha podido actualizar. Error: ".mysql_error();
 	else $msg_success = "La asignación de puestos en el aula se ha actualizado correctamente.";	
@@ -70,10 +88,10 @@ if (isset($_POST['listOfItems'])){
 
 
 // OBTENEMOS LOS PUESTOS, SI NO EXISTE LOS CREAMOS
-$result = mysql_query("SELECT * FROM puestos_alumnos WHERE unidad='".$unidad."' limit 1");
+$result = mysql_query("SELECT * FROM puestos_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' limit 1");
 
 if (mysql_num_rows($result)<>1) {
-	mysql_query("INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$unidad."', '')");
+	mysql_query("INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '')");
 	
 	if(!$result) $msg_error = "La asignación de puestos en el aula no se ha podido guardar. Error: ".mysql_error();
 	else $msg_success = "La asignación de puestos en el aula se ha guardado correctamente.";	
@@ -97,6 +115,9 @@ foreach ($matriz_puestos as $value) {
 	}
 
 }
+
+include("../../menu.php");
+include("menu.php");
 ?>
 	
 	<style class="text/css">
@@ -187,7 +208,8 @@ foreach ($matriz_puestos as $value) {
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Tutoría <small>Asignación de puestos en el aula</small></h2>
+			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Asignación de mesas en el aula</small></h2>
+			<h4 class="text-info">Tutor/a: <?php echo mb_convert_case($_SESSION['mod_tutoria']['tutor'], MB_CASE_TITLE, "iso-8859-1"); ?></h4>
 		</div>
 		
 		
@@ -209,12 +231,12 @@ foreach ($matriz_puestos as $value) {
 		<div id="dhtmlgoodies_dragDropContainer" class="row">
 			
 			<!-- COLUMNA IZQUIERDA -->
-			<div id="dhtmlgoodies_listOfItems" class="col-sm-3">
+			<div id="dhtmlgoodies_listOfItems" class="col-sm-3 hidden-print">
 				
 				<div id="allItems">
 					<p>Alumnos/as</p>
 					<ul class="list-unstyled">
-						<?php $result = mysql_query("SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$unidad' ORDER BY apellidos ASC, nombre ASC"); ?>
+						<?php $result = mysql_query("SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC"); ?>
 						<?php while ($row = mysql_fetch_array($result)): ?>
 						<?php if (!in_array($row['claveal'],$con_puesto)): ?>
 					  <li id="<?php echo $row['claveal']; ?>">
@@ -242,7 +264,7 @@ foreach ($matriz_puestos as $value) {
 								<div><p class="text-center">Mesa <?php echo $mesas; ?></p>
 									<ul id="<?php echo $mesas; ?>" class="list-unstyled text-sm">
 										<?php if (isset($con_puesto[$mesas])): ?>
-											<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo al_con_nie($con_puesto[$mesas],$unidad); ?></li>		 
+											<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo al_con_nie($con_puesto[$mesas],$_SESSION['mod_tutoria']['unidad']); ?></li>		 
 										<?php endif; ?>  
 									</ul>
 								</div>
@@ -256,7 +278,7 @@ foreach ($matriz_puestos as $value) {
 						<?php endfor; ?>
 						<tr>
 							<td colspan="<?php echo $col_profesor; ?>">
-								<p id="dragDropIndicator" class="text-muted"><small>Arrastre un alumno/a a la mesa correspondiente</small></p>
+								<p id="dragDropIndicator" class="text-muted hidden-print"><small>Arrastre un alumno/a a la mesa correspondiente</small></p>
 							</td>
 							<td class="text-center">
 								<div>
@@ -278,11 +300,13 @@ foreach ($matriz_puestos as $value) {
 			
 			<div class="col-sm-12">
 				
-				<form id="myForm" name="myForm" method="post" action="puestos.php?unidad=<?php echo $unidad; ?>" onsubmit="saveDragDropNodes()">
-					<input type="hidden" name="listOfItems" value="">
-					<button type="submit" class="btn btn-primary" name="saveButton">Guardar cambios</button>
-					<a href="puestos_print.php?unidad=<?php echo $unidad; ?>" class="btn btn-default" target="_blank">Imprimir</a>
-				</form>
+				<div class="hidden-print">
+					<form id="myForm" name="myForm" method="post" action="" onsubmit="saveDragDropNodes()">
+						<input type="hidden" name="listOfItems" value="">
+						<button type="submit" class="btn btn-primary" name="saveButton">Guardar cambios</button>
+						<a href="#" class="btn btn-default" onclick="javascript:print();">Imprimir</a>
+					</form>
+				</div>
 				
 			</div><!-- /col-sm-12 -->
 			

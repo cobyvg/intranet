@@ -12,7 +12,7 @@ $result0 = mysql_query ("select distinct apellidos, nombre, claveal from tutoria
 $n_filas = mysql_num_rows($result0);
 if($n_filas > 0) 
   {
-echo '<table class="table table-striped table-bordered dt-jefatura">';
+echo '<table class="table table-striped table-bordered datatable">';
 ?>
 <?
 echo "<thead><tr><th>#</th><th>Alumno</th><th>Fecha</th></tr></thead><tbody>";

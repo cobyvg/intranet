@@ -1,6 +1,8 @@
 <?
 session_start();
 include("../../config.php");
+setlocale('es_ES');
+
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -13,92 +15,149 @@ if($_SESSION['cambiar_clave']) {
 	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
 }
 
+// COMPROBACION DE ACCESO AL MODULO
+if(!stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE || stristr($_SESSION['cargo'],'8') == TRUE) {
+	
+	if (isset($_SESSION['mod_tutoria'])) unset($_SESSION['mod_tutoria']);
+	die ("<h1>FORBIDDEN</h1>");
+	
+}
+else {
+	
+	// COMPROBAMOS SI ES EL TUTOR, SINO ES DEL EQ. DIRECTIVO U ORIENTADOR
+	if (stristr($_SESSION['cargo'],'2') == TRUE) {
+		
+		$_SESSION['mod_tutoria']['tutor']  = $_SESSION['tut'];
+		$_SESSION['mod_tutoria']['unidad'] = $_SESSION['s_unidad'];
+		
+	}
+	else {
+	
+		if(isset($_POST['tutor'])) {
+			$exp_tutor = explode('==>', $_POST['tutor']);
+			$_SESSION['mod_tutoria']['tutor'] = trim($exp_tutor[0]);
+			$_SESSION['mod_tutoria']['unidad'] = trim($exp_tutor[1]);
+		}
+		else{
+			if (!isset($_SESSION['mod_tutoria'])) {
+				header('Location:'.'tutores.php');
+			}
+		}
+		
+	}
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-// SE DEFINE UNA VARIABLE PARA CARGAR LOS INCLUDES
-define('INC_TUTORIA',1);
+if (isset($_POST['alumno'])) $alumno = $_POST['alumno'];
 
 
+// COMPROBAMOS SI SE PASA UN ID DE INTERVENCION
 if (isset($_GET['id'])) {
-	$id = $_GET['id'];
-}
-elseif(isset($_POST['id'])){
-	$id = $_POST['id'];
-}
-else{
-	$id = "";
-}
-if (isset($_GET['eliminar'])) {
-	$eliminar = $_GET['eliminar'];
-}
-if (isset($_POST['fecha_reg'])) {
-	$fecha_reg = $_POST['fecha_reg'];
-} else{$fecha_reg="";}
-
-if (isset($_POST['alumno'])) {
-	$alumno = $_POST['alumno'];
-}   else{$alumno="";}
-if (isset($_POST['observaciones'])) {
-	$observaciones = $_POST['observaciones'];
-} else{$observaciones="";}
-if (isset($_POST['accion'])) {
-	$accion = $_POST['accion'];
-} else{$accion="";}
-if (isset($_POST['causa'])) {
-	$causa = $_POST['causa'];
-} else{$causa="";}
-if (isset($_POST['id2'])) {
-	$id2 = $_POST['id2'];
-} else{$id2="";}
-if (isset($_POST['unidad0'])) {
-	$unidad0 = $_POST['unidad0'];
-} else{$unidad0="";}
-
-if (isset($_POST['prohibido'])) {
-	$prohibido = $_POST['prohibido'];
-}else{$prohibido="";}
-
-if ($id) {
-$alumno = "";
-$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, tutoria.unidad, FTUTORES.tutor, id, prohibido, orienta, jefatura, claveal from tutoria, FTUTORES where tutoria.unidad = FTUTORES.unidad and id = '$id'");
-$row = mysql_fetch_array($result);
-$alumno = $row[0].", ".$row[1]." --> ".$row[12];
-$apellidos = $row[0];
-$nombre = $row[1];
-$fecha0 = $row[2];
-$dia = explode("-",$fecha0);
-$fecha_reg = "$dia[2]-$dia[1]-$dia[0]";
-$accion = $row[3];
-$causa = $row[4];
-$observaciones = $row[5];
-$unidad = $row[6];
-$tutor = $row[7];
-$id = $row[8];
-$prohibido = $row[9];
-$orientacion = $row[10];
-$jefatura = $row[11];
-$clave = $row[12];
-  }
-
-
-if ($eliminar=="1") {
-	mysql_query("delete from tutoria where id='$id'");
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-El registro ha sido borrado en la Base de datos.
-</div></div><br />';		
-}
-
-if (isset($_POST['submit1'])) {
-		include("insertar.php");
-}
-
-if (isset($_POST['submit2'])) {
-	$dia = explode("-",$fecha);
-	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
+	$result = mysql_query("SELECT apellidos, nombre, fecha, accion, causa, observaciones, tutoria.unidad, FTUTORES.tutor, id, prohibido, orienta, jefatura, claveal FROM tutoria, FTUTORES WHERE tutoria.unidad = FTUTORES.unidad AND id='".$_GET['id']."' AND tutoria.unidad = '".$_SESSION['mod_tutoria']['unidad']."'");
 	
-	mysql_query("UPDATE tutoria SET observaciones = '$observaciones', causa = '$causa', accion = '$accion', fecha = '$fecha2' WHERE  id = '$id2'");
+	if (mysql_num_rows($result)) {
+		$row = mysql_fetch_array($result);
+		
+		$alumno = $row['apellidos'].", ".$row['nombre']." --> ".$row['claveal'];
+		$apellidos = $row['apellidos'];
+		$nombre = $row['nombre'];
+		$claveal = $row['claveal'];
+		$unidad = $row['unidad'];
+		$tutor = $row['tutor'];
+		$exp_fecha_reg = explode("-", $row['fecha']);
+		$fecha_reg = $exp_fecha_reg[2].'-'.$exp_fecha_reg[1].'-'.$exp_fecha_reg[0];
+		$observaciones = $row['observaciones'];
+		$accion = $row['accion'];
+		$causa = $row['causa'];
+		$prohibido = $row['prohibido'];
+		$orientacion = $row['orienta'];
+		$jefatura = $row['jefatura'];
+		
+		mysql_free_result($result);
+	}
+	else {
+		$msg_error = "La intervención que intenta editar no existe o no tiene privilegios administrativos para editarlo.";
+		unset($_GET['id']);
+	}
+}
+
+
+// ENVIO DEL FORMULARIO
+if (isset($_POST['enviar'])) {
+	
+	// VARIABLES DEL FORMULARIO
+	$alumno = $_POST['alumno'];
+	$fecha_reg = $_POST['fecha_reg'];
+	$observaciones = $_POST['observaciones'];
+	$causa = $_POST['causa'];
+	$accion = $_POST['accion'];
+	
+	if (empty($alumno) || empty($fecha_reg) || empty($observaciones) || empty($causa) || empty($accion)) {
+		$msg_error = "Todos los campos del formulario son obligatorios.";
+	}
+	else {
+		
+		$exp_fecha_reg = explode("-", $fecha_reg);
+		$fecha_sql = $exp_fecha_reg[2].'-'.$exp_fecha_reg[1].'-'.$exp_fecha_reg[0];
+		
+		
+		// COMPROBAMOS SI SE TRATA DE UNA ACTUALIZACIÓN O INSERCIÓN
+		if (isset($_GET['id'])) {
+		
+			$result = mysql_query("UPDATE tutoria SET observaciones='$observaciones', causa='$causa', accion='$accion', fecha='$fecha_sql' WHERE id='".$_GET['id']."'");
+			
+			if (!$result) $msg_error = "La intervención no se ha podido actualizar. Error: ".mysql_error();
+			else $msg_success = "La intervención ha sido actualizada.";
+			
+		}
+		else {
+			
+			if ($alumno == "Todos, todos") {
+				
+				$result = mysql_query("SELECT apellidos, nombre, claveal FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
+				
+				while ($row = mysql_fetch_array($result)) {
+					$apellidos = $row[0];
+					$nombre = $row[1];
+					$claveal = $row[2];
+					
+					$result1 = mysql_query("INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES ('$apellidos', '$nombre', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
+					
+					if (!$result) $msg_error = "La intervención al alumno $nombre $apellidos no ha podido registrarse. Error: ".mysql_error();
+					else $msg_success = "La intervención ha sido registrada a todos los alumnos de la undidad.";
+				}
+				
+				mysql_free_result($result);
+			}
+			else {
+				
+				$exp_alumno = explode(' --> ', $alumno);
+				$exp_nombre = explode(', ', $exp_alumno[0]);
+				$apellidos = trim($exp_nombre[0]);
+				$nombre = trim($exp_nombre[1]);
+				$claveal = trim($exp_alumno[1]);
+				
+				$result = mysql_query("INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES 
+						('".$apellidos."', '".$nombre."', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
+						
+				if (!$result) $msg_error = "La intervención no se ha podido registrar. Error: ".mysql_error();
+				else $msg_success = "La intervención ha sido registrada.";
+			}
+			
+		}
+		
+	}
+}
+
+
+// ELIMINAR INTERVENCIÓN
+if (isset($_GET['eliminar']) && isset($_GET['id'])) {
+	$result = mysql_query("DELETE FROM tutoria WHERE id='".$_GET['id']."' LIMIT 1");
+	
+	if (!$result) $msg_error = "No se ha podido eliminar la intervención. Error: ".mysql_error();
+	else $msg_success = "La intervención ha sido eliminada.";
 }
 
 
@@ -116,6 +175,9 @@ if (isset($jefatura) && $jefatura == 1) {
 }
 
 
+// PLUGINS
+$PLUGIN_DATATABLES = 1;
+
 include("../../menu.php");
 include("menu.php");
 ?>
@@ -124,7 +186,8 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Tutoría de <?php echo $unidad; ?> <small>Intervenciones sobre los alumnos</small></h2>
+			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Intervenciones sobre los alumnos</small></h2>
+			<h4 class="text-info">Tutor/a: <?php echo mb_convert_case($_SESSION['mod_tutoria']['tutor'], MB_CASE_TITLE, "iso-8859-1"); ?></h4>
 		</div>
 		
 		
@@ -160,11 +223,10 @@ include("menu.php");
 			<!-- COLUMNA IZQUIERDA -->
 			<div class="col-sm-7">
 			
-				<?php if(isset($id) && $alumno && !($alumno == "Todos los Alumnos")): ?>
-				<?php $tr = explode(" --> ",$alumno); ?>
-				<?php $al = $tr[0]; ?>
-				<?php $clave = $tr[1]; ?>
-				<?php $foto = '../../xml/fotos/'.$clave.'.jpg'; ?>
+				<?php if($alumno && !($alumno == "Todos los Alumnos")): ?>
+				<?php $exp_alumno = explode(" --> ", $alumno); ?>
+				<?php $claveal = $exp_alumno[1]; ?>
+				<?php $foto = '../../xml/fotos/'.$claveal.'.jpg'; ?>
 				<?php if(file_exists($foto)): ?>
 				<img class="img-thumbnail" src="<?php echo $foto; ?>" alt="" width="92" style="position: absolute; top: -35px; right: 0; margin-right: 35px;">
 				<?php endif; ?>
@@ -175,16 +237,12 @@ include("menu.php");
 					<form method="post" action="">
 						<fieldset>
 							<legend>Registro de datos</legend>
-							
-							<?php if(isset($id)): ?>
-							<input type="hidden" name="id2" value="<?php echo $id; ?>">
-							<?php endif; ?>
 	
 							<div class="row">
 								<div class="col-sm-7">
 									<div class="form-group">
 									  <label for="alumno">Alumno/a</label>
-									  <?php $result = mysql_query("SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC ASC"); ?>
+									  <?php $result = mysql_query("SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY NC ASC"); ?>
 									  <?php if(mysql_num_rows($result)): ?>
 									  <select class="form-control" id="alumno" name="alumno" onchange="submit()">
 									  	<option value="Todos, todos">Todos los Alumnos</option>
@@ -205,7 +263,7 @@ include("menu.php");
 									<div class="form-group">
 									  <label for="fecha_reg">Fecha</label>
 										<div class="input-group">
-											<input name="fecha_reg" type="text" class="input form-control" value="<?php echo (isset($id) && $fecha_reg) ? $fecha_reg : date('d-m-Y'); ?>" data-date-format="dd-mm-yyyy" id="fecha_reg" >
+											<input name="fecha_reg" type="text" class="input form-control" value="<?php echo (isset($fecha_reg) && $fecha_reg) ? $fecha_reg : date('d-m-Y'); ?>" data-date-format="dd-mm-yyyy" id="fecha_reg" >
 										  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
 									</div>
@@ -215,7 +273,7 @@ include("menu.php");
 						  
 						  <div class="form-group">
 						  	<label for="observaciones">Observaciones</label>
-						    <textarea class="form-control" id="observaciones" name="observaciones" placeholder="Escriba la intervención realizada sobre el alumno..." rows="10"><?php echo (isset($id) && $observaciones) ? $observaciones : ''; ?></textarea>
+						    <textarea class="form-control" id="observaciones" name="observaciones" placeholder="Escriba la intervención realizada sobre el alumno..." rows="10"><?php echo (isset($observaciones) && $observaciones) ? $observaciones : ''; ?></textarea>
 						  </div>
 						  
 						  <div class="row">
@@ -223,13 +281,13 @@ include("menu.php");
 						  		<div class="form-group">
 						  		  <label for="causa">Causa</label>
 						  		  <select class="form-control" id="causa" name="causa">
-						  		  	<option value="Estado general del Alumno" <?php echo (isset($id) && $causa == 'Estado general del Alumno') ? 'selected' : ''; ?>>Estado general del Alumno</option>
-						  		  	<option value="Evolución académica" <?php echo (isset($id) && $causa == 'Evolución académica') ? 'selected' : ''; ?>>Evolución académica</option>
-						  		  	<option value="Faltas de Asistencia" <?php echo (isset($id) && $causa == 'Faltas de Asistencia') ? 'selected' : ''; ?>>Faltas de Asistencia</option>
-						  		  	<option value="Problemas de convivencia" <?php echo (isset($id) && $causa == 'Problemas de convivencia') ? 'selected' : ''; ?>>Problemas de convivencia</option>
-						  		  	<option value="Llamada por Enfermedad" <?php echo (isset($id) && $causa == 'Llamada por Enfermedad') ? 'selected' : ''; ?>>Llamada por Enfermedad</option>
-						  		  	<option value="Robo, hurto" <?php echo (isset($id) && $causa == 'Robo, hurto') ? 'selected' : ''; ?>>Robo, hurto</option>
-						  		  	<option value="Otras" <?php echo (isset($id) && $causa == 'Otras') ? 'selected' : ''; ?>>Otras</option>
+						  		  	<option value="Estado general del Alumno" <?php echo (isset($causa) && $causa == 'Estado general del Alumno') ? 'selected' : ''; ?>>Estado general del Alumno</option>
+						  		  	<option value="Evolución académica" <?php echo (isset($causa) && $causa == 'Evolución académica') ? 'selected' : ''; ?>>Evolución académica</option>
+						  		  	<option value="Faltas de Asistencia" <?php echo (isset($causa) && $causa == 'Faltas de Asistencia') ? 'selected' : ''; ?>>Faltas de Asistencia</option>
+						  		  	<option value="Problemas de convivencia" <?php echo (isset($causa) && $causa == 'Problemas de convivencia') ? 'selected' : ''; ?>>Problemas de convivencia</option>
+						  		  	<option value="Llamada por Enfermedad" <?php echo (isset($causa) && $causa == 'Llamada por Enfermedad') ? 'selected' : ''; ?>>Llamada por Enfermedad</option>
+						  		  	<option value="Robo, hurto" <?php echo (isset($causa) && $causa == 'Robo, hurto') ? 'selected' : ''; ?>>Robo, hurto</option>
+						  		  	<option value="Otras" <?php echo (isset($causa) && $causa == 'Otras') ? 'selected' : ''; ?>>Otras</option>
 						  		  </select>
 						  		</div>
 						  	</div>
@@ -238,20 +296,20 @@ include("menu.php");
 						  		<div class="form-group">
 						  		  <label for="accion">Tipo</label>
 						  			<select class="form-control" id="accion" name="accion">
-						  				<option value="Entrevista telefónica" <?php echo (isset($id) && $accion == 'Entrevista telefónica') ? 'selected' : ''; ?>>Entrevista telefónica</option>
-						  				<option value="Entrevista personal" <?php echo (isset($id) && $accion == 'Entrevista personal') ? 'selected' : ''; ?>>Entrevista personal</option>
-						  				<option value="Comunicación por escrito" <?php echo (isset($id) && $accion == 'Comunicación por escrito') ? 'selected' : ''; ?>>Comunicación por escrito</option>
+						  				<option value="Entrevista telefónica" <?php echo (isset($accion) && $accion == 'Entrevista telefónica') ? 'selected' : ''; ?>>Entrevista telefónica</option>
+						  				<option value="Entrevista personal" <?php echo (isset($accion) && $accion == 'Entrevista personal') ? 'selected' : ''; ?>>Entrevista personal</option>
+						  				<option value="Comunicación por escrito" <?php echo (isset($accion) && $accion == 'Comunicación por escrito') ? 'selected' : ''; ?>>Comunicación por escrito</option>
 						  			</select>
 						  		</div>
 						  	</div>
 						  </div>
 						  
-						  <?php if(isset($id) && $id): ?>
-						  <button type="submit" class="btn btn-primary" name="submit2">Actualizar</button>
-						  <button type="submit" class="btn btn-danger" name="submit3" onclick="confirmacion();">Eliminar</button>
-						  <a class="btn btn-default" href="intervencion.php?tutor=<?php echo $tutor; ?>">Nueva intervención</a>
+						  <?php if(isset($_GET['id'])): ?>
+						  <button type="submit" class="btn btn-primary" name="enviar">Actualizar</button>
+						  <a href="intervencion.php?id=<?php echo $_GET['id']; ?>&eliminar=1" class="btn btn-danger" data-bb="confirm-delete">Eliminar</a>
+						  <a class="btn btn-default" href="intervencion.php">Nueva intervención</a>
 						  <?php else: ?>
-						  <button type="submit" class="btn btn-primary" name="submit1">Registrar</button>
+						  <button type="submit" class="btn btn-primary" name="enviar">Registrar</button>
 						  <?php endif; ?>
 						</fieldset>
 							
@@ -260,7 +318,7 @@ include("menu.php");
 				</div><!-- /.well -->
 				
 				<?php
-				if($alumno){
+				if($alumno && $alumno != 'Todos, todos'){
 					$tr = explode(" --> ",$alumno);
 					$al = $tr[0];
 					$clave = $tr[1];
@@ -271,18 +329,18 @@ include("menu.php");
 				<div class="well">
 					<h4>Historial de intervenciones de <?php echo $nombre." ".$apellidos; ?></h4>
 				<?php
-					$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, id from tutoria where claveal = '$clave' order by fecha");
+					$result = mysql_query ("SELECT apellidos, nombre, fecha, accion, causa, observaciones, id FROM tutoria WHERE claveal='$claveal' AND prohibido = '0' ORDER BY fecha DESC");
 				
 					if ($row = mysql_fetch_array($result)) {
 						echo '<table class="table table-striped">';
-						echo "<thead><tr><th>Fecha</th><th>Clase</th><th>Causa</th><th></th></tr></thead><tbody>";
+						echo "<thead><tr><th>Fecha</th><th>Tipo</th><th>Causa</th><th></th></tr></thead><tbody>";
 						
 						do{
 						  $obs=substr($row[5],0,80)."...";
 						  $dia3 = explode("-",$row[2]);
 						  $fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 							echo "<tr><td>$fecha3</td><td>$row[3]</a></td><td>$row[4]</a></td><td >
-							<a href='intervencion.php?id=$row[6]&tutor=$tutor' rel='tooltip' title='Ver informe'><i class='fa fa-search fa-lg fa-fw'></i></a>
+							<a href='intervencion.php?id=$row[6]' rel='tooltip' title='Ver informe'><i class='fa fa-search fa-lg fa-fw'></i></a>
 							</td></tr>";
 						}
 						while($row = mysql_fetch_array($result));
@@ -306,9 +364,9 @@ include("menu.php");
 				
 				<h3>Intervenciones registradas</h3>
 				
-				<?php $result = mysql_query("SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='$unidad' AND DATE(fecha) > '$inicio_curso' ORDER BY apellidos ASC, nombre ASC"); ?>
+				<?php $result = mysql_query("SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha) > '$inicio_curso' ORDER BY apellidos ASC, nombre ASC"); ?>
 				<?php if (mysql_num_rows($result)): ?>
-				<table class="table table-striped dt-tutor">
+				<table class="table table-striped datatable">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -318,11 +376,11 @@ include("menu.php");
 					</thead>
 					<tbody>
 						<?php while ($row = mysql_fetch_array($result)): ?>
-						<?php $result1 = mysql_query("SELECT fecha, id FROM tutoria WHERE claveal = '".$row['claveal']."' AND prohibido = '0' AND unidad = '$unidad' AND DATE(fecha)> '$inicio_curso' ORDER BY fecha DESC LIMIT 1"); ?>
+						<?php $result1 = mysql_query("SELECT fecha, id FROM tutoria WHERE claveal = '".$row['claveal']."' AND prohibido = '0' AND unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha)> '$inicio_curso' ORDER BY fecha DESC LIMIT 1"); ?>
 						<?php while ($row1 = mysql_fetch_array($result1)): ?>
 						<tr>
 							<td><?php echo $row1['id']; ?></td>
-							<td><a href="intervencion.php?id=<?php echo $row1['id']; ?>&tutor=<?php echo $tutor; ?>"><?php echo ($row['apellidos'] == 'Todos') ? 'Todos los alumnos' : $row['nombre'].' '.$row['apellidos']; ?></a></td>
+							<td><a href="intervencion.php?id=<?php echo $row1['id']; ?>"><?php echo ($row['apellidos'] == 'Todos') ? 'Todos los alumnos' : $row['nombre'].' '.$row['apellidos']; ?></a></td>
 							<td><?php echo strftime('%e %b',strtotime($row1['fecha'])); ?></td>
 						</tr>
 						<?php endwhile; ?>
@@ -349,42 +407,31 @@ include("menu.php");
 <?php include("../../pie.php");?>
 
 	<script>  
-	$('.dt-tutor').DataTable( {
-	    "lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
+	$(document).ready(function() {
+		var table = $('.datatable').DataTable({
+			"paging":   true,
+	    "ordering": true,
+	    "info":     false,
 	    
-	    "order": [[ 0, "desc" ]],
-	    
-	    "bPaginate": true,
-	    "bLengthChange": true,
-	    "bFilter": true,
-	    "bSort": true,
-	    "bInfo": false,
-	    "sDom": "<'row'<'col-sm-12'f>>t<'row'<'col-sm-12'p>>",
-	    
-	    "oLanguage": {
-					"sProcessing":     "Procesando...",
-				   "sLengthMenu":     "Mostrar _MENU_ registros",
-				   "sZeroRecords":    "No se encontraron resultados",
-				   "sEmptyTable":     "Ningún dato disponible en esta tabla",
-				   "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-				   "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-				   "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-				   "sInfoPostFix":    "",
-				   "sSearch":         "Buscar:",
-				   "sUrl":            "",
-				   "sInfoThousands":  ",",
-				   "sLoadingRecords": "Cargando...",
-				   "oPaginate": {
-				   		"sFirst":    "Primero",
-				      "sLast":     "Último",
-				      "sNext":     "",
-				      "sPrevious": ""
-				   },
-	    		 "oAria": {
-	    		 		"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-	    		 		"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-	    		 }	
-	    }
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+			
+			"order": [[ 0, "desc" ]],
+			
+			"language": {
+			            "lengthMenu": "_MENU_",
+			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+			            "info": "Página _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay resultados disponibles.",
+			            "infoFiltered": "(filtrado de _MAX_ resultados)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			                  "first": "Primera",
+			                  "next": "Última",
+			                  "next": "",
+			                  "previous": ""
+			                }
+			        }
+		});
 	});
 	</script>
 	<script>  

@@ -20,9 +20,11 @@
     <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/summernote.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">                
+    <?php if(isset($PLUGIN_DATATABLES) && $PLUGIN_DATATABLES): ?>
+    <link href="http://<? echo $dominio;?>/intranet/js/datatables/dataTables.bootstrap.css" rel="stylesheet"> 
+    <?php endif; ?>
+                   
 </head>
-
 <body>
 	
 	<nav class="navbar navbar-default navbar-fixed-top hidden-print" role="navigation">

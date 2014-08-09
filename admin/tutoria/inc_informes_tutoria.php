@@ -4,7 +4,7 @@
 
 <h3>Informes de tutoría</h3>
 
-<?php $result = mysql_query("SELECT id, claveal, apellidos, nombre, f_entrev FROM infotut_alumno WHERE unidad='$unidad' ORDER BY f_entrev DESC"); ?>
+<?php $result = mysql_query("SELECT id, claveal, apellidos, nombre, f_entrev FROM infotut_alumno WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY f_entrev DESC"); ?>
 <?php if (mysql_num_rows($result)): ?>
 <table class="table table-hover">
 	<thead>

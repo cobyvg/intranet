@@ -26,67 +26,49 @@
     <script src="http://<? echo $dominio;?>/intranet/js/summernote-es-ES.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/bootbox.min.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-datepicker.js"></script>
+    <?php if(isset($PLUGIN_DATATABLES) && $PLUGIN_DATATABLES): ?>
+    <script src="http://<? echo $dominio;?>/intranet/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/datatables/dataTables.bootstrap.js"></script>
+    <?php endif; ?>
     <script src="http://<? echo $dominio;?>/intranet/js/ajax_alumnos.js"></script>
     
-    <!--  Tablas de Bootstrap DataTables.  -->   
-
- <?
-if (isset($datatables_activado)){
-if ($datatables_activado){
-	include("js/datatables/carga_datatables.php");
-}        
-}
-?>
- <?
-if (isset($imprimir_activado)){
-if ($imprimir_activado){
-	include("js/datatables/imprimir_datatables.php");
-}        
-}
-?>
- <?
-if (isset($datatables_min)){
-if ($datatables_min){
-	include("js/datatables/datatables_min.php");
-}        
-}
-?>
+		
+		<script>
+		$(function () {
+		  var nua = navigator.userAgent
+		  var isAndroid = (nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1 && nua.indexOf('Chrome') === -1)
+		  if (isAndroid) {
+		    $('select.form-control').removeClass('form-control').css('width', '100%')
+		  }
+		})
+		</script>
 	
-	<script>
-	$(function () {
-	  var nua = navigator.userAgent
-	  var isAndroid = (nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1 && nua.indexOf('Chrome') === -1)
-	  if (isAndroid) {
-	    $('select.form-control').removeClass('form-control').css('width', '100%')
-	  }
-	})
-	</script>
+		<script type="text/javascript">
+			$("[rel=tooltip]").tooltip();
+		</script>
 	
-	<script type="text/javascript">
-		$("[rel=tooltip]").tooltip();
-	</script>
-
-	<script>
-	$(document).on("click", "a[data-bb]", function(e) {
-	    e.preventDefault();
-	    var type = $(this).data("bb");
-			var link = $(this).attr("href");
-			
-			if (type == 'confirm-delete') {
-				bootbox.setDefaults({
-				  locale: "es",
-				  show: true,
-				  backdrop: true,
-				  closeButton: true,
-				  animate: true,
-				  title: "Confirmación para eliminar",
-				});
+		<script>
+		$(document).on("click", "a[data-bb]", function(e) {
+		    e.preventDefault();
+		    var type = $(this).data("bb");
+				var link = $(this).attr("href");
 				
-				bootbox.confirm("Esta acción eliminará permanentemente el elemento seleccionado ¿Seguro que desea continuar?", function(result) {
-				    if (result) {
-				    	document.location.href = link;
-				    }
-				});
-			}
-	});
-	</script>
+				if (type == 'confirm-delete') {
+					bootbox.setDefaults({
+					  locale: "es",
+					  show: true,
+					  backdrop: true,
+					  closeButton: true,
+					  animate: true,
+					  title: "Confirmación para eliminar",
+					});
+					
+					bootbox.confirm("Esta acción eliminará permanentemente el elemento seleccionado ¿Seguro que desea continuar?", function(result) {
+					    if (result) {
+					    	document.location.href = link;
+					    }
+					});
+				}
+		});
+		</script>
+		

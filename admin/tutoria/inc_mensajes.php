@@ -5,7 +5,7 @@
 <h3>Mensajes de tutoría</h3>
 
 <?php setlocale(LC_ALL, 'es_ES'); ?>
-<?php $result = mysql_query("SELECT id, ahora, apellidos, nombre, asunto, texto FROM alma, mensajes WHERE alma.claveal = mensajes.claveal AND mensajes.unidad = '$unidad' AND DATE(ahora) > '$inicio_curso' ORDER BY id DESC"); ?>
+<?php $result = mysql_query("SELECT id, ahora, apellidos, nombre, asunto, texto FROM alma, mensajes WHERE alma.claveal = mensajes.claveal AND mensajes.unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(ahora) > '$inicio_curso' ORDER BY id DESC"); ?>
 
 <?php if (mysql_num_rows($result) > 0): ?>
 <table class="table table-hover">

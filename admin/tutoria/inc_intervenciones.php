@@ -4,7 +4,7 @@
 
 <h3>Intervenciones de tutoría</h3>
 
-<?php $result = mysql_query("SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='$unidad' AND DATE(fecha) > '$inicio_curso' ORDER BY apellidos ASC, nombre ASC"); ?>
+<?php $result = mysql_query("SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha) > '$inicio_curso' ORDER BY apellidos ASC, nombre ASC"); ?>
 <?php if (mysql_num_rows($result)): ?>
 <table class="table table-hover dt-tutor">
 	<thead>
@@ -15,10 +15,10 @@
 	</thead>
 	<tbody>
 		<?php while ($row = mysql_fetch_array($result)): ?>
-		<?php $result1 = mysql_query("SELECT fecha, id FROM tutoria WHERE claveal = '".$row['claveal']."' AND prohibido = '0' AND unidad = '$unidad' AND DATE(fecha)> '$inicio_curso' ORDER BY fecha DESC LIMIT 1"); ?>
+		<?php $result1 = mysql_query("SELECT fecha, id FROM tutoria WHERE claveal = '".$row['claveal']."' AND prohibido = '0' AND unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha)> '$inicio_curso' ORDER BY fecha DESC LIMIT 1"); ?>
 		<?php while ($row1 = mysql_fetch_array($result1)): ?>
 		<tr>
-			<td><a href="intervencion.php?id=<?php echo $row1['id']; ?>&tutor=<?php echo $tutor; ?>"><?php echo ($row['apellidos'] == 'Todos') ? 'Todos los alumnos' : $row['nombre'].' '.$row['apellidos']; ?></a></td>
+			<td><a href="intervencion.php?id=<?php echo $row1['id']; ?>"><?php echo ($row['apellidos'] == 'Todos') ? 'Todos los alumnos' : $row['nombre'].' '.$row['apellidos']; ?></a></td>
 			<td><?php echo strftime('%e %b',strtotime($row1['fecha'])); ?></td>
 		</tr>
 		<?php endwhile; ?>

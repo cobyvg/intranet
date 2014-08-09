@@ -4,7 +4,7 @@
 
 <h3>Informes de tareas</h3>
 
-<?php $result = mysql_query("SELECT id, apellidos, nombre, fecha FROM tareas_alumnos WHERE unidad='$unidad' ORDER BY fecha DESC"); ?>
+<?php $result = mysql_query("SELECT id, apellidos, nombre, fecha FROM tareas_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY fecha DESC"); ?>
 
 <?php if (mysql_num_rows($result)): ?>
 <table class="table table-hover">

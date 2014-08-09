@@ -5,7 +5,7 @@
 <h3>Actividades extraescolares</h3>
 
 <?php $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'); ?>
-<?php $grupo = str_replace('-', '', $unidad); ?>
+<?php $grupo = str_replace('-', '', $_SESSION['mod_tutoria']['unidad']); ?>
 <?php $result = mysql_query("SELECT DISTINCT MONTH(fecha) AS mes FROM actividades WHERE grupos LIKE '%$grupo-%' ORDER BY MONTH(fecha) ASC"); ?>
 <?php if (mysql_num_rows($result)): ?>
 <?php while ($row = mysql_fetch_array($result)): ?>

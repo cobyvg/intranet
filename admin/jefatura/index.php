@@ -26,8 +26,11 @@ $cargo = $_SESSION['cargo'];
 ?>
 
 <?php
+
+// PLUGINS
+$PLUGIN_DATATABLES = 1;
+
 include("../../menu.php");
-$datatables_min = true;
 
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
@@ -139,6 +142,7 @@ $id = $row[8];
 $prohibido = $row[9];
 $clave = $row[10];
   }
+
 ?>
 
 <div class="container">
@@ -347,43 +351,33 @@ $clave = $row[10];
 </div><!-- /.container -->
 
 <?php include("../../pie.php");?>
+
 	<script>  
-	$('.dt-jefatura').DataTable( {
-	    "lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
+	$(document).ready(function() {
+		var table = $('.datatable').DataTable({
+			"paging":   true,
+	    "ordering": true,
+	    "info":     false,
 	    
-	    "order": [[ 0, "desc" ]],
-	    
-	    "bPaginate": true,
-	    "bLengthChange": true,
-	    "bFilter": true,
-	    "bSort": true,
-	    "bInfo": false,
-	    "sDom": "<'row'<'col-sm-12'f>>t<'row'<'col-sm-12'p>>",
-	    
-	    "oLanguage": {
-					"sProcessing":     "Procesando...",
-				   "sLengthMenu":     "Mostrar _MENU_ registros",
-				   "sZeroRecords":    "No se encontraron resultados",
-				   "sEmptyTable":     "Ningún dato disponible en esta tabla",
-				   "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-				   "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-				   "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-				   "sInfoPostFix":    "",
-				   "sSearch":         "Buscar:",
-				   "sUrl":            "",
-				   "sInfoThousands":  ",",
-				   "sLoadingRecords": "Cargando...",
-				   "oPaginate": {
-				   		"sFirst":    "Primero",
-				      "sLast":     "Último",
-				      "sNext":     "",
-				      "sPrevious": ""
-				   },
-	    		 "oAria": {
-	    		 		"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-	    		 		"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-	    		 }	
-	    }
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+			
+			"order": [[ 0, "desc" ]],
+			
+			"language": {
+			            "lengthMenu": "_MENU_",
+			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+			            "info": "Página _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay resultados disponibles.",
+			            "infoFiltered": "(filtrado de _MAX_ resultados)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			                  "first": "Primera",
+			                  "next": "Última",
+			                  "next": "",
+			                  "previous": ""
+			                }
+			        }
+		});
 	});
 	</script>
 	<script>  

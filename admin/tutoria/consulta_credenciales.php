@@ -1,7 +1,6 @@
 <?php
 session_start();
 include("../../config.php");
-setlocale('es_ES');
 
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
@@ -49,10 +48,6 @@ else {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
-
-// SE DEFINE UNA VARIABLE PARA CARGAR LOS INCLUDES
-define('INC_TUTORIA',1);
-
 include("../../menu.php");
 include("menu.php");
 ?>
@@ -61,58 +56,33 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Resumen global</small></h2>
+			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Credenciales de alumnos/as</small></h2>
 			<h4 class="text-info">Tutor/a: <?php echo mb_convert_case($_SESSION['mod_tutoria']['tutor'], MB_CASE_TITLE, "iso-8859-1"); ?></h4>
 		</div>
 		
-		
-		<!-- SCAFFOLDING -->
-		<div class="row">
-			
-			<div class="col-sm-12">
-				
-				<?php include("inc_pendientes.php"); ?>
-				
-			</div>
-			
+		<!-- MENSAJES -->
+		<?php if(isset($msg_error)): ?>
+		<div class="alert alert-danger" role="alert">
+			<?php echo $msg_error; ?>
 		</div>
+		<?php endif; ?>
+		
+		<?php if(isset($msg_success)): ?>
+		<div class="alert alert-success" role="alert">
+			<?php echo $msg_success; ?>
+		</div>
+		<?php endif; ?>
 		
 		
+		<!-- SCAFFOLDING -->		
 		<div class="row">
-		
-			<!-- COLUMNA IZQUIERDA -->
-			<div class="col-sm-4">
-				
-				<?php include("inc_asistencias.php"); ?>
-				
-				<?php include("inc_actividades.php"); ?>
-				
-				
-			</div><!-- /.col-sm-4 -->
-			
 			
 			
 			<!-- COLUMNA CENTRAL -->
-			<div class="col-sm-4">
+			<div class="col-sm-12">
+
 				
-				<?php include("inc_convivencia.php"); ?>
-				
-				<?php include("inc_informes_tareas.php"); ?>
-				
-			</div><!-- /.col-sm-4 -->
-			
-			
-			
-			<!-- COLUMNA DERECHA -->
-			<div class="col-sm-4">
-				
-				<?php include("inc_mensajes.php"); ?>
-				
-				<?php include("inc_informes_tutoria.php"); ?>
-				
-				<?php include("inc_intervenciones.php"); ?>
-				
-			</div><!-- /.col-sm-4 -->
+			</div><!-- /.col-sm-12 -->
 			
 		
 		</div><!-- /.row -->
