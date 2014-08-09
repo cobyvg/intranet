@@ -14,10 +14,9 @@ if($_SESSION['cambiar_clave']) {
 }
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
-
 ?>
 <?
+$pr = $_SESSION['profi'];
 $prof1 = "SELECT distinct no_prof FROM horw where prof = '$pr'";
 $prof0 = mysql_query($prof1);
 $filaprof0 = mysql_fetch_array($prof0);
