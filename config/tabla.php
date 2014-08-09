@@ -23,10 +23,12 @@
 <?php 
 else:
 
-if ($_SESSION ['autentificado'] != '1') {
-	session_destroy ();
-	header ( "location:http://$dominio/intranet/salir.php" );
-	exit ();
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
+	session_destroy();
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
 
 include("../menu.php");
@@ -362,28 +364,7 @@ echo '<input type="text" class="form-control" id="carrito'.$i.'" name="carrito'.
 ?></td>
       <td>Lugar o Descripción de los Carritos de Portátiles</td>
     </tr>
-    <SCRIPT LANGUAGE="JavaScript"> 
-function carritos(){ 
-var elementos = document.forms[0].length;
-	for(z = 0; z <= elementos; z++) {
-var nombre = document.forms[0].elements[z].name;
-if(nombre == "num_carrito"){
-num_carro = z;
-total = eval(num_carro + 15);
-var valor = eval(document.configura.num_carrito[document.configura.num_carrito.selectedIndex].value);
-	for(i = num_carro + 1; i <= total; i++) { 
-val = eval(num_carro + valor );
-if(i <= val){
-var n_car = eval(i - num_carro)
-document.forms[0].elements[i].style.display = "inline";
-document.forms[0].elements[i].value = "Carrito nº "+n_car; 
-}
-else{
-document.forms[0].elements[i].style.display = "none";
-}}}}
-	}
 
-</SCRIPT>
 <?php 
 }
 else
@@ -441,26 +422,6 @@ echo '<input type="text" class="form-control" id="medio'.$i.'" name="medio'.$i.'
 ?></td>
       <td>Nombre, Lugar o Descripción de los Medios Audiovisuales</td>
     </tr>
-    <SCRIPT LANGUAGE="JavaScript"> 
-function medios(){ 
-var elementos = document.forms[0].length;
-	for(z = 0; z <= elementos; z++) {
-var nombre = document.forms[0].elements[z].name;
-if(nombre == "num_medio"){
-num_medio = z;
-total = eval(num_medio + 10);
-var valor = eval(document.configura.num_medio[document.configura.num_medio.selectedIndex].value);
-	for(i = num_medio + 1; i <= total; i++) { 
-val = eval(num_medio + valor);
-if(i <= val){
-var n_med = eval(i - num_medio)
-document.forms[0].elements[i].style.display = "inline";
-document.forms[0].elements[i].value = "Medio nº "+n_med; 
-}
-else{
-document.forms[0].elements[i].style.display = "none";
-}}}}}
-</SCRIPT>
     <?php }
 else
 {
@@ -493,83 +454,6 @@ for($i=1;$i<$num_medio+1;$i++){
 }
 }
 ?>
-    <?php          
-if(empty($num_aula))
-{
-?>
-    <tr>
-      <td>Número de Aulas Específicas:
-        </td>
-      <td><select class="form-control" name="num_aula" onchange="aulas()">
-          <option value="0"><?php echo $num_aula;?>
-          <?php
-for($i=1;$i-6;$i++){ echo '<option value="'.$i.'">'.$i; }
-?>
-        </select></td>
-      <td>Número de Aulas para compartir en el Centro</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><?php
-for($i=1;$i-6;$i++){
-echo '<input type="text" class="form-control" id="carularito'.$i.'" name="aula'.$i.'"/>';
-}
-?></td>
-      <td>Nombre, Lugar o Descripción de las Aulas</td>
-    </tr>
-    <SCRIPT LANGUAGE="JavaScript"> 
-function aulas(){ 
-var elementos = document.forms[0].length;
-	for(z = 0; z <= elementos; z++) {
-var nombre = document.forms[0].elements[z].name;
-if(nombre == "num_aula"){
-num_aula = z;
-total = eval(num_aula + 5);
-var valor = eval(document.configura.num_aula[document.configura.num_aula.selectedIndex].value);
-	for(i = num_aula + 1; i <= total; i++) { 
-val = eval(num_aula + valor);
-if(i <= val){
-var n_aul = eval(i - num_aula)
-document.forms[0].elements[i].style.display = "inline";
-document.forms[0].elements[i].value = "aula nº "+n_aul; 
-}
-else{
-document.forms[0].elements[i].style.display = "none";
-}}}}}
-</SCRIPT>
-    <?php 
-}
-else
-{
-?>
-    <tr>
-      <th>Número de Aulas para compartir:
-        </th>
-      <td><select class="form-control" name="num_aula" onchange="submit()">
-          <option>
-          <?php if(empty($num_aula)){ echo "";}else{echo $num_aula;}?>
-          </option>
-          <?php
-for($i=1;$i<6;$i++){
-echo "<option>$i</option>";
-}
-?>
-        </select></td>
-      <td>Número de Aulas.</td>
-    </tr>
-      <?php
-for($i=1;$i<$num_aula+1;$i++){
-?>
-    <tr>
-      <td>Aula<?php echo $i;?>:
-        </td>
-      <td><input type="text" class="form-control" name="aula<?php echo $i;?>" value="<?php if(empty(${'aula'.$i})){ echo "";}else{echo ${'aula'.$i};}?>"/></td>
-      <td>Nombre o Lugar del Aula nº <?php echo $i;?></td>
-    </tr>
-    <?php
-}
-}
-?>
   </table>
   <br />
   </div>
@@ -583,5 +467,47 @@ for($i=1;$i<$num_aula+1;$i++){
 
    </fieldset>
 </form>
+
+<script> 
+function carritos(){ 
+var elementos = document.forms[0].length;
+	for(z = 0; z <= elementos; z++) {
+var nombre = document.forms[0].elements[z].name;
+if(nombre == "num_carrito"){
+num_carro = z;
+total = eval(num_carro + 15);
+var valor = eval(document.configura.num_carrito[document.configura.num_carrito.selectedIndex].value);
+	for(i = num_carro + 1; i <= total; i++) { 
+val = eval(num_carro + valor );
+if(i <= val){
+var n_car = eval(i - num_carro)
+document.forms[0].elements[i].style.display = "inline";
+document.forms[0].elements[i].value = "Carrito nº "+n_car; 
+}
+else{
+document.forms[0].elements[i].style.display = "none";
+}}}}
+	}
+
+function medios(){ 
+var elementos = document.forms[0].length;
+	for(z = 0; z <= elementos; z++) {
+var nombre = document.forms[0].elements[z].name;
+if(nombre == "num_medio"){
+num_medio = z;
+total = eval(num_medio + 10);
+var valor = eval(document.configura.num_medio[document.configura.num_medio.selectedIndex].value);
+	for(i = num_medio + 1; i <= total; i++) { 
+val = eval(num_medio + valor);
+if(i <= val){
+var n_med = eval(i - num_medio)
+document.forms[0].elements[i].style.display = "inline";
+document.forms[0].elements[i].value = "Medio nº "+n_med; 
+}
+else{
+document.forms[0].elements[i].style.display = "none";
+}}}}}
+
+</script>
 
 

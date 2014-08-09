@@ -1,18 +1,21 @@
 <?
 session_start();
 include("../config.php");
-if($_SESSION['autentificado']!='1')
-{
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
 	session_destroy();
-	header("location:http://$dominio/intranet/salir.php");
-	exit;
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
-$pr = $_SESSION['profi'];
+
 if($_SESSION['cambiar_clave']) {
 	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
 }
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
 ?>
 <?
 $prof1 = "SELECT distinct no_prof FROM horw where prof = '$pr'";

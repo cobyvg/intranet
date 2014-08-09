@@ -7,10 +7,12 @@ session_start();
 include("config.php");
 
 // Comienzo de sesión
-$_SESSION ['autentificado'] = '0';
-if (isset ( $_SESSION ['profi'] )) {
-	unset ( $_SESSION ['profi'] );
-	session_destroy ();
+$_SESSION['autentificado'] = 0;
+
+// DESTRUIMOS LAS VARIABLES DE SESIÓN
+if (isset($_SESSION['profi'])) {
+	$_SESSION = array();
+	session_destroy();
 }
 
 // Entramos
@@ -25,21 +27,21 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	
 	// Si le Profesor entra por primera vez... (DNI es igual a Contraseï¿½a)
 	if ($dni == strtoupper ( $clave0 ) and (strlen ( $codigo ) < '12') and ! (empty ( $dni )) and ! (empty ( $codigo ))) {
-		$_SESSION ['autentificado'] = '1';
+		$_SESSION['autentificado'] = 1;
 		$_SESSION['cambiar_clave'] = 1;	
-		$_SESSION ['profi'] = $pass1 [1];
-		$profe = $_SESSION ['profi'];
+		$_SESSION['profi'] = $pass1 [1];
+		$profe = $_SESSION['profi'];
 		
 		// Departamento al que pertenece
 		$dep0 = mysql_query ( "select departamento from departamentos where nombre = '$profe'" );
 		
 		$dep1 = mysql_fetch_array ( $dep0 );
-		$_SESSION ['depto'] = $dep1 [0];
+		$_SESSION['depto'] = $dep1 [0];
 		// Registramos la entrada en la Intranet
 		mysql_query ( "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
 		$id_reg = mysql_query ( "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
 		$id_reg0 = mysql_fetch_array ( $id_reg );
-		$_SESSION ['id_pag'] = $id_reg0 [0];
+		$_SESSION['id_pag'] = $id_reg0 [0];
 		
 		include_once('actualizar.php');
 		header ( "location:clave.php" );
@@ -48,35 +50,35 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	
 	// Si hay usuario y pertenece a alguien del Centro, comprobamos la contraseï¿½a.
 	if ($codigo == $clave) {
-		$_SESSION ['pass'] = $codigo;
+		$_SESSION['pass'] = $codigo;
 		$pr0 = mysql_query ( "SELECT profesor FROM c_profes where idea = '".$_POST['idea']."'" );
 		$pr1 = mysql_fetch_array ( $pr0 );
-		$_SESSION ['profi'] = $pr1 [0];
-		$profe = $_SESSION ['profi'];
+		$_SESSION['profi'] = $pr1 [0];
+		$profe = $_SESSION['profi'];
 		// Comprobamos si da clase a algï¿½n grupo
 		$cur0 = mysql_query ( "SELECT distinct nivel FROM profesores where profesor = '$profe'" );
 		$cur1 = mysql_num_rows ( $cur0 );
-		$_SESSION ['n_cursos'] = $cur1;
+		$_SESSION['n_cursos'] = $cur1;
 		// Departamento al que pertenece
 		$dep0 = mysql_query ( "select departamento from departamentos where nombre = '$profe'" );
 		$dep1 = mysql_fetch_array ( $dep0 );
-		$_SESSION ['depto'] = $dep1 [0];
+		$_SESSION['depto'] = $dep1 [0];
 		// Registramos la entrada en la Intranet
 		mysql_query ( "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
 		$id_reg = mysql_query ( "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
 		$id_reg0 = mysql_fetch_array ( $id_reg );
-		$_SESSION ['id_pag'] = $id_reg0 [0];
+		$_SESSION['id_pag'] = $id_reg0 [0];
 		
 		include_once('actualizar.php');
 		// Comprobamos si el usuario es Admin y entra por primera vez
 		if ($profe=="admin" and $clave == sha1("12345678")) {
-			$_SESSION ['autentificado'] = '1';
+			$_SESSION['autentificado'] = 1;
 			$_SESSION['cambiar_clave'] = 1;			
 			header ( "location:clave.php" );
 		}
 		else{
 		//Abrimos la pï¿½gina principal
-		$_SESSION ['autentificado'] = '1';			
+		$_SESSION['autentificado'] = 1;			
 			header ( "location:index.php" );
 		}
 		exit();
@@ -101,7 +103,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
     <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">            
 </head>
 
-<body>
+<body id="login">
 
 	<div id="wrap">
 	
@@ -142,22 +144,23 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	
 	</div><!-- /#wrap -->
 	
-	<div id="footer">
+	<footer class="hidden-print">
 		<div class="container-fluid" role="footer">
 			<hr>
 			
 			<p class="text-center">
-				<small class="text-muted"><?php echo date('Y'); ?> &copy; IESMonterroso. Todos los derechos reservados.</small>
+				<small class="text-muted">Copyright &copy; <?php echo date('Y'); ?> IESMonterroso</small><br>
+				<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
 			</p>
 			<p class="text-center">
 				<small>
-					<a href="http://<?php echo $dominio; ?>/intranet/GPL.html">Licencia de uso</a>
+					<a href="http://<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
 					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-					<a href="https://github.com/IESMonterroso/intranet">Github</a>
+					<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
 				</small>
 			</p>
 		</div>
-	</div>
+	</footer>
 	
   <script src="http://<? echo $dominio;?>/intranet/js/jquery.js"></script>  
   <script src="http://<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>

@@ -6,11 +6,12 @@ include("introducir.php");
 else{
 session_start();
 include("../../config.php");
-if($_SESSION['autentificado']!='1')
-{
-session_destroy();
-header("location:http://$dominio/intranet/salir.php");	
-exit;
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
+	session_destroy();
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
 
 if($_SESSION['cambiar_clave']) {

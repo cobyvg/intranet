@@ -8,8 +8,9 @@ if (isset($_GET['servicio_aula'])) {$servicio_aula = $_GET['servicio_aula'];}els
 	<div class="container">
 		
 		<ul class="nav nav-tabs">
-			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php?recurso=aula')==TRUE) ? ' class="active"' : ''; ?>><a href="http://<?php echo $dominio; ?>/intranet/reservas/index.php?recurso=aula">Aulas compartidas</a></li>
+			<? if ($mod_horario=="1"): ?>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index_aula.php?recurso=aula_grupo')==TRUE) ? ' class="active"' : ''; ?>><a href="http://<?php echo $dominio; ?>/intranet/reservas/index_aula.php?recurso=aula_grupo">Aulas de grupo</a></li>
+			<?php endif; ?>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php?recurso=carrito')==TRUE) ? ' class="active"' : ''; ?>><a href="http://<?php echo $dominio; ?>/intranet/reservas/index.php?recurso=carrito">Carritos TIC</a></li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php?recurso=medio')==TRUE) ? ' class="active"' : ''; ?>><a href="http://<?php echo $dominio; ?>/intranet/reservas/index.php?recurso=medio">Medios audiovisuales</a></li>
 		</ul>

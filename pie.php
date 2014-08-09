@@ -4,13 +4,14 @@
     		<hr>
     		
     		<p class="text-center">
-    			<small class="text-muted"><?php echo date('Y'); ?> &copy; IESMonterroso</small>
+    			<small class="text-muted">Copyright &copy; <?php echo date('Y'); ?> IESMonterroso</small><br>
+    			<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
     		</p>
     		<p class="text-center">
     			<small>
-    				<a href="http://<?php echo $dominio; ?>/intranet/GPL.html">Licencia de uso</a>
+    				<a href="http://<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
     				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-    				<a href="https://github.com/IESMonterroso/intranet">Github</a>
+    				<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
     			</small>
     		</p>
     	</div>
@@ -25,7 +26,7 @@
     <script src="http://<? echo $dominio;?>/intranet/js/summernote-es-ES.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/bootbox.min.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-datepicker.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/buscarAlumnos.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/ajax_alumnos.js"></script>
     
     <!--  Tablas de Bootstrap DataTables.  -->   
 
@@ -50,7 +51,17 @@ if ($datatables_min){
 }        
 }
 ?>
-
+	
+	<script>
+	$(function () {
+	  var nua = navigator.userAgent
+	  var isAndroid = (nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1 && nua.indexOf('Chrome') === -1)
+	  if (isAndroid) {
+	    $('select.form-control').removeClass('form-control').css('width', '100%')
+	  }
+	})
+	</script>
+	
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
 	</script>

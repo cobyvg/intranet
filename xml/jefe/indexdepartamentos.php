@@ -1,11 +1,12 @@
 <?
 session_start();
 include("../../config.php");
-if($_SESSION['autentificado']!='1')
-{
-session_destroy();
-header("location:http://$dominio/intranet/salir.php");	
-exit;
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
+	session_destroy();
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
 
 if($_SESSION['cambiar_clave']) {
@@ -21,8 +22,7 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
-?>
-<?php
+
 include("../../menu.php");
 ?>
 
@@ -36,7 +36,7 @@ include("../../menu.php");
 	<?php $result = mysql_query("SELECT * FROM departamentos LIMIT 1"); ?>
 	<?php if(mysql_num_rows($result)): ?>
 	<div class="alert alert-warning">
-		Ya existe información en la base de datos. Este proceso actualizará la información de los departamentos. Es recomendable realizar una <a class="../copia_db/dump_db.php">copia de seguridad</a> antes de proceder a la importación de los datos.
+		Ya existe información en la base de datos. Este proceso actualizará la información de los departamentos. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
 	</div>
 	<?php endif; ?>
 	

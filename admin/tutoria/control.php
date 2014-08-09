@@ -87,8 +87,6 @@ $result1 = mysql_query ("select distinct id, recibido, Fechoria.claveal, expulsi
 if(mysql_num_rows($result1)>0)
 {
 ?>
-<h3><span class="fa fa-exclamation-triangle fa-fw fw-lg"></span> Tareas pendientes de tutoría</h3>
-<hr>
 <?
 	do
 	{
@@ -191,7 +189,6 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 }
 }while($row1 = mysql_fetch_array($result1));
 ?>
-<hr>
 <?php
 }
 ?>

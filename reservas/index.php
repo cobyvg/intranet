@@ -1,11 +1,12 @@
 <?
 session_start();
 include("../config.php");
-if($_SESSION['autentificado']!='1')
-{
-session_destroy();
-header("location:http://$dominio/intranet/salir.php");	
-exit;
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
+	session_destroy();
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
 
 if($_SESSION['cambiar_clave']) {
@@ -18,14 +19,13 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 if (isset($_GET['recurso'])) {
 	
 	switch ($_GET['recurso']) {
-		case 'aula'    : $nmedios = $num_aula+1; $nombre_rec = "Aulas compartidas"; break;
 		case 'carrito' : $nmedios = $num_carrito+1; $nombre_rec = "Carritos TIC"; break;
 		case 'medio'   : $nmedios = $num_medio+1; $nombre_rec = "Medios audiovisuales"; break;
 	}
 	
 }
 else {
-	header('Location:'.'index.php?recurso=aula');
+	header('Location:'.'index.php?recurso=carrito');
 }
 
 
@@ -38,13 +38,6 @@ include("menu.php");
 	<div class="page-header">
 	  <h2>Reservas <small> <?php echo $nombre_rec; ?></small></h2>
 	</div>
-
-<?php if($_GET['recurso'] == "aula"): ?>
-	<div class="alert alert-info">
-		<h4>Información</h4>
-		Esta sección esta en vías de desaparición. El espacio preferido para reservar las Aulas y dependencias varias del Centro es la opción <em><b>Aulas de Grupo</b></em>, que puedes encontrar en el menú de las reservas más arriba. Las Aulas de Grupo suponen que las aulas han sido registradas con su nombre en el Horario generado por la aplicación Horw. Busca el aula entre las Aulas de Grupo y procede con la reserva.
-   </div>
-<?php endif; ?>
 
 <?php
 if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }

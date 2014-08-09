@@ -1,312 +1,177 @@
 <?
 session_start();
 include("../../config.php");
-if($_SESSION['autentificado']!='1')
-{
-session_destroy();
-header("location:http://$dominio/intranet/salir.php");	
-exit;
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
+	session_destroy();
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
 
 if($_SESSION['cambiar_clave']) {
 	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
 }
 
+if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'2') == TRUE)) {
+	echo "<div class='well' align='center'><p class='text-danger'>La página a la que estás accediendo está restringida.</p>";
+	echo '<p class="text-info">Si piensas que es un error consulta con el administrador.</p>';
+	echo "<a class='btn' href='../index.php'>Volver a la Intranet</a></div>";
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
+$profe = $_SESSION ['tut'];
+if(isset($_SESSION['s_unidad'])) $unidad = $_SESSION['s_unidad'];
+else $unidad = $_GET['unidad'];
 
-$grupo=$_GET['unidad'];
 
-## estrutura de la clase
-#$estructura_clase='222';
-$estructura_clase='232';
-if ($estructura_clase=='232') {$mesas_col=8;}
-if ($estructura_clase=='222') {$mesas_col=7;}
-## fin estructura
+// ESTRUCTURA DE LA CLASE, SE AJUSTA AL NUMERO DE ALUMNOS
+$result = mysql_query("SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$unidad' ORDER BY apellidos ASC, nombre ASC");
+$n_alumnos = mysql_num_rows($result);
+mysql_free_result($result);
 
-function al_con_nie($var_nie,$var_grupo)
-{
-	$fquery="SELECT Nombre, Apellidos FROM alma WHERE unidad='".$var_grupo."'and claveal='".$var_nie."' order by Apellidos, Nombre limit 1";
-	$fresultado = mysql_query($fquery);
-	$fqry = mysql_fetch_array($fresultado);
-	return($fqry[1].', '.$fqry[0]);
+if ($n_alumnos <= 36) $estructura_clase = '222';
+elseif ($n_alumnos > 36 && $n_alumnos <= 42) $estructura_clase = '232';
+elseif ($n_alumnos > 42) $estructura_clase = '242';
+
+
+if ($estructura_clase == '242') { $mesas_col = 9; $mesas = 48; $col_profesor = 9; }
+if ($estructura_clase == '232') { $mesas_col = 8; $mesas = 42; $col_profesor = 8; }
+if ($estructura_clase == '222') { $mesas_col = 7; $mesas = 36; $col_profesor = 7; }
+
+
+function al_con_nie($var_nie,$var_grupo) {
+	$result = mysql_query("SELECT nombre, apellidos FROM alma WHERE unidad='".$var_grupo."' AND claveal='".$var_nie."' ORDER BY apellidos ASC, nombre ASC LIMIT 1");
+	$row = mysql_fetch_array($result);
+	mysql_free_result($result);
+	return($row['apellidos'].', '.$row['nombre']);
 }
 
 
-echo '<div align="center">';
-echo '<h3><br>Asignación de puestos de los Alumnos de ',$_GET['undad'],'<br><br></h3>';
+// OBTENEMOS LOS PUESTOS
+$result = mysql_query("SELECT * FROM puestos_alumnos WHERE unidad='".$unidad."' limit 1");
+$row = mysql_fetch_array($result);
+$cadena_puestos = $row[1];
+mysql_free_result($result);
 
-#mysql_close();
-############################## si se han guardado
-if (isset($_POST['listOfItems'])){
-mysql_query("UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$grupo."'");
-#	echo 'jhkjshfd: '.$_POST['listOfItems'];
-# crear registr en la tabla puestos o actualizar (unidad y cadena de asignacion)
+$matriz_puestos = explode(';', $cadena_puestos);
 
-
-}
-
-# cargar la cadena de asignación. Si no existe crear el registro
-$qry="SELECT * FROM puestos_alumnos WHERE unidad='".$grupo."' limit 1";
-$resultado = mysql_query($qry);
-$numero_rows = mysql_num_rows($resultado);
-if ($numero_rows<>1){mysql_query("INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$grupo."', '')");}
-else {$qrypuestos = mysql_fetch_array($resultado);
-	$cadena_puestos=$qrypuestos[1];}
-#echo $cadena_puestos;
-#crear función alumno(NIE)=alumno
-#echo $cadena_puestos;
-# explode con ; para cada alumno y luego explode con | para dividir puesto y nie
-$matriz_puestos=explode(';',$cadena_puestos);
 foreach ($matriz_puestos as $value) {
-    $los_puestos=explode('|',$value);
-	if ($los_puestos[0]=='allItems'){$sin_puesto[]=$los_puestos[1];}
-	else {$con_puesto[$los_puestos[0]]=$los_puestos[1];}
-
-}
-#print_r($sin_puesto);
-#print_r($con_puesto)
-# Crear los array de alumnos con puesto y sin puesto (no asignados)
-# con[puesto]=nie 
-# sin[puesto]=nie
-
-
-############################
-?>
-
-
-<style type="text/css">
-body{
-	font-family: Trebuchet MS, Lucida Sans Unicode, Arial, sans-serif;	/* Font to use */
-	background-color:#FFF;
-}
-#footer{
-	height:30px;
-	vertical-align:middle;
-	text-align:center;
-	clear:both;
-	padding-right:3px;
-	background-color:#FFF;
-	margin-top:2px;
-	width:990px;
-}
-#footer form{
-	margin:0px;
-	margin-top:2px;
-}
-#dhtmlgoodies_dragDropContainer{	/* Main container for this script */
-	width:1050px;
-	height:100px;
-	border:0px solid #317082;
-	background-color:#FFF;
-	-moz-user-select:none;
-}
-#dhtmlgoodies_dragDropContainer ul{	/* General rules for all <ul> */
-	margin-top:0px;
-	margin-left:0px;
-	margin-bottom:0px;
-	padding:2px;
-}
-
-#dhtmlgoodies_dragDropContainer li,#dragContent li,li#indicateDestination{	/* Movable items, i.e. <LI> */
-	text-align:left;
-	list-style-type:none;
-	height:40px;
-	background-color:#EEE;
-	border:1px solid #000;
-	padding:2px;
-	margin-bottom:2px;
-	cursor:pointer;
-	font-size:0.7em;
-}
-
-li#indicateDestination{	/* Box indicating where content will be dropped - i.e. the one you use if you don't use arrow */
-	border:1px solid #317082;
-	background-color:#FFF;
-}
-
-/* LEFT COLUMN CSS */
-div#dhtmlgoodies_listOfItems{	/* Left column "Available students" */
-
-	float:left;
-	margin-left:60px;
-	padding-left:10px;
-	padding-right:10px;
-
-	/* CSS HACK */
-	width: 122px;	/* IE 5.x */
-	width/* */:/**/180px;	/* Other browsers */
-	width: /**/180px;
-
-}
-#dhtmlgoodies_listOfItems ul{	/* Left(Sources) column <ul> */
-/*	height:960px;*/
-}
-
-div#dhtmlgoodies_listOfItems div{
-	border:1px solid #999;
-}
-div#dhtmlgoodies_listOfItems div ul{	/* Left column <ul> */
-	margin-left:5px;	/* Space at the left of list - the arrow will be positioned there */
-}
-#dhtmlgoodies_listOfItems div p{	/* Heading above left column */
-	margin:0px;
-	font-weight:bold;
-	padding-left:12px;
-	background-color:#317082;
-	color:#FFF;
-	margin-bottom:5px;
-}
-/* END LEFT COLUMN CSS */
-
-#dhtmlgoodies_dragDropContainer .mouseover{	/* Mouse over effect DIV box in right column */
-	background-color:#E2EBED;
-	border:1px solid #317082;
-}
-
-/* Start main container CSS */
-
-div#dhtmlgoodies_mainContainer{	/* Right column DIV */
-	width:690px;
-	float:left;
-}
-#dhtmlgoodies_mainContainer div{	/* Parent <div> of small boxes */
-	float:left;
-	margin-right:10px;
-	margin-bottom:10px;
-	margin-top:0px;
-	border:1px solid #999;
-
-	/* CSS HACK */
-	width: 102px;	/* IE 5.x */
-	width/* */:/**/100px;	/* Other browsers */
-	width: /**/100px;
-
-}
-#dhtmlgoodies_mainContainer div ul{
-	margin-left:0px;
-}
-
-#dhtmlgoodies_mainContainer div p{	/* Heading above small boxes */
-	margin:0px;
-	padding:0px;
-	padding-left:12px;
-	font-weight:bold;
-	background-color:#317082;
-	color:#FFF;
-	margin-bottom:5px;
-}
-
-#dhtmlgoodies_mainContainer ul{	/* Small box in right column ,i.e <ul> */
-	width:100px;
-	height:60px;
-	border:0px;
-	margin-bottom:0px;
-	overflow:hidden;
-
-}
-
-#dragContent{	/* Drag container */
-	position:absolute;
-	width:100px;
-	height:60px;
-	display:none;
-	margin:0px;
-	padding:0px;
-	z-index:2000;
-}
-
-#dragDropIndicator{	/* DIV for the small arrow */
-	position:absolute;
-	width:7px;
-	height:10px;
-	display:none;
-	z-index:1000;
-	margin:0px;
-	padding:0px;
-}
-</style>
-<style type="text/css" media="print">
-div#dhtmlgoodies_listOfItems{
-	display:none;
-}
-body{
-	background-color:#FFF;
-}
-img{
-	display:none;
-}
-#dhtmlgoodies_dragDropContainer{
-	border:0px;
-	width:100%;
-}
-</style>
-
-
-
-
-<div id="dhtmlgoodies_dragDropContainer">
-
-	<div id="dhtmlgoodies_listOfItems">
-		<div>
-			<p>Alumnos</p>
-		<ul id="allItems">
-	<?php 	
-	$sql="SELECT Apellidos, Nombre, claveal FROM alma WHERE Unidad='".$grupo."' ORDER BY Apellidos, Nombre ";
-		$res_alumnos=mysql_query($sql);
-					
-						while($alumnos = mysql_fetch_array($res_alumnos)){
-							if (!in_array($alumnos[2],$con_puesto)){
-							echo '<li id="'.$alumnos[2].'">'.$alumnos[0].', '.$alumnos[1].'</li>';}
-						
-						}
-
-?>
-		</ul>
-		</div>
-	</div>
-<div id="dhtmlgoodies_mainContainer">
-		<!-- ONE <UL> for each "room" -->
-
-<?php 
-if ($estructura_clase=='232') {$nbox=42;}
-if ($estructura_clase=='222') {$nbox=36;};
-echo "<table>";
-for ($i=1;$i<7;$i++){
-	echo '<tr>';
-	for ($j=1;$j<$mesas_col;$j++){
-	echo "<td><div><p align='center'>".$nbox."</p>";
-	#Comprobar si existe para colocar.
-	echo	'<ul id="'.$nbox.'">';
-	if (isset($con_puesto[$nbox])){echo '<li id='.$con_puesto[$nbox].'>'.al_con_nie($con_puesto[$nbox],$grupo).'</li>'; }				   
-	echo '</ul></div></td>';
-	if ($j==2 or $j==$mesas_col-3) {echo '<td>|</td>';}
-	$nbox--;
+	$los_puestos = explode('|', $value);
+	
+	if ($los_puestos[0] == 'allItems') {
+		$sin_puesto[] = $los_puestos[1];
 	}
-	echo '</tr>';
+	else {
+		$con_puesto[$los_puestos[0]] = $los_puestos[1];
+	}
+
 }
-echo "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><div align='center'><p>Profesor/a</p><br><br></div></td></tr>";
-echo '</table>';
 
+?>
+<html>
+<head>
+	<meta charset="iso-8859-1">  
+	<title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+	<meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
+	<meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+	 
+	<!-- BOOTSTRAP CSS CORE -->
+	<link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- CUSTOM CSS THEME -->
+	<link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
+	
+	<style class="text/css">
+	
+	table tr td {
+		vertical-align: top;
+	}
+	
+	table tr td.divisor {
+		background-color: #333;
+	}
+	
+	table tr td div {
+		border: 1px solid #ecf0f1;
+		margin: 0 5px 10px 5px;
+	}
+	
+	table tr td div {
+		width: 130px;
+	}
+	
+	table tr td div p {
+		background-color: #2c3e50;
+		color: #fff;
+		font-weight: bold;
+		padding: 4px 2px;
+		margin-bottom: 4px;
+	}
+	
+	table tr td div ul {
+		margin: 0 4px 4px 4px;
+		min-height: 50px;
+	}
+	
+	.text-sm {
+		font-size: 0.9em;
+	}
+	
+	</style>
+</head>
 
-
-/*	
+<body>
+	
+	<div class="container">
+	
+		<div class="page-header">
+			<h2>Asignación de puestos en el aula <?php echo $unidad; ?></h2>
+		</div>
+		
+		<table>
+			<?php for ($i = 1; $i < 7; $i++): ?>
+			<tr>
+				<?php for ($j = 1; $j < $mesas_col; $j++): ?>
+				<td>
+					<div><p class="text-center">Mesa <?php echo $mesas; ?></p>
+						<ul id="<?php echo $mesas; ?>" class="list-unstyled text-sm">
+							<?php if (isset($con_puesto[$mesas])): ?>
+								<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo al_con_nie($con_puesto[$mesas],$unidad); ?></li>		 
+							<?php endif; ?>  
+						</ul>
+					</div>
+				</td>
+				<?php if ($j == 2 || $j == $mesas_col-3): ?>
+				<td class="text-center divisor">|</td>
+				<?php endif; ?>
+				<?php $mesas--; ?>
+				<?php endfor; ?>
+			</tr>
+			<?php endfor; ?>
+			<tr>
+				<td colspan="<?php echo $col_profesor; ?>"></td>
+				<td class="text-center">
+					<div>
+						<p>Profesor/a</p>
+						<br><br><br>
+					</div>
+				</td>
+			</tr>
+		</table>
+		
 	</div>
-</div>
-<div id='footer'>
-	<form name="myForm" method="post" action="puestos.php?grupo=<?php  echo $grupo;?>" onsubmit="saveDragDropNodes()">
-	<input type="hidden" name="listOfItems" value="">
-	<center><input type="submit" value="Guardar" name="saveButton"></center>
-	</form>
-</div>
-<ul id="dragContent"></ul>
-<div id="dragDropIndicator"><img src="images/insert.gif"></div>
-*/
+	
+<?php include("../../pie.php"); ?>
 
-/*<ul id="dragContent"></ul>
-<div id="dragDropIndicator"><img src="images/insert.gif"></div>
-<div id="saveContent"><!-- THIS ID IS ONLY NEEDED FOR THE DEMO --></div>*/
-
-
-#include('../pie.inc.php');?>
+	<script>
+	$(document).ready(function() {
+		print();
+	});
+	</script>
+	
+</body>
+</html>

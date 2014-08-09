@@ -1,11 +1,12 @@
 <?
 session_start();
 include("../../config.php");
-if($_SESSION['autentificado']!='1')
-{
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
 	session_destroy();
-	header("location:http://$dominio/intranet/salir.php");
-	exit;
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
 
 if($_SESSION['cambiar_clave']) {
@@ -36,7 +37,7 @@ include("../../menu.php");
 	<?php $result = mysql_query("SELECT * FROM cursos LIMIT 1"); ?>
 	<?php if(mysql_num_rows($result) && !isset($_FILES['ExpGenHor'])): ?>
 	<div class="alert alert-warning">
-		Ya existe información relativa a este curso escolar. Este proceso sustituirá parte de la información almacenada. Los cambios realizados manualmente en las dependencias y departamentos no se verán afectadas. Es recomendable realizar una <a href="copia_db/dump_db.php">copia de seguridad</a> antes de proceder a la importación de los datos.
+		Ya existe información relativa a este curso escolar. Este proceso sustituirá parte de la información almacenada. Los cambios realizados manualmente en las dependencias y departamentos no se verán afectadas. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
 	</div>
 	<?php endif; ?>
 	

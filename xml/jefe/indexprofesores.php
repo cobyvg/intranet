@@ -1,11 +1,12 @@
 <?
 session_start();
 include("../../config.php");
-if($_SESSION['autentificado']!='1')
-{
-session_destroy();
-header("location:http://$dominio/intranet/salir.php");	
-exit;
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
+	session_destroy();
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
 
 if($_SESSION['cambiar_clave']) {
@@ -25,13 +26,19 @@ exit;
 include("../../menu.php");
 ?>
 
-
 <div class="container">
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 		<h2>Administración <small>Importación de profesores</small></h2>
 	</div>
+	
+	<?php $result = mysql_query("SELECT * FROM profesores LIMIT 1"); ?>
+	<?php if(mysql_num_rows($result)): ?>
+	<div class="alert alert-warning">
+		Ya existe información en la base de datos. Este proceso actualizará la información de los profesores. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
+	</div>
+	<?php endif; ?>
 	
 	<!-- SCAFFOLDING -->
 	<div class="row">
@@ -53,7 +60,7 @@ include("../../menu.php");
 						<br>
 						
 					  <button type="submit" class="btn btn-primary" name="enviar">Importar</button>
-					  <a class="btn btn-default" href="../index.php">Cancelar</a>
+					  <a class="btn btn-default" href="../index.php">Volver</a>
 				  </fieldset>
 				</form>
 				
