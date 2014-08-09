@@ -183,6 +183,17 @@ li.nav-header {
   padding: 15px;
   margin: 30px auto;
 }
+
+@media (max-width: 768px) {
+	#login {
+	  padding-top: 0;
+	}
+	
+	#login h1 {
+		font-size: 30px;
+	}
+}
+
 .form-signin .form-signin-heading {
   margin-bottom: 10px;
 }
@@ -217,12 +228,12 @@ li.nav-header {
   min-height: 100%;
   height: auto;
   /* Negative indent footer by its height */
-  margin: 0 auto -120px;
+  margin: 0 auto -130px;
   /* Pad bottom by footer height */
   padding: 0 0 60px;
 }
 
 /* Set the fixed height of the footer here */
 #footer {
-  height: 120px;
+  height: 130px;
 }

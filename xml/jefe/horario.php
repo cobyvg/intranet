@@ -1,11 +1,12 @@
 <?php
 session_start();
 include("../../config.php");
-if($_SESSION['autentificado']!='1')
-{
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
 	session_destroy();
-	header("location:http://$dominio/intranet/salir.php");
-	exit;
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);

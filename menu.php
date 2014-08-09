@@ -3,8 +3,9 @@
 <!DOCTYPE html>  
 <html lang="es">  
   <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+    <meta charset="iso-8859-1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
     <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
@@ -17,9 +18,7 @@
     
     <!-- PLUGINS CSS -->
     <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet">
-    
     <link href="http://<? echo $dominio;?>/intranet/css/summernote.css" rel="stylesheet">
-       
     <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
     <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">                
 </head>

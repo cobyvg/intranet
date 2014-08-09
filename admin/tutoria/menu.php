@@ -1,18 +1,3 @@
-<?
-if (isset($_GET['tutor'])) {
-	$tutor = $_GET['tutor'];
-}
-elseif (isset($_POST['tutor'])) {
-$tr = explode(" ==> ",$_POST['tutor']);
-$tutor = $tr[0];
-}
-else{$tutor = $_SESSION['profi'];}
-
-  	$tutor2 = mysql_query("SELECT  unidad FROM FTUTORES where tutor = '$tutor'");
- 	$ftutor = mysql_fetch_array($tutor2);
-	$unidad = $ftutor[0];
-?>
-
 	<div class="container">
 			
 		<ul class="nav nav-tabs">

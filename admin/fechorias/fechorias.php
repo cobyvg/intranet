@@ -1,11 +1,12 @@
 <?
 session_start();
 include("../../config.php");
-if($_SESSION['autentificado']!='1')
-{
-session_destroy();
-header("location:http://$dominio/intranet/salir.php");	
-exit;
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
+	session_destroy();
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
 
 if($_SESSION['cambiar_clave']) {
@@ -20,19 +21,22 @@ include("../../menu.php");
 include("menu.php");
 $imprimir_activado = true;
 ?>
-<div aligna="center">
-<div class="page-header">
-  <h2>Problemas de Convivencia <small> Consultas</small></h2>
-</div>
-</div>
 
- <div class='container-fluid'>
-  <div class="row">
-  <div class="col-sm-12">
+	<div class="container">
+	
+		<!-- TITULO DE LA PAGINA -->
+		<div class="page-header">
+		  <h2>Problemas de Convivencia <small> Consultas</small></h2>
+		</div>
+		
+		
+		<!-- SCALLFODDING -->
+  	<div class="row">
+  		
+  		<!-- COLUMNA CENTRAL -->
+  		<div class="col-sm-12">
  
- <?
- include '../../funciones.php';
-// variables();
+<?php
 if(isset($_POST['submit1'])){$submit1 = $_POST['submit1'];}elseif(isset($_GET['submit1'])){$submit1 = $_GET['submit1'];}else{ $submit1=""; }
 if(isset($_POST['unidad'])){$unidad = $_POST['unidad'];}else{ $unidad=""; }
 if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }

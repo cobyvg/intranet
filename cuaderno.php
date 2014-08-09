@@ -3,11 +3,12 @@ ini_set("session.cookie_lifetime","2800");
 ini_set("session.gc_maxlifetime","3600");
 session_start();
 include("config.php");
-if($_SESSION['autentificado']!='1')
-{
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
 	session_destroy();
-	header("location:http://$dominio/intranet/salir.php");
-	exit;
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	exit();
 }
 
 if($_SESSION['cambiar_clave']) {
