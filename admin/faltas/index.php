@@ -16,234 +16,311 @@ if (isset($_GET['submit4'])) {$submit4 = $_GET['submit4'];}elseif (isset($_POST[
 
 if ($submit1)
 {
-include("faltas.php");
+	include("faltas.php");
 }
 elseif ($submit2)
 {
-include("informes.php");
+	include("informes.php");
 }
 elseif ($submit3)
 {
-include("informes.php");
+	include("informes.php");
 }
 elseif ($submit4)
 {
-include("faltasdias.php");
+	include("faltasdias.php");
 }
 else
 {
-session_start();
-include("../../config.php");
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
-	exit();
-}
+	session_start();
+	include("../../config.php");
+	// COMPROBAMOS LA SESION
+	if ($_SESSION['autentificado'] != 1) {
+		$_SESSION = array();
+		session_destroy();
+		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		exit();
+	}
 
-if($_SESSION['cambiar_clave']) {
-	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
-}
+	if($_SESSION['cambiar_clave']) {
+		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+	}
 
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+	registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-?>
-<?php
-include("../../menu.php");
-include("../../faltas/menu.php");
-?>
+	?>
+	<?php
+	include("../../menu.php");
+	include("../../faltas/menu.php");
+	?>
 
 <div class="container">
 <div class="page-header">
-  <h2>Faltas de Asistencia <small> Consultas</small></h2>
-  </div>
+<h2>Faltas de Asistencia <small> Consultas</small></h2>
+</div>
 <br />
 
 <div class="row">
 
 <div class="col-sm-6">
 
-  <form action='index.php' method='post' name='f1' class="form-vertical">
+<div class="well well-large">
 
-  <div class="well well-large">
-  <legend>Faltas de un Grupo.</legend>
-<br />
+<legend>Faltas de un Grupo.</legend>
+
+<form action='index.php' method='post' name='f1' class='form' role='form'>
+
 <fieldset>
+
 <div class="form-group col-md-6">
+<label class="control-label" for="unidad"> Grupo </label> 
+<SELECT
+	id="unidad" name="unidad" onChange="submit()" class="form-control">
+	<OPTION><? echo $_POST['unidad'];?></OPTION>
+	<? unidad();?>
+</SELECT>
+</div>
 
-    <label> Grupo </label>
-    <SELECT id="unidad" name="unidad" onChange="submit()" class="form-control" >
-      <OPTION><? echo $_POST['unidad'];?></OPTION>
-      <? unidad();?>
-    </SELECT>
- </div>
- <div class="form-group col-md-6">
-  
-   <label>
-  Mes </label>
-  <SELECT name='mes' class="form-control">
-    <OPTION></OPTION>
-    <?
+<div class="form-group col-md-6">
+<label class="control-label" for="mes"> Mes </label> 
+<SELECT name='mes' id='mes'
+	class="form-control">
+	<OPTION></OPTION>
+	<?
 	for($i=1;$i<13;$i++){
-	echo "<OPTION>$i</OPTION>";	
+		echo "<OPTION>$i</OPTION>";
 	}
-	?>    
-  </SELECT>
-  <!-- <INPUT name="mes" type="text" value="<? //echo date(m); ?>" class="form-control" maxlength="2" >-->
- </div>
-  Falta:</label>
-  <SELECT name='FALTA' class="form-control">
-    <OPTION>F</OPTION>
-    <OPTION>J</OPTION>
-  </SELECT>
-  
-  </div>
-  <hr>
-  <div class="form-group col-md-6">
-  <label>
-  N&uacute;mero m&iacute;nimo de
-  Faltas</label>
-  <INPUT name="numero2" type="text" class="form-control" maxlength="3" alt="Mes" value="1">
-   </div>
-  
-  <hr />
-  <input name="submit1" type="submit" id="submit1" value="Enviar Datos" class="btn btn-primary">
-  
-   </fieldset>
-   </div>
-  
-  </form>
-  <br>
-      <form action='index.php' method='post' name='f1' class="form-vertical">
-        <div class="well well-large">
-      
-        <fieldset>
-      
-       <div class="form-group">
-  
-  <legend> Faltas y días sin justificar</legend>
-  <br />
-  <div class="form-group col-md-12">
-  
-  <span class="help-block">( Alumnos que tienen un número mínimo de faltas entre el rango de fechas seleccionadas. )</span>
-  <label>
-  Número mínimo de Faltas</label> 
-  <INPUT name="numero" type="text" id="numero" class="form-control" maxlength="3" value="1">
-  </div>
- <hr>
-   <legend><small>Rango de fechas...</small></legend>
+	?>
+</SELECT> 
+</div>
 
-    <div class="form-group col-md-6" style="display:inline;">
-<label for="fecha10">Inicio </label> 
-<div class="input-group" >
-<input name="fecha10" type="text" class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha10" required >
-<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
- </div> 
- </div>
+<div class="form-group col-md-6">
+<label class="control-label" for="falta">Falta:</label> 
+<SELECT id='falta'  name='FALTA' class="form-control">
+	<OPTION>F</OPTION>
+	<OPTION>J</OPTION>
+</SELECT>
+</div>
 
-    <div class="form-group col-md-6" style="display:inline;">
-<label for="fecha20">Fin </label> 
-<div class="input-group" >
-<input name="fecha20" type="text" class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha20" required >
-<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
- </div> 
- </div>
+<div class="form-group col-md-6">
+<label class="control-label" for='numero2'> N&uacute;mero m&iacute;nimo de Faltas</label> 
+<INPUT id='numero2' name="numero2" type="text" class="form-control" maxlength="3" alt="Mes" value="1">
+</div>
 
- <br>
-  <INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4" class="btn btn-primary"> 
-  
-  </div>
- 
-   </fieldset>
-    </div>
-  </form>
-  
-  </div>
- 
-  
-  
-   <div class="col-md-6">
-      <form action='index.php' method='post' name='f1' class="form-vertical">
-  <div class="well well-large">
-  <fieldset>
-  <div class="form-group">
-  
-  <legend>Faltas de un alumno</legend>
-  <br />
-   <div class="form-group col-md-6">
-  <label> Grupo  </label>
-    <SELECT name="unidad1" onChange="submit()" class="form-control" >
-      <OPTION><? echo $unidad1;?></OPTION>
-      <? unidad();?>
-    </SELECT>
-  </div>
-  <br>
-   <div class="form-group col-md-10">
-  <label>
-  Alumno </label>
-  <select name='nombre' class="form-control">
-    <?
-printf ("<OPTION></OPTION>"); 
-  
-  // Datos del alumno que hace la consulta. No aparece el nombre del a&iuml;&iquest;&frac12; de la nota. Se podr&iuml;&iquest;&frac12; incluir.
-  $alumnosql = mysql_query("SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad like '$unidad1%' order by APELLIDOS asc");
+<div class="form-group col-md-4">
+<input name="submit1" type="submit" id="submit1" value="Enviar Datos"
+	class="btn btn-primary">
+</div>
 
-  if ($falumno = mysql_fetch_array($alumnosql))
-        {
+</fieldset>
 
-        do {
-		$claveal = $falumno[2];
-		global $claveal;
-	      $opcion = printf ("<OPTION>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>");
-	      echo "$opcion";
+</form>
 
-	} while($falumno = mysql_fetch_array($alumnosql));
-        }
+</div>
+
+<br>
+
+
+<div class="well well-large">
+
+<form action='index.php' method='post' name='f1' class='form' role='form'>
+
+<fieldset>
+
+<legend> Faltas y días sin justificar</legend>
+
+<span class="help-block">( Alumnos que
+tienen un número mínimo de faltas entre el rango de fechas
+seleccionadas. )</span> 
+
+<div class="form-group col-md-6">
+<label class="control-label" for='numero'> Número mínimo de Faltas</label> 
+<INPUT
+	name="numero" type="text" id="numero" class="form-control"
+	maxlength="3" value="1">
+</div>
+<legend><small>Rango de fechas...</small></legend>
+
+<div class="form-group col-md-6" style="display: inline;">
+<label class="control-label" for="fecha10">Inicio </label>
+<div class="input-group">
+<input name="fecha10" type="text"
+	class="form-control" value="" data-date-format="dd/mm/yyyy"
+	id="fecha10" required> <span class="input-group-addon"><i
+	class="fa fa-calendar"></i></span>
+</div>
+</div>
+
+<div class="form-group col-md-6" style="display: inline;">
+<label
+	for="fecha20" class="control-label">Fin </label>
+<div class="input-group"><input name="fecha20" type="text"
+	class="form-control" value="" data-date-format="dd/mm/yyyy"
+	id="fecha20" required> <span class="input-group-addon"><i
+	class="fa fa-calendar"></i></span>
+</div>
+</div>
+
+<br>
+
+<div class="form-group col-md-4">
+<INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4"
+	class="btn btn-primary">
+</div>
+
+</fieldset>
+
+</form>
+
+</div>
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="well well-large">
+
+<form action='index.php' method='post' name='f1' class='form' role='form'>
+
+<fieldset>
+
+<legend>Faltas de un alumno</legend> 
+
+<div class="form-group col-md-3">
+<label for="grupo" class="control-label"> Grupo </label> 
+<SELECT id="grupo"
+	name="unidad1" onChange="submit()" class="form-control">
+	<OPTION><? echo $unidad1;?></OPTION>
+	<? unidad();?>
+</SELECT>
+</div>
+
+<div class="form-group col-md-9">
+<label for="al" class="control-label"> Alumno </label> 
+<select id="al"
+	name='nombre' class="form-control">
+	<?
+	printf ("<OPTION></OPTION>");
+
+	// Datos del alumno que hace la consulta. No aparece el nombre del a&iuml;&iquest;&frac12; de la nota. Se podr&iuml;&iquest;&frac12; incluir.
+	$alumnosql = mysql_query("SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad like '$unidad1%' order by APELLIDOS asc");
+
+	if ($falumno = mysql_fetch_array($alumnosql))
+	{
+
+		do {
+			$claveal = $falumno[2];
+			global $claveal;
+			$opcion = printf ("<OPTION>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>");
+			echo "$opcion";
+
+		} while($falumno = mysql_fetch_array($alumnosql));
+	}
 	$fecha = (date("d").-date("m").-date("Y"));
 	$comienzo=explode("-",$inicio_curso);
 	$comienzo_curso=$comienzo[2]."-".$comienzo[1]."-".$comienzo[0];
 	$fecha2 = date("m");
 	?>
-  </select>
- 
-  </div>
-  <hr>
-    <legend><small>Rango de fechas...</small></legend>
-    <div class="form-group col-md-6" style="display:inline;">
-<label for="fecha4">Inicio </label> 
-<div class="input-group" >
-<input name="fecha4" type="text" class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha4" required >
-<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
- </div> 
- </div>
-
-    <div class="form-group col-md-6" style="display:inline;">
-<label for="fecha3">Inicio </label> 
-<div class="input-group" >
-<input name="fecha3" type="text" class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha3" required >
-<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
- </div> 
- </div>
-
-  <hr />
-  <input name=submit2 type=submit id="submit2" value='Lista detallada de Faltas' class="btn btn-primary">
-  <br>
-  </div>
-  </fieldset>
+</select>
 </div>
+
+<legend><small>Rango de fechas...</small></legend>
+
+<div class="form-group col-md-6" style="display: inline;">
+<label class="control-label"
+	for="fecha4">Inicio </label>
+<div class="input-group"><input name="fecha4" type="text"
+	class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha4"
+	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+</div>
+</div>
+
+<div class="form-group col-md-6" style="display: inline;">
+<label class="control-label"
+	for="fecha3">Fin </label>
+<div class="input-group">
+<input name="fecha3" type="text"
+	class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha3"
+	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+</div>
+</div>
+
+<div class="form-group col-md-4">
+<input name=submit2 type=submit id="submit2"
+	value='Lista detallada de Faltas' class="btn btn-primary"> 
+</div>
+
+</fieldset>
+
 </form>
+
+</div>
+
+<br>
+
+<div class="well well-large">
+
+<legend>Faltas de un Grupo.</legend>
+
+<form action='index.php' method='post' name='f1' class='form' role='form'>
+
+<fieldset>
+
+<div class="form-group col-md-6">
+<label class="control-label" for="unidad"> Grupo </label> 
+<SELECT
+	id="unidad" name="unidad" onChange="submit()" class="form-control">
+	<OPTION><? echo $_POST['unidad'];?></OPTION>
+	<? unidad();?>
+</SELECT>
+</div>
+
+<div class="form-group col-md-6">
+<label class="control-label" for="mes"> Mes </label> 
+<SELECT name='mes' id='mes'
+	class="form-control">
+	<OPTION></OPTION>
+	<?
+	for($i=1;$i<13;$i++){
+		echo "<OPTION>$i</OPTION>";
+	}
+	?>
+</SELECT> 
+</div>
+
+<div class="form-group col-md-6">
+<label class="control-label" for="falta">Falta:</label> 
+<SELECT id='falta'  name='FALTA' class="form-control">
+	<OPTION>F</OPTION>
+	<OPTION>J</OPTION>
+</SELECT>
+</div>
+
+<div class="form-group col-md-6">
+<label class="control-label" for='numero2'> N&uacute;mero m&iacute;nimo de Faltas</label> 
+<INPUT id='numero2' name="numero2" type="text" class="form-control" maxlength="3" alt="Mes" value="1">
+</div>
+
+<div class="form-group col-md-4">
+<input name="submit1" type="submit" id="submit1" value="Enviar Datos"
+	class="btn btn-primary">
+</div>
+
+</fieldset>
+
+</form>
+
 </div>
 
 </div>
 
-  <? }?>
+	<? }?>
 
-</div>  
- </div>
- </div>
-<? include("../../pie.php");?>
+</div>
+</div>
+	<? include("../../pie.php");?>
 
 <script>  
 	$(function ()  
@@ -262,8 +339,8 @@ printf ("<OPTION></OPTION>");
 			$('#fecha3').datepicker('hide');
 		});
 		});  
-	</script>	
-	
+	</script>
+
 <script>  
 	$(function ()  
 	{ 
