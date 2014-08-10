@@ -18,14 +18,16 @@
     </footer>
     
     <!-- BOOTSTRAP JS CORE -->
-    <script src="http://<? echo $dominio;?>/intranet/js/jquery.js"></script>  
+    <script src="http://<? echo $dominio;?>/intranet/js/jquery-1.11.1.min.js"></script>  
     <script src="http://<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>
     
     <!-- PLUGINS JS -->
-    <script src="http://<? echo $dominio;?>/intranet/js/summernote.min.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/summernote-es-ES.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/bootbox.min.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-datepicker.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/summernote/summernote.min.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/summernote/summernote-es-ES.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/datetimepicker/moment.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/datetimepicker/moment-es.js"></script>
+    <script src="http://<? echo $dominio;?>/intranet/js/datetimepicker/bootstrap-datetimepicker.js"></script>
     <?php if(isset($PLUGIN_DATATABLES) && $PLUGIN_DATATABLES): ?>
     <script src="http://<? echo $dominio;?>/intranet/js/datatables/jquery.dataTables.min.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/datatables/dataTables.bootstrap.js"></script>

@@ -185,8 +185,8 @@ include ("menu.php");
 							
 							<div class="form-group">
 								<label for="fecha">Fecha de publicación</label>
-								<div class="input-group">
-									<input type="text" class="form-control" id="fecha" name="fecha" value="<?php echo date('Y-m-d H:i:s'); ?>">
+								<div class="input-group" id="datetimepicker1">
+									<input type="text" class="form-control" id="fecha" name="fecha" value="" data-date-format="DD/MM/YYYY HH:mm:ss">
 									<span class="input-group-addon"><span class="fa fa-calendar fa-lg"></span></span>
 								</div>
 							</div>
@@ -268,6 +268,15 @@ include ("menu.php");
 		
 		$('#content').code(localStorage['summernote-<?php echo $token; ?>']);
 		
+		
+		
+	});
+	
+	// DATETIMEPICKER
+	$(function () {
+	    $('#datetimepicker1').datetimepicker({
+	    	language: 'es'
+	    });
 	});
 	</script>
 
