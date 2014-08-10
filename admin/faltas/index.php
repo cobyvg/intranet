@@ -54,29 +54,36 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("../../faltas/menu.php");
 ?>
+
+<div class="container">
 <div class="page-header">
   <h2>Faltas de Asistencia <small> Consultas</small></h2>
   </div>
 <br />
-<div class="container-fluid">
+
 <div class="row">
-  <form action='index.php' method='post' name='f1' class="form-inline">
 
-  <div class="col-sm-4">
+<div class="col-sm-6">
+
+  <form action='index.php' method='post' name='f1' class="form-vertical">
+
   <div class="well well-large">
-
   <legend>Faltas de un Grupo.</legend>
 <br />
-    <label> Grupo:<br />
-    <SELECT name="unidad" onChange="submit()" class="input"  style="display:inline">
+<fieldset>
+<div class="form-group col-md-6">
+
+    <label> Grupo </label>
+    <SELECT id="unidad" name="unidad" onChange="submit()" class="form-control" >
       <OPTION><? echo $_POST['unidad'];?></OPTION>
       <? unidad();?>
     </SELECT>
-  </label>
-  <hr>
+ </div>
+ <div class="form-group col-md-6">
+  
    <label>
-  Mes:&nbsp;
-  <SELECT name='mes' class="input-mini">
+  Mes </label>
+  <SELECT name='mes' class="form-control">
     <OPTION></OPTION>
     <?
 	for($i=1;$i<13;$i++){
@@ -84,43 +91,99 @@ include("../../faltas/menu.php");
 	}
 	?>    
   </SELECT>
-  <!-- <INPUT name="mes" type="text" value="<? //echo date(m); ?>" class="input-mini" maxlength="2" >-->
-  </label>
-  <br />
-  <label>
-  Falta:
-  <SELECT name='FALTA' class="input-mini">
+  <!-- <INPUT name="mes" type="text" value="<? //echo date(m); ?>" class="form-control" maxlength="2" >-->
+ </div>
+  Falta:</label>
+  <SELECT name='FALTA' class="form-control">
     <OPTION>F</OPTION>
     <OPTION>J</OPTION>
   </SELECT>
-  </label>
-  <br />
+  
+  </div>
+  <hr>
+  <div class="form-group col-md-6">
   <label>
   N&uacute;mero m&iacute;nimo de
-  Faltas
-  <INPUT name="numero2" type="text" class="input-mini" maxlength="3" alt="Mes" value="1">
-  </label>
+  Faltas</label>
+  <INPUT name="numero2" type="text" class="form-control" maxlength="3" alt="Mes" value="1">
+   </div>
+  
   <hr />
-  <input name="submit1" type="submit" id="submit1" value="Enviar Datos" class="btn btn-primary btn-block">
+  <input name="submit1" type="submit" id="submit1" value="Enviar Datos" class="btn btn-primary">
+  
+   </fieldset>
+   </div>
+  
+  </form>
+  <br>
+      <form action='index.php' method='post' name='f1' class="form-vertical">
+        <div class="well well-large">
+      
+        <fieldset>
+      
+       <div class="form-group">
+  
+  <legend> Faltas y días sin justificar</legend>
+  <br />
+  <div class="form-group col-md-12">
+  
+  <span class="help-block">( Alumnos que tienen un número mínimo de faltas entre el rango de fechas seleccionadas. )</span>
+  <label>
+  Número mínimo de Faltas</label> 
+  <INPUT name="numero" type="text" id="numero" class="form-control" maxlength="3" value="1">
   </div>
+ <hr>
+   <legend><small>Rango de fechas...</small></legend>
+
+    <div class="form-group col-md-6" style="display:inline;">
+<label for="fecha10">Inicio </label> 
+<div class="input-group" >
+<input name="fecha10" type="text" class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha10" required >
+<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+ </div> 
+ </div>
+
+    <div class="form-group col-md-6" style="display:inline;">
+<label for="fecha20">Fin </label> 
+<div class="input-group" >
+<input name="fecha20" type="text" class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha20" required >
+<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+ </div> 
+ </div>
+
+ <br>
+  <INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4" class="btn btn-primary"> 
+  
   </div>
+ 
+   </fieldset>
+    </div>
+  </form>
+  
+  </div>
+ 
   
   
-  
-   <div class="col-sm-4">
+   <div class="col-md-6">
+      <form action='index.php' method='post' name='f1' class="form-vertical">
   <div class="well well-large">
+  <fieldset>
+  <div class="form-group">
+  
   <legend>Faltas de un alumno</legend>
   <br />
-  <label> Grupo:<br />
-    <SELECT name="unidad1" onChange="submit()" class="input"  style="display:inline">
+   <div class="form-group col-md-6">
+  <label> Grupo  </label>
+    <SELECT name="unidad1" onChange="submit()" class="form-control" >
       <OPTION><? echo $unidad1;?></OPTION>
       <? unidad();?>
     </SELECT>
-  </label>
-  <hr>
+  </div>
+  <br>
+   <div class="form-group col-md-10">
   <label>
-  Alumno:
-  <select name='nombre' class="input-xlarge">
+  Alumno </label>
+  <select name='nombre' class="form-control">
     <?
 printf ("<OPTION></OPTION>"); 
   
@@ -144,65 +207,42 @@ printf ("<OPTION></OPTION>");
 	$fecha2 = date("m");
 	?>
   </select>
-  </label>
+ 
+  </div>
   <hr>
-    <legend>Rango de fechas...</legend>
-         <label>Inicio<br />
- <div class="input-group" style="display:inline;" >
-            <input name="fecha4" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha4" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
+    <legend><small>Rango de fechas...</small></legend>
+    <div class="form-group col-md-6" style="display:inline;">
+<label for="fecha4">Inicio </label> 
+<div class="input-group" >
+<input name="fecha4" type="text" class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha4" required >
+<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+ </div> 
+ </div>
 
-</label>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-<label>Fin<br />
- <div class="input-group" style="display:inline;" >
-            <input name="fecha3" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha3" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-    </label> 
+    <div class="form-group col-md-6" style="display:inline;">
+<label for="fecha3">Inicio </label> 
+<div class="input-group" >
+<input name="fecha3" type="text" class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha3" required >
+<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+ </div> 
+ </div>
 
   <hr />
-  <input name=submit2 type=submit id="submit2" value='Lista detallada de Faltas' class="btn btn-primary btn-block">
+  <input name=submit2 type=submit id="submit2" value='Lista detallada de Faltas' class="btn btn-primary">
   <br>
-</div>
-</div>
-
-
-
-<div class="col-sm-4">
-<div class="well well-large pull-left">
-  <legend> Faltas y días sin justificar</legend>
-  <br />
-  <span class="help-block">( Alumnos que tienen un número mínimo de faltas entre el rango de fechas seleccionadas. )</span>
-  <label>
-  Número mínimo de Faltas <INPUT name="numero" type="text" id="numero" class="input-mini" maxlength="3" value="1">
-  </label>
- <hr>
-   <legend>Rango de fechas...</legend>
-         <label>Inicio<br />
- <div class="input-group" style="display:inline;" >
-            <input name="fecha10" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha10" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-
-</label>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-<label>Fin<br />
- <div class="input-group" style="display:inline;">
-            <input name="fecha20" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha20" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-
-    </label> <hr />
-  <INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4" class="btn btn-primary btn-block">
   </div>
-  </div>
-  <? }?>
+  </fieldset>
+</div>
 </form>
+</div>
+
+</div>
+
+  <? }?>
+
 </div>  
-</div>  
- 
+ </div>
+ </div>
 <? include("../../pie.php");?>
 
 <script>  

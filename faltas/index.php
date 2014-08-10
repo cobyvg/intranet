@@ -272,8 +272,8 @@ if(mysql_num_rows($gr)>0 or $diversificacion==1){echo '<button name="enviar" typ
 <label for="hora_dia">Hora </label> 
 <select	class="form-control" id="hora_dia" name="hora_dia" required>
 <?
-if (isset($_POST['hora_dia'])) {
-	echo "<option>".$_POST['hora_dia']."</option>";
+if (isset($hora_dia)) {
+	echo "<option>".$hora_dia."</option>";
 }
 echo "<option></option>";
 for ($i = 1; $i < 7; $i++) {
@@ -288,9 +288,11 @@ for ($i = 1; $i < 7; $i++) {
 <input name="fecha_dia" type="text" class="form-control" value="<? echo $fecha_dia;?>" data-date-format="dd/mm/yyyy" id="fecha_dia" required >
 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
  </div> 
+ </div>
 <hr>
 <button type="submit" class="btn btn-primary btn-block" name="submit">Enviar</button>
 </form>
+</div>
 </div>
 </div>
 </div>
