@@ -26,14 +26,14 @@ if (isset($_POST['enviar'])) {
 	$slug = $_POST['slug'];
 	$content = $_POST['content'];
 	$contact = $_POST['contact'];
-	$fecha = $_POST['fecha'];
+	$fecha_pub = $_POST['fecha_pub'];
 	$clase = $_POST['clase'];
 	$ndias = $_POST['ndias'];
 	$intranet = $_POST['intranet'];
 	$principal = $_POST['principal'];
 	$pagina = $intranet.$principal;
 	
-	if (empty($slug) || empty($content) || empty($fecha)) {
+	if (empty($slug) || empty($content) || empty($fecha_pub)) {
 		$msg_error = "Todos los campos del formulario son obligatorios.";
 	}
 	else {
@@ -44,7 +44,7 @@ if (isset($_POST['enviar'])) {
 		else {
 			
 			if ($ndias == 0) $fechafin = '0000-00-00';
-			else $fechafin = date("Y-m-d", strtotime("$fecha +$ndias days"));
+			else $fechafin = date("Y-m-d", strtotime("$fecha_pub +$ndias days"));
 			
 			if(empty($intranet) && empty($principal)) {
 				$msg_error = "Debe indicar dónde desea publicar la noticia.";
@@ -53,13 +53,13 @@ if (isset($_POST['enviar'])) {
 				// COMPROBAMOS SI INSERTAMOS O ACTUALIZAMOS
 				if(isset($id)) {
 					// ACTUALIZAMOS LA NOTICIA
-					$result = mysql_query("UPDATE noticias SET slug='$slug', content='$content', contact='$contact', timestamp='$fecha', clase='$clase', fechafin='$fechafin', pagina=$pagina WHERE id=$id LIMIT 1");
+					$result = mysql_query("UPDATE noticias SET slug='$slug', content='$content', contact='$contact', timestamp='$fecha_pub', clase='$clase', fechafin='$fechafin', pagina=$pagina WHERE id=$id LIMIT 1");
 					if (!$result) $msg_error = "No se ha podido actualizar la noticia. Error: ".mysql_error();
 					else $msg_success = "La noticia ha sido actualizada correctamente.";
 				}
 				else {
 					// INSERTAMOS LA NOTICIA
-					$result = mysql_query("INSERT INTO noticias (slug, content, contact, timestamp, clase, fechafin, pagina) VALUES ('$slug','$content','$contact','$fecha','$clase','$fechafin',$pagina)");
+					$result = mysql_query("INSERT INTO noticias (slug, content, contact, timestamp, clase, fechafin, pagina) VALUES ('$slug','$content','$contact','$fecha_pub','$clase','$fechafin',$pagina)");
 					if (!$result) $msg_error = "No se ha podido publicar la noticia. Error: ".mysql_error();
 					else $msg_success = "La noticia ha sido publicada correctamente.";
 				}
@@ -86,7 +86,7 @@ if (isset($id) && (int) $id) {
 			$slug = (strstr($row['slug'], ' (Actualizado)') == true) ? $row['slug'] : $row['slug'].' (Actualizado)';
 			$content = $row['content'];
 			$contact = $row['contact'];
-			$fecha = $row['timestamp'];
+			$fecha_pub = $row['timestamp'];
 			$clase = $row['clase'];
 			$ndias = $row['ndias'];
 			$pagina = $row['pagina'];
@@ -184,9 +184,9 @@ include ("menu.php");
 							</div>
 							
 							<div class="form-group">
-								<label for="fecha">Fecha de publicación</label>
+								<label for="fecha_pub">Fecha de publicación</label>
 								<div class="input-group" id="datetimepicker1">
-									<input type="text" class="form-control" id="fecha" name="fecha" value="" data-date-format="DD/MM/YYYY HH:mm:ss">
+									<input type="text" class="form-control" id="fecha_pub" name="fecha_pub" value="<?php echo (isset($fecha_pub) && $fecha_pub) ? $fecha_pub : date('d-m-Y H:i:s'); ?>" data-date-format="DD/MM/YYYY HH:mm:ss">
 									<span class="input-group-addon"><span class="fa fa-calendar fa-lg"></span></span>
 								</div>
 							</div>
