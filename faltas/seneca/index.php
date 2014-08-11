@@ -164,17 +164,41 @@ puente coincidente con los primeros dias de un mes, etc.). <br />El mismo criter
 include("../../pie.php");
 ?>   
 
+<?php 
+$exp_inicio_curso = explode('-', $inicio_curso);
+$inicio_curso = $exp_inicio_curso[2].'/'.$exp_inicio_curso[1].'/'.$exp_inicio_curso[0];
+
+$exp_fin_curso = explode('-', $fin_curso);
+$fin_curso = $exp_fin_curso[2].'/'.$exp_fin_curso[1].'/'.$exp_fin_curso[0];
+
+$result = mysql_query("SELECT fecha FROM festivos ORDER BY fecha ASC");
+$festivos = '';
+while ($row = mysql_fetch_array($result)) {
+	$exp_festivo = explode('-', $row['fecha']);
+	$dia_festivo = $exp_festivo[2].'/'.$exp_festivo[1].'/'.$exp_festivo[0];
+	
+	$festivos .= '"'.$dia_festivo.'", ';
+}
+
+$festivos = substr($festivos,0,-2);
+?>
 	<script>  
 	$(function ()  
 	{ 
 		$('#iniciofalta').datetimepicker({
 			language: 'es',
-			pickTime: false
+			pickTime: false,
+			minDate:'<?php echo $inicio_curso; ?>',
+			maxDate:'<?php echo $fin_curso; ?>',
+			disabledDates: [<?php echo $festivos; ?>]
 		});
 		
 		$('#finfalta').datetimepicker({
 			language: 'es',
-			pickTime: false
+			pickTime: false,
+			minDate:'<?php echo $inicio_curso; ?>',
+			maxDate:'<?php echo $fin_curso; ?>',
+			disabledDates: [<?php echo $festivos; ?>]
 		});
 	});  
 	</script>
