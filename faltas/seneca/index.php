@@ -190,7 +190,8 @@ $festivos = substr($festivos,0,-2);
 			pickTime: false,
 			minDate:'<?php echo $inicio_curso; ?>',
 			maxDate:'<?php echo $fin_curso; ?>',
-			disabledDates: [<?php echo $festivos; ?>]
+			disabledDates: [<?php echo $festivos; ?>],
+			daysOfWeekDisabled:[0,6] 
 		});
 		
 		$('#finfalta').datetimepicker({
@@ -198,7 +199,8 @@ $festivos = substr($festivos,0,-2);
 			pickTime: false,
 			minDate:'<?php echo $inicio_curso; ?>',
 			maxDate:'<?php echo $fin_curso; ?>',
-			disabledDates: [<?php echo $festivos; ?>]
+			disabledDates: [<?php echo $festivos; ?>],
+			daysOfWeekDisabled:[0,6] 
 		});
 	});  
 	</script>
