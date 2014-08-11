@@ -49,8 +49,8 @@ echo "<table class='table table-bordered table-striped'><tr><th style='text-alig
    
 //Nombre del Mes
 echo "<table class='table table-bordered'><tr>";
-echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h6 align='center'>" . $monthlong . 
-"</h6></td>";
+echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h4 align='center'>" . $monthlong . 
+"</h4></td>";
 echo "</tr><tr>";
 
 

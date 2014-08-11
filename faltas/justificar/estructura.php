@@ -107,9 +107,7 @@ echo "</td></tr></table><br />";
   <div class="col-sm-6">
 <!-- Button trigger modal -->
 <button class="pull-right " data-toggle="modal" data-target="#myModal">
- <i
-			class="fa fa-question-circle fa-lg "
-			> </i>
+ <i class="fa fa-question-circle fa-lg "> </i>
 </button>
 
  <!-- Modal -->

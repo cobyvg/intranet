@@ -1,8 +1,9 @@
+
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
-<div class="container-fluid">
-<div class="row">
 <div class="col-sm-4">
 <?
 if(is_numeric($profesor))
@@ -16,7 +17,7 @@ else{$n_profe = $profesor;}
 if(strlen($n_profe)>0){
 ?>
 <div align="center">
-<h3> <? echo $n_profe;?> &nbsp;&nbsp;</h3>
+<legend><small> <? echo $n_profe;?></small></legend>
 <?
 }
 ?>
@@ -40,7 +41,6 @@ profesor();
 echo "</div>";
 		 }
 		 ?>
-<div class="well-trasnparent well-large">
            <? 
 		if (isset($registro)) {
 			echo '<div align="left""><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -76,10 +76,9 @@ echo "</div>";
                  <? include("cal.php"); ?>  
                               
 </div>
-</div>
 <div class="col-sm-8">
 <?
-echo "<h3 align='center'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</h3><br />";
+echo "<legend align='center'><small class='text-uppercase'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</small></legend><br />";
             echo "<input type=hidden name=today value= \"$today\">";
 			echo "<input type=hidden name=year value= \"$year\">";
 			echo "<input type=hidden name=month value= \"$month\">";

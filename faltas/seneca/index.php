@@ -46,11 +46,7 @@ if(isset($_POST['Submit'])) {
  include("../../menu.php");
  include("../menu.php");
  ?>
- <br />
-<div class="page-header">
-  <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
-</div>
-<br />
+
  <?
  if(isset($_POST['enviar'])) {
  // Descomprimimos el zip de las calificaciones en el directorio origen/ tras eliminar los antiguos
@@ -78,68 +74,81 @@ Los archivos de los alumnos han sido descragados correctamente en el directorio 
  }
 ?>
 
-<div class="container-fluid">
+<div class="container">
 <div class="row">
-<div class="col-sm-4 col-sm-offset-2">
+<div class="page-header">
+  <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
+</div>
+<br />
+<div class="col-sm-6">
 <legend align="center">Importar datos de los Alumnos</legend>
-<FORM ENCTYPE="multipart/form-data" ACTION="index.php" METHOD="post">
-  <div class="form-group">
+<FORM ENCTYPE="multipart/form-data" ACTION="index.php" METHOD="post" role="form">
   <div class="well well-large" align="left">
-      <div class="controls">
-  <label class="control-label" for="file1">Selecciona el archivo comprimido descargado desde Séneca <span style="color:#9d261d">Exportacion_Faltas_Alumnado.zip</span>
-  </label>
-  <hr />
-  <input type="file" name="archivo1" class="input input-file" id="file1">
-  <hr>
+
+ <div class="form-group">
+    <p class="help-block">Selecciona el archivo comprimido descargado desde Séneca 'Exportacion_Faltas_Alumnado.zip'</p>
+   <input type="file" name="archivo1" class="input input-file" id="file1">
+  </div>
   
-  <div align="center">
-    <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary btn-block">
-  </div> <!-- center -->
+     <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary btn-block">
   
-  </div> <!-- form-group -->
   </div> <!-- well -->
-</div> <!-- control -->
 <hr />
   <div class="help-block" style="text-align:justify; <?php if($error) echo 'color: red;';?>"><p class="lead text-warning">Información sobre la Importación.</p>
 Para poder importar las faltas de los alumnos, es necesario en primer lugar descargar un archivo desde <em>S&eacute;neca --> Utilidades --> Imprtaci&oacute;n/Exportaci&oacute;n
  --> Exportaci&oacute;n de Faltas del alumnado</em>. <br />Crea un nuevo archivo con todos los grupos del Centro, y acepta la fecha propuesta. Tardar&aacute; unos instantes en aparecer, as&iacute; que vuelve al cabo de un minuto a la misma p&aacute;gina y te aparecer&aacute; un mensaje confirmando que el archivo ha sido generado. <br />Descarga el archivo y selecciónalo para proceder. Los archivo se colocan en el directorio /faltas/seneca/origen/
-</div>
+ </div>
 </FORM>
-
 </div>
-<div class="col-sm-4"><legend align="center">Exportar Faltas a Séneca</legend>
-<div class="well" align="left">	
-        <form id="form1" name="form1" method="post" action="index.php">
-        
-         <label >Primer d&iacute;a: 
-      <div class="input-group" >
-            <input name="iniciofalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="iniciofalta" required />
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-</label>
- &nbsp;&nbsp;&nbsp;&nbsp;
-<label>Ultimo d&iacute;a: 
- <div class="input-group" >
-  <input name="finfalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="finfalta" required />
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
 
-      </label>
+
+<div class="col-sm-6">
+<legend align="center">Exportar Faltas a Séneca</legend>
+<div class="well" align="left">	
+
+        <form id="form1" name="form1" method="post" action="index.php">
+  <fieldset>      
+ <div class="form-group col-md-6" style="display: inline;">
+<label class="control-label"
+	for="iniciofalta">Primer d&iacute;a:</label>
+<div class="input-group">
+<input name="iniciofalta" type="text"
+	class="form-control" value="" data-date-format="dd/mm/yyyy" id="iniciofalta"
+	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+</div>
+</div>
+
+<div class="form-group col-md-6" style="display: inline;">
+<label class="control-label"
+	for="finfalta">Ultimo d&iacute;a:  </label>
+<div class="input-group">
+<input name="finfalta" type="text"
+	class="form-control" value="" data-date-format="dd/mm/yyyy" id="finfalta"
+	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+</div>
+</div>
+
+
       
       <br>
       
       <p class="lead">Tipo de exportaci&oacute;n</p>
-      
-      <label class="radio">
-        <input type="radio" name="tipo" value="1" checked> Generar un archivo con todas las unidades.
-      </label>
-      
-      <label class="radio">
-        <input type="radio" name="tipo" value="2"> Generar un archivo por cada unidad.
-      </label>
-      
+      <div class="radio">
+  <label>
+    <input type="radio" name="tipo" value="1">
+     Generar un archivo con todas las unidades.
+  </label>
+</div>
+      <div class="radio">
+  <label>
+    <input type="radio" name="tipo" value="2">
+     Generar un archivo por cada unidad.
+  </label>
+</div>
+
    <br />
-  <div align="center"><input type="submit" name="Submit" value="Enviar" class="btn btn-primary btn-block" /></div>
+  <input type="submit" name="Submit" value="Enviar" class="btn btn-primary btn-block" />
+  </fieldset>
         </form>
       
         </div>
