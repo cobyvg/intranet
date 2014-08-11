@@ -127,24 +127,6 @@ Para poder importar las faltas de los alumnos, es necesario en primer lugar desc
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </div>
-
-
-        
-         <label >Primer d&iacute;a: 
-      <div class="input-group" >
-            <input name="iniciofalta" type="text" class="input input-small" data-date-format="DD/MM/YYYY" id="iniciofalta" required />
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-</label>
- &nbsp;&nbsp;&nbsp;&nbsp;
-<label>Ultimo d&iacute;a: 
- <div class="input-group" >
-  <input name="finfalta" type="text" class="input input-small" data-date-format="DD/MM/YYYY" id="finfalta" required />
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-
-      </label>
-      
       <br>
       
       <p class="lead">Tipo de exportaci&oacute;n</p>
