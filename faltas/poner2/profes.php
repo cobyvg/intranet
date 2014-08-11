@@ -53,7 +53,7 @@ echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
 // Abreviatura de la Asignatura
 $asignatur1 = mysql_query("SELECT distinct  c_asig, a_asig FROM  horw where prof = '$profesores' and dia = '$z' and hora = '$n_hora'");
 $rowasignatur1 = mysql_fetch_row($asignatur1);
-if($rowasignatur1[0]){echo "<div class='badge badge-success' style='width:62%'>".$rowasignatur1[1]."</div><br />"; }
+if($rowasignatur1[0]){echo "<h4><span class='label label-primary'>".$rowasignatur1[1]."</span></h4>"; }
  
 // Recorremos los grupos a los que da en ese hora.
 	$asignaturas1 = mysql_query("SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$profesores' and dia = '$z' and hora = '$n_hora' AND a_grupo not like 'G%'");
@@ -86,7 +86,7 @@ $n = count($asignaturas1);
   	   // Fecha exacta de cada día, referida a los cálculos de nombres.php 
     echo "<INPUT type=hidden name=fecha".$z.$n_hora.$curso_con." value=$diafaltas>";	
 	// Nivel y Grupo en pantalla	
-	echo "<span class='badge badge-warning'>" .$rowasignaturas1[1]."</span>";      	
+	echo "<h4><span class='label label-warning'>" .$rowasignaturas1[1]."</span></h4>";      	
     echo "<INPUT type=hidden name=grupo".$z.$n_hora.$curso_con." value=$curso_con>";
     // Cambios de fecha entre PHP y MySQL, de española a internacional.
      if (isset($diafaltas)) {
@@ -109,7 +109,9 @@ $n = count($asignaturas1);
 // Eliminamos el último punto de la serie, limpiando un poco.
 $faltas14 = rtrim($faltas13, "."); 
 	  
-    echo " <INPUT type=text name=alumnos".$z.$n_hora.$curso_con." value='$faltas14' class='input-mini'><br>";
+    echo " <div class='form-group col-md-12'> 
+    <INPUT type=text name=alumnos".$z.$n_hora.$curso_con." value='$faltas14' class='form-control'>
+    </div>";
     echo "<INPUT type=hidden name=unidad".$z.$n_hora.$curso_con." value=$curso_con>";
     echo "<INPUT type=hidden name=asignatura".$z.$n_hora.$curso_con." value=$rowasignaturas1[0]>";
     echo "<INPUT type=hidden name=hora".$z.$n_hora.$curso_con." value=$n_hora>";

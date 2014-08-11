@@ -31,7 +31,8 @@ if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];} elseif (isset($_P
 function profesor()
 {
 if($_POST['submit']) {$continuar = "";}
-echo "<SELECT name='profesor' id='idprofe' onChange='submit()' class='input-xlarge'>";
+echo "<div class='form-group col-md-10 col-md-offset-1'>
+<SELECT name='profesor' id='idprofe' onChange='submit()' class='form-control'>";
 echo "<OPTION>";
 echo "</OPTION>";	
 		        // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
@@ -40,7 +41,7 @@ $profe = mysql_query("SELECT distinct prof, no_prof FROM horw order by prof asc"
 		 	$n_p+=1;
 		        echo "<OPTION id='idopcion'>$filaprofe[1]_ $filaprofe[0]</OPTION>";
 		    } 
-		     	echo "</select><br />";
+		     	echo "</select></div>";
 			}				
 	?>
 <?

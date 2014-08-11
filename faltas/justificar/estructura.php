@@ -106,20 +106,24 @@ echo "</td></tr></table><br />";
   </div>
   <div class="col-sm-6">
 <!-- Button trigger modal -->
-<a href="#" class="btn btn-default pull-right" data-toggle="modal" data-target="#myModal">
- <i class="fa fa-question-circle fa-lg"> </i>
-</a>
+<button class="pull-right " data-toggle="modal" data-target="#myModal">
+ <i
+			class="fa fa-question-circle fa-lg "
+			> </i>
+</button>
 
  <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso</h4>
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
       </div>
       <div class="modal-body">
-				Para justificar una falta selecciona en primer lugar un alumno en la columna de la derecha. Una vez el alumno aparece seleccionado elige el mes correspondiente. Aparecerán en rojo las faltas de aistencia del alumno y en verde las faltas justificadas. <br>Al hacer click sobre una fecha cambiamos su estado: si está vacía se pone roja, si está roja se pone verde, y si está verde la dejamos a cero.
+		<p class="help-block">
+		Para justificar una falta selecciona en primer lugar un alumno en la columna de la derecha. Una vez el alumno aparece seleccionado elige el mes correspondiente. Aparecerán en rojo las faltas de aistencia del alumno y en verde las faltas justificadas. <br>Al hacer click sobre una fecha cambiamos su estado: si está vacía se pone roja, si está roja se pone verde, y si está verde la dejamos a cero.
+		</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
