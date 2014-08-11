@@ -175,7 +175,7 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
       <td>Aplicaciones propias de un Centro TIC: Incidencias, usuarios, etc.</td>
     </tr>
     <tr>
-      <td>Horario compatible con Horwin:
+      <td>Horarios de profesores:
         </td>
       <td><input type="checkbox" name="mod_horario" id="mod_horario" onChange="activarMod_faltas()" <?php if($mod_horario) { echo "checked"; } ?> /></td>
       <td>Si disponemos de Horario para la Intranet...</td>

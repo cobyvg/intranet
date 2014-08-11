@@ -19,7 +19,7 @@
 		
 		echo  "<div align'center><div class='alert alert-danger alert-block fade in'><br />
             <button type='button' class='close' data-dismiss='alert'>&times;</button>
-El archivo generado por Horwin ha sido procesado y se ha creado una copia modificada preparada para subir a Séneca. 
+El archivo generado por el programa generador de horarios ha sido procesado y se ha creado una copia modificada preparada para subir a Séneca. 
 <br>Los mesajes que aparecen más abajo indican los cambios realizados y las advertencias sobre problemas que podrías encontrar al importar los datos a Séneca.
 </div></div>";		
 	}
