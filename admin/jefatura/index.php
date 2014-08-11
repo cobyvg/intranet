@@ -233,8 +233,8 @@ $clave = $row[10];
 							<div class="col-sm-5">
 								<div class="form-group">
 								  <label for="fecha_reg">Fecha</label>
-									<div class="input-group">
-										<input name="fecha_reg" type="text" class="input form-control" value="<?php echo (isset($id) && $fecha_reg) ? $fecha_reg : date('d-m-Y'); ?>" data-date-format="dd-mm-yyyy" id="fecha_reg" >
+									<div class="input-group" id="datetimepicker1">
+										<input name="fecha_reg" type="text" class="input form-control" value="<?php echo (isset($id) && $fecha_reg) ? $fecha_reg : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY" id="fecha_reg" >
 									  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									</div>
 								</div>
@@ -379,15 +379,15 @@ $clave = $row[10];
 			        }
 		});
 	});
+	
+	// DATETIMEPICKER
+	$(function () {
+	    $('#datetimepicker1').datetimepicker({
+	    	language: 'es',
+	    	pickTime: false
+	    });
+	});
 	</script>
-	<script>  
-	$(function ()  
-	{ 
-		$('#fecha').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha').datepicker('hide');
-		});
-		});
-</script>
+
 </body>
 </html>

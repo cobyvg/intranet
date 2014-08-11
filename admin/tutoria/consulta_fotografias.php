@@ -207,7 +207,7 @@ include("menu.php");
 					<?php $foto = '../../xml/fotos/'.$row['claveal'].'.jpg'; ?>
 					<?php if (file_exists($foto)): ?>
 					<div class="col-sm-2 text-center">
-						<img class="img-thumbnail" src="<?php echo $foto; ?>" alt="<?php echo $row['apellidos'].', '.$row['nombre']; ?>" width="165">
+						<img class="img-thumbnail" src="<?php echo $foto; ?>?t=<?php echo time(); ?>" alt="<?php echo $row['apellidos'].', '.$row['nombre']; ?>" width="165">
 						<?php echo $row['apellidos'].', '.$row['nombre']; ?>
 					</div>
 					<?php else: ?>

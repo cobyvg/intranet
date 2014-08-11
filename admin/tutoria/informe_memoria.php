@@ -1,6 +1,7 @@
-<?
+<?php
 session_start();
 include("../../config.php");
+
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -13,78 +14,40 @@ if($_SESSION['cambiar_clave']) {
 	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
 }
 
+// COMPROBACION DE ACCESO AL MODULO
+if(!stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE || stristr($_SESSION['cargo'],'8') == TRUE) {
+	
+	if (isset($_SESSION['mod_tutoria'])) unset($_SESSION['mod_tutoria']);
+	die ("<h1>FORBIDDEN</h1>");
+	
+}
+else {
+	
+	// COMPROBAMOS SI ES EL TUTOR, SINO ES DEL EQ. DIRECTIVO U ORIENTADOR
+	if (stristr($_SESSION['cargo'],'2') == TRUE) {
+		
+		$_SESSION['mod_tutoria']['tutor']  = $_SESSION['tut'];
+		$_SESSION['mod_tutoria']['unidad'] = $_SESSION['s_unidad'];
+		
+	}
+	else {
+	
+		if(isset($_POST['tutor'])) {
+			$exp_tutor = explode('==>', $_POST['tutor']);
+			$_SESSION['mod_tutoria']['tutor'] = trim($exp_tutor[0]);
+			$_SESSION['mod_tutoria']['unidad'] = trim($exp_tutor[1]);
+		}
+		else{
+			if (!isset($_SESSION['mod_tutoria'])) {
+				header('Location:'.'tutores.php');
+			}
+		}
+		
+	}
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'2') == TRUE))
-{
-header("location:http://$dominio/intranet/salir.php");
-exit;	
-}
-?>
-<!DOCTYPE html>  
-<html lang="es">  
-  <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
-    <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">      
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
-    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-<script language="JavaScript">
-function doPrint(){
-document.all.item("noprint").style.visibility='hidden' 
-window.print()
-document.all.item("noprint").style.visibility='visible'
-}
-</script>
-</head>
-
-<body onload="cleanForm();">
-<script type="text/javascript">
-function countLines(strtocount, cols) {
-    var hard_lines = 1;
-    var last = 0;
-    while ( true ) {
-        last = strtocount.indexOf("\n", last+1);
-        hard_lines ++;
-        if ( last == -1 ) break;
-    }
-    var soft_lines = Math.round(strtocount.length / (cols-1));
-    var hard = eval("hard_lines  " + unescape("%3e") + "soft_lines;");
-    if ( hard ) soft_lines = hard_lines;
-    return soft_lines;
-}
-function cleanForm() {
-    var the_form = document.forms[0];
-    for ( var x in the_form ) {
-        if ( ! the_form[x] ) continue;
-        if( typeof the_form[x].rows != "number" ) continue;
-        the_form[x].rows = countLines(the_form[x].value,the_form[x].cols) +3;
-    }
-    setTimeout("cleanForm();", 300);
-}
-</script>
-<?
-
-if (isset($_POST['unidad'])) {
-	$unidad = $_POST['unidad'];
-} 
-elseif (isset($_GET['unidad'])) {
-	$unidad = $_GET['unidad'];
-} 
-
-if (isset($_GET['tutor'])) {
-	$tutor = $_GET['tutor'];
-}
-elseif (isset($_POST['tutor'])) {
-	$tutor = $_POST['tutor'];
-}
-else{$tutor = "";}
 
 if (isset($_GET['imprimir'])) {
 	$imprimir = $_GET['imprimir'];
@@ -95,26 +58,29 @@ if (isset($_POST['observaciones1'])) {
 if (isset($_POST['observaciones2'])) {
 	$observaciones2 = $_POST['observaciones2'];
 }
-if ($_POST['imp_memoria'] == "Enviar datos") {
-	include("../../menu.php");
-}
+
+// SE DEFINE UNA VARIABLE PARA CARGAR LOS INCLUDES
+define('INC_TUTORIA',1);
+
+include("../../menu.php");
+include("menu.php");
 ?>
 <br />
 <div style="width:960px;margin:auto;padding:25px; border:1px solid #ddd">
-<h3 align="center">
- Tutoría del grupo: <? echo "$unidad-";?> <br /><small>Tutor: <? echo $tutor; ?></small></h2>
+<h2 align="center">
+ Tutoría del grupo: <? echo $_SESSION['mod_tutoria']['unidad']; ?> <br /><small>Tutor: <? echo $_SESSION['mod_tutoria']['tutor']; ?></small></h2>
  <br />
 
  <?
-if ($_POST['imp_memoria'] == "Enviar datos") {
-
-	mysql_query("update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '$tutor'");
+if (isset($_POST['imp_memoria'])) {
+	mysql_query("update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Las observaciones que has redactado han sido guardadas. Puedes añadir y editar el texto tantas veces como quieras. O puedes volver a la página de la memoria e imprimirla para entregarla en Jefatura.
 </div></div><br />';
-	echo '<center><input type="button" value="Volver a la Memoria de Tutoría" name="boton" onclick="history.back(1)" class="btn btn-primary" /></center>';
+	echo '<center><input type="button" value="Volver a la Memoria de Tutoría" name="boton" onclick="window.location.href = \'informe_memoria.php\'" class="btn btn-primary" /></center>';
 	echo "</div>";
+	include("../../pie.php");
 	exit();
 }
 $lista = mysql_list_fields($db,"FTUTORES");
@@ -124,9 +90,9 @@ if ($col_obs=="observaciones1") { }else{
 						        ADD  `observaciones2` TEXT NOT NULL");
 }
 
- $obs1=mysql_query("select observaciones1, observaciones2 from FTUTORES where tutor = '$tutor'");
+ $obs1=mysql_query("select observaciones1, observaciones2 from FTUTORES where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
  $obs2=mysql_fetch_array($obs1);
- if (empty($obs2[0]) and empty($obs[1]) and date('m')=='06') {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.open('memoria.php?unidad=$unidad&tutor=$tutor&imprimir=1#observaciones',null,'')\"";}
+ if (empty($obs2[0]) && empty($obs[1]) && date('m')=='08') {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.location.href = 'informe_memoria.php?imprimir=1#observaciones'\"";}
  	else{
 		$boton = "Imprimir Memoria final de Tutoría";$click="onClick=print()";}
  ?>
@@ -140,16 +106,16 @@ if ($col_obs=="observaciones1") { }else{
 
  <? 
  // Curso
- $SQL0 = "select distinct curso from alma where unidad = '$unidad'";
+ $SQL0 = "select distinct curso from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result0 = mysql_query($SQL0);
  $max00 = mysql_fetch_row($result0);
  $curso_seneca = $max00[0];
 // Alumnos que se integran a lo largo del Curso
- $SQL = "select max(NC) from FALUMNOS_primero where unidad = '$unidad'";
+ $SQL = "select max(NC) from FALUMNOS_primero where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result = mysql_query($SQL);
  $max0 = mysql_fetch_row($result);
  $num_0 =  $max0[0];
- $SQL1 = "select max(NC) from FALUMNOS where unidad = '$unidad'";
+ $SQL1 = "select max(NC) from FALUMNOS where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result1 = mysql_query($SQL1);
  $max1 = mysql_fetch_row($result1);
  $num_1 =  $max1[0];
@@ -157,66 +123,23 @@ if ($col_obs=="observaciones1") { }else{
  $nuevos = str_replace("-","",$nuevos);
  
 // Alumnos repetidores
- $SQL = "select * from alma where unidad = '$unidad' and matriculas > '1'";
+ $SQL = "select * from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and matriculas > '1'";
  $result = mysql_query($SQL);
  $num_repetidores = mysql_num_rows($result);
 
 // Alumnos a comienzo de Curso
- $SQL = "select * from FALUMNOS_primero where unidad = '$unidad'";
+ $SQL = "select * from FALUMNOS_primero where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result = mysql_query($SQL);
  $num_empiezan = mysql_num_rows($result);
  
  // Alumnos a final de Curso
- $SQL = "select * from alma where unidad = '$unidad'";
+ $SQL = "select * from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result = mysql_query($SQL);
  $num_acaban = mysql_num_rows($result);
 
  // Alumnos que promocionan en Junio
- $SQL1 = "select notas3, apellidos, nombre from notas, alma where notas.claveal = alma.claveal1  and unidad = '$unidad'";
+ $SQL1 = "select notas3, apellidos, nombre from notas, alma where notas.claveal = alma.claveal1  and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result1 = mysql_query($SQL1);
- 
-/* while ($num_promo0 = mysql_fetch_array($result1)) 
-{
- 	$n_susp = "";
- 	$trozos0 = explode(";",$num_promo0[0]);	
- 	foreach ($trozos0 as $val)
- 	{
-	$trozos1 = explode(":",$val);	
- 		{			
- 		if ($unidad == "2B") 
- 			{
- 			if (($trozos1[1] > "416" and $trozos1[1] < "427") or ($trozos1[1] == "439") or ($trozos1[1] > "32" and $trozos1[1] < "37") or ($trozos1[1] == "42" or $trozos1[1] == "43")) 
-				{
-		$n_susp = $n_susp + 1;
-				}		
- 			}		
- 		elseif ($unidad == "1B") 
- 			{
- 			if (($trozos1[1] > "416" and $trozos1[1] < "427") or $trozos1[1] == "439") 
-				{
-		$n_susp = $n_susp + 1;	
-				}	
- 			} 			
- 		elseif(substr($unidad,1,1) == "E")
- 			{
- 		if (($trozos1[1] > "336" and $trozos1[1] < "347")) 
-				{
-		$n_susp = $n_susp + 1;	
-				}
-			}			 		
-		}		
- 	}
- if ($n_susp > "0" and ($unidad == "2B" or $unidad == "4E")) 
- 	{		
-// 		$valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";	
- 		$n_al = $n_al + 1;
- 	}
- 	elseif($n_susp > "2" and !($unidad == "2B")  and !($unidad == "4E")) 
- 	{		
-// 		$valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";	
- 		$n_al = $n_al + 1;
- 	}
-}*/
 
  while ($num_promo0 = mysql_fetch_array($result1))                                                                                                                                                           
 {                                                                                                                                                                                                          
@@ -275,57 +198,57 @@ if ($col_obs=="observaciones1") { }else{
 </table>
 <?
 // Tabla de Absentismo.
- $faltas = "select distinct claveal from absentismo where unidad = '$unidad' order by claveal";
+ $faltas = "select distinct claveal from absentismo where unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by claveal";
  $faltas0 = mysql_query($faltas);
  $num_faltas = mysql_num_rows($faltas0);
   ?>
  <? 
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_conv = mysql_num_rows($result);
  ?>
   <?    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and grave = 'leve' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'leve' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_leves = mysql_num_rows($result);
  ?>
   <?    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and grave = 'grave' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'grave' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_graves = mysql_num_rows($result);
  ?>
    <?    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and grave = 'muy grave' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'muy grave' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_muygraves = mysql_num_rows($result);
  ?>
   <?    
- $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsion > '0' order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_expulsion = mysql_num_rows($result);
  ?>
   <?    
- $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsion > '0' order by Fechoria.claveal";
+ $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_expulsados = mysql_num_rows($result);
  ?>
    <?    
- $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsionaula = '1' order by Fechoria.claveal";
+ $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' order by Fechoria.claveal";
  $result = mysql_query($SQL);
  $num_expulsadosaula = mysql_num_rows($result);
  ?>
    <?    
- $SQL = "select distinct id from infotut_alumno where unidad = '$unidad' order by claveal";
+ $SQL = "select distinct id from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by claveal";
  $result = mysql_query($SQL);
  $num_informes = mysql_num_rows($result);
  ?>
    <?    
- $SQL = "select id from tutoria where unidad = '$unidad' and prohibido not like '1' order by id";
+ $SQL = "select id from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' order by id";
  $result = mysql_query($SQL);
  $num_acciones = mysql_num_rows($result);
  ?>
    <?  
- $grupo_act = str_replace("-","",$unidad);  
+ $grupo_act = str_replace("-","",$_SESSION['mod_tutoria']['unidad']);  
  $SQL = "select * from actividades where grupos like '%$grupo_act%' order by id";
  $result = mysql_query($SQL);
  $num_actividades = mysql_num_rows($result);
@@ -375,7 +298,7 @@ if ($col_obs=="observaciones1") { }else{
  <hr><br /><legend>Alumnos absentistas</legend>
 
 <?
-$faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, FALUMNOS where absentismo.claveal = FALUMNOS.claveal and absentismo.unidad = '$unidad'  group by apellidos, nombre";
+$faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, FALUMNOS where absentismo.claveal = FALUMNOS.claveal and absentismo.unidad = '".$_SESSION['mod_tutoria']['unidad']."'  group by apellidos, nombre";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -397,7 +320,7 @@ $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from 
 <?php
  echo "<table class='table table-striped' style='width:auto;'>";
 		
-$SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, FALUMNOS  where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '$unidad' and date(fecha) > '$inicio_curso' group BY apellidos, nombre";
+$SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, FALUMNOS  where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '$inicio_curso' group BY apellidos, nombre";
 $result = mysql_query($SQL);
 
   if ($row = mysql_fetch_array($result))
@@ -417,7 +340,7 @@ $result = mysql_query($SQL);
   <hr><br /><legend>Problemas de Convivencia</legend>
 
 <?
-$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and date(fecha) > '$inicio_curso' group by NC";
+$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '$inicio_curso' group by NC";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -438,7 +361,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 <?
   
  
- $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsion > '0' and date(fecha) > '$inicio_curso' group by NC";
+ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' and date(fecha) > '$inicio_curso' group by NC";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -455,7 +378,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  </div> <div class="col-sm-4"><hr><br /><legend>Alumnos expulsados del aula</legend>
 
  <?
-$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '$unidad' and expulsionaula = '1' and date(fecha) > '$inicio_curso' group by NC";
+$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' and date(fecha) > '$inicio_curso' group by NC";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -475,7 +398,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  <hr><br /><legend>Informes de Tutoría por visita de padres</legend>
 
 <?
- $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where unidad = '$unidad' and date(F_ENTREV) > '$inicio_curso' group by apellidos";
+ $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(F_ENTREV) > '$inicio_curso' group by apellidos";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -494,7 +417,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 <hr><br /><legend>Intervenciones del Tutor</legend>
 
 <?
- $faltas = "select distinct apellidos, nombre, count(*) from tutoria where unidad = '$unidad' and prohibido not like '1' and date(fecha) > '$inicio_curso' group by apellidos";
+ $faltas = "select distinct apellidos, nombre, count(*) from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and date(fecha) > '$inicio_curso' group by apellidos";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -508,7 +431,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
  
- $faltas = "select distinct apellidos, nombre, causa, accion, observaciones from tutoria where unidad = '$unidad' and prohibido not like '1' and accion not like '%SMS%'  and date(fecha) > '$inicio_curso' order by apellidos";
+ $faltas = "select distinct apellidos, nombre, causa, accion, observaciones from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and accion not like '%SMS%'  and date(fecha) > '$inicio_curso' order by apellidos";
  $faltas0 = mysql_query($faltas);
  if(mysql_num_rows($faltas0) > 0)
  {
@@ -526,7 +449,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  }
  echo '</table>';
  }
-  $grupo_act2 = str_replace("-","",$unidad);  
+  $grupo_act2 = str_replace("-","",$_SESSION['mod_tutoria']['unidad']);  
   $n_activ = mysql_query("select * from actividades where  grupos like '%$grupo_act2-%' and date(fecha) > '$inicio_curso'");
   if(mysql_num_rows($n_activ) > "0"){
  ?>
@@ -535,7 +458,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
   
  <hr><br /><legend>Informe sobre Actividades Extraescolares del Grupo</legend>
  <?
-include("actividades.php");
+include("inc_actividades.php");
 include("informe_notas.php");
  ?>
  <?
@@ -549,16 +472,16 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 <a name="observaciones" id="obs"></a>
 <hr><br /><legend>
  Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</legend>
- <form action="memoria.php" method="POST">
- <textarea name="observaciones1" style="width:100%"><? echo $obs2[0];?></textarea>
+ <form action="" method="POST">
+ <textarea class="form-control" name="observaciones1" rows="7"><? echo $obs2[0];?></textarea>
  <hr>
 <br />
 <legend>
  Otras Observaciones</legend>
- <textarea name="observaciones2" style="width:100%"><? echo $obs2[1];?></textarea>
+ <textarea class="form-control" name="observaciones2" rows="7"><? echo $obs2[1];?></textarea>
  <br />
-<input type="hidden" name="tutor" value="<? echo $tutor;?>">
-<input type="hidden" name="unidad" value="<? echo $unidad;?>">
+<input type="hidden" name="tutor" value="<? echo $_SESSION['mod_tutoria']['tutor']; ?>">
+<input type="hidden" name="unidad" value="<? echo $_SESSION['mod_tutoria']['unidad']; ?>">
 <br />
 <input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-danger btn-block no_imprimir">
 </form>
@@ -573,11 +496,44 @@ if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
 <br>
 <br>
 <br>
-<p align="center">Fdo. <?  echo $tutor;?></p>
+<p align="center">Fdo. <?  echo $_SESSION['mod_tutoria']['tutor']; ?></p>
 <br />
 <?
 }
 }
  ?>
+ </div>
+ <script language="JavaScript">
+ function doPrint(){
+ document.all.item("noprint").style.visibility='hidden' 
+ window.print()
+ document.all.item("noprint").style.visibility='visible'
+ }
+ </script>
+ <script type="text/javascript">
+ function countLines(strtocount, cols) {
+     var hard_lines = 1;
+     var last = 0;
+     while ( true ) {
+         last = strtocount.indexOf("\n", last+1);
+         hard_lines ++;
+         if ( last == -1 ) break;
+     }
+     var soft_lines = Math.round(strtocount.length / (cols-1));
+     var hard = eval("hard_lines  " + unescape("%3e") + "soft_lines;");
+     if ( hard ) soft_lines = hard_lines;
+     return soft_lines;
+ }
+ function cleanForm() {
+     var the_form = document.forms[0];
+     for ( var x in the_form ) {
+         if ( ! the_form[x] ) continue;
+         if( typeof the_form[x].rows != "number" ) continue;
+         the_form[x].rows = countLines(the_form[x].value,the_form[x].cols) +3;
+     }
+     setTimeout("cleanForm();", 300);
+ }
+ </script>
+ <?php include("../../pie.php"); ?>
 </body>
 </html>

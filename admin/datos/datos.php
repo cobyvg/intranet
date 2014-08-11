@@ -130,23 +130,21 @@ $SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad,
   where 1 " . $AUXSQL . " order BY unidad, alma.apellidos, nombre";
 // echo $SQL;
 $result = mysql_query($SQL);
-if (mysql_num_rows($result)>25 and !($seleccionado=="1")) {
-	$datatables_activado = true;
+if (mysql_num_rows($result)>15 and !($seleccionado=="1")) {
+	$PLUGIN_DATATABLES = true;
 }
 if ($row = mysql_fetch_array($result))
 {
 
-	echo "<div align=center><table  class='table table-striped tabladatos'>";
+	echo "<div align=center><table  class='table table-striped datatable'>";
 	echo "<thead><tr>
-			<th>Clave</th>
-	        <th> DNI</th>
-	        <th>Nombre</th>
-	        <th width='60'>Grupo</th>
-	        <th> Fecha</th>	        
+			<th colspan=\"2\">Alumno/a</th>
+	        <th>NIE</th>
+	        <th>Unidad</th>
+	        <th>Fecha Ncto.</th>	        
 	        <th>Domicilio</th>
         	<th>Padre</th>
-        	<th>Tlfno. 1</th>	
-        	<th>Tlfno. 2</th>
+        	<th>Teléfonos</th>	
         	<th>Repite</th>				
 		";
 
@@ -164,15 +162,21 @@ if ($row = mysql_fetch_array($result))
 		$claveal = $row[0];
 		$correo = $row[12];
 		echo "<tr>
-<td>$row[0]</td>
-<td>$row[4]</td>
+	<td class=\"col-xs-1 text-center\">";
+	if (file_exists('../../xml/fotos/'.$row['claveal'].'.jpg')) {
+		echo "<img class=\"img-responsive img-thumbnail\" src=\"../../xml/fotos/".$row['claveal'].".jpg'\" alt=\"".$row['apellidos'].", ".$row['nombre']."\">";
+	}
+	else {
+		echo "<span class=\"fa fa-user fa-5x\"></span>";
+	}
+echo "</td>
 <td>$nom</td>
+<td>$row[0]</td>
 <td>$unidad</td>
 <td>$row[5]</td>
 <td>$row[6]</td>
 <td>$row[9]</td>
-<td>$row[7]</td>
-<td>$row[8]</td>
+<td>$row[7]<br>$row[8]</td>
 <td>$repite</td>";
 
 		if ($seleccionado=='1'){
@@ -241,6 +245,33 @@ if ($_GET['seleccionado']=='1'){
 ?>
 
 <?php include("../../pie.php"); ?>
+
+	<script>
+	$(document).ready(function() {
+		var table = $('.datatable').DataTable({
+			"paging":   true,
+	    "ordering": false,
+	    "info":     false,
+	    
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+			
+			"language": {
+			            "lengthMenu": "Mostrar _MENU_ resultados",
+			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+			            "info": "Página _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay resultados disponibles.",
+			            "infoFiltered": "(filtrado de _MAX_ resultados)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			                  "first": "Primera",
+			                  "next": "Última",
+			                  "next": "",
+			                  "previous": ""
+			                }
+			        }
+		});
+	});
+	</script>
 
 </body>
 </html>                                                                    
