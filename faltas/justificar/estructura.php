@@ -9,16 +9,14 @@ if(empty($profesor))
 {
 ?>
 <div class="row">
-<div class="col-sm-4"></div>
-<div class="col-sm-4">
-<div class="well well-large">
+<div class="col-md-4"></div>
+<div class="col-md-4">
   <?
 echo "<legend align='center'>Selecciona Tutor</legend>";
-echo "<hr>";
 	?>
   <?
-				echo "<div align='center'>         
-<SELECT name=profesor onchange='submit()' class='col-sm-10'>
+				echo "<div class='form-group col-md-12'>         
+<SELECT name='profesor' onchange='submit()' class='form-control'>
               <OPTION></OPTION>";
 		        // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
 		        $profe = mysql_query("SELECT TUTOR FROM FTUTORES order by TUTOR asc");
@@ -33,6 +31,11 @@ echo "<hr>";
 	echo "</select>
             </div>";
 	?>
+</div>
+</div>
+</div>
+</div>
+</div>
   <?
 }
 else 
@@ -44,8 +47,7 @@ $today=date("d");
 }
 ?>
   <div class="row">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-5">
+    <div class="col-sm-6">
       <?	
 echo "<h4 align='center'>FECHA SELECCIONADA: &nbsp;<span style='font-size:1.0em; color:#08c'>$today-$month-$year</span></h4><br />
 ";		        	
@@ -102,7 +104,36 @@ echo "</td></tr></table><br />";
 ?>
     </div>
   </div>
-  <div class="col-sm-5">
+  <div class="col-sm-6">
+<!-- Button trigger modal -->
+<button class="pull-right " data-toggle="modal" data-target="#myModal">
+ <i
+			class="fa fa-question-circle fa-lg "
+			> </i>
+</button>
+
+ <!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+      </div>
+      <div class="modal-body">
+		<p class="help-block">
+		Para justificar una falta selecciona en primer lugar un alumno en la columna de la derecha. Una vez el alumno aparece seleccionado elige el mes correspondiente. Aparecerán en rojo las faltas de aistencia del alumno y en verde las faltas justificadas. <br>Al hacer click sobre una fecha cambiamos su estado: si está vacía se pone roja, si está roja se pone verde, y si está verde la dejamos a cero.
+		</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
     <? 
            if (empty($profesor)) {
            	echo "<br><h6>Selecciona Tutor:</h6><hr>";
@@ -114,7 +145,7 @@ echo "</td></tr></table><br />";
 	{     			
 		$nivel = $filatutor[0];
 		echo "<h4> $profesor: &nbsp;<span style='font-size:1.0em; color:#08c'>$nivel</span></h4><br />";
-		echo '<div class="well well-large">';
+		echo '<div class="well">';
 // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
 		$nivelgrupo0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$nivel' order by NC asc");
 		$todos = mysql_num_rows($nivelgrupo0);
@@ -145,10 +176,18 @@ while($filanivelgrupo1 = mysql_fetch_array($nivelgrupo1))
 $completo1 =  "$filanivelgrupo1[0], $filanivelgrupo1[1]";
 $alumno1 =  $filanivelgrupo1[3];
 $clave1 = $filanivelgrupo1[3];
-echo "<label class='radio'><input name='alumno' type='radio'";
+
+echo '<div class="radio">
+  <label>
+    <input type="radio" name="alumno"';
+
 if($alumno == $alumno1){echo " checked";}
-echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 </label>";
-		        	} 
+
+echo " value = '$clave1' onclick=submit()>";
+
+echo "$filanivelgrupo1[2]. $completo1 </label>
+</div>";
+} 
 		        	echo "</div>";
 		        	echo "<div class='col-sm-6' align='left'>";
 		         	while ($filanivelgrupo = mysql_fetch_array($nivelgrupo))
@@ -156,9 +195,18 @@ echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 </l
 $completo2 =  "$filanivelgrupo[0], $filanivelgrupo[1]";
 $alumno2 =  $filanivelgrupo[3];
 $clave2 = $filanivelgrupo[3];
-echo "<label class='radio'><input name='alumno' type='radio'";
+echo '<div class="radio">
+  <label>
+    <input type="radio" name="alumno"';
+
 if($alumno == $alumno2){echo " checked";}
-echo " value = '$clave2' onclick=submit() /> $filanivelgrupo[2]. $completo2 </label>";
+
+echo " value = '$clave2' onclick=submit()>";
+
+echo "$filanivelgrupo[2]. $completo2 </label>
+</div>";
+
+
 		        }		         	 
 	echo "</div>";
 	echo "</div>";	
@@ -174,6 +222,7 @@ echo " value = '$clave2' onclick=submit() /> $filanivelgrupo[2]. $completo2 </la
 }
 ?>
   </div>
+</div>
 </div>
 <?
 }

@@ -28,11 +28,16 @@ if (isset($_GET['alumno'])) {$alumno = $_GET['alumno'];}elseif (isset($_POST['al
 if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 if (isset($_GET['falta'])) {$falta = $_GET['falta'];}elseif (isset($_POST['falta'])) {$falta = $_POST['falta'];}else{$falta="";}
 ?>
-<div align="center">
+<div class="container">
+<div class="row">
+
 <div class="page-header">
   <h2>Faltas de Asistencia <small> Justificar faltas</small></h2>
 </div>
 <br />
+
+<div align="center">
+
 <form action="index.php" method="POST">
   
     <?php

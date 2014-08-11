@@ -13,6 +13,9 @@ if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['nu
 if (isset($_GET['fecha10'])) {$fecha10 = $_GET['fecha10'];}elseif (isset($_POST['fecha10'])) {$fecha10 = $_POST['fecha10'];}else{$fecha10="";}
 if (isset($_GET['fecha20'])) {$fecha20 = $_GET['fecha20'];}elseif (isset($_POST['fecha20'])) {$fecha20 = $_POST['fecha20'];}else{$fecha20="";}
 if (isset($_GET['submit4'])) {$submit4 = $_GET['submit4'];}elseif (isset($_POST['submit4'])) {$submit4 = $_POST['submit4'];}else{$submit4="";}
+if (isset($_GET['submit3'])) {$submit3 = $_GET['submit3'];}elseif (isset($_POST['submit3'])) {$submit3 = $_POST['submit3'];}else{$submit3="";}
+if (isset($_GET['profe'])) {$profe = $_GET['profe'];}elseif (isset($_POST['profe'])) {$profe = $_POST['profe'];}else{$profe="";}
+if (isset($_GET['materia'])) {$materia = $_GET['materia'];}elseif (isset($_POST['materia'])) {$materia = $_POST['materia'];}else{$materia="";}
 
 if ($submit1)
 {
@@ -24,7 +27,7 @@ elseif ($submit2)
 }
 elseif ($submit3)
 {
-	include("informes.php");
+	include("asignaturas.php");
 }
 elseif ($submit4)
 {
@@ -64,121 +67,6 @@ else
 <div class="row">
 
 <div class="col-sm-6">
-
-<div class="well well-large">
-
-<legend>Faltas de un Grupo.</legend>
-
-<form action='index.php' method='post' name='f1' class='form' role='form'>
-
-<fieldset>
-
-<div class="form-group col-md-6">
-<label class="control-label" for="unidad"> Grupo </label> 
-<SELECT
-	id="unidad" name="unidad" onChange="submit()" class="form-control">
-	<OPTION><? echo $_POST['unidad'];?></OPTION>
-	<? unidad();?>
-</SELECT>
-</div>
-
-<div class="form-group col-md-6">
-<label class="control-label" for="mes"> Mes </label> 
-<SELECT name='mes' id='mes'
-	class="form-control">
-	<OPTION></OPTION>
-	<?
-	for($i=1;$i<13;$i++){
-		echo "<OPTION>$i</OPTION>";
-	}
-	?>
-</SELECT> 
-</div>
-
-<div class="form-group col-md-6">
-<label class="control-label" for="falta">Falta:</label> 
-<SELECT id='falta'  name='FALTA' class="form-control">
-	<OPTION>F</OPTION>
-	<OPTION>J</OPTION>
-</SELECT>
-</div>
-
-<div class="form-group col-md-6">
-<label class="control-label" for='numero2'> N&uacute;mero m&iacute;nimo de Faltas</label> 
-<INPUT id='numero2' name="numero2" type="text" class="form-control" maxlength="3" alt="Mes" value="1">
-</div>
-
-<div class="form-group col-md-4">
-<input name="submit1" type="submit" id="submit1" value="Enviar Datos"
-	class="btn btn-primary">
-</div>
-
-</fieldset>
-
-</form>
-
-</div>
-
-<br>
-
-
-<div class="well well-large">
-
-<form action='index.php' method='post' name='f1' class='form' role='form'>
-
-<fieldset>
-
-<legend> Faltas y días sin justificar</legend>
-
-<span class="help-block">( Alumnos que
-tienen un número mínimo de faltas entre el rango de fechas
-seleccionadas. )</span> 
-
-<div class="form-group col-md-6">
-<label class="control-label" for='numero'> Número mínimo de Faltas</label> 
-<INPUT
-	name="numero" type="text" id="numero" class="form-control"
-	maxlength="3" value="1">
-</div>
-<legend><small>Rango de fechas...</small></legend>
-
-<div class="form-group col-md-6" style="display: inline;">
-<label class="control-label" for="fecha10">Inicio </label>
-<div class="input-group">
-<input name="fecha10" type="text"
-	class="form-control" value="" data-date-format="dd/mm/yyyy"
-	id="fecha10" required> <span class="input-group-addon"><i
-	class="fa fa-calendar"></i></span>
-</div>
-</div>
-
-<div class="form-group col-md-6" style="display: inline;">
-<label
-	for="fecha20" class="control-label">Fin </label>
-<div class="input-group"><input name="fecha20" type="text"
-	class="form-control" value="" data-date-format="dd/mm/yyyy"
-	id="fecha20" required> <span class="input-group-addon"><i
-	class="fa fa-calendar"></i></span>
-</div>
-</div>
-
-<br>
-
-<div class="form-group col-md-4">
-<INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4"
-	class="btn btn-primary">
-</div>
-
-</fieldset>
-
-</form>
-
-</div>
-
-</div>
-
-
-<div class="col-md-6">
 
 <div class="well well-large">
 
@@ -231,7 +119,8 @@ seleccionadas. )</span>
 <div class="form-group col-md-6" style="display: inline;">
 <label class="control-label"
 	for="fecha4">Inicio </label>
-<div class="input-group"><input name="fecha4" type="text"
+<div class="input-group">
+<input name="fecha4" type="text"
 	class="form-control" value="" data-date-format="dd/mm/yyyy" id="fecha4"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
@@ -314,6 +203,132 @@ seleccionadas. )</span>
 
 </div>
 
+
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="well well-large">
+
+<legend>Faltas por Asignatura</legend>
+
+<form action='index.php' method='post' name='f1' class='form' role='form'>
+
+<fieldset>
+
+<div class="form-group col-md-12">
+<label class="control-label" for="profe"> Profesor </label> 
+<SELECT
+	id="profe" name="profe" onChange="submit()" class="form-control" required>
+<?
+if (isset($_POST['profe'])) {
+	$profe = $_POST['profe'];
+}
+	printf ("<OPTION>$profe</OPTION>");
+
+	$profesql = mysql_query("SELECT distinct profesor FROM profesores order by profesor asc");
+
+	if ($fprofe = mysql_fetch_array($profesql))
+	{
+
+		do {
+			$opcion = printf ("<OPTION>$fprofe[0]</OPTION>");
+			echo "$opcion";
+
+		} while($fprofe = mysql_fetch_array($profesql));
+	}
+?>
+</SELECT>
+</div>
+
+<div class="form-group col-md-12">
+<label class="control-label" for="materia"> Asignatura </label> 
+<SELECT name='materia' id='materia'
+	class="form-control" required>
+	<OPTION></OPTION>
+<?
+	$asig0 = mysql_query("SELECT distinct materia, grupo, nivel FROM profesores WHERE profesor = '$profe' order by grupo, nivel, materia asc");
+
+	if ($asig = mysql_fetch_array($asig0))
+	{
+
+		do {
+			$opcion = printf ("<OPTION>$asig[0] -> $asig[1] -> $asig[2]</OPTION>");
+			echo "$opcion";
+
+		} while($asig = mysql_fetch_array($asig0));
+	}
+?>
+</SELECT> 
+</div>
+
+<div class="form-group col-md-4">
+<input name="submit3" type="submit" id="submit1" value="Enviar Datos"
+	class="btn btn-primary">
+</div>
+
+</fieldset>
+
+</form>
+
+</div>
+
+<br>
+
+<div class="well well-large">
+
+<form action='index.php' method='post' name='f1' class='form' role='form'>
+
+<fieldset>
+
+<legend> Faltas y días sin justificar</legend>
+
+<span class="help-block">( Alumnos que
+tienen un número mínimo de faltas entre el rango de fechas
+seleccionadas. )</span> 
+
+<div class="form-group col-md-6">
+<label class="control-label" for='numero'> Número mínimo de Faltas</label> 
+<INPUT
+	name="numero" type="text" id="numero" class="form-control"
+	maxlength="3" value="1">
+</div>
+<legend><small>Rango de fechas...</small></legend>
+
+<div class="form-group col-md-6" style="display: inline;">
+<label class="control-label" for="fecha10">Inicio </label>
+<div class="input-group">
+<input name="fecha10" type="text"
+	class="form-control" value="" data-date-format="dd/mm/yyyy"
+	id="fecha10" required> <span class="input-group-addon"><i
+	class="fa fa-calendar"></i></span>
+</div>
+</div>
+
+<div class="form-group col-md-6" style="display: inline;">
+<label
+	for="fecha20" class="control-label">Fin </label>
+<div class="input-group"><input name="fecha20" type="text"
+	class="form-control" value="" data-date-format="dd/mm/yyyy"
+	id="fecha20" required> <span class="input-group-addon"><i
+	class="fa fa-calendar"></i></span>
+</div>
+</div>
+
+<br>
+
+<div class="form-group col-md-4">
+<INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4"
+	class="btn btn-primary">
+</div>
+
+</fieldset>
+
+</form>
+
+</div>
 </div>
 
 	<? }?>

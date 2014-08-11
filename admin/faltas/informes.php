@@ -166,10 +166,11 @@ if($submit2)
 			No hay registros de faltas de asistencia para el alumno seleccionado.
 			</div></div><br />';
         }
-  $SQL = "SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.GRUPO,
+  $SQL = "SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas,
   FALTAS.FECHA, FALTAS.HORA, FALTAS.CODASI, FALTAS.falta, asignaturas.abrev
   FROM alma, FALTAS, asignaturas where  alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.codasi = asignaturas.codigo and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' and alma.CLAVEAL = '$claveal' and asignaturas.abrev not like '%\_%' order BY FALTAS.FECHA, FALTAS.HORA";
    $result = mysql_query($SQL);
+   //echo $SQL;
 echo "<br /><br /><p class='lead'>Lista detallada de Faltas de Asistencia.</p>";
    if ($rowsql = mysql_fetch_array($result))
         {
