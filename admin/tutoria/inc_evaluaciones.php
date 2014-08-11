@@ -1,3 +1,4 @@
+<?php if (! defined('INC_TUTORIA')) die ('<h1>Forbidden</h1>'); ?>
 <hr />
 <br />
 <h3>Resultados por Materias</h3><br />
@@ -62,8 +63,6 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 	}
 	}
 
-$unidad = $grupo;
-
 ?>
 
 <table class="table table-striped table-bordered"  align="center" style="width:800px;" valign="top">
@@ -76,22 +75,22 @@ $unidad = $grupo;
 <tbody>	
 	<?
 $sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre
- and asignaturas.curso = '$curso_actual' and profesores.grupo = '$unidad' and abrev not like '%\_%' and asignaturas.codigo not in 
+ and asignaturas.curso = '$curso_actual' and profesores.grupo = '".$_SESSION['mod_tutoria']['unidad']."' and abrev not like '%\_%' and asignaturas.codigo not in 
 (select distinct asignaturas.codigo from asignaturas where asignaturas.nombre like 'Libre Disp%')";
 //echo $sql;	
 $as = mysql_query($sql);
 while ($asi = mysql_fetch_array($as)) {
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
-	$cod_nota = mysql_query("select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and unidad = '$unidad'");
-	$cod_apro = mysql_query("select id from temp, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp.claveal and unidad = '$unidad'");
+	$cod_nota = mysql_query("select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."'");
+	$cod_apro = mysql_query("select id from temp, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."'");
 	
 	//echo "select id from temp where asignatura = '$codasi'<br>";
 	$num_susp='';
 	$num_susp = mysql_num_rows($cod_nota);
 	$num_apro='';
 	$num_apro = mysql_num_rows($cod_apro);
-	$combas = mysql_query("select claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'");
+	$combas = mysql_query("select claveal from alma where combasi like '%$codasi%' and unidad = '".$_SESSION['mod_tutoria']['unidad']."'");
 	//echo "select claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'<br>";
 	$num_matr='';
 	$num_matr = mysql_num_rows($combas);

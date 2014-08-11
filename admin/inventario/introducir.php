@@ -155,7 +155,7 @@ while($lug = mysql_fetch_array($luga))
 
 <label>Fecha de Alta<span style="color:#9d261d;"> (*) </span><br />
 <div class="input-group" >
-  <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" id="fecha">
+  <input name="fecha" type="text" class="input input-small" data-date-format="DD-MM-YYYY" id="fecha">
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
@@ -195,7 +195,7 @@ while($item = mysql_fetch_row($it))
 <?
 if ($j_s == '') {
 ?>
-<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1"><i class="fa fa-trash-o" title="Borrar registro" data-bb='confirm-delete'> </i> </a>
+<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1" data-bb='confirm-delete'><i class="fa fa-trash-o" title="Borrar registro"> </i> </a>
 <?
 }
 ?>
@@ -210,13 +210,13 @@ if ($j_s == '') {
 </div>
 <? include("../../pie.php");?>	
 <script>  
-	$(function ()  
-	{ 
-		$('#fecha').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha').datepicker('hide');
-		});
-		});  
-	</script>	
+$(function ()  
+{ 
+	$('#fecha').datetimepicker({
+		language: 'es',
+		pickTime: false
+	})
+});  
+</script>
 </body>
 </html>

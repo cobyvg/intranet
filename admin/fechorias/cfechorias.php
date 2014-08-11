@@ -100,8 +100,8 @@ include("menu.php");
 								
 								<div class="form-group">
 								  <label for="dia">Fecha</label>
-								  <div class="input-group dp">
-								  	<input type="text" class="form-control" name="dia" id="dia" placeholder="Fecha" data-date-format="dd-mm-yyyy">
+								  <div class="input-group" id="datetimepicker1">
+								  	<input type="text" class="form-control" name="dia" id="dia" placeholder="Fecha" data-date-format="DD-MM-YYYY">
 								  	<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 								  </div>
 								</div>
@@ -139,11 +139,11 @@ include("menu.php");
 	<script>  
 	$(function ()  
 	{ 
-		$('.dp').datepicker()
-		.on('changeDate', function(ev){
-			$('.dp').datepicker('hide');
-		});
-		});  
+		$('#datetimepicker1').datetimepicker({
+			language: 'es',
+			pickTime: false
+		})
+	});  
 	</script>
 	
 </body>

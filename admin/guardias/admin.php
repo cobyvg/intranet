@@ -103,7 +103,7 @@ include("../../horario.php");
 	<label>Fecha de la sustitución<br />
 	<input type="hidden" name="profeso" value="<? echo $profeso;?>">
 	     <div class="input-group" >
-            <input name="gu_fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="gu_fecha" >
+            <input name="gu_fecha" type="text" class="input input-small" value="" data-date-format="DD-MM-YYYY" id="gu_fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>    
 </label>
@@ -136,13 +136,13 @@ El módulo de Horarios debe ser activado en la Configuración general de la Intran
  ?>
 <? include("../../pie.php");?>
 <script>  
-	$(function ()  
-	{ 
-		$('#gu_fecha').datepicker()
-		.on('changeDate', function(ev){
-			$('#gu_fecha').datepicker('hide');
-		});
-		});  
-	</script>
+$(function ()  
+{ 
+	$('#gu_fecha').datetimepicker({
+		language: 'es',
+		pickTime: false
+	})
+});  
+</script>
 </BODY>
 </HTML>

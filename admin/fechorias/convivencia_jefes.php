@@ -122,7 +122,7 @@ echo '</div>
 	?>
 	<label>Selecciona el Día 
 <div class="input-group" >
-  <input name="fecha0" type="text" class="input form-control" value="<? echo $hoy0;?>" data-date-format="dd-mm-yyyy" id="fecha0" >
+  <input name="fecha0" type="text" class="input form-control" value="<? echo $hoy0;?>" data-date-format="DD-MM-YYYY" id="fecha0" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>   
 	</label>
@@ -212,15 +212,14 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 ?>
 <? include("../../pie.php");?>
 <script>  
-	$(function ()  
-	{ 
-		var startDate = new Date(2012,1,20);
-		$('#fecha0').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha0').datepicker('hide');
-		});
-		});  
-	</script>
+$(function ()  
+{ 
+	$('#fecha0').datetimepicker({
+		language: 'es',
+		pickTime: false
+	})
+});  
+</script>
   </body>
 </html>
 

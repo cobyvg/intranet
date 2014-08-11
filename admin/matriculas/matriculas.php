@@ -316,8 +316,7 @@ mysql_query("insert into matriculas (apellidos, nombre, nacido, provincia, nacim
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/otros.css" rel="stylesheet">
        
-    <link href="../../css/datepicker.css" rel="stylesheet">
-    <link href="../../css/DataTable.bootstrap.css" rel="stylesheet">    
+    <link href="../../js/datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet">
     <link href="../../css/font-awesome.min.css" rel="stylesheet" >           
 </head>
 
@@ -611,7 +610,7 @@ switch ($curso) {
 					<td class="col-sm-3">
 						<div class="form-group <?php echo (strstr($vacios,"nacimiento, ")==TRUE) ? 'has-error' : ''; ?>">
 							<label for="nacimiento">Fecha de nacimiento</label>
-							<input type="text" class="form-control" id="nacimiento" name="nacimiento" value="<?php echo (isset($nacimiento)) ? $nacimiento : ''; ?>" maxlength="11" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+							<input type="text" class="form-control" id="nacimiento" name="nacimiento" value="<?php echo (isset($nacimiento)) ? $nacimiento : ''; ?>" maxlength="11" data-date-format="DD-MM-YYYY" data-date-viewmode="years">
 						</div>
 					</td>
 					<td class="col-sm-3">
@@ -1252,10 +1251,15 @@ switch ($curso) {
 <?php include("../../pie.php"); ?>
 	
 	<script>
+	$(function ()  
+	{ 
+		$('#nacimiento').datetimepicker({
+			language: 'es',
+			pickTime: false
+		})
+	});  
+	
 	$(document).ready(function() {
-		
-		// Fecha de nacimiento
-		$('#nacimiento').datepicker();		
 		
 		// Selector de colegio
 		$('#colegio').change(function() {

@@ -155,7 +155,7 @@ else{
 <label>Comienzo de la ausencia<br />
 <div class="input-group" style="display: inline;"><input name="inicio"
 	type="text" class="input input-small"
-	<? if($inicio){echo "value=$inicio";}?> data-date-format="dd-mm-yyyy"
+	<? if($inicio){echo "value=$inicio";}?> data-date-format="DD-MM-YYYY"
 	id="inicio"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </label> 
@@ -163,7 +163,7 @@ else{
 <label>Final de la ausencia<br />
 <div class="input-group" style="display: inline;"><input name="fin"
 	type="text" class="input input-small" <? if($fin){echo "value=$fin";}?>
-	data-date-format="dd-mm-yyyy" id="fin"> <span class="input-group-addon"><i
+	data-date-format="DD-MM-YYYY" id="fin"> <span class="input-group-addon"><i
 	class="fa fa-calendar"></i></span></div>
 </label>
 <hr>
@@ -215,7 +215,7 @@ if ($profesor) {
 
 		if(stristr($_SESSION['cargo'],'1') == TRUE)
 		{
-			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='fa fa-trash-o' title='Borrar baja' data-bb='confirm-delete' /> </i> </a></td>";
+			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar baja'  /> </i> </a></td>";
 		}
 		echo "</tr>";
 	}
@@ -255,7 +255,7 @@ if (empty($pra)) {}else{
 	<td>$tr</td>";		
 		if(stristr($_SESSION['cargo'],'1') == TRUE)
 		{
-			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='fa fa-trash-o' title='Borrar' data-bb='confirm-delete' /> </i> </a></td>";
+			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' /> </i> </a></td>";
 		}
 		echo "</tr>";
 	}
@@ -305,22 +305,21 @@ echo "<br /><br /><div align='center'><p class='help-block' style='width:60%;tex
 
 <?php
 include("../../pie.php");
-?> <script>
+?> 
+
+	<script>  
 	$(function ()  
 	{ 
-		$('#inicio').datepicker()
-		.on('changeDate', function(ev){
-			$('#inicio').datepicker('hide');
+		$('#inicio').datetimepicker({
+			language: 'es',
+			pickTime: false
 		});
-		});  
-	</script> <script>  
-	$(function ()  
-	{ 
-		$('#fin').datepicker()
-		.on('changeDate', function(ev){
-			$('#fin').datepicker('hide');
+		
+		$('#fin').datetimepicker({
+			language: 'es',
+			pickTime: false
 		});
-		});  
+	});  
 	</script>
 </body>
 </html>

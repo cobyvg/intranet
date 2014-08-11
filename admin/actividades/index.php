@@ -47,7 +47,7 @@ else{
            
                 <center><label>Fecha de la actividad:<br /> 
                       <div class="input-group" >
-            <input name="fecha_act" type="text" class="input input-medium" value="<? echo $fecha_act; ?>" data-date-format="dd-mm-yyyy" id="fecha_act" >
+            <input name="fecha_act" type="text" class="input input-medium" value="<? echo $fecha_act; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
               </label></center>
@@ -238,14 +238,16 @@ function deseleccionar_todo(){
 }
 </script>
 <? include("../../pie.php");?>
+
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha_act').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha_act').datepicker('hide');
-		});
-		});  
+		$('#fecha_act').datetimepicker({
+			language: 'es',
+			pickTime: false
+		})
+	});  
 	</script>
+	
   </BODY>
 </HTML>

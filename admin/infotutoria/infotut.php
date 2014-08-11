@@ -85,7 +85,7 @@ echo "</label>";
 <hr />
          <label>Fecha de la reunión<br />
  <div class="input-group" style="display:inline;" >
-            <input name="fecha" type="text" class="input input-small" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input input-small" value="" data-date-format="DD-MM-YYYY" id="fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 
@@ -102,13 +102,13 @@ echo '<div align="center"><input type=submit value="Activar informe" class="btn 
  include("../../pie.php");
  ?>
  <script>  
-	$(function ()  
-	{ 
-		$('#fecha').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha').datepicker('hide');
-		});
-		});  
-	</script>
+ $(function ()  
+ { 
+ 	$('#fecha').datetimepicker({
+ 		language: 'es',
+ 		pickTime: false
+ 	})
+ });  
+ </script>
  </body>
 </html>

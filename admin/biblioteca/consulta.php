@@ -25,84 +25,8 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 		header("location:http://$dominio/intranet/salir.php");
 		exit;
 	}
-	?>
-<!DOCTYPE html>  
-<html lang="es">  
-  <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet</title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
-    <meta name="author" content="">  
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">    
-    <link href="http://<? echo $dominio;?>/intranet/css/datepicker.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/DataTable.bootstrap.css" rel="stylesheet">    
-    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
-    <link href="http://<? echo $dominio;?>/intranet/css/imprimir.css" rel="stylesheet" media="print">    
-    <!--[if lt IE 9]>  
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>  
-    <![endif]-->  
-    <script>
-    function selectall(form)  
-    {  
-     var formulario = eval(form)  
-     for (var i=0, len=formulario.elements.length; i<len ; i++)  
-      {  
-        if ( formulario.elements[i].type == "checkbox" )  
-          formulario.elements[i].checked = formulario.elements[0].checked  
-      }  
-    }  
-    </script>  
-    
-</head>
 
-<body>
-  
-<?
-//include ("funciones.php");
-$idea = $_SESSION ['ide'];
-if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activo1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activo2 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activo3 = ' class="active" ';}
-?>
-  <!-- Navbar
-    ================================================== -->
-<div class="navbar navbar-inverse navbar-fixed-top no_imprimir">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="fa fa-bars"></span>
-      </a>
-      <a class="brand" href="http://<? echo $dominio;?>/intranet/index.php">Intranet del <?php echo $nombre_del_centro; ?></a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li <? echo $activo1;?>><a href="http://<? echo $dominio;?>/intranet/index.php">Inicio</a></li>
-          <li><a href="http://<? echo $dominio;	?>">Página del centro</a></li>
-          <li<? echo $activo2;?>><a href="http://<? echo $dominio;	?>/intranet/admin/mensajes/">Mensajes</a></li>
-          <li<? echo $activo3;?>><a href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
-          <li><a href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio" target="_blank">Séneca</a></li>
-        </ul>
-        
-        <ul class="nav pull-right">
-        	<li class="dropdown">
-        		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        			<i class="fa fa-user "></i> <? echo $idea; ?> <b class="caret"></b>
-        		</a>
-        		<ul class="dropdown-menu">
-        			<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i class="fa fa-pencil-square-o"></i> Cambiar contraseña</a></li>
-        			<li class="divider"></li>
-        			<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
-        		</ul>
-        	</li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </div>
-</div>
-
-	<? 
+include("../../menu.php");
 include("menu.php");
 	
 //$datatables_activado = true;
@@ -202,6 +126,18 @@ en pdf</button>
 	<? }  ?> 
 	<? }  ?> 
 	<? include("../../pie.php");?>
+	
+	<script>
+	function selectall(form)  
+	{  
+	 var formulario = eval(form)  
+	 for (var i=0, len=formulario.elements.length; i<len ; i++)  
+	  {  
+	    if ( formulario.elements[i].type == "checkbox" )  
+	      formulario.elements[i].checked = formulario.elements[0].checked  
+	  }  
+	}  
+	</script>  
 </body>
 
 </html>

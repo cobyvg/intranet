@@ -35,13 +35,13 @@
 		      <li><a href="../cursos/ccursos.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>&submit1=1" target="_blank">Listado de alumnos/as</a></li>
 		      <li><a href="consulta_fotografias.php">Fotografías de alumnos/as</a></li>
 		      <li><a href="consulta_mesas.php">Asignación de mesas</a></li>
-		      <li><a href="consulta_credenciales.php">Credenciales de alumnos</a></li>
+		      <li><a href="../../xml/jefe/form_carnet.php">Credenciales de alumnos</a></li>
 		      <li><a href="consulta_absentimo.php">Alumnos absentistas</a></li>
 		      <li class="divider"></li>
 		      <li><a href="../../upload/index.php?index=publico&direction=0&order=&directory=programaciones/Orientacion" target="_blank">Material de orientación</a></li>
 		    </ul>
 		  </li>
-		  <li class="dropdown">
+		  <li class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'informe_')==TRUE) ? ' active' : ''; ?>">
 		    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 		      Informes <span class="caret"></span>
 		    </a>
@@ -50,7 +50,7 @@
 		      <li><a href="../infotutoria/index.php">Informes de tutoría</a></li>
 		      <li><a href="../tareas/index.php">Informes de tareas</a></li>
 		      <li class="divider"></li>
-		      <li><a href="memoria.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Memoria de tutoría</a></li>
+		      <li><a href="informe_memoria.php">Memoria de tutoría</a></li>
 		    </ul>
 		  </li>
 		  <?php if(substr($_SESSION['mod_tutoria']['unidad'],1,1) == "E"): ?>
