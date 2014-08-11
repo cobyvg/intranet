@@ -143,7 +143,7 @@ if (stristr ( $carg, '8' ) == TRUE) {
     <div class="panel-body">
       <ul class="nav nav-list">
         <li><a href="admin/orientacion/tutor.php">Página de Orientación</a></li>
-        <li><a href="./admin/tutoria/">Página del tutor </a></li>
+        <li><a href="./admin/tutoria/index.php">Tutorías</a></li>
         <li><a href="admin/actividades/index.php">Actividades extraescolares</a></li>
       </ul>
     </div>
@@ -163,7 +163,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
   <div id="tutoria" class="panel-collapse collapse in">
     <div class="panel-body">
       <ul class="nav nav-list">
-        <li><a href="admin/tutoria/global.php">Página del tutor</a></li>
+        <li><a href="admin/tutoria/index.php">Mi tutoría</a></li>
       </ul>
     </div>
   </div>
@@ -408,7 +408,7 @@ if (stristr ( $carg, 'c' ) == TRUE and $mod_biblio=="1") {
         </div>
         
         <? if (stristr ( $carg, '1' ) == TRUE) { ?>
-        <li><a href="admin/tutoria/">Página del tutor</a></li>
+        <li><a href="admin/tutoria/index.php">Tutorías</a></li>
         <li><a href="admin/guardias/admin.php">Registro de guardias</a></li>
         <? } ?>
         <li><a href="admin/ausencias/index.php">Registrar ausencia</a></li>

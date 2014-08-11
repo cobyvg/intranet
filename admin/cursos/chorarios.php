@@ -45,13 +45,13 @@ include("../../menu.php");
 						<div class="form-group">
 							<?php $result = mysql_query("SELECT DISTINCT a_grupo FROM horw WHERE a_grupo NOT LIKE 'G%' AND a_grupo NOT LIKE '' ORDER BY a_grupo"); ?>
 							<?php if(mysql_num_rows($result)): ?>
-					    <select class="form-control" name="curso">
+					    <select class="form-control" id="curso" name="curso">
 					    	<?php while($row = mysql_fetch_array($result)): ?>
 					    	<option value="<?php echo $row['a_grupo']; ?>"><?php echo $row['a_grupo']; ?></option>
 					    	<?php endwhile; ?>
 					    </select>
 					    <?php else: ?>
-					     <select class="form-control" name="curso" disabled></select>
+					     <select class="form-control" id="curso" name="curso" disabled></select>
 					    <?php endif; ?>
 					    <?php mysql_free_result($result); ?>
 					  </div>
@@ -77,13 +77,13 @@ include("../../menu.php");
 						<div class="form-group">
 							<?php $result = mysql_query("SELECT DISTINCT prof FROM horw ORDER BY prof ASC"); ?>
 					    <?php if(mysql_num_rows($result)): ?>
-					    <select class="form-control" name="profeso">
+					    <select class="form-control" id="profeso" name="profeso">
 					    	<?php while($row = mysql_fetch_array($result)): ?>
 					    	<option value="<?php echo $row['prof']; ?>"><?php echo $row['prof']; ?></option>
 					    	<?php endwhile; ?>
 					    </select>
 					    <?php else: ?>
-					     <select class="form-control" name="profeso" disabled></select>
+					     <select class="form-control" id="profeso" name="profeso" disabled></select>
 					    <?php endif; ?>
 					    <?php mysql_free_result($result); ?>
 					  </div>
@@ -109,13 +109,13 @@ include("../../menu.php");
 						<div class="form-group">
 							<?php $result = mysql_query("SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY n_aula ASC"); ?>
 						  <?php if(mysql_num_rows($result)): ?>
-						  <select class="form-control" name="aula">
+						  <select class="form-control" id="aula" name="aula">
 						  	<?php while($row = mysql_fetch_array($result)): ?>
 						  	<option value="<?php echo $row['n_aula']; ?>"><?php echo $row['n_aula']; ?></option>
 						  	<?php endwhile; ?>
 						  </select>
 						  <?php else: ?>
-						   <select class="form-control" name="aula" disabled></select>
+						   <select class="form-control" id="aula" name="aula" disabled></select>
 						  <?php endif; ?>
 						  <?php mysql_free_result($result); ?>
 						</div>
@@ -140,7 +140,7 @@ include("../../menu.php");
 						
 						<div class="form-group">
 							<?php $dias = array('Lunes','Martes','Miércoles','Jueves','Viernes'); ?>
-					    <select class="form-control" name="n_dia">
+					    <select class="form-control" id="n_dia" name="n_dia">
 					    	<?php for($i = 0; $i < count($dias); $i++): ?>
 					    	<option value="<?php echo $dias[$i]; ?>"><?php echo $dias[$i]; ?></option>
 					    	<?php endfor; ?>
