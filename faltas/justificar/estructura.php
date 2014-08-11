@@ -106,14 +106,12 @@ echo "</td></tr></table><br />";
   </div>
   <div class="col-sm-6">
 <!-- Button trigger modal -->
-<button class="pull-right " data-toggle="modal" data-target="#myModal">
- <i
-			class="fa fa-question-circle fa-lg "
-			> </i>
-</button>
+<a href="#" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModal">
+ <span class="fa fa-question-circle fa-lg"></span>
+</a>
 
  <!-- Modal -->
-<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

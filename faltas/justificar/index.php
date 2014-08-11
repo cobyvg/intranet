@@ -36,7 +36,6 @@ if (isset($_GET['falta'])) {$falta = $_GET['falta'];}elseif (isset($_POST['falta
 </div>
 <br />
 
-<div align="center">
 
 <form action="index.php" method="POST">
   

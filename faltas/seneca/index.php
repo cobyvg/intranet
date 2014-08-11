@@ -113,7 +113,7 @@ Para poder importar las faltas de los alumnos, es necesario en primer lugar desc
 	for="iniciofalta">Primer d&iacute;a:</label>
 <div class="input-group">
 <input name="iniciofalta" type="text"
-	class="form-control" value="" data-date-format="dd/mm/yyyy" id="iniciofalta"
+	class="form-control" value="" data-date-format="DD/MM/YYYY" id="iniciofalta"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </div>
@@ -123,7 +123,7 @@ Para poder importar las faltas de los alumnos, es necesario en primer lugar desc
 	for="finfalta">Ultimo d&iacute;a:  </label>
 <div class="input-group">
 <input name="finfalta" type="text"
-	class="form-control" value="" data-date-format="dd/mm/yyyy" id="finfalta"
+	class="form-control" value="" data-date-format="DD/MM/YYYY" id="finfalta"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </div>
