@@ -237,8 +237,8 @@ include("menu.php");
 						  	<div class="col-sm-6">
 						  		<div class="form-group">
 						  			<label for="fecha_inc">Fecha</label>
-						  			 <div class="input-group">
-						  			 	<input type="text" class="form-control" id="fecha_inc" name="fecha_inc" value="<?php echo (isset($fecha_inc)) ? $fecha_inc : date('d-m-Y'); ?>" data-date-format="dd-mm-yyyy">
+						  			 <div class="input-group" id="datetimepicker1">
+						  			 	<input type="text" class="form-control" id="fecha_inc" name="fecha_inc" value="<?php echo (isset($fecha_inc)) ? $fecha_inc : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
 						  			  <span class="input-group-addon">
 						  			  	<span class="fa fa-calendar fa-fw"></span>
 						  			  </span>
@@ -335,11 +335,11 @@ include("menu.php");
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha').datepicker('hide');
+		$('#datetimepicker1').datetimepicker({
+			language: 'es',
+			pickTime: false
 		});
-		});  
+	});  
 	</script>
 
 </body>

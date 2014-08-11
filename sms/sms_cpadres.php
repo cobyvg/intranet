@@ -211,14 +211,14 @@ if(strlen($sin2) > '0'){
 		<div class="input-group" style="display: inline;"><input
 			name="fecha12" type="text" class="input input-small"
 			value="<? if(empty($fecha12)){echo $fech1;} else {echo $fecha12;}?>"
-			data-date-format="dd-mm-yyyy" id="fecha12"> <span class="input-group-addon"><i
+			data-date-format="DD-MM-YYYY" id="fecha12"> <span class="input-group-addon"><i
 			class="fa fa-calendar"></i></span></div>
 		</label></td>
 		<td><label>Fin<br />
 		<div class="input-group" style="display: inline;"><input
 			name="fecha22" type="text" class="input input-small"
 			value="<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>"
-			data-date-format="dd-mm-yyyy" id="fecha22"> <span class="input-group-addon"><i
+			data-date-format="DD-MM-YYYY" id="fecha22"> <span class="input-group-addon"><i
 			class="fa fa-calendar"></i></span></div>
 		</label></td>
 	</tr>
@@ -276,22 +276,20 @@ else {
 El módulo de envío de SMS debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.
           </div></div>';
 }
-?> <? include("../pie.php");?> <script>
-	$(function ()  
-	{ 
-		$('#fecha12').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha12').datepicker('hide');
-		});
-		});  
-	</script> <script>  
-	$(function ()  
-	{ 
-		$('#fecha22').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha22').datepicker('hide');
-		});
-		});  
-	</script>
+?> <? include("../pie.php");?>
+<script>  
+$(function ()  
+{ 
+	$('#falta12').datetimepicker({
+		language: 'es',
+		pickTime: false
+	});
+	
+	$('#falta22').datetimepicker({
+		language: 'es',
+		pickTime: false
+	});
+});  
+</script>
 </body>
 </html>

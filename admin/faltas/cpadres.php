@@ -81,14 +81,14 @@ $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS
          <h6> Rango de fechas</h6><br />      
          <label> Inicio: 
       <div class="input-group" >
-            <input name="fecha12" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="fecha12" value="<?if($fecha12){ echo $fecha12;}?>" >
+            <input name="fecha12" type="text" class="input input-small" data-date-format="DD/MM/YYYY" id="fecha12" value="<?if($fecha12){ echo $fecha12;}?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Fin: 
  <div class="input-group" >
-  <input name="fecha22" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="fecha22" value="<?if($fecha22){ echo $fecha22;}?>" >
+  <input name="fecha22" type="text" class="input input-small" data-date-format="DD/MM/YYYY" id="fecha22" value="<?if($fecha22){ echo $fecha22;}?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
       </label>
@@ -103,26 +103,24 @@ $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS
          </div>
          </div>
 </form>
-</body>
+
         <?php	
 include("../../pie.php");
 ?>   
-<script>  
-	$(function ()  
-	{ 
-		$('#fecha12').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha12').datepicker('hide');
-		});
-		});  
-	</script>
+
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha22').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha22').datepicker('hide');
+		$('#fecha12').datetimepicker({
+			language: 'es',
+			pickTime: false
 		});
-		});  
+		
+		$('#fecha22').datetimepicker({
+			language: 'es',
+			pickTime: false
+		});
+	});  
 	</script>
+</body>
 </html>

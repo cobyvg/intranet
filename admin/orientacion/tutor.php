@@ -175,14 +175,14 @@ if ($fecha)
 {
 	echo '
   <div class="input-group" >
-            <input name="fecha" type="text" class="input form-control" value="'.$fecha.'" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input form-control" value="'.$fecha.'" data-date-format="DD-MM-YYYY" id="fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
 }
 else{
 	echo '
   <div class="input-group" >
-            <input name="fecha" type="text" class="input form-control" value="" data-date-format="dd-mm-yyyy" id="fecha" >
+            <input name="fecha" type="text" class="input form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
 }
@@ -293,14 +293,14 @@ if($alumno){
 <? include("ultimos.php");?></div>
 </div>
 <? include("../../pie.php");?>
-<script>  
+	<script>  
 	$(function ()  
 	{ 
-		$('#fecha').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha').datepicker('hide');
-		});
-		});  
+		$('#fecha').datetimepicker({
+			language: 'es',
+			pickTime: false
+		})
+	});  
 	</script>
 </BODY>
 </HTML>

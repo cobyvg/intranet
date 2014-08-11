@@ -212,7 +212,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
       <label >Inicio: 
       <div class="input-group" >
             <input name="inicio" type="text" class="input input-small" <? if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?> 
-data-date-format="dd-mm-yyyy" id="inicio" >
+data-date-format="DD-MM-YYYY" id="inicio" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
@@ -220,7 +220,7 @@ data-date-format="dd-mm-yyyy" id="inicio" >
 <label>Fin: 
  <div class="input-group" >
   <input name="fin" type="text" class="input input-small"  <? if(strlen($fin) > '0' and !($fin == '00-00-0000') ){echo "value='$fin'";}?> 
-data-date-format="dd-mm-yyyy" id="fin" >
+data-date-format="DD-MM-YYYY" id="fin" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 
@@ -287,7 +287,7 @@ else{
 	$def_inicio = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' ); 
 	echo "value='$def_inicio'";}}
 ?>
- data-date-format="dd-mm-yyyy" id="fechainicio" >
+ data-date-format="DD-MM-YYYY" id="fechainicio" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
@@ -295,7 +295,7 @@ else{
 <label>Fin
 <div class="input-group" >
             <input name="fechafin" type="text" class="input input-small" <? if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}}?> 
-             data-date-format="dd-mm-yyyy" id="fechafin" >
+             data-date-format="DD-MM-YYYY" id="fechafin" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
       </label>
@@ -367,41 +367,29 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
 </div>
 </div>
 <? include("../../pie.php");?>
-<script>  
-	$(function ()  
-	{ 
-		$('#inicio').datepicker()
-		.on('changeDate', function(ev){
-			$('#inicio').datepicker('hide');
-		});
-		});  
-	</script>
-<script>  
-	$(function ()  
-	{ 
-		$('#fin').datepicker()
-		.on('changeDate', function(ev){
-			$('#fin').datepicker('hide');
-		});
-		});  
-	</script>	
 	<script>  
 	$(function ()  
 	{ 
-		$('#fechainicio').datepicker()
-		.on('changeDate', function(ev){
-			$('#fechainicio').datepicker('hide');
+		$('#inicio').datetimepicker({
+			language: 'es',
+			pickTime: false
 		});
-		});  
-	</script>
-<script>  
-	$(function ()  
-	{ 
-		$('#fechafin').datepicker()
-		.on('changeDate', function(ev){
-			$('#fechafin').datepicker('hide');
+		
+		$('#fin').datetimepicker({
+			language: 'es',
+			pickTime: false
 		});
-		});  
+		
+		$('#fechainicio').datetimepicker({
+			language: 'es',
+			pickTime: false
+		});
+		
+		$('#fechafin').datetimepicker({
+			language: 'es',
+			pickTime: false
+		});
+	});  
 	</script>
 </body>
 </html>

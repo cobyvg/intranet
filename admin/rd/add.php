@@ -153,7 +153,7 @@ if ($edicion=="1") {
     <form action="add.php" method="POST" name='f1' class="form-inline">
       <label style="display:inline">Fecha de la Reunión &nbsp;
       <div class="input-group" >
-            <input name="fecha" type="text" class="input input-small" data-date-format="dd-mm-yyyy" required id="fecha" value="<? if (isset($fecha_r)) {
+            <input name="fecha" type="text" class="input input-small" data-date-format="DD-MM-YYYY" required id="fecha" value="<? if (isset($fecha_r)) {
             	echo $fecha_r;
             }?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -309,11 +309,11 @@ if ($n_actas > 24) {
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha').datepicker('hide');
-		});
-		});  
+		$('#fecha').datetimepicker({
+			language: 'es',
+			pickTime: false
+		})
+	});  
 	</script>
 	
 	<script src="http://<? echo $dominio;?>/intranet/js/tinymce/tinymce.min.js"></script>

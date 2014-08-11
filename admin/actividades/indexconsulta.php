@@ -146,7 +146,7 @@ $justificacion = $datos[10];
            
                 <label>Fecha de la actividad:<br /> 
                       <div class="input-group" >
-            <input name="fecha_act" type="text" class="input input-small" value="<? echo "$dia-$mes-$ano"; ?>" data-date-format="dd-mm-yyyy" id="fecha_act" >
+            <input name="fecha_act" type="text" class="input input-small" value="<? echo "$dia-$mes-$ano"; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
               </label>
@@ -301,11 +301,11 @@ function deseleccionar_todo(){
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha_act').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha_act').datepicker('hide');
-		});
-		});  
+		$('#fecha_act').datetimepicker({
+			language: 'es',
+			pickTime: false
+		})
+	});  
 	</script>
   </BODY>
 </HTML>

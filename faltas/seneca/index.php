@@ -113,14 +113,14 @@ Para poder importar las faltas de los alumnos, es necesario en primer lugar desc
         
          <label >Primer d&iacute;a: 
       <div class="input-group" >
-            <input name="iniciofalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="iniciofalta" required />
+            <input name="iniciofalta" type="text" class="input input-small" data-date-format="DD/MM/YYYY" id="iniciofalta" required />
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Ultimo d&iacute;a: 
  <div class="input-group" >
-  <input name="finfalta" type="text" class="input input-small" data-date-format="dd/mm/yyyy" id="finfalta" required />
+  <input name="finfalta" type="text" class="input input-small" data-date-format="DD/MM/YYYY" id="finfalta" required />
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 
@@ -158,62 +158,19 @@ puente coincidente con los primeros dias de un mes, etc.). <br />El mismo criter
 include("../../pie.php");
 ?>   
 
-<?php  
-$inicio = explode('-', $inicio_curso);
-$inicio_anio = $inicio[0];
-$inicio_mes  = $inicio[1];
-$inicio_dia  = $inicio[2];
-
-$fin = explode('-', $fin_curso);
-$fin_anio = $fin[0];
-$fin_mes  = $fin[1];
-$fin_dia  = $fin[2];
-
-$festivos = mysql_query("SELECT fecha FROM festivos");
-?>
-<script>
-$(function ()  {
-	var inicio = new Date(<?php echo $inicio_anio; ?>, <?php echo $inicio_mes; ?>-1, <?php echo $inicio_dia; ?>, 0, 0, 0, 0);
-	var fin    = new Date(<?php echo $fin_anio; ?>, <?php echo $fin_mes; ?>-1, <?php echo $fin_dia; ?>, 0, 0, 0, 0);
-	
-	<?php
-	$cadena_festivos = '';
-	$i=1;
-	while ($festivo = mysql_fetch_array($festivos)) {
-		$festfecha = explode('-', $festivo['fecha']);
-		$festivo_anio = $festfecha[0];
-		$festivo_mes  = $festfecha[1];
-		$festivo_dia  = $festfecha[2];
+	<script>  
+	$(function ()  
+	{ 
+		$('#iniciofalta').datetimepicker({
+			language: 'es',
+			pickTime: false
+		});
 		
-		echo "var festivo$i = new Date($festivo_anio, $festivo_mes-1, $festivo_dia, 0, 0, 0, 0);";
-		
-		$cadena_festivos .= " || (date.valueOf() == festivo$i.valueOf())";
-		$i++;
-	}
-	?>
-	
-	var checkin = $('#iniciofalta').datepicker({
-		weekStart: 1,
-		onRender: function(date) {
-			return (date.valueOf() < inicio.valueOf()) || (date.valueOf() > fin.valueOf()) || (date.getUTCDay() == 5) || (date.getUTCDay() == 6)<?php echo $cadena_festivos; ?> ? 'disabled' : '';
-		}
-	}).on('changeDate', function(ev) {
-		var newDate = new Date(ev.date);
-		newDate.setDate(newDate.getDate() + 1);
-		checkout.setValue(newDate);
-		checkin.hide();
-		$('#finfalta')[0].focus();
-	}).data('datepicker');
-	
-	var checkout = $('#finfalta').datepicker({
-		weekStart: 1,
-		onRender: function(date) {
-			return date.valueOf() <= checkin.date.valueOf() || (date.valueOf() > fin.valueOf()) || (date.getUTCDay() == 5) || (date.getUTCDay() == 6)<?php echo $cadena_festivos; ?> ? 'disabled' : '';
-		}
-	}).on('changeDate', function(ev) {
-		checkout.hide();
-	}).data('datepicker');
-});  
-</script>
+		$('#finfalta').datetimepicker({
+			language: 'es',
+			pickTime: false
+		});
+	});  
+	</script>
 </body>
 </html>

@@ -80,7 +80,7 @@ if (isset($_GET['id'])) {
 	echo "<p class='lead'><small>Fecha</small></p>";
 ?>
 <div class="input-group" >
-  <input required name="fecha" type="text" class="input form-control" data-date-format="yyyy-mm-dd" id="fecha" value="" >
+  <input required name="fecha" type="text" class="input form-control" data-date-format="YYYY-MM-DD" id="fecha" value="" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 
@@ -167,23 +167,11 @@ include("../../../pie.php");
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha').datepicker('hide');
-		});
-		});  
-	</script>
-	
-	<script>
-	function confirmacion() {
-		var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-		if (answer){
-	return true;
-		}
-		else{
-	return false;
-		}
-	}
+		$('#fecha').datetimepicker({
+			language: 'es',
+			pickTime: false
+		})
+	});  
 	</script>
 </body>
 </html>

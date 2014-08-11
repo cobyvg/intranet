@@ -166,7 +166,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 </select> </label> 
 <label>Fecha:<br />
 <div class="input-group" >
-  <input name="fecha" type="text" class="input form-control" data-date-format="dd-mm-yyyy" id="fecha" value="<?if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>" >
+  <input name="fecha" type="text" class="input form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<?if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </label> 
@@ -297,11 +297,11 @@ else{
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha').datepicker()
-		.on('changeDate', function(ev){
-			$('#fecha').datepicker('hide');
-		});
-		});  
+		$('#fecha').datetimepicker({
+			language: 'es',
+			pickTime: false
+		})
+	});  
 	</script>
 </BODY>
 </HTML>
