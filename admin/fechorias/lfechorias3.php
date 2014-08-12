@@ -20,27 +20,24 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 	vertical-align:middle;
 }
 </style>
-<div align="center">  
-<?php
- echo '
+<div class="container">
 <div class="page-header">
   <h2>Problemas de Convivencia <small> Ranking de Fechorías</small></h2>
 </div>
-<br />';
-		
-    echo ' <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
+<br />
+
+<div class="row">
+
+<div class="col-sm-10 col-sm-offset-1">	
+    <div class="well lead" id="t_larga_barra" style="width:320px; margin:auto">
         <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
       </div>
-   ';
-    echo "</div>";
-    echo "<div id='t_larga' style='display:none' >";
-    
-		echo "<div class='container'>";
-		echo '<div class="row">
-  <div class="col-sm-10 col-sm-offset-1">';
+   <div id='t_larga' style='display:none' >		
+<?php
+
 		echo "<table class='table table-striped tabladatos' align='center'>";
 		$fecha1 = (date ( "d" ) . - date ( "m" ) . - date ( "Y" ));
-		echo "<thead><tr>
+		echo "<thead>
 		<th>ALUMNO</th>
 		<th>CURSO</th>
 		<th>TOTAL</th>
@@ -49,7 +46,7 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 		<th nowrap>Muy Graves</th>
 		<th>Expulsion</th>
 		<th>Convivencia</th>
-		</tr></thead><tbody>";
+		</thead><tbody>";
 		mysql_query ( "create table Fechoria_temp SELECT DISTINCT claveal, COUNT( * ) as total FROM Fechoria GROUP BY claveal" );
 		$num0 = mysql_query ( "select * from Fechoria_temp order by total desc" );
 		while ( $num = mysql_fetch_array ( $num0 ) ) {
@@ -96,7 +93,6 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 		echo "</tbody></table>\n";
 		mysql_query ( "drop table Fechoria_temp" );
 		?>
-		</div>
 		</div>
 		</div>
 		</div>

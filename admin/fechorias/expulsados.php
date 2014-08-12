@@ -25,11 +25,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 include("menu.php");
- echo '<div aligna="center">
+?>
+<div class="container">
 <div class="page-header">
   <h2>Problemas de Convivencia <small> Alumnos expulsados</small></h2>
 </div>
-</div>';     
+<br />
+
+<div class="row">
+
+<div class="col-sm-12 ">	
+<?   
   $hoy = date('Y') . "-" . date('m') . "-" . date('d');
   $ayer = date('Y') . "-" . date('m') . "-" . (date('d') - 1);
   $result = mysql_query ("select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad,
@@ -105,6 +111,9 @@ while( $row = mysql_fetch_array($result));
 
 
   ?>
+  </div>
+  </div>
+  </div>
   <?
    include("../../pie.php");
    ?>

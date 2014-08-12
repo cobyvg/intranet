@@ -409,21 +409,34 @@ input[type=number]::-webkit-inner-spin-button {
 		<div class="no_imprimir">
 		<div class="well-transparent well-small" align="left">
 		<legend><small>Operaciones básicas</small></legend>
-		<a data-toggle="modal" href="#ayuda2"> <i
-			class="fa fa-question-circle fa-lg fa-border fa-lg pull-right"
-			style="color: #888"> </i> </a>
-		<div class="modal hide fade" id="ayuda2" style="display: inline">
-		<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">×</button>
-		</div>
-		<div class="modal-body">
-		<p class="lead">Instrucciones de uso.</p>
+		<!-- Button trigger modal -->
+<a href="#" class="pull-right" data-toggle="modal" data-target="#myModal">
+ <span class="fa fa-border fa-question-circle fa-lg"></span>
+</a>
+
+ <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+      </div>
+      <div class="modal-body">
 		<p class="help-block">El cuaderno clasifica los datos en columnas, por lo que la primera operación consiste en crear una columna para introducir datos sobre los alumnos de un grupo. Las columnas pueden ser de varios tipos: las numéricas tienen una caja de datos pequeña y sólo admiten números con decimales; las columnas de texto largo son más grandes y pueden contener caracteres alfanuméricos; etc.
 		<br />
 		La siguiente función permite seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno.
-		Por último, puedes imprimir la tabla con los datos de los alumnos. La impresión sólo contiene la tabla y sus datos.</p>
-		</div>
-		</div>
+		Por último, puedes imprimir la tabla con los datos de los alumnos. La impresión sólo contiene la tabla y sus datos.</p>	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+		
+		
+	
 		
 		<?
 		// Enlace para crear nuevos Alumnos y para crear nuevas columnasx
@@ -445,26 +458,34 @@ input[type=number]::-webkit-inner-spin-button {
 		<div class="well-transparent well-small" align="left" style="min-width:250px;">
 		
 		<legend><small>Cosas que puedes hacer...</small></legend>
+		<!-- Button trigger modal -->
+<a href="#" class="pull-right" data-toggle="modal" data-target="#myModal1">
+ <span class="fa fa-border fa-question-circle fa-lg"></span>
+</a>
 
-
-		<a data-toggle="modal" href="#ayuda"> <i
-			class="fa fa-question-circle fa-lg fa-border fa-lg pull-right"
-			style="color: #888"> </i> </a>
-		<div class="modal hide fade" id="ayuda" style="display: inline">
-		<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">×</button>
-		</div>
-		<div class="modal-body">
-		<p class="lead">Operaciones con las columnas.</p>
+ <!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel1">Operaciones y Funciones.</h4>
+      </div>
+      <div class="modal-body">
 		<p class="help-block">Hay varias funciones que puedes realizar sobre
 		las columnas que contienen los datos (ocultar, eliminar, calcular
 		medias, etc). Marca las columnas sobre las que quieres trabajar, y
 		luego presiona el botón que realiza una determinada operación sobre
 		esas columnas. No te olvides de seleccionar las columnas
-		correspondientes.</p>
-		</div>
-		</div>
-		
+		correspondientes.</p>	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 		
 		<?
 		$colum= "select distinct id, nombre, orden, oculto from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";

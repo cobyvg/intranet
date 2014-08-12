@@ -27,24 +27,23 @@ $datatables_activado = true;
 if(isset($_GET['id'])){$id = $_GET['id'];}
 ?>
   <?php
-    echo "<div  align='center'>";
-    
-    echo ' <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
-        <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
-      </div>
-   ';
-    echo "</div>";
-    echo "<div id='t_larga' style='display:none' >";
 
-  echo "<div class='container-fluid'>";
-  echo '<div class="row">
-  <div class="col-sm-12">';
+  echo "<div class='container'>";
+  echo '<div class="row">';
   echo '<div aligna="center">
 <div class="page-header">
   <h2>Problemas de Convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
 </div>
 </div>
-<br />';
+<br />
+<div class="col-sm-12">';
+      
+    echo ' <div align="center"><div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
+        <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
+      </div>
+   ';
+    echo "</div>";
+    echo "<div id='t_larga' style='display:none' >";
   if (isset($_POST['confirma'])) {
   	foreach ($_POST as $clave => $valor){
   		if (strlen($valor) > '0' and $clave !== 'confirma') {
@@ -71,6 +70,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
   mysql_query("ALTER TABLE  `Fechcaduca` ADD INDEX (  `id` )");
   mysql_query("ALTER TABLE  `Fechcaduca` ADD INDEX (  `fecha` )");
   $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, confirmado, horas from Fechoria, FALUMNOS, Fechcaduca where Fechcaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal  order by Fechoria.fecha desc limit 500";
+  // echo $query0;
   $result = mysql_query ($query0);
  echo "<form action='lfechorias.php' method='post' name='cnf'>
  <table class='table table-bordered' style='width:auto' align='center'><tr><td style='background-color:#FFFF99'>Expulsión del Centro</td><td style='background-color:#CCFFCC'>Amonestación escrita</td><td style='background-color:#FF9900'>Expulsión del Aula</td><td style='background-color:#CCCCFF'>Aula de Convivencia: Jefatura</td><td style='background-color:#dea9cd'>Aula de Convivencia: Profesor</td></tr></table><br />";
@@ -122,23 +122,23 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 		$rownumero= mysql_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
-				$bgcolor="style='background-color:transparent;'";
+				$bgcolor="background-color:transparent;";
 				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="style='background-color:#CCFFCC;'";}
-				if($expulsionaula == "1"){$bgcolor="style='background-color:#FF9900;'";}
+				if($expulsionaula == "1"){$bgcolor="background-color:#FF9900;";}
 				
 				if($aula_conv > 0){
 					if ($horas == "123456") {
-						$bgcolor="style='background-color:#CCCCFF;'";
+						$bgcolor="background-color:#CCCCFF;";
 					}
 					else{
-						$bgcolor="style='background-color:#dea9cd;'";
+						$bgcolor="background-color:#dea9cd;";
 					}
 				}	
 				
 				if($expulsion > 0){$bgcolor="style='background-color:#FFFF99;'";}		
 				if($recibido == '1'){$comentarios1="<i class='fa fa-check' rel='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle'  rel='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
 		echo "<tr>
-		<td $bgcolor nowrap>";
+		<td nowrap>";
 		$foto="";
 		$foto = "<img src='../../xml/fotos/$claveal.jpg' width='55' height='64' class=''  />";
 		echo $foto."&nbsp;&nbsp;";
@@ -147,7 +147,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 		<td nowrap style='vertical-align:middle'>$fecha</td>
 		<td style='vertical-align:middle'>$asunto</td>
 		<td style='vertical-align:middle'><span  style='font-size:0.9em'>$informa</span></td>
-		<td style='vertical-align:middle'>$grave</td>
+		<td  style='$bgcolor vertical-align:middle'>$grave</td>
 		<td style='vertical-align:middle' style='vertical-align:middle'><center>$rownumero</center></td>
 		<td style='vertical-align:middle'>$caducada</td>
 		<td nowrap style='vertical-align:middle'>$comentarios1 $comentarios</td><td nowrap style='vertical-align:middle'>"; 

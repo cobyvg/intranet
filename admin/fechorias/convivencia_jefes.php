@@ -102,42 +102,49 @@ else
 {
 $fecha0=$hoy;
 }
-echo '<div align="center">
+  echo "<div class='container'>";
+  echo '<div class="row">';
+  echo '<div aligna="center">
 <div class="page-header">
-  <h2>Problemas de Convivencia <small> Aula de Convivencia</small></h2>
-';
-echo " <h3 align='center' style='color:#08c'>";
+  <h2>Problemas de Convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
+</div>
+</div>
+<div class="col-sm-8 col-sm-offset-2">';
+     
+echo " <p class='lead text-info' align='center' >";
 if (empty($hor))  {$hoy0 = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );}else {$hoy0 = $fecha0;}
 if ($hoy) {
 	$hoy0=$hoy;
 }
 $tr_h = explode("-", $hoy0);
 $hoy0 = "$tr_h[2]-$tr_h[1]-$tr_h[0]";
-echo "$hoy0</h3>";
-echo '</div>
-</div>
-';
-
+echo "$hoy0</p>";
 	echo "<center><form name='conv' action='convivencia_jefes.php' method='post' enctype=multipart/form-data' class='form-inline'>";
 	?>
-	<label>Selecciona el Día 
+<div class="well">	
+	<div class="form-group">
+<label>Selecciona el Día </label>
 <div class="input-group" >
-  <input name="fecha0" type="text" class="input form-control" value="<? echo $hoy0;?>" data-date-format="DD-MM-YYYY" id="fecha0" >
+  <input name="fecha0" id="fecha0" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<? echo $hoy0;?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div>   
-	</label>
-    <label style="margin-left:35px;">
+</div> 
+</div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<div class="form-group">	
+    <label>
 	<?
-	echo "  y la Hora ";
-	echo "<select name = 'hor' class='input input-mini'>";
+	echo "  y la Hora &nbsp;</label>";
+	echo "<select name = 'hor' class='form-control'>";
 	if (empty($hor)) {
 	}else{
 		echo "<option>$hor</option>";
 	}
 	echo "<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
 	</select>
+	</div>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type='hidden' name = 'fecha11' value = '$fecha0' />
-	<input type='submit' name = 'fecha1' value = 'Enviar fecha' style = 'margin-left:25px;' class='btn btn-primary' />
+	<input type='submit' name = 'fecha1' value = 'Enviar fecha' class='btn btn-primary' />
 	</form></center>";
 if (empty($fecha0)) {$hoy = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );}else{$hoy = $fecha0;}
 $trf = explode("-", $hoy);
@@ -158,10 +165,11 @@ $result = mysql_query ( "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FA
   FALUMNOS.nc, aula_conv, inicio_aula, fin_aula, id, Fechoria.claveal, horas from Fechoria,
   FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and aula_conv > '0' and inicio_aula <= '$hoy' and fin_aula >= '$hoy' and horas like '%$hora_dia%' order by apellidos, nombre " );
 ?>
+</div>
 <?php
 	echo "<center><table class='table table-striped' style='width:auto'>";
-	echo "<tr><th>Alumno</td>
-		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></tr>";
+	echo "<thead><th>Alumno</th>
+		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></thead>";
 	echo '<form name="conviv" action="convivencia_jefes.php" method="post" enctype="multipart/form-data">';
 while ( $row = mysql_fetch_array ( $result ) ) {
 	$sel =  mysql_query("select * from convivencia where claveal = '$row[8]' and hora = '$hora_dia'  and fecha = '$hoy'");
@@ -169,21 +177,21 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	$id0 = $ya[0];
 	if (empty($ya[0])) {$ch = '';} else{$ch=" checked";}
 	if ($ya[4] == 0) {$ch_tr = '';$trab = "";} else{$ch_tr=" checked";}
-		echo "<tr ><td>$row[0], $row[1]</td>
-		<td>$row[2]</td>
-		<td>$row[4]</td>
-		<td>$row[5]</td>
-		<td align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i title='Detalles' class='fa fa-search'> </i> </A>$comentarios</td>
-		<td align='center'>
+		echo "<tr ><td style='vertical-align:middle'>$row[0], $row[1]</td>
+		<td style='vertical-align:middle'>$row[2]</td>
+		<td style='vertical-align:middle'>$row[4]</td>
+		<td style='vertical-align:middle'>$row[5]</td>
+		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i title='Detalles' class='fa fa-search'> </i> </A>$comentarios</td>
+		<td style='vertical-align:middle' align='center'>
 	
 		<input type='checkbox' name='$row[8]' value='$row[8]-$ndia-$hora_dia' $ch /></td>
-		<td align='center'>
+		<td style='vertical-align:middle' align='center'>
 		<input type='checkbox' name='$row[8]-trabajo'  value='1' $ch_tr/>
 		<input type='hidden' name='hoy'  value='$fecha0' />
 		<input type='hidden' name='hor'  value='$hora_dia' /></td>";
 		
 	for ($i = 1; $i < 7; $i++) {
-		echo "<td>";
+		echo "<td style='vertical-align:middle'>";
 		$asiste0 = "select hora, trabajo, id from convivencia where claveal = '$row[8]' and fecha = '$hoy' and hora = '$i'";
 		//echo $asiste0;
 		$asiste1 = mysql_query($asiste0);
@@ -196,7 +204,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 			}
 		echo "</td>";
 	}
-	echo "<td>";
+	echo "<td style='vertical-align:middle'>";
 	if (!empty($id0)) {
 		echo "<A HREF='convivencia_jefes.php?id=$id0&borrar=1&hoy=$hoy'><i title='Borrar' class='fa fa-trash-o' data-bb='confirm-delete'> </i> </A>";
 	}
@@ -208,8 +216,11 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	echo "</td></tr>";
 		
 } 
-	echo "</table><br /><input type='submit' name = 'enviar' value = 'Registrar' class='btn btn-primary' /></form></center>";
+	echo "</table><input type='submit' name = 'enviar' value = 'Registrar' class='btn btn-primary' /></form></center>";
 ?>
+</div>
+</div>
+</div>
 <? include("../../pie.php");?>
 <script>  
 $(function ()  

@@ -15,12 +15,16 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 include ("../../menu.php");
 include ("menu.php");
 ?>
-<div aligna="center">
+<div class="container">
 <div class="page-header">
   <h2>Problemas de Convivencia <small> Informe del alumno</small></h2>
 </div>
-</div>
 <br />
+
+<div class="row">
+
+<div class="col-sm-10 col-sm-offset-1">	
+
 <div align="center">
  <?
 $notas = $_POST['notas']; $grave = $_POST['grave'];$nombre = $_POST['nombre']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida']; $expulsionaula = $_POST['expulsionaula']; $id = $_POST['id']; $claveal = $_POST['claveal'];
@@ -114,7 +118,6 @@ else{
 		$password = $clave_smstrend;
 		;
 		?>
-<body>
 <script language="javascript">
 function enviarForm() 
 {
@@ -161,7 +164,7 @@ enviarForm();
 	// Mensaje SMS a la base de datos
 	
 
-	printf ("<legend class='text-info'>$rowa[1] $rowa[0] --> $rowa[2]-$rowa[3]</legend>");
+	printf ("<legend class='text-info'>$rowa[1] $rowa[0] --> $rowa[2]</legend>");
 	$dia = explode ( "-", $fecha );
 	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 	$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "')";
@@ -206,6 +209,10 @@ enviarForm();
  <br />
 <a href="infechoria.php" class='btn btn-primary'>Registrar otro problema</a>
     </div>
+    </div>
+    </div>
+    </div>
+ 
 <? include("../../pie.php");?>
     </body>
 </html>

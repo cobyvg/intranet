@@ -23,6 +23,13 @@ $tutor = $_SESSION['profi'];
 //variables();
 include("../../menu.php");
 include("menu.php");
+?>
+	<div class="container">
+<div class="page-header">
+  <h2>Problemas de Convivencia <small> Informe personal del Problema</small></h2>
+</div>
+
+<?
 if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}
 if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
 if (isset($_POST['expulsion'])) { $expulsion = $_POST['expulsion']; }
@@ -91,18 +98,12 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.uni
 		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' and expulsion >= '1' order by Fechoria.fecha"); 
 		$numeroexpulsiones= mysql_num_rows($numeroexpulsiones0);
 ?>
-<div aligna="center">
-<div class="page-header">
-  <h2>Problemas de Convivencia <small> Informe personal del Problema</small></h2>
-    <h3 align="center" style="color:#08c;">
+<legend align="center">
   <? echo "$nombre $apellidos ($unidad)";?>
-  </h3>
-</div>
-</div>
-<br />
-<div class="t1">
+  </legend>
+  <br />
 <div class="row">
-  <div class="col-sm-6 col-sm-offset-1">
+  <div class="col-sm-7">
       <div class="well well-large">
       <?
             if(file_exists("../../xml/fotos/".$claveal.".jpg")){
@@ -191,7 +192,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
     
   </div>
   
-  <div class="col-sm-4">
+  <div class="col-sm-5">
     <?
    $pr = $_SESSION ['profi'];
    $conv = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr'");
@@ -202,34 +203,41 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 	?>
     
     <div class="well"><h4>Expulsión del alumno</h4><hr />
-    <form id="form1" name="form1" method="post" action="detfechorias.php" class="form-inline">
-      <label> N&ordm; de D&iacute;as:
-        <input name="expulsion" type="text" id="textfield" <? if($expulsion > 0){echo "value=$expulsion";}?> size="2" maxlength="2" class="input input-mini" />
-      </label> 
+    <form id="form1" name="form1" method="post" action="detfechorias.php" class="">
+      
+      <div class="form-group col-md-10">
+	<label> N&ordm; de D&iacute;as:
+        <input name="expulsion" type="text" id="textfield" <? if($expulsion > 0){echo "value=$expulsion";}?> maxlength="2" class="form-control" />
+      </div>
+       
       <input name="id" type="hidden" value="<? echo $id; ?>"/>
       <input name="claveal" type="hidden" value="<? echo $claveal; ?>"/>
-      <hr>
-      <label >Inicio: 
-      <div class="input-group" >
-            <input name="inicio" type="text" class="input input-small" <? if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?> 
-data-date-format="DD-MM-YYYY" id="inicio" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-</label>
- &nbsp;&nbsp;&nbsp;&nbsp;
-<label>Fin: 
- <div class="input-group" >
-  <input name="fin" type="text" class="input input-small"  <? if(strlen($fin) > '0' and !($fin == '00-00-0000') ){echo "value='$fin'";}?> 
-data-date-format="DD-MM-YYYY" id="fin" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
+ 
 
-      </label>
-      <hr>
-      <label> Enviar SMS
-        <input name="mens_movil" type="checkbox" id="sms" value="envia_sms" checked="checked" />
-      </label>
-<hr>
+<div class="form-group col-md-10">
+<label>Inicio:</label>
+<div class="input-group" >
+  <input name="inicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="inicio" <? if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?>  >
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+</div> 
+</div>
+
+<div class="form-group col-md-10">
+<label>Fin:</label>
+<div class="input-group" >
+  <input name="fin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fin" <? if(strlen($fin) > '0' and !($fin == '00-00-0000')){echo "value='$fin'";}?>  >
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+</div> 
+</div>
+
+  <div class="form-group col-md-offset-1">
+      <div class="checkbox">    
+         <label>
+         <input name="mens_movil" type="checkbox" id="sms" value="envia_sms" checked="checked" />
+        Enviar SMS </label>
+      </div>
+      </div>
+      
         <input name="submit" type="submit" value="Enviar datos" class="btn btn-primary" />
       
     </form>
@@ -260,13 +268,16 @@ data-date-format="DD-MM-YYYY" id="fin" >
  ?>
  <div class="well">
     <h4>Expulsión al Aula de convivencia </h4><hr />
-    <form id="form2" name="form2" method="post" action="detfechorias.php" class="form-inline">
-      <label >N&uacute;mero de D&iacute;as
+    <form id="form2" name="form2" method="post" action="detfechorias.php" >
+      
+      <div class="form-group col-md-6">
+      <label >N&uacute;mero de D&iacute;as</label>
         <input name="convivencia" type="text" id="expulsion" <? if($convivencia > 0){echo "value=$convivencia";}else{ if ($gucon == '1') {
-          	echo "value=";}}?> size="2" maxlength="2" class="input input-mini" />
-      </label>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <label >Horas sueltas
+          	echo "value=";}}?> size="2" maxlength="2" class="form-control" />
+      </div>
+      
+      <div class="form-group col-md-6">
+      <label >Horas sueltas</label>
         <input name="horas" type="text" <? if($horas > 0){echo "value=$horas";}else{ 
           	if (stristr($_SESSION['cargo'],'1') == TRUE) {
           		echo "value=123456";
@@ -274,40 +285,45 @@ data-date-format="DD-MM-YYYY" id="fin" >
           		echo "value=$hora_dia";
           	}
           	}
-          	?> size="6" maxlength="6" class="input input-mini" />
-            </label>
+          	?> size="6" maxlength="6" class="form-control" />
+            </div>
         <input name="id" type="hidden" value="<? echo $id;?>" />
         <input name="claveal" type="hidden" value="<? echo $claveal;?>" />
      <hr>
-      <label >Inicio:    
+     
+     <div class="form-group col-md-10">
+<label>Inicio:</label>
 <div class="input-group" >
-<input name="fechainicio" type="text" class="input input-small" <? if($inicio_aula){echo "value=$inicio_aula";}
-else{
-	if ($gucon == '1'){
-	$def_inicio = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' ); 
-	echo "value='$def_inicio'";}}
-?>
- data-date-format="DD-MM-YYYY" id="fechainicio" >
+  <input name="fechainicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechainicio" <?if($inicio_aula){echo "value=$inicio_aula";}else{if ($gucon == '1'){	$def_inicio = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' ); 	echo "value='$def_inicio'";}} ?> >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
-</label>
- &nbsp;&nbsp;&nbsp;&nbsp;
-<label>Fin
-<div class="input-group" >
-            <input name="fechafin" type="text" class="input input-small" <? if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}}?> 
-             data-date-format="DD-MM-YYYY" id="fechafin" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-      </label>
-      <hr>        
+</div>
 
-        <label>Activar Tareas
-          <input name="tareas" type="checkbox" id="tareas" style="margin-right:24px" value="insertareas" <?php if ($gucon == '1') {}else{          	echo 'checked="checked"';
+    <div class="form-group col-md-10">
+<label>Fin:</label>
+<div class="input-group" >
+  <input name="fechafin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechafin" <?if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}} ?>  >
+  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+</div> 
+</div>
+
+          <div class="form-group col-md-offset-1">
+          <div class="checkbox">
+         <label for='tareas'>
+          <input name="tareas" type="checkbox" id="tareas" value="insertareas" <?php if ($gucon == '1') {}else{          	echo 'checked="checked"';
           }?> />
-          Enviar SMS
-          <input name="mens_movil" type="checkbox" id="sms" value="envia_sms" checked="checked"  />
+          Activar Tareas
           </label>
-        
+          </div>
+          
+          
+           <div class="checkbox">
+          <label for='sms'>
+          <input name="mens_movil" type="checkbox" id="sms" value="envia_sms" checked="checked"  />
+          Enviar SMS
+          </label>
+          </div>
+          </div>
 <hr>          <input type="submit" name="imprimir4" value="Enviar datos" class="btn btn-primary"/>
         
     </form>
@@ -364,6 +380,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
     </form>
     </div>
   </div>
+</div>
 </div>
 </div>
 <? include("../../pie.php");?>
