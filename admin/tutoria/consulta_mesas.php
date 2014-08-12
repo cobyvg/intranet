@@ -227,7 +227,7 @@ include("menu.php");
 		<?php endif; ?>
 		
 		
-		<!-- SCALLFODDING -->
+		<!-- SCAFFOLDING -->
 		<div id="dhtmlgoodies_dragDropContainer" class="row">
 			
 			<!-- COLUMNA IZQUIERDA -->

@@ -38,57 +38,74 @@ include("../../menu.php");
 include("menu.php");
 ?>
 
-<div class="container">
-  
-  <div class="page-header">
-    <h2>Mensaje: <?php echo $page_header; ?> <br><small>Enviado por <?php echo $mensaje['origen']; ?> el <?php echo fecha_actual2($mensaje['ahora']); ?></small></h2>
-  </div>
-  <div class="row no_imprimir">
-    <div class="col-sm-12">
-      <a href="index.php" class="btn btn-default"><span class="fa fa-times"></span> Cerrar</a>
-      <a href="redactar.php?profes=1&origen=<?php echo $mensaje['origen']; ?>&asunto=RE: <?php echo $mensaje['asunto']; ?>" class="btn btn-primary"><span class="fa fa-reply"></span> Responder</a>
-      <a href="#" class="btn btn-info" onclick="javascript:print();"><span class="fa fa-print"></span> Imprimir</a>
-      <?php
-      $id !== $idprof ? $buzon='recibidos' : $buzon='enviados';
-      ?>
-      <a href="index.php?inbox=<?php echo $buzon; ?>&delete=<?php echo $idprof; ?>" class="btn btn-danger" data-bb="confirm-delete"><span class="fa fa-trash-o"></span> Eliminar</a>
-    </div>
-  </div>
-  
-  <br>
-  
-  <div class="row">
-  
-    <div class="col-sm-8">
-      <?php echo $mensaje['texto']; ?>
-    </div>
-    
-    <div class="col-sm-4">
-      <div class="well no_imprimir">
-        <fieldset>
-          <legend class="text-warning">Destinatario(s)</legend>
-        
-        <?php
-        $result = mysql_query("SELECT recibidoprofe, profesor from mens_profes where id_texto = '$id'");
-        while($destinatario = mysql_fetch_array($result)) {
-	        $n_profesor = $destinatario[1];
-	        if ($destinatario[0] == '1') {
-	        	echo "<span class=\"text-success\">$n_profesor; </span>";
-	        }
-	        else {
-	        	echo "<span class=\"text-danger\">$n_profesor; </span>";
-	        }
-        }
-        ?>
-        </fieldset>
-        
-      </div>
-    </div>
-    
-  </div>
-  
-</div>
+	<div class="container">
+	  
+	  <!-- TITULO DE LA PAGINA -->
+	  <div class="page-header">
+	    <h2>Mensajes <small>Leer un mensaje</small></h2>
+	  </div>
+		
+	  <!-- SCAFFOLDING -->
+	  <div class="row">
+	  	
+	  	<!-- COLUMNA CENTRAL -->
+	    <div class="col-sm-12">
+	    
+	    	<h3 class="text-info"><?php echo $mensaje['asunto']; ?></h3>
+	    	<h5 class="text-muted">Enviado por <?php echo $mensaje['origen']; ?> el <?php echo fecha_actual2($mensaje['ahora']); ?></h5>
+	    	
+	    	<br>
+	    	
+	      <?php echo $mensaje['texto']; ?>
+	      
+				<br>
+				<br>
+	      
+	      <div class="hidden-print">
+	      	<a href="index.php" class="btn btn-default">Volver</a>
+	      	<a href="redactar.php?profes=1&origen=<?php echo $mensaje['origen']; ?>&asunto=RE: <?php echo $mensaje['asunto']; ?>" class="btn btn-primary">Responder</a>
+	      	<a href="#" class="btn btn-info" onclick="javascript:print();">Imprimir</a>
+	      	<?php $id !== $idprof ? $buzon='recibidos' : $buzon='enviados'; ?>
+	      	<a href="index.php?inbox=<?php echo $buzon; ?>&delete=<?php echo $idprof; ?>" class="btn btn-danger" data-bb="confirm-delete">Eliminar</a>
+	      </div>
+	      
+	    </div><!-- /.col-sm-12 -->
+	    
+	  </div><!-- /.row -->
+	  
+	  <br>
+	  
+	  <div class="row hidden-print">
+	  
+	  	<div class="col-sm-12">
+	  	
+			  <div class="well">
+			    <fieldset>
+			      <legend>Destinatarios</legend>
+			    
+			    <?php
+			    $result = mysql_query("SELECT recibidoprofe, profesor from mens_profes where id_texto = '$id'");
+			    while($destinatario = mysql_fetch_array($result)) {
+			      $n_profesor = $destinatario[1];
+			      if ($destinatario[0] == '1') {
+			      	echo "<span class=\"text-success\">$n_profesor; </span>";
+			      }
+			      else {
+			      	echo "<span class=\"text-danger\">$n_profesor; </span>";
+			      }
+			    }
+			    ?>
+			    </fieldset>
+			    
+			  </div><!-- /.well -->
+	  	
+	  	</div><!-- /.col-sm-12 -->
+	  
+	  </div><!-- /.row -->
+	  
+	</div><!-- /.container -->
 
 <?php include('../../pie.php'); ?>
+
 </body>
 </html>

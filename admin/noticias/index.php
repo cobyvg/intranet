@@ -113,7 +113,7 @@ include("menu.php");
 							</tbody>
 							<tfoot>
 								<tr>
-									<td colspan="5">
+									<td colspan="7">
 										<div class="text-right text-muted">Mostrando <?php echo mysql_num_rows($result); ?> de <?php echo $limit; ?>. Total: <?php echo $total; ?> resultados</div>
 									</td>
 								</tr>

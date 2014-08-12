@@ -19,10 +19,6 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 $profesor = $_SESSION['profi'];
 
-include("../../menu.php");
-include("menu.php");
-
-$datatables_activado = true;  
 
 isset($_GET['inbox']) ? $_buzon = $_GET['inbox'] : $_buzon = 'recibidos';
 isset($_GET['delete']) ? $idmensaje = intval($_GET['delete']) : $idmensaje=0;
@@ -55,6 +51,11 @@ switch ($_buzon) {
 		$result = mysql_query("SELECT ahora, asunto, id, destino, id, texto FROM mens_texto WHERE origen = '$profesor' AND oculto NOT LIKE '1' ORDER BY ahora DESC LIMIT 0, 200");
 		break;
 }
+
+$PLUGIN_DATATABLES = 1;
+
+include("../../menu.php");
+include("menu.php");
 ?>
 
 
@@ -87,7 +88,7 @@ switch ($_buzon) {
         a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; }
       </style>
       
-      <table class="table table-striped table-hover table-datatable">
+      <table class="table table-striped table-hover datatable">
         <thead>
           <tr>
             <?php $i=0; while ($tabla_encabezado[$i] != FALSE): ?>
@@ -110,7 +111,7 @@ switch ($_buzon) {
           <tr> 
             <td width="25%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[3]; ?><?php if(!$leido) echo '</strong>'; ?></a></td>        
             <td width="55%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[1]; if($pos !== false) echo ' <span class="pull-right fa fa-paperclip fa-lg"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
-            <td width="15%" nowrap><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php echo fecha_actual2($row[0]); ?></a><?php if(!$leido) echo '</strong>'; ?></td>
+            <td width="15%" data-order="<?php echo $row[0]; ?>" nowrap><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php echo fecha_actual2($row[0]); ?></a><?php if(!$leido) echo '</strong>'; ?></td>
             <td width="5%"><a class="link-msg" href="?inbox=<?php echo $_buzon; ?>&delete=<? echo $row[4] ;?>" data-bb="confirm-delete"><span class="fa fa-trash-o fa-lg"></span></a></td>
           </tr>
       	<?php endwhile; ?>
@@ -131,39 +132,30 @@ switch ($_buzon) {
 $(document).ready(function() {
 	$('.alert-fadeout').delay(5000).fadeOut('slow');
 	
-    $('.table-datatable').dataTable( {
-    		"oLanguage": {
-    			"sProcessing":     "Procesando...",
-    		    "sLengthMenu":     "Mostrar _MENU_ registros",
-    		    "sZeroRecords":    "No se encontraron resultados",
-    		    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-    		    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    		    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-    		    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-    		    "sInfoPostFix":    "",
-    		    "sSearch":         "Buscar:",
-    		    "sUrl":            "",
-    		    "sInfoThousands":  ",",
-    		    "sLoadingRecords": "Cargando...",
-    		    "oPaginate": {
-    		        "sFirst":    "Primero",
-    		        "sLast":     "Último",
-    		        "sNext":     "&raquo;",
-    		        "sPrevious": "&laquo;"
-    		    },
-    		    "oAria": {
-    		        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-    		        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    		    }
-    				
-    		},
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": false,
-        "bInfo": true,
-        "bAutoWidth": false
-    });
+  var table = $('.datatable').DataTable({
+  		"paging":   true,
+      "ordering": true,
+      "info":     false,
+      
+  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+  		
+  		"order": [[ 2, "desc" ]],
+  		
+  		"language": {
+  		            "lengthMenu": "_MENU_",
+  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+  		            "info": "Página _PAGE_ de _PAGES_",
+  		            "infoEmpty": "No hay resultados disponibles.",
+  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
+  		            "search": "Buscar: ",
+  		            "paginate": {
+  		                  "first": "Primera",
+  		                  "next": "Última",
+  		                  "next": "",
+  		                  "previous": ""
+  		                }
+  		        }
+  	});
 });
 </script>
    

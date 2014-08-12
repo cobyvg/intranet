@@ -132,7 +132,7 @@ include ("menu.php");
 		<?php endif; ?>
 		
 		
-		<!-- SCALLFODDING -->
+		<!-- SCAFFOLDING -->
 		<div class="row">
 			
 			

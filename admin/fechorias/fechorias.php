@@ -30,7 +30,7 @@ $imprimir_activado = true;
 		</div>
 		
 		
-		<!-- SCALLFODDING -->
+		<!-- SCAFFOLDING -->
   	<div class="row">
   		
   		<!-- COLUMNA CENTRAL -->
