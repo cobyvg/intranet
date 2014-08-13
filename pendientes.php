@@ -269,7 +269,7 @@ $men2 = mysql_query($men1);
 if(mysql_num_rows($men2) > 0)
 {
 
-	echo "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><p class='lead'><i class='fa fa-comment'> </i> Mensajes de Profesores</p><hr /><ul>";
+	echo "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><p class='lead'><i class='fa fa-comments'></i> Mensajes de Profesores</p><hr /><ul>";
 	while($men = mysql_fetch_row($men2))
 {
 $n_mensajes+=1;
@@ -298,26 +298,27 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
     <div class="modal-content">
       <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-    <h4 class="modal-title">Mensaje de <? echo $origen;?> </p><small class="muted">Enviado <? echo $fechaenv;?></small></h4>
+    <h4 class="modal-title"><? echo $asunto;?><br><small class="muted">Enviado por <?php echo $origen; ?> <?php echo $fechaenv;?></small></h4>
   </div>
   
   <div class="modal-body">
-<p class="text-success"><? echo $asunto;?></p>
-<span style="color:#333"><? echo $texto;?></span>
+		<p><?php echo $texto; ?></p>
   </div>
+  
   <div class="modal-footer">
-  <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
-  <a href="#" target="_top" data-dismiss="modal"class="btn btn-warning">Cerrar</a>
-    <?
-	$asunto = str_replace('"','',$asunto);
-	$asunto = 'RE: '.$asunto;
-	echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
-?>
-<a href="index.php?verifica=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a>  
-<input type='hidden' name = 'id_ver' value = '$id' />
-</form>
+	  <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
+	  <a href="#" target="_top" data-dismiss="modal"class="btn btn-default">Cerrar</a>
+	  <?
+		$asunto = str_replace('"','',$asunto);
+		$asunto = 'RE: '.$asunto;
+		echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
+		?>
+		<a href="index.php?verifica=<?php echo $id; ?>" target="_top" class="btn btn-success">Leído</a>  
+		<input type='hidden' name = 'id_ver' value = '$id' />
+		</form>
+	</div>
 </div>
-</div>
+
 </div>
 </div>
 <?

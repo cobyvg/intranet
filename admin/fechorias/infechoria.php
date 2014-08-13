@@ -2,7 +2,7 @@
 if ( $_POST['unidad']) {
 	 $unidad = $_POST['unidad'];
 }
-if ($_POST['submit1'])
+if (isset($_POST['submit1']))
 {
 $notas = $_POST['notas']; 
 $grave = $_POST['grave'];
@@ -45,7 +45,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 	?>
 	<div class="container">
 <div class="page-header">
-  <h2>Problemas de Convivencia <small> Registro de un problema</small></h2>
+  <h2>Problemas de convivencia <small>Registro de un problema</small></h2>
 </div>
 <br />
 
@@ -105,228 +105,229 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 	}
 	?>	
 
-<FORM action="infechoria.php" method="POST" name="Cursos">
+<form method="post" action="infechoria.php" name="Cursos">
 
-<div class="well" align="left">
-
-<div class="form-group">
-<label> Grupo:</label> 
-<select name="unidad"
-	onChange="submit()" class="form-control">
-	<option><? echo $unidad;?></option>
-	<? if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<option>Cualquiera</option>";} ?>
-	<? unidad();?>
-</select> 
-</div>
-
-<div class="form-group">
-<label> Alumno:</label>
-	<?
-	if ($unidad=="Cualquiera") {$alumno_sel=""; $nom = "nombre[]";  $opcion = "multiple = 'multiple' style='height:250px;width:340px;'";}else{$alumno_sel = "WHERE unidad like '$unidad%'"; $nom = "nombre";}
-	?> <select name="<? echo $nom;?>" class="form-control"
-	<? echo $opcion;?>>
-	<?
-
-	if (!(is_array($nombre)) and $nombre !== "Selecciona un Alumno")
-	{
-		echo "<OPTION>$nombre</OPTION>";
-	}
-
-	if ($claveal == "")
-	{
-		$alumnos = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS $alumno_sel order by APELLIDOS asc");
-		if ($unidad=="Cualquiera"){}else{echo "<OPTION>Selecciona un Alumno</OPTION>";}
-		if ($unidad)
-		{
-			echo "<OPTION>Todos los alumnos</OPTION>";
-		}
-		 while($falumno = mysql_fetch_array($alumnos))
-		{
-			$sel="";						
-				if (is_array($nombre)) {
-					foreach($nombre as $n_alumno){
-						$tr1=explode(" --> ",$n_alumno);
-						$datos_al="$tr1[0] --> $tr1[1]";
-						if ($datos_al=="$falumno[0], $falumno[1] --> $falumno[2]"){
-							$sel = " selected ";
-						}						
-					}
+	<fieldset>
+		<legend>Registrar un problema</legend>
+	
+		<div class="well">
+		
+		<div class="form-group">
+		<label for="unidad">Unidad</label> 
+		<select class="form-control" id="unidad" name="unidad" onchange="submit()">
+			<option><? echo $unidad;?></option>
+			<? if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<option>Cualquiera</option>";} ?>
+			<? unidad();?>
+		</select> 
+		</div>
+		
+		<div class="form-group">
+		<label for="nombre">Alumno/a</label>
+			<?
+			if ($unidad=="Cualquiera") {$alumno_sel=""; $nom = "nombre[]";  $opcion = "multiple = 'multiple' style='height:250px;width:340px;'";}else{$alumno_sel = "WHERE unidad like '$unidad%'"; $nom = "nombre";}
+			?> <select class="form-control" id="nombre" name="<? echo $nom;?>">
+			<? echo $opcion;?>>
+			<?
+		
+			if (!(is_array($nombre)) and $nombre !== "Selecciona un Alumno")
+			{
+				echo "<OPTION>$nombre</OPTION>";
+			}
+		
+			if ($claveal == "")
+			{
+				$alumnos = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS $alumno_sel order by APELLIDOS asc");
+				if ($unidad=="Cualquiera"){}else{echo "<OPTION>Selecciona un Alumno</OPTION>";}
+				if ($unidad)
+				{
+					echo "<OPTION>Todos los alumnos</OPTION>";
 				}
-				
-					echo "<OPTION $sel>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>";
-			
-		}
-	}
-
-	else
-	{
-		$alumnos = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE CLAVEAL = '$claveal' order by APELLIDOS asc");
-
-		if ($falumno = mysql_fetch_array($alumnos))
-		{
-			do {
-
-
-			} while($falumno = mysql_fetch_array($alumnos));
-		}
-	}
-	?>
-</select> 
-</div> 
-
-<div class="form-group">
-<label>Fecha:</label>
-<div class="input-group" >
-  <input name="fecha" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<?if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-</div>
-
-<div class="form-group"> 
-<label> Gravedad:</label>
-<select name="grave" onChange="submit()" class="form-control">
-	<option><? echo $grave;?></option>
-	<?
-	tipo();
-	?>
-</select> 
-</div>
-
-<div class="form-group">
-<label>Asunto:</label>
-<select name="asunto" onChange="submit()" class="form-control">
-	<option><? 
-	
-	$sql0 = mysql_query("select tipo from listafechorias where fechoria = '$asunto'");
-	$sql1 = mysql_fetch_array($sql0);
-	if($sql1[0] !== $grave)
-	{
-		echo "<OPTION></OPTION>";
-	}
-	else
-	{ echo $asunto;}  ?></option>
-	<?
-	fechoria($grave);
-	?>
-</select> 
-</div>
-
-<div class="form-group">
-<label>Medida Adoptada:</label>
-	<?
-	
-	$tipo = "select distinct medidas from listafechorias where fechoria = '$asunto'";
-	$tipo1 = mysql_query($tipo);
-	while($tipo2 = mysql_fetch_array($tipo1))
-	{
-		if($tipo2[0] == "Amonestación escrita")
-		{
-			$medidaescr = $tipo2[0];
-			echo '<input name="medida" type="hidden" value="'.$tipo2[0].'">';
-		}
-		else
-		{
-			echo '<input name="medida" type="hidden" value="'.$tipo2[0].'">';
-		}
-	}
-
-	?> <input type="text" value="<? echo $medidaescr;?>" readonly
-	class="form-control"/> 
-	</div> 
-	
-<div class="form-group">
-	<label>Medidas
-Complementarias que deben tomarse:</label>
-<textarea name='medidas' rows="6" disabled="disabled"
-	class="form-control"><? if($medidas){ echo $medidad; }else{  medida2($asunto);} ?></textarea>
-</div>
-
- <?
-if($grave == 'grave' or $grave == 'muy grave'){
-	?> 
-	<div class="checkbox">
-	<label>
-	<input type="checkbox" name="expulsionaula" id="expulsionaula" value="1" <?  if ($expulsionaula == "1") { echo " checked ";}?>> El Alumno ha sido <u>expulsado</u> del aula 
+				 while($falumno = mysql_fetch_array($alumnos))
+				{
+					$sel="";						
+						if (is_array($nombre)) {
+							foreach($nombre as $n_alumno){
+								$tr1=explode(" --> ",$n_alumno);
+								$datos_al="$tr1[0] --> $tr1[1]";
+								if ($datos_al=="$falumno[0], $falumno[1] --> $falumno[2]"){
+									$sel = " selected ";
+								}						
+							}
+						}
+						
+							echo "<OPTION $sel>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>";
+					
+				}
+			}
+		
+			else
+			{
+				$alumnos = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE CLAVEAL = '$claveal' order by APELLIDOS asc");
+		
+				if ($falumno = mysql_fetch_array($alumnos))
+				{
+					do {
+		
+		
+					} while($falumno = mysql_fetch_array($alumnos));
+				}
+			}
+			?>
+		</select> 
 		</div> 
-	
-<? 
-}
-?> 
-	
-<div class="form-group">	
-<label>
-Descripci&oacute;n:</label>
-<textarea name='notas' rows="6" class="form-control"><? echo $notas; ?></textarea>
-</div> 
-
-<? 
-if ($id) {
-	?>
-
-<div class="form-group">
-	<label>Profesor</label>
- <SELECT  name="informa" class="form-control">
-    <?
-    if ($id) {
-    echo "<OPTION>".$informa."</OPTION>";	
-    }
-      
-  $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
-while($filaprofe = mysql_fetch_array($profe)) {
-	      echo"<OPTION>$filaprofe[0]</OPTION>";
-	} 
-	?>
-  </select>	
-  </div>
-  <?
-    }  
-    else{  
-if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'b') == TRUE){
-	?>
-<div class="form-group">
-<label>Profesor</label>
- <SELECT  name="informa" class="form-control">
-    <?
-    if ($id) {
-    echo "<OPTION>".$informa."</OPTION>";	
-    }
-    else{
-    	echo "<OPTION>".$_SESSION['profi']."</OPTION>";
-    }    
-  $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
-while($filaprofe = mysql_fetch_array($profe)) {
-	      echo"<OPTION>$filaprofe[0]</OPTION>";
-	} 
-	?>
-  </select>	
-  </div>
-	<?
-}
-else{
-	?>
-	 <input type="hidden" name="informa" value="<? echo $_SESSION['profi'];?>">	
-	<?
-}
-
-    }
-
-?>
-<input type="hidden" name="claveal" id="checkbox" value="<? echo $claveal;?>"> 
-<hr />
-<?
-if ($id) {
-echo '<input type="hidden" name="id" value="'.$id.'">';	
-echo '<input type="hidden" name="claveal" value="'.$claveal.'">';	
-echo '<input size=25 name = "submit2" type="submit" value="Actualizar datos" class="btn btn-warning btn-block">';
-}
-else{
-	echo '<input name=submit1 type=submit value="Enviar datos" class="btn btn-primary btn-block">';
-}
-?>
-
-
-</div>
-</FORM>
+		
+		<div class="form-group">
+		<label for="fecha">Fecha</label>
+		<div class="input-group" id="datetimepicker1">
+		  <input name="fecha" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<?if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>" >
+		  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		</div> 
+		</div>
+		
+		<div class="form-group"> 
+		<label for="grave"> Gravedad</label>
+		<select class="form-control" id="grave" name="grave" onchange="submit()">
+			<option><? echo $grave;?></option>
+			<?
+			tipo();
+			?>
+		</select> 
+		</div>
+		
+		<div class="form-group">
+		<label for="asunto">Conducta negativa</label>
+		<select class="form-control" id="asunto" name="asunto" onchange="submit()">
+			<option><? 
+			
+			$sql0 = mysql_query("select tipo from listafechorias where fechoria = '$asunto'");
+			$sql1 = mysql_fetch_array($sql0);
+			if($sql1[0] !== $grave)
+			{
+				echo "<OPTION></OPTION>";
+			}
+			else
+			{ echo $asunto;}  ?></option>
+			<?
+			fechoria($grave);
+			?>
+		</select> 
+		</div>
+		
+		<div class="form-group">
+		<label class="medida">Medida Adoptada</label>
+			<?
+			
+			$tipo = "select distinct medidas from listafechorias where fechoria = '$asunto'";
+			$tipo1 = mysql_query($tipo);
+			while($tipo2 = mysql_fetch_array($tipo1))
+			{
+				if($tipo2[0] == "Amonestación escrita")
+				{
+					$medidaescr = $tipo2[0];
+					echo '<input type="hidden" id="medida" name="medida" value="'.$tipo2[0].'">';
+				}
+				else
+				{
+					echo '<input  type="hidden"id="medida" name="medida" value="'.$tipo2[0].'">';
+				}
+			}
+		
+			?> <input type="text" value="<? echo $medidaescr;?>" readonly
+			class="form-control"/> 
+			</div> 
+			
+		<div class="form-group">
+			<label for="medidas">Medidas complementarias que deben tomarse</label>
+			<textarea class="form-control" id="medidas" name="medidas" rows="7" disabled><? if($medidas){ echo $medidad; }else{  medida2($asunto);} ?></textarea>
+		</div>
+		
+		 <?
+		if($grave == 'grave' or $grave == 'muy grave'){
+			?> 
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" id="expulsionaula" name="expulsionaula" value="1" <?  if ($expulsionaula == "1") { echo " checked ";}?>> El alumno ha sido <u>expulsado</u> del aula 
+				</label>
+			</div> 
+			
+		<? 
+		}
+		?> 
+			
+		<div class="form-group">	
+			<label for="notas">Descripción:</label>
+			<textarea class="form-control" id="notas" name="notas" rows="7" placeholder="Describe aquí los detalles del incidente..."><? echo $notas; ?></textarea>
+		</div> 
+		
+		<? 
+		if ($id) {
+			?>
+		
+		<div class="form-group">
+			<label for="informa">Profesor</label>
+		 <select class="form-control" id="informa" name="informa">
+		    <?
+		    if ($id) {
+		    echo "<OPTION>".$informa."</OPTION>";	
+		    }
+		      
+		  $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
+		while($filaprofe = mysql_fetch_array($profe)) {
+			      echo"<OPTION>$filaprofe[0]</OPTION>";
+			} 
+			?>
+		  </select>	
+		  </div>
+		  <?
+		    }  
+		    else{  
+		if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'b') == TRUE){
+			?>
+		<div class="form-group">
+		<label class="informa">Profesor</label>
+		 <select class="form-control" id="informa" name="informa">
+		    <?
+		    if ($id) {
+		    echo "<OPTION>".$informa."</OPTION>";	
+		    }
+		    else{
+		    	echo "<OPTION>".$_SESSION['profi']."</OPTION>";
+		    }    
+		  $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
+		while($filaprofe = mysql_fetch_array($profe)) {
+			      echo"<OPTION>$filaprofe[0]</OPTION>";
+			} 
+			?>
+		  </select>	
+		  </div>
+			<?
+		}
+		else{
+			?>
+			 <input type="hidden" id="informa" name="informa" value="<? echo $_SESSION['profi'];?>">	
+			<?
+		}
+		
+		    }
+		
+		?>
+		<input type="hidden" id="claveal" name="claveal" value="<? echo $claveal;?>"> 
+		<hr />
+		<?
+		if ($id) {
+		echo '<input type="hidden" name="id" value="'.$id.'">';	
+		echo '<input type="hidden" name="claveal" value="'.$claveal.'">';	
+		echo '<input size=25 name = "submit2" type="submit" value="Actualizar datos" class="btn btn-warning">';
+		}
+		else{
+			echo '<input name=submit1 type=submit value="Registrar" class="btn btn-primary">';
+		}
+		?>
+		
+		
+		</div>
+	</fieldset>
+</form>
 </div>
 </div>
 </div>
@@ -337,7 +338,7 @@ else{
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha').datetimepicker({
+		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		})

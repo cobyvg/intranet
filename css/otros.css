@@ -99,6 +99,10 @@ table.dataTable thead .sorting:after {
 	text-transform: uppercase;
 }
 
+.table-vcentered th, .table-vcentered td {
+	vertical-align: middle !important;
+}
+
 .table-centered th, .table-centered td {
 	text-align: center;
 }
@@ -171,6 +175,39 @@ li.nav-header {
 .modal .close {
 	color: #fff;
 }
+
+.alert .modal p {
+	color: #333;
+}
+
+.alert .modal p a {
+	color: #18bc9c;
+}
+
+
+/* FECHORIAS */
+
+.expulsion-centro {
+	background-color: #FF4444;
+}
+
+.expulsion-aula {
+	background-color: #FFBB33;
+}
+
+.amonestacion-escrita {
+	background-color: #33B5E5;
+}
+
+.aula-convivencia-jefatura {
+	background-color: #AA66CC;
+}
+
+.aula-convivencia-profesor {
+	background-color: #99CC00;
+}
+
+
 
 /* LOGIN FORM */
 .form-signin {

@@ -21,27 +21,28 @@ if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activ1 = ' class="activ
 if (strstr($_SERVER['REQUEST_URI'],'mensajes')==TRUE){ $activ2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'upload')==TRUE){ $activ3 = ' class="active" ';}
 
+$PLUGIN_DATATABLES = 1;
+
 include("../../menu.php");
 include("menu.php");
-$datatables_activado = true;
+
 if(isset($_GET['id'])){$id = $_GET['id'];}
 ?>
   <?php
 
   echo "<div class='container'>";
   echo '<div class="row">';
-  echo '<div aligna="center">
-<div class="page-header">
-  <h2>Problemas de Convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
+  echo '<div class="page-header">
+  <h2>Problemas de convivencia <small>Últimos problemas</small></h2>
 </div>
 </div>
 <br />
 <div class="col-sm-12">';
       
-    echo ' <div align="center"><div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
-        <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
-      </div>
-   ';
+    echo '<div class="well text-center" id="t_larga_barra" style="width:320px; margin:0 auto;">
+        		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+     		 </div>';
+     		 
     echo "</div>";
     echo "<div id='t_larga' style='display:none' >";
   if (isset($_POST['confirma'])) {
@@ -73,12 +74,12 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
   // echo $query0;
   $result = mysql_query ($query0);
  echo "<form action='lfechorias.php' method='post' name='cnf'>
- <table class='table table-bordered' style='width:auto' align='center'><tr><td style='background-color:#FFFF99'>Expulsión del Centro</td><td style='background-color:#CCFFCC'>Amonestación escrita</td><td style='background-color:#FF9900'>Expulsión del Aula</td><td style='background-color:#CCCCFF'>Aula de Convivencia: Jefatura</td><td style='background-color:#dea9cd'>Aula de Convivencia: Profesor</td></tr></table><br />";
-		echo '<table class="table table-striped table-bordered tabladatos">';
+ <table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>Expulsión del Centro</td><td class='amonestacion-escrita'>Amonestación escrita</td><td class='expulsion-aula'>Expulsión del aula</td><td class='aula-convivencia-jefatura'>Aula de convivencia (Jefatura)</td><td class='aula-convivencia-profesor'>Aula de convivencia (Profesor)</td></tr></table><br />";
+		echo '<div class="table-responsive"><table class="table table-striped table-bordered table-vcentered datatable">';
 		$fecha1 = (date("d").-date("m").-date("Y"));
         echo "<thead><tr>
 		<th>ALUMNO</th>
-		<th>CURSO</th>
+		<th>UNIDAD</th>
 		<th>FECHA</th>
 		<th>TIPO</th>
 		<th>INFORMA</th>
@@ -122,51 +123,80 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 		$rownumero= mysql_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
-				$bgcolor="background-color:transparent;";
-				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="style='background-color:#CCFFCC;'";}
-				if($expulsionaula == "1"){$bgcolor="background-color:#FF9900;";}
+				$bgcolor="class=''";
+				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="class='amonestacion-escrita'";}
+				if($expulsionaula == "1"){$bgcolor="class='expulsion-aula'";}
 				
 				if($aula_conv > 0){
 					if ($horas == "123456") {
-						$bgcolor="background-color:#CCCCFF;";
+						$bgcolor="class='aula-convivencia-jefatura'";
 					}
 					else{
-						$bgcolor="background-color:#dea9cd;";
+						$bgcolor="class='aula-convivencia-profesor'";
 					}
 				}	
 				
-				if($expulsion > 0){$bgcolor="style='background-color:#FFFF99;'";}		
+				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}		
 				if($recibido == '1'){$comentarios1="<i class='fa fa-check' rel='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle'  rel='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
 		echo "<tr>
 		<td nowrap>";
-		$foto="";
-		$foto = "<img src='../../xml/fotos/$claveal.jpg' width='55' height='64' class=''  />";
+		$foto="<span class='fa fa-user fa-4x'></span>";
+		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='55' height='64'>";
 		echo $foto."&nbsp;&nbsp;";
 		echo "<a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
-		<td style='vertical-align:middle'>$rowcurso</td>
-		<td nowrap style='vertical-align:middle'>$fecha</td>
-		<td style='vertical-align:middle'>$asunto</td>
-		<td style='vertical-align:middle'><span  style='font-size:0.9em'>$informa</span></td>
-		<td  style='$bgcolor vertical-align:middle'>$grave</td>
-		<td style='vertical-align:middle' style='vertical-align:middle'><center>$rownumero</center></td>
-		<td style='vertical-align:middle'>$caducada</td>
-		<td nowrap style='vertical-align:middle'>$comentarios1 $comentarios</td><td nowrap style='vertical-align:middle'>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o'  rel='tooltip' title='Borrar el registro' data-bb='confirm-delete'> </i></a>&nbsp;&nbsp;";}	
+		<td>$rowcurso</td>
+		<td nowrap>$fecha</td>
+		<td>$asunto</td>
+		<td><span  style='font-size:0.9em'>$informa</span></td>
+		<td $bgcolor>$grave</td>
+		<td><center>$rownumero</center></td>
+		<td>$caducada</td>
+		<td nowrap>$comentarios1 $comentarios</td><td nowrap>"; 
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar'></span></a>";}	
 
-		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search' rel='tooltip' title='Detalles del problema'> </i></A></td>
-		<td style='vertical-align:middle'>";
+		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles del problema'></span></a></td>
+		<td>";
 		//echo "$expulsion >  $expulsionaula";
 		if (stristr($_SESSION['cargo'],'1')) {
 			echo "<input type='checkbox' name='$id' value='1' $marca onChange='submit()' />";			
 		}		
 		echo "</td></tr>";
         }
-        echo "</tbody></table>";
+        echo "</tbody></table></div>";
         echo "<input type='hidden' name='confirma' value='si' />";
         echo "</form>";
 		echo "</div></div></div></div>";
   ?>
   <? include("../../pie.php");?>
+  
+  <script>
+  $(document).ready(function() {
+    var table = $('.datatable').DataTable({
+    		"paging":   true,
+        "ordering": true,
+        "info":     false,
+        
+    		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+    		
+    		"order": [[ 2, "desc" ]],
+    		
+    		"language": {
+    		            "lengthMenu": "_MENU_",
+    		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+    		            "info": "Página _PAGE_ de _PAGES_",
+    		            "infoEmpty": "No hay resultados disponibles.",
+    		            "infoFiltered": "(filtrado de _MAX_ resultados)",
+    		            "search": "Buscar: ",
+    		            "paginate": {
+    		                  "first": "Primera",
+    		                  "next": "Última",
+    		                  "next": "",
+    		                  "previous": ""
+    		                }
+    		        }
+    	});
+  });
+  </script>
   <script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';

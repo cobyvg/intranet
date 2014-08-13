@@ -26,7 +26,7 @@ $imprimir_activado = true;
 	
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-		  <h2>Problemas de Convivencia <small> Consultas</small></h2>
+		  <h2>Problemas de convivencia <small> Consultas</small></h2>
 		</div>
 		
 		

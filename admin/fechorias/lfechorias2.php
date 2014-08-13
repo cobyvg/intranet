@@ -37,7 +37,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
   
   echo '<div aligna="center">
 <div class="page-header">
-  <h2>Problemas de Convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h1>
+  <h2>Problemas de convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h1>
   <h3 style="color:#08c" align=center>';
  echo "$nom0[0] $nom0[1] ($nom0[2])";
   echo '</h3>

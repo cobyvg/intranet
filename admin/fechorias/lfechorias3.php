@@ -9,33 +9,28 @@ if ($_SESSION['autentificado'] != 1) {
 	exit();
 }
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
+
+$PLUGIN_DATATABLES = 1;
+
+include ("../../menu.php");
+include ("menu.php");
 ?>
-<?php
-		include ("../../menu.php");
-		include ("menu.php");
-		$datatables_activado = true;
-		?>
-<style type="text/css">
-.table td{
-	vertical-align:middle;
-}
-</style>
 <div class="container">
 <div class="page-header">
-  <h2>Problemas de Convivencia <small> Ranking de Fechorías</small></h2>
+  <h2>Problemas de convivencia <small> Ranking de Fechorías</small></h2>
 </div>
 <br />
 
 <div class="row">
 
-<div class="col-sm-10 col-sm-offset-1">	
-    <div class="well lead" id="t_larga_barra" style="width:320px; margin:auto">
-        <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
-      </div>
+<div class="col-sm-12">	
+    <div class="well text-center" id="t_larga_barra" style="width:320px; margin:0 auto;">
+        		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+     		 </div>
    <div id='t_larga' style='display:none' >		
 <?php
 
-		echo "<table class='table table-striped tabladatos' align='center'>";
+		echo "<table class='table table-bordered table-striped table-vcentered datatable'>";
 		$fecha1 = (date ( "d" ) . - date ( "m" ) . - date ( "Y" ));
 		echo "<thead>
 		<th>ALUMNO</th>
@@ -75,8 +70,8 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 		if(!(empty($apellidos))){
 			echo "<tr>
 		<td nowrap>";
-		$foto="";
-		$foto = "<img src='../../xml/fotos/$claveal.jpg' width='55' height='64' class=''  />";
+		$foto="<span class='fa fa-user fa-4x'></span>";
+		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='55' height='64'>";
 		echo $foto."&nbsp;&nbsp;";			
 		echo "<a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
 		<td $bgcolor>$rowcurso</td>
@@ -98,6 +93,34 @@ registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 		</div>
 
         <? include("../../pie.php");?>
+   <script>
+   $(document).ready(function() {
+     var table = $('.datatable').DataTable({
+     		"paging":   true,
+         "ordering": true,
+         "info":     false,
+         
+     		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+     		
+     		"order": [[ 2, "desc" ]],
+     		
+     		"language": {
+     		            "lengthMenu": "_MENU_",
+     		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+     		            "info": "Página _PAGE_ de _PAGES_",
+     		            "infoEmpty": "No hay resultados disponibles.",
+     		            "infoFiltered": "(filtrado de _MAX_ resultados)",
+     		            "search": "Buscar: ",
+     		            "paginate": {
+     		                  "first": "Primera",
+     		                  "next": "Última",
+     		                  "next": "",
+     		                  "previous": ""
+     		                }
+     		        }
+     	});
+   });
+   </script>
   <script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';

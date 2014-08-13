@@ -106,7 +106,7 @@ $fecha0=$hoy;
   echo '<div class="row">';
   echo '<div aligna="center">
 <div class="page-header">
-  <h2>Problemas de Convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
+  <h2>Problemas de convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
 </div>
 </div>
 <div class="col-sm-8 col-sm-offset-2">';
