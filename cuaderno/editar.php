@@ -20,11 +20,12 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 include("../menu.php");
 // Titulo
-echo "<br /><div align='center' class='page-header'>";
+echo "<div class='container'><div class='row'>";
+echo "<br /><div class='page-header'>";
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
 echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small> Operaciones con los datos</small></h2>";
-echo "</div><br />";
+echo "</div>";
 echo '<div align="center">';
 
  foreach($_POST as $key => $val)

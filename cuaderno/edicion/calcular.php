@@ -68,23 +68,23 @@ $n_cursos = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof 
 	$curso_sin = substr($curso,0,strlen($curso) - 1);
 // Titulos
 
-echo "<br /><table align='center' class='table table-striped' style='width:auto'>"; 
-echo "<thead><th style='vertical-align:bottom;background-color:#ddd'>NC</th><th colspan='2' style='vertical-align:bottom;background-color:#ddd'>Alumno</th>";
+echo "<table align='center' class='table table-striped' style='width:auto'>"; 
+echo "<thead><th style='vertical-align:bottom;background-color:#fff'>NC</th><th colspan='2' style='vertical-align:bottom;background-color:#fff'>Alumno</th>";
 // Número de las columnas de la tabla	
 	while($col20 = mysql_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
-	echo "<th nowrap style='background-color:#ddd'>
+	echo "<th nowrap style='background-color:#fff'>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-info'>$col20[1]</span> </div>
+<div class='Rotate-90'><span class='text-info text-lowercase'>$col20[1]</span> </div>
 </div> </th>";
 				
 	// echo "<th><a href='#' rel='Tooltip' title='$col20[1]'>$ident</a></th>";
 	}
 	//echo "<th style='vertical-align:bottom;background-color:#eec'>M. Aritm&eacute;tica</th></thead><tbody>";
-	echo "<th nowrap style='background-color:#ddd'>
+	echo "<th nowrap style='background-color:#fff'>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-danger'><b>Media Aritmética</b></span> </div>
+<div class='Rotate-90'><span class='text-danger text-lowercase'><b>Media Aritmética</b></span> </div>
 </div> </th></thead>";
 	
 // Tabla para cada Grupo
@@ -198,25 +198,25 @@ while ($esta=mysql_fetch_array($est)){
 	}}
 	
 	//media del grupo
-	echo "<tr class='info'><td align='right' colspan='3' style='font-weight:bold;'>Media del Grupo</td>";
+	echo "<tr class='info'><td align='left' colspan='3' style='font-weight:bold;'>Media del Grupo</td>";
 	for($j = 1;$j<=$i;$j++) {
 	$x_total=$sumanotas[$j]/$t_alumnos;
 	$x=$sumanotas[$j]/($aprobados[$j]+$suspensos[$j]);
            // redondeamos o truncamos con la funcion redondeo
-	echo "<td align='center'>";redondeo($x_total);  echo"</td>";
+	echo "<td align='left'>";redondeo($x_total);  echo"</td>";
 							}
 	$fin=$toti/($m_ap+$m_sus);
 	$fin_total=$toti/($t_alumnos);
 
-    echo "<td align='center' style='font-weight:bold'>"; redondeo($fin_total);  echo"</td>";
+    echo "<td style='font-weight:bold'>"; redondeo($fin_total);  echo"</td>";
 	
-	echo "</tr><tr class='success'><td colspan='3' align='right' style='font-weight:bold;'>Aprobados</td>";
+	echo "</tr><tr class='success'><td colspan='3' align='left' style='font-weight:bold;'>Aprobados</td>";
 	for($j = 1;$j<=$i;$j++) {
 	echo "<td align='center'>$aprobados[$j]</td>";
 	$pap=($mediaaprobados/($t_alumnos))*100;
 							}
     echo "<td align='center' style='font-weight:bold'>$mediaaprobados => "; redondeo($pap); echo"%</td>";
-	echo "</tr><tr class='error'><td colspan='3' style='font-weight:bold;'>Suspensos</td>";
+	echo "</tr><tr class='danger'><td colspan='3' style='font-weight:bold;'>Suspensos</td>";
 	for($j = 1;$j<=$i;$j++) {
 	  $t_s1=$t_alumnos-$aprobados[$j];
 	echo "<td align='center'>$t_s1 </td>";

@@ -7,7 +7,7 @@ include("config.php");
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 	exit();
 }
 
@@ -88,12 +88,14 @@ if(empty($curso))
 mysql_query("ALTER TABLE  datos CHANGE  nota VARCHAR( 48 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  '' ");
 
 // Titulo
-echo "<br /><div align='center' class='page-header no_imprimir'>";
+echo "<div class='container'><div class='row'>";
+echo "<br /><div class='page-header hidden-print'>";
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
 echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small>Registro de datos</small></h2>";
 echo "</div>";
-echo '<div align="center">';
+echo "</div></div>";
+echo '<div class="container-fluid"><div class="row-fluid"><div align="center">';
 
 // Enviar datos y procesarlos
 if(isset($_POST['enviar']))
@@ -139,7 +141,7 @@ if($pr and $dia and $hora)
 	$col0 = mysql_query($col);
 	$cols = mysql_num_rows($col0);
 	$sin_coma=$curso;
-	echo "<p class='lead'>$curso_sin <span class='muted'>( $nom_asig )</span></p>";
+
 	echo '<form action="cuaderno.php" method="post" name="imprime" class="form-inline">';
 	if(isset($_GET['seleccionar'])){
 		$seleccionar=$_GET['seleccionar'];
@@ -149,24 +151,21 @@ if($pr and $dia and $hora)
 	}
 	if($seleccionar == "1"){
 		?>
-<div class="well" align="center" style="width: 360px;">
-<legend>Selecciona tus Alumnos...</legend>
-<hr />
-<a href="javascript:seleccionar_tod()" class="btn btn-success">Marcarlos
-todos</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
+<div class="well hidden-print" align="center" style="width: 500px;"><legend>Selecciona
+tus Alumnos...</legend> <a href="javascript:seleccionar_tod()"
+	class="btn btn-success">Marcarlos todos</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
 	href="javascript:deseleccionar_tod()" class="btn btn-danger">Desmarcarlos
 todos</a></div>
 <br />
 		<?
 	}
 	?>
-<table style="width: auto;" align="center" cellpadding="5">
-	<tr>
-		<td valign="top">
-		
+<div class="col-md-9">	
+
 	<?
-		echo "<table class='table table-striped table-bordered table-condensed' style='width:100%'>";
-		echo "<thead><th colspan=2 style='vertical-align:bottom;background-color:#eee'></th>";
+		echo "<p class='lead bg-primary'>$curso_sin <span class='muted'>( $nom_asig )</span></p>";
+		echo "<table class='table table-striped table-condensed' style='width:100%'>";
+		echo "<thead><th colspan=2 style='vertical-align:bottom;background-color:#fff'></th>";
 		// Número de las columnas de la tabla
 		$cols2=0;
 		while($col20 = mysql_fetch_array($col0)){
@@ -179,21 +178,21 @@ todos</a></div>
 			$nombre_col = $col20[1];
 			$mens0 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&curso=$curs0&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
 			if (strlen($nombre_col)>26) {
-				$col_vert = substr($nombre_col,0,25)."..";
+				$col_vert = substr($nombre_col,0,24)."...";
 			}
 			else {
 				$col_vert = $nombre_col;
 			}
 
-			echo "<th nowrap style='background-color:#eee'>
+			echo "<th nowrap style='background-color:#fff'>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-info'>$col_vert</span> </div>
+<div class='Rotate-90'><span class='text-info text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
 </div> </th>";
 		}
 		if($seleccionar == 1){
 			echo "<th nowrap style='background-color:#999; color:#fff'>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'> Selección de alumnos </div>
+<div class='Rotate-90'><span class='text-lowercase' style='font-weight:normal'> Selección de alumnos </span></div>
 </div> </th>";
 		}
 		echo "</thead>";
@@ -204,16 +203,16 @@ todos</a></div>
 		while ($curso11 = mysql_fetch_array($curso20))
 		{
 			$curso = $curso11[0];
-			$nivel_curso = substr($curso,0,1);			
+			$nivel_curso = substr($curso,0,1);
 			$nombre = $curso11[2];
-			
+
 			// Número de Columnas para crear la tabla
 			$num_col = 2 + $cols + $cols2;
-			
+
 			//	Problemas con Diversificación (4E-Dd)
 			$profe_div = mysql_query("select * from profesores where grupo = '$curso'");
-			if (mysql_num_rows($profe_div)<1) {		
-				
+			if (mysql_num_rows($profe_div)<1) {
+
 				$div = $curso;
 				$grupo_div = mysql_query("select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
 				$grupo_diver = mysql_fetch_row($grupo_div);
@@ -223,7 +222,7 @@ todos</a></div>
 				if($seleccionar=="1"){	$num_col += 1;	}
 
 			}
-			
+
 			// Seleccionar alumnos
 			if($seleccionar=="1"){
 				// Si seleccionamos alumnos, se lo indicamos a poner_notas.php
@@ -306,47 +305,49 @@ todos</a></div>
 		?> <a href="" onclick="window.open('<? echo $inf;?>')"> <?
 		echo $foto;
 		?> </a><? echo $row[1];?>&nbsp;</td>
-		<td nowrap style='vertical-align: middle' class='text-info' style='width:auto;'><a href="" onclick="window.open('<? echo $inf;?>')"> <?
-		?> &nbsp; <? echo $row[2].', '.$row[3];?></a></td>
-		<?
-		// Si hay datos escritos rellenamos la casilla correspondiente
-		$colu10 = "select distinct id, Tipo from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by id";
-		$colu20 = mysql_query($colu10);
-		while($colus10 = mysql_fetch_array($colu20)){
-			$id = $colus10[0];
-			$t_dato = $colus10[1];
-			$dato0 = mysql_query("select nota, ponderacion from datos where claveal = '$claveal' and id = '$id'");
-			$dato1 = mysql_fetch_array($dato0);
-			if($dato1[0] < 5){$color="#9d261d";}else{$color="navy";}
+		<td nowrap style='vertical-align: middle' class='text-info'
+			style='width:auto;'><a href=""
+			onclick="window.open('<? echo $inf;?>')"> <?
+			?> &nbsp; <? echo $row[2].', '.$row[3];?></a></td>
+			<?
+			// Si hay datos escritos rellenamos la casilla correspondiente
+			$colu10 = "select distinct id, Tipo from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by id";
+			$colu20 = mysql_query($colu10);
+			while($colus10 = mysql_fetch_array($colu20)){
+				$id = $colus10[0];
+				$t_dato = $colus10[1];
+				$dato0 = mysql_query("select nota, ponderacion from datos where claveal = '$claveal' and id = '$id'");
+				$dato1 = mysql_fetch_array($dato0);
+				if($dato1[0] < 5){$color="#9d261d";}else{$color="navy";}
 
-			if (stristr($t_dato,"Casilla")==TRUE) {
-				$tipo_dato = "<input type='checkbox' name='$id-$claveal' value='1' ";
-				if ($dato1[0]==1) {
-					$tipo_dato.=" checked ";
+				if (stristr($t_dato,"Casilla")==TRUE) {
+					$tipo_dato = "<div class='checkbox'><input type='checkbox' name='$id-$claveal' value='1' ";
+					if ($dato1[0]==1) {
+						$tipo_dato.=" checked ";
+					}
+					$tipo_dato.=" /></div>";
 				}
-				$tipo_dato.=" />";
-			}
-			elseif (stristr($t_dato,"Número")==TRUE) {
-				?>
-				<style>
+				elseif (stristr($t_dato,"Número")==TRUE) {
+					?>
+		<style>
 input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+	-webkit-appearance: none;
 }
 </style>
-				<?
-				$tipo_dato = "<input type='number'step='any'  name='$id-$claveal' value='$dato1[0]' class='input-mini' rel='Tooltip' title='$dato1[0]' style='max-width:26px;color:$color;height:15px;background-color:#de9'>";
-			}
-			elseif (stristr($t_dato,"Texto corto")==TRUE) {
-				$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' class='input-mini' rel='Tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:15px;maxlength:3;max-width:27px;background-color:#adc'>";
-			}
-			else{
-				$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' class='input-small' rel='Tooltip' title='$dato1[0]' style='height:15px;maxlength:48;background-color:#dbf'>";
-			}
+<?
+$tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1[0]' rel='Tooltip' title='$dato1[0]' style='max-width:40px;color:$color;height:30px;background-color:#de9'>";
+				}
+				elseif (stristr($t_dato,"Texto corto")==TRUE) {
+					$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' rel='Tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:30px;maxlength:3;max-width:40px;background-color:#adc'>";
+				}
+				else{
+					$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' rel='Tooltip' title='$dato1[0]' style='height:30px;maxlength:35;background-color:#dbf;max-width:90px;'>";
+				}
 
-			echo "<td style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;'>$tipo_dato</td>";
+				echo "<td style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;'>$tipo_dato</td>";
 
 
-		}
+			}
 				}
 				// Casilla para seleccionar alumnos
 				if($seleccionar == "1")
@@ -364,10 +365,13 @@ input[type=number]::-webkit-inner-spin-button {
 					}
 					if(!(empty($div))){$curso = $div;}
 					?>
-		<td style="vertical-align: middle; text-align:center;; background-color: #999"><input
-			name="select_<? echo $row[1]."_".$curso;?>" type="checkbox" id="selal"
-			<? if ($marcado == "1") {echo "checked ";}?> value="1" /></td>
-			<?
+		<td
+			style="vertical-align: middle; text-align: center;; background-color: #999">
+		<div class="checkbox"><input
+			name="select_<? echo $row[1]."_".$curso;?>" type="checkbox"
+			id="selal" <? if ($marcado == "1") {echo "checked ";}?> value="1" /></div>
+		</td>
+		<?
 				}
 				echo "</tr>";
 			}
@@ -395,98 +399,106 @@ input[type=number]::-webkit-inner-spin-button {
 
 
 		echo '</table>
-<div align="center" class="no_imprimir"><br /><input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary" /></div></FORM>'; 
+<div align="center" class="hidden-print"><br /><input name="enviar" type="submit" value="Enviar datos" class="btn btn-primary" /></div></FORM>'; 
 		?>
 		<?
 
 		$colum24= "select distinct id, nombre, orden from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";
 		$colu = mysql_query($colum24);
-			?>
+		?>
 
-		</td>
-		<td valign="top">
+		</div>
 
-		<div class="no_imprimir">
-		<div class="well-transparent well-small" align="left">
-		<legend><small>Operaciones básicas</small></legend>
-		<!-- Button trigger modal -->
-<a href="#" class="pull-right" data-toggle="modal" data-target="#myModal">
- <span class="fa fa-border fa-question-circle fa-lg"></span>
-</a>
-
- <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
-      </div>
-      <div class="modal-body">
-		<p class="help-block">El cuaderno clasifica los datos en columnas, por lo que la primera operación consiste en crear una columna para introducir datos sobre los alumnos de un grupo. Las columnas pueden ser de varios tipos: las numéricas tienen una caja de datos pequeña y sólo admiten números con decimales; las columnas de texto largo son más grandes y pueden contener caracteres alfanuméricos; etc.
-		<br />
-		La siguiente función permite seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno.
-		Por último, puedes imprimir la tabla con los datos de los alumnos. La impresión sólo contiene la tabla y sus datos.</p>	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
+		<div class=" col-md-3 hidden-print">
+		<div class="well" align="left">
 		
+			<!-- Button trigger modal --> 
+		<a href="#"
+			class="pull-right" data-toggle="modal" data-target="#myModal"> <span
+			class="fa fa-border fa-question-circle fa-lg"></span> </a> <!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"><span
+			aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+		</div>
+		<div class="modal-body">
+		<p class="help-block">El cuaderno clasifica los datos en columnas, por
+		lo que la primera operación consiste en crear una columna para
+		introducir datos sobre los alumnos de un grupo. Las columnas pueden
+		ser de varios tipos: las numéricas tienen una caja de datos pequeña y
+		sólo admiten números con decimales; las columnas de texto largo son
+		más grandes y pueden contener caracteres alfanuméricos; etc. <br />
+		La siguiente función permite seleccionar Alumnos de la materia. Los
+		alumnos no seleccionados ya no volverán a aparecer en el Cuaderno. Por
+		último, puedes imprimir la tabla con los datos de los alumnos. La
+		impresión sólo contiene la tabla y sus datos.</p>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		</div>
+		</div>
+		</div>
+		</div>
+		
+		<legend><small>Operaciones básicas</small></legend> 
 		
 	
-		
+
+
+
+
 		<?
 		// Enlace para crear nuevos Alumnos y para crear nuevas columnasx
-	$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1'";
-	$mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&nom_asig=$nom_asig&nom_asig=$nom_asig";
-	
-	echo '<ul class="no_imprimir unstyled">';
-	$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1&nom_asig=$nom_asig";
-	   echo '<li><i class="fa fa-user fa-lg no_imprimir" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." rel="Tooltip"></i> &nbsp;<a href="'.$mens1.'">Seleccionar alumnos</a></li>';
-	   echo '<li><i class="fa fa-print fa-lg no_imprimir"  rel="Tooltip" title="Imprimir la tabla de alumnos con los datos registrados" onclick="print()"';
-	   echo '\'" style="cursor: pointer;"> </i> <a onclick="print()" style="cursor: pointer;">Imprimir tabla</a></li>';
-	   echo '<li><i class="fa fa-plus-circle fa-lg no_imprimir" rel="Tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';
-	   echo $mens2;
-	   echo '\'" style="cursor: pointer;"> </i> <a href="'.$mens2.'">Nueva columna de datos</a></li>';
-	   echo '';
-	   echo "</ul>";
-		?>
-		</div>
-		<div class="well-transparent well-small" align="left" style="min-width:250px;">
-		
-		<legend><small>Cosas que puedes hacer...</small></legend>
-		<!-- Button trigger modal -->
-<a href="#" class="pull-right" data-toggle="modal" data-target="#myModal1">
- <span class="fa fa-border fa-question-circle fa-lg"></span>
-</a>
+		$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1'";
+		$mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&nom_asig=$nom_asig&nom_asig=$nom_asig";
 
- <!-- Modal -->
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel1">Operaciones y Funciones.</h4>
-      </div>
-      <div class="modal-body">
+		echo '<ul class="no_imprimir list-unstyled" style="line-height:32px">';
+		$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1&nom_asig=$nom_asig";
+		echo '<li><i class="fa fa-user fa-lg no_imprimir" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." rel="Tooltip"></i> &nbsp;<a href="'.$mens1.'">Seleccionar alumnos</a></li>';
+		echo '<li><i class="fa fa-print fa-lg no_imprimir"  rel="Tooltip" title="Imprimir la tabla de alumnos con los datos registrados" onclick="print()"';
+		echo '\'" style="cursor: pointer;"> </i> <a onclick="print()" style="cursor: pointer;">Imprimir tabla</a></li>';
+		echo '<li><i class="fa fa-plus-circle fa-lg no_imprimir" rel="Tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';
+		echo $mens2;
+		echo '\'" style="cursor: pointer;"> </i> <a href="'.$mens2.'">Nueva columna de datos</a></li>';
+		echo '';
+		echo "</ul>";
+		?></div>
+		<div class="well" align="left"
+			style="min-width: 250px;">
+			<!-- Button trigger modal --> <a href="#" class="pull-right"
+			data-toggle="modal" data-target="#myModal1"> <span
+			class="fa fa-border fa-question-circle fa-lg"></span> </a> <!-- Modal -->
+		<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel1" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"><span
+			aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		<h4 class="modal-title" id="myModalLabel1">Operaciones y Funciones.</h4>
+		</div>
+		<div class="modal-body">
 		<p class="help-block">Hay varias funciones que puedes realizar sobre
 		las columnas que contienen los datos (ocultar, eliminar, calcular
 		medias, etc). Marca las columnas sobre las que quieres trabajar, y
 		luego presiona el botón que realiza una determinada operación sobre
 		esas columnas. No te olvides de seleccionar las columnas
-		correspondientes.</p>	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+		correspondientes.</p>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		</div>
+		</div>
+		</div>
+		</div>
+			<legend><small>Cosas que puedes hacer...</small></legend>
 		
+
+
 		<?
 		$colum= "select distinct id, nombre, orden, oculto from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";
 		$colum0 = mysql_query($colum);
@@ -510,15 +522,19 @@ input[type=number]::-webkit-inner-spin-button {
 					$pond= $pon0[0];
 					$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curso&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
 					$colum1[4] ? $icon_eye = '<i class="fa fa-eye" rel="Tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" rel="Tooltip" title="Columna oculta en la página pública del Centro"></i>';
-					echo "<tr><td nowrap>$n_col &nbsp;&nbsp;$icon_eye </td><td><a href='$mens0'>$nombre</a></td>";
+					echo "<tr><td nowrap style='vertical-align:middle;'>$n_col &nbsp;&nbsp;$icon_eye </td><td style='vertical-align:middle;'><a href='$mens0'>$nombre</a></td>";
 					echo "<td>";
-					?> <label class="checkbox"><input type="checkbox" name="<? echo $id;?>" value="<? if(mysql_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>">
+					?> 
+					<div class="checkbox">
+					<input type="checkbox"
+			name="<? echo $id;?>"
+			value="<? if(mysql_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>">
 			<?
-	  if ($pon0[0] > "1" ) {echo "<span align='center' class='muted' Rel='Tooltip' title='Ponderación de la columna'> ($pond)</span>"; }
-	  echo "</label></td></tr>";
+	  if ($pon0[0] > "1" ) {echo "<span align='center' class='text-muted' Rel='Tooltip' title='Ponderación de la columna'> ($pond)</span>"; }
+	  echo "</div></td></tr>";
 				}
-						echo "</table>";
-				
+				echo "</table>";
+
 		}
 		// Codigo Curso
 		echo '<input name=curso type=hidden value="';
@@ -546,15 +562,13 @@ input[type=number]::-webkit-inner-spin-button {
 		echo '" />';
 
 
-		?>
-		<br>
+		?> <br>
 		<p><input name="media" type="submit" value="Media Aritmética"
 			class="btn btn-primary btn-block" /></p>
 		<p><input name="media_pond2" type="submit" value="Media Ponderada"
 			class="btn btn-primary btn-block" /></p>
 		<p><input name="estadistica" type="submit" value="Estadística"
-			class="btn btn-primary btn-block" />
-		</p>
+			class="btn btn-primary btn-block" /></p>
 		<p><input name="ocultar" type="submit" value="Ocultar"
 			class="btn btn-primary btn-block" /></p>
 		<p><input name="mostrar" type="submit" value="Mostrar"
@@ -567,12 +581,13 @@ input[type=number]::-webkit-inner-spin-button {
 		</div>
 		<?
 }
-?></td>
-	</tr>
-</table>
+?>
+</div>
+</div>
+</div>
 <?php include("pie.php"); ?>
 
-	<script>
+<script>
 	function seleccionar_tod(){
 		for (i=0;i<document.imprime.elements.length;i++)
 			if(document.imprime.elements[i].id == 'selal')	
@@ -584,6 +599,6 @@ input[type=number]::-webkit-inner-spin-button {
 				document.imprime.elements[i].checked=0
 	}
 	</script>
-	
+
 </body>
 </html>

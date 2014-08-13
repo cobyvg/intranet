@@ -17,17 +17,24 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
 $pr = $_SESSION['profi'];
-?>
-<?
  include("../menu.php");
+?>
+<div class="container">
+		
+		<!-- TITULO DE LA PAGINA -->
+		<div class="page-header">
+			<h2>Cuaderno de Notas&nbsp;&nbsp;<small> Crear nueva columna de datos</small></h2>
+		</div>
+		
+		
+		<div class="row">
+			
+			<div class="col-sm-6 col-sm-offset-3">
+<?
 
- echo "<br /><div align='center' class='page-header'>";
+echo '<div align="center">';
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
-echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small> Crear nueva columna de datos</small></h2>";
-echo "</div><br />";
-echo '<div align="center">';
-
  foreach($_GET as $key => $val)
 	{
 		${$key} = $val;
@@ -64,14 +71,14 @@ $tipo = $ident0[5];
 	<input type="hidden" name="id" value = "<? echo $id;?>" />
 	<input type="hidden" name="nom_asig" value = "<? echo $nom_asig;?>" />
 	
-	<div class="well well-large" style="width:450px;" align="left">
-	
+	<div class="well well-large" align="left">
+		<div class="form-group">
 		<label for="cmp_nombre">Nombre de la columna</label>
 		<input type="text" id="cmp_nombre" name="nombre" size="32" value="<? echo $nombre;?>" class="form-control" />
-		<hr />
-		<div class="select">
+		</div>
+		<div class="form-group">
 			<label for="select_tipo">Tipo de datos</label>
-			<select id="select_tipo" name="tipo" value="1" >
+			<select id="select_tipo" name="tipo" value="1" class="form-control" >
 			<?php if($tipo) echo "<option>$tipo</option>"; ?>
 			<option>Números</option>
 			<option>Texto largo</option>
@@ -85,16 +92,20 @@ $tipo = $ident0[5];
 			<strong>Casilla de verificación. </strong>Selección entre dos posibles estados: marcado (por ejemplo: ha realizado una actividad) o desmarcado (No ha realizado la actividad)<br />
 			</p>
 		</div>
-		<hr />	
+		<div class="form-group">
 		<label for="cmp_observaciones">Observaciones</label>
 		<textarea name="texto" rows="6" id="cmp_observaciones" class="form-control"><? echo $texto;?></textarea>
-		<hr />
+		</div>
+		
 		<div class="checkbox">
+			<label for="cmp_visible_nota">
 			<input type="checkbox" id="cmp_visible_nota" name="visible_nota" value="1" <?php if($visible_nota) echo 'checked'; ?>>
-			<label for="cmp_visible_nota">Visible en la página externa <strong rel="tooltip" title="Si está marcada, permite a los padres y alumnos ver la nota de la actividad o examen en la página externa">(?)</strong></label>
+			Visible en la página externa <strong rel="tooltip" title="Si está marcada, permite a los padres y alumnos ver la nota de la actividad o examen en la página externa">(?)</strong></label>
 		</div>
 		<hr />
+		<div class="form-group">
 		<input type="submit" name="crear" value="Crear o Modificar" class="btn btn-primary"/>
+		</div>
 	</div>
 </form>
 

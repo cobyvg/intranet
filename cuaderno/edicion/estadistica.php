@@ -68,15 +68,15 @@ $n_cursos = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof 
 	$curso_sin = substr($curso,0,strlen($curso) - 1);
 // Titulos
 
-echo "<br /><table align='center' class='table table-striped' style='width:auto'>"; 
-echo "<thead><th style='vertical-align:bottom;background-color:#eee'>NC</th><th colspan='2' style='vertical-align:bottom;background-color:#eee'>Alumno</th>";
+echo "<table align='center' class='table table-striped' style='width:auto'>"; 
+echo "<thead><th style='vertical-align:bottom;background-color:#fff'>NC</th><th colspan='2' style='vertical-align:bottom;background-color:#fff'>Alumno</th>";
 // Número de las columnas de la tabla	
 	while($col20 = mysql_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
-		echo "<th nowrap style='background-color:#eee'>
+		echo "<th nowrap style='background-color:#fff'>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-info'>$col20[1]</span> </div>
+<div class='Rotate-90'><span class='text-info text-lowercase'>$col20[1]</span> </div>
 </div> </th>";
 		}
 echo "</thead>";
@@ -173,7 +173,7 @@ while ($esta=mysql_fetch_array($est)){
 	}}
 	
 	//media del grupo
-	echo "</tr><tr class='info'><td colspan='3' align='right' style='font-weight:bold;'>Media del Grupo</td>";
+	echo "</tr><tr class='info'><td colspan='3' align='left' style='font-weight:bold;'>Media del Grupo</td>";
 		for($j = 1;$j<=$i;$j++) {
 	$x_real=$sumanotas[$j]/$t_alumnos;
 	$x=$sumanotas[$j]/($aprobados[$j]+$suspensos[$j]);
@@ -181,13 +181,13 @@ while ($esta=mysql_fetch_array($est)){
 							}
 
 
-	echo "</tr><tr class='success'><td colspan='3' align='right' style='font-weight:bold;'>Aprobados</td>";
+	echo "</tr><tr class='success'><td colspan='3' align='left' style='font-weight:bold;'>Aprobados</td>";
 								for($j = 1;$j<=$i;$j++) {
 	echo "<td align='center'>$aprobados[$j]</td>";
 							}
 
 
-	echo "</tr><tr class='error'><td colspan='3' align='right' style='font-weight:bold;'>Suspensos</td>";
+	echo "</tr><tr class='danger'><td colspan='3' align='left' style='font-weight:bold;'>Suspensos</td>";
 								for($j = 1;$j<=$i;$j++) {
 	  $t_s[$j]=$t_alumnos-$aprobados[$j];
 	echo "<td align='center'>$t_s[$j]</td>";

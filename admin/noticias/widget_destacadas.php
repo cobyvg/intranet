@@ -1,7 +1,8 @@
 
 <!-- MODULO DE NOTICIAS DESTACADAS -->
 
-<h3><span class="fa fa-fire fa-fw"></span> Noticias destacadas</h3>
+<div class='well well-sm'>
+<legend><span class="fa fa-fire fa-fw"></span> Noticias destacadas</legend>
 
 <?php $result = mysql_query("SELECT id, slug, timestamp, content, clase from noticias where pagina like '%1%' and fechafin > '".date('Y-m-d')."' ORDER BY timestamp DESC"); ?>
 <?php if(mysql_num_rows($result)): ?>
@@ -21,5 +22,5 @@
 <p class="lead text-center text-muted">No hay noticias destacadas</p>
 <br>
 <?php endif; ?>
-
+</div>
 <!-- FIN MODULO DE NOTICIAS DESTACADAS -->

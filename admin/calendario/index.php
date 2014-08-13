@@ -64,7 +64,7 @@ if ($today > $numdays) {
 }
 
 //Nombre del Mes
-echo '<h3><span class="fa fa-calendar-o fa-fw"></span> ' . $monthlong . '</h3>';
+echo '<legend><span class="fa fa-calendar-o fa-fw"></span> ' . $monthlong . '</legend>';
 echo "<table class='table table-bordered table-condensed table-centered'><thead><tr>";
 
 //Nombres de Días

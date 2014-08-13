@@ -133,13 +133,13 @@ if (stristr ( $carg, '2' ) == TRUE) {
 				<?php include("buscar.php"); ?>
 				</div>
 				
-				<br>
+				<br><br>
 				
 				<div class="bs-module">
 				<?php include("admin/calendario/index.php"); ?>
 				</div>
 				
-				<br>
+				<br><br>
 				
 				<?php if($mod_horario and ($n_curso > 0)): ?>
 				<div class="bs-module">

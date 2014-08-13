@@ -5,7 +5,7 @@ if(mysql_num_rows($num_au)>0){
 ?>
 <div class='well'>
 <legend><i class="fa fa-user"> </i> Profesores de Baja</legend>
-<ul class="unstyled">
+<ul class="list-unstyled">
     <?
     $hoy = date('Y')."-".date('m')."-".date('d');
 				$query = "SELECT profesor, id, tareas from ausencias where  date(inicio) <= '$hoy' and date(fin) >= '$hoy'";

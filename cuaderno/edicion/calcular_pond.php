@@ -108,20 +108,20 @@ $n_cursos = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof 
 	
 	$curso_sin = substr($curso,0,strlen($curso) - 1);
 
-echo "<br /><table align='center' class='table table-striped table-bordered' style='width:auto'>"; 
-echo "<thead><th style='background-color:#eee'>NC</th><th style='background-color:#eee' colspan='2' align='center'>Alumno</th>";
+echo "<table align='center' class='table table-striped' style='width:auto'>"; 
+echo "<thead><th style='background-color:#fff'>NC</th><th style='background-color:#fff' colspan='2' align='center'>Alumno</th>";
 // Número de las columnas de la tabla	
 	while($col20 = mysql_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
-		echo "<th nowrap style='background-color:#eee'>
+		echo "<th nowrap style='background-color:#fff'>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-info'>$col20[1]</span> </div>
+<div class='Rotate-90'><span class='text-info text-lowercase'>$col20[1]</span> </div>
 </div> </th>";	
 	}
-		echo "<th nowrap style='background-color:#eee'>
+		echo "<th nowrap style='background-color:#fff'>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-warning'>Media Ponderada</span> </div>
+<div class='Rotate-90'><span class='text-warning text-lowercase'>Media Ponderada</span> </div>
 </div> </th></thead>";
 
 // Tabla para cada Grupo
@@ -234,7 +234,7 @@ while ($esta=mysql_fetch_array($est)){
 				}
 	}}
 	//media del grupo
-	echo "<tr class='info'><td align='right' colspan='3' style='font-weight:bold;'>Media del Grupo</td>";
+	echo "<tr class='info'><td align='left' colspan='3' style='font-weight:bold;'>Media del Grupo</td>";
 		for($j = 1;$j<=$i;$j++) {
 	$x=$sumanotas[$j]/($aprobados[$j]+$suspensos[$j]);
 	$x_total=$sumanotas[$j]/$t_alumnos;
@@ -242,19 +242,19 @@ while ($esta=mysql_fetch_array($est)){
 							}
 	$fin_total=$toti/$t_alumnos;
 	$fin=$toti/($m_ap+$m_sus);
-    echo "<td align='center' style='font-weight:bold'>"; redondeo($fin_total); echo"</td>";
+    echo "<td style='font-weight:bold'>"; redondeo($fin_total); echo"</td>";
 	
 	//aprobados
-	echo "</tr><tr class='success'><td colspan='3' align='right' style='font-weight:bold;'>Aprobados</td>";
+	echo "</tr><tr class='success'><td colspan='3' align='left' style='font-weight:bold;'>Aprobados</td>";
     	for($j = 1;$j<=$i;$j++) {
 	echo "<td align='center'>$aprobados[$j]</td>";
 	$pap=($m_ap/($t_alumnos))*100;
 							}
-    echo "<td align='center' style='font-weight:bold'>$m_ap -> "; redondeo($pap);  echo"%</td>";
+    echo "<td style='font-weight:bold'>$m_ap -> "; redondeo($pap);  echo"%</td>";
 	
 	
 	//suspensos
-	echo "</tr><tr class='error'><td colspan='3' style='font-weight:bold;'>Suspensos</td>";
+	echo "</tr><tr class='danger'><td colspan='3' style='font-weight:bold;'>Suspensos</td>";
     	for($j = 1;$j<=$i;$j++) {
 	  $t_s1=$t_alumnos-$aprobados[$j];
 	echo "<td align='center'>$t_s1</td>";
@@ -282,7 +282,7 @@ foreach ($_POST as $id => $valor) {
 	 $colum= "select distinct id, nombre, orden, oculto from notas_cuaderno where". $nid." order by orden asc";
 	$colum0 = mysql_query($colum); 
 	if (mysql_num_rows($colum0) > 0) {
-echo "<table align='center' class='table table-striped' style='width:auto'>"; 
+echo "<table align='center' class='table table-striped table-bordered' style='width:auto'>"; 
 echo "<tr><th colspan='2'>Notas</th><th>Ponderaci&oacute;n</th>";
 	}
 	while ($colum1 = mysql_fetch_array($colum0)) {
@@ -297,7 +297,7 @@ echo "<tr><th colspan='2'>Notas</th><th>Ponderaci&oacute;n</th>";
 	  echo "<tr><td><a href='$mens0'>$n_col</a></td><td><a href='$mens0'>$nombre</td></a>";
 	  ?>
 	  <?
-	  echo"<td align='center'><input type=input name='$colum1[0]' value='$pon0[0]' class='input-mini' style='color:$color;text-align:center'/></td>";
+	  echo"<td align='center'><input type=input name='$colum1[0]' value='$pon0[0]' class='form-control' style='color:$color;'/></td>";
 		  echo "</tr>";	
 	
 	   }
@@ -305,7 +305,7 @@ echo "<tr><th colspan='2'>Notas</th><th>Ponderaci&oacute;n</th>";
 
 ?>
 
-<br /><input name="recalcula" type="submit" value="Cambiar Ponderaci&oacute;n" class="btn btn-success" />
+<br /><input name="recalcula" type="submit" value="Cambiar Ponderaci&oacute;n" class="btn btn-success" /><br><br>
 
 </form>
 <INPUT TYPE='button' VALUE='Volver al Cuaderno' onclick="location.href='<? echo $volver;?>'" class="btn btn-primary" />
