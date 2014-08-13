@@ -136,19 +136,17 @@ if (mysql_num_rows($result)>15 and !($seleccionado=="1")) {
 if ($row = mysql_fetch_array($result))
 {
 
-	echo "<div align=center><table  class='table table-striped datatable'>";
+	echo "<table class='table table-bordered table-striped table-vcentered datatable'>";
 	echo "<thead><tr>
-			<th colspan=\"2\">Alumno/a</th>
+			<th>Alumno/a</th>
 	        <th>NIE</th>
 	        <th>Unidad</th>
 	        <th>Fecha Ncto.</th>	        
 	        <th>Domicilio</th>
         	<th>Padre</th>
         	<th>Teléfonos</th>	
-        	<th>Repite</th>				
-		";
-
-	echo "</th><th></th>";
+        	<th>Repite</th>";
+	echo "<th></th>";
 	echo "</tr></thead><tbody>";
 	do {
 		if ($row[11]>1) {
@@ -161,16 +159,14 @@ if ($row = mysql_fetch_array($result))
 		$unidad = $row[3];
 		$claveal = $row[0];
 		$correo = $row[12];
-		echo "<tr>
-	<td class=\"col-xs-1 text-center\">";
+		echo "<tr>";
 	if (file_exists('../../xml/fotos/'.$row['claveal'].'.jpg')) {
-		echo "<img class=\"img-responsive img-thumbnail\" src=\"../../xml/fotos/".$row['claveal'].".jpg'\" alt=\"".$row['apellidos'].", ".$row['nombre']."\">";
+		$foto = "<img class=\"img-thumbnail\" src=\"../../xml/fotos/".$row['claveal'].".jpg'\" alt=\"".$row['apellidos'].", ".$row['nombre']."\" width=\"53\">";
 	}
 	else {
-		echo "<span class=\"fa fa-user fa-5x\"></span>";
+		$foto = "<span class=\"fa fa-user fa-3x fa-fw\"></span>";
 	}
-echo "</td>
-<td>$nom</td>
+	echo "<td>$foto $nom</td>
 <td>$row[0]</td>
 <td>$unidad</td>
 <td>$row[5]</td>
@@ -182,10 +178,10 @@ echo "</td>
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';
 		}
-		echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-lg' rel='Tooltip' title='Ver detalles'> </i> ";
+		echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' rel='Tooltip' title='Ver detalles'></i> ";
 		echo '</a></td></tr>';
 	} while($row = mysql_fetch_array($result));
-	echo "</tbody></table></font></center>\n";
+	echo "</tbody></table>\n";
 } else
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
@@ -243,33 +239,36 @@ if ($_GET['seleccionado']=='1'){
 	}
 }
 ?>
+</div>
 
 <?php include("../../pie.php"); ?>
 
 	<script>
 	$(document).ready(function() {
-		var table = $('.datatable').DataTable({
-			"paging":   true,
-	    "ordering": false,
-	    "info":     false,
-	    
-			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-			
-			"language": {
-			            "lengthMenu": "Mostrar _MENU_ resultados",
-			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-			            "info": "Página _PAGE_ de _PAGES_",
-			            "infoEmpty": "No hay resultados disponibles.",
-			            "infoFiltered": "(filtrado de _MAX_ resultados)",
-			            "search": "Buscar: ",
-			            "paginate": {
-			                  "first": "Primera",
-			                  "next": "Última",
-			                  "next": "",
-			                  "previous": ""
-			                }
-			        }
-		});
+	  var table = $('.datatable').DataTable({
+	  		"paging":   true,
+	      "ordering": true,
+	      "info":     false,
+	      
+	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+	  		
+	  		"order": [[ 0, "asc" ]],
+	  		
+	  		"language": {
+	  		            "lengthMenu": "_MENU_",
+	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "infoEmpty": "No hay resultados disponibles.",
+	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
+	  		            "search": "Buscar: ",
+	  		            "paginate": {
+	  		                  "first": "Primera",
+	  		                  "next": "Última",
+	  		                  "next": "",
+	  		                  "previous": ""
+	  		                }
+	  		        }
+	  	});
 	});
 	</script>
 
