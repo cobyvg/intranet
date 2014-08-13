@@ -104,27 +104,27 @@ $fecha0=$hoy;
 }
   echo "<div class='container'>";
   echo '<div class="row">';
-  echo '<div aligna="center">
+  echo '
 <div class="page-header">
   <h2>Problemas de convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
 </div>
 </div>
 <div class="col-sm-8 col-sm-offset-2">';
      
-echo " <p class='lead text-info' align='center' >";
+echo " <h3 class='text-info' align='center'>";
 if (empty($hor))  {$hoy0 = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );}else {$hoy0 = $fecha0;}
 if ($hoy) {
 	$hoy0=$hoy;
 }
 $tr_h = explode("-", $hoy0);
 $hoy0 = "$tr_h[2]-$tr_h[1]-$tr_h[0]";
-echo "$hoy0</p>";
+echo "$hoy0</h3>";
 	echo "<center><form name='conv' action='convivencia_jefes.php' method='post' enctype=multipart/form-data' class='form-inline'>";
 	?>
 <div class="well">	
 	<div class="form-group">
 <label>Selecciona el Día </label>
-<div class="input-group" >
+<div class="input-group" id="datetimepicker1">
   <input name="fecha0" id="fecha0" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<? echo $hoy0;?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
@@ -220,12 +220,11 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 ?>
 </div>
 </div>
-</div>
 <? include("../../pie.php");?>
 <script>  
 $(function ()  
 { 
-	$('#fecha0').datetimepicker({
+	$('#datetimepicker1').datetimepicker({
 		language: 'es',
 		pickTime: false
 	})
