@@ -10,7 +10,7 @@ $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
 $dayone = date("w",mktime(1,1,1,$month,1,$year));
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Do','Lu','Ma','Mi','Ju','Vi','Sa');
+$alldays = array('Dom','Lun','Mar','Mie','Jue','Vie','Sab');
 $next_year = $year + 1;
 $last_year = $year - 1;
     if ($daylong == "Sunday")
@@ -56,64 +56,33 @@ $last_year = $year - 1;
 if ($today > $numdays) { $today--; }
 
 // Estructura de la Tabla
-?>
-<br />
-<div class="row">
-<div class=col-sm-6>
-<legend class='text-warning' align='center'><br />Instrucciones de uso</legend>
-<p class="help-block text-info" style="text-align:justify">
-A través de esta página puedes registrar las pruebas, controles o actividades de distinto tipo para los alumnos de los Grupos a los que das clase, o bien puedes utilizar esta página para registrar entradas pèrsonales como si fuera un calendario. <em>Los registros que estén relacionados con tus Grupos y Asignaturas aparecerán en el Calendario de la Intranet, pero también en la página personal del alumno en la Página del Centro</em>, de tal modo que Padres y Alumnos puedan ver en todo momento las fechas de las pruebas; <em>si la actividad no contiene Grupo alguno aparecerá sólo en el Calendario de la Intranet a modo de recordatorio</em>. La fecha y el Tíulo de la actividad son los únicos campos obligatorios. Puedes editar, ver y borrar los registros mediante los iconos de la tabla que presenta todas tus actividades.
-</p>
-</div>
-<div class=col-sm-6>
-    <?
-	echo "<legend class='text-warning' align='center'><br />$daylong $today, $year</legend>";	
-	
-	echo "<table class='table table-bordered table-striped table-condensed' style='width:100%;'><tr><td>
-<div align='center'>
-	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month'>
-<i class='fa fa-arrow-o-left fa-2x' name='calb2' style='margin-right:20px;'> </i> </a>
-<h style='display:inline'>$year</h3>
-<a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month'>
-<i class='fa fa-arrow-o-right fa-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></td></tr></table>";
 
-echo "<table class='table table-bordered table-condensed' style='width:100%;' align='center'>
-      <tr>";
-	  $meses = array("1"=>"Ene", "2"=>"Feb", "3"=>"Mar", "4"=>"Abr", "5"=>"May", "6"=>"Jun", "7"=>"Jul", "8"=>"Ago", "9"=>"Sep", "10"=>"Oct", "11"=>"Nov", "12"=>"Dic");
-	  foreach ($meses as $num_mes => $nombre_mes) {
-	  	
-	  	if ($num_mes==$month) {
-	  		echo "<td style='background-color:#08c'> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes' style='color:#efefef'>".$nombre_mes."</a> </td>";
-	  	}
-	  	else{
-	  		echo "<td> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes'>".$nombre_mes."</a> </td>";
-	  	}
-	  if ($num_mes=='6') {
-	  		echo "</tr><tr>";
-	  	}
-	  }
-	  echo "</tr></table>";
-	  
-$sql_date = "$year-$month-$today";
-$semana = date( mktime(0, 0, 0, $month, $today, $year));
-$hoy = getdate($semana);
-$numero_dia = $hoy['wday'];
+
+$mes_sig = $month+1;
+$mes_ant = $month-1;
+$ano_ant = $ano_sig = $year;
+if ($mes_ant == 0) {
+	$mes_ant = 12;
+	$ano_ant = $year-1;
+}
+if ($mes_sig == 13) {
+	$mes_sig = 1;
+	$ano_sig = $year+1;
+}
 
 //Nombre del Mes
-echo "<table class='table table-bordered table-striped table-condensed' style='' align='center'><thead>";
-echo "<td colspan=\"7\" align=\"center\"><div align='center'>" . $monthlong . 
-"</div></td>";
-echo "</thead><tr>";
+echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
+echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?year=".$ano_ant."&month=".$mes_ant."\"><span class=\"fa fa-arrow-circle-left fa-fw fa-lg\"></span></a></h4></th>";
+echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
+echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?year=".$ano_sig."&month=".$mes_sig."\"><span class=\"fa fa-arrow-circle-right fa-fw fa-lg\"></span></a></h4></th>";
+echo "</tr><tr>";
 
 
 //Nombre de DÃ­as
 foreach($alldays as $value) {
-  echo "<th style=''>
-  $value</th>";
+  echo "<th>$value</th>";
 }
-echo "</tr><tr>";
+echo "</tr></thead><tbody><tr>";
 
 
 //DÃ­as vacÃ­os
@@ -128,7 +97,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el dÃ­as
   $result_found = 0;
   if ($zz == $today) { 
-    echo "<td style='background-color:#0072E6;color:#fff;'>$zz</td>";
+    echo "<td class=\"calendar-today\">$zz</td>";
     $result_found = 1;
   }
 
@@ -145,21 +114,21 @@ $n_ex="";
 $n_pr="";
     //echo $eventQuery."<br>";
     $eventExec = mysql_query($eventQuery);
-    $colores="";
+    $class="";
     while($row = mysql_fetch_array($eventExec)) {
     	$n_ex+=1;
       if (mysql_num_rows($eventExec) > 0) {
       	if ($row[1]!==$_SESSION['profi']) {
-      		$yo='';
+      		$yo=0;
       	}
       	else{
-      		$yo+='1';
+      		$yo++;
       	}
       	if ($yo>0) {
-      		$colores="background-color:#f89406;color:#fff;";
+      		$class="class=\"calendar-orange\"";
       	}
       	else{
-      		$colores="background-color:#333;color:#fff;";
+      		$class="class=\"calendar-blue\"";
       	}
         //break;
       }
@@ -168,11 +137,11 @@ $n_pr="";
   $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-			echo "<td valign=\"middle\" align=\"center\" style='background-color:#46A546;color:#fff;font-size:0.8em;'>$zz</td>\n";
+			echo "<td class=\"calendar-red\">$zz</td>\n";
 				$result_found = 1;
 				}
 				else{
-        		echo "<td style='$colores'>$zz</td>";					
+        		echo "<td $class>$zz</td>";					
 				}
           $result_found = 1;
     }
@@ -191,12 +160,18 @@ if ($create_emptys != 0) {
 }
 
 echo "</tr>";
-echo "</table>";
-?>
-<hr />
-<table><tr><td style="background-color:#f89406;width:15px"></td><td> <small>Exámenes propios</small></td></tr><tr><td style="background-color:#333"></td><td> <small>Exámenes de otros Profesores</small></td></tr></table>
-
-<?
-echo "</div>";
+echo "</tbody></table>";
 ?>
 
+<table>
+	<tbody>
+		<tr>
+			<td><span class="fa fa-square fa-fw fa-lg" style="color: #f29b12;"></span></td>
+			<td>Actividades registradas por mí.</td>
+		</tr>
+		<tr>
+			<td><span class="fa fa-square fa-fw fa-lg" style="color: #3397db;"></span></td>
+			<td>Actividades registradas por otros profesores.</td>
+		</tr>
+	</tbody>
+</table>
