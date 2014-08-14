@@ -37,13 +37,13 @@ include("menu.php");
 	<div class="row">
 	
 		<!-- COLUMNA IZQUIERDA -->
-		<div class="col-sm-6 col-sm-offset-3">
+		<div class="col-sm-4 col-sm-offset-4">
 			
 			<div class="well">
 				
 				<form method="post" action="">
 					<fieldset>
-						<legend>Calendario de una unidad</legend>
+						<legend>Calendario de un Grupo</legend>
 						
 						<div class="row">
 							<!--FORMLISTACURSOS
@@ -56,7 +56,7 @@ include("menu.php");
 							
 							<div class="col-sm-12">
 								<div class="form-group">
-								  <label for="curso">Unidad</label>
+								  
 									<?php $result = mysql_query("SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
 									<?php if(mysql_num_rows($result)): ?>
 									<select class="form-control" id="curso" name="curso">
@@ -75,7 +75,7 @@ include("menu.php");
 							</div>
 						</div>
 					  
-					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
+					  <button type="submit" class="btn btn-primary btn-block" name="submit1">Consultar</button>
 				  </fieldset>
 				</form>
 				
@@ -86,10 +86,10 @@ include("menu.php");
 	
 	</div><!-- /.row -->
 	
-	
+	<br>
 	<?php if(isset($_POST['submit1']) || $_GET['curso']): ?>
 	
-	<h3 class="text-center">Calendario de la unidad <br><span class="text-info"><?php echo $curso; ?></span></h3>
+	<legend class="text-center">Calendario del Grupo <span class="text-info"><?php echo $curso; ?></span></legend>
 	
 	<br>
 	

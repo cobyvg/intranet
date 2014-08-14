@@ -8,10 +8,12 @@ if ($_SESSION['autentificado'] != 1) {
 	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
 	exit();
 }
-registraPagina($_SERVER['REQUEST_URI']);
+
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
 ?>
 <?
-$conn = mysql_connect($db_host, $db_user, $db_pass) or die("Could not connect to database!");
 
 $fecha = $_POST['fecha']; 
 if (isset($_POST['id'])) { $id = $_POST['id']; }
@@ -42,6 +44,7 @@ $event_found = "";
 if (isset($_POST['id']) and strlen($_POST['id'])>0) { 
   //UPDATE
     $postQuery = "UPDATE `diario` SET fecha = '".$fecha."', grupo = '".$grupo."', materia = '$materia', tipo = '$tipo', titulo = '".$titulo."', observaciones = '".$observaciones."', calendario = '".$calendario."' where id='$id'";
+echo $postQuery;
     $postExec = mysql_query($postQuery) or die("Could not Post UPDATE diario Event to database!");
 	header("Location: index.php?id=$id&mens=actualizar");
 
@@ -53,5 +56,4 @@ if (isset($_POST['id']) and strlen($_POST['id'])>0) {
 }
 //echo $postQuery;
 
-mysql_close($conn);
 ?>

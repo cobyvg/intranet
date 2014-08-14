@@ -59,18 +59,20 @@ if ($no_dia> $numerodiasemana) {
  	$g_fecha = date("Y-m-$g_dia");
  	$fecha_sp = formatea_fecha($g_fecha);
 ?>
-<br />
-<div align=center>
+<div class="container">
+<div class="row">
+<br>
  <div class="page-header">
   <h2>Guardias de Aula <small> <? echo $fecha_sp;?></small></h2>
 </div>
-<div class="container-fluid">
-<div class="row">
-<div class="well" style="width:500px;">
-	   <FORM action="guardias_admin.php" method="POST" name="Cursos">
 
-             <legend>Selecciona Profesor</legend>
-              <SELECT  name=profeso onchange="submit()" class="input-xlarge">
+<div align="center">
+<br>
+<div class="well" style="width:450px">
+	   <FORM action="guardias_admin.php" method="POST" name="Cursos">
+<div class="form-group">
+             <label>Selecciona Profesor</label>
+              <SELECT  name=profeso onchange="submit()" class="form-control">
               <option><? echo $profeso;?></option>
 		        <?
   $profe = mysql_query(" SELECT distinct prof FROM horw where a_asig='GU' order by prof asc");
@@ -84,13 +86,15 @@ if ($no_dia> $numerodiasemana) {
 	} while($filaprofe = mysql_fetch_array($profe));
         }
 	?>
-              </select>         
+              </select>  
+              </div>       
           </FORM>
+          <br>
           </div>
-<div class="col-sm-5 col-sm-offset-1">
+<div class="col-sm-5">
 <?
 if ($profeso) {
-echo '<h3>'.$profeso.'</h3><br />';	
+echo '<br /><legend>'.$profeso.'</legend>';	
 echo '  <div align="center" class="well well-large">';
 }
 ?>

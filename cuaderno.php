@@ -164,7 +164,7 @@ todos</a></div>
 
 	<?
 		echo "<p class='lead bg-primary'>$curso_sin <span class='muted'>( $nom_asig )</span></p>";
-		echo "<table class='table table-striped table-condensed' style='width:100%'>";
+		echo "<table class='table table-striped table-condensed' style='width:auto'>";
 		echo "<thead><th colspan=2 style='vertical-align:bottom;background-color:#fff'></th>";
 		// Número de las columnas de la tabla
 		$cols2=0;

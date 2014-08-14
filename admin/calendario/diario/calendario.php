@@ -61,7 +61,7 @@ if ($today > $numdays) { $today--; }
 <div class="row">
 <div class=col-sm-6>
 <legend class='text-warning' align='center'><br />Instrucciones de uso</legend>
-<p class="help-block text-info" style="text-align:justify">
+<p class="help-block text-default" style="text-align:justify">
 A través de esta página puedes registrar las pruebas, controles o actividades de distinto tipo para los alumnos de los Grupos a los que das clase, o bien puedes utilizar esta página para registrar entradas pèrsonales como si fuera un calendario. <em>Los registros que estén relacionados con tus Grupos y Asignaturas aparecerán en el Calendario de la Intranet, pero también en la página personal del alumno en la Página del Centro</em>, de tal modo que Padres y Alumnos puedan ver en todo momento las fechas de las pruebas; <em>si la actividad no contiene Grupo alguno aparecerá sólo en el Calendario de la Intranet a modo de recordatorio</em>. La fecha y el Tíulo de la actividad son los únicos campos obligatorios. Puedes editar, ver y borrar los registros mediante los iconos de la tabla que presenta todas tus actividades.
 </p>
 </div>
@@ -69,13 +69,13 @@ A través de esta página puedes registrar las pruebas, controles o actividades de
     <?
 	echo "<legend class='text-warning' align='center'><br />$daylong $today, $year</legend>";	
 	
-	echo "<table class='table table-bordered table-striped table-condensed' style='width:100%;'><tr><td>
+	echo "<table class='table table-bordered table-striped table-condensed' style='width:100%;'><thead><th>
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month'>
-<i class='fa fa-arrow-o-left fa-2x' name='calb2' style='margin-right:20px;'> </i> </a>
-<h style='display:inline'>$year</h3>
+<i class='fa fa-arrow-circle-o-left fa-lg' name='calb2' style='margin-right:20px;'> </i> </a>
+<h4 style='display:inline'>$year</h4>
 <a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month'>
-<i class='fa fa-arrow-o-right fa-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></td></tr></table>";
+<i class='fa fa-arrow-circle-o-right fa-lg' name='calb1' style='margin-left:20px;'> </i> </a></div></th></thead></table>";
 
 echo "<table class='table table-bordered table-condensed' style='width:100%;' align='center'>
       <tr>";
@@ -83,12 +83,12 @@ echo "<table class='table table-bordered table-condensed' style='width:100%;' al
 	  foreach ($meses as $num_mes => $nombre_mes) {
 	  	
 	  	if ($num_mes==$month) {
-	  		echo "<td style='background-color:#08c'> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes' style='color:#efefef'>".$nombre_mes."</a> </td>";
+	  		echo "<td class='info'> 
+		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes' style='font-size:10px'>".$nombre_mes."</a> </td>";
 	  	}
 	  	else{
-	  		echo "<td> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes'>".$nombre_mes."</a> </td>";
+	  		echo "<td class='active'> 
+		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes' style='font-size:10px'>".$nombre_mes."</a> </td>";
 	  	}
 	  if ($num_mes=='6') {
 	  		echo "</tr><tr>";
@@ -128,7 +128,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el dÃ­as
   $result_found = 0;
   if ($zz == $today) { 
-    echo "<td style='background-color:#0072E6;color:#fff;'>$zz</td>";
+    echo "<td class='info'>$zz</td>";
     $result_found = 1;
   }
 
@@ -156,10 +156,10 @@ $n_pr="";
       		$yo+='1';
       	}
       	if ($yo>0) {
-      		$colores="background-color:#f89406;color:#fff;";
+      		$colores=" class='success'";
       	}
       	else{
-      		$colores="background-color:#333;color:#fff;";
+      		$colores=" class='warning'";
       	}
         //break;
       }
@@ -168,11 +168,11 @@ $n_pr="";
   $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-			echo "<td valign=\"middle\" align=\"center\" style='background-color:#46A546;color:#fff;font-size:0.8em;'>$zz</td>\n";
+			echo "<td valign=\"middle\" align=\"center\" class='danger'>$zz</td>\n";
 				$result_found = 1;
 				}
 				else{
-        		echo "<td style='$colores'>$zz</td>";					
+        		echo "<td $colores>$zz</td>";					
 				}
           $result_found = 1;
     }
@@ -194,7 +194,7 @@ echo "</tr>";
 echo "</table>";
 ?>
 <hr />
-<table><tr><td style="background-color:#f89406;width:15px"></td><td> <small>Exámenes propios</small></td></tr><tr><td style="background-color:#333"></td><td> <small>Exámenes de otros Profesores</small></td></tr></table>
+<table class="table"><tr><td class='warning' style="width:25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td> <small>Exámenes de otros Profesores</small></td></tr><tr><td  class='success'></td><td> <small>Exámenes propios</small></td></tr></table>
 
 <?
 echo "</div>";

@@ -21,52 +21,55 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 ?>
+<div class="container">
+<div class="row">
 <br />
-<div align="center">
 <div class="page-header">
 <h2>Ausencias del profesorado <small> Profesores ausentes hoy</small></h2>
 </div>
+<div class="col-md-8 col-md-offset-2">
 <?	
 $hoy = date('Y-m-d');
 
 	// Consulta de datos del alumno.
 	$result = mysql_query ( "select inicio, fin, tareas, id, profesor, horas from ausencias  where  date(inicio) <= '$hoy' and date(fin) >= '$hoy' order by inicio" );
-	echo '<br /><table class="table table-striped table-bordered" style="width:auto;">';	
+	echo '<br /><table class="table table-striped table-bordered" style="width:100%;">';	
 	echo "
-	<tr>
+	<thead>
 	<th>1ª Hora</th>
 	<th>2ª Hora</th>
 	<th>3ª Hora</th>
 	<th>4ª Hora</th>
 	<th>5ª Hora</th>
 	<th>6ª Hora</th>
-	</tr>";
+	</thead><tbody>";
 	while($row = mysql_fetch_array ( $result )){
 	
 	$profe_baja=$row[4];
 	$tar = $row[2];
 
-	echo "<tr><td colspan='5' style='text-align:center'>";
-		echo "<div style='color:#777;'><span style='font-weight:bold;'>$profe_baja</div>";
-		echo "</td></tr><tr>";
+	echo "<tr><th colspan='6' style='text-align:center'>";
+		echo "$profe_baja";
+		echo "</th></tr><tr>";
 	$ndia = date ( "w" );
 	for ($i=1;$i<7;$i++){
-	echo "<td align='center'>";	
+	echo "<td>";	
 	$hor = mysql_query("select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
 	//echo "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'<br>";
 	$hor_asig=mysql_fetch_array($hor);
 	if (mysql_num_rows($hor) > '0'){
 
-	echo "<div style='color:#46a546;'>Horario: <span style='font-weight:normal;'>$hor_asig[0]</div>";
+	echo "<p class='text-info'>Horario: $hor_asig[0]</p>";
 	if (strlen($hor_asig[1]) > '1' and strstr($hor_asig[0], 'GU') == FALSE){
 		$hor2 = mysql_query("select a_grupo from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
-		echo "<div style='color:#08c'>Grupos: ";
+		echo "<p class='text-success'>Grupos: ";
 	while($hor_bj = mysql_fetch_array($hor2)){
-	echo "<span style='font-weight:normal;'>".$hor_bj[0]."</div> ";
+	echo $hor_bj[0]." ";
 			}
+			echo "</p>";
 	}
 	if (strlen($hor_asig[2] > '1')){
-	echo "<div style='color:#9d261d'>Aula: <span style='font-weight:normal;'>$hor_asig[2]</div>";
+	echo "<p class='text-warning'>Aula: <span style='font-weight:normal;'>$hor_asig[2]</p>";
 	}
 	}
 	echo "</td>";
@@ -75,15 +78,15 @@ $hoy = date('Y-m-d');
 
 }
 echo "</table>";
-echo "<hr style='width:600px;'><br /><h3>Tareas para los Alumnos</h3>";
+echo "<br /><legend>Tareas para los Alumnos</legend>";
 $result2 = mysql_query ( "select inicio, fin, tareas, id, profesor, horas, archivo from ausencias  where date(inicio) <= '$hoy' and date(fin) >= '$hoy' order by inicio" );
 	while($row2 = mysql_fetch_array ( $result2 )){
 	$profe_baja=$row2[4];
 	$tar = $row2[2];
 	if (strlen($tar) > '1'){
-	echo '<br /><table class="table table-striped table-bordered" style="width:650px">';	
+	echo '<table class="table table-striped table-bordered">';	
 	echo "
-	<tr><td><h5 align='center'><span style='color:#777'>$profe_baja</span</h5></td></tr>
+	<tr><th class='text-center'>$profe_baja</th></tr>
 	<tr><td>$tar</td></tr>
 	";
 	if (strlen($row2[6])>0) {
@@ -93,6 +96,12 @@ $result2 = mysql_query ( "select inicio, fin, tareas, id, profesor, horas, archi
 	}
 	}
 	
+?>
+</div>
+</div>
+</div>
+<?
+include("../../pie.php");
 ?>
 </body>
 </html>

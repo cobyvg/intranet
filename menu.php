@@ -95,7 +95,7 @@
 			 			</ul>
 			 		</li>
 			   </ul>
-			   <p class="navbar-text" style="margin-top: 7px; margin-bottom: 7px; color: #ffffff;">
+			   <p class="navbar-text" style="margin-top: 5px; margin-bottom: 0px; color: #ffffff;">
 			     <small><i class="fa fa-clock-o fa-lg"></i> Última conexión:<br class="hidden-xs">
 			     <?php
 			     $time = mysql_query("select fecha from reg_intranet where profesor = '".$_SESSION['profi']."' order by fecha desc limit 2");

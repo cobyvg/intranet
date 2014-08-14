@@ -59,13 +59,13 @@ if ($today > $numdays) { $today--; }
 ?>
 
     <?
-echo "<table class='table table-bordered table-striped' style='width:100%;margin:auto'><tr><th>
+	echo "<table class='table table-bordered table-striped table-condensed' style='width:100%;'><thead><th>
 <div align='center'>
 	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month&curso=$curso&curso=$curso'>
-<i class='fa fa-arrow-o-left fa-2x' name='calb2' style='margin-right:20px;'> </i> </a>
-<h3 style='display:inline'>$year</h3>
+<i class='fa fa-arrow-circle-o-left fa-lg' name='calb2' style='margin-right:20px;'> </i> </a>
+<h4 style='display:inline'>$year</h4>
 <a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month&curso=$curso'>
-<i class='fa fa-arrow-o-right fa-2x' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table><br />";
+<i class='fa fa-arrow-circle-o-right fa-lg' name='calb1' style='margin-left:20px;'> </i> </a></div></th></thead></table>";
 
 echo "<table class='table table-bordered' style='width:100%;' align='center'>
       <tr>";
@@ -118,7 +118,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el días
   $result_found = 0;
   if ($zz == $today) { 
-    echo "<td style='background-color:#555;color:#fff;'>$zz</td>";
+    echo "<td class='info'>$zz</td>";
     $result_found = 1;
   }
   
@@ -130,7 +130,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		$eventExec = mysql_query ( $eventQuery );
 		if (mysql_num_rows($eventExec)>0) {
 			while ( $row = mysql_fetch_array ( $eventExec ) ) {
-echo "<td style='background-color:#f89406;color:#fff;'>$zz</td>";
+echo "<td class='warning'>$zz</td>";
 			$result_found = 1;
 			}
 		}	
@@ -139,7 +139,7 @@ echo "<td style='background-color:#f89406;color:#fff;'>$zz</td>";
         $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-		echo "<td style='background-color:#46A546;color:#fff'>$zz</td>\n";
+		echo "<td class='danger'>$zz</td>\n";
 		$result_found = 1;
 				}	
 		}
