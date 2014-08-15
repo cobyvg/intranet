@@ -140,7 +140,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 				if($recibido == '1'){$comentarios1="<i class='fa fa-check' rel='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle'  rel='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
 		echo "<tr>
 		<td nowrap>";
-		$foto="<span class='fa fa-user fa-4x'></span>";
+		$foto="<span class='fa fa-user fa-fw fa-3x'></span>";
 		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='55' height='64'>";
 		echo $foto."&nbsp;&nbsp;";
 		echo "<a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>

@@ -30,7 +30,7 @@ if (isset($_GET['hora'])) {$hora = $_GET['hora'];}elseif (isset($_POST['hora']))
 if (isset($_GET['submit2'])) {$submit2 = $_GET['submit2'];}elseif (isset($_POST['submit2'])) {$submit2 = $_POST['submit2'];}else{$submit2="";}
 if (isset($_GET['gu_fecha'])) {$gu_fecha = $_GET['gu_fecha'];}elseif (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="";}
 if (isset($_GET['n_dia'])) {$n_dia = $_GET['n_dia'];}elseif (isset($_POST['n_dia'])) {$n_dia = $_POST['n_dia'];}else{$n_dia="";}
-
+$profeso = mb_strtolower($profeso);
 if ($n_dia == '1') {$nombre_dia = 'Lunes';}
 if ($n_dia == '2') {$nombre_dia = 'Martes';}
 if ($n_dia == '3') {$nombre_dia = 'Miércoles';}
@@ -55,13 +55,14 @@ if ($n_dia > $numerodiasemana) {
  	$g_fecha = date("Y-m-$g_dia");
  	$fecha_sp = formatea_fecha($g_fecha);
 ?>
-<br />
-<div align=center>
- <div class="page-header">
-  <h2>Guardias de Aula <small> Registro de guardias<br />Fecha de la guardia: <span style="color:#9d261d;"><? echo $fecha_sp;?></span><br />
-Profesor de guardia: <span style='color:#08c;'><? echo $profeso;?></small></h2>
-</div>
-</div><br />
+<div class="container">
+<div class="row">
+<br>
+<div class="page-header">
+ <h2>Guardias de Aula <small> Registro de guardias</small></h2></div>
+<div align="center">
+<h2><small>Fecha de la guardia: <span class="text-success"><? echo $fecha_sp;?></span><br />
+Profesor de guardia: <span class="text-info text-capitalize"><? echo $profeso;?></span></small></h2><br>
 <?
 $sql = "SHOW TABLES FROM $db";
 $result = mysql_query($sql);
@@ -124,7 +125,7 @@ Has actualizado correctamente los datos del Profesor que sustituyes.
 		$fecha_reg = $fecha_reg0[0];
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>'.
+			<legend>ATENCIÓN:</legend>'.
 $sustituido.' ya ha sido sustituido a la $hora hora el día '.$fecha_reg.'. <br>Selecciona otro profesor y continúa.
           </div></div>';
 exit();
@@ -145,12 +146,15 @@ Has registrado correctamente a '.$sustituido.' a '.$hora.' hora para sustituirle
 	else{
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desplegable para registrar esta hora.
           </div></div>';
 		}
 }
 ?>
+</div>
+</div>
+</div>
 <? include("../../pie.php");?>
 </BODY>
 </HTML>

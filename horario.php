@@ -48,7 +48,12 @@ echo '<tr><th>'.$nombre.'ª</th>';
 
 
 		if ($rowasignatur1 [1] == "GU" and $mod_faltas == '1') {
-			echo "<a href='http://$dominio/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$pr' class='badge badge-warning'>" . $rowasignatur1 [1] . "</a>";
+			if (strstr($_SESSION ['cargo'],"1")==TRUE) {
+				echo "<a href='http://$dominio/intranet/admin/guardias/guardias_admin.php?no_dia=$z&hora=$z&profeso=$profeso#marca'><span class='label label-danger'>".$rowasignatur1[1]."</span>";
+			}
+			else{
+				echo "<a href='http://$dominio/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$pr' class='label label-danger'>" . $rowasignatur1 [1] . "</a>";
+			}
 		}
 		// Recorremos los grupos a los que da en ese hora.
 		$asignaturas1 = mysql_query ( "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$pr' and dia = '$z' and hora = '$n_hora'" );

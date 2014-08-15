@@ -44,7 +44,8 @@ if (isset($_GET['gu_fecha'])) {$gu_fecha = $_GET['gu_fecha'];}elseif (isset($_PO
 	?>
 <div class="well well-large">
 <FORM action="admin.php" method="POST" name="Cursos">
-<div class="form-group"><label> Selecciona Profesor </label> <SELECT
+<div class="form-group"><label> Selecciona Profesor </label> 
+<SELECT
 	name=profeso onChange="submit()" class="form-control">
 	<option><? echo $profeso;?></option>
 	<?

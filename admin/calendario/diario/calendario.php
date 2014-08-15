@@ -10,7 +10,7 @@ $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
 $dayone = date("w",mktime(1,1,1,$month,1,$year));
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Do','Lu','Ma','Mi','Ju','Vi','Sa');
+$alldays = array('Dom','Lun','Mar','Mie','Jue','Vie','Sab');
 $next_year = $year + 1;
 $last_year = $year - 1;
     if ($daylong == "Sunday")
@@ -56,6 +56,7 @@ $last_year = $year - 1;
 if ($today > $numdays) { $today--; }
 
 // Estructura de la Tabla
+<<<<<<< HEAD
 ?>
 <br />
 <div class="row">
@@ -100,20 +101,35 @@ $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
+=======
+
+
+$mes_sig = $month+1;
+$mes_ant = $month-1;
+$ano_ant = $ano_sig = $year;
+if ($mes_ant == 0) {
+	$mes_ant = 12;
+	$ano_ant = $year-1;
+}
+if ($mes_sig == 13) {
+	$mes_sig = 1;
+	$ano_sig = $year+1;
+}
+>>>>>>> FETCH_HEAD
 
 //Nombre del Mes
-echo "<table class='table table-bordered table-striped table-condensed' style='' align='center'><thead>";
-echo "<td colspan=\"7\" align=\"center\"><div align='center'>" . $monthlong . 
-"</div></td>";
-echo "</thead><tr>";
+echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
+echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?year=".$ano_ant."&month=".$mes_ant."\"><span class=\"fa fa-arrow-circle-left fa-fw fa-lg\"></span></a></h4></th>";
+echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
+echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?year=".$ano_sig."&month=".$mes_sig."\"><span class=\"fa fa-arrow-circle-right fa-fw fa-lg\"></span></a></h4></th>";
+echo "</tr><tr>";
 
 
 //Nombre de Días
 foreach($alldays as $value) {
-  echo "<th style=''>
-  $value</th>";
+  echo "<th>$value</th>";
 }
-echo "</tr><tr>";
+echo "</tr></thead><tbody><tr>";
 
 
 //Días vacíos
@@ -128,7 +144,11 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el días
   $result_found = 0;
   if ($zz == $today) { 
+<<<<<<< HEAD
     echo "<td class='info'>$zz</td>";
+=======
+    echo "<td class=\"calendar-today\">$zz</td>";
+>>>>>>> FETCH_HEAD
     $result_found = 1;
   }
 
@@ -145,21 +165,28 @@ $n_ex="";
 $n_pr="";
     //echo $eventQuery."<br>";
     $eventExec = mysql_query($eventQuery);
-    $colores="";
+    $class="";
     while($row = mysql_fetch_array($eventExec)) {
     	$n_ex+=1;
       if (mysql_num_rows($eventExec) > 0) {
       	if ($row[1]!==$_SESSION['profi']) {
-      		$yo='';
+      		$yo=0;
       	}
       	else{
-      		$yo+='1';
+      		$yo++;
       	}
       	if ($yo>0) {
+<<<<<<< HEAD
       		$colores=" class='success'";
       	}
       	else{
       		$colores=" class='warning'";
+=======
+      		$class="class=\"calendar-orange\"";
+      	}
+      	else{
+      		$class="class=\"calendar-blue\"";
+>>>>>>> FETCH_HEAD
       	}
         //break;
       }
@@ -168,11 +195,19 @@ $n_pr="";
   $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
+<<<<<<< HEAD
 			echo "<td valign=\"middle\" align=\"center\" class='danger'>$zz</td>\n";
 				$result_found = 1;
 				}
 				else{
         		echo "<td $colores>$zz</td>";					
+=======
+			echo "<td class=\"calendar-red\">$zz</td>\n";
+				$result_found = 1;
+				}
+				else{
+        		echo "<td $class>$zz</td>";					
+>>>>>>> FETCH_HEAD
 				}
           $result_found = 1;
     }
@@ -191,6 +226,7 @@ if ($create_emptys != 0) {
 }
 
 echo "</tr>";
+<<<<<<< HEAD
 echo "</table>";
 ?>
 <hr />
@@ -198,5 +234,20 @@ echo "</table>";
 
 <?
 echo "</div>";
+=======
+echo "</tbody></table>";
+>>>>>>> FETCH_HEAD
 ?>
 
+<table>
+	<tbody>
+		<tr>
+			<td><span class="fa fa-square fa-fw fa-lg" style="color: #f29b12;"></span></td>
+			<td>Actividades registradas por m�.</td>
+		</tr>
+		<tr>
+			<td><span class="fa fa-square fa-fw fa-lg" style="color: #3397db;"></span></td>
+			<td>Actividades registradas por otros profesores.</td>
+		</tr>
+	</tbody>
+</table>

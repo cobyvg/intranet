@@ -137,22 +137,22 @@ li.nav-header {
 
 
 /* CALENDARIOS */
-.calendar-today {
+.calendar-today, .table-striped>tbody>tr:nth-child(odd)>td.calendar-today {
 	background-color: #2b3d4f;
 	color: #fffffe;
 }
 
-.calendar-orange {
+.calendar-orange, .table-striped>tbody>tr:nth-child(odd)>td.calendar-orange {
 	background-color: #f29b12;
 	color: #fffffe;
 }
 
-.calendar-blue {
+.calendar-blue, .table-striped>tbody>tr:nth-child(odd)>td.calendar-blue {
 	background-color: #3397db;
 	color: #fffffe;
 }
 
-.calendar-red {
+.calendar-red, .table-striped>tbody>tr:nth-child(odd)>td.calendar-red {
 	background-color: #e14939;
 	color: #fffffe;
 }
@@ -187,23 +187,23 @@ li.nav-header {
 
 /* FECHORIAS */
 
-.expulsion-centro {
+.expulsion-centro, .table-striped>tbody>tr:nth-child(odd)>td.expulsion-centro {
 	background-color: #FF4444;
 }
 
-.expulsion-aula {
+.expulsion-aula, .table-striped>tbody>tr:nth-child(odd)>td.expulsion-aula {
 	background-color: #FFBB33;
 }
 
-.amonestacion-escrita {
+.amonestacion-escrita, .table-striped>tbody>tr:nth-child(odd)>td.amonestacion-escrita {
 	background-color: #33B5E5;
 }
 
-.aula-convivencia-jefatura {
+.aula-convivencia-jefatura, .table-striped>tbody>tr:nth-child(odd)>td.aula-convivencia-jefatura {
 	background-color: #AA66CC;
 }
 
-.aula-convivencia-profesor {
+.aula-convivencia-profesor, .table-striped>tbody>tr:nth-child(odd)>td.aula-convivencia-profesor {
 	background-color: #99CC00;
 }
 
