@@ -56,52 +56,6 @@ $last_year = $year - 1;
 if ($today > $numdays) { $today--; }
 
 // Estructura de la Tabla
-<<<<<<< HEAD
-?>
-<br />
-<div class="row">
-<div class=col-sm-6>
-<legend class='text-warning' align='center'><br />Instrucciones de uso</legend>
-<p class="help-block text-default" style="text-align:justify">
-A través de esta página puedes registrar las pruebas, controles o actividades de distinto tipo para los alumnos de los Grupos a los que das clase, o bien puedes utilizar esta página para registrar entradas pèrsonales como si fuera un calendario. <em>Los registros que estén relacionados con tus Grupos y Asignaturas aparecerán en el Calendario de la Intranet, pero también en la página personal del alumno en la Página del Centro</em>, de tal modo que Padres y Alumnos puedan ver en todo momento las fechas de las pruebas; <em>si la actividad no contiene Grupo alguno aparecerá sólo en el Calendario de la Intranet a modo de recordatorio</em>. La fecha y el Tíulo de la actividad son los únicos campos obligatorios. Puedes editar, ver y borrar los registros mediante los iconos de la tabla que presenta todas tus actividades.
-</p>
-</div>
-<div class=col-sm-6>
-    <?
-	echo "<legend class='text-warning' align='center'><br />$daylong $today, $year</legend>";	
-	
-	echo "<table class='table table-bordered table-striped table-condensed' style='width:100%;'><thead><th>
-<div align='center'>
-	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month'>
-<i class='fa fa-arrow-circle-o-left fa-lg' name='calb2' style='margin-right:20px;'> </i> </a>
-<h4 style='display:inline'>$year</h4>
-<a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month'>
-<i class='fa fa-arrow-circle-o-right fa-lg' name='calb1' style='margin-left:20px;'> </i> </a></div></th></thead></table>";
-
-echo "<table class='table table-bordered table-condensed' style='width:100%;' align='center'>
-      <tr>";
-	  $meses = array("1"=>"Ene", "2"=>"Feb", "3"=>"Mar", "4"=>"Abr", "5"=>"May", "6"=>"Jun", "7"=>"Jul", "8"=>"Ago", "9"=>"Sep", "10"=>"Oct", "11"=>"Nov", "12"=>"Dic");
-	  foreach ($meses as $num_mes => $nombre_mes) {
-	  	
-	  	if ($num_mes==$month) {
-	  		echo "<td class='info'> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes' style='font-size:10px'>".$nombre_mes."</a> </td>";
-	  	}
-	  	else{
-	  		echo "<td class='active'> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes' style='font-size:10px'>".$nombre_mes."</a> </td>";
-	  	}
-	  if ($num_mes=='6') {
-	  		echo "</tr><tr>";
-	  	}
-	  }
-	  echo "</tr></table>";
-	  
-$sql_date = "$year-$month-$today";
-$semana = date( mktime(0, 0, 0, $month, $today, $year));
-$hoy = getdate($semana);
-$numero_dia = $hoy['wday'];
-=======
 
 
 $mes_sig = $month+1;
@@ -115,7 +69,6 @@ if ($mes_sig == 13) {
 	$mes_sig = 1;
 	$ano_sig = $year+1;
 }
->>>>>>> FETCH_HEAD
 
 //Nombre del Mes
 echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
@@ -144,11 +97,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el dÃ­as
   $result_found = 0;
   if ($zz == $today) { 
-<<<<<<< HEAD
-    echo "<td class='info'>$zz</td>";
-=======
     echo "<td class=\"calendar-today\">$zz</td>";
->>>>>>> FETCH_HEAD
     $result_found = 1;
   }
 
@@ -176,17 +125,10 @@ $n_pr="";
       		$yo++;
       	}
       	if ($yo>0) {
-<<<<<<< HEAD
-      		$colores=" class='success'";
-      	}
-      	else{
-      		$colores=" class='warning'";
-=======
       		$class="class=\"calendar-orange\"";
       	}
       	else{
       		$class="class=\"calendar-blue\"";
->>>>>>> FETCH_HEAD
       	}
         //break;
       }
@@ -195,19 +137,11 @@ $n_pr="";
   $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-<<<<<<< HEAD
-			echo "<td valign=\"middle\" align=\"center\" class='danger'>$zz</td>\n";
-				$result_found = 1;
-				}
-				else{
-        		echo "<td $colores>$zz</td>";					
-=======
 			echo "<td class=\"calendar-red\">$zz</td>\n";
 				$result_found = 1;
 				}
 				else{
         		echo "<td $class>$zz</td>";					
->>>>>>> FETCH_HEAD
 				}
           $result_found = 1;
     }
@@ -226,17 +160,7 @@ if ($create_emptys != 0) {
 }
 
 echo "</tr>";
-<<<<<<< HEAD
-echo "</table>";
-?>
-<hr />
-<table class="table"><tr><td class='warning' style="width:25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td> <small>Exámenes de otros Profesores</small></td></tr><tr><td  class='success'></td><td> <small>Exámenes propios</small></td></tr></table>
-
-<?
-echo "</div>";
-=======
 echo "</tbody></table>";
->>>>>>> FETCH_HEAD
 ?>
 
 <table>
