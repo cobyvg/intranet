@@ -328,4 +328,12 @@ while ($alr=mysql_fetch_array($al)){
 	 echo $nombre;
 	 echo "</option>";}}
 }
+
+// Eliminar nombre de profesor con mayúsculas completo
+function eliminar_mayusculas(&$n_profeso) {
+	$n_profeso = mb_strtolower($n_profeso);
+	$n_profeso = ucwords($n_profeso);
+	//return $n_profeso;
+	//echo "<span class='text-capitalize'>$minusc</span>";
+}
 ?>

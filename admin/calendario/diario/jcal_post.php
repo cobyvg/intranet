@@ -8,11 +8,15 @@ if ($_SESSION['autentificado'] != 1) {
 	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
 	exit();
 }
-registraPagina($_SERVER['REQUEST_URI']);
+
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
+registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
 ?>
 <?
-$conn = mysql_connect($db_host, $db_user, $db_pass) or die("Could not connect to database!");
-
 $fecha_reg = $_POST['fecha_reg']; 
 if (isset($_POST['id'])) { $id = $_POST['id']; }
 elseif (isset($_GET['id'])) { $id = $_GET['id']; }
@@ -52,6 +56,4 @@ if (isset($_POST['id']) and strlen($_POST['id'])>0) {
     header("Location: index.php?mens=insertar");
 }
 //echo $postQuery;
-
-mysql_close($conn);
 ?>

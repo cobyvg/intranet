@@ -23,89 +23,102 @@ $cargo = $_SESSION['cargo'];
 include("../../menu.php");
 include("menu.php");
 
+eliminar_mayusculas($profesor);
+
 $prof=mysql_query("SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
 $fprof = mysql_fetch_array($prof);
 if(!($tutor)){$tutor=$fprof[0];}else{$fprof[0] = $tutor;}
 ?>
-<div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Informes de Tareas <small> Activar Informe</small></h2>
 </div>
-<br />
-  <div class="well well-large" style='width:380px;'>
-    <div align="left">
+<br>
+<div class="col-md-4 col-md-offset-4">	
+<div class="well well-large">
       <?
 if($unidad)
 {
-echo '<h4>Grupo: <span style="color:#08c">';
-echo $unidad;
-echo '</span><br /> Tutor: <span class="text-info">';
-echo $tutor;
-echo '</span></h4><br />';
+	echo '<h5>Grupo: <span class="text-info">';
+	echo $unidad;
+	echo '</span></h5> <h5>Tutor: <span class="text-info">';
+	eliminar_mayusculas($tutor);
+	echo $tutor;
+	echo '</span></h5><br />';
+
 }
 else
 {
 ?>
-      <form name="curso" method="POST" action="infotut.php" class="form-inline">
-        <label>Grupo
-          <SELECT name="unidad" onChange="submit()" class="input">
-            <option style="width:30px;"><? echo $unidad;?></option>
-            <? unidad();?>
-          </SELECT>
-        </label>
+      <form name="curso" method="POST" action="infotut.php">
+<div class="form-group">
+<label>Grupo: </label>
+<SELECT name="unidad" onChange="submit()" class="form-control">
+	<option><? echo $unidad;?></option>
+	<? unidad();?>
+</SELECT> 
+</FORM>
+</div>
       </FORM>
-    </div>
-    <hr>
     <?
 }
 ?>
     <form name="alumno" method="POST" action="ejecutactivar.php">
       <?php
 
-echo "<div align='left'><form name='alumno' method='POST' action='activar.php'>";
-echo "<label>Alumno <br />";
-echo"<select name='alumno' class='col-sm-3'>";
+echo "<form name='alumno' method='POST' action='activar.php'>";
+
+echo "<div class='form-group'>
+<label>Alumno </label>";
+echo"<select name='alumno' class='form-control'>";
 echo "<OPTION></OPTION>";
-if ($unidad == ""){ echo "<OPTION></OPTION>";} 
+if ($unidad == ""){ echo "<OPTION></OPTION>";}
 else
 {
-$alumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad FROM alma WHERE unidad like '$unidad%' ORDER BY APELLIDOS ASC, NOMBRE ASC");
- while($falumno = mysql_fetch_array($alumno))
- {
+	$alumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad FROM alma WHERE unidad like '$unidad%' ORDER BY APELLIDOS ASC, NOMBRE ASC");
+	while($falumno = mysql_fetch_array($alumno))
+	{
 	 echo "<OPTION>$falumno[1], $falumno[2] --> $falumno[0]</OPTION>";
 	}
-	}
-echo "</select></label>";
+}
+echo "</select></div>";
 
-echo"<label>Profesor que activa el informe<br />";
-echo "<input size='35' name='tutor' type='text' value='$profesor'  class='col-sm-3' readonly>";
-echo "</label>";
+echo"<div class='form-group'>
+<label>Profesor que activa el informe</label>";
+echo "<input size='35' name='tutor' type='text' value='$profesor'  class='form-control' readonly>";
+echo "</div>";
 $today = date("j, n, Y");
 $hoy = explode(",", $today);
 $dia = $hoy[0];
 $mes = $hoy[1];
 $ano = $hoy[2];
 ?>
-         <label>Fecha prevista de la ausencia<br />
- <div class="input-group" style="display:inline;" >
-            <input name="fecha" type="text" class="input input-small" value="" data-date-format="DD-MM-YYYY" id="fecha" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-
-</label>
+<div class='form-group'>
+<label>Fecha prevista de la ausencia</label>
+<div class="input-group">
+<input name="fecha"	type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" required> 
+	<span class="input-group-addon"><i class="fa fa-calendar"></i>
+	</span>
+	</div>
+</div>
 
 <?
 
-echo "<label>Duracion de la ausencia (en d&iacute;as)<br />";
-echo "<select name='duracion' class='input-mini'>";
+echo "<div class='form-group'>
+<label>Duracion de la ausencia (en d&iacute;as)</label>";
+echo "<select name='duracion' class='form-control'>";
 for ($i=1;$i<32;$i++){echo "<option>$i</option>";}
 echo "</select> ";
-echo"</label><br />";
-echo '<div align="center"><input type="submit" value="Activar informe de Tareas" class="btn btn-primary"></div>';
+echo"</div>"
+;
+echo '<input type="submit" value="Activar informe de Tareas" class="btn btn-primary btn-block">';
 ?>
     </form>
   </div>
 </div>
+</div>
+
 <? 	
 include("../../pie.php");
 ?>

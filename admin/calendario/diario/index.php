@@ -25,6 +25,7 @@ include("menu.php");
 		<div class="page-header">
 		  <h2>Calendario de actividades <small>Registrar nueva actividad</small></h2>
 		</div>
+		<br>
 <?
 if (isset($_GET['mens'])) {
 	if($_GET['mens']=="actualizar"){ 
@@ -98,7 +99,7 @@ if (isset($_GET['id'])) {
 										<label for="fecha_reg">Fecha de la actividad</label>
 										<div class="input-group" id="datetimepicker1">
 									  	<input type="text" class="form-control" id="fecha_reg" name="fecha_reg" value="<?php echo (isset($fecha_reg)) ? $fecha_reg : date('Y-m-d'); ?>" data-date-format="YYYY-MM-DD" required>
-									  	<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+									  	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									  </div>
 									</div>
 									

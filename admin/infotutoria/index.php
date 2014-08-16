@@ -39,17 +39,19 @@ return false;
   $tuto = mysql_fetch_array($tut);
   $unidad = $tuto[0];
 ?>
- <div align="center"> 
+<div class="container">
+<div class="row">
 <div class="page-header">
-  <h2>Informes de Tutoría <small> Informes activos</small></h2>
+<h2>Informes de Tutoría <small> Informes activos</small></h2>
 </div>
-<br />
+<br>
+
+<div class="col-md-6 col-md-offset-3">	
     
- <div class="well-transparent well-large" style="width:580px;">
 <? 
 // Buscamos los grupos que tiene el Profesor, con su asignatura y nivel
 	$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
-$resultcurso = mysql_query($SQLcurso);
+	$resultcurso = mysql_query($SQLcurso);
 	while($rowcurso = mysql_fetch_array($resultcurso))
 	{
 	$grupo = $rowcurso[0];
@@ -76,8 +78,8 @@ $resultcurso = mysql_query($SQLcurso);
 {
 	echo "<form name='consulta' method='POST' action='tutoria.php'>";
 //$num_informe = mysql_num_rows($sql1);
-echo "<p class='lead text-info'>$grupo <br /><small class='muted'>$n_asig</small></p>";
-echo "<table align=center  class='table'><tr style='background-color:#f6f6f6'>";
+echo "<p class='lead text-info'>$grupo <br /><small class='text-muted'>$n_asig</small></p>";
+echo "<table align=center  class='table'><tr class='active'>";
 echo "<th>Alumno</th>
 <th>Cita padres</th>
 <th>Fecha alta</th>
@@ -94,7 +96,7 @@ $activos=mysql_num_rows($si) ;
 if ($activos > 0)
 		{ 
 	echo "<tr><TD> $row[1], $row[2]</td>
-   <TD colspan='2' nowrap><span class='badge badge-warning'>Informe ya rellenado</span></td>";
+   <TD colspan='2' nowrap><span class='label label-warning'>Informe ya rellenado</span></td>";
 	if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
 			echo "<TD> 
 			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search' title='Ver Informe'> </i></a>
@@ -133,14 +135,16 @@ echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-sq
 	 echo "<br /></form><hr>";
 }
 	else{
-		echo "<p class='lead text-info'>$grupo<br /><small class='muted'> $n_asig</small></p>";
-			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+		echo "<p class='lead text-info'>$grupo<br /><small class='text-muted'> $n_asig</small></p>";
+			echo '<div align="center"><div class="alert alert-warning alert-block fade in" >
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 No hay Informes de Tutor&iacute;a Activos para t&iacute;</div></div><hr>';
 }
 	}	
 ?>
   </div>  
+  </div>
+  </div>
 <? include("../../pie.php");?>		
 </body>
 </html>

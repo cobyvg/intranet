@@ -125,10 +125,10 @@ $n_pr="";
       		$yo++;
       	}
       	if ($yo>0) {
-      		$class="class=\"calendar-orange\"";
+      		$class="class=\"warning\"";
       	}
       	else{
-      		$class="class=\"calendar-blue\"";
+      		$class="class=\"info\"";
       	}
         //break;
       }
@@ -137,7 +137,7 @@ $n_pr="";
   $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-			echo "<td class=\"calendar-red\">$zz</td>\n";
+			echo "<td class=\"danger\">$zz</td>\n";
 				$result_found = 1;
 				}
 				else{
@@ -163,15 +163,19 @@ echo "</tr>";
 echo "</tbody></table>";
 ?>
 
-<table>
+<table class="table">
 	<tbody>
 		<tr>
-			<td><span class="fa fa-square fa-fw fa-lg" style="color: #f29b12;"></span></td>
+			<td class="warning">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>Actividades registradas por mí.</td>
 		</tr>
 		<tr>
-			<td><span class="fa fa-square fa-fw fa-lg" style="color: #3397db;"></span></td>
+			<td class="info"></td>
 			<td>Actividades registradas por otros profesores.</td>
+		</tr>
+				<tr>
+			<td class="danger"></td>
+			<td>Festivos</td>
 		</tr>
 	</tbody>
 </table>

@@ -21,13 +21,12 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
  include("../../menu.php");
  include("menu.php");
 ?>
-<div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
-  <h2>Informes de Tutoría <small> Activar Informe</small></h2>
+<h2>Informes de Tutoría <small> Activar Informe</small></h2>
 </div>
-<br />
-    
- <br /> 
+<br>
  <?php
 if(empty($_POST['alumno']) or empty($_POST['tutor']))
 {
@@ -35,7 +34,7 @@ if(empty($_POST['alumno']) or empty($_POST['tutor']))
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>Atención:</legend>
 Debes rellenar todos los datos, y parece que te has olvidado del Alumno o del Tutor.<br>Vuelve atrás e inténtalo de nuevo.<br /><br />
-<input name="volver" type="button" onClick="history.go(-1)" value="Volver" class="btn btn-inverse">
+<input name="volver" type="button" onClick="history.go(-1)" value="Volver" class="btn btn-primary">
 </div></div><hr>';
 exit;
 }
@@ -63,7 +62,7 @@ if(mysql_num_rows($duplicado)>0)
 <b>";
 echo formatea_fecha($fecha);
 echo "</b>, y no queremos duplicarlo, verdad?";
-echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-inverse">
+echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-primary">
 		</div></div>';
 exit;
 }
@@ -77,11 +76,13 @@ VALUES ('$dalumno[0]',\"$dalumno[1]\",'$dalumno[2]','$dalumno[3]',
 			echo "El <b>Informe Tutorial</b> del alumno/a <b> $nombre $apellidos </b>para el día <b>";
 echo formatea_fecha($fecha);
 echo "</b> se ha activado.";
-echo '</div><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-inverse">
+echo '</div><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-primary">
 		</div>';
 exit;
 ?>
 </div>
+</div>
+
 	<? include("../../pie.php");?>								
 </body>
 </html>

@@ -55,47 +55,31 @@ $last_year = $year - 1;
 	{$monthlong = "Diciembre";}
 if ($today > $numdays) { $today--; }
 
+
 // Estructura de la Tabla
-?>
 
-    <?
-	echo "<table class='table table-bordered table-striped table-condensed' style='width:100%;'><thead><th>
-<div align='center'>
-	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month&curso=$curso&curso=$curso'>
-<i class='fa fa-arrow-circle-o-left fa-lg' name='calb2' style='margin-right:20px;'> </i> </a>
-<h4 style='display:inline'>$year</h4>
-<a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month&curso=$curso'>
-<i class='fa fa-arrow-circle-o-right fa-lg' name='calb1' style='margin-left:20px;'> </i> </a></div></th></thead></table>";
 
-echo "<table class='table table-bordered' style='width:100%;' align='center'>
-      <tr>";
-	  $meses = array("1"=>"Ene", "2"=>"Feb", "3"=>"Mar", "4"=>"Abr", "5"=>"May", "6"=>"Jun", "7"=>"Jul", "8"=>"Ago", "9"=>"Sep", "10"=>"Oct", "11"=>"Nov", "12"=>"Dic");
-	  foreach ($meses as $num_mes => $nombre_mes) {
-	  	
-	  	if ($num_mes==$month) {
-	  		echo "<th style='background-color:#08c'> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes&curso=$curso' style='color:#efefef'>".$nombre_mes."</a> </th>";
-	  	}
-	  	else{
-	  		echo "<th> 
-		<a href='".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=$num_mes&curso=$curso'>".$nombre_mes."</a> </th>";
-	  	}
-	  if ($num_mes=='6') {
-	  		echo "</tr><tr>";
-	  	}
-	  }
-	  echo "</tr></table>";
-
-$sql_date = "$year-$month-$today";
-$semana = date( mktime(0, 0, 0, $month, $today, $year));
-$hoy = getdate($semana);
-$numero_dia = $hoy['wday'];
+$mes_sig = $month+1;
+$mes_ant = $month-1;
+$ano_ant = $ano_sig = $year;
+if ($mes_ant == 0) {
+	$mes_ant = 12;
+	$ano_ant = $year-1;
+}
+if ($mes_sig == 13) {
+	$mes_sig = 1;
+	$ano_sig = $year+1;
+}
 
 //Nombre del Mes
-echo "<table class='table table-bordered table-striped' align='center' style='width:100%'><thead>";
-echo "<th colspan=\"7\" align=\"center\"><div align='center'>" . $monthlong . 
-"</div></th>";
-echo "</thead><tr>";
+echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
+echo "<th><h4>
+	<a href='".$_SERVER['PHP_SELF']."?year=$ano_ant&today=$today&month=$mes_ant&curso=$curso'>
+<span class=\"fa fa-arrow-circle-left fa-fw fa-lg\"></span></a></h4></th>";
+echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
+echo "<th><h4><a href='".$_SERVER['PHP_SELF']."?year=$ano_sig&today=$today&month=$mes_sig&curso=$curso'>
+<span class=\"fa fa-arrow-circle-right fa-fw fa-lg\"></span></a></h4></th>";
+echo "</tr><tr>";
 
 
 //Nombre de Días
@@ -118,21 +102,36 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el días
   $result_found = 0;
   if ($zz == $today) { 
-    echo "<td class='info'>$zz</td>";
+    echo "<td class='calendar-today'>$zz</td>";
     $result_found = 1;
-  }
+  }  
   
  if ($result_found != 1) { 
 		//Buscar actividad para el d�a y marcarla
 		$sql_currentday = "$year-$month-$zz";
 
-    $eventQuery = "SELECT distinct fecha FROM diario WHERE grupo like '%$curso%' and fecha = '$sql_currentday';";
+    $eventQuery = "SELECT distinct fecha, profesor FROM diario WHERE grupo like '%$curso%' and fecha = '$sql_currentday';";
+    // echo $eventQuery;
 		$eventExec = mysql_query ( $eventQuery );
 		if (mysql_num_rows($eventExec)>0) {
-			while ( $row = mysql_fetch_array ( $eventExec ) ) {
-echo "<td class='warning'>$zz</td>";
-			$result_found = 1;
-			}
+		while ( $row = mysql_fetch_array ( $eventExec ) ) {
+
+      	if ($row[1]!==$_SESSION['profi']) {
+      		$ellos++;
+      	}
+      	else{
+      		$yo++;
+      	}     	
+        //break;
+      }
+      
+		if ($yo>0) {
+      		echo "<td class='warning'>$zz</td>\n";		
+      	}
+      	elseif ($ellos>0){
+      		echo "<td class='info'>$zz</td>\n";		
+      	}
+      	$result_found = 1;
 		}	
 		else{
 		$sql_currentday = "$year-$month-$zz";
