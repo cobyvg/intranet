@@ -22,7 +22,7 @@ if (strstr($_SERVER['REQUEST_URI'],'buscar.php')==TRUE){ $activo3 = ' class="act
 if (strstr($_SERVER['REQUEST_URI'],'index_buscar.php')==TRUE){ $activo4 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="active" ';}
 ?>      
-    <div class="container">  
+    <div class="container hidden-print">  
   <div class="tabbable">
           <ul class="nav nav-tabs">
 <li <? echo $activo1;?>> <a href="index.php">Página de Informes de Tareas</a></li>

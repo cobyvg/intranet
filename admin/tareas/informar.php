@@ -27,12 +27,16 @@ include("../../menu.php");
 include("menu.php");
 
 ?>
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Informes de Tareas <small> Redactar Informe</small></h2>
 </div>
-<br />
-<div align="center">
-<div class="well well-large" style="width:600px;">
+<br>
+
+<div class="col-md-6 col-md-offset-3">	
+
+<div class="well well-large" >
 <form name="informar" method="POST" action="informar.php?id=<? echo $id;?>">         
 <?php
  
@@ -54,23 +58,19 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuev
 	exit();	
 }
 $claveal=trim($dalumno[0]);
-echo "<table align=center class='table table-striped'  style='margin-top:2px;width:320px'>";
-echo "<tr><th>Alumno/a </th>
- <th>Grupo</th><th nowrap>Fecha Expulsión</th><th>Duración</th></tr>
+echo "<table align=center class='table table-striped' '>";
+echo "<thead><tr  class='active'><th>Alumno/a </th>
+ <th>Grupo</th><th nowrap>Fecha Expulsión</th><th>Duración</th><tr></thead><tbody>
 <TR><td nowrap>$dalumno[1], $dalumno[2]</td>
 <td>$dalumno[3]</td><td>$dalumno[5]</td><td>$dalumno[6]</td></tr></TABLE>";
 
    	$foto = '../../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto) and !(empty($dalumno[0]))) {
 		echo "<div style='width:150px;margin:auto;'>";
-		echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-top:10px;border:1px solid #bbb;''  />";
+		echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' class='img-rsponsive'  />";
 		echo "</div>";
 	}
-echo "<br /><table align=center class='table table-striped' width='560'>";
-echo"<tr><th>";
-echo "ASIGNATURA";
-echo "</Th><Th>INFORME</Th></tr><TR>";
-echo "<TD>";
+
 $coinciden = mysql_query("SELECT materia FROM profesores WHERE profesor='$profesor' and grupo = '$dalumno[3]'", $c);
 while($coinciden0 = mysql_fetch_row($coinciden)){
 $asignatur = $coinciden0[0];
@@ -99,7 +99,7 @@ $asi=mysql_fetch_array($as);
 $asi1 = substr($asi[0],0,strlen($asi[0]) -1);
 
 $coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$profesor'");
-echo "<select name='asignatura' class='input-large'>";
+echo "<div class='form-group'><label>Asignatura</label><select name='asignatura' class='form-control'>";
 if(mysql_num_rows($coinciden)<1 and stristr($_SESSION['cargo'],'1') == TRUE){
 $coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");
 }
@@ -116,21 +116,20 @@ if (strstr($asi1,$cod)==TRUE) {
 }
 }
 
-echo "</select>";
+echo "</select></div>";
 
 echo "</td>";
 $ya_hay=mysql_query("select tarea from tareas_profesor where asignatura = '$materia' and id_alumno = '$id'");
 $ya_hay1=mysql_fetch_row($ya_hay);
 $informe=$ya_hay1[0];
-echo "<TD >";
-echo "<textarea rows='6' cols='42' name='informe' class='col-sm-4'>$informe</textarea>";
-echo "</TD>";
-echo "</TABLE>";
+echo "<div class='form-group'><label>Informe</label><textarea rows='6' name='informe' class='form-control' required>$informe</textarea></div>";
 mysql_close($c);
 ?>
 
-<input name="submit1" type=submit value="Enviar Datos" class="btn btn-primary">
+<input name="submit1" type=submit value="Enviar Datos" class="btn btn-primary btn-block">
 </form>
+</div>
+</div>
 </div>
 </div>
 <? include("../../pie.php");?>		

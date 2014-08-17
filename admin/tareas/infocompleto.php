@@ -27,10 +27,14 @@ else
 $id="";
 }
 ?>
+<div class="container">
+<div class="row">
 <div class="page-header">
-  <h2>Informes de Tareas <small> Informe por asignaturas</small></h2>
+  <h2>Informes de Tareas <small> Informe de un alumno</small></h2>
 </div>
-<br />
+<br>
+
+<div class="col-md-12">
 <?php
 echo "<div align='center'>";
 
@@ -56,27 +60,27 @@ $fecha_t = $dalumno[5];
    	$foto = '../../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto) and !(empty($dalumno[0]))) {
 	echo "<div style='width:150px;margin:auto;'>";
-	echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-top:10px;border:1px solid #bbb;''  />";
+	echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119'  />";
 	echo "</div><br />";
 }
 if (empty ( $dalumno [0] )) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo<br><br />
 <input type="button" onClick="history.back(1)" value="Volver" class="btn btn-danger">
 </div></div><hr>';
 	exit();
 }
 
-echo "<h4>$dalumno[1] $dalumno[0] <span>($dalumno[2])</span><br><br /> <span>Fecha de Expulsión:</span> $dalumno[5] ($dalumno[6] días)<br><span>Tutor:</span> $dalumno[4]</h4><br />";
+echo "<h4>$dalumno[1] $dalumno[0] ( $dalumno[2] )</h4> <h4>Fecha de Expulsión: $dalumno[5] ($dalumno[6] días)</h4><h4>Tutor: $dalumno[4]</h4><br />";
 
 $datos = mysql_query ( "SELECT asignatura, tarea, confirmado, profesor FROM tareas_profesor WHERE id_alumno='$id'", $c );
 if (mysql_num_rows ( $datos ) > 0) {
-echo "<table class='table table-striped table-bordered' align='center' style='width:900px'>";
+echo "<table class='table table-striped table-bordered' align='center'>";
 	while ( $informe = mysql_fetch_array ( $datos ) ) {
-		echo "<tr><td style='width:160px;'><strong>$informe[0]</strong></td>
-		<td style='width:220px;'>$informe[3]</td>
+		echo "<tr><td style='width:15%;'><strong>$informe[0]</strong></td>
+		<td style='width:20%;'>$informe[3]</td>
 		  <td>$informe[1]</td>";
 		echo "<td>$informe[2]</td>";
 		echo "</tr>";
@@ -97,9 +101,9 @@ $frase = substr($frase,0,-19).")";
 $datos1 = mysql_query("SELECT distinct materia, profesor from profesores, asignaturas WHERE materia = nombre and profesores.grupo = '$dalumno[2]' and profesor not in (SELECT profesor FROM tareas_profesor WHERE id_alumno='$id') and materia not in (SELECT asignatura FROM tareas_profesor WHERE id_alumno='$id')  and abrev not like '%\_%' $frase");
 while($informe1 = mysql_fetch_array($datos1))
 {
-	echo "<tr><td style='width:160px;'><strong>$informe1[0]</strong></td>
-		<td style='width:220px;'>$informe1[1]</td>
-		  <td></td><td></td>";
+	echo "<tr><td style='width:15%;'><strong>$informe1[0]</strong></td>
+		<td style='width:20%;'>$informe1[1]</td>
+		  <td></td><td style='width:2%;'></td>";
 	echo"</tr>";
 }
 
@@ -108,7 +112,7 @@ while($informe1 = mysql_fetch_array($datos1))
 } else {
 	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 Los Profesores no han rellenado aún su Informe de tareas.<br /><br />
 <input name="volver" type="button" onClick="history.go(-1)" value="Volver" class="btn btn-danger">
 </div></div><hr>';

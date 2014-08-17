@@ -46,15 +46,15 @@ include("../../menu.php");
 include("menu.php");
 $datatables_activado = true;
 ?>
-<div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Informes de Tutoría <small> Buscar Informes</small></h2>
 </div>
- <legend><? echo $titulo;?></legend><br /> 
-<form name="buscar" method="POST" action="buscar.php">
-<div class='container-fluid'>
-  <div class="row">
-  <div class="col-sm-6 col-sm-offset-3">
+<br>
+
+<div class="col-md-8 col-md-offset-2">
+
 <?php
 if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];}else{$apellidos="";}
 if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
@@ -73,29 +73,29 @@ $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error()
 echo "<table class='table table-striped table-bordered tabladatos' align='center'><thead>";
 echo "<th>Alumno </th>
 <th>Curso</th>
-<Th>Cita con padres</th><th></th></thead><tbody>";
+<Th>Cita</th><th></th></thead><tbody>";
 if (mysql_num_rows($result) > 0)
 {
 
 	while($row = mysql_fetch_object($result))
 	{
-   echo "<tr><td nowrap>";
+   echo "<tr><td nowrap style='vertical-align:middle'>";
 		$foto="";
-		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64' class=''  />";
+		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64'  />";
 		echo $foto."&nbsp;&nbsp;";	
    echo "$row->NOMBRE $row->APELLIDOS</TD>
-   <TD nowrap>$row->unidad</TD>
-   <TD nowrap>$row->F_ENTREV</TD>";
-echo "<td nowrap><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-search ' title='Ver Informe'> </i></a>";	
+   <TD style='vertical-align:middle' nowrap>$row->unidad</TD>
+   <TD style='vertical-align:middle' nowrap>$row->F_ENTREV</TD>";
+echo "<td style='vertical-align:middle' nowrap><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary'><i class='fa fa-search ' title='Ver Informe'> </i></a>";	
 
 $result0 = mysql_query ( "select tutor from FTUTORES where unidad = '$row->unidad'" );
 $row0 = mysql_fetch_array ( $result0 );	
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='fa fa-trash-o ' title='Borrar Informe' data-bb='confirm-delete'> </i> </a> 	";
-   	echo "&nbsp;&nbsp;<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
+   	echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary'><i class='fa fa-trash-o ' title='Borrar Informe' data-bb='confirm-delete'></i></a>";
+   	echo "<a href='informar.php?id=$row->ID' class='btn btn-primary'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
    }	
-echo '</td></tr>';
+echo '</div></td></tr>';
 	}
 echo "</tbody></table><br />";
 }

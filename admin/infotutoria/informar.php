@@ -25,11 +25,14 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 ?>
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Informes de Tutoría <small> Redactar Informe por asignatura</small></h2>
 </div>
-<br />
-<div align="center">
+<br>
+
+<div class="col-md-6 col-md-offset-3">	
         
 <?php
 
@@ -37,46 +40,40 @@ $alumno=mysql_query("SELECT infotut_alumno.CLAVEAL, infotut_alumno.APELLIDOS, in
 $dalumno = mysql_fetch_array($alumno);
 $n_cur=$dalumno[5];
 if (empty($dalumno[0])) {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo
 <br><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-primary">
 		</div></div>';
 	exit;	
 }
 ?>
-<div class="well well-large" style="width:600px;">
+<div class="well well-large">
  <form name="informar" method="POST" action="informar.php?id=<? echo $id;?>"> 
 <?
 echo "<input type='hidden'  name='ident' value='$id'>";
 echo "<input type='hidden'  name='profesor' value='$pr'>";
 $claveal=trim($dalumno[0]);
 if (empty($dalumno[0])) {
-	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<legend>ATENCIÓN:</legend>
 Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo.<br /><br /
 ><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-danger">
 </div></div><hr>';
 	exit();	
 }
-echo "<table align=center class='table table-striped'  style='margin-top:2px;width:320px'>";
-echo "<tr><th>ALUMNO/A </th>
- <th>CURSO</Th></tr>
-<TR><td>$dalumno[1], $dalumno[2]</td>
-<td>$dalumno[3]</td></tr></TABLE>";
+
+echo "<p align=center class='lead'>$dalumno[2] $dalumno[1] ( $dalumno[3] )</p>";
    	$foto = '../../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto) and !(empty($dalumno[0]))) {
 		echo "<div style='width:150px;margin:auto;'>";
-		echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-top:10px;margin-bottom:10px;border:1px solid #bbb;'  />";
+		echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' class='img-responsive' />";
 		echo "</div>";
 	}
-echo "<br /><table align=center class='table table-striped' width='560'>";
-echo"<tr><th>";
-echo "ASIGNATURA";
-echo "</Th><Th>INFORME</Th></tr><TR>";
-echo "<TD>";
+echo "<br />";
+
 $coinciden = mysql_query("SELECT materia FROM profesores WHERE profesor='$pr' and grupo = '$dalumno[3]'");
 while($coinciden0 = mysql_fetch_row($coinciden)){
 $asignatur = $coinciden0[0];
@@ -91,7 +88,7 @@ $coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asign
 if(mysql_num_rows($coinciden)<1 and stristr($_SESSION['cargo'],'1') == TRUE){
 $coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");	
 }
-echo "<select name='asignatura' class='input-large'>";
+echo "<div class='form-group'><label>Asignatura</label><select name='asignatura' class='form-control' required>";
 echo"<OPTION></OPTION>";
 while($coinciden0 = mysql_fetch_row($coinciden)){
 $n_asig = $coinciden0[0];
@@ -105,21 +102,20 @@ if (strstr($asi1,$cod)==TRUE) {
 }
 }
 
-echo "</select>";
+echo "</select></div>";
 
-echo "</td>";
 $ya_hay=mysql_query("select informe from infotut_profesor where asignatura = '$materia' and id_alumno = '$id'");
 $ya_hay1=mysql_fetch_row($ya_hay);
 $informe=$ya_hay1[0];
-echo "<TD >";
-echo "<textarea rows='6' cols='42' name='informe' class='col-sm-4'>$informe</textarea>";
-echo "</TD>";
-echo "</TABLE>";
+echo "<div class='form-group'><label>Informe</label><textarea rows='6' name='informe' class='form-control' required>$informe</textarea></div>";
 ?>
-<input name="submit1" type=submit value="Enviar Datos" class="btn btn-primary">
+<input name="submit1" type=submit value="Enviar Datos" class="btn btn-primary btn-block">
 </form>
 </div>
 </div>
+</div>
+</div>
+
 <? include("../../pie.php");?>		
 </body>
 </html>

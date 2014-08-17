@@ -90,13 +90,12 @@ $count = "";
 	{
 // Comprobamos que el profesor no ha rellenado el informe de esa asignatura	
 $hay = "select * from infotut_profesor where id_alumno = '$row[0]' and asignatura = '$asignatura'";
-// echo "$hay<br>";
 $si = mysql_query($hay);	
 $activos=mysql_num_rows($si) ;
 if ($activos > 0)
 		{ 
 	echo "<tr><TD> $row[1], $row[2]</td>
-   <TD colspan='2' nowrap><span class='label label-warning'>Informe ya rellenado</span></td>";
+   <TD colspan='2' nowrap style='vertical-align:middle'><span class='label label-success'>Informe ya rellenado</span></td>";
 	if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
 			echo "<TD> 
 			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search' title='Ver Informe'> </i></a>

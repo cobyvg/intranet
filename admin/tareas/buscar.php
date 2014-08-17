@@ -51,17 +51,14 @@ if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
 if (!(empty($unidad))) {
 }
 ?>
-<div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Informes de Tareas <small> Buscar Informes</small></h2>
 </div>
+<br>
 
-<form name="buscar" method="POST" action="buscar.php">
-<div class='container-fluid'>
-  <div class="row">
-  <div class="col-sm-8 col-sm-offset-2">
- <h3><? echo $titulo;?></h3><br /> 
- <form name="buscar" method="POST" action="buscar.php">
+<div class="col-md-10 col-md-offset-1">
 <?php
 // Consulta
  $query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, unidad, FECHA
@@ -74,7 +71,7 @@ if (!(empty($unidad))) {
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 
 echo "<table class='table table-striped table-bordered tabladatos' align='center'><thead>";
-echo "<tr><th></th><th>Alumno/a </th>
+echo "<ter><th>Alumno/a </th>
 <th>Curso</Th>
 <Th>Fecha inicio</th><th>Sí</th><th>No</th><th></th><th></th></TR></thead><tbody>";
 if (mysql_num_rows($result) > 0)
@@ -93,22 +90,22 @@ if (mysql_num_rows($result) > 0)
 		$nulo = mysql_num_rows($vacio);
 		if ($nulo > 0){ $bola = "<i class='fa fa-check' title='confirmado' />"; } else{ $bola = "<i class='fa fa-exclamation-triangle' title='No confirmado' />"; }
 
-   echo "<tr><TD><input type='radio' name='llenar' value='$row->ID'></td><td>";
+   echo "<tr><td nowrap style='vertical-align:middle'>";
 		$foto="";
-		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64' class=''  />";
+		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64'  />";
 		echo $foto."&nbsp;&nbsp;";	
    echo "$row->APELLIDOS $row->NOMBRE</TD>
-   <TD>$row->GRUPO</TD>
-   <TD>$row->FECHA</TD><TD>$si</TD><TD>$no</TD><TD>$bola</TD>";
-   echo "<td><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-search ' title='Ver Informe'> </i></a>";
+   <TD style='vertical-align:middle'>$row->UNIDAD</TD>
+   <TD style='vertical-align:middle'>$row->FECHA</TD><TD style='vertical-align:middle'>$si</TD><TD style='vertical-align:middle'>$no</TD><TD style='vertical-align:middle'>$bola</TD>";
+   echo "<td style='vertical-align:middle'><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-search ' title='Ver Informe'> </i></a>";
    $result0 = mysql_query ( "select tutor from FTUTORES where unidad = '$row->unidad'" );
 $row0 = mysql_fetch_array ( $result0 );	
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	   	echo "&nbsp;&nbsp;<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
-		echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='fa fa-trash-o ' title='Borrar Informe' data-bb='confirm-delete'> </i> </a> 	";
+   	   	echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
+		echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='fa fa-trash-o ' title='Borrar Informe' data-bb='confirm-delete'> </i> </a> 	";
    }	
-echo  '</td></tr>';
+echo  '</div></td></tr>';
 	}
 echo "</tbody></table><br />";
 }

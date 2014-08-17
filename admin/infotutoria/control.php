@@ -21,20 +21,21 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 ?>
-<div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Informes de Tutoría <small> Profesores que no redactan Informe</small></h2>
 </div>
-<br />
-</div>
+<br>
+
 <?
 $detalles = '1'; 
 ?>
-<div class="row">
 <div align="center">
-<FORM action="control-luis.php" method="POST" class="well well-large form-inline" style="width:450px;">
-<legend>Informe sobre un Profesor</legend>
-  <SELECT  name=profes onChange="submit()">
+<FORM action="control-luis.php" method="POST" class="well well-large" style="width:450px;">
+<div class="form-group">
+<label>Informe sobre un Profesor</label>
+  <SELECT  name=profes onChange="submit()" class="form-control">
     <option></option>
     <?
   $profe = mysql_query(" SELECT distinct profesor FROM profesores order by profesor asc");
@@ -49,6 +50,7 @@ $detalles = '1';
         }
 	?>
   </select>
+</div>
 </FORM>
 </div>
 
