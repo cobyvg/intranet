@@ -22,20 +22,23 @@ include("../menu.php");
 ?>
 <div class="container">
 <div class="row">
-<div class="col-sm-8 col-sm-offset-2">
 <?
-echo "<br /><div align='center' class='page-header'>";
+echo "<br /><div class='page-header'>";
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
 echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small> Informes personales</small></h2>";
 echo "</div>";
 echo '<div align="center">';
+?>
+<div class="col-sm-8 col-sm-offset-2">
+<?
+
 
  foreach($_GET as $key => $val)
 	{
 		${$key} = $val;
 	}
-echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";	
+echo "<legend>$curso <span class='muted'>( $nom_asig )</span></legend><br>";	
 	 
 if($siguiente == '1'){
   $unidad = $curso;
@@ -58,8 +61,8 @@ if($siguiente == '1'){
   $alumno = mysql_fetch_array($alum);
   $nc = $alumno[0];
   $unidad = $alumno[1];
-  $nombre = $alumno[3];
-  $apellidos = $alumno[2];
+  $nombre = $alumno[2];
+  $apellidos = $alumno[3];
   $curso = $unidad;
 
 	
@@ -74,22 +77,22 @@ if($siguiente == '1'){
 		echo "</div>";
 	}
 	
-  echo "<br /><div class='well'><strong class='text-info'>";
+  echo "<br /><div class='well'><h4 class='text-info'>";
   
   if($nc > 1){$mens_ant = "informe.php?profesor=$profesor&clave=$clave&nc=$nc&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&anterior=1";
-  echo '<button class="btn btn-success btn-small" name="anterior" onclick="window.location=\'';	
+  echo '<button class="btn btn-primary btn-sm" name="anterior" onclick="window.location=\'';	
   echo $mens_ant;
   echo '\'" style="cursor: pointer;"><i class="fa fa-chevron-left">&nbsp; </i> Anterior</button>';}
   
-  echo "&nbsp;&nbsp;$nc => $apellidos $nombre &nbsp;&nbsp;"; 
+  echo "&nbsp;&nbsp; $nombre $apellidos &nbsp;&nbsp;"; 
    
   if($nc < $ultimo){
  $mens_sig = "informe.php?profesor=$profesor&clave=$clave&nc=$nc&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&siguiente=1";
-	echo ' <button class="btn btn-success btn-small" name="siguiente" onclick="window.location=\'';	
+	echo ' <button class="btn btn-primary btn-sm" name="siguiente" onclick="window.location=\'';	
 	echo $mens_sig;
 	echo '\'" style="cursor: pointer;">Siguiente &nbsp;<i class="fa fa-chevron-right "> </i> </button>';}
 
-  echo "</strong></div>"; 
+  echo "</h4></div>"; 
 
 ?>
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -100,13 +103,14 @@ if($siguiente == '1'){
 </ul>
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
 <div class="tab-pane fade in active" id="tab1">
+<br>
 <?  
 // Procesamos los datosxxxx
 $datos1 = "select distinct fecha, nombre, nota from datos, notas_cuaderno where  notas_cuaderno.id = datos.id and profesor = '$profesor' and curso like '%$curso%,' and claveal = '$claveal' and asignatura = '$asignatura' order by orden";
 $datos0 = mysql_query($datos1);
 	if (mysql_num_rows($datos0) > 0) {
 		?>
-    <h4>
+    <h4 class='text-info'>
  Notas en la Columnas</h4><br />
     <?
 echo "<table align='center' class='table table-striped' style='width:auto'>\n"; 
@@ -129,6 +133,7 @@ El alumno no tiene notas registradas.
 </div>
 
 <div class="tab-pane fade in" id="tab2">
+<br>
 <?		
    	include("informes/datos.php");
 	echo '<hr style="width:400px;">';   
@@ -136,15 +141,16 @@ El alumno no tiene notas registradas.
     </div>
     
 <div class="tab-pane fade in" id="tab3">
+<br>
+<div align="left">
 <?	
 include("informes/faltas.php");
 echo '<hr style="width:400px;">';
 include("informes/fechorias.php");
 echo '<hr style="width:400px;">';
 include("informes/notas.php");
-echo '<hr style="width:400px;">';
-echo "<br /><input type=button value=Volver onClick='history.back(-1)' class='btn btn-primary'>";
 ?>
+</div>
 <br />
 </div>
 </div>

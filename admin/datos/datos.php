@@ -160,8 +160,9 @@ if ($row = mysql_fetch_array($result))
 		$claveal = $row[0];
 		$correo = $row[12];
 		echo "<tr>";
-	if (file_exists('../../xml/fotos/'.$row['claveal'].'.jpg')) {
-		$foto = "<img class=\"img-thumbnail\" src=\"../../xml/fotos/".$row['claveal'].".jpg'\" alt=\"".$row['apellidos'].", ".$row['nombre']."\" width=\"53\">";
+		$foto_dir = '../../xml/fotos/'.$clave_al.'.jpg';
+	if (file_exists($foto_dir)) {
+		$foto = "<img src='$foto' width='53' class=\"img-thumbnail\" />";
 	}
 	else {
 		$foto = "<span class=\"fa fa-user fa-3x fa-fw\"></span>";

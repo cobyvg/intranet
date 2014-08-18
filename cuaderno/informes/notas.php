@@ -1,5 +1,5 @@
   <?
-echo "<h4>Evaluaciones del Alumno</h4><br />";
+echo "<h4 class='text-info'>Evaluaciones del Alumno</h4><br />";
 
  echo "<table class='table table-striped' style='width:auto'>
 		<TR><Th nowrap>Asignatura</th><th>1ª </th><th>2ª </th><th>Jun. </th><th>Sept. </th></tr>";

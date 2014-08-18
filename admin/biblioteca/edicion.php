@@ -28,12 +28,15 @@ function enviarForm()
 include("../../menu.php");
  include("menu.php");
 ?>
-<br />
-<div align="center">
+<br>
+<div class="container">
+<div class="row">
 <div class="page-header">
-  <h2>Biblioteca del Centro <small> Edici&oacute;n de morosos.</small></h2>
+  <h2>Biblioteca del Centro <small> Edición de morosos</small></h2>
 </div>
-<br />
+<br>
+
+<div class="col-sm-8 col-sm-offset-2">
 <?
 if(isset($_POST['borrar'])){
 	//echo $fecha;
@@ -49,7 +52,7 @@ if(isset($_POST['borrar'])){
 
 			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI&Oacute;N:</h5>
+			<legend>ATENCI&Oacute;N:</legend>
 El proceso de borrado ha sido completado correctamente. Los alumnos no volver&aacute;n a aparecer en la lista.
 	</div></div><br />';
 
@@ -61,7 +64,7 @@ El proceso de borrado ha sido completado correctamente. Los alumnos no volver&aa
 		{
 			echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI&Oacute;N:</h5>
+			<legend>ATENCI&Oacute;N:</legend>
 No se ha podido borrar porque no has elegido ning&uacute;n alumno de la lista. Vuelve atr&aacute;s para solucionarlo.
 	</div></div><br />
 <div align="center">
@@ -132,7 +135,7 @@ if ($sms) {
 	}
 			$alumno = mysql_query ( " SELECT distinct APELLIDOS, NOMBRE, unidad, CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE claveal = '$clave'" );
 			$rowa = mysql_fetch_array ( $alumno );
-			echo "<table class='tabla' style='padding:2px 10px;'>";
+			echo "<table class='table table-striped'>";
 			$apellidos = trim ( $rowa [0] );
 			$nombre = trim ( $rowa [1] );
 			$unidad = trim ( $rowa [2] );
@@ -192,14 +195,14 @@ enviarForm();
 if ($registro) {
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI&Oacute;N:</h5>
+			<legend>ATENCI&Oacute;N:</legend>
 Las amonestaciones se han registrado con &eacute;xito. Ahora debes pulsar en el bot&oacute;n, generar pdf, para poder imprimir las amonestaciones registradas..
 	</div></div><br />';
 }
 elseif($sms){
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI&Oacute;N:</h5>
+			<legend>ATENCI&Oacute;N:</legend>
 Los mensajes SMS de aviso por retraso en la devolución de ejemplares de la Biblioteca han sido enviados correctamente (si en la pequeña ventana del navegador que aparece en la parte superior izquierda dice <b>OK</b>).
 	</div></div><br />';
 }
@@ -217,7 +220,7 @@ Amonestaciones en PDF</button>
 	elseif ($j==0)     {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCI&Oacute;N:</h5>
+			<legend>ATENCI&Oacute;N:</legend>
 No se ha podido registrar la amonestaci&oacute;n porque no has elegido ning&uacute;n alumno de la lista. Vuelve atr&aacute;s para solucionarlo.
 	</div></div><br />
 <div align="center">
@@ -226,10 +229,11 @@ No se ha podido registrar la amonestaci&oacute;n porque no has elegido ning&uacu
 	}
 	}
 }
-
-
-
 ?>
+</div>
+</div>
+</div>
+<? include ("../../pie.php"); ?>
 
 
 

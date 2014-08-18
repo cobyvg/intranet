@@ -13,7 +13,7 @@
 
   if ($rowt != "" OR $rowtj != "")
              {
-echo "<h4>Faltas de Asistencia en el Curso</h4>";
+echo "<h4 class='text-info'>Faltas de Asistencia en el Curso</h4>";
 echo "<h5>
 		Días con Faltas de Asistencia</h5>";
 		do {

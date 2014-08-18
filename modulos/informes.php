@@ -1,5 +1,5 @@
 <?
-echo "<div class='well alert alert-warning'><p class='lead'><i class='fa fa-bell'> </i> Informes de Tutor&iacute;a activos por visita de padres</p><hr />";
+echo "<div class='alert alert-warning'><p class='lead'><i class='fa fa-bell'> </i> Informes de Tutor&iacute;a activos por visita de padres</p><hr />";
 $resultcurs = mysql_query($SQLcurso);
 	while($rowcurs = mysql_fetch_array($resultcurs))
 	{
@@ -31,13 +31,18 @@ if (mysql_num_rows($si) > 0)
 	$n_infotut = $n_infotut+1;
 	$fechac = explode("-",$row1[3]);
 	echo "<p>$fechac[2]-$fechac[1]-$fechac[0]. 
-	<a data-toggle='modal' href='#infotut$n_infotut'> $row1[2] $row1[1]</a> -- $curso $row[6] &nbsp;&nbsp;&nbsp;&nbsp; <a href='./admin/infotutoria/infocompleto.php?id=$row1[0]'> <i class='fa fa-search' title='Ver informe'> </i></a><a href='./admin/infotutoria/informar.php?id=$row1[0]' /> <i class='fa fa-pencil' title='Rellenar informe'> </i> </a>
+	<a  data-toggle='modal' href='#infotut$n_infotut' > $row1[2] $row1[1]</a> -- $curso $row[6] &nbsp;&nbsp;&nbsp;&nbsp; <a href='./admin/infotutoria/infocompleto.php?id=$row1[0]'> <i class='fa fa-search' title='Ver informe'> </i></a><a href='./admin/infotutoria/informar.php?id=$row1[0]' /> <i class='fa fa-pencil' title='Rellenar informe'> </i> </a>
 	</p>";
 	?>
-<div class="modal hide fade in" id="infotut<? echo $n_infotut;?>">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Informe de Tutoría para <? echo "$row1[2] $row1[1]";?></h3>
+
+	
+	
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="infotut<? echo $n_infotut;?>">
+  <div class="modal-dialog">
+    <div class="modal-content">	
+  	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="myModalLabel">Informe de Tutoría para <? echo "$row1[2] $row1[1]";?></h4>
   </div>
   <div class="modal-body">
 <?
@@ -61,6 +66,9 @@ else{
     <a href="#" class="btn btn-primary" data-dismiss="modal">Cerrar</a>
   </div>
 </div> 
+</div>
+</div>
+
     <?
 		}
 	}

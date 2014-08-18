@@ -1,4 +1,4 @@
-<div class='well alert alert-warning'><p class="lead"><i class='fa fa-bell'> </i> Tareas Activas por Expulsión o Ausencia del Alumno</p><hr />
+<div class='alert alert-warning'><p class="lead"><i class='fa fa-bell'> </i> Tareas Activas por Expulsión o Ausencia del Alumno</p><hr />
 <?
 $resultcurs = mysql_query($SQLcurso);
 	while($rowcurs = mysql_fetch_array($resultcurs))
@@ -33,10 +33,13 @@ if (mysql_num_rows($si) > 0)
 	<a href='./admin/tareas/informar.php?id=$row1[0]' /> <i class='fa fa-pencil' title='Rellenar informe'> </i> </a>
 	</p>";
 ?>	
-	<div class="modal hide fade in" id="tarea<? echo $n_tareas;?>">
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="tarea<? echo $n_tareas;?>">
+
+	  <div class="modal-dialog">
+    <div class="modal-content">	
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Informe de Tareas para <? echo "$row1[2] $row1[1]";?></h3>
+    <h3>Informe de Tareas para <? echo "$row1[3] $row1[2]";?></h3>
   </div>
   <div class="modal-body">
 <?	
@@ -61,6 +64,8 @@ echo '<p style="color:#08c"> Los Profesores no han rellenado aún su Informe de t
   <div class="modal-footer">
     <a href="#" class="btn btn-primary" data-dismiss="modal">Cerrar</a>
   </div>
+</div>
+</div>
 </div>
 <?
 		}

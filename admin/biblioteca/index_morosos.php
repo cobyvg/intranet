@@ -19,11 +19,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 ?>
-<div align=center>
-<div class="page-header">
-  <h2>Morosos de la Biblioteca <small> Ejemplares sin devolver</small></h2>
-</div>
-</div>
+
 <?
 $crea ="CREATE TABLE IF NOT EXISTS `morosos` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
@@ -40,18 +36,21 @@ $crea ="CREATE TABLE IF NOT EXISTS `morosos` (
 mysql_query($crea);
 
 ?>
-<br />
-<div class="container-fluid">
+<div class="container">
 <div class="row">
-
+<div class="page-header">
+  <h2>Biblioteca del Centro <small> Ejemplares sin devolver</small></h2>
+</div>
+<br>
 
 <div class="col-sm-4 col-sm-offset-4">
-<legend align = 'center'>Consulta de los listados.</legend>
-<FORM action="consulta.php" method="POST" class="form-inline"">
-  <div class="well well-large" align="center">
- <p class='lead text-info'> Elige una fecha</p>
- <hr>
-  <select name="fecha" class="input-medium">
+
+<legend align = 'center'>Consulta de los listados.</legend><br>
+<FORM action="consulta.php" method="POST">
+  <div class="well well-large">
+  <div class="form-group">
+ <label> Elige una fecha</label>
+  <select name="fecha" class="form-control">
     <?
   $tipo = "select distinct hoy from morosos order by hoy desc";
   $tipo1 = mysql_query($tipo);
@@ -61,7 +60,8 @@ echo "<option>".$tipo2[0]."</option>";
         }				
 					?>
   </select>
-  <button class="btn btn-primary" type="submit" name="submit1" value="Enviar datos">Enviar datos</button>
+  </div>
+  <button class="btn btn-primary btn-block" type="submit" name="submit1" value="Enviar datos">Enviar datos</button>
   </div>
 </FORM>
 </div>

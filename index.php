@@ -117,10 +117,6 @@ if (stristr ( $carg, '2' ) == TRUE) {
         </div>
         
         <br>
-        
-        <div class="bs-module hidden-xs">
-        <?php include("junta.php"); ?>
-        </div>
 				
 			</div><!-- /.col-sm-5 -->
 			

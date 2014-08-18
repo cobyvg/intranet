@@ -1,7 +1,7 @@
 
 <!-- MODULO DE NOTICIAS -->
 
-<h3><span class="fa fa-th-list fa-fw"></span> Noticias</h3>
+<legend><span class="fa fa-th-list fa-fw"></span> Noticias</legend>
 
 <?php $result = mysql_query("SELECT id, slug, content, contact, timestamp, clase FROM noticias WHERE timestamp < NOW() AND pagina LIKE '%1%' ORDER BY timestamp DESC LIMIT 5"); ?>
 <?php if (mysql_num_rows($result)): ?>

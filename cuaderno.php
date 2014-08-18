@@ -141,8 +141,11 @@ if($pr and $dia and $hora)
 	$col0 = mysql_query($col);
 	$cols = mysql_num_rows($col0);
 	$sin_coma=$curso;
-
+	
+	echo "<p class='lead bg-primary' style='width:50%'>$curso_sin <span class='muted'>( $nom_asig )</span></p><br>";
+	
 	echo '<form action="cuaderno.php" method="post" name="imprime" class="form-inline">';
+	
 	if(isset($_GET['seleccionar'])){
 		$seleccionar=$_GET['seleccionar'];
 	}
@@ -163,7 +166,6 @@ todos</a></div>
 <div class="col-md-9">	
 
 	<?
-		echo "<p class='lead bg-primary'>$curso_sin <span class='muted'>( $nom_asig )</span></p>";
 		echo "<table class='table table-striped table-condensed' style='width:auto'>";
 		echo "<thead><th colspan=2 style='vertical-align:bottom;background-color:#fff'></th>";
 		// Número de las columnas de la tabla

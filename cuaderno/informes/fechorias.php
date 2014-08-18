@@ -1,6 +1,6 @@
 
   <?php
-echo "<h4>Problemas de convivencia</h4>";
+echo "<h4 class='text-info'>Problemas de convivencia</h4>";
 
 // Consulta del a� en curso.
 

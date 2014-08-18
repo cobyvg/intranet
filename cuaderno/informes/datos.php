@@ -1,4 +1,4 @@
-<h4>
+<h4 class='text-info'>
  Datos del Alumno</h4><br />
   <?php
    
