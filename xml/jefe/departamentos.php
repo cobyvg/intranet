@@ -251,5 +251,5 @@ Parece que te está olvidando de enviar el archivo con los datos de los Profesore
 <input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" class="btn btn-inverse" />
 </div>
 </div>
-</body>
-</html>
+</div>
+<?php include("../../pie.php");	?>

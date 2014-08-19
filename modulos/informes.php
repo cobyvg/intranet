@@ -1,5 +1,5 @@
 <?
-echo "<div class='alert alert-warning'><p class='lead'><i class='fa fa-bell'> </i> Informes de Tutor&iacute;a activos por visita de padres</p><hr />";
+echo "<div class='alert alert-warning fade in' role='alert'><p class='lead'><i class='fa fa-bell'> </i> Informes de Tutor&iacute;a activos por visita de padres</p><hr />";
 $resultcurs = mysql_query($SQLcurso);
 	while($rowcurs = mysql_fetch_array($resultcurs))
 	{
@@ -31,7 +31,7 @@ if (mysql_num_rows($si) > 0)
 	$n_infotut = $n_infotut+1;
 	$fechac = explode("-",$row1[3]);
 	echo "<p>$fechac[2]-$fechac[1]-$fechac[0]. 
-	<a  data-toggle='modal' href='#infotut$n_infotut' > $row1[2] $row1[1]</a> -- $curso $row[6] &nbsp;&nbsp;&nbsp;&nbsp; <a href='./admin/infotutoria/infocompleto.php?id=$row1[0]'> <i class='fa fa-search' title='Ver informe'> </i></a><a href='./admin/infotutoria/informar.php?id=$row1[0]' /> <i class='fa fa-pencil' title='Rellenar informe'> </i> </a>
+	<a class='alert-link' href='#infotut$n_infotut' > $row1[2] $row1[1]</a> -- $curso $row[6]  <span class=' pull-right'><a class='alert-link' href='./admin/infotutoria/infocompleto.php?id=$row1[0]' class='alert-link' style='margin-right:10px'> <i class='fa fa-search' title='Ver informe'> </i></a><a href='./admin/infotutoria/informar.php?id=$row1[0]'  class='alert-link' style='margin-right:10px'> <i class='fa fa-pencil' title='Rellenar informe'> </i> </a></span>
 	</p>";
 	?>
 

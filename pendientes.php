@@ -179,7 +179,6 @@ if($count03 > '0'){include("modulos/informes.php");}
 if (isset($count04)) {
 if($count04 > '0'){include("modulos/absentismo.php");}
 	}
-echo "<hr>"; 
 ?>
 <?
 }
@@ -219,9 +218,9 @@ $origen = $men[4].", ".$men[3];
 $fechaenv = "el día $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 ?> 
 <li>
-<a data-toggle="modal" href="#mensajep<? echo $n_mensajesp;?>"><? echo $asunto; ?></a>
+<a class="alert-link" data-toggle="modal" href="#mensajep<? echo $n_mensajesp;?>"><? echo $asunto; ?></a>
 <br />
- <? echo "<span style='font-size:0.8em;color:#eee'>".mb_strtolower($origen)." (".formatea_fecha($fechacompl[0])." ".$fechacompl[1].")</span>";?>
+ <? echo "<span style='font-size:0.8em;'>".mb_strtolower($origen)." (".formatea_fecha($fechacompl[0])." ".$fechacompl[1].")</span>";?>
 </li>
 <div class="modal fade" id="mensajep<? echo $n_mensajesp;?>">
   <div class="modal-dialog">
@@ -237,10 +236,10 @@ $fechaenv = "el día $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 </div>
   <div class="modal-footer">
   <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
-  <a href="#" class="btn btn-warning" data-dismiss="modal">Cerrar</a>
+  <a href="#" class="btn btn-primary" data-dismiss="modal">Cerrar</a>
     <?
 		$asunto = 'RE: '.$asunto;
-echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
+echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-info">Responder</a>';
 ?>
 <a href="index.php?verifica_padres=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a> 
 <input type='hidden' name = 'id_ver' value = '$id' />
@@ -285,11 +284,11 @@ $origen = $origen0[1]." ".$origen0[0];
 $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 ?>
 <li>
-<a data-toggle="modal" href="#mensaje<? echo $n_mensajes;?>">
+<a class="alert-link" data-toggle="modal" href="#mensaje<? echo $n_mensajes;?>">
 <? echo $asunto; ?>
 </a>
 <br />
- <? echo "<span style='font-size:0.8em;color:#eee'>".mb_strtolower($origen)." (".formatea_fecha($fechacompl[0])." ".$fechacompl[1].")</span>";?>
+ <? echo "<span style='font-size:0.8em;'>".mb_strtolower($origen)." (".formatea_fecha($fechacompl[0])." ".$fechacompl[1].")</span>";?>
  </li>
 
 <div class="modal fade" id="mensaje<? echo $n_mensajes;?>">
@@ -307,11 +306,11 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
   
   <div class="modal-footer">
 	  <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
-	  <a href="#" target="_top" data-dismiss="modal"class="btn btn-default">Cerrar</a>
+	  <a href="#" target="_top" data-dismiss="modal"class="btn btn-primary">Cerrar</a>
 	  <?
 		$asunto = str_replace('"','',$asunto);
 		$asunto = 'RE: '.$asunto;
-		echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
+		echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-info">Responder</a>';
 		?>
 		<a href="index.php?verifica=<?php echo $id; ?>" target="_top" class="btn btn-success">Leído</a>  
 		<input type='hidden' name = 'id_ver' value = '$id' />

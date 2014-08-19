@@ -77,7 +77,7 @@ mysql_free_result($result_mensajes);
 		href="http://<? echo $dominio;?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
 	<li class="dropdown hidden-xs"><a href="#" class="dropdown-toggle"
 		data-toggle="dropdown"> <span
-		class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer > 0) ? 'text-warning' : ''; ?>" rel="tooltip" title="Mensajes recibidos" data-placement="right"></span>
+		class="fa fa-envelope fa-fw" rel="tooltip" title="Mensajes recibidos" data-placement="right"></span>
 	<b class="caret"></b> </a>
 	<ul class="dropdown-menu dropdown-messages">
 	<?php $result_mensajes = mysql_query("SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
@@ -158,10 +158,8 @@ if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE) {
 			class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a></li>
 	</ul>
 	</li>
-</ul>
-<p class="navbar-text"
-	style="margin-top: 5px; margin-bottom: 0px; color: #ffffff;"><small><i
-	class="fa fa-clock-o fa-lg"></i> Última conexión:<br class="hidden-xs">
+<p class="navbar-text" style="margin-top:7px;margin-bottom:0px;">
+	<a href="#" class="navbar-link"><small><i class="fa fa-clock-o fa-lg"></i> Última conexión:<br class="hidden-xs">
 	<?php
 	$time = mysql_query("select fecha from reg_intranet where profesor = '".$_SESSION['profi']."' order by fecha desc limit 2");
 
@@ -174,7 +172,9 @@ if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE) {
 			echo "$dia_hora &nbsp; $t_r0[1]";
 		}
 	}
-	?> </small></p>
+	?></small></a> </p>
+</ul>
+
 </div>
 
 </div>

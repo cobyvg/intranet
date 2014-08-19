@@ -19,13 +19,15 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
  include("menu.php");
 ?>
-<br />
-<div align="center">
+<br>
+<div class="container">
+<div class="row">
 <div class="page-header">
-  <h2>Morosos de la Biblioteca <small> Edici&oacute;n de morosos.</small></h2>
+  <h2>Biblioteca del Centro <small> Edición de morosos</small></h2>
 </div>
-<br />
-<div class="well well-large" style="width:700px;margin:auto;text-align:left">
+<br>
+
+<div class="col-sm-6 col-sm-offset-3">
 <?
 if(isset($_FILES['archivo'])){ 
 $archivo = $_FILES['archivo'];
@@ -35,7 +37,7 @@ ini_set('auto_detect_line_endings',TRUE);
 $handle = fopen ($_FILES['archivo']['tmp_name'] , 'r' ) or die
 ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÃ“N:</h5>
+			<legend>ATENCIÓN:</legend>
 No se ha podido abrir el archivo exportado. O bien te has olvidado de enviarlo o el archivo está corrompido.
 </div></div><br />
 <div align="center">
@@ -59,7 +61,7 @@ fclose($handle);
 $borrar = mysql_query("delete from morosos where curso = 'ANT' or curso='' or curso='$nombre_del_centro' or curso like 'Abies%'");
 
 ?> <div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
-			<h5>ATENCI&Oacute;N:</h5>
+			<legend>ATENCI&Oacute;N:</legendh5>
 La actualizaci&oacute;n se ha realizado con &eacute;xito. Vuelve atr&aacute;s y compru&eacute;balo.
 </div></div><br />
 <div align="center">
@@ -68,9 +70,9 @@ La actualizaci&oacute;n se ha realizado con &eacute;xito. Vuelve atr&aacute;s y 
 
 <?
 }?>
-
-
+</div>
+</div>
+</div>
 
 <? include("../../pie.php");?>
-</body>
-</html>
+

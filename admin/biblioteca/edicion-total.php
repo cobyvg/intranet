@@ -141,7 +141,7 @@ elseif ($registro){
 
 			$upd = mysql_query ("update morosos set amonestacion='SI' where id=$valor[$i]") or die ("No se ha podido actualizar registro");
 			//localizo el alumno a través de la id de la tabla morosos.
-				
+
 			$al=mysql_query ("select apellidos,nombre,curso from morosos where id=$valor[$i]") or die ("error al localizar alumno");
 			while($alu=mysql_fetch_array($al)){
 					
@@ -203,7 +203,7 @@ COMUNICACIÓN DE AMONESTACIÓN ESCRITA
                                                                          Firma del alumno/a:
 	
 ");
-						
+
 					# insertamos la primera pagina del documento
 					$MiPDF->Addpage ();
 					#### Cabecera con dirección
@@ -241,7 +241,7 @@ COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 					
 					
 			}
-				
+
 
 		}
 		}

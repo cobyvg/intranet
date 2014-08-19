@@ -1,7 +1,7 @@
 <ul class="nav nav-pills nav-stacked">
 	<li class="nav-header">Configuración</li> 
 	<li><a href="../config/index.php" class="enlacelateral">Cambiar Configuración</a></li>
-
+	<li><a href="jefe/index_temas.php" class="enlacelateral">Temas de la Aplicación</a></li>
 	
 	<li class="nav-header">A principio de curso...</li>
 	<li><a href="jefe/index2.php" class="enlacelateral">Importar Alumnos y Asignaturas</a></li>

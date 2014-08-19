@@ -269,3 +269,7 @@ li.nav-header {
 #footer {
   height: 130px;
 }
+
+.alert .alert-link{
+	text-decoration:none;
+}

@@ -86,3 +86,5 @@ Las fotos se han subido correctamente al directorio correspondiente. Hay <strong
 $d->close();
 ?>
 </div>
+</div>
+<?php include("../../pie.php");	?>

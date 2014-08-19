@@ -33,25 +33,26 @@ include("menu.php");
 	if(isset($_POST['submit1'])){
 	$fecha = $_POST['fecha'];		
 		?>
-<div align="center">
+<br>
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Biblioteca del Centro <small> Consulta de Morosos</small></h1>
-<p class="lead text-muted">Fecha elegida: <? echo $fecha;?></small></p>
-</div>
-<div class='container-fluid'>
-  <div class="row">
+<p class="lead text-muted">Fecha elegida: <? echo $fecha;?></small></p></div>
+<br>
+
   <div class="col-sm-8 col-sm-offset-2">
 <form name="form1" action="edicion.php" method="post">
-<table class='table table-striped' style='width: 90%;'>
+<table class='table table-striped'>
 <thead>
-	<tr>
+	<thead>
 		<th><input type="checkbox" onClick="selectall(form1)" /></th>
 		<th>Grupo </th>
 		<th>Alumno </th>
 		<th>Título </th>
 		<th width="90">Fecha dev. </th>
 		<th> </th>
-	</tr>
+	</thead>
 	</thead><tbody>
 	<?
 	$fecha_act = date('Y-m-d');
@@ -138,6 +139,7 @@ en pdf</button>
 	  }  
 	}  
 	</script>  
-</body>
-
-</html>
+</div>
+</div>
+</div>
+<? include ("../../pie.php"); ?>

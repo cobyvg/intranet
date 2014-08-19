@@ -28,9 +28,11 @@ if (mysql_num_rows($si) > 0)
    		else
 		{
 	$fechac = explode("-",$row1[6]);
-	echo "<p>$fechac[2]-$fechac[1]-$fechac[0] <a data-toggle='modal' href='#tarea$n_tareas' style='color:#fff'> $row1[3] $row1[2]</a> -- $curso $row[6]  &nbsp;&nbsp;&nbsp;&nbsp;
-	<a href='./admin/tareas/infocompleto.php?id=$row1[0]'> <i class='fa fa-search' title='Ver informe'> </i> </a>
-	<a href='./admin/tareas/informar.php?id=$row1[0]' /> <i class='fa fa-pencil' title='Rellenar informe'> </i> </a>
+	echo "<p>$fechac[2]-$fechac[1]-$fechac[0] <a class='alert-link' data-toggle='modal' href='#tarea$n_tareas'> $row1[3] $row1[2]</a> -- $curso $row[6]  &nbsp;&nbsp;&nbsp;&nbsp;
+	<span class=' pull-right'>
+	<a href='./admin/tareas/infocompleto.php?id=$row1[0]' class='alert-link' style='margin-right:10px'> <i class='fa fa-search' title='Ver informe'> </i> </a>
+	<a href='./admin/tareas/informar.php?id=$row1[0]' class='alert-link' style='margin-right:10px'> <i class='fa fa-pencil' title='Rellenar informe'> </i> </a>
+	</span>
 	</p>";
 ?>	
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="tarea<? echo $n_tareas;?>">
