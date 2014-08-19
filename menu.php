@@ -83,12 +83,11 @@ mysql_free_result($result_mensajes);
 	<?php $result_mensajes = mysql_query("SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
 	<?php if(mysql_num_rows($result_mensajes)): ?>
 	<?php while ($row = mysql_fetch_array($result_mensajes)): ?>
-	<?php $fecha = date_create($row['ahora']); ?>
 		<li><a
 			href="http://<?php echo $dominio; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
 		<div
 		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
-		<span class="pull-right text-muted"><em><?php echo date_format($fecha, 'd M') ?></em></span>
+		<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row['ahora'])); ?></em></span>
 		<strong><?php echo $row['origen']; ?></strong></div>
 		<div
 		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>><?php echo $row['asunto']; ?></div>
@@ -103,16 +102,8 @@ mysql_free_result($result_mensajes);
 	</ul>
 	</li>
 
-<?
-if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE) {
-?>
-	<li class="visible-xs"><a
-		href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6">Consejería</a></li>
-	<li class="dropdown hidden-xs"><a href="#" class="dropdown-toggle"
-		data-toggle="dropdown" rel="tooltip" title="Novedades en la Consejería de Educación" data-placement="bottom" data-container="body"> <span class="fa fa-rss fa-fw"></span> <b
-		class="caret"></b> </a>
-	<ul class="dropdown-menu" style="padding: 25px">
-	<?
+	<?php if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE): ?>
+	<?php
 	include ("magpierss/rss_fetch.inc");
 	define ( "MAGPIE_CACHE_ON", 1 );
 	define ( "MAGPIE_CACHE_AGE", 60*60 );
@@ -121,29 +112,29 @@ if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE) {
 	$num_items = 5;
 	$rss = fetch_rss ( $url );
 	$items = array_slice ( $rss->items, 0, $num_items );
-
-	echo '<legend><span class="fa fa-rss fa-fw"></span> '.$rss->channel['title'].'</legend><li class="divider"></li>';
-
-	foreach ( $items as $item ) {
-		$href = $item ['link'];
-		$title = $item ['title'];
-		$time = $item ['pubdate'];
-
-		setlocale(LC_TIME, "es_ES");
-		echo '<li style="width:640px">
-	<span class="text-success">'.$title.'</span><br>
-	<small>Publicado el '.strftime('%e de %B de %Y, a las %H:%Mh',strtotime($time)).'.</small>
-	<a href="'.$href.'" class="btn btn-sm btn-primary pull-right" style="color:#fff" target="_blank">Leer más...</a>
-	</li>
-	<li class="divider"></li>';
-	}
 	?>
-
-	</ul>
+	<li class="visible-xs"><a
+		href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6">Consejería</a></li>
+	<li class="dropdown hidden-xs"><a href="#" class="dropdown-toggle"
+		data-toggle="dropdown" rel="tooltip" title="<?php echo $rss->channel['title']; ?>" data-placement="bottom" data-container="body"> <span class="fa fa-rss fa-fw"></span> <b class="caret"></b> </a>
+		<ul class="dropdown-menu dropdown-feed">
+			<li class="dropdown-header"><h5><?php echo $rss->channel['title']; ?></h5></li>
+			<li class="divider"></li>
+			<?php foreach ($items as $item): ?>
+			<li>
+				<a href="<?php echo $item['link']; ?>">
+					<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($item['pubdate'])); ?></em></span>
+					<?php echo $item['title']; ?>
+				</a>
+			</li>
+			<li class="divider"></li>
+			<?php endforeach; ?>
+			<li><a class="text-center"
+				href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank"><strong>Ver
+			todas las novedades <span class="fa fa-angle-right"></span></strong></a></li>
+		</ul>
 	</li>
-<?
-}
-?>
+	<?php endif; ?>
 
 	<li class="dropdown"><a href="#" class="dropdown-toggle"
 		data-toggle="dropdown"> <span class="fa fa-user fa-fw"></span> <? echo $idea; ?>

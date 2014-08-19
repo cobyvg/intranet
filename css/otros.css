@@ -135,6 +135,14 @@ li.nav-header {
 	min-width: 310px;
 }
 
+.dropdown-feed {
+	min-width: 610px;
+}
+
+ul.dropdown-feed>li>a {
+	white-space: normal;
+}
+
 
 /* CALENDARIOS */
 .calendar-today, .table-striped>tbody>tr:nth-child(odd)>td.calendar-today {
