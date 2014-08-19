@@ -284,7 +284,7 @@ for ($i = 1; $i < 7; $i++) {
 </div>
 <div class="form-group">
 <label for="fecha_dia">Fecha </label> 
-<div class="input-group" >
+<div class="input-group" id="datetimepicker1">
 <input name="fecha_dia" type="text" class="form-control" value="<? echo $fecha_dia;?>" data-date-format="DD/MM/YYYY" id="fecha_dia" required >
 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
  </div> 
@@ -313,7 +313,7 @@ include("../pie.php");
 <script>  
 $(function ()  
 { 
-	$('#fecha_dia').datetimepicker({
+	$('#datetimepicker1').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});

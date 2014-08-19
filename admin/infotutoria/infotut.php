@@ -89,7 +89,7 @@ else
 
 <div class='form-group'>
 <label>Fecha de la reunión</label>
-<div class="input-group">
+<div class="input-group" id="datetimepicker1">
 <input name="fecha"	type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" required> 
 	<span class="input-group-addon"><i class="fa fa-calendar"></i>
 	</span>
@@ -109,7 +109,7 @@ include("../../pie.php");
 ?> <script>
  $(function ()  
  { 
- 	$('#fecha').datetimepicker({
+ 	$('#datetimepicker1').datetimepicker({
  		language: 'es',
  		pickTime: false
  	})

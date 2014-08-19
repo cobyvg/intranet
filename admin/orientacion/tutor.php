@@ -174,14 +174,14 @@ if ($falumno = mysql_fetch_array($alumno0))
 if ($fecha)
 {
 	echo '
-  <div class="input-group" >
+  <div class="input-group" id="datetimepicker1">
             <input name="fecha" type="text" class="input form-control" value="'.$fecha.'" data-date-format="DD-MM-YYYY" id="fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
 }
 else{
 	echo '
-  <div class="input-group" >
+  <div class="input-group" id="datetimepicker1">
             <input name="fecha" type="text" class="input form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
@@ -296,7 +296,7 @@ if($alumno){
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha').datetimepicker({
+		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		})

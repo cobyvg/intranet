@@ -145,7 +145,7 @@ $justificacion = $datos[10];
 <FORM action="indexconsulta.php" method="POST" name="Cursos">
            
                 <label>Fecha de la actividad:<br /> 
-                      <div class="input-group" >
+                      <div class="input-group" id="datetimepicker1">
             <input name="fecha_act" type="text" class="input input-small" value="<? echo "$dia-$mes-$ano"; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
@@ -301,7 +301,7 @@ function deseleccionar_todo(){
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha_act').datetimepicker({
+		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		})

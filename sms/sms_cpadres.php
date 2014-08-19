@@ -208,14 +208,14 @@ if(strlen($sin2) > '0'){
 
 	<tr>
 		<td align="center"><label>Inicio<br />
-		<div class="input-group" style="display: inline;"><input
+		<div class="input-group" style="display: inline;" id="datetimepicker1"><input
 			name="fecha12" type="text" class="input input-small"
 			value="<? if(empty($fecha12)){echo $fech1;} else {echo $fecha12;}?>"
 			data-date-format="DD-MM-YYYY" id="fecha12"> <span class="input-group-addon"><i
 			class="fa fa-calendar"></i></span></div>
 		</label></td>
 		<td><label>Fin<br />
-		<div class="input-group" style="display: inline;"><input
+		<div class="input-group" style="display: inline;" id="datetimepicker2"><input
 			name="fecha22" type="text" class="input input-small"
 			value="<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>"
 			data-date-format="DD-MM-YYYY" id="fecha22"> <span class="input-group-addon"><i
@@ -280,12 +280,12 @@ El módulo de envío de SMS debe ser activado en la Configuración general de la In
 <script>  
 $(function ()  
 { 
-	$('#falta12').datetimepicker({
+	$('#datetimepicker1').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
 	
-	$('#falta22').datetimepicker({
+	$('#datetimepicker2').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});

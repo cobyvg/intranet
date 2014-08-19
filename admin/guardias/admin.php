@@ -113,7 +113,7 @@ largo del curso.</p>
     <div class="form-group">     
 	<label>Fecha de la sustitución</label>
 	<input type="hidden" name="profeso" value="<? echo $profeso;?>">
-	     <div class="input-group" >
+	     <div class="input-group" id="datetimepicker1">
             <input name="gu_fecha" type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="gu_fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>   
@@ -156,7 +156,7 @@ El módulo de Horarios debe ser activado en la Configuración general de la Intran
 ?> <? include("../../pie.php");?> <script>  
 $(function ()  
 { 
-	$('#gu_fecha').datetimepicker({
+	$('#datetimepicker1').datetimepicker({
 		language: 'es',
 		pickTime: false
 	})

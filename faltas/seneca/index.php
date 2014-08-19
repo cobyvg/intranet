@@ -111,7 +111,7 @@ Para poder importar las faltas de los alumnos, es necesario en primer lugar desc
  <div class="form-group col-md-6" style="display: inline;">
 <label class="control-label"
 	for="iniciofalta">Primer d&iacute;a:</label>
-<div class="input-group">
+<div class="input-group" id="datetimepicker1">
 <input name="iniciofalta" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY" id="iniciofalta"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -121,7 +121,7 @@ Para poder importar las faltas de los alumnos, es necesario en primer lugar desc
 <div class="form-group col-md-6" style="display: inline;">
 <label class="control-label"
 	for="finfalta">Ultimo d&iacute;a:  </label>
-<div class="input-group">
+<div class="input-group" id="datetimepicker2">
 <input name="finfalta" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY" id="finfalta"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -185,7 +185,7 @@ $festivos = substr($festivos,0,-2);
 	<script>  
 	$(function ()  
 	{ 
-		$('#iniciofalta').datetimepicker({
+		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false,
 			minDate:'<?php echo $inicio_curso; ?>',
@@ -194,7 +194,7 @@ $festivos = substr($festivos,0,-2);
 			daysOfWeekDisabled:[0,6] 
 		});
 		
-		$('#finfalta').datetimepicker({
+		$('#datetimepicker2').datetimepicker({
 			language: 'es',
 			pickTime: false,
 			minDate:'<?php echo $inicio_curso; ?>',

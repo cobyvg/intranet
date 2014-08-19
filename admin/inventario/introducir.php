@@ -154,7 +154,7 @@ while($lug = mysql_fetch_array($luga))
 </label>
 
 <label>Fecha de Alta<span style="color:#9d261d;"> (*) </span><br />
-<div class="input-group" >
+<div class="input-group" id="datetimepicker1">
   <input name="fecha" type="text" class="input input-small" data-date-format="DD-MM-YYYY" id="fecha">
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
@@ -212,7 +212,7 @@ if ($j_s == '') {
 <script>  
 $(function ()  
 { 
-	$('#fecha').datetimepicker({
+	$('#datetimepicker1').datetimepicker({
 		language: 'es',
 		pickTime: false
 	})

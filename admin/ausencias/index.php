@@ -153,7 +153,7 @@ else{
 ?>
 <hr>
 <label>Comienzo de la ausencia<br />
-<div class="input-group" style="display: inline;"><input name="inicio"
+<div class="input-group" style="display: inline;" id="datimepicker1"><input name="inicio"
 	type="text" class="input input-small"
 	<? if($inicio){echo "value=$inicio";}?> data-date-format="DD-MM-YYYY"
 	id="inicio"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -161,7 +161,7 @@ else{
 </label> 
 <br />
 <label>Final de la ausencia<br />
-<div class="input-group" style="display: inline;"><input name="fin"
+<div class="input-group" style="display: inline;" id="datimepicker2"><input name="fin"
 	type="text" class="input input-small" <? if($fin){echo "value=$fin";}?>
 	data-date-format="DD-MM-YYYY" id="fin"> <span class="input-group-addon"><i
 	class="fa fa-calendar"></i></span></div>
@@ -310,12 +310,12 @@ include("../../pie.php");
 	<script>  
 	$(function ()  
 	{ 
-		$('#inicio').datetimepicker({
+		$('#datimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});
 		
-		$('#fin').datetimepicker({
+		$('#datimepicker2').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});

@@ -46,7 +46,7 @@ else{
   <FORM action="index.php" method="POST" name="Cursos">
            
                 <center><label>Fecha de la actividad:<br /> 
-                      <div class="input-group" >
+                      <div class="input-group" id="datetimepicker1">
             <input name="fecha_act" type="text" class="input input-medium" value="<? echo $fecha_act; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
@@ -242,7 +242,7 @@ function deseleccionar_todo(){
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha_act').datetimepicker({
+		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		})

@@ -216,7 +216,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 
 <div class="form-group col-md-10">
 <label>Inicio:</label>
-<div class="input-group" >
+<div class="input-group" id="datetimepicker1">
   <input name="inicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="inicio" <? if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?>  >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
@@ -224,7 +224,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 
 <div class="form-group col-md-10">
 <label>Fin:</label>
-<div class="input-group" >
+<div class="input-group" id="datetimepicker2">
   <input name="fin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fin" <? if(strlen($fin) > '0' and !($fin == '00-00-0000')){echo "value='$fin'";}?>  >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
@@ -293,7 +293,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
      
      <div class="form-group col-md-10">
 <label>Inicio:</label>
-<div class="input-group" >
+<div class="input-group"  id="datetimepicker3">
   <input name="fechainicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechainicio" <?if($inicio_aula){echo "value=$inicio_aula";}else{if ($gucon == '1'){	$def_inicio = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' ); 	echo "value='$def_inicio'";}} ?> >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
@@ -301,7 +301,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 
     <div class="form-group col-md-10">
 <label>Fin:</label>
-<div class="input-group" >
+<div class="input-group" id="datetimepicker4">
   <input name="fechafin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechafin" <?if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}} ?>  >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
@@ -387,22 +387,22 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
 	<script>  
 	$(function ()  
 	{ 
-		$('#inicio').datetimepicker({
+		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});
 		
-		$('#fin').datetimepicker({
+		$('#datetimepicker2').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});
 		
-		$('#fechainicio').datetimepicker({
+		$('#datetimepicker3').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});
 		
-		$('#fechafin').datetimepicker({
+		$('#datetimepicker4').datetimepicker({
 			language: 'es',
 			pickTime: false
 		});

@@ -119,7 +119,7 @@ else
 <div class="form-group col-md-6" style="display: inline;">
 <label class="control-label"
 	for="fecha4">Inicio </label>
-<div class="input-group">
+<div class="input-group" id="datetimepicker1">
 <input name="fecha4" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY" id="fecha4"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -129,7 +129,7 @@ else
 <div class="form-group col-md-6" style="display: inline;">
 <label class="control-label"
 	for="fecha3">Fin </label>
-<div class="input-group">
+<div class="input-group"  id="datetimepicker2">
 <input name="fecha3" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY" id="fecha3"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -299,7 +299,7 @@ seleccionadas. )</span>
 
 <div class="form-group col-md-6" style="display: inline;">
 <label class="control-label" for="fecha10">Inicio </label>
-<div class="input-group">
+<div class="input-group"  id="datetimepicker3">
 <input name="fecha10" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY"
 	id="fecha10" required> <span class="input-group-addon"><i
@@ -310,7 +310,7 @@ seleccionadas. )</span>
 <div class="form-group col-md-6" style="display: inline;">
 <label
 	for="fecha20" class="control-label">Fin </label>
-<div class="input-group"><input name="fecha20" type="text"
+<div class="input-group"  id="datetimepicker4"><input name="fecha20" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY"
 	id="fecha20" required> <span class="input-group-addon"><i
 	class="fa fa-calendar"></i></span>
@@ -340,22 +340,22 @@ seleccionadas. )</span>
 <script>  
 $(function ()  
 { 
-	$('#fecha4').datetimepicker({
+	$('#datetimepicker1').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
 	
-	$('#fecha3').datetimepicker({
+	$('#datetimepicker2').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
 	
-	$('#fecha10').datetimepicker({
+	$('#datetimepicker3').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
 	
-	$('#fecha20').datetimepicker({
+	$('#datetimepicker4').datetimepicker({
 		language: 'es',
 		pickTime: false
 	});
