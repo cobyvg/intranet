@@ -15,7 +15,7 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
-
+$PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
 include("../../faltas/menu.php");
@@ -57,12 +57,10 @@ $resultTEMP= mysql_query($SQLTEMP);
 $SQL = "select FALTASTEMP.claveal, FALTASTEMP.apellidos, FALTASTEMP.nombre, FALTASTEMP.unidad, FALTASTEMP.falta, FALTASTEMP.NUMERO from FALTASTEMP where FALTASTEMP.claveal = FALTASTEMP.claveal  and NUMERO >= '$numero2' GROUP BY FALTASTEMP.apellidos";
 
 $result = mysql_query($SQL);
-if (mysql_num_rows($result)>50) {
-$datatables_min = true;
-}
+
   if ($row = mysql_fetch_array($result))
         {
-        echo "<table class='table table-striped tabladatos' style='width:96%'>\n";
+        echo "<table class='table table-striped datatable'>\n";
         echo "<thead><th>Alumno</th><th>Grupo</th><th>Falta</th><th>Total</th></thead><tbody>";
                 do {
                 echo "<tr><td>";
@@ -93,5 +91,35 @@ include("../../pie.php");
 </div>
 </div>
 </div>
+
+	<script>
+	$(document).ready(function() {
+		var table = $('.datatable').DataTable({
+			"paging":   true,
+	    "ordering": true,
+	    "info":     false,
+	    
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+			
+			"order": [[ 0, "desc" ]],
+			
+			"language": {
+			            "lengthMenu": "_MENU_",
+			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+			            "info": "Página _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay resultados disponibles.",
+			            "infoFiltered": "(filtrado de _MAX_ resultados)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			                  "first": "Primera",
+			                  "next": "Última",
+			                  "next": "",
+			                  "previous": ""
+			                }
+			        }
+		});
+	});
+	</script>
+	
 </body>
 </html>

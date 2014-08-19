@@ -16,7 +16,6 @@ if (! (stristr ( $_SESSION ['cargo'], '1' ) == TRUE)) {
 }
 
 include ("../menu.php");
-// $datatables_activado = true;
 ?>
 <div class='container'>
 

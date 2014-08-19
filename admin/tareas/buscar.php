@@ -39,12 +39,12 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-?>
-  <?php
+$PLUGIN_DATATABLES = 1;
+
 $profesor = $_SESSION['profi'];
 include("../../menu.php");
 include("menu.php");
-$datatables_activado = true;
+
 if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];}else{$apellidos="";}
 if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
 
@@ -70,7 +70,7 @@ if (!(empty($unidad))) {
 //echo $query;
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 
-echo "<table class='table table-striped table-bordered tabladatos' align='center'><thead>";
+echo "<table class='table table-striped table-bordered datatable' align='center'><thead>";
 echo "<ter><th>Alumno/a </th>
 <th>Curso</Th>
 <Th>Fecha inicio</th><th>Sí</th><th>No</th><th></th><th></th></TR></thead><tbody>";
@@ -122,6 +122,36 @@ No hay Informes de Tareas disponibles con esos criterios.</div></div><hr>';
 </div>
 </div>
 		</div>
-		<? include("../../pie.php");?>		
+		<? include("../../pie.php");?>
+		
+		<script>
+		$(document).ready(function() {
+			var table = $('.datatable').DataTable({
+				"paging":   true,
+		    "ordering": true,
+		    "info":     false,
+		    
+				"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+				
+				"order": [[ 2, "desc" ]],
+				
+				"language": {
+				            "lengthMenu": "_MENU_",
+				            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+				            "info": "Página _PAGE_ de _PAGES_",
+				            "infoEmpty": "No hay resultados disponibles.",
+				            "infoFiltered": "(filtrado de _MAX_ resultados)",
+				            "search": "Buscar: ",
+				            "paginate": {
+				                  "first": "Primera",
+				                  "next": "Última",
+				                  "next": "",
+				                  "previous": ""
+				                }
+				        }
+			});
+		});
+		</script>
+		
 </body>
 </html>

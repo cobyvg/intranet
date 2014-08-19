@@ -18,8 +18,9 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
 $profesor = $_SESSION['profi'];
-?>
-<?php
+
+$PLUGIN_DATATABLES = 1;
+
 include("../../menu.php");
   ?>
  <br />
@@ -43,7 +44,6 @@ include("../../menu.php");
 <hr />
 <br />
 <?
-$datatables_min = true;
 
 $profes_tot = mysql_query("select distinct prof from horw");
 $profes_total = mysql_num_rows($profes_tot);
@@ -84,7 +84,7 @@ ORDER BY  profesor, numero ASC ";
 
 <div class="col-sm-4">
 <legend align="center" class="text-info">Guardias de Pasillo</legend>
-<table class="table table-striped table-bordered tabladatos" align="center">
+<table class="table table-striped table-bordered datatable" align="center">
 <thead>
 <th>
 Profesor
@@ -187,7 +187,7 @@ echo "</table>";
 
 <div class="col-sm-4">
 <legend align="center" class="text-info">Guardias en las Aulas</legend>
-<table class="table table-striped table-bordered tabladatos">
+<table class="table table-striped table-bordered datatable">
 <thead>
 <th>
 Profesor
@@ -232,3 +232,35 @@ echo "</table>";
 <?
 include("../../pie.php");
 ?>
+
+	<script>
+	$(document).ready(function() {
+	  var table = $('.datatable').DataTable({
+	  		"paging":   true,
+	      "ordering": true,
+	      "info":     false,
+	      
+	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+	  		
+	  		"order": [[ 0, "asc" ]],
+	  		
+	  		"language": {
+	  		            "lengthMenu": "_MENU_",
+	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "infoEmpty": "No hay resultados disponibles.",
+	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
+	  		            "search": "Buscar: ",
+	  		            "paginate": {
+	  		                  "first": "Primera",
+	  		                  "next": "Última",
+	  		                  "next": "",
+	  		                  "previous": ""
+	  		                }
+	  		        }
+	  	});
+	});
+	</script>
+	
+</body>
+</html>

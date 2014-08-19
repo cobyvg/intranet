@@ -15,8 +15,7 @@ if (!(strstr($_SESSION['cargo'],"1") == TRUE)) {
 	exit ();
 }
 $profesor = $_SESSION ['profi'];
-?>
-<?
+
 include ("../../menu.php");
 include ("menu.php");
 /*
@@ -36,7 +35,6 @@ echo '<div align="center">';
 <table class="table table-bordered" style="width:auto">
 
 <?
-$datatables_activado = true; 
 $n_col=0;
 $n_fila=0;
 $dep0 = mysql_query("select distinct departamento from departamentos where departamento not like '' order by departamento");
@@ -110,5 +108,6 @@ echo "</table>";
 <?
 include("../../pie.php");
 ?>
+	
 </body>
 </html>

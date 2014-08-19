@@ -15,12 +15,9 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
+$PLUGIN_DATATABLES = 1;
 
-?>
-
-<?
 include("../../menu.php");
-$datatables_activado = true;
 
 if (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];}elseif (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];}else{$borrar="";}
 if (isset($_GET['submit2'])) {$submit2 = $_GET['submit2'];}elseif (isset($_POST['submit2'])) {$submit2 = $_POST['submit2'];}else{$submit2="";}
@@ -263,7 +260,7 @@ if (empty($pra)) {}else{
 }
 ?> <?
 echo "<div align='center'><legend>Últimas Bajas de Profesores</legend></div><br />";
-echo "<table class='table table-striped tabladatos' style='width:100%;' align='center'>";
+echo "<table class='table table-striped datatable' style='width:100%;' align='center'>";
 echo "<thead><tr>
 		<th>Profesor</td>
 		<th>Inicio</td>
@@ -320,6 +317,35 @@ include("../../pie.php");
 			pickTime: false
 		});
 	});  
+	</script>
+	
+	<script>
+	$(document).ready(function() {
+	  var table = $('.datatable').DataTable({
+	  		"paging":   true,
+	      "ordering": true,
+	      "info":     false,
+	      
+	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+	  		
+	  		"order": [[ 1, "desc" ]],
+	  		
+	  		"language": {
+	  		            "lengthMenu": "_MENU_",
+	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "infoEmpty": "No hay resultados disponibles.",
+	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
+	  		            "search": "Buscar: ",
+	  		            "paginate": {
+	  		                  "first": "Primera",
+	  		                  "next": "Última",
+	  		                  "next": "",
+	  		                  "previous": ""
+	  		                }
+	  		        }
+	  	});
+	});
 	</script>
 </body>
 </html>

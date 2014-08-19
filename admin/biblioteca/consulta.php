@@ -29,7 +29,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 	
-//$datatables_activado = true;
+
 	if(isset($_POST['submit1'])){
 	$fecha = $_POST['fecha'];		
 		?>

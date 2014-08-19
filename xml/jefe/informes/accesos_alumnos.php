@@ -25,10 +25,11 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE)) {
 	header("location:http://$dominio/intranet/salir.php");
 	exit;	
 }
-?>
-<?
+
+$PLUGIN_DATATABLES = 1;
+
 include("../../../menu.php"); 
-$datatables_activado=true;
+
 ?>
 	
 	<div class="container">
@@ -55,7 +56,7 @@ $datatables_activado=true;
 			      <br><br>
 			    </div>
 				
-				<table class="table table-bordered table-condensed table-striped tabladatos">
+				<table class="table table-bordered table-condensed table-striped datatable">
 					<thead>
 						<tr>
 							<th>Alumno/a</th>
@@ -100,6 +101,35 @@ $datatables_activado=true;
 	<br>
 
 <?php include('../../../pie.php'); ?>
+
+	<script>
+	$(document).ready(function() {
+		var table = $('.datatable').DataTable({
+			"paging":   true,
+	    "ordering": true,
+	    "info":     false,
+	    
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+			
+			"order": [[ 0, "desc" ]],
+			
+			"language": {
+			            "lengthMenu": "_MENU_",
+			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+			            "info": "Página _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay resultados disponibles.",
+			            "infoFiltered": "(filtrado de _MAX_ resultados)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			                  "first": "Primera",
+			                  "next": "Última",
+			                  "next": "",
+			                  "previous": ""
+			                }
+			        }
+		});
+	});
+	</script>
 	
 </body>
 </html>

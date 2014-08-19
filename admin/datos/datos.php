@@ -26,6 +26,8 @@ if (isset($_GET['unidad'])) {
 	$AUXSQL = " and unidad = '$unidad'";
 } else{$unidad="";}
 
+$PLUGIN_DATATABLES = 1;
+
 include("../../menu.php");
 ?>
 
@@ -130,9 +132,7 @@ $SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad,
   where 1 " . $AUXSQL . " order BY unidad, alma.apellidos, nombre";
 // echo $SQL;
 $result = mysql_query($SQL);
-if (mysql_num_rows($result)>15 and !($seleccionado=="1")) {
-	$PLUGIN_DATATABLES = true;
-}
+
 if ($row = mysql_fetch_array($result))
 {
 

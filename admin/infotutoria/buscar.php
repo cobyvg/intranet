@@ -42,9 +42,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 </style>
   <?php
 
+
+$PLUGIN_DATATABLES = 1;
+
 include("../../menu.php");
 include("menu.php");
-$datatables_activado = true;
 ?>
 <div class="container">
 <div class="row">
@@ -70,7 +72,7 @@ $grupo = $unidad;
   $query .=  " ORDER BY F_ENTREV DESC";
 $result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
 
-echo "<table class='table table-striped table-bordered tabladatos' align='center'><thead>";
+echo "<table class='table table-striped table-bordered datatable' align='center'><thead>";
 echo "<th>Alumno </th>
 <th>Curso</th>
 <Th>Cita</th><th></th></thead><tbody>";
@@ -120,5 +122,35 @@ if(mysql_num_rows($result0) > 50) {
 
 		</div>
 <? include("../../pie.php");?>		
+
+	<script>
+	$(document).ready(function() {
+		var table = $('.datatable').DataTable({
+			"paging":   true,
+	    "ordering": true,
+	    "info":     false,
+	    
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+			
+			"order": [[ 2, "desc" ]],
+			
+			"language": {
+			            "lengthMenu": "_MENU_",
+			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+			            "info": "Página _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay resultados disponibles.",
+			            "infoFiltered": "(filtrado de _MAX_ resultados)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			                  "first": "Primera",
+			                  "next": "Última",
+			                  "next": "",
+			                  "previous": ""
+			                }
+			        }
+		});
+	});
+	</script>
+
 </body>
 </html>
