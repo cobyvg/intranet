@@ -92,7 +92,7 @@ include("../../../menu.php");
 	    
 			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
 			
-			"order": [[ 3, "desc" ]],
+			"order": [[ 2, "desc" ]],
 			
 			"language": {
 			            "lengthMenu": "_MENU_",
