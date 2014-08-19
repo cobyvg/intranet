@@ -76,8 +76,8 @@ mysql_free_result($result_mensajes);
 		class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/')) ? 'active' : ''; ?>"><a
 		href="http://<? echo $dominio;?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
 	<li class="dropdown hidden-xs"><a href="#" class="dropdown-toggle"
-		data-toggle="dropdown"> <span
-		class="fa fa-envelope fa-fw" rel="tooltip" title="Mensajes recibidos" data-placement="right"></span>
+		data-toggle="dropdown" rel="tooltip" title="Mensajes recibidos" data-placement="bottom" data-container="body"> <span
+		class="fa fa-envelope fa-fw"></span>
 	<b class="caret"></b> </a>
 	<ul class="dropdown-menu dropdown-messages">
 	<?php $result_mensajes = mysql_query("SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
@@ -109,7 +109,7 @@ if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE) {
 	<li class="visible-xs"><a
 		href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6">Consejería</a></li>
 	<li class="dropdown hidden-xs"><a href="#" class="dropdown-toggle"
-		data-toggle="dropdown"> <span class="fa fa-rss fa-fw" rel="tooltip" title="Novedades en la Consejería de Educación" data-placement="right"></span> <b
+		data-toggle="dropdown" rel="tooltip" title="Novedades en la Consejería de Educación" data-placement="bottom" data-container="body"> <span class="fa fa-rss fa-fw"></span> <b
 		class="caret"></b> </a>
 	<ul class="dropdown-menu" style="padding: 25px">
 	<?
@@ -133,7 +133,7 @@ if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE) {
 		echo '<li style="width:640px">
 	<span class="text-success">'.$title.'</span><br>
 	<small>Publicado el '.strftime('%e de %B de %Y, a las %H:%Mh',strtotime($time)).'.</small>
-	<a href="'.$href.'" class="btn btn-sm btn-primary pull-right" style="color:#fff">Leer más...</a>
+	<a href="'.$href.'" class="btn btn-sm btn-primary pull-right" style="color:#fff" target="_blank">Leer más...</a>
 	</li>
 	<li class="divider"></li>';
 	}
@@ -158,8 +158,9 @@ if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE) {
 			class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a></li>
 	</ul>
 	</li>
-<p class="navbar-text" style="margin-top:7px;margin-bottom:0px;">
-	<a href="#" class="navbar-link"><small><i class="fa fa-clock-o fa-lg"></i> Última conexión:<br class="hidden-xs">
+</ul>
+<p class="navbar-text navbar-link" style="margin-top:7px;margin-bottom:0px;">
+	<small><i class="fa fa-clock-o fa-lg"></i> Última conexión:<br class="hidden-xs">
 	<?php
 	$time = mysql_query("select fecha from reg_intranet where profesor = '".$_SESSION['profi']."' order by fecha desc limit 2");
 
@@ -172,8 +173,8 @@ if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE) {
 			echo "$dia_hora &nbsp; $t_r0[1]";
 		}
 	}
-	?></small></a> </p>
-</ul>
+	?></small></p>
+
 
 </div>
 
