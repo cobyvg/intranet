@@ -124,8 +124,8 @@ include("menu.php");
 	<?php endif; ?>
 	
 </div><!-- /.container -->
-  
-<?php include("../../pie.php"); ?>
+
+<?php include("../../../pie.php"); ?>
 
 </body>
 </html>
