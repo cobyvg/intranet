@@ -24,6 +24,8 @@ if ($imprimir=="1") {
    	$result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
    	if (mysql_num_rows($result) > 0)
    	{
+   	
+   	  
    		$row = mysql_fetch_array($result);
    		$contenido = $row[0];
    		$fecha = $row[1];

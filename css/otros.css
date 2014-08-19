@@ -15,14 +15,6 @@ body {
 	}
 }
 
-.navbar .dropdown-menu>li>a {
-	color: #333;
-}
-
-.navbar .dropdown-menu>li>a:hover {
-	color: #fff;
-}
-
 a.accordion-toggle {
 	display: block;
 	font-size: 1.2em;

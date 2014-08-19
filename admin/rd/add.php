@@ -51,14 +51,13 @@ else{
 	}	
 }
 ?>
-<div align="center">
+<div class="container">
 
   <?
   echo '<div class="page-header">
   <h2>Actas del Departamento <small> Registro de Reuniones</small></h2>
-  <h3 style="color:#08c;">'.$departament.'</h3>
-</div>
-<br />';
+  <h3 class="text-info">'.$departament.'</h3>
+</div>';
 		?>
 <?
 if($borrar=="1"){
@@ -86,6 +85,13 @@ $ed = mysql_fetch_object($ed0);
  		if (strstr($contenido,"_____________")==TRUE) {
  			$fecha_real = formatea_fecha($fecha);
  			$contenido = str_replace("_____________",$fecha_real,$contenido);
+ 			$contenido = '
+<script type="text/php">
+if (isset($pdf)) {
+  $font = Font_Metrics::get_font("helvetica", "bold");
+  $pdf->page_text(542, 775, "Página: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
+}
+</script>'.$contenido;
  		}
    			$query1 = "INSERT INTO r_departamento ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES( '$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
    			//echo $query1;
@@ -97,18 +103,18 @@ Se ha producido un error grave al registar el Acta en la base de datos. Busca ay
    			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido registrada correctamente.
-</div></div><br />';
+</div></div><br>';
 			$result2 = mysql_query ( $query2 );
 			echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrás</a></div>';
    		   exit();
    		} 
    		else {
-   			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">Se encontraron los siguientes errores al enviar los datos del formulario: <br />';
+   			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">Se encontraron los siguientes errores al enviar los datos del formulario: <br>';
    			echo "<div align='left'><ul>";
    			for($x = 0; $x < sizeof ( $errorList ); $x ++) {
    				echo "<li>$errorList[$x]</li>";
    			}
-   			echo "</ul></div></div></div><br />";
+   			echo "</ul></div></div></div><br>";
    		}
    	}
 
@@ -117,7 +123,7 @@ El Acta del Departamento ha sido registrada correctamente.
    		   echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido actualizada correctamente.
-</div></div><br />';
+</div></div><br>';
    		   echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrás</a></div>';
    		   exit();
    		   
@@ -146,91 +152,100 @@ if ($edicion=="1") {
 }
 
 	?>
-<div class="container-fluid">
-<div class="row">
-<div class="col-sm-7 col-sm-offset-1">	
+		<div class="row">
+		
+		
+			<div class="col-sm-8">	
+			
+				<div class="well">
 
-    <form action="add.php" method="POST" name='f1' class="form-inline">
-      <label style="display:inline">Fecha de la Reunión &nbsp;
-      <div class="input-group" >
-            <input name="fecha" type="text" class="input input-small" data-date-format="DD-MM-YYYY" required id="fecha" value="<? if (isset($fecha_r)) {
-            	echo $fecha_r;
-            }?>" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
-</label>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<label style="display:inline">Nº de Acta &nbsp;
-      <input class="input-mini" type="text" name="numero"  value="<? echo $numero; ?>">
-</label>
-<br /><br />
-      <label>
-        <textarea name="contenido" id="editor" style="width:100%;height:450px;">
+    		<form method="post" action="" name="f1">
+    			
+    			<div class="row">
+    			
+    				<div class="col-sm-5">
+    					
+    					<div class="form-group">
+    						<label for="fecha">Fecha de la Reunión</label>
+    						<div class="input-group" id="datetimepicker1">
+    					  	<input type="text" class="form-control" name="fecha" id="fecha" value="<?php echo (isset($fecha_r)) ? $fecha_r : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY" required>
+    					  	<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+    					  </div>
+    					</div>
+    					
+    				</div>
+    				
+    				<div class="col-sm-3 col-sm-offset-4">
+    					
+    					<div class="form-group">
+    						<label for="numero">Nº de Acta</label>
+    						<input type="text" class="form-control" id="numero" name="numero" value="<? echo $numero; ?>">
+    					</div>
+    					
+    				</div>
+    			
+    			</div>
+    			
+    			<div class="form-group">
+      			<label for="editor">Acta</label>
+        		<textarea class="form-control" id="editor" name="contenido">
 <? if ($edicion=="1") {
-	echo $ed->contenido;
+echo $ed->contenido;
 }
 else{
 ?>	
-         <script type="text/php">
-
-        if ( isset($pdf) ) {
-
-          $font = Font_Metrics::get_font("helvetica", "bold");
-          $pdf->page_text(542, 775, "Página: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
-
-        }
-        </script>
-		<p style="text-align: left;">
-		<?
+<p>
+<?
 if ($departament == "Dirección del Centro") {
 	$texto_dep = $departament;
 }
 else{
 	$texto_dep = "Departamento de $departament";
 }
-		?>
-		
-		<? echo $texto_dep; ?><br /><? echo $nombre_del_centro ?> (<? echo $localidad_del_centro ?>) <br />Curso Escolar: <? echo $curso_actual;?><br /> Acta N&ordm; <? echo $numero; ?></p>
-<p style="text-align: center;">&nbsp;</p>
-<p style="text-align: center;"><span style="text-decoration: underline;"><strong>ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
-<br />
-<p align="JUSTIFY">En <? echo $localidad_del_centro ?>, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del <? echo $nombre_del_centro ?> de <? echo $localidad_del_centro ?>, con el siguiente <span style="text-decoration: underline;"> orden del d&iacute;a:</p>
-<br />
-<br />
-<br />
-<br />
-<br />
-<p align="JUSTIFY"><u>Profesores Asistentes:</u></p>
-<p align="JUSTIFY"></p>
-<p align="JUSTIFY"><u>Profesores&nbsp;Ausentes:</u></p>
-<p align="JUSTIFY"></p>
+?></p>
+
+<? echo $texto_dep; ?><br><? echo $nombre_del_centro ?> (<? echo $localidad_del_centro ?>) <br>Curso Escolar: <? echo $curso_actual;?><br> Acta N&ordm; <? echo $numero; ?></p>
+<p><br></p>
+<p style="text-align: center; "><strong style="text-decoration: underline;">ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
+<p><br></p>
+<p>En <? echo $localidad_del_centro ?>, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del <? echo $nombre_del_centro ?> de <? echo $localidad_del_centro ?>, con el siguiente <span style="text-decoration: underline;"> orden del d&iacute;a:</span></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><u>Profesores Asistentes:</u></p>
+<p><br></p>
+<p><br></p>
+<p><u>Profesores&nbsp;Ausentes:</u></p>
+<p><br></p>
+<p><br></p>
 <?
 }
 ?>
-      </textarea>
-      </label>
-      <hr>
-      <fieldset class="form-group warning">
-      <label>Jefe del Departamento<br />
-        <input type="text" name='jefedep' class='input-xlarge' value='<? echo $profesor;?>' readonly>
-      </label>
-      </fieldset>
+        		</textarea>
+        	</div>
+      
+		      <div class="form-group">
+			      <label for="jefedep">Jefe del Departamento</label>
+			      <input type="text" class="form-control" id="jefedep" name="jefedep" value="<? echo $profesor; ?>" readonly>
+		      </div>
 
-      <hr>
-      <?
+<?
 if ($edicion=="1") {
 	echo '<input type="hidden" name="id" value="'.$id.'" class="btn btn-primary">';
 	echo '<input type="submit" name="actualiza" value="Actualizar Acta del Departamento" class="btn btn-primary"'.$j_s.'>';
 }
-else{
+	else{
 	echo '<input type="submit" name="submit" value="Registrar Acta del Departamento" class="btn btn-primary" '.$j_s.'>';
 }
-      ?>
+?>
 
-    </form>
+    		</form>
+    		
+    		</div><!-- /.well -->
 
- </div>
- <div class="col-sm-3">
+ 			</div><!-- /.col-sm-8 -->
+ 			
+		 <div class="col-sm-4">
 
 <?
 if($pag == "") {$pag = "0";} else {$pag = $pag + 25;}
@@ -240,102 +255,87 @@ $n_actas = mysql_num_rows($result);
 if (mysql_num_rows($result) > 0)
 {
 ?>
-<p class="help-block" align="left">(*) Tened en cuenta que las actas se bloquean en el momento en que hagáis click en el botón de '<b>Imprimir</b>'. A partir de entonces pueden verse (botón de la lupa) pero no es posible editarlas.</p>
-	<TABLE class="table table-striped pull-left" style="width:97%;">
-	<thead><th colspan="3">Actas del departamento</th></thead><tbody>
-<?	while($row = mysql_fetch_object($result))
-	{
-	?>
-      <TR> 
-      <TD nowrap><? echo $row->numero; ?></td> 
-		<TD nowrap><? echo fecha_sin($row->fecha); ?></td>        
-        <TD nowrap>
-        <?
-	//if(($row->departamento == $_SESSION['dpt']) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
-		?>
-<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
-<? 
-if($row->impreso<>1){
-if ($j_s == 'disabled') {} else {
-?>
-<a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px"> <i class="fa fa-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
-<a href="add.php?borrar=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-trash-o" rel="Tooltip" title='Borrar el Acta' data-bb='confirm-delete'> </i></a> <a href="add.php?edicion=1&id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-pencil" rel="Tooltip" title='Editar el Acta'> </i></a> 
-<?
-}
-}
-else{
-?>
-<a href="#"  style="color:#990000;margin-right:10px"><i class="fa fa-check" rel="Tooltip" title='El Acta no puede editarse por haber sido impresa.'> </i></a> 
-<?
-if ($j_s == 'disabled') {} else {
-?>
-<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000;margin-right:10px"> <i class="fa fa-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
-<?
-}
-}
-?>
-</td>
-<?
-	//	}
-		?>
+<p class="help-block">Tened en cuenta que las actas se bloquean en el momento en que hagáis click en el botón de '<b>Imprimir</b>'. A partir de entonces pueden verse (botón de la lupa) pero no es posible editarlas.</p>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th colspan="3">Actas del departamento</th>
+			</tr>
+		</thead>
+		<tbody>
+			<? while($row = mysql_fetch_object($result)) { ?>
+      <tr> 
+	      <td nowrap><? echo $row->numero; ?></td> 
+				<td nowrap><? echo fecha_sin($row->fecha); ?></td>        
+	       <td nowrap>
+	       	<a href="story.php?id=<? echo $row->id; ?>"><span class="fa fa-search fa-fw fa-lg" rel="tooltip" title='Ver'></span></a> 
+					<? 
+					if($row->impreso<>1){
+					if ($j_s == 'disabled') {} else {
+					?>
+					<a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"><span class="fa fa-print fa-fw fa-lg" rel="tooltip" title='Imprimir'> </span></a>
+					<a href="add.php?borrar=1&id=<? echo $row->id; ?>" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar el Acta"></span></a> <a href="add.php?edicion=1&id=<? echo $row->id; ?>"><span class="fa fa-pencil fa-fw fa-lg" rel="tooltip" title="Editar"></span></a> 
+					<?
+					}
+					}
+					else{
+					?>
+					<a href="#"><span class="fa fa-check fa-fw fa-lg" rel="tooltip" title="El acta ha sido impresa"></span></a> 
+					<?
+					if ($j_s == 'disabled') {} else {
+					?>
+					<a href="pdf.php?id=<? echo $row->id; ?>"><span class="fa fa-print fa-fw fa-lg" rel="tooltip" title="Imprimir"></span></a>
+					<?
+					}
+					}
+					?>
+				</td>
       </tr>
+			<?
+			}
+			?>
+		</tbody>
+	</table>
 	<?
 	}
-	echo "</tbody></TABLE>";
-}
-else
-{
-?>
-<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
-            <button type="button" class="close" data-disiss="alert">&times;</button>
-            <h5>ATENCIÓN:</h5>
-            No hay Actas disponibles en la base de datos. Tu puedes ser el primero en inaugurar la lista.
-          </div></div>
-		  <?
-}
-
-// close connection
-?>
-</div>
-<?
-if ($n_actas > 24) {
+	else
+	{
 	?>
-	<div align="center"><a href="list.php?pag=<? echo $pag;?>" class="btn btn-primary">Siguientes 25 Actas</a></div>
-	<?
+	<div class="alert alert-warning alert-block fade in">
+		<button type="button" class="close" data-disiss="alert">&times;</button>
+		<h5>ATENCIÓN:</h5>
+		No hay Actas disponibles en la base de datos. Tu puedes ser el primero en inaugurar la lista.
+	</div>
+<?
 }
 ?>
 </div>
-<? include("../../pie.php"); ?>
+<? if ($n_actas > 24) { ?>
+<a href="list.php?pag=<? echo $pag;?>" class="btn btn-primary">Siguientes 25 actas</a>
+<?
+}
+?>
+</div>
+
+<?php include("../../pie.php"); ?>
+
 	<script>  
 	$(function ()  
 	{ 
-		$('#fecha').datetimepicker({
+		$('#datetimepicker1').datetimepicker({
 			language: 'es',
 			pickTime: false
 		})
 	});  
-	</script>
+
+	$(document).ready(function() {
 	
-	<script src="http://<? echo $dominio;?>/intranet/js/tinymce/tinymce.min.js"></script>
-	<script>
-	tinymce.init({
-	        selector: "textarea",
-	        language: "es",
-	        plugins: [
-	                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
-	                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-	                "table contextmenu directionality template textcolor paste fullpage textcolor responsivefilemanager"
-	        ],
-	
-	        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | styleselect",
-	        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
-	        
-	        relative_urls: false,
-	        filemanager_title:"Administrador de archivos",
-	        external_filemanager_path:"../../filemanager/",
-	        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},
-	
-	        menubar: false
+		// EDITOR DE TEXTO
+		$('#editor').summernote({
+			height: 360,
+			lang: 'es-ES',
+		});
+
 	});
 	</script>
 </body>
