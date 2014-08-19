@@ -171,7 +171,7 @@ if ($profeso) {
 			if ($nu_dia == '4') {$nom_dia = 'Jueves';}
 			if ($nu_dia == '5') {$nom_dia = 'Viernes';}
 			$fecha_sp = formatea_fecha($h_hoy[4]);
-			echo "<tr><td>$h_hoy[2]</td><td >$fecha_sp</td><td >$nom_dia</td><td >$h_hoy[3]</td><td ><a href='guardias_admin.php?id=$h_hoy[0]&borrar=1&profeso=$profeso' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o' title='Borrar' data-bb='confirm-delete'> </i> </a>";
+			echo "<tr><td>$h_hoy[2]</td><td >$fecha_sp</td><td >$nom_dia</td><td >$h_hoy[3]</td><td ><a href='guardias_admin.php?id=$h_hoy[0]&borrar=1&profeso=$profeso' style='margin-top:5px;color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i> </a>";
 		}
 		echo "</table><br>";
 	}

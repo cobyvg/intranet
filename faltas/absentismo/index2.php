@@ -161,7 +161,7 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
         }
 	echo "<td align='center' class='no_imprimir'><a href='index2.php?claveal=$claveal&mes=$mes&inf=1'> <i class='fa fa-pencil'> </i></a>";
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
-		echo "<a href='index2.php?claveal=$claveal&mes=$mes&del=1'> <i class='fa fa-trash-o' data-bb='confirm-delete'> </i></a>";
+		echo "<a href='index2.php?claveal=$claveal&mes=$mes&del=1' data-bb='confirm-delete'> <i class='fa fa-trash-o'> </i></a>";
 }
 
 	echo "</td>";

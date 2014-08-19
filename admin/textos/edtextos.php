@@ -93,7 +93,7 @@ do
 			 <td>$row[3]</td>
 			 <td>$row[4]</td>
 		  <td>$row[8]</td>
-		  <td><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;'><i class='fa fa-trash-o' title='Borrar' data-bb='confirm-delete'> </i></a></td>
+		  <td><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i></a></td>
 		  </tr>";
 
         } while($row = mysql_fetch_array($textos));	

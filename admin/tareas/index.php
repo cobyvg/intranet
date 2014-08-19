@@ -19,21 +19,9 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 $profesor = $_SESSION['profi'];
 $cargo = $_SESSION['cargo'];
-?>
-<script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar el registro de la base de datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
-}
-</script>
-<? 
-	include("../../menu.php");
-  	include("menu.php");
+
+include("../../menu.php");
+include("menu.php");
 ?>
 
 <div class="container">
@@ -96,7 +84,7 @@ if (mysql_num_rows($si) > 0)
    echo "<TD> 
 			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='fa fa-search' title='Ver Informe'> </i></a>";			
    if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini'><i class='fa fa-trash-o' title='Borrar Informe' data-bb='confirm-delete'> </i> </a> 	";
+   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe' > </i> </a> 	";
    }
 			echo "</td>";	
    }
@@ -116,7 +104,7 @@ if (mysql_num_rows($si) > 0)
 		else{
 			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=' btn-mini'><i class='fa fa-search' title='Ver Informe'> </i> </a>";		
 		 if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini'><i class='fa fa-trash-o' title='Borrar Informe' data-bb='confirm-delete'> </i> </a> 	";
+   	echo "&nbsp;&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=' btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe' > </i> </a> 	";
    }	
 		}
 	  if (mysql_num_rows($si) > 0 and $count < 1)

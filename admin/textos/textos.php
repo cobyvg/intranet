@@ -77,7 +77,7 @@ do
 		  <td>$row[8]</td>";
 		   if(stristr($_SESSION['cargo'],'1') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['depto'] == $row[0]))
 {
-	echo "<td nowrap><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a>&nbsp;&nbsp;<a href=deltextos.php?id=$row[6] style='color:brown;'><i class='fa fa-trash-o' title='Borrar' data-bb='confirm-delete'> </i></a></td>";
+	echo "<td nowrap><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a>&nbsp;&nbsp;<a href=deltextos.php?id=$row[6] style='color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i></a></td>";
 			 }
 		  
 		  echo "</tr>";

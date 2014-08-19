@@ -588,7 +588,7 @@ echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" 
  	echo $backup;
  }
  echo "</td><td class='hidden-print'>";
- echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' data-bb='confirm-delete'> </i></a>";
+ echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' > </i></a>";
  echo "</td>";
 echo "<td class='hidden-print'>";
 // Problemas de Convivencia
@@ -793,16 +793,5 @@ echo substr($nom_a,0,-2).'</td></tr></table>';
      } 
     } 	
   </script>
-  <script>
- function confirmacion() {
- 	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
- 	if (answer){
- return true;
- 	}
- 	else{
- return false;
- 	}
- }
- </script>
 </body>
 </html>

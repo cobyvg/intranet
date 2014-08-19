@@ -103,7 +103,7 @@ $row0 = mysql_fetch_array ( $result0 );
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
    	   	echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
-		echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini'><i class='fa fa-trash-o ' title='Borrar Informe' data-bb='confirm-delete'> </i> </a> 	";
+		echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o ' title='Borrar Informe' > </i> </a> 	";
    }	
 echo  '</div></td></tr>';
 	}

@@ -199,7 +199,7 @@ enviarForm();
 	<td>$row[6]</td>
 	<td>$row[7]</td>
 	<td>$row[9]</td>
-	<td nowrap><a href='detfechorias.php?id= $row[10]&claveal=$claveal'><i class='fa fa-search' title='Detalles'></i></a>&nbsp;&nbsp;<a href='delfechorias.php?id= $row[10]'><i class='fa fa-trash-o' title='Borrar' data-bb='confirm-delete'></i></a></td>
+	<td nowrap><a href='detfechorias.php?id= $row[10]&claveal=$claveal'><i class='fa fa-search' title='Detalles'></i></a>&nbsp;&nbsp;<a href='delfechorias.php?id= $row[10]' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' ></i></a></td>
 	</tr>";
 	}
 	echo "</table>\n";

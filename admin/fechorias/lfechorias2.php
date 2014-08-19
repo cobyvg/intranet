@@ -109,7 +109,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		<td >$caducada</td>
 		<td  nowrap>$comentarios1 $comentarios</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' style='margin-top:5px;color:brown;'><i class='fa fa-trash-o' title='Borrar' data-bb='confirm-delete'> </i></a></div>";}	
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' style='margin-top:5px;color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i></a></div>";}	
 		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search' title='Detalles'> </i></A></td>";
 		echo "</tr>";
         }

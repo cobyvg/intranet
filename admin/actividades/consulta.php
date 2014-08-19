@@ -164,17 +164,17 @@ $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
     <td><? echo $datos[4];?></td>
     <td nowrap><? echo $fecha;?></td>
 	<td><? echo $mes2;?></td>
-    <td nowrap><a href="consulta.php?id=<? echo $datos[0];?>&detalles=1"><i class="fa fa-search"> </i> </a>
+    <td nowrap><a href="consulta.php?id=<? echo $datos[0];?>&detalles=1"><span class="fa fa-search fa-fw fa-lg"></span></a>
     <?
     //echo $_SESSION['depto'] ."== $datos[4]";
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE){
-			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><i class="fa fa-pencil"> </i> </a>';	
-			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1"><i class="fa fa-trash-o" data-bb="confirm-delete"> </i> </a>';
+			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
+			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 }
 elseif ($_SESSION['depto'] == $datos[4]){	 
 		if(stristr($_SESSION['cargo'],'4') == TRUE){
-			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><i class="fa fa-pencil"> </i>  </a>';	
-			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1"> <i class="fa fa-trash-o"> </i> </a>';
+			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
+			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 	}
 }
 	?>

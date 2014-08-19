@@ -99,7 +99,7 @@ if ($activos > 0)
 	if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
 			echo "<TD> 
 			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search' title='Ver Informe'> </i></a>
-			&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''><i class='fa fa-trash-o' title='Borrar Informe'  data-bb='confirm-delete'> </i> </a> 			
+			&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='' data-bb='confirm-delete'data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe'  > </i> </a> 			
 			</td>";		
 		}
 		echo "</tr>";	
@@ -118,7 +118,7 @@ if ($activos > 0)
 		{} else{ 
 			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search' title='Ver Informe'> </i></a>";	
 			if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-				echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''><i class='fa fa-trash-o' title='Borrar Informe' data-bb='confirm-delete'> </i> </a> 	";
+				echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''><i class='fa fa-trash-o' title='Borrar Informe' > </i> </a> 	";
 			}
 		}	  
 	  if (mysql_num_rows($si) > 0 and $count < 1)

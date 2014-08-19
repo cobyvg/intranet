@@ -292,7 +292,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	<td width='60'>$tr</td>";		
 	if(stristr($_SESSION['cargo'],'1') == TRUE)
 	{
-		echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor'><i class='fa fa-trash-o' title='Borrar' data-bb='confirm-delete' /> </i> </a></td>";
+		echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar'  /> </i> </a></td>";
 	}
 	echo "</tr>";
 }

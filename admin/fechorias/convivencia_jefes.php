@@ -206,7 +206,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	}
 	echo "<td style='vertical-align:middle'>";
 	if (!empty($id0)) {
-		echo "<A HREF='convivencia_jefes.php?id=$id0&borrar=1&hoy=$hoy'><i title='Borrar' class='fa fa-trash-o' data-bb='confirm-delete'> </i> </A>";
+		echo "<A HREF='convivencia_jefes.php?id=$id0&borrar=1&hoy=$hoy' data-bb='confirm-delete'><i title='Borrar' class='fa fa-trash-o' > </i> </A>";
 	}
 	echo "</td><td>";
 	$foto="";
