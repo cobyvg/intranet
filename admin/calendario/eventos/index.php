@@ -16,18 +16,18 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-
 $profesor = $_SESSION['profi'];
 $cargo = $_SESSION['cargo'];
-?>
-<?php
+
 include("../../../menu.php");
 ?>
-<br />
+
+<div class="container">
+
   <div class="page-header">
-  <h2>Calendario de actividades <small> Crear o editar registros</small></h2>
-</div>
-<br />
+  	<h2>Calendario de actividades <small>Añadir nuevo evento</small></h2>
+	</div>
+
 <?
 $conn = mysql_connect($db_host, $db_user, $db_pass) or die("Could not connect to database!");
 mysql_select_db($db, $conn);
@@ -99,8 +99,7 @@ if ($today > $numdays) { $today--; }
 
 
 // Estructura de la Tabla
-?>
-<?
+
 if (isset($_GET['mens'])) {
 $mes = $_GET['mens'];
 if($mens==1){ 
@@ -122,12 +121,13 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 }
 
 ?>
-<div class="row">
- <div class="col-sm-2"></div>
-<div class="col-sm-4">
-<div class="well well-large">
+	<div class="row">
+		
+		<div class="col-sm-7">
+		
+			<div class="well">
 <?
-echo "<h3>$daylong, $monthlong $today, $year</h3><hr />";
+echo "<legend>$daylong, $today de $monthlong</legend><br />";	
 
 
 $sql_date = "$year-$month-$today";
@@ -161,7 +161,6 @@ while($row = mysql_fetch_array($eventExec)) {
 }
 */
 echo "<form name='jcal_post' action='jcal_post.php?year=$year&today=$today&month=$month' method='post'>";
-echo "<div align='left'>";
 		  $tr0 = explode("<br>",$event_title);
 		  $n_act="";
 		  $actividad0="";
@@ -169,13 +168,16 @@ echo "<div align='left'>";
 			$n_act = $n_act + 1;
 		  	$actividad0.= $val0."<br>";
 		}
-		  echo "<p class='lead text-warning'>Actividades del día</p>";
-		  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_title' rows='6' cols='45' class='form-control'>$event_title</textarea>";}else{echo "<p>$actividad0</p>";}
-		  echo "<hr />";
-      echo "<p class='lead text-warning'>Información sobre las actividades</p>";
-	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_event' cols='45' rows='8' class='form-control'>$event_event</textarea>";}else{echo "<p>$event_event</p>";}
-	  echo "<hr />";
-
+			echo "<div class=\"form-group\">";
+		  echo "<label for=\"actividades\">Actividades del día</label>";
+		  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea id=\"actividades\" name='day_title' rows='6' class='form-control'>$event_title</textarea>";}else{echo "<p>$actividad0</p>";}
+		  echo "</div>";
+		  
+		  echo "<div class=\"form-group\">";
+      echo "<label for=\"informacion\">Información sobre las actividades</label>";
+	 		if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea id=\"informacion\"  name='day_event' rows='8' class='form-control'>$event_event</textarea>";}else{echo "<p>$event_event</p>";}
+			echo "</div>";
+			
       echo "<input type='hidden' value='$year' name='year'>
       <input type='hidden' value='$month' name='month'>
       <input type='hidden' value='$today' name='today'>";
@@ -193,61 +195,47 @@ echo "<div align='left'>";
 			  	$n_act0 = $n_act0 + 1;
 		  		$hor.= "".$act[2]." ==> ".$act[0]."";
 		  }		
-echo "<p class='lead text-warning'>Horario de las actividades</p>
+echo "<p class='lead'>Horario de las actividades</p>
 <textarea class='form-control' disabled />$hor</textarea>";
 	  echo "<hr />";	  
 		}	  
 	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5')== TRUE ){echo "<input type='submit' name='actualizar' value='Introducir datos' class='btn btn-primary'>";}
-	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'5') == TRUE){echo "<input type='submit' name='del' value='Borrar registro'  class='btn btn-danger' style='margin-left:40px;'>";}
-	  echo "</form></div>";
+	  echo "&nbsp;";
+	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'5') == TRUE){echo "<input type='submit' name='del' value='Borrar registro'  class='btn btn-danger'>";}
+	  echo "</form>";
 ?>
-</div>
-</div>
-<div class="col-sm-4 pull-left">
+</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-7 -->
+		
+		<div class="col-sm-5">
 
-<?             
-	echo "<table class='table table-bordered table-striped' style='width:400px;margin:auto'><tr><th>
-<div align='center'>
-	<a href='".$_SERVER['PHP_SELF']."?year=$last_year&today=$today&month=$month'>
-<i class='fa fa-arrow-o-left' name='calb2' style='margin-right:20px;'> </i> </a>
-<h3 style='display:inline'>$year</h3>
-<a href='".$_SERVER['PHP_SELF']."?year=$next_year&today=$today&month=$month'>
-<i class='fa fa-arrow-o-right' name='calb1' style='margin-left:20px;'> </i> </a></div></th></tr></table><br />";
-
-echo "<table class='table table-bordered' style='width:400px;' align='center'>
-      <tr>";
-	  $meses = array("1"=>"Ene", "2"=>"Feb", "3"=>"Mar", "4"=>"Abr", "5"=>"May", "6"=>"Jun", "7"=>"Jul", "8"=>"Ago", "9"=>"Sep", "10"=>"Oct", "11"=>"Nov", "12"=>"Dic");
-	  foreach ($meses as $num_mes => $nombre_mes) {
-	  	
-	  	if ($num_mes==$month) {
-	  		echo "<th  onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
-		"?year=$year&today=$today&month=1';\" style='background-color:#08c'> 
-		<a href=\"".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=".$num_mes."\" style='color:#efefef'>".$nombre_mes."</a> </th>";
-	  	}
-	  	else{
-	  		echo "<th  onClick=\"window.location='" .$_SERVER['PHP_SELF']. 
-		"?year=$year&today=$today&month=1';\" > 
-		<a href=\"".$_SERVER['PHP_SELF']."?year=$year&today=$today&month=".$num_mes."\">".$nombre_mes."</a> </th>";
-	  	}
-	  if ($num_mes=='6') {
-	  		echo "</tr><tr>";
-	  	}
-	  }
-	  echo "</tr>
-    </table>";
+<?
+$mes_sig = $month+1;
+$mes_ant = $month-1;
+$ano_ant = $ano_sig = $year;
+if ($mes_ant == 0) {
+	$mes_ant = 12;
+	$ano_ant = $year-1;
+}
+if ($mes_sig == 13) {
+	$mes_sig = 1;
+	$ano_sig = $year+1;
+}
 
 //Nombre del Mes
-echo "<table class='table table-bordered' style='width:400px;margin:auto'><tr>";
-echo "<td colspan=\"7\" valign=\"middle\" align=\"center\"><h6 align='center'>" . $monthlong . 
-"</h6></td>";
+echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
+echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?year=".$ano_ant."&month=".$mes_ant."\"><span class=\"fa fa-arrow-circle-left fa-fw fa-lg\"></span></a></h4></th>";
+echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
+echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?year=".$ano_sig."&month=".$mes_sig."\"><span class=\"fa fa-arrow-circle-right fa-fw fa-lg\"></span></a></h4></th>";
 echo "</tr><tr>";
 
-//Nombre de Días
+
+//Nombre de DÃ­as
 foreach($alldays as $value) {
-  echo "<th style='background-color:#eee'>
-  $value</th>\n";
+  echo "<th>$value</th>";
 }
-echo "</tr>\n<tr>\n";
+echo "</tr></thead><tbody><tr>";
 
 //Días vacíos
 for ($i = 0; $i < $dayone; $i++) {
@@ -261,9 +249,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   // Mirar a ver si hay alguna ctividad en el día
   $result_found = 0;
   if ($zz == $today) { 
-    echo "<td valign='middle' style='background-color:#08c;cursor:pointer;' align='center' onClick='window.location='" 
-	.$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';'><a href='".$_SERVER['PHP_SELF'].
-	"?year=$year&today=$zz&month=$month' style='color:#fff'>$zz</a></td>\n";
+    echo "<td class=\"calendar-today\"><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>\n";
     $result_found = 1;
   }
   
@@ -277,7 +263,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		if (mysql_num_rows($eventExec)>0) {
 			while ( $row = mysql_fetch_array ( $eventExec ) ) {
 			if (strlen ( $row ["title"] ) > 0) {
-        echo "<td style='background-color:#f89406;cursor:pointer;' onClick='window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month' style='color:#fff'>$zz</a></td>\n";				
+        echo "<td class=\"calendar-orange\"><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>\n";				
 				$result_found = 1;
 			}
 		}	
@@ -287,29 +273,16 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		$fest = mysql_query("select distinct fecha, nombre from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-			        echo "<td style='background-color:#46A546;cursor:pointer;' onClick='window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month' style='color:#fff'>$zz</a></td>\n";
+			        echo "<td class=\"calendar-red\"><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>\n";
 				$result_found = 1;
 				}	
 		}
 		
 	}
-  
-  
-/*  if ($result_found != 1) {
-  //Buscar actividad  y marcarla.
-    $sql_currentday = "$year-$month-$zz";
-    $eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
-    $eventExec = mysql_query($eventQuery);
-    while($row = mysql_fetch_array($eventExec)) {
-      if (strlen($row["title"]) > 0) {
-        echo "<td style='background-color:#f89406;cursor:pointer;' onClick='window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month' style='color:#fff'>$zz</a></td>\n";
-        $result_found = 1;
-      }
-    }
-  }*/
+
 
   if ($result_found != 1) {
-    echo "<td style='cursor:pointer;' onClick='window.location='" .$_SERVER['PHP_SELF']. "?year=$year&today=$zz&month=$month';'><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>\n";
+    echo "<td><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>\n";
   }
   $i++; $result_found = 0;
 }
@@ -317,19 +290,21 @@ $create_emptys = 7 - (($dayone + $numdays) % 7);
 if ($create_emptys == 7) { $create_emptys = 0; }
 
 if ($create_emptys != 0) {
-  echo "<td  colspan='$create_emptys'>&nbsp;</td>\n";
+  echo "<td colspan='$create_emptys'>&nbsp;</td>\n";
 }
 echo "</tr>\n";
-echo "</table><br>\n";
+echo "</tbody></table><br>\n";
 
 mysql_close();
 
 ?>
-</div>
-</div>
-</div>
-<?
-include("../../../pie.php");
-?>
+</div><!-- /.col-sm-5 -->
+		
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
+
+<?php include("../../../pie.php"); ?>
+
 </body>
 </html>
