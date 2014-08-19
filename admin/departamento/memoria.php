@@ -13,34 +13,7 @@ if ($_SESSION['autentificado'] != 1) {
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 $profesor = $_SESSION ['profi'];
 $n_preg=15;
-?>
 
-	<!-- TinyMCE -->
-	<script src="../../js/tinymce/tinymce.min.js"></script>
-	<script>
-	tinymce.init({
-	        selector: "textarea",
-	        language: "es",
-	        plugins: [
-	                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak",
-	                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-	                "table contextmenu directionality template textcolor paste fullpage textcolor responsivefilemanager"
-	        ],
-	
-	        toolbar1: " undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | styleselect",
-	        toolbar2: "cut copy paste | searchreplace | link unlink anchor image media code | hr removeformat | table | subscript superscript | charmap | pagebreak",
-	        
-	        relative_urls: false,
-	        filemanager_title:"Administrador de archivos",
-	        external_filemanager_path:"../../filemanager/",
-	        external_plugins: { "filemanager" : "../../filemanager/plugin.min.js"},
-	
-	        menubar: false
-	});
-	</script>
-	<!-- /TinyMCE -->
-
-<?
 include '../../menu.php';
 // Creación de la tabla
 mysql_query("CREATE TABLE IF NOT EXISTS `mem_dep` (
@@ -71,28 +44,28 @@ mysql_query("CREATE TABLE IF NOT EXISTS `mem_dep` (
 // Miembros
 $depto=$_SESSION ['dpt'];
 $dep0 = mysql_query("select nombre from departamentos where departamento = '$depto'");
-$miembros.="Los profesores que componen el Departamento, así como sus grupos y las asignaturas que imparten a los mismos son los siguientes:<br /><br />";
+$miembros.="Los profesores que componen el Departamento, así como sus grupos y las asignaturas que imparten a los mismos son los siguientes:<br><br>";
 while ($dep = mysql_fetch_array($dep0)) {
-	$jefe=$dep[0]."<br />\n";
+	$jefe=$dep[0]."<br>\n";
 	$cl = "";
 	$grupos0 = mysql_query("select distinct grupo, materia from profesores where profesor = '$dep[0]'");
 	while ($grupos = mysql_fetch_array($grupos0)) {
 	$cl.=$grupos[0]." (".$grupos[1]."), ";
 	}
 	$cl = substr($cl,0,-2);
-	$miembros.=$jefe.$cl."<br /><br />\n\n";
+	$miembros.=$jefe.$cl."<br>\n\n";
 }
 // Actividades
 $act0 = mysql_query("select distinct actividad, grupos, fecha from actividades where departamento = '$depto'");
 //echo "select nombre from departamentos where departamento = '$depto'";
 if (mysql_num_rows($act0)>0) {
-	$activ.= "Las actividades complementarias y extraescolares realizadas por el Departamento son las siguientes:<br /><br />";
+	$activ.= "Las actividades complementarias y extraescolares realizadas por el Departamento son las siguientes:<br><br>";
 }
 while ($act = mysql_fetch_array($act0)) {
 	$jefe2=$act[2].". ".$act[0]."<br />\nGrupos afectados por la actividad: ";
 	$cl2 = $act[1];
 	$cl2 = substr($cl2,0,-1);
-	$activ.=$jefe2.$cl2."<br /><br />\n\n";
+	$activ.=$jefe2.$cl2."<br>\n\n";
 }
 
 $campos=array('p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','p13','p14','p15','p16','p17','p18','p19','p20');
@@ -188,69 +161,77 @@ $p[$i]=$memoria[$i+1];
 }
 if (!($memoria[1]=='')){$profe=$memoria[1];}
 
-
-echo '<div class="container-fluid"><div class="row">';
-echo "<div class='col-sm-10 col-sm-offset-1'>";
 ?>
-<div class="page-header">
-  <h2>Jefatura de Departamento <small> Memoria final</small></h2>
-</div>
-<?
-echo '<h3 align ="center" class="text-info">Departamento de ',$_SESSION ['dpt'],'</h3><br />';
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+	  <h2>Jefatura de Departamento <small>Memoria final</small></h2>
+	  <h3 class="text-info">Departamento de <?php echo $_SESSION['dpt']; ?></h3>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+		
+		<!-- COLUMNA CENTRAL -->
+		<div class="col-sm-12">
+			
+			<div class="well">
+<?php 
 
-echo '<div class="well well-large" style="max-width:980px;margin:auto;">';
-# formulario
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
-echo '<form action="memoria.php?depto='.$depto.'" method="post" name="memoria" class="form-vertical">';
+		echo '<form action="memoria.php?depto='.$depto.'" method="post" name="memoria">';
 	}
 	echo '<div class="form-group">';
-echo '<input type="hidden" name="aceptar" value="Si" />';
-#  preguntas
-echo '<label class="control-label" for="inputZprofe">Jefe del Departamento</label> ';
+	echo '<input type="hidden" name="aceptar" value="Si" />';
+	#  preguntas
+	echo '<label for="inputZprofe">Jefe del Departamento</label> ';
 
-$prof = mysql_query("SELECT nombre FROM departamentos where departamento = '$depto' and cargo like '%4%'");
-$profes = mysql_fetch_row($prof);
-
-echo '<div class="controls"><input type="text" class="input input-xlarge" disabled name="zprofe" value = "'.$profes[0].'"></div>';
-echo "<hr>";
+	$prof = mysql_query("SELECT nombre FROM departamentos where departamento = '$depto' and cargo like '%4%'");
+	$profes = mysql_fetch_row($prof);
+	
+	echo '<input type="text" class="form-control" disabled name="zprofe" value = "'.$profes[0].'">';
+	echo '</div>';
 
 for ($i=1; $i<=$n_preg; $i++){
-if ($i==1) {echo "<p class='lead'>"."1. Aspectos organizativos del departamento"."</p>";}
-if ($i==6) {echo "<p class='lead'>"."4. Criterios de Evaluación."."</p>";}
-if ($i==8) {echo "<p class='lead'>"."5. Medidas de atención a la diversidad."."</p>";}
-echo "<p class='text-info'>".$pregunta[$i]."</p>";
-echo "<p class='muted'>".$nota[$i]."</p>";
+if ($i==1) {echo "<h3>"."1. Aspectos organizativos del departamento"."</h3>";}
+if ($i==6) {echo "<h3>"."4. Criterios de Evaluación."."</h3>";}
+if ($i==8) {echo "<h3>"."5. Medidas de atención a la diversidad."."</h3>";}
+echo "<h4 class=\"text-info\">".$pregunta[$i]."</h4>";
+echo "<p class='text-muted'>".$nota[$i]."</p>";
 if (strstr($pregunta[$i], "1.1.")==TRUE and strlen($p[$i])<"5") {
 	$contenido = $miembros;
 }
 elseif (strstr($pregunta[$i], "2. Análisis")==TRUE and strlen($p[$i])<"5") {
-	$contenido = '<p style="padding-left: 30px;">&nbsp;1. Evoluci&oacute;n de los resultados acad&eacute;micos: an&aacute;lisis seg&uacute;n niveles y grupos.</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">&nbsp;2. An&aacute;lisis de causas de las posibles divergencias.</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">&nbsp;3. Medidas adoptadas para la mejora de resultados durante el curso actual</p>
-<p style="padding-left: 30px;">&nbsp;</p>';
+	$contenido = '<p>1. Evoluci&oacute;n de los resultados acad&eacute;micos: an&aacute;lisis seg&uacute;n niveles y grupos.</p>
+<p><br></p>
+<p><br></p>
+<p>2. An&aacute;lisis de causas de las posibles divergencias.</p>
+<p><br></p>
+<p><br></p>
+<p>3. Medidas adoptadas para la mejora de resultados durante el curso actual</p>
+<p><br></p>
+<p><br></p>';
 }
 elseif (strstr($pregunta[$i], "3. Seguimiento")==TRUE and strlen($p[$i])<"5") {
-	$contenido = '<p style="padding-left: 30px;">1. An&aacute;lisis y descripci&oacute;n del grado de cumplimiento de la programaci&oacute;n por asignatura, nivel y grupo.</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p style="padding-left: 30px;">2. Propuestas de modificaciones de la programaci&oacute;n (objetivos, contenidos, metodolog&iacute;a, temporalizaci&oacute;n...).</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>';
+	$contenido = '<p>1. An&aacute;lisis y descripci&oacute;n del grado de cumplimiento de la programaci&oacute;n por asignatura, nivel y grupo.</p>
+<p><br></p>
+<p><br></p>
+<p>2. Propuestas de modificaciones de la programaci&oacute;n (objetivos, contenidos, metodolog&iacute;a, temporalizaci&oacute;n...).</p>
+<p><br></p>
+<p><br></p>';
 }
 elseif (strstr($pregunta[$i], "5.1.")==TRUE and strlen($p[$i])<"5") {
-	$contenido = '<p style="padding-left: 30px;">1. Miembros del Departamento responsables del seguimiento del alumnado con materias pendientes</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">2. Resultados obtenidos: causas de posibles divergencias</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">3. Seguimiento del programa de recuperaci&oacute;n: caracter&iacute;sticas de los programas, plazos...</p>
-<p style="padding-left: 30px;">&nbsp;</p>
-<p style="padding-left: 30px;">&nbsp;</p>';
+	$contenido = '<p>1. Miembros del Departamento responsables del seguimiento del alumnado con materias pendientes</p>
+<p><br></p>
+<p><br></p>
+<p>2. Resultados obtenidos: causas de posibles divergencias</p>
+<p><br></p>
+<p><br></p>
+<p>3. Seguimiento del programa de recuperaci&oacute;n: caracter&iacute;sticas de los programas, plazos...</p>
+<p><br></p>
+<p><br></p>';
 }
 elseif(strstr($pregunta[$i], "8. Act")==TRUE and strlen($p[$i])<"5"){
 	$contenido = $activ;
@@ -258,17 +239,41 @@ elseif(strstr($pregunta[$i], "8. Act")==TRUE and strlen($p[$i])<"5"){
 else{
 	$contenido = $p[$i];
 }
-echo '<div class="controls">
-<TEXTAREA style="width:98%;height:360px;" NAME="'.$campos[$i-1].'">';
+echo '
+<div class="form-group">
+<textarea class="form-control" id="'.$campos[$i-1].'" name="'.$campos[$i-1].'">';
 echo $contenido;
-echo '</TEXTAREA></div><hr>';
+echo '</textarea></div><hr>';
 }
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
 echo '<center><button class="btn btn-primary" type="submit" name="procesar" value="Guardar" ><i class="fa fa-pencil-square-o "> </i> Guardar</button>';
 echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" target="_blank" href="memoria_print.php?depto='.$depto.'"><i class="fa fa-print "> </i> Imprimir</a></center>';
 	}
-echo '</div>';
 echo "</form>";
+?>
+			</div><!-- /.well -->
+			 
+		</div><!-- /.col-sm-12 -->
+	
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
 
-mysql_close();
-include('../../pie.php');?>
+<?php include('../../pie.php'); ?>
+
+	<script>
+	$(document).ready(function() {
+	
+		// EDITOR DE TEXTO
+		for (var i = 1; i <= 15; i++) {
+			$('#p'+i).summernote({
+				height: 260,
+				lang: 'es-ES',
+			});
+		}
+
+	});
+	</script>
+
+</body>
+</html>
