@@ -36,7 +36,6 @@ if (mysql_num_rows($si) > 0)
 	</p>";
 ?>	
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="tarea<? echo $n_tareas;?>">
-
 	  <div class="modal-dialog">
     <div class="modal-content">	
   <div class="modal-header">
