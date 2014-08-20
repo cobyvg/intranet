@@ -104,7 +104,11 @@ if (stristr ( $carg, '2' ) == TRUE) {
 				
 				<?php 
 				if (stristr ( $carg, '2' ) == TRUE) {
-					include("admin/tutoria/control.php");
+					$_SESSION['mod_tutoria']['tutor']  = $_SESSION['tut'];
+					$_SESSION['mod_tutoria']['unidad'] = $_SESSION['s_unidad'];
+					
+					define('INC_TUTORIA', 1);
+					include("admin/tutoria/inc_pendientes.php");
 				}
 				?>
 				<?php include ("pendientes.php"); ?>
