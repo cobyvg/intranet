@@ -235,9 +235,9 @@ include("menu.php");
 						  	</div>
 						  	
 						  	<div class="col-sm-6">
-						  		<div class="form-group">
+						  		<div class="form-group" id="datetimepicker1">
 						  			<label for="fecha_inc">Fecha</label>
-						  			 <div class="input-group" id="datetimepicker1">
+						  			 <div class="input-group">
 						  			 	<input type="text" class="form-control" id="fecha_inc" name="fecha_inc" value="<?php echo (isset($fecha_inc)) ? $fecha_inc : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
 						  			  <span class="input-group-addon">
 						  			  	<span class="fa fa-calendar fa-fw"></span>

@@ -80,16 +80,20 @@ $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS
 ?>
          <h6> Rango de fechas</h6><br />      
          <label> Inicio: 
-      <div class="input-group" id="datetimepicker1">
+      <div class="form-group"  id="datetimepicker1">
+      <div class="input-group">
             <input name="fecha12" type="text" class="input input-small" data-date-format="DD/MM/YYYY" id="fecha12" value="<?if($fecha12){ echo $fecha12;}?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
+</div>
 </label>
  &nbsp;&nbsp;&nbsp;&nbsp;
 <label>Fin: 
- <div class="input-group" id="datetimepicker2">
+	<div class="form-group"  id="datetimepicker2">
+ <div class="input-group">
   <input name="fecha22" type="text" class="input input-small" data-date-format="DD/MM/YYYY" id="fecha22" value="<?if($fecha22){ echo $fecha22;}?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+ </div>
 </div> 
       </label>
  <hr>

@@ -282,9 +282,9 @@ for ($i = 1; $i < 7; $i++) {
 ?>
 </select>
 </div>
-<div class="form-group">
-<label for="fecha_dia">Fecha </label> 
-<div class="input-group" id="datetimepicker1">
+<div class="form-group" id="datetimepicker1">
+<label for="fecha_dia">Fecha</label> 
+<div class="input-group">
 <input name="fecha_dia" type="text" class="form-control" value="<? echo $fecha_dia;?>" data-date-format="DD/MM/YYYY" id="fecha_dia" required >
 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
  </div> 

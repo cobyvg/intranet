@@ -122,9 +122,9 @@ echo "$hoy0</h3>";
 	echo "<center><form name='conv' action='convivencia_jefes.php' method='post' enctype=multipart/form-data' class='form-inline'>";
 	?>
 <div class="well">	
-	<div class="form-group">
+	<div class="form-group" id="datetimepicker1">
 <label>Selecciona el Día </label>
-<div class="input-group" id="datetimepicker1">
+<div class="input-group">
   <input name="fecha0" id="fecha0" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<? echo $hoy0;?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 

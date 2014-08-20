@@ -176,9 +176,9 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 				</select> 
 				</div> 
 				
-				<div class="form-group">
+				<div class="form-group" id="datetimepicker1">
 				<label for="fecha">Fecha</label>
-				<div class="input-group" id="datetimepicker1">
+				<div class="input-group">
 				  <input name="fecha" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<?if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>" >
 				  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 				</div> 

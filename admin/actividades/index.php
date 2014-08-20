@@ -46,10 +46,13 @@ else{
   <FORM action="index.php" method="POST" name="Cursos">
            
                 <center><label>Fecha de la actividad:<br /> 
-                      <div class="input-group" id="datetimepicker1">
-            <input name="fecha_act" type="text" class="input input-medium" value="<? echo $fecha_act; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
+           
+           <div class="form-group" id="datetimepicker1">
+            <div class="input-group">
+            		<input name="fecha_act" type="text" class="input input-medium" value="<? echo $fecha_act; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
+  							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						</div> 
+					</div>
               </label></center>
               <hr>
                 <label>Titulo: <br />

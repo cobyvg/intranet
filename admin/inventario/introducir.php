@@ -154,10 +154,12 @@ while($lug = mysql_fetch_array($luga))
 </label>
 
 <label>Fecha de Alta<span style="color:#9d261d;"> (*) </span><br />
-<div class="input-group" id="datetimepicker1">
+<div class="form-group"  id="datetimepicker1">
+<div class="input-group">
   <input name="fecha" type="text" class="input input-small" data-date-format="DD-MM-YYYY" id="fecha">
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
+</div>
+</div>
 </label>
 <br />
 <input type="submit" name="enviar"  value="Enviar datos" class="btn btn-primary btn-block"/>

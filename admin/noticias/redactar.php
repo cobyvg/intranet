@@ -183,9 +183,9 @@ include ("menu.php");
 									<input type="hidden" name="contact" value="<?php echo $_SESSION['profi']; ?>">
 							</div>
 							
-							<div class="form-group">
+							<div class="form-group" id="datetimepicker1">
 								<label for="fecha_pub">Fecha de publicación</label>
-								<div class="input-group" id="datetimepicker1">
+								<div class="input-group">
 									<input type="text" class="form-control" id="fecha_pub" name="fecha_pub" value="<?php echo (isset($fecha_pub) && $fecha_pub) ? $fecha_pub : date('Y-m-d H:i:s'); ?>" data-date-format="YYYY-MM-DD HH:mm:ss">
 									<span class="input-group-addon"><span class="fa fa-calendar fa-lg"></span></span>
 								</div>

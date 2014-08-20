@@ -170,23 +170,26 @@ if ($falumno = mysql_fetch_array($alumno0))
 ?>
 </select> </label>
 
-<label> Fecha <br /><?  $fecha1 = (date("d").-date("m").-date("Y")); 
+<label> Fecha </label><br />
+<div class="form-group"  id="datetimepicker1">
+<?  $fecha1 = (date("d").-date("m").-date("Y")); 
 if ($fecha)
 {
 	echo '
-  <div class="input-group" id="datetimepicker1">
+  <div class="input-group">
             <input name="fecha" type="text" class="input form-control" value="'.$fecha.'" data-date-format="DD-MM-YYYY" id="fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
 }
 else{
 	echo '
-  <div class="input-group" id="datetimepicker1">
+  <div class="input-group">
             <input name="fecha" type="text" class="input form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
 }
-?> </label>
+?>
+</div>
 <hr>
 <label> Observaciones<br />
 <textarea name='observaciones' rows='8' class='form-control'><? echo $observaciones; ?></textarea>

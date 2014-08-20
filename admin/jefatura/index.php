@@ -231,9 +231,9 @@ $clave = $row[10];
 							</div>
 							
 							<div class="col-sm-5">
-								<div class="form-group">
+								<div class="form-group" id="datetimepicker1">
 								  <label for="fecha_reg">Fecha</label>
-									<div class="input-group" id="datetimepicker1">
+									<div class="input-group">
 										<input name="fecha_reg" type="text" class="input form-control" value="<?php echo (isset($id) && $fecha_reg) ? $fecha_reg : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY" id="fecha_reg" >
 									  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									</div>

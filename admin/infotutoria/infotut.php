@@ -87,9 +87,9 @@ else
 }
 ?>
 
-<div class='form-group'>
+<div class='form-group' id="datetimepicker1">
 <label>Fecha de la reunión</label>
-<div class="input-group" id="datetimepicker1">
+<div class="input-group">
 <input name="fecha"	type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" required> 
 	<span class="input-group-addon"><i class="fa fa-calendar"></i>
 	</span>

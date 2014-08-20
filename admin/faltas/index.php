@@ -116,20 +116,20 @@ else
 
 <legend><small>Rango de fechas...</small></legend>
 
-<div class="form-group col-md-6" style="display: inline;">
+<div class="form-group col-md-6"  id="datetimepicker1" style="display: inline;">
 <label class="control-label"
 	for="fecha4">Inicio </label>
-<div class="input-group" id="datetimepicker1">
+<div class="input-group">
 <input name="fecha4" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY" id="fecha4"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </div>
 
-<div class="form-group col-md-6" style="display: inline;">
+<div class="form-group col-md-6"   id="datetimepicker2" style="display: inline;">
 <label class="control-label"
 	for="fecha3">Fin </label>
-<div class="input-group"  id="datetimepicker2">
+<div class="input-group">
 <input name="fecha3" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY" id="fecha3"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -297,9 +297,9 @@ seleccionadas. )</span>
 </div>
 <legend><small>Rango de fechas...</small></legend>
 
-<div class="form-group col-md-6" style="display: inline;">
+<div class="form-group col-md-6" id="datetimepicker3" style="display: inline;">
 <label class="control-label" for="fecha10">Inicio </label>
-<div class="input-group"  id="datetimepicker3">
+<div class="input-group">
 <input name="fecha10" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY"
 	id="fecha10" required> <span class="input-group-addon"><i
@@ -307,10 +307,10 @@ seleccionadas. )</span>
 </div>
 </div>
 
-<div class="form-group col-md-6" style="display: inline;">
+<div class="form-group col-md-6" id="datetimepicker4" style="display: inline;">
 <label
 	for="fecha20" class="control-label">Fin </label>
-<div class="input-group"  id="datetimepicker4"><input name="fecha20" type="text"
+<div class="input-group"><input name="fecha20" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY"
 	id="fecha20" required> <span class="input-group-addon"><i
 	class="fa fa-calendar"></i></span>

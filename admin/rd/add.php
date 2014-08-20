@@ -165,9 +165,9 @@ if ($edicion=="1") {
     			
     				<div class="col-sm-5">
     					
-    					<div class="form-group">
+    					<div class="form-group" id="datetimepicker1">
     						<label for="fecha">Fecha de la Reunión</label>
-    						<div class="input-group" id="datetimepicker1">
+    						<div class="input-group">
     					  	<input type="text" class="form-control" name="fecha" id="fecha" value="<?php echo (isset($fecha_r)) ? $fecha_r : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY" required>
     					  	<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
     					  </div>

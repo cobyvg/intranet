@@ -95,9 +95,9 @@ if (isset($_GET['id'])) {
 							
 								<div class="col-sm-6">
 								
-									<div class="form-group">
+									<div class="form-group" id="datetimepicker1">
 										<label for="fecha_reg">Fecha de la actividad</label>
-										<div class="input-group" id="datetimepicker1">
+										<div class="input-group">
 									  	<input type="text" class="form-control" id="fecha_reg" name="fecha_reg" value="<?php echo (isset($fecha_reg)) ? $fecha_reg : date('Y-m-d'); ?>" data-date-format="YYYY-MM-DD" required>
 									  	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									  </div>

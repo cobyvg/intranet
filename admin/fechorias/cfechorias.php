@@ -98,9 +98,9 @@ include("menu.php");
 							<!-- FORMULARIO COLUMNA DERECHA -->
 							<div class="col-sm-5">
 								
-								<div class="form-group">
+								<div class="form-group" id="datetimepicker1">
 								  <label for="dia">Fecha</label>
-								  <div class="input-group" id="datetimepicker1">
+								  <div class="input-group">
 								  	<input type="text" class="form-control" name="dia" id="dia" placeholder="Fecha" data-date-format="DD-MM-YYYY">
 								  	<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 								  </div>

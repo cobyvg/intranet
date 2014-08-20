@@ -145,10 +145,12 @@ $justificacion = $datos[10];
 <FORM action="indexconsulta.php" method="POST" name="Cursos">
            
                 <label>Fecha de la actividad:<br /> 
-                      <div class="input-group" id="datetimepicker1">
-            <input name="fecha_act" type="text" class="input input-small" value="<? echo "$dia-$mes-$ano"; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> 
+            <div class="form-group" id="datetimepicker1">
+            <div class="input-group">
+              <input name="fecha_act" type="text" class="input input-small" value="<? echo "$dia-$mes-$ano"; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
+              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div> 
+            </div>
               </label>
               <hr>
                 <label>Titulo: <br />

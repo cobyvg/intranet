@@ -207,20 +207,23 @@ if(strlen($sin2) > '0'){
 	<legend align="center">Selecciona el rango de fechas</legend>
 
 	<tr>
-		<td align="center"><label>Inicio<br />
-		<div class="input-group" style="display: inline;" id="datetimepicker1"><input
+		<td align="center"><label>Inicio</label><br />
+		<div class="form-group"  id="datetimepicker1">
+		<div class="input-group" style="display: inline;"><input
 			name="fecha12" type="text" class="input input-small"
 			value="<? if(empty($fecha12)){echo $fech1;} else {echo $fecha12;}?>"
 			data-date-format="DD-MM-YYYY" id="fecha12"> <span class="input-group-addon"><i
 			class="fa fa-calendar"></i></span></div>
-		</label></td>
-		<td><label>Fin<br />
-		<div class="input-group" style="display: inline;" id="datetimepicker2"><input
+		</div></td>
+		<td><label>Fin</label><br />
+		<div class="form-group"  id="datetimepicker2">
+		<div class="input-group" style="display: inline;"><input
 			name="fecha22" type="text" class="input input-small"
 			value="<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>"
 			data-date-format="DD-MM-YYYY" id="fecha22"> <span class="input-group-addon"><i
 			class="fa fa-calendar"></i></span></div>
-		</label></td>
+		</div>
+		</td>
 	</tr>
 	<tr>
 		<td colspan="2" style="azimuth: 6px" align="center"><br>

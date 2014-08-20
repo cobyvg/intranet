@@ -110,10 +110,10 @@ largo del curso.</p>
               </select>
     </div>    
     
-    <div class="form-group">     
+    <div class="form-group" id="datetimepicker1">     
 	<label>Fecha de la sustitución</label>
 	<input type="hidden" name="profeso" value="<? echo $profeso;?>">
-	     <div class="input-group" id="datetimepicker1">
+	     <div class="input-group">
             <input name="gu_fecha" type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="gu_fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>   

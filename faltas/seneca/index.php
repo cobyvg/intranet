@@ -108,20 +108,20 @@ Para poder importar las faltas de los alumnos, es necesario en primer lugar desc
 
         <form id="form1" name="form1" method="post" action="index.php">
   <fieldset>      
- <div class="form-group col-md-6" style="display: inline;">
+ <div class="form-group col-md-6" id="datetimepicker1" style="display: inline;">
 <label class="control-label"
 	for="iniciofalta">Primer d&iacute;a:</label>
-<div class="input-group" id="datetimepicker1">
+<div class="input-group">
 <input name="iniciofalta" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY" id="iniciofalta"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </div>
 
-<div class="form-group col-md-6" style="display: inline;">
+<div class="form-group col-md-6" id="datetimepicker2" style="display: inline;">
 <label class="control-label"
 	for="finfalta">Ultimo d&iacute;a:  </label>
-<div class="input-group" id="datetimepicker2">
+<div class="input-group">
 <input name="finfalta" type="text"
 	class="form-control" value="" data-date-format="DD/MM/YYYY" id="finfalta"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
