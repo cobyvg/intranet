@@ -78,7 +78,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 		echo '<div class="table-responsive"><table class="table table-striped table-bordered table-vcentered datatable">';
 		$fecha1 = (date("d").-date("m").-date("Y"));
         echo "<thead><tr>
-		<th>ALUMNO</th>
+		<th colspan=2>ALUMNO</th>
 		<th>UNIDAD</th>
 		<th>FECHA</th>
 		<th>TIPO</th>
@@ -139,11 +139,11 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}		
 				if($recibido == '1'){$comentarios1="<i class='fa fa-check' rel='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle'  rel='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
 		echo "<tr>
-		<td nowrap>";
+		<td>";
 		$foto="<span class='fa fa-user fa-fw fa-3x'></span>";
 		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='55' height='64'>";
-		echo $foto."&nbsp;&nbsp;";
-		echo "<a href='lfechorias2.php?clave=$claveal'>$rowalumno</a></td>
+		echo $foto."</td>";
+		echo "<td>$rowalumno</td>
 		<td>$rowcurso</td>
 		<td nowrap>$fecha</td>
 		<td>$asunto</td>
@@ -151,10 +151,13 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 		<td $bgcolor>$grave</td>
 		<td><center>$rownumero</center></td>
 		<td>$caducada</td>
-		<td nowrap>$comentarios1 $comentarios</td><td nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar'></span></a>";}	
+		<td nowrap>$comentarios1 $comentarios</td><td nowrap>"; 	
 
-		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles del problema'></span></a></td>
+		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles del problema'></span></a>
+		<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-user fa-fw fa-lg' rel='tooltip' title='Historial del alumno'></span></a>
+		";
+        if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar'></span></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil fa-fw fa-lg' rel='tooltip' title='Editar'></i></A>";}
+		echo "</td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";
 		if (stristr($_SESSION['cargo'],'1')) {

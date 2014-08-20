@@ -175,7 +175,7 @@ mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now
 		<table class='table table-bordered table-striped table-vcentered datatable'>";
 		$fecha1 = (date("d").-date("m").-date("Y"));
 		echo "<thead><tr>
-		<th>ALUMNO</th>
+		<th colspan=2>ALUMNO</th>
 		<th width='60'>CURSO</th>
 		<th>FECHA</th>
 		<th>TIPO</th>
@@ -237,11 +237,11 @@ mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now
 				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}		
 				if($recibido == '1'){$comentarios1="<i class='fa fa-check' title='recibido'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle' title='No recibido'> </i>";}else{$comentarios1="";}
 		echo "<tr>
-		<td nowrap>";
+		<td>";
 		$foto="<span class='fa fa-user fa-fw fa-3x'></span>";
 		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='55' height='64'>";
-		echo $foto."&nbsp;&nbsp;";
-		echo "$rowalumno</td>
+		echo $foto."</td>";
+		echo "<td>$rowalumno</td>
 		<td>$rowcurso</td>
 		<td nowrap>$fecha</td>
 		<td>$asunto</td>
@@ -251,8 +251,9 @@ mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now
 		<td nowrap>$caducada</td>
 		<td nowrap>$comentarios1</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='fechorias.php?id=$id&borrar=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar'></i></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil fa-fw fa-lg' rel='tooltip' title='Editar'></i></A></div>";}	
-		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles'></i></A></td>
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='fechorias.php?id=$id&borrar=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar'></i></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil fa-fw fa-lg' rel='tooltip' title='Editar'></i></A>";}	
+		echo "<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-user fa-fw fa-lg' rel='tooltip' title='Historial del alumno'></span></a>
+		 <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles'></i></A></td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";
 		if (stristr($_SESSION['cargo'],'1')) {
