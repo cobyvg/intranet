@@ -42,6 +42,11 @@
 		  if (isAndroid) {
 		    $('select.form-control').removeClass('form-control').css('width', '100%')
 		  }
+		  
+		  $("#toggleMenu").click(function() {
+		    $('#accordion').toggleClass("hidden-xs");
+		  });
+		  
 		})
 		</script>
 	

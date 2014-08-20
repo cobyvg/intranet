@@ -543,23 +543,23 @@ $menu = array(
 	<div class="row">
 		<div class="col-xs-3 text-center">
 			<a href="faltas/poner/index.php">
-				<span class="fa fa-clock-o fa-2x"></span>
+				<span class="fa fa-clock-o fa-2x"></span><br>
 				Asistencia</a>
 		</div>
 		<div class="col-xs-3 text-center">
 			<a href="admin/fechorias/infechoria.php">
-				<span class="fa fa-gavel fa-2x"></span>
+				<span class="fa fa-gavel fa-2x"></span><br>
 				Convivencia</a>
 		</div>
 		<div class="col-xs-3 text-center">
 			<a href="admin/mensajes/redactar.php">
-				<span class="fa fa-comments fa-2x"></span>
+				<span class="fa fa-comments fa-2x"></span><br>
 				Mensajes</a>
 		</div>
 		<div class="col-xs-3 text-center">
-			<a href="#" onclick"">
-				<span class="fa fa-ellipsis-h fa-2x"></span>
-				Menú...</a>
+			<a href="#" id="toggleMenu">
+				<span class="fa fa-ellipsis-h fa-2x"></span><br>
+				Opciones</a>
 		</div>
 	</div>
 	<br>
