@@ -83,12 +83,9 @@ if (stristr ( $carg, '2' ) == TRUE) {
 			<div class="col-sm-3">
 				
 				<?php
-				if (strstr($_SESSION ['cargo'],"6") or strstr($_SESSION ['cargo'],"7")) {
-					include("menu_conserje.php");
-				}
-				else {
-					include("menu2.php");
-				}
+
+					include("menu_lateral.php");
+
 				?>
 				
 				<div class="bs-module hidden-xs">
