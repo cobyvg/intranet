@@ -236,12 +236,12 @@ $fechaenv = "el día $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 </div>
   <div class="modal-footer">
   <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
-  <a href="#" class="btn btn-primary" data-dismiss="modal">Cerrar</a>
+  <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
     <?
 		$asunto = 'RE: '.$asunto;
-echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-info">Responder</a>';
+echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
 ?>
-<a href="index.php?verifica_padres=<? echo $id;?>" target="_top" class="btn btn-danger">Leído</a> 
+<a href="index.php?verifica_padres=<? echo $id;?>" target="_top" class="btn btn-success">Leído</a> 
 <input type='hidden' name = 'id_ver' value = '$id' />
 </form>
 </div>
@@ -306,11 +306,11 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
   
   <div class="modal-footer">
 	  <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
-	  <a href="#" target="_top" data-dismiss="modal"class="btn btn-primary">Cerrar</a>
+	  <a href="#" target="_top" data-dismiss="modal" class="btn btn-default">Cerrar</a>
 	  <?
 		$asunto = str_replace('"','',$asunto);
 		$asunto = 'RE: '.$asunto;
-		echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-info">Responder</a>';
+		echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
 		?>
 		<a href="index.php?verifica=<?php echo $id; ?>" target="_top" class="btn btn-success">Leído</a>  
 		<input type='hidden' name = 'id_ver' value = '$id' />

@@ -24,14 +24,14 @@ switch (substr($codigo_postal_del_centro,0,2)) {
 //	nombre						(string) Nombre del menú
 //	cargos						(array) ID de los cargos con privilegios para visualizar el menu
 //	ncargos						(array) ID de los cargos sin privilegios para visualizar el menu
-//	modulos						(boolean) Valor del módulo del que depende el menú
+//	modulo						(boolean) Valor del módulo del que depende el menú
 //	meses							(array) Número del mes cuando está disponible el menú (sin 0 iniciales)
 //	items							(array) Opciones del menú
 //	items -> href			(string) URI de la página
 //	items -> titulo		(string) Título de la página
 //	items -> cargos		(array) ID de los cargos con privilegios para visualizar la opción del menú
 //	items -> ncargos	(array) ID de los cargos sin privilegios para visualizar la opción del menú
-//	items -> modulos	(boolean) Valor del módulo del que depende la opción del menú
+//	items -> modulo	(boolean) Valor del módulo del que depende la opción del menú
 //	items -> meses		(array) Número del mes cuando está disponible la opción del menú (sin 0 iniciales)
 //
 //	Se puede realizar menus anidados en un item, estos submenus permiten las mismas acciones de control
@@ -271,6 +271,7 @@ $menu = array(
 			array(
 				'href'   => '#',
 				'titulo' => 'Faltas de asistencia',
+				'modulo' => $mod_faltas,
 				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
@@ -589,6 +590,7 @@ $menu = array(
 					<?php $count=0; ?>
 					<?php for($j=0 ; $j < count($menu[$i]['items']) ; $j++): ?>
 					<?php if(isset($menu[$i]['items'][$j]['items'])): ?>
+					<?php if(!isset($menu[$i]['items'][$j]['modulo']) || ($menu[$i]['items'][$j]['modulo'] == '1')): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['cargos']) || in_array($carg, $menu[$i]['items'][$j]['cargos'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg, $menu[$i]['items'][$j]['ncargos'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['meses']) || in_array($carg, $menu[$i]['items'][$j]['meses'])): ?>
@@ -612,6 +614,7 @@ $menu = array(
 						</ul>
 					</div>
 					<?php $count++; ?>
+					<?php endif; ?>
 					<?php endif; ?>
 					<?php endif; ?>
 					<?php endif; ?>
