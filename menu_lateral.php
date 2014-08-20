@@ -603,7 +603,7 @@ $menu = array(
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg, $menu[$i]['items'][$j]['items'][$k]['cargos'])): ?>
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg, $menu[$i]['items'][$j]['items'][$k]['ncargos'])): ?>
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['meses']) || in_array(date('n'), $menu[$i]['items'][$j]['items'][$k]['meses'])): ?>
-							<li><a href="<?php echo $menu[$i]['items'][$j]['items'][$k]['href']; ?>" <?php $menu[$i]['items'][$j]['items'][$k]['target'] == '_blank' ? 'target="_blank"' : ''; ?>><?php echo $menu[$i]['items'][$j]['items'][$k]['titulo']; ?></a></li>
+							<li><a href="<?php echo $menu[$i]['items'][$j]['items'][$k]['href']; ?>" <?php echo ($menu[$i]['items'][$j]['items'][$k]['target'] == '_blank') ? 'target="_blank"' : ''; ?>><?php echo $menu[$i]['items'][$j]['items'][$k]['titulo']; ?></a></li>
 							<?php endif; ?>
 							<?php endif; ?>
 							<?php endif; ?>
@@ -620,7 +620,7 @@ $menu = array(
 					<?php if(!isset($menu[$i]['items'][$j]['cargos']) || in_array($carg, $menu[$i]['items'][$j]['cargos'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg, $menu[$i]['items'][$j]['ncargos'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['meses']) || in_array(date('n'), $menu[$i]['items'][$j]['meses'])): ?>
-					<li><a href="<?php echo $menu[$i]['items'][$j]['href']; ?>" <?php $menu[$i]['items'][$j]['target'] == '_blank' ? 'target="_blank"' : ''; ?>><?php echo $menu[$i]['items'][$j]['titulo']; ?></a></li>
+					<li><a href="<?php echo $menu[$i]['items'][$j]['href']; ?>" <?php echo ($menu[$i]['items'][$j]['target'] == '_blank') ? 'target="_blank"' : ''; ?>><?php echo $menu[$i]['items'][$j]['titulo']; ?></a></li>
 					<?php endif; ?>
 					<?php endif; ?>
 					<?php endif; ?>
