@@ -571,8 +571,8 @@ $menu = array(
 <?php $nmenu = 1; ?>
 <?php for($i=0 ; $i < count($menu) ; $i++): ?>
 <?php if(!isset($menu[$i]['modulo']) || ($menu[$i]['modulo'] == '1')): ?>
-<?php if(!isset($menu[$i]['cargos']) || in_array($carg, $menu[$i]['cargos'])): ?>
-<?php if(!isset($menu[$i]['ncargos']) || !in_array($carg, $menu[$i]['ncargos'])): ?>
+<?php if(!isset($menu[$i]['cargos']) || in_array($carg[0], $menu[$i]['cargos']) || in_array($carg[1], $menu[$i]['cargos']) || in_array($carg[2], $menu[$i]['cargos']) || in_array($carg[3], $menu[$i]['cargos']) || in_array($carg[4], $menu[$i]['cargos'])): ?>
+<?php if(!isset($menu[$i]['ncargos']) || !in_array($carg[0], $menu[$i]['ncargos']) || !in_array($carg[1], $menu[$i]['ncargos']) || !in_array($carg[2], $menu[$i]['ncargos']) || !in_array($carg[3], $menu[$i]['ncargos']) || !in_array($carg[4], $menu[$i]['ncargos'])): ?>
 <?php if(!isset($menu[$i]['meses']) || in_array(date('n'), $menu[$i]['meses'])): ?>
 	<div class="panel panel-default">
 	  <div class="panel-heading">
@@ -591,8 +591,8 @@ $menu = array(
 					<?php for($j=0 ; $j < count($menu[$i]['items']) ; $j++): ?>
 					<?php if(isset($menu[$i]['items'][$j]['items'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['modulo']) || ($menu[$i]['items'][$j]['modulo'] == '1')): ?>
-					<?php if(!isset($menu[$i]['items'][$j]['cargos']) || in_array($carg, $menu[$i]['items'][$j]['cargos'])): ?>
-					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg, $menu[$i]['items'][$j]['ncargos'])): ?>
+					<?php if(!isset($menu[$i]['items'][$j]['cargos']) || in_array($carg[0], $menu[$i]['items'][$j]['cargos']) || in_array($carg[1], $menu[$i]['items'][$j]['cargos']) || in_array($carg[2], $menu[$i]['items'][$j]['cargos']) || in_array($carg[3], $menu[$i]['items'][$j]['cargos']) || in_array($carg[4], $menu[$i]['items'][$j]['cargos'])): ?>
+					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[1], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[2], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[3], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[4], $menu[$i]['items'][$j]['ncargos'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['meses']) || in_array($carg, $menu[$i]['items'][$j]['meses'])): ?>
 					<li><a data-toggle="collapse" href="#<?php echo $menu[$i]['menu_id']; ?>-submenu<?php echo $count; ?>">
 						<span class="fa fa-chevron-down pull-right"></span>
@@ -602,8 +602,8 @@ $menu = array(
 						<ul class="nav nav-pills nav-stacked">
 							<?php for($k=0 ; $k < count($menu[$i]['items'][$j]['items']) ; $k++): ?>
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['modulo']) || ($menu[$i]['items'][$j]['items'][$k]['modulo'] == '1')): ?>
-							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg, $menu[$i]['items'][$j]['items'][$k]['cargos'])): ?>
-							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg, $menu[$i]['items'][$j]['items'][$k]['ncargos'])): ?>
+							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[0], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[1], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[2], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[3], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[4], $menu[$i]['items'][$j]['items'][$k]['cargos'])): ?>
+							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[1], $menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[2], $menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[3], $menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[4], $menu[$i]['items'][$j]['items'][$k]['ncargos'])): ?>
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['meses']) || in_array(date('n'), $menu[$i]['items'][$j]['items'][$k]['meses'])): ?>
 							<li><a href="<?php echo $menu[$i]['items'][$j]['items'][$k]['href']; ?>" <?php echo ($menu[$i]['items'][$j]['items'][$k]['target'] == '_blank') ? 'target="_blank"' : ''; ?>><?php echo $menu[$i]['items'][$j]['items'][$k]['titulo']; ?></a></li>
 							<?php endif; ?>
