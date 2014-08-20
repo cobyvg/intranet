@@ -412,7 +412,7 @@ $menu = array(
 				),
 			),
 			array(
-				'href'   => 'admin/matriculas/index.php',
+				'href'   => 'admin/tutoria/index.php',
 				'titulo' => 'Tutorías',
 				'cargos' => array('1'),
 				'ncargos' => array('6', '7'),
