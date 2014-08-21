@@ -264,7 +264,7 @@ $menu = array(
 					array(
 						'href'   => 'admin/fechorias/convivencia.php',
 						'titulo' => 'Aula de convivencia',
-						'ncargos' => array('1'),
+						'ncargos' => array('b'),
 					),
 				),
 			),
@@ -301,7 +301,7 @@ $menu = array(
 					array(
 						'href'   => 'admin/faltas/ccursos.php',
 						'titulo' => 'Partes de Faltas de Grupo',
-						'cargos' => array('1'),
+						'cargos' => array('1','2'),
 					),
 				),
 			),

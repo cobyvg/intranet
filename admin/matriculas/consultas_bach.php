@@ -394,7 +394,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 	<td><a href="matriculas_bach.php?id='. $id .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
 	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
-	<td><input name="grupo_actual-'. $id .'" type="text" class="input-mini" style="width:12px;" value="'. $grupo_actual .'" /></td>';
+	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control"  size="1" value="'. $grupo_actual .'" /></td>';
 		echo '<td>'. $colegio .'</td>';
 		$color_rel = "";
 		if (strstr($religion,"Cat")==TRUE) {

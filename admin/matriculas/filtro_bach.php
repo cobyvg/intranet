@@ -1,3 +1,15 @@
+<?
+foreach($_POST as $val)
+{
+if (strlen($val)>0) {
+	$n+=1;
+}
+}
+if ($n>1) {
+	$mostrar_filtro = ' in';
+}
+?>
+
 <div class="well hidden-print">
 	<form method="post" id="form2" name="form2" action="consultas_bach.php">
 		
@@ -12,7 +24,7 @@
 					
 					<div class="form-group">
 						<label for="curso">Curso</label>
-						<select class="form-control" id="curso" name="curso" onchange="submit();">
+						<select class="form-control" id="curso" name="curso">
 							<option value=""></option>
 							<option value="1BACH" <?php echo (isset($curso) && $curso == "1BACH") ? 'selected' : ''; ?>>1º de Bachillerato</option>
 							<option value="2BACH" <?php echo (isset($curso) && $curso == "2BACH") ? 'selected' : ''; ?>>2º de Bachillerato</option>
@@ -62,7 +74,7 @@
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="avanzado" class="panel-collapse collapse">
+			    <div id="avanzado" class="panel-collapse collapse<? echo $mostrar_filtro;?>">
 			      <div class="panel-body">
 			        
 			        <!-- FILA 2 -->
@@ -254,6 +266,7 @@
 			        			<?php $result = mysql_query("SELECT DISTINCT colegio FROM matriculas ORDER BY colegio ASC"); ?>
 			        			<?php if(mysql_num_rows($result)): ?>
 			        			<select class="form-control" id="colegi" name="colegi">
+			        			<option></option>
 			        				<?php while($row = mysql_fetch_array($result)): ?>
 			        				<option value="<?php echo $row['colegio']; ?>" <?php echo (isset($colegi) && $colegi == $row['colegio']) ? 'selected' : ''; ?>><?php echo $row['colegio']; ?></option>
 			        				<?php endwhile; ?>

@@ -1,3 +1,14 @@
+<?
+foreach($_POST as $val)
+{
+if (strlen($val)>0) {
+	$n+=1;
+}
+}
+if ($n>1) {
+	$mostrar_filtro = ' in';
+}
+?>
 <div class="well hidden-print">
 	<form method="post" id="form2" name="form2" action="consultas.php">
 		
@@ -35,7 +46,8 @@
 								<input type="checkbox" name="grupo_actual[]" value="Ninguno" <?php echo (in_array('Ninguno',$grupo_actual)) ? 'checked' : ''; ?>> <span class="badge badge-default">Ninguno</span>
 							</label>
 						</div>
-						<?php $result = mysql_query("SELECT DISTINCT grupo_actual FROM matriculas WHERE curso = '$curso' ORDER BY grupo_actual ASC"); ?>
+						<?php
+						$result = mysql_query("SELECT DISTINCT grupo_actual FROM matriculas WHERE curso = '$curso' ORDER BY grupo_actual ASC"); ?>
 						<?php if(mysql_num_rows($result)): ?>
 							<?php while($row = mysql_fetch_array($result)): ?>
 							<?php if($row['grupo_actual'] != ""): ?>
@@ -64,7 +76,7 @@
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="avanzado" class="panel-collapse collapse">
+			    <div id="avanzado" class="panel-collapse collapse<? echo $mostrar_filtro;?>">
 			      <div class="panel-body">
 			        
 			        <!-- FILA 2 -->
@@ -267,6 +279,7 @@
 			        			<?php $result = mysql_query("SELECT DISTINCT colegio FROM matriculas ORDER BY colegio ASC"); ?>
 			        			<?php if(mysql_num_rows($result)): ?>
 			        			<select class="form-control" id="colegi" name="colegi">
+			        			<option></option>
 			        				<?php while($row = mysql_fetch_array($result)): ?>
 			        				<option value="<?php echo $row['colegio']; ?>" <?php echo (isset($colegi) && $colegi == $row['colegio']) ? 'selected' : ''; ?>><?php echo $row['colegio']; ?></option>
 			        				<?php endwhile; ?>
