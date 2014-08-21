@@ -14,8 +14,11 @@ if($_SESSION['cambiar_clave']) {
 }
 
 // COMPROBACION DE ACCESO AL MODULO
-if(!(strstr($_SESSION['cargo'],'1') == TRUE) && !(strstr($_SESSION['cargo'],'8') == TRUE)) {
-	die("<h1>FORBIDDEN</h1>");
+if ((stristr($_SESSION['cargo'],'1') == false) && (stristr($_SESSION['cargo'],'8') == false)) {
+	
+	if (isset($_SESSION['mod_tutoria'])) unset($_SESSION['mod_tutoria']);
+	die ("<h1>FORBIDDEN</h1>");
+	
 }
 else {
 
