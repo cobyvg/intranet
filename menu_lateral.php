@@ -620,8 +620,8 @@ $menu = array(
 					<?php endif; ?>
 					<?php else: ?>
 					<?php if(!isset($menu[$i]['items'][$j]['modulo']) || ($menu[$i]['items'][$j]['modulo'] == '1')): ?>
-					<?php if(!isset($menu[$i]['items'][$j]['cargos']) || in_array($carg, $menu[$i]['items'][$j]['cargos'])): ?>
-					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg, $menu[$i]['items'][$j]['ncargos'])): ?>
+					<?php if(!isset($menu[$i]['items'][$j]['cargos']) || in_array($carg[0], $menu[$i]['items'][$j]['cargos']) || in_array($carg[1], $menu[$i]['items'][$j]['cargos']) || in_array($carg[2], $menu[$i]['items'][$j]['cargos']) || in_array($carg[3], $menu[$i]['items'][$j]['cargos']) || in_array($carg[4], $menu[$i]['items'][$j]['cargos'])): ?>
+					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[1], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[2], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[3], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[4], $menu[$i]['items'][$j]['ncargos'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['meses']) || in_array(date('n'), $menu[$i]['items'][$j]['meses'])): ?>
 					<li><a href="<?php echo $menu[$i]['items'][$j]['href']; ?>" <?php echo ($menu[$i]['items'][$j]['target'] == '_blank') ? 'target="_blank"' : ''; ?>><?php echo $menu[$i]['items'][$j]['titulo']; ?></a></li>
 					<?php endif; ?>
