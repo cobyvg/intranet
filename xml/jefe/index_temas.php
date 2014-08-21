@@ -41,24 +41,42 @@ if (isset($_POST['tema'])) {
 	$newfile = '../../css/bootstrap.min.css';
 
 	if (!copy($file, $newfile)) {
-		echo "failed to copy $file...\n";
+		echo '<div class="alert alert-danger alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+No ha sido posible modificar el tema. ¿Estás seguro de haber concedido permiso de escritura al directorio de la Intranet?
+</div><br />';
+	}
+	if (isset($_POST['inverso'])) {			
+		$file = '../../menu.php';
+		$current = file_get_contents($file);
+		if (stristr($current,"navbar navbar-default")==TRUE) {
+			$bar = "navbar navbar-default";
+			$bar_inverse = "navbar navbar-inverse";
+		}
+		else{
+			$bar = "navbar navbar-inverse";
+			$bar_inverse = "navbar navbar-default";
+		}
+		$current = str_replace($bar,$bar_inverse,$current);
+		file_put_contents($file, $current);
 	}
 	else{
-?>
+		?>
 <div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-El tema se ha modificado correctamente. Comprueba los cambios.
-</div><br />
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+El tema se ha modificado correctamente. Comprueba los cambios.</div>
+<br />
 
-<?	
+		<?
 	}
 }
 ?>
 <div class="well well-lg">
 <form action="index_temas.php" enctype="multipart/form-data"
 	method="post">
+<fieldset>
 <div class="form-group"><label>Selecciona el tema</label> <select
-	class="form-control" name="tema" onchange="submit()">
+	class="form-control" name="tema">
 	<option><? echo $tema;?></option>
 	<?
 	$d = dir("../../css/temas/");
@@ -70,81 +88,88 @@ El tema se ha modificado correctamente. Comprueba los cambios.
 	$d->close();
 	?>
 </select></div>
-<p class="help-block text-justify">
-Al construirse sobre <a href="http://getbootstrap.com"><strong>BootStrap</strong></a>, el aspecto que presentan las páginas de la Intranet puede ser modificado con temas. Los archivos <strong>CSS</strong> de los temas se encuentran en la carpeta <em>/css/temas/</em>. La aplicación contiene un conjunto de temas ya preparados libres y gratuitos, descargados desde la página de <a href="http://bootswatch.com"><strong>Bootswatch</strong></a>. Puedes colocar nuevos temas en ese directorio, pero recuerda que sólo funcionan aquellos temas que contienen un único archivo <strong>CSS</strong>. 
+<div class="checkbox"><label><input type="checkbox" name="inverso"
+	value="1" />Invertir colores del tema</label></div>
+<div class="form-group"><input type="submit" name="submit"
+	value="Cambiar tema" class="btn btn-primary" /></div>
+</fieldset>
+<p class="help-block text-justify">Al construirse sobre <a
+	href="http://getbootstrap.com"><strong>BootStrap</strong></a>, el
+aspecto que presentan las páginas de la Intranet puede ser modificado
+con temas. Los archivos <strong>CSS</strong> de los temas se encuentran
+en la carpeta <em>/css/temas/</em>. La aplicación contiene un conjunto
+de temas ya preparados libres y gratuitos, descargados desde la página
+de <a href="http://bootswatch.com"><strong>Bootswatch</strong></a>.
+Puedes colocar nuevos temas en ese directorio, pero recuerda que sólo
+funcionan aquellos temas que contienen un único archivo <strong>CSS</strong>.<br>
+No te olvides de refrescar la página si los cambios no aparecen inmediatamente.
 </p>
 </form>
 </div>
 </div>
 </div>
 <div class="row">
-  <div class="col-sm-6">
-    <div class="thumbnail">
-        <a target="_blank" href="../../img/temas/intranet.jpg" target="_blank">
-      <img src="../../img/temas/intranet.jpg">
-      </a>
-      <div class="caption">
-        <h3>Tema de la Aplicación</h3>
-      </div>
-    </div>
-    </div>
-  <div class="col-sm-6">
-        <div class="thumbnail">
-        <a target="_blank" href="../../img/temas/bootstrap.jpg">
-      <img src="../../img/temas/bootstrap.jpg">
-      </a>
-      <div class="caption">
-        <h3>Tema standard de Bootstrap</h3>
-      </div>
-    </div>
-    </div>
-    </div>
-<div class="row"> 
-  <div class="col-sm-6">
-        <div class="thumbnail">
-        <a target="_blank" href="../../img/temas/cosmo.jpg">
-      <img src="../../img/temas/cosmo.jpg">
-      </a>
-      <div class="caption">
-        <h3>Cosmo</h3>
-      </div>
-    </div>
-    </div>
-<div class="row">    
-  <div class="col-sm-6">
-        <div class="thumbnail">
-        <a target="_blank" href="../../img/temas/lumen.jpg">
-      <img src="../../img/temas/lumen.jpg">
-      </a>
-      <div class="caption">
-        <h3>Lumen</h3>
-      </div>
-    </div>
-    </div>
-</div>
-<div class="row"> 
-  <div class="col-sm-6">
-        <div class="thumbnail">
-        <a target="_blank" href="../../img/temas/cerulean.jpg">
-      <img src="../../img/temas/cerulean.jpg">
-      </a>
-      <div class="caption">
-        <h3>Cerulean</h3>
-      </div>
-    </div>
-    </div>
-  <div class="col-sm-6">
-            <div class="thumbnail">
-       <a target="_blank" href="../../img/temas/flatly.jpg">     
-      <img src="../../img/temas/flatly.jpg">
-      </a>
-      <div class="caption">
-        <h3>Flatly</h3>
-      </div>
-    </div>
-   </div>
-  </div>
+<div class="col-sm-6">
+<div class="thumbnail"><a target="_blank"
+	href="../../img/temas/intranet.jpg" target="_blank"> <img
+	src="../../img/temas/intranet.jpg"> </a>
+<div class="caption">
+<h3>Tema de la Aplicación</h3>
 </div>
 </div>
-<?php include("../../pie.php");	?>
+</div>
+<div class="col-sm-6">
+<div class="thumbnail"><a target="_blank"
+	href="../../img/temas/bootstrap.jpg"> <img
+	src="../../img/temas/bootstrap.jpg"> </a>
+<div class="caption">
+<h3>Tema standard de Bootstrap</h3>
+</div>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6">
+<div class="thumbnail"><a target="_blank"
+	href="../../img/temas/cosmo.jpg"> <img src="../../img/temas/cosmo.jpg">
+</a>
+<div class="caption">
+<h3>Cosmo</h3>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6">
+<div class="thumbnail"><a target="_blank"
+	href="../../img/temas/lumen.jpg"> <img src="../../img/temas/lumen.jpg">
+</a>
+<div class="caption">
+<h3>Lumen</h3>
+</div>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6">
+<div class="thumbnail"><a target="_blank"
+	href="../../img/temas/cerulean.jpg"> <img
+	src="../../img/temas/cerulean.jpg"> </a>
+<div class="caption">
+<h3>Cerulean</h3>
+</div>
+</div>
+</div>
+<div class="col-sm-6">
+<div class="thumbnail"><a target="_blank"
+	href="../../img/temas/flatly.jpg"> <img
+	src="../../img/temas/flatly.jpg"> </a>
+<div class="caption">
+<h3>Flatly</h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+	<?php include("../../pie.php");	?>
 
