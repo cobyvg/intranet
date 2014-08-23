@@ -167,7 +167,7 @@ $menu = array(
 				'titulo' => 'Datos de los alumnos'
 			),
 			array(
-				'href'   => 'admin/jefatura/tutor.php',
+				'href'   => 'admin/cursos/chorarios.php',
 				'titulo' => 'Horarios de profesores/grupos',
 				'modulo' => $mod_horario,
 			),
@@ -264,7 +264,8 @@ $menu = array(
 					array(
 						'href'   => 'admin/fechorias/convivencia.php',
 						'titulo' => 'Aula de convivencia',
-						'ncargos' => array('b'),
+						'cargos' => array('b'),
+						'ncargos' => array('1'),
 					),
 				),
 			),
