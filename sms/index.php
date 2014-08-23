@@ -49,12 +49,12 @@ function contar(form,name) {
   }
 }
 </script> 
-<br />
- <div align=center>
-  <div class="page-header">
+<div class="container">
+
+<div class="page-header">
   <h2>SMS <small> Envío de mensajes</small></h2>
 </div>
-<br />
+<div class="row">
 
 <?
  if ($mod_sms) {
@@ -170,28 +170,32 @@ else
 {
 	 if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE)){
 		?>
-<div class="row">
- <div class="col-sm-2"></div>
-<div class="col-sm-4">
+		
+<div class="col-md-4 col-md-offset-2">
+
         <?
 	}
 	else{
-	echo '<div align="center" style="width:400px;">';	
+	echo '<div class="col-md-4 col-md-offset-4">';	
 	}
 ?>
 <div class="well well-large" align="left">
 <form method="post" action="index.php" name="nameform" class="form-vertical">
 
       <? if(stristr($_SESSION['cargo'],'2') == TRUE){} else{ ?>
-      <label>Grupo: 
-		<select  name="unidad" class="input" onChange="submit()">
+      <div class="form-group">
+      <label>Grupo </label>
+		<select  name="unidad" class="form-control" onChange="submit()">
           <option><? echo $unidad;?></option>
           <? if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<option>Cualquiera</option>";} ?>
           <? unidad(); ?>
-        </select><? }?>
+        </select>
+        </div>
+        <? }?>
       
-          	<label>Causa<br />
-	<select name="causa" class="form-control">
+          	<div class="form-group">
+          	<label>Causa</label>
+			<select name="causa" class="form-control">
  <? if(stristr($_SESSION['cargo'],'8') == TRUE){?>
 		    <option><? echo $causa; ?></option>
 		    <option>Orientación académica y profesional</option>
@@ -212,12 +216,14 @@ else
             <option>Otras</option>
 <? } ?>        
 	</select>
-    </label>
+    </div>
 <?
 if(empty($text)){$text = "";}
-echo "<label>Texto del mensaje<br />
-<TEXTAREA name='text' class='form-control' rows='4'  onkeydown=\"contar('nameform','text')\" onkeyup=\"contar('nameform','text')\">$text</TEXTAREA></label><br />
-		<p class='help-block'>Caracteres restantes:&nbsp; <INPUT name=result value=160 class='input-small' readonly='true'></p>";
+echo "<div class='form-group'>
+<label>Texto del mensaje</label>
+<TEXTAREA name='text' class='form-control' rows='4'  onkeydown=\"contar('nameform','text')\" onkeyup=\"contar('nameform','text')\">$text</TEXTAREA></div>
+		<div class='form-group'>
+		<label>Caracteres restantes:</label> <INPUT name=result value=160 class='form-control' readonly='true'></div>";
 $sms_n = mysql_query("select max(id) from sms");
 $n_sms =mysql_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
@@ -237,10 +243,12 @@ $extid = $n_sms[0]+1;
 		?>
 </div>
 </div>
-<div class="well col-sm-3 pull-left">
-<legend>Alumnos</legend>
+<div class="col-sm-4">
+<div class="well">
+<div class='form-group'>
+<label>Selección de Alumnos</label>
         <?
-  		echo '<SELECT  name=nombre[] multiple=multiple style="padding:15px; width:100%;height:450px;">';
+  		echo '<SELECT  name=nombre[] multiple=multiple class="form-control" style="height:370px">';
   		if ($unidad=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE unidad like '$unidad%'";}
   $alumno = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $alumno_sel order by APELLIDOS asc");
   
@@ -248,7 +256,7 @@ $extid = $n_sms[0]+1;
 	   {
 	echo "<OPTION>$falumno[2] --> $falumno[0], $falumno[1]</OPTION>";
 		}
-	echo  '</select></p>';
+	echo  '</select></div>';
 		} 	
 		
 		
@@ -268,10 +276,11 @@ El módulo de envío de SMS debe ser activado en la Configuración general de la In
  
  if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE))
 	    {	
-		echo '</div>
-</div>';
+echo '</div>
+</div></div>';
 }
 ?>
+</div>
 </div>
 </div>
 <? include("../pie.php");?>

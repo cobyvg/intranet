@@ -26,14 +26,17 @@ exit;
   <?
   	include("../../menu.php");
   ?>
-  <br />
-   <div align=center>
-  <div class="page-header">
+<div class="container">
+
+<div class="page-header">
   <h2>Administración <small> Crear el Carnet del Alumno</small></h2>
 </div>
-<div class="container-fluid">
+  <br>
+
 <div class="row">
+
 <div class="col-sm-6 col-sm-offset-3">
+
 <?
 $id=$_POST['seleccion'];
 if ($id>0){$modificar=1;}
@@ -49,21 +52,21 @@ $row_Recordset2 = mysql_fetch_array($Recordset2);
 $totalRows_Recordset2 = mysql_num_rows($Recordset2);
 $unidad = $row_Recordset1[16];
 ?>
-<div align="center" class="well well-large" style="width:550px">
+<div class="well well-lg">
 <form id="form1" name="form1" method="post" action="carnet.php">
-  <div class="form-group">
-       <div class="controls">
+
+<div class="form-group">
 <legend>Impresión de Carnet por Grupo</legend>
   <label class="control-label" for="grupo">Selecciona un Grupo:</label>
 
 <?
 if (stristr($_SESSION['cargo'],'2') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE) {
 	$unidad_tutor = $_SESSION ['s_unidad'];
-	echo "<input type='text' name='select' value='$unidad_tutor' readonly class='input-small'/>"; 
+	echo "<input type='text' name='select' value='$unidad_tutor' readonly class='form-control'/>"; 
 }
 else{
 ?>
-  <select name="select" class="input-small" id = "grupo">
+  <select name="select" class="form-control" id = "grupo">
     <?php
  while ($row_Recordset1 = mysql_fetch_array($Recordset1)) { 
  	$unidad = $row_Recordset1[0];
@@ -76,21 +79,16 @@ else{
 <?
 }
 ?>
-<hr />
+  </div>
   <input type="submit" name="Submit" value="Enviar" class="btn btn-primary" />
-  </div>
-  </div>
+
 </form>
- </div>
+ 
+</div>
 
-
-
-
- <div align="center" class="well well-large" style="width:550px">
+ <div class="well well-lg">
 
 <form name="crear" action="carnet.php" method="POST" onsubmit="placeInHidden('*', this.form.al2,this.form.profes)">
- <div class="form-group">
-       <div class="controls">
 <legend>Impresión de Carnet por Alumno</legend>
 
 <?############################?>
@@ -208,57 +206,51 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 
 ?>
 
-<table align="center" cellpadding="3">
+<table>
 <tr>
-<td>
-  <label class="control-label" for="al1">Alumnos disponibles</label>
-<select multiple size="15" textcolor="ffff99" name="al1" id="al1">
+<td style="width:45%">
+<div class="form-group">
+  <label for="al1">Alumnos disponibles</label>
+<select multiple size="15" name="al1" id="al1" class="form-control">
 	<? $alumnos = mysql_query($query_noal);
 	while ($alumnado = mysql_fetch_row($alumnos)){ 
 		echo "<Option value='$alumnado[0]'>$alumnado[1] $alumnado[2] , $alumnado[3] "; 
 	} #del while
 	?>
-</select></td>
-<td>
-<input type="button" value="   >>   " onclick="move(this.form.al1,this.form.al2)" name="B5" class="btn btn-warning"><br><br />
-<input type="button" value="   <<   " onclick="move(this.form.al2,this.form.al1)" name="B6"class="btn btn-warning"><br>
-
+</select>
 </td>
-<td>
-  <label class="control-label" for="al2">Alumnos seleccionados</label>
-<select multiple size="15" name="al2" id="al2">
+<td style="width:10%" align=center>
+<div class="form-group">
+<br>
+<input type="button" value="   >>   " onclick="move(this.form.al1,this.form.al2)" name="B5" class="btn btn-warning"><br><br><br>
+<input type="button" value="   <<   " onclick="move(this.form.al2,this.form.al1)" name="B6"class="btn btn-warning">
+</div>
+</td>
+<td style="width:45%">
+<div class="form-group">
+  <label>Alumnos seleccionados</label>
+<select multiple size="15" name="al2" id="al2" class="form-control">
 	<? $alumnos = mysql_query($query_al);
 	while ($alumnado = mysql_fetch_row($alumnos)){ 
 		echo "<Option value='$alumnado[0]'>$alumnado[1] $alumnado[2] , $alumnado[3] "; 
 	} #del while ?>
-</select><br>
-<input type='hidden' name='alumnos' value=''>
+</select>
 </td>
+
+<input type='hidden' name='alumnos' value=''>
 </tr>
 </table>
 
-
-
-<? ############
-# <input type=submit value="Añadir actividad" onclick="selectAllOptions(this.form.prof1,this.form.prof2,this.form.al1,this.form.al2)">
-###########################?>
-
-
-
-
 <br />
 <input type=submit value="Aceptar" class="btn btn-primary" onclick="placeInHidden('*', this.form.al2,this.form.alumnos);">
-</div>
-</div>
 
 </form>
 </div>
+
 <? if(stristr($_SESSION['cargo'],'1') == TRUE) {
-	echo ' <div align="center" class="well well-large" style="width:550px">';
+	echo ' <div class="well well-lg" >';
 	echo '<legend>Impresión de todos los Alumnos</legend>';
-	echo "<div align='center'>";
-	echo "<a href='carnet.php?todos=1' class='btn btn-primary'><i class='fa fa-print '> </i> Imprimir todos los cursos</a></div>";
-	echo '</div>';
+	echo "<a href='carnet.php?todos=1' class='btn btn-primary btn-block'><i class='fa fa-print '> </i> Imprimir todos los cursos</a></div>";
 }
 ?>
 </div>
@@ -272,4 +264,3 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 mysql_close();
 include ("../../pie.php");
 ?>
-</html>

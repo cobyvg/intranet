@@ -36,7 +36,7 @@
 		      <li><a href="consulta_fotografias.php">Fotografías de alumnos/as</a></li>
 		      <li><a href="consulta_mesas.php">Asignación de mesas</a></li>
 		      <li><a href="../../xml/jefe/form_carnet.php">Credenciales de alumnos</a></li>
-		      <li><a href="consulta_absentimo.php">Alumnos absentistas</a></li>
+		      <li><a href="consulta_absentismo.php">Alumnos absentistas</a></li>
 		      <li class="divider"></li>
 		      <li><a href="../../upload/index.php?index=publico&direction=0&order=&directory=programaciones/Orientacion" target="_blank">Material de orientación</a></li>
 		    </ul>
