@@ -19,7 +19,7 @@ if($_SESSION['cambiar_clave']) {
 if ((stristr($_SESSION['cargo'],'1') == false) && (stristr($_SESSION['cargo'],'2') == false) && (stristr($_SESSION['cargo'],'8') == false)) {
 	
 	if (isset($_SESSION['mod_tutoria'])) unset($_SESSION['mod_tutoria']);
-	die ("<h1>FORBIDDEN</h1>");
+	die ("<h1>ACCESO PROHIBIDO</h1>");
 	
 }
 else {

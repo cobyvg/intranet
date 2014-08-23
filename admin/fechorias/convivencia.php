@@ -63,12 +63,12 @@ if (!($valor == "1")) {
 }
 }
 if ($mens == '1') {
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han registrado correctamente.
           </div></div>';	}
 if ($mens == '2') {
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han registrado y actualizado correctamente.
           </div></div>';	}

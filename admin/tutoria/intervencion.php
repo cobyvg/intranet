@@ -228,7 +228,7 @@ include("menu.php");
 				<?php $claveal = $exp_alumno[1]; ?>
 				<?php $foto = '../../xml/fotos/'.$claveal.'.jpg'; ?>
 				<?php if(file_exists($foto)): ?>
-				<img class="img-thumbnail" src="<?php echo $foto; ?>" alt="" width="92" style="position: absolute; top: -35px; right: 0; margin-right: 35px;">
+				<img class="img-thumbnail" src="<?php echo $foto; ?>" alt="" width="65" style="position: absolute; top: 5px; right: 0; margin-right: 35px;">
 				<?php endif; ?>
 				<?php endif; ?>
 				
@@ -362,7 +362,7 @@ include("menu.php");
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-5">
 				
-				<h3>Intervenciones registradas</h3>
+				<legend>Intervenciones registradas</legend>
 				
 				<?php $result = mysql_query("SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha) > '$inicio_curso' ORDER BY apellidos ASC, nombre ASC"); ?>
 				<?php if (mysql_num_rows($result)): ?>

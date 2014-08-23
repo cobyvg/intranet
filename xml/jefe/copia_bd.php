@@ -3,13 +3,13 @@
 $curso_pasado=date('Y');
 $nombre_copia=$db.$curso_pasado;
 echo '<div align="center">
-<div class="alert alert-info alert-block fade in" style="max-width:500px;">
+<div class="alert alert-info alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             A principio de cada Curso escolar se crea una copia de la base de datos principal, <strong><em>'.$db.'</em></strong>, con el año del curso escolar añadido al final del nombre (en este caso <strong><em>'.$nombre_copia.'</em></strong>). A continuación se vacían las tablas adecuadas, aunque se mantienen las que contienen datos persistentes. Una vez completadas estas tareas, comienza la importación de datos de alumnos.</div></div><br />';
 
 mysql_query("CREATE DATABASE if not exists ".$nombre_copia."") or die('
 <div align="center">
-<div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+<div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<strong>ATENCIÓN:</strong>
 Ha surgido un error al crear la copia de seguridad de la Base de datos de forma automática. Debes crear una base de datos manualmente para recibir la copia de seguridad de los datos actuales. El nombre de la base de datos sigue el patrón que se describe más arriba (<strong><em>'.$nombre_copia.'</em></strong>, en tu caso). Una vez creada la base de datos, asegúrate que el usuario de MySQL que has registrado en la página de configuración tiene permiso para escribir en la nueva base de datos, y vuelve a recargar esta página para completar el proceso.

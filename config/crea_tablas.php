@@ -27,7 +27,7 @@ include("../config.php");
 <body>	
 <?
 // Conexion de datos
-mysql_connect ($db_host, $db_user, $db_pass) or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+mysql_connect ($db_host, $db_user, $db_pass) or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 No ha sido posible conectar con el Servidor de las Bases de datos. Esto quiere decir que los datos que has escrito en la página de configuración (usuario y contraseña para acceder al servidor MySql) no son correctos, o bien que el servidor de MySql no está activado en este momento. Corrige el error e inténtalo de nuevo.

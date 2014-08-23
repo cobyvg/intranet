@@ -28,7 +28,7 @@ if($borrar){//echo $fecha;
 		for($i=0; $i <= count($valor)-1; $i++){ $j+=1;
 		$bor = mysql_query ("delete from morosos where id=$valor[$i]") or die("No se ha podido borrar");
 		}
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             																	<button type="button" class="close" data-dismiss="alert">&times;</button>
 																										<h5>ATENCI&Oacute;N:</h5>
 																	El proceso de borrado ha sido completado correctamente. Los alumnos no volver&aacute;n a aparecer en la lista.
@@ -37,7 +37,7 @@ if($borrar){//echo $fecha;
   																		<input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 																																					</div>';	
 	}
-	elseif ($j==0)     {  echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	elseif ($j==0)     {  echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             																	<button type="button" class="close" data-dismiss="alert">&times;</button>
 																										<h5>ATENCI&Oacute;N:</h5>
 																	No se ha podido borrar porque no has elegido ning&uacute;n alumno de la lista. Vuelve atr&aacute;s para solucionarlo.
@@ -249,7 +249,7 @@ COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 		$MiPDF->Output ();
 
 
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             																	<button type="button" class="close" data-dismiss="alert">&times;</button>
 																										<h5>ATENCI&Oacute;N:</h5>
 																	Las amonestaciones se han registrado con &eacute;xito. Ya puedes volver atr&aacute;s e imprimirlas.
@@ -260,7 +260,7 @@ COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 
 	}
 
-	elseif ($j==0)     {  echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	elseif ($j==0)     {  echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             																	<button type="button" class="close" data-dismiss="alert">&times;</button>
 																										<h5>ATENCI&Oacute;N:</h5>
 																	No se ha podido registrar la amonestaci&oacute;n porque no has elegido ning&uacute;n alumno de la lista. Vuelve atr&aacute;s para solucionarlo.

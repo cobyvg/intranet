@@ -94,7 +94,8 @@ $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
 echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small>Registro de datos</small></h2>";
 echo "</div>";
-echo "</div></div>";
+echo "</div>
+</div>";
 echo '<div class="container-fluid"><div class="row-fluid"><div align="center">';
 
 // Enviar datos y procesarlos
@@ -142,7 +143,7 @@ if($pr and $dia and $hora)
 	$cols = mysql_num_rows($col0);
 	$sin_coma=$curso;
 	
-	echo "<p class='lead bg-primary' style='width:50%'>$curso_sin <span class='muted'>( $nom_asig )</span></p><br>";
+	echo "<p class='lead bg-primary'>$curso_sin <span class='text-muted'>( $nom_asig )</span></p><br>";
 	
 	echo '<form action="cuaderno.php" method="post" name="imprime" class="form-inline">';
 	
@@ -310,7 +311,7 @@ todos</a></div>
 		<td nowrap style='vertical-align: middle' class='text-info'
 			style='width:auto;'><a href=""
 			onclick="window.open('<? echo $inf;?>')"> <?
-			?> &nbsp; <? echo $row[2].', '.$row[3];?></a></td>
+			?> <? echo $row[2].', '.$row[3];?></a></td>
 			<?
 			// Si hay datos escritos rellenamos la casilla correspondiente
 			$colu10 = "select distinct id, Tipo from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by id";

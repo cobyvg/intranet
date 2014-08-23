@@ -158,7 +158,7 @@ VALUES ('$codigo0',  '$nombre_utf',  '$abrev0',  '$orden0')");
 closedir($handle);
 }  
 else{
-	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se han colocado los ficheros de Evaluación de Séneca en el directorio exporta/.<br> Descárgalos de Séneca y colócalos allí antes de continuar.
@@ -195,7 +195,7 @@ mysql_query("drop table calificaciones_temp");
 mysql_query("delete from asignaturas where codigo in (select distinct codigo from materias)") or die("No se pueden borrar los registros duplicados.");
 // Depuramos los códigos de las asignaturas eliminando duplicados y creamos tabla definitiva asignaturas.
 $crear = "insert into asignaturas select distinct CODIGO, NOMBRE, ABREV, CURSO from materias order by CODIGO" ;
-mysql_query($crear) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+mysql_query($crear) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
@@ -208,7 +208,7 @@ No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
  //  include("calificaciones.php");
    
 echo '<br />
-<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tablas ASIGNATURAS y CALIFICACIONES:<br /> Los datos se han introducido correctamente en la Base de Datos.
 </div></div><br />

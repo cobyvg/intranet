@@ -14,7 +14,7 @@ $inicio_aula = "$fechaesp[2]-$fechaesp[1]-$fechaesp[0]";
 $fechaesp1 = explode("-",$fechafin);
 $fin_aula = "$fechaesp1[2]-$fechaesp1[1]-$fechaesp1[0]";
   	if(empty($inicio_aula) OR empty($fin_aula) OR empty($convivencia)){
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No has escrito datos en <u>todos</u> los campos del formulario del Aula de Convivencia. Inténtalo de nuevo.
@@ -22,7 +22,7 @@ No has escrito datos en <u>todos</u> los campos del formulario del Aula de Convi
 	}
 	elseif (strstr($inicio_aula,"-")==FALSE OR strstr($fin_aula,"-")==FALSE)
 	{
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 El formato de las fechas no es correcto. Lo correcto es "dia-mes-año" (p.ej. 15-10-2009). Inténtalo de nuevo.
@@ -134,7 +134,7 @@ if($imprimir5)
 if($submit){
 	if(empty($inicio) OR empty($fin) OR empty($expulsion)){
 		echo "$inicio --> $fin --> $expulsion";
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No has escrito datos en <u>todos</u> los campos del formulario de expulsión. Inténtalo de nuevo.
@@ -142,7 +142,7 @@ No has escrito datos en <u>todos</u> los campos del formulario de expulsión. Int
 	}
 		elseif (strstr($inicio,"-")==FALSE OR strstr($fin,"-")==FALSE)
 	{
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 >El formato de las fechas no es correcto. Lo correcto es "dia-mes-año" (p.ej. 15-10-2009). Inténtalo de nuevo.

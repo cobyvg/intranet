@@ -292,7 +292,7 @@ if ($itinerario1=="1"){
     <link href="../../css/font-awesome.min.css" rel="stylesheet" >
     <link href="../../css/imprimir.css" rel="stylesheet" media="print">
     <br /><br />
-<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de la Matrícula se han registrado correctamente en la Base de datos.
 </div></div><br />    

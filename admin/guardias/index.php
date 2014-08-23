@@ -67,7 +67,7 @@ if ($n_dia > $numerodiasemana) {
 <?
 if ($borrar=='1') {
 	mysql_query("delete from guardias where id='$id'");
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La sustitución ha sido borrada correctamente.
 </div></div>';
@@ -97,7 +97,7 @@ if ($submit) {
 	if (!(empty($sustituido))) {
 		
 					if (isset($dif2) and $dif2 > '1') {
-						echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+						echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 Estás intentando registrar una sustitución con dos días o más de diferencia respecto a la fecha de la Guardia, y eso no es posible. Si por motivo justificado necesitas hacerlo, ponte en contacto con algún miembro del Equipo Directivo.
@@ -122,7 +122,7 @@ Estás intentando registrar una sustitución con dos días o más de diferencia resp
 		$fecha_reg0 = explode(" ",$reg_sust[4]);
 		$fecha_reg = $fecha_reg0[0];
 			mysql_query("update guardias set profe_aula = '$sustituido' where id = '$id'");
-			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+			echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Has actualizado correctamente los datos del Profesor que sustituyes.
 </div></div><br>';
@@ -139,7 +139,7 @@ Has actualizado correctamente los datos del Profesor que sustituyes.
 //		$hor_reg = $reg_sust[3];
 		$fecha_reg0 = explode(" ",$reg_sust[4]);
 		$fecha_reg = $fecha_reg0[0];
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>'.
 $sustituido .'ya ha sido sustituido a la '.$hora.' hora el día '.$fecha_reg.'. Selecciona otro profesor y continúa.
@@ -151,7 +151,7 @@ $sustituido .'ya ha sido sustituido a la '.$hora.' hora el día '.$fecha_reg.'. S
 			$r_profe = mb_strtoupper($profeso, "ISO-8859-1");
 			mysql_query("insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$sustituido', '$n_dia', '$hora', NOW(), '$g_fecha')");
 			if (mysql_affected_rows() > 0) {
-				echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+				echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Has registrado correctamente a '.$sustituido.' a '.$hora.' hora para sustituirle en al Aula.
 </div></div><br>';
@@ -163,7 +163,7 @@ Has registrado correctamente a '.$sustituido.' a '.$hora.' hora para sustituirle
 	}
 }
 else{
-	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desplegable para registrar esta hora.

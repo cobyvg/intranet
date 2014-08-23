@@ -89,14 +89,14 @@ if ($c_notas[0]<5) {
 }
 }
    closedir($handle);
-   echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+   echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Las Notas de la Evaluación Extraordinaria del Curso anterior se han registrado correctamente en la base de datos.
 </div></div><br />';
 }  
 else
 {
-	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Parece que no hay archivos en el directorio correspondiente.<br> O bien no has enviado el archivo correcto descargado de Séneca o bien el archivo está corrompido.

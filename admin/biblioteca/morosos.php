@@ -35,7 +35,7 @@ mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
 mysql_select_db($db);
 ini_set('auto_detect_line_endings',TRUE);
 $handle = fopen ($_FILES['archivo']['tmp_name'] , 'r' ) or die
-('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No se ha podido abrir el archivo exportado. O bien te has olvidado de enviarlo o el archivo está corrompido.
@@ -60,7 +60,7 @@ while (($data1 = fgetcsv($handle, 1000, ";")) !== FALSE)
 fclose($handle);
 $borrar = mysql_query("delete from morosos where curso = 'ANT' or curso='' or curso='$nombre_del_centro' or curso like 'Abies%'");
 
-?> <div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+?> <div align="center"><div class="alert alert-success alert-block fade in">
 			<legend>ATENCI&Oacute;N:</legendh5>
 La actualizaci&oacute;n se ha realizado con &eacute;xito. Vuelve atr&aacute;s y compru&eacute;balo.
 </div></div><br />

@@ -60,7 +60,7 @@ else{
  
 
 // Importamos los datos del fichero CSV 
-$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+$handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido abrir el archivo RelPerCen.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
@@ -102,7 +102,7 @@ echo "<li>".$elimina2[0] . " -- " . $elimina2[1] . " -- " . $elimina2[2] . "</li
 echo "<br />";
 }
 else {
-	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Tabla <strong>Departamentos</strong>: No se ha añadido ningún registro a la tabla.
@@ -184,7 +184,7 @@ $fpprof=fopen("TIC/profesores.txt","w+");
  }
  else
  {
- $fpprof=fopen("TIC/profesores.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+ $fpprof=fopen("TIC/profesores.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permiso de escritura en ese directorio?
@@ -195,7 +195,7 @@ No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permis
  }
  $pepito=fwrite($fpprof,$todoprof);
  fclose ($fpprof);
- echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+ echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de los profesores se han importado correctamente en la tabla <strong>usuarioprofesor</strong>.<br> Se ha generado un fichero (profesores.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva en el Servidor TIC.
 </div></div><br />';
@@ -222,7 +222,7 @@ $fpprof1=fopen("TIC/profesores_moodle.txt","w+");
  }
  else
  {
- $fpprof1=fopen("TIC/profesores_moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+ $fpprof1=fopen("TIC/profesores_moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permiso de escritura en ese directorio?
@@ -233,13 +233,13 @@ No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permis
  }
  $pepito1=fwrite($fpprof1,$todos_moodle);
  fclose ($fpprof1);
- echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+ echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
  Se ha generado un fichero (profesores_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en la Plataforma Moodle.
 </div></div><br />'; 
 }
 else{
-	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Parece que te está olvidando de enviar el archivo con los datos de los Profesores. Asegúrate de enviar el archivo descargado desde Séneca.

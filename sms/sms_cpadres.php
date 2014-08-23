@@ -158,12 +158,12 @@ document.enviar.submit()
  enviarForm();
 </script> <?
 mysql_query("insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile2','$text','Jefatura de Estudios')");
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+echo '<div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El mensaje SMS se ha enviado correctamente para los alumnos con faltas sin justificar de'. $niv.'.<br>Una nueva acción tutorial ha sido también registrada.
           </div></div><br />';
 if(strlen($sin2) > '0'){
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 <p align="left">Los siguientes alumnos no tienen teléfono móvil al que enviar comunicación de Faltas de Asistencia:</p>
@@ -273,7 +273,7 @@ if(strlen($sin2) > '0'){
 			mysql_query("DROP table `faltastemp2`");
 }
 else {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 El módulo de envío de SMS debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.

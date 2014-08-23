@@ -255,7 +255,6 @@ ul.dropdown-feed>li>a {
   border-top-right-radius: 0;
 }
 
-/* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;
   height: auto;
@@ -265,11 +264,19 @@ ul.dropdown-feed>li>a {
   padding: 0 0 60px;
 }
 
-/* Set the fixed height of the footer here */
 #footer {
   height: 130px;
 }
 
 .alert .alert-link{
 	text-decoration:none;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.text-white,
+.text-white:hover {
+  color: #3498db;
 }

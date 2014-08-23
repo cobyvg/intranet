@@ -63,7 +63,7 @@ function contar(form,name) {
 if($submit0 == "Enviar SMS")
 {
 	if(empty($causa)){
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 No has seleccionado ninguna Causa del Mensaje.<br />Vuelve atrás, selecciónala e inténtalo de nuevo.
@@ -71,7 +71,7 @@ No has seleccionado ninguna Causa del Mensaje.<br />Vuelve atrás, selecciónala e
 		  exit();
 }
 if(empty($text)){
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto e inténtalo de nuevo.
@@ -123,7 +123,7 @@ mysql_query($query1);
 	}
 else
 {
-	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<strong>ATENCIÓN:</strong>
 No has seleccionado ningún alumno para el envío de SMS.<br />Vuelve atrás, selecciónalo e inténtalo de nuevo.
@@ -160,7 +160,7 @@ enviarForm();
 
 <?
 mysql_query("insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El mensaje SMS se ha enviado correctamente.<br>Una nueva acción tutorial ha sido también registrada.
           </div></div>';
@@ -259,7 +259,7 @@ $extid = $n_sms[0]+1;
 }
  } 
  else {
-	 echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	 echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 El módulo de envío de SMS debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.

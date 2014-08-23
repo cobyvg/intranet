@@ -53,7 +53,7 @@ if (isset($_POST['enviar'])){
 	echo $form;
 }
 if($mens_bd=="1"){
-	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 No se encuentra el archivo de configuracion <strong>config.php</strong> en el directorio <em>/opt/e-smith/</em>. Debes crearlo en primer lugar y conceder permiso de escritura al mismo.

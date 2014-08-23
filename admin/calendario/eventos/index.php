@@ -103,18 +103,18 @@ if ($today > $numdays) { $today--; }
 if (isset($_GET['mens'])) {
 $mes = $_GET['mens'];
 if($mens==1){ 
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido actualizada correctamente.
           </div></div><br />';
 }
 if($mens==2){
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido actualizada correctamente.
           </div></div><br />';}
 if($mens==3){
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido borrada correctamente.
           </div></div><br />';}

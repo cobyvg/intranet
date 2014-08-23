@@ -1,4 +1,4 @@
-<div class='alert alert-warning'><p class="lead"><i class='fa fa-bell'> </i> Tareas Activas por Expulsión o Ausencia del Alumno</p><hr />
+<div class='alert alert-warning'><p class="lead"><i class='fa fa-bell'> </i> Tareas Activas por Expulsión o Ausencia del Alumno</p><br />
 <?
 $resultcurs = mysql_query($SQLcurso);
 	while($rowcurs = mysql_fetch_array($resultcurs))
@@ -19,6 +19,7 @@ $resultcurs = mysql_query($SQLcurso);
 $result = mysql_query($query);
 if (mysql_num_rows($result) > 0)
 {
+	$n_t=1;
 	while($row1 = mysql_fetch_array($result))
 	{
 $hay = "select * from tareas_profesor where id_alumno = '$row1[0]'  and asignatura = '$asignatura'";
@@ -72,6 +73,9 @@ echo '<p style="color:#08c"> Los Profesores no han rellenado aún su Informe de t
 		}
 	}
 }
+}
+if ($n_t==1) {
+	echo "<br>";
 }
 ?>
 </div>

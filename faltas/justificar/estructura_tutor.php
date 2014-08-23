@@ -14,12 +14,12 @@ $today=date("d");
 echo "<h4 align='center'>FECHA SELECCIONADA: &nbsp;<span style='font-size:1.0em; color:#08c'>$today-$month-$year</span></h4><br />
 ";			        
 if ($mens_fecha) {
-echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_fecha.'</div></div>';	}
 $numerodia = getdate(mktime(0,0,0,$month,$today,$year));
 	if ($numerodia['wday']==0)
 		{
-echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 			El día que has seleccionado es <b>DOMINGO</b>
@@ -27,7 +27,7 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in" st
 		}
 	if ($numerodia['wday']==6)
 		{
-echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 			El día que has seleccionado es <b>SÁBADO</b>

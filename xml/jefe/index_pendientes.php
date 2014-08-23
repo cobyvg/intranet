@@ -9,7 +9,7 @@ include('../../lib/pclzip.lib.php');
 $archive = new PclZip($_FILES['archivo2']['tmp_name']);  
       if ($archive->extract(PCLZIP_OPT_PATH,$exporta) == 0) 
 	  {
-        die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+        die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCión:</h5>
 No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo estï¿½ corrompido.

@@ -44,13 +44,16 @@ $result = mysql_query ($expul);
         	if (mysql_num_rows($result) == '0') {        		
         	}
         	else{
-	echo "<div class='alert alert-info'><legend><i class='fa warning-sign'> </i> Alumnos que se reincorporan tras su Expulsión<br /> <small>$materia</small></legend><hr />";
+    $count_vuelven = 1;    		
+	echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que se reincorporan tras su Expulsión<br /></h4>
+	<h5>$materia</h5>";
 	echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad."</p>";
-	echo "<p>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary'>SI</button></a>&nbsp;&nbsp;<a href='index.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger'>NO</button></a></p>";
+	echo "<p>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary btn-sm'>SI</button></a>&nbsp;&nbsp;<a href='index.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger btn-sm'>NO</button></a></p>";
 	echo "</div>";
         }
         }          	
 }
+
 
 // Alumnos expulsados que se van
 $SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
@@ -63,11 +66,13 @@ $ayer0 = time() + (1 * 24 * 60 * 60);
 $ayer = date('Y-m-d', $ayer0);
 $result = mysql_query ("select distinct alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria, alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' order by Fechoria.fecha ");
 if (mysql_num_rows($result) > '0') {
+	$count_van = 1;
      while ($row = mysql_fetch_array($result))
         {
-    echo "<div class='alert alert-info'><h4>Alumnos que mañana abandonan el Centro por Expulsión </h4><h6>$materia</h6><br />";
+    echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que mañana abandonan el Centro por Expulsión </h4><br>";
 	echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad." (Expulsado $row[4] días) </p>";
-	echo "</div>";
+	echo "<h5>$materia</h5>
+	</div>";
         }
         }       	
 }
@@ -201,6 +206,7 @@ $men1 = "select ahora, asunto, texto, nombre, apellidos, id from mensajes, alma 
 $men2 = mysql_query($men1);
 if(mysql_num_rows($men2) > 0)
 {
+	$count_mpadres =  1;
 echo '<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p class="lead">	
 	<i class="fa fa-comment"> </i> Mensajes de Padres o Alumnos</p><hr /><ul>';
@@ -267,8 +273,8 @@ $men1 = "select ahora, asunto, texto, profesor, id_profe, origen from mens_profe
 $men2 = mysql_query($men1);
 if(mysql_num_rows($men2) > 0)
 {
-
-	echo "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><p class='lead'><i class='fa fa-comments'></i> Mensajes de Profesores</p><hr /><ul>";
+$count_mprofes =  1;
+	echo "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><p class='lead'><i class='fa fa-comments'></i> Mensajes de Profesores</p><br /><ul>";
 	while($men = mysql_fetch_row($men2))
 {
 $n_mensajes+=1;
@@ -324,5 +330,7 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 }
 echo "</div>";
 }
-
+if ($count_vuelven > 0 or $count_van > 0 or $count0 > 0 or $count03 > 0 or $count04 > 0 or $count_mprofes > 0 or $count_mpadres > 0 or $count_fech > 0) {
+	echo "<br>";
+}
 ?>

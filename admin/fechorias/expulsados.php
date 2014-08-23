@@ -71,7 +71,7 @@ while( $row = mysql_fetch_array($result));
                         echo "</table></center>";
         } 
 		else{
-			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+			echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
  Parece que ningún Alumno se reincorpora hoy al Centro.          
 		</div></div>';
@@ -102,7 +102,7 @@ while( $row = mysql_fetch_array($result));
                         echo "</table></center>";
         } 
   		else{ 
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
  Parece que no hay alumnos actualmente expulsados del Centro.          
 		</div></div>';

@@ -215,7 +215,7 @@ echo "</div>";
 if (isset($_GET['borrar'])) {
 	mysql_query("insert into matriculas_bach_backup (select * from matriculas_bach where id = '$id')");
 	mysql_query("delete from matriculas_bach where id='$id'");
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de respaldo de us datos en la tabla matriculas_bach_backup.
 </div></div><br />' ;
@@ -224,7 +224,7 @@ if (isset($_GET['copia'])) {
 	mysql_query("delete from matriculas_bach where id='$id'");
 	mysql_query("insert into matriculas_bach(select * from matriculas_bach_backup where id = '$id')");
 	mysql_query("delete from matriculas_bach_backup where id='$id'");
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos originales de la matrícula del alumno han sido correctamente restaurados.
 </div></div><br />' ;
@@ -232,7 +232,7 @@ Los datos originales de la matrícula del alumno han sido correctamente restaurad
 if (isset($_GET['consulta']) or isset($_POST['consulta'])) {
 
 	if ($curso) {$extra=" curso='$curso' ";}else{
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No has seleccionado el Nivel. Así no podemos seguir...
@@ -300,7 +300,7 @@ if (!($orden)) {
 
 	$n_cons = mysql_num_rows($cons);
 	if($n_cons=="0"){
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.

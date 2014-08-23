@@ -33,13 +33,13 @@ if ($borrar == '1') {
 	$del = mysql_query("delete from convivencia where id='$id'");
 	$comprobar = mysql_query("select id from convivencia where id = '$id'");
 	if (mysql_num_rows($comprobar) == '0') {
-		echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han borrado correctamente.
           </div></div>';
 	}
 	else{
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
             Algún problema impide borrar los datos, así que deberías ponerte en contacto con quien pueda ayudarte.
@@ -76,12 +76,12 @@ if (!($valor == "1")) {
 }
 }
 if ($mens == '1') {
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han registrado correctamente.
           </div></div>';	}
 if ($mens == '2') {
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han registrado y actualizado correctamente.
           </div></div>';	}

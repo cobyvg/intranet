@@ -111,7 +111,7 @@ echo "</form><br />";
 	foreach($_POST["select1"] as  $valor) {
 echo '<legend class="text-info" align="center"><strong>'.$valor.'</strong></legend><hr />';
 		if (strstr($valor,"1")==TRUE) {
-			   echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+			   echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Parece que estás intentando ver la lista de asignaturas pendientes de los alumnos de 1º ESO o 1º BACHILLERATO, y eso no es posible.
 </div></div><br />';

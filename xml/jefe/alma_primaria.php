@@ -82,7 +82,7 @@ if($_FILES['archivo1']){
 
  
  //echo $alumnos;
-mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido crear la tabla <strong>Alma_primaria</strong>. Ponte en contacto con quien pueda resolver el problema.
@@ -92,7 +92,7 @@ No se ha podido crear la tabla <strong>Alma_primaria</strong>. Ponte en contacto
 </div>');
 
   $SQL6 = "ALTER TABLE  `alma_primaria` ADD INDEX (  `CLAVEAL` )";
-  $result6 = mysql_query($SQL6) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+  $result6 = mysql_query($SQL6) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido crear el índice de la tabla. Busca ayuda.
@@ -117,7 +117,7 @@ if ($handle = opendir('../primaria')) {
       $colegio = substr($file,0,-4); 
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
 
-$fp = fopen ('../primaria/'.$file , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+$fp = fopen ('../primaria/'.$file , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se han podido abrir los archivos de datos. ¿Están los archivos de los Colegios en el directorio ../primaria?
@@ -220,14 +220,14 @@ $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[
     $SQL5 = "DELETE FROM alma_primaria WHERE `claveal` = 'Nº Id. Escol'";
     $result4 = mysql_query($SQL4);
     $result5 = mysql_query($SQL5);
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La tabla de Alumnos de Primaria para la Matriculación ha sido creada.<br />Ya puedes proceder a matricular a los niños de los Colegios.
 </div></div><br />';
 }
 else
 {
-	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Parece que te estás olvidando de enviar el archivo con los datos de los alumnos. Asegúrate de enviar el archivo comprimido con los datos de los Colegios.

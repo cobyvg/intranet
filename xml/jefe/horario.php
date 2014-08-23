@@ -125,7 +125,7 @@ include("../../menu.php");
 					  KEY `prof` (`prof`),
 					  KEY `c_asig` (`c_asig`)
 					) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci";
-						mysql_query($crea) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+						mysql_query($crea) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
 					            <button type="button" class="close" data-dismiss="alert">&times;</button>
 								<h5>ATENCIÓN:</h5>
 					No se ha podido crear la tabla <strong>Horw</strong>. Ponte en contacto con quien pueda resolver el problema.

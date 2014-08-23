@@ -92,7 +92,7 @@ else{
 )";
 
 // echo $alumnos;
-mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
@@ -106,7 +106,7 @@ No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quie
   
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabÃ±a alma.
 
-$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
@@ -225,7 +225,7 @@ mysql_query($SQL8);
 
  // Creamos versiÃ³n corta para FALTAS
 mysql_query("drop table almafaltas");
-mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto con quien pueda resolver el problema.
@@ -271,7 +271,7 @@ $result2 = mysql_query($SQL2);
 }
 }
 }
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>Alma</strong>: los Alumnos se han introducido correctamente en la Base de datos.
 </div></div><br />';
@@ -288,7 +288,7 @@ mysql_query("CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre
 mysql_query("ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");
 }
 else{
-	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 Parece que te está olvidando de enviar todos los archivos con los datos de los alumnos. Asegúrate de enviar ambos archivos descargados desde Séneca.

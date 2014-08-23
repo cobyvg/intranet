@@ -50,7 +50,7 @@ mysql_query($datos1);
 fclose($handle);
 $borrarvacios = "delete from textos_gratis where editorial = ''";
 mysql_query($borrarvacios);
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla de Libros de Texto Gratuitos: los datos de $nombre_nivel han sido introducidos correctamente.
 </div></div><br />';

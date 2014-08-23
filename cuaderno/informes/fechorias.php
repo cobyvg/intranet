@@ -9,7 +9,7 @@ $fech = mysql_fetch_array($fechoria);
 
 if ($fech[0] == "")
 { 
-echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 El Alumno no tiene Problemas de convivencia.

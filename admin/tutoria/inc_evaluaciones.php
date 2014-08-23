@@ -29,7 +29,7 @@ $notas2 = mysql_query("select notas3 from notasl");
 $result1 = mysql_query($notas1);
 $todos = mysql_num_rows($result1);
 if ($todos < '1' or $todos == "") {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>No se han registrado las calificaciones de la Evaluación Ordinaria todavía. Es importante que <strong><u>no imprimas</u></strong> la Memoria de Tutoría hasta que las notas de la Evaluación Ordinaria se hayan registrado. De lo contrario, las Estadísticas de la Evaluación Ordinaria no aparecerán en la Memoria.
           </div></div>';

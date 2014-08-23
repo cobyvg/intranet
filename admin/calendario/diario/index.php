@@ -29,20 +29,20 @@ include("menu.php");
 <?
 if (isset($_GET['mens'])) {
 	if($_GET['mens']=="actualizar"){ 
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad se ha actualizado correctamente.
           </div></div>';
 }
 if($_GET['mens']=="insertar"){
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad se ha registrado correctamente.
           </div></div>';}
 }
 if($_GET['borrar']=="1"){
 mysql_query("delete from diario where id='".$_GET['id']."'");
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad se ha eliminado de la base de datos.
           </div></div>';
@@ -67,7 +67,7 @@ if (isset($_GET['id'])) {
 	$reg_profe = $diar[8];
 	if ($profe != $reg_profe) {
 		unset($id);
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
 		            <button type="button" class="close" data-dismiss="alert">&times;</button>
 		            La actividad que intenta modificar no existe o no tienes permisos administrativos para modificarla.
 		          </div></div>';

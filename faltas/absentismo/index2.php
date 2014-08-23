@@ -59,13 +59,17 @@ if (strstr($_SESSION['cargo'],'1')==TRUE) {
 	$upd=" jefatura='$texto', serv_sociales='$texto2' ";
 }
 ?>
+<div class="container">
+<div class="row">
+<div class="page-header">
+  <h2>Faltas de Asistencia <small> Alumnos absentistas</small></h2>
+</div>
 <br />
-<h3 align="center">Alumnos con informes de absentismo pendiente <br /><span style='color:#08c'><? echo  $titulo;?></span> </h3><br /><br />
 <?
 // Borramos alumnos
 if ($del=='1') {
 	mysql_query("delete from absentismo where claveal = '$claveal' and mes = '$mes'");
-	echo '<div align="center""><div class="alert alert-warning alert-block fade in" style="max-width:500px;" align="left">
+	echo '<div align="center""><div class="alert alert-warning alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos del alumno han sido borrados de la Base de datos.
 			</div></div><br />';
@@ -74,7 +78,7 @@ Los datos del alumno han sido borrados de la Base de datos.
 if (isset($_POST['submit'])) {
 mysql_query("update absentismo set $upd where claveal='$claveal' and mes='$mes'")	;
 // echo "update absentismo set $upd where claveal='$claveal' and mes='$mes'";
-echo '<div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+echo '<div align="center""><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de los alumnos absentistas se han actualizado.
 			</div></div><br />';
@@ -92,47 +96,51 @@ Los datos de los alumnos absentistas se han actualizado.
                     if($mes=='Junio'){$mes='06';}
 // Vamos a rellenar informe
 
-if ($inf=="1") {
-	echo '<div align="center" class="well well-large" style="width:600px;margin:auto">';
-echo "<legend align='center'>Datos del Alumno</legend>";
+if ($_GET['inf']=="1") {
+echo "<div class='row'><div class='col-sm-8 col-sm-offset-2'>
+";	
+echo "<legend align='center'>Datos del Alumno</legend><br>";
 $al=mysql_query("SELECT distinct apellidos, nombre, absentismo.unidad, matriculas, numero, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='$claveal' and mes='$mes' $mas2");
-
 if (mysql_num_rows($al)>0) {
-
 $datos=mysql_fetch_array($al);
 if (strstr($_SESSION['cargo'],'1')==TRUE) {$obs=$datos[5];$obs2=$datos[8];}elseif (strstr($_SESSION['cargo'],'8')==TRUE){$obs=$datos[6];}else {$obs=$datos[7];}
-echo  "<center><table class='table table-striped table-bordered' style='width:auto'><tr><th align='center'> NOMBRE </th><th align='center'> CURSO </th>
+echo  "<table class='table' style='width:auto' align=center><tr><th align='center'> NOMBRE </th><th align='center'> CURSO </th>
 <th align='center'> MES </th><th align='center'> Nº FALTAS </th></tr>
 <tr class='warning'><td align='center'>$datos[0], $datos[1]</td><td id='' align='center'>$datos[2]</td><td id='' align='center'>$mes</td><td id='' align='center'>$datos[4]</td></tr></table><br />";
 echo "<form enctype='multipart/form-data' action='index2.php' method='post'>";
 ?>
 <input name="claveal" type="hidden" value="<? echo $claveal;?>">
 <input name="mes" type="hidden" value="<? echo $mes;?>">
-<legend>Observaciones</legend>
-<textarea name="texto" title="Informe de Alumno absentista." class="col-sm-6" rows="12"><? echo $obs;?></textarea>
-<hr />
+<div class="form-group"><label>Observaciones</label>
+<textarea name="texto" title="Informe de Alumno absentista." class="form-control" rows="12"><? echo $obs;?></textarea></div>
 <?
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
 ?>
-<legend>Informe de Servicios Sociales</legend>
-<textarea name="texto2" title="Informe de Alumno absentista." class="col-sm-6" rows="12"><? echo $obs2;?></textarea>
-<hr />
+<div class="form-group"><label>Informe de Servicios Sociales</label>
+<textarea name="texto2" title="Informe de Alumno absentista." class="form-control" rows="12"><? echo $obs2;?></textarea></div>
 <?
 }
 ?>
 <input type="submit" name="submit" value="Enviar Informe" class="btn btn-primary">
 <?
 echo "</form>";
-echo "</div></center><br /><br /><br />";
+echo "";
 }
+echo "</div></div>";
 }
+?>
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1">
+<br />
+<legend align="center">Alumnos con informes de absentismo pendiente <br /><span class="text-info"><? echo  $titulo;?></span> </legend><br />
+<?
 
+$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, matriculas, numero, mes, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and mes='$mes' $mas  order by unidad";
 
-$SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, matriculas, numero, mes, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and mes='$mes' $mas  order by unidad, grupo";
-  $result0 = mysql_query($SQL0);
+$result0 = mysql_query($SQL0);
   if (mysql_num_rows($result0)>0) {
 echo  "<center><table class='table table-striped table-bordered' style='width:auto'>\n";
-        echo "<tr><th align='center'>NOMBRE DEL ALUMNO</th><th align='center'>CURSO</th>
+        echo "<tr><th align='center' colspan=2>ALUMNO</th><th align='center'>CURSO</th>
         <th align='center'>MES</th><th align='center'>Nº FALTAS</th>";
 
         if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
@@ -154,8 +162,8 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
 	echo "<tr><td  align='left'>";
 	    $foto="";
 		$foto = "<img src='../../xml/fotos/$claveal.jpg' width='55' height='64'  />";
-		echo $foto."&nbsp;&nbsp;&nbsp;";
-	echo "$apellidos, $nombre</td><td>$unidad</td><td>$mes</td><td>$numero</td>";
+		echo $foto."</td>";
+	echo "<td>$apellidos, $nombre</td><td>$unidad</td><td>$mes</td><td>$numero</td>";
         if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {
 	echo "<td><input type='checkbox' disabled $chj></td><td><input type='checkbox' disabled $cho></td><td><input type='checkbox' disabled $cht></td><td><input type='checkbox' disabled $chs></td>";
         }
@@ -169,17 +177,18 @@ if (strstr($_SESSION['cargo'],'1')==TRUE) {
 	echo "</tr>";
 	}
 	echo "</table>";
-	echo "<div class='no_imprimir'><br /><input type='button' value='Imprimir todos' name='boton2' class='btn btn-primary' onclick='window.location=\"imprimir.php?mes=".$mes."\"' /></div></center>";   
+	echo "<div class='no_imprimir'><br /><input type='button' value='Imprimir todos' name='boton2' class='btn btn-primary' onclick='window.location=\"imprimir.php?mes=".$mes."\"' /></div>";   
 	}
 else
 {
-	echo '<div align="center""><div class="alert alert-warning alert-block fade in" style="max-width:500px;" align="left">
+	echo '<div align="center""><div class="alert alert-warning alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Parece que no hay alumnos absentistas registrados en ese mes. Si te has equivocado, vueve atr&aacute;s e int&eacute;ntalo de nuevo.			</div></div>';
 }
   ?>
-
 </div>
+</div>
+</div>
+</div>
+
 <? include("../../pie.php");?>
-</body>
-</html>

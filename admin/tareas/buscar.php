@@ -112,7 +112,7 @@ echo "</tbody></table><br />";
 // Si no hay datos
 else
 {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 No hay Informes de Tareas disponibles con esos criterios.</div></div><hr>';
 ?>

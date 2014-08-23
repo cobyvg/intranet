@@ -5,8 +5,9 @@ $rep0 = mysql_query("select id, Fechoria.claveal, count(*) as numero from Fechor
 while ($rep = mysql_fetch_array($rep0)) {
 	
 	if ($rep[2] > 4) {
-		$claveal = $rep[1];	
-		$alumno = mysql_query ( "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
+	$count_fech=1;		
+	$claveal = $rep[1];	
+	$alumno = mysql_query ( "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
 		
 	$rowa = mysql_fetch_array ( $alumno );
 	$asunto = "Reiteración en el mismo trimestre de cinco o más faltas leves";
@@ -79,6 +80,7 @@ enviarForm();
 }
 ?>
 <?
+// Problemas varios de convivencia
 
 $result1 = mysql_query ("select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and medida = 'Amonestación escrita'");
 if(mysql_num_rows($result1)>0)
@@ -98,6 +100,7 @@ $fechareg=$row1[9];
 $inicioaula=$row1[7];
 $finaula=$row1[8];
 $medida=$row1[10];
+
 // El Tutor no ha recibido el mensaje.
 $hoy = date('Y')."-".date('m')."-".date('d');
 $alumno1 = mysql_query("select nombre, apellidos from alma where claveal = '$claveal'");
@@ -106,6 +109,7 @@ $alumno = $alumno0[1].", ".$alumno0[0];
 
 // Expulsión al Aula de Convivencia
 if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioaula) >= strtotime($hoy)){
+	$count_fech=1;
 	?>
 
 <div class="alert alert-warning">
@@ -123,6 +127,7 @@ if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioau
 
 // Expulsión del Centro
 if($expulsion > 0 and $fechareg <= $hoy and $inicio >= $hoy) {
+	$count_fech=1;
  	?>
     <?
 $inicio= explode("-",$row1[5]);
@@ -144,7 +149,9 @@ $fechainicio = $inicio[2] . "-" . $inicio[1] . "-" . $inicio[0];
 if($recibido == 0)
 { 
 if($expulsionaula == 1 and $expulsion == "0")
-{?> 
+{
+$count_fech=1;
+?> 
 
 <div class="alert alert-warning">
 	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -163,6 +170,7 @@ if($expulsionaula == 1 and $expulsion == "0")
 <? } 
 elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación escrita") 
 {
+	$count_fech=1;
 //Amonestación Escrita	
 	?>
 	
@@ -188,4 +196,5 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 ?>
 <?php
 }
+
 ?>

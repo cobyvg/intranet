@@ -54,7 +54,7 @@ if (isset($_GET['pra'])) {$pra = $_GET['pra'];}elseif (isset($_POST['pra'])) {$p
 if ($borrar == '1') {
 	$del = mysql_query("delete from ausencias where id = '$id'");
 	echo '
-<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han borrado correctamente.
           </div></div>';
@@ -71,7 +71,7 @@ if ($submit2) {
 		if (mysql_num_rows($ya) > '0') {
 			$ya_hay = mysql_fetch_array($ya);
 			$actualiza = mysql_query("update ausencias set tareas = '$tareas', horas = '$horas' where id = '$ya_hay[0]'");
-			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+			echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han actualizado correctamente.
           </div></div>';			
@@ -84,14 +84,14 @@ Los datos se han actualizado correctamente.
 				#esta es la extension
 				if (move_uploaded_file($HTTP_POST_FILES['userfile']['tmp_name'], "./archivos/".$nombre_archivo)){}
 				else{
-					echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+					echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<strong>Atención:</strong><br />Ha ocurrido un error al subir el aechivo. Busca ayuda.
           </div></div>';
 				}
 				}
 				$inserta = mysql_query("insert into ausencias VALUES ('', '$profesor', '$inicio1', '$fin1', '$horas', '$tareas', NOW(), '$nombre_archivo')");
-				echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+				echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han registrado correctamente.
           </div></div>';		
@@ -99,7 +99,7 @@ Los datos se han registrado correctamente.
 			
 	}
 	else{
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No se pueden procesar los datos. Has dejado campos vacíos en el formulario que es necesario rellenar. Vuelve atrás e inténtalo de nuevo.

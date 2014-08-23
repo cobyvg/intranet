@@ -74,7 +74,7 @@ include("menu.php");
  <?
 if (isset($_POST['imp_memoria'])) {
 	mysql_query("update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
-	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Las observaciones que has redactado han sido guardadas. Puedes añadir y editar el texto tantas veces como quieras. O puedes volver a la página de la memoria e imprimirla para entregarla en Jefatura.
 </div></div><br />';

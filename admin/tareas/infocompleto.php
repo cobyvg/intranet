@@ -64,7 +64,7 @@ $fecha_t = $dalumno[5];
 	echo "</div><br />";
 }
 if (empty ( $dalumno [0] )) {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuevo<br><br />
@@ -110,7 +110,7 @@ while($informe1 = mysql_fetch_array($datos1))
 	
 	echo "</table>";
 } else {
-	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 Los Profesores no han rellenado aún su Informe de tareas.<br /><br />

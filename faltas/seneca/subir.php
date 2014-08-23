@@ -50,14 +50,14 @@ include('../../lib/pclzip.lib.php');
 $archive = new PclZip($_FILES['archivo']['tmp_name']);  
       if ($archive->extract(PCLZIP_OPT_PATH, 'origen/') == 0) 
 	  {
-        die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+        die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Ha surgido un problema al importar los archivos descargados desde Séneca. Parece que el directorio donde deben ser subidas no existe o no se puede escribir en él. Comprueba que el directorio <em>/intranet/faltas/seneca/origen</em> existe y es posible escribir en él, e inténtalo de nuevo.
 </div></div><br />'.$archive->errorInfo(true));
       }  
       else{
-      	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+      	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los archivos han sido actualizados en el directorio <em>/intranet/faltas/seneca/origen/</em>. Es seguro crear los archivos para subir las faltas a Séneca.
 </div></div><br />';

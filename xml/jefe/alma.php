@@ -88,7 +88,7 @@ mysql_query("create table FALUMNOS_seg select * from FALUMNOS");
  `NACIONALIDAD` varchar( 32 ) default NULL,
  `SEXO` varchar( 1 ) default NULL 
 )";
-mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
@@ -99,7 +99,7 @@ No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quie
   
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma2.
 
-$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
@@ -228,7 +228,7 @@ mysql_query($SQL7);
 // Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
 $SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
 mysql_query($SQL8);
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>ALMA</strong>: los Alumnos se han introducido correctamente en la Base de datos.
 </div></div>';
@@ -242,7 +242,7 @@ if ($mod_sms=='1') {
 }
 }
 else{
-	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Parece que te está olvidando de enviar todos los archivos con los datos de los alumnos. Asegúrate de enviar ambos archivos descargados desde Séneca.
@@ -297,7 +297,7 @@ $matr = mysql_query("select * from matriculas");
 		}
 	}
 	echo '<br />
-	<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';

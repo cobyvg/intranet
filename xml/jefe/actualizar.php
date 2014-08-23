@@ -2,7 +2,7 @@
 // Buscamos los registros de almafaltas, que es actualizada desde Seneca cuando hay nuevas altas (a traves de intranet/xml/alma.php, y luego de intranet/faltas/almafaltas.php)), que no aparecen en FALUMNOS.
 // Creamos versión corta para FALTAS
 mysql_query("drop table almafaltas");
-mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, Unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, Unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido crear la tabla <strong>AlmaFaltas</strong> en la base de datos. Ponte en contacto con quien pueda resolver el problema.

@@ -51,7 +51,7 @@ while ($unid = mysql_fetch_array($uni)) {
 //Errores posibles
 if (empty($titulo) or empty($asignatura) or empty($departamento) or empty($grupo) or empty($editorial) or empty($isbn)) 
 { 
-echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No has introducido todos los datos.<br> Vuelve atrás e inténtalo de nuevo.

@@ -62,7 +62,7 @@ mysql_query("create table profesores_seg select * from profesores");
 
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
 $fp = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die
-('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido abrir el archivo RelMatProUni.txt. O bien te has olvidado de enviarlo o el archivo est&aacute; corrompido.
@@ -100,7 +100,7 @@ fclose($fp);
 $borrarvacios = "delete from profesores where MATERIA = ''";
 mysql_query($borrarvacios);
 mysql_query("delete from profesores where profesor like '%Profesor/a%'");
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>Profesores</strong>: los datos han sido introducidos correctamente.
 </div></div><br />';
@@ -109,7 +109,7 @@ if ($db_reservas != $db) {
 	$base0 = "DROP TABLE ".$db_reservas.".profesores";
 	mysql_query($base0);
 	$faltasprofexml = "create table ".$db_reservas.".profesores select NIVEL, MATERIA, GRUPO, PROFESOR from ".$db.".profesores";
-	mysql_query($faltasprofexml) or die('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	mysql_query($faltasprofexml) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
 	            <button type="button" class="close" data-dismiss="alert">&times;</button>
 				<legend>ATENCIӓN:</legend>
 	No se ha podido crear la tabla <strong>profesores</strong> en la base de datos <strong>Reservas</strong>.<br> Aseg&uacute;rate de que su formato es correcto.
@@ -214,7 +214,7 @@ while($pro = mysql_fetch_array($pro1))
 {if(!(empty($pro[0])))
 echo "<li>$pro[0]</li>";
 }
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;"><br />
+echo '<br /><div align="center"><div class="alert alert-success alert-block fade in"><br />
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Departamentos, una vez actualizados los Profesores.<br>Vuelve a la p&aacute;gina de Administraci&oacute;n y actualiza los Departamentos inmediatamente.
 </div></div>';
@@ -222,7 +222,7 @@ $base1 = "DROP TABLE ".$db.".horw_var";
 mysql_query($base1);
 }
 else{
-	echo '<hr><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<hr><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCI�N:</legend>
 Parece que te est&aacute;s olvidando de enviar el archivo con los datos de los Profesores. Aseg&uacute;rate de enviar el archivo descargado desde S&eacute;neca.

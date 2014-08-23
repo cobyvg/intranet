@@ -110,7 +110,7 @@ $fpprof1=fopen("TIC/alumnos_moodle.txt","w+");
  }
  else
  {
- $fpprof1=fopen("TIC/alumnos_moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+ $fpprof1=fopen("TIC/alumnos_moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIN:</h5>
 No se ha podido escribir en el archivo TIC/profesores.txt. Has concedido permiso de escritura en ese directorio?
@@ -121,7 +121,7 @@ No se ha podido escribir en el archivo TIC/profesores.txt. Has concedido permiso
  }
  $pepito1=fwrite($fpprof1,$todos_moodle);
  fclose ($fpprof1);
- echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+ echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
  Se ha generado un fichero (alumnos_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en cualquier Plataforma Moodle distinta a la de la Red TIC de la Junta de Andalucía.
 </div></div><br />'; 

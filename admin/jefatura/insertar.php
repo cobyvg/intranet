@@ -2,7 +2,7 @@
 // Control de errores
 if (!$fecha or !$observaciones or !$causa or !$accion)
 {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No has introducido datos en alguno de los campos , y <strong> todos son obligatorios</strong>.<br> Vuelve atrás e inténtalo de nuevo.
@@ -26,7 +26,7 @@ $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 mysql_query($query);
 echo $query."<br>";
 }
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han introducido correctamente.
 </div></div><br />';
@@ -46,7 +46,7 @@ $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 		('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','1','".$prohibido."','".$clave."')";
 		 // echo $query;
 mysql_query($query);
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han introducido correctamente.
 </div></div><br />';

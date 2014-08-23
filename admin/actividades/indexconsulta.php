@@ -28,7 +28,7 @@ mysql_select_db($db);
   {
   if ($actividad == "" or $departamento == "" or $hoy == "" or $horario == "" or $descripcion == "" or $justificacion == "" or $fecha_act == "") {
 
-echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 			Todos los campos del formulario son obligatorios, así que vuelve atrás y rellena los que has dejado vacíos.
@@ -45,7 +45,7 @@ if(strlen($dominio) == 0)
 {
 	
 echo '
-<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 			No has seleccionado ningún Grupo de Alumnos. Vuelve atrás y selecciona algún Grupo para la Actividad.
@@ -64,7 +64,7 @@ $profesor=$_POST["profesor"];
 if(empty($profesor))
 {
 	echo '
-<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 			No has seleccionado ningún Profesor como responsable de la Actividad. Vuelve atrás y selecciona algún Grupo para la Actividad.          
@@ -109,7 +109,7 @@ mysql_query("UPDATE  actividades SET  grupos = '$grupos', actividad =  '$activid
 //mysql_query("UPDATE  cal SET  title =  '$sq2[1]', eventdate = '$sq2[0]', event = '$texto' WHERE idact = '$id'");
 
   echo '
-<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			Los datos de la Actividad han sido modificados correctamente.
 			</div></div>';

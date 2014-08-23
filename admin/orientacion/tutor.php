@@ -21,12 +21,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 $datatables_min = true;
 ?>
-<br />
-<div align="center">
-<div class="page-header">
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
   <h2>Orientación <small>Intervenciones sobre los alumnos</small></h2>
-</div>
-</div>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
 <?
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
@@ -97,7 +102,7 @@ if ($id) {
 
 if ($eliminar=="1") {
 	mysql_query("delete from tutoria where id='$id'");
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.
 </div></div><br />';	
@@ -117,20 +122,32 @@ if (isset($_POST['submit2'])) {
 if (isset($_POST['submit3'])) {
 	$actualizar ="delete from tutoria WHERE  id = '$id2'";
 	mysql_query($actualizar);
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido actualizado en la Base de datos.
 </div></div><br />';	
 }
 
 ?>
-<div class="row">
-<div class="col-sm-1"></div>
-<div class="col-sm-6">
-<legend align="center">Registro de datos</legend>
+<div class="col-sm-7">
+<legend>Registro de datos</legend>
 <div class="well well-large">
 
-<FORM action="tutor.php" method="POST" name="Tutor"><?    
+<FORM action="tutor.php" method="POST" name="Tutor">
+
+<fieldset>
+<div class="row">
+<div class="form-group col-md-10">
+<label> Grupo </label>
+<SELECT name="unidad"
+	onChange="submit()" class="form-control">
+	<option><? echo $unidad;?></option>
+	<? unidad();?>
+</SELECT> 
+</div>
+
+<div class="col-md-2">
+<?    
 if ($alumno) {
 	$tr = explode(" --> ",$alumno);
 	$al = $tr[0];
@@ -139,19 +156,19 @@ if ($alumno) {
 	if (file_exists($foto)) {
 		echo "<img src='../../xml/fotos/$clave.jpg' width='120' height='145' class='img-thumbnail pull-right'  />";
 	}
+	else{
+		echo "<i class='fa fa-user fa-5x fa-fw'></i>";
+	}
 }
 ?> 
-<center>
-<label style="display: inline;"> Grupo: <SELECT name="unidad"
-	onChange="submit()" class="input">
-	<option><? echo $unidad;?></option>
-	<? unidad();?>
-</SELECT> </label>
-</center>
-<hr>
+</div>
 
-<label> Alumno:<br />
-<SELECT name=alumno onChange="submit()" class="input-xlarge">
+</div>
+
+<div class="row">
+<div class="form-group col-md-7">
+<label> Alumno </label>
+<SELECT name=alumno onChange="submit()" class="form-control">
 
 <?
 
@@ -168,42 +185,48 @@ if ($falumno = mysql_fetch_array($alumno0))
 	} while($falumno = mysql_fetch_array($alumno0));
 }
 ?>
-</select> </label>
+</select> 
+</div>
 
-<label> Fecha </label><br />
-<div class="form-group"  id="datetimepicker1">
+<div class="form-group col-md-5" id="datetimepicker1">
+<label>Fecha</label>
 <?  $fecha1 = (date("d").-date("m").-date("Y")); 
 if ($fecha)
 {
 	echo '
   <div class="input-group">
-            <input name="fecha" type="text" class="input form-control" value="'.$fecha.'" data-date-format="DD-MM-YYYY" id="fecha" >
+            <input name="fecha" type="text" class="form-control" value="'.$fecha.'" data-date-format="DD-MM-YYYY" id="fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
 }
 else{
 	echo '
   <div class="input-group">
-            <input name="fecha" type="text" class="input form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" >
+            <input name="fecha" type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> ';
 }
 ?>
 </div>
-<hr>
-<label> Observaciones<br />
-<textarea name='observaciones' rows='8' class='form-control'><? echo $observaciones; ?></textarea>
-</label>
-  <label class="checkbox" style="color:#9d261d">Informe privado
-    <input name="prohibido" type="checkbox" <? if ($prohibido == "1"){echo "checked";}
- ?> id="prohibido" value="1">
-</label>
+</div>
 
-<hr>
+<div class="form-group">
+<label> Observaciones </label>
+<textarea name='observaciones' rows='8' class='form-control'><? echo $observaciones; ?></textarea>
+</div>
+
+<div class="checkbox">
+  <label class="text-danger">
+    <input name="prohibido" type="checkbox" <? if ($prohibido == "1"){echo "checked";}
+ ?> id="prohibido" value="1"> Informe privado </label>
+</div>
+
   <div class="row">
   <div class="col-sm-6">
-<label>Causa<br />
-<select name="causa" class='input-xlarge'>
+  
+<div class="form-group">  
+<label>Causa </label>
+<select name="causa" class='form-control'>
 	<option><? echo $causa; ?></option>
 	<option>Orientación académica y profesional</option>
 	<option>Evoluci&oacute;n acad&eacute;mica</option>
@@ -214,12 +237,14 @@ else{
 	<option>Dificultades de Aprendizaje</option>
 	<option>Faltas de Asistencia</option>
 	<option>Otras</option>
-</select> </label> 
+</select> 
+</div> 
 </div>
   <div class="col-sm-6">
-<label>
-Tipo<br />
-<select name="accion[]" multiple class='input-xlarge'>
+  
+<div class="form-group">  
+<label>Tipo</label>
+<select name="accion[]" multiple class='form-control'>
 
 
 <?
@@ -247,8 +272,9 @@ foreach ($opcion as $opc)
 </label>
 </div>
 </div>
-<hr>
-<div align="center">
+</div>
+</div>
+
 <input name="id2" type="hidden" value="<? echo $id; ?>" /> <input
 	name='submit1' type='submit'
 	value='Registrar intervención' class='btn btn-primary'>
@@ -256,9 +282,8 @@ foreach ($opcion as $opc)
 	value='Actualizar datos' class='btn btn-warning'>
 &nbsp;<input name=submit3 type=submit
 	value='Eliminar' class='btn btn-danger'>
-</div>
 </form>
-</div>
+
 <?
 if($alumno){
 	$tr = explode(" --> ",$alumno);
@@ -269,9 +294,8 @@ if($alumno){
 	$nombre = $trozos[1];
 	?>
 <hr>
-<h4 align="center">Intervenciones sobre <br />
-	<? echo $nombre." ".$apellidos." (".$unidad.")"; ?></h4>
-<br />
+<div class="well">
+<h4>Historial de Intervenciones sobre <? echo $nombre." ".$apellidos." (".$unidad.")"; ?></h4><br>
 	<?
 
 	$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, id from tutoria where claveal='$clave' and accion not like '%SMS' order by fecha");
@@ -290,9 +314,12 @@ if($alumno){
 		echo "</tbody></table>";
 	}
 }
-?></div>
-<div class="col-sm-4">
-<legend align="center">Intervenciones del Tutor</legend>
+?>
+</div>
+</div>
+
+<div class="col-sm-5">
+<legend>Intervenciones del Tutor</legend>
 <? include("ultimos.php");?></div>
 </div>
 <? include("../../pie.php");?>
@@ -305,6 +332,3 @@ if($alumno){
 		})
 	});  
 	</script>
-</BODY>
-</HTML>
-	

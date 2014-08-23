@@ -22,13 +22,19 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
   	include("menu.php");
   ?>
 
-<div align=center>
-<div class="page-header">
-  <h2>Matriculación de Alumnos <small> Previsiones</small></h2>
-</div>
-<br />
 <div class="container">
-<div class="row">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Matriculación de alumnos <small> Previsiones de Matrícula</small></h2>
+	</div>
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+		<!-- COLUMNA IZQUIERDA -->
+		<div class="col-sm-12">
 
 <? 
  $crea_tabla = "CREATE TABLE IF NOT EXISTS `suspensos` (
@@ -48,7 +54,7 @@ if(mysql_num_rows($n3)>0){$n_eval = "notas3";}
 elseif(mysql_num_rows($n2)>0){$n_eval = "notas2";}
 elseif(mysql_num_rows($n1)>0){$n_eval = "notas1";}
 else{
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administración de la Intranet --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';
@@ -73,7 +79,7 @@ echo "<td style='text-align:center;' valign='top'>";
 $result1 = mysql_query($notas1);
 $todos = mysql_num_rows($result1);
 if ($todos < '1') {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';

@@ -80,7 +80,7 @@ include("../../menu.php");
 		}
 		}
 		if ($n_reg>0) {
-				echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+				echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		            <button type="button" class="close" data-dismiss="alert">&times;</button>
 		El Departamento ha sido actualizado en la base de datos.
 		          </div></div><br />';
@@ -89,7 +89,7 @@ include("../../menu.php");
 		if ($_GET['borrar']=='1') {
 			mysql_query("update departamentos set departamento = '' where departamento = '".$_GET['departament']."'");	
 			//echo "update departamentos set departamento = '' where departamento = '".$_GET['departament']."'";
-			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+			echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		            <button type="button" class="close" data-dismiss="alert">&times;</button>
 		El Departamento ha sido borrado de la base de datos..
 		          </div></div><br />';
@@ -136,7 +136,7 @@ include("../../menu.php");
 		// Actualizamos tabla departamentos
 			mysql_query("update departamentos set departamento = '$val' where idea = '$key'");
 			}	
-			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+			echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		            <button type="button" class="close" data-dismiss="alert">&times;</button>
 		El Profesor ha sido asignado al nuevo Departamento.
 		          </div></div><br />';

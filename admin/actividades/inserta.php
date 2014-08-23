@@ -1,7 +1,7 @@
 <?
 if ($fecha_act == "" or $actividad == "" or $departamento == "" or $hoy == "" or $horario == "" or $descripcion == "" or $justificacion == "") {
 	echo '
-<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 Todos los campos del formulario son obligatorios, así que vuelve atrás y rellena los que has dejado vacíos.
@@ -17,7 +17,7 @@ $grupos .= $val.";";
 }
  if ($grupos == "") {
 echo '
-<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 			No has seleccionado ningún Grupo de Alumnos. Vuelve atrás y selecciona algún Grupo para la Actividad.
@@ -31,7 +31,7 @@ $profesor=$_POST["profesor"];
 if(empty($profesor))
 {
 echo '
-<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 			No has seleccionado ningún Profesor como responsable de la Actividad. Vuelve atrás y selecciona algún Grupo para la Actividad.          
@@ -51,7 +51,7 @@ $datos10 = "select max(id) from actividades";
 $datos11 = mysql_query($datos10);
 $datos00=mysql_fetch_array($datos11);
 echo '
-<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de la actividad extraescolar se han introducido correctamente.<br />Compruébalo en la tabla más abajo y modificalos si es necesario.
 			</div></div><br />';

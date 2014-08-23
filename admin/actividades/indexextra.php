@@ -41,7 +41,7 @@ if ($_GET['eliminar']=="1") {
   	mysql_query("delete from actividades where id = '".$_GET['id']."'");
   	if (mysql_affected_rows()>'0') {
 echo '
-<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			La actividad ha sido borrada correctamente de la base de datos.         
 			</div></div>';  	
@@ -63,7 +63,7 @@ $querycal = "insert into cal (eventdate,title,event,html,idact) values ('".$even
 mysql_query($querycal);
 //echo $querycal;
 echo '
-<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La Actividad ha sido registrada en el Calendario del Centro.
 			</div></div>'; 
@@ -95,7 +95,7 @@ La Actividad ha sido registrada en el Calendario del Centro.
   //echo $actualiza_datos0;
   mysql_query($actualiza_datos0);
   echo '
-<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La Actividad se ha actualizado para esa fecha del Calendario.
 			</div></div>'; 
@@ -105,7 +105,7 @@ La Actividad se ha actualizado para esa fecha del Calendario.
   {
   mysql_query("UPDATE  actividades SET  confirmado =  '1' WHERE id = '$id'");
    echo '
-<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La Actividad ha sido confirmada por la Autoridad.
 			</div></div>'; 

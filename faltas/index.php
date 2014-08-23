@@ -96,7 +96,7 @@ while($n_cur = mysql_fetch_array($n_curs1))
 }
 //echo $n_curs0;
 if($mensaje){
-	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Las Faltas han sido registradas correctamente.
           </div></div>'; 
@@ -117,7 +117,7 @@ if(!($t_grupos=="")){
 $hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
 $hora0 = mysql_query($hora1);
 if (mysql_num_rows($hora0)<1) {
-		echo '<br /><div align="lef"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+		echo '<br /><div align="lef"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             No tienes alumnos en esta hora del día.
             <br>Selecciona una fecha y hora en el formulario para registrar faltas de asistencia.
@@ -300,7 +300,7 @@ for ($i = 1; $i < 7; $i++) {
 }
 
 else {
-	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El módulo de Faltas de Asistencia debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.
           </div></div>'; 

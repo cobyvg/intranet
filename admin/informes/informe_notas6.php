@@ -41,7 +41,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $n1 = mysql_query("select * from pendientes");
 if(mysql_num_rows($n1)>0){}
 else{
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>No hay datos de alumnos con asignaturas pendientes en la Base de datos. Debes primero importar los datos de los pendientes a través de la página de Administración de la Intranet. Sigue las instrucciones del enlace para la importación.
           </div></div>';
@@ -108,7 +108,7 @@ $notas1 = "select notas". $key .", claveal1, matriculas, unidad, curso, alma.cla
 
 $result1 = mysql_query($notas1);
 if (!($result1)) {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';

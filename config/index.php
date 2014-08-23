@@ -42,7 +42,7 @@ $f1=fopen("../config.php","w+");
 ?>
 <?			
 if($f1==FALSE){
-	echo '<br /><br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<br /><br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 No es posible crear o abrir el archivo de configuración.<br>
@@ -79,13 +79,13 @@ $form.= '</form></div><br />';
 }
 }
 else{
-$mens = '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+$mens = '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 Todos los campos marcados con (<span style="color:#9d261d">*</span>) en el formulario son obligatorios. <br>Escribe los datos en los campos vacíos y envíalos de nuevo
           </div></div>';
 }
-$mens = '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+$mens = '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han guardado correctamente en el archivo de configuración de la aplicación.     
 </div></div>';

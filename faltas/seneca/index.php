@@ -67,7 +67,7 @@ $archive = new PclZip($_FILES['archivo1']['tmp_name']);
 	  {
         die("Error : ".$archive->errorInfo(true));
       }  
-      echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+      echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los archivos de los alumnos han sido descragados correctamente en el directorio /faltas/seneca/origen/.
 </div></div><br />';

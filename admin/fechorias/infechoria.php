@@ -57,7 +57,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 // Actualizar datos
 	if ($_POST['submit2']) {
 	    mysql_query("update Fechoria set asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula'  where id = '$id'");
-	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han actualizado correctamente.
           </div></div><br />';

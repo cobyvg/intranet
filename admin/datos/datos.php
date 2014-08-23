@@ -62,7 +62,7 @@ if (!(isset($AUXSQL))) {
 if (isset($_GET['resetear']) and $_GET['resetear']==1) {
 	$sql_reset=mysql_query("delete from control where claveal = '".$_GET['clave_alumno']."'");
 	if ($sql_reset) {
-		echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La contraseña del alumno para el acceso a la página pública del Centro se ha reiniciado correctamente. El alumno debe entrar ahora con el NIE como usuario y contraseña. Una vez dentro se le forzará a cambiar la contraseña.
 		</div></div>';    
@@ -85,7 +85,7 @@ if (isset($seleccionado) and $seleccionado=="1") {
 
 	$foto = '../../xml/fotos/'.$clave_al.'.jpg';
 	if (file_exists($foto)) {
-		echo "<div align='center'><img src='$foto' border='2' width='100' height='119' style='margin:auto;border:1px solid #bbb;'  /></div>";
+		echo "<div align='center'><img src='$foto' class='image-thumbnail' width='100' height='119' /></div>";
 		echo "<br />";
 	}
 }
@@ -138,7 +138,7 @@ if ($row = mysql_fetch_array($result))
 
 	echo "<table class='table table-bordered table-striped table-vcentered datatable'>";
 	echo "<thead><tr>
-			<th>Alumno/a</th>
+			<th colspan='2'>Alumno/a</th>
 	        <th>NIE</th>
 	        <th>Unidad</th>
 	        <th>Fecha Ncto.</th>	        
@@ -160,14 +160,14 @@ if ($row = mysql_fetch_array($result))
 		$claveal = $row[0];
 		$correo = $row[12];
 		echo "<tr>";
-		$foto_dir = '../../xml/fotos/'.$clave_al.'.jpg';
+		$foto_dir = '../../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto_dir)) {
-		$foto = "<img src='$foto' width='53' class=\"img-thumbnail\" />";
+		$foto = "<img src='$foto_dir' width='55' class=\"img-thumbnail\" />";
 	}
 	else {
 		$foto = "<span class=\"fa fa-user fa-3x fa-fw\"></span>";
 	}
-	echo "<td>$foto $nom</td>
+	echo "<td>$foto</td><td>$nom</td>
 <td>$row[0]</td>
 <td>$unidad</td>
 <td>$row[5]</td>
@@ -185,7 +185,7 @@ if ($row = mysql_fetch_array($result))
 	echo "</tbody></table>\n";
 } else
 {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No hubo suerte, bien porque te has equivocado

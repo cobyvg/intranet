@@ -11,7 +11,7 @@
 	}		
 
 		if($ocultar == "1"){$ms = "ocultada";}else{$ms = "restaurada";}
-		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La Nota ha sido ';
  echo $ms;

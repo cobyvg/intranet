@@ -94,7 +94,7 @@ if (mysql_num_rows($result) > 0)
 else
 {
 ?>
-<div align="center"><div class="alert alert-block fade in" style="max-width:500px;">
+<div align="center"><div class="alert alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Lo sentimos, pero ninguna noticia responde a ese criterio de búsqueda.          
 </div>

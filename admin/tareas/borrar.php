@@ -34,7 +34,7 @@ echo "
 if ($del=='1') {
 	mysql_query("delete from tareas_profesor where id = '$id_del'");
 	if (mysql_affected_rows()>'0') {
-		echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Informe ha sido borrado sin problemas.
 		</div></div>';

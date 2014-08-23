@@ -34,7 +34,7 @@ mysql_select_db($db) or die ("No es posible conectar con la base de datos!");
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
 $result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
 mysql_close($connection);
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Atención:</strong>
 			El problema de convivencia ha sido borrado de la base de datos.

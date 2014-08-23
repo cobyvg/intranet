@@ -50,7 +50,7 @@ if(isset($_POST['borrar'])){
 			$bor = mysql_query ("delete from morosos where id='$valor[$i]'") or die("No se ha podido borrar");
 			}
 
-			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+			echo '<div align="center"><div class="alert alert-success alert-block fade in">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCI&Oacute;N:</legend>
 El proceso de borrado ha sido completado correctamente. Los alumnos no volver&aacute;n a aparecer en la lista.
@@ -62,7 +62,7 @@ El proceso de borrado ha sido completado correctamente. Los alumnos no volver&aa
 		}
 		elseif ($j==0)
 		{
-			echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+			echo '<div align="center"><div class="alert alert-danger alert-block fade in">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCI&Oacute;N:</legend>
 No se ha podido borrar porque no has elegido ning&uacute;n alumno de la lista. Vuelve atr&aacute;s para solucionarlo.
@@ -193,14 +193,14 @@ enviarForm();
 }
 }
 if ($registro) {
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCI&Oacute;N:</legend>
 Las amonestaciones se han registrado con &eacute;xito. Ahora debes pulsar en el bot&oacute;n, generar pdf, para poder imprimir las amonestaciones registradas..
 	</div></div><br />';
 }
 elseif($sms){
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCI&Oacute;N:</legend>
 Los mensajes SMS de aviso por retraso en la devolución de ejemplares de la Biblioteca han sido enviados correctamente (si en la pequeña ventana del navegador que aparece en la parte superior izquierda dice <b>OK</b>).
@@ -218,7 +218,7 @@ Amonestaciones en PDF</button>
 <? 
 	}
 	elseif ($j==0)     {
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
  <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCI&Oacute;N:</legend>
 No se ha podido registrar la amonestaci&oacute;n porque no has elegido ning&uacute;n alumno de la lista. Vuelve atr&aacute;s para solucionarlo.

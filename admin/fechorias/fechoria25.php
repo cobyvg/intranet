@@ -36,7 +36,7 @@ $fecha3 = "$dia0[2]-$dia0[1]-$dia0[0]";
 $ya_esta = mysql_query("select claveal, fecha, grave, asunto, notas, informa from Fechoria where claveal = '$claveal0' and fecha = '$fecha3' and grave = '$grave' and asunto = '$asunto' and informa = '$informa'");
 
 if (mysql_num_rows($ya_esta)>0) {
-		echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+		echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <legend>Atenci&oacute;n:</legend>
             Ya hay un problema de convivencia registrado que contiene los mismos datos que estás enviando, y no queremos repetirlos... .
@@ -46,7 +46,7 @@ if (mysql_num_rows($ya_esta)>0) {
 else{
  	// Control de errores
 	if (! $notas or ! $grave or ($nombre == 'Selecciona un Alumno') or ! $asunto or ! $fecha or ! $informa) {
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
             No has introducido datos en alguno de los campos, y <strong>todos son obligatorios</strong>.<br> Vuelve atrás, rellena los campos vacíos e inténtalo de nuevo.
@@ -57,7 +57,7 @@ else{
 			exit ();			
 	}
  	if (($grave == 'grave' OR $grave == 'muy grave') AND strlen ($notas) < '60' ) {
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
             La descripción de lo sucedido es demasiado breve. Es necesario que proporciones más detalles de lo ocurrido para que Jefatura de Estudios pueda hacerse una idea precisa del suceso.<br />Vuelve atrás e inténtalo de nuevo.
@@ -68,7 +68,7 @@ else{
 			exit ();		
  	}
 	if ($grave == 'leve' AND strlen ($notas) < '25' ) {
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
             La descripción de lo sucedido es demasiado breve. Es necesario que proporciones más detalles de lo ocurrido para que Jefatura de Estudios pueda hacerse una idea precisa del suceso.<br />Vuelve atrás e inténtalo de nuevo.

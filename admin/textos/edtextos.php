@@ -54,7 +54,7 @@ include("../../menu.php");
 
 	if (!$titulo or !$asignatura or !$departamento or !$isbn) 
 	{ 
-	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No has introducido todos los datos necesarios para registrar el texto. <br>Vuelve atrás e inténtalo de nuevo.</div></div><br />';
@@ -67,7 +67,7 @@ $grupo = "$A$B$C$D$E$F$G$H";
 		Asignatura = '$asignatura', Notas = '$NOTAS', isbn = '$isbn', nivel = '$nivel', grupo = '$grupo', obligatorio = '$obligatorio' where Id = '$id'";
 		//echo $query;
 		mysql_query($query);
-		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El texto se ha registrado correctamente. <br>Comprueba los datos en la tabla de abajo, y en caso de no ser correctos, puedes volver a editarlos.</div></div><br />';
 

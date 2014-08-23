@@ -30,7 +30,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
  <?php
 if(empty($_POST['alumno']) or empty($_POST['tutor']))
 {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>Atención:</legend>
 Debes rellenar todos los datos, y parece que te has olvidado del Alumno o del Tutor.<br>Vuelve atrás e inténtalo de nuevo.<br /><br />
@@ -55,7 +55,7 @@ $hoy = date('Y\-m\-d');
 $duplicado = mysql_query("select claveal from infotut_alumno where claveal = '$claveal' and f_entrev = '$fecha'");
 if(mysql_num_rows($duplicado)>0)
 {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>Atención:</legend>';
 			echo "Ya hay un <b>Informe Tutorial</b> activado para el alumno/a <b> $nombre $apellidos </b>para el día
@@ -71,7 +71,7 @@ exit;
 VALUES ('$dalumno[0]',\"$dalumno[1]\",'$dalumno[2]','$dalumno[3]',
 '$fecha','".$_POST['tutor']."', '$hoy')") or die ("Error en la activación del informe: " . mysql_error());
 
- echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+ echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>';
 			echo "El <b>Informe Tutorial</b> del alumno/a <b> $nombre $apellidos </b>para el día <b>";
 echo formatea_fecha($fecha);

@@ -8,7 +8,7 @@ $celdas .= " id = '$id' or";
   		}
  $celdas = substr($celdas,0,strlen($celdas)-3);
 	if (empty($num_ids)) {
-echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Debes marcar al menos una Columna del cuaderno para poder realizar el cálculo.

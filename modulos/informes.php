@@ -1,5 +1,5 @@
 <?
-echo "<div class='alert alert-warning fade in' role='alert'><p class='lead'><i class='fa fa-bell'> </i> Informes de Tutor&iacute;a activos por visita de padres</p><hr />";
+echo "<div class='alert alert-warning fade in' role='alert'><p class='lead'><i class='fa fa-bell'> </i> Informes de Tutor&iacute;a activos por visita de padres</p><br />";
 $resultcurs = mysql_query($SQLcurso);
 	while($rowcurs = mysql_fetch_array($resultcurs))
 	{
@@ -20,6 +20,7 @@ $result = mysql_query($query);
 $n_inotut="";
 if (mysql_num_rows($result) > 0)
 {
+	$n_i=1;
 	while($row1 = mysql_fetch_array($result))
 	{
 $hay = "select * from infotut_profesor where id_alumno = '$row1[0]'  and asignatura = '$asignatura'";
@@ -82,7 +83,9 @@ else{
 }
 }
 }
-
+if ($n_i==1) {
+	echo "<br>";
+}
 ?>
 <script language="javascript">
     $('#myModal2').modal()

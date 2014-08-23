@@ -5,7 +5,7 @@ $alumno=mysql_query("SELECT APELLIDOS,NOMBRE,unidad,TUTOR,CLAVEAL, F_ENTREV, ID 
 
 if (mysql_num_rows($alumno) < 1)
 { 
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Alumno no tiene Informes de Tutor&iacute;a.
 </div></div>';

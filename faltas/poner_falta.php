@@ -74,14 +74,14 @@ VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  
 }
 if (empty($mens_fecha)) {
 	echo "<h3 align='center'>Poner faltas de asistencia</h3><br />";
-	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Las Faltas han sido registradas.
           </div></div>'; 
 }
 else{
 	echo "<h3 align='center'>Poner faltas de asistencia</h3><br />";
-	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             '. $mens_fecha.'</div></div>'; 
 }

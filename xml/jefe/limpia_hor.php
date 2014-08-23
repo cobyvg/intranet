@@ -79,7 +79,7 @@ mysql_query("create table horw_faltas select * from horw where (a_asig not like 
   mysql_query("delete from horw_faltas where a_grupo='' or a_grupo is null");
   mysql_query("OPTIMIZE TABLE  `horw_faltas`");  
   
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 <strong>Tablas de Horarios</strong>: los datos se han modificado correctamente.
 </div></div><br />';

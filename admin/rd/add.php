@@ -63,7 +63,7 @@ else{
 if($borrar=="1"){
 $query = "DELETE from r_departamento WHERE id = '$id'";
 $result = mysql_query($query) or die ('<div align="center">
-<div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Se ha borrado el registro de la base de datos.          
 </div>
@@ -96,11 +96,11 @@ if (isset($pdf)) {
    			$query1 = "INSERT INTO r_departamento ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES( '$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
    			//echo $query1;
    			$query2 = "INSERT INTO r_departamento_backup ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES('$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
-   			$result1 = mysql_query ( $query1 ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+   			$result1 = mysql_query ( $query1 ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Se ha producido un error grave al registar el Acta en la base de datos. Busca ayuda.</div></div>' );
-   			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+   			echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido registrada correctamente.
 </div></div><br>';
@@ -109,7 +109,7 @@ El Acta del Departamento ha sido registrada correctamente.
    		   exit();
    		} 
    		else {
-   			echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">Se encontraron los siguientes errores al enviar los datos del formulario: <br>';
+   			echo '<div align="center"><div class="alert alert-warning alert-block fade in">Se encontraron los siguientes errores al enviar los datos del formulario: <br>';
    			echo "<div align='left'><ul>";
    			for($x = 0; $x < sizeof ( $errorList ); $x ++) {
    				echo "<li>$errorList[$x]</li>";
@@ -120,7 +120,7 @@ El Acta del Departamento ha sido registrada correctamente.
 
    	elseif ($actualiza) {
    		   mysql_query("update r_departamento set contenido = '$contenido' where id = '$id'") ;
-   		   echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+   		   echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido actualizada correctamente.
 </div></div><br>';

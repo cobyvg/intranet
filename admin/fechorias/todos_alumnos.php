@@ -1,7 +1,7 @@
 <?
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h4>Atención:</h4>
 			Registrar un problema de convivencia a todos los alumnos de un grupo es algo que sólo puede hacer la Jefatura de Estudios. Por lo tanto, debes consultar con Jefatura esta posibilidad si lo consideras necesario.
@@ -73,7 +73,7 @@ echo "<body>";
 // Control de errores
 if (!$notas or !$grave or ($nombre == 'Selecciona un Alumno') or !$asunto or !$fecha or !$informa)
 {
-echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>Atención:</h4>
 			No has introducido datos en alguno de los campos, y <strong>todos son obligatorios</strong>. Vuelve atrás e inténtalo de nuevo.          
@@ -86,7 +86,7 @@ $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 $query="insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula) values ('".$claveal."','".$fecha2."','".$asunto."','".$notas."','".$informa."','".$grave."','".$medida."','".$expulsionaula."')";
 mysql_query($query);
 }
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El problema de convivencia se ha registrado correctamente para <strong>todos los Alumnos</strong> de este grupo.
           </div></div>';

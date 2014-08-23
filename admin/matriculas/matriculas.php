@@ -363,7 +363,7 @@ if ($dni or $claveal or $id) {
 		?>
 <form id="form2" name="form1" method="post"
 	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
-<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Elige el alumno que quieres matricular en nuestro Centro:
 		<?
@@ -393,7 +393,7 @@ exit();
 		?>
 <form id="form2" name="form1" method="post"
 	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
-<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Elige el alumno que quieres matricular en nuestro Centro:
 		<?
@@ -417,7 +417,7 @@ exit();
 		?>
 <form id="form2" name="form1" method="post"
 	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
-<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Elige el alumno que quieres matricular en nuestro Centro:
 		<?

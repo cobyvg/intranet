@@ -52,7 +52,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
   		$act = mysql_query($actualiza);		
   		} 
   	}
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             El registro ha sido confirmado.
           </div></div>';
@@ -60,7 +60,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
    if(isset($_GET['borrar']) and $_GET['borrar']=="1"){
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
 $result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             El registro ha sido eliminado de la base de datos.
           </div></div>';	

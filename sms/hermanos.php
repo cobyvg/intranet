@@ -71,7 +71,7 @@ enviarForm();
 mysql_query("insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
 $num=$num+1;
 endwhile;
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+echo '<div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El mensaje SMS se ha enviado correctamente para los hermanos del mismo nivel con faltas sin justificar.<br>Una nueva acción tutorial ha sido también registrada.
           </div></div><br />';

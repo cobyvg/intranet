@@ -53,7 +53,7 @@ if (isset($_POST['convivencia'])) { $convivencia = $_POST['convivencia']; }
 
 include("expulsiones.php");
 if (strlen($mensaje)>"0") {
-echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>'.
             $mensaje.'
@@ -202,19 +202,19 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 	if (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE) {
 	?>
     
-    <div class="well"><h4>Expulsión del alumno</h4><hr />
+    <div class="well"><h4>Expulsión del alumno</h4><br>
     <form id="form1" name="form1" method="post" action="detfechorias.php" class="">
-      
-      <div class="form-group col-md-10">
-	<label> N&ordm; de D&iacute;as:
+      <div class="form-group">
+	<label> N&ordm; de D&iacute;as:</label>
         <input name="expulsion" type="text" id="textfield" <? if($expulsion > 0){echo "value=$expulsion";}?> maxlength="2" class="form-control" />
+        
       </div>
        
       <input name="id" type="hidden" value="<? echo $id; ?>"/>
       <input name="claveal" type="hidden" value="<? echo $claveal; ?>"/>
  
 
-<div class="form-group col-md-10" id="datetimepicker1">
+<div class="form-group " id="datetimepicker1">
 <label>Inicio:</label>
 <div class="input-group">
   <input name="inicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="inicio" <? if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?>  >
@@ -222,7 +222,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 </div> 
 </div>
 
-<div class="form-group col-md-10" id="datetimepicker2">
+<div class="form-group " id="datetimepicker2">
 <label>Fin:</label>
 <div class="input-group">
   <input name="fin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fin" <? if(strlen($fin) > '0' and !($fin == '00-00-0000')){echo "value='$fin'";}?>  >
@@ -230,7 +230,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 </div> 
 </div>
 
-  <div class="form-group col-md-offset-1">
+  <div class="form-group ">
       <div class="checkbox">    
          <label>
          <input name="mens_movil" type="checkbox" id="sms" value="envia_sms" checked="checked" />
@@ -267,16 +267,16 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 	}	
  ?>
  <div class="well">
-    <h4>Expulsión al Aula de convivencia </h4><hr />
+    <h4>Expulsión al Aula de convivencia </h4><br>
     <form id="form2" name="form2" method="post" action="detfechorias.php" >
       
-      <div class="form-group col-md-6">
+      <div class="form-group">
       <label >N&uacute;mero de D&iacute;as</label>
         <input name="convivencia" type="text" id="expulsion" <? if($convivencia > 0){echo "value=$convivencia";}else{ if ($gucon == '1') {
           	echo "value=";}}?> size="2" maxlength="2" class="form-control" />
       </div>
       
-      <div class="form-group col-md-6">
+      <div class="form-group">
       <label >Horas sueltas</label>
         <input name="horas" type="text" <? if($horas > 0){echo "value=$horas";}else{ 
           	if (stristr($_SESSION['cargo'],'1') == TRUE) {
@@ -291,7 +291,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
         <input name="claveal" type="hidden" value="<? echo $claveal;?>" />
      <hr>
      
-     <div class="form-group col-md-10"  id="datetimepicker3">
+     <div class="form-group"  id="datetimepicker3">
 <label>Inicio:</label>
 <div class="input-group">
   <input name="fechainicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechainicio" <?if($inicio_aula){echo "value=$inicio_aula";}else{if ($gucon == '1'){	$def_inicio = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' ); 	echo "value='$def_inicio'";}} ?> >
@@ -299,7 +299,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 </div> 
 </div>
 
-    <div class="form-group col-md-10" id="datetimepicker4">
+    <div class="form-group" id="datetimepicker4">
 <label>Fin:</label>
 <div class="input-group">
   <input name="fechafin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechafin" <?if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}} ?>  >
@@ -307,7 +307,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 </div> 
 </div>
 
-          <div class="form-group col-md-offset-1">
+          <div class="form-group">
           <div class="checkbox">
          <label for='tareas'>
           <input name="tareas" type="checkbox" id="tareas" value="insertareas" <?php if ($gucon == '1') {}else{          	echo 'checked="checked"';
@@ -333,7 +333,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
    ?>
    <div>
    <div class="well">
-    <h4>Impresión de partes</h4><hr />
+    <h4>Impresión de partes</h4><br>
     <?
 if(stristr($_SESSION['cargo'],'1') == TRUE)
 {

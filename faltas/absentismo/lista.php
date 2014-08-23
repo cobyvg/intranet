@@ -25,13 +25,14 @@ if (isset($_GET['mes'])) {$mes = $_GET['mes'];}elseif (isset($_POST['mes'])) {$m
 if (isset($_GET['num_mes'])) {$num_mes = $_GET['num_mes'];}elseif (isset($_POST['num_mes'])) {$num_mes = $_POST['num_mes'];}else{$num_mes="";}
 if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{$numero="";}
 ?>
-<style type="text/css">
-.table td{
-	vertical-align:middle;
-}
-</style>
+<div class="container">
+<div class="row">
+<div class="page-header">
+  <h2>Faltas de Asistencia <small> Alumnos absentistas</small></h2>
+</div>
+<br />
+<div class="col-sm-6 col-sm-offset-3">
 
-<h3 align="center"> Alumnos absentistas </h3><br /><br />
 <?
 if (isset($_POST['submit'])) {
 	          if($mes=='Septiembre'){$n_mes='09';}
@@ -64,7 +65,7 @@ $curso=$trozos[2];
  		}
  	}
 	}
-	echo '<br /><div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+	echo '<br /><div align="center""><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			Los datos de los alumnos absentistas se han actualizado. Se ha enviado un mensaje al <b>Departamento de Orientación</b> y los <b>Tutores</b> para que procedan con el Informe de Absentismo.
 			</div></div>';
@@ -122,15 +123,15 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
         	}
 	echo "<tr><td align='center'>";
         $foto="";
-		$foto = "<img src='../../xml/fotos/$rowF[0].jpg' width='55' height='64'  />";
+		$foto = "<img src='../../xml/fotos/$rowF[0].jpg' width='55' height='64' class='image-thumbnail'  />";
 		echo $foto."&nbsp;&nbsp;&nbsp;";	
-	echo "<input name='$rowF[0]' type='checkbox' value='$n_mes;$rowF[6];$rowF[3]' $sel /></td>";
-	echo "<td  align='left'>$rowF[2] $rowF[1]</td><td>$rowF[3]</td>
-	<td>$rowF[6]</td>";
+	echo "</td>";
+	echo "<td  align='left' style='vertical-align:middle'><div class='checkbox'><label><input name='$rowF[0]' type='checkbox' value='$n_mes;$rowF[6];$rowF[3]' $sel /> $rowF[2] $rowF[1]</label></div></td><td style='vertical-align:middle'>$rowF[3]</td>
+	<td style='vertical-align:middle'>$rowF[6]</td>";
   $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL like '$claveal' and month(FALTAS.fecha) = '$n_mes'";
   $result2 = mysql_query($SQL2);
   $rowsql = mysql_num_rows($result2);
-  echo "<td>$rowsql</td></tr>";
+  echo "<td style='vertical-align:middle'>$rowsql</td></tr>";
 	}         
 	} 
 	echo '</table';      
@@ -146,6 +147,8 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 }
 if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {echo '<br><div align="center"><br /><a href="index.php" class="btn btn-primary">Volver a la Página de Absentismo</a>';}
 ?>
+</div>
+</div>
+</div>
+
 <? include("../../pie.php");?>
-</body>
-</html>

@@ -105,7 +105,7 @@ if ($submit2) {
 		$fecha_reg0 = explode(" ",$reg_sust[4]);
 		$fecha_reg = $fecha_reg0[0];
 			mysql_query("update guardias set profe_aula = '$sustituido' where id = '$id'");
-			echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+			echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Has actualizado correctamente los datos del Profesor que sustituyes.
           </div></div>';
@@ -123,7 +123,7 @@ Has actualizado correctamente los datos del Profesor que sustituyes.
 //		$hor_reg = $reg_sust[3];
 		$fecha_reg0 = explode(" ",$reg_sust[4]);
 		$fecha_reg = $fecha_reg0[0];
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>'.
 $sustituido.' ya ha sido sustituido a la $hora hora el día '.$fecha_reg.'. <br>Selecciona otro profesor y continúa.
@@ -134,7 +134,7 @@ exit();
 			$r_profe = mb_strtoupper($profeso, "ISO-8859-1");
 			mysql_query("insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$sustituido', '$n_dia', '$hora', NOW(), '$g_fecha')");
 			if (mysql_affected_rows() > 0) {
-				echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+				echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Has registrado correctamente a '.$sustituido.' a '.$hora.' hora para sustituirle en el Aula.
           </div></div>';
@@ -144,7 +144,7 @@ Has registrado correctamente a '.$sustituido.' a '.$hora.' hora para sustituirle
 
 	}
 	else{
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desplegable para registrar esta hora.

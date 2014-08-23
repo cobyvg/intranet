@@ -56,7 +56,7 @@ if (!(empty($confirma))) {
   		$act = mysql_query($actualiza);
   		} 
   	}
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             El problema de convivencia ha sido confirmado correctamente. <br />No te olvides de recargar la página si decides volver atrás a los resultados de la consulta.
           </div><br />
@@ -68,7 +68,7 @@ exit();
    if(isset($_GET['borrar']) and $_GET['borrar']=="1"){
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
 $result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             El registro ha sido eliminado de la base de datos.
           </div></div>';	
@@ -76,7 +76,7 @@ exit();
 }
 	if(empty($NOMBRE) and empty($APELLIDOS) and empty($MES) and empty($DIA) and empty($unidad) and empty($claveal) and empty($clase))
 	   {
-	   echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	   echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
             Debes seleccionar al menos un tipo de datos (Apellidos, Nombre, unidad, etc.) para poder hacer la Consulta. Vuelve atrás y selecciona algún criterio de búsqueda.
@@ -239,7 +239,7 @@ mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now
 		echo "<tr>
 		<td>";
 		$foto="<span class='fa fa-user fa-fw fa-3x'></span>";
-		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='55' height='64'>";
+		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='65' height='73'>";
 		echo $foto."</td>";
 		echo "<td>$rowalumno</td>
 		<td>$rowcurso</td>

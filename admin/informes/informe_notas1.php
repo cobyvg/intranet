@@ -88,7 +88,7 @@ for ($i=1;$i<5;$i++){
 $n1 = mysql_query("select * from notas where notas1 not like ''");
 if(mysql_num_rows($n1)>0){}
 else{
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administración de la Intranet --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';
@@ -153,7 +153,7 @@ $notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel from alma
 $result1 = mysql_query($notas1);
 $todos = mysql_num_rows($result1);
 if ($todos < '1') {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';

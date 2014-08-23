@@ -41,7 +41,7 @@ mysql_query("truncate table festivos");
 
 // Importamos los datos del fichero CSV en la tabña alma.
 $handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('
-<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+<div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 No se ha podido abrir el fichero de importación<br> Asegúrate de que su formato es correcto y no está vacío.
 			</div></div><br />	'); 
@@ -57,7 +57,7 @@ $borrarvacios = "delete from festivos where date(fecha) = '0000-00-00'";
  mysql_query($borrarvacios);
  if (mysql_affected_rows() > '0') {
 ?>
- 	<div align="center""><div class="alert alert-success alert-block fade in" style="max-width:500px;" align="left">
+ 	<div align="center""><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 	 Los datos se han importado correctamente.
 			</div></div><br /> 

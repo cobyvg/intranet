@@ -31,13 +31,13 @@ include("menu.php");
 if ($del=='1') {
 	mysql_query("delete from tareas_alumnos where id = '$id'");
 	if (mysql_affected_rows()>'0') {
-		echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Informe ha sido borrado sin problemas.
 		</div></div>';
 	}
 	else {
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 El Informe no ha podido ser eliminado. Consulta con alguien que pueda ayudarte.

@@ -96,7 +96,7 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
                     if($mes=='04'){$n_mes='Abril';}
                     if($mes=='05'){$n_mes='Mayo';}
                     if($mes=='06'){$n_mes='Junio';}
-$alumnos0 = "select numero, unidad, apellidos, nombre, jefatura, orientacion, tutoria, padre, domicilio, provinciaresidencia, telefono, fecha, alma.claveal, serv_sociales from absentismo, alma where absentismo.claveal=alma.claveal and mes='$mes'";
+$alumnos0 = "select numero, alma.unidad, apellidos, nombre, jefatura, orientacion, tutoria, padre, domicilio, provinciaresidencia, telefono, fecha, alma.claveal, serv_sociales from absentismo, alma where absentismo.claveal=alma.claveal and mes='$mes'";
 $alumnos1 = mysql_query($alumnos0);
 while($alumno = mysql_fetch_array($alumnos1))
 {
@@ -148,19 +148,21 @@ $cuerpo66="$alumno[13]";
 	$MiPDF->SetFont('Helvetica');
 	
 	$MiPDF->Multicell(0,4,$datos10,0,'L',0);
-	$MiPDF->Ln(3);
+	$MiPDF->Ln(5);
 	$MiPDF->SetFont('Helvetica','',10);
 	$MiPDF->Multicell(0,4,$cuerpo1,0,'J',0);
-	$MiPDF->Ln(3);
-		$MiPDF->SetFont('Helvetica','B');
-	$MiPDF->Multicell(0,4,$cuerpo3,0,'C',0);
+	$MiPDF->Ln(5);
+	
+	$MiPDF->SetFont('Helvetica','B');
+	$MiPDF->Multicell(0,4,$cuerpo3,0,'L',0);
 	$MiPDF->Ln(1);
-		$MiPDF->SetFont('Helvetica','I');
+		
+	$MiPDF->SetFont('Helvetica','I');
 	$MiPDF->Multicell(0,4,$cuerpo33,0,'J',0);
 	$MiPDF->Ln(5);
 if (strlen($alumno[5])>0) {
 		$MiPDF->SetFont('Helvetica','B');
-	$MiPDF->Multicell(0,4,$cuerpo4,0,'C',0);	
+	$MiPDF->Multicell(0,4,$cuerpo4,0,'L',0);	
 	$MiPDF->Ln(1);
 		$MiPDF->SetFont('Helvetica','I');
 	$MiPDF->Multicell(0,4,$cuerpo44,0,'J',0);
@@ -168,7 +170,7 @@ if (strlen($alumno[5])>0) {
 }		
 if (strlen($alumno[6])>0) {
 	$MiPDF->SetFont('Helvetica','B');
-	$MiPDF->Multicell(0,4,$cuerpo5,0,'C',0);
+	$MiPDF->Multicell(0,4,$cuerpo5,0,'L',0);
 	$MiPDF->Ln(1);
 		$MiPDF->SetFont('Helvetica','I');
 	$MiPDF->Multicell(0,4,$cuerpo55,0,'J',0);
@@ -176,11 +178,11 @@ if (strlen($alumno[6])>0) {
 	}
 if (strlen($alumno[13])>0) {
 	$MiPDF->SetFont('Helvetica','B');
-	$MiPDF->Multicell(0,4,$cuerpo6,0,'C',0);
+	$MiPDF->Multicell(0,4,$cuerpo6,0,'L',0);
 	$MiPDF->Ln(1);
 		$MiPDF->SetFont('Helvetica','I');
 	$MiPDF->Multicell(0,4,$cuerpo66,0,'J',0);
-	$MiPDF->Ln(15);
+	$MiPDF->Ln(25);
 	}
 	$MiPDF->SetFont('Helvetica','',10);
 	$MiPDF->Multicell(0,4,$cuerpo2,0,'C',0);

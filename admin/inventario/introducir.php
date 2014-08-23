@@ -55,7 +55,7 @@ else{
 <?
 if ($_GET['eliminar']=="1") {
 	mysql_query("delete from inventario where id='".$_GET['id']."'");
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.
 </div></div><br />';
@@ -73,14 +73,14 @@ NULL ,  '$tip[0]',  '$lugar',  '$descripcion',  '$marca',  '$modelo',  '$serie',
 )");
 	$num = mysql_affected_rows();
 if ($num==1) {
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han registrado correctamente.
 </div></div><br />';
 }
 }
 else {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Parece que no has escrito nada en alguno de los campos obligatorios del formulario. Inténtalo de nuevo.

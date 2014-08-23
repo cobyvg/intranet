@@ -34,7 +34,7 @@ $alumno = $_POST['alumno'];
 
 if(empty($_POST['alumno']) or empty($_POST['tutor']))
 {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 						<legend>Atención:</legend>
 Debes rellenar todos los datos, y parece que te has olvidado del Alumno o del Tutor.<br>Vuelve atrás e inténtalo de nuevo.<br /><br />
@@ -62,7 +62,7 @@ $asig=explode("-",$asignaturas);
 $duplicado = mysql_query("select claveal from tareas_alumnos where claveal = '$dalumno[0]' and fecha = '$fecha'");
 if(mysql_num_rows($duplicado)>0)
 {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 						<legend>Atención:</legend>';
 			echo "Ya hay un <b>Informe de Tareas</b> activado para el alumno/a <b> $nombre $apellidos </b>para el día
@@ -76,7 +76,7 @@ else{
 
 $insertar=mysql_query("INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR,FIN)
  VALUES ('$dalumno[0]','$dalumno[1]','$dalumno[2]','$dalumno[3]','$fecha',$duracion,'$tutor',date_add('$fecha',interval $duracion2 day))") or die ("Error, no se ha podido activar el informe:".mysql_error());
-  echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+  echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>';
 			echo "El <b>Informe de tareas</b> del alumno/a <b> $nombre $apellidos </b>para el día <b>";
 echo formatea_fecha($fecha);

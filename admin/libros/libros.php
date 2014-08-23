@@ -139,7 +139,7 @@ if(is_numeric($claveal) and ($val == "B" or $val == "R" or $val == "M" or $val =
 }
 }
 if(isset($_POST['procesar']) and $_POST['procesar'] == "Enviar"){
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han actualizado correctamente en la base de datos.
 </div></div><br />';

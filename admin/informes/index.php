@@ -125,7 +125,7 @@ if($row2[6] > 1){  $repite = "SI";  }else{  $repite = "NO";  }
 			      echo "</table></center>";
 			} else
 			{
-				echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
+				echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No hay datos del Alumno durante el Curso escolar '.$c_escolar.'. ¿Has seleccionado alg&uacute;n alumno para ver su informe?

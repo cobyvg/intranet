@@ -111,7 +111,7 @@ if (isset($_POST['submit2'])) {
   $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
   	$actualizar ="UPDATE  tutoria SET observaciones = '$observaciones', causa = '$causa', accion = '$accion', fecha = '$fecha2', prohibido = '$prohibido' WHERE  id = '$id2'"; 
 	mysql_query($actualizar);
-	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido actualizado en la Base de datos.
 </div></div><br />';
@@ -120,7 +120,7 @@ El registro ha sido actualizado en la Base de datos.
 if (isset($_POST['submit3']) or $eliminar=="1") {
 $borrar ="delete from tutoria WHERE  id = '$id2'"; 
 mysql_query($borrar);
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.
 </div></div><br />';
@@ -163,17 +163,14 @@ $clave = $row[10];
 			<?php $tr = explode(" --> ",$alumno); ?>
 			<?php $al = $tr[0]; ?>
 			<?php $clave = $tr[1]; ?>
-			<?php $foto = '../../xml/fotos/'.$clave.'.jpg'; ?>
-			<?php if(file_exists($foto)): ?>
-			<img class="img-thumbnail" src="<?php echo $foto; ?>" alt="" width="92" style="position: absolute; top: -35px; right: 0; margin-right: 35px;">
 			<?php endif; ?>
-			<?php endif; ?>
+
+			<legend>Registro de datos</legend>
 			
 			<div class="well">
 				
 				<form method="post" action="">
 					<fieldset>
-						<legend>Registro de datos</legend>
 						
 						<?php if(isset($id)): ?>
 						<input type="hidden" name="id2" value="<?php echo $id; ?>">
@@ -188,7 +185,7 @@ $clave = $row[10];
 							</div>
 							FORMLISTACURSOS//-->
 							
-							<div class="col-sm-12">
+							<div class="col-sm-10">
 								<div class="form-group">
 								  <label for="unidad">Unidad</label>
 									<?php $result = mysql_query("SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
@@ -207,6 +204,19 @@ $clave = $row[10];
 									<?php endif; ?>
 								</div>
 							</div>
+							<div class="col-md-2">
+<?    
+if ($alumno) {
+   	$foto = '../../xml/fotos/'.$clave.'.jpg';
+	if (file_exists($foto)) {
+		echo "<img src='../../xml/fotos/$clave.jpg' width='120' height='145' class='img-thumbnail pull-right'  />";
+	}
+	else{
+		echo "<i class='fa fa-user fa-5x fa-fw'></i>";
+	}
+}
+?> 
+</div>
 						</div>
 						
 						<div class="row">
@@ -305,7 +315,7 @@ $clave = $row[10];
 				$nombre = $trozos[1];
 			?>
 			<div class="well">
-				<h4>Historial de intervenciones de <?php echo $nombre." ".$apellidos; ?></h4>
+				<h4>Historial de intervenciones de <?php echo $nombre." ".$apellidos; ?></h4><br>
 			<?php
 				$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, id from tutoria where claveal = '$clave' order by fecha");
 			
@@ -340,7 +350,7 @@ $clave = $row[10];
 		<!-- COLUMNA DERECHA -->
 		<div class="col-sm-5">
 			
-			<h3>Registro de intervenciones</h3>
+			<legend>Intervenciones</legend>
 			
 			<?php include("ultimos.php");?>
 			
@@ -389,5 +399,3 @@ $clave = $row[10];
 	});
 	</script>
 
-</body>
-</html>

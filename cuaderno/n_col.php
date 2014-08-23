@@ -34,7 +34,7 @@ echo '<div align="center">';
 	}
 echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";	
 if(empty($nombre)){
-	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Debes escribir al menos un Nombre para la Columna del cuaderno que estás creando.
@@ -50,7 +50,7 @@ $fecha = date('Y-m-d');
 // Si hay datos, actualizamos
 if(strlen($id) > 0){
 $sql = "UPDATE  notas_cuaderno set nombre='$nombre', texto='$texto', visible_nota='$visible_nota', Tipo = '$tipo' where id = '$id'";
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han modificado correctamente.          
 </div></div>';
@@ -63,7 +63,7 @@ else{
 $sql = "INSERT INTO  notas_cuaderno ( profesor ,  fecha ,  nombre ,  texto ,  asignatura, curso, orden, visible_nota, Tipo ) 
 VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso', '$orden', '$visible_nota', '$tipo')";
 //echo $sql;
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
+echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La nueva columna ha sido añadida a la tabla del Cuaderno.
 </div></div>';
