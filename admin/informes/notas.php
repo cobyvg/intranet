@@ -2,10 +2,9 @@
 // Conecxión con la base de datos.
    
   
- echo "<br /><h3>Evaluación del Alumno
-		</h3>";
- echo "<table class='table table-striped' style='width:auto;'>
-		<TR><th nowrap>Asignatura</th><th>1ª </th><th>2ª </th><th>Jun. </th><th>Sept. </th></tr><br>";
+ echo "<h3>Evaluaciones</h3><br>";
+ echo "<div class='table-responsive'><table class='table table-bordered table-striped table-hover'>
+		<thead><tr><th>Asignatura / Materia</th><th>1Ev.</th><th>2Ev.</th><th>Ord.</th><th>Ext.</th></tr></thead>";
 
 // Evaluaciones
 $notas1 = "select notas1, notas2, notas3, notas4, unidad from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.CLAVEAL = '$claveal'";
@@ -128,7 +127,7 @@ if($rown1[0] == "" and $rown2[0] == "" and $rown3[0] == "" and $rown4[0] == "")
 
 			}
 	}
-	echo "</table>";
+	echo "</table></div>";
 
   
 ?>

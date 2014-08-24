@@ -1,14 +1,12 @@
 <?php
-echo "<br /><h3>Informes de Tutoría</h3>";
+echo "<h3>Informes de Tutoría</h3>";
 
 $alumno=mysql_query("SELECT APELLIDOS,NOMBRE,unidad,TUTOR,CLAVEAL, F_ENTREV, ID FROM infotut_alumno WHERE CLAVEAL = '$claveal'");
 
 if (mysql_num_rows($alumno) < 1)
 { 
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Alumno no tiene Informes de Tutor&iacute;a.
-</div></div>';
+echo '<h3 class="text-muted">El alumno/a no tiene informes de tutoría.</h3>
+<br>';
 }
 else 
 {

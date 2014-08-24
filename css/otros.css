@@ -208,6 +208,28 @@ ul.dropdown-feed>li>a {
 }
 
 
+/* DESCRIPTIONS */ 
+
+dt, dd {
+	padding: 2px 0;
+}
+
+
+/* ALERTS */
+
+.alert .alert-link{
+	text-decoration:none;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.text-white,
+.text-white:hover {
+  color: #3498db;
+}
+
 
 /* LOGIN FORM */
 .form-signin {
@@ -266,17 +288,4 @@ ul.dropdown-feed>li>a {
 
 #footer {
   height: 130px;
-}
-
-.alert .alert-link{
-	text-decoration:none;
-}
-
-.text-white {
-  color: #ffffff !important;
-}
-
-.text-white,
-.text-white:hover {
-  color: #3498db;
 }

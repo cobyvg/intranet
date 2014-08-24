@@ -1,72 +1,47 @@
-<?php     
-     $SQLT = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALTAS.falta = 'F' and FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";
-     $SQLTJ = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal
-     and FALTAS.falta = 'J' and  FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";
- 
-     $resultt = mysql_query($SQLT);
-     $rowt = mysql_fetch_array($resultt);
-     $resulttj = mysql_query($SQLTJ);
-     $rowtj = mysql_fetch_array($resulttj);
-  
-    ?>
-   <?php
+<!-- MODULO DETALLADO FALTAS DE ASISTENCIA -->
 
-  // Datos del Alumno
- // print $claveal;
-  $SQL0 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.claveal = $claveal  and FALTAS.fecha >= '2005-09-15' GROUP BY FALUMNOS.apellidos";
-   
-  $result0 = mysql_query($SQL0);
-  $row0 = mysql_fetch_array($result0);
-  $numF = mysql_num_rows($result0);
-  // Justificadas
-  $SQLJ = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal 
-  and FALUMNOS.claveal = $claveal  and FALTAS.fecha >= '2005-09-15'
-  and FALTAS.falta = 'J' GROUP BY FALUMNOS.apellidos";
-
-  $resultJ = mysql_query($SQLJ);
-  $rowJ = mysql_fetch_array($resultJ);
-  $numJ = mysql_num_rows($resultJ);
-  // Sin justificar
-  $SQLF = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal 
-  and FALUMNOS.claveal = $claveal  and FALTAS.fecha >= '2005-09-15'
-  and FALTAS.falta = 'F' GROUP BY FALUMNOS.apellidos";
-
-  $resultF = mysql_query($SQLF);
-  $rowF = mysql_fetch_array($resultF);  
-
-  if ($numF > 0 or $numJ > 0)
-        {
-echo "<br /><h4>Informe completo de horas y asignaturas</h4>";
-
-  $SQL = "SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.unidad,
-  FALTAS.FECHA, FALTAS.HORA, asignaturas.abrev, FALTAS.falta FROM alma, FALTAS, asignaturas where  alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.codasi = asignaturas.codigo  and alma.claveal = $claveal  and FALTAS.fecha >= '2005-09-15' and asignaturas.abrev not like '%\_%' order BY FALTAS.FECHA, FALTAS.HORA";
- //print $SQL;
-   $result = mysql_query($SQL);
-echo "<BR><p>";
-  if ($rowsql = mysql_fetch_array($result))
-        {
-
-        $f = "";
-        $horas = "";
-                do
-                   {
-	$fechasp=explode("-",$rowsql[4]);
-	$fechasp1=$fechasp[2]."-".$fechasp[1]."-".$fechasp[0];
-                if ($fechasp1 == $f)
-                        {
-                         $horas .= $rowsql[5] . "&nbsp;" . $rowsql[6] . " (" . $rowsql[7] . ") - ";
-                        }
-                else
-                        {
-                        if ($horas <> "")
-                        printf ("" . $horas . "<br>");
-                        $horas = "<b>" . $fechasp1 . "</b>:&nbsp;&nbsp;&nbsp;" ." " . $rowsql[5] .  "&nbsp;" . "" . $rowsql[6] . " </span> " . "(" . " " . $rowsql[7] . "" . ") - ";
-                        $f = $fechasp1;
-                        }
-                        }
-                while($rowsql = mysql_fetch_array($result));
-                 	printf (" " . $horas . "<br>");
-               }
+<?php
+function tipo_falta($falta) {
+	
+	switch ($falta) {
+		case 'J' : $tipo = 'Justificada'; break;
+		case 'F' : $tipo = 'Injustificada'; break;
+		case 'I' : $tipo = 'Injustificada'; break;
+		case 'R' : $tipo = 'Retraso'; break;
+	}
+	
+	return $tipo;
 }
-echo "</p>";
-  ?>
+?>
+
+<h3>Informe detallado de faltas de asistencia</h3>
+<br>
+
+<?php
+$result = mysql_query("SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.unidad, FALTAS.fecha, FALTAS.hora, asignaturas.nombre, FALTAS.falta FROM alma, FALTAS, asignaturas where  alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.codasi = asignaturas.codigo  and alma.claveal = $claveal  and FALTAS.fecha >= '$inicio_curso' and asignaturas.abrev not like '%\_%' order BY FALTAS.fecha, FALTAS.hora"); ?>
+<?php if (mysql_num_rows($result)): ?>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-hover datatable1">
+		<thead>
+			<tr>
+				<th>Día</th>
+				<th>Hora</th>
+				<th>Asignatura</th>
+				<th>Tipo</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php while ($row = mysql_fetch_array($result)): ?>
+			<tr>
+				<td><?php echo $row['fecha']; ?></td>
+				<td><?php echo $row['hora']; ?>ª</td>
+				<td><?php echo $row['nombre']; ?></td>
+				<td><?php echo tipo_falta($row['falta']); ?></td>
+			</tr>
+			<?php endwhile; ?>
+		</tbody>
+	</table>
+</div>
+<?php endif; ?>
+
+<!-- FIN MODULO DETALLADO FALTAS DE ASISTENCIA -->
