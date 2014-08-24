@@ -66,6 +66,41 @@
 
 <div class="navbar-right">
 <ul class="nav navbar-nav">
+	
+	<?php if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE): ?>
+	<?php
+	include ("magpierss/rss_fetch.inc");
+	define ( "MAGPIE_CACHE_ON", 1 );
+	define ( "MAGPIE_CACHE_AGE", 60*60 );
+	//define('MAGPIECACHEDIR', './cache')
+	$url = "http://www.juntadeandalucia.es/educacion/www/novedades.xml";
+	$num_items = 5;
+	$rss = fetch_rss ( $url );
+	$items = array_slice ( $rss->items, 0, $num_items );
+	?>
+	<li class="visible-xs"><a
+		href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6">Consejería</a></li>
+	<li class="dropdown hidden-xs"><a href="#" class="dropdown-toggle"
+		data-toggle="dropdown" rel="tooltip" title="<?php echo $rss->channel['title']; ?>" data-placement="bottom" data-container="body"> <span class="fa fa-rss fa-fw"></span> <b class="caret"></b> </a>
+		<ul class="dropdown-menu dropdown-feed">
+			<li class="dropdown-header"><h5><?php echo $rss->channel['title']; ?></h5></li>
+			<li class="divider"></li>
+			<?php foreach ($items as $item): ?>
+			<li>
+				<a href="<?php echo $item['link']; ?>">
+					<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($item['pubdate'])); ?></em></span>
+					<?php echo $item['title']; ?>
+				</a>
+			</li>
+			<li class="divider"></li>
+			<?php endforeach; ?>
+			<li><a class="text-center"
+				href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank"><strong>Ver
+			todas las novedades <span class="fa fa-angle-right"></span></strong></a></li>
+		</ul>
+	</li>
+	<?php endif; ?>
+	
 <?php
 // Comprobamos mensajes sin leer
 $result_mensajes = mysql_query("SELECT ahora, asunto, texto, profesor, id_profe, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' AND recibidoprofe=0");
@@ -101,40 +136,6 @@ mysql_free_result($result_mensajes);
 		todos los mensajes <span class="fa fa-angle-right"></span></strong></a></li>
 	</ul>
 	</li>
-
-	<?php if (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')==TRUE): ?>
-	<?php
-	include ("magpierss/rss_fetch.inc");
-	define ( "MAGPIE_CACHE_ON", 1 );
-	define ( "MAGPIE_CACHE_AGE", 60*60 );
-	//define('MAGPIECACHEDIR', './cache')
-	$url = "http://www.juntadeandalucia.es/educacion/www/novedades.xml";
-	$num_items = 5;
-	$rss = fetch_rss ( $url );
-	$items = array_slice ( $rss->items, 0, $num_items );
-	?>
-	<li class="visible-xs"><a
-		href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6">Consejería</a></li>
-	<li class="dropdown hidden-xs"><a href="#" class="dropdown-toggle"
-		data-toggle="dropdown" rel="tooltip" title="<?php echo $rss->channel['title']; ?>" data-placement="bottom" data-container="body"> <span class="fa fa-rss fa-fw"></span> <b class="caret"></b> </a>
-		<ul class="dropdown-menu dropdown-feed">
-			<li class="dropdown-header"><h5><?php echo $rss->channel['title']; ?></h5></li>
-			<li class="divider"></li>
-			<?php foreach ($items as $item): ?>
-			<li>
-				<a href="<?php echo $item['link']; ?>">
-					<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($item['pubdate'])); ?></em></span>
-					<?php echo $item['title']; ?>
-				</a>
-			</li>
-			<li class="divider"></li>
-			<?php endforeach; ?>
-			<li><a class="text-center"
-				href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank"><strong>Ver
-			todas las novedades <span class="fa fa-angle-right"></span></strong></a></li>
-		</ul>
-	</li>
-	<?php endif; ?>
 
 	<li class="dropdown"><a href="#" class="dropdown-toggle"
 		data-toggle="dropdown"> <span class="fa fa-user fa-fw"></span> <? echo $idea; ?>
