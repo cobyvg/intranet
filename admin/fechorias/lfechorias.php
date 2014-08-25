@@ -28,6 +28,14 @@ include("menu.php");
 
 if(isset($_GET['id'])){$id = $_GET['id'];}
 ?>
+<style>
+<!--
+.table th{
+	font-size:0.8em;
+	vertical-align:top !important;
+}
+-->
+</style>
   <?php
 
   echo "<div class='container'>";
@@ -78,8 +86,9 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		echo '<div class="table-responsive"><table class="table table-striped table-bordered table-vcentered datatable">';
 		$fecha1 = (date("d").-date("m").-date("Y"));
         echo "<thead><tr>
-		<th colspan=2>ALUMNO</th>
-		<th>UNIDAD</th>
+		<th></th>
+        <th>ALUMNO</th>
+		<th nowrap>UNIDAD</th>
 		<th>FECHA</th>
 		<th>TIPO</th>
 		<th>INFORMA</th>
@@ -141,7 +150,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		echo "<tr>
 		<td>";
 		$foto="<span class='fa fa-user fa-fw fa-3x'></span>";
-		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='55' height='64'>";
+		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img src='../../xml/fotos/$claveal.jpg' width='50'>";
 		echo $foto."</td>";
 		echo "<td>$rowalumno</td>
 		<td>$rowcurso</td>
@@ -153,7 +162,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		<td>$caducada</td>
 		<td nowrap>$comentarios1 $comentarios</td><td nowrap>"; 	
 
-		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles del problema'></span></a>
+		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles del problema e historial de problemas del alumno'></span></a>
 		<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-user fa-fw fa-lg' rel='tooltip' title='Historial del alumno'></span></a>
 		";
         if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar'></span></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil fa-fw fa-lg' rel='tooltip' title='Editar'></i></A>";}

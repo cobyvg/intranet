@@ -1,7 +1,4 @@
 <?php
-$conn = mysql_connect ( $db_host, $db_user, $db_pass ) or die ( "Error en la conexión con la Base de Datos!" );
-mysql_select_db ( $db, $conn );
-
 if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
 if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
 if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
@@ -11,9 +8,9 @@ $year = (isset ( $year )) ? $year : date ( "Y", time () );
 $today = (isset ( $today )) ? $today : date ( "j", time () );
 $daylong = date ( "l", mktime ( 1, 1, 1, $month, $today, $year ) );
 $monthlong = date ( "F", mktime ( 1, 1, 1, $month, $today, $year ) );
-$dayone = date ( "w", mktime ( 1, 1, 1, $month, 1, $year ) );
+$dayone = date ( "w", mktime ( 1, 1, 1, $month, 1, $year ) )-1;
 $numdays = date ( "t", mktime ( 1, 1, 1, $month, 1, $year ) );
-$alldays = array ('D', 'L', 'M', 'X', 'J', 'V', 'S' );
+$alldays = array ('L', 'M', 'X', 'J', 'V', 'S','D', );
 $next_year = $year + 1;
 $last_year = $year - 1;
 if ($daylong == "Sunday") {
@@ -65,29 +62,38 @@ if ($today > $numdays) {
 
 //Nombre del Mes
 echo '<h4><span class="fa fa-calendar fa-fw"></span> ' . $monthlong . '</h4>';
-echo "<table class='table table-bordered table-condensed table-centered'><thead><tr>";
+echo "<table class='table table-bordered table-striped table-centered'><tr>";
 
 //Nombres de Días
 foreach ( $alldays as $value ) {
 	echo "<th>$value</th>";
 }
-echo "</tr></thead><tr>";
+echo "</tr><tr>";
 
 //Días en blanco
 for($i = 0; $i < $dayone; $i ++) {
-	echo "<td >&nbsp;</td>\n";
+	echo "<th>&nbsp;</th>\n";
 }
 
 //Días
 for($zz = 1; $zz <= $numdays; $zz ++) {
+	$extra="";
+	$dia_sem="";
 	if ($i >= 7) {
 		print ("</tr>\n<tr>\n") ;
 		$i = 0;
 	}
 	//Comprobar si hay actividad en el día
 	$result_found = 0;
-	if ($zz == $today) { //Marcar días actuales
-    echo "<td class=\"calendar-today\">$zz</td>\n";
+	
+	$dia_sem = date("w", mktime(0, 0, 0, $month, $zz, $year));
+	
+	if ($dia_sem==0 or $dia_sem==6) {
+		$extra = " text-muted";
+	}
+	elseif ($zz == $today) { 
+		//Marcar días actuales
+    echo "<td class=\"calendar-today\"><span rel='tooltip' title='Hoy'>$zz</span></td>\n";
 		$result_found = 1;
 	}
 	if ($result_found != 1) { //Buscar actividad para el día y marcarla
@@ -98,34 +104,48 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 		$sql_currentday = "$year-$month-$zz";
 		$eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
 		$eventExec = mysql_query ( $eventQuery );
-		$diari = mysql_query("SELECT id FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and profesor='".$_SESSION['profi']."'");
+		$diari = mysql_query("SELECT id, grupo, titulo FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and profesor='".$_SESSION['profi']."'");
+		$rel="";
+		$celda="";
+			
 		
 		if (mysql_num_rows($eventExec)>0) {
 			while ( $row = mysql_fetch_array ( $eventExec ) ) {
-			if (strlen ( $row ["title"] ) > 0) {
+			if (strlen ( $row ["title"] )>0 ) {
 			$bg = "calendar-orange";
-				if (mysql_num_rows($diari)>0) {
-					$bg = "calendar-blue";
-				}
-				echo "<td class=\"$bg\">$zz</td>\n";
-				$result_found = 1;
+			$rel = "Actividad en el Calendario del Centro:<br> ".$row ["title"];				
+			$celda =  "<td class=\"$bg\"><span  rel='tooltip' data-html='true' title='".$rel."'>$zz</span></td>\n";
+			$result_found = 1;
 			}
 		}	
 		}
+		elseif (mysql_num_rows($diari)>0){
+			while ($activ_diario=mysql_fetch_array($diari)) {
+				$reg_diario.="$activ_diario[1] ==> $activ_diario[2];<br>";
+			}
+				$bg = "calendar-blue";
+				$rel = "Actividad en el Calendario personal:<br> $reg_diario";
+				$celda =  "<td class=\"$bg\"><span  rel='tooltip' data-html='true' title='".$rel."'>$zz</span></td>";
+				$result_found = 1;
+		}
 		else{
 		$sql_currentday = "$year-$month-$zz";
-		$fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
+		$fest = mysql_query("select distinct fecha, nombre from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
+		$festiv = mysql_fetch_array($fest);	
+		$rel = "Día festivo o vacaciones: $festiv[1]";			
 		$festiv=mysql_fetch_array($fest);
-			echo "<td class=\"calendar-red\">$zz</td>\n";
-				$result_found = 1;
+		$celda =  "<td class=\"calendar-red\"><span  rel='tooltip' title='".$rel."'>$zz</span></td>\n";
+		$result_found = 1;
 				}	
 		}
+		echo $celda;
 		// Fin					
 	}
 	
-	if ($result_found != 1) { //Celda por defecto
-		echo "<td style=''>$zz</td>\n";
+	if ($result_found != 1) { 
+		//Celda por defecto
+		echo "<td class='$extra'>$zz</td>\n";
 	}
 	
 	$i ++;
@@ -143,6 +163,8 @@ if ($create_emptys != 0) {
 }
 
 echo "</tr></table>";
+echo "<div class='well well-sm'>";
+
 
 $mes = date ( 'm' );
 $mes8 = date ( 'm' ) + 1;
@@ -236,5 +258,7 @@ if (mysql_num_rows ( $result ) > 0) {
 	}
 	echo "</div>";
 }
+	echo "</div>";
+
 ?>
 	<a class="btn btn-primary btn-sm" href="admin/calendario/eventos/index.php"><?php echo (stristr($carg, '1') == TRUE) ? 'Añadir evento' : 'Ver calendario'; ?></a>
