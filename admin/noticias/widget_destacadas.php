@@ -9,9 +9,8 @@
 
 <div class="list-group">
 <?php while ($row = mysql_fetch_array($result)): ?>
-<?php $fecha = date_create($row['timestamp']); ?>
 	<a class="list-group-item" href="http://<?php echo $dominio; ?>/intranet/admin/noticias/noticia.php?id=<?php echo $row['id']; ?>">
-		<small class="text-muted pull-right"><?php echo date_format($fecha, 'd M') ?></small>
+		<small class="text-muted pull-right"><?php echo strftime('%e %b',strtotime($row['timestamp'])); ?></small>
 		<span class="text-info"><?php echo $row['slug']; ?></span>
 	</a>
 <?php endwhile; ?>

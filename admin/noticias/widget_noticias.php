@@ -12,8 +12,18 @@
 <?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 		
 <div style="border-bottom: 1px solid #ecf0f1; margin-bottom: 15px;">
-	<h5><a href="http://<?php echo $dominio; ?>/intranet/admin/noticias/noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['slug']; ?></a></h5>
-	<p><small>Por <?php echo $profesor; ?> &middot; Categoria: <?php echo ($row['clase']) ? $row['clase'] : 'Sin categoría'; ?></small></p>
+	
+	<h5>
+		<small class="pull-right text-muted"><?php echo strftime('%e %b',strtotime($row['timestamp'])); ?></small>
+		<a href="http://<?php echo $dominio; ?>/intranet/admin/noticias/noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['slug']; ?></a>
+	</h5>
+
+	<p>
+		<small>
+			<span class="fa fa-user fa-fw"></span> <?php echo $profesor; ?> &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+			<span class="fa fa-tag fa-fw"></span> <?php echo ($row['clase']) ? $row['clase'] : 'Sin categoría'; ?>
+		</small>
+	</p>
 </div>
 		
 <?php endwhile; ?>
