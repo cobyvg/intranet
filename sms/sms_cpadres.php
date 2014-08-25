@@ -113,11 +113,12 @@ echo ${padres.$pc};
 	<?
 	include("../menu.php");
 	?>
-<br />
-<div align=center>
+	<div class="container">
+
 <div class="page-header">
 <h2>SMS <small> Comunicación de Faltas de Asistencia a los Padres </small></h2>
 </div>
+<div class="row">
 
 	<?php
 	if ($hermanos) {
@@ -158,12 +159,12 @@ document.enviar.submit()
  enviarForm();
 </script> <?
 mysql_query("insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile2','$text','Jefatura de Estudios')");
-echo '<div align="center"><div class="alert alert-success alert-block fade in" align="left">
+echo '<div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El mensaje SMS se ha enviado correctamente para los alumnos con faltas sin justificar de'. $niv.'.<br>Una nueva acción tutorial ha sido también registrada.
-          </div></div><br />';
+          </div><br />';
 if(strlen($sin2) > '0'){
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
+	echo '<div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 <p align="left">Los siguientes alumnos no tienen teléfono móvil al que enviar comunicación de Faltas de Asistencia:</p>
@@ -182,7 +183,7 @@ if(strlen($sin2) > '0'){
 			echo "<li>$dat_al[1] $dat_al[0] => $dat_al[2]</li>";
 		}
 	}
-	echo "</ul></div></div>";
+	echo "</ul></div>";
 }
 	}
 	$fecha_inicio_0 = mysql_query("select date_add(curdate(),interval -21 day)");
@@ -195,38 +196,35 @@ if(strlen($sin2) > '0'){
 	$posterior = $fecha_fin[0];
 	$fc2 = explode("-",$posterior);
 	$fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
-	?> <br />
-
-<div class="container">
-<div class="row">
-<div class="col-sm-4 col-sm-offset-4 well well-large">
-<form enctype='multipart/form-data' action='sms_cpadres.php'
-	method='post' class="form-inline"><br />
-<table class="table" style="width: auto">
+	?> 
+<div class="col-sm-6 col-sm-offset-3">
+<div class="well well-large">
+<form enctype='multipart/form-data' action='sms_cpadres.php' method='post'><br />
 
 	<legend align="center">Selecciona el rango de fechas</legend>
 
-	<tr>
-		<td align="center"><label>Inicio</label><br />
 		<div class="form-group"  id="datetimepicker1">
-		<div class="input-group" style="display: inline;"><input
-			name="fecha12" type="text" class="input input-small"
+		<label>Inicio</label>
+		<div class="input-group" >
+		<input
+			name="fecha12" type="text" class="form-control"
 			value="<? if(empty($fecha12)){echo $fech1;} else {echo $fecha12;}?>"
-			data-date-format="DD-MM-YYYY" id="fecha12"> <span class="input-group-addon"><i
-			class="fa fa-calendar"></i></span></div>
-		</div></td>
-		<td><label>Fin</label><br />
-		<div class="form-group"  id="datetimepicker2">
-		<div class="input-group" style="display: inline;"><input
-			name="fecha22" type="text" class="input input-small"
-			value="<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>"
-			data-date-format="DD-MM-YYYY" id="fecha22"> <span class="input-group-addon"><i
+			data-date-format="DD-MM-YYYY" id="fecha12"> 
+			<span class="input-group-addon"><i
 			class="fa fa-calendar"></i></span></div>
 		</div>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" style="azimuth: 6px" align="center"><br>
+		
+		<div class="form-group"  id="datetimepicker2">
+		<label>Fin</label>
+		<div class="input-group" ><input
+			name="fecha22" type="text" class="form-control"
+			value="<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>"
+			data-date-format="DD-MM-YYYY" id="fecha22"> <span class="input-group-addon"><i
+			class="fa fa-calendar"></i></span>
+			</div>
+		</div>
+
+		<div class="form-group">
 
 			<?
 			$cursos_sen = mysql_query("select nomcurso from cursos");
@@ -237,35 +235,13 @@ if(strlen($sin2) > '0'){
 				class="btn btn-primary btn-block" />';
 			}
 			?>
-			<!--
-				<td align="center"><input name="padres2" type="submit" value='1 ESO'
-					class="btn btn-primary" /></td>
-				<td align="center"><input name="padres4" type="submit" value='3 ESO'
-					class="btn btn-primary" /></td>
-				<td align="center"><input name="padres6" type="submit"
-					value='1 Bachillerato' class="btn btn-primary" /></td>
-				<td align="center"><input name="padres8" type="submit"
-					value='Ciclos Formativos' class="btn btn-primary" /></td>
-			</tr>
-			<tr>
-				<td align="center"><input name="padres3" type="submit" value='2 ESO'
-					class="btn btn-primary" /></td>
-				<td align="center"><input name="padres5" type="submit" value='4 ESO'
-					class="btn btn-primary" /></td>
-				<td align="center"><input name="padres7" type="submit"
-					value='2 Bachillerato' class="btn btn-primary" /></td>
-				<td align="center"><input name="padres9" type="submit" value='PCPI'
-					class="btn btn-primary" /></td>
-			-->
 				<input name="hermanos" type="submit"
 				value='Hermanos' class="btn btn-primary btn-block" />
-			</td>
-	</tr>
-</table>
+			</div>
 
 </form>
 </div>
-
+</div>
 </div>
 </div>
 			<?

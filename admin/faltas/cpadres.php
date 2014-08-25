@@ -35,27 +35,30 @@ if (isset($_GET['fecha22'])) {$fecha22 = $_GET['fecha22'];}elseif (isset($_POST[
 if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['numero'])) {$numero = $_POST['numero'];}else{$numero="";}
 
 ?>
-  <div align="center"> 
+<div class="container">
 <div class="page-header">
   <h2>Faltas de Asistencia <small> Informe para los Padres</small></h2>
-  </div>
+</div>
 <br />
+
   <form enctype='multipart/form-data' action='cpadres.php' method='post'>
 <div class="row">
-  <div class="col-sm-3"></div>
-  <div class="col-sm-3">
+  <div class="col-sm-4 col-sm-offset-2">
    <div class="well well-large">        
-        <h6>Selecciona unidad o Grupo</h6><br />
-          <label> Grupo: <select  name="unidad" class="input" onChange="submit()">
+        <h4>Selecciona el Grupo</h4><br />
+          <div class="form-group">
+           <select  name="unidad" class="form-control" onChange="submit()">
             <option><? echo $unidad;?></option>
             <?
 unidad();
 ?>
-            </label>
+</select>
+            </div>
 <hr>
-            <h6>
-        Selecciona los Alumnos...</h6><br />
-          <select name="nombre[]" multiple style="height:560px;">
+            <h4>
+        Selecciona los Alumnos...</h4><br />
+                    <div class="form-group">
+          <select name="nombre[]" multiple class="form-control" style="height:560px;">
             <? 
 $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad like '$unidad%'  order by APELLIDOS asc");
   while($falumno = mysql_fetch_array($alumno))
@@ -70,7 +73,8 @@ $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS
          
          
        </div>
-<div class="col-sm-3">
+       </div>
+<div class="col-sm-4">
  
   <div class="well well-large">
           <?
@@ -78,30 +82,28 @@ $alumno = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS
   $tr = explode("-",$inicio_curso);
   $inicio = "$tr[2]-$tr[1]-$tr[0]";
 ?>
-         <h6> Rango de fechas</h6><br />      
-         <label> Inicio: 
+         <h4> Rango de fechas</h4><br />      
+         <label> Inicio: </label>
       <div class="form-group"  id="datetimepicker1">
       <div class="input-group">
-            <input name="fecha12" type="text" class="input input-small" data-date-format="DD/MM/YYYY" id="fecha12" value="<?if($fecha12){ echo $fecha12;}?>" >
+            <input name="fecha12" type="text" class="form-control" data-date-format="DD/MM/YYYY" id="fecha12" value="<?if($fecha12){ echo $fecha12;}?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </div>
-</label>
- &nbsp;&nbsp;&nbsp;&nbsp;
-<label>Fin: 
+<label>Fin: </label>
 	<div class="form-group"  id="datetimepicker2">
  <div class="input-group">
-  <input name="fecha22" type="text" class="input input-small" data-date-format="DD/MM/YYYY" id="fecha22" value="<?if($fecha22){ echo $fecha22;}?>" >
+  <input name="fecha22" type="text" class="form-control" data-date-format="DD/MM/YYYY" id="fecha22" value="<?if($fecha22){ echo $fecha22;}?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
  </div>
 </div> 
-      </label>
- <hr>
-          <h6>
+      
+                     <div class="form-group">
+          <label>
         N&uacute;mero m&iacute;nimo
-            de Faltas&nbsp;</h6><br />
-          <label><input name="numero" type="text" value="1" class="input-mini" maxlength="3" alt="Mes" /></label>
-          <br /><br />
+            de Faltas&nbsp;</label>
+            <input name="numero" type="text" value="1" class="form-control" maxlength="3" alt="Mes" />
+          </div>
           <input name="padres" type="submit" id="padres" value='Enviar Datos' class="btn btn-primary" />
        </div>
          </div>
