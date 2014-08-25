@@ -198,6 +198,7 @@ $menu = array(
 						'titulo' => 'Fotos de los profesores'
 					),
 				),
+				
 			),
 			array(
 				'href'   => '#',
@@ -217,6 +218,15 @@ $menu = array(
 						'modulo' => $mod_horario,
 					),
 				),
+			),
+			array(
+				'href'   => 'admin/cursos/calendario_escolar.php',
+				'titulo' => 'Calendario escolar '.$curso_actual,
+			),
+			array(
+				'href'   => 'admin/biblioteca/index.php',
+				'titulo' => 'Fondos de la Biblioteca',
+				'modulo'  => $mod_biblio,
 			),
 		),
 	),
@@ -471,46 +481,23 @@ $menu = array(
 		),
 	),
 	
-	
-	
 	array(
-		'menu_id' => 'otras_cosas',
-		'nombre'  => 'Otras cosas',
-		'items'   => array (
-			array(
-				'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/'.$codigo_del_centro.'/moodle/',
-				'titulo' => 'Plataforma Moodle',
-				'target' => '_blank',
-			),
-			array(
-				'href'   => 'admin/biblioteca/index.php',
-				'titulo' => 'Fondos de la Biblioteca',
-				'modulo'  => $mod_biblio,
-			),
-			array(
-				'href'   => 'admin/cursos/calendario.php',
-				'titulo' => 'Calendario escolar',
-			),
-			array(
-				'href'   => 'http://iesmonterroso.org/PC/index.htm',
-				'titulo' => 'Plan de Centro',
-				'target' => '_blank',
-			),
-		),
-	),
-	
-	array(
-		'menu_id' => 'otras_paginas',
-		'nombre'  => 'Otras páginas',
+		'menu_id' => 'paginas_interes',
+		'nombre'  => 'Páginas de interés',
 		'items'   => array (
 			array(
 				'href'   => 'http://'.$dominio,
-				'titulo' => 'Página del centro',
+				'titulo' => 'Página del '.$nombre_del_centro,
 				'target' => '_blank',
 			),
 			array(
-				'href'   => 'http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6',
-				'titulo' => 'Novedades de la Consejería',
+				'href'   => 'http://iesmonterroso.org/PC/index.htm',
+				'titulo' => 'Plan de centro',
+				'target' => '_blank',
+			),
+			array(
+				'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/'.$codigo_del_centro.'/moodle/',
+				'titulo' => 'Plataforma Moodle',
 				'target' => '_blank',
 			),
 			array(
@@ -529,8 +516,8 @@ $menu = array(
 				'target' => '_blank',
 			),
 			array(
-				'href'   => 'http://www.juntadeandalucia.es/averroes/',
-				'titulo' => 'Averroes',
+				'href'   => 'hhttp://www.juntadeandalucia.es/educacion/portalaverroes',
+				'titulo' => 'Portal Averroes',
 				'target' => '_blank',
 			)
 		),
