@@ -221,7 +221,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/cursos/calendario_escolar.php',
-				'titulo' => 'Calendario escolar '.$curso_actual,
+				'titulo' => 'Calendario escolar',
 			),
 			array(
 				'href'   => 'admin/biblioteca/index.php',
