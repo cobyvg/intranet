@@ -237,4 +237,4 @@ if (mysql_num_rows ( $result ) > 0) {
 	echo "</div>";
 }
 ?>
-	<a class="btn btn-primary btn-sm" href="admin/calendario/eventos/index.php"><?php echo (stristr($carg, '1') == TRUE) ? 'Añadir actividad' : 'Ver calendario'; ?></a>
+	<a class="btn btn-primary btn-sm" href="admin/calendario/eventos/index.php"><?php echo (stristr($carg, '1') == TRUE) ? 'Añadir evento' : 'Ver calendario'; ?></a>

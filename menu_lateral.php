@@ -456,14 +456,13 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/actividades/index.php',
-				'titulo' => 'Actividades extraescolares',
+				'titulo' => 'Añadir actividad',
 				'cargos' => array('4'),
 				'ncargos' => array('1'),
 			),
 			array(
 				'href'   => 'admin/actividades/consulta.php',
-				'titulo' => 'Actividades extraescolares',
-				'ncargos' => array('1','4'),
+				'titulo' => 'Listado de actividades',
 			),
 			array(
 				'href'   => 'admin/departamento/memoria.php',
@@ -543,11 +542,13 @@ $menu = array(
 <!-- PHONE SCREENS -->
 <div class="visible-xs">
 	<div class="row">
+		<?php if (isset($mod_faltas) && $mod_faltas): ?>
 		<div class="col-xs-3 text-center">
 			<a href="faltas/poner/index.php">
 				<span class="fa fa-clock-o fa-2x"></span><br>
 				Asistencia</a>
 		</div>
+		<?php endif; ?>
 		<div class="col-xs-3 text-center">
 			<a href="admin/fechorias/infechoria.php">
 				<span class="fa fa-gavel fa-2x"></span><br>
