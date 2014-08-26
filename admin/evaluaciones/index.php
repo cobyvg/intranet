@@ -27,14 +27,14 @@ mysql_query("CREATE TABLE IF NOT EXISTS `evaluaciones` (
 
 $evaluaciones = array(
 	'ini' => 'Evaluación Inicial (Septiembre)',
-	'in1' => 'Intermedia 1 (Octubre)',
-	'in2' => 'Intermedia 2 (Noviembre)',
+	'in1' => 'Evaluación Intermedia 1 (Octubre)',
+	'in2' => 'Evaluación Intermedia 2 (Noviembre)',
 	'1ev' => '1ª Evaluación (Diciembre)',
-	'in3' => 'Intermedia 3 (Enero)',
-	'in4' => 'Intermedia 4 (Febrero)',
+	'in3' => 'Evaluación Intermedia 3 (Enero)',
+	'in4' => 'Evaluación Intermedia 4 (Febrero)',
 	'2ev' => '2ª Evaluación (Marzo)',
-	'in5' => 'Intermedia 5 (Abril)',
-	'in6' => 'Intermedia 6 (Mayo)',
+	'in5' => 'Evaluación Intermedia 5 (Abril)',
+	'in6' => 'Evaluación Intermedia 6 (Mayo)',
 	'ord' => 'Evaluación Ordinaria (Junio)',
 	'ext' => 'Evaluación Extraordinaria (Septiembre)',
 );
