@@ -88,11 +88,11 @@ if (stristr ( $carg, '2' ) == TRUE) {
 
 				?>
 				
-				<div class="bs-module hidden-xs">
-				<?php include("ausencias.php"); ?>
+				<div class="hidden-xs">
+				<?php include("admin/ausencias/widget_ausencias.php"); ?>
 				</div>
 				
-				<div class="bs-module hidden-xs">
+				<div class="hidden-xs">
 				<?php include ("admin/noticias/widget_destacadas.php"); ?>
 				</div>
 	
@@ -103,7 +103,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 			<div class="col-sm-5">
 				
 				<?php 
-				if (stristr ( $carg, '2' ) == TRUE) {
+				if (stristr($carg, '2' )==TRUE) {
 					$_SESSION['mod_tutoria']['tutor']  = $_SESSION['tut'];
 					$_SESSION['mod_tutoria']['unidad'] = $_SESSION['s_unidad'];
 					
@@ -126,22 +126,16 @@ if (stristr ( $carg, '2' ) == TRUE) {
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-4">
 				
-				<div class="bs-module">
 				<?php include("buscar.php"); ?>
-				</div>
 				
 				<br><br>
 				
-				<div class="bs-module">
 				<?php include("admin/calendario/index.php"); ?>
-				</div>
 				
 				<br><br>
 				
 				<?php if($mod_horario and ($n_curso > 0)): ?>
-				<div class="bs-module">
-				<?php include ("horario.php"); ?>
-				</div>
+				<?php include("horario.php"); ?>
 				<?php endif; ?>
 				
 			</div><!-- /.col-sm-4 -->
@@ -152,13 +146,5 @@ if (stristr ( $carg, '2' ) == TRUE) {
 
 <?php include("pie.php"); ?>
 
-<script type="text/javascript">
-    $("[rel=tooltip]").tooltip();
-</script> 
-    <script>  
-	$(function ()  
-	{ $("#pop1").popover();  
-	});  
-	</script>
 </body>
 </html>

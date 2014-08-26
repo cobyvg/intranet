@@ -15,9 +15,6 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
-$PLUGIN_DATATABLES = 1;
-
-include("../../menu.php");
 
 if (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];}elseif (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];}else{$borrar="";}
 if (isset($_GET['submit2'])) {$submit2 = $_GET['submit2'];}elseif (isset($_POST['submit2'])) {$submit2 = $_POST['submit2'];}else{$submit2="";}
@@ -29,35 +26,41 @@ if (isset($_GET['horas'])) {$horas = $_GET['horas'];}elseif (isset($_POST['horas
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['pra'])) {$pra = $_GET['pra'];}elseif (isset($_POST['pra'])) {$pra = $_POST['pra'];}else{$pra="";}
 
+
+
+$result = mysql_query("SHOW COLUMNS FROM ausencias"); 
+
+$fieldnames=array(); 
+if (mysql_num_rows($result) > 0) { 
+	while ($row = mysql_fetch_assoc($result)) { 
+	 $fieldnames[] = $row['Field']; 
+	} 
+  if ($fieldnames[7] != "archivo") {
+  	mysql_query("ALTER TABLE  `ausencias` ADD  `archivo` VARCHAR( 186 ) NOT NULL");
+  } 
+} 
+
+
+$PLUGIN_DATATABLES = 1;
+
+include("../../menu.php");
 ?>
-<br />
-<div align=center>
-<div class="page-header">
-<h2>Ausencias del profesorado <small> Registro de bajas <? echo $profesor;?></small></h2>
-</div>
 
-<?
-     $result = mysql_query("SHOW COLUMNS FROM ausencias"); 
-   
-      $fieldnames=array(); 
-      if (mysql_num_rows($result) > 0) { 
-        while ($row = mysql_fetch_assoc($result)) { 
-          $fieldnames[] = $row['Field']; 
-        } 
-           if ($fieldnames[7] == "archivo") {  }
-           else{
-           	mysql_query("ALTER TABLE  `ausencias` ADD  `archivo` VARCHAR( 186 ) NOT NULL");
-           } 
-      } 
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Ausencias del profesorado <small>Registro de ausencias <?php echo (isset($profesor)) ? $profesor : ''; ?></small></h2>
+	</div>
 
-      
+<?php 
 if ($borrar == '1') {
 	$del = mysql_query("delete from ausencias where id = '$id'");
 	echo '
-<div align="center"><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-Los datos se han borrado correctamente.
-          </div></div>';
+<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	Los datos se han borrado correctamente.
+</div>';
 }
 if ($submit2) {
 	// Cambiamos fecha
@@ -71,118 +74,144 @@ if ($submit2) {
 		if (mysql_num_rows($ya) > '0') {
 			$ya_hay = mysql_fetch_array($ya);
 			$actualiza = mysql_query("update ausencias set tareas = '$tareas', horas = '$horas' where id = '$ya_hay[0]'");
-			echo '<div align="center"><div class="alert alert-success alert-block fade in">
+			echo '<div align="center"><div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han actualizado correctamente.
           </div></div>';			
 		}
 			else{
-			if ($HTTP_POST_FILES['userfile']['name']<>''){
-				$nombre_archivo = $HTTP_POST_FILES['userfile']['name'];
-				$tipo_archivo = $HTTP_POST_FILES['userfile']['type'];
-				$tamano_archivo = $HTTP_POST_FILES['userfile']['size'];
+			if ($_FILES['userfile']['name']<>''){
+				$nombre_archivo = $_FILES['userfile']['name'];
+				$tipo_archivo = $_FILES['userfile']['type'];
+				$tamano_archivo = $_FILES['userfile']['size'];
 				#esta es la extension
-				if (move_uploaded_file($HTTP_POST_FILES['userfile']['tmp_name'], "./archivos/".$nombre_archivo)){}
+				if (move_uploaded_file($_FILES['userfile']['tmp_name'], "./archivos/".$nombre_archivo)){}
 				else{
-					echo '<div align="center"><div class="alert alert-success alert-block fade in">
+					echo '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<strong>Atención:</strong><br />Ha ocurrido un error al subir el aechivo. Busca ayuda.
-          </div></div>';
+          </div>';
 				}
 				}
 				$inserta = mysql_query("insert into ausencias VALUES ('', '$profesor', '$inicio1', '$fin1', '$horas', '$tareas', NOW(), '$nombre_archivo')");
-				echo '<div align="center"><div class="alert alert-success alert-block fade in">
+				echo '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han registrado correctamente.
-          </div></div>';		
+          </div>';		
 			}
 			
 	}
 	else{
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
+		echo '<div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No se pueden procesar los datos. Has dejado campos vacíos en el formulario que es necesario rellenar. Vuelve atrás e inténtalo de nuevo.
-          </div></div>';
+          </div>';
 
 		exit();
 	}
 }
 ?>
-<div class='container'>
-<div class="row">
-<div class="col-sm-5">
-<div align='center'>
-<legend>Registro de Bajas</legend>
-</div>
-<br />
-<div class="well well-large">
-<form enctype='multipart/form-data' action='index.php' method='post'
-	name='f1' class="form-vertical">
-<div align='left'><label>Profesor:<br />
-<?
-if(stristr($_SESSION['cargo'],'1') == TRUE)
-{
-	echo "<SELECT class='input-xlarge' name='profesor' id='idprofe'>";
-	if ($profesor) {
-		echo "<OPTION>$profesor</OPTION>";
-	}
-	else{
-		echo "<OPTION></OPTION>";
-	}
-	$profe = mysql_query("SELECT distinct profesor FROM profesores order by profesor asc");
-	while($filaprofe = mysql_fetch_array($profe)) {
-		echo "<OPTION id='idopcion'>$filaprofe[0]</OPTION>";
-	}
-	echo "</select>";
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+		
+		<div class="col-sm-5">
+			
+			<h3>Registro de ausencias</h3>
+			
+			<div class="well well-large">
 
-	$fecha = (date("d").-date("m").-date("Y"));
-	$comienzo=explode("-",$inicio_curso);
-	$comienzo_curso=$comienzo[2]."-".$comienzo[1]."-".$comienzo[0];
-	$fecha2 = date("m");
-	?> </select> </label> <?
-}
-else{
-	$profesor = $_SESSION['profi'];
-	echo "<input name='profesor' value='$profesor' readonly type='text' class='input-xlarge' class='disabled' />";
-	echo "</label>";
-}
-?>
-<hr>
-<label>Comienzo de la ausencia<br />
-<div class="input-group" style="display: inline;" id="datimepicker1"><input name="inicio"
-	type="text" class="input input-small"
-	<? if($inicio){echo "value=$inicio";}?> data-date-format="DD-MM-YYYY"
-	id="inicio"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div>
-</label> 
-<br />
-<label>Final de la ausencia<br />
-<div class="input-group" style="display: inline;" id="datimepicker2"><input name="fin"
-	type="text" class="input input-small" <? if($fin){echo "value=$fin";}?>
-	data-date-format="DD-MM-YYYY" id="fin"> <span class="input-group-addon"><i
-	class="fa fa-calendar"></i></span></div>
-</label>
-<hr>
-<label>Horas sueltas <i class="fa fa-question-circle"
-	style="margin-left: 2px;" rel='tooltip'
-	title='Escribe las horas concretas en las que vas a estar ausente y una detrás de otra. De este modo, si escribes "456" quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día.'></i><br />
-<input type="text" name="horas" value="" class="input-small" /> </label>
-<label>Tareas para los alumnos<br />
-<textarea name='tareas'style="width:95%; height:100px"></textarea>
-</label>
-<hr>
-<label class="file">Adjuntar archivo con tareas<br />
-<input name="userfile" type="file"> </label>
-<p class="block-help text-warning">* Sólo se puede adjuntar un archivo. Si queréis adjuntar múltiples archivos, debéis comprimirlos en uno sólo. El tamaño máximo permitido es de <?php echo ini_get('post_max_size'); ?>b.</p>
-<hr>
-<button name="submit2" type="submit" id="submit2"
-	value='Registrar datos' class="btn btn-primary">Registrar datos</button>
-</div>
+			<form method="post" action="" enctype="multipart/form-data" name="f1">
+				
+				<div class="form-group">
+					<label for="profesor">Profesor/a</label>
+					<?
+					if(stristr($_SESSION['cargo'],'1') == TRUE)
+					{
+						echo "<select class='form-control' id='profesor' name='profesor'>";
+						if ($profesor) {
+							echo "<option>$profesor</option>";
+						}
+						else{
+							echo "<option></option>";
+						}
+						$profe = mysql_query("SELECT distinct profesor FROM profesores order by profesor asc");
+						while($filaprofe = mysql_fetch_array($profe)) {
+							echo "<option>$filaprofe[0]</option>";
+						}
+						echo "</select>";
+					
+						$fecha = (date("d").-date("m").-date("Y"));
+						$comienzo=explode("-",$inicio_curso);
+						$comienzo_curso=$comienzo[2]."-".$comienzo[1]."-".$comienzo[0];
+						$fecha2 = date("m");
+						?> </select> <?
+					}
+					else{
+						$profesor = $_SESSION['profi'];
+						echo '<input type="text" class="form-control" name="profesor" value="'.$profesor.'" readonly>';
+					}
+					?>
+				</div>
+				
+				<div class="row">
+				
+					<div class="col-sm-6">
+					
+						<div class="form-group" id="datimepicker1">
+							<label for="inicio">Inicio de la ausencia</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="inicio" name="inicio" value="<? echo (isset($inicio) && $inicio) ? $inicio : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
+								<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+							</div>
+						</div>
+					
+					</div>
+					
+					<div class="col-sm-6">
+					
+						<div class="form-group" id="datimepicker2">
+							<label for="inicio">Fin de la ausencia</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="fin" name="fin" value="<? echo (isset($fin) && $fin) ? $fin : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
+								<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+							</div>
+						</div>
+					
+					</div>
+					
+				</div>
+				
+				<div class="form-group">
+					<label for="horas">Horas sueltas <span class="fa fa-question-circle fa-fw" rel="tooltip" title="Escribe las horas concretas en las que vas a estar ausente y una detrás de otra. De este modo, si escribes '456' quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día."></span></label>
+					<input type="text" class="form-control" id="horas" name="horas" value="<? echo (isset($horas) && $horas) ? $horas : ''; ?>">
+				</div>
+				
+				<div class="form-group">
+					<label for="tareas">Tareas para los alumnos</label>
+					<textarea class="form-control" id="tareas" name="tareas" rows="6"></textarea>
+				</div>
+				
+				<div class="form-group">
+					<label for="userfile">Adjuntar archivo con tareas</label>
+					<input type="file" id="userfile" name="userfile">
+					<br>
+					<p class="block-help">Para adjuntar múltiples archivos es necesario comprimirlos en uno solo. El tamaño máximo permitido es de <?php echo ini_get('post_max_size'); ?>b.</p>
+				</div>
 
-</div>
-</div>
-<div class="col-sm-7"><?
+				<button type="submit" class="btn btn-primary" name="submit2">Registrar</button>
+				<button type="reset" class="btn btn-default">Cancelar</button>
+				
+			</form>
+			
+			</div>
+
+		</div>
+		
+		
+		<div class="col-sm-7">
+		<?
 if ($profesor) {
 	echo "<div align='center'><legend>Bajas del Profesor en este Curso.</legend></div><br />";
 	echo "<table class='table table-striped' style='width:100%;' align='center'>
@@ -212,7 +241,7 @@ if ($profesor) {
 
 		if(stristr($_SESSION['cargo'],'1') == TRUE)
 		{
-			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar baja'  /> </i> </a></td>";
+			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' title='Borrar baja'  /> </i> </a></td>";
 		}
 		echo "</tr>";
 	}
@@ -220,89 +249,151 @@ if ($profesor) {
 }
 ?>
 </form>
-<?
-if (empty($pra)) {}else{
-	echo '<a name="aqui" id="aqui"></a>';
-	$pr_trozos=explode(", ",$pra);
-	echo "
-<div align='center'><legend>Bajas del Profesor/a $pr_trozos[1] $pr_trozos[0]</legend></div><br />";
-	echo "<table class='table table-striped' style='width:100%;' align='center'>";
-	echo "<thead><tr>
-		<th>Profesor</th>
-		<th>Inicio</th>
-		<th>Fin</th>
-		<th>Horas</th>
-		<th>Tareas</th>
-		<th></th>";
-	echo "</tr></thead><tbody>";
-	// Consulta de datos del alumno.
-	$result = mysql_query ( "select inicio, fin, tareas, id, profesor, horas from ausencias  where profesor = '$pra' order by fin asc" );
 
-	while ( $row = mysql_fetch_array ( $result ) ) {
-		$tr='';
-		if ($row[5] == '0') {$horas2 = '';}else{$horas2 = $row[5];}
-		if (strlen($row[2]) > '0') {
-			$tr = 'Sí';
-		}
-		echo "<tr>
-	<td nowrap><a href='#'>$row[4]</a></td>
-	<td nowrap>$row[0]</td>
-	<td>$row[1]</td>
-	<td>$horas2</td>
-	<td>$tr</td>";		
-		if(stristr($_SESSION['cargo'],'1') == TRUE)
-		{
-			echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' /> </i> </a></td>";
-		}
-		echo "</tr>";
-	}
-	echo "</tbody></table><hr><br />";
-}
-?> <?
-echo "<div align='center'><legend>Últimas Bajas de Profesores</legend></div><br />";
-echo "<table class='table table-striped datatable' style='width:100%;' align='center'>";
-echo "<thead><tr>
-		<th>Profesor</td>
-		<th>Inicio</td>
-		<th>Fin</td>
-		<th>Horas</td>
-		<th>Tareas</td>";
-if(stristr($_SESSION['cargo'],'1') == TRUE)
-{
-	echo "<th></th>";
-}
-echo "</tr></thead><tbody>";
-// Consulta de datos del profesor.
-$result = mysql_query ( "select  inicio, fin, tareas, id, profesor, horas from ausencias order by fin desc limit 50" );
+			<h3>Historial de ausencias</h3>
+			
+			<div class="table-responsive">
+				<table class="table table-striped table-hover datatable">
+					<thead>
+						<tr>
+							<th>Profesor</th>
+							<th>Inicio</th>
+							<th>Fin</th>
+							<th>Horas</th>
+							<th>Tareas</th>
+							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+							<th>&nbsp;</th>
+							<?php endif; ?>
+						</tr>
+					</thead>
+					<tbody>
+						<?php $result = mysql_query("SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias ORDER BY fin DESC LIMIT 50"); ?>
+						<?php while ($row = mysql_fetch_array($result)): ?>
+						<tr>
+							<td nowrap><a href='index.php?pra=<?php echo $row['profesor']; ?>#history'><?php echo $row['profesor']; ?></a></td>
+							<td nowrap><?php echo $row['inicio']; ?></td>
+							<td nowrap><?php echo $row['fin']; ?></td>
+							<td><?php echo ($row['horas'] != '0') ? $row['horas'] : ''; ?></td>
+							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?></td>
+							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+							<td>
+								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
+									<span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar"></span>
+								</a>
+							</td>
+							<?php endif; ?>
+						</tr>
+						<?php endwhile; ?>
+					</tbody>
+				</table>
+			</div>
 
-while ( $row = mysql_fetch_array ( $result ) ) {
-	$tr='';
-	if ($row[5] == '0') {$horas2 = '';}else{$horas2 = $row[5];}
-	if (strlen($row[2]) > '0') {
-		$tr = 'Sí';
-	}
-	echo "<tr>
-	<td nowrap><a href='index.php?pra=$row[4]#aqui'>$row[4]</a></td>
-	<td nowrap>$row[0]</td>
-	<td nowrap>$row[1]</td>
-	<td width='55'>$horas2</td>
-	<td width='60'>$tr</td>";		
-	if(stristr($_SESSION['cargo'],'1') == TRUE)
-	{
-		echo "<td><a href='index.php?borrar=1&id=$row[3]&profesor=$profesor' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar'  /> </i> </a></td>";
-	}
-	echo "</tr>";
-}
-echo "</tbody></table>";
+		</div><!-- /.col-sm-7 -->
+		
+	</div><!-- /.row -->
+	
+	
+	<?php if (isset($profesor) && !empty($profesor)): ?>
+	<div class="row">
+		
+		<div class="col-sm-12">
+			<?php $exp_profesor = explode(", ", $profesor); ?>
+			<?php $nomprof = $exp_profesor[1].' '.$exp_profesor[0]; ?>
+			
+			<a name="history"></a>
+			<h3>Historial de ausencias de <?php echo $nomprof; ?></h3>
+			
+			<div class="table-responsive">
+				<table class="table table-striped table-hover datatable">
+					<thead>
+						<tr>
+							<th>Inicio</th>
+							<th>Fin</th>
+							<th>Horas</th>
+							<th>Tareas</th>
+							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+							<th>&nbsp;</th>
+							<?php endif; ?>
+						</tr>
+					</thead>
+					<tbody>
+						<?php $result = mysql_query("SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias WHERE profesor = '$profesor' ORDER BY fin ASC"); ?>
+						<?php while ($row = mysql_fetch_array($result)): ?>
+						<tr>
+							<td nowrap><?php echo $row['inicio']; ?></td>
+							<td nowrap><?php echo $row['fin']; ?></td>
+							<td><?php echo ($row['horas'] != '0') ? $row['horas'] : ''; ?></td>
+							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?></td>
+							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+							<td>
+								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
+									<span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar"></span>
+								</a>
+							</td>
+							<?php endif; ?>
+						</tr>
+						<?php endwhile; ?>
+					</tbody>
+				</table>
+			</div>
 
-echo "<br /><br /><div align='center'><p class='help-block' style='width:60%;text-align:left'>* Si quieres ver las ausencias de un profesor a lo largo del Curso Escolar, haz click sobre su nombre y sus ausencias aparecerán en una tabla más abajo.</p></div>"
-;	?></div>
-</div>
-</div>
+		</div><!-- /.col-sm-12 -->
+				
+	</div><!-- /.row -->
+	<?php endif; ?>
+	
+	<?php if (isset($pra) && !empty($pra)): ?>
+	<div class="row">
+		
+		<div class="col-sm-12">
+			<?php $exp_profesor = explode(", ", $pra); ?>
+			<?php $nomprof = $exp_profesor[1].' '.$exp_profesor[0]; ?>
+			
+			<a name="history"></a>
+			<h3>Historial de ausencias de <?php echo $nomprof; ?></h3>
+			
+			<div class="table-responsive">
+				<table class="table table-striped table-hover datatable">
+					<thead>
+						<tr>
+							<th>Inicio</th>
+							<th>Fin</th>
+							<th>Horas</th>
+							<th>Tareas</th>
+							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+							<th>&nbsp;</th>
+							<?php endif; ?>
+						</tr>
+					</thead>
+					<tbody>
+						<?php $result = mysql_query("SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias WHERE profesor = '$pra' ORDER BY fin ASC"); ?>
+						<?php while ($row = mysql_fetch_array($result)): ?>
+						<tr>
+							<td nowrap><?php echo $row['inicio']; ?></td>
+							<td nowrap><?php echo $row['fin']; ?></td>
+							<td><?php echo ($row['horas'] != '0') ? $row['horas'] : ''; ?></td>
+							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?></td>
+							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+							<td>
+								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
+									<span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar"></span>
+								</a>
+							</td>
+							<?php endif; ?>
+						</tr>
+						<?php endwhile; ?>
+					</tbody>
+				</table>
+			</div>
 
-<?php
-include("../../pie.php");
-?> 
+		</div><!-- /.col-sm-12 -->
+				
+	</div><!-- /.row -->
+	<?php endif; ?>
+	
+</div><!-- /.container -->
+
+<?php include("../../pie.php"); ?> 
 
 	<script>  
 	$(function ()  
@@ -347,5 +438,6 @@ include("../../pie.php");
 	  	});
 	});
 	</script>
+	
 </body>
 </html>
