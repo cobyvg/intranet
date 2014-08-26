@@ -162,12 +162,23 @@ include("menu.php");
 								
 									<div class="form-group">
 										<label for="curso">Unidad</label>
-										<?php $result = mysql_query("SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
+										
 										<select class="form-control" id="curso" name="curso" onchange="submit()">
 											<option value=""></option>
+											<optgroup label="Unidades donde imparto clase">
+												<?php $result = mysql_query("SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
+												<?php while ($row = mysql_fetch_array($result)): ?>
+												<option value="<?php echo $row['a_grupo'].'-->'.$row['c_asig']; ?>" <?php echo (isset($form_curso) && $form_curso == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : (isset($curso) && isset($asignatura) && $curso.'-->'.$asignatura == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : ''; ?>><?php echo $row['a_grupo']; ?> - <?php echo $row['asig']; ?></option>
+												<?php endwhile; ?>
+											</optgroup>
+											<?php if (strstr($_SESSION['cargo'], '1') == true): ?>
+											<optgroup label="Todas las unidades">
+											<?php $result = mysql_query("SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
 											<?php while ($row = mysql_fetch_array($result)): ?>
 											<option value="<?php echo $row['a_grupo'].'-->'.$row['c_asig']; ?>" <?php echo (isset($form_curso) && $form_curso == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : (isset($curso) && isset($asignatura) && $curso.'-->'.$asignatura == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : ''; ?>><?php echo $row['a_grupo']; ?> - <?php echo $row['asig']; ?></option>
 											<?php endwhile; ?>
+											</optgroup>
+											<?php endif; ?>
 										</select>
 									</div>
 									
