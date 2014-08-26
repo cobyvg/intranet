@@ -423,6 +423,11 @@ $menu = array(
 				),
 			),
 			array(
+				'href'   => 'admin/evaluaciones/index.php',
+				'titulo' => 'Sesiones de evaluación',
+				'ncargos' => array('6', '7'),
+			),
+			array(
 				'href'   => 'admin/tutoria/index.php',
 				'titulo' => 'Tutorías',
 				'cargos' => array('1'),

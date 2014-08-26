@@ -82,7 +82,12 @@ include('../../menu.php');
 			<h3 class="text-info"><?php echo $apellido.', '.$nombrepil; ?></h3>
 		</div>
 		
+		<?php $result = mysql_query("SELECT correo FROM control WHERE claveal='$claveal' LIMIT 1"); ?>
+		<?php $row2 = mysql_fetch_array($result); ?>
+		<?php mysql_free_result($result); ?>
+		
 		<?php $result = mysql_query("select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, unidad, numeroexpediente from alma where alma.claveal= '$claveal' order BY alma.apellidos"); ?>
+		
 		<?php if ($row = mysql_fetch_array($result)): ?>
 		<!-- SCAFFOLDING -->
 		<div class="well">
@@ -123,7 +128,7 @@ include('../../menu.php');
 						  <dt>Teléfono urgencias</dt>
 						  <dd><?php echo ($row['telefonourgencia'] != "") ? '<a href="tel:'.$row['telefonourgencia'].'">'.$row['telefonourgencia'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Correo electrónico</dt>
-						  <dd><?php echo ($row['correo'] != "") ? '<a href="mailto:'.$row['correo'].'">'.$row['correo'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dd><?php echo ($row['correo'] != "") ? '<a href="mailto:'.$row['correo'].'</a>"' : ($row2['correo'] != "") ? '<a href="mailto:'.$row2['correo'].'</a>"' : '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Representante legal</dt>
 						  <dd><?php echo ($row['padre'] != "") ? $row['padre']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						</dl>
