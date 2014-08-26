@@ -287,8 +287,8 @@ $menu = array(
 				'items' => array(
 					array(
 						'href'   => 'faltas/poner2/index.php',
-						'titulo' => 'Poner faltas',
-						'cargos' => array('1'),
+						'titulo' => 'Tutoría de Faltas',
+						'cargos' => array('1','3'),
 					),
 					array(
 						'href'   => 'faltas/index.php',
@@ -536,7 +536,7 @@ $menu = array(
 	<div class="row">
 		<?php if (isset($mod_faltas) && $mod_faltas): ?>
 		<div class="col-xs-3 text-center">
-			<a href="faltas/poner/index.php">
+			<a href="faltas/index.php">
 				<span class="fa fa-clock-o fa-2x"></span><br>
 				Asistencia</a>
 		</div>

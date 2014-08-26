@@ -1,3 +1,15 @@
+<?php
+if (isset($_GET['ancho']) AND isset($_GET['alto'])) {
+  $ancho =  $_GET['ancho'];
+  $alto = $_GET['alto'];
+} else {
+  echo "<script language='javascript'>\n";
+  echo "  location.href=\"${_SERVER['SCRIPT_NAME']}?${_SERVER['QUERY_STRING']}"
+            . "&ancho=\" + screen.width + \"&alto=\" + screen.height;\n";
+  echo "</script>\n";
+  exit();
+}
+?>
 <?
 session_start();
 include("../config.php");
@@ -85,6 +97,7 @@ if ($mod_faltas) {
 </div>
 <div class="row">
 <?
+// echo $ancho;
 // Unir todos los grupos para luego comprobar que no hay duplicaciones (4E-E,4E-Dd)
 //$n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
 $n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
@@ -104,7 +117,7 @@ if($mensaje){
 
 $t_grupos = $curs;
 if(!($t_grupos=="")){
-	echo "<p class='lead' align='center'><span style='color:#9d261d'>Fecha</span>: $hoy_actual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Día</span>: $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Hora:</span> $hora_dia";
+	echo "<p class='lead' align='center'><span style='color:#9d261d'>Fecha</span>: $hoy_actual $hoy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Día</span>: $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Hora:</span> $hora_dia";
 	if(!($hora_dia == "Fuera del Horario Escolar")){echo "ª hora";}
 	echo "</p>";
 }
@@ -189,7 +202,12 @@ if ($result) {
 	if ($row[5] == "") {}
 	else{
 		$pares = $n%2;
+		if($ancho < '1024'){
+			echo "<tr>";
+		}
+		else{
 		if ($pares=="") {}else{	echo "<tr>";}
+		}
 		
 		
 		$foto="";
@@ -208,10 +226,16 @@ if ($result) {
 	if ($falta_dia[0] == "F") {
 		$chk = "checked";
 	}
-	?> <input name="falta_<? echo $row[1]."_".$curso;?>" type="checkbox"
+	?> 
+	<input name="falta_<? echo $row[1]."_".$curso;?>" type="checkbox"
 	<? echo $chk; ?> value="F" /> <?
 	echo "</td>";
-	if ($pares=="") {echo "</tr>";}
+	if($ancho < '1024'){
+			echo "</tr>";
+		}
+		else{
+		if ($pares=="") {echo "</tr>";}
+		}
 }
 }
 ?>

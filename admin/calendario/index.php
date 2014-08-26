@@ -62,13 +62,13 @@ if ($today > $numdays) {
 
 //Nombre del Mes
 echo '<h4><span class="fa fa-calendar fa-fw"></span> ' . $monthlong . '</h4>';
-echo "<table class='table table-bordered table-striped table-centered'><tr>";
+echo "<table class='table table-bordered table-striped table-centered'><thead><tr>";
 
 //Nombres de Días
 foreach ( $alldays as $value ) {
 	echo "<th>$value</th>";
 }
-echo "</tr><tr>";
+echo "</tr></thead><tbody><tr>";
 
 //Días en blanco
 for($i = 0; $i < $dayone; $i ++) {
