@@ -472,7 +472,8 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 		?></div>
 		<div class="well" align="left"
 			style="min-width: 250px;">
-			<!-- Button trigger modal --> <a href="#" class="pull-right"
+			<!-- Button trigger modal --> 
+			<a href="#" class="pull-right"
 			data-toggle="modal" data-target="#myModal1"> <span
 			class="fa fa-border fa-question-circle fa-lg"></span> </a> <!-- Modal -->
 		<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"

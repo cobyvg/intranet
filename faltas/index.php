@@ -1,15 +1,3 @@
-<?php
-if (isset($_GET['ancho']) AND isset($_GET['alto'])) {
-  $ancho =  $_GET['ancho'];
-  $alto = $_GET['alto'];
-} else {
-  echo "<script language='javascript'>\n";
-  echo "  location.href=\"${_SERVER['SCRIPT_NAME']}?${_SERVER['QUERY_STRING']}"
-            . "&ancho=\" + screen.width + \"&alto=\" + screen.height;\n";
-  echo "</script>\n";
-  exit();
-}
-?>
 <?
 session_start();
 include("../config.php");
@@ -67,6 +55,7 @@ else {
 		else{ $hora_dia = "Fuera del Horario Escolar";}
 	}
 		$ndia = date("w");// nº de día de la semana (1,2, etc.)
+		$hoy_actual = "$diames-$nmes-$nano";
 }
 	if($ndia == "1"){$nom_dia = "Lunes";}
 	if($ndia == "2"){$nom_dia = "Martes";}
@@ -97,7 +86,6 @@ if ($mod_faltas) {
 </div>
 <div class="row">
 <?
-// echo $ancho;
 // Unir todos los grupos para luego comprobar que no hay duplicaciones (4E-E,4E-Dd)
 //$n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
 $n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
@@ -117,12 +105,12 @@ if($mensaje){
 
 $t_grupos = $curs;
 if(!($t_grupos=="")){
-	echo "<p class='lead' align='center'><span style='color:#9d261d'>Fecha</span>: $hoy_actual $hoy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Día</span>: $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Hora:</span> $hora_dia";
+	echo "<p class='lead' align='center'><span style='color:#9d261d'>Fecha</span>: $hoy_actual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Día</span>: $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Hora:</span> $hora_dia";
 	if(!($hora_dia == "Fuera del Horario Escolar")){echo "ª hora";}
 	echo "</p>";
 }
 ?>
-<div class="col-md-7">
+<div class="col-md-4 col-md-offset-2">
 <div align="left">
 	<?
 
@@ -202,14 +190,9 @@ if ($result) {
 	if ($row[5] == "") {}
 	else{
 		$pares = $n%2;
-		if($ancho < '1024'){
-			echo "<tr>";
-		}
-		else{
-		if ($pares=="") {}else{	echo "<tr>";}
-		}
+		//if ($pares=="") {}else{	echo "<tr>";}
 		
-		
+		echo "<tr>";
 		$foto="";
 		$foto = "<img src='../xml/fotos/$row[0].jpg' width='50' height='60' class=''  />";
 		echo "<td>".$foto."</td>";
@@ -230,12 +213,8 @@ if ($result) {
 	<input name="falta_<? echo $row[1]."_".$curso;?>" type="checkbox"
 	<? echo $chk; ?> value="F" /> <?
 	echo "</td>";
-	if($ancho < '1024'){
-			echo "</tr>";
-		}
-		else{
-		if ($pares=="") {echo "</tr>";}
-		}
+	//if ($pares=="") {echo "</tr>";}
+	echo "</tr>";
 }
 }
 ?>
@@ -246,7 +225,7 @@ todos</a> <a href="javascript:deseleccionar_todo()"
 	class="btn btn-warning">Desmarcar todos</a></div>
 </td></tr>
 <?
-echo '</table><br />';
+echo '</table>';
 }
 echo '<input name=nprofe type=hidden value="';
 echo $filaprof0[0];
@@ -286,7 +265,7 @@ if(mysql_num_rows($gr)>0 or $diversificacion==1){echo '<button name="enviar" typ
 </FORM>
 </div>
 </div>
-<div class="col-md-5">
+<div class="col-md-4">
 <br>
 <div class="well">
 <legend>Selecciona Hora y Día...</legend>
@@ -313,7 +292,6 @@ for ($i = 1; $i < 7; $i++) {
 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
  </div> 
  </div>
-<hr>
 <button type="submit" class="btn btn-primary btn-block" name="submit">Enviar</button>
 </form>
 </div>

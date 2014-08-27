@@ -110,7 +110,7 @@ $n = count($asignaturas1);
 $faltas14 = rtrim($faltas13, "."); 
 	  
     echo " <div class='form-group col-md-12'> 
-    <INPUT type=text name=alumnos".$z.$n_hora.$curso_con." value='$faltas14' class='form-control'>
+    <INPUT type=text name=alumnos".$z.$n_hora.$curso_con." value='$faltas14' class='form-control input-sm'>
     </div>";
     echo "<INPUT type=hidden name=unidad".$z.$n_hora.$curso_con." value=$curso_con>";
     echo "<INPUT type=hidden name=asignatura".$z.$n_hora.$curso_con." value=$rowasignaturas1[0]>";

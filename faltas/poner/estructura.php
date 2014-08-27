@@ -1,13 +1,5 @@
-
-<div aligna="center">
-<div class="page-header">
-  <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
-</div>
-<div class="container-fluid">
-<div class="row">
 <div class="col-sm-4">
-<h2 align="center"><small class="text-success"> <? echo $profesor;?> &nbsp;&nbsp;</small></h2><hr />
-<div class="well-transparent well-large">
+<legend><small> <? eliminar_mayusculas($profesor); echo $profesor;?> &nbsp;&nbsp;</small></legend><br />
 <?
   if (isset($_SESSION['todo_profe'])) {
 		  $trozos = explode("_ ",$_SESSION['todo_profe']) ;
@@ -61,14 +53,14 @@ profesor();
                   include("cal.php"); 
                   ?>                   
 </div>
-</div>
 <div class="col-sm-8">
+
 <?          
             echo "<input type=hidden name=today value= \"$today\">";
 			echo "<input type=hidden name=year value= \"$year\">";
 			echo "<input type=hidden name=month value= \"$month\">";
-			echo "<h2 align='center'><small class='text-success'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</small></h2><hr />";
-            include("profes.php"); 
+echo "<legend align='center'><small class='text-uppercase'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</small></legend><br />";
+			            include("profes.php"); 
             ?>
              <div align="center"> 
     <br /><input type="submit" name="enviar" class="btn btn-primary" value="Registrar las faltas de asistencia">
