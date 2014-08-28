@@ -78,27 +78,39 @@ $p[$i]=$memoria[$i+1];
 if ($memoria[1]!=''){$profe=$memoria[1];}
 
 $html .= '<html><body>';
-$html.='<script type="text/php"> 
- if ( isset($pdf) ) {
-
-          $font = Font_Metrics::get_font("helvetica", "bold");
-          $pdf->page_text(542, 775, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
-
-        }
-</script> '; 
-$html.=  '<div style=" font: 8pt Helvetica, Arial, sans-serif; width: 720px; align: center;">';
+$html.='<style type="text/css">
+body {
+	font-size: 10pt;
+}
+#footer {
+	position: fixed;
+ left: 0;
+	right: 0;
+	bottom: 0;
+	color: #aaa;
+	font-size: 0.9em;
+	text-align: right;
+}
+.page-number:before {
+  content: counter(page);
+}
+</style>
+<div id="footer">
+  Página <span class="page-number"></span>
+</div>'; 
+$html.=  '<div>';
 #Cabecera
-$html.=  '<div align=center><h1>' . $nombre_del_centro . '</h1><hr style="color:#eee; height:1px; width:720px;">';
-$html.=  '<h2>Memoria final del Departamento<br /> '.$depto.'</h2>';
-$html.=  '<h3>Curso: '.$curso_actual.'</h3><hr style="color:#eee; height:1px; width:720px;"></div>';
+$html.=  '<h1 align="center">' . $nombre_del_centro . '</h1><hr style="color:#eee;">';
+$html.=  '<h2 align="center">Memoria final del Departamento<br /> '.$depto.'</h2>';
+$html.=  '<h3 align="center">Curso: '.$curso_actual.'</h3><hr style="color:#eee;"></div>';
 
 for ($i=1; $i<=$n_preg; $i++){
-if ($i==1) {$html.=  "<p style='font-size:15px'>"."1. Aspectos organizativos del departamento"."</p>";}
-if ($i==6) {$html.=  "<p style='font-size:15px'>"."4. Criterios de Evaluación."."</p>";}
-if ($i==8) {$html.=  "<p style='font-size:15px'>"."5. Medidas de atención a la diversidad."."</p>";}
-$html.=  "<p style='font-size:13px'>".$pregunta[$i]."</p>";
-$html.=  "<p style='font-size:11px'>".$nota[$i]."</p>";
-$html.=  '<div style="border:1px solid #aaa; padding: 10px; width:695px;">';
+if ($i==1) {$html.=  "<h3>"."1. Aspectos organizativos del departamento"."</h3>";}
+if ($i==6) {$html.=  "<h3>"."4. Criterios de Evaluación."."</h3>";}
+if ($i==8) {$html.=  "<h3>"."5. Medidas de atención a la diversidad."."</h3>";}
+$html.=  "<h4>".$pregunta[$i]."</h4>";
+$html.=  "<h5>".$nota[$i]."</h5>";
+$html.=  '<div style="border:1px solid #aaa; padding: 10px;">';
 $html.=  strip_tags($p[$i], '<br><p><strong><em><b><i><ul><ol><li><table><tr><td><th>').'</div><br>';
 }
 
@@ -106,7 +118,7 @@ $html.=  strip_tags($p[$i], '<br><p><strong><em><b><i><ul><ol><li><table><tr><td
 # Fin de la lectura de datos de la memoria
 ####################
 
-$html.=  '<table style="border:0px; padding: 1px;font: 8pt Arial, Helvetica, sans-serif;"><tr><td style="border:0px; padding: 10px;">';
+$html.=  '<table style="border:0px; padding: 1px;><tr><td style="border:0px; padding: 10px;">';
 
 $html.=  '</td></tr></table>';
 
@@ -118,6 +130,7 @@ $html.=  'Fdo.: '.$memoria[1];
 
 $html.=  '</div></div></body></html>';
 
+$html = mb_convert_encoding($html, 'UTF-8', 'ISO-8859-1');
 
 $dompdf = new DOMPDF();
 $dompdf->load_html($html);
