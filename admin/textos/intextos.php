@@ -50,17 +50,6 @@ if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel
 
 include 'menu.php';
 ?>
-<<<<<<< HEAD
-	<div class="container">
-		
-		<!-- TITULO DE LA PAGINA -->
-		<div class="page-header">
-  <h2>Libros de Texto <small> Registro de Libros</small></h2>
-		</div>	
-		
-		<div class="row">
-<?			
-=======
 
 <div class="container">
 <div class="page-header">
@@ -69,7 +58,6 @@ include 'menu.php';
 <div class="container">
 <div class="row">
 <? 
->>>>>>> FETCH_HEAD
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
 { 
 ?>

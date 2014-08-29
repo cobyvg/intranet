@@ -47,22 +47,13 @@ include("../../menu.php");
 include("menu.php");
 
 ?>
-<<<<<<< HEAD
-<div class="container">
-<div class="page-header">
-<h2>Libros de Texto <small> <?  echo $nivel;?></small></h2>
-</div>
-=======
-
 <?php 
-include("../../menu.php");
 echo '
 <div class="container">
 <div class="page-header">
   <h2>Libros de texto <small>'.$nivel.'</small></h2>
 </div><br />';
->>>>>>> FETCH_HEAD
-
+?>
 <div class="row">
 <div class="col-sm-10 col-sm-offset-1">
 

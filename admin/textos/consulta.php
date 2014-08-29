@@ -44,58 +44,7 @@ include("../../menu.php");
 include 'menu.php';
 ?>
 <div class="container">
-<<<<<<< HEAD
 <div class="row">
-<div class="page-header">
-  <h2>Libros de Texto <small> Consulta de Textos</small></h2>
-</div>
-<div class="col-sm-6 col-sm-offset-3">
-<br />
-    <div class="well well-lg" align="left">
-      <form method="post" action="textos.php">
-      <div class="form-group">
-      <label>Nivel</label>
-        <select name="nivel" id="select6" class="form-control">
-          <?
-  $tipo = "select distinct curso from alma order by curso";
-  $tipo1 = mysql_query($tipo);
-  while($tipo2 = mysql_fetch_array($tipo1))
-        {
-$completo = $tipo2[0];
-echo "<option>$completo</option>";
-} ?>
-        </select>
-      </div>
-
-<div class="form-group">
-<label>Departamento:</label>
-        <select name="departamento" id="select7"  value ="Todos ..." onChange="submit()" class="form-control">
-          <option></option>
-          <?
-  $profe = mysql_query(" SELECT distinct departamento FROM departamentos order by departamento asc");
-  while($filaprofe = mysql_fetch_array($profe))
-	{
-	$departamen = $filaprofe[0]; 
-	$opcion1 = printf ("<OPTION>$departamen</OPTION>");
-	echo "$opcion1";
-	} 
-	?>
-        </select>
-      </div>
-      <input type="submit" name="enviar2" value="Buscar Textos" alt="Introducir" class="btn btn-primary btn-block">
-            </form>
-      
-    </div>
-  </form>
-</div>
-</div>
-</div>
-</div>
-<?php
-	include("../../pie.php");
-?>
-
-=======
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
