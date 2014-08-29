@@ -82,12 +82,6 @@ if (isset($seleccionado) and $seleccionado=="1") {
 	$uni=mysql_query("select unidad from alma where claveal='$clave_al'");
 	$un=mysql_fetch_array($uni);
 	$unidad=$un[0];
-
-	$foto = '../../xml/fotos/'.$clave_al.'.jpg';
-	if (file_exists($foto)) {
-		echo "<div align='center'><img src='$foto' class='image-thumbnail' width='100' height='119' /></div>";
-		echo "<br />";
-	}
 }
 $AUXSQL == "";
 #Comprobamos si se ha metido Apellidos o no.

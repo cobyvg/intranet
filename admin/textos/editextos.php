@@ -27,10 +27,18 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 include 'menu.php';
+<<<<<<< HEAD
 ?>
 <div class="container"><!-- TITULO DE LA PAGINA -->
 <div class="page-header">
 <h2>Libros de Texto <small> Edición de Libros</small></h2>
+=======
+	
+echo '<div class="container">';		
+?>
+<div class="page-header">
+  <h2>Libros de texto <small>Edición de libros</small></h2>
+>>>>>>> FETCH_HEAD
 </div>
 
 <div class="row">

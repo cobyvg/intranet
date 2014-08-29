@@ -86,12 +86,26 @@ $ed = mysql_fetch_object($ed0);
  			$fecha_real = formatea_fecha($fecha);
  			$contenido = str_replace("_____________",$fecha_real,$contenido);
  			$contenido = '
-<script type="text/php">
-if (isset($pdf)) {
-  $font = Font_Metrics::get_font("helvetica", "bold");
-  $pdf->page_text(542, 775, "Página: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
-}
-</script>'.$contenido;
+ 			<style type="text/css">
+ 			body {
+ 				font-size: 10pt;
+ 			}
+ 			#footer {
+ 				position: fixed;
+			  left: 0;
+				right: 0;
+				bottom: 0;
+				color: #aaa;
+				font-size: 0.9em;
+				text-align: right;
+ 			}
+ 			.page-number:before {
+ 			  content: counter(page);
+ 			}
+ 			</style>
+ 			<div id="footer">
+ 			  Página <span class="page-number"></span>
+ 			</div>'.$contenido;
  		}
    			$query1 = "INSERT INTO r_departamento ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES( '$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
    			//echo $query1;

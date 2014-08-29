@@ -118,7 +118,6 @@ include ("menu.php");
 		</div>
 		
 		<!-- MENSAJES -->
-		<!-- MENSAJES -->
 		<?php if (isset($msg_error)): ?>
 		<div class="alert alert-danger">
 			<?php echo $msg_error; ?>

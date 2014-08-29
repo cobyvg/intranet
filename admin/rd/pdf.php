@@ -28,12 +28,13 @@ if ($imprimir=="1") {
    	  
    		$row = mysql_fetch_array($result);
    		$contenido = $row[0];
+   		$html = mb_convert_encoding($contenido, 'UTF-8', 'ISO-8859-1');
    		$fecha = $row[1];
    		$departamento = $row[2];
    	}
  
 $dompdf = new DOMPDF();
-$dompdf->load_html($contenido);
+$dompdf->load_html($html);
 $dompdf->render();
 $dompdf->stream("Reunion Departamento $departamento $fecha.pdf", array("Attachment" => 0));
 

@@ -16,23 +16,42 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 $evaluaciones = array(
-	'ini' => 'Evaluación Inicial (Septiembre)',
-	'in1' => 'Evaluación Intermedia 1 (Octubre)',
-	'in2' => 'Evaluación Intermedia 2 (Noviembre)',
-	'1ev' => '1ª Evaluación (Diciembre)',
-	'in3' => 'Evaluación Intermedia 3 (Enero)',
-	'in4' => 'Evaluación Intermedia 4 (Febrero)',
-	'2ev' => '2ª Evaluación (Marzo)',
-	'in5' => 'Evaluación Intermedia 5 (Abril)',
-	'in6' => 'Evaluación Intermedia 6 (Mayo)',
-	'ord' => 'Evaluación Ordinaria (Junio)',
-	'ext' => 'Evaluación Extraordinaria (Septiembre)',
+	'1EV' => '1ª Evaluación',
+	'2EV' => '2ª Evaluación',
+	'3EV' => '3ª Evaluación',
+	'Ord' => 'Ordinaria',
+	'FFP' => 'Final FP',
+	'Ext' => 'Extraordinaria',
+	'FE1' => 'Final Excepcional 1ª Convocatoria',
+	'5CV' => '5º Convocatoria Extraordinaria de Evaluación',
+	'OT1' => 'Obtención título ESO (Primer año)',
+	'FE2' => 'Final Excepcional 2ª Convocatoria',
+	'OT2' => 'Obtención título ESO (Segundo año)',
+	'EP1' => 'Evaluación de pendientes 1ª Convovatoria',
+	'EVI' => 'Evaluación inicial',
+	'EP2' => 'Evaluación de pendientes 2ª Convovatoria',
+	//'IN1' => 'Evaluación intermedia (Octubre)',
+	//'IN2' => 'Evaluación intermedia (Noviembre)',
+	//'IN3' => 'Evaluación intermedia (Enero)',
+	//'IN4' => 'Evaluación intermedia (Febrero)',
+	//'IN5' => 'Evaluación intermedia (Abril)',
+	//'IN6' => 'Evaluación intermedia (Mayo)',
 );
 
 
 if (isset($_POST['curso'])) $curso = $_POST['curso'];
 if (isset($_POST['evaluacion']) && !empty($_POST['evaluacion'])) $evaluacion = $_POST['evaluacion'];
 
+
+
+$esTutorUnidad = 0;
+if (stristr($_SESSION['cargo'],'2') == true) {
+	
+	if (isset($curso) && $curso == $_SESSION['s_unidad']) {
+		$esTutorUnidad = 1;
+	}
+	
+}
 
 include("../../menu.php");
 include("menu.php");
@@ -63,7 +82,7 @@ include("menu.php");
 		
 			<div class="col-sm-12">
 			
-				<form method="post" action="">
+				<form id="form" method="post" action="">
 					
 					<fieldset>
 					
@@ -168,7 +187,16 @@ include("menu.php");
 				</table>
 				
 				<div class="hidden-print">
+					<?php if (stristr($_SESSION['cargo'],'1') == true || (stristr($_SESSION['cargo'],'2') == true && $esTutorUnidad)): ?>
+					<form class="form-horizontal" method="post" action="actas.php">
+						<a href="#" class="btn btn-primary" onclick="javascript:print();">Imprimir</a>
+						<input type="hidden" name="curso" value="<?php echo $curso; ?>">
+						<input type="hidden" name="evaluacion" value="<?php echo $evaluacion; ?>">
+						<button type="submit" class="btn btn-primary" name="enviar">Redactar acta</button>
+					</form>
+					<?php else: ?>
 					<a href="#" class="btn btn-primary" onclick="javascript:print();">Imprimir</a>
+					<?php endif; ?>
 				</div>
 				
 			</div><!-- /.col-sm-12 -->
@@ -178,7 +206,7 @@ include("menu.php");
 	
 	</div><!-- /.container -->
 
-<? include("../../pie.php");?>
+<?php include("../../pie.php"); ?>
  
 </body>
 </html>

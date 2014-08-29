@@ -1,9 +1,9 @@
 <?php
 
-require_once $root_dir . '/lib/html5lib/Data.php';
-require_once $root_dir . '/lib/html5lib/InputStream.php';
-require_once $root_dir . '/lib/html5lib/TreeBuilder.php';
-require_once $root_dir . '/lib/html5lib/Tokenizer.php';
+require_once dirname(__FILE__) . '/Data.php';
+require_once dirname(__FILE__) . '/InputStream.php';
+require_once dirname(__FILE__) . '/TreeBuilder.php';
+require_once dirname(__FILE__) . '/Tokenizer.php';
 
 /**
  * Outwards facing interface for HTML5.
