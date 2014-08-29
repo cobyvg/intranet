@@ -41,10 +41,10 @@ while ($unid = mysql_fetch_array($uni)) {
 }
 		
 	// echo $grupo;
-	echo '<br />
-<div align="center">
+echo '
+<div class="container">
 <div class="page-header">
-  <h2>Libros de Texto <small> Departamento de '.$departamento.'</small></h2>
+  <h2>Libros de texto <small>Departamento de '.$departamento.'</small></h2>
 </div><br />';
 
 //$grupo = "$A$B$C$D$E$F$G$H";

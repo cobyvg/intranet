@@ -28,11 +28,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include 'menu.php';
 	
-echo '<div align="center">';		
+echo '<div class="container">';		
 ?>
-<br />
 <div class="page-header">
-  <h2>Libros de Texto <small> Edición de libros</small></h2>
+  <h2>Libros de texto <small>Edición de libros</small></h2>
 </div>
 <?
 echo "<h3>

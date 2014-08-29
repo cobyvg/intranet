@@ -11,7 +11,7 @@ mysql_query("ALTER TABLE  `Textos` CHANGE  `Grupo`  `Grupo` VARCHAR( 64 ) CHARAC
 		$id = $libro[0];
 		$nv = $libro[1];
 		$gr = $libro[2];
-		$departamento = str_replace(" P.E.S.","",$libro[3]);
+		$nomdepto = str_replace(" P.E.S.","",$libro[3]);
 		if (strstr(";",$gr)==FALSE) {
 			$num+=1;
 			$arr = str_split($gr);
@@ -27,25 +27,21 @@ mysql_query("ALTER TABLE  `Textos` CHANGE  `Grupo`  `Grupo` VARCHAR( 64 ) CHARAC
 				}
 				
 			}
-		mysql_query ("update Textos set grupo = '$total', departamento = '$departamento' where id = '$id'");
+		mysql_query ("update Textos set grupo = '$total', departamento = '$nomdepto' where id = '$id'");
 		}
 	}
 	if ($num>0) {
 		mysql_query("insert into actualizacion (modulo, fecha) values ('Libros de Texto', NOW())");
 	}
 }
+?>
 
-$activo1="";
-$activo2="";
-if (strstr($_SERVER['REQUEST_URI'],'intext')==TRUE) {$activo1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'consulta')==TRUE or strstr($_SERVER['REQUEST_URI'],'editext')==TRUE) {$activo2 = ' class="active" ';}
-?>      
-    <div class="container">  
-  <div class="tabbable">
-     <ul class="nav nav-tabs">
-     <li <? echo $activo1;?>> <a href="intextos.php">Nuevo Libro de Texto</a></li>
-     <li <? echo $activo2;?>> <a href="consulta.php">Consultar Libros</a></li>
-    </ul>
-        </div>
-        </div>
+<div class="container">
+
+	<ul class="nav nav-tabs">
+		<li<?php echo ((strstr($_SERVER['REQUEST_URI'],'intextos.php') == true)) ? ' class="active"' : '' ; ?>><a href="intextos.php">Nuevo libro de texto</a></li>
+		<li<?php echo ((strstr($_SERVER['REQUEST_URI'],'consulta') == true)) ? ' class="active"' : '' ; ?>> <a href="consulta.php">Consultar libros</a></li>
+	</ul>
+	
+</div>
       

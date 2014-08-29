@@ -46,10 +46,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 <?php 
 include("../../menu.php");
-		echo '<br />
-<div align="center">
+echo '
+<div class="container">
 <div class="page-header">
-  <h2>Libros de Texto <small> '.$nivel.'</small></h2>
+  <h2>Libros de texto <small>'.$nivel.'</small></h2>
 </div><br />';
 
 	if (!$titulo or !$asignatura or !$departamento or !$isbn) 
