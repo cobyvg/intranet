@@ -56,6 +56,7 @@ $menu = array(
 				'href'   => 'admin/matriculas/index.php',
 				'titulo' => 'Matriculación de alumnos',
 				'meses'	 => array(6, 7, 8, 9),
+				'modulo'  => $mod_matriculas,
 			),
 		)
 	),
@@ -286,15 +287,15 @@ $menu = array(
 				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
+						'href'   => 'faltas/index.php',
+						'titulo' => 'Poner faltas',
+					),
+					array(
 						'href'   => 'faltas/poner2/index.php',
 						'titulo' => 'Tutoría de Faltas',
 						'cargos' => array('1','3'),
 					),
-					array(
-						'href'   => 'faltas/index.php',
-						'titulo' => 'Poner faltas',
-						'ncargos' => array('1'),
-					),
+
 					array(
 						'href'   => 'faltas/justificar/index.php',
 						'titulo' => 'Justificar faltas',
@@ -404,6 +405,7 @@ $menu = array(
 					array(
 						'href'   => 'sms/index.php',
 						'titulo' => 'Mensajes SMS',
+						'modulo' => $mod_sms,
 					),
 				),
 			),
@@ -426,6 +428,7 @@ $menu = array(
 				'href'   => 'admin/evaluaciones/index.php',
 				'titulo' => 'Sesiones de evaluación',
 				'ncargos' => array('6', '7'),
+				'modulo' => $mod_eval,
 			),
 			array(
 				'href'   => 'admin/tutoria/index.php',
@@ -438,6 +441,7 @@ $menu = array(
 				'titulo' => 'Guardias',
 				'cargos' => array('1'),
 				'ncargo' => array('6', '7'),
+				'modulo' => $mod_horario,
 			),
 			array(
 				'href'   => 'admin/ausencias/index.php',

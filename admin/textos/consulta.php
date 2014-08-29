@@ -49,17 +49,17 @@ if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel
 
 include 'menu.php';
 ?>
-<br />
-<div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Libros de Texto <small> Consulta de Textos</small></h2>
 </div>
-<div class="container">
-<div class="row">
 <div class="col-sm-6 col-sm-offset-3">
-    <div class="well well-large" align="left" style="width:80%">
-      <form name="intextos" method="post" action="textos.php">
-      <label>Nivel<br />
+<br />
+    <div class="well well-lg" align="left">
+      <form method="post" action="textos.php">
+      <div class="form-group">
+      <label>Nivel</label>
         <select name="nivel" id="select6" class="form-control">
           <?
   $tipo = "select distinct curso from alma order by curso";
@@ -70,9 +70,10 @@ $completo = $tipo2[0];
 echo "<option>$completo</option>";
 } ?>
         </select>
-      </label>
-      <hr />
-      <label>Departamento:<br />
+      </div>
+
+<div class="form-group">
+<label>Departamento:</label>
         <select name="departamento" id="select7"  value ="Todos ..." onChange="submit()" class="form-control">
           <option></option>
           <?
@@ -85,9 +86,8 @@ echo "<option>$completo</option>";
 	} 
 	?>
         </select>
-      </label>
-      <hr />
-      <input type="submit" name="enviar2" value="Buscar Textos" size=15 maxlength=25 alt="Introducir" class="btn btn-primary btn-block">
+      </div>
+      <input type="submit" name="enviar2" value="Buscar Textos" alt="Introducir" class="btn btn-primary btn-block">
             </form>
       
     </div>
@@ -99,5 +99,4 @@ echo "<option>$completo</option>";
 <?php
 	include("../../pie.php");
 ?>
-</BODY>
-</HTML>
+

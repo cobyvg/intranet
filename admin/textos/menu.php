@@ -2,7 +2,7 @@
 // Actualizar datos de libros de texto a la desaparición de nivel-grupo
 $actua = mysql_query("select modulo from actualizacion where modulo = 'Libros de Texto'");
 if (mysql_num_rows($actua)>0) {}else{
-mysql_query("ALTER TABLE  `Textos` CHANGE  `Grupo`  `Grupo` VARCHAR( 64 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
+mysql_query("ALTER TABLE  `Textos` CHANGE  `Grupo`  `Grupo` TEXT CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
 	$lib = mysql_query("select id, nivel, grupo, departamento from Textos");
 	//echo "select id, nivel, grupo from Textos<br>";
 	while($libro = mysql_fetch_array($lib))

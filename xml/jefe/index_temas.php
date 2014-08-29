@@ -78,13 +78,17 @@ El tema se ha modificado correctamente. Comprueba los cambios.</div>
 <div class="form-group"><label>Selecciona el tema</label> <select
 	class="form-control" name="tema">
 	<option><? echo $tema;?></option>
+	<optgroup label='Temas de la aplicación'>
 	<?
 	$d = dir("../../css/temas/");
 	while (false !== ($entry = $d->read())) {
-		if (stristr($entry,".css")==TRUE) {
+		if (stristr($entry,".css")==TRUE and !($entry=="bootstrap.min.css")) {
 			echo "<option>$entry</option>";
 		}
 	}
+	echo "</optgroup><optgroup label='Tema por defecto'>
+	<option>bootstrap.min.css</option>
+	</optgroup>";	
 	$d->close();
 	?>
 </select></div>

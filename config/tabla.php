@@ -216,7 +216,18 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
       <td><input type="text" class="form-control" id="p_biblio" name="p_biblio" <?php if(!($mod_biblio=='1')){ echo "disabled";} ?> value="<?php echo $p_biblio; ?>" maxlength="60"></td>
       <td>Dirección de la página de la Biblioteca del Centro</td>
     </tr>
+         <td>Evaluaciones en la Intranet
+        </td>
+      <td><input type="checkbox" id="mod_eval" name="mod_eval" <?php if($mod_eval) { echo "checked";} ?> /></td>
+      <td>Este módulo permite realizar evaluaciones, especialmente las intermedias, dentro de la Intranet. Los datos pueden ser visualizados por el Equipo educativo del Grupo.</td>
+    </tr>
         <tr>
+        <td>Matriculación de los alumnos
+        </td>
+      <td><input type="checkbox" id="mod_matriculas" name="mod_matriculas" <?php if($mod_matriculas) { echo "checked";} ?> /></td>
+      <td>Este módulo permite matricular a los alumnos desde la propia aplicación o bien desde la página pública del Centro incluyendo el código correspondiente (ponerese en contacto para descargarlo e instalarlo). </td>
+    </tr>
+        <tr>  
       <td>Usuario SMS:
         </td>
       <td><input type="text" class="form-control" name="usuario_smstrend" id="usuario_smstrend" <?php if(!($mod_sms=='1')){ echo "disabled";} ?> value="<?php echo $usuario_smstrend; ?>" maxlength="30"></td>

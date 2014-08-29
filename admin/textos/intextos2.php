@@ -14,12 +14,12 @@ if($_SESSION['cambiar_clave']) {
 }
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
-
 ?>
 
 <?php
 include("../../menu.php");
+include("menu.php");
+
 if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
 if (isset($_GET['titulo'])) {$titulo = $_GET['titulo'];}elseif (isset($_POST['titulo'])) {$titulo = $_POST['titulo'];}else{$titulo="";}
 if (isset($_GET['asignatura'])) {$asignatura = $_GET['asignatura'];}elseif (isset($_POST['asignatura'])) {$asignatura = $_POST['asignatura'];}else{$asignatura="";}
@@ -33,21 +33,33 @@ if (isset($_GET['NOTAS'])) {$NOTAS = $_GET['NOTAS'];}elseif (isset($_POST['NOTAS
 if (isset($_GET['obligatorio'])) {$obligatorio = $_GET['obligatorio'];}elseif (isset($_POST['obligatorio'])) {$obligatorio = $_POST['obligatorio'];}else{$obligatorio="";}
 if (isset($_GET['clase'])) {$clase = $_GET['clase'];}elseif (isset($_POST['clase'])) {$clase = $_POST['clase'];}else{$clase="";}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
-$uni = mysql_query("select distinct unidad from alma where curso = '$nivel'");
-while ($unid = mysql_fetch_array($uni)) {
-	$unida = $unid[0];
-	if (isset($_GET[$unida])) {$unida = $_GET[$unida];}elseif (isset($_POST[$unida])) {$unida = $_POST[$unida];}else{$unida="";}
-	$grupo .= $unida.";";
-}
-		
-	// echo $grupo;
-	echo '<br />
-<div align="center">
-<div class="page-header">
-  <h2>Libros de Texto <small> Departamento de '.$departamento.'</small></h2>
-</div><br />';
+if (isset($_GET['clase'])) {$clase = $_GET['clase'];}elseif (isset($_POST['clase'])) {$clase = $_POST['clase'];}else{$clase="";}
+if (isset($_GET['grupo1'])) {$grupo1 = $_GET['grupo1'];}elseif (isset($_POST['grupo1'])) {$grupo1 = $_POST['grupo1'];}else{$grupo1="";}
+if (isset($_GET['grupo2'])) {$grupo2 = $_GET['grupo2'];}elseif (isset($_POST['grupo2'])) {$grupo2 = $_POST['grupo2'];}else{$grupo2="";}
+if (isset($_GET['grupo3'])) {$grupo3 = $_GET['grupo3'];}elseif (isset($_POST['grupo3'])) {$grupo3 = $_POST['grupo3'];}else{$grupo3="";}
+if (isset($_GET['grupo4'])) {$grupo4 = $_GET['grupo4'];}elseif (isset($_POST['grupo4'])) {$grupo4 = $_POST['grupo4'];}else{$grupo4="";}
+if (isset($_GET['grupo5'])) {$grupo5 = $_GET['grupo5'];}elseif (isset($_POST['grupo5'])) {$grupo5 = $_POST['grupo5'];}else{$grupo5="";}
+if (isset($_GET['grupo6'])) {$grupo6 = $_GET['grupo6'];}elseif (isset($_POST['grupo6'])) {$grupo6 = $_POST['grupo6'];}else{$grupo6="";}
+if (isset($_GET['grupo7'])) {$grupo7 = $_GET['grupo7'];}elseif (isset($_POST['grupo7'])) {$grupo7 = $_POST['grupo7'];}else{$grupo7="";}
+if (isset($_GET['grupo8'])) {$grupo8 = $_GET['grupo8'];}elseif (isset($_POST['grupo8'])) {$grupo8 = $_POST['grupo8'];}else{$grupo8="";}
+if (isset($_GET['grupo9'])) {$grupo9 = $_GET['grupo9'];}elseif (isset($_POST['grupo9'])) {$grupo9 = $_POST['grupo9'];}else{$grupo9="";}
+if (isset($_GET['grupo10'])) {$grupo10 = $_GET['grupo10'];}elseif (isset($_POST['grupo10'])) {$grupo10 = $_POST['grupo10'];}else{$grupo10="";}
 
-//$grupo = "$A$B$C$D$E$F$G$H";
+for ($i = 1; $i < 11; $i++) {
+	if (strlen(${grupo.$i})>0) {
+		$grupo.=${grupo.$i}.";";
+	}
+}
+
+?>
+<div class="container">
+<div class="page-header">
+<h2>Libros de Texto <small> <?  echo $departamento;?></small></h2>
+</div>
+
+<div class="row">
+<div class="col-sm-12">
+<?		
 //Errores posibles
 if (empty($titulo) or empty($asignatura) or empty($departamento) or empty($grupo) or empty($editorial) or empty($isbn)) 
 { 
@@ -56,6 +68,7 @@ echo '<div align="center"><div class="alert alert-warning alert-block fade in">
 			<h5>ATENCIÓN:</h5>
 No has introducido todos los datos.<br> Vuelve atrás e inténtalo de nuevo.
 </div></div><br />';
+exit();
 	}
 else
 {  
@@ -83,7 +96,7 @@ while($row = mysql_fetch_array($textos))
 			 <td>$row[1]</td>
 			 <td>$row[2]</td><td>$row[3]</td><td>$row[4]</td>
 		  	<td>$row[8]</td>
-			<td><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i></a></td>
+			<td nowrap><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i></a></td>
 			</tr>";
         }
 		echo '</table>';
@@ -93,6 +106,9 @@ while($row = mysql_fetch_array($textos))
    }	
 
  ?>
+ </div>
+ </div>
+ </div>
+ 
  <? include("../../pie.php");?>		
-</BODY>
-</HTML>
+

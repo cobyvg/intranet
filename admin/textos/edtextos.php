@@ -11,27 +11,29 @@ if (isset($_GET['autor'])) {$autor = $_GET['autor'];}elseif (isset($_POST['autor
 if (isset($_GET['NOTAS'])) {$NOTAS = $_GET['NOTAS'];}elseif (isset($_POST['NOTAS'])) {$NOTAS = $_POST['NOTAS'];}else{$NOTAS="";}
 if (isset($_GET['obligatorio'])) {$obligatorio = $_GET['obligatorio'];}elseif (isset($_POST['obligatorio'])) {$obligatorio = $_POST['obligatorio'];}else{$obligatorio="";}
 if (isset($_GET['clase'])) {$clase = $_GET['clase'];}elseif (isset($_POST['clase'])) {$clase = $_POST['clase'];}else{$clase="";}
-if (isset($_GET['A'])) {$A = $_GET['A'];}elseif (isset($_POST['A'])) {$A = $_POST['A'];}else{$A="";}
-if (isset($_GET['B'])) {$B = $_GET['B'];}elseif (isset($_POST['B'])) {$B = $_POST['B'];}else{$B="";}
-if (isset($_GET['C'])) {$C = $_GET['C'];}elseif (isset($_POST['C'])) {$C = $_POST['C'];}else{$C="";}
-if (isset($_GET['D'])) {$D = $_GET['D'];}elseif (isset($_POST['D'])) {$D = $_POST['D'];}else{$D="";}
-if (isset($_GET['E'])) {$E = $_GET['E'];}elseif (isset($_POST['E'])) {$E = $_POST['E'];}else{$E="";}
-if (isset($_GET['F'])) {$F = $_GET['F'];}elseif (isset($_POST['F'])) {$F = $_POST['F'];}else{$F="";}
-if (isset($_GET['G'])) {$G = $_GET['G'];}elseif (isset($_POST['G'])) {$G = $_POST['G'];}else{$G="";}
-if (isset($_GET['H'])) {$H = $_GET['H'];}elseif (isset($_POST['H'])) {$H = $_POST['H'];}else{$H="";}
-		
-if (isset($_POST['insertar'])) 
-	{ 
-include("intextos2.php");	
-die;
-	}
+if (isset($_GET['grupo1'])) {$grupo1 = $_GET['grupo1'];}elseif (isset($_POST['grupo1'])) {$grupo1 = $_POST['grupo1'];}else{$grupo1="";}
+if (isset($_GET['grupo2'])) {$grupo2 = $_GET['grupo2'];}elseif (isset($_POST['grupo2'])) {$grupo2 = $_POST['grupo2'];}else{$grupo2="";}
+if (isset($_GET['grupo3'])) {$grupo3 = $_GET['grupo3'];}elseif (isset($_POST['grupo3'])) {$grupo3 = $_POST['grupo3'];}else{$grupo3="";}
+if (isset($_GET['grupo4'])) {$grupo4 = $_GET['grupo4'];}elseif (isset($_POST['grupo4'])) {$grupo4 = $_POST['grupo4'];}else{$grupo4="";}
+if (isset($_GET['grupo5'])) {$grupo5 = $_GET['grupo5'];}elseif (isset($_POST['grupo5'])) {$grupo5 = $_POST['grupo5'];}else{$grupo5="";}
+if (isset($_GET['grupo6'])) {$grupo6 = $_GET['grupo6'];}elseif (isset($_POST['grupo6'])) {$grupo6 = $_POST['grupo6'];}else{$grupo6="";}
+if (isset($_GET['grupo7'])) {$grupo7 = $_GET['grupo7'];}elseif (isset($_POST['grupo7'])) {$grupo7 = $_POST['grupo7'];}else{$grupo7="";}
+if (isset($_GET['grupo8'])) {$grupo8 = $_GET['grupo8'];}elseif (isset($_POST['grupo8'])) {$grupo8 = $_POST['grupo8'];}else{$grupo8="";}
+if (isset($_GET['grupo9'])) {$grupo9 = $_GET['grupo9'];}elseif (isset($_POST['grupo9'])) {$grupo9 = $_POST['grupo9'];}else{$grupo9="";}
+if (isset($_GET['grupo10'])) {$grupo10 = $_GET['grupo10'];}elseif (isset($_POST['grupo10'])) {$grupo10 = $_POST['grupo10'];}else{$grupo10="";}
+
+if (isset($_POST['insertar']))
+{
+	include("intextos2.php");
+	exit();
+}
 session_start();
 include("../../config.php");
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 	exit();
 }
 
@@ -41,40 +43,38 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
+include("../../menu.php");
+include("menu.php");
 
 ?>
+<div class="container">
+<div class="page-header">
+<h2>Libros de Texto <small> <?  echo $nivel;?></small></h2>
+</div>
+
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1">
 
 <?php 
-include("../../menu.php");
-		echo '<br />
-<div align="center">
-<div class="page-header">
-  <h2>Libros de Texto <small> '.$nivel.'</small></h2>
-</div><br />';
-
-	if (!$titulo or !$asignatura or !$departamento or !$isbn) 
-	{ 
-	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No has introducido todos los datos necesarios para registrar el texto. <br>Vuelve atrás e inténtalo de nuevo.</div></div><br />';
-	exit();
+for ($i = 1; $i < 11; $i++) {
+	if (strlen(${grupo.$i})>0) {
+		$grupo.=${grupo.$i}.";";
 	}
-$grupo = "$A$B$C$D$E$F$G$H";
+}
+
 //Introducción de datos si todo va bién
-		$query="UPDATE Textos SET Titulo = '$titulo', Autor = '$autor', 
+$query="UPDATE Textos SET Titulo = '$titulo', Autor = '$autor',
 		Editorial = '$editorial', Departamento = '$departamento', 
 		Asignatura = '$asignatura', Notas = '$NOTAS', isbn = '$isbn', nivel = '$nivel', grupo = '$grupo', obligatorio = '$obligatorio' where Id = '$id'";
-		//echo $query;
-		mysql_query($query);
-		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+echo $query;
+mysql_query($query);
+echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El texto se ha registrado correctamente. <br>Comprueba los datos en la tabla de abajo, y en caso de no ser correctos, puedes volver a editarlos.</div></div><br />';
 
-	$textos = mysql_query("SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, Nivel, Grupo FROM Textos where Id='$id' order by Asignatura");
-   if ($row = mysql_fetch_array($textos))
-   {
-		echo "<table class='table table-striped' style='width:auto'>
+$textos = mysql_query("SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, Nivel, Grupo FROM Textos where Id='$id' order by Asignatura");
+if ($textos) {
+	echo "<table class='table table-striped' style='width:auto' align='center'>
   <tr> 
     <th>DEPARTAMENTO</th>
 	<th>ASIGNATURA</th>
@@ -84,9 +84,9 @@ El texto se ha registrado correctamente. <br>Comprueba los datos en la tabla de 
 	<th>GRUPOS</th>
 	<th></th>
   </tr>";
-do
-{
-             echo "<tr>
+	while ($row = mysql_fetch_array($textos))
+	{
+		echo "<tr>
 			 <td>$row[0]</td>
 			 <td>$row[1]</td>
 			 <td>$row[2]</td>
@@ -94,13 +94,16 @@ do
 			 <td>$row[4]</td>
 		  <td>$row[8]</td>
 		  <td><a href='editextos.php?id=$row[6]'><i class='fa fa-pencil' title='Editar'> </i> </a> <a href=deltextos.php?id=$row[6] style='color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i></a></td>
-		  </tr>";
+		  </tr>";      	
+	}
+		  echo "</table>";
+}
 
-        } while($row = mysql_fetch_array($textos));	
-		}
-		
+
 ?>
 </div>
- <? include("../../pie.php");?>		
-</BODY>
-</HTML>
+</div>
+</div>
+
+<? include("../../pie.php");?>
+

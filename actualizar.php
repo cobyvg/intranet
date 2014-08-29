@@ -1,4 +1,10 @@
 <?php
+mysql_query("CREATE TABLE IF NOT EXISTS `actualizacion` (
+  `d` int(11) NOT NULL AUTO_INCREMENT,
+  `modulo` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `fecha` datetime NOT NULL,
+  PRIMARY KEY (`d`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ");
 /*
 	@descripcion: Fotos de alumnos y profesores en base de datos se mueven a directorio.
 	@fecha: 5 de agosto de 2013

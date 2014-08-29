@@ -41,18 +41,17 @@ $AUXSQL = "";
     }
 // Base de datos
 ?>
-<br />
-<div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
-  <h2>Libros de Texto <small> Búsqueda de textos</small></h2>
+  <h2>Libros de Texto <small> Búsqueda de Textos</small></h2>
 </div>
+<div class="col-sm-12">
 <?
-	print "<h3>$nivel</h3><br />"; 
+	print "<h3 align=center class='text-muted'>$nivel</h3>"; 
 $textos = mysql_query("SELECT distinct Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, nivel, grupo FROM Textos where nivel = '$nivel' " . $AUXSQL . " order by Asignatura");
-   if ($row = mysql_fetch_array($textos))
-   {
-
-	echo "<br /><table class='table table-striped' style='width:90%'>
+if (mysql_num_rows($textos)>0) {
+		echo "<br /><table class='table table-striped' align='center'>
   <tr> 
     
     <th>DEPARTAMENTO</th>
@@ -67,9 +66,10 @@ $textos = mysql_query("SELECT distinct Departamento, Asignatura, Autor, Titulo, 
 			 }
 
   echo "</tr>";
-do
-{
-             echo "<tr>";		 
+	
+  while ($row = mysql_fetch_array($textos))
+   {
+           echo "<tr>";		 
 			 echo "
 			 <td>$row[0]</td>
 			 <td>$row[1]</td>
@@ -81,9 +81,10 @@ do
 			 }
 		  
 		  echo "</tr>";
+   }
+		  echo "</table>";
+}
 
-        } while($row = mysql_fetch_array($textos));	
-		}
 		else
 		{
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in">
@@ -96,6 +97,8 @@ No hubo suerte, bien porque te has equivocado
 		}
 
 ?>
+</div>
+</div>
+</div>
+
  <? include("../../pie.php");?>		
-</BODY>
-</HTML>

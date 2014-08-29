@@ -212,7 +212,7 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input name="etcp" type="checkbox" value="1" onClick="submit()" <?php if($etcp=='1' and !$claustro) echo 'checked'; ?>> Jefes/as de departamento
+              				<input name="etcp" type="checkbox" value="1" onClick="submit()" <?php if($etcp=='1' and !$claustro) echo 'checked'; ?>> Jefes Departamento
               			</label>
               		</div>
               	</div>
@@ -220,7 +220,7 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input name="ca" type="checkbox" value="1" onClick="submit()" <?php if($ca=='1' and !$claustro) echo 'checked'; ?>> Coordinadores de area
+              				<input name="ca" type="checkbox" value="1" onClick="submit()" <?php if($ca=='1' and !$claustro) echo 'checked'; ?>> Coordinadores Área
               			</label>
               		</div>
               	</div>

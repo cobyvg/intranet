@@ -50,23 +50,27 @@ if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel
 
 include 'menu.php';
 ?>
-<br />
-<div align="center">
-<div class="page-header">
+	<div class="container">
+		
+		<!-- TITULO DE LA PAGINA -->
+		<div class="page-header">
   <h2>Libros de Texto <small> Registro de Libros</small></h2>
-</div>
-<div class="container">
-<div class="row">
-<? 
+		</div>	
+		
+		<div class="row">
+<?			
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
-{ ?>
+{ 
+?>
 <div class="col-sm-6 col-sm-offset-3">	
-<div class="well well-large" style="width:80%;" align="left">
+<div class="well well-lg" align="left">
   <legend>Selecciona el Curso y los Grupos</legend>
 <hr>
-    <form method="post" action="intextos.php" class="form-vertical">
+    <form method="post" action="intextos.php" >
+    
+ <div class="form-group">
   <label>
-  Nivel:<br />
+  Nivel</label>
     <select name="nivel" id="select4" onChange="submit()" class="form-control">
       <?
  if(isset($_POST['nivel']))
@@ -83,10 +87,12 @@ echo "<option>$completo</option>";
 }
 ?>
     </select>
-    </label>
+</div>
      </form>
-     <form method="post" action="intextos.php" class="form-vertical">   
-    <label>Grupos:
+     <form method="post" action="intextos.php">   
+<div class="form-group">
+     <label>Grupos</label>
+<br>
       <input name="ano" type="hidden" value="<? 
 // Cosas de la Fecha
 $fecha = (date("Y"));
@@ -96,28 +102,33 @@ echo $fecha;
 //$cur = explode(" --> ",$nivel);					
 $tipo0 = "select distinct unidad from alma where curso = '$nivel' order by unidad";
 $tipo10 = mysql_query($tipo0);
+$ng = "";
   while($tipo20 = mysql_fetch_array($tipo10))
         {	
-echo "<span class='badge badge-info'>".$tipo20[0]."</span>&nbsp;";
-echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' class='checkbox' checked>&nbsp;&nbsp;";
+$ng++;        	
+echo "<div class='checkbox-inline'><label>";
+echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' checked><span class='badge badge-info'>$tipo20[0]</span></label></div>&nbsp;&nbsp;";
         }
 						
 	?>
-    </label>
-    <input name="nivel" type="hidden" value="<? echo $nivel;?>" size="4" maxlength="4">
-    <br />
+</div>
+    <input name="nivel" type="hidden" value="<? echo $nivel;?>">
     <legend>Datos del Libro de
       Texto</legend>
-    <hr>
+<div class="form-group">
     <label>T&iacute;tulo <span style="color:#9d261d"> (*)</span></label>
       <input name="titulo" type="text" id="titulo" class="form-control" value="<? echo $titulo; ?>" required>
+    </div>
     
+    <div class="form-group">
     <label>Autor</label>
       <input name="autor" type="text" id="autor" class="form-control" value="<? echo $autor; ?>">
-    
+</div>
+<div class="form-group">    
     <label>Editorial<span style="color:#9d261d"> (*)</span></label>
       <input name="editorial" type="text" id="editorial" class="form-control" value="<? echo $editorial; ?>" required>
-    
+</div> 
+<div class="form-group">   
     <label>Departamento<span style="color:#9d261d"> (*)</span></label>
     <?
     if(stristr($_SESSION['cargo'],'4') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE)
@@ -129,7 +140,7 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
     }
     else{
     ?>
-    <select name="departamento" id="departamento"  value =" value="<? echo $departamento; ?>"" onChange="submit()"  class="form-control">
+    <select name="departamento" id="departamento"  value =" value="<? echo $departamento; ?>"" onChange="submit()"  class="form-control" required>
         <option>
         <?  echo $departamento;?>
         </option>
@@ -145,9 +156,10 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
 	?>
       </select>
       <? } ?>
-    </label>
-
-    <label>Asignatura <span style="color:#9d261d"> (*)</span><br />
+    </div>
+    
+<div class="form-group">
+    <label>Asignatura <span style="color:#9d261d"> (*)</span></label>
       <select name="asignatura" id="asignatura" class="form-control"  value="<? echo $asignatura; ?>" required>
         <option>
         <?
@@ -163,23 +175,31 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
 	?>
         </option>
       </select>
-    </label>
-    <label>Tipo de Libro<br />
-      <select name="clase" class="input-small">
+    </div>
+    
+    <div class="form-group">
+    <label>Tipo de Libro</label>
+      <select name="clase" class="form-control">
         <option>Texto</option>
         <option>Lectura</option>
       </select>
-      <select name="obligatorio" class="input-large" >
+     </div> 
+     
+     <div class="form-group">
+      <select name="obligatorio" class="form-control" >
         <option>Obligatorio</option>
         <option>Recomendado</option>
       </select>
-    </label>
-    <label>ISBN<span style="color:#9d261d"> (*)</span><br />
+    </div>
+
+<div class="form-group">    
+    <label>ISBN<span style="color:#9d261d"> (*)</span></label>
       <input name="isbn" type="text" id="isbn" class="form-control" value="<? echo $isbn; ?>" required>
-    </label>
-    <label>Observaciones<br />
+    </div>
+    
+<div class="form-group">    <label>Observaciones</label>
       <textarea name="NOTAS" class="form-control" rows="6"> <? echo $NOTAS; ?></textarea>
-    </label>
+    </div>
     <p class="help-block"><span style="color:#9d261d">(*)</span> Campos obligatorios del formulario.</p>
     <hr />
     <input type="submit" name="enviar" value="Introducir datos" size=15 maxlength=25 alt="Introducir" class="btn btn-primary btn-block">
@@ -188,11 +208,11 @@ echo "<input name='$tipo20[0]' type='checkbox' id='$tipo20[0]' value='$tipo20[0]
   </div>
  </div>
  </div>
+ 
  <?
 }
 ?>
 <?php
 	include("../../pie.php");
 ?>
-</BODY>
-</HTML>
+
