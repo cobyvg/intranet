@@ -53,23 +53,9 @@ $menu = array(
 				'titulo' => 'Intervenciones',
 			),
 			array(
-				'href'   => 'admin/tutoria/index.php',
-				'titulo' => 'Tutorías',
-			),
-			array(
-				'href'   => 'admin/guardias/admin.php',
-				'titulo' => 'Gestión de Guardias',
-				'modulo' => $mod_horario,
-			),
-			array(
-				'href'   => 'admin/ausencias/index.php',
-				'titulo' => 'Profesores ausentes',
-			),
-			array(
 				'href'   => 'admin/matriculas/index.php',
 				'titulo' => 'Matriculación de alumnos',
 				'meses'	 => array(6, 7, 8, 9),
-				'modulo'  => $mod_matriculas,
 			),
 		)
 	),
@@ -300,15 +286,15 @@ $menu = array(
 				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
-						'href'   => 'faltas/index.php',
-						'titulo' => 'Poner faltas',
-					),
-					array(
 						'href'   => 'faltas/poner2/index.php',
 						'titulo' => 'Tutoría de Faltas',
 						'cargos' => array('1','3'),
 					),
-
+					array(
+						'href'   => 'faltas/index.php',
+						'titulo' => 'Poner faltas',
+						'ncargos' => array('1'),
+					),
 					array(
 						'href'   => 'faltas/justificar/index.php',
 						'titulo' => 'Justificar faltas',
@@ -418,7 +404,6 @@ $menu = array(
 					array(
 						'href'   => 'sms/index.php',
 						'titulo' => 'Mensajes SMS',
-						'modulo' => $mod_sms,
 					),
 				),
 			),
@@ -441,12 +426,23 @@ $menu = array(
 				'href'   => 'admin/evaluaciones/index.php',
 				'titulo' => 'Sesiones de evaluación',
 				'ncargos' => array('6', '7'),
-				'modulo' => $mod_eval,
+			),
+			array(
+				'href'   => 'admin/tutoria/index.php',
+				'titulo' => 'Tutorías',
+				'cargos' => array('1'),
+				'ncargos' => array('6', '7'),
+			),
+			array(
+				'href'   => 'admin/guardias/admin.php',
+				'titulo' => 'Guardias',
+				'cargos' => array('1'),
+				'ncargo' => array('6', '7'),
 			),
 			array(
 				'href'   => 'admin/ausencias/index.php',
 				'titulo' => 'Ausencias',
-				'ncargos' => array('1', '6', '7'),
+				'ncargos' => array('6', '7'),
 			),
 		),
 	),
@@ -570,7 +566,7 @@ $menu = array(
 <?php for($i=0 ; $i < count($menu) ; $i++): ?>
 <?php if(!isset($menu[$i]['modulo']) || ($menu[$i]['modulo'] == '1')): ?>
 <?php if(!isset($menu[$i]['cargos']) || in_array($carg[0], $menu[$i]['cargos']) || in_array($carg[1], $menu[$i]['cargos']) || in_array($carg[2], $menu[$i]['cargos']) || in_array($carg[3], $menu[$i]['cargos']) || in_array($carg[4], $menu[$i]['cargos'])): ?>
-<?php if(!isset($menu[$i]['ncargos']) || !in_array($carg[0], $menu[$i]['ncargos']) || !in_array($carg[1], $menu[$i]['ncargos']) || !in_array($carg[2], $menu[$i]['ncargos']) || !in_array($carg[3], $menu[$i]['ncargos']) || !in_array($carg[4], $menu[$i]['ncargos'])): ?>
+<?php if(!isset($menu[$i]['ncargos']) || !in_array($carg[0], $menu[$i]['ncargos']) && !in_array($carg[1], $menu[$i]['ncargos']) && !in_array($carg[2], $menu[$i]['ncargos']) && !in_array($carg[3], $menu[$i]['ncargos']) && !in_array($carg[4], $menu[$i]['ncargos'])): ?>
 <?php if(!isset($menu[$i]['meses']) || in_array(date('n'), $menu[$i]['meses'])): ?>
 	<div class="panel panel-default">
 	  <div class="panel-heading">
@@ -590,9 +586,7 @@ $menu = array(
 					<?php if(isset($menu[$i]['items'][$j]['items'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['modulo']) || ($menu[$i]['items'][$j]['modulo'] == '1')): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['cargos']) || in_array($carg[0], $menu[$i]['items'][$j]['cargos']) || in_array($carg[1], $menu[$i]['items'][$j]['cargos']) || in_array($carg[2], $menu[$i]['items'][$j]['cargos']) || in_array($carg[3], $menu[$i]['items'][$j]['cargos']) || in_array($carg[4], $menu[$i]['items'][$j]['cargos'])): ?>
-					
-					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[1], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[2], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[3], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[4], $menu[$i]['items'][$j]['ncargos'])): ?>
-					
+					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[1], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[2], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[3], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[4], $menu[$i]['items'][$j]['ncargos'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['meses']) || in_array($carg, $menu[$i]['items'][$j]['meses'])): ?>
 					<li><a data-toggle="collapse" href="#<?php echo $menu[$i]['menu_id']; ?>-submenu<?php echo $count; ?>">
 						<span class="fa fa-chevron-down pull-right"></span>
@@ -603,7 +597,7 @@ $menu = array(
 							<?php for($k=0 ; $k < count($menu[$i]['items'][$j]['items']) ; $k++): ?>
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['modulo']) || ($menu[$i]['items'][$j]['items'][$k]['modulo'] == '1')): ?>
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[0], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[1], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[2], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[3], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[4], $menu[$i]['items'][$j]['items'][$k]['cargos'])): ?>
-							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[1], $menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[2], $menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[3], $menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[4], $menu[$i]['items'][$j]['items'][$k]['ncargos'])): ?>
+							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['items'][$k]['ncargos']) && !in_array($carg[1], $menu[$i]['items'][$j]['items'][$k]['ncargos']) && !in_array($carg[2], $menu[$i]['items'][$j]['items'][$k]['ncargos']) && !in_array($carg[3], $menu[$i]['items'][$j]['items'][$k]['ncargos']) && !in_array($carg[4], $menu[$i]['items'][$j]['items'][$k]['ncargos'])): ?>
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['meses']) || in_array(date('n'), $menu[$i]['items'][$j]['items'][$k]['meses'])): ?>
 							<li><a href="<?php echo $menu[$i]['items'][$j]['items'][$k]['href']; ?>" <?php echo ($menu[$i]['items'][$j]['items'][$k]['target'] == '_blank') ? 'target="_blank"' : ''; ?>><?php echo $menu[$i]['items'][$j]['items'][$k]['titulo']; ?></a></li>
 							<?php endif; ?>
@@ -621,7 +615,7 @@ $menu = array(
 					<?php else: ?>
 					<?php if(!isset($menu[$i]['items'][$j]['modulo']) || ($menu[$i]['items'][$j]['modulo'] == '1')): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['cargos']) || in_array($carg[0], $menu[$i]['items'][$j]['cargos']) || in_array($carg[1], $menu[$i]['items'][$j]['cargos']) || in_array($carg[2], $menu[$i]['items'][$j]['cargos']) || in_array($carg[3], $menu[$i]['items'][$j]['cargos']) || in_array($carg[4], $menu[$i]['items'][$j]['cargos'])): ?>
-					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[1], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[2], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[3], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[4], $menu[$i]['items'][$j]['ncargos'])): ?>
+					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[1], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[2], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[3], $menu[$i]['items'][$j]['ncargos']) && !in_array($carg[4], $menu[$i]['items'][$j]['ncargos'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['meses']) || in_array(date('n'), $menu[$i]['items'][$j]['meses'])): ?>
 					<li><a href="<?php echo $menu[$i]['items'][$j]['href']; ?>" <?php echo ($menu[$i]['items'][$j]['target'] == '_blank') ? 'target="_blank"' : ''; ?>><?php echo $menu[$i]['items'][$j]['titulo']; ?></a></li>
 					<?php endif; ?>
