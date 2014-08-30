@@ -14,23 +14,20 @@ if($_SESSION['cambiar_clave']) {
 }
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
-
 ?>
   <?php
 include("../../menu.php");
 include("menu.php");  
   ?>
- <div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Actividades Complementarias y Extraescolares <small> Selección de alumnos</small></h2>
 </div>
-<br />
 </div>
-<div class="container-fluid">
-<div class="row">
-<div class="col-sm-4 col-sm-offset-4">
-    <div class="well well-large"> 
+
+<div class="col-sm-6 col-sm-offset-3">
+    <div class="well well-lg"> 
     <div align="center">         
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Alumnos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning">Desmarcarlos todos</a>

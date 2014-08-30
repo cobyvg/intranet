@@ -118,14 +118,14 @@ $MiPDF->SetDisplayMode('fullpage');
 //  echo "$key --> $value<br>";
 if(is_numeric(trim($key))){
 
-$alumnos0 = "select alma.nombre, alma.apellidos, padre, domicilio, codpostal, localidad, provinciaresidencia, NC, dnitutor, alma.nivel, alma.grupo from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.claveal = '$value'";
+$alumnos0 = "select alma.nombre, alma.apellidos, padre, domicilio, codpostal, localidad, provinciaresidencia, NC, dnitutor, alma.unidad, alma.matriculas from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.claveal = '$value'";
 $alumnos1 = mysql_query($alumnos0);
 while($alumno = mysql_fetch_array($alumnos1))
 {
 mysql_query("insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
 # insertamos la primera pagina del documento
 $MiPDF->Addpage();
-$cuerpo1="$alumno[2], con D.N.I número $alumno[8], padre, madre o tutor/a legal de $alumno[0] $alumno[1], alumno/a del curso $alumno[9]-$alumno[10] de este Centro, se hace cargo bajo su responsabilidad de que su hijo/a participe en la siguiente actividad extraescolar o complementaria: ";
+$cuerpo1="$alumno[2], con D.N.I número $alumno[8], padre, madre o tutor/a legal de $alumno[0] $alumno[1], alumno/a del curso $alumno[9] de este Centro, se hace cargo bajo su responsabilidad de que su hijo/a participe en la siguiente actividad extraescolar o complementaria: ";
 $cuerpo2="Fecha: $fecha.
 Horario: $horario.
 Actividad: $actividad.
@@ -142,7 +142,7 @@ $cuerpo3 = "
 ";
 $cuerpo4 = "ACUSE DE RECIBO
    
-Yo, $alumno[2], Autorizo a mi hijo/a  $alumno[0] $alumno[1], alumno/a del curso $alumno[9] -$alumno[10] a que participe en la actividad complementaria siguiente:
+Yo, $alumno[2], Autorizo a mi hijo/a  $alumno[0] $alumno[1], alumno/a del curso $alumno[9] a que participe en la actividad complementaria siguiente:
    
 Fecha: $fecha.
 Horario: $horario.

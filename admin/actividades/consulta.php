@@ -22,6 +22,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
   include("../../menu.php"); 
 include("menu.php"); 
+?>
+<div class="container">
+<div class="row">
+<br>
+<?
  $imprimir_activado = true;  
   if($confirmado == '1')
   {
@@ -43,12 +48,12 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
   if($detalles == '1')
   {
   ?>
-<div align="center">
+<div class="row">
 <div class="page-header">
   <h2>Actividades Complementarias y Extraescolares <small> Información sobre actividad</small></h2>
 </div>
-</div>
-  <?
+<div class="col-md-8 col-md-offset-2">
+<?
   $datos0 = "select * from actividades where id = '$id'";
   $datos1 = mysql_query($datos0);
   $datos = mysql_fetch_array($datos1);
@@ -57,8 +62,7 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
   $fecha1 = explode("-",$datos[8]);
   $registro = "$fecha1[2]-$fecha1[1]-$fecha1[0]";
   ?>
-<div align="center">
-<table class="table table-striped" style="width:750px;" align="center">
+<table class="table table-striped" align="center">
   <thead><tr>
    <th colspan="2"><h4 align="center"><? echo $datos[2];?></h4></th>
   </tr>
@@ -90,20 +94,19 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
     <tr>
     <th>Autorizada</th><td><? echo $datos[9];?></td>
   </tr>
-</table></div>
-<br />
+</table>
+</div>
+</div>
   <?
  } 
 ?>
-<div align="center">
-<div class="page-header">
+<div class="row">
+  <div class="page-header">
   <h2>Actividades Complementarias y Extraescolares <small> Listado</small></h2>
-</div>
-</div>
-   <div class='container-fluid'>
-  <div class="row">
+  
   <div class="col-sm-1"> </div>
   <div class="col-sm-10">
+  <br>
 <table class="table table-striped tabladatos" style="width:100%;" align="center">
   <thead><tr>
     <th>Actividad</th>
@@ -183,6 +186,9 @@ elseif ($_SESSION['depto'] == $datos[4]){
   </tr>
 <? }}?>
 </tbody></table>
+</div>
+</div>
+</div>
 <? include("../../pie.php");?>
 </body>
 </html>

@@ -5,7 +5,7 @@ include("../../config.php");
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 	exit();
 }
 
@@ -18,47 +18,51 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'8') == TRUE))
 {
-header("location:http://$dominio/intranet/salir.php");
-exit;	
-}  
+	header("location:http://$dominio/intranet/salir.php");
+	exit;
+}
 ?>
 <?php
- include("../../menu.php");
- include("menu.php");
-?>
-<?
-if(isset($_POST['submit1'])){
-include("inserta.php");
-}
- 
-else{
+include("../../menu.php");
+include("menu.php");
 ?>
 <div class="container">
-  <div class="row">
-  <div class="page-header">
-  <h2>Actividades Complementarias y Extraescolares <small> Registro de actividades</small></h2>
+<div class="row">
+<div class="page-header">
+<h2>Actividades Complementarias y Extraescolares <small> Registro de
+actividades</small></h2>
 </div>
-<div class="col-sm-1"></div>
-<div class="col-sm-5">
+
+<?
+if(isset($_POST['submit1'])){
+	include("inserta.php");
+}
+
+else{
+	?>
+
+<div class="col-sm-6">
 <div class="well">
-  <FORM action="index.php" method="POST" name="Cursos">
-           
-                <center><label>Fecha de la actividad:<br /> 
-           
-           <div class="form-group" id="datetimepicker1">
-            <div class="input-group">
-            		<input name="fecha_act" type="text" class="input input-medium" value="<? echo $fecha_act; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
-  							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-						</div> 
-					</div>
-              </label></center>
-              <hr>
-                <label>Titulo: <br />
-                <input name="actividad" type="text" id="actividad" value="<? echo $actividad; ?>" class="col-sm-10">
-                </label>
-               <hr>
-                <label>Departamento:  <br />
-                <SELECT name="departamento" onChange="submit()" class="col-sm-10">
+<FORM action="index.php" method="POST" name="Cursos">
+
+
+
+<div class="form-group" id="datetimepicker1"><label>Fecha de la
+actividad:</label>
+<div class="input-group"><input name="fecha_act" type="text"
+	class="form-control" value="<? echo $fecha_act; ?>"
+	data-date-format="DD-MM-YYYY" id="fecha_act"> <span
+	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+</div>
+
+<div class="form-group">
+<label>Titulo:</label>
+                <input name="actividad" type="text" id="actividad" value="<? echo $actividad; ?>" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                <label>Departamento: </label>
+                <SELECT name="departamento" onChange="submit()" class="form-control">
                     <OPTION><? echo $departamento; ?></OPTION>
 
                     <?
@@ -97,10 +101,11 @@ else{
 
 	?>
                   </select>
-                </label>
-               <hr>
-                <label>Profesor: <br />
-                <SELECT multiple name='profesor[]' class="col-sm-10" style="height:150px;">
+                </div>
+
+                <div class="form-group">
+                <label>Profesor:</label>
+                <SELECT multiple name='profesor[]' class="form-control" style="height:150px;">
                     <?
                     if($_POST['departamento'] == "Actividades Extraescolares" or $_POST['departamento'] == "Relaciones de Género"){
                     if($_POST['departamento'] == "Actividades Extraescolares"){
@@ -139,22 +144,33 @@ if($departamento == "Religión")
         }
 	?>
                   </select>
-                  </label>
+                  </div>
+                  
                   <p class="help-block" > (*) Para seleccionar varios profesores, mantén apretada la tecla Ctrl mientras los vas marcando con el ratón.</p> <hr>
                     <input type="hidden" name="hoy"  value="<? $hoy = date('Y\-m\-d'); echo $hoy;?>">
-                <label>Descripci&oacute;n: <br />
-                <textarea name="descripcion" id="textarea" rows="4" class="col-sm-10"><? echo $descripcion; ?></textarea>
-              </label>
+                
+                <div class="form-group"><label>Descripci&oacute;n:</label>
+                <textarea name="descripcion" id="textarea" rows="4" class="form-control"><? echo $descripcion; ?></textarea>
+              </div>
+                             <div class="form-group">
+                <label>Justificación:</label>
+                <textarea name="justificacion" id="textarea" cols="35" rows="4" class="form-control"><? echo $justificacion; ?></textarea>
+              </div>
+
+            <div class="form-group">
+            <label>Horario:</label>
+                <input name="horario" type="text" value="<? echo $horario; ?>"class="form-control" />
+              </div>
               
 </div>
 </div>
-<div class="col-sm-5">
+<div class="col-sm-6">
 <div class="well ">          
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Grupos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning pull-right">Desmarcarlos todos</a> <br />
               <br />
               <h4>Grupos de alumnos que realizan la actividad</h4>
-            
+           
 <?
 $curso0 = "select distinct curso from alma order by curso";
 $curso1 = mysql_query($curso0);
@@ -163,7 +179,7 @@ while($curso = mysql_fetch_array($curso1))
 	echo "<br />";
 $niv = $curso[0];
 ?>
-           <? echo "<strong style='margin-right:12px;'> ".$niv." </strong>"; ?>
+           <? echo "<p class='text-info'> ".$niv." </p>"; ?>
                 <?  
 $alumnos0 = "select distinct unidad from alma where curso = '$niv'";
 //echo $alumnos0;
@@ -172,60 +188,54 @@ while($alumno = mysql_fetch_array($alumnos1))
 {
 $grupo = $alumno[0];
 ?>
-                  <? echo "<span style='margin-right:2px;color:#08c;'>".$grupo."</span>";?>
-                  <input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>"  style="margin-right:5px;margin-top:0px;margin-bottom:2px;">
-                  <? } ?>              
+                 
+<div class="checkbox-inline"> 
+<label>
+<input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>" >
+                   <? 
+                  echo "".$grupo."</label> </div>&nbsp;";
+                  ?>
+                  <? } ?>   
+                  <br>           
  <? } ?>
-    <br /><br />
-                <label>Justificación: <br />
-                <textarea name="justificacion" id="textarea" cols="35" rows="4" class="col-sm-10"><? echo $justificacion; ?></textarea>
-              </label>
-			   <br />
-            <label>Horario: <br />
-                <input name="horario" type="text" value="<? echo $horario; ?>" size="30" maxlength="64" class="col-sm-10">
-              </label>        
-            <input name="id" type="hidden" value="<? echo $id; ?>">
-            
-       
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  <br />
-  <div align="center">
-       <? 
-		  if($modificar == '1'){?>
-            <INPUT type="submit" name="submit2" value="Actualizar datos de la  Actividad" class="btn btn-primary">
-  <? }
-else{?>
-  <? }
-  if ((date('m')>4 and date('m')<5)) {
-  	if ( stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE ) {
-  	echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary btn-large" >';
-  	}
-  }
-  else{
-  	echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary btn-large" >';
-  }
-  
+
+                
  
-  ?>
+<input name="id" type="hidden" value="<? echo $id; ?>">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<br />
+<div align="center"><? 
+if($modificar == '1'){?> <INPUT type="submit" name="submit2"
+	value="Actualizar datos de la  Actividad" class="btn btn-primary"> <? }
+	else{?> <? }
+	if ((date('m')>4 and date('m')<5)) {
+		if ( stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE ) {
+			echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary btn-large" >';
+		}
+	}
+	else{
+		echo '  <INPUT  type="submit" name="submit1" value="Registrar la Actividad" class="btn btn-primary btn-large" >';
+	}
 
 
-  </FORM>
-  <br /><br />
-  <!-- Información Autobuses de Estepona
+	?>
+
+
+</FORM>
+<br />
+<br />
+<!-- Información Autobuses de Estepona
   <div class="well well-large" style="width:500px;text-align:left;">
   <div style="font-weight:bold; color:#08c;">Información sobre Transporte en las Actividades.</div>
   <p>Autobusus Ricardo<br /> 952 80 86 45 (Oficina);<br /> 671 527 372 (Móvil de contacto para confirmación);<br /> 649 45 70 99 (Móvil de Antonio -Dueño de la Empresa- Sólo en caso de emergencia).</p>
   </div>
   </div>
-  -->
-  
- 
-<? } ?>
-<script>
+  --> <? } ?> <script>
 
 function seleccionar_todo(){
 	for (i=0;i<document.Cursos.elements.length;i++)
@@ -237,10 +247,7 @@ function deseleccionar_todo(){
 		if(document.Cursos.elements[i].type == "checkbox")	
 			document.Cursos.elements[i].checked=0
 }
-</script>
-<? include("../../pie.php");?>
-
-	<script>  
+</script> <? include("../../pie.php");?> <script>  
 	$(function ()  
 	{ 
 		$('#datetimepicker1').datetimepicker({
@@ -249,6 +256,6 @@ function deseleccionar_todo(){
 		})
 	});  
 	</script>
-	
-  </BODY>
+
+</BODY>
 </HTML>

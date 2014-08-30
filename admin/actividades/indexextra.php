@@ -28,14 +28,11 @@ exit;
   include("menu.php");
    $imprimir_activado = true;  
 ?>
-  <div class='container-fluid'>
+  <div class='container'>
   <div class="row">
-<div align="center">
 <div class="page-header">
   <h2>Actividades Complementarias y Extraescolares <small> Administración</small></h2>
-</div>
-  <div class="col-sm-1"> </div>
-  <div class="col-sm-10">
+  <div class="col-sm-12">
 <?   
 if ($_GET['eliminar']=="1") {
   	mysql_query("delete from actividades where id = '".$_GET['id']."'");
@@ -127,7 +124,7 @@ La Actividad ha sido confirmada por la Autoridad.
   <h3>Información completa de Actividad Extraescolar</h3><br />
 </div>
   <div align="center">
-<table class="table table-striped" style="width:750px;" align="center">
+<table class="table table-striped" align="center">
   <tr>
    <th colspan="2"><h4 align="center"><? echo $datos[2];?></h4></th>
   </tr>
@@ -213,16 +210,16 @@ $datos[2]= str_replace("\\","",$datos[2]);
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 ?>
  <?  if($datos[9] == '1'){echo ' <i class="fa fa-check-circle" title="Confirmada"> </i> ';}else{echo ' <i class="fa fa-question-circle title="Sin confirmar""> </i> ';}?>
-    <a href="extraescolares.php?id=<? echo $datos[0];?>"><span style="color:#269">Seleccionar</a>
+    <a href="extraescolares.php?id=<? echo $datos[0];?>"><span class="text-info">Seleccionar</a>
     <? } ?>
     </td>
     <td><? echo $mes2;?></td>
-    <td nowrap><a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1"> <i class="fa fa-search" title='Ver detalles de activida'> </i> </a>
+    <td nowrap><a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1"> <i class="fa fa-search" rel='tooltip' title='Ver detalles de la actividad'> </i></a>
           <?
 		 // echo  $_SESSION['dpt']." == ".$datos[4];
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 ?>  
-    <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1" data-bb='confirm-delete'> <i class="fa fa-trash-o" title='Eliminar actividad'> </i> </a>
+    <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1" data-bb='confirm-delete'> <i class="fa fa-trash-o" title='Eliminar actividad'> </i></a>
   <? } ?>
   
       <?
@@ -230,7 +227,7 @@ $datos[2]= str_replace("\\","",$datos[2]);
 ?>
   
    <? if($autoriz=="1"){}else{ ?> 
-    <a href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1"> <i class="fa fa-check-circle" title='Autorizar actividad'> </i> </a>
+    <a href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1"> <i class="fa fa-check-circle" title='Autorizar actividad'> </i></a>
     <? } ?>
 </td>
 <td nowrap>	
@@ -256,6 +253,9 @@ $datos[2]= str_replace("\\","",$datos[2]);
 ?>
 </tbody>
 </table>
+</div>
+</div>
+</div>
 <? include("../../pie.php");?>
 </body>
 </html>

@@ -8,22 +8,25 @@ if ($_SESSION['autentificado'] != 1) {
 	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
 	exit();
 }
-registraPagina($_SERVER['REQUEST_URI']);
-?>
 
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
+registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+?>
 <?php
  include("../../menu.php");
  include("menu.php");
  ?>
- <div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Actividades Complementarias y Extraescolares <small> Edición de actividades</small></h2>
 </div>
 <br />
-</div>
+
  <?
-mysql_connect($db_host, $db_user, $db_pass);
-mysql_select_db($db);
  if(isset($_POST['submit2']))
   {
   if ($actividad == "" or $departamento == "" or $hoy == "" or $horario == "" or $descripcion == "" or $justificacion == "" or $fecha_act == "") {
@@ -138,26 +141,26 @@ $justificacion = $datos[10];
                 	$jd = "readonly";
                 }
                 ?>
-<div class="row">
-<div class="col-sm-1"></div>
-<div class="col-sm-5">
-<div class="well ">            
+<div class="col-sm-6">
+
+<div class="well">
+            
 <FORM action="indexconsulta.php" method="POST" name="Cursos">
            
-                <label>Fecha de la actividad:<br /> 
+                <label>Fecha de la actividad:</label> 
             <div class="form-group" id="datetimepicker1">
             <div class="input-group">
-              <input name="fecha_act" type="text" class="input input-small" value="<? echo "$dia-$mes-$ano"; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
+              <input name="fecha_act" type="text" class="form-control" value="<? echo "$dia-$mes-$ano"; ?>" data-date-format="DD-MM-YYYY" id="fecha_act" >
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
             </div> 
             </div>
-              </label>
-              <hr>
-                <label>Titulo: <br />
-                <input name="actividad" type="text" id="actividad" value="<? echo $actividad; ?>" size="30" maxlength="128" style="width:90%"></label>
-               <br />
-                <label>Departamento:  <br />
-                <SELECT name="departamento" onChange="submit()" >
+              
+                <div class="form-group"><label>Titulo: </label>
+                <input name="actividad" type="text" id="actividad" value="<? echo $actividad; ?>" class="form-control">
+                </div>
+
+                <div class="form-group"><label>Departamento:  </label>
+                <SELECT name="departamento" onChange="submit()"  class="form-control">
                     <OPTION><? echo $departamento;?></OPTION>
 
                     <?
@@ -195,10 +198,10 @@ else{
 
 	?>
                   </select>
-                </label>
-               <br />
-                <label>Profesor: <br />
-                <SELECT multiple name='profesor[]' class="input-xlarge">
+                </div>
+
+                <div class="form-group"><label>Profesor: </label>
+                <SELECT multiple name='profesor[]' class="form-control">
                     <?
 					if($departamento == "Actividades Extraescolares"){
 					echo "<OPTION selected>Mart&iacute;nez Mart&iacute;nez, M&ordf; Pilar</OPTION>";
@@ -220,33 +223,43 @@ else{
         }
 	?>
                   </select>
-                  </label>
-                  <p class="help-block" > (*) Para seleccionar varios profesores, mantén apretada la tecla Ctrl mientras los vas marcando con el ratón.</p> <br />
+                  </div>
+                  <p class="help-block" > (*) Para seleccionar varios profesores, mantén apretada la tecla Ctrl mientras los vas marcando con el ratón.</p> 
+             
+             <div class="form-group"><label>Justificacion: </label>
+                <textarea name="justificacion" id="textarea" cols="35" rows="4" class="form-control"><? echo $justificacion; ?></textarea>
+              </div>
+
+            <div class="form-group"><label>Horario: </label>
+                <input name="horario" type="text" value="<? echo $horario; ?>"  class="form-control">
+              </div>  
+              
                     <input type="hidden" name="hoy"  value="<? $hoy = date('Y\-m\-d'); echo $hoy;?>">
-                <label>Descripci&oacute;n: <br />
-                <textarea name="descripcion" id="textarea" cols="35" rows="4" style="width:90%"><? echo $descripcion; ?></textarea>
-              </label>
+                <div class="form-group"><label>Descripci&oacute;n: </label>
+                <textarea name="descripcion" id="textarea" rows='4' class="form-control"><? echo $descripcion; ?></textarea>
+              </div>
               
 </div>
 </div>
-<div class="col-sm-5">
-<div class="well ">          
+
+<div class="col-sm-6">
+<div class="well well-lg">          
 <a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Grupos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-warning pull-right">Desmarcarlos todos</a> <br />
-              <br />
-              <h4>Grupos de alumnos que realizan la actividad</h4>
+
+              <br><h4>Grupos de alumnos que realizan la actividad</h4>
             
 <?
+
 $curso0 = "select distinct curso from alma order by curso";
 $curso1 = mysql_query($curso0);
 while($curso = mysql_fetch_array($curso1))
 {
-	echo "<br />";
 $niv = $curso[0];
 ?>
-           <? echo "<strong style='margin-right:10px;'> ".$niv." </strong>"; ?>
+           <? echo "<p class='text-info'> ".$niv." </p>"; ?>
                 <?  
-$alumnos0 = "select distinct unidad from alma where curso = '$niv' order by curso";
+$alumnos0 = "select distinct unidad from alma where curso = '$niv' order by curso, unidad";
 
 $alumnos1 = mysql_query($alumnos0);
 while($alumno = mysql_fetch_array($alumnos1))
@@ -255,35 +268,32 @@ $chk="";
 $grupo = $alumno[0];
 if(strstr($todosgrupos,$grupo)==TRUE){$chk=" checked ";}
 ?>
-                  <? echo "<span style='margin-right:1px;color:#08c'>".$grupo."</span>";?>
-                  <input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>" <? echo $chk;?> style="margin-right:7px;margin-bottom:6px">
-                  <? } ?>              
-            
+
+<div class="checkbox-inline"><label><input name="<? echo "grt".$grupo;?>" type="checkbox" id="A" value="<? echo $grupo;?>" <? echo $chk;?>>
+                  <?
+ echo "".$grupo."</label></div>";
+                  
+} ?>              
+       <br />     
  <? } ?>
-     <br /><br />
-                <label>Justificacion: <br />
-                <textarea name="justificacion" id="textarea" cols="35" rows="4" class="col-sm-11"><? echo $justificacion; ?></textarea>
-              </label>
-			   <br />
-            <label>Horario: <br />
-                <input name="horario" type="text" value="<? echo $horario; ?>" size="30" maxlength="64" class="input-xlarge">
-              </label>       
+       
             <input name="id" type="hidden" value="<? echo $id;?>" />                                                                                                               
     <input name="fecha_origen" type="hidden" value="<? echo '$ano-$mes-$dia'; ?>" /> 
   </div>
   </div>
+  
   </div>
-  </div>
-  </div>
-  <br />
-  <div align="center">
-    <INPUT type="submit" name="submit2" value="Actualizar datos de la  Actividad" class="btn btn-primary">
+<center>
+      <INPUT type="submit" name="submit2" value="Actualizar datos de la  Actividad" class="btn btn-primary">
+</center>
   </FORM>
-  <br /><br />
-  <div class="well well-large" style="width:500px;text-align:left;">
-  <div style="font-weight:bold; color:#08c;">Información sobre Transporte en las Actividades.</div>
+    <hr />
+  <div class="well well-lg" style="width:500px;text-align:left;margin:auto">
+  <p class='lead'>Información sobre Transporte en las Actividades.</legpend>
   <p>AUTOBUSES RICARDO<br /> 952 80 86 45 (OFICINA);<br /> 671 527 372 (MÓVIL DE CONTACTO PARA CONFIRMACIÓN);<br /> 649 45 70 99 (MÓVIL DE ANTONIO -DUEÑO DE LA EMPRESA- SÓLO EN CASO DE EMERGENCIA).</p>
   </div>
+  </div>
+
   </div>
 <? } ?>
 <? include("../../pie.php");?>
