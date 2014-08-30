@@ -38,7 +38,6 @@ switch (substr($codigo_postal_del_centro,0,2)) {
 //	de acceso que el item padre.
 //
 
-<?php
 switch (substr($codigo_postal_del_centro,0,2)) {
 	// Almería
 	case '04' : $web_delegacion = '436'; break;
@@ -95,8 +94,8 @@ $menu = array(
 			array(
 				'href'   => 'admin/matriculas/index.php',
 				'titulo' => 'Matriculación de alumnos',
-				'meses'	 => array(6, 7, 8, 9),
 				'modulo'  => $mod_matriculas,
+				'meses'	 => array(6, 7, 8, 9),
 			),
 		)
 	),
@@ -467,8 +466,8 @@ $menu = array(
 			array(
 				'href'   => 'admin/evaluaciones/index.php',
 				'titulo' => 'Sesiones de evaluación',
-				'ncargos' => array('6', '7'),
 				'modulo' => $mod_eval,
+				'ncargos' => array('6', '7'),
 			),
 			array(
 				'href'   => 'admin/tutoria/index.php',
@@ -479,9 +478,9 @@ $menu = array(
 			array(
 				'href'   => 'admin/guardias/admin.php',
 				'titulo' => 'Guardias',
+				'modulo' => $mod_horario,
 				'cargos' => array('1'),
 				'ncargo' => array('6', '7'),
-				'modulo' => $mod_horario,
 			),
 			array(
 				'href'   => 'admin/ausencias/index.php',
