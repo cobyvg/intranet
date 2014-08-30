@@ -44,12 +44,15 @@ if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'
 }
 ?>
       <li<? echo $activo3;?>><a href="consulta.php">Lista de Actividades</a></li>
-          
           <form method="post" action="consulta.php" class="form-search" style="margin-top:4px;"style="margin-top:4px;">
-      	<div class="input-group pull-right">
-    <input type="search" class="search-query" placeholder="Buscar en las Actividades" name="expresion" id="exp" onClick="this.value=''">
-    <button type="submit" class="btn btn-success">Buscar</button>
-  		</div>    
+          <div class="pull-right col-lg-3">
+			   <div class="input-group">
+    <input type="search" class="form-control input-sm" placeholder="Buscar en las Actividades" name="expresion" id="exp" onClick="this.value=''">
+			     <span class="input-group-btn">
+			       <button class="btn btn-default btn-sm" type="submit"><span class="fa fa-search fa-lg"></span></button>
+			     </span>
+			   </div><!-- /input-group -->
+			 </div><!-- /.col-lg-3-->   
     </form>
     </ul>
         </div>

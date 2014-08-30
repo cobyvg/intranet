@@ -68,7 +68,7 @@ for ($i = 1; $i < 11; $i++) {
 $query="UPDATE Textos SET Titulo = '$titulo', Autor = '$autor',
 		Editorial = '$editorial', Departamento = '$departamento', 
 		Asignatura = '$asignatura', Notas = '$NOTAS', isbn = '$isbn', nivel = '$nivel', grupo = '$grupo', obligatorio = '$obligatorio' where Id = '$id'";
-echo $query;
+//echo $query;
 mysql_query($query);
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

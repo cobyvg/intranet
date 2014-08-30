@@ -26,11 +26,6 @@ exit;
  include("../../menu.php");
  include("menu.php");
 ?>
-<div align="center">
-<div class="page-header">
-  <h2>Actividades Complementarias y Extraescolares <small> Registro de actividades</small></h2>
-</div>
-</div>
 <?
 if(isset($_POST['submit1'])){
 include("inserta.php");
@@ -38,8 +33,11 @@ include("inserta.php");
  
 else{
 ?>
-
+<div class="container">
   <div class="row">
+  <div class="page-header">
+  <h2>Actividades Complementarias y Extraescolares <small> Registro de actividades</small></h2>
+</div>
 <div class="col-sm-1"></div>
 <div class="col-sm-5">
 <div class="well">

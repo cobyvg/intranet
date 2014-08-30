@@ -55,7 +55,7 @@ echo '
 <div class="page-header">
   <h2>Libros de texto <small>Departamento de '.$departamento.'</small></h2>
 </div><br />';
-
+?>
 <div class="row">
 <div class="col-sm-12">
 <?		

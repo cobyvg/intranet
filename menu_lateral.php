@@ -53,6 +53,19 @@ $menu = array(
 				'titulo' => 'Intervenciones',
 			),
 			array(
+				'href'   => 'admin/tutoria/index.php',
+				'titulo' => 'Tutorías',
+			),
+			array(
+				'href'   => 'admin/guardias/admin.php',
+				'titulo' => 'Gestión de Guardias',
+				'modulo' => $mod_horario,
+			),
+			array(
+				'href'   => 'admin/ausencias/index.php',
+				'titulo' => 'Profesores ausentes',
+			),
+			array(
 				'href'   => 'admin/matriculas/index.php',
 				'titulo' => 'Matriculación de alumnos',
 				'meses'	 => array(6, 7, 8, 9),
@@ -431,22 +444,9 @@ $menu = array(
 				'modulo' => $mod_eval,
 			),
 			array(
-				'href'   => 'admin/tutoria/index.php',
-				'titulo' => 'Tutorías',
-				'cargos' => array('1'),
-				'ncargos' => array('6', '7'),
-			),
-			array(
-				'href'   => 'admin/guardias/admin.php',
-				'titulo' => 'Guardias',
-				'cargos' => array('1'),
-				'ncargo' => array('6', '7'),
-				'modulo' => $mod_horario,
-			),
-			array(
 				'href'   => 'admin/ausencias/index.php',
 				'titulo' => 'Ausencias',
-				'ncargos' => array('6', '7'),
+				'ncargos' => array('1', '6', '7'),
 			),
 		),
 	),
@@ -590,7 +590,9 @@ $menu = array(
 					<?php if(isset($menu[$i]['items'][$j]['items'])): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['modulo']) || ($menu[$i]['items'][$j]['modulo'] == '1')): ?>
 					<?php if(!isset($menu[$i]['items'][$j]['cargos']) || in_array($carg[0], $menu[$i]['items'][$j]['cargos']) || in_array($carg[1], $menu[$i]['items'][$j]['cargos']) || in_array($carg[2], $menu[$i]['items'][$j]['cargos']) || in_array($carg[3], $menu[$i]['items'][$j]['cargos']) || in_array($carg[4], $menu[$i]['items'][$j]['cargos'])): ?>
+					
 					<?php if(!isset($menu[$i]['items'][$j]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[1], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[2], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[3], $menu[$i]['items'][$j]['ncargos']) || !in_array($carg[4], $menu[$i]['items'][$j]['ncargos'])): ?>
+					
 					<?php if(!isset($menu[$i]['items'][$j]['meses']) || in_array($carg, $menu[$i]['items'][$j]['meses'])): ?>
 					<li><a data-toggle="collapse" href="#<?php echo $menu[$i]['menu_id']; ?>-submenu<?php echo $count; ?>">
 						<span class="fa fa-chevron-down pull-right"></span>

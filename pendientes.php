@@ -242,7 +242,7 @@ $fechaenv = "el día $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 </div>
   <div class="modal-footer">
   <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
-  <a href="#" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+  <a href="#" class="btn btn-danger" data-dismiss="modal">Cerrar</a>
     <?
 		$asunto = 'RE: '.$asunto;
 echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
@@ -312,7 +312,7 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
   
   <div class="modal-footer">
 	  <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
-	  <a href="#" target="_top" data-dismiss="modal" class="btn btn-default">Cerrar</a>
+	  <a href="#" target="_top" data-dismiss="modal" class="btn btn-danger">Cerrar</a>
 	  <?
 		$asunto = str_replace('"','',$asunto);
 		$asunto = 'RE: '.$asunto;

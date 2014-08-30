@@ -28,9 +28,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include 'menu.php';
 ?>
-	
-echo '<div class="container">';		
-?>
+<div class="container">
 <div class="page-header">
   <h2>Libros de texto <small>Edición de libros</small></h2>
 </div>
