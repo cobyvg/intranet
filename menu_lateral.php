@@ -92,6 +92,19 @@ $menu = array(
 				'titulo' => 'Intervenciones',
 			),
 			array(
+				'href'   => 'admin/tutoria/index.php',
+				'titulo' => 'Control de Tutorías',
+			),
+			array(
+				'href'   => 'admin/guardias/admin.php',
+				'titulo' => 'Gestión de Guardias',
+				'modulo' => $mod_horario,
+			),
+			array(
+				'href'   => 'admin/ausencias/index.php',
+				'titulo' => 'Gestión de Ausencias',
+			),
+			array(
 				'href'   => 'admin/matriculas/index.php',
 				'titulo' => 'Matriculación de alumnos',
 				'modulo'  => $mod_matriculas,
@@ -470,22 +483,9 @@ $menu = array(
 				'ncargos' => array('6', '7'),
 			),
 			array(
-				'href'   => 'admin/tutoria/index.php',
-				'titulo' => 'Tutorías',
-				'cargos' => array('1'),
-				'ncargos' => array('6', '7'),
-			),
-			array(
-				'href'   => 'admin/guardias/admin.php',
-				'titulo' => 'Guardias',
-				'modulo' => $mod_horario,
-				'cargos' => array('1'),
-				'ncargo' => array('6', '7'),
-			),
-			array(
 				'href'   => 'admin/ausencias/index.php',
-				'titulo' => 'Ausencias',
-				'ncargos' => array('6', '7'),
+				'titulo' => 'Profesores ausentes',
+				'ncargos' => array('1', '6', '7'),
 			),
 		),
 	),
