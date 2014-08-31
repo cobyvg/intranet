@@ -19,7 +19,7 @@ if (isset($_GET['actividad'])) {$actividad = $_GET['actividad'];}elseif (isset($
 if (isset($_GET['descripcion'])) {$descripcion = $_GET['descripcion'];}elseif (isset($_POST['descripcion'])) {$descripcion = $_POST['descripcion'];}else{$descripcion="";}
 if (isset($_GET['justificacion'])) {$justificacion = $_GET['justificacion'];}elseif (isset($_POST['justificacion'])) {$justificacion = $_POST['justificacion'];}else{$justificacion="";}
 if (isset($_GET['hoy'])) {$hoy = $_GET['hoy'];}elseif (isset($_POST['hoy'])) {$hoy = $_POST['hoy'];}else{$hoy="";}
-if (isset($_GET['expresion'])) {$expresion = $_GET['expresion'];}elseif (isset($_POST['expresion'])) {$expresion = $_POST['expresion'];}else{$expresion="";}
+if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$expresion = $_POST['q'];}else{$expresion="";}
 
 $activo1="";
 $activo2="";
@@ -28,8 +28,22 @@ if (strstr($_SERVER['REQUEST_URI'],'indexextra.php')==TRUE) {$activo1 = ' class=
 if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE){ $activo2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'consulta.php')==TRUE){ $activo3 = ' class="active" ';}
 ?>
-    <div class="container">  
-          <ul class="nav nav-tabs">
+    <div class="container">
+    	
+    	<form method="get" action="consulta.php">
+    	
+    		<div class="pull-right col-lg-3">
+    		   <div class="input-group">
+    		     <input type="text" class="form-control input-sm" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar...">
+    		     <span class="input-group-btn">
+    		       <button class="btn btn-default btn-sm" type="submit"><span class="fa fa-search fa-lg"></span></button>
+    		     </span>
+    		   </div><!-- /input-group -->
+    		 </div><!-- /.col-lg-3-->
+    		 
+    	</form>
+    	
+      <ul class="nav nav-tabs">
 <?
 if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
 ?>
@@ -44,15 +58,5 @@ if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'
 }
 ?>
       <li<? echo $activo3;?>><a href="consulta.php">Lista de Actividades</a></li>
-          <form method="post" action="consulta.php" class="form-search" style="margin-top:4px;"style="margin-top:4px;">
-          <div class="pull-right col-lg-3">
-			   <div class="input-group">
-    <input type="search" class="form-control input-sm" placeholder="Buscar en las Actividades" name="expresion" id="exp" onClick="this.value=''">
-			     <span class="input-group-btn">
-			       <button class="btn btn-default btn-sm" type="submit"><span class="fa fa-search fa-lg"></span></button>
-			     </span>
-			   </div><!-- /input-group -->
-			 </div><!-- /.col-lg-3-->   
-    </form>
     </ul>
-        </div>
+  </div>
