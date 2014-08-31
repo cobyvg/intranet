@@ -27,11 +27,13 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <div class="container">
-<div class="row">
 <div class="page-header">
 <h2>Actividades Complementarias y Extraescolares <small> Registro de
 actividades</small></h2>
 </div>
+
+<div class="row">
+
 
 <?
 if(isset($_POST['submit1'])){
