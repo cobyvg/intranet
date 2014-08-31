@@ -1,4 +1,4 @@
-<h4><i class="fa fa-clock-o"></i> Horario</h4>
+<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>
 <table class="table table-bordered table-condensed table-striped table-centered">
 <thead>
   <tr>
