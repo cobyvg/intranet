@@ -78,7 +78,7 @@ class GranPDF extends FPDF {
 }
 
 			# creamos el nuevo objeto partiendo de la clase
-$MiPDF=new GranPDF('P','mm',A4);
+$MiPDF=new GranPDF('P','mm','A4');
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');

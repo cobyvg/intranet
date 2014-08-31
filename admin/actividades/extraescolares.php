@@ -27,11 +27,9 @@ include("menu.php");
 </div>
 
 <div class="col-sm-6 col-sm-offset-3">
-    <div class="well well-lg"> 
-    <div align="center">         
-<a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Alumnos</a>
-<a href="javascript:deseleccionar_todo()" class="btn btn-warning">Desmarcarlos todos</a>
-</div>
+    <div class="well well-lg">       
+<a href="javascript:seleccionar_todo()" class="btn btn-primary btn-sm">Marcar todos</a>
+<a href="javascript:deseleccionar_todo()" class="btn btn-primary btn-sm">Desmarcar todos</a>
 <br />
     <FORM action="imprimir.php" method="POST" name="imprime">
 
@@ -49,11 +47,11 @@ $profesor.=$profe[1]." ".$profe[0].", ";
 //$profesor.=$profeso.",";
 }
 $profesor = substr($profesor,0,-5);
-$trozos = explode(";",$cursos[0]);
+$trozos = explode("-",$cursos[0]);
 foreach($trozos as $valor)
 {
 $unidad = $valor;
-$alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.unidad = '$unidad' order by NC";
+$alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and REPLACE(alma.unidad,'-','') = '$unidad' order by NC";
 //echo $alumnos0;
 $alumnos1 = mysql_query($alumnos0);
 $num = mysql_num_rows($alumnos1);

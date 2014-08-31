@@ -27,35 +27,34 @@ if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = '
 # creamos la clase extendida de fpdf.php 
 class GranPDF extends FPDF {
 	function Header() {
-		$this->Image ( '../../img/encabezado.jpg',15,15,50,'','jpg');
-		$this->SetFont('ErasDemiBT','B',10);
+		$this->SetTextColor(0, 122, 61);
+		$this->Image( '../../../img/encabezado.jpg',25,14,53,'','jpg');
+		$this->SetFont('ErasDemiBT','B',12);
 		$this->SetY(15);
-		$this->Cell(90);
-		$this->Cell(80,4,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
-		$this->SetFont('ErasMDBT','I',10);
-		$this->Cell(90);
-		$this->Cell(80,4,$GLOBALS['CENTRO_NOMBRE'],0,1);
-		$this->Ln(8);
+		$this->Cell(75);
+		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
+		$this->SetFont('ErasMDBT','I',12);
+		$this->Cell(75);
+		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
-		$this->Image ( '../../img/pie.jpg', 10, 245, 25, '', 'jpg' );
-		$this->SetY(265);
-		$this->SetFont('ErasMDBT','',10);
-		$this->SetTextColor(156,156,156);
-		$this->Cell(70);
-		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'],0,1);
-		$this->Cell(70);
-		$this->Cell(80,4,$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
-		$this->Cell(70);
-		$this->Cell(80,4,'Tlf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
-		$this->Cell(70);
-		$this->Cell(80,4,'Correo: '.$GLOBALS['CENTRO_CORREO'],0,1);
-		$this->Ln(8);
+		$this->SetTextColor(0, 122, 61);
+		$this->Image( '../../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
+		$this->SetY(275);
+		$this->SetFont('ErasMDBT','',8);
+		$this->Cell(75);
+		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'].'. '.$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(75);
+		$this->Cell(80,4,'Telf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(75);
+		$this->Cell(80,4,'Correo-e: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->SetTextColor(255, 255, 255);
 	}
 }
 
 			# creamos el nuevo objeto partiendo de la clase
-			$MiPDF=new GranPDF('P','mm',A4);
+			$MiPDF=new GranPDF('P','mm','A4');
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
@@ -100,7 +99,7 @@ $importante2='En caso de no atender a este requerimiento el/la alumno/a no podrá
 # insertamos la primera página del documento
 $MiPDF->Addpage();
 #### Cabecera con direcciÃ³n
-$MiPDF->SetFont('Times','',11);
+$MiPDF->SetFont('NewsGotT','',12);
 $MiPDF->SetTextColor(0,0,0);
 $MiPDF->Text(30,55,$tutor);
 $MiPDF->Text(30,65,$domicilio);
@@ -108,18 +107,18 @@ $MiPDF->Text(30,70,$codigo." (".$localidad.")");
 
 	$total=0;
 	$MiPDF->Ln(60);
-	$MiPDF->SetFont('Times','B',12);
+	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$titulo2,0,'C',0);
-	$MiPDF->SetFont('Times','',11);
+	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Ln(4);
 	$MiPDF->Multicell(0,4,$cuerpo21,0,'J',0);
 	$MiPDF->Ln(3);
 	$MiPDF->Multicell(0,4,$cuerpo22,0,'J',0);
 	$MiPDF->Ln(3);
-	$MiPDF->SetFont('Times','I',10);
+	$MiPDF->SetFont('NewsGotT','I',12);
 	$MiPDF->Ln(2);
 	while($regasig=mysql_fetch_row($resulasig)){
-		$MiPDF->SetFont('Times','I',10);
+		$MiPDF->SetFont('NewsGotT','I',12);
 		$MiPDF->SetX(170);
 		$MiPDF->cell(0,4,$regasig[3].' Euros',0,'D',0);
 	$MiPDF->SetX(20);
@@ -128,10 +127,10 @@ $MiPDF->Text(30,70,$codigo." (".$localidad.")");
 	$total=$total+$regasig[3];
 	}#del while
 	mysql_query("update textos_alumnos set devuelto = '1', fecha = now() where claveal = '$claveal'");		
-		$MiPDF->SetFont('Times','BI',10);
+		$MiPDF->SetFont('NewsGotT','BI',12);
 		$MiPDF->SetX(158);
 	$MiPDF->Multicell(0,4,' Total: '.$total.' Euros',0,'D',0);
-		$MiPDF->SetFont('Times','',11);
+		$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Ln(5);
 	$MiPDF->Multicell(0,4,'En '.$localidad_del_centro.', a '.$hoy,0,'C',0);
 	$MiPDF->Ln(5);

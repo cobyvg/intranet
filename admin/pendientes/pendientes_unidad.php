@@ -21,15 +21,65 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 if ($_POST['pdf']==1) {
 	require("../../pdf/fpdf.php");
 	include_once ("../../pdf/funciones.inc.php");
+	
+	// Variables globales para el encabezado y pie de pagina
+	$GLOBALS['CENTRO_NOMBRE'] = $nombre_del_centro;
+	$GLOBALS['CENTRO_DIRECCION'] = $direccion_del_centro;
+	$GLOBALS['CENTRO_CODPOSTAL'] = $codigo_postal_del_centro;
+	$GLOBALS['CENTRO_LOCALIDAD'] = $localidad_del_centro;
+	$GLOBALS['CENTRO_TELEFONO'] = $telefono_del_centro;
+	$GLOBALS['CENTRO_FAX'] = $fax_del_centro;
+	$GLOBALS['CENTRO_CORREO'] = $email_del_centro;
+	
+	if(substr($codigo_postal_del_centro,0,2)=="04") $GLOBALS['CENTRO_PROVINCIA'] = 'Almería';
+	if(substr($codigo_postal_del_centro,0,2)=="11") $GLOBALS['CENTRO_PROVINCIA'] = 'Cádiz';
+	if(substr($codigo_postal_del_centro,0,2)=="14") $GLOBALS['CENTRO_PROVINCIA'] = 'Córdoba';
+	if(substr($codigo_postal_del_centro,0,2)=="18") $GLOBALS['CENTRO_PROVINCIA'] = 'Granada';
+	if(substr($codigo_postal_del_centro,0,2)=="21") $GLOBALS['CENTRO_PROVINCIA'] = 'Huelva';
+	if(substr($codigo_postal_del_centro,0,2)=="23") $GLOBALS['CENTRO_PROVINCIA'] = 'Jaén';
+	if(substr($codigo_postal_del_centro,0,2)=="29") $GLOBALS['CENTRO_PROVINCIA'] = 'Málaga';
+	if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = 'Sevilla';
+	
 	define('FPDF_FONTPATH','../../pdf/font/');
 	# creamos la clase extendida de fpdf.php
+	# creamos la clase extendida de fpdf.php 
 	class GranPDF extends FPDF {
-
+		function Header() {
+			$this->SetTextColor(0, 122, 61);
+			$this->Image( '../../img/encabezado.jpg',25,14,53,'','jpg');
+			$this->SetFont('ErasDemiBT','B',10);
+			$this->SetY(15);
+			$this->Cell(75);
+			$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
+			$this->SetFont('ErasMDBT','I',10);
+			$this->Cell(75);
+			$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
+			$this->SetTextColor(255, 255, 255);
+		}
+		function Footer() {
+			$this->SetTextColor(0, 122, 61);
+			$this->Image( '../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
+			$this->SetY(275);
+			$this->SetFont('ErasMDBT','',8);
+			$this->Cell(75);
+			$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'].'. '.$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+			$this->Cell(75);
+			$this->Cell(80,4,'Telf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+			$this->Cell(75);
+			$this->Cell(80,4,'Correo-e: '.$GLOBALS['CENTRO_CORREO'],0,1);
+			$this->SetTextColor(255, 255, 255);
+		}
 	}
 	#abre la base de datos
 	# creamos el nuevo objeto partiendo de la clase ampliada
 	$MiPDF=new GranPDF('P','mm','A4');
-	$MiPDF->SetMargins(20,20,20);
+	$MiPDF->AddFont('NewsGotT','','NewsGotT.php');
+	$MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
+	$MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
+	$MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
+	$MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
+	$MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
+	$MiPDF->SetMargins(25,20,20);
 	# ajustamos al 100% la visualización
 	$MiPDF->SetDisplayMode('fullpage');
 	#elige selección múltiple
@@ -40,10 +90,10 @@ if ($_POST['pdf']==1) {
 		$fila=1;
 		$MiPDF->Addpage();
 		$MiPDF->Ln(8);
-		$MiPDF->SetFont('Times','B',12);
-		$MiPDF->Multicell(0,4,"Lista de alumnos con asignaturas pendientes",0,'J',0);
+		$MiPDF->SetFont('NewsGotT','B',12);
+		$MiPDF->Multicell(0,4,"LISTA DE ALUMNOS CON ASIGNATURAS PENDIENTES",0,'J',0);
 		$MiPDF->Ln(3);
-		$MiPDF->SetFont('Times','B',14);
+		$MiPDF->SetFont('NewsGotT','B',14);
 		$MiPDF->Multicell(0,4,"".$valor,0,'J',0);
 		$MiPDF->Ln(3);
 		$val_nivel=substr($valor,0,1);
@@ -55,7 +105,7 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 		//	echo $sql;
 		$Recordset1 = mysql_query($sql) or die(mysql_error());  #crea la consulata
 
-		$MiPDF->SetFont('Times','',11);
+		$MiPDF->SetFont('NewsGotT','',12);
 		$linea='';
 		$x=0;
 		$cuenta=1;
@@ -66,7 +116,7 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 			else{
 			if ($salida[0]<>$alumno){
 				$alumno=$salida[0];
-				$MiPDF->SetFont('Times','',10);
+				$MiPDF->SetFont('NewsGotT','',12);
 				if ($linea!=''){$MiPDF->ln(2);$MiPDF->Multicell(0,4,$linea,0,'J',0);}
 				#$MiPDF->Text(20,35+$x,$salida[1].', '.$salida[2]);$x=$x+5;
 				$linea=$salida[6] .'. '.$salida[1].', '.$salida[2].": ";
