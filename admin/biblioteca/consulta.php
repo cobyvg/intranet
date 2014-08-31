@@ -1,17 +1,14 @@
 <?php
-
-	if(isset($_POST['submit2'])){
+if(isset($_POST['submit2'])){
 	$fecha = $_POST['fecha'];
 	$fecha_act = $_POST['fecha_act'];
 	include("lpdf.php");
-	//echo $fecha;
 }
 else
 {
-	?>
-	<?
-	session_start();
-	include("../../config.php");
+
+session_start();
+include("../../config.php");
 	
 if($_SESSION['cambiar_clave']) {
 	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
@@ -20,37 +17,45 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-	if((!(stristr($_SESSION['cargo'],'1') == TRUE)) and (!(stristr($_SESSION['cargo'],'c') == TRUE)) )
-	{
-		header("location:http://$dominio/intranet/salir.php");
-		exit;
-	}
+if((!(stristr($_SESSION['cargo'],'1') == TRUE)) and (!(stristr($_SESSION['cargo'],'c') == TRUE)) )
+{
+	header("location:http://$dominio/intranet/salir.php");
+	exit;
+}
+
+if (!isset($_POST['fecha'])) {
+	header('Location:'.'http://'.$dominio.'/intranet/admin/biblioteca/index_morosos.php');
+}
 
 include("../../menu.php");
 include("menu.php");
 	
 
-	if(isset($_POST['submit1'])){
-	$fecha = $_POST['fecha'];		
-		?>
-<br>
+if(isset($_POST['submit1'])){
+$fecha = $_POST['fecha'];
+?>
 <div class="container">
-<div class="row">
-<div class="page-header">
-  <h2>Biblioteca del Centro <small> Consulta de Morosos</small></h1>
-<p class="lead text-muted">Fecha elegida: <? echo $fecha;?></small></p></div>
-<br>
-
-  <div class="col-sm-8 col-sm-offset-2">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+	  <h2>Biblioteca <small>Gestión de los Préstamos</small></h1>
+		<h3 class="text-info">Fecha elegida: <?php echo $fecha; ?></small></h3>
+	</div>
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	
+	<!-- COLUMNA CENTRAL -->
+  <div class="col-sm-12">
 <form name="form1" action="edicion.php" method="post">
 <table class='table table-striped'>
 <thead>
 	<thead>
-		<th><input type="checkbox" onClick="selectall(form1)" /></th>
+		<th><input type="checkbox" onclick="selectall(form1)"></th>
 		<th>Grupo </th>
 		<th>Alumno </th>
 		<th>Título </th>
-		<th width="90">Fecha dev. </th>
+		<th>Fecha dev.</th>
 		<th> </th>
 	</thead>
 	</thead><tbody>
@@ -75,7 +80,7 @@ include("menu.php");
 		<td style="text-align: left" nowrap>
 		<?
 		if ($list[7] == "SI") {
-			echo '<i class="fa fa-comment" style="margin-left:6px;" rel="tooltip" title="Se ha enviado SMS de advertencia"></i>';
+			echo '<span class="fa fa-comment fa-fw fa-lg" rel="tooltip" title="Se ha enviado SMS de advertencia"></span>';
 		}
 		?>
 		</td>
@@ -90,29 +95,21 @@ include("menu.php");
 
 		<? } ?>
 	</tr>
-	<?	}
-
-	?>
-</tbody></table>
+	<?	} ?>
+	</tbody>
+</table>
 
 	<? if($n==0){?>
 	<br /><br />
-<div align="center">
-<div class="alert alert-info alert-block fade in"
-	style="max-width: 500px;">
-<button type="button" class="close" data-dismiss="alert">&times;</button>
-<h5>ATENCIÓN:</h5>
-Todos los alumnos de esta lista han sido registrados. Ahora sólo podrás
-consultarla.</div>
+<div class="alert alert-info">
+	Todos los alumnos de esta lista han sido registrados. Ahora solo podrás consultarla.
 </div>
 	<? }
 	else {?>
 <hr>
-<button class="btn btn-danger" type="submit" name="borrar" value="Borrar" data-bb='confirm-delete'><i class="fa fa-trash-o "></i> Borrar</button>
-&nbsp;&nbsp; &nbsp;&nbsp;
-<button class="btn btn-info" type="submit" name="sms" value="sms"><i class="fa fa-play-circle "></i> Enviar SMS</button>
-&nbsp;&nbsp; &nbsp;&nbsp;
-<button class="btn btn-warning" type="submit" name="registro" value="registro"><i class="fa fa-play-circle "></i> Registrar Amonestaciones</button>
+<button type="submit" class="btn btn-danger" name="borrar" value="Borrar"><span class="fa fa-trash-o fa-fw"></span> Borrar</button>
+<button type="submit" class="btn btn-info" name="sms" value="sms"><span class="fa fa-mobile fa-fw"></span> Enviar SMS</button>
+<button type="submit" class="btn btn-warning" name="registro" value="registro"><span class="fa fa-gavel fa-fw"></span> Registrar Amonestaciones</button>
 
 	<? } ?></form>
 
@@ -120,17 +117,16 @@ consultarla.</div>
 	method="POST" name="listas" class="form-inline">
 <input type="hidden" name="fecha" value="<? echo $fecha; ?>" />
 <input type="hidden" name="fecha_act" value="<? echo $fecha_act; ?>" />
-<button class="btn btn-success" type="submit" name="submit2"
-	value="Lista del Curso"><i class="fa fa-file-o  "></i> Listado
-en pdf</button>
+<button class="btn btn-primary" type="submit" name="submit2" value="Lista del Curso">Listado en PDF</button>
+<a href="index_morosos.php" class="btn btn-default">Realizar otra consulta</a>
 </form>
 	<? }  ?> 
-	<? }  ?> 
-	<? include("../../pie.php");?>
+	<? }  ?>
+	
+<?php include("../../pie.php");?>
 	
 	<script>
-	function selectall(form)  
-	{  
+	function selectall(form) {  
 	 var formulario = eval(form)  
 	 for (var i=0, len=formulario.elements.length; i<len ; i++)  
 	  {  
@@ -139,7 +135,6 @@ en pdf</button>
 	  }  
 	}  
 	</script>  
-</div>
-</div>
-</div>
-<? include ("../../pie.php"); ?>
+
+</body>
+</html>

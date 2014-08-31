@@ -32,7 +32,7 @@ include("../../menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Biblioteca del Centro <small> Edición de morosos</small></h2>
+  <h2>Biblioteca <small> Edición de morosos</small></h2>
 </div>
 <br>
 

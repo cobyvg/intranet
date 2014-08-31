@@ -22,129 +22,203 @@ else
 	header("location:http://$dominio/intranet/salir.php");
 	exit;
 }
-?>
-<?php
+
 include("../../menu.php");
 include("menu.php");
 ?>
-<br />
-<div class="container">
-<div class="row">
-<div class="page-header">
-<h2>Biblioteca del centro <small> Importación de datos desde Abies</small></h2>
-</div>
+	<div class="container">
+		
+		<!-- TITULO DE LA PAGINA -->
+		<div class="page-header">
+			<h2>Biblioteca <small>Importación de datos desde Abies</small></h2>
+		</div>
+	
+		<!-- SCAFFOLDING -->
+		<div class="row">
+	
+			<div class="col-sm-12">
+				
+				
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab1" data-toggle="tab">Catálogo de Fondos</a></li>
+					<li><a href="#tab2" data-toggle="tab">Lectores de la Biblioteca</a></li>
+					<li><a href="#tab3" data-toggle="tab">Prestamos de Ejemplares</a></li>
+				</ul>
+			
+				<br>
+				
+				<div class="tab-content">
+					<div class="tab-pane in active" id="tab1">
+					
+						<div class="row">
+						
+							<div class="col-sm-6">
+								
+								<div class="well">
+								
+									<form method="post" action="importa_biblio.php" enctype="multipart/form-data">
+											
+											<fieldset>
+												<legend>Catálogo de Fondos</legend>
+												
+												<div class="form-group">
+													<label for="archivo1">Archivo</label>
+													<input type="file" id="archivo1" name="archivo1">
+												</div>
+												
+												<br>
+												
+												<button type="submit" class="btn btn-primary" name="enviar1">Importar</button>
+											
+										</fieldset>
+										
+									</form>
+									
+								</div><!-- /well -->
+							
+							</div><!-- /.col-sm-6 -->
+							
+							
+							<div class="col-sm-6">
+								
+								<h3>Información sobre la importación</h3>
+								
+								<p>La importación de los Fondos de la Biblioteca permite consultar en la Intranet, pero también en la página pública del Centro, los fondos de la Biblioteca del Centro.</p>
+								
+								<p>El archivo que se solicita es el informe del <b>Catálogo</b> que genera el programa Abies siguiendo los siguientes pasos:</p>
+								
+								<ul>
+									<li>En Abies vamos a Catalogo-Informes y una vez en el asistente de creación de informes pulsamos Siguiente.</li>
+									<li>Seleccionamos de la lista de campos disponibles los siguientes: Autor, Titulo, Editorial, ISBN, TipoFondo, anoEdicion, extension, serie, lugaredicion, tipoEjemplar, Ubicacion. Pulsamos Siguiente.</li>
+									<li>En la siguiente pantalla elegimos "Archivo de Texto (campos delimitados) dejando el punto y coma como delimitador. Siguiente.</li>
+									<li>Esta pantalla podemos dejarla como está y pulsamos Siguiente.</li>
+									<li>Finalizamos guardando el documento generado en formato .txt.</li>
+								</ul>
+							
+							</div><!-- /.col-sm-6 -->
+						
+						</div><!-- /.row -->
+					
+					</div>
+				
+					<div class="tab-pane" id="tab2">
+					
+						<div class="row">
+						
+							<div class="col-sm-6">
+								
+								<div class="well">
+								
+									<form method="post" action="importa_biblio.php" enctype="multipart/form-data">
+											
+											<fieldset>
+												<legend>Lectores de la Biblioteca</legend>
+												
+												<div class="form-group">
+													<label for="archivo2">Archivo</label>
+													<input type="file" id="archivo2" name="archivo2">
+												</div>
+												
+												<br>
+												
+												<button type="submit" class="btn btn-primary" name="enviar2">Importar</button>
+											
+										</fieldset>
+										
+									</form>
+									
+								</div><!-- /well -->
+							
+							</div><!-- /.col-sm-6 -->
+							
+							
+							<div class="col-sm-6">
+								
+								<h3>Información sobre la importación</h3>
+								
+								<p>La importación de los Lectores permite incorporar el código del alumno en su Carnet, de tal modo que se pueda utilizar el Carnet también en la Biblioteca del Centro.</p>
+								
+								<p>El archivo que se solicita es el informe de <b>Lectores</b> que genera el programa Abies siguiendo los siguientes pasos:</p>
+								
+								<ul>
+									<li>En Abies vamos a Lectores-Informes y una vez en el asistente de creación de informes pulsamos Siguiente.</li>
+									<li>Seleccionamos de la lista de campos disponibles los siguientes: Código, DNI, Apellidos, Nombre, Grupo. Pulsamos Siguiente.</li>
+									<li>En la siguiente pantalla elegimos "Archivo de Texto (campos delimitados) dejando el punto y coma como delimitador. Siguiente.</li>
+									<li>Esta pantalla podemos dejarla como está y pulsamos Siguiente.</li>
+									<li>Finalizamos guardando el documento generado en formato .txt.</li>
+								</ul>
+								
+								<p>Es importante tener en cuenta que al importar los <b>Lectores de la Biblioteca</b> a la Base de datos, <em><b>el Carnet del Alumno incorporará el Código de la Biblioteca tras el NIE</b></em>. De este modo, se genera un Carnet que es válido también para su uso en la Biblioteca del Centro.</p>
+							
+							</div><!-- /.col-sm-6 -->
+						
+						</div><!-- /.row -->
+				
+					</div>
+			
+					<div class="tab-pane" id="tab3">
+					
+						<div class="row">
+						
+							<div class="col-sm-6">
+								
+								<div class="well">
+								
+									<form method="post" action="morosos.php" enctype="multipart/form-data">
+											
+											<fieldset>
+												<legend>Préstamos de Ejemplares</legend>
+												
+												<div class="form-group">
+													<label for="archivo">Archivo</label>
+													<input type="file" id="archivo" name="archivo">
+												</div>
+												
+												<br>
+												
+												<button type="submit" class="btn btn-primary" name="enviar">Importar</button>
+											
+										</fieldset>
+										
+									</form>
+									
+								</div><!-- /well -->
+							
+							</div><!-- /.col-sm-6 -->
+							
+							
+							<div class="col-sm-6">
+								
+								<h3>Información sobre la importación</h3>
+								
+								<p>La importación de los Préstamos de ejemplares permite gestionar las Devoluciones de los libros como asuntos de Disciplina (considerar el retraso en la devolución como falta grave, enviar SMS de advertencia, etc.) en <em>Gestión de Préstamos</em>.</p>
+								
+								<p>El archivo que se solicita es el informe de <b>Préstamos</b> que genera el programa Abies siguiendo los siguientes pasos:
+								</p>
+								
+								<ul>
+									<li>En Abies vamos a Préstamos-Informes y una vez en el asistente de creación de informes pulsamos Siguiente.</li>
+									<li>Seleccionamos de la lista de campos disponibles los siguientes: Curso, Apellidos, Nombre, Título, Devolución. Pulsamos Siguiente.</li>
+									<li>En la siguiente pantalla elegimos "Archivo de Texto (campos delimitados) dejando el punto y coma como delimitador. Siguiente.</li>
+									<li>Esta pantalla podemos dejarla como está y pulsamos Siguiente.</li>
+									<li>Finalizamos guardando el documento generado en formato .txt.</li>
+								</ul>
+							
+							</div><!-- /.col-sm-6 -->
+						
+						</div><!-- /.row -->
+				
+					</div>
+			
+				</div><!-- /.tab-content -->
+				
+			</div><!-- /.col-sm-12 -->
+		
+		</div><!-- /.row -->
+	
+	</div><!-- /.container -->
 
-<div class="tabbable" style="margin-bottom: 18px;">
-<ul class="nav nav-tabs">
-	<li class="active"><a href="#tab1" data-toggle="tab">Importación del
-	Catálogo de Fondos</a></li>
-	<li><a href="#tab2" data-toggle="tab">Importación de Lectores</a></li>
-	<li><a href="#tab3" data-toggle="tab">Importación de alumnos con
-	préstamos</a></li>
-</ul>
-<div class='col-sm-6 col-sm-offset-3'>
+<?php include('../../pie.php'); ?>
 
-<div class="tab-content">
-<div class="tab-pane fade in active" id="tab1"><br>
-<div class="well well-lg">
-<legend>Catálogo de Fondos</legend><hr>
-<form enctype="multipart/form-data" action="importa_biblio.php"
-	method="post">
-<div class="form-group"><input type="file" id="file" name="archivo1"></div>
-<input class='btn btn-primary btn-block' type="submit" name="enviar1"
-	value="Aceptar" /> 
-	<br>
-<p class="help-block">La importación de los Fondos de la Biblioteca
-permite consultar en la Intranet, pero también en la página pública del
-Centro, los fondos de la Biblioteca del Centro. El archivo que se
-solicita es el informe del <b>Catálogo</b> que genera el programa Abies
-siguiendo los siguientes pasos:
-<ul class="help-block">
-	<li>En Abies vamos a Catalogo-Informes y una vez en el asistente de
-	creación de informes pulsamos Siguiente.</li>
-	<li>Seleccionamos de la lista de campos disponibles los siguientes:
-	Autor, Titulo, Editorial, ISBN, TipoFondo, anoEdicion, extension,
-	serie, lugaredicion, tipoEjemplar, Ubicacion. Pulsamos Siguiente.</li>
-	<li>En la siguiente pantalla elegimos "Archivo de Texto (campos
-	delimitados) dejando el punto y coma como delimitador. Siguiente.</li>
-	<li>Esta pantalla podemos dejarla como está y pulsamos Siguiente.</li>
-	<li>Finalizamos guardando el documento generado en formato .txt.</li>
-</ul>
-</p>
-</form>
-
-
-<hr />
-</div>
-</div>
-<div class="tab-pane fade in" id="tab2"><br>
-<div class="well well-lg">
-<legend>Lectores de la Biblioteca</legend><hr>
-<form enctype="multipart/form-data" action="importa_biblio.php"
-	method="post">
-<div class="form-group"><input type="file" id="file" name="archivo2"></div>
-<input class='btn btn-primary btn-block' type="submit" name="enviar2"
-	value="Aceptar" /> <br>
-<p class="help-block">La importación de los Lectores permite incorporar
-el codigo del alumno en su Carnet, de tal modo que se pueda utilizar el
-Carnet también en la Biblioteca del Centro. El archivo que se solicita
-es el informe de <b>Lectores</b> que genera el programa Abies siguiendo
-los siguientes pasos:
-
-
-<ul class="help-block">
-	<li>En Abies vamos a Lectores-Informes y una vez en el asistente de
-	creación de informes pulsamos Siguiente.</li>
-	<li>Seleccionamos de la lista de campos disponibles los siguientes:
-	Código, DNI, Apellidos, Nombre, Grupo. Pulsamos Siguiente.</li>
-	<li>En la siguiente pantalla elegimos "Archivo de Texto (campos
-	delimitados) dejando el punto y coma como delimitador. Siguiente.</li>
-	<li>Esta pantalla podemos dejarla como está y pulsamos Siguiente.</li>
-	<li>Finalizamos guardando el documento generado en formato .txt.</li>
-</ul>
-Es importante tener en cuenta que al importar los <b>Lectores de la
-Biblioteca</b> a la Base de datos, <em><b>el Carnet del Alumno
-incorporará el Código de la Biblioteca tras el NIE</b></em>. De este
-modo, se genera un Carnet que es válido también para su suo en la
-Biblioteca del Centro.
-</p>
-</form>
-</div>
-</div>
-<div class="tab-pane fade in" id="tab3"><br>
-<div class="well well-lg">
-<legend>Préstamos de Ejemplares</legend><hr>
-<FORM ENCTYPE="multipart/form-data" ACTION="morosos.php" METHOD="post">
-<div class="form-group"><input type="file" id="file" name="archivo"></div>
-
-<INPUT type="submit" name="enviar" value="Aceptar"
-	class="btn btn-primary btn-block"> <br />
-<p class="help-block">La importación de los Préstamos de ejemplares
-permite gestionar las Devoluciones de los libros como asuntos de
-Disciplina (considerar elretraso en la devolución como falta grave,
-enviar SMS de advertencia, etc.) en <em>Gestón de Préstamos</em>.El
-archivo que se solicita es el informe de <b>Préstamos</b> que genera el
-programa Abies siguiendo los siguientes pasos:
-
-
-<ul class="help-block">
-	<li>En Abies vamos a Préstamos-Informes y una vez en el asistente de
-	creación de informes pulsamos Siguiente.</li>
-	<li>Seleccionamos de la lista de campos disponibles los siguientes:
-	Curso, Apellidos, Nombre, Título, Devolución. Pulsamos Siguiente.</li>
-	<li>En la siguiente pantalla elegimos "Archivo de Texto (campos
-	delimitados) dejando el punto y coma como delimitador. Siguiente.</li>
-	<li>Esta pantalla podemos dejarla como está y pulsamos Siguiente.</li>
-	<li>Finalizamos guardando el documento generado en formato .txt.</li>
-</ul>
-</p>
-</FORM>
-</div>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<?php include('../../pie.php');?>
+</body>
+</html>
