@@ -213,33 +213,30 @@ echo '<div class="alert alert-info"><button type="button" class="close" data-dis
 while($men = mysql_fetch_row($men2))
 {
 $n_mensajesp=$n_mensajesp+1;
-$fechacompl = explode(" ",$men[0]);
-$fech = explode("-",$fechacompl[0]);
+$fechacompl = $men[0];
 $asunto = $men[1];
 $texto = $men[2];
 $nombre = $men[3];
 $apellidos = $men[4];
 $id = $men[5];
 $origen = $men[4].", ".$men[3];
-$fechaenv = "el día $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 ?> 
 <li>
 <a class="alert-link" data-toggle="modal" href="#mensajep<? echo $n_mensajesp;?>"><? echo $asunto; ?></a>
 <br />
- <? echo "<span style='font-size:0.8em;'>".mb_strtolower($origen)." (".formatea_fecha($fechacompl[0])." ".$fechacompl[1].")</span>";?>
+ <? echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 <div class="modal fade" id="mensajep<? echo $n_mensajesp;?>">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-    <h4 class="modal-title">Mensaje de <? echo $origen;?> </p><small class="muted">Enviado <? echo $fechaenv;?></small></h4>
+    <h4 class="modal-title"><? echo $asunto;?><br><small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
   </div>
   
   <div class="modal-body">
-<p class="text-info"><? echo $asunto;?></p>
-<span style="color:#333"><? echo $texto;?></span>
-</div>
+	<? echo $texto;?>
+	</div>
   <div class="modal-footer">
   <form name="mensaje_enviado" action="index.php" method="post" enctype="multipart/form-data" class="form-inline">
   <a href="#" class="btn btn-danger" data-dismiss="modal">Cerrar</a>
@@ -248,7 +245,7 @@ $fechaenv = "el día $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
 ?>
 <a href="index.php?verifica_padres=<? echo $id;?>" target="_top" class="btn btn-success">Leído</a> 
-<input type='hidden' name = 'id_ver' value = '$id' />
+<input type='hidden' name = 'id_ver' value = '<?php echo $id; ?>' />
 </form>
 </div>
 </div>
@@ -278,8 +275,7 @@ $count_mprofes =  1;
 	while($men = mysql_fetch_row($men2))
 {
 $n_mensajes+=1;
-$fechacompl = explode(" ",$men[0]);
-$fech = explode("-",$fechacompl[0]);
+$fechacompl = $men[0];
 $asunto = $men[1];
 $texto = $men[2];
 $pr = $men[3];
@@ -287,14 +283,13 @@ $id = $men[4];
 $orig = $men[5];
 $origen0 = explode(", ",$men[5]);
 $origen = $origen0[1]." ".$origen0[0];
-$fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 ?>
 <li>
 <a class="alert-link" data-toggle="modal" href="#mensaje<? echo $n_mensajes;?>">
 <? echo $asunto; ?>
 </a>
 <br />
- <? echo "<span style='font-size:0.8em;'>".mb_strtolower($origen)." (".formatea_fecha($fechacompl[0])." ".$fechacompl[1].")</span>";?>
+ <? echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
  </li>
 
 <div class="modal fade" id="mensaje<? echo $n_mensajes;?>">
@@ -303,11 +298,11 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
     <div class="modal-content">
       <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-    <h4 class="modal-title"><? echo $asunto;?><br><small class="muted">Enviado por <?php echo $origen; ?> <?php echo $fechaenv;?></small></h4>
+    <h4 class="modal-title"><? echo $asunto;?><br><small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
   </div>
   
   <div class="modal-body">
-		<p><?php echo $texto; ?></p>
+		<?php echo $texto; ?>
   </div>
   
   <div class="modal-footer">
@@ -319,7 +314,7 @@ $fechaenv = "el $fech[2] del $fech[1] de $fech[0], a las $fechacompl[1]";
 		echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
 		?>
 		<a href="index.php?verifica=<?php echo $id; ?>" target="_top" class="btn btn-success">Leído</a>  
-		<input type='hidden' name = 'id_ver' value = '$id' />
+		<input type='hidden' name = 'id_ver' value = '<?php echo $id; ?>' />
 		</form>
 	</div>
 </div>

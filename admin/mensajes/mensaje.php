@@ -50,9 +50,11 @@ include("menu.php");
 	  	
 	  	<!-- COLUMNA CENTRAL -->
 	    <div class="col-sm-12">
-	    
+	    	<?php $exp_profesor = explode(',', $mensaje['origen']); ?>
+	    	<?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
+	    	
 	    	<h3 class="text-info"><?php echo $mensaje['asunto']; ?></h3>
-	    	<h5 class="text-muted">Enviado por <?php echo $mensaje['origen']; ?> el <?php echo fecha_actual2($mensaje['ahora']); ?></h5>
+	    	<h5 class="text-muted">Enviado por <?php echo $profesor; ?> el <?php echo fecha_actual2($mensaje['ahora']); ?></h5>
 	    	
 	    	<br>
 	    	
@@ -85,15 +87,19 @@ include("menu.php");
 			    
 			    <?php
 			    $result = mysql_query("SELECT recibidoprofe, profesor from mens_profes where id_texto = '$id'");
+			    $destinatarios = '';
 			    while($destinatario = mysql_fetch_array($result)) {
-			      $n_profesor = $destinatario[1];
+			      $exp_nomprofesor = explode(', ',$destinatario[1]);
+			      $nom_profesor = $exp_nomprofesor[1].' '.$exp_nomprofesor[0];
 			      if ($destinatario[0] == '1') {
-			      	echo "<span class=\"text-success\">$n_profesor; </span>";
+			      	$destinatarios .= '<span class="text-success">'.$nom_profesor.'</span> | ';
 			      }
 			      else {
-			      	echo "<span class=\"text-danger\">$n_profesor; </span>";
+			      	$destinatarios .= '<span class="text-danger">'.$nom_profesor.'</span> | ';
 			      }
 			    }
+			    
+			    echo trim($destinatarios, ' | ');
 			    ?>
 			    </fieldset>
 			    

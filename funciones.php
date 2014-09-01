@@ -278,7 +278,7 @@ function fecha_actual2($valor_fecha){
    // $ndia0 = $arr[2];
 	$ndia0 = date("w",mktime(0,0,0,$arr[1],$arr[2],$arr[0]));
     $nano0 = $arr[0];
-	echo "$diames0 de ".$mes0[$nmes0].", $nano0";
+	return "$diames0 de ".$mes0[$nmes0].", $nano0";
 }
 
 function fecha_sin($valor_fecha){
