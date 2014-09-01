@@ -117,7 +117,7 @@ mysql_free_result($result_mensajes);
 		href="http://<? echo $dominio;?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
 	<li class="dropdown hidden-xs"><a href="#" class="dropdown-toggle"
 		data-toggle="dropdown" rel="tooltip" title="Mensajes recibidos" data-placement="bottom" data-container="body"> <span
-		class="fa fa-envelope fa-fw <?php echo ($row['recibidoprofe']==0) ? 'text-warning"' : ''; ?>"></span>
+		class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer) ? 'text-warning"' : ''; ?>"></span>
 	<b class="caret"></b> </a>
 	<ul class="dropdown-menu dropdown-messages">
 	<?php $result_mensajes = mysql_query("SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
