@@ -161,47 +161,106 @@ $font = 'Verdana';
 //
 //
 $mimetypes = array (
-'.txt'  => array('img' => 'txt.jpg',    'mime' => 'text/plain'),
-'.html' => array('img' => 'html.jpg',   'mime' => 'text/html'),
-'.htm'  => array('img' => 'html.jpg',   'mime' => 'text/html'),
-'.doc'  => array('img' => 'doc.jpg',    'mime' => 'application/msword'),
-'.docx'  => array('img' => 'docx.jpg',    'mime' => 'application/msword'),
-'.pdf'  => array('img' => 'pdf.jpg',    'mime' => 'application/pdf'),
-'.xls'  => array('img' => 'xls.jpg',    'mime' => 'application/msexcel'),
-'.xlsx'  => array('img' => 'xlsx.jpg',    'mime' => 'application/msexcel'),
-'.odt'  => array('img' => 'odt.jpg',    'mime' => 'application/vnd.oasis.opendocument.text'),
-'.ots'  => array('img' => 'ots.jpg',    'mime' => 'application/vnd.oasis.opendocument.text'),
-'.ott'  => array('img' => 'ott.jpg',    'mime' => 'application/vnd.oasis.opendocument.text'),
-'.gif'  => array('img' => 'gif.jpg',    'mime' => 'image/gif'),
-'.jpg'  => array('img' => 'jpg.jpg',    'mime' => 'image/jpeg'),
-'.jpeg' => array('img' => 'jpg.jpg',    'mime' => 'image/jpeg'),
-'.bmp'  => array('img' => 'bmp.jpg',    'mime' => 'image/bmp'),
-'.png'  => array('img' => 'gif.jpg',    'mime' => 'image/png'),
-'.zip'  => array('img' => 'zip.jpg',    'mime' => 'application/zip'),
-'.rar'  => array('img' => 'rar.jpg',    'mime' => 'application/x-rar-compressed'),
-'.gz'   => array('img' => 'zip.jpg',    'mime' => 'application/x-compressed'),
-'.tgz'  => array('img' => 'zip.jpg',    'mime' => 'application/x-compressed'),
-'.z'    => array('img' => 'zip.jpg',    'mime' => 'application/x-compress'),
-'.exe'  => array('img' => 'exe.jpg',    'mime' => 'application/x-msdownload'),
-'.mid'  => array('img' => 'mid.jpg',    'mime' => 'audio/mid'),
-'.midi' => array('img' => 'mid.jpg',    'mime' => 'audio/mid'),
-'.wav'  => array('img' => 'wav.jpg',    'mime' => 'audio/x-wav'),
-'.mp3'  => array('img' => 'mp3.jpg',    'mime' => 'audio/x-mpeg'),
-'.avi'  => array('img' => 'avi.jpg',    'mime' => 'video/x-msvideo'),
-'.mpg'  => array('img' => 'mpg.jpg',    'mime' => 'video/mpeg'),
-'.mpeg' => array('img' => 'mpg.jpg',    'mime' => 'video/mpeg'),
-'.mov'  => array('img' => 'avi.jpg',    'mime' => 'video/quicktime'),
-'.swf'  => array('img' => 'flash.jpg',  'mime' => 'application/x-shockwave-flash'),
-'.gtar' => array('img' => 'rar.jpg',    'mime' => 'application/x-gtar'),
-'.tar'  => array('img' => 'tar.jpg',    'mime' => 'application/x-tar'),
-'.tiff' => array('img' => 'tiff.jpg', 'mime' => 'image/tiff'),
-'.tif'  => array('img' => 'tiff.jpg', 'mime' => 'image/tiff'),
-'.rtf'  => array('img' => 'rtf.jpg',    'mime' => 'application/rtf'),
-'.eps'  => array('img' => 'defaut.jpg', 'mime' => 'application/postscript'),
-'.ps'   => array('img' => 'defaut.jpg', 'mime' => 'application/postscript'),
-'.qt'   => array('img' => 'avi.jpg'  ,  'mime' => 'video/quicktime'),
+// text
+'.css'  => array('img' => 'css.png',    'mime' => 'text/css'),
+'.djvu' => array('img' => 'djvu.png',   'mime' => 'image/vnd.djvu'),
+'.epub' => array('img' => 'epub.png',   'mime' => 'application/epub+zip'),
+'.html' => array('img' => 'html.png',   'mime' => 'text/html'),
+'.htm'  => array('img' => 'html.png',   'mime' => 'text/html'),
+'.log'  => array('img' => 'log.png',    'mime' => 'text/plain'),
+'.php'  => array('img' => 'php.png',    'mime' => 'text/php'),
+'.rtf'  => array('img' => 'rtf.png',    'mime' => 'application/rtf'),
+'.sql'  => array('img' => 'sql.png',    'mime' => 'application/x-sql'),
+'.txt'  => array('img' => 'txt.png',    'mime' => 'text/plain'),
+'.xml'  => array('img' => 'xml.png',    'mime' => 'application/xml'),
+
+// documents
+'.csv'  => array('img' => 'csv.png',    'mime' => 'text/csv'),
+'.doc'  => array('img' => 'doc.png',    'mime' => 'application/msword'),
+'.dot'  => array('img' => 'doc.png',    'mime' => 'application/msword'),
+'.docx' => array('img' => 'docx.png',   'mime' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'),
+'.pdf'  => array('img' => 'pdf.png',    'mime' => 'application/pdf'),
+'.ppt'  => array('img' => 'ppt.png',    'mime' => 'application/vnd.ms-powerpoint'),
+'.pps'  => array('img' => 'ppt.png',    'mime' => 'application/vnd.ms-powerpoint'),
+'.pot'  => array('img' => 'ppt.png',    'mime' => 'application/vnd.ms-powerpoint'),
+'.pptx' => array('img' => 'pptx.png',   'mime' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation'),
+'.ppsx' => array('img' => 'ppsx.png',   'mime' => 'application/vnd.openxmlformats-officedocument.presentationml.slideshow'),
+'.pub'  => array('img' => 'pub.png',    'mime' => 'application/x-mspublisher'),
+'.odt'  => array('img' => 'odt.png',    'mime' => 'application/vnd.oasis.opendocument.text'),
+'.ott'  => array('img' => 'odt.png',    'mime' => 'application/vnd.oasis.opendocument.text-template'),
+'.ods'  => array('img' => 'ods.png',    'mime' => 'application/vnd.oasis.opendocument.spreadsheet'),
+'.ots'  => array('img' => 'ots.png',    'mime' => 'application/vnd.oasis.opendocument.spreadsheet-template'),
+'.odp'  => array('img' => 'odp.png',    'mime' => 'application/vnd.oasis.opendocument.presentation'),
+'.otp'  => array('img' => 'odp.png',    'mime' => 'application/vnd.oasis.opendocument.presentation-template'),
+'.xls'  => array('img' => 'xls.png',    'mime' => 'application/vnd.ms-excel'),
+'.xlsx' => array('img' => 'xlsx.png',   'mime' => 'application/vnd.ms-excel'),
+
+// image
+
+'.bmp'  => array('img' => 'bmp.png',    'mime' => 'image/bmp'),
+'.gif'  => array('img' => 'gif.png',    'mime' => 'image/gif'),
+'.ico'  => array('img' => 'ico.png',    'mime' => 'image/x-icon'),
+'.jpg'  => array('img' => 'jpg.png',    'mime' => 'image/jpeg'),
+'.jpeg' => array('img' => 'jpeg.png',   'mime' => 'image/jpeg'),
+'.png'  => array('img' => 'jpg.png',    'mime' => 'image/png'),
+'.skp'  => array('img' => 'skp.png',    'mime' => 'application/vnd.koan'),
+'.tiff' => array('img' => 'tiff.png',   'mime' => 'image/tiff'),
+'.tif'  => array('img' => 'tiff.png',   'mime' => 'image/tiff'),
+
+// compression
+'.gz'   => array('img' => 'gz.png',     'mime' => 'application/x-compressed'),
+'.rar'  => array('img' => 'rar.png',    'mime' => 'application/x-rar-compressed'),
+'.tar'  => array('img' => 'tar.png',    'mime' => 'application/x-tar'),
+'.tgz'  => array('img' => 'tgz.png',    'mime' => 'application/x-compressed'),
+'.zip'  => array('img' => 'zip.png',    'mime' => 'application/zip'),
+
+// compression images
+'.dmg'  => array('img' => 'dmg.png',    'mime' => 'application/x-apple-diskimage'),
+'.iso'  => array('img' => 'iso.png',    'mime' => 'application/x-iso9660-image'),
+
+// executable
+'.deb'  => array('img' => 'deb.png',    'mime' => 'application/x-debian-package'),
+'.exe'  => array('img' => 'exe.png',    'mime' => 'application/x-msdownload'),
+'.msi'  => array('img' => 'msi.png',    'mime' => 'application/x-msdownload'),
+'.xpi'  => array('img' => 'xpi.png',    'mime' => 'application/x-xpinstall'),
+
+
+// audio
+'.mid'  => array('img' => 'midi.png',   'mime' => 'audio/mid'),
+'.midi' => array('img' => 'midi.png',   'mime' => 'audio/mid'),
+'.m4a'  => array('img' => 'm4a.png',    'mime' => 'audio/mp4'),
+'.mp3'  => array('img' => 'mp3.png',    'mime' => 'audio/mpeg'),
+'.ogg'  => array('img' => 'ogg.png',    'mime' => 'audio/ogg'),
+'.wav'  => array('img' => 'wav.png',    'mime' => 'audio/x-wav'),
+
+// video
+'.3g2'  => array('img' => '3g2.png',    'mime' => 'video/3gpp2'),
+'.3gp'  => array('img' => '3gp.png',    'mime' => 'video/3gpp'),
+'.asf'  => array('img' => 'asf.png',    'mime' => 'video/x-ms-asf'),
+'.avi'  => array('img' => 'avi.png',    'mime' => 'video/x-msvideo'),
+'.flv'  => array('img' => 'flv.png',    'mime' => 'video/x-flv'),
+'.m4v'  => array('img' => 'm4v.png',    'mime' => 'video/x-m4v'),
+'.mkv'  => array('img' => 'mkv.png',    'mime' => 'video/x-matroska'),
+'.mp4'  => array('img' => 'mp4.png',    'mime' => 'video/mp4'),
+'.mpg'  => array('img' => 'mpeg.png',   'mime' => 'video/mpeg'),
+'.mpeg' => array('img' => 'mpeg.png',   'mime' => 'video/mpeg'),
+'.mov'  => array('img' => 'qt.png',     'mime' => 'video/quicktime'),
+'.ogv'  => array('img' => 'ogv.png',    'mime' => 'video/ogg'),
+'.qt'   => array('img' => 'qt.png'  ,   'mime' => 'video/quicktime'),
+'.wmv'  => array('img' => 'wmv.png',    'mime' => 'video/x-ms-wmv'),
+
+// tipography
+'.ttf'  => array('img' => 'ttf.png',    'mime' => 'application/x-font-ttf'),
+
+// postscript
+'.ai'   => array('img' => 'ai.png',     'mime' => 'application/postscript'),
+'.psd'  => array('img' => 'psd.png',    'mime' => 'image/vnd.adobe.photoshop'),
+'.eps'  => array('img' => 'eps.png',    'mime' => 'application/postscript'),
+'.ps'   => array('img' => 'eps.png',    'mime' => 'application/postscript'),
+
+// directoy and default
 'directory' => array('img' => 'folder.png', 'mime' => ''),
-'default' =>   array('img' => 'txt.jpg',  'mime' => 'application/octet-stream')
+'default' =>   array('img' => 'default.png',  'mime' => 'application/octet-stream')
 );
 
 //
