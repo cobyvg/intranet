@@ -207,9 +207,11 @@ $men2 = mysql_query($men1);
 if(mysql_num_rows($men2) > 0)
 {
 	$count_mpadres =  1;
-echo '<div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button>
-	<p class="lead">	
-	<i class="fa fa-comment"> </i> Mensajes de Padres o Alumnos</p><hr /><ul>';
+echo '<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<p class="lead"><span class="fa fa-comments fa-fw"></span> Mensajes de Familias y alumnos</p>
+	<br>
+	<ul>';
 while($men = mysql_fetch_row($men2))
 {
 $n_mensajesp=$n_mensajesp+1;
@@ -222,10 +224,20 @@ $id = $men[5];
 $origen = $men[4].", ".$men[3];
 ?> 
 <li>
-<a class="alert-link" data-toggle="modal" href="#mensajep<? echo $n_mensajesp;?>"><? echo $asunto; ?></a>
-<br />
- <? echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+	<a class="alert-link" data-toggle="modal" href="#mensajep<? echo $n_mensajesp;?>">
+		<? echo $asunto; ?>
+	</a>
+	<br />
+	<? echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
+<?
+}
+echo "</ul>";
+echo "</div>";
+
+mysql_data_seek($men2,0);
+while($men = mysql_fetch_row($men2)) {
+?>
 <div class="modal fade" id="mensajep<? echo $n_mensajesp;?>">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -247,18 +259,14 @@ echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen=
 <a href="index.php?verifica_padres=<? echo $id;?>" target="_top" class="btn btn-success">Leído</a> 
 <input type='hidden' name = 'id_ver' value = '<?php echo $id; ?>' />
 </form>
-</div>
+	</div>
 </div>
 </div>
 </div>
 <?
 }
-echo "</ul></div>";
 }
-
 }
-
-
 
 // Comprobar mensajes de profesores
 $n_mensajes="";
@@ -271,7 +279,12 @@ $men2 = mysql_query($men1);
 if(mysql_num_rows($men2) > 0)
 {
 $count_mprofes =  1;
-	echo "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><p class='lead'><i class='fa fa-comments'></i> Mensajes de Profesores</p><br /><ul>";
+echo '
+<div class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<p class="lead"><span class="fa fa-comments fa-fw"></span> Mensajes de Profesores</p>
+	<br>
+	<ul>';
 	while($men = mysql_fetch_row($men2))
 {
 $n_mensajes+=1;
@@ -284,14 +297,21 @@ $orig = $men[5];
 $origen0 = explode(", ",$men[5]);
 $origen = $origen0[1]." ".$origen0[0];
 ?>
-<li>
-<a class="alert-link" data-toggle="modal" href="#mensaje<? echo $n_mensajes;?>">
-<? echo $asunto; ?>
-</a>
-<br />
- <? echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
- </li>
+	<li>
+		<a class="alert-link" data-toggle="modal" href="#mensaje<? echo $n_mensajes;?>">
+			<? echo $asunto; ?>
+		</a>
+		<br>
+		<? echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+	</li>
+<?
+}
+echo "</ul>";
+echo "</div>";
 
+mysql_data_seek($men2,0);
+while($men = mysql_fetch_row($men2)) {
+?>
 <div class="modal fade" id="mensaje<? echo $n_mensajes;?>">
 
   <div class="modal-dialog">
@@ -318,12 +338,10 @@ $origen = $origen0[1]." ".$origen0[0];
 		</form>
 	</div>
 </div>
-
 </div>
 </div>
 <?
 }
-echo "</div>";
 }
 if ($count_vuelven > 0 or $count_van > 0 or $count0 > 0 or $count03 > 0 or $count04 > 0 or $count_mprofes > 0 or $count_mpadres > 0 or $count_fech > 0) {
 	echo "<br>";
