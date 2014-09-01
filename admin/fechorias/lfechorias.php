@@ -29,29 +29,24 @@ include("menu.php");
 if(isset($_GET['id'])){$id = $_GET['id'];}
 ?>
 <style>
-<!--
 .table th{
 	font-size:0.8em;
 	vertical-align:top !important;
 }
--->
 </style>
   <?php
 
   echo "<div class='container'>";
-  echo '<div class="row">';
   echo '<div class="page-header">
-  <h2>Problemas de convivencia <small>Últimos problemas</small></h2>
-</div>
-</div>
-<br />
-<div class="col-sm-12">';
+    <h2>Problemas de convivencia <small>Últimos problemas</small></h2>
+  </div>';
+  echo '<div class="row">';
+  echo '<div class="col-sm-12">';
       
     echo '<div class="well text-center" id="t_larga_barra" style="width:320px; margin:0 auto;">
         		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
      		 </div>';
      		 
-    echo "</div>";
     echo "<div id='t_larga' style='display:none' >";
   if (isset($_POST['confirma'])) {
   	foreach ($_POST as $clave => $valor){
@@ -162,10 +157,10 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		<td>$caducada</td>
 		<td nowrap>$comentarios1 $comentarios</td><td nowrap>"; 	
 
-		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles del problema e historial de problemas del alumno'></span></a>
-		<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-user fa-fw fa-lg' rel='tooltip' title='Historial del alumno'></span></a>
+		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles'></span></a>
+		<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-history fa-fw fa-lg' rel='tooltip' title='Historial'></span></a>
 		";
-        if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar'></span></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil fa-fw fa-lg' rel='tooltip' title='Editar'></i></A>";}
+        if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='infechoria.php?id=$id&claveal=$claveal'><span class='fa fa-edit fa-fw fa-lg' rel='tooltip' title='Editar'></span></a><a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar'></span></a>";}
 		echo "</td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";

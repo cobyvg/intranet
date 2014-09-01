@@ -15,24 +15,18 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
+$PLUGIN_DATATABLES = 1;
 
-
-?>
-
-<?
-  include("../../menu.php"); 
+include("../../menu.php"); 
 include("menu.php"); 
 $PLUGIN_DATATABLES = 1;
 ?>
 <div class="container">
-<div class="row">
-<br>
 <?
- $imprimir_activado = true;  
   if($confirmado == '1')
   {
   mysql_query("UPDATE  actividades SET  confirmado =  '1' WHERE id = '$id'");
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+echo '<br /><div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido confirmada por la Autoridad.
           </div></div>';  
@@ -40,7 +34,7 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
   if ($_GET['eliminar']=='1') {
   	mysql_query("delete from actividades where id = '".$_GET['id']."'");
   	if (mysql_affected_rows()>'0') {
-    	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+    	echo '<br /><div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido borrada correctamente.
           </div></div>';		
@@ -49,11 +43,13 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
   if($detalles == '1')
   {
   ?>
-<div class="row">
 <div class="page-header">
   <h2>Actividades Complementarias y Extraescolares <small> Información sobre actividad</small></h2>
 </div>
-<div class="col-md-8 col-md-offset-2">
+
+<div class="row">
+
+<div class="col-md-12">
 <?
   $datos0 = "select * from actividades where id = '$id'";
   $datos1 = mysql_query($datos0);
@@ -63,9 +59,9 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
   $fecha1 = explode("-",$datos[8]);
   $registro = "$fecha1[2]-$fecha1[1]-$fecha1[0]";
   ?>
-<table class="table table-striped" align="center">
+<table class="table table-bordered table-striped">
   <thead><tr>
-   <th colspan="2"><h4 align="center"><? echo $datos[2];?></h4></th>
+   <th colspan="2"><h4 class="text-info"><? echo $datos[2];?></h4></th>
   </tr>
   </thead>
   <tr>
@@ -101,13 +97,13 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
   <?
  } 
 ?>
+<div class="page-header">
+<h2>Actividades Complementarias y Extraescolares <small> Listado</small></h2>
+</div>
+
 <div class="row">
-  <div class="page-header">
-  <h2>Actividades Complementarias y Extraescolares <small> Listado</small></h2>
-  
   <div class="col-sm-12">
-  <br>
-<table class="table table-striped datatable" style="width:100%;" align="center">
+<table class="table table-striped table-hover datatable">
   <thead><tr>
     <th>Actividad</th>
     <th>Grupos</th>
@@ -165,19 +161,19 @@ $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
     <td style="color:#08c;"><? echo $datos[2];?></td>
     <td><? echo $grupos;?></td>
     <td><? echo $datos[4];?></td>
-    <td nowrap><? echo $fecha;?></td>
+    <td nowrap><? echo $datos[7];?></td>
 	<td><? echo $mes2;?></td>
-    <td nowrap><a href="consulta.php?id=<? echo $datos[0];?>&detalles=1"><span class="fa fa-search fa-fw fa-lg"></span></a>
+    <td nowrap><a href="consulta.php?id=<? echo $datos[0];?>&detalles=1" rel="tooltip" title="Detalles"><span class="fa fa-search fa-fw fa-lg"></span></a>
     <?
     //echo $_SESSION['depto'] ."== $datos[4]";
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE){
-			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
-			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
+			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" rel="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>';	
+			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" rel="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 }
 elseif ($_SESSION['depto'] == $datos[4]){	 
 		if(stristr($_SESSION['cargo'],'4') == TRUE){
-			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
-			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
+			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" rel="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
+			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" rel="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 	}
 }
 	?>
@@ -190,33 +186,35 @@ elseif ($_SESSION['depto'] == $datos[4]){
 </div>
 </div>
 <? include("../../pie.php");?>
+
 	<script>
 	$(document).ready(function() {
-	  var table = $('.datatable').DataTable({
-	  		"paging":   true,
-	      "ordering": true,
-	      "info":     false,
-	      
-	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-	  		
-	  		"order": [[ 1, "desc" ]],
-	  		
-	  		"language": {
-	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
-	  		            "infoEmpty": "No hay resultados disponibles.",
-	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
-	  		            "search": "Buscar: ",
-	  		            "paginate": {
-	  		                  "first": "Primera",
-	  		                  "next": "Última",
-	  		                  "next": "",
-	  		                  "previous": ""
-	  		                }
-	  		        }
-	  	});
+		var table = $('.datatable').DataTable({
+			"paging":   true,
+	    "ordering": true,
+	    "info":     false,
+	    
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+			
+			"order": [[ 3, "desc" ]],
+			
+			"language": {
+			            "lengthMenu": "_MENU_",
+			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+			            "info": "Página _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay resultados disponibles.",
+			            "infoFiltered": "(filtrado de _MAX_ resultados)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			                  "first": "Primera",
+			                  "next": "Última",
+			                  "next": "",
+			                  "previous": ""
+			                }
+			        }
+		});
 	});
 	</script>
+	
 </body>
 </html>

@@ -13,7 +13,7 @@ else
 $tuto = mysql_query("select tutor from FTUTORES where unidad = '$unidad'");
 $tut = mysql_fetch_array($tuto);
 $tutor = $tut[0];
-echo "<h4>Tutor/a: $tutor</h4>
+echo "<h4 class=\"text-info\">Tutor/a: ".mb_convert_case($tutor, MB_CASE_TITLE, "iso-8859-1")."</h4>
 <br />";
 
 while ($dalumno = mysql_fetch_array($alumno))

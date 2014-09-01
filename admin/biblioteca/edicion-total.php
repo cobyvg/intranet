@@ -14,13 +14,8 @@ if((!(stristr($_SESSION['cargo'],'1') == TRUE)) and (!(stristr($_SESSION['cargo'
 	header("location:http://$dominio/intranet/salir.php");
 	exit;
 }
-?>
-<?php
-//include("../menu.php");
-?>
-<? //include("opt/e-smith/config.php");
 
-if($borrar){//echo $fecha;
+if($borrar){
 	include ("../menu.php");
 	$i=0;
 	$j=0;
@@ -117,7 +112,7 @@ elseif ($registro){
 		}
 
 		# creamos el nuevo objeto partiendo de la clase
-		$MiPDF=new GranPDF('P','mm',A4);
+		$MiPDF=new GranPDF('P','mm','A4');
 		$MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 		$MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 		$MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
@@ -127,11 +122,11 @@ elseif ($registro){
 
 
 		# creamos el nuevo objeto partiendo de la clase ampliada
-		$MiPDF->SetMargins ( 20, 20, 20 );
+		$MiPDF->SetMargins(25,20,20);
 		# ajustamos al 100% la visualizaciÃ³n
 		$MiPDF->SetDisplayMode ( 'fullpage' );
 		$hoy= date ('d-m-Y',time());
-		$titulo1 = utf8_decode("COMUNICACIÓN DE AMONESTACIÓN ESCRITA");
+		$titulo1 = utf8_decode("COMUNICACI�N DE AMONESTACI�N ESCRITA");
 
 		for($i=0; $i <= count($valor)-1; $i++){ $j+=1; //echo $valor[$i];
 		$duplicado= mysql_query ("select amonestacion from morosos where id=$valor[$i]");
@@ -207,7 +202,7 @@ COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 					# insertamos la primera pagina del documento
 					$MiPDF->Addpage ();
 					#### Cabecera con dirección
-					$MiPDF->SetFont ( 'Times', '', 10 );
+					$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 					$MiPDF->SetTextColor ( 0, 0, 0 );
 					$MiPDF->SetTextColor ( 0, 0, 0 );
 					$MiPDF->Text ( 128, 35, $nombre_del_centro );
@@ -216,9 +211,9 @@ COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 					$MiPDF->Text ( 128, 47, "Tlfno. " . $telefono_del_centro );
 					#Cuerpo.
 					$MiPDF->Ln ( 45 );
-					$MiPDF->SetFont ( 'Times', 'B', 11 );
+					$MiPDF->SetFont ( 'NewsGotT', 'B', 11 );
 					$MiPDF->Multicell ( 0, 4, $titulo1, 0, 'C', 0 );
-					$MiPDF->SetFont ( 'Times', '', 10 );
+					$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 					$MiPDF->Ln ( 4 );
 					$MiPDF->Multicell ( 0, 4, $cuerpo1, 0, 'J', 0 );
 					$MiPDF->Ln ( 3 );

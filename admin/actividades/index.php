@@ -27,11 +27,13 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <div class="container">
-<div class="row">
 <div class="page-header">
 <h2>Actividades Complementarias y Extraescolares <small> Registro de
 actividades</small></h2>
 </div>
+
+<div class="row">
+
 
 <?
 if(isset($_POST['submit1'])){
@@ -166,8 +168,8 @@ if($departamento == "Religión")
 </div>
 <div class="col-sm-6">
 <div class="well ">          
-<a href="javascript:seleccionar_todo()" class="btn btn-success">Marcar todos los Grupos</a>
-<a href="javascript:deseleccionar_todo()" class="btn btn-warning pull-right">Desmarcarlos todos</a> <br />
+<a href="javascript:seleccionar_todo()" class="btn btn-info btn-sm">Marcar todos</a>
+<a href="javascript:deseleccionar_todo()" class="btn btn-info btn-sm">Desmarcar todos</a> <br />
               <br />
               <h4>Grupos de alumnos que realizan la actividad</h4>
            

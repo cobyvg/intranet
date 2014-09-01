@@ -64,48 +64,45 @@ if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = '
 # creamos la clase extendida de fpdf.php 
 class GranPDF extends FPDF {
 	function Header() {
-		$this->Image ( '../../img/encabezado.jpg',15,15,50,'','jpg');
+		$this->SetTextColor(0, 122, 61);
+		$this->Image( '../../../img/encabezado.jpg',25,14,53,'','jpg');
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
-		$this->Cell(90);
-		$this->Cell(80,4,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
+		$this->Cell(75);
+		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
-		$this->Cell(90);
-		$this->Cell(80,4,$GLOBALS['CENTRO_NOMBRE'],0,1);
-		$this->Ln(8);
+		$this->Cell(75);
+		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
-		$this->Image ( '../../img/pie.jpg', 10, 245, 25, '', 'jpg' );
-		$this->SetY(265);
-		$this->SetFont('ErasMDBT','',10);
-		$this->SetTextColor(156,156,156);
-		$this->Cell(70);
-		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'],0,1);
-		$this->Cell(70);
-		$this->Cell(80,4,$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
-		$this->Cell(70);
-		$this->Cell(80,4,'Tlf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
-		$this->Cell(70);
-		$this->Cell(80,4,'Correo: '.$GLOBALS['CENTRO_CORREO'],0,1);
-		$this->Ln(8);
+		$this->SetTextColor(0, 122, 61);
+		$this->Image( '../../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
+		$this->SetY(275);
+		$this->SetFont('ErasMDBT','',8);
+		$this->Cell(75);
+		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'].'. '.$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(75);
+		$this->Cell(80,4,'Telf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(75);
+		$this->Cell(80,4,'Correo-e: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->SetTextColor(255, 255, 255);
 	}
 }
 
 			# creamos el nuevo objeto partiendo de la clase
-			$MiPDF=new GranPDF('P','mm',A4);
+			$MiPDF=new GranPDF('P','mm','A4');
 # creamos el nuevo objeto partiendo de la clase
-$MiPDF=new GranPDF('P','mm',A4);
+$MiPDF=new GranPDF('P','mm','A4');
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
 $MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
 $MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
 $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
-			$MiPDF->SetMargins(20,20,20);
-			# ajustamos al 100% la visualizacion
-			$MiPDF->SetDisplayMode('fullpage');
-$MiPDF->SetMargins(20,20,20);
-# ajustamos al 100% la visualizacion
+
+
+$MiPDF->SetMargins(25,20,20);
 $MiPDF->SetDisplayMode('fullpage');
  
   
@@ -125,48 +122,42 @@ while($alumno = mysql_fetch_array($alumnos1))
 mysql_query("insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
 # insertamos la primera pagina del documento
 $MiPDF->Addpage();
-$cuerpo1="$alumno[2], con D.N.I número $alumno[8], padre, madre o tutor/a legal de $alumno[0] $alumno[1], alumno/a del curso $alumno[9] de este Centro, se hace cargo bajo su responsabilidad de que su hijo/a participe en la siguiente actividad extraescolar o complementaria: ";
-$cuerpo2="Fecha: $fecha.
+$cuerpo = "$alumno[2], con D.N.I $alumno[8], padre, madre o tutor/a legal de $alumno[0] $alumno[1], alumno/a del curso $alumno[9] de este Centro, se hace cargo bajo su responsabilidad de que su hijo/a participe en la siguiente actividad extraescolar o complementaria: 
+
+Fecha: $fecha.
 Horario: $horario.
 Actividad: $actividad.
 Descripción: $descripcion.
-Profesor responsable de la actividad: $profesor.";	
-$cuerpo3 = "
-
-
+Profesor responsable de la actividad: $profesor.
 
 (ejemplar para los padres o tutores)
 ----------------------------------------------------------------------------------------------------------------------------------------------
 (ejemplar para el profesor responsable de la actividad)
 
-";
-$cuerpo4 = "ACUSE DE RECIBO
+ACUSE DE RECIBO
    
 Yo, $alumno[2], Autorizo a mi hijo/a  $alumno[0] $alumno[1], alumno/a del curso $alumno[9] a que participe en la actividad complementaria siguiente:
    
 Fecha: $fecha.
 Horario: $horario.
 Actividad: $actividad.
-Descripción: $descripcion. 
-   ";
+Descripción: $descripcion.";
 
-#### Cabecera con direcciÃ³n
-	$MiPDF->SetFont('NewsGotT','',10);
-	$MiPDF->SetTextColor(0,0,0);
-	$MiPDF->Text(120,45,$alumno[2]);
-	$MiPDF->Text(120,49,$alumno[3]);
-	$MiPDF->Text(120,53,$alumno[4]." ".$alumno[5]." (".$alumno[6].")");
+	// INFORMACION DE LA CARTA
+	$MiPDF->SetY(45);
+	$MiPDF->SetFont ( 'NewsGotT', '', 12 );
+	$MiPDF->Cell(75, 5, 'Fecha:  '.date('d.m.Y'), 0, 0, 'L', 0 );
+	$MiPDF->Cell(75, 5, $alumno[2], 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 12, 'Ref.:     Act/'.$id, 0, 0, 'L', 0 );
+	$MiPDF->Cell(75, 5, $alumno[3], 0, 1, 'L', 0 );
+	$MiPDF->Cell(75, 0, '', 0, 0, 'L', 0 );
+	$MiPDF->Cell(75, 5, $alumno[4].' '.mb_strtoupper($alumno[6], 'iso-8859-1'), 0, 1, 'L', 0 );
+	$MiPDF->Cell(0, 12, 'Asunto: '.$actividad, 0, 1, 'L', 0 );
+	$MiPDF->Ln(10);
 	
 	#Cuerpo.
-	$MiPDF->Ln(45);
-	$MiPDF->SetFont('NewsGotT','',10);
-	$MiPDF->Multicell(0,4,$cuerpo1,0,'J',0);
-	$MiPDF->Ln(3);
-	$MiPDF->Multicell(0,4,$cuerpo2,0,'J',0);
-	$MiPDF->Ln(1);
-	$MiPDF->Multicell(0,4,$cuerpo3,0,'C',0);
-	$MiPDF->Ln(1);
-	$MiPDF->Multicell(0,4,$cuerpo4,0,'J',0);	$MiPDF->Ln(6);
+	$MiPDF->SetFont('NewsGotT','',12);
+	$MiPDF->Multicell(0,5,$cuerpo,0,'L',0);
 	}
 }
 }

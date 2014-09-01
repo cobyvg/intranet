@@ -31,22 +31,20 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
   mysql_query("create table FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
   $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.id from Fechoria, FALUMNOS, FechCaduca where FechCaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal and Fechoria.claveal = '$clave' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos";
   $result = mysql_query ($query0);
-  echo "<div class='container-fluid'>";
+  echo "<div class='container'>";
   echo '<div class="row">
-  <div class="col-sm-10 col-sm-offset-1">';
+  <div class="col-sm-12">';
   
-  echo '<div aligna="center">
+  echo '
 <div class="page-header">
-  <h2>Problemas de convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h1>
-  <h3 style="color:#08c" align=center>';
+  <h2>Problemas de convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
+  <h3 class="text-info">';
  echo "$nom0[0] $nom0[1] ($nom0[2])";
   echo '</h3>
-</div>
-</div>
-<br />';
+</div>';
 
- echo "<table class='table table-bordered' style='width:auto' align='center'><tr><td style='background-color:#FFFF99'>Expulsión del Centro</td><td style='background-color:#CCFFCC'>Amonestación escrita</td><td style='background-color:#FF9900'>Expulsión del Aula</td><td style='background-color:#CCCCFF'>Expulsión al Aula de Convivencia</td></tr></table><br />";
-		echo "<table class='table table-striped' style='width:100%'>";
+ echo "<table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>Expulsión del Centro</td><td class='amonestacion-escrita'>Amonestación escrita</td><td class='expulsion-aula'>Expulsión del aula</td><td class='aula-convivencia-jefatura'>Aula de convivencia (Jefatura)</td><td class='aula-convivencia-profesor'>Aula de convivencia (Profesor)</td></tr></table><br />";
+		echo '<div class="table-responsive"><table class="table table-striped table-bordered table-vcentered datatable">';
 		$fecha1 = (date("d").-date("m").-date("Y"));
        echo "<thead>
 		<th>CURSO</th>
@@ -87,11 +85,20 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		$rownumero= mysql_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
-				$bgcolor="style='background-color:white;'";
-				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="style='background-color:#CCFFCC;'";}
-				if($expulsionaula == "1"){$bgcolor="style='background-color:#FF9900;'";}
-				if($aula_conv > 0){$bgcolor="style='background-color:#CCCCFF;'";}	
-				if($expulsion > 0){$bgcolor="style='background-color:#FFFF99;'";}		
+				$bgcolor="class=''";
+				if($medida == "Amonestación escrita" and $expulsionaula !== "1" and $expulsion == 0){$bgcolor="class='amonestacion-escrita'";}
+				if($expulsionaula == "1"){$bgcolor="class='expulsion-aula'";}
+				
+				if($aula_conv > 0){
+					if ($horas == "123456") {
+						$bgcolor="class='aula-convivencia-jefatura'";
+					}
+					else{
+						$bgcolor="class='aula-convivencia-profesor'";
+					}
+				}	
+				
+				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}	
 				if($recibido == '1'){
 					$comentarios1="<i class='fa fa-check' title='recibido'> </i>";
 				}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){
@@ -109,13 +116,17 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		<td >$caducada</td>
 		<td  nowrap>$comentarios1 $comentarios</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' style='margin-top:5px;color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i></a></div>";}	
-		echo " <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search' title='Detalles'> </i></A></td>";
+		echo "<a href='detfechorias.php?id=$id&claveal=$claveal' rel='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a>";
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' rel='tooltip' title='Eliminar' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg'></span></a></div>";}	
+		echo "</td>";
 		echo "</tr>";
         }
-        echo "</tbody></table>";
+        echo "</tbody></table></div>";
  
   ?>
-  <? include("../../pie.php");?>
+</div>
+</div>
+</div>
+<? include("../../pie.php");?>
 </body>
 </html>

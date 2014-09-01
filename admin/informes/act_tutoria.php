@@ -15,7 +15,7 @@ echo '<h3 class="text-muted">El alumno/a no tiene intervenciones de tutoría</h3>
 }
 else 
 {
-echo "<h4 class=\"text-info\">Tutor/a: $tutor</h4><br />";
+echo "<h4 class=\"text-info\">Tutor/a: ".mb_convert_case($tutor, MB_CASE_TITLE, "iso-8859-1")."</h4><br />";
 
   
 echo "<div class=\"table-responsive\"><table class='table table-bordered table-striped table-hover'>\n";  	

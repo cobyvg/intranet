@@ -21,21 +21,23 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }  
+
+
+include("../../menu.php");
+include("menu.php");
 ?>
-<?php
- include("../../menu.php");
- include("menu.php");
- ?>
 
- <div class="container">
-<div class="row">
-<div class="page-header">
-  <h2>Biblioteca del Centro <small> Consultas en los Fondos de la Biblioteca</small></h2>
-</div>
-<br>
-
- <div class="col-sm-10 col-sm-offset-1">
- <div align="center">
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+	  <h2>Biblioteca <small>Consulta de Fondos de la Biblioteca</small></h2>
+	</div>
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+		
+		<div class="col-sm-12">
   <?php
   if (isset($_POST['autor'])) {
   	$autor = $_POST['autor'];
@@ -66,7 +68,7 @@ exit;
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and Autor like '%$autor%'";
     }
@@ -74,7 +76,7 @@ exit;
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and Titulo like '%$titulo0%'";
     }
@@ -82,14 +84,14 @@ exit;
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and Editorial like '%$editorial%'";
     }
 
   if(!(empty($idfondo)))
   {
-  echo "<p class='lead text-muted'>Datos del volumen seleccionado</p>";
+  echo "<h3>Datos del volumen seleccionado</h3>";
 
  $informe0 = "select  id, Autor, Titulo, Editorial, ISBN, tipoEjemplar, anoEdicion, extension, serie, ubicacion, LugarEdicion from biblioteca where id = '$idfondo'";
  $sqlinforme0 = mysql_query($informe0);
@@ -119,7 +121,7 @@ $numero = "select id from biblioteca where Titulo = '$titulo0' and Autor = '$aut
 $numero1 = mysql_query($numero);
 $numero2 = mysql_num_rows($numero1);
 $ejemplares = $numero2;
-echo "<table class='table table-striped tanle-bordered' style='width:600px;'>
+echo "<table class='table table-striped table-bordered'>
   <tr>
     <td>T&Iacute;TULO: <span class='text-info'>$tituloa</span></td>
       <td>AUTOR: <span class='text-info'>$autor0</span></td>
@@ -143,7 +145,7 @@ echo "<table class='table table-striped tanle-bordered' style='width:600px;'>
       <td>LUGAR DE EDICI&Oacute;N: <span class='text-info'>$LugarEdicion </span></td>
     </tr>
         
-  </table><hr /><br />";
+  </table><hr />";
   }
   }
   
@@ -151,8 +153,8 @@ echo "<table class='table table-striped tanle-bordered' style='width:600px;'>
  
   $result = mysql_query ("select id, Autor, Titulo, Editorial from biblioteca where 1 " . $AUXSQL . " order by Autor asc");
 if (mysql_num_rows($result) > 0) {
-print "<p class='lead text-muted'>Búsqueda de Libros en la Biblioteca</p>";
-echo "<table class='table table-striped table-bordered' style='width:auto'>";
+print "<h3>Búsqueda de Libros en la Biblioteca</h3>";
+echo "<table class='table table-striped table-bordered'>";
 echo "<thead><th>Autor</th><th>Título</th><th>Editorial</th><th></th></thead><tbody>";
 
 while($row = mysql_fetch_array($result))
@@ -168,24 +170,32 @@ while($row = mysql_fetch_array($result))
 				}
 				// echo $dospuntos;
 				$limpia = explode(":",$row[3]);
-printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo=$titulo0&editorial=$editorial'><i class='fa fa-search' rel='Tooltip' title='Ver detalles del volumen'> </i></a></td></tr>", $row[1], $row[2], $row[3]);
+printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo=$titulo0&editorial=$editorial' rel='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a></td></tr>", $row[1], $row[2], $row[3]);
         }
             echo "</table>";
         }
         else {
-				echo ' <br /><div class="alert alert-warning" style="width:500px;margin:auto;"><h4>Problema en la Consulta de Fondos.</h4>Parece que ningún volumen de los Fondos de la Biblioteca responde a tu criterio de búsqueda, bien porque no existe el texto o bien porque no ha sido aún registrado. Puedes volver atrás e intentarlo de nuevo</div><br />';
+				echo ' <br /><div class="alert alert-warning"><h4>Problema en la Consulta de Fondos.</h4>Parece que ningún volumen de los Fondos de la Biblioteca responde a tu criterio de búsqueda, bien porque no existe el texto o bien porque no ha sido aún registrado. Puedes volver atrás e intentarlo de nuevo</div><br />';
         	}	
 }
 
 else {
-	echo ' <br /><div class="alert alert-warning" style="width:500px;margin:auto;"><h4>Problema en la Consulta de Fondos.</h4>Debes escribir algún dato en los campos "<em>Autor</em>", "<em>Título</em>" o "<em>Editorial</em>" del formulario de la página anterior. Vuelve atrás e inténtalo de nuevo rellenando algún campo del formulario.</div><br />';
+	echo ' <br /><div class="alert alert-warning"><h4>Problema en la Consulta de Fondos.</h4>Debes escribir algún dato en los campos "<em>Autor</em>", "<em>Título</em>" o "<em>Editorial</em>" del formulario de la página anterior. Vuelve atrás e inténtalo de nuevo rellenando algún campo del formulario.</div><br />';
 }	
-    echo " <div align=center style='margin-top:15px;'><a href=index.php class='btn btn-primary'>Consultar más Libros</a></div><br />";
-  ?>
-</div>
-</div>
-</div>
-<? include "../pie.php"; ?>
-<script type="text/javascript">
-    $("[rel=tooltip]").tooltip();
-</script> 
+  ?>	
+  
+  		<div class="hidden-print">
+  			<a href="#" class="btn btn-primary" onclick="javascript:print();">Imprimir</a>
+  			<a href="index.php" class="btn btn-default">Realizar otra consulta</a>
+  		</div>
+  		
+		</div><!-- /.col-sm-12 -->
+		
+	</div><!-- /.row -->
+	
+</div><!-- /.container -->
+
+<?php include("../../pie.php"); ?>
+
+</body>
+</html>

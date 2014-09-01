@@ -21,24 +21,26 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') 
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }                                                                                    
-?>  
 
-<?
- include("../../menu.php");
-  include("menu.php");
 $PLUGIN_DATATABLES = 1;
-  ?>
+
+include("../../menu.php");
+include("menu.php");
+?>
   <div class='container'>
+  <div class="page-header">
+    <h2>Actividades Complementarias y Extraescolares <small> Administración</small></h2>
+  </div>
+  
   <div class="row">
-<div class="page-header">
-  <h2>Actividades Complementarias y Extraescolares <small> Administración</small></h2>
+
   <div class="col-sm-12">
 <?   
 if ($_GET['eliminar']=="1") {
   	mysql_query("delete from actividades where id = '".$_GET['id']."'");
   	if (mysql_affected_rows()>'0') {
 echo '
-<br /><div align="center"><div class="alert alert-success alert-block fade in">
+<br /><div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			La actividad ha sido borrada correctamente de la base de datos.         
 			</div></div>';  	
@@ -60,7 +62,7 @@ $querycal = "insert into cal (eventdate,title,event,html,idact) values ('".$even
 mysql_query($querycal);
 //echo $querycal;
 echo '
-<br /><div align="center"><div class="alert alert-success alert-block fade in">
+<div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La Actividad ha sido registrada en el Calendario del Centro.
 			</div></div>'; 
@@ -92,7 +94,7 @@ La Actividad ha sido registrada en el Calendario del Centro.
   //echo $actualiza_datos0;
   mysql_query($actualiza_datos0);
   echo '
-<br /><div align="center"><div class="alert alert-success alert-block fade in">
+<div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La Actividad se ha actualizado para esa fecha del Calendario.
 			</div></div>'; 
@@ -102,7 +104,7 @@ La Actividad se ha actualizado para esa fecha del Calendario.
   {
   mysql_query("UPDATE  actividades SET  confirmado =  '1' WHERE id = '$id'");
    echo '
-<br /><div align="center"><div class="alert alert-success alert-block fade in">
+<div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La Actividad ha sido confirmada por la Autoridad.
 			</div></div>'; 
@@ -120,13 +122,13 @@ La Actividad ha sido confirmada por la Autoridad.
   $fecha1 = explode("-",$datos[8]);
   $registro = "$fecha1[2]-$fecha1[1]-$fecha1[0]";
   ?>
-    <div align="center">
+    <div>
   <h3>Información completa de Actividad Extraescolar</h3><br />
 </div>
-  <div align="center">
-<table class="table table-striped" align="center">
+  <div>
+<table class="table table-bordered table-striped">
   <tr>
-   <th colspan="2"><h4 align="center"><? echo $datos[2];?></h4></th>
+   <th colspan="2"><h4 class="text-info"><? echo $datos[2];?></h4></th>
   </tr>
   <tr>
     <th>Grupos</th><td><? echo substr($datos[1],0,-1);?></td>
@@ -163,15 +165,14 @@ La Actividad ha sido confirmada por la Autoridad.
  } 
 ?>
 
-<br />
-<table class="table table-striped datatable" align="center">
+<table class="table table-striped table-hover datatable">
   <thead>
   <tr>
     <th>Fecha</th>
     <th>Actividad</th>
     <th>Alumnos</th>
     <th>Mes</th>
-    <th></th>
+    <th>Autorizado</th>
     <th></th>
   </tr>
   </thead>
@@ -202,48 +203,53 @@ $autoriz = $datos[9];
 $datos[2]= str_replace("\\","",$datos[2]);
   ?>
   <tr>
-    <td nowrap="nowrap"><? echo $fecha;?></td>
+    <td nowrap="nowrap"><? echo $datos[7];?></td>
     <td><? echo $datos[2];?></td>
     <td nowrap>
   
         <?
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 ?>
- <?  if($datos[9] == '1'){echo ' <i class="fa fa-check-circle" title="Confirmada"> </i> ';}else{echo ' <i class="fa fa-question-circle title="Sin confirmar""> </i> ';}?>
-    <a href="extraescolares.php?id=<? echo $datos[0];?>"><span class="text-info">Seleccionar</a>
+    <a href="extraescolares.php?id=<? echo $datos[0];?>">Seleccionar</a>
     <? } ?>
     </td>
     <td><? echo $mes2;?></td>
-    <td nowrap><a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1"> <i class="fa fa-search" rel='tooltip' title='Ver detalles de la actividad'> </i></a>
-          <?
-		 // echo  $_SESSION['dpt']." == ".$datos[4];
-	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
-?>  
-    <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1" data-bb='confirm-delete'> <i class="fa fa-trash-o" title='Eliminar actividad'> </i></a>
-  <? } ?>
-  
+    <td>
+    	<? if($autoriz=="1"){ ?>
+    	<span class="fa fa-check-square-o fa-fw fa-lg" rel="tooltip" title="Autorizado"></span>
+    	<? }else{ ?> 
+    	<span class="fa fa-square-o fa-fw fa-lg" rel="tooltip" title="No autorizado"></span>
+    	<? } ?>
+    </td>
+    <td nowrap><a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1" rel="tooltip" title="Detalles"><span class="fa fa-search fa-fw fa-lg"></span></a>
       <?
 	if((stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE)){
 ?>
   
    <? if($autoriz=="1"){}else{ ?> 
-    <a href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1"> <i class="fa fa-check-circle" title='Autorizar actividad'> </i></a>
+    <a href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1" rel="tooltip" title="Autorizar"><span class="fa fa-check-circle fa-fw fa-lg"></span></a>
     <? } ?>
-</td>
-<td nowrap>	
-	   <? 
-	   $id_repe = "select id, idact from cal where eventdate = '$datos[7]'";
-	   $repe0 = mysql_query($id_repe);
-	   $id = mysql_fetch_array($repe0);
-	   $br = "$id[1]";
-	   $cal_idact = $datos[0].";";
-	   if(ereg($cal_idact, $br)) {$si = "1";} else{$si = "0";}
-	   $n_idact = strstr($br,$cal_idact);
-// No hay nada registrado para ese día en el Calendario
-	    if(strlen($id[0]) == 0){echo " <a href='indexextra.php?id=$datos[0]&calendario=1'> <i class='fa fa-calendar'  title='Enviar al Calendario'> </i> </a>";}
-// hay datos en el Calendario pero la actividad no ha sido registrada.	
-		if(strlen($id[0]) > 0 and ($si == "0")){echo " <a href='indexextra.php?id=$datos[0]&act_calendario=1'> <i class='fa fa-arrow-o-up' title='Actualizar el Calendario'> </i> </a>";}?>
-		
+    
+			<? 
+			$id_repe = "select id, idact from cal where eventdate = '$datos[7]'";
+			$repe0 = mysql_query($id_repe);
+			$id = mysql_fetch_array($repe0);
+			$br = "$id[1]";
+			$cal_idact = $datos[0].";";
+			if(ereg($cal_idact, $br)) {$si = "1";} else{$si = "0";}
+			$n_idact = strstr($br,$cal_idact);
+			// No hay nada registrado para ese día en el Calendario
+			if(strlen($id[0]) == 0){echo " <a href='indexextra.php?id=$datos[0]&calendario=1' rel='tooltip' title='Añadir al calendario'><span class='fa fa-calendar fa-fw fa-lg'></span></a>";}
+			// hay datos en el Calendario pero la actividad no ha sido registrada.	
+			if(strlen($id[0]) > 0 and ($si == "0")){echo " <a href='indexextra.php?id=$datos[0]&act_calendario=1' rel='tooltip' title='Actualizar calendario'><span class='fa fa-refresh fa-fw fa-lg'></span></a>";}?>
+			
+			<?
+			// echo  $_SESSION['dpt']." == ".$datos[4];
+			if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
+			?>  
+			<a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1" rel="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+			<? } ?>
+    
 	  </td>
       <? }?>
       </tr>
@@ -257,35 +263,35 @@ $datos[2]= str_replace("\\","",$datos[2]);
 </div>
 </div>
 <? include("../../pie.php");?>
-	
+
 	<script>
 	$(document).ready(function() {
-	  var table = $('.datatable').DataTable({
-	  		"paging":   true,
-	      "ordering": true,
-	      "info":     false,
-	      
-	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
-	  		
-	  		"order": [[ 1, "desc" ]],
-	  		
-	  		"language": {
-	  		            "lengthMenu": "_MENU_",
-	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
-	  		            "info": "Página _PAGE_ de _PAGES_",
-	  		            "infoEmpty": "No hay resultados disponibles.",
-	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
-	  		            "search": "Buscar: ",
-	  		            "paginate": {
-	  		                  "first": "Primera",
-	  		                  "next": "Última",
-	  		                  "next": "",
-	  		                  "previous": ""
-	  		                }
-	  		        }
-	  	});
+		var table = $('.datatable').DataTable({
+			"paging":   true,
+	    "ordering": true,
+	    "info":     false,
+	    
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+			
+			"order": [[ 0, "desc" ]],
+			
+			"language": {
+			            "lengthMenu": "_MENU_",
+			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+			            "info": "Página _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay resultados disponibles.",
+			            "infoFiltered": "(filtrado de _MAX_ resultados)",
+			            "search": "Buscar: ",
+			            "paginate": {
+			                  "first": "Primera",
+			                  "next": "Última",
+			                  "next": "",
+			                  "previous": ""
+			                }
+			        }
+		});
 	});
 	</script>
-	
+
 </body>
 </html>

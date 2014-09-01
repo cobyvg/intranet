@@ -85,6 +85,7 @@
 		<ul class="dropdown-menu dropdown-feed">
 			<li class="dropdown-header"><h5><?php echo $rss->channel['title']; ?></h5></li>
 			<li class="divider"></li>
+			<?php if (count($items)): ?>
 			<?php foreach ($items as $item): ?>
 			<li>
 				<a href="<?php echo $item['link']; ?>">
@@ -94,6 +95,10 @@
 			</li>
 			<li class="divider"></li>
 			<?php endforeach; ?>
+			<?php else: ?>
+			<li><a href="#" class="disabled">Este módulo no está disponible en estos momentos. Disculpen las molestias.</a></li>
+			<li class="divider"></li>
+			<?php endif; ?>
 			<li><a class="text-center"
 				href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank"><strong>Ver
 			todas las novedades <span class="fa fa-angle-right"></span></strong></a></li>

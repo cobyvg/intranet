@@ -47,42 +47,41 @@ if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = '
 # creamos la clase extendida de fpdf.php 
 class GranPDF extends FPDF {
 	function Header() {
-		$this->Image ( '../../img/encabezado.jpg',15,15,50,'','jpg');
-		$this->SetFont('ErasDemiBT','B',10);
+		$this->SetTextColor(0, 122, 61);
+		$this->Image( '../../img/encabezado.jpg',25,14,53,'','jpg');
+		$this->SetFont('ErasDemiBT','B',12);
 		$this->SetY(15);
-		$this->Cell(90);
-		$this->Cell(80,4,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
-		$this->SetFont('ErasMDBT','I',10);
-		$this->Cell(90);
-		$this->Cell(80,4,$GLOBALS['CENTRO_NOMBRE'],0,1);
-		$this->Ln(8);
+		$this->Cell(75);
+		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
+		$this->SetFont('ErasMDBT','I',12);
+		$this->Cell(75);
+		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
+		$this->SetTextColor(255, 255, 255);
 	}
 	function Footer() {
-		$this->Image ( '../../img/pie.jpg', 10, 245, 25, '', 'jpg' );
-		$this->SetY(265);
-		$this->SetFont('ErasMDBT','',10);
-		$this->SetTextColor(156,156,156);
-		$this->Cell(70);
-		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'],0,1);
-		$this->Cell(70);
-		$this->Cell(80,4,$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
-		$this->Cell(70);
-		$this->Cell(80,4,'Tlf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
-		$this->Cell(70);
-		$this->Cell(80,4,'Correo: '.$GLOBALS['CENTRO_CORREO'],0,1);
-		$this->Ln(8);
+		$this->SetTextColor(0, 122, 61);
+		$this->Image( '../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
+		$this->SetY(275);
+		$this->SetFont('ErasMDBT','',8);
+		$this->Cell(75);
+		$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'].'. '.$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
+		$this->Cell(75);
+		$this->Cell(80,4,'Telf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
+		$this->Cell(75);
+		$this->Cell(80,4,'Correo-e: '.$GLOBALS['CENTRO_CORREO'],0,1);
+		$this->SetTextColor(255, 255, 255);
 	}
 }
 
 # creamos el nuevo objeto partiendo de la clase
-$MiPDF=new GranPDF('P','mm',A4);
+$MiPDF=new GranPDF('P','mm','A4');
 $MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 $MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 $MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
 $MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
 $MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
 $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
-			$MiPDF->SetMargins(20,20,20);
+			$MiPDF->SetMargins(25,20,20);
 			# ajustamos al 100% la visualizacion
 			$MiPDF->SetDisplayMode('fullpage');
 			
@@ -138,53 +137,53 @@ $cuerpo6="Informe de los Servicios Sociales";
 $cuerpo66="$alumno[13]";	
 }
 #### Cabecera con dirección
-	$MiPDF->SetFont('Helvetica','',11);
+	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->SetTextColor(0,0,0);
 	
 	#Cuerpo.
 	$MiPDF->Ln(45);
-	$MiPDF->SetFont('Helvetica','B',10);
+	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,20,$cuerpo0,0,'C',0);
-	$MiPDF->SetFont('Helvetica');
+	$MiPDF->SetFont('NewsGotT');
 	
 	$MiPDF->Multicell(0,4,$datos10,0,'L',0);
 	$MiPDF->Ln(5);
-	$MiPDF->SetFont('Helvetica','',10);
+	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Multicell(0,4,$cuerpo1,0,'J',0);
 	$MiPDF->Ln(5);
 	
-	$MiPDF->SetFont('Helvetica','B');
+	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$cuerpo3,0,'L',0);
 	$MiPDF->Ln(1);
 		
-	$MiPDF->SetFont('Helvetica','I');
+	$MiPDF->SetFont('NewsGotT','I',12);
 	$MiPDF->Multicell(0,4,$cuerpo33,0,'J',0);
 	$MiPDF->Ln(5);
 if (strlen($alumno[5])>0) {
-		$MiPDF->SetFont('Helvetica','B');
+		$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$cuerpo4,0,'L',0);	
 	$MiPDF->Ln(1);
-		$MiPDF->SetFont('Helvetica','I');
+		$MiPDF->SetFont('NewsGotT','I',12);
 	$MiPDF->Multicell(0,4,$cuerpo44,0,'J',0);
 	$MiPDF->Ln(5);
 }		
 if (strlen($alumno[6])>0) {
-	$MiPDF->SetFont('Helvetica','B');
+	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$cuerpo5,0,'L',0);
 	$MiPDF->Ln(1);
-		$MiPDF->SetFont('Helvetica','I');
+		$MiPDF->SetFont('NewsGotT','I',12);
 	$MiPDF->Multicell(0,4,$cuerpo55,0,'J',0);
 	$MiPDF->Ln(5);
 	}
 if (strlen($alumno[13])>0) {
-	$MiPDF->SetFont('Helvetica','B');
+	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$cuerpo6,0,'L',0);
 	$MiPDF->Ln(1);
-		$MiPDF->SetFont('Helvetica','I');
+		$MiPDF->SetFont('NewsGotT','I',12);
 	$MiPDF->Multicell(0,4,$cuerpo66,0,'J',0);
 	$MiPDF->Ln(25);
 	}
-	$MiPDF->SetFont('Helvetica','',10);
+	$MiPDF->SetFont('NewsGotT','',12,12);
 	$MiPDF->Multicell(0,4,$cuerpo2,0,'C',0);
 	$MiPDF->Ln(1);
 	//unlink($temp);
