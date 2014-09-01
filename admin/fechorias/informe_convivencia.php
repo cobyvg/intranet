@@ -733,7 +733,7 @@ for ($i=$cur;$i>$cur-3;$i--)
 <h4 align="center">Problemas de Convivencia en el Curso <?php echo $i-1; echo "-".$i;?></h4>
 <br />
 
-<table class="table table-striped tabladatos" align="center" style="width:100%">
+<table class="table table-striped" align="center" style="width:100%">
   <thead>
   <tr>
     <th>Tipo de Problema</th>

@@ -11,7 +11,7 @@ $result0 = mysql_query ("select distinct apellidos, nombre, claveal from tutoria
 $n_filas = mysql_num_rows($result0);
 if($n_filas > 0) 
   {
-echo '<table class="table table-striped table-bordered tabladatos">';
+echo '<table class="table table-striped table-bordered datatable">';
   	
 echo "<thead><tr><th>Alumno</th><th>Fecha</th></tr></thead><tbody>";
   while($alumn = mysql_fetch_array($result0))

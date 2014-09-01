@@ -118,7 +118,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 		
 		<div class="col-sm-5">
 			
-			<h3>Registro de ausencias</h3>
+			<legend>Registro de ausencias</legend>
 			
 			<div class="well well-large">
 
@@ -250,7 +250,7 @@ if ($profesor) {
 ?>
 </form>
 
-			<h3>Historial de ausencias</h3>
+			<legend>Historial de ausencias</legend>
 			
 			<div class="table-responsive">
 				<table class="table table-striped table-hover datatable">
@@ -301,7 +301,7 @@ if ($profesor) {
 			<?php $nomprof = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 			
 			<a name="history"></a>
-			<h3>Historial de ausencias de <?php echo $nomprof; ?></h3>
+			<legend>Historial de ausencias de <?php echo $nomprof; ?></legend>
 			
 			<div class="table-responsive">
 				<table class="table table-striped table-hover datatable">
@@ -350,7 +350,7 @@ if ($profesor) {
 			<?php $nomprof = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 			
 			<a name="history"></a>
-			<h3>Historial de ausencias de <?php echo $nomprof; ?></h3>
+			<legend>Historial de ausencias de <?php echo $nomprof; ?></legend>
 			
 			<div class="table-responsive">
 				<table class="table table-striped table-hover datatable">

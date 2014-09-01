@@ -23,10 +23,10 @@ if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'
 include("../../menu.php");
 include("menu.php");
 ?>
+<div class="container">
 <div class="page-header">
   <h2>Material del Centro <small> Inventario</small></h2>
 </div>
-<br />
 <?
 /*if (empty($departamento) or stristr ( $_SESSION ['cargo'], '1' ) == FALSE){
 	$departamento=$_SESSION['dpt'];
@@ -92,17 +92,16 @@ Parece que no has escrito nada en alguno de los campos obligatorios del formular
 <? 
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
 { ?>
-<div class="col-sm-4 col-sm-offset-2">
+<div class="col-sm-6">
 
-<h3>Registro de Material <span style="color:#9d261d">(<? echo $departament;?>)</span></h3>
-<br />
-<div class="well well-large" align="left">
+<legend>Registro de Material <span style="color:#9d261d">(<? echo $departament;?>)</span></legend>
+<div class="well" align="left">
 <form name="textos" method="post" action="introducir.php">
 <div align="center"><p class="help-block"> <span style="color:#9d261d">(*)</span> --> Campos obligatorios</p></div>
 <input type="hidden" name="departamento" value="<? echo $departamento;?>">
 
-<label>Familia<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<select name="familia" onchange="submit()" class="col-sm-10">
+<div class='form-group'><label>Familia<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
+<select name="familia" onchange="submit()" class="form-control">
         <?
 echo "<option>$familia</option>";
 $famil = mysql_query(" SELECT distinct familia FROM inventario_clases order by familia asc");
@@ -112,9 +111,9 @@ while($fam = mysql_fetch_array($famil))
 	} 
 	?>
 </select>
-</label>
-<label>Clase<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<select name="clase" class="col-sm-7">
+</div>
+<div class='form-group'><label>Clase<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
+<select name="clase" class="form-control">
         <?
 echo "<option></option>";
 $cla = mysql_query(" SELECT distinct clase FROM inventario_clases where familia='$familia' order by familia asc");
@@ -124,9 +123,9 @@ while($clas = mysql_fetch_array($cla))
 	} 
 	?>
 </select>
-</label>
-<label>Lugar<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<select name="lugar" class="col-sm-9">
+</div>
+<div class='form-group'><label>Lugar<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
+<select name="lugar" class="form-control">
         <?
 echo "<option></option>";
 $luga = mysql_query(" SELECT distinct lugar FROM inventario_lugares order by lugar asc");
@@ -136,52 +135,51 @@ while($lug = mysql_fetch_array($luga))
 	} 
 	?>
 </select>
-</label>
-<label>Descipción<br />
-<textarea name="descripcion" cols="45" rows="5" class="col-sm-11"></textarea>
-</label>
-<label>Marca<br />
-<input type="text" name="marca" size="40" class="col-sm-8"/>
-</label>
-<label>Modelo<br />
-<input type="text" name="modelo" size="40"class="col-sm-8" />
-</label>
-<label>Nº Serie<br />
-<input type="text" name="serie" size="25" class="col-sm-8"/>
-</label>
-<label>Nº de Unidades<span style="color:#9d261d;font-size:12px;"> (*) </span><br />
-<input type="text" name="unidades" size="5" value="1" class="col-sm-2"/>
-</label>
+</div>
+<div class='form-group'><label>Descipción</label>
+<textarea name="descripcion" cols="45" rows="5" class="form-control"></textarea>
+</div>
+<div class='form-group'><label>Marca</label>
+<input type="text" name="marca" size="40" class="form-control"/>
+</div>
+<div class='form-group'><label>Modelo</label>
+<input type="text" name="modelo" size="40"class="form-control" />
+</div>
+<div class='form-group'><label>Nº Serie</label>
+<input type="text" name="serie" size="25" class="form-control"/>
+</div>
+<div class='form-group'><label>Nº de Unidades<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
+<input type="text" name="unidades" size="5" value="1" class="form-control"/>
+</div>
 
-<label>Fecha de Alta<span style="color:#9d261d;"> (*) </span><br />
 <div class="form-group"  id="datetimepicker1">
+<label>Fecha de Alta<span style="color:#9d261d;"> (*) </span></label>
 <div class="input-group">
-  <input name="fecha" type="text" class="input input-small" data-date-format="DD-MM-YYYY" id="fecha">
+  <input name="fecha" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha">
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </div>
-</label>
+</div>
 <br />
 <input type="submit" name="enviar"  value="Enviar datos" class="btn btn-primary btn-block"/>
 </form>
 </div>
-</div>
   <?
 }
 if ($j_s == '1') {
-	echo '<div class="col-sm-4 col-sm-offset-4">';
+	echo '<div class="col-sm-6 col-sm-offset-3">';
 }
 else{
-	echo '<div class="col-sm-4">';
+	echo '<div class="col-sm-6">';
 }
 ?>
 <?
 $it = mysql_query("select inventario_clases.clase, marca, modelo, unidades, inventario.id from inventario, inventario_clases where inventario_clases.id=inventario.clase and departamento='$departamento'");
 if (mysql_num_rows($it)>0) {
-	echo '<h3>Inventario: ';
+	echo '<legend>Inventario: ';
 	if($departamento){echo "<span style=color:#9d261d>".$departamento."</span>";}
 	else{echo "<span style=color:#9d261d>Dirección del Centro</span>";}
-	echo '</h3><br />
+	echo '</legend>
 <table class="table table-striped">
 <tr><th>Tipo</th><th>Marca / Modelo</th><th>Núm.</th><th></th><th></th></tr>';
 while($item = mysql_fetch_row($it))
@@ -193,7 +191,7 @@ while($item = mysql_fetch_row($it))
 		$marca = $item[1];
 	}
 ?>
-<tr><td><? echo $item[0];?></td><td><? echo $marca;?></td><td><? echo $item[3];?></td><td>
+<tr><td><? echo $item[0];?></td><td><? echo $marca;?></td><td><? echo $item[3];?></td><td align=right>
 <?
 if ($j_s == '') {
 ?>
@@ -201,7 +199,7 @@ if ($j_s == '') {
 <?
 }
 ?>
-</td><td><a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="fa fa-pencil" title="Editar registro"> </i> </a></td></tr>
+&nbsp;<a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="fa fa-pencil" title="Editar registro"> </i> </a></td></tr>
 <?
 }
 	echo '

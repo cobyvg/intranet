@@ -21,7 +21,9 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?php
 include("../../menu.php");
 include("menu.php");
-   $imprimir_activado = true;  
+$PLUGIN_DATATABLES = 1;
+?>
+<?
 if (empty($departamento) and stristr($_SESSION['cargo'],'4') == TRUE){
 	$departamento=$_SESSION['dpt'];
 	$departament=$departamento;
@@ -32,23 +34,29 @@ else{
 $profe=$_SESSION['profi'];
 if (empty($buscar)) {
 ?>
+<div class="container">
 <div class="page-header">
-  <h2>Material del Centro <small> Buscar en el Inventario</small></h2>
+<h2>Material del Centro <small> Buscar en el Inventario</small></h2>
 </div>
-<br />
-<div class="well well-large" align="center" style="width:400px;margin:auto">
-<br />
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
+<div class="well" align="center">
             <form method="post" action="buscar.php">
-                  <input type="text" name="expresion" id="exp" value="<? echo $expresion;?>" class="input-xlarge" />
-                  <br /><br /><button type="submit"  name="buscar" value="Buscar datos" class="btn btn-primary"><i class="fa fa-search "> </i> Buscar datos </button>
+                  <input type="text" name="expresion" id="exp" value="<? echo $expresion;?>" class="form-control" />
+                  <br /><button type="submit"  name="buscar" value="Buscar datos" class="btn btn-primary"><i class="fa fa-search "> </i> Buscar datos </button>
             </form>
 </div>
 <br />
 <?
-		echo '<div class="well" style="width:550px; margin:auto">INSTRUCCIONES.<BR><div style="text-align:left;width:inherit;">1. Puedes buscar en cualquier campo de la tabla de datos: familia, clase, lugar, descripción, marca, modelo, etc. <br>Si introduces varias palabras, se buscarán los registros que contengan <em>todas</em> las palabras.<br>2. La(-s) palabra(-s) que introduzcas no tienen porque ser completas, así que puedes escribir un trozo de palabra para aumentar los resultados de la búsqueda.<br>3. Por esa razón, si no escribes ningún texto en el campo de búsqueda, se presentarán todos los registros que has introducido, lo cual es interesante, por ejemplo, para imprimir un listado completo del material del Departamento. Los miembros del Equipo directivo verán, en este caso, la totalidad de los materiales registrados por todos los Departamentos y la propia Dirección,<br>4. Los nombres de las columnas de la tabla de resultados contienen un enlace que ordena los resultados de modo ascendente o descendente. Haciendo click sobre el nombre de una columna, podemos ordenar los resultados por familia, clase, modelo, etc.</div></div>';
+		echo '<div class="well well-lg">INSTRUCCIONES.<BR><div style="text-align:left;width:inherit;">1. Puedes buscar en cualquier campo de la tabla de datos: familia, clase, lugar, descripción, marca, modelo, etc. <br>Si introduces varias palabras, se buscarán los registros que contengan <em>todas</em> las palabras.<br>2. La(-s) palabra(-s) que introduzcas no tienen porque ser completas, así que puedes escribir un trozo de palabra para aumentar los resultados de la búsqueda.<br>3. Por esa razón, si no escribes ningún texto en el campo de búsqueda, se presentarán todos los registros que has introducido, lo cual es interesante, por ejemplo, para imprimir un listado completo del material del Departamento. Los miembros del Equipo directivo verán, en este caso, la totalidad de los materiales registrados por todos los Departamentos y la propia Dirección,<br>4. Los nombres de las columnas de la tabla de resultados contienen un enlace que ordena los resultados de modo ascendente o descendente. Haciendo click sobre el nombre de una columna, podemos ordenar los resultados por familia, clase, modelo, etc.</div></div>';
+
+		echo "</div></div></div>";
 }
 ?>
-</div>
+
+<div class="container-fluid">
+<div class="row">
+<div class="col-sm-12">
 <?
 if ($ser) {$ser=" order by $ser";}else{$ser=" order by fecha";}
 if ($orden=="desc") {$ord="asc";}else{$orden="asc";	$ord="desc";}
@@ -70,13 +78,12 @@ $datos=mysql_query("select familia, inventario_clases.clase, lugar, descripcion,
 
 if (mysql_num_rows($datos) > 0)
 {
-	echo '<div class="container-fluid">  
-	<div class="row">
-<div class="col-sm-1"></div>
-<div class="col-sm-10">';
-	echo '<div align="center">';
-echo '<h3>Material encontrado en el Inventario</h3><br />
-<table class="table table-striped table-bordered tabladatos" style="width:100%">
+?>
+<div class="page-header" align=center>
+<h2>Material del Centro <small> Registros encontrados</small></h2>
+</div>
+<?
+echo '<table class="table table-striped table-bordered datatable">
 <thead>
 <tr><th>Familia</th><th>Clase</th><th>Lugar</th><th>Descripción</th><th>Marca</th><th>Modelo</th><th nowrap>Nº Serie</th><th>Unidad</th><th>Departamento</th><th></th><th></th></tr>
 </thead><tbody>';
@@ -109,7 +116,41 @@ Ningún registro del Inventario responde a tu criterio.
 </div></div><br />';
 }
 }
+?>
+</div>
+</div>
+</div>
+<?
 	include("../../pie.php");
 ?>
+
+	<script>
+	$(document).ready(function() {
+	  var table = $('.datatable').DataTable({
+	  	"paging":   true,
+	      "ordering": true,
+	      "info":     false,
+	      
+	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+	  		
+	  		"order": [[ 1, "desc" ]],
+	  		
+	  		"language": {
+	  		            "lengthMenu": "_MENU_",
+	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "infoEmpty": "No hay resultados disponibles.",
+	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
+	  		            "search": "Buscar: ",
+	  		            "paginate": {
+	  		                  "first": "Primera",
+	  		                  "next": "Última",
+	  		                  "next": "",
+	  		                  "previous": ""
+	  		                }
+	  		        }
+	  	});
+	});
+	</script>
 </body>
 </html>

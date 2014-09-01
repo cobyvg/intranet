@@ -22,6 +22,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
   include("../../menu.php"); 
 include("menu.php"); 
+$PLUGIN_DATATABLES = 1;
 ?>
 <div class="container">
 <div class="row">
@@ -104,10 +105,9 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
   <div class="page-header">
   <h2>Actividades Complementarias y Extraescolares <small> Listado</small></h2>
   
-  <div class="col-sm-1"> </div>
-  <div class="col-sm-10">
+  <div class="col-sm-12">
   <br>
-<table class="table table-striped tabladatos" style="width:100%;" align="center">
+<table class="table table-striped datatable" style="width:100%;" align="center">
   <thead><tr>
     <th>Actividad</th>
     <th>Grupos</th>
@@ -190,5 +190,33 @@ elseif ($_SESSION['depto'] == $datos[4]){
 </div>
 </div>
 <? include("../../pie.php");?>
+	<script>
+	$(document).ready(function() {
+	  var table = $('.datatable').DataTable({
+	  		"paging":   true,
+	      "ordering": true,
+	      "info":     false,
+	      
+	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+	  		
+	  		"order": [[ 1, "desc" ]],
+	  		
+	  		"language": {
+	  		            "lengthMenu": "_MENU_",
+	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "infoEmpty": "No hay resultados disponibles.",
+	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
+	  		            "search": "Buscar: ",
+	  		            "paginate": {
+	  		                  "first": "Primera",
+	  		                  "next": "Última",
+	  		                  "next": "",
+	  		                  "previous": ""
+	  		                }
+	  		        }
+	  	});
+	});
+	</script>
 </body>
 </html>

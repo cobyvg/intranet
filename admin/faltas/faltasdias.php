@@ -20,6 +20,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
  <? 
  include("../../menu.php");
 include("../../faltas/menu.php");
+$PLUGIN_DATATABLES = 1;
 ?>
 <style type="text/css">
 .table td{
@@ -28,9 +29,9 @@ include("../../faltas/menu.php");
 </style>
 <?
 $imprimir_activado = true;
-  $fechasq0=explode("-",$fecha10);
+  $fechasq0=explode("/",$fecha10);
   $fechasq1=$fechasq0[2]."-".$fechasq0[1]."-".$fechasq0[0];
-  $fechasq2=explode("-",$fecha20);
+  $fechasq2=explode("/",$fecha20);
   $fechasq3=$fechasq2[2]."-".$fechasq2[1]."-".$fechasq2[0];
   echo '<div class="container">
   <div class="row">
@@ -40,25 +41,25 @@ $imprimir_activado = true;
   <h2>Faltas de Asistencia <small> Informe de faltas</small></h2>
   </div>
 ';
-        echo "<legend align='center' class='text-info'>Alumnos con más de <strong class='text-info'>$numero</strong> faltas de asistencia sin justificar<br> entre los días <strong class='text-info'>$fechasq1</strong> y <strong class='text-info'>$fechasq3</strong></legend>
-		<table class='table table-striped tabladatos' style='width:100%;'>";
+        echo "<legend align='center' class='text-info'>Alumnos con más de <strong class='text-info'>$numero</strong> faltas de asistencia<br> entre los días <strong class='text-info'>$fechasq1</strong> y <strong class='text-info'>$fechasq3</strong></legend>
+		<table class='table table-striped datatable' style='width:100%;'>";
         echo "<thead><tr><th>Alumno</th><th>Curso</th>
-        <th>Nº faltas</th><th>Nº días</th></tr></thead><tbody>";
+        <th nowrap>Nº faltas</th><th nowrap>Nº días</th></tr></thead><tbody>";
 
 // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
-  $SQLTEMP = "create table faltastemp2 SELECT CLAVEAL, falta, (count(*)) AS numero, unidad, nc FROM FALTAS where falta = 'F' and FALTAS.fecha >= '$fechasq1' and FALTAS.fecha <= '$fechasq3'  group by claveal";
+  $SQLTEMP = "create table temp SELECT CLAVEAL, falta, (count(*)) AS numero, unidad, nc FROM FALTAS where falta = 'F' and FALTAS.fecha >= '$fechasq1' and FALTAS.fecha <= '$fechasq3'  group by claveal";
   $resultTEMP= mysql_query($SQLTEMP);
-  mysql_query("ALTER TABLE faltastemp2 ADD INDEX (CLAVEAL)");
-  $SQL0 = "SELECT CLAVEAL  FROM  faltastemp2 WHERE falta = 'F' and numero > '$numero' order by unidad";
+  mysql_query("ALTER TABLE temp ADD INDEX (CLAVEAL)");
+  $SQL0 = "SELECT CLAVEAL  FROM  temp WHERE falta = 'F' and numero > '$numero' order by unidad";
   //echo $SQL0;
   $result0 = mysql_query($SQL0);
  while  ($row0 = mysql_fetch_array($result0)){
 $claveal = $row0[0];
 // No justificadas
-  $SQLF = "select faltastemp2.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.matriculas,
-  FALTAS.falta,  faltastemp2.numero, alma.DOMICILIO, alma.CODPOSTAL, alma.LOCALIDAD  
-  from faltastemp2, FALTAS, alma where alma.claveal = FALTAS.claveal  
-  and faltastemp2.claveal = FALTAS.claveal and FALTAS.claveal like '$claveal' 
+  $SQLF = "select temp.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.matriculas,
+  FALTAS.falta,  temp.numero, alma.DOMICILIO, alma.CODPOSTAL, alma.LOCALIDAD  
+  from temp, FALTAS, alma where alma.claveal = FALTAS.claveal  
+  and temp.claveal = FALTAS.claveal and FALTAS.claveal like '$claveal' 
   and FALTAS.falta = 'F' GROUP BY alma.apellidos";
   //echo $SQLF;
   $resultF = mysql_query($SQLF);	
@@ -87,7 +88,7 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 	}
        
 // Eliminar Tabla temporal
- //mysql_query("DROP table `faltastemp2`");
+ mysql_query("DROP table `temp`");
   ?>
 </tbody>
 </table>
@@ -96,6 +97,34 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 </div>
 </div>
 <? include("../../pie.php");?>
+	<script>
+	$(document).ready(function() {
+	  var table = $('.datatable').DataTable({
+	  		"paging":   true,
+	      "ordering": true,
+	      "info":     false,
+	      
+	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+	  		
+	  		"order": [[ 1, "desc" ]],
+	  		
+	  		"language": {
+	  		            "lengthMenu": "_MENU_",
+	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "infoEmpty": "No hay resultados disponibles.",
+	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
+	  		            "search": "Buscar: ",
+	  		            "paginate": {
+	  		                  "first": "Primera",
+	  		                  "next": "Última",
+	  		                  "next": "",
+	  		                  "previous": ""
+	  		                }
+	  		        }
+	  	});
+	});
+	</script>
 </body>
 </html>
 
