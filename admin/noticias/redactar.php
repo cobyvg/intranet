@@ -274,7 +274,8 @@ include ("menu.php");
 	// DATETIMEPICKER
 	$(function () {
 	    $('#datetimepicker1').datetimepicker({
-	    	language: 'es'
+	    	language: 'es',
+	    	useSeconds: true,
 	    });
 	});
 	</script>
