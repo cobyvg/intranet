@@ -66,7 +66,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 					    <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI/Pasaporte del alumno/a o tutor/a legal" maxlength="12">
 					  </div>
 					  
-					  <button type="submit" class="btn btn-primary" name="matricular" formaction="matriculas_bach.php">Matricular</button>
+					  <button type="submit" class="btn btn-primary" name="matricular" formaction="matriculas_bach.php" formtarget="_blank">Matricular</button>
 				  </fieldset>
 				</form>
 				

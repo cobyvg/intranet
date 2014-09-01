@@ -513,559 +513,548 @@ if ($dni or $claveal or $id) {
 		}
 	}
 	?>
-	<form id="form1" name="form1" method="post"	action="matriculas_bach.php<? if($cargo == "1"){echo "?cargo=1";}?>">
-<form method="post" action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>" id="form1" name="form1">
-
-	<table align="center" class="table table-bordered">
-		<!-- CABECERA: LOGOTIPO -->
-		<thead>
-			<tr>
-				<td colspan="2" style="border-right: 0; height: 90px;">
-					<img class="img-responsive" src="../../img/encabezado.jpg" alt="" width="350">
-				</td>
-				<td colspan="2">
-					<h4 class="text-uppercase"><strong>Consejería de Educación, Cultura y Deporte</strong></h4>
-					<h5 class="text-uppercase"><strong><?php echo $nombre_del_centro; ?></strong></h5>
-				</td>
-			</tr>
-		</thead>
-		
-		<!-- CUERPO -->
-		<tbody>
-<?php
-// CURSO MATRICULA
-if (empty($n_curso)) $n_curso = substr($curso,0,1);
-
-switch ($curso) {
-case '1BACH' : $curso_matricula="PRIMERO"; break;
-case '2BACH' : $curso_matricula="SEGUNDO"; break;
-}
-?>			
-			<tr>
-				<td colspan="4">
-					<h4 class="text-center text-uppercase">SOLICITUD DE MATRÍCULA EN <?php echo $curso_matricula; ?> DE BACHILLERATO</h4>
-				</td>
-			</tr>
-
-	<?
-	if (substr($curso,0,1) == substr($n_curso_ya,0,1) and (substr($n_curso_ya,0,1) == "1") and $cargo == '1') {$repite_1bach = "1";}
-	if (substr($curso,0,1) == substr($n_curso_ya,0,1) and (substr($n_curso_ya,0,1) == "2") and $cargo == '1') {$repite_2bach = "1";}	
-	?>
-
-	<!-- DATOS PERSONALES DEL ALUMNO -->
-	<tr>
-		<th class="active text-center text-uppercase" colspan="4">
-			Datos personales del alumno o alumna
-		</th>
-	</tr>
-	<tr>
-		<td class="col-sm-3">
-			<div class="form-group <?php echo (strstr($vacios,"apellidos, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="apellidos">Apellidos</label>
-				<input type="text" class="form-control" id="apellidos" name="apellidos" value="<?php echo (isset($apellidos)) ? $apellidos : ''; ?>" maxlength="60">
-			</div>
-		</td>
-		<td class="col-sm-3">
-			<div class="form-group <?php echo (strstr($vacios,"nombre, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="nombre">Nombre</label>
-				<input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo (isset($nombre)) ? $nombre : ''; ?>" maxlength="30">
-			</div>
-		</td>
-		<td class="col-sm-3">
-			<div class="form-group <?php echo (strstr($vacios,"nacimiento, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="nacimiento">Fecha de nacimiento</label>
-				<input type="text" class="form-control" id="nacimiento" name="nacimiento" value="<?php echo (isset($nacimiento)) ? $nacimiento : ''; ?>" maxlength="11" data-date-format="DD-MM-YYYY" data-date-viewmode="years">
-			</div>
-		</td>
-		<td class="col-sm-3">
-			<div class="form-group <?php echo (strstr($vacios,"dni, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="dni">DNI / Pasaporte o equivalente</label>
-				<input type="text" class="form-control" id="dni" name="dni" value="<?php echo (isset($dni)) ? $dni : ''; ?>" maxlength="10">
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="col-sm-3">
-			<div class="form-group <?php echo (strstr($vacios,"nacionalidad, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="nacionalidad">Nacionalidad</label>
-				<input type="text" class="form-control" id="nacionalidad" name="nacionalidad" value="<?php echo (isset($nacionalidad)) ? $nacionalidad : ''; ?>" maxlength="30">
-			</div>
-		</td>
-		<td>
-			<div class="form-group <?php echo (strstr($vacios,"nacido, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="nacido">Nacido en</label>
-				<input type="text" class="form-control" id="nacido" name="nacido" value="<?php echo (isset($nacido)) ? $nacido : ''; ?>" maxlength="30">
-			</div>
-		</td>
-		<td>
-			<div class="form-group <?php echo (strstr($vacios,"provincia, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="provincia">Provincia</label>
-				<input type="text" class="form-control" id="provincia" name="provincia" value="<?php echo (isset($provincia)) ? $provincia : ''; ?>" maxlength="30">
-			</div>
-		</td>
-		<td>
-			<p><strong>Sexo</strong></p>
-			<div class="form-inline">
-				<div class="form-group <?php echo (strstr($vacios,"sexo, ")==TRUE) ? 'has-error' : ''; ?>">
-					<div class="radio">
-						<label>
-							<input type="radio" name="sexo" value="hombre" <?php echo (isset($sexo) && $sexo == 'hombre' || $sexo == 'H') ? 'checked' : ''; ?>> &nbsp;Hombre 
-						</label>
-					</div>
-				</div>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				<div class="form-group <?php echo (strstr($vacios,"sexo, ")==TRUE) ? 'has-error' : ''; ?>">
-					<div class="radio">
-						<label>
-							<input type="radio" name="sexo" value="mujer" <?php echo (isset($sexo) && $sexo == 'mujer' || $sexo == 'M') ? 'checked' : ''; ?>> &nbsp;Mujer
-						</label>
-					</div>
-				</div>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<div class="form-group <?php echo (strstr($vacios,"domicilio, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="domicilio">Domicilio, calle, plaza o avenida y número</label>
-				<input type="text" class="form-control" id="domicilio" name="domicilio" value="<?php echo (isset($domicilio)) ? $domicilio : ''; ?>" maxlength="60">
-			</div>
-		</td>
-		<td>
-			<div class="form-group <?php echo (strstr($vacios,"localidad, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="localidad">Municipio / Localidad</label>
-				<input type="text" class="form-control" id="localidad" name="localidad" value="<?php echo (isset($localidad)) ? $localidad : ''; ?>" maxlength="30">
-			</div>
-		</td>
-		<td>
-			<div class="form-group">
-				<label for="hermanos">Nº de hermanos</label>
-				<input type="number" class="form-control" id="hermanos" name="hermanos" value="<?php echo (isset($hermanos)) ? $hermanos : '0'; ?>" min="0" max="99" maxlength="2">
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<div class="form-group <?php echo (strstr($vacios,"telefono1, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="telefono1">Teléfono</label>
-				<input type="text" class="form-control" id="telefono1" name="telefono1" value="<?php echo (isset($telefono1)) ? $telefono1 : ''; ?>" maxlength="9">
-			</div>
-		</td>
-		<td>
-			<div class="form-group <?php echo (strstr($vacios,"telefono2, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="telefono2">Teléfono urgencias</label>
-				<input type="text" class="form-control" id="telefono2" name="telefono2" value="<?php echo (isset($telefono2)) ? $telefono2 : ''; ?>" maxlength="9">
-			</div>
-		</td>
-		<td>
-			<div class="form-group">
-				<label for="correo">Correo electrónico</label>
-				<input type="text" class="form-control" id="correo" name="correo" value="<?php echo (isset($correo)) ? $correo : ''; ?>" maxlength="120">
-			</div>
-		</td>
-		<td rowspan="2">
-			<div class="form-group <?php echo (strstr($vacios,"colegio, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="colegio">Centro de procedencia</label>
-				<select class="form-control" id="colegio" name="colegio">
-					<?php if($curso == "1ESO"): ?>
-					<option value=""></option>
-					<?php for ($i = 0; $i < count($centros_adscritos); $i++): ?>
-					<option value="<?php echo $centros_adscritos[$i]['id']; ?>" <?php echo (isset($colegio) && $colegio == $centros_adscritos[$i]['id']) ? 'selected' : ''; ?>><?php echo $centros_adscritos[$i]['nombre']; ?></option>
-					<?php endfor; ?>
-					<?php else: ?>
-					<option value="<?php echo $nombre_del_centro; ?>"><?php echo $nombre_del_centro; ?></option>
-					<?php endif; ?>
-					<option value="Otro Centro">Otro Centro</option>
-				</select>
-			</div>
-			<div id="form-otrocolegio" class="form-group <?php echo (isset($otrocolegio) && !empty($otrocolegio)) ? '' : 'hidden'; ?>">
-				<label for="otrocolegio">Centro educativo</label>
-				<input type="text" class="form-control" id="otrocolegio" name="otrocolegio" value="<?php echo (isset($otrocolegio)) ? $otrocolegio : ''; ?>" maxlength="60" placeholder="Escribe aquí el nombre del centro">
+					<form id="form1" name="form1" method="post"	action="matriculas_bach.php<? if($cargo == "1"){echo "?cargo=1";}?>">
 				
-				<input type="hidden" name="letra_grupo" value="<?php echo (isset($letra_grupo)) ? $letra_grupo : ''; ?>">
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="3">
-			<p class="help-block"><small>El centro podrá enviar comunicaciones vía SMS si proporciona el número de un teléfono móvil o por correo electrónico.</small></p>
-		</td>
-	</tr>
-	<!-- DATOS DE LOS REPRESENTANTES O GUARDADORES LEGALES -->
-	<tr>
-		<th class="active text-center text-uppercase" colspan="4">Datos de los representantes o guardadores legales</th>
-	</tr>
-	<tr>
-		<td colspan="3">
-			<div class="form-group <?php echo (strstr($vacios,"padre, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="padre">Apellidos y nombre del representante o guardador legal 1 <small>(con quien conviva el alumno/a y tenga atribuida su guarda y custodia)</small></label>
-				<input type="text" class="form-control" id="padre" name="padre" value="<?php echo (isset($padre)) ? $padre : ''; ?>" maxlength="60">
-			</div>
-		</td>
-		<td>
-			<div class="form-group <?php echo (strstr($vacios,"dnitutor, ")==TRUE) ? 'has-error' : ''; ?>">
-				<label for="dnitutor">DNI / NIE</label>
-				<input type="text" class="form-control" id="dnitutor" name="dnitutor" value="<?php echo (isset($dnitutor)) ? $dnitutor : ''; ?>" maxlength="10">
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="3">
-			<div class="form-group">
-				<label for="madre">Apellidos y nombre del representante o guardador legal 2</label>
-				<input type="text" class="form-control" id="madre" name="madre" value="<?php echo (isset($madre)) ? $madre : ''; ?>" maxlength="60">
-			</div>
-		</td>
-		<td>
-			<div class="form-group <?php echo ((isset($madre) && !empty($madre)) && (isset($dnitutor2) && empty($dnitutor2))) ? 'has-error' : ''; ?>">
-				<label for="dnitutor2">DNI / NIE</label>
-				<input type="text" class="form-control" id="dnitutor2" name="dnitutor2" value="<?php echo (isset($dnitutor2)) ? $dnitutor2 : ''; ?>" maxlength="10">
-			</div>
-		</td>
-	</tr>
-	
-	<?php if($mod_transporte): ?>
-	<!-- TRANSPORTE ESCOLAR -->
-	<tr>
-		<th class="active text-center text-uppercase" colspan="4">
-			Solicitud de transporte escolar
-		</th>
-	</tr>
-	<tr>
-		<td class="text-center" colspan="4">
-			<div class="form-inline">
+					<table align="center" class="table table-bordered">
+						<!-- CABECERA: LOGOTIPO -->
+						<thead>
+							<tr>
+								<td colspan="2" style="border-right: 0; height: 90px;">
+									<img class="img-responsive" src="../../img/encabezado.jpg" alt="" width="350">
+								</td>
+								<td colspan="2">
+									<h4 class="text-uppercase"><strong>Consejería de Educación, Cultura y Deporte</strong></h4>
+									<h5 class="text-uppercase"><strong><?php echo $nombre_del_centro; ?></strong></h5>
+								</td>
+							</tr>
+						</thead>
+						
+						<!-- CUERPO -->
+						<tbody>
+				<?php
+				// CURSO MATRICULA
+				if (empty($n_curso)) $n_curso = substr($curso,0,1);
 				
-				<div class="form-group">
-					<label for="ruta_este">Ruta Este:</label>
-					<select class="form-control" id="ruta_este" name="ruta_este">
-						<option value=""></option>
-						<?php for ($i = 0; $i < count($transporte_este); $i++): ?>
-						<option value="<?php echo $transporte_este[$i]['id']; ?>" <?php echo (isset($ruta_este) && $ruta_este == $transporte_este[$i]['id']) ? 'selected' : ''; ?>><?php echo $transporte_este[$i]['nombre']; ?></option>
-						<?php endfor; ?>
-					</select>
-				</div>
-	
-				&nbsp;&nbsp;&nbsp;&nbsp;
-	
-				<div class="form-group">
-					<label for="ruta_oeste">Ruta Oeste:</label>
-					<select class="form-control" id="ruta_oeste" name="ruta_oeste">
-						<option value=""></option>
-						<?php for ($i = 0; $i < count($transporte_oeste); $i++): ?>
-						<option value="<?php echo $transporte_oeste[$i]['id']; ?>" <?php echo (isset($ruta_oeste) && $ruta_oeste == $transporte_oeste[$i]['id']) ? 'selected' : ''; ?>><?php echo $transporte_oeste[$i]['nombre']; ?></option>
-						<?php endfor; ?>
-					</select>
-				</div>
+				switch ($curso) {
+				case '1BACH' : $curso_matricula="PRIMERO"; break;
+				case '2BACH' : $curso_matricula="SEGUNDO"; break;
+				}
+				?>			
+							<tr>
+								<td colspan="4">
+									<h4 class="text-center text-uppercase">SOLICITUD DE MATRÍCULA EN <?php echo $curso_matricula; ?> DE BACHILLERATO</h4>
+								</td>
+							</tr>
 				
-			</div>
-		</td>
-	</tr>
-	<?php endif; ?>
-	
-	<!-- PRIMER IDIOMA Y RELIGION O ALTERNATIVA -->
-	<tr>
-		<th class="active text-center text-uppercase"<?php echo ($curso != 1) ? ' colspan="2"' : '' ?>>
-			Primer idioma extranjero
-		</th>
-		<?php if ($curso == 1): ?>
-		<th class="active text-center text-uppercase">
-			Segundo idioma extranjero
-		</th>
-		<?php endif ?>
-		<th class="active text-center text-uppercase" colspan="2">
-			Opción de enseñanza de religión o alternativa<br><small>(señale una)</small>
-		</th>
-	</tr>
-	<tr>
-		<td<?php echo ($curso != 1) ? ' colspan="2"' : '' ?>>
-			<div class="form-group">
-				<select class="form-control" id="idioma1" name="idioma1">
-					<?php $result = mysql_query("SELECT combasi FROM alma WHERE claveal='$claveal'"); ?>
-					<?php $row = mysql_fetch_array($result); ?>
-					<?php $exp_combasi = explode(':', $row['combasi']); ?>
-					<?php foreach ($combasi as $codasi): ?>
-					<?php $result1 = mysql_query("SELECT abrev, nombre FROM asignaturas WHERE codigo='$codasi' AND (abrev = 'ING' OR abrev = 'FRA')"); ?>
-					<?php $row1 = mysql_fetch_array($result1); ?>
-					<?php if (!(empty($row1['nombre'])) && $n_curso=="2"): ?>
-					<?php $idio = 1; ?>
-					<?php $id_1b = $row1['nombre']; ?>
-					<option value="<?php echo $row1['nombre']; ?>"><?php echo $row1['nombre']; ?></option>
-					<?php endif; ?>
-					<?php endforeach; ?>
-					<?php if ($idio<>1 || $cargo=="1"): ?>		
-					<option value="Inglés" <?php echo (isset($idioma1) && $idioma1 == 'Inglés') ? 'selected' : ''; ?>>Inglés</option>
-					<option value="Francés" <?php echo (isset($idioma1) && $idioma1 == 'Francés') ? 'selected' : ''; ?>>Francés</option>	
-					<?php endif; ?>
-				</select>
+					<?
+					if (substr($curso,0,1) == substr($n_curso_ya,0,1) and (substr($n_curso_ya,0,1) == "1") and $cargo == '1') {$repite_1bach = "1";}
+					if (substr($curso,0,1) == substr($n_curso_ya,0,1) and (substr($n_curso_ya,0,1) == "2") and $cargo == '1') {$repite_2bach = "1";}	
+					?>
 				
-				<?php if (isset($idio) && $idio): ?>		
-				<small class="help-block">(El Idioma de 2º de Bachillerato debe ser el mismo que el Idioma de 1º de Bachillerato. Para otras opciones, consulta en Jefatura de Estudios.)</small>
-				<?php endif; ?>
-			</div>
-		</td>
-		<?php if ($curso == 1): ?>
-		<td>
-			<div class="form-group">
-				<select class="form-control" id="idioma2" name="idioma2">
-					<option value="Francés" <?php echo (isset($idioma2) && $idioma2 == 'Francés') ? 'selected' : ''; ?>>Francés</option>
-					<option value="Alemán" <?php echo (isset($idioma2) && $idioma2 == 'Alemán') ? 'selected' : ''; ?>>Alemán</option>
-					<option value="Inglés" <?php echo (isset($idioma2) && $idioma2 == 'Inglés') ? 'selected' : ''; ?>>Inglés</option>
-				</select>
-				
-			</div>
-		</td>
-		<?php endif; ?>
-		<td style="border-right: 0;">
-		 	<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
-				<div class="radio">
-					<label>
-						<input type="radio" name="religion" value="Religión Catolica" <?php if($religion == 'Religión Catolica'){echo "checked";} ?>> Religión Catolica
-					</label>
-				</div>
-			</div>
-			
-			<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
-				<div class="radio">
-					<label>
-						<input type="radio" name="religion" value="Religión Islámica" <?php if($religion == 'Religión Islámica'){echo "checked";} ?>> Religión Islámica
-					</label>
-				</div>
-			</div>
-			
-			<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
-				<div class="radio">
-					<label>
-						<input type="radio" name="religion" value="Religión Judía" <?php if($religion == 'Religión Judía'){echo "checked";} ?>> Religión Judía
-					</label>
-				</div>
-			</div>
-		</td>
-		<td>
-			<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
-				<div class="radio">
-					<label>
-						<input type="radio" name="religion" value="Religión Evangélica" <?php if($religion == 'Religión Evangélica'){echo "checked";} ?>> Religión Evangélica
-					</label>
-				</div>
-			</div>
-			
-			<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
-				<div class="radio">
-					<label>
-						<input type="radio" name="religion" value="Historia de las Religiones" <?php if($religion == 'Historia de las Religiones'){echo "checked";} ?>> Historia de las Religiones
-					</label>
-				</div>
-			</div>
-			
-			<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
-				<div class="radio">
-					<label>
-						<input type="radio" name="religion" value="Atención Educativa"  <?php if($religion == 'Atención Educativa'){echo "checked";} ?>> Atención Educativa
-					</label>
-				</div>
-			</div>
-		</td>
-	</tr>
-	
-	
-	<!-- ASIGNATURAS DE MODALIDAD Y OPTATIVAS -->
-	<tr>
-		<th class="active text-center text-uppercase" colspan="4">
-			Modalidad y asignaturas optativas de <?php echo $curso_matricula; ?> de Bachillerato
-		</th>
-	</tr>
-	
-	<!-- ASIGNATURAS DE MODALIDAD Y OPTATIVAS EN PRIMERO DE BACHILLERATO -->
-	<?php if($curso == "1BACH"): ?>
-	<tr>
-		<?php for ($i = 1; $i <= 2; $i++): ?>
-		<td class="text-center" colspan="2">
-			<strong><?php echo ${it1.$i}[0]; ?></strong>
-		</td>
-		<?php endfor; ?>
-	</tr>
-	<tr>
-		<?php for ($i = 1; $i <= 2; $i++): ?>
-		<td colspan="2">
-			<?php $num1 = ""; ?>
-			<?php $num_it = count(${opt1.$i}); ?>
-			<?php foreach (${opt1.$i} as $optit_1 => $nombre): ?>
-			<?php $num1 += 1; ?>
-			<?php if (${optativa.$num1}=="0") {${optativa.$num1}="";} ?>
-			<div class="radio">
-				<label>
-					<input type="radio" value="<?php echo $optit_1; ?>" name="mod1" <?php echo ($optativa1 == $optit_1) ? 'checked' : ''; ?>> <?php echo $nombre; ?>
-				</label>
-			</div>
-			<?php endforeach; ?>
-		</td>
-		<?php endfor; ?>
-	</tr>
-	<?php endif; ?>
-	
-	<!-- ASIGNATURAS DE MODALIDAD Y OPTATIVAS EN SEGUNDO DE BACHILLERATO -->
-	<?php if ($curso == "2BACH"){ ?>
-	
-	<?php 
-	if (empty($curso_largo)) {
-		$cl = mysql_query("select curso from alma where claveal='$claveal'");
-		$cl0 = mysql_fetch_array($cl);
-		$curso_largo = $cl0[0];
-	}
-	?>
-	<tr>
-		<?php for ($i = 1; $i <= 2; $i++): ?>
-		<td class="text-center" colspan="2">
-			<strong><?php echo ${it2.$i}[0]; ?></strong>
-		</td>
-		<?php endfor; ?>
-	</tr>
-	<tr>
-		<?php for ($i = 1; $i <= 2; $i++): ?>
-		<td colspan="2">
-			<?php $num1 = 3; ?>
-			<?php $num_it = count(${opt2.$i}); ?>
-			<?php foreach (${opt2.$i} as $optit_1 => $nombre): ?>
-			<?php $num1 += 1; ?>
-			<?php if (${optativa.$num1}=="0") {${optativa.$num1}="";} ?>
-			<div class="radio">
-				<label>
-					<input type="radio" value="<?php echo $optit_1; ?>" name="mod2" <?php echo ($optativa2 == $optit_1) ? 'checked' : ''; ?> <?php echo (strstr($curso_largo,${it2.$i}[3])==FALSE and !(empty($curso_largo)) and !($cargo=="1")) ? 'disabled' : '' ; ?>> <?php echo $nombre; ?>
-				</label>
-			</div>
-			<?php endforeach; ?>
-		</td>
-		<?php endfor; ?>
-	</tr>
-	
-	<!-- OTRAS ASIGNATURAS OPTATIVAS DE SEGUNDO DE BACHILLERATO -->
-	<tr>
-		<th class="active text-center text-uppercase" colspan="4">
-			Mas asignaturas optativas de <?php echo $curso_matricula; ?> de Bachillerato<br>
-			<small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small>
-		</th>
-	</tr>
-	<tr>
-		
-			<?
-			$num1="";
-			foreach ($opt23 as $optit_1 => $nombre){
-
-				//if (strstr($nombre,$id_1b)==FALSE) {
-				$num1+=1;
-				if ($num1==1 or $num1==4 or $num1==7 or $num1==10) {
-					echo "<td>";
-				}
-						echo '<select class="form-control" name="'.$optit_1.'" id=""';
-				echo '>';
-			
-				if (strlen(${optativa2b.$num1})>0) {
-					echo '<option>'.${optativa2b.$num1}.'</option>';
-				}
-				else{
-					$num_opt = $num1;
-					echo '<option>'.$num_opt.'</option>';
-				}
-				for ($z=1;$z<11;$z++){
-					echo '<option>'.$z.'</option>';
-				}
-				
-				echo '</select>';
-				echo '<span style="margin:2px 2px" >'.$nombre.'</span><br />';
-				if ($num1==3 or $num1==6 or $num1==9) {
-					echo "</td>";
-				}
-				//}
-				}
-			
-			?>
-	</tr>
-	<?
-
-	if ($repetidor <> 1) {
-		?>
-	<tr id='no_repite1'>
-		<td style="background-color: #CCCCCC;" colspan="3" align="center"><strong>ASIGNATURAS OPTATIVAS DE 1º DE BACHILLERATO</strong><br /><span style="font-size: 10px;">(Para solicitar una modalidad o vía diferente a la que ya has cursado debes pasar por Jefatura de Estudios.)</span></td>
-	</tr>
-	<?
-	echo " <tr><td colspan='3'>";
-	echo "<table class='table table-bordered table-striped' style='width:100%'><tr>";
-	for ($i = 1; $i < 3; $i++) {
-		echo "<td align='center' width='25%' valign='bottom'><strong style='font-size:18px'>";
-
-		echo "".${it1.$i}[0]."</strong></td>";
-	}
-	echo "</tr><tr>";
-	for ($i = 1; $i < 3; $i++) {	
-		echo "<td align='left' class='it' valign='top'>";
-		$num1=$i;
-		$num_it=count(${opt1.$i});
-		foreach (${opt1.$i} as $optit_1 => $nombre){
-			$pos="";
-			$num1+=1;
-			if (${optativa.$num1}=="0") {${optativa.$num1}="";}
-			echo '<input type="radio" value="'.$optit_1.'" name="mod1" ';
-			if ($optativa1 == $optit_1) {
-					echo ' checked';
-				}
-			else{
-				if(strstr($curso_largo,${it1.$i}[3])==FALSE and !($cargo=="1")){
-						echo " disabled";
-					}
-				$combas = explode(":", $combasi);
-				foreach ($combas as $com){
-					$q1 = "select abrev from asignaturas where codigo = '$com' and abrev not like '%\_%'";
-					$q2.=$q1."<br>";
-						$abrv = mysql_query($q1);
-						$abrev = mysql_fetch_array($abrv);
-						$q7.="$optit_1 ==> $abrev[0] --> $com<br>";
-					if (strstr($optit_1,$abrev[0])==TRUE) {
-						$pos+=1;
-					}
-				}
-				if ($matriculas > "1"){
-						$bd_ant = $db.substr($curso_actual,0,4);
-						$q5="select combasi from ". $bd_ant  .".alma where claveal = '$claveal' ";
-						$q6.=$q5."<br>";
-						$ant = mysql_query($q5);
-						$ant_comb = mysql_fetch_array($ant);
-						$combasi_ant = $ant_comb[0];
-						$combas_anti = explode(":", $combasi_ant);
-						foreach ($combas_anti as $com_ant){
-							$q3 = "select abrev from ".$bd_ant.".asignaturas where codigo = '$com_ant'";
-							$q4.=$q3."<br>";
-						$abrv_ant = mysql_query($q3);
-						$abrev_ant = mysql_fetch_array($abrv_ant);
-						$asig_ant = $abrev_ant[0];
-					if (strstr($optit_1,$abrev_ant[0])==TRUE) {
-						$pos+=1;
-					}
-				}	
-					}					
-					if ($pos>$i-1) {
-						echo " checked";
-					}
+					<!-- DATOS PERSONALES DEL ALUMNO -->
+					<tr>
+						<th class="active text-center text-uppercase" colspan="4">
+							Datos personales del alumno o alumna
+						</th>
+					</tr>
+					<tr>
+						<td class="col-sm-3">
+							<div class="form-group <?php echo (strstr($vacios,"apellidos, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="apellidos">Apellidos</label>
+								<input type="text" class="form-control" id="apellidos" name="apellidos" value="<?php echo (isset($apellidos)) ? $apellidos : ''; ?>" maxlength="60">
+							</div>
+						</td>
+						<td class="col-sm-3">
+							<div class="form-group <?php echo (strstr($vacios,"nombre, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="nombre">Nombre</label>
+								<input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo (isset($nombre)) ? $nombre : ''; ?>" maxlength="30">
+							</div>
+						</td>
+						<td class="col-sm-3">
+							<div class="form-group <?php echo (strstr($vacios,"nacimiento, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="nacimiento">Fecha de nacimiento</label>
+								<input type="text" class="form-control" id="nacimiento" name="nacimiento" value="<?php echo (isset($nacimiento)) ? $nacimiento : ''; ?>" maxlength="11" data-date-format="DD-MM-YYYY" data-date-viewmode="years">
+							</div>
+						</td>
+						<td class="col-sm-3">
+							<div class="form-group <?php echo (strstr($vacios,"dni, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="dni">DNI / Pasaporte o equivalente</label>
+								<input type="text" class="form-control" id="dni" name="dni" value="<?php echo (isset($dni)) ? $dni : ''; ?>" maxlength="10">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-sm-3">
+							<div class="form-group <?php echo (strstr($vacios,"nacionalidad, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="nacionalidad">Nacionalidad</label>
+								<input type="text" class="form-control" id="nacionalidad" name="nacionalidad" value="<?php echo (isset($nacionalidad)) ? $nacionalidad : ''; ?>" maxlength="30">
+							</div>
+						</td>
+						<td>
+							<div class="form-group <?php echo (strstr($vacios,"nacido, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="nacido">Nacido en</label>
+								<input type="text" class="form-control" id="nacido" name="nacido" value="<?php echo (isset($nacido)) ? $nacido : ''; ?>" maxlength="30">
+							</div>
+						</td>
+						<td>
+							<div class="form-group <?php echo (strstr($vacios,"provincia, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="provincia">Provincia</label>
+								<input type="text" class="form-control" id="provincia" name="provincia" value="<?php echo (isset($provincia)) ? $provincia : ''; ?>" maxlength="30">
+							</div>
+						</td>
+						<td>
+							<p><strong>Sexo</strong></p>
+							<div class="form-inline">
+								<div class="form-group <?php echo (strstr($vacios,"sexo, ")==TRUE) ? 'has-error' : ''; ?>">
+									<div class="radio">
+										<label>
+											<input type="radio" name="sexo" value="hombre" <?php echo (isset($sexo) && $sexo == 'hombre' || $sexo == 'H') ? 'checked' : ''; ?>> &nbsp;Hombre 
+										</label>
+									</div>
+								</div>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<div class="form-group <?php echo (strstr($vacios,"sexo, ")==TRUE) ? 'has-error' : ''; ?>">
+									<div class="radio">
+										<label>
+											<input type="radio" name="sexo" value="mujer" <?php echo (isset($sexo) && $sexo == 'mujer' || $sexo == 'M') ? 'checked' : ''; ?>> &nbsp;Mujer
+										</label>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="form-group <?php echo (strstr($vacios,"domicilio, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="domicilio">Domicilio, calle, plaza o avenida y número</label>
+								<input type="text" class="form-control" id="domicilio" name="domicilio" value="<?php echo (isset($domicilio)) ? $domicilio : ''; ?>" maxlength="60">
+							</div>
+						</td>
+						<td>
+							<div class="form-group <?php echo (strstr($vacios,"localidad, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="localidad">Municipio / Localidad</label>
+								<input type="text" class="form-control" id="localidad" name="localidad" value="<?php echo (isset($localidad)) ? $localidad : ''; ?>" maxlength="30">
+							</div>
+						</td>
+						<td>
+							<div class="form-group">
+								<label for="hermanos">Nº de hermanos</label>
+								<input type="number" class="form-control" id="hermanos" name="hermanos" value="<?php echo (isset($hermanos)) ? $hermanos : '0'; ?>" min="0" max="99" maxlength="2">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group <?php echo (strstr($vacios,"telefono1, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="telefono1">Teléfono</label>
+								<input type="text" class="form-control" id="telefono1" name="telefono1" value="<?php echo (isset($telefono1)) ? $telefono1 : ''; ?>" maxlength="9">
+							</div>
+						</td>
+						<td>
+							<div class="form-group <?php echo (strstr($vacios,"telefono2, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="telefono2">Teléfono urgencias</label>
+								<input type="text" class="form-control" id="telefono2" name="telefono2" value="<?php echo (isset($telefono2)) ? $telefono2 : ''; ?>" maxlength="9">
+							</div>
+						</td>
+						<td>
+							<div class="form-group">
+								<label for="correo">Correo electrónico</label>
+								<input type="text" class="form-control" id="correo" name="correo" value="<?php echo (isset($correo)) ? $correo : ''; ?>" maxlength="120">
+							</div>
+						</td>
+						<td rowspan="2">
+							<div class="form-group <?php echo (strstr($vacios,"colegio, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="colegio">Centro de procedencia</label>
+								<select class="form-control" id="colegio" name="colegio">
+									<?php if($curso == "1ESO"): ?>
+									<option value=""></option>
+									<?php for ($i = 0; $i < count($centros_adscritos); $i++): ?>
+									<option value="<?php echo $centros_adscritos[$i]['id']; ?>" <?php echo (isset($colegio) && $colegio == $centros_adscritos[$i]['id']) ? 'selected' : ''; ?>><?php echo $centros_adscritos[$i]['nombre']; ?></option>
+									<?php endfor; ?>
+									<?php else: ?>
+									<option value="<?php echo $nombre_del_centro; ?>"><?php echo $nombre_del_centro; ?></option>
+									<?php endif; ?>
+									<option value="Otro Centro">Otro Centro</option>
+								</select>
+							</div>
+							<div id="form-otrocolegio" class="form-group <?php echo (isset($otrocolegio) && !empty($otrocolegio)) ? '' : 'hidden'; ?>">
+								<label for="otrocolegio">Centro educativo</label>
+								<input type="text" class="form-control" id="otrocolegio" name="otrocolegio" value="<?php echo (isset($otrocolegio)) ? $otrocolegio : ''; ?>" maxlength="60" placeholder="Escribe aquí el nombre del centro">
+								
+								<input type="hidden" name="letra_grupo" value="<?php echo (isset($letra_grupo)) ? $letra_grupo : ''; ?>">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<p class="help-block"><small>El centro podrá enviar comunicaciones vía SMS si proporciona el número de un teléfono móvil o por correo electrónico.</small></p>
+						</td>
+					</tr>
+					<!-- DATOS DE LOS REPRESENTANTES O GUARDADORES LEGALES -->
+					<tr>
+						<th class="active text-center text-uppercase" colspan="4">Datos de los representantes o guardadores legales</th>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<div class="form-group <?php echo (strstr($vacios,"padre, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="padre">Apellidos y nombre del representante o guardador legal 1 <small>(con quien conviva el alumno/a y tenga atribuida su guarda y custodia)</small></label>
+								<input type="text" class="form-control" id="padre" name="padre" value="<?php echo (isset($padre)) ? $padre : ''; ?>" maxlength="60">
+							</div>
+						</td>
+						<td>
+							<div class="form-group <?php echo (strstr($vacios,"dnitutor, ")==TRUE) ? 'has-error' : ''; ?>">
+								<label for="dnitutor">DNI / NIE</label>
+								<input type="text" class="form-control" id="dnitutor" name="dnitutor" value="<?php echo (isset($dnitutor)) ? $dnitutor : ''; ?>" maxlength="10">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<div class="form-group">
+								<label for="madre">Apellidos y nombre del representante o guardador legal 2</label>
+								<input type="text" class="form-control" id="madre" name="madre" value="<?php echo (isset($madre)) ? $madre : ''; ?>" maxlength="60">
+							</div>
+						</td>
+						<td>
+							<div class="form-group <?php echo ((isset($madre) && !empty($madre)) && (isset($dnitutor2) && empty($dnitutor2))) ? 'has-error' : ''; ?>">
+								<label for="dnitutor2">DNI / NIE</label>
+								<input type="text" class="form-control" id="dnitutor2" name="dnitutor2" value="<?php echo (isset($dnitutor2)) ? $dnitutor2 : ''; ?>" maxlength="10">
+							</div>
+						</td>
+					</tr>
 					
-					else{
-						if (!($cargo=="1")) {
-							echo " disabled";
-						}
+					<?php if($mod_transporte): ?>
+					<!-- TRANSPORTE ESCOLAR -->
+					<tr>
+						<th class="active text-center text-uppercase" colspan="4">
+							Solicitud de transporte escolar
+						</th>
+					</tr>
+					<tr>
+						<td class="text-center" colspan="4">
+							<div class="form-inline">
+								
+								<div class="form-group">
+									<label for="ruta_este">Ruta Este:</label>
+									<select class="form-control" id="ruta_este" name="ruta_este">
+										<option value=""></option>
+										<?php for ($i = 0; $i < count($transporte_este); $i++): ?>
+										<option value="<?php echo $transporte_este[$i]['id']; ?>" <?php echo (isset($ruta_este) && $ruta_este == $transporte_este[$i]['id']) ? 'selected' : ''; ?>><?php echo $transporte_este[$i]['nombre']; ?></option>
+										<?php endfor; ?>
+									</select>
+								</div>
+					
+								&nbsp;&nbsp;&nbsp;&nbsp;
+					
+								<div class="form-group">
+									<label for="ruta_oeste">Ruta Oeste:</label>
+									<select class="form-control" id="ruta_oeste" name="ruta_oeste">
+										<option value=""></option>
+										<?php for ($i = 0; $i < count($transporte_oeste); $i++): ?>
+										<option value="<?php echo $transporte_oeste[$i]['id']; ?>" <?php echo (isset($ruta_oeste) && $ruta_oeste == $transporte_oeste[$i]['id']) ? 'selected' : ''; ?>><?php echo $transporte_oeste[$i]['nombre']; ?></option>
+										<?php endfor; ?>
+									</select>
+								</div>
+								
+							</div>
+						</td>
+					</tr>
+					<?php endif; ?>
+					
+					<!-- PRIMER IDIOMA Y RELIGION O ALTERNATIVA -->
+					<tr>
+						<th class="active text-center text-uppercase"<?php echo ($curso != 1) ? ' colspan="2"' : '' ?>>
+							Primer idioma extranjero
+						</th>
+						<?php if ($curso == 1): ?>
+						<th class="active text-center text-uppercase">
+							Segundo idioma extranjero
+						</th>
+						<?php endif ?>
+						<th class="active text-center text-uppercase" colspan="2">
+							Opción de enseñanza de religión o alternativa<br><small>(señale una)</small>
+						</th>
+					</tr>
+					<tr>
+						<td<?php echo ($curso != 1) ? ' colspan="2"' : '' ?>>
+							<div class="form-group">
+								<select class="form-control" id="idioma1" name="idioma1">
+									<?php $result = mysql_query("SELECT combasi FROM alma WHERE claveal='$claveal'"); ?>
+									<?php $row = mysql_fetch_array($result); ?>
+									<?php $exp_combasi = explode(':', $row['combasi']); ?>
+									<?php foreach ($combasi as $codasi): ?>
+									<?php $result1 = mysql_query("SELECT abrev, nombre FROM asignaturas WHERE codigo='$codasi' AND (abrev = 'ING' OR abrev = 'FRA')"); ?>
+									<?php $row1 = mysql_fetch_array($result1); ?>
+									<?php if (!(empty($row1['nombre'])) && $n_curso=="2"): ?>
+									<?php $idio = 1; ?>
+									<?php $id_1b = $row1['nombre']; ?>
+									<option value="<?php echo $row1['nombre']; ?>"><?php echo $row1['nombre']; ?></option>
+									<?php endif; ?>
+									<?php endforeach; ?>
+									<?php if ($idio<>1 || $cargo=="1"): ?>		
+									<option value="Inglés" <?php echo (isset($idioma1) && $idioma1 == 'Inglés') ? 'selected' : ''; ?>>Inglés</option>
+									<option value="Francés" <?php echo (isset($idioma1) && $idioma1 == 'Francés') ? 'selected' : ''; ?>>Francés</option>	
+									<?php endif; ?>
+								</select>
+								
+								<?php if (isset($idio) && $idio): ?>		
+								<small class="help-block">(El Idioma de 2º de Bachillerato debe ser el mismo que el Idioma de 1º de Bachillerato. Para otras opciones, consulta en Jefatura de Estudios.)</small>
+								<?php endif; ?>
+							</div>
+						</td>
+						<?php if ($curso == 1): ?>
+						<td>
+							<div class="form-group">
+								<select class="form-control" id="idioma2" name="idioma2">
+									<option value="Francés" <?php echo (isset($idioma2) && $idioma2 == 'Francés') ? 'selected' : ''; ?>>Francés</option>
+									<option value="Alemán" <?php echo (isset($idioma2) && $idioma2 == 'Alemán') ? 'selected' : ''; ?>>Alemán</option>
+									<option value="Inglés" <?php echo (isset($idioma2) && $idioma2 == 'Inglés') ? 'selected' : ''; ?>>Inglés</option>
+								</select>
+								
+							</div>
+						</td>
+						<?php endif; ?>
+						<td style="border-right: 0;">
+						 	<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
+								<div class="radio">
+									<label>
+										<input type="radio" name="religion" value="Religión Catolica" <?php if($religion == 'Religión Catolica'){echo "checked";} ?>> Religión Catolica
+									</label>
+								</div>
+							</div>
+							
+							<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
+								<div class="radio">
+									<label>
+										<input type="radio" name="religion" value="Religión Islámica" <?php if($religion == 'Religión Islámica'){echo "checked";} ?>> Religión Islámica
+									</label>
+								</div>
+							</div>
+							
+							<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
+								<div class="radio">
+									<label>
+										<input type="radio" name="religion" value="Religión Judía" <?php if($religion == 'Religión Judía'){echo "checked";} ?>> Religión Judía
+									</label>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
+								<div class="radio">
+									<label>
+										<input type="radio" name="religion" value="Religión Evangélica" <?php if($religion == 'Religión Evangélica'){echo "checked";} ?>> Religión Evangélica
+									</label>
+								</div>
+							</div>
+							
+							<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
+								<div class="radio">
+									<label>
+										<input type="radio" name="religion" value="Historia de las Religiones" <?php if($religion == 'Historia de las Religiones'){echo "checked";} ?>> Historia de las Religiones
+									</label>
+								</div>
+							</div>
+							
+							<div class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
+								<div class="radio">
+									<label>
+										<input type="radio" name="religion" value="Atención Educativa"  <?php if($religion == 'Atención Educativa'){echo "checked";} ?>> Atención Educativa
+									</label>
+								</div>
+							</div>
+						</td>
+					</tr>
+					
+					
+					<!-- ASIGNATURAS DE MODALIDAD Y OPTATIVAS -->
+					<tr>
+						<th class="active text-center text-uppercase" colspan="4">
+							Modalidad y asignaturas optativas de <?php echo $curso_matricula; ?> de Bachillerato
+						</th>
+					</tr>
+					
+					<!-- ASIGNATURAS DE MODALIDAD Y OPTATIVAS EN PRIMERO DE BACHILLERATO -->
+					<?php if($curso == "1BACH"): ?>
+					<tr>
+						<?php for ($i = 1; $i <= 2; $i++): ?>
+						<td class="text-center" colspan="2">
+							<strong><?php echo ${it1.$i}[0]; ?></strong>
+						</td>
+						<?php endfor; ?>
+					</tr>
+					<tr>
+						<?php for ($i = 1; $i <= 2; $i++): ?>
+						<td colspan="2">
+							<?php $num1 = ""; ?>
+							<?php $num_it = count(${opt1.$i}); ?>
+							<?php foreach (${opt1.$i} as $optit_1 => $nombre): ?>
+							<?php $num1 += 1; ?>
+							<?php if (${optativa.$num1}=="0") {${optativa.$num1}="";} ?>
+							<div class="form-group <?php echo (isset($opt_rep) && $opt_rep == 1) ? 'has-error"' : '' ; ?>">
+								<div class="radio">
+									<label>
+										<input type="radio" value="<?php echo $optit_1; ?>" name="mod1" <?php echo ($optativa1 == $optit_1) ? 'checked' : ''; ?>> <?php echo $nombre; ?>
+									</label>
+								</div>
+							</div>
+							<?php endforeach; ?>
+						</td>
+						<?php endfor; ?>
+					</tr>
+					<?php endif; ?>
+					
+					<!-- ASIGNATURAS DE MODALIDAD Y OPTATIVAS EN SEGUNDO DE BACHILLERATO -->
+					<?php if ($curso == "2BACH"): ?>
+					
+					<?php 
+					if (empty($curso_largo)) {
+						$cl = mysql_query("select curso from alma where claveal='$claveal'");
+						$cl0 = mysql_fetch_array($cl);
+						$curso_largo = $cl0[0];
 					}
-				}
-			echo '  style="margin: 2px 2px" >';
-			//echo "select abrev from ".$bd_ant.".asignaturas where codigo = '$com_ant'";
-			echo '<span style="margin:2px 2px" >'.$nombre.'</span><br />';
-		}
-		echo "</td>";
-	}
-	echo "</tr></table></td></tr>";			
-	?>
-	 <?
-	}
-	}
-
-
-	?>
+					?>
+					<tr>
+						<?php for ($i = 1; $i <= 2; $i++): ?>
+						<td class="text-center" colspan="2">
+							<strong><?php echo ${it2.$i}[0]; ?></strong>
+						</td>
+						<?php endfor; ?>
+					</tr>
+					<tr>
+						<?php for ($i = 1; $i <= 2; $i++): ?>
+						<td colspan="2">
+							<?php $num1 = 3; ?>
+							<?php $num_it = count(${opt2.$i}); ?>
+							<?php foreach (${opt2.$i} as $optit_1 => $nombre): ?>
+							<?php $num1 += 1; ?>
+							<?php if (${optativa.$num1}=="0") {${optativa.$num1}="";} ?>
+							<div class="form-group <?php echo (strstr($vacios,"modalidad de 2, ")==TRUE) ? 'has-error' : ''; ?>">
+								<div class="radio">
+									<label>
+										<input type="radio" value="<?php echo $optit_1; ?>" name="mod2" <?php echo ($optativa2 == $optit_1) ? 'checked' : ''; ?> <?php echo (strstr($curso_largo,${it2.$i}[3])==FALSE and !(empty($curso_largo)) and !($cargo=="1")) ? 'disabled' : '' ; ?>> <?php echo $nombre; ?>
+									</label>
+								</div>
+							</div>
+							<?php endforeach; ?>
+						</td>
+						<?php endfor; ?>
+					</tr>
+	
+					<!-- OTRAS ASIGNATURAS OPTATIVAS DE SEGUNDO DE BACHILLERATO -->
+					<tr>
+						<th class="active text-center text-uppercase" colspan="4">
+							Mas asignaturas optativas de Segundo de Bachillerato<br>
+							<small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small>
+						</th>
+					</tr>
+					<tr>
+						<?php $num1 = ""; ?>
+						<?php foreach ($opt23 as $optit_1 => $nombre): ?>
+						<?php $num1 += 1; ?>
+						<?php if ($num1==1 or $num1==4 or $num1==7 or $num1==10): ?>
+						<td style="border-right: 0;">
+							<div class="form-horizontal">
+						<?php endif; ?>
+						
+								<div class="form-group <?php echo (isset($opt_rep) && $opt_rep == 1) ? 'has-error"' : '' ; ?>">
+									<div class="col-sm-4">
+										<select class="form-control" id="'<?php echo $optit_1; ?>" name="<?php echo $optit_1; ?>">
+											<option value=""></option>
+											<?php for ($z = 1; $z < 11; $z++): ?>
+											<option value="<?php echo $z; ?>" <?php echo ((strlen(${optativa2b.$num1})>0) && ${optativa2b.$num1} == $z) ? 'selected' : ''; ?>><?php echo $z; ?></option>
+											<?php endfor; ?>
+										</select>
+									</div>
+									<label class="col-sm-8 control-label">
+										<div class="text-left"><?php echo $nombre; ?></div>
+									</label>
+								</div>
+								
+						<?php if ($num1==3 or $num1==6 or $num1==9): ?>
+							</div>
+						</td>
+						<?php endif; ?>
+						<?php endforeach; ?>
+					</tr>
+	
+					<?php if ($repetidor <> 1): ?>
+					
+					<!-- ASIGNATURAS OPTATIVAS DE PRIMERO DE BACHILLERATO -->
+					<tr id="no_repite1">
+						<th class="active text-center text-uppercase" colspan="4">
+							Asignaturas optativas de Primero de Bachillerato<br>
+							<small>(Para solicitar una modalidad o vía diferente a la que ya has cursado debes pasar por Jefatura de Estudios)</small>
+						</th>
+					</tr>
+					<tr>
+						<?php for ($i = 1; $i <= 2; $i++): ?>
+						<td class="text-center" colspan="2">
+							<strong><?php echo ${it1.$i}[0]; ?></strong>
+						</td>
+						<?php endfor; ?>
+					</tr>
+					<tr>
+						<?php for ($i = 1; $i <= 2; $i++): ?>
+						<td colspan="2">
+							<?php $num1 = ""; ?>
+							<?php $num_it = count(${opt1.$i}); ?>
+							<?php foreach (${opt1.$i} as $optit_1 => $nombre): ?>
+							<?php $num1 += 1; ?>
+							<?php if (${optativa.$num1}=="0") {${optativa.$num1}="";} ?>
+							<?php
+							$combas = explode(":", $combasi);
+							foreach ($combas as $com) {
+								$q1 = "select abrev from asignaturas where codigo = '$com' and abrev not like '%\_%'";
+								$q2.=$q1."<br>";
+								$abrv = mysql_query($q1);
+								$abrev = mysql_fetch_array($abrv);
+								$q7.="$optit_1 ==> $abrev[0] --> $com<br>";
+								$pos=0;
+								
+								if (strstr($optit_1,$abrev[0])==TRUE) {
+									$pos+=1;
+								}
+							}
+							
+							if ($matriculas > "1") {
+								$bd_ant = $db.substr($curso_actual,0,4);
+								$q5="select combasi from ". $bd_ant  .".alma where claveal = '$claveal' ";
+								$q6.=$q5."<br>";
+								$ant = mysql_query($q5);
+								$ant_comb = mysql_fetch_array($ant);
+								$combasi_ant = $ant_comb[0];
+								$combas_anti = explode(":", $combasi_ant);
+								
+								foreach ($combas_anti as $com_ant){
+									$q3 = "select abrev from ".$bd_ant.".asignaturas where codigo = '$com_ant'";
+									$q4.=$q3."<br>";
+									$abrv_ant = mysql_query($q3);
+									$abrev_ant = mysql_fetch_array($abrv_ant);
+									$asig_ant = $abrev_ant[0];
+									
+									if (strstr($optit_1,$abrev_ant[0])==TRUE) {
+										$pos+=1;
+									}
+								}
+							}	
+							?>
+							<div class="form-group <?php echo (strstr($vacios,"modalidad de 1º, ")==TRUE) ? 'has-error' : ''; ?>">
+								<div class="radio">
+									<label>
+										<input type="radio" value="<?php echo $optit_1; ?>" name="mod1" <?php echo ($optativa1 == $optit_1 || ($pos > ($i-1))) ? 'checked' : ''; ?> <?php echo (strstr($curso_largo,${it1.$i}[3])==FALSE and !($cargo=="1")) ? 'disabled' : ''; ?>> <?php echo $nombre; ?>
+									</label>
+								</div>
+							</div>
+							<?php endforeach; ?>
+						</td>
+						<?php endfor; ?>
+					</tr>
+					
+					<?php endif; ?>
+					
+					<?php endif; ?>
+	
 					<!-- OBSERVACIONES -->
 					<tr>
 						<th colspan="4">
