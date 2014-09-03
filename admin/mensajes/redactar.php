@@ -76,13 +76,44 @@ $origen="";
 }
 
 
-
 $verifica = $_GET['verifica'];
 if($verifica){
  mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
 
-include("profesores.php");
+if (isset($_GET['id'])) {
+	
+	if (isset($_POST['submit1'])) {
+		$result = mysql_query("UPDATE mens_texto SET asunto='$asunto', texto='$texto' WHERE id=".$_GET['id']." LIMIT 1");
+		
+		if(!$result) $msg_error = "No se ha podido editar el mensaje. Error: ".mysql_error();
+		else header('Location:'.'index.php?inbox=recibidos&action=send');
+	}
+	
+	$result = mysql_query("SELECT ahora, asunto, texto, destino FROM mens_texto WHERE id=".$_GET['id']."");
+	if (mysql_num_rows($result)) {
+		$row = mysql_fetch_array($result);
+		
+		$ahora = $row['ahora'];
+		$asunto = $row['asunto'];
+		$texto = $row['texto'];
+		$destino = trim($row['destino'],'; ');
+		
+		$num_seg = (strtotime(date('Y-m-d H:i:s')) - strtotime($ahora)) * 60;
+		if ($num_seg > (60 * 60)) {
+			header('Location:'.'index.php?inbox=enviados&action=exceeded');
+		}
+		
+		$bloq_destinatarios = 1;
+	}
+	else {
+		unset($_GET['id']);
+	}
+	
+}
+else {
+	include("profesores.php");
+}
 
 include('../../menu.php');
 include('menu.php');
@@ -147,7 +178,8 @@ $page_header = "Redactar mensaje";
       			<legend>Grupos de destinatarios</legend>
       			
       			<input type="hidden" name="profesor" value="<?php echo $pr; ?>">
-      		
+      			
+      			<?php if (!isset($bloq_destinatarios) && !$bloq_destinatarios): ?>
             <div class="row">
             	
             	<!-- COLUMNA IZQUIERDA -->
@@ -260,6 +292,11 @@ $page_header = "Redactar mensaje";
               	</div>
               
               </div>
+              <?php else: ?>
+              
+              <p class="help-block"><?php echo $destino; ?></p>
+              
+              <?php endif; ?>
             
       		</fieldset>
       	

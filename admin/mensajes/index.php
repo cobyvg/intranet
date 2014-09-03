@@ -84,6 +84,13 @@ include("menu.php");
       </div>
       <?php endif; ?>
       
+      <!-- Mensaje enviado -->
+      <?php if($_GET['action']=='exceeded'): ?>
+      <div class="alert alert-danger alert-fadeout">
+        Ha excedido el tiempo para editar el mensaje.
+      </div>
+      <?php endif; ?>
+      
       <style class="text/css">
         a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; }
       </style>
@@ -111,8 +118,14 @@ include("menu.php");
           <tr> 
             <td width="25%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[3]; ?><?php if(!$leido) echo '</strong>'; ?></a></td>        
             <td width="55%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><? echo $row[1]; if($pos !== false) echo ' <span class="pull-right fa fa-paperclip fa-lg"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
-            <td width="15%" data-order="<?php echo $row[0]; ?>" nowrap><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php echo fecha_actual2($row[0]); ?></a><?php if(!$leido) echo '</strong>'; ?></td>
-            <td width="5%"><a class="link-msg" href="?inbox=<?php echo $_buzon; ?>&delete=<? echo $row[4] ;?>" data-bb="confirm-delete"><span class="fa fa-trash-o fa-lg"></span></a></td>
+            <td width="15%" data-order="<?php echo $row[0]; ?>" nowrap><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php echo $row[0]; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
+            <td width="5%" nowrap>
+            	<?php $num_seg = (strtotime(date('Y-m-d H:i:s')) - strtotime($row[0])) * 60; ?>
+            	<?php if ($_buzon=='enviados' && $num_seg <= (60 * 60)): ?>
+            	<a href="redactar.php?id=<? echo $row[4] ;?>" rel="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
+            	<?php endif; ?>
+            	<a href="?inbox=<?php echo $_buzon; ?>&delete=<? echo $row[4] ;?>" data-bb="confirm-delete"  rel="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+            </td>
           </tr>
       	<?php endwhile; ?>
       	</tbody>
