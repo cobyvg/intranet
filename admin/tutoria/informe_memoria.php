@@ -92,7 +92,7 @@ if ($col_obs=="observaciones1") { }else{
 
  $obs1=mysql_query("select observaciones1, observaciones2 from FTUTORES where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
  $obs2=mysql_fetch_array($obs1);
- if (empty($obs2[0]) && empty($obs[1]) && date('m')=='08') {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.location.href = 'informe_memoria.php?imprimir=1#observaciones'\"";}
+ if (empty($obs2[0]) && empty($obs[1]) && date('m')==06) {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.location.href = 'informe_memoria.php?imprimir=1#observaciones'\"";}
  	else{
 		$boton = "Imprimir Memoria final de Tutoría";$click="onClick=print()";}
  ?>
@@ -483,7 +483,7 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 <input type="hidden" name="tutor" value="<? echo $_SESSION['mod_tutoria']['tutor']; ?>">
 <input type="hidden" name="unidad" value="<? echo $_SESSION['mod_tutoria']['unidad']; ?>">
 <br />
-<input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-danger btn-block no_imprimir">
+<input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-primary no_imprimir">
 </form>
 <?
 if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))

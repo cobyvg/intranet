@@ -132,7 +132,8 @@ if ($row = mysql_fetch_array($result))
 
 	echo "<table class='table table-bordered table-striped table-vcentered datatable'>";
 	echo "<thead><tr>
-			<th colspan='2'>Alumno/a</th>
+					<th></th>
+					<th>Alumno/a</th>
 	        <th>NIE</th>
 	        <th>Unidad</th>
 	        <th>Fecha Ncto.</th>	        
@@ -247,7 +248,7 @@ if ($_GET['seleccionado']=='1'){
 	      
 	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
 	  		
-	  		"order": [[ 0, "asc" ]],
+	  		"order": [[ 1, "asc" ]],
 	  		
 	  		"language": {
 	  		            "lengthMenu": "_MENU_",
