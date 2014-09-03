@@ -8,9 +8,9 @@ $year = (isset($year)) ? $year : date("Y",time());
 $today = (isset($today))? $today : date("j", time());
 $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
-$dayone = date("w",mktime(1,1,1,$month,1,$year));
+$dayone = date("w",mktime(1,1,1,$month,1,$year))-1;
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Dom','Lun','Mar','Mie','Jue','Vie','Sab');
+$alldays = array('Lun','Mar','Mié','Jue','Vie','Sáb','Dom');
 $next_year = $year + 1;
 $last_year = $year - 1;
     if ($daylong == "Sunday")
@@ -84,10 +84,10 @@ echo "</tr><tr>";
 
 //Nombre de DÃ­as
 foreach($alldays as $value) {
-  echo "<th style=''>
+  echo "<th>
   $value</th>";
 }
-echo "</tr><tr>";
+echo "</tr><thead><tbody><tr>";
 
 
 //DÃ­as vacÃ­os
@@ -126,10 +126,10 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
       }
       
 		if ($yo>0) {
-      		echo "<td class='warning'>$zz</td>\n";		
+      		echo "<td class='calendar-blue'>$zz</td>\n";		
       	}
       	elseif ($ellos>0){
-      		echo "<td class='info'>$zz</td>\n";		
+      		echo "<td class='calendar-orange'>$zz</td>\n";		
       	}
       	$result_found = 1;
 		}	
@@ -138,7 +138,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
         $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-		echo "<td class='danger'>$zz</td>\n";
+		echo "<td class='calendar-red'>$zz</td>\n";
 		$result_found = 1;
 				}	
 		}
@@ -162,4 +162,27 @@ if ($create_emptys != 0) {
 echo "</tr>";
 echo "</table>";
 ?>
+
+<table class="table">
+	<tbody>
+		<tr>
+			<td>
+				<span class="fa fa-square fa-fw fa-lg" style="color: #3397db;"></span>
+				Actividades registradas por mí.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<span class="fa fa-square fa-fw fa-lg" style="color: #f29b12;"></span>
+				Actividades registradas por otros profesores.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span>
+				Días festivos
+			</td>
+		</tr>
+	</tbody>
+</table>
 

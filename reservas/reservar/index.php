@@ -32,9 +32,9 @@ $year = (isset($year)) ? $year : date("Y",time());
 $today = (isset($today))? $today : date("j", time());
 $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
-$dayone = date("w",mktime(1,1,1,$month,1,$year));
+$dayone = date("w",mktime(1,1,1,$month,1,$year))-1;
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Dom','Lun','Mar','Mie','Jue','Vie','Sab');
+$alldays = array('Lun','Mar','MiÈ','Jue','Vie','S·b','Dom');
 $next_year = $year + 1;
 $last_year = $year - 1;
     if ($daylong == "Sunday")
@@ -121,15 +121,15 @@ if ($today > $numdays) { $today--; }
 	echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?servicio=$servicio&year=".$ano_ant."&month=".$mes_ant."\"><span class=\"fa fa-arrow-circle-left fa-fw fa-lg\"></span></a></h4></th>";
 	echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
 	echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?servicio=$servicio&year=".$ano_sig."&month=".$mes_sig."\"><span class=\"fa fa-arrow-circle-right fa-fw fa-lg\"></span></a></h4></th>";
-	echo "</tr></thead><tbody><tr>";
+	echo "</tr><tr>";
 	
 	
 	//Nombre de D√≠as
 	foreach($alldays as $value) {
-	  echo "<th style='background-color:#eee'>
+	  echo "<th>
 	  $value</th>";
 	}
-	echo "</tr><tr>";
+	echo "</tr></thead><tbody><tr>";
 	
 	
 	//D√≠as vac√≠os

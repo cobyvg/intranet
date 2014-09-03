@@ -8,9 +8,9 @@ $year = (isset($year)) ? $year : date("Y",time());
 $today = (isset($today))? $today : date("j", time());
 $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
-$dayone = date("w",mktime(1,1,1,$month,1,$year));
+$dayone = date("w",mktime(1,1,1,$month,1,$year))-1;
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Dom','Lun','Mar','Mie','Jue','Vie','Sab');
+$alldays = array('Lun','Mar','Mié','Jue','Vie','Sáb','Dom');
 $next_year = $year + 1;
 $last_year = $year - 1;
     if ($daylong == "Sunday")
@@ -125,10 +125,10 @@ $n_pr="";
       		$yo++;
       	}
       	if ($yo>0) {
-      		$class="class=\"warning\"";
+      		$class="class=\"calendar-blue\"";
       	}
       	else{
-      		$class="class=\"info\"";
+      		$class="class=\"calendar-orange\"";
       	}
         //break;
       }
@@ -137,7 +137,7 @@ $n_pr="";
   $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-			echo "<td class=\"danger\">$zz</td>\n";
+			echo "<td class=\"calendar-red\">$zz</td>\n";
 				$result_found = 1;
 				}
 				else{
@@ -166,16 +166,22 @@ echo "</tbody></table>";
 <table class="table">
 	<tbody>
 		<tr>
-			<td class="warning">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>Actividades registradas por mí.</td>
+			<td>
+				<span class="fa fa-square fa-fw fa-lg" style="color: #3397db;"></span>
+				Actividades registradas por mí.
+			</td>
 		</tr>
 		<tr>
-			<td class="info"></td>
-			<td>Actividades registradas por otros profesores.</td>
+			<td>
+				<span class="fa fa-square fa-fw fa-lg" style="color: #f29b12;"></span>
+				Actividades registradas por otros profesores.
+			</td>
 		</tr>
-				<tr>
-			<td class="danger"></td>
-			<td>Festivos</td>
+		<tr>
+			<td>
+				<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span>
+				Días festivos
+			</td>
 		</tr>
 	</tbody>
 </table>

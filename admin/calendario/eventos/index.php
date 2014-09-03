@@ -50,9 +50,9 @@ $year = (isset($year)) ? $year : date("Y",time());
 $today = (isset($today))? $today : date("j", time());
 $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
-$dayone = date("w",mktime(1,1,1,$month,1,$year));
+$dayone = date("w",mktime(1,1,1,$month,1,$year))-1;
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Dom','Lun','Mar','Mie','Jue','Vie','Sab');
+$alldays = array('Lun','Mar','Mié','Jue','Vie','Sáb','Dom');
 $next_year = $year + 1;
 $last_year = $year - 1;
     if ($daylong == "Sunday")
