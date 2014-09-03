@@ -87,8 +87,8 @@ include("../../../menu.php");
 		    		echo "  <td>$fechoria[2]</td>\n";
 		    		echo "  <td>$fechoria[3]</td>\n";
 		    		echo "  <td nowrap>\n";
-		    		echo "    <a href=\"regla.php?id=$id\"><i class=\"fa fa-pencil-square-o fa-lg fa-fw\"></i></a>\n";
-		    		echo "    <a href=\"index.php?eliminar=$id\" data-bb='confirm-delete'><i class=\"fa fa-trash-o fa-lg fa-fw\"></i></a>\n";
+		    		echo "    <a href=\"regla.php?id=$id\" rel=\"tooltip\" title=\"Editar\"><span class=\"fa fa-pencil-square-o fa-fw fa-lg\"></span></a>\n";
+		    		echo "    <a href=\"index.php?eliminar=$id\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-fw fa-lg\"></span></a>\n";
 		    		echo "  </td>\n";
 		    		echo "</tr>\n";
 		    	}

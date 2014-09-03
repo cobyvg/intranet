@@ -29,7 +29,7 @@ include("../../menu.php");
 <div class="container">
 
 	<div class="page-header">
-  	<h2>Administración <small> Reiniciar claves de acceso de profesores</small></h2>
+  	<h2>Administración <small> Restablecer contraseña</small></h2>
 	</div>
 
 
@@ -67,7 +67,7 @@ $mail=mysql_fetch_row($mail0);
 ?>
 <form name="cargos" action="reset_password.php" method="post">
 	
-	<p class="block-help">Marca los profesores a los que quieres reiniciar la clave. Una vez enviados los datos, el NIF del profesor pasa a ser su nueva clave, y se le envía un correo para advertirle del cambio.</p>
+	<p class="block-help">Marca los profesores a los que quieres restablecer la contraseña. Una vez enviados los datos, el NIF del profesor pasa a ser su nueva clave, y se le envía un correo para advertirle del cambio.</p>
 <div class="row">
 <?
 $n_carg=mysql_query("select distinct profesor, dni from c_profes order by profesor");
@@ -102,7 +102,7 @@ if($n_i % 10 == 0)
 ?>
 </div>
 
-<button type="submit" class="btn btn-primary" name="enviar" value="Reasignar clave">Reiniciar contraseñas</button>
+<button type="submit" class="btn btn-primary" name="enviar" value="Reasignar clave">Restablecer contraseñas</button>
 <a class="btn btn-default" href="../index.php">Volver</a>
 
 
