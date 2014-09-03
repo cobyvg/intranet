@@ -585,7 +585,7 @@ $text_contr="";
 		if ($respaldo=='1') {
 			echo "&nbsp;".$backup;
 		}
-		echo "&nbsp;<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' > </i></a>";
+		echo "&nbsp;<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar' > </i></a>";
 		echo "</td>";
 echo "<td class='hidden-print'>";
 // Problemas de Convivencia

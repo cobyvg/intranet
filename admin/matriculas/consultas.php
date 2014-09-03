@@ -588,7 +588,7 @@ echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" 
  	echo $backup;
  }
  echo "</td><td class='hidden-print'>";
- echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' > </i></a>";
+ echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar' > </i></a>";
  echo "</td>";
 echo "<td class='hidden-print'>";
 // Problemas de Convivencia
@@ -608,7 +608,7 @@ echo "<div align='center'>
 <input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hidden-print' /><br><br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hidden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hidden-print' />";
 if(count($grupo_actua)=='1'){ echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hidden-print' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />";} 
 echo "</div></form>";
-echo count($grupo_actua);
+//echo count($grupo_actua);
 ?>
 <?
 if ($curso) {
