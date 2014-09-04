@@ -23,9 +23,9 @@ include("../../menu.php");
 <div class="page-header">
   <h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
 </div>
-<div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
-        <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
- </div>
+<div class="text-center" id="t_larga_barra">
+	<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+</div>
  <div id='t_larga' style='display:none' >
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs">

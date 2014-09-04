@@ -24,9 +24,9 @@ include ("menu.php");
 <div class="row">
 
 <div class="col-sm-12">	
-    <div class="well text-center" id="t_larga_barra" style="width:320px; margin:0 auto;">
-        		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
-     		 </div>
+		<div class="text-center" id="t_larga_barra">
+			<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+		</div>
    <div id='t_larga' style='display:none' >		
 <?php
 

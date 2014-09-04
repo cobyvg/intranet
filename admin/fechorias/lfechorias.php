@@ -43,9 +43,9 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
   echo '<div class="row">';
   echo '<div class="col-sm-12">';
       
-    echo '<div class="well text-center" id="t_larga_barra" style="width:320px; margin:0 auto;">
-        		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
-     		 </div>';
+    echo '<div class="text-center" id="t_larga_barra">
+    	<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+    </div>';
      		 
     echo "<div id='t_larga' style='display:none' >";
   if (isset($_POST['confirma'])) {

@@ -31,10 +31,8 @@ include("../../menu.php");
   <h2>Administración <small> Asignaturas y Calificaciones</small></h2>
 </div>
 <br />
-<div  align='center'>    
- <div class="well well-large well-transparent lead" id="t_larga_barra" style="width:320px">
-        <i class="fa fa-spin fa fa-spin fa-2x pull-left"></i> Cargando los datos...
-      </div>
+<div class="text-center" id="t_larga_barra">
+	<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
 </div>
 <div id='t_larga' style='display:none' >
 
