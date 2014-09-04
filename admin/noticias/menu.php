@@ -2,7 +2,7 @@
 		
 		<form method="get" action="buscar.php">
 		
-			<div class="pull-right col-lg-3">
+			<div class="pull-right col-sm-3">
 			   <div class="input-group">
 			     <input type="text" class="form-control input-sm" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar...">
 			     <span class="input-group-btn">
