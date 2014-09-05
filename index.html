@@ -28,37 +28,81 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+          <h1>
+<a name="intranet-del-monterroso" class="anchor" href="#intranet-del-monterroso"><span class="octicon octicon-link"></span></a><a href="http://iesmonterroso.org/intranet_ies/">Intranet del Monterroso</a>
+</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Lo que aquí llamamos la Intranet del I.E.S. Monterroso es una aplicación web creada y probada a lo largo de los años en nuestro Centro. Nació dentro del Programa de Autoevaluación y Mejora de la Consejería de Educación de la Junta de Andalucía, y ha sido pensada para facilitar y simplificar el trabajo diario de los profesores en general.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<p>En realidad se trata de un conjunto de módulos interconectados que responden a tareas específicas que debe realizar un profesor en su trabajo diario. Los módulos han ido ido surgiendo de necesidades concretas planteadas por los propios profesores a lo largo de los años. Precisamente por eso, debe quedar claro que la aplicación sólo expresa un punto de vista, el nuestro, acerca de cómo se lleva un Instituto (Problemas e convivencia, comunicación entre los profesores, trabajo de los tutores, reservas de aulas y material, actividades extraescolares, etc.).</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>La Intranet se ha ajustado a las exigencias y necesidades del IES Monterroso, pero a lo largo de los años hemos podido comprobar que tanto las tareas como los procedimientos para resolverlas son en general comunes a la mayoría de los IES de la Comunidad, razón por la que hemos decidido ofrecer esta aplicación.</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<h2>
+<a name="requisitos" class="anchor" href="#requisitos"><span class="octicon octicon-link"></span></a>Requisitos</h2>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>La Intranet es entregada bajo la licencia GPL, bien conocida hoy por ser la licencia sobre la que descansa el Sistema Operativo Linux. Puede funcionar sobre cualquier otro Sistema operativo en el que funcionen:</p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<ul>
+<li>
+<a href="http://httpd.apache.org/">Apache HTTP Server</a> (versión 2 o superior)</li>
+<li>
+<a href="http://www.php.net/">PHP</a> (Versión 5.3 o superior)</li>
+<li>
+<a href="http://www.php.net/">MySQL</a> (versión 5 o superior)</li>
+</ul><h2>
+<a name="m%C3%B3dulos-y-funciones" class="anchor" href="#m%C3%B3dulos-y-funciones"><span class="octicon octicon-link"></span></a>Módulos y funciones</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>La Intranet funciona a partir de un conjunto de datos que son importados desde Séneca: profesores, alumnos, asignaturas, etc. La compatibilidad con Séneca es tan alta como lo permite la propia aplicación de la Junta de Andalucía, que, no debe olvidarse, es una aplicación propietaria y cerrada. 
+Dispone de un sencillo proceso de instalación que permite ajustar los datos esenciales a un Centro determinado, y un sistema de importación de datos a partir de Séneca que en pocos minutos la pone a funcionar. Los módulos más importantes que contiene son los siguientes:</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<ul>
+<li>un conjunto de páginas de consulta que presentan datos de los alumnos, listas de grupos y horarios tanto de grupos como de profesores y aulas.</li>
+<li>un módulo para registrar los problemas de convivencia, las expulsiones del Centro, etc. (Asociado al módulo de envío de SMS)</li>
+<li>otro módulo para poner y justificar las faltas de asistencia de los alumnos, que posteriormente pueden ser exportadas a Séneca, y que nos ahorra el penoso trabajo de realizar la misma tarea con esa aplicación (Asociado al módulo de envío de SMS).</li>
+<li>un módulo para generar informes para el Tutor que recibe la visita de los padres de un alumno, y pide a los miembros de su equipo educativo que le digan cómo va el alumno en su asignatura.</li>
+<li>otro módulo para rellenar tareas para un alumno que va a ser expulsado del Centro durante un tiempo, activado por un Tutor o el Jefe de Estudios.</li>
+<li>un conjunto de páginas destinadas al Tutor de un grupo, donde este puede ver todos los datos relevantes de los alumnos de su tutoría (faltas de asistencia, problemas de convivencia, tareas por expulsión, visitas de padres, actividades extraescolares de su grupo, etc.), así como registrar las distintas intervenciones que realiza en su tarea de tutor. Todo ello se presenta en un informe de Tutoría que sólo tendrá que imprimir a final de curso y presentar a la Dirección.</li>
+<li>un módulo de mensajería interna entre los usuarios de la Intranet que permite enviar y recibir mensajes.</li>
+<li>un sistema de envío de mensajes SMS, que se activará automáticamente en caso de problemas de convivencia graves, faltas de asistencia continuadas, o que se podrá utilizar para poner en contacto rápido al tutor o la Dirección con los padres de un alumno.</li>
+<li>un módulo para registrar y gestionar las Actividades Extraescolares.</li>
+<li>dos módulos para los libros de texto. El primero permite crear la lista de los libros de texto por Departamento para los distintos niveles del centro (para consulta de padres y librerías, por ejemplo). El segundo es un módulo completo para la gestión de los libros de textos gratuitos por parte de los Tutores y la Secretaría del Centro dentro del Programa de Gratuidad de Libros de Texto de la Consejería de Educación.</li>
+<li>un conjunto de páginas destinadas a generar Memorias para Jefatura de estudios y Tutores a final de Curso.</li>
+<li>módulos para tareas como las guardias, registro de bajas de los profesores, inventario de material de los Departamentos, búsqueda y generación de informes con todos los datos de un alumno, subida de fotos para profesores y alumnos, etc.</li>
+</ul><p>La aplicación ha sido pensada también para realizar tareas específicas de un Centro TIC. Los siguientes módulos están orientados a las tareas propias de un Centro TIC:</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<ul>
+<li>un sistema de reservas para los carros de portátiles o aulas con ordenadores.</li>
+<li>otro sistema de reservas para las aulas específicas y medios audiovisuales.</li>
+<li>un módulo para la gestión y registro de incidencias y problemas con los ordenadores.</li>
+<li>un módulo para la creación de los usuarios TIC, tanto alumnos como profesores, preparado para el alta masiva en Gesuser y en la Plataforma educativa (en nuestro caso, Moodle).</li>
+<li>un módulo para la creación de una base de datos de Recursos educativos por departamento, asignatura, etc.</li>
+<li>una página que concentra los documentos esenciales de un Centro TIC.</li>
+<li>una página de estadísticas de uso de los recursos TIC por profesor, carrito, etc.</li>
+</ul><h2>
+<a name="notas-de-la-instalaci%C3%B3n" class="anchor" href="#notas-de-la-instalaci%C3%B3n"><span class="octicon octicon-link"></span></a>Notas de la instalación</h2>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<ul>
+<li>El primer requisito para la instalación es tener dónde hacerlo. Hay dos posibilidades. La primera es instalar la aplicación en un servidor dentro del mismo Centro; la segunda es alojarla en un servidor externo contratado con alguna de las empresas que ofrecen servicios web (Nominalia, Arsys, etc.). Si optamos por la primera opción, el Centro debe disponer de una máquina (el Servidor) y una línea propia de ADSL (preferiblemente con una dirección IP estática, aunque no es necesario). Debe también disponer de un Dominio (iesmonterroso.org), y este dominio debe apuntar a la IP de vuestro ADSL. Además, debéis redirigir todos los Puertos del Router ADSL hacia la dirección IP del Servidor. Ideas básicas sobre instalación de un Servidor Linux preparado para estas tareas la podéis encontrar en nuestra página principal, concretamente aquí.</li>
+<li>El segundo requisito, opcional pero recomendable, es tener un Horario que pueda ser exportado a la Base de datos de la aplicación. La Intranet está preparada para trabajar con Horw, pero la mayoría de las aplicaciones que generan horarios pueden importar datos desde Séneca, por lo que debería ser posible trabajar con las mismas. 
+Si hemos optado por incorporar el horario de Horw, es esencial que se den tres condiciones por razones de compatibilidad con Séneca:
+*La primera es que los nombres de los profesores y el nombre de los grupos sean los mismos en Séneca que en Horw, exactamente los mismos. 
+*La segunda es que se importen los códigos de las asignaturas de Séneca dentro de Horw (una opción que nos permite el programa), y que naturalmente utilicemos un código de asignatura de Séneca para cada asignatura del horario.
+*La tercera condición afecta al sistema para nombrar los grupos de alumnos, tanto en Séneca como en Horw, que debe seguir este esquema: "número del curso del grupo ('1' para primero de ESO, '2' para segundo de ESO, etc.) + letra inicial del nivel del grupo (<code>E</code> para ESO, 'B' para Bachillerato, 'T' para el Ciclo de Turismo, 'P' para PCPI, etc.) + letra del grupo". Debería quedar algo así: 1E-A, 2B-C, 1P-A, 2T-A, etc.
+En caso de no utilizar Horw, el programa con el que generáis los horarios debe ser capaz de importar los códigos de las asignaturas desde Séneca, así como exportar los datos del horario con cierta estructura (profesor, día, hora, asignatura, etc.). Si es el caso, poneros en contacto para ver posibilidades. Podéis enlazarme en la dirección de contacto.</li>
+</ul><p>Por otro lado, se puede usar la Intranet sin horario, aunque las funciones quedan reducidas.</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<ul>
+<li>Descargamos el archivo comprimido desde el enlace de Descargas, lo descomprimimos y colocamos los archivos en el directorio de nuestro servidor local o remoto. La aplicación necesita escribir y modificar archivos, por ejemplo a la hora de importar los datos de Séneca o cambiar el archivo de configuración. Por esa razón, el directorio donde se colocan los archivos de la Intranet debe tener permiso de escritura ( en un sistema con Linux instalado, podemos hacerlo fácilmente con el comando chmod 777 -R /ruta_de_la_aplicacion/intranet/* ).</li>
+<li>Vamos a la dirección de la Intranet, por ejemplo <a href="http://iesmonterroso.org/intranet/">http://iesmonterroso.org/intranet/</a>. La primera vez que se ejecuta la aplicación se presenta la página de configuración. Lo más importante de esta página es el nombre del dominio donde se encuentra la Intranet ( en nuestro caso, iesmonterroso.org), así como el usuario y contraseña de MySQL para crear las bases de datos. Una vez completada la configuración, se procede al registro de las Bases de datos. Si todo ha ido bien, podéis empezar la importación de datos de Alumnos y Profesores de Séneca desde la página de Administración de la Intranet.</li>
+<li>El único usuario creado por la instalación, y el que por lo tanto debéis utilizar es <code>admin</code>, contraseña <code>12345678</code>. Entrando como admin, dirigiros a la página de administración de la Intranet y comenzar el proceso de importación de los datos de Séneca. En la propia página de Administración de la Intranet tenéis información sobre los archivos que debéis descargar de Séneca, así como el lugar de Séneca desde el que podéis bajaros cada uno de ellos.</li>
+<li>Una vez importados los datos de alumnos, profesores , departamentos y, llegado el caso, el horario del Centro debéis ir a la página de Perfiles de los Profesores desde la misma página de Administración de la Intranet. Seleccionar el perfil o perfiles de cada profesor (puede tener varios, no hay problema). Marcar también los Tutores y elegir su grupo.</li>
+<li>Recordad que todos los miembros del Equipo Directivo tienen el perfil de Administradores de la Aplicación. A partir de este momento, la Intranet está operativa y los profesores ya pueden entrar con su usuario IdEA (el usuario de Séneca) y el DNI. La primera vez que entran se les obliga a cambiar la contraseña, y es aconsejable que elijan como nueva contraseña la que usan para entrar en Séneca.</li>
+<li>La Intranet usa las fotos de los alumnos en unos cuantos módulos, por lo que es una buena idea subirlas a la aplicación. Para hacerlo, necesitáis crear un archivo comprimido con las fotos de los niños. Las fotos de los alumnos deben tener el formato siguiente: NIE (el Número de Identificación que Séneca asigna a cada alumno).jpg (por ejemplo, 7264024.jpg). Con el archivo comprimido nos vamos a la Administración de la Intranet --&gt; Subir fotos de Alumnos y procedemos.</li>
+</ul><h2>
+<a name="m%C3%A1s-informaci%C3%B3n" class="anchor" href="#m%C3%A1s-informaci%C3%B3n"><span class="octicon octicon-link"></span></a>Más información</h2>
+
+<p>Puedes obtener más información sobre los requisitos y condiciones de la aplicación en la web <a href="http://iesmonterroso.org/intranet_ies/">http://iesmonterroso.org/intranet_ies/</a>.</p>
         </section>
 
         <aside id="sidebar">
