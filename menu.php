@@ -1,6 +1,6 @@
 <?php include("funciones.php"); ?>
 <?php $idea = $_SESSION['ide']; ?>
-<?php setlocale(LC_ALL, 'es_ES'); ?>
+<?php setlocale(LC_TIME, 'es_ES'); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
