@@ -157,19 +157,18 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	// Instance the tour
 	var tour = new Tour({
 		
-		/*onEnd: function() {
+		onEnd: function() {
 		  return window.location.href = 'http://<?php echo $dominio; ?>/intranet/index.php';
-		},*/
+		},
 		
 		keyboard: true,
-		template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-default btn-sm' data-role='end'>Terminar</button></div></nav></div>",
 		
 	  steps: [
 	  {
 	    title: "<h1>Bienvenido a la Intranet</h1>",
 	    content: "<p class='lead'>Antes de comenzar, realice un tour por la portada de la Intranet para conocer las características de los módulos que la componen y la información de la que dispone.</p><p>Haga click en <strong>Siguiente</strong> para continuar o haga click en <strong>Omitir</strong> para saltarse el tour.",
 	    container: "body",
-	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-default btn-sm' data-role='end'>Omitir</button></div></nav></div>",
+	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-default btn-sm' data-role='end'>Omitir</button></div></div>",
 	    orphan: true,
 	    backdrop: true,
 	  },
@@ -179,6 +178,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	    content: "Desde este menú podrás volver a cambiar la contraseña, correo electrónico y la fotografía.",
 	    container: "body",
 	    placement: "bottom",
+	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
 	    backdrop: false,
 	  },
 	  {
@@ -187,6 +187,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	    content: "Consulta las últimas novedades de la Consejería de Educación, Cultura y Deporte de la Junta de Andalucía. Este icono solo será visible desde la portada de la Intranet.",
 	    container: "body",
 	    placement: "bottom",
+	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
 	    backdrop: false,
 	  },
 	  {
@@ -195,6 +196,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	    content: "Consulta los últimos mensajes recibidos. Cuando recibas un mensaje, el icono cambiará de color para avisarte. Para leer el mensaje haz click en este icono o dirígete a la portada de la Intranet para ver todos los avisos.",
 	    container: "body",
 	    placement: "bottom",
+	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
 	    backdrop: false,
 	  },
 	  {
@@ -203,6 +205,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	    content: "Según tu perfil de trabajo tendrás un menú con las opciones que necesitas en tu día a día.<br>Desde el menú <strong>Consultas</strong> tendrás acceso a la información de los alumnos, horarios, estadísticas y fondos de la Biblioteca del centro.<br>El menú <strong>Trabajo</strong> contiene las acciones de registro de Problemas de Convivencia, Faltas de Asistencia, Reservas de aulas y medios audiovisuales, Actividades evaluables, etc.<br>El menú <strong>Departamento</strong> contiene las opciones necesarias para la gestión de tu departamento.<br>Y por último, <strong>Páginas de interes</strong> contiene enlaces a páginas externas de información y recursos educativos.",
 	    container: "body",
 	    placement: "right",
+	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
 	    backdrop: true,
 	  },
 	  {
@@ -211,6 +214,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	    content: "Este módulo ofrece información sobre los profesores que están de baja en el día. Si el profesor ha indicado tareas para los alumnos aparecerá marcado con el icono chequeado. Para registrar una ausencia debe dirigirse al menú <strong>Trabajo</strong>, <strong>Profesores ausentes</strong>.",
 	    container: "body",
 	    placement: "right",
+	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
 	    backdrop: true,
 	  },
 	  {
@@ -219,6 +223,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	    content: "Este módulo ofrece un listado de las noticias mas importantes. Puede aparecer durante varios días, según lo establezca el Equipo directivo.",
 	    container: "body",
 	    placement: "right",
+	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
 	    backdrop: true,
 	  },
 	  {
@@ -227,6 +232,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	    content: "Aquí aparecerán los avisos de tareas pendientes que tienes pendientes por realizar.",
 	    container: "body",
 	    placement: "bottom",
+	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
 	    backdrop: true,
 	  },
 	  {
@@ -235,6 +241,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	    content: "Este buscador te permite buscar alumnos para consultar su expediente o realizar alguna acción como registrar un Problema de Convivencia o Intervención. Puedes buscar tanto por nombre como apellidos. <br>Si presionas la tecla <kbd>Intro</kbd> buscará coincidencias en las noticias publicadas.",
 	    container: "body",
 	    placement: "left",
+	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
 	    backdrop: true,
 	  },
 	  {
@@ -243,6 +250,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	    content: "En la parte inferior del calendario aparecerá las actividades de los próximos 7 días. Si el texto está marcado en color naranja quiere decir que dicha actividad afecta a su horario. También aparecerá su <em>Calendario personal</em> con aquellas actividades evaluables que haya registrado desde el menú <strong>Trabajo</strong>, <strong>Actividades evaluables</strong>.",
 	    container: "body",
 	    placement: "left",
+	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-primary btn-sm' data-role='end'>Entendido</button></div></div>",
 	    backdrop: true,
 	  }],
 	 	});
