@@ -115,8 +115,8 @@ No te olvides de refrescar la página si los cambios no aparecen inmediatamente.
 <div class="row">
 <div class="col-sm-6">
 <div class="thumbnail"><a target="_blank"
-	href="../../img/temas/intranet.jpg" target="_blank"> <img
-	src="../../img/temas/intranet.jpg"> </a>
+	href="../../img/temas/intranet.png" target="_blank"> <img
+	src="../../img/temas/intranet.png"> </a>
 <div class="caption">
 <h3>Tema de la Aplicación</h3>
 </div>
@@ -124,8 +124,8 @@ No te olvides de refrescar la página si los cambios no aparecen inmediatamente.
 </div>
 <div class="col-sm-6">
 <div class="thumbnail"><a target="_blank"
-	href="../../img/temas/bootstrap.jpg"> <img
-	src="../../img/temas/bootstrap.jpg"> </a>
+	href="../../img/temas/bootstrap.png"> <img
+	src="../../img/temas/bootstrap.png"> </a>
 <div class="caption">
 <h3>Tema standard de Bootstrap</h3>
 </div>
@@ -135,7 +135,7 @@ No te olvides de refrescar la página si los cambios no aparecen inmediatamente.
 <div class="row">
 <div class="col-sm-6">
 <div class="thumbnail"><a target="_blank"
-	href="../../img/temas/cosmo.jpg"> <img src="../../img/temas/cosmo.jpg">
+	href="../../img/temas/cosmo.png"> <img class="img-responsive" src="../../img/temas/cosmo.png">
 </a>
 <div class="caption">
 <h3>Cosmo</h3>
@@ -145,7 +145,7 @@ No te olvides de refrescar la página si los cambios no aparecen inmediatamente.
 <div class="row">
 <div class="col-sm-6">
 <div class="thumbnail"><a target="_blank"
-	href="../../img/temas/lumen.jpg"> <img src="../../img/temas/lumen.jpg">
+	href="../../img/temas/lumen.png"> <img class="img-responsive" src="../../img/temas/lumen.png">
 </a>
 <div class="caption">
 <h3>Lumen</h3>
@@ -156,8 +156,8 @@ No te olvides de refrescar la página si los cambios no aparecen inmediatamente.
 <div class="row">
 <div class="col-sm-6">
 <div class="thumbnail"><a target="_blank"
-	href="../../img/temas/cerulean.jpg"> <img
-	src="../../img/temas/cerulean.jpg"> </a>
+	href="../../img/temas/cerulean.png"> <img
+	src="../../img/temas/cerulean.png"> </a>
 <div class="caption">
 <h3>Cerulean</h3>
 </div>
@@ -165,10 +165,30 @@ No te olvides de refrescar la página si los cambios no aparecen inmediatamente.
 </div>
 <div class="col-sm-6">
 <div class="thumbnail"><a target="_blank"
-	href="../../img/temas/flatly.jpg"> <img
-	src="../../img/temas/flatly.jpg"> </a>
+	href="../../img/temas/paper.png"> <img
+	src="../../img/temas/paper.png"> </a>
 <div class="caption">
-<h3>Flatly</h3>
+<h3>Paper</h3>
+</div>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6">
+<div class="thumbnail"><a target="_blank"
+	href="../../img/temas/sandstone.png"> <img
+	src="../../img/temas/sandstone.png"> </a>
+<div class="caption">
+<h3>Sandstone</h3>
+</div>
+</div>
+</div>
+<div class="col-sm-6">
+<div class="thumbnail"><a target="_blank"
+	href="../../img/temas/united.png"> <img
+	src="../../img/temas/united.png"> </a>
+<div class="caption">
+<h3>United</h3>
 </div>
 </div>
 </div>

@@ -157,9 +157,9 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	// Instance the tour
 	var tour = new Tour({
 		
-		onEnd: function() {
+		/*onEnd: function() {
 		  return window.location.href = 'http://<?php echo $dominio; ?>/intranet/index.php';
-		},
+		},*/
 		
 		keyboard: true,
 		template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-default btn-sm' data-role='end'>Terminar</button></div></nav></div>",
