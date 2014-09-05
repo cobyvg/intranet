@@ -250,7 +250,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	    content: "En la parte inferior del calendario aparecerá las actividades de los próximos 7 días. Si el texto está marcado en color naranja quiere decir que dicha actividad afecta a su horario. También aparecerá su <em>Calendario personal</em> con aquellas actividades evaluables que haya registrado desde el menú <strong>Trabajo</strong>, <strong>Actividades evaluables</strong>.",
 	    container: "body",
 	    placement: "left",
-	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-primary btn-sm' data-role='end'>Entendido</button></div></div>",
+	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-primary btn-sm' data-role='end'>Entendido</button></div></div>",
 	    backdrop: true,
 	  }],
 	 	});
