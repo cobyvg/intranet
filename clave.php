@@ -76,8 +76,15 @@ if (isset($_POST['submit'])) {
 					}
 					else {
 						$_SESSION['cambiar_clave'] = 0;
-						// Redirigimos a la página principal
-						header("Location:"."index.php");
+						
+						if (isset($_GET['tour']) && $_GET['tour']) {
+							// Redirigimos a la página de fotografía
+							header("Location:"."admin/fotos/fotos_profes.php?tour=1");
+						}
+						else {
+							// Redirigimos a la página principal
+							header("Location:"."index.php");
+						}
 					}
 				}
 			}
@@ -98,7 +105,7 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Cambiar la contraseña</h2>
+			<h2><?php echo (isset($_GET['tour']) && $_GET['tour']) ? 'Lo primero es lo primero. Cambie la contraseña y añada su correo electrónico.' : 'Cambiar la contraseña'; ?></h2>
 		</div>
 		
 		<!-- MENSAJES -->

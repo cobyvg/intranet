@@ -45,7 +45,13 @@ if (isset($_POST['enviar'])) {
 		$image->resize(240,320,'crop');
 		$image->save($_SESSION['ide'], '../../xml/fotos_profes/', 'jpg');
 		
-		$msg_success = "La fotografía se ha actualizado.";
+		if (isset($_GET['tour']) && $_GET['tour']) {
+			header('Location:'.'../../index.php?tour=1');
+		}
+		else {
+			$msg_success = "La fotografía se ha actualizado.";
+		}
+		
 	}
 	
 }
@@ -58,7 +64,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Fotografías <small>Profesores</small></h2>
+		<h2><?php echo (isset($_GET['tour']) && $_GET['tour']) ? 'Para terminar. Suba o actualice su fotografía.' : 'Fotografías <small>Profesores</small>'; ?></h2>
 	</div>
 	
 	<!-- MENSAJES -->
@@ -106,7 +112,9 @@ include("../../menu.php");
 								<br>
 								
 								<button type="submit" class="btn btn-primary" name="enviar"><?php echo $foto ? 'Actualizar' : 'Subir'; ?> fotografía</button>
-								
+								<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
+								<a href="../../index.php?tour=1" class="btn btn-default">Omitir</a>
+								<?php endif; ?>
 							</div>
 						</div>
 					  

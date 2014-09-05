@@ -343,7 +343,41 @@ while($men = mysql_fetch_row($men2)) {
 <?
 }
 }
+
 if ($count_vuelven > 0 or $count_van > 0 or $count0 > 0 or $count03 > 0 or $count04 > 0 or $count_mprofes > 0 or $count_mpadres > 0 or $count_fech > 0) {
 	echo "<br>";
 }
+else {
 ?>
+
+<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
+
+	<div class='alert alert-warning'>
+		<p class='lead'><i class='fa fa-bell'></i> Informes de Tutor&iacute;a activos por visita de padres</p><br>
+		
+		<p><?php echo date('d-m-Y'); ?>
+		<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > Pedro Pérez</a> -- 1B-A 
+		<span class=' pull-right'>
+		<a href='#' class='alert-link' style='margin-right:10px'> <i class='fa fa-search fa-fw fa-lg' title='Ver informe'> </i></a>
+		<a href='#'  class='alert-link' style='margin-right:10px'> <i class='fa fa-pencil fa-fw fa-lg' title='Rellenar informe'> </i> </a>
+		</span>
+		</p>
+	</div>
+	
+	<div class='alert alert-success'>
+		<p class="lead"><span class="fa fa-comments fa-fw"></span> Mensajes de Profesores</p>
+		<br>
+		<ul>
+			<li>
+				<a href="#" class="alert-link">
+					Claustro de profesores
+				</a>
+				<br>
+				<small>Juan Pérez (<?php echo fecha_actual2(date('Y-m-d')); ?>)</small>
+			</li>
+		</ul>
+	</div>
+	
+<?php endif; ?>
+
+<?php } ?>

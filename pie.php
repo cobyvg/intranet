@@ -32,6 +32,9 @@
     <script src="http://<? echo $dominio;?>/intranet/js/datatables/jquery.dataTables.min.js"></script>
     <script src="http://<? echo $dominio;?>/intranet/js/datatables/dataTables.bootstrap.js"></script>
     <?php endif; ?>
+    <?php if(isset($_GET['tour']) && $_GET['tour']): ?>
+    <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-tour/bootstrap-tour.min.js"></script>
+    <?php endif; ?>
     <script src="http://<? echo $dominio;?>/intranet/js/ajax_alumnos.js"></script>
     
 		

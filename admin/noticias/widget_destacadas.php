@@ -17,8 +17,19 @@
 <?php mysql_free_result($result); ?>
 </div>
 <?php else: ?>
+
+<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
+<div class="list-group">
+	<a class="list-group-item" href="#">
+		<small class="text-muted pull-right"><?php echo strftime('%e %b',strtotime(date('Y-m-d H:i:s'))); ?></small>
+		<span class="text-info">Claustro de profesores</span>
+	</a>
+</div>
+<?php else: ?>
 <br>
 <p class="lead text-center text-muted">No hay noticias destacadas</p>
 <br>
+<?php endif; ?>
+
 <?php endif; ?>
 <!-- FIN MODULO DE NOTICIAS DESTACADAS -->

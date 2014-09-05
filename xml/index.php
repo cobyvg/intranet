@@ -75,14 +75,12 @@ include("../menu.php");
 			  <li>Los Departamentos. Se descarga desde Séneca --&gt; Personal --&gt; Personal del centro  --&gt; Exportar (arriba a la izquierda) --&gt; Exportar datos al formato: Texto plano.</li>
 			  <li>Los Horarios (que generamos con Horw). Sólo se genera una vez a principio de Curso. Las instrucciones de la descarga están en el formulario correspondiente, al pinchar en el enlace.</li>
 			 <li>La lista de alumnos pendientes permite crear una tabla con los alumnos con asignaturas pendientes de cursos anteriores, que posteriormente puede consultarse en Consultas --> Listas de alumnos. Este módulo necesita el archivo comprimido de calificaciones de la evaluación extraordinaria del curso escolar anterior. Las instrucciones vienen en la misma página.</li>
-			 
-			<!--      <li>La Asignación TIC, en caso de que se hayan marcado las opciones 'Horario' y 'Centro TIC' en la página de configuración, permiten asignar a cada alumno un ordenador TIC en cada clase que este tenga, de tal modo que sea posible seguir la historia de un ordenador TIC a través de los alumnos que lo han utilizado.</li>-->
 			</ul>
 			</p>
 			<hr>
 			<p>
 			El <strong>tercer grupo de opciones</strong> afecta a los <strong><span class="text-info">Profesores</span></strong>. 
-			 Una vez se han creado los Departamentos y Profesores, es necesario seleccionar los <span class="text-info">Perfiles de los Profesores</span> para que la aplicación se ajuste a las funciones propias de cada profesor ( Tutor, Dirección, Jefe de Departamento, etc. ). También desde aquí se puede <span class="text-info">Reiniciar la contraseña</span> de los profesores que se hayan olvidado de la misma. Al resetearla, el profesor deberá entrar de nuevo con el DNI como contraseña, lo que le llevará a la página desde la que tendrá que cambiarla con los criterios de Séneca. La última opción, <span class="text-info">Copiar datos de un profesor a otro</span> cambia el horario de un profesor que ha sido sustituido al profesor que lo sustituye, de tal manera que el nuevo profesor pueda entrar en la Intranet con su usuario iDEA normalmente.
+			 Una vez se han creado los Departamentos y Profesores, es necesario seleccionar los <span class="text-info">Perfiles de los Profesores</span> para que la aplicación se ajuste a las funciones propias de cada profesor ( Tutor, Dirección, Jefe de Departamento, etc. ). También desde aquí se puede <span class="text-info">Restablecer las contraseñas</span> de los profesores que se hayan olvidado de la misma. Al restablecer, el profesor deberá entrar de nuevo con el DNI como contraseña, lo que le llevará a la página desde la que tendrá que cambiarla con los criterios de Séneca. La última opción, <span class="text-info">Copiar datos de un profesor a otro</span> cambia el horario de un profesor que ha sido sustituido al profesor que lo sustituye, de tal manera que el nuevo profesor pueda entrar en la Intranet con su usuario IdEA normalmente.
 			 </p>
 			 <hr>
 			<p>

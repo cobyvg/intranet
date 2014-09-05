@@ -44,7 +44,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		$_SESSION['id_pag'] = $id_reg0 [0];
 		
 		include_once('actualizar.php');
-		header ( "location:clave.php" );
+		header ( "location:clave.php?tour=1" );
 		exit ();
 	}
 	
@@ -74,7 +74,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		if ($profe=="admin" and $clave == sha1("12345678")) {
 			$_SESSION['autentificado'] = 1;
 			$_SESSION['cambiar_clave'] = 1;			
-			header ( "location:clave.php" );
+			header ( "location:clave.php?tour=1" );
 		}
 		else{
 		//Abrimos la p�gina principal

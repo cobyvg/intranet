@@ -26,6 +26,23 @@
 
 	<a href="admin/ausencias/diario.php" class="btn btn-default btn-sm">Ver profesores ausentes</a>
 </div>
+<?php else: ?>
+
+<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
+<div class="well well-sm">
+	
+	<h4><span class="fa fa-users fa-fw"></span> Profesores de baja</h4>
+	
+	<div class="list-group">
+		<a class="list-group-item" href="#">
+			<span class="pull-right fa fa-check-square-o fa-fw fa-lg" rel="tooltip" title="Hay tareas para los alumnos"></span>
+			Juan Pérez
+		</a>
+	</div>
+
+</div>
+<?php endif; ?>
+
 <?php endif; ?>
 
 <!-- FIN MODULO DE AUSENCIAS -->
