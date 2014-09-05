@@ -142,10 +142,11 @@ include("../../menu.php");
 				<li>Fotografía perfectamente enfocada y clara.</li>
 			</ul>
 				
-			
+			<?php if (!isset($_GET['tour']) && !$_GET['tour']): ?>
 			<form method="post" action="profes.php">
 				<button type="submit" class="btn btn-info btn-block" name="ver_todos">Todas las fotografías</button>
 			</form>
+			<?php endif; ?>
 			
 		</div><!-- /.col-sm-6 -->
 	
