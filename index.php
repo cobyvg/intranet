@@ -162,11 +162,21 @@ if (stristr ( $carg, '2' ) == TRUE) {
 		},
 		
 		keyboard: true,
+		template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-default btn-sm' data-role='end'>Terminar</button></div></nav></div>",
+		
 	  steps: [
+	  {
+	    title: "<h1>Bienvenido a la Intranet</h1>",
+	    content: "<p class='lead'>Antes de comenzar, realice un tour por la portada de la Intranet para conocer las características de los módulos que la componen y la información de la que dispone.</p><p>Haga click en <strong>Siguiente</strong> para continuar o haga click en <strong>Omitir</strong> para saltarse el tour.",
+	    container: "body",
+	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-default btn-sm' data-role='end'>Omitir</button></div></nav></div>",
+	    orphan: true,
+	    backdrop: true,
+	  },
 	  {
 	    element: "#bs-tour-usermenu",
 	    title: "Menú de usuario",
-	    content: "Desde este menú podrás cambiar la contraseña, correo electrónico y la fotografía.",
+	    content: "Desde este menú podrás volver a cambiar la contraseña, correo electrónico y la fotografía.",
 	    container: "body",
 	    placement: "bottom",
 	    backdrop: false,
@@ -221,7 +231,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	  },
 	  {
 	    element: "#bs-tour-buscar",
-	    title: "Buscar...",
+	    title: "Buscar alumnos y noticias",
 	    content: "Este buscador te permite buscar alumnos para consultar su expediente o realizar alguna acción como registrar un Problema de Convivencia o Intervención. Puedes buscar tanto por nombre como apellidos. <br>Si presionas la tecla <kbd>Intro</kbd> buscará coincidencias en las noticias publicadas.",
 	    container: "body",
 	    placement: "left",
@@ -229,14 +239,13 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	  },
 	  {
 	    element: "#bs-tour-calendario",
-	    title: "Calendario",
+	    title: "Calendario del centro y Calendario personal",
 	    content: "En la parte inferior del calendario aparecerá las actividades de los próximos 7 días. Si el texto está marcado en color naranja quiere decir que dicha actividad afecta a su horario. También aparecerá su <em>Calendario personal</em> con aquellas actividades evaluables que haya registrado desde el menú <strong>Trabajo</strong>, <strong>Actividades evaluables</strong>.",
 	    container: "body",
 	    placement: "left",
 	    backdrop: true,
 	  }],
-	  template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-default btn-sm' data-role='end'>Terminar</button></div></nav></div>",
-	});
+	 	});
 	
 	// Initialize the tour
 	tour.init();
