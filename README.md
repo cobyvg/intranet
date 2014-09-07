@@ -1,6 +1,6 @@
 # [Intranet del Monterroso](http://iesmonterroso.org/intranet_ies/)
 
-Lo que aquí llamamos la Intranet del I.E.S. Monterroso es una aplicación web creada y probada a lo largo de los años en nuestro Centro. Nació dentro del Programa de Autoevaluación y Mejora de la Consejería de Educación de la Junta de Andalucía, y ha sido pensada para facilitar y simplificar el trabajo diario de los profesores en general.
+Lo que aquí llamamos la Intranet del Monterroso es una aplicación web creada y probada a lo largo de los años en nuestro Centro. Nació dentro del Programa de Autoevaluación y Mejora de la Consejería de Educación de la Junta de Andalucía, y ha sido pensada para facilitar y simplificar el trabajo diario de los profesores en general.
 
 En realidad se trata de un conjunto de módulos interconectados que responden a tareas específicas que debe realizar un profesor en su trabajo diario. Los módulos han ido ido surgiendo de necesidades concretas planteadas por los propios profesores a lo largo de los años. Precisamente por eso, debe quedar claro que la aplicación sólo expresa un punto de vista, el nuestro, acerca de cómo se lleva un Instituto (Problemas e convivencia, comunicación entre los profesores, trabajo de los tutores, reservas de aulas y material, actividades extraescolares, etc.).
 
@@ -9,12 +9,10 @@ La Intranet se ha ajustado a las exigencias y necesidades del IES Monterroso, pe
 
 ## Requisitos
 
-La Intranet es entregada bajo la licencia GPL, bien conocida hoy por ser la licencia sobre la que descansa el Sistema Operativo Linux. Puede funcionar sobre cualquier otro Sistema operativo en el que funcionen:
-
 * Sistema Operativo basado en Linux: [Debian](https://www.debian.org/index.es.html) / [CentOS](http://www.centos.org)
-* [Apache HTTP Server](http://httpd.apache.org/) (versión 2 o superior)
-* [PHP](http://www.php.net/) (Versión 5.3 o superior)
-* [MySQL](http://www.php.net/) (versión 5 o superior)
+* Servidor Web: [Apache (versión 2 o superior)](http://httpd.apache.org/) 
+* Versión de PHP: [PHP 5.3 o superior](http://www.php.net/)
+* Base de datos: [MySQL 5 o superior](http://www.php.net/)
 
 ## Módulos y funciones
 
@@ -64,6 +62,7 @@ Por otro lado, se puede usar la Intranet sin horario, aunque las funciones queda
 * La Intranet usa las fotos de los alumnos en unos cuantos módulos, por lo que es una buena idea subirlas a la aplicación. Para hacerlo, necesitáis crear un archivo comprimido con las fotos de los niños. Las fotos de los alumnos deben tener el formato siguiente: NIE (el Número de Identificación que Séneca asigna a cada alumno).jpg (por ejemplo, 7264024.jpg). Con el archivo comprimido nos vamos a la Administración de la Intranet --> Subir fotos de Alumnos y procedemos.
 
 
-## Más información
+## Autores
 
-Puedes obtener más información sobre los requisitos y condiciones de la aplicación en la web [http://iesmonterroso.org/intranet_ies/](http://iesmonterroso.org/intranet_ies/).
+* [Miguel Ángel García González](https://github.com/mgarcia39) 
+* [Rubén López Herrera](https://github.com/rubenlh91) 
