@@ -34,10 +34,9 @@ include("../../menu.php");
 		$cal->enableNonMonthDays();
 		$cal->enableYear();
 		
-		$cal->addEvent('Inicio curso Ed.Inf., Prim. E.E.', 2013, 9, 10, '#');
-		$cal->addEvent('Inicio curso E.S.O. Bach. F.P.', 2013, 9, 16, '#');
-		$cal->addEvent('Fin días lectivos Prim.', 2014, 6, 23, '#');
-		$cal->addEvent('Fin días lectivos Sec.', 2014, 6, 24, '#');
+		$cal->addEvent('Inicio curso Ed.Inf., Prim. E.E.', $curso, 9, 10, '#');
+		$cal->addEvent('Inicio curso E.S.O. Bach. F.P.', $curso, 9, 15, '#');
+		$cal->addEvent('Fin días lectivos', $curso+1, 6, 23, '#');
 		
 		// DIAS FESTIVOS
 		$result = mysql_query("SELECT fecha, nombre FROM festivos");
