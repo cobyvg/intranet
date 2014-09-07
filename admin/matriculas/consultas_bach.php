@@ -295,7 +295,7 @@ if (!($orden)) {
 		}
 	}
 	$sql.=", repite from matriculas_bach where ". $extra ." order by ". $orden ."curso, grupo_actual, apellidos, nombre ";
-	echo $sql;
+	//echo $sql;
 	$cons = mysql_query($sql);
 
 	$n_cons = mysql_num_rows($cons);
