@@ -422,7 +422,6 @@ Los datos de la Matrícula se han registrado correctamente en la Base de datos.
 $cargo="1";
 
 // Rellenar datos a partir de las tablas alma o matriculas.
-
 if ($dni or $claveal or $id) {
 
 	if (!empty($id)) {
@@ -436,8 +435,7 @@ if ($dni or $claveal or $id) {
 	// Comprobación de padre con varios hijos en el Centro
 	$ya_matricula = mysql_query("select claveal, apellidos, nombre, id from matriculas_bach where ". $conditio ."");
 	$ya_primaria = mysql_query("select claveal, apellidos, nombre from alma_secundaria where ". $conditio1 ."");
-	$ya_alma = mysql_query("select claveal, apellidos, nombre, unidad from alma where (nivel='1B' or nivel='2B' or nivel='4E') and (". $conditio1 .")");
-
+	$ya_alma = mysql_query("select claveal, apellidos, nombre, unidad, idcurso from alma, unidades where nomunidad=unidad and (". $conditio1 .")");
 	// Comprobamos si el alumno se ha registrado ya
 	$ya = mysql_query("select apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, 
 	dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma1, idioma2, religion, 
@@ -460,14 +458,14 @@ if ($dni or $claveal or $id) {
 
 	// Viene de Colegio de Primaria
 	elseif (mysql_num_rows($ya_primaria) > 0){
-		$alma = mysql_query("select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, grupo, claveal, colegio from alma_secundaria where ". $conditio1 ."");
+		$alma = mysql_query("select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, matriculas, claveal, colegio from alma_secundaria where ". $conditio1 ."");
 
 		if (mysql_num_rows($alma) > 0) {
 			$al_alma = mysql_fetch_array($alma);
 			$apellidos = $al_alma[0];  $nombre = $al_alma[1]; $nacido = $al_alma[5]; $provincia = $al_alma[2]; $nacimiento = $al_alma[3]; $domicilio = $al_alma[4]; $localidad = $al_alma[5]; $dni = $al_alma[6]; $padre = $al_alma[7]; $dnitutor = $al_alma[8];
 			if (strlen($al_alma[9]) > 3) {$madre = $al_alma[9];	}else{ $madre = ""; }
 			; $dnitutor2 = $al_alma[10]; $telefono1 = $al_alma[11]; $telefono2 = $al_alma[12]; $correo = $al_alma[13]; $padre = $al_alma[14];
-			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = $al_alma[18]; $claveal= $al_alma[19]; $colegio= $al_alma[20];
+			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = substr($al_alma[15],0,-1); $claveal= $al_alma[19]; $colegio= $al_alma[20];
 			$nacimiento= str_replace("/","-",$nacimiento);
 			$curso="1BACH";
 			$n_curso=substr($curso, 0, 1);
@@ -476,23 +474,24 @@ if ($dni or $claveal or $id) {
 
 	// Es alumno del Centro
 	elseif (mysql_num_rows($ya_alma) > 0){
-		$alma = mysql_query("select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, grupo, claveal, unidad, combasi, curso, matriculas from alma where (nivel='1b' or nivel='2b' or nivel='4E') and (". $conditio1 .")");
+		$alma = mysql_query("select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, matriculas, claveal, unidad, combasi, curso, matriculas, idcurso from alma, unidades where nomunidad=unidad and (". $conditio1 .")");
+
 		if (mysql_num_rows($alma) > 0) {
 			$al_alma = mysql_fetch_array($alma);
 			if (empty($curso)) {
-				if (substr($al_alma[20],0,2)=="1B"){$curso="2BACH";}
-				if (substr($al_alma[20],0,2)=="2B"){$curso="2BACH";}
-				if (substr($al_alma[20],0,2)=="4E"){$curso="1BACH";}
+				if ($al_alma[24]=="6204"){$curso="2BACH";}
+				if ($al_alma[24]=="6029"){$curso="1BACH";}
+				if ($al_alma[24]=="101143"){$curso="4ESO";}
 			}
 			else{
-				if (substr($al_alma[20],0,2)=="4E"){$curso="1BACH";}
+				if ($al_alma[24]=="101143"){$curso="4ESO";}
 			}
 			$n_curso = substr($curso,0,1);
 
 			$apellidos = $al_alma[0];  $nombre = $al_alma[1]; $nacido = $al_alma[5]; $provincia = $al_alma[2]; $nacimiento = $al_alma[3]; $domicilio = $al_alma[4]; $localidad = $al_alma[5]; $dni = $al_alma[6]; $padre = $al_alma[7]; $dnitutor = $al_alma[8];
 			if ($madre == "") { if (strlen($al_alma[9]) > 3) {$madre = $al_alma[9];	}else{ $madre = ""; }}
 			if ($dnitutor2 == "") { $dnitutor2 = $al_alma[10];} if ($telefono1 == "") { $telefono1 = $al_alma[11]; } if ($telefono2 == "") { $telefono2 = $al_alma[12];} if ($correo == "") { $correo = $al_alma[13];} $padre = $al_alma[14];
-			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = $al_alma[18]; $claveal= $al_alma[19]; $combasi = $al_alma[21]; $unidad = $al_alma[20]; $curso_largo = $al_alma[22]; $matriculas = $al_alma[23];
+			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = substr($al_alma[15],0,-1); $claveal= $al_alma[19]; $combasi = $al_alma[21]; $unidad = $al_alma[20]; $curso_largo = $al_alma[22]; $matriculas = $al_alma[23];
 			if (substr($curso,0,1) == substr($n_curso_ya,0,1)) {
 				echo '
 <script> 

@@ -336,16 +336,16 @@ if ($curso) {
 	} else{ echo $curso;}?></h3><br />
 <form action="consultas.php?curso=<? echo $curso;?>&consulta=1" name="form1" method="post">
 <table class="table table-striped table-condensed" align="center" style="width:auto">
-<thead><th colspan="2"></th><th>Nombre</th><th>Curso</th><th>Gr1</th><th>Gr2</th>
+<thead><th colspan="2"></th><th>Nombre</th><th>Gr1</th><th>Gr2</th>
 <?
 if ($curso=="1ESO") {
 echo '<th>Colegio</th>';
 		}
 echo '<th>Rel.</th>';
 echo '<th>Transporte</th>';
-if ($n_curso<4) {
+
 echo '<th>Bil.</th>';
-		}
+		
 		if ($n_curso<3) {
 echo '<th>Ex.</th>';
 		}
@@ -439,7 +439,6 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if ($confirmado=="1") { echo " checked";}
 	echo ' onClick="submit()"/></td><td>'.$num_al.'</td>
 	<td><a href="matriculas.php?id='. $id .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
-	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
 	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control" value="'. $grupo_actual .'" size="1"></td>';
 	if ($curso=="1ESO") {
@@ -457,11 +456,10 @@ if($ruta_este){$trans = substr($ruta_este, 0, 10).".";}
 if($ruta_oeste){$trans = substr($ruta_oeste, 0, 10).".";}
 echo '<td> '.$trans.'</td>';
 
-		if ($n_curso<4) {	
 echo '<td><input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
  if($bilinguismo=="Si"){echo " checked";} 
  echo ' /></td>';
-		}
+
 		if ($n_curso<3) {
 			 if ($exencion=="0") {$exencion="";}
 echo '<td><input name="exencion-'. $id .'" type="checkbox" value="1"';
@@ -612,40 +610,35 @@ echo "</div></form>";
 ?>
 <?
 if ($curso) {
-		if (count($grupo_actua)=='1') {
-			$extra = "and grupo_actual = '$grupo_actual'";
-		}
-		else{
-			$extra="";	
-		}
+
 if ($curso=="1ESO" OR $curso=="2ESO"){
-	$exen = mysql_query("select exencion from matriculas where curso = '$curso' $extra and exencion ='1'");
+	$exen = mysql_query("select exencion from matriculas where $extra and exencion ='1'");
 	$num_exen = mysql_num_rows($exen);
 	
 if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "4";}
 for ($i=1;$i<$num_acti+1;$i++){
-	${acti.$i} = mysql_query("select act1 from matriculas where curso = '$curso' $extra and act1 = '$i'");
+	${acti.$i} = mysql_query("select act1 from matriculas where $extra and act1 = '$i'");
 	${num_act.$i} = mysql_num_rows(${acti.$i});
 }
 }
-$rel = mysql_query("select religion from matriculas where curso = '$curso' $extra and religion like '%Católica%'");
+$rel = mysql_query("select religion from matriculas where $extra and religion like '%Católica%'");
 //echo "select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like 'Rel%'";
 $num_rel = mysql_num_rows($rel);
 //echo $num_rel;
 if ($curso=="3ESO"){$num_opta = "7";}else{$num_opta = "4";}
 for ($i=1;$i<$num_opta+1;$i++){
-	${opta.$i} = mysql_query("select optativa$i from matriculas where curso = '$curso' $extra and optativa$i = '1'");
+	${opta.$i} = mysql_query("select optativa$i from matriculas where $extra and optativa$i = '1'");
 	${num_opta.$i} = mysql_num_rows(${opta.$i});
 }
 
 if ($curso=="3ESO" OR $curso=="4ESO"){
-	$diver = mysql_query("select diversificacion from matriculas where curso = '$curso' $extra and diversificacion = '1'");
+	$diver = mysql_query("select diversificacion from matriculas where $extra and diversificacion = '1'");
 	$num_diver = mysql_num_rows($diver);
 }
-$promo = mysql_query("select promociona from matriculas where curso = '$curso' $extra and promociona = '1'");
+$promo = mysql_query("select promociona from matriculas where $extra and promociona = '1'");
 $num_promo = mysql_num_rows($promo);
 	
-$pil = mysql_query("select promociona from matriculas where curso = '$curso' $extra and promociona = '2'");
+$pil = mysql_query("select promociona from matriculas where $extra and promociona = '2'");
 $num_pil = mysql_num_rows($pil);
 	
 $an_bd = substr($curso_actual,0,4);
@@ -783,7 +776,6 @@ echo substr($nom_a,0,-2).'</td></tr></table>';
        case 4: 
      	  actividade.disabled = true;
            exencio.disabled = true;
-           bilinguism.disabled = true;
            itinerari.disabled = false; 
            matematica4.disabled = false;
            diversificacio.disabled = false;

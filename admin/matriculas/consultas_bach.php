@@ -295,7 +295,7 @@ if (!($orden)) {
 		}
 	}
 	$sql.=", repite from matriculas_bach where ". $extra ." order by ". $orden ."curso, grupo_actual, apellidos, nombre ";
-	//echo $sql;
+	echo $sql;
 	$cons = mysql_query($sql);
 
 	$n_cons = mysql_num_rows($cons);
@@ -324,7 +324,6 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	<tr>
 		<th colspan="2"></th>
 		<th>Nombre</th>
-		<th>Curso</th>
 		<th>Gr1</th>
 		<th>Gr2</th>
 		<?
@@ -392,7 +391,6 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if ($confirmado=="1") { echo " checked";}
 		echo ' onClick="submit()"/></td><td>'.$num_al.'</td>
 	<td><a href="matriculas_bach.php?id='. $id .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
-	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
 	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control"  size="1" value="'. $grupo_actual .'" /></td>';
 		echo '<td>'. $colegio .'</td>';
@@ -616,38 +614,32 @@ echo '</tr>';
 	?>
 	<?
 	if ($curso) {
-		if (count($grupo_actua)=='1') {
-			$extra = "and grupo_actual = '$grupo_actual'";
-		}
-		else{
-			$extra="";	
-		}
 
-		$rel = mysql_query("select religion from matriculas_bach where curso = '$curso' $extra and religion like '%Católica%'");
+		$rel = mysql_query("select religion from matriculas_bach where $extra and religion like '%Católica%'");
 		$num_rel = mysql_num_rows($rel);
 		//echo $num_rel;
 		if ($curso=="2BACH"){		
 		for ($i=1;$i<11;$i++){
-			${optativ.$i} = mysql_query("select optativa2b$i from matriculas_bach where curso = '$curso' $extra and optativa2b$i = '1'");
+			${optativ.$i} = mysql_query("select optativa2b$i from matriculas_bach where $extra and optativa2b$i = '1'");
 			${optativb.$i} = mysql_num_rows(${optativ.$i});
 		}
 		}
-		$promo = mysql_query("select promociona from matriculas_bach where curso = '$curso' $extra and promociona = '1'");
+		$promo = mysql_query("select promociona from matriculas_bach where $extra and promociona = '1'");
 		$num_promo = mysql_num_rows($promo);
-		$pil = mysql_query("select promociona from matriculas_bach where curso = '$curso' $extra and promociona = '3'");
+		$pil = mysql_query("select promociona from matriculas_bach where $extra and promociona = '3'");
 		$num_34 = mysql_num_rows($pil);
 		$an_bd = substr($curso_actual,0,4);
-		$repit = mysql_query("select promociona from matriculas_bach where curso = '$curso' $extra and promociona = '2'");
+		$repit = mysql_query("select promociona from matriculas_bach where $extra and promociona = '2'");
 		$num_repit = mysql_num_rows($repit);
 		
-		$it_11 = mysql_query("select itinerario1 from matriculas_bach where curso = '$curso' $extra and itinerario1 = '1'");
+		$it_11 = mysql_query("select itinerario1 from matriculas_bach where $extra and itinerario1 = '1'");
 		$num_it11 = mysql_num_rows($it_11);
-		$it_12 = mysql_query("select itinerario1 from matriculas_bach where curso = '$curso' $extra and itinerario1 = '2'");
+		$it_12 = mysql_query("select itinerario1 from matriculas_bach where $extra and itinerario1 = '2'");
 		$num_it12 = mysql_num_rows($it_12);
 				
-		$it_21 = mysql_query("select itinerario2 from matriculas_bach where curso = '$curso' $extra and itinerario1 = '1'");
+		$it_21 = mysql_query("select itinerario2 from matriculas_bach where $extra and itinerario1 = '1'");
 		$num_it21 = mysql_num_rows($it_21);
-		$it_22 = mysql_query("select itinerario2 from matriculas_bach where curso = '$curso' $extra and itinerario2 = '2'");
+		$it_22 = mysql_query("select itinerario2 from matriculas_bach where $extra and itinerario2 = '2'");
 		$num_it22 = mysql_num_rows($it_22);
 		?>
 	<br />
