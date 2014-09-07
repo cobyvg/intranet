@@ -152,12 +152,12 @@ if (stristr ( $carg, '2' ) == TRUE) {
 
 <?php include("pie.php"); ?>
 	
-	<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
 	<script>
 	// Instance the tour
 	var tour = new Tour({
 		
 		onEnd: function() {
+			localStorage.removeItem('tour_current_step');
 		  return window.location.href = 'http://<?php echo $dominio; ?>/intranet/index.php';
 		},
 		
@@ -277,7 +277,6 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	// Start the tour
 	tour.start(true);
 	</script>
-	<?php endif; ?>
 
 </body>
 </html>
