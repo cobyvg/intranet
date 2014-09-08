@@ -85,11 +85,9 @@ mysql_query("update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E
 			
 			<h3>Información sobre la importación</h3>
 			
-			<p>Para importar las fotos de todos los alumnos, necesitaremos crear un archivo comprimido (.zip) conteniendo todos los archivos de fotos de los alumnos.</p>
+			<p>Para obtener el catálogo de libros de texto del programa de gratuidad debe dirigirse al apartado <strong>Alumnado</strong>, <strong>Ayuda al Estudio</strong>, <strong>Gratuidad en Libros de Texto</strong>, <strong>Asignación de libros a materias</strong>. Seleccione el curso y haga click en <strong>Exportar datos</strong>. El formato de exportación debe ser <strong>Texto plano</strong>.</p>
 			
-			<p>Cada archivo de foto tiene como nombre el Número de Identificación Escolar que Séneca asigna a cada alumno seguido de la extensión .jpg o .jpeg. El nombre típico de un archivo de foto quedaría por ejemplo así: 1526530.jpg.</p>
-			
-			<p>Los tutores podrán actualizar las fotografías de los alumnos en la Página del tutor.</p>
+			<p>Debe renombrar el archivo RegAsiLibMat.txt descargado por el nombre del curso seleccionado. De modo, que debe tener cuatro archivos llamados 1ESO.txt, 2ESO.txt, 3ESO.txt, 4ESO.txt.</p>
 			
 		</div>
 				

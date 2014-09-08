@@ -104,9 +104,10 @@ if ($col_curso=="curso") { }else{
 }
 ?>
 
-<div align="center">
+<div class="container">
 <div class="page-header">
-  <h2>Programa de Ayudas al Estudio <small> Informe sobre el estado de los Libros: <span style=" color:#08c;"><? echo $nivel;?></span></small></h2>
+  <h2>Programa de Ayudas al Estudio <small>Informe sobre el estado de los Libros</small></h2>
+  <h3 class="text-info"><? echo $nivel;?></h3>
 </div>
 <br />
 <?
@@ -148,15 +149,15 @@ Los datos se han actualizado correctamente en la base de datos.
 $claveal = "";
 ?>
 <form action="libros.php" method="post" name="libros" class="formu">
-<p class="help-block">OPCIONES: <span class="badge badge-info">R</span> = Bien, <span class="badge badge-warning">R</span> = Regular, <span class="badge badge-important">M</span> = Mal, <span class="badge badge-inverse">N</span> = No hay Libro, <span class="badge badge-success">S</span> = Septiembre.</p>
+<p class="help-block">OPCIONES: <span class="label label-info">B</span> = Bien, <span class="label label-warning">R</span> = Regular, <span class="label label-danger">M</span> = Mal, <span class="label label-default">N</span> = No hay Libro, <span class="label label-success">S</span> = Septiembre.</p>
 <?
 $curso = $nivel;
 //$fila_asig = $fila_asig + 1;
 
-echo "<br /><table class='table table-bordered' style='width:auto;padding:5px;'>";
+echo "<br /><table class='table table-bordered'>";
 
 if(stristr($_SESSION['cargo'],'1') == TRUE){
-echo "<tr><th style='background-color:#eee'></th>";
+echo "<thead><tr><th></th>";
 }
 $asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where (curso like '".$curso."') and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where textos_gratis.nivel = '".$curso."') order by codigo";
 //echo $asignaturas0;
@@ -165,7 +166,7 @@ $asignaturas1 = mysql_query($asignaturas0);
 $num_asig = mysql_num_rows($asignaturas1);
 while ($asignaturas = mysql_fetch_array($asignaturas1)) {	
 	$col{$num_col} = $asignaturas[1];
-	echo "<th style='background-color:#eee;'>$asignaturas[2]</th>";
+	echo "<th>$asignaturas[2]</th>";
 	$num_col = $num_col + 1;
 }
 if(!(empty($unidad))){
@@ -179,7 +180,7 @@ if(!(empty($unidad))){
 if(stristr($_SESSION['cargo'],'1') == TRUE){
 	$jefe=1;
 	$fila=0;
-	echo "<th style='background-color:#eee'>Estado</th></tr></thead><tbody>";
+	echo "<th>Estado</th></tr></thead><tbody>";
 }
 
 $alumnos0 = "select nc, FALUMNOS.apellidos, FALUMNOS.nombre, combasi, FALUMNOS.claveal, FALUMNOS.unidad from FALUMNOS, alma where alma.claveal = FALUMNOS.claveal and alma.curso = '$nivel' $extra order by FALUMNOS.apellidos, FALUMNOS.nombre, nc"; 
@@ -212,11 +213,11 @@ if(stristr($_SESSION['cargo'],'1')){echo "<th style='background-color:#eee'>Esta
 $clave = $alumnos[4];
    	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {
-		echo "<br /><img src='../../xml/fotos/$clave.jpg' border='2' width='95' height='11' style='border:1px solid #bbb;display:inline;float:left;'  />";
+		echo "<br /><img class='img-thumbnail' src='../../xml/fotos/$clave.jpg' width='64' alt=''>";
 	}           	
 	echo "</td>";
 	for ($i=1;$i<$num_asig+1;$i++){
-		echo "<td nowrap style='padding:0px;margin:0px;'>";
+		echo "<td nowrap>";
 		//echo $col{$i}."-";
 		if(strstr($alumnos[3], $col{$i}))
 		{
@@ -230,16 +231,32 @@ $clave = $alumnos[4];
 		$estado0 = mysql_fetch_array($edit);
 		$estado = $estado0[0];
 ?>
-	<Label class="radio" style="color:black;">
-    <input type="radio" name="<? echo $r_nombre;?>" <? echo "checked=\"checked\""; ?> value="N" id="botones_3" />N&nbsp;&nbsp;</Label>
-    <Label class="radio" style="color:#3a87ad;">
-    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "B"){echo "checked=\"checked\"";} ?> value="B" id="botones_0" />B&nbsp;&nbsp;</Label>
-    <Label class="radio" style="color:#f89406;">
-    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "R"){echo "checked=\"checked\"";} ?> value="R" id="botones_1" />R&nbsp;&nbsp;</Label>
-    <Label class="radio" style="color:#9d261d;">
-    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "M"){echo "checked=\"checked\"";} ?> value="M" id="botones_2" />M&nbsp;&nbsp;</Label>    
-    <Label class="radio" style="color:#46a546;">
-    <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "S"){echo "checked=\"checked\"";} ?> value="S" id="botones_4" />S&nbsp;&nbsp;</Label> 
+	<div class="radio">
+		<label style="color:black;">
+    	<input type="radio" name="<? echo $r_nombre;?>" <? echo "checked=\"checked\""; ?> value="N" id="botones_3" /> <span class="label label-default">N</span>
+    </label>
+  </div>
+  <div class="radio">
+    <label style="color:#3a87ad;">
+    	<input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "B"){echo "checked=\"checked\"";} ?> value="B" id="botones_0" /> <span class="label label-info">B</span>
+    </label>
+  </div>
+  <div class="radio">
+    <label style="color:#f89406;">
+   	 <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "R"){echo "checked=\"checked\"";} ?> value="R" id="botones_1" /> <span class="label label-warning">B</span>
+   	</label>
+  </div>
+  <div class="radio">
+    <label style="color:#9d261d;">
+    	<input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "M"){echo "checked=\"checked\"";} ?> value="M" id="botones_2" /> <span class="label label-danger">B</span>
+    </label>
+  </div>
+  <div class="radio">
+    <label style="color:#46a546;">
+    	<input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "S"){echo "checked=\"checked\"";} ?> value="S" id="botones_4" /> <span class="label label-success">B</span>
+    </label>
+  </div>
+    	
 <?
 //			echo $col{$i};
 		}
