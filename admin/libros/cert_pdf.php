@@ -27,7 +27,7 @@ if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = '
 class GranPDF extends FPDF {
 	function Header() {
 		$this->SetTextColor(0, 122, 61);
-		$this->Image( '../../../img/encabezado.jpg',25,14,53,'','jpg');
+		$this->Image( '../../img/encabezado.jpg',25,14,53,'','jpg');
 		$this->SetFont('ErasDemiBT','B',12);
 		$this->SetY(15);
 		$this->Cell(75);
@@ -39,7 +39,7 @@ class GranPDF extends FPDF {
 	}
 	function Footer() {
 		$this->SetTextColor(0, 122, 61);
-		$this->Image( '../../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
+		$this->Image( '../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
 		$this->SetY(275);
 		$this->SetFont('ErasMDBT','',8);
 		$this->Cell(75);
@@ -142,7 +142,7 @@ if (!($mal=='1')){
 	$MiPDF->Ln(3);
 	$MiPDF->Multicell(0,4,$cuerpo12,0,'J',0);
 	$MiPDF->Ln(3);
-	$MiPDF->SetFont('NewsGotT','I',12);
+	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->SetX(50);
 	$nota=0;
 	while($regasig2=mysql_fetch_row($resulasig2)){
@@ -177,10 +177,10 @@ if (!($mal=='1')){
 	$MiPDF->Ln(3);
 	$MiPDF->Multicell(0,4,$cuerpo22,0,'J',0);
 	$MiPDF->Ln(3);
-	$MiPDF->SetFont('NewsGotT','I',12);
+	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Ln(2);
 	while($regasig=mysql_fetch_row($resulasig)){
-		$MiPDF->SetFont('NewsGotT','I',12);
+		$MiPDF->SetFont('NewsGotT','',12);
 		$MiPDF->SetX(170);
 		$MiPDF->cell(0,4,$regasig[3].' Euros',0,'D',0);
 	$MiPDF->SetX(20);
@@ -191,7 +191,7 @@ if (!($mal=='1')){
 	$total=$total+$regasig[3];
 	}#del while
 	mysql_query("update textos_alumnos set devuelto = '1', fecha = now() where claveal = '$claveal'");		
-		$MiPDF->SetFont('NewsGotT','BI',12);
+		$MiPDF->SetFont('NewsGotT','B',12);
 		$MiPDF->SetX(158);
 	$MiPDF->Multicell(0,4,' Total: '.$total.' Euros',0,'D',0);
 		$MiPDF->SetFont('NewsGotT','',12);
