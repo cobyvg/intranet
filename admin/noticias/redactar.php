@@ -178,8 +178,8 @@ include ("menu.php");
 							
 							<div class="form-group">
 								<label for="autor">Autor</label>
-								<input type="text" class="form-control" id="autor" name="autor" value="<?php echo $_SESSION['profi']; ?>" readonly>
-									<input type="hidden" name="contact" value="<?php echo $_SESSION['profi']; ?>">
+								<input type="text" class="form-control" id="autor" name="autor" value="<?php echo (isset($contact) && $contact) ? $contact : $_SESSION['profi']; ?>" readonly>
+									<input type="hidden" name="contact" value="<?php echo (isset($contact) && $contact) ? $contact : $_SESSION['profi']; ?>">
 							</div>
 							
 							<div class="form-group" id="datetimepicker1">
