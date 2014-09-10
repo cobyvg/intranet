@@ -128,7 +128,7 @@ include('../../menu.php');
 						  <dt>Teléfono urgencias</dt>
 						  <dd><?php echo ($row['telefonourgencia'] != "") ? '<a href="tel:'.$row['telefonourgencia'].'">'.$row['telefonourgencia'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Correo electrónico</dt>
-						  <dd><?php echo ($row['correo'] != "") ? '<a href="mailto:'.$row['correo'].'</a>"' : ($row2['correo'] != "") ? '<a href="mailto:'.$row2['correo'].'</a>"' : '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dd><?php echo ($row['correo'] != "") ? '<a href="mailto:'.$row['correo'].'">'.$row['correo'].'</a>' : ($row2['correo'] != "") ? '<a href="mailto:'.$row2['correo'].'">'.$row2['correo'].'</a>' : '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Representante legal</dt>
 						  <dd><?php echo ($row['padre'] != "") ? $row['padre']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						</dl>

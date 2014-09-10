@@ -190,7 +190,7 @@ if($count04 > '0'){include("modulos/absentismo.php");}
 
 
 // Comprobar mensajes de Padres
-$n_mensajesp="";
+$n_mensajesp = 0;
 if (isset($_GET['verifica_padres'])) {
 	$verifica_padres = $_GET['verifica_padres'];
 	 mysql_query("UPDATE mensajes SET recibidotutor = '1' WHERE id = $verifica_padres");
@@ -235,8 +235,17 @@ $origen = $men[4].", ".$men[3];
 echo "</ul>";
 echo "</div>";
 
+$n_mensajesp = 0;
 mysql_data_seek($men2,0);
 while($men = mysql_fetch_row($men2)) {
+$n_mensajesp=$n_mensajesp+1;
+$fechacompl = $men[0];
+$asunto = $men[1];
+$texto = $men[2];
+$nombre = $men[3];
+$apellidos = $men[4];
+$id = $men[5];
+$origen = $men[4].", ".$men[3];
 ?>
 <div class="modal fade" id="mensajep<? echo $n_mensajesp;?>">
   <div class="modal-dialog">
@@ -269,7 +278,7 @@ echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen=
 }
 
 // Comprobar mensajes de profesores
-$n_mensajes="";
+$n_mensajes = 0;
 if (isset($_GET['verifica'])) {
 	$verifica = $_GET['verifica'];
 	 mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
@@ -309,10 +318,20 @@ $origen = $origen0[1]." ".$origen0[0];
 echo "</ul>";
 echo "</div>";
 
+$n_mensajes = 0;
 mysql_data_seek($men2,0);
 while($men = mysql_fetch_row($men2)) {
+$n_mensajes+=1;
+$fechacompl = $men[0];
+$asunto = $men[1];
+$texto = $men[2];
+$pr = $men[3];
+$id = $men[4];
+$orig = $men[5];
+$origen0 = explode(", ",$men[5]);
+$origen = $origen0[1]." ".$origen0[0];
 ?>
-<div class="modal fade" id="mensaje<? echo $n_mensajes;?>">
+<div class="modal fade" id="mensaje<?php echo $n_mensajes;?>">
 
   <div class="modal-dialog">
     <div class="modal-content">
@@ -356,7 +375,7 @@ else {
 		<p class='lead'><i class='fa fa-bell'></i> Informes de Tutor&iacute;a activos por visita de padres</p><br>
 		
 		<p><?php echo date('d-m-Y'); ?>
-		<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > Pedro Pérez</a> -- 1B-A 
+		<a class='alert-link' data-toggle='modal' href='#' > Pedro Pérez</a> -- 1B-A 
 		<span class=' pull-right'>
 		<a href='#' class='alert-link' style='margin-right:10px'> <i class='fa fa-search fa-fw fa-lg' title='Ver informe'> </i></a>
 		<a href='#'  class='alert-link' style='margin-right:10px'> <i class='fa fa-pencil fa-fw fa-lg' title='Rellenar informe'> </i> </a>
