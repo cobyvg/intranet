@@ -33,7 +33,7 @@ if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = '
 class GranPDF extends FPDF {
 	function Header() {
 		$this->SetTextColor(0, 122, 61);
-		$this->Image( '../../../img/encabezado.jpg',25,14,53,'','jpg');
+		$this->Image( '../../img/encabezado.jpg',25,14,53,'','jpg');
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(75);
@@ -45,7 +45,7 @@ class GranPDF extends FPDF {
 	}
 	function Footer() {
 		$this->SetTextColor(0, 122, 61);
-		$this->Image( '../../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
+		$this->Image( '../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
 		$this->SetY(275);
 		$this->SetFont('ErasMDBT','',8);
 		$this->Cell(75);
