@@ -12,8 +12,8 @@ if ($_SESSION['autentificado'] != 1) {
 }
 if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'7') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE))
 {
-	header("location:http://$dominio/intranet/salir.php");
-	exit;
+header("location:http://$dominio/intranet/salir.php");
+exit;	
 }
 
 if($_SESSION['cambiar_clave']) {
@@ -91,6 +91,7 @@ INDEX (  `id_matriculas` )
 if (isset($_POST['cambios'])) {
 	include("../../menu.php");
 	include("menu.php");
+	echo "<br>";
 	mysql_query("drop table if exists matriculas_bach_temp");
 	mysql_query("CREATE TABLE if not exists `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
@@ -154,10 +155,11 @@ INDEX (  `id_matriculas` )
 if (isset($_POST['sin_matricula'])) {
 	include("../../menu.php");
 	include("menu.php");
+	echo "<br>";
 
-	$cur_monterroso = substr($curso, 0, 2);
+	$cur_monterroso = substr($curso, 0, 1);
 	
-	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from matriculas_bach) and nivel = '$cur_monterroso' order by unidad, apellidos, nombre");
+	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from matriculas_bach) and curso like '$cur_monterroso%' and curso like '%Bach%' order by unidad, apellidos, nombre");
 	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br />';
 			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysql_fetch_array($camb)) {
@@ -180,8 +182,21 @@ include("../../pie.php");
 }
 
 
+?>
+<script>
+function confirmacion() {
+	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar los datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
+<?
 include("../../menu.php");
-include("./menu.php");
+include("menu.php");
  	foreach($_POST as $key => $val)
 	{
 		${$key} = $val;
@@ -190,7 +205,7 @@ include("./menu.php");
 <div class="container">
 
 	<div class="page-header">
-		<h2>Matriculación de alumnos <small> Alumnos/as matriculados en Bachillerato</small></h2>
+	  <h2>Matriculación de alumnos <small> Alumnos/as matriculados en Bachillerato</small></h2>
 	</div>
 
 
@@ -215,7 +230,7 @@ echo "</div>";
 if (isset($_GET['borrar'])) {
 	mysql_query("insert into matriculas_bach_backup (select * from matriculas_bach where id = '$id')");
 	mysql_query("delete from matriculas_bach where id='$id'");
-	echo '<div align="center"><div class="alert alert-success alert-block fade in">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de respaldo de us datos en la tabla matriculas_bach_backup.
 </div></div><br />' ;
@@ -224,7 +239,7 @@ if (isset($_GET['copia'])) {
 	mysql_query("delete from matriculas_bach where id='$id'");
 	mysql_query("insert into matriculas_bach(select * from matriculas_bach_backup where id = '$id')");
 	mysql_query("delete from matriculas_bach_backup where id='$id'");
-	echo '<div align="center"><div class="alert alert-success alert-block fade in">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos originales de la matrícula del alumno han sido correctamente restaurados.
 </div></div><br />' ;
@@ -232,7 +247,7 @@ Los datos originales de la matrícula del alumno han sido correctamente restaurad
 if (isset($_GET['consulta']) or isset($_POST['consulta'])) {
 
 	if ($curso) {$extra=" curso='$curso' ";}else{
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No has seleccionado el Nivel. Así no podemos seguir...
@@ -254,7 +269,7 @@ if ($_POST['grupo_actua']) {
 	foreach ($_POST['grupo_actua'] as $grup_actua){
 		if($grup_actua=="Ninguno"){$extra.=" grupo_actual = '' or";}
 		else{
-			$extra.=" grupo_actual = '$grup_actua' or grupo_actual = '' or";
+			$extra.=" grupo_actual = '$grup_actua' or";
 		}
 	}
 	$extra = substr($extra,0,strlen($extra)-2);
@@ -272,8 +287,22 @@ if ($promocion=="SI") { $extra.=" and promociona = '1'";}
 if ($promocion=="NO") { $extra.=" and promociona = '2'";}
 if ($promocion=="3/4") { $extra.=" and promociona = '3'";}
 
+
+
+
 if (!($orden)) {
 	$orden=" ";
+		if (isset($_POST['op_orden'])) {
+			$op_filtro= $_POST['op_orden'];
+			if ($_POST['op_orden']=="optativas") {
+				$orden.="optativa1, optativa2, ";
+			}
+		else{
+				$orden.="$op_filtro, ";
+			}
+		}
+		
+		
 	if ($curso=="1BACH") {
 		// En Junio puede interesar ordenar por colegio
 		if (date('m')>'05' and date('m')<'09'){
@@ -294,13 +323,13 @@ if (!($orden)) {
 			$sql.=", optativa2b$i";
 		}
 	}
-	$sql.=", repite from matriculas_bach where ". $extra ." order by ". $orden ."curso, grupo_actual, apellidos, nombre ";
+	$sql.=", repite from matriculas_bach where ". $extra ." order by curso, ". $orden ." grupo_actual, apellidos, nombre ";
 	//echo $sql;
 	$cons = mysql_query($sql);
 
 	$n_cons = mysql_num_rows($cons);
 	if($n_cons=="0"){
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
+		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
@@ -324,6 +353,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	<tr>
 		<th colspan="2"></th>
 		<th>Nombre</th>
+		<th>Curso</th>
 		<th>Gr1</th>
 		<th>Gr2</th>
 		<?
@@ -391,8 +421,9 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if ($confirmado=="1") { echo " checked";}
 		echo ' onClick="submit()"/></td><td>'.$num_al.'</td>
 	<td><a href="matriculas_bach.php?id='. $id .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
+	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
-	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control"  size="1" value="'. $grupo_actual .'" /></td>';
+	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control input-sm" value="'. $grupo_actual .'" /></td>';
 		echo '<td>'. $colegio .'</td>';
 		$color_rel = "";
 		if (strstr($religion,"Cat")==TRUE) {
@@ -450,12 +481,12 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 					foreach ($tr_notas as $key_nota=>$val_nota) {
 						$num_ord+=1;
 					if ($n_curso == "1") {
-						if($key_nota == "1" and ($val_nota<'347' and $val_nota !=="339" and $val_nota !=="") or $val_nota == '397' ){
+						if($key_nota == "1" and ($val_nota<'347' or $val_nota == '397')  and $val_nota !=="" and $val_nota !=="339"){
 							$val_notas=$val_notas+1;
 						}
 						}
 					if ($n_curso == "2") {
-						if($key_nota == "1" and $val_nota<'427' and $val_nota !=="439" and $val_nota !==""){
+						if($key_nota == "1" and $val_nota<'427' or $val_nota =="439" or $val_nota ==""){
 							$val_notas=$val_notas+1;
 						}
 						}
@@ -465,8 +496,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 				elseif (date('m')=='09'){
 					$val_notas="";
 					if (empty($nota[1])) {}
-					else{
-					
+					else{					
 				$tr_not2 = explode(";", $nota[1]);
 				$num_ord1="";
 				foreach ($tr_not2 as $val_asig) {
@@ -474,13 +504,13 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 					foreach ($tr_notas as $key_nota=>$val_nota) {
 						$num_ord1+=1;
 					if ($n_curso == "1") {
-						if($key_nota == "1" and ($val_nota<'347' and $val_nota !=="339" and $val_nota !=="") or $val_nota == '397' ){
-							$val_notas=$val_notas+1;
-						}
+						if($key_nota == "1" and ($val_nota<'347' or $val_nota == '397')  and $val_nota !=="" and $val_nota !=="339"){
+							$val_notas++;
+						}						
 						}
 					if ($n_curso == "2") {
-						if($key_nota == "1" and $val_nota<'427' and $val_nota !=="439" and $val_nota !==""){
-							$val_notas=$val_notas+1;
+						if($key_nota == "1" and ($val_nota<'427' or $val_nota =="439") and $val_nota !==""){
+							$val_notas++;
 						}
 						}
 					}
@@ -583,7 +613,7 @@ $text_contr="";
 		if ($respaldo=='1') {
 			echo "&nbsp;".$backup;
 		}
-		echo "&nbsp;<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar' > </i></a>";
+		echo "&nbsp;<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
 		echo "</td>";
 echo "<td class='hidden-print'>";
 // Problemas de Convivencia
@@ -722,6 +752,10 @@ echo '</tr>';
 	}
 ?>
 	</div>
+	
+</div>
+</div>
+	
 	<? include("../../pie.php"); ?>
 
 </body>

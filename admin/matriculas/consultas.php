@@ -105,7 +105,7 @@ INDEX (  `id_matriculas` )
 	}
 	
 	$camb = mysql_query("select distinct id_matriculas from matriculas_temp");
-	echo '<h3 align="center">Alumnos de <span style="color:#08c">'.$curso.'</span> con datos cambiados.</h3><br /><br />';
+	echo '<br><h3 align="center">Alumnos de <span style="color:#08c">'.$curso.'</span> con datos cambiados.</h3><br /><br />';
 		echo "<div class='well well-large' style='width:520px;margin:auto;'>";
 	while ($cam = mysql_fetch_array($camb)) {
 		$id_cambios = $cam[0];
@@ -136,10 +136,10 @@ exit();
 	}
 	
 
-
 if (isset($_POST['sin_matricula'])) {
 	include("../../menu.php");
 	include("menu.php");
+	echo "<br>";
 if ($curso=="4ESO") {
 	$tabla ='matriculas_bach';
 }
@@ -148,22 +148,15 @@ else{
 }
 if ($curso=="1ESO") {
 	$tabla_origen='alma_primaria';
-	$cur_monterroso = "6P";
+	$cur_cole = "6";
+	$cur_monterroso = substr($curso, 0, 1);
 	$cole_nene = ", colegio";
 	$cole_order = "colegio,";
-	
 	$tabla_origen2='alma';
-	$cur_monterroso2 = "1E";
-}
-else{
-	$tabla_origen = 'alma';
-	$cur_monterroso = substr($curso, 0, 2);
-	$cole_nene = "";
-	$cole_order = "";
-}
-
 	
-	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha $cole_nene from $tabla_origen where claveal not in (select claveal from $tabla) and nivel = '$cur_monterroso' order by $cole_order unidad, apellidos, nombre");
+	$query2 = "select distinct alma_primaria.apellidos, alma_primaria.nombre, alma_primaria.unidad, alma_primaria.telefono, alma_primaria.telefonourgencia, alma_primaria.fecha from alma_primaria, matriculas where alma_primaria.claveal=matriculas.claveal and (confirmado not like '1') order by alma_primaria.unidad, alma_primaria.apellidos, alma_primaria.nombre";
+		
+	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha $cole_nene from $tabla_origen where claveal not in (select claveal from $tabla) and curso like '$cur_cole%' order by $cole_order unidad, apellidos, nombre");
 	
 	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de Colegios de Primaria.</h3><br />';
 			echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
@@ -173,9 +166,18 @@ else{
 		
 }
 echo "</ul></div><br />";
-
+}
+else{
+	$tabla_origen = 'alma';
+	$tabla_origen2 = 'alma';
+	$cur_monterroso = substr($curso, 0, 1);
+	$cole_nene = "";
+	$cole_order = "";
+	$query2 = "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.telefono, alma.telefonourgencia, alma.fecha from alma, matriculas where alma.claveal=matriculas.claveal  and alma.curso like '$cur_monterroso%' and alma.curso like '%E.S.O.' and confirmado not like '1' order by unidad, apellidos, nombre";
+}
 	
-	$camb2 = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from $tabla_origen2 where claveal not in (select claveal from $tabla) and nivel = '$cur_monterroso2' order by unidad, apellidos, nombre");
+	$camb2 = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from $tabla_origen2 where claveal not in (select claveal from $tabla) and curso like '$cur_monterroso%' and curso like '%E.S.O.' order by unidad, apellidos, nombre");
+	
 	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de nuestro Centro.</h3><br />';
 			echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysql_fetch_array($camb2)) {
@@ -185,8 +187,7 @@ echo "</ul></div><br />";
 }
 echo "</ul></div><br />";
 
-
-	$canf = mysql_query("select distinct alma.apellidos, alma.nombre, alma.unidad, alma.telefono, alma.telefonourgencia, alma.fecha from alma, matriculas where alma.claveal=matriculas.claveal  and alma.nivel = '$cur_monterroso' and confirmado = '0' order by unidad, apellidos, nombre");
+	$canf = mysql_query($query2);	
 	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
 			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysql_fetch_array($canf)) {
@@ -198,7 +199,8 @@ echo "</ul></div>";
 exit();
 	}
 	
-
+?>
+  <? 
  include("../../menu.php");
  include("./menu.php");
  
@@ -212,32 +214,33 @@ exit();
 	<div class="page-header">
 	  <h2>Matriculación de alumnos <small> Alumnos/as matriculados en ESO</small></h2>
 	</div>
+<br>
 
-<?php include('filtro.php'); ?>
-
-<?php
-
+<? 
+echo '<div  class="hdden-print">';
+include 'filtro.php';
+echo "</div>";
 if (isset($_GET['borrar'])) {
 	mysql_query("insert into matriculas_backup (select * from matriculas where id = '$id')");
 	mysql_query("delete from matriculas where id='$id'");
-	echo '<div class="alert alert-success alert-block fade in"">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de respaldo de us datos en la tabla matriculas_backup.
-</div><br />' ;
+</div></div><br />' ;
 }
 if (isset($_GET['copia'])) {
 	mysql_query("delete from matriculas where id='$id'");
 	mysql_query("insert into matriculas (select * from matriculas_backup where id = '$id')");
 	mysql_query("delete from matriculas_backup where id='$id'");
-	echo '<div class="alert alert-success alert-block fade in"">
+	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos originales de la matrícula del alumno han sido correctamente restaurados.
-</div><br />' ;
+</div></div><br />' ;
 }
 if (isset($_GET['consulta']) or isset($_POST['consulta'])) {
 
 	if ($curso) {$extra=" curso='$curso' ";}else{
-		echo '<div class="alert alert-danger alert-block fade in"">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No has seleccionado el Nivel. Así no podemos seguir...
@@ -282,6 +285,19 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	if (strlen($nombr)>1) {$extra.=" and nombre like '%$nombr%'";}
 	if (!($orden)) {
 		$orden=" ";
+		if (isset($_POST['op_orden'])) {
+			$op_filtro= $_POST['op_orden'];
+			if ($_POST['op_orden']=="optativas") {
+				$orden.="optativa1, optativa2, optativa3, optativa4, optativa5, optativa6, optativa7, ";
+			}
+			elseif ($_POST['op_orden']=="actividades") {
+				$orden.="act1, act2, act3, act4, ";
+			}
+		else{
+				$orden.="$op_filtro, ";
+			}
+		}
+		
 		if ($curso=="1ESO") {
 			// En Junio puede interesar ordenar por colegio
 			if (date('m')>'05' and date('m')<'09'){
@@ -315,15 +331,15 @@ for ($i=1;$i<$num_opt+1;$i++)
 			$sql.=", optativa$i";		
 		}
 
-$sql.=" from matriculas where ". $extra ." order by ". $orden ."curso, grupo_actual, apellidos, nombre ";
+$sql.=" from matriculas where ". $extra ." order by curso, ". $orden ." grupo_actual, apellidos, nombre ";
 //echo $sql;
 $cons = mysql_query($sql);
-if(isset($_POST['consulta']) && mysql_num_rows($cons) < 1){
-	echo '<div class="alert alert-warning alert-block fade in"">
+if(mysql_num_rows($cons) < 1){
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
-</div><br />' ;
+</div></div><br />' ;
 }
 else{
 if ($curso) {
@@ -336,16 +352,14 @@ if ($curso) {
 	} else{ echo $curso;}?></h3><br />
 <form action="consultas.php?curso=<? echo $curso;?>&consulta=1" name="form1" method="post">
 <table class="table table-striped table-condensed" align="center" style="width:auto">
-<thead><th colspan="2"></th><th>Nombre</th><th>Gr1</th><th>Gr2</th>
+<thead><th colspan="2"></th><th>Nombre</th><th>Curso</th><th>Gr1</th><th>Gr2</th>
 <?
 if ($curso=="1ESO") {
 echo '<th>Colegio</th>';
 		}
 echo '<th>Rel.</th>';
 echo '<th>Transporte</th>';
-
 echo '<th>Bil.</th>';
-		
 		if ($n_curso<3) {
 echo '<th>Ex.</th>';
 		}
@@ -364,16 +378,16 @@ echo '<th>Act.</th>';
 		}	
 ?>
 
-<th class="hidden-print">Opciones</th>
+<th class="hdden-print">Opciones</th>
 <?
 		if ($n_curso>1) {
-echo '<th class="hidden-print">SI |PIL |NO </th>';
+echo '<th class="hdden-print">SI |PIL |NO </th>';
 		}	
-		echo '<th class="hidden-print">Rev.</th>';
-		echo '<th class="hidden-print">Copia</th>';
-		echo '<th class="hidden-print">Borrar</th>';
+		echo '<th class="hdden-print">Rev.</th>';
+		echo '<th class="hdden-print">Copia</th>';
+		echo '<th class="hdden-print">Borrar</th>';
 ?>
-<th class="hidden-print">Conv.</th>
+<th class="hdden-print">Conv.</th>
 </thead>
 <tbody>
 <?
@@ -439,8 +453,9 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if ($confirmado=="1") { echo " checked";}
 	echo ' onClick="submit()"/></td><td>'.$num_al.'</td>
 	<td><a href="matriculas.php?id='. $id .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
+	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
-	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control" value="'. $grupo_actual .'" size="1"></td>';
+	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control input-sm" value="'. $grupo_actual .'" /></td>';
 	if ($curso=="1ESO") {
 		echo '<td>'. $colegio .'</td>';
 		}
@@ -460,7 +475,7 @@ echo '<td><input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
  if($bilinguismo=="Si"){echo " checked";} 
  echo ' /></td>';
 
-		if ($n_curso<3) {
+ if ($n_curso<3) {
 			 if ($exencion=="0") {$exencion="";}
 echo '<td><input name="exencion-'. $id .'" type="checkbox" value="1"';
  if($exencion=="1"){echo " checked";} 
@@ -489,9 +504,9 @@ for ($i=1;$i<$num_opt+1;$i++)
 		if ($act1==0) {
 			$act1="";
 		}
-echo '<td><input name="act1-'. $id .'" type="text" class="form-control" value="'. $act1 .'" size="1"></td>';
+echo '<td><input name="act1-'. $id .'" type="text" class="form-control input-sm" value="'. $act1 .'" /></td>';
 		}	
-	echo '<td class="hidden-print">';
+	echo '<td class="hdden-print">';
 	if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
 	$contr = mysql_query("select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id'");
 	$control = mysql_fetch_array($contr);
@@ -518,7 +533,7 @@ for ($i = 0; $i < 16; $i++) {
 	
 	// Promocionan o no
 	if ($n_curso>1) {
-		echo "<td style='background-color:#efeefd' class='hidden-print' nowrap>";
+		echo "<td style='background-color:#efeefd' class='hdden-print' nowrap>";
 		if (!($promociona =='') and !($promociona == '0')) {
 		for ($i=1;$i<4;$i++){	
 		echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'"';
@@ -578,17 +593,17 @@ for ($i = 0; $i < 16; $i++) {
 	}
 	echo "</td>";
 	}
-echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
+echo '<td class="hdden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
  if($revisado=="1"){echo " checked";} 
  echo ' /></td>';
- echo "<td class='hidden-print'>";
+ echo "<td class='hdden-print'>";
  if ($respaldo=='1') { 
  	echo $backup;
  }
- echo "</td><td class='hidden-print'>";
- echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar' > </i></a>";
+ echo "</td><td class='hdden-print'>";
+ echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
  echo "</td>";
-echo "<td class='hidden-print'>";
+echo "<td class='hdden-print'>";
 // Problemas de Convivencia
 if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-important'>$n_fechorias</span></a>";}
 elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-warning'>$n_fechorias</span></a>";}
@@ -603,10 +618,13 @@ echo "</td>";
 echo "</table>";
 echo "<div align='center'>
 <input type='hidden' name='extra' value='$extra' />
-<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hidden-print' /><br><br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hidden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hidden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hidden-print' />";
-if(count($grupo_actua)=='1'){ echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hidden-print' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />";} 
+<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' /><br><br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hdden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hdden-print' />";
+
+if(count($grupo_actua)=='1'){ 
+	echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hdden-print' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hdden-print' />";
+	} 
 echo "</div></form>";
-//echo count($grupo_actua);
+echo count($grupo_actua);
 ?>
 <?
 if ($curso) {
@@ -622,6 +640,7 @@ for ($i=1;$i<$num_acti+1;$i++){
 }
 }
 $rel = mysql_query("select religion from matriculas where $extra and religion like '%Católica%'");
+
 //echo "select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like 'Rel%'";
 $num_rel = mysql_num_rows($rel);
 //echo $num_rel;
@@ -702,7 +721,7 @@ echo "<td>$num_repit</td>";
 ?>
 
 <br />
-<table class="table table-striped table-bordered hidden-print" align="center" style="width:auto"><tr>
+<table class="table table-striped table-bordered hdden-print" align="center" style="width:auto"><tr>
 <td>
 <?
 if ($curso=="4ESO") {
@@ -731,7 +750,7 @@ echo substr($nom_opt,0,-2);
 </td></tr></table>
 <?
 if ($n_curso<3){
-	echo '<table class="table table-striped table-bordered hidden-print" align="center" style="width:auto"><tr>
+	echo '<table class="table table-striped table-bordered hdden-print" align="center" style="width:auto"><tr>
 <td>';
 	foreach (${a.$n_curso} as $nombre_a => $valora){
 	$nombre_act=$nombre_a+1;

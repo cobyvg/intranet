@@ -166,8 +166,8 @@ if (stristr ( $carg, '2' ) == TRUE) {
 		
 	  steps: [
 	  {
-	    title: "<h1>Bienvenido a la Intranet</h1>",
-	    content: "<p class='lead'>Antes de comenzar, realice un tour por la portada de la Intranet para conocer las características de los módulos que la componen y la información de la que dispone.</p><p>Haga click en <strong>Siguiente</strong> para continuar o haga click en <strong>Omitir</strong> para saltarse el tour.",
+	    title: "<h2>Bienvenido a la Intranet</h2>",
+	    content: "<p class='lead'>Antes de comenzar, realiza un tour por la portada de la Intranet para conocer las características de los módulos que la componen y la información de la que dispone.</p><p>Haz click en <strong>Siguiente</strong> para continuar o haz click en <strong>Omitir</strong> para saltarse el tour.",
 	    container: "body",
 	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-default btn-sm' data-role='end'>Omitir</button></div></div>",
 	    orphan: true,
@@ -176,7 +176,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	  {
 	    element: "#bs-tour-usermenu",
 	    title: "Menú de usuario",
-	    content: "Desde este menú podrás volver a cambiar la contraseña, correo electrónico y la fotografía.",
+	    content: "Desde este menú podrás volver a cambiar la contraseña, correo electrónico y fotografía.",
 	    container: "body",
 	    placement: "bottom",
 	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
@@ -203,7 +203,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	  {
 	    element: "#bs-tour-menulateral",
 	    title: "Menú de opciones",
-	    content: "Según tu perfil de trabajo tendrás un menú con las opciones que necesitas en tu día a día.<br>Desde el menú <strong>Consultas</strong> tendrás acceso a la información de los alumnos, horarios, estadísticas y fondos de la Biblioteca del centro.<br>El menú <strong>Trabajo</strong> contiene las acciones de registro de Problemas de Convivencia, Faltas de Asistencia, Informes de tareas, Informes de tutoría, Reservas de aulas y medios audiovisuales, Actividades evaluables, etc.<br>El menú <strong>Departamento</strong> contiene las opciones necesarias para la gestión de tu departamento.<br>Y por último, <strong>Páginas de interes</strong> contiene enlaces a páginas externas de información y recursos educativos.",
+	    content: "Según tu perfil de trabajo tendrás un menú con las opciones que necesitas en tu día a día.<br>Desde el menú <strong>Consultas</strong> tendrás acceso a la información de los alumnos, horarios, estadísticas y fondos de la Biblioteca del centro.<br>El menú <strong>Trabajo</strong> contiene las acciones de registro de Problemas de Convivencia, Faltas de Asistencia, Informes de tareas, Informes de tutoría, Reservas de aulas y medios audiovisuales, Ausencias, etc.<br>El menú <strong>Departamento</strong> contiene las opciones necesarias para la gestión de tu departamento.<br>Y por último, <strong>Páginas de interes</strong> contiene enlaces a páginas externas de información y recursos educativos.",
 	    container: "body",
 	    placement: "right",
 	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
@@ -212,7 +212,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	  {
 	    element: "#bs-tour-ausencias",
 	    title: "Profesores de baja",
-	    content: "Este módulo ofrece información sobre los profesores que están de baja en el día. Si el profesor ha indicado tareas para los alumnos aparecerá marcado con el icono chequeado. Para registrar una ausencia debe dirigirse al menú <strong>Trabajo</strong>, <strong>Profesores ausentes</strong>.",
+	    content: "Este módulo ofrece información sobre los profesores ausentes en el día. Si el profesor ha registrado tareas para los alumnos aparecerá marcado con el icono chequeado. Para registrar una ausencia debes dirigirte al menú <strong>Trabajo</strong>, <strong>Profesores ausentes</strong>.",
 	    container: "body",
 	    placement: "right",
 	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
@@ -230,7 +230,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	  {
 	    element: "#bs-tour-pendientes",
 	    title: "Tareas pendientes",
-	    content: "Aquí aparecerán los avisos de tareas pendientes que tienes pendientes por realizar.",
+	    content: "Aquí aparecerán los avisos de tareas pendientes que debes realizar.",
 	    container: "body",
 	    placement: "bottom",
 	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
@@ -248,7 +248,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	  {
 	    element: "#bs-tour-calendario",
 	    title: "Calendario del centro y Calendario personal",
-	    content: "En la parte inferior del calendario aparecerá las actividades de los próximos 7 días. Si el texto está marcado en color naranja quiere decir que dicha actividad afecta a su horario. También aparecerá su <em>Calendario personal</em> con aquellas actividades evaluables que haya registrado desde el menú <strong>Trabajo</strong>, <strong>Actividades evaluables</strong>.",
+	    content: "En la parte inferior del calendario aparecerán las actividades de los próximos 7 días. Si el texto está marcado en color naranja quiere decir que dicha actividad afecta a tu horario. También aparecerá tu <em>Calendario personal</em> con aquellas actividades evaluables que hayas registrado desde el menú <strong>Trabajo</strong>, <strong>Actividades evaluables</strong>.",
 	    container: "body",
 	    placement: "left",
 	    <?php if($mod_horario and ($n_curso > 0)): ?>
@@ -262,7 +262,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	  {
 	    element: "#bs-tour-horario",
 	    title: "Horario y cuaderno de notas",
-	    content: "Por último, el horario contiene enlaces para acceder al <strong>Cuaderno de notas</strong> si se trata de una unidad o a la <strong>Gestión de guardias</strong>.",
+	    content: "Por último, el horario contiene enlaces para acceder al <strong>Cuaderno de notas</strong> o a la <strong>Gestión de guardias</strong> si se trata de un grupo de alumnos o de una guardia (GU).",
 	    container: "body",
 	    placement: "left",
 	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-primary btn-sm' data-role='end'>Entendido</button></div></div>",

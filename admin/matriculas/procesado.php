@@ -37,6 +37,7 @@
 			}
 			
 			mysql_query("update matriculas set $col = '$val' where id = '$id_submit'");
+			//echo "update matriculas set $col = '$val' where id = '$id_submit'<br>";
 			mysql_query("update matriculas set confirmado = '' where id = '$id_submit'");
 			mysql_query("update matriculas set exencion = '' where id = '$id_submit'");
 			mysql_query("update matriculas set bilinguismo = '' where id = '$id_submit'");
