@@ -162,7 +162,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		</div>
 	</footer>
 	
-  <script src="http://<? echo $dominio;?>/intranet/js/jquery.js"></script>  
+  <script src="http://<? echo $dominio;?>/intranet/js/jquery-1.11.1.min.js"></script>  
   <script src="http://<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>
   
   <?php if($msg_error): ?>
