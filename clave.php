@@ -15,7 +15,7 @@ $pr = $_SESSION['profi'] ;
 
 
 function validarContrasena($contrasena) {
-	$result = preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]).{8,12})", $contrasena);
+	$result = preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]).{8,12})", $contrasena);
 	
 	return $result;
 }
@@ -155,7 +155,7 @@ include("menu.php");
 							
 							<div class="form-group">
 							  <div class="col-sm-8 col-sm-offset-4">
-							    <button type="submit" class="btn btn-primary" name="submit" onclick="validatePass(document.form.codigo2)">Cambiar la contraseña</button>
+							    <button type="submit" class="btn btn-primary" name="submit">Cambiar la contraseña</button>
 							  </div>
 							</div>
 						</fieldset>
