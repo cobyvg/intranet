@@ -339,7 +339,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		if ($curso) {
 			//$n_cons = mysql_num_rows($cons);
 			?>
-<h3><? if($_POST['grupo_actua']){ 
+<h3 align=center><? if($_POST['grupo_actua']){ 
 	echo $curso." ";
 	foreach ($_POST['grupo_actua'] as $grup_actua){
 		echo $grup_actua." ";
@@ -423,7 +423,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 	<td><a href="matriculas_bach.php?id='. $id .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
 	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
-	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control input-sm" value="'. $grupo_actual .'" /></td>';
+	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control input-sm" style="width:35px" value="'. $grupo_actual .'" /></td>';
 		echo '<td>'. $colegio .'</td>';
 		$color_rel = "";
 		if (strstr($religion,"Cat")==TRUE) {

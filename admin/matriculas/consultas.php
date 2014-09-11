@@ -344,7 +344,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 else{
 if ($curso) {
 ?>
-<h3><? if($_POST['grupo_actua']){ 
+<h3 align=center><? if($_POST['grupo_actua']){ 
 	echo $curso." ";
 	foreach ($_POST['grupo_actua'] as $grup_actua){
 			echo $grup_actua." ";
@@ -455,7 +455,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 	<td><a href="matriculas.php?id='. $id .'" target="_blank">'.$apellidos.', '.$nombre.'</a></td>
 	<td>'.$curso.'</td>
 	<td>'.$letra_grupo.'</td>
-	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control input-sm" value="'. $grupo_actual .'" /></td>';
+	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control input-sm" style="width:35px" value="'. $grupo_actual .'" /></td>';
 	if ($curso=="1ESO") {
 		echo '<td>'. $colegio .'</td>';
 		}
@@ -504,7 +504,7 @@ for ($i=1;$i<$num_opt+1;$i++)
 		if ($act1==0) {
 			$act1="";
 		}
-echo '<td><input name="act1-'. $id .'" type="text" class="form-control input-sm" value="'. $act1 .'" /></td>';
+echo '<td><input name="act1-'. $id .'" type="text" class="form-control input-sm" style="width:35px" value="'. $act1 .'" /></td>';
 		}	
 	echo '<td class="hdden-print">';
 	if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
@@ -633,7 +633,7 @@ if ($curso=="1ESO" OR $curso=="2ESO"){
 	$exen = mysql_query("select exencion from matriculas where $extra and exencion ='1'");
 	$num_exen = mysql_num_rows($exen);
 	
-if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "4";}
+if ($curso=="1ESO" or $curso=="2ESO"){$num_acti = "5";}else{$num_acti = "4";}
 for ($i=1;$i<$num_acti+1;$i++){
 	${acti.$i} = mysql_query("select act1 from matriculas where $extra and act1 = '$i'");
 	${num_act.$i} = mysql_num_rows(${acti.$i});

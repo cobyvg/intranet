@@ -1000,6 +1000,7 @@ exit();
 			<td class="text-center">
 			<div class="radio"><label> <input type="radio"
 				id="itinerario<?php echo $i; ?>" name="itinerario"
+				<? if($itinerario == $i){echo " checked";} ?>
 				value="<?php echo $i; ?>"> <span class="text-uppercase"><strong>Itinerario
 				<?php echo $i; ?></strong></span><br>
 			<small class="text-info"><?php echo ${it4.$i}[0]; ?></small> </label>
@@ -1045,7 +1046,11 @@ exit();
 				class="form-control itinerario<?php echo $i; ?>"
 				id="<?php echo $optit_1; ?>" name="<?php echo $optit_1; ?>"
 				<?php echo ($itinerario != $i) ? 'disabled' : ''; ?>>
-				<option value=""></option>
+				<? 					echo '<option>';
+					if ($itinerario == $i) {
+						echo ${optativa.$num1};
+					}
+					echo '</option>'; ?>
 				<?php for($z = 1; $z <= $num_it; $z++): ?>
 				<option value="<?php echo $z; ?>"
 				<?php echo ($optit_1 == $z) ? 'selected' : '' ; ?>><?php echo $z; ?></option>
