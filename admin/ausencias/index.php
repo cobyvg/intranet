@@ -62,7 +62,7 @@ if ($borrar == '1') {
 	Los datos se han borrado correctamente.
 </div>';
 }
-if ($submit2) {
+if (isset($_POST['submit2'])) {
 	// Cambiamos fecha
 	$fech1=explode("-",$inicio);
 	$fech2=explode("-",$fin);
@@ -122,7 +122,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 			
 			<div class="well well-large">
 
-			<form method="post" action="" enctype="multipart/form-data" name="f1">
+			<form method="post" action="" enctype="multipart/form-data">
 				
 				<div class="form-group">
 					<label for="profesor">Profesor/a</label>
