@@ -484,7 +484,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/ausencias/index.php',
-				'titulo' => 'Profesores ausentes',
+				'titulo' => 'Registrar ausencia',
 				'ncargos' => array('1', '6', '7'),
 			),
 		),

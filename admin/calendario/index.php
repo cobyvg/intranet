@@ -163,7 +163,6 @@ if ($create_emptys != 0) {
 }
 
 echo "</tr></table>";
-echo "<div class='well well-sm'>";
 
 
 $mes = date ( 'm' );
@@ -187,7 +186,7 @@ $sql_diario.=") and date(fecha) >= '$rango0' and date(fecha) <= '$rango8' and ca
 
 $diari = mysql_query($sql_diario);
 if (mysql_num_rows ( $diari ) > 0){
-	echo "<h4>Calendario personal</h4>";
+	echo "<h4><i class='fa fa-user'> </i> Calendario personal</h4>";
 	echo "<div class=\"list-group\">";
 	while ( $diar = mysql_fetch_array ( $diari ) ) {
 		$n_reg+=1;
@@ -214,7 +213,7 @@ if (mysql_num_rows ( $result ) > 0) {
 	$string1 = substr ( $string1, 0, (strlen ( $string1 ) - 1) );
 	$count = "";
 	
-	echo "<h4>Calendario del centro</h4>";
+	echo "<h4><i class='fa fa-bank'> </i> Calendario del centro</h4>";
 	echo "<div class=\"list-group\">";
 	while ( $row = mysql_fetch_array ( $result ) ) {
 		$color="";
@@ -258,7 +257,6 @@ if (mysql_num_rows ( $result ) > 0) {
 	}
 	echo "</div>";
 }
-	echo "</div>";
 
 ?>
 	<a class="btn btn-primary btn-sm" href="admin/calendario/eventos/index.php"><?php echo (stristr($carg, '1') == TRUE) ? 'Añadir al calendario' : 'Ver calendario'; ?></a>

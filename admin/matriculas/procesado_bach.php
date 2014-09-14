@@ -32,11 +32,11 @@
 				}				
 				}
 				elseif($curso == "1BACH"){
-				//	echo "Tarari que te vi";
 				$a_bd = substr($curso_actual,0,4);
 				mysql_query("insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
+				echo "insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'<br>";
 				$ret_4 = mysql_query("select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'");
-				//echo "select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'";
+				echo "select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'<br>";
 				$ret = mysql_fetch_array($ret_4);
 				$sql="";				
 				$sql = "insert into matriculas VALUES (''";
@@ -44,9 +44,10 @@
 					$sql.=", '$ret[$i]'";
 				}
 				$sql.=")";
-				//echo $sql."<br>";
+				echo $sql."<br>";
 				$n_afect = mysql_query($sql);
 				mysql_query("delete from matriculas_bach where id='$id_submit'");
+				echo "delete from matriculas_bach where id='$id_submit'<br>";
 				}
 				}
 				}

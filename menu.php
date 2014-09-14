@@ -141,9 +141,9 @@ mysql_free_result($result_mensajes);
 		<?php endwhile; ?>
 		<?php mysql_free_result($result_mensajes); ?>
 		<?php endif; ?>
-		<li><a class="text-center"
-			href="http://<?php echo $dominio; ?>/intranet/admin/mensajes/"><strong>Ver
-		todos los mensajes <span class="fa fa-angle-right"></span></strong></a></li>
+		<a class="btn btn-default btn-block"
+			href="http://<?php echo $dominio; ?>/intranet/admin/mensajes/">Ver
+		todos los mensajes <span class="fa fa-angle-right"></span></a>
 	</ul>
 	</li>
 

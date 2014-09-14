@@ -197,10 +197,17 @@ return false;
 <?
 include("../../menu.php");
 include("menu.php");
- 	foreach($_POST as $key => $val)
+ 	
+foreach($_POST as $key => $val)
 	{
 		${$key} = $val;
 	}
+	
+foreach($_GET as $key_get => $val_get)
+	{
+		${$key_get} = $val_get;
+	}
+	
 ?>
 <div class="container">
 
@@ -236,7 +243,14 @@ El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de r
 </div></div><br />' ;
 }
 if (isset($_GET['copia'])) {
+	
+	if ($curso=="4ESO") {
+	mysql_query("delete from matriculas where id='$id_4'");
+	$curso="1BACH";
+	}
+	else{
 	mysql_query("delete from matriculas_bach where id='$id'");
+	}
 	mysql_query("insert into matriculas_bach(select * from matriculas_bach_backup where id = '$id')");
 	mysql_query("delete from matriculas_bach_backup where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
@@ -627,8 +641,16 @@ echo '</tr>';
 	}
 	echo "</table>";
 	echo "<div align='center'><br />
-<input type='hidden' name='extra' value='$extra' />
--<input type='submit' name='enviar' value='Enviar datos' class='btn btn-danger btn-large hidden-print' /><br><br>
+<input type='hidden' name='extra' value='$extra' />";
+		  // Control del envío de datos
+  $mes_submit = date('m');
+  $junio = mysql_query("SELECT notas3 FROM notas WHERE notas3 !=  ''");
+  $septiembre = mysql_query("SELECT notas4 FROM notas WHERE notas4 !=  ''");
+if (($mes_submit>5 and $mes_submit<10) and (mysql_num_rows($junio)>0 or mysql_num_rows($septiembre)>0)) {
+	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion()' /><br>";
+}
+	
+echo "<br>
 <input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' />&nbsp;&nbsp;
 <input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hidden-print' />&nbsp;&nbsp;
 <input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hidden-print' />&nbsp;&nbsp;
@@ -757,6 +779,41 @@ echo '</tr>';
 </div>
 	
 	<? include("../../pie.php"); ?>
+  <?
+  // Control del envío de datos
 
+  if (($mes_submit>5 and $mes_submit<9) and mysql_num_rows($junio)>0) {
+?>
+ <script type="text/javascript">
+function confirmacion() {
+	var answer = confirm("ATENCIÓN\n Estás a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÖN ORDINARIA. Los alumnos que cumplen con los criterios de Promoción propios de su Nivel han sido marcados en la columna <<SI-NO-3/4>>.\n El resto de los alumnos serán procesados tras la Evaluación Extraordinaria de Septiembre.\n Si estás seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
+<?
+  }
+  elseif ($mes_submit=="9" and mysql_num_rows($septiembre)>0) {
+?>
+ <script type="text/javascript">
+function confirmacion() {
+	var answer = confirm("ATENCIÓN\n Estás a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÖN EXTRAORDINARIA. Todos los alumnos han sido marcados en la columna <<SI/NO/PIL>> de acuerdo a los criterios regulares de promoción.\n ES MUY IMPORTANTE que marques con un SÍ aquellos alumnos que promocionan a 1º de Bachillerato por decisión del Equipo Educativo a pesar de que no cumplen con los criterios regulares de promoción.\n Por motivos de seguridad, se va acrear una copia de respaldo de los datos originales de la matrícula de aquellos alumnos que NO promocionan. Estos datos pueden ser recuperados en todo momento pulsando el botón <<Restaurar>>.\n Si estás seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
+	if (answer){
+return true;
+	}
+	else{
+return false;
+	}
+}
+</script>
+<?
+  	  }
+  
+  ?>
+ 
 </body>
 </html>
