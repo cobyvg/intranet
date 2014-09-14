@@ -45,8 +45,8 @@ include("../../menu.php");
 <br />
 <?
 
-$profes_tot = mysql_query("select distinct prof from horw");
-$profes_total = mysql_num_rows($profes_tot);
+$profes_tot = mysqli_query($db_con, "select distinct prof from horw");
+$profes_total = mysqli_num_rows($profes_tot);
 
 $sql = "SELECT DISTINCT prof, COUNT( * ) AS num
 FROM  `horw` 
@@ -94,20 +94,20 @@ Profesor
 </th>
 </thead>
 <?
-$query = mysql_query($sql);
-while ($arr = mysql_fetch_array($query)) {
+$query = mysqli_query($db_con, $sql);
+while ($arr = mysqli_fetch_array($query)) {
 	
 	$bibl="";
 	$convi=""; 
 	$recr="";	
 	
-	$biblio = mysql_query("select * from horw where prof = '$arr[0]' and a_asig like 'GUB%'");
-	$conviven = mysql_query("select * from horw where prof = '$arr[0]' and a_asig like 'GUC%'");
-	$recreo = mysql_query("select * from recreo where profesor = '$arr[0]'");
+	$biblio = mysqli_query($db_con, "select * from horw where prof = '$arr[0]' and a_asig like 'GUB%'");
+	$conviven = mysqli_query($db_con, "select * from horw where prof = '$arr[0]' and a_asig like 'GUC%'");
+	$recreo = mysqli_query($db_con, "select * from recreo where profesor = '$arr[0]'");
 	
-	if (mysql_num_rows($biblio)>0) { $bibl =  "<span class='text-success' style='font-size:18px'>*</span>";}
-	if (mysql_num_rows($conviven)>0) {$convi =  "<span class='text-warning' style='font-size:18px'>*</span>";}
-	if (mysql_num_rows($recreo)>0) { $recr =  "<span class='text-info' style='font-size:18px'>*</span>";}
+	if (mysqli_num_rows($biblio)>0) { $bibl =  "<span class='text-success' style='font-size:18px'>*</span>";}
+	if (mysqli_num_rows($conviven)>0) {$convi =  "<span class='text-warning' style='font-size:18px'>*</span>";}
+	if (mysqli_num_rows($recreo)>0) { $recr =  "<span class='text-info' style='font-size:18px'>*</span>";}
 	
 	echo "<tr><td>$arr[0]</td><td>$arr[1]  $bibl $convi $recr</td></tr>";
 	$num_gu+=$arr[1];
@@ -136,8 +136,8 @@ Profesor
 </th>
 </thead>
 <?
-$query_bib = mysql_query($sql_bib);
-while ($arr_bib = mysql_fetch_array($query_bib)) {
+$query_bib = mysqli_query($db_con, $sql_bib);
+while ($arr_bib = mysqli_fetch_array($query_bib)) {
 	
 	echo "<tr><td>$arr_bib[0]</td><td>$arr_bib[1]</td></tr>";
 }
@@ -156,8 +156,8 @@ Profesor
 </th>
 </thead>
 <?
-$query_conv = mysql_query($sql_conv);
-while ($arr_conv = mysql_fetch_array($query_conv)) {
+$query_conv = mysqli_query($db_con, $sql_conv);
+while ($arr_conv = mysqli_fetch_array($query_conv)) {
 	echo "<tr><td>$arr_conv[0]</td><td>$arr_conv[1]</td></tr>";
 }
 echo "</table>";
@@ -176,8 +176,8 @@ Profesor
 </th>
 </thead>
 <?
-$query_rec = mysql_query($sql_rec);
-while ($arr_rec = mysql_fetch_array($query_rec)) {
+$query_rec = mysqli_query($db_con, $sql_rec);
+while ($arr_rec = mysqli_fetch_array($query_rec)) {
 	echo "<tr><td>$arr_rec[0]</td><td>$arr_rec[1]</td></tr>";
 }
 echo "</table>";
@@ -200,13 +200,13 @@ Profesor
 </th>
 </thead>
 <?
-$query_reg = mysql_query($sql_reg);
-while ($arr_reg = mysql_fetch_array($query_reg)) {
+$query_reg = mysqli_query($db_con, $sql_reg);
+while ($arr_reg = mysqli_fetch_array($query_reg)) {
 	
-$sql1 = mysql_query("SELECT prof
+$sql1 = mysqli_query($db_con, "SELECT prof
 FROM  `horw` 
 WHERE a_asig = 'GU' and prof = '$arr_reg[0]'");
-$num_gu = mysql_num_rows($sql1);	
+$num_gu = mysqli_num_rows($sql1);	
 
 echo "<tr><td>$arr_reg[0]</td><td nowrap>$arr_reg[1] </td><td nowrap class='muted'>$num_gu</td></tr>";
 

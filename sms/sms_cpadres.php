@@ -42,8 +42,8 @@ if ($mod_sms) {
 	if (isset($_GET['messageQty'])) {$messageQty = $_GET['messageQty'];}elseif (isset($_POST['messageQty'])) {$messageQty = $_POST['messageQty'];}else{$messageQty="";}
 	if (isset($_GET['messageType'])) {$messageType = $_GET['messageType'];}elseif (isset($_POST['messageType'])) {$messageType = $_POST['messageType'];}else{$messageType="";}
 	// Si se han mandado datos desde el Formulario principal de mas abajo...
-	$n_cur = mysql_query("select nomcurso from cursos");
-	$pc = mysql_num_rows($n_cur);
+	$n_cur = mysqli_query($db_con, "select nomcurso from cursos");
+	$pc = mysqli_num_rows($n_cur);
 	for ($i = 2; $i < $pc+2; $i++) {
 	//echo "$i<br>";
 	if(${padres.$i})
@@ -56,9 +56,9 @@ echo ${padres.$pc};
 		$fechasp2=explode("-",$_POST['fecha22']);
 		$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
 		$fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
-		$cursos_sen = mysql_query("select nomcurso from cursos");
+		$cursos_sen = mysqli_query($db_con, "select nomcurso from cursos");
 		$n_c=1;
-		while ($cursos_seneca = mysql_fetch_array($cursos_sen)) {
+		while ($cursos_seneca = mysqli_fetch_array($cursos_sen)) {
 			$n_c+=1;
 			if(${padres.$n_c}){
 				$nivel_sms = "and curso like '$cursos_seneca[0]'";
@@ -67,19 +67,19 @@ echo ${padres.$pc};
 
 		$SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero, curso FROM  FALTAS, alma where alma.claveal=FALTAS.claveal and falta = 'F' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' $nivel_sms group by FALTAS.claveal";
 		//echo $SQLTEMP;
-		$resultTEMP= mysql_query($SQLTEMP);
-		mysql_query("ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
+		$resultTEMP= mysqli_query($db_con, $SQLTEMP);
+		mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
 		$SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero > '4'";
-		$result0 = mysql_query($SQL0);
-		while ($row0 = mysql_fetch_array($result0)):
+		$result0 = mysqli_query($db_con, $SQL0);
+		while ($row0 = mysqli_fetch_array($result0)):
 		$claveal = $row0[0];
 		$clave_carta .= $claveal.",";
 		$SQL3 = "SELECT distinct alma.claveal, alma.telefono, alma.telefonourgencia, alma.apellidos, alma.nombre, alma.unidad
 	from alma where alma.claveal like '$claveal' and (alma.telefono not in (select telefono from hermanos) 
 	or alma.telefonourgencia not in (select telefonourgencia from hermanos))";
 
-		$result3 = mysql_query($SQL3);
-		$rowsql3 = mysql_fetch_array($result3);
+		$result3 = mysqli_query($db_con, $SQL3);
+		$rowsql3 = mysqli_fetch_array($result3);
 		$tfno2 = $rowsql3[1];
 		$tfno_u2 = $rowsql3[2];
 		$apellidos = $rowsql3[3];
@@ -98,14 +98,14 @@ echo ${padres.$pc};
 			$accion = "Envío de SMS";
 			$tuto = "Jefatura de Estudios";
 			$fecha2 = date('Y-m-d');
-			mysql_query("insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+			mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
 		}
 
 		if(strlen($sin) > 0){$sin2 .= $sin.";";}
 		endwhile;
 		// Identificador del mensaje
-		$sms_n = mysql_query("select max(id) from sms");
-		$n_sms =mysql_fetch_array($sms_n);
+		$sms_n = mysqli_query($db_con, "select max(id) from sms");
+		$n_sms =mysqli_fetch_array($sms_n);
 		$extid = $n_sms[0]+1;
 	}
 	}
@@ -158,7 +158,7 @@ document.enviar.submit()
 <script>
  enviarForm();
 </script> <?
-mysql_query("insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile2','$text','Jefatura de Estudios')");
+mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile2','$text','Jefatura de Estudios')");
 echo '<div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El mensaje SMS se ha enviado correctamente para los alumnos con faltas sin justificar de'. $niv.'.<br>Una nueva acción tutorial ha sido también registrada.
@@ -174,10 +174,10 @@ if(strlen($sin2) > '0'){
 	$sin0 = explode(";",$sin2);
 	foreach ($sin0 as $no_tel)
 	{
-		$no_tel0 = mysql_query("select apellidos, nombre, unidad, telefono, claveal from alma where claveal = '$no_tel'");
-		$dat_al = mysql_fetch_array($no_tel0);
-		$herm = mysql_query("select telefono from hermanos where telefono = '$dat_al[4]'");
-		if (mysql_num_rows($herm) == '1' or empty($dat_al[4])) {}
+		$no_tel0 = mysqli_query($db_con, "select apellidos, nombre, unidad, telefono, claveal from alma where claveal = '$no_tel'");
+		$dat_al = mysqli_fetch_array($no_tel0);
+		$herm = mysqli_query($db_con, "select telefono from hermanos where telefono = '$dat_al[4]'");
+		if (mysqli_num_rows($herm) == '1' or empty($dat_al[4])) {}
 		else {
 			$clave_sin .= $dat_al[5].";";
 			echo "<li>$dat_al[1] $dat_al[0] => $dat_al[2]</li>";
@@ -186,13 +186,13 @@ if(strlen($sin2) > '0'){
 	echo "</ul></div>";
 }
 	}
-	$fecha_inicio_0 = mysql_query("select date_add(curdate(),interval -21 day)");
-	$fecha_inicio = mysql_fetch_array($fecha_inicio_0);
+	$fecha_inicio_0 = mysqli_query($db_con, "select date_add(curdate(),interval -21 day)");
+	$fecha_inicio = mysqli_fetch_array($fecha_inicio_0);
 	$anterior = $fecha_inicio[0];
 	$fc1 = explode("-",$anterior);
 	$fech1 = "$fc1[2]-$fc1[1]-$fc1[0]";
-	$fecha_fin_0 = mysql_query("select date_add(curdate(),interval -7 day)");
-	$fecha_fin = mysql_fetch_array($fecha_fin_0);
+	$fecha_fin_0 = mysqli_query($db_con, "select date_add(curdate(),interval -7 day)");
+	$fecha_fin = mysqli_fetch_array($fecha_fin_0);
 	$posterior = $fecha_fin[0];
 	$fc2 = explode("-",$posterior);
 	$fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
@@ -227,9 +227,9 @@ if(strlen($sin2) > '0'){
 		<div class="form-group">
 
 			<?
-			$cursos_sen = mysql_query("select nomcurso from cursos");
+			$cursos_sen = mysqli_query($db_con, "select nomcurso from cursos");
 			$n_c=1;
-			while ($cursos_seneca = mysql_fetch_array($cursos_sen)) {
+			while ($cursos_seneca = mysqli_fetch_array($cursos_sen)) {
 				$n_c+=1;
 				echo '<input name="padres'.$n_c.'" type="submit" value="'.$cursos_seneca[0].'"
 				class="btn btn-primary btn-block" />';
@@ -246,7 +246,7 @@ if(strlen($sin2) > '0'){
 </div>
 			<?
 			// Tabla temporalñ y recogida de datos
-			mysql_query("DROP table `faltastemp2`");
+			mysqli_query($db_con, "DROP table `faltastemp2`");
 }
 else {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">

@@ -14,97 +14,44 @@ function redondeo($n){
 					}
 
 
-function tipo()
+function tipo($db_con)
 {
   $tipo = "select distinct tipo from listafechorias";
-  $tipo1 = mysql_query($tipo);
-  while($tipo2 = mysql_fetch_array($tipo1))
+  $tipo1 = mysqli_query($db_con, $tipo);
+  while($tipo2 = mysqli_fetch_array($tipo1))
         {
 echo "<OPTION>$tipo2[0]</OPTION>";
         }
 }
 
-function medida2($tipofechoria)
+function medida2($db_con, $tipofechoria)
 {
   $tipo = "select distinct medidas2 from listafechorias where fechoria = '$tipofechoria'";
-  $tipo1 = mysql_query($tipo);
-  while($tipo2 = mysql_fetch_array($tipo1))
+  $tipo1 = mysqli_query($db_con, $tipo);
+  while($tipo2 = mysqli_fetch_array($tipo1))
         {
 $texto = trim($tipo2[0]);
 echo "$texto";
         }
 }
 
-function fechoria($clase)
+function fechoria($db_con, $clase)
 {
   $tipofechoria0 = "select fechoria from listafechorias where tipo = '$clase' order by fechoria";
-  $tipofechoria1 = mysql_query($tipofechoria0);
-  while($tipofechoria2 = mysql_fetch_array($tipofechoria1))
+  $tipofechoria1 = mysqli_query($db_con, $tipofechoria0);
+  while($tipofechoria2 = mysqli_fetch_array($tipofechoria1))
         {
 echo "<option>$tipofechoria2[0]</option>";
         }
 }
 
-function horario_alumno($grupo)
-{
-//  include("opt/e-smith/config.php");  
-  
-   echo "<br /><h3>Horario del Grupo $grupo</h3><br />";
-  ?>
-<table class="table table-striped" width="95%">
-    <tr> 
-    <th></th>
-    <th>  
-      1ª</th>
-    <th> 
-      2ª</th>
-    <th>
-      3ª</th>
-    <th>
-      4ª</th>
-    <th> 
-      5ª</th>
-    <th> 
-      6ª</th>
-  </tr>
-  
-<?
-// Días de la semana 
-$a=array("1"=>"Lunes","2"=>"Martes","3"=>"Miércoles","4"=>"Jueves","5"=>"Viernes");
-foreach($a as $dia => $nombre) {
-echo "<tr><th style='background-color:#f6f6f6;border-right:1px solid #ccc'>$nombre</th>";
-for($i=1;$i<7;$i++) {
-echo "<td>";
-$curso = $grupo;
-$sqlasig0 = "SELECT distinct  asig, c_asig FROM  horw where a_grupo = '$curso' and dia = '$dia' and hora = '$i'";
-$asignaturas1 = mysql_query($sqlasig0);
- while ($rowasignaturas1 = mysql_fetch_array($asignaturas1))
-{ 
-echo $rowasignaturas1[0]."<br />";
-}
-echo "</td>";
-}
-echo "<tr>";
-}
-echo "</table><hr>";
-
- echo "<br /><h3>Profesores del Grupo $grupo</h3><br />";
- echo "<ul class='unstyled'>";
- $profe = "SELECT  distinct PROFESOR, MATERIA FROM profesores, alma where alma.unidad = profesores.grupo and alma.unidad = '$grupo'";
- $profeq = mysql_query($profe);
- while($profer = mysql_fetch_array($profeq)){
- echo "<li><i class='fa fa-user'> </i> 
-$profer[1] ==>  $profer[0]</li>";}
-echo "</ul>";
-}
-
-function unidad()
+function unidad($db_con)
 {
  // include("opt/e-smith/config.php");  
   
-  $tipo = "select distinct unidad from alma order by unidad";
-  $tipo1 = mysql_query($tipo);
-  while($tipo2 = mysql_fetch_array($tipo1))
+  $tipo = "select distinct unidad, SUBSTRING(unidad, 2,1) AS orden from alma order by orden ASC";
+  $tipo1 = mysqli_query($db_con, $tipo);
+  while($tipo2 = mysqli_fetch_array($tipo1))
         {
 echo "<option>".$tipo2[0]."</option>";
         }
@@ -115,8 +62,8 @@ function nivel()
  // include("opt/e-smith/config.php");  
   
   $tipo = "select distinct NIVEL from alma order by NIVEL";
-  $tipo1 = mysql_query($tipo);
-  while($tipo2 = mysql_fetch_array($tipo1))
+  $tipo1 = mysqli_query($db_con, $tipo);
+  while($tipo2 = mysqli_fetch_array($tipo1))
         {
 echo "<option>".$tipo2[0]."</option>";
         }
@@ -127,8 +74,8 @@ function grupo($niveles)
  // include("opt/e-smith/config.php");  
   
   $tipo = "select distinct GRUPO from alma where NIVEL = '$niveles' order by GRUPO";
-  $tipo1 = mysql_query($tipo);
-  while($tipo2 = mysql_fetch_array($tipo1))
+  $tipo1 = mysqli_query($db_con, $tipo);
+  while($tipo2 = mysqli_fetch_array($tipo1))
         {
 echo "<option>".$tipo2[0]."</option>";
         }
@@ -307,22 +254,22 @@ function fecha_sin($valor_fecha){
 //}	
 }
 //Asignacion de ordenadores a alumnos
-function posicion($curso,$profi){
+function posicion($db_con, $curso, $profi){
 
-$sql=mysql_query("select distinct no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' order by no_mesa");
-while ($sqlr=mysql_fetch_array($sql)){
+$sql=mysqli_query($db_con, "select distinct no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' order by no_mesa");
+while ($sqlr=mysqli_fetch_array($sql)){
     $posi=$sqlr[0];
 	echo "<option>".$posi."</option>";
 }
 
 }
 
-function alumno($curso,$profi){
-$sql=mysql_query("select CLAVEAL,no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' and no_mesa not like ' '");
+function alumno($db_con, $curso,$profi){
+$sql=mysqli_query($db_con, "select CLAVEAL,no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' and no_mesa not like ' '");
 echo "select CLAVEAL,no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' and no_mesa not like ' '";
-while ($sqlr=mysql_fetch_array($sql)){
-$al=mysql_query("select NOMBRE,APELLIDOS from FALUMNOS where CLAVEAL='$sqlr[0]' order by APELLIDOS");
-while ($alr=mysql_fetch_array($al)){
+while ($sqlr=mysqli_fetch_array($sql)){
+$al=mysqli_query($db_con, "select NOMBRE,APELLIDOS from FALUMNOS where CLAVEAL='$sqlr[0]' order by APELLIDOS");
+while ($alr=mysqli_fetch_array($al)){
 	 $nombre=$alr[1] .', '.$alr[0].'-->'.$sqlr[0];
      echo"<option>";
 	 echo $nombre;

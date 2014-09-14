@@ -78,8 +78,8 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') ==
         echo "<option>$nivel</option>";}
 		else{echo "<option></option>";}
   $tipo = "select distinct curso from alma order by curso";
-  $tipo1 = mysql_query($tipo);
-  while($tipo2 = mysql_fetch_array($tipo1))
+  $tipo1 = mysqli_query($db_con, $tipo);
+  while($tipo2 = mysqli_fetch_array($tipo1))
         {
 $completo = $tipo2[0];
 echo "<option>$completo</option>";
@@ -100,9 +100,9 @@ echo $fecha;
       <?	
 //$cur = explode(" --> ",$nivel);					
 $tipo0 = "select distinct unidad from alma where curso = '$nivel' order by unidad";
-$tipo10 = mysql_query($tipo0);
+$tipo10 = mysqli_query($db_con, $tipo0);
 $ng = "";
-  while($tipo20 = mysql_fetch_array($tipo10))
+  while($tipo20 = mysqli_fetch_array($tipo10))
         {	
 $ng++;        	
 echo "<div class='checkbox-inline'><label>";
@@ -144,8 +144,8 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
         <?  echo $departamento;?>
         </option>
         <?
-  $profe = mysql_query(" SELECT distinct departamento FROM departamentos, profesores where departamento not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' order by departamento asc");
-  while($filaprofe = mysql_fetch_array($profe))
+  $profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos, profesores where departamento not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' order by departamento asc");
+  while($filaprofe = mysqli_fetch_array($profe))
 	{
 
 	$departamen = $filaprofe[0]; 
@@ -163,8 +163,8 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
         <option>
         <?
    // Datos de la Asignatura
-  $asignatur = mysql_query("SELECT DISTINCT asignaturas.NOMBRE, ABREV FROM asignaturas, departamentos, profesores where asignaturas.nombre=profesores.materia and profesores.profesor=departamentos.nombre and curso = '$nivel' and departamento like '$departamento%' ORDER BY NOMBRE asc"); 
-        while($fasignatur = mysql_fetch_array($asignatur)) {
+  $asignatur = mysqli_query($db_con, "SELECT DISTINCT asignaturas.NOMBRE, ABREV FROM asignaturas, departamentos, profesores where asignaturas.nombre=profesores.materia and profesores.profesor=departamentos.nombre and curso = '$nivel' and departamento like '$departamento%' ORDER BY NOMBRE asc"); 
+        while($fasignatur = mysqli_fetch_array($asignatur)) {
 		if(strstr($fasignatur[1],"_"))	{ }
 
 		else{ 

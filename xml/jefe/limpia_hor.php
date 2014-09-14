@@ -44,9 +44,9 @@ include("../../menu.php");
 echo "<p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en S&eacute;neca.</p>";
 
 $hor0 = "select id, prof, a_grupo, asig from horw where a_grupo in (select nomunidad from unidades) and asig not like 'OPTATIVA EXENTOS'";
-$hor1 = mysql_query($hor0);
+$hor1 = mysqli_query($db_con, $hor0);
 echo "<ul>";
-while($hor = mysql_fetch_array($hor1))
+while($hor = mysqli_fetch_array($hor1))
 {
 $id = $hor[0];
 $profesor = $hor[1];
@@ -54,28 +54,28 @@ $grupo = $hor[2];
 $materia = $hor[3];
 
 $prof0 = "select * from profesores where profesor = '$profesor' and grupo = '$grupo'";
-$prof1 = mysql_query($prof0);
-if(mysql_num_rows($prof1) < 1)
+$prof1 = mysqli_query($db_con, $prof0);
+if(mysqli_num_rows($prof1) < 1)
 {
 echo "<li>Borrado: $profesor => $materia  => $grupo</li>";
-mysql_query("delete from horw where id = '$id'");
+mysqli_query($db_con, "delete from horw where id = '$id'");
 }
 }
 
 echo "</ul>";
-mysql_query("OPTIMIZE TABLE `horw`");  
+mysqli_query($db_con, "OPTIMIZE TABLE `horw`");  
 
 // creamos Horw para las Faltas
 $base0 = "DROP TABLE horw_faltas";
-mysql_query($base0);
-mysql_query("create table horw_faltas select * from horw where (a_asig not like '%TTA%' and a_asig not like '%TPESO%')");
+mysqli_query($db_con, $base0);
+mysqli_query($db_con, "create table horw_faltas select * from horw where (a_asig not like '%TTA%' and a_asig not like '%TPESO%')");
 //Elimina las horas no lectivas
   $nolectiva = "UPDATE  horw_faltas SET  nivel =  '', a_grupo = '', n_grupo = '' WHERE  a_grupo NOT LIKE '1%' and a_grupo NOT LIKE '2%' and a_grupo NOT LIKE '3%' and a_grupo NOT LIKE '4%' and a_asig not like 'TUT%'";
-  mysql_query($nolectiva);
-  mysql_query("ALTER TABLE  ".$db."horw_faltas ADD INDEX (`prof`)");
-  mysql_query("ALTER TABLE  ".$db."horw_faltas ADD index (`c_asig`)");
-  mysql_query("delete from horw_faltas where a_grupo='' or a_grupo is null");
-  mysql_query("OPTIMIZE TABLE  `horw_faltas`");  
+  mysqli_query($db_con, $nolectiva);
+  mysqli_query($db_con, "ALTER TABLE  ".$db."horw_faltas ADD INDEX (`prof`)");
+  mysqli_query($db_con, "ALTER TABLE  ".$db."horw_faltas ADD index (`c_asig`)");
+  mysqli_query($db_con, "delete from horw_faltas where a_grupo='' or a_grupo is null");
+  mysqli_query($db_con, "OPTIMIZE TABLE  `horw_faltas`");  
   
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

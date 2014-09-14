@@ -65,13 +65,13 @@ if ($n_dia > $numerodiasemana) {
 Profesor de guardia: <span class="text-info text-capitalize"><? echo $profeso;?></span></small></h2><br>
 <?
 $sql = "SHOW TABLES FROM $db";
-$result = mysql_query($sql);
+$result = mysqli_query($db_con, $sql);
 $guardia="";
-while ($row = mysql_fetch_row($result)) {
+while ($row = mysqli_fetch_row($result)) {
     $guardia.=$row[0].";";
 }
 if (strstr($guardia,"guardias") == FALSE) {
-mysql_query("CREATE TABLE `guardias` (
+mysqli_query($db_con, "CREATE TABLE `guardias` (
   `id` int(11) NOT NULL auto_increment,
   `profesor` varchar(64) NOT NULL default '',
   `profe_aula` varchar(64) NOT NULL default '',
@@ -80,7 +80,7 @@ mysql_query("CREATE TABLE `guardias` (
   `fecha` datetime NOT NULL default '0000-00-00 00:00:00',
   `fecha_guardia` date NOT NULL default '0000-00-00',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 AUTO_INCREMENT=16");	
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");	
 }
 
 if ($submit2) {
@@ -94,17 +94,17 @@ if ($submit2) {
 		
 		$fech_hoy = date("Y-m-d");			
 // echo "Guardia: $prof_sust --> Sustituido: $sustituido --> Registrado: $prof_reg";
-		$reg_sust0 = mysql_query("select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and profesor = '$profeso'");
-		if (mysql_num_rows($reg_sust0) > '0') {
+		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and profesor = '$profeso'");
+		if (mysqli_num_rows($reg_sust0) > '0') {
 		$c1 = "1";
-		$reg_sust = mysql_fetch_array($reg_sust0);
+		$reg_sust = mysqli_fetch_array($reg_sust0);
 		$id= $reg_sust[0];
 		$prof_sust= $reg_sust[1];
 		$prof_reg= $reg_sust[2];
 		$hor_reg = $reg_sust[3];
 		$fecha_reg0 = explode(" ",$reg_sust[4]);
 		$fecha_reg = $fecha_reg0[0];
-			mysql_query("update guardias set profe_aula = '$sustituido' where id = '$id'");
+			mysqli_query($db_con, "update guardias set profe_aula = '$sustituido' where id = '$id'");
 			echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Has actualizado correctamente los datos del Profesor que sustituyes.
@@ -113,10 +113,10 @@ Has actualizado correctamente los datos del Profesor que sustituyes.
 		}
 
 		$c1="";
-		$reg_sust0 = mysql_query("select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and profe_aula = '$sustituido'");
-			if (mysql_num_rows($reg_sust0) > '0') {
+		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and profe_aula = '$sustituido'");
+			if (mysqli_num_rows($reg_sust0) > '0') {
 		$c1 = "2";
-		$reg_sust = mysql_fetch_array($reg_sust0);	
+		$reg_sust = mysqli_fetch_array($reg_sust0);	
 		$id= $reg_sust[0];
 		$prof_sust= $reg_sust[1];
 		$prof_reg= $reg_sust[2];
@@ -132,8 +132,8 @@ exit();
 			}
 		if (!($c1 > '0')) {				 	
 			$r_profe = mb_strtoupper($profeso, "ISO-8859-1");
-			mysql_query("insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$sustituido', '$n_dia', '$hora', NOW(), '$g_fecha')");
-			if (mysql_affected_rows() > 0) {
+			mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$sustituido', '$n_dia', '$hora', NOW(), '$g_fecha')");
+			if (mysqli_affected_rows() > 0) {
 				echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Has registrado correctamente a '.$sustituido.' a '.$hora.' hora para sustituirle en el Aula.

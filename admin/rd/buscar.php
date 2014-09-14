@@ -54,14 +54,14 @@ else{
 }
 $query = "SELECT  id, fecha, departamento, contenido, jefedep, numero FROM r_departamento where 1=1".$frase." ". $dep ." order BY id DESC limit 50";
 // echo $query;
-$result = mysql_query($query);
+$result = mysqli_query($db_con, ($query);
 
-if (mysql_num_rows($result) > 0)
+if (mysqli_num_rows($result) > 0)
 {
 ?>
 	<div align="center">
     <TABLE class="table table-striped" style="width:auto;">
-<?	while($row = mysql_fetch_object($result))
+<?	while($row = mysqli_fetch_object($result))
 	{
 	?>      <tr> 
         <td>       
@@ -80,8 +80,8 @@ if (mysql_num_rows($result) > 0)
 	?>	
 </td>
 <td style="text-align:right;">
-<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" rel="Tooltip" title='Ver el Acta'> </i></a> 
-<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000"> <i class="fa fa-print" rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>  
+<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" data-bs="tooltip" title='Ver el Acta'> </i></a> 
+<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000"> <i class="fa fa-print" data-bs="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>  
 </div>
         </td>
       </tr>

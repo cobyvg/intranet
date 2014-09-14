@@ -69,12 +69,12 @@ $query="UPDATE Textos SET Titulo = '$titulo', Autor = '$autor',
 		Editorial = '$editorial', Departamento = '$departamento', 
 		Asignatura = '$asignatura', Notas = '$NOTAS', isbn = '$isbn', nivel = '$nivel', grupo = '$grupo', obligatorio = '$obligatorio' where Id = '$id'";
 //echo $query;
-mysql_query($query);
+mysqli_query($db_con, $query);
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El texto se ha registrado correctamente. <br>Comprueba los datos en la tabla de abajo, y en caso de no ser correctos, puedes volver a editarlos.</div></div><br />';
 
-$textos = mysql_query("SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, Nivel, Grupo FROM Textos where Id='$id' order by Asignatura");
+$textos = mysqli_query($db_con, "SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, Nivel, Grupo FROM Textos where Id='$id' order by Asignatura");
 if ($textos) {
 	echo "<table class='table table-striped' style='width:auto' align='center'>
   <tr> 
@@ -86,7 +86,7 @@ if ($textos) {
 	<th>GRUPOS</th>
 	<th></th>
   </tr>";
-	while ($row = mysql_fetch_array($textos))
+	while ($row = mysqli_fetch_array($textos))
 	{
 		echo "<tr>
 			 <td>$row[0]</td>

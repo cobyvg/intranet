@@ -10,16 +10,16 @@
  $SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero FROM  FALTAS, alma, hermanos where FALTAS.claveal = alma.claveal and alma.telefono = hermanos.telefono and falta = 'F'  and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' group by FALTAS.claveal";
  // echo $SQLTEMP;
   $num='0';
-  $resultTEMP= mysql_query($SQLTEMP);
-  mysql_query("ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
+  $resultTEMP= mysqli_query($db_con, $SQLTEMP);
+  mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
   $SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2";
-  $result0 = mysql_query($SQL0);
-while ($row0 = mysql_fetch_array($result0)): 
+  $result0 = mysqli_query($db_con, $SQL0);
+while ($row0 = mysqli_fetch_array($result0)): 
 $claveal = $row0[0]; 			
 	$SQL3 = "SELECT distinct alma.claveal, alma.telefono, alma.telefonourgencia, alma.apellidos, alma.nombre, alma.unidad 
 	from alma where alma.claveal like '$claveal'";
-	$result3 = mysql_query($SQL3);	
-	$rowsql3 = mysql_fetch_array($result3);
+	$result3 = mysqli_query($db_con, $SQL3);	
+	$rowsql3 = mysqli_fetch_array($result3);
 	$tfno2 = $rowsql3[1];	
 	$tfno_u2 = $rowsql3[2];
 	$apellidos = $rowsql3[3];
@@ -34,15 +34,15 @@ $claveal = $row0[0];
 	$accion = "Envío de SMS";
 	$tuto = "Jefatura de Estudios";
 	$fecha2 = date('Y-m-d');
-	mysql_query("insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+	mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
 $nombrecor = explode(" ",$nombre);
 $nombrecorto = $nombrecor[0];
 $text = "Le comunicamos que su hijo/a $nombrecorto tiene Faltas de Asistencia sin justificar dentro del periodo del ".$fecha12." al ".$fecha22.". Contacte con su Tutor";
 $login = $usuario_smstrend;
 $password = $clave_smstrend;
 // Identificador del mensaje
-$sms_n = mysql_query("select max(id) from sms");
-$n_sms =mysql_fetch_array($sms_n);
+$sms_n = mysqli_query($db_con, "select max(id) from sms");
+$n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 ?>
 <script language="javascript">
@@ -68,24 +68,24 @@ document.enviar<? echo $num;?>.submit()
 enviarForm();
 </script>
 <?
-mysql_query("insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
+mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
 $num=$num+1;
 endwhile;
 echo '<div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El mensaje SMS se ha enviado correctamente para los hermanos del mismo nivel con faltas sin justificar.<br>Una nueva acción tutorial ha sido también registrada.
           </div></div><br />';
-$fecha_inicio_0 = mysql_query("select date_add(curdate(),interval -21 day)");
-$fecha_inicio = mysql_fetch_array($fecha_inicio_0);
+$fecha_inicio_0 = mysqli_query($db_con, "select date_add(curdate(),interval -21 day)");
+$fecha_inicio = mysqli_fetch_array($fecha_inicio_0);
 $anterior = $fecha_inicio[0];
 $fc1 = explode("-",$anterior);
 $fech1 = "$fc1[2]-$fc1[1]-$fc1[0]";
-$fecha_fin_0 = mysql_query("select date_add(curdate(),interval -7 day)");
-$fecha_fin = mysql_fetch_array($fecha_fin_0);
+$fecha_fin_0 = mysqli_query($db_con, "select date_add(curdate(),interval -7 day)");
+$fecha_fin = mysqli_fetch_array($fecha_fin_0);
 $posterior = $fecha_fin[0];
 $fc2 = explode("-",$posterior);
 $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 
 // Tabla temporalñ y recogida de datos
- mysql_query("DROP table `faltastemp2`");
+ mysqli_query($db_con, "DROP table `faltastemp2`");
 ?>

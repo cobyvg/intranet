@@ -73,7 +73,7 @@ include("menu.php");
 
  <?
 if (isset($_POST['imp_memoria'])) {
-	mysql_query("update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
+	mysqli_query($db_con, "update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Las observaciones que has redactado han sido guardadas. Puedes añadir y editar el texto tantas veces como quieras. O puedes volver a la página de la memoria e imprimirla para entregarla en Jefatura.
@@ -83,15 +83,15 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
 	include("../../pie.php");
 	exit();
 }
-$lista = mysql_list_fields($db,"FTUTORES");
-$col_obs = mysql_field_name($lista,3);
+$lista = mysqli_list_fields($db,"FTUTORES");
+$col_obs = mysqli_field_name($lista,3);
 if ($col_obs=="observaciones1") { }else{
-	mysql_query("ALTER TABLE  `FTUTORES` ADD  `observaciones1` TEXT NOT NULL ,
+	mysqli_query($db_con, "ALTER TABLE  `FTUTORES` ADD  `observaciones1` TEXT NOT NULL ,
 						        ADD  `observaciones2` TEXT NOT NULL");
 }
 
- $obs1=mysql_query("select observaciones1, observaciones2 from FTUTORES where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
- $obs2=mysql_fetch_array($obs1);
+ $obs1=mysqli_query($db_con, "select observaciones1, observaciones2 from FTUTORES where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
+ $obs2=mysqli_fetch_array($obs1);
  if (empty($obs2[0]) && empty($obs[1]) && date('m')==06) {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.location.href = 'informe_memoria.php?imprimir=1#observaciones'\"";}
  	else{
 		$boton = "Imprimir Memoria final de Tutoría";$click="onClick=print()";}
@@ -107,41 +107,41 @@ if ($col_obs=="observaciones1") { }else{
  <? 
  // Curso
  $SQL0 = "select distinct curso from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
- $result0 = mysql_query($SQL0);
- $max00 = mysql_fetch_row($result0);
+ $result0 = mysqli_query($db_con, $SQL0);
+ $max00 = mysqli_fetch_row($result0);
  $curso_seneca = $max00[0];
 // Alumnos que se integran a lo largo del Curso
  $SQL = "select max(NC) from FALUMNOS_primero where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
- $result = mysql_query($SQL);
- $max0 = mysql_fetch_row($result);
+ $result = mysqli_query($db_con, $SQL);
+ $max0 = mysqli_fetch_row($result);
  $num_0 =  $max0[0];
  $SQL1 = "select max(NC) from FALUMNOS where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
- $result1 = mysql_query($SQL1);
- $max1 = mysql_fetch_row($result1);
+ $result1 = mysqli_query($db_con, $SQL1);
+ $max1 = mysqli_fetch_row($result1);
  $num_1 =  $max1[0];
  $nuevos = $num_1-$num_0;
  $nuevos = str_replace("-","",$nuevos);
  
 // Alumnos repetidores
  $SQL = "select * from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and matriculas > '1'";
- $result = mysql_query($SQL);
- $num_repetidores = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_repetidores = mysqli_num_rows($result);
 
 // Alumnos a comienzo de Curso
  $SQL = "select * from FALUMNOS_primero where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
- $result = mysql_query($SQL);
- $num_empiezan = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_empiezan = mysqli_num_rows($result);
  
  // Alumnos a final de Curso
  $SQL = "select * from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
- $result = mysql_query($SQL);
- $num_acaban = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acaban = mysqli_num_rows($result);
 
  // Alumnos que promocionan en Junio
  $SQL1 = "select notas3, apellidos, nombre from notas, alma where notas.claveal = alma.claveal1  and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
- $result1 = mysql_query($SQL1);
+ $result1 = mysqli_query($db_con, $SQL1);
 
- while ($num_promo0 = mysql_fetch_array($result1))                                                                                                                                                           
+ while ($num_promo0 = mysqli_fetch_array($result1))                                                                                                                                                           
 {                                                                                                                                                                                                          
         $n_susp = "";                                                                                                                                                                                        
         $trozos0 = explode(";",$num_promo0[0]);                                                                                                                                                              
@@ -199,59 +199,59 @@ if ($col_obs=="observaciones1") { }else{
 <?
 // Tabla de Absentismo.
  $faltas = "select distinct claveal from absentismo where unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by claveal";
- $faltas0 = mysql_query($faltas);
- $num_faltas = mysql_num_rows($faltas0);
+ $faltas0 = mysqli_query($db_con, $faltas);
+ $num_faltas = mysqli_num_rows($faltas0);
   ?>
  <? 
  $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_conv = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_conv = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'leve' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_leves = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_leves = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'grave' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_graves = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_graves = mysqli_num_rows($result);
  ?>
    <?    
  $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'muy grave' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_muygraves = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_muygraves = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsion = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsion = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados = mysqli_num_rows($result);
  ?>
    <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsadosaula = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsadosaula = mysqli_num_rows($result);
  ?>
    <?    
  $SQL = "select distinct id from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by claveal";
- $result = mysql_query($SQL);
- $num_informes = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_informes = mysqli_num_rows($result);
  ?>
    <?    
  $SQL = "select id from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' order by id";
- $result = mysql_query($SQL);
- $num_acciones = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acciones = mysqli_num_rows($result);
  ?>
    <?  
  $grupo_act = str_replace("-","",$_SESSION['mod_tutoria']['unidad']);  
  $SQL = "select * from actividades where grupos like '%$grupo_act%' order by id";
- $result = mysql_query($SQL);
- $num_actividades = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_actividades = mysqli_num_rows($result);
  ?>
  <table class="table table-striped" style="width:auto;">
 <tr>
@@ -299,11 +299,11 @@ if ($col_obs=="observaciones1") { }else{
 
 <?
 $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, FALUMNOS where absentismo.claveal = FALUMNOS.claveal and absentismo.unidad = '".$_SESSION['mod_tutoria']['unidad']."'  group by apellidos, nombre";
- $faltas0 = mysql_query($faltas);
- if(mysql_num_rows($faltas0) > 0)
+ $faltas0 = mysqli_query($db_con, $faltas);
+ if(mysqli_num_rows($faltas0) > 0)
  {
  echo '<table class="table table-striped" style="width:auto;">';
- while($absentista = mysql_fetch_array($faltas0))
+ while($absentista = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
 <td style="text-align:left">'.$absentista[2] .' '. $absentista[3].'</td><td>'.$absentista[1].'</td>
@@ -321,15 +321,15 @@ $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from 
  echo "<table class='table table-striped' style='width:auto;'>";
 		
 $SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, FALUMNOS  where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '$inicio_curso' group BY apellidos, nombre";
-$result = mysql_query($SQL);
+$result = mysqli_query($db_con, $SQL);
 
-  if ($row = mysql_fetch_array($result))
+  if ($row = mysqli_fetch_array($result))
         {
 	$hoy = date("d"). "-" . date("m") . "-" . date("Y");
                 do {
 	$claveal = $row[0];
           echo "<tr><td style='text-align:left'>$row[2], $row[3]</td><td style='text-align:left'>$row[1]</td></tr>";
-        } while($row = mysql_fetch_array($result));
+        } while($row = mysqli_fetch_array($result));
         }
 		        echo "</table>";
   ?>
@@ -341,11 +341,11 @@ $result = mysql_query($SQL);
 
 <?
 $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '$inicio_curso' group by NC";
- $faltas0 = mysql_query($faltas);
- if(mysql_num_rows($faltas0) > 0)
+ $faltas0 = mysqli_query($db_con, $faltas);
+ if(mysqli_num_rows($faltas0) > 0)
  {
  echo '<table class="table table-striped" style="width:auto;">';
-  while($fech = mysql_fetch_array($faltas0))
+  while($fech = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
 <td style="text-align:left">'.$fech[2] .' '. $fech[3].'</td><td>'.$fech[1].'</td>
@@ -362,11 +362,11 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
   
  
  $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' and date(fecha) > '$inicio_curso' group by NC";
- $faltas0 = mysql_query($faltas);
- if(mysql_num_rows($faltas0) > 0)
+ $faltas0 = mysqli_query($db_con, $faltas);
+ if(mysqli_num_rows($faltas0) > 0)
  {
  echo '<table class="table table-striped" style="width:auto;">';
- while($exp = mysql_fetch_array($faltas0))
+ while($exp = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
 <td style="text-align:left">'.$exp[2] .' '. $exp[3].'</td><td>'.$exp[1].'</td>
@@ -379,11 +379,11 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 
  <?
 $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' and date(fecha) > '$inicio_curso' group by NC";
- $faltas0 = mysql_query($faltas);
- if(mysql_num_rows($faltas0) > 0)
+ $faltas0 = mysqli_query($db_con, $faltas);
+ if(mysqli_num_rows($faltas0) > 0)
  {
  echo '<table class="table table-striped" style="width:auto;">';
- while($exp = mysql_fetch_array($faltas0))
+ while($exp = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
 <td style="text-align:left">'.$exp[2] .' '. $exp[3].'</td><td>'.$exp[1].'</td>
@@ -399,11 +399,11 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 
 <?
  $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(F_ENTREV) > '$inicio_curso' group by apellidos";
- $faltas0 = mysql_query($faltas);
- if(mysql_num_rows($faltas0) > 0)
+ $faltas0 = mysqli_query($db_con, $faltas);
+ if(mysqli_num_rows($faltas0) > 0)
  {
  echo '<table class="table table-striped" style="width:auto;">';
- while($infotut = mysql_fetch_array($faltas0))
+ while($infotut = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
 <td style="text-align:left">'.$infotut[2] .' '. $infotut[3].'</td><td>'.$infotut[1].'</td>
@@ -418,11 +418,11 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 
 <?
  $faltas = "select distinct apellidos, nombre, count(*) from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and date(fecha) > '$inicio_curso' group by apellidos";
- $faltas0 = mysql_query($faltas);
- if(mysql_num_rows($faltas0) > 0)
+ $faltas0 = mysqli_query($db_con, $faltas);
+ if(mysqli_num_rows($faltas0) > 0)
  {
  echo '<table class="table table-striped" style="width:auto;">';
- while($tutoria = mysql_fetch_array($faltas0))
+ while($tutoria = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
 <td style="text-align:left">'.$tutoria[1] .' '. $tutoria[0].'</td><td>'.$tutoria[2].'</td>
@@ -432,8 +432,8 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  }
  
  $faltas = "select distinct apellidos, nombre, causa, accion, observaciones from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and accion not like '%SMS%'  and date(fecha) > '$inicio_curso' order by apellidos";
- $faltas0 = mysql_query($faltas);
- if(mysql_num_rows($faltas0) > 0)
+ $faltas0 = mysqli_query($db_con, $faltas);
+ if(mysqli_num_rows($faltas0) > 0)
  {
 	 ?>
 	 </div> <div class="col-sm-7">
@@ -441,7 +441,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 
      <?
  echo '<table class="table table-striped" style="width:auto;">';
- while($tutoria = mysql_fetch_array($faltas0))
+ while($tutoria = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
 <td style="text-align:left" nowrap>'.$tutoria[0] .', '. $tutoria[1].'</td><td style="text-align:left" >'.$tutoria[2].'</td><td style="text-align:left" >'.$tutoria[3].'</td>
@@ -450,8 +450,8 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
   $grupo_act2 = str_replace("-","",$_SESSION['mod_tutoria']['unidad']);  
-  $n_activ = mysql_query("select * from actividades where  grupos like '%$grupo_act2-%' and date(fecha) > '$inicio_curso'");
-  if(mysql_num_rows($n_activ) > "0"){
+  $n_activ = mysqli_query($db_con, "select * from actividades where  grupos like '%$grupo_act2-%' and date(fecha) > '$inicio_curso'");
+  if(mysqli_num_rows($n_activ) > "0"){
  ?>
   </div>
   </div>

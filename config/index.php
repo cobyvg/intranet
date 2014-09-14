@@ -26,14 +26,15 @@ $db_user = $_POST['db_user'];
 $funcion = '
 error_reporting(0); // Elimina los mensajes de PHP
 
-mysql_connect($db_host, $db_user, $db_pass);
-mysql_select_db($db);
+$db_con = mysqli_connect($db_host, $db_user, $db_pass);
+mysqli_select_db($db_con, $db);
+
 function registraPagina($pagina,$host,$user,$pass,$base)
 {
-mysql_connect ($host, $user, $pass);
-mysql_select_db ($base);
+$db_con = mysqli_connect($host, $user, $pass);
+mysqli_select_db($db_con, $base);
 $id_reg = $_SESSION[\'id_pag\'];
-mysql_query("insert into reg_paginas (id_reg,pagina) values (\'$id_reg\',\'$pagina\')");	
+mysqli_query($db_con, "insert into reg_paginas (id_reg,pagina) values (\'$id_reg\',\'$pagina\')");	
 }
 ';
 $f1=fopen("../config.php","w+");
@@ -54,11 +55,11 @@ include 'escribe_archivo.php';
 }
 if($primera == 1){
 // Comprobamos estado de las Bases de datos para saber si podemos ofrecer el botón de creación de las mismas o bien ya han sido creadas
-mysql_connect($db_host, $db_user, $db_pass);
-$hay_bd = mysql_select_db($db);
+mysqli_connect($db_host, $db_user, $db_pass);
+$hay_bd = mysqli_select_db($db_con, $db);
 if ($hay_bd) {
-$hay_tablas = mysql_list_tables($db);
-if (mysql_num_rows($hay_tablas) == 0) {
+$hay_tablas = mysqli_list_tables($db);
+if (mysqli_num_rows($hay_tablas) == 0) {
 	$no_tablas = '1';
 } 
 }
@@ -93,15 +94,15 @@ Los datos se han guardado correctamente en el archivo de configuración de la apl
 if(file_exists("../config.php") AND filesize("../config.php")>10)
 {
 include("../config.php");
-$admin=mysql_query("select * from departamentos, c_profes where profesor=nombre and profesor='admin'");
-$hay_admin = mysql_num_rows($admin);
+$admin=mysqli_query($db_con, "select * from departamentos, c_profes where profesor=nombre and profesor='admin'");
+$hay_admin = mysqli_num_rows($admin);
 if($hay_admin>0)
 {
 }
 else{
 	$adm=sha1("12345678");
-	mysql_query("INSERT INTO c_profes ( `pass` , `PROFESOR` , `dni`, `idea` ) VALUES ('$adm', 'admin', '12345678', 'admin');");
-	mysql_query("insert into departamentos (nombre, dni, departamento, cargo, idea) values ('admin', '12345678', 'Admin', '1', 'admin')");
+	mysqli_query($db_con, "INSERT INTO c_profes ( `pass` , `PROFESOR` , `dni`, `idea` ) VALUES ('$adm', 'admin', '12345678', 'admin');");
+	mysqli_query($db_con, "insert into departamentos (nombre, dni, departamento, cargo, idea) values ('admin', '12345678', 'Admin', '1', 'admin')");
 
 if($_SESSION['cambiar_clave']) {
 	header('Location:'.'http://'.$dominio.'/intranet/clave.php');

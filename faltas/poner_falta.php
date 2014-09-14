@@ -32,7 +32,7 @@ if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];} else{$fecha_
 
 
 // Borramos faltas para luego colocarlas de nuevo.
-$borra = mysql_query("delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and PROFESOR = '$nprofe' and (FALTA = 'F' or FALTA = 'J')");
+$borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and PROFESOR = '$nprofe' and (FALTA = 'F' or FALTA = 'J')");
 $db_pass = trim($clave);
 foreach($_POST as $clave => $valor)
 {
@@ -44,8 +44,8 @@ foreach($_POST as $clave => $valor)
 		$unidad = $nc0[2];
 
 		$clave1 = "select claveal from FALUMNOS where NC = '$nc' and unidad = '$unidad'";
-		$clave0 = mysql_query($clave1);
-		$clave2 = mysql_fetch_row($clave0);
+		$clave0 = mysqli_query($db_con, $clave1);
+		$clave2 = mysqli_fetch_row($clave0);
 		$claveal = $clave2[0];
 		
 		$diames = date("j");
@@ -68,8 +68,8 @@ if ($hoy2 > $hoy_hoy) {
 		$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA )
 VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";
 		//	echo $t0;
-		$t1 = mysql_query($t0) or die("No se han podido insertar los datos");
-		$count += mysql_affected_rows();
+		$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
+		$count += mysqli_affected_rows();
 	}
 }
 if (empty($mens_fecha)) {

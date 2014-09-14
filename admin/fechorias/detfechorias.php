@@ -59,8 +59,8 @@ echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             $mensaje.'
           </div></div>';
 }
-$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
-  if ($row = mysql_fetch_array($result))
+$result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+  if ($row = mysqli_fetch_array($result))
         {
 		$apellidos = $row[0];
 		$nombre = $row[1];
@@ -85,18 +85,18 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.uni
 	 if($inicio_aula){ $inicio1 = explode("-",$inicio_aula); $inicio_aula = $inicio1[2] . "-" . $inicio1[1] ."-" . $inicio1[0];}
     if($fin_aula){ $fin1 = explode("-",$fin_aula); $fin_aula = $fin1[2] . "-" . $fin1[1] ."-" . $fin1[0];}
 		}
-		$numero = mysql_query ("select Fechoria.claveal from Fechoria where Fechoria.claveal 
+		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
 		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' order by Fechoria.fecha"); 
-		$numerototal= mysql_num_rows($numero);
-		$numerograves0 = mysql_query ("select Fechoria.claveal from Fechoria where Fechoria.claveal 
+		$numerototal= mysqli_num_rows($numero);
+		$numerograves0 = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
 		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' and grave = 'grave' order by Fechoria.fecha"); 
-		$numerograves= mysql_num_rows($numerograves0);
-		$numeromuygraves0 = mysql_query ("select Fechoria.claveal from Fechoria where Fechoria.claveal 
+		$numerograves= mysqli_num_rows($numerograves0);
+		$numeromuygraves0 = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
 		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' and grave = 'muy grave' order by Fechoria.fecha"); 
-		$numeromuygraves= mysql_num_rows($numeromuygraves0);
-		$numeroexpulsiones0 = mysql_query ("select Fechoria.claveal from Fechoria where Fechoria.claveal 
+		$numeromuygraves= mysqli_num_rows($numeromuygraves0);
+		$numeroexpulsiones0 = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
 		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' and expulsion >= '1' order by Fechoria.fecha"); 
-		$numeroexpulsiones= mysql_num_rows($numeroexpulsiones0);
+		$numeroexpulsiones= mysqli_num_rows($numeroexpulsiones0);
 ?>
 <legend align="center">
   <? echo "$nombre $apellidos ($unidad)";?>
@@ -177,14 +177,14 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 		<th></th>
 		</tr>";
 	// Consulta de datos del alumno.
-	$result = mysql_query ( "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.grave, Fechoria.id from Fechoria where claveal = '$claveal' and fecha >= '$inicio_curso' order by fecha DESC" );
+	$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.grave, Fechoria.id from Fechoria where claveal = '$claveal' and fecha >= '$inicio_curso' order by fecha DESC" );
 	
-	while ( $row = mysql_fetch_array ( $result ) ) {
+	while ( $row = mysqli_fetch_array ( $result ) ) {
 		echo "<tr>
 	<td nowrap>$row[0]</td>
 	<td>$row[1]</td>
 	<td>$row[2]</td>
-	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' rel='tooltip' title='Detalles'><i class='fa fa-search fa-fw fa-lg'></i></a><a href='delfechorias.php?id= $row[3]' rel='tooltip' title='Eliminar'><i class='fa fa-trash-o fa-fw fa-lg'></i></a></td>
+	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' data-bs='tooltip' title='Detalles'><i class='fa fa-search fa-fw fa-lg'></i></a><a href='delfechorias.php?id= $row[3]' data-bs='tooltip' title='Eliminar'><i class='fa fa-trash-o fa-fw fa-lg'></i></a></td>
 	</tr>";
 	}
 	echo "</table>\n";
@@ -195,8 +195,8 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
   <div class="col-sm-5">
     <?
    $pr = $_SESSION ['profi'];
-   $conv = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr'");
-   if (mysql_num_rows($conv) > '0') {$gucon = '1';}
+   $conv = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr'");
+   if (mysqli_num_rows($conv) > '0') {$gucon = '1';}
 	if(stristr($_SESSION['cargo'],'1') == TRUE or $gucon == '1' or stristr($_SESSION['cargo'],'8') == TRUE)
 		{
 	if (stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE) {

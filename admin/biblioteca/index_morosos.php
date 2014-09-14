@@ -25,7 +25,7 @@ $crea ="CREATE TABLE IF NOT EXISTS `morosos` (
   `sms` VARCHAR( 2 ) NOT NULL DEFAULT  'NO', 
   PRIMARY KEY (`id`)
 ) ";
-mysql_query($crea);
+mysqli_query($db_con, $crea);
 
 
 include("../../menu.php");
@@ -53,10 +53,10 @@ include("menu.php");
 							
 							<div class="form-group">
 								<label for="fecha">Elige una fecha</label>
-								<?php $result = mysql_query("SELECT DISTINCT hoy FROM morosos ORDER BY hoy DESC"); ?>
-								<?php if (mysql_num_rows($result)): ?>
+								<?php $result = mysqli_query($db_con, "SELECT DISTINCT hoy FROM morosos ORDER BY hoy DESC"); ?>
+								<?php if (mysqli_num_rows($result)): ?>
 								<select class="form-control" id="fecha" name="fecha">
-									<?php while($row = mysql_fetch_array($result)): ?>
+									<?php while($row = mysqli_fetch_array($result)): ?>
 									<option><?php echo $row['hoy']; ?></option>
 									<?php endwhile; ?>
 								</select>

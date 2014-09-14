@@ -51,8 +51,8 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in">
 <? 
 if ($alumno) {
 $alu0 = "SELECT NC, CLAVEAL, apellidos, nombre FROM FALUMNOS WHERE claveal = '$alumno'";
-$tr = mysql_query($alu0);
-$tr1 = mysql_fetch_array($tr);
+$tr = mysqli_query($db_con, $alu0);
+$tr1 = mysqli_fetch_array($tr);
 echo "<hr><table align='center' style='width:auto'><tr><td>";
 
 $apel=$tr[2];
@@ -74,16 +74,16 @@ echo "</td></tr></table><br />";
            }
           if ($profesor) {
 // Buscamos el grupo del que $profesor es tutor.
-	$tutor = mysql_query("SELECT unidad FROM FTUTORES WHERE TUTOR = '$profesor'") ;
+	$tutor = mysqli_query($db_con, "SELECT unidad FROM FTUTORES WHERE TUTOR = '$profesor'") ;
 
-	if($filatutor = mysql_fetch_row($tutor))  
+	if($filatutor = mysqli_fetch_row($tutor))  
 	{     			
 		$unidad = $filatutor[0];
 		echo "<h4> $profesor: &nbsp;<span style='font-size:1.0em; color:#08c'>$unidad</span></h4><br />";
 		echo '<div class="well well-large">';
 // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
-		$nivelgrupo0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC FROM FALUMNOS WHERE unidad = '$unidad' order by NC asc");
-		$todos = mysql_num_rows($nivelgrupo0);
+		$nivelgrupo0 = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, NC FROM FALUMNOS WHERE unidad = '$unidad' order by NC asc");
+		$todos = mysqli_num_rows($nivelgrupo0);
 	function IS_ODD($number) { return($number & 1); }
 		if(IS_ODD($todos))
 		{ 
@@ -92,23 +92,23 @@ echo "</td></tr></table><br />";
 		$resto = $todos +1;	
 
 		if ($alumno) {
-	$nivelgrupo1 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC FROM FALUMNOS WHERE claveal = '$alumno' order by NC asc limit 0,$mitad");
-	$nivelgrupo = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC FROM FALUMNOS WHERE claveal = '$alumno' order by NC asc limit $mitad, $resto");
-		if (mysql_num_rows($nivelgrupo1)>0) {
-			$ncselec1 = mysql_fetch_array($nivelgrupo1);
+	$nivelgrupo1 = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, NC FROM FALUMNOS WHERE claveal = '$alumno' order by NC asc limit 0,$mitad");
+	$nivelgrupo = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, NC FROM FALUMNOS WHERE claveal = '$alumno' order by NC asc limit $mitad, $resto");
+		if (mysqli_num_rows($nivelgrupo1)>0) {
+			$ncselec1 = mysqli_fetch_array($nivelgrupo1);
 			$numselec = $ncselec1[2];
 		}  
-		elseif(mysql_num_rows($nivelgrupo)>0) {			
-			$ncselec0 = mysql_fetch_array($nivelgrupo);
+		elseif(mysqli_num_rows($nivelgrupo)>0) {			
+			$ncselec0 = mysqli_fetch_array($nivelgrupo);
 			$numselec = $ncselec0[2];
 		}
 		}
-$nivelgrupo1 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$unidad' order by NC asc limit 0,$mitad");
-$nivelgrupo = mysql_query("SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$unidad' order by NC asc limit $mitad, $resto");
+$nivelgrupo1 = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$unidad' order by NC asc limit 0,$mitad");
+$nivelgrupo = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, NC, claveal FROM FALUMNOS WHERE unidad = '$unidad' order by NC asc limit $mitad, $resto");
 
 echo "<div class='row'><div class='col-sm-6' align='left'>";
 
-while($filanivelgrupo1 = mysql_fetch_array($nivelgrupo1))
+while($filanivelgrupo1 = mysqli_fetch_array($nivelgrupo1))
 		        {		        	
 $completo1 =  "$filanivelgrupo1[0], $filanivelgrupo1[1]";
 $alumno1 =  $filanivelgrupo1[3];
@@ -119,7 +119,7 @@ echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 <br
 		        	} 
 		        	echo "</div>";
 		        	echo "<div class='col-sm-6' align='left'>";
-		         	while ($filanivelgrupo = mysql_fetch_array($nivelgrupo))
+		         	while ($filanivelgrupo = mysqli_fetch_array($nivelgrupo))
 		        {		        	
 $completo2 =  "$filanivelgrupo[0], $filanivelgrupo[1]";
 $alumno2 =  $filanivelgrupo[3];

@@ -68,8 +68,8 @@ if (isset($_POST['zprofe'])){$profe = $_POST['zprofe'];}
 
 $sqlmem="SELECT * FROM mem_dep WHERE departamento='".$_GET['depto']."'";
 //echo $sqlmem;
-$datos_memoria= mysql_query($sqlmem);
-$memoria = mysql_fetch_array($datos_memoria);
+$datos_memoria= mysqli_query($db_con, $sqlmem);
+$memoria = mysqli_fetch_array($datos_memoria);
 
 # Se le asigna a los campo un valor más manejable
 for ( $i = 1 ; $i <= $n_preg ; $i ++) {
@@ -136,5 +136,5 @@ $dompdf = new DOMPDF();
 $dompdf->load_html($html);
 $dompdf->render();
 $dompdf->stream("Memoria del Departamento de $depto.pdf", array("Attachment" => 0));
-mysql_close();
+mysqli_close();
 ?>

@@ -57,20 +57,20 @@ include("../../menu.php");
 						    <select class="form-control" name="unidad[]" multiple size="6">
 <?php
 if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'8') == TRUE || stristr($_SESSION['cargo'],'5') == TRUE || stristr($_SESSION['cargo'],'d') == TRUE || $todos=="1"){
- unidad();
+ unidad($db_con);
  $SQLcurso = "SELECT DISTINCT unidad FROM alma WHERE combasi LIKE '%25204%' OR combasi LIKE '%25226%'";
-$resultcurso = mysql_query($SQLcurso);
-while($rowcurso = mysql_fetch_array($resultcurso)){
+$resultcurso = mysqli_query($db_con, $SQLcurso);
+while($rowcurso = mysqli_fetch_array($resultcurso)){
 	echo "<option>$rowcurso[0] DIV</option>";	
 }
 }
 else{
 
 $SQLcurso = "SELECT grupo, materia, nivel FROM profesores WHERE profesor = '$profesor'";
-$resultcurso = mysql_query($SQLcurso);
+$resultcurso = mysqli_query($db_con, $SQLcurso);
 $curso="";
 $asignatura="";	
-	while($rowcurso = mysql_fetch_array($resultcurso))
+	while($rowcurso = mysqli_fetch_array($resultcurso))
 	{
 	$curso = $rowcurso[0];
 	$asignatura = $rowcurso[1];
@@ -81,9 +81,9 @@ $asignatura="";
 	else{
 	$asigna0 = "SELECT codigo FROM asignaturas WHERE nombre = '$asignatura' AND curso = '$rowcurso[2]' AND abrev NOT LIKE '%\_%'";
 	}
-	$asigna1 = mysql_query($asigna0);
+	$asigna1 = mysqli_query($db_con, $asigna0);
 	$codasi="";
-	while ($asigna2 = mysql_fetch_array($asigna1)) {
+	while ($asigna2 = mysqli_fetch_array($asigna1)) {
 		$codasi.=$asigna2[0]."-";
 	}
 	$codasi = substr($codasi,0,-1)	;
@@ -128,18 +128,18 @@ $asignatura="";
 				<form method="post" action="excel.php">
 <?
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE or $todos == "1"){
-	$query_Recordset1 = "SELECT distinct unidad FROM alma ORDER BY unidad ASC";
+	$query_Recordset1 = "SELECT distinct unidad, SUBSTRING(unidad, 2,1) AS orden FROM alma ORDER BY orden ASC";
 }
 else{
 	$query_Recordset1 = "SELECT grupo, materia, nivel FROM profesores WHERE profesor = '$profesor'";
 }
-$Recordset1 = mysql_query($query_Recordset1) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_array($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+$Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error($db_con));
+$row_Recordset1 = mysqli_fetch_array($Recordset1);
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 $query_Recordset2 = "SELECT * FROM alma ORDER BY apellidos ASC";
-$Recordset2 = mysql_query($query_Recordset2) or die(mysql_error());
-$row_Recordset2 = mysql_fetch_array($Recordset2);
-$totalRows_Recordset2 = mysql_num_rows($Recordset2);
+$Recordset2 = mysqli_query($db_con, $query_Recordset2) or die(mysqli_error($db_con));
+$row_Recordset2 = mysqli_fetch_array($Recordset2);
+$totalRows_Recordset2 = mysqli_num_rows($Recordset2);
 ?>
 					<fieldset>
 						<legend>Exportar en formato XLS</legend>
@@ -151,8 +151,8 @@ $totalRows_Recordset2 = mysql_num_rows($Recordset2);
 					    	 ?>
 					    	     <option><?php  echo $row_Recordset1[0]?></option>
 					    	     <?php 
-					    	 } while ($row_Recordset1 = mysql_fetch_array($Recordset1));
-					    	   $rows = mysql_num_rows($Recordset1);
+					    	 } while ($row_Recordset1 = mysqli_fetch_array($Recordset1));
+					    	   $rows = mysqli_num_rows($Recordset1);
 					    	 ?>
 					    </select>
 					    <p class="help-block">Selecciona el grupo para exportar los datos al formato de las hojas de cálculo, como Calc o Excel.</p>

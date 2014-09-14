@@ -37,18 +37,18 @@ if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
 <?
 if($archivo1 and $archivo2){
 // Comprobamos si es la primera vez que se ha creado una base de datos.
-$fechorias = mysql_query("select * from Fechoria");	
-$mensajes = mysql_query("select * from mens_texto");
-$reg_int = mysql_query("select * from reg_intranet");
+$fechorias = mysqli_query($db_con, "select * from Fechoria");	
+$mensajes = mysqli_query($db_con, "select * from mens_texto");
+$reg_int = mysqli_query($db_con, "select * from reg_intranet");
 
-if (mysql_num_rows($fechorias)<"5" and mysql_num_rows($mensajes)<"5" and mysql_num_rows($reg_int)<"5") {}
+if (mysqli_num_rows($fechorias)<"5" and mysqli_num_rows($mensajes)<"5" and mysqli_num_rows($reg_int)<"5") {}
 else{
 	include("copia_bd.php");
 }
 	
 // Creamos Base de datos y enlazamos con ella.
  $base0 = "DROP TABLE `alma`";
-  mysql_query($base0);
+  mysqli_query($db_con, $base0);
 
  // CreaciÃ³n de la tabla alma
  $alumnos = "CREATE TABLE  `alma` (
@@ -92,7 +92,7 @@ else{
 )";
 
 // echo $alumnos;
-mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
+mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
@@ -102,7 +102,7 @@ No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quie
 </div>');
 
   $SQL6 = "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL` )";
-  $result6 = mysql_query($SQL6);
+  $result6 = mysqli_query($db_con, $SQL6);
   
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabÃ±a alma.
 
@@ -130,7 +130,7 @@ $row = 1;
     $dato=substr($dato,0,strlen($dato)-2); 
     $lineasalto.=$dato;  
     $lineasalto.=");";
-    mysql_query($lineasalto);
+    mysqli_query($db_con, $lineasalto);
   }
 fclose($fp);
 
@@ -151,46 +151,46 @@ ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`,
 ADD  `NIVEL` VARCHAR( 5) NULL AFTER  `APELLIDOS` ,
 ADD  `GRUPO` VARCHAR( 1 ) NULL AFTER  `NIVEL`
 ";
-mysql_query($crear);
+mysqli_query($db_con, $crear);
 
 // Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
   $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma where unidad not like 'Unida%' and unidad not like ''";  
-  $result_1 = mysql_query($SQL_1);
-  $row_1 = mysql_fetch_array($result_1);
+  $result_1 = mysqli_query($db_con, $SQL_1);
+  $row_1 = mysqli_fetch_array($result_1);
   if (strstr($row_1[0],"-")==TRUE) {  	
   $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
-  $result0 = mysql_query($SQL0);
+  $result0 = mysqli_query($db_con, $SQL0);
 
- while  ($row0 = mysql_fetch_array($result0))
+ while  ($row0 = mysqli_fetch_array($result0))
  {
 $trozounidad0 = explode("-",$row0[0]);
 $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
-	mysql_query($actualiza);
+	mysqli_query($db_con, $actualiza);
  } 	
  }
  
  // Apellidos unidos formando un solo campo.
    $SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma";
-  $result2 = mysql_query($SQL2);
- while  ($row2 = mysql_fetch_array($result2))
+  $result2 = mysqli_query($db_con, $SQL2);
+ while  ($row2 = mysqli_fetch_array($result2))
  {
  	$apellidos = trim($row2[0]). " " . trim($row2[1]);
 	$apellidos1 = trim($apellidos);
 	$nombre = $row2[3];
 	$nombre1 = trim($nombre);
 	$actualiza1= "UPDATE alma SET APELLIDOS = \"". $apellidos1 . "\", NOMBRE = \"". $nombre1 . "\" where CLAVEAL = \"". $row2[2] . "\"";
-	mysql_query($actualiza1);
+	mysqli_query($db_con, $actualiza1);
  }
  
  // Apellidos y nombre del padre.
    $SQL3 = "SELECT PRIMERAPELLIDOTUTOR, SEGUNDOAPELLIDOTUTOR, NOMBRETUTOR, CLAVEAL FROM  alma";
-  $result3 = mysql_query($SQL3);
- while  ($row3 = mysql_fetch_array($result3))
+  $result3 = mysqli_query($db_con, $SQL3);
+ while  ($row3 = mysqli_fetch_array($result3))
  {
  	$apellidosP = trim($row3[2]). " " . trim($row3[0]). " " . trim($row3[1]);
 	$apellidos1P = trim($apellidosP);
 	$actualiza1P= "UPDATE alma SET PADRE = \"". $apellidos1P . "\" where CLAVEAL = \"". $row3[3] . "\"";
-	mysql_query($actualiza1P);
+	mysqli_query($db_con, $actualiza1P);
  }
  
   // EliminaciÃ³n de campos innecesarios por repetidos
@@ -198,11 +198,11 @@ $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[
   DROP `apellido1`,
   DROP `Alumno/a`,
   DROP `apellido2`";
-  $result3 = mysql_query($SQL3);
+  $result3 = mysqli_query($db_con, $SQL3);
 
   // EliminaciÃ³n de alumnos dados de baja
   $SQL4 = "DELETE FROM alma WHERE `unidad` = ''";
-  $result4 = mysql_query($SQL4);
+  $result4 = mysqli_query($db_con, $SQL4);
   
 // Exportamos cÃ³digos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluaciÃ³n
 if(phpversion() < '5'){
@@ -215,17 +215,17 @@ else{
 <?		
 // Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
 $SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (unidad like '%E-' or unidad like '%B-' or unidad like '%P-') and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
-$result6 = mysql_query($SQL6);
+$result6 = mysqli_query($db_con, $SQL6);
 // Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
 $SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
-mysql_query($SQL7);
+mysqli_query($db_con, $SQL7);
 // Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
 $SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
-mysql_query($SQL8);
+mysqli_query($db_con, $SQL8);
 
  // Creamos versiÃ³n corta para FALTAS
-mysql_query("drop table almafaltas");
-mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
+mysqli_query($db_con, "drop table almafaltas");
+mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto con quien pueda resolver el problema.
@@ -235,7 +235,7 @@ No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto co
 </div>');
 // Claveal primaria e Ã­ndice
   $SQL6 = "ALTER TABLE  `almafaltas` ADD INDEX (  `CLAVEAL` )";
-  $result6 = mysql_query($SQL6);
+  $result6 = mysqli_query($db_con, $SQL6);
  // Creamos esquema de FALUMNOS
  $alumnos = "CREATE TABLE if not exists `FALUMNOS` (
  `CLAVEAL` varchar( 8 ) default NULL ,
@@ -244,30 +244,30 @@ No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto co
  `unidad` varchar( 64 ) default NULL ,
  `NC` tinyint( 2 ) default NULL 
 ) TYPE = MYISAM ";
-mysql_query($alumnos);
+mysqli_query($db_con, $alumnos);
  // Si la tabla existe, la vaciamos.
 $vaciar = "truncate table FALUMNOS";
-mysql_query($vaciar);
+mysqli_query($db_con, $vaciar);
 // Rellenamos datos en FALUMNOS desde almafaltas
 $SQL0 = "SELECT distinct unidad FROM  alma order by unidad";
-$result0 = mysql_query($SQL0);
-while  ($row0 = mysql_fetch_array($result0))
+$result0 = mysqli_query($db_con, $SQL0);
+while  ($row0 = mysqli_fetch_array($result0))
  {
 $SQL1 = "SELECT distinct CLAVEAL, APELLIDOS, NOMBRE, unidad FROM  alma WHERE unidad = '$row0[0]'";
-$result1 = mysql_query($SQL1);
+$result1 = mysqli_query($db_con, $SQL1);
 
 // Calculamos el numero de alumnos en cada curso
-$numero = mysql_num_rows($result1);
+$numero = mysqli_num_rows($result1);
 for($i=0; $i <= $numero -1; $i++)
  {
-while  ($row1= mysql_fetch_array($result1))
+while  ($row1= mysqli_fetch_array($result1))
  {
  $i = $i + 1 ;
  
 // Insertamos los datos en FALUMNOS
 $SQL2 = "INSERT INTO FALUMNOS (CLAVEAL, APELLIDOS, NOMBRE, unidad, NC) VALUES
 (\"". $row1[0] . "\",\"". $row1[1] . "\",\"". $row1[2] . "\",\"". $row1[3] . "\",\"". $i . "\")";
-$result2 = mysql_query($SQL2);
+$result2 = mysqli_query($db_con, $SQL2);
 }
 }
 }
@@ -276,16 +276,16 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
 Tabla <strong>Alma</strong>: los Alumnos se han introducido correctamente en la Base de datos.
 </div></div><br />';
 // Eliminamos temporales
-mysql_query("drop table almafaltas");
+mysqli_query($db_con, "drop table almafaltas");
 // Datos para el alta masiva de usuarios TIC
 include("exportaTIC.php");
 include("crear_hermanos.php");
 // Copia de la primera versiÃ³n de alma
-mysql_query("DROP TABLE alma_primera") ;
-mysql_query("create table alma_primera select * from alma");
-mysql_query("ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
-mysql_query("CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre, unidad FROM FALUMNOS WHERE claveal IN (SELECT claveal FROM alma_primera)");
-mysql_query("ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");
+mysqli_query($db_con, "DROP TABLE alma_primera") ;
+mysqli_query($db_con, "create table alma_primera select * from alma");
+mysqli_query($db_con, "ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
+mysqli_query($db_con, "CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre, unidad FROM FALUMNOS WHERE claveal IN (SELECT claveal FROM alma_primera)");
+mysqli_query($db_con, "ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");
 }
 else{
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">

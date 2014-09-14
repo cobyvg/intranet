@@ -40,8 +40,8 @@ $unidad = $tr[1];
 	}
 else{
 $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
-	$result = mysql_query($SQL);
-	$row = mysql_fetch_array($result);
+	$result = mysqli_query($db_con, $SQL);
+	$row = mysqli_fetch_array($result);
 	$unidad = $row[0];
 }
 ?>
@@ -54,8 +54,8 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 
   $datos0 = "select * from actividades where id = '$id'";
   //echo $datos0;
-  $datos1 = mysql_query($datos0);
-  $datos = mysql_fetch_array($datos1);
+  $datos1 = mysqli_query($db_con, $datos0);
+  $datos = mysqli_fetch_array($datos1);
   $fecha0 = explode("-",$datos[7]);
   $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
   $fecha1 = explode("-",$datos[8]);

@@ -6,10 +6,10 @@ exit;
 }
 
 //$borrar = "truncate table usuarioalumno";
-//mysql_query($borrar);
+//mysqli_query($db_con, $borrar);
 $alumnos = "select distinct CLAVEAL, APELLIDOS, NOMBRE, UNIDAD from alma where claveal not in (select claveal from usuarioalumno)";
-$sqlal = mysql_query($alumnos);
-while ($sqlprof0 = mysql_fetch_array($sqlal)) {
+$sqlal = mysqli_query($db_con, $alumnos);
+while ($sqlprof0 = mysqli_fetch_array($sqlal)) {
 	$apellidos = $sqlprof0[1];
 	$apellido = explode(" ",$sqlprof0[1]);
 	$alternativo = strtolower(substr($sqlprof0[3],0,2));
@@ -50,21 +50,21 @@ while ($sqlprof0 = mysql_fetch_array($sqlal)) {
 	$claveal = $sqlprof0[0];
 	
 	$insertar = "insert into usuarioalumno set nombre = '$nombreorig', usuario = '$usuario', pass = '$passw', perfil = 'a', unidad = '$unidad', claveal = '$claveal'";
-	mysql_query($insertar);
+	mysqli_query($db_con, $insertar);
 }
 
 
-$repetidos = mysql_query("select usuario from usuarioalumno");
-while($num = mysql_fetch_row($repetidos))
+$repetidos = mysqli_query($db_con, "select usuario from usuarioalumno");
+while($num = mysqli_fetch_row($repetidos))
 {
 $n_a = "";
-$repetidos1 = mysql_query("select usuario, claveal, unidad from usuarioalumno where usuario = '$num[0]'");
-if (mysql_num_rows($repetidos1) > 1) {
-while($num1 = mysql_fetch_row($repetidos1))
+$repetidos1 = mysqli_query($db_con, "select usuario, claveal, unidad from usuarioalumno where usuario = '$num[0]'");
+if (mysqli_num_rows($repetidos1) > 1) {
+while($num1 = mysqli_fetch_row($repetidos1))
 {
 $n_a = $n_a +1;
 $nuevo = $num1[0].$n_a;
-mysql_query("update usuarioalumno set usuario = '$nuevo' where claveal = '$num1[1]'");
+mysqli_query($db_con, "update usuarioalumno set usuario = '$nuevo' where claveal = '$num1[1]'");
 }	
 }
 }
@@ -76,8 +76,8 @@ Los datos de los alumnos se han importado correctamente en la tabla "usuarioalum
 // Código y abreviatura de la asignatura.
 $codigo = "select  usuario, nombre, perfil from usuarioalumno";
 //echo $codigo . "<br>";
-$sqlcod = mysql_query ($codigo);
-while($row = mysql_fetch_array($sqlcod))
+$sqlcod = mysqli_query($db_con, $codigo);
+while($row = mysqli_fetch_array($sqlcod))
 {
 
 $linea = "$row[0];$row[1];$row[2];\n";
@@ -96,9 +96,9 @@ $fp=fopen("TIC/alumnos.txt","w+");
    
 // Moodle
 $codigo1 = "select usuario, pass, alma.apellidos, alma.nombre, alma.unidad from usuarioalumno, alma where alma.claveal=usuarioalumno.claveal";
-$sqlcod1 = mysql_query ($codigo1);
+$sqlcod1 = mysqli_query($db_con, $codigo1);
 $todos_moodle="username;password;firstname;lastname;email;city;country\n";
-while($rowprof = mysql_fetch_array($sqlcod1))
+while($rowprof = mysqli_fetch_array($sqlcod1))
 {
 $linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[0]@$dominio;$localidad_del_centro;ES\n";
 $todos_moodle.=$linea_moodle;

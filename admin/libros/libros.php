@@ -97,10 +97,10 @@ setInterval(string,540000);
 <?
 include("../../menu.php");
 
-$lista = mysql_list_fields($db,"textos_alumnos");
-$col_curso = mysql_field_name($lista,6);
+$lista = mysqli_list_fields($db,"textos_alumnos");
+$col_curso = mysqli_field_name($lista,6);
 if ($col_curso=="curso") { }else{
-	mysql_query("ALTER TABLE  `textos_alumnos` ADD  `curso` VARCHAR( 7 ) NOT NULL ");
+	mysqli_query($db_con, "ALTER TABLE  `textos_alumnos` ADD  `curso` VARCHAR( 7 ) NOT NULL ");
 }
 ?>
 
@@ -128,14 +128,14 @@ if(is_numeric($claveal) and ($val == "B" or $val == "R" or $val == "M" or $val =
 {
 		$query = "select estado from textos_alumnos where claveal = '$claveal' and materia = '$asignatura' and curso = '$curso_actual'";
 		//echo $query;
-		$edit = mysql_query($query);
-		$estado0 = mysql_fetch_array($edit);
+		$edit = mysqli_query($db_con, $query);
+		$estado0 = mysqli_fetch_array($edit);
 		$estado = $estado0[0];
 		if(strlen($estado) > 0){
-		mysql_query("update textos_alumnos set estado = '$val' where claveal = '$claveal' and materia = '$asignatura'");		
+		mysqli_query($db_con, "update textos_alumnos set estado = '$val' where claveal = '$claveal' and materia = '$asignatura'");		
 		}
 		else{
-		mysql_query("insert into textos_alumnos (claveal, materia, estado, fecha,curso) values ('$claveal','$asignatura','$val',now(),'$curso_actual')");
+		mysqli_query($db_con, "insert into textos_alumnos (claveal, materia, estado, fecha,curso) values ('$claveal','$asignatura','$val',now(),'$curso_actual')");
 		}
 }
 }
@@ -162,17 +162,17 @@ echo "<thead><tr><th></th>";
 $asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where (curso like '".$curso."') and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where textos_gratis.nivel = '".$curso."') order by codigo";
 //echo $asignaturas0;
 $num_col = 1;
-$asignaturas1 = mysql_query($asignaturas0);
-$num_asig = mysql_num_rows($asignaturas1);
-while ($asignaturas = mysql_fetch_array($asignaturas1)) {	
+$asignaturas1 = mysqli_query($db_con, $asignaturas0);
+$num_asig = mysqli_num_rows($asignaturas1);
+while ($asignaturas = mysqli_fetch_array($asignaturas1)) {	
 	$col{$num_col} = $asignaturas[1];
 	echo "<th>$asignaturas[2]</th>";
 	$num_col = $num_col + 1;
 }
 if(!(empty($unidad))){
 	$extra=" and FALUMNOS.unidad = '$unidad'";
-	$un = mysql_query("select distinct alma.curso from alma where unidad = '$unidad'");
-	$cur = mysql_fetch_array($un);
+	$un = mysqli_query($db_con, "select distinct alma.curso from alma where unidad = '$unidad'");
+	$cur = mysqli_fetch_array($un);
 	$nivel = $cur[0];
 	$curso = $nivel;
 	$fila=1;
@@ -186,8 +186,8 @@ if(stristr($_SESSION['cargo'],'1') == TRUE){
 $alumnos0 = "select nc, FALUMNOS.apellidos, FALUMNOS.nombre, combasi, FALUMNOS.claveal, FALUMNOS.unidad from FALUMNOS, alma where alma.claveal = FALUMNOS.claveal and alma.curso = '$nivel' $extra order by FALUMNOS.apellidos, FALUMNOS.nombre, nc"; 
 //echo $alumnos0;
 $fila_asig=0;
-$alumnos1 = mysql_query($alumnos0);
-while ($alumnos = mysql_fetch_array($alumnos1)) {
+$alumnos1 = mysqli_query($db_con, $alumnos0);
+while ($alumnos = mysqli_fetch_array($alumnos1)) {
 	if(empty($jefe)){$nc="$alumnos[0]. $alumnos[1], $alumnos[2]";}else{$nc="$alumnos[1], $alumnos[2] ($alumnos[5])";}
 	
 	$fila_asig+=1;
@@ -198,9 +198,9 @@ echo "</thead><tbody><tr><td style='background-color:#eee'></td>";
 $asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where curso like '".$curso."' and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where textos_gratis.nivel = '".$curso."') order by codigo";
 // echo $asignaturas0."<br>";
 $num_col = 1;
-$asignaturas1 = mysql_query($asignaturas0);
-$num_asig = mysql_num_rows($asignaturas1);
-while ($asignaturas = mysql_fetch_array($asignaturas1)) {	
+$asignaturas1 = mysqli_query($db_con, $asignaturas0);
+$num_asig = mysqli_num_rows($asignaturas1);
+while ($asignaturas = mysqli_fetch_array($asignaturas1)) {	
 	$col{$num_col} = $asignaturas[1];
 	echo "<th style='background-color:#eee'>$asignaturas[2]</th>";
 	$num_col = $num_col + 1;
@@ -227,8 +227,8 @@ $clave = $alumnos[4];
 		$asignatura = $trozos[1];
 		$query = "select estado from textos_alumnos where claveal = '$claveal' and materia like '$asignatura' and curso = '$curso_actual'";
 		//echo $query;
-		$edit = mysql_query($query);
-		$estado0 = mysql_fetch_array($edit);
+		$edit = mysqli_query($db_con, $query);
+		$estado0 = mysqli_fetch_array($edit);
 		$estado = $estado0[0];
 ?>
 	<div class="radio">
@@ -265,8 +265,8 @@ $clave = $alumnos[4];
 	}
 	
 		$query2 = "select devuelto from textos_alumnos where claveal = '$claveal' and curso = '$curso_actual'";
-		$edit2 = mysql_query($query2);
-		$estado2 = mysql_fetch_array($edit2);
+		$edit2 = mysqli_query($db_con, $query2);
+		$estado2 = mysqli_fetch_array($edit2);
 		$estadoP = $estado2[0];
 	if(stristr($_SESSION['cargo'],'1'))
 	{

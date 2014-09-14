@@ -21,37 +21,37 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $exp_inicio_curso = explode('-', $inicio_curso);
 $inicio_curso_sql = $exp_inicio_curso[2].'-'.$exp_inicio_curso[1].'-'.$exp_inicio_curso[0];
 
-mysql_query("TRUNCATE TABLE usuario");
+mysqli_query($db_con, "TRUNCATE TABLE usuario");
 
-$result = mysql_query("SELECT DISTINCT profesor FROM $bd.profesores ORDER BY profesor ASC");
-while ($row = mysql_fetch_array($result)) {
+$result = mysqli_query($db_con, "SELECT DISTINCT profesor FROM $bd.profesores ORDER BY profesor ASC");
+while ($row = mysqli_fetch_array($result)) {
 	
 	$profesor = $row[0];
 
 	for ($i = 1; $i <= $num_carrito; $i++) {
 	
-		$result1 = mysql_query("SELECT eventdate FROM carrito$i WHERE date(eventdate) > '$inicio_curso_sql' AND (event1='$profesor' OR event2='$profesor' OR event3='$profesor' OR event4='$profesor' OR event5= '$profesor' OR event6='$profesor' OR event7='$profesor')") or die ("Error in query: $query. " . mysql_error());
+		$result1 = mysqli_query($db_con, "SELECT eventdate FROM carrito$i WHERE date(eventdate) > '$inicio_curso_sql' AND (event1='$profesor' OR event2='$profesor' OR event3='$profesor' OR event4='$profesor' OR event5= '$profesor' OR event6='$profesor' OR event7='$profesor')") or die ("Error in query: $query. " . mysqli_error($db_con));
 		
-		$dias_profesor = mysql_num_rows($result1);	
+		$dias_profesor = mysqli_num_rows($result1);	
 		
 		if ($dias_profesor > 0) {
 			
-			$result2 = mysql_query("SELECT profesor FROM usuario WHERE profesor='$profesor'");
+			$result2 = mysqli_query($db_con, "SELECT profesor FROM usuario WHERE profesor='$profesor'");
 			
-			if (!mysql_num_rows($result2)) {
-				mysql_query("INSERT INTO usuario SET profesor='$profesor', c$i='$dias_profesor'");
+			if (!mysqli_num_rows($result2)) {
+				mysqli_query($db_con, "INSERT INTO usuario SET profesor='$profesor', c$i='$dias_profesor'");
 			}
 			else {
-				mysql_query("UPDATE usuario SET c$i='$dias_profesor' WHERE profesor='$profesor'");
+				mysqli_query($db_con, "UPDATE usuario SET c$i='$dias_profesor' WHERE profesor='$profesor'");
 			}
 			
-			mysql_free_result($result2);
+			mysqli_free_result($result2);
 		}
 		
-		mysql_free_result($result1);
+		mysqli_free_result($result1);
 	}
 }
-mysql_free_result($result1);
+mysqli_free_result($result1);
 
 
 
@@ -77,13 +77,13 @@ include("../TIC/menu.php");
 				<br>
 				
 				<?php for ($i = 1; $i <= $num_carrito; $i++): ?>
-				<?php $result = mysql_query("SELECT eventdate FROM `carrito$i` WHERE DATE(eventdate) > '$inicio_curso_sql'"); ?>
-				<?php $n_dias = mysql_num_rows($result); ?>
+				<?php $result = mysqli_query($db_con, "SELECT eventdate FROM `carrito$i` WHERE DATE(eventdate) > '$inicio_curso_sql'"); ?>
+				<?php $n_dias = mysqli_num_rows($result); ?>
 				<?php $n_horas = 0; ?>
 				<?php if ($n_dias): ?>
-				<?php while ($row = mysql_fetch_array($result)): ?>
-				<?php $result1 = mysql_query("SELECT * FROM `carrito$i` WHERE eventdate='".$row['eventdate']."'"); ?>
-				<?php $row1 = mysql_fetch_array($result1); ?>
+				<?php while ($row = mysqli_fetch_array($result)): ?>
+				<?php $result1 = mysqli_query($db_con, "SELECT * FROM `carrito$i` WHERE eventdate='".$row['eventdate']."'"); ?>
+				<?php $row1 = mysqli_fetch_array($result1); ?>
 				<?php for ($j = 3; $j < 10; $j++): ?>
 				<?php if(!empty($row1[$j])): ?>
 				<?php $n_horas = $n_horas+1; ?>
@@ -131,8 +131,8 @@ include("../TIC/menu.php");
 							<?php endfor; ?>
 						</thead>
 						<tbody>
-							<?php $result = mysql_query("SELECT * FROM usuario"); ?>
-							<?php while ($row = mysql_fetch_array($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT * FROM usuario"); ?>
+							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<td><?php echo $row['profesor']; ?></td>
 								<?php for ($i = 1; $i <= $num_carrito; $i++): ?>

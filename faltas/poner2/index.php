@@ -36,8 +36,8 @@ echo "<div class='form-group col-md-10 col-md-offset-1'>
 echo "<OPTION>";
 echo "</OPTION>";	
 		        // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
-$profe = mysql_query("SELECT distinct prof, no_prof FROM horw order by prof asc");
-		 while($filaprofe = mysql_fetch_array($profe)) {
+$profe = mysqli_query($db_con, "SELECT distinct prof, no_prof FROM horw order by prof asc");
+		 while($filaprofe = mysqli_fetch_array($profe)) {
 		 	$n_p+=1;
 		        echo "<OPTION id='idopcion'>$filaprofe[1]_ $filaprofe[0]</OPTION>";
 		    } 
@@ -47,23 +47,23 @@ $profe = mysql_query("SELECT distinct prof, no_prof FROM horw order by prof asc"
 <?
 // Limpiamos Faltas de alumnos expulsados.
 $expulsados0 = "Select claveal, inicio, fin from Fechoria where expulsion > '0'";
-$expulsados1 = mysql_query($expulsados0);
-while($expulsados = mysql_fetch_row($expulsados1))
+$expulsados1 = mysqli_query($db_con, $expulsados0);
+while($expulsados = mysqli_fetch_row($expulsados1))
 {
 $claveal = $expulsados[0];
 $inicio = $expulsados[1];
 $fin = $expulsados[2];
-mysql_query("delete from FALTAS where claveal = '$claveal' and date(fecha) >= '$inicio' and date(fecha) <= '$fin'");
+mysqli_query($db_con, "delete from FALTAS where claveal = '$claveal' and date(fecha) >= '$inicio' and date(fecha) <= '$fin'");
 }
 // Lo mismo en Aula de Convivencia
 $expulsados01 = "Select claveal, inicio_aula, fin_aula  from Fechoria where aula_conv > '0'";
-$expulsados11 = mysql_query($expulsados01);
-while($expulsados1 = mysql_fetch_row($expulsados11))
+$expulsados11 = mysqli_query($db_con, $expulsados01);
+while($expulsados1 = mysqli_fetch_row($expulsados11))
 {
 $claveal = $expulsados1[0];
 $inicio_aula = $expulsados1[1];
 $fin_aula = $expulsados1[2];		
-mysql_query("delete from FALTAS where claveal = '$claveal' and date(fecha) >= '$inicio_aula' and date(fecha) <= '$fin_aula'");
+mysqli_query($db_con, "delete from FALTAS where claveal = '$claveal' and date(fecha) >= '$inicio_aula' and date(fecha) <= '$fin_aula'");
 }
 
 // Si se ha pulsado el botón de Enviar, se llama a insertar.php para meter los datos en la tabla

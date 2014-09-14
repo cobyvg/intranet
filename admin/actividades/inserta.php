@@ -44,12 +44,12 @@ $profe .= $profesor[$i].";";}
 $tr_f = explode("-",$fecha_act);  
 $fecha = "$tr_f[2]-$tr_f[1]-$tr_f[0]";
 $query="insert into actividades (grupos,actividad,descripcion,departamento,profesor,horario,fecha,hoy,confirmado, justificacion) values ('".$grupos."','".$actividad."','".$descripcion."','".$departamento."','".$profe."','".$horario."','".$fecha."','".$hoy."','0','".$justificacion."')";
-mysql_query($query);
+mysqli_query($db_con, $query);
 $texto = $descripcion  . "<br>Grupos que participan: " . $grupos;
 $html = "1";
 $datos10 = "select max(id) from actividades";
-$datos11 = mysql_query($datos10);
-$datos00=mysql_fetch_array($datos11);
+$datos11 = mysqli_query($db_con, $datos10);
+$datos00=mysqli_fetch_array($datos11);
 echo '
 <div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -58,7 +58,7 @@ Los datos de la actividad extraescolar se han introducido correctamente.<br />Co
 ?>
 <?
 $datos0 = "select * from actividades where departamento = '$departamento' order by id desc ";
-$datos1 = mysql_query($datos0);
+$datos1 = mysqli_query($db_con, $datos0);
 ?>
 
   <legend>Actividades registradas por el Departamento de <span style="color:#08c"><? echo $departamento ?></span></legend>
@@ -74,7 +74,7 @@ $datos1 = mysql_query($datos0);
   </tr></thead>
   <tbody>
 <?
-while($datos=mysql_fetch_array($datos1))
+while($datos=mysqli_fetch_array($datos1))
 {
 $fecha0 = explode("-",$datos[7]);
 $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";

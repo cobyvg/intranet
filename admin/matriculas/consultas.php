@@ -43,8 +43,8 @@ if (isset($_POST['listado_total'])) {
 	exit();
 }
 if (isset($_POST['imprimir'])) {
-	mysql_query("drop table if exists matriculas_temp");
-	mysql_query("CREATE TABLE  `matriculas_temp` (
+	mysqli_query($db_con, "drop table if exists matriculas_temp");
+	mysqli_query($db_con, "CREATE TABLE  `matriculas_temp` (
  `id_matriculas` INT NOT NULL ,
 INDEX (  `id_matriculas` )
 )");
@@ -55,7 +55,7 @@ INDEX (  `id_matriculas` )
 			$col = $tr[0];
 			if (is_numeric($id_submit)) {
 
-				mysql_query("insert into matriculas_temp VALUES ('$id_submit')");
+				mysqli_query($db_con, "insert into matriculas_temp VALUES ('$id_submit')");
 			}
 	}
 	include("imprimir.php");
@@ -63,8 +63,8 @@ INDEX (  `id_matriculas` )
 }
 
 if (isset($_POST['caratulas'])) {
-	mysql_query("drop table if exists matriculas_temp");
-	mysql_query("CREATE TABLE  `matriculas_temp` (
+	mysqli_query($db_con, "drop table if exists matriculas_temp");
+	mysqli_query($db_con, "CREATE TABLE  `matriculas_temp` (
  `id_matriculas` INT NOT NULL ,
 INDEX (  `id_matriculas` )
 )");
@@ -74,7 +74,7 @@ INDEX (  `id_matriculas` )
 			$id_submit = $tr[1];
 			$col = $tr[0];
 			if (is_numeric($id_submit)) {
-				mysql_query("insert into matriculas_temp VALUES ('$id_submit')");
+				mysqli_query($db_con, "insert into matriculas_temp VALUES ('$id_submit')");
 			}
 	}
 	include("caratulas.php");
@@ -86,8 +86,8 @@ INDEX (  `id_matriculas` )
 if (isset($_POST['cambios'])) {
 	include("../../menu.php");
 	include("menu.php");
-	mysql_query("drop table if exists matriculas_temp");
-	mysql_query("CREATE TABLE  `matriculas_temp` (
+	mysqli_query($db_con, "drop table if exists matriculas_temp");
+	mysqli_query($db_con, "CREATE TABLE  `matriculas_temp` (
  `id_matriculas` INT NOT NULL ,
 INDEX (  `id_matriculas` )
 )");
@@ -98,19 +98,19 @@ INDEX (  `id_matriculas` )
 			$col = $tr[0];
 			if (is_numeric($id_submit)) {
 
-				mysql_query("insert into matriculas_temp VALUES ('$id_submit')");
+				mysqli_query($db_con, "insert into matriculas_temp VALUES ('$id_submit')");
 			}
 	}
 	
-	$camb = mysql_query("select distinct id_matriculas from matriculas_temp");
+	$camb = mysqli_query($db_con, "select distinct id_matriculas from matriculas_temp");
 	echo '<br><h3 align="center">Alumnos de <span style="color:#08c">'.$curso.'</span> con datos cambiados.</h3><br /><br />';
 		echo "<div class='well well-large' style='width:520px;margin:auto;'>";
-	while ($cam = mysql_fetch_array($camb)) {
+	while ($cam = mysqli_fetch_array($camb)) {
 		$id_cambios = $cam[0];
 		if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma_primera";}
-	$contr = mysql_query("select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia, $alma.claveal from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id_cambios'");
+	$contr = mysqli_query($db_con, "select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia, $alma.claveal from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id_cambios'");
 	//$col_datos = array()
-	$control = mysql_fetch_array($contr);
+	$control = mysqli_fetch_array($contr);
 	if (strlen($control[16])>0) {	
 	echo "<p style='color:#08c'>$control[16]: $control[0], $control[2]</p>";
 for ($i = 0; $i < 18; $i++) {
@@ -129,7 +129,7 @@ for ($i = 0; $i < 18; $i++) {
 }
 }
 echo "</div>";
-	mysql_query("drop table matriculas_temp");
+	mysqli_query($db_con, "drop table matriculas_temp");
 exit();
 	}
 	
@@ -154,11 +154,11 @@ if ($curso=="1ESO") {
 	
 	$query2 = "select distinct alma_primaria.apellidos, alma_primaria.nombre, alma_primaria.unidad, alma_primaria.telefono, alma_primaria.telefonourgencia, alma_primaria.fecha from alma_primaria, matriculas where alma_primaria.claveal=matriculas.claveal and (confirmado not like '1') order by alma_primaria.unidad, alma_primaria.apellidos, alma_primaria.nombre";
 		
-	$camb = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha $cole_nene from $tabla_origen where claveal not in (select claveal from $tabla) and curso like '$cur_cole%' order by $cole_order unidad, apellidos, nombre");
+	$camb = mysqli_query($db_con, "select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha $cole_nene from $tabla_origen where claveal not in (select claveal from $tabla) and curso like '$cur_cole%' order by $cole_order unidad, apellidos, nombre");
 	
 	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de Colegios de Primaria.</h3><br />';
 			echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
-	while ($cam = mysql_fetch_array($camb)) {
+	while ($cam = mysqli_fetch_array($camb)) {
 				
 			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] ($cam[6])</li>";
 		
@@ -174,21 +174,21 @@ else{
 	$query2 = "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.telefono, alma.telefonourgencia, alma.fecha from alma, matriculas where alma.claveal=matriculas.claveal  and alma.curso like '$cur_monterroso%' and alma.curso like '%E.S.O.' and confirmado not like '1' order by unidad, apellidos, nombre";
 }
 	
-	$camb2 = mysql_query("select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from $tabla_origen2 where claveal not in (select claveal from $tabla) and curso like '$cur_monterroso%' and curso like '%E.S.O.' order by unidad, apellidos, nombre");
+	$camb2 = mysqli_query($db_con, "select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from $tabla_origen2 where claveal not in (select claveal from $tabla) and curso like '$cur_monterroso%' and curso like '%E.S.O.' order by unidad, apellidos, nombre");
 	
 	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de nuestro Centro.</h3><br />';
 			echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
-	while ($cam2 = mysql_fetch_array($camb2)) {
+	while ($cam2 = mysqli_fetch_array($camb2)) {
 				
 			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5] ($cam2[6])</li>";
 		
 }
 echo "</ul></div><br />";
 
-	$canf = mysql_query($query2);	
+	$canf = mysqli_query($db_con, $query2);	
 	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
 			echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
-	while ($cam2 = mysql_fetch_array($canf)) {
+	while ($cam2 = mysqli_fetch_array($canf)) {
 				
 			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
 		
@@ -225,17 +225,17 @@ echo '<div  class="hdden-print">';
 include 'filtro.php';
 echo "</div>";
 if (isset($_GET['borrar'])) {
-	mysql_query("insert into matriculas_backup (select * from matriculas where id = '$id')");
-	mysql_query("delete from matriculas where id='$id'");
+	mysqli_query($db_con, "insert into matriculas_backup (select * from matriculas where id = '$id')");
+	mysqli_query($db_con, "delete from matriculas where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El alumno ha sido borrado de la tabla de matrículas. Se ha creado una copia de respaldo de us datos en la tabla matriculas_backup.
 </div></div><br />' ;
 }
 if (isset($_GET['copia'])) {
-	mysql_query("delete from matriculas where id='$id'");
-	mysql_query("insert into matriculas (select * from matriculas_backup where id = '$id')");
-	mysql_query("delete from matriculas_backup where id='$id'");
+	mysqli_query($db_con, "delete from matriculas where id='$id'");
+	mysqli_query($db_con, "insert into matriculas (select * from matriculas_backup where id = '$id')");
+	mysqli_query($db_con, "delete from matriculas_backup where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos originales de la matrícula del alumno han sido correctamente restaurados.
@@ -337,8 +337,8 @@ for ($i=1;$i<$num_opt+1;$i++)
 
 $sql.=" from matriculas where ". $extra ." order by curso, ". $orden ." grupo_actual, apellidos, nombre ";
 //echo $sql;
-$cons = mysql_query($sql);
-if(mysql_num_rows($cons) < 1){
+$cons = mysqli_query($db_con, $sql);
+if(mysqli_num_rows($cons) < 1){
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
@@ -395,7 +395,7 @@ echo '<th class="hdden-print">SI |PIL |NO </th>';
 </thead>
 <tbody>
 <?
-	while($consul = mysql_fetch_array($cons)){
+	while($consul = mysqli_fetch_array($cons)){
 	$backup="";
 	$respaldo='1';
 	$id = $consul[0];
@@ -418,10 +418,10 @@ echo '<th class="hdden-print">SI |PIL |NO </th>';
 	$ruta_este = $consul[18];
 	$ruta_oeste = $consul[19];
 	$revisado = $consul[20];
-	$back = mysql_query("select id from matriculas_backup where id = '$id'");
-	if (mysql_num_rows($back)>0) {
+	$back = mysqli_query($db_con, "select id from matriculas_backup where id = '$id'");
+	if (mysqli_num_rows($back)>0) {
 			$respaldo = '1';
-			$backup="<a href='consultas.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-refresh' rel='Tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
+			$backup="<a href='consultas.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-refresh' data-bs='tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
 	}
 	
 	if ($curso=='4ESO') {
@@ -441,8 +441,8 @@ for ($i=1;$i<$num_opt+1;$i++)
 		
 // Problemas de Convivencia
 $n_fechorias="";
-$fechorias = mysql_query("select * from Fechoria where claveal='".$claveal."'");
-$n_fechorias = mysql_num_rows($fechorias);
+$fechorias = mysqli_query($db_con, "select * from Fechoria where claveal='".$claveal."'");
+$n_fechorias = mysqli_num_rows($fechorias);
 //$fechori="16 --> 1000";
 if (!(isset($fechori)) or $fechori=="") {
 	$fechori1="0";
@@ -522,8 +522,8 @@ echo '<td><input name="act1-'. $id .'" type="text" class="form-control input-sm"
 		}	
 	echo '<td class="hdden-print">';
 	if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma";}
-	$contr = mysql_query("select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id'");
-	$control = mysql_fetch_array($contr);
+	$contr = mysqli_query($db_con, "select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id'");
+	$control = mysqli_fetch_array($contr);
 	
 for ($i = 0; $i < 16; $i++) {
 	if ($i%2) {
@@ -540,9 +540,9 @@ for ($i = 0; $i < 16; $i++) {
 	}
 	//echo "$control[$i] --> ";
 }	
-		echo "<i class='$icon' rel='Tooltip' title='$text_contr'> </i>&nbsp;&nbsp;";
+		echo "<i class='$icon' data-bs='tooltip' title='$text_contr'> </i>&nbsp;&nbsp;";
 
-	if ($observaciones) { echo "<i class='fa fa-bookmark' rel='Tooltip' title='Tiene observaciones en la matrícula' > </i>";}
+	if ($observaciones) { echo "<i class='fa fa-bookmark' data-bs='tooltip' title='Tiene observaciones en la matrícula' > </i>";}
 	echo '</td>';
 	
 	// Promocionan o no
@@ -557,9 +557,9 @@ for ($i = 0; $i < 16; $i++) {
 		}
 		else{
 	$val_notas="";
-	$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal='".$claveal."'");
+	$not = mysqli_query($db_con, "select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal='".$claveal."'");
 
-	$nota = mysql_fetch_array($not);
+	$nota = mysqli_fetch_array($not);
 	$tr_not = explode(";", $nota[0]);
 	
 	foreach ($tr_not as $val_asig) {
@@ -615,7 +615,7 @@ echo '<td class="hdden-print"><input name="revisado-'. $id .'" type="checkbox" v
  	echo $backup;
  }
  echo "</td><td class='hdden-print'>";
- echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
+ echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
  echo "</td>";
 echo "<td class='hdden-print'>";
 // Problemas de Convivencia
@@ -651,39 +651,39 @@ echo "</div></form>";
 if ($curso) {
 
 if ($curso=="1ESO" OR $curso=="2ESO"){
-	$exen = mysql_query("select exencion from matriculas where $extra and exencion ='1'");
-	$num_exen = mysql_num_rows($exen);
+	$exen = mysqli_query($db_con, "select exencion from matriculas where $extra and exencion ='1'");
+	$num_exen = mysqli_num_rows($exen);
 	
 if ($curso=="1ESO" or $curso=="2ESO"){$num_acti = "5";}else{$num_acti = "4";}
 for ($i=1;$i<$num_acti+1;$i++){
-	${acti.$i} = mysql_query("select act1 from matriculas where $extra and act1 = '$i'");
-	${num_act.$i} = mysql_num_rows(${acti.$i});
+	${acti.$i} = mysqli_query($db_con, "select act1 from matriculas where $extra and act1 = '$i'");
+	${num_act.$i} = mysqli_num_rows(${acti.$i});
 }
 }
-$rel = mysql_query("select religion from matriculas where $extra and religion like '%Católica%'");
+$rel = mysqli_query($db_con, "select religion from matriculas where $extra and religion like '%Católica%'");
 
 //echo "select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like 'Rel%'";
-$num_rel = mysql_num_rows($rel);
+$num_rel = mysqli_num_rows($rel);
 //echo $num_rel;
 if ($curso=="3ESO"){$num_opta = "7";}else{$num_opta = "4";}
 for ($i=1;$i<$num_opta+1;$i++){
-	${opta.$i} = mysql_query("select optativa$i from matriculas where $extra and optativa$i = '1'");
-	${num_opta.$i} = mysql_num_rows(${opta.$i});
+	${opta.$i} = mysqli_query($db_con, "select optativa$i from matriculas where $extra and optativa$i = '1'");
+	${num_opta.$i} = mysqli_num_rows(${opta.$i});
 }
 
 if ($curso=="3ESO" OR $curso=="4ESO"){
-	$diver = mysql_query("select diversificacion from matriculas where $extra and diversificacion = '1'");
-	$num_diver = mysql_num_rows($diver);
+	$diver = mysqli_query($db_con, "select diversificacion from matriculas where $extra and diversificacion = '1'");
+	$num_diver = mysqli_num_rows($diver);
 }
-$promo = mysql_query("select promociona from matriculas where $extra and promociona = '1'");
-$num_promo = mysql_num_rows($promo);
+$promo = mysqli_query($db_con, "select promociona from matriculas where $extra and promociona = '1'");
+$num_promo = mysqli_num_rows($promo);
 	
-$pil = mysql_query("select promociona from matriculas where $extra and promociona = '2'");
-$num_pil = mysql_num_rows($pil);
+$pil = mysqli_query($db_con, "select promociona from matriculas where $extra and promociona = '2'");
+$num_pil = mysqli_num_rows($pil);
 	
 $an_bd = substr($curso_actual,0,4);
-$repit = mysql_query("select * from matriculas_bach, ".$db.$an_bd.".alma where ".$db.$an_bd.".alma.claveal = matriculas_bach.claveal and matriculas_bach.curso = '$curso' and ".$db.$an_bd.".alma.unidad like '$n_curso%'");
-$num_repit = mysql_num_rows($repit);
+$repit = mysqli_query($db_con, "select * from matriculas_bach, ".$db.$an_bd.".alma where ".$db.$an_bd.".alma.claveal = matriculas_bach.claveal and matriculas_bach.curso = '$curso' and ".$db.$an_bd.".alma.unidad like '$n_curso%'");
+$num_repit = mysqli_num_rows($repit);
 ?>
 <br />
 <table class="table table-striped table-bordered" align="center" style="width:auto">

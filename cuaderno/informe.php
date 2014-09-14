@@ -43,8 +43,8 @@ echo "<legend>$curso <span class='muted'>( $nom_asig )</span></legend><br>";
 if($siguiente == '1'){
   $unidad = $curso;
   $adelante1 = "select nc, claveal from FALUMNOS where unidad = '$unidad' and nc>$nc order by nc asc limit 2";
-  $adelante0 = mysql_query($adelante1);
-  $adelante = mysql_fetch_array($adelante0);
+  $adelante0 = mysqli_query($db_con, $adelante1);
+  $adelante = mysqli_fetch_array($adelante0);
   $nc = $adelante[0];
   $claveal = $adelante[1];
   }
@@ -52,13 +52,13 @@ if($siguiente == '1'){
   $unidad = $curso;
   $menor = $nc - 1;
   $anterior1 = "select nc, claveal from FALUMNOS where unidad = '$unidad' and nc < '$nc' order by nc desc limit 1";
-  $anterior0 = mysql_query($anterior1);
-  $anterior = mysql_fetch_array($anterior0);
+  $anterior0 = mysqli_query($db_con, $anterior1);
+  $anterior = mysqli_fetch_array($anterior0);
   $nc = $anterior[0];
   $claveal = $anterior[1];
   }
-  $alum = mysql_query("select nc, unidad , nombre, apellidos from FALUMNOS where claveal = '$claveal'");
-  $alumno = mysql_fetch_array($alum);
+  $alum = mysqli_query($db_con, "select nc, unidad , nombre, apellidos from FALUMNOS where claveal = '$claveal'");
+  $alumno = mysqli_fetch_array($alum);
   $nc = $alumno[0];
   $unidad = $alumno[1];
   $nombre = $alumno[2];
@@ -66,8 +66,8 @@ if($siguiente == '1'){
   $curso = $unidad;
 
 	
-	$max_nc = mysql_query("select max(nc) from FALUMNOS where unidad = '$unidad'");
-  	$max = mysql_fetch_row($max_nc);
+	$max_nc = mysqli_query($db_con, "select max(nc) from FALUMNOS where unidad = '$unidad'");
+  	$max = mysqli_fetch_row($max_nc);
 	$ultimo = $max[0];
 	
    	$foto = '../xml/fotos/'.$claveal.'.jpg';
@@ -107,15 +107,15 @@ if($siguiente == '1'){
 <?  
 // Procesamos los datosxxxx
 $datos1 = "select distinct fecha, nombre, nota from datos, notas_cuaderno where  notas_cuaderno.id = datos.id and profesor = '$profesor' and curso like '%$curso%,' and claveal = '$claveal' and asignatura = '$asignatura' order by orden";
-$datos0 = mysql_query($datos1);
-	if (mysql_num_rows($datos0) > 0) {
+$datos0 = mysqli_query($db_con, $datos1);
+	if (mysqli_num_rows($datos0) > 0) {
 		?>
     <h4 class='text-info'>
  Notas en la Columnas</h4><br />
     <?
 echo "<table align='center' class='table table-striped' style='width:auto'>\n"; 
 echo "<tr><th>Fecha</td><th>Columna</td><th>Nota</td>";
-		while($datos = mysql_fetch_array($datos0))
+		while($datos = mysqli_fetch_array($datos0))
 		{
 		echo "<tr><td class='muted'>".cambia_fecha($datos[0])."</td><td class='muted'>$datos[1]</td><td align='center' class='text-success'> <strong>$datos[2]</strong></td></tr>";
 		}

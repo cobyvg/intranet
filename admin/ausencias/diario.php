@@ -32,7 +32,7 @@ include("../../menu.php");
 $hoy = date('Y-m-d');
 
 	// Consulta de datos del alumno.
-	$result = mysql_query ( "select inicio, fin, tareas, id, profesor, horas from ausencias  where  date(inicio) <= '$hoy' and date(fin) >= '$hoy' order by inicio" );
+	$result = mysqli_query($db_con, "select inicio, fin, tareas, id, profesor, horas from ausencias  where  date(inicio) <= '$hoy' and date(fin) >= '$hoy' order by inicio" );
 	echo '<br /><table class="table table-striped table-bordered" style="width:100%;">';	
 	echo "
 	<thead>
@@ -43,7 +43,7 @@ $hoy = date('Y-m-d');
 	<th>5ª Hora</th>
 	<th>6ª Hora</th>
 	</thead><tbody>";
-	while($row = mysql_fetch_array ( $result )){
+	while($row = mysqli_fetch_array ( $result )){
 	
 	$profe_baja=$row[4];
 	$tar = $row[2];
@@ -54,16 +54,16 @@ $hoy = date('Y-m-d');
 	$ndia = date ( "w" );
 	for ($i=1;$i<7;$i++){
 	echo "<td>";	
-	$hor = mysql_query("select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
+	$hor = mysqli_query($db_con, "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
 	//echo "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'<br>";
-	$hor_asig=mysql_fetch_array($hor);
-	if (mysql_num_rows($hor) > '0'){
+	$hor_asig=mysqli_fetch_array($hor);
+	if (mysqli_num_rows($hor) > '0'){
 
 	echo "<p class='text-info'>Horario: $hor_asig[0]</p>";
 	if (strlen($hor_asig[1]) > '1' and strstr($hor_asig[0], 'GU') == FALSE){
-		$hor2 = mysql_query("select a_grupo from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
+		$hor2 = mysqli_query($db_con, "select a_grupo from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
 		echo "<p class='text-success'>Grupos: ";
-	while($hor_bj = mysql_fetch_array($hor2)){
+	while($hor_bj = mysqli_fetch_array($hor2)){
 	echo $hor_bj[0]." ";
 			}
 			echo "</p>";
@@ -79,8 +79,8 @@ $hoy = date('Y-m-d');
 }
 echo "</table>";
 echo "<br /><legend>Tareas para los Alumnos</legend>";
-$result2 = mysql_query ( "select inicio, fin, tareas, id, profesor, horas, archivo from ausencias  where date(inicio) <= '$hoy' and date(fin) >= '$hoy' order by inicio" );
-	while($row2 = mysql_fetch_array ( $result2 )){
+$result2 = mysqli_query($db_con, "select inicio, fin, tareas, id, profesor, horas, archivo from ausencias  where date(inicio) <= '$hoy' and date(fin) >= '$hoy' order by inicio" );
+	while($row2 = mysqli_fetch_array ( $result2 )){
 	$profe_baja=$row2[4];
 	$tar = $row2[2];
 	if (strlen($tar) > '1'){

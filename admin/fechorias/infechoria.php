@@ -56,7 +56,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida'];  $id = $_POST['id']; $claveal = $_POST['claveal']; $expulsionaula = $_POST['expulsionaula'];
 // Actualizar datos
 	if ($_POST['submit2']) {
-	    mysql_query("update Fechoria set asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula'  where id = '$id'");
+	    mysqli_query($db_con, "update Fechoria set asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula'  where id = '$id'");
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han actualizado correctamente.
@@ -68,16 +68,16 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 		$tr=explode(" --> ",$_GET['nombre_al']);
 		$claveal=$tr[1];
 		$nombre=$tr[0];
-		$ng_al0=mysql_query("select unidad from FALUMNOS where claveal = '$claveal'");
-		$ng_al=mysql_fetch_array($ng_al0);
+		$ng_al0=mysqli_query($db_con, "select unidad from FALUMNOS where claveal = '$claveal'");
+		$ng_al=mysqli_fetch_array($ng_al0);
 		$unidad=$ng_al[0];
 	}
 	if ($_GET['id'] or $_POST['id']) {
 		$id = $_GET['id'];
 		$claveal = $_GET['claveal'];
-		$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+		$result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
 
-  if ($row = mysql_fetch_array($result))
+  if ($row = mysqli_fetch_array($result))
         {
 
 		$nombre = "$row[0], $row[1] --> $claveal";
@@ -117,7 +117,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 				<select class="form-control" id="unidad" name="unidad" onchange="submit()">
 					<option><? echo $unidad;?></option>
 					<? if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<option>Cualquiera</option>";} ?>
-					<? unidad();?>
+					<? unidad($db_con);?>
 				</select> 
 				</div>
 				
@@ -136,13 +136,13 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 				
 					if ($claveal == "")
 					{
-						$alumnos = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS $alumno_sel order by APELLIDOS asc");
+						$alumnos = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS $alumno_sel order by APELLIDOS asc");
 						if ($unidad=="Cualquiera"){}else{echo "<OPTION>Selecciona un Alumno</OPTION>";}
 						if ($unidad)
 						{
 							echo "<OPTION>Todos los alumnos</OPTION>";
 						}
-						 while($falumno = mysql_fetch_array($alumnos))
+						 while($falumno = mysqli_fetch_array($alumnos))
 						{
 							$sel="";						
 								if (is_array($nombre)) {
@@ -162,14 +162,14 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 				
 					else
 					{
-						$alumnos = mysql_query(" SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE CLAVEAL = '$claveal' order by APELLIDOS asc");
+						$alumnos = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE CLAVEAL = '$claveal' order by APELLIDOS asc");
 				
-						if ($falumno = mysql_fetch_array($alumnos))
+						if ($falumno = mysqli_fetch_array($alumnos))
 						{
 							do {
 				
 				
-							} while($falumno = mysql_fetch_array($alumnos));
+							} while($falumno = mysqli_fetch_array($alumnos));
 						}
 					}
 					?>
@@ -189,7 +189,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 				<select class="form-control" id="grave" name="grave" onchange="submit()">
 					<option><? echo $grave;?></option>
 					<?
-					tipo();
+					tipo($db_con);
 					?>
 				</select> 
 				</div>
@@ -199,8 +199,8 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 				<select class="form-control" id="asunto" name="asunto" onchange="submit()">
 					<option><? 
 					
-					$sql0 = mysql_query("select tipo from listafechorias where fechoria = '$asunto'");
-					$sql1 = mysql_fetch_array($sql0);
+					$sql0 = mysqli_query($db_con, "select tipo from listafechorias where fechoria = '$asunto'");
+					$sql1 = mysqli_fetch_array($sql0);
 					if($sql1[0] !== $grave)
 					{
 						echo "<OPTION></OPTION>";
@@ -208,7 +208,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 					else
 					{ echo $asunto;}  ?></option>
 					<?
-					fechoria($grave);
+					fechoria($db_con, $grave);
 					?>
 				</select> 
 				</div>
@@ -218,8 +218,8 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 					<?
 					
 					$tipo = "select distinct medidas from listafechorias where fechoria = '$asunto'";
-					$tipo1 = mysql_query($tipo);
-					while($tipo2 = mysql_fetch_array($tipo1))
+					$tipo1 = mysqli_query($db_con, $tipo);
+					while($tipo2 = mysqli_fetch_array($tipo1))
 					{
 						if($tipo2[0] == "Amonestación escrita")
 						{
@@ -238,7 +238,7 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 					
 				<div class="form-group">
 					<label for="medidas">Medidas complementarias que deben tomarse</label>
-					<textarea class="form-control" id="medidas" name="medidas" rows="7" disabled><? if($medidas){ echo $medidad; }else{  medida2($asunto);} ?></textarea>
+					<textarea class="form-control" id="medidas" name="medidas" rows="7" disabled><? if($medidas){ echo $medidad; }else{  medida2($db_con, $asunto);} ?></textarea>
 				</div>
 				
 				 <?
@@ -271,8 +271,8 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 				    echo "<OPTION>".$informa."</OPTION>";	
 				    }
 				      
-				  $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
-				while($filaprofe = mysql_fetch_array($profe)) {
+				  $profe = mysqli_query($db_con, " SELECT distinct prof FROM horw order by prof asc");
+				while($filaprofe = mysqli_fetch_array($profe)) {
 					      echo"<OPTION>$filaprofe[0]</OPTION>";
 					} 
 					?>
@@ -293,8 +293,8 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 				    else{
 				    	echo "<OPTION>".$_SESSION['profi']."</OPTION>";
 				    }    
-				  $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
-				while($filaprofe = mysql_fetch_array($profe)) {
+				  $profe = mysqli_query($db_con, " SELECT distinct prof FROM horw order by prof asc");
+				while($filaprofe = mysqli_fetch_array($profe)) {
 					      echo"<OPTION>$filaprofe[0]</OPTION>";
 					} 
 					?>

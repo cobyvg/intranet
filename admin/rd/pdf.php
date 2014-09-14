@@ -18,15 +18,15 @@ if (isset($_GET['imprimir'])) {$imprimir = $_GET['imprimir'];}elseif (isset($_PO
 require_once("../../pdf/dompdf_config.inc.php"); 
 
 if ($imprimir=="1") {
-		mysql_query("update r_departamento set impreso = '1' where id = '$id'");
+		mysqli_query($db_con, "update r_departamento set impreso = '1' where id = '$id'");
 }
 	$query = "SELECT contenido, fecha, departamento FROM r_departamento WHERE id = '$id'";
-   	$result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
-   	if (mysql_num_rows($result) > 0)
+   	$result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
+   	if (mysqli_num_rows($result) > 0)
    	{
    	
    	  
-   		$row = mysql_fetch_array($result);
+   		$row = mysqli_fetch_array($result);
    		$contenido = $row[0];
    		$html = mb_convert_encoding($contenido, 'UTF-8', 'ISO-8859-1');
    		$fecha = $row[1];

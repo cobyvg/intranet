@@ -56,8 +56,8 @@ Los datos se han modificado correctamente.
 </div></div>';
 }
 else{
-	$serie = mysql_query("select max(orden) from notas_cuaderno where profesor = '$pr' and curso = '$curso' and asignatura = '$asignatura'");
-	$num_col = mysql_fetch_array($serie);
+	$serie = mysqli_query($db_con, "select max(orden) from notas_cuaderno where profesor = '$pr' and curso = '$curso' and asignatura = '$asignatura'");
+	$num_col = mysqli_fetch_array($serie);
 	$orden = $num_col[0] + 1;
 	// Si no, insertamos
 $sql = "INSERT INTO  notas_cuaderno ( profesor ,  fecha ,  nombre ,  texto ,  asignatura, curso, orden, visible_nota, Tipo ) 
@@ -68,8 +68,8 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
 La nueva columna ha sido añadida a la tabla del Cuaderno.
 </div></div>';
 }
-mysql_query($sql) or die (mysql_error());
-mysql_close();
+mysqli_query($db_con, $sql) or die (mysqli_error($db_con));
+mysqli_close();
 echo $mens10;
 ?>
 

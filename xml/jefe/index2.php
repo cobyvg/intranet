@@ -33,8 +33,8 @@ include("../../menu.php");
 		<h2>Administración <small>Importación de alumnos</small></h2>
 	</div>
 	
-	<?php $result = mysql_query("SELECT * FROM alma LIMIT 1"); ?>
-	<?php if(mysql_num_rows($result)): ?>
+	<?php $result = mysqli_query($db_con, "SELECT * FROM alma LIMIT 1"); ?>
+	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-danger">
 		Ya existe información en la base de datos. Este proceso creará una base de datos nueva para el curso escolar. Si desea actualizar la información de los alumnos, diríjase al apartado <a href="index.php" class="alert-link">Actualizar alumnos</a>. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
 	</div>

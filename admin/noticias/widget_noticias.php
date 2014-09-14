@@ -3,10 +3,10 @@
 
 <h4><span class="fa fa-th-list fa-fw"></span> Noticias</h4><hr>
 
-<?php $result = mysql_query("SELECT id, slug, content, contact, timestamp, clase FROM noticias WHERE timestamp < NOW() AND pagina LIKE '%1%' ORDER BY timestamp DESC LIMIT 8"); ?>
-<?php if (mysql_num_rows($result)): ?>
+<?php $result = mysqli_query($db_con, "SELECT id, slug, content, contact, timestamp, clase FROM noticias WHERE timestamp < NOW() AND pagina LIKE '%1%' ORDER BY timestamp DESC LIMIT 8"); ?>
+<?php if (mysqli_num_rows($result)): ?>
 	
-<?php while ($row = mysql_fetch_array($result, MYSQL_ASSOC)): ?>
+<?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)): ?>
 		
 <?php $exp_profesor = explode(',', $row['contact']); ?>
 <?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
@@ -27,7 +27,7 @@
 </div>
 		
 <?php endwhile; ?>
-<?php mysql_free_result($result); ?>
+<?php mysqli_free_result($result); ?>
 	
 <?php else: ?>
 

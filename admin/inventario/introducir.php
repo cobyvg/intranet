@@ -54,7 +54,7 @@ else{
 ?>
 <?
 if ($_GET['eliminar']=="1") {
-	mysql_query("delete from inventario where id='".$_GET['id']."'");
+	mysqli_query($db_con, "delete from inventario where id='".$_GET['id']."'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.
@@ -65,13 +65,13 @@ if($enviar == "Enviar datos")
 {
 if (!(empty($familia) or empty($clase) or empty($lugar))) 
 {
-	$tipo=mysql_query("select id from inventario_clases where familia = '$familia' and clase = '$clase'");
-	$tip=mysql_fetch_array($tipo);
-	mysql_query("INSERT INTO  `inventario` (  `id` ,  `clase` ,  `lugar` ,  `descripcion` ,  `marca` ,  `modelo` ,  `serie` ,  `unidades` ,  `fecha` ,  `ahora` ,  `departamento` ,  `profesor` ) 
+	$tipo=mysqli_query($db_con, "select id from inventario_clases where familia = '$familia' and clase = '$clase'");
+	$tip=mysqli_fetch_array($tipo);
+	mysqli_query($db_con, "INSERT INTO  `inventario` (  `id` ,  `clase` ,  `lugar` ,  `descripcion` ,  `marca` ,  `modelo` ,  `serie` ,  `unidades` ,  `fecha` ,  `ahora` ,  `departamento` ,  `profesor` ) 
 VALUES (
 NULL ,  '$tip[0]',  '$lugar',  '$descripcion',  '$marca',  '$modelo',  '$serie',  '$unidades',  '$fecha',  now(), '$departamento',   '$profe'
 )");
-	$num = mysql_affected_rows();
+	$num = mysqli_affected_rows();
 if ($num==1) {
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -104,8 +104,8 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') ==
 <select name="familia" onchange="submit()" class="form-control">
         <?
 echo "<option>$familia</option>";
-$famil = mysql_query(" SELECT distinct familia FROM inventario_clases order by familia asc");
-while($fam = mysql_fetch_array($famil))
+$famil = mysqli_query($db_con, " SELECT distinct familia FROM inventario_clases order by familia asc");
+while($fam = mysqli_fetch_array($famil))
 	{
 	echo "<OPTION>$fam[0]</OPTION>";
 	} 
@@ -116,8 +116,8 @@ while($fam = mysql_fetch_array($famil))
 <select name="clase" class="form-control">
         <?
 echo "<option></option>";
-$cla = mysql_query(" SELECT distinct clase FROM inventario_clases where familia='$familia' order by familia asc");
-while($clas = mysql_fetch_array($cla))
+$cla = mysqli_query($db_con, " SELECT distinct clase FROM inventario_clases where familia='$familia' order by familia asc");
+while($clas = mysqli_fetch_array($cla))
 	{
 	echo "<OPTION>$clas[0]</OPTION>";
 	} 
@@ -128,8 +128,8 @@ while($clas = mysql_fetch_array($cla))
 <select name="lugar" class="form-control">
         <?
 echo "<option></option>";
-$luga = mysql_query(" SELECT distinct lugar FROM inventario_lugares order by lugar asc");
-while($lug = mysql_fetch_array($luga))
+$luga = mysqli_query($db_con, " SELECT distinct lugar FROM inventario_lugares order by lugar asc");
+while($lug = mysqli_fetch_array($luga))
 	{
 	echo "<OPTION>$lug[0]</OPTION>";
 	} 
@@ -174,15 +174,15 @@ else{
 }
 ?>
 <?
-$it = mysql_query("select inventario_clases.clase, marca, modelo, unidades, inventario.id from inventario, inventario_clases where inventario_clases.id=inventario.clase and departamento='$departamento'");
-if (mysql_num_rows($it)>0) {
+$it = mysqli_query($db_con, "select inventario_clases.clase, marca, modelo, unidades, inventario.id from inventario, inventario_clases where inventario_clases.id=inventario.clase and departamento='$departamento'");
+if (mysqli_num_rows($it)>0) {
 	echo '<legend>Inventario: ';
 	if($departamento){echo "<span style=color:#9d261d>".$departamento."</span>";}
 	else{echo "<span style=color:#9d261d>Dirección del Centro</span>";}
 	echo '</legend>
 <table class="table table-striped">
 <tr><th>Tipo</th><th>Marca / Modelo</th><th>Núm.</th><th></th><th></th></tr>';
-while($item = mysql_fetch_row($it))
+while($item = mysqli_fetch_row($it))
 {
 	if (empty($item[1])) {
 		$marca = $item[2];

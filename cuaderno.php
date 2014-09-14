@@ -85,7 +85,7 @@ if(empty($curso))
 	include("index.php");
 	exit;
 }
-mysql_query("ALTER TABLE  datos CHANGE  nota VARCHAR( 48 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  '' ");
+mysqli_query($db_con, "ALTER TABLE  datos CHANGE  nota VARCHAR( 48 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  '' ");
 
 // Titulo
 echo "<div class='container'><div class='row'>";
@@ -112,8 +112,8 @@ if($pr and $dia and $hora)
 	?>
 	<?php
 	// Distintos códigos de la asignatura cuando hay varios grupos en una hora.
-	$n_c = mysql_query("SELECT distinct  a_grupo, profesores.nivel FROM  horw, profesores where prof = profesor and a_grupo = profesores.grupo and prof = '$pr' and dia = '$dia' and hora = '$hora'");
-	while($varias = mysql_fetch_array($n_c))
+	$n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, profesores.nivel FROM  horw, profesores where prof = profesor and a_grupo = profesores.grupo and prof = '$pr' and dia = '$dia' and hora = '$hora'");
+	while($varias = mysqli_fetch_array($n_c))
 	{
 		if (substr($varias[0],3,2) == "Dd" ) {
 			$varias[0] = substr($varias[0],0,4);
@@ -121,12 +121,12 @@ if($pr and $dia and $hora)
 		$nombre_asig = $varias[1];
 		$nombre_materia = strtolower($nombre_asig);
 	}
-	$num_cursos0 = mysql_query("SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'");
+	$num_cursos0 = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'");
 	// Todos los Grupos juntos
 	$curs = "";
 	$codigos = "";
 	$nom_asig="";
-	while($n_cur = mysql_fetch_array($num_cursos0))
+	while($n_cur = mysqli_fetch_array($num_cursos0))
 	{
 		$curs .= $n_cur[0].", ";
 		$codigos.= $n_cur[1]." ";
@@ -139,8 +139,8 @@ if($pr and $dia and $hora)
 	$curso_sin = substr($curs0,0,(strlen($curs0)-1));
 	//Número de columnas
 	$col = "select distinct id, nombre, orden, visible_nota from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
-	$col0 = mysql_query($col);
-	$cols = mysql_num_rows($col0);
+	$col0 = mysqli_query($db_con, $col);
+	$cols = mysqli_num_rows($col0);
 	$sin_coma=$curso;
 	
 	echo "<p class='lead bg-primary'>$curso_sin <span class='text-muted'>( $nom_asig )</span></p><br>";
@@ -171,11 +171,11 @@ todos</a></div>
 		echo "<thead><th colspan=2 style='vertical-align:bottom;background-color:#fff'></th>";
 		// Número de las columnas de la tabla
 		$cols2=0;
-		while($col20 = mysql_fetch_array($col0)){
+		while($col20 = mysqli_fetch_array($col0)){
 			$icon_eye="";
 			$nombre_col="";
-			$col2=mysql_query("select distinct id from datos where id = '$col20[0]' ");
-			$cols2 += mysql_num_rows($col2); //echo $cols2;
+			$col2=mysqli_query($db_con, "select distinct id from datos where id = '$col20[0]' ");
+			$cols2 += mysqli_num_rows($col2); //echo $cols2;
 			$ident= $col20[2];
 			$id = $col20[0];
 			$nombre_col = $col20[1];
@@ -202,8 +202,8 @@ todos</a></div>
 		// Tabla para cada Grupo
 		$curso0 = "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
 		//echo $curso0."<br />";
-		$curso20 = mysql_query($curso0);
-		while ($curso11 = mysql_fetch_array($curso20))
+		$curso20 = mysqli_query($db_con, $curso0);
+		while ($curso11 = mysqli_fetch_array($curso20))
 		{
 			$curso = $curso11[0];
 			$nivel_curso = substr($curso,0,1);
@@ -213,12 +213,12 @@ todos</a></div>
 			$num_col = 2 + $cols + $cols2;
 
 			//	Problemas con Diversificación (4E-Dd)
-			$profe_div = mysql_query("select * from profesores where grupo = '$curso'");
-			if (mysql_num_rows($profe_div)<1) {
+			$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
+			if (mysqli_num_rows($profe_div)<1) {
 
 				$div = $curso;
-				$grupo_div = mysql_query("select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
-				$grupo_diver = mysql_fetch_row($grupo_div);
+				$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+				$grupo_diver = mysqli_fetch_row($grupo_div);
 				$curso = $grupo_diver[0];
 			}
 			else{
@@ -245,13 +245,13 @@ todos</a></div>
 			echo '" />';
 			if (empty($seleccionar)) {
 				if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
-				mysql_select_db($db);
+				mysqli_select_db($db_con, $db);
 				$hay0 = "select alumnos from grupos where profesor='$pr' and asignatura = '$asignatura' and curso = '$curso_orig'";
 				//echo $hay0."<br>";
-				$hay1 = mysql_query($hay0);
-				$hay = mysql_fetch_row($hay1);
+				$hay1 = mysqli_query($db_con, $hay0);
+				$hay = mysqli_fetch_row($hay1);
 				$todos = "";
-				if(mysql_num_rows($hay1) == "1"){
+				if(mysqli_num_rows($hay1) == "1"){
 					$seleccionados = substr($hay[0],0,strlen($hay[0])-1);
 					$t_al = explode(",",$seleccionados);
 					$todos = " and (nc = '300'";
@@ -286,8 +286,8 @@ todos</a></div>
 			$resul.=") ". $todos ." order by NC";
 
 			//echo $resul;
-			$result = mysql_query ($resul);
-			while($row = mysql_fetch_array($result))
+			$result = mysqli_query($db_con, $resul);
+			while($row = mysqli_fetch_array($result))
 			{
 				$claveal = $row[0];
 				$nombre_al =   $row[3];
@@ -315,12 +315,12 @@ todos</a></div>
 			<?
 			// Si hay datos escritos rellenamos la casilla correspondiente
 			$colu10 = "select distinct id, Tipo from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by id";
-			$colu20 = mysql_query($colu10);
-			while($colus10 = mysql_fetch_array($colu20)){
+			$colu20 = mysqli_query($db_con, $colu10);
+			while($colus10 = mysqli_fetch_array($colu20)){
 				$id = $colus10[0];
 				$t_dato = $colus10[1];
-				$dato0 = mysql_query("select nota, ponderacion from datos where claveal = '$claveal' and id = '$id'");
-				$dato1 = mysql_fetch_array($dato0);
+				$dato0 = mysqli_query($db_con, "select nota, ponderacion from datos where claveal = '$claveal' and id = '$id'");
+				$dato1 = mysqli_fetch_array($dato0);
 				if($dato1[0] < 5){$color="#9d261d";}else{$color="navy";}
 
 				if (stristr($t_dato,"Casilla")==TRUE) {
@@ -338,13 +338,13 @@ input[type=number]::-webkit-inner-spin-button {
 }
 </style>
 <?
-$tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1[0]' rel='Tooltip' title='$dato1[0]' style='max-width:40px;color:$color;height:30px;background-color:#de9'>";
+$tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='max-width:40px;color:$color;height:30px;background-color:#de9'>";
 				}
 				elseif (stristr($t_dato,"Texto corto")==TRUE) {
-					$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' rel='Tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:30px;maxlength:3;max-width:40px;background-color:#adc'>";
+					$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:30px;maxlength:3;max-width:40px;background-color:#adc'>";
 				}
 				else{
-					$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' rel='Tooltip' title='$dato1[0]' style='height:30px;maxlength:35;background-color:#dbf;max-width:90px;'>";
+					$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='height:30px;maxlength:35;background-color:#dbf;max-width:90px;'>";
 				}
 
 				echo "<td style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;'>$tipo_dato</td>";
@@ -358,8 +358,8 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 					if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $grupo_simple;}
 					$grupos2 = "select alumnos from grupos where profesor = '$pr' and curso = '$curso_orig' and asignatura = '$asignatura'";
 					$marcado = "";
-					$grupos0 = mysql_query($grupos2);
-					$grupos1 = mysql_fetch_array($grupos0);
+					$grupos0 = mysqli_query($db_con, $grupos2);
+					$grupos1 = mysqli_fetch_array($grupos0);
 					$sel = explode(",",$grupos1[0]);
 					foreach($sel as $nc_sel){if($nc_sel == $nc)
 					{
@@ -407,7 +407,7 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 		<?
 
 		$colum24= "select distinct id, nombre, orden from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";
-		$colu = mysql_query($colum24);
+		$colu = mysqli_query($db_con, $colum24);
 		?>
 
 		</div>
@@ -461,10 +461,10 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 
 		echo '<ul class="no_imprimir list-unstyled" style="line-height:32px">';
 		$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1&nom_asig=$nom_asig";
-		echo '<li><i class="fa fa-user fa-lg no_imprimir" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." rel="Tooltip"></i> &nbsp;<a href="'.$mens1.'">Seleccionar alumnos</a></li>';
-		echo '<li><i class="fa fa-print fa-lg no_imprimir"  rel="Tooltip" title="Imprimir la tabla de alumnos con los datos registrados" onclick="print()"';
+		echo '<li><i class="fa fa-user fa-lg no_imprimir" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." data-bs="tooltip"></i> &nbsp;<a href="'.$mens1.'">Seleccionar alumnos</a></li>';
+		echo '<li><i class="fa fa-print fa-lg no_imprimir"  data-bs="tooltip" title="Imprimir la tabla de alumnos con los datos registrados" onclick="print()"';
 		echo '\'" style="cursor: pointer;"> </i> <a onclick="print()" style="cursor: pointer;">Imprimir tabla</a></li>';
-		echo '<li><i class="fa fa-plus-circle fa-lg no_imprimir" rel="Tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';
+		echo '<li><i class="fa fa-plus-circle fa-lg no_imprimir" data-bs="tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';
 		echo $mens2;
 		echo '\'" style="cursor: pointer;"> </i> <a href="'.$mens2.'">Nueva columna de datos</a></li>';
 		echo '';
@@ -505,36 +505,36 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 
 		<?
 		$colum= "select distinct id, nombre, orden, oculto from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";
-		$colum0 = mysql_query($colum);
+		$colum0 = mysqli_query($db_con, $colum);
 		echo '<form action="cuaderno/editar.php" method="POST" id="editar">';
-		if (mysql_num_rows($colum0) > 0) {
+		if (mysqli_num_rows($colum0) > 0) {
 			$h=0;
-			while($colum00=mysql_fetch_array($colum0)){
+			while($colum00=mysqli_fetch_array($colum0)){
 
-				$otra=mysql_query("select distinct ponderacion from datos where id='$colum00[0]' and ponderacion<>'1' ");
+				$otra=mysqli_query($db_con, "select distinct ponderacion from datos where id='$colum00[0]' and ponderacion<>'1' ");
 				if ($otra){$h+=1;}											}
 				echo "<table class='table table-striped' style='width:100%;'>";
-				$otra2=mysql_query("select distinct id, nombre, orden, oculto, visible_nota from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc");
-				while ($colum1 = mysql_fetch_array($otra2)) {
+				$otra2=mysqli_query($db_con, "select distinct id, nombre, orden, oculto, visible_nota from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc");
+				while ($colum1 = mysqli_fetch_array($otra2)) {
 					$n_col = $colum1[2];
 					$id = $colum1[0];
 					$nombre = $colum1[1];
 					$oculto = $colum1[3];
 					$visible_not= $colum1[4];
-					$pon=mysql_query("select distinct ponderacion from datos where id='$id'");
-					$pon0=mysql_fetch_array($pon);
+					$pon=mysqli_query($db_con, "select distinct ponderacion from datos where id='$id'");
+					$pon0=mysqli_fetch_array($pon);
 					$pond= $pon0[0];
 					$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curso&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
-					$colum1[4] ? $icon_eye = '<i class="fa fa-eye" rel="Tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" rel="Tooltip" title="Columna oculta en la página pública del Centro"></i>';
+					$colum1[4] ? $icon_eye = '<i class="fa fa-eye" data-bs="tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" data-bs="tooltip" title="Columna oculta en la página pública del Centro"></i>';
 					echo "<tr><td nowrap style='vertical-align:middle;'>$n_col &nbsp;&nbsp;$icon_eye </td><td style='vertical-align:middle;'><a href='$mens0'>$nombre</a></td>";
 					echo "<td>";
 					?> 
 					<div class="checkbox">
 					<input type="checkbox"
 			name="<? echo $id;?>"
-			value="<? if(mysql_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>">
+			value="<? if(mysqli_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>">
 			<?
-	  if ($pon0[0] > "1" ) {echo "<span align='center' class='text-muted' Rel='Tooltip' title='Ponderación de la columna'> ($pond)</span>"; }
+	  if ($pon0[0] > "1" ) {echo "<span align='center' class='text-muted' data-bs='tooltip' title='Ponderación de la columna'> ($pond)</span>"; }
 	  echo "</div></td></tr>";
 				}
 				echo "</table>";

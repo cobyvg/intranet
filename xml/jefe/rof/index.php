@@ -28,7 +28,7 @@ $msg = $_GET['msg'];
 // ELIMINAR ITEM
 if(isset($_GET['eliminar'])) {
 	if ($id = intval($_GET['eliminar'])) {
-		mysql_query("DELETE FROM listafechorias WHERE id=$id");
+		mysqli_query($db_con, "DELETE FROM listafechorias WHERE id=$id");
 		$msg = "La regla ha sido eliminada";
 	}
 }
@@ -68,18 +68,18 @@ include("../../../menu.php");
 		    </thead>
 		    <tbody>
 		    <?php
-		    $result = mysql_query("SELECT DISTINCT tipo FROM listafechorias");
+		    $result = mysqli_query($db_con, "SELECT DISTINCT tipo FROM listafechorias");
 		    
-		    while ($tipos = mysql_fetch_array($result)) {
+		    while ($tipos = mysqli_fetch_array($result)) {
 		    	$tipo = $tipos[0];
 		    	
 		    	echo "<tr class=\"info\">\n";
 		    	echo "  <td colspan=\"4\"><strong>$tipo</strong></td>\n";
 		    	echo "</tr>\n";
 		    	
-		    	$result2 = mysql_query("SELECT id, fechoria, medidas, medidas2 FROM listafechorias WHERE tipo='$tipo' ORDER BY id");
+		    	$result2 = mysqli_query($db_con, "SELECT id, fechoria, medidas, medidas2 FROM listafechorias WHERE tipo='$tipo' ORDER BY id");
 		    	
-		    	while ($fechoria = mysql_fetch_array($result2)) {
+		    	while ($fechoria = mysqli_fetch_array($result2)) {
 		    		$id = $fechoria[0];
 		    		
 		    		echo "<tr>\n";

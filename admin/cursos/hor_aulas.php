@@ -55,8 +55,8 @@ include("../../menu.php");
 								<th><?php echo $desc; ?></th>
 								<?php for($i = 1; $i < 6; $i++): ?>
 								<td width="20%">
-									<?php $result = mysql_query("SELECT DISTINCT asig, prof FROM horw WHERE n_aula='$aula' AND dia='$i' AND hora='$hora'"); ?>
-									<?php while($row = mysql_fetch_array($result)): ?>
+									<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, prof FROM horw WHERE n_aula='$aula' AND dia='$i' AND hora='$hora'"); ?>
+									<?php while($row = mysqli_fetch_array($result)): ?>
 									<?php echo $row['asig']; ?><br>
 									<span class="text-info"><?php echo $row['prof']; ?></span>
 									<?php endwhile; ?>

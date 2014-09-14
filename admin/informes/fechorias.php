@@ -3,10 +3,10 @@
 <a name="convivencia"></a>
 <h3>Problemas de convivencia</h3>
 
-<?php $result = mysql_query("SELECT DISTINCT FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, 
+<?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, 
 Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM Fechoria, FALUMNOS WHERE FALUMNOS.claveal = Fechoria.claveal
  AND FALUMNOS.claveal = $claveal AND Fechoria.fecha >= '$inicio_curso' ORDER BY Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos"); ?>
-<?php if (mysql_num_rows($result)): ?>
+<?php if (mysqli_num_rows($result)): ?>
 <div class="table-responsive">
 	<table class="table table-bordered table-striped table-hover datatable2">
 		<thead>
@@ -18,7 +18,7 @@ Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM 
 			</tr>
 		</thead>
 		<tbody>
-			<?php while ($row = mysql_fetch_array($result)): ?>
+			<?php while ($row = mysqli_fetch_array($result)): ?>
 			<tr>
 				<td><?php echo $row['fecha']; ?></td>
 				<td><?php echo $row['asunto']; ?></td>
@@ -26,13 +26,13 @@ Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM 
 				<td><?php echo $row['informa']; ?></td>
 			</tr>
 			<?php endwhile; ?>
-			<?php mysql_free_result($result); ?>
+			<?php mysqli_free_result($result); ?>
 		</tbody>
 	</table>
 </div>
 
-<?php $result = mysql_query("SELECT expulsion, inicio, fin, asunto, aula_conv, inicio_aula, fin_aula FROM Fechoria WHERE Fechoria.claveal = '$claveal' AND (expulsion > '0' OR aula_conv>0) AND Fechoria.fecha >= '$inicio_curso' ORDER BY Fechoria.fecha"); ?>
-<?php if (mysql_num_rows($result)): ?>
+<?php $result = mysqli_query($db_con, "SELECT expulsion, inicio, fin, asunto, aula_conv, inicio_aula, fin_aula FROM Fechoria WHERE Fechoria.claveal = '$claveal' AND (expulsion > '0' OR aula_conv>0) AND Fechoria.fecha >= '$inicio_curso' ORDER BY Fechoria.fecha"); ?>
+<?php if (mysqli_num_rows($result)): ?>
 <h3>Expulsiones</h3>
 <div class="table-responsive">
 	<table class="table table-bordered table-striped table-hover">
@@ -45,7 +45,7 @@ Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM 
 			</tr>
 		</thead>
 		<tbody>
-			<?php while ($row = mysql_fetch_array($result)): ?>
+			<?php while ($row = mysqli_fetch_array($result)): ?>
 			<tr>
 				<td><?php echo ($row['expulsion'] > '1') ? 'Expulsión del centro' : 'Aula de convivencia'; ?></td>
 				<td><?php echo ($row['expulsion'] > '1') ? cambia_fecha($row['inicio']) : cambia_fecha($row['inicio_aula']); ?></td>
@@ -53,7 +53,7 @@ Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM 
 				<td><?php echo $row['asunto']; ?></td>
 			</tr>
 			<?php endwhile; ?>
-			<?php mysql_free_result($result); ?>
+			<?php mysqli_free_result($result); ?>
 		</tbody>
 	</table>
 </div>

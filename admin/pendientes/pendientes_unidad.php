@@ -103,16 +103,16 @@ FROM alma,  pendientes , asignaturas, FALUMNOS
 WHERE alma.unidad='$valor' and alma.claveal = pendientes.claveal and FALUMNOS.claveal = pendientes.claveal
 AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas.curso like '$val_nivel%' ORDER BY Apellidos, Nombre";
 		//	echo $sql;
-		$Recordset1 = mysql_query($sql) or die(mysql_error());  #crea la consulata
+		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata
 
 		$MiPDF->SetFont('NewsGotT','',12);
 		$linea='';
 		$x=0;
 		$cuenta=1;
 		$alumno='';
-		while ($salida = mysql_fetch_array($Recordset1)){
-	$uni = mysql_query("select combasi from alma where claveal = '$salida[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%')");
-	if (mysql_num_rows($uni)>0) {}
+		while ($salida = mysqli_fetch_array($Recordset1)){
+	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$salida[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%')");
+	if (mysqli_num_rows($uni)>0) {}
 			else{
 			if ($salida[0]<>$alumno){
 				$alumno=$salida[0];
@@ -169,11 +169,11 @@ Parece que estás intentando ver la lista de asignaturas pendientes de los alumno
 		else{	
 echo "<table class='table table-striped' align='center'><thead><th></th><th>Alumno</th><th>Pendientes</th></thead><tbody>";
 $val_nivel=substr($valor,0,1);
-$pend = mysql_query("select distinct pendientes.claveal, alma.apellidos, alma.nombre, nc from pendientes, alma, FALUMNOS where pendientes.claveal=alma.claveal and alma.claveal = FALUMNOS.claveal  and alma.unidad = '$valor' order by nc, apellidos, nombre");
+$pend = mysqli_query($db_con, "select distinct pendientes.claveal, alma.apellidos, alma.nombre, nc from pendientes, alma, FALUMNOS where pendientes.claveal=alma.claveal and alma.claveal = FALUMNOS.claveal  and alma.unidad = '$valor' order by nc, apellidos, nombre");
 $n1="";
-while ($pendi = mysql_fetch_array($pend)) {
-	$uni = mysql_query("select combasi from alma where claveal = '$pendi[0]' and (combasi like '%2522%' or combasi like '%25227%' or combasi like '%25205%' or combasi like '%25204%')");
-	if (mysql_num_rows($uni)>0) {}
+while ($pendi = mysqli_fetch_array($pend)) {
+	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%2522%' or combasi like '%25227%' or combasi like '%25205%' or combasi like '%25204%')");
+	if (mysqli_num_rows($uni)>0) {}
 			else{
 	echo "<tr><td>$pendi[3]</td><td nowrap><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$pendi[0]&todos=Ver Informe Completo del Alumno'>$pendi[1], $pendi[2]</a></td><td>";
 		$sql = "SELECT alma.claveal, apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso
@@ -181,9 +181,9 @@ FROM alma,  pendientes , asignaturas
 WHERE alma.claveal='".$pendi[0]."' and alma.claveal = pendientes.claveal
 AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas.curso like '$val_nivel%' and alma.unidad not like '%P-%' ORDER BY Apellidos, Nombre";
 			//echo $sql."<br>";
-		$Recordset1 = mysql_query($sql) or die(mysql_error());  #crea la consulata;
-		if (mysql_num_rows($Recordset1)>0) {
-		while ($salida = mysql_fetch_array($Recordset1)){	
+		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
+		if (mysqli_num_rows($Recordset1)>0) {
+		while ($salida = mysqli_fetch_array($Recordset1)){	
 		//	echo "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%')";
 						
 			echo " $salida[4]|  ";

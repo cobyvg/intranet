@@ -71,15 +71,15 @@ actividad:</label>
 $dept_pes = str_ireplace(" P.E.S.","",$_SESSION['dpt']);                    
 if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE)) {
 	  // Datos del alumno que hace la consulta. No aparece el nombre del a&ntilde;o de la nota. Se podr&iacute;a incluir.
-  $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where departamento like '". $dept_pes ."%' order by departamento asc");
-  if ($filaprofe = mysql_fetch_array($profe))
+  $profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos  where departamento like '". $dept_pes ."%' order by departamento asc");
+  if ($filaprofe = mysqli_fetch_array($profe))
         {
         do {
 
 	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
 	      echo "$opcion1";
 
-	} while($filaprofe = mysql_fetch_array($profe));
+	} while($filaprofe = mysqli_fetch_array($profe));
         }
 }
 else{
@@ -89,15 +89,15 @@ else{
         <OPTION>Relaciones de Género</OPTION>
 	<?
   // Datos del alumno que hace la consulta. No aparece el nombre del a&ntilde;o de la nota. Se podr&iacute;a incluir.
- $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%' order by departamento asc");
- if ($filaprofe = mysql_fetch_array($profe))
+ $profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos  where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%' order by departamento asc");
+ if ($filaprofe = mysqli_fetch_array($profe))
         {
         do {
 
 	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
 	     // echo "$opcion1";
 
-	} while($filaprofe = mysql_fetch_array($profe));
+	} while($filaprofe = mysqli_fetch_array($profe));
         }		
 	}
 
@@ -111,14 +111,14 @@ else{
                     <?
                     if($_POST['departamento'] == "Actividades Extraescolares" or $_POST['departamento'] == "Relaciones de Género"){
                     if($_POST['departamento'] == "Actividades Extraescolares"){
-						$acti = mysql_query("select nombre from departamentos where cargo like '%5%'");
-						while ($activ = mysql_fetch_array($acti)) {
+						$acti = mysqli_query($db_con, "select nombre from departamentos where cargo like '%5%'");
+						while ($activ = mysqli_fetch_array($acti)) {
 							echo "<OPTION>$activ[0]</OPTION>";
 						}
 					}
 					elseif($_POST['departamento'] == "Relaciones de Género"){
-						$rg = mysql_query("select nombre from departamentos where cargo like '%d%'");
-						while ($rgen = mysql_fetch_array($rg)) {
+						$rg = mysqli_query($db_con, "select nombre from departamentos where cargo like '%d%'");
+						while ($rgen = mysqli_fetch_array($rg)) {
 							echo "<OPTION>$rgen[0]</OPTION>";
 						}
 					}
@@ -132,8 +132,8 @@ else{
 						$dept_texto = str_ireplace(" P.E.S.","",$departamento);                    
 						$texto = "and departamento like '$dept_texto%'";
 					}
-$profe = mysql_query("SELECT distinct NOMBRE FROM departamentos where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%'" . $texto. " and departamento not like '' order by NOMBRE asc");
-  if ($filaprofe = mysql_fetch_array($profe))
+$profe = mysqli_query($db_con, "SELECT distinct NOMBRE FROM departamentos where nombre not like 'admin' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%'" . $texto. " and departamento not like '' order by NOMBRE asc");
+  if ($filaprofe = mysqli_fetch_array($profe))
         {
         do {
 if($departamento == "Religión")
@@ -142,7 +142,7 @@ if($departamento == "Religión")
 	      //echo "$opcion1";
 }
 
-	} while($filaprofe = mysql_fetch_array($profe));
+	} while($filaprofe = mysqli_fetch_array($profe));
         }
 	?>
                   </select>
@@ -175,8 +175,8 @@ if($departamento == "Religión")
            
 <?
 $curso0 = "select distinct curso from alma order by curso";
-$curso1 = mysql_query($curso0);
-while($curso = mysql_fetch_array($curso1))
+$curso1 = mysqli_query($db_con, $curso0);
+while($curso = mysqli_fetch_array($curso1))
 {
 	echo "<br />";
 $niv = $curso[0];
@@ -185,8 +185,8 @@ $niv = $curso[0];
                 <?  
 $alumnos0 = "select distinct unidad from alma where curso = '$niv'";
 //echo $alumnos0;
-$alumnos1 = mysql_query($alumnos0);
-while($alumno = mysql_fetch_array($alumnos1))
+$alumnos1 = mysqli_query($db_con, $alumnos0);
+while($alumno = mysqli_fetch_array($alumnos1))
 {
 $grupo = $alumno[0];
 ?>

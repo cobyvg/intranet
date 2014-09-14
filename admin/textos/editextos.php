@@ -38,8 +38,8 @@ include 'menu.php';
 <div class="well well-lg" align="left">
 
 <?
-$textos = mysql_query("SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, isbn, nivel, grupo, Obligatorio FROM Textos where Id='$id'");
-$row = mysql_fetch_array($textos);
+$textos = mysqli_query($db_con, "SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, isbn, nivel, grupo, Obligatorio FROM Textos where Id='$id'");
+$row = mysqli_fetch_array($textos);
 $id = $row[6];
 $nivel = $row[8];
 $obliga = $row[10];
@@ -51,8 +51,8 @@ $obliga = $row[10];
 	<?
 	echo "<option>$nivel</option>";
 	$tipo = "select distinct curso from alma order by NIVEL";
-	$tipo1 = mysql_query($tipo);
-	while($tipo2 = mysql_fetch_array($tipo1))
+	$tipo1 = mysqli_query($db_con, $tipo);
+	while($tipo2 = mysqli_fetch_array($tipo1))
 	{
 		$completo = "$tipo2[0]";
 		if($completo == $nivel){}
@@ -70,14 +70,14 @@ $obliga = $row[10];
 
 <div class="form-group"><label>Grupos: </label><br> <?	
 $tipo0 = "select distinct unidad from alma where curso = '$nivel' order by unidad";
-$tipo10 = mysql_query($tipo0);
+$tipo10 = mysqli_query($db_con, $tipo0);
 $ng = "";
-while($tipo20 = mysql_fetch_array($tipo10))
+while($tipo20 = mysqli_fetch_array($tipo10))
 {
 	$ng++;
-	$sql = mysql_query("select grupo from Textos where id = '$id'");
+	$sql = mysqli_query($db_con, "select grupo from Textos where id = '$id'");
 
-	while ($sql_w = mysql_fetch_array($sql)) {
+	while ($sql_w = mysqli_fetch_array($sql)) {
 		if (strstr($sql_w[0],$tipo20[0])==TRUE) {
 			$extra = " checked";
 		}
@@ -106,8 +106,8 @@ while($tipo20 = mysql_fetch_array($tipo10))
 	onChange="submit()" class="form-control" required>
 	<option><? if($departamento){echo $departamento;}else{echo $row[0];}?></option>
 	<?
-	$profe = mysql_query(" SELECT distinct departamento FROM departamentos order by departamento asc");
-	while($filaprofe = mysql_fetch_array($profe))
+	$profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos order by departamento asc");
+	while($filaprofe = mysqli_fetch_array($profe))
 	{
 		if ($filaprofe[0] == "Lengua Castellana" or $filaprofe[0] == "Lengua Extranjera-Inglés (Secundaria)" or $filaprofe[0] == "Matemáticas")
 		{}
@@ -126,8 +126,8 @@ while($tipo20 = mysql_fetch_array($tipo10))
 	$asignatu = "SELECT DISTINCT asignaturas.NOMBRE, ABREV FROM asignaturas, departamentos, profesores where asignaturas.nombre=profesores.materia and profesores.profesor=departamentos.nombre and curso = '$nivel' ";
 	if($departamento){$asignatu.="and departamento like '$departamento%'";}else{$asignatu.="and departamento like '$row[1]%'";}
 	$asignatu.=" ORDER BY NOMBRE asc";
-	$asignatur = mysql_query($asignatu);
-	while($fasignatur = mysql_fetch_array($asignatur)) {
+	$asignatur = mysqli_query($db_con, $asignatu);
+	while($fasignatur = mysqli_fetch_array($asignatur)) {
 		if(strlen($fasignatur[1]) > 3)	{ }
 		else{
 			$opcion = printf ("<OPTION>$fasignatur[0]</OPTION>");

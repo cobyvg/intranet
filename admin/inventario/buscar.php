@@ -73,10 +73,10 @@ if (strlen($departamento)>0) {
 	}
 $frase.=$dep;
 
-$datos=mysql_query("select familia, inventario_clases.clase, lugar, descripcion, marca, modelo, serie, unidades, fecha, inventario.id, departamento from inventario, inventario_clases where inventario.clase=inventario_clases.id $frase $ser $orden");
+$datos=mysqli_query($db_con, "select familia, inventario_clases.clase, lugar, descripcion, marca, modelo, serie, unidades, fecha, inventario.id, departamento from inventario, inventario_clases where inventario.clase=inventario_clases.id $frase $ser $orden");
 //echo "select familia, inventario_clases.clase, lugar, descripcion, marca, modelo, serie, unidades, fecha, inventario.id from inventario, inventario_clases where inventario.clase=inventario_clases.id $frase $ser $orden";
 
-if (mysql_num_rows($datos) > 0)
+if (mysqli_num_rows($datos) > 0)
 {
 ?>
 <div class="page-header" align=center>
@@ -87,7 +87,7 @@ echo '<table class="table table-striped table-bordered datatable">
 <thead>
 <tr><th>Familia</th><th>Clase</th><th>Lugar</th><th>Descripción</th><th>Marca</th><th>Modelo</th><th nowrap>Nº Serie</th><th>Unidad</th><th>Departamento</th><th></th><th></th></tr>
 </thead><tbody>';
-while($dat = mysql_fetch_row($datos))
+while($dat = mysqli_fetch_row($datos))
 {
 $familia=$dat[0];	
 $clase=$dat[1];

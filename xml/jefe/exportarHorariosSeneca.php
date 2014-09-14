@@ -48,22 +48,22 @@ El archivo generado por el programa generador de horarios ha sido procesado y se
 
 		if (strlen($X_UNIDAD)>0 and $X_UNIDAD > "3174012") {
 
-			$un = mysql_query("select unidades.idcurso, nomcurso, nomunidad from unidades, cursos where unidades.idcurso = cursos.idcurso and idunidad = '$X_UNIDAD' order by unidades.idcurso, nomunidad");
-			$uni = mysql_fetch_array($un);
+			$un = mysqli_query($db_con, "select unidades.idcurso, nomcurso, nomunidad from unidades, cursos where unidades.idcurso = cursos.idcurso and idunidad = '$X_UNIDAD' order by unidades.idcurso, nomunidad");
+			$uni = mysqli_fetch_array($un);
 
 			$asignatura="";
 
-			$nombre_asig = mysql_query("select nombre from asignaturas where codigo = '$X_MATERIAOMG'");
+			$nombre_asig = mysqli_query($db_con, "select nombre from asignaturas where codigo = '$X_MATERIAOMG'");
 
 			if ($nombre_asig) {
-				$nombre_asigna= mysql_fetch_array($nombre_asig);
+				$nombre_asigna= mysqli_fetch_array($nombre_asig);
 
-				$asig = mysql_query("select codigo, nombre from asignaturas  where curso = '$uni[1]' and nombre = '$nombre_asigna[0]'");
+				$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas  where curso = '$uni[1]' and nombre = '$nombre_asigna[0]'");
 
 
-				if (mysql_num_rows($asig)>0) {
+				if (mysqli_num_rows($asig)>0) {
 
-					while ($asignatur = mysql_fetch_array($asig)){
+					while ($asignatur = mysqli_fetch_array($asig)){
 						$asignatura.=$asignatur[0].";";
 						$nombre_asignatura = $asignatur[1];
 					}

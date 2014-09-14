@@ -34,7 +34,7 @@ include("../../../menu.php");
 	<div class="container">
 	
 	<?php
-	$query_accesos = mysql_query("SELECT profesor, count(*) AS accesos, (SELECT fecha FROM reg_intranet as r WHERE r.profesor=reg_intranet.profesor ORDER BY fecha DESC LIMIT 1) AS fecha_acceso FROM `reg_intranet` GROUP BY profesor ORDER BY `profesor` ASC");
+	$query_accesos = mysqli_query($db_con, "SELECT profesor, count(*) AS accesos, (SELECT fecha FROM reg_intranet as r WHERE r.profesor=reg_intranet.profesor ORDER BY fecha DESC LIMIT 1) AS fecha_acceso FROM `reg_intranet` GROUP BY profesor ORDER BY `profesor` ASC");
 	?>
 		
 		<!-- TITULO DE LA PAGINA -->
@@ -64,7 +64,7 @@ include("../../../menu.php");
 						</tr>
 					</thead>
 					<tbody>
-					  <?php while ( $row = mysql_fetch_object($query_accesos) ): ?>
+					  <?php while ( $row = mysqli_fetch_object($query_accesos) ): ?>
 					  	<tr>
 					  		<td><?php echo $row->profesor; ?></td>
 					  		<td><?php echo $row->accesos; ?></td>

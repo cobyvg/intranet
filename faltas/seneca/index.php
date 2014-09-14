@@ -171,9 +171,9 @@ $inicio_curso = $exp_inicio_curso[2].'/'.$exp_inicio_curso[1].'/'.$exp_inicio_cu
 $exp_fin_curso = explode('-', $fin_curso);
 $fin_curso = $exp_fin_curso[2].'/'.$exp_fin_curso[1].'/'.$exp_fin_curso[0];
 
-$result = mysql_query("SELECT fecha FROM festivos ORDER BY fecha ASC");
+$result = mysqli_query($db_con, "SELECT fecha FROM festivos ORDER BY fecha ASC");
 $festivos = '';
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
 	$exp_festivo = explode('-', $row['fecha']);
 	$dia_festivo = $exp_festivo[2].'/'.$exp_festivo[1].'/'.$exp_festivo[0];
 	

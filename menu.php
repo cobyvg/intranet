@@ -5,7 +5,7 @@
 <html lang="es">
 <head>
 <meta charset="iso-8859-1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
@@ -86,7 +86,7 @@
 	<li class="visible-xs"><a
 		href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6">Consejería</a></li>
 	<li class="dropdown hidden-xs" id="bs-tour-consejeria"><a href="#" class="dropdown-toggle"
-		data-toggle="dropdown" rel="tooltip" title="<?php echo $rss->channel['title']; ?>" data-placement="bottom" data-container="body"> <span class="fa fa-rss fa-fw"></span> <b class="caret"></b> </a>
+		data-toggle="dropdown" data-bs="tooltip" title="<?php echo $rss->channel['title']; ?>" data-placement="bottom" data-container="body"> <span class="fa fa-rss fa-fw"></span> <b class="caret"></b> </a>
 		<ul class="dropdown-menu dropdown-feed">
 			<li class="dropdown-header"><h5><?php echo $rss->channel['title']; ?></h5></li>
 			<li class="divider"></li>
@@ -113,21 +113,21 @@
 	
 <?php
 // Comprobamos mensajes sin leer
-$result_mensajes = mysql_query("SELECT ahora, asunto, texto, profesor, id_profe, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' AND recibidoprofe=0");
-$mensajes_sin_leer = mysql_num_rows($result_mensajes);
-mysql_free_result($result_mensajes);
+$result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, texto, profesor, id_profe, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' AND recibidoprofe=0");
+$mensajes_sin_leer = mysqli_num_rows($result_mensajes);
+mysqli_free_result($result_mensajes);
 ?>
 	<li
 		class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/')) ? 'active' : ''; ?>"><a
 		href="http://<? echo $dominio;?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
 	<li class="dropdown hidden-xs" id="bs-tour-mensajes"><a href="#" class="dropdown-toggle"
-		data-toggle="dropdown" rel="tooltip" title="Mensajes recibidos" data-placement="bottom" data-container="body"> <span
+		data-toggle="dropdown" data-bs="tooltip" title="Mensajes recibidos" data-placement="bottom" data-container="body"> <span
 		class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer) ? 'text-warning"' : ''; ?>"></span>
 	<b class="caret"></b> </a>
 	<ul class="dropdown-menu dropdown-messages">
-	<?php $result_mensajes = mysql_query("SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
-	<?php if(mysql_num_rows($result_mensajes)): ?>
-	<?php while ($row = mysql_fetch_array($result_mensajes)): ?>
+	<?php $result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
+	<?php if(mysqli_num_rows($result_mensajes)): ?>
+	<?php while ($row = mysqli_fetch_array($result_mensajes)): ?>
 		<li><a
 			href="http://<?php echo $dominio; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
 		<div
@@ -139,7 +139,7 @@ mysql_free_result($result_mensajes);
 		</a></li>
 		<li class="divider"></li>
 		<?php endwhile; ?>
-		<?php mysql_free_result($result_mensajes); ?>
+		<?php mysqli_free_result($result_mensajes); ?>
 		<?php endif; ?>
 		<a class="btn btn-default btn-block"
 			href="http://<?php echo $dominio; ?>/intranet/admin/mensajes/">Ver
@@ -164,9 +164,9 @@ mysql_free_result($result_mensajes);
 <p class="navbar-text navbar-link" style="margin-top:7px;margin-bottom:0px;">
 	<small><i class="fa fa-clock-o fa-lg"></i> Última conexión:<br class="hidden-xs">
 	<?php
-	$time = mysql_query("select fecha from reg_intranet where profesor = '".$_SESSION['profi']."' order by fecha desc limit 2");
+	$time = mysqli_query($db_con, "select fecha from reg_intranet where profesor = '".$_SESSION['profi']."' order by fecha desc limit 2");
 
-	while($last = mysql_fetch_array($time)) {
+	while($last = mysqli_fetch_array($time)) {
 		$num+=1;
 			
 		if($num == 2) {

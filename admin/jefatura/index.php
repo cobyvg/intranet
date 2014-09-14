@@ -110,7 +110,7 @@ if (isset($_POST['submit2'])) {
   $dia = explode("-",$fecha);
   $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
   	$actualizar ="UPDATE  tutoria SET observaciones = '$observaciones', causa = '$causa', accion = '$accion', fecha = '$fecha2', prohibido = '$prohibido' WHERE  id = '$id2'"; 
-	mysql_query($actualizar);
+	mysqli_query($db_con, $actualizar);
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido actualizado en la Base de datos.
@@ -119,7 +119,7 @@ El registro ha sido actualizado en la Base de datos.
   
 if (isset($_POST['submit3']) or $eliminar=="1") {
 $borrar ="delete from tutoria WHERE  id = '$id2'"; 
-mysql_query($borrar);
+mysqli_query($db_con, $borrar);
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.
@@ -127,8 +127,8 @@ El registro ha sido borrado en la Base de datos.
 	  }
 	  
   if ($id) {
-$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, unidad, tutor, id, prohibido, claveal from tutoria where id = '$id'");
-$row = mysql_fetch_array($result);
+$result = mysqli_query($db_con, "select apellidos, nombre, fecha, accion, causa, observaciones, unidad, tutor, id, prohibido, claveal from tutoria where id = '$id'");
+$row = mysqli_fetch_array($result);
 $alumno = $row[0].", ".$row[1]." --> ".$row[10];
 $fecha0 = $row[2];
 $dia = explode("-",$fecha0);
@@ -188,14 +188,14 @@ $clave = $row[10];
 							<div class="col-sm-10">
 								<div class="form-group">
 								  <label for="unidad">Unidad</label>
-									<?php $result = mysql_query("SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
-									<?php if(mysql_num_rows($result)): ?>
+									<?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
+									<?php if(mysqli_num_rows($result)): ?>
 									<select class="form-control" id="unidad" name="unidad" onchange="submit()">
 										<option></option>
-										<?php while($row = mysql_fetch_array($result)): ?>
+										<?php while($row = mysqli_fetch_array($result)): ?>
 										<option value="<?php echo $row['unidad']; ?>" <?php echo ($row['unidad'] == $unidad) ? 'selected' : ''; ?>><?php echo $row['unidad']; ?></option>
 										<?php endwhile; ?>
-										<?php mysql_free_result($result); ?>
+										<?php mysqli_free_result($result); ?>
 									</select>
 									<?php else: ?>
 									<select class="form-control" name="unidad" disabled>
@@ -223,14 +223,14 @@ if ($alumno) {
 							<div class="col-sm-7">
 								<div class="form-group">
 								  <label for="alumno">Alumno/a</label>
-								  <?php $result = mysql_query("SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC ASC"); ?>
-								  <?php if(mysql_num_rows($result)): ?>
+								  <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC ASC"); ?>
+								  <?php if(mysqli_num_rows($result)): ?>
 								  <select class="form-control" id="alumno" name="alumno" onchange="submit()">
 								  	<option value="Todos los Alumnos">Todos los Alumnos</option>
-								  	<?php while($row = mysql_fetch_array($result)): ?>
+								  	<?php while($row = mysqli_fetch_array($result)): ?>
 								  	<option value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']; ?>" <?php echo (isset($alumno) && $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal'] == $alumno) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
 								  	<?php endwhile; ?>
-								  	<?php mysql_free_result($result); ?>
+								  	<?php mysqli_free_result($result); ?>
 								  </select>
 								  <?php else: ?>
 								  <select class="form-control" name="alumno" disabled>
@@ -317,9 +317,9 @@ if ($alumno) {
 			<div class="well">
 				<h4>Historial de intervenciones de <?php echo $nombre." ".$apellidos; ?></h4><br>
 			<?php
-				$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, id from tutoria where claveal = '$clave' order by fecha");
+				$result = mysqli_query($db_con, "select apellidos, nombre, fecha, accion, causa, observaciones, id from tutoria where claveal = '$clave' order by fecha");
 			
-				if ($row = mysql_fetch_array($result)) {
+				if ($row = mysqli_fetch_array($result)) {
 					echo '<table class="table table-striped">';
 					echo "<thead><tr><th>Fecha</th><th>Clase</th><th>Causa</th><th></th></tr></thead><tbody>";
 					
@@ -328,10 +328,10 @@ if ($alumno) {
 					  $dia3 = explode("-",$row[2]);
 					  $fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 						echo "<tr><td>$fecha3</td><td>$row[3]</a></td><td>$row[4]</a></td><td >
-						<a href='index.php?id=$row[6]' rel='tooltip' title='Ver informe'><i class='fa fa-search fa-lg fa-fw'></i></a>
+						<a href='index.php?id=$row[6]' data-bs='tooltip' title='Ver informe'><i class='fa fa-search fa-lg fa-fw'></i></a>
 						</td></tr>";
 					}
-					while($row = mysql_fetch_array($result));
+					while($row = mysqli_fetch_array($result));
 				
 					echo "</table>";
 				}

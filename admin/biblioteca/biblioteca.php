@@ -94,8 +94,8 @@ include("menu.php");
   echo "<h3>Datos del volumen seleccionado</h3>";
 
  $informe0 = "select  id, Autor, Titulo, Editorial, ISBN, tipoEjemplar, anoEdicion, extension, serie, ubicacion, LugarEdicion from biblioteca where id = '$idfondo'";
- $sqlinforme0 = mysql_query($informe0);
-$filas = mysql_num_rows($sqlinforme0);
+ $sqlinforme0 = mysqli_query($db_con, $informe0);
+$filas = mysqli_num_rows($sqlinforme0);
 if ($filas > 0) {
  $informe = "select id, Autor, Titulo, Editorial, ISBN, tipoEjemplar, anoEdicion, extension, serie, ubicacion, lugaredicion from biblioteca where id = '$idfondo'";	
 }
@@ -103,8 +103,8 @@ else
 {
 $informe = "select id, Autor, Titulo, Editorial, ISBN, tipoEjemplar, anoEdicion, extension, serie, ubicacion, lugaredicion from biblioteca where id = '$idfondo'";
 }
-$sqlinforme = mysql_query($informe);
-if($rowinforme = mysql_fetch_array($sqlinforme))
+$sqlinforme = mysqli_query($db_con, $informe);
+if($rowinforme = mysqli_fetch_array($sqlinforme))
 	{
 	$id = $rowinforme[0];
 	$autor0 = $rowinforme[1];
@@ -118,8 +118,8 @@ if($rowinforme = mysql_fetch_array($sqlinforme))
 	$LugarEdicion = $rowinforme[10];
 	$ubicacion = $rowinforme[9];	
 $numero = "select id from biblioteca where Titulo = '$titulo0' and Autor = '$autor'";
-$numero1 = mysql_query($numero);
-$numero2 = mysql_num_rows($numero1);
+$numero1 = mysqli_query($db_con, $numero);
+$numero2 = mysqli_num_rows($numero1);
 $ejemplares = $numero2;
 echo "<table class='table table-striped table-bordered'>
   <tr>
@@ -151,13 +151,13 @@ echo "<table class='table table-striped table-bordered'>
   
   	if (!($autor == "" and $titulo0 == "" and $editorial == "")) {
  
-  $result = mysql_query ("select id, Autor, Titulo, Editorial from biblioteca where 1 " . $AUXSQL . " order by Autor asc");
-if (mysql_num_rows($result) > 0) {
+  $result = mysqli_query($db_con, "select id, Autor, Titulo, Editorial from biblioteca where 1 " . $AUXSQL . " order by Autor asc");
+if (mysqli_num_rows($result) > 0) {
 print "<h3>Búsqueda de Libros en la Biblioteca</h3>";
 echo "<table class='table table-striped table-bordered'>";
 echo "<thead><th>Autor</th><th>Título</th><th>Editorial</th><th></th></thead><tbody>";
 
-while($row = mysql_fetch_array($result))
+while($row = mysqli_fetch_array($result))
 		 {
 	$id = $row[0];
 	$autor2 = $row[1];
@@ -170,7 +170,7 @@ while($row = mysql_fetch_array($result))
 				}
 				// echo $dospuntos;
 				$limpia = explode(":",$row[3]);
-printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo=$titulo0&editorial=$editorial' rel='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a></td></tr>", $row[1], $row[2], $row[3]);
+printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo=$titulo0&editorial=$editorial' data-bs='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a></td></tr>", $row[1], $row[2], $row[3]);
         }
             echo "</table>";
         }

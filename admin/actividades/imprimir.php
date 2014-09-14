@@ -116,10 +116,10 @@ $MiPDF->SetDisplayMode('fullpage');
 if(is_numeric(trim($key))){
 
 $alumnos0 = "select alma.nombre, alma.apellidos, padre, domicilio, codpostal, localidad, provinciaresidencia, NC, dnitutor, alma.unidad, alma.matriculas from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.claveal = '$value'";
-$alumnos1 = mysql_query($alumnos0);
-while($alumno = mysql_fetch_array($alumnos1))
+$alumnos1 = mysqli_query($db_con, $alumnos0);
+while($alumno = mysqli_fetch_array($alumnos1))
 {
-mysql_query("insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
+mysqli_query($db_con, "insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
 # insertamos la primera pagina del documento
 $MiPDF->Addpage();
 $cuerpo = "$alumno[2], con D.N.I $alumno[8], padre, madre o tutor/a legal de $alumno[0] $alumno[1], alumno/a del curso $alumno[9] de este Centro, se hace cargo bajo su responsabilidad de que su hijo/a participe en la siguiente actividad extraescolar o complementaria: 

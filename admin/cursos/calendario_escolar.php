@@ -39,11 +39,11 @@ include("../../menu.php");
 		$cal->addEvent('Fin días lectivos', $curso+1, 6, 23, '#');
 		
 		// DIAS FESTIVOS
-		$result = mysql_query("SELECT fecha, nombre FROM festivos");
+		$result = mysqli_query($db_con, "SELECT fecha, nombre FROM festivos");
 		
-		if (mysql_num_rows($result)) {
+		if (mysqli_num_rows($result)) {
 		
-			while ($row = mysql_fetch_array($result)) {
+			while ($row = mysqli_fetch_array($result)) {
 				$fecha = explode('-', $row['fecha']);
 				$fecha_anio = $fecha[0];
 				substr($fecha[1],0,1)==0 ? $fecha_mes = substr($fecha[1],1,2) : $fecha_mes = $fecha[1];

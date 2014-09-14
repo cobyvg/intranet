@@ -29,8 +29,8 @@ if ($n>2) {
     </label><br>
 <?					
 $tipo0 = "select distinct grupo_actual from matriculas where curso = '$curso' order by grupo_actual";
-$tipo10 = mysql_query($tipo0);
-  while($tipo20 = mysql_fetch_array($tipo10))
+$tipo10 = mysqli_query($db_con, $tipo0);
+  while($tipo20 = mysqli_fetch_array($tipo10))
         {	
         	if ($tipo20[0]=="") {
         		$tipo20[0]="Ninguno";
@@ -270,8 +270,8 @@ echo "".$tipo20[0]."</label></div>";
 		?>
 		<option></option>
 		<?php 
-		$coleg=mysql_query("select distinct colegio from matriculas order by colegio");
-		while ($cole=mysql_fetch_array($coleg)) {
+		$coleg=mysqli_query($db_con, "select distinct colegio from matriculas order by colegio");
+		while ($cole=mysqli_fetch_array($coleg)) {
 			echo "<option>$cole[0]</option>";
 		}
 		?>

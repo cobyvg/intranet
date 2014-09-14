@@ -44,12 +44,12 @@ else {$modificar=0;}
 $alumnos='';
 
 $query_Recordset1 = "SELECT distinct unidad FROM alma ORDER BY unidad ASC";
-$Recordset1 = mysql_query($query_Recordset1) or die(mysql_error());
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+$Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error($db_con));
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 $query_Recordset2 = "SELECT * FROM alma ORDER BY Apellidos ASC";
-$Recordset2 = mysql_query($query_Recordset2) or die(mysql_error());
-$row_Recordset2 = mysql_fetch_array($Recordset2);
-$totalRows_Recordset2 = mysql_num_rows($Recordset2);
+$Recordset2 = mysqli_query($db_con, $query_Recordset2) or die(mysqli_error($db_con));
+$row_Recordset2 = mysqli_fetch_array($Recordset2);
+$totalRows_Recordset2 = mysqli_num_rows($Recordset2);
 $unidad = $row_Recordset1[16];
 ?>
 <div class="well well-lg">
@@ -68,7 +68,7 @@ else{
 ?>
   <select name="select" class="form-control" id = "grupo">
     <?php
- while ($row_Recordset1 = mysql_fetch_array($Recordset1)) { 
+ while ($row_Recordset1 = mysqli_fetch_array($Recordset1)) { 
  	$unidad = $row_Recordset1[0];
 ?>
     <option value="<?php echo $unidad;?>"><?php echo $unidad;?></option>
@@ -212,8 +212,8 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 <div class="form-group">
   <label for="al1">Alumnos disponibles</label>
 <select multiple size="15" name="al1" id="al1" class="form-control">
-	<? $alumnos = mysql_query($query_noal);
-	while ($alumnado = mysql_fetch_row($alumnos)){ 
+	<? $alumnos = mysqli_query($db_con, $query_noal);
+	while ($alumnado = mysqli_fetch_row($alumnos)){ 
 		echo "<Option value='$alumnado[0]'>$alumnado[1] $alumnado[2] , $alumnado[3] "; 
 	} #del while
 	?>
@@ -230,8 +230,8 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 <div class="form-group">
   <label>Alumnos seleccionados</label>
 <select multiple size="15" name="al2" id="al2" class="form-control">
-	<? $alumnos = mysql_query($query_al);
-	while ($alumnado = mysql_fetch_row($alumnos)){ 
+	<? $alumnos = mysqli_query($db_con, $query_al);
+	while ($alumnado = mysqli_fetch_row($alumnos)){ 
 		echo "<Option value='$alumnado[0]'>$alumnado[1] $alumnado[2] , $alumnado[3] "; 
 	} #del while ?>
 </select>
@@ -261,6 +261,6 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 
 <?
 #}
-mysql_close();
+mysqli_close();
 include ("../../pie.php");
 ?>

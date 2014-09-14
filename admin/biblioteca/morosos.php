@@ -31,8 +31,8 @@ include("../../menu.php");
 <?
 if(isset($_FILES['archivo'])){ 
 $archivo = $_FILES['archivo'];
-mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
-mysql_select_db($db);
+$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die("Error de conexión");
+mysqli_select_db($db_con, $db);
 ini_set('auto_detect_line_endings',TRUE);
 $handle = fopen ($_FILES['archivo']['tmp_name'] , 'r' ) or die
 ('<div align="center"><div class="alert alert-danger alert-block fade in">
@@ -49,16 +49,16 @@ while (($data1 = fgetcsv($handle, 1000, ";")) !== FALSE)
 		$tr_f = explode("/",$data1[4]);
 		$fecha_ed = $tr_f[2]."-".$tr_f[1]."-".$tr_f[0];
 		$hoy = date('Y-m-d');
-	$dup = mysql_query("select * from morosos where curso = '$data1[0]' and apellidos = '$data1[1]' and nombre = '$data1[2]' and ejemplar = '$data1[3]' and devolucion = '$fecha_ed'");
+	$dup = mysqli_query($db_con, "select * from morosos where curso = '$data1[0]' and apellidos = '$data1[1]' and nombre = '$data1[2]' and ejemplar = '$data1[3]' and devolucion = '$fecha_ed'");
 	
-	if (mysql_num_rows($dup)==0) {
-		$datos1 = mysql_query("INSERT INTO morosos (curso, apellidos, nombre, ejemplar, devolucion, hoy) VALUES ('". $data1[0]. "','". $data1[1]. "','". $data1[2] . "','". $data1[3] ."','". $fecha_ed ."', '".$hoy."')");
+	if (mysqli_num_rows($dup)==0) {
+		$datos1 = mysqli_query($db_con, "INSERT INTO morosos (curso, apellidos, nombre, ejemplar, devolucion, hoy) VALUES ('". $data1[0]. "','". $data1[1]. "','". $data1[2] . "','". $data1[3] ."','". $fecha_ed ."', '".$hoy."')");
 	}
-	mysql_query("delete from morosos where apellidos = '' and nombre = '' and ejemplar = ''");
+	mysqli_query($db_con, "delete from morosos where apellidos = '' and nombre = '' and ejemplar = ''");
 }
 
 fclose($handle);
-$borrar = mysql_query("delete from morosos where curso = 'ANT' or curso='' or curso='$nombre_del_centro' or curso like 'Abies%'");
+$borrar = mysqli_query($db_con, "delete from morosos where curso = 'ANT' or curso='' or curso='$nombre_del_centro' or curso like 'Abies%'");
 
 ?> <div align="center"><div class="alert alert-success alert-block fade in">
 			<legend>ATENCI&Oacute;N:</legendh5>

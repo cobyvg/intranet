@@ -36,17 +36,18 @@ if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
 if($archivo1 and $archivo2){
 	
  // Conexión
-mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
+$db_con = mysqli_connect($db_host, $db_user, $db_pass);
+mysqli_select_db($db_con, $db);
 // Copia de Seguridad
-mysql_query("DROP TABLE alma_seg") ;
-mysql_query("create table alma_seg select * from alma");
+mysqli_query($db_con, "DROP TABLE alma_seg") ;
+mysqli_query($db_con, "create table alma_seg select * from alma");
 // Copia de Seguridad 2
-mysql_query("DROP TABLE FALUMNOS_seg") ;
-mysql_query("create table FALUMNOS_seg select * from FALUMNOS");
+mysqli_query($db_con, "DROP TABLE FALUMNOS_seg") ;
+mysqli_query($db_con, "create table FALUMNOS_seg select * from FALUMNOS");
 
 // Creamos Base de datos y enlazamos con ella.
  $base0 = "DROP TABLE `alma`";
- mysql_query($base0);
+ mysqli_query($db_con, $base0);
 
  // Creación de la tabla alma
  $alumnos = "CREATE TABLE  `alma` (
@@ -87,8 +88,8 @@ mysql_query("create table FALUMNOS_seg select * from FALUMNOS");
  `EDAD` varchar( 2 ) default NULL ,
  `NACIONALIDAD` varchar( 32 ) default NULL,
  `SEXO` varchar( 1 ) default NULL 
-)";
-mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ";
+mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
@@ -122,7 +123,7 @@ No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo
     $dato=substr($dato,0,strlen($dato)-2); 
     $lineasalto.=$dato;  
     $lineasalto.=");";
-    mysql_query($lineasalto);
+    mysqli_query($db_con, $lineasalto);
   }
 fclose($fp);
 
@@ -143,52 +144,52 @@ ADD  `GRUPO` VARCHAR( 1 ) NULL AFTER  `NIVEL`,
 ADD  `CLAVEAL1` VARCHAR( 8 ) NULL AFTER  `CLAVEAL`,
 ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`
 ";
-mysql_query($crear);
+mysqli_query($db_con, $crear);
 
 // índices
-mysql_query("ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL` )");
-mysql_query("ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL1` )");
-mysql_query("ALTER TABLE  `alma` ADD INDEX (  `NOMBRE` )");
-mysql_query("ALTER TABLE  `alma` ADD INDEX (  `APELLIDOS` )");
+mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL` )");
+mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL1` )");
+mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `NOMBRE` )");
+mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `APELLIDOS` )");
 
 // Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
   $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma where unidad not like 'Unida%' and unidad not like ''";  
-  $result_1 = mysql_query($SQL_1);
-  $row_1 = mysql_fetch_array($result_1);
+  $result_1 = mysqli_query($db_con, $SQL_1);
+  $row_1 = mysqli_fetch_array($result_1);
   if (strstr($row_1[0],"-")==TRUE) {  	
   $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
-  $result0 = mysql_query($SQL0);
+  $result0 = mysqli_query($db_con, $SQL0);
 
- while  ($row0 = mysql_fetch_array($result0))
+ while  ($row0 = mysqli_fetch_array($result0))
  {
 $trozounidad0 = explode("-",$row0[0]);
 $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
-	mysql_query($actualiza);
+	mysqli_query($db_con, $actualiza);
  } 	
  }
  
  // Apellidos unidos formando un solo campo.
    $SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma";
-  $result2 = mysql_query($SQL2);
- while  ($row2 = mysql_fetch_array($result2))
+  $result2 = mysqli_query($db_con, $SQL2);
+ while  ($row2 = mysqli_fetch_array($result2))
  {
  	$apellidos = trim($row2[0]). " " . trim($row2[1]);
 	$apellidos1 = trim($apellidos);
 	$nombre = $row2[3];
 	$nombre1 = trim($nombre);
 	$actualiza1= "UPDATE alma SET APELLIDOS = \"". $apellidos1 . "\", NOMBRE = \"". $nombre1 . "\" where CLAVEAL = \"". $row2[2] . "\"";
-	mysql_query($actualiza1);
+	mysqli_query($db_con, $actualiza1);
  }
  
  // Apellidos y nombre del padre.
    $SQL3 = "SELECT PRIMERAPELLIDOTUTOR, SEGUNDOAPELLIDOTUTOR, NOMBRETUTOR, CLAVEAL FROM  alma";
-  $result3 = mysql_query($SQL3);
- while  ($row3 = mysql_fetch_array($result3))
+  $result3 = mysqli_query($db_con, $SQL3);
+ while  ($row3 = mysqli_fetch_array($result3))
  {
  	$apellidosP = trim($row3[2]). " " . trim($row3[0]). " " . trim($row3[1]);
 	$apellidos1P = trim($apellidosP);
 	$actualiza1P= "UPDATE alma SET PADRE = \"". $apellidos1P . "\" where CLAVEAL = \"". $row3[3] . "\"";
-	mysql_query($actualiza1P);
+	mysqli_query($db_con, $actualiza1P);
  }
  
   // Eliminación de campos innecesarios por repetidos
@@ -196,16 +197,16 @@ $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[
   DROP `apellido1`,
   DROP `Alumno/a`,
   DROP `apellido2`";
-  $result3 = mysql_query($SQL3);
+  $result3 = mysqli_query($db_con, $SQL3);
   $cambiar_nombre = "ALTER TABLE alma MODIFY COLUMN NOMBRE VARCHAR(30) AFTER APELLIDOS";
-mysql_query($cambiar_nombre);
+mysqli_query($db_con, $cambiar_nombre);
 
   // Eliminación de alumnos dados de baja
   $SQL4 = "DELETE FROM alma WHERE unidad = ''";
-  $result4 = mysql_query($SQL4);
+  $result4 = mysqli_query($db_con, $SQL4);
    // Eliminación de alumnos dados de baja
   $SQL5 = "DELETE FROM alma WHERE unidad = 'Unida'";
-  $result5 = mysql_query($SQL5);
+  $result5 = mysqli_query($db_con, $SQL5);
 
 // Exportamos códigos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluación
 if(phpversion() < '5'){
@@ -216,18 +217,19 @@ else{
 }
 ?>
 <?
-mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
+$db_con = mysqli_connect($db_host, $db_user, $db_pass);
+mysqli_select_db($db_con, $db);
 
 // Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
 $SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.' or unidad like '%Bach' or unidad like 'P.C.P.I.') and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
-$result6 = mysql_query($SQL6);
+$result6 = mysqli_query($db_con, $SQL6);
 // Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
 $SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene Tí­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
-mysql_query($SQL7);
+mysqli_query($db_con, $SQL7);
 
 // Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
 $SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
-mysql_query($SQL8);
+mysqli_query($db_con, $SQL8);
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>ALMA</strong>: los Alumnos se han introducido correctamente en la Base de datos.
@@ -250,10 +252,10 @@ Parece que te está olvidando de enviar todos los archivos con los datos de los a
 }
 
 // Si se ha creado la tabla matriculas y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas.
-$matr = mysql_query("select * from matriculas");
-  if (mysql_num_rows($matr)>0 and (date('m')>8 and date('m')<=12)) {
-		$pro = mysql_query("select claveal,	apellidos,	nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas where curso like '%ESO%'");
-	while ($prf = mysql_fetch_array($pro)) {
+$matr = mysqli_query($db_con, "select * from matriculas");
+  if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<=12)) {
+		$pro = mysqli_query($db_con, "select claveal,	apellidos,	nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas where curso like '%ESO%'");
+	while ($prf = mysqli_fetch_array($pro)) {
 		
 		$pap = explode(", ",$prf[7]);
 		$papa = $pap[1]." ".$pap[0];	
@@ -266,12 +268,12 @@ $matr = mysql_query("select * from matriculas");
 		$segundoapellidotutor2 = "$apel_mam[1] $apel_mam[2] $apel_mam[3]";
 		$segundoapellidotutor2=trim($segundoapellidotutor2);		
 		
-		$alm = mysql_query("select claveal,	apellidos,	nombre,	provinciaresidencia, domicilio, localidad, dni, padre, dnitutor, telefono, telefonourgencia, localidadnacimiento, primerapellidotutor2, segundoapellidotutor2, nombretutor2, dnitutor2 from alma where claveal = '$prf[0]' and (apellidos not like '$prf[1]' or nombre not like '$prf[2]' or provinciaresidencia not like '$prf[3]' or domicilio not like '$prf[4]' or localidad not like '$prf[5]' or dni not like '$prf[6]' or padre not like '$papa'  or telefono not like '$prf[9]' or telefonourgencia not like '$prf[10]' or localidadnacimiento not like '$prf[11]' or dnitutor2 not like '$prf[13]')");
+		$alm = mysqli_query($db_con, "select claveal,	apellidos,	nombre,	provinciaresidencia, domicilio, localidad, dni, padre, dnitutor, telefono, telefonourgencia, localidadnacimiento, primerapellidotutor2, segundoapellidotutor2, nombretutor2, dnitutor2 from alma where claveal = '$prf[0]' and (apellidos not like '$prf[1]' or nombre not like '$prf[2]' or provinciaresidencia not like '$prf[3]' or domicilio not like '$prf[4]' or localidad not like '$prf[5]' or dni not like '$prf[6]' or padre not like '$papa'  or telefono not like '$prf[9]' or telefonourgencia not like '$prf[10]' or localidadnacimiento not like '$prf[11]' or dnitutor2 not like '$prf[13]')");
 
-		if (mysql_num_rows($alm)>0) {
+		if (mysqli_num_rows($alm)>0) {
 		
 			$num+=1;
-			$alma = mysql_fetch_array($alm);
+			$alma = mysqli_fetch_array($alm);
 
 				$com = explode(", ",$prf[7]);
 				$nom = trim($com[1]);
@@ -292,8 +294,8 @@ $matr = mysql_query("select * from matriculas");
 				$madre_completo = ", nombretutor2 = '$nom2', primerapellidotutor2 = '$apel21', segundoapellidotutor2 = '$apel22', dnitutor2 = '$prf[13]'";
 				
 			
-			 mysql_query("update alma set apellidos = '$prf[1]', nombre = '$prf[2]', provinciaresidencia = '$prf[3]', domicilio = '$prf[4]', localidad = '$prf[5]', dni = '$prf[6]', padre = '$prf[7]', dnitutor = '$prf[8]', telefono = '$prf[9]', telefonourgencia = '$prf[10]', localidadnacimiento = '$prf[11]' $padre_alma $padre_completo $madre_completo where claveal = '$prf[0]'");
-			$num_filas+=mysql_affected_rows();
+			 mysqli_query($db_con, "update alma set apellidos = '$prf[1]', nombre = '$prf[2]', provinciaresidencia = '$prf[3]', domicilio = '$prf[4]', localidad = '$prf[5]', dni = '$prf[6]', padre = '$prf[7]', dnitutor = '$prf[8]', telefono = '$prf[9]', telefonourgencia = '$prf[10]', localidadnacimiento = '$prf[11]' $padre_alma $padre_completo $madre_completo where claveal = '$prf[0]'");
+			$num_filas+=mysqli_affected_rows();
 		}
 	}
 	echo '<br />
@@ -305,9 +307,6 @@ Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos
 
 // Alumnos TIC
 include("exportaTIC.php");
-
-// Importación de las asignaturas
-include 'asignaturas.php';
  ?>
 <br />
 <div align="center">

@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
                     if($mes=='Abril'){$n_mes='04';}
                     if($mes=='Mayo'){$n_mes='05';}
                     if($mes=='Junio'){$n_mes='06';}
-	//mysql_query("delete from absentismo where mes='$num_mes'");
+	//mysqli_query($db_con, "delete from absentismo where mes='$num_mes'");
 	foreach ($_POST as $num=>$key)
 	{
 // echo "$num --> $key<br>";
@@ -55,12 +55,12 @@ $n_mes=$trozos[0];
 $n_faltas=$trozos[1];
 $curso=$trozos[2];
 
- $insert0=mysql_query("select claveal, mes from absentismo where claveal='$claveal' and mes='$n_mes'");
+ $insert0=mysqli_query($db_con, "select claveal, mes from absentismo where claveal='$claveal' and mes='$n_mes'");
  
- 	if (mysql_num_rows($insert0)>0) {}
+ 	if (mysqli_num_rows($insert0)>0) {}
  	else {
  		if (is_numeric($claveal)) {
-  	 	$abs = mysql_query("insert into absentismo (  claveal ,  mes ,  numero ,  unidad )  VALUES (  '$claveal', '$n_mes', '$n_faltas', '$curso' )");	
+  	 	$abs = mysqli_query($db_con, "insert into absentismo (  claveal ,  mes ,  numero ,  unidad )  VALUES (  '$claveal', '$n_mes', '$n_faltas', '$curso' )");	
 		
  		}
  	}
@@ -94,12 +94,12 @@ else
 
 // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
   $SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero, FALTAS.unidad FROM FALTAS, FALUMNOS where FALTAS.CLAVEAL=FALUMNOS.claveal and  falta = 'F' and month(FALTAS.fecha)= '$n_mes'   group by apellidos, nombre";
-  $resultTEMP= mysql_query($SQLTEMP);
-  mysql_query("ALTER TABLE faltastemp2 ADD INDEX (CLAVEAL)");
+  $resultTEMP= mysqli_query($db_con, $SQLTEMP);
+  mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX (CLAVEAL)");
   $SQL0 = "SELECT CLAVEAL  FROM  faltastemp2 WHERE numero > '$numero' order by unidad";
   //print $SQL0;
-  $result0 = mysql_query($SQL0);
- while  ($row0 = mysql_fetch_array($result0)){
+  $result0 = mysqli_query($db_con, $SQL0);
+ while  ($row0 = mysqli_fetch_array($result0)){
  	//reset($claveal);
 $claveal = $row0[0];
 // No justificadas
@@ -109,16 +109,16 @@ $claveal = $row0[0];
   and faltastemp2.claveal = FALTAS.claveal and FALTAS.claveal like '$claveal' 
   and FALTAS.falta = 'F' GROUP BY alma.apellidos";
   //echo $SQLF;
-  $resultF = mysql_query($SQLF);	
+  $resultF = mysqli_query($db_con, $SQLF);	
 //Fecha del día
 $fhoy=getdate();
 $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 // Bucle de Consulta.
-  while($rowF = mysql_fetch_array($resultF))
+  while($rowF = mysqli_fetch_array($resultF))
         {
         	$sel="";
-        	$registrado = mysql_query("select claveal from absentismo where claveal='$claveal' and mes='$n_mes'");
-        	if (mysql_num_rows($registrado)>0) {
+        	$registrado = mysqli_query($db_con, "select claveal from absentismo where claveal='$claveal' and mes='$n_mes'");
+        	if (mysqli_num_rows($registrado)>0) {
         		$sel=" checked";
         	}
 	echo "<tr><td align='center'>";
@@ -129,14 +129,14 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 	echo "<td  align='left' style='vertical-align:middle'><div class='checkbox'><label><input name='$rowF[0]' type='checkbox' value='$n_mes;$rowF[6];$rowF[3]' $sel /> $rowF[2] $rowF[1]</label></div></td><td style='vertical-align:middle'>$rowF[3]</td>
 	<td style='vertical-align:middle'>$rowF[6]</td>";
   $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL like '$claveal' and month(FALTAS.fecha) = '$n_mes'";
-  $result2 = mysql_query($SQL2);
-  $rowsql = mysql_num_rows($result2);
+  $result2 = mysqli_query($db_con, $SQL2);
+  $rowsql = mysqli_num_rows($result2);
   echo "<td style='vertical-align:middle'>$rowsql</td></tr>";
 	}         
 	} 
 	echo '</table';      
 // Eliminar Tabla temporal
- mysql_query("DROP table `faltastemp2`");
+ mysqli_query($db_con, "DROP table `faltastemp2`");
   ?>
  <INPUT name="num_mes" type="hidden" value="<? echo $n_mes;?>"> 
  <br />

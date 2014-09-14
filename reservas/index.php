@@ -147,18 +147,18 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		//Buscar actividad para el día y marcarla
 		$sql_currentday = "$year-$month-$zz";
     	$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
- 		$eventExec = mysql_query ( $eventQuery );
-		if (mysql_num_rows($eventExec)>0) {
-			while ( $row = mysql_fetch_array ( $eventExec ) ) {
+ 		$eventExec = mysqli_query($db_con, $eventQuery );
+		if (mysqli_num_rows($eventExec)>0) {
+			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
 echo "<td class=\"calendar-orange\">$zz</td>";
 $result_found = 1;
 		}	
 		}
 		else{
 		$sql_currentday = "$year-$month-$zz";
-		$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
-		if (mysql_num_rows($fest)>0) {
-		$festiv=mysql_fetch_array($fest);
+		$fest = mysqli_query($db_con, "select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
+		if (mysqli_num_rows($fest)>0) {
+		$festiv=mysqli_fetch_array($fest);
 			        echo "<td class=\"calendar-red\">$zz</a></td>\n";
 				$result_found = 1;
 				}	
@@ -215,9 +215,9 @@ for ($i = $today; $i <= ($today + 6); $i++) {
     
     $sql_currentday = "$current_year-$current_month-$current_day";
     $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
-    $eventExec = mysql_query($eventQuery);
-    while($row = mysql_fetch_array($eventExec)) {
-   if (mysql_num_rows($eventExec) == 1) {
+    $eventExec = mysqli_query($db_con, $eventQuery);
+    while($row = mysqli_fetch_array($eventExec)) {
+   if (mysqli_num_rows($eventExec) == 1) {
         // $this_days_title = stripslashes($row["title"]);
    $event_event1 = stripslashes($row["event1"]);
    $event_event2 = stripslashes($row["event2"]);
@@ -233,7 +233,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
 	echo '<a href="http://'.$dominio.'/intranet/reservas/reservar/index.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
 
   //Nombre del día
- if (mysql_num_rows($eventExec) == 1) 
+ if (mysqli_num_rows($eventExec) == 1) 
  {
  	 if ($event_event1 !== "") { 
  	    echo "<p>1ª hora: $event_event1</p>";

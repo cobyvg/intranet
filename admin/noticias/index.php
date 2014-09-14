@@ -20,16 +20,16 @@ if (isset($_GET['id'])) $id = $_GET['id'];
 if (isset($_GET['pag'])) $pag = $_GET['pag']; else $pag = 0;
 
 if(isset($_GET['id']) && isset($_GET['borrar']) && $_GET['borrar']) {
-	$result = mysql_query("DELETE FROM noticias WHERE id='$id' LIMIT 1");
+	$result = mysqli_query($db_con, "DELETE FROM noticias WHERE id='$id' LIMIT 1");
 	
-	if(!$result) $msg_error = "No se ha podido eliminar la noticia. Error: ".mysql_error();
+	if(!$result) $msg_error = "No se ha podido eliminar la noticia. Error: ".mysqli_error($db_con);
 	else $msg_success = "La noticia ha sido eliminada.";
 }
 
 
-$result = mysql_query("SELECT id FROM noticias");
-$total = mysql_num_rows($result);
-mysql_free_result($result);
+$result = mysqli_query($db_con, "SELECT id FROM noticias");
+$total = mysqli_num_rows($result);
+mysqli_free_result($result);
 
 
 $limit = 20;
@@ -68,9 +68,9 @@ include("menu.php");
 			
 			<div class="col-sm-12">
 				
-				<?php $result = mysql_query("SELECT id, slug, timestamp, contact, pagina FROM noticias ORDER BY timestamp DESC LIMIT $limit_ini, $limit"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT id, slug, timestamp, contact, pagina FROM noticias ORDER BY timestamp DESC LIMIT $limit_ini, $limit"); ?>
 				
-				<?php if (mysql_num_rows($result)): ?>
+				<?php if (mysqli_num_rows($result)): ?>
 					
 					<style class="text/css">
 						a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; }
@@ -90,22 +90,22 @@ include("menu.php");
 								</tr>
 							</thead>
 							<tbody>
-								<?php while ($row = mysql_fetch_array($result)): ?>
+								<?php while ($row = mysqli_fetch_array($result)): ?>
 									<tr>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['id']; ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['slug']) > 60) ? substr($row['slug'],0,60).'...' : $row['slug']; ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['timestamp'])); ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['contact']; ?></a></td>
 										<td class="text-center">
-											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" rel="tooltip" title="<?php echo (strstr($row['pagina'],'1')==TRUE) ? 'Publicada en la intranet' : 'No publicada en la intranet'; ?>"></span>
+											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'1')==TRUE) ? 'Publicada en la intranet' : 'No publicada en la intranet'; ?>"></span>
 										</td>
 										<td class="text-center">
-											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" rel="tooltip" title="<?php echo (strstr($row['pagina'],'2')==TRUE) ? 'Publicada en la página externa' : 'No publicada en la página externa'; ?>"></span>
+											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'2')==TRUE) ? 'Publicada en la página externa' : 'No publicada en la página externa'; ?>"></span>
 										</td>
 										<td nowrap>
 											<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $_SESSION['profi'] == $row['contact']): ?>
-											<a href="redactar.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" rel="tooltip" title="Editar"></span></a>
-											<a href="index.php?id=<?php echo $row['id']; ?>&borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Eliminar"></span></a>
+											<a href="redactar.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>
+											<a href="index.php?id=<?php echo $row['id']; ?>&borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Eliminar"></span></a>
 											<?php endif; ?>
 										</td>
 									</tr>
@@ -114,7 +114,7 @@ include("menu.php");
 							<tfoot>
 								<tr>
 									<td colspan="7">
-										<div class="text-right text-muted">Mostrando <?php echo mysql_num_rows($result); ?> de <?php echo $limit; ?>. Total: <?php echo $total; ?> resultados</div>
+										<div class="text-right text-muted">Mostrando <?php echo mysqli_num_rows($result); ?> de <?php echo $limit; ?>. Total: <?php echo $total; ?> resultados</div>
 									</td>
 								</tr>
 							</tfoot>
@@ -126,7 +126,7 @@ include("menu.php");
 					  <li class="next<?php echo ($pag == 0) ? ' disabled' : '' ?>"><a href="<?php echo ($pag == 0) ? '#' : 'index.php?pag='.$pag_ant; ?>">Recientes &rarr;</a></li>
 					</ul>
 					
-					<?php mysql_free_result($result); ?>
+					<?php mysqli_free_result($result); ?>
 					
 				<?php else: ?>
 					

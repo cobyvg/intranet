@@ -7,12 +7,12 @@
 	
 	<div class="col-sm-4">
 	
-		<?php $result = mysql_query("SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal and FALTAS.falta = 'F' and FALUMNOS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos"); ?>
+		<?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal and FALTAS.falta = 'F' and FALUMNOS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos"); ?>
 		<?php $total = 0; ?>
-		<?php if (mysql_num_rows($result)): ?>
-		<?php $row = mysql_fetch_array($result); ?>
+		<?php if (mysqli_num_rows($result)): ?>
+		<?php $row = mysqli_fetch_array($result); ?>
 		<?php $total = $row['total']; ?>
-		<?php mysql_free_result($result); ?>
+		<?php mysqli_free_result($result); ?>
 		<?php endif; ?>
 		
 		<h3 class="text-info text-center">
@@ -24,12 +24,12 @@
 	
 	<div class="col-sm-4">
 		
-		<?php $result = mysql_query("SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'J' AND  FALUMNOS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos"); ?>
+		<?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'J' AND  FALUMNOS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos"); ?>
 		<?php $total = 0; ?>
-		<?php if (mysql_num_rows($result)): ?>
-		<?php $row = mysql_fetch_array($result); ?>
+		<?php if (mysqli_num_rows($result)): ?>
+		<?php $row = mysqli_fetch_array($result); ?>
 		<?php $total = $row['total']; ?>
-		<?php mysql_free_result($result); ?>
+		<?php mysqli_free_result($result); ?>
 		<?php endif; ?>
 		
 		<h3 class="text-info text-center">
@@ -41,8 +41,8 @@
 	
 	<div class="col-sm-4">
 		
-		<?php $result = mysql_query("SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = $claveal group by FALUMNOS.APELLIDOS, FALTAS.fecha"); ?>
-		<?php $total = mysql_num_rows($result); ?>
+		<?php $result = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = $claveal group by FALUMNOS.APELLIDOS, FALTAS.fecha"); ?>
+		<?php $total = mysqli_num_rows($result); ?>
 		
 		<h3 class="text-info text-center">
 			<?php echo $total; ?><br>

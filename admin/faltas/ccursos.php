@@ -52,7 +52,7 @@ include("../../menu.php");
 <label>
 Grupo: <SELECT  name="unidad" onChange="submit()" class="input-mini" style="display:inline;margin-right:15px;">
             <option><? echo $unidad;?></option>
-            <? unidad();?>
+            <? unidad($db_con);?>
           </SELECT>
 </label>
         <br /><br />

@@ -27,10 +27,10 @@ echo '</div>';
 
 <? 
    	$query = "SELECT contenido, fecha, numero, departamento FROM r_departamento WHERE id = '$id'";
-   	$result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
-   	if (mysql_num_rows($result) > 0)
+   	$result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
+   	if (mysqli_num_rows($result) > 0)
    	{
-   		$row = mysql_fetch_object($result);
+   		$row = mysqli_fetch_object($result);
    	}
  
 if ($row)
@@ -57,7 +57,7 @@ if ($row)
 if (!($j_s=='disabled')) {
 ?>
 <a href="pdf.php?id=<? echo $id; ?>&imprimir=1"  style="margin-right:20px;" class="btn btn-primary pull-right no_imprimir"> 
-<i class="fa fa-print " rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i> Imprimir PDF</a>
+<i class="fa fa-print " data-bs="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i> Imprimir PDF</a>
 <?
 }
 ?>

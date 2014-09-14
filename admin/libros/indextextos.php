@@ -24,12 +24,12 @@ exit;
 
 include("../../menu.php");
 // Actualizamos el campo nivel
-mysql_query("ALTER TABLE  `textos_gratis` CHANGE  `nivel`  `nivel` VARCHAR( 48 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  '' ");
+mysqli_query($db_con, "ALTER TABLE  `textos_gratis` CHANGE  `nivel`  `nivel` VARCHAR( 48 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  '' ");
 
-mysql_query("update `textos_gratis` set nivel = '1º de E.S.O.' WHERE nivel = '1E'");
-mysql_query("update `textos_gratis` set nivel = '2º de E.S.O.' WHERE nivel = '2E'");
-mysql_query("update `textos_gratis` set nivel = '3º de E.S.O.' WHERE nivel = '3E'");
-mysql_query("update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E'");
+mysqli_query($db_con, "update `textos_gratis` set nivel = '1º de E.S.O.' WHERE nivel = '1E'");
+mysqli_query($db_con, "update `textos_gratis` set nivel = '2º de E.S.O.' WHERE nivel = '2E'");
+mysqli_query($db_con, "update `textos_gratis` set nivel = '3º de E.S.O.' WHERE nivel = '3E'");
+mysqli_query($db_con, "update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E'");
 
 ?>
 
@@ -43,8 +43,8 @@ mysql_query("update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E
 	
 	<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 	
-	<?php $result = mysql_query("SELECT * FROM textos_gratis LIMIT 1"); ?>
-	<?php if(mysql_num_rows($result)): ?>
+	<?php $result = mysqli_query($db_con, "SELECT * FROM textos_gratis LIMIT 1"); ?>
+	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
 		Ya existe información en la base de datos. Este proceso actualizará el listado de libros de texto. Es recomendable realizar una <a class="copia_db/dump_db.php">copia de seguridad</a> antes de proceder a la importación de los datos.
 	</div>
@@ -110,17 +110,17 @@ mysql_query("update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E
 
 						<div class="form-group">
 						  <label for="niv">Curso</label>
-						  <?php $result = mysql_query("SELECT nomcurso FROM cursos WHERE nomcurso LIKE '%E.S.O.' ORDER BY nomcurso ASC"); ?>
-						  <?php if(mysql_num_rows($result)): ?>
+						  <?php $result = mysqli_query($db_con, "SELECT nomcurso FROM cursos WHERE nomcurso LIKE '%E.S.O.' ORDER BY nomcurso ASC"); ?>
+						  <?php if(mysqli_num_rows($result)): ?>
 						  <select class="form-control" name="niv">
-						  	<?php while($row = mysql_fetch_array($result)): ?>
+						  	<?php while($row = mysqli_fetch_array($result)): ?>
 						  	<option value="<?php echo $row['nomcurso']; ?>"><?php echo $row['nomcurso']; ?></option>
 						  	<?php endwhile; ?>
 						  </select>
 						  <?php else: ?>
 						   <select class="form-control" name="niv" disabled></select>
 						  <?php endif; ?>
-						  <?php mysql_free_result($result); ?>
+						  <?php mysqli_free_result($result); ?>
 						</div>
 						
 						
@@ -146,17 +146,17 @@ mysql_query("update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E
 
 						<div class="form-group">
 						  <label for="nivel">Curso</label>
-						  <?php $result = mysql_query("SELECT nomcurso FROM cursos WHERE nomcurso LIKE '%E.S.O.' ORDER BY nomcurso ASC"); ?>
-						  <?php if(mysql_num_rows($result)): ?>
+						  <?php $result = mysqli_query($db_con, "SELECT nomcurso FROM cursos WHERE nomcurso LIKE '%E.S.O.' ORDER BY nomcurso ASC"); ?>
+						  <?php if(mysqli_num_rows($result)): ?>
 						  <select class="form-control" name="nivel">
-						  	<?php while($row = mysql_fetch_array($result)): ?>
+						  	<?php while($row = mysqli_fetch_array($result)): ?>
 						  	<option value="<?php echo $row['nomcurso']; ?>"><?php echo $row['nomcurso']; ?></option>
 						  	<?php endwhile; ?>
 						  </select>
 						  <?php else: ?>
 						   <select class="form-control" name="nivel" disabled></select>
 						  <?php endif; ?>
-						  <?php mysql_free_result($result); ?>
+						  <?php mysqli_free_result($result); ?>
 						</div>
 						
 						

@@ -39,9 +39,9 @@ $query = "SELECT DISTINCT unidad FROM FALUMNOS";
 if ($curso) $query .= " WHERE unidad='$curso'";
 
 
-$unidades = mysql_query($query);
+$unidades = mysqli_query($db_con, $query);
 
-while ($unidad = mysql_fetch_array($unidades)) {
+while ($unidad = mysqli_fetch_array($unidades)) {
 	
 	$grupo = $unidad[0];
 
@@ -54,14 +54,14 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->Ln(5);
 	
 	// Consultamos los alumnos del grupo seleccionado
-	$result = mysql_query("SELECT claveal, apellidos, nombre FROM FALUMNOS WHERE unidad='$grupo'");
+	$result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM FALUMNOS WHERE unidad='$grupo'");
 	
 	$i=1;
 	$x_texto1=29.5;
 	$y_texto1=56;
 	$x_image=20;
 	$y_image=21;
-	while ($alumno = mysql_fetch_object($result)) {
+	while ($alumno = mysqli_fetch_object($result)) {
 		if($i%5==0) $ln=1; else $ln=0;
 		
 		$pdf->Cell(37,43,'',1,$ln,'C'); // Dibuja una cuadrícula
@@ -97,7 +97,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 		$i++;
 	}
 	
-	mysql_free_result($result);
+	mysqli_free_result($result);
 		
 }
 

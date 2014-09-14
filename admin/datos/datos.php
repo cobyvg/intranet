@@ -60,7 +60,7 @@ if (!(isset($AUXSQL))) {
 
 //Reseteamos Clave en la página principal
 if (isset($_GET['resetear']) and $_GET['resetear']==1) {
-	$sql_reset=mysql_query("delete from control where claveal = '".$_GET['clave_alumno']."'");
+	$sql_reset=mysqli_query($db_con, "delete from control where claveal = '".$_GET['clave_alumno']."'");
 	if ($sql_reset) {
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -79,8 +79,8 @@ if (isset($seleccionado) and $seleccionado=="1") {
 	$tr=explode(" --> ",$alumno);
 	$clave_al=$tr[1];
 	$nombre_al=$tr[0];
-	$uni=mysql_query("select unidad from alma where claveal='$clave_al'");
-	$un=mysql_fetch_array($uni);
+	$uni=mysqli_query($db_con, "select unidad from alma where claveal='$clave_al'");
+	$un=mysqli_fetch_array($uni);
 	$unidad=$un[0];
 }
 $AUXSQL == "";
@@ -125,9 +125,9 @@ $SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad,
   alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.telefonourgencia, padre, matriculas, correo from alma
   where 1 " . $AUXSQL . " order BY unidad, alma.apellidos, nombre";
 // echo $SQL;
-$result = mysql_query($SQL);
+$result = mysqli_query($db_con, $SQL);
 
-if ($row = mysql_fetch_array($result))
+if ($row = mysqli_fetch_array($result))
 {
 
 	echo "<table class='table table-bordered table-striped table-vcentered datatable'>";
@@ -174,9 +174,9 @@ if ($row = mysql_fetch_array($result))
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';
 		}
-		echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' rel='Tooltip' title='Ver detalles'></i> ";
+		echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Ver detalles'></i> ";
 		echo '</a></td></tr>';
-	} while($row = mysql_fetch_array($result));
+	} while($row = mysqli_fetch_array($result));
 	echo "</tbody></table>\n";
 } else
 {
@@ -193,8 +193,8 @@ No hubo suerte, bien porque te has equivocado
 if ($_GET['seleccionado']=='1'){
 
 	// Comprobamos si el centro cuenta con módulo de la página principal para el acceso de los alumnos
-	$sql_control = mysql_query("select * from control where claveal = '$claveal'");
-	if (mysql_num_rows($sql_control)>0) {
+	$sql_control = mysqli_query($db_con, "select * from control where claveal = '$claveal'");
+	if (mysqli_num_rows($sql_control)>0) {
 		$s_control = '1';
 	}
 	// Menú del alumno
@@ -203,33 +203,33 @@ if ($_GET['seleccionado']=='1'){
 	echo "&nbsp;<a class='btn btn-primary' href='../fechorias/infechoria.php?seleccionado=1&nombre_al=$alumno'>Problema de disciplina</a> ";
 	echo "&nbsp;<a class='btn btn-primary' href='http://$dominio/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
 	if (stristr($_SESSION['cargo'],'1') == TRUE) {
-		$dat = mysql_query("select unidad from FALUMNOS where claveal='$clave_al'");
-		$tut=mysql_fetch_row($dat);
+		$dat = mysqli_query($db_con, "select unidad from FALUMNOS where claveal='$clave_al'");
+		$tut=mysqli_fetch_row($dat);
 		$unidad=$tut[0];
 		echo "&nbsp;<a class='btn btn-primary' href='../jefatura/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad'>Acción de Tutoría</a>";
 			if ($s_control=='1') {
-			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  rel='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
+			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
 		}
 
 	}
 	if (stristr($_SESSION['cargo'],'8') == TRUE) {
-		$dat = mysql_query("select unidad from FALUMNOS where claveal='$clave_al'");
-		$tut=mysql_fetch_row($dat);
+		$dat = mysqli_query($db_con, "select unidad from FALUMNOS where claveal='$clave_al'");
+		$tut=mysqli_fetch_row($dat);
 		$unidad=$tut[0];
 		echo "&nbsp;<a class='btn btn-primary' href='../orientacion/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad'>Acción de Tutoría</a>";
 	}
 	if (stristr($_SESSION['cargo'],'2') == TRUE) {
 		$tutor = $_SESSION['profi'];
-		$dat = mysql_query("select unidad from FALUMNOS where claveal='$clave_al'");
-		$dat_tutor = mysql_query("select unidad from FTUTORES where tutor='$tutor'");
-		$tut=mysql_fetch_row($dat);
-		$tut2=mysql_fetch_array($dat_tutor);
+		$dat = mysqli_query($db_con, "select unidad from FALUMNOS where claveal='$clave_al'");
+		$dat_tutor = mysqli_query($db_con, "select unidad from FTUTORES where tutor='$tutor'");
+		$tut=mysqli_fetch_row($dat);
+		$tut2=mysqli_fetch_array($dat_tutor);
 		$unidad=$tut[0];
 		$unidad_tutor=$tut2[0];
 		if ($unidad==$unidad_tutor) {
 			echo "&nbsp;<a class='btn btn-primary' href='../tutoria/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad&tutor=$tutor'>Acción de Tutoría</a>";
 		if ($s_control=='1') {
-			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  rel='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
+			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
 		}
 		}
 	}

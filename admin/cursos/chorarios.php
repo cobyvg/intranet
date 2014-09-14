@@ -43,17 +43,17 @@ include("../../menu.php");
 						<legend>Grupos</legend>
 						
 						<div class="form-group">
-							<?php $result = mysql_query("SELECT DISTINCT a_grupo FROM horw WHERE a_grupo NOT LIKE 'G%' AND a_grupo NOT LIKE '' ORDER BY a_grupo"); ?>
-							<?php if(mysql_num_rows($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE a_grupo NOT LIKE 'G%' AND a_grupo NOT LIKE '' ORDER BY a_grupo"); ?>
+							<?php if(mysqli_num_rows($result)): ?>
 					    <select class="form-control" id="curso" name="curso">
-					    	<?php while($row = mysql_fetch_array($result)): ?>
+					    	<?php while($row = mysqli_fetch_array($result)): ?>
 					    	<option value="<?php echo $row['a_grupo']; ?>"><?php echo $row['a_grupo']; ?></option>
 					    	<?php endwhile; ?>
 					    </select>
 					    <?php else: ?>
 					     <select class="form-control" id="curso" name="curso" disabled></select>
 					    <?php endif; ?>
-					    <?php mysql_free_result($result); ?>
+					    <?php mysqli_free_result($result); ?>
 					  </div>
 					  
 					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
@@ -75,17 +75,17 @@ include("../../menu.php");
 						<legend>Profesores</legend>
 						
 						<div class="form-group">
-							<?php $result = mysql_query("SELECT DISTINCT prof FROM horw ORDER BY prof ASC"); ?>
-					    <?php if(mysql_num_rows($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw ORDER BY prof ASC"); ?>
+					    <?php if(mysqli_num_rows($result)): ?>
 					    <select class="form-control" id="profeso" name="profeso">
-					    	<?php while($row = mysql_fetch_array($result)): ?>
+					    	<?php while($row = mysqli_fetch_array($result)): ?>
 					    	<option value="<?php echo $row['prof']; ?>"><?php echo $row['prof']; ?></option>
 					    	<?php endwhile; ?>
 					    </select>
 					    <?php else: ?>
 					     <select class="form-control" id="profeso" name="profeso" disabled></select>
 					    <?php endif; ?>
-					    <?php mysql_free_result($result); ?>
+					    <?php mysqli_free_result($result); ?>
 					  </div>
 					  
 					  <button type="submit" class="btn btn-primary" name="submit2">Consultar</button>
@@ -107,17 +107,17 @@ include("../../menu.php");
 						<legend>Aulas</legend>
 						
 						<div class="form-group">
-							<?php $result = mysql_query("SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY n_aula ASC"); ?>
-						  <?php if(mysql_num_rows($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY n_aula ASC"); ?>
+						  <?php if(mysqli_num_rows($result)): ?>
 						  <select class="form-control" id="aula" name="aula">
-						  	<?php while($row = mysql_fetch_array($result)): ?>
+						  	<?php while($row = mysqli_fetch_array($result)): ?>
 						  	<option value="<?php echo $row['n_aula']; ?>"><?php echo $row['n_aula']; ?></option>
 						  	<?php endwhile; ?>
 						  </select>
 						  <?php else: ?>
 						   <select class="form-control" id="aula" name="aula" disabled></select>
 						  <?php endif; ?>
-						  <?php mysql_free_result($result); ?>
+						  <?php mysqli_free_result($result); ?>
 						</div>
 					  
 					  <button type="submit" class="btn btn-primary" name="submit3">Consultar</button>

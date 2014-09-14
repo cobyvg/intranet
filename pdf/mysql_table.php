@@ -1,7 +1,7 @@
 <?php
 #require('../pdf/fpdf.php');
 
-class PDF_MySQL_Table extends FPDF
+class PDF_mysqli_Table extends FPDF
 {
 var $ProcessingTable=false;
 var $aCols=array();
@@ -76,11 +76,11 @@ function AddCol($field=-1,$width=-1,$caption='',$align='L')
 function Table($query,$prop=array())
 {
 	//Issue query
-	$res=mysql_query($query) or die('Error: '.mysql_error()."<BR>Query: $query");
+	$res=mysqli_query($db_con, $query) or die('Error: '.mysqli_error($db_con)."<BR>Query: $query");
 	//Add all columns if none was specified
 	if(count($this->aCols)==0)
 	{
-		$nb=mysql_num_fields($res);
+		$nb=mysqli_num_fields($res);
 		for($i=0;$i<$nb;$i++)
 			$this->AddCol();
 	}
@@ -92,7 +92,7 @@ function Table($query,$prop=array())
 			if(is_string($col['f']))
 				$this->aCols[$i]['c']=ucfirst($col['f']);
 			else
-				$this->aCols[$i]['c']=ucfirst(mysql_field_name($res,$col['f']));
+				$this->aCols[$i]['c']=ucfirst(mysqli_field_name($res,$col['f']));
 		}
 	}
 	//Handle properties
@@ -122,7 +122,7 @@ function Table($query,$prop=array())
 	$this->SetFont('Arial','',11);
 	$this->ColorIndex=0;
 	$this->ProcessingTable=true;
-	while($row=mysql_fetch_array($res))
+	while($row=mysqli_fetch_array($res))
 		$this->Row($row);
 	$this->ProcessingTable=false;
 	$this->cMargin=$cMargin;

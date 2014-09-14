@@ -52,13 +52,13 @@ include("../../faltas/menu.php");
 	 
  $SQLTEMP = "create table FALTASTEMP select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc,  FALTAS.falta, count(*) as NUMERO from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal " . $AUXSQL . "  and FALTAS.falta = '$FALTA' GROUP BY FALUMNOS.apellidos";
 
-$resultTEMP= mysql_query($SQLTEMP);
- mysql_query("ALTER TABLE FALTASTEMP ADD INDEX (CLAVEAL)");
+$resultTEMP= mysqli_query($db_con, $SQLTEMP);
+ mysqli_query($db_con, "ALTER TABLE FALTASTEMP ADD INDEX (CLAVEAL)");
 $SQL = "select FALTASTEMP.claveal, FALTASTEMP.apellidos, FALTASTEMP.nombre, FALTASTEMP.unidad, FALTASTEMP.falta, FALTASTEMP.NUMERO from FALTASTEMP where FALTASTEMP.claveal = FALTASTEMP.claveal  and NUMERO >= '$numero2' GROUP BY FALTASTEMP.apellidos";
 
-$result = mysql_query($SQL);
+$result = mysqli_query($db_con, $SQL);
 
-  if ($row = mysql_fetch_array($result))
+  if ($row = mysqli_fetch_array($result))
         {
         echo "<table class='table table-striped datatable'>\n";
         echo "<thead><th>Alumno</th><th>Grupo</th><th>Falta</th><th>Total</th></thead><tbody>";
@@ -68,7 +68,7 @@ $result = mysql_query($SQL);
 		$foto = "<img src='../../xml/fotos/$row[0].jpg' width='55' height='64' class=''  />";
 		echo $foto."&nbsp;&nbsp;";
                 echo "<a href='informes.php?claveal=$row[0]&fechasp1=$inicio_curso&fechasp3=$fin_curso&submit2=2'>$row[1], $row[2]</a></td><td>$row[3]</td><td>$row[4]</td><td style='color:#9d261d'><strong>$row[5]</strong></td></tr>\n"; 
-        } while($row = mysql_fetch_array($result));
+        } while($row = mysqli_fetch_array($result));
         echo "</tbody></table>";
         } else
         {
@@ -83,7 +83,7 @@ No hay registros coincidentes, bien porque te has equivocado
         }
 // Eliminar Tabla temporal
  $SQLDEL = "DROP table `FALTASTEMP`";
- mysql_query($SQLDEL);
+ mysqli_query($db_con, $SQLDEL);
   ?>
  <?
 include("../../pie.php");

@@ -1,14 +1,14 @@
 <a name="intervenciones"></a>
 <?php
-$tuto = mysql_query("SELECT tutor FROM FTUTORES WHERE unidad='$unidad'");
-$tut = mysql_fetch_array($tuto);
+$tuto = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$unidad'");
+$tut = mysqli_fetch_array($tuto);
 $tutor = $tut[0];
 if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'8') or $_SESSION['profi']==$tutor) {
 echo "<h3>Intervenciones de tutoría</h3>";
 if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'8')) {$prohibido="";}else{$prohibido=" and prohibido = '0'";}
-$alumno=mysql_query("select tutoria.fecha, accion, causa, tutoria.observaciones from tutoria where tutoria.claveal = '$claveal' $prohibido");
+$alumno=mysqli_query($db_con, "select tutoria.fecha, accion, causa, tutoria.observaciones from tutoria where tutoria.claveal = '$claveal' $prohibido");
 
-if (mysql_num_rows($alumno) < 1)
+if (mysqli_num_rows($alumno) < 1)
 { 
 echo '<h3 class="text-muted">El alumno/a no tiene intervenciones de tutoría</h3>
 <br>';
@@ -24,7 +24,7 @@ echo "<thead><tr>
 <th>Clase</th>
 <th>Causa</th>
 </tr></thead>";
-while($row = mysql_fetch_array($alumno)){
+while($row = mysqli_fetch_array($alumno)){
   $obs=$row[3];
   $dia3 = explode("-",$row[0]);
   $fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";

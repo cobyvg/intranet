@@ -37,41 +37,41 @@ if (isset($_POST['enviar'])) {
 		$ok = 0;
 		
 		// ACTUALIZACION EN HORARIOS
-		$result1 = mysql_query("UPDATE horw SET prof='$sustituto' WHERE prof='$sustituido'");
+		$result1 = mysqli_query($db_con, "UPDATE horw SET prof='$sustituto' WHERE prof='$sustituido'");
 		if(!$result1) {
-			$msg_error = "No se han podido cambiar los datos del horario. Error: ".mysql_error();
+			$msg_error = "No se han podido cambiar los datos del horario. Error: ".mysqli_error($db_con);
 			$ok = 0;
 		}
 		
 		
 		// ACTUALIZACION EN HORARIOS DE FALTAS
-		$result2 = mysql_query("UPDATE horw_faltas SET prof='$sustituto' WHERE prof='$sustituido'");
+		$result2 = mysqli_query($db_con, "UPDATE horw_faltas SET prof='$sustituto' WHERE prof='$sustituido'");
 		if(!$result2) {
-			$msg_error = "No se han podido cambiar los datos del horario de faltas. Error: ".mysql_error();
+			$msg_error = "No se han podido cambiar los datos del horario de faltas. Error: ".mysqli_error($db_con);
 			$ok = 0;
 		}
 		
 		
 		// ACTUALIZACION EN TUTORIAS
-		$result3 = mysql_query("UPDATE FTUTORES SET tutor='$sustituto' WHERE tutor='$sustituido'");
+		$result3 = mysqli_query($db_con, "UPDATE FTUTORES SET tutor='$sustituto' WHERE tutor='$sustituido'");
 		if(!$result3) {
-			$msg_error = "No se han podido cambiar los datos de tutoría. Error: ".mysql_error();
+			$msg_error = "No se han podido cambiar los datos de tutoría. Error: ".mysqli_error($db_con);
 			$ok = 0;
 		}
 		
 		
 		// ACTUALIZACION EN PROFESORES
-		$result4 = mysql_query("UPDATE profesores SET profesor='$sustituto' WHERE profesor='$sustituido'");
+		$result4 = mysqli_query($db_con, "UPDATE profesores SET profesor='$sustituto' WHERE profesor='$sustituido'");
 		if(!$result4) {
-			$msg_error = "No se han podido cambiar los datos de la tabla Profesores. Error: ".mysql_error();
+			$msg_error = "No se han podido cambiar los datos de la tabla Profesores. Error: ".mysqli_error($db_con);
 			$ok = 0;
 		}
 		
 		
 		// ACTUALIZACION EN GUARDIAS
-		$result5 = mysql_query("UPDATE guardias SET profesor='$sustituto' WHERE profesor='$sustituido'");
+		$result5 = mysqli_query($db_con, "UPDATE guardias SET profesor='$sustituto' WHERE profesor='$sustituido'");
 		if(!$result5) {
-			$msg_error = "No se han podido cambiar los datos de las guardias. Error: ".mysql_error();
+			$msg_error = "No se han podido cambiar los datos de las guardias. Error: ".mysqli_error($db_con);
 			$ok = 0;
 		}
 		
@@ -119,11 +119,11 @@ include("../../menu.php");
 						
 						<div class="form-group">
 						  <label for="sustituido">Profesor sustituido</label>
-						  <?php $result = mysql_query("SELECT DISTINCT prof FROM horw ORDER BY prof ASC"); ?>
-						  <?php if(mysql_num_rows($result)): ?>
+						  <?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw ORDER BY prof ASC"); ?>
+						  <?php if(mysqli_num_rows($result)): ?>
 						  <select class="form-control" name="sustituido">
 						  	<option value=""></option>
-						  	<?php while($row = mysql_fetch_array($result)): ?>
+						  	<?php while($row = mysqli_fetch_array($result)): ?>
 						  	<option value="<?php echo $row['prof']; ?>"><?php echo $row['prof']; ?></option>
 						  	<?php endwhile; ?>
 						  </select>
@@ -132,16 +132,16 @@ include("../../menu.php");
 						   	<option value=""></option>
 						   </select>
 						  <?php endif; ?>
-						  <?php mysql_free_result($result); ?>
+						  <?php mysqli_free_result($result); ?>
 						</div>
 						
 						<div class="form-group">
 						  <label for="sustituto">Profesor sustituto</label>
-						  <?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE nombre NOT LIKE 'admin' AND nombre NOT LIKE 'conserje' AND departamento NOT LIKE 'Administ%' ORDER BY nombre ASC"); ?>
-						  <?php if(mysql_num_rows($result)): ?>
+						  <?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE nombre NOT LIKE 'admin' AND nombre NOT LIKE 'conserje' AND departamento NOT LIKE 'Administ%' ORDER BY nombre ASC"); ?>
+						  <?php if(mysqli_num_rows($result)): ?>
 						  <select class="form-control" name="sustituto">
 						  	<option value=""></option>
-						  	<?php while($row = mysql_fetch_array($result)): ?>
+						  	<?php while($row = mysqli_fetch_array($result)): ?>
 						  	<option value="<?php echo $row['nombre']; ?>"><?php echo $row['nombre']; ?></option>
 						  	<?php endwhile; ?>
 						  </select>
@@ -150,7 +150,7 @@ include("../../menu.php");
 						   	<option value=""></option>
 						   </select>
 						  <?php endif; ?>
-						  <?php mysql_free_result($result); ?>
+						  <?php mysqli_free_result($result); ?>
 						</div>
 						
 						

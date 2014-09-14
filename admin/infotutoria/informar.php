@@ -36,8 +36,8 @@ include("menu.php");
         
 <?php
 
-$alumno=mysql_query("SELECT infotut_alumno.CLAVEAL, infotut_alumno.APELLIDOS, infotut_alumno.NOMBRE, infotut_alumno.unidad, infotut_alumno.id, curso FROM infotut_alumno, alma WHERE alma.claveal=infotut_alumno.claveal and ID='$id'");
-$dalumno = mysql_fetch_array($alumno);
+$alumno=mysqli_query($db_con, "SELECT infotut_alumno.CLAVEAL, infotut_alumno.APELLIDOS, infotut_alumno.NOMBRE, infotut_alumno.unidad, infotut_alumno.id, curso FROM infotut_alumno, alma WHERE alma.claveal=infotut_alumno.claveal and ID='$id'");
+$dalumno = mysqli_fetch_array($alumno);
 $n_cur=$dalumno[5];
 if (empty($dalumno[0])) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
@@ -74,23 +74,23 @@ echo "<p align=center class='lead'>$dalumno[2] $dalumno[1] ( $dalumno[3] )</p>";
 	}
 echo "<br />";
 
-$coinciden = mysql_query("SELECT materia FROM profesores WHERE profesor='$pr' and grupo = '$dalumno[3]'");
-while($coinciden0 = mysql_fetch_row($coinciden)){
+$coinciden = mysqli_query($db_con, "SELECT materia FROM profesores WHERE profesor='$pr' and grupo = '$dalumno[3]'");
+while($coinciden0 = mysqli_fetch_row($coinciden)){
 $asignatur = $coinciden0[0];
 $asignatur = str_replace("nbsp;","",$asignatur);
 $asignatur = str_replace("&","",$asignatur);
 }
 
-$as=mysql_query("SELECT COMBASI FROM alma WHERE CLAVEAL='$claveal' ");
-$asi=mysql_fetch_array($as);
+$as=mysqli_query($db_con, "SELECT COMBASI FROM alma WHERE CLAVEAL='$claveal' ");
+$asi=mysqli_fetch_array($as);
 $asi1 = substr($asi[0],0,strlen($asi[0]) -1);
-$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$pr'");
-if(mysql_num_rows($coinciden)<1 and stristr($_SESSION['cargo'],'1') == TRUE){
-$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");	
+$coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$pr'");
+if(mysqli_num_rows($coinciden)<1 and stristr($_SESSION['cargo'],'1') == TRUE){
+$coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");	
 }
 echo "<div class='form-group'><label>Asignatura</label><select name='asignatura' class='form-control' required>";
 echo"<OPTION></OPTION>";
-while($coinciden0 = mysql_fetch_row($coinciden)){
+while($coinciden0 = mysqli_fetch_row($coinciden)){
 $n_asig = $coinciden0[0];
 $cod = $coinciden0[1];
 if (strstr($asi1,$cod)==TRUE) {
@@ -104,8 +104,8 @@ if (strstr($asi1,$cod)==TRUE) {
 
 echo "</select></div>";
 
-$ya_hay=mysql_query("select informe from infotut_profesor where asignatura = '$materia' and id_alumno = '$id'");
-$ya_hay1=mysql_fetch_row($ya_hay);
+$ya_hay=mysqli_query($db_con, "select informe from infotut_profesor where asignatura = '$materia' and id_alumno = '$id'");
+$ya_hay1=mysqli_fetch_row($ya_hay);
 $informe=$ya_hay1[0];
 echo "<div class='form-group'><label>Informe</label><textarea rows='6' name='informe' class='form-control' required>$informe</textarea></div>";
 ?>

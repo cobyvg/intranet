@@ -45,7 +45,7 @@ include("estructura.php");
 ?>
 </form>
 <? 
-mysql_close();
+mysqli_close();
 include("../../pie.php"); ?>
 </body>
 </html>

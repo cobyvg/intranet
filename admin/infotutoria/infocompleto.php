@@ -54,9 +54,9 @@ $llenar="";
 
 if(empty($llenar)){}else{$id = $llenar;}
 echo "<div align='center'>";
-$alumno=mysql_query("SELECT APELLIDOS,NOMBRE,unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$id'");
+$alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$id'");
 
-$dalumno = mysql_fetch_array($alumno);
+$dalumno = mysqli_fetch_array($alumno);
 $claveal=$dalumno[6];
    	$foto = '../../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto)) {
@@ -75,11 +75,11 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuev
 }
 echo "<h4>$dalumno[1] $dalumno[0] ($dalumno[2])</h4><h4>Visita: $dalumno[5]</h4><h4>Tutor: $dalumno[4]</h4><br />";
 
-$datos=mysql_query("SELECT asignatura, informe, id, profesor FROM infotut_profesor WHERE id_alumno='$id'");
-if(mysql_num_rows($datos) > 0)
+$datos=mysqli_query($db_con, "SELECT asignatura, informe, id, profesor FROM infotut_profesor WHERE id_alumno='$id'");
+if(mysqli_num_rows($datos) > 0)
 {
 echo "<table class='table table-striped table-bordered' align='center'>";
-while($informe = mysql_fetch_array($datos))
+while($informe = mysqli_fetch_array($datos))
 {
 $fondo = "";
 if($informe[0] == $c_asig){$fondo="background-color:#dff0d8;";}
@@ -93,8 +93,8 @@ if($informe[0] == $c_asig){$fondo="background-color:#dff0d8;";}
 	echo"</tr>";
 }
 
-$combas = mysql_query("select combasi from alma where claveal = '$claveal'");
-$combasi = mysql_fetch_array($combas);
+$combas = mysqli_query($db_con, "select combasi from alma where claveal = '$claveal'");
+$combasi = mysqli_fetch_array($combas);
 $tr_comb = explode(":",$combasi[0]);
 $frase=" and (";
 foreach ($tr_comb as $codasi)
@@ -103,8 +103,8 @@ foreach ($tr_comb as $codasi)
 }
 $frase = substr($frase,0,-19).")";
 
-$datos1 = mysql_query("SELECT distinct materia, profesor from profesores, asignaturas WHERE materia = nombre and profesores.grupo = '$dalumno[2]' and profesor not in (SELECT profesor FROM infotut_profesor WHERE id_alumno='$id') and materia not in (SELECT asignatura FROM infotut_profesor WHERE id_alumno='$id')  and abrev not like '%\_%' $frase");
-while($informe1 = mysql_fetch_array($datos1))
+$datos1 = mysqli_query($db_con, "SELECT distinct materia, profesor from profesores, asignaturas WHERE materia = nombre and profesores.grupo = '$dalumno[2]' and profesor not in (SELECT profesor FROM infotut_profesor WHERE id_alumno='$id') and materia not in (SELECT asignatura FROM infotut_profesor WHERE id_alumno='$id')  and abrev not like '%\_%' $frase");
+while($informe1 = mysqli_fetch_array($datos1))
 {
 	echo "<tr><td style='width:15%;'><strong>$informe1[0]</strong></td>
 		<td style='width:20%;'>$informe1[1]</td>

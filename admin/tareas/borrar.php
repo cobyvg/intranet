@@ -27,13 +27,13 @@ include("menu.php");
 </div>
 <br />
 <?
-$alumno=mysql_query("SELECT APELLIDOS, NOMBRE, unidad, id, profesor, fecha FROM tareas_alumnos WHERE ID='$id_alumno'");
-$dalumno = mysql_fetch_array($alumno);
+$alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, profesor, fecha FROM tareas_alumnos WHERE ID='$id_alumno'");
+$dalumno = mysqli_fetch_array($alumno);
 echo "
 <h4 align='center'>$dalumno[1] $dalumno[0] ($dalumno[2])<br> Visita: $dalumno[5]<br>Tutor: $dalumno[4]</h4><br />";
 if ($del=='1') {
-	mysql_query("delete from tareas_profesor where id = '$id_del'");
-	if (mysql_affected_rows()>'0') {
+	mysqli_query($db_con, "delete from tareas_profesor where id = '$id_del'");
+	if (mysqli_affected_rows()>'0') {
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Informe ha sido borrado sin problemas.

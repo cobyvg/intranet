@@ -43,35 +43,35 @@ include("../../menu.php");
 			$n_reg+=1;
 			$tr_cambio = explode("#",$key);
 			$origen = $tr_cambio[1];
-			$q1 = mysql_query("select distinct departamento from departamentos");
-			while ($q2 = mysql_fetch_array($q1)) {
+			$q1 = mysqli_query($db_con, "select distinct departamento from departamentos");
+			while ($q2 = mysqli_fetch_array($q1)) {
 				$trasform1 = str_ireplace(" ","_",$q2[0]);
 				$trasform2 = str_ireplace(".","_",$trasform1);
 				if ($origen==$trasform2) {
 		// Actualizamos tabla departamentos
-			mysql_query("update departamentos set departamento = '$val' where departamento = \"$q2[0]\"");
+			mysqli_query($db_con, "update departamentos set departamento = '$val' where departamento = \"$q2[0]\"");
 		// Actualizamos departamento en tablas relacionadas
 			$n_dep = array("inventario","actividades","mem_dep","r_departamento","Textos");
 			foreach ($n_dep as $sust_dep){
-			mysql_query("update $sust_dep set departamento = '$val' where departamento = '$q2[0]'");
+			mysqli_query($db_con, "update $sust_dep set departamento = '$val' where departamento = '$q2[0]'");
 			}		
 			}
 			}
 		}
 		elseif (strlen($val)>2 and !($key=="enviar")){
 			$n_reg+=1;
-			$q1 = mysql_query("select distinct departamento from departamentos");
-				while ($q2 = mysql_fetch_array($q1)) {
+			$q1 = mysqli_query($db_con, "select distinct departamento from departamentos");
+				while ($q2 = mysqli_fetch_array($q1)) {
 				$trasform1 = str_ireplace(" ","_",$q2[0]);
 				$trasform2 = str_ireplace(".","_",$trasform1);
 				if ($key==$trasform2) {
 		// Actualizamos tabla departamentos
-			mysql_query("update departamentos set departamento = '$val' where departamento = '$q2[0]'");
+			mysqli_query($db_con, "update departamentos set departamento = '$val' where departamento = '$q2[0]'");
 			//echo "update departamentos set departamento = '$val' where departamento = '$q2[0]'<br>";
 		// Actualizamos departamento en tablas relacionadas
 			$n_dep = array("inventario","actividades","mem_dep","r_departamento","Textos");
 			foreach ($n_dep as $sust_dep){
-			mysql_query("update $sust_dep set departamento = '$val' where departamento = '$q2[0]'");
+			mysqli_query($db_con, "update $sust_dep set departamento = '$val' where departamento = '$q2[0]'");
 			//echo "update $sust_dep set departamento = '$val' where departamento = '$key'<br>";	
 		}
 		}
@@ -87,7 +87,7 @@ include("../../menu.php");
 		}
 		//exit();
 		if ($_GET['borrar']=='1') {
-			mysql_query("update departamentos set departamento = '' where departamento = '".$_GET['departament']."'");	
+			mysqli_query($db_con, "update departamentos set departamento = '' where departamento = '".$_GET['departament']."'");	
 			//echo "update departamentos set departamento = '' where departamento = '".$_GET['departament']."'";
 			echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		            <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -105,15 +105,15 @@ include("../../menu.php");
 		<tbody>
 		<?
 		$dep0 = "select distinct departamento from departamentos order by departamento";
-		$dep1 = mysql_query($dep0);
+		$dep1 = mysqli_query($db_con, $dep0);
 		$n_d="";
-		while ($dep = mysql_fetch_array($dep1)) {
+		while ($dep = mysqli_fetch_array($dep1)) {
 			$n_d+=1;
 			echo "<tr><td>$dep[0]</td><td><input type='text' name=\"$n_d#$dep[0]\" class='form-control' /></td>";
 		  
 		echo '<td><select name="'.$dep[0].'" id="departamento" class="form-control"><option></option>';
-		$profe = mysql_query(" SELECT distinct departamento FROM departamentos where departamento not like '' order by departamento asc");
-		  while($filaprofe = mysql_fetch_array($profe))
+		$profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos where departamento not like '' order by departamento asc");
+		  while($filaprofe = mysqli_fetch_array($profe))
 			{
 			$departamen = $filaprofe[0]; 
 			echo "<OPTION>$departamen</OPTION>";	
@@ -134,7 +134,7 @@ include("../../menu.php");
 		if (isset($_POST['cambiar']) and $_POST['cambiar'] == "Cambiar Departamento") {
 			foreach ($_POST as $key=>$val){
 		// Actualizamos tabla departamentos
-			mysql_query("update departamentos set departamento = '$val' where idea = '$key'");
+			mysqli_query($db_con, "update departamentos set departamento = '$val' where idea = '$key'");
 			}	
 			echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		            <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -151,19 +151,19 @@ include("../../menu.php");
 		<tbody>
 		<?
 		$prof0 = "select distinct nombre, idea from departamentos  order by nombre";
-		$prof1 = mysql_query($prof0);
+		$prof1 = mysqli_query($db_con, $prof0);
 		
-		while ($prof = mysql_fetch_array($prof1)) {
+		while ($prof = mysqli_fetch_array($prof1)) {
 			echo "<tr><td>$prof[0]</td>";
-			$act = mysql_query("select departamento from departamentos where idea = '$prof[1]'");
-			$actual = mysql_fetch_row($act);
+			$act = mysqli_query($db_con, "select departamento from departamentos where idea = '$prof[1]'");
+			$actual = mysqli_fetch_row($act);
 			echo '<td><select name="'.$prof[1].'" id="departamento" class="form-control">';
 			if (strlen($actual[0])>0) {
 					echo '<option>'.$actual[0].'</option><option></option>';
 			}
 			else{ echo '<option></option>';}
-			$profes = mysql_query(" SELECT distinct departamento FROM departamentos where departamento not like '' order by departamento asc");
-		  while($filaprofes = mysql_fetch_array($profes))
+			$profes = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos where departamento not like '' order by departamento asc");
+		  while($filaprofes = mysqli_fetch_array($profes))
 			{
 			$departamens = $filaprofes[0]; 
 			echo "<OPTION>$departamens</OPTION>";	

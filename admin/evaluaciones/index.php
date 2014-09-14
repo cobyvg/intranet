@@ -15,7 +15,7 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
-mysql_query("CREATE TABLE IF NOT EXISTS `evaluaciones` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `evaluaciones` (
   `unidad` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   `asignatura` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   `evaluacion` char(3) COLLATE latin1_spanish_ci NOT NULL,
@@ -91,18 +91,18 @@ if (isset($_POST['submit'])) {
 		}
 	}
 	
-	$result = mysql_query("INSERT INTO evaluaciones (unidad, asignatura, evaluacion, profesor, calificaciones) VALUES ('$curso', '$asignatura', '$evaluacion', '".$_SESSION['profi']."', '".serialize($calificaciones)."')");
+	$result = mysqli_query($db_con, "INSERT INTO evaluaciones (unidad, asignatura, evaluacion, profesor, calificaciones) VALUES ('$curso', '$asignatura', '$evaluacion', '".$_SESSION['profi']."', '".serialize($calificaciones)."')");
 	
 	if (!$result) {
 		
-		if (mysql_errno() == 1062) {
-			$result1 = mysql_query("UPDATE evaluaciones SET calificaciones='".serialize($calificaciones)."' WHERE unidad='$curso' AND asignatura='$asignatura' AND evaluacion='$evaluacion' LIMIT 1");
+		if (mysqli_errno() == 1062) {
+			$result1 = mysqli_query($db_con, "UPDATE evaluaciones SET calificaciones='".serialize($calificaciones)."' WHERE unidad='$curso' AND asignatura='$asignatura' AND evaluacion='$evaluacion' LIMIT 1");
 			
-			if (!$result1) $msg_error = "No se ha podido actualizar las calificaciones de la ".$evaluaciones[$evaluacion].". Error: ".mysql_error();
+			if (!$result1) $msg_error = "No se ha podido actualizar las calificaciones de la ".$evaluaciones[$evaluacion].". Error: ".mysqli_error($db_con);
 			else $msg_success = "Las calificaciones de la ".$evaluaciones[$evaluacion]." han sido actualizadas.";
 		}
 		else {
-			$msg_error = "No se ha podido registrar las calificaciones de la ".$evaluaciones[$evaluacion].". Error: ".mysql_error();
+			$msg_error = "No se ha podido registrar las calificaciones de la ".$evaluaciones[$evaluacion].". Error: ".mysqli_error($db_con);
 		}
 	}
 	else {
@@ -113,10 +113,10 @@ if (isset($_POST['submit'])) {
 
 // RECUPERAMOS LOS DATOS DE LA EVALUACION
 if ((isset($curso) && isset($asignatura)) && isset($evaluacion)) {
-	$result = mysql_query("SELECT calificaciones FROM evaluaciones WHERE unidad='$curso' AND asignatura='$asignatura' AND evaluacion='$evaluacion' LIMIT 1");
+	$result = mysqli_query($db_con, "SELECT calificaciones FROM evaluaciones WHERE unidad='$curso' AND asignatura='$asignatura' AND evaluacion='$evaluacion' LIMIT 1");
 	
-	if (mysql_num_rows($result)) {
-		$row = mysql_fetch_array($result);
+	if (mysqli_num_rows($result)) {
+		$row = mysqli_fetch_array($result);
 		
 		$calificaciones = unserialize($row['calificaciones']);
 		
@@ -174,15 +174,15 @@ include("menu.php");
 										<select class="form-control" id="curso" name="curso" onchange="submit()">
 											<option value=""></option>
 											<optgroup label="Unidades donde imparto clase">
-												<?php $result = mysql_query("SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
-												<?php while ($row = mysql_fetch_array($result)): ?>
+												<?php $result = mysqli_query($db_con, "SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
+												<?php while ($row = mysqli_fetch_array($result)): ?>
 												<option value="<?php echo $row['a_grupo'].'-->'.$row['c_asig']; ?>" <?php echo (isset($form_curso) && $form_curso == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : (isset($curso) && isset($asignatura) && $curso.'-->'.$asignatura == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : ''; ?>><?php echo $row['a_grupo']; ?> - <?php echo $row['asig']; ?></option>
 												<?php endwhile; ?>
 											</optgroup>
 											<?php if (strstr($_SESSION['cargo'], '1') == true): ?>
 											<optgroup label="Todas las unidades">
-											<?php $result = mysql_query("SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
-											<?php while ($row = mysql_fetch_array($result)): ?>
+											<?php $result = mysqli_query($db_con, "SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
+											<?php while ($row = mysqli_fetch_array($result)): ?>
 											<option value="<?php echo $row['a_grupo'].'-->'.$row['c_asig']; ?>" <?php echo (isset($form_curso) && $form_curso == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : (isset($curso) && isset($asignatura) && $curso.'-->'.$asignatura == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : ''; ?>><?php echo $row['a_grupo']; ?> - <?php echo $row['asig']; ?></option>
 											<?php endwhile; ?>
 											</optgroup>
@@ -243,8 +243,8 @@ include("menu.php");
 							</tr>
 						</thead>
 						<tbody>
-							<?php $result = mysql_query("SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$curso'"); ?>
-							<?php while ($row = mysql_fetch_array($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$curso'"); ?>
+							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<?php $foto = '../../xml/fotos/'.$row['claveal'].'.jpg'; ?>
 								<?php if (file_exists($foto)): ?>

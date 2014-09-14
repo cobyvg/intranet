@@ -24,10 +24,10 @@ $cargo = $_SESSION['cargo'];
   <?php
  include("../../menu.php");
  include("menu.php"); 
-  $tut = mysql_query("select unidad from FTUTORES where tutor = '$pr'");
+  $tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$pr'");
   //echo "select unidad, grupo from FTUTORES where tutor = '$pr'";
-  if (mysql_num_rows($tut) > 0) {
-  $tuto = mysql_fetch_array($tut);
+  if (mysqli_num_rows($tut) > 0) {
+  $tuto = mysqli_fetch_array($tut);
   $unidad = $tuto[0];
   }
 
@@ -58,7 +58,7 @@ $cargo = $_SESSION['cargo'];
    <label> Grupo</label> 
 <SELECT name="unidad" class="form-control">
       <OPTION><? echo $unidad;?></OPTION>
-      <? unidad();?>
+      <? unidad($db_con);?>
     </SELECT>
         </div>   
 

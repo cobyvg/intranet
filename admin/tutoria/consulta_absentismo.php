@@ -60,9 +60,9 @@ if (isset($_POST['submit'])) {
 		$msg_error = "Todos los campos del formulario son obligatorios.";
 	}
 	else {
-		$result = mysql_query("UPDATE absentismo SET tutoria='$texto' WHERE claveal='$claveal' AND mes='$mes'")	;
+		$result = mysqli_query($db_con, "UPDATE absentismo SET tutoria='$texto' WHERE claveal='$claveal' AND mes='$mes'")	;
 		
-		if (!$result) $msg_error = "El informe de absentismo no ha sido enviado. Error: ".mysql_error();
+		if (!$result) $msg_error = "El informe de absentismo no ha sido enviado. Error: ".mysqli_error($db_con);
 		$msg_success = "El informe de absentismo ha sido enviado.";
 	}
 	
@@ -98,8 +98,8 @@ include("menu.php");
 		<!-- SCAFFOLDING -->			
 		<div class="row">
 			
-			<?php $result = mysql_query("SELECT absentismo.claveal, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes, jefatura, orientacion, tutoria FROM absentismo, alma WHERE alma.claveal = absentismo.claveal AND absentismo.unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY mes ASC"); ?>
-			<?php if (mysql_num_rows($result)): ?>
+			<?php $result = mysqli_query($db_con, "SELECT absentismo.claveal, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes, jefatura, orientacion, tutoria FROM absentismo, alma WHERE alma.claveal = absentismo.claveal AND absentismo.unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY mes ASC"); ?>
+			<?php if (mysqli_num_rows($result)): ?>
 			
 			<!-- COLUMNA IZQUIERDA -->
 			<div class="col-sm-6">
@@ -114,13 +114,13 @@ include("menu.php");
 						<th>&nbsp;</th>
 					</thead>
 					<tbody>
-					<?php while ($row = mysql_fetch_array($result)): ?>
+					<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
 							<td><?php echo $row['nombre'].' '.$row['apellidos']; ?></td>
 							<td><?php echo $row['mes']; ?></td>
 							<td><?php echo $row['numero']; ?></td>
 							<td>
-								<a href="consulta_absentismo.php?claveal=<?php echo $row['claveal']; ?>&mes=<?php echo $row['mes']; ?>&inf=1"><span class="fa fa-pencil fa-fw fa-lg" rel="tooltip" title="Rellenar"></span></a>
+								<a href="consulta_absentismo.php?claveal=<?php echo $row['claveal']; ?>&mes=<?php echo $row['mes']; ?>&inf=1"><span class="fa fa-pencil fa-fw fa-lg" data-bs="tooltip" title="Rellenar"></span></a>
 							</td>
 						</tr>
 					<?php endwhile; ?>
@@ -134,10 +134,10 @@ include("menu.php");
 			<div class="col-sm-6">
 				
 				<?php if (isset($_GET['inf']) && isset($_GET['claveal']) && isset($_GET['mes'])): ?>
-				<?php $result = mysql_query("SELECT distinct apellidos, nombre, absentismo.unidad, alma.matriculas, numero, jefatura, orientacion, tutoria FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='".$_GET['claveal']."' AND mes='".$_GET['mes']."'"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT distinct apellidos, nombre, absentismo.unidad, alma.matriculas, numero, jefatura, orientacion, tutoria FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='".$_GET['claveal']."' AND mes='".$_GET['mes']."'"); ?>
 				
-				<?php if (mysql_num_rows($result)): ?>
-				<?php $row = mysql_fetch_array($result); ?>
+				<?php if (mysqli_num_rows($result)): ?>
+				<?php $row = mysqli_fetch_array($result); ?>
 				<div class="well">
 				
 					<form method="post" action="">

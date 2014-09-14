@@ -80,14 +80,14 @@ if (substr($religion, 0, 1)=="R") {
 // AMPA
 $dni_papa = explode(": ", $dnitutor);
 $dnipapa = $dni_papa[1];
-$hijos = mysql_query("select apellidos, nombre, nivel from alma where dnitutor = '$dnipapa'");
-$hijos_primaria = mysql_query("select apellidos, nombre, nivel from alma_secundaria where dnitutor = '$dnipapa'");
-$num_hijos = mysql_num_rows($hijos);
-$num_hijos_primaria = mysql_num_rows($hijos_primaria);
+$hijos = mysqli_query($db_con, "select apellidos, nombre, nivel from alma where dnitutor = '$dnipapa'");
+$hijos_primaria = mysqli_query($db_con, "select apellidos, nombre, nivel from alma_secundaria where dnitutor = '$dnipapa'");
+$num_hijos = mysqli_num_rows($hijos);
+$num_hijos_primaria = mysqli_num_rows($hijos_primaria);
 
 if ($num_hijos > 0) {
 $n_h="";
-while ($hij = mysql_fetch_array($hijos)){
+while ($hij = mysqli_fetch_array($hijos)){
 	$n_h+=1;
 	${hijo.$n_h} = $hij[1]." ".$hij[0];
 	//echo $hij[2];
@@ -107,7 +107,7 @@ while ($hij = mysql_fetch_array($hijos)){
 
 if ($num_hijos_primaria > 0) {
 $n_h_p="";
-while ($hij_primaria = mysql_fetch_array($hijos_primaria)){
+while ($hij_primaria = mysqli_fetch_array($hijos_primaria)){
 	$n_h_p+=1;
 	${hijop.$n_h_p} = $hij_primaria[1]." ".$hij_primaria[0];
 	//echo $hij[2];

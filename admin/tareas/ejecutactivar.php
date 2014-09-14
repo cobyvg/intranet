@@ -53,14 +53,14 @@ $nombre_comp = $trozos[0];
 $trozos1 = explode (", ", $nombre_comp);
 $apellidos = $trozos1[0];
 $nombre = $trozos1[1];
-$falumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad, matriculas,
+$falumno=mysqli_query($db_con, "SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad, matriculas,
 COMBASI FROM alma WHERE claveal = '$claveal'");
-$dalumno = mysql_fetch_array($falumno);
+$dalumno = mysqli_fetch_array($falumno);
 $asignaturas=chunk_split($dalumno[5],3,"-");
 $asig=explode("-",$asignaturas);
 
-$duplicado = mysql_query("select claveal from tareas_alumnos where claveal = '$dalumno[0]' and fecha = '$fecha'");
-if(mysql_num_rows($duplicado)>0)
+$duplicado = mysqli_query($db_con, "select claveal from tareas_alumnos where claveal = '$dalumno[0]' and fecha = '$fecha'");
+if(mysqli_num_rows($duplicado)>0)
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -74,8 +74,8 @@ echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" 
 }
 else{
 
-$insertar=mysql_query("INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR,FIN)
- VALUES ('$dalumno[0]','$dalumno[1]','$dalumno[2]','$dalumno[3]','$fecha',$duracion,'$tutor',date_add('$fecha',interval $duracion2 day))") or die ("Error, no se ha podido activar el informe:".mysql_error());
+$insertar=mysqli_query($db_con, "INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR,FIN)
+ VALUES ('$dalumno[0]','$dalumno[1]','$dalumno[2]','$dalumno[3]','$fecha',$duracion,'$tutor',date_add('$fecha',interval $duracion2 day))") or die ("Error, no se ha podido activar el informe:".mysqli_error($db_con));
   echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>';
 			echo "El <b>Informe de tareas</b> del alumno/a <b> $nombre $apellidos </b>para el día <b>";
@@ -84,7 +84,7 @@ echo "</b> se ha activado correctamente.";
 echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-primary">
 		</div></div>';
 }
-mysql_close();
+mysqli_close();
 ?>
 </div>
 </div>

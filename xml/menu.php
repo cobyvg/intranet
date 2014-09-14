@@ -4,7 +4,8 @@
 	<li><a href="jefe/index_temas.php">Temas de la Aplicación</a></li>
 	
 	<li class="nav-header">A principio de curso...</li>
-	<li><a href="jefe/index2.php">Importar Alumnos y Asignaturas</a></li>
+	<li><a href="jefe/index2.php">Importar Alumnos</a></li>
+	<li><a href="jefe/asignaturas.php">Importar Asignaturas</a></li>
 	<li><a href="jefe/index_xml.php">Importar datos del Centro</a></li>
 	  <? if ($mod_horario) {?>
 	<li><a href="jefe/horario.php">Importar/Preparar Horarios </a></li>

@@ -26,13 +26,13 @@ if (!$id) {
 require_once("../../pdf/dompdf_config.inc.php"); 
 
 // REGISTRAMOS LA ACCION
-mysql_query("UPDATE evaluaciones_actas SET impresion=1 WHERE id=$id");
+mysqli_query($db_con, "UPDATE evaluaciones_actas SET impresion=1 WHERE id=$id");
 
 // OBTENEMOS LOS DATOS
-$result = mysql_query("SELECT unidad, evaluacion, texto_acta FROM evaluaciones_actas WHERE id=$id");
+$result = mysqli_query($db_con, "SELECT unidad, evaluacion, texto_acta FROM evaluaciones_actas WHERE id=$id");
 
-if (mysql_num_rows($result)) {
-	$row = mysql_fetch_array($result);
+if (mysqli_num_rows($result)) {
+	$row = mysqli_fetch_array($result);
 	
 	$unidad = $row['unidad'];
 	$evaluacion = $row['evaluacion'];

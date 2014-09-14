@@ -5,8 +5,8 @@
  foreach ($_POST as $id => $valor) {
 // Condiciones para procesar los datos
   		if (is_numeric($id) and is_numeric($valor)){  			
-  		$actual = mysql_query("update notas_cuaderno set oculto = '$ocultar' where id = '$id'") or die ("<br>No ha sido posible eliminar la columna.<br>Ponte en contacto con quien lo entienda.");
-  		$n_1 = mysql_affected_rows($actual);
+  		$actual = mysqli_query($db_con, "update notas_cuaderno set oculto = '$ocultar' where id = '$id'") or die ("<br>No ha sido posible eliminar la columna.<br>Ponte en contacto con quien lo entienda.");
+  		$n_1 = mysqli_affected_rows($actual);
   	}	
 	}		
 

@@ -18,8 +18,8 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <?
 $pr = $_SESSION['profi'];
 $prof1 = "SELECT distinct no_prof FROM horw where prof = '$pr'";
-$prof0 = mysql_query($prof1);
-$filaprof0 = mysql_fetch_array($prof0);
+$prof0 = mysqli_query($db_con, $prof1);
+$filaprof0 = mysqli_fetch_array($prof0);
 $profesi = $filaprof0[0]."_ ".$pr;
 $_SESSION['todo_profe'] = $profesi;
 
@@ -65,8 +65,8 @@ else {
 	
 //$nl_curs10 = "select distinct a_grupo from horw where no_prof = '30' and dia = '1' and hora = '1'";
 $nl_curs10 = "select distinct a_grupo from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
-$nl_curs11 = mysql_query($nl_curs10);
-$nml0 = mysql_fetch_array($nl_curs11);
+$nl_curs11 = mysqli_query($db_con, $nl_curs10);
+$nml0 = mysqli_fetch_array($nl_curs11);
 $nml = $nml0[0];
 
 
@@ -89,8 +89,8 @@ if ($mod_faltas) {
 // Unir todos los grupos para luego comprobar que no hay duplicaciones (4E-E,4E-Dd)
 //$n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
 $n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
-$n_curs1 = mysql_query($n_curs0);
-while($n_cur = mysql_fetch_array($n_curs1))
+$n_curs1 = mysqli_query($db_con, $n_curs0);
+while($n_cur = mysqli_fetch_array($n_curs1))
 {
 	$curs .= $n_cur[0].", ";
 	$cod.=$n_cur[1]." ";
@@ -116,15 +116,15 @@ if(!($t_grupos=="")){
 
 //$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
 $hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
-$hora0 = mysql_query($hora1);
-if (mysql_num_rows($hora0)<1) {
+$hora0 = mysqli_query($db_con, $hora1);
+if (mysqli_num_rows($hora0)<1) {
 		echo '<br /><div align="lef"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             No tienes alumnos en esta hora del día.
             <br>Selecciona una fecha y hora en el formulario para registrar faltas de asistencia.
           </div></div>'; 
 }
-while($hora2 = mysql_fetch_row($hora0))
+while($hora2 = mysqli_fetch_row($hora0))
 {
 
 	$codasi= $hora2[0];
@@ -140,14 +140,14 @@ while($hora2 = mysql_fetch_row($hora0))
 	
 	//	Problemas con Diversificación (4E-Dd)
 	$diversificacion = "";
-	$profe_div = mysql_query("select * from profesores where grupo = '$curso'");
-	if (mysql_num_rows($profe_div)<1) {
+	$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
+	if (mysqli_num_rows($profe_div)<1) {
 
-		$grupo_div = mysql_query("select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
-		if (mysql_num_rows($grupo_div)>0) {
+		$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+		if (mysqli_num_rows($grupo_div)>0) {
 				$diversificacion = 1;
 				$div = $curso;
-				$grupo_diver = mysql_fetch_row($grupo_div);
+				$grupo_diver = mysqli_fetch_row($grupo_div);
 				$curso = $grupo_diver[0];
 		}
 	}
@@ -161,16 +161,16 @@ $c_a="";
 $res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and FALUMNOS.unidad = '$curso' and ( ";
 //$n_curs10 = "select distinct c_asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
 $n_curs10 = "select distinct c_asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
-$n_curs11 = mysql_query($n_curs10);
-$nm = mysql_num_rows($n_curs11);
-while ($nm_asig0=mysql_fetch_array($n_curs11)){
+$n_curs11 = mysqli_query($db_con, $n_curs10);
+$nm = mysqli_num_rows($n_curs11);
+while ($nm_asig0=mysqli_fetch_array($n_curs11)){
 	$c_a.="combasi like '%".$nm_asig0[0]."%' or ";
 }
 
 $res.=substr($c_a,0,strlen($c_a)-3);
 $res.=") order by NC";
 //echo $res;
-$result = mysql_query ($res);
+$result = mysqli_query($db_con, $res);
 if ($result) {
 	echo "<br><table class='table table-striped table-bordered table-condensed' style='max-width:auto'>\n";
 	$filaprincipal = "<tr><th colspan='8'><h4 align='center'><span class='text-info'>";
@@ -183,7 +183,7 @@ if ($result) {
 	}
 	echo $filaprincipal;
 	
-	while($row = mysql_fetch_array($result)){
+	while($row = mysqli_fetch_array($result)){
 	$n+=1;
 	$chk="";
 	$combasi = $row[5];
@@ -204,8 +204,8 @@ if ($result) {
 
 
 	$fecha_hoy = date('Y')."-".date('m')."-".date('d');
-	$falta_d = mysql_query("select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
-	$falta_dia = mysql_fetch_array($falta_d);
+	$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
+	$falta_dia = mysqli_fetch_array($falta_d);
 	if ($falta_dia[0] == "F") {
 		$chk = "checked";
 	}
@@ -257,8 +257,8 @@ echo '" />';
 echo '<input name=fecha_dia type=hidden value="';
 echo $fecha_dia;
 echo '" />';
-$gr = mysql_query("select nomunidad from unidades where nomunidad = '$curso'");
-if(mysql_num_rows($gr)>0 or $diversificacion==1){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large btn-block"><i class="fa fa-check"> </i> Registrar faltas de asistencia</button>';}
+$gr = mysqli_query($db_con, "select nomunidad from unidades where nomunidad = '$curso'");
+if(mysqli_num_rows($gr)>0 or $diversificacion==1){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large btn-block"><i class="fa fa-check"> </i> Registrar faltas de asistencia</button>';}
 
 ?>
 

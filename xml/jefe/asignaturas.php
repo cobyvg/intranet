@@ -39,13 +39,13 @@ include("../../menu.php");
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
 // Vaciamos o borramos tablas
-mysql_query("TRUNCATE TABLE calificaciones");
-mysql_query("TRUNCATE TABLE asignaturas");
-mysql_query("drop table materias");
+mysqli_query($db_con, "TRUNCATE TABLE calificaciones");
+mysqli_query($db_con, "TRUNCATE TABLE asignaturas");
+mysqli_query($db_con, "drop table materias");
 
 // Asignaturas de Horw
 $asignaturas = "insert into asignaturas (CODIGO, NOMBRE, ABREV, CURSO) select distinct c_asig, asig, a_asig, curso from horw, alma where alma.unidad=horw.a_grupo";
-mysql_query($asignaturas);	
+mysqli_query($db_con, $asignaturas);	
 
   // Crear la tabla temporal donde guardar todas las asignaturas de todos los gruposy la tabla del sistema de calificaciones	
 $crear = "CREATE TABLE  IF NOT EXISTS `materias_temp` (
@@ -55,19 +55,19 @@ $crear = "CREATE TABLE  IF NOT EXISTS `materias_temp` (
 	`CURSO` varchar( 64 ) default NULL,
 	`GRUPO` varchar( 6 ) default NULL
 	)" ;
-	mysql_query($crear);
-	mysql_query("CREATE TABLE if not exists `calificaciones_temp` (
+	mysqli_query($db_con, $crear);
+	mysqli_query($db_con, "CREATE TABLE if not exists `calificaciones_temp` (
   `codigo` varchar(5) CHARACTER SET latin1 NOT NULL DEFAULT '',
   `nombre` varchar(64) CHARACTER SET latin1 DEFAULT NULL,
   `abreviatura` varchar(4) CHARACTER SET latin1 DEFAULT NULL,
   `orden` varchar(4) CHARACTER SET latin1 DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
 	
 // Claveal primaria e índice
-mysql_query("ALTER TABLE  `materias_temp` ADD  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY");
-mysql_query("ALTER TABLE  `materias_temp` ADD INDEX (  `CODIGO` )");
+mysqli_query($db_con, "ALTER TABLE  `materias_temp` ADD  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY");
+mysqli_query($db_con, "ALTER TABLE  `materias_temp` ADD INDEX (  `CODIGO` )");
 
-mysql_query("ALTER TABLE  `calificaciones_temp` ADD INDEX (  `CODIGO` )");  
+mysqli_query($db_con, "ALTER TABLE  `calificaciones_temp` ADD INDEX (  `CODIGO` )");  
 $num="";
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir('../exporta')) {
@@ -109,7 +109,7 @@ $nombres = $materia->getElementsByTagName( "D_MATERIAC" );
 $nombre = $nombres->item(0)->nodeValue;
 $abrevs = $materia->getElementsByTagName( "T_ABREV" );
 $abrev = $abrevs->item(0)->nodeValue;
-mysql_query("INSERT INTO  `materias_temp` (
+mysqli_query($db_con, "INSERT INTO  `materias_temp` (
 `CODIGO` ,
 `NOMBRE` ,
 `ABREV` ,
@@ -146,7 +146,7 @@ $abrev0 = $abrevs0->item(0)->nodeValue;
 $ordenes0 = $calificacion->getElementsByTagName( "N_ORDEN" );
 $orden0 = $ordenes0->item(0)->nodeValue;
 $nombre_utf = utf8_decode($nombre0);
-mysql_query("INSERT INTO  `calificaciones_temp` 
+mysqli_query($db_con, "INSERT INTO  `calificaciones_temp` 
 VALUES ('$codigo0',  '$nombre_utf',  '$abrev0',  '$orden0')");
 }
 }
@@ -168,32 +168,32 @@ exit();
 }
 
 //Tabla calificaciones
-mysql_query("insert into calificaciones select distinct codigo, nombre, abreviatura, orden from calificaciones_temp");
+mysqli_query($db_con, "insert into calificaciones select distinct codigo, nombre, abreviatura, orden from calificaciones_temp");
 
 //Creamos tabla materias y arreglamos problema de codificación.
 
-mysql_query("create table materias select * from materias_temp");
-mysql_query("ALTER TABLE  `materias` ADD INDEX ( `CODIGO` )");
-//mysql_query("ALTER TABLE `materias` DROP `GRUPO`");
+mysqli_query($db_con, "create table materias select * from materias_temp");
+mysqli_query($db_con, "ALTER TABLE  `materias` ADD INDEX ( `CODIGO` )");
+//mysqli_query($db_con, "ALTER TABLE `materias` DROP `GRUPO`");
 
-$pr1 = mysql_query("select * from materias");
-while ($pr10 = mysql_fetch_array($pr1)){
+$pr1 = mysqli_query($db_con, "select * from materias");
+while ($pr10 = mysqli_fetch_array($pr1)){
 	$nombr = utf8_decode($pr10[1]);	
 	$abre = utf8_decode($pr10[2]);
 	$cu = utf8_decode($pr10[3]);
 	$id = $pr10[5];
-	mysql_query("update materias set nombre = '$nombr', curso = '$cu', abrev = '$abre' where id = '$id'");	
+	mysqli_query($db_con, "update materias set nombre = '$nombr', curso = '$cu', abrev = '$abre' where id = '$id'");	
 }
 
 //Borramos tablas temporales
-mysql_query("drop table materias_temp");
-mysql_query("drop table calificaciones_temp");
+mysqli_query($db_con, "drop table materias_temp");
+mysqli_query($db_con, "drop table calificaciones_temp");
 
 // Borramos registros tomados from Horw que son iguales a las asignaturas de Séneca
-mysql_query("delete from asignaturas where codigo in (select distinct codigo from materias)") or die("No se pueden borrar los registros duplicados.");
+mysqli_query($db_con, "delete from asignaturas where codigo in (select distinct codigo from materias)") or die("No se pueden borrar los registros duplicados.");
 // Depuramos los códigos de las asignaturas eliminando duplicados y creamos tabla definitiva asignaturas.
 $crear = "insert into asignaturas select distinct CODIGO, NOMBRE, ABREV, CURSO from materias order by CODIGO" ;
-mysql_query($crear) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
+mysqli_query($db_con, $crear) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
@@ -216,16 +216,16 @@ Tablas ASIGNATURAS y CALIFICACIONES:<br /> Los datos se han introducido correcta
   // Comprobación con Horw
 echo "<p class='lead'>Comprobación de coherencia entre las Asignaturas de Séneca y de Horw.</p><br /> ";
 $elimina = "select distinct c_asig, a_asig, asig from horw, asignaturas where c_asig NOT IN (select distinct codigo from asignaturas)";
-$elimina1 = mysql_query($elimina);
+$elimina1 = mysqli_query($db_con, $elimina);
 echo "<p class='badge badge-important'>Asignaturas de Horw que no están en Séneca</p>";
-while($elimina2 = mysql_fetch_array($elimina1))
+while($elimina2 = mysqli_fetch_array($elimina1))
 {
 echo "<li>". $elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] . "</li>";
 }
 $elimina = "select distinct codigo, abrev, nombre, curso from asignaturas, horw where codigo NOT IN (select distinct c_asig from horw)";
 echo "<br /><p class='badge badge-warning'>Asignaturas de Séneca que no están en Horw.</p>";
-$elimina1 = mysql_query($elimina);
-while($elimina2 = mysql_fetch_array($elimina1))
+$elimina1 = mysqli_query($db_con, $elimina);
+while($elimina2 = mysqli_fetch_array($elimina1))
 {
 $pend = explode("_",$elimina2[1]);
 if(strlen($pend[1]) > 0) {} else

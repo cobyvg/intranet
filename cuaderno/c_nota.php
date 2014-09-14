@@ -42,16 +42,16 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
 echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";		
 // Asignatura ese día a esa hora
 $asig0 = "SELECT distinct c_asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
-$asig1 = mysql_query($asig0);
-$asig = mysql_fetch_array($asig1);
+$asig1 = mysqli_query($db_con, $asig0);
+$asig = mysqli_fetch_array($asig1);
 $asignatura = $asig[0];
 
 if(strlen($orden) > '0'){
 	
-mysql_query("ALTER TABLE  `notas_cuaderno` ADD  `Tipo` VARCHAR( 32 ) NULL");	
+mysqli_query($db_con, "ALTER TABLE  `notas_cuaderno` ADD  `Tipo` VARCHAR( 32 ) NULL");	
 	
-$ident1 = mysql_query("select id, nombre, texto, texto_pond, visible_nota, Tipo from notas_cuaderno where id='$id'") or die ("error notas_cuaderno"); //echo $ident2; 
-$ident0 = mysql_fetch_array($ident1);
+$ident1 = mysqli_query($db_con, "select id, nombre, texto, texto_pond, visible_nota, Tipo from notas_cuaderno where id='$id'") or die ("error notas_cuaderno"); //echo $ident2; 
+$ident0 = mysqli_fetch_array($ident1);
 $id = $ident0[0];
 $nombre = $ident0[1];
 $texto =$ident0[2];
@@ -100,7 +100,7 @@ $tipo = $ident0[5];
 		<div class="checkbox">
 			<label for="cmp_visible_nota">
 			<input type="checkbox" id="cmp_visible_nota" name="visible_nota" value="1" <?php if($visible_nota) echo 'checked'; ?>>
-			Visible en la página externa <strong rel="tooltip" title="Si está marcada, permite a los padres y alumnos ver la nota de la actividad o examen en la página externa">(?)</strong></label>
+			Visible en la página externa <strong data-bs="tooltip" title="Si está marcada, permite a los padres y alumnos ver la nota de la actividad o examen en la página externa">(?)</strong></label>
 		</div>
 		<hr />
 		<div class="form-group">

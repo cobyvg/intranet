@@ -27,11 +27,11 @@ if(isset($_POST['ver_todos'])){
   <h2><? echo $nombre_del_centro;?> <small><br />Claustro de Profesores <? echo " ($curso_actual)";?></small></h2>
 </div>
 <?
-$dep0=mysql_query("select distinct departamento from departamentos where departamento not like 'Administracion' and departamento not like 'ADMIN' and departamento not like 'Conserjeria' order by departamento");
-while ($dep = mysql_fetch_array($dep0)) {
+$dep0=mysqli_query($db_con, "select distinct departamento from departamentos where departamento not like 'Administracion' and departamento not like 'ADMIN' and departamento not like 'Conserjeria' order by departamento");
+while ($dep = mysqli_fetch_array($dep0)) {
 	$n_dep = "";
-	$gr0=mysql_query("select idea, nombre from departamentos where departamento = '$dep[0]'");
-	$n_dep = mysql_num_rows($gr0);	
+	$gr0=mysqli_query($db_con, "select idea, nombre from departamentos where departamento = '$dep[0]'");
+	$n_dep = mysqli_num_rows($gr0);	
 if ($n_dep<7) {
 			$ancho = $n_dep*120;
 		}
@@ -50,8 +50,8 @@ echo "Departamento de $dep[0]";
 
 echo "</h3><br />";
 echo "<table class='table table-condensed table-bordered' style='width:".$ancho."px;'>";
-	$gr=mysql_query("select idea, nombre from departamentos where departamento = '$dep[0]'");
-	while ($al_gr=mysql_fetch_array($gr)) 
+	$gr=mysqli_query($db_con, "select idea, nombre from departamentos where departamento = '$dep[0]'");
+	while ($al_gr=mysqli_fetch_array($gr)) 
 	{	
 	$num=$num+1;
 	if($num=="1" or $num=="7" or $num=="13"){echo "<tr>";}	

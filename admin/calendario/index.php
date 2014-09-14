@@ -93,7 +93,7 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 	}
 	elseif ($zz == $today) { 
 		//Marcar días actuales
-    echo "<td class=\"calendar-today\"><span rel='tooltip' title='Hoy'>$zz</span></td>\n";
+    echo "<td class=\"calendar-today\"><span data-bs='tooltip' title='Hoy'>$zz</span></td>\n";
 		$result_found = 1;
 	}
 	if ($result_found != 1) { //Buscar actividad para el día y marcarla
@@ -103,39 +103,39 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 		// Principio
 		$sql_currentday = "$year-$month-$zz";
 		$eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
-		$eventExec = mysql_query ( $eventQuery );
-		$diari = mysql_query("SELECT id, grupo, titulo FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and profesor='".$_SESSION['profi']."'");
+		$eventExec = mysqli_query($db_con, $eventQuery );
+		$diari = mysqli_query($db_con, "SELECT id, grupo, titulo FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and profesor='".$_SESSION['profi']."'");
 		$rel="";
 		$celda="";
 			
 		
-		if (mysql_num_rows($eventExec)>0) {
-			while ( $row = mysql_fetch_array ( $eventExec ) ) {
+		if (mysqli_num_rows($eventExec)>0) {
+			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
 			if (strlen ( $row ["title"] )>0 ) {
 			$bg = "calendar-orange";
 			$rel = "Actividad en el Calendario del Centro:<br> ".$row ["title"];				
-			$celda =  "<td class=\"$bg\"><span  rel='tooltip' data-html='true' title='".$rel."'>$zz</span></td>\n";
+			$celda =  "<td class=\"$bg\"><span  data-bs='tooltip' data-html='true' title='".$rel."'>$zz</span></td>\n";
 			$result_found = 1;
 			}
 		}	
 		}
-		elseif (mysql_num_rows($diari)>0){
-			while ($activ_diario=mysql_fetch_array($diari)) {
+		elseif (mysqli_num_rows($diari)>0){
+			while ($activ_diario=mysqli_fetch_array($diari)) {
 				$reg_diario.="$activ_diario[1] ==> $activ_diario[2];<br>";
 			}
 				$bg = "calendar-blue";
 				$rel = "Actividad en el Calendario personal:<br> $reg_diario";
-				$celda =  "<td class=\"$bg\"><span  rel='tooltip' data-html='true' title='".$rel."'>$zz</span></td>";
+				$celda =  "<td class=\"$bg\"><span  data-bs='tooltip' data-html='true' title='".$rel."'>$zz</span></td>";
 				$result_found = 1;
 		}
 		else{
 		$sql_currentday = "$year-$month-$zz";
-		$fest = mysql_query("select distinct fecha, nombre from festivos WHERE fecha = '$sql_currentday'");
-		if (mysql_num_rows($fest)>0) {
-		$festiv = mysql_fetch_array($fest);	
+		$fest = mysqli_query($db_con, "select distinct fecha, nombre from festivos WHERE fecha = '$sql_currentday'");
+		if (mysqli_num_rows($fest)>0) {
+		$festiv = mysqli_fetch_array($fest);	
 		$rel = "Día festivo o vacaciones: $festiv[1]";			
-		$festiv=mysql_fetch_array($fest);
-		$celda =  "<td class=\"calendar-red\"><span  rel='tooltip' title='".$rel."'>$zz</span></td>\n";
+		$festiv=mysqli_fetch_array($fest);
+		$celda =  "<td class=\"calendar-red\"><span  data-bs='tooltip' title='".$rel."'>$zz</span></td>\n";
 		$result_found = 1;
 				}	
 		}
@@ -178,17 +178,23 @@ $rango7 = date ( 'Y-m-d', $hoy7 );
 $rango8 = date ( 'Y-m-d', $hoy8 );
 
 $sql_diario="SELECT id, fecha, titulo, observaciones, grupo FROM diario WHERE (profesor='".$_SESSION['profi']."' ";
-$asig = mysql_query("select distinct grupo from profesores where profesor = '".$_SESSION['profi']."'");
-while ($asign = mysql_fetch_array($asig)) {
+$asig = mysqli_query($db_con, "select distinct grupo from profesores where profesor = '".$_SESSION['profi']."'");
+while ($asign = mysqli_fetch_array($asig)) {
 	//$sql_diario.=" or grupo like '%$asign[0]%'";
 }
 $sql_diario.=") and date(fecha) >= '$rango0' and date(fecha) <= '$rango8' and calendario = '1'  order by fecha limit 3";
 
+<<<<<<< HEAD
 $diari = mysql_query($sql_diario);
 if (mysql_num_rows ( $diari ) > 0){
 	echo "<h4><i class='fa fa-user'> </i> Calendario personal</h4>";
+=======
+$diari = mysqli_query($db_con, $sql_diario);
+if (mysqli_num_rows ( $diari ) > 0){
+	echo "<h4>Calendario personal</h4>";
+>>>>>>> FETCH_HEAD
 	echo "<div class=\"list-group\">";
-	while ( $diar = mysql_fetch_array ( $diari ) ) {
+	while ( $diar = mysqli_fetch_array ( $diari ) ) {
 		$n_reg+=1;
 		$fecha_reg = cambia_fecha($diar[1]);
 		echo "<a class=\"list-group-item\" href=\"admin/calendario/diario/index.php?id=$diar[0]\"><span class=\"pull-right badge\">".strftime('%d %b', strtotime($fecha_reg))."</span> $diar[2]</a>";	
@@ -197,15 +203,15 @@ if (mysql_num_rows ( $diari ) > 0){
 }
 $n_noticias=5-$n_reg;
 $query = "SELECT distinct title, eventdate, event FROM cal WHERE date(eventdate) >= '$rango0'  order by eventdate asc limit $n_noticias";
-$result = mysql_query ( $query );
+$result = mysqli_query($db_con, $query );
 
-if (mysql_num_rows ( $result ) > 0) {
+if (mysqli_num_rows ( $result ) > 0) {
 	
 	$SQLcurso1 = "select distinct grupo from profesores where profesor = '$pr'";
 	//echo $SQLcurso1;
-	$resultcurso1 = mysql_query ( $SQLcurso1 );
+	$resultcurso1 = mysqli_query($db_con, $SQLcurso1 );
 	$string1="";
-	while ( $rowcurso1 = mysql_fetch_array ( $resultcurso1 ) ) {
+	while ( $rowcurso1 = mysqli_fetch_array ( $resultcurso1 ) ) {
 		$curso1 = $rowcurso1 [0];
 		$curso1 = str_replace ( "-", "", $curso1 );
 		$string1 .= $curso1 . " ";
@@ -215,7 +221,7 @@ if (mysql_num_rows ( $result ) > 0) {
 	
 	echo "<h4><i class='fa fa-bank'> </i> Calendario del centro</h4>";
 	echo "<div class=\"list-group\">";
-	while ( $row = mysql_fetch_array ( $result ) ) {
+	while ( $row = mysqli_fetch_array ( $result ) ) {
 		$color="";
 		$pajar = "";
 		$pajar = join ( ',', $row );

@@ -30,9 +30,9 @@ $fecha1 = $_POST['fecha1'];
 $fecha11 = $_POST['fecha11'];
 
 if ($borrar == '1') {
-	$del = mysql_query("delete from convivencia where id='$id'");
-	$comprobar = mysql_query("select id from convivencia where id = '$id'");
-	if (mysql_num_rows($comprobar) == '0') {
+	$del = mysqli_query($db_con, "delete from convivencia where id='$id'");
+	$comprobar = mysqli_query($db_con, "select id from convivencia where id = '$id'");
+	if (mysqli_num_rows($comprobar) == '0') {
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han borrado correctamente.
@@ -55,24 +55,24 @@ foreach ( $_POST as $clave => $valor ) {
 	if(is_numeric($clave)) {
 	$tr=explode("-", $valor);
 	// Comprobacion de duplicacion de datos 
-	$sel1 =  mysql_query("select * from convivencia where claveal = '$tr[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
+	$sel1 =  mysqli_query($db_con, "select * from convivencia where claveal = '$tr[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
 	//echo "select * from convivencia where claveal = '$tr[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'";
-	if (mysql_num_rows($sel1) == 0) {
-		mysql_query("insert into convivencia (claveal, dia, hora, fecha) VALUES ('$tr[0]','$tr[1]','$tr[2]', '$hoy')");
+	if (mysqli_num_rows($sel1) == 0) {
+		mysqli_query($db_con, "insert into convivencia (claveal, dia, hora, fecha) VALUES ('$tr[0]','$tr[1]','$tr[2]', '$hoy')");
 			$mens = '1';	
 			}
 	else{
-			mysql_query("update convivencia set dia = '$tr[1]', hora = '$tr[2]' where claveal = '$tr[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");	
+			mysqli_query($db_con, "update convivencia set dia = '$tr[1]', hora = '$tr[2]' where claveal = '$tr[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");	
 			$mens = '2';	
 	}
 	}
 if ($valor == "1") {
 	$tr1=explode("-", $clave);
-	mysql_query("update convivencia set trabajo = '1' where claveal = '$tr1[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
+	mysqli_query($db_con, "update convivencia set trabajo = '1' where claveal = '$tr1[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
 }
 if (!($valor == "1")) {
 	$tr1=explode("-", $clave);
-	mysql_query("update convivencia set trabajo = '0' where claveal = '$tr1[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
+	mysqli_query($db_con, "update convivencia set trabajo = '0' where claveal = '$tr1[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
 }
 }
 if ($mens == '1') {
@@ -161,7 +161,7 @@ if (empty($hor)) {$hora_dia = '1';}
 if ($hor) {
 	$hora_dia = $hor;
 }
-$result = mysql_query ( "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad,
+$result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad,
   FALUMNOS.nc, aula_conv, inicio_aula, fin_aula, id, Fechoria.claveal, horas from Fechoria,
   FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and aula_conv > '0' and inicio_aula <= '$hoy' and fin_aula >= '$hoy' and horas like '%$hora_dia%' order by apellidos, nombre " );
 ?>
@@ -171,9 +171,9 @@ $result = mysql_query ( "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FA
 	echo "<thead><th>Alumno</th>
 		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></thead>";
 	echo '<form name="conviv" action="convivencia_jefes.php" method="post" enctype="multipart/form-data">';
-while ( $row = mysql_fetch_array ( $result ) ) {
-	$sel =  mysql_query("select * from convivencia where claveal = '$row[8]' and hora = '$hora_dia'  and fecha = '$hoy'");
-	$ya = mysql_fetch_array($sel);
+while ( $row = mysqli_fetch_array ( $result ) ) {
+	$sel =  mysqli_query($db_con, "select * from convivencia where claveal = '$row[8]' and hora = '$hora_dia'  and fecha = '$hoy'");
+	$ya = mysqli_fetch_array($sel);
 	$id0 = $ya[0];
 	if (empty($ya[0])) {$ch = '';} else{$ch=" checked";}
 	if ($ya[4] == 0) {$ch_tr = '';$trab = "";} else{$ch_tr=" checked";}
@@ -194,8 +194,8 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 		echo "<td style='vertical-align:middle'>";
 		$asiste0 = "select hora, trabajo, id from convivencia where claveal = '$row[8]' and fecha = '$hoy' and hora = '$i'";
 		//echo $asiste0;
-		$asiste1 = mysql_query($asiste0);
-			$asiste = mysql_fetch_array($asiste1);
+		$asiste1 = mysqli_query($db_con, $asiste0);
+			$asiste = mysqli_fetch_array($asiste1);
 			if ($asiste[1] == '0') {
 			echo "<center><i title='No trabaja' class='fa fa-exclamation-triangle'> </i> </center";
 			}

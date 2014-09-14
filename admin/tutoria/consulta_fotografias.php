@@ -137,18 +137,18 @@ include("menu.php");
 							
 							<div class="form-group">
 								<label for="alumno">Alumno/a</label>
-								<?php $result = mysql_query("SELECT claveal, apellidos, nombre FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC"); ?>
-								<?php if(mysql_num_rows($result)): ?>
+								<?php $result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC"); ?>
+								<?php if(mysqli_num_rows($result)): ?>
 							  <select class="form-control" id="alumno" name="alumno">
 							  	<option value=""></option>
-							  	<?php while($row = mysql_fetch_array($result)): ?>
+							  	<?php while($row = mysqli_fetch_array($result)): ?>
 							  	<option value="<?php echo $row['claveal']; ?>"><?php echo $row['apellidos'].', '.$row['nombre']; ?></option>
 							  	<?php endwhile; ?>
 							  </select>
 							  <?php else: ?>
 							   <select class="form-control" id="alumno" name="alumno" disabled></select>
 							  <?php endif; ?>
-							  <?php mysql_free_result($result); ?>
+							  <?php mysqli_free_result($result); ?>
 							</div>
 							
 							<div class="form-group">
@@ -193,11 +193,11 @@ include("menu.php");
 			<!-- COLUMNA CENTRAL -->
 			<div class="col-sm-12">
 
-				<?php $result = mysql_query("SELECT claveal, apellidos, nombre FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT claveal, apellidos, nombre FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'"); ?>
 				<?php $columnas = 6; ?>
 				<?php $fila = 0; ?>
 				<?php $num = 0; ?>
-				<?php while ($row = mysql_fetch_array($result)): ?>
+				<?php while ($row = mysqli_fetch_array($result)): ?>
 				
 				<?php if ($num == 0 || (($num % $columnas) == 0)): ?>
 				<div class="row">
@@ -231,7 +231,7 @@ include("menu.php");
 				
 				<?php endwhile; ?>
 				
-				<?php echo (mysql_num_rows($result) < ($columnas * $fila)) ? '</div><hr>' : ''; ?>
+				<?php echo (mysqli_num_rows($result) < ($columnas * $fila)) ? '</div><hr>' : ''; ?>
 				
 				
 				<div class="hidden-print">

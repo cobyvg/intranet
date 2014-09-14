@@ -5,21 +5,21 @@ if (isset($_GET['id_tareas'])) {
 }
 if (isset($_GET['tareas_expulsion'])) {
 if ($_GET['tareas_expulsion'] == 'Si') {
-	mysql_query("update tareas_profesor set confirmado = 'Si' where id = '$id_tareas'");
+	mysqli_query($db_con, "update tareas_profesor set confirmado = 'Si' where id = '$id_tareas'");
 }
 if ($_GET['tareas_expulsion'] == 'No') {
-	mysql_query("update tareas_profesor set confirmado = 'No' where id = '$id_tareas'");
+	mysqli_query($db_con, "update tareas_profesor set confirmado = 'No' where id = '$id_tareas'");
 }
 }
 
 $SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
 //echo $SQLcurso;
-$resultcurso = mysql_query($SQLcurso);
-while ($exp = mysql_fetch_array($resultcurso)) {
+$resultcurso = mysqli_query($db_con, $SQLcurso);
+while ($exp = mysqli_fetch_array($resultcurso)) {
 $unidad = $exp[0];
 $materia = $exp[1];
-$a_asig0 = mysql_query("select distinct codigo from asignaturas where curso = '$exp[2]' and nombre = '$materia' and abrev not like '%\_%'");
-$cod_asig = mysql_fetch_array($a_asig0);
+$a_asig0 = mysqli_query($db_con, "select distinct codigo from asignaturas where curso = '$exp[2]' and nombre = '$materia' and abrev not like '%\_%'");
+$cod_asig = mysqli_fetch_array($a_asig0);
 $hoy = date('Y') . "-" . date('m') . "-" . date('d');
 $expul= "SELECT DISTINCT alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, tareas_profesor.id
 FROM tareas_alumnos, tareas_profesor, alma
@@ -38,10 +38,10 @@ AND alma.combasi LIKE  '%$cod_asig[0]%'
 and tareas_profesor.profesor='$pr' 
 and confirmado is null
 ORDER BY tareas_alumnos.fecha";
-$result = mysql_query ($expul);
-     while ($row = mysql_fetch_array($result))
+$result = mysqli_query($db_con, $expul);
+     while ($row = mysqli_fetch_array($result))
         {
-        	if (mysql_num_rows($result) == '0') {        		
+        	if (mysqli_num_rows($result) == '0') {        		
         	}
         	else{
     $count_vuelven = 1;    		
@@ -57,17 +57,17 @@ $result = mysql_query ($expul);
 
 // Alumnos expulsados que se van
 $SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
-$resultcurso = mysql_query($SQLcurso);
-while ($exp = mysql_fetch_array($resultcurso)) {
+$resultcurso = mysqli_query($db_con, $SQLcurso);
+while ($exp = mysqli_fetch_array($resultcurso)) {
 $unidad = $exp[0];
 $materia = $exp[1];
 $hoy = date('Y') . "-" . date('m') . "-" . date('d');
 $ayer0 = time() + (1 * 24 * 60 * 60);
 $ayer = date('Y-m-d', $ayer0);
-$result = mysql_query ("select distinct alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria, alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' order by Fechoria.fecha ");
-if (mysql_num_rows($result) > '0') {
+$result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria, alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' order by Fechoria.fecha ");
+if (mysqli_num_rows($result) > '0') {
 	$count_van = 1;
-     while ($row = mysql_fetch_array($result))
+     while ($row = mysqli_fetch_array($result))
         {
     echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que mañana abandonan el Centro por Expulsión </h4><br>";
 	echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad." (Expulsado $row[4] días) </p>";
@@ -80,27 +80,27 @@ if (mysql_num_rows($result) > '0') {
 // Informes de Tareas
 $count0=0;
 $SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
-$resultcurso = mysql_query($SQLcurso);
-	while($rowcurso = mysql_fetch_array($resultcurso))
+$resultcurso = mysqli_query($db_con, $SQLcurso);
+	while($rowcurso = mysqli_fetch_array($resultcurso))
 	{
 	$curso = $rowcurso[0];
 	$unidad_t = $curso;
 	$asignatura = str_replace("nbsp;","",$rowcurso[1]);
 	$asignatura = str_replace("&","",$asignatura);	
 	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurso[2]' and abrev not like '%\_%'";
-	$asigna1 = mysql_query($asigna0);
-	$asigna2 = mysql_fetch_array($asigna1);
+	$asigna1 = mysqli_query($db_con, $asigna0);
+	$asigna2 = mysqli_fetch_array($asigna1);
 	$codasi = $asigna2[0];	
 	$hoy = date('Y-m-d');
 	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.FIN, 
 	tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. unidad = '$unidad_t' and combasi like '%$codasi:%' ORDER BY tareas_alumnos.FECHA asc";
-$result = mysql_query($query);
-if (mysql_num_rows($result) > 0)
+$result = mysqli_query($db_con, $query);
+if (mysqli_num_rows($result) > 0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result))
 	{
-$si0 = mysql_query("select * from tareas_profesor where id_alumno = '$row[0]'  and asignatura = '$asignatura'");	
-if (mysql_num_rows($si0) > 0)
+$si0 = mysqli_query($db_con, "select * from tareas_profesor where id_alumno = '$row[0]'  and asignatura = '$asignatura'");	
+if (mysqli_num_rows($si0) > 0)
 		{ }
    		else
 		{
@@ -113,16 +113,16 @@ if (mysql_num_rows($si0) > 0)
 $count03=0;
 $SQLcurso3 = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
 //echo $SQLcurso3."<br>";
-$resultcurso3 = mysql_query($SQLcurso3);
-	while($rowcurso3 = mysql_fetch_array($resultcurso3))
+$resultcurso3 = mysqli_query($db_con, $SQLcurso3);
+	while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 	{
 	$curso3 = $rowcurso3[0];
 	$unidad3 = $curso3;
 	$asignatura3 = trim($rowcurso3[1]);
 	$asigna03 = "select codigo from asignaturas where nombre = '$asignatura3' and curso = '$rowcurso3[2]' and abrev not like '%\_%'";
 	//echo $asigna03."<br>";
-	$asigna13 = mysql_query($asigna03);
-	$asigna23 = mysql_fetch_array($asigna13);
+	$asigna13 = mysqli_query($db_con, $asigna03);
+	$asigna23 = mysqli_fetch_array($asigna13);
 	$c_asig3 = $asigna23[0];	
 	if(is_numeric($c_asig3)){
 	$hoy = date('Y-m-d');
@@ -131,13 +131,13 @@ $resultcurso3 = mysql_query($SQLcurso3);
 	$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and
 	 date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and combasi like '%$c_asig3:%' ORDER BY F_ENTREV asc";
 	 //echo $query3."<br>";
-$result3 = mysql_query($query3);
-if (mysql_num_rows($result3) > 0)
+$result3 = mysqli_query($db_con, $query3);
+if (mysqli_num_rows($result3) > 0)
 {
-	while($row3 = mysql_fetch_array($result3))
+	while($row3 = mysqli_fetch_array($result3))
 	{
-$si03 = mysql_query("select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$asignatura3'");	
-if (mysql_num_rows($si03) > 0)
+$si03 = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$asignatura3'");	
+if (mysqli_num_rows($si03) > 0)
 		{ }
    		else
 		{
@@ -152,8 +152,8 @@ $count04=0;
 // Informes de absentismo.
 if (strstr($_SESSION['cargo'],'2')==TRUE) {
 	$tut=$_SESSION['profi'];
-	$tutor=mysql_query("select unidad from FTUTORES where tutor='$tut'");
-	$d_tutor=mysql_fetch_array($tutor);
+	$tutor=mysqli_query($db_con, "select unidad from FTUTORES where tutor='$tut'");
+	$d_tutor=mysqli_fetch_array($tutor);
 	$mas=" and absentismo.unidad='$d_tutor[0]' and tutoria IS NULL ";
 }
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
@@ -165,8 +165,8 @@ if (strstr($_SESSION['cargo'],'8')==TRUE) {
 if (strstr($_SESSION['cargo'],'1')==TRUE or strstr($_SESSION['cargo'],'2')==TRUE or strstr($_SESSION['cargo'],'8')==TRUE) {	
   $SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, alma.matriculas, numero, mes FROM absentismo, alma WHERE alma.claveal = absentismo.claveal $mas order by unidad";
  // echo $SQL0;	
-$result0 = mysql_query($SQL0);
-if (mysql_num_rows($result0) > 0)
+$result0 = mysqli_query($db_con, $SQL0);
+if (mysqli_num_rows($result0) > 0)
 		{ 
 			$count04 = $count04 + 1;
 		}
@@ -193,18 +193,18 @@ if($count04 > '0'){include("modulos/absentismo.php");}
 $n_mensajesp = 0;
 if (isset($_GET['verifica_padres'])) {
 	$verifica_padres = $_GET['verifica_padres'];
-	 mysql_query("UPDATE mensajes SET recibidotutor = '1' WHERE id = $verifica_padres");
+	 mysqli_query($db_con, "UPDATE mensajes SET recibidotutor = '1' WHERE id = $verifica_padres");
 }
 if(stristr($carg,'2') == TRUE)
 {
 	$unidad_m = $_SESSION ['s_unidad'];
 
  if (isset($_GET['asunto']) and $_GET['asunto'] == "Mensaje de confirmación") {
- 	 mysql_query("UPDATE mensajes SET recibidopadre = '1' WHERE id = $verifica_padres");
+ 	 mysqli_query($db_con, "UPDATE mensajes SET recibidopadre = '1' WHERE id = $verifica_padres");
  }
 $men1 = "select ahora, asunto, texto, nombre, apellidos, id from mensajes, alma where mensajes.claveal = alma.claveal and mensajes.unidad = '$unidad_m' and recibidotutor = '0'";
-$men2 = mysql_query($men1);
-if(mysql_num_rows($men2) > 0)
+$men2 = mysqli_query($db_con, $men1);
+if(mysqli_num_rows($men2) > 0)
 {
 	$count_mpadres =  1;
 echo '<div class="alert alert-success">
@@ -212,7 +212,7 @@ echo '<div class="alert alert-success">
 	<p class="lead"><span class="fa fa-comments fa-fw"></span> Mensajes de Familias y alumnos</p>
 	<br>
 	<ul>';
-while($men = mysql_fetch_row($men2))
+while($men = mysqli_fetch_row($men2))
 {
 $n_mensajesp=$n_mensajesp+1;
 $fechacompl = $men[0];
@@ -236,8 +236,8 @@ echo "</ul>";
 echo "</div>";
 
 $n_mensajesp = 0;
-mysql_data_seek($men2,0);
-while($men = mysql_fetch_row($men2)) {
+mysqli_data_seek($men2,0);
+while($men = mysqli_fetch_row($men2)) {
 $n_mensajesp=$n_mensajesp+1;
 $fechacompl = $men[0];
 $asunto = $men[1];
@@ -281,11 +281,11 @@ echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen=
 $n_mensajes = 0;
 if (isset($_GET['verifica'])) {
 	$verifica = $_GET['verifica'];
-	 mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
+	 mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
 $men1 = "select ahora, asunto, texto, profesor, id_profe, origen from mens_profes, mens_texto where mens_texto.id = mens_profes.id_texto and profesor = '$pr' and recibidoprofe = '0'";
-$men2 = mysql_query($men1);
-if(mysql_num_rows($men2) > 0)
+$men2 = mysqli_query($db_con, $men1);
+if(mysqli_num_rows($men2) > 0)
 {
 $count_mprofes =  1;
 echo '
@@ -294,7 +294,7 @@ echo '
 	<p class="lead"><span class="fa fa-comments fa-fw"></span> Mensajes de Profesores</p>
 	<br>
 	<ul>';
-	while($men = mysql_fetch_row($men2))
+	while($men = mysqli_fetch_row($men2))
 {
 $n_mensajes+=1;
 $fechacompl = $men[0];
@@ -319,8 +319,8 @@ echo "</ul>";
 echo "</div>";
 
 $n_mensajes = 0;
-mysql_data_seek($men2,0);
-while($men = mysql_fetch_row($men2)) {
+mysqli_data_seek($men2,0);
+while($men = mysqli_fetch_row($men2)) {
 $n_mensajes+=1;
 $fechacompl = $men[0];
 $asunto = $men[1];

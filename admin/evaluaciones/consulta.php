@@ -97,13 +97,13 @@ include("menu.php");
 									<div class="form-group">
 										<label for="curso">Unidad</label>
 										<?php if (strstr($_SESSION['cargo'], '1') == true): ?>
-										<?php $result = mysql_query("SELECT DISTINCT a_grupo FROM horw WHERE nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
+										<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
 										<?php else: ?>
-										<?php $result = mysql_query("SELECT DISTINCT a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
+										<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
 										<?php endif; ?>
 										<select class="form-control" id="curso" name="curso" onchange="submit()">
 											<option value=""></option>
-											<?php while ($row = mysql_fetch_array($result)): ?>
+											<?php while ($row = mysqli_fetch_array($result)): ?>
 											<option value="<?php echo $row['a_grupo']; ?>" <?php echo (isset($curso) && $curso == $row['a_grupo']) ? 'selected' : ''; ?>><?php echo $row['a_grupo']; ?></option>
 											<?php endwhile; ?>
 										</select>
@@ -152,27 +152,27 @@ include("menu.php");
 					<thead>
 						<tr>
 							<th>Alumno/a</th>
-							<?php $result = mysql_query("SELECT DISTINCT a_asig, asig FROM horw WHERE a_grupo='$curso' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY asig ASC") or die (mysql_error()); ?>
-							<?php while ($row = mysql_fetch_array($result)): ?>
-							<th><abbr rel="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr></th>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig FROM horw WHERE a_grupo='$curso' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY asig ASC") or die (mysqli_error($db_con)); ?>
+							<?php while ($row = mysqli_fetch_array($result)): ?>
+							<th><abbr data-bs="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr></th>
 							<?php endwhile; ?>
 						</tr>
 					</thead>
 					<tbody>
-						<?php $result = mysql_query("SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$curso'"); ?>
+						<?php $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$curso'"); ?>
 						<?php $i = 0; ?>
-						<?php while ($row = mysql_fetch_array($result)): ?>
+						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
 							<td nowrap><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
-							<?php $result1 = mysql_query("SELECT DISTINCT c_asig FROM horw WHERE a_grupo='$curso' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY asig ASC") or die (mysql_error()); ?>
-							<?php while ($row1 = mysql_fetch_array($result1)): ?>
+							<?php $result1 = mysqli_query($db_con, "SELECT DISTINCT c_asig FROM horw WHERE a_grupo='$curso' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY asig ASC") or die (mysqli_error($db_con)); ?>
+							<?php while ($row1 = mysqli_fetch_array($result1)): ?>
 								
-							<?php $result2 = mysql_query("SELECT calificaciones FROM evaluaciones WHERE unidad='$curso' AND evaluacion='$evaluacion' AND asignatura='".$row1['c_asig']."'"); ?>
-							<?php if (mysql_num_rows($result2)): ?>
-							<?php $row2 = mysql_fetch_array($result2); ?>
+							<?php $result2 = mysqli_query($db_con, "SELECT calificaciones FROM evaluaciones WHERE unidad='$curso' AND evaluacion='$evaluacion' AND asignatura='".$row1['c_asig']."'"); ?>
+							<?php if (mysqli_num_rows($result2)): ?>
+							<?php $row2 = mysqli_fetch_array($result2); ?>
 							<?php $calificaciones = unserialize($row2['calificaciones']); ?>
 							<td>
-								<?php echo ($calificaciones[$i]['obs'] != "") ? '<span class="pull-right fa fa-question-circle" rel="tooltip" title="'.$calificaciones[$i]['obs'].'"></span>' : ''; ?>
+								<?php echo ($calificaciones[$i]['obs'] != "") ? '<span class="pull-right fa fa-question-circle" data-bs="tooltip" title="'.$calificaciones[$i]['obs'].'"></span>' : ''; ?>
 								<?php echo ($calificaciones[$i]['nota'] > 5) ? '<span class="text-success">'.$calificaciones[$i]['nota'].'</span>' : '<span class="text-danger">'.$calificaciones[$i]['nota'].'</span>'; ?>
 							</td>
 							<?php else: ?>

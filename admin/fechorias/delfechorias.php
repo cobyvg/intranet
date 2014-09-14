@@ -29,11 +29,11 @@ include("menu.php");
 <?
 if(isset($_GET['id'])){$id = $_GET['id'];}else{$id="";}
 
-$connection = mysql_connect($db_host, $db_user, $db_pass) or die ("No es posible conectar con la base de datos!");
-mysql_select_db($db) or die ("No es posible conectar con la base de datos!");
+$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die ("No es posible conectar con la base de datos!");
+mysqli_select_db($db_con, $db) or die ("No es posible conectar con la base de datos!");
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
-$result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
-mysql_close($connection);
+$result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
+mysqli_close($db_con);
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Atención:</strong>

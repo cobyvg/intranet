@@ -54,7 +54,9 @@
 		</script>
 	
 		<script type="text/javascript">
-			$("[rel=tooltip]").tooltip();
+			$("[data-bs=tooltip]").tooltip({
+				container: 'body'
+			});
 		</script>
 	
 		<script>

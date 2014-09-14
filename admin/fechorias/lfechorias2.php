@@ -25,12 +25,12 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
  // $imprimir_activado = true;
 if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
   
- $nom = mysql_query("select nombre, apellidos, unidad from alma where claveal = '$clave'");
-   $nom0 = mysql_fetch_array($nom);
-  mysql_query("drop table FechCaduca");
-  mysql_query("create table FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
+ $nom = mysqli_query($db_con, "select nombre, apellidos, unidad from alma where claveal = '$clave'");
+   $nom0 = mysqli_fetch_array($nom);
+  mysqli_query($db_con, "drop table FechCaduca");
+  mysqli_query($db_con, "create table FechCaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
   $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.id from Fechoria, FALUMNOS, FechCaduca where FechCaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal and Fechoria.claveal = '$clave' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos";
-  $result = mysql_query ($query0);
+  $result = mysqli_query($db_con, $query0);
   echo "<div class='container'>";
   echo '<div class="row">
   <div class="col-sm-12">';
@@ -57,7 +57,7 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		<th></th>
 		<th></th>
 		</thead><tbody>";	
-   while($row = mysql_fetch_array($result))
+   while($row = mysqli_fetch_array($result))
         {
 		$apellidos = $row[0];
 		$nombre = $row[1];
@@ -80,9 +80,9 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		$ident=$row[19];
 		if(($dias > 30 and ($grave == 'leve' or $grave == 'grave')) or ($dias > 60 and $grave == 'muy grave'))
 		{$caducada="Sí";} else {$caducada="No";}
-		$numero = mysql_query ("select Fechoria.claveal from Fechoria where Fechoria.claveal 
+		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
 		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' order by Fechoria.fecha"); 
-		$rownumero= mysql_num_rows($numero);
+		$rownumero= mysqli_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
 				$bgcolor="class=''";
@@ -116,8 +116,8 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		<td >$caducada</td>
 		<td  nowrap>$comentarios1 $comentarios</td>
 		<td  nowrap>"; 
-		echo "<a href='detfechorias.php?id=$id&claveal=$claveal' rel='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a>";
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' rel='tooltip' title='Eliminar' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg'></span></a></div>";}	
+		echo "<a href='detfechorias.php?id=$id&claveal=$claveal' data-bs='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a>";
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' data-bs='tooltip' title='Eliminar' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg'></span></a></div>";}	
 		echo "</td>";
 		echo "</tr>";
         }

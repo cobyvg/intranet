@@ -16,7 +16,7 @@ $n_preg=15;
 
 include '../../menu.php';
 // Creación de la tabla
-mysql_query("CREATE TABLE IF NOT EXISTS `mem_dep` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `mem_dep` (
   `departamento` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
   `jefe` varchar(150) COLLATE latin1_spanish_ci NOT NULL,
   `p1` longtext COLLATE latin1_spanish_ci NOT NULL,
@@ -43,25 +43,25 @@ mysql_query("CREATE TABLE IF NOT EXISTS `mem_dep` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 // Miembros
 $depto=$_SESSION ['dpt'];
-$dep0 = mysql_query("select nombre from departamentos where departamento = '$depto'");
+$dep0 = mysqli_query($db_con, "select nombre from departamentos where departamento = '$depto'");
 $miembros.="Los profesores que componen el Departamento, así como sus grupos y las asignaturas que imparten a los mismos son los siguientes:<br><br>";
-while ($dep = mysql_fetch_array($dep0)) {
+while ($dep = mysqli_fetch_array($dep0)) {
 	$jefe=$dep[0]."<br>\n";
 	$cl = "";
-	$grupos0 = mysql_query("select distinct grupo, materia from profesores where profesor = '$dep[0]'");
-	while ($grupos = mysql_fetch_array($grupos0)) {
+	$grupos0 = mysqli_query($db_con, "select distinct grupo, materia from profesores where profesor = '$dep[0]'");
+	while ($grupos = mysqli_fetch_array($grupos0)) {
 	$cl.=$grupos[0]." (".$grupos[1]."), ";
 	}
 	$cl = substr($cl,0,-2);
 	$miembros.=$jefe.$cl."<br>\n\n";
 }
 // Actividades
-$act0 = mysql_query("select distinct actividad, grupos, fecha from actividades where departamento = '$depto'");
+$act0 = mysqli_query($db_con, "select distinct actividad, grupos, fecha from actividades where departamento = '$depto'");
 //echo "select nombre from departamentos where departamento = '$depto'";
-if (mysql_num_rows($act0)>0) {
+if (mysqli_num_rows($act0)>0) {
 	$activ.= "Las actividades complementarias y extraescolares realizadas por el Departamento son las siguientes:<br><br>";
 }
-while ($act = mysql_fetch_array($act0)) {
+while ($act = mysqli_fetch_array($act0)) {
 	$jefe2=$act[2].". ".$act[0]."<br />\nGrupos afectados por la actividad: ";
 	$cl2 = $act[1];
 	$cl2 = substr($cl2,0,-1);
@@ -112,8 +112,8 @@ $pregunta[20]='Esta es la 20º pregunta';
 $nota[20]='';
 
 // Jefe del departamento
-$j_dep = mysql_query("select nombre from departamentos where departamento = '$depto' and cargo like '%4%'");
-$jef_dep = mysql_fetch_array($j_dep);
+$j_dep = mysqli_query($db_con, "select nombre from departamentos where departamento = '$depto' and cargo like '%4%'");
+$jef_dep = mysqli_fetch_array($j_dep);
 $profe = $jef_dep[0];
 
 // Actualización de datos
@@ -124,13 +124,13 @@ if($aceptar == "Si"){
 
 //Comprobamos si está el registro para crearlo si no lo encontramos;
 	$sqlmem="SELECT departamento FROM mem_dep WHERE departamento='".$depto."'";
-	$datos_memoria= mysql_query($sqlmem);
-	$memoria = mysql_fetch_array($datos_memoria);
+	$datos_memoria= mysqli_query($db_con, $sqlmem);
+	$memoria = mysqli_fetch_array($datos_memoria);
 	if ($memoria[0]=='') {
-		mysql_query("INSERT INTO  mem_dep (departamento, jefe) VALUES ('".$depto."', '".$profe."')");
+		mysqli_query($db_con, "INSERT INTO  mem_dep (departamento, jefe) VALUES ('".$depto."', '".$profe."')");
 	}
 	else{
-		mysql_query("update mem_dep set jefe = '$profe' where departamento = '$depto'");
+		mysqli_query($db_con, "update mem_dep set jefe = '$profe' where departamento = '$depto'");
 	}
 
 foreach($campos as $nombre_del_campo)
@@ -145,7 +145,7 @@ for ($i=1; $i<=$n_preg; $i++){ $actualiza.="p".$i." = '".$_POST[$campos[$i-1]]."
 $actualiza.=" jefe = '".$profe."'";
 $actualiza.=" WHERE departamento =  '".$depto."' LIMIT 1 ";
 //echo $actualiza.'<br>';
-mysql_query($actualiza);	
+mysqli_query($db_con, $actualiza);	
 }
 // Fin Actualización de datos
 
@@ -153,8 +153,8 @@ mysql_query($actualiza);
 #Seleccionamos ahora el registro del grupo
 $sqlmem="SELECT * FROM mem_dep WHERE departamento='".$depto."'";
 //echo $sqlmem;
-$datos_memoria= mysql_query($sqlmem);
-$memoria = mysql_fetch_array($datos_memoria);
+$datos_memoria= mysqli_query($db_con, $sqlmem);
+$memoria = mysqli_fetch_array($datos_memoria);
 # Se le asigna a los campo un valor más manejable
 for ( $i = 1 ; $i <= $n_preg ; $i ++) {
 $p[$i]=$memoria[$i+1];
@@ -188,8 +188,8 @@ if (!($memoria[1]=='')){$profe=$memoria[1];}
 	#  preguntas
 	echo '<label for="inputZprofe">Jefe del Departamento</label> ';
 
-	$prof = mysql_query("SELECT nombre FROM departamentos where departamento = '$depto' and cargo like '%4%'");
-	$profes = mysql_fetch_row($prof);
+	$prof = mysqli_query($db_con, "SELECT nombre FROM departamentos where departamento = '$depto' and cargo like '%4%'");
+	$profes = mysqli_fetch_row($prof);
 	
 	echo '<input type="text" class="form-control" disabled name="zprofe" value = "'.$profes[0].'">';
 	echo '</div>';

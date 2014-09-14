@@ -1,8 +1,8 @@
 <? 
 // Buscamos los registros de almafaltas, que es actualizada desde Seneca cuando hay nuevas altas (a traves de intranet/xml/alma.php, y luego de intranet/faltas/almafaltas.php)), que no aparecen en FALUMNOS.
 // Creamos versión corta para FALTAS
-mysql_query("drop table almafaltas");
-mysql_query("CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, Unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
+mysqli_query($db_con, "drop table almafaltas");
+mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, Unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido crear la tabla <strong>AlmaFaltas</strong> en la base de datos. Ponte en contacto con quien pueda resolver el problema.
@@ -10,46 +10,46 @@ No se ha podido crear la tabla <strong>AlmaFaltas</strong> en la base de datos. 
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
-mysql_query("ALTER TABLE almafaltas ADD PRIMARY KEY (  `CLAVEAL` )");
+mysqli_query($db_con, "ALTER TABLE almafaltas ADD PRIMARY KEY (  `CLAVEAL` )");
 
 $elimina = "select distinct FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad from FALUMNOS, almafaltas where FALUMNOS.claveal NOT IN (select distinct claveal from almafaltas)";
-$elimina1 = mysql_query($elimina);
-if(mysql_num_rows($elimina1) > 0)
+$elimina1 = mysqli_query($db_con, $elimina);
+if(mysqli_num_rows($elimina1) > 0)
 {
 echo "<br /><div class='form-group success'><p class='help-block' style='text-align:left'>Tabla FALUMNOS: los siguientes alumnos han sido eliminados de la tabla FALUMNOS. <br>Comprueba los registros 
 creados:</p></div>";
-while($elimina2 = mysql_fetch_array($elimina1))
+while($elimina2 = mysqli_fetch_array($elimina1))
 {
 echo "<li>".$elimina2[2] . " " . $elimina2[1] . " -- " . $elimina2[3] . "</li>";
   $SQL6 = "DELETE FROM FALUMNOS where claveal = '$elimina2[0]'";
   $SQL16 = "DELETE FROM usuarioalumno where claveal = '$elimina2[0]'";
   $SQL17 = "DELETE FROM AsignacionMesasTic where claveal = '$elimina2[0]'";
-  $result6 = mysql_query($SQL6);
-  $result16 = mysql_query($SQL16);
-  $result17 = mysql_query($SQL17);
+  $result6 = mysqli_query($db_con, $SQL6);
+  $result16 = mysqli_query($db_con, $SQL16);
+  $result17 = mysqli_query($db_con, $SQL17);
 }
 }
 
 $SQL1 = "select distinct almafaltas.claveal, almafaltas.apellidos, almafaltas.nombre, almafaltas.unidad from almafaltas, FALUMNOS where almafaltas.claveal NOT IN (select distinct claveal from FALUMNOS)";
-$result1 = mysql_query($SQL1);
-$total = mysql_num_rows($result1);
+$result1 = mysqli_query($db_con, $SQL1);
+$total = mysqli_num_rows($result1);
 if ($total !== 0)
 {
 echo "<br /><div class='form-group warning'><p class='help-block' style='text-align:left'>Tabla FALUMNOS: los nuevos alumnos han sido añadidos a la tabla FALUMNOS. <br>Comprueba en la lista de abajo los registros 
 creados:</p></div>";
-while  ($row1= mysql_fetch_array($result1))
+while  ($row1= mysqli_fetch_array($result1))
  {
 // Buscamos el ultimo numero del Grupo del Alumno
 $SQL3 = "select MAX(NC) from FALUMNOS where unidad = '$row1[3]'";
-$result3 = mysql_query($SQL3);
-while ($row3= mysql_fetch_row($result3))
+$result3 = mysqli_query($db_con, $SQL3);
+while ($row3= mysqli_fetch_row($result3))
  {
 // Aumentamos el NC del ultimo en 1
  $numero = $row3[0] + 1;
 // Insertamos los datos en FALUMNOS
 $SQL2 = "INSERT INTO FALUMNOS (CLAVEAL, APELLIDOS, NOMBRE, unidad, NC) VALUES (\"". $row1[0] . "\",\"". $row1[1] . "\",\"". $row1[2] . "\",\"". $row1[3] . "\",\"". $row1[4] . "\",\"". $numero . "\")";
 echo "<li>".$row1[2] . " " . $row1[1] . " -- " . $row1[3] . " -- " . $numero .  "</li>";
-$result2 = mysql_query($SQL2);
+$result2 = mysqli_query($db_con, $SQL2);
 
 // Usuario TIC
 	$apellidos = $row1[1] ;
@@ -87,15 +87,15 @@ $result2 = mysql_query($SQL2);
 	$passw = $userpass . preg_replace('/([ ])/e', 'rand(0,9)', '   ');
 	$unidad = $row1[3]."-".$row1[4] ;
 
-$repetidos = mysql_query("select usuario from usuarioalumno where usuario like '$usuario%'");
+$repetidos = mysqli_query($db_con, "select usuario from usuarioalumno where usuario like '$usuario%'");
 $n_a=0;
-while($num = mysql_fetch_array($repetidos))
+while($num = mysqli_fetch_array($repetidos))
 {
 	$n_a+=1;
 }
 $n_a+=1;
 $usuario = $usuario.$n_a;
-mysql_query("insert into usuarioalumno set nombre = '$nombreorig', usuario = '$usuario', pass = '$passw', perfil = 'a', unidad = '$unidad', claveal = '$claveal'");
+mysqli_query($db_con, "insert into usuarioalumno set nombre = '$nombreorig', usuario = '$usuario', pass = '$passw', perfil = 'a', unidad = '$unidad', claveal = '$claveal'");
 echo "<li>TIC: ".$nombreorig . " " . $usuario . " -- " . $unidad . "  " . $claveal. "</li>";
 }
 }
@@ -106,17 +106,17 @@ echo "<div class='form-group warning'><p class='help-block' style='text-align:le
 }
 
 // Cambio de grupo de un alumno.
-$cambio0 = mysql_query("select claveal, unidad, apellidos, nombre from alma");
-while($cambio = mysql_fetch_array($cambio0)){
-$f_cambio0 = mysql_query("select unidad from FALUMNOS where claveal = '$cambio[0]'");
-$f_cambio = mysql_fetch_array($f_cambio0);
+$cambio0 = mysqli_query($db_con, "select claveal, unidad, apellidos, nombre from alma");
+while($cambio = mysqli_fetch_array($cambio0)){
+$f_cambio0 = mysqli_query($db_con, "select unidad from FALUMNOS where claveal = '$cambio[0]'");
+$f_cambio = mysqli_fetch_array($f_cambio0);
 if($cambio[1] == $f_cambio[0]){}
 else{
 	$cambio_al+=1;
-$resultf = mysql_query("select MAX(NC) from FALUMNOS where unidad = '$cambio[1]'");
-$f_result = mysql_fetch_array($resultf);
+$resultf = mysqli_query($db_con, "select MAX(NC) from FALUMNOS where unidad = '$cambio[1]'");
+$f_result = mysqli_fetch_array($resultf);
 $f_numero = $f_result[0] + 1;
-mysql_query("update FALUMNOS set NC = '$f_numero', unidad = '$cambio[1]' where claveal = '$cambio[0]'");
+mysqli_query($db_con, "update FALUMNOS set NC = '$f_numero', unidad = '$cambio[1]' where claveal = '$cambio[0]'");
 }
 }
 ?>

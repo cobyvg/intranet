@@ -1,11 +1,11 @@
 <?
 // Actualizar datos de libros de texto a la desaparición de nivel-grupo
-$actua = mysql_query("select modulo from actualizacion where modulo = 'Libros de Texto'");
-if (mysql_num_rows($actua)>0) {}else{
-mysql_query("ALTER TABLE  `Textos` CHANGE  `Grupo`  `Grupo` TEXT CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
-	$lib = mysql_query("select id, nivel, grupo, departamento from Textos");
+$actua = mysqli_query($db_con, "select modulo from actualizacion where modulo = 'Libros de Texto'");
+if (mysqli_num_rows($actua)>0) {}else{
+mysqli_query($db_con, "ALTER TABLE  `Textos` CHANGE  `Grupo`  `Grupo` TEXT CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
+	$lib = mysqli_query($db_con, "select id, nivel, grupo, departamento from Textos");
 	//echo "select id, nivel, grupo from Textos<br>";
-	while($libro = mysql_fetch_array($lib))
+	while($libro = mysqli_fetch_array($lib))
 	{
 		$total="";
 		$id = $libro[0];
@@ -16,9 +16,9 @@ mysql_query("ALTER TABLE  `Textos` CHANGE  `Grupo`  `Grupo` TEXT CHARACTER SET l
 			$num+=1;
 			$arr = str_split($gr);
 			foreach ($arr as $grup){
-				$act = mysql_query("select distinct unidad from alma where curso = '$nv'");
+				$act = mysqli_query($db_con, "select distinct unidad from alma where curso = '$nv'");
 				//echo "select distinct unidad from alma where curso = '$nv'<br>";
-				while ($actu = mysql_fetch_array($act)) {
+				while ($actu = mysqli_fetch_array($act)) {
 					$ult = substr($actu[0],-1);
 					//echo "$ult ==> $grup<br>";
 					if ($ult==$grup) {
@@ -27,11 +27,11 @@ mysql_query("ALTER TABLE  `Textos` CHANGE  `Grupo`  `Grupo` TEXT CHARACTER SET l
 				}
 				
 			}
-		mysql_query ("update Textos set grupo = '$total', departamento = '$nomdepto' where id = '$id'");
+		mysqli_query($db_con, "update Textos set grupo = '$total', departamento = '$nomdepto' where id = '$id'");
 		}
 	}
 	if ($num>0) {
-		mysql_query("insert into actualizacion (modulo, fecha) values ('Libros de Texto', NOW())");
+		mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Libros de Texto', NOW())");
 	}
 }
 ?>

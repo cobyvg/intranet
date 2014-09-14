@@ -110,14 +110,14 @@ FROM alma,  pendientes , asignaturas, FALUMNOS
 WHERE Unidad='$valor' and alma.claveal = pendientes.claveal and FALUMNOS.claveal = pendientes.claveal
 AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas.curso like '$val_nivel%' ORDER BY Apellidos, Nombre";*/
 			//echo $sql."<br>";
-		$Recordset1 = mysql_query($sql) or die(mysql_error());  #crea la consulata
+		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata
 
 		$MiPDF->SetFont('NewsGotT','',12);
 		$linea='';
 		$x=0;
 		$cuenta=1;
 		$alumno='';
-		while ($salida = mysql_fetch_array($Recordset1)){
+		while ($salida = mysqli_fetch_array($Recordset1)){
 			
 		$c_unidad = substr($salida[2],0,1);
 		$c_curso = substr($salida[4],-2,1);
@@ -147,7 +147,7 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 	}#del foreach de la seleccion
 
 	$MiPDF->Output();
-	mysql_free_result($Recordset1);
+	mysqli_free_result($Recordset1);
 }
 else{
 	include "../../menu.php";
@@ -170,8 +170,8 @@ echo "</form><br />";
 foreach($_POST["select"] as  $valor) {	
 echo '<legend class="text-info" align="center"><strong>'.$valor.'</strong></legend><hr />';	
 echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th>Asignatura</th></thead><tbody>";
-//$pend = mysql_query("SELECT * from asignaturas where nombre='$valor' and abrev like '%\_%' and asignaturas.nombre in (select distinct materia from profesores) order by curso");
-//while ($pendi = mysql_fetch_array($pend)) {
+//$pend = mysqli_query($db_con, "SELECT * from asignaturas where nombre='$valor' and abrev like '%\_%' and asignaturas.nombre in (select distinct materia from profesores) order by curso");
+//while ($pendi = mysqli_fetch_array($pend)) {
 
 	
 	/*$sql = "SELECT distinct alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, alma.unidad, FALUMNOS.nc, asignaturas.nombre
@@ -188,8 +188,8 @@ AND asignaturas.nombre =  "'.$valor.'" and alma.unidad not like "1%"
 AND abrev LIKE  "%\_%"
 ORDER BY alma.curso, alma.unidad, nc';
 		//echo $sql."<br><br>";
-		$Recordset1 = mysql_query($sql) or die(mysql_error());  #crea la consulata;
-		while ($salida = mysql_fetch_array($Recordset1)){
+		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
+		while ($salida = mysqli_fetch_array($Recordset1)){
 		$val_nivel=substr($pendi[5],0,1);
 		$c_unidad = substr($salida[2],0,1);
 		$c_curso = substr($salida[4],-2,1);

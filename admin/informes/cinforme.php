@@ -76,14 +76,14 @@ else{
 									<div class="col-sm-12">
 										<div class="form-group">
 										  <label for="unidad">Unidad</label>
-											<?php $result = mysql_query("SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
-											<?php if(mysql_num_rows($result)): ?>
+											<?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
+											<?php if(mysqli_num_rows($result)): ?>
 											<select class="form-control" id="unidad" name="unidad" onchange="submit()">
 												<option></option>
-												<?php while($row = mysql_fetch_array($result)): ?>
+												<?php while($row = mysqli_fetch_array($result)): ?>
 												<option value="<?php echo $row['unidad']; ?>" <?php echo ($row['unidad'] == $unidad) ? 'selected' : ''; ?>><?php echo $row['unidad']; ?></option>
 												<?php endwhile; ?>
-												<?php mysql_free_result($result); ?>
+												<?php mysqli_free_result($result); ?>
 											</select>
 											<?php else: ?>
 											<select class="form-control" name="unidad" disabled>
@@ -96,14 +96,14 @@ else{
 								
 								<div class="form-group">
 							    <label for="nombre">Alumno/a</label>
-							    <?php $result = mysql_query("SELECT DISTINCT APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad='$unidad' ORDER BY APELLIDOS ASC"); ?>
-							    <?php if(mysql_num_rows($result)): ?>
+							    <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad='$unidad' ORDER BY APELLIDOS ASC"); ?>
+							    <?php if(mysqli_num_rows($result)): ?>
 							    <select class="form-control" id="nombre" name="nombre">
 							    	<option></option>
-							    	<?php while($row = mysql_fetch_array($result)): ?>
+							    	<?php while($row = mysqli_fetch_array($result)): ?>
 							    	<option value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['CLAVEAL']; ?>" <?php echo (isset($nombre) && $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['CLAVEAL'] == $nombre) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
 							    	<?php endwhile; ?>
-							    	<?php mysql_free_result($result); ?>
+							    	<?php mysqli_free_result($result); ?>
 							    </select>
 							    <?php else: ?>
 							    <select class="form-control" name="nombre" disabled>

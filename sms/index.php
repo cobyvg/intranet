@@ -86,9 +86,9 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto
 	{
 	$trozos = explode(" --> ",$tel);
 	$claveal = trim($trozos[0]);
-	$tel0 = mysql_query("select telefono, telefonourgencia, apellidos, nombre, alma.unidad, alma.matriculas, tutor from alma, FTUTORES where FTUTORES.unidad = alma.unidad and claveal = '$claveal'");
+	$tel0 = mysqli_query($db_con, "select telefono, telefonourgencia, apellidos, nombre, alma.unidad, alma.matriculas, tutor from alma, FTUTORES where FTUTORES.unidad = alma.unidad and claveal = '$claveal'");
 	
-	$tel1 = mysql_fetch_array($tel0);
+	$tel1 = mysqli_fetch_array($tel0);
 	$tfno = $tel1[0];	
 	$tfno_u = $tel1[1];
 	$apellidos = $tel1[2];
@@ -105,17 +105,17 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto
 $fecha2 = date('Y-m-d');
 $observaciones = $text;
 $accion = "Envío de SMS";
-mysql_query("insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
 
 // Mensaje al Tutor
 if (stristr($_SESSION['cargo'],'1') == TRUE) {
 	$query0="insert into mens_texto (asunto,texto, origen) values ('Envío de SMS desde Jefatura de Estudios a los padres de ".$nombre." ".$apellidos."','".$observaciones."','".$profe."')";
-mysql_query($query0);
-$id0 = mysql_query("select id from mens_texto where asunto = 'Envío de SMS desde Jefatura de Estudios a los padres de ".$nombre." ".$apellidos."' and texto = '$observaciones' and origen = '$profe'");
-$id1 = mysql_fetch_array($id0);
+mysqli_query($db_con, $query0);
+$id0 = mysqli_query($db_con, "select id from mens_texto where asunto = 'Envío de SMS desde Jefatura de Estudios a los padres de ".$nombre." ".$apellidos."' and texto = '$observaciones' and origen = '$profe'");
+$id1 = mysqli_fetch_array($id0);
 $id = $id1[0];
 $query1="insert into mens_profes (id_texto, profesor) values ('".$id."','".$tutor_mens."')";
-mysql_query($query1);
+mysqli_query($db_con, $query1);
 }
 
 	}
@@ -130,8 +130,8 @@ No has seleccionado ningún alumno para el envío de SMS.<br />Vuelve atrás, selec
           </div></div>';
 		  exit();
 }
-$sms_n = mysql_query("select max(id) from sms");
-$n_sms =mysql_fetch_array($sms_n);
+$sms_n = mysqli_query($db_con, "select max(id) from sms");
+$n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 ?>
 <script language="javascript">
@@ -159,7 +159,7 @@ enviarForm();
 </script>
 
 <?
-mysql_query("insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
+mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El mensaje SMS se ha enviado correctamente.<br>Una nueva acción tutorial ha sido también registrada.
@@ -188,7 +188,7 @@ else
 		<select  name="unidad" class="form-control" onChange="submit()">
           <option><? echo $unidad;?></option>
           <? if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<option>Cualquiera</option>";} ?>
-          <? unidad(); ?>
+          <? unidad($db_con); ?>
         </select>
         </div>
         <? }?>
@@ -224,8 +224,8 @@ echo "<div class='form-group'>
 <TEXTAREA name='text' class='form-control' rows='4'  onkeydown=\"contar('nameform','text')\" onkeyup=\"contar('nameform','text')\">$text</TEXTAREA></div>
 		<div class='form-group'>
 		<label>Caracteres restantes:</label> <INPUT name=result value=160 class='form-control' readonly='true'></div>";
-$sms_n = mysql_query("select max(id) from sms");
-$n_sms =mysql_fetch_array($sms_n);
+$sms_n = mysqli_query($db_con, "select max(id) from sms");
+$n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 ?>
       	
@@ -250,9 +250,9 @@ $extid = $n_sms[0]+1;
         <?
   		echo '<SELECT  name=nombre[] multiple=multiple class="form-control" style="height:370px">';
   		if ($unidad=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE unidad like '$unidad%'";}
-  $alumno = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $alumno_sel order by APELLIDOS asc");
+  $alumno = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $alumno_sel order by APELLIDOS asc");
   
-       while($falumno = mysql_fetch_array($alumno)) 
+       while($falumno = mysqli_fetch_array($alumno)) 
 	   {
 	echo "<OPTION>$falumno[2] --> $falumno[0], $falumno[1]</OPTION>";
 		}

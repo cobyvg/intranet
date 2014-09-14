@@ -49,7 +49,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
 // TABLA DE PUESTOS
-mysql_query("CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
   `unidad` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
   `puestos` text COLLATE latin1_spanish_ci,
   PRIMARY KEY (`unidad`)
@@ -57,9 +57,9 @@ mysql_query("CREATE TABLE IF NOT EXISTS `puestos_alumnos` (
 
 
 // ESTRUCTURA DE LA CLASE, SE AJUSTA AL NUMERO DE ALUMNOS
-$result = mysql_query("SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC");
-$n_alumnos = mysql_num_rows($result);
-mysql_free_result($result);
+$result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC");
+$n_alumnos = mysqli_num_rows($result);
+mysqli_free_result($result);
 
 if ($n_alumnos <= 36) $estructura_clase = '222';
 elseif ($n_alumnos > 36 && $n_alumnos <= 42) $estructura_clase = '232';
@@ -71,35 +71,35 @@ if ($estructura_clase == '222') { $mesas_col = 7; $mesas = 36; $col_profesor = 7
 
 
 function al_con_nie($var_nie,$var_grupo) {
-	$result = mysql_query("SELECT nombre, apellidos FROM alma WHERE unidad='".$var_grupo."' AND claveal='".$var_nie."' ORDER BY apellidos ASC, nombre ASC LIMIT 1");
-	$row = mysql_fetch_array($result);
-	mysql_free_result($result);
+	$result = mysqli_query($db_con, "SELECT nombre, apellidos FROM alma WHERE unidad='".$var_grupo."' AND claveal='".$var_nie."' ORDER BY apellidos ASC, nombre ASC LIMIT 1");
+	$row = mysqli_fetch_array($result);
+	mysqli_free_result($result);
 	return($row['apellidos'].', '.$row['nombre']);
 }
 
 
 // ACTUALIZAR PUESTOS
 if (isset($_POST['listOfItems'])){
-	$result = mysql_query("UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
+	$result = mysqli_query($db_con, "UPDATE puestos_alumnos SET puestos='".$_POST['listOfItems']."' WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
 	
-	if(!$result) $msg_error = "La asignación de puestos en el aula no se ha podido actualizar. Error: ".mysql_error();
+	if(!$result) $msg_error = "La asignación de puestos en el aula no se ha podido actualizar. Error: ".mysqli_error($db_con);
 	else $msg_success = "La asignación de puestos en el aula se ha actualizado correctamente.";	
 }
 
 
 // OBTENEMOS LOS PUESTOS, SI NO EXISTE LOS CREAMOS
-$result = mysql_query("SELECT * FROM puestos_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' limit 1");
+$result = mysqli_query($db_con, "SELECT * FROM puestos_alumnos WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' limit 1");
 
-if (mysql_num_rows($result)<>1) {
-	mysql_query("INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '')");
+if (mysqli_num_rows($result)<>1) {
+	mysqli_query($db_con, "INSERT INTO puestos_alumnos (unidad, puestos) VALUES ('".$_SESSION['mod_tutoria']['unidad']."', '')");
 	
-	if(!$result) $msg_error = "La asignación de puestos en el aula no se ha podido guardar. Error: ".mysql_error();
+	if(!$result) $msg_error = "La asignación de puestos en el aula no se ha podido guardar. Error: ".mysqli_error($db_con);
 	else $msg_success = "La asignación de puestos en el aula se ha guardado correctamente.";	
 }
 else {
-	$row = mysql_fetch_array($result);
+	$row = mysqli_fetch_array($result);
 	$cadena_puestos = $row[1];
-	mysql_free_result($result);
+	mysqli_free_result($result);
 }
 
 $matriz_puestos = explode(';', $cadena_puestos);
@@ -236,8 +236,8 @@ include("menu.php");
 				<div id="allItems">
 					<p>Alumnos/as</p>
 					<ul class="list-unstyled">
-						<?php $result = mysql_query("SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC"); ?>
-						<?php while ($row = mysql_fetch_array($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY apellidos ASC, nombre ASC"); ?>
+						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<?php if (!in_array($row['claveal'],$con_puesto)): ?>
 					  <li id="<?php echo $row['claveal']; ?>">
 					    <?php echo $row['apellidos'].', '.$row['nombre']; ?>

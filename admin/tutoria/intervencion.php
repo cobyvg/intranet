@@ -55,10 +55,10 @@ if (isset($_POST['alumno'])) $alumno = $_POST['alumno'];
 
 // COMPROBAMOS SI SE PASA UN ID DE INTERVENCION
 if (isset($_GET['id'])) {
-	$result = mysql_query("SELECT apellidos, nombre, fecha, accion, causa, observaciones, tutoria.unidad, FTUTORES.tutor, id, prohibido, orienta, jefatura, claveal FROM tutoria, FTUTORES WHERE tutoria.unidad = FTUTORES.unidad AND id='".$_GET['id']."' AND tutoria.unidad = '".$_SESSION['mod_tutoria']['unidad']."'");
+	$result = mysqli_query($db_con, "SELECT apellidos, nombre, fecha, accion, causa, observaciones, tutoria.unidad, FTUTORES.tutor, id, prohibido, orienta, jefatura, claveal FROM tutoria, FTUTORES WHERE tutoria.unidad = FTUTORES.unidad AND id='".$_GET['id']."' AND tutoria.unidad = '".$_SESSION['mod_tutoria']['unidad']."'");
 	
-	if (mysql_num_rows($result)) {
-		$row = mysql_fetch_array($result);
+	if (mysqli_num_rows($result)) {
+		$row = mysqli_fetch_array($result);
 		
 		$alumno = $row['apellidos'].", ".$row['nombre']." --> ".$row['claveal'];
 		$apellidos = $row['apellidos'];
@@ -75,7 +75,7 @@ if (isset($_GET['id'])) {
 		$orientacion = $row['orienta'];
 		$jefatura = $row['jefatura'];
 		
-		mysql_free_result($result);
+		mysqli_free_result($result);
 	}
 	else {
 		$msg_error = "La intervención que intenta editar no existe o no tiene privilegios administrativos para editarlo.";
@@ -106,9 +106,9 @@ if (isset($_POST['enviar'])) {
 		// COMPROBAMOS SI SE TRATA DE UNA ACTUALIZACIÓN O INSERCIÓN
 		if (isset($_GET['id'])) {
 		
-			$result = mysql_query("UPDATE tutoria SET observaciones='$observaciones', causa='$causa', accion='$accion', fecha='$fecha_sql' WHERE id='".$_GET['id']."'");
+			$result = mysqli_query($db_con, "UPDATE tutoria SET observaciones='$observaciones', causa='$causa', accion='$accion', fecha='$fecha_sql' WHERE id='".$_GET['id']."'");
 			
-			if (!$result) $msg_error = "La intervención no se ha podido actualizar. Error: ".mysql_error();
+			if (!$result) $msg_error = "La intervención no se ha podido actualizar. Error: ".mysqli_error($db_con);
 			else $msg_success = "La intervención ha sido actualizada.";
 			
 		}
@@ -116,20 +116,20 @@ if (isset($_POST['enviar'])) {
 			
 			if ($alumno == "Todos, todos") {
 				
-				$result = mysql_query("SELECT apellidos, nombre, claveal FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
+				$result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."'");
 				
-				while ($row = mysql_fetch_array($result)) {
+				while ($row = mysqli_fetch_array($result)) {
 					$apellidos = $row[0];
 					$nombre = $row[1];
 					$claveal = $row[2];
 					
-					$result1 = mysql_query("INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES ('$apellidos', '$nombre', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
+					$result1 = mysqli_query($db_con, "INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES ('$apellidos', '$nombre', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
 					
-					if (!$result) $msg_error = "La intervención al alumno $nombre $apellidos no ha podido registrarse. Error: ".mysql_error();
+					if (!$result) $msg_error = "La intervención al alumno $nombre $apellidos no ha podido registrarse. Error: ".mysqli_error($db_con);
 					else $msg_success = "La intervención ha sido registrada a todos los alumnos de la undidad.";
 				}
 				
-				mysql_free_result($result);
+				mysqli_free_result($result);
 			}
 			else {
 				
@@ -139,10 +139,10 @@ if (isset($_POST['enviar'])) {
 				$nombre = trim($exp_nombre[1]);
 				$claveal = trim($exp_alumno[1]);
 				
-				$result = mysql_query("INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES 
+				$result = mysqli_query($db_con, "INSERT INTO tutoria (apellidos, nombre, tutor, unidad, observaciones, causa, accion, fecha, claveal) VALUES 
 						('".$apellidos."', '".$nombre."', '".$_SESSION['mod_tutoria']['tutor']."', '".$_SESSION['mod_tutoria']['unidad']."', '$observaciones', '$causa', '$accion', '$fecha_sql', '$claveal')");
 						
-				if (!$result) $msg_error = "La intervención no se ha podido registrar. Error: ".mysql_error();
+				if (!$result) $msg_error = "La intervención no se ha podido registrar. Error: ".mysqli_error($db_con);
 				else $msg_success = "La intervención ha sido registrada.";
 			}
 			
@@ -154,9 +154,9 @@ if (isset($_POST['enviar'])) {
 
 // ELIMINAR INTERVENCIÓN
 if (isset($_GET['eliminar']) && isset($_GET['id'])) {
-	$result = mysql_query("DELETE FROM tutoria WHERE id='".$_GET['id']."' LIMIT 1");
+	$result = mysqli_query($db_con, "DELETE FROM tutoria WHERE id='".$_GET['id']."' LIMIT 1");
 	
-	if (!$result) $msg_error = "No se ha podido eliminar la intervención. Error: ".mysql_error();
+	if (!$result) $msg_error = "No se ha podido eliminar la intervención. Error: ".mysqli_error($db_con);
 	else $msg_success = "La intervención ha sido eliminada.";
 }
 
@@ -242,14 +242,14 @@ include("menu.php");
 								<div class="col-sm-7">
 									<div class="form-group">
 									  <label for="alumno">Alumno/a</label>
-									  <?php $result = mysql_query("SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY NC ASC"); ?>
-									  <?php if(mysql_num_rows($result)): ?>
+									  <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY NC ASC"); ?>
+									  <?php if(mysqli_num_rows($result)): ?>
 									  <select class="form-control" id="alumno" name="alumno" onchange="submit()">
 									  	<option value="Todos, todos">Todos los Alumnos</option>
-									  	<?php while($row = mysql_fetch_array($result)): ?>
+									  	<?php while($row = mysqli_fetch_array($result)): ?>
 									  	<option value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']; ?>" <?php echo (isset($alumno) && $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal'] == $alumno) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
 									  	<?php endwhile; ?>
-									  	<?php mysql_free_result($result); ?>
+									  	<?php mysqli_free_result($result); ?>
 									  </select>
 									  <?php else: ?>
 									  <select class="form-control" name="alumno" disabled>
@@ -329,9 +329,9 @@ include("menu.php");
 				<div class="well">
 					<h4>Historial de intervenciones de <?php echo $nombre." ".$apellidos; ?></h4>
 				<?php
-					$result = mysql_query ("SELECT apellidos, nombre, fecha, accion, causa, observaciones, id FROM tutoria WHERE claveal='$claveal' AND prohibido = '0' ORDER BY fecha DESC");
+					$result = mysqli_query($db_con, "SELECT apellidos, nombre, fecha, accion, causa, observaciones, id FROM tutoria WHERE claveal='$claveal' AND prohibido = '0' ORDER BY fecha DESC");
 				
-					if ($row = mysql_fetch_array($result)) {
+					if ($row = mysqli_fetch_array($result)) {
 						echo '<table class="table table-striped">';
 						echo "<thead><tr><th>Fecha</th><th>Tipo</th><th>Causa</th><th></th></tr></thead><tbody>";
 						
@@ -340,10 +340,10 @@ include("menu.php");
 						  $dia3 = explode("-",$row[2]);
 						  $fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 							echo "<tr><td>$fecha3</td><td>$row[3]</a></td><td>$row[4]</a></td><td >
-							<a href='intervencion.php?id=$row[6]' rel='tooltip' title='Ver informe'><i class='fa fa-search fa-lg fa-fw'></i></a>
+							<a href='intervencion.php?id=$row[6]' data-bs='tooltip' title='Ver informe'><i class='fa fa-search fa-lg fa-fw'></i></a>
 							</td></tr>";
 						}
-						while($row = mysql_fetch_array($result));
+						while($row = mysqli_fetch_array($result));
 					
 						echo "</table>";
 					}
@@ -364,8 +364,8 @@ include("menu.php");
 				
 				<legend>Intervenciones registradas</legend>
 				
-				<?php $result = mysql_query("SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha) > '$inicio_curso' ORDER BY apellidos ASC, nombre ASC"); ?>
-				<?php if (mysql_num_rows($result)): ?>
+				<?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha) > '$inicio_curso' ORDER BY apellidos ASC, nombre ASC"); ?>
+				<?php if (mysqli_num_rows($result)): ?>
 				<table class="table table-striped datatable">
 					<thead>
 						<tr>
@@ -375,18 +375,18 @@ include("menu.php");
 						</tr>
 					</thead>
 					<tbody>
-						<?php while ($row = mysql_fetch_array($result)): ?>
-						<?php $result1 = mysql_query("SELECT fecha, id FROM tutoria WHERE claveal = '".$row['claveal']."' AND prohibido = '0' AND unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha)> '$inicio_curso' ORDER BY fecha DESC LIMIT 1"); ?>
-						<?php while ($row1 = mysql_fetch_array($result1)): ?>
+						<?php while ($row = mysqli_fetch_array($result)): ?>
+						<?php $result1 = mysqli_query($db_con, "SELECT fecha, id FROM tutoria WHERE claveal = '".$row['claveal']."' AND prohibido = '0' AND unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha)> '$inicio_curso' ORDER BY fecha DESC LIMIT 1"); ?>
+						<?php while ($row1 = mysqli_fetch_array($result1)): ?>
 						<tr>
 							<td><?php echo $row1['id']; ?></td>
 							<td><a href="intervencion.php?id=<?php echo $row1['id']; ?>"><?php echo ($row['apellidos'] == 'Todos') ? 'Todos los alumnos' : $row['nombre'].' '.$row['apellidos']; ?></a></td>
 							<td><?php echo strftime('%e %b',strtotime($row1['fecha'])); ?></td>
 						</tr>
 						<?php endwhile; ?>
-						<?php mysql_free_result($result1); ?>
+						<?php mysqli_free_result($result1); ?>
 						<?php endwhile; ?>
-						<?php mysql_free_result($result); ?>
+						<?php mysqli_free_result($result); ?>
 					</tbody>
 				</table>
 				

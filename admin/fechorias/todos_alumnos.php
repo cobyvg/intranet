@@ -9,13 +9,13 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 exit();	
 }
 else{
-$todos0 = mysql_query("select distinct claveal from FALUMNOS where unidad = '$unidad'");
-while ($todos = mysql_fetch_array($todos0)) {
+$todos0 = mysqli_query($db_con, "select distinct claveal from FALUMNOS where unidad = '$unidad'");
+while ($todos = mysqli_fetch_array($todos0)) {
 $claveal=$todos[0];	
 
 	
-$alumno = mysql_query(" SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'");
-$rowa = mysql_fetch_array($alumno);
+$alumno = mysqli_query($db_con, " SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'");
+$rowa = mysqli_fetch_array($alumno);
 echo "<div class='oculto'><center><table class='tabla' style='padding:2px 10px;'>";
 $apellidos = trim($rowa[0]);
 $nombre = trim($rowa[1]);
@@ -26,13 +26,13 @@ $tfno_u = trim($rowa[6]);
 // SMS
 if(($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7"))
 {
-$sms_n = mysql_query("select max(id) from sms");
-$n_sms =mysql_fetch_array($sms_n);
+$sms_n = mysqli_query($db_con, "select max(id) from sms");
+$n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 
 if(substr($tfno,0,1)=="6"){$mobile=$tfno;}else{$mobile=$tfno_u;}
 $message = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
-mysql_query("insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')");
+mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')");
 $login=$usuario_smstrend;
 $password=$clave_smstrend;;
 ?>
@@ -64,7 +64,7 @@ $fecha2 = date('Y-m-d');
 $observaciones = $message;
 $accion = "Envío de SMS";
 $causa = "Problemas de convivencia";
-mysql_query("insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('".$apellidos."','".$nombre."','".$informa."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('".$apellidos."','".$nombre."','".$informa."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
 }
 else
 {
@@ -84,7 +84,7 @@ exit();
 $dia = explode("-",$fecha);
 $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 $query="insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula) values ('".$claveal."','".$fecha2."','".$asunto."','".$notas."','".$informa."','".$grave."','".$medida."','".$expulsionaula."')";
-mysql_query($query);
+mysqli_query($db_con, $query);
 }
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -27,15 +27,15 @@ include("../config.php");
 <body>	
 <?
 // Conexion de datos
-mysql_connect ($db_host, $db_user, $db_pass) or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
+$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h4>ATENCIÓN:</h4>
 No ha sido posible conectar con el Servidor de las Bases de datos. Esto quiere decir que los datos que has escrito en la página de configuración (usuario y contraseña para acceder al servidor MySql) no son correctos, o bien que el servidor de MySql no está activado en este momento. Corrige el error e inténtalo de nuevo.
           </div></div>');
 
 // Creamos Base de dtos principal
-mysql_query("CREATE DATABASE IF NOT EXISTS $db");
-mysql_select_db ($db);
+mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS $db");
+mysqli_select_db ($db_con, $db);
 
 // Extructura de FALTAS
 
@@ -43,7 +43,7 @@ mysql_select_db ($db);
 // Estructura de tabla para la tabla `absentismo`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `absentismo` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `absentismo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL DEFAULT '',
   `mes` char(2) NOT NULL DEFAULT '',
@@ -62,7 +62,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `absentismo` (
 // Estructura de tabla para la tabla `actividadalumno`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `actividadalumno` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actividadalumno` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL DEFAULT '',
   `cod_actividad` tinyint(4) NOT NULL DEFAULT '0',
@@ -75,7 +75,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `actividadalumno` (
 // Estructura de tabla para la tabla `actividades`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `actividades` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actividades` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `grupos` text COLLATE latin1_spanish_ci,
   `actividad` varchar(164) NOT NULL DEFAULT '',
@@ -96,7 +96,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `actividades` (
 // Estructura de tabla para la tabla `alumnos`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `alumnos` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `alumnos` (
   `nombre` varchar(71) DEFAULT NULL,
   `unidad` varchar(255) DEFAULT NULL,
   `claveal` varchar(8) DEFAULT NULL
@@ -108,7 +108,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `alumnos` (
 // Estructura de tabla para la tabla `AsignacionMesasTIC`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `AsignacionMesasTIC` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `AsignacionMesasTIC` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `prof` varchar(50) NOT NULL DEFAULT '',
   `c_asig` varchar(6) NOT NULL DEFAULT '',
@@ -126,7 +126,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `AsignacionMesasTIC` (
 // Estructura de tabla para la tabla `asignaturas`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `asignaturas` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `asignaturas` (
   `CODIGO` varchar(10) DEFAULT NULL,
   `NOMBRE` varchar(96) DEFAULT NULL,
   `ABREV` varchar(10) DEFAULT NULL,
@@ -141,7 +141,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `asignaturas` (
 // Estructura de tabla para la tabla `ausencias`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `ausencias` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `ausencias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `profesor` varchar(64) NOT NULL DEFAULT '',
   `inicio` date NOT NULL DEFAULT '0000-00-00',
@@ -159,7 +159,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `ausencias` (
 // Estructura de tabla para la tabla `cal`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `cal` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `cal` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `eventdate` date NOT NULL DEFAULT '0000-00-00',
   `html` tinyint(1) NOT NULL DEFAULT '0',
@@ -176,7 +176,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `cal` (
 // Estructura de tabla para la tabla `calificaciones`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `calificaciones` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calificaciones` (
   `codigo` varchar(5) NOT NULL DEFAULT '',
   `nombre` varchar(64) DEFAULT NULL,
   `abreviatura` varchar(4) DEFAULT NULL,
@@ -190,7 +190,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `calificaciones` (
 // Estructura de tabla para la tabla `cargos`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `cargos` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `cargos` (
   `dni` varchar(9) NOT NULL DEFAULT '',
   `cargo` varchar(8) NOT NULL DEFAULT '0',
   KEY `dni` (`dni`)
@@ -202,7 +202,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `cargos` (
 // Estructura de tabla para la tabla `convivencia`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `convivencia` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `convivencia` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `claveal` int(8) NOT NULL DEFAULT '0',
   `dia` int(1) NOT NULL DEFAULT '0',
@@ -219,7 +219,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `convivencia` (
 // Estructura de tabla para la tabla `c_profes`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `c_profes` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `c_profes` (
   `id` smallint(2) NOT NULL AUTO_INCREMENT,
   `pass` varchar(48) DEFAULT NULL,
   `PROFESOR` varchar(48) DEFAULT NULL,
@@ -231,12 +231,12 @@ mysql_query("CREATE TABLE IF NOT EXISTS `c_profes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // Usuario admin y conntraseña
-$ya_adm = mysql_query("select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
-if (mysql_num_rows($ya_adm)>0) {
+$ya_adm = mysqli_query($db_con, "select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
+if (mysqli_num_rows($ya_adm)>0) {
 }
 else {
 $adm=sha1("12345678");
-mysql_query("INSERT INTO c_profes ( `pass` , `PROFESOR` , `dni`, `idea` )
+mysqli_query($db_con, "INSERT INTO c_profes ( `pass` , `PROFESOR` , `dni`, `idea` )
 VALUES (
 '$adm', 'admin', '12345678', 'admin'
 );");
@@ -246,24 +246,24 @@ VALUES (
 // Conserjes 
 if($num_conserje > '0')
 {
-mysql_select_db($db);
+mysqli_select_db($db_con, $db);
 for($i=1;$i<$num_conserje+1;$i++)
 {
 $conserje = ${'conserje'.$i};
 $dnic = ${'dnic'.$i};
-mysql_query("insert into c_profes (profesor, dni, pass, idea) values ('$conserje', '$dnic', '$dnic','$conserje')");
+mysqli_query($db_con, "insert into c_profes (profesor, dni, pass, idea) values ('$conserje', '$dnic', '$dnic','$conserje')");
 }
 }
 // y Administrativos
 if($num_administ > '0')
 {
-mysql_select_db($db);
+mysqli_select_db($db_con, $db);
 for($i=1;$i<$num_administ+1;$i++)
 {
 $administ = ${'administ'.$i};
 $dnia = ${'dnia'.$i};
 $idea = ${'idea'.$i};
-mysql_query("insert into c_profes (profesor, dni, pass, idea) values ('$administ', '$dnia', '$dnia', '$idea')");
+mysqli_query($db_con, "insert into c_profes (profesor, dni, pass, idea) values ('$administ', '$dnia', '$dnia', '$idea')");
 }
 }
 
@@ -273,7 +273,7 @@ mysql_query("insert into c_profes (profesor, dni, pass, idea) values ('$administ
 // Estructura de tabla para la tabla `datos`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `datos` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `datos` (
   `id` int(4) NOT NULL DEFAULT '0',
   `nota` varchar(5) NOT NULL DEFAULT '',
   `ponderacion` char(3) DEFAULT NULL,
@@ -287,7 +287,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `datos` (
 // Estructura de tabla para la tabla `departamentos`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `departamentos` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `departamentos` (
   `NOMBRE` varchar(48) NOT NULL DEFAULT '',
   `DNI` varchar(10) NOT NULL DEFAULT '',
   `DEPARTAMENTO` varchar(48) NOT NULL DEFAULT '',
@@ -298,35 +298,35 @@ mysql_query("CREATE TABLE IF NOT EXISTS `departamentos` (
 
 
 // Usuario admin y conntraseña
-$ya_adm = mysql_query("select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
-if (mysql_num_rows($ya_adm)>0) {
+$ya_adm = mysqli_query($db_con, "select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
+if (mysqli_num_rows($ya_adm)>0) {
 }
 else {
-mysql_query("insert into departamentos (nombre, dni, departamento, cargo, idea) values ('admin', '12345678', 'Admin', '1', 'admin')");
+mysqli_query($db_con, "insert into departamentos (nombre, dni, departamento, cargo, idea) values ('admin', '12345678', 'Admin', '1', 'admin')");
 }
 
 // Conserjes y Administrativos
 if($num_conserje > '0')
 {
-mysql_query("delete from departamentos where cargo like '%6%'");
-mysql_select_db($db);
+mysqli_query($db_con, "delete from departamentos where cargo like '%6%'");
+mysqli_select_db($db_con, $db);
 for($i=1;$i<$num_conserje+1;$i++)
 {
 $conserje = ${'conserje'.$i};
 $dnic = ${'dnic'.$i};
-mysql_query("insert into departamentos (nombre, dni, departamento, cargo, idea) values ('$conserje', '$dnic', 'Conserjeria', '6', '$conserje')");
+mysqli_query($db_con, "insert into departamentos (nombre, dni, departamento, cargo, idea) values ('$conserje', '$dnic', 'Conserjeria', '6', '$conserje')");
 }
 }
 if($num_administ > '0')
 {
-mysql_query("delete from departamentos where cargo like '%7%'");
-mysql_select_db($db);
+mysqli_query($db_con, "delete from departamentos where cargo like '%7%'");
+mysqli_select_db($db_con, $db);
 for($i=1;$i<$num_administ+1;$i++)
 {
 $administ = ${'administ'.$i};
 $idea = ${'idea'.$i};
 $dnia = ${'dnia'.$i};
-mysql_query("insert into departamentos (nombre, dni, departamento, cargo, idea) values ('$administ', '$dnia', 'Administracion', '7', '$idea')");
+mysqli_query($db_con, "insert into departamentos (nombre, dni, departamento, cargo, idea) values ('$administ', '$dnia', 'Administracion', '7', '$idea')");
 }
 }
 
@@ -336,7 +336,7 @@ mysql_query("insert into departamentos (nombre, dni, departamento, cargo, idea) 
 // Estructura de tabla para la tabla `FALTAS`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `FALTAS` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `FALTAS` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `CLAVEAL` varchar(8) NOT NULL DEFAULT '',
   `UNIDAD` varchar(64) DEFAULT NULL,
@@ -360,7 +360,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FALTAS` (
 // Estructura de tabla para la tabla `FALUMNOS`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `FALUMNOS` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `FALUMNOS` (
   `CLAVEAL` char(12) NOT NULL DEFAULT '',
   `NC` double DEFAULT NULL,
   `APELLIDOS` char(30) DEFAULT NULL,
@@ -376,7 +376,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FALUMNOS` (
 // Estructura de tabla para la tabla `FechCaduca`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `FechCaduca` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `FechCaduca` (
   `id` int(11) NOT NULL DEFAULT '0',
   `fecha` date NOT NULL DEFAULT '0000-00-00',
   `dias` int(7) DEFAULT NULL
@@ -388,7 +388,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FechCaduca` (
 // Estructura de tabla para la tabla `Fechoria`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `Fechoria` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `Fechoria` (
   `CLAVEAL` varchar(12) NOT NULL DEFAULT '',
   `FECHA` date NOT NULL DEFAULT '0000-00-00',
   `ASUNTO` text NOT NULL,
@@ -421,7 +421,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `Fechoria` (
 // Estructura de tabla para la tabla `festivos`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `festivos` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `festivos` (
   `fecha` date NOT NULL DEFAULT '0000-00-00',
   `nombre` varchar(64) NOT NULL DEFAULT '',
   `docentes` char(2) NOT NULL DEFAULT '',
@@ -435,7 +435,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `festivos` (
 // Estructura de tabla para la tabla `fotocopias`
 //
 /*
-mysql_query("CREATE TABLE IF NOT EXISTS `fotocopias` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `fotocopias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(48) NOT NULL DEFAULT '',
   `numero` int(11) NOT NULL DEFAULT '0',
@@ -451,7 +451,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `fotocopias` (
 // Estructura de tabla para la tabla `FTUTORES`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `FTUTORES` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `FTUTORES` (
   `UNIDAD` varchar(64) NOT NULL DEFAULT '',
   `TUTOR` varchar(48) NOT NULL DEFAULT '',
   `observaciones1` text NOT NULL,
@@ -465,7 +465,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `FTUTORES` (
 // Estructura de tabla para la tabla `grupos`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `grupos` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `grupos` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `profesor` varchar(48) NOT NULL DEFAULT '',
   `asignatura` int(6) NOT NULL DEFAULT '0',
@@ -481,7 +481,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `grupos` (
 // Estructura de tabla para la tabla `guardias`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `guardias` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `guardias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `profesor` varchar(64) NOT NULL DEFAULT '',
   `profe_aula` varchar(64) NOT NULL DEFAULT '',
@@ -498,7 +498,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `guardias` (
 // Estructura de tabla para la tabla `hermanos`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `hermanos` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `hermanos` (
   `telefono` varchar(255) DEFAULT NULL,
   `telefonourgencia` varchar(255) DEFAULT NULL,
   `hermanos` bigint(21) NOT NULL DEFAULT '0',
@@ -512,7 +512,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `hermanos` (
 // Estructura de tabla para la tabla `horw`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `horw` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `horw` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dia` char(1) NOT NULL DEFAULT '',
   `hora` char(1) NOT NULL DEFAULT '',
@@ -537,7 +537,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `horw` (
 // Estructura de tabla para la tabla `horw_faltas`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `horw_faltas` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `horw_faltas` (
   `id` int(11) NOT NULL DEFAULT '0',
   `dia` char(1) NOT NULL DEFAULT '',
   `hora` char(1) NOT NULL DEFAULT '',
@@ -561,7 +561,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `horw_faltas` (
 // Estructura de tabla para la tabla `infotut_alumno`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `infotut_alumno` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `infotut_alumno` (
   `ID` smallint(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `CLAVEAL` varchar(12) NOT NULL DEFAULT '',
   `APELLIDOS` varchar(30) NOT NULL DEFAULT '',
@@ -584,7 +584,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `infotut_alumno` (
 // Estructura de tabla para la tabla `infotut_profesor`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `infotut_profesor` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `infotut_profesor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_alumno` int(11) NOT NULL DEFAULT '0',
   `profesor` varchar(48) NOT NULL DEFAULT '',
@@ -600,7 +600,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `infotut_profesor` (
 // Estructura de tabla para la tabla `inventario`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `inventario` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `inventario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `clase` varchar(48) NOT NULL DEFAULT '',
   `lugar` varchar(48) NOT NULL DEFAULT '',
@@ -622,14 +622,14 @@ mysql_query("CREATE TABLE IF NOT EXISTS `inventario` (
 // Estructura de tabla para la tabla `inventario_clases`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `inventario_clases` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `inventario_clases` (
   `id` int(11) NOT NULL auto_increment,
   `familia` varchar(64) collate latin1_spanish_ci NOT NULL default '',
   `clase` varchar(64) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
-mysql_query("INSERT INTO `inventario_clases` (`id`, `familia`, `clase`) VALUES 
+mysqli_query($db_con, "INSERT INTO `inventario_clases` (`id`, `familia`, `clase`) VALUES 
 (0, 'Mobiliario', 'Amarios'),
 (3, 'Mobiliario', 'Estanterías'),
 (5, 'Mobiliario', 'Sillas'),
@@ -677,13 +677,13 @@ mysql_query("INSERT INTO `inventario_clases` (`id`, `familia`, `clase`) VALUES
 (47, 'Equipos de seguridad', 'Otros'),
 (48, 'Otros', 'Varios')");
 
-mysql_query("CREATE TABLE  IF NOT EXISTS `inventario_lugares` (
+mysqli_query($db_con, "CREATE TABLE  IF NOT EXISTS `inventario_lugares` (
   `id` int(11) NOT NULL auto_increment,
   `lugar` varchar(64) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci");
 
-mysql_query("INSERT INTO `inventario_lugares` (`id`, `lugar`) VALUES 
+mysqli_query($db_con, "INSERT INTO `inventario_lugares` (`id`, `lugar`) VALUES 
 (1, 'Aulas planta baja ed. Antiguo.'),
 (2, 'Aulas 1ª planta ed. Antiguo'),
 (3, 'Aulas 2ª planta ed. Antiguo'),
@@ -709,7 +709,7 @@ mysql_query("INSERT INTO `inventario_lugares` (`id`, `lugar`) VALUES
 // Estructura de tabla para la tabla `listafechorias`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `listafechorias` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `listafechorias` (
   `ID` int(4) NOT NULL DEFAULT '0',
   `fechoria` varchar(255) DEFAULT NULL,
   `medidas` varchar(64) DEFAULT NULL,
@@ -720,7 +720,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `listafechorias` (
 
 // Datos de listafechorias
 
-mysql_query("INSERT INTO `listafechorias` (`ID`, `fechoria`, `medidas`, `medidas2`, `tipo`) VALUES 
+mysqli_query($db_con, "INSERT INTO `listafechorias` (`ID`, `fechoria`, `medidas`, `medidas2`, `tipo`) VALUES 
 (2, 'La falta de puntualidad en la entrada a clase', 'Amonestación oral', 'El alumno siempre entrará en el aula. Caso de ser reincidente, se contactará con la familia y se le comunicará al tutor', 'leve'),
 (4, 'La falta de asistencia a clase', 'Llamada telefónica. Comunicación escrita', 'Se contactará con la familia para comunicar el hecho (teléfono o SMS) Grabación de la falta en el módulo informático.  Caso de reincidencia, seguir el protocolo: a) comunicación escrita, b)acuse de recibo, c) traslado del caso a Asuntos Sociales', 'leve'),
 (6, 'Llevar gorra, capucha, etc en el interior del edificio', 'Amonestación oral', 'Hacer que el alumno se quite la gorra o capucha, llegando, si es preciso, a requisar gorra y entregar en Jefatura para que la retire al final de la jornada.', 'leve'),
@@ -779,7 +779,7 @@ mysql_query("INSERT INTO `listafechorias` (`ID`, `fechoria`, `medidas`, `medidas
 // Estructura de tabla para la tabla `materias`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `materias` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `materias` (
   `CODIGO` varchar(10) DEFAULT NULL,
   `NOMBRE` varchar(64) DEFAULT NULL,
   `ABREV` varchar(10) DEFAULT NULL,
@@ -795,7 +795,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `materias` (
 // Estructura de tabla para la tabla `matriculas`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `matriculas` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `matriculas` (
   `id` int(11) NOT NULL auto_increment,
   `claveal` varchar(8) collate latin1_spanish_ci NOT NULL default '',
   `apellidos` varchar(36) collate latin1_spanish_ci NOT NULL default '',
@@ -869,7 +869,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `matriculas` (
 // Estructura de tabla para la tabla `matriculas_bach`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `matriculas_bach` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `matriculas_bach` (
   `id` int(11) NOT NULL auto_increment,
   `claveal` varchar(8) collate latin1_spanish_ci NOT NULL default '',
   `apellidos` varchar(36) collate latin1_spanish_ci NOT NULL default '',
@@ -931,7 +931,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `matriculas_bach` (
 // Estructura de tabla para la tabla `mensajes`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `mensajes` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `mensajes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ahora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dni` varchar(10) NOT NULL DEFAULT '',
@@ -952,7 +952,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `mensajes` (
 // Estructura de tabla para la tabla `mens_profes`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `mens_profes` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `mens_profes` (
   `id_profe` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_texto` int(11) NOT NULL DEFAULT '0',
   `profesor` varchar(42) NOT NULL DEFAULT '0',
@@ -968,7 +968,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `mens_profes` (
 // Estructura de tabla para la tabla `mens_texto`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `mens_texto` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `mens_texto` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ahora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `origen` varchar(42) NOT NULL DEFAULT '0',
@@ -986,7 +986,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `mens_texto` (
 // Estructura de tabla para la tabla `notas`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `notas` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `notas` (
   `claveal` varchar(12) NOT NULL DEFAULT '0',
   `notas1` varchar(200) DEFAULT NULL,
   `notas2` varchar(200) DEFAULT NULL,
@@ -1001,7 +1001,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `notas` (
 // Estructura de tabla para la tabla `notas_cuaderno`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `profesor` varchar(48) NOT NULL DEFAULT '',
   `fecha` date NOT NULL DEFAULT '0000-00-00',
@@ -1023,7 +1023,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
 // Estructura de tabla para la tabla `noticias`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `noticias` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `noticias` (
   `id` int(11) NOT NULL auto_increment,
   `slug` text collate latin1_spanish_ci NOT NULL,
   `content` longtext collate latin1_spanish_ci,
@@ -1041,7 +1041,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `noticias` (
 // Estructura de tabla para la tabla `partestic`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `partestic` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `partestic` (
   `parte` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `unidad` varchar(64) DEFAULT NULL,
   `carro` char(2) DEFAULT NULL,
@@ -1062,7 +1062,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `partestic` (
 // Estructura de tabla para la tabla `profesores`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `profesores` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `profesores` (
   `nivel` varchar(255) DEFAULT NULL,
   `materia` varchar(255) DEFAULT NULL,
   `grupo` varchar(255) DEFAULT NULL,
@@ -1076,7 +1076,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `profesores` (
 // Estructura de tabla para la tabla `reg_intranet`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `reg_intranet` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `reg_intranet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `profesor` varchar(48) NOT NULL DEFAULT '',
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -1090,7 +1090,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `reg_intranet` (
 // Estructura de tabla para la tabla `reg_paginas`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `reg_paginas` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `reg_paginas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_reg` int(11) NOT NULL DEFAULT '0',
   `pagina` text NOT NULL,
@@ -1104,7 +1104,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `reg_paginas` (
 // Estructura de tabla para la tabla `reg_principal`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `reg_principal` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `reg_principal` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pagina` text NOT NULL,
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -1120,7 +1120,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `reg_principal` (
 // Estructura de tabla para la tabla `sistcal`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `sistcal` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `sistcal` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sistcal` varchar(5) NOT NULL DEFAULT '',
   `codigo` varchar(5) NOT NULL DEFAULT '',
@@ -1135,7 +1135,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `sistcal` (
 // Estructura de tabla para la tabla `sms`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `sms` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `sms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `telefono` text NOT NULL,
@@ -1150,7 +1150,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `sms` (
 // Estructura de tabla para la tabla `tareas_alumnos`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `tareas_alumnos` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tareas_alumnos` (
   `ID` smallint(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `CLAVEAL` varchar(12) NOT NULL DEFAULT '',
   `APELLIDOS` varchar(30) NOT NULL DEFAULT '',
@@ -1173,7 +1173,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tareas_alumnos` (
 // Estructura de tabla para la tabla `tareas_profesor`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `tareas_profesor` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tareas_profesor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_alumno` int(11) NOT NULL DEFAULT '0',
   `profesor` varchar(48) NOT NULL DEFAULT '',
@@ -1190,7 +1190,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tareas_profesor` (
 // Estructura de tabla para la tabla `Textos`
 //
 
-mysql_query("
+mysqli_query($db_con, "
 CREATE TABLE IF NOT EXISTS `Textos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Autor` varchar(128) DEFAULT NULL,
@@ -1213,7 +1213,7 @@ CREATE TABLE IF NOT EXISTS `Textos` (
 // Estructura de tabla para la tabla `textos_alumnos`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `textos_alumnos` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `textos_alumnos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `claveal` int(12) NOT NULL DEFAULT '0',
   `materia` int(5) NOT NULL DEFAULT '0',
@@ -1231,7 +1231,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `textos_alumnos` (
 // Estructura de tabla para la tabla `textos_gratis`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `textos_gratis` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `textos_gratis` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `materia` varchar(64) NOT NULL DEFAULT '',
   `isbn` int(10) NOT NULL DEFAULT '0',
@@ -1252,7 +1252,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `textos_gratis` (
 // Estructura de tabla para la tabla `tutoria`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `tutoria` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tutoria` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `claveal` varchar(12) NOT NULL DEFAULT '',
   `apellidos` varchar(42) NOT NULL DEFAULT '',
@@ -1277,7 +1277,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `tutoria` (
 // Estructura de tabla para la tabla `user`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `user` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `user` (
   `id` tinyint(4) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(25) NOT NULL DEFAULT '',
   `password` varchar(50) NOT NULL DEFAULT '',
@@ -1290,7 +1290,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `user` (
 // Estructura de tabla para la tabla `usuarioalumno`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `usuarioalumno` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `usuarioalumno` (
   `usuario` varchar(18) DEFAULT NULL,
   `pass` varchar(16) NOT NULL DEFAULT '',
   `nombre` varchar(48) DEFAULT NULL,
@@ -1306,7 +1306,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `usuarioalumno` (
 // Estructura de tabla para la tabla `usuarioprofesor`
 //
 
-mysql_query("CREATE TABLE IF NOT EXISTS `usuarioprofesor` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `usuarioprofesor` (
   `usuario` varchar(16) DEFAULT NULL,
   `nombre` varchar(64) DEFAULT NULL,
   `perfil` varchar(10) DEFAULT NULL,
@@ -1318,14 +1318,14 @@ mysql_query("CREATE TABLE IF NOT EXISTS `usuarioprofesor` (
 
 // Creamos Base de dtos principal
 
-mysql_query("CREATE DATABASE IF NOT EXISTS reservas");
-mysql_select_db ($db_reservas);
+mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS reservas");
+mysqli_select_db ($db_con, $db_reservas);
 
 for($ci=1;$ci<$num_aula+1;$ci++){
 
 // Tabla de Aulas
 
-mysql_query("CREATE TABLE IF NOT EXISTS `aula".$ci."` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `aula".$ci."` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `eventdate` date default NULL,
   `dia` tinyint(1) NOT NULL default '0',
@@ -1343,7 +1343,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `aula".$ci."` (
 
 // Estructura de tabla para la tabla `aulahor`
 
-mysql_query("CREATE TABLE IF NOT EXISTS `aula".$ci."hor` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `aula".$ci."hor` (
   `dia` tinyint(1) NOT NULL default '0',
   `hora1` varchar(24) default NULL,
   `hora2` varchar(24) default NULL,
@@ -1360,7 +1360,7 @@ for($ci=1;$ci<$num_medio+1;$ci++){
 
 // Tabla de Medios
 
-mysql_query("CREATE TABLE IF NOT EXISTS `medio".$ci."` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `medio".$ci."` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `eventdate` date default NULL,
   `dia` tinyint(1) NOT NULL default '0',
@@ -1378,7 +1378,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `medio".$ci."` (
 
 // Estructura de tabla para la tabla `mediohor`
 
-mysql_query("CREATE TABLE IF NOT EXISTS `medio".$ci."hor` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `medio".$ci."hor` (
   `dia` tinyint(1) NOT NULL default '0',
   `hora1` varchar(24) default NULL,
   `hora2` varchar(24) default NULL,
@@ -1395,7 +1395,7 @@ for($ci=1;$ci<$num_carrito+1;$ci++){
 
 // Tabla de Carritos
 
-mysql_query("CREATE TABLE IF NOT EXISTS `carrito".$ci."` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `carrito".$ci."` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `eventdate` date default NULL,
   `dia` tinyint(1) NOT NULL default '0',
@@ -1414,7 +1414,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS `carrito".$ci."` (
 
 // Tabla de Usuarios TIC
 
-mysql_query("CREATE TABLE IF NOT EXISTS `usuario` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `usuario` (
   `profesor` varchar(48) NOT NULL default '',
   `c1` smallint(3) default NULL,
   `c2` smallint(3) default NULL,

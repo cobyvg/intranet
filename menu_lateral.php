@@ -38,45 +38,6 @@ switch (substr($codigo_postal_del_centro,0,2)) {
 //	de acceso que el item padre.
 //
 
-switch (substr($codigo_postal_del_centro,0,2)) {
-	// Almería
-	case '04' : $web_delegacion = '436'; break;
-	// Cádiz
-	case '11' : $web_delegacion = '437'; break;
-	// Córdoba
-	case '14' : $web_delegacion = '438'; break;
-	// Granada
-	case '18' : $web_delegacion = '439'; break;
-	// Huelva
-	case '21' : $web_delegacion = '440'; break;
-	// Jaén
-	case '23' : $web_delegacion = '441'; break;
-	// Málaga
-	case '29' : $web_delegacion = '442'; break;
-	// Sevilla
-	case '41' : $web_delegacion = '443'; break;
-}
-
-//	VALORES DEL MENU
-//	-----------------------------------------------------------------------------------------------------
-//	menu_id						(string) Identificador del menú
-//	nombre						(string) Nombre del menú
-//	cargos						(array) ID de los cargos con privilegios para visualizar el menu
-//	ncargos						(array) ID de los cargos sin privilegios para visualizar el menu
-//	modulo						(boolean) Valor del módulo del que depende el menú
-//	meses							(array) Número del mes cuando está disponible el menú (sin 0 iniciales)
-//	items							(array) Opciones del menú
-//	items -> href			(string) URI de la página
-//	items -> titulo		(string) Título de la página
-//	items -> cargos		(array) ID de los cargos con privilegios para visualizar la opción del menú
-//	items -> ncargos	(array) ID de los cargos sin privilegios para visualizar la opción del menú
-//	items -> modulo	(boolean) Valor del módulo del que depende la opción del menú
-//	items -> meses		(array) Número del mes cuando está disponible la opción del menú (sin 0 iniciales)
-//
-//	Se puede realizar menus anidados en un item, estos submenus permiten las mismas acciones de control
-//	de acceso que el item padre.
-//
-
 $menu = array(
 	array(
 		'menu_id' => 'direccion',
@@ -544,8 +505,8 @@ $menu = array(
 				'target' => '_blank',
 			),
 			array(
-				'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/'.$codigo_del_centro.'/moodle/',
-				'titulo' => 'Plataforma Moodle',
+				'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/'.$codigo_del_centro.'/',
+				'titulo' => 'Recursos educativos del centro',
 				'target' => '_blank',
 			),
 			array(

@@ -3,8 +3,8 @@ ini_set("memory_limit","1024M");
 session_start();
 include("../../config.php");
 // Conexión con MySql
-mysql_connect($db_host, $db_user, $db_pass);
-mysql_select_db($db);
+$db_con = mysqli_connect($db_host, $db_user, $db_pass);
+mysqli_select_db($db_con, $db);
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -127,8 +127,8 @@ function codigo_control($x){
 		return (chr($codigo+70));
 	}
 }
-	$bib = mysql_query("select * from biblioteca_lectores");
-	$n_bib = mysql_num_rows($bib);
+	$bib = mysqli_query($db_con, "select * from biblioteca_lectores");
+	$n_bib = mysqli_num_rows($bib);
 	//echo $n_bib;
 ############### Abrimos la base de datos y creamos la consulta
 if (strlen($_POST['alumnos'])>0) {
@@ -186,8 +186,8 @@ ORDER BY Apellidos ASC ";
 	}
 	}
 //	echo $query_Recordset1;
-$Recordset1 = mysql_query($query_Recordset1) or die(mysql_error("No es posible conectar"));  #crea la consulata
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);  #cantidad de registros
+$Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error("No es posible conectar"));  #crea la consulata
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);  #cantidad de registros
 
 $pdf=new PDF();
 $curso='Curso '.$curso_actual;
@@ -200,7 +200,7 @@ $pdf->AddPage();
 $pdf->AddFont('c128ab');
 $n=1; # carnet nº 1
 
-while ($row_Recordset1 = mysql_fetch_array($Recordset1)){
+while ($row_Recordset1 = mysqli_fetch_array($Recordset1)){
 $fecha0 = str_replace("/","-",$row_Recordset1[4]);
 $tr = explode("-",$fecha0);
 $fecha = "$tr[2]-$tr[1]-$tr[0]";
@@ -306,6 +306,6 @@ if ($n%10==1){		#cada 10 carnets empezamos en la página siguiente
 
 $pdf->Output();
 
-mysql_free_result($Recordset1);
+mysqli_free_result($Recordset1);
 ?>
                                                                                

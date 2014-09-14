@@ -46,14 +46,14 @@ $nombre_comp = $trozos[0];
 $trozos1 = explode (", ", $nombre_comp);
 $apellidos = $trozos1[0];
 $nombre = $trozos1[1];
-$falumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad, matriculas, COMBASI FROM alma WHERE claveal ='$claveal'");
-$dalumno = mysql_fetch_array($falumno);
+$falumno=mysqli_query($db_con, "SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad, matriculas, COMBASI FROM alma WHERE claveal ='$claveal'");
+$dalumno = mysqli_fetch_array($falumno);
 $asignaturas=chunk_split($dalumno[5],3,"-");
 $asig=explode("-",$asignaturas);
 $hoy = date('Y\-m\-d');
 
-$duplicado = mysql_query("select claveal from infotut_alumno where claveal = '$claveal' and f_entrev = '$fecha'");
-if(mysql_num_rows($duplicado)>0)
+$duplicado = mysqli_query($db_con, "select claveal from infotut_alumno where claveal = '$claveal' and f_entrev = '$fecha'");
+if(mysqli_num_rows($duplicado)>0)
 {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -67,9 +67,9 @@ echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" 
 exit;
 }
 
- $insertar=mysql_query("INSERT infotut_alumno (CLAVEAL,APELLIDOS,NOMBRE,unidad,F_ENTREV,TUTOR,FECHA_REGISTRO)
+ $insertar=mysqli_query($db_con, "INSERT infotut_alumno (CLAVEAL,APELLIDOS,NOMBRE,unidad,F_ENTREV,TUTOR,FECHA_REGISTRO)
 VALUES ('$dalumno[0]',\"$dalumno[1]\",'$dalumno[2]','$dalumno[3]',
-'$fecha','".$_POST['tutor']."', '$hoy')") or die ("Error en la activación del informe: " . mysql_error());
+'$fecha','".$_POST['tutor']."', '$hoy')") or die ("Error en la activación del informe: " . mysqli_error($db_con));
 
  echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>';

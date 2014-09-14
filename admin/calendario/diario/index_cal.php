@@ -57,14 +57,14 @@ include("menu.php");
 							<div class="col-sm-12">
 								<div class="form-group">
 								  
-									<?php $result = mysql_query("SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
-									<?php if(mysql_num_rows($result)): ?>
+									<?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
+									<?php if(mysqli_num_rows($result)): ?>
 									<select class="form-control" id="curso" name="curso">
 										<option></option>
-										<?php while($row = mysql_fetch_array($result)): ?>
+										<?php while($row = mysqli_fetch_array($result)): ?>
 										<option value="<?php echo $row['unidad']; ?>" <?php echo ($row['unidad'] == $curso) ? 'selected' : ''; ?>><?php echo $row['unidad']; ?></option>
 										<?php endwhile; ?>
-										<?php mysql_free_result($result); ?>
+										<?php mysqli_free_result($result); ?>
 									</select>
 									<?php else: ?>
 									<select class="form-control" name="curso" disabled>
@@ -95,7 +95,7 @@ include("menu.php");
 	
 	<div class="row">
 		<div class="col-sm-8">
-			<?php $result = mysql_query("SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE grupo like '%".$curso."%'"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE grupo like '%".$curso."%'"); ?>
 			<table class="table table-striped">
 				<thead>
 					<th>Fecha</th>
@@ -104,7 +104,7 @@ include("menu.php");
 					<th>Título</th>
 				</thead>
 				<tbody>
-					<?php while ($row = mysql_fetch_array($result)): ?>
+					<?php while ($row = mysqli_fetch_array($result)): ?>
 					<tr>
 						<td nowrap><?php echo $row[1]; ?></td>
 						<td><?php echo $row[2]; ?></td>

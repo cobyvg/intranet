@@ -28,15 +28,15 @@ if (isset($_GET['pra'])) {$pra = $_GET['pra'];}elseif (isset($_POST['pra'])) {$p
 
 
 
-$result = mysql_query("SHOW COLUMNS FROM ausencias"); 
+$result = mysqli_query($db_con, "SHOW COLUMNS FROM ausencias"); 
 
 $fieldnames=array(); 
-if (mysql_num_rows($result) > 0) { 
-	while ($row = mysql_fetch_assoc($result)) { 
+if (mysqli_num_rows($result) > 0) { 
+	while ($row = mysqli_fetch_assoc($result)) { 
 	 $fieldnames[] = $row['Field']; 
 	} 
   if ($fieldnames[7] != "archivo") {
-  	mysql_query("ALTER TABLE  `ausencias` ADD  `archivo` VARCHAR( 186 ) NOT NULL");
+  	mysqli_query($db_con, "ALTER TABLE  `ausencias` ADD  `archivo` VARCHAR( 186 ) NOT NULL");
   } 
 } 
 
@@ -55,7 +55,7 @@ include("../../menu.php");
 
 <?php 
 if ($borrar == '1') {
-	$del = mysql_query("delete from ausencias where id = '$id'");
+	$del = mysqli_query($db_con, "delete from ausencias where id = '$id'");
 	echo '
 <div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -70,10 +70,10 @@ if (isset($_POST['submit2'])) {
 	$fin1 = "$fech2[2]-$fech2[1]-$fech2[0]";
 	// Comprobamos datos enviados
 	if ($profesor and $inicio and $fin) {
-		$ya = mysql_query("select * from ausencias where profesor = '$profesor' and inicio = '$inicio1' and fin = '$fin1'");
-		if (mysql_num_rows($ya) > '0') {
-			$ya_hay = mysql_fetch_array($ya);
-			$actualiza = mysql_query("update ausencias set tareas = '$tareas', horas = '$horas' where id = '$ya_hay[0]'");
+		$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$profesor' and inicio = '$inicio1' and fin = '$fin1'");
+		if (mysqli_num_rows($ya) > '0') {
+			$ya_hay = mysqli_fetch_array($ya);
+			$actualiza = mysqli_query($db_con, "update ausencias set tareas = '$tareas', horas = '$horas' where id = '$ya_hay[0]'");
 			echo '<div align="center"><div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han actualizado correctamente.
@@ -93,7 +93,7 @@ Los datos se han actualizado correctamente.
           </div>';
 				}
 				}
-				$inserta = mysql_query("insert into ausencias VALUES ('', '$profesor', '$inicio1', '$fin1', '$horas', '$tareas', NOW(), '$nombre_archivo')");
+				$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$profesor', '$inicio1', '$fin1', '$horas', '$tareas', NOW(), '$nombre_archivo')");
 				echo '<div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han registrado correctamente.
@@ -136,8 +136,8 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 						else{
 							echo "<option></option>";
 						}
-						$profe = mysql_query("SELECT distinct profesor FROM profesores order by profesor asc");
-						while($filaprofe = mysql_fetch_array($profe)) {
+						$profe = mysqli_query($db_con, "SELECT distinct profesor FROM profesores order by profesor asc");
+						while($filaprofe = mysqli_fetch_array($profe)) {
 							echo "<option>$filaprofe[0]</option>";
 						}
 						echo "</select>";
@@ -184,7 +184,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 				</div>
 				
 				<div class="form-group">
-					<label for="horas">Horas sueltas <span class="fa fa-question-circle fa-fw" rel="tooltip" title="Escribe las horas concretas en las que vas a estar ausente y una detrás de otra. De este modo, si escribes '456' quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día."></span></label>
+					<label for="horas">Horas sueltas <span class="fa fa-question-circle fa-fw" data-bs="tooltip" title="Escribe las horas concretas en las que vas a estar ausente y una detrás de otra. De este modo, si escribes '456' quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día."></span></label>
 					<input type="text" class="form-control" id="horas" name="horas" value="<? echo (isset($horas) && $horas) ? $horas : ''; ?>">
 				</div>
 				
@@ -228,8 +228,8 @@ if ($profesor) {
 	}
 	echo "</tr></thead><tbody>";
 	// Consulta de datos del alumno.
-	$result = mysql_query ( "select inicio, fin, tareas, id, horas from ausencias where profesor = '$profesor' order by fin desc" );
-	while ( $row = mysql_fetch_array ( $result ) ) {
+	$result = mysqli_query($db_con, "select inicio, fin, tareas, id, horas from ausencias where profesor = '$profesor' order by fin desc" );
+	while ( $row = mysqli_fetch_array ( $result ) ) {
 		$tr='';
 		if ($row[4] == '0') {$horas1 = '';}else{$horas1 = $row[4];}
 		if (strlen($row[2]) > '0') {$tr = 'Sí';}
@@ -267,8 +267,8 @@ if ($profesor) {
 						</tr>
 					</thead>
 					<tbody>
-						<?php $result = mysql_query("SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias ORDER BY fin DESC LIMIT 50"); ?>
-						<?php while ($row = mysql_fetch_array($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias ORDER BY fin DESC LIMIT 50"); ?>
+						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
 							<td nowrap><a href='index.php?pra=<?php echo $row['profesor']; ?>#history'><?php echo $row['profesor']; ?></a></td>
 							<td nowrap><?php echo $row['inicio']; ?></td>
@@ -278,7 +278,7 @@ if ($profesor) {
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
-									<span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar"></span>
+									<span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Borrar"></span>
 								</a>
 							</td>
 							<?php endif; ?>
@@ -317,8 +317,8 @@ if ($profesor) {
 						</tr>
 					</thead>
 					<tbody>
-						<?php $result = mysql_query("SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias WHERE profesor = '$profesor' ORDER BY fin ASC"); ?>
-						<?php while ($row = mysql_fetch_array($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias WHERE profesor = '$profesor' ORDER BY fin ASC"); ?>
+						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
 							<td nowrap><?php echo $row['inicio']; ?></td>
 							<td nowrap><?php echo $row['fin']; ?></td>
@@ -327,7 +327,7 @@ if ($profesor) {
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
-									<span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar"></span>
+									<span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Borrar"></span>
 								</a>
 							</td>
 							<?php endif; ?>
@@ -366,8 +366,8 @@ if ($profesor) {
 						</tr>
 					</thead>
 					<tbody>
-						<?php $result = mysql_query("SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias WHERE profesor = '$pra' ORDER BY fin ASC"); ?>
-						<?php while ($row = mysql_fetch_array($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias WHERE profesor = '$pra' ORDER BY fin ASC"); ?>
+						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
 							<td nowrap><?php echo $row['inicio']; ?></td>
 							<td nowrap><?php echo $row['fin']; ?></td>
@@ -376,7 +376,7 @@ if ($profesor) {
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
-									<span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar"></span>
+									<span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Borrar"></span>
 								</a>
 							</td>
 							<?php endif; ?>

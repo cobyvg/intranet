@@ -25,15 +25,15 @@ $PLUGIN_DATATABLES = 1;
 <?
   if($confirmado == '1')
   {
-  mysql_query("UPDATE  actividades SET  confirmado =  '1' WHERE id = '$id'");
+  mysqli_query($db_con, "UPDATE  actividades SET  confirmado =  '1' WHERE id = '$id'");
 echo '<br /><div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido confirmada por la Autoridad.
           </div></div>';  
   }
   if ($_GET['eliminar']=='1') {
-  	mysql_query("delete from actividades where id = '".$_GET['id']."'");
-  	if (mysql_affected_rows()>'0') {
+  	mysqli_query($db_con, "delete from actividades where id = '".$_GET['id']."'");
+  	if (mysqli_affected_rows()>'0') {
     	echo '<br /><div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad ha sido borrada correctamente.
@@ -52,8 +52,8 @@ echo '<br /><div><div class="alert alert-success alert-block fade in">
 <div class="col-md-12">
 <?
   $datos0 = "select * from actividades where id = '$id'";
-  $datos1 = mysql_query($datos0);
-  $datos = mysql_fetch_array($datos1);
+  $datos1 = mysqli_query($db_con, $datos0);
+  $datos = mysqli_fetch_array($datos1);
   $fecha0 = explode("-",$datos[7]);
   $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
   $fecha1 = explode("-",$datos[8]);
@@ -119,8 +119,8 @@ if($expresion){
 	$extra = " and (actividad like '%$expresion%' or descripcion like '%$expresion%') ";
 }
 $meses = "select distinct month(fecha) from actividades where 1=1 $extra order by fecha";
-$meses0 = mysql_query($meses);
-while ($mes = mysql_fetch_array($meses0))
+$meses0 = mysqli_query($db_con, $meses);
+while ($mes = mysqli_fetch_array($meses0))
 {
 $mes1 = $mes[0];
   if($mes1 ==  "01") $mes2 = "Enero";
@@ -135,8 +135,8 @@ $mes1 = $mes[0];
   if($mes1 ==  "12") $mes2 = "Diciembre";
 
 $datos0 = "select * from actividades where month(fecha) = '$mes1' $extra order by fecha";
-  $datos1 = mysql_query($datos0);
-while($datos = mysql_fetch_array($datos1))
+  $datos1 = mysqli_query($db_con, $datos0);
+while($datos = mysqli_fetch_array($datos1))
 {
 if(strlen($datos[1]) > 96){
 $gr1 = substr($datos[1],0,48)."<br>";
@@ -163,17 +163,17 @@ $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
     <td><? echo $datos[4];?></td>
     <td nowrap><? echo $datos[7];?></td>
 	<td><? echo $mes2;?></td>
-    <td nowrap><a href="consulta.php?id=<? echo $datos[0];?>&detalles=1" rel="tooltip" title="Detalles"><span class="fa fa-search fa-fw fa-lg"></span></a>
+    <td nowrap><a href="consulta.php?id=<? echo $datos[0];?>&detalles=1" data-bs="tooltip" title="Detalles"><span class="fa fa-search fa-fw fa-lg"></span></a>
     <?
     //echo $_SESSION['depto'] ."== $datos[4]";
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE){
-			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" rel="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>';	
-			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" rel="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
+			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>';	
+			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 }
 elseif ($_SESSION['depto'] == $datos[4]){	 
 		if(stristr($_SESSION['cargo'],'4') == TRUE){
-			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" rel="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
-			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" rel="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
+			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" data-bs="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
+			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" data-bs="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 	}
 }
 	?>

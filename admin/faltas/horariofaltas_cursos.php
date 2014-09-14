@@ -40,11 +40,11 @@ if($dia1=='Viernes'){$dia = "5";}
 		
 $sqldatos="SELECT concat(apellidos,', ',nombre), NC FROM FALUMNOS WHERE unidad='$unidad ' ORDER BY NC";
 //echo $sqldatos;
-$lista= mysql_query($sqldatos );
+$lista= mysqli_query($db_con, $sqldatos );
 $num=0;
 unset($data);
 $ixx = 0;
-while($datatmp = mysql_fetch_array($lista)) { 
+while($datatmp = mysqli_fetch_array($lista)) { 
 	$ixx = $datatmp[1];
 	$data[] = array(
 				'num'=>$ixx,
@@ -60,8 +60,8 @@ for($i=1;$i<7;$i++){
 $curso0 = $unidad;
 $rowasignaturas1="";
 ${'a'.$i}="";
-$asignaturas1 = mysql_query("SELECT distinct a_asig FROM horw where  dia= '$dia' and hora = '$i' and a_grupo like '%$curso0%'");
- 	while ( $rowasignaturas1 = mysql_fetch_array($asignaturas1)){	
+$asignaturas1 = mysqli_query($db_con, "SELECT distinct a_asig FROM horw where  dia= '$dia' and hora = '$i' and a_grupo like '%$curso0%'");
+ 	while ( $rowasignaturas1 = mysqli_fetch_array($asignaturas1)){	
 		${'a'.$i}.= $rowasignaturas1[0]."\n"; 
  }
  ${'a'.$i}=substr(${'a'.$i},0,strlen(${'a'.$i})-1);

@@ -72,9 +72,9 @@ include("menu.php");
 				
 				<br>
 				
-				<?php $result = mysql_query("SELECT id, slug, timestamp, contact, pagina FROM noticias $sql_where ORDER BY timestamp DESC"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT id, slug, timestamp, contact, pagina FROM noticias $sql_where ORDER BY timestamp DESC"); ?>
 				
-				<?php if (mysql_num_rows($result)): ?>
+				<?php if (mysqli_num_rows($result)): ?>
 					
 					<style class="text/css">
 						a.link-msg, a.link-msg:hover { color: #444; display: block; text-decoration:none; }
@@ -94,22 +94,22 @@ include("menu.php");
 								</tr>
 							</thead>
 							<tbody>
-								<?php while ($row = mysql_fetch_array($result)): ?>
+								<?php while ($row = mysqli_fetch_array($result)): ?>
 									<tr>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['id']; ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['slug']) > 60) ? substr($row['slug'],0,60).'...' : $row['slug']; ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['timestamp'])); ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['contact']; ?></a></td>
 										<td class="text-center">
-											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-star' : 'fa-star-o'; ?> fa-lg" rel="tooltip" title="Publicada en la intranet"></span>
+											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-star' : 'fa-star-o'; ?> fa-lg" data-bs="tooltip" title="Publicada en la intranet"></span>
 										</td>
 										<td class="text-center">
-											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-star' : 'fa-star-o'; ?> fa-lg" rel="tooltip" title="Publicada en la página externa"></span>
+											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-star' : 'fa-star-o'; ?> fa-lg" data-bs="tooltip" title="Publicada en la página externa"></span>
 										</td>
 										<td nowrap>
 											<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $_SESSION['profi'] == $row['contact']): ?>
-											<a href="redactar.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" rel="tooltip" title="Editar"></span></a>
-											<a href="index.php?id=<?php echo $row['id']; ?>&timestamp=<?php echo $row['timestamp']; ?>&borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Eliminar"></span></a>
+											<a href="redactar.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>
+											<a href="index.php?id=<?php echo $row['id']; ?>&timestamp=<?php echo $row['timestamp']; ?>&borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Eliminar"></span></a>
 											<?php endif; ?>
 										</td>
 									</tr>
@@ -119,13 +119,13 @@ include("menu.php");
 						<tfoot>
 							<tr>
 								<td colspan="5">
-									<div class="text-right text-muted">Total: <?php echo mysql_num_rows($result); ?> resultados</div>
+									<div class="text-right text-muted">Total: <?php echo mysqli_num_rows($result); ?> resultados</div>
 								</td>
 							</tr>
 						</tfoot>
 					</div>
 					
-					<?php mysql_free_result($result); ?>
+					<?php mysqli_free_result($result); ?>
 					
 				<?php else: ?>
 					
