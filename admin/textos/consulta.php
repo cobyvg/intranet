@@ -145,8 +145,8 @@ include 'menu.php';
 							<td><?php echo $row['grupo']; ?></td>
 							<?php if((stristr($_SESSION['cargo'],'1') == true) || ((stristr($_SESSION['cargo'],'4') == true) && ($_SESSION['depto'] == $row['departamento']))): ?>
 							<td nowrap>
-								<a href="editextos.php?id=<?php echo $row['id']; ?>" rel="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>
-								<a href="textos.php?action=delete&id=<?php echo $row['id']; ?>" rel="tooltip" title="Eliminar" data-bb='confirm-delete'><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+								<a href="editextos.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>
+								<a href="textos.php?action=delete&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar" data-bb='confirm-delete'><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 							</td>
 							<?php endif; ?>
 						</tr>

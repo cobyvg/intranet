@@ -259,9 +259,9 @@ mysql_query("create table if not exists Fechcaduca select id, fecha, TO_DAYS(now
 		<td nowrap>$caducada</td>
 		<td nowrap>$comentarios1</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='fechorias.php?id=$id&borrar=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar'></i></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil fa-fw fa-lg' rel='tooltip' title='Editar'></i></A>";}	
-		echo "<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-user fa-fw fa-lg' rel='tooltip' title='Historial del alumno'></span></a>
-		 <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles del problema e historial de problemas del alumno'></i></A></td>
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='fechorias.php?id=$id&borrar=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></i></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil fa-fw fa-lg' data-bs='tooltip' title='Editar'></i></A>";}	
+		echo "<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-user fa-fw fa-lg' data-bs='tooltip' title='Historial del alumno'></span></a>
+		 <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles del problema e historial de problemas del alumno'></i></A></td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";
 		if (stristr($_SESSION['cargo'],'1')) {

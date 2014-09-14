@@ -184,7 +184,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 	<td nowrap>$row[0]</td>
 	<td>$row[1]</td>
 	<td>$row[2]</td>
-	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' rel='tooltip' title='Detalles'><i class='fa fa-search fa-fw fa-lg'></i></a><a href='delfechorias.php?id= $row[3]' rel='tooltip' title='Eliminar'><i class='fa fa-trash-o fa-fw fa-lg'></i></a></td>
+	<td nowrap><a href='detfechorias.php?id= $row[3]&claveal=$claveal' data-bs='tooltip' title='Detalles'><i class='fa fa-search fa-fw fa-lg'></i></a><a href='delfechorias.php?id= $row[3]' data-bs='tooltip' title='Eliminar'><i class='fa fa-trash-o fa-fw fa-lg'></i></a></td>
 	</tr>";
 	}
 	echo "</table>\n";

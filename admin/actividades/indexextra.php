@@ -216,18 +216,18 @@ $datos[2]= str_replace("\\","",$datos[2]);
     <td><? echo $mes2;?></td>
     <td>
     	<? if($autoriz=="1"){ ?>
-    	<span class="fa fa-check-square-o fa-fw fa-lg" rel="tooltip" title="Autorizado"></span>
+    	<span class="fa fa-check-square-o fa-fw fa-lg" data-bs="tooltip" title="Autorizado"></span>
     	<? }else{ ?> 
-    	<span class="fa fa-square-o fa-fw fa-lg" rel="tooltip" title="No autorizado"></span>
+    	<span class="fa fa-square-o fa-fw fa-lg" data-bs="tooltip" title="No autorizado"></span>
     	<? } ?>
     </td>
-    <td nowrap><a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1" rel="tooltip" title="Detalles"><span class="fa fa-search fa-fw fa-lg"></span></a>
+    <td nowrap><a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1" data-bs="tooltip" title="Detalles"><span class="fa fa-search fa-fw fa-lg"></span></a>
       <?
 	if((stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE)){
 ?>
   
    <? if($autoriz=="1"){}else{ ?> 
-    <a href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1" rel="tooltip" title="Autorizar"><span class="fa fa-check-circle fa-fw fa-lg"></span></a>
+    <a href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1" data-bs="tooltip" title="Autorizar"><span class="fa fa-check-circle fa-fw fa-lg"></span></a>
     <? } ?>
     
 			<? 
@@ -239,15 +239,15 @@ $datos[2]= str_replace("\\","",$datos[2]);
 			if(ereg($cal_idact, $br)) {$si = "1";} else{$si = "0";}
 			$n_idact = strstr($br,$cal_idact);
 			// No hay nada registrado para ese día en el Calendario
-			if(strlen($id[0]) == 0){echo " <a href='indexextra.php?id=$datos[0]&calendario=1' rel='tooltip' title='Añadir al calendario'><span class='fa fa-calendar fa-fw fa-lg'></span></a>";}
+			if(strlen($id[0]) == 0){echo " <a href='indexextra.php?id=$datos[0]&calendario=1' data-bs='tooltip' title='Añadir al calendario'><span class='fa fa-calendar fa-fw fa-lg'></span></a>";}
 			// hay datos en el Calendario pero la actividad no ha sido registrada.	
-			if(strlen($id[0]) > 0 and ($si == "0")){echo " <a href='indexextra.php?id=$datos[0]&act_calendario=1' rel='tooltip' title='Actualizar calendario'><span class='fa fa-refresh fa-fw fa-lg'></span></a>";}?>
+			if(strlen($id[0]) > 0 and ($si == "0")){echo " <a href='indexextra.php?id=$datos[0]&act_calendario=1' data-bs='tooltip' title='Actualizar calendario'><span class='fa fa-refresh fa-fw fa-lg'></span></a>";}?>
 			
 			<?
 			// echo  $_SESSION['dpt']." == ".$datos[4];
 			if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 			?>  
-			<a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1" rel="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+			<a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1" data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 			<? } ?>
     
 	  </td>

@@ -100,12 +100,12 @@ include("menu.php");
 								<td><?php echo $row['descripcion']; ?></td>
 								<td><?php echo $row['profesor']; ?></td>
 								<td>
-									<?php echo ($row['estado'] == 'activo' || $row['estado'] == 'Activo') ? '<span class="fa fa-exclamation-triangle fa-fw fa-lg" rel="tooltip" title="Pendiente"></span>' : ''; ?>
-									<?php echo ($row['estado'] == 'solucionado' || $row['estado'] == 'Solucionado') ? '<span class="fa fa-check-circle fa-fw fa-lg" rel="tooltip" title="Solucionado"></span>' : ''; ?>
+									<?php echo ($row['estado'] == 'activo' || $row['estado'] == 'Activo') ? '<span class="fa fa-exclamation-triangle fa-fw fa-lg" data-bs="tooltip" title="Pendiente"></span>' : ''; ?>
+									<?php echo ($row['estado'] == 'solucionado' || $row['estado'] == 'Solucionado') ? '<span class="fa fa-check-circle fa-fw fa-lg" data-bs="tooltip" title="Solucionado"></span>' : ''; ?>
 								</td>
 								<td nowrap>
-									<a href="index.php?id=<?php echo $row['parte']; ?>"><span class="fa fa-edit fa-fw fa-lg" rel="tooltip" title="Editar"></span></a>
-									<a href="incidencias.php?parte=<?php echo $row['parte']; ?>&borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Eliminar"></span></a>
+									<a href="index.php?id=<?php echo $row['parte']; ?>"><span class="fa fa-edit fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>
+									<a href="incidencias.php?parte=<?php echo $row['parte']; ?>&borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Eliminar"></span></a>
 								</td>
 							</tr>
 							<?php endwhile; ?>

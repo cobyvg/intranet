@@ -93,7 +93,7 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 	}
 	elseif ($zz == $today) { 
 		//Marcar días actuales
-    echo "<td class=\"calendar-today\"><span rel='tooltip' title='Hoy'>$zz</span></td>\n";
+    echo "<td class=\"calendar-today\"><span data-bs='tooltip' title='Hoy'>$zz</span></td>\n";
 		$result_found = 1;
 	}
 	if ($result_found != 1) { //Buscar actividad para el día y marcarla
@@ -114,7 +114,7 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 			if (strlen ( $row ["title"] )>0 ) {
 			$bg = "calendar-orange";
 			$rel = "Actividad en el Calendario del Centro:<br> ".$row ["title"];				
-			$celda =  "<td class=\"$bg\"><span  rel='tooltip' data-html='true' title='".$rel."'>$zz</span></td>\n";
+			$celda =  "<td class=\"$bg\"><span  data-bs='tooltip' data-html='true' title='".$rel."'>$zz</span></td>\n";
 			$result_found = 1;
 			}
 		}	
@@ -125,7 +125,7 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 			}
 				$bg = "calendar-blue";
 				$rel = "Actividad en el Calendario personal:<br> $reg_diario";
-				$celda =  "<td class=\"$bg\"><span  rel='tooltip' data-html='true' title='".$rel."'>$zz</span></td>";
+				$celda =  "<td class=\"$bg\"><span  data-bs='tooltip' data-html='true' title='".$rel."'>$zz</span></td>";
 				$result_found = 1;
 		}
 		else{
@@ -135,7 +135,7 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
 		$festiv = mysql_fetch_array($fest);	
 		$rel = "Día festivo o vacaciones: $festiv[1]";			
 		$festiv=mysql_fetch_array($fest);
-		$celda =  "<td class=\"calendar-red\"><span  rel='tooltip' title='".$rel."'>$zz</span></td>\n";
+		$celda =  "<td class=\"calendar-red\"><span  data-bs='tooltip' title='".$rel."'>$zz</span></td>\n";
 		$result_found = 1;
 				}	
 		}

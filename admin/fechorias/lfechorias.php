@@ -141,7 +141,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 				}	
 				
 				if($expulsion > 0){$bgcolor="class='expulsion-centro'";}		
-				if($recibido == '1'){$comentarios1="<i class='fa fa-check' rel='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle'  rel='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
+				if($recibido == '1'){$comentarios1="<i class='fa fa-check' data-bs='tooltip'  title='El Tutor ha recibido la notificación.'> </i>";}elseif($recibido == '0'  and ($grave == 'grave' or $grave == 'muy grave' or $expulsionaula == '1' or $expulsion > '0' or $aula_conv > '0')){$comentarios1="<i class='fa fa-exclamation-triangle'  data-bs='tooltip' title='El Tutor NO ha recibido la notificación.'> </i>";}else{$comentarios1="";}
 		echo "<tr>
 		<td>";
 		$foto="<span class='fa fa-user fa-fw fa-3x'></span>";
@@ -157,10 +157,10 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		<td>$caducada</td>
 		<td nowrap>$comentarios1 $comentarios</td><td nowrap>"; 	
 
-		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' rel='tooltip' title='Detalles'></span></a>
-		<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-history fa-fw fa-lg' rel='tooltip' title='Historial'></span></a>
+		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles'></span></a>
+		<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-history fa-fw fa-lg' data-bs='tooltip' title='Historial'></span></a>
 		";
-        if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='infechoria.php?id=$id&claveal=$claveal'><span class='fa fa-edit fa-fw fa-lg' rel='tooltip' title='Editar'></span></a><a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' rel='tooltip' title='Eliminar'></span></a>";}
+        if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='infechoria.php?id=$id&claveal=$claveal'><span class='fa fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a><a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></span></a>";}
 		echo "</td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";

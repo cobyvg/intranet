@@ -391,7 +391,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 		if (mysql_num_rows($back)>0) {
 			$respaldo = '1';
-			$backup="<a href='consultas_bach.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-refresh' rel='Tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
+			$backup="<a href='consultas_bach.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-refresh' data-bs='tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
 		}
 // Problemas de Convivencia
 $n_fechorias="";
@@ -608,12 +608,12 @@ $text_contr="";
 		echo "<i class='$icon' title='".$text_contr."'> </i>&nbsp;&nbsp;";
 		
 
-		if ($observaciones) { echo "<i class='fa fa-bookmark' rel='Tooltip' title='Tiene observaciones en la matrícula' > </i>";}
+		if ($observaciones) { echo "<i class='fa fa-bookmark' data-bs='tooltip' title='Tiene observaciones en la matrícula' > </i>";}
 
 		if ($respaldo=='1') {
 			echo "&nbsp;".$backup;
 		}
-		echo "&nbsp;<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
+		echo "&nbsp;<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
 		echo "</td>";
 echo "<td class='hidden-print'>";
 // Problemas de Convivencia

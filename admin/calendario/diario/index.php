@@ -208,8 +208,8 @@ if (isset($_GET['id'])) {
 								<td><?php echo $row['materia']; ?></td>
 								<td><?php echo $row['titulo']; ?></td>
 								<td nowrap>
-									<a href="index.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" rel="tooltip" title="Editar"></span></a>&nbsp;
-									<a href="index.php?id=<?php echo $row['id']; ?>&borrar=1" rel="tooltip" title="Eliminar" data-bb='confirm-delete'><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+									<a href="index.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>&nbsp;
+									<a href="index.php?id=<?php echo $row['id']; ?>&borrar=1" data-bs="tooltip" title="Eliminar" data-bb='confirm-delete'><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 								</td>
 							</tr>
 							<?php endwhile; ?>
