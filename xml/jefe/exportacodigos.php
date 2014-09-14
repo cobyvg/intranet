@@ -34,7 +34,7 @@ $codigo.=":";
 $cod.=$codigo;
 }
 $cod.="', claveal1 = '$clave1' where claveal = '$clave3'";
-mysql_query($cod);
+mysqli_query($db_con, $cod);
 }   	       
   }
    }

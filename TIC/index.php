@@ -29,11 +29,11 @@ if(isset($_GET['id'])) {
 	if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = '';
 	else $sql_where = 'AND profesor=\''.$_SESSION['profi'].'\'';
 	
-	$result = mysql_query("SELECT unidad, carro, nserie, fecha, hora, alumno, profesor, descripcion, estado, nincidencia FROM partestic WHERE parte='$id' $sql_where LIMIT 1");
+	$result = mysqli_query($db_con, "SELECT unidad, carro, nserie, fecha, hora, alumno, profesor, descripcion, estado, nincidencia FROM partestic WHERE parte='$id' $sql_where LIMIT 1");
 	
-	if (mysql_num_rows($result)) {
+	if (mysqli_num_rows($result)) {
 		
-		$row = mysql_fetch_array($result);
+		$row = mysqli_fetch_array($result);
 		
 		$profesor = $row['profesor'];
 		$estado = $row['estado'];
@@ -47,7 +47,7 @@ if(isset($_GET['id'])) {
 		$descripcion = $row['descripcion'];
 		$nincidencia = $row['nincidencia'];
 		
-		mysql_free_result($result);
+		mysqli_free_result($result);
 		
 	}
 	else {
@@ -82,10 +82,10 @@ if(isset($_POST['enviar'])) {
 			
 			$nincidencia = $_POST['nincidencia'];
 			
-			$result = mysql_query("UPDATE partestic SET unidad='$unidad', carro='$carrito', nserie='$numeroserie', fecha='$fecha_sql', hora='$hora', alumno='$alumno', descripcion='$descripcion', estado='$estado', nincidencia='$nincidencia' WHERE parte=$id LIMIT 1");
+			$result = mysqli_query($db_con, "UPDATE partestic SET unidad='$unidad', carro='$carrito', nserie='$numeroserie', fecha='$fecha_sql', hora='$hora', alumno='$alumno', descripcion='$descripcion', estado='$estado', nincidencia='$nincidencia' WHERE parte=$id LIMIT 1");
 			
 			if(!$result) {
-				$msg_error = 'La incidencia no se ha podido actualizar. Error: '.mysql_error();
+				$msg_error = 'La incidencia no se ha podido actualizar. Error: '.mysqli_error($db_con);
 			}
 			else {
 				$msg_success = 'La incidencia ha sido actualizada.';
@@ -95,10 +95,10 @@ if(isset($_POST['enviar'])) {
 		}
 		else {
 		
-			$result = mysql_query("INSERT INTO partestic (unidad,carro,nserie,fecha,hora,alumno,profesor,descripcion,estado) VALUES	('".$unidad."','".$carrito."','".$numeroserie."','".$fecha_sql."','".$hora."','".$alumno."','".$profesor."','".$descripcion."','".$estado."')");
+			$result = mysqli_query($db_con, "INSERT INTO partestic (unidad,carro,nserie,fecha,hora,alumno,profesor,descripcion,estado) VALUES	('".$unidad."','".$carrito."','".$numeroserie."','".$fecha_sql."','".$hora."','".$alumno."','".$profesor."','".$descripcion."','".$estado."')");
 			
 			if(!$result) {
-				$msg_error = 'La incidencia no se ha podido registrar. Error: '.mysql_error();
+				$msg_error = 'La incidencia no se ha podido registrar. Error: '.mysqli_error($db_con);
 			}
 			else {
 				$direccion = $correo_coordinador;
@@ -183,14 +183,14 @@ include("menu.php");
 								<div class="col-sm-12">
 									<div class="form-group">
 									  <label for="unidad">Unidad</label>
-										<?php $result = mysql_query("SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
-										<?php if(mysql_num_rows($result)): ?>
+										<?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
+										<?php if(mysqli_num_rows($result)): ?>
 										<select class="form-control" id="unidad" name="unidad" onchange="submit()">
 											<option value=""></option>
-											<?php while($row = mysql_fetch_array($result)): ?>
+											<?php while($row = mysqli_fetch_array($result)): ?>
 											<option value="<?php echo $row['unidad']; ?>" <?php echo (isset($unidad) && $unidad == $row['unidad']) ? 'selected' : ''; ?>><?php echo $row['unidad']; ?></option>
 											<?php endwhile; ?>
-											<?php mysql_free_result($result); ?>
+											<?php mysqli_free_result($result); ?>
 										</select>
 										<?php else: ?>
 										<select class="form-control" name="unidad" disabled>
@@ -203,14 +203,14 @@ include("menu.php");
 							
 							<div class="form-group">
 							  <label for="alumno">Alumno/a</label>
-							  <?php $result = mysql_query("SELECT DISTINCT APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad='$unidad' ORDER BY APELLIDOS ASC"); ?>
-							  <?php if(mysql_num_rows($result)): ?>
+							  <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad='$unidad' ORDER BY APELLIDOS ASC"); ?>
+							  <?php if(mysqli_num_rows($result)): ?>
 							  <select class="form-control" id="alumno" name="alumno">
 							  	<option></option>
-							  	<?php while($row = mysql_fetch_array($result)): ?>
+							  	<?php while($row = mysqli_fetch_array($result)): ?>
 							  	<option value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['CLAVEAL']; ?>" <?php echo (isset($alumno) && $alumno == $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['CLAVEAL']) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
 							  	<?php endwhile; ?>
-							  	<?php mysql_free_result($result); ?>
+							  	<?php mysqli_free_result($result); ?>
 							  </select>
 							  <?php else: ?>
 							  <select class="form-control" name="alumno" disabled>

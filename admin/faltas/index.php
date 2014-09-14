@@ -81,7 +81,7 @@ else
 <SELECT id="grupo"
 	name="unidad1" onChange="submit()" class="form-control">
 	<OPTION><? echo $unidad1;?></OPTION>
-	<? unidad();?>
+	<? unidad($db_con);?>
 </SELECT>
 </div>
 
@@ -93,9 +93,9 @@ else
 	printf ("<OPTION></OPTION>");
 
 	// Datos del alumno que hace la consulta. No aparece el nombre del a&iuml;&iquest;&frac12; de la nota. Se podr&iuml;&iquest;&frac12; incluir.
-	$alumnosql = mysql_query("SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad like '$unidad1%' order by APELLIDOS asc");
+	$alumnosql = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, CLAVEAL FROM FALUMNOS WHERE unidad like '$unidad1%' order by APELLIDOS asc");
 
-	if ($falumno = mysql_fetch_array($alumnosql))
+	if ($falumno = mysqli_fetch_array($alumnosql))
 	{
 
 		do {
@@ -104,7 +104,7 @@ else
 			$opcion = printf ("<OPTION>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>");
 			echo "$opcion";
 
-		} while($falumno = mysql_fetch_array($alumnosql));
+		} while($falumno = mysqli_fetch_array($alumnosql));
 	}
 	$fecha = (date("d").-date("m").-date("Y"));
 	$comienzo=explode("-",$inicio_curso);
@@ -162,7 +162,7 @@ else
 <SELECT
 	id="unidad" name="unidad" onChange="submit()" class="form-control">
 	<OPTION><? echo $_POST['unidad'];?></OPTION>
-	<? unidad();?>
+	<? unidad($db_con);?>
 </SELECT>
 </div>
 
@@ -228,16 +228,16 @@ if (isset($_POST['profe'])) {
 }
 	printf ("<OPTION>$profe</OPTION>");
 
-	$profesql = mysql_query("SELECT distinct profesor FROM profesores order by profesor asc");
+	$profesql = mysqli_query($db_con, "SELECT distinct profesor FROM profesores order by profesor asc");
 
-	if ($fprofe = mysql_fetch_array($profesql))
+	if ($fprofe = mysqli_fetch_array($profesql))
 	{
 
 		do {
 			$opcion = printf ("<OPTION>$fprofe[0]</OPTION>");
 			echo "$opcion";
 
-		} while($fprofe = mysql_fetch_array($profesql));
+		} while($fprofe = mysqli_fetch_array($profesql));
 	}
 ?>
 </SELECT>
@@ -249,16 +249,16 @@ if (isset($_POST['profe'])) {
 	class="form-control" required>
 	<OPTION></OPTION>
 <?
-	$asig0 = mysql_query("SELECT distinct materia, grupo, nivel FROM profesores WHERE profesor = '$profe' order by grupo, nivel, materia asc");
+	$asig0 = mysqli_query($db_con, "SELECT distinct materia, grupo, nivel FROM profesores WHERE profesor = '$profe' order by grupo, nivel, materia asc");
 
-	if ($asig = mysql_fetch_array($asig0))
+	if ($asig = mysqli_fetch_array($asig0))
 	{
 
 		do {
 			$opcion = printf ("<OPTION>$asig[0] -> $asig[1] -> $asig[2]</OPTION>");
 			echo "$opcion";
 
-		} while($asig = mysql_fetch_array($asig0));
+		} while($asig = mysqli_fetch_array($asig0));
 	}
 ?>
 </SELECT> 

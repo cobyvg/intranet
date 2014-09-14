@@ -61,10 +61,10 @@ $fecha = $_POST['fecha'];
 	</thead><tbody>
 	<?
 	$fecha_act = date('Y-m-d');
-	$lista=mysql_query("select curso, apellidos, nombre, ejemplar, devolucion, amonestacion, id, sms from morosos where hoy='$fecha' and devolucion<'$fecha_act'  order by curso, apellidos asc");
+	$lista=mysqli_query($db_con, "select curso, apellidos, nombre, ejemplar, devolucion, amonestacion, id, sms from morosos where hoy='$fecha' and devolucion<'$fecha_act'  order by curso, apellidos asc");
 
 	$n=0;
-	while ($list=mysql_fetch_array($lista)){
+	while ($list=mysqli_fetch_array($lista)){
 	?>
 	<tr>
 	<? 

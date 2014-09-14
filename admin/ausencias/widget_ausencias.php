@@ -1,15 +1,15 @@
 
 <!-- MODULO DE AUSENCIAS -->
 
-<?php $result = mysql_query("SELECT profesor, id, tareas from ausencias where  date(inicio) <= '".date('Y-m-d')."' and date(fin) >= '".date('Y-m-d')."'"); ?>
-<?php if (mysql_num_rows($result)): ?>
+<?php $result = mysqli_query($db_con, "SELECT profesor, id, tareas from ausencias where  date(inicio) <= '".date('Y-m-d')."' and date(fin) >= '".date('Y-m-d')."'"); ?>
+<?php if (mysqli_num_rows($result)): ?>
 
 <div class="well well-sm">
 	
 	<h4><span class="fa fa-users fa-fw"></span> Profesores de baja</h4>
 	
 	<div class="list-group">
-		<?php while ($row = mysql_fetch_array($result)): ?>
+		<?php while ($row = mysqli_fetch_array($result)): ?>
 		<?php $exp_profesor = explode(',', $row['profesor']); ?>
 		<?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 		

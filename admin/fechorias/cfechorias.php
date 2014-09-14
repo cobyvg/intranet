@@ -55,18 +55,18 @@ include("menu.php");
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label for="unidad">Unidad</label>
-											<?php $result = mysql_query("SELECT DISTINCT a_grupo FROM horw WHERE a_grupo NOT LIKE 'G%' AND a_grupo NOT LIKE '' ORDER BY a_grupo"); ?>
-											<?php if(mysql_num_rows($result)): ?>
+											<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE a_grupo NOT LIKE 'G%' AND a_grupo NOT LIKE '' ORDER BY a_grupo"); ?>
+											<?php if(mysqli_num_rows($result)): ?>
 											<select class="form-control" name="unidad">
 												<option value=""></option>
-												<?php while($row = mysql_fetch_array($result)): ?>
+												<?php while($row = mysqli_fetch_array($result)): ?>
 												<option value="<?php echo $row['a_grupo']; ?>"><?php echo $row['a_grupo']; ?></option>
 												<?php endwhile; ?>
 											</select>
 											<?php else: ?>
 											<select class="form-control" name="unidad" disabled></select>
 											<?php endif; ?>
-											<?php mysql_free_result($result); ?>
+											<?php mysqli_free_result($result); ?>
 										</div>
 									</div>
 									<div class="col-sm-6">

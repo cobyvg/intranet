@@ -22,16 +22,16 @@ $pr = $_SESSION['profi'];
 $id = intval($_GET['id']);
 $idprof = intval($_GET['idprof']);
 
-$result = mysql_query("SELECT asunto, ahora, texto, origen FROM mens_texto where id = '$id'") or die (mysql_error());
-$mensaje = mysql_fetch_array($result);
+$result = mysqli_query($db_con, "SELECT asunto, ahora, texto, origen FROM mens_texto where id = '$id'") or die (mysqli_error($db_con));
+$mensaje = mysqli_fetch_array($result);
 
-if(mysql_num_rows($result)<1) {
+if(mysqli_num_rows($result)<1) {
 	header('Location:'.'index.php');
 	exit();
 }
 
 
-mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$idprof'");
+mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$idprof'");
 
 $page_header = $mensaje['asunto'];
 include("../../menu.php");
@@ -86,9 +86,9 @@ include("menu.php");
 			      <legend>Destinatarios</legend>
 			    
 			    <?php
-			    $result = mysql_query("SELECT recibidoprofe, profesor from mens_profes where id_texto = '$id'");
+			    $result = mysqli_query($db_con, "SELECT recibidoprofe, profesor from mens_profes where id_texto = '$id'");
 			    $destinatarios = '';
-			    while($destinatario = mysql_fetch_array($result)) {
+			    while($destinatario = mysqli_fetch_array($result)) {
 			      $exp_nomprofesor = explode(', ',$destinatario[1]);
 			      $nom_profesor = $exp_nomprofesor[1].' '.$exp_nomprofesor[0];
 			      if ($destinatario[0] == '1') {

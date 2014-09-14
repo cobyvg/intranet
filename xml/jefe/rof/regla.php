@@ -48,11 +48,11 @@ if(isset($_POST['submit'])) {
 	}
 	else {
 		if(isset($_GET['id'])) {
-			mysql_query("UPDATE listafechorias SET fechoria='$asunto', medidas='$medida', medidas2='$medida2', tipo='$gravedad' WHERE id='$id'") or die(mysql_error());
+			mysqli_query($db_con, "UPDATE listafechorias SET fechoria='$asunto', medidas='$medida', medidas2='$medida2', tipo='$gravedad' WHERE id='$id'") or die(mysqli_error($db_con));
 			header("Location:"."index.php?msg=update");
 		}
 		else {
-			mysql_query("INSERT listafechorias (fechoria, medidas, medidas2, tipo) VALUES ('$asunto', '$medida', '$medidas2', '$gravedad')") or die(mysql_error());
+			mysqli_query($db_con, "INSERT listafechorias (fechoria, medidas, medidas2, tipo) VALUES ('$asunto', '$medida', '$medidas2', '$gravedad')") or die(mysqli_error($db_con));
 			header("Location:"."index.php?msg=insert");
 		}
 	}
@@ -88,9 +88,9 @@ include("../../../menu.php");
 					echo '<fieldset>';
 					echo '  <legend>'.$titulo.'</legend>';
 					
-					$result = mysql_query("SELECT fechoria, medidas, medidas2, tipo FROM listafechorias WHERE id='$id'");
+					$result = mysqli_query($db_con, "SELECT fechoria, medidas, medidas2, tipo FROM listafechorias WHERE id='$id'");
 					
-					$fechoria = mysql_fetch_array($result);
+					$fechoria = mysqli_fetch_array($result);
 						
 					echo '  <label for="asunto">Asunto</label>';
 					echo '  <input type="text" id="asunto" class="form-control" name="asunto" value="'.$fechoria[0].'" required>';

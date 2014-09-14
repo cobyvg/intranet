@@ -79,22 +79,22 @@ for ($i=0;$i<count($profesor);$i++)
 $profe .= $profesor[$i].";";
 }   
 $fecha = cambia_fecha($fecha_act);
-mysql_query("UPDATE  actividades SET  grupos = '$grupos', actividad =  '$actividad', fecha = '$fecha', departamento = '$departamento', profesor = '$profe', descripcion = '$descripcion', justificacion = '$justificacion', horario = '$horario' WHERE id = '$id'");
+mysqli_query($db_con, "UPDATE  actividades SET  grupos = '$grupos', actividad =  '$actividad', fecha = '$fecha', departamento = '$departamento', profesor = '$profe', descripcion = '$descripcion', justificacion = '$justificacion', horario = '$horario' WHERE id = '$id'");
 // Para cambiar la fecha simultaneamente, primero borramos los datos de la actividad actual en el calendario,...
 
 //$idactiv="$id;";
-//$calen = mysql_query("select * from cal where idact like '%$idactiv%' and eventdate = '$fecha'");
-//$num_filas = mysql_num_rows($calen);
+//$calen = mysqli_query($db_con, "select * from cal where idact like '%$idactiv%' and eventdate = '$fecha'");
+//$num_filas = mysqli_num_rows($calen);
 //echo $num_filas."<br>";
-//if (mysql_num_rows($calen) > 0 and !($fecha == $fecha_origen)) {
-//$calend = mysql_fetch_row($calen);
+//if (mysqli_num_rows($calen) > 0 and !($fecha == $fecha_origen)) {
+//$calend = mysqli_fetch_row($calen);
 //$borrar_titulo = str_replace($actividad,'',$calend[3]);
 //echo "TITULO: $actividad --->>> <br>$calend[3] --->>> <br>$borrar_titulo<br>";
 //$borrar_descripcion = str_replace($descripcion,'',$calend[4]);
 //echo "DESCRIPCION: $borrar_descripcion<br>";
 //$borrar_idact = str_replace($idactiv,'',$calend[5]);
 
-// mysql_query("update cal set title = '$borrar_titulo', event = '$borrar_descripcion', idact = '$borrar_idact'");	
+// mysqli_query($db_con, "update cal set title = '$borrar_titulo', event = '$borrar_descripcion', idact = '$borrar_idact'");	
 //$frase = "update cal set title = '$borrar_titulo', event = '$borrar_descripcion', idact = '$borrar_idact'";
 //$frase = 
 //<<<FIN
@@ -106,10 +106,10 @@ mysql_query("UPDATE  actividades SET  grupos = '$grupos', actividad =  '$activid
 //  y luego los añadimos en la nueva fecha.
 
 //$sq0 = "select fecha, actividad, descripcion, grupos from actividades where id = '$id'";
-//$sq1 = mysql_query($sq0);
-//$sq2 = mysql_fetch_row($sq1);
+//$sq1 = mysqli_query($db_con, $sq0);
+//$sq2 = mysqli_fetch_row($sq1);
 //$texto = $sq2[2] . "<br>Grupos que participan: " . $sq2[3];
-//mysql_query("UPDATE  cal SET  title =  '$sq2[1]', eventdate = '$sq2[0]', event = '$texto' WHERE idact = '$id'");
+//mysqli_query($db_con, "UPDATE  cal SET  title =  '$sq2[1]', eventdate = '$sq2[0]', event = '$texto' WHERE idact = '$id'");
 
   echo '
 <br /><div align="center"><div class="alert alert-success alert-block fade in">
@@ -121,8 +121,8 @@ else{
 	
 if($modificar == '1')
 {
-$datos1 = mysql_query("select * from actividades where id = '$id'");
-$datos = mysql_fetch_array($datos1);
+$datos1 = mysqli_query($db_con, "select * from actividades where id = '$id'");
+$datos = mysqli_fetch_array($datos1);
 
 $fecha0 = explode("-",$datos[7]);
 $ano = $fecha0[0];
@@ -166,15 +166,15 @@ $justificacion = $datos[10];
                     <?
 if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE)) {
 	  // Datos del alumno que hace la consulta. No aparece el nombre del a&ntilde;o de la nota. Se podr&iacute;a incluir.
-  $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where departamento = '". $_SESSION['dpt'] ."' order by departamento asc");
-  if ($filaprofe = mysql_fetch_array($profe))
+  $profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos  where departamento = '". $_SESSION['dpt'] ."' order by departamento asc");
+  if ($filaprofe = mysqli_fetch_array($profe))
         {
         do {
 
 	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
 	      echo "$opcion1";
 
-	} while($filaprofe = mysql_fetch_array($profe));
+	} while($filaprofe = mysqli_fetch_array($profe));
         }
 }
 else{
@@ -184,15 +184,15 @@ else{
 		<OPTION>Religión</OPTION>
 	<?
   // Datos del alumno que hace la consulta. No aparece el nombre del a&ntilde;o de la nota. Se podr&iacute;a incluir.
-  $profe = mysql_query(" SELECT distinct departamento FROM departamentos  where departamento not like '%Admin%' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%' order by departamento asc");
-  if ($filaprofe = mysql_fetch_array($profe))
+  $profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos  where departamento not like '%Admin%' and departamento not like '%Conserjeria%' and departamento not like '%Administracion%' order by departamento asc");
+  if ($filaprofe = mysqli_fetch_array($profe))
         {
         do {
 
 	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
 	      echo "$opcion1";
 
-	} while($filaprofe = mysql_fetch_array($profe));
+	} while($filaprofe = mysqli_fetch_array($profe));
         }		
 	}
 
@@ -212,8 +212,8 @@ else{
 					}
 					else{$texto = " where departamento = '$departamento'";}
 
-  $profe = mysql_query(" SELECT distinct NOMBRE FROM departamentos " . $texto. " order by NOMBRE asc");
-while($filaprofe = mysql_fetch_array($profe))        {
+  $profe = mysqli_query($db_con, " SELECT distinct NOMBRE FROM departamentos " . $texto. " order by NOMBRE asc");
+while($filaprofe = mysqli_fetch_array($profe))        {
 if($departamento == "Religión")
 {} 
 else{
@@ -252,8 +252,8 @@ else{
 <?
 
 $curso0 = "select distinct curso from alma order by curso";
-$curso1 = mysql_query($curso0);
-while($curso = mysql_fetch_array($curso1))
+$curso1 = mysqli_query($db_con, $curso0);
+while($curso = mysqli_fetch_array($curso1))
 {
 $niv = $curso[0];
 ?>
@@ -261,8 +261,8 @@ $niv = $curso[0];
                 <?  
 $alumnos0 = "select distinct unidad from alma where curso = '$niv' order by curso, unidad";
 
-$alumnos1 = mysql_query($alumnos0);
-while($alumno = mysql_fetch_array($alumnos1))
+$alumnos1 = mysqli_query($db_con, $alumnos0);
+while($alumno = mysqli_fetch_array($alumnos1))
 {
 $chk="";
 $grupo = $alumno[0];

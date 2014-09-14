@@ -29,8 +29,8 @@ include("../../../menu.php");
 	</div>
 
 <?
-$conn = mysql_connect($db_host, $db_user, $db_pass) or die("Could not connect to database!");
-mysql_select_db($db, $conn);
+$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die("Could not connect to database!");
+mysqli_select_db($db_con, $db);
 
 /*$event_title="";
 $event_event="";
@@ -132,9 +132,9 @@ echo "<legend>$daylong, $today de $monthlong</legend><br />";
 
 $sql_date = "$year-$month-$today";
 $eventQuery = "SELECT title, event, idact FROM cal WHERE eventdate = '$sql_date'";
-$eventExec = mysql_query($eventQuery);
-if (mysql_num_rows($eventExec)>0) {
-while($row = mysql_fetch_array($eventExec)) {
+$eventExec = mysqli_query($db_con, $eventQuery);
+if (mysqli_num_rows($eventExec)>0) {
+while($row = mysqli_fetch_array($eventExec)) {
    $event_title = $row[0];
    $title = $row[0];
    $event_event = $row[1];
@@ -142,9 +142,9 @@ while($row = mysql_fetch_array($eventExec)) {
 }	
 }
 else{
-$fest = mysql_query("select distinct nombre from festivos WHERE fecha = '$sql_date'");
-		if (mysql_num_rows($fest)>0) {
-		$festiv=mysql_fetch_array($fest);
+$fest = mysqli_query($db_con, "select distinct nombre from festivos WHERE fecha = '$sql_date'");
+		if (mysqli_num_rows($fest)>0) {
+		$festiv=mysqli_fetch_array($fest);
 		$event_title = "Festivo: ".$festiv[0];
 				}
 }
@@ -152,8 +152,8 @@ $fest = mysql_query("select distinct nombre from festivos WHERE fecha = '$sql_da
 
 /*$sql_date = "$year-$month-$today";
 $eventQuery = "SELECT title, event, idact FROM cal WHERE eventdate = '$sql_date'";
-$eventExec = mysql_query($eventQuery);
-while($row = mysql_fetch_array($eventExec)) {
+$eventExec = mysqli_query($db_con, $eventQuery);
+while($row = mysqli_fetch_array($eventExec)) {
    $event_title = $row[0];
    $title = $row[0];
    $event_event = $row[1];
@@ -190,8 +190,8 @@ echo "<form name='jcal_post' action='jcal_post.php?year=$year&today=$today&month
 		  $tr = explode(";",$idact);
 		  foreach($tr as $val){$id_act.= "'".$val."',";}
 		  $id_act = (substr($id_act,0,strlen($id_act)-1));	
-	  	  $act0 = mysql_query("select horario, id, actividad from actividades where id in ($id_act)");
-		  while($act = mysql_fetch_row($act0)){
+	  	  $act0 = mysqli_query($db_con, "select horario, id, actividad from actividades where id in ($id_act)");
+		  while($act = mysqli_fetch_row($act0)){
 			  	$n_act0 = $n_act0 + 1;
 		  		$hor.= "".$act[2]." ==> ".$act[0]."";
 		  }		
@@ -259,9 +259,9 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		$sql_currentday = "$year-$month-$zz";
 
 		$eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
-		$eventExec = mysql_query ( $eventQuery );
-		if (mysql_num_rows($eventExec)>0) {
-			while ( $row = mysql_fetch_array ( $eventExec ) ) {
+		$eventExec = mysqli_query($db_con, $eventQuery );
+		if (mysqli_num_rows($eventExec)>0) {
+			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
 			if (strlen ( $row ["title"] ) > 0) {
         echo "<td class=\"calendar-orange\"><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>\n";				
 				$result_found = 1;
@@ -270,9 +270,9 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		}
 		else{
 		$sql_currentday = "$year-$month-$zz";
-		$fest = mysql_query("select distinct fecha, nombre from festivos WHERE fecha = '$sql_currentday'");
-		if (mysql_num_rows($fest)>0) {
-		$festiv=mysql_fetch_array($fest);
+		$fest = mysqli_query($db_con, "select distinct fecha, nombre from festivos WHERE fecha = '$sql_currentday'");
+		if (mysqli_num_rows($fest)>0) {
+		$festiv=mysqli_fetch_array($fest);
 			        echo "<td class=\"calendar-red\"><a href='".$_SERVER['PHP_SELF']."?year=$year&today=$zz&month=$month'>$zz</a></td>\n";
 				$result_found = 1;
 				}	
@@ -295,7 +295,7 @@ if ($create_emptys != 0) {
 echo "</tr>\n";
 echo "</tbody></table><br>\n";
 
-mysql_close();
+mysqli_close();
 
 ?>
 </div><!-- /.col-sm-5 -->

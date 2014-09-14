@@ -33,8 +33,8 @@ $options_right = array(
 $options_left = array(
 				'justification' => 'left'
 					);
-$codasig= mysql_query("SELECT codigo, abrev, curso FROM asignaturas");
-while($asigtmp = mysql_fetch_array($codasig)) {
+$codasig= mysqli_query($db_con, "SELECT codigo, abrev, curso FROM asignaturas");
+while($asigtmp = mysqli_fetch_array($codasig)) {
 	$asignatura[$asigtmp[0]] = $asigtmp[1].'('.substr($asigtmp[2],0,2).')';
 	} 
 $libd12 = "
@@ -49,18 +49,18 @@ OPLC1: Ed. Física; OPLC2: Estadística; OPLC3: Francés.
 if (isset($_GET['unidad'])) {
 	
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, alma.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal and alma.unidad='".$unidad."' $texto ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
-$lista= mysql_query($sqldatos );
+$lista= mysqli_query($db_con, $sqldatos );
 
 $num=0;
 unset($data);
-while($datatmp = mysql_fetch_array($lista)) { 
+while($datatmp = mysqli_fetch_array($lista)) { 
 	if ($datatmp[2]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
 	}
 	if(strstr($datatmp[4],"E.S.O.")==TRUE){
 	$m_ex = "select exencion from matriculas where claveal = '$datatmp[3]'";
-	$m_exen = mysql_query($m_ex);
-	$m_exento = mysql_fetch_array($m_exen);
+	$m_exen = mysqli_query($db_con, $m_ex);
+	$m_exento = mysqli_fetch_array($m_exen);
 	if($m_exento[0]=="1"){
 	$datatmp[0]=$datatmp[0]." (Ex)";
 	}
@@ -130,17 +130,17 @@ $sqldatos.=" and combasi like '%$tr_codasi[0]%'";
 	
 $sqldatos.=" $text and alma.unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 //echo $sqldatos;
-$lista= mysql_query($sqldatos );
+$lista= mysqli_query($db_con, $sqldatos );
 $num=0;
 unset($data);
-while($datatmp = mysql_fetch_array($lista)) { 
+while($datatmp = mysqli_fetch_array($lista)) { 
 	if ($datatmp[2]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
 	}
 	if(strstr($datatmp[4],"E.S.O.")==TRUE){
 	$m_ex = "select exencion from matriculas where claveal = '$datatmp[3]'";
-	$m_exen = mysql_query($m_ex);
-	$m_exento = mysql_fetch_array($m_exen);
+	$m_exen = mysqli_query($db_con, $m_ex);
+	$m_exento = mysqli_fetch_array($m_exen);
 	if($m_exento[0]=="1"){
 	$datatmp[0]=$datatmp[0]." (Ex)";
 	}
@@ -206,17 +206,17 @@ $sqldatos.=" and combasi like '%$tr_codasi[0]%'";
 $sqldatos.=" $text and alma.unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apellidos, FALUMNOS.nombre";
 
 //echo $sqldatos;
-$lista= mysql_query($sqldatos);
+$lista= mysqli_query($db_con, $sqldatos);
 $num=0;
 unset($data);
-while($datatmp = mysql_fetch_array($lista)) { 
+while($datatmp = mysqli_fetch_array($lista)) { 
 	if ($datatmp[4]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
 	}
 	if(strstr($datatmp[4],"E.S.O.")==TRUE){
 	$m_ex = "select exencion from matriculas where claveal = '$datatmp[5]'";
-	$m_exen = mysql_query($m_ex);
-	$m_exento = mysql_fetch_array($m_exen);
+	$m_exen = mysqli_query($db_con, $m_ex);
+	$m_exento = mysqli_fetch_array($m_exen);
 	if($m_exento[0]=="1"){
 	$datatmp[0]=$datatmp[0]." (Ex)";
 	}
@@ -229,8 +229,8 @@ while($datatmp = mysql_fetch_array($lista)) {
 		foreach($asig0 as $asignatura){			
 		$consulta = "select distinct abrev, curso from asignaturas where codigo = '$asignatura' and curso like '%$unidadn%' limit 1";
 		// echo $consulta."<br>";
-		$abrev = mysql_query($consulta);		
-		$abrev0 = mysql_fetch_array($abrev);
+		$abrev = mysqli_query($db_con, $consulta);		
+		$abrev0 = mysqli_fetch_array($abrev);
 		$curs=substr($abrev0[1],0,2);
 		$mat.=$abrev0[0]."; ";
 		}

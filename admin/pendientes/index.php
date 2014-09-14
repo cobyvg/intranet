@@ -15,13 +15,13 @@ include("../../menu.php");
 //include("menu.php"); 
 
 $query_Recordset1 = "SELECT * FROM asignaturas GROUP BY nombre ORDER BY nombre ASC";
-$Recordset1 = mysql_query($query_Recordset1) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_array($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
-$query_Recordset2 = "SELECT Unidad FROM alma GROUP BY unidad ORDER BY Unidad";
-$Recordset2 = mysql_query($query_Recordset2) or die(mysql_error());
-$row_Recordset2 = mysql_fetch_assoc($Recordset2);
-$totalRows_Recordset2 = mysql_num_rows($Recordset2);
+$Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error($db_con));
+$row_Recordset1 = mysqli_fetch_array($Recordset1);
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
+$query_Recordset2 = "SELECT DISTINCT unidad, curso, SUBSTRING(unidad, 2,1) AS orden FROM alma ORDER BY orden ASC";
+$Recordset2 = mysqli_query($db_con, $query_Recordset2) or die(mysqli_error($db_con));
+$row_Recordset2 = mysqli_fetch_assoc($Recordset2);
+$totalRows_Recordset2 = mysqli_num_rows($Recordset2);
 
 ?>
 
@@ -52,11 +52,11 @@ do {
 ?>
     <option><?php  echo $row_Recordset1[1]?></option>
     <?php 
-} while ($row_Recordset1 = mysql_fetch_array($Recordset1));
-  $rows = mysql_num_rows($Recordset1);
+} while ($row_Recordset1 = mysqli_fetch_array($Recordset1));
+  $rows = mysqli_num_rows($Recordset1);
   if($rows > 0) {
-      mysql_data_seek($Recordset1, 0);
-	  $row_Recordset1 = mysql_fetch_array($Recordset1);
+      mysqli_data_seek($Recordset1, 0);
+	  $row_Recordset1 = mysqli_fetch_array($Recordset1);
   }
 ?>
 						  </select>
@@ -85,16 +85,16 @@ do {
 					    <select class="form-control" name="select1[]" multiple size="6">
 <?php 
 do {  
-	if (strstr($row_Recordset2['Unidad'],"E") or strstr($row_Recordset2['Unidad'],"B")) {	
+	if (strstr($row_Recordset2['curso'],"E.S.O.") or strstr($row_Recordset2['curso'],"Bachillerato")) {	
 ?>
-    <option value="<?php  echo $row_Recordset2['Unidad']?>"><?php  echo $row_Recordset2['Unidad']?></option>
+    <option value="<?php  echo $row_Recordset2['unidad']?>"><?php  echo $row_Recordset2['unidad']?> (<?php  echo $row_Recordset2['curso']?>)</option>
     <?php 
 	}
-} while ($row_Recordset2 = mysql_fetch_assoc($Recordset2));
-  $rows = mysql_num_rows($Recordset2);
+} while ($row_Recordset2 = mysqli_fetch_assoc($Recordset2));
+  $rows = mysqli_num_rows($Recordset2);
   if($rows > 0) {
-      mysql_data_seek($Recordset2, 0);
-	  $row_Recordset2 = mysql_fetch_assoc($Recordset2);
+      mysqli_data_seek($Recordset2, 0);
+	  $row_Recordset2 = mysqli_fetch_assoc($Recordset2);
   }
 ?>
 					    </select>

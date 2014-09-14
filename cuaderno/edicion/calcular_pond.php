@@ -1,7 +1,7 @@
 <?
 if(isset($_POST['recalcula'])){  
   if (is_numeric($id) and is_numeric($valor)){
-				$upd=mysql_query("update datos set ponderacion='$valor' where id='$id'") or die ("error update ponderacion");
+				$upd=mysqli_query($db_con, "update datos set ponderacion='$valor' where id='$id'") or die ("error update ponderacion");
 												}
 				 }
 ?>
@@ -39,9 +39,9 @@ foreach ($_POST as $id => $valor) {
 $columnas = $columnas + 1;
  $num_ids +=1;
 $celdas .= " id = '$id' or";
-$upd=mysql_query("update datos set ponderacion='$valor' where id='$id'");
+$upd=mysqli_query($db_con, "update datos set ponderacion='$valor' where id='$id'");
 $t='La ponderaci&oacute;n usada es '.$valor;
-$upd1=mysql_query("update notas_cuaderno set texto_pond='$t' where id='$id'") or die ("error notas_cuaderno");
+$upd1=mysqli_query($db_con, "update notas_cuaderno set texto_pond='$t' where id='$id'") or die ("error notas_cuaderno");
 $sum += $valor;
   		}
   		}
@@ -59,20 +59,20 @@ exit;
 		}
 // Procesamos los datos
 // Distintos códigos de la asignatura cuando hay varios grupos en una hora.
-$n_c = mysql_query("SELECT distinct  a_grupo, asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'");
-while($varias = mysql_fetch_array($n_c))
+$n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'");
+while($varias = mysqli_fetch_array($n_c))
 {
 	if (substr($varias[0],3,2) == "Dd" ) {
 	$varias[0] = substr($varias[0],0,4);
 	}
-	$curso_alma = mysql_query("select distinct curso from alma where unidad = '$varias[0]'");
-	$curso_alma1 = mysql_fetch_row($curso_alma);
+	$curso_alma = mysqli_query($db_con, "select distinct curso from alma where unidad = '$varias[0]'");
+	$curso_alma1 = mysqli_fetch_row($curso_alma);
 	$nombre_curso = $curso_alma1[0];
 	$largo = strlen($varias[1]);
 	if (strlen($varias[1]) > 10) {$nombre_asig = substr($varias[1],0,10);} else {$nombre_asig = substr($varias[1],0,6);}	
 	$nombre_asig = trim($nombre_asig);
-	$asig_sen0 = mysql_query("select codigo from asignaturas where curso = '$nombre_curso' and nombre like '$nombre_asig%' and abrev not like '%º'");
-	while($asig_sen1 = mysql_fetch_row($asig_sen0)){
+	$asig_sen0 = mysqli_query($db_con, "select codigo from asignaturas where curso = '$nombre_curso' and nombre like '$nombre_asig%' and abrev not like '%º'");
+	while($asig_sen1 = mysqli_fetch_row($asig_sen0)){
 	if (strstr($asigna_a , $asig_sen1[0]) == false) 
 	{
 	$asigna_a .= $asig_sen1[0].",";
@@ -92,8 +92,8 @@ if (!(empty($asignatura2))) {
 // Tabla con las distintas notas_cuaderno y la mediaxx
   		
   // Todos los Grupos juntos
-$n_cursos = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'");
-  while($n_cur = mysql_fetch_array($n_cursos))
+$n_cursos = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'");
+  while($n_cur = mysqli_fetch_array($n_cursos))
   {
   	$curs .= $n_cur[0].", ";
   } 
@@ -104,14 +104,14 @@ $n_cursos = mysql_query("SELECT distinct  a_grupo, c_asig FROM  horw where prof 
 //Número de columnas
 	
 	$col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$profesor' and curso like '%$curso%' and oculto = '0' and ($celdas)  order by orden asc";
-	$col0 = mysql_query($col);
+	$col0 = mysqli_query($db_con, $col);
 	
 	$curso_sin = substr($curso,0,strlen($curso) - 1);
 
 echo "<table align='center' class='table table-striped' style='width:auto'>"; 
 echo "<thead><th style='background-color:#fff'>NC</th><th style='background-color:#fff' colspan='2' align='center'>Alumno</th>";
 // Número de las columnas de la tabla	
-	while($col20 = mysql_fetch_array($col0)){
+	while($col20 = mysqli_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
 		echo "<th nowrap style='background-color:#fff'>
@@ -126,8 +126,8 @@ echo "<thead><th style='background-color:#fff'>NC</th><th style='background-colo
 
 // Tabla para cada Grupo
   $curso0 = "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'";
-  $curso20 = mysql_query($curso0);
-  while ($curso11 = mysql_fetch_array($curso20))
+  $curso20 = mysqli_query($db_con, $curso0);
+  while ($curso11 = mysqli_fetch_array($curso20))
     {
 	$curso = $curso11[0];
 	$asignatura = $curso11[1];
@@ -136,20 +136,20 @@ echo "<thead><th style='background-color:#fff'>NC</th><th style='background-colo
 	$num_col = 4 + $num_ids;
 	$nivel_curso = substr($curso,0,1);				
 //	Problemas con Diversificaci�n (4E-Dd)
-			$profe_div = mysql_query("select * from profesores where grupo = '$curso'");
-			if (mysql_num_rows($profe_div)<1) {		
+			$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
+			if (mysqli_num_rows($profe_div)<1) {		
 				
 				$div = $curso;
-				$grupo_div = mysql_query("select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
-				$grupo_diver = mysql_fetch_row($grupo_div);
+				$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+				$grupo_diver = mysqli_fetch_row($grupo_div);
 				$curso = $grupo_diver[0];
 			}
-	mysql_select_db($db);
+	mysqli_select_db($db_con, $db);
 	$hay0 = "select alumnos from grupos where profesor='$profesor' and asignatura = '$asignatura' and curso = '$curso'";
-	$hay1 = mysql_query($hay0);
-	$hay = mysql_fetch_row($hay1);	
+	$hay1 = mysqli_query($db_con, $hay0);
+	$hay = mysqli_fetch_row($hay1);	
 	
-	if(mysql_num_rows($hay1) == "1"){
+	if(mysqli_num_rows($hay1) == "1"){
 	
 
 	$seleccionados = substr($hay[0],0,strlen($hay[0])-1);
@@ -161,7 +161,7 @@ echo "<thead><th style='background-color:#fff'>NC</th><th style='background-colo
 	}
 	$todos .= ")";
 	}	
-	mysql_select_db($db);
+	mysqli_select_db($db_con, $db);
 	
 	$mediaaprobados=0;
 	$mediasuspensos=0;
@@ -169,9 +169,9 @@ echo "<thead><th style='background-color:#fff'>NC</th><th style='background-colo
 
 // Alumnos para presentar que tengan esa asignatura en combasi
 $resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (combasi like '%$asignatura0:%' $otras) ".$todos ." order by NC";
-  $result = mysql_query ($resul);	
-  $t_alumnos += mysql_num_rows ($result);
-        while($row = mysql_fetch_array($result))
+  $result = mysqli_query($db_con, $resul);	
+  $t_alumnos += mysqli_num_rows ($result);
+        while($row = mysqli_fetch_array($result))
 		{  	
 		$claveal = $row[0];            	
 echo "<tr><td >$row[1]</td><td colspan='2' nowrap>$row[2], $row[3]</td>";
@@ -188,13 +188,13 @@ echo "<tr><td >$row[1]</td><td colspan='2' nowrap>$row[2], $row[3]</td>";
 
   	$colu10 = substr($colu10,0,strlen($colu10)-2);
 	$colu10 .= "  and profesor = '$profesor' and curso like '%$curso%' and oculto = '0'order by id";
-	$colu20 = mysql_query($colu10);
+	$colu20 = mysqli_query($db_con, $colu10);
 	$suma = "";
 
-	while($colus10 = mysql_fetch_array($colu20)){
+	while($colus10 = mysqli_fetch_array($colu20)){
 	$id = $colus10[0];
-	$dato0 = mysql_query("select nota,ponderacion from datos where claveal = '$claveal' and id = '$id'");
-	$dato1 = mysql_fetch_array($dato0);
+	$dato0 = mysqli_query($db_con, "select nota,ponderacion from datos where claveal = '$claveal' and id = '$id'");
+	$dato1 = mysqli_fetch_array($dato0);
 	$suma += $dato1[0]*$dato1[1]; 
 	if($dato1[0]==''){$dato1[0]='0';}
 echo "<td align='center'>$dato1[0]</td>";
@@ -212,7 +212,7 @@ if ($media == "" ) {
 					}
 redondeo($media);					
 echo "</td>";			 
-mysql_select_db($db);
+mysqli_select_db($db_con, $db);
 echo "</tr>";              	
         }  
 $toti+=$mediatotal; 
@@ -227,8 +227,8 @@ $i+=1;
 	$suspensos[$i]=0;
 	$sumanotas[$i]=0;
 
-$est=mysql_query("select nota from datos where id='$id'");	
-while ($esta=mysql_fetch_array($est)){
+$est=mysqli_query($db_con, "select nota from datos where id='$id'");	
+while ($esta=mysqli_fetch_array($est)){
 		if(($esta[0] < 5) or (empty ($esta[0]))){$suspensos[$i]+=1;  $sumanotas[$i]+=$esta[0];}
 	else{$aprobados[$i]+=1;     $sumanotas[$i]+=$esta[0];}
 				}
@@ -280,14 +280,14 @@ foreach ($_POST as $id => $valor) {
 									}
   	$nid = substr($nid,0,strlen($nid)-2);
 	 $colum= "select distinct id, nombre, orden, oculto from notas_cuaderno where". $nid." order by orden asc";
-	$colum0 = mysql_query($colum); 
-	if (mysql_num_rows($colum0) > 0) {
+	$colum0 = mysqli_query($db_con, $colum); 
+	if (mysqli_num_rows($colum0) > 0) {
 echo "<table align='center' class='table table-striped table-bordered' style='width:auto'>"; 
 echo "<tr><th colspan='2'>Notas</th><th>Ponderaci&oacute;n</th>";
 	}
-	while ($colum1 = mysql_fetch_array($colum0)) {
-	$pon=mysql_query("select distinct ponderacion from datos where id='$colum1[0]'");
-	$pon0=mysql_fetch_array($pon);
+	while ($colum1 = mysqli_fetch_array($colum0)) {
+	$pon=mysqli_query($db_con, "select distinct ponderacion from datos where id='$colum1[0]'");
+	$pon0=mysqli_fetch_array($pon);
 	$n_col = $colum1[2];
 	$id = $colum1[0];
 	$nombre = $colum1[1];

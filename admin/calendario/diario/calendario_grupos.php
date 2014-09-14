@@ -112,9 +112,9 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 
     $eventQuery = "SELECT distinct fecha, profesor FROM diario WHERE grupo like '%$curso%' and fecha = '$sql_currentday';";
     // echo $eventQuery;
-		$eventExec = mysql_query ( $eventQuery );
-		if (mysql_num_rows($eventExec)>0) {
-		while ( $row = mysql_fetch_array ( $eventExec ) ) {
+		$eventExec = mysqli_query($db_con, $eventQuery );
+		if (mysqli_num_rows($eventExec)>0) {
+		while ( $row = mysqli_fetch_array ( $eventExec ) ) {
 
       	if ($row[1]!==$_SESSION['profi']) {
       		$ellos++;
@@ -135,9 +135,9 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		}	
 		else{
 		$sql_currentday = "$year-$month-$zz";
-        $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
-		if (mysql_num_rows($fest)>0) {
-		$festiv=mysql_fetch_array($fest);
+        $fest = mysqli_query($db_con, "select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
+		if (mysqli_num_rows($fest)>0) {
+		$festiv=mysqli_fetch_array($fest);
 		echo "<td class='calendar-red'>$zz</td>\n";
 		$result_found = 1;
 				}	

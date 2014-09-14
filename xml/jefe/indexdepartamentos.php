@@ -33,8 +33,8 @@ include("../../menu.php");
 		<h2>Administración <small>Importación de departamentos</small></h2>
 	</div>
 	
-	<?php $result = mysql_query("SELECT * FROM departamentos LIMIT 1"); ?>
-	<?php if(mysql_num_rows($result)): ?>
+	<?php $result = mysqli_query($db_con, "SELECT * FROM departamentos LIMIT 1"); ?>
+	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
 		Ya existe información en la base de datos. Este proceso actualizará la información de los departamentos. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
 	</div>

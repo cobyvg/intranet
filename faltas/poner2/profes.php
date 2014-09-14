@@ -51,23 +51,23 @@ echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
 // Comienza la presentación de la tabla.
 // Asignaturas del Curso en un día
 // Abreviatura de la Asignatura
-$asignatur1 = mysql_query("SELECT distinct  c_asig, a_asig FROM  horw where prof = '$profesores' and dia = '$z' and hora = '$n_hora'");
-$rowasignatur1 = mysql_fetch_row($asignatur1);
+$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig FROM  horw where prof = '$profesores' and dia = '$z' and hora = '$n_hora'");
+$rowasignatur1 = mysqli_fetch_row($asignatur1);
 if($rowasignatur1[0]){echo "<h4><span class='label label-primary'>".$rowasignatur1[1]."</span></h4>"; }
  
 // Recorremos los grupos a los que da en ese hora.
-	$asignaturas1 = mysql_query("SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$profesores' and dia = '$z' and hora = '$n_hora' AND a_grupo not like 'G%'");
+	$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$profesores' and dia = '$z' and hora = '$n_hora' AND a_grupo not like 'G%'");
 $n = count($asignaturas1);
-  while ($rowasignaturas1 = mysql_fetch_array($asignaturas1))
+  while ($rowasignaturas1 = mysqli_fetch_array($asignaturas1))
     { 
     	
  		$nivel_curso = substr($rowasignaturas1[1],0,1);				
 //	Problemas con Diversificación (4E-Dd)
-			$profe_div = mysql_query("select * from profesores where grupo = '$rowasignaturas1[1]'");
-			if (mysql_num_rows($profe_div)<1) {		
+			$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$rowasignaturas1[1]'");
+			if (mysqli_num_rows($profe_div)<1) {		
 				$diversificacion = 1;
-				$grupo_div = mysql_query("select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
-				$grupo_diver = mysql_fetch_row($grupo_div);
+				$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+				$grupo_diver = mysqli_fetch_row($grupo_div);
 				$curso_con = $grupo_diver[0];
 			}	
 			else{
@@ -99,9 +99,9 @@ $n = count($asignaturas1);
    
 // Buscamos las faltas del profesor en esa semana y las clavamos en los campos de NC.
     $faltas10 = "select NC from FALTAS where FECHA = '$fechanc0' and FALTA = 'F' and PROFESOR = '$id' and HORA = '$n_hora' and unidad = '$curso_con' order by NC asc";	
-    $faltas11 = mysql_query($faltas10);
+    $faltas11 = mysqli_query($db_con, $faltas10);
     $faltas13 = "";
-    while($faltas12 = mysql_fetch_array($faltas11))
+    while($faltas12 = mysqli_fetch_array($faltas11))
     {	
 // Unimos las faltas si son varias mediante un punto.
     $faltas13 .= $faltas12[0]. ".";

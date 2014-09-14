@@ -49,15 +49,15 @@ if (isset($_GET['gu_fecha'])) {$gu_fecha = $_GET['gu_fecha'];}elseif (isset($_PO
 	name=profeso onChange="submit()" class="form-control">
 	<option><? echo $profeso;?></option>
 	<?
-	$profe = mysql_query(" SELECT distinct prof FROM horw where a_asig = 'GU' order by prof asc");
-	if ($filaprofe = mysql_fetch_array($profe))
+	$profe = mysqli_query($db_con, " SELECT distinct prof FROM horw where a_asig = 'GU' order by prof asc");
+	if ($filaprofe = mysqli_fetch_array($profe))
 	{
 		do {
 
 			$opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
 			echo "$opcion1";
 
-		} while($filaprofe = mysql_fetch_array($profe));
+		} while($filaprofe = mysqli_fetch_array($profe));
 	}
 	?>
 </select></div>
@@ -96,15 +96,15 @@ largo del curso.</p>
               <SELECT  name="sustituido" class="form-control">
               <option><? echo $sustituido;?></option>
 		        <?
-  $profe = mysql_query(" SELECT distinct prof FROM horw order by prof asc");
-  if ($filaprofe = mysql_fetch_array($profe))
+  $profe = mysqli_query($db_con, " SELECT distinct prof FROM horw order by prof asc");
+  if ($filaprofe = mysqli_fetch_array($profe))
         {
         do {
 
 	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
 	      echo "$opcion1";
 
-	} while($filaprofe = mysql_fetch_array($profe));
+	} while($filaprofe = mysqli_fetch_array($profe));
         }
 	?>
               </select>

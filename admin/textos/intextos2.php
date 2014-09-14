@@ -73,9 +73,9 @@ else
 {  
 $query="insert into Textos (Autor,Titulo,Editorial,Nivel,Grupo,Notas,Departamento, Asignatura,Obligatorio, Clase, isbn) values ('".$autor."','".$titulo."','".$editorial."','".$nivel."','".$grupo."','".$NOTAS."','".$departamento."','".$asignatura."','".$obligatorio."','".$clase."','".$isbn."')";
 //echo $query;
-mysql_query($query);
+mysqli_query($db_con, $query);
 
-	$textos = mysql_query("SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, nivel, grupo  
+	$textos = mysqli_query($db_con, "SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, nivel, grupo  
 	FROM Textos where Departamento = '$departamento'");
 
 	echo "<table class='table table-striped' style='width:auto'>
@@ -88,7 +88,7 @@ mysql_query($query);
 	<th>GRUPOS</th>
 	<th></th>
   </tr>";
-while($row = mysql_fetch_array($textos)) 
+while($row = mysqli_fetch_array($textos)) 
 {
              echo "<tr>
 			 <td>$row[0]</td>

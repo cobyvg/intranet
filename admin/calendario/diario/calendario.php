@@ -105,19 +105,19 @@ if ($result_found != 1) {//Buscar actividad  y marcarla.
     $sql_currentday = "$year-$month-$zz";
     $eventQuery = "SELECT fecha, profesor FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and (grupo='Sin grupo' ";
     
-$asig = mysql_query("select distinct grupo from profesores where profesor = '".$_SESSION['profi']."'");
-while ($asign = mysql_fetch_array($asig)) {
+$asig = mysqli_query($db_con, "select distinct grupo from profesores where profesor = '".$_SESSION['profi']."'");
+while ($asign = mysqli_fetch_array($asig)) {
 	$eventQuery.=" or grupo like '%$asign[0]%'";
 }
 $eventQuery.=")";
 $n_ex="";
 $n_pr="";
     //echo $eventQuery."<br>";
-    $eventExec = mysql_query($eventQuery);
+    $eventExec = mysqli_query($db_con, $eventQuery);
     $class="";
-    while($row = mysql_fetch_array($eventExec)) {
+    while($row = mysqli_fetch_array($eventExec)) {
     	$n_ex+=1;
-      if (mysql_num_rows($eventExec) > 0) {
+      if (mysqli_num_rows($eventExec) > 0) {
       	if ($row[1]!==$_SESSION['profi']) {
       		$yo=0;
       	}
@@ -134,9 +134,9 @@ $n_pr="";
       }
   }
   
-  $fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
-		if (mysql_num_rows($fest)>0) {
-		$festiv=mysql_fetch_array($fest);
+  $fest = mysqli_query($db_con, "select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
+		if (mysqli_num_rows($fest)>0) {
+		$festiv=mysqli_fetch_array($fest);
 			echo "<td class=\"calendar-red\">$zz</td>\n";
 				$result_found = 1;
 				}

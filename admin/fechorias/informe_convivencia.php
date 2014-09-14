@@ -60,150 +60,150 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
 <? 
  
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12'  order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_conv1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_conv1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03'  order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_conv2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_conv2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06'  order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_conv3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_conv3 = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_leves1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_leves1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_leves2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_leves2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_leves3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_leves3 = mysqli_num_rows($result);
  ?>
  
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_graves1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_graves1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_graves2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_graves2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_graves3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_graves3 = mysqli_num_rows($result);
  ?>
  
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_muygraves1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_muygraves1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_muygraves2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_muygraves2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_muygraves3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_muygraves3 = mysqli_num_rows($result);
  ?>
  
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsion1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsion1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsion2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsion2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsion3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsion3 = mysqli_num_rows($result);
  ?>
  
   <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados1 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados2 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados3 = mysqli_num_rows($result);
  ?>
  
    <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados1 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados2 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados3 = mysqli_num_rows($result);
  ?>
  
     <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsadosaula1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsadosaula1 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsadosaula2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsadosaula2 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsadosaula3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsadosaula3 = mysqli_num_rows($result);
  ?>
  
    <?    
  $SQL = "select distinct id from infotut_alumno where month(F_ENTREV) >='09' and month(F_ENTREV) <= '12' order by claveal";
- $result = mysql_query($SQL);
- $num_informes1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_informes1 = mysqli_num_rows($result);
  $SQL = "select distinct id from infotut_alumno where month(F_ENTREV) >='01' and month(F_ENTREV) <= '03' order by claveal";
- $result = mysql_query($SQL);
- $num_informes2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_informes2 = mysqli_num_rows($result);
  $SQL = "select distinct id from infotut_alumno where month(F_ENTREV) >='04' and month(F_ENTREV) <= '06' order by claveal";
- $result = mysql_query($SQL);
- $num_informes3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_informes3 = mysqli_num_rows($result);
  ?>
  
    <?    
  $SQL = "select distinct id from tutoria where month(fecha) >='09' and month(fecha) <= '12' and date(fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_acciones1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acciones1 = mysqli_num_rows($result);
  $SQL = "select distinct id from tutoria where month(fecha) >='01' and month(fecha) <= '03' and date(fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_acciones2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acciones2 = mysqli_num_rows($result);
  $SQL = "select distinct id from tutoria where month(fecha) >='04' and month(fecha) <= '06' and date(fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_acciones3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acciones3 = mysqli_num_rows($result);
  ?>
  
    <?    
  $SQL = "select distinct id from tutoria where causa = 'Faltas de Asistencia' and month(fecha) >='09' and month(fecha) <= '12' and date(fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_comunica1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_comunica1 = mysqli_num_rows($result);
  $SQL = "select distinct id from tutoria where causa = 'Faltas de Asistencia' and month(fecha) >='01' and month(fecha) <= '03' and date(fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_comunica2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_comunica2 = mysqli_num_rows($result);
  $SQL = "select distinct id from tutoria where causa = 'Faltas de Asistencia' and month(fecha) >='04' and month(fecha) <= '06' and date(fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_comunica3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_comunica3 = mysqli_num_rows($result);
  ?>
  
  <?  
- //mysql_query("truncate table absentismo");
+ //mysqli_query($db_con, "truncate table absentismo");
  for($i=1;$i<13;$i++)
  {
 // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
  $SQLTEMP = "create table absentismo$i SELECT claveal, falta, (count(*)) AS numero, unidad FROM FALTAS where falta = 'F' and MONTH(fecha) = '$i' group by claveal";
- $resultTEMP= mysql_query($SQLTEMP);
- mysql_query("insert into absentismo select * from absentismo$i where numero > '25'");
+ $resultTEMP= mysqli_query($db_con, $SQLTEMP);
+ mysqli_query($db_con, "insert into absentismo select * from absentismo$i where numero > '25'");
  
  $SQLDEL = "DROP table if exists absentismo$i";
- mysql_query($SQLDEL);
+ mysqli_query($db_con, $SQLDEL);
  }
  $faltas = "select distinct claveal from absentismo";
- $faltas0 = mysql_query($faltas);
- $num_faltas = mysql_num_rows($faltas0);
+ $faltas0 = mysqli_query($db_con, $faltas);
+ $num_faltas = mysqli_num_rows($faltas0);
  ?>
 <?
 $num_conv = $num_conv1 + $num_conv2 + $num_conv3;
@@ -242,147 +242,147 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 <br />
 <? 
  $nivel0 = "select distinct nomcurso from cursos";
- $nivel1 = mysql_query($nivel0);
- while($nivel = mysql_fetch_array($nivel1))
+ $nivel1 = mysqli_query($db_con, $nivel0);
+ while($nivel = mysqli_fetch_array($nivel1))
  {
  $nivel = $nivel[0];
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and month(fecha) >='09' and month(Fechoria.fecha) <= '12'  order by Fechoria.claveal";
  //echo $SQL."<br>";
- $result = mysql_query($SQL);
- $num_conv1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_conv1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03'  order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_conv2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_conv2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06'  order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_conv3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_conv3 = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_leves1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_leves1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_leves2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_leves2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and nivel = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_leves3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_leves3 = mysqli_num_rows($result);
  ?>
  
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_graves1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_graves1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_graves2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_graves2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_graves3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_graves3 = mysqli_num_rows($result);
  ?>
  
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_muygraves1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_muygraves1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_muygraves2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_muygraves2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_muygraves3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_muygraves3 = mysqli_num_rows($result);
  ?>
  
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsion1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsion1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsion2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsion2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsion3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsion3 = mysqli_num_rows($result);
  ?>
  
   <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados1 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados2 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados3 = mysqli_num_rows($result);
  ?>
  
    <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados1 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados2 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados3 = mysqli_num_rows($result);
  ?>
  
     <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsadosaula1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsadosaula1 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='01' and month(Fechoria.fecha) <= '03' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsadosaula2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsadosaula2 = mysqli_num_rows($result);
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='04' and month(Fechoria.fecha) <= '06' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsadosaula3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsadosaula3 = mysqli_num_rows($result);
  ?>
  
    <?    
  $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and month(F_ENTREV) >='09' and month(F_ENTREV) <= '12' order by infotut_alumno.claveal";
  //echo $SQL."<br>";
- $result = mysql_query($SQL);
- $num_informes1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_informes1 = mysqli_num_rows($result);
  $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and month(F_ENTREV) >='01' and month(F_ENTREV) <= '03' order by infotut_alumno.claveal";
- $result = mysql_query($SQL);
- $num_informes2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_informes2 = mysqli_num_rows($result);
  $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and month(F_ENTREV) >='04' and month(F_ENTREV) <= '06' order by infotut_alumno.claveal";
- $result = mysql_query($SQL);
- $num_informes3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_informes3 = mysqli_num_rows($result);
  ?>
  
    <?    
  $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and month(tutoria.fecha) >='09' and month(tutoria.fecha) <= '12' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_acciones1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acciones1 = mysqli_num_rows($result);
  $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and month(tutoria.fecha) >='01' and month(tutoria.fecha) <= '03' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_acciones2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acciones2 = mysqli_num_rows($result);
  $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and month(tutoria.fecha) >='04' and month(tutoria.fecha) <= '06' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_acciones3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acciones3 = mysqli_num_rows($result);
  ?>
  
    <?    
  $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='09' and month(tutoria.fecha) <= '12' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_comunica1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_comunica1 = mysqli_num_rows($result);
  $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='01' and month(tutoria.fecha) <= '03' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_comunica2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_comunica2 = mysqli_num_rows($result);
  $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='04' and month(tutoria.fecha) <= '06' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_comunica3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_comunica3 = mysqli_num_rows($result);
  ?>
  
  <?  
  
  $faltas = "select distinct absentismo.claveal from absentismo, alma where alma.claveal=absentismo.claveal and  curso = '$nivel'";
- $faltas0 = mysql_query($faltas);
- $num_faltas = mysql_num_rows($faltas0);
+ $faltas0 = mysqli_query($db_con, $faltas);
+ $num_faltas = mysqli_num_rows($faltas0);
  ?>
 
 <?
@@ -445,8 +445,8 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  
 <?
  $cursos0 = "select distinct curso, unidad from alma order by curso";
- $cursos1 = mysql_query($cursos0);
- while($cursos = mysql_fetch_array($cursos1))
+ $cursos1 = mysqli_query($db_con, $cursos0);
+ while($cursos = mysqli_fetch_array($cursos1))
  {
  $nivel = $cursos[0];
  $grupo = $cursos[1];
@@ -455,130 +455,130 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  
  <? 
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_conv1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_conv1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and month(Fechoria.fecha)>='01' and month(Fechoria.fecha) <= '03' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_conv2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_conv2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and month(Fechoria.fecha)>='04' and month(Fechoria.fecha) <= '06' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_conv3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_conv3 = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'leve' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_leves1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_leves1 = mysqli_num_rows($result);
 $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'leve' and month(Fechoria.fecha)>='01' and month(Fechoria.fecha) <= '03' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_leves2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_leves2 = mysqli_num_rows($result);
 $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'leve' and month(Fechoria.fecha)>='04' and month(Fechoria.fecha) <= '06' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_leves3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_leves3 = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_graves1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_graves1 = mysqli_num_rows($result);
 $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'grave' and month(Fechoria.fecha)>='01' and month(Fechoria.fecha) <= '03' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_graves2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_graves2 = mysqli_num_rows($result);
 $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'grave' and month(Fechoria.fecha)>='04' and month(Fechoria.fecha) <= '06' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_graves3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_graves3 = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'muy grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_muygraves1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_muygraves1 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'muy grave' and month(Fechoria.fecha)>='01' and month(Fechoria.fecha) <= '03' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_muygraves2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_muygraves2 = mysqli_num_rows($result);
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'muy grave' and month(Fechoria.fecha)>='04' and month(Fechoria.fecha) <= '06' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_muygraves3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_muygraves3 = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsion1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsion1 = mysqli_num_rows($result);
 $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha)>='01' and month(Fechoria.fecha) <= '03' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsion2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsion2 = mysqli_num_rows($result);
 $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha)>='04' and month(Fechoria.fecha) <= '06' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsion3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsion3 = mysqli_num_rows($result);
  ?>
   <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados1 = mysqli_num_rows($result);
 $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha)>='01' and month(Fechoria.fecha) <= '03' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados2 = mysqli_num_rows($result);
 $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha)>='04' and month(Fechoria.fecha) <= '06' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados3 = mysqli_num_rows($result);
  ?>
    <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados1 = mysqli_num_rows($result);
 $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha)>='01' and month(Fechoria.fecha) <= '03' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados2 = mysqli_num_rows($result);
 $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha)>='04' and month(Fechoria.fecha) <= '06' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsados3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsados3 = mysqli_num_rows($result);
  ?>
     <?    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsionaula = '1' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsadosaula1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsadosaula1 = mysqli_num_rows($result);
 $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsionaula = '1' and month(Fechoria.fecha)>='01' and month(Fechoria.fecha) <= '03' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsadosaula2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsadosaula2 = mysqli_num_rows($result);
 $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsionaula = '1' and month(Fechoria.fecha)>='04' and month(Fechoria.fecha) <= '06' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
- $result = mysql_query($SQL);
- $num_expulsadosaula3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_expulsadosaula3 = mysqli_num_rows($result);
  ?>
    <?    
  $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and infotut_alumno.unidad = '$grupo' and month(F_ENTREV) >='09' and month(F_ENTREV) <= '12' and date(F_ENTREV) > '$inicio_curso' order by infotut_alumno.claveal";
- $result = mysql_query($SQL);
- $num_informes1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_informes1 = mysqli_num_rows($result);
 $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and infotut_alumno.unidad = '$grupo' and month(F_ENTREV)>='01' and month(F_ENTREV) <= '03' and date(F_ENTREV) > '$inicio_curso' order by infotut_alumno.claveal";
- $result = mysql_query($SQL);
- $num_informes2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_informes2 = mysqli_num_rows($result);
 $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and infotut_alumno.unidad = '$grupo' and month(F_ENTREV)>='04' and month(F_ENTREV) <= '06' and date(F_ENTREV) > '$inicio_curso' order by infotut_alumno.claveal";
- $result = mysql_query($SQL);
- $num_informes3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_informes3 = mysqli_num_rows($result);
  ?>
    <?    
  $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and tutoria.unidad = '$grupo' and month(tutoria.fecha) >='09' and month(tutoria.fecha) <= '12' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_acciones1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acciones1 = mysqli_num_rows($result);
 $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and tutoria.unidad = '$grupo' and month(tutoria.fecha)>='01' and month(tutoria.fecha) <= '03' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_acciones2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acciones2 = mysqli_num_rows($result);
 $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and tutoria.unidad = '$grupo' and month(tutoria.fecha)>='04' and month(tutoria.fecha) <= '06' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_acciones3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_acciones3 = mysqli_num_rows($result);
  ?>
    <?    
  $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and tutoria.unidad = '$grupo' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='09' and month(tutoria.fecha) <= '12' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_comunica1 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_comunica1 = mysqli_num_rows($result);
 $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and tutoria.unidad = '$grupo' and causa = 'Faltas de Asistencia' and month(tutoria.fecha)>='01' and month(tutoria.fecha) <= '03' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_comunica2 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_comunica2 = mysqli_num_rows($result);
 $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and tutoria.unidad = '$grupo' and causa = 'Faltas de Asistencia' and month(tutoria.fecha)>='04' and month(tutoria.fecha) <= '06' and date(tutoria.fecha) > '$inicio_curso' order by id";
- $result = mysql_query($SQL);
- $num_comunica3 = mysql_num_rows($result);
+ $result = mysqli_query($db_con, $SQL);
+ $num_comunica3 = mysqli_num_rows($result);
  ?>
 
  <?  
  $faltas = "select distinct absentismo.claveal from absentismo, alma where alma.claveal=absentismo.claveal and curso = '$nivel' and absentismo.unidad = '$grupo' order by absentismo.claveal";
- $faltas0 = mysql_query($faltas);
- $num_faltas = mysql_num_rows($faltas0);
+ $faltas0 = mysqli_query($db_con, $faltas);
+ $num_faltas = mysqli_num_rows($faltas0);
  ?>
  <?
 $num_conv = $num_conv1 + $num_conv2 + $num_conv3;
@@ -630,9 +630,9 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 </tr>
 <?
 $tabla = str_replace("-","",$grupo);
-$temp = mysql_query("create table $tabla select Fechoria.asunto from Fechoria, alma where Fechoria.claveal = alma.claveal and alma.unidad = '$grupo'"); 
-$ini0 = mysql_query("SELECT distinct asunto, COUNT( * ) FROM  `$tabla` group by asunto");
-	while ($ini = mysql_fetch_array($ini0)){
+$temp = mysqli_query($db_con, "create table $tabla select Fechoria.asunto from Fechoria, alma where Fechoria.claveal = alma.claveal and alma.unidad = '$grupo'"); 
+$ini0 = mysqli_query($db_con, "SELECT distinct asunto, COUNT( * ) FROM  `$tabla` group by asunto");
+	while ($ini = mysqli_fetch_array($ini0)){
 ?>
 <tr>
   <td><?php  echo $ini[0];?></td>
@@ -640,7 +640,7 @@ $ini0 = mysql_query("SELECT distinct asunto, COUNT( * ) FROM  `$tabla` group by 
 </tr>
 <?
  }
- $borra_temp = mysql_query("drop table $tabla");
+ $borra_temp = mysqli_query($db_con, "drop table $tabla");
  echo "</tbody>
 </table>";
  echo '<hr style="width:800px">
@@ -666,7 +666,7 @@ for ($i=$cur;$i>$cur-3;$i--)
 	else{
 		$b_d = "faltas".$i;
 	}
-	mysql_select_db($b_d);
+	mysqli_select_db($db_con, $b_d);
 ?>
 
 
@@ -687,9 +687,9 @@ for ($i=$cur;$i>$cur-3;$i--)
 
   <?php 
 $tot0 = '';
-$tot1 = mysql_query("create table fech_temp select informa, count(*) as numeros from $b_d.Fechoria group by informa");
-$tot0 = mysql_query("select informa, numeros from $b_d.fech_temp order by numeros desc");
-while ($total0 = mysql_fetch_array($tot0)){
+$tot1 = mysqli_query($db_con, "create table fech_temp select informa, count(*) as numeros from $b_d.Fechoria group by informa");
+$tot0 = mysqli_query($db_con, "select informa, numeros from $b_d.fech_temp order by numeros desc");
+while ($total0 = mysqli_fetch_array($tot0)){
 ?>
   <tr>
     <td style="font-size:10px"><?php  echo $total0[0];?></td>
@@ -704,7 +704,7 @@ while ($total0 = mysql_fetch_array($tot0)){
 </table>
 </div>
 <?
-mysql_query("drop table fech_temp");
+mysqli_query($db_con, "drop table fech_temp");
 }
 }
 ?>
@@ -727,7 +727,7 @@ for ($i=$cur;$i>$cur-3;$i--)
 	else{
 		$b_d = "faltas".$i;
 	}
-	mysql_select_db($b_d);
+	mysqli_select_db($db_con, $b_d);
 ?>
 
 <h4 align="center">Problemas de Convivencia en el Curso <?php echo $i-1; echo "-".$i;?></h4>
@@ -744,8 +744,8 @@ for ($i=$cur;$i>$cur-3;$i--)
   <tbody>
   <?php 
 $tot = '';
-$tot = mysql_query("select asunto, count(*), grave from $b_d.Fechoria group by grave, asunto");
-while ($total = mysql_fetch_array($tot)){
+$tot = mysqli_query($db_con, "select asunto, count(*), grave from $b_d.Fechoria group by grave, asunto");
+while ($total = mysqli_fetch_array($tot)){
 ?>
   <tr>
     <td><?php  echo $total[0];?></td>

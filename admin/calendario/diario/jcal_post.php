@@ -46,13 +46,13 @@ $event_found = "";
 if (isset($_POST['id']) and strlen($_POST['id'])>0) { 
   //UPDATE
     $postQuery = "UPDATE `diario` SET fecha = '".$fecha_reg."', grupo = '".$grupo."', materia = '$materia', tipo = '$tipo', titulo = '".$titulo."', observaciones = '".$observaciones."', calendario = '".$calendario."' where id='$id'";
-    $postExec = mysql_query($postQuery) or die("Could not Post UPDATE diario Event to database!");
+    $postExec = mysqli_query($db_con, $postQuery) or die("Could not Post UPDATE diario Event to database!");
 	header("Location: index.php?id=$id&mens=actualizar");
 
 } else {
   //INSERT
     $postQuery = "INSERT INTO diario (fecha,grupo,materia,tipo,titulo,observaciones,calendario,profesor) VALUES ('".$fecha_reg."','".$grupo."','".$materia."','$tipo','".$titulo."','".$observaciones."','".$calendario."','".$_SESSION['profi']."')";
-    $postExec = mysql_query($postQuery);
+    $postExec = mysqli_query($db_con, $postQuery);
     header("Location: index.php?mens=insertar");
 }
 //echo $postQuery;

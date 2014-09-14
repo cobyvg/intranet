@@ -36,7 +36,7 @@ include("../../menu.php");
 $directorio = $_GET['directorio'];
 //echo $directorio."<br>";
 if ($directorio=="../exporta1") {
-	mysql_query("TRUNCATE TABLE notas");
+	mysqli_query($db_con, "TRUNCATE TABLE notas");
 }
 
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
@@ -88,7 +88,7 @@ $cod.="', '', '', '')";
 $cod.="' where claveal = '$clave3'";
 	}
 // echo $cod."<br>";
-mysql_query($cod);
+mysqli_query($db_con, $cod);
 }   	       
   }
    }

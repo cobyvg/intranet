@@ -23,8 +23,8 @@
 				<th><?php echo $desc; ?></th>
 				<?php for($i = 1; $i < 6; $i++): ?>
 				<td width="20%">
-					<?php $result = mysql_query("SELECT DISTINCT asig, c_asig FROM horw WHERE a_grupo='$unidad' AND dia='$i' AND hora='$hora'"); ?>
-					<?php while($row = mysql_fetch_array($result)): ?>
+					<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig FROM horw WHERE a_grupo='$unidad' AND dia='$i' AND hora='$hora'"); ?>
+					<?php while($row = mysqli_fetch_array($result)): ?>
 					<?php echo $row[0]."<br>\n"; ?>
 					<?php endwhile; ?>
 				</td>
@@ -39,8 +39,8 @@
 <h3>Equipo educativo</h3>
 <br>
 
-<?php $result = mysql_query("SELECT DISTINCT MATERIA, PROFESOR FROM profesores WHERE grupo='$unidad'"); ?>
-<?php if(mysql_num_rows($result)): ?>
+<?php $result = mysqli_query($db_con, "SELECT DISTINCT MATERIA, PROFESOR FROM profesores WHERE grupo='$unidad'"); ?>
+<?php if(mysqli_num_rows($result)): ?>
 <div class="table-responsive">
 	<table class="table table-striped">
 		<thead>
@@ -50,13 +50,13 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php while($row = mysql_fetch_array($result)): ?>
+		<?php while($row = mysqli_fetch_array($result)): ?>
 			<tr>
 				<td><?php echo $row[0]; ?></td>
 				<td><?php echo $row[1]; ?></td>
 			</tr>
 		<?php endwhile; ?>
-		<?php mysql_free_result($result); ?>
+		<?php mysqli_free_result($result); ?>
 		</tbody>
 	</table>
 </div>

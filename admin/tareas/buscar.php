@@ -68,26 +68,26 @@ if (!(empty($unidad))) {
   if(!(empty($unidad))) {$query .=  "and unidad = '$unidad'";} 
   $query .=  " ORDER BY FECHA DESC";
 //echo $query;
-$result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
+$result = mysqli_query($db_con, $query) or die ("Error in query: $query. " . mysqli_error($db_con));
 
 echo "<table class='table table-striped table-bordered datatable' align='center'><thead>";
 echo "<ter><th>Alumno/a </th>
 <th>Curso</Th>
 <Th>Fecha inicio</th><th>Sí</th><th>No</th><th></th><th></th></TR></thead><tbody>";
-if (mysql_num_rows($result) > 0)
+if (mysqli_num_rows($result) > 0)
 {
 
-	while($row = mysql_fetch_object($result))
+	while($row = mysqli_fetch_object($result))
 	{
 	$si='';
 	$no='';
 	$nulo='';
-		$t_si=mysql_query("select confirmado from tareas_profesor where confirmado = 'Si' and id_alumno = '$row->ID'");
-		$t_no=mysql_query("select confirmado from tareas_profesor where confirmado = 'No' and id_alumno = '$row->ID'");
-		$vacio=mysql_query("select confirmado from tareas_profesor where confirmado is NULL and id_alumno = '$row->ID'");
-		$si = mysql_num_rows($t_si);
-		$no = mysql_num_rows($t_no);
-		$nulo = mysql_num_rows($vacio);
+		$t_si=mysqli_query($db_con, "select confirmado from tareas_profesor where confirmado = 'Si' and id_alumno = '$row->ID'");
+		$t_no=mysqli_query($db_con, "select confirmado from tareas_profesor where confirmado = 'No' and id_alumno = '$row->ID'");
+		$vacio=mysqli_query($db_con, "select confirmado from tareas_profesor where confirmado is NULL and id_alumno = '$row->ID'");
+		$si = mysqli_num_rows($t_si);
+		$no = mysqli_num_rows($t_no);
+		$nulo = mysqli_num_rows($vacio);
 		if ($nulo > 0){ $bola = "<i class='fa fa-check' title='confirmado' />"; } else{ $bola = "<i class='fa fa-exclamation-triangle' title='No confirmado' />"; }
 
    echo "<tr><td nowrap style='vertical-align:middle'>";
@@ -98,8 +98,8 @@ if (mysql_num_rows($result) > 0)
    <TD style='vertical-align:middle'>$row->UNIDAD</TD>
    <TD style='vertical-align:middle'>$row->FECHA</TD><TD style='vertical-align:middle'>$si</TD><TD style='vertical-align:middle'>$no</TD><TD style='vertical-align:middle'>$bola</TD>";
    echo "<td style='vertical-align:middle'><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-search ' title='Ver Informe'> </i></a>";
-   $result0 = mysql_query ( "select tutor from FTUTORES where unidad = '$row->unidad'" );
-$row0 = mysql_fetch_array ( $result0 );	
+   $result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$row->unidad'" );
+$row0 = mysqli_fetch_array ( $result0 );	
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
    	   	echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";

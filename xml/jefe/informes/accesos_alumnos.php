@@ -35,7 +35,7 @@ include("../../../menu.php");
 	<div class="container">
 	
 	<?php
-	$query_accesos = mysql_query("SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/control.php' ORDER BY claveal ASC");
+	$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/control.php' ORDER BY claveal ASC");
 	?>
 		
 		<!-- TITULO DE LA PAGINA -->
@@ -67,15 +67,15 @@ include("../../../menu.php");
 					</thead>
 					<tbody>
 					  <?php 
-					  while ($row = mysql_fetch_object($query_accesos)):
+					  while ($row = mysqli_fetch_object($query_accesos)):
 					  	
-					  	$subquery = mysql_query("SELECT CONCAT(apellidos,', ',nombre) AS alumno, unidad FROM alma WHERE claveal=$row->claveal LIMIT 1");
-					  	$datos = mysql_fetch_object($subquery);
-					  	mysql_free_result($subquery);
+					  	$subquery = mysqli_query($db_con, "SELECT CONCAT(apellidos,', ',nombre) AS alumno, unidad FROM alma WHERE claveal=$row->claveal LIMIT 1");
+					  	$datos = mysqli_fetch_object($subquery);
+					  	mysqli_free_result($subquery);
 					  	
-					  	$subquery2 = mysql_query("SELECT fecha FROM reg_principal WHERE claveal=$row->claveal ORDER BY fecha DESC LIMIT 1");
-					  	$fecha = mysql_fetch_object($subquery2);
-					  	mysql_free_result($subquery2);
+					  	$subquery2 = mysqli_query($db_con, "SELECT fecha FROM reg_principal WHERE claveal=$row->claveal ORDER BY fecha DESC LIMIT 1");
+					  	$fecha = mysqli_fetch_object($subquery2);
+					  	mysqli_free_result($subquery2);
 					  	
 					  	if($datos->alumno != "" && $datos->unidad != ""):
 					  ?>
@@ -88,7 +88,7 @@ include("../../../menu.php");
 					  <?php 
 					  	endif;
 					  endwhile;
-					  mysql_free_result($query_accesos);
+					  mysqli_free_result($query_accesos);
 					  ?>
 					</tbody>
 				</table>

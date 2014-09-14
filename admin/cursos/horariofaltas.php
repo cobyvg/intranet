@@ -24,8 +24,8 @@ $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
 
 // Días de la semana 
-$profe1 = mysql_query("SELECT distinct prof, no_prof from horw_faltas order by prof");
-while($profe2 = mysql_fetch_array($profe1))
+$profe1 = mysqli_query($db_con, "SELECT distinct prof, no_prof from horw_faltas order by prof");
+while($profe2 = mysqli_fetch_array($profe1))
 {
 unset($datos);
 $dia="";
@@ -42,8 +42,8 @@ for($i=1;$i<6;$i++)
 {
 	
 ${'a'.$i}="";
-$asignaturas1 = mysql_query("SELECT distinct a_asig, a_grupo FROM  horw_faltas where prof = '$profesor' and dia = '$i' and hora = '$n_hora'");
-while($rowasignaturas1 = mysql_fetch_array($asignaturas1))
+$asignaturas1 = mysqli_query($db_con, "SELECT distinct a_asig, a_grupo FROM  horw_faltas where prof = '$profesor' and dia = '$i' and hora = '$n_hora'");
+while($rowasignaturas1 = mysqli_fetch_array($asignaturas1))
  {
  	$grupo = $rowasignaturas1[1];
 	${'a'.$i}.= "<b>".$grupo."</b> - <i>".$rowasignaturas1[0]."</i>\n\n"; 

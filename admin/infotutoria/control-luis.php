@@ -41,12 +41,12 @@ $hoy = date('Y-m-d');
 { 
 echo '<h4>Detalles de cada Informe individual</h4><br />';
 } 
-mysql_connect($db_host, $db_user, $db_pass) or die ("Imposible conectar!");
-mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
+$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die ("Imposible conectar!");
+mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
 
 //  Estructura de tabla para la tabla `infotut_temp`
 
-mysql_query("CREATE TABLE IF NOT EXISTS `infotut_temp` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `infotut_temp` (
   `id` int(11) NOT NULL auto_increment,
   `id_infotut` int(11) NOT NULL default '0',
   `asignatura` varchar(32) NOT NULL default '',
@@ -58,29 +58,29 @@ mysql_query("CREATE TABLE IF NOT EXISTS `infotut_temp` (
   KEY `id_infotut` (`id_infotut`),
   KEY `asignatura` (`asignatura`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1261");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
 // Control de tutores
-$tut = mysql_query("select unidad from FTUTORES where tutor = '$profes'");
-if (mysql_num_rows($tut)>0) {
-	$tutor = mysql_fetch_array($tut);
+$tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$profes'");
+if (mysqli_num_rows($tut)>0) {
+	$tutor = mysqli_fetch_array($tut);
 	$tutoria = "$tutor[0]";
 }
-$luis1 = mysql_query("select distinct grupo from profesores where profesor like '$profes' and grupo not like '$tutoria' order by grupo");
-while ($luis = mysql_fetch_array($luis1)) {
+$luis1 = mysqli_query($db_con, "select distinct grupo from profesores where profesor like '$profes' and grupo not like '$tutoria' order by grupo");
+while ($luis = mysqli_fetch_array($luis1)) {
 	$unidad = $luis[0];
 	echo "<h4 align='left'>Grupo: $luis[0]</h4><br />";
 
 $query = "SELECT id, claveal, unidad, tutor, nombre, apellidos, F_ENTREV FROM infotut_alumno where unidad = '$unidad' order by F_ENTREV desc";
 //echo $query;
-$result = mysql_query($query);
+$result = mysqli_query($db_con, $query);
 
-while($row = mysql_fetch_array($result))
+while($row = mysqli_fetch_array($result))
 {
 $todas = "";
 $asig = "";
 $inf = "select asignatura from infotut_profesor where id_alumno = '$row[0]'";
-$comp = mysql_query($inf);
-while($cadena = mysql_fetch_array($comp))
+$comp = mysqli_query($db_con, $inf);
+while($cadena = mysqli_fetch_array($comp))
 {
 	$todas.=$cadena[0]. ";";
 }
@@ -89,8 +89,8 @@ while($cadena = mysql_fetch_array($comp))
 //echo "$todos<br>";
 $combasi0 = "select combasi, curso from alma where claveal = '$row[1]'";
 //echo "$combasi0<br>";
-$combasi1 = mysql_query($combasi0);
-$combasi2 = mysql_fetch_array($combasi1);
+$combasi1 = mysqli_query($db_con, $combasi0);
+$combasi2 = mysqli_fetch_array($combasi1);
 $l_nivel = substr($combasi2[1],0,1);
 $combasi = substr($combasi2[0],0,strlen($combasi2[0]) - 1);
 $trozo = explode(":",$combasi);
@@ -98,8 +98,8 @@ foreach($trozo as $asignatura)
 {
 $nomasi0 = "select distinct nombre from asignaturas where codigo = '$asignatura' and abrev not like '%\_%' and curso like '$l_nivel%'";
 //echo "$nomasi0<br>";
-$nomasi1 = mysql_query($nomasi0);
-while($nomasi = mysql_fetch_array($nomasi1))
+$nomasi1 = mysqli_query($db_con, $nomasi0);
+while($nomasi = mysqli_fetch_array($nomasi1))
 {
 $profesores = "";
 $pos = strpos($todas,$nomasi[0]);
@@ -108,16 +108,16 @@ if($pos === FALSE)
 
 $profe0 = "select distinct profesor from profesores where  profesores.grupo = '$row[2]' and materia like '$nomasi[0]' and profesor not in (select tutor from FTUTORES where unidad = '$row[2]') and profesor like '$profes'";
 
-$profe1 = mysql_query($profe0);
-while($profe2 = mysql_fetch_array($profe1))
+$profe1 = mysqli_query($db_con, $profe0);
+while($profe2 = mysqli_fetch_array($profe1))
 {
 $query = "insert into infotut_temp (id_infotut, asignatura, profesor, alumno, fecha, curso) values ('$row[0]','$nomasi[0]','$profe2[0]','$row[1]','$row[6]','$row[2]')";
-mysql_query($query);
+mysqli_query($db_con, $query);
 $profesores .= $profe2[0]."; ";
 }
 $profesores = substr($profesores,0,strlen($profesores) - 2);
 //$query2 = "insert into infotut_temp2 (id_infotut,asignatura, alumno, fecha, profesor) values ('$row[0]','$nomasi[0]','$cadena[0]','$cadena[5]','$profesores')";
-//mysql_query($query2);
+//mysqli_query($db_con, $query2);
 if(strlen($profesores) > 0)
 {
 if($detalles == '1')
@@ -144,9 +144,9 @@ echo "<hr />";
 echo '<h4>Resultados globales por Profesor</h4><br />';
 $malo0 = "select profesor, count(*) as total from infotut_temp group by profesor";
 //echo "$combasi0<br>";
-$malo1 = mysql_query($malo0);
+$malo1 = mysqli_query($db_con, $malo0);
 echo "<table class='table table-striped' style='width:auto'><tr><th>Profesor</th><th>Total</th></tr>";
-while($malo2 = mysql_fetch_array($malo1))
+while($malo2 = mysqli_fetch_array($malo1))
 {
 echo "<tr><td>$malo2[0]</td><td>$malo2[1]</td></tr>";
 }
@@ -157,9 +157,9 @@ echo "<tr><td>$malo2[0]</td><td>$malo2[1]</td></tr>";
 echo '<h4>Resultados globales por Asignatura</h4><br />';
 $malo0 = "select distinct asignatura, count(*) as total from infotut_temp where profesor like '$profes' group by asignatura";
 //echo "$combasi0<br>";
-$malo1 = mysql_query($malo0);
+$malo1 = mysqli_query($db_con, $malo0);
 echo "<table class='table table-striped' style='width:auto'><tr><th>Profesor</th><th>Total</th></tr>";
-while($malo2 = mysql_fetch_array($malo1))
+while($malo2 = mysqli_fetch_array($malo1))
 {
 echo "<tr><td>$malo2[0]</td><td>$malo2[1]</td></tr>";
 }
@@ -170,7 +170,7 @@ echo "<tr><td>$malo2[0]</td><td>$malo2[1]</td></tr>";
 
 
 <? 
-mysql_query("drop table infotut_temp");
+mysqli_query($db_con, "drop table infotut_temp");
 
 include("../../pie.php");
 ?>

@@ -34,8 +34,8 @@ include("menu.php");
     <FORM action="imprimir.php" method="POST" name="imprime">
 
   <?
-$cursos0 = mysql_query("select grupos, profesor from actividades where id = '$id'");
-while($cursos = mysql_fetch_array($cursos0))
+$cursos0 = mysqli_query($db_con, "select grupos, profesor from actividades where id = '$id'");
+while($cursos = mysqli_fetch_array($cursos0))
 {
 $profesor="";
 $profes="";
@@ -53,13 +53,13 @@ foreach($trozos as $valor)
 $unidad = $valor;
 $alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and REPLACE(alma.unidad,'-','') = '$unidad' order by NC";
 //echo $alumnos0;
-$alumnos1 = mysql_query($alumnos0);
-$num = mysql_num_rows($alumnos1);
-if($alumno = mysql_fetch_array($alumnos1))
+$alumnos1 = mysqli_query($db_con, $alumnos0);
+$num = mysqli_num_rows($alumnos1);
+if($alumno = mysqli_fetch_array($alumnos1))
 {
 $datos0 = "select fecha, horario, profesor, actividad, descripcion from actividades where id ='$id'";
-$datos1 = mysql_query($datos0);
-$datos = mysql_fetch_array($datos1);
+$datos1 = mysqli_query($db_con, $datos0);
+$datos = mysqli_fetch_array($datos1);
 $fecha0 = explode("-",$datos[0]);
 $fecha  = $fecha0[2]."-". $fecha0[1]."-". $fecha0[0];
 $horario = $datos[1];
@@ -88,7 +88,7 @@ $claveal = $alumno[3];
 <td>   
 <?
 echo " $nc. $apellidos $nombre</td></tr>";
-}while($alumno = mysql_fetch_array($alumnos1));
+}while($alumno = mysqli_fetch_array($alumnos1));
 ?>
 </table>
 <?

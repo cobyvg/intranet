@@ -3,27 +3,27 @@
 // Buscamos registros siguiendo a cal.php
 // Datos complementarios para el formulario
 $borrajusti = "SELECT NC, CLAVEAL, apellidos, nombre FROM FALUMNOS WHERE claveal = '$alumno'";
-$borrajusti0 = mysql_query($borrajusti);
+$borrajusti0 = mysqli_query($db_con, $borrajusti);
 // Borrado de faltas justificadas
 if ($falta=="J") 
 {
-$borrajusti1 = mysql_fetch_array($borrajusti0);
+$borrajusti1 = mysqli_fetch_array($borrajusti0);
 $nombreal = trim($borrajusti1[3]);
 $apellidoal = trim($borrajusti1[2]);
 $deljusti = "DELETE FROM FALTAS WHERE FECHA = '$year-$month-$today' and CLAVEAL = '$alumno' and FALTA = 'J'";
-mysql_query($deljusti) or die("No se ha podido eliminar la Falta Justificada.<br> Ponte en contacto con quien pueda arreglarlo..");		
+mysqli_query($db_con, $deljusti) or die("No se ha podido eliminar la Falta Justificada.<br> Ponte en contacto con quien pueda arreglarlo..");		
 }
 // Aquí empieza la justificación.
 else 
 {
 $justifica0 = "SELECT FALTA, FALTAS.NC, FALUMNOS.CLAVEAL, FALTAS.HORA, FALTAS.CODASI FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno'";
 // echo $justifica0."<br>";
-    $justifica1 = mysql_query($justifica0);
-// echo mysql_num_rows($justifica1)."<br>";
-    if (mysql_num_rows($justifica1) > 0) {    	
-    	while ($faltones = mysql_fetch_array($justifica1)) {
+    $justifica1 = mysqli_query($db_con, $justifica0);
+// echo mysqli_num_rows($justifica1)."<br>";
+    if (mysqli_num_rows($justifica1) > 0) {    	
+    	while ($faltones = mysqli_fetch_array($justifica1)) {
 $justificacion = "UPDATE  FALTAS SET  FALTA =  'J' WHERE  FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno' and FALTAS.FALTA = 'F'";
-mysql_query($justificacion);
+mysqli_query($db_con, $justificacion);
 // echo $justificacion."<br>";
     	}    	
     }
@@ -47,8 +47,8 @@ mysql_query($justificacion);
 	$final_del_curso = strtotime($fin_curso);
 	$dia_festivo="";
 	$mens_fecha="";
-$repe=mysql_query("select fecha from festivos where date(fecha) = date('$fecha33')");
-if (mysql_num_rows($repe) > '0') {	
+$repe=mysqli_query($db_con, "select fecha from festivos where date(fecha) = date('$fecha33')");
+if (mysqli_num_rows($repe) > '0') {	
 	$dia_festivo='1';
 		}
 if($dia_festivo=='1')	
@@ -77,14 +77,14 @@ $codasi="";
 $profeso="";
 $num_dia = $ndia['wday'];
     $unica = "select combasi from alma where alma.claveal = '$alumno'";
-    $unica0 = mysql_query($unica);
-    $unica1 = mysql_fetch_row($unica0);
+    $unica0 = mysqli_query($db_con, $unica);
+    $unica1 = mysqli_fetch_row($unica0);
     $combasi=$unica1[0];
     //echo $combasi."<br>";
 $codasi10 = "select prof, a_asig, c_asig, no_prof from horw_faltas where a_grupo like '%$unidad%' and dia = '$num_dia' and hora = '$i'";
 //echo $codasi10."<br>";
-$codasi0 = mysql_query($codasi10);
-	while ($codasi1 = mysql_fetch_row($codasi0)) {
+$codasi0 = mysqli_query($db_con, $codasi10);
+	while ($codasi1 = mysqli_fetch_row($codasi0)) {
 		if ($codasi1[1]=="TUT") {
     		$codasi = "TUT";
     		$profeso = $codasi1[3];    			
@@ -97,8 +97,8 @@ $codasi0 = mysql_query($codasi10);
     		}
 	}    	
     	$clavenc = "SELECT NC FROM FALUMNOS WHERE claveal = '$alumno'";
-    	$clavenc0 = mysql_query($clavenc);
-    	$clavenc1 = mysql_fetch_row($clavenc0);
+    	$clavenc0 = mysqli_query($db_con, $clavenc);
+    	$clavenc1 = mysqli_fetch_row($clavenc0);
     	$nc = $clavenc1[0];   	
     	$enviada = "$year-$month-$today";
 // Excluimos otras posibilidades de error.
@@ -111,7 +111,7 @@ $nombredia = $hoy[wday];
 
 // Insertamos la justificación en todas las horas de esa fecha para ese alumno. Si hay varias asignaturas y profesores en una hora, esos campos quedan vacío. Asunto por rematar.
 $justifica10 = "insert INTO  FALTAS (  CLAVEAL , unidad  ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$alumno',  '$unidad', '$nc',  '$year-$month-$today', '$i', '$nombredia', '$profeso',  '$codasi', 'F')";	
-mysql_query($justifica10) or die("No se ha podido justificar las faltas.");	
+mysqli_query($db_con, $justifica10) or die("No se ha podido justificar las faltas.");	
 // echo $justifica10."<br>";
 
     	} 	
@@ -119,10 +119,10 @@ mysql_query($justifica10) or die("No se ha podido justificar las faltas.");
     }
     }
 }
-$borrapend = mysql_query("select combasi, claveal, curso from alma where curso like '%bach%'order by curso");
-while ($com=mysql_fetch_array($borrapend)) {
+$borrapend = mysqli_query($db_con, "select combasi, claveal, curso from alma where curso like '%bach%'order by curso");
+while ($com=mysqli_fetch_array($borrapend)) {
 	if (strlen($com[0])<49) {	
-		mysql_query("delete from FALTAS where claveal='$com[1]' and codasi='' and profesor=''");		
+		mysqli_query($db_con, "delete from FALTAS where claveal='$com[1]' and codasi='' and profesor=''");		
 	}
 }
     ?>

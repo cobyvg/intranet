@@ -15,29 +15,29 @@
 			if ($col=='promociona'){
 				if ($val=='2' or $val=='3') {
 				// Resplado de datos modificados
-				$n_promo = mysql_query("select promociona, repite, claveal from matriculas_bach where id = '$id_submit'");	
-				$n_prom = mysql_fetch_array($n_promo);
+				$n_promo = mysqli_query($db_con, "select promociona, repite, claveal from matriculas_bach where id = '$id_submit'");	
+				$n_prom = mysqli_fetch_array($n_promo);
 				//echo $n_prom[0];
 				if (!($n_prom[0]=='2') and !($n_prom[0]=='3') and $n_prom[1]<>1) {
 				//echo $curso;	
 				if ($curso == "2BACH") {
 					
-				$i2 = mysql_query("select itinierario1 from matriculas_bach where id = '$id_submit'");
-				$i1 = mysql_fetch_array($i2);
+				$i2 = mysqli_query($db_con, "select itinierario1 from matriculas_bach where id = '$id_submit'");
+				$i1 = mysqli_fetch_array($i2);
 				if ($i1[0]<1) {
 				// Recolocamos datos porque no promociona.						
-				mysql_query("insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
+				mysqli_query($db_con, "insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
 				$cambia_datos = "update matriculas_bach set curso = '1BACH' where id = '$id_submit'";
-				mysql_query($cambia_datos);
+				mysqli_query($db_con, $cambia_datos);
 				}				
 				}
 				elseif($curso == "1BACH"){
 				//	echo "Tarari que te vi";
 				$a_bd = substr($curso_actual,0,4);
-				mysql_query("insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
-				$ret_4 = mysql_query("select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'");
+				mysqli_query($db_con, "insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
+				$ret_4 = mysqli_query($db_con, "select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'");
 				//echo "select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'";
-				$ret = mysql_fetch_array($ret_4);
+				$ret = mysqli_fetch_array($ret_4);
 				$sql="";				
 				$sql = "insert into matriculas VALUES (''";
 				for ($i = 1; $i < 63; $i++) {
@@ -45,28 +45,28 @@
 				}
 				$sql.=")";
 				//echo $sql."<br>";
-				$n_afect = mysql_query($sql);
-				mysql_query("delete from matriculas_bach where id='$id_submit'");
+				$n_afect = mysqli_query($db_con, $sql);
+				mysqli_query($db_con, "delete from matriculas_bach where id='$id_submit'");
 				}
 				}
 				}
 				else{
-					mysql_query("update matriculas_bach set promociona='$val' where id='$id_submit'");
+					mysqli_query($db_con, "update matriculas_bach set promociona='$val' where id='$id_submit'");
 				}
 			}
 			
-			mysql_query("update matriculas_bach set $col = '$val' where id = '$id_submit'");
-			mysql_query("update matriculas_bach set confirmado = '' where id = '$id_submit'");
-			mysql_query("update matriculas_bach set revisado = '' where id = '$id_submit'");
+			mysqli_query($db_con, "update matriculas_bach set $col = '$val' where id = '$id_submit'");
+			mysqli_query($db_con, "update matriculas_bach set confirmado = '' where id = '$id_submit'");
+			mysqli_query($db_con, "update matriculas_bach set revisado = '' where id = '$id_submit'");
 		}
 		
 		$tr_con = explode(" ",$con);
 		foreach ($tr_con as $clave){
-			mysql_query("update matriculas_bach set confirmado = '1' where id = '$clave'");
+			mysqli_query($db_con, "update matriculas_bach set confirmado = '1' where id = '$clave'");
 		}
 		$tr_con5 = explode(" ",$revis);
 		foreach ($tr_con5 as $clave_revis){
-			mysql_query("update matriculas_bach set revisado = '1' where id = '$clave_revis'");
+			mysqli_query($db_con, "update matriculas_bach set revisado = '1' where id = '$clave_revis'");
 		}
 	}
 	?>

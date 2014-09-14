@@ -6,20 +6,20 @@ $trozos = explode (", ", $al);
 $apellidos = $trozos[0];
 $nombre = $trozos[1];
 
-$n_fil = mysql_query("select distinct apellidos, nombre, claveal from tutoria where jefatura = '1'");
-$n_fil0 = mysql_num_rows($n_fil);
-$result0 = mysql_query ("select distinct apellidos, nombre, claveal from tutoria where jefatura = '1' order by fecha desc");
-$n_filas = mysql_num_rows($result0);
+$n_fil = mysqli_query($db_con, "select distinct apellidos, nombre, claveal from tutoria where jefatura = '1'");
+$n_fil0 = mysqli_num_rows($n_fil);
+$result0 = mysqli_query($db_con, "select distinct apellidos, nombre, claveal from tutoria where jefatura = '1' order by fecha desc");
+$n_filas = mysqli_num_rows($result0);
 if($n_filas > 0) 
   {
 echo '<table class="table table-striped table-bordered datatable">';
 ?>
 <?
 echo "<thead><tr><th>#</th><th>Alumno</th><th>Fecha</th></tr></thead><tbody>";
-  while($alumn = mysql_fetch_array($result0))
+  while($alumn = mysqli_fetch_array($result0))
   {
-    $result = mysql_query ("select distinct apellidos, nombre, fecha, accion, causa, observaciones, unidad, tutor, id, prohibido from tutoria where jefatura = '1' and claveal = '$alumn[2]' order by fecha desc limit 1");
-while($row = mysql_fetch_array($result))
+    $result = mysqli_query($db_con, "select distinct apellidos, nombre, fecha, accion, causa, observaciones, unidad, tutor, id, prohibido from tutoria where jefatura = '1' and claveal = '$alumn[2]' order by fecha desc limit 1");
+while($row = mysqli_fetch_array($result))
 {
 $fecha10 = explode("-",$row[2]);
 $fecha20 = "$fecha10[2]-$fecha10[1]-$fecha10[0]"; 

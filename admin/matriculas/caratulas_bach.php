@@ -34,17 +34,17 @@ $MiPDF->SetMargins ( 20, 20, 20 );
 # ajustamos al 100% la visualización
 $MiPDF->SetDisplayMode ( 'fullpage' );
 // Consulta  en curso. 
-$connection = mysql_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
-mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
+$db_con = mysqli_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
+mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
 if (substr($curso, 0, 1) == '1') {
 	$mas = ", colegio";
 }
 $n_curso = substr($curso, 0, 1);
-$result0 = mysql_query ( "select distinct id_matriculas from matriculas_bach_temp, matriculas_bach where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
-while ($id_ar = mysql_fetch_array($result0)) {
+$result0 = mysqli_query($db_con, "select distinct id_matriculas from matriculas_bach_temp, matriculas_bach where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
+while ($id_ar = mysqli_fetch_array($result0)) {
 $id = $id_ar[0];
-$result = mysql_query("select * from matriculas_bach where id = '$id'");
-if ($datos_ya = mysql_fetch_object ( $result )) {
+$result = mysqli_query($db_con, "select * from matriculas_bach where id = '$id'");
+if ($datos_ya = mysqli_fetch_object ( $result )) {
 
 $naci = explode("-",$datos_ya->nacimiento);
 $nacimiento = "$naci[2]-$naci[1]-$naci[0]";
@@ -236,9 +236,9 @@ for($i=1;$i<3;$i++){
 			$n_z="";
 			foreach ($opt23 as $key=>$val){
 				$n_z+=1;		
-				$opt_b = mysql_query("select optativa2b$n_z from matriculas_bach where id = '$id'");
+				$opt_b = mysqli_query($db_con, "select optativa2b$n_z from matriculas_bach where id = '$id'");
 				//echo "select optativa2b$n_z from matriculas_bach where id = '$id'<br />";
-				$o_b = mysql_fetch_array($opt_b);
+				$o_b = mysqli_fetch_array($opt_b);
 				$reduce = substr($key,0,-3);
 				$opt_2b .= $o_b[0].". ".$val."; ";				
 				}

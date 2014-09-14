@@ -40,12 +40,13 @@ include("menu.php");
 <form name="informar" method="POST" action="informar.php?id=<? echo $id;?>">         
 <?php
  
-  $c=mysql_connect ($db_host, $db_user, $db_pass);
+$db_con = mysqli_connect( $db_host, $db_user, $db_pass );
+mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
 
 echo "<input type='hidden'  name='ident' value='$id'>";
 echo "<input type='hidden'  name='profesor' value='$profesor'>";
-$alumno=mysql_query("SELECT tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.id, tareas_alumnos.fecha, duracion, curso FROM tareas_alumnos, alma WHERE alma.claveal=tareas_alumnos.claveal and ID='$id'",$c);
-$dalumno = mysql_fetch_array($alumno);
+$alumno=mysqli_query($db_con, "SELECT tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.id, tareas_alumnos.fecha, duracion, curso FROM tareas_alumnos, alma WHERE alma.claveal=tareas_alumnos.claveal and ID='$id'");
+$dalumno = mysqli_fetch_array($alumno);
 $n_cur=$dalumno[7];
 
 if (empty($dalumno[0])) {
@@ -71,20 +72,20 @@ echo "<thead><tr  class='active'><th>Alumno/a </th>
 		echo "</div>";
 	}
 
-$coinciden = mysql_query("SELECT materia FROM profesores WHERE profesor='$profesor' and grupo = '$dalumno[3]'", $c);
-while($coinciden0 = mysql_fetch_row($coinciden)){
+$coinciden = mysqli_query($db_con, "SELECT materia FROM profesores WHERE profesor='$profesor' and grupo = '$dalumno[3]'");
+while($coinciden0 = mysqli_fetch_row($coinciden)){
 $asignatur = $coinciden0[0];
 $asignatur = str_replace("nbsp;","",$asignatur);
 $asignatur = str_replace("&","",$asignatur);
 }
 
-/*$as=mysql_query("SELECT COMBASI FROM alma WHERE CLAVEAL='$claveal' ", $c);
-$asi=mysql_fetch_array($as);
+/*$as=mysqli_query($db_con, "SELECT COMBASI FROM alma WHERE CLAVEAL='$claveal' ");
+$asi=mysqli_fetch_array($as);
 $asi1 = substr($asi[0],0,strlen($asi[0]) -1);
 $asig0 = explode(":",$asi1);
 foreach($asig0 as $asignatura){			
-$abrev = mysql_query("select distinct nombre from asignaturas where codigo = '$asignatura'  and abrev not like '%\_%' limit 1");
-				while($abrev0 = mysql_fetch_row($abrev)){
+$abrev = mysqli_query($db_con, "select distinct nombre from asignaturas where codigo = '$asignatura'  and abrev not like '%\_%' limit 1");
+				while($abrev0 = mysqli_fetch_row($abrev)){
 				$nombre10 = $abrev0[0];
 				if($nombre10 == $asignatur){
 				echo "<OPTION selected='selected'>$nombre10 </OPTION>";
@@ -94,17 +95,17 @@ $abrev = mysql_query("select distinct nombre from asignaturas where codigo = '$a
 }
 }*/
 
-$as=mysql_query("SELECT COMBASI FROM alma WHERE CLAVEAL='$claveal' ");
-$asi=mysql_fetch_array($as);
+$as=mysqli_query($db_con, "SELECT COMBASI FROM alma WHERE CLAVEAL='$claveal' ");
+$asi=mysqli_fetch_array($as);
 $asi1 = substr($asi[0],0,strlen($asi[0]) -1);
 
-$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$profesor'");
+$coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%' and profesor = '$profesor'");
 echo "<div class='form-group'><label>Asignatura</label><select name='asignatura' class='form-control'>";
-if(mysql_num_rows($coinciden)<1 and stristr($_SESSION['cargo'],'1') == TRUE){
-$coinciden = mysql_query("SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");
+if(mysqli_num_rows($coinciden)<1 and stristr($_SESSION['cargo'],'1') == TRUE){
+$coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");
 }
 echo"<OPTION></OPTION>";
-while($coinciden0 = mysql_fetch_row($coinciden)){
+while($coinciden0 = mysqli_fetch_row($coinciden)){
 $n_asig = $coinciden0[0];
 $cod = $coinciden0[1];
 if (strstr($asi1,$cod)==TRUE) {
@@ -119,11 +120,10 @@ if (strstr($asi1,$cod)==TRUE) {
 echo "</select></div>";
 
 echo "</td>";
-$ya_hay=mysql_query("select tarea from tareas_profesor where asignatura = '$materia' and id_alumno = '$id'");
-$ya_hay1=mysql_fetch_row($ya_hay);
+$ya_hay=mysqli_query($db_con, "select tarea from tareas_profesor where asignatura = '$materia' and id_alumno = '$id'");
+$ya_hay1=mysqli_fetch_row($ya_hay);
 $informe=$ya_hay1[0];
 echo "<div class='form-group'><label>Informe</label><textarea rows='6' name='informe' class='form-control' required>$informe</textarea></div>";
-mysql_close($c);
 ?>
 
 <input name="submit1" type=submit value="Enviar Datos" class="btn btn-primary btn-block">

@@ -36,13 +36,13 @@ if (!($c_escolar==$curso_actual)) {
 	$an = explode("/",$c_escolar);
 	$c_db = $an[0]+1;
 	$base = $db.$c_db;	
-	mysql_select_db($base);
+	mysqli_select_db($db_con, $base);
 }
 
 if ($claveal) {
 	 $SQL1 = "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.claveal, claveal1, numeroexpediente from alma where claveal = '$claveal' order BY alma.apellidos";
-  $result1= mysql_query($SQL1);
-	if ($row1 = mysql_fetch_array($result1)) {
+  $result1= mysqli_query($db_con, $SQL1);
+	if ($row1 = mysqli_fetch_array($result1)) {
 	  $claveal = $row1[3];
 	  $unidad = $row1[2];
 	  $claveal1 = $row1[4];
@@ -64,7 +64,7 @@ if (!$claveal) {
 } 
 
 if (!($c_escolar == $curso_actual)) {
-	mysql_select_db($db);
+	mysqli_select_db($db_con, $db);
 }
 
 
@@ -82,13 +82,13 @@ include('../../menu.php');
 			<h3 class="text-info"><?php echo $apellido.', '.$nombrepil; ?></h3>
 		</div>
 		
-		<?php $result = mysql_query("SELECT correo FROM control WHERE claveal='$claveal' LIMIT 1"); ?>
-		<?php $row2 = mysql_fetch_array($result); ?>
-		<?php mysql_free_result($result); ?>
+		<?php $result = mysqli_query($db_con, "SELECT correo FROM control WHERE claveal='$claveal' LIMIT 1"); ?>
+		<?php $row2 = mysqli_fetch_array($result); ?>
+		<?php mysqli_free_result($result); ?>
 		
-		<?php $result = mysql_query("select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, unidad, numeroexpediente from alma where alma.claveal= '$claveal' order BY alma.apellidos"); ?>
+		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, unidad, numeroexpediente from alma where alma.claveal= '$claveal' order BY alma.apellidos"); ?>
 		
-		<?php if ($row = mysql_fetch_array($result)): ?>
+		<?php if ($row = mysqli_fetch_array($result)): ?>
 		<!-- SCAFFOLDING -->
 		<div class="well">
 		<div class="row">
@@ -214,9 +214,9 @@ include('../../menu.php');
 				  <?php 
 				  if (!($act_tutoria== "" and $todos == "")) {
 				  	$tutori = $_SESSION['profi'];
-				    $activ = mysql_query("select * from FTUTORES where tutor='$tutori' and unidad = '$unidad' o'");
+				    $activ = mysqli_query($db_con, "select * from FTUTORES where tutor='$tutori' and unidad = '$unidad' o'");
 				    
-				    if (mysql_num_rows($activ) > 0 || stristr($_SESSION['cargo'],'1') == TRUE) {
+				    if (mysqli_num_rows($activ) > 0 || stristr($_SESSION['cargo'],'1') == TRUE) {
 				    	include("act_tutoria.php");	
 				    }
 				  }

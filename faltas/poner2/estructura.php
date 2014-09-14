@@ -32,9 +32,9 @@
 <?
 if(is_numeric($profesor))
 {
-	$nombre_p=mysql_query("select distinct prof from horw where no_prof = '$profesor'");
+	$nombre_p=mysqli_query($db_con, "select distinct prof from horw where no_prof = '$profesor'");
 	echo "select distinct prof from horw where no_prof = '$profesor'";
-	$nombre_pr = mysql_fetch_array($nombre_p);
+	$nombre_pr = mysqli_fetch_array($nombre_p);
 	$n_profe=$profesor."_ ".$nombre_pr[0];
 }
 else{$n_profe = $profesor;}

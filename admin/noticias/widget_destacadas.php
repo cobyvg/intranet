@@ -4,17 +4,17 @@
 <br>
 <h4><span class="fa fa-fire fa-fw"></span> Noticias destacadas</h4>
 
-<?php $result = mysql_query("SELECT id, slug, timestamp, content, clase from noticias where pagina like '%1%' and fechafin > '".date('Y-m-d')."' ORDER BY timestamp DESC"); ?>
-<?php if(mysql_num_rows($result)): ?>
+<?php $result = mysqli_query($db_con, "SELECT id, slug, timestamp, content, clase from noticias where pagina like '%1%' and fechafin > '".date('Y-m-d')."' ORDER BY timestamp DESC"); ?>
+<?php if(mysqli_num_rows($result)): ?>
 
 <div class="list-group">
-<?php while ($row = mysql_fetch_array($result)): ?>
+<?php while ($row = mysqli_fetch_array($result)): ?>
 	<a class="list-group-item" href="http://<?php echo $dominio; ?>/intranet/admin/noticias/noticia.php?id=<?php echo $row['id']; ?>">
 		<small class="text-muted pull-right"><?php echo strftime('%e %b',strtotime($row['timestamp'])); ?></small>
 		<span class="text-info"><?php echo $row['slug']; ?></span>
 	</a>
 <?php endwhile; ?>
-<?php mysql_free_result($result); ?>
+<?php mysqli_free_result($result); ?>
 </div>
 <?php else: ?>
 

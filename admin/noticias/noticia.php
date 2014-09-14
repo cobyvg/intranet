@@ -33,11 +33,11 @@ include("menu.php");
 			
 			<div class="col-sm-12">
 				
-				<?php $result = mysql_query("SELECT slug, content, contact, timestamp FROM noticias WHERE id='".$_GET['id']."'"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT slug, content, contact, timestamp FROM noticias WHERE id='".$_GET['id']."'"); ?>
 				
-				<?php if (mysql_num_rows($result)): ?>
+				<?php if (mysqli_num_rows($result)): ?>
 					
-					<?php $row = mysql_fetch_array($result); ?>
+					<?php $row = mysqli_fetch_array($result); ?>
 					<?php $exp_profesor = explode(',', $row['contact']); ?>
 					<?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 					
@@ -51,7 +51,7 @@ include("menu.php");
 					<br>
 					<br>
 					
-					<?php mysql_free_result($result); ?>
+					<?php mysqli_free_result($result); ?>
 					
 					<div class="hidden-print">
 						<a class="btn btn-primary" href="#" onclick="javascript:print();">Imprimir</a>

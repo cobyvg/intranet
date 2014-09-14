@@ -84,8 +84,8 @@ if (isset($_POST['submit1'])) {
 }
 
 if ($id) {
-	$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, unidad, tutor, id, prohibido, claveal from tutoria where id = '$id'");
-	$row = mysql_fetch_array($result);
+	$result = mysqli_query($db_con, "select apellidos, nombre, fecha, accion, causa, observaciones, unidad, tutor, id, prohibido, claveal from tutoria where id = '$id'");
+	$row = mysqli_fetch_array($result);
 	$alumno = $row[0].", ".$row[1]." --> ".$row[10];
 	$fecha0 = $row[2];
 	$dia = explode("-",$fecha0);
@@ -101,7 +101,7 @@ if ($id) {
 }
 
 if ($eliminar=="1") {
-	mysql_query("delete from tutoria where id='$id'");
+	mysqli_query($db_con, "delete from tutoria where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido borrado en la Base de datos.
@@ -117,11 +117,11 @@ if (isset($_POST['submit2'])) {
 	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 	$actualizar ="UPDATE  tutoria SET observaciones = '$observaciones', causa = '$causa', accion = '$completo', fecha = '$fecha2', prohibido = '$prohibido' WHERE  id = '$id2'";
 	//echo $actualizar;
-	mysql_query($actualizar);
+	mysqli_query($db_con, $actualizar);
 }
 if (isset($_POST['submit3'])) {
 	$actualizar ="delete from tutoria WHERE  id = '$id2'";
-	mysql_query($actualizar);
+	mysqli_query($db_con, $actualizar);
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El registro ha sido actualizado en la Base de datos.
@@ -142,7 +142,7 @@ El registro ha sido actualizado en la Base de datos.
 <SELECT name="unidad"
 	onChange="submit()" class="form-control">
 	<option><? echo $unidad;?></option>
-	<? unidad();?>
+	<? unidad($db_con);?>
 </SELECT> 
 </div>
 
@@ -172,8 +172,8 @@ if ($alumno) {
 
 <?
 
-$alumno0 = mysql_query("SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where unidad = '$unidad' order by NC asc");
-if ($falumno = mysql_fetch_array($alumno0))
+$alumno0 = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where unidad = '$unidad' order by NC asc");
+if ($falumno = mysqli_fetch_array($alumno0))
 {
 	?>
 	<?
@@ -182,7 +182,7 @@ if ($falumno = mysql_fetch_array($alumno0))
 	do {
 		echo "<OPTION>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>";
 
-	} while($falumno = mysql_fetch_array($alumno0));
+	} while($falumno = mysqli_fetch_array($alumno0));
 }
 ?>
 </select> 
@@ -298,8 +298,8 @@ if($alumno){
 <h4>Historial de Intervenciones sobre <? echo $nombre." ".$apellidos." (".$unidad.")"; ?></h4><br>
 	<?
 
-	$result = mysql_query ("select apellidos, nombre, fecha, accion, causa, observaciones, id from tutoria where claveal='$clave' and accion not like '%SMS' order by fecha");
-	if ($row = mysql_fetch_array($result))
+	$result = mysqli_query($db_con, "select apellidos, nombre, fecha, accion, causa, observaciones, id from tutoria where claveal='$clave' and accion not like '%SMS' order by fecha");
+	if ($row = mysqli_fetch_array($result))
 	{
 		echo '<table class="table table-striped">';
 		echo "<thead><tr><th>Fecha</th><th>Clase</th><th>Causa</th><th></th></tr></thead><tbody>";
@@ -310,7 +310,7 @@ if($alumno){
 			echo "<tr><td>$fecha3</td><td>$row[3]</td><td>$row[4]</a></td><td >
 <a href='tutor.php?id=$row[6]'><i class='fa fa-search' title='Detalles'> </i> </a>
 <a href='tutor.php?id=$row[6]&eliminar=1'><i class='fa fa-trash-o </i> ' title='Borrar'></a></td></tr>";
-		}while($row = mysql_fetch_array($result));
+		}while($row = mysqli_fetch_array($result));
 		echo "</tbody></table>";
 	}
 }

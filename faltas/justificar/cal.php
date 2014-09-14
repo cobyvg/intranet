@@ -86,8 +86,8 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
    // echo $sql_currentday;
     $eventQuery = "SELECT FALTA FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' ";
     //echo $eventQuery;
-    $eventExec = mysql_query($eventQuery);
-    if($row = mysql_fetch_array($eventExec)) {
+    $eventExec = mysqli_query($db_con, $eventQuery);
+    if($row = mysqli_fetch_array($eventExec)) {
       if (strlen($row[0]) > 0) {
       	if ($row[0] == "F") {
 			

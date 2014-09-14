@@ -6,10 +6,10 @@
   FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal
   and FALTAS.falta = 'J' and  FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";
  //print $SQLT;
-  $resultt = mysql_query($SQLT);
-  $rowt = mysql_fetch_array($resultt);
-  $resulttj = mysql_query($SQLTJ);
-  $rowtj = mysql_fetch_array($resulttj);
+  $resultt = mysqli_query($db_con, $SQLT);
+  $rowt = mysqli_fetch_array($resultt);
+  $resulttj = mysqli_query($db_con, $SQLTJ);
+  $rowtj = mysqli_fetch_array($resulttj);
 
   if ($rowt != "" OR $rowtj != "")
              {
@@ -23,7 +23,7 @@ echo "<h5>
 		$rowtj[5]="0";
 		printf ("<TABLE class ='table table-bordered' style='width:auto'><tr><th>Faltas sin justificar</th><td style='color:#9d261d;font-weight:bold'>%s</td></tr>\n", $rowt[5]);
 				printf ("<tr><th>Faltas justificadas</th><td style='color:#46a546; font-weight:bold'>%s</td></tr>\n", $rowtj[5]);
-        } while($rowt = mysql_fetch_array($resultt) or $rowtj = mysql_fetch_array($resulttj));
+        } while($rowt = mysqli_fetch_array($resultt) or $rowtj = mysqli_fetch_array($resulttj));
         echo "</table></center>\n";
         }
 	$fechasp0=explode("-",$fecha1);
@@ -31,14 +31,14 @@ echo "<h5>
 	$fechasp2=explode("-",$fecha2);
 	$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
   $SQLF = "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = '$claveal' and FALTAS.codasi = '$asignatura' group by FALUMNOS.APELLIDOS, FALTAS.fecha";
-  $resultf = mysql_query($SQLF);
-  $rowf = mysql_fetch_array($resultf);
-  $numdias = mysql_num_rows($resultf);
+  $resultf = mysqli_query($db_con, $SQLF);
+  $rowf = mysqli_fetch_array($resultf);
+  $numdias = mysqli_num_rows($resultf);
   echo "<h5>Faltas de Asistencia en esta Asignatura (<span style='color:brown;'>".$numdias."</span>)</h5>";
-   if(mysql_num_rows($resultf) > '0')
+   if(mysqli_num_rows($resultf) > '0')
 	{
 $nf = "";
-$numdias=mysql_num_rows($resultf);
+$numdias=mysqli_num_rows($resultf);
 		echo "<table class='table table-bordered' style='width:auto;'><tr><td>";
 					do {
 	$nf = $nf + 1;		
@@ -47,7 +47,7 @@ $numdias=mysql_num_rows($resultf);
 				printf ("&nbsp;".$fechar1."&nbsp;");
 				for($i=0;$i<$numdias;$i=$i+11){
 				if($nf == $i) echo "<br>";}
-		} while($rowf = mysql_fetch_array($resultf));
+		} while($rowf = mysqli_fetch_array($resultf));
 		
         echo "</td></tr></TABLE>";}
         else{

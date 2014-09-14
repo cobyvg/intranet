@@ -38,9 +38,9 @@ $query = "SELECT DISTINCT unidad FROM FALUMNOS where unidad not like '' ";
 if ($unidad) $query .= " and unidad='$unidad'";
 $query .= " order by unidad";
 // echo $query;
-$unidades = mysql_query($query);
+$unidades = mysqli_query($db_con, $query);
 
-while ($unidad = mysql_fetch_array($unidades)) {
+while ($unidad = mysqli_fetch_array($unidades)) {
 	
 	$unidad = $unidad[0];
 
@@ -57,9 +57,9 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$fin = date('d-m-Y', $fin);
 	
 	// Consultamos el tutor del grupo
-	$result = mysql_query("SELECT TUTOR FROM FTUTORES WHERE unidad='$unidad'");
-	$tutor = mysql_fetch_array($result);
-	mysql_free_result($result);
+	$result = mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad='$unidad'");
+	$tutor = mysqli_fetch_array($result);
+	mysqli_free_result($result);
 	
 	// Impresi�n de la cabecera
 	$pdf->SetFont('NewsGotT','B',10);
@@ -90,16 +90,16 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetFillColor(239,240,239);	// Color de sombreado
 	
 	// Consultamos los alumnos del grupo seleccionado
-	$result = mysql_query("SELECT nc, CONCAT(apellidos,', ',nombre) AS alumno FROM FALUMNOS WHERE unidad='$unidad' ORDER BY nc ASC");
+	$result = mysqli_query($db_con, "SELECT nc, CONCAT(apellidos,', ',nombre) AS alumno FROM FALUMNOS WHERE unidad='$unidad' ORDER BY nc ASC");
 	
 	$i=0;
-	while ($alumno = mysql_fetch_array($result)) {
+	while ($alumno = mysqli_fetch_array($result)) {
 		if ($i%2==0) $somb='DF'; else $somb='';
 		$pdf->Row(array($alumno['nc'],substr($alumno['alumno'],0,40),'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''),$somb);
 		
 		$pdf->SetLineWidth(0.6); // Grosor de linea
 		for ($j=0; $j<6; $j++) {
-			if ($i<34) { $inicio=26; $f=$i; } else { $inicio=5.1; $f=mysql_num_rows($result)-$i; }
+			if ($i<34) { $inicio=26; $f=$i; } else { $inicio=5.1; $f=mysqli_num_rows($result)-$i; }
 			$pdf->Line(74+42*$j, $inicio+5*$f, 74+42*$j, $inicio+5+5*$f+0.1*$f);
 		}
 		$pdf->SetLineWidth(0.2); // Grosor por defecto
@@ -140,10 +140,10 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	foreach($horas as $hora => $nombre) {
 
 		for($i=1;$i<6;$i++) {
-			$result = mysql_query("SELECT DISTINCT a_asig, asig FROM horw WHERE a_grupo='$unidad' AND dia='$i' AND hora='$hora'");
+			$result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig FROM horw WHERE a_grupo='$unidad' AND dia='$i' AND hora='$hora'");
 			
 			unset($asignaturas);
-			while ($asignatura = mysql_fetch_array($result)) {
+			while ($asignatura = mysqli_fetch_array($result)) {
 				$asignaturas .= $asignatura[0]." | ";
 			}
 			$asignaturas = trim($asignaturas," | ");
@@ -174,7 +174,7 @@ while ($unidad = mysql_fetch_array($unidades)) {
 	$pdf->SetFont('NewsGotT','B',9);
 	$pdf->Cell(273,5,"A - Ir al Aseo. B - Ir a beber agua. F - Falta de Asistencia. R - Retraso injustificado. J - Viene de Jefatura.",0,0,'C');
 	
-	mysql_free_result($result);
+	mysqli_free_result($result);
 		
 }
 

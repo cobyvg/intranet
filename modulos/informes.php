@@ -1,7 +1,7 @@
 <?
 echo "<div class='alert alert-warning fade in' role='alert'><p class='lead'><i class='fa fa-bell'> </i> Informes de Tutor&iacute;a activos por visita de padres</p><br />";
-$resultcurs = mysql_query($SQLcurso);
-	while($rowcurs = mysql_fetch_array($resultcurs))
+$resultcurs = mysqli_query($db_con, $SQLcurso);
+	while($rowcurs = mysqli_fetch_array($resultcurs))
 	{
 	$curso = $rowcurs[0];
 	$curso0 = explode("-",$curso);
@@ -9,23 +9,23 @@ $resultcurs = mysql_query($SQLcurso);
 	$asignatura = trim($rowcurs[1]);
 	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurs[2]' and abrev not like '%\_%'";
 	//echo $asigna0."<br>";
-	$asigna1 = mysql_query($asigna0);
-	$asigna2 = mysql_fetch_array($asigna1);
+	$asigna1 = mysqli_query($db_con, $asigna0);
+	$asigna2 = mysqli_fetch_array($asigna1);
 	$c_asig = $asigna2[0];
 	if(is_numeric($c_asig)){
 	$hoy = date('Y-m-d');
 	$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV FROM infotut_alumno, alma WHERE 
 	infotut_alumno.claveal = alma.claveal and  date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
-$result = mysql_query($query);
+$result = mysqli_query($db_con, $query);
 $n_inotut="";
-if (mysql_num_rows($result) > 0)
+if (mysqli_num_rows($result) > 0)
 {
 	$n_i=1;
-	while($row1 = mysql_fetch_array($result))
+	while($row1 = mysqli_fetch_array($result))
 	{
 $hay = "select * from infotut_profesor where id_alumno = '$row1[0]'  and asignatura = '$asignatura'";
-$si = mysql_query($hay);	
-if (mysql_num_rows($si) > 0)
+$si = mysqli_query($db_con, $hay);	
+if (mysqli_num_rows($si) > 0)
 		{ }
    		else
 		{
@@ -54,13 +54,13 @@ if (mysql_num_rows($si) > 0)
   </div>
   <div class="modal-body">
 <?
-$alumno=mysql_query("SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'");
-$dalumno = mysql_fetch_array($alumno);
+$alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'");
+$dalumno = mysqli_fetch_array($alumno);
 $claveal=$dalumno[6];
-$datos=mysql_query("SELECT asignatura, informe, id, profesor FROM infotut_profesor WHERE id_alumno='$row1[0]'");
-if(mysql_num_rows($datos) > 0)
+$datos=mysqli_query($db_con, "SELECT asignatura, informe, id, profesor FROM infotut_profesor WHERE id_alumno='$row1[0]'");
+if(mysqli_num_rows($datos) > 0)
 {
-while($informe = mysql_fetch_array($datos))
+while($informe = mysqli_fetch_array($datos))
 {
 	echo "<p style='color:#08c'>$informe[0]. <span style='color:#555'> $informe[1]</span></p>";
 }

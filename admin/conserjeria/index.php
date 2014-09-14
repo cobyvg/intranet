@@ -57,9 +57,9 @@ if (is_numeric($n_numero) and strlen($n_numero)>0) {
 	if ($tipo=='') {
 		$tipo='3';
 	}
-	mysql_query("INSERT INTO `fotocopias` ( `id` , `nombre` , `numero` , `observaciones`, `tipo` )
+	mysqli_query($db_con, "INSERT INTO `fotocopias` ( `id` , `nombre` , `numero` , `observaciones`, `tipo` )
 VALUES (NULL , '$profeso', '$n_numero', '$n_observaciones', '$tipo')");
-	if (mysql_affected_rows()>0) {
+	if (mysqli_affected_rows()>0) {
 		echo "<p id='texto_en_marco'>Las copias se han registrado en la Base de datos</p>";
 	}
 	else {
@@ -80,15 +80,15 @@ VALUES (NULL , '$profeso', '$n_numero', '$n_observaciones', '$tipo')");
               <SELECT  name=profeso onChange="submit()">
               <option><? echo $profeso;?></option>
 		        <?
-  $profe = mysql_query(" SELECT distinct nombre FROM departamentos where nombre not like 'admin' order by nombre asc");
-  if ($filaprofe = mysql_fetch_array($profe))
+  $profe = mysqli_query($db_con, " SELECT distinct nombre FROM departamentos where nombre not like 'admin' order by nombre asc");
+  if ($filaprofe = mysqli_fetch_array($profe))
         {
         do {
 
 	      $opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
 	      echo "$opcion1";
 
-	} while($filaprofe = mysql_fetch_array($profe));
+	} while($filaprofe = mysqli_fetch_array($profe));
         }
 	?>
               </select>
@@ -103,8 +103,8 @@ VALUES (NULL , '$profeso', '$n_numero', '$n_observaciones', '$tipo')");
   <?
 if ($profeso) {
 	$total="0";
-$ft=mysql_query("select numero from fotocopias where nombre = '$profeso'");
-while ($copia=mysql_fetch_array($ft)) {
+$ft=mysqli_query($db_con, "select numero from fotocopias where nombre = '$profeso'");
+while ($copia=mysqli_fetch_array($ft)) {
 	$total+=$copia[0];
 }
 ?>
@@ -122,7 +122,7 @@ while ($copia=mysql_fetch_array($ft)) {
 	</td></tr>
 	<tr><td id="filaprincipal">Observaciones</td>
 	<td><textarea name="n_observaciones" value="" cols="30" type="text"  /></textarea></td></tr>
-	<tr><td colspan="2" style="text-align:center;"><span style="font-size:1.0em;color:#261;word-spacing:1px;">Total de copias:</span><span style="color:red;font-weight:bold;margin-left:2px;"><? echo $total;?></span><span style="margin-left:15px;font-size:1.0em;color:#261;word-spacing:1px;">Sesiones: </span><span style="color:blue;font-weight:bold;margin-left:2px;"><? echo mysql_num_rows($ft);?></span></td></tr>
+	<tr><td colspan="2" style="text-align:center;"><span style="font-size:1.0em;color:#261;word-spacing:1px;">Total de copias:</span><span style="color:red;font-weight:bold;margin-left:2px;"><? echo $total;?></span><span style="margin-left:15px;font-size:1.0em;color:#261;word-spacing:1px;">Sesiones: </span><span style="color:blue;font-weight:bold;margin-left:2px;"><? echo mysqli_num_rows($ft);?></span></td></tr>
 	<tr><td colspan="2" id="filaprincipal" style="text-align:center;padding:6px;"><input name="submit" value="Enviar datos" type="submit" style="width:100px;" /></td></tr>
 	</table>
 	<input type="hidden" value="<? echo $profeso;?>" name="profeso" />

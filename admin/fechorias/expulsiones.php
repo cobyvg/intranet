@@ -30,12 +30,12 @@ El formato de las fechas no es correcto. Lo correcto es "dia-mes-año" (p.ej. 15-
 	}
 	else{
 $actualizar ="UPDATE  Fechoria SET  recibido =  '1', aula_conv = '$convivencia', inicio_aula = '$inicio_aula', fin_aula = '$fin_aula', horas = '$horas' WHERE  Fechoria.id = '$id'"; 
-mysql_query($actualizar);
- $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, 
+mysqli_query($db_con, $actualizar);
+ $result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, 
   FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, 
   Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia,  alma.telefono, alma.telefonourgencia from Fechoria, FALUMNOS, alma, listafechorias where Fechoria.claveal = alma.claveal and Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
 
-  if ($row = mysql_fetch_array($result))
+  if ($row = mysqli_fetch_array($result))
         {
 		$apellidos = $row[0];
 		$nombre = $row[1];
@@ -62,18 +62,18 @@ mysql_query($actualizar);
 if ($mod_sms and $mens_movil == 'envia_sms') {
 if((substr($tfno,0,1)=="6" or substr($tfno,0,1)=="7" or substr($tfno_u,0,1)=="6" or substr($tfno_u,0,1)=="7"))
 {
-$sms_n = mysql_query("select max(id) from sms");
-$n_sms =mysql_fetch_array($sms_n);
+$sms_n = mysqli_query($db_con, "select max(id) from sms");
+$n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 $login=$usuario_smstrend;
 $password=$clave_smstrend;;
 if(substr($tfno,0,1)=="6" or substr($tfno,0,1)=="6"){$mobile=$tfno;}else{$mobile=$tfno_u;}
 $message1 = "Le comunicamos que su hijo/a va a ser expulsado al Aula de Convivencia. ";
 $message2= "Por favor, p&oacute;ngase en contacto con nosotros.";
-$repe0 = mysql_query("select * from sms where telefono = '$mobile' and mensaje like '%$message1%' and profesor = '$tutor' and date(fecha) = date(now())");
-if (mysql_num_rows($repe0)<"1") {
+$repe0 = mysqli_query($db_con, "select * from sms where telefono = '$mobile' and mensaje like '%$message1%' and profesor = '$tutor' and date(fecha) = date(now())");
+if (mysqli_num_rows($repe0)<"1") {
 $mens_total=$message1.$message2;
-mysql_query("insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$mens_total','$tutor')");	
+mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$mens_total','$tutor')");	
 }
 ?>
 <script language="javascript">
@@ -96,7 +96,7 @@ document.enviar.submit()
 	<input name="message" type="hidden" value="<?echo $mens_total;?>" maxlength="159" size="60"/>    
 </form>
 <?
-if (mysql_num_rows($repe0)<"1") {
+if (mysqli_num_rows($repe0)<"1") {
 echo "
 <script>
 enviarForm();
@@ -113,10 +113,10 @@ $fin1 = formatea_fecha($fin_aula);
 $tutor="Jefatura de Estudios";
 if(!(empty($tareas)))
 {
-$repe = mysql_query("select * from tareas_alumnos where claveal = '$claveal' and fecha = '$inicio_aula'");
-if(mysql_num_rows($repe)=="0")
+$repe = mysqli_query($db_con, "select * from tareas_alumnos where claveal = '$claveal' and fecha = '$inicio_aula'");
+if(mysqli_num_rows($repe)=="0")
 {
-$insertar=mysql_query("INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR, FIN) VALUES ('$claveal','$apellidos','$nombre','$unidad', '$inicio_aula','$convivencia','$tutor', '$fin_aula')") or die ("Error: no se ha podido activar el informe:".mysql_error());
+$insertar=mysqli_query($db_con, "INSERT tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR, FIN) VALUES ('$claveal','$apellidos','$nombre','$unidad', '$inicio_aula','$convivencia','$tutor', '$fin_aula')") or die ("Error: no se ha podido activar el informe:".mysqli_error($db_con));
 }
 else
 {
@@ -153,9 +153,9 @@ if($inicio){ $inicio1 = explode("-",$inicio); $inicio = $inicio1[2] . "-" . $ini
 if($fin){ $fin1 = explode("-",$fin); $fin = $fin1[2] . "-" . $fin1[1] ."-" . $fin1[0];}
 $actualizar ="UPDATE  Fechoria SET  expulsion =  '$expulsion', inicio = '$inicio', fin = '$fin' WHERE  Fechoria.id = '$id'"; 
 //echo $actualizar;
-mysql_query($actualizar);
-$result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia from Fechoria, FALUMNOS, listafechorias, alma where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto and FALUMNOS.claveal = alma.claveal and Fechoria.id = '$id' order by Fechoria.fecha DESC");
-  if ($row = mysql_fetch_array($result))
+mysqli_query($db_con, $actualizar);
+$result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia from Fechoria, FALUMNOS, listafechorias, alma where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto and FALUMNOS.claveal = alma.claveal and Fechoria.id = '$id' order by Fechoria.fecha DESC");
+  if ($row = mysqli_fetch_array($result))
         {
 		$apellidos = $row[0];
 		$nombre = $row[1];
@@ -168,21 +168,21 @@ $result = mysql_query ("select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.uni
 
 // SMS
 if ($mod_sms and $mens_movil == 'envia_sms') {
-$sms_n = mysql_query("select max(id) from sms");
-$n_sms =mysql_fetch_array($sms_n);
+$sms_n = mysqli_query($db_con, "select max(id) from sms");
+$n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 $login=$usuario_smstrend;
 $password=$clave_smstrend;
 if(substr($tfno,0,1)=="6"){$mobile=$tfno;}else{$mobile=$tfno_u;}	
-$repe0 = mysql_query("select * from sms where telefono = '$mobile' and mensaje like '%$message%' and profesor = '$tutor' and date(fecha) = date(now())");
-if (mysql_num_rows($repe0)<"1") {	
+$repe0 = mysqli_query($db_con, "select * from sms where telefono = '$mobile' and mensaje like '%$message%' and profesor = '$tutor' and date(fecha) = date(now())");
+if (mysqli_num_rows($repe0)<"1") {	
 if ($mens_movil=="envia_sms")
 	{
 
 if((substr($tfno,0,1)=="6" or substr($tfno_u,0,1)=="6"))
 	{
 $message = "Le comunicamos que su hijo/a va a ser expulsado del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
-mysql_query("insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$tutor')");
+mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$tutor')");
 ?>
 <script language="javascript">
 function enviarForm() 
@@ -211,7 +211,7 @@ $fecha2 = date('Y-m-d');
 $tutor = "Jefatura de Estudios";
 $causa = "Problemas de Convivencia";
 $accion = "Envío de SMS";
-mysql_query("insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,jefatura) values ('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$message."','".$causa."','".$accion."','".$fecha2."','1')");
+mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,jefatura) values ('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$message."','".$causa."','".$accion."','".$fecha2."','1')");
 }
 }
 }

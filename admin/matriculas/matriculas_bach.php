@@ -29,8 +29,8 @@ if (isset($_GET['enviar'])) {$enviar = $_GET['enviar'];}elseif (isset($_POST['en
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 
 //variables();
-$connection = mysql_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
-mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
+$db_con = mysqli_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
+mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
 
 
 // Centros adscritos
@@ -345,22 +345,22 @@ if ($itinerario1=="1"){
 			else {$extra = " dnitutor = '$dnitutor' ";}
 
 			// El alumno ya se ha registrado anteriormente
-			$ya_esta = mysql_query("select id from matriculas_bach where $extra");
-			if (mysql_num_rows($ya_esta) > 0) {
-				$ya = mysql_fetch_array($ya_esta);
+			$ya_esta = mysqli_query($db_con, "select id from matriculas_bach where $extra");
+			if (mysqli_num_rows($ya_esta) > 0) {
+				$ya = mysqli_fetch_array($ya_esta);
 				if (strlen($ruta_este) > 0 or strlen($ruta_oeste) > 0) {$transporte = '1';}
 				$act_datos = "update matriculas_bach set apellidos='$apellidos', nombre='$nombre', nacido='$nacido', provincia='$provincia', nacimiento='$fecha_nacimiento', domicilio='$domicilio', localidad='$localidad', dni='$dni', padre='$padre', dnitutor='$dnitutor', madre='$madre', dnitutor2='$dnitutor2', telefono1='$telefono1', telefono2='$telefono2', religion='$religion', colegio='$colegio', otrocolegio='$otrocolegio', letra_grupo='$letra_grupo', idioma1='$idioma1', idioma2='$idioma2', religion = '$religion', observaciones = '$observaciones', promociona='$promociona', transporte='$transporte', ruta_este='$ruta_este', ruta_oeste='$ruta_oeste', curso='$curso', sexo = '$sexo', hermanos = '$hermanos', nacionalidad = '$nacionalidad', claveal = '$claveal', itinerario1 = '$itinerario1', itinerario2 = '$itinerario2', optativa1='$optativa1', optativa2='$optativa2', optativa2b1 = '$optativa2b1', optativa2b2 = '$optativa2b2', optativa2b3 = '$optativa2b3', optativa2b4 = '$optativa2b4', optativa2b5 = '$optativa2b5', optativa2b6 = '$optativa2b6', optativa2b7 = '$optativa2b7', optativa2b8 = '$optativa2b8', optativa2b9 = '$optativa2b9', optativa2b10 = '$optativa2b10', repite = '$repetidor' where id = '$ya[0]'";
 				//echo $act_datos."<br>";
-				mysql_query($act_datos);
+				mysqli_query($db_con, $act_datos);
 			}
 			else{
 
 				if (strlen($ruta) > 0) {$transporte = '1';}
 				$con_matr =  "insert into matriculas_bach (apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma1, idioma2, religion, optativa1, optativa2, optativa2b1, optativa2b2, optativa2b3, optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, optativa2b9, optativa2b10, observaciones, curso, fecha, promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, itinerario1, itinerario2, repite) VALUES ('$apellidos',  '$nombre', '$nacido', '$provincia', '$fecha_nacimiento', '$domicilio', '$localidad', '$dni', '$padre', '$dnitutor', '$madre', '$dnitutor2', '$telefono1', '$telefono2', '$colegio', '$otrocolegio', '$letra_grupo', '$correo', '$idioma1', '$idioma2', '$religion', '$optativa1', '$optativa2', '$optativa2b1', '$optativa2b2', '$optativa2b3', '$optativa2b4', '$optativa2b5', '$optativa2b6', '$optativa2b7', '$optativa2b8', '$optativa2b9', '$optativa2b10', '$observaciones', '$curso', now(), '$promociona', '$transporte', '$ruta_este', '$ruta_oeste', '$sexo', '$hermanos', '$nacionalidad', '$claveal', '$itinerario1', '$itinerario2', '$repetidor')";
-				mysql_query($con_matr);
+				mysqli_query($db_con, $con_matr);
 			}
-			$ya_esta1 = mysql_query("select id from matriculas_bach where $extra");
-			$ya_id = mysql_fetch_array($ya_esta1);
+			$ya_esta1 = mysqli_query($db_con, "select id from matriculas_bach where $extra");
+			$ya_id = mysqli_fetch_array($ya_esta1);
 			$id = $ya_id[0];
 			if ($nuevo=="1") {
 				include("imprimir.php");
@@ -433,19 +433,19 @@ if ($dni or $claveal or $id) {
 //echo $conditio;
 	$curso = str_replace(" ","",$curso);
 	// Comprobación de padre con varios hijos en el Centro
-	$ya_matricula = mysql_query("select claveal, apellidos, nombre, id from matriculas_bach where ". $conditio ."");
-	$ya_primaria = mysql_query("select claveal, apellidos, nombre from alma_secundaria where ". $conditio1 ."");
-	$ya_alma = mysql_query("select claveal, apellidos, nombre, unidad, idcurso from alma, unidades where nomunidad=unidad and (". $conditio1 .")");
+	$ya_matricula = mysqli_query($db_con, "select claveal, apellidos, nombre, id from matriculas_bach where ". $conditio ."");
+	$ya_primaria = mysqli_query($db_con, "select claveal, apellidos, nombre from alma_secundaria where ". $conditio1 ."");
+	$ya_alma = mysqli_query($db_con, "select claveal, apellidos, nombre, unidad, idcurso from alma, unidades where nomunidad=unidad and (". $conditio1 .")");
 	// Comprobamos si el alumno se ha registrado ya
-	$ya = mysql_query("select apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, 
+	$ya = mysqli_query($db_con, "select apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, 
 	dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma1, idioma2, religion, 
 	itinerario1, itinerario2, optativa1, optativa2, optativa2b1, optativa2b2, optativa2b3, 
 	optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, optativa2b9, optativa2b10, observaciones, curso, fecha, 
 	promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, itinerario1, itinerario2, repite from matriculas_bach where ". $conditio ."");
 
 	// Ya se ha matriculado
-	if (mysql_num_rows($ya) > 0) {
-		$datos_ya = mysql_fetch_object($ya);
+	if (mysqli_num_rows($ya) > 0) {
+		$datos_ya = mysqli_fetch_object($ya);
 		$naci = explode("-",$datos_ya->nacimiento);
 		$nacimiento = "$naci[2]-$naci[1]-$naci[0]";
 		$apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nombre; $nacido = $datos_ya->nacido; $provincia = $datos_ya->provincia; $domicilio = $datos_ya->domicilio; $localidad = $datos_ya->localidad; $dni = $datos_ya->dni; $padre = $datos_ya->padre; $dnitutor = $datos_ya->dnitutor; $madre = $datos_ya->madre; $dnitutor2 = $datos_ya->dnitutor2; $telefono1 = $datos_ya->telefono1; $telefono2 = $datos_ya->telefono2; $colegio = $datos_ya->colegio; $correo = $datos_ya->correo; $otrocolegio = $datos_ya->otrocolegio; $letra_grupo = $datos_ya->letra_grupo; $religion = $datos_ya->religion; $observaciones = $datos_ya->observaciones; $promociona = $datos_ya->promociona; $transporte = $datos_ya->transporte; $ruta_este = $datos_ya->ruta_este; $ruta_oeste = $datos_ya->ruta_oeste; $sexo = $datos_ya->sexo; $hermanos = $datos_ya->hermanos; $nacionalidad = $datos_ya->nacionalidad; $claveal = $datos_ya->claveal; $curso = $datos_ya->curso;  $itinerario1 = $datos_ya->itinerario1; $itinerario2 = $datos_ya->itinerario2; $optativa1 = $datos_ya->optativa1; $optativa2 = $datos_ya->optativa2; $optativa2b1 = $datos_ya->optativa2b1; $optativa2b2 = $datos_ya->optativa2b2; $optativa2b3 = $datos_ya->optativa2b3; $optativa2b4 = $datos_ya->optativa2b4; $optativa2b5 = $datos_ya->optativa2b5; $optativa2b6 = $datos_ya->optativa2b6; $optativa2b7 = $datos_ya->optativa2b7; $optativa2b8 = $datos_ya->optativa2b8; $optativa2b9 = $datos_ya->optativa2b9; $optativa2b10 = $datos_ya->optativa2b10; $repetidor = $datos_ya->repite; $idioma1 = $datos_ya->idioma1; $idioma2 = $datos_ya->idioma2;
@@ -457,11 +457,11 @@ if ($dni or $claveal or $id) {
 	}
 
 	// Viene de Colegio de Primaria
-	elseif (mysql_num_rows($ya_primaria) > 0){
-		$alma = mysql_query("select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, matriculas, claveal, colegio from alma_secundaria where ". $conditio1 ."");
+	elseif (mysqli_num_rows($ya_primaria) > 0){
+		$alma = mysqli_query($db_con, "select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, matriculas, claveal, colegio from alma_secundaria where ". $conditio1 ."");
 
-		if (mysql_num_rows($alma) > 0) {
-			$al_alma = mysql_fetch_array($alma);
+		if (mysqli_num_rows($alma) > 0) {
+			$al_alma = mysqli_fetch_array($alma);
 			$apellidos = $al_alma[0];  $nombre = $al_alma[1]; $nacido = $al_alma[5]; $provincia = $al_alma[2]; $nacimiento = $al_alma[3]; $domicilio = $al_alma[4]; $localidad = $al_alma[5]; $dni = $al_alma[6]; $padre = $al_alma[7]; $dnitutor = $al_alma[8];
 			if (strlen($al_alma[9]) > 3) {$madre = $al_alma[9];	}else{ $madre = ""; }
 			; $dnitutor2 = $al_alma[10]; $telefono1 = $al_alma[11]; $telefono2 = $al_alma[12]; $correo = $al_alma[13]; $padre = $al_alma[14];
@@ -473,11 +473,11 @@ if ($dni or $claveal or $id) {
 	}
 
 	// Es alumno del Centro
-	elseif (mysql_num_rows($ya_alma) > 0){
-		$alma = mysql_query("select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, matriculas, claveal, unidad, combasi, curso, matriculas, idcurso from alma, unidades where nomunidad=unidad and (". $conditio1 .")");
+	elseif (mysqli_num_rows($ya_alma) > 0){
+		$alma = mysqli_query($db_con, "select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, matriculas, claveal, unidad, combasi, curso, matriculas, idcurso from alma, unidades where nomunidad=unidad and (". $conditio1 .")");
 
-		if (mysql_num_rows($alma) > 0) {
-			$al_alma = mysql_fetch_array($alma);
+		if (mysqli_num_rows($alma) > 0) {
+			$al_alma = mysqli_fetch_array($alma);
 			if (empty($curso)) {
 				if ($al_alma[24]=="6204"){$curso="2BACH";}
 				if ($al_alma[24]=="6029"){$curso="1BACH";}
@@ -778,12 +778,12 @@ if ($dni or $claveal or $id) {
 						<td<?php echo ($curso != 1) ? ' colspan="2"' : '' ?>>
 							<div class="form-group">
 								<select class="form-control" id="idioma1" name="idioma1">
-									<?php $result = mysql_query("SELECT combasi FROM alma WHERE claveal='$claveal'"); ?>
-									<?php $row = mysql_fetch_array($result); ?>
+									<?php $result = mysqli_query($db_con, "SELECT combasi FROM alma WHERE claveal='$claveal'"); ?>
+									<?php $row = mysqli_fetch_array($result); ?>
 									<?php $exp_combasi = explode(':', $row['combasi']); ?>
 									<?php foreach ($combasi as $codasi): ?>
-									<?php $result1 = mysql_query("SELECT abrev, nombre FROM asignaturas WHERE codigo='$codasi' AND (abrev = 'ING' OR abrev = 'FRA')"); ?>
-									<?php $row1 = mysql_fetch_array($result1); ?>
+									<?php $result1 = mysqli_query($db_con, "SELECT abrev, nombre FROM asignaturas WHERE codigo='$codasi' AND (abrev = 'ING' OR abrev = 'FRA')"); ?>
+									<?php $row1 = mysqli_fetch_array($result1); ?>
 									<?php if (!(empty($row1['nombre'])) && $n_curso=="2"): ?>
 									<?php $idio = 1; ?>
 									<?php $id_1b = $row1['nombre']; ?>
@@ -908,8 +908,8 @@ if ($dni or $claveal or $id) {
 					
 					<?php 
 					if (empty($curso_largo)) {
-						$cl = mysql_query("select curso from alma where claveal='$claveal'");
-						$cl0 = mysql_fetch_array($cl);
+						$cl = mysqli_query($db_con, "select curso from alma where claveal='$claveal'");
+						$cl0 = mysqli_fetch_array($cl);
 						$curso_largo = $cl0[0];
 					}
 					?>
@@ -1006,8 +1006,8 @@ if ($dni or $claveal or $id) {
 							foreach ($combas as $com) {
 								$q1 = "select abrev from asignaturas where codigo = '$com' and abrev not like '%\_%'";
 								$q2.=$q1."<br>";
-								$abrv = mysql_query($q1);
-								$abrev = mysql_fetch_array($abrv);
+								$abrv = mysqli_query($db_con, $q1);
+								$abrev = mysqli_fetch_array($abrv);
 								$q7.="$optit_1 ==> $abrev[0] --> $com<br>";
 								$pos=0;
 								
@@ -1020,16 +1020,16 @@ if ($dni or $claveal or $id) {
 								$bd_ant = $db.substr($curso_actual,0,4);
 								$q5="select combasi from ". $bd_ant  .".alma where claveal = '$claveal' ";
 								$q6.=$q5."<br>";
-								$ant = mysql_query($q5);
-								$ant_comb = mysql_fetch_array($ant);
+								$ant = mysqli_query($db_con, $q5);
+								$ant_comb = mysqli_fetch_array($ant);
 								$combasi_ant = $ant_comb[0];
 								$combas_anti = explode(":", $combasi_ant);
 								
 								foreach ($combas_anti as $com_ant){
 									$q3 = "select abrev from ".$bd_ant.".asignaturas where codigo = '$com_ant'";
 									$q4.=$q3."<br>";
-									$abrv_ant = mysql_query($q3);
-									$abrev_ant = mysql_fetch_array($abrv_ant);
+									$abrv_ant = mysqli_query($db_con, $q3);
+									$abrev_ant = mysqli_fetch_array($abrv_ant);
 									$asig_ant = $abrev_ant[0];
 									
 									if (strstr($optit_1,$abrev_ant[0])==TRUE) {

@@ -15,8 +15,8 @@ $options_left = array(
 				'justification' => 'left'
 					);
 $fecha_act = date('Y-m-d');	
-$lista=mysql_query("select curso,apellidos,nombre,ejemplar,devolucion from morosos where hoy = '$fecha' and date(devolucion)<'$fecha_act' order by devolucion, apellidos") or die ("error query lista");
-while($datatmp = mysql_fetch_array($lista)) { 
+$lista=mysqli_query($db_con, "select curso,apellidos,nombre,ejemplar,devolucion from morosos where hoy = '$fecha' and date(devolucion)<'$fecha_act' order by devolucion, apellidos") or die ("error query lista");
+while($datatmp = mysqli_fetch_array($lista)) { 
 	$data[] = array(
 				'curso'=>$datatmp[0],
 				'nombre'=>$datatmp[1].', '.$datatmp[2],

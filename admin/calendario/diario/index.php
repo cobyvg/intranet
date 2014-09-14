@@ -41,7 +41,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
           </div></div>';}
 }
 if($_GET['borrar']=="1"){
-mysql_query("delete from diario where id='".$_GET['id']."'");
+mysqli_query($db_con, "delete from diario where id='".$_GET['id']."'");
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             La actividad se ha eliminado de la base de datos.
@@ -49,8 +49,8 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 }
 if (isset($_GET['id'])) {
 	$id =$_GET['id'];
-	$dia = mysql_query(("select * from diario where id = '$id'"));
-	$diar = mysql_fetch_array($dia);
+	$dia = mysqli_query($db_con, ("select * from diario where id = '$id'"));
+	$diar = mysqli_fetch_array($dia);
 	$fecha_reg = $diar[1];
 	$grupo = $diar[2];
 	$tr_grupo = explode("; ",$grupo);
@@ -124,10 +124,10 @@ if (isset($_GET['id'])) {
 							
 							<div class="form-group">
 								<label for="grupos">Unidad (Asignatura)</label>
-								<?php $result = mysql_query("SELECT DISTINCT grupo, materia FROM profesores WHERE profesor='".$profe."'"); ?>
-								<?php if (mysql_num_rows($result)): ?>
+								<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo, materia FROM profesores WHERE profesor='".$profe."'"); ?>
+								<?php if (mysqli_num_rows($result)): ?>
 								<select class="form-control" id="grupos" name="grupos[]" size="7" multiple>
-									<?php while ($row = mysql_fetch_array($result)): ?>
+									<?php while ($row = mysqli_fetch_array($result)): ?>
 									<option value="<?php echo $row['grupo'].' => '.$row['materia']; ?>" <?php echo (isset($grupos) && in_array($row['grupo'].' => '.$row['materia'], $grupos)) ? 'selected' : ''; ?>><?php echo $row['grupo'].' ('.$row['materia'].')'; ?></option>
 									<?php endwhile; ?>
 								</select>
@@ -187,8 +187,8 @@ if (isset($_GET['id'])) {
 			
 				<h3>Mis actividades</h3>
 				
-				<?php $result = mysql_query("SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE profesor='".$_SESSION['profi']."' ORDER BY fecha DESC"); ?>
-				<?php if (mysql_num_rows($result)): ?>
+				<?php $result = mysqli_query($db_con, "SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE profesor='".$_SESSION['profi']."' ORDER BY fecha DESC"); ?>
+				<?php if (mysqli_num_rows($result)): ?>
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<thead>
@@ -201,7 +201,7 @@ if (isset($_GET['id'])) {
 							</tr>
 						</thead>
 						<tbody>
-							<?php while ($row = mysql_fetch_array($result)): ?>
+							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<td nowrap><?php echo $row['fecha']; ?></td>
 								<td><?php echo $row['grupo']; ?></td>

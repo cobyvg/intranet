@@ -21,7 +21,7 @@ $pr = $_SESSION['profi'];
 <?php
 include("../../menu.php");
 include("../menu.php");
-mysql_select_db($db_reservas);
+mysqli_select_db($db_con, $db_reservas);
 
 if (isset($_POST['enviar']) or isset($_GET['enviar'])) {
 
@@ -54,9 +54,9 @@ $numero_dia = $hoy['wday'];
 
 $eventQuery = "SELECT id FROM `$db_reservas`.`$servicio` WHERE eventdate = '$sql_date';";
 //echo $eventQuery;
-$eventExec = mysql_query($eventQuery); 
+$eventExec = mysqli_query($db_con, $eventQuery); 
 $event_found = "";
-while($row = mysql_fetch_array($eventExec)) {
+while($row = mysqli_fetch_array($eventExec)) {
   $event_found = 1;
 }
 $day_event_safe1 = addslashes($day_event1);
@@ -73,16 +73,16 @@ if ($event_found == 1) {
   $postQuery = "UPDATE `$servicio` SET event1 = '".$_POST['day_event1']."', event2 = '".$_POST['day_event2']."', event3 = '".$_POST['day_event3']."', 
     event4 = '".$_POST['day_event4']."', event5 = '".$_POST['day_event5']."', event6 = '".$_POST['day_event6']."', event7 = '".$_POST['day_event7']."' WHERE eventdate = '$sql_date';";
     // echo $postQuery;
-    $postExec = mysql_query($postQuery) or die("Could not Post UPDATE `$db_reservas`.`$servicio` Event to database!");
-    mysql_query("DELETE FROM `$db_reservas`.`$servicio` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' ");
+    $postExec = mysqli_query($db_con, $postQuery) or die("Could not Post UPDATE `$db_reservas`.`$servicio` Event to database!");
+    mysqli_query($db_con, "DELETE FROM `$db_reservas`.`$servicio` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' ");
 $mens="actualizar";
 } else {
   //INSERT   `reservas`.`A1B-C` (
     $postQuery = "INSERT INTO `$servicio` (eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html) VALUES ('$sql_date','$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST['day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST['day_event6']."','".$_POST['day_event7']."','$show_html');";
 	       // echo $postQuery;
-    $postExec = mysql_query($postQuery) or die("Could not Post INSERT `$db_reservas`.`$servicio` Event to database!");
+    $postExec = mysqli_query($db_con, $postQuery) or die("Could not Post INSERT `$db_reservas`.`$servicio` Event to database!");
     
-mysql_query("DELETE FROM `$db_reservas`.`$servicio` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' ");
+mysqli_query($db_con, "DELETE FROM `$db_reservas`.`$servicio` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' ");
 $mens="insertar";
 }
 }
@@ -153,8 +153,8 @@ $aula = $tr_serv[0];
 $n_servicio = strtoupper($tr_serv[0]);
 }
 // Comprobamos que existe la tabla del aula
-$reg = mysql_query("show tables from reservas");
-while ($t_reg = mysql_fetch_array($reg)){
+$reg = mysqli_query($db_con, "show tables from reservas");
+while ($t_reg = mysqli_fetch_array($reg)){
 	if ($t_reg[0]==$servicio){$existe = "1";}
 }
 if ($existe == "1") {}else{
@@ -172,9 +172,9 @@ if ($existe == "1") {}else{
   `event7` varchar(64) NOT NULL DEFAULT '',
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `date` (`eventdate`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci AUTO_INCREMENT=1";
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ";
 	//echo $sql_hor;
-mysql_query($sql_hor);
+mysqli_query($db_con, $sql_hor);
 }
 // Estructura de la Tabla
 ?>
@@ -256,18 +256,18 @@ mysql_query($sql_hor);
  		$sql_currentday = "$year-$month-$zz";
  
      $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$aula` WHERE eventdate = '$sql_currentday';";
- 				$eventExec = mysql_query ( $eventQuery );
- 		if (mysql_num_rows($eventExec)>0) {
- 			while ( $row = mysql_fetch_array ( $eventExec ) ) {
+ 				$eventExec = mysqli_query($db_con, $eventQuery );
+ 		if (mysqli_num_rows($eventExec)>0) {
+ 			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
          echo '<td class="calendar-orange"><a href="'.$enlace.'">'.$zz.'</a></td>';				
  				$result_found = 1;
  			}
  		}	
  		else{
  		$sql_currentday = "$year-$month-$zz";
- 		$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
- 		if (mysql_num_rows($fest)>0) {
- 		$festiv=mysql_fetch_array($fest);
+ 		$fest = mysqli_query($db_con, "select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
+ 		if (mysqli_num_rows($fest)>0) {
+ 		$festiv=mysqli_fetch_array($fest);
  			       echo '<td class="calendar-red">'.$zz.'</td>';
  				$result_found = 1;
  				}	
@@ -306,8 +306,8 @@ $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
 $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, html FROM `$aula` WHERE eventdate = '$sql_date'";
-$eventExec = mysql_query($eventQuery);
-while($row = mysql_fetch_array($eventExec)) {
+$eventExec = mysqli_query($db_con, $eventQuery);
+while($row = mysqli_fetch_array($eventExec)) {
    $event_event1 = stripslashes($row["event1"]);
    $event_event2 = stripslashes($row["event2"]);
    $event_event3 = stripslashes($row["event3"]);
@@ -321,15 +321,15 @@ if($_SESSION['profi'] == 'conserje' or stristr($_SESSION['cargo'],'1') == TRUE){
 else{$SQL = "select distinct nombre from $db.departamentos where nombre = '". $_SESSION['profi'] ."'";}
 
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='1' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
-$reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+$reservado1 = mysqli_fetch_row($reservado0);}
 	echo '<div class="form-group">';
 	if(!(empty($reservado1[0]))) {echo "<label>1ª hora</label> &nbsp;&nbsp; <p class=\"help-block\">Asignada por horario</p>"; }
 	else
 	{
 if ($event_event1  == "") { echo "<label>1ª hora</label> &nbsp;&nbsp; <select name=\"day_event1\" class='form-control'><option></option>";
-	$result1 = mysql_query($SQL);
-	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option>" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
@@ -343,15 +343,15 @@ if ($event_event1  == "") { echo "<label>1ª hora</label> &nbsp;&nbsp; <select na
 		
 	
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='2' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
-$reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+$reservado1 = mysqli_fetch_row($reservado0);}
 	echo '<div class="form-group">';
 	if(!(empty($reservado1[0]))) {echo "<label>2ª hora</label> &nbsp;&nbsp; <p class=\"help-block\">Asignada por horario</p>"; }
 	else
 	{
 if ($event_event2  == "") { echo "<label>2ª hora</label> &nbsp;&nbsp; <select name=\"day_event2\" class='form-control'><option></option>";
-	$result1 = mysql_query($SQL);
-	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
@@ -361,15 +361,15 @@ if ($event_event2  == "") { echo "<label>2ª hora</label> &nbsp;&nbsp; <select na
 		
 	
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='3' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
-$reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+$reservado1 = mysqli_fetch_row($reservado0);}
 	echo '<div class="form-group">';
 	if(!(empty($reservado1[0]))) {echo "<label>3ª hora</label> &nbsp;&nbsp; <p class=\"help-block\">Asignada por horario</p>"; }
 	else
 	{
 if(($event_event3 == "")) { echo "<label>3ª hora</label> &nbsp;&nbsp; <select name=\"day_event3\" class='form-control'><option></option>";
-	$result1 = mysql_query($SQL);
-	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
 	} echo "</select>";}
 	else {
@@ -379,15 +379,15 @@ if(($event_event3 == "")) { echo "<label>3ª hora</label> &nbsp;&nbsp; <select na
 		
 	
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='4' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
-$reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+$reservado1 = mysqli_fetch_row($reservado0);}
 	echo '<div class="form-group">';
 	if(!(empty($reservado1[0]))) {echo "<label>4ª hora</label> &nbsp;&nbsp; <p class=\"help-block\">Asignada por horario</p>"; }
 	else
 	{
 if ($event_event4  == "") { echo "<label>4ª hora</label> &nbsp;&nbsp; <select name=\"day_event4\" class='form-control'><option></option>";
-	$result1 = mysql_query($SQL);
-	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
@@ -397,15 +397,15 @@ if ($event_event4  == "") { echo "<label>4ª hora</label> &nbsp;&nbsp; <select na
 		
 	
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='5' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
-$reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+$reservado1 = mysqli_fetch_row($reservado0);}
 	echo '<div class="form-group">';
 	if(!(empty($reservado1[0]))) {echo "<label>5ª hora</label> &nbsp;&nbsp; <p class=\"help-block\">Asignada por horario</p>"; }
 	else
 	{
 if ($event_event5  == "") { echo "<label>5ª hora</label> &nbsp;&nbsp; <select name=\"day_event5\" class='form-control'><option></option>";
-	$result1 = mysql_query($SQL);
-	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
@@ -415,15 +415,15 @@ if ($event_event5  == "") { echo "<label>5ª hora</label> &nbsp;&nbsp; <select na
 		
 	
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='6' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
-$reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+$reservado1 = mysqli_fetch_row($reservado0);}
 	echo '<div class="form-group">';
 	if(!(empty($reservado1[0]))) {echo "<label>6ª hora</label> &nbsp;&nbsp; <p class=\"help-block\">Asignada por horario</p>"; }
 	else
 	{
 if ($event_event6  == "") { echo "<label>6ª hora</label> &nbsp;&nbsp; <select name=\"day_event6\" class='form-control'><option></option>";
-	$result1 = mysql_query($SQL);
-	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {
@@ -433,15 +433,15 @@ if ($event_event6  == "") { echo "<label>6ª hora</label> &nbsp;&nbsp; <select na
 		
 	
 if($aula){$eventQuery2 = "SELECT a_grupo FROM horw WHERE dia = '$numero_dia' and hora='7' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
-$reservado0 = mysql_query($eventQuery2);
-$reservado1 = mysql_fetch_row($reservado0);}
+$reservado0 = mysqli_query($db_con, $eventQuery2);
+$reservado1 = mysqli_fetch_row($reservado0);}
 	echo '<div class="form-group">';
 	if(!(empty($reservado1[0]))) {echo "<label>7ª hora</label> &nbsp;&nbsp; <p class=\"help-block\">Asignada por horario</p>"; }
 	else
 	{
 if ($event_event7  == "") { echo "<label>7ª hora</label> &nbsp;&nbsp; <select name=\"day_event7\" class='form-control'><option></option>";
-	$result1 = mysql_query($SQL);
-	while($row1 = mysql_fetch_array($result1)){ $profesor = $row1[0];
+	$result1 = mysqli_query($db_con, $SQL);
+	while($row1 = mysqli_fetch_array($result1)){ $profesor = $row1[0];
 	echo "<option  >" . $profesor . "</option>";
 	} echo "</select>";} 
 	else {

@@ -36,7 +36,7 @@ include("../../menu.php");
 if($_FILES['archivo1']){
 // Creamos Base de datos y enlazamos con ella.
  $base0 = "DROP TABLE `alma_primaria`";
- mysql_query($base0);
+ mysqli_query($db_con, $base0);
 
  // Creación de la tabla alma
  $alumnos = "CREATE TABLE  `alma_primaria` (
@@ -78,11 +78,11 @@ if($_FILES['archivo1']){
  `NACIONALIDAD` varchar( 32 ) default NULL,
  `SEXO` varchar( 1 ) default NULL ,
  `COLEGIO` varchar( 32 ) default NULL 
- )";
+ ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ";
 
  
  //echo $alumnos;
-mysql_query($alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
+mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido crear la tabla <strong>Alma_primaria</strong>. Ponte en contacto con quien pueda resolver el problema.
@@ -92,7 +92,7 @@ No se ha podido crear la tabla <strong>Alma_primaria</strong>. Ponte en contacto
 </div>');
 
   $SQL6 = "ALTER TABLE  `alma_primaria` ADD INDEX (  `CLAVEAL` )";
-  $result6 = mysql_query($SQL6) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
+  $result6 = mysqli_query($db_con, $SQL6) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha podido crear el índice de la tabla. Busca ayuda.
@@ -143,7 +143,7 @@ $row = 1;
     $lineasalto.=", \"$colegio\"";
     $lineasalto.=");";
   //  echo $lineasalto."<br>";
-    mysql_query($lineasalto);
+    mysqli_query($db_con, $lineasalto);
 }
 fclose($fp);
 
@@ -163,48 +163,48 @@ ADD  `NIVEL` VARCHAR( 5) NULL AFTER  `NOMBRE` ,
 ADD  `GRUPO` VARCHAR( 1 ) NULL AFTER  `NIVEL`,
 ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `GRUPO`
 ";
-mysql_query($crear);
+mysqli_query($db_con, $crear);
 
 // Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
   $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma_primaria";
-  $result_1 = mysql_query($SQL_1);
-  $row_1 = mysql_fetch_row($result_1);
+  $result_1 = mysqli_query($db_con, $SQL_1);
+  $row_1 = mysqli_fetch_row($result_1);
   if (strstr("-",$row_1[0])==TRUE) {
   	 
   $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
-  $result0 = mysql_query($SQL0);
+  $result0 = mysqli_query($db_con, $SQL0);
 
- while  ($row0 = mysql_fetch_array($result0))
+ while  ($row0 = mysqli_fetch_array($result0))
  {
 $trozounidad0 = explode("-",$row0[0]);
 $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
-	mysql_query($actualiza);
+	mysqli_query($db_con, $actualiza);
  }
   	
   }
   
  // Apellidos unidos formando un solo campo.
    $SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma_primaria";
-  $result2 = mysql_query($SQL2);
- while  ($row2 = mysql_fetch_array($result2))
+  $result2 = mysqli_query($db_con, $SQL2);
+ while  ($row2 = mysqli_fetch_array($result2))
  {
  	$apellidos = trim($row2[0]). " " . trim($row2[1]);
 	$apellidos1 = trim($apellidos);
 	$nombre = $row2[3];
 	$nombre1 = trim($nombre);
 	$actualiza1= "UPDATE alma_primaria SET APELLIDOS = \"". $apellidos1 . "\", NOMBRE = \"". $nombre1 . "\" where CLAVEAL = \"". $row2[2] . "\"";
-	mysql_query($actualiza1);
+	mysqli_query($db_con, $actualiza1);
  }
  
  // Apellidos y nombre del padre.
    $SQL3 = "SELECT PRIMERAPELLIDOTUTOR, SEGUNDOAPELLIDOTUTOR, NOMBRETUTOR, CLAVEAL FROM  alma_primaria";
-  $result3 = mysql_query($SQL3);
- while  ($row3 = mysql_fetch_array($result3))
+  $result3 = mysqli_query($db_con, $SQL3);
+ while  ($row3 = mysqli_fetch_array($result3))
  {
  	$apellidosP = trim($row3[2]). " " . trim($row3[0]). " " . trim($row3[1]);
 	$apellidos1P = trim($apellidosP);
 	$actualiza1P= "UPDATE alma_primaria SET PADRE = \"". $apellidos1P . "\" where CLAVEAL = \"". $row3[3] . "\"";
-	mysql_query($actualiza1P);
+	mysqli_query($db_con, $actualiza1P);
  }
  
   // Eliminación de campos innecesarios por repetidos
@@ -213,13 +213,13 @@ $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[
   DROP `Alumno/a`,
   DROP `apellido2`,
   DROP `estadomatricula`";
-  $result3 = mysql_query($SQL3);
+  $result3 = mysqli_query($db_con, $SQL3);
 
   // Eliminación de alumnos dados de baja
     $SQL4 = "DELETE FROM alma_primaria WHERE `unidad` = ''";
     $SQL5 = "DELETE FROM alma_primaria WHERE `claveal` = 'Nº Id. Escol'";
-    $result4 = mysql_query($SQL4);
-    $result5 = mysql_query($SQL5);
+    $result4 = mysqli_query($db_con, $SQL4);
+    $result5 = mysqli_query($db_con, $SQL5);
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La tabla de Alumnos de Primaria para la Matriculación ha sido creada.<br />Ya puedes proceder a matricular a los niños de los Colegios.

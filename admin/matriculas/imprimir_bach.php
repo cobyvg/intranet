@@ -34,17 +34,17 @@ $MiPDF->SetMargins ( 20, 20, 20 );
 # ajustamos al 100% la visualización
 $MiPDF->SetDisplayMode ( 'fullpage' );
 // Consulta  en curso. 
-$connection = mysql_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
-mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
+$db_con = mysqli_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
+mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
 if (substr($curso, 0, 1) == '1') {
 	$mas = ", colegio";
 }
 $n_curso = substr($curso, 0, 1);
-$result0 = mysql_query ( "select distinct id_matriculas from matriculas_bach_temp, matriculas_bach where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
-while ($id_ar = mysql_fetch_array($result0)) {
+$result0 = mysqli_query($db_con, "select distinct id_matriculas from matriculas_bach_temp, matriculas_bach where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
+while ($id_ar = mysqli_fetch_array($result0)) {
 $id = $id_ar[0];
-$result = mysql_query("select * from matriculas_bach where id = '$id'");
-if ($datos_ya = mysql_fetch_object ( $result )) {
+$result = mysqli_query($db_con, "select * from matriculas_bach where id = '$id'");
+if ($datos_ya = mysqli_fetch_object ( $result )) {
 
 $naci = explode("-",$datos_ya->nacimiento);
 $nacimiento = "$naci[2]-$naci[1]-$naci[0]";
@@ -279,8 +279,8 @@ foreach ($pags as $pag_pdf){
 	$opt_2b = "";
 			foreach ($opt23 as $key=>$val){
 				$n_z+=1;		
-				$opt_b = mysql_query("select optativa2b$n_z from matriculas_bach where id = '$id'");
-				$o_b = mysql_fetch_array($opt_b);
+				$opt_b = mysqli_query($db_con, "select optativa2b$n_z from matriculas_bach where id = '$id'");
+				$o_b = mysqli_fetch_array($opt_b);
 				$reduce = substr($key,0,-3);
 				$opt_2b .= $o_b[0].". ".$val."; ";				
 				}
@@ -347,17 +347,17 @@ foreach ($pags as $pag_pdf){
 	if ($promociona=="3") {
 		if (date('m')=='09'){
 				$materias="";
-				$not = mysql_query("select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
-				$nota = mysql_fetch_array($not);
+				$not = mysqli_query($db_con, "select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
+				$nota = mysqli_fetch_array($not);
 				$val_notas="";
 				$tr_not2 = explode(";", $nota[1]);
 				foreach ($tr_not2 as $val_asig) {
 					$tr_notas = explode(":", $val_asig);
 					foreach ($tr_notas as $key_nota=>$val_nota) {
 						if($key_nota == "1" and $val_nota<'427' and $val_nota !=="439" and $val_nota !==""){
-							$mat = mysql_query("select nombre from asignaturas where codigo = '$tr_notas[0]'");
+							$mat = mysqli_query($db_con, "select nombre from asignaturas where codigo = '$tr_notas[0]'");
 							//echo "select nombre from asignaturas where codigo = '$tr_notas[0]'<br>";
-							$mater = mysql_fetch_array($mat);
+							$mater = mysqli_fetch_array($mat);
 							$materias.="x ".$mater[0]."\n ";
 						}
 					}

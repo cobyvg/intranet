@@ -85,13 +85,13 @@ if (substr($religion, 0, 1)=="R") {
 $num_hijos="";
 $dni_papa = explode(": ", $dnitutor);
 $dnipapa = $dni_papa[1];
-$hijos = mysql_query("select apellidos, nombre, nivel from alma where dnitutor = '$dnipapa' and dnitutor not like ''");
+$hijos = mysqli_query($db_con, "select apellidos, nombre, nivel from alma where dnitutor = '$dnipapa' and dnitutor not like ''");
 
-$num_hijos = mysql_num_rows($hijos);
+$num_hijos = mysqli_num_rows($hijos);
 
 if ($num_hijos > 0) {
 $n_h="";
-while ($hij = mysql_fetch_array($hijos)){
+while ($hij = mysqli_fetch_array($hijos)){
 	$n_h+=1;
 	${hijo.$n_h} = $hij[1]." ".$hij[0];
 	//echo $hij[2];

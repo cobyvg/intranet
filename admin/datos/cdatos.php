@@ -86,7 +86,7 @@ include("../../menu.php");
 						
 						<div class="form-group">
 					    <select class="form-control" name="unidad[]" multiple size="6">
-					    	 <?php unidad(); ?>
+					    	 <?php unidad($db_con); ?>
 					    </select>
 					    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
 					  </div>

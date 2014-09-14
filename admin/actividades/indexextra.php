@@ -37,8 +37,8 @@ include("menu.php");
   <div class="col-sm-12">
 <?   
 if ($_GET['eliminar']=="1") {
-  	mysql_query("delete from actividades where id = '".$_GET['id']."'");
-  	if (mysql_affected_rows()>'0') {
+  	mysqli_query($db_con, "delete from actividades where id = '".$_GET['id']."'");
+  	if (mysqli_affected_rows()>'0') {
 echo '
 <br /><div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -49,8 +49,8 @@ echo '
   if($calendario == '1')
   {
  $datos0 = "select fecha, actividad, grupos, descripcion from actividades where id = '$id'";
- $datos1 = mysql_query($datos0);
-$datos = mysql_fetch_array($datos1);
+ $datos1 = mysqli_query($db_con, $datos0);
+$datos = mysqli_fetch_array($datos1);
   $idact = $id.";";
   $eventdate = $datos[0];
   $title = str_replace("'","",$datos[1]);
@@ -59,7 +59,7 @@ $datos = mysql_fetch_array($datos1);
   
 $html = "1"; 
 $querycal = "insert into cal (eventdate,title,event,html,idact) values ('".$eventdate."','".$title."','".$event."','".$html."','".$idact."')";
-mysql_query($querycal);
+mysqli_query($db_con, $querycal);
 //echo $querycal;
 echo '
 <div><div class="alert alert-success alert-block fade in">
@@ -73,16 +73,16 @@ La Actividad ha sido registrada en el Calendario del Centro.
     if($act_calendario == '1')
   {
   $datos0 = "select fecha, actividad, grupos, descripcion from actividades where id = '$id'";
-  $datos1 = mysql_query($datos0);
-  $datos = mysql_fetch_array($datos1);
+  $datos1 = mysqli_query($db_con, $datos0);
+  $datos = mysqli_fetch_array($datos1);
   $idact = $id.";";
   $eventdate = $datos[0];
   $title = str_replace("'","",$datos[1]);
   $title = str_replace("\\","",$datos[1]);
   $event = str_replace("'","",$datos[3]). "<br>Grupos que participan: " . $datos[2];
   $cal0 = "select id, title, event, idact from cal where eventdate = '$eventdate'";
-  $cal1 = mysql_query($cal0);
-  $cal2 = mysql_fetch_array($cal1);
+  $cal1 = mysqli_query($db_con, $cal0);
+  $cal2 = mysqli_fetch_array($cal1);
   $title0 = $cal2[1];
   $event0 = $cal2[2];
   $idact0 = $cal2[3];
@@ -92,7 +92,7 @@ La Actividad ha sido registrada en el Calendario del Centro.
   $id_idact = "$idact0$idact";
   $actualiza_datos0 = "update cal set title = '$titulo', event = '$texto', idact = '$id_idact' where eventdate = '$eventdate'";
   //echo $actualiza_datos0;
-  mysql_query($actualiza_datos0);
+  mysqli_query($db_con, $actualiza_datos0);
   echo '
 <div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -102,7 +102,7 @@ La Actividad se ha actualizado para esa fecha del Calendario.
  
   if($confirmado == '1')
   {
-  mysql_query("UPDATE  actividades SET  confirmado =  '1' WHERE id = '$id'");
+  mysqli_query($db_con, "UPDATE  actividades SET  confirmado =  '1' WHERE id = '$id'");
    echo '
 <div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -115,8 +115,8 @@ La Actividad ha sido confirmada por la Autoridad.
   ?>
     <?
   $datos0 = "select * from actividades where id = '$id'";
-  $datos1 = mysql_query($datos0);
-  $datos = mysql_fetch_array($datos1);
+  $datos1 = mysqli_query($db_con, $datos0);
+  $datos = mysqli_fetch_array($datos1);
   $fecha0 = explode("-",$datos[7]);
   $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
   $fecha1 = explode("-",$datos[8]);
@@ -179,8 +179,8 @@ La Actividad ha sido confirmada por la Autoridad.
   <tbody>
 <?
 $meses = "select distinct month(fecha) from actividades order by fecha";
-$meses0 = mysql_query($meses);
-while ($mes = mysql_fetch_array($meses0))
+$meses0 = mysqli_query($db_con, $meses);
+while ($mes = mysqli_fetch_array($meses0))
 {
 $mes1 = $mes[0];
   if($mes1 ==  "01") $mes2 = "Enero";
@@ -194,8 +194,8 @@ $mes1 = $mes[0];
   if($mes1 ==  "11") $mes2 = "Noviembre";
   if($mes1 ==  "12") $mes2 = "Diciembre";
 $datos0 = "select * from actividades where month(fecha) = '$mes1' order by fecha";
- $datos1 = mysql_query($datos0);
-while($datos = mysql_fetch_array($datos1))
+ $datos1 = mysqli_query($db_con, $datos0);
+while($datos = mysqli_fetch_array($datos1))
 {
 $fecha0 = explode("-",$datos[7]);
 $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
@@ -232,8 +232,8 @@ $datos[2]= str_replace("\\","",$datos[2]);
     
 			<? 
 			$id_repe = "select id, idact from cal where eventdate = '$datos[7]'";
-			$repe0 = mysql_query($id_repe);
-			$id = mysql_fetch_array($repe0);
+			$repe0 = mysqli_query($db_con, $id_repe);
+			$id = mysqli_fetch_array($repe0);
 			$br = "$id[1]";
 			$cal_idact = $datos[0].";";
 			if(ereg($cal_idact, $br)) {$si = "1";} else{$si = "0";}

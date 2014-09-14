@@ -67,18 +67,18 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 // Alumnos que deben reponer libros
 $repo1 = "select distinct textos_alumnos.claveal from textos_alumnos, alma where alma.claveal = textos_alumnos.claveal and alma.curso = '$niv' and (estado = 'M' or estado = 'N') and devuelto = '1' order by alma.curso";
 //echo $repo1;
-$repo0 = mysql_query($repo1);
-while ($repo = mysql_fetch_array($repo0)) {
+$repo0 = mysqli_query($db_con, $repo1);
+while ($repo = mysqli_fetch_array($repo0)) {
 	$claveal = $repo[0];
 // Datos del alumno	
 	$sqlal="SELECT concat(Nombre,' ',Apellidos),alma.Unidad,Domicilio,Localidad,codpostal,Tutor, curso FROM alma, FTUTORES WHERE alma.unidad = FTUTORES.unidad and claveal='".$claveal."'";
-	$resultadoal = mysql_query($sqlal);
-	$registroal = mysql_fetch_row($resultadoal);
+	$resultadoal = mysqli_query($db_con, $sqlal);
+	$registroal = mysqli_fetch_row($resultadoal);
 	$nivel = $niv;
 
 // Libros en mal estado o perdidos
 $sqlasig="SELECT distinct asignaturas.nombre, textos_gratis.titulo, textos_gratis.editorial, importe from textos_alumnos, textos_gratis, asignaturas where textos_alumnos.claveal='$claveal' and asignaturas.codigo = textos_alumnos.materia and textos_gratis.materia=asignaturas.nombre and (estado = 'M' or estado = 'N')  and textos_gratis.nivel='$nivel'";
-$resulasig=mysql_query($sqlasig);
+$resulasig=mysqli_query($db_con, $sqlasig);
 #recogida de variables.
 $hoy=formatea_fecha(date('Y-m-d'));
 $alumno=$registroal[0];
@@ -117,7 +117,7 @@ $MiPDF->Text(30,70,$codigo." (".$localidad.")");
 	$MiPDF->Ln(3);
 	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Ln(2);
-	while($regasig=mysql_fetch_row($resulasig)){
+	while($regasig=mysqli_fetch_row($resulasig)){
 		$MiPDF->SetFont('NewsGotT','',12);
 		$MiPDF->SetX(170);
 		$MiPDF->cell(0,4,$regasig[3].' Euros',0,'D',0);
@@ -126,7 +126,7 @@ $MiPDF->Text(30,70,$codigo." (".$localidad.")");
 	
 	$total=$total+$regasig[3];
 	}#del while
-	mysql_query("update textos_alumnos set devuelto = '1', fecha = now() where claveal = '$claveal'");		
+	mysqli_query($db_con, "update textos_alumnos set devuelto = '1', fecha = now() where claveal = '$claveal'");		
 		$MiPDF->SetFont('NewsGotT','B',12);
 		$MiPDF->SetX(158);
 	$MiPDF->Multicell(0,4,' Total: '.$total.' Euros',0,'D',0);

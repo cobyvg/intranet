@@ -70,16 +70,16 @@ $grupo = $unidad;
   if(!(empty($nombre))) {$query .=  "and nombre like '%$nombre%'";} 
   if(!(empty($unidad))) {$query .=  "and unidad = '$unidad'";} 
   $query .=  " ORDER BY F_ENTREV DESC";
-$result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
+$result = mysqli_query($db_con, $query) or die ("Error in query: $query. " . mysqli_error($db_con));
 
 echo "<table class='table table-striped table-bordered datatable' align='center'><thead>";
 echo "<th>Alumno </th>
 <th>Curso</th>
 <Th>Cita</th><th></th></thead><tbody>";
-if (mysql_num_rows($result) > 0)
+if (mysqli_num_rows($result) > 0)
 {
 
-	while($row = mysql_fetch_object($result))
+	while($row = mysqli_fetch_object($result))
 	{
    echo "<tr><td nowrap style='vertical-align:middle'>";
 		$foto="";
@@ -90,8 +90,8 @@ if (mysql_num_rows($result) > 0)
    <TD style='vertical-align:middle' nowrap>$row->F_ENTREV</TD>";
 echo "<td style='vertical-align:middle' nowrap><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary'><i class='fa fa-search ' title='Ver Informe'> </i></a>";	
 
-$result0 = mysql_query ( "select tutor from FTUTORES where unidad = '$row->unidad'" );
-$row0 = mysql_fetch_array ( $result0 );	
+$result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$row->unidad'" );
+$row0 = mysqli_fetch_array ( $result0 );	
 $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
    	echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary' data-bb='confirm-delete'><i class='fa fa-trash-o ' title='Borrar Informe' > </i></a>";
@@ -111,7 +111,7 @@ No hay Informes de Tutor&iacute;a disponibles.</div></div><hr>';
 }
 ?>
 <?
-if(mysql_num_rows($result0) > 50) {
+if(mysqli_num_rows($result0) > 50) {
 ?>
 <a href="buscar.php?pag=<? echo $pag;?>" class="btn btn-primary">Siguientes 50 Informes</a>
 <? 

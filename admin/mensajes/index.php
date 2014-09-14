@@ -30,12 +30,12 @@ switch ($_buzon) {
 		$active1 = "class=\"active\"";
 
 		if ($idmensaje > 0) {
-			$delete = mysql_query("DELETE FROM mens_profes WHERE id_profe='$idmensaje' LIMIT 1") or die (mysql_error());
+			$delete = mysqli_query($db_con, "DELETE FROM mens_profes WHERE id_profe='$idmensaje' LIMIT 1") or die (mysqli_error($db_con));
 			if($delete) $msg_delete = 1;
 		}
 		
 		$tabla_encabezado = array('De', 'Asunto', 'Fecha', ' ');
-		$result = mysql_query("SELECT ahora, asunto, id, origen, id_profe, texto, recibidoprofe FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE profesor = '$profesor' ORDER BY ahora DESC LIMIT 0, 200");
+		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, origen, id_profe, texto, recibidoprofe FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE profesor = '$profesor' ORDER BY ahora DESC LIMIT 0, 200");
 		break;
 	
 	case 'enviados'  :
@@ -43,12 +43,12 @@ switch ($_buzon) {
 		$active2 = "class=\"active\"";
 		
 		if ($idmensaje > 0) {
-			$delete = mysql_query("UPDATE mens_texto SET oculto='1' WHERE id='$idmensaje' LIMIT 1") or die (mysql_error());
+			$delete = mysqli_query($db_con, "UPDATE mens_texto SET oculto='1' WHERE id='$idmensaje' LIMIT 1") or die (mysqli_error($db_con));
 			if($delete) $msg_delete = 1;
 		}
 		
 		$tabla_encabezado = array('Para', 'Asunto', 'Fecha', ' ');
-		$result = mysql_query("SELECT ahora, asunto, id, destino, id, texto FROM mens_texto WHERE origen = '$profesor' AND oculto NOT LIKE '1' ORDER BY ahora DESC LIMIT 0, 200");
+		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, destino, id, texto FROM mens_texto WHERE origen = '$profesor' AND oculto NOT LIKE '1' ORDER BY ahora DESC LIMIT 0, 200");
 		break;
 }
 
@@ -105,7 +105,7 @@ include("menu.php");
         </thead>
         <tbody>
         <?php 
-        while($row = mysql_fetch_array($result)):
+        while($row = mysqli_fetch_array($result)):
         $texto = htmlentities($row[5]);
         
         if(strpos($texto,'a href')) $pos = true;

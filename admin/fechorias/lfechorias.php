@@ -52,7 +52,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
   	foreach ($_POST as $clave => $valor){
   		if (strlen($valor) > '0' and $clave !== 'confirma') {
   		$actualiza = "update Fechoria set confirmado = '1' where id = '$clave'";
-  		$act = mysql_query($actualiza);		
+  		$act = mysqli_query($db_con, $actualiza);		
   		} 
   	}
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
@@ -62,20 +62,20 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
   }
    if(isset($_GET['borrar']) and $_GET['borrar']=="1"){
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
-$result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
+$result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             El registro ha sido eliminado de la base de datos.
           </div></div>';	
 }
   
-  mysql_query("drop table Fechcaduca");
-  mysql_query("create table Fechcaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria order by fecha desc limit 500");
-  mysql_query("ALTER TABLE  `Fechcaduca` ADD INDEX (  `id` )");
-  mysql_query("ALTER TABLE  `Fechcaduca` ADD INDEX (  `fecha` )");
+  mysqli_query($db_con, "drop table Fechcaduca");
+  mysqli_query($db_con, "create table Fechcaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria order by fecha desc limit 500");
+  mysqli_query($db_con, "ALTER TABLE  `Fechcaduca` ADD INDEX (  `id` )");
+  mysqli_query($db_con, "ALTER TABLE  `Fechcaduca` ADD INDEX (  `fecha` )");
   $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, confirmado, horas from Fechoria, FALUMNOS, Fechcaduca where Fechcaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal  order by Fechoria.fecha desc limit 500";
   // echo $query0;
-  $result = mysql_query ($query0);
+  $result = mysqli_query($db_con, $query0);
  echo "<form action='lfechorias.php' method='post' name='cnf'>
  <table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>Expulsión del Centro</td><td class='amonestacion-escrita'>Amonestación escrita</td><td class='expulsion-aula'>Expulsión del aula</td><td class='aula-convivencia-jefatura'>Aula de convivencia (Jefatura)</td><td class='aula-convivencia-profesor'>Aula de convivencia (Profesor)</td></tr></table><br />";
 		echo '<div class="table-responsive"><table class="table table-striped table-bordered table-vcentered datatable">';
@@ -94,7 +94,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		<th></th>
 		<th></th>
 		</tr></thead><tbody>";	
-   while($row = mysql_fetch_array($result))
+   while($row = mysqli_fetch_array($result))
         {
         $marca = '';
 		$apellidos = $row[0];
@@ -122,9 +122,9 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		}
 		if(($dias > 30 and ($grave == 'leve' or $grave == 'grave')) or ($dias > 60 and $grave == 'muy grave'))
 		{$caducada="Sí";} else {$caducada="No";}
-		$numero = mysql_query ("select Fechoria.claveal from Fechoria where Fechoria.claveal 
+		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
 		like '%$claveal%' and Fechoria.fecha >= '$inicio_curso' order by Fechoria.fecha"); 
-		$rownumero= mysql_num_rows($numero);
+		$rownumero= mysqli_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
 				$bgcolor="class=''";

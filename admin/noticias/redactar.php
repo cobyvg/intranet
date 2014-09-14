@@ -53,14 +53,14 @@ if (isset($_POST['enviar'])) {
 				// COMPROBAMOS SI INSERTAMOS O ACTUALIZAMOS
 				if(isset($id)) {
 					// ACTUALIZAMOS LA NOTICIA
-					$result = mysql_query("UPDATE noticias SET slug='$slug', content='$content', contact='$contact', timestamp='$fecha_pub', clase='$clase', fechafin='$fechafin', pagina=$pagina WHERE id=$id LIMIT 1");
-					if (!$result) $msg_error = "No se ha podido actualizar la noticia. Error: ".mysql_error();
+					$result = mysqli_query($db_con, "UPDATE noticias SET slug='$slug', content='$content', contact='$contact', timestamp='$fecha_pub', clase='$clase', fechafin='$fechafin', pagina=$pagina WHERE id=$id LIMIT 1");
+					if (!$result) $msg_error = "No se ha podido actualizar la noticia. Error: ".mysqli_error($db_con);
 					else $msg_success = "La noticia ha sido actualizada correctamente.";
 				}
 				else {
 					// INSERTAMOS LA NOTICIA
-					$result = mysql_query("INSERT INTO noticias (slug, content, contact, timestamp, clase, fechafin, pagina) VALUES ('$slug','$content','$contact','$fecha_pub','$clase','$fechafin',$pagina)");
-					if (!$result) $msg_error = "No se ha podido publicar la noticia. Error: ".mysql_error();
+					$result = mysqli_query($db_con, "INSERT INTO noticias (slug, content, contact, timestamp, clase, fechafin, pagina) VALUES ('$slug','$content','$contact','$fecha_pub','$clase','$fechafin',$pagina)");
+					if (!$result) $msg_error = "No se ha podido publicar la noticia. Error: ".mysqli_error($db_con);
 					else $msg_success = "La noticia ha sido publicada correctamente.";
 				}
 			}
@@ -74,13 +74,13 @@ if (isset($_POST['enviar'])) {
 // OBTENEMOS LOS DATOS SI SE OBTIENE EL ID DE LA NOTICIA
 if (isset($id) && (int) $id) {
 	
-	$result = mysql_query("SELECT slug, content, contact, timestamp, DATEDIFF(fechafin, timestamp) AS ndias, clase, pagina FROM noticias WHERE id=$id LIMIT 1");
-	if (!mysql_num_rows($result)) {
+	$result = mysqli_query($db_con, "SELECT slug, content, contact, timestamp, DATEDIFF(fechafin, timestamp) AS ndias, clase, pagina FROM noticias WHERE id=$id LIMIT 1");
+	if (!mysqli_num_rows($result)) {
 		$msg_error = "La noticia que intenta editar no existe.";
 		unset($id);
 	}
 	else {
-		$row = mysql_fetch_array($result, MYSQL_ASSOC);
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		
 		if (stristr($_SESSION['cargo'],'1') == TRUE || $row['contact'] == $_SESSION['profi']) {
 			$slug = (strstr($row['slug'], ' (Actualizado)') == true) ? $row['slug'] : $row['slug'].' (Actualizado)';
@@ -100,7 +100,7 @@ if (isset($id) && (int) $id) {
 			unset($id);
 		}
 		
-		mysql_free_result($result);
+		mysqli_free_result($result);
 	}
 	
 }

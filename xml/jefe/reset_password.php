@@ -48,21 +48,21 @@ $cambia[$dni]=$valor;
 } # del if enviar
 
 foreach($cambia as $eldni => $valor){
-mysql_query("update c_profes set pass='$eldni' where dni='$eldni'");
+mysqli_query($db_con, "update c_profes set pass='$eldni' where dni='$eldni'");
 }
 echo '<div class="alert alert-success">
 Las claves de los profesores seleccionados se han reiniciado. El DNI del profesor pasa a ser la nueva clave de acceso.
 </div>';
 
-$mail0=mysql_query("select correo from c_profes where dni='$eldni'");
-$mail=mysql_fetch_row($mail0);
+$mail0=mysqli_query($db_con, "select correo from c_profes where dni='$eldni'");
+$mail=mysqli_fetch_row($mail0);
 		$cabecera = "From: ".$email_del_centro." \r\n";
 		$direccion = $mail[0];
 		$tema = "Borrado y reinicio de Contraseña";
 		$texto = "La contrasseña para entrar en la Intranet ha sido reiniciada. Cuando vuelvas a entrar, escribe tu nombre de usuario y tu DNI como contraseña. En la siguiente página deberás volver a escribir una nueva contraseña.";
 		mail($direccion, $tema, $texto, $cabecera); 
 
-//mysql_query("drop table if exists cargos");
+//mysqli_query($db_con, "drop table if exists cargos");
 } # del si se ha enviado
 ?>
 <form name="cargos" action="reset_password.php" method="post">
@@ -70,8 +70,8 @@ $mail=mysql_fetch_row($mail0);
 	<p class="block-help">Marca los profesores a los que quieres restablecer la contraseña. Una vez enviados los datos, el NIF del profesor pasa a ser su nueva clave, y se le envía un correo para advertirle del cambio.</p>
 <div class="row">
 <?
-$n_carg=mysql_query("select distinct profesor, dni from c_profes order by profesor");
-$num_profes=mysql_num_rows($n_carg);
+$n_carg=mysqli_query($db_con, "select distinct profesor, dni from c_profes order by profesor");
+$num_profes=mysqli_num_rows($n_carg);
 $n_p = round($num_profes/3);
 $n1 = 1;
 $n2 = $n_p;
@@ -79,8 +79,8 @@ $n3 = $n_p*2;
 $n4 = $n_p*3;
 for ($i=1;$i<4;$i++){
 echo '<div class="col-sm-4"><div class="well well-large">';	
-$carg0=mysql_query("select distinct profesor, dni from c_profes order by profesor limit ".${n.$i}.",".$n_p."");
-while($carg1=mysql_fetch_array($carg0))
+$carg0=mysqli_query($db_con, "select distinct profesor, dni from c_profes order by profesor limit ".${n.$i}.",".$n_p."");
+while($carg1=mysqli_fetch_array($carg0))
 {
 $pro=$carg1[0];
 $dni=$carg1[1];

@@ -21,7 +21,7 @@ if($borrar){
 	$j=0;
 	foreach ($_POST as $ide => $valor) {       if(($ide<>'borrar') and (!empty( $valor))){
 		for($i=0; $i <= count($valor)-1; $i++){ $j+=1;
-		$bor = mysql_query ("delete from morosos where id=$valor[$i]") or die("No se ha podido borrar");
+		$bor = mysqli_query($db_con, "delete from morosos where id=$valor[$i]") or die("No se ha podido borrar");
 		}
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             																	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -129,16 +129,16 @@ elseif ($registro){
 		$titulo1 = utf8_decode("COMUNICACI�N DE AMONESTACI�N ESCRITA");
 
 		for($i=0; $i <= count($valor)-1; $i++){ $j+=1; //echo $valor[$i];
-		$duplicado= mysql_query ("select amonestacion from morosos where id=$valor[$i]");
-		$duplicados=mysql_fetch_array($duplicado);
+		$duplicado= mysqli_query($db_con, "select amonestacion from morosos where id=$valor[$i]");
+		$duplicados=mysqli_fetch_array($duplicado);
 			
 		if($duplicados[0]=='NO'){//echo"Ya has registrado las amonestaciones";
 
-			$upd = mysql_query ("update morosos set amonestacion='SI' where id=$valor[$i]") or die ("No se ha podido actualizar registro");
+			$upd = mysqli_query($db_con, "update morosos set amonestacion='SI' where id=$valor[$i]") or die ("No se ha podido actualizar registro");
 			//localizo el alumno a través de la id de la tabla morosos.
 
-			$al=mysql_query ("select apellidos,nombre,curso from morosos where id=$valor[$i]") or die ("error al localizar alumno");
-			while($alu=mysql_fetch_array($al)){
+			$al=mysqli_query($db_con, "select apellidos,nombre,curso from morosos where id=$valor[$i]") or die ("error al localizar alumno");
+			while($alu=mysqli_fetch_array($al)){
 					
 				$nombre=$alu[1];
 				$apellido=$alu[0];
@@ -146,18 +146,18 @@ elseif ($registro){
 				// echo $nombre.'-'.$apellido;
 					
 				//localizo la clave del alumno en Falumnos.
-				$cla=mysql_query("select CLAVEAL,unidad from FALUMNOS where NOMBRE='$nombre' and APELLIDOS='$apellido'") or die ("error al localizar claveal");
-				while($clav=mysql_fetch_array($cla)){
+				$cla=mysqli_query($db_con, "select CLAVEAL,unidad from FALUMNOS where NOMBRE='$nombre' and APELLIDOS='$apellido'") or die ("error al localizar claveal");
+				while($clav=mysqli_fetch_array($cla)){
 
 					$dia= date ('Y-m-d',time());
 					$clave=$clav[0];// echo $clave.'---'. $dia;
 					$unidad=$clav[1]; //echo $nivel;
 					//insertamos, por fín, la fechoría
-					$fechoria = mysql_query( "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechoría");
+					$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechoría");
 
 					//ahora registramos la intervencion en la tabla tutoría, debido al tema de los SMS
 
-					$tutoria=mysql_query ( "insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
+					$tutoria=mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,nivel,grupo,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
 
 					// aquí iría el envío de sms
 

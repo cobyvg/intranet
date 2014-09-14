@@ -21,8 +21,8 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 
-$prof=mysql_query("SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
-$fprof = mysql_fetch_array($prof);
+$prof=mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
+$fprof = mysqli_fetch_array($prof);
 if(!($tutor)){$tutor=$fprof[0];}else{$fprof[0] = $tutor;}
 ?>
 <div class="container">
@@ -53,7 +53,7 @@ else
 <label>Grupo: </label>
 <SELECT name="unidad" onChange="submit()" class="form-control">
 	<option><? echo $unidad;?></option>
-	<? unidad();?>
+	<? unidad($db_con);?>
 </SELECT> 
 </FORM>
 </div>
@@ -69,8 +69,8 @@ echo "<OPTION></OPTION>";
 if ($unidad == ""){ echo "<OPTION></OPTION>";}
 else
 {
-	$alumno=mysql_query("SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad FROM alma WHERE unidad like '$unidad%' ORDER BY APELLIDOS ASC, NOMBRE ASC");
-	while($falumno = mysql_fetch_array($alumno))
+	$alumno=mysqli_query($db_con, "SELECT CLAVEAL, APELLIDOS, NOMBRE, unidad FROM alma WHERE unidad like '$unidad%' ORDER BY APELLIDOS ASC, NOMBRE ASC");
+	while($falumno = mysqli_fetch_array($alumno))
 	{
 	 echo "<OPTION>$falumno[1], $falumno[2] --> $falumno[0]</OPTION>";
 	}

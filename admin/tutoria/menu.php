@@ -3,10 +3,10 @@
 		<?php if (strstr($_SESSION['cargo'],'1') == TRUE || strstr($_SESSION['cargo'],'8') == TRUE): ?>
 		<form method="post" action="">
 			<div class="pull-right">
-			  <?php $result = mysql_query("SELECT DISTINCT unidad, tutor FROM FTUTORES ORDER BY unidad ASC"); ?>
-			  <?php if(mysql_num_rows($result)): ?>
+			  <?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad, tutor FROM FTUTORES ORDER BY unidad ASC"); ?>
+			  <?php if(mysqli_num_rows($result)): ?>
 			  <select class="form-control input-sm" id="tutor" name="tutor" onchange="submit()">
-			  	<?php while($row = mysql_fetch_array($result)): ?>
+			  	<?php while($row = mysqli_fetch_array($result)): ?>
 			  	<option value="<?php echo $row['tutor'].' ==> '.$row['unidad']; ?>" <?php echo ($_SESSION['mod_tutoria']['tutor'].' ==> '.$_SESSION['mod_tutoria']['unidad'] == $row['tutor'].' ==> '.$row['unidad']) ? 'selected' : ''; ?>><?php echo $row['unidad'].' - '.$row['tutor']; ?></option>
 			  	<?php endwhile; ?>
 			  </select>
@@ -15,7 +15,7 @@
 			  	<option value=""></option> 
 			  </select>
 			  <?php endif; ?>
-			  <?php mysql_free_result($result); ?>
+			  <?php mysqli_free_result($result); ?>
 			</div>
 		</form>
 		<?php endif; ?>

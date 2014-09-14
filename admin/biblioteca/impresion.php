@@ -76,9 +76,9 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 
 			for($i=0; $i <= count($valor)-1; $i++){ 
 			$j+=1; //echo $valor[$i];
-			$al=mysql_query ("select apellidos,nombre,curso from morosos where id='$valor[$i]'") or die ("error al localizar alumno");
+			$al=mysqli_query($db_con, "select apellidos,nombre,curso from morosos where id='$valor[$i]'") or die ("error al localizar alumno");
 			//echo "select apellidos,nombre,curso from morosos where id='$valor[$i]'";
-			while($alu=mysql_fetch_array($al)){
+			while($alu=mysqli_fetch_array($al)){
 					
 				$nombre=$alu[1];
 				$apellido=$alu[0];

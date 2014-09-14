@@ -33,8 +33,8 @@ include("../../menu.php");
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
-mysql_query("drop TABLE pendientes");
-mysql_query("CREATE TABLE IF NOT EXISTS pendientes (
+mysqli_query($db_con, "drop TABLE pendientes");
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS pendientes (
   id int(11) NOT NULL auto_increment,
   claveal varchar(9) collate latin1_spanish_ci NOT NULL default '',
   codigo varchar(8) collate latin1_spanish_ci NOT NULL default '',
@@ -43,7 +43,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS pendientes (
   PRIMARY KEY  (id),
   KEY  claveal (claveal),
   KEY codigo (codigo)
-) DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
 
 $directorio = "../pendientes";
 //echo $directorio."<br>";
@@ -76,12 +76,12 @@ $codigo = $codigos->item(0)->nodeValue;
 $notas = $materia->getElementsByTagName( "X_CALIFICA" );
 $nota = $notas->item(0)->nodeValue;
 if (strstr($file,"1") == FALSE) {
-	$c_nota = mysql_query("select nombre from calificaciones where codigo = '$nota'");
-	$c_notas = mysql_fetch_row($c_nota);
+	$c_nota = mysqli_query($db_con, "select nombre from calificaciones where codigo = '$nota'");
+	$c_notas = mysqli_fetch_row($c_nota);
 	
 if ($c_notas[0]<5) {
 	$cod = "INSERT INTO pendientes VALUES ('', '$clave3', '$codigo','$c_notas[0]', '$grupo1')";	
-	mysql_query($cod);
+	mysqli_query($db_con, $cod);
 }
 }
 }	

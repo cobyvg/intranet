@@ -43,24 +43,24 @@ document.getElementById('n_numero').focus()">
 <div align="center">
 <?
 echo "<table class='tabla'><tr><td id=filasecundaria>Total Depto.</td><td id=filasecundaria>Total Adm.</td><td id=filasecundaria>Total Pers.</td></tr>";
-	$t_copia0=mysql_query("select numero from fotocopias where tipo = '3'");
-	while ($t_copia=mysql_fetch_array($t_copia0)) {
+	$t_copia0=mysqli_query($db_con, "select numero from fotocopias where tipo = '3'");
+	while ($t_copia=mysqli_fetch_array($t_copia0)) {
 		$t_copias+=$t_copia[0];
 	}
-	$t_per0=mysql_query("select numero from fotocopias where tipo = '2'");
-	while ($t_per=mysql_fetch_array($t_per0)) {
+	$t_per0=mysqli_query($db_con, "select numero from fotocopias where tipo = '2'");
+	while ($t_per=mysqli_fetch_array($t_per0)) {
 		$t_pers+=$t_per[0];
 	}	
-	$t_adm0=mysql_query("select numero from fotocopias where tipo = '1'");
-	while ($t_adm=mysql_fetch_array($t_adm0)) {
+	$t_adm0=mysqli_query($db_con, "select numero from fotocopias where tipo = '1'");
+	while ($t_adm=mysqli_fetch_array($t_adm0)) {
 		$t_admin+=$t_adm[0];
 	}
 	echo "<tr><td style='color:red;font-weight:bold;text-align:center'> $t_copias </td><td style='color:blue;font-weight:bold;text-align:center;'>$t_admin</td><td style='color:green;font-weight:bold;text-align:center;'>$t_pers</td></tr>";
 	echo "</table>";
 	
 echo "<table class='tabla'><tr><td id=filasecundaria>Profesor</td><td id=filasecundaria>Total Depto.</td><td id=filasecundaria>Trabajos Depto.</td><td id=filasecundaria>Total Adm.</td><td id=filasecundaria>Trabajos Adm.</td><td id=filasecundaria>Total Pers.</td><td id=filasecundaria>Trabajos Pers.</td></tr>";
-$num0=mysql_query("select distinct nombre from departamentos where nombre not like 'admin' order by nombre");
-while ($num=mysql_fetch_array($num0)) {
+$num0=mysqli_query($db_con, "select distinct nombre from departamentos where nombre not like 'admin' order by nombre");
+while ($num=mysqli_fetch_array($num0)) {
 	$total_copias="";
 	$total_veces="";
 	$total_admin="";
@@ -70,23 +70,23 @@ while ($num=mysql_fetch_array($num0)) {
 	$t_copias="";
 	$t_admin="";
 	$t_pers="";
-	$num_profe0=mysql_query("select numero from fotocopias where nombre = '$num[0]' and tipo = '3'");
-	while ($num_profe=mysql_fetch_array($num_profe0)) {
+	$num_profe0=mysqli_query($db_con, "select numero from fotocopias where nombre = '$num[0]' and tipo = '3'");
+	while ($num_profe=mysqli_fetch_array($num_profe0)) {
 		$total_copias+=$num_profe[0];
-		$n_veces=mysql_query("select nombre from fotocopias where nombre = '$num[0]' and tipo = '3'");
-		$total_veces=mysql_num_rows($n_veces);
+		$n_veces=mysqli_query($db_con, "select nombre from fotocopias where nombre = '$num[0]' and tipo = '3'");
+		$total_veces=mysqli_num_rows($n_veces);
 	}
-	$num_profe1=mysql_query("select numero from fotocopias where nombre = '$num[0]' and tipo='1'");
-	while ($admin_profe=mysql_fetch_array($num_profe1)) {
+	$num_profe1=mysqli_query($db_con, "select numero from fotocopias where nombre = '$num[0]' and tipo='1'");
+	while ($admin_profe=mysqli_fetch_array($num_profe1)) {
 		$total_admin+=$admin_profe[0];
-		$na_veces=mysql_query("select nombre from fotocopias where nombre = '$num[0]' and tipo = '1'");
-		$totala_veces=mysql_num_rows($na_veces);
+		$na_veces=mysqli_query($db_con, "select nombre from fotocopias where nombre = '$num[0]' and tipo = '1'");
+		$totala_veces=mysqli_num_rows($na_veces);
 		}
-	$num_profe2=mysql_query("select numero from fotocopias where nombre = '$num[0]' and tipo='2'");
-	while ($per_profe=mysql_fetch_array($num_profe2)) {
+	$num_profe2=mysqli_query($db_con, "select numero from fotocopias where nombre = '$num[0]' and tipo='2'");
+	while ($per_profe=mysqli_fetch_array($num_profe2)) {
 		$total_per+=$per_profe[0];
-		$np_veces=mysql_query("select nombre from fotocopias where nombre = '$num[0]' and tipo = '2'");
-		$totalp_veces=mysql_num_rows($np_veces);
+		$np_veces=mysqli_query($db_con, "select nombre from fotocopias where nombre = '$num[0]' and tipo = '2'");
+		$totalp_veces=mysqli_num_rows($np_veces);
 		}	
 		
 		if ($totala_veces=="0") {$totala_veces="";}
@@ -100,12 +100,12 @@ echo "</table>";
 
 
 echo "<table class='tabla'><tr><td id=filasecundaria>Departamento</td><td id=filasecundaria>Total Depto.</td></tr>";
-$numd0=mysql_query("select distinct departamento from departamentos where nombre not like 'admin' order by departamento");
-while ($numd=mysql_fetch_array($numd0)) {
+$numd0=mysqli_query($db_con, "select distinct departamento from departamentos where nombre not like 'admin' order by departamento");
+while ($numd=mysqli_fetch_array($numd0)) {
 	$totald_copias="";
-	$num_profed0=mysql_query("select numero from fotocopias, departamentos where departamentos.nombre = fotocopias.nombre and departamento = '$numd[0]' and tipo = '3'");
+	$num_profed0=mysqli_query($db_con, "select numero from fotocopias, departamentos where departamentos.nombre = fotocopias.nombre and departamento = '$numd[0]' and tipo = '3'");
 //	echo "select numero from fotocopias, departamentos where departamentos.nombre = fotocopias.nombre and departamento = '$numd[0]' and tipo = '3'<br>";
-	while ($num_profed=mysql_fetch_array($num_profed0)) {
+	while ($num_profed=mysqli_fetch_array($num_profed0)) {
 		$totald_copias+=$num_profed[0];
 	}
 		

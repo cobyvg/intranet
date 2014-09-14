@@ -42,12 +42,12 @@ include ("menu.php");
 		<th>Expulsion</th>
 		<th>Convivencia</th>
 		</thead><tbody>";
-		mysql_query ( "create table Fechoria_temp SELECT DISTINCT claveal, COUNT( * ) as total FROM Fechoria GROUP BY claveal" );
-		$num0 = mysql_query ( "select * from Fechoria_temp order by total desc" );
-		while ( $num = mysql_fetch_array ( $num0 ) ) {
+		mysqli_query($db_con, "create table Fechoria_temp SELECT DISTINCT claveal, COUNT( * ) as total FROM Fechoria GROUP BY claveal" );
+		$num0 = mysqli_query($db_con, "select * from Fechoria_temp order by total desc" );
+		while ( $num = mysqli_fetch_array ( $num0 ) ) {
 			$query0 = "select apellidos, nombre, unidad from FALUMNOS where claveal = '$num[0]'";
-			$result = mysql_query ( $query0 );
-			$row = mysql_fetch_array ( $result );
+			$result = mysqli_query($db_con, $query0 );
+			$row = mysqli_fetch_array ( $result );
 			$claveal = $num [0];
 			$apellidos = $row [0];
 			$nombre = $row [1];
@@ -55,17 +55,17 @@ include ("menu.php");
 			$rownumero = $num [1];
 			$rowcurso = $unidad ;
 			$rowalumno = $nombre . "&nbsp;" . $apellidos;
-		$lev = mysql_query("select grave from Fechoria where grave='leve' and claveal = '$claveal'");
-		$leve = mysql_num_rows($lev);
-		$grav = mysql_query("select grave from Fechoria where grave='grave' and claveal = '$claveal'");
-		$grave = mysql_num_rows($grav);
-		$m_grav = mysql_query("select grave from Fechoria where grave='muy grave' and claveal = '$claveal'");
-		$m_grave = mysql_num_rows($m_grav);
-		$expulsio = mysql_query("select expulsion from Fechoria where expulsion > '0' and claveal = '$claveal'");
-		$expulsion = mysql_num_rows($expulsio);
+		$lev = mysqli_query($db_con, "select grave from Fechoria where grave='leve' and claveal = '$claveal'");
+		$leve = mysqli_num_rows($lev);
+		$grav = mysqli_query($db_con, "select grave from Fechoria where grave='grave' and claveal = '$claveal'");
+		$grave = mysqli_num_rows($grav);
+		$m_grav = mysqli_query($db_con, "select grave from Fechoria where grave='muy grave' and claveal = '$claveal'");
+		$m_grave = mysqli_num_rows($m_grav);
+		$expulsio = mysqli_query($db_con, "select expulsion from Fechoria where expulsion > '0' and claveal = '$claveal'");
+		$expulsion = mysqli_num_rows($expulsio);
 		if ($expulsion == '0'){$expulsion='';}
-		$conviv = mysql_query("select aula_conv from Fechoria where aula_conv > '0' and claveal = '$claveal'");
-		$conv = mysql_num_rows($conviv);
+		$conviv = mysqli_query($db_con, "select aula_conv from Fechoria where aula_conv > '0' and claveal = '$claveal'");
+		$conv = mysqli_num_rows($conviv);
 		if ($conv== '0'){$conv='';}
 		if(!(empty($apellidos))){
 			echo "<tr>
@@ -84,9 +84,9 @@ include ("menu.php");
 		</tr>";
 		}
 		}
-		mysql_query ( "drop table Fechoria_temp" );		
+		mysqli_query($db_con, "drop table Fechoria_temp" );		
 		echo "</tbody></table>\n";
-		mysql_query ( "drop table Fechoria_temp" );
+		mysqli_query($db_con, "drop table Fechoria_temp" );
 		?>
 		</div>
 		</div>

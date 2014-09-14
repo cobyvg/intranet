@@ -112,8 +112,8 @@ echo "<div align='center'>";
 	$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
   }
   $SQL10 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad from FALUMNOS where   CLAVEAL = '$claveal'";
-  $result10 = mysql_query($SQL10);
-  $row10 = mysql_fetch_array($result10);
+  $result10 = mysqli_query($db_con, $SQL10);
+  $row10 = mysqli_fetch_array($result10);
           echo "<div align='center'>";
           echo '<div class="page-header">
   <h2>Faltas de Asistencia <small> Informe de faltas del alumno</small></h2>
@@ -137,17 +137,17 @@ if($submit2)
 {
  $SQL0 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
  //echo $SQL0;
-  $result0 = mysql_query($SQL0);
-  $row0 = mysql_fetch_array($result0);
+  $result0 = mysqli_query($db_con, $SQL0);
+  $row0 = mysqli_fetch_array($result0);
   // Justificadas
   $SQLJ = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.falta = 'J' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
-  $resultJ = mysql_query($SQLJ);
-  $rowJ = mysql_fetch_array($resultJ);
+  $resultJ = mysqli_query($db_con, $SQLJ);
+  $rowJ = mysqli_fetch_array($resultJ);
   // Sin justificar
   $SQLF = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.falta = 'F' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
 
-  $resultF = mysql_query($SQLF);
-  $rowF = mysql_fetch_array($resultF);  
+  $resultF = mysqli_query($db_con, $SQLF);
+  $rowF = mysqli_fetch_array($resultF);  
 
   if ($row0[0]=1)
         {
@@ -169,10 +169,10 @@ if($submit2)
   $SQL = "SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas,
   FALTAS.FECHA, FALTAS.HORA, FALTAS.CODASI, FALTAS.falta, asignaturas.abrev
   FROM alma, FALTAS, asignaturas where  alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.codasi = asignaturas.codigo and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' and alma.CLAVEAL = '$claveal' and asignaturas.abrev not like '%\_%' order BY FALTAS.FECHA, FALTAS.HORA";
-   $result = mysql_query($SQL);
+   $result = mysqli_query($db_con, $SQL);
    //echo $SQL;
 echo "<br /><br /><p class='lead'>Lista detallada de Faltas de Asistencia.</p>";
-   if ($rowsql = mysql_fetch_array($result))
+   if ($rowsql = mysqli_fetch_array($result))
         {
 		echo "<div class='well' align='left' style='width:600px'>";
         $f = "";
@@ -193,7 +193,7 @@ echo "<br /><br /><p class='lead'>Lista detallada de Faltas de Asistencia.</p>";
                         $f = $rowsql[5];
                         }
                         }
-                while($rowsql = mysql_fetch_array($result));
+                while($rowsql = mysqli_fetch_array($result));
                  	printf ("" . $horas . "");
 					echo "</div>";
 					}

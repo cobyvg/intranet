@@ -6,8 +6,8 @@ require_once('../../pdf/class.ezpdf.php');
 $pdf =& new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
 $pdf->ezSetCmMargins(1,1,1.5,1.5);
-$tot = mysql_query("select distinct curso, grupo_actual from matriculas where grupo_actual != '' order by curso, grupo_actual");
-while($total = mysql_fetch_array($tot)){
+$tot = mysqli_query($db_con, "select distinct curso, grupo_actual from matriculas where grupo_actual != '' order by curso, grupo_actual");
+while($total = mysqli_fetch_array($tot)){
 # hasta aquí lo del pdf
 $options_center = array(
 				'justification' => 'center'
@@ -27,10 +27,10 @@ $options_left = array(
 	else{
 		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, act1, itinerario, religion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
 	}
-$lista= mysql_query($sqldatos );
+$lista= mysqli_query($db_con, $sqldatos );
 $nc=0;
 unset($data);
-while($datatmp = mysql_fetch_array($lista)) { 
+while($datatmp = mysqli_fetch_array($lista)) { 
 	$religion = "";
 	
 if ($curso=="3ESO") {

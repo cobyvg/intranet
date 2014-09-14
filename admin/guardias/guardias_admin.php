@@ -72,15 +72,15 @@ $fecha_sp = formatea_fecha($g_fecha);
 	name=profeso onchange="submit()" class="form-control">
 	<option><? echo $profeso;?></option>
 	<?
-	$profe = mysql_query(" SELECT distinct prof FROM horw where a_asig='GU' order by prof asc");
-	if ($filaprofe = mysql_fetch_array($profe))
+	$profe = mysqli_query($db_con, " SELECT distinct prof FROM horw where a_asig='GU' order by prof asc");
+	if ($filaprofe = mysqli_fetch_array($profe))
 	{
 		do {
 
 			$opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
 			echo "$opcion1";
 
-		} while($filaprofe = mysql_fetch_array($profe));
+		} while($filaprofe = mysqli_fetch_array($profe));
 	}
 	?>
 </select></div>
@@ -91,7 +91,7 @@ $fecha_sp = formatea_fecha($g_fecha);
 <br>
 <?
 if ($borrar=='1') {
-	mysql_query("delete from guardias where id='$id'");
+	mysqli_query($db_con, "delete from guardias where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La sustitución ha sido borrada correctamente. Puedes comprobarlo en la tabla de la derecha.
@@ -117,20 +117,20 @@ echo "</div>";
 <br>
 <?
 $fech_hoy = date("Y-m-d");
-$hoy0 = mysql_query("select id, profesor, profe_aula, hora, fecha from guardias where dia = '$no_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha'");
-if (mysql_num_rows($hoy0) > 0) {
+$hoy0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha from guardias where dia = '$no_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha'");
+if (mysqli_num_rows($hoy0) > 0) {
 	echo "<legend>Sustituciones registradas para la Guardia de hoy</legend>";
 	echo '<table class="table table-striped">';
 	echo "<tr><th>Profesor de Guardia</th><th>Profesor ausente</th></tr>";
-	while ($hoy = mysql_fetch_array($hoy0)) {
+	while ($hoy = mysqli_fetch_array($hoy0)) {
 		echo "<tr><td>$hoy[1]</td><td>$hoy[2]</td></tr>";
 	}
 	echo "</table><br>";
 }
 ?> 
 <?
-$h_gu0= mysql_query("select prof from horw where dia = '$no_dia' and hora = '$hora' and a_asig = 'GU'");
-if (mysql_num_rows($h_gu0)>0) {
+$h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$no_dia' and hora = '$hora' and a_asig = 'GU'");
+if (mysqli_num_rows($h_gu0)>0) {
 if ($profeso and $no_dia and $hora) {
 	echo '<a name="marca"></a>';
 	?>
@@ -139,13 +139,13 @@ hora del <? echo "<span class='text-danger'>$nombre_dia</span>";?></legend>
 	<?
 }	
 echo '<table class="table table-striped">';
-while ($h_gu = mysql_fetch_array($h_gu0)) {
+while ($h_gu = mysqli_fetch_array($h_gu0)) {
 	echo "<td>";
 	echo "<span>$h_gu[0]</span>";
 
 	echo "</td><td>";
-	$num_g0=mysql_query("select id from guardias where profesor = '$h_gu[0]' and dia = '$no_dia' and hora = '$hora'");
-	$ng_prof = mysql_num_rows($num_g0);
+	$num_g0=mysqli_query($db_con, "select id from guardias where profesor = '$h_gu[0]' and dia = '$no_dia' and hora = '$hora'");
+	$ng_prof = mysqli_num_rows($num_g0);
 	echo $ng_prof;
 	echo "</td>";
 	echo "</tr>";
@@ -157,13 +157,13 @@ echo "</table><br>";
 if ($profeso) {
 	$extra = " and hora = '$hora' and dia = '$no_dia'";
 	$extra1 = " a ".$hora."ª hora del ".$nombre_dia;
-	$h_hoy0 = mysql_query("select id, profesor, profe_aula, hora, fecha_guardia, dia from guardias where profesor = '$profeso'");
-	if (mysql_num_rows($h_hoy0) > 0) {
+	$h_hoy0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia, dia from guardias where profesor = '$profeso'");
+	if (mysqli_num_rows($h_hoy0) > 0) {
 
 		echo "<legend>Sustituciones realizadas por el profesor</legend>";
 		echo '<table class="table table-striped">';
 		echo "<tr><th>Profesor Ausente</th><th>Fecha de la Guardia</th><th>Día</th><th>Hora</th><th></th></tr>";
-		while ($h_hoy = mysql_fetch_array($h_hoy0)) {
+		while ($h_hoy = mysqli_fetch_array($h_hoy0)) {
 			$nu_dia = $h_hoy[5];
 			if ($nu_dia == '1') {$nom_dia = 'Lunes';}
 			if ($nu_dia == '2') {$nom_dia = 'Martes';}

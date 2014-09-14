@@ -53,11 +53,11 @@ $numg++;
 
 $sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre),Fecha,matriculas,Sexo,padre,Domicilio,Telefonourgencia,alma.claveal, Telefono, nc FROM alma, FALUMNOS WHERE FALUMNOS.claveal=alma.claveal and alma.unidad='".$grupo1."' ORDER BY nc";
 //echo $sqldatos;
-$lista= mysql_query($sqldatos) or die (mysql_error());
+$lista= mysqli_query($db_con, $sqldatos) or die (mysqli_error($db_con));
 $num=0;
 unset($data);
 $ixx = 0;
-while($datatmp = mysql_fetch_array($lista)) { 
+while($datatmp = mysqli_fetch_array($lista)) { 
 	$ixx = $ixx+1;
 	$tels = trim($datatmp[6]."    ".$datatmp[8]);
 	if ($datatmp[2]>1) {

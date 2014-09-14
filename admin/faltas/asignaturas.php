@@ -42,11 +42,11 @@ $nivel = $tr[2];
 //echo "$asignatura --> $grupo --> $nivel<br>";
 $SQL = "select FALTAS.claveal, count(*) as numero, codasi, CONCAT( apellidos, ', ', nombre ), FALTAS.nc from FALTAS, FALUMNOS where FALTAS.claveal = FALUMNOS.claveal and codasi like (select distinct codigo from asignaturas where nombre = '$asignatura' and curso = '$nivel' and abrev not like '%\_%') and FALTAS.unidad = '$grupo' and profesor like (select distinct no_prof from horw where prof = '$profe') and falta='F' group by FALTAS.nc order BY FALTAS.nc";
 
-$result = mysql_query($SQL);
+$result = mysqli_query($db_con, $SQL);
 if ($result) {
 	echo "<center><p class='lead'><small>$asignatura ( $grupo )</small></p>";
 }
-  if ($row = mysql_fetch_array($result))
+  if ($row = mysqli_fetch_array($result))
         {
         echo "<table class='table table-striped' style='width:auto'>\n";
         echo "<thead><th>Alumno</th><th>Total</th></thead><tbody>";
@@ -56,7 +56,7 @@ if ($result) {
 		$foto = "<img src='../../xml/fotos/$row[0].jpg' width='55' height='64'  />";
 		echo $foto."&nbsp;&nbsp;";
         echo "<a href='informes.php?claveal=$row[0]&fechasp1=$inicio_curso&fechasp3=$fin_curso&submit2=2'>$row[3]</a></td><td style='vertical-align:middle'><strong>$row[1]</strong></td></tr>\n"; 
-        } while($row = mysql_fetch_array($result));
+        } while($row = mysqli_fetch_array($result));
         echo "</tbody></table></center>";
         } 
         else

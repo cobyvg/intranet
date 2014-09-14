@@ -43,8 +43,8 @@ else{
 	value="Todos ...">
 	<option></option>
 	<?
-	$profe = mysql_query(" SELECT distinct departamento FROM departamentos, profesores where departamento not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' order by departamento asc");
-	while($filaprofe = mysql_fetch_array($profe))
+	$profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos, profesores where departamento not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' order by departamento asc");
+	while($filaprofe = mysqli_fetch_array($profe))
 	{
 		$departamen = $filaprofe[0];
 		$opcion1 = printf ("<OPTION>$departamen</OPTION>");

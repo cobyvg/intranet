@@ -48,11 +48,11 @@ include("menu.php");
 						<legend>Seleccione aula</legend>
 						
 						<div class="form-group">
-							<?php $result = mysql_query("SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' AND n_aula NOT LIKE 'audi%' AND a_aula NOT LIKE 'dir%' ORDER BY n_aula ASC"); ?>
-							<?php if(mysql_num_rows($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' AND n_aula NOT LIKE 'audi%' AND a_aula NOT LIKE 'dir%' ORDER BY n_aula ASC"); ?>
+							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="servicio_aula" onchange="submit()">
 								<option value=""></option>
-								<?php while ($row = mysql_fetch_array($result)):?>
+								<?php while ($row = mysqli_fetch_array($result)):?>
 								<?php $value = $row['a_aula'].' ==> '.$row['n_aula']; ?>
 								<option value="<?php echo $value; ?>"><?php echo $row['n_aula']; ?></option>
 								<?php endwhile; ?>
@@ -131,12 +131,12 @@ $last_year = $year - 1;
 if ($today > $numdays) { $today--; }
 
 // Lugares y situación
-$a1=mysql_query("select distinct a_aula, n_aula from $db.horw where a_aula not like 'G%' and a_aula not like '' and a_aula not like 'DIR%' order by a_aula");
+$a1=mysqli_query($db_con, "select distinct a_aula, n_aula from $db.horw where a_aula not like 'G%' and a_aula not like '' and a_aula not like 'DIR%' order by a_aula");
 
-$num_aula_grupo=mysql_num_rows($a1);
+$num_aula_grupo=mysqli_num_rows($a1);
 $ci = 0;
 $primero = 0;
-while($au_grupo = mysql_fetch_array($a1)){
+while($au_grupo = mysqli_fetch_array($a1)){
 	$servicio=$au_grupo[0];
 	$lugar = $au_grupo[1];	
 	
@@ -184,18 +184,18 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		//Buscar actividad para el día y marcarla
 		$sql_currentday = "$year-$month-$zz";
     $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
- 		$eventExec = mysql_query ( $eventQuery );
-		if (mysql_num_rows($eventExec)>0) {
-			while ( $row = mysql_fetch_array ( $eventExec ) ) {
+ 		$eventExec = mysqli_query($db_con, $eventQuery );
+		if (mysqli_num_rows($eventExec)>0) {
+			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
 echo "<td class=\"calendar-orange\">$zz</td>";
 $result_found = 1;
 		}	
 		}
 		else{
 		$sql_currentday = "$year-$month-$zz";
-		$fest = mysql_query("select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
-		if (mysql_num_rows($fest)>0) {
-		$festiv=mysql_fetch_array($fest);
+		$fest = mysqli_query($db_con, "select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
+		if (mysqli_num_rows($fest)>0) {
+		$festiv=mysqli_fetch_array($fest);
 			        echo "<td class=\"calendar-red\">$zz</a></td>\n";
 				$result_found = 1;
 				}	
@@ -252,9 +252,9 @@ for ($i = $today; $i <= ($today + 6); $i++) {
     
     $sql_currentday = "$current_year-$current_month-$current_day";
     $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
-    $eventExec = mysql_query($eventQuery);
-    while($row = mysql_fetch_array($eventExec)) {
-   if (mysql_num_rows($eventExec) == 1) {
+    $eventExec = mysqli_query($db_con, $eventQuery);
+    while($row = mysqli_fetch_array($eventExec)) {
+   if (mysqli_num_rows($eventExec) == 1) {
         // $this_days_title = stripslashes($row["title"]);
    $event_event1 = stripslashes($row["event1"]);
    $event_event2 = stripslashes($row["event2"]);
@@ -270,7 +270,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
 	echo '<a href="http://'.$dominio.'/intranet/reservas/reservar/index_aulas.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
 
   //Nombre del día
- if (mysql_num_rows($eventExec) == 1) 
+ if (mysqli_num_rows($eventExec) == 1) 
  {
  	 if ($event_event1 !== "") { 
  	    echo "<p>1ª hora: $event_event1</p>";

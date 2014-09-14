@@ -45,14 +45,14 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
   `nivel` varchar( 64 ) NOT NULL,
   KEY `claveal` (`claveal`)
 )";
- mysql_query($crea_tabla);
+ mysqli_query($db_con, $crea_tabla);
 // Comprobamos datos de evaluaciones
-$n3 = mysql_query("select * from notas where notas3 not like ''");
-$n2 = mysql_query("select * from notas where notas2 not like ''");
-$n1 = mysql_query("select * from notas where notas1 not like ''");
-if(mysql_num_rows($n3)>0){$n_eval = "notas3";}
-elseif(mysql_num_rows($n2)>0){$n_eval = "notas2";}
-elseif(mysql_num_rows($n1)>0){$n_eval = "notas1";}
+$n3 = mysqli_query($db_con, "select * from notas where notas3 not like ''");
+$n2 = mysqli_query($db_con, "select * from notas where notas2 not like ''");
+$n1 = mysqli_query($db_con, "select * from notas where notas1 not like ''");
+if(mysqli_num_rows($n3)>0){$n_eval = "notas3";}
+elseif(mysqli_num_rows($n2)>0){$n_eval = "notas2";}
+elseif(mysqli_num_rows($n1)>0){$n_eval = "notas1";}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -66,8 +66,8 @@ else{
 
 <?
 // Evaluaciones ESO
-$niv = mysql_query("select nomcurso from cursos where nomcurso like '%E.S.O.%' or nomcurso like '%Bach%'");
-while ($ni = mysql_fetch_array($niv)) {
+$niv = mysqli_query($db_con, "select nomcurso from cursos where nomcurso like '%E.S.O.%' or nomcurso like '%Bach%'");
+while ($ni = mysqli_fetch_array($niv)) {
 	$n_grupo+=1;
 	$curso = $ni[0];
 	$rep = ""; 
@@ -76,15 +76,15 @@ $notas1 = "select ". $n_eval .", claveal1, matriculas, unidad from alma, notas w
 // echo $notas1."<br>";
 echo "<td style='text-align:center;' valign='top'>";
 
-$result1 = mysql_query($notas1);
-$todos = mysql_num_rows($result1);
+$result1 = mysqli_query($db_con, $notas1);
+$todos = mysqli_num_rows($result1);
 if ($todos < '1') {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';
 }
-while($row1 = mysql_fetch_array($result1)){
+while($row1 = mysqli_fetch_array($result1)){
 $asignatura1 = substr($row1[0], 0, strlen($row1[0])-1);
 $claveal = $row1[1];
 $grupo = $row1[3];
@@ -101,13 +101,13 @@ $susp="";
   {
 $bloque = explode(":", $trozos1[$i]);
 $nombreasig = "select nombre from calificaciones where codigo = '" . $bloque[1] . "'";
-$asig = mysql_query($nombreasig);
-$cali = mysql_fetch_row($asig);
+$asig = mysqli_query($db_con, $nombreasig);
+$cali = mysqli_fetch_row($asig);
 if($cali[0] < '5' and !($cali[0] == ''))	{
 	$susp+=1; 
 	}
 	}
-	mysql_query("insert into suspensos  (
+	mysqli_query($db_con, "insert into suspensos  (
 `claveal` ,
 `suspensos` ,
 `pil` ,
@@ -120,20 +120,20 @@ VALUES (
 	}
 
 // Calculamos
-$mas_cuatr = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos > '4'");
-$mas_cuatro=mysql_num_rows($mas_cuatr);
-$cuatr = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos = '4'");
-$cuatro=mysql_num_rows($cuatr);
-$menos_cuatr = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos < '4'");
-$menos_cuatro=mysql_num_rows($menos_cuatr);
-$n_pil = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and pil = '1'");
-$num_pil=mysql_num_rows($n_pil);
-$pil_mas_cuatr = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos > '4' and pil = '1'");
-$pil_mas_cuatro=mysql_num_rows($pil_mas_cuatr);
-$pil_menos_cuatr = mysql_query("select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos < '4' and pil = '1'");
-$pil_menos_cuatro=mysql_num_rows($pil_menos_cuatr);
-$pil_cuatr = mysql_query("select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos = '4' and pil = '1'");
-$pil_cuatro=mysql_num_rows($pil_cuatr);
+$mas_cuatr = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos > '4'");
+$mas_cuatro=mysqli_num_rows($mas_cuatr);
+$cuatr = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos = '4'");
+$cuatro=mysqli_num_rows($cuatr);
+$menos_cuatr = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos < '4'");
+$menos_cuatro=mysqli_num_rows($menos_cuatr);
+$n_pil = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where  nivel = '$curso' and pil = '1'");
+$num_pil=mysqli_num_rows($n_pil);
+$pil_mas_cuatr = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos > '4' and pil = '1'");
+$pil_mas_cuatro=mysqli_num_rows($pil_mas_cuatr);
+$pil_menos_cuatr = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where  nivel = '$curso' and suspensos < '4' and pil = '1'");
+$pil_menos_cuatro=mysqli_num_rows($pil_menos_cuatr);
+$pil_cuatr = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos = '4' and pil = '1'");
+$pil_cuatro=mysqli_num_rows($pil_cuatr);
 
 if (strstr($nivel, "E.S.O.") == TRUE) {
 	$rep="";
@@ -200,7 +200,7 @@ else{
 </td>
 <?
 }
- mysql_query("drop table suspensos");
+ mysqli_query($db_con, "drop table suspensos");
 
 ?>
 </tr>

@@ -18,8 +18,8 @@ function tipo_falta($falta) {
 <br>
 
 <?php
-$result = mysql_query("SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.unidad, FALTAS.fecha, FALTAS.hora, asignaturas.nombre, FALTAS.falta FROM alma, FALTAS, asignaturas where  alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.codasi = asignaturas.codigo  and alma.claveal = $claveal  and FALTAS.fecha >= '$inicio_curso' and asignaturas.abrev not like '%\_%' order BY FALTAS.fecha, FALTAS.hora"); ?>
-<?php if (mysql_num_rows($result)): ?>
+$result = mysqli_query($db_con, "SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.unidad, FALTAS.fecha, FALTAS.hora, asignaturas.nombre, FALTAS.falta FROM alma, FALTAS, asignaturas where  alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.codasi = asignaturas.codigo  and alma.claveal = $claveal  and FALTAS.fecha >= '$inicio_curso' and asignaturas.abrev not like '%\_%' order BY FALTAS.fecha, FALTAS.hora"); ?>
+<?php if (mysqli_num_rows($result)): ?>
 <div class="table-responsive">
 	<table class="table table-bordered table-striped table-hover datatable1">
 		<thead>
@@ -31,7 +31,7 @@ $result = mysql_query("SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE
 			</tr>
 		</thead>
 		<tbody>
-			<?php while ($row = mysql_fetch_array($result)): ?>
+			<?php while ($row = mysqli_fetch_array($result)): ?>
 			<tr>
 				<td><?php echo $row['fecha']; ?></td>
 				<td><?php echo $row['hora']; ?>ª</td>

@@ -31,9 +31,9 @@ if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = 
 <div class="col-sm-6 col-sm-offset-3">
 <?
 $query = "DELETE FROM Textos WHERE id = '$id'";
-$result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
+$result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
 
-mysql_close($connection);
+mysqli_close($connection);
 
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

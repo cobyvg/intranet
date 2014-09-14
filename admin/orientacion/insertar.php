@@ -27,7 +27,7 @@ $dia = explode("-",$fecha);
 $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 		$query="insert into tutoria (apellidos, nombre, tutor, unidad, observaciones,causa,accion,fecha, orienta, prohibido,claveal) values 
 		('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$observaciones."','".$causa."','".$completo."','".$fecha2."','1','".$prohibido."','".$clave."')";
-mysql_query($query);
+mysqli_query($db_con, $query);
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han introducido correctamente.

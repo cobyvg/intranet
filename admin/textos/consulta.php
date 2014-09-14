@@ -33,9 +33,9 @@ if ($nivel != '' || $departamento != '') {
 
 // ELIMINAR UN LIBRO
 if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'delete') {
-	$result = mysql_query("DELETE FROM Textos WHERE id='$id' LIMIT 1");
+	$result = mysqli_query($db_con, "DELETE FROM Textos WHERE id='$id' LIMIT 1");
 	
-	if (!$result) $msg_error = "No se ha podido eliminar el libro de texto. Error: ".mysql_error();
+	if (!$result) $msg_error = "No se ha podido eliminar el libro de texto. Error: ".mysqli_error($db_con);
 	else $msg_success = "El libro de texto ha sido eliminado.";
 }
 
@@ -82,8 +82,8 @@ include 'menu.php';
       				<label for="nivel">Curso</label>
       					<select class="form-control" id="nivel" name="nivel">
       					<option value=""></option>
-      					<?php $result = mysql_query("SELECT DISTINCT curso FROM alma ORDER BY curso ASC"); ?>
-      					<?php while($row = mysql_fetch_array($result)): ?>
+      					<?php $result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC"); ?>
+      					<?php while($row = mysqli_fetch_array($result)): ?>
       					<option value="<?php echo $row['curso']; ?>" <?php echo (isset($nivel) && $nivel == $row['curso']) ? 'selected' : ''; ?>><?php echo $row['curso']; ?></option>
       					<?php endwhile; ?>
       				</select>
@@ -93,8 +93,8 @@ include 'menu.php';
       				<label for="departamento">Departamento</label>
       				<select class="form-control" id="departamento" name="departamento">
       					<option value=""></option>
-								<?php $result = mysql_query("SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
-								<?php while ($row = mysql_fetch_array($result)) : ?>
+								<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
+								<?php while ($row = mysqli_fetch_array($result)) : ?>
 								<option value="<?php echo $row['departamento']; ?>" <?php echo (isset($departamento) && $departamento == $row['departamento']) ? 'selected' : ''; ?>><?php echo $row['departamento']; ?></option>
 								<?php endwhile; ?>
 							</select>
@@ -113,12 +113,12 @@ include 'menu.php';
 		<?php else: ?>
 		
 		<div class="col-sm-12">
-			<?php $result = mysql_query("SELECT DISTINCT id, departamento, asignatura, autor, titulo, editorial, notas, nivel, grupo FROM Textos $sql_where ORDER BY asignatura") or die (mysql_error()); ?>
+			<?php $result = mysqli_query($db_con, "SELECT DISTINCT id, departamento, asignatura, autor, titulo, editorial, notas, nivel, grupo FROM Textos $sql_where ORDER BY asignatura") or die (mysqli_error($db_con)); ?>
 			
 			<h3 class="text-info"><?php echo ($nivel != '') ? $nivel : 'Todos los cursos'; ?> <?php echo ($departamento != '') ? '('.$departamento.')' : ''; ?></h3>
 			<br>
 			
-			<?php if (mysql_num_rows($result)): ?>
+			<?php if (mysqli_num_rows($result)): ?>
 			<div class="table-responsive">
 				<table class="table table-bordered table-striped table-hover">
 					<thead>
@@ -135,7 +135,7 @@ include 'menu.php';
 						</tr>
 					</thead>
 					<tbody>
-						<?php while ($row = mysql_fetch_array($result)): ?>
+						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
 							<td nowrap><?php echo $row['titulo']; ?></td>
 							<td><?php echo $row['autor']; ?></td>
@@ -151,7 +151,7 @@ include 'menu.php';
 							<?php endif; ?>
 						</tr>
 						<?php endwhile; ?>
-						<?php mysql_num_rows($result); ?>
+						<?php mysqli_num_rows($result); ?>
 					</tbody>
 				</table>
 			</div>

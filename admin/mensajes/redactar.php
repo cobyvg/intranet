@@ -78,21 +78,21 @@ $origen="";
 
 $verifica = $_GET['verifica'];
 if($verifica){
- mysql_query("UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
+ mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
 
 if (isset($_GET['id'])) {
 	
 	if (isset($_POST['submit1'])) {
-		$result = mysql_query("UPDATE mens_texto SET asunto='$asunto', texto='$texto' WHERE id=".$_GET['id']." LIMIT 1");
+		$result = mysqli_query($db_con, "UPDATE mens_texto SET asunto='$asunto', texto='$texto' WHERE id=".$_GET['id']." LIMIT 1");
 		
-		if(!$result) $msg_error = "No se ha podido editar el mensaje. Error: ".mysql_error();
+		if(!$result) $msg_error = "No se ha podido editar el mensaje. Error: ".mysqli_error($db_con);
 		else header('Location:'.'index.php?inbox=recibidos&action=send');
 	}
 	
-	$result = mysql_query("SELECT ahora, asunto, texto, destino FROM mens_texto WHERE id=".$_GET['id']."");
-	if (mysql_num_rows($result)) {
-		$row = mysql_fetch_array($result);
+	$result = mysqli_query($db_con, "SELECT ahora, asunto, texto, destino FROM mens_texto WHERE id=".$_GET['id']."");
+	if (mysqli_num_rows($result)) {
+		$row = mysqli_fetch_array($result);
 		
 		$ahora = $row['ahora'];
 		$asunto = $row['asunto'];
@@ -313,13 +313,13 @@ $page_header = "Redactar mensaje";
 						<?php $s_origen = mb_strtoupper($origen); ?>
 						
 						<div class="form-group">
-							<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos ORDER BY nombre ASC"); ?>
-							<?php if(mysql_num_rows($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos ORDER BY nombre ASC"); ?>
+							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="profeso[]" multiple="multiple" size="23">
-								<?php while($row = mysql_fetch_array($result)): ?>
+								<?php while($row = mysqli_fetch_array($result)): ?>
 								<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($origen) && mb_strtoupper($origen) == mb_strtoupper($row['nombre'])) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 								<?php endwhile; ?>
-								<?php mysql_free_result($result); ?>
+								<?php mysqli_free_result($result); ?>
 							</select>
 							<?php else: ?>
 							<select class="form-control" name="profeso[]" multiple="multiple" disabled>
@@ -346,13 +346,13 @@ $page_header = "Redactar mensaje";
 						<legend>Seleccione tutores</legend>
 						
 						<div class="form-group">
-							<?php $result = mysql_query("SELECT DISTINCT tutor, unidad FROM FTUTORES ORDER BY unidad ASC"); ?>
-							<?php if(mysql_num_rows($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT tutor, unidad FROM FTUTORES ORDER BY unidad ASC"); ?>
+							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="tutor[]" multiple="multiple" size="23">
-								<?php while($row = mysql_fetch_array($result)): ?>
+								<?php while($row = mysqli_fetch_array($result)): ?>
 								<option value="<?php echo $row['tutor']; ?> --> <?php echo $row['unidad']; ?>-"><?php echo $row['unidad']; ?> - <?php echo $row['tutor']; ?></option>
 								<?php endwhile; ?>
-								<?php mysql_free_result($result); ?>
+								<?php mysqli_free_result($result); ?>
 							</select>
 							<?php else: ?>
 							<select class="form-control" name="tutor[]" multiple="multiple" disabled>
@@ -378,13 +378,13 @@ $page_header = "Redactar mensaje";
 						<legend>Seleccione departamentos</legend>
 						
 						<div class="form-group">
-							<?php $result = mysql_query("SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
-							<?php if(mysql_num_rows($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
+							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="departamento[]" multiple="multiple" size="23">
-								<?php while($row = mysql_fetch_array($result)): ?>
+								<?php while($row = mysqli_fetch_array($result)): ?>
 								<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
 								<?php endwhile; ?>
-								<?php mysql_free_result($result); ?>
+								<?php mysqli_free_result($result); ?>
 							</select>
 							<?php else: ?>
 							<select class="form-control" name="departamento[]" multiple="multiple" disabled>
@@ -410,13 +410,13 @@ $page_header = "Redactar mensaje";
 						<legend>Seleccione equipos educativos</legend>
 						
 						<div class="form-group">
-							<?php $result = mysql_query("SELECT DISTINCT grupo FROM profesores ORDER BY grupo ASC"); ?>
-							<?php if(mysql_num_rows($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo FROM profesores ORDER BY grupo ASC"); ?>
+							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="equipo[]" multiple="multiple" size="23">
-								<?php while($row = mysql_fetch_array($result)): ?>
+								<?php while($row = mysqli_fetch_array($result)): ?>
 								<option value="<?php echo $row['grupo']; ?>"><?php echo $row['grupo']; ?></option>
 								<?php endwhile; ?>
-								<?php mysql_free_result($result); ?>
+								<?php mysqli_free_result($result); ?>
 							</select>
 							<?php else: ?>
 							<select class="form-control" name="equipo[]" multiple="multiple" disabled>
@@ -441,13 +441,13 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Claustro de profesores</legend>
 						
-						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos ORDER BY nombre ASC"); ?>
-						<?php if(mysql_num_rows($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos ORDER BY nombre ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysql_fetch_array($result)): ?>
+							<?php while($row = mysqli_fetch_array($result)): ?>
 							<li><?php echo $row['nombre'] ; ?></li>
 							<?php endwhile; ?>
-							<?php mysql_free_result($result); ?>
+							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
 						
@@ -465,13 +465,13 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Biblioteca</legend>
 						
-						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%c%' ORDER BY nombre ASC"); ?>
-						<?php if(mysql_num_rows($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%c%' ORDER BY nombre ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysql_fetch_array($result)): ?>
+							<?php while($row = mysqli_fetch_array($result)): ?>
 							<li><?php echo $row['nombre'] ; ?></li>
 							<?php endwhile; ?>
-							<?php mysql_free_result($result); ?>
+							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
 						
@@ -489,13 +489,13 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Jefes de departamento</legend>
 						
-						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%4%' ORDER BY nombre ASC"); ?>
-						<?php if(mysql_num_rows($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%4%' ORDER BY nombre ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysql_fetch_array($result)): ?>
+							<?php while($row = mysqli_fetch_array($result)): ?>
 							<li><?php echo $row['nombre'] ; ?></li>
 							<?php endwhile; ?>
-							<?php mysql_free_result($result); ?>
+							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
 						
@@ -513,13 +513,13 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Coordinadores de área</legend>
 						
-						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
-						<?php if(mysql_num_rows($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%9%' ORDER BY nombre ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysql_fetch_array($result)): ?>
+							<?php while($row = mysqli_fetch_array($result)): ?>
 							<li><?php echo $row['nombre'] ; ?></li>
 							<?php endwhile; ?>
-							<?php mysql_free_result($result); ?>
+							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
 						
@@ -537,13 +537,13 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Equipo directivo</legend>
 						
-						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%1%' ORDER BY nombre ASC"); ?>
-						<?php if(mysql_num_rows($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%1%' ORDER BY nombre ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysql_fetch_array($result)): ?>
+							<?php while($row = mysqli_fetch_array($result)): ?>
 							<li><?php echo $row['nombre'] ; ?></li>
 							<?php endwhile; ?>
-							<?php mysql_free_result($result); ?>
+							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
 						
@@ -561,13 +561,13 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Orientación</legend>
 						
-						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%8%' ORDER BY nombre ASC"); ?>
-						<?php if(mysql_num_rows($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%8%' ORDER BY nombre ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysql_fetch_array($result)): ?>
+							<?php while($row = mysqli_fetch_array($result)): ?>
 							<li><?php echo $row['nombre'] ; ?></li>
 							<?php endwhile; ?>
-							<?php mysql_free_result($result); ?>
+							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
 						
@@ -586,13 +586,13 @@ $page_header = "Redactar mensaje";
 					<fieldset>
 						<legend>Orientación</legend>
 						
-						<?php $result = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%a%' ORDER BY nombre ASC"); ?>
-						<?php if(mysql_num_rows($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%a%' ORDER BY nombre ASC"); ?>
+						<?php if(mysqli_num_rows($result)): ?>
 						<ul style="height: auto; max-height: 520px; overflow: scroll;">
-							<?php while($row = mysql_fetch_array($result)): ?>
+							<?php while($row = mysqli_fetch_array($result)): ?>
 							<li><?php echo $row['nombre'] ; ?></li>
 							<?php endwhile; ?>
-							<?php mysql_free_result($result); ?>
+							<?php mysqli_free_result($result); ?>
 						</ul>
 						<?php endif; ?>
 						
@@ -608,10 +608,10 @@ $page_header = "Redactar mensaje";
 				<?php $sql_where = ""; ?>
 				
 				<?php if(stristr($_SESSION['cargo'],'2')): ?>
-					<?php $result = mysql_query("SELECT unidad FROM FTUTORES WHERE tutor='$pr'"); ?>
-					<?php $unidad = mysql_fetch_array($result); ?>
+					<?php $result = mysqli_query($db_con, "SELECT unidad FROM FTUTORES WHERE tutor='$pr'"); ?>
+					<?php $unidad = mysqli_fetch_array($result); ?>
 					<?php $unidad = $unidad['unidad']; ?>
-					<?php mysql_free_result($result); ?>
+					<?php mysqli_free_result($result); ?>
 					
 					<?php $sql_where = "WHERE unidad='$unidad'"; ?>
 				<?php endif; ?>
@@ -625,13 +625,13 @@ $page_header = "Redactar mensaje";
 						<legend>Familias y alumnos</legend>
 						
 						<div class="form-group">
-							<?php $result = mysql_query("SELECT DISTINCT apellidos, nombre, unidad FROM alma $sql_where ORDER BY unidad ASC, apellidos ASC, nombre ASC"); ?>
-							<?php if(mysql_num_rows($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad FROM alma $sql_where ORDER BY unidad ASC, apellidos ASC, nombre ASC"); ?>
+							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="padres[]" multiple="multiple" size="23">
-								<?php while($row = mysql_fetch_array($result)): ?>
+								<?php while($row = mysqli_fetch_array($result)): ?>
 								<option value="<?php echo $row['apellidos'].', '.$row['nombre']; ?>" <?php echo (isset($origen) && $origen == $row['apellidos'].', '.$row['nombre']) ? 'selected' : ''; ?>><?php echo $row['unidad'].' - '.$row['apellidos'].', '.$row['nombre']; ?></option>
 								<?php endwhile; ?>
-								<?php mysql_free_result($result); ?>
+								<?php mysqli_free_result($result); ?>
 							</select>
 							<?php else: ?>
 							<select class="form-control" name="padres[]" multiple="multiple" disabled>
@@ -668,13 +668,13 @@ $extra0 = "where profesor = '$pr'";
 if($padres == '1' and $perfil == '1') {
 echo "<hr /><legend class='text-warning'>Padres de Alumnos</legend><div class='well well-transparent'>";
 echo '<SELECT  name=padres[] multiple=multiple size=15 >';
-$tut = mysql_query("select distinct grupo from profesores $extra0");
-while ($tuto = mysql_fetch_array($tut)) {
+$tut = mysqli_query($db_con, "select distinct grupo from profesores $extra0");
+while ($tuto = mysqli_fetch_array($tut)) {
 $unidad = $tuto[0];
 echo "<OPTION style='color:brown;background-color:#cf9;' disabled>$unidad</OPTION>";
 $extra = "where unidad='$unidad'";
-$padre = mysql_query("SELECT distinct APELLIDOS, NOMBRE  FROM alma $extra order by unidad, apellidos");
-while($filapadre = mysql_fetch_array($padre))
+$padre = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE  FROM alma $extra order by unidad, apellidos");
+while($filapadre = mysqli_fetch_array($padre))
 {
 $al_sel = "$filapadre[0], $filapadre[1]";
 if ($al_sel==$origen) {

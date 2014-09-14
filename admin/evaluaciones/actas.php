@@ -20,7 +20,7 @@ if ((stristr($_SESSION['cargo'],'1') == false) && (stristr($_SESSION['cargo'],'2
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-mysql_query("CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `unidad` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   `evaluacion` char(3) COLLATE latin1_spanish_ci NOT NULL,
@@ -74,16 +74,16 @@ if (isset($_POST['submit'])) {
 		
 		if (isset($id)) {
 			
-			$result = mysql_query("UPDATE evaluaciones_actas SET fecha='$fecha_sql', texto_acta='$texto_acta' WHERE id=$id LIMIT 1");
+			$result = mysqli_query($db_con, "UPDATE evaluaciones_actas SET fecha='$fecha_sql', texto_acta='$texto_acta' WHERE id=$id LIMIT 1");
 			
-			if (!$result) $msg_error = "El acta no ha podido ser actualizado. Error: ".mysql_error();
+			if (!$result) $msg_error = "El acta no ha podido ser actualizado. Error: ".mysqli_error($db_con);
 			else $msg_success = "El acta ha sido actualizado.";
 		}
 		else {
 			
-			$result = mysql_query("INSERT INTO evaluaciones_actas (unidad, evaluacion, fecha, texto_acta) VALUES ('$curso', '$evaluacion', '$fecha_sql', '$texto_acta')");
+			$result = mysqli_query($db_con, "INSERT INTO evaluaciones_actas (unidad, evaluacion, fecha, texto_acta) VALUES ('$curso', '$evaluacion', '$fecha_sql', '$texto_acta')");
 			
-			if (!$result) $msg_error = "El acta no ha podido ser registrado. Error: ".mysql_error();
+			if (!$result) $msg_error = "El acta no ha podido ser registrado. Error: ".mysqli_error($db_con);
 			else $msg_success = "El acta ha sido registrado.";
 		}
 		
@@ -93,14 +93,14 @@ if (isset($_POST['submit'])) {
 
 // RECOGEMOS LOS DATOS SI SE TRATA DE UNA ACTUALIZACION
 if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'edit')) {
-	$result = mysql_query("SELECT unidad, evaluacion, texto_acta FROM evaluaciones_actas WHERE id=$id LIMIT 1");
+	$result = mysqli_query($db_con, "SELECT unidad, evaluacion, texto_acta FROM evaluaciones_actas WHERE id=$id LIMIT 1");
 	
 	if (!$result) {
 		$msg_error = "El acta a la que intenta acceder no existe.";
 		unset($id);
 	}
 	else {
-		$row = mysql_fetch_array($result);
+		$row = mysqli_fetch_array($result);
 		
 		$curso = $row['unidad'];
 		$evaluacion = $row['evaluacion'];
@@ -111,9 +111,9 @@ if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'edit')) {
 
 // ELIMINAR UN ACTA
 if (isset($id) && (isset($_GET['action']) && $_GET['action'] == 'delete')) {
-	$result = mysql_query("DELETE FROM evaluaciones_actas WHERE id=$id LIMIT 1");
+	$result = mysqli_query($db_con, "DELETE FROM evaluaciones_actas WHERE id=$id LIMIT 1");
 	
-	if (!$result) $msg_error = "El acta no ha podido ser eliminado. Error: ".mysql_error();
+	if (!$result) $msg_error = "El acta no ha podido ser eliminado. Error: ".mysqli_error($db_con);
 	else $msg_success = "El acta ha sido eliminado.";
 }
 
@@ -185,8 +185,8 @@ include("menu.php");
 								
 									<div class="form-group">
 										<label for="tutor">Tutor/a</label>
-										<?php $result = mysql_query("SELECT tutor FROM FTUTORES WHERE unidad='$curso'"); ?>
-										<?php $row = mysql_fetch_array($result); ?>
+										<?php $result = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$curso'"); ?>
+										<?php $row = mysqli_fetch_array($result); ?>
 										<?php $tutor = mb_convert_case($row['tutor'], MB_CASE_TITLE, "iso-8859-1"); ?>
 										<input type="text" class="form-control" id="tutor" name="tutor" value="<?php echo $tutor; ?>" readonly>
 									</div>
@@ -234,12 +234,12 @@ include("menu.php");
 			
 			<div class="col-sm-12">
 				<?php if (stristr($_SESSION['cargo'],'2') == true): ?>
-				<?php $result = mysql_query("SELECT ea.id, ea.unidad, t.tutor, ea.evaluacion, ea.fecha, ea.impresion FROM evaluaciones_actas AS ea JOIN FTUTORES AS t ON ea.unidad = t.unidad WHERE ea.unidad='".$_SESSION['s_unidad']."'"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT ea.id, ea.unidad, t.tutor, ea.evaluacion, ea.fecha, ea.impresion FROM evaluaciones_actas AS ea JOIN FTUTORES AS t ON ea.unidad = t.unidad WHERE ea.unidad='".$_SESSION['s_unidad']."'"); ?>
 				<?php else: ?>
-				<?php $result = mysql_query("SELECT ea.id, ea.unidad, t.tutor, ea.evaluacion, ea.fecha, ea.impresion FROM evaluaciones_actas AS ea JOIN FTUTORES AS t ON ea.unidad = t.unidad"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT ea.id, ea.unidad, t.tutor, ea.evaluacion, ea.fecha, ea.impresion FROM evaluaciones_actas AS ea JOIN FTUTORES AS t ON ea.unidad = t.unidad"); ?>
 				<?php endif; ?>
 				
-				<?php if (mysql_num_rows($result)): ?>
+				<?php if (mysqli_num_rows($result)): ?>
 				<div class="table-responsive">
 					<table class="table table-bordered table-striped table-hover datatable">
 						<thead>
@@ -253,7 +253,7 @@ include("menu.php");
 							</tr>
 						</thead>
 						<tbody>
-							<?php while ($row = mysql_fetch_array($result)): ?>
+							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<td><?php echo $row['id']; ?></td>
 								<td><?php echo $row['unidad']; ?></td>

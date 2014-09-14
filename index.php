@@ -11,31 +11,61 @@ $tam_fichero = strlen($f_config);
 if (file_exists ( "config.php" ) and $tam_fichero > '10') {
 }
 else{
-// Compatibilidad con versiones anteriores: se mueve el archivo de configuraciï¿½n al directorio raï¿½z.
-// Archivo de configuraciï¿½n en antiguo directorio se mueve al raiz de la intranet
-if (file_exists ("/opt/e-smith/config.php")) 
-{
-	$texto = fopen("config.php","w+");
-	if ($texto==FALSE) {
-		echo "<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el directorio de la Intranet. Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>";
-		fclose($texto);
-		exit();
+	// Compatibilidad con versiones anteriores: se mueve el archivo de configuraciï¿½n al directorio raï¿½z.
+	// Archivo de configuraciï¿½n en antiguo directorio se mueve al raiz de la intranet
+	if (file_exists ("/opt/e-smith/config.php")) {
+		$texto = fopen("config.php","w+");
+		if ($texto==FALSE) {
+			echo "<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el directorio de la Intranet. Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>";
+			fclose($texto);
+			exit();
+		}
+		else{
+			$lines = file('/opt/e-smith/config.php');
+			$Definitivo="";
+			foreach ($lines as $line_num => $line) {
+				$Definitivo.=$line;
+			}
+			$pepito=fwrite($texto,$Definitivo) or die("<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el archivo de configuración de la Intranet ( config.php ). Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>");
+			fclose ($texto);
+		}
 	}
 	else{
-$lines = file('/opt/e-smith/config.php');
-$Definitivo="";
-foreach ($lines as $line_num => $line) {
-$Definitivo.=$line;
+		header("location:config/index.php");
+		exit();
+	}
 }
-$pepito=fwrite($texto,$Definitivo) or die("<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el archivo de configuración de la Intranet ( config.php ). Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>");
-fclose ($texto);
+
+// MIGRACION DE MYSQL A MYSQLI
+// Si no se ha realizado la migración reescribimos el archivo de configuración.
+// Esta acción solo se realiza una vez. Se puede eliminar en la próxima versión.
+$nconf = file('config.php');
+
+if (strstr($nconf[78], 'mysql_connect') == true) {
+	$nconf[78] = '$db_con = mysqli_connect($db_host, $db_user, $db_pass);' . PHP_EOL;
+	$nconf[79] = 'mysqli_select_db($db_con, $db);' . PHP_EOL;
+	$nconf[83] = '$db_con = mysqli_connect($host, $user, $pass);' . PHP_EOL;
+	$nconf[84] = 'mysqli_select_db($db_con, $base);' . PHP_EOL;
+	$nconf[86] = 'mysqli_query($db_con, "INSERT INTO reg_paginas (id_reg,pagina) VALUES (\'$id_reg\',\'$pagina\')");' . PHP_EOL;
+	
+	$handle = @fopen("config.php", "w+");
+	
+	if ($handle) {
+		foreach ($nconf as $linea) {
+			fwrite($handle, $linea);
+		}
+		
+		fclose($handle);
+	}
+	
+	// Eliminamos variables
+	unset($linea);
+	unset($handle);
+	
 }
-}
-else{
-	header("location:config/index.php");
-	exit();
-}
-}
+unset($nconf);
+// FIN MIGRACION DE MYSQL A MYSQLI
+
 // Archivo de configuración cargado
 include_once("config.php");
 
@@ -50,13 +80,13 @@ if ($_SESSION['autentificado'] != 1) {
 registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 $pr = $_SESSION ['profi'];
 // Comprobamos si da clase a alg&uacute;n grupo
-$cur0 = mysql_query ( "SELECT distinct prof FROM horw where prof = '$pr'" );
-$cur1 = mysql_num_rows ( $cur0 );
+$cur0 = mysqli_query($db_con, "SELECT distinct prof FROM horw where prof = '$pr'" );
+$cur1 = mysqli_num_rows ( $cur0 );
 $_SESSION ['n_cursos'] = $cur1;
 $n_curso = $_SESSION ['n_cursos'];
 // Variable del cargo del Profesor
-$cargo0 = mysql_query ( "select cargo, departamento, idea from departamentos where nombre = '$pr'" );
-$cargo1 = mysql_fetch_array ( $cargo0 );
+$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$pr'" );
+$cargo1 = mysqli_fetch_array ( $cargo0 );
 $_SESSION ['cargo'] = $cargo1 [0];
 $carg = $_SESSION ['cargo'];
 $_SESSION ['dpt'] = $cargo1 [1];
@@ -67,8 +97,8 @@ $_SESSION ['ide'] = $cargo1 [2];
 $idea = $_SESSION ['ide'];
 }
 if (stristr ( $carg, '2' ) == TRUE) {
-	$result = mysql_query ( "select distinct unidad from FTUTORES where tutor = '$pr'" );
-	$row = mysql_fetch_array ( $result );
+	$result = mysqli_query($db_con, "select distinct unidad from FTUTORES where tutor = '$pr'" );
+	$row = mysqli_fetch_array ( $result );
 	$_SESSION ['tut'] = $pr;
 	$_SESSION ['s_unidad'] = $row [0];
 }

@@ -19,9 +19,9 @@ if (isset($_SESSION['profi'])) {
 if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {
 	$clave0 = $_POST['clave'];
 	$clave = sha1 ( $_POST['clave'] );
-	$pass0 = mysql_query ( "SELECT c_profes.pass, c_profes.profesor , departamentos.dni FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."'" );
+	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."'" );
 
-	$pass1 = mysql_fetch_array ( $pass0 );
+	$pass1 = mysqli_fetch_array ( $pass0 );
 	$codigo = $pass1 [0];
 	$dni = $pass1 [2];
 	
@@ -33,14 +33,14 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		$profe = $_SESSION['profi'];
 		
 		// Departamento al que pertenece
-		$dep0 = mysql_query ( "select departamento from departamentos where nombre = '$profe'" );
+		$dep0 = mysqli_query($db_con, "select departamento from departamentos where nombre = '$profe'" );
 		
-		$dep1 = mysql_fetch_array ( $dep0 );
+		$dep1 = mysqli_fetch_array ( $dep0 );
 		$_SESSION['depto'] = $dep1 [0];
 		// Registramos la entrada en la Intranet
-		mysql_query ( "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
-		$id_reg = mysql_query ( "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
-		$id_reg0 = mysql_fetch_array ( $id_reg );
+		mysqli_query($db_con, "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
+		$id_reg = mysqli_query($db_con, "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
+		$id_reg0 = mysqli_fetch_array ( $id_reg );
 		$_SESSION['id_pag'] = $id_reg0 [0];
 		
 		include_once('actualizar.php');
@@ -51,22 +51,22 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	// Si hay usuario y pertenece a alguien del Centro, comprobamos la contrase�a.
 	if ($codigo == $clave) {
 		$_SESSION['pass'] = $codigo;
-		$pr0 = mysql_query ( "SELECT profesor FROM c_profes where idea = '".$_POST['idea']."'" );
-		$pr1 = mysql_fetch_array ( $pr0 );
+		$pr0 = mysqli_query($db_con, "SELECT profesor FROM c_profes where idea = '".$_POST['idea']."'" );
+		$pr1 = mysqli_fetch_array ( $pr0 );
 		$_SESSION['profi'] = $pr1 [0];
 		$profe = $_SESSION['profi'];
 		// Comprobamos si da clase a alg�n grupo
-		$cur0 = mysql_query ( "SELECT distinct nivel FROM profesores where profesor = '$profe'" );
-		$cur1 = mysql_num_rows ( $cur0 );
+		$cur0 = mysqli_query($db_con, "SELECT distinct nivel FROM profesores where profesor = '$profe'" );
+		$cur1 = mysqli_num_rows ( $cur0 );
 		$_SESSION['n_cursos'] = $cur1;
 		// Departamento al que pertenece
-		$dep0 = mysql_query ( "select departamento from departamentos where nombre = '$profe'" );
-		$dep1 = mysql_fetch_array ( $dep0 );
+		$dep0 = mysqli_query($db_con, "select departamento from departamentos where nombre = '$profe'" );
+		$dep1 = mysqli_fetch_array ( $dep0 );
 		$_SESSION['depto'] = $dep1 [0];
 		// Registramos la entrada en la Intranet
-		mysql_query ( "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
-		$id_reg = mysql_query ( "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
-		$id_reg0 = mysql_fetch_array ( $id_reg );
+		mysqli_query($db_con, "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
+		$id_reg = mysqli_query($db_con, "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
+		$id_reg0 = mysqli_fetch_array ( $id_reg );
 		$_SESSION['id_pag'] = $id_reg0 [0];
 		
 		include_once('actualizar.php');

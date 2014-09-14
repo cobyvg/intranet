@@ -37,8 +37,8 @@ echo '<div align="center">';
 <?
 $n_col=0;
 $n_fila=0;
-$dep0 = mysql_query("select distinct departamento from departamentos where departamento not like '' order by departamento");
-while ($dep = mysql_fetch_array($dep0)) {
+$dep0 = mysqli_query($db_con, "select distinct departamento from departamentos where departamento not like '' order by departamento");
+while ($dep = mysqli_fetch_array($dep0)) {
 	
 $departamento = $dep[0];
 if (!($pag)) {
@@ -46,8 +46,8 @@ if (!($pag)) {
 }
 if($pag == "") {$pag = "0";} else {$pag = $pag + 100;}
 $query = "SELECT id, fecha, departamento, contenido, impreso, numero FROM r_departamento where departamento = '$departamento' ORDER BY fecha desc limit $pag,50";
-$result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
-$n_actas = mysql_num_rows($result);
+$result = mysqli_query($db_con, $query) or die ("Error in query: $query. " . mysqli_error($db_con));
+$n_actas = mysqli_num_rows($result);
 
 if($n_col%4==0) {
 	echo "<tr>";
@@ -59,7 +59,7 @@ $n_col++;
 <td valign="top">
 <p class="lead text-info" align="center"><? echo $departamento;?></p>
 	<TABLE class="table table-striped table-bordered" style="width:auto;">
-<?	while($row = mysql_fetch_object($result))
+<?	while($row = mysqli_fetch_object($result))
 	{
 	?>
       <TR> 

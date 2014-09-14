@@ -99,8 +99,8 @@ $claveal0 .= "claveal = '".$trozos[1]."' or ";
 }
 $claveal1 = substr($claveal0,0,strlen($claveal0)-4);
 
- mysql_query($SQLDELF);
- mysql_query($SQLDELJ);
+ mysqli_query($db_con, $SQLDELF);
+ mysqli_query($db_con, $SQLDELJ);
 // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;
  // $fechasp0=explode("-",$fecha12);
   $fechasp1=cambia_fecha($fecha12);
@@ -110,40 +110,40 @@ $claveal1 = substr($claveal0,0,strlen($claveal0)-4);
 //  $fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
 //  $fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
   if(strlen($claveal1) > 5){$alum = " and (".$claveal1.")";}else{$alum = "";}
-  mysql_query("drop table faltastemp2");
-  mysql_query("drop table faltastemp3");
+  mysqli_query($db_con, "drop table faltastemp2");
+  mysqli_query($db_con, "drop table faltastemp3");
   $SQLTEMP = "create table faltastemp2 SELECT CLAVEAL, falta, (count(*)) AS numero
   FROM  FALTAS where falta = 'F' and date(FALTAS.fecha) >= '$fechasp1' and date(FALTAS.fecha)
 	<= '$fechasp3' $alum group by claveal";
   // echo $SQLTEMP."<br>";
-  $resultTEMP= mysql_query($SQLTEMP);
-  mysql_query("ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
+  $resultTEMP= mysqli_query($db_con, $SQLTEMP);
+  mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
   $SQLTEMPJ = "create table faltastemp3 SELECT CLAVEAL, falta, (count(*)) AS numero
 	  FROM  FALTAS where falta = 'J' and date(FALTAS.fecha) >= '$fechasp1' and date(FALTAS.fecha)
 	<= '$fechasp3' group by claveal";
-  $resultTEMPJ = mysql_query($SQLTEMPJ);
-  	mysql_query("ALTER TABLE faltastemp3 ADD INDEX ( claveal ) ");
+  $resultTEMPJ = mysqli_query($db_con, $SQLTEMPJ);
+  	mysqli_query($db_con, "ALTER TABLE faltastemp3 ADD INDEX ( claveal ) ");
     $SQL0 = "SELECT CLAVEAL  FROM  faltastemp2 WHERE falta = 'F' and numero >= '$numero'";
    
-  $result0 = mysql_query($SQL0);
-  if(mysql_num_rows($result0)>"0"){
-while  ($row0 = mysql_fetch_array($result0)):
+  $result0 = mysqli_query($db_con, $SQL0);
+  if(mysqli_num_rows($result0)>"0"){
+while  ($row0 = mysqli_fetch_array($result0)):
 $claveal = $row0[0];
 // Justificadas
 $SQLJ = "select faltastemp3.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta,  faltastemp3.numero from faltastemp3, FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and faltastemp3.claveal = FALTAS.claveal and FALTAS.falta = 'J' and FALTAS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos";
-  	$resultJ = mysql_query($SQLJ);
-  	$rowJ = mysql_fetch_array($resultJ);
+  	$resultJ = mysqli_query($db_con, $SQLJ);
+  	$rowJ = mysqli_fetch_array($resultJ);
 // No justificadas
  $SQLF = "select faltastemp2.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.matriculas,
 FALTAS.falta,  faltastemp2.numero, alma.DOMICILIO, alma.CODPOSTAL, alma.LOCALIDAD,
 alma.PADRE from faltastemp2, FALTAS, alma where alma.claveal = FALTAS.claveal and faltastemp2.claveal =
 FALTAS.claveal and FALTAS.claveal = '$claveal' and FALTAS.falta = 'F' GROUP BY alma.apellidos";
-  $resultF = mysql_query($SQLF);
+  $resultF = mysqli_query($db_con, $SQLF);
 //Fecha del día
 $fhoy=date('Y-m-d');;
 $fecha = formatea_fecha($fhoy);
 // Bucle de Consulta.
-  if ($rowF = mysql_fetch_array($resultF))
+  if ($rowF = mysqli_fetch_array($resultF))
         {
 $justidias = "";
 $nojustidias = "";
@@ -152,16 +152,16 @@ $nojustidias = "";
 	$localidad = $rowF[8]." ".$rowF[9];
 // Días con Faltas Justificadas
 $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$claveal' and FALTAS.falta = 'J' and date(FALTAS.fecha )>= '$fechasp1' and date(FALTAS.fecha) <= '$fechasp3' order by fecha";
-		$result3 = mysql_query($SQL2);
-		$justi = mysql_fetch_array($result3);
+		$result3 = mysqli_query($db_con, $SQL2);
+		$justi = mysqli_fetch_array($result3);
 		if ($justi[0] == "")
 		{
 		$justi1 = "Su hijo no ha justificado faltas de asistencia al Centro entre los días $fecha12 y $fecha22.";}
 		else
 		{
-		$result2 = mysql_query($SQL2);
+		$result2 = mysqli_query($db_con, $SQL2);
 		$justi1 = "El Alumno ha justificado su falta de asistencia al Centro los siguientes días entre el $fechasp11 y el $fechasp31: ";
-		while ($rowsql = mysql_fetch_array($result2)):
+		while ($rowsql = mysqli_fetch_array($result2)):
 		$fechaj = explode("-", $rowsql[0]);
 		$fecha2 = $fechaj[2]."-".$fechaj[1]."-".$fechaj[0];
 		$justidias.=$fecha2." ";
@@ -171,8 +171,8 @@ $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$clave
 // Días con Faltas No Justificadas
 $SQL3 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL = '$claveal' and FALTAS.falta = 'F' and date(FALTAS.fecha) >= '$fechasp1' and date(FALTAS.fecha) <= '$fechasp3' order by fecha";
 	$justi3 = "Los días en los que el Alumno no ha justificado su ausencia del Centro son los siguientes:";
-    $result3 = mysql_query($SQL3);
-    while ($rowsql3 = mysql_fetch_array($result3)):
+    $result3 = mysqli_query($db_con, $SQL3);
+    while ($rowsql3 = mysqli_fetch_array($result3)):
     $fecha3 = explode("-", $rowsql3[0]);
     $fecha4 = $fecha3[2]."-".$fecha3[1]."-".$fecha3[0];
     $nojustidias.=$fecha4." ";
@@ -248,6 +248,6 @@ Atentamente le saluda la Dirección del Centro.
 	}
 	$MiPDF->Output();
 	// Eliminar Tabla temporal
- mysql_query("DROP table `faltastemp2`");
- mysql_query("DROP table `faltastemp3`");
+ mysqli_query($db_con, "DROP table `faltastemp2`");
+ mysqli_query($db_con, "DROP table `faltastemp3`");
 ?>

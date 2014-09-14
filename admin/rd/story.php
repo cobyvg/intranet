@@ -27,10 +27,10 @@ echo '</div>';
 
 <? 
    	$query = "SELECT contenido, fecha, numero, departamento FROM r_departamento WHERE id = '$id'";
-   	$result = mysql_query($query) or die ("Error en la Consulta: $query. " . mysql_error());
-   	if (mysql_num_rows($result) > 0)
+   	$result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
+   	if (mysqli_num_rows($result) > 0)
    	{
-   		$row = mysql_fetch_object($result);
+   		$row = mysqli_fetch_object($result);
    	}
  
 if ($row)

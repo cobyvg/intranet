@@ -22,12 +22,12 @@ include("../menu.php");
 
 
 
-$result = mysql_query("SHOW COLUMNS FROM absentismo");
-while ($row=mysql_fetch_array($result)) {
+$result = mysqli_query($db_con, "SHOW COLUMNS FROM absentismo");
+while ($row=mysqli_fetch_array($result)) {
 	$n_ss.=$row[0]." ";
 }
 if (stristr($n_ss,"serv_sociales")==FALSE) {
-	mysql_query("ALTER TABLE `absentismo` ADD `serv_sociales` TEXT NULL");
+	mysqli_query($db_con, "ALTER TABLE `absentismo` ADD `serv_sociales` TEXT NULL");
 }
 
 if (isset($_GET['mes'])) {$mes = $_GET['mes'];}elseif (isset($_POST['mes'])) {$mes = $_POST['mes'];}else{$mes="";}
@@ -46,8 +46,8 @@ if (strstr($_SESSION['cargo'],'8')==TRUE) {
 }
 if (strstr($_SESSION['cargo'],'2')==TRUE and strstr($_SESSION['cargo'],'8')==FALSE) {
 	$tut=$_SESSION['profi'];
-	$tutor=mysql_query("select unidad from FTUTORES where tutor='$tut'");
-	$d_tutor=mysql_fetch_array($tutor);
+	$tutor=mysqli_query($db_con, "select unidad from FTUTORES where tutor='$tut'");
+	$d_tutor=mysqli_fetch_array($tutor);
 	$mas=" and absentismo.unidad='$d_tutor[0]' and tutoria IS NULL ";
 	$mas2=" and tutoria IS NULL ";
 	$titulo="Tutor: $d_tutor[0]";
@@ -68,7 +68,7 @@ if (strstr($_SESSION['cargo'],'1')==TRUE) {
 <?
 // Borramos alumnos
 if ($del=='1') {
-	mysql_query("delete from absentismo where claveal = '$claveal' and mes = '$mes'");
+	mysqli_query($db_con, "delete from absentismo where claveal = '$claveal' and mes = '$mes'");
 	echo '<div align="center""><div class="alert alert-warning alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos del alumno han sido borrados de la Base de datos.
@@ -76,7 +76,7 @@ Los datos del alumno han sido borrados de la Base de datos.
 }
 // Procesamos datos si se ha dado al botón 
 if (isset($_POST['submit'])) {
-mysql_query("update absentismo set $upd where claveal='$claveal' and mes='$mes'")	;
+mysqli_query($db_con, "update absentismo set $upd where claveal='$claveal' and mes='$mes'")	;
 // echo "update absentismo set $upd where claveal='$claveal' and mes='$mes'";
 echo '<div align="center""><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -100,9 +100,9 @@ if ($_GET['inf']=="1") {
 echo "<div class='row'><div class='col-sm-8 col-sm-offset-2'>
 ";	
 echo "<legend align='center'>Datos del Alumno</legend><br>";
-$al=mysql_query("SELECT distinct apellidos, nombre, absentismo.unidad, matriculas, numero, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='$claveal' and mes='$mes' $mas2");
-if (mysql_num_rows($al)>0) {
-$datos=mysql_fetch_array($al);
+$al=mysqli_query($db_con, "SELECT distinct apellidos, nombre, absentismo.unidad, matriculas, numero, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and absentismo.claveal='$claveal' and mes='$mes' $mas2");
+if (mysqli_num_rows($al)>0) {
+$datos=mysqli_fetch_array($al);
 if (strstr($_SESSION['cargo'],'1')==TRUE) {$obs=$datos[5];$obs2=$datos[8];}elseif (strstr($_SESSION['cargo'],'8')==TRUE){$obs=$datos[6];}else {$obs=$datos[7];}
 echo  "<table class='table' style='width:auto' align=center><tr><th align='center'> NOMBRE </th><th align='center'> CURSO </th>
 <th align='center'> MES </th><th align='center'> Nº FALTAS </th></tr>
@@ -137,8 +137,8 @@ echo "</div></div>";
 
 $SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, matriculas, numero, mes, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and mes='$mes' $mas  order by unidad";
 
-$result0 = mysql_query($SQL0);
-  if (mysql_num_rows($result0)>0) {
+$result0 = mysqli_query($db_con, $SQL0);
+  if (mysqli_num_rows($result0)>0) {
 echo  "<center><table class='table table-striped table-bordered' style='width:auto'>\n";
         echo "<tr><th align='center' colspan=2>ALUMNO</th><th align='center'>CURSO</th>
         <th align='center'>MES</th><th align='center'>Nº FALTAS</th>";
@@ -147,7 +147,7 @@ echo  "<center><table class='table table-striped table-bordered' style='width:au
         	echo "<th>Jef.</th><th>Orienta.</th><th>Tut.</th><th>S. Soc.</th><th class='no_imprimir'></th>";
         }
 		echo "</tr>";
- while  ($row0 = mysql_fetch_array($result0)){
+ while  ($row0 = mysqli_fetch_array($result0)){
  	$claveal=$row0[0];
  	$mes=$row0[6];
  	$numero=$row0[5];

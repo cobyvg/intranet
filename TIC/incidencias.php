@@ -18,9 +18,9 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 // ELIMINAR INCIDENCIA
 if (isset($_GET['parte']) && isset($_GET['borrar']) && $_GET['borrar'] == 1) {
-	$result = mysql_query("DELETE FROM partestic WHERE parte=".$_GET['parte']." LIMIT 1");
+	$result = mysqli_query($db_con, "DELETE FROM partestic WHERE parte=".$_GET['parte']." LIMIT 1");
 	
-	if(!$result) $msg_error = "No se ha podido eliminar la incidencia. Error: ".mysql_error();
+	if(!$result) $msg_error = "No se ha podido eliminar la incidencia. Error: ".mysqli_error($db_con);
 	else $msg_success = "La incidencia ha sido eliminada.";
 }
 
@@ -28,9 +28,9 @@ if (isset($_GET['parte']) && isset($_GET['borrar']) && $_GET['borrar'] == 1) {
 // PAGINACION
 if (isset($_GET['pag'])) $pag = $_GET['pag']; else $pag = 0;
 
-$result = mysql_query("SELECT parte FROM partestic");
-$total = mysql_num_rows($result);
-mysql_free_result($result);
+$result = mysqli_query($db_con, "SELECT parte FROM partestic");
+$total = mysqli_num_rows($result);
+mysqli_free_result($result);
 
 
 $limit = 20;
@@ -73,9 +73,9 @@ include("menu.php");
 			<div class="col-sm-12">
 				
 				<?php if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = ''; else $sql_where = 'WHERE profesor=\''.$_SESSION['profi'].'\''; ?>
-				<?php $result = mysql_query("SELECT parte, nincidencia, carro, nserie, fecha, hora, profesor, descripcion, estado FROM partestic $user ORDER BY parte DESC LIMIT $limit_ini, $limit"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT parte, nincidencia, carro, nserie, fecha, hora, profesor, descripcion, estado FROM partestic $user ORDER BY parte DESC LIMIT $limit_ini, $limit"); ?>
 				
-				<?php if (mysql_num_rows($result)): ?>
+				<?php if (mysqli_num_rows($result)): ?>
 				<div class="table-responsive">
 					<table class="table table-bordered table-striped table-hover">
 						<thead>
@@ -91,7 +91,7 @@ include("menu.php");
 							</tr>
 						</thead>
 						<tbody>
-							<?php while ($row = mysql_fetch_array($result)): ?>
+							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<td><?php echo $row['parte']; ?></td>
 								<td><?php echo $row['fecha']; ?></td>
@@ -109,12 +109,12 @@ include("menu.php");
 								</td>
 							</tr>
 							<?php endwhile; ?>
-							<?php mysql_free_result($result); ?>
+							<?php mysqli_free_result($result); ?>
 						</tbody>
 						<tfoot>
 							<tr>
 								<td colspan="8">
-									<div class="text-right text-muted">Mostrando <?php echo mysql_num_rows($result); ?> de <?php echo $limit; ?>. Total: <?php echo $total; ?> resultados</div>
+									<div class="text-right text-muted">Mostrando <?php echo mysqli_num_rows($result); ?> de <?php echo $limit; ?>. Total: <?php echo $total; ?> resultados</div>
 								</td>
 							</tr>
 						</tfoot>

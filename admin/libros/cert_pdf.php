@@ -67,32 +67,32 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
 
 	$sqlal="SELECT concat(Nombre,' ',Apellidos),Unidad,Domicilio,Localidad,codpostal,padre FROM alma WHERE claveal='".$claveal."'";
 	//echo $sqlal;
-	$resultadoal=mysql_query($sqlal);
-	$registroal = mysql_fetch_row($resultadoal);
+	$resultadoal=mysqli_query($db_con, $sqlal);
+	$registroal = mysqli_fetch_row($resultadoal);
 	// $nivel = substr($registroal[1],0,2);
 // Alumnos no registrados en la tabla
 $sqlasig0="SELECT distinct asignaturas.nombre, textos_gratis.titulo, textos_gratis.editorial, importe from textos_alumnos, textos_gratis, asignaturas where textos_alumnos.claveal='$claveal' and asignaturas.codigo = textos_alumnos.materia and textos_gratis.materia=asignaturas.nombre and textos_gratis.nivel='$nivel'";
 //echo $sqlasig0;
-$resulasig0=mysql_query($sqlasig0);
+$resulasig0=mysqli_query($db_con, $sqlasig0);
 
-if (mysql_num_rows($resulasig0) == "0") {
+if (mysqli_num_rows($resulasig0) == "0") {
 echo "<p style='border:1px solid black;padding:6px;width:450px;margin:auto;text-align:center;margin-top:35px;font-size:13px;color:brown;margin-bottom:18px;'>El Tutor no ha revisado aún los Libros de este Alumno, por lo que no puede imprimirse certificado alguno.<br>Los Libros deben ser revisados y registrados en primer lugar.</p>";
 echo "<div align=center><input type=button value='Volver atrás' onClick='history.back(-1)'></div>";
 exit;
 }
 // Libros en mal estado o perdidos
 $sqlasig="SELECT distinct asignaturas.nombre, textos_gratis.titulo, textos_gratis.editorial, importe from textos_alumnos, textos_gratis, asignaturas where textos_alumnos.claveal='$claveal' and asignaturas.codigo = textos_alumnos.materia and textos_gratis.materia=asignaturas.nombre and textos_gratis.nivel='$nivel' and (estado='M' or estado='N' or estado = 'S')";
-$resulasig=mysql_query($sqlasig);
-if (mysql_num_rows($resulasig) > "0") {
+$resulasig=mysqli_query($db_con, $sqlasig);
+if (mysqli_num_rows($resulasig) > "0") {
 	$mal = "1";
 }
 //Libros en buen estado
 	$sqlasig2="SELECT distinct asignaturas.nombre, estado from textos_alumnos, textos_gratis, asignaturas where textos_alumnos.claveal='$claveal' and asignaturas.codigo = textos_alumnos.materia and textos_gratis.materia=asignaturas.nombre and textos_gratis.nivel='$nivel'";
-	$resulasig2=mysql_query($sqlasig2);	
+	$resulasig2=mysqli_query($db_con, $sqlasig2);	
 // Libros pendientes de Septiembre
 	$sqlasig3="SELECT distinct asignaturas.nombre, estado from textos_alumnos, textos_gratis, asignaturas where textos_alumnos.claveal='$claveal' and asignaturas.codigo = textos_alumnos.materia and textos_gratis.materia=asignaturas.nombre and textos_gratis.nivel='$nivel' and estado='S'";
-	$resulasig3=mysql_query($sqlasig3);
-if (mysql_num_rows($resulasig3) > "0") {
+	$resulasig3=mysqli_query($db_con, $sqlasig3);
+if (mysqli_num_rows($resulasig3) > "0") {
 echo "<p style='border:1px solid black;padding:6px;width:450px;margin:auto;text-align:center;margin-top:35px;font-size:13px;color:brown;margin-bottom:18px;'>No es posible imprimir el certificado de entrega de Libros cuando alguno de estos est&aacute marcado como pendiente hasta Septiembre.<br>Vuelve atrás y corrige los datos si están equivocados.</p>";
 echo "<div align=center><input type=button value='Volver atrás' onClick='history.back(-1)'></div>";
 exit;
@@ -145,14 +145,14 @@ if (!($mal=='1')){
 	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->SetX(50);
 	$nota=0;
-	while($regasig2=mysql_fetch_row($resulasig2)){
+	while($regasig2=mysqli_fetch_row($resulasig2)){
 		$MiPDF->SetX(50);
 		if ($regasig2[1]=='B') {$est=' en buen estado';}
 		if ($regasig2[1]=='R') {$est=' en un estado pasable';}		
 		if ($regasig2[1]=='S') {$est=' prestado para septiembre';$nota=1;}
 	$MiPDF->Multicell(0,4,'- '.$regasig2[0].$est,0,'I',0);
 	}#del while
-	mysql_query("update textos_alumnos set devuelto = '1', fecha = now() where claveal = '$claveal'");		
+	mysqli_query($db_con, "update textos_alumnos set devuelto = '1', fecha = now() where claveal = '$claveal'");		
 	$MiPDF->SetX(20);
 		$MiPDF->SetFont('NewsGotT','',11);
 	$MiPDF->Ln(6);
@@ -179,7 +179,7 @@ if (!($mal=='1')){
 	$MiPDF->Ln(3);
 	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Ln(2);
-	while($regasig=mysql_fetch_row($resulasig)){
+	while($regasig=mysqli_fetch_row($resulasig)){
 		$MiPDF->SetFont('NewsGotT','',12);
 		$MiPDF->SetX(170);
 		$MiPDF->cell(0,4,$regasig[3].' Euros',0,'D',0);
@@ -190,7 +190,7 @@ if (!($mal=='1')){
 #	$MiPDF->Multicell(0,4,'- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -',0,'C',0);
 	$total=$total+$regasig[3];
 	}#del while
-	mysql_query("update textos_alumnos set devuelto = '1', fecha = now() where claveal = '$claveal'");		
+	mysqli_query($db_con, "update textos_alumnos set devuelto = '1', fecha = now() where claveal = '$claveal'");		
 		$MiPDF->SetFont('NewsGotT','B',12);
 		$MiPDF->SetX(158);
 	$MiPDF->Multicell(0,4,' Total: '.$total.' Euros',0,'D',0);

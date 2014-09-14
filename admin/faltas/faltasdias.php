@@ -48,12 +48,12 @@ $imprimir_activado = true;
 
 // Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
   $SQLTEMP = "create table temp SELECT CLAVEAL, falta, (count(*)) AS numero, unidad, nc FROM FALTAS where falta = 'F' and FALTAS.fecha >= '$fechasq1' and FALTAS.fecha <= '$fechasq3'  group by claveal";
-  $resultTEMP= mysql_query($SQLTEMP);
-  mysql_query("ALTER TABLE temp ADD INDEX (CLAVEAL)");
+  $resultTEMP= mysqli_query($db_con, $SQLTEMP);
+  mysqli_query($db_con, "ALTER TABLE temp ADD INDEX (CLAVEAL)");
   $SQL0 = "SELECT CLAVEAL  FROM  temp WHERE falta = 'F' and numero > '$numero' order by unidad";
   //echo $SQL0;
-  $result0 = mysql_query($SQL0);
- while  ($row0 = mysql_fetch_array($result0)){
+  $result0 = mysqli_query($db_con, $SQL0);
+ while  ($row0 = mysqli_fetch_array($result0)){
 $claveal = $row0[0];
 // No justificadas
   $SQLF = "select temp.claveal, alma.apellidos, alma.nombre, alma.unidad, alma.matriculas,
@@ -62,12 +62,12 @@ $claveal = $row0[0];
   and temp.claveal = FALTAS.claveal and FALTAS.claveal like '$claveal' 
   and FALTAS.falta = 'F' GROUP BY alma.apellidos";
   //echo $SQLF;
-  $resultF = mysql_query($SQLF);	
+  $resultF = mysqli_query($db_con, $SQLF);	
 //Fecha del día
 $fhoy=getdate();
 $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 // Bucle de Consulta.
-  if ($rowF = mysql_fetch_array($resultF))
+  if ($rowF = mysqli_fetch_array($resultF))
         {
 	echo "<tr><td >";
 	$foto="";
@@ -79,8 +79,8 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 
   $SQL2 = "SELECT distinct FALTAS.fecha from FALTAS where FALTAS.CLAVEAL like '$claveal' and FALTAS.fecha >= '$fechasq1' and FALTAS.fecha <= '$fechasq3'";
  // print $SQL2;
-  $result2 = mysql_query($SQL2);
-  $rowsql = mysql_num_rows($result2);
+  $result2 = mysqli_query($db_con, $SQL2);
+  $rowsql = mysqli_num_rows($result2);
 //  print $rowsql;
   echo "<td><strong style='color:#46a546'>$rowsql</strong></td></tr>";
 //  	endwhile;
@@ -88,7 +88,7 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 	}
        
 // Eliminar Tabla temporal
- mysql_query("DROP table `temp`");
+ mysqli_query($db_con, "DROP table `temp`");
   ?>
 </tbody>
 </table>

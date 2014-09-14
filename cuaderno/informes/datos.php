@@ -7,9 +7,9 @@
   alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.PADRE from alma
   where claveal = '$claveal' order BY alma.apellidos";
   // echo $SQL;
-  $result = mysql_query($SQL);
+  $result = mysqli_query($db_con, $SQL);
 echo "<table  class='table table-striped' style='width:auto'>";
-                while($row = mysql_fetch_array($result)){
+                while($row = mysqli_fetch_array($result)){
 		$claveal = $row[0];
 		$PADRE =  $row[9];
 		echo "

@@ -17,11 +17,11 @@ if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}
 if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
 
 $actualizar = "UPDATE  Fechoria SET  recibido =  '1' WHERE  Fechoria.id = '$id'";
-mysql_query ( $actualizar );
-$result = mysql_query ( "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, 
+mysqli_query($db_con, $actualizar );
+$result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, 
   Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia, tutor, Fechoria.id from Fechoria, FALUMNOS, alma, listafechorias, FTUTORES where FTUTORES.unidad = alma.unidad and Fechoria.claveal = alma.claveal and Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC" );
 
-if ($row = mysql_fetch_array ( $result )) {
+if ($row = mysqli_fetch_array ( $result )) {
 	$apellidos = $row [0];
 	$nombre = $row [1];
 	$unidad = $row [2];

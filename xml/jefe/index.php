@@ -34,8 +34,8 @@ include("../../menu.php");
 		<h2>Administración <small>Actualización de alumnos</small></h2>
 	</div>
 	
-	<?php $result = mysql_query("SELECT * FROM alma LIMIT 1"); ?>
-	<?php if(mysql_num_rows($result)): ?>
+	<?php $result = mysqli_query($db_con, "SELECT * FROM alma LIMIT 1"); ?>
+	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
 		Ya existe información en la base de datos. Este proceso actualizará la información de los alumnos y asignaturas matriculadas. Es recomendable realizar una <a class="copia_db/dump_db.php">copia de seguridad</a> antes de proceder a la importación de los datos.
 	</div>

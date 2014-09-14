@@ -20,14 +20,14 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 	  {
 // Comprobamos si existe la tabla de festivos
 $registrada='0';
-$fest0 = mysql_query("show tables from $db");
-while ($fest = mysql_fetch_array($fest0)) {
+$fest0 = mysqli_query($db_con, "show tables from $db");
+while ($fest = mysqli_fetch_array($fest0)) {
 	if ($fest[0]=='festivos') {
 		$registrada='1';
 	}
 }
 if ($registrada=='1') {} else{
-	mysql_query("CREATE TABLE `festivos` (
+	mysqli_query($db_con, "CREATE TABLE `festivos` (
   `fecha` date NOT NULL default '0000-00-00',
   `nombre` varchar(64) NOT NULL default '',
   `docentes` char(2) NOT NULL default '',
@@ -41,8 +41,8 @@ if ($registrada=='1') {} else{
       $festivos="";   
 	  if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') == TRUE)
 	  {
-$repe0=mysql_query("select fecha from festivos");		
-if (mysql_num_rows($repe0)<'1') {
+$repe0=mysqli_query($db_con, "select fecha from festivos");		
+if (mysqli_num_rows($repe0)<'1') {
   	$festivos='actualizar';
 	  ?>
         <li <? echo $activo1;?>><a href="http://<? echo $dominio; ?>/intranet/faltas/seneca/index_festivos.php">
@@ -50,8 +50,8 @@ if (mysql_num_rows($repe0)<'1') {
 	  <? 
   }  
   		  
-$repe=mysql_query("select fecha from festivos where date(fecha) < date('$inicio_curso')");
-if (mysql_num_rows($repe) > '0') {	
+$repe=mysqli_query($db_con, "select fecha from festivos where date(fecha) < date('$inicio_curso')");
+if (mysqli_num_rows($repe) > '0') {	
 $festivos='actualizar';
 	  ?>
         <li <? echo $activo1;?>><a href="http://<? echo $dominio; ?>/intranet/faltas/seneca/index_festivos.php">

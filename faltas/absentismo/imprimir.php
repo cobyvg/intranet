@@ -96,8 +96,8 @@ $MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
                     if($mes=='05'){$n_mes='Mayo';}
                     if($mes=='06'){$n_mes='Junio';}
 $alumnos0 = "select numero, alma.unidad, apellidos, nombre, jefatura, orientacion, tutoria, padre, domicilio, provinciaresidencia, telefono, fecha, alma.claveal, serv_sociales from absentismo, alma where absentismo.claveal=alma.claveal and mes='$mes'";
-$alumnos1 = mysql_query($alumnos0);
-while($alumno = mysql_fetch_array($alumnos1))
+$alumnos1 = mysqli_query($db_con, $alumnos0);
+while($alumno = mysqli_fetch_array($alumnos1))
 {
 	$fecha=date('Y-m-d');	
 # insertamos la primera pagina del documento

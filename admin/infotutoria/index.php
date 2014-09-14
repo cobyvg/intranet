@@ -34,9 +34,9 @@ return false;
   <?php
  include("../../menu.php");
  include("menu.php"); 
-  $tut = mysql_query("select unidad from FTUTORES where tutor = '$pr'");
-  $borrar = mysql_num_rows($tut);
-  $tuto = mysql_fetch_array($tut);
+  $tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$pr'");
+  $borrar = mysqli_num_rows($tut);
+  $tuto = mysqli_fetch_array($tut);
   $unidad = $tuto[0];
 ?>
 <div class="container">
@@ -51,8 +51,8 @@ return false;
 <? 
 // Buscamos los grupos que tiene el Profesor, con su asignatura y nivel
 	$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
-	$resultcurso = mysql_query($SQLcurso);
-	while($rowcurso = mysql_fetch_array($resultcurso))
+	$resultcurso = mysqli_query($db_con, $SQLcurso);
+	while($rowcurso = mysqli_fetch_array($resultcurso))
 	{
 	$grupo = $rowcurso[0];
 	$asignatura = trim($rowcurso[1]);
@@ -61,23 +61,23 @@ return false;
 // Buscamos el código de la asignatura (materia) de cada grupo al que da el profesor
 	$asigna0 = "select codigo, nombre from asignaturas where nombre = '$asignatura' and curso = '$rowcurso[2]' and abrev not like '%\_%'";
 	//echo "$asigna0<br>";
-	$asigna1 = mysql_query($asigna0);
-	$asigna2 = mysql_fetch_array($asigna1);
+	$asigna1 = mysqli_query($db_con, $asigna0);
+	$asigna2 = mysqli_fetch_array($asigna1);
 	$c_asig = $asigna2[0];	
 	$n_asig = $asigna2[1];
 	$hoy = date('Y-m-d');
 // Buscamos los alumnos de esos grupos que tienen informes de Tutoría activos y además tienen esa asignatura en su el campo combasi	
 	$query = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, FECHA_REGISTRO FROM infotut_alumno, alma WHERE alma.claveal = infotut_alumno.claveal and date(F_ENTREV)>='$hoy' and alma.unidad = '$grupo' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
 	//echo $query."<br>";
-	$result = mysql_query($query);
-	$result0 = mysql_query ( "select tutor from FTUTORES where unidad = '$grupo'" );
-	$row0 = mysql_fetch_array ( $result0 );	
+	$result = mysqli_query($db_con, $query);
+	$result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$grupo'" );
+	$row0 = mysqli_fetch_array ( $result0 );	
 	$tuti = $row0[0];	
 	//echo $tuti." == ",$_SESSION['profi'];
-	if (mysql_num_rows($result) > 0)
+	if (mysqli_num_rows($result) > 0)
 {
 	echo "<form name='consulta' method='POST' action='tutoria.php'>";
-//$num_informe = mysql_num_rows($sql1);
+//$num_informe = mysqli_num_rows($sql1);
 echo "<p class='lead text-info'>$grupo <br /><small class='text-muted'>$n_asig</small></p>";
 echo "<table align=center  class='table'><tr class='active'>";
 echo "<th>Alumno</th>
@@ -86,12 +86,12 @@ echo "<th>Alumno</th>
 <th></th>
 </tr>";
 $count = "";
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result))
 	{
 // Comprobamos que el profesor no ha rellenado el informe de esa asignatura	
 $hay = "select * from infotut_profesor where id_alumno = '$row[0]' and asignatura = '$asignatura'";
-$si = mysql_query($hay);	
-$activos=mysql_num_rows($si) ;
+$si = mysqli_query($db_con, $hay);	
+$activos=mysqli_num_rows($si) ;
 if ($activos > 0)
 		{ 
 	echo "<tr><TD> $row[1], $row[2]</td>
@@ -114,14 +114,14 @@ if ($activos > 0)
    <td>";
 	 echo "
 	 <input type='hidden' name='profesor' value='$profesor'>";
-		 if (mysql_num_rows($si) > 0 and $count < 1)
+		 if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} else{ 
 			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search' title='Ver Informe'> </i></a>";	
 			if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
 				echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''><i class='fa fa-trash-o' title='Borrar Informe' > </i> </a> 	";
 			}
 		}	  
-	  if (mysql_num_rows($si) > 0 and $count < 1)
+	  if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} else{ 
 echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-square-o' title='Redactar Informe'> </i> </a>";
 				}

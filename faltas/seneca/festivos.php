@@ -34,10 +34,11 @@ include("../menu.php");
 <br />
 <?
  // Conexión 
-mysql_connect ($db_host, $db_user, $db_pass) or die("Error de conexión");
+$db_con = mysqli_connect($db_host, $db_user, $db_pass);
+mysqli_select_db($db_con, $db);
 
 // Borramos datos
-mysql_query("truncate table festivos");	
+mysqli_query($db_con, "truncate table festivos");	
 
 // Importamos los datos del fichero CSV en la tabña alma.
 $handle = fopen ($_FILES['archivo']['tmp_name'] , "r" ) or die('
@@ -50,12 +51,12 @@ while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE)
 $tr = explode("/",trim($data1[0]));
 $fecha="$tr[2]-$tr[1]-$tr[0]";
 $datos1 = "INSERT INTO festivos ( `fecha` , `nombre` , `ambito` , `docentes` ) VALUES (\"". $fecha . "\",\"". trim($data1[1]) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[3]) . "\")";
-mysql_query($datos1);
+mysqli_query($db_con, $datos1);
 }
 fclose($handle);
 $borrarvacios = "delete from festivos where date(fecha) = '0000-00-00'";
- mysql_query($borrarvacios);
- if (mysql_affected_rows() > '0') {
+ mysqli_query($db_con, $borrarvacios);
+ if (mysqli_affected_rows() > '0') {
 ?>
  	<div align="center""><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

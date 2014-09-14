@@ -62,8 +62,8 @@ $asignatura = $exp_unidad[3];
 							</tr>
 						</thead>
 						<tbody>
-							<?php $result = mysql_query("SELECT DISTINCT usuarioalumno.nombre, usuarioalumno.usuario, usuarioalumno.unidad, FALUMNOS.nombre, FALUMNOS.apellidos, usuarioalumno.pass, FALUMNOS.claveal FROM usuarioalumno, FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal AND FALUMNOS.claveal = usuarioalumno.claveal AND usuarioalumno.unidad = '$unidad' AND combasi LIKE '%$asignatura%'ORDER BY nc ASC"); ?>
-							<?php while ($row = mysql_fetch_array($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT usuarioalumno.nombre, usuarioalumno.usuario, usuarioalumno.unidad, FALUMNOS.nombre, FALUMNOS.apellidos, usuarioalumno.pass, FALUMNOS.claveal FROM usuarioalumno, FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal AND FALUMNOS.claveal = usuarioalumno.claveal AND usuarioalumno.unidad = '$unidad' AND combasi LIKE '%$asignatura%'ORDER BY nc ASC"); ?>
+							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<td class="col-xs-1 text-center">
 									<?php if (file_exists('../xml/fotos/'.$row['claveal'].'.jpg')): ?>
@@ -77,7 +77,7 @@ $asignatura = $exp_unidad[3];
 								<td><?php echo $row['pass']; ?></td>
 							</tr>
 							<?php endwhile; ?>
-							<?php mysql_free_result($result); ?>
+							<?php mysqli_free_result($result); ?>
 						</tbody>
 					</table>
 				</div>
@@ -120,14 +120,14 @@ $asignatura = $exp_unidad[3];
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<div class="form-group">
 						    <label for="profe">Profesor</label>
-						    <?php $result = mysql_query("SELECT DISTINCT PROFESOR FROM profesores ORDER BY PROFESOR ASC"); ?>
-						    <?php if(mysql_num_rows($result)): ?>
+						    <?php $result = mysqli_query($db_con, "SELECT DISTINCT PROFESOR FROM profesores ORDER BY PROFESOR ASC"); ?>
+						    <?php if(mysqli_num_rows($result)): ?>
 						    <select class="form-control" id="profe" name="profe" onchange="submit()">
 						    <option></option>
-							    <?php while($row = mysql_fetch_array($result)): ?>
+							    <?php while($row = mysqli_fetch_array($result)): ?>
 							    <option value="<?php echo $row['PROFESOR']; ?>" <?php echo (isset($profe) && $profe == $row['PROFESOR']) ? 'selected' : ''; ?>><?php echo $row['PROFESOR']; ?></option>
 							    <?php endwhile; ?>
-							    <?php mysql_free_result($result); ?>
+							    <?php mysqli_free_result($result); ?>
 							   </select>
 							   <?php else: ?>
 							   <select class="form-control" id="profe" name="profe" disabled>
@@ -142,14 +142,14 @@ $asignatura = $exp_unidad[3];
 						  <div class="form-group">
 						    <label for="curso">Unidad (Asignatura)</label>
 						    
-						    <?php $result = mysql_query("SELECT DISTINCT GRUPO, MATERIA, NIVEL, codigo FROM profesores, asignaturas WHERE materia = nombre AND abrev NOT LIKE '%\_%' AND PROFESOR = '$profe' AND nivel = curso ORDER BY grupo ASC"); ?>
-						    <?php if(mysql_num_rows($result)): ?>
+						    <?php $result = mysqli_query($db_con, "SELECT DISTINCT GRUPO, MATERIA, NIVEL, codigo FROM profesores, asignaturas WHERE materia = nombre AND abrev NOT LIKE '%\_%' AND PROFESOR = '$profe' AND nivel = curso ORDER BY grupo ASC"); ?>
+						    <?php if(mysqli_num_rows($result)): ?>
 						    <select class="form-control" id="curso" name="curso">
-						      <?php while($row = mysql_fetch_array($result)): ?>
+						      <?php while($row = mysqli_fetch_array($result)): ?>
 						      <?php $key = $row['GRUPO'].'-->'.$row['MATERIA'].'-->'.$row['NIVEL'].'-->'.$row['codigo']; ?>
 						      <option value="<?php echo $key; ?>" <?php echo (isset($curso) && $curso == $key) ? 'selected' : ''; ?>><?php echo $row['GRUPO'].' ('.$row['MATERIA'].')'; ?></option>
 						      <?php endwhile; ?>
-						      <?php mysql_free_result($result); ?>
+						      <?php mysqli_free_result($result); ?>
 						     </select>
 						     <?php else: ?>
 						     <select class="form-control" id="profesor" name="profesor" disabled>

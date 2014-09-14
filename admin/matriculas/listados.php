@@ -24,10 +24,10 @@ $options_left = array(
 		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, act1, itinerario, religion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$cur_actual."' ORDER BY apellidos, nombre";
 	}
 	//echo $sqldatos;
-$lista= mysql_query($sqldatos );
+$lista= mysqli_query($db_con, $sqldatos );
 $nc=0;
 unset($data);
-while($datatmp = mysql_fetch_array($lista)) { 
+while($datatmp = mysqli_fetch_array($lista)) { 
 $religion = "";
 
 if ($curso=="3ESO") {

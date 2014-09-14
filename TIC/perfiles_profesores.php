@@ -45,8 +45,8 @@ include("menu.php");
 						</thead>
 						<tbody>
 							<?php if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = ''; else $sql_where = 'WHERE nombre=\''.$_SESSION['profi'].'\' LIMIT 1'; ?>
-							<?php $result = mysql_query("SELECT DISTINCT usuario, nombre FROM usuarioprofesor $sql_where"); ?>
-							<?php while ($row = mysql_fetch_array($result)): ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT usuario, nombre FROM usuarioprofesor $sql_where"); ?>
+							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<td><?php echo $row['nombre']; ?></td>
 								<td><?php echo $row['usuario']; ?></td>
@@ -56,7 +56,7 @@ include("menu.php");
 								</td>
 							</tr>
 							<?php endwhile; ?>
-							<?php mysql_free_result($result); ?>
+							<?php mysqli_free_result($result); ?>
 						</tbody>
 					</table>
 				</div>

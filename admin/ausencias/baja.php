@@ -46,8 +46,8 @@ echo '<table class="table table-striped table-bordered" style="width:100$;">';
 		<th>Archivo adjunto</th>";
 	echo "</thead><tbody><tr>";
 	// Consulta de datos del alumno.
-	$result = mysql_query ( "select inicio, fin, tareas, id, profesor, horas, archivo from ausencias  where id = '$id' order by inicio" );
-	$row = mysql_fetch_array ( $result );
+	$result = mysqli_query($db_con, "select inicio, fin, tareas, id, profesor, horas, archivo from ausencias  where id = '$id' order by inicio" );
+	$row = mysqli_fetch_array ( $result );
 	$tar = $row[2];
 	if ($row[5] > "0") {
 		$hora = $row[5];
@@ -89,18 +89,18 @@ echo '<table class="table table-striped table-bordered" style="width:100$;">';
 	$ndia = date ( "w" );
 	for ($i=1;$i<7;$i++){
 	echo "<td align='center'>";	
-	$hor = mysql_query("select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
+	$hor = mysqli_query($db_con, "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
 	//echo "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'<br>";
-	$hor_asig=mysql_fetch_array($hor);
-	if (mysql_num_rows($hor) > '0'){
+	$hor_asig=mysqli_fetch_array($hor);
+	if (mysqli_num_rows($hor) > '0'){
 	echo "Actividad<div style='color:#46a546;'><span style='font-weight:normal;'>$hor_asig[0]</div><br/>";
 	if (strlen($hor_asig[2] > '1')){
 	echo "Aula<div style='color:#9d261d'><span style='font-weight:normal;'>$hor_asig[2]</div><br />";
 	}
 	if (strlen($hor_asig[1]) > '1' and strstr($hor_asig[0], 'GU') == FALSE){
-		$hor2 = mysql_query("select a_grupo from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
+		$hor2 = mysqli_query($db_con, "select a_grupo from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
 		echo "Grupos<div style='color:#08c'>";
-	while($hor_bj = mysql_fetch_array($hor2)){
+	while($hor_bj = mysqli_fetch_array($hor2)){
 	echo "<span style='font-weight:normal;'>".$hor_bj[0]."</div><br /> ";
 			}
 	}

@@ -67,8 +67,8 @@ function obtenerProvincia($codpostal) {
 	}
 }
 
-$MYSQL_FECHA_DESDE = fecha_mysql($FECHA_DESDE);
-$MYSQL_FECHA_HASTA = fecha_mysql($FECHA_HASTA);
+$mysqli_FECHA_DESDE = fecha_mysql($FECHA_DESDE);
+$mysqli_FECHA_HASTA = fecha_mysql($FECHA_HASTA);
 
 $fechaHoy = date('d/m/Y H:i:s');
 $anio_curso = substr($inicio_curso,0,4);
@@ -167,18 +167,18 @@ foreach ($directorio as $archivo) {
         	// COMIENZO FALTAS DE ASISTENCIA
         	$docXML .= "              <FALTAS_ASISTENCIA>\n";
         	
-        	$result = mysql_query("SELECT FALTAS.FECHA, FALTAS.HORA FROM FALTAS JOIN alma ON FALTAS.CLAVEAL=alma.CLAVEAL WHERE FALTAS.FECHA BETWEEN '$MYSQL_FECHA_DESDE' AND '$MYSQL_FECHA_HASTA' AND FALTAS.FALTA='F' AND alma.CLAVEAl1='$X_MATRICULA'");
-        	if (!$result) echo mysql_error();
+        	$result = mysqli_query($db_con, "SELECT FALTAS.FECHA, FALTAS.HORA FROM FALTAS JOIN alma ON FALTAS.CLAVEAL=alma.CLAVEAL WHERE FALTAS.FECHA BETWEEN '$mysqli_FECHA_DESDE' AND '$mysqli_FECHA_HASTA' AND FALTAS.FALTA='F' AND alma.CLAVEAl1='$X_MATRICULA'");
+        	if (!$result) echo mysqli_error($db_con);
         	
-        	while($faltas = mysql_fetch_array($result)) {
+        	while($faltas = mysqli_fetch_array($result)) {
 	        	
 	        	// Obtenemos la fecha de la falta en formato Séneca
 	        	$F_FALASI = fecha_seneca($faltas[0]);
 	        	
 	        	// Obtenemos el código de tramo
 	        	if ($faltas[1] > 3) $faltas[1]++; // No es lo más óptimo, pero soluciona el problema... :/
-	        	$result_tramos = mysql_query("SELECT tramo FROM tramos WHERE hora='$faltas[1]'");
-	        	$tramos = mysql_fetch_array($result_tramos);
+	        	$result_tramos = mysqli_query($db_con, "SELECT tramo FROM tramos WHERE hora='$faltas[1]'");
+	        	$tramos = mysqli_fetch_array($result_tramos);
 	        	
 	        	$docXML .= "                <FALTA_ASISTENCIA>\n";
 	        	$docXML .= "                  <F_FALASI>$F_FALASI</F_FALASI>\n";
@@ -227,10 +227,10 @@ if ($MODO_DEPURACION) {
 	echo "<h2>COMPROBACION ALUMNOS</h2>";
 	$i=0;
 	while ($alumnos[$i] != FALSE) {
-		$todos = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM alma"));
-		$result = mysql_query("SELECT CONCAT(APELLIDOS,', ',NOMBRE) AS alumnos, unidad FROM alma WHERE claveal1='$alumnos[$i]'");
-		$filas = mysql_num_rows($result);
-		$alumno = mysql_fetch_array($result);
+		$todos = mysqli_fetch_array(mysqli_query($db_con, "SELECT COUNT(*) FROM alma"));
+		$result = mysqli_query($db_con, "SELECT CONCAT(APELLIDOS,', ',NOMBRE) AS alumnos, unidad FROM alma WHERE claveal1='$alumnos[$i]'");
+		$filas = mysqli_num_rows($result);
+		$alumno = mysqli_fetch_array($result);
 		
 		if (!$filas>1) echo "<span style='color:red'>$alumnos[$i]  -->  $alumno[1] - $alumno[0]</span><br>";
 		
@@ -246,8 +246,8 @@ if ($MODO_DEPURACION) {
 		$dia = fecha_mysql($dias[$i]);
 		$diasem = strftime('%w', strtotime("$dia"));
 		
-		$result = mysql_query("SELECT * FROM festivos WHERE fecha='$dia'");
-		$filas = mysql_num_rows($result);
+		$result = mysqli_query($db_con, "SELECT * FROM festivos WHERE fecha='$dia'");
+		$filas = mysqli_num_rows($result);
 		
 		$error=0;
 		if ($diasem == 0 || $diasem == 6 || $filas>1) {
@@ -260,10 +260,10 @@ if ($MODO_DEPURACION) {
 	if (!$error) echo "CORRECTO!";
 	
 	echo "<h2>COMPROBACION TRAMOS</h2>";
-	$tramos = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM tramos"));
-	$result = mysql_query("SELECT * FROM tramos");
+	$tramos = mysqli_fetch_array(mysqli_query($db_con, "SELECT COUNT(*) FROM tramos"));
+	$result = mysqli_query($db_con, "SELECT * FROM tramos");
 	
-	while($tramo = mysql_fetch_array($result)) {
+	while($tramo = mysqli_fetch_array($result)) {
 		echo "ID: $tramo[1] --> HORA: $tramo[0] (la hora debe ser un valor numerico)<br>";
 	}
 	

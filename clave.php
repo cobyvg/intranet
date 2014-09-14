@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
 					// Obtenemos el hash de la contraseña
 					$hash = sha1($codigo2);
 					
-					$result = mysql_query("UPDATE c_profes SET pass='$hash', correo='$correo' WHERE profesor='$pr'");
+					$result = mysqli_query($db_con, "UPDATE c_profes SET pass='$hash', correo='$correo' WHERE profesor='$pr'");
 					
 					// Comprobamos si se ha relizado la consulta a la base de datos
 					if(!$result) {
@@ -92,8 +92,8 @@ if (isset($_POST['submit'])) {
 	}
 }
 
-$dat=mysql_query("select * from c_profes where profesor='$pr'");
-$todos=mysql_fetch_array($dat);
+$dat=mysqli_query($db_con, "select * from c_profes where profesor='$pr'");
+$todos=mysqli_fetch_array($dat);
 
 include("menu.php");
 

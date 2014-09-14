@@ -58,14 +58,14 @@ include("../../menu.php");
 							<tr>
 								<th><?php echo $desc; ?></th>
 								<?php for($i = 1; $i < 6; $i++): ?>
-								<?php $result = mysql_query("SELECT DISTINCT a_asig, asig, a_grupo, a_aula, n_aula FROM horw WHERE prof='$profeso' AND dia='$i' AND hora='$hora'"); ?>
+								<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, a_grupo, a_aula, n_aula FROM horw WHERE prof='$profeso' AND dia='$i' AND hora='$hora'"); ?>
 								<td width="20%">
-						 			<?php while($row = mysql_fetch_array($result)): ?>
+						 			<?php while($row = mysqli_fetch_array($result)): ?>
 						 			<abbr data-bs="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr><br>
 						 			<?php echo (!empty($row['n_aula']) && $row['n_aula'] != 'Sin asignar o sin aula' && $row['n_aula'] != 'NULL') ? '<abbr class="pull-right text-danger" data-bs="tooltip" title="'.$row['n_aula'].'">'.$row['a_aula'].'</abbr>' : ''; ?>
 						 			<?php echo (!empty($row['a_grupo'])) ? '<span class="text-warning">'.$row['a_grupo'].'</span>' : ''; ?><br>
 						 			<?php endwhile; ?>
-						 			<?php mysql_free_result($result); ?>
+						 			<?php mysqli_free_result($result); ?>
 						 		</td>
 						 		<?php endfor; ?>
 						 	</tr>

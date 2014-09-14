@@ -25,44 +25,44 @@ include ("../menu.php");
 	
 	<?php
 	if ($_GET['borrar']=='1') {
-		mysql_query("delete from departamentos where dni = '".$_GET['dni_profe']."'");
+		mysqli_query($db_con, "delete from departamentos where dni = '".$_GET['dni_profe']."'");
 		echo '<div class="alert alert-success">
 	            <button type="button" class="close" data-dismiss="alert">&times;</button>
 	            El profesor ha sido borrado de la base de datos..
 	          </div>';
 	}
 	if (isset($_POST['enviar'])) {
-	mysql_query ( "truncate table FTUTORES" );
-	mysql_query ( "truncate table cargos " );
+	mysqli_query($db_con, "truncate table FTUTORES" );
+	mysqli_query($db_con, "truncate table cargos " );
 		
 		foreach ( $_POST as $dni => $cargo_profe ) {
 			if ($cargo_profe == "Enviar") {
 				continue;
 			} elseif (strlen ( $cargo_profe ) > "1") {
 				$dni = substr ( $dni, 0, -2 );
-				$n_profe = mysql_query ( "select nombre from departamentos where dni='$dni'" );
-				$n_prof = mysql_fetch_array ( $n_profe );
+				$n_profe = mysqli_query($db_con, "select nombre from departamentos where dni='$dni'" );
+				$n_prof = mysqli_fetch_array ( $n_profe );
 				$unidad = $cargo_profe;
 				$n_tutor = mb_strtoupper ( $n_prof [0], 'iso-8859-1' );
 				
-				mysql_query ( "insert INTO `FTUTORES` ( `unidad` , `tutor` ) VALUES ('$unidad', '$n_tutor')" );
+				mysqli_query($db_con, "insert INTO `FTUTORES` ( `unidad` , `tutor` ) VALUES ('$unidad', '$n_tutor')" );
 			
 			} elseif (strlen ( $cargo_profe ) < "2") {
-				mysql_query ( "update departamentos set cargo = ''" );
+				mysqli_query($db_con, "update departamentos set cargo = ''" );
 				$dni = substr ( $dni, 0, - 1 );
-				mysql_query ( "INSERT INTO `cargos` ( `dni` , `cargo` ) VALUES ('$dni', '$cargo_profe')" );
+				mysqli_query($db_con, "INSERT INTO `cargos` ( `dni` , `cargo` ) VALUES ('$dni', '$cargo_profe')" );
 				//echo "INSERT INTO `cargos` ( `dni` , `cargo` ) VALUES ('$dni', '$cargo_profe')<br />"; 
 			}
 		}
-		mysql_query ( "delete from cargos where cargo = '0'" );
-		$n_cargo = mysql_query ( "select dni from departamentos" );
-		while ( $n_carg = mysql_fetch_array ( $n_cargo ) ) {
+		mysqli_query($db_con, "delete from cargos where cargo = '0'" );
+		$n_cargo = mysqli_query($db_con, "select dni from departamentos" );
+		while ( $n_carg = mysqli_fetch_array ( $n_cargo ) ) {
 			$num_cargos = "";
-			$num_car = mysql_query ( "select distinct cargo from cargos where dni = '$n_carg[0]'" );
-			while ( $num_carg = mysql_fetch_array ( $num_car ) ) {
+			$num_car = mysqli_query($db_con, "select distinct cargo from cargos where dni = '$n_carg[0]'" );
+			while ( $num_carg = mysqli_fetch_array ( $num_car ) ) {
 				$num_cargos .= $num_carg [0];
 			}
-			mysql_query ( "update departamentos set cargo='$num_cargos' where dni='$n_carg[0]'" );
+			mysqli_query($db_con, "update departamentos set cargo='$num_cargos' where dni='$n_carg[0]'" );
 		}
 	echo '<div class="alert alert-success">
 	Los perfiles han sido asignados correctamente a los profesores.
@@ -113,9 +113,9 @@ include ("../menu.php");
 		<? echo $head;?>
 			<tbody>
 		<?
-		$carg0 = mysql_query ( "select distinct nombre, cargo, dni from departamentos order by nombre" );
-		$num_profes = mysql_num_rows ( $carg0 );
-		while ( $carg1 = mysql_fetch_array ( $carg0 ) ) {
+		$carg0 = mysqli_query($db_con, "select distinct nombre, cargo, dni from departamentos order by nombre" );
+		$num_profes = mysqli_num_rows ( $carg0 );
+		while ( $carg1 = mysqli_fetch_array ( $carg0 ) ) {
 			$pro = $carg1 [0];
 			$car = $carg1 [1];
 			$dni = $carg1 [2];
@@ -150,8 +150,8 @@ include ("../menu.php");
 			echo $dni;
 			?>2t">
 		  <?
-			$curso_tut = mysql_query ( "select unidad from FTUTORES, departamentos where tutor=nombre and dni='$dni'" );
-			$curso_tut0 = mysql_fetch_array ( $curso_tut );
+			$curso_tut = mysqli_query($db_con, "select unidad from FTUTORES, departamentos where tutor=nombre and dni='$dni'" );
+			$curso_tut0 = mysqli_fetch_array ( $curso_tut );
 			$unidad = $curso_tut0 [0];
 			?>
 		  <option><?
@@ -162,8 +162,8 @@ include ("../menu.php");
 		<?
 			echo "<option></option>";
 			$tipo = "select distinct unidad from alma order by unidad";
-			$tipo1 = mysql_query ( $tipo );
-			while ( $tipo2 = mysql_fetch_array ( $tipo1 ) ) {
+			$tipo1 = mysqli_query($db_con, $tipo );
+			while ( $tipo2 = mysqli_fetch_array ( $tipo1 ) ) {
 				echo "<option>" . $tipo2 [0] . "</option>";
 			}
 			

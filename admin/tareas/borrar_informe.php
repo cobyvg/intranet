@@ -29,8 +29,8 @@ include("menu.php");
 <br />
 <?
 if ($del=='1') {
-	mysql_query("delete from tareas_alumnos where id = '$id'");
-	if (mysql_affected_rows()>'0') {
+	mysqli_query($db_con, "delete from tareas_alumnos where id = '$id'");
+	if (mysqli_affected_rows()>'0') {
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Informe ha sido borrado sin problemas.

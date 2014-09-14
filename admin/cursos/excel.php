@@ -40,24 +40,24 @@ $uni = substr($grupo,0,1);
 	}	
 
 
-$resEmp = mysql_query($sql) or die(mysql_error());
-$totEmp = mysql_num_rows($resEmp);
+$resEmp = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));
+$totEmp = mysqli_num_rows($resEmp);
 
 if ($tipo==1){
-while($datatmp = mysql_fetch_assoc($resEmp)) { 
+while($datatmp = mysqli_fetch_assoc($resEmp)) { 
 	$data[] = $datatmp; 
 }  
 }
  
 if ($tipo==2){
-	while($datatmp = mysql_fetch_array($resEmp)) { 
+	while($datatmp = mysqli_fetch_array($resEmp)) { 
 		$mat="";
 		$asig0 = explode(":",$datatmp[1]);
 		foreach($asig0 as $asignatura){		
 		$unidadn = substr($grupo,0,1);			
 		$consulta = "select distinct abrev, curso from asignaturas where codigo = '$asignatura' and curso like '%$unidadn%' limit 1";
-		$abrev = mysql_query($consulta);		
-		$abrev0 = mysql_fetch_array($abrev);
+		$abrev = mysqli_query($db_con, $consulta);		
+		$abrev0 = mysqli_fetch_array($abrev);
 		$curs=substr($abrev0[1],0,2);
 		$mat.=$abrev0[0]."; ";
 		}

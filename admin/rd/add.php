@@ -17,8 +17,8 @@ if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'
 include ("../../menu.php");
 include ("menu.php");
 
-mysql_select_db($db);
-mysql_query("CREATE TABLE IF NOT EXISTS r_departamento (
+mysqli_select_db($db_con, $db);
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS r_departamento (
 `id` SMALLINT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
 `contenido` LONGTEXT NOT NULL ,
 `jefedep` VARCHAR( 255 ) DEFAULT NULL ,
@@ -30,7 +30,7 @@ mysql_query("CREATE TABLE IF NOT EXISTS r_departamento (
 PRIMARY KEY ( `id` )
 ) ENGINE = MYISAM DEFAULT CHARSET = latin1");
 
-mysql_query("CREATE TABLE IF NOT EXISTS r_departamento_backup (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS r_departamento_backup (
 `id` SMALLINT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
 `contenido` LONGTEXT NOT NULL ,
 `jefedep` VARCHAR( 255 ) DEFAULT NULL ,
@@ -62,7 +62,7 @@ else{
 <?
 if($borrar=="1"){
 $query = "DELETE from r_departamento WHERE id = '$id'";
-$result = mysql_query($query) or die ('<div align="center">
+$result = mysqli_query($db_con, $query) or die ('<div align="center">
 <div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Se ha borrado el registro de la base de datos.          
@@ -70,8 +70,8 @@ Se ha borrado el registro de la base de datos.
 </div>');
 }
 if($edicion=="1"){
-$ed0 = mysql_query("select * from r_departamento where id = '$id'");
-$ed = mysql_fetch_object($ed0);
+$ed0 = mysqli_query($db_con, "select * from r_departamento where id = '$id'");
+$ed = mysqli_fetch_object($ed0);
 }
    if($submit=="Registrar Acta del Departamento")
    {
@@ -110,7 +110,7 @@ $ed = mysql_fetch_object($ed0);
    			$query1 = "INSERT INTO r_departamento ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES( '$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
    			//echo $query1;
    			$query2 = "INSERT INTO r_departamento_backup ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES('$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
-   			$result1 = mysql_query ( $query1 ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in">
+   			$result1 = mysqli_query($db_con, $query1 ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Se ha producido un error grave al registar el Acta en la base de datos. Busca ayuda.</div></div>' );
@@ -118,7 +118,7 @@ Se ha producido un error grave al registar el Acta en la base de datos. Busca ay
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido registrada correctamente.
 </div></div><br>';
-			$result2 = mysql_query ( $query2 );
+			$result2 = mysqli_query($db_con, $query2 );
 			echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrás</a></div>';
    		   exit();
    		} 
@@ -133,7 +133,7 @@ El Acta del Departamento ha sido registrada correctamente.
    	}
 
    	elseif ($actualiza) {
-   		   mysql_query("update r_departamento set contenido = '$contenido' where id = '$id'") ;
+   		   mysqli_query($db_con, "update r_departamento set contenido = '$contenido' where id = '$id'") ;
    		   echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido actualizada correctamente.
@@ -142,8 +142,8 @@ El Acta del Departamento ha sido actualizada correctamente.
    		   exit();
    		   
    	}
-$nm0 = mysql_query("select max(numero) from r_departamento where departamento = '$departament'");
-$numer = mysql_fetch_array($nm0);
+$nm0 = mysqli_query($db_con, "select max(numero) from r_departamento where departamento = '$departament'");
+$numer = mysqli_fetch_array($nm0);
 if ($edicion=="1") {
 	$numero = $ed->numero;
 }
@@ -152,8 +152,8 @@ $numero = $numer[0]+1;
 }
 $fecha2 = date ( 'Y-m-d' );
 $hoy = formatea_fecha ( $fecha2 );
-$d_rd0 = mysql_query("select hora from horw where prof = '$profesor' and a_asig = 'RD'");
-$d_rd = mysql_fetch_array($d_rd0);
+$d_rd0 = mysqli_query($db_con, "select hora from horw where prof = '$profesor' and a_asig = 'RD'");
+$d_rd = mysqli_fetch_array($d_rd0);
 $hor = $d_rd[0];
 $reunion = array("1" => "8.15","2" => "9.15","3" => "10.15","4" => "11.45","5" => "12.45","6" => "13.45", "10" => "17");
 foreach ($reunion as $key => $val){
@@ -264,9 +264,9 @@ if ($edicion=="1") {
 <?
 if($pag == "") {$pag = "0";} else {$pag = $pag + 25;}
 $query = "SELECT id, fecha, departamento, contenido, numero, impreso FROM r_departamento where departamento = '$departament' ORDER BY numero DESC limit $pag,50";
-$result = mysql_query($query) or die ("Error in query: $query. " . mysql_error());
-$n_actas = mysql_num_rows($result);
-if (mysql_num_rows($result) > 0)
+$result = mysqli_query($db_con, $query) or die ("Error in query: $query. " . mysqli_error($db_con));
+$n_actas = mysqli_num_rows($result);
+if (mysqli_num_rows($result) > 0)
 {
 ?>
 <p class="help-block">Tened en cuenta que las actas se bloquean en el momento en que hagáis click en el botón de '<b>Imprimir</b>'. A partir de entonces pueden verse (botón de la lupa) pero no es posible editarlas.</p>
@@ -277,7 +277,7 @@ if (mysql_num_rows($result) > 0)
 			</tr>
 		</thead>
 		<tbody>
-			<? while($row = mysql_fetch_object($result)) { ?>
+			<? while($row = mysqli_fetch_object($result)) { ?>
       <tr> 
 	      <td nowrap><? echo $row->numero; ?></td> 
 				<td nowrap><? echo fecha_sin($row->fecha); ?></td>        

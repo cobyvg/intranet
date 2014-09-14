@@ -47,7 +47,7 @@ if(isset($_POST['borrar'])){
 		if(($ide<>'borrar') and (!empty( $valor))){
 			for($i=0; $i <= count($valor)-1; $i++){ $j+=1;
 			//echo "delete from morosos where id=$valor[$i]";
-			$bor = mysql_query ("delete from morosos where id='$valor[$i]'") or die("No se ha podido borrar");
+			$bor = mysqli_query($db_con, "delete from morosos where id='$valor[$i]'") or die("No se ha podido borrar");
 			}
 
 			echo '<div align="center"><div class="alert alert-success alert-block fade in">
@@ -98,8 +98,8 @@ $envio='';
 for($i=0; $i <= count($valor)-1; $i++)
 { 
 $j+=1; //echo $valor[$i];
-$duplicado= mysql_query ("select amonestacion from morosos where id=$valor[$i]");
-$duplicados=mysql_fetch_array($duplicado);
+$duplicado= mysqli_query($db_con, "select amonestacion from morosos where id=$valor[$i]");
+$duplicados=mysqli_fetch_array($duplicado);
 
 if($duplicados[0]=='NO'){
 	$envio='-'.$valor[$i];?> <input type="hidden" name="hola[]"
@@ -108,33 +108,33 @@ if($duplicados[0]=='NO'){
 	<? 
 
 if ($registro) {
-		$upd = mysql_query ("update morosos set amonestacion='SI' where id=$valor[$i]") or die ("No se ha podido actualizar el registro");
+		$upd = mysqli_query($db_con, "update morosos set amonestacion='SI' where id=$valor[$i]") or die ("No se ha podido actualizar el registro");
 		//localizo el alumno a través de la id de la tabla morosos.
 	}
-	$al=mysql_query ("select apellidos,nombre,curso from morosos where id=$valor[$i]") or die ("error al localizar alumno");
-	while($alu=mysql_fetch_array($al)){
+	$al=mysqli_query($db_con, "select apellidos,nombre,curso from morosos where id=$valor[$i]") or die ("error al localizar alumno");
+	while($alu=mysqli_fetch_array($al)){
 
 		$nombre=$alu[1];
 		$apellido=$alu[0];
 		$curso=$alu[2];
 		//localizo la clave del alumno en Falumnos.
-		$cla=mysql_query("select CLAVEAL, unidad from alma where NOMBRE='$nombre' and APELLIDOS='$apellido' and unidad = '$curso'");
-		while($clav=mysql_fetch_array($cla)){
+		$cla=mysqli_query($db_con, "select CLAVEAL, unidad from alma where NOMBRE='$nombre' and APELLIDOS='$apellido' and unidad = '$curso'");
+		while($clav=mysqli_fetch_array($cla)){
 
 			$dia= date ('Y-m-d',time());
 			$clave=$clav[0];// echo $clave.'---'. $dia;
 			$unidad=$clav[1]; //echo $nivel;
 			//insertamos, por fín, la fechoría
 if ($registro) {
-				$fechoria = mysql_query( "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechoría");
+				$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechoría");
 				//ahora registramos la intervencion en la tabla tutoría, debido al tema de los SMS
-				$tutoria=mysql_query ( "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
+				$tutoria=mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
 			}
 if ($sms) {
-		mysql_query ("update morosos set sms='SI' where id=$valor[$i]") or die ("No se ha podido actualizar el registro SMS");
+		mysqli_query($db_con, "update morosos set sms='SI' where id=$valor[$i]") or die ("No se ha podido actualizar el registro SMS");
 	}
-			$alumno = mysql_query ( " SELECT distinct APELLIDOS, NOMBRE, unidad, CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE claveal = '$clave'" );
-			$rowa = mysql_fetch_array ( $alumno );
+			$alumno = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, unidad, CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE claveal = '$clave'" );
+			$rowa = mysqli_fetch_array ( $alumno );
 			echo "<table class='table table-striped'>";
 			$apellidos = trim ( $rowa [0] );
 			$nombre = trim ( $rowa [1] );
@@ -143,8 +143,8 @@ if ($sms) {
 			$tfno = trim ( $rowa [4] );
 			$tfno_u = trim ( $rowa [5] );
 			// SMS
-			$sms_n = mysql_query ( "select max(id) from sms" );
-			$n_sms = mysql_fetch_array ( $sms_n );
+			$sms_n = mysqli_query($db_con, "select max(id) from sms" );
+			$n_sms = mysqli_fetch_array ( $sms_n );
 			$extid = $n_sms [0] + 1;
 
 			if (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7") {
@@ -159,7 +159,7 @@ if ($sms) {
 				$message = "Su hijo/a no ha devuelto material de la Biblioteca en el plazo indicado. Si no lo devuelve en los pr�ximos d�as se le impondr� un parte disciplinario grave.";
 			}
 			
-			mysql_query ( "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
+			mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
 			$login = $usuario_smstrend;
 			$password = $clave_smstrend;
 			?>

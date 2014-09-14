@@ -28,9 +28,9 @@ if (strstr($_SERVER['REQUEST_URI'],'convivencia_jefes.php')==TRUE){ $activo7 = '
       Alumnos expulsados</a></li>
       <?
       $pr_conv = $_SESSION['profi'];
-	$conv = mysql_query("SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr_conv'");
+	$conv = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr_conv'");
 // echo "select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'";
-if (mysql_num_rows($conv) > '0') {
+if (mysqli_num_rows($conv) > '0') {
 ?>
       <li <? echo $activo5;?>><a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/convivencia.php">Aula de Convivencia</a></li>  
 <?

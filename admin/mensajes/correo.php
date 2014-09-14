@@ -28,8 +28,8 @@ if(!isset($token)) $token = time();
 
 if (isset($_POST['enviar'])) {
 	$profe_envia = $_SESSION['profi'];
-	$cor_pr = mysql_query("select correo from c_profes where profesor = '$profe_envia'");
-	$cor_pr0 = mysql_fetch_array($cor_pr);
+	$cor_pr = mysqli_query($db_con, "select correo from c_profes where profesor = '$profe_envia'");
+	$cor_pr0 = mysqli_fetch_array($cor_pr);
 	$mail_from = $cor_pr0[0];
 
 	require("../../lib/class.phpmailer.php");
@@ -48,8 +48,8 @@ if (isset($_POST['enviar'])) {
 	}
 
 	foreach($cambia as $eldni => $valor){
-		$mail0=mysql_query("select correo, PROFESOR from c_profes where dni='$eldni'");
-		$mail1=mysql_fetch_row($mail0);
+		$mail0=mysqli_query($db_con, "select correo, PROFESOR from c_profes where dni='$eldni'");
+		$mail1=mysqli_fetch_row($mail0);
 		$direccion = $mail1[0];
 		$profes = $mail1[1];
 		$mail->AddAddress($direccion, $profes);
@@ -141,9 +141,9 @@ include("menu.php");
 				<br>
 
 				<div class="panel-group" id="departamentos">
-					<?php $result = mysql_query("SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
+					<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
 					<?php $i = 0; ?>
-					<?php while ($departamento = mysql_fetch_array($result)): ?>
+					<?php while ($departamento = mysqli_fetch_array($result)): ?>
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				    	<h4 class="panel-title">
@@ -155,10 +155,10 @@ include("menu.php");
 				    <div id="departamento<?php echo $i; ?>" class="panel-collapse collapse <?php if($i==0) echo 'in'; ?>">
 				      <div class="panel-body">
 				      
-				      <?php $profesores = mysql_query("SELECT distinct profesor, c_profes.dni, correo, cargo FROM c_profes, departamentos WHERE departamentos.idea = c_profes.idea AND departamento='$departamento[0]' AND correo IS NOT NULL ORDER BY profesor"); ?>
-				      <?php if(mysql_num_rows($profesores)>0): ?>
+				      <?php $profesores = mysqli_query($db_con, "SELECT distinct profesor, c_profes.dni, correo, cargo FROM c_profes, departamentos WHERE departamentos.idea = c_profes.idea AND departamento='$departamento[0]' AND correo IS NOT NULL ORDER BY profesor"); ?>
+				      <?php if(mysqli_num_rows($profesores)>0): ?>
   
-			        <?php while($profesor = mysql_fetch_array($profesores)): ?>
+			        <?php while($profesor = mysqli_fetch_array($profesores)): ?>
 	        			<?php $pro = $profesor[0]; ?>
 	        			<?php $dni = $profesor[1]; ?>
 	         			<?php $correo = $profesor[2]; ?>
@@ -174,7 +174,7 @@ include("menu.php");
 							<?php endwhile; ?>
 							
 							<?php else: ?>
-     						<p class="muted">No hay profesores en este departamento</p>
+     						<p class="muted">No hay profesores en este departamento con correo electrónico</p>
 							<?php endif; ?>
 
 							</div>

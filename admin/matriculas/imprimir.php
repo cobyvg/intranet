@@ -33,18 +33,18 @@ $MiPDF->SetMargins ( 20, 20, 20 );
 # ajustamos al 100% la visualización
 $MiPDF->SetDisplayMode ( 'fullpage' );
 // Consulta  en curso. 
-$connection = mysql_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
-mysql_select_db($db) or die ("Imposible seleccionar base de datos!");
+$db_con = mysqli_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
+mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
 if (substr($curso, 0, 1) == '1') {
 	$mas = ", colegio";
 }
 $n_curso = substr($curso, 0, 1);
-$result0 = mysql_query ( "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
+$result0 = mysqli_query($db_con, "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
 //echo "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre";
-while ($id_ar = mysql_fetch_array($result0)) {
+while ($id_ar = mysqli_fetch_array($result0)) {
 $id = $id_ar[0];
-$result = mysql_query("select * from matriculas where id = '$id'");
-if ($row = mysql_fetch_array ( $result )) {
+$result = mysqli_query($db_con, "select * from matriculas where id = '$id'");
+if ($row = mysqli_fetch_array ( $result )) {
 	$apellidos = "Apellidos del Alumno: ". $row[2];
 	 $nombre= "Nombre: ".$row[3];
 	 $nacido= "Nacido en: ".$row[4];

@@ -49,8 +49,8 @@ $AUXSQL = "";
 <div class="col-sm-12">
 <?
 	print "<h3 align=center class='text-muted'>$nivel</h3>"; 
-$textos = mysql_query("SELECT distinct Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, nivel, grupo FROM Textos where nivel = '$nivel' " . $AUXSQL . " order by Asignatura");
-if (mysql_num_rows($textos)>0) {
+$textos = mysqli_query($db_con, "SELECT distinct Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, nivel, grupo FROM Textos where nivel = '$nivel' " . $AUXSQL . " order by Asignatura");
+if (mysqli_num_rows($textos)>0) {
 		echo "<br /><table class='table table-striped' align='center'>
   <tr> 
     
@@ -67,7 +67,7 @@ if (mysql_num_rows($textos)>0) {
 
   echo "</tr>";
 	
-  while ($row = mysql_fetch_array($textos))
+  while ($row = mysqli_fetch_array($textos))
    {
            echo "<tr>";		 
 			 echo "

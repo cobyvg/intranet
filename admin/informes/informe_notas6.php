@@ -38,8 +38,8 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
 <? 
 // Comprobamos datos de evaluaciones
-$n1 = mysql_query("select * from pendientes");
-if(mysql_num_rows($n1)>0){}
+$n1 = mysqli_query($db_con, "select * from pendientes");
+if(mysqli_num_rows($n1)>0){}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -63,7 +63,7 @@ foreach ($titulos as $key=>$val){
   `nivel` varchar( 64 ) NOT NULL,
   KEY `claveal` (`claveal`)
 )";
- mysql_query($crea_tabla);
+ mysqli_query($db_con, $crea_tabla);
 
  // Tabla temporal.
  $crea_tabla2 = "CREATE TABLE IF NOT EXISTS `temp` (
@@ -73,7 +73,7 @@ foreach ($titulos as $key=>$val){
 `nota` TINYINT( 2 ) NOT NULL ,
 INDEX (  `claveal` )
 )";	
-  mysql_query($crea_tabla2);
+  mysqli_query($db_con, $crea_tabla2);
  
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
@@ -94,11 +94,11 @@ INDEX (  `claveal` )
 <tbody>
 <?
 // Evaluaciones ESO
-$nivele = mysql_query("select * from cursos");
-while ($orden_nivel = mysql_fetch_array($nivele)){
+$nivele = mysqli_query($db_con, "select * from cursos");
+while ($orden_nivel = mysqli_fetch_array($nivele)){
 	
-$niv = mysql_query("select distinct curso from alma where curso = '$orden_nivel[1]' and curso not like '1%'");
-while ($ni = mysql_fetch_array($niv)) {
+$niv = mysqli_query($db_con, "select distinct curso from alma where curso = '$orden_nivel[1]' and curso not like '1%'");
+while ($ni = mysqli_fetch_array($niv)) {
 	$n_grupo+=1;
 	$curso = $ni[0];
 	$rep = ""; 
@@ -106,14 +106,14 @@ while ($ni = mysql_fetch_array($niv)) {
 $notas1 = "select notas". $key .", claveal1, matriculas, unidad, curso, alma.claveal from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso' and alma.claveal in (select distinct claveal from pendientes) and curso not like '1%'";
 //echo $notas1."<br>";
 
-$result1 = mysql_query($notas1);
+$result1 = mysqli_query($db_con, $notas1);
 if (!($result1)) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';
 }
-while($row1 = mysql_fetch_array($result1)){
+while($row1 = mysqli_fetch_array($result1)){
 $asignatura1 = substr($row1[0], 0, strlen($row1[0])-1);
 $claveal = $row1[1];
 $claveal2 = $row1[5];
@@ -135,70 +135,70 @@ $al_pend = "";
   {
 $bloque = explode(":", $trozos1[$i]);
 
-$asig_pend = mysql_query("select codigo from pendientes where claveal = '" . $claveal2 . "' and codigo = '" . $bloque[0] . "'");
-$asig_pendi = mysql_fetch_array($asig_pend);
+$asig_pend = mysqli_query($db_con, "select codigo from pendientes where claveal = '" . $claveal2 . "' and codigo = '" . $bloque[0] . "'");
+$asig_pendi = mysqli_fetch_array($asig_pend);
 $cod_pend = $asig_pendi[0];
 
 if (strlen($cod_pend)>1) {
-$control_pend = mysql_query("select abrev from asignaturas where codigo = '$cod_pend' and abrev like '%\_%'");
-$control_pendiente = mysql_fetch_array($control_pend);
+$control_pend = mysqli_query($db_con, "select abrev from asignaturas where codigo = '$cod_pend' and abrev like '%\_%'");
+$control_pendiente = mysqli_fetch_array($control_pend);
 $control_pd = "_".substr($curso,0,1);
 if (strstr($control_pendiente[0],"_")==TRUE and strstr($control_pendiente[0],$control_pd)==FALSE) {
 $al_pend = 1;
 $nombreasig = "select nombre from calificaciones where codigo = '" . $bloque[1] . "'";
 //echo "$nombreasig<br>";
-$asig = mysql_query($nombreasig);
-$cali = mysql_fetch_row($asig);	
+$asig = mysqli_query($db_con, $nombreasig);
+$cali = mysqli_fetch_row($asig);	
 	if($cali[0] < '5' and !($cali[0] == ''))	{		
 	$susp+=1; 
 	}	
-	mysql_query("insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
+	mysqli_query($db_con, "insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
 }
 }
   }
 //echo "$claveal2 $grupo $susp <br>";
 if ($al_pend==1) {
 $suspensos = "insert into suspensos  (`claveal` ,`suspensos` ,`pil` ,`grupo`,`nivel`) VALUES ('$claveal',  '$susp',  '$pil', '$grupo', '$curso')";
-mysql_query($suspensos);	
+mysqli_query($db_con, $suspensos);	
 }
 //echo $suspensos."<br>";
 }
 
 // Calculamos
-$cer = mysql_query("select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos = '0'");
+$cer = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos = '0'");
 $cero = '';
-$cero=mysql_num_rows($cer);
+$cero=mysqli_num_rows($cer);
 
-$uno_do = mysql_query("select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '0' and suspensos < '3'");
+$uno_do = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '0' and suspensos < '3'");
 $uno_dos='';
-$uno_dos=mysql_num_rows($uno_do);
+$uno_dos=mysqli_num_rows($uno_do);
 
-$tres_cinc = mysql_query("select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '2' and suspensos < '6'");
+$tres_cinc = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '2' and suspensos < '6'");
 $tres_cinco='';
-$tres_cinco=mysql_num_rows($tres_cinc);
+$tres_cinco=mysqli_num_rows($tres_cinc);
 
-$seis_och = mysql_query("select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '5' and suspensos < '9'");
+$seis_och = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '5' and suspensos < '9'");
 $seis_ocho='';
-$seis_ocho=mysql_num_rows($seis_och);
+$seis_ocho=mysqli_num_rows($seis_och);
 
-$nuev = mysql_query("select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '8'");
+$nuev = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '8'");
 $nueve='';
-$nueve=mysql_num_rows($nuev);
+$nueve=mysqli_num_rows($nuev);
 
-//$tota = mysql_query("select distinct notas.claveal from notas, alma where alma.claveal1 = notas.claveal and nivel = '$curso'");
-$tota = mysql_query("select distinct claveal from suspensos where nivel = '$curso'");
+//$tota = mysqli_query($db_con, "select distinct notas.claveal from notas, alma where alma.claveal1 = notas.claveal and nivel = '$curso'");
+$tota = mysqli_query($db_con, "select distinct claveal from suspensos where nivel = '$curso'");
 $total='';
-$total=mysql_num_rows($tota);
+$total=mysqli_num_rows($tota);
 
 // Promocion
 	$extra1 = " and suspensos = '0'";
-	$prom1 = mysql_query("select distinct claveal, grupo from suspensos where nivel = '$curso'  $extra1");
-	$promo1=mysql_num_rows($prom1);
+	$prom1 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso'  $extra1");
+	$promo1=mysqli_num_rows($prom1);
 	if ($promo1==0) { $promo1=""; }
 
-$n_pil = mysql_query("select distinct claveal, grupo from suspensos where nivel = '$curso' and pil = '1'");
+$n_pil = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and pil = '1'");
 $num_pil='';
-$num_pil=mysql_num_rows($n_pil);
+$num_pil=mysqli_num_rows($n_pil);
 
 $porcient = (($promo1)*100)/$total;
 $porciento='';
@@ -232,8 +232,8 @@ else{
 <!--  Estadísticas por asignatura -->
 <h3>Resultados de las Materias por Nivel</h3><br />
 <?
-$nivele = mysql_query("select * from cursos where nomcurso not like '1%'");
-while ($orden_nivel = mysql_fetch_array($nivele)){
+$nivele = mysqli_query($db_con, "select * from cursos where nomcurso not like '1%'");
+while ($orden_nivel = mysqli_fetch_array($nivele)){
 	?>
 	<legend><? echo $orden_nivel[1]; ?></legend>
 <table class="table table-striped table-bordered"  align="center" style="width:700px;" valign="top">
@@ -245,24 +245,24 @@ while ($orden_nivel = mysql_fetch_array($nivele)){
 </thead>
 <tbody>	
 	<?
-$as = mysql_query("select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev like '%\_%'");
+$as = mysqli_query($db_con, "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev like '%\_%'");
 // echo "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%'";
-while ($asi = mysql_fetch_array($as)) {
-	$n_c = mysql_query("select distinct nivel from alma where curso = '$orden_nivel[1]'");
+while ($asi = mysqli_fetch_array($as)) {
+	$n_c = mysqli_query($db_con, "select distinct nivel from alma where curso = '$orden_nivel[1]'");
 	//echo "select distinct nivel from alma where curso = '$orden_nivel[1]'";
-	$niv_cur = mysql_fetch_array($n_c);
+	$niv_cur = mysqli_fetch_array($n_c);
 	$nomasi2 = $asi[0];
 	$codasi2 = $asi[1];
-	$cod_nota2 = mysql_query("select id from temp, alma where asignatura = '$codasi2' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[1]'");
+	$cod_nota2 = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi2' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[1]'");
 	
 	//echo "select id from temp where asignatura = '$codasi'<br>";
 	$num_susp2='';
-	$num_susp2 = mysql_num_rows($cod_nota2);
+	$num_susp2 = mysqli_num_rows($cod_nota2);
 
-	$combas2 = mysql_query("select claveal from alma where combasi like '%$codasi2%' and nivel like '$niv_cur[0]%' and curso = '$orden_nivel[1]'");
+	$combas2 = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi2%' and nivel like '$niv_cur[0]%' and curso = '$orden_nivel[1]'");
 	//echo "select claveal from alma where combasi like '%$codasi2%'  and nivel like '$niv_cur[0]%' and curso = '$orden_nivel[1]'<br>";
 	$num_matr2='';
-	$num_matr2 = mysql_num_rows($combas2);
+	$num_matr2 = mysqli_num_rows($combas2);
 	
 	$porcient_asig2 = ($num_susp2*100)/$num_matr2;
 	$porciento_asig2='';
@@ -300,10 +300,10 @@ else{
 <br />
 </div>
 <?
-mysql_query("drop table suspensos");
-mysql_query("drop table temp");
+mysqli_query($db_con, "drop table suspensos");
+mysqli_query($db_con, "drop table temp");
 }
-mysql_close();
+mysqli_close();
 ?>
 </div>
 </div>

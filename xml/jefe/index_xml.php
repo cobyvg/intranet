@@ -34,8 +34,8 @@ include("../../menu.php");
 		<h2>Administración <small>Importación de datos del centro</small></h2>
 	</div>
 	
-	<?php $result = mysql_query("SELECT * FROM cursos LIMIT 1"); ?>
-	<?php if(mysql_num_rows($result) && !isset($_FILES['ExpGenHor'])): ?>
+	<?php $result = mysqli_query($db_con, "SELECT * FROM cursos LIMIT 1"); ?>
+	<?php if(mysqli_num_rows($result) && !isset($_FILES['ExpGenHor'])): ?>
 	<div class="alert alert-warning">
 		Ya existe información relativa a este curso escolar. Este proceso sustituirá parte de la información almacenada. Los cambios realizados manualmente en las dependencias y departamentos no se verán afectadas. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
 	</div>
