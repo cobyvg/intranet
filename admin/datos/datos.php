@@ -174,7 +174,7 @@ if ($row = mysql_fetch_array($result))
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';
 		}
-		echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' data-toggle='tooltip' title='Ver detalles'></i> ";
+		echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' rel='Tooltip' title='Ver detalles'></i> ";
 		echo '</a></td></tr>';
 	} while($row = mysql_fetch_array($result));
 	echo "</tbody></table>\n";
@@ -208,7 +208,7 @@ if ($_GET['seleccionado']=='1'){
 		$unidad=$tut[0];
 		echo "&nbsp;<a class='btn btn-primary' href='../jefatura/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad'>Acción de Tutoría</a>";
 			if ($s_control=='1') {
-			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-toggle='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
+			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  rel='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
 		}
 
 	}
@@ -229,7 +229,7 @@ if ($_GET['seleccionado']=='1'){
 		if ($unidad==$unidad_tutor) {
 			echo "&nbsp;<a class='btn btn-primary' href='../tutoria/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad&tutor=$tutor'>Acción de Tutoría</a>";
 		if ($s_control=='1') {
-			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-toggle='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
+			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  rel='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
 		}
 		}
 	}

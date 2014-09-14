@@ -37,8 +37,8 @@ if (mysql_num_rows($si) > 0)
 	echo "<p>$fechac[2]-$fechac[1]-$fechac[0]. 
 	<a class='alert-link' data-toggle='modal' href='#infotut$n_infotut' > $row1[2] $row1[1]</a> -- $curso $row[6]  
 	<span class='pull-right'>
-	<a href='./admin/infotutoria/infocompleto.php?id=$row1[0]' class='alert-link' data-toggle='tooltip' title='Ver informe'><span class='fa fa-search fa-fw fa-lg'></span></a>
-	<a href='./admin/infotutoria/informar.php?id=$row1[0]' class='alert-link' data-toggle='tooltip' title='Rellenar'><span class='fa fa-pencil fa-fw fa-lg'></span></a>
+	<a href='./admin/infotutoria/infocompleto.php?id=$row1[0]' class='alert-link' rel='tooltip' title='Ver informe'><span class='fa fa-search fa-fw fa-lg'></span></a>
+	<a href='./admin/infotutoria/informar.php?id=$row1[0]' class='alert-link' rel='tooltip' title='Rellenar'><span class='fa fa-pencil fa-fw fa-lg'></span></a>
 	</span>
 	</p>";
 	?>

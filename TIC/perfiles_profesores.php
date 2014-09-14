@@ -52,7 +52,7 @@ include("menu.php");
 								<td><?php echo $row['usuario']; ?></td>
 								<td><?php echo $row['usuario']; ?></td>
 								<td>
-									<a href="http://c0/gesuser/" target="_blank"><span class="fa fa-key fa-fw fa-lg" data-toggle="tooltip" title="Cambiar contraseña"></span></a>
+									<a href="http://c0/gesuser/" target="_blank"><span class="fa fa-key fa-fw fa-lg" rel="tooltip" title="Cambiar contraseña"></span></a>
 								</td>
 							</tr>
 							<?php endwhile; ?>

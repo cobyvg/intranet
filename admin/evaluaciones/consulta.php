@@ -154,7 +154,7 @@ include("menu.php");
 							<th>Alumno/a</th>
 							<?php $result = mysql_query("SELECT DISTINCT a_asig, asig FROM horw WHERE a_grupo='$curso' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY asig ASC") or die (mysql_error()); ?>
 							<?php while ($row = mysql_fetch_array($result)): ?>
-							<th><abbr data-toggle="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr></th>
+							<th><abbr rel="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr></th>
 							<?php endwhile; ?>
 						</tr>
 					</thead>
@@ -172,7 +172,7 @@ include("menu.php");
 							<?php $row2 = mysql_fetch_array($result2); ?>
 							<?php $calificaciones = unserialize($row2['calificaciones']); ?>
 							<td>
-								<?php echo ($calificaciones[$i]['obs'] != "") ? '<span class="pull-right fa fa-question-circle" data-toggle="tooltip" title="'.$calificaciones[$i]['obs'].'"></span>' : ''; ?>
+								<?php echo ($calificaciones[$i]['obs'] != "") ? '<span class="pull-right fa fa-question-circle" rel="tooltip" title="'.$calificaciones[$i]['obs'].'"></span>' : ''; ?>
 								<?php echo ($calificaciones[$i]['nota'] > 5) ? '<span class="text-success">'.$calificaciones[$i]['nota'].'</span>' : '<span class="text-danger">'.$calificaciones[$i]['nota'].'</span>'; ?>
 							</td>
 							<?php else: ?>

@@ -12,8 +12,6 @@
     				<a href="http://<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
     				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
     				<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
-    				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-    				<a href="https://github.com/IESMonterroso/intranet/issues" target="_blank">Reporte de errores</a>
     			</small>
     		</p>
     	</div>
@@ -56,9 +54,7 @@
 		</script>
 	
 		<script type="text/javascript">
-			$("[data-toggle=tooltip]").tooltip({
-				container: 'body',
-			});
+			$("[rel=tooltip]").tooltip();
 		</script>
 	
 		<script>

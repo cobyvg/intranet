@@ -97,15 +97,15 @@ include("menu.php");
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['timestamp'])); ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['contact']; ?></a></td>
 										<td class="text-center">
-											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-toggle="tooltip" title="<?php echo (strstr($row['pagina'],'1')==TRUE) ? 'Publicada en la intranet' : 'No publicada en la intranet'; ?>"></span>
+											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" rel="tooltip" title="<?php echo (strstr($row['pagina'],'1')==TRUE) ? 'Publicada en la intranet' : 'No publicada en la intranet'; ?>"></span>
 										</td>
 										<td class="text-center">
-											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-toggle="tooltip" title="<?php echo (strstr($row['pagina'],'2')==TRUE) ? 'Publicada en la página externa' : 'No publicada en la página externa'; ?>"></span>
+											<span class="fa <?php echo (strstr($row['pagina'],'2')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" rel="tooltip" title="<?php echo (strstr($row['pagina'],'2')==TRUE) ? 'Publicada en la página externa' : 'No publicada en la página externa'; ?>"></span>
 										</td>
 										<td nowrap>
 											<?php if(stristr($_SESSION['cargo'],'1') == TRUE || $_SESSION['profi'] == $row['contact']): ?>
-											<a href="redactar.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" data-toggle="tooltip" title="Editar"></span></a>
-											<a href="index.php?id=<?php echo $row['id']; ?>&borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" data-toggle="tooltip" title="Eliminar"></span></a>
+											<a href="redactar.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" rel="tooltip" title="Editar"></span></a>
+											<a href="index.php?id=<?php echo $row['id']; ?>&borrar=1" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Eliminar"></span></a>
 											<?php endif; ?>
 										</td>
 									</tr>

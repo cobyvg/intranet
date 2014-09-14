@@ -79,7 +79,7 @@ echo "<thead><th style='vertical-align:bottom;background-color:#fff'>NC</th><th 
 <div class='Rotate-90'><span class='text-info text-lowercase'>$col20[1]</span> </div>
 </div> </th>";
 				
-	// echo "<th><a href='#' data-toggle='tooltip' title='$col20[1]'>$ident</a></th>";
+	// echo "<th><a href='#' rel='Tooltip' title='$col20[1]'>$ident</a></th>";
 	}
 	//echo "<th style='vertical-align:bottom;background-color:#eec'>M. Aritm&eacute;tica</th></thead><tbody>";
 	echo "<th nowrap style='background-color:#fff'>

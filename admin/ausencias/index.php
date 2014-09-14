@@ -184,7 +184,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 				</div>
 				
 				<div class="form-group">
-					<label for="horas">Horas sueltas <span class="fa fa-question-circle fa-fw" data-toggle="tooltip" title="Escribe las horas concretas en las que vas a estar ausente y una detrás de otra. De este modo, si escribes '456' quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día."></span></label>
+					<label for="horas">Horas sueltas <span class="fa fa-question-circle fa-fw" rel="tooltip" title="Escribe las horas concretas en las que vas a estar ausente y una detrás de otra. De este modo, si escribes '456' quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día."></span></label>
 					<input type="text" class="form-control" id="horas" name="horas" value="<? echo (isset($horas) && $horas) ? $horas : ''; ?>">
 				</div>
 				
@@ -278,7 +278,7 @@ if ($profesor) {
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
-									<span class="fa fa-trash-o fa-fw fa-lg" data-toggle="tooltip" title="Borrar"></span>
+									<span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar"></span>
 								</a>
 							</td>
 							<?php endif; ?>
@@ -327,7 +327,7 @@ if ($profesor) {
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
-									<span class="fa fa-trash-o fa-fw fa-lg" data-toggle="tooltip" title="Borrar"></span>
+									<span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar"></span>
 								</a>
 							</td>
 							<?php endif; ?>
@@ -376,7 +376,7 @@ if ($profesor) {
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
-									<span class="fa fa-trash-o fa-fw fa-lg" data-toggle="tooltip" title="Borrar"></span>
+									<span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar"></span>
 								</a>
 							</td>
 							<?php endif; ?>

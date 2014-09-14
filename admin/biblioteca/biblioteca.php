@@ -170,7 +170,7 @@ while($row = mysql_fetch_array($result))
 				}
 				// echo $dospuntos;
 				$limpia = explode(":",$row[3]);
-printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo=$titulo0&editorial=$editorial' data-toggle='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a></td></tr>", $row[1], $row[2], $row[3]);
+printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo=$titulo0&editorial=$editorial' rel='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a></td></tr>", $row[1], $row[2], $row[3]);
         }
             echo "</table>";
         }

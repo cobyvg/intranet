@@ -57,7 +57,7 @@ if ($row)
 if (!($j_s=='disabled')) {
 ?>
 <a href="pdf.php?id=<? echo $id; ?>&imprimir=1"  style="margin-right:20px;" class="btn btn-primary pull-right no_imprimir"> 
-<i class="fa fa-print " data-toggle="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i> Imprimir PDF</a>
+<i class="fa fa-print " rel="Tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i> Imprimir PDF</a>
 <?
 }
 ?>

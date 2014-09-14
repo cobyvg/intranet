@@ -100,7 +100,7 @@ $tipo = $ident0[5];
 		<div class="checkbox">
 			<label for="cmp_visible_nota">
 			<input type="checkbox" id="cmp_visible_nota" name="visible_nota" value="1" <?php if($visible_nota) echo 'checked'; ?>>
-			Visible en la página externa <strong data-toggle="tooltip" title="Si está marcada, permite a los padres y alumnos ver la nota de la actividad o examen en la página externa">(?)</strong></label>
+			Visible en la página externa <strong rel="tooltip" title="Si está marcada, permite a los padres y alumnos ver la nota de la actividad o examen en la página externa">(?)</strong></label>
 		</div>
 		<hr />
 		<div class="form-group">

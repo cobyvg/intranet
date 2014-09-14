@@ -116,8 +116,8 @@ if(isset($_GET['clave'])){$clave = $_GET['clave'];}else{$clave="";}
 		<td >$caducada</td>
 		<td  nowrap>$comentarios1 $comentarios</td>
 		<td  nowrap>"; 
-		echo "<a href='detfechorias.php?id=$id&claveal=$claveal' data-toggle='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a>";
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' data-toggle='tooltip' title='Eliminar' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg'></span></a></div>";}	
+		echo "<a href='detfechorias.php?id=$id&claveal=$claveal' rel='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a>";
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='delfechorias.php?id= $row[9]' rel='tooltip' title='Eliminar' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg'></span></a></div>";}	
 		echo "</td>";
 		echo "</tr>";
         }

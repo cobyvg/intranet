@@ -84,19 +84,19 @@ include ("../menu.php");
 		$head = '<thead>
 			<tr>
 				<th>Profesor</th>
-				<th><span data-toggle="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
-				<th><span data-toggle="tooltip" title="Tutores de Grupo de todos los niveles">Tutor</span></th>
-				<th><span data-toggle="tooltip" title="Tutores de faltas de asistencia. Estos tutores se encargan de pasar a la Intranet las faltas que los profesores registran en su parte personal (Administracción de la Intranet --> Faltas de Asistencia -> Horario de faltas para profesores), que entregan los viernes en Jefatura o Conserjería. ">Faltas</span></th>
-				<th><span data-toggle="tooltip" title="Jefes de los distintos Departamentos que el IES ha seleccionado.">JD</span></th>
-				<th><span data-toggle="tooltip" title="Miembros del Equipo Técnico de Coordinación Pedadgógica">ETCP</span></th>
-				<th><span data-toggle="tooltip" title="Miembro del departamento de Actividades Complementarias y Extraescolares.">DACE</span></th>
-				<th><span data-toggle="tooltip" title="Miembros del personal de Administracción y Servicios: Conserjes.">Conserje</span></th>
-				<th><span data-toggle="tooltip" title="Miembros del personal de Administracción y Servicios: Administrativos">Administ.</span></th>
-				<th><span data-toggle="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientación, incluídos ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>';
-		if($mod_bilingue) $head .= '<th><span data-toggle="tooltip" title="Profesores que participan en el Plan de Bilinguismo">Bilingüe</span></th>';
-		$head .= '<th><span data-toggle="tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conv.</span></th>';
-		if($mod_biblio) $head .= '<th><span data-toggle="tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>';
-		$head .= '<th><span data-toggle="tooltip" title="Profesor encargado de las Relaciones de Género">Género</span></th>
+				<th><span rel="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
+				<th><span rel="tooltip" title="Tutores de Grupo de todos los niveles">Tutor</span></th>
+				<th><span rel="tooltip" title="Tutores de faltas de asistencia. Estos tutores se encargan de pasar a la Intranet las faltas que los profesores registran en su parte personal (Administracción de la Intranet --> Faltas de Asistencia -> Horario de faltas para profesores), que entregan los viernes en Jefatura o Conserjería. ">Faltas</span></th>
+				<th><span rel="tooltip" title="Jefes de los distintos Departamentos que el IES ha seleccionado.">JD</span></th>
+				<th><span rel="tooltip" title="Miembros del Equipo Técnico de Coordinación Pedadgógica">ETCP</span></th>
+				<th><span rel="tooltip" title="Miembro del departamento de Actividades Complementarias y Extraescolares.">DACE</span></th>
+				<th><span rel="tooltip" title="Miembros del personal de Administracción y Servicios: Conserjes.">Conserje</span></th>
+				<th><span rel="tooltip" title="Miembros del personal de Administracción y Servicios: Administrativos">Administ.</span></th>
+				<th><span rel="tooltip" title="Todos los profesores que pertenecen al Equipo de Orientación, incluídos ATAL, Apoyo, PCPI, etc.">Orienta.</span></th>';
+		if($mod_bilingue) $head .= '<th><span rel="tooltip" title="Profesores que participan en el Plan de Bilinguismo">Bilingüe</span></th>';
+		$head .= '<th><span rel="tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conv.</span></th>';
+		if($mod_biblio) $head .= '<th><span rel="tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>';
+		$head .= '<th><span rel="tooltip" title="Profesor encargado de las Relaciones de Género">Género</span></th>
 				<th>&nbsp;</th>
 			</tr>
 			</thead>';

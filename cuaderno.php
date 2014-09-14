@@ -338,13 +338,13 @@ input[type=number]::-webkit-inner-spin-button {
 }
 </style>
 <?
-$tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1[0]' data-toggle='tooltip' title='$dato1[0]' style='max-width:40px;color:$color;height:30px;background-color:#de9'>";
+$tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1[0]' rel='Tooltip' title='$dato1[0]' style='max-width:40px;color:$color;height:30px;background-color:#de9'>";
 				}
 				elseif (stristr($t_dato,"Texto corto")==TRUE) {
-					$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' data-toggle='tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:30px;maxlength:3;max-width:40px;background-color:#adc'>";
+					$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' rel='Tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:30px;maxlength:3;max-width:40px;background-color:#adc'>";
 				}
 				else{
-					$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' data-toggle='tooltip' title='$dato1[0]' style='height:30px;maxlength:35;background-color:#dbf;max-width:90px;'>";
+					$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' rel='Tooltip' title='$dato1[0]' style='height:30px;maxlength:35;background-color:#dbf;max-width:90px;'>";
 				}
 
 				echo "<td style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;'>$tipo_dato</td>";
@@ -461,10 +461,10 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 
 		echo '<ul class="no_imprimir list-unstyled" style="line-height:32px">';
 		$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1&nom_asig=$nom_asig";
-		echo '<li><i class="fa fa-user fa-lg no_imprimir" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." data-toggle="tooltip"></i> &nbsp;<a href="'.$mens1.'">Seleccionar alumnos</a></li>';
-		echo '<li><i class="fa fa-print fa-lg no_imprimir"  data-toggle="tooltip" title="Imprimir la tabla de alumnos con los datos registrados" onclick="print()"';
+		echo '<li><i class="fa fa-user fa-lg no_imprimir" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." rel="Tooltip"></i> &nbsp;<a href="'.$mens1.'">Seleccionar alumnos</a></li>';
+		echo '<li><i class="fa fa-print fa-lg no_imprimir"  rel="Tooltip" title="Imprimir la tabla de alumnos con los datos registrados" onclick="print()"';
 		echo '\'" style="cursor: pointer;"> </i> <a onclick="print()" style="cursor: pointer;">Imprimir tabla</a></li>';
-		echo '<li><i class="fa fa-plus-circle fa-lg no_imprimir" data-toggle="tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';
+		echo '<li><i class="fa fa-plus-circle fa-lg no_imprimir" rel="Tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';
 		echo $mens2;
 		echo '\'" style="cursor: pointer;"> </i> <a href="'.$mens2.'">Nueva columna de datos</a></li>';
 		echo '';
@@ -525,7 +525,7 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 					$pon0=mysql_fetch_array($pon);
 					$pond= $pon0[0];
 					$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curso&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
-					$colum1[4] ? $icon_eye = '<i class="fa fa-eye" data-toggle="tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" data-toggle="tooltip" title="Columna oculta en la página pública del Centro"></i>';
+					$colum1[4] ? $icon_eye = '<i class="fa fa-eye" rel="Tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" rel="Tooltip" title="Columna oculta en la página pública del Centro"></i>';
 					echo "<tr><td nowrap style='vertical-align:middle;'>$n_col &nbsp;&nbsp;$icon_eye </td><td style='vertical-align:middle;'><a href='$mens0'>$nombre</a></td>";
 					echo "<td>";
 					?> 
@@ -534,7 +534,7 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 			name="<? echo $id;?>"
 			value="<? if(mysql_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>">
 			<?
-	  if ($pon0[0] > "1" ) {echo "<span align='center' class='text-muted' data-toggle='tooltip' title='Ponderación de la columna'> ($pond)</span>"; }
+	  if ($pon0[0] > "1" ) {echo "<span align='center' class='text-muted' Rel='Tooltip' title='Ponderación de la columna'> ($pond)</span>"; }
 	  echo "</div></td></tr>";
 				}
 				echo "</table>";

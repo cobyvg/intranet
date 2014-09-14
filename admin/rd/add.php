@@ -282,23 +282,23 @@ if (mysql_num_rows($result) > 0)
 	      <td nowrap><? echo $row->numero; ?></td> 
 				<td nowrap><? echo fecha_sin($row->fecha); ?></td>        
 	       <td nowrap>
-	       	<a href="story.php?id=<? echo $row->id; ?>"><span class="fa fa-search fa-fw fa-lg" data-toggle="tooltip" title='Ver'></span></a> 
+	       	<a href="story.php?id=<? echo $row->id; ?>"><span class="fa fa-search fa-fw fa-lg" rel="tooltip" title='Ver'></span></a> 
 					<? 
 					if($row->impreso<>1){
 					if ($j_s == 'disabled') {} else {
 					?>
-					<a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"><span class="fa fa-print fa-fw fa-lg" data-toggle="tooltip" title='Imprimir'> </span></a>
-					<a href="add.php?borrar=1&id=<? echo $row->id; ?>" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" data-toggle="tooltip" title="Borrar el Acta"></span></a> <a href="add.php?edicion=1&id=<? echo $row->id; ?>"><span class="fa fa-pencil fa-fw fa-lg" data-toggle="tooltip" title="Editar"></span></a> 
+					<a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"><span class="fa fa-print fa-fw fa-lg" rel="tooltip" title='Imprimir'> </span></a>
+					<a href="add.php?borrar=1&id=<? echo $row->id; ?>" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg" rel="tooltip" title="Borrar el Acta"></span></a> <a href="add.php?edicion=1&id=<? echo $row->id; ?>"><span class="fa fa-pencil fa-fw fa-lg" rel="tooltip" title="Editar"></span></a> 
 					<?
 					}
 					}
 					else{
 					?>
-					<a href="#"><span class="fa fa-check fa-fw fa-lg" data-toggle="tooltip" title="El acta ha sido impresa"></span></a> 
+					<a href="#"><span class="fa fa-check fa-fw fa-lg" rel="tooltip" title="El acta ha sido impresa"></span></a> 
 					<?
 					if ($j_s == 'disabled') {} else {
 					?>
-					<a href="pdf.php?id=<? echo $row->id; ?>"><span class="fa fa-print fa-fw fa-lg" data-toggle="tooltip" title="Imprimir"></span></a>
+					<a href="pdf.php?id=<? echo $row->id; ?>"><span class="fa fa-print fa-fw fa-lg" rel="tooltip" title="Imprimir"></span></a>
 					<?
 					}
 					}
