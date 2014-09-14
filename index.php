@@ -36,36 +36,6 @@ else{
 	}
 }
 
-// MIGRACION DE MYSQL A MYSQLI
-// Si no se ha realizado la migración reescribimos el archivo de configuración.
-// Esta acción solo se realiza una vez. Se puede eliminar en la próxima versión.
-$nconf = file('config.php');
-
-if (strstr($nconf[78], 'mysql_connect') == true) {
-	$nconf[78] = '$db_con = mysqli_connect($db_host, $db_user, $db_pass);' . PHP_EOL;
-	$nconf[79] = 'mysqli_select_db($db_con, $db);' . PHP_EOL;
-	$nconf[83] = '$db_con = mysqli_connect($host, $user, $pass);' . PHP_EOL;
-	$nconf[84] = 'mysqli_select_db($db_con, $base);' . PHP_EOL;
-	$nconf[86] = 'mysqli_query($db_con, "INSERT INTO reg_paginas (id_reg,pagina) VALUES (\'$id_reg\',\'$pagina\')");' . PHP_EOL;
-	
-	$handle = @fopen("config.php", "w+");
-	
-	if ($handle) {
-		foreach ($nconf as $linea) {
-			fwrite($handle, $linea);
-		}
-		
-		fclose($handle);
-	}
-	
-	// Eliminamos variables
-	unset($linea);
-	unset($handle);
-	
-}
-unset($nconf);
-// FIN MIGRACION DE MYSQL A MYSQLI
-
 // Archivo de configuración cargado
 include_once("config.php");
 
