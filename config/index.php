@@ -34,7 +34,7 @@ function registraPagina($pagina,$host,$user,$pass,$base)
 $db_con = mysqli_connect($host, $user, $pass);
 mysqli_select_db($db_con, $base);
 $id_reg = $_SESSION[\'id_pag\'];
-mysqli_query($db_con, "insert into reg_paginas (id_reg,pagina) values (\'$id_reg\',\'$pagina\')");	
+mysqli_query($db_con, "INSERT INTO reg_paginas (id_reg,pagina) VALUES (\'$id_reg\',\'$pagina\')");	
 }
 ';
 $f1=fopen("../config.php","w+");

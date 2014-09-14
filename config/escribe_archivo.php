@@ -39,6 +39,7 @@
 		if($_POST['mod_biblio']){fwrite($f1,"$"."mod_biblio='1';\r\n");}
 		else{fwrite($f1,"$"."mod_biblio='0';\r\n");}
 		if($_POST['p_biblio']){fwrite($f1,"$"."p_biblio='".$_POST['p_biblio']."';\r\n");}
+		else{fwrite($f1,"$"."p_biblio='';\r\n");}
 		if($_POST['mod_eval']){fwrite($f1,"$"."mod_eval='1';\r\n");}
 		else{fwrite($f1,"$"."mod_eval='0';\r\n");}
 		if($_POST['mod_matriculas']){fwrite($f1,"$"."mod_matriculas='1';\r\n");}
