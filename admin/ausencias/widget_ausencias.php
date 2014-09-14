@@ -15,9 +15,9 @@
 		
 		<a class="list-group-item" href="admin/ausencias/baja.php?profe_baja=<?php echo $row['profesor']; ?>&id=<?php echo $row['id']; ?>">
 			<?php if (strlen($row['tareas']) > 1): ?>
-			<span class="pull-right fa fa-check-square-o fa-fw fa-lg" rel="tooltip" title="Hay tareas para los alumnos"></span>
+			<span class="pull-right fa fa-check-square-o fa-fw fa-lg" data-toggle="tooltip" title="Hay tareas para los alumnos"></span>
 			<?php else: ?>
-			<span class="pull-right fa fa-square-o fa-fw fa-lg" rel="tooltip" title="No hay tareas para los alumnos"></span>
+			<span class="pull-right fa fa-square-o fa-fw fa-lg" data-toggle="tooltip" title="No hay tareas para los alumnos"></span>
 			<?php endif; ?>
 			<?php echo $profesor; ?>
 		</a>
@@ -35,7 +35,7 @@
 	
 	<div class="list-group">
 		<a class="list-group-item" href="#">
-			<span class="pull-right fa fa-check-square-o fa-fw fa-lg" rel="tooltip" title="Hay tareas para los alumnos"></span>
+			<span class="pull-right fa fa-check-square-o fa-fw fa-lg" data-toggle="tooltip" title="Hay tareas para los alumnos"></span>
 			Juan Pérez
 		</a>
 	</div>

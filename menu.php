@@ -5,7 +5,7 @@
 <html lang="es">
 <head>
 <meta charset="iso-8859-1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
@@ -86,7 +86,7 @@
 	<li class="visible-xs"><a
 		href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6">Consejería</a></li>
 	<li class="dropdown hidden-xs" id="bs-tour-consejeria"><a href="#" class="dropdown-toggle"
-		data-toggle="dropdown" rel="tooltip" title="<?php echo $rss->channel['title']; ?>" data-placement="bottom" data-container="body"> <span class="fa fa-rss fa-fw"></span> <b class="caret"></b> </a>
+		data-toggle="dropdown" data-toggle="tooltip" title="<?php echo $rss->channel['title']; ?>" data-placement="bottom" data-container="body"> <span class="fa fa-rss fa-fw"></span> <b class="caret"></b> </a>
 		<ul class="dropdown-menu dropdown-feed">
 			<li class="dropdown-header"><h5><?php echo $rss->channel['title']; ?></h5></li>
 			<li class="divider"></li>
@@ -121,7 +121,7 @@ mysql_free_result($result_mensajes);
 		class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/')) ? 'active' : ''; ?>"><a
 		href="http://<? echo $dominio;?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
 	<li class="dropdown hidden-xs" id="bs-tour-mensajes"><a href="#" class="dropdown-toggle"
-		data-toggle="dropdown" rel="tooltip" title="Mensajes recibidos" data-placement="bottom" data-container="body"> <span
+		data-toggle="dropdown" data-toggle="tooltip" title="Mensajes recibidos" data-placement="bottom" data-container="body"> <span
 		class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer) ? 'text-warning"' : ''; ?>"></span>
 	<b class="caret"></b> </a>
 	<ul class="dropdown-menu dropdown-messages">

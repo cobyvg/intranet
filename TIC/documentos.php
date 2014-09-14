@@ -154,7 +154,7 @@ include("menu.php");
 								<h5 class="text-info"><strong><?php echo $manuales['titulo']; ?></strong></h5>
 								<?php echo $manuales['descripcion']; ?>
 							</td>
-							<td class="col-xs-1 text-center"><a href="<?php echo $manuales['enlace']; ?>" target="_blank"><span class="fa fa-cloud-download fa-fw fa-3x" rel="tooltip" title="Descargar"></span></a></td>
+							<td class="col-xs-1 text-center"><a href="<?php echo $manuales['enlace']; ?>" target="_blank"><span class="fa fa-cloud-download fa-fw fa-3x" data-toggle="tooltip" title="Descargar"></span></a></td>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>

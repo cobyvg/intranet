@@ -80,7 +80,7 @@ $fecha = $_POST['fecha'];
 		<td style="text-align: left" nowrap>
 		<?
 		if ($list[7] == "SI") {
-			echo '<span class="fa fa-comment fa-fw fa-lg" rel="tooltip" title="Se ha enviado SMS de advertencia"></span>';
+			echo '<span class="fa fa-comment fa-fw fa-lg" data-toggle="tooltip" title="Se ha enviado SMS de advertencia"></span>';
 		}
 		?>
 		</td>

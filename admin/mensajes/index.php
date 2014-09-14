@@ -122,9 +122,9 @@ include("menu.php");
             <td width="5%" nowrap>
             	<?php $num_seg = (strtotime(date('Y-m-d H:i:s')) - strtotime($row[0])) * 60; ?>
             	<?php if ($_buzon=='enviados' && $num_seg <= (60 * 60)): ?>
-            	<a href="redactar.php?id=<? echo $row[4] ;?>" rel="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
+            	<a href="redactar.php?id=<? echo $row[4] ;?>" data-toggle="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
             	<?php endif; ?>
-            	<a href="?inbox=<?php echo $_buzon; ?>&delete=<? echo $row[4] ;?>" data-bb="confirm-delete"  rel="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+            	<a href="?inbox=<?php echo $_buzon; ?>&delete=<? echo $row[4] ;?>" data-bb="confirm-delete"  data-toggle="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
             </td>
           </tr>
       	<?php endwhile; ?>

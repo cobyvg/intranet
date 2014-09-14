@@ -417,7 +417,7 @@ echo '<th class="hdden-print">SI |PIL |NO </th>';
 	$back = mysql_query("select id from matriculas_backup where id = '$id'");
 	if (mysql_num_rows($back)>0) {
 			$respaldo = '1';
-			$backup="<a href='consultas.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-refresh' rel='Tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
+			$backup="<a href='consultas.php?copia=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-refresh' data-toggle='tooltip' title='Restaurar datos originales de la matrícula del alumno '> </i></a>";
 	}
 		//echo $ruta_este;
 for ($i=1;$i<$num_opt+1;$i++)
@@ -526,9 +526,9 @@ for ($i = 0; $i < 16; $i++) {
 	}
 	//echo "$control[$i] --> ";
 }	
-		echo "<i class='$icon' rel='Tooltip' title='$text_contr'> </i>&nbsp;&nbsp;";
+		echo "<i class='$icon' data-toggle='tooltip' title='$text_contr'> </i>&nbsp;&nbsp;";
 
-	if ($observaciones) { echo "<i class='fa fa-bookmark' rel='Tooltip' title='Tiene observaciones en la matrícula' > </i>";}
+	if ($observaciones) { echo "<i class='fa fa-bookmark' data-toggle='tooltip' title='Tiene observaciones en la matrícula' > </i>";}
 	echo '</td>';
 	
 	// Promocionan o no
@@ -601,7 +601,7 @@ echo '<td class="hdden-print"><input name="revisado-'. $id .'" type="checkbox" v
  	echo $backup;
  }
  echo "</td><td class='hdden-print'>";
- echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' rel='Tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
+ echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' data-toggle='tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
  echo "</td>";
 echo "<td class='hdden-print'>";
 // Problemas de Convivencia

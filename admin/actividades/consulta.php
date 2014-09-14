@@ -163,17 +163,17 @@ $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
     <td><? echo $datos[4];?></td>
     <td nowrap><? echo $datos[7];?></td>
 	<td><? echo $mes2;?></td>
-    <td nowrap><a href="consulta.php?id=<? echo $datos[0];?>&detalles=1" rel="tooltip" title="Detalles"><span class="fa fa-search fa-fw fa-lg"></span></a>
+    <td nowrap><a href="consulta.php?id=<? echo $datos[0];?>&detalles=1" data-toggle="tooltip" title="Detalles"><span class="fa fa-search fa-fw fa-lg"></span></a>
     <?
     //echo $_SESSION['depto'] ."== $datos[4]";
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE){
-			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" rel="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>';	
-			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" rel="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
+			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" data-toggle="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>';	
+			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" data-toggle="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 }
 elseif ($_SESSION['depto'] == $datos[4]){	 
 		if(stristr($_SESSION['cargo'],'4') == TRUE){
-			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" rel="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
-			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" rel="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
+			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" data-toggle="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
+			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" data-toggle="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 	}
 }
 	?>

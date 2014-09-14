@@ -138,7 +138,7 @@ include('../../menu.php');
 					<div class="col-sm-6">
 
 						<dl class="dl-horizontal">
-						  <dt><abbr rel="tooltip" title="Número de Identificación Escolar">N.I.E.</abbr></dt>
+						  <dt><abbr data-toggle="tooltip" title="Número de Identificación Escolar">N.I.E.</abbr></dt>
 						  <dd><?php echo ($row['claveal'] != "") ? $row['claveal']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Nº Expediente</dt>
 						  <dd><?php echo ($row['numeroexpediente'] != "") ? $row['numeroexpediente']: '<span class="text-muted">Sin registrar</span>'; ?></dd>

@@ -262,10 +262,10 @@ include("menu.php");
 								<td><?php echo $row['fecha']; ?></td>
 								<td>
 									<?php if (!$row['impresion']): ?>
-									<a href="acta.php?id=<?php echo $row['id']; ?>&action=edit" rel="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
+									<a href="acta.php?id=<?php echo $row['id']; ?>&action=edit" data-toggle="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
 									<?php endif; ?>
-									<a href="imprimir.php?id=<?php echo $row['id']; ?>" rel="tooltip" title="Imprimir"><span class="fa fa-print fa-fw fa-lg"></span></a>
-									<a href="acta.php?id=<?php echo $row['id']; ?>&action=delete" rel="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+									<a href="imprimir.php?id=<?php echo $row['id']; ?>" data-toggle="tooltip" title="Imprimir"><span class="fa fa-print fa-fw fa-lg"></span></a>
+									<a href="acta.php?id=<?php echo $row['id']; ?>&action=delete" data-toggle="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 								</td>
 							</tr>
 							<?php endwhile; ?>
