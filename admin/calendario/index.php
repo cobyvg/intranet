@@ -184,15 +184,10 @@ while ($asign = mysqli_fetch_array($asig)) {
 }
 $sql_diario.=") and date(fecha) >= '$rango0' and date(fecha) <= '$rango8' and calendario = '1'  order by fecha limit 3";
 
-<<<<<<< HEAD
-$diari = mysql_query($sql_diario);
-if (mysql_num_rows ( $diari ) > 0){
-	echo "<h4><i class='fa fa-user'> </i> Calendario personal</h4>";
-=======
+
 $diari = mysqli_query($db_con, $sql_diario);
 if (mysqli_num_rows ( $diari ) > 0){
 	echo "<h4>Calendario personal</h4>";
->>>>>>> FETCH_HEAD
 	echo "<div class=\"list-group\">";
 	while ( $diar = mysqli_fetch_array ( $diari ) ) {
 		$n_reg+=1;
