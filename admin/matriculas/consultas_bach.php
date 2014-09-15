@@ -645,9 +645,9 @@ echo '</tr>';
 <input type='hidden' name='extra' value='$extra' />";
 		  // Control del envío de datos
   $mes_submit = date('m');
-  $junio = mysql_query("SELECT notas3 FROM notas WHERE notas3 !=  ''");
-  $septiembre = mysql_query("SELECT notas4 FROM notas WHERE notas4 !=  ''");
-if (($mes_submit>5 and $mes_submit<10) and (mysql_num_rows($junio)>0 or mysql_num_rows($septiembre)>0)) {
+  $junio = mysqli_query($db_con, "SELECT notas3 FROM notas WHERE notas3 !=  ''");
+  $septiembre = mysqli_query($db_con, "SELECT notas4 FROM notas WHERE notas4 !=  ''");
+if (($mes_submit>5 and $mes_submit<10) and (mysqli_num_rows($junio)>0 or mysqli_num_rows($septiembre)>0)) {
 	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion()' /><br>";
 }
 	
@@ -783,7 +783,7 @@ echo "<br>
   <?
   // Control del envío de datos
 
-  if (($mes_submit>5 and $mes_submit<9) and mysql_num_rows($junio)>0) {
+  if (($mes_submit>5 and $mes_submit<9) and mysqli_num_rows($junio)>0) {
 ?>
  <script type="text/javascript">
 function confirmacion() {
@@ -798,7 +798,7 @@ return false;
 </script>
 <?
   }
-  elseif ($mes_submit=="9" and mysql_num_rows($septiembre)>0) {
+  elseif ($mes_submit=="9" and mysqli_num_rows($septiembre)>0) {
 ?>
  <script type="text/javascript">
 function confirmacion() {

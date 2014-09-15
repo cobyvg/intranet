@@ -425,9 +425,9 @@ echo '<th class="hdden-print">SI |PIL |NO </th>';
 	}
 	
 	if ($curso=='4ESO') {
-	$back4 = mysql_query("select id from matriculas_bach_backup where claveal = '$claveal'");
-	if (mysql_num_rows($back4)>0) {
-			$id4 = mysql_fetch_array($back4);
+	$back4 = mysqli_query($db_con, "select id from matriculas_bach_backup where claveal = '$claveal'");
+	if (mysqli_num_rows($back4)>0) {
+			$id4 = mysqli_fetch_array($back4);
 			$respaldo = '1';
 			$backup="<a href='consultas_bach.php?copia=1&id=$id4[0]&id_4=$id&curso=$curso&consulta=1'><i class='fa fa-refresh text-warning' rel='Tooltip' title='Restaurar datos originales de la matrícula de Bachillerato'> </i> <span class=text-warning>(B)</span></a>";
 	}
@@ -635,9 +635,9 @@ echo "<div align='center'>
 
   // Control del envío de datos
   $mes_submit = date('m');
-  $junio = mysql_query("SELECT notas3 FROM notas WHERE notas3 !=  ''");
-  $septiembre = mysql_query("SELECT notas4 FROM notas WHERE notas4 !=  ''");
-if (($mes_submit>5 and $mes_submit<10) and (mysql_num_rows($junio)>0 or mysql_num_rows($septiembre)>0)) {
+  $junio = mysqli_query($db_con, "SELECT notas3 FROM notas WHERE notas3 !=  ''");
+  $septiembre = mysqli_query($db_con, "SELECT notas4 FROM notas WHERE notas4 !=  ''");
+if (($mes_submit>5 and $mes_submit<10) and (mysqli_num_rows($junio)>0 or mysqli_num_rows($septiembre)>0)) {
 	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion()' /><br>";
 }
 echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hdden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hdden-print' />";
@@ -828,7 +828,7 @@ echo substr($nom_a,0,-2).'</td></tr></table>';
   <?
   // Control del envío de datos
 
-  if (($mes_submit>5 and $mes_submit<9) and mysql_num_rows($junio)>0) {
+  if (($mes_submit>5 and $mes_submit<9) and mysqli_num_rows($junio)>0) {
 ?>
  <script type="text/javascript">
 function confirmacion() {
@@ -843,7 +843,7 @@ return false;
 </script>
 <?
   }
-  elseif ($mes_submit=="9" and mysql_num_rows($septiembre)>0) {
+  elseif ($mes_submit=="9" and mysqli_num_rows($septiembre)>0) {
 ?>
  <script type="text/javascript">
 function confirmacion() {

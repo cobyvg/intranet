@@ -16,14 +16,14 @@
 				if ($val=='2' or $val=='3') {
 				// Resplado de datos modificados
 				$n_promo = mysqli_query($db_con, "select promociona, repite, claveal from matriculas_bach where id = '$id_submit'");	
-				$n_prom = mysql_fetch_array($n_promo);
+				$n_prom = mysqli_fetch_array($n_promo);
 				//echo $n_prom[0];
 				if (!($n_prom[0]=='2') and !($n_prom[0]=='3') and $n_prom[1]<>1) {
 				//echo $curso;	
 				if ($curso == "2BACH") {
 					
 				$i2 = mysqli_query($db_con, "select itinierario1 from matriculas_bach where id = '$id_submit'");
-				$i1 = mysql_fetch_array($i2);
+				$i1 = mysqli_fetch_array($i2);
 				if ($i1[0]<1) {
 				// Recolocamos datos porque no promociona.						
 				mysqli_query($db_con, "insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
@@ -35,7 +35,7 @@
 				$a_bd = substr($curso_actual,0,4);
 				mysqli_query($db_con, "insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
 				$ret_4 = mysqli_query($db_con, "select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'");
-				$ret = mysql_fetch_array($ret_4);
+				$ret = mysqli_fetch_array($ret_4);
 				$sql="";				
 				$sql = "insert into matriculas VALUES (''";
 				for ($i = 1; $i < 63; $i++) {
