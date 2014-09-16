@@ -459,6 +459,12 @@ $menu = array(
 			array(
 				'href'   => 'admin/rd/index_admin.php',
 				'titulo' => 'Actas de los departamentos',
+				'cargos' => array('1'),
+			),
+			array(
+				'href'   => 'admin/rd/add.php',
+				'titulo' => 'Actas del departamento',
+				'ncargos' => array('1'),
 			),
 			array(
 				'href'   => 'admin/textos/intextos.php',
