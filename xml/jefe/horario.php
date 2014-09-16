@@ -355,7 +355,7 @@ include("../../menu.php");
 					//
 					// Creamos horw_faltas
 					//
-					mysqli_query($db_con, "trunca table horw_faltas");
+					mysqli_query($db_con, "truncate table horw_faltas");
 					mysqli_query($db_con, "insert into horw_faltas select * from horw");
 				
 					// Eliminamos residuos y cambiamos alguna cosa.
