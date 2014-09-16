@@ -352,21 +352,11 @@ include("../../menu.php");
 						mysqli_query($db_con, "update departamentos set cargo = '$cargos' where nombre = '$cargo[0]'");
 					}
 				
-					//Primera version de Profesores.
-					$pr0 = mysqli_query($db_con, "select profesor from profesores");
-					if (mysqli_num_rows($pr0)>1) {}
-					else{
-						mysqli_query($db_con, "truncate table profesores");
-						mysqli_query($db_con, "insert into profesores SELECT DISTINCT asignaturas.curso, asignaturas.nombre, a_grupo, prof FROM asignaturas, horw WHERE asignaturas.codigo = c_asig and abrev not like '%\_%'");
-						mysqli_query($db_con, "truncate table reservas.profesores");
-						mysqli_query($db_con, "insert into reservas.profesores SELECT DISTINCT alma.curso, asignaturas.nombre, a_grupo, prof FROM alma, asignaturas, horw WHERE alma.unidad = horw.a_grupo AND asignaturas.codigo = c_asig");
-					}
-				
-				
 					//
 					// Creamos horw_faltas
 					//
-					mysqli_query($db_con, "create table horw_faltas select * from horw");
+					mysqli_query($db_con, "trunca table horw_faltas");
+					mysqli_query($db_con, "insert into horw_faltas select * from horw");
 				
 					// Eliminamos residuos y cambiamos alguna cosa.
 				
