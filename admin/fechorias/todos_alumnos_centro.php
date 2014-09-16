@@ -4,7 +4,7 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h4>Atención:</h4>
-			Registrar un problema de convivencia a todos los alumnos del Centro es algo que sólo puede hacer la Jefatura de Estudios. Por lo tanto, debes consultar con Jefatura esta posibilidad si lo consideras necesario.
+			Registrar un problema de convivencia a todos los alumnos del Centro es algo que solo puede hacer la Jefatura de Estudios. Por lo tanto, debes consultar con Jefatura esta posibilidad si lo consideras necesario.
           </div></div>';
 exit();	
 }

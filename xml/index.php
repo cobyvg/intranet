@@ -73,7 +73,7 @@ include("../menu.php");
 			  <li>Los profesores. Se descarga desde Séneca --&gt; Personal --&gt; Personal del centro --&gt; Unidades y Materias  --&gt; Exportar (arriba a la izquierda) --&gt; Exportar datos al formato: Texto plano.</li>
 			  <li>Los Horarios (que generamos con Horw). Requiere el archivo con extensión XML que se genera con el programa generador de horarios para subir los datos del Horario a Séneca. Este módulo también se encarga de preparar el archivo para exportar a Séneca que crean los programas de Horarios (Horw, etc.), evitando tener que registrar manualmente los horarios de cada profesor. La adaptación que realiza este módulo es conveniente, ya que la compatibilidad con Séneca de los generadores de horarios tiene limitaciones (Código único de las asignaturas de Bachillerato, Diversificación, etc.). Es necesario tener a mano el archivo en formato XML que se exporta desde Horw o cualquier otro generador de Horarios.</li>
 			  <li>Los Departamentos. Se descarga desde Séneca --&gt; Personal --&gt; Personal del centro  --&gt; Exportar (arriba a la izquierda) --&gt; Exportar datos al formato: Texto plano.</li>
-			  <li>Los Horarios (que generamos con Horw). Sólo se genera una vez a principio de Curso. Las instrucciones de la descarga están en el formulario correspondiente, al pinchar en el enlace.</li>
+			  <li>Los Horarios (que generamos con Horw). Solo se genera una vez a principio de Curso. Las instrucciones de la descarga están en el formulario correspondiente, al pinchar en el enlace.</li>
 			 <li>La lista de alumnos pendientes permite crear una tabla con los alumnos con asignaturas pendientes de cursos anteriores, que posteriormente puede consultarse en Consultas --> Listas de alumnos. Este módulo necesita el archivo comprimido de calificaciones de la evaluación extraordinaria del curso escolar anterior. Las instrucciones vienen en la misma página.</li>
 			</ul>
 			</p>
@@ -94,7 +94,7 @@ include("../menu.php");
 			  <li>&quot;Alumnos Absentistas&quot; da entrada al módulo de Absentismo, desde el cual se registran los alumnos y permite al Tutor, Dirección y Orientación informar sobre los mismos. </li>
 			  <li>El &quot;Parte de Faltas completo&quot; genera todos los partes de aula de Faltas de Asistencia para todas las clases,  todos los días de la semana. </li>
 			  <li>El &quot;Informe de Faltas para Padres&quot; presenta las cartas que se envían a los papás con las faltas del nene,
-			    preparadas para imprimir, pero sólo en aquellos casos para los que no se envíen SMS con la siguiente opción, &quot;SMS de Faltas para Padres&quot;. </li>
+			    preparadas para imprimir, pero solo en aquellos casos para los que no se envíen SMS con la siguiente opción, &quot;SMS de Faltas para Padres&quot;. </li>
 			  <li>&quot;Horario de faltas para profesores&quot; crea los horarios que los profesores necesitan para registrar las faltas de asistencia de los alumnos. Cada profesor marca en su horario el número de clase de los alumnos ausentes en una semana, y, o bien las registra posteriormente en el módulo de &quot;Poner faltas&quot;, o bien lo entrega para que los Tutores de Faltas lo hagan.</li>
 			  <li>&quot;SMS de faltas para los Padres&quot; permite enviar regularmente un SMS de faltas a los padres de modo masivo. Se envían SMS a los padres de todos los alumnos que tengan un mínimo de una falta de asistencia en el plazo de tiempo seleccionado.</li>
 			</ul>

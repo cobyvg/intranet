@@ -310,7 +310,7 @@ if ($itinerario1=="1"){
 			echo '
 <script> 
  alert("ATENCIÓN:\n';
-			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y sólo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de '.$localidad_del_centro.'.\nElige una sola parada y vuelve a enviar los datos.")
+			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y solo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de '.$localidad_del_centro.'.\nElige una sola parada y vuelve a enviar los datos.")
  </script>
 ';
 			$ruta_error = "";
@@ -498,7 +498,7 @@ if ($dni or $claveal or $id) {
  if(confirm("ATENCIÓN:\n ';
 				echo 'Has elegido matricularte en el mismo Curso( ';
 				echo strtoupper($n_curso_ya);
-				echo ') que ya has estudiado este año. \nEsta situación sólo puede significar que estás absolutamente seguro de que vas a repetir el mismo Curso. Si te has equivocado al elegir Curso para el próximo año escolar, vuelve atrás y selecciona el curso correcto. De lo contrario, puedes continuar.")){}else{history.back()};
+				echo ') que ya has estudiado este año. \nEsta situación solo puede significar que estás absolutamente seguro de que vas a repetir el mismo Curso. Si te has equivocado al elegir Curso para el próximo año escolar, vuelve atrás y selecciona el curso correcto. De lo contrario, puedes continuar.")){}else{history.back()};
  </script>';
 				/*if ($n_curso=="1") {
 				$repetidor = '1';

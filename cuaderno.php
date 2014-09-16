@@ -433,12 +433,12 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 		lo que la primera operación consiste en crear una columna para
 		introducir datos sobre los alumnos de un grupo. Las columnas pueden
 		ser de varios tipos: las numéricas tienen una caja de datos pequeña y
-		sólo admiten números con decimales; las columnas de texto largo son
+		solo admiten números con decimales; las columnas de texto largo son
 		más grandes y pueden contener caracteres alfanuméricos; etc. <br />
 		La siguiente función permite seleccionar Alumnos de la materia. Los
 		alumnos no seleccionados ya no volverán a aparecer en el Cuaderno. Por
 		último, puedes imprimir la tabla con los datos de los alumnos. La
-		impresión sólo contiene la tabla y sus datos.</p>
+		impresión solo contiene la tabla y sus datos.</p>
 		</div>
 		<div class="modal-footer">
 		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

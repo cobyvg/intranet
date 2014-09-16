@@ -135,7 +135,7 @@ ampamonterroso@gmail.com
 
      Como cada año, la labor del A.M.P.A. comienza informando a las madres y padres de la necesidad de pertenecer a la Asociación, pues con su aportación y colaboración ayudamos a la gran tarea que supone EDUCAR A NUESTROS HIJAS E HIJOS. Son muchas las cosas que hacemos pero más las que se pueden llevar a cabo, con el compromiso e implicación de toda la comunidad educativa: padres y madres, profesorado y alumnado.
      Para más información de las actividades del A.M.P.A. consultar página www.iesmonterroso.org  pinchando en A.M.P.A, o directamente accediendo al blog   http://ampamonterroso.blogspot.com/ 
-     La  cuota  de  la Asociación  de  Madres  y  Padres  es  de  12 euros por  familia y por curso.  La  pertenencia  a la   A.M.P.A  es voluntaria. Las  madres,  padres o tutores  de  los  alumnos/as  que  deseen  pertenecer a la  A.M.P.A  deberán  presentar  éste  impreso.';
+     La  cuota  de  la Asociación  de  Madres  y  Padres  es  de  12 euros por  familia y por curso.  La  pertenencia  a la   A.M.P.A  es voluntaria. Las  madres,  padres o tutores  de  los  alumnos/as  que  deseen  pertenecer a la  A.M.P.A  deberán  presentar  este  impreso.';
 	
 	$ampa21='El Ampa sorteará un regalo, que podrá ser una tablet, una cámara de fotos o una bici.';
 	$ampa2 = '

@@ -160,7 +160,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(5,6,"2",1,0,'C',1);
 	$MiPDF->Cell(163,6,"DATOS DE LOS REPRESENTANTES LEGALES DEL ALUMNO",1,0,'C',1);
 	$MiPDF->Ln ( 8 );
-	$MiPDF->Cell(140,5,"APELLIDOS Y NOMBRE DEL REPRESENTANTE LEGAL 1(con quien éste convive)",0,0,"C");
+	$MiPDF->Cell(140,5,"APELLIDOS Y NOMBRE DEL REPRESENTANTE LEGAL 1(con quien este convive)",0,0,"C");
 	$MiPDF->Cell(28,5,"DNI/NIE",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(140,5,$datos_ya->padre,1,0,'C');

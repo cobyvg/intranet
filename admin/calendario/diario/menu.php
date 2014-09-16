@@ -22,7 +22,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_cal.php')==TRUE){ $activo2 = ' class="
 	      <div class="modal-body">
 	        <p>A través de esta página puedes registrar las pruebas, controles o actividades de distinto tipo para los alumnos de los Grupos a los que das clase, o bien puedes utilizar esta página para registrar entradas personales como si fuera un calendario.</p>
 	        
-	        <p>Los registros que estén relacionados con tus Grupos y Asignaturas aparecerán en el Calendario de la Intranet, pero también en la página personal del alumno en la Página del Centro, de tal modo que Padres y Alumnos puedan ver en todo momento las fechas de las pruebas; si la actividad no contiene Grupo alguno aparecerá sólo en el Calendario de la Intranet a modo de recordatorio.</p>
+	        <p>Los registros que estén relacionados con tus Grupos y Asignaturas aparecerán en el Calendario de la Intranet, pero también en la página personal del alumno en la Página del Centro, de tal modo que Padres y Alumnos puedan ver en todo momento las fechas de las pruebas; si la actividad no contiene Grupo alguno aparecerá solo en el Calendario de la Intranet a modo de recordatorio.</p>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" data-dismiss="modal">De acuerdo</button>

@@ -104,7 +104,7 @@ con temas. Los archivos <strong>CSS</strong> de los temas se encuentran
 en la carpeta <em>/css/temas/</em>. La aplicación contiene un conjunto
 de temas ya preparados libres y gratuitos, descargados desde la página
 de <a href="http://bootswatch.com"><strong>Bootswatch</strong></a>.
-Puedes colocar nuevos temas en ese directorio, pero recuerda que sólo
+Puedes colocar nuevos temas en ese directorio, pero recuerda que solo
 funcionan aquellos temas que contienen un único archivo <strong>CSS</strong>.<br>
 No te olvides de refrescar la página si los cambios no aparecen inmediatamente.
 </p>

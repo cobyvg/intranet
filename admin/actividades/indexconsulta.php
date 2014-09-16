@@ -290,7 +290,7 @@ if(strstr($todosgrupos,$grupo)==TRUE){$chk=" checked ";}
     <hr />
   <div class="well well-lg" style="width:500px;text-align:left;margin:auto">
   <p class='lead'>Información sobre Transporte en las Actividades.</legpend>
-  <p>AUTOBUSES RICARDO<br /> 952 80 86 45 (OFICINA);<br /> 671 527 372 (MÓVIL DE CONTACTO PARA CONFIRMACIÓN);<br /> 649 45 70 99 (MÓVIL DE ANTONIO -DUEÑO DE LA EMPRESA- SÓLO EN CASO DE EMERGENCIA).</p>
+  <p>AUTOBUSES RICARDO<br /> 952 80 86 45 (OFICINA);<br /> 671 527 372 (MÓVIL DE CONTACTO PARA CONFIRMACIÓN);<br /> 649 45 70 99 (MÓVIL DE ANTONIO -DUEÑO DE LA EMPRESA- Solo EN CASO DE EMERGENCIA).</p>
   </div>
   </div>
 

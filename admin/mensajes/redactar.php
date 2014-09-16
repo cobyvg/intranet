@@ -658,8 +658,8 @@ $page_header = "Redactar mensaje";
 <?php
 //$perfil = $_SESSION['cargo'];
 // Queda preparado para que todos los profesores puedan enviar mensajes a los padres en la página exterior.
-//Sólo hay que eliminar $perfil == '1', y añadir la posibilidad de responder al mensaje del profesor
-//desde la página principal(actualmente sólo es posible responder al tutor del grupo).
+//Solo hay que eliminar $perfil == '1', y añadir la posibilidad de responder al mensaje del profesor
+//desde la página principal(actualmente solo es posible responder al tutor del grupo).
 /*					
 if (!($perfil == '1')) {
 $extra0 = "where profesor = '$pr'";
