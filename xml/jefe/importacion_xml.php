@@ -73,10 +73,9 @@ function obtenerIdDepartamento($departamento) {
 	calificaciones y relación de matrículas de los alumnos
  * ----------------------------------------------------------------------*/
 
-function importarDatos() {
-	include_once('../../config.php');
-    $ExpGenHor = $_FILES['ExpGenHor']['tmp_name'];	
-    $curso_escolar = $_POST['curso_escolar'];      	
+function importarDatos($db_con) {
+	$ExpGenHor = $_FILES['ExpGenHor']['tmp_name'];	
+	$curso_escolar = $_POST['curso_escolar'];      	
     
 	 // Cargamos el archivo XML
 	$xml = simplexml_load_file($ExpGenHor);	

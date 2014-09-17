@@ -80,7 +80,7 @@ include("../../menu.php");
 			$ExpGenHor = $_FILES['ExpGenHor']['tmp_name'];
 			if (isset($ExpGenHor)) {
 				include ('importacion_xml.php');
-				importarDatos();
+				importarDatos($db_con);
 			}
 			?>
 			
