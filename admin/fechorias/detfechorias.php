@@ -163,7 +163,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
         <div align="center"><a href="../informes/index.php?claveal=<? echo $claveal;?>&todos=1" target="_blank" class="btn btn-primary">
         Ver Informe del Alumno
         </a> 
-        <a href="../jefatura/tutor.php?alumno=<? echo $apellidos.", ".$nombre;?>&unidad=<? echo $unidad;?>&grupo=<? echo $grupo;?>" target="_blank" class="btn btn-primary">Registrar intervención de Jefatura</a></div>
+        <a href="../jefatura/index.php?alumno=<? echo $apellidos.", ".$nombre;?>&unidad=<? echo $unidad;?>&grupo=<? echo $grupo;?>" target="_blank" class="btn btn-primary">Registrar intervención de Jefatura</a></div>
     </div>
     <hr>
     <br />

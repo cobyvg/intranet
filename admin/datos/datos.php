@@ -206,7 +206,7 @@ if ($_GET['seleccionado']=='1'){
 		$dat = mysqli_query($db_con, "select unidad from FALUMNOS where claveal='$clave_al'");
 		$tut=mysqli_fetch_row($dat);
 		$unidad=$tut[0];
-		echo "&nbsp;<a class='btn btn-primary' href='../jefatura/tutor.php?seleccionado=1&alumno=$alumno&unidad=$unidad'>Acción de Tutoría</a>";
+		echo "&nbsp;<a class='btn btn-primary' href='../jefatura/index.php?seleccionado=1&alumno=$alumno&unidad=$unidad'>Acción de Tutoría</a>";
 			if ($s_control=='1') {
 			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
 		}
