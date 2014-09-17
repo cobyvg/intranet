@@ -1,6 +1,7 @@
 <?
 session_start ();
 include("../../../config.php");
+setlocale('LC_TIME', 'es_ES');
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -86,6 +87,7 @@ $actualizar = "UPDATE  Fechoria SET  recibido =  '1' WHERE  Fechoria.id = '$id'"
 mysqli_query($db_con, $actualizar );
 $result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.telefono, alma.telefonourgencia, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia, Fechoria.id from Fechoria, FALUMNOS, listafechorias, alma where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto and FALUMNOS.claveal = alma.claveal and Fechoria.id = '$id' order by Fechoria.fecha DESC" );
 if ($row = mysqli_fetch_array ( $result )) {
+	$idfec = $row['id'];
 	$apellidos = $row [0];
 	$nombre = $row [1];
 	$unidad = $row [2];
@@ -113,7 +115,7 @@ $fin1 = formatea_fecha ( $fecha_fin );
 
 $repe = mysqli_query($db_con, "select * from tareas_alumnos where claveal = '$claveal' and fecha = '$fecha'" );
 if (mysqli_num_rows ( $repe ) == "0") {
-	 mysqli_query($db_con, "INSERT into tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,NIVEL,GRUPO,FECHA,DURACION,PROFESOR,FIN) VALUES ('$claveal','$apellidos','$nombre','$nivel','$grupo', '$fecha','$expulsion','$tutor','$fecha_fin')" ) or die ( "Error, no se ha podido activar el informe:" . mysqli_error () );
+	 mysqli_query($db_con, "INSERT into tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR,FIN) VALUES ('$claveal','$apellidos','$nombre','$unidad', '$fecha','$expulsion','$tutor','$fecha_fin')" ) or die ( "Error, no se ha podido activar el informe:" . mysqli_error($db_con) );
 } 
 
 $titulo = "Comunicación de expulsión del centro";
@@ -153,7 +155,7 @@ En $localidad_del_centro, a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 	
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	$MiPDF->Multicell(0, 5, $cuerpo, 0, 'L', 0 );
-	$MiPDF->Ln(15);
+	$MiPDF->Ln(10);
 	
 	
 	//FIRMAS
@@ -167,6 +169,7 @@ En $localidad_del_centro, a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 	$MiPDF->Cell (55, 5, 'Fdo. '.$padre, 0, 0, 'L', 0 );
 	$MiPDF->Cell (55, 5, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
 	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($director_del_centro, MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'L', 0 );
+	
   
 $result1 = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$inicio_curso."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos");
 $num = mysqli_num_rows($result1);
@@ -262,6 +265,19 @@ $MiPDF->Ln ( 4 );
 $MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );              
                 }
 }
+
+// RECIBI
+$txt_recibi = "D./Dña. $padre como representante legal de $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$idfec." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+
+$MiPDF->Ln(8);
+$MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
+$MiPDF->Ln(5);
+
+$MiPDF->SetFont('NewsGotT', 'B', 12);
+$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
+$MiPDF->Ln(5);
+$MiPDF->SetFont('NewsGotT', '', 12);
+$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0 );
             
 $MiPDF->Output ();
 

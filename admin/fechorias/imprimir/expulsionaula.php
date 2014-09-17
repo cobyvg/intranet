@@ -1,6 +1,7 @@
 <?
 session_start ();
 include ("../../../config.php");
+setlocale('LC_TIME', 'es_ES');
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -147,7 +148,7 @@ for($i = 0; $i < 1; $i ++) {
 	
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	$MiPDF->Multicell(0, 5, $cuerpo, 0, 'L', 0 );
-	$MiPDF->Ln(15);
+	$MiPDF->Ln(10);
 	
 	//FIRMAS
 	$MiPDF->Cell (55, 5, 'Representante legal', 0, 0, 'L', 0 );
@@ -161,7 +162,18 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->Cell (55, 5, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
 	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($tutor, MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'L', 0 );
 	
-
+	// RECIBI
+	$txt_recibi = "D./Dña. $padre como representante legal de $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+	
+	$MiPDF->Ln(8);
+	$MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
+	$MiPDF->Ln(5);
+	
+	$MiPDF->SetFont('NewsGotT', 'B', 12);
+	$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
+	$MiPDF->Ln(5);
+	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0 );
 }
 
 $MiPDF->Output ();

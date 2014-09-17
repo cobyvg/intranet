@@ -1,6 +1,7 @@
 <?
 session_start ();
 include ("../../../config.php");
+setlocale('LC_TIME', 'es_ES');
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -115,7 +116,7 @@ $MiPDF->SetDisplayMode ( 'fullpage' );
 $titulo = "Comunicación de amonestación escrita";
 $cuerpo = "Muy Srs. nuestros:
 
-Pongo en su conocimiento que con fecha ".strftime("%e de %B de %Y", strtotime($fecha))." su hijo/a $nombre $apellidos alumno del grupo $nivel- $grupo ha sido amonestado/a por \"$asunto\".
+Pongo en su conocimiento que con fecha ".strftime("%e de %B de %Y", strtotime($fecha))." su hijo/a $nombre $apellidos alumno del grupo $nivel-$grupo ha sido amonestado/a por \"$asunto\".
 
 Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.
 
@@ -145,7 +146,7 @@ for($i = 0; $i < 1; $i ++) {
 	
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	$MiPDF->Multicell( 0, 5, $cuerpo, 0, 'L', 0 );
-	$MiPDF->Ln(15);
+	$MiPDF->Ln(10);
 
 	//FIRMAS
 	$MiPDF->Cell (55, 5, 'Representante legal', 0, 0, 'L', 0 );
@@ -158,6 +159,20 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->Cell (55, 5, 'Fdo. '.$padre, 0, 0, 'L', 0 );
 	$MiPDF->Cell (55, 5, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
 	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($tutor, MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'L', 0 );
+	
+	
+	// RECIBI
+	$txt_recibi = "D./Dña. $padre como representante legal de $nombre $apellidos, alumno/a del grupo $nivel-$grupo, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+	
+	$MiPDF->Ln(8);
+	$MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
+	$MiPDF->Ln(5);
+	
+	$MiPDF->SetFont('NewsGotT', 'B', 12);
+	$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
+	$MiPDF->Ln(5);
+	$MiPDF->SetFont('NewsGotT', '', 12);
+	$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0 );
 }
 
 $MiPDF->Output();
