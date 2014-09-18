@@ -1,6 +1,6 @@
 <?
 session_start();
-include("../../../config.php");
+include("../../config.php");
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -18,20 +18,20 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 }
 ?>
 <?php
-include("../../../menu.php");
+include("../../menu.php");
 ?>
-<div class="page-header" align="center">
-<h2>Administración <small> Creación de Horarios y Profesores</small></h2>
-</div>
-<br />
-<div align="center">
+	<div class="container">
+			<div class="page-header">
+			<h2>Administración <small>Importación del horario con archivo DEL de Horwin</small></h2>
+		</div>	
+			<div class="row">
 <?
 
 $fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
 if (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 	$num_col=count($data);
 	if ($num_col<>13) {
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>Atención:</legend>
 El archivo de Horwin que estás intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>13 columnas</strong>. Asegúrate de que el archivo de Horwin sigue las instrucciones de la imagen, y vuelve a intentarlo.
@@ -157,7 +157,7 @@ mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 		mysql_query("insert into FTUTORES (nivel, grupo, tutor) select distinct nivel, n_grupo, prof from horw where a_asig like '%TUT%'");
 	}
 	?>
-	<div class="alert alert-success alert-block fade in" style="max-width:500px;">
+	<div class="alert alert-success alert-block fade in" >
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Horario ha sido importado correctamente.
 </div></div><br />
@@ -166,4 +166,4 @@ El Horario ha sido importado correctamente.
 </div><br />
 	</div>
 	</div>
-	<? include("../../../pie.php");?>
+	<? include("../../pie.php");?>

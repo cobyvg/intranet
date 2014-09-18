@@ -349,7 +349,11 @@ include("../../menu.php");
 								mysqli_query($db_con, "insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where c_asig like '2' and prof = '$cargo[0]' and prof in (select nombre from departamentos)");
 							}
 						}
+						$act = mysqli_query($db_con,"select cargo from departamentos where nombre = '$cargo[0]'");
+						if (mysqli_num_rows($act)>0) {}
+						else{
 						mysqli_query($db_con, "update departamentos set cargo = '$cargos' where nombre = '$cargo[0]'");
+						}
 					}
 				
 					//
@@ -397,8 +401,27 @@ include("../../menu.php");
 				}
 				
 				?>
-					
-				</div>
+</div>
+<br>
+<div class="well" >
+<legend>Importación del horario / Generar XML</legend>
+  <FORM ENCTYPE="multipart/form-data" ACTION="horarios.php" METHOD="post">
+  <p class="help-block" style="width:500px; text-align:left"><span style="color:#9d261d">(*) </span>El archivo que se debe importar se obtiene de HORW exportando los datos en formato DEL.</p>
+  <br />
+<div class="form-group">
+  <label for="file">Selecciona el archivo con los datos del Horario
+  </label>
+  <input type="file" name="archivo" class="form-control" id="file">
+  </div>
+  <hr>
+ 
+  <div align="center">
+    <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">
+  </div>
+  </FORM>	
+  </div>
+
+				
 				
 			</div><!-- /.col-sm-6 -->
 			
@@ -406,7 +429,7 @@ include("../../menu.php");
 			<!-- COLUMNA DERECHA -->
 			<div class="col-sm-6">
 	
-				<h3>Información sobre la importación</h3>
+				<legend>Información sobre la importación con archivo XML</legend>
 				
 				<p>Este apartado se encarga de importar los <strong>horarios generados por el programa generador de horarios</strong>.</p>
 				
@@ -414,7 +437,12 @@ include("../../menu.php");
 				profesor. El resultado es la descarga del archivo <strong>Importacion_horarios_seneca.xml</strong> preparado para subir a Séneca.</p>
 				
 				<p>Si la opción <strong>Modo depuración</strong> se encuentra marcada se podrá consultar los <strong>problemas de compatibilidad</strong> que afectan al horario y podrían dar problemas en Séneca. Se recomienda marcarla antes de importar el horario en Séneca. Con esta opción no se genera el archivo XML.</p>
-	
+	<hr />
+	<legend>Información sobre la importación con archivo DEL</legend>
+	<p>
+	La importación de los horarios con el archivo DEL creado por Horwin es una opción que sólo debe ser utilizada si no contamos con el archivo XML, que es la opción preferida. Se mantiene para aquellos casos en los que no tenemos a mano el XML para exportar a Séneca. Las preferencias de generación del archivo DEL aparecen marcadas en la imagen de abajo.
+	</p>
+<img border="0" src="exporta_horw.jpg">
 			</div><!-- /.col-sm-6 -->
 	
 		</div><!-- /.row -->
