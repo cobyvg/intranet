@@ -22,7 +22,7 @@ $options_left = array(
 
 		$sqldatos="SELECT concat(apellidos,', ',nombre),";
 		if ($curso=="1BACH") {
-		$sqldatos.="itinerario1, optativa1, ";
+		$sqldatos.="itinerario1, optativa1, idioma1, idioma2, ";
 		$num_opc = 5;
 		}
 		else{
@@ -53,11 +53,13 @@ for ($i = 3; $i < 13; $i++) {
 			$datatmp[$i]="";
 		}
 	}		
-		if (strstr($datatmp[13],"Rel")==TRUE) {
+		if (strstr($datatmp[13],"Religión Catolica")==TRUE) {
 			//$datatmp[$i]="X";
 			$religion ="X";
 		}
 	$opt = '
+	
+	Itinerarios: 1 => Ciencias de la Salud y Tecnológico; 2 => Humanidades y Ciencias Sociales
 	
 	Optativas:
 	Opt.1 = Alemán 2º Idioma; Opt.2 = Francés 2º Idioma; Opt.3 = T.I.C.; Opt.4 = Ciencias de la Tierra y Medioambientales; Opt.5 = Historia de la Música y la Danza; Opt.6 = Literatura Universal; Opt.7 = Educación Física; Opt.8 = Estadística; Opt.9 = Introducción a las Ciencias de la Salud; Opt.10 = Inglés 2º Idioma;
@@ -100,10 +102,14 @@ for ($i = 3; $i < 13; $i++) {
 			);
 }
 if ($curso=="1BACH") {
-	if (strstr($datatmp[3],"Rel")==TRUE) {
+	if (strstr($datatmp[3],"Religión Catolica")==TRUE) {
 			//$datatmp[$i]="X";
 			$religion ="X";
 		}
+		$opt = '
+	
+	Itinerarios: 1 => Ciencias de la Salud y Tecnológico; 2 => Humanidades y Ciencias Sociales
+	';
 	$optas = str_replace("11","",$datatmp[2]);
 	$optas = str_replace("12","",$optas);
 	$data[] = array(
@@ -112,6 +118,8 @@ if ($curso=="1BACH") {
 				'c1'=>$religion,
 				'c2'=>$datatmp[1],
 				'c3'=>$optas,
+				'c4'=>$datatmp[3],
+				'c5'=>$datatmp[4],
 				);
 	$titles = array(
 				'num'=>'<b>Nº</b>',
@@ -119,6 +127,8 @@ if ($curso=="1BACH") {
 				'c1'=>'Rel.',
 				'c2'=>'It1',
 				'c3'=>'Opt1',
+				'c4'=>'Idioma1',
+				'c5'=>'Idioma2',
 			);
 }
 }
@@ -138,9 +148,7 @@ $txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
 $pdf->ezText($opt, '10', $options);
-if ($curso == "1ESO" or $curso == "2ESO") {
-	$pdf->ezText($act, '10', $options);
-}
+
 $pdf->ezText("\n", 10);
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_right);
 

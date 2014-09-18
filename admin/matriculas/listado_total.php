@@ -22,10 +22,10 @@ $options_left = array(
 	$grupo_actual = $total[1];
 						
 	if ($curso=="3ESO") {
-		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, optativa5, optativa6, optativa7, act1, religion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
+		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, optativa5, optativa6, optativa7, act1, religion, diversificacion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
 	}
 	else{
-		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, act1, itinerario, religion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
+		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, act1, itinerario, religion, diversificacion, matematicas4 FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
 	}
 $lista= mysqli_query($db_con, $sqldatos );
 $nc=0;
@@ -42,6 +42,20 @@ for ($i = 2; $i < 9; $i++) {
 			$datatmp[$i]="";
 		}
 	}
+	// Diversificación
+if ($datatmp[11]=="1") {
+			$datatmp[11]="X";
+		}
+		else{
+			$datatmp[11]="";
+		}
+		// Religión	
+if ($datatmp[10]=="Religión Catolica") {
+			$datatmp[11]="X";
+		}
+		else{
+			$datatmp[10]="";
+		}
 }
 else {
 for ($i = 2; $i < 6; $i++) {
@@ -51,7 +65,20 @@ if ($datatmp[$i]=="1") {
 		else{
 			$datatmp[$i]="";
 		}
-	}	
+		
+	}
+
+	// Diversificación
+if ($datatmp[9]=="1") {
+			$datatmp[9]="X";
+		}
+	// Religión	
+if ($datatmp[8]=="Religión Catolica") {
+			$datatmp[8]="X";
+		}
+		else{
+			$datatmp[8]="";
+		}	
 }
 
 for ($i = 0; $i < 10; $i++) {
@@ -94,6 +121,7 @@ if ($curso=="3ESO") {
 				'c6'=>$datatmp[6],
 				'c7'=>$datatmp[7],
 				'c8'=>$datatmp[8],
+				'c11'=>$datatmp[11],
 				);
 	$titles = array(
 				'num'=>'<b>Nº</b>',
@@ -106,6 +134,7 @@ if ($curso=="3ESO") {
 				'c6'=>'Opt5',
 				'c7'=>'Opt6',
 				'c8'=>'Opt7',
+				'c11'=>'Div',
 			);
 }
 
@@ -113,7 +142,7 @@ if ($curso=="2ESO") {
 	
 		$act = "
 	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Inglés, 2 => Actividades de refuerzo de Lengua Castellana, 3 => Actividades de refuerzo de Matemáticas,		4 => Ampliación: Taller T.I.C. II";	
+	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,	4 => Ampliación: Taller T.I.C. II";	
 		
 		$opt = "
 	
@@ -147,7 +176,7 @@ if ($curso=="2ESO") {
 if ($curso=="1ESO") {
 	$act = "
 	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Inglés, 2 => Actividades de refuerzo de Lengua Castellana, 3 => Actividades de refuerzo de Matemáticas,		4 => Ampliación: Taller T.I.C., 5 => Ampliación: Taller de Teatro";		
+	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,	4 => Ampliación: Taller T.I.C., 5 => Ampliación: Taller de Teatro";		
 	
 		$opt = "
 					
@@ -179,36 +208,21 @@ if ($curso=="1ESO") {
 
 
 if ($curso=="4ESO") {
-	if ($datatmp[7]=="1") {
+
 		$opt = "
 	
-	Optativas Itinerario 1:
+	Optativas Itinerario 1 (Salud):
 	1 => Alemán 2º Idioma,	2 => Francés 2º Idioma,	3 => Informática
-	";
-	}
-if ($datatmp[7]=="2") {
-		$opt = "
-	
-	Optativas Itinerario 2:
+	Optativas Itinerario 2 (Tecnológico):
 	1 => Alemán 2º Idioma,	2 => Francés 2º Idioma,	3 => Informática, 4 => Ed. Plástica y Visual
-	";
-	}
-if ($datatmp[7]=="3") {
-		$opt = "
-	
-	Optativas Itinerario 3:
+	Optativas Itinerario 3 (Ciencias Sociales):
 	1 => Alemán 2º Idioma,	2 => Francés 2º Idioma,	3 => Informática,	4 => Ed. Plástica y Visual
-	";
-	}
-if ($datatmp[7]=="4") {
-		$opt = "
-	
-	Optativas Itinerario 4:
+	Optativas Itinerario 4 (FP: Salidas laborales):
 	1 => Alemán 2º Idioma,	2 => Francés 2º Idioma,	3 => Tecnología
 	";
-	}	
 	
-	$data[] = array(
+if ($datatmp[7]=="1" or $datatmp[7]=="2") {
+$data[] = array(
 				'num'=>$nc,
 				'nombre'=>$datatmp[0],
 				'c6'=>$religion,
@@ -228,8 +242,59 @@ if ($datatmp[7]=="4") {
 				'c3'=>'Opt2',
 				'c4'=>'Opt3',
 				'c5'=>'Opt4',
-				
 			);
+	}
+		elseif ($datatmp[7]=="3") {
+$data[] = array(
+				'num'=>$nc,
+				'nombre'=>$datatmp[0],
+				'c6'=>$religion,
+				'It.'=>$datatmp[7],
+				'c2'=>$datatmp[2],
+				'c3'=>$datatmp[3],
+				'c4'=>$datatmp[4],
+				'c5'=>$datatmp[5],
+				'c10'=>$datatmp[10],
+				);
+
+	$titles = array(
+				'num'=>'<b>Nº</b>',
+				'nombre'=>'<b>Alumno</b>',
+				'c6'=>'Rel.',
+				'It.'=>'Itiner.',
+				'c2'=>'Opt1',
+				'c3'=>'Opt2',
+				'c4'=>'Opt3',
+				'c5'=>'Opt4',
+				'c10'=>'Mat.',
+			);
+	}	
+	else{
+		$data[] = array(
+				'num'=>$nc,
+				'nombre'=>$datatmp[0],
+				'c6'=>$religion,
+				'It.'=>$datatmp[7],
+				'c2'=>$datatmp[2],
+				'c3'=>$datatmp[3],
+				'c4'=>$datatmp[4],
+				'c5'=>$datatmp[5],
+				'c9'=>$datatmp[9],
+				);
+
+	$titles = array(
+				'num'=>'<b>Nº</b>',
+				'nombre'=>'<b>Alumno</b>',
+				'c6'=>'Rel.',
+				'It.'=>'Itiner.',
+				'c2'=>'Opt1',
+				'c3'=>'Opt2',
+				'c4'=>'Opt3',
+				'c5'=>'Opt4',
+				'c9'=>'Div.',				
+			);
+	}
+
 }
 }
 

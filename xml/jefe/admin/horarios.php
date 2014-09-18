@@ -21,12 +21,11 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 include("../../../menu.php");
 ?>
 <br />
-<div align="center">
 <div class="page-header" align="center">
 <h2>Administración <small> Creación de Horarios y Profesores</small></h2>
 </div>
 <br />
-<div align='center'><?
+<?
 
 $fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
 if (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
@@ -63,7 +62,7 @@ while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 	}
 	$sql=substr($sql,0,strlen($sql)-2);
 	$sql.=" )";
-	//echo $sql."<br>";
+	echo $sql."<br>";
 	mysqli_query($db_con,$sql) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
@@ -87,20 +86,14 @@ mysqli_query($db_con,$hora6);
 mysqli_query($db_con,"OPTIMIZE TABLE  `horw`");
 
 
-// Horw para Faltas
-mysqli_query($db_con, "trunca table horw_faltas");
-mysqli_query($db_con, "insert into horw_faltas select * from horw");
-mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 
 // Cambiamos los numeros de Horw para dejarlos en orden alfabético.
 $hor = mysqli_query($db_con, "select distinct prof from horw order by prof");
 while($hor_profe = mysqli_fetch_array($hor)){
 	$np+=1;
 	$sql = "update horw set no_prof='$np' where prof = '$hor_profe[0]'";
-	$sql0 = "update horw_faltas set no_prof='$np' where prof = '$hor_profe[0]'";
 	//echo "$sql<br>";
 	$sql1 = mysqli_query($db_con, $sql);
-	$sql2 = mysqli_query($db_con, $sq0);
 }
 
 // Limpiez de codigos
@@ -128,6 +121,11 @@ if (mysqli_num_rows($asig)>0) {
 }
 
 }
+
+// Horw para Faltas
+mysqli_query($db_con, "truncate table horw_faltas");
+mysqli_query($db_con, "insert into horw_faltas select * from horw");
+mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 
 	// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
 	$tabla_profes =mysqli_query($db_con,"select * from profesores");

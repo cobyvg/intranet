@@ -250,7 +250,25 @@ if ($alumno) {
 								</div>
 							</div>
 						</div>
-						
+<?
+
+	$index = substr($curso_actual,0,4)+1;
+	for ($i = 0; $i < 6; $i++) {
+	$ano = $db."".($index-$i);
+		$rep=mysqli_query($db_con,"select matriculas from $ano.alma where claveal='$clave' and matriculas>'1'");
+		//echo "select matriculas from $ano.alma where claveal='$clave' and matriculas>'1'<br>";
+		if (mysqli_num_rows($rep)>0) {
+		$repite.= (($index-$i)-1)."/".($index-$i)." ";
+	}
+	}
+	if (strlen($repite)>0) {
+		echo '<div class="row">
+							<div class="col-sm-12">
+							<div class="form-group has-warning">';
+			echo "<input type ='text' disabled class='form-control' placeholder='Cursos repetidos: $repite' />"; 
+			echo '</div></div></div>';
+	}
+?>						
 					  
 					  <div class="form-group">
 					  	<label for="observaciones">Observaciones</label>

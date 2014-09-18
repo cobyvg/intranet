@@ -166,7 +166,8 @@ if ($alumno) {
 </div>
 
 <div class="row">
-<div class="form-group col-md-7">
+<div class="col-md-7">
+<div class="form-group">
 <label> Alumno </label>
 <SELECT name=alumno onChange="submit()" class="form-control">
 
@@ -187,8 +188,9 @@ if ($falumno = mysqli_fetch_array($alumno0))
 ?>
 </select> 
 </div>
-
-<div class="form-group col-md-5" id="datetimepicker1">
+</div>
+<div class="col-md-7">
+<div class="form-group id="datetimepicker1">
 <label>Fecha</label>
 <?  $fecha1 = (date("d").-date("m").-date("Y")); 
 if ($fecha)
@@ -209,7 +211,26 @@ else{
 ?>
 </div>
 </div>
+</div>
+<?
 
+	$index = substr($curso_actual,0,4)+1;
+	for ($i = 0; $i < 6; $i++) {
+	$ano = $db."".($index-$i);
+		$rep=mysqli_query($db_con,"select matriculas from $ano.alma where claveal='$clave' and matriculas>'1'");
+		//echo "select matriculas from $ano.alma where claveal='$clave' and matriculas>'1'<br>";
+		if (mysqli_num_rows($rep)>0) {
+		$repite.= (($index-$i)-1)."/".($index-$i)." ";
+	}
+	}
+	if (strlen($repite)>0) {
+		echo '<div class="row">
+							<div class="col-sm-12">
+							<div class="form-group has-warning">';
+			echo "<input type ='text' disabled class='form-control' placeholder='Cursos repetidos: $repite' />"; 
+			echo '</div></div></div>';
+	}
+?>	
 <div class="form-group">
 <label> Observaciones </label>
 <textarea name='observaciones' rows='8' class='form-control'><? echo $observaciones; ?></textarea>
