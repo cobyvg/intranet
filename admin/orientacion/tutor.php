@@ -137,7 +137,8 @@ El registro ha sido actualizado en la Base de datos.
 
 <fieldset>
 <div class="row">
-<div class="form-group col-md-10">
+<div class="col-md-10">
+<div class="form-group">
 <label> Grupo </label>
 <SELECT name="unidad"
 	onChange="submit()" class="form-control">
@@ -145,7 +146,7 @@ El registro ha sido actualizado en la Base de datos.
 	<? unidad($db_con);?>
 </SELECT> 
 </div>
-
+</div>
 <div class="col-md-2">
 <?    
 if ($alumno) {
@@ -162,8 +163,8 @@ if ($alumno) {
 }
 ?> 
 </div>
-
 </div>
+
 
 <div class="row">
 <div class="col-md-7">
@@ -189,7 +190,7 @@ if ($falumno = mysqli_fetch_array($alumno0))
 </select> 
 </div>
 </div>
-<div class="col-md-7">
+<div class="col-md-5">
 <div class="form-group id="datetimepicker1">
 <label>Fecha</label>
 <?  $fecha1 = (date("d").-date("m").-date("Y")); 
@@ -261,7 +262,7 @@ else{
 </select> 
 </div> 
 </div>
-  <div class="col-sm-6">
+<div class="col-sm-6">
   
 <div class="form-group">  
 <label>Tipo</label>
@@ -295,6 +296,8 @@ foreach ($opcion as $opc)
 </div>
 </div>
 </div>
+
+
 
 <input name="id2" type="hidden" value="<? echo $id; ?>" /> <input
 	name='submit1' type='submit'
@@ -334,14 +337,19 @@ if($alumno){
 		}while($row = mysqli_fetch_array($result));
 		echo "</tbody></table>";
 	}
+	echo "</div>";
 }
 ?>
+
 </div>
-</div>
+
+
 
 <div class="col-sm-5">
 <legend>Intervenciones del Tutor</legend>
-<? include("ultimos.php");?></div>
+<? include("ultimos.php");?>
+</div>
+</div>
 </div>
 <? include("../../pie.php");?>
 	<script>  

@@ -638,7 +638,7 @@ echo "<div align='center'>
   $junio = mysqli_query($db_con, "SELECT notas3 FROM notas WHERE notas3 !=  ''");
   $septiembre = mysqli_query($db_con, "SELECT notas4 FROM notas WHERE notas4 !=  ''");
 if (($mes_submit>5 and $mes_submit<10) and (mysqli_num_rows($junio)>0 or mysqli_num_rows($septiembre)>0)) {
-	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion()' /><br>";
+	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion2()' /><br>";
 }
 echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hdden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hdden-print' />";
 
@@ -831,7 +831,7 @@ echo substr($nom_a,0,-2).'</td></tr></table>';
   if (($mes_submit>5 and $mes_submit<9) and mysqli_num_rows($junio)>0) {
 ?>
  <script type="text/javascript">
-function confirmacion() {
+function confirmacion2() {
 	var answer = confirm("ATENCIÓN\n Estás a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÖN ORDINARIA. Los alumnos que cumplen con los criterios de Promoción propios de su Nivel han sido marcados en la columna <<SI/NO/PIL>>.\n ES MUY IMPORTANTE que marques con un SÍ aquellos alumnos que promocionan por imperativo legal (PIL) o por decisión del Equipo Educativo a pesar de que no cumplen con los criterios habituales de promoción.\n El resto de los alumnos serán procesados tras la Evaluación Extraordinaria de Septiembre.\n Si estás seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
 	if (answer){
 return true;
@@ -846,7 +846,7 @@ return false;
   elseif ($mes_submit=="9" and mysqli_num_rows($septiembre)>0) {
 ?>
  <script type="text/javascript">
-function confirmacion() {
+function confirmacion2() {
 	var answer = confirm("ATENCIÓN\n Estás a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÖN EXTRAORDINARIA. Todos los alumnos han sido marcados en la columna <<SI/NO/PIL>> de acuerdo a los criterios regulares de promoción.\n ES MUY IMPORTANTE por lo tanto que marques con un SÍ aquellos alumnos que promocionan por imperativo legal (PIL) o por decisión del Equipo Educativo a pesar de que no cumplen con los criterios regulares de promoción.\n Por motivos de seguridad, se va acrear una copia de respaldo de los datos originales de la matrícula de aquellos alumnos que NO promocionan. Estos datos pueden ser recuperados en todo momento pulsando el botón <<Restaurar>>.\n Si estás seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
 	if (answer){
 return true;

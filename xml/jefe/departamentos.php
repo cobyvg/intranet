@@ -41,7 +41,6 @@ mysqli_query($db_con, "drop table departamentos_seg");
 mysqli_query($db_con, "create table departamentos_seg select * from departamentos");
  
  //  Estructura de tabla para la tabla `departamento_temp`
-mysqli_query($db_con, "drop table departamento_temp");	
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `departamento_temp` (
   `NOMBRE` varchar(48) NOT NULL default '',
   `DNI` varchar(10) NOT NULL default '',
@@ -50,11 +49,10 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `departamento_temp` (
   `IDEA` varchar(12) NOT NULL default '',
    KEY `NOMBRE` (`NOMBRE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
-
 if(isset($_POST['actualizar'])){	
 }
 else{
- $base0 = "delete from departamentos where idea not like 'admin' and departamento not like '%Administraci_n%' and departamento not like '%Conserjer_a%' and cargo not like '%1%'";
+ $base0 = "delete from departamentos where idea not like 'admin' and departamento not like '%Administracion%' and departamento not like '%Conserjeria%' and departamento not like '' and cargo not like '%1%'";
   mysqli_query($db_con, $base0);
 }
  
@@ -87,7 +85,7 @@ mysqli_query($db_con, $borrarvacios);
 $borrarpuesto = "delete from departamento_temp where DEPARTAMENTO LIKE '%Puesto%'";
 mysqli_query($db_con, $borrarpuesto);
 // Eliminar duplicados e insertar nuevos
-$elimina = "select distinct NOMBRE, DNI, DEPARTAMENTO, IDEA from departamento_temp where dni NOT IN (select distinct dni from departamentos where departamento not like '%Conserjer_a%' and departamento not like '%Administraci_n%' and idea not like 'admin')";
+$elimina = "select distinct NOMBRE, DNI, DEPARTAMENTO, IDEA from departamento_temp where dni NOT IN (select distinct dni from departamentos where departamento not like '%Conserjeria%' and departamento not like '%Administracion%' and idea not like 'admin')";
 $elimina1 = mysqli_query($db_con, $elimina);
  if(mysqli_num_rows($elimina1) > 0)
 {
@@ -246,7 +244,6 @@ Parece que te está olvidando de enviar el archivo con los datos de los Profesore
 </div></div><br />';
 }
 ?>
-<br />
 <div align="center">
 <input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" class="btn btn-inverse" />
 </div>

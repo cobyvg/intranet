@@ -59,7 +59,7 @@ include("../../menu.php");
 						</div>
 						
 						<br>
-						
+						  <input type="hidden" name="actualizar" value='1'>						
 					  <button type="submit" class="btn btn-primary" name="enviar">Importar</button>
 					  <a class="btn btn-default" href="../index.php">Volver</a>
 				  </fieldset>

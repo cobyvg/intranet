@@ -20,11 +20,11 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 <?php
 include("../../../menu.php");
 ?>
-<br />
 <div class="page-header" align="center">
 <h2>Administración <small> Creación de Horarios y Profesores</small></h2>
 </div>
 <br />
+<div align="center">
 <?
 
 $fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
@@ -62,7 +62,7 @@ while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 	}
 	$sql=substr($sql,0,strlen($sql)-2);
 	$sql.=" )";
-	echo $sql."<br>";
+	//echo $sql."<br>";
 	mysqli_query($db_con,$sql) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
@@ -164,5 +164,6 @@ El Horario ha sido importado correctamente.
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div><br />
+	</div>
 	</div>
 	<? include("../../../pie.php");?>
