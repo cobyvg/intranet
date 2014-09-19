@@ -9,7 +9,6 @@
 	<li><a href="jefe/index_xml.php">Importar datos del Centro</a></li>
 	  <? if ($mod_horario) {?>
 	<li><a href="jefe/horario.php">Importar/Preparar Horarios </a></li>
-	<li><a href="jefe/admin/index.php">Importar Horarios (archivo DEL) </a></li>
 	<?}?>
 	<li><a href="jefe/indexdepartamentos.php">Importar Departamentos y Especialidades</a></li>
 	<li><a href="jefe/indexprofesores.php">Importar Profesores</a></li>

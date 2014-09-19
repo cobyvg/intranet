@@ -202,7 +202,7 @@ if(stristr($carg,'2') == TRUE)
  if (isset($_GET['asunto']) and $_GET['asunto'] == "Mensaje de confirmación") {
  	 mysqli_query($db_con, "UPDATE mensajes SET recibidopadre = '1' WHERE id = $verifica_padres");
  }
-$men1 = "select ahora, asunto, texto, nombre, apellidos, id from mensajes, alma where mensajes.claveal = alma.claveal and mensajes.unidad = '$unidad_m' and recibidotutor = '0'";
+$men1 = "select ahora, asunto, texto, nombre, apellidos, id from mensajes, alma where mensajes.claveal = alma.claveal and mensajes.unidad = '$unidad_m' and recibidotutor = '0' order by ahora desc";
 $men2 = mysqli_query($db_con, $men1);
 if(mysqli_num_rows($men2) > 0)
 {
@@ -283,7 +283,7 @@ if (isset($_GET['verifica'])) {
 	$verifica = $_GET['verifica'];
 	 mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
-$men1 = "select ahora, asunto, texto, profesor, id_profe, origen from mens_profes, mens_texto where mens_texto.id = mens_profes.id_texto and profesor = '$pr' and recibidoprofe = '0'";
+$men1 = "select ahora, asunto, texto, profesor, id_profe, origen from mens_profes, mens_texto where mens_texto.id = mens_profes.id_texto and profesor = '$pr' and recibidoprofe = '0' order by ahora desc";
 $men2 = mysqli_query($db_con, $men1);
 if(mysqli_num_rows($men2) > 0)
 {

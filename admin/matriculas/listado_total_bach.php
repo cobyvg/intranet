@@ -53,8 +53,7 @@ for ($i = 3; $i < 13; $i++) {
 			$datatmp[$i]="";
 		}
 	}		
-		if (strstr($datatmp[13],"Religión Catolica")==TRUE) {
-			//$datatmp[$i]="X";
+		if (strstr($datatmp[13],"Cat")==TRUE) {
 			$religion ="X";
 		}
 	$opt = '
@@ -102,7 +101,7 @@ for ($i = 3; $i < 13; $i++) {
 			);
 }
 if ($curso=="1BACH") {
-	if (strstr($datatmp[3],"Religión Catolica")==TRUE) {
+	if (strstr($datatmp[3],"Cat")==TRUE) {
 			//$datatmp[$i]="X";
 			$religion ="X";
 		}

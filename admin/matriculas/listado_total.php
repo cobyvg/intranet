@@ -23,6 +23,10 @@ $options_left = array(
 						
 	if ($curso=="3ESO") {
 		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, optativa5, optativa6, optativa7, act1, religion, diversificacion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
+		$div3=mysqli_query($db_con,"SELECT diversificacion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' and diversificacion='1'");
+		if (mysqli_num_rows($div3)>0) {
+			$div_3 = $grupo_actual;
+		}		
 	}
 	else{
 		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, act1, itinerario, religion, diversificacion, matematicas4 FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
@@ -49,13 +53,6 @@ if ($datatmp[11]=="1") {
 		else{
 			$datatmp[11]="";
 		}
-		// Religión	
-if ($datatmp[10]=="Religión Catolica") {
-			$datatmp[11]="X";
-		}
-		else{
-			$datatmp[10]="";
-		}
 }
 else {
 for ($i = 2; $i < 6; $i++) {
@@ -64,21 +61,14 @@ if ($datatmp[$i]=="1") {
 		}
 		else{
 			$datatmp[$i]="";
-		}
-		
+		}		
 	}
 
 	// Diversificación
 if ($datatmp[9]=="1") {
 			$datatmp[9]="X";
 		}
-	// Religión	
-if ($datatmp[8]=="Religión Catolica") {
-			$datatmp[8]="X";
-		}
-		else{
-			$datatmp[8]="";
-		}	
+	
 }
 
 for ($i = 0; $i < 10; $i++) {
@@ -89,28 +79,24 @@ for ($i = 0; $i < 10; $i++) {
 	
 $nc+=1;
 if ($curso=="3ESO") {	
-		if (strstr($datatmp[10],"Rel")==TRUE) {
+		if (strstr($datatmp[10],"Cat")==TRUE) {
 			$religion ="X";
 		}
 }
 else{
-	if (strstr($datatmp[8],"Rel")==TRUE) {
+	if (strstr($datatmp[8],"Cat")==TRUE) {
 			$religion ="X";
 		}
 }
 if ($curso=="3ESO") {
 		
-		if (strstr($datatmp[10],"Rel")==TRUE) {
-			//$datatmp[$i]="X";
-			$religion ="X";
-		}
 	$opt = "
 	
 	Optativas:
-	1 => Alemán 2º Idioma,	2 => Cambios Sociales y Género,	3 => Francés 2º Idioma,	4 => Cultura Clásica,	5 => Taller T.I.C. III,	6 => Taller de Cerámica, 7 => Taller de Teatro
+	1 => Alemán 2º Idioma,	2 => Cambios Sociales y Género,	3 => Francés 2º Idioma,	4 => Cultura Clásica, 5 => Taller T.I.C. III,	6 => Taller de Cerámica, 7 => Taller de Teatro
 	";
-	
-	$data[] = array(
+	if ($div_3 == $grupo_actual) {
+			$data[] = array(
 				'num'=>$nc,
 				'nombre'=>$datatmp[0],
 				'c9'=>$religion,
@@ -136,13 +122,41 @@ if ($curso=="3ESO") {
 				'c8'=>'Opt7',
 				'c11'=>'Div',
 			);
+	}
+	else{
+			$data[] = array(
+				'num'=>$nc,
+				'nombre'=>$datatmp[0],
+				'c9'=>$religion,
+				'c2'=>$datatmp[2],
+				'c3'=>$datatmp[3],
+				'c4'=>$datatmp[4],
+				'c5'=>$datatmp[5],
+				'c6'=>$datatmp[6],
+				'c7'=>$datatmp[7],
+				'c8'=>$datatmp[8],
+				);
+	$titles = array(
+				'num'=>'<b>Nº</b>',
+				'nombre'=>'<b>Alumno</b>',
+				'c9'=>'Rel.',
+				'c2'=>'Opt1',
+				'c3'=>'Opt2',
+				'c4'=>'Opt3',
+				'c5'=>'Opt4',
+				'c6'=>'Opt5',
+				'c7'=>'Opt6',
+				'c8'=>'Opt7',
+			);
+	}
+
 }
 
 if ($curso=="2ESO") {
 	
 		$act = "
 	Actividades de Refuerzo y Ampliación:
-	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,	4 => Ampliación: Taller T.I.C. II";	
+	1 => Actividades de refuerzo de Lengua Castellana, 2 => Actividades de refuerzo de Matemáticas, 3 => Actividades de refuerzo de Inglés,4 => Ampliación: Taller T.I.C. II, 5 => Taller de Teatro";	
 		
 		$opt = "
 	

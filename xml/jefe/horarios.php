@@ -141,7 +141,7 @@ mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 			$nive =mysqli_fetch_array($niv);
 			$nivel = $nive[0];
 
-			mysql_query("INSERT INTO  profesores (
+			mysqli_query($db_con,"INSERT INTO  profesores (
 `nivel` ,
 `materia` ,
 `grupo` ,

@@ -404,7 +404,7 @@ include("../../menu.php");
 </div>
 <br>
 <div class="well" >
-<legend>Importación del horario / Generar XML</legend>
+<legend>Importación del horario con archivo DEL</legend>
   <FORM ENCTYPE="multipart/form-data" ACTION="horarios.php" METHOD="post">
   <p class="help-block" style="width:500px; text-align:left"><span style="color:#9d261d">(*) </span>El archivo que se debe importar se obtiene de HORW exportando los datos en formato DEL.</p>
   <br />
