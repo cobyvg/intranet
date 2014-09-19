@@ -78,7 +78,7 @@ include("../../menu.php");
 	
 				<h3>Equipo educativo de la unidad</h3>
 				
-				<?php $result = mysqli_query($db_con, "SELECT DISTINCT MATERIA, PROFESOR FROM profesores WHERE grupo='$curso'"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT DISTINCT MATERIA, PROFESOR FROM profesores WHERE grupo='$curso'") or die(); ?>
 				<?php if(mysqli_num_rows($result)): ?>
 				<div class="table-responsive">
 					<table class="table table-striped">

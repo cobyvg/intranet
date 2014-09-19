@@ -119,7 +119,7 @@ if (mysqli_num_rows ( $repe ) == "0") {
 } 
 
 $titulo = "Comunicación de expulsión del centro";
-$cuerpo = "El Director del Instituto de Educación Secundaria $nombre_corto de $localidad_del_centro, en virtud de las facultades otorgadas por el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio en el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, una vez estudiado el expediente disciplinario de $nombre $apellidos, alumno/a del grupo $unidad.
+$cuerpo = "El Director del $nombre_del_centro de $localidad_del_centro, en virtud de las facultades otorgadas por el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio en el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, una vez estudiado el expediente disciplinario de $nombre $apellidos, alumno/a del grupo $unidad.
 
 Acuerda:
 
@@ -267,7 +267,7 @@ $MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );
 }
 
 // RECIBI
-$txt_recibi = "D./Dña. $padre como representante legal de $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$idfec." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$idfec." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 
 $MiPDF->Ln(8);
 $MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());

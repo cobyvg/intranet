@@ -162,7 +162,7 @@ for($i = 0; $i < 1; $i ++) {
 	
 	
 	// RECIBI
-	$txt_recibi = "D./Dña. $padre como representante legal de $nombre $apellidos, alumno/a del grupo $nivel-$grupo, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+	$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo $nivel-$grupo, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 	
 	$MiPDF->Ln(8);
 	$MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
