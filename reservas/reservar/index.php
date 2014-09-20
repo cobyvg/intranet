@@ -226,7 +226,7 @@ else{$SQL = "select distinct nombre from $db.departamentos where nombre = '". $_
 if($servicio){
 $eventQuery2 = "SELECT hora1 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
 $reservado0 = mysqli_query($db_con, $eventQuery2);
-if (mysqli_numrows($reservado0) == 1) {
+if (mysqli_num_rows($reservado0) == 1) {
 $reservado1 = mysqli_fetch_row($reservado0);
 }
 }
