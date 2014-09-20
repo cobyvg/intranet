@@ -144,7 +144,7 @@ while ($au_grupo = mysqli_fetch_array($reg)){
 	$servicio=$au_grupo[0];
 	$lugar = $au_grupo[0];		
 
-if (stristr($servicio,"medio")==FALSE and stristr($servicio,"carrito")==FALSE and stristr($servicio,"usuario")==FALSE and stristr($servicio,"profesores")==FALSE and stristr($servicio,"horw")==FALSE) {
+if (stristr($servicio,"medio")==FALSE and stristr($servicio,"carrito")==FALSE and stristr($servicio,"usuario")==FALSE and stristr($servicio,"profesores")==FALSE and stristr($servicio,"hor")==FALSE) {
 	
 if ($ci % 3 == 0 || $ci == 0){
 	echo ($primero) ? '</div> <hr>' : '';

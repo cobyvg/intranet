@@ -17,6 +17,9 @@ if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'
 include ("../../menu.php");
 include ("menu.php");
 
+// PLUGINS
+$PLUGIN_DATATABLES = 1;
+
 mysqli_select_db($db_con, $db);
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS r_departamento (
 `id` SMALLINT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
@@ -240,7 +243,15 @@ else{
       
 		      <div class="form-group">
 			      <label for="jefedep">Jefe del Departamento</label>
-			      <input type="text" class="form-control" id="jefedep" name="jefedep" value="<? echo $profesor; ?>" readonly>
+<? if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
+	$rd_profesor=$profesor;
+}	
+else{
+	$rd_profe = mysqli_query($db_con,"select nombre from departamentos where cargo like '%4%' and departamento = '$departament'");
+	$rd_profes = mysqli_fetch_array($rd_profe);
+	$rd_profesor = $rd_profes[0];
+}		      
+?><input type="text" class="form-control" id="jefedep" name="jefedep" value="<? echo $rd_profesor; ?>" readonly>
 		      </div>
 
 <?
@@ -262,21 +273,17 @@ if ($edicion=="1") {
 		 <div class="col-sm-4">
 
 <?
-if($pag == "") {$pag = "0";} else {$pag = $pag + 25;}
-$query = "SELECT id, fecha, departamento, contenido, numero, impreso FROM r_departamento where departamento = '$departament' ORDER BY numero DESC limit $pag,50";
+$query = "SELECT id, fecha, departamento, contenido, numero, impreso FROM r_departamento where departamento = '$departament' ORDER BY numero DESC";
 $result = mysqli_query($db_con, $query) or die ("Error in query: $query. " . mysqli_error($db_con));
 $n_actas = mysqli_num_rows($result);
 if (mysqli_num_rows($result) > 0)
 {
 ?>
-<p class="help-block">Tened en cuenta que las actas se bloquean en el momento en que hagáis click en el botón de '<b>Imprimir</b>'. A partir de entonces pueden verse (botón de la lupa) pero no es posible editarlas.</p>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th colspan="3">Actas del departamento</th>
-			</tr>
-		</thead>
-		<tbody>
+<legend>Actas del departamento</legend>
+	<table class="table table-striped datatable">
+	<thead>
+	<th style="width:60px">Nº</th><th>Fecha</th><th>Op.</th>
+	</thead>
 			<? while($row = mysqli_fetch_object($result)) { ?>
       <tr> 
 	      <td nowrap><? echo $row->numero; ?></td> 
@@ -308,7 +315,6 @@ if (mysqli_num_rows($result) > 0)
 			<?
 			}
 			?>
-		</tbody>
 	</table>
 	<?
 	}
@@ -324,11 +330,7 @@ if (mysqli_num_rows($result) > 0)
 }
 ?>
 </div>
-<? if ($n_actas > 24) { ?>
-<a href="list.php?pag=<? echo $pag;?>" class="btn btn-primary">Siguientes 25 actas</a>
-<?
-}
-?>
+</div>
 </div>
 
 <?php include("../../pie.php"); ?>
@@ -351,6 +353,31 @@ if (mysqli_num_rows($result) > 0)
 		});
 
 	});
+
+	$(document).ready(function() {
+		var table = $('.datatable').DataTable({
+			"paging":   true,
+	    "ordering": true,
+	    "info":     false,
+	    
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+			
+			"order": [[ 0, "desc" ]],
+			
+			"language": {
+			            "lengthMenu": "_MENU_",
+			            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+			            "info": "Página _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay resultados disponibles.",
+			            "infoFiltered": "(filtrado de _MAX_ resultados)",
+			            "search": "",
+			            "paginate": {
+			                  "first": "Primera",
+			                  "next": "Última",
+			                  "next": "",
+			                  "previous": ""
+			                }
+			        }
+		});
+	});
 	</script>
-</body>
-</html>
