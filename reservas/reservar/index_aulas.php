@@ -182,7 +182,7 @@ mysqli_query($db_con, $sql_hor);
 <div class="container">
 
 	<div class="page-header">
-	  <h2>Reservas <small> Reserva del <?php echo $servicio; ?></small></h2>
+	  <h2>Reservas <small> Reserva de <?php echo $servicio; ?></small></h2>
 	</div>
 
 	<?php if (isset($mens)): ?>

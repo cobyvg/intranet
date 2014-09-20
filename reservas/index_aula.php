@@ -1,6 +1,4 @@
 <?php
-	//header("location:#$servico_aula");
-
 session_start();
 include("../config.php");
 // COMPROBAMOS LA SESION
@@ -21,7 +19,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 if (isset($_GET['recurso'])) {
 	
 	switch ($_GET['recurso']) {
-		case 'aula_grupo'    : $naulas = $num_aula_grupo+1; $nombre_rec = "Aulas de grupo"; break;
+		case 'aula_grupo'    : $naulas = $num_aula_grupo+1; $nombre_rec = "Aulas y Dependencias del Centro"; break;
 	}
 	
 }
@@ -45,7 +43,7 @@ include("menu.php");
 			<div class="well">
 				<form method="post" action="reservar/index_aulas.php">
 					<fieldset>
-						<legend>Seleccione aula</legend>
+						<legend>Selecciona Aula o Dependencia</legend>
 						
 						<div class="form-group">
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' AND n_aula NOT LIKE 'audi%' AND a_aula NOT LIKE 'dir%' ORDER BY n_aula ASC"); ?>
@@ -56,6 +54,8 @@ include("menu.php");
 								<?php $value = $row['a_aula'].' ==> '.$row['n_aula']; ?>
 								<option value="<?php echo $value; ?>"><?php echo $row['n_aula']; ?></option>
 								<?php endwhile; ?>
+								<option value="AMAG ==> AULA MAGNA">AULA MAGNA</option>
+								<option value="BIBLIO ==> BIBLIOTECA">BIBLIOTECA</option>
 							</select>
 							<?php else: ?>
 							<select class="form-control" name="servicio_aula" disabled>
@@ -131,15 +131,18 @@ $last_year = $year - 1;
 if ($today > $numdays) { $today--; }
 
 // Lugares y situación
-$a1=mysqli_query($db_con, "select distinct a_aula, n_aula from $db.horw where a_aula not like 'G%' and a_aula not like '' and a_aula not like 'DIR%' order by a_aula");
+// Comprobamos que existe la tabla del aula
+$reg = mysqli_query($db_con, "show tables from $db_reservas");
+	$num_aula_grupo=mysqli_num_rows($reg);
+	$ci = 0;
+	$primero = 0;
 
-$num_aula_grupo=mysqli_num_rows($a1);
-$ci = 0;
-$primero = 0;
-while($au_grupo = mysqli_fetch_array($a1)){
+while ($au_grupo = mysqli_fetch_array($reg)){
+
 	$servicio=$au_grupo[0];
-	$lugar = $au_grupo[1];	
-	
+	$lugar = $au_grupo[0];		
+
+if (stristr($servicio,"medio")==FALSE and stristr($servicio,"carrito")==FALSE and stristr($servicio,"usuario")==FALSE and stristr($servicio,"profesores")==FALSE and stristr($servicio,"horw")==FALSE) {
 	
 if ($ci % 3 == 0 || $ci == 0){
 	echo ($primero) ? '</div> <hr>' : '';
@@ -183,7 +186,8 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   if ($result_found != 1) { 
 		//Buscar actividad para el día y marcarla
 		$sql_currentday = "$year-$month-$zz";
-    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
+    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday'";
+    //echo $eventQuery;
  		$eventExec = mysqli_query($db_con, $eventQuery );
 		if (mysqli_num_rows($eventExec)>0) {
 			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
@@ -312,6 +316,7 @@ echo '</div>';
 echo '</div>';
 
 $ci+=1;
+}
 }		
 echo '</div>';
 ?>
