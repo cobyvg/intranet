@@ -158,16 +158,13 @@ En $localidad_del_centro, a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 	$MiPDF->Ln(10);
 	
 	//FIRMAS
-	$MiPDF->Cell (55, 5, 'Representante legal', 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 5, 'Alumno/a', 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 5, 'Director/a del centro', 0, 1, 'L', 0 );
-	$MiPDF->Cell (55, 25, '', 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 25, '', 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 25, '', 0, 1, 'L', 0 );
+	$MiPDF->Cell (90, 5, 'Representante legal', 0, 0, 'C', 0 );
+	$MiPDF->Cell (55, 5, 'Director/a del centro', 0, 1, 'C', 0 );
+	$MiPDF->Cell (55, 20, '', 0, 0, 'C', 0 );
+	$MiPDF->Cell (55, 20, '', 0, 1, 'C', 0 );
 	$MiPDF->SetFont('NewsGotT', '', 10);
-	$MiPDF->Cell (55, 5, 'Fdo. '.$padre, 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 5, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($director_del_centro, MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'L', 0 );
+	$MiPDF->Cell (90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0 );
+	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($director_del_centro, MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'C', 0 );
 	
 	// RECIBI
 	$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo $nivel-$grupo, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
@@ -179,9 +176,13 @@ En $localidad_del_centro, a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 	$MiPDF->SetFont('NewsGotT', 'B', 12);
 	$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
 	$MiPDF->Ln(5);
+	
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0 );
-  
+	$MiPDF->Ln(15);
+	$MiPDF->Cell (55, 25, '', 0, 0, 'L', 0 );
+	$MiPDF->Cell (55, 10, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
+	
   
 $result1 = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$inicio_curso."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos") or die (mysqli_error($db_con));
 $num = mysqli_num_rows($result1);

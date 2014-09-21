@@ -151,16 +151,13 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->Ln(10);
 	
 	//FIRMAS
-	$MiPDF->Cell (55, 5, 'Representante legal', 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 5, 'Alumno/a', 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 5, 'Tutor/a', 0, 1, 'L', 0 );
-	$MiPDF->Cell (55, 25, '', 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 25, '', 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 25, '', 0, 1, 'L', 0 );
+	$MiPDF->Cell (90, 5, 'Representante legal', 0, 0, 'C', 0 );
+	$MiPDF->Cell (55, 5, 'Tutor/a', 0, 1, 'C', 0 );
+	$MiPDF->Cell (55, 20, '', 0, 0, 'C', 0 );
+	$MiPDF->Cell (55, 20, '', 0, 1, 'C', 0 );
 	$MiPDF->SetFont('NewsGotT', '', 10);
-	$MiPDF->Cell (55, 5, 'Fdo. '.$padre, 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 5, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
-	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($tutor, MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'L', 0 );
+	$MiPDF->Cell (90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0 );
+	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($tutor, MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'C', 0 );
 	
 	// RECIBI
 	$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
@@ -172,8 +169,12 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->SetFont('NewsGotT', 'B', 12);
 	$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
 	$MiPDF->Ln(5);
+	
 	$MiPDF->SetFont('NewsGotT', '', 12);
 	$MiPDF->Multicell(0, 5, $txt_recibi, 0, 'L', 0 );
+	$MiPDF->Ln(15);
+	$MiPDF->Cell (55, 25, '', 0, 0, 'L', 0 );
+	$MiPDF->Cell (55, 15, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
 }
 
 $MiPDF->Output ();

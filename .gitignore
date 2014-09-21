@@ -12,3 +12,5 @@ cache/*
 *.gz
 
 pdf/lib/fonts/log.htm
+
+.buildpath
