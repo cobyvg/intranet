@@ -104,7 +104,7 @@ include("../../menu.php");
 		</thead>
 		<tbody>
 		<?
-		$dep0 = "select distinct departamento from departamentos order by departamento";
+		$dep0 = "select distinct nomdepartamento from departamentos_seneca order by nomdepartamento";
 		$dep1 = mysqli_query($db_con, $dep0);
 		$n_d="";
 		while ($dep = mysqli_fetch_array($dep1)) {
@@ -112,7 +112,7 @@ include("../../menu.php");
 			echo "<tr><td>$dep[0]</td><td><input type='text' name=\"$n_d#$dep[0]\" class='form-control' /></td>";
 		  
 		echo '<td><select name="'.$dep[0].'" id="departamento" class="form-control"><option></option>';
-		$profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos where departamento not like '' order by departamento asc");
+		$profe = mysqli_query($db_con, " SELECT distinct nomdepartamento FROM departamentos_seneca where nomdepartamento not like '' order by nomdepartamento asc");
 		  while($filaprofe = mysqli_fetch_array($profe))
 			{
 			$departamen = $filaprofe[0]; 
@@ -162,7 +162,7 @@ include("../../menu.php");
 					echo '<option>'.$actual[0].'</option><option></option>';
 			}
 			else{ echo '<option></option>';}
-			$profes = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos where departamento not like '' order by departamento asc");
+			$profes = mysqli_query($db_con, " SELECT distinct nomdepartamento FROM departamentos_seneca where nomdepartamento not like '' order by nomdepartamento asc");
 		  while($filaprofes = mysqli_fetch_array($profes))
 			{
 			$departamens = $filaprofes[0]; 
