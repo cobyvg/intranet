@@ -231,7 +231,7 @@ class calendar {
 			
 			// Set day as either plain text or event link
 			if (isset($this->events[$this->year][$this->month][$this->day]))
-				$this->htmlDay = sprintf("<a href=\"%s\" rel=\"tooltip\" title=\"%s\">%s</a>", $this->events[$this->year][$this->month][$this->day]['event_link'], $this->events[$this->year][$this->month][$this->day]['event_title'], $this->day);
+				$this->htmlDay = sprintf("<a href=\"%s\" data-bs=\"tooltip\" title=\"%s\">%s</a>", $this->events[$this->year][$this->month][$this->day]['event_link'], $this->events[$this->year][$this->month][$this->day]['event_title'], $this->day);
 			else
 				$this->htmlDay = $this->day;			
 	
