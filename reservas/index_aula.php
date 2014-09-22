@@ -54,8 +54,10 @@ include("menu.php");
 								<?php $value = $row['a_aula'].' ==> '.$row['n_aula']; ?>
 								<option value="<?php echo $value; ?>"><?php echo $row['n_aula']; ?></option>
 								<?php endwhile; ?>
+								<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'): ?>
 								<option value="AMAG ==> AULA MAGNA">AULA MAGNA</option>
 								<option value="BIBLIO ==> BIBLIOTECA">BIBLIOTECA</option>
+								<?php endif; ?>
 							</select>
 							<?php else: ?>
 							<select class="form-control" name="servicio_aula" disabled>
@@ -134,7 +136,12 @@ if ($today > $numdays) { $today--; }
 
 // Lugares y situación
 // Comprobamos que existe la tabla del aula
-$reg = mysqli_query($db_con, "show tables from $db_reservas");
+if ($db == $db_reservas) {
+	$reg = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' AND n_aula NOT LIKE 'audi%' AND a_aula NOT LIKE 'dir%' ORDER BY n_aula ASC");
+}
+else {
+	$reg = mysqli_query($db_con, "show tables from $db_reservas");
+}
 	$num_aula_grupo=mysqli_num_rows($reg);
 	$ci = 0;
 	$primero = 0;
@@ -142,7 +149,7 @@ $reg = mysqli_query($db_con, "show tables from $db_reservas");
 while ($au_grupo = mysqli_fetch_array($reg)){
 
 	$servicio=$au_grupo[0];
-	$lugar = $au_grupo[0];		
+	$lugar = $au_grupo[1];		
 
 if (stristr($servicio,"medio")==FALSE and stristr($servicio,"carrito")==FALSE and stristr($servicio,"usuario")==FALSE and stristr($servicio,"profesores")==FALSE and stristr($servicio,"hor")==FALSE) {
 	
