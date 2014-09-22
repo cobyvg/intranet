@@ -75,7 +75,7 @@ include("../../menu.php");
 						<legend>Profesores</legend>
 						
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw ORDER BY prof ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw WHERE prof NOT LIKE '' ORDER BY prof ASC"); ?>
 					    <?php if(mysqli_num_rows($result)): ?>
 					    <select class="form-control" id="profeso" name="profeso">
 					    	<?php while($row = mysqli_fetch_array($result)): ?>
