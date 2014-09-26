@@ -104,14 +104,15 @@ while ($h2 = mysqli_fetch_array($h1)) {
 	$cod = $h2[1];
 	$nombre_asignatura = $h2[3];
 	
-	$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and nombre = '$nombre_asignatura' and codigo not like '2' and abrev not like '%\_%'");
+	$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and (codigo not like '2' and codigo = '$cod') and abrev not like '%\_%'");
 	//echo "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and nombre = '$nombre_asignatura' and codigo not like '2' and abrev not like '%\_%'<br>";
 if (mysqli_num_rows($asig)>0) {
 	$asignatur = mysqli_fetch_array($asig);
 	$asignatura=$asignatur[0];
-	if (!($asignatura==$cod)) {
+	$nombre_asig=$asignatur[1];
+	if ($asignatura==$cod) {
 		$codasi = $asignatura;
-		mysqli_query($db_con, "update horw set c_asig = '$codasi' where id = '$id_horw'");
+		mysqli_query($db_con, "update horw set c_asig = '$codasi', asig='$nombre_asig' where id = '$id_horw'");
 		//echo "update horw set c_asig = '$codasi' where id = '$id_horw'<br>";
 	}
 	else{
@@ -119,13 +120,7 @@ if (mysqli_num_rows($asig)>0) {
 	}
 	
 }
-
 }
-
-// Horw para Faltas
-mysqli_query($db_con, "truncate table horw_faltas");
-mysqli_query($db_con, "insert into horw_faltas select * from horw");
-mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 
 	// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
 	$tabla_profes =mysqli_query($db_con,"select * from profesores");
@@ -149,6 +144,11 @@ mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 ) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
 		}
 	}
+	
+// Horw para Faltas
+mysqli_query($db_con, "truncate table horw_faltas");
+mysqli_query($db_con, "insert into horw_faltas select * from horw");
+mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 
 	// Tutores
 	$tabla_tut =mysqli_query($db_con,"select * from FTUTORES");

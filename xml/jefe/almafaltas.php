@@ -281,7 +281,8 @@ mysqli_query($db_con, "drop table almafaltas");
 include("exportaTIC.php");
 include("crear_hermanos.php");
 // Copia de la primera versiÃ³n de alma
-mysqli_query($db_con, "DROP TABLE alma_primera") ;
+mysqli_query($db_con, "DROP TABLE alma_primera");
+mysqli_query($db_con, "DROP TABLE FALUMNOS_primero");
 mysqli_query($db_con, "create table alma_primera select * from alma");
 mysqli_query($db_con, "ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
 mysqli_query($db_con, "CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre, unidad FROM FALUMNOS WHERE claveal IN (SELECT claveal FROM alma_primera)");
@@ -297,7 +298,7 @@ Parece que te está olvidando de enviar todos los archivos con los datos de los 
 ?>
 <br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atr�s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>
 </div>
 </div>

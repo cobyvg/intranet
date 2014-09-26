@@ -7,7 +7,7 @@ if (strstr($_SERVER['REQUEST_URI'],'morosos')==TRUE or strstr($_SERVER['REQUEST_
 if (strstr($_SERVER['REQUEST_URI'],'biblioteca/index.php')==TRUE or strstr($_SERVER['REQUEST_URI'],'biblioteca/biblioteca.php')==TRUE){ $activo3 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'_biblio.php')==TRUE){ $activo4 = ' class="active" ';}
 ?>
-    <div class="container">  
+    <div class="container hidden-print">  
           <ul class="nav nav-tabs">
         <?php if ($p_biblio != ""): ?>
         <li><a href="<? echo $p_biblio;?>" target="_blank">Página de la Biblioteca</a></li>	

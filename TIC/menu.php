@@ -1,4 +1,4 @@
-	<div class="container">
+	<div class="container hidden-print">
 	
 		<ul class="nav nav-tabs">
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php">Nueva incidencia</a></li>

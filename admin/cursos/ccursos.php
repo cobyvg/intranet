@@ -106,7 +106,7 @@ $asignatura="";
 						  
 						  <div class="checkbox">
 						  	<label>
-						    	<input type="checkbox" name="todos" value="1" <?php echo (isset($todos) && $todos == 1) ? 'checked' : '' ;?>> Mostrar todos los grupos
+						    	<input type="checkbox" name="todos" value="1" onclick="submit()" <?php echo (isset($todos) && $todos == 1) ? 'checked' : '' ;?>> Mostrar todos los grupos
 						    </label>
 						  </div>
 						  

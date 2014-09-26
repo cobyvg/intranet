@@ -85,7 +85,7 @@ for ($i = 3; $i < 13; $i++) {
 	$titles = array(
 				'num'=>'<b>Nº</b>',
 				'nombre'=>'<b>Alumno</b>',
-				'c1'=>'Rel.',
+				'c1'=>'Rel.Cat.',
 				'c2'=>'It2',
 				'c3'=>'Opt2',
 				'c4'=>'1',
@@ -101,8 +101,7 @@ for ($i = 3; $i < 13; $i++) {
 			);
 }
 if ($curso=="1BACH") {
-	if (strstr($datatmp[3],"Cat")==TRUE) {
-			//$datatmp[$i]="X";
+		if (strstr($datatmp[5],"Cat")==TRUE) {
 			$religion ="X";
 		}
 		$opt = '
@@ -123,7 +122,7 @@ if ($curso=="1BACH") {
 	$titles = array(
 				'num'=>'<b>Nº</b>',
 				'nombre'=>'<b>Alumno</b>',
-				'c1'=>'Rel.',
+				'c1'=>'Rel.Cat.',
 				'c2'=>'It1',
 				'c3'=>'Opt1',
 				'c4'=>'Idioma1',

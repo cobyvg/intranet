@@ -40,7 +40,7 @@ $asignatura = $exp_unidad[3];
 			<h2>Centro TIC <small>Perfiles de alumnos de <?php echo $unidad; ?></small></h2>
 		</div>
 		
-		<div class="alert alert-info">
+		<div class="alert alert-info hidden-print">
 			<h4>Cambio de contraseña</h4>
 			Los alumnos/as podrán cambiar su contraseña de acceso accediendo a la página web <a href="http://c0/gesuser/" class="alert-link" target="_blank">http://c0/gesuser/</a> desde la red local del centro. En caso de olvido deben ponerse en contacto con el Coordinador TIC para restablecer la contraseña.
 		</div>
@@ -50,13 +50,13 @@ $asignatura = $exp_unidad[3];
 		<div class="row">
 		
 			<!-- COLUMNA CENTRAL -->
-			<div class="col-sm-12">
+			<div class="col-sm-8 col-sm-offset-2">
 				
 				<div class="table-responsive">	
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th colspan="2">Alumno/a</th>
+								<th>Alumno/a</th>
 								<th>Usuario</th>
 								<th>Contraseña</th>
 							</tr>
@@ -65,13 +65,6 @@ $asignatura = $exp_unidad[3];
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT usuarioalumno.nombre, usuarioalumno.usuario, usuarioalumno.unidad, FALUMNOS.nombre, FALUMNOS.apellidos, usuarioalumno.pass, FALUMNOS.claveal FROM usuarioalumno, FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal AND FALUMNOS.claveal = usuarioalumno.claveal AND usuarioalumno.unidad = '$unidad' AND combasi LIKE '%$asignatura%'ORDER BY nc ASC"); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
-								<td class="col-xs-1 text-center">
-									<?php if (file_exists('../xml/fotos/'.$row['claveal'].'.jpg')): ?>
-									<img class="img-responsive" src="<?php echo '../xml/fotos/'.$row['claveal'].'.jpg'; ?>" alt="<?php echo $row['apellidos'].', '.$row['nombre']; ?>">
-									<?php else: ?>
-									<span class="fa fa-user fa-5x"></span>
-									<?php endif; ?>
-								</td>
 								<td><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
 								<td><?php echo $row['usuario']; ?></td>
 								<td><?php echo $row['pass']; ?></td>
@@ -142,7 +135,8 @@ $asignatura = $exp_unidad[3];
 						  <div class="form-group">
 						    <label for="curso">Unidad (Asignatura)</label>
 						    
-						    <?php $result = mysqli_query($db_con, "SELECT DISTINCT GRUPO, MATERIA, NIVEL, codigo FROM profesores, asignaturas WHERE materia = nombre AND abrev NOT LIKE '%\_%' AND PROFESOR = '$profe' AND nivel = curso ORDER BY grupo ASC"); ?>
+						    <?php 
+						    $result = mysqli_query($db_con, "SELECT DISTINCT GRUPO, MATERIA, NIVEL, codigo FROM profesores, asignaturas WHERE materia = nombre AND abrev NOT LIKE '%\_%' AND PROFESOR = '$profe' AND nivel = curso ORDER BY grupo ASC"); ?>
 						    <?php if(mysqli_num_rows($result)): ?>
 						    <select class="form-control" id="curso" name="curso">
 						      <?php while($row = mysqli_fetch_array($result)): ?>
