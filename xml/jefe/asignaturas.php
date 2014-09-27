@@ -41,6 +41,9 @@ include("../../menu.php");
 // Vaciamos o borramos tablas
 mysqli_query($db_con, "TRUNCATE TABLE calificaciones");
 mysqli_query($db_con, "TRUNCATE TABLE asignaturas");
+mysqli_query($db_con, "ALTER TABLE  `asignaturas` CHANGE  `CURSO`  `CURSO` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL
+");
+
 mysqli_query($db_con, "drop table materias");
 
 // Asignaturas de Horw
@@ -52,7 +55,7 @@ $crear = "CREATE TABLE  IF NOT EXISTS `materias_temp` (
 	`CODIGO` varchar( 10 ) default NULL ,
  	`NOMBRE` varchar( 64 ) default NULL ,
  	`ABREV` varchar( 10 ) default NULL ,
-	`CURSO` varchar( 64 ) default NULL,
+	`CURSO` varchar( 128 ) default NULL,
 	`GRUPO` varchar( 6 ) default NULL
 	)" ;
 	mysqli_query($db_con, $crear);

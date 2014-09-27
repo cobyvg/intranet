@@ -20,7 +20,7 @@ $tablas = mysqli_query($db_con, "show tables");
 while ($tabla = mysqli_fetch_array($tablas)) {
 mysqli_query($db_con, "create table ".$nombre_copia.".".$tabla[0]." SELECT * FROM ".$db.".".$tabla[0]);
 	$protegida = "";
-	$intocables = array("absentismo","actualizacion","cal", "c_profes", "departamentos", "inventario_clases", "inventario", "inventario_lugares", "listafechorias", "mensajes", "mens_profes", "mens_texto", "noticias", "partestic", "recursos", "r_departamento", "Textos", "textos_gratis", "alma_primaria");
+	$intocables = array("absentismo","actualizacion","cal", "c_profes", "departamentos", "inventario_clases", "inventario", "inventario_lugares", "listafechorias", "mensajes", "mens_profes", "mens_texto", "noticias", "partestic", "recursos", "r_departamento", "Textos", "textos_gratis", "alma_primaria", "matriculas", "matriculas_bach", "matriculas_backup", "matriculas_bach_backup", "mem_dep");
 	foreach ($intocables as $notocar){
 		if ($tabla[0]==$notocar) {
 			$protegida = "1";

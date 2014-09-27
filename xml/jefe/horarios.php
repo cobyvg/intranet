@@ -50,7 +50,8 @@ mysqli_query($db_con,"truncate table horw_seg_faltas");
 mysqli_query($db_con,"insert into horw_seg_faltas select * from horw_faltas");
 
 mysqli_query($db_con,"truncate table horw");
-
+mysqli_query($db_con,"ALTER TABLE  `horw` CHANGE  `asig`  `asig` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''
+");
 // Claveal primaria e índice
 
 while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
@@ -85,7 +86,8 @@ $hora6 = "UPDATE  horw SET  hora =  '6' WHERE  hora = '7'";
 mysqli_query($db_con,$hora6);
 mysqli_query($db_con,"OPTIMIZE TABLE  `horw`");
 
-
+// Eliminamos Nivel y Grupo (obsoleto)
+mysqli_query($db_con,"update horw set n_grupo='', nivel=''");
 
 // Cambiamos los numeros de Horw para dejarlos en orden alfabético.
 $hor = mysqli_query($db_con, "select distinct prof from horw order by prof");
@@ -146,8 +148,8 @@ if (mysqli_num_rows($asig)>0) {
 	}
 	
 // Horw para Faltas
-mysqli_query($db_con, "truncate table horw_faltas");
-mysqli_query($db_con, "insert into horw_faltas select * from horw");
+mysqli_query($db_con, "drop table horw_faltas");
+mysqli_query($db_con, "create table horw_faltas select * from horw");
 mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 
 	// Tutores
