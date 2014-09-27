@@ -106,22 +106,39 @@ while ($h2 = mysqli_fetch_array($h1)) {
 	$cod = $h2[1];
 	$nombre_asignatura = $h2[3];
 	
-	$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and (codigo not like '2' and codigo = '$cod') and abrev not like '%\_%'");
-	//echo "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and nombre = '$nombre_asignatura' and codigo not like '2' and abrev not like '%\_%'<br>";
+	
+// Primera pasada	
+	$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and nombre = '$nombre_asignatura' and codigo not like '2' and abrev not like '%\_%'");
 if (mysqli_num_rows($asig)>0) {
 	$asignatur = mysqli_fetch_array($asig);
 	$asignatura=$asignatur[0];
-	$nombre_asig=$asignatur[1];
-	if ($asignatura==$cod) {
+	if (!($asignatura==$cod)) {
 		$codasi = $asignatura;
-		mysqli_query($db_con, "update horw set c_asig = '$codasi', asig='$nombre_asig' where id = '$id_horw'");
+		mysqli_query($db_con, "update horw set c_asig = '$codasi' where id = '$id_horw'");
 		//echo "update horw set c_asig = '$codasi' where id = '$id_horw'<br>";
 	}
 	else{
 		$codasi="";
+	}	
+}
+
+// Segunda pasada	
+	$asig2 = mysqli_query($db_con, "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and (codigo not like '2' and codigo = '$cod') and abrev not like '%\_%'");
+if (mysqli_num_rows($asig2)>0) {
+	$asignatur2 = mysqli_fetch_array($asig2);
+	$asignatura2=$asignatur2[0];
+	$nombre_asig2=$asignatur2[1];
+	if ($asignatura2==$cod) {
+		$codasi2 = $asignatura2;
+		mysqli_query($db_con, "update horw set c_asig = '$codasi2', asig='$nombre_asig2' where id = '$id_horw'");
+	}
+	else{
+		$codasi2="";
 	}
 	
 }
+
+
 }
 
 	// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
