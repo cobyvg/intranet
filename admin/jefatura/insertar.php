@@ -24,7 +24,7 @@ $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 		('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','1','".$prohibido."','".$clave."')";
 		 // echo $query;
 mysqli_query($db_con, $query);
-echo $query."<br>";
+//echo $query."<br>";
 }
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -61,4 +61,5 @@ Los datos se han introducido correctamente.
  	mysqli_query($db_con, "update tutoria set claveal='$claveal' where id='$id'");
  }
 }
+$id="";
 ?>
