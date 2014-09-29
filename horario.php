@@ -27,23 +27,22 @@ echo '<tr><th>'.$nombre.'ª</th>';
 		if (! (empty ( $z ) and ! ($n_hora))) {
 			$extra = "and dia = '$z' and hora = '$n_hora'";
 		}
-	$conv = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr'");
+/*	$conv = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr'");
 	if(mysqli_num_rows($conv) > '0'){
 	$gucon = "1";
-	}
-		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig FROM  horw where prof = '$pr' $extra" );
-		//echo "SELECT distinct  c_asig, a_asig FROM  horw where prof = '$pr' $extra<br>";
-		
+	}*/
+		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig FROM  horw where prof = '$pr' $extra" );		
 		$rowasignatur1 = mysqli_fetch_row ( $asignatur1 );
-		if ($gucon=='1') {
+		
+/*		if ($gucon=='1') {
 			$rowasignatur1 [1] = "CON";
-		}
+		}*/
 		if (is_numeric ( $rowasignatur1 [0] ) and ! ($rowasignatur1 [1] == "GU")) {
-			echo "<div class='badge badge-inverse'>" . $rowasignatur1 [1] . "</div><br />";
+			echo "<span class='label label-default'>" . $rowasignatur1 [1] . "</span><br />";
 		}
 		
 		if (! (is_numeric ( $rowasignatur1 [0] )) and ! ($rowasignatur1 [1] == "GU")) {
-			echo "<h5 class='badge badge-success'>" . $rowasignatur1 [1] . "</h5><br />";
+			echo "<span class='label label-info'>" . $rowasignatur1 [1] . "</span><br />";
 		}
 
 
