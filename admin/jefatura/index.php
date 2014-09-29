@@ -23,9 +23,6 @@ exit;
 }
 $profesor = $_SESSION['profi'];
 $cargo = $_SESSION['cargo'];
-?>
-
-<?php
 
 // PLUGINS
 $PLUGIN_DATATABLES = 1;
@@ -228,7 +225,7 @@ if ($alumno) {
 								  <select class="form-control" id="alumno" name="alumno" onchange="submit()">
 								  	<option value="Todos los Alumnos">Todos los Alumnos</option>
 								  	<?php while($row = mysqli_fetch_array($result)): ?>
-								  	<option value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']; ?>" <?php echo (isset($alumno) && strstr($row['APELLIDOS'].', '.$row['NOMBRE'], $alumno) == true) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
+								  	<option value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']; ?>" <?php echo (isset($alumno) && ($row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']) == $alumno) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
 								  	<?php endwhile; ?>
 								  	<?php mysqli_free_result($result); ?>
 								  </select>
