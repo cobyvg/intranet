@@ -33,6 +33,12 @@ include("../../menu.php");
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
+// Actualizamos campo departamento en tablas
+$n_dep = array("departamentos","inventario","actividades","mem_dep","r_departamento","Textos");
+foreach ($n_dep as $sust_dep){
+mysqli_query($db_con, "ALTER TABLE `$sust_dep` CHANGE `DEPARTAMENTO` `DEPARTAMENTO` VARCHAR(80) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL");
+}
+
 if(isset($_FILES['archivo'])){  
 $db_con = mysqli_connect($db_host, $db_user, $db_pass) or die("Error de conexión");
 mysqli_select_db($db_con, $db);
