@@ -2,6 +2,7 @@
     $directorio = "../../varios/";
 	$archivo = "Importacion_horarios_Seneca.xml";
 	$archivo_origen = $HorExpSen;
+	$depurar = $_POST['depurar'];
 	
 	if ($depurar==1) {
 		include_once '../../menu.php';
@@ -46,7 +47,10 @@ El archivo generado por el programa generador de horarios ha sido procesado y se
 		$N_HORFIN=$codigos->item(9)->nodeValue;
 		$X_ACTIVIDAD=$codigos->item(10)->nodeValue;
 
-		if (strlen($X_UNIDAD)>0 and $X_UNIDAD > "3174012") {
+			$bach = mysqli_query($db_con,"select unidades.idunidad from unidades, cursos where cursos.idcurso = unidades.idcurso and nomcurso like '%Bach%'");
+			while($cur_bach = mysqli_fetch_array($bach))
+			{
+		if (strlen($X_UNIDAD)>0 and $X_UNIDAD == $cur_bach[0]) {
 
 			$un = mysqli_query($db_con, "select unidades.idcurso, nomcurso, nomunidad from unidades, cursos where unidades.idcurso = cursos.idcurso and idunidad = '$X_UNIDAD' order by unidades.idcurso, nomunidad");
 			$uni = mysqli_fetch_array($un);
@@ -58,7 +62,7 @@ El archivo generado por el programa generador de horarios ha sido procesado y se
 			if ($nombre_asig) {
 				$nombre_asigna= mysqli_fetch_array($nombre_asig);
 
-				$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas  where curso = '$uni[1]' and nombre = '$nombre_asigna[0]'");
+				$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas  where curso = '$uni[1]' and nombre = '$nombre_asigna[0]' and abrev not like '%\_%'");
 
 
 				if (mysqli_num_rows($asig)>0) {
@@ -87,7 +91,7 @@ El código de la asignatura <u>$X_MATERIAOMG</u> (<em>$nombre_asignatura</em>) no
 						if ($depurar==1) {
 						echo  '<br /><div align="center"><div class="alert alert-warning alert-block fade in"><br />
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-No existe la asignatura <u>'.$X_MATERIAOMG.'</u> (<em>'.$nombre_asignatura.'</em>) en la tabla de asignaturas de'. $uni[1].'.
+No existe la asignatura <u>'.$X_MATERIAOMG.'</u> (<em>'.$nombre_asignatura.'</em>) en la tabla de asignaturas de '. $uni[1].'.
 </div></div>';
 						}
 						$texto.=$X_MATERIAOMG.' ';
@@ -105,7 +109,7 @@ No existe la asignatura <u>'.$X_MATERIAOMG.'</u> (<em>'.$nombre_asignatura.'</em
 				}
 			}
 		}
-
+	}
 	}
 
 	$contenido=$doc->saveXML();
