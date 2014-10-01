@@ -29,8 +29,7 @@ include("../../menu.php");
 if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];}else{$profeso="";}
 if (isset($_GET['sustituido'])) {$sustituido = $_GET['sustituido'];}elseif (isset($_POST['sustituido'])) {$sustituido = $_POST['sustituido'];}else{$sustituido="";}
 if (isset($_GET['hora'])) {$hora = $_GET['hora'];}elseif (isset($_POST['hora'])) {$hora = $_POST['hora'];}else{$hora="";}
-if (isset($_GET['submit2'])) {$submit2 = $_GET['submit2'];}elseif (isset($_POST['submit2'])) {$submit2 = $_POST['submit2'];}else{$submit2="";}
-if (isset($_GET['gu_fecha'])) {$gu_fecha = $_GET['gu_fecha'];}elseif (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="";}
+if (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="";}
 
 ?>
 <div class="container">
@@ -91,7 +90,7 @@ largo del curso.</p>
 <br>
 <div class="well well-large">
 <FORM action="guardias.php" method="POST" name="f1">
-	<div class="form-group">
+	<input type="hidden" name="profeso" value="<? echo $profeso;?>">	<div class="form-group">
 	<label>Profesor a sustituir</label>
               <SELECT  name="sustituido" class="form-control">
               <option><? echo $sustituido;?></option>
@@ -112,9 +111,8 @@ largo del curso.</p>
     
     <div class="form-group" id="datetimepicker1">     
 	<label>Fecha de la sustitución</label>
-	<input type="hidden" name="profeso" value="<? echo $profeso;?>">
 	     <div class="input-group">
-            <input name="gu_fecha" type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="gu_fecha" >
+<input name="gu_fecha" type="text" class="form-control" value="<? echo $gu_fecha;?>" data-date-format="DD-MM-YYYY" id="gu_fecha" required>
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>   
 </div>

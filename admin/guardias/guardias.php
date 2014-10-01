@@ -49,11 +49,12 @@ if ($n_dia > $numerodiasemana) {
 	$dif = $numerodiasemana - $n_dia;
 	$g_dia = date('d')-$dif;
  } 
+$g_dia = substr($g_dia,1,strlen($g_dia));
  if ($n_dia == $numerodiasemana) {
  	$dif = 0;
  }
  	$g_fecha = date("Y-m-$g_dia");
- 	$fecha_sp = formatea_fecha($g_fecha);
+  	$fecha_sp = formatea_fecha($g_fecha);
 ?>
 <div class="container">
 <div class="row">
