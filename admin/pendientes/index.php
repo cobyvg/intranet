@@ -14,10 +14,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php"); 
 //include("menu.php"); 
 
-$query_Recordset1 = "SELECT * FROM asignaturas GROUP BY nombre ORDER BY nombre ASC";
+$query_Recordset1 = "SELECT distinct pendientes.codigo FROM pendientes order by codigo";
 $Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error($db_con));
 $row_Recordset1 = mysqli_fetch_array($Recordset1);
 $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
+
 $query_Recordset2 = "SELECT DISTINCT unidad, curso, SUBSTRING(unidad, 2,1) AS orden FROM alma ORDER BY orden ASC";
 $Recordset2 = mysqli_query($db_con, $query_Recordset2) or die(mysqli_error($db_con));
 $row_Recordset2 = mysqli_fetch_assoc($Recordset2);
@@ -46,18 +47,18 @@ $totalRows_Recordset2 = mysqli_num_rows($Recordset2);
 						<legend>Listado de pendientes por asignatura</legend>
 						
 						<div class="form-group">
-						  <select class="form-control" name="select[]" multiple size="6">
+						  <select class="form-control" name="select[]" multiple size="20">
 <?php 
 do {  
+	$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$row_Recordset1[0]' order by nombre");
+	$asignatur = mysqli_fetch_row($asig);
+	$asignatura = $asignatur[0];
+	$curso = $asignatur[1];
 ?>
-    <option><?php  echo $row_Recordset1[1]?></option>
+    <option value='<?php  echo $row_Recordset1[0];?>'><?php  echo $curso." => ".$asignatura;?></option>
     <?php 
 } while ($row_Recordset1 = mysqli_fetch_array($Recordset1));
   $rows = mysqli_num_rows($Recordset1);
-  if($rows > 0) {
-      mysqli_data_seek($Recordset1, 0);
-	  $row_Recordset1 = mysqli_fetch_array($Recordset1);
-  }
 ?>
 						  </select>
 						  <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples asignaturas.</p>
@@ -82,7 +83,7 @@ do {
 						<legend>Listado de pendientes por grupos</legend>
 						
 						<div class="form-group">
-					    <select class="form-control" name="select1[]" multiple size="6">
+					    <select class="form-control" name="select1[]" multiple size="20">
 <?php 
 do {  
 	if (strstr($row_Recordset2['curso'],"E.S.O.") or strstr($row_Recordset2['curso'],"Bachillerato")) {	

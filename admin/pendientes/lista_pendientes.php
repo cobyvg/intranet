@@ -92,24 +92,27 @@ if ($_POST['pdf']==1) {
 		$MiPDF->SetFont('NewsGotT','B',12);
 		$MiPDF->Multicell(0,4,"LISTA DE ALUMNOS CON ASIGNATURAS PENDIENTES",0,'J',0);
 		$MiPDF->Ln(3);
+
+
+			$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$valor' order by nombre");
+	$asignatur = mysqli_fetch_row($asig);
+	$asignatura = $asignatur[0];
+	$curso = $asignatur[1];
+		$tit = $asignatura.' ('.$curso.')';
 		$MiPDF->SetFont('NewsGotT','B',12);
-		$MiPDF->Multicell(0,4,"".$valor,0,'J',0);
+		$MiPDF->Multicell(0,4,"".$tit,0,'J',0);
 		$MiPDF->Ln(3);
-		$val_nivel=substr($valor,0,1);
-		$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc, pendientes.claveal
+		
+		$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc, pendientes.claveal, matriculas
 FROM pendientes, asignaturas, alma, FALUMNOS
 WHERE asignaturas.codigo = pendientes.codigo
 AND FALUMNOS.claveal=alma.claveal
 AND alma.claveal = pendientes.claveal
 AND alma.unidad NOT LIKE  "%p-%"  
-AND asignaturas.nombre =  "'.$valor.'" and alma.unidad not like "1%"
+AND asignaturas.codigo =  "'.$valor.'" and alma.unidad not like "1%"
 AND abrev LIKE  "%\_%"
 ORDER BY alma.curso, alma.unidad, nc';
-		/*$sql = "SELECT alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, nc
-FROM alma,  pendientes , asignaturas, FALUMNOS
-WHERE Unidad='$valor' and alma.claveal = pendientes.claveal and FALUMNOS.claveal = pendientes.claveal
-AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas.curso like '$val_nivel%' ORDER BY Apellidos, Nombre";*/
-			//echo $sql."<br>";
+		
 		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata
 
 		$MiPDF->SetFont('NewsGotT','',12);
@@ -118,26 +121,27 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 		$cuenta=1;
 		$alumno='';
 		while ($salida = mysqli_fetch_array($Recordset1)){
-			
-		$c_unidad = substr($salida[2],0,1);
-		$c_curso = substr($salida[4],-2,1);
-		//echo "$c_unidad => $c_curso<br>";
-		if ($c_unidad>$c_curso) {
 			$n1+=1;
 //echo "$c_unidad => $c_curso<br>";
+		if ($salida[8]>1) {
+			$rep = "(Rep.)";
+		}
+		else{
+			$rep='';
+		}
 				$alumno=$salida[0];
 				$MiPDF->SetFont('NewsGotT','',12);
 				if ($linea!=''){$MiPDF->ln(2);$MiPDF->Multicell(0,4,$linea,0,'J',0);}
 				#$MiPDF->Text(20,35+$x,$salida[1].', '.$salida[2]);$x=$x+5;
-				$linea=$salida[2].' | '.$salida[6] .'. '.$salida[0].', '.$salida[1]." | ".$salida[4];
+				$linea=$salida[2].' | '.$salida[6] .'. '.$salida[0].', '.$salida[1].' '.$rep;
 			
 
-			if ($x>52){
+			if ($x>35){
 				$x=0;
 				$MiPDF->Addpage();
 				$MiPDF->Ln(8);
 			}		
-		}
+		
 		$x++;
 		}#del while
 		$MiPDF->ln(2);$MiPDF->Multicell(0,4,$linea,0,'J',0);
@@ -152,13 +156,13 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 else{
 	include "../../menu.php";
 	echo '<br />
-<div align=center>
-<div class="page-header">
+
+<div class="page-header" align="center">
   <h2>Listas de Alumnos <small> Lista de Alumnos con asignaturas pendientes</small></h2>
 </div>
-</div>
+
 <div class="container">
-<div class="row"><div class="col-sm-6 col-sm-offset-3">';
+<div class="row">';
 	foreach($_POST["select"] as  $val) {
 		$grupos.=$val.";";
 	}
@@ -166,9 +170,15 @@ echo "<form action='lista_pendientes.php' method='post'>";
 echo "<input type='hidden' name='grupos' value='".$grupos."' />";
 echo "<input type='hidden' name='pdf' value='1' />";
 echo "<button class='btn btn-primary pull-right' name='submit10' type='submit' value='Crear PDF para imprimir'><i class='fa fa-print'> Crear PDF para imprimir</i></button>";
-echo "</form><br />";	
-foreach($_POST["select"] as  $valor) {	
-echo '<legend class="text-info" align="center"><strong>'.$valor.'</strong></legend><hr />';	
+echo "</form><br />";
+echo '<div class="col-sm-6 col-sm-offset-3">';
+
+foreach($_POST["select"] as  $valor) {
+	$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$valor' order by nombre");
+	$asignatur = mysqli_fetch_row($asig);
+	$asignatura = $asignatur[0];
+	$curso = $asignatur[1];
+echo '<br><legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend><hr />';	
 echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th>Asignatura</th></thead><tbody>";
 //$pend = mysqli_query($db_con, "SELECT * from asignaturas where nombre='$valor' and abrev like '%\_%' and asignaturas.nombre in (select distinct materia from profesores) order by curso");
 //while ($pendi = mysqli_fetch_array($pend)) {
@@ -178,13 +188,13 @@ echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th
 FROM alma,  pendientes , asignaturas, FALUMNOS
 WHERE pendientes.codigo='".$pendi[0]."' and alma.claveal = pendientes.claveal and alma.claveal = FALUMNOS.claveal
 AND asignaturas.codigo = pendientes.codigo and asignaturas.curso like '$val_nivel%' and alma.unidad like '$val_nivel%' and asignaturas.nombre not like 'Ámbito %'  ORDER BY alma.curso, unidad, nc, alma.Apellidos, alma.Nombre";*/
-$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc,  pendientes.claveal
+$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc,  pendientes.claveal, alma.matriculas
 FROM pendientes, asignaturas, alma, FALUMNOS
 WHERE asignaturas.codigo = pendientes.codigo
 AND FALUMNOS.claveal=alma.claveal
 AND alma.claveal = pendientes.claveal
 AND alma.unidad NOT LIKE  "%p-%" 
-AND asignaturas.nombre =  "'.$valor.'" and alma.unidad not like "1%"
+AND asignaturas.codigo =  "'.$valor.'" and alma.unidad not like "1%"
 AND abrev LIKE  "%\_%"
 ORDER BY alma.curso, alma.unidad, nc';
 		//echo $sql."<br><br>";
@@ -193,11 +203,15 @@ ORDER BY alma.curso, alma.unidad, nc';
 		$val_nivel=substr($pendi[5],0,1);
 		$c_unidad = substr($salida[2],0,1);
 		$c_curso = substr($salida[4],-2,1);
-		//echo "$c_unidad => $c_curso<br>";
-			if ($c_unidad>$c_curso) {	
-				$n1+=1;	
-		echo "<tr><td>$salida[2]</td><td>$salida[6]</td><td nowrap><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a></td><td>$salida[4] </td></tr>";
+		if ($salida[8]>1) {
+			$rep = "(Rep.)";
 		}
+		else{
+			$rep='';
+		}
+		$n1+=1;	
+		echo "<tr><td>$salida[2]</td><td>$salida[6]</td><td nowrap><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a> <span class='text-warning'>$rep</span></td><td>$salida[4] </td></tr>";
+
 		}
 //}
 

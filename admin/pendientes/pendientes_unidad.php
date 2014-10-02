@@ -96,12 +96,12 @@ if ($_POST['pdf']==1) {
 		$MiPDF->SetFont('NewsGotT','B',14);
 		$MiPDF->Multicell(0,4,"".$valor,0,'J',0);
 		$MiPDF->Ln(3);
-		$val_nivel=substr($valor,0,1);
+
 		
-		$sql = "SELECT alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, nc
+		$sql = "SELECT alma.claveal, alma.apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso, nc, matriculas
 FROM alma,  pendientes , asignaturas, FALUMNOS
 WHERE alma.unidad='$valor' and alma.claveal = pendientes.claveal and FALUMNOS.claveal = pendientes.claveal
-AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas.curso like '$val_nivel%' ORDER BY Apellidos, Nombre";
+AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' ORDER BY Apellidos, Nombre";
 		//	echo $sql;
 		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata
 
@@ -118,8 +118,14 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 				$alumno=$salida[0];
 				$MiPDF->SetFont('NewsGotT','',12);
 				if ($linea!=''){$MiPDF->ln(2);$MiPDF->Multicell(0,4,$linea,0,'J',0);}
-				#$MiPDF->Text(20,35+$x,$salida[1].', '.$salida[2]);$x=$x+5;
-				$linea=$salida[6] .'. '.$salida[1].', '.$salida[2].": ";
+		if ($salida[7]>1) {
+			$rep = " (Rep.)";
+		}
+		else{
+			$rep='';
+		}
+		
+				$linea=$salida[6] .'. '.$salida[1].', '.$salida[2].$rep.": ";
 			}
 			$linea.=' '.$salida[4]." | ";
 
@@ -169,13 +175,19 @@ Parece que estás intentando ver la lista de asignaturas pendientes de los alumno
 		else{	
 echo "<table class='table table-striped' align='center'><thead><th></th><th>Alumno</th><th>Pendientes</th></thead><tbody>";
 $val_nivel=substr($valor,0,1);
-$pend = mysqli_query($db_con, "select distinct pendientes.claveal, alma.apellidos, alma.nombre, nc from pendientes, alma, FALUMNOS where pendientes.claveal=alma.claveal and alma.claveal = FALUMNOS.claveal  and alma.unidad = '$valor' order by nc, apellidos, nombre");
+$pend = mysqli_query($db_con, "select distinct pendientes.claveal, alma.apellidos, alma.nombre, nc, matriculas from pendientes, alma, FALUMNOS where pendientes.claveal=alma.claveal and alma.claveal = FALUMNOS.claveal  and alma.unidad = '$valor' order by nc, apellidos, nombre");
 $n1="";
 while ($pendi = mysqli_fetch_array($pend)) {
 	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%2522%' or combasi like '%25227%' or combasi like '%25205%' or combasi like '%25204%')");
 	if (mysqli_num_rows($uni)>0) {}
 			else{
-	echo "<tr><td>$pendi[3]</td><td nowrap><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$pendi[0]&todos=Ver Informe Completo del Alumno'>$pendi[1], $pendi[2]</a></td><td>";
+	if ($pendi[4]>1) {
+			$rep = " (Rep.)";
+		}
+		else{
+			$rep='';
+		}
+	echo "<tr><td>$pendi[3]</td><td nowrap><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$pendi[0]&todos=Ver Informe Completo del Alumno'>$pendi[1], $pendi[2] </a><span class='text-warning'>$rep</span></td><td>";
 		$sql = "SELECT alma.claveal, apellidos, alma.nombre, alma.curso, abrev, asignaturas.curso
 FROM alma,  pendientes , asignaturas
 WHERE alma.claveal='".$pendi[0]."' and alma.claveal = pendientes.claveal
@@ -190,13 +202,10 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 							
 		}
 		}
-		else{
-			echo "<em>Repetidor</em>";
-		}
 		echo "</td></tr>";
 }
 }
-		echo "</tbody></table><p class='muted' align='center'><small>(*) Los alumnos de la lista sin asignaturas son los repetidores.</small></p>";
+		echo "</tbody></table>";
 		echo "<hr />";			
 		}
 
