@@ -1,30 +1,6 @@
 <?
-include("../../config.php");
-if (isset($_POST['enviar'])) {	
-$exporta='../pendientes';
-
-//echo $exporta;
-// Descomprimimos el zip de las calificaciones en el directorio exporta/
-include('../../lib/pclzip.lib.php');   
-$archive = new PclZip($_FILES['archivo2']['tmp_name']);  
-      if ($archive->extract(PCLZIP_OPT_PATH,$exporta) == 0) 
-	  {
-        die('<div align="center"><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCión:</h5>
-No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo estï¿½ corrompido.
-</div></div><br />
-<div align="center">
-  <input type="button" value="Volver atrï¿½s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div>'); 
-      }  
-	  
-header("location:http://$dominio/intranet/xml/jefe/pendientes.php?directorio=$exporta");  	  
-exit;	
-}
-?>
-<?
 session_start();
+include("../../config.php");
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -40,69 +16,62 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-$profe = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
 header("location:http://$dominio/intranet/salir.php");
 exit;	
 }
-
+?>
+<?
 include("../../menu.php");
 ?>
+<br />
+<div align="center">
+<div class="page-header">
+  <h2>Administración <small> Alumnos con asignaturas pendientes</small></h2>
+</div>
+<br />
+<div class="well well-large" style="width:700px;margin:auto;text-align:left">
+<?
+mysqli_query($db_con, "drop TABLE pendientes");
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS pendientes (
+  id int(11) NOT NULL auto_increment,
+  claveal varchar(9) collate latin1_spanish_ci NOT NULL default '',
+  codigo varchar(8) collate latin1_spanish_ci NOT NULL default '',
+  grupo varchar(32) collate latin1_spanish_ci NOT NULL default '',  
+  PRIMARY KEY  (id),
+  KEY  claveal (claveal),
+  KEY codigo (codigo)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");
 
-<div class="container">
+$cur = mysqli_query($db_con,"select claveal, combasi, unidad, curso from alma where curso not like '1%'");
+while ($uni = mysqli_fetch_array($cur)) {
+	$claveal = $uni[0];
+	$combasi = $uni[1];
+	$unidad = $uni[2];
+	$curso = $uni[3];
 	
-	<!-- TITULO DE LA PAGINA -->
-	<div class="page-header">
-		<h2>Administración <small>Importación de alumnos con asignaturas pendientes</small></h2>
-	</div>
-	
-	
-	<!-- SCAFFOLDING -->
-	<div class="row">
-	
-		<!-- COLUMNA IZQUIERDA -->
-		<div class="col-sm-6">
-			
-			<div class="well">
-				
-				<form enctype="multipart/form-data" method="post" action="">
-					<fieldset>
-						<legend>Importación de alumnos con asignaturas pendientes</legend>
-						
-						<div class="form-group">
-						  <label for="archivo2"><span class="text-info">Exportacion_de_Calificaciones.zip</span></label>
-						  <input type="file" id="archivo2" name="archivo2" accept="application/zip">
-						</div>
-						
-						<br>
-						
-					  <button type="submit" class="btn btn-primary" name="enviar">Importar</button>
-					  <a class="btn btn-default" href="../index.php">Volver</a>
-				  </fieldset>
-				</form>
-				
-			</div><!-- /.well -->
-			
-		</div><!-- /.col-sm-6 -->
-		
-		
-		<div class="col-sm-6">
-			
-			<h3>Información sobre la importación</h3>
-			
-			<p>Este apartado se encarga de importar los <strong>alumnos matriculados en el centro con asignaturas pendientes</strong>.</p>
-
-			<p>Para obtener el archivo de exportación de calificaciones debe dirigirse al apartado <strong>Utilidades</strong>, <strong>Importación/Exportación de datos</strong>. Seleccione <strong>Exportación de Calificaciones</strong>. Seleccione la convocatoria <strong>Evaluación extraordinaria</strong> del curso anterior y añada todas las unidades de todos los cursos del centro. Proceda a descargar el archivo comprimido.<p>
-			
-		</div>
-		
-	
-	</div><!-- /.row -->
-	
-</div><!-- /.container -->
-  
-<?php include("../../pie.php"); ?>
-	
+$trozos1 = explode(":", $combasi);
+ foreach ($trozos1 as $asig)
+  {
+$nombreasig = "select NOMBRE, ABREV, CURSO, CODIGO from asignaturas where CODIGO = '" . $asig . "' and curso = '$curso' and abrev like '%\_%'";
+$asig2 = mysqli_query($db_con, $nombreasig);
+if (mysqli_num_rows($asig2)>0) {
+	$cod = "INSERT INTO pendientes VALUES ('', '$claveal', '$asig', '$unidad')";	
+	mysqli_query($db_con, $cod);
+}
+  }	
+}
+?>
+<div class="alert alert-success alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Los alumnos con asignaturas pendientes han sido importados en la base de datos. Ya es posible realizar consultas y ver listados de pendientes por Grupo o Asignatura (Menú de la página principal ==> Consultas ==> Listados ==> Listas de Pendientes).
+</div>
+<div align="center">
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+</div>
+</div>
+</div>
+<? include("../../pie.php");?>
 </body>
 </html>
