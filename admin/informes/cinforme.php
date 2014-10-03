@@ -146,7 +146,7 @@ else{
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="faltasd" value="faltasd" <?php echo ($mod_faltas == '1') ? '' : 'disabled' ?>> Faltas de asistencia detalladas
+										<input type="checkbox" name="faltasd" value="faltasd" <?php echo ($mod_faltas == '1') ? '' : 'disabled' ?> checked> Faltas de asistencia detalladas
 									</label>
 								</div>
 								
@@ -158,30 +158,30 @@ else{
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="tutoria" value="tutoria"> Informes de tutoría
+										<input type="checkbox" name="tutoria" value="tutoria" checked> Informes de tutoría
 									</label>
 								</div>
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="notas" value="notas"> Notas de evaluación
+										<input type="checkbox" name="notas" value="notas" checked> Notas de evaluación
 									</label>
 								</div>
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="act_tutoria" value="act_tutoria"> Acciones de tutoría
+										<input type="checkbox" name="act_tutoria" value="act_tutoria" checked> Acciones de tutoría
 									</label>
 								</div>
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="horarios" value="horarios" <?php echo ($mod_horario == '1') ? '' : 'disabled' ?>> Horario del alumno
+										<input type="checkbox" name="horarios" value="horarios" <?php echo ($mod_horario == '1') ? '' : 'disabled' ?> checked> Horario del alumno
 									</label>
 								</div>
 							</fieldset>
 							
-							<button type="submit" class="btn btn-primary" name="submit1" formaction="index.php">Consultar</button>
+							<button type="submit" class="btn btn-primary" name="submit1" formaction="index.php" checked>Consultar</button>
 							
 						</div><!-- /.col-sm-6 -->
 						

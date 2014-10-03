@@ -63,7 +63,7 @@ if (!$claveal) {
 	$nombrepil = trim($nombrepila);
 } 
 
-if (!($c_escolar == $curso_actual)) {
+if (($c_escolar == $curso_actual)) {
 	mysqli_select_db($db_con, $db);
 }
 
