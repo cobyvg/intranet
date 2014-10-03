@@ -167,7 +167,7 @@ include('../../menu.php');
 			<div class="col-sm-12">
 				
 				<ul class="nav nav-tabs nav-justified" role="tablist">
-					<?php if (!(($faltas == "" || $faltasd == "") && $todos == "") && $mod_faltas): ?>
+					<?php if (((isset($faltas) || isset($faltasd)) && $todos == "") && $mod_faltas): ?>
 					<?php $tab1 = 1; ?>
 				  <li <?php echo ($tab1) ? 'class="active"' : ''; ?>><a href="#asistencia" role="tab" data-toggle="tab">Faltas de asistencia</a></li>
 				  <?php endif; ?>
