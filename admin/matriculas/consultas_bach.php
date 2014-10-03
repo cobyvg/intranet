@@ -643,13 +643,10 @@ echo '</tr>';
 	echo "</table>";
 	echo "<div align='center'><br />
 <input type='hidden' name='extra' value='$extra' />";
+		  
 		  // Control del envío de datos
-  $mes_submit = date('m');
-  $junio = mysqli_query($db_con, "SELECT notas3 FROM notas WHERE notas3 !=  ''");
-  $septiembre = mysqli_query($db_con, "SELECT notas4 FROM notas WHERE notas4 !=  ''");
-if (($mes_submit>5 and $mes_submit<10)) {
 	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion2()' /><br>";
-}
+
 	
 echo "<br>
 <input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hidden-print' />&nbsp;&nbsp;

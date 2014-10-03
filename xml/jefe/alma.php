@@ -209,16 +209,10 @@ mysqli_query($db_con, $cambiar_nombre);
   $result5 = mysqli_query($db_con, $SQL5);
 
 // Exportamos códigos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluación
-if(phpversion() < '5'){
- include("exportacodigos_xslt.php");
-}
-else{
  include("exportacodigos.php");
-}
+
 ?>
 <?
-$db_con = mysqli_connect($db_host, $db_user, $db_pass);
-mysqli_select_db($db_con, $db);
 
 // Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
 $SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.' or unidad like '%Bach' or unidad like 'P.C.P.I.') and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";

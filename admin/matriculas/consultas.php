@@ -634,12 +634,9 @@ echo "<div align='center'>
 <input type='hidden' name='extra' value='$extra' />";
 
   // Control del envío de datos
-  $mes_submit = date('m');
-  $junio = mysqli_query($db_con, "SELECT notas3 FROM notas WHERE notas3 !=  ''");
-  $septiembre = mysqli_query($db_con, "SELECT notas4 FROM notas WHERE notas4 !=  ''");
-if (($mes_submit>5 and $mes_submit<10)) {
+
 	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion2()' /><br>";
-}
+
 echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hdden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hdden-print' />";
 
 if(count($grupo_actua)=='1'){ 

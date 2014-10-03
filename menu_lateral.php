@@ -511,11 +511,6 @@ $menu = array(
 				'target' => '_blank',
 			),
 			array(
-				'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/'.$codigo_del_centro.'/',
-				'titulo' => 'Recursos educativos del centro',
-				'target' => '_blank',
-			),
-			array(
 				'href'   => 'http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion='.$web_delegacion,
 				'titulo' => 'Delegación de Educación',
 				'target' => '_blank',
