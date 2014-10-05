@@ -38,6 +38,9 @@ if (!($c_escolar==$curso_actual)) {
 	$base = $db.$c_db;	
 	mysqli_select_db($db_con, $base);
 }
+if (empty($c_escolar)){
+	$c_escolar=$curso_actual;
+}
 
 if ($claveal) {
 	 $SQL1 = "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.claveal, claveal1, numeroexpediente from alma where claveal = '$claveal' order BY alma.apellidos";
@@ -63,10 +66,6 @@ if (!$claveal) {
 	$nombrepil = trim($nombrepila);
 } 
 
-if (($c_escolar == $curso_actual)) {
-	mysqli_select_db($db_con, $db);
-}
-
 
 $PLUGIN_DATATABLES = 1;
 
@@ -78,7 +77,7 @@ include('../../menu.php');
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Expediente académico del alumno/a</h2>
+			<h2>Expediente académico del alumno/a <small> Curso académico: <? echo $c_escolar?></small></h2>
 			<h3 class="text-info"><?php echo $apellido.', '.$nombrepil; ?></h3>
 		</div>
 		
@@ -143,7 +142,7 @@ include('../../menu.php');
 						  <dt>Nº Expediente</dt>
 						  <dd><?php echo ($row['numeroexpediente'] != "") ? $row['numeroexpediente']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Año académico</dt>
-						  <dd><?php echo ($row['c_escolar'] != "") ? $row['c_escolar']: $curso_actual; ?></dd>
+						  <dd><?php echo $c_escolar; ?></dd>
 						  <dt>Curso</dt>
 						  <dd><?php echo ($row['curso'] != "") ? $row['curso']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Unidad</dt>

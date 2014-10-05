@@ -2,7 +2,7 @@
 
 <!-- ACTIVIDADES EXTRAESCOLARES -->
 
-<h3>Actividades extraescolares</h3>
+<h3 class="text-info">Actividades extraescolares</h3>
 
 <?php $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'); ?>
 <?php $grupo = str_replace('-', '', $_SESSION['mod_tutoria']['unidad']); ?>
@@ -36,7 +36,6 @@
 
 <br>
 <p class="lead text-muted">No hay actividades extraescolares registradas para esta unidad.</p>
-<br>
 
 <?php endif; ?>
 

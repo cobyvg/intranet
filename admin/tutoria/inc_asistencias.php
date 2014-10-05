@@ -2,7 +2,7 @@
 
 <!-- FALTAS DE ASISTENCIA -->
 
-<h3>Faltas sin justificar</h3>
+<h3 class="text-info">Faltas sin justificar</h3>
 
 <?php $exp_inicio_curso = explode('-', $inicio_curso); ?>
 <?php $inicio_curso2 = $exp_inicio_curso[2].'-'.$exp_inicio_curso[1].'-'.$exp_inicio_curso[0]; ?>
@@ -34,7 +34,6 @@
 
 <br>
 <p class="lead text-muted">No hay faltas de asistencias registradas para esta unidad.</p>
-<br>
 
 <?php endif; ?>
 

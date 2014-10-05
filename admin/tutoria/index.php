@@ -62,7 +62,7 @@ include("menu.php");
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Resumen global</small></h2>
-			<h4 class="text-info">Tutor/a: <?php echo mb_convert_case($_SESSION['mod_tutoria']['tutor'], MB_CASE_TITLE, "iso-8859-1"); ?></h4>
+			<h4 class="text-warning">Tutor/a: <?php echo mb_convert_case($_SESSION['mod_tutoria']['tutor'], MB_CASE_TITLE, "iso-8859-1"); ?></h4>
 		</div>
 		
 		
@@ -84,8 +84,10 @@ include("menu.php");
 			<div class="col-sm-4">
 				
 				<?php include("inc_asistencias.php"); ?>
+				<hr>
 				
 				<?php include("inc_actividades.php"); ?>
+				<hr>
 				
 				
 			</div><!-- /.col-sm-4 -->
@@ -96,8 +98,10 @@ include("menu.php");
 			<div class="col-sm-4">
 				
 				<?php include("inc_convivencia.php"); ?>
+				<hr>
 				
 				<?php include("inc_informes_tareas.php"); ?>
+				<hr>
 				
 			</div><!-- /.col-sm-4 -->
 			
@@ -107,10 +111,13 @@ include("menu.php");
 			<div class="col-sm-4">
 				
 				<?php include("inc_mensajes.php"); ?>
+				<hr>
 				
 				<?php include("inc_informes_tutoria.php"); ?>
+				<hr>
 				
 				<?php include("inc_intervenciones.php"); ?>
+				<hr>
 				
 			</div><!-- /.col-sm-4 -->
 			

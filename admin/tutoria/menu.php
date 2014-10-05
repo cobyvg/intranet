@@ -20,9 +20,9 @@
 		</form>
 		<?php endif; ?>
 		
-		<ul class="nav nav-tabs">
+		<ul class="nav nav-tabs hidden-print">
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a href="index.php">Resumen global</a></li>
-			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'intervencion.php')==TRUE) ? ' class="active"' : ''; ?>><a href="intervencion.php">Intervenciones tutoriales</a></li>
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'intervencion.php')==TRUE) ? ' class="active"' : ''; ?>><a href="intervencion.php">Intervenciones</a></li>
 			<?php if (isset($mod_sms) && $mod_sms): ?>
 			<li><a href="../../sms/index.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'];?>">Enviar SMS</a></li>
 			<?php endif; ?>
@@ -53,7 +53,7 @@
 		      <li><a href="informe_memoria.php">Memoria de tutoría</a></li>
 		    </ul>
 		  </li>
-		  <?php if(substr($_SESSION['mod_tutoria']['unidad'],1,1) == "E"): ?>
+		  <?php if(substr($_SESSION['mod_tutoria']['unidad'],1,1) == "E" and date('m')=='06'): ?>
 		  <li><a href="../libros/libros.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>&tutor=1">Libros de Texto</a></li>
 		  <?php endif; ?>
 		</ul>
