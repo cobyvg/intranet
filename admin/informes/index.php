@@ -164,6 +164,14 @@ include('../../menu.php');
 		<div class="row">
 		
 			<div class="col-sm-12">
+			
+				<style class="text/css">
+				@media print {
+					.tab-content>.tab-pane {
+						display: block;
+					}
+				}
+				</style>
 				
 				<ul class="nav nav-tabs nav-justified" role="tablist">
 					<?php if (((isset($faltas) || isset($faltasd)) && $todos == "") && $mod_faltas): ?>
