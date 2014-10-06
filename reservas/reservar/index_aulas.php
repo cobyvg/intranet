@@ -230,7 +230,8 @@ mysqli_query($db_con, $sql_hor);
  
  
  //Dí­as vací­os
- for ($i = 0; $i < $dayone; $i++) {
+ if ($dayone < 0) $dayone = 6;
+for ($i = 0; $i < $dayone; $i++) {
    echo "<td>&nbsp;</td>";
  }
  

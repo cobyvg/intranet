@@ -177,6 +177,7 @@ echo '<div class="col-sm-4">';
 		</thead>
 <?
 //Días vacíos
+if ($dayone < 0) $dayone = 6;
 for ($i = 0; $i < $dayone; $i++) {
   echo "<td>&nbsp;</td>";
 }

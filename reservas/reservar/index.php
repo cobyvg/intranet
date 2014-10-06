@@ -133,7 +133,8 @@ if ($today > $numdays) { $today--; }
 	
 	
 	//Días vacíos
-	for ($i = 0; $i < $dayone; $i++) {
+	if ($dayone < 0) $dayone = 6;
+for ($i = 0; $i < $dayone; $i++) {
 	  echo "<td>&nbsp;</td>";
 	}
 	

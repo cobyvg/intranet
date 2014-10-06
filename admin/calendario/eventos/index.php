@@ -238,6 +238,8 @@ foreach($alldays as $value) {
 echo "</tr></thead><tbody><tr>";
 
 //Días vacíos
+if ($dayone < 0) $dayone = 6;
+if ($dayone < 0) $dayone = 6;
 for ($i = 0; $i < $dayone; $i++) {
   echo "<td ></td>\n";
 }
