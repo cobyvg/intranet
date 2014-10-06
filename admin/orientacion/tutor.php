@@ -46,9 +46,9 @@ if (isset($_GET['eliminar'])) {
 	$eliminar = $_GET['eliminar'];
 }
 
-if (isset($_POST['fecha'])) {
-	$fecha = $_POST['fecha'];
-} else{$fecha="";}
+if (isset($_POST['fecha_reg'])) {
+	$fecha_reg = $_POST['fecha_reg'];
+} else{$fecha_reg="";}
 if (isset($_POST['unidad'])) {
 	$unidad = $_POST['unidad'];
 } else{$unidad="";}
@@ -167,49 +167,32 @@ if ($alumno) {
 
 
 <div class="row">
-<div class="col-md-7">
-<div class="form-group">
-<label> Alumno </label>
-<SELECT name=alumno onChange="submit()" class="form-control">
-
-<?
-
-$alumno0 = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS where unidad = '$unidad' order by NC asc");
-if ($falumno = mysqli_fetch_array($alumno0))
-{
-	?>
-	<?
-	echo "<OPTION>$alumno</OPTION>"; ?>
-	<?
-	do {
-		echo "<OPTION>$falumno[0], $falumno[1] --> $falumno[2]</OPTION>";
-
-	} while($falumno = mysqli_fetch_array($alumno0));
-}
-?>
-</select> 
+<div class="col-sm-7">
+<div class="form-group"><label for="alumno">Alumno/a</label> 
+<?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC ASC"); ?>
+<?php if(mysqli_num_rows($result)): ?> <select class="form-control"
+	id="alumno" name="alumno" onchange="submit()">
+	<option></option>
+	<option value="Todos los Alumnos">Todos los Alumnos</option>
+	<?php while($row = mysqli_fetch_array($result)): ?>
+	<option
+		value="<?php echo $row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']; ?>"
+		<?php echo (isset($alumno) && ($row['APELLIDOS'].', '.$row['NOMBRE'].' --> '.$row['claveal']) == $alumno) ? 'selected' : ''; ?>><?php echo $row['APELLIDOS'].', '.$row['NOMBRE']; ?></option>
+		<?php endwhile; ?>
+		<?php mysqli_free_result($result); ?>
+</select> <?php else: ?> <select class="form-control" name="alumno"
+	disabled>
+	<option></option>
+</select> <?php endif; ?></div>
 </div>
-</div>
-<div class="col-md-5">
-<div class="form-group id="datetimepicker1">
-<label>Fecha</label>
-<?  $fecha1 = (date("d").-date("m").-date("Y")); 
-if ($fecha)
-{
-	echo '
-  <div class="input-group">
-            <input name="fecha" type="text" class="form-control" value="'.$fecha.'" data-date-format="DD-MM-YYYY" id="fecha" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> ';
-}
-else{
-	echo '
-  <div class="input-group">
-            <input name="fecha" type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" >
-  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-</div> ';
-}
-?>
+
+<div class="col-sm-5">
+<div class="form-group" id="datetimepicker1"><label for="fecha_reg">Fecha</label>
+<div class="input-group"><input name="fecha_reg" type="text"
+	class="input form-control"
+	value="<?php echo (isset($id) && $fecha_reg) ? $fecha_reg : date('d-m-Y'); ?>"
+	data-date-format="DD-MM-YYYY" id="fecha_reg"> <span
+	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
 </div>
 </div>
 </div>

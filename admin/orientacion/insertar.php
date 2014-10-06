@@ -1,6 +1,6 @@
 <?php 
 // Control de errores
-if (!$fecha or !$observaciones or !$causa or !$accion)
+if (!$fecha_reg or !$observaciones or !$causa or !$accion)
 {
 echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -23,7 +23,7 @@ $trozos = explode (", ", $al);
 $apellidos = $trozos[0];
 $nombre = $trozos[1];
 
-$dia = explode("-",$fecha);
+$dia = explode("-",$fecha_reg);
 $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 		$query="insert into tutoria (apellidos, nombre, tutor, unidad, observaciones,causa,accion,fecha, orienta, prohibido,claveal) values 
 		('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$observaciones."','".$causa."','".$completo."','".$fecha2."','1','".$prohibido."','".$clave."')";
