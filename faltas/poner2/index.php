@@ -26,23 +26,7 @@ if (isset($_GET['month'])) {$month = $_GET['month'];}elseif (isset($_POST['month
 if (isset($_GET['today'])) {$today = $_GET['today'];}elseif (isset($_POST['today'])) {$today = $_POST['today'];}
 if (isset($_GET['hoy'])) {$hoy = $_GET['hoy'];}elseif (isset($_POST['hoy'])) {$hoy = $_POST['hoy'];}
 if (isset($_GET['registro'])) {$registro = $_GET['registro'];}elseif (isset($_POST['registro'])) {$$registro = $_POST['registro'];}
-if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];} elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}
-
-function profesor()
-{
-if($_POST['submit']) {$continuar = "";}
-echo "<div class='form-group col-md-10 col-md-offset-1'>
-<SELECT name='profesor' id='idprofe' onChange='submit()' class='form-control'>";
-echo "<OPTION>";
-echo "</OPTION>";	
-		        // Datos del Profesor que hace la consulta. No aparece el nombre del año de la nota. Se podría incluir.
-$profe = mysqli_query($db_con, "SELECT distinct prof, no_prof FROM horw order by prof asc");
-		 while($filaprofe = mysqli_fetch_array($profe)) {
-		 	$n_p+=1;
-		        echo "<OPTION id='idopcion'>$filaprofe[1]_ $filaprofe[0]</OPTION>";
-		    } 
-		     	echo "</select></div>";
-			}				
+if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];} elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}				
 	?>
 <?
 // Limpiamos Faltas de alumnos expulsados.
