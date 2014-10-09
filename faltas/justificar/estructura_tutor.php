@@ -7,8 +7,7 @@ $today=date("d");
 }
 ?>
   <div class="row">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-5">
+    <div class="col-sm-5 col-sm-offset-1">
     
       <?
 echo "<h4 align='center'>FECHA SELECCIONADA: &nbsp;<span style='font-size:1.0em; color:#08c'>$today-$month-$year</span></h4><br />
@@ -33,8 +32,9 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in">
 			El día que has seleccionado es <b>SÁBADO</b>
           </div></div>';
 		}
-
-		        echo '<div class="well-trasparent well-large">'; 
+?>
+		        <div class="well-trasparent well-large">
+		        <? 
 		        include("cal.php"); 
 ?>                   
                    </center>  
@@ -49,26 +49,30 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in">
         </tr>
       </table>
 <? 
+
 if ($alumno) {
 $alu0 = "SELECT NC, CLAVEAL, apellidos, nombre FROM FALUMNOS WHERE claveal = '$alumno'";
 $tr = mysqli_query($db_con, $alu0);
 $tr1 = mysqli_fetch_array($tr);
 echo "<hr><table align='center' style='width:auto'><tr><td>";
 
-$apel=$tr[2];
-$nom=$tr[3];
+$apel=$tr1[2];
+$nom=$tr2[3];
+
    	$foto = '../../xml/fotos/'.$alumno.'.jpg';
-	if (file_exists($foto)) {
-		echo "<h5>$tr1[3] $tr1[2]</h5><br /><div align=center><img src='../../xml/fotos/$alumno' border='2' width='120' height='143' style='border:1px solid #bbb;'  /></div>";
+   	if (file_exists($foto)) {
+		echo "<h4>$tr1[3] $tr1[2]</h4><br /><div align=center><img src='../../xml/fotos/$alumno' border='2' width='120' height='143' style='border:1px solid #bbb;'  /></div>";
 	}    
 echo "</td></tr></table><br />";		        
 }
 ?>
  </div>
   </div>
+  
   <div class="col-sm-5">
 
            <? 
+           echo $profesor;
            if (empty($profesor)) {
            	echo "<br><h6>Selecciona Tutor:</h6><hr>";
            }

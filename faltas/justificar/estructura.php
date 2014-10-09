@@ -93,18 +93,22 @@ $tr = mysqli_query($db_con, $alu0);
 $tr1 = mysqli_fetch_array($tr);
 echo "<hr><table align='center' style='width:auto'><tr><td>";
 
-$apel=$tr[2];
-$nom=$tr[3];
+$apel=$tr1[2];
+$nom=$tr1[3];
    	$foto = '../../xml/fotos/'.$alumno.'.jpg';
 	if (file_exists($foto)) {
-		echo "<h5>$tr1[3] $tr1[2]</h5><br /><div align=center><img src='../../xml/fotos/$alumno.jpg' border='2' width='120' height='143' style='border:1px solid #bbb;'  /></div>";
+		echo "<h4>$tr1[3] $tr1[2]</h4><br /><div align=center><img src='../../xml/fotos/$alumno.jpg' border='2' width='120' height='143' style='border:1px solid #bbb;'  /></div>";
 	}    
 echo "</td></tr></table><br />";
 		        }
 ?>
     </div>
   </div>
+  
+  
   <div class="col-sm-6">
+  
+  
 <!-- Button trigger modal -->
 <a href="#" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModal">
  <span class="fa fa-question-circle fa-lg"></span>

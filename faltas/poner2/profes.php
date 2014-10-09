@@ -51,12 +51,12 @@ echo "<tr><th><div class='badge badge-warning'>$nombre</div></th>";
 // Comienza la presentación de la tabla.
 // Asignaturas del Curso en un día
 // Abreviatura de la Asignatura
-$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig FROM  horw where prof = '$profesores' and dia = '$z' and hora = '$n_hora'");
+$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig FROM  horw_faltas where prof = '$profesores' and dia = '$z' and hora = '$n_hora'");
 $rowasignatur1 = mysqli_fetch_row($asignatur1);
 if($rowasignatur1[0]){echo "<h4><span class='label label-primary'>".$rowasignatur1[1]."</span></h4>"; }
  
 // Recorremos los grupos a los que da en ese hora.
-	$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$profesores' and dia = '$z' and hora = '$n_hora' AND a_grupo not like 'G%'");
+	$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw_faltas where prof = '$profesores' and dia = '$z' and hora = '$n_hora' AND a_grupo not like 'G%'");
 $n = count($asignaturas1);
   while ($rowasignaturas1 = mysqli_fetch_array($asignaturas1))
     { 
