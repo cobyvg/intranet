@@ -122,7 +122,7 @@ if ($seleccionado=='1') {
 }
 
 $SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad, 
-  alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.telefonourgencia, padre, matriculas, correo from alma
+  alma.DNI, alma.fecha, alma.dni, alma.telefono, alma.telefonourgencia, padre, matriculas, correo from alma
   where 1 " . $AUXSQL . " order BY unidad, alma.apellidos, nombre";
 // echo $SQL;
 $result = mysqli_query($db_con, $SQL);
@@ -137,7 +137,7 @@ if ($row = mysqli_fetch_array($result))
 	        <th>NIE</th>
 	        <th>Unidad</th>
 	        <th>Fecha Ncto.</th>	        
-	        <th>Domicilio</th>
+	        <th>DNI</th>
         	<th>Padre</th>
         	<th>Teléfonos</th>	
         	<th>Repite</th>";
@@ -155,6 +155,7 @@ if ($row = mysqli_fetch_array($result))
 		$claveal = $row[0];
 		$correo = $row[12];
 		echo "<tr>";
+	if($_POST['sin_foto']=="1"){
 		$foto_dir = '../../xml/fotos/'.$claveal.'.jpg';
 	if (file_exists($foto_dir)) {
 		$foto = "<img src='$foto_dir' width='55' class=\"img-thumbnail\" />";
@@ -162,13 +163,17 @@ if ($row = mysqli_fetch_array($result))
 	else {
 		$foto = "<span class=\"fa fa-user fa-3x fa-fw\"></span>";
 	}
+	}
+	else{
+	$foto='';
+	}
 	echo "<td>$foto</td><td>$nom</td>
 <td>$row[0]</td>
 <td>$unidad</td>
 <td>$row[5]</td>
 <td>$row[6]</td>
 <td>$row[9]</td>
-<td>$row[7]<br>$row[8]</td>
+<td>$row[7]</td>
 <td>$repite</td>";
 
 		if ($seleccionado=='1'){

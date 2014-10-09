@@ -90,7 +90,10 @@ include("../../menu.php");
 					    </select>
 					    <p class="help-block">Mantén apretada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón para seleccionar múltiples grupos.</p>
 					  </div>
-					  
+					  <div class="checkbox">
+					  <label>
+					    <input type="checkbox" name="sin_foto" value="1" checked> Con foto</label>
+					  </div>
 					  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
 					  <button type="submit" class="btn btn-primary" name="submit2">Imprimir</button>
 				  </fieldset>

@@ -32,7 +32,7 @@ if(stristr($_SESSION ['cargo'],'2') == TRUE or stristr($_SESSION ['cargo'],'1') 
 	$tutor = $_SESSION ['tut'];
 }
 ?>
-     <li <? echo $activo2;?>><a href="infotut.php?<? if (isset($_SESSION ['s_nivel'])) {echo  "nivel=".$_SESSION ['s_nivel'];}?><? if (isset($_SESSION ['s_grupo'])) {echo  "&grupo=".$_SESSION ['s_grupo'];}?>&tutor=<? echo $tutor;?>">Activar Nuevo Informe</a></li>
+     <li <? echo $activo2;?>><a href="infotut.php?<? if (isset($_SESSION ['s_unidad'])) {echo  "unidad=".$_SESSION ['s_unidad'];}?>&tutor=<? echo $tutor;?>">Activar Nuevo Informe</a></li>
      <? }?>
      <li <? echo $activo3;?>> <a href="buscar.php?todos=1">Ver Todos los Informes</a></li>
      <li <? echo $activo4;?>> <a href="index_buscar.php">Buscar Informes</a></li>
