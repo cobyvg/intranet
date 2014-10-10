@@ -83,7 +83,7 @@ if (isset($id) && (int) $id) {
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		
 		if (stristr($_SESSION['cargo'],'1') == TRUE || $row['contact'] == $_SESSION['profi']) {
-			$slug = (strstr($row['slug'], ' (Actualizado)') == true) ? $row['slug'] : $row['slug'].' (Actualizado)';
+			$slug = ((strstr($row['slug'], ' [Actualizado]') == true) || (strstr($row['slug'], ' (Actualizado)') == true)) ? $row['slug'] : $row['slug'].' [Actualizado]';
 			$content = $row['content'];
 			$contact = $row['contact'];
 			$fecha_pub = $row['timestamp'];
