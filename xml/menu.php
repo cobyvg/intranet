@@ -47,6 +47,7 @@
 	<li><a href="../faltas/absentismo/index.php">Alumnos Absentistas</a></li>
 	<li><a href="../admin/cursos/horariototal_faltas.php" target="_blank">Parte de faltas completo (por días)</a></li>
 	<li><a href="../admin/faltas/horario_semanal.php" target="_blank">Parte de faltas completo (semanal)</a></li>
+	<li><a href="../admin/faltas/horario_semanal_div.php" target="_blank">Parte de faltas completo Diversificación</a></li>		
 	<li><a href="../admin/faltas/cpadres.php">Informe de Faltas para Padres</a></li>
 	<? }?>
 	<? if ($mod_horario and $mod_faltas) {?>
