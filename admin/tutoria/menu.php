@@ -62,9 +62,10 @@
 		<li class="divider"></li>
 		<?php if(strstr($_SESSION['mod_tutoria']['unidad'],"E-")==TRUE): ?>
 		<li><a
-			href="../tutoria/evaluaciones.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informes de Evaluación</a></li>
-			<?php endif; ?>
+			href="../tutoria/informe_evaluaciones.php">Informes de Evaluación</a></li>
 		<li class="divider"></li>
+			<?php endif; ?>
+		
 		<li><a href="informe_memoria.php">Memoria de tutoría</a></li>
 	</ul>
 	</li>

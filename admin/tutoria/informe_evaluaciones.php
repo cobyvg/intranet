@@ -13,6 +13,38 @@ if($_SESSION['cambiar_clave']) {
 	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
 }
 
+// COMPROBACION DE ACCESO AL MODULO
+if ((stristr($_SESSION['cargo'],'1') == false) && (stristr($_SESSION['cargo'],'2') == false) && (stristr($_SESSION['cargo'],'8') == false)) {
+	
+	if (isset($_SESSION['mod_tutoria'])) unset($_SESSION['mod_tutoria']);
+	die ("<h1>FORBIDDEN</h1>");
+	
+}
+else {
+	
+	// COMPROBAMOS SI ES EL TUTOR, SINO ES DEL EQ. DIRECTIVO U ORIENTADOR
+	if (stristr($_SESSION['cargo'],'2') == TRUE) {
+		
+		$_SESSION['mod_tutoria']['tutor']  = $_SESSION['tut'];
+		$_SESSION['mod_tutoria']['unidad'] = $_SESSION['s_unidad'];
+		
+	}
+	else {
+	
+		if(isset($_POST['tutor'])) {
+			$exp_tutor = explode('==>', $_POST['tutor']);
+			$_SESSION['mod_tutoria']['tutor'] = trim($exp_tutor[0]);
+			$_SESSION['mod_tutoria']['unidad'] = trim($exp_tutor[1]);
+		}
+		else{
+			if (!isset($_SESSION['mod_tutoria'])) {
+				header('Location:'.'tutores.php');
+			}
+		}
+		
+	}
+}
+
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 mysqli_query($db_con, "
@@ -26,18 +58,13 @@ CREATE TABLE IF NOT EXISTS `evalua_tutoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
 ");
 
+$curso = $_SESSION['mod_tutoria']['unidad'];
 $evaluacion = $_POST['evaluacion'];
-if (isset($_GET['unidad'])) {
-$curso = $_GET['unidad'];
-}
-else {
-	$curso = $_POST['unidad'];
-}
 
 // ENVIO DEL FORMULARIO
-if ($_POST['submit']=="Registrar") {
+if (isset($_POST['submit'])) {
 
-	$curso = $_POST['unidad'];
+	$curso = $_SESSION['mod_tutoria']['unidad'];
 	$evaluacion = $_POST['evaluacion'];
 
 	foreach ($_POST as $campo => $valor) {
@@ -81,7 +108,7 @@ include("menu.php");
 
 <div class="col-sm-6 col-sm-offset-3">
 
-<form method="post" action="evaluaciones.php">
+<form method="post" action="">
 
 <fieldset>
 
@@ -164,7 +191,7 @@ if (strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) {
 		<tr>
 		<?php $foto = '../../xml/fotos/'.$row['claveal'].'.jpg'; ?>
 		<?php if (file_exists($foto)): ?>
-			<td class="text-center"><img class="img-thumbnail"
+			<td class="text-center"><img 
 				src="<?php echo $foto; ?>"
 				alt="<?php echo $row['apellidos'].', '.$row['nombre']; ?>"
 				width="54"></td>
