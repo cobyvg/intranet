@@ -217,13 +217,18 @@ if (mysqli_num_rows($chk1)>0) {
 }
 else{
 $index = substr($curso_actual,0,4)+1;
-	for ($i = 0; $i < 5; $i++) {
+$repi_db=mysqli_query($db_con,"select matriculas, curso from $db.alma where claveal='".$row['claveal']."' and matriculas > '1'");
+
+if (mysqli_num_rows($repi_db)>0) {
+$repit_db = mysqli_fetch_array($repi_db);
+$repite=substr($repit_db[1],0,1)."º, ";
+}
+	for ($i = 0; $i < 4; $i++) {
 	$ano = $db."".($index-$i);
 		$repi=mysqli_query($db_con,"select matriculas, curso from $ano.alma where claveal='".$row['claveal']."' and matriculas>'1'");
-		//echo "select matriculas from $ano.alma where claveal='$clave' and matriculas>'1'<br>";
 		if (mysqli_num_rows($repi)>0) {
 		$repit = mysqli_fetch_array($repi);	
-		$repite.=substr($repit[0],0,1)."º, ";
+		$repite.=substr($repit[1],0,1)."º, ";
 	}
 	}
 	if (strlen($repite)>0) {
