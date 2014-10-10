@@ -1,6 +1,8 @@
 <?
 session_start();
 include("../../config.php");
+include_once('../../config/version.php');
+
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -32,13 +34,11 @@ $id="";
 }
 ?>
 <div class="container">
-<div class="row">
+
 <div class="page-header">
   <h2>Informes de Tutoría <small> Informe de un alumno</small></h2>
 </div>
-<br>
 
-<div class="col-md-12">
 
 <?php
   if (isset($_POST['llenar'])) {
@@ -53,17 +53,11 @@ $llenar="";
 }
 
 if(empty($llenar)){}else{$id = $llenar;}
-echo "<div align='center'>";
+
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$id'");
 
 $dalumno = mysqli_fetch_array($alumno);
 $claveal=$dalumno[6];
-   	$foto = '../../xml/fotos/'.$claveal.'.jpg';
-	if (file_exists($foto)) {
-		echo "<div style='width:150px;margin:auto;'>";
-		echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' />";
-		echo "</div><br />";
-	}
 	
 if (empty($dalumno[0])) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
@@ -73,12 +67,30 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuev
 </div></div><hr>';
 	exit;	
 }
-echo "<h4>$dalumno[1] $dalumno[0] ($dalumno[2])</h4><h4>Visita: $dalumno[5]</h4><h4>Tutor: $dalumno[4]</h4><br />";
+
+echo '<div class="media">';
+
+$foto = '../../xml/fotos/'.$claveal.'.jpg';
+if (file_exists($foto)) {
+	echo '
+		<div class="pull-left hidden-xs" style="width: 100px">
+	    <img class="media-object img-thumbnail" src="../../xml/fotos/'.$claveal.'.jpg" alt="">
+	  </div>';
+}
+
+echo '
+	<div class="media-body">
+    <h2>'.$dalumno[0].', '.$dalumno[1].' <small>Unidad: '.$dalumno[2].'</small></h2>
+    <h4 class="text-warning">Fecha de visita: '.strftime('%e de %B de %Y',strtotime($dalumno[5])).'</h4>
+    <h4 class="text-info">Tutor/a: '.mb_convert_case($dalumno[4], MB_CASE_TITLE, "iso-8859-1").'</h4>
+  </div>
+</div>
+<br>';
 
 $datos=mysqli_query($db_con, "SELECT asignatura, informe, id, profesor FROM infotut_profesor WHERE id_alumno='$id'");
 if(mysqli_num_rows($datos) > 0)
 {
-echo "<table class='table table-striped table-bordered' align='center'>";
+echo "<div class=\"table-responsive\"><table class='table table-striped table-bordered' align='center'>";
 while($informe = mysqli_fetch_array($datos))
 {
 $fondo = "";
@@ -113,7 +125,14 @@ while($informe1 = mysqli_fetch_array($datos1))
 }
 
 
-echo"</table>";
+echo"</table></div>";
+
+
+echo '<div class="hidden-print">';
+echo '<a href="imprimir.php?id='.$id.'" class="btn btn-primary">Imprimir</a> ';
+echo '<a href="index.php" class="btn btn-default">Volver</a> ';
+echo '</div>';
+
 }
 else
 {

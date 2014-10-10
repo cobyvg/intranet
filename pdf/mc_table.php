@@ -18,13 +18,13 @@ function SetAligns($a)
     $this->aligns=$a;
 }
 
-function Row($data,$bg)
+function Row($data, $bg = 1, $lh = 5.1)
 {
     //Calculate the height of the row
     $nb=0;
     for($i=0;$i<count($data);$i++)
         $nb=max($nb, $this->NbLines($this->widths[$i], $data[$i]));
-    $h=5.1*$nb;
+    $h=$lh*$nb;
     //Issue a page break first if needed
     $this->CheckPageBreak($h);
     //Draw the cells of the row
@@ -38,7 +38,7 @@ function Row($data,$bg)
         //Draw the border
         $this->Rect($x, $y, $w, $h, $bg);
         //Print the text
-        $this->MultiCell($w, 5.1, $data[$i], 0, $a);
+        $this->MultiCell($w, $lh, $data[$i], 0, $a);
         //Put the position to the right of the cell
         $this->SetXY($x+$w, $y);
     }

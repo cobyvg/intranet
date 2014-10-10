@@ -10,6 +10,7 @@ else
 <?php
 session_start();
 include("../config.php");
+include_once('../config/version.php');
 ?>
 <!DOCTYPE html>  
 <html lang="es">  

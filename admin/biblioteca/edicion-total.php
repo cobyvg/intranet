@@ -1,6 +1,8 @@
 <?
 session_start();
 include("../../config.php");
+include_once('../../config/version.php');
+
 
 if($_SESSION['cambiar_clave']) {
 	header('Location:'.'http://'.$dominio.'/intranet/clave.php');

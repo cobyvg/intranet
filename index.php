@@ -38,6 +38,7 @@ else{
 
 // Archivo de configuración cargado
 include_once("config.php");
+include_once("config/version.php");
 
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {

@@ -12,6 +12,8 @@ if(isset($_POST['submit1']) || (isset($_GET['submit1']) && ($_GET['submit1'] == 
 <?
 session_start();
 include("../../config.php");
+include_once('../../config/version.php');
+
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();

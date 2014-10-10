@@ -1,6 +1,7 @@
 <?
 session_start();
 include("../../../config.php");
+include_once('../../../config/version.php');
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();

@@ -1,6 +1,8 @@
 <?
 session_start();
 include("../../config.php");
+include_once('../../config/version.php');
+
 if($_SESSION['autentificado']!='1')
 {
 session_destroy();

@@ -1,6 +1,8 @@
 <?
 session_start();
 include("../../config.php");
+include_once('../../config/version.php');
+
 setlocale('es_ES');
 
 // COMPROBAMOS LA SESION

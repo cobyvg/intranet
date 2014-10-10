@@ -1,6 +1,8 @@
 <?
 session_start();
 include("../../config.php");
+include_once('../../config/version.php');
+
 	if((!(stristr($_SESSION['cargo'],'1') == TRUE)) and (!(stristr($_SESSION['cargo'],'c') == TRUE)) )
 {
 header("location:http://$dominio/intranet/salir.php");
