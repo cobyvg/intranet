@@ -28,7 +28,7 @@ if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];}elseif (isset
 if (isset($_POST['hora_dia'])) {$hora_dia = $_POST['hora_dia'];}elseif (isset($_GET['hora_dia'])) {$hora_dia = $_GET['hora_dia'];} 
 
 if (isset($fecha_dia) and isset($hora_dia)) {
-	$tr_fech = explode("/", $fecha_dia);
+	$tr_fech = explode("-", $fecha_dia);
 	$di = $tr_fech[0];
 	$me = $tr_fech[1];
 	$an = $tr_fech[2];
@@ -46,6 +46,24 @@ else {
 	$nano = date("Y");
 	$hoy = $nano."-".$nmes."-".$diames;
 	if(empty($hora_dia)){
+		
+		$jor = mysqli_query($db_con,"select tramo, hora_inicio, hora_fin from jornada");
+		if(mysqli_num_rows($jor)>0){
+		while($jornad = mysqli_fetch_array($jor)){
+			$hora_real = $hora."".$minutos;
+			$h_ini = str_replace(":", "",$jornad[1]);
+			$h_fin = str_replace(":", "",$jornad[2]);
+
+			if( $hora_real > $h_ini and $hora_real < $h_fin){
+				$hora_dia = $jornad[0];
+		}			
+		}
+		if (empty($hora_dia)) {
+				$hora_dia = "Fuera del Horario Escolar";
+			}
+		}
+		else{
+		$falta_jornada = 1;			
 		if(($hora == '8' and $minutos > 15 ) or ($hora == '9' and $minutos < 15 ) ){$hora_dia = '1';}
 		elseif(($hora == '9' and $minutos > 15 ) or ($hora == '10' and $minutos < 15 ) ){$hora_dia = '2';}
 		elseif(($hora == '10' and $minutos > 15 ) or ($hora == '11' and $minutos < 15 ) ){$hora_dia = '3';}
@@ -54,6 +72,7 @@ else {
 		elseif(($hora == '12' and $minutos > 45 ) or ($hora == '13' and $minutos < 45 ) ){$hora_dia = '5';}
 		elseif(($hora == '13' and $minutos > 45 ) or ($hora == '14' and $minutos < 45 ) ){$hora_dia = '6';}
 		else{ $hora_dia = "Fuera del Horario Escolar";}
+		}
 	}
 		$ndia = date("w");// nº de día de la semana (1,2, etc.)
 		$hoy_actual = "$diames-$nmes-$nano";
@@ -81,7 +100,6 @@ if ($mod_faltas) {
 	include("menu.php");
 	?>
 <div class="container">
-
 <div class="page-header">
 <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
@@ -112,6 +130,37 @@ if(!($t_grupos=="")){
 }
 ?>
 <div class="col-md-4 col-md-offset-2">
+<div class="well">
+<legend>Selecciona Hora y Día...</legend>
+<form action="index.php" method="POST">
+
+<div class="form-group">
+<label for="hora_dia">Hora </label> 
+<select	class="form-control" id="hora_dia" name="hora_dia" required>
+<?
+if (isset($hora_dia)) {
+	echo "<option>".$hora_dia."</option>";
+}
+echo "<option></option>";
+for ($i = 1; $i < 7; $i++) {
+	echo "<option>$i</option>";
+}
+?>
+</select>
+</div>
+<div class="form-group" id="datetimepicker1">
+<label for="fecha_dia">Fecha</label> 
+<div class="input-group">
+<input name="fecha_dia" type="text" class="form-control" value="<? if (isset($fecha_dia)) {  echo $fecha_dia;}else {echo $hoy_actual;}?>" data-date-format="DD-MM-YYYY" id="fecha_dia" required >
+<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+ </div> 
+ </div>
+<button type="submit" class="btn btn-primary btn-block" name="submit">Enviar</button>
+</form>
+</div>
+<hr>
+</div>
+<div class="col-md-4">
 <div align="left">
 	<?
 
@@ -119,7 +168,7 @@ if(!($t_grupos=="")){
 $hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
 $hora0 = mysqli_query($db_con, $hora1);
 if (mysqli_num_rows($hora0)<1) {
-		echo '<br /><div align="lef"><div class="alert alert-warning alert-block fade in">
+		echo '<div align="left"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             No tienes alumnos en esta hora del día.
             <br>Selecciona una fecha y hora en el formulario para registrar faltas de asistencia.
@@ -173,7 +222,7 @@ $res.=") order by NC";
 //echo $res;
 $result = mysqli_query($db_con, $res);
 if ($result) {
-	echo "<br><table class='table table-striped table-bordered table-condensed' style='max-width:auto'>\n";
+	echo "<table class='table table-striped table-bordered table-condensed' style='max-width:auto'>\n";
 	$filaprincipal = "<tr><th colspan='8'><h4 align='center'><span class='text-info'>";
 
 	$filaprincipal.= substr($t_grupos,0,-2);
@@ -264,39 +313,10 @@ if(mysqli_num_rows($gr)>0 or $diversificacion==1){echo '<button name="enviar" ty
 ?>
 
 </FORM>
+<hr>
 </div>
 </div>
-<div class="col-md-4">
-<br>
-<div class="well">
-<legend>Selecciona Hora y Día...</legend>
-<form action="index.php" method="POST">
 
-<div class="form-group">
-<label for="hora_dia">Hora </label> 
-<select	class="form-control" id="hora_dia" name="hora_dia" required>
-<?
-if (isset($hora_dia)) {
-	echo "<option>".$hora_dia."</option>";
-}
-echo "<option></option>";
-for ($i = 1; $i < 7; $i++) {
-	echo "<option>$i</option>";
-}
-?>
-</select>
-</div>
-<div class="form-group" id="datetimepicker1">
-<label for="fecha_dia">Fecha</label> 
-<div class="input-group">
-<input name="fecha_dia" type="text" class="form-control" value="<? echo $fecha_dia;?>" data-date-format="DD/MM/YYYY" id="fecha_dia" required >
-<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
- </div> 
- </div>
-<button type="submit" class="btn btn-primary btn-block" name="submit">Enviar</button>
-</form>
-</div>
-</div>
 </div>
 </div>
 <?

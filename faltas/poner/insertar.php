@@ -27,7 +27,6 @@ if (empty($trozos[2]))
  }
 
 else {
- //echo "$trozos[0] $trozos[1] $trozos[2] $trozos[3] $trozos[4] $trozos[5]<br>";
 // Bloquear Fechas futuras y pasadas
 	$fecha0 = explode('-',$trozos[0]);
 	$dia0 = $fecha0[0];
@@ -37,11 +36,11 @@ else {
 	$fecha11 = $dia0 . "-" . $mes . "-" . $ano;
 	$fecha2 = mktime(0,0,0,$mes,$dia0,$ano);
 	$diames = date("j");
-    	$nmes = date("n");
+    $nmes = date("n");
 	$nano = date("Y");
 	$hoy1 = mktime(0,0,0,$nmes,$diames,$nano);
+	
 	$fecha_fiesta= strtotime($fecha1);
-
  	$comienzo_del_curso = strtotime($inicio_curso);
 	$final_del_curso = strtotime($fin_curso);
 

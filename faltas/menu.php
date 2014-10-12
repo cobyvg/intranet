@@ -5,7 +5,7 @@ $activo4="";
 $activo5="";
 $activo6="";
 $activo7="";
-if (strstr($_SERVER['REQUEST_URI'],'festivos')==TRUE) {$activo1 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'festivos')==TRUE or strstr($_SERVER['REQUEST_URI'],'jornada')==TRUE) {$activo1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'poner')==TRUE) {$activo3 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'justificar')==TRUE) {$activo5 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'faltas/index.php')==TRUE) {$activo3 = ' class="active" ';}
@@ -14,7 +14,14 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 
 ?>
  <div class="container">   
-          <ul class="nav nav-tabs">              
+          <ul class="nav nav-tabs">
+            <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      Importación de datos <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+
+                  
          <?
 	  if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') == TRUE)
 	  {
@@ -60,7 +67,16 @@ $festivos='actualizar';
 		}
 	  }
 	  ?>  
-    
+	  <?
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') == TRUE){	  
+	  ?>	  
+         <li <? echo $activo1;?>><a href="http://<? echo $dominio; ?>/intranet/faltas/seneca/index_jornada.php">
+     Importar Jornada</a></li>  
+  <?
+}
+  ?>
+      </ul>
+    </li>
                 <?
 	  if(stristr($_SESSION['cargo'],'3') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE)
 	  {

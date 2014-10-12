@@ -51,13 +51,14 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 mysqli_query($db_con, "
 CREATE TABLE IF NOT EXISTS `evalua_tutoria` (
-`id` int(11) NOT NULL,
-  `unidad` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `evaluacion` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `alumno` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
-  `campo` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
-  `valor` text COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+  `id` int(11) NOT NULL auto_increment,
+  `unidad` varchar(32) collate latin1_spanish_ci NOT NULL,
+  `evaluacion` varchar(32) collate latin1_spanish_ci NOT NULL,
+  `alumno` varchar(10) collate latin1_spanish_ci NOT NULL,
+  `campo` varchar(10) collate latin1_spanish_ci NOT NULL,
+  `valor` text collate latin1_spanish_ci NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1
 ");
 
 $curso = $_SESSION['mod_tutoria']['unidad'];
