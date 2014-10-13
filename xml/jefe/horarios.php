@@ -78,7 +78,7 @@ No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en 
 fclose ( $fp );
 
 // Eliminamos el Recreo como 4ª Hora.
-$recreo = "DELETE FROM horw WHERE hora ='4'";
+$recreo = "update horw set hara = 'R' WHERE hora ='4'";
 mysqli_query($db_con,$recreo);
 $hora4 = "UPDATE  horw SET  hora =  '4' WHERE  hora = '5'";
 mysqli_query($db_con,$hora4);
@@ -87,6 +87,32 @@ mysqli_query($db_con,$hora5);
 $hora6 = "UPDATE  horw SET  hora =  '6' WHERE  hora = '7'";
 mysqli_query($db_con,$hora6);
 mysqli_query($db_con,"OPTIMIZE TABLE  `horw`");
+
+// Quitamos las S del codigo de las Actividades
+$s_l="";
+$s_cod = mysqli_query($db_con,"select distinct c_asig from horw where c_asig like 'S%'");
+while($s_asgna = mysqli_fetch_array($s_cod)){
+	$trozos = explode(" ",$s_asgna[0]);
+	$s_l = substr($trozos[0],1,strlen($trozos[0]));
+	mysqli_query($db_con,"update horw set c_asig = '$s_l', asig = (select nomactividad from actividades_seneca where idactividad = '$s_l') where c_asig like '$trozos[0]%'");
+}
+
+// Detectamos asignaturas sin código
+$sin_codigo="";
+$sin_cd = mysqli_query($db_con,"select distinct a_asig, asig from horw where c_asig = '' or c_asig is null");
+if (mysqli_num_rows($sin_cd)>0) {
+	
+echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:600px;" align="left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<h5>ATENCIÓN:</h5>
+No se ha registrado un código para las asignaturas que aparecen abajo. Esta situación producirá problemas en módulos fundamentales de la Intranet. Asigna el código correcto y actualiza el horario cuanto antes, a menos que sepas lo que haces.
+<br><br><ul>';
+	
+while($sin_codi = mysqli_fetch_array($sin_cd)){
+	echo "<li>$sin_codi[0] => $sin_codi[1]</li>";
+}
+echo '</ul></div></div>';	
+}
 
 // Eliminamos Nivel y Grupo (obsoleto)
 mysqli_query($db_con,"update horw set n_grupo='', nivel=''");
