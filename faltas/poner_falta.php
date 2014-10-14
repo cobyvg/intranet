@@ -57,11 +57,11 @@ foreach($_POST as $clave => $valor)
 		$clave2 = mysqli_fetch_row($clave0);
 		$claveal = $clave2[0];
 
-		$fecha0 = explode('-',$hoy);
-		
-		$dia0 = $fecha0[2];
+		$fecha0 = explode('-',$fecha_dia);
+
+		$dia0 = $fecha0[0];
 		$mes = $fecha0[1];
-		$ano = $fecha0[0];
+		$ano = $fecha0[2];
 		
 		$fecha1 = $ano . "-" . $mes . "-" . $dia0;
 		$fecha11 = $dia0 . "-" . $mes . "-" . $ano;
@@ -72,9 +72,9 @@ foreach($_POST as $clave => $valor)
 		$hoy1 = mktime(0,0,0,$nmes,$diames,$nano);
 		
 		$comienzo_del_curso = strtotime($inicio_curso);
-		$final_del_curso = strtotime($fin_curso);
-
+		
 		$repe=mysqli_query($db_con, "select fecha from festivos where date(fecha) = date('$fecha1')");
+
 		if (mysqli_num_rows($repe) > '0') {
 			$dia_festivo='1';
 		}
@@ -84,9 +84,6 @@ foreach($_POST as $clave => $valor)
 		}
 		elseif ($fecha2 < $comienzo_del_curso) {
 			$mens_fecha = "No es posible poner Faltas del <b>Curso Anterior</b>.<br>Comprueba la Fecha: <b>$fecha11</b>.";
-		}
-		elseif ($fecha2 > $final_del_curso) {
-			$mens_fecha = "No es posible poner Faltas del <b>Curso Siguiente</b>.<br>Comprueba la Fecha: <b>$fecha11</b>.";
 		}
 		elseif ($fecha2 > $hoy1) {
 			$mens_fecha = "No es posible poner Faltas en el <b>Futuro</b>.<br>Comprueba la Fecha: <b>$fecha11</b>.";
