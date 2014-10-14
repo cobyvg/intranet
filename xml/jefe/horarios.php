@@ -78,7 +78,7 @@ No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en 
 fclose ( $fp );
 
 // Eliminamos el Recreo como 4ª Hora.
-$recreo = "update horw set hara = 'R' WHERE hora ='4'";
+$recreo = "update horw set hora = 'R' WHERE hora ='4'";
 mysqli_query($db_con,$recreo);
 $hora4 = "UPDATE  horw SET  hora =  '4' WHERE  hora = '5'";
 mysqli_query($db_con,$hora4);

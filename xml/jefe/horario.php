@@ -242,7 +242,7 @@ else {
 	mysqli_query($db_con, "update horw set a_asig = 'GUBIB' where c_asig = '26'");
 
 	// Eliminamos el Recreo como 4ª Hora.
-	$hora0 = "update horw set hara = 'R' WHERE hora ='4'";
+	$hora0 = "update horw set hora = 'R' WHERE hora ='4'";
 	mysqli_query($db_con, $hora0);
 	$hora4 = "UPDATE  horw SET  hora =  '4' WHERE  hora = '5'";
 	mysqli_query($db_con, $hora4);
