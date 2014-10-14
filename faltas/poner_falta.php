@@ -89,17 +89,37 @@ foreach($_POST as $clave => $valor)
 			$mens_fecha = "No es posible poner Faltas en el <b>Futuro</b>.<br>Comprueba la Fecha: <b>$fecha11</b>.";
 		}
 else{
-
+	// O si hay al menos una justicación introducida por el Tutor en ese día
+$jt ="select * from FALTAS where claveal = '$claveal' and FECHA = '$fecha1' and FALTA = 'J'";
+$jt0 = mysqli_query($db_con, $jt);
+$jt1 = mysqli_num_rows($jt0);
+if ($jt0)
+{
+$nc_al.="Nº ".$nc.", ";
+$justi_ya = 1;
+}
+else{	
 		// Insertamos las faltas de TODOS los alumnos.
 		$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA )
-VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";
-		//	echo $t0;
+VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";		
 		$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
 		$count += mysqli_affected_rows();
 		}
 	}
 }
-if (empty($mens_fecha)) {
+}
+if ($justi_ya == 1) {
+$nc_al = substr($nc_al,0,-2);
+	
+	// La falta está justificada
+		echo "<h3 align='center'>Poner faltas de asistencia</h3><br />";
+	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            El Tutor ya ha justificado las Faltas del Alumno <b>'.$nc_al.'</b> de <b>'.$unidad.'</b> en ese día.
+          </div></div>'; 
+
+}
+elseif (empty($mens_fecha)) {
 	echo "<h3 align='center'>Poner faltas de asistencia</h3><br />";
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -108,13 +128,13 @@ if (empty($mens_fecha)) {
 }
 else{
 	echo "<h3 align='center'>Poner faltas de asistencia</h3><br />";
-	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+	echo '<br /><div align="center"><div class="alert alert-error alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             '. $mens_fecha.'</div></div>'; 
 }
 ?>
 <script language="javascript">
-setTimeout("window.location='index.php?fecha_dia=<? echo $fecha_dia; ?>&hora_dia=<? echo $hora; ?>'", 2000) 
+setTimeout("window.location='index.php?fecha_dia=<? echo $fecha_dia; ?>&hora_dia=<? echo $hora; ?>'", 10000) 
 </script>
 </body>
 </html>
