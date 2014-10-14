@@ -372,17 +372,13 @@ else {
 <br>
 <div class="well"><legend>Importación del horario con archivo DEL</legend>
 <FORM ENCTYPE="multipart/form-data" ACTION="horarios.php" METHOD="post">
-<p class="help-block" style="width: 500px; text-align: left"><span
-	style="color: #9d261d">(*) </span>El archivo que se debe importar se
-obtiene de HORW exportando los datos en formato DEL.</p>
-<br />
+
 <div class="form-group"><label for="file">Selecciona el archivo con los
-datos del Horario </label> <input type="file" name="archivo"
-	class="form-control" id="file"></div>
+datos del Horario </label> <input type="file" name="archivo" id="file"></div>
 <hr>
 
-<div align="center"><INPUT type="submit" name="enviar" value="Aceptar"
-	class="btn btn-primary"></div>
+<INPUT type="submit" name="enviar" value="Importar"
+	class="btn btn-primary">
 </FORM>
 </div>
 

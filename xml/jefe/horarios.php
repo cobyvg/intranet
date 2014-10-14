@@ -24,7 +24,7 @@ include("../../menu.php");
 ?>
 	<div class="container">
 			<div class="page-header">
-			<h2>Administración <small>Importación del horario con archivo DEL de Horwin</small></h2>
+			<h2>Administración <small>Importación del horario con archivo DEL de Horw</small></h2>
 		</div>	
 			<div class="row">
 <?
@@ -36,7 +36,7 @@ if (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>Atención:</legend>
-El archivo de Horwin que estás intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>13 columnas</strong>. Asegúrate de que el archivo de Horwin sigue las instrucciones de la imagen, y vuelve a intentarlo.
+El archivo de Horw que estás intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>13 columnas</strong>. Asegúrate de que el archivo de Horw sigue las instrucciones de la imagen, y vuelve a intentarlo.
 </div></div><br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
