@@ -41,7 +41,7 @@ if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];} else{$fecha_
 
 
 // Borramos faltas para luego colocarlas de nuevo.
-$borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and PROFESOR = '$nprofe' and (FALTA = 'F' or FALTA = 'J')");
+$borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and PROFESOR = '$nprofe' and FALTA = 'F'");
 $db_pass = trim($clave);
 foreach($_POST as $clave => $valor)
 {
@@ -89,16 +89,17 @@ foreach($_POST as $clave => $valor)
 			$mens_fecha = "No es posible poner Faltas en el <b>Futuro</b>.<br>Comprueba la Fecha: <b>$fecha11</b>.";
 		}
 else{
+	//echo "Fecha de la falta: $fecha2; Comienzo del Curso: $comienzo_del_curso; Ahora: $hoy1;<br>";
 	// O si hay al menos una justicación introducida por el Tutor en ese día
 $jt ="select * from FALTAS where claveal = '$claveal' and FECHA = '$fecha1' and FALTA = 'J'";
 $jt0 = mysqli_query($db_con, $jt);
 $jt1 = mysqli_num_rows($jt0);
-if ($jt0)
+if (mysqli_num_rows($jt0)>0)
 {
 $nc_al.="Nº ".$nc.", ";
 $justi_ya = 1;
 }
-else{	
+else{			
 		// Insertamos las faltas de TODOS los alumnos.
 		$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA )
 VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";		
@@ -108,33 +109,35 @@ VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  
 	}
 }
 }
-if ($justi_ya == 1) {
-$nc_al = substr($nc_al,0,-2);
-	
-	// La falta está justificada
-		echo "<h3 align='center'>Poner faltas de asistencia</h3><br />";
-	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            El Tutor ya ha justificado las Faltas del Alumno <b>'.$nc_al.'</b> de <b>'.$unidad.'</b> en ese día.
-          </div></div>'; 
+echo "<h3 align='center'>Poner faltas de asistencia</h3><br />";
+if (empty($mens_fecha)) {
 
-}
-elseif (empty($mens_fecha)) {
-	echo "<h3 align='center'>Poner faltas de asistencia</h3><br />";
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Las Faltas han sido registradas.
           </div></div>'; 
 }
 else{
-	echo "<h3 align='center'>Poner faltas de asistencia</h3><br />";
-	echo '<br /><div align="center"><div class="alert alert-error alert-block fade in">
+	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>';
+    echo $mens_fecha;       
+	echo '</div></div>'; 
+
+}
+if ($justi_ya == 1) {
+$nc_al = substr($nc_al,0,-2);
+	
+	// La falta está justificada
+
+	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            '. $mens_fecha.'</div></div>'; 
+            El Tutor ya ha justificado las Faltas del Alumno <b>'.$nc_al.'</b> de <b>'.$unidad.'</b> en ese día.
+          </div></div>'; 
+
 }
 ?>
 <script language="javascript">
-setTimeout("window.location='index.php?fecha_dia=<? echo $fecha_dia; ?>&hora_dia=<? echo $hora; ?>'", 10000) 
+setTimeout("window.location='index.php?fecha_dia=<? echo $fecha_dia; ?>&hora_dia=<? echo $hora; ?>'", 5000) 
 </script>
 </body>
 </html>
