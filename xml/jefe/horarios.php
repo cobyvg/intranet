@@ -91,10 +91,10 @@ mysqli_query($db_con,"OPTIMIZE TABLE  `horw`");
 // Quitamos las S del codigo de las Actividades
 $s_l="";
 $s_cod = mysqli_query($db_con,"select distinct c_asig from horw where c_asig like 'S%'");
-while($s_asgna = mysqli_fetch_array($s_cod)){
-	$trozos = explode(" ",$s_asgna[0]);
+while($s_asigna = mysqli_fetch_array($s_cod)){
+	$trozos = explode(" ",$s_asigna[0]);
 	$s_l = substr($trozos[0],1,strlen($trozos[0]));
-	mysqli_query($db_con,"update horw set c_asig = '$s_l', asig = (select nomactividad from actividades_seneca where idactividad = '$s_l') where c_asig like '$trozos[0]%'");
+	mysqli_query($db_con,"update horw set c_asig = '$s_l', asig = (select nomactividad from actividades_seneca where idactividad = '$s_l') where c_asig = '$s_asigna[0]'");
 }
 
 // Detectamos asignaturas sin código
