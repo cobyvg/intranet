@@ -45,6 +45,7 @@ else {
 	$nmes = date("n");
 	$nano = date("Y");
 	$hoy = $nano."-".$nmes."-".$diames;
+	$fecha_dia = $diames."-".$nmes."-".$nano;
 	if(empty($hora_dia)){
 		
 		$jor = mysqli_query($db_con,"select tramo, hora_inicio, hora_fin from jornada");
@@ -165,7 +166,7 @@ for ($i = 1; $i < 7; $i++) {
 	<?
 
 //$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
-$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
 $hora0 = mysqli_query($db_con, $hora1);
 if (mysqli_num_rows($hora0)<1) {
 		echo '<div align="left"><div class="alert alert-warning alert-block fade in">
@@ -305,7 +306,7 @@ echo '<input name=clave type=hidden value="';
 echo $clave;
 echo '" />';
 echo '<input name=fecha_dia type=hidden value="';
-echo $fecha_dia;
+echo $hoy;
 echo '" />';
 $gr = mysqli_query($db_con, "select nomunidad from unidades where nomunidad = '$curso'");
 if(mysqli_num_rows($gr)>0 or $diversificacion==1){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large btn-block"><i class="fa fa-check"> </i> Registrar faltas de asistencia</button>';}
