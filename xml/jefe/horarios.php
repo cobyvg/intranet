@@ -195,7 +195,7 @@ if (mysqli_num_rows($asig2)>0) {
 // Horw para Faltas
 mysqli_query($db_con, "drop table horw_faltas");
 mysqli_query($db_con, "create table horw_faltas select * from horw");
-mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
+mysqli_query($db_con, "delete from horw_faltas where a_grupo = '' or a_grupo like ='GU%'");
 
 	// Tutores
 	$tabla_tut =mysqli_query($db_con,"select * from FTUTORES");
