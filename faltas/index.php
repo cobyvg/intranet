@@ -1,12 +1,13 @@
 <?
 session_start();
 include("../config.php");
-include_once('../config/version.php');
+include("../config/version.php");
+
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 	exit();
 }
 
@@ -24,10 +25,10 @@ $filaprof0 = mysqli_fetch_array($prof0);
 $profesi = $filaprof0[0]."_ ".$pr;
 $_SESSION['todo_profe'] = $profesi;
 
-if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];}elseif (isset($_GET['fecha_dia'])) {$fecha_dia = $_GET['fecha_dia'];} 
-if (isset($_POST['hora_dia'])) {$hora_dia = $_POST['hora_dia'];}elseif (isset($_GET['hora_dia'])) {$hora_dia = $_GET['hora_dia'];} 
+if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];}elseif (isset($_GET['fecha_dia'])) {$fecha_dia = $_GET['fecha_dia'];}
+if (isset($_POST['hora_dia'])) {$hora_dia = $_POST['hora_dia'];}elseif (isset($_GET['hora_dia'])) {$hora_dia = $_GET['hora_dia'];}
 
-if (isset($fecha_dia) and isset($hora_dia)) {
+if (isset($fecha_dia)) {
 	$tr_fech = explode("-", $fecha_dia);
 	$di = $tr_fech[0];
 	$me = $tr_fech[1];
@@ -39,51 +40,16 @@ if (isset($fecha_dia) and isset($hora_dia)) {
 	//echo "$ndia $hora_dia $fecha_dia $hoy $an-$me-$di";
 }
 else {
-	$hora = date("G");// hora ahora
-	$minutos = date("i");
-	$diames = date("j");
-	$nmes = date("n");
-	$nano = date("Y");
-	$hoy = $nano."-".$nmes."-".$diames;
-	$fecha_dia = $diames."-".$nmes."-".$nano;
-	if(empty($hora_dia)){
-		
-		$jor = mysqli_query($db_con,"select tramo, hora_inicio, hora_fin from jornada");
-		if(mysqli_num_rows($jor)>0){
-		while($jornad = mysqli_fetch_array($jor)){
-			$hora_real = $hora."".$minutos;
-			$h_ini = str_replace(":", "",$jornad[1]);
-			$h_fin = str_replace(":", "",$jornad[2]);
-
-			if( $hora_real > $h_ini and $hora_real < $h_fin){
-				$hora_dia = $jornad[0];
-		}			
-		}
-		if (empty($hora_dia)) {
-				$hora_dia = "Fuera del Horario Escolar";
-			}
-		}
-		else{
-		$falta_jornada = 1;			
-		if(($hora == '8' and $minutos > 15 ) or ($hora == '9' and $minutos < 15 ) ){$hora_dia = '1';}
-		elseif(($hora == '9' and $minutos > 15 ) or ($hora == '10' and $minutos < 15 ) ){$hora_dia = '2';}
-		elseif(($hora == '10' and $minutos > 15 ) or ($hora == '11' and $minutos < 15 ) ){$hora_dia = '3';}
-		elseif(($hora == '11' and $minutos > 15 ) or ($hora == '11' and $minutos < 45 ) ){$hora_dia = 'R';}
-		elseif(($hora == '11' and $minutos > 45 ) or ($hora == '12' and $minutos < 45 ) ){$hora_dia = '4';}
-		elseif(($hora == '12' and $minutos > 45 ) or ($hora == '13' and $minutos < 45 ) ){$hora_dia = '5';}
-		elseif(($hora == '13' and $minutos > 45 ) or ($hora == '14' and $minutos < 45 ) ){$hora_dia = '6';}
-		else{ $hora_dia = "Fuera del Horario Escolar";}
-		}
-	}
-		$ndia = date("w");// nº de día de la semana (1,2, etc.)
-		$hoy_actual = "$diames-$nmes-$nano";
+	$ndia = date("w");// nº de día de la semana (1,2, etc.)
+	$hoy_actual = "$diames-$nmes-$nano";
 }
-	if($ndia == "1"){$nom_dia = "Lunes";}
-	if($ndia == "2"){$nom_dia = "Martes";}
-	if($ndia == "3"){$nom_dia = "Miércoles";}
-	if($ndia == "4"){$nom_dia = "Jueves";}
-	if($ndia == "5"){$nom_dia = "Viernes";}
-	
+
+if($ndia == "1"){$nom_dia = "Lunes";}
+if($ndia == "2"){$nom_dia = "Martes";}
+if($ndia == "3"){$nom_dia = "Miércoles";}
+if($ndia == "4"){$nom_dia = "Jueves";}
+if($ndia == "5"){$nom_dia = "Viernes";}
+
 //$nl_curs10 = "select distinct a_grupo from horw where no_prof = '30' and dia = '1' and hora = '1'";
 $nl_curs10 = "select distinct a_grupo from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
 $nl_curs11 = mysqli_query($db_con, $nl_curs10);
@@ -100,12 +66,13 @@ if ($mod_faltas) {
 	include("../menu.php");
 	include("menu.php");
 	?>
+
 <div class="container">
+
 <div class="page-header">
 <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
-<div class="row">
-<?
+<div class="row"><?
 // Unir todos los grupos para luego comprobar que no hay duplicaciones (4E-E,4E-Dd)
 //$n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
 $n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
@@ -122,58 +89,86 @@ if($mensaje){
             Las Faltas han sido registradas correctamente.
           </div></div>'; 
 }
-
-$t_grupos = $curs;
-if(!($t_grupos=="")){
-	echo "<p class='lead' align='center'><span style='color:#9d261d'>Fecha</span>: $hoy_actual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Día</span>: $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#9d261d'>Hora:</span> $hora_dia";
-	if(!($hora_dia == "Fuera del Horario Escolar")){echo "ª hora";}
-	echo "</p>";
-}
 ?>
-<div class="col-md-4 col-md-offset-2">
+<div class="col-md-5"><br>
 <div class="well">
-<legend>Selecciona Hora y Día...</legend>
-<form action="index.php" method="POST">
+			
+	<form id="form1" method="post" action="">
+		
+		<fieldset>
+			<legend>Seleccione fecha y grupo</legend>
+			
+			<div class="form-group" id="datetimepicker1">
+				<label for="fecha_dia">Fecha</label>
+				<div class="input-group">
+					<input type="text" class="form-control" id="fecha_dia" name="fecha_dia" value="<?php echo (isset($fecha_dia)) ? $fecha_dia : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
+					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="grupo">Grupo</label>
+				<select class="form-control" id="hora_dia" name="hora_dia">
+				<?
+				
+				for ($i = 1; $i < 7; $i++) {
+					$gr_hora = mysqli_query($db_con,"select a_grupo, asig from horw_faltas where hora = '$i' and dia='$ndia' and prof = '$pr' and a_grupo not like '' and a_grupo not like 'GU%'");
+					if (mysqli_num_rows($gr_hora)>0) {
+				
+						while ($grupo_hora = mysqli_fetch_array($gr_hora)) {
+							$grup.="$grupo_hora[0] ";
+							$asign = $grupo_hora[1];
+						}
+						$grupos = "$grup ($asign)";
+				
+					}
+				
+					//echo "<option>select a_grupo, asig from horw_faltas where hora = '$i' and dia='$ndia' and prof = '$pr' and a_grupo not like ''</otion>";
+					if (!empty($grupos)) {
+						if (isset($hora_dia) and $hora_dia==$i) {
+							echo "<option value='$i' selected>$grupos</option>";
+						}
+						else{
+							echo "<option value='$i'>$grupos</option>";
+						}
+					}
+					$grupos="";
+					$grup="";
+					$asign="";
+				}
+				?>
+				</select>
+			</div>
 
-<div class="form-group">
-<label for="hora_dia">Hora </label> 
-<select	class="form-control" id="hora_dia" name="hora_dia" required>
-<?
-if (isset($hora_dia)) {
-	echo "<option>".$hora_dia."</option>";
-}
-echo "<option></option>";
-for ($i = 1; $i < 7; $i++) {
-	echo "<option>$i</option>";
-}
-?>
-</select>
+			<button type="submit" class="btn btn-primary" name="aceptar">Aceptar</button>
+			
+		</fieldset>
+	
+	</form>
 </div>
-<div class="form-group" id="datetimepicker1">
-<label for="fecha_dia">Fecha</label> 
-<div class="input-group">
-<input name="fecha_dia" type="text" class="form-control" value="<? if (isset($fecha_dia)) {  echo $fecha_dia;}else {echo $hoy_actual;}?>" data-date-format="DD-MM-YYYY" id="fecha_dia" required >
-<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
- </div> 
- </div>
-<button type="submit" class="btn btn-primary btn-block" name="submit">Enviar</button>
-</form>
 </div>
-<hr>
-</div>
-<div class="col-md-4">
-<div align="left">
-	<?
 
+<div class="col-md-7">
+<div align="left"><?
 //$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
-$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
-$hora0 = mysqli_query($db_con, $hora1);
-if (mysqli_num_rows($hora0)<1) {
-		echo '<div align="left"><div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            No tienes alumnos en esta hora del día.
-            <br>Selecciona una fecha y hora en el formulario para registrar faltas de asistencia.
-          </div></div>'; 
+
+if ($ndia>5) {
+	?>
+<h2 class="text-muted text-center"><span class="fa fa-clock-o fa-5x"></span>
+<br>
+Fuera de horario escolar</h2>
+	<?
+}
+else{
+	$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+	$hora0 = mysqli_query($db_con, $hora1);
+	if (mysqli_num_rows($hora0)<1) {
+		?>
+<h2 class="text-muted text-center"><span class="fa fa-clock-o fa-5x"></span>
+<br>
+Sin alumnos en esta hora</h2>
+		<?
+	}
 }
 while($hora2 = mysqli_fetch_row($hora0))
 {
@@ -183,12 +178,12 @@ while($hora2 = mysqli_fetch_row($hora0))
 		$curso="";
 	}
 	else{
-	$curso = $hora2[1];
+		$curso = $hora2[1];
 	}
 	$asignatura = $hora2[2];
 
 	$nivel_curso = substr($curso,0,1);
-	
+
 	//	Problemas con Diversificación (4E-Dd)
 	$diversificacion = "";
 	$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
@@ -196,10 +191,10 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 		$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
 		if (mysqli_num_rows($grupo_div)>0) {
-				$diversificacion = 1;
-				$div = $curso;
-				$grupo_diver = mysqli_fetch_row($grupo_div);
-				$curso = $grupo_diver[0];
+			$diversificacion = 1;
+			$div = $curso;
+			$grupo_diver = mysqli_fetch_row($grupo_div);
+			$curso = $grupo_diver[0];
 		}
 	}
 	?>
@@ -223,98 +218,118 @@ $res.=") order by NC";
 //echo $res;
 $result = mysqli_query($db_con, $res);
 if ($result) {
-	echo "<table class='table table-striped table-bordered table-condensed' style='max-width:auto'>\n";
-	$filaprincipal = "<tr><th colspan='8'><h4 align='center'><span class='text-info'>";
+	$t_grupos = $curs;
+	
+	echo "<br><table class='table table-striped table-bordered table-condensed table-hover'>\n";
+	$filaprincipal = "<thead><tr><th colspan='2'><h3 align='center' class='text-info'>";
 
 	$filaprincipal.= substr($t_grupos,0,-2);
 
-	$filaprincipal.= "</span> <small class='text-warning'>$asignatura</small></h4></th></tr>";
+	$filaprincipal.= " - $asignatura";
+	
+	if(!($t_grupos=="")){
+		$filaprincipal.= "<br><small><strong>Fecha:</strong> $hoy_actual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
+		if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
+		echo "</small>";
+	}
+	
+	echo "</h3></th></tr></thead>";
 	if ($diversificacion!==1) {
 		$curso = $hora2[1];
 	}
 	echo $filaprincipal;
-	
+
 	while($row = mysqli_fetch_array($result)){
-	$n+=1;
-	$chk="";
-	$combasi = $row[5];
-	if ($row[5] == "") {}
-	else{
-		$pares = $n%2;
-		//if ($pares=="") {}else{	echo "<tr>";}
-		
-		echo "<tr>";
-		$foto="";
-		$foto = "<img src='../xml/fotos/$row[0].jpg' width='50' height='60' class=''  />";
-		echo "<td>".$foto."</td>";
+		$n+=1;
+		$chk="";
+		$combasi = $row[5];
+		if ($row[5] == "") {}
+		else{
+			$pares = $n%2;
+			//if ($pares=="") {}else{	echo "<tr>";}
 
-		echo "<td style='vertical-align:middle'>$row[1]</td><td style='vertical-align:middle'>$row[2], $row[3]";
-		if ($row[4] == "2" or $row[4] == "3") {echo " (R)";}
+			echo "<tr>";
+			$foto = '../xml/fotos/'.$row[0].'.jpg';
+			if (file_exists($foto)) {
+				echo '<td class="text-center" width="70"><img src="'.$foto.'" width="50" height="60" alt=""></td>';
+			}
+			else {
+				echo '<td><span class="fa fa-user fa-fw fa-3x"></span></td>';
+			}
+
+			echo "<td style='vertical-align:middle'>
+				<label for='falta_".$row[1]."_".$curso."' style='display:block;'>
+					<span class='label label-info'>$row[1]</span>
+					&nbsp;&nbsp;$row[2], $row[3]
+				";
+			if ($row[4] == "2" or $row[4] == "3") {echo " (R)";}
+		}
+		echo "<span class='pull-right' style='margin-right:5px'>";
+
+
+		$fecha_hoy = date('Y')."-".date('m')."-".date('d');
+		$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
+		$falta_dia = mysqli_fetch_array($falta_d);
+		if ($falta_dia[0] == "F") {
+			$chk = "checked";
+		}
+		elseif ($falta_dia[0] == "J"){
+			$chk = 'id="disable" disabled data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
+		}
+		?>
+		<input type="checkbox" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chk; ?> value="F" />
+		<?
+		echo "</span></label></td>";
+		//if ($pares=="") {echo "</tr>";}
+		echo "</tr>";
 	}
-	echo "</td><td style='vertical-align:middle'>";
-
-
-	$fecha_hoy = date('Y')."-".date('m')."-".date('d');
-	$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
-	$falta_dia = mysqli_fetch_array($falta_d);
-	if ($falta_dia[0] == "F") {
-		$chk = "checked";
-	}
-	?> 
-	<input name="falta_<? echo $row[1]."_".$curso;?>" type="checkbox"
-	<? echo $chk; ?> value="F" /> <?
-	echo "</td>";
-	//if ($pares=="") {echo "</tr>";}
-	echo "</tr>";
-}
 }
 ?>
-<tr><td colspan=8  align="center">
-<div class="btn-group"><a
-	href="javascript:seleccionar_todo()" class="btn btn-success">Marcar
-todos</a> <a href="javascript:deseleccionar_todo()"
-	class="btn btn-warning">Desmarcar todos</a></div>
-</td></tr>
+<tr>
+	<td colspan="2" align="center">
+	<div class="btn-group"><a href="javascript:seleccionar_todo()"
+		class="btn btn-success">Marcar todos</a> <a
+		href="javascript:deseleccionar_todo()" class="btn btn-warning">Desmarcar
+	todos</a></div>
+	</td>
+</tr>
 <?
 echo '</table>';
 }
-echo '<input name=nprofe type=hidden value="';
+echo '<input name="nprofe" type="hidden" value="';
 echo $filaprof0[0];
 echo '" />';
 // Hora escolar
-echo '<input name=hora type=hidden value="';
+echo '<input name="hora" type="hidden" value="';
 echo $hora_dia;
 echo '" />';
 // dia de la semana
-echo '<input name=ndia type=hidden value="';
+echo '<input name="ndia" type="hidden" value="';
 echo $ndia;
 echo '" />';
 // Hoy
-echo '<input name=hoy type=hidden value="';
+echo '<input name="hoy" type="hidden" value="';
 echo $hoy;
 echo '" />';
 // Codigo asignatura
-echo '<input name=codasi type=hidden value="';
+echo '<input name="codasi" type="hidden" value="';
 echo $codasi;
 echo '" />';
 // Profesor
-echo '<input name=profesor type=hidden value="';
+echo '<input name="profesor" type="hidden" value="';
 echo $pr;
 echo '" />';
 // Clave
-echo '<input name=clave type=hidden value="';
+echo '<input name="clave" type="hidden" value="';
 echo $clave;
 echo '" />';
-echo '<input name=fecha_dia type=hidden value="';
-echo $hoy;
+echo '<input name="fecha_dia" type="hidden" value="';
+echo $fecha_dia;
 echo '" />';
 $gr = mysqli_query($db_con, "select nomunidad from unidades where nomunidad = '$curso'");
-if(mysqli_num_rows($gr)>0 or $diversificacion==1){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large btn-block"><i class="fa fa-check"> </i> Registrar faltas de asistencia</button>';}
+if(mysqli_num_rows($gr)>0 or $diversificacion==1){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large btn-block">Registrar faltas de asistencia</button>';}
 
-?>
-
-</FORM>
-<hr>
+?></form>
 </div>
 </div>
 
@@ -330,21 +345,49 @@ El módulo de Faltas de Asistencia debe ser activado en la Configuración general 
           </div></div>'; 
 	echo "<div style='color:brown; text-decoration:underline;'>Las Faltas han sido registradas.</div>";
 }
-?> <?
+?>
+<?
 include("../pie.php");
-?> 
+?>
 
+<?php
+$exp_inicio_curso = explode('-', $inicio_curso);
+$inicio_curso = $exp_inicio_curso[2].'/'.$exp_inicio_curso[1].'/'.$exp_inicio_curso[0];
+
+$exp_fin_curso = explode('-', $fin_curso);
+$fin_curso = $exp_fin_curso[2].'/'.$exp_fin_curso[1].'/'.$exp_fin_curso[0];
+
+$result = mysqli_query($db_con, "SELECT fecha FROM festivos ORDER BY fecha ASC");
+$festivos = '';
+while ($row = mysqli_fetch_array($result)) {
+	$exp_festivo = explode('-', $row['fecha']);
+	$dia_festivo = $exp_festivo[2].'/'.$exp_festivo[1].'/'.$exp_festivo[0];
+
+	$festivos .= '"'.$dia_festivo.'", ';
+}
+
+$festivos = substr($festivos,0,-2);
+?>
 <script>  
-$(function ()  
-{ 
-	$('#datetimepicker1').datetimepicker({
-		language: 'es',
-		pickTime: false
+	$(function ()  
+	{ 
+		$('#datetimepicker1').datetimepicker({
+			language: 'es',
+			pickTime: false,
+			minDate:'<?php echo $inicio_curso; ?>',
+			maxDate:'<?php echo $fin_curso; ?>',
+			disabledDates: [<?php echo $festivos; ?>],
+			daysOfWeekDisabled:[0,6] 
+		});
 	});
 	
-});  
+	$('#datetimepicker1').change(function() {
+	  $('#form1').submit();
+	});
+	</script>
+<script>
+$('#disable').tooltip('show')
 </script>
-
 <script>
 
 function seleccionar_todo(){

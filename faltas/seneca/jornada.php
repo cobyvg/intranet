@@ -59,10 +59,10 @@ No se ha podido abrir el fichero de importación<br> Asegúrate de que su formato 
 while (($data1 = fgetcsv($handle, 1000, "|")) !== FALSE) 
 {
 	if (strstr($data1[1],":")==TRUE and strstr($data1[2],":")==TRUE) {
-		if (strstr($data1[0],"4")==TRUE and strstr($data1[0],"R")==TRUE) {	$data1[0]="R";	}
-		if ($data1[0]=="5") {	$data1[0]="4";	}
-		if ($data1[0]=="6") {	$data1[0]="5";	}
-		if ($data1[0]=="7") {	$data1[0]="6";	}
+		if (strstr($data1[0],"R")==TRUE) {	$data1[0]="R";	}
+		if (strstr($data1[0],"5")==TRUE) {	$data1[0]="4";	}
+		if (strstr($data1[0],"6")==TRUE) {	$data1[0]="5";	}
+		if (strstr($data1[0],"7")==TRUE) {	$data1[0]="6";	}
 	$datos1 = "INSERT INTO jornada VALUES (\"". trim($data1[0]) . "\",\"". trim($data1[1]) . "\",\"". trim($data1[2]) . "\",\"". trim($data1[3]) . "\")";
 mysqli_query($db_con, $datos1);	
 	}
