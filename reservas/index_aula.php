@@ -48,7 +48,7 @@ include("menu.php");
 <div class="form-group"><?php 
 //echo $_SERVER['SERVER_NAME'];
 $aula_res = "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE ''";
-if ($_SERVER['SERVER_NAME'] == 'localhost')
+if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org')
 {
 	// Lista de Dependencias fuera del sistema de reservas propias del IES Monterroso (sustituir por otras en cualquier otro Centro)
 	$aula_res.= " AND n_aula NOT LIKE 'audi%' AND a_aula NOT LIKE 'dir%' AND a_aula NOT LIKE 'LBG' AND a_aula NOT LIKE 'LFQ' AND a_aula NOT LIKE 'AMUS' AND a_aula NOT LIKE 'ADIB%' AND a_aula NOT LIKE 'TTEC%' AND a_aula NOT LIKE 'TSS%' AND a_aula NOT LIKE 'TTUR%' AND a_aula NOT LIKE 'ACON%' AND a_aula NOT LIKE 'A1PCP%'";
