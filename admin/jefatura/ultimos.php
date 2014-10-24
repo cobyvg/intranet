@@ -21,12 +21,10 @@ echo "<thead><tr><th>#</th><th>Alumno</th><th>Fecha</th></tr></thead><tbody>";
     $result = mysqli_query($db_con, "select distinct apellidos, nombre, fecha, accion, causa, observaciones, unidad, tutor, id, prohibido from tutoria where jefatura = '1' and claveal = '$alumn[2]' order by fecha desc limit 1");
 while($row = mysqli_fetch_array($result))
 {
-$fecha10 = explode("-",$row[2]);
-$fecha20 = "$fecha10[2]-$fecha10[1]-$fecha10[0]"; 
 $id3 = $row[8];
 $prohibido = $row[9];
 
-echo "<tr><td>$row[8]</td><td><a href='index.php?id=$id3'>$row[1] $row[0]</a></div></td><td nowrap>$fecha20</td></tr>";
+echo "<tr><td>$row[8]</td><td><a href='index.php?id=$id3'>$row[1] $row[0]</a></div></td><td nowrap>$row[2]</td></tr>";
 }	
   }
 echo "</tbody></table>";

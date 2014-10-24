@@ -146,7 +146,7 @@ if ($row = mysqli_fetch_array($result))
 	echo "<th></th>";
 	echo "</tr></thead><tbody>";
 	do {
-		if ($row[11]>1) {
+		if ($row[10]>1) {
 			$repite="Sí";
 		}
 		else{

@@ -4,7 +4,7 @@
 <div class="pull-right"><?php $result = mysqli_query($db_con, "SELECT DISTINCT FTUTORES.unidad, tutor, curso FROM FTUTORES, alma where alma.unidad=FTUTORES.unidad ORDER BY FTUTORES.unidad ASC"); ?>
 <?php if(mysqli_num_rows($result)): ?> <select
 	class="form-control input-sm" id="tutor" name="tutor"
-	onchange="submit()">
+	onchange="submit()" style="width:280px;">
 	<?php while($row = mysqli_fetch_array($result)): ?>
 	<option value="<?php echo $row['tutor'].' ==> '.$row['unidad']; ?>"
 	<?php echo ($_SESSION['mod_tutoria']['tutor'].' ==> '.$_SESSION['mod_tutoria']['unidad'] == $row['tutor'].' ==> '.$row['unidad']) ? 'selected' : ''; ?>><?php echo $row['unidad'].' - '.$row['tutor']; ?></option>
@@ -19,7 +19,7 @@
 <ul class="nav nav-tabs hidden-print">
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a
-		href="index.php">Resumen global</a></li>
+		href="index.php">Resumen</a></li>
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'intervencion.php')==TRUE) ? ' class="active"' : ''; ?>><a
 		href="intervencion.php">Intervenciones</a></li>
