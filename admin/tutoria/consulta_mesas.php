@@ -72,11 +72,18 @@ if ($estructura_clase == '232') { $mesas_col = 8; $mesas = 42; $col_profesor = 8
 if ($estructura_clase == '222') { $mesas_col = 7; $mesas = 36; $col_profesor = 7; }
 
 
-function al_con_nie($var_nie,$var_grupo) {
-	$result = mysqli_query($db_con, "SELECT nombre, apellidos FROM alma WHERE unidad='".$var_grupo."' AND claveal='".$var_nie."' ORDER BY apellidos ASC, nombre ASC LIMIT 1");
+function al_con_nie($db_con, $var_nie, $var_grupo) {
+	$result = mysqli_query($db_con, "SELECT CONCAT(nombre, ', ', apellidos) AS alumno FROM alma WHERE unidad='".$var_grupo."' AND claveal='".$var_nie."' ORDER BY apellidos ASC, nombre ASC LIMIT 1");
 	$row = mysqli_fetch_array($result);
 	mysqli_free_result($result);
-	return($row['apellidos'].', '.$row['nombre']);
+	
+	if ($row['alumno'] != ", ") {
+		return($row['alumno'].', '.$row['nombre']);
+	}
+	else {
+		return('');
+	}
+	
 }
 
 
@@ -266,7 +273,7 @@ include("menu.php");
 								<div><p class="text-center">Mesa <?php echo $mesas; ?></p>
 									<ul id="<?php echo $mesas; ?>" class="list-unstyled text-sm">
 										<?php if (isset($con_puesto[$mesas])): ?>
-											<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo al_con_nie($con_puesto[$mesas],$_SESSION['mod_tutoria']['unidad']); ?></li>		 
+											<li id="<?php echo $con_puesto[$mesas]; ?>"><?php echo al_con_nie($db_con, $con_puesto[$mesas], $_SESSION['mod_tutoria']['unidad']); ?></li>		 
 										<?php endif; ?>  
 									</ul>
 								</div>
