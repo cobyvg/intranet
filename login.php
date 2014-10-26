@@ -80,7 +80,8 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		else{
 		//Abrimos la p�gina principal
 		$_SESSION['autentificado'] = 1;			
-			header ( "location:index.php" );
+		include_once('actualizar.php');
+		header ( "location:index.php" );
 		}
 		exit();
 	}

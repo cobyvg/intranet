@@ -49,12 +49,12 @@ $profesor.=$profe[1]." ".$profe[0].", ";
 //$profesor.=$profeso.",";
 }
 $profesor = substr($profesor,0,-5);
-$trozos = explode("-",$cursos[0]);
+$trozos = explode(";",$cursos[0]);
 foreach($trozos as $valor)
 {
 $unidad = $valor;
-$alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and REPLACE(alma.unidad,'-','') = '$unidad' order by NC";
-//echo $alumnos0;
+$alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.unidad = '$unidad' order by NC";
+//echo $cursos[0]." => ".$alumnos0."<br>";
 $alumnos1 = mysqli_query($db_con, $alumnos0);
 $num = mysqli_num_rows($alumnos1);
 if($alumno = mysqli_fetch_array($alumnos1))

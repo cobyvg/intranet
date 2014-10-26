@@ -26,6 +26,32 @@ $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
 include("menu.php");
+
+// Actualizar datos de las actividades extraescolares
+
+$actua = mysqli_query($db_con, "select modulo from actualizacion where modulo = 'Actividades Extraescolares'");
+if (mysqli_num_rows($actua)>0) {}else{
+	
+		$query3 = mysqli_query($db_con, "select distinct grupos, id from actividades");
+		while ($result4 = mysqli_fetch_array($query3)) {
+	if (strstr($result4[0],";")==TRUE) {}
+	else{
+		$nuevo="";
+		$tr = explode("-",$result4[0]);
+		foreach ($tr as $val){
+			
+			$nivel = substr($val,0,2);
+			$grupo = substr($val,2,1);
+			
+			$nuevo.="$nivel-$grupo;";
+		}
+	$nuevo = substr($nuevo,0,-2);
+	mysqli_query($db_con, "update actividades set grupos = '$nuevo' where id = '$result4[1]'");		
+	}
+}
+mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Actividades Extraescolares', NOW())");	
+}
+
 ?>
   <div class='container'>
   <div class="page-header">
