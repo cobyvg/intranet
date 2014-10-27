@@ -94,11 +94,14 @@ include("../../menu.php");
 include("menu.php");
 ?>
 
-<div
-	class="container"><!-- TITULO DE LA PAGINA -->
-<div class="page-header">
-<h2>Evaluaciones del Tutor <small> <?php echo $evaluacion; ?></small></h2>
-</div>
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Evaluaciones del tutor (<?php echo $evaluacion; ?>)</small></h2>
+		<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
+	</div>
+	
 
 <!-- MENSAJES --> <?php if (isset($msg_error)): ?>
 <div class="alert alert-danger"><?php echo $msg_error; ?></div>

@@ -7,7 +7,7 @@
 	onchange="submit()" style="width:280px;">
 	<?php while($row = mysqli_fetch_array($result)): ?>
 	<option value="<?php echo $row['tutor'].' ==> '.$row['unidad']; ?>"
-	<?php echo ($_SESSION['mod_tutoria']['tutor'].' ==> '.$_SESSION['mod_tutoria']['unidad'] == $row['tutor'].' ==> '.$row['unidad']) ? 'selected' : ''; ?>><?php echo $row['unidad'].' - '.$row['tutor']; ?></option>
+	<?php echo ($_SESSION['mod_tutoria']['tutor'].' ==> '.$_SESSION['mod_tutoria']['unidad'] == $row['tutor'].' ==> '.$row['unidad']) ? 'selected' : ''; ?>><?php echo $row['unidad'].' - '.nomprofesor($row['tutor']); ?></option>
 	<?php endwhile; ?>
 </select> <?php else: ?> <select class="form-control" id="tutor"
 	name="tutor" disabled>

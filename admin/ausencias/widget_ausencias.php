@@ -19,7 +19,7 @@
 			<?php else: ?>
 			<span class="pull-right fa fa-square-o fa-fw fa-lg" data-bs="tooltip" title="No hay tareas para los alumnos"></span>
 			<?php endif; ?>
-			<?php echo $profesor; ?>
+			<?php echo nomprofesor($profesor); ?>
 		</a>
 		<?php endwhile; ?>
 	</div>

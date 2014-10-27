@@ -33,7 +33,7 @@ include("../../menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2><?php echo $profe[1].' '.$profe[0]; ?> <small>Consulta de horario</small></h2>
+			<h2><?php echo nomprofesor($profe[1].' '.$profe[0]); ?> <small>Consulta de horario</small></h2>
 		</div>
 		
 		<!-- SCAFFOLDING -->

@@ -97,7 +97,7 @@ include("menu.php");
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['id']; ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['slug']) > 60) ? substr($row['slug'],0,60).'...' : $row['slug']; ?></a></td>
 										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['timestamp'])); ?></a></td>
-										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['contact']; ?></a></td>
+										<td><a class="link-msg" href="noticia.php?id=<?php echo $row['id']; ?>"><?php echo nomprofesor($row['contact']); ?></a></td>
 										<td class="text-center">
 											<span class="fa <?php echo (strstr($row['pagina'],'1')==TRUE) ? 'fa-check-square-o' : 'fa-square-o'; ?> fa-lg" data-bs="tooltip" title="<?php echo (strstr($row['pagina'],'1')==TRUE) ? 'Publicada en la intranet' : 'No publicada en la intranet'; ?>"></span>
 										</td>

@@ -72,14 +72,14 @@ $fecha_sp = formatea_fecha($g_fecha);
 <FORM action="guardias_admin.php" method="POST" name="Cursos">
 <div class="form-group"><label>Selecciona Profesor</label> <SELECT
 	name=profeso onchange="submit()" class="form-control">
-	<option><? echo $profeso;?></option>
+	<option value="<? echo $profeso; ?>"><? echo nomprofesor($profeso); ?></option>
 	<?
 	$profe = mysqli_query($db_con, " SELECT distinct prof FROM horw where a_asig='GU' order by prof asc");
 	if ($filaprofe = mysqli_fetch_array($profe))
 	{
 		do {
 
-			$opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
+			$opcion1 = printf ('<OPTION value="'.$filaprofe[0].'">'.nomprofesor($filaprofe[0]).'</OPTION>');
 			echo "$opcion1";
 
 		} while($filaprofe = mysqli_fetch_array($profe));
@@ -102,8 +102,7 @@ La sustitución ha sido borrada correctamente. Puedes comprobarlo en la tabla de 
 ?>
 <div class="col-sm-5"><?
 if ($profeso) {
-	$profeso=mb_strtolower($profeso);
-	echo '<br /><legend class="text-capitalize">'.$profeso.'</legend>';
+	echo '<br /><legend>'.nomprofesor($profeso).'</legend>';
 	echo '  <div align="center" class="well well-large">';
 }
 ?>  <?
@@ -173,7 +172,7 @@ if ($profeso) {
 			if ($nu_dia == '4') {$nom_dia = 'Jueves';}
 			if ($nu_dia == '5') {$nom_dia = 'Viernes';}
 			$fecha_sp = formatea_fecha($h_hoy[4]);
-			echo "<tr><td>$h_hoy[2]</td><td >$fecha_sp</td><td >$nom_dia</td><td >$h_hoy[3]</td><td ><a href='guardias_admin.php?id=$h_hoy[0]&borrar=1&profeso=$profeso' style='margin-top:5px;color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i> </a>";
+			echo "<tr><td>".nomprofesor($h_hoy[2])."</td><td >$fecha_sp</td><td >$nom_dia</td><td >$h_hoy[3]</td><td ><a href='guardias_admin.php?id=$h_hoy[0]&borrar=1&profeso=$profeso' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' title='Borrar' > </i></a>";
 		}
 		echo "</table><br>";
 	}

@@ -56,7 +56,7 @@ include("menu.php");
 	    	<?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 	    	
 	    	<h3 class="text-info"><?php echo $mensaje['asunto']; ?></h3>
-	    	<h5 class="text-muted">Enviado por <?php echo $profesor; ?> el <?php echo fecha_actual2($mensaje['ahora']); ?></h5>
+	    	<h5 class="text-muted">Enviado por <?php echo nomprofesor($profesor); ?> el <?php echo fecha_actual2($mensaje['ahora']); ?></h5>
 	    	
 	    	<br>
 	    	

@@ -133,7 +133,7 @@ mysqli_free_result($result_mensajes);
 		<div
 		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
 		<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row['ahora'])); ?></em></span>
-		<strong><?php echo $row['origen']; ?></strong></div>
+		<strong><?php echo nomprofesor($row['origen']); ?></strong></div>
 		<div
 		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>><?php echo $row['asunto']; ?></div>
 		</a></li>

@@ -60,7 +60,8 @@ include("../../menu.php");
 									<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, prof FROM horw WHERE n_aula='$aula' AND dia='$i' AND hora='$hora'"); ?>
 									<?php while($row = mysqli_fetch_array($result)): ?>
 									<?php echo $row['asig']; ?><br>
-									<span class="text-info"><?php echo $row['prof']; ?></span>
+									<span class="text-info"><?php echo nomprofesor($row['prof']); ?></span>
+									<br>
 									<?php endwhile; ?>
 								</td>
 								<?php endfor; ?>

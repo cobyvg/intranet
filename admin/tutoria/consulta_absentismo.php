@@ -80,7 +80,7 @@ include("menu.php");
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Alumnos/as absentistas</small></h2>
-			<h4 class="text-info">Tutor/a: <?php echo mb_convert_case($_SESSION['mod_tutoria']['tutor'], MB_CASE_TITLE, "iso-8859-1"); ?></h4>
+			<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 		</div>
 		
 		<!-- MENSAJES -->

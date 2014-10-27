@@ -44,7 +44,7 @@ include("menu.php");
 					<?php $profesor = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 					
 					<h3 class="text-info"><?php echo $row['slug']; ?></h3>
-					<h5 class="text-muted">Por <?php echo $profesor; ?> el <?php echo fecha_actual2($row['timestamp']); ?></h5>
+					<h5 class="text-muted">Por <?php echo nomprofesor($profesor); ?> el <?php echo fecha_actual2($row['timestamp']); ?></h5>
 					
 					<br>
 					

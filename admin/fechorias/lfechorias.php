@@ -153,7 +153,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		<td>$rowcurso</td>
 		<td nowrap>$fecha</td>
 		<td>$asunto</td>
-		<td><span  style='font-size:0.9em'>$informa</span></td>
+		<td>".nomprofesor($informa)."</td>
 		<td $bgcolor>$grave</td>
 		<td><center>$rownumero</center></td>
 		<td>$caducada</td>

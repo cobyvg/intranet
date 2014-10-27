@@ -288,14 +288,14 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 				 <select class="form-control" id="informa" name="informa">
 				    <?
 				    if ($id) {
-				    echo "<OPTION>".$informa."</OPTION>";	
+				    echo '<OPTION value="'.$informa.'">'.nomprofesor($informa).'</OPTION>';	
 				    }
 				    else{
-				    	echo "<OPTION>".$_SESSION['profi']."</OPTION>";
+				    	echo '<OPTION value="'.$_SESSION['profi'].'">'.nomprofesor($_SESSION['profi']).'</OPTION>';
 				    }    
 				  $profe = mysqli_query($db_con, " SELECT distinct prof FROM horw order by prof asc");
 				while($filaprofe = mysqli_fetch_array($profe)) {
-					      echo"<OPTION>$filaprofe[0]</OPTION>";
+					      echo '<OPTION value="'.$filaprofe[0].'">'.nomprofesor($filaprofe[0]).'</OPTION>';
 					} 
 					?>
 				  </select>	

@@ -68,7 +68,7 @@ if(empty($profesor)){
 	$profe = mysqli_query($db_con, "SELECT distinct prof, no_prof FROM horw order by prof asc");
 	while($filaprofe = mysqli_fetch_array($profe)) {
 		$n_p+=1;
-		echo "<OPTION id='idopcion'>$filaprofe[1]_ $filaprofe[0]</OPTION>";
+		echo '<OPTION value="'.$filaprofe[1].'_ '.$filaprofe[0].'">'.$filaprofe[1].'_ '.nomprofesor($filaprofe[0]).'</OPTION>';
 	}
 	echo "</select></div>";
 	echo "</div>";

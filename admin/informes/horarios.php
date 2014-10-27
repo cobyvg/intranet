@@ -53,7 +53,7 @@
 		<?php while($row = mysqli_fetch_array($result)): ?>
 			<tr>
 				<td><?php echo $row[0]; ?></td>
-				<td><?php echo $row[1]; ?></td>
+				<td><?php echo nomprofesor($row[1]); ?></td>
 			</tr>
 		<?php endwhile; ?>
 		<?php mysqli_free_result($result); ?>
