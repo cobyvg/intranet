@@ -255,7 +255,7 @@ mysqli_query($db_con, "create table if not exists Fechcaduca select id, fecha, T
 		<td>$rowcurso</td>
 		<td nowrap>$fecha</td>
 		<td>$asunto</td>
-		<td><span style='font-size:0.9em'>$informa</span></td>
+		<td>".nomprofesor($informa)."</td>
 		<td nowrap $bgcolor>$grave</td>
 		<td nowrap><center>$rownumero</center></td>
 		<td nowrap>$caducada</td>

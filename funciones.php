@@ -283,4 +283,10 @@ function eliminar_mayusculas(&$n_profeso) {
 	//return $n_profeso;
 	//echo "<span class='text-capitalize'>$minusc</span>";
 }
+
+
+function nomprofesor($nombre) {
+	return mb_convert_case($nombre, MB_CASE_TITLE, "iso-8859-1");
+}
+
 ?>

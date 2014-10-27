@@ -92,7 +92,7 @@ ORDER BY  profesor, numero ASC ";
 Profesor
 </th>
 <th>
-
+#
 </th>
 </thead>
 <?
@@ -111,7 +111,7 @@ while ($arr = mysqli_fetch_array($query)) {
 	if (mysqli_num_rows($conviven)>0) {$convi =  "<span class='text-warning' style='font-size:18px'>*</span>";}
 	if (mysqli_num_rows($recreo)>0) { $recr =  "<span class='text-info' style='font-size:18px'>*</span>";}
 	
-	echo "<tr><td>$arr[0]</td><td>$arr[1]  $bibl $convi $recr</td></tr>";
+	echo "<tr><td>".nomprofesor($arr[0])."</td><td class='col-sm-2'>$arr[1]  $bibl $convi $recr</td></tr>";
 	$num_gu+=$arr[1];
 	$num_prof+=1;
 }
@@ -134,14 +134,14 @@ echo "</table>";
 Profesor
 </th>
 <th>
-
+#
 </th>
 </thead>
 <?
 $query_bib = mysqli_query($db_con, $sql_bib);
 while ($arr_bib = mysqli_fetch_array($query_bib)) {
 	
-	echo "<tr><td>$arr_bib[0]</td><td>$arr_bib[1]</td></tr>";
+	echo "<tr><td>".nomprofesor($arr_bib[0])."</td><td class='col-sm-2'>$arr_bib[1]</td></tr>";
 }
 echo "</table>";
 ?>
@@ -154,13 +154,13 @@ echo "</table>";
 Profesor
 </th>
 <th>
-
+#
 </th>
 </thead>
 <?
 $query_conv = mysqli_query($db_con, $sql_conv);
 while ($arr_conv = mysqli_fetch_array($query_conv)) {
-	echo "<tr><td>$arr_conv[0]</td><td>$arr_conv[1]</td></tr>";
+	echo "<tr><td>".nomprofesor($arr_conv[0])."</td><td class='col-sm-2'>$arr_conv[1]</td></tr>";
 }
 echo "</table>";
 ?>
@@ -174,13 +174,13 @@ echo "</table>";
 Profesor
 </th>
 <th>
-
+#
 </th>
 </thead>
 <?
 $query_rec = mysqli_query($db_con, $sql_rec);
 while ($arr_rec = mysqli_fetch_array($query_rec)) {
-	echo "<tr><td>$arr_rec[0]</td><td>$arr_rec[1]</td></tr>";
+	echo "<tr><td>".nomprofesor($arr_rec[0])."</td><td class='col-sm-2'>$arr_rec[1]</td></tr>";
 }
 echo "</table>";
 ?>
@@ -195,10 +195,10 @@ echo "</table>";
 Profesor
 </th>
 <th>
-
+#
 </th>
 <th>
-
+#
 </th>
 </thead>
 <?
@@ -210,7 +210,7 @@ FROM  `horw`
 WHERE a_asig = 'GU' and prof = '$arr_reg[0]'");
 $num_gu = mysqli_num_rows($sql1);	
 
-echo "<tr><td>$arr_reg[0]</td><td nowrap>$arr_reg[1] </td><td nowrap class='muted'>$num_gu</td></tr>";
+echo "<tr><td>".nomprofesor($arr_reg[0])."</td><td class='col-sm-2' nowrap>$arr_reg[1] </td><td class='col-sm-2 text-muted' nowrap>$num_gu</td></tr>";
 
 $num_gureg+=$arr_reg[1];
 $num_profreg+=1;

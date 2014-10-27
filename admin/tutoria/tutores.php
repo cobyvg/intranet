@@ -62,7 +62,7 @@ include("../../menu.php");
 						    <?php if(mysqli_num_rows($result)): ?>
 						    <select class="form-control" id="tutor" name="tutor">
 						    	<?php while($row = mysqli_fetch_array($result)): ?>
-						    	<option value="<?php echo $row['tutor'].' ==> '.$row['unidad']; ?>"><?php echo $row['unidad'].' - '.$row['tutor']; ?></option>
+						    	<option value="<?php echo $row['tutor'].' ==> '.$row['unidad']; ?>"><?php echo $row['unidad'].' - '.nomprofesor($row['tutor']); ?></option>
 						    	<?php endwhile; ?>
 						    </select>
 						    <?php else: ?>

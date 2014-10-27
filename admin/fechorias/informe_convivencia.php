@@ -656,7 +656,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') ==
 ?>
 <div class="tab-pane fade in" id="tab4">
 <h3>Informe por Profesor</h3><br />
-<div class="container-fluid">
+<div class="container">
 <?php 
 $cur = substr($inicio_curso,0,4)+1;
 for ($i=$cur;$i>$cur-3;$i--)
@@ -694,7 +694,7 @@ $tot0 = mysqli_query($db_con, "select informa, numeros from $b_d.fech_temp order
 while ($total0 = mysqli_fetch_array($tot0)){
 ?>
   <tr>
-    <td style="font-size:10px"><?php  echo $total0[0];?></td>
+    <td><?php  echo nomprofesor($total0[0]);?></td>
       <td>
     <?php  echo $total0[1];?>
       </td>

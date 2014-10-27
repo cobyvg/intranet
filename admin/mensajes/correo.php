@@ -169,7 +169,7 @@ include("menu.php");
       					
       					<div class="checkbox">
       						<label>
-         						<input type="checkbox" id="dato0" name="<? echo $dni;?>" value="cambio"> <?php echo $pro; ?>
+         						<input type="checkbox" id="dato0" name="<? echo $dni;?>" value="cambio"> <?php echo nomprofesor($pro); ?>
          					</label>
       					</div>
       					<input type="hidden" name="<? echo $dni.":".$perf;?>" value="<? echo $perf;?>">

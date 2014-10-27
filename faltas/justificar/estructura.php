@@ -23,7 +23,7 @@ echo "<legend align='center'>Selecciona Tutor</legend>";
 		        if ($filaprofe = mysqli_fetch_array($profe))
 		        {
 		        	do {
-		        		$opcion1 = printf ("<OPTION>$filaprofe[0]</OPTION>");
+		        		$opcion1 = printf ('<OPTION value="'.$filaprofe[0].'">'.nomprofesor($filaprofe[0]).'</OPTION>');
 		        		echo "$opcion1";
 
 		        	} while($filaprofe = mysqli_fetch_array($profe));
