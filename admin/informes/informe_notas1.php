@@ -59,7 +59,7 @@ if (mysqli_query($db_con, "select * from $base.notas")) {
 ?>
 <form method="POST" class="well well-large" style="width:450px; margin:auto">
 <p class="lead">Informe Histórico</p>
-<select name="f_curso" onchange="submit()">
+<select name="f_curso" onchange="submit()" class="form-control">
 <?
 echo "<option>".$_POST['f_curso']."</option>";
 echo "<option>Curso actual</option>";
@@ -138,7 +138,7 @@ $nivele = mysqli_query($db_con, "select * from cursos");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
 $niv = mysqli_query($db_con, "select distinct curso, nivel, idcurso from alma, cursos where curso=nomcurso and curso = '$orden_nivel[1]'");
 while ($ni = mysqli_fetch_array($niv)) {
-	$idn = $ini[2];
+	$idn = $ni[2];
 	if ($idn=="101140") { $nivel="1E"; }
 	elseif ($idn=="101141") { $nivel="2E"; }
 	elseif ($idn=="101142") { $nivel="3E"; }
@@ -157,7 +157,7 @@ $todos = mysqli_num_rows($result1);
 if ($todos < '1') {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
+			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones del Curso <strong class=text-danger>'.$curso.'</strong>. 
           </div></div>';
 }
 while($row1 = mysqli_fetch_array($result1)){

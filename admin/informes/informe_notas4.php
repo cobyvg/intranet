@@ -60,7 +60,7 @@ if (mysqli_query($db_con, "select * from $base.notas")) {
 ?>
 <form method="POST" class="well well-large" style="width:450px; margin:auto">
 <p class="lead">Informe Histórico</p>
-<select name="f_curso" onchange="submit()">
+<select name="f_curso" onchange="submit()" class="form-control">
 <?
 echo "<option>".$_POST['f_curso']."</option>";
 echo "<option>Curso actual</option>";
@@ -79,13 +79,14 @@ for ($i=1;$i<5;$i++){
 }
 ?>
 <div class="tabbable" style="margin-bottom: 18px;">
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs"  style="max-width:980px">
 <li class="active"><a href="#tab1" data-toggle="tab">1ª Evaluación</a></li>
 <li><a href="#tab2" data-toggle="tab">2ª Evaluación</a></li>
 <li><a href="#tab3" data-toggle="tab">Evaluación Ordinaria</a></li>
 </ul>
 
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+<br>
 <? 
 // Comprobamos datos de evaluaciones
 $n1 = mysqli_query($db_con, "select * from notas where notas1 not like ''");
@@ -113,7 +114,7 @@ foreach ($titulos as $key=>$val){
 INDEX (  `claveal` )
 ) ENGINE = INNODB";
  mysqli_query($db_con, $crea_tabla2); 
- 
+ /*
  if (!($_POST['f_curso'] == "Curso actual") AND strstr($base_actual,"2013")==FALSE  AND !($base_actual=="")) {
  	 mysqli_query($db_con, "ALTER TABLE `cursos` CHANGE `idcurso` `idcurso` INT( 12 ) UNSIGNED NOT NULL , CHANGE `nomcurso` `nomcurso` VARCHAR( 80 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL");
  	 mysqli_query($db_con, "ALTER TABLE  `temp` CHANGE  `claveal`  `claveal` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL");
@@ -121,7 +122,7 @@ INDEX (  `claveal` )
 else {
  	  mysqli_query($db_con, "ALTER TABLE `cursos` CHANGE `idcurso` `idcurso` INT( 12 ) UNSIGNED NOT NULL , CHANGE `nomcurso` `nomcurso` VARCHAR( 80 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
  	 mysqli_query($db_con, "ALTER TABLE  `temp` CHANGE  `claveal`  `claveal` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
- }
+ }*/
  mysqli_query($db_con, "ALTER TABLE  `temp` ADD INDEX (  `asignatura` )");
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
@@ -142,9 +143,9 @@ $notas1 = "select notas". $key .", claveal1, matriculas, unidad, curso from alma
 $result1 = mysqli_query($db_con, $notas1);
 $todos = mysqli_num_rows($result1);
 if ($todos < '1') {
-	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:920px">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
+			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones del Curso <strong class=text-danger>'.$curso.'</strong>. 
           </div></div>';
 }
 while($row1 = mysqli_fetch_array($result1)){
@@ -176,7 +177,6 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 }
 }
 ?>
-<br />
 <h3>Resultados de los Alumnos por Materias / Nivel / Grupo:</h3>
 <span class="help-block"> ( * ) En color <strong class="text-success">verde</strong> los aprobados; en color <strong class="text-warning">naranja</strong> los suspensos</span>
 <br />

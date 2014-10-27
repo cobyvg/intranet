@@ -61,7 +61,7 @@ if (mysqli_query($db_con, "select * from $base.notas")) {
 ?>
 <form method="POST" class="well well-large" style="width:450px; margin:auto">
 <p class="lead">Informe Histórico</p>
-<select name="f_curso" onchange="submit()">
+<select name="f_curso" onchange="submit()" class="form-control">
 <?
 echo "<option>".$_POST['f_curso']."</option>";
 echo "<option>Curso actual</option>";

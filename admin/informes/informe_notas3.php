@@ -62,7 +62,7 @@ if (mysqli_query($db_con, "select * from $base.notas")) {
 ?>
 <form method="POST" class="well well-large" style="width:450px; margin:auto">
 <p class="lead">Informe Histórico</p>
-<select name="f_curso" onchange="submit()">
+<select name="f_curso" onchange="submit()" class="form-control">
 <?
 echo "<option>".$_POST['f_curso']."</option>";
 echo "<option>Curso actual</option>";
@@ -118,14 +118,14 @@ INDEX (  `claveal` )
 )";
  mysqli_query($db_con, $crea_tabla2); 
 
-if (!($_POST['f_curso'] == "Curso actual") AND strstr($base_actual,"2013")==FALSE AND !($base_actual=="")) {
+/*if (!($_POST['f_curso'] == "Curso actual") AND strstr($base_actual,"2014")==FALSE AND !($base_actual=="")) {
  	 mysqli_query($db_con, "ALTER TABLE `cursos` CHANGE `idcurso` `idcurso` INT( 12 ) UNSIGNED NOT NULL , CHANGE `nomcurso` `nomcurso` VARCHAR( 80 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL");
  	 mysqli_query($db_con, "ALTER TABLE  `temp` CHANGE  `claveal`  `claveal` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL");
  }
 else {
  	  mysqli_query($db_con, "ALTER TABLE `cursos` CHANGE `idcurso` `idcurso` INT( 12 ) UNSIGNED NOT NULL , CHANGE `nomcurso` `nomcurso` VARCHAR( 80 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
  	 mysqli_query($db_con, "ALTER TABLE  `temp` CHANGE  `claveal`  `claveal` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
- }
+ }*/
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
@@ -150,7 +150,7 @@ $todos = mysqli_num_rows($result1);
 if ($todos < '1') {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
+			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones del Curso <strong class=text-danger>'.$curso.'</strong>. 
           </div></div>';
 }
 while($row1 = mysqli_fetch_array($result1)){
