@@ -15,7 +15,11 @@
 </select> <?php endif; ?> <?php mysqli_free_result($result); ?></div>
 </form>
 	<?php endif; ?>
-
+<?php
+$result2 = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma where unidad= '".$_SESSION['mod_tutoria']['unidad']."'");
+$query2= mysqli_fetch_array($result2);
+$curso_tutor=$query2[0]; 
+?>
 <ul class="nav nav-tabs hidden-print">
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) ? ' class="active"' : ''; ?>><a
@@ -61,11 +65,13 @@
 		<li><a href="../tareas/index.php">Informes de tareas</a></li>
 		<li class="divider"></li>
 		<?php if(strstr($_SESSION['mod_tutoria']['unidad'],"E-")==TRUE): ?>
-		<li><a
-			href="../tutoria/informe_evaluaciones.php">Informes de Evaluación</a></li>
+		<li><a href="../tutoria/informe_evaluaciones.php">Informes de Evaluación</a></li>
 		<li class="divider"></li>
 			<?php endif; ?>
 		
+		<li><a href="../tutoria/informe_notas_grupo.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Estadísticas de Evaluación del Grupo</a></li>
+		<li><a href="../tutoria/informe_notas_nivel.php?curso=<?echo $curso_tutor;?>">Estadísticas de Evaluación del Nivel</a></li>
+		<li class="divider"></li>
 		<li><a href="informe_memoria.php">Memoria de tutoría</a></li>
 	</ul>
 	</li>

@@ -463,6 +463,7 @@ $menu = array(
 					array(
 						'href'   => 'sms/index.php',
 						'titulo' => 'Mensajes SMS',
+						'cargos'  => array('1'),
 						'modulo' => $mod_sms,
 					),
 				),

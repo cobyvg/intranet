@@ -2,6 +2,10 @@
  // Aula de Convivencia
   if($imprimir4)
   {
+  	if (isset($_POST['borrar_aula'])) {
+		mysqli_query($db_con,"update Fechoria set aula_conv='', inicio_aula='', fin_aula='' where id='".$_POST['borrar_aula']."'");
+	}
+	else{
   	if (empty($horas)) {
 		$horas = "123456";
   	}
@@ -125,6 +129,8 @@ $mensaje = "Parece que ya hay un <span style='color:brown;'>Informe de Tareas</s
 }
 }  
 }
+}
+
 if($imprimir5)
   {
   include("imprimir/convivencia.php");
@@ -132,6 +138,10 @@ if($imprimir5)
   }
 
 if($submit){
+	if (isset($_POST['borrar_exp'])) {
+		mysqli_query($db_con,"update Fechoria set expulsion='', inicio='', fin='' where id='".$_POST['borrar_exp']."'");
+	}
+	else{
 	if(empty($inicio) OR empty($fin) OR empty($expulsion)){
 		echo "$inicio --> $fin --> $expulsion";
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
@@ -212,6 +222,7 @@ $tutor = "Jefatura de Estudios";
 $causa = "Problemas de Convivencia";
 $accion = "Envío de SMS";
 mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,jefatura) values ('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$message."','".$causa."','".$accion."','".$fecha2."','1')");
+}
 }
 }
 }

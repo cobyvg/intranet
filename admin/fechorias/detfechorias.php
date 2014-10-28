@@ -231,15 +231,23 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </div>
-
-  <div class="form-group ">
+      
+   <div class="form-group col-sm-6">
       <div class="checkbox">    
          <label>
          <input name="mens_movil" type="checkbox" id="sms" value="envia_sms" checked="checked" />
         Enviar SMS </label>
       </div>
       </div>
-      
+ 
+  <div class="form-group col-sm-6">
+      <div class="checkbox pull-right">    
+         <label>
+         <input name="borrar_exp" type="checkbox" id="borrar_exp" value="<? echo $id;?>" />
+        Borrar datos </label>
+      </div>
+      </div>
+                
         <input name="submit" type="submit" value="Enviar datos" class="btn btn-primary" />
       
     </form>
@@ -309,7 +317,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 </div> 
 </div>
 
-          <div class="form-group">
+          <div class="form-group col-sm-10">
           <div class="checkbox">
          <label for='tareas'>
           <input name="tareas" type="checkbox" id="tareas" value="insertareas" <?php if ($gucon == '1') {}else{          	echo 'checked="checked"';
@@ -317,16 +325,28 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
           Activar Tareas
           </label>
           </div>
+          </div>
           
-          
+          <div class="form-group  col-sm-6">
            <div class="checkbox">
           <label for='sms'>
           <input name="mens_movil" type="checkbox" id="sms" value="envia_sms" checked="checked"  />
           Enviar SMS
           </label>
+          </div>             
+          </div>
+          <div class="form-group  col-sm-6">
+           <div class="checkbox">
+          <label for='borrar_aula'>
+          <input name="borrar_aula" type="checkbox" id="borrar_aula" value="<? echo $id;?>"  />
+          Borrar datos
+          </label>
           </div>
           </div>
-<hr>          <input type="submit" name="imprimir4" value="Enviar datos" class="btn btn-primary"/>
+
+          
+<hr>          
+<input type="submit" name="imprimir4" value="Enviar datos" class="btn btn-primary"/>
         
     </form>
     </div>
