@@ -229,7 +229,9 @@ include("menu.php");
 		<tr>
 			<th class="col-sm-4" colspan="2">Alumno/a</th>
 			<th class="col-sm-1">Nota</th>
+			<!--
 			<th class="col-sm-7">Observaciones</th>
+			-->
 		</tr>
 	</thead>
 	<tbody>
@@ -246,16 +248,15 @@ include("menu.php");
 			<td class="text-center"><span class="fa fa-user fa-fw fa-3x"></span></td>
 			<?php endif; ?>
 			<td nowrap><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
-			<td><select class="form-control"
-				name="nota-<?php echo $row['claveal']; ?>">
-				<?php for ($i = 0; $i <= 10; $i++): ?>
-				<option value="<?php echo $i; ?>"
-				<?php echo (isset($nota{'-'.$row['claveal']}) && $nota{'-'.$row['claveal']} == $i) ? 'selected' : ''; ?>><?php echo $i; ?></option>
-				<?php endfor; ?>
-			</select></td>
+			<td>
+				<input type="text" class="form-control" id="nota-<?php echo $row['claveal']; ?>" name="nota-<?php echo $row['claveal']; ?>" value="<?php echo (isset($nota{'-'.$row['claveal']}) && $nota) ? $nota : ''; ?>">
+				</select>
+			</td>
+			<!--
 			<td><textarea class="form-control"
 				name="obs-<?php echo $row['claveal']; ?>" rows="1"><?php echo (isset($obs{'-'.$row['claveal']}) && $obs{'-'.$row['claveal']}) ? $obs{'-'.$row['claveal']} : ''; ?></textarea>
 			</td>
+			-->
 		</tr>
 		<?php endwhile; ?>
 	</tbody>
@@ -267,14 +268,29 @@ include("menu.php");
 <a href="#" class="btn btn-info" onclick="javascript:print();">Imprimir</a>
 </div>
 
-</form>
+	</form>
 
-</div>
-<!-- /.col-sm-12 --></div>
-<!-- /.row --> <?php endif; ?></div>
-<!-- /.container -->
+		</div> <!-- /.col-sm-12 -->
+	</div> <!-- /.row -->
+	<?php endif; ?>
+</div> <!-- /.container -->
 
 		<?php include("../../pie.php"); ?>
+		
+		<script>
+		$(function () {
+		<?php mysqli_data_seek($result, 0); ?>
+		<?php while ($row = mysqli_fetch_array($result)): ?>
+		    $('#nota-<?php echo $row['claveal']; ?>').popover({
+		    	html: true,
+		        title: 'Observaciones',
+		        content: '<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="4"><?php echo (isset($obs{'-'.$row['claveal']}) && $obs{'-'.$row['claveal']}) ? $obs{'-'.$row['claveal']} : ''; ?></textarea>',
+		        placement: 'bottom'
+		    });
+		    
+		<?php endwhile; ?>
+		});
+		</script>
 
 </body>
 </html>
