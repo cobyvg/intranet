@@ -250,8 +250,10 @@ include("menu.php");
 			<td nowrap><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
 			<td>
 				<input type="text" class="form-control" id="nota-<?php echo $row['claveal']; ?>" name="nota-<?php echo $row['claveal']; ?>" value="<?php echo (isset($nota{'-'.$row['claveal']}) && $nota) ? $nota : ''; ?>">
-				</select>
 			</td>
+			
+			<!-- AL HACER CLICK SOBRE EL CAMPO DE TEXTO EL CÓDIGO FUENTE DEL POPOVER APARECE JUSTO ENCIMA DE ESTA LINEA -->
+			
 			<!--
 			<td><textarea class="form-control"
 				name="obs-<?php echo $row['claveal']; ?>" rows="1"><?php echo (isset($obs{'-'.$row['claveal']}) && $obs{'-'.$row['claveal']}) ? $obs{'-'.$row['claveal']} : ''; ?></textarea>
