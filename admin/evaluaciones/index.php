@@ -22,7 +22,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `evaluaciones` (
   `asignatura` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   `evaluacion` char(3) COLLATE latin1_spanish_ci NOT NULL,
   `profesor` text COLLATE latin1_spanish_ci NOT NULL,
-  `calificaciones` blob NOT NULL,
+  `calificaciones` text COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`unidad`,`asignatura`,`evaluacion`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
 
@@ -69,7 +69,7 @@ if (isset($_POST['submit'])) {
 
 	foreach ($_POST as $campo => $valor) {
 		if ($campo != 'submit' && $campo != 'curso' && $campo != 'evaluacion') {
-				
+		
 			$exp_campo = explode('-', $campo);
 			$alumno = $exp_campo[1];
 				
@@ -86,18 +86,19 @@ if (isset($_POST['submit'])) {
 				);
 
 				$calificaciones = array_merge($calificaciones, $calif_alumno);
-
+				
 				unset($alumno_obs);
 			}
 				
 		}
 	}
-
+	
+	
 	$result = mysqli_query($db_con, "INSERT INTO evaluaciones (unidad, asignatura, evaluacion, profesor, calificaciones) VALUES ('$curso', '$asignatura', '$evaluacion', '".$_SESSION['profi']."', '".serialize($calificaciones)."')");
 
 	if (!$result) {
 
-		if (mysqli_errno() == 1062) {
+		if (mysqli_errno($db_con) == 1062) {
 			$result1 = mysqli_query($db_con, "UPDATE evaluaciones SET calificaciones='".serialize($calificaciones)."' WHERE unidad='$curso' AND asignatura='$asignatura' AND evaluacion='$evaluacion' LIMIT 1");
 				
 			if (!$result1) $msg_error = "No se ha podido actualizar las calificaciones de la ".$evaluaciones[$evaluacion].". Error: ".mysqli_error($db_con);
@@ -110,6 +111,7 @@ if (isset($_POST['submit'])) {
 	else {
 		$msg_success = "Las calificaciones de la ".$evaluaciones[$evaluacion]." han sido registradas.";
 	}
+	
 }
 
 
@@ -249,16 +251,8 @@ include("menu.php");
 			<?php endif; ?>
 			<td nowrap><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
 			<td>
-				<input type="text" class="form-control" id="nota-<?php echo $row['claveal']; ?>" name="nota-<?php echo $row['claveal']; ?>" value="<?php echo (isset($nota{'-'.$row['claveal']}) && $nota) ? $nota : ''; ?>">
+				<input type="text" class="form-control" id="nota-<?php echo $row['claveal']; ?>" name="nota-<?php echo $row['claveal']; ?>" value="<?php echo (isset($nota{'-'.$row['claveal']}) && $nota) ? $nota{'-'.$row['claveal']} : ''; ?>" onclick="muestra_oculta('popover-<?php echo $row['claveal']; ?>');">
 			</td>
-			
-			<!-- AL HACER CLICK SOBRE EL CAMPO DE TEXTO EL CÓDIGO FUENTE DEL POPOVER APARECE JUSTO ENCIMA DE ESTA LINEA -->
-			
-			<!--
-			<td><textarea class="form-control"
-				name="obs-<?php echo $row['claveal']; ?>" rows="1"><?php echo (isset($obs{'-'.$row['claveal']}) && $obs{'-'.$row['claveal']}) ? $obs{'-'.$row['claveal']} : ''; ?></textarea>
-			</td>
-			-->
 		</tr>
 		<?php endwhile; ?>
 	</tbody>
