@@ -31,9 +31,9 @@ $PLUGIN_DATATABLES = 1;
 </style>
 <?
 $imprimir_activado = true;
-  $fechasq0=explode("/",$fecha10);
+  $fechasq0=explode("-",$fecha10);
   $fechasq1=$fechasq0[2]."-".$fechasq0[1]."-".$fechasq0[0];
-  $fechasq2=explode("/",$fecha20);
+  $fechasq2=explode("-",$fecha20);
   $fechasq3=$fechasq2[2]."-".$fechasq2[1]."-".$fechasq2[0];
   echo '<div class="container">
   <div class="row">

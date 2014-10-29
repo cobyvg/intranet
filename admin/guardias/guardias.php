@@ -129,7 +129,7 @@ Has actualizado correctamente los datos del Profesor que sustituyes.
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>'.
-$sustituido.' ya ha sido sustituido a la $hora hora el día '.$fecha_reg.'. <br>Selecciona otro profesor y continúa.
+$sustituido.' ya ha sido sustituido a la '.$hora.'ª hora el día '.$fecha_reg.'. <br>Selecciona otro profesor y continúa.
           </div></div>';
 exit();
 			}

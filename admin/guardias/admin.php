@@ -47,10 +47,10 @@ if (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="
 <FORM action="admin.php" method="POST" name="Cursos">
 <div class="form-group"><label> Selecciona Profesor </label> 
 <SELECT
-	name=profeso onChange="submit()" class="form-control">
+	name=profeso onChange="submit()" class="form-control" required>
 	<option value="<? echo $profeso;?>"><?php echo nomprofesor($profeso); ?></option>
 	<?
-	$profe = mysqli_query($db_con, " SELECT distinct prof FROM horw where a_asig = 'GU' order by prof asc");
+	$profe = mysqli_query($db_con, "SELECT distinct prof FROM horw where a_asig = 'GU' order by prof asc");
 	if ($filaprofe = mysqli_fetch_array($profe))
 	{
 		do {
@@ -94,7 +94,7 @@ largo del curso.</p>
 <FORM action="guardias.php" method="POST" name="f1">
 	<input type="hidden" name="profeso" value="<? echo $profeso;?>">	<div class="form-group">
 	<label>Profesor a sustituir</label>
-              <SELECT  name="sustituido" class="form-control">
+              <SELECT  name="sustituido" class="form-control" required>
               <option value="<? echo $sustituido; ?>"><? echo nomprofesor($sustituido); ?></option>
 		        <?
   $profe = mysqli_query($db_con, " SELECT distinct prof FROM horw order by prof asc");

@@ -121,7 +121,7 @@ else
 	for="fecha4">Inicio </label>
 <div class="input-group">
 <input name="fecha4" type="text"
-	class="form-control" value="" data-date-format="DD/MM/YYYY" id="fecha4"
+	class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha4"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </div>
@@ -131,7 +131,7 @@ else
 	for="fecha3">Fin </label>
 <div class="input-group">
 <input name="fecha3" type="text"
-	class="form-control" value="" data-date-format="DD/MM/YYYY" id="fecha3"
+	class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha3"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </div>
@@ -301,7 +301,7 @@ seleccionadas. )</span>
 <label class="control-label" for="fecha10">Inicio </label>
 <div class="input-group">
 <input name="fecha10" type="text"
-	class="form-control" value="" data-date-format="DD/MM/YYYY"
+	class="form-control" value="" data-date-format="DD-MM-YYYY"
 	id="fecha10" required> <span class="input-group-addon"><i
 	class="fa fa-calendar"></i></span>
 </div>
@@ -311,7 +311,7 @@ seleccionadas. )</span>
 <label
 	for="fecha20" class="control-label">Fin </label>
 <div class="input-group"><input name="fecha20" type="text"
-	class="form-control" value="" data-date-format="DD/MM/YYYY"
+	class="form-control" value="" data-date-format="DD-MM-YYYY"
 	id="fecha20" required> <span class="input-group-addon"><i
 	class="fa fa-calendar"></i></span>
 </div>
