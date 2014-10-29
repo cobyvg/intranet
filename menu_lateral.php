@@ -20,19 +20,19 @@ switch (substr($codigo_postal_del_centro,0,2)) {
 
 //	VALORES DEL MENU
 //	-----------------------------------------------------------------------------------------------------
-//	menu_id						(string) Identificador del menú
-//	nombre						(string) Nombre del menú
-//	cargos						(array) ID de los cargos con privilegios para visualizar el menu
-//	ncargos						(array) ID de los cargos sin privilegios para visualizar el menu
-//	modulo						(boolean) Valor del módulo del que depende el menú
-//	meses							(array) Número del mes cuando está disponible el menú (sin 0 iniciales)
-//	items							(array) Opciones del menú
+//	menu_id					(string) Identificador del menú
+//	nombre					(string) Nombre del menú
+//	cargos					(array) ID de los cargos con privilegios para visualizar el menu
+//	ncargos					(array) ID de los cargos sin privilegios para visualizar el menu
+//	modulo					(boolean) Valor del módulo del que depende el menú
+//	meses					(array) Número del mes cuando está disponible el menú (sin 0 iniciales)
+//	items					(array) Opciones del menú
 //	items -> href			(string) URI de la página
-//	items -> titulo		(string) Título de la página
-//	items -> cargos		(array) ID de los cargos con privilegios para visualizar la opción del menú
-//	items -> ncargos	(array) ID de los cargos sin privilegios para visualizar la opción del menú
-//	items -> modulo	(boolean) Valor del módulo del que depende la opción del menú
-//	items -> meses		(array) Número del mes cuando está disponible la opción del menú (sin 0 iniciales)
+//	items -> titulo			(string) Título de la página
+//	items -> cargos			(array) ID de los cargos con privilegios para visualizar la opción del menú
+//	items -> ncargos		(array) ID de los cargos sin privilegios para visualizar la opción del menú
+//	items -> modulo			(boolean) Valor del módulo del que depende la opción del menú
+//	items -> meses			(array) Número del mes cuando está disponible la opción del menú (sin 0 iniciales)
 //
 //	Se puede realizar menus anidados en un item, estos submenus permiten las mismas acciones de control
 //	de acceso que el item padre.
