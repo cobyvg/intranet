@@ -131,14 +131,6 @@ $menu = array(
 				'href'   => 'admin/tutoria/intervencion.php',
 				'titulo' => 'Intervenciones',
 			),
-			array(
-				'href'   => 'admin/tutoria/consulta_fotografias.php',
-				'titulo' => 'Fotografías de alumnos',
-			),
-			array(
-				'href'   => 'admin/libros/libros.php?unidad='.$_SESSION['s_unidad'].'&tutor=1',
-				'titulo' => 'Libros de texto',
-			),
 		)
 	),
 	
@@ -241,51 +233,6 @@ $menu = array(
 				'href'   => 'admin/biblioteca/index.php',
 				'titulo' => 'Fondos de la Biblioteca',
 				'modulo'  => $mod_biblio,
-			),
-		),
-	),
-	
-	array(
-		'menu_id' => 'departamento',
-		'nombre'  => 'Departamento',
-		'ncargos' => array('6', '7'),
-		'items'   => array (
-			array(
-				'href'   => 'admin/rd/index_admin.php',
-				'titulo' => 'Actas de los departamentos',
-				'cargos' => array('1'),
-			),
-			array(
-				'href'   => 'admin/rd/add.php',
-				'titulo' => 'Actas del departamento',
-				'ncargos' => array('1'),
-			),
-			array(
-				'href'   => 'admin/textos/intextos.php',
-				'titulo' => 'Libros de texto',
-			),
-			array(
-				'href'   => 'admin/inventario/introducir.php',
-				'titulo' => 'Inventario de material',
-			),
-			array(
-				'href'   => 'admin/actividades/indexextra.php',
-				'titulo' => 'Actividades extraescolares',
-				'cargos' => array('1'),
-			),
-			array(
-				'href'   => 'admin/actividades/index.php',
-				'titulo' => 'Añadir actividad',
-				'cargos' => array('4'),
-				'ncargos' => array('1'),
-			),
-			array(
-				'href'   => 'admin/actividades/consulta.php',
-				'titulo' => 'Listado de actividades',
-			),
-			array(
-				'href'   => 'admin/departamento/memoria.php',
-				'titulo' => 'Memoria de departamento',
 			),
 		),
 	),
@@ -493,6 +440,51 @@ $menu = array(
 				'href'   => 'admin/ausencias/index.php',
 				'titulo' => 'Registrar ausencia',
 				'ncargos' => array('1', '6', '7'),
+			),
+		),
+	),
+	
+	array(
+		'menu_id' => 'departamento',
+		'nombre'  => 'Departamento',
+		'ncargos' => array('6', '7'),
+		'items'   => array (
+			array(
+				'href'   => 'admin/rd/index_admin.php',
+				'titulo' => 'Actas de los departamentos',
+				'cargos' => array('1'),
+			),
+			array(
+				'href'   => 'admin/rd/add.php',
+				'titulo' => 'Actas del departamento',
+				'ncargos' => array('1'),
+			),
+			array(
+				'href'   => 'admin/textos/intextos.php',
+				'titulo' => 'Libros de texto',
+			),
+			array(
+				'href'   => 'admin/inventario/introducir.php',
+				'titulo' => 'Inventario de material',
+			),
+			array(
+				'href'   => 'admin/actividades/indexextra.php',
+				'titulo' => 'Actividades extraescolares',
+				'cargos' => array('1'),
+			),
+			array(
+				'href'   => 'admin/actividades/index.php',
+				'titulo' => 'Añadir actividad',
+				'cargos' => array('4'),
+				'ncargos' => array('1'),
+			),
+			array(
+				'href'   => 'admin/actividades/consulta.php',
+				'titulo' => 'Listado de actividades',
+			),
+			array(
+				'href'   => 'admin/departamento/memoria.php',
+				'titulo' => 'Memoria de departamento',
 			),
 		),
 	),

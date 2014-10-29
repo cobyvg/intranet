@@ -253,7 +253,6 @@ mysqli_query($db_con, "drop table suspensos");
 </div>
 </div>
 </div>
-</div>
 
 <? include("../../pie.php");?>
 </body>

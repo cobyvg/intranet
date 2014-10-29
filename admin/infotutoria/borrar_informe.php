@@ -24,7 +24,9 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 ?>
-<div align="center">
+
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Informes de Tutoría <small> Borrar Informe</small></h2>
 </div>
@@ -32,21 +34,13 @@ include("menu.php");
 <?
 if ($del=='1') {
 	mysqli_query($db_con, "delete from infotut_alumno where id = '$id'");
-	if (mysqli_affected_rows()>'0') {
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Informe ha sido borrado sin problemas.
 		</div></div>';
-	}
-	else {
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-El Informe no ha podido ser eliminado. Consulta con alguien que pueda ayudarte.
-		</div></div>';
-	}
 }
 ?>
+</div>
 </div>
 <? include("../../pie.php");?>
 </body>

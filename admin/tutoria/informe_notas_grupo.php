@@ -188,6 +188,5 @@ mysqli_query($db_con, "drop table temp");
 </div>
 </div>
 </div>
-</div>
 
 <? include("../../pie.php"); ?>

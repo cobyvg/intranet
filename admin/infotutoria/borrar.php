@@ -23,7 +23,9 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 ?>
-<div align="center">
+
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Informes de Tutoría <small> Borrar Informe</small></h2>
 </div>
@@ -60,8 +62,9 @@ if($informe[0] == $asignatura){$fondo="background-color:#FFFF66;";}
 }
 echo"</table>";
 }
-echo "</div>";
 ?>
+</div>
+</div>
 <? include("../../pie.php");?>
 </body>
 </html>
