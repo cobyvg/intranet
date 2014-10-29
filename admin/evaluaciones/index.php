@@ -279,6 +279,7 @@ include("menu.php");
 		<?php while ($row = mysqli_fetch_array($result)): ?>
 		    $('#nota-<?php echo $row['claveal']; ?>').popover({
 		    	html: true,
+		    	trigger: 'click',
 		        title: 'Observaciones',
 		        content: '<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="4"><?php echo (isset($obs{'-'.$row['claveal']}) && $obs{'-'.$row['claveal']}) ? $obs{'-'.$row['claveal']} : ''; ?></textarea>',
 		        placement: 'bottom'

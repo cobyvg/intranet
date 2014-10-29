@@ -519,7 +519,7 @@ $menu = array(
 				'target' => '_blank',
 			),
 			array(
-				'href'   => 'hhttp://www.juntadeandalucia.es/educacion/portalaverroes',
+				'href'   => 'http://www.juntadeandalucia.es/educacion/portalaverroes',
 				'titulo' => 'Portal Averroes',
 				'target' => '_blank',
 			)
