@@ -451,8 +451,7 @@ function contents_dir($current_dir, $directory)
 	    {
 	    	if ($grants[$user_status][DELALL])
 	    	{
-			    echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" data-bb=\"confirm\" rel=\"tooltip\" title=\"Eliminar\">
-			        <span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
+			    echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
 			}
 	    }
 	}
