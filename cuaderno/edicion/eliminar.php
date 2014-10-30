@@ -4,7 +4,7 @@
 // Condiciones para procesar los datos
   		if (is_numeric($id)){
   		mysqli_query($db_con, "delete from notas_cuaderno where id = '$id'") or die ("<br>No ha sido posible eliminar la columna.<br>Ponte en contacto con quien lo entienda.");
-  		$n_1 = mysqli_affected_rows();
+  		$n_1 = mysqli_affected_rows($db_con);
   		mysqli_query($db_con, "delete from datos where id = '$id'") or die ("<br>No se han podido eliminar las notas_cuaderno asociadas a la columna<br>Ponte en contacto con quien lo entienda.");
   	}	
 	}		

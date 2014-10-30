@@ -3,6 +3,8 @@ ini_set("session.cookie_lifetime","2800");
 ini_set("session.gc_maxlifetime","3600");
 session_start();
 include("config.php");
+include("config/version.php");
+
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -200,14 +202,14 @@ todos</a></div>
 		}
 		echo "</thead>";
 		// Tabla para cada Grupo
-		$curso0 = "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
+		$curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
 		//echo $curso0."<br />";
 		$curso20 = mysqli_query($db_con, $curso0);
 		while ($curso11 = mysqli_fetch_array($curso20))
 		{
 			$curso = $curso11[0];
 			$nivel_curso = substr($curso,0,1);
-			$nombre = $curso11[2];
+			$nombre = $curso11[1];
 
 			// Número de Columnas para crear la tabla
 			$num_col = 2 + $cols + $cols2;
@@ -283,9 +285,9 @@ todos</a></div>
 			else{
 				$resul.=" combasi like '%$asignatura:%' ";
 			}
-			$resul.=") ". $todos ." order by NC";
+			$resul.=") ". $todos ." order by NC ASC";
 
-			//echo $resul;
+			// echo $resul.'<br>';
 			$result = mysqli_query($db_con, $resul);
 			while($row = mysqli_fetch_array($result))
 			{
