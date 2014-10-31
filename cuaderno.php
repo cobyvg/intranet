@@ -178,9 +178,7 @@ todos</a></div>
 		}
 		echo "</thead>";
 		// Tabla para cada Grupo
-		$curso0 = "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
 		$curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
-		
 		//echo $curso0."<br />";
 		$curso20 = mysqli_query($db_con, $curso0);
 		while ($curso11 = mysqli_fetch_array($curso20))
@@ -265,7 +263,7 @@ todos</a></div>
 			}
 			$resul.=") ". $todos ." order by NC ASC";
 
-			//echo $resul;
+			// echo $resul.'<br>';
 			$result = mysqli_query($db_con, $resul);
 			while($row = mysqli_fetch_array($result))
 			{
