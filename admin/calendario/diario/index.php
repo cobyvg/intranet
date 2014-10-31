@@ -19,14 +19,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $profe = $_SESSION['profi'];
 
 include("../../../menu.php");
+if (isset($_GET['menu_cuaderno'])) {
+	include("../../../cuaderno/menu.php");
+	echo "<br>";
+}
 include("menu.php");
 ?>
 	<div class="container">
 	
 		<div class="page-header">
-		  <h2>Calendario de actividades <small>Registrar nueva actividad</small></h2>
+		  <h2>Actividades de Grupo <small>Registrar nueva actividad</small></h2>
 		</div>
-		<br>
 <?
 if (isset($_GET['mens'])) {
 	if($_GET['mens']=="actualizar"){ 
@@ -66,14 +69,14 @@ if (isset($_GET['id'])) {
 	$observaciones = $diar[6];
 	$calendario = $diar[7];
 	$reg_profe = $diar[8];
-	if ($profe != $reg_profe) {
+/*	if ($profe != $reg_profe) {
 		unset($id);
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
 		            <button type="button" class="close" data-dismiss="alert">&times;</button>
-		            La actividad que intenta modificar no existe o no tienes permisos administrativos para modificarla.
+		            La actividad que intentas modificar no existe o no tienes permisos administrativos para modificarla.
 		          </div></div>';
 		
-	}
+	}*/
 }
 	?>
 	
@@ -85,7 +88,7 @@ if (isset($_GET['id'])) {
 	
 				<div class="well">
 					
-					<form method="post" action="jcal_post.php">
+					<form method="post" action="jcal_post.php?<? echo $extra;?>">
 							
 						<fieldset>
 							<legend>Registrar nueva actividad</legend>
@@ -160,7 +163,7 @@ if (isset($_GET['id'])) {
 							<button type="submit" class="btn btn-primary" name="enviar">Registrar</button>
 							<button type="reset" class="btn btn-default">Cancelar</button>
 							<?php if (isset($id)): ?>
-							<a href="index.php" class="btn btn-default">Nueva actividad</a>
+							<a href="index.php?<? echo $extra;?>" class="btn btn-default">Nueva actividad</a>
 							<?php endif; ?>
 							
 						</fieldset>
@@ -188,7 +191,7 @@ if (isset($_GET['id'])) {
 			
 				<h3>Mis actividades</h3>
 				
-				<?php $result = mysqli_query($db_con, "SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE profesor='".$_SESSION['profi']."' ORDER BY fecha DESC"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE profesor='".$_SESSION['profi']."' and date(fecha)>'$inicio_curso' ORDER BY fecha DESC"); ?>
 				<?php if (mysqli_num_rows($result)): ?>
 				<div class="table-responsive">
 					<table class="table table-striped">
@@ -209,8 +212,8 @@ if (isset($_GET['id'])) {
 								<td><?php echo $row['materia']; ?></td>
 								<td><?php echo $row['titulo']; ?></td>
 								<td nowrap>
-									<a href="index.php?id=<?php echo $row['id']; ?>"><span class="fa fa-edit fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>&nbsp;
-									<a href="index.php?id=<?php echo $row['id']; ?>&borrar=1" data-bs="tooltip" title="Eliminar" data-bb='confirm-delete'><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+									<a href="index.php?id=<?php echo $row['id']; echo "&".$extra;?>"><span class="fa fa-edit fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>&nbsp;
+									<a href="index.php?id=<?php echo $row['id']; echo "&".$extra;?>&borrar=1" data-bs="tooltip" title="Eliminar" data-bb='confirm-delete'><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 								</td>
 							</tr>
 							<?php endwhile; ?>

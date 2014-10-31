@@ -97,7 +97,13 @@ $nml = $nml0[0];
 <?
 if ($mod_faltas) {
 	include("../menu.php");
+if (isset($_GET['menu_cuaderno'])) {
+	include("../cuaderno/menu.php");
+	echo "<br>";
+}
+else {
 	include("menu.php");
+}
 	?>
 
 <div class="container">
@@ -250,7 +256,7 @@ if ($result) {
 	$t_grupos = $curs;
 
 	echo "<br><table class='table table-striped table-bordered table-condensed table-hover'>\n";
-	$filaprincipal = "<thead><tr><th colspan='2'><h3 align='center' class='text-info'>";
+	$filaprincipal = "<thead><tr><th colspan='3'><h3 align='center' class='text-info'>";
 
 	$filaprincipal.= substr($t_grupos,0,-2);
 
@@ -281,9 +287,6 @@ if ($result) {
 		$combasi = $row[5];
 		if ($row[5] == "") {}
 		else{
-			$pares = $n%2;
-			//if ($pares=="") {}else{	echo "<tr>";}
-
 			echo "<tr>";
 			$foto = '../xml/fotos/'.$row[0].'.jpg';
 			if (file_exists($foto)) {
@@ -316,7 +319,22 @@ if ($result) {
 	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chk; ?> value="F" />
 		<?
 		echo "</span></label></td>";
-		//if ($pares=="") {echo "</tr>";}
+?>
+			<td style='vertical-align: middle;'>
+			<? 
+			$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='F'");
+		
+			$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='J'");
+			$f_faltaT = mysqli_num_rows($faltaT_F);
+			$f_justiT = mysqli_num_rows($faltaT_J);
+			?>
+			<span class="label label-danger" data-bs='tooltip' title='Faltas de Asistencia en esta Asignatura'><? if ($f_faltaT>0) {echo "".$f_faltaT."";}?></span>
+			<?
+			if ($f_faltaT>0) {echo "<br>";}
+			?>
+			<span class="label label-success" data-bs='tooltip' title='Faltas Justificadas'><? if ($f_faltaT>0) {echo "".$f_justiT."";}?></span>
+			</td>
+<?		
 		echo "</tr>";
 	}
 }
@@ -362,8 +380,7 @@ echo '" />';
 echo '<input name="fecha_dia" type="hidden" value="';
 echo $fecha_dia;
 echo '" />';
-$gr = mysqli_query($db_con, "select nomunidad from unidades where nomunidad = '$curso'");
-if(mysqli_num_rows($gr)>0 or $diversificacion==1){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large btn-block">Registrar faltas de asistencia</button>';}
+if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large btn-block">Registrar faltas de asistencia</button>';}
 
 ?></form>
 </div>

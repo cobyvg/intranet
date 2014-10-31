@@ -3,6 +3,8 @@ ini_set("session.cookie_lifetime","2800");
 ini_set("session.gc_maxlifetime","3600");
 session_start();
 include("config.php");
+include("config/version.php");
+
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -21,42 +23,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $pr = $_SESSION['profi'];
 
 include("menu.php");
+include("cuaderno/menu.php");
+
 
 // Variables
-if (isset($_GET['profesor'])) {
-	$profesor = $_GET['profesor'];
-}
-elseif (isset($_POST['profesor'])) {
-	$profesor = $_POST['profesor'];
-}
-
-if (isset($_GET['dia'])) {
-	$dia = $_GET['dia'];
-}
-elseif (isset($_POST['dia'])) {
-	$dia = $_POST['dia'];
-}
-
-if (isset($_GET['hora'])) {
-	$hora = $_GET['hora'];
-}
-elseif (isset($_POST['hora'])) {
-	$hora = $_POST['hora'];
-}
-
-if (isset($_GET['curso'])) {
-	$curso = $_GET['curso'];
-}
-elseif (isset($_POST['curso'])) {
-	$curso = $_POST['curso'];
-}
-
-if (isset($_GET['asignatura'])) {
-	$asignatura = $_GET['asignatura'];
-}
-elseif (isset($_POST['asignatura'])) {
-	$asignatura = $_POST['asignatura'];
-}
 
 if (isset($_GET['nom_asig'])) {
 	$nom_asig = $_GET['nom_asig'];
@@ -87,17 +57,21 @@ if(empty($curso))
 }
 mysqli_query($db_con, "ALTER TABLE  datos CHANGE  nota VARCHAR( 48 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  '' ");
 
-// Titulo
-echo "<div class='container'><div class='row'>";
-echo "<br /><div class='page-header hidden-print'>";
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
-echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small>Registro de datos</small></h2>";
-echo "</div>";
-echo "</div>
-</div>";
-echo '<div class="container-fluid"><div class="row-fluid"><div align="center">';
+// Titulo
+?>
+<div class='container'>
+<div class='row'>
+<div class='page-header hidden-print'>
+<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small>Registro de datos</small></h2>
+</div>
+</div>
+</div>
 
+<div class="container-fluid"><div class="row-fluid"><div align="center">';
+
+<?
 // Enviar datos y procesarlos
 if(isset($_POST['enviar']))
 {
@@ -118,8 +92,8 @@ if($pr and $dia and $hora)
 		if (substr($varias[0],3,2) == "Dd" ) {
 			$varias[0] = substr($varias[0],0,4);
 		}
-		$nombre_asig = $varias[1];
-		$nombre_materia = strtolower($nombre_asig);
+		$nombre_curso = $varias[1];
+		$nombre_materia = strtolower($nombre_curso);
 	}
 	$num_cursos0 = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'");
 	// Todos los Grupos juntos
@@ -169,6 +143,10 @@ todos</a></div>
 	<?
 		echo "<table class='table table-striped table-condensed' style='width:auto'>";
 		echo "<thead><th colspan=2 style='vertical-align:bottom;background-color:#fff'></th>";
+		echo "<th nowrap style='background-color:#fff'>
+<div style='width:40px;height:130px;'>
+<div class='Rotate-90'><span class='text-warning' style='font-weight:bold'>Asistencia</span> </div>
+</div> </th>";
 		// Número de las columnas de la tabla
 		$cols2=0;
 		while($col20 = mysqli_fetch_array($col0)){
@@ -201,13 +179,15 @@ todos</a></div>
 		echo "</thead>";
 		// Tabla para cada Grupo
 		$curso0 = "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
+		$curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
+		
 		//echo $curso0."<br />";
 		$curso20 = mysqli_query($db_con, $curso0);
 		while ($curso11 = mysqli_fetch_array($curso20))
 		{
 			$curso = $curso11[0];
 			$nivel_curso = substr($curso,0,1);
-			$nombre = $curso11[2];
+			$nombre = $curso11[1];
 
 			// Número de Columnas para crear la tabla
 			$num_col = 2 + $cols + $cols2;
@@ -266,7 +246,7 @@ todos</a></div>
 			// Alumnos para presentar que tengan esa asignatura en combasi
 			$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
 			//Alumnos de 2º de Bachillerato
-			if (stristr($curso,"1B")==TRUE or stristr($curso,"2B")==TRUE) {
+			if (strstr($nombre_curso,"Bach")==TRUE) {
 				if (strlen($codigos)>'6') {
 					$cod_var='';
 					$d_cod = explode(" ",$codigos);
@@ -283,7 +263,7 @@ todos</a></div>
 			else{
 				$resul.=" combasi like '%$asignatura:%' ";
 			}
-			$resul.=") ". $todos ." order by NC";
+			$resul.=") ". $todos ." order by NC ASC";
 
 			//echo $resul;
 			$result = mysqli_query($db_con, $resul);
@@ -312,6 +292,19 @@ todos</a></div>
 			style='width:auto;'><a href=""
 			onclick="window.open('<? echo $inf;?>')"> <?
 			?> <? echo $row[2].', '.$row[3];?></a></td>
+			<td style='vertical-align: middle;'>
+			<? 
+			$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$asignatura' and claveal='$claveal' and falta='F'");
+			$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$asignatura' and claveal='$claveal' and falta='J'");
+			$f_faltaT = mysqli_num_rows($faltaT_F);
+			$f_justiT = mysqli_num_rows($faltaT_J);
+			?>
+			<span class="label label-danger" data-bs='tooltip' title='Faltas de Asistencia en esta Asignatura'><? if ($f_faltaT>0) {echo "".$f_faltaT."";}?></span>
+			<?
+			if ($f_faltaT>0) {echo "<br>";}
+			?>
+			<span class="label label-info" data-bs='tooltip' title='Faltas Justificadas'><? if ($f_faltaT>0) {echo "".$f_justiT."";}?></span>
+			</td>
 			<?
 			// Si hay datos escritos rellenamos la casilla correspondiente
 			$colu10 = "select distinct id, Tipo from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by id";
