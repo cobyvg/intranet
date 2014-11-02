@@ -19,8 +19,14 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include("../menu.php");
-include("menu.php");
-
+if (isset($_GET['menu_cuaderno'])) {
+	include("../cuaderno/menu.php");
+	echo "<br>";
+	$extra = "&menu_cuaderno=1&profesor=".$_SESSION['profi']."&dia=$dia&hora=$hora&curso=$curso&asignatura=$asignatura";
+}
+else {
+	include("menu.php");
+}
 // nprofe hora ndia hoy codasi profesor clave
 if (isset($_POST['nprofe'])) {$nprofe = $_POST['nprofe'];} else{$nprofe="";}
 if (isset($_POST['hora'])) {$hora = $_POST['hora'];} else{$hora="";}
@@ -111,8 +117,8 @@ else{
 ?> 
 
 <script language="javascript">
-setTimeout("window.location='index.php?fecha_dia=<? if (!empty($fecha_dia)) {  echo $fecha_dia;}else {echo date('d-m-Y');}?>&hora_dia=<? echo $hora; ?>'", 3000) 
-</script> <? 
-?>
+setTimeout("window.location='index.php?fecha_dia=<? if (!empty($fecha_dia)) {  echo $fecha_dia;}else {echo date('d-m-Y');}?>&hora_dia=<? echo $hora; ?><? echo $extra;?>'", 3000) 
+</script> 
+
 </body>
 </html>

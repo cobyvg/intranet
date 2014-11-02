@@ -19,17 +19,17 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 $pr = $_SESSION['profi'];
  include("../menu.php");
+ include("menu.php");
+ 
 ?>
 <div class="container">
-		
+		<div class="row">
+<br>		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Cuaderno de Notas&nbsp;&nbsp;<small> Crear nueva columna de datos</small></h2>
 		</div>
-		
-		
-		<div class="row">
-			
+					
 			<div class="col-sm-6 col-sm-offset-3">
 <?
 
@@ -40,7 +40,8 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
 	{
 		${$key} = $val;
 	}
-echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";		
+$curso_sin=substr($curso,0,-1);
+	echo "<h3><span class='label label-info' style='padding:8px'>$curso_sin -- $nom_asig </span></h3><br>";
 // Asignatura ese día a esa hora
 $asig0 = "SELECT distinct c_asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
 $asig1 = mysqli_query($db_con, $asig0);

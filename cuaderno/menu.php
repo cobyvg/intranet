@@ -4,11 +4,11 @@ $activo2="";
 $activo3="";
 $activo4="";
 $activo5="";
-if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE) {$activo1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'infotut.php')==TRUE) {$activo2 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'buscar.php')==TRUE){ $activo3 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'index_buscar.php')==TRUE){ $activo4 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'cuaderno.php')==TRUE) {$activo1 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'faltas')==TRUE) {$activo2 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'calendario/')==TRUE){ $activo3 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'sin colocar')==TRUE){ $activo4 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'horario.php')==TRUE){ $activo5 = ' class="active" ';}
 
 if (isset($_GET['profesor'])) {
 	$profesor = $_GET['profesor'];
@@ -51,6 +51,8 @@ elseif (isset($_POST['asignatura'])) {
 <div class="container hidden-print">
 <div class="tabbable">
 <ul class="nav nav-tabs">
+	<li <? echo $activo5;?>><a href="http://<? echo $dominio;?>/intranet/cuaderno/horario.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Horario</a></li>
+
 	<li <? echo $activo1;?>><a href="http://<? echo $dominio;?>/intranet/cuaderno.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Cuaderno de notas</a></li>
 	
 	<li <? echo $activo2;?>><a href="http://<? echo $dominio;?>/intranet/faltas/index.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Faltas de asistencia</a></li>

@@ -20,6 +20,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include("../menu.php");
+include("menu.php");
 // Titulo
 echo "<div class='container'><div class='row'>";
 echo "<br /><div class='page-header'>";
@@ -33,8 +34,8 @@ echo '<div align="center">';
 	{
 		${$key} = $val;
 	}
-echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";		
-	
+	echo "<h3><span class='label label-info' style='padding:8px'>$curso -- $nom_asig </span></h3><br>";
+		
 // Procesamos los datos
 if ($eliminar) {
 include("edicion/eliminar.php");

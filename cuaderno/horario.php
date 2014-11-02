@@ -1,13 +1,48 @@
-<h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>
-<table class="table table-bordered table-condensed table-striped table-centered">
+<?
+session_start();
+include("../config.php");
+include("config/version.php");
+
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
+	session_destroy();
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	exit();
+}
+
+if($_SESSION['cambiar_clave']) {
+	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+}
+
+registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
+$pr = $_SESSION['profi'];
+
+include("../menu.php");
+include("menu.php");
+
+// Titulo
+?>
+<div class='container'>
+<div class='row'>
+<br>
+<div class='page-header hidden-print'>
+<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small>Horario del Profesor</small></h2>
+</div>
+
+<div align="center">';
+
+<table class="table table-bordered table-condensed table-striped table-centered" style="width:650px">
 <thead>
   <tr>
 	<th width="20">&nbsp;</th>
-	<th width="20">L</th>
-	<th width="20">M</th>
-	<th width="20">X</th>
-	<th width="20">J</th>
-	<th width="20">V</th>
+	<th width="20">Lunes</th>
+	<th width="20">Martes</th>
+	<th width="20">Miércoles</th>
+	<th width="20">Jueves</th>
+	<th width="20">Viernes</th>
   </tr>
 </thead>
 <tbody>
@@ -66,6 +101,12 @@ echo '<tr><th>'.$nombre.'ª</th>';
 ?>
 </tbody>
 </table>
+</div>
+</div>
+</div>
+<?php include("pie.php"); ?>
+</body>
+</html>
 
 
 

@@ -131,8 +131,11 @@ if($mensaje){
 ?>
 <div class="col-md-5"><br>
 <div class="well">
-
-<form id="form1" method="post" action="">
+<? if (isset($_GET['menu_cuaderno'])) {
+$extra = "?menu_cuaderno=1&profesor=".$_SESSION['profi']."&dia=$dia&hora=$hora&curso=$curso&asignatura=$asignatura";
+}
+?>
+<form id="form1" method="post" action="index.php<? echo $extra;?>">
 
 <fieldset><legend>Seleccione fecha y grupo</legend>
 
@@ -234,7 +237,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 		}
 	}
 	?>
-<form action="poner_falta.php" method="post" name="Cursos"><?php
+<form action="poner_falta.php<?echo $extra;?>" method="post" name="Cursos"><?php
 
 // Codigo del profe
 //echo "$hora_dia -- $ndia -- $hoy -- $codasi -- $pr -- $clave<br>";

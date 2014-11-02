@@ -20,11 +20,12 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include("../menu.php");
+include("menu.php");
 ?>
 <div class="container">
 <div class="row">
 <?
-echo "<br /><div class='page-header'>";
+echo "<div class='page-header'>";
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
 echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small> Informes personales</small></h2>";
@@ -34,13 +35,14 @@ echo '<div align="center">';
 <div class="col-sm-8 col-sm-offset-2">
 <?
 
-
+$dia = $_GET['dia'];
+$hora = $_GET['hora'];
  foreach($_GET as $key => $val)
 	{
 		${$key} = $val;
 	}
-echo "<legend>$curso <span class='muted'>( $nom_asig )</span></legend><br>";	
-	 
+	echo "<h3><span class='label label-info' style='padding:8px'>$curso -- $nom_asig </span></h3><br>";
+		 
 if($siguiente == '1'){
   $unidad = $curso;
   $adelante1 = "select nc, claveal from FALUMNOS where unidad = '$unidad' and nc>$nc order by nc asc limit 2";
@@ -71,16 +73,11 @@ if($siguiente == '1'){
   	$max = mysqli_fetch_row($max_nc);
 	$ultimo = $max[0];
 	
-   	$foto = '../xml/fotos/'.$claveal.'.jpg';
-	if (file_exists($foto)) {
-		echo "<div style='width:150px;margin:auto;'>";
-		echo "<img src='../xml/fotos/$claveal.jpg' border='2' width='100' height='119' class='img-thumbnail'  />";
-		echo "</div>";
-	}
+
 	
-  echo "<br /><div class='well'><h4 class='text-info'>";
+  echo "<br /><div class='well'><table style='width:100%'><tr><td style='text-align:center;width:90%'><h4 class='text-info'>";
   
-  if($nc > 1){$mens_ant = "informe.php?profesor=$profesor&clave=$clave&nc=$nc&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&anterior=1";
+  if($nc > 1){$mens_ant = "informe.php?profesor=$profesor&clave=$clave&nc=$nc&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&dia=$dia&hora=$hora&anterior=1";
   echo '<button class="btn btn-primary btn-sm" name="anterior" onclick="window.location=\'';	
   echo $mens_ant;
   echo '\'" style="cursor: pointer;"><i class="fa fa-chevron-left">&nbsp; </i> Anterior</button>';}
@@ -88,12 +85,22 @@ if($siguiente == '1'){
   echo "&nbsp;&nbsp; $nombre $apellidos &nbsp;&nbsp;"; 
    
   if($nc < $ultimo){
- $mens_sig = "informe.php?profesor=$profesor&clave=$clave&nc=$nc&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&siguiente=1";
+ $mens_sig = "informe.php?profesor=$profesor&clave=$clave&nc=$nc&curso=$curso&asignatura=$asignatura&nombre=$nombre&apellidos=$apellidos&nom_asig=$nom_asig&dia=$dia&hora=$hora&siguiente=1";
 	echo ' <button class="btn btn-primary btn-sm" name="siguiente" onclick="window.location=\'';	
 	echo $mens_sig;
 	echo '\'" style="cursor: pointer;">Siguiente &nbsp;<i class="fa fa-chevron-right "> </i> </button>';}
-
-  echo "</h4></div>"; 
+	echo "</h4></td><td style='text-align:right'>";
+	   	$foto = '../xml/fotos/'.$claveal.'.jpg';
+	if (file_exists($foto)) {
+		echo "<img src='../xml/fotos/$claveal.jpg' width='60' height='72' class='img-respnsive'  />";
+	}
+		else {
+				echo '<span class="fa fa-user fa-fw fa-4x"></span>';
+			}	
+			echo "</td></tr></table>";
+			
+	
+ 	echo "</div>"; 
 
 ?>
 <div class="tabbable" style="margin-bottom: 18px;">

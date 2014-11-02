@@ -63,24 +63,24 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
 ?>
 <div class='container'>
 <div class='row'>
+<br>
 <div class='page-header hidden-print'>
 <h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small>Registro de datos</small></h2>
 </div>
 </div>
 </div>
 
-<div class="container-fluid"><div class="row-fluid"><div align="center">';
+<div class="container-fluid">
+<div class="row-fluid">
+<div align="center">';
 
 <?
 // Enviar datos y procesarlos
 if(isset($_POST['enviar']))
 {
 	include("cuaderno/poner_notas.php");
-	//include("horario.php");
-	//exit;
 }
 
-// echo "$pr --> $dia --> $hora<br />";
 if($pr and $dia and $hora)
 {
 	?>
@@ -117,7 +117,7 @@ if($pr and $dia and $hora)
 	$cols = mysqli_num_rows($col0);
 	$sin_coma=$curso;
 	
-	echo "<p class='lead bg-primary'>$curso_sin <span class='text-muted'>( $nom_asig )</span></p><br>";
+	echo "<h3 style='margin-top:-25px;margin-bottom:32px'><span class='label label-info' style='padding:8px'>$curso_sin -- $nom_asig </span></h3>";
 	
 	echo '<form action="cuaderno.php" method="post" name="imprime" class="form-inline">';
 	
@@ -275,7 +275,7 @@ todos</a></div>
 				if ($row[5] == "") {}
 				else
 				{
-					$inf = 'cuaderno/informe.php?profesor='.$pr.'&curso='.$curso.'&asignatura='.$asignatura.'&nc='.$nc.'&claveal='.$claveal.'&nombre='.$nombre_al.'&apellidos='.$apellidos.'&nom_asig='.$nom_asig.'';
+					$inf = 'cuaderno/informe.php?profesor='.$pr.'&curso='.$curso.'&asignatura='.$asignatura.'&nc='.$nc.'&claveal='.$claveal.'&nombre='.$nombre_al.'&apellidos='.$apellidos.'&nom_asig='.$nom_asig.'&dia='.$dia.'&hora='.$hora.'';
 					echo "<tr>";
 					?>
 		
@@ -439,26 +439,20 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 		</div>
 		
 		<legend><small>Operaciones básicas</small></legend> 
-		
-	
-
-
-
 
 		<?
 		// Enlace para crear nuevos Alumnos y para crear nuevas columnasx
 		$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1'";
-		$mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&nom_asig=$nom_asig&nom_asig=$nom_asig";
+		$mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&nom_asig=$nom_asig";
 
 		echo '<ul class="no_imprimir list-unstyled" style="line-height:32px">';
+		echo '<li><i class="fa fa-plus-circle fa-lg no_imprimir" data-bs="tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';
+		echo $mens2;
+		echo '\'" style="cursor: pointer;"> </i> <a href="'.$mens2.'">Nueva columna de datos</a></li>';
 		$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curs0&seleccionar=1&nom_asig=$nom_asig";
 		echo '<li><i class="fa fa-user fa-lg no_imprimir" title="Seleccionar Alumnos de la materia. Los alumnos no seleccionados ya no volverán a aparecer en el Cuaderno." data-bs="tooltip"></i> &nbsp;<a href="'.$mens1.'">Seleccionar alumnos</a></li>';
 		echo '<li><i class="fa fa-print fa-lg no_imprimir"  data-bs="tooltip" title="Imprimir la tabla de alumnos con los datos registrados" onclick="print()"';
 		echo '\'" style="cursor: pointer;"> </i> <a onclick="print()" style="cursor: pointer;">Imprimir tabla</a></li>';
-		echo '<li><i class="fa fa-plus-circle fa-lg no_imprimir" data-bs="tooltip" title="Añadir un columna de datos al Cuaderno" onclick="window.location=\'';
-		echo $mens2;
-		echo '\'" style="cursor: pointer;"> </i> <a href="'.$mens2.'">Nueva columna de datos</a></li>';
-		echo '';
 		echo "</ul>";
 		?></div>
 		<div class="well" align="left"
@@ -515,9 +509,11 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 					$pon=mysqli_query($db_con, "select distinct ponderacion from datos where id='$id'");
 					$pon0=mysqli_fetch_array($pon);
 					$pond= $pon0[0];
-					$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curso&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
+					$mens0 = "cuaderno/c_nota.php?profesor=$pr&curso=$curso&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig&asignatura=$asignatura";
 					$colum1[4] ? $icon_eye = '<i class="fa fa-eye" data-bs="tooltip" title="Columna visible en la página pública del Centro"></i>' : $icon_eye  = '<i class="fa fa-eye-slash" data-bs="tooltip" title="Columna oculta en la página pública del Centro"></i>';
-					echo "<tr><td nowrap style='vertical-align:middle;'>$n_col &nbsp;&nbsp;$icon_eye </td><td style='vertical-align:middle;'><a href='$mens0'>$nombre</a></td>";
+					$colum1[3] ? $icon_lock = '<i class="fa fa-lock" data-bs="tooltip" title="Columna oculta en el Cuaderno"></i>' : $icon_lock  = '';
+					
+					echo "<tr><td nowrap style='vertical-align:middle;'>$n_col &nbsp;$icon_eye &nbsp;$icon_lock</td><td style='vertical-align:middle;'><a href='$mens0'>$nombre</a></td>";
 					echo "<td>";
 					?> 
 					<div class="checkbox">
