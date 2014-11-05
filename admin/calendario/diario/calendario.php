@@ -69,12 +69,15 @@ if ($mes_sig == 13) {
 	$mes_sig = 1;
 	$ano_sig = $year+1;
 }
+if (isset($_GET['menu_cuaderno'])) {
+$extra = "&menu_cuaderno=1&profesor=".$_SESSION['profi']."&dia=$dia&hora=$hora&asignatura=$asignatura&curso=$curso";
+}
 
 //Nombre del Mes
 echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
-echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?year=".$ano_ant."&month=".$mes_ant."\"><span class=\"fa fa-arrow-circle-left fa-fw fa-lg\"></span></a></h4></th>";
+echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?year=".$ano_ant."&month=".$mes_ant.$extra."\"><span class=\"fa fa-arrow-circle-left fa-fw fa-lg\"></span></a></h4></th>";
 echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
-echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?year=".$ano_sig."&month=".$mes_sig."\"><span class=\"fa fa-arrow-circle-right fa-fw fa-lg\"></span></a></h4></th>";
+echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?year=".$ano_sig."&month=".$mes_sig.$extra."\"><span class=\"fa fa-arrow-circle-right fa-fw fa-lg\"></span></a></h4></th>";
 echo "</tr><tr>";
 
 

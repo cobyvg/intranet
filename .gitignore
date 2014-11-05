@@ -17,3 +17,7 @@ pdf/lib/fonts/log.htm
 .buildpath
 
 prueba.php
+
+*.sublime-project
+
+*.sublime-workspace
