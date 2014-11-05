@@ -72,7 +72,7 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
 
 <div class="container-fluid">
 <div class="row-fluid">
-<div align="center">';
+<div align="center">
 
 <?
 // Enviar datos y procesarlos
@@ -83,10 +83,11 @@ if(isset($_POST['enviar']))
 
 if($pr and $dia and $hora)
 {
-	?>
-	<?php
+
 	// Distintos códigos de la asignatura cuando hay varios grupos en una hora.
-	$n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, profesores.nivel FROM  horw, profesores where prof = profesor and a_grupo = profesores.grupo and prof = '$pr' and dia = '$dia' and hora = '$hora'");
+	$n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, profesores.nivel FROM  horw, profesores where prof = profesor and a_grupo = profesores.grupo and prof = '$pr' 
+	and dia = '$dia' and hora = '$hora'");
+
 	while($varias = mysqli_fetch_array($n_c))
 	{
 		if (substr($varias[0],3,2) == "Dd" ) {
@@ -96,6 +97,7 @@ if($pr and $dia and $hora)
 		$nombre_materia = strtolower($nombre_curso);
 	}
 	$num_cursos0 = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'");
+
 	// Todos los Grupos juntos
 	$curs = "";
 	$codigos = "";
@@ -113,6 +115,7 @@ if($pr and $dia and $hora)
 	$curso_sin = substr($curs0,0,(strlen($curs0)-1));
 	//Número de columnas
 	$col = "select distinct id, nombre, orden, visible_nota from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
+	
 	$col0 = mysqli_query($db_con, $col);
 	$cols = mysqli_num_rows($col0);
 	$sin_coma=$curso;
@@ -566,7 +569,13 @@ $tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1
 			class="btn btn-primary btn-block" /></p>
 		<p><input name="eliminar" type="submit" value="Eliminar"
 			class="btn btn-primary btn-block" /></p>
-
+</form>
+<?
+		$extra = "?menu_cuaderno=1&profesor=".$_SESSION['profi']."&dia=$dia&hora=$hora&asignatura=$asignatura&curso=$curs0&nom_asig=$nom_asig";
+?>
+		<form action="cuaderno/orden.php<? echo $extra;?>" method="POST" id="orden">		
+		<p><input name="orden" type="submit" value="Orden de las columnas"
+			class="btn btn-primary btn-block" /></p>
 		</form>
 		</div>
 		</div>
