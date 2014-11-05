@@ -25,7 +25,7 @@ include("menu.php");
 
 $prof=mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
 $fprof = mysqli_fetch_array($prof);
-if(!($tutor)){$tutor=$fprof[0];}else{$fprof[0] = $tutor;}
+if(!($_GET['tutor'])){$tutor=$fprof[0];}else{$fprof[0] = $_GET['tutor'];}
 ?>
 <div class="container">
 <div class="row">
