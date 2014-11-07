@@ -20,7 +20,6 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $pr = $_SESSION['profi'];
  include("../menu.php");
  include("menu.php");
- 
 ?>
 <div class="container">
 		<div class="row">
@@ -39,9 +38,10 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
  foreach($_GET as $key => $val)
 	{
 		${$key} = $val;
-	}
+	}	
 $curso_sin=substr($curso,0,-1);
-	echo "<h3><span class='label label-info' style='padding:8px'>$curso_sin -- $nom_asig </span></h3><br>";
+$curso_nota=$curso.",";
+	echo "<h3><span class='label label-info' style='padding:8px'>$curso -- $nom_asig </span></h3><br>";
 // Asignatura ese día a esa hora
 $asig0 = "SELECT distinct c_asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
 $asig1 = mysqli_query($db_con, $asig0);
@@ -67,7 +67,9 @@ $tipo = $ident0[5];
 ?>
 <form action="n_col.php" method="post">
 	<input type="hidden" name="asignatura" value = "<? echo $asignatura;?>" />
+	<input type="hidden" name="curso_nota" value = "<? echo $curso_nota;?>" />
 	<input type="hidden" name="curso" value = "<? echo $curso;?>" />
+		<input type="hidden" name="curso_nota" value = "<? echo $curso_nota;?>" />
 	<input type="hidden" name="dia" value = "<? echo $dia;?>" />
 	<input type="hidden" name="hora" value = "<? echo $hora;?>" />
 	<input type="hidden" name="id" value = "<? echo $id;?>" />

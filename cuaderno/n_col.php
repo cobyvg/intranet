@@ -16,7 +16,6 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
-
 $pr = $_SESSION['profi'];
 ?>
 <?
@@ -28,6 +27,7 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
 echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small> Crear nueva columna de datos</small></h2>";
 echo "</div><br />";
 echo '<div align="center">';
+$curso = $_GET['curso'];
 
  foreach($_POST as $key => $val)
 	{
@@ -57,12 +57,12 @@ Los datos se han modificado correctamente.
 </div></div>';
 }
 else{
-	$serie = mysqli_query($db_con, "select max(orden) from notas_cuaderno where profesor = '$pr' and curso = '$curso' and asignatura = '$asignatura'");
+	$serie = mysqli_query($db_con, "select max(orden) from notas_cuaderno where profesor = '$pr' and curso = '$curso_nota' and asignatura = '$asignatura'");
 	$num_col = mysqli_fetch_array($serie);
 	$orden = $num_col[0] + 1;
 	// Si no, insertamos
 $sql = "INSERT INTO  notas_cuaderno ( profesor ,  fecha ,  nombre ,  texto ,  asignatura, curso, orden, visible_nota, Tipo ) 
-VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso', '$orden', '$visible_nota', '$tipo')";
+VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso_nota', '$orden', '$visible_nota', '$tipo')";
 //echo $sql;
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
