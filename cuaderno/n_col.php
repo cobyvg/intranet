@@ -20,7 +20,11 @@ $pr = $_SESSION['profi'];
 ?>
 <?
 include("../menu.php");
-
+?>
+<div class='container'>
+<div class='row'>
+<br>
+<?
  echo "<br /><div align='center' class='page-header'>";
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
@@ -75,6 +79,8 @@ echo $mens10;
 ?>
 
 <BR>
+</div>
+</div>
 </div>
 <script language="javascript">
 <? 

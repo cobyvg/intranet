@@ -68,11 +68,7 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
 <h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small>Registro de
 datos</small></h2>
 </div>
-</div>
-</div>
 
-<div class="container-fluid">
-<div class="row-fluid">
 <div align="center"><?
 // Enviar datos y procesarlos
 if(isset($_POST['enviar']))
@@ -113,7 +109,7 @@ if($pr and $dia and $hora)
 	// Eliminamos la última coma para el título.
 	$curso_sin = substr($curs0,0,(strlen($curs0)-1));
 	//Número de columnas
-	$col = "select distinct id, nombre, orden, visible_nota from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
+	$col = "select distinct id, nombre, orden, visible_nota, Tipo from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
 
 	$col0 = mysqli_query($db_con, $col);
 	$cols = mysqli_num_rows($col0);
@@ -318,16 +314,18 @@ if ($col_total<2) {
 	$col_total="3";
 }
 echo "<div class='table-responsive' align='center'>
-		<table class='table table-striped table-condensed' style='width:auto'>";
-echo "<thead><th colspan='$col_total'><h4 class='text-info'>&nbsp;<i class='fa fa-users'> </i>&nbsp; $curso_sin => $nom_asig</h4></th><thead>";
-echo "<tr><th colspan=2 style='vertical-align:bottom;background-color:#fff'></th>";
-echo "<th nowrap style='background-color:#fff'>
+		<table class='table table-bordered table-condensed' style='width:auto'>";
+echo "<thead><th colspan='$col_total' class='success'><h4>&nbsp;<i class='fa fa-users'> </i>&nbsp; $curso_sin => $nom_asig</h4></th><thead>";
+echo "<tr><td colspan=2 style='vertical-align:bottom;background-color:#fff'></td>";
+echo "<td>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-warning' style='font-weight:bold'>Asistencia</span> </div>
-</div> </th>";
+<div class='Rotate-90'><span style='font-weight:bold'>Asistencia</span> </div>
+</div> </td>";
 // Número de las columnas de la tabla
 $cols2=0;
 while($col20 = mysqli_fetch_array($col0)){
+	$tipo_col = $col20[4];
+	if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}
 	$icon_eye="";
 	$nombre_col="";
 	$col2=mysqli_query($db_con, "select distinct id from datos where id = '$col20[0]' ");
@@ -343,24 +341,28 @@ while($col20 = mysqli_fetch_array($col0)){
 		$col_vert = $nombre_col;
 	}
 
-	echo "<th nowrap style='background-color:#fff'>
+	echo "<td nowrap>
 <div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-info text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
-</div> </th>";
+<div class='Rotate-90'><span class='$clase_col text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
+</div> </td>";
 }
 if($seleccionar == 1){
-	echo "<th nowrap style='background-color:#999; color:#fff'>
+	echo "<td nowrap>
 <div style='width:40px;height:130px;'>
 <div class='Rotate-90'><span class='text-lowercase' style='font-weight:normal'> Selección de alumnos </span></div>
-</div> </th>";
+</div> </td>";
 }
 echo "</tr>";
 // Tabla para cada Grupo
 $curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
 //echo $curso0."<br />";
 $curso20 = mysqli_query($db_con, $curso0);
+$num_cursos = mysqli_num_rows($curso20);
 while ($curso11 = mysqli_fetch_array($curso20))
 {
+	if ($num_cursos>1) {
+	echo "<tr><td colspan='$col_total' class='active'><h4 align=center>$curso11[0]</h4></td></tr>";
+	}
 	$curso = $curso11[0];
 	$nivel_curso = substr($curso,0,1);
 	$nombre = $curso11[1];
@@ -489,7 +491,6 @@ while($colus10 = mysqli_fetch_array($colu20)){
 	$t_dato = $colus10[1];
 	$dato0 = mysqli_query($db_con, "select nota, ponderacion from datos where claveal = '$claveal' and id = '$id'");
 	$dato1 = mysqli_fetch_array($dato0);
-	if($dato1[0] < 5){$color="#9d261d";}else{$color="navy";}
 
 	if (stristr($t_dato,"Casilla")==TRUE) {
 		$tipo_dato = "<div class='checkbox'><input type='checkbox' name='$id-$claveal' value='1' ";
@@ -506,13 +507,13 @@ input[type=number]::-webkit-inner-spin-button {
 }
 </style>
 		<?
-		$tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='max-width:40px;color:$color;height:30px;background-color:#de9'>";
+		$tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='max-width:40px;height:60px;border:none'>";
 	}
 	elseif (stristr($t_dato,"Texto corto")==TRUE) {
-		$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:30px;maxlength:3;max-width:40px;background-color:#adc'>";
+		$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:60px;maxlength:3;max-width:40px;border:none'>";
 	}
 	else{
-		$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='height:30px;maxlength:35;background-color:#dbf;max-width:90px;'>";
+		$tipo_dato = "<textarea name='$id-$claveal' data-bs='tooltip' title='$dato1[0]' style='height:67px;width:80px;font-size:10px;max-width:90px;border:none'>$dato1[0]</textarea>";
 	}
 
 	echo "<td style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;'>$tipo_dato</td>";

@@ -73,9 +73,9 @@ foreach($cursos as $unidad)
 		}
   }  
 mysqli_select_db($db_con, $db);
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Los Alumnos han sido registrados en esta Asignatura.          
-</div></div>';
+Los datos han sido registrados en el Cuaderno.          
+</div></div><br />';
 ?>
 

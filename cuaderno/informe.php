@@ -122,10 +122,10 @@ $datos0 = mysqli_query($db_con, $datos1);
  Notas en la Columnas</h4><br />
     <?
 echo "<table align='center' class='table table-striped' style='width:auto'>\n"; 
-echo "<tr><th>Fecha</td><th>Columna</td><th>Nota</td>";
+echo "<tr><th>Fecha</td><th>Columna</td><th>Datos</td>";
 		while($datos = mysqli_fetch_array($datos0))
 		{
-		echo "<tr><td class='muted'>".cambia_fecha($datos[0])."</td><td class='muted'>$datos[1]</td><td align='center' class='text-success'> <strong>$datos[2]</strong></td></tr>";
+		echo "<tr><td class='text-info' nowrap>".cambia_fecha($datos[0])."</td><td>$datos[1]</td><td align='left' class='text-success'> <strong>$datos[2]</strong></td></tr>";
 		}
 echo "</table>";
 		}

@@ -108,7 +108,14 @@ include("menu.php");
 
 
 
-		<?php endif; ?></div>
+		<?php endif; ?>
+		<?php if (!isset($curso)) {
+			echo '<br><div align="center"><div class="alert alert-warning alert-block fade in" style="width:500px;text-align:left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Selecciona el GRUPO</strong> en el menú superior (arriba a la derecha del menú del módulo) para poder registrar o ver las actividades.
+          </div></div><br>';
+		} ?>
+		</div>
 <!-- /.container -->
 
 		<?php include("../../../pie.php"); ?>
