@@ -114,12 +114,14 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		//Buscar actividad para el dóa y marcarla
 		$sql_currentday = "$year-$month-$zz";
 
-    $eventQuery = "SELECT distinct fecha, profesor FROM diario WHERE grupo like '%$curso%' and fecha = '$sql_currentday';";
+    $eventQuery = "SELECT distinct fecha, profesor, titulo, materia FROM diario WHERE grupo like '%$curso%' and fecha = '$sql_currentday';";
     // echo $eventQuery;
 		$eventExec = mysqli_query($db_con, $eventQuery );
 		if (mysqli_num_rows($eventExec)>0) {
 		while ( $row = mysqli_fetch_array ( $eventExec ) ) {
-
+		$titulo = $row[2];
+		$mat_arr = explode(";",$row[3]);
+		$materia = $mat_arr[0];
       	if ($row[1]!==$_SESSION['profi']) {
       		$ellos++;
       	}
@@ -130,10 +132,10 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
       }
       
 		if ($yo>0) {
-      		echo "<td class='calendar-blue'>$zz</td>\n";		
+      		echo "<td class='calendar-blue'><span data-bs='tooltip' data-html='true' title='$materia => $titulo'>$zz</span></td>\n";		
       	}
       	elseif ($ellos>0){
-      		echo "<td class='calendar-orange'>$zz</td>\n";		
+      		echo "<td class='calendar-orange'><span data-bs='tooltip' data-html='true' title='$materia => $titulo'>$zz</span></td>\n";		
       	}
       	$result_found = 1;
 		}	

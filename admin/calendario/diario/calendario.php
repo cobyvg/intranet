@@ -107,7 +107,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 
 if ($result_found != 1) {//Buscar actividad  y marcarla.
     $sql_currentday = "$year-$month-$zz";
-    $eventQuery = "SELECT fecha, profesor FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and (grupo='Sin grupo' ";
+    $eventQuery = "SELECT fecha, profesor, titulo, materia FROM diario WHERE fecha = '$sql_currentday' and calendario = '1' and (grupo='Sin grupo' ";
     
 $asig = mysqli_query($db_con, "select distinct grupo from profesores where profesor = '".$_SESSION['profi']."'");
 while ($asign = mysqli_fetch_array($asig)) {
@@ -121,6 +121,9 @@ $n_pr="";
     $class="";
     while($row = mysqli_fetch_array($eventExec)) {
     	$n_ex+=1;
+    	$titulo = $row[2];
+		$mat_arr = explode(";",$row[3]);
+		$materia = $mat_arr[0];	
       if (mysqli_num_rows($eventExec) > 0) {
       	if ($row[1]!==$_SESSION['profi']) {
       		$yo=0;
@@ -145,7 +148,7 @@ $n_pr="";
 				$result_found = 1;
 				}
 				else{
-        		echo "<td $class>$zz</td>";					
+        		echo "<td $class ><span data-bs='tooltip' data-html='true' title='$materia => $titulo'>$zz</span></td>";					
 				}
           $result_found = 1;
     }

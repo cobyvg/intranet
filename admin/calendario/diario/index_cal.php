@@ -54,7 +54,7 @@ include("menu.php");
 <br>
 
 <div class="row">
-<div class="col-sm-8"><?php $result = mysqli_query($db_con, "SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE 1=1 $extra_curso and date(fecha)>'$inicio_curso' and profesor = '".$_SESSION['profi']."'"); 
+<div class="col-sm-8"><?php $result = mysqli_query($db_con, "SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE 1=1 $extra_curso and date(fecha)>'$inicio_curso' and profesor = '".$_SESSION['profi']."' order by fecha"); 
 ?>
 <table class="table table-striped table-bordered">
 	<thead>
