@@ -100,7 +100,7 @@ $daylong = date("l",mktime(1,1,1,$month,$today,$year));
 $monthlong = date("F",mktime(1,1,1,$month,$today,$year));
 $dayone = date("w",mktime(1,1,1,$month,1,$year))-1;
 $numdays = date("t",mktime(1,1,1,$month,1,$year));
-$alldays = array('Lun','Mar','Mié','Jue','Vie','Sáb','Dom');
+$alldays = array('Lun','Mar','Miá','Jue','Vie','Sáb','Dom');
 $next_year = $year + 1;
 $last_year = $year - 1;
     if ($daylong == "Sunday")
@@ -110,7 +110,7 @@ $last_year = $year - 1;
     elseif ($daylong == "Tuesday")
 	{$daylong = "Martes";}
     elseif ($daylong == "Wednesday")
-	{$daylong = "Miércoles";}
+	{$daylong = "Miárcoles";}
     elseif ($daylong == "Thursday")
 	{$daylong = "Jueves";}
     elseif ($daylong == "Friday")
@@ -231,20 +231,20 @@ mysqli_query($db_con, $sql_hor);
  echo "</tr></thead><tbody><tr>";
  
  
- //Dí­as vací­os
+ //DíÂ­as vacíÂ­os
  if ($dayone < 0) $dayone = 6;
 for ($i = 0; $i < $dayone; $i++) {
    echo "<td>&nbsp;</td>";
  }
  
- //DÃ­as
+ //DÃƒÂ­as
  for ($zz = 1; $zz <= $numdays; $zz++) {
    if ($i >= 7) {  print("</tr><tr>"); $i=0; }
    
    // Enlace
    $enlace = $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.$aula;
    
-   // Mirar a ver si hay alguna ctividad en el dÃ­as
+   // Mirar a ver si hay alguna ctividad en el dÃƒÂ­as
    $result_found = 0;
    if ($zz == $today) { 
      echo '<td class="calendar-today"><a href="'.$enlace.'">'.$zz.'</a></td>';
@@ -501,6 +501,36 @@ echo "</div>";
 ?>
 </div>
 </div>
+<?
+if ($_SERVER['SERVER_NAME']=="iesmonterroso.org" and $servicio=="AMAG") {
+?>
+<h3>NUEVAS NORMAS DE USO Y FUNCIONAMIENTO PARA EL AULA MAGNA</h3>
+
+<p class="text-justify">Dadas las necesidades de espacios educativos que nuestro instituto ha ido teniendo en los últimos cursos, el uso del Aula Magna se fue incrementando y esa masificación e indiscriminación en su utilización derivó en algunas situaciones que han hecho replantearnos algunos de los protocolos que teníamos para un espacio tan frágil como es el Aula Magna. De hecho, el centro ha tenido que hacer frente a varias facturas de diferentes empresas que han tenido que reparar algunos de sus elementos: persianas, sonido, iluminación, albañilería... </p>
+
+<p class="text-justify">Con la intención de reconducir la situación, publicamos una serie de normas de cara a su posible utilización por parte de miembros de la comunidad educativa del centro. Son, intentando recrear un orden cronológico, las siguientes:</p>
+
+<ul>
+<li class="text-justify">Reserva del Aula Magna. Si el uso es para la mañana ya no se puede llevar a cabo a travás del módulo que hay en la Intranet puesto que se ha deshabilitado esa opción. Este tipo de reserva €œmatutina solo se puede hacer hablando con el alguien del equipo directivo o la persona responsable del D.A.C.E., salvo las ya asignadas por horario del centro desde el inicio de curso (Taller de Teatro, por ejemplo). Si la utilización es para casos excepcionales (exámenes de varios grupos...) para la tarde, sí que se debe hacer usando el módulo de la Intranet, marcando la 7ª hora.  </li> 
+
+<li class="text-justify">Si la reserva del Aula Magna implica la necesidad del uso de medios audiovisuales ( llave de la mesa de sonido, la mesa de sonido, megafonía, pantalla, ordenador, videoproyector, mando de aire acondicionado/calefacción...), se deberá contactar con Mª. Carmen Galán, del Departamento de Actividades Complementarias y Extraescolares, o Paco Pérez, vicedirector, puesto que su custodia y mantenimiento solo lo llevan ellos. Es por eso que la devolución del citado material, en el mismo estado en el que fue entregado, se hará a uno de ellos dos.</li>
+
+<li class="text-justify">Cuando se coja la llave de Conserjería para acceder al Aula Magna, además de apuntarse en el listado correspondiente se tendrá la precaución de abrir ambas puertas (la misma llave abre las dos puertas verdes acristaladas) y la doble hoja, aunque haya que dejarlas entornadas por motivos de necesidad de una opacidad en el Aula. Esto es para evitar problemas en el caso de evacuación por emergencia. No estamos hablando de la llave ni de la puerta de acceso al párking de profesores. Esa llave tambián se encuentra en el juego de llaves del Aula Magna en la Conserjería. </li>
+
+<li class="text-justify">Comprobar si la alarma está o no activada. Habría que preguntar antes la clave de la alarma si no supiera con anterioridad. Aparece un mensaje en la pantallita de la alarma que dice: "€œSistema Activo"€.  </li>
+
+<li class="text-justify">En el caso de que haya que subir las persianas, abrir las ventanas y/o descorrer las cortinas rojas, se encargará de ello única y exclusivamente el profesor responsable de la actividad para evitar malos usos. Del mismo modo se procederá cuando toque bajar las persianas, cerrar las ventanas y/o correr las cortinas.</li>
+
+<li class="text-justify">Se deberá mantener la limpieza en el Aula Magna de forma que el alumnado utilice las papeleras que hay en la entrada y en los servicios. Asimismo, se intentará mantener el orden y la disposición de las sillas-palas para futuros usos. No es de recibo que uno vaya al Aula Magna a una conferencia con el alcalde de Estepona, por ejemplo, y el Aula Magna está sucia y/o desordenada.</li>
+
+<li class="text-justify">Comprobar antes de dejar el Aula Magna que todo está como debiera estar (luces apagadas, persianas echadas, ventanas cerradas...) y, antes de salir, poner la alarma si es necesario. </li>
+</ul>
+
+<p class="text-justify">Agradecemos de antemano la predisposición de todos para con el cuidado de este importante espacio educativo de nuestro instituto. Tan único como valioso!</p>
+
+<?
+}
+?>
 </div>
 </div>
 
