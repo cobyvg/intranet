@@ -135,6 +135,8 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `cursos` (
 			ob_flush();
 		}
 		
+		// Eliminamos cursos que no pertenecen al Centro
+		mysqli_query($db_con,"delete from cursos where nomcurso not in (select distinct curso from alma)");
 		
 		/* ----------------------------------------------------------------------
 			CREACIÓN DE LA TABLA UNIDADES

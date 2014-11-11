@@ -1,16 +1,18 @@
 <?
 // Fechas y demás...
-  $fechasp0=explode("-",$fecha12);
-  $fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
-  $fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
-  $fechasp2=explode("-",$fecha22);
-  $fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
-  $fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
+		$fechasp0=explode("-",$_POST['fecha12']);
+		$fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
+		$fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
+		$fechasp2=explode("-",$_POST['fecha22']);
+		$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
+		$fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
 
- $SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero FROM  FALTAS, alma, hermanos where FALTAS.claveal = alma.claveal and alma.telefono = hermanos.telefono and falta = 'F'  and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' group by FALTAS.claveal";
- // echo $SQLTEMP;
+ $SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero FROM  FALTAS, alma, hermanos where FALTAS.claveal = alma.claveal and alma.telefono = hermanos.telefono and falta = 'F' and date(FALTAS.fecha) >= '$fechasp1' and date(FALTAS.fecha) <= '$fechasp3' group by FALTAS.claveal";
+  //echo $SQLTEMP;
   $num='0';
   $resultTEMP= mysqli_query($db_con, $SQLTEMP);
+  if ($resultTEMP) {
+  
   mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
   $SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2";
   $result0 = mysqli_query($db_con, $SQL0);
@@ -71,10 +73,20 @@ enviarForm();
 mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
 $num=$num+1;
 endwhile;
-echo '<div align="center"><div class="alert alert-success alert-block fade in" align="left">
+  }
+  if ($num>0) {
+  	echo '<div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El mensaje SMS se ha enviado correctamente para los hermanos del mismo nivel con faltas sin justificar.<br>Una nueva acción tutorial ha sido también registrada.
           </div></div><br />';
+  }
+  else{
+  		echo '<div class="alert alert-danger alert-block fade in" align="left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+No se ha enviado ningún SMS a los alumnos de latabla Hermanos. O bien ningún alumno tiene más de 4 faltas o bien no están registrados los teléfonos móviles de los mismos.
+          </div><br />';
+  }
+
 $fecha_inicio_0 = mysqli_query($db_con, "select date_add(curdate(),interval -21 day)");
 $fecha_inicio = mysqli_fetch_array($fecha_inicio_0);
 $anterior = $fecha_inicio[0];

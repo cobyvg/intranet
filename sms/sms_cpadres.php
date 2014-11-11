@@ -6,7 +6,7 @@ include_once('../config/version.php');
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 	exit();
 }
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
@@ -24,16 +24,8 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 $profe = $_SESSION['profi'];
 if ($mod_sms) {
-	if (isset($_GET['padres2'])) {$padres2 = $_GET['padres2'];}elseif (isset($_POST['padres2'])) {$padres2 = $_POST['padres2'];}else{$padres2="";}
-	if (isset($_GET['padres3'])) {$padres3 = $_GET['padres3'];}elseif (isset($_POST['padres3'])) {$padres3 = $_POST['padres3'];}else{$padres3="";}
-	if (isset($_GET['padres4'])) {$padres4 = $_GET['padres4'];}elseif (isset($_POST['padres4'])) {$padres4 = $_POST['padres4'];}else{$padres4="";}
-	if (isset($_GET['padres5'])) {$padres5 = $_GET['padres5'];}elseif (isset($_POST['padres5'])) {$padres5 = $_POST['padres5'];}else{$padres5="";}
-	if (isset($_GET['padres6'])) {$padres6 = $_GET['padres6'];}elseif (isset($_POST['padres6'])) {$padres6 = $_POST['padres6'];}else{$padres6="";}
-	if (isset($_GET['padres7'])) {$padres7 = $_GET['padres7'];}elseif (isset($_POST['padres7'])) {$padres7 = $_POST['padres7'];}else{$padres7="";}
-	if (isset($_GET['padres8'])) {$padres8 = $_GET['padres8'];}elseif (isset($_POST['padres8'])) {$padres8 = $_POST['padres8'];}else{$padres8="";}
-	if (isset($_GET['padres9'])) {$padres9 = $_GET['padres9'];}elseif (isset($_POST['padres9'])) {$padres9 = $_POST['padres9'];}else{$padres9="";}
-	if (isset($_GET['fecha12'])) {$fecha12 = $_GET['fecha12'];}elseif (isset($_POST['fecha12'])) {$fecha12 = $_POST['fecha12'];}else{$fecha12="";}
-	if (isset($_GET['fecha22'])) {$fecha22 = $_GET['fecha22'];}elseif (isset($_POST['fecha22'])) {$fecha22 = $_POST['fecha22'];}else{$fecha22="";}
+	if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{unset($curso);}
+
 	if (isset($_GET['hermanos'])) {$hermanos = $_GET['hermanos'];}elseif (isset($_POST['hermanos'])) {$hermanos = $_POST['hermanos'];}else{$hermanos="";}
 	if (isset($_GET['login'])) {$login = $_GET['login'];}elseif (isset($_POST['login'])) {$login = $_POST['login'];}else{$login="";}
 	if (isset($_GET['password'])) {$password = $_GET['password'];}elseif (isset($_POST['password'])) {$password = $_POST['password'];}else{$password="";}
@@ -42,14 +34,11 @@ if ($mod_sms) {
 	if (isset($_GET['mobile'])) {$mobile = $_GET['mobile'];}elseif (isset($_POST['mobile'])) {$mobile = $_POST['mobile'];}else{$mobile="";}
 	if (isset($_GET['messageQty'])) {$messageQty = $_GET['messageQty'];}elseif (isset($_POST['messageQty'])) {$messageQty = $_POST['messageQty'];}else{$messageQty="";}
 	if (isset($_GET['messageType'])) {$messageType = $_GET['messageType'];}elseif (isset($_POST['messageType'])) {$messageType = $_POST['messageType'];}else{$messageType="";}
+
 	// Si se han mandado datos desde el Formulario principal de mas abajo...
-	$n_cur = mysqli_query($db_con, "select nomcurso from cursos");
-	$pc = mysqli_num_rows($n_cur);
-	for ($i = 2; $i < $pc+2; $i++) {
-	//echo "$i<br>";
-	if(${padres.$i})
-	{
-echo ${padres.$pc};
+
+	if(isset($curso)) {
+
 		// Fechas y demás...
 		$fechasp0=explode("-",$_POST['fecha12']);
 		$fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
@@ -57,84 +46,80 @@ echo ${padres.$pc};
 		$fechasp2=explode("-",$_POST['fecha22']);
 		$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
 		$fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
-		$cursos_sen = mysqli_query($db_con, "select nomcurso from cursos");
-		$n_c=1;
-		while ($cursos_seneca = mysqli_fetch_array($cursos_sen)) {
-			$n_c+=1;
-			if(${padres.$n_c}){
-				$nivel_sms = "and curso like '$cursos_seneca[0]'";
-			}
-		}
+		$nivel_sms = "and curso like '$curso'";
 
-		$SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero, curso FROM  FALTAS, alma where alma.claveal=FALTAS.claveal and falta = 'F' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' $nivel_sms group by FALTAS.claveal";
+		$SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero FROM  FALTAS, alma where alma.claveal=FALTAS.claveal and falta = 'F' and date(FALTAS.fecha) >= '$fechasp1' and date(FALTAS.fecha) <= '$fechasp3' $nivel_sms group by FALTAS.claveal";
 		//echo $SQLTEMP;
 		$resultTEMP= mysqli_query($db_con, $SQLTEMP);
 		mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
+
 		$SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero > '4'";
 		$result0 = mysqli_query($db_con, $SQL0);
-		while ($row0 = mysqli_fetch_array($result0)):
-		$claveal = $row0[0];
-		$clave_carta .= $claveal.",";
-		$SQL3 = "SELECT distinct alma.claveal, alma.telefono, alma.telefonourgencia, alma.apellidos, alma.nombre, alma.unidad
+
+		while ($row0 = mysqli_fetch_array($result0)){
+
+			$claveal = $row0[0];
+			$clave_carta .= $claveal.",";
+			$SQL3 = "SELECT distinct alma.claveal, alma.telefono, alma.telefonourgencia, alma.apellidos, alma.nombre, alma.unidad
 	from alma where alma.claveal like '$claveal' and (alma.telefono not in (select telefono from hermanos) 
 	or alma.telefonourgencia not in (select telefonourgencia from hermanos))";
+			//echo "$SQL3<br>";
+			$result3 = mysqli_query($db_con, $SQL3);
+			$rowsql3 = mysqli_fetch_array($result3);
+			$tfno2 = $rowsql3[1];
+			$tfno_u2 = $rowsql3[2];
+			$apellidos = $rowsql3[3];
+			$nombre = $rowsql3[4];
+			$unidad = $rowsql3[5];
 
-		$result3 = mysqli_query($db_con, $SQL3);
-		$rowsql3 = mysqli_fetch_array($result3);
-		$tfno2 = $rowsql3[1];
-		$tfno_u2 = $rowsql3[2];
-		$apellidos = $rowsql3[3];
-		$nombre = $rowsql3[4];
-		$unidad = $rowsql3[5];
+			// Telefonos móviles o sin telefono
+			if(substr($tfno2,0,1)=="6" or substr($tfno2,0,1)=="7"){$mobil2=$tfno2;$sin="";}elseif((substr($tfno_u2,0,1)=="6" or substr($tfno_u2,0,1)=="7") and !(substr($tfno2,0,1)=="6") or substr($tfno2,0,1)=="7"){$mobil2=$tfno_u2;$sin="";}else{$mobil2="";$sin=$claveal;}
 
-		// Telefonos móviles o sin telefono
-		if(substr($tfno2,0,1)=="6" or substr($tfno2,0,1)=="7"){$mobil2=$tfno2;$sin="";}elseif((substr($tfno_u2,0,1)=="6" or substr($tfno_u2,0,1)=="7") and !(substr($tfno2,0,1)=="6") or substr($tfno2,0,1)=="7"){$mobil2=$tfno_u2;$sin="";}else{$mobil2="";$sin=$claveal;}
-
-		if(strlen($mobil2) > 0)
-		{
-			$mobile2 .= $mobil2.",";
-			// Variables para la acción de tutoría
-			$causa = "Faltas de Asistencia";
-			$observaciones = "Comunicación de Faltas de Asistencia a la familia del Alumno.";
-			$accion = "Envío de SMS";
-			$tuto = "Jefatura de Estudios";
-			$fecha2 = date('Y-m-d');
-			mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+			if(strlen($mobil2) > 0)
+			{
+				$mobile2 .= $mobil2.",";
+				// Variables para la acción de tutoría
+				$causa = "Faltas de Asistencia";
+				$observaciones = "Comunicación de Faltas de Asistencia a la familia del Alumno.";
+				$accion = "Envío de SMS";
+				$tuto = "Jefatura de Estudios";
+				$fecha2 = date('Y-m-d');
+				mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+			}
+			//echo $mobile2;
+			if(strlen($sin) > 0){$sin2 .= $sin.";";}
 		}
-
-		if(strlen($sin) > 0){$sin2 .= $sin.";";}
-		endwhile;
 		// Identificador del mensaje
 		$sms_n = mysqli_query($db_con, "select max(id) from sms");
 		$n_sms =mysqli_fetch_array($sms_n);
 		$extid = $n_sms[0]+1;
 	}
-	}
+
 	?>
 	<?
 	include("../menu.php");
 	?>
-	<div class="container">
+<div class="container">
 
 <div class="page-header">
 <h2>SMS <small> Comunicación de Faltas de Asistencia a los Padres </small></h2>
 </div>
 <div class="row">
+<?php
+if ($hermanos) {
+	include("hermanos.php");
+}
+// Enviamos los datos
+if(isset($curso))
+{
+	// Variables del memnsaje
+	$tr_curso = explode("(",$curso);
+	$niv = $tr_curso[0];
 
-	<?php
-	if ($hermanos) {
-		include("hermanos.php");
-	}
-	// Enviamos los datos
-	if($padres2 or $padres3 or $padres4 or $padres5 or $padres6 or $padres7 or $padres8 or $padres9)
-	{
-		// Variables del memnsaje
-		if($padres2)$niv = "1º de ESO";if($padres3)$niv = "2º de ESO";if($padres4)$niv = "3º de ESO";if($padres5)$niv = "4º de ESO";if($padres6)$niv = "1º Bach.";if($padres7)$niv = "2º Bach.";if($padres8)$niv = "Ciclos Form.";if($padres9)$niv = "PCPI";
-
-		$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Más info en nuestra web: http://".$dominio;
-		$login = $usuario_smstrend;
-		$password = $clave_smstrend;
-		?> <script language="javascript">
+	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Más info en http://".$dominio;
+	$login = $usuario_smstrend;
+	$password = $clave_smstrend;
+	?> <script language="javascript">
 function enviarForm() /*el formulario se llama crear*/
 {
 ventana=window.open("", "ventanaForm", "top=100, left=100, toolbar=no,location=no, status=no,menubar=no,scrollbars=no, resizable=no, width=100,height=66,directories=no")
@@ -159,11 +144,19 @@ document.enviar.submit()
 <script>
  enviarForm();
 </script> <?
-mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile2','$text','Jefatura de Estudios')");
-echo '<div class="alert alert-success alert-block fade in" align="left">
+if(strlen($mobil2) > 0){
+	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile2','$text','Jefatura de Estudios')");
+	echo '<div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El mensaje SMS se ha enviado correctamente para los alumnos con faltas sin justificar de'. $niv.'.<br>Una nueva acción tutorial ha sido también registrada.
+El mensaje SMS se ha enviado correctamente para los alumnos con faltas sin justificar de '. $curso.'.<br>Una nueva acción tutorial ha sido también registrada.
           </div><br />';
+}
+else{
+	echo '<div class="alert alert-danger alert-block fade in" align="left">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+No se ha enviado ningún SMS a los alumnos de '. $curso.'. O bien ningún alumno tiene más de 4 faltas o bien no están registrados los teléfonos móviles de los mismos (en cuyo caso aparecerá un mensaje más abajo indicando los alumnos sin móvil).
+          </div><br />';	
+}
 if(strlen($sin2) > '0'){
 	echo '<div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -186,68 +179,65 @@ if(strlen($sin2) > '0'){
 	}
 	echo "</ul></div>";
 }
-	}
-	$fecha_inicio_0 = mysqli_query($db_con, "select date_add(curdate(),interval -21 day)");
-	$fecha_inicio = mysqli_fetch_array($fecha_inicio_0);
-	$anterior = $fecha_inicio[0];
-	$fc1 = explode("-",$anterior);
-	$fech1 = "$fc1[2]-$fc1[1]-$fc1[0]";
-	$fecha_fin_0 = mysqli_query($db_con, "select date_add(curdate(),interval -7 day)");
-	$fecha_fin = mysqli_fetch_array($fecha_fin_0);
-	$posterior = $fecha_fin[0];
-	$fc2 = explode("-",$posterior);
-	$fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
-	?> 
-<div class="col-sm-6 col-sm-offset-3">
+}
+
+$fecha_inicio_0 = mysqli_query($db_con, "select date_add(curdate(),interval -21 day)");
+$fecha_inicio = mysqli_fetch_array($fecha_inicio_0);
+$anterior = $fecha_inicio[0];
+$fc1 = explode("-",$anterior);
+$fech1 = "$fc1[2]-$fc1[1]-$fc1[0]";
+$fecha_fin_0 = mysqli_query($db_con, "select date_add(curdate(),interval -7 day)");
+$fecha_fin = mysqli_fetch_array($fecha_fin_0);
+$posterior = $fecha_fin[0];
+$fc2 = explode("-",$posterior);
+$fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
+?>
+<div class="col-sm-5 col-sm-offset-1">
 <div class="well well-large">
-<form enctype='multipart/form-data' action='sms_cpadres.php' method='post'><br />
+<form enctype='multipart/form-data' action='sms_cpadres.php'
+	method='post'><br />
 
-	<legend align="center">Selecciona el rango de fechas</legend>
+<legend align="center">Selecciona el rango de fechas</legend>
 
-		<div class="form-group"  id="datetimepicker1">
-		<label>Inicio</label>
-		<div class="input-group" >
-		<input
-			name="fecha12" type="text" class="form-control"
-			value="<? if(empty($fecha12)){echo $fech1;} else {echo $fecha12;}?>"
-			data-date-format="DD-MM-YYYY" id="fecha12"> 
-			<span class="input-group-addon"><i
-			class="fa fa-calendar"></i></span></div>
-		</div>
-		
-		<div class="form-group"  id="datetimepicker2">
-		<label>Fin</label>
-		<div class="input-group" ><input
-			name="fecha22" type="text" class="form-control"
-			value="<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>"
-			data-date-format="DD-MM-YYYY" id="fecha22"> <span class="input-group-addon"><i
-			class="fa fa-calendar"></i></span>
-			</div>
-		</div>
+<div class="form-group" id="datetimepicker1"><label>Inicio</label>
+<div class="input-group"><input name="fecha12" type="text"
+	class="form-control"
+	value="<? if(empty($fecha12)){echo $fech1;} else {echo $fecha12;}?>"
+	data-date-format="DD-MM-YYYY" id="fecha12"> <span
+	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+</div>
 
-		<div class="form-group">
+<div class="form-group" id="datetimepicker2"><label>Fin</label>
+<div class="input-group"><input name="fecha22" type="text"
+	class="form-control"
+	value="<? if(empty($fecha22)){echo $fech2;} else {echo $fecha22;} ?>"
+	data-date-format="DD-MM-YYYY" id="fecha22"> <span
+	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+</div>
+</div>
+</div>
+<div class="col-sm-5 ">
+<div class="well well-large">
 
-			<?
-			$cursos_sen = mysqli_query($db_con, "select nomcurso from cursos");
-			$n_c=1;
-			while ($cursos_seneca = mysqli_fetch_array($cursos_sen)) {
-				$n_c+=1;
-				echo '<input name="padres'.$n_c.'" type="submit" value="'.$cursos_seneca[0].'"
+<div class="form-group"><?
+$cursos_sen = mysqli_query($db_con, "select nomcurso from cursos");
+$n_c=1;
+while ($cursos_seneca = mysqli_fetch_array($cursos_sen)) {
+	$n_c+=1;
+	echo '<input name="curso" type="submit" value="'.$cursos_seneca[0].'"
 				class="btn btn-primary btn-block" />';
-			}
-			?>
-				<input name="hermanos" type="submit"
-				value='Hermanos' class="btn btn-primary btn-block" />
-			</div>
+}
+?> <input name="hermanos" type="submit" value='Hermanos'
+	class="btn btn-primary btn-block" /></div>
 
 </form>
 </div>
 </div>
 </div>
 </div>
-			<?
-			// Tabla temporalñ y recogida de datos
-			mysqli_query($db_con, "DROP table `faltastemp2`");
+<?
+// Tabla temporalñ y recogida de datos
+mysqli_query($db_con, "DROP table `faltastemp2`");
 }
 else {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
@@ -256,7 +246,8 @@ else {
 El módulo de envío de SMS debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.
           </div></div>';
 }
-?> <? include("../pie.php");?>
+?>
+<? include("../pie.php");?>
 <script>  
 $(function ()  
 { 
