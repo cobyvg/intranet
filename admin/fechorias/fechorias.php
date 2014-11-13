@@ -48,7 +48,7 @@ include("menu.php");
 if(isset($_POST['submit1'])){$submit1 = $_POST['submit1'];}elseif(isset($_GET['submit1'])){$submit1 = $_GET['submit1'];}else{ $submit1=""; }
 if(isset($_POST['unidad'])){$unidad = $_POST['unidad'];}else{ $unidad=""; }
 if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
-if(isset($_POST['apellidos'])){$APELLIDOS = $_POST['apellidos'];}else{ $APELLIDOS=""; }
+if(isset($_POST['apellido'])){$APELLIDOS = $_POST['apellido'];}else{ $APELLIDOS=""; }
 if(isset($_POST['nombre'])){$NOMBRE = $_POST['nombre'];}else{ $NOMBRE=""; }
 if(isset($_POST['dia'])){$DIA = $_POST['dia'];}else{ $DIA=""; }
 if(isset($_POST['mes'])){$MES = $_POST['mes'];}else{ $MES=""; }
@@ -172,10 +172,8 @@ exit();
 	
 if (isset($submit1))
 	{	
-mysqli_query($db_con, "drop table Fechcaduca");
 mysqli_query($db_con, "create table if not exists Fechcaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
   $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas from Fechoria, FALUMNOS, Fechcaduca where Fechcaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos";
-
   $result = mysqli_query($db_con, $query0);
  echo "<br /><center>
  <form action='fechorias.php' method='post' name='cnf'>
@@ -276,6 +274,7 @@ if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo 
         echo "</tbody></table>
         <input type='hidden' name='confirma' value='si' />
         </form></center>\n";
+        mysqli_query($db_con, "drop table Fechcaduca");
  	}	
   ?>
   </div>

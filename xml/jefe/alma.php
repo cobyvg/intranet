@@ -249,7 +249,7 @@ Parece que te está olvidando de enviar todos los archivos con los datos de los a
 
 // Si se ha creado la tabla matriculas y el mes es mayor que sept. y menor que Diciembre, actualizamos los datos de alma con los datos de la tabla matriculas.
 $matr = mysqli_query($db_con, "select * from matriculas");
-  if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<=12)) {
+  if (mysqli_num_rows($matr)>0 and (date('m')>8 and date('m')<=11)) {
 		$pro = mysqli_query($db_con, "select claveal,	apellidos,	nombre,	provincia,	domicilio,	localidad,	dni, padre,	dnitutor, telefono1, telefono2, nacido, madre, dnitutor2 from matriculas where curso like '%ESO%'");
 	while ($prf = mysqli_fetch_array($pro)) {
 		

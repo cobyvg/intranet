@@ -475,7 +475,7 @@ $menu = array(
 			array(
 				'href'   => 'admin/actividades/index.php',
 				'titulo' => 'Añadir actividad',
-				'cargos' => array('4'),
+				'cargos' => array('4','d'),
 				'ncargos' => array('1'),
 			),
 			array(

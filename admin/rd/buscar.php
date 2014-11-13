@@ -56,9 +56,8 @@ else{
 }
 $query = "SELECT  id, fecha, departamento, contenido, jefedep, numero FROM r_departamento where 1=1".$frase." ". $dep ." order BY id DESC limit 50";
 // echo $query;
-$result = mysqli_query($db_con, ($query);
-
-if (mysqli_num_rows($result) > 0)
+$result = mysqli_query($db_con, $query);
+if(mysqli_num_rows($result) > 0)
 {
 ?>
 	<div align="center">

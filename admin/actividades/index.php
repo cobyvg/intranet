@@ -18,7 +18,7 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'8') == TRUE))
+if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'8') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE))
 {
 	header("location:http://$dominio/intranet/salir.php");
 	exit;
@@ -71,7 +71,7 @@ actividad:</label>
 
                     <?
 $dept_pes = str_ireplace(" P.E.S.","",$_SESSION['dpt']);                    
-if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE)) {
+if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE)) {
 	  // Datos del alumno que hace la consulta. No aparece el nombre del a&ntilde;o de la nota. Se podr&iacute;a incluir.
   $profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos  where departamento like '". $dept_pes ."%' order by departamento asc");
   if ($filaprofe = mysqli_fetch_array($profe))
@@ -83,6 +83,12 @@ if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],
 
 	} while($filaprofe = mysqli_fetch_array($profe));
         }
+}
+elseif(stristr($_SESSION['cargo'],'d') == TRUE){
+	?>
+
+        <OPTION>Relaciones de Género</OPTION>
+	<?
 }
 else{
 	?>
