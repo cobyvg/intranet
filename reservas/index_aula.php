@@ -47,13 +47,7 @@ include("menu.php");
 
 <div class="form-group"><?php 
 //echo $_SERVER['SERVER_NAME'];
-$aula_res = "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE ''";
-if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org')
-{
-	// Lista de Dependencias fuera del sistema de reservas propias del IES Monterroso (sustituir por otras en cualquier otro Centro)
-	$aula_res.= " AND n_aula NOT LIKE 'audi%' AND a_aula NOT LIKE 'dir%' AND a_aula NOT LIKE 'LBG' AND a_aula NOT LIKE 'LFQ' AND a_aula NOT LIKE 'AMUS' AND a_aula NOT LIKE 'ADIB%' AND a_aula NOT LIKE 'TTEC%' AND a_aula NOT LIKE 'TSS%' AND a_aula NOT LIKE 'TTUR%' AND a_aula NOT LIKE 'ACON%' AND a_aula NOT LIKE 'A1PCP%'";
-}
-$aula_res.=" ORDER BY n_aula ASC";
+$aula_res = "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' and a_aula not in (select distinct aula from $db_reservas.ocultas) ORDER BY n_aula ASC";
 $result = mysqli_query($db_con,$aula_res); ?> <?php if(mysqli_num_rows($result)): ?>
 <select class="form-control" name="servicio_aula" onchange="submit()">
 	<option value=""></option>
@@ -63,7 +57,7 @@ $result = mysqli_query($db_con,$aula_res); ?> <?php if(mysqli_num_rows($result))
 	<?php endwhile; ?>
 	<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'): ?>
 	<option value="AMAG ==> AULA MAGNA">AULA MAGNA</option>
-	<option value="BIBLIO ==> BIBLIOTECA">BIBLIOTECA</option>
+	<option value="BIB ==> BIBLIOTECA">BIBLIOTECA</option>
 	<?php endif; ?>
 </select> <?php else: ?> <select class="form-control"
 	name="servicio_aula" disabled>
@@ -140,21 +134,28 @@ $result = mysqli_query($db_con,$aula_res); ?> <?php if(mysqli_num_rows($result))
 
 	// Lugares y situación
 	// Comprobamos que existe la tabla del aula
-	if ($db == $db_reservas) {
-		$reg = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' AND n_aula NOT LIKE 'audi%' AND a_aula NOT LIKE 'dir%' ORDER BY n_aula ASC");
+	$aula_res = mysqli_query($db_con,"show tables from reservas");
+	while ($a_res=mysqli_fetch_array($aula_res)) {
+		$aula_reservas.="$a_res[0] ";
 	}
-	else {
-		$reg = mysqli_query($db_con, "show tables from $db_reservas");
-	}
+
+	$reg = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' and a_aula not in (select distinct aula from ocultas) ORDER BY n_aula ASC");
 	$num_aula_grupo=mysqli_num_rows($reg);
 	$ci = 0;
 	$primero = 0;
 
-	while ($au_grupo = mysqli_fetch_array($reg)){
-
+	while ($au_grupo = mysqli_fetch_array($reg)){	
+					
 		$servicio=$au_grupo[0];
 		$lugar = $au_grupo[1];
-
+		
+		if (strstr($aula_reservas,$servicio)==TRUE) {
+		
+		$oc = mysqli_query($db_con,"select * from ocultas where aula = '$servicio'");
+		//echo "select * from ocultas where aula = '$servicio'";
+			
+		if (mysqli_num_rows($oc)<1) {
+				
 		if (stristr($servicio,"medio")==FALSE and stristr($servicio,"carrito")==FALSE and stristr($servicio,"usuario")==FALSE and stristr($servicio,"profesores")==FALSE and stristr($servicio,"hor")==FALSE) {
 
 			if ($ci % 3 == 0 || $ci == 0){
@@ -332,6 +333,7 @@ $result = mysqli_query($db_con,$aula_res); ?> <?php if(mysqli_num_rows($result))
 
 	$ci+=1;
 		}
+	}					}
 	}
 	echo '</div>';
 	?></div>

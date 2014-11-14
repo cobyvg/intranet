@@ -13,6 +13,11 @@ if (isset($_GET['servicio_aula'])) {$servicio_aula = $_GET['servicio_aula'];}els
 			<?php endif; ?>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php?recurso=carrito')==TRUE) ? ' class="active"' : ''; ?>><a href="http://<?php echo $dominio; ?>/intranet/reservas/index.php?recurso=carrito">Carritos TIC</a></li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php?recurso=medio')==TRUE) ? ' class="active"' : ''; ?>><a href="http://<?php echo $dominio; ?>/intranet/reservas/index.php?recurso=medio">Medios audiovisuales</a></li>
+			<? if ($mod_horario=="1"): ?>
+			<? if (strstr($_SESSION['cargo'],"1")==TRUE): ?>
+			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'ocultar.php')==TRUE) ? ' class="active"' : ''; ?>><a href="http://<?php echo $dominio; ?>/intranet/reservas/ocultar.php">Ocultar Aulas/Dependencias</a></li>			
+			<?php endif; ?>		
+			<?php endif; ?>		
 		</ul>
 		
 	</div>
