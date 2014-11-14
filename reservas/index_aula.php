@@ -46,8 +46,11 @@ include("menu.php");
 <fieldset><legend>Selecciona Aula o Dependencia</legend>
 
 <div class="form-group"><?php 
-//echo $_SERVER['SERVER_NAME'];
-$aula_res = "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' and a_aula not in (select distinct aula from $db_reservas.ocultas) ORDER BY n_aula ASC";
+$ocul = mysqli_query($db_con,"select * from $db_reservas.ocultas");
+if(mysqli_num_rows($ocul)>0){
+	$extra_ocultas = "and a_aula not in (select distinct aula from $db_reservas.ocultas)";
+}
+$aula_res = "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' $extra_ocultas ORDER BY n_aula ASC";
 $result = mysqli_query($db_con,$aula_res); ?> <?php if(mysqli_num_rows($result)): ?>
 <select class="form-control" name="servicio_aula" onchange="submit()">
 	<option value=""></option>
@@ -55,10 +58,6 @@ $result = mysqli_query($db_con,$aula_res); ?> <?php if(mysqli_num_rows($result))
 	<?php $value = $row['a_aula'].' ==> '.$row['n_aula']; ?>
 	<option value="<?php echo $value; ?>"><?php echo $row['n_aula']; ?></option>
 	<?php endwhile; ?>
-	<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'): ?>
-	<option value="AMAG ==> AULA MAGNA">AULA MAGNA</option>
-	<option value="BIB ==> BIBLIOTECA">BIBLIOTECA</option>
-	<?php endif; ?>
 </select> <?php else: ?> <select class="form-control"
 	name="servicio_aula" disabled>
 	<option></option>
