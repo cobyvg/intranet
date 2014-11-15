@@ -414,7 +414,6 @@ if($aula){
 			$num_hor = mysqli_fetch_row($res_hor);
 			$grupo_aula = " (".$num_hor[1].")";
 		}
-		echo $grupo_aula;
 		// El profesor es Administrador
 		if(stristr($_SESSION['cargo'],'1') == TRUE)
 		{
