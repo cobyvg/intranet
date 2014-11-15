@@ -124,9 +124,8 @@ echo "<input name=hora value='$hora' type='hidden'>";
 		</div>
 </div>
 </div>
-</div
-<?php include("pie.php"); ?>
 
+<?php include("../pie.php"); ?>
 
 </body>
 </html>
