@@ -24,7 +24,7 @@ if (isset($_POST['enviar'])) {
 	
 	// VARIABLES DEL FORMULARIO
 	$slug = $_POST['slug'];
-	$content = $_POST['content'];
+	$content = addslashes($_POST['content']);
 	$contact = $_POST['contact'];
 	$fecha_pub = $_POST['fecha_pub'];
 	$clase = $_POST['clase'];
@@ -154,7 +154,7 @@ include ("menu.php");
 								
 								<div class="form-group">
 									<label for="content" class="sr-only">Contenido</label>
-									<textarea class="form-control" id="content" name="content" rows="10" maxlength="3000"><?php echo (isset($content) && $content) ? $content : ''; ?></textarea>
+									<textarea class="form-control" id="content" name="content" rows="10" maxlength="3000"><?php echo (isset($content) && $content) ? stripslashes($content) : ''; ?></textarea>
 								</div>
 								
 								<button type="submit" class="btn btn-primary" name="enviar"><?php echo (isset($id) && $id) ? 'Actualizar' : 'Publicar'; ?></button>

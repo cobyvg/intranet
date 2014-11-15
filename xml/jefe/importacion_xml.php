@@ -90,7 +90,6 @@ function importarDatos($db_con) {
 		</div>';
 	}
 	elseif(($curso =$xml->BLOQUE_DATOS->grupo_datos[0]->dato[0]) != substr($curso_escolar,0,4)) {
-		echo "$curso => $curs_escolar";
 		echo '<div class="row">
 		  <div class="col-md-12">
 		    <div class="alert alert-danger">
