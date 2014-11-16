@@ -514,23 +514,25 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `hermanos` (
 //
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `horw` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dia` char(1) NOT NULL DEFAULT '',
-  `hora` char(1) NOT NULL DEFAULT '',
-  `a_asig` varchar(8) NOT NULL DEFAULT '',
-  `asig` varchar(64) NOT NULL DEFAULT '',
-  `c_asig` varchar(30) NOT NULL DEFAULT '',
-  `prof` varchar(50) NOT NULL DEFAULT '',
-  `no_prof` tinyint(4) DEFAULT NULL,
-  `c_prof` varchar(30) NOT NULL DEFAULT '',
-  `a_aula` varchar(5) NOT NULL DEFAULT '',
-  `n_aula` varchar(64) NOT NULL DEFAULT '',
-  `a_grupo` varchar(64) NOT NULL DEFAULT '',
-  `clase` varchar(16) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
+  `id` int(11) NOT NULL auto_increment,
+  `dia` char(1) collate latin1_spanish_ci NOT NULL default '',
+  `hora` char(2) collate latin1_spanish_ci NOT NULL default '',
+  `a_asig` varchar(8) collate latin1_spanish_ci NOT NULL default '',
+  `asig` varchar(128) collate latin1_spanish_ci NOT NULL default '',
+  `c_asig` varchar(30) collate latin1_spanish_ci NOT NULL default '',
+  `prof` varchar(50) collate latin1_spanish_ci NOT NULL default '',
+  `no_prof` tinyint(4) default NULL,
+  `c_prof` varchar(30) collate latin1_spanish_ci NOT NULL default '',
+  `a_aula` varchar(5) collate latin1_spanish_ci NOT NULL default '',
+  `n_aula` varchar(64) collate latin1_spanish_ci NOT NULL default '',
+  `a_grupo` varchar(64) collate latin1_spanish_ci NOT NULL default '',
+  `nivel` varchar(10) collate latin1_spanish_ci NOT NULL default '',
+  `n_grupo` varchar(10) collate latin1_spanish_ci NOT NULL default '',
+  `clase` varchar(16) collate latin1_spanish_ci NOT NULL default '',
+  PRIMARY KEY  (`id`),
   KEY `prof` (`prof`),
   KEY `c_asig` (`c_asig`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
 // ////////////////////////////////////////////////////////
 
@@ -539,22 +541,22 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `horw` (
 //
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `horw_faltas` (
-  `id` int(11) NOT NULL DEFAULT '0',
-  `dia` char(1) NOT NULL DEFAULT '',
-  `hora` char(1) NOT NULL DEFAULT '',
-  `a_asig` varchar(8) NOT NULL DEFAULT '',
-  `asig` varchar(64) NOT NULL DEFAULT '',
-  `c_asig` varchar(30) NOT NULL DEFAULT '',
-  `prof` varchar(50) NOT NULL DEFAULT '',
-  `no_prof` tinyint(4) DEFAULT NULL,
-  `c_prof` varchar(30) NOT NULL DEFAULT '',
-  `a_aula` varchar(5) NOT NULL DEFAULT '',
-  `n_aula` varchar(64) NOT NULL DEFAULT '',
-  `a_grupo` varchar(10) NOT NULL DEFAULT '',
-  `clase` varchar(16) NOT NULL DEFAULT '',
-  KEY `prof` (`prof`),
-  KEY `c_asig` (`c_asig`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+  `id` int(11) NOT NULL default '0',
+  `dia` char(1) collate latin1_spanish_ci NOT NULL default '',
+  `hora` char(2) collate latin1_spanish_ci NOT NULL default '',
+  `a_asig` varchar(8) collate latin1_spanish_ci NOT NULL default '',
+  `asig` varchar(128) collate latin1_spanish_ci NOT NULL default '',
+  `c_asig` varchar(30) collate latin1_spanish_ci NOT NULL default '',
+  `prof` varchar(50) collate latin1_spanish_ci NOT NULL default '',
+  `no_prof` tinyint(4) default NULL,
+  `c_prof` varchar(30) collate latin1_spanish_ci NOT NULL default '',
+  `a_aula` varchar(5) collate latin1_spanish_ci NOT NULL default '',
+  `n_aula` varchar(64) collate latin1_spanish_ci NOT NULL default '',
+  `a_grupo` varchar(64) collate latin1_spanish_ci NOT NULL default '',
+  `nivel` varchar(10) collate latin1_spanish_ci NOT NULL default '',
+  `n_grupo` varchar(10) collate latin1_spanish_ci NOT NULL default '',
+  `clase` varchar(16) collate latin1_spanish_ci NOT NULL default ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci; ");
 
 // ////////////////////////////////////////////////////////
 
