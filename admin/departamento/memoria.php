@@ -1,8 +1,9 @@
 <?
 ini_set("session.cookie_lifetime","2800"); 
 ini_set("session.gc_maxlifetime","3600");
-session_start ();
-include ("../../config.php");
+session_start();
+include("../../config.php");
+include("../../config/version.php");
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();

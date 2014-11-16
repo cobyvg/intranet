@@ -1,6 +1,7 @@
 <?php
-session_start ();
-include ("../../config.php");
+session_start();
+include("../../config.php");
+include("../../config/version.php");
 setlocale('LC_TIME', 'es_ES');
 
 // COMPROBAMOS LA SESION
