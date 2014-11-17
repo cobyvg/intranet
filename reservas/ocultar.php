@@ -32,7 +32,7 @@ mysqli_query($db_con,"
 CREATE TABLE IF NOT EXISTS $db_reservas.nuevas (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `abrev` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
-  `aula` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `nombre` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
   `texto` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
