@@ -48,20 +48,38 @@ include("menu.php");
 <div class="form-group"><?php 
 $ocul = mysqli_query($db_con,"select * from $db_reservas.ocultas");
 if(mysqli_num_rows($ocul)>0){
-	$extra_ocultas = "and a_aula not in (select distinct aula from $db_reservas.ocultas)";
+	$extra_ocultas1 = "and a_aula not in (select distinct aula from $db_reservas.ocultas)";
+	$extra_ocultas2 = "and abrev not in (select distinct aula from $db_reservas.ocultas)";
 }
-$aula_res = "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' $extra_ocultas ORDER BY n_aula ASC";
-$result = mysqli_query($db_con,$aula_res); ?> <?php if(mysqli_num_rows($result)): ?>
+?>
 <select class="form-control" name="servicio_aula" onchange="submit()">
 	<option value=""></option>
+<?
+$aula_res = "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' $extra_ocultas1 ORDER BY n_aula ASC";
+$result = mysqli_query($db_con,$aula_res); 
+?> 
+<?php if(mysqli_num_rows($result)>0): ?>
+  <optgroup label="Aulas del Horario">
 	<?php while ($row = mysqli_fetch_array($result)):?>
 	<?php $value = $row['a_aula'].' ==> '.$row['n_aula']; ?>
 	<option value="<?php echo $value; ?>"><?php echo $row['n_aula']; ?></option>
 	<?php endwhile; ?>
-</select> <?php else: ?> <select class="form-control"
-	name="servicio_aula" disabled>
-	<option></option>
-</select> <?php endif; ?></div>
+	</optgroup>	
+	<?php endif; ?>
+<?
+$aula_res2 = "SELECT DISTINCT abrev, nombre FROM $db_reservas.nuevas WHERE abrev NOT LIKE '' $extra_ocultas2 ORDER BY abrev ASC";
+$result2 = mysqli_query($db_con,$aula_res2); ?> 
+<?php if(mysqli_num_rows($result2)): ?>
+  <optgroup label="Aulas fuera del Horario">
+	<?php while ($row2 = mysqli_fetch_array($result2)):?>
+	<?php $value2 = $row2['abrev'].' ==> '.$row2['nombre']; ?>
+	<option value="<?php echo $value2; ?>"><?php echo $row2['nombre']; ?></option>
+	<?php endwhile; ?>
+	</optgroup>	
+	<?php endif;?>
+		
+</select> 
+</div>
 
 </fieldset>
 </form>

@@ -32,7 +32,6 @@ if (isset($_POST['enviar']) or isset($_GET['enviar'])) {
 		if (isset($_POST['day_event'.$i]) and strstr($_POST['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} = $_POST['day_event'.$i]; }
 		elseif (isset($_GET['day_event'.$i]) and strstr($_GET['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} = $_GET['day_event'.$i]; }
 		else{${day_event.$i}="";}
-		echo ${day_event.$i}."<br>";
 	}
 
 	if (isset($_GET['month'])) { $month = intval($_GET['month']); }
@@ -244,7 +243,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE){
 <p class="help-block text-info"><small class="text-info">
 El Equipo directivo puede asignar el horario de las dependencias del Centro de varias maneras. Si el aula aparece en el Horario y este se ha importado en la base de datos, se presentarán las horas del aula con la asignatura que se imparte en ese momento con la expresión <strong>Asignada por Horario</strong>. El Equipo directivo puede asignar el aula a otro profesor por encima del Horario si por alguna razón lo considera necesario. La hora aparecerá entonces en el formulario con la expresión <strong>Asignada por Dirección.</strong><br>
 Si el aula está vacía en ese momento cualquier profesor puede seleccionar esa hora para utilizar el aula.<br>
-Si queremos asignar una hora a un profesor durante todo el curso escolar, seleccionamos al mismo en el formulario y pulsamos sobre el botón rojo <strong>Reservar todo el Curso</strong>. A partir de ese momento los profesores verán en ese campo la expresión <strong>Asignada por Dirección</strong></strong> y no podrán elegir el aula en esa hora. Este procedimiento se puede aplicar tantas veces como queramos para aquellas dependencias o aulas que aparezcan en el horario.   
+Si queremos asignar una hora a un profesor durante todo el curso escolar, seleccionamos al mismo en el formulario y pulsamos sobre el botón rojo <strong>Reservar todo el Curso</strong>. Es importante elegir un día sin reserva alguna de profesores para realizar la asignación permanente porque ls profesores que aparezcan en el formulario quedarán fijados para todo el curso escolar. Los campos en los que aparezca la palabra "Asignación" (bien por Horario o bien por Dirección) no se registran en la reserva permanete. A partir de ese momento los profesores verán en ese campo la expresión <strong>Asignada por Dirección</strong></strong> y no podrán elegir el aula en esa hora. Este procedimiento se puede aplicar tantas veces como queramos para aquellas dependencias o aulas que aparezcan en el horario.   
 </small></p>
 </div>
 <div class="modal-footer">
