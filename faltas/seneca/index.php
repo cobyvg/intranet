@@ -48,7 +48,12 @@ if(isset($_POST['Submit'])) {
  include("../../menu.php");
  include("../menu.php");
  ?>
-
+<div class="container">
+<div class="row">
+<div class="page-header">
+  <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
+</div>
+<br />
  <?
  if(isset($_POST['enviar'])) {
  // Descomprimimos el zip de las calificaciones en el directorio origen/ tras eliminar los antiguos
@@ -71,17 +76,10 @@ $archive = new PclZip($_FILES['archivo1']['tmp_name']);
       }  
       echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Los archivos de los alumnos han sido descragados correctamente en el directorio /faltas/seneca/origen/.
+Los archivos de los alumnos han sido descargados correctamente en el directorio /faltas/seneca/origen/.
 </div></div><br />';
  }
 ?>
-
-<div class="container">
-<div class="row">
-<div class="page-header">
-  <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
-</div>
-<br />
 <div class="col-sm-6">
 <legend align="center">Importar datos de los Alumnos</legend>
 <FORM ENCTYPE="multipart/form-data" ACTION="index.php" METHOD="post" role="form">
