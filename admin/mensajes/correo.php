@@ -33,6 +33,8 @@ if (isset($_POST['enviar'])) {
 	$cor_pr = mysqli_query($db_con, "select correo from c_profes where profesor = '$profe_envia'");
 	$cor_pr0 = mysqli_fetch_array($cor_pr);
 	$mail_from = $cor_pr0[0];
+	
+	$texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta dirección de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con <strong>'.$profe_envia.'</strong> a través de la Intranet.';
 
 	require("../../lib/class.phpmailer.php");
 	$mail = new PHPMailer();
@@ -42,7 +44,13 @@ if (isset($_POST['enviar'])) {
 	$mail->Sender = $mail_from;
 	$mail->IsHTML(true);
 	$mail->Subject = $_POST['tema'];
-	$mail->Body = $_POST['texto'];
+	
+	if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
+		$mail->Body = $_POST['texto'].' '.$texto_pie;
+	}
+	else {
+		$mail->Body = $_POST['texto'];
+	}
 
 	foreach($_POST as $var => $valor) {
 		$dni=$var;
@@ -88,6 +96,12 @@ include("menu.php");
 		
 		<?php if($msg): ?>
 		<div class="alert <?php echo $msg_class; ?> alert-block"><?php echo $msg; ?>
+		</div>
+		<?php endif; ?>
+		
+		<?php if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'): ?>
+		<div class="alert alert-warning">
+			<strong>Atención:</strong> Si utiliza este medio de comunicación, debe tener en cuenta que los destinatarios no podrán ponerse en contacto directamente con usted a través de su dirección de correo electrónico. Puede incluir una dirección de correo de contacto en su mensaje si desea recibir respuesta.
 		</div>
 		<?php endif; ?>
 		
