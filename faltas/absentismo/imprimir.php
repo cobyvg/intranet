@@ -109,12 +109,12 @@ $MiPDF->Addpage();
 $MiPDF->Image($foto,90,30,26,'','jpg');
 	} 
 $cuerpo0="INFORME DE ABSENTISMO ESCOLAR";
-$datos10="	 Alumno: $alumno[3] $alumno[2]
-		Fecha: $alumno[11]
-		Curso: $alumno[1]
-		Tutor/a: $alumno[7]
-		Domicilio: $alumno[8] ($alumno[9])
-		Teléfono: $alumno[10]";
+$datos10="Alumno: $alumno[3] $alumno[2]
+Fecha: $alumno[11]
+Curso: $alumno[1]
+Tutor/a: $alumno[7]
+Domicilio: $alumno[8] ($alumno[9])
+Teléfono: $alumno[10]";
 $cuerpo1="El Alumno no ha asistido al Centro $alumno[0] horas lectivas durante el mes de $n_mes. Las faltas de asistencia no han sido justificadas.";
 	$mes = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
                  8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre");
@@ -158,14 +158,14 @@ $cuerpo66="$alumno[13]";
 	$MiPDF->Multicell(0,4,$cuerpo3,0,'L',0);
 	$MiPDF->Ln(1);
 		
-	$MiPDF->SetFont('NewsGotT','I',12);
+	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Multicell(0,4,$cuerpo33,0,'J',0);
 	$MiPDF->Ln(5);
 if (strlen($alumno[5])>0) {
 		$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$cuerpo4,0,'L',0);	
 	$MiPDF->Ln(1);
-		$MiPDF->SetFont('NewsGotT','I',12);
+		$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Multicell(0,4,$cuerpo44,0,'J',0);
 	$MiPDF->Ln(5);
 }		
@@ -173,7 +173,7 @@ if (strlen($alumno[6])>0) {
 	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$cuerpo5,0,'L',0);
 	$MiPDF->Ln(1);
-		$MiPDF->SetFont('NewsGotT','I',12);
+		$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Multicell(0,4,$cuerpo55,0,'J',0);
 	$MiPDF->Ln(5);
 	}
@@ -181,7 +181,7 @@ if (strlen($alumno[13])>0) {
 	$MiPDF->SetFont('NewsGotT','B',12);
 	$MiPDF->Multicell(0,4,$cuerpo6,0,'L',0);
 	$MiPDF->Ln(1);
-		$MiPDF->SetFont('NewsGotT','I',12);
+		$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Multicell(0,4,$cuerpo66,0,'J',0);
 	$MiPDF->Ln(25);
 	}

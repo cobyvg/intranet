@@ -76,7 +76,7 @@ include("../menu.php");
 <fieldset>		
                     <div class="form-group ">
                     <label>Mes</label>
-                    <select name='mes' type='text' class="input-large">
+                    <select name='mes' type='text' class="form-control">
                     <option>Septiembre</option>
                     <option>Octubre</option>
                     <option>Noviembre</option>
