@@ -87,7 +87,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 				<?php include("menu_lateral.php"); ?>
 				</div>
 				
-				<div id="bs-tour-ausencias" class="hidden-xs">
+				<div id="bs-tour-ausencias">
 				<?php include("admin/ausencias/widget_ausencias.php"); ?>
 				</div>
 				

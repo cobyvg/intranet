@@ -151,7 +151,7 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 
 	<li <? echo $activo3;?>><a href="http://<? echo $dominio;?>/intranet/admin/calendario/diario/index_cal.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Actividades del Grupo</a></li>
 
-	<li <? echo $activo4;?>><a href="#?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Diario del Grupo</a></li>
+	<li <? echo $activo4;?>><a data-bs='tooltip' title='Trabajando en el asunto...' href="#?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Diario del Grupo</a></li>
 
 </ul>
 </div>
