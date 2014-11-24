@@ -24,6 +24,9 @@
 		fwrite($f1,"$"."db_host='".$_POST['db_host']."';\r\n");
 		fwrite($f1,"$"."db_pass='".$_POST['db_pass']."';\r\n");
 		
+		if($_POST['mantenimiento']){fwrite($f1,"$"."mantenimiento='1';\r\n");}
+		else{fwrite($f1,"$"."mantenimiento='0';\r\n");}
+		
 		if($_POST['mod_tic']){fwrite($f1,"$"."mod_tic='1';\r\n");}
 		else{fwrite($f1,"$"."mod_tic='0';\r\n");}
 		if($_POST['mod_horario']){fwrite($f1,"$"."mod_horario='1';\r\n");}

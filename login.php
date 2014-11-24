@@ -45,8 +45,15 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		$_SESSION['id_pag'] = $id_reg0 [0];
 		
 		include_once('actualizar.php');
-		header ( "location:clave.php?tour=1" );
-		exit ();
+		
+		if (isset($mantenimiento) && $mantenimiento) {
+			header("location:mantenimiento.php");
+		}
+		else {
+			header("location:clave.php?tour=1");
+		}
+		
+		exit();
 	}
 	
 	// Si hay usuario y pertenece a alguien del Centro, comprobamos la contrase�a.
@@ -61,9 +68,10 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		$cur1 = mysqli_num_rows ( $cur0 );
 		$_SESSION['n_cursos'] = $cur1;
 		// Departamento al que pertenece
-		$dep0 = mysqli_query($db_con, "select departamento from departamentos where nombre = '$profe'" );
+		$dep0 = mysqli_query($db_con, "select departamento, cargo from departamentos where nombre = '$profe'" );
 		$dep1 = mysqli_fetch_array ( $dep0 );
 		$_SESSION['depto'] = $dep1 [0];
+
 		// Registramos la entrada en la Intranet
 		mysqli_query($db_con, "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
 		$id_reg = mysqli_query($db_con, "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
@@ -75,13 +83,19 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		if ($profe=="admin" and $clave == sha1("12345678")) {
 			$_SESSION['autentificado'] = 1;
 			$_SESSION['cambiar_clave'] = 1;			
-			header ( "location:clave.php?tour=1" );
+			header("location:clave.php?tour=1");
 		}
 		else{
-		//Abrimos la p�gina principal
-		$_SESSION['autentificado'] = 1;			
-		include_once('actualizar.php');
-		header ( "location:index.php" );
+			//Abrimos la p�gina principal
+			$_SESSION['autentificado'] = 1;			
+			include_once('actualizar.php');
+			
+			if (isset($mantenimiento) && $mantenimiento && (stristr($dep1[1],'1') == false)) {
+				header("location:mantenimiento.php");
+			}
+			else {
+				header("location:index.php");
+			}
 		}
 		exit();
 	}
