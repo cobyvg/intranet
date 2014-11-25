@@ -295,7 +295,24 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `departamentos` (
   `CARGO` varchar(5) DEFAULT NULL,
   `idea` varchar(12) NOT NULL DEFAULT '',
   KEY `NOMBRE` (`NOMBRE`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
+
+//
+// Estructura de tabla para la tabla `diario`
+//
+
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `diario` (
+  `id` int(11) NOT NULL auto_increment,
+  `fecha` date NOT NULL,
+  `grupo` varchar(72) collate latin1_spanish_ci NOT NULL,
+  `materia` varchar(128) collate latin1_spanish_ci NOT NULL,
+  `tipo` varchar(24) collate latin1_spanish_ci NOT NULL,
+  `titulo` text collate latin1_spanish_ci NOT NULL,
+  `observaciones` text collate latin1_spanish_ci NOT NULL,
+  `calendario` int(1) default NULL,
+  `profesor` varchar(64) collate latin1_spanish_ci NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
 
 // Usuario admin y conntraseña
@@ -1005,20 +1022,21 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `notas` (
 //
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `profesor` varchar(48) NOT NULL DEFAULT '',
-  `fecha` date NOT NULL DEFAULT '0000-00-00',
-  `nombre` varchar(64) NOT NULL DEFAULT '',
-  `texto` text NOT NULL,
-  `texto_pond` text NOT NULL,
-  `asignatura` int(6) NOT NULL DEFAULT '0',
-  `curso` text NOT NULL DEFAULT '',
-  `oculto` tinyint(1) NOT NULL DEFAULT '0',
-  `visible_nota` int(1) NOT NULL DEFAULT '0',
-  `orden` tinyint(2) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
+  `id` int(11) NOT NULL auto_increment,
+  `profesor` varchar(48) collate latin1_spanish_ci NOT NULL default '',
+  `fecha` date NOT NULL default '0000-00-00',
+  `nombre` varchar(64) collate latin1_spanish_ci NOT NULL default '',
+  `texto` text collate latin1_spanish_ci NOT NULL,
+  `texto_pond` text collate latin1_spanish_ci NOT NULL,
+  `asignatura` int(6) NOT NULL default '0',
+  `curso` varchar(36) collate latin1_spanish_ci NOT NULL default '',
+  `oculto` tinyint(1) NOT NULL default '0',
+  `visible_nota` int(1) unsigned NOT NULL default '0',
+  `orden` tinyint(2) NOT NULL default '0',
+  `Tipo` varchar(32) collate latin1_spanish_ci default NULL,
+  PRIMARY KEY  (`id`),
   KEY `profesor` (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
 // ////////////////////////////////////////////////////////
 
@@ -1154,21 +1172,20 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `sms` (
 //
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tareas_alumnos` (
-  `ID` smallint(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `CLAVEAL` varchar(12) NOT NULL DEFAULT '',
-  `APELLIDOS` varchar(30) NOT NULL DEFAULT '',
-  `NOMBRE` varchar(24) NOT NULL DEFAULT '',
-  `UNIDAD` varchar(64) NOT NULL DEFAULT '',
-  `FECHA` date NOT NULL DEFAULT '0000-00-00',
-  `FIN` date NOT NULL DEFAULT '0000-00-00',
-  `DURACION` smallint(2) NOT NULL DEFAULT '3',
-  `PROFESOR` varchar(40) NOT NULL DEFAULT '',
-  PRIMARY KEY (`ID`),
+  `ID` smallint(5) unsigned zerofill NOT NULL auto_increment,
+  `CLAVEAL` varchar(12) collate latin1_spanish_ci NOT NULL default '',
+  `APELLIDOS` varchar(30) collate latin1_spanish_ci NOT NULL default '',
+  `NOMBRE` varchar(24) collate latin1_spanish_ci NOT NULL default '',
+  `unidad` varchar(64) collate latin1_spanish_ci NOT NULL,
+  `FECHA` date NOT NULL default '0000-00-00',
+  `FIN` date NOT NULL default '0000-00-00',
+  `DURACION` smallint(2) NOT NULL default '3',
+  `PROFESOR` varchar(40) collate latin1_spanish_ci NOT NULL default '',
+  PRIMARY KEY  (`ID`),
   KEY `CLAVEAL` (`CLAVEAL`),
   KEY `APELLIDOS` (`APELLIDOS`),
-  KEY `NOMBRE` (`NOMBRE`),
-  KEY `UNIDAD` (`UNIDAD`),
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+  KEY `NOMBRE` (`NOMBRE`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
 // ////////////////////////////////////////////////////////
 
