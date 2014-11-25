@@ -56,6 +56,9 @@ if (isset($_POST['enviar'])) {
 		
 		// ACTUALIZACION EN TUTORIAS
 		$result3 = mysqli_query($db_con, "UPDATE FTUTORES SET tutor='$sustituto' WHERE tutor='$sustituido'");
+		if(mysqli_affected_rows($db_con)>0){
+		mysqli_query($db_con,"update departamentos set cargo = '2' where nombre = '$sustituto'");
+		}
 		if(!$result3) {
 			$msg_error = "No se han podido cambiar los datos de tutoría. Error: ".mysqli_error($db_con);
 			$ok = 0;
