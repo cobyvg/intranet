@@ -368,20 +368,25 @@ include("cuaderno/menu_cuaderno.php");
 						if (strstr($nombre_curso,"Bach")==TRUE) {
 							if (strlen($codigos)>'6') {
 								$cod_var='';
+								$fal_e="";
 								$d_cod = explode(" ",$codigos);
 								foreach ($d_cod as $cod_var){
 									$resul.=" combasi like '%$cod_var:%' or";
+									$fal_e.=" FALTAS.codasi='$cod_var' or";
 								}
 								$resul = substr($resul,0,-3);
-								//echo $varias."<br>";
+								$fal_e = substr($fal_e,0,-3);
 							}
 							else{
 								$resul.=" combasi like '%$asignatura:%' ";
+								$fal_e =" FALTAS.codasi='$asignatura' ";
 							}
 						}
 						else{
 							$resul.=" combasi like '%$asignatura:%' ";
+							$fal_e =" FALTAS.codasi='$asignatura' ";
 						}
+						$fal_e="($fal_e)";
 						$resul.=") ". $todos ." order by NC ASC";
 						//echo $resul;
 						$result = mysqli_query($db_con, $resul);
@@ -400,9 +405,9 @@ include("cuaderno/menu_cuaderno.php");
 
 
 					<td style='vertical-align: middle; height: 74px !important;'><? 
-					$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$asignatura' and claveal='$claveal' and falta='F'");
-					//echo "select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$asignatura' and claveal='$claveal' and falta='F'";
-					$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$asignatura' and claveal='$claveal' and falta='J'");
+					$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'");
+
+					$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='J'");
 					$f_faltaT = mysqli_num_rows($faltaT_F);
 					$f_justiT = mysqli_num_rows($faltaT_J);
 					?> <span class="label label-danger" data-bs='tooltip'

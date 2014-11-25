@@ -259,11 +259,11 @@ if ($result) {
 	$t_grupos = $curs;
 
 	echo "<br><table class='table table-striped table-bordered table-condensed table-hover'>\n";
-	$filaprincipal = "<thead><tr><th colspan='3'><h3 align='center' class='text-info'>";
+	$filaprincipal = "<thead><tr><th colspan='3'><h4 align='center' class='text-info'>";
 
-	$filaprincipal.= substr($t_grupos,0,-2);
+	//$filaprincipal.= substr($t_grupos,0,-2);
 
-	$filaprincipal.= " - $asignatura";
+	$filaprincipal.= $curso." ($asignatura)";
 
 /*	if(!($t_grupos=="")){
 		$filaprincipal.= "<br><small><strong>Fecha:</strong> $hoy_actual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
@@ -278,7 +278,7 @@ if ($result) {
 		if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
 		echo "</small>";
 	}
-	echo "</h3></th></tr></thead>";
+	echo "</h4></th></tr></thead>";
 	if ($diversificacion!==1) {
 		$curso = $hora2[1];
 	}
