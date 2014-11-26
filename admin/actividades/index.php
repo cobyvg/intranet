@@ -191,7 +191,7 @@ $niv = $curso[0];
 ?>
            <? echo "<p class='text-info'> ".$niv." </p>"; ?>
                 <?  
-$alumnos0 = "select distinct unidad from alma where curso = '$niv'";
+$alumnos0 = "select distinct unidad from alma where curso = '$niv' order by unidad";
 //echo $alumnos0;
 $alumnos1 = mysqli_query($db_con, $alumnos0);
 while($alumno = mysqli_fetch_array($alumnos1))
