@@ -156,7 +156,7 @@ $count_fech=1;
 <div class="alert alert-warning">
 	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 	<h4><?php echo $alumno; ?> ha sido expulsado del aula</h4>
-	<p>El alumno/a ha sido expulsado del aula y está pendiente de la amonestación escrita del tutor. Debes imprimir una copia de la carta, firmarla y entregarla en la Jefatura de estudios.</p>
+	<p>El alumno/a ha sido expulsado del aula y está pendiente de la amonestación escrita del tutor.</p>
 	
 	<br>
 
@@ -177,7 +177,7 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 <div class="alert alert-info">
 	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 	<h4><?php echo $alumno; ?> tiene una amonestación escrita</h4>
-	<p>El alumno/a está pendiente de la amonestación escrita del tutor. Debes imprimir una copia de la carta, firmarla y entregarla en la Jefatura de estudios.</p>
+	<p>El alumno/a está pendiente de la amonestación escrita del tutor.</p>
 	
 	<br>
 

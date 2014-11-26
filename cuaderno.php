@@ -25,6 +25,16 @@ $pr = $_SESSION['profi'];
 include("menu.php");
 include("cuaderno/menu.php");
 
+?>
+<style>
+input[type=number]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+input[type=number] {
+-moz-appearance: textfield;
+}
+</style>
+<?
 
 // Variables
 
@@ -140,7 +150,7 @@ include("cuaderno/menu_cuaderno.php");
 			<table class='table table-bordered table-condensed'	style='width: auto;'>
 				<tr>
 					<td nowrap>
-					<div style='width: 40px; height: 130px;'>
+					<div style='width: 40px; height: 104px;'>
 					<div class='Rotate-90'></div>
 					</div>
 					</td>
@@ -215,6 +225,7 @@ include("cuaderno/menu_cuaderno.php");
 					$result = mysqli_query($db_con, $resul);
 					while($row = mysqli_fetch_array($result))
 					{
+						$n_fila+=1;
 						$claveal = $row[0];
 						$nombre_al =   $row[3];
 						$apellidos =   $row[2];
@@ -223,12 +234,18 @@ include("cuaderno/menu_cuaderno.php");
 						if ($n_nombre > 25) {
 							$nombre_completo = substr($nombre_completo,0,25)."..";
 						}
-						$nc =   $row[1];
+						$nc = $row[1];
 						$grupo_simple =  $row[6];
 						if ($row[5] == "") {}
 						else
 						{
 							$inf = 'cuaderno/informe.php?profesor='.$pr.'&curso='.$curso.'&asignatura='.$asignatura.'&nc='.$nc.'&claveal='.$claveal.'&nombre='.$nombre_al.'&apellidos='.$apellidos.'&nom_asig='.$nom_asig.'&dia='.$dia.'&hora='.$hora.'';
+						}
+						if ($n_fila=="10" or $n_fila=="20" or $n_fila=="30" or $n_fila=="40") {
+							echo "<tr><td>
+<div style='width:40px;height:65px;'>
+<div class='Rotate-corto'></div>
+</div> </td></tr>";
 						}
 						?>
 				<tr>
@@ -258,7 +275,7 @@ include("cuaderno/menu_cuaderno.php");
 				style='width: auto'>
 				<tr>
 					<td>
-					<div style='width: 40px; height: 130px;'>
+					<div style='width: 40px; height: 104px;'>
 					<div class='Rotate-90'><span style='font-weight: bold'>Asistencia</span>
 					</div>
 					</div>
@@ -285,13 +302,13 @@ include("cuaderno/menu_cuaderno.php");
 						}
 
 						echo "<td nowrap>
-<div style='width:40px;height:130px;'>
+<div style='width:40px;height:104px;'>
 <div class='Rotate-90'><span class='$clase_col text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
 </div> </td>";
 					}
 					if($seleccionar == 1){
 						echo "<td nowrap>
-<div style='width:40px;height:130px;'>
+<div style='width:40px;height:104px;'>
 <div class='Rotate-90'><span class='text-lowercase' style='font-weight:normal'> Selección de alumnos </span></div>
 </div> </td>";
 					}
@@ -392,6 +409,46 @@ include("cuaderno/menu_cuaderno.php");
 						$result = mysqli_query($db_con, $resul);
 						while($row = mysqli_fetch_array($result))
 						{
+						$n_fila2+=1;
+						if ($n_fila2=="10" or $n_fila2=="20" or $n_fila2=="30" or $n_fila2=="40") {
+							echo "<tr>";
+							$col_col = "select distinct id, nombre, Tipo from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
+							$col00 = mysqli_query($db_con, $col_col);
+							echo "<td></td>";
+							while($col30 = mysqli_fetch_array($col00)){
+							$tipo_col = $col30[2];
+
+						if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}
+						
+						$nombre_col="";
+						$nombre_col = $col30[1];					
+		
+						if (strlen($nombre_col)>17) {
+						$col_vert = substr($nombre_col,0,15)."..";
+						}
+						else {
+							$col_vert = $nombre_col;
+						}
+
+						echo "<td nowrap>
+<div style='width:40px;height:65px;'>
+<div class='Rotate-corto'><span class='$clase_col text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
+</div> </td>";
+					}
+					if($seleccionar == 1){
+						echo "<td nowrap>
+<div style='width:40px;height:65px;'>
+<div class='Rotate-corto'></div>
+</div> </td>";
+					}
+					echo "</tr>";
+								
+								
+								
+							}
+							
+							
+							
 							$claveal = $row[0];
 							$nombre_al =   $row[3];
 							$apellidos =   $row[2];
@@ -419,11 +476,12 @@ include("cuaderno/menu_cuaderno.php");
 					</td>
 					<?
 					// Si hay datos escritos rellenamos la casilla correspondiente
-					$colu10 = "select distinct id, Tipo from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by id";
+					$colu10 = "select distinct id, Tipo, color from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by id";
 					$colu20 = mysqli_query($db_con, $colu10);
 					while($colus10 = mysqli_fetch_array($colu20)){
 						$id = $colus10[0];
 						$t_dato = $colus10[1];
+						$color_dato = $colus10[2];
 						$dato0 = mysqli_query($db_con, "select nota, ponderacion from datos where claveal = '$claveal' and id = '$id'");
 						$dato1 = mysqli_fetch_array($dato0);
 
@@ -435,26 +493,17 @@ include("cuaderno/menu_cuaderno.php");
 							$tipo_dato.=" /></div>";
 						}
 						elseif (stristr($t_dato,"Número")==TRUE) {
-							?>
-					<style>
-input[type=number]::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-}
-input[type=number] {
--moz-appearance: textfield;
-}
-</style>
-<?
-$tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='max-width:40px;height:60px;border:none'>";
+
+							$tipo_dato = "<input type='number' step='any'  name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='max-width:40px;height:60px;border:none;background-color:$color_dato'>";
 						}
 						elseif (stristr($t_dato,"Texto corto")==TRUE) {
-							$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:60px;maxlength:3;max-width:40px;border:none'>";
+							$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:60px;maxlength:3;max-width:40px;border:none;background-color:$color_dato'>";
 						}
 						else{
-							$tipo_dato = "<textarea name='$id-$claveal' data-bs='tooltip' title='$dato1[0]' style='height:67px;width:80px;font-size:10px;max-width:250px;border:none;max-height:68px !important;'>$dato1[0]</textarea>";
+							$tipo_dato = "<textarea name='$id-$claveal' data-bs='tooltip' title='$dato1[0]' style='height:67px;width:80px;font-size:10px;max-width:250px;border:none;max-height:68px !important;background-color:$color_dato'>$dato1[0]</textarea>";
 						}
 
-						echo "<td style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;height:74px !important;'>$tipo_dato</td>";
+						echo "<td style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;height:74px !important;background-color:$color_dato'>$tipo_dato</td>";
 
 
 					}
