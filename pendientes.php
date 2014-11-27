@@ -216,8 +216,8 @@ while($men = mysqli_fetch_row($men2))
 {
 $n_mensajesp=$n_mensajesp+1;
 $fechacompl = $men[0];
-$asunto = $men[1];
-$texto = $men[2];
+$asunto = stripslashes($men[1]);
+$texto = stripslashes($men[2]);
 $nombre = $men[3];
 $apellidos = $men[4];
 $id = $men[5];
@@ -298,8 +298,8 @@ echo '
 {
 $n_mensajes+=1;
 $fechacompl = $men[0];
-$asunto = $men[1];
-$texto = $men[2];
+$asunto = stripslashes($men[1]);
+$texto = stripslashes($men[2]);
 $pr = $men[3];
 $id = $men[4];
 $orig = $men[5];
