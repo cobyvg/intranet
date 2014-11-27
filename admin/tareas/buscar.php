@@ -103,7 +103,7 @@ if (mysqli_num_rows($result) > 0)
    $result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$row->unidad'" );
 $row0 = mysqli_fetch_array ( $result0 );	
 $tuti = $row0[0];
-		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
+		 if (stristr($_SESSION ['cargo'],'1') == TRUE || mb_strtoupper($tuti, 'iso-8859-1') == mb_strtoupper($_SESSION['profi'], 'iso-8859-1')) {
    	   	echo "<a href='informar.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
 		echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary btn-mini' data-bb='confirm-delete'><i class='fa fa-trash-o ' title='Borrar Informe' > </i> </a> 	";
    }	

@@ -39,7 +39,7 @@
         <h4 class="modal-title"><?php echo $row['asunto']; ?><br /><small>Enviado por <?php echo $row['nombre'].' '.$row['apellidos']; ?> el <?php echo strftime('%A, %e de %B',strtotime($row['ahora'])); ?>.</small></h4>
       </div>
       <div class="modal-body">
-        <p><?php echo $row['texto']; ?></p>
+        <p><?php echo html_entity_decode($row['texto']); ?></p>
       </div>
       <div class="modal-footer">
         <form method="post" name="mensaje_enviado" action="index.php" class="form-inline">

@@ -32,11 +32,15 @@ echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small> Crear nueva c
 echo "</div><br />";
 echo '<div align="center">';
 $curso = $_GET['curso'];
+// Añadimos campo Color
+$color_col = mysqli_query($db_con,"select color from notas_cuaderno");
+if(mysqli_num_rows($color_col)>0){}else{mysqli_query($db_con,"ALTER TABLE  `notas_cuaderno` ADD  `color` VARCHAR( 7 ) NOT NULL");}
 
  foreach($_POST as $key => $val)
 	{
 		${$key} = $val;
 	}
+	
 echo "<p class='lead'>$curso <span class='muted'>( $nom_asig )</span></p>";	
 if(empty($nombre)){
 	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
@@ -54,7 +58,7 @@ if (!$visible_nota) $visible_nota = 0;
 $fecha = date('Y-m-d');
 // Si hay datos, actualizamos
 if(strlen($id) > 0){
-$sql = "UPDATE  notas_cuaderno set nombre='$nombre', texto='$texto', visible_nota='$visible_nota', Tipo = '$tipo' where id = '$id'";
+$sql = "UPDATE  notas_cuaderno set nombre='$nombre', texto='$texto', visible_nota='$visible_nota', Tipo = '$tipo', color='$color' where id = '$id'";
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han modificado correctamente.          
@@ -65,8 +69,8 @@ else{
 	$num_col = mysqli_fetch_array($serie);
 	$orden = $num_col[0] + 1;
 	// Si no, insertamos
-$sql = "INSERT INTO  notas_cuaderno ( profesor ,  fecha ,  nombre ,  texto ,  asignatura, curso, orden, visible_nota, Tipo ) 
-VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso_nota', '$orden', '$visible_nota', '$tipo')";
+$sql = "INSERT INTO  notas_cuaderno ( profesor ,  fecha ,  nombre ,  texto ,  asignatura, curso, orden, visible_nota, Tipo, color ) 
+VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso_nota', '$orden', '$visible_nota', '$tipo', '$color')";
 //echo $sql;
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -162,6 +162,12 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
       <td><input type="text" class="form-control" name="fin_curso" <?php echo (isset($fin_curso)) ? 'value="'.$fin_curso.'"' : ''; ?> placeholder="2015-06-23" maxlength="10" required></td>
       <td>Fecha de terminación del Curso Escolar. Formato: 2015-06-23</td>
     </tr>
+    <tr>
+      <td>Página cerrada
+        </td>
+      <td><input type="checkbox" name="mantenimiento" <?php if($mantenimiento) { echo "checked";} ?> /></td>
+      <td>Seleccione entre si está permitido acceder a la página, o no. Solo el Administrador y los miembros del equipo directivo pueden acceder a la Intranet.</td>
+    </tr>
     </table>
 </div>
 

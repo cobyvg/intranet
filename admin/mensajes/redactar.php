@@ -50,20 +50,20 @@ else
 $padres="";
 }
 if (isset($_POST['asunto'])) {
-	$asunto = $_POST['asunto'];
+	$asunto = htmlspecialchars($_POST['asunto'], ENT_QUOTES, 'ISO-8859-1');
 } 
 elseif (isset($_GET['asunto'])) {
-	$asunto = $_GET['asunto'];
+	$asunto = htmlspecialchars($_GET['asunto'], ENT_QUOTES, 'ISO-8859-1');
 } 
 else
 {
 $asunto="";
 }
 if (isset($_POST['texto'])) {
-	$texto = $_POST['texto'];
+	$texto = htmlspecialchars($_POST['texto'], ENT_QUOTES, 'ISO-8859-1');
 } 
 elseif (isset($_GET['texto'])) {
-	$texto = $_GET['texto'];
+	$texto = htmlspecialchars($_GET['texto'], ENT_QUOTES, 'ISO-8859-1');
 } 
 if (isset($_POST['origen'])) {
 	$origen = $_POST['origen'];

@@ -52,11 +52,12 @@ if(strlen($orden) > '0'){
 	
 mysqli_query($db_con, "ALTER TABLE  `notas_cuaderno` ADD  `Tipo` VARCHAR( 32 ) NULL");	
 	
-$ident1 = mysqli_query($db_con, "select id, nombre, texto, texto_pond, visible_nota, Tipo from notas_cuaderno where id='$id'") or die ("error notas_cuaderno"); //echo $ident2; 
+$ident1 = mysqli_query($db_con, "select id, nombre, texto, texto_pond, visible_nota, Tipo, color from notas_cuaderno where id='$id'") or die ("error notas_cuaderno"); //echo $ident2; 
 $ident0 = mysqli_fetch_array($ident1);
 $id = $ident0[0];
 $nombre = $ident0[1];
 $texto =$ident0[2];
+$color =$ident0[6];
 
 $ident0[4] ? $visible_nota = 1 : $visible_nota = 0;
 $tipo = $ident0[5];
@@ -100,7 +101,14 @@ $tipo = $ident0[5];
 		<label for="cmp_observaciones">Observaciones</label>
 		<textarea name="texto" rows="6" id="cmp_observaciones" class="form-control"><? echo $texto;?></textarea>
 		</div>
-		
+		<div class="row">
+		<div class="col-sm-5">
+		<div class="form-group">
+		<label for="color_nombre">Color de la columna</label>
+		<input type="color" id="color_nombre" name="color" value="<?if(strlen($color)>0){echo $color;}else{ echo "#FFFFFF";}?>" class="form-control" />
+		</div>
+		</div>
+		</div>
 		<div class="checkbox">
 			<label for="cmp_visible_nota">
 			<input type="checkbox" id="cmp_visible_nota" name="visible_nota" value="1" <?php if($visible_nota) echo 'checked'; ?>>
