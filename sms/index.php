@@ -178,15 +178,15 @@ if (stristr($_SESSION['cargo'],'1') == TRUE) {
 				$al_sms = $tr_al[0];
 				$unidad_al = $tr_al[1];
 				if ($unidad_tut == $unidad_al) {
-					$alumnos_sms.= "$al_sms, ";
+					$alumnos_sms.= "$al_sms; ";
 				}
 			}
 if (!empty($tut)) {
 				
-$query0="insert into mens_texto (asunto,texto, origen) values ('Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_sms."','".$observaciones."','".$profe."')";
+$query0="insert into mens_texto (asunto, texto, origen, destino) values ('Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_sms." con el siguiente texto:<< ".$observaciones.">>','".$observaciones."','".$profe."', '$alumnos_sms')";
 //echo "$query0<br>";
 mysqli_query($db_con, $query0);
-$id0 = mysqli_query($db_con, "select id from mens_texto where asunto = 'Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_sms."' and texto = '$observaciones' and origen = '$profe'");
+$id0 = mysqli_query($db_con, "select id from mens_texto where asunto like 'Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_sms."%' and texto = '$observaciones' and origen = '$profe'");
 $id1 = mysqli_fetch_array($id0);
 $id = $id1[0];
 $query1="insert into mens_profes (id_texto, profesor) values ('".$id."','".$tut."')";
