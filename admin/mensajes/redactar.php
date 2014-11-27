@@ -50,20 +50,20 @@ else
 $padres="";
 }
 if (isset($_POST['asunto'])) {
-	$asunto = addslashes($_POST['asunto']);
+	$asunto = htmlspecialchars($_POST['asunto'], ENT_QUOTES, 'ISO-8859-1');
 } 
 elseif (isset($_GET['asunto'])) {
-	$asunto = addslashes($_GET['asunto']);
+	$asunto = htmlspecialchars($_GET['asunto'], ENT_QUOTES, 'ISO-8859-1');
 } 
 else
 {
 $asunto="";
 }
 if (isset($_POST['texto'])) {
-	$texto = addslashes($_POST['texto']);
+	$texto = htmlspecialchars($_POST['texto'], ENT_QUOTES, 'ISO-8859-1');
 } 
 elseif (isset($_GET['texto'])) {
-	$texto = addslashes($_GET['texto']);
+	$texto = htmlspecialchars($_GET['texto'], ENT_QUOTES, 'ISO-8859-1');
 } 
 if (isset($_POST['origen'])) {
 	$origen = $_POST['origen'];
@@ -153,12 +153,12 @@ $page_header = "Redactar mensaje";
       		
 	      		<div class="form-group">
 	      			<label for="asunto">Asunto</label>
-	      			<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto del mensaje" value="<?php echo (isset($asunto)) ? stripslashes($asunto) : ''; ?>" maxlength="120" autofocus>
+	      			<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto del mensaje" value="<?php echo (isset($asunto)) ? $asunto : ''; ?>" maxlength="120" autofocus>
 	      		</div>
 	      		
 	      		<div class="form-group">
 	      			<label for="texto" class="sr-only">Contenido</label>
-	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000"><?php echo (isset($texto) && $texto) ? stripslashes($texto) : ''; ?></textarea>
+	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000"><?php echo (isset($texto) && $texto) ? $texto : ''; ?></textarea>
 	      		</div>
 	      		
 	      		<button type="submit" class="btn btn-primary" name="submit1">Enviar mensaje</button>
