@@ -4,7 +4,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actualizacion` (
   `modulo` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`d`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ");
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
 /*
 	@descripcion: Fotos de alumnos y profesores en base de datos se mueven a directorio.
@@ -242,12 +242,12 @@ for ($i=$cur;$i>$cur-5;$i--)
 }
 	mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Final Nivel-Grupo', NOW())");	
 }
-	// Actualizar datos de libros de texto a la desaparición de nivel-grupo
+
+// Actualizar datos de libros de texto a la desaparición de nivel-grupo
 $actua = mysqli_query($db_con, "select modulo from actualizacion where modulo = 'Tamano de a_grupo'");
 if (mysqli_num_rows($actua)>0) {}else{
 mysqli_query($db_con, "ALTER TABLE  `horw` CHANGE  `a_grupo`  `a_grupo` VARCHAR( 64 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
 mysqli_query($db_con, "ALTER TABLE  `horw_faltas` CHANGE  `a_grupo`  `a_grupo` VARCHAR( 64 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
 mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Tamano de a_grupo', NOW())");	
 }
-
 ?>

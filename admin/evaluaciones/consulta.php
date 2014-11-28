@@ -99,9 +99,9 @@ include("menu.php");
 									<div class="form-group">
 										<label for="curso">Unidad</label>
 										<?php if (strstr($_SESSION['cargo'], '1') == true): ?>
-										<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
+										<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' AND a_asig NOT LIKE '%GU%' AND a_asig NOT LIKE '%GU%' ORDER BY a_grupo ASC"); ?>
 										<?php else: ?>
-										<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
+										<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' AND a_asig NOT LIKE '%GU%' ORDER BY a_grupo ASC"); ?>
 										<?php endif; ?>
 										<select class="form-control" id="curso" name="curso" onchange="submit()">
 											<option value=""></option>
@@ -154,7 +154,7 @@ include("menu.php");
 					<thead>
 						<tr>
 							<th>Alumno/a</th>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig FROM horw WHERE a_grupo='$curso' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY asig ASC") or die (mysqli_error($db_con)); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig FROM horw WHERE a_grupo='$curso' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' ORDER BY asig ASC") or die (mysqli_error($db_con)); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<th><abbr data-bs="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr></th>
 							<?php endwhile; ?>

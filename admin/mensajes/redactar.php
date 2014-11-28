@@ -19,6 +19,7 @@ elseif (isset($_GET['profes'])) {
 	$profes = $_GET['profes'];
 } 
 
+$_SESSION['msg_block'] = 0;
 
 if($_POST['token']) $token = $_POST['token'];
 if(!isset($token)) $token = time(); 
@@ -161,7 +162,7 @@ $page_header = "Redactar mensaje";
 	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000"><?php echo (isset($texto) && $texto) ? $texto : ''; ?></textarea>
 	      		</div>
 	      		
-	      		<button type="submit" class="btn btn-primary" name="submit1">Enviar mensaje</button>
+	      		<button type="submit" class="btn btn-primary" data-loading-text="Loading..." name="submit1">Enviar mensaje</button>
 	      		<a href="index.php" class="btn btn-default">Volver</a>
       		
       		</fieldset>
@@ -703,8 +704,11 @@ echo "</div>";
 <?php include("../../pie.php"); ?>
 	
 	<script>
-	$(document).ready(function() {
+	$('[type=submit]').on('click', function() {
+	    $(this).button('loading');
+	});
 	
+	$(document).ready(function() {
 		// EDITOR DE TEXTO
 		$('#texto').summernote({
 			height: 300,

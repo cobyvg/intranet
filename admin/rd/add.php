@@ -117,7 +117,7 @@ $ed = mysqli_fetch_object($ed0);
    			$result1 = mysqli_query($db_con, $query1 ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
-Se ha producido un error grave al registar el Acta en la base de datos. Busca ayuda.</div></div>' );
+Se ha producido un error grave al registar el Acta en la base de datos. Busca ayuda.<br><br>'.mysqli_error($db_con).'</div></div>' );
    			echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido registrada correctamente.

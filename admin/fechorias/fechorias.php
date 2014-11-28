@@ -274,8 +274,9 @@ if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo 
         echo "</tbody></table>
         <input type='hidden' name='confirma' value='si' />
         </form></center>\n";
-        mysqli_query($db_con, "drop table Fechcaduca");
- 	}	
+        
+ 	}
+ 	mysqli_query($db_con, "drop table Fechcaduca");
   ?>
   </div>
   </div>
