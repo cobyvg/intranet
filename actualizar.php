@@ -253,7 +253,7 @@ mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Tamano
 
 /*
 	@descripcion: Cambio de tipo de datos en el contenido de mensajes y noticias 
-	@fecha: 5 de agosto de 2013
+	@fecha: 29 de noviembre de 2014
 */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Longtext en mensajes y noticias'");
 if (! mysqli_num_rows($actua)) {
