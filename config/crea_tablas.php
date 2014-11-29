@@ -993,7 +993,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `mens_texto` (
   `ahora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `origen` varchar(42) NOT NULL DEFAULT '0',
   `asunto` text NOT NULL,
-  `texto` text NOT NULL,
+  `texto` longtext NOT NULL,
   `destino` text NOT NULL,
   `oculto` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),

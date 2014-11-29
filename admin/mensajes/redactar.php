@@ -88,8 +88,15 @@ if (isset($_GET['id'])) {
 	if (isset($_POST['submit1'])) {
 		$result = mysqli_query($db_con, "UPDATE mens_texto SET asunto='$asunto', texto='$texto' WHERE id=".$_GET['id']." LIMIT 1");
 		
-		if(!$result) $msg_error = "No se ha podido editar el mensaje. Error: ".mysqli_error($db_con);
-		else header('Location:'.'index.php?inbox=recibidos&action=send');
+		if(!$result) {
+			$msg_error = "No se ha podido editar el mensaje. Error: ".mysqli_error($db_con);
+			$_SESSION['msg_block'] == 0;
+		}
+		else {
+			unset($_SESSION['msg_block']);
+			header('Location:'.'index.php?inbox=recibidos&action=send');
+			exit;
+		}
 	}
 	
 	$result = mysqli_query($db_con, "SELECT ahora, asunto, texto, destino FROM mens_texto WHERE id=".$_GET['id']."");
@@ -97,8 +104,8 @@ if (isset($_GET['id'])) {
 		$row = mysqli_fetch_array($result);
 		
 		$ahora = $row['ahora'];
-		$asunto = $row['asunto'];
-		$texto = $row['texto'];
+		$asunto = htmlspecialchars($row['asunto']);
+		$texto = htmlspecialchars($row['texto']);
 		$destino = trim($row['destino'],'; ');
 		
 		$num_seg = (strtotime(date('Y-m-d H:i:s')) - strtotime($ahora)) * 60;

@@ -250,4 +250,17 @@ mysqli_query($db_con, "ALTER TABLE  `horw` CHANGE  `a_grupo`  `a_grupo` VARCHAR(
 mysqli_query($db_con, "ALTER TABLE  `horw_faltas` CHANGE  `a_grupo`  `a_grupo` VARCHAR( 64 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
 mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Tamano de a_grupo', NOW())");	
 }
+
+/*
+	@descripcion: Cambio de tipo de datos en el contenido de mensajes y noticias 
+	@fecha: 5 de agosto de 2013
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Longtext en mensajes y noticias'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE `mens_texto` CHANGE `texto` `texto` LONGTEXT CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL;");
+	mysqli_query($db_con, "ALTER TABLE `noticias` CHANGE `content` `content` LONGTEXT CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL;");
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Longtext en mensajes y noticias', NOW())");	
+}
 ?>
