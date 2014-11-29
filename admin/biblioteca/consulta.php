@@ -57,7 +57,7 @@ $fecha = $_POST['fecha'];
 		<th>Grupo </th>
 		<th>Alumno </th>
 		<th>Título </th>
-		<th>Fecha dev.</th>
+		<th nowrap>Fecha dev.</th>
 		<th> </th>
 	</thead>
 	</thead><tbody>
@@ -78,7 +78,7 @@ $fecha = $_POST['fecha'];
 		<td style="text-align: center"><? echo $list[0];   ?></td>
 		<td><? echo $list[1].', '.$list[2];   ?></td>
 		<td><? echo $list[3];   ?></td>
-		<td style="text-align: center"><? echo $list[4];   ?></td>
+		<td nowrap style="text-align: center"><? echo $list[4];   ?></td>
 		<td style="text-align: left" nowrap>
 		<?
 		if ($list[7] == "SI") {
@@ -92,7 +92,7 @@ $fecha = $_POST['fecha'];
 		<td style="text-align: center"><? echo $list[0];   ?></td>
 		<td><? echo $list[1].', '.$list[2];   ?></td>
 		<td><? echo $list[3];   ?></td>
-		<td style="text-align: center"><? echo $list[4];   ?></td>
+		<td nowrap style="text-align: center"><? echo $list[4];   ?></td>
 		<td style="text-align: center"><i class="fa fa-check"></i></td>
 
 		<? } ?>
@@ -114,7 +114,7 @@ $fecha = $_POST['fecha'];
 <button type="submit" class="btn btn-warning" name="registro" value="registro"><span class="fa fa-gavel fa-fw"></span> Registrar Amonestaciones</button>
 
 	<? } ?></form>
-
+<br>
 <form action="consulta.php"
 	method="POST" name="listas" class="form-inline">
 <input type="hidden" name="fecha" value="<? echo $fecha; ?>" />

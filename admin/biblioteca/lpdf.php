@@ -15,8 +15,9 @@ $options_left = array(
 				'justification' => 'left'
 					);
 $fecha_act = date('Y-m-d');	
-$lista=mysqli_query($db_con, "select curso,apellidos,nombre,ejemplar,devolucion from morosos where hoy = '$fecha' and date(devolucion)<'$fecha_act' order by devolucion, apellidos") or die ("error query lista");
-while($datatmp = mysqli_fetch_array($lista)) { 
+$lista=mysqli_query($db_con, "select curso,apellidos,nombre,ejemplar,devolucion from morosos where hoy = '$fecha' and date(devolucion)<'$fecha_act' order by curso, apellidos, devolucion") or die ("error query lista");
+while($datatmp = mysqli_fetch_array($lista)) {
+  if(strstr($datatmp[0],"Monter")==TRUE){$datatmp[0]="Prof.";}
 	$data[] = array(
 				'curso'=>$datatmp[0],
 				'nombre'=>$datatmp[1].', '.$datatmp[2],
@@ -28,7 +29,7 @@ $titles = array(
 				'curso'=>'<b>Curso</b>',
 				'nombre'=>'<b>Alumno/a</b>',
 				'ejemplar'=>'<b>Ejemplar</b>',
-				'devol'=>'<b>Fecha de devolución</b>'
+				'devol'=>'<b>Devolución</b>'
 
 			);
 $options = array(
@@ -44,7 +45,7 @@ $options = array(
 "curso" => array('justification'=>'center', 'width' => '35'),
 "nombre" => array('justification'=>'left'),
 "ejemplar" => array('justification'=>'left'),
-"devol" => array('justification'=>'center', 'width' => '90'))
+"devol" => array('justification'=>'center', 'width' => '65'))
 	
 			);
 

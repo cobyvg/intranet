@@ -101,7 +101,8 @@ include("menu.php");
 				
 				<?php include("inc_convivencia.php"); ?>
 				<hr>
-				
+				<?php include("inc_biblio.php"); ?>
+				<hr>
 				<?php include("inc_informes_tareas.php"); ?>
 				<hr>
 				
