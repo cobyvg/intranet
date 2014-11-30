@@ -172,7 +172,6 @@ include("menu.php");
 	<thead>
 		<tr>
 			<th style="width:25px"></th>
-			<th style="width:15px">NC</th>
 			<th style="width:150px">Alumno/a</th>
 			<th style="width:80px">Fecha</th>
 			<th style="width:100px">Repeticion</th>
@@ -188,6 +187,9 @@ if (strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) {
 			<th style="width:50px">Pend.</th>
 			<th>Atención a la Diversidad</th>
 			<th>Observaciones</th>
+			<? if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
+			<th>Orientación</th>
+			<? }?>
 		</tr>
 	</thead>
 	<tbody>
@@ -205,9 +207,8 @@ if (strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) {
 			<td class="text-center"><span class="fa fa-user fa-fw fa-3x"></span></td>
 			<?php endif; ?>
 			
-			<td><? echo $row['nc'];?></td>
 			
-			<td><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
+			<td><?php echo $row['nc'].". ".$row['apellidos'].', '.$row['nombre']; ?></td>
 			
 			<td><?php echo $row['fecha'].'<br><span class="text-success">('.$row['edad'].')</span>'; ?></td>
 			
@@ -348,6 +349,18 @@ if (mysqli_num_rows($chk4)>0) {
 ?>
 			<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="3"><?php echo $obs; ?></textarea>
 			</td>
+<? if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>			
+<?
+$ori = "";			
+$chk5 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'ori'");
+if (mysqli_num_rows($chk5)>0) {
+	$ori0 = mysqli_fetch_array($chk5);
+	$ori = $ori0[0];
+}
+?>			
+			<td><textarea class="form-control"  name="ori-<?php echo $row['claveal']; ?>" rows="3"><?php echo $ori; ?></textarea></td>
+<? }?>
+			
 		</tr>
 		<?php endwhile; ?>
 	</tbody>
