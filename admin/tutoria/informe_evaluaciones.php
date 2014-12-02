@@ -17,13 +17,14 @@ if($_SESSION['cambiar_clave']) {
 
 // COMPROBACION DE ACCESO AL MODULO
 if ((stristr($_SESSION['cargo'],'1') == false) && (stristr($_SESSION['cargo'],'2') == false) && (stristr($_SESSION['cargo'],'8') == false)) {
-	
 	if (isset($_SESSION['mod_tutoria'])) unset($_SESSION['mod_tutoria']);
 	die ("<h1>FORBIDDEN</h1>");
 	
 }
 else {
-	
+	if (stristr($_SESSION['cargo'],'8') == TRUE) {
+		$orienta = 1;
+	}
 	// COMPROBAMOS SI ES EL TUTOR, SINO ES DEL EQ. DIRECTIVO U ORIENTADOR
 	if (stristr($_SESSION['cargo'],'2') == TRUE) {
 		
@@ -112,7 +113,7 @@ include("menu.php");
 
 <div class="row hidden-print">
 
-<div class="col-sm-6 col-sm-offset-3">
+<div class="col-sm-4 col-sm-offset-4">
 
 <form method="post" action="">
 
@@ -162,11 +163,11 @@ include("menu.php");
 <h3><?php echo $evaluacion; ?> de <?php echo $curso; ?></h3>
 </div>
 
-<form method="post" action="">
+<form method="post" action="" class="form-inline">
 
 <input type="hidden" name="unidad" value="<?php echo $curso; ?>"> 
 <input type="hidden" name="evaluacion" value="<?php echo $evaluacion; ?>">
-
+<div class="table-responsive">
 <table
 	class="table table-bordered table-striped table-hover table-vcentered">
 	<thead>
@@ -174,10 +175,10 @@ include("menu.php");
 			<th style="width:25px"></th>
 			<th style="width:150px">Alumno/a</th>
 			<th style="width:80px">Fecha</th>
-			<th style="width:100px">Repeticion</th>
+			<th style="width:100px">Rep.</th>
 			<th style="width:35px">PIL</th>
 <?
-if (strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) {
+if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 ?>			
 			<th style="width:15px">Exen.</th>
 			<th style="width:40px">Ref.</th>
@@ -185,10 +186,11 @@ if (strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) {
 }
 ?>
 			<th style="width:50px">Pend.</th>
-			<th>Atención a la Diversidad</th>
+			<th>At. Diversidad</th>
 			<th>Observaciones</th>
 			<? if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
 			<th>Orientación</th>
+			<th>Otros</th>
 			<? }?>
 		</tr>
 	</thead>
@@ -242,7 +244,7 @@ $repite=substr($repit_db[1],0,1)."º, ";
 
 }
 ?>
-				<textarea class="form-control" name="rep-<?php echo $row['claveal']; ?>" rows="2"><?php echo $repite; ?></textarea>
+				<textarea class="form-control" name="rep-<?php echo $row['claveal']; ?>" rows="2" cols="8" style="font-size:10px;padding:2px;"><?php echo $repite; ?></textarea>
 			</td>
 			
 			<td>
@@ -265,7 +267,7 @@ echo "<input type='text' class='form-control input-sm' style='width:45px' maxlen
 			</td>
 
 <?
-if (strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) {
+if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 ?>
 <td>
 			<?
@@ -319,27 +321,42 @@ echo "<input type='text' class='form-control input-sm' style='width:50px' maxlen
 			while ($pendi = mysqli_fetch_row($pend)) {
 				$pendiente.= $pendi[1]." ";
 			}
-			echo "<span class='text-danger'>$pendiente</span>";
+			echo "<span class='text-danger'><small>$pendiente</small></span>";
 			?>
 			</td>
 			
 			
 			<td>
 <?
+$div_extra = "";			
+$chk33 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'div'");
+if (mysqli_num_rows($chk33)>0) {
+	while($div00 = mysqli_fetch_array($chk33)){
+	$div_extra.="<p align=left>$div00[1]:<br>$div00[0]<p>";
+	}
+}
+
 $div = "";			
-$chk3 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'div'");
-//echo "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '$claveal' and campo = 'div'";
+$chk3 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'div'");
 
 if (mysqli_num_rows($chk3)>0) {
 	$div0 = mysqli_fetch_array($chk3);
 	$div = $div0[0];
 }
 ?>
-			<textarea class="form-control" name="div-<?php echo $row['claveal']; ?>" rows="3"><?php echo $div; ?></textarea>
+			<textarea class="form-control" name="div-<?php echo $row['claveal']; ?>" rows="5" cols="25" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<? echo $div_extra;?>"><?php echo $div; ?></textarea>
 			</td>
 			
 			<td>
 <?
+$obs_extra = "";			
+$chk44 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'obs'");
+if (mysqli_num_rows($chk44)>0) {
+	while($obs00 = mysqli_fetch_array($chk44)){
+	$obs_extra.="<p align=left>$obs00[1]:<br>$obs00[0]<p>";
+	}
+}
+
 $obs = "";			
 $chk4 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'obs'");
 if (mysqli_num_rows($chk4)>0) {
@@ -347,10 +364,19 @@ if (mysqli_num_rows($chk4)>0) {
 	$obs = $obs0[0];
 }
 ?>
-			<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="3"><?php echo $obs; ?></textarea>
+			<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="5" cols="25" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<? echo $obs_extra;?>"><?php echo $obs; ?></textarea>
 			</td>
-<? if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>			
+<? if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
+<td>			
 <?
+$ori_extra = "";			
+$chk55 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'ori'");
+if (mysqli_num_rows($chk55)>0) {
+	while($ori00 = mysqli_fetch_array($chk55)){
+	$ori_extra.="<p align=left>$ori00[1]:<br>$ori00[0]<p>";
+	}
+}
+
 $ori = "";			
 $chk5 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'ori'");
 if (mysqli_num_rows($chk5)>0) {
@@ -358,14 +384,70 @@ if (mysqli_num_rows($chk5)>0) {
 	$ori = $ori0[0];
 }
 ?>			
-			<td><textarea class="form-control"  name="ori-<?php echo $row['claveal']; ?>" rows="3"><?php echo $ori; ?></textarea></td>
+			<textarea class="form-control" name="ori-<?php echo $row['claveal']; ?>" rows="5" cols="30" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<? echo $ori_extra;?>"><?php echo $ori; ?></textarea>
+			</td>
+			<td nowrap>
+			<div class="form-group">
+<?
+$inf = "";			
+$chk6 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'inf'");
+if (mysqli_num_rows($chk6)>0) {
+	$inf0 = mysqli_fetch_array($chk6);
+	$inf = $inf0[0];
+}
+?>			
+			<select class="form-control input-sm" name="inf-<?php echo $row['claveal']; ?>">
+			<option><? echo $inf;?></option>
+			<option>SI</option>
+			<option>NO</option>
+			</select>
+			</div>
+			<label><small>Informe</small></label><br>
+			
+			<div class="form-group">
+<?
+$aci = "";			
+$chk7 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'aci'");
+if (mysqli_num_rows($chk7)>0) {
+	$aci0 = mysqli_fetch_array($chk7);
+	$aci = $aci0[0];
+}
+?>			
+			<select class="form-control input-sm" name="aci-<?php echo $row['claveal']; ?>">
+			<option><? echo $aci;?></option>
+			<option>SI</option>
+			<option>NO</option>
+			</select>
+			</div>
+			<label><small>ACI</small></label><br>
+			
+			<div class="form-group">
+<?
+$dct = "";			
+$chk8 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'dct'");
+if (mysqli_num_rows($chk8)>0) {
+	$dct0 = mysqli_fetch_array($chk8);
+	$dct = $dct0[0];
+}
+?>			
+			<select class="form-control input-sm" name="dct-<?php echo $row['claveal']; ?>">
+			<option><? echo $dct;?></option>
+			<option>SI</option>
+			<option>NO</option>
+			</select>
+			<label><small>Dictamen</small></label>
+			
+			</div>
+			
+			
+			</td>
 <? }?>
 			
 		</tr>
 		<?php endwhile; ?>
 	</tbody>
 </table>
-
+</div>
 <div class="hidden-print">
 <button type="submit" class="btn btn-primary" name="submit" value="Registrar">Registrar</button>
 <button type="reset" class="btn btn-default">Cancelar</button>

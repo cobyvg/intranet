@@ -2,6 +2,10 @@
 if ( $_POST['unidad']) {
 	 $unidad = $_POST['unidad'];
 }
+
+if (isset($_GET['id'])) { $id = $_GET['id'];}elseif (isset($_POST['id'])) { $id = $_POST['id'];}
+if (isset($_GET['claveal'])) { $claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) { $claveal = $_POST['claveal'];}
+
 if (isset($_POST['submit1']))
 {
 $notas = $_POST['notas']; 
@@ -53,10 +57,10 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 <div class="col-sm-6 col-sm-offset-3">
 	<?
-$notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida'];  $id = $_POST['id']; $claveal = $_POST['claveal']; $expulsionaula = $_POST['expulsionaula'];
+$notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; $asunto = $_POST['asunto'];$fecha = $_POST['fecha'];$informa = $_POST['informa']; $medidaescr = $_POST['medidaescr']; $medida = $_POST['medida']; $expulsionaula = $_POST['expulsionaula'];
 // Actualizar datos
 	if ($_POST['submit2']) {
-	    mysqli_query($db_con, "update Fechoria set asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula'  where id = '$id'");
+	    mysqli_query($db_con, "update Fechoria set asunto = '$asunto', notas = '$notas', grave = '$grave', medida = '$medida', expulsionaula = '$expulsionaula', informa='$informa' where id = '$id'");
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Los datos se han actualizado correctamente.
@@ -73,8 +77,6 @@ $notas = $_POST['notas']; $grave = $_POST['grave']; $nombre = $_POST['nombre']; 
 		$unidad=$ng_al[0];
 	}
 	if ($_GET['id'] or $_POST['id']) {
-		$id = $_GET['id'];
-		$claveal = $_GET['claveal'];
 		$result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.inicio, Fechoria.fin, aula_conv, inicio_aula, fin_aula, Fechoria.horas, expulsionaula from Fechoria, FALUMNOS, listafechorias where Fechoria.claveal = FALUMNOS.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC");
 
   if ($row = mysqli_fetch_array($result))

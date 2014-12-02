@@ -137,7 +137,6 @@ if ($sms) {
 	}
 			$alumno = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, unidad, CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM alma WHERE claveal = '$clave'" );
 			$rowa = mysqli_fetch_array ( $alumno );
-			echo "<table class='table table-striped'>";
 			$apellidos = trim ( $rowa [0] );
 			$nombre = trim ( $rowa [1] );
 			$unidad = trim ( $rowa [2] );
@@ -200,16 +199,7 @@ if ($registro) {
 			<legend>ATENCI&Oacute;N:</legend>
 Las amonestaciones se han registrado con &eacute;xito. Ahora debes pulsar en el bot&oacute;n, generar pdf, para poder imprimir las amonestaciones registradas..
 	</div></div><br />';
-}
-elseif($sms){
-	echo '<div align="center"><div class="alert alert-success alert-block fade in">
- <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCI&Oacute;N:</legend>
-Los mensajes SMS de aviso por retraso en la devolución de ejemplares de la Biblioteca han sido enviados correctamente (si en la pequeña ventana del navegador que aparece en la parte superior izquierda dice <b>OK</b>).
-	</div></div><br />';
-}
-
-?>
+	?>
 <div align="center">
 <button class="btn btn-primary" type="submit" name="impreso"
 	value="impreso"><i class="fa fa-file-o  "></i> Imprimir
@@ -218,6 +208,18 @@ Amonestaciones en PDF</button>
 </form>
 <hr />
 <? 
+}
+elseif($sms){
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>ATENCI&Oacute;N:</legend>
+Los mensajes SMS de aviso por retraso en la devolución de ejemplares de la Biblioteca han sido enviados correctamente (si en la pequeña ventana del navegador que aparece en la parte superior izquierda dice <b>OK</b>).
+	</div></div><br /></div>
+</div>
+</div>';
+include ("../../pie.php");
+exit();
+}
 	}
 	elseif ($j==0)     {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
