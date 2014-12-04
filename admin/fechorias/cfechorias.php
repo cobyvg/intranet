@@ -1,5 +1,5 @@
 <?
-if (isset($_POST['submit1'])) {
+if (isset($_POST['submit1']) || isset($_GET['submit1'])) {
 	include("fechorias.php");
 	exit();
 }
@@ -43,7 +43,7 @@ include("menu.php");
 			
 			<div class="well">
 				
-				<form method="post" action="">
+				<form method="get" action="">
 					<fieldset>
 						<legend>Criterios de búsqueda</legend>
 						

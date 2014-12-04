@@ -46,14 +46,14 @@ include("menu.php");
  
 <?php
 if(isset($_POST['submit1'])){$submit1 = $_POST['submit1'];}elseif(isset($_GET['submit1'])){$submit1 = $_GET['submit1'];}else{ $submit1=""; }
-if(isset($_POST['unidad'])){$unidad = $_POST['unidad'];}else{ $unidad=""; }
-if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}else{ $c_escolar=""; }
-if(isset($_POST['apellido'])){$APELLIDOS = $_POST['apellido'];}else{ $APELLIDOS=""; }
-if(isset($_POST['nombre'])){$NOMBRE = $_POST['nombre'];}else{ $NOMBRE=""; }
-if(isset($_POST['dia'])){$DIA = $_POST['dia'];}else{ $DIA=""; }
-if(isset($_POST['mes'])){$MES = $_POST['mes'];}else{ $MES=""; }
-if(isset($_POST['clase'])){$clase = $_POST['clase'];}else{ $clase=""; }
-if(isset($_POST['confirma'])){$confirma = $_POST['confirma'];}else{ $confirma=""; }
+if(isset($_POST['unidad'])){$unidad = $_POST['unidad'];}elseif(isset($_GET['unidad'])){$unidad = $_GET['unidad'];}else{ $unidad=""; }
+if(isset($_POST['c_escolar'])){$c_escolar = $_POST['c_escolar'];}elseif(isset($_GET['c_escolar'])){$c_escolar = $_GET['c_escolar'];}else{ $c_escolar=""; }
+if(isset($_POST['apellido'])){$APELLIDOS = $_POST['apellido'];}elseif(isset($_GET['apellido'])){$APELLIDOS = $_GET['apellido'];}else{ $APELLIDOS=""; }
+if(isset($_POST['nombre'])){$NOMBRE = $_POST['nombre'];}elseif(isset($_GET['nombre'])){$NOMBRE = $_GET['nombre'];}else{ $NOMBRE=""; }
+if(isset($_POST['dia'])){$DIA = $_POST['dia'];}elseif(isset($_GET['dia'])){$DIA = $_GET['dia'];}else{ $DIA=""; }
+if(isset($_POST['mes'])){$MES = $_POST['mes'];}elseif(isset($_GET['mes'])){$MES = $_GET['mes'];}else{ $MES=""; }
+if(isset($_POST['clase'])){$clase = $_POST['clase'];}elseif(isset($_GET['clase'])){$clase = $_GET['clase'];}else{ $clase=""; }
+if(isset($_POST['confirma'])){$confirma = $_POST['confirma'];}elseif(isset($_GET['confirma'])){$confirma = $_GET['confirma'];}else{ $confirma=""; }
 if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}elseif(isset($_POST['claveal'])){$claveal = $_POST['claveal'];}else{$claveal="";}
 if(isset($_GET['id'])){$id = $_GET['id'];}
 

@@ -113,12 +113,61 @@ if (stristr ( $carg, '2' ) == TRUE) {
 				<div id="bs-tour-pendientes">
 				<?php include ("pendientes.php"); ?>
 				</div>
-				          
-        <div class="bs-module">
-        <?php include("admin/noticias/widget_noticias.php"); ?>
-        </div>
-        
-        <br>
+				
+				<?php if (stristr($carg, '1' )==TRUE): ?>
+				<div class="bs-module hidden-xs">
+					<h4><span class="fa fa-pie-chart fa-fw"></span> Estadísticas del día</h4>
+					
+					<div class="row">
+						<div class="col-sm-4">
+							<?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM Fechoria WHERE fecha = CURDATE()"); ?>
+							<?php $row = mysqli_fetch_array($result); ?>
+							<?php mysqli_free_result($result); ?>
+							
+							<h3 class="text-center">
+								<a href="admin/fechorias/fechorias.php?dia=<?php echo date('d-m-Y'); ?>">
+									<?php echo $row['total']; ?><br>
+									<small class="text-uppercase">problemas conv.</small>
+								</a>
+							</h3>
+						</div>
+						
+						<div class="col-sm-4">
+							<?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM tutoria WHERE fecha = CURDATE()"); ?>
+							<?php $row = mysqli_fetch_array($result); ?>
+							<?php mysqli_free_result($result); ?>
+							
+							<h3 class="text-center">
+								<a href="admin/jefatura/index.php">
+									<?php echo $row['total']; ?><br>
+									<small class="text-uppercase">intervenciones</small>
+								</a>
+							</h3>
+						</div>
+						
+						<div class="col-sm-4">
+							<?php $result = mysqli_query($db_con, "SELECT COUNT(*) AS total FROM FALTAS WHERE fecha = CURDATE()"); ?>
+							<?php $row = mysqli_fetch_array($result); ?>
+							<?php mysqli_free_result($result); ?>
+							
+							<h3 class="text-center">
+								<a href="admin/faltas/index.php?numero=1&fecha10=<?php echo date('d-m-Y'); ?>&fecha20=<?php echo date('d-m-Y'); ?>&submit4=Enviar+Datos">
+									<?php echo $row['total']; ?><br>
+									<small class="text-uppercase">faltas de asist.</small>
+								</a>
+							</h3>
+						</div>
+					</div>
+				</div> 
+				
+				<br>
+				<?php endif; ?>     
+				
+		        <div class="bs-module">
+		        <?php include("admin/noticias/widget_noticias.php"); ?>
+		        </div>
+		        
+		        <br>
 				
 			</div><!-- /.col-sm-5 -->
 			
