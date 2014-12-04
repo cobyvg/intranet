@@ -730,13 +730,13 @@ mysqli_query($db_con, "INSERT INTO `inventario_lugares` (`id`, `lugar`) VALUES
 //
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `listafechorias` (
-  `ID` int(4) NOT NULL DEFAULT '0',
-  `fechoria` varchar(255) DEFAULT NULL,
-  `medidas` varchar(64) DEFAULT NULL,
-  `medidas2` mediumtext,
-  `tipo` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+  `ID` int(4) NOT NULL auto_increment,
+  `fechoria` varchar(255) collate latin1_spanish_ci default NULL,
+  `medidas` varchar(64) collate latin1_spanish_ci default NULL,
+  `medidas2` mediumtext collate latin1_spanish_ci,
+  `tipo` varchar(10) collate latin1_spanish_ci default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // Datos de listafechorias
 

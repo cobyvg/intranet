@@ -29,8 +29,12 @@ if (isset($_POST['enviar']) or isset($_GET['enviar'])) {
 
 	for ($i=1;$i<=7;$i++)
 	{
-		if (isset($_POST['day_event'.$i]) and strstr($_POST['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} = $_POST['day_event'.$i]; }
-		elseif (isset($_GET['day_event'.$i]) and strstr($_GET['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} = $_GET['day_event'.$i]; }
+		if (isset($_POST['day_event'.$i]) and 
+strstr($_POST['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} = 
+$_POST['day_event'.$i]; }
+		elseif (isset($_GET['day_event'.$i]) and 
+strstr($_GET['day_event'.$i],"Asignada")==FALSE) { ${day_event.$i} = 
+$_GET['day_event'.$i]; }
 		else{${day_event.$i}="";}
 	}
 
@@ -55,7 +59,8 @@ if (isset($_POST['enviar']) or isset($_GET['enviar'])) {
 	$hoy = getdate($semana);
 	$numero_dia = $hoy['wday'];
 
-	$eventQuery = "SELECT id FROM `$db_reservas`.`$servicio` WHERE eventdate = '$sql_date';";
+	$eventQuery = "SELECT id FROM `$db_reservas`.`$servicio` WHERE eventdate 
+= '$sql_date';";
 	//echo $eventQuery;
 	$eventExec = mysqli_query($db_con, $eventQuery);
 	$event_found = "";
@@ -73,19 +78,31 @@ if (isset($_POST['enviar']) or isset($_GET['enviar'])) {
 
 	if ($event_found == 1) {
 		//UPDATE
-		$postQuery = "UPDATE `$servicio` SET event1 = '".$day_event1."', event2 = '".$day_event2."', event3 = '".$day_event3."',
-    event4 = '".$day_event4."', event5 = '".$day_event5."', event6 = '".$day_event6."', event7 = '".$day_event7."' WHERE eventdate = '$sql_date';";
+		$postQuery = "UPDATE `$servicio` SET event1 = '".$day_event1."', 
+event2 = '".$day_event2."', event3 = '".$day_event3."',
+    event4 = '".$day_event4."', event5 = '".$day_event5."', event6 = 
+'".$day_event6."', event7 = '".$day_event7."' WHERE eventdate = '$sql_date';";
 		// echo $postQuery;
-		$postExec = mysqli_query($db_con, $postQuery) or die("Could not Post UPDATE `$db_reservas`.`$servicio` Event to database!");
-		mysqli_query($db_con, "DELETE FROM `$db_reservas`.`$servicio` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' ");
+		$postExec = mysqli_query($db_con, $postQuery) or die("Could not 
+Post UPDATE `$db_reservas`.`$servicio` Event to database!");
+		mysqli_query($db_con, "DELETE FROM `$db_reservas`.`$servicio` 
+WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 
+= ''  and event6 = ''  and event7 = '' ");
 		$mens="actualizar";
 	} else {
 		//INSERT
-		$postQuery = "INSERT INTO `$servicio` (eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html) VALUES ('$sql_date','$numero_dia','".$day_event1."','".$day_event2."','".$day_event3."','".$day_event4."','".$day_event5."','".$day_event6."','".$day_event7."','$show_html');";
+		$postQuery = "INSERT INTO `$servicio` 
+(eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html) VALUES 
+('$sql_date','$numero_dia','".$day_event1."','".$day_event2."','".$day_event3."'
+,'".$day_event4."','".$day_event5."','".$day_event6."','".$day_event7."',
+'$show_html');";
 		// echo $postQuery;
-		$postExec = mysqli_query($db_con, $postQuery) or die("Could not Post INSERT `$db_reservas`.`$servicio` Event to database!");
+		$postExec = mysqli_query($db_con, $postQuery) or die("Could not 
+Post INSERT `$db_reservas`.`$servicio` Event to database!");
 
-		mysqli_query($db_con, "DELETE FROM `$db_reservas`.`$servicio` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' ");
+		mysqli_query($db_con, "DELETE FROM `$db_reservas`.`$servicio` 
+WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 
+= ''  and event6 = ''  and event7 = '' ");
 		$mens="insertar";
 	}
 }
@@ -114,7 +131,8 @@ if (isset($_POST['permanente'])) {
 	}
 
 	// Insertamos datos después de borrar la fila del día
-	mysqli_query($db_con,"delete from `".$db_reservas."`.`".$servicio."hor` where dia='$numero_dia'");
+	mysqli_query($db_con,"delete from `".$db_reservas."`.`".$servicio."hor` 
+where dia='$numero_dia'");
 
 	//INSERT
 	for ($i = 1; $i < 8; $i++) {
@@ -122,15 +140,26 @@ if (isset($_POST['permanente'])) {
 			$_POST['day_event'.$i]="";
 		}
 	}
-	$post_perm = "INSERT INTO `".$db_reservas."`.`".$servicio."hor`  VALUES ('$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST['day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST['day_event6']."','".$_POST['day_event7']."')";
-	$exec_permanente = mysqli_query($db_con, $post_perm) or die("Could not Post INSERT `".$db_reservas."`.`".$servicio."hor` Event to database!");
+	$post_perm = "INSERT INTO `".$db_reservas."`.`".$servicio."hor`  VALUES 
+('$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST[
+'day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST
+['day_event6']."','".$_POST['day_event7']."')";
+	$exec_permanente = mysqli_query($db_con, $post_perm) or die("Could not 
+Post INSERT `".$db_reservas."`.`".$servicio."hor` Event to database!");
 
 }
 
 
-if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
-if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
-if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace ("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", $today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
+if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace 
+("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", 
+$month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
+if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace 
+("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); 
+$year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 
+1990; } if ($year > 2035) { $year = 2035; } }
+if (isset($_GET['today'])) { $today = $_GET['today']; $today = preg_replace 
+("/[[:space:]]/", "", $today); $today = preg_replace ("/[[:punct:]]/", "", 
+$today); $today = preg_replace ("/[[:alpha:]]/", "", $today); }
 
 $month = (isset($month)) ? $month : date("n",time());
 $year = (isset($year)) ? $year : date("Y",time());
@@ -236,18 +265,38 @@ if(stristr($_SESSION['cargo'],'1') == TRUE){
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Información sobre la reserva de aulas.</h4>
+	aria-hidden="true">&times;</span><span 
+class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel">Información sobre la reserva de 
+aulas.</h4>
 </div>
 <div class="modal-body">
 <p class="help-block text-info"><small class="text-info">
-El Equipo directivo puede asignar el horario de las dependencias del Centro de varias maneras. Si el aula aparece en el Horario y este se ha importado en la base de datos, se presentarán las horas del aula con la asignatura que se imparte en ese momento con la expresión <strong>Asignada por Horario</strong>. El Equipo directivo puede asignar el aula a otro profesor por encima del Horario si por alguna razón lo considera necesario. La hora aparecerá entonces en el formulario con la expresión <strong>Asignada por Dirección.</strong><br>
-Si el aula está vacía en ese momento cualquier profesor puede seleccionar esa hora para utilizar el aula.<br>
-Si queremos asignar una hora a un profesor durante todo el curso escolar, seleccionamos al mismo en el formulario y pulsamos sobre el botón rojo <strong>Reservar todo el Curso</strong>. Es importante elegir un día sin reserva alguna de profesores para realizar la asignación permanente porque ls profesores que aparezcan en el formulario quedarán fijados para todo el curso escolar. Los campos en los que aparezca la palabra "Asignación" (bien por Horario o bien por Dirección) no se registran en la reserva permanete. A partir de ese momento los profesores verán en ese campo la expresión <strong>Asignada por Dirección</strong></strong> y no podrán elegir el aula en esa hora. Este procedimiento se puede aplicar tantas veces como queramos para aquellas dependencias o aulas que aparezcan en el horario.   
+El Equipo directivo puede asignar el horario de las dependencias del Centro de 
+varias maneras. Si el aula aparece en el Horario y este se ha importado en la 
+base de datos, se presentarán las horas del aula con la asignatura que se 
+imparte en ese momento con la expresión <strong>Asignada por Horario</strong>. 
+El Equipo directivo puede asignar el aula a otro profesor por encima del Horario 
+si por alguna razón lo considera necesario. La hora aparecerá entonces en el 
+formulario con la expresión <strong>Asignada por Dirección.</strong><br>
+Si el aula está vacía en ese momento cualquier profesor puede seleccionar esa 
+hora para utilizar el aula.<br>
+Si queremos asignar una hora a un profesor durante todo el curso escolar, 
+seleccionamos al mismo en el formulario y pulsamos sobre el botón rojo 
+<strong>Reservar todo el Curso</strong>. Es importante elegir un día sin reserva 
+alguna de profesores para realizar la asignación permanente porque ls profesores 
+que aparezcan en el formulario quedarán fijados para todo el curso escolar. Los 
+campos en los que aparezca la palabra "Asignación" (bien por Horario o bien por 
+Dirección) no se registran en la reserva permanete. A partir de ese momento los 
+profesores verán en ese campo la expresión <strong>Asignada por 
+Dirección</strong></strong> y no podrán elegir el aula en esa hora. Este 
+procedimiento se puede aplicar tantas veces como queramos para aquellas 
+dependencias o aulas que aparezcan en el horario.   
 </small></p>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+<button type="button" class="btn btn-default" 
+data-dismiss="modal">Cerrar</button>
 </div>
 </div>
 </div>
@@ -284,9 +333,15 @@ if ($mes_sig == 13) {
 
 //Nombre del Mes
 echo "<table class=\"table table-bordered table-centered\"><thead><tr>";
-echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=".$ano_ant."&month=".$mes_ant."\"><span class=\"fa fa-arrow-circle-left fa-fw fa-lg\"></span></a></h4></th>";
+echo "<th><h4><a 
+href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=".$ano_ant."&month=".
+$mes_ant."\"><span class=\"fa fa-arrow-circle-left fa-fw 
+fa-lg\"></span></a></h4></th>";
 echo "<th colspan=\"5\"><h4>".$monthlong.' '.$year."</h4></th>";
-echo "<th><h4><a href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=".$ano_sig."&month=".$mes_sig."\"><span class=\"fa fa-arrow-circle-right fa-fw fa-lg\"></span></a></h4></th>";
+echo "<th><h4><a 
+href=\"".$_SERVER['PHP_SELF']."?servicio=$aula&year=".$ano_sig."&month=".
+$mes_sig."\"><span class=\"fa fa-arrow-circle-right fa-fw 
+fa-lg\"></span></a></h4></th>";
 echo "</tr><tr>";
 
 
@@ -309,33 +364,41 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 	if ($i >= 7) {  print("</tr><tr>"); $i=0; }
 
 	// Enlace
-	$enlace = $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.$aula;
+	$enlace = 
+$_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.
+$aula;
 
 	// Mirar a ver si hay alguna ctividad en el dÃƒÂ­as
 	$result_found = 0;
 	if ($zz == $today) {
-		echo '<td class="calendar-today"><a href="'.$enlace.'">'.$zz.'</a></td>';
+		echo '<td class="calendar-today"><a 
+href="'.$enlace.'">'.$zz.'</a></td>';
 		$result_found = 1;
 	}
 
 	// Enlace
-	$enlace = $_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.$aula;
+	$enlace = 
+$_SERVER['PHP_SELF'].'?year='.$year.'&today='.$zz.'&month='.$month.'&servicio='.
+$aula;
 
 	if ($result_found != 1) {
 		//Buscar actividad para el dóa y marcarla
 		$sql_currentday = "$year-$month-$zz";
 
-		$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$aula` WHERE eventdate = '$sql_currentday';";
+		$eventQuery = "SELECT event1, event2, event3, event4, event5, 
+event6, event7 FROM `$aula` WHERE eventdate = '$sql_currentday';";
 		$eventExec = mysqli_query($db_con, $eventQuery );
 		if (mysqli_num_rows($eventExec)>0) {
 			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
-				echo '<td class="calendar-orange"><a href="'.$enlace.'">'.$zz.'</a></td>';
+				echo '<td class="calendar-orange"><a 
+href="'.$enlace.'">'.$zz.'</a></td>';
 				$result_found = 1;
 			}
 		}
 		else{
 			$sql_currentday = "$year-$month-$zz";
-			$fest = mysqli_query($db_con, "select distinct fecha, nombre from $db.festivos WHERE fecha = '$sql_currentday'");
+			$fest = mysqli_query($db_con, "select distinct fecha, 
+nombre from $db.festivos WHERE fecha = '$sql_currentday'");
 			if (mysqli_num_rows($fest)>0) {
 				$festiv=mysqli_fetch_array($fest);
 				echo '<td class="calendar-red">'.$zz.'</td>';
@@ -367,13 +430,16 @@ echo "";
 <div class="col-sm-7">
 
 <div class="well"><?
-echo "<form method=\"post\" action=\"index_aulas.php?servicio=$aula&year=$year&today=$today&month=$month\" name=\"jcal_post\">";
+echo "<form method=\"post\" 
+action=\"index_aulas.php?servicio=$aula&year=$year&today=$today&month=$month\" 
+name=\"jcal_post\">";
 echo "<legend>Reserva para el $daylong, $today de $monthlong</legend><br />";
 $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
-$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, html FROM `$aula` WHERE eventdate = '$sql_date'";
+$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, 
+html FROM `$aula` WHERE eventdate = '$sql_date'";
 $eventExec = mysqli_query($db_con, $eventQuery);
 while($row = mysqli_fetch_array($eventExec)) {
 	$event_event1 = stripslashes($row["event1"]);
@@ -388,7 +454,8 @@ if($_SESSION['profi'] == 'conserje' or stristr($_SESSION['cargo'],'1') == TRUE){
 	$SQL = "select distinct nombre from $db.departamentos order by nombre";
 }
 else{
-	$SQL = "select distinct nombre from $db.departamentos where nombre = '". $_SESSION['profi'] ."'";
+	$SQL = "select distinct nombre from $db.departamentos where nombre = '". 
+$_SESSION['profi'] ."'";
 }
 
 if($aula){
@@ -401,12 +468,17 @@ if($aula){
 		echo '<div class="form-group">';
 
 		// Comprobamos reserva definitiva del aula
-		$aula_hor = "SELECT hora$i FROM `".$aula."hor` WHERE dia = '$numero_dia'";
+		$aula_hor = "SELECT hora$i FROM `".$aula."hor` WHERE dia = 
+'$numero_dia'";
+//echo $aula_hor."<br>";
 		$res_aula_hor = mysqli_query($db_con, $aula_hor);
 		$num_aula_hor = mysqli_fetch_row($res_aula_hor);
 
 		// Comprobamos horario de profesores
-		$hor = "SELECT distinct a_grupo, a_asig FROM $db.horw WHERE dia = '$numero_dia' and hora='$i' and a_aula = '$aula' and a_grupo is not null and a_grupo not like 'G%'";
+		$hor = "SELECT distinct a_grupo, a_asig FROM $db.horw WHERE dia 
+= '$numero_dia' and hora='$i' and a_aula = '$aula' and a_grupo is not null and 
+a_grupo not like 'G%'";
+//echo $hor;
 		$res_hor = mysqli_query($db_con, $hor);
 		$grupo_aula="";
 		if (mysqli_num_rows($res_hor)>0) {
@@ -416,17 +488,19 @@ if($aula){
 		// El profesor es Administrador
 		if(stristr($_SESSION['cargo'],'1') == TRUE)
 		{
-			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <select name=\"day_event$i\" class='form-control'>";
-
-			if(strlen(${event_event.$i})>0){
-				echo "<option>${event_event.$i}</option>";
+			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <select 
+name=\"day_event$i\" class='form-control'>";
+		if (strlen($grupo_aula)>0) {
+			echo "<option>Asignada por Horario: 
+$grupo_aula</option>";
+		}		
+		elseif(strlen(${event_event.$i})>0){
+				echo "<option>".${event_event.$i}."</option>";
 		}
 		elseif (strlen($num_aula_hor[0])>0) {
-			echo "<option>Asignada por Dirección: $num_aula_hor[0]</option>";
-		}
-		elseif (strlen($grupo_aula)>0) {
-			echo "<option>Asignada por Horario: $grupo_aula</option>";
-		}
+			echo "<option>Asignada por Dirección: 
+$num_aula_hor[0]</option>";
+		}		
 		else{
 			echo "<option></option>";
 		}
@@ -441,29 +515,39 @@ if($aula){
 	else{
 
 		if (strlen($num_hor[0])>0) {
-			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <p class=\"help-block text-info\">Asignada por horario</p>";
+			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <p 
+class=\"help-block text-info\">Asignada por horario</p>";
 		}
 		elseif (strlen($num_aula_hor[0])>0) {
-			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <p class=\"help-block text-danger\">Asignada por Dirección</p>";
+			echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <p 
+class=\"help-block text-danger\">Asignada por Dirección</p>";
 		}
 		else
 		{
 			if (${event_event.$i}  == "") {
-				echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <select name=\"day_event$i\" class='form-control'>";
+				echo "<label>".$i."ª hora</label> &nbsp;&nbsp; 
+<select name=\"day_event$i\" class='form-control'>";
 				echo "<option></option>";
 				$result1 = mysqli_query($db_con, $SQL);
 				while($row1 = mysqli_fetch_array($result1)){
 					$profesor = $row1[0];
-					echo "<option>" . $profesor . "</option>";
+					echo "<option>" . $profesor . 
+"</option>";
 				}
 				echo "</select>";
 			}
 			else {
-				if(mb_strtolower($pr) == mb_strtolower(${event_event.$i})) {
-					echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <input class='form-control' type='text' name=\"day_event$i\"  value=\"${event_event.$i}\">";
+				if(mb_strtolower($pr) == 
+mb_strtolower(${event_event.$i})) {
+					echo "<label>".$i."ª hora</label> 
+&nbsp;&nbsp; <input class='form-control' type='text' name=\"day_event$i\"  
+value=\"${event_event.$i}\">";
 			}
 				else{
-				echo "<label>".$i."ª hora</label> &nbsp;&nbsp; <input disabled class='form-control' type='text'  value='${event_event.$i}'><input type=\"hidden\" value=\"${event_event.$i}\" name=\"day_event$i\">";
+				echo "<label>".$i."ª hora</label> &nbsp;&nbsp; 
+<input disabled class='form-control' type='text'  
+value='${event_event.$i}'><input type=\"hidden\" value=\"${event_event.$i}\" 
+name=\"day_event$i\">";
 	}
 }
 	}
@@ -476,10 +560,13 @@ echo "<input type=\"hidden\" value=\"$year\" name=\"year\">
       <input type=\"hidden\" value=\"$month\" name=\"month\">
       <input type=\"hidden\" value=\"$today\" name=\"today\">
       <input type=\"hidden\" value=\"$numero_dia\" name=\"numero_dia\">
-      <input type=\"submit\" class=\"btn btn-primary\" id=\"formsubmit\" name=\"enviar\" value=\"Reservar\">";
+      <input type=\"submit\" class=\"btn btn-primary\" id=\"formsubmit\" 
+name=\"enviar\" value=\"Reservar\">";
 
 if (stristr($_SESSION['cargo'],'1') == TRUE) {
-	echo "&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"submit\" class=\"btn btn-danger\" id=\"formsubmit1\" name=\"permanente\" value=\"Reservar todo el Curso\">";;
+	echo "&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"submit\" class=\"btn 
+btn-danger\" id=\"formsubmit1\" name=\"permanente\" value=\"Reservar todo el 
+Curso\">";;
 }
 
 echo "</form>";
@@ -546,7 +633,8 @@ recrear un orden cronológico, las siguientes:</p>
 	persianas, abrir las ventanas y/o descorrer las cortinas rojas, se
 	encargará de ello única y exclusivamente el profesor responsable de la
 	actividad para evitar malos usos. Del mismo modo se procederá cuando
-	toque bajar las persianas, cerrar las ventanas y/o correr las cortinas.</li>
+	toque bajar las persianas, cerrar las ventanas y/o correr las 
+cortinas.</li>
 
 	<li class="text-justify">Se deberá mantener la limpieza en el Aula
 	Magna de forma que el alumnado utilice las papeleras que hay en la
