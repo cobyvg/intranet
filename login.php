@@ -10,6 +10,8 @@ include_once("config/version.php");
 // Comienzo de sesión
 $_SESSION['autentificado'] = 0;
 
+if (! isset($_SESSION['intentos'])) $_SESSION['intentos'] = 0;
+
 // DESTRUIMOS LAS VARIABLES DE SESIÓN
 if (isset($_SESSION['profi'])) {
 	$_SESSION = array();
@@ -20,88 +22,117 @@ if (isset($_SESSION['profi'])) {
 if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {
 	$clave0 = $_POST['clave'];
 	$clave = sha1 ( $_POST['clave'] );
-	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."'" );
-
+	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni, c_profes.estado FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."'" );
+	
+	$usuarioExiste = mysqli_num_rows($pass0);
+	
 	$pass1 = mysqli_fetch_array ( $pass0 );
 	$codigo = $pass1 [0];
 	$dni = $pass1 [2];
+	$bloqueado = $pass1 [3];
 	
-	// Si le Profesor entra por primera vez... (DNI es igual a Contraseï¿½a)
-	if ($dni == strtoupper ( $clave0 ) and (strlen ( $codigo ) < '12') and ! (empty ( $dni )) and ! (empty ( $codigo ))) {
-		$_SESSION['autentificado'] = 1;
-		$_SESSION['cambiar_clave'] = 1;	
-		$_SESSION['profi'] = $pass1 [1];
-		$profe = $_SESSION['profi'];
-		
-		// Departamento al que pertenece
-		$dep0 = mysqli_query($db_con, "select departamento from departamentos where nombre = '$profe'" );
-		
-		$dep1 = mysqli_fetch_array ( $dep0 );
-		$_SESSION['depto'] = $dep1 [0];
-		// Registramos la entrada en la Intranet
-		mysqli_query($db_con, "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
-		$id_reg = mysqli_query($db_con, "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
-		$id_reg0 = mysqli_fetch_array ( $id_reg );
-		$_SESSION['id_pag'] = $id_reg0 [0];
-		
-		include_once('actualizar.php');
-		
-		if (isset($mantenimiento) && $mantenimiento) {
-			header("location:mantenimiento.php");
-		}
-		else {
-			header("location:clave.php?tour=1");
-		}
-		
-		exit();
-	}
+	if (! $bloqueado) {
 	
-	// Si hay usuario y pertenece a alguien del Centro, comprobamos la contraseï¿½a.
-	if ($codigo == $clave) {
-		$_SESSION['pass'] = $codigo;
-		$pr0 = mysqli_query($db_con, "SELECT profesor FROM c_profes where idea = '".$_POST['idea']."'" );
-		$pr1 = mysqli_fetch_array ( $pr0 );
-		$_SESSION['profi'] = $pr1 [0];
-		$profe = $_SESSION['profi'];
-		// Comprobamos si da clase a algï¿½n grupo
-		$cur0 = mysqli_query($db_con, "SELECT distinct nivel FROM profesores where profesor = '$profe'" );
-		$cur1 = mysqli_num_rows ( $cur0 );
-		$_SESSION['n_cursos'] = $cur1;
-		// Departamento al que pertenece
-		$dep0 = mysqli_query($db_con, "select departamento, cargo from departamentos where nombre = '$profe'" );
-		$dep1 = mysqli_fetch_array ( $dep0 );
-		$_SESSION['depto'] = $dep1 [0];
-
-		// Registramos la entrada en la Intranet
-		mysqli_query($db_con, "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
-		$id_reg = mysqli_query($db_con, "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
-		$id_reg0 = mysqli_fetch_array ( $id_reg );
-		$_SESSION['id_pag'] = $id_reg0 [0];
-		
-		include_once('actualizar.php');
-		// Comprobamos si el usuario es Admin y entra por primera vez
-		if ($profe=="admin" and $clave == sha1("12345678")) {
+		// Si le Profesor entra por primera vez... (DNI es igual a Contraseï¿½a)
+		if ($dni == strtoupper ( $clave0 ) and (strlen ( $codigo ) < '12') and ! (empty ( $dni )) and ! (empty ( $codigo ))) {
 			$_SESSION['autentificado'] = 1;
-			$_SESSION['cambiar_clave'] = 1;			
-			header("location:clave.php?tour=1");
-		}
-		else{
-			//Abrimos la pï¿½gina principal
-			$_SESSION['autentificado'] = 1;			
-			include_once('actualizar.php');
+			$_SESSION['cambiar_clave'] = 1;	
+			$_SESSION['profi'] = $pass1 [1];
+			$profe = $_SESSION['profi'];
 			
-			if (isset($mantenimiento) && $mantenimiento && (stristr($dep1[1],'1') == false)) {
+			// Departamento al que pertenece
+			$dep0 = mysqli_query($db_con, "select departamento from departamentos where nombre = '$profe'" );
+			
+			$dep1 = mysqli_fetch_array ( $dep0 );
+			$_SESSION['depto'] = $dep1 [0];
+			// Registramos la entrada en la Intranet
+			mysqli_query($db_con, "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
+			$id_reg = mysqli_query($db_con, "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
+			$id_reg0 = mysqli_fetch_array ( $id_reg );
+			$_SESSION['id_pag'] = $id_reg0 [0];
+			
+			include_once('actualizar.php');
+			unset($_SESSION['intentos']);
+			
+			if (isset($mantenimiento) && $mantenimiento) {
 				header("location:mantenimiento.php");
 			}
 			else {
-				header("location:index.php");
+				header("location:clave.php?tour=1");
+			}
+			
+			exit();
+		}
+		
+		// Si hay usuario y pertenece a alguien del Centro, comprobamos la contraseï¿½a.
+		if ($codigo == $clave) {
+			$_SESSION['pass'] = $codigo;
+			$pr0 = mysqli_query($db_con, "SELECT profesor FROM c_profes where idea = '".$_POST['idea']."'" );
+			$pr1 = mysqli_fetch_array ( $pr0 );
+			$_SESSION['profi'] = $pr1 [0];
+			$profe = $_SESSION['profi'];
+			// Comprobamos si da clase a algï¿½n grupo
+			$cur0 = mysqli_query($db_con, "SELECT distinct nivel FROM profesores where profesor = '$profe'" );
+			$cur1 = mysqli_num_rows ( $cur0 );
+			$_SESSION['n_cursos'] = $cur1;
+			// Departamento al que pertenece
+			$dep0 = mysqli_query($db_con, "select departamento, cargo from departamentos where nombre = '$profe'" );
+			$dep1 = mysqli_fetch_array ( $dep0 );
+			$_SESSION['depto'] = $dep1 [0];
+	
+			// Registramos la entrada en la Intranet
+			mysqli_query($db_con, "insert into reg_intranet (profesor, fecha,ip) values ('$profe',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
+			$id_reg = mysqli_query($db_con, "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
+			$id_reg0 = mysqli_fetch_array ( $id_reg );
+			$_SESSION['id_pag'] = $id_reg0 [0];
+			
+			include_once('actualizar.php');
+			// Comprobamos si el usuario es Admin y entra por primera vez
+			if ($profe=="admin" and $clave == sha1("12345678")) {
+				$_SESSION['autentificado'] = 1;
+				$_SESSION['cambiar_clave'] = 1;	
+				unset($_SESSION['intentos']);		
+				header("location:clave.php?tour=1");
+			}
+			else{
+				//Abrimos la pï¿½gina principal
+				$_SESSION['autentificado'] = 1;
+				unset($_SESSION['intentos']);
+					
+				include_once('actualizar.php');
+				
+				if (isset($mantenimiento) && $mantenimiento && (stristr($dep1[1],'1') == false)) {
+					header("location:mantenimiento.php");
+				}
+				else {
+					header("location:index.php");
+				}
+			}
+			exit();
+		}
+		// La contraseï¿½a no es correcta
+		else {
+			
+			if ($_SESSION['intentos'] > 4) {
+				mysqli_query($db_con, "UPDATE c_profes SET estado=1 WHERE idea='".$_POST['idea']."' LIMIT 1");
+				
+				$msg_error = "La cuenta de usuario ha sido bloqueada";
+				unset($_SESSION['intentos']);
+			}
+			else {
+				$msg_error = "Nombre de usuario y/o contraseña incorrectos";
+				
+				if ($usuarioExiste) {
+					$_SESSION['intentos']++;
+				}
+				else {
+					unset($_SESSION['intentos']);
+				}
 			}
 		}
-		exit();
 	}
-	// La contraseï¿½a no es correcta
 	else {
-		$msg_error = "Nombre de usuario y/o contraseña incorrectos";
+		$msg_error = "La cuenta de usuario está bloqueada";
 	}
 }
 ?>

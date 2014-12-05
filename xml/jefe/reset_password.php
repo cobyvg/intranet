@@ -41,7 +41,7 @@ if (isset($_POST['enviar'])){$enviar=$_POST['enviar'];}else{$enviar='';}
 if (isset($_POST['enviar'])) {
 
 foreach($_POST['cambio'] as $p_dni){
-mysqli_query($db_con, "update c_profes set pass='$p_dni' where dni='$p_dni'");
+mysqli_query($db_con, "update c_profes set pass='$p_dni', estado=0 where dni='$p_dni'");
 }
 
 echo '<div class="alert alert-success">
@@ -92,8 +92,8 @@ $dni=$carg1[1];
 <legend>
 Instrucciones
 </legend>
-<p class="block-help">Selecciona en primer lugar el profesor o profesores a los que se necesita reasignar la clave de acceso. Si quieres seleccionar varios usuarios, mantén pulsada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón en cada uno de ellos.</p>
-<p>Tras enviar los datos del formulario se les enviará un correo comunicándoles que la clave ha sido reiniciada y la nueva clave provisonal es ahora el NIF como si el usuario entrase por primera vez en la aplicación. </p>
+<p class="block-help">Selecciona en primer lugar el profesor o profesores a los que se necesita restablecer la clave de acceso. Si quieres seleccionar varios usuarios, mantén pulsada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón en cada uno de ellos.</p>
+<p>Tras enviar los datos del formulario se les enviará un correo comunicándoles que la clave ha sido restablecida y la nueva clave provisional es ahora el NIF como si el usuario entrase por primera vez en la aplicación. </p>
 </div>
 </div>
 </div>

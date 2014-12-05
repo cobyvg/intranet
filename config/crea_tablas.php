@@ -222,14 +222,15 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `convivencia` (
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `c_profes` (
   `id` smallint(2) NOT NULL AUTO_INCREMENT,
-  `pass` varchar(48) DEFAULT NULL,
-  `PROFESOR` varchar(48) DEFAULT NULL,
-  `dni` varchar(9) NOT NULL DEFAULT '',
-  `idea` varchar(12) NOT NULL DEFAULT '',
-  `correo` varchar(64) DEFAULT NULL,
+  `pass` varchar(48) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `PROFESOR` varchar(48) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `dni` varchar(9) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `idea` varchar(12) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `correo` varchar(64) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `PROFESOR` (`PROFESOR`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
 // Usuario admin y conntraseña
 $ya_adm = mysqli_query($db_con, "select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
