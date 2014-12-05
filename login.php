@@ -6,6 +6,7 @@ session_start();
 
 include("config.php");
 include_once("config/version.php");
+include_once('actualizar.php');
 
 // Comienzo de sesión
 $_SESSION['autentificado'] = 0;
@@ -51,17 +52,16 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			$id_reg0 = mysqli_fetch_array ( $id_reg );
 			$_SESSION['id_pag'] = $id_reg0 [0];
 			
-			include_once('actualizar.php');
 			unset($_SESSION['intentos']);
 			
 			if (isset($mantenimiento) && $mantenimiento) {
 				header("location:mantenimiento.php");
+				exit();
 			}
 			else {
 				header("location:clave.php?tour=1");
+				exit();
 			}
-			
-			exit();
 		}
 		
 		// Si hay usuario y pertenece a alguien del Centro, comprobamos la contraseï¿½a.
@@ -86,29 +86,28 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			$id_reg0 = mysqli_fetch_array ( $id_reg );
 			$_SESSION['id_pag'] = $id_reg0 [0];
 			
-			include_once('actualizar.php');
 			// Comprobamos si el usuario es Admin y entra por primera vez
 			if ($profe=="admin" and $clave == sha1("12345678")) {
 				$_SESSION['autentificado'] = 1;
 				$_SESSION['cambiar_clave'] = 1;	
 				unset($_SESSION['intentos']);		
 				header("location:clave.php?tour=1");
+				exit();
 			}
 			else{
 				//Abrimos la pï¿½gina principal
 				$_SESSION['autentificado'] = 1;
 				unset($_SESSION['intentos']);
-					
-				include_once('actualizar.php');
 				
 				if (isset($mantenimiento) && $mantenimiento && (stristr($dep1[1],'1') == false)) {
 					header("location:mantenimiento.php");
+					exit();
 				}
 				else {
 					header("location:index.php");
+					exit();
 				}
 			}
-			exit();
 		}
 		// La contraseï¿½a no es correcta
 		else {
