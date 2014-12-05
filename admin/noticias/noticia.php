@@ -48,7 +48,7 @@ include("menu.php");
 					
 					<br>
 					
-					<?php echo $row['content']; ?>
+					<?php echo stripslashes($row['content']); ?>
 					
 					<br>
 					<br>
