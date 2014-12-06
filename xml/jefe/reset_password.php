@@ -41,20 +41,33 @@ if (isset($_POST['enviar'])){$enviar=$_POST['enviar'];}else{$enviar='';}
 if (isset($_POST['enviar'])) {
 
 foreach($_POST['cambio'] as $p_dni){
-mysqli_query($db_con, "update c_profes set pass='$p_dni', estado=0 where dni='$p_dni'");
+	mysqli_query($db_con, "update c_profes set pass='$p_dni', estado=0 where dni='$p_dni'");
+	
+	$mail0 = mysqli_query($db_con, "select correo, profesor from c_profes where dni='$p_dni'");
+	$mail = mysqli_fetch_array($mail0);
+	
+	$mail_correo = $mail[0];
+	$mail_nomprofesor = $mail[1];
+	
+	require("../../lib/class.phpmailer.php");
+	
+	$mail = new PHPMailer();
+	$mail->Host = "localhost";
+	$mail->From = 'no-reply@'.$dominio;
+	$mail->FromName = $nombre_del_centro;
+	$mail->Sender = 'no-reply@'.$dominio;
+	$mail->IsHTML(true);
+	$mail->Subject = 'Aviso de la Intranet: Tu contraseña ha sido restablecida';
+	$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$dominio.'/intranet/">http://'.$dominio.'/intranet/</a> Utiliza tu NIF como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+	$mail->AddAddress($mail_correo, $mail_nomprofesor);
+	$mail->Send();
 }
 
 echo '<div class="alert alert-success">
 Las claves de los profesores seleccionados se han reiniciado. El NIF del profesor pasa a ser la nueva clave de acceso.
 </div>';
 
-$mail0=mysqli_query($db_con, "select correo from c_profes where dni='$eldni'");
-$mail=mysqli_fetch_row($mail0);
-		$cabecera = "From: ".$email_del_centro." \r\n";
-		$direccion = $mail[0];
-		$tema = "Borrado y reinicio de Contraseña";
-		$texto = "La contrasseña para entrar en la Intranet ha sido reiniciada. Cuando vuelvas a entrar, escribe tu nombre de usuario y tu DNI como contraseña. En la siguiente página deberás volver a escribir una nueva contraseña.";
-		mail($direccion, $tema, $texto, $cabecera); 
+
 
 //mysqli_query($db_con, "drop table if exists cargos");
 } # del si se ha enviado

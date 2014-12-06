@@ -6,7 +6,7 @@ session_start();
 
 include("config.php");
 include_once("config/version.php");
-include_once('actualizar.php');
+
 
 // Comienzo de sesión
 $_SESSION['autentificado'] = 0;
@@ -23,14 +23,17 @@ if (isset($_SESSION['profi'])) {
 if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {
 	$clave0 = $_POST['clave'];
 	$clave = sha1 ( $_POST['clave'] );
-	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni, c_profes.estado FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."'" );
+	
+	$pass0 = mysqli_query($db_con, "SELECT c_profes.pass, c_profes.profesor , departamentos.dni, c_profes.estado, c_profes.correo FROM c_profes, departamentos where c_profes.profesor = departamentos.nombre and c_profes.idea = '".$_POST['idea']."'" );
 	
 	$usuarioExiste = mysqli_num_rows($pass0);
 	
 	$pass1 = mysqli_fetch_array ( $pass0 );
 	$codigo = $pass1 [0];
+	$profe = $pass1 [1];
 	$dni = $pass1 [2];
 	$bloqueado = $pass1 [3];
+	$correo = $pass1 [4];
 	
 	if (! $bloqueado) {
 	
@@ -59,6 +62,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 				exit();
 			}
 			else {
+				include_once('actualizar.php');
 				header("location:clave.php?tour=1");
 				exit();
 			}
@@ -90,7 +94,8 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			if ($profe=="admin" and $clave == sha1("12345678")) {
 				$_SESSION['autentificado'] = 1;
 				$_SESSION['cambiar_clave'] = 1;	
-				unset($_SESSION['intentos']);		
+				unset($_SESSION['intentos']);
+				include_once('actualizar.php');
 				header("location:clave.php?tour=1");
 				exit();
 			}
@@ -104,6 +109,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 					exit();
 				}
 				else {
+					include_once('actualizar.php');
 					header("location:index.php");
 					exit();
 				}
@@ -114,6 +120,18 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			
 			if ($_SESSION['intentos'] > 4) {
 				mysqli_query($db_con, "UPDATE c_profes SET estado=1 WHERE idea='".$_POST['idea']."' LIMIT 1");
+				
+				require("lib/class.phpmailer.php");
+				$mail = new PHPMailer();
+				$mail->Host = "localhost";
+				$mail->From = 'no-reply@'.$dominio;
+				$mail->FromName = $nombre_del_centro;
+				$mail->Sender = 'no-reply@'.$dominio;
+				$mail->IsHTML(true);
+				$mail->Subject = 'Aviso de la Intranet: Cuenta temporalmente bloqueada';
+				$mail->Body = 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta esté bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla fácilmente en unos pocos pasos.<br><br>Pónte en contacto con algún miembro del equipo directivo para restablecer tu contraseña. Una vez restablecida podrás acceder a la Intranet utilizando tu NIF como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+				$mail->AddAddress($correo, $profe);
+				$mail->Send();
 				
 				$msg_error = "La cuenta de usuario ha sido bloqueada";
 				unset($_SESSION['intentos']);
