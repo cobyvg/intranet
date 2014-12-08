@@ -1,4 +1,4 @@
-<div class="bs-module hidden-xs well">
+<div class="bs-module hidden-xs">
 <h4><span class="fa fa-pie-chart fa-fw"></span> Estadísticas del día</h4>
 
 <div class="row">
@@ -11,12 +11,13 @@ $dat.="<p><a href='admin/fechorias/detfechorias.php?id=$row[4]&claveal=$row[5]'>
 } 
 ?> 
 <?php mysqli_free_result($result); ?>
-<? echo "<a class='alert-link' data-toggle='modal' href='#fechoria' >";?>
 <h4 class="text-center">
+
+<? echo "<a class='alert-link' data-toggle='modal' href='#fechoria' >";?>
 <span class="lead"> <?php echo $n_fechorias; ?> </span><br>
-<small>problemas de convivencia</small>
-</h4>
+<small>Problemas Convivencia</small>
 </a>
+</h4>
 <div class="modal fade" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true"
 	id="fechoria">
@@ -49,7 +50,7 @@ $dat.="<p><a href='admin/fechorias/detfechorias.php?id=$row[4]&claveal=$row[5]'>
 <h4 class="text-center"><a href="admin/fechorias/expulsados.php"> <span
 	class="lead"> <?php echo $row['total']; ?> / <?php echo $row1['total']; ?>
 </span><br>
-<small>Expulsiones / Reincorporaciones</small> </a></h4>
+<small>Expulsiones Reingresos</small> </a></h4>
 </div>
 
 
@@ -65,7 +66,7 @@ $dat1.="<p><a href='./admin/infotutoria/infocompleto.php?id=$row[0]'> <i class='
 <? echo "<a class='alert-link' data-toggle='modal' href='#visitas' >";?>
 <h4 class="text-center">
 <span class="lead"> <?php echo $n_visitas; ?> </span><br>
-<small>visitas de padres</small>
+<small>Visitas de Padres</small>
 </h4>
 </a>
 <div class="modal fade" tabindex="-1" role="dialog"
@@ -106,7 +107,7 @@ $dat2.="<p> <i class='fa fa-user'> </i> $row[0]</p>";
 <? echo "<a class='alert-link' data-toggle='modal' href='#accesos' >";?>
 <h4 class="text-center">
 <span class="lead"> <?php echo $n_ausentes; ?> / <?php echo $n_profes; ?> </span><br>
-<small>Profesores no han entrado</small>
+<small>Profesores sin entrar</small>
 </h4>
 </a>
 <div class="modal fade" tabindex="-1" role="dialog"
@@ -117,7 +118,7 @@ $dat2.="<p> <i class='fa fa-user'> </i> $row[0]</p>";
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Profesores que no han entrado</h4>
+<h4 class="modal-title" id="myModalLabel">Profesores sin entrar</h4>
 </div>
 <div class="modal-body">
 <? echo $dat2;?>
