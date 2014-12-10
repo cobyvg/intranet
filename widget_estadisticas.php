@@ -62,8 +62,8 @@
 		
 		<div class="col-sm-3">
 			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND inicio < CURDATE() AND fin >= CURDATE()"); ?>
-			
-			<?php $result1 = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND fin = CURDATE()"); ?>
+			<?   $ayer = date('Y') . "-" . date('m') . "-" . (date('d') - 1);?>
+			<?php $result1 = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND fin = '$ayer'"); ?>
 			
 			<h4 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#expulsiones">
@@ -168,7 +168,7 @@
 			
 			<!-- MODAL VISITAS PADRES -->
 			<div id="visitas" class="modal fade" tabindex="-1" role="dialog">
-				<div class="modal-dialog modal-lg">
+				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -272,6 +272,7 @@
 				</div>
 			</div>
 			<!-- FIN MODAL ACCESOS -->
+			<?php mysqli_query($db_con,"drop table tmp_accesos"); ?>
 			<?php mysqli_free_result($result); ?>
 			<?php mysqli_free_result($result1); ?>
 			
