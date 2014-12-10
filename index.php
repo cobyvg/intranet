@@ -81,7 +81,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 		<div class="row">
 			
 			<!-- COLUMNA IZQUIERDA -->
-			<div class="col-sm-3">
+			<div class="col-md-3">
 				
 				<div id="bs-tour-menulateral">
 				<?php include("menu_lateral.php"); ?>
@@ -95,11 +95,11 @@ if (stristr ( $carg, '2' ) == TRUE) {
 				<?php include ("admin/noticias/widget_destacadas.php"); ?>
 				</div>
 	
-			</div><!-- /.col-sm-3 -->
+			</div><!-- /.col-md-3 -->
 			
 			
 			<!-- COLUMNA CENTRAL -->
-			<div class="col-sm-5">
+			<div class="col-md-5">
 				
 				<?php 
 				if (stristr($carg, '2' )==TRUE) {
@@ -115,7 +115,8 @@ if (stristr ( $carg, '2' ) == TRUE) {
 				</div>
 				
 				<?php if (stristr($carg, '1' )==TRUE): ?>
-				<?php include 'datos.php';; ?>
+				<?php define('INC_DIRECCION',1); ?>
+				<?php include('widget_estadisticas.php'); ?>
 				<?php endif; ?>     
 				
 		        <div class="bs-module">
@@ -124,12 +125,12 @@ if (stristr ( $carg, '2' ) == TRUE) {
 		        
 		        <br>
 				
-			</div><!-- /.col-sm-5 -->
+			</div><!-- /.col-md-5 -->
 			
 			
 			
 			<!-- COLUMNA DERECHA -->
-			<div class="col-sm-4">
+			<div class="col-md-4">
 				
 				<div id="bs-tour-buscar">
 				<?php include("buscar.php"); ?>
@@ -149,7 +150,7 @@ if (stristr ( $carg, '2' ) == TRUE) {
 				</div>
 				<?php endif; ?>
 				
-			</div><!-- /.col-sm-4 -->
+			</div><!-- /.col-md-4 -->
 			
 		</div><!-- /.row -->
 		
