@@ -247,7 +247,7 @@
 								</thead>
 								<tbody>
 									<?php while($row = mysqli_fetch_array($result)): ?>
-									<?php $result2 = mysqli_query($db_con, "SELECT COUNT(*) AS accesos, (SELECT fecha FROM reg_intranet WHERE profesor='".$row['nombre']."' LIMIT 1) AS ultimo_acceso FROM reg_intranet GROUP BY profesor HAVING profesor = '".$row['nombre']."' LIMIT 1"); ?>
+									<?php $result2 = mysqli_query($db_con, "SELECT COUNT(*) AS accesos, (SELECT fecha FROM reg_intranet WHERE profesor='".$row['nombre']."' ORDER BY fecha DESC LIMIT 1) AS ultimo_acceso FROM reg_intranet GROUP BY profesor HAVING profesor = '".$row['nombre']."' LIMIT 1"); ?>
 									<?php $row2 = mysqli_fetch_array($result2); ?>
 									<tr style="font-size: 0.9em;">
 										<td nowrap><?php echo nomprofesor($row['nombre']); ?></td>
