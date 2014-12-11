@@ -227,7 +227,7 @@
 			
 			<!-- MODAL ACCESOS -->
 			<div id="accesos" class="modal fade" tabindex="-1" role="dialog">
-				<div class="modal-dialog modal-lg">
+				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -241,19 +241,13 @@
 									<tr>
 										<th>Profesor/a</th>
 										<th>Departamento</th>
-										<th>Total accesos</th>
-										<th>Último acceso</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php while($row = mysqli_fetch_array($result)): ?>
-									<?php $result2 = mysqli_query($db_con, "SELECT COUNT(*) AS accesos, (SELECT fecha FROM reg_intranet WHERE profesor='".$row['nombre']."' ORDER BY fecha DESC LIMIT 1) AS ultimo_acceso FROM reg_intranet GROUP BY profesor HAVING profesor = '".$row['nombre']."' LIMIT 1"); ?>
-									<?php $row2 = mysqli_fetch_array($result2); ?>
 									<tr style="font-size: 0.9em;">
 										<td nowrap><?php echo nomprofesor($row['nombre']); ?></td>
 										<td><?php echo $row['departamento']; ?></td>
-										<td><?php echo ($row2['accesos']) ? $row2['accesos'] : '0' ; ?></td>
-										<td nowrap><?php echo ($row2['ultimo_acceso']) ? $row2['ultimo_acceso'] : 'Nunca'; ?></td>
 									</tr>
 									<?php endwhile; ?>
 								</tbody>
@@ -268,6 +262,12 @@
 							
 							<?php endif; ?>	
 						</div>
+						
+						<?php if (mysqli_num_rows($result)): ?>
+						<div class="modal-footer">
+							<a href="./xml/jefe/informes/accesos.php" class="btn btn-primary">Ver accesos</a>
+						</div>
+						<?php endif; ?>	
 					</div>
 				</div>
 			</div>
