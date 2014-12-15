@@ -580,8 +580,9 @@ include("cuaderno/menu_cuaderno.php");
 </div>
 					<? include("pie.php");?>
 <script type="text/javascript">
-//disable mousewheel on a input number field when in focus
-//(to prevent Cromium browsers change the value when scrolling)
+
+/*Desactivar rueda del ratón en campos numéricos*/
+
 $('form').on('focus', 'input[type=number]', function (e) {
 $(this).on('mousewheel.disableScroll', function (e) {
 e.preventDefault()
@@ -591,8 +592,11 @@ $('form').on('blur', 'input[type=number]', function (e) {
 $(this).off('mousewheel.disableScroll')
 })	
 </script>
+
 <<script type="text/javascript">
-<!--
+
+/*Modificar función de la tecla Intro para desplazarse por columna de datos*/
+
 $('table input').keypress(function(e) {
     if (e.keyCode == 13) {
         var $this = $(this),
@@ -603,7 +607,6 @@ $('table input').keypress(function(e) {
         e.preventDefault();
     }
 });
-//-->
 </script>
 </body>
 </html>

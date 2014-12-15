@@ -56,10 +56,12 @@ include("../../menu.php");
 								<th><?php echo $desc; ?></th>
 								<?php for($i = 1; $i < 6; $i++): ?>
 								<td width="20%">
-									<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig FROM horw WHERE a_grupo='$curso' AND dia='$i' AND hora='$hora'"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula FROM horw WHERE a_grupo='$curso' AND dia='$i' AND hora='$hora'"); ?>
 									<?php while($row = mysqli_fetch_array($result)): ?>
-									<?php echo $row[0]."<br>\n"; ?>
+									<?php echo $row[0];?>
+									<?php echo "<abbr class='text-warning pull-right'>$row[2]</abbr><br>"; ?>
 									<?php endwhile; ?>
+									
 								</td>
 								<?php endfor; ?>
 							</tr>

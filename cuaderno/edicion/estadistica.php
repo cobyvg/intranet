@@ -10,7 +10,7 @@ $celdas .= " id = '$id' or";
 	if (empty($num_ids)) {
  echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIӓN:</h5>
 Debes seleccionar al menos una Columna del cuaderno para poder operar.
 </div></div>';
  echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary'>";	
@@ -195,5 +195,5 @@ while ($esta=mysqli_fetch_array($est)){
   
 	echo "</tr>";	
 echo '</table>';
-echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary'>";	
+echo "<br /><INPUT TYPE='button' VALUE='Volver al Cuaderno' onClick='history.back(-1)' class='btn btn-primary hidden-print'>";	
 ?>
