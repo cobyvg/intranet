@@ -578,6 +578,32 @@ include("cuaderno/menu_cuaderno.php");
 </div>
 </div>
 </div>
-					<? include("pie.php");?>				
+					<? include("pie.php");?>
+<script type="text/javascript">
+//disable mousewheel on a input number field when in focus
+//(to prevent Cromium browsers change the value when scrolling)
+$('form').on('focus', 'input[type=number]', function (e) {
+$(this).on('mousewheel.disableScroll', function (e) {
+e.preventDefault()
+})
+})
+$('form').on('blur', 'input[type=number]', function (e) {
+$(this).off('mousewheel.disableScroll')
+})	
+</script>
+<<script type="text/javascript">
+<!--
+$('table input').keypress(function(e) {
+    if (e.keyCode == 13) {
+        var $this = $(this),
+            index = $this.closest('td').index();
+
+        $this.closest('tr').next().find('td').eq(index).find('input').focus();
+        $this.closest('tr').next().find('td').eq(index).find('input').select();
+        e.preventDefault();
+    }
+});
+//-->
+</script>
 </body>
 </html>
