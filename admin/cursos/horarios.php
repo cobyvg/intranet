@@ -56,12 +56,14 @@ include("../../menu.php");
 								<th><?php echo $desc; ?></th>
 								<?php for($i = 1; $i < 6; $i++): ?>
 								<td width="20%">
-									<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula FROM horw WHERE a_grupo='$curso' AND dia='$i' AND hora='$hora'"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, a_aula, n_aula FROM horw WHERE a_grupo='$curso' AND dia='$i' AND hora='$hora'"); ?>
 									<?php while($row = mysqli_fetch_array($result)): ?>
-									<?php echo $row[0];?>
-									<?php echo "<abbr class='text-warning pull-right'>$row[2]</abbr><br>"; ?>
-									<?php endwhile; ?>
+									<?php echo '<div style="display: block; font-size: 0.9em; margin-bottom: 5px;">'; ?>
+									<?php echo ($row['a_aula']) ? '<abbr class="text-danger pull-right" data-bs="tooltip" title="'.$row['n_aula'].'">'.$row['a_aula'].'</abbr>' : '<abbr class="text-danger pull-right" data-bs="tooltip" title="Sin asignar o sin aula">Sin aula</abbr>'; ?>
+									<?php echo $row['asig']; ?>
 									
+									<?php echo '</div>'; ?>
+									<?php endwhile; ?>
 								</td>
 								<?php endfor; ?>
 							</tr>
