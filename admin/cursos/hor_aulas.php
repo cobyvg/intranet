@@ -57,12 +57,14 @@ include("../../menu.php");
 								<th><?php echo $desc; ?></th>
 								<?php for($i = 1; $i < 6; $i++): ?>
 								<td width="20%">
-									<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, prof FROM horw WHERE n_aula='$aula' AND dia='$i' AND hora='$hora'"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, prof,a_grupo FROM horw WHERE n_aula='$aula' AND dia='$i' AND hora='$hora'"); ?>
+									<?php $grupo="";?>
 									<?php while($row = mysqli_fetch_array($result)): ?>
-									<?php echo $row['asig']; ?><br>
-									<span class="text-info"><?php echo nomprofesor($row['prof']); ?></span>
-									<br>
+									<?php $grupo .= "<abbr class='text-warning'>".$row['a_grupo']."<abbr>&nbsp;&nbsp;"; ?>
+									<?php $asignatura = $row['asig']; ?>
+									<?php $profesor = nomprofesor($row['prof']);?>
 									<?php endwhile; ?>
+									<? echo "<span class='text-danger'>$asignatura</span><br><span class='text-info'>$profesor</span><br>$grupo";?>
 								</td>
 								<?php endfor; ?>
 							</tr>

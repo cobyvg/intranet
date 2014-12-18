@@ -1,9 +1,4 @@
 <?
-if (isset($_POST['submit1']) || isset($_GET['submit1'])) {
-	include("fechorias.php");
-	exit();
-}
-else {
 	session_start();
 	include("../../config.php");
 	// COMPROBAMOS LA SESION
@@ -43,7 +38,7 @@ include("menu.php");
 			
 			<div class="well">
 				
-				<form method="get" action="">
+				<form method="POST" action="fechorias.php">
 					<fieldset>
 						<legend>Criterios de búsqueda</legend>
 						
@@ -148,6 +143,3 @@ include("menu.php");
 	
 </body>
 </html>
-<?php 
-}
-?>

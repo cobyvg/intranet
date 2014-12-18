@@ -53,25 +53,13 @@ elseif ($mostrar) {
 }
 elseif ($media) {
 	include("edicion/calcular.php");
-
 }
 elseif ($recalcula) {
 	include("edicion/calcular_pond.php");
-
 }
 
 elseif ($media_pond2) {
-
-
 	include("edicion/calcular_pond.php");
-
-}
-
-elseif ($estadistica) {
-
-
-	include("edicion/estadistica.php");
-
 }
 ?>
 <?

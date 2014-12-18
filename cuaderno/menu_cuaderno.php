@@ -115,8 +115,6 @@
 		class="btn btn-primary btn-block" /></p>
 	<p><input name="media_pond2" type="submit" value="Media Ponderada"
 		class="btn btn-primary btn-block" /></p>
-	<p><input name="estadistica" type="submit" value="Estadística"
-		class="btn btn-primary btn-block" /></p>
 	<p><input name="ocultar" type="submit" value="Ocultar"
 		class="btn btn-primary btn-block" /></p>
 	<p><input name="mostrar" type="submit" value="Mostrar"

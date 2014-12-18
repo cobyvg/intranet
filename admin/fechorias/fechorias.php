@@ -140,7 +140,8 @@ exit();
     $DIA = cambia_fecha($DIA);
     $AUXSQL .= " and (date(Fechoria.fecha)) = '$DIA'";
     }
-        if  (TRIM("$unidad")=="")
+
+    if  (TRIM("$unidad")=="")
     {
     $AUXSQL .= " AND 1=1 ";
     }
@@ -149,31 +150,42 @@ exit();
     $AUXSQL .= " and FALUMNOS.unidad like '$unidad'";
     }
 
-	     if  ($clase[0] == "Expulsion del Centro")
+    if (isset($clase)) {
+    	$AUXSQL .=" AND (";
+        foreach ($clase as $tipo_fech){
+    	    
+	     if  ($tipo_fech == "Expulsion del Centro")
     {
-    $AUXSQL .= " AND expulsion > '0' ";
+    $AUXSQL .= " expulsion > '0' OR";
     }
-		     if  ($clase[0] == "Expulsion del Aula")
+		     if  ($tipo_fech == "Expulsion del Aula")
     {
-    $AUXSQL .= " AND expulsionaula = '1' ";
+    $AUXSQL .= " expulsionaula = '1' OR";
     }
-		     if  ($clase[0] == "Aula de Convivencia")
+		     if  ($tipo_fech == "Aula de Convivencia")
     {
-    $AUXSQL .= " AND aula_conv > '0' ";
+    $AUXSQL .= " aula_conv > '0' OR";
     }
-		     if  ($clase[0] == "Falta Grave")
+		     if  ($tipo_fech == "Falta Grave")
     {
-    $AUXSQL .= " AND grave = 'grave' ";
+    $AUXSQL .= " grave = 'grave' OR";
     }
-		     if  ($clase[0] == "Falta Muy Grave")
+		     if  ($tipo_fech == "Falta Muy Grave")
     {
-    $AUXSQL .= " AND grave = 'muy grave' ";
+    $AUXSQL .= " grave = 'muy grave' OR";
     }
-	
+    }
+    	$AUXSQL=substr($AUXSQL,0,-2);
+    	$AUXSQL .=" )";
+    }
+
+    
 if (isset($submit1))
-	{	
+	{			
 mysqli_query($db_con, "create table if not exists Fechcaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria");
+mysqli_query($db_con,"ALTER TABLE `Fechcaduca` ADD PRIMARY KEY (`id`);");
   $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, Fechoria.confirmado, horas from Fechoria, FALUMNOS, Fechcaduca where Fechcaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal " . $AUXSQL . " order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos";
+  //echo $query0;
   $result = mysqli_query($db_con, $query0);
  echo "<br /><center>
  <form action='fechorias.php' method='post' name='cnf'>
