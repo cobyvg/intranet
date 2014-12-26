@@ -19,6 +19,18 @@ if (isset($_SESSION['profi'])) {
 	session_destroy();
 }
 
+/*
+	@descripcion: Modificación tabla c_profes para establecer estado de usuario
+	@fecha: 5 de diciembre de 2014
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Estado usuarios c_profes'");
+if (! mysqli_num_rows($actua)) {
+
+	mysqli_query($db_con, "ALTER TABLE `c_profes` ADD `estado` TINYINT (1) NOT NULL DEFAULT 0 ;");
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Estado usuarios c_profes', NOW())");	
+}
+
 // Entramos
 if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {
 	$clave0 = $_POST['clave'];

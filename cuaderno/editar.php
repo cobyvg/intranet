@@ -1,4 +1,15 @@
 <?
+if (isset($_POST['impresion'])) {
+foreach($_POST as $key => $val)
+{
+	$vars.="$key=$val&";
+}
+$vars=substr($vars,0,-1);
+	header('Location:'.'edicion/impresion.php?'.$vars.'');
+	exit();
+}
+?>
+<?
 session_start();
 include("../config.php");
 include_once('../config/version.php');
@@ -57,9 +68,14 @@ elseif ($media) {
 elseif ($recalcula) {
 	include("edicion/calcular_pond.php");
 }
-
+elseif ($pondera) {
+	include("edicion/calcular_pond.php");
+}
 elseif ($media_pond2) {
 	include("edicion/calcular_pond.php");
+}
+elseif ($impresion) {
+	include("edicion/impresion.php");
 }
 ?>
 <?

@@ -119,7 +119,7 @@ $curs0 = substr($curs,0,(strlen($curs)-1));
 // Eliminamos la última coma para el título.
 $curso_sin = substr($curs0,0,(strlen($curs0)-1));
 //Número de columnas
-$col = "select distinct id, nombre, orden, visible_nota, Tipo from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
+$col = "select distinct id, nombre, orden, visible_nota, Tipo, texto_pond from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
 
 $col0 = mysqli_query($db_con, $col);
 $cols = mysqli_num_rows($col0);
@@ -284,27 +284,62 @@ include("cuaderno/menu_cuaderno.php");
 					// Número de las columnas de la tabla
 					$cols2=0;
 					while($col20 = mysqli_fetch_array($col0)){
+						$id = $col20[0];
 						$tipo_col = $col20[4];
-						if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}
+						
+						$col_ord=mysqli_query($db_con, "select distinct ponderacion from datos where id = '$id' ");
+						$col_pondera = mysqli_fetch_array($col_ord);
+						$orden_pondera = $col_pondera[0];
+						if ($orden_pondera=="") {
+							$orden_ponde="";
+						}
+						else{
+							$orden_ponde="<span class='text-muted' data-bs='tooltip' title='Ponderación asignada a la columna'>(".$orden_pondera.")</span>";
+						}
+						
+						if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "";}
 						$icon_eye="";
 						$nombre_col="";
 						$col2=mysqli_query($db_con, "select distinct id from datos where id = '$col20[0]' ");
 						$cols2 += mysqli_num_rows($col2); //echo $cols2;
 						$ident= $col20[2];
-						$id = $col20[0];
 						$nombre_col = $col20[1];
 						$mens0 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&curso=$curs0&dia=$dia&hora=$hora&id=$id&orden=$ident&nom_asig=$nom_asig";
-						if (strlen($nombre_col)>26) {
-							$col_vert = substr($nombre_col,0,23)."...";
+						if (strstr($nombre_col,"Ponderación")==TRUE) {
+							$nombre_columna="";
+							$orden_columna="";
+							$tr_pond= explode(":",$nombre_col);
+							$tr_pond2= explode(", ",$tr_pond[1]);
+							$orden_columna="Cols. ";
+							foreach ($tr_pond2 as $id_columna){
+								$n_colum = mysqli_query($db_con,"select nombre, orden from notas_cuaderno where id='$id_columna'");
+								$n_columna = mysqli_fetch_array($n_colum);
+								$orden_columna.=$n_columna[1].", ";
+								$nombre_columna.=$n_columna[0].", ";
+							}
+							$nombre_columna=substr($nombre_columna,0,-2);
+							$orden_columna=substr($orden_columna,0,-2);
+							$col_vert="<span  data-bs='tooltip' title='Columna con Media Ponderada'>&nbsp;&nbsp;Ponderación  ($ident)<br>&nbsp;&nbsp;&nbsp;".$orden_columna."</span>";
+						}
+						elseif (strlen($nombre_col)>23) {
+							$col_vert = "&nbsp;&nbsp;".substr($nombre_col,0,20)."...<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='Número de la Columna'>".$ident."</span>";
 						}
 						else {
-							$col_vert = $nombre_col;
+							$col_vert = "&nbsp;&nbsp;".$nombre_col."<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='Número de la Columna'>".$ident."</span> ".$orden_ponde;
 						}
 
+						if ($tipo_col=="Ponderacion") {
+						echo "<td nowrap style='background-color:#555'>
+<div style='width:40px;height:104px;'>
+<div class='Rotate-90'><span text-lowercase' style='font-weight:normal;color:#fff'>$col_vert</span></div>
+</div> </td>";
+						}
+						else{
 						echo "<td nowrap>
 <div style='width:40px;height:104px;'>
 <div class='Rotate-90'><span class='$clase_col text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
 </div> </td>";
+					}
 					}
 					if($seleccionar == 1){
 						echo "<td nowrap>
@@ -421,7 +456,7 @@ include("cuaderno/menu_cuaderno.php");
 							while($col30 = mysqli_fetch_array($col00)){
 							$tipo_col = $col30[2];
 
-						if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}
+						if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "text-muted";}
 						
 						$nombre_col="";
 						$nombre_col = $col30[1];					
@@ -479,7 +514,7 @@ include("cuaderno/menu_cuaderno.php");
 					</td>
 					<?
 					// Si hay datos escritos rellenamos la casilla correspondiente
-					$colu10 = "select distinct id, Tipo, color from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by id";
+					$colu10 = "select distinct id, Tipo, color from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by orden";
 					$colu20 = mysqli_query($db_con, $colu10);
 					while($colus10 = mysqli_fetch_array($colu20)){
 						$id = $colus10[0];
@@ -501,6 +536,9 @@ include("cuaderno/menu_cuaderno.php");
 						}
 						elseif (stristr($t_dato,"Texto corto")==TRUE) {
 							$tipo_dato = "<input type='text' name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='width:100%;margin:0px;height:60px;maxlength:3;max-width:40px;border:none;background-color:$color_dato'>";
+						}
+						elseif (stristr($t_dato,"Ponderacion")==TRUE) {
+							$tipo_dato = "<input type='number' name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='max-width:40px;height:60px;border:none;background-color:$color_dato;color:#FFF' disabled>";
 						}
 						else{
 							$tipo_dato = "<textarea name='$id-$claveal' data-bs='tooltip' title='$dato1[0]' style='height:67px;width:80px;font-size:10px;max-width:250px;border:none;max-height:68px !important;background-color:$color_dato'>$dato1[0]</textarea>";

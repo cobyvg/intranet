@@ -1,5 +1,49 @@
 <?
+if(isset($_POST['pondera'])){
+	//variables();
+	foreach ($_POST as $key => $val) {
+		if(is_numeric($key) and strlen($key)<5){
+			$id_cols.="$key, ";
+		}
+	}
+	$id_cols=substr($id_cols, 0, -2);
+	$pr = $_SESSION['profi'];
+	$fecha = date('Y-m-d');
+	$asignatura=$_POST['asignatura'];
+	$curso=$_POST['curso'];
+	$texto="Ponderacion de columnas: $id_cols";
+	$nombre="Ponderación de columnas: $id_cols";
+	$tipo="Ponderacion";
+
+	$serie = mysqli_query($db_con, "select max(orden) from notas_cuaderno where profesor = '$pr' and curso like '$curso%' and asignatura = '$asignatura'");
+	$num_col = mysqli_fetch_array($serie);
+	$orden = $num_col[0] + 1;
+
+	$sql = "INSERT INTO  notas_cuaderno ( profesor ,  fecha ,  nombre ,  texto ,  asignatura, curso, orden, Tipo, color )
+VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso,', '$orden', '$tipo', '#555')";
+	//echo $sql;
+	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+La nueva columna ha sido añadida a la tabla del Cuaderno.
+</div></div>';
+	mysqli_query($db_con, $sql) or die (mysqli_error($db_con));
+
+	$id_col = mysqli_query($db_con, "select id from notas_cuaderno where profesor = '$pr' and curso like '$curso%' and asignatura = '$asignatura' and nombre = '$nombre'");
+	$num_col = mysqli_fetch_array($id_col);
+	foreach ($_POST as $key=>$val){
+		if (strlen($key)>5 and is_numeric($key)) {
+			$claveal_pond = $key;
+			$insert = "insert into datos (id, claveal, nota, ponderacion) values ('$num_col[0]','$claveal_pond','$val','1')";
+			$insert0 = mysqli_query($db_con, $insert);
+		}
+	}
+}
+
+
+
+
 if(isset($_POST['recalcula'])){
+	//variables();
 	if (is_numeric($id) and is_numeric($valor)){
 		$upd=mysqli_query($db_con, "update datos set ponderacion='$valor' where id='$id'") or die ("error update ponderacion");
 	}
@@ -34,7 +78,7 @@ $volver="../cuaderno.php?dia=$dia&hora=$hora&curso=$curso&asignatura=$asignatura
 $nums_ids=0;
 $sum='';
 foreach ($_POST as $id => $valor) {
-	if (is_numeric($id)){
+	if (is_numeric($id) and strlen($id)<5){
 		$columnas = $columnas + 1;
 		$num_ids +=1;
 		$celdas .= " id = '$id' or";
@@ -113,13 +157,21 @@ echo "<thead><th style='background-color:#fff'>NC</th><th style='background-colo
 while($col20 = mysqli_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
+	$nombre_col=$col20[1];
+	
+if (strlen($nombre_col)>23) {
+	$col_vert = "&nbsp;&nbsp;".substr($nombre_col,0,20)."...<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='Número de la Columna'>".$ident."</span>";
+						}
+else {
+	$col_vert = "&nbsp;&nbsp;".$nombre_col."<br>&nbsp;&nbsp;&nbsp;<span  data-bs='tooltip' title='Número de la Columna'>".$ident."</span> ".$orden_ponde;
+						}
 	echo "<th nowrap style='background-color:#fff'>
-<div style='width:40px;height:130px;'>
-<div class='Rotate-90'><span class='text-info text-lowercase'>$col20[1]</span> </div>
+<div style='width:40px;height:100px;'>
+<div class='Rotate-90'><span class='text-info text-lowercase'>$col_vert</span> </div>
 </div> </th>";	
 }
 echo "<th nowrap style='background-color:#fff'>
-<div style='width:40px;height:130px;'>
+<div style='width:40px;height:100px;'>
 <div class='Rotate-90'><span class='text-warning text-lowercase'>Media Ponderada</span> </div>
 </div> </th></thead>";
 
@@ -178,7 +230,7 @@ while ($curso11 = mysqli_fetch_array($curso20))
 		// Si hay datos escritos rellenamos la casilla correspondiente
 		$colu10 = "select distinct id from notas_cuaderno where ";
 	 foreach ($_POST as $id => $valor) {
-	 	if (is_numeric($id)){
+	 	if (is_numeric($id) and strlen($id)<5){
 	 		$colu10 .= " id = '$id' or";
 	 		$n_1 = "1";
 	 	}
@@ -209,7 +261,9 @@ while ($curso11 = mysqli_fetch_array($curso20))
 	 if ($media == "" ) {
 	 	$media = "0";
 	 }
-	 redondeo($media);
+
+	 $media_pond = media_ponderada($media);
+	 echo "<input type='number' name='$claveal' value='$media_pond' style='max-width:50px;border:none; background-color:#eee' readonly>";
 	 echo "</td>";
 	 mysqli_select_db($db_con, $db);
 	 echo "</tr>";
@@ -220,7 +274,7 @@ while ($curso11 = mysqli_fetch_array($curso20))
 }
 $i=0;
 foreach ($_POST as $id => $valor2) {
-	if (is_numeric($id)){
+	if (is_numeric($id) and strlen($id)<5){
 		$i+=1;
 		$aprobados[$i]=0;
 		$suspensos[$i]=0;
@@ -271,7 +325,7 @@ $nid='';
 $name="";
 foreach ($_POST as $id => $valor) {
 
-	if (is_numeric($id)){  $nid.=  " id = '$id' or";
+	if (is_numeric($id) and strlen($id)<5){  $nid.=  " id = '$id' or";
 	$name=$name. $id.' ';
 	}
 }
@@ -280,7 +334,7 @@ $colum= "select distinct id, nombre, orden, oculto from notas_cuaderno where". $
 $colum0 = mysqli_query($db_con, $colum);
 if (mysqli_num_rows($colum0) > 0) {
 	echo "<table align='center' class='table table-striped table-bordered' style='width:auto'>";
-	echo "<tr><th colspan='2'>Notas</th><th>Ponderaci&oacute;n</th>";
+	echo "<tr><th colspan='2'>Columnas</th><th>Ponderaci&oacute;n</th>";
 }
 while ($colum1 = mysqli_fetch_array($colum0)) {
 	$pon=mysqli_query($db_con, "select distinct ponderacion from datos where id='$colum1[0]'");
@@ -301,12 +355,9 @@ echo "</table>";
 
 ?> <br />
 <input name="recalcula" type="submit" value="Cambiar Ponderaci&oacute;n"
-	class="btn btn-success" /><br>
+	class="btn btn-default" /> <input name="pondera" type="submit"
+	value="Guardar resultado como columna" class="btn btn-info" /><br>
 <br>
 
 </form>
-<INPUT
-	TYPE='button' VALUE='Volver al Cuaderno'
-	onclick="location.href='<? echo $volver;?>'"
-	class="btn btn-primary hidden-print" />
-<br />
+
