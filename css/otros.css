@@ -126,7 +126,7 @@ table.dataTable thead .sorting:after {
   font-size: 10px;
   width:40px;
   position:relative;
-  top:40px;
+  top:60px;
 }
 
 li.nav-header {

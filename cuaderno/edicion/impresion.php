@@ -23,7 +23,7 @@ html {
   .table td
   {
     background-color: #fff !important;
-    padding:8px;
+    padding:5px 8px;
   }
   .table th {
     background-color: #fff !important;
@@ -43,7 +43,7 @@ html {
   font-size: 10px;
   width:30px;
   position:relative;
-  top:75px;
+  top:30px;
 }
 </style>";
 $html.="</head>";
@@ -109,14 +109,15 @@ while($col20 = mysqli_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
 	$nombre_col=$col20[1];
-if (strlen($nombre_col)>20) {
-	$col_vert = "".substr($nombre_col,0,18)."...";
-						}
+if (strlen($nombre_col)>12) {
+	$nombre_col=str_replace( ".", "",$nombre_col);
+	$tr_col = explode(" ",$nombre_col);
+	$col_vert = substr($tr_col[0],0,2).". ".substr($tr_col[1],0,2).". ".substr($tr_col[2],0,2).".";						}
 else {
 	$col_vert = "".$nombre_col;
 						}
 	$html.="<th nowrap style='text-align:left;'>
-<div style='width:30px;height:80px;'>
+<div style='width:30px;height:40px;'>
 <div class='Rotate-90'>$col_vert</div>
 </div> </th>";		
 }
@@ -159,7 +160,11 @@ while ($curso11 = mysqli_fetch_array($curso20))
 	while($row = mysqli_fetch_array($result))
 	{
 		$claveal = $row[0];
-		$html.="<tr><td >$row[1]</td><td colspan='2' nowrap>$row[2], $row[3]</td>";			
+		$n_nombre="$row[2], $row[3]";
+	if (strlen($n_nombre) > 30) {
+			$n_nombre = substr($n_nombre,0,30).".";
+						}
+		$html.="<tr><td >$row[1]</td><td colspan='2' style='width:120px' nowrap>$n_nombre</td>";			
 		// Si hay datos escritos rellenamos la casilla correspondiente
 		$colu10 = "select distinct id from notas_cuaderno where ";
 	 foreach ($_GET as $id => $valor) {

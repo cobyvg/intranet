@@ -20,8 +20,7 @@ if(isset($_POST['pondera'])){
 	$orden = $num_col[0] + 1;
 
 	$sql = "INSERT INTO  notas_cuaderno ( profesor ,  fecha ,  nombre ,  texto ,  asignatura, curso, orden, Tipo, color )
-VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso,', '$orden', '$tipo', '#555')";
-	//echo $sql;
+VALUES ( '$pr',  '$fecha',  '$nombre',  '$texto',  '$asignatura', '$curso', '$orden', '$tipo', '#555')";
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La nueva columna ha sido añadida a la tabla del Cuaderno.
@@ -38,9 +37,6 @@ La nueva columna ha sido añadida a la tabla del Cuaderno.
 		}
 	}
 }
-
-
-
 
 if(isset($_POST['recalcula'])){
 	//variables();

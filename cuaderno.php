@@ -26,12 +26,39 @@ include("menu.php");
 include("cuaderno/menu.php");
 
 ?>
+<script>
+function cambia_color(primero,segundo,tercero,cuarto,quinto,sexto,septimo,octavo,noveno,decimo){
+	celda = document.getElementById(primero);celda.style.backgroundColor="#000";
+	celda = document.getElementById(segundo);celda.style.backgroundColor="#000";
+	celda = document.getElementById(tercero);celda.style.backgroundColor="#000";
+	celda = document.getElementById(cuarto);celda.style.backgroundColor="#000";
+	celda = document.getElementById(quinto);celda.style.backgroundColor="#000";
+	celda = document.getElementById(sexto);celda.style.backgroundColor="#000";
+	celda = document.getElementById(septimo);celda.style.backgroundColor="#000";
+	celda = document.getElementById(octavo);celda.style.backgroundColor="#000";
+	celda = document.getElementById(noveno);celda.style.backgroundColor="#000";
+	celda = document.getElementById(decimo);celda.style.backgroundColor="#000";
+	}
+function descambia_color(primero,segundo,tercero,cuarto,quinto,sexto,septimo,octavo,noveno,decimo){
+	celda = document.getElementById(primero);celda.style.backgroundColor="#fff";
+	celda = document.getElementById(segundo);celda.style.backgroundColor="#fff";
+	celda = document.getElementById(tercero);celda.style.backgroundColor="#fff";
+	celda = document.getElementById(cuarto);celda.style.backgroundColor="#fff";
+	celda = document.getElementById(quinto);celda.style.backgroundColor="#fff";
+	celda = document.getElementById(sexto);celda.style.backgroundColor="#fff";
+	celda = document.getElementById(septimo);celda.style.backgroundColor="#fff";
+	celda = document.getElementById(octavo);celda.style.backgroundColor="#fff";
+	celda = document.getElementById(noveno);celda.style.backgroundColor="#fff";
+	celda = document.getElementById(decimo);celda.style.backgroundColor="#fff";
+	}	
+</script>
 <style>
 input[type=number]::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 }
+
 input[type=number] {
--moz-appearance: textfield;
+	-moz-appearance: textfield;
 }
 </style>
 <?
@@ -93,8 +120,7 @@ if($pr and $dia and $hora)
 	class="text-info">&nbsp;<i class='fa fa-users'> </i>&nbsp;<? echo substr($curs,0,-2)." ( ".$nom_asig," )";?></small></h2>
 </div>
 
-<div align="center">
-<?
+<div align="center"><?
 // Enviar datos y procesarlos
 if(isset($_POST['enviar']))
 {
@@ -135,19 +161,20 @@ else{
 	$seleccionar = "";
 }
 }
-?>
-<?
+?> <?
 include("cuaderno/menu_cuaderno.php");
 ?>
 
 <div class="col-md-12">
-<form action="cuaderno.php" method="post" name="imprime" class="form-inline">
-<table class="table" style="width:auto">
+<form action="cuaderno.php" method="post" name="imprime"
+	class="form-inline">
+<table class="table" style="width: auto">
 	<thead>
 		<tr>
 			<td style="vertical-align: top; padding: 1px">
 
-			<table class='table table-bordered table-condensed'	style='width: auto;'>
+			<table class='table table-bordered table-condensed'
+				style='width: auto;'>
 				<tr>
 					<td nowrap>
 					<div style='width: 40px; height: 104px;'>
@@ -243,15 +270,16 @@ include("cuaderno/menu_cuaderno.php");
 						}
 						if ($n_fila=="10" or $n_fila=="20" or $n_fila=="30" or $n_fila=="40") {
 							echo "<tr><td>
-<div style='width:40px;height:65px;'>
+<div style='width:40px;height:90px;'>
 <div class='Rotate-corto'></div>
 </div> </td></tr>";
 						}
 						?>
 				<tr>
-					<td nowrap style='vertical-align: middle; height: 74px;' class='text-info' data-bs='tooltip' title=' <? echo $apellidos.", ".$nombre_al;?>'>
-						<a href="#" onclick="window.open('<? echo $inf;?>')"> 
-						<?
+					<td nowrap style='vertical-align: middle; height: 74px;'
+						class='text-info' data-bs='tooltip'
+						title=' <? echo $apellidos.", ".$nombre_al;?>'><a href="#"
+						onclick="window.open('<? echo $inf;?>')"> <?
 						$foto="";
 						$foto = "<img src='xml/fotos/$claveal.jpg' width='50' height='60' class=''  />";
 						echo $foto;
@@ -268,7 +296,8 @@ include("cuaderno/menu_cuaderno.php");
 
 			<td style="vertical-align: top; padding: 1px">
 
-			<div style="overflow: auto; overflow-y: hidden; width: 855px; padding: 0">
+			<div
+				style="overflow: auto; overflow-y: hidden; width: 855px; padding: 0">
 
 
 			<table class='table table-bordered table-condensed'
@@ -286,7 +315,7 @@ include("cuaderno/menu_cuaderno.php");
 					while($col20 = mysqli_fetch_array($col0)){
 						$id = $col20[0];
 						$tipo_col = $col20[4];
-						
+
 						$col_ord=mysqli_query($db_con, "select distinct ponderacion from datos where id = '$id' ");
 						$col_pondera = mysqli_fetch_array($col_ord);
 						$orden_pondera = $col_pondera[0];
@@ -296,7 +325,7 @@ include("cuaderno/menu_cuaderno.php");
 						else{
 							$orden_ponde="<span class='text-muted' data-bs='tooltip' title='Ponderación asignada a la columna'>(".$orden_pondera.")</span>";
 						}
-						
+
 						if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "";}
 						$icon_eye="";
 						$nombre_col="";
@@ -309,12 +338,14 @@ include("cuaderno/menu_cuaderno.php");
 							$nombre_columna="";
 							$orden_columna="";
 							$tr_pond= explode(":",$nombre_col);
+							$id_pond=str_replace(" ","",$tr_pond[1]);
 							$tr_pond2= explode(", ",$tr_pond[1]);
 							$orden_columna="Cols. ";
 							foreach ($tr_pond2 as $id_columna){
 								$n_colum = mysqli_query($db_con,"select nombre, orden from notas_cuaderno where id='$id_columna'");
 								$n_columna = mysqli_fetch_array($n_colum);
 								$orden_columna.=$n_columna[1].", ";
+								$nombre_columna.=$n_columna[0].", ";
 								$nombre_columna.=$n_columna[0].", ";
 							}
 							$nombre_columna=substr($nombre_columna,0,-2);
@@ -329,20 +360,22 @@ include("cuaderno/menu_cuaderno.php");
 						}
 
 						if ($tipo_col=="Ponderacion") {
-						echo "<td nowrap style='background-color:#555'>
+							?>
+							<?
+							echo "<td nowrap style='background-color:#555' id='$id' onmouseover='cambia_color($id_pond)' onmouseout='descambia_color($id_pond)'>
 <div style='width:40px;height:104px;'>
 <div class='Rotate-90'><span text-lowercase' style='font-weight:normal;color:#fff'>$col_vert</span></div>
 </div> </td>";
 						}
 						else{
-						echo "<td nowrap>
+							echo "<td nowrap id='$id'>
 <div style='width:40px;height:104px;'>
 <div class='Rotate-90'><span class='$clase_col text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
 </div> </td>";
-					}
+						}
 					}
 					if($seleccionar == 1){
-						echo "<td nowrap>
+						echo "<td nowrap class='warning'>
 <div style='width:40px;height:104px;'>
 <div class='Rotate-90'><span class='text-lowercase' style='font-weight:normal'> Selección de alumnos </span></div>
 </div> </td>";
@@ -444,49 +477,43 @@ include("cuaderno/menu_cuaderno.php");
 						$result = mysqli_query($db_con, $resul);
 						while($row = mysqli_fetch_array($result))
 						{
-						$n_fila2+=1;
-						if ($n_fila2=="10" or $n_fila2=="20" or $n_fila2=="30" or $n_fila2=="40") {
-							echo "<tr>";
-							$col_col = "select distinct id, nombre, Tipo from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
-							$col00 = mysqli_query($db_con, $col_col);
-							echo "<td nowrap>
-<div style='width:40px;height:65px;'>
+							$n_fila2+=1;
+							if ($n_fila2=="10" or $n_fila2=="20" or $n_fila2=="30" or $n_fila2=="40") {
+								echo "<tr>";
+								$col_col = "select distinct id, nombre, Tipo from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
+								$col00 = mysqli_query($db_con, $col_col);
+								echo "<td nowrap>
+<div style='width:40px;height:90px;'>
 <div class='Rotate-corto'>Asistencia</div>
 </div> </td>";
-							while($col30 = mysqli_fetch_array($col00)){
-							$tipo_col = $col30[2];
+								while($col30 = mysqli_fetch_array($col00)){
+									$tipo_col = $col30[2];
+									if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "text-muted";}
 
-						if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "text-muted";}
-						
-						$nombre_col="";
-						$nombre_col = $col30[1];					
-		
-						if (strlen($nombre_col)>17) {
-						$col_vert = substr($nombre_col,0,15)."..";
-						}
-						else {
-							$col_vert = $nombre_col;
-						}
+									$nombre_col="";
+									$nombre_col = $col30[1];
 
-						echo "<td nowrap>
-<div style='width:40px;height:65px;'>
+									if (strlen($nombre_col)>17) {
+										$col_vert = substr($nombre_col,0,15)."..";
+									}
+									else {
+										$col_vert = $nombre_col;
+									}
+
+									echo "<td nowrap>
+<div style='width:40px;height:90px;'>
 <div class='Rotate-corto'><span class='$clase_col text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
 </div> </td>";
-					}
-					if($seleccionar == 1){
-						echo "<td nowrap>
-<div style='width:40px;height:65px;'>
+								}
+								if($seleccionar == 1){
+									echo "<td nowrap class='warning'>
+<div style='width:40px;height:90px;'>
 <div class='Rotate-corto'></div>
 </div> </td>";
-					}
-					echo "</tr>";
-								
-								
-								
+								}
+								echo "</tr>";
 							}
-							
-							
-							
+
 							$claveal = $row[0];
 							$nombre_al =   $row[3];
 							$apellidos =   $row[2];
@@ -497,7 +524,6 @@ include("cuaderno/menu_cuaderno.php");
 							{
 								echo "<tr>";
 								?>
-
 
 					<td style='vertical-align: middle; height: 74px !important;'><? 
 					$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'");
@@ -565,7 +591,8 @@ include("cuaderno/menu_cuaderno.php");
 								}
 								if(!(empty($div))){$curso = $div;}
 								?>
-					<td	style="vertical-align: middle; text-align: center;; background-color: #ccc; height: 74px !important;">
+					<td  class='warning'
+						style="vertical-align: middle; text-align: center; height: 74px !important;">
 					<div class="checkbox"><input
 						name="select_<? echo $row[1]."_".$curso;?>" type="checkbox"
 						id="selal" <? if ($marcado == "1") {echo "checked ";}?> value="1" /></div>
@@ -603,16 +630,14 @@ include("cuaderno/menu_cuaderno.php");
 		</tr>
 
 </table>
-<div align="center" class="hidden-print"><br />
-<input name="enviar" type="submit" value="Enviar datos"
-	class="btn btn-primary" /></div>
+<div align="center" class="hidden-print"><input name="enviar"
+	type="submit" value="Enviar datos" class="btn btn-primary" /></div>
 </FORM>
 					<?
 
 					$colum24= "select distinct id, nombre, orden from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";
 					$colu = mysqli_query($db_con, $colum24);
-					?>
-</div>
+					?></div>
 </div>
 </div>
 </div>
@@ -631,7 +656,8 @@ $(this).off('mousewheel.disableScroll')
 })	
 </script>
 
-<<script type="text/javascript">
+<
+<script type="text/javascript">
 
 /*Modificar función de la tecla Intro para desplazarse por columna de datos*/
 
