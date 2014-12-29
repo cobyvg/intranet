@@ -28,16 +28,16 @@ include("cuaderno/menu.php");
 ?>
 <script>
 function cambia_color(primero,segundo,tercero,cuarto,quinto,sexto,septimo,octavo,noveno,decimo){
-	celda = document.getElementById(primero);celda.style.backgroundColor="#000";
-	celda = document.getElementById(segundo);celda.style.backgroundColor="#000";
-	celda = document.getElementById(tercero);celda.style.backgroundColor="#000";
-	celda = document.getElementById(cuarto);celda.style.backgroundColor="#000";
-	celda = document.getElementById(quinto);celda.style.backgroundColor="#000";
-	celda = document.getElementById(sexto);celda.style.backgroundColor="#000";
-	celda = document.getElementById(septimo);celda.style.backgroundColor="#000";
-	celda = document.getElementById(octavo);celda.style.backgroundColor="#000";
-	celda = document.getElementById(noveno);celda.style.backgroundColor="#000";
-	celda = document.getElementById(decimo);celda.style.backgroundColor="#000";
+	celda = document.getElementById(primero);celda.style.backgroundColor="#555";
+	celda = document.getElementById(segundo);celda.style.backgroundColor="#555";
+	celda = document.getElementById(tercero);celda.style.backgroundColor="#555";
+	celda = document.getElementById(cuarto);celda.style.backgroundColor="#555";
+	celda = document.getElementById(quinto);celda.style.backgroundColor="#555";
+	celda = document.getElementById(sexto);celda.style.backgroundColor="#555";
+	celda = document.getElementById(septimo);celda.style.backgroundColor="#555";
+	celda = document.getElementById(octavo);celda.style.backgroundColor="#555";
+	celda = document.getElementById(noveno);celda.style.backgroundColor="#555";
+	celda = document.getElementById(decimo);celda.style.backgroundColor="#555";
 	}
 function descambia_color(primero,segundo,tercero,cuarto,quinto,sexto,septimo,octavo,noveno,decimo){
 	celda = document.getElementById(primero);celda.style.backgroundColor="#fff";
@@ -488,22 +488,23 @@ include("cuaderno/menu_cuaderno.php");
 </div> </td>";
 								while($col30 = mysqli_fetch_array($col00)){
 									$tipo_col = $col30[2];
+									
 									if ($tipo_col=="Números") { $clase_col = "text-info";}elseif ($tipo_col=="Texto corto"){$clase_col = "text-success";}elseif ($tipo_col=="Texto largo"){$clase_col = "text-warning";}elseif ($tipo_col=="Casilla de verificación"){$clase_col = "text-danger";}elseif ($tipo_col=="Ponderacion"){$clase_col = "text-muted";}
 
 									$nombre_col="";
 									$nombre_col = $col30[1];
-
 									if (strlen($nombre_col)>17) {
 										$col_vert = substr($nombre_col,0,15)."..";
 									}
 									else {
 										$col_vert = $nombre_col;
 									}
-
+									
 									echo "<td nowrap>
 <div style='width:40px;height:90px;'>
 <div class='Rotate-corto'><span class='$clase_col text-lowercase' style='font-weight:normal'>$col_vert</span> </div>
 </div> </td>";
+								
 								}
 								if($seleccionar == 1){
 									echo "<td nowrap class='warning'>
@@ -540,12 +541,17 @@ include("cuaderno/menu_cuaderno.php");
 					</td>
 					<?
 					// Si hay datos escritos rellenamos la casilla correspondiente
-					$colu10 = "select distinct id, Tipo, color from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by orden";
+					$colu10 = "select distinct id, Tipo, color, nombre from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by orden";
 					$colu20 = mysqli_query($db_con, $colu10);
 					while($colus10 = mysqli_fetch_array($colu20)){
 						$id = $colus10[0];
 						$t_dato = $colus10[1];
 						$color_dato = $colus10[2];
+				
+						$tr_pond= explode(":",$colus10[3]);
+						$id_pond_col=str_replace(" ","",$tr_pond[1]);
+						$pond_extra="";
+						
 						$dato0 = mysqli_query($db_con, "select nota, ponderacion from datos where claveal = '$claveal' and id = '$id'");
 						$dato1 = mysqli_fetch_array($dato0);
 
@@ -565,13 +571,13 @@ include("cuaderno/menu_cuaderno.php");
 						}
 						elseif (stristr($t_dato,"Ponderacion")==TRUE) {
 							$tipo_dato = "<input type='number' name='$id-$claveal' value='$dato1[0]' data-bs='tooltip' title='$dato1[0]' style='max-width:40px;height:60px;border:none;background-color:$color_dato;color:#FFF' disabled>";
+							$pond_extra=" onmouseover='cambia_color($id_pond_col)' onmouseout='descambia_color($id_pond_col)'";
 						}
 						else{
 							$tipo_dato = "<textarea name='$id-$claveal' data-bs='tooltip' title='$dato1[0]' style='height:67px;width:80px;font-size:10px;max-width:250px;border:none;max-height:68px !important;background-color:$color_dato'>$dato1[0]</textarea>";
 						}
 
-						echo "<td style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;height:74px !important;background-color:$color_dato'>$tipo_dato</td>";
-
+						echo "<td id='$id' style='vertical-align:middle; text-align:center;margin:0px;padding:0px;width:auto;height:74px !important;background-color:$color_dato' $pond_extra>$tipo_dato</td>";
 
 					}
 							}

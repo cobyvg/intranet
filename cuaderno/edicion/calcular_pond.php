@@ -11,6 +11,9 @@ if(isset($_POST['pondera'])){
 	$fecha = date('Y-m-d');
 	$asignatura=$_POST['asignatura'];
 	$curso=$_POST['curso'];
+	if (!(substr($curso,0,-1)==',')) {
+		$curso.=",";
+	}
 	$texto="Ponderacion de columnas: $id_cols";
 	$nombre="Ponderación de columnas: $id_cols";
 	$tipo="Ponderacion";
