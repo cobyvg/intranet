@@ -32,9 +32,6 @@ echo "<h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;<small> Crear nueva c
 echo "</div><br />";
 echo '<div align="center">';
 $curso = $_GET['curso'];
-// Añadimos campo Color
-$color_col = mysqli_query($db_con,"select color from notas_cuaderno");
-if(mysqli_num_rows($color_col)>0){}else{mysqli_query($db_con,"ALTER TABLE  `notas_cuaderno` ADD  `color` VARCHAR( 7 ) NOT NULL");}
 
  foreach($_POST as $key => $val)
 	{

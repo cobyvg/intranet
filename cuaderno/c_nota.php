@@ -49,9 +49,7 @@ $asig = mysqli_fetch_array($asig1);
 $asignatura = $asig[0];
 
 if(strlen($orden) > '0'){
-	
-mysqli_query($db_con, "ALTER TABLE  `notas_cuaderno` ADD  `Tipo` VARCHAR( 32 ) NULL");	
-	
+		
 $ident1 = mysqli_query($db_con, "select id, nombre, texto, texto_pond, visible_nota, Tipo, color from notas_cuaderno where id='$id'") or die ("error notas_cuaderno"); //echo $ident2; 
 $ident0 = mysqli_fetch_array($ident1);
 $id = $ident0[0];

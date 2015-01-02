@@ -215,3 +215,6 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 }
 
 ?>
+<?php include("../../pie.php"); ?>
+</body>
+</html>

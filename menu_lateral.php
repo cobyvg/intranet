@@ -486,6 +486,10 @@ $menu = array(
 				'href'   => 'admin/departamento/memoria.php',
 				'titulo' => 'Memoria de departamento',
 			),
+			array(
+				'href'   => 'admin/evaluacion_pendientes/index.php',
+				'titulo' => 'Evaluación de Pendientes',
+			),
 		),
 	),
 	

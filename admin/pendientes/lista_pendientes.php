@@ -224,3 +224,6 @@ ORDER BY alma.curso, alma.unidad, nc';
 }
 
 ?>
+<?php include("../../pie.php"); ?>
+</body>
+</html>
