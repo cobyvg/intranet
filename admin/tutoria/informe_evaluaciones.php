@@ -169,24 +169,23 @@ include("menu.php");
 <input type="hidden" name="evaluacion" value="<?php echo $evaluacion; ?>">
 <div class="table-responsive">
 <table
-	class="table table-bordered table-striped table-hover table-vcentered">
+	class="table table-bordered table-striped table-hover table-vcentered" align="center" style="width:auto">
 	<thead>
 		<tr>
 			<th style="width:25px"></th>
-			<th style="width:150px">Alumno/a</th>
-			<th style="width:80px">Fecha</th>
-			<th style="width:100px">Rep.</th>
-			<th style="width:35px">PIL</th>
+			<th >Alumno/a</th>
+			<th >Fecha</th>
+			<th >Rep.</th>
+			<th >PIL</th>
 <?
 if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 ?>			
-			<th style="width:15px">Exen.</th>
-			<th style="width:40px">Ref.</th>
+			<th >Exen.</th>
+			<th >Ref.</th>
 <?
 }
 ?>
-			<th style="width:50px">Pend.</th>
-			<th>At. Diversidad</th>
+			<th>Pend.</th>
 			<th>Observaciones</th>
 			<? if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
 			<th>Orientación</th>
@@ -325,28 +324,6 @@ echo "<input type='text' class='form-control input-sm' style='width:50px' maxlen
 			?>
 			</td>
 			
-			
-			<td>
-<?
-$div_extra = "";			
-$chk33 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'div'");
-if (mysqli_num_rows($chk33)>0) {
-	while($div00 = mysqli_fetch_array($chk33)){
-	$div_extra.="<p align=left>$div00[1]:<br>$div00[0]<p>";
-	}
-}
-
-$div = "";			
-$chk3 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'div'");
-
-if (mysqli_num_rows($chk3)>0) {
-	$div0 = mysqli_fetch_array($chk3);
-	$div = $div0[0];
-}
-?>
-			<textarea class="form-control" name="div-<?php echo $row['claveal']; ?>" rows="5" cols="25" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<? echo $div_extra;?>"><?php echo $div; ?></textarea>
-			</td>
-			
 			<td>
 <?
 $obs_extra = "";			
@@ -364,7 +341,7 @@ if (mysqli_num_rows($chk4)>0) {
 	$obs = $obs0[0];
 }
 ?>
-			<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="5" cols="25" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<? echo $obs_extra;?>"><?php echo $obs; ?></textarea>
+			<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="5" cols="45" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<? echo $obs_extra;?>"><?php echo $obs; ?></textarea>
 			</td>
 <? if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
 <td>			
@@ -384,7 +361,7 @@ if (mysqli_num_rows($chk5)>0) {
 	$ori = $ori0[0];
 }
 ?>			
-			<textarea class="form-control" name="ori-<?php echo $row['claveal']; ?>" rows="5" cols="30" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<? echo $ori_extra;?>"><?php echo $ori; ?></textarea>
+			<textarea class="form-control" name="ori-<?php echo $row['claveal']; ?>" rows="5" cols="45" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<? echo $ori_extra;?>"><?php echo $ori; ?></textarea>
 			</td>
 			<td nowrap>
 			<div class="form-group">

@@ -47,6 +47,13 @@ elseif (isset($_POST['asignatura'])) {
 	$asignatura = $_POST['asignatura'];
 }
 
+if (isset($_GET['foto'])) {
+	$foto = $_GET['foto'];
+}
+elseif (isset($_POST['foto'])) {
+	$foto = $_POST['foto'];
+}
+
 ?>
 <div class="container hidden-print">
 <div class="tabbable">
@@ -118,7 +125,7 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 		$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$profesor' and dia = '$z' and hora = '$n_hora'" );
 		while ( $rowasignaturas1 = mysqli_fetch_array ( $asignaturas1 ) ) {
 			$grupo = $rowasignaturas1 [1];
-				echo "<a href='http://$dominio/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]&profesor=$profesor' style='font-size:0.8em'>";
+				echo "<a href='http://$dominio/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]&profesor=$profesor&foto=$foto' style='font-size:0.8em'>";
 			if (is_numeric ( substr ( $grupo, 0, 1 ) )) {
 				echo $grupo . "<br />";
 			}
@@ -145,7 +152,7 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 	
 	</li>
 
-	<li <? echo $activo1;?>><a href="http://<? echo $dominio;?>/intranet/cuaderno.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Cuaderno de notas</a></li>
+	<li <? echo $activo1;?>><a href="http://<? echo $dominio;?>/intranet/cuaderno.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>&foto=<? echo $foto;?>">Cuaderno de notas</a></li>
 	
 	<li <? echo $activo2;?>><a href="http://<? echo $dominio;?>/intranet/faltas/index.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Faltas de asistencia</a></li>
 

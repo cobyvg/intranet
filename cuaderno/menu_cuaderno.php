@@ -25,14 +25,15 @@ function enviar(){
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
 	<?
-	$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso_sin&seleccionar=1&nom_asig=$nom_asig";
-	$mens2 = "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso_sin&nom_asig=$nom_asig";
+	$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso_sin&foto=$foto&seleccionar=1&nom_asig=$nom_asig";
+	$mens2 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso_sin&foto=1&nom_asig=$nom_asig";
 	$mens3 = "cuaderno/orden.php?menu_cuaderno=1&profesor=".$_SESSION['profi']."&dia=$dia&hora=$hora&asignatura=$asignatura&curso=$curs0&nom_asig=$nom_asig";
 
 	echo '<li><a href="'.$mens1.'"><i class="fa fa-user fa-fw"></i>&nbsp;Seleccionar alumnos</a></li>';
 	echo '<li><a href="'.$mens3.'"><i class="fa fa-reorder fa-fw"></i>&nbsp;Ordenar Columnas</a></li>';
 	echo '<li><a onclick="print()"><i class="fa fa-print fa-fw"></i>&nbsp;Imprimir tabla completa</a></li>';
-	?>
+	echo '<li><a href="'.$mens2.'"><i class="fa fa-user fa-fw"></i>&nbsp;Ocultar fotos</a></li>';
+		?>
 	</ul>
 	</li>
 
@@ -138,7 +139,10 @@ function enviar(){
 	echo '<input name=hora type=hidden value="';
 	echo $hora;
 	echo '" />';
-
+	// Foto.
+	echo '<input name=foto type=hidden value="';
+	echo $foto;
+	echo '" />';
 
 	?></div>
 	<div class="col-sm-5">

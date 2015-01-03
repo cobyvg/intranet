@@ -64,10 +64,15 @@ $curso_tutor=$query2[0];
 		<li><a href="../infotutoria/index.php">Informes de tutoría</a></li>
 		<li><a href="../tareas/index.php">Informes de tareas</a></li>
 		<li class="divider"></li>
-		<?php if(strstr($_SESSION['mod_tutoria']['unidad'],"E-")==TRUE): ?>
+		
+		<? 
+		$inf_t = mysqli_query($db_con,"select idcurso from unidades where nomunidad = '".$_SESSION['mod_tutoria']['unidad']."'"); 
+		$id_t = mysqli_fetch_array($inf_t);
+		if (strstr($id_t[0],"10114")==TRUE or $id_t[0]=="105806" or $id_t[0]=="7858"):
+		?>
 		<li><a href="../tutoria/informe_evaluaciones.php">Informes de Evaluación</a></li>
 		<li class="divider"></li>
-			<?php endif; ?>
+		<?php endif; ?>
 		
 		<li><a href="../tutoria/informe_notas_grupo.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Estadísticas de Evaluación del Grupo</a></li>
 		<li><a href="../tutoria/informe_notas_nivel.php?curso=<?echo $curso_tutor;?>">Estadísticas de Evaluación del Nivel</a></li>

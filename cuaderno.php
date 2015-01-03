@@ -92,6 +92,12 @@ if (isset($_GET['seleccionar'])) {
 elseif (isset($_POST['seleccionar'])) {
 	$seleccionar = $_POST['seleccionar'];
 }
+if (isset($_GET['foto'])) {
+	$foto = $_GET['foto'];
+}
+elseif (isset($_POST['foto'])) {
+	$foto = $_POST['foto'];
+}
 
 $pr = $_SESSION['profi'];
 // Elegir Curso y Asignatura.
@@ -288,9 +294,14 @@ include("cuaderno/menu_cuaderno.php");
 						class='text-info' data-bs='tooltip'
 						title=' <? echo $apellidos.", ".$nombre_al;?>'><a href="#"
 						onclick="window.open('<? echo $inf;?>')"> <?
-						$foto="";
-						$foto = "<img src='xml/fotos/$claveal.jpg' width='50' height='60' class=''  />";
-						echo $foto;
+						if ($foto=="1") {
+						$foto1='<span class="fa fa-user fa-fw fa-3x"></span>';
+						}
+						else{
+						$foto1="";
+						$foto1 = "<img src='xml/fotos/$claveal.jpg' width='50' height='60' class=''  />";													
+						}
+						echo $foto1;
 						echo "&nbsp;".$row[1];?>&nbsp; <?
 						echo $nombre_completo;?></a></td>
 				</tr>
@@ -311,12 +322,15 @@ include("cuaderno/menu_cuaderno.php");
 			<table class='table table-bordered table-condensed'
 				style='width: auto'>
 				<tr>
+				<? if ($mod_faltas==1) { ?>
+					
 					<td>
 					<div style='width: 40px; height: 104px;'>
 					<div class='Rotate-90'><span style='font-weight: bold'>Asistencia</span>
 					</div>
 					</div>
 					</td>
+				<? } ?>	
 					<?
 					// Número de las columnas de la tabla
 					$cols2=0;
@@ -533,7 +547,7 @@ include("cuaderno/menu_cuaderno.php");
 							{
 								echo "<tr>";
 								?>
-
+					<? if ($mod_faltas==1) { ?>
 					<td style='vertical-align: middle; height: 74px !important;'><? 
 					$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'");
 
@@ -547,6 +561,7 @@ include("cuaderno/menu_cuaderno.php");
 						?> <span class="label label-info" data-bs='tooltip'
 						title='Faltas Justificadas'><? if ($f_faltaT>0) {echo "".$f_justiT."";}?></span>
 					</td>
+					<? } ?>
 					<?
 					// Si hay datos escritos rellenamos la casilla correspondiente
 					$colu10 = "select distinct id, Tipo, color, nombre from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by orden";
