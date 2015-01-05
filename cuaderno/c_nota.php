@@ -20,6 +20,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $pr = $_SESSION['profi'];
  include("../menu.php");
  include("menu.php");
+ variables();
 ?>
 <div class="container">
 		<div class="row">
@@ -35,10 +36,11 @@ $pr = $_SESSION['profi'];
 echo '<div align="center">';
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
- foreach($_GET as $key => $val)
+foreach($_GET as $key => $val)
 	{
 		${$key} = $val;
-	}	
+	}
+
 $curso_sin=substr($curso,0,-1);
 $curso_nota=$curso.",";
 	echo "<h3><span class='label label-info' style='padding:8px'>$curso -- $nom_asig </span></h3><br>";
@@ -48,7 +50,7 @@ $asig1 = mysqli_query($db_con, $asig0);
 $asig = mysqli_fetch_array($asig1);
 $asignatura = $asig[0];
 
-if(strlen($orden) > '0'){
+if(strlen($id) > '0'){
 		
 $ident1 = mysqli_query($db_con, "select id, nombre, texto, texto_pond, visible_nota, Tipo, color from notas_cuaderno where id='$id'") or die ("error notas_cuaderno"); //echo $ident2; 
 $ident0 = mysqli_fetch_array($ident1);

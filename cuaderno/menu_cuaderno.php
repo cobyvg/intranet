@@ -8,31 +8,36 @@ function enviar(){
             	document.form1.mostrar.disabled = false;
             	document.form1.eliminar.disabled = false;
             	document.form1.impresion.disabled = false;
-            }
+            	document.form1.edicion.disabled = false;
+            	}
         }
     }
 }
 </script>
+<?
+	$var = "profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso_sin&nom_asig=$nom_asig";
+?>
 <div class="container hidden-print" style="margin-top: -15px">
 <div class="tabbable">
 <ul class="nav nav-tabs">
 	<li><a
-		href='<? echo "cuaderno/c_nota.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso_sin&nom_asig=$nom_asig";?>'><i
+		href='<? echo "cuaderno/c_nota.php?$var";?>'><i
 		class="fa fa-plus-circle fa-fw"></i> Nueva columna de datos</a></li>
 
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
 		href="#"><i class="fa fa-gears fa-fw"></i> Funciones <span
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
-	<?
-	$mens1 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso_sin&foto=$foto&seleccionar=1&nom_asig=$nom_asig";
-	$mens2 = "cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso_sin&foto=1&nom_asig=$nom_asig";
-	$mens3 = "cuaderno/orden.php?menu_cuaderno=1&profesor=".$_SESSION['profi']."&dia=$dia&hora=$hora&asignatura=$asignatura&curso=$curs0&nom_asig=$nom_asig";
+	<?	
+	$mens1 = "cuaderno.php?$var&seleccionar=1";
+	if ($foto==1) {$texto_foto = "Mostrar fotos"; $mens2 = "cuaderno.php?$var&foto=0";}
+	else { $texto_foto = "Ocultar fotos"; $mens2 = "cuaderno.php?$var&foto=1";}
+	$mens3 = "cuaderno/orden.php?$var";
 
 	echo '<li><a href="'.$mens1.'"><i class="fa fa-user fa-fw"></i>&nbsp;Seleccionar alumnos</a></li>';
 	echo '<li><a href="'.$mens3.'"><i class="fa fa-reorder fa-fw"></i>&nbsp;Ordenar Columnas</a></li>';
 	echo '<li><a onclick="print()"><i class="fa fa-print fa-fw"></i>&nbsp;Imprimir tabla completa</a></li>';
-	echo '<li><a href="'.$mens2.'"><i class="fa fa-user fa-fw"></i>&nbsp;Ocultar fotos</a></li>';
+	echo '<li><a href="'.$mens2.'"><i class="fa fa-user fa-fw"></i>&nbsp;'.$texto_foto.'</a></li>';
 		?>
 	</ul>
 	</li>
@@ -146,6 +151,8 @@ function enviar(){
 
 	?></div>
 	<div class="col-sm-5">
+	<p><input name="edicion" type=submit value="Editar columna"
+		class="btn btn-primary btn-block" disabled="disabled" /></p>
 	<p><input id="boton" name="media_pond2" type="submit" value="Calcular medias"
 		class="btn btn-primary btn-block" disabled="disabled"/></p>
 	<p><input name="ocultar" type="submit" value="Ocultar"

@@ -8,6 +8,18 @@ $vars=substr($vars,0,-1);
 	header('Location:'.'edicion/impresion.php?'.$vars.'');
 	exit();
 }
+if (isset($_POST['edicion'])) {
+foreach($_POST as $key => $val)
+{
+	if (is_numeric($key)) {
+		$vars.="id=$key&";;
+	}
+	$vars.="$key=$val&";
+}
+$vars=substr($vars,0,-1);
+	header('Location:'.'c_nota.php?'.$vars.'');
+	exit();
+}
 ?>
 <?
 session_start();
@@ -26,8 +38,6 @@ if($_SESSION['cambiar_clave']) {
 }
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
-
 ?>
 <?
 include("../menu.php");
@@ -74,9 +84,7 @@ elseif ($pondera) {
 elseif ($media_pond2) {
 	include("edicion/calcular_pond.php");
 }
-elseif ($impresion) {
-	include("edicion/impresion.php");
-}
+echo $edicion;
 ?>
 <?
 include("../pie.php")

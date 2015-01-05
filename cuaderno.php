@@ -99,7 +99,6 @@ elseif (isset($_POST['foto'])) {
 	$foto = $_POST['foto'];
 }
 
-$pr = $_SESSION['profi'];
 // Elegir Curso y Asignatura.
 if(empty($curso))
 {
