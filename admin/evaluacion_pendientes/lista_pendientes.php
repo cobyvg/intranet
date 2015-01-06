@@ -79,7 +79,7 @@ $asignatur = mysqli_fetch_row($asig);
 $asignatura = $asignatur[0];
 $curso = $asignatur[1];
 
-echo '<br><legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend><hr />';
+echo '<legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend>';
 echo '<form action="lista_pendientes.php" method="POST">';
 echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th nowrap>1ª Ev.</th><th nowrap>2ª Ev.</th><th>Junio</th><th>Sept.</th></thead><tbody>";
 
@@ -126,11 +126,11 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 echo "</tbody></table>";
 echo "<input type='hidden' name='select' value='$asig_pendiente' />";
 echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary' />";
+echo '<a href="index.php" class="btn btn-default pull-right">Volver a la página de Pendientes</a>';
 echo "</form>";
-echo "<br />";
 
 ?>
-<a href="index.php" class="btn btn-primary">Volver a la página de Pendientes</a>
+
 </div>
 </div>
 </div>

@@ -76,7 +76,7 @@ include("../menu.php");
 Es posible importar los horarios con el archivo de tipo DL que se genera con Horwin, pero esta opción sólo debe utilizarse excepcionalmente. La opción preferida y más completa es el archivo XML.</li>
 			  <li>Los Departamentos. Se descarga desde Séneca --&gt; Personal --&gt; Personal del centro  --&gt; Exportar (arriba a la izquierda) --&gt; Exportar datos al formato: Texto plano.</li>
 			  <li>Los Horarios (que generamos con Horw). Solo se genera una vez a principio de Curso. Las instrucciones de la descarga están en el formulario correspondiente, al pinchar en el enlace.</li>
-			 <li>La lista de alumnos pendientes permite crear una tabla con los alumnos con asignaturas pendientes de cursos anteriores, que posteriormente puede consultarse en Consultas --> Listas de alumnos. Este módulo necesita el archivo comprimido de calificaciones de la evaluación extraordinaria del curso escolar anterior. Las instrucciones vienen en la misma página.</li>
+			 <li>La importación de alumnos pendientes permite crear una tabla con los alumnos con asignaturas pendientes de cursos anteriores, que posteriormente puede consultarse en Consultas --> Listas de alumnos. </li>
 			</ul>
 			</p>
 			<hr>

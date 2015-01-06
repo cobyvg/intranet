@@ -13,7 +13,7 @@
 	<li><a href="jefe/indexdepartamentos.php">Importar Departamentos y Especialidades</a></li>
 	<li><a href="jefe/indexprofesores.php">Importar Profesores</a></li>
 <li><a href="../faltas/seneca/index_festivos.php">Importar días festivos</a></li>
-	<li><a href="jefe/index_pendientes.php">Lista de Alumnos con pendientes</a></li>
+	<li><a href="jefe/index_pendientes.php">Importar Alumnos con pendientes</a></li>
 	  <? if ($mod_tic and $mod_horario) {?>
 	<!--<li><a href="../TIC/distribucion/crea_tabla.php">Crear Asignación TIC</a></li>-->
 	<?}?>

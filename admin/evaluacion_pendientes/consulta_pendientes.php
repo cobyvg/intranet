@@ -71,7 +71,7 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 		$rep='';
 	}
 	echo "<tr>";
-	$columna = "<td nowrap><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$salida[5]&todos=Ver Informe Completo del Alumno'>$nombre_al</a> <span class='text-warning'>$rep</span></td>";
+	$columna = "<td nowrap>$salida[2]&nbsp;&nbsp;<a href='http://$dominio/intranet/admin/informes/index.php?claveal=$salida[5]&todos=Ver Informe Completo del Alumno'>$nombre_al</a> <span class='text-warning'>$rep</span></td>";
 	echo $columna;
 	$tr_asigna = explode(";",$array_asigna);
 	
