@@ -78,8 +78,8 @@ VALUES ('$dalumno[0]',\"$dalumno[1]\",'$dalumno[2]','$dalumno[3]',
 			echo "El <b>Informe Tutorial</b> del alumno/a <b> $nombre $apellidos </b>para el día <b>";
 echo formatea_fecha($fecha);
 echo "</b> se ha activado.";
-echo '</div><br /><input type="button" onClick="history.back(1)" value="Volver" class="btn btn-primary">
-		</div>';
+echo '</div>
+</div>';
 exit;
 ?>
 </div>

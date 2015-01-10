@@ -39,7 +39,16 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
 }
 
+$depto = $_SESSION ['dpt'];
+
+if(stristr($_SESSION['cargo'],'1') == TRUE){
 $query_Recordset1 = "SELECT distinct pendientes.codigo FROM pendientes order by codigo";
+}
+else{
+$query_Recordset1 = "select distinct codigo from 
+profesores, asignaturas where asignaturas.nombre = materia and profesor in (select distinct departamentos.nombre from departamentos where departamento = '$depto') and abrev like '%\_%' and codigo in (SELECT distinct pendientes.codigo FROM pendientes order by codigo)";
+}
+
 $Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error($db_con));
 $row_Recordset1 = mysqli_fetch_array($Recordset1);
 $totalRows_Recordset1 = mysqli_num_rows($Recordset1);

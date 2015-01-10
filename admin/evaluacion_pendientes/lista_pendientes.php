@@ -88,7 +88,6 @@ FROM pendientes, asignaturas, alma, FALUMNOS
 WHERE asignaturas.codigo = pendientes.codigo
 AND FALUMNOS.claveal=alma.claveal
 AND alma.claveal = pendientes.claveal
-AND alma.unidad NOT LIKE  "%p-%" 
 AND asignaturas.codigo =  "'.$asig_pendiente.'" 
 AND abrev LIKE  "%\_%"
 ORDER BY alma.curso, alma.unidad, nc';

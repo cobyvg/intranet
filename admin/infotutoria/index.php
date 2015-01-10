@@ -90,24 +90,7 @@ echo "<th>Alumno</th>
 $count = "";
 	while($row = mysqli_fetch_array($result))
 	{
-// Comprobamos que el profesor no ha rellenado el informe de esa asignatura	
-$hay = "select * from infotut_profesor where id_alumno = '$row[0]' and asignatura = '$asignatura'";
-$si = mysqli_query($db_con, $hay);	
-$activos=mysqli_num_rows($si) ;
-if ($activos > 0)
-		{ 
-	echo "<tr><TD> $row[1], $row[2]</td>
-   <TD colspan='2' nowrap style='vertical-align:middle'><span class='label label-success'>Informe ya rellenado</span></td>";
-	if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-			echo "<TD> 
-			<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search' title='Ver Informe'> </i></a>
-			&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class='' data-bb='confirm-delete'data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar Informe'  > </i> </a> 			
-			</td>";		
-		}
-		echo "</tr>";	
-   }
-   		else
-		{
+		
 		$count = $count + 1;
 	echo "<tr><TD>
 	 $row[1], $row[2]</td>
@@ -129,7 +112,7 @@ echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-sq
 				}
    echo "</td>
    </tr>";
-		}
+		
 	}	
 	echo "</table>";
 	 

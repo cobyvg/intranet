@@ -37,7 +37,7 @@ include("menu.php");
 <div class="col-md-6 col-md-offset-3">	
         
 <?php
-
+$asignatura = $_POST['asignatura'];
 $alumno=mysqli_query($db_con, "SELECT infotut_alumno.CLAVEAL, infotut_alumno.APELLIDOS, infotut_alumno.NOMBRE, infotut_alumno.unidad, infotut_alumno.id, curso FROM infotut_alumno, alma WHERE alma.claveal=infotut_alumno.claveal and ID='$id'");
 $dalumno = mysqli_fetch_array($alumno);
 $n_cur=$dalumno[5];
@@ -76,6 +76,20 @@ echo "<p align=center class='lead'>$dalumno[2] $dalumno[1] ( $dalumno[3] )</p>";
 	}
 echo "<br />";
 
+$depto = $_SESSION ['dpt'];
+if (stristr($_SESSION['cargo'],'1') == TRUE) {
+	$extra_dep = "";
+}
+else{
+	$extra_dep = "where departamento = '$depto'";
+}
+$pend = mysqli_query($db_con, "select distinct materia, abrev from 
+profesores, asignaturas where asignaturas.nombre = materia and profesor in (select distinct departamentos.nombre from departamentos $extra_dep) and abrev like '%\_%' and codigo in (SELECT distinct pendientes.codigo FROM pendientes where pendientes.claveal = '$claveal' order by codigo)");
+
+while($pendi = mysqli_fetch_array($pend)){
+	$pendiente.="<option value='$pendi[0] ($pendi[1])'>$pendi[0] ($pendi[1])</option>";
+}
+
 $coinciden = mysqli_query($db_con, "SELECT materia FROM profesores WHERE profesor='$pr' and grupo = '$dalumno[3]'");
 while($coinciden0 = mysqli_fetch_row($coinciden)){
 $asignatur = $coinciden0[0];
@@ -90,25 +104,38 @@ $coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profeso
 if(mysqli_num_rows($coinciden)<1 and stristr($_SESSION['cargo'],'1') == TRUE){
 $coinciden = mysqli_query($db_con, "SELECT distinct materia, codigo FROM profesores, asignaturas WHERE asignaturas.nombre = profesores.materia and asignaturas.curso = profesores.nivel and grupo = '$dalumno[3]' and asignaturas.curso='$n_cur' and abrev not like '%\_%'");	
 }
-echo "<div class='form-group'><label>Asignatura</label><select name='asignatura' class='form-control' required>";
-echo"<OPTION></OPTION>";
+echo "<div class='form-group'><label>Asignatura</label><select name='asignatura' class='form-control' required onChange='submit()'>";
+echo"<OPTION>$asignatura</OPTION>";
 while($coinciden0 = mysqli_fetch_row($coinciden)){
 $n_asig = $coinciden0[0];
 $cod = $coinciden0[1];
 if (strstr($asi1,$cod)==TRUE) {
 				if($n_asig == $asignatur){
-				$materia = $n_asig;
-				echo "<OPTION selected='selected'>$n_asig </OPTION>";
+					if (isset($asignatura)) {
+						$materia = $asignatura;
+					}
+					else{
+						$materia = $n_asig;
+						//$extra = " selected='selected'";
+					}
+				echo "<OPTION $extra value='$n_asig'>$n_asig</OPTION>";
 				}
-				else {echo"<OPTION>$n_asig</OPTION>";}
+				else {echo"<OPTION value='$n_asig'>$n_asig</OPTION>";}
 }
 }
-
+echo $pendiente;
 echo "</select></div>";
 
 $ya_hay=mysqli_query($db_con, "select informe from infotut_profesor where asignatura = '$materia' and id_alumno = '$id'");
 $ya_hay1=mysqli_fetch_row($ya_hay);
-$informe=$ya_hay1[0];
+if (isset($asignatura)) {
+						$informe=$ya_hay1[0];
+					}
+					else{
+						$informe="";
+						//$materia = $n_asig;
+						//$extra = " selected='selected'";
+					}
 echo "<div class='form-group'><label>Informe</label><textarea rows='6' name='informe' class='form-control' required>$informe</textarea></div>";
 ?>
 <input name="submit1" type=submit value="Enviar Datos" class="btn btn-primary btn-block">
