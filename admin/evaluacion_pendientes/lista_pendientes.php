@@ -79,10 +79,13 @@ $asignatur = mysqli_fetch_row($asig);
 $asignatura = $asignatur[0];
 $curso = $asignatur[1];
 
+$profe_dep = $_SESSION ['profi'];
+
 echo '<legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend>';
 echo '<form action="lista_pendientes.php" method="POST">';
 echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th nowrap>1ª Ev.</th><th nowrap>2ª Ev.</th><th>Junio</th><th>Sept.</th></thead><tbody>";
 
+if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE){
 $sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc,  pendientes.claveal, alma.matriculas
 FROM pendientes, asignaturas, alma, FALUMNOS
 WHERE asignaturas.codigo = pendientes.codigo
@@ -91,6 +94,18 @@ AND alma.claveal = pendientes.claveal
 AND asignaturas.codigo =  "'.$asig_pendiente.'" 
 AND abrev LIKE  "%\_%"
 ORDER BY alma.curso, alma.unidad, nc';
+}
+else{
+$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc,  pendientes.claveal, alma.matriculas
+FROM pendientes, asignaturas, alma, FALUMNOS
+WHERE asignaturas.codigo = pendientes.codigo
+AND FALUMNOS.claveal=alma.claveal
+AND alma.claveal = pendientes.claveal
+AND asignaturas.codigo =  "'.$asig_pendiente.'" 
+AND abrev LIKE  "%\_%"
+AND pendientes.grupo in (select distinct grupo from profesores where profesor = "'.$profe_dep.'")
+ORDER BY alma.curso, alma.unidad, nc';	
+}
 //echo $sql."<br><br>";
 $Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
 while ($salida = mysqli_fetch_array($Recordset1)){
