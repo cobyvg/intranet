@@ -6,13 +6,32 @@ include_once('../config/version.php');
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-	exit();
+	
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		exit();
+	}
 }
 
 if($_SESSION['cambiar_clave']) {
-	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+		exit();
+	}
 }
+
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
@@ -304,7 +323,7 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 		}
 
 		echo '<p><span class="fa fa-calendar-o fa-fw"></span> '.$dayname.' - '.$current_day.'</p>';
-		echo '<a href="http://'.$dominio.'/intranet/reservas/reservar/index_aulas.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
+		echo '<a href="//'.$dominio.'/intranet/reservas/reservar/index_aulas.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
 
 		//Nombre del día
 		if (mysqli_num_rows($eventExec) == 1)
@@ -344,7 +363,7 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 		$event_event7 = "";
 	}
 	echo '<br>';
-	echo '<a class="btn btn-primary btn-block" href="http://'.$dominio.'/intranet/reservas/reservar/index_aulas.php?servicio='.$servicio.'">Reservar...</a>';
+	echo '<a class="btn btn-primary btn-block" href="//'.$dominio.'/intranet/reservas/reservar/index_aulas.php?servicio='.$servicio.'">Reservar...</a>';
 	echo '</div>';
 	echo '</div>';
 

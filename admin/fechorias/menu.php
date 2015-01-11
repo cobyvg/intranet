@@ -18,13 +18,13 @@ if (strstr($_SERVER['REQUEST_URI'],'convivencia_jefes.php')==TRUE){ $activo7 = '
         <div class="tabbable">
           <ul class="nav nav-tabs">
 
-     <li <? echo $activo1;?>> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/cfechorias.php">
+     <li <? echo $activo1;?>> <a href="//<?php echo $dominio; ?>/intranet/admin/fechorias/cfechorias.php">
       Consultar Problemas</a></li>
-     <li <? echo $activo2;?>> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/infechoria.php">
+     <li <? echo $activo2;?>> <a href="//<?php echo $dominio; ?>/intranet/admin/fechorias/infechoria.php">
       Registrar Problema</a></li>
-     <li <? echo $activo3;?>> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/lfechorias.php">
+     <li <? echo $activo3;?>> <a href="//<?php echo $dominio; ?>/intranet/admin/fechorias/lfechorias.php">
       Últimos Problemas</a></li>
-     <li <? echo $activo4;?>> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/expulsados.php">
+     <li <? echo $activo4;?>> <a href="//<?php echo $dominio; ?>/intranet/admin/fechorias/expulsados.php">
       Alumnos expulsados</a></li>
       <?
       $pr_conv = $_SESSION['profi'];
@@ -32,17 +32,17 @@ if (strstr($_SERVER['REQUEST_URI'],'convivencia_jefes.php')==TRUE){ $activo7 = '
 // echo "select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'";
 if (mysqli_num_rows($conv) > '0') {
 ?>
-      <li <? echo $activo5;?>><a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/convivencia.php">Aula de Convivencia</a></li>  
+      <li <? echo $activo5;?>><a href="//<?php echo $dominio; ?>/intranet/admin/fechorias/convivencia.php">Aula de Convivencia</a></li>  
 <?
 }
       ?>
-     <li <? echo $activo6;?>> <a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/lfechorias3.php">
+     <li <? echo $activo6;?>> <a href="//<?php echo $dominio; ?>/intranet/admin/fechorias/lfechorias3.php">
       Ranking</a></li>
       
 <?   
 if(stristr($_SESSION['cargo'],'1') == TRUE){
 ?>
-      <li <? echo $activo7;?>><a href="http://<? echo $dominio; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula de Convivencia</a></li>
+      <li <? echo $activo7;?>><a href="//<?php echo $dominio; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula de Convivencia</a></li>
 <?
 }
 ?>           

@@ -9,7 +9,7 @@
     		</p>
     		<p class="text-center">
     			<small>
-    				<a href="http://<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
+    				<a href="//<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
     				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
     				<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
     			</small>
@@ -18,24 +18,24 @@
     </footer>
     
     <!-- BOOTSTRAP JS CORE -->
-    <script src="http://<? echo $dominio;?>/intranet/js/jquery-1.11.1.min.js"></script>  
-    <script src="http://<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/jquery-1.11.1.min.js"></script>  
+    <script src="//<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>
     
     <!-- PLUGINS JS -->
-    <script src="http://<? echo $dominio;?>/intranet/js/bootbox.min.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/summernote/summernote.min.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/summernote/summernote-es-ES.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/datetimepicker/moment.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/datetimepicker/moment-es.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/datetimepicker/bootstrap-datetimepicker.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/bootbox.min.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/summernote/summernote.min.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/summernote/summernote-es-ES.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/datetimepicker/moment.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/datetimepicker/moment-es.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/datetimepicker/bootstrap-datetimepicker.js"></script>
     <?php if(isset($PLUGIN_DATATABLES) && $PLUGIN_DATATABLES): ?>
-    <script src="http://<? echo $dominio;?>/intranet/js/datatables/jquery.dataTables.min.js"></script>
-    <script src="http://<? echo $dominio;?>/intranet/js/datatables/dataTables.bootstrap.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/datatables/dataTables.bootstrap.js"></script>
     <?php endif; ?>
     <?php if(isset($_GET['tour']) && $_GET['tour']): ?>
-    <script src="http://<? echo $dominio;?>/intranet/js/bootstrap-tour/bootstrap-tour.min.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/bootstrap-tour/bootstrap-tour.min.js"></script>
     <?php endif; ?>
-    <script src="http://<? echo $dominio;?>/intranet/js/ajax_alumnos.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/ajax_alumnos.js"></script>
     
 		
 		<script>

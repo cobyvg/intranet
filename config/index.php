@@ -52,6 +52,7 @@ Esto quiere decir que no le has concedido permiso de escritura al directorio don
 else{
 
 include 'escribe_archivo.php';
+include 'escribe_htaccess.php';
 }
 if($primera == 1){
 // Comprobamos estado de las Bases de datos para saber si podemos ofrecer el botón de creación de las mismas o bien ya han sido creadas
@@ -105,8 +106,18 @@ else{
 	mysqli_query($db_con, "insert into departamentos (nombre, dni, departamento, cargo, idea) values ('admin', '12345678', 'Admin', '1', 'admin')");
 
 if($_SESSION['cambiar_clave']) {
-	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+		exit();
+	}
 }
+
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
@@ -114,7 +125,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 if (!($primera==1)) {
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header("location:http://$dominio/intranet/salir.php");
+header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit();	
 }
 }
@@ -135,7 +146,7 @@ include("tabla.php");
 			</p>
 			<p class="text-center">
 				<small>
-					<a href="http://<?php echo $dominio; ?>/intranet/GPL.html">Licencia de uso</a>
+					<a href="//<?php echo $dominio; ?>/intranet/GPL.html">Licencia de uso</a>
 					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
 					<a href="https://github.com/IESMonterroso/intranet">Github</a>
 				</small>

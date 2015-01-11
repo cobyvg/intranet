@@ -7,13 +7,32 @@ include_once('../../config/version.php');
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
-	exit();
+	
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		exit();
+	}
 }
 
 if($_SESSION['cambiar_clave']) {
-	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+		exit();
+	}
 }
+
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
@@ -181,7 +200,7 @@ if ($row = mysqli_fetch_array($result))
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';
 		}
-		echo "<td><a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Ver detalles'></i> ";
+		echo "<td><a href='//$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Ver detalles'></i> ";
 		echo '</a></td></tr>';
 	} while($row = mysqli_fetch_array($result));
 	echo "</tbody></table>\n";
@@ -205,10 +224,10 @@ if ($_GET['seleccionado']=='1'){
 		$s_control = '1';
 	}
 	// Menú del alumno
-	echo "<a href='http://$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno' class='btn btn-primary'>Datos completos</a>";
-	echo "&nbsp;<a class='btn btn-primary' href='http://$dominio/intranet/admin/informes/cinforme.php?nombre_al=$alumno&unidad=$unidad'>Informe histórico del Alumno</a> ";
+	echo "<a href='//$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno' class='btn btn-primary'>Datos completos</a>";
+	echo "&nbsp;<a class='btn btn-primary' href='//$dominio/intranet/admin/informes/cinforme.php?nombre_al=$alumno&unidad=$unidad'>Informe histórico del Alumno</a> ";
 	echo "&nbsp;<a class='btn btn-primary' href='../fechorias/infechoria.php?seleccionado=1&nombre_al=$alumno'>Problema de disciplina</a> ";
-	echo "&nbsp;<a class='btn btn-primary' href='http://$dominio/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
+	echo "&nbsp;<a class='btn btn-primary' href='//$dominio/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
 	if (stristr($_SESSION['cargo'],'1') == TRUE) {
 		$dat = mysqli_query($db_con, "select unidad from FALUMNOS where claveal='$clave_al'");
 		$tut=mysqli_fetch_row($dat);

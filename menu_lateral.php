@@ -498,7 +498,7 @@ $menu = array(
 		'nombre'  => 'Páginas de interés',
 		'items'   => array (
 			array(
-				'href'   => 'http://'.$dominio,
+				'href'   => '//'.$dominio,
 				'titulo' => 'Página del '.$nombre_del_centro,
 				'target' => '_blank',
 			),

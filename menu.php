@@ -14,31 +14,31 @@
 	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 
 <!-- BOOTSTRAP CSS CORE -->
-<link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css"
+<link href="//<?php echo $dominio; ?>/intranet/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- CUSTOM CSS THEME -->
-<link href="http://<? echo $dominio;?>/intranet/css/otros.css"
+<link href="//<?php echo $dominio; ?>/intranet/css/otros.css"
 	rel="stylesheet">
 
 <!-- PLUGINS CSS -->
 <link
-	href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css"
+	href="//<?php echo $dominio; ?>/intranet/css/font-awesome.min.css"
 	rel="stylesheet">
 <link
-	href="http://<? echo $dominio;?>/intranet/js/summernote/summernote.css"
+	href="//<?php echo $dominio; ?>/intranet/js/summernote/summernote.css"
 	rel="stylesheet">
 <link
-	href="http://<? echo $dominio;?>/intranet/js/datetimepicker/bootstrap-datetimepicker.css"
+	href="//<?php echo $dominio; ?>/intranet/js/datetimepicker/bootstrap-datetimepicker.css"
 	rel="stylesheet">
 <?php if(isset($PLUGIN_DATATABLES) && $PLUGIN_DATATABLES): ?>
 <link
-	href="http://<? echo $dominio;?>/intranet/js/datatables/dataTables.bootstrap.css"
+	href="//<?php echo $dominio; ?>/intranet/js/datatables/dataTables.bootstrap.css"
 	rel="stylesheet">
 <?php endif; ?>
 <?php if(isset($_GET['tour']) && $_GET['tour']): ?>
 <link
-	href="http://<? echo $dominio;?>/intranet/js/bootstrap-tour/bootstrap-tour.min.css"
+	href="//<?php echo $dominio; ?>/intranet/js/bootstrap-tour/bootstrap-tour.min.css"
 	rel="stylesheet">
 <?php endif; ?>
 </head>
@@ -52,7 +52,7 @@
 	data-target="#navbar"><span class="sr-only">Cambiar navegación</span> <span
 	class="icon-bar"></span> <span class="icon-bar"></span> <span
 	class="icon-bar"></span></button>
-<a class="navbar-brand" href="http://<?php echo $dominio; ?>/intranet/"><?php echo $nombre_del_centro; ?></a>
+<a class="navbar-brand" href="//<?php echo $dominio; ?>/intranet/"><?php echo $nombre_del_centro; ?></a>
 </div>
 
 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -60,7 +60,7 @@
 <ul class="nav navbar-nav">
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')) ? 'class="active"' : ''; ?>><a
-		href="http://<? echo $dominio;?>/intranet/index.php">Inicio</a></li>
+		href="//<?php echo $dominio; ?>/intranet/index.php">Inicio</a></li>
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/upload/')) ? 'class="active"' : ''; ?>><a
 		href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
@@ -119,7 +119,7 @@ mysqli_free_result($result_mensajes);
 ?>
 	<li
 		class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/')) ? 'active' : ''; ?>"><a
-		href="http://<? echo $dominio;?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
+		href="//<?php echo $dominio; ?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
 	<li class="dropdown hidden-xs" id="bs-tour-mensajes"><a href="#" class="dropdown-toggle"
 		data-toggle="dropdown" data-bs="tooltip" title="Mensajes recibidos" data-placement="bottom" data-container="body"> <span
 		class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer) ? 'text-warning"' : ''; ?>"></span>
@@ -129,7 +129,7 @@ mysqli_free_result($result_mensajes);
 	<?php if(mysqli_num_rows($result_mensajes)): ?>
 	<?php while ($row = mysqli_fetch_array($result_mensajes)): ?>
 		<li><a
-			href="http://<?php echo $dominio; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
+			href="//<?php echo $dominio; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
 		<div
 		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
 		<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row['ahora'])); ?></em></span>
@@ -141,7 +141,7 @@ mysqli_free_result($result_mensajes);
 		<?php endwhile; ?>
 		<?php mysqli_free_result($result_mensajes); ?>
 		<?php endif; ?>
-		<li><a class="text-center" href="http://<?php echo $dominio; ?>/intranet/admin/mensajes/"><strong>Ver todos los mensajes <span class="fa fa-angle-right"></span></strong></a></li>
+		<li><a class="text-center" href="//<?php echo $dominio; ?>/intranet/admin/mensajes/"><strong>Ver todos los mensajes <span class="fa fa-angle-right"></span></strong></a></li>
 	</ul>
 	</li>
 
@@ -149,12 +149,12 @@ mysqli_free_result($result_mensajes);
 		data-toggle="dropdown"> <span class="fa fa-user fa-fw"></span> <? echo $idea; ?>
 	<b class="caret"></b> </a>
 	<ul class="dropdown-menu">
-		<li><a href="http://<? echo $dominio; ?>/intranet/clave.php"><i
+		<li><a href="//<?php echo $dominio; ?>/intranet/clave.php"><i
 			class="fa fa-key fa-fw"></i> Cambiar contraseña</a></li>
 		<li><a
-			href="http://<? echo $dominio; ?>/intranet/admin/fotos/fotos_profes.php"><i
+			href="//<?php echo $dominio; ?>/intranet/admin/fotos/fotos_profes.php"><i
 			class="fa fa-camera fa-fw"></i> Cambiar fotografía</a></li>
-		<li><a href="http://<? echo $dominio;?>/intranet/salir.php"><i
+		<li><a href="//<?php echo $dominio; ?>/intranet/salir.php"><i
 			class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a></li>
 	</ul>
 	</li>
