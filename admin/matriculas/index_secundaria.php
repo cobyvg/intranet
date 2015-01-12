@@ -6,14 +6,14 @@ include_once('../../config/version.php');
 if($_SESSION['autentificado']!='1')
 {
 session_destroy();
-header("location:http://$dominio/intranet/salir.php");	
+header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
 exit;
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $profe = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header("location:http://$dominio/intranet/salir.php");
+header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
 }
 ?>

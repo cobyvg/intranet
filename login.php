@@ -174,9 +174,9 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
     <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
     <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
       
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">            
+    <link href="//<?php echo $dominio; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//<?php echo $dominio; ?>/intranet/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//<?php echo $dominio; ?>/intranet/css/otros.css" rel="stylesheet">            
 </head>
 
 <body id="login">
@@ -230,7 +230,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			</p>
 			<p class="text-center">
 				<small>
-					<a href="http://<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
+					<a href="//<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
 					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
 					<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
 				</small>
@@ -238,8 +238,8 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		</div>
 	</footer>
 	
-  <script src="http://<? echo $dominio;?>/intranet/js/jquery-1.11.1.min.js"></script>  
-  <script src="http://<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>
+  <script src="//<?php echo $dominio; ?>/intranet/js/jquery-1.11.1.min.js"></script>  
+  <script src="//<?php echo $dominio; ?>/intranet/js/bootstrap.min.js"></script>
   
   <?php if($msg_error): ?>
       <script>$("#form-group").addClass( "has-error" );</script>

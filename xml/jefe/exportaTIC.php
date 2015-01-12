@@ -1,7 +1,7 @@
 <?
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header("location:http://$dominio/intranet/salir.php");
+header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
 }
 

@@ -7,13 +7,32 @@ include_once('../../config/version.php');
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-	exit();
+	
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		exit();
+	}
 }
 
 if($_SESSION['cambiar_clave']) {
-	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+		exit();
+	}
 }
+
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
@@ -71,7 +90,7 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 		$rep='';
 	}
 	echo "<tr>";
-	$columna = "<td nowrap>$salida[2]&nbsp;&nbsp;<a href='http://$dominio/intranet/admin/informes/index.php?claveal=$salida[5]&todos=Ver Informe Completo del Alumno'>$nombre_al</a> <span class='text-warning'>$rep</span></td>";
+	$columna = "<td nowrap>$salida[2]&nbsp;&nbsp;<a href='//$dominio/intranet/admin/informes/index.php?claveal=$salida[5]&todos=Ver Informe Completo del Alumno'>$nombre_al</a> <span class='text-warning'>$rep</span></td>";
 	echo $columna;
 	$tr_asigna = explode(";",$array_asigna);
 	

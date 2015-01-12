@@ -14,7 +14,7 @@
 <div style="border-bottom: 1px solid #ecf0f1; margin-bottom: 15px;">
 	
 	<h5>
-		<a href="http://<?php echo $dominio; ?>/intranet/admin/noticias/noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['slug']; ?></a>
+		<a href="//<?php echo $dominio; ?>/intranet/admin/noticias/noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['slug']; ?></a>
 	</h5>
 
 	<p>

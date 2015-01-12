@@ -7,13 +7,32 @@ include_once('../../config/version.php');
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
-	exit();
+	
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		exit();
+	}
 }
 
 if($_SESSION['cambiar_clave']) {
-	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+		exit();
+	}
 }
+
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
@@ -21,7 +40,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header("location:http://$dominio/intranet/salir.php");
+header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
 }
 ?>
@@ -30,8 +49,8 @@ exit;
 <head>
 <title>Páginas de Conserjería</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css1; ?>" rel="stylesheet" type="text/css">
-<LINK href="http://<? echo $dominio; ?>/<? echo $css2; ?>" rel="stylesheet" type="text/css">
+<LINK href="//<?php echo $dominio; ?>/<? echo $css1; ?>" rel="stylesheet" type="text/css">
+<LINK href="//<?php echo $dominio; ?>/<? echo $css2; ?>" rel="stylesheet" type="text/css">
 </head>
   <body onload="document.getElementById('n_numero').style.backgroundColor='#cde';document.getElementById('n_total').style.backgroundColor='#afc';
 document.getElementById('n_numero').style.border='#aaaaaa solid 1px'; 

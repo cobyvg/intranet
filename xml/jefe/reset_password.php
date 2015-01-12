@@ -7,20 +7,39 @@ include_once('../../config/version.php');
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
-	exit();
+	
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		exit();
+	}
 }
 
 if($_SESSION['cambiar_clave']) {
-	header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+		exit();
+	}
 }
+
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header("location:http://$dominio/intranet/salir.php");
+header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
 }
 ?>
@@ -58,7 +77,7 @@ foreach($_POST['cambio'] as $p_dni){
 	$mail->Sender = 'no-reply@'.$dominio;
 	$mail->IsHTML(true);
 	$mail->Subject = 'Aviso de la Intranet: Tu contraseña ha sido restablecida';
-	$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$dominio.'/intranet/">http://'.$dominio.'/intranet/</a> Utiliza tu NIF como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+	$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="//'.$dominio.'/intranet/">//'.$dominio.'/intranet/</a> Utiliza tu NIF como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
 	$mail->AddAddress($mail_correo, $mail_nomprofesor);
 	$mail->Send();
 }

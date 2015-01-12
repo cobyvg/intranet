@@ -27,8 +27,17 @@ else:
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
-	exit();
+	
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		exit();
+	}
 }
 
 include("../menu.php");
@@ -167,6 +176,12 @@ No se encuentra el archivo de configuracion <strong>config.php</strong> en el di
         </td>
       <td><input type="checkbox" name="mantenimiento" <?php if($mantenimiento) { echo "checked";} ?> /></td>
       <td>Seleccione entre si está permitido acceder a la página, o no. Solo el Administrador y los miembros del equipo directivo pueden acceder a la Intranet.</td>
+    </tr>
+    <tr>
+      <td>Utilizar HTTPS
+        </td>
+      <td><input type="checkbox" name="force_ssl" <?php if($force_ssl) { echo "checked";} ?> /></td>
+      <td>Fuerza el uso de conexiones seguras entre los usuarios y el servidor. Marque esta opción si su dominio tiene un certificado SSL/TLS válido.</td>
     </tr>
     </table>
 </div>
