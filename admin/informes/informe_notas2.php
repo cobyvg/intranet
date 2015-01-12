@@ -247,12 +247,12 @@ $total=mysqli_num_rows($tota);
 
 // Promocion
 	$extra1 = " and suspensos = '0'";
-	$prom1 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where grupo = '$grupo' and nivel not like '1E%' and nivel not like '2E%' and nivel not like '3E%' and nivel not like '1B%'  $extra1");
+	$prom1 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos, cursos where nivel = nomcurso and grupo = '$grupo' and idcurso not like '101140' and idcurso not like '101141' and idcurso not like '101142' and idcurso not like '6029' and idcurso not like '2063' $extra1");
 	$promo1=mysqli_num_rows($prom1);
 	if ($promo1==0) { $promo1=""; }
 
 	$extra2 = " and suspensos < '3'";
-	$prom2 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where grupo = '$grupo' and (nivel like '1E%' or nivel like '2E%' or nivel like '3E%' or nivel like '1B%')  $extra2");
+	$prom2 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos, cursos where nivel = nomcurso and grupo = '$grupo' and (idcurso like '101140' or idcurso like '101141' or idcurso like '101142' or idcurso like '6029' or idcurso like '2063')  $extra2");
 	$promo2=mysqli_num_rows($prom2);
 	if ($promo2==0) { $promo2=""; }
 

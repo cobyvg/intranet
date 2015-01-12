@@ -140,6 +140,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 				$asigna_pend = "select nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row3[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto')) and abrev like '%\_%'";
 				//echo $asigna_pend;
 				$query_pend = mysqli_query($db_con,$asigna_pend);
+				if (mysqli_num_rows($query_pend)>0) {
 				while ($res_pend = mysqli_fetch_array($query_pend)) {
 					$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
 
@@ -150,7 +151,8 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 					$count03 = $count03 + 1;
 				}
 				}
-
+				}
+				
 				$si03 = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$asignatura3'");
 				if (mysqli_num_rows($si03) > 0)
 				{ }

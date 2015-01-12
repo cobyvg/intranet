@@ -210,7 +210,6 @@ while ($asi = mysqli_fetch_array($as)) {
 	$num_apro='';
 	$num_apro = mysqli_num_rows($cod_apro);
 	$combas = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'");
-	//echo "select claveal from alma where combasi like '%$codasi%'  and nivel like '$niv_cur[0]%' and curso = '$orden_nivel[1]'<br>";
 	$num_matr='';
 	$num_matr = mysqli_num_rows($combas);
 	
@@ -232,10 +231,10 @@ else{
 	$porciento_asig2 = "<span class='text-danger'>".substr($porcient_asig2,0,4)."%</span>";	
 }
 
-if ($porcient_asig>0) {
+//if ($porcient_asig>0) {
 			echo "<tr><th>$nomasi</th><td>$num_matr</td><td>";
 	echo $porciento_asig."<span class='pull-right'>(".$num_susp.")</span></td><td>$porciento_asig2 <span class='pull-right'>(".$num_apro.")</span></td></tr>";
-	}
+//	}
 
 }
 ?>

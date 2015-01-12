@@ -17,6 +17,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 		$hoy = date('Y-m-d');
 		$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE
 	infotut_alumno.claveal = alma.claveal and  date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
+		//echo $query;
 		$result = mysqli_query($db_con, $query);
 		$n_inotut="";
 		if (mysqli_num_rows($result) > 0)
@@ -26,18 +27,18 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 			{
 			$num_pend="";	
 			$asigna_pend = "select nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row1[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto')) and abrev like '%\_%'";
+			//echo $asigna_pend;
 				//echo $asigna_pend;
 				$query_pend = mysqli_query($db_con,$asigna_pend);
+				if (mysqli_num_rows($query_pend) < 1){
+					$num_pend="OK";
+				}
 				while ($res_pend = mysqli_fetch_array($query_pend)) {
 					$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row1[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
 
 				if (mysqli_num_rows($si_pend) > 0)
 				{	
 					$num_pend="OK"; 
-				}
-				else
-				{
-					$num_pend = "NO OK";
 				}
 				}
 

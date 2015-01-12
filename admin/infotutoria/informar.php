@@ -77,12 +77,8 @@ echo "<p align=center class='lead'>$dalumno[2] $dalumno[1] ( $dalumno[3] )</p>";
 echo "<br />";
 
 $depto = $_SESSION ['dpt'];
-if (stristr($_SESSION['cargo'],'1') == TRUE) {
-	$extra_dep = "";
-}
-else{
-	$extra_dep = "where departamento = '$depto'";
-}
+$extra_dep = "where departamento = '$depto'";
+
 $pend = mysqli_query($db_con, "select distinct materia, abrev from 
 profesores, asignaturas where asignaturas.nombre = materia and profesor in (select distinct departamentos.nombre from departamentos $extra_dep) and abrev like '%\_%' and codigo in (SELECT distinct pendientes.codigo FROM pendientes where pendientes.claveal = '$claveal' order by codigo)");
 
