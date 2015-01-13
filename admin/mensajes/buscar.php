@@ -80,7 +80,7 @@ include("menu.php");
 		
 		<div class="row">
 			
-			<div class="col-sm-12">
+			<div class="col-sm-10 col-sm-offset-1">
 			
 				<form method="get" action="">
 				   <div class="input-group">
@@ -106,7 +106,7 @@ include("menu.php");
 							<thead>
 								<tr>
 									<th>#</th>
-									<th nowrap>Fecha</th>
+									<th>Fecha</th>
 									<th>Título</th>
 									<th>Destino</th>
 								</tr>
@@ -114,11 +114,11 @@ include("menu.php");
 							<tbody>
 								<?php while ($row = mysqli_fetch_array($result)): ?>
 									<tr>
-										<td><a class="link-msg" href="mensaje.php?id=<?php echo $row['id']; ?>"><?php echo $row['id']; ?></a></td>
-										<td><a class="link-msg" href="mensaje.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['ahora'])); ?></a></td>
-										<td><a class="link-msg" href="mensaje.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['asunto']) > 60) ? substr($row['asunto'],0,60).'...' : $row['asunto']; ?></a></td>
+										<td nowrap><a class="link-msg" href="mensaje.php?id=<?php echo $row['id']; ?>"><?php echo $row['id']; ?></a></td>
+										<td nowrap><a class="link-msg" href="mensaje.php?id=<?php echo $row['id']; ?>"><?php echo strftime('%d-%m-%G',strtotime($row['ahora'])); ?></a></td>
+										<td nowrap><a class="link-msg" href="mensaje.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['asunto']) > 60) ? substr($row['asunto'],0,60).'...' : $row['asunto']; ?></a></td>
 
-										<td><a class="link-msg" href="mensaje.php?id=<?php echo $row['id']; ?>"><?php echo $row['destino']; ?></a></td>
+										<td><a class="link-msg" href="mensaje.php?id=<?php echo $row['id']; ?>"><?php echo (strlen($row['destino']) > 80) ? substr($row['destino'],0,80).'...' : $row['destino']; ?></a></td>
 									</tr>
 								<?php endwhile; ?>
 							</tbody>
