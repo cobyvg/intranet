@@ -56,7 +56,7 @@ switch ($_buzon) {
 		}
 		
 		$tabla_encabezado = array('De', 'Asunto', 'Fecha', ' ');
-		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, origen, id_profe, texto, recibidoprofe FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE profesor = '$profesor' ORDER BY ahora DESC LIMIT 0, 200");
+		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, origen, id_profe, texto, recibidoprofe FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE profesor = '$profesor' ORDER BY ahora DESC LIMIT 0, 500");
 		break;
 	
 	case 'enviados'  :
@@ -69,7 +69,7 @@ switch ($_buzon) {
 		}
 		
 		$tabla_encabezado = array('Para', 'Asunto', 'Fecha', ' ');
-		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, destino, id, texto FROM mens_texto WHERE origen = '$profesor' AND oculto NOT LIKE '1' ORDER BY ahora DESC LIMIT 0, 200");
+		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, destino, id, texto FROM mens_texto WHERE origen = '$profesor' AND oculto NOT LIKE '1' ORDER BY ahora DESC LIMIT 0, 500");
 		break;
 }
 
