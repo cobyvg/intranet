@@ -128,7 +128,7 @@ $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordi
 foreach ($titulos as $key=>$val){
 	
 // Creamos la tabla en cada evaluación
- $crea_tabla = "CREATE TABLE IF NOT EXISTS `suspensos` (
+ $crea_tabla = "CREATE TABLE IF NOT EXISTS `suspensos2` (
   `claveal` varchar(12) NOT NULL,
   `suspensos` tinyint(4) NOT NULL,
   `pil` tinyint(4) NOT NULL,
@@ -223,10 +223,10 @@ $cali = mysqli_fetch_row($asig);
 if($cali[0] < '5' and !($cali[0] == ''))	{
 	$susp+=1; 
 	}
-		mysqli_query($db_con, "insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
+		//mysqli_query($db_con, "insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
 	}
 	
-mysqli_query($db_con, "insert into suspensos  (
+mysqli_query($db_con, "insert into suspensos2  (
 `claveal` ,
 `suspensos` ,
 `pil` ,
@@ -239,43 +239,43 @@ VALUES (
 	}
 
 // Calculamos
-$cer = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where grupo = '$grupo' and suspensos = '0'");
+$cer = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos = '0'");
 $cero = '';
 $cero=mysqli_num_rows($cer);
 
-$uno_do = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where grupo = '$grupo' and suspensos > '0' and suspensos < '3'");
+$uno_do = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos > '0' and suspensos < '3'");
 $uno_dos='';
 $uno_dos=mysqli_num_rows($uno_do);
 
-$tres_cinc = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where grupo = '$grupo' and suspensos > '2' and suspensos < '6'");
+$tres_cinc = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos > '2' and suspensos < '6'");
 $tres_cinco='';
 $tres_cinco=mysqli_num_rows($tres_cinc);
 
-$seis_och = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where grupo = '$grupo' and suspensos > '5' and suspensos < '9'");
+$seis_och = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos > '5' and suspensos < '9'");
 $seis_ocho='';
 $seis_ocho=mysqli_num_rows($seis_och);
 
-$nuev = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where grupo = '$grupo' and suspensos > '8'");
+$nuev = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos > '8'");
 $nueve='';
 $nueve=mysqli_num_rows($nuev);
 
 //$tota = mysqli_query($db_con, "select distinct notas.claveal from notas, alma where alma.claveal1 = notas.claveal and grupo = '$grupo'");
-$tota = mysqli_query($db_con, "select distinct claveal from suspensos where grupo = '$grupo'");
+$tota = mysqli_query($db_con, "select distinct claveal from suspensos2 where grupo = '$grupo'");
 $total='';
 $total=mysqli_num_rows($tota);
 
 // Promocion
 	$extra1 = " and suspensos = '0'";
-	$prom1 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos, cursos where nivel = nomcurso and grupo = '$grupo' and idcurso not like '101140' and idcurso not like '101141' and idcurso not like '101142' and idcurso not like '6029' and idcurso not like '2063' $extra1");
+	$prom1 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2, cursos where nivel = nomcurso and grupo = '$grupo' and idcurso not like '101140' and idcurso not like '101141' and idcurso not like '101142' and idcurso not like '6029' and idcurso not like '2063' $extra1");
 	$promo1=mysqli_num_rows($prom1);
 	if ($promo1==0) { $promo1=""; }
 
 	$extra2 = " and suspensos < '3'";
-	$prom2 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos, cursos where nivel = nomcurso and grupo = '$grupo' and (idcurso like '101140' or idcurso like '101141' or idcurso like '101142' or idcurso like '6029' or idcurso like '2063')  $extra2");
+	$prom2 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2, cursos where nivel = nomcurso and grupo = '$grupo' and (idcurso like '101140' or idcurso like '101141' or idcurso like '101142' or idcurso like '6029' or idcurso like '2063')  $extra2");
 	$promo2=mysqli_num_rows($prom2);
 	if ($promo2==0) { $promo2=""; }
 
-$n_pil = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where grupo = '$grupo' and pil = '1'");
+$n_pil = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and pil = '1'");
 $num_pil='';
 $num_pil=mysqli_num_rows($n_pil);
 
@@ -317,7 +317,7 @@ else{
 <br />
 </div>
 <?
-mysqli_query($db_con, "drop table suspensos");
+mysqli_query($db_con, "drop table suspensos2");
 }
 ?>
 </div>

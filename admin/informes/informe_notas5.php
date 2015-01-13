@@ -125,7 +125,7 @@ $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordi
 foreach ($titulos as $key=>$val){
 
 // Tabla temporal.
- $crea_tabla2 = "CREATE TABLE  `temp` (
+ $crea_tabla2 = "CREATE TABLE  `temp3` (
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `claveal` VARCHAR( 12 ) NOT NULL ,
 `asignatura` INT( 8 ) NOT NULL ,
@@ -133,7 +133,7 @@ foreach ($titulos as $key=>$val){
 INDEX (  `claveal` )
 ) ENGINE = INNODB";
  mysqli_query($db_con, $crea_tabla2); 
- mysqli_query($db_con, "ALTER TABLE  `temp` ADD INDEX (  `asignatura` )");
+ mysqli_query($db_con, "ALTER TABLE  `temp3` ADD INDEX (  `asignatura` )");
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
@@ -182,7 +182,7 @@ $cali = mysqli_fetch_row($asig);
 if($cali[0] < '5' and !($cali[0] == ''))	{
 	$susp+=1; 
 	}
-		mysqli_query($db_con, "insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
+		mysqli_query($db_con, "insert into temp3 values('','$claveal','$bloque[0]','$cali[0]')");
 	}
 	}
 }
@@ -220,10 +220,10 @@ while ($asi = mysqli_fetch_array($as)) {
 	$niv_cur = mysqli_fetch_array($n_c);
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
-	$cod_nota = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and unidad = '$unidad'");
-	$cod_apro = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp.claveal and unidad = '$unidad'");
+	$cod_nota = mysqli_query($db_con, "select id from temp3, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp3.claveal and unidad = '$unidad'");
+	$cod_apro = mysqli_query($db_con, "select id from temp3, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp3.claveal and unidad = '$unidad'");
 	
-	//echo "select id from temp where asignatura = '$codasi'<br>";
+	//echo "select id from temp3 where asignatura = '$codasi'<br>";
 	$num_susp='';
 	$num_susp = mysqli_num_rows($cod_nota);
 	$num_apro='';
@@ -267,7 +267,7 @@ else{
 ?>
 </div>
 <?
-mysqli_query($db_con, "drop table temp");
+mysqli_query($db_con, "drop table temp3");
 }
 ?>
 </div>

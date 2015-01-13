@@ -125,7 +125,7 @@ $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordi
 foreach ($titulos as $key=>$val){
 
 // Tabla temporal.
- $crea_tabla2 = "CREATE TABLE  `temp` (
+ $crea_tabla2 = "CREATE TABLE  `temp2` (
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `claveal` VARCHAR( 12 ) NOT NULL ,
 `asignatura` INT( 8 ) NOT NULL ,
@@ -142,7 +142,7 @@ else {
  	  mysqli_query($db_con, "ALTER TABLE `cursos` CHANGE `idcurso` `idcurso` INT( 12 ) UNSIGNED NOT NULL , CHANGE `nomcurso` `nomcurso` VARCHAR( 80 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
  	 mysqli_query($db_con, "ALTER TABLE  `temp` CHANGE  `claveal`  `claveal` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
  }*/
- mysqli_query($db_con, "ALTER TABLE  `temp` ADD INDEX (  `asignatura` )");
+ mysqli_query($db_con, "ALTER TABLE  `temp2` ADD INDEX (  `asignatura` )");
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
@@ -190,7 +190,7 @@ $cali = mysqli_fetch_row($asig);
 if($cali[0] < '5' and !($cali[0] == ''))	{
 	$susp+=1; 
 	}
-		mysqli_query($db_con, "insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
+		mysqli_query($db_con, "insert into temp2 values('','$claveal','$bloque[0]','$cali[0]')");
 	}
 	}
 }
@@ -231,11 +231,11 @@ $sql_asig = "select distinct unidad from alma where curso = '$orden_nivel[1]' or
 $query_asig = mysqli_query($db_con, $sql_asig);
 while ($a_asig = mysqli_fetch_array($query_asig)) {	
 	$unidad = $a_asig[0];
-	$cod_nota = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and unidad = '$unidad'");
-	//echo "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and unidad = '$unidad'";
-	$cod_apro = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp.claveal and unidad = '$unidad'");
+	$cod_nota = mysqli_query($db_con, "select id from temp2, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp2.claveal and unidad = '$unidad'");
+	//echo "select id from temp2, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and unidad = '$unidad'";
+	$cod_apro = mysqli_query($db_con, "select id from temp2, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp2.claveal and unidad = '$unidad'");
 	
-	//echo "select id from temp where asignatura = '$codasi'<br>";
+	//echo "select id from temp2 where asignatura = '$codasi'<br>";
 	$num_susp='';
 	$num_susp = mysqli_num_rows($cod_nota);
 
@@ -277,7 +277,7 @@ echo "</tr>";
 ?>
 </div>
 <?
-mysqli_query($db_con, "drop table temp");
+mysqli_query($db_con, "drop table temp2");
 }
 ?>
 </div>

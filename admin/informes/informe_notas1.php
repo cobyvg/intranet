@@ -202,7 +202,7 @@ $cali = mysqli_fetch_row($asig);
 if($cali[0] < '5' and !($cali[0] == ''))	{
 	$susp+=1; 
 	}
-		mysqli_query($db_con, "insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
+		//mysqli_query($db_con, "insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
 	}
 	
 mysqli_query($db_con, "insert into suspensos  (
@@ -292,7 +292,6 @@ else{
 </div>
 <?
 mysqli_query($db_con, "drop table suspensos");
-mysqli_query($db_con, "drop table temp");
 }
 mysqli_close();
 ?>

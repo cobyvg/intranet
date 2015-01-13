@@ -76,7 +76,7 @@ $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordi
 foreach ($titulos as $key=>$val){
 	
 // Creamos la tabla en cada evaluación
- $crea_tabla = "CREATE TABLE IF NOT EXISTS `suspensos` (
+ $crea_tabla = "CREATE TABLE IF NOT EXISTS `suspensos3` (
   `claveal` varchar(12) NOT NULL,
   `suspensos` tinyint(4) NOT NULL,
   `pil` tinyint(4) NOT NULL,
@@ -87,7 +87,7 @@ foreach ($titulos as $key=>$val){
  mysqli_query($db_con, $crea_tabla);
 
  // Tabla temporal.
- $crea_tabla2 = "CREATE TABLE IF NOT EXISTS `temp` (
+ $crea_tabla2 = "CREATE TABLE IF NOT EXISTS `temp4` (
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `claveal` VARCHAR( 12 ) NOT NULL ,
 `asignatura` INT( 8 ) NOT NULL ,
@@ -173,51 +173,51 @@ $cali = mysqli_fetch_row($asig);
 	if($cali[0] < '5' and !($cali[0] == ''))	{		
 	$susp+=1; 
 	}	
-	mysqli_query($db_con, "insert into temp values('','$claveal','$bloque[0]','$cali[0]')");
+	mysqli_query($db_con, "insert into temp4 values('','$claveal','$bloque[0]','$cali[0]')");
 }
 }
   }
 //echo "$claveal2 $grupo $susp <br>";
 if ($al_pend==1) {
-$suspensos = "insert into suspensos  (`claveal` ,`suspensos` ,`pil` ,`grupo`,`nivel`) VALUES ('$claveal',  '$susp',  '$pil', '$grupo', '$curso')";
+$suspensos = "insert into suspensos3  (`claveal` ,`suspensos` ,`pil` ,`grupo`,`nivel`) VALUES ('$claveal',  '$susp',  '$pil', '$grupo', '$curso')";
 mysqli_query($db_con, $suspensos);	
 }
 //echo $suspensos."<br>";
 }
 
 // Calculamos
-$cer = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos = '0'");
+$cer = mysqli_query($db_con, "select distinct claveal, grupo from suspensos3 where nivel = '$curso' and suspensos = '0'");
 $cero = '';
 $cero=mysqli_num_rows($cer);
 
-$uno_do = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '0' and suspensos < '3'");
+$uno_do = mysqli_query($db_con, "select distinct claveal, grupo from suspensos3 where nivel = '$curso' and suspensos > '0' and suspensos < '3'");
 $uno_dos='';
 $uno_dos=mysqli_num_rows($uno_do);
 
-$tres_cinc = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '2' and suspensos < '6'");
+$tres_cinc = mysqli_query($db_con, "select distinct claveal, grupo from suspensos3 where nivel = '$curso' and suspensos > '2' and suspensos < '6'");
 $tres_cinco='';
 $tres_cinco=mysqli_num_rows($tres_cinc);
 
-$seis_och = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '5' and suspensos < '9'");
+$seis_och = mysqli_query($db_con, "select distinct claveal, grupo from suspensos3 where nivel = '$curso' and suspensos > '5' and suspensos < '9'");
 $seis_ocho='';
 $seis_ocho=mysqli_num_rows($seis_och);
 
-$nuev = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and suspensos > '8'");
+$nuev = mysqli_query($db_con, "select distinct claveal, grupo from suspensos3 where nivel = '$curso' and suspensos > '8'");
 $nueve='';
 $nueve=mysqli_num_rows($nuev);
 
 //$tota = mysqli_query($db_con, "select distinct notas.claveal from notas, alma where alma.claveal1 = notas.claveal and nivel = '$curso'");
-$tota = mysqli_query($db_con, "select distinct claveal from suspensos where nivel = '$curso'");
+$tota = mysqli_query($db_con, "select distinct claveal from suspensos3 where nivel = '$curso'");
 $total='';
 $total=mysqli_num_rows($tota);
 
 // Promocion
 	$extra1 = " and suspensos = '0'";
-	$prom1 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso'  $extra1");
+	$prom1 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos3 where nivel = '$curso'  $extra1");
 	$promo1=mysqli_num_rows($prom1);
 	if ($promo1==0) { $promo1=""; }
 
-$n_pil = mysqli_query($db_con, "select distinct claveal, grupo from suspensos where nivel = '$curso' and pil = '1'");
+$n_pil = mysqli_query($db_con, "select distinct claveal, grupo from suspensos3 where nivel = '$curso' and pil = '1'");
 $num_pil='';
 $num_pil=mysqli_num_rows($n_pil);
 
@@ -274,9 +274,9 @@ while ($asi = mysqli_fetch_array($as)) {
 	$niv_cur = mysqli_fetch_array($n_c);
 	$nomasi2 = $asi[0];
 	$codasi2 = $asi[1];
-	$cod_nota2 = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi2' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[1]'");
+	$cod_nota2 = mysqli_query($db_con, "select id from temp4, alma where asignatura = '$codasi2' and nota < '5' and alma.claveal1 = temp4.claveal and curso = '$orden_nivel[1]'");
 	
-	//echo "select id from temp where asignatura = '$codasi'<br>";
+	//echo "select id from temp4 where asignatura = '$codasi'<br>";
 	$num_susp2='';
 	$num_susp2 = mysqli_num_rows($cod_nota2);
 
@@ -321,8 +321,8 @@ else{
 <br />
 </div>
 <?
-mysqli_query($db_con, "drop table suspensos");
-mysqli_query($db_con, "drop table temp");
+mysqli_query($db_con, "drop table suspensos3");
+mysqli_query($db_con, "drop table temp4");
 }
 mysqli_close();
 ?>
