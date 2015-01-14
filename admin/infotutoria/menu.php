@@ -21,25 +21,21 @@ if (strstr($_SERVER['REQUEST_URI'],'buscar.php')==TRUE){ $activo3 = ' class="act
 if (strstr($_SERVER['REQUEST_URI'],'index_buscar.php')==TRUE){ $activo4 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="active" ';}
 ?>
-        <div class="container hidden-print">
-        <div class="tabbable">
-          <ul class="nav nav-tabs">
- <li <? echo $activo1;?>> <a href="index.php">Página de Informes de Tutoría</a></li>
-<?
-if(stristr($_SESSION ['cargo'],'2') == TRUE or stristr($_SESSION ['cargo'],'1') == TRUE)
-{
-	if(stristr($_SESSION ['cargo'],'2') == TRUE){
-	$tutor = $_SESSION ['tut'];
-}
-?>
-     <li <? echo $activo2;?>><a href="infotut.php?<? if (isset($_SESSION ['s_unidad'])) {echo  "unidad=".$_SESSION ['s_unidad'];}?>&tutor=<? echo $tutor;?>">Activar Nuevo Informe</a></li>
-     <? }?>
-     <li <? echo $activo3;?>> <a href="buscar.php?todos=1">Ver Todos los Informes</a></li>
-     <li <? echo $activo4;?>> <a href="index_buscar.php">Buscar Informes</a></li>
-     <?
-     if(stristr($_SESSION ['cargo'],'1') == TRUE){?>
-     <li <? echo $activo5;?>> <a href="control.php">Control de Informes</a></li>
-     <? }?>
-    </ul>
-        </div>
-        </div>
+		<div class="container hidden-print">
+			<div class="tabbable">
+				<ul class="nav nav-tabs">
+					<li <? echo $activo1;?>> <a href="index.php">Página de Informes de Tutoría</a></li>
+					
+					<?php if (stristr($_SESSION ['cargo'],'2') == TRUE or stristr($_SESSION ['cargo'],'1') == TRUE): ?>
+					<?php if (stristr($_SESSION ['cargo'],'2') == TRUE) $tutor = $_SESSION ['tut']; ?>
+					<li <? echo $activo2;?>><a href="infotut.php?<? if (isset($_SESSION ['s_unidad'])) {echo  "unidad=".$_SESSION ['s_unidad'];}?>&tutor=<? echo $tutor;?>">Activar Nuevo Informe</a></li>
+					<?php endif; ?>
+					
+					<li <? echo $activo3;?>> <a href="buscar.php?todos=1">Ver Todos los Informes</a></li>
+					<li <? echo $activo4;?>> <a href="index_buscar.php">Buscar Informes</a></li>
+					<?php if (stristr($_SESSION ['cargo'],'1') == TRUE): ?>
+					<li <? echo $activo5;?>> <a href="control.php">Control de Informes</a></li>
+					<?php endif; ?>
+				</ul>
+			</div>
+		</div>
