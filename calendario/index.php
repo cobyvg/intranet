@@ -58,8 +58,29 @@ for ($i = 1; $i <= date('t', strtotime($anio.'-'.$mes)); $i++) {
 }
 
 
+// NAVEGACION
+$mes_ant = $mes - 1;
+$anio_ant = $anio;
+
+if ($mes == 1) {
+	$mes_ant = 12;
+	$anio_ant = $anio - 1;
+}
+
+
+$mes_sig = $mes + 1;
+$anio_sig = $anio;
+
+if ($mes == 12) {
+	$mes_sig = 1;
+	$anio_sig = $anio + 1;
+}
+
 // HTML CALENDARIO MENSUAL
 function vista_mes ($calendario, $dia, $mes, $anio) {
+	
+	// Corrección en mes
+	($mes < 10) ? $mes = '0'.$mes : $mes = $mes;
 	
 	echo '<div class"table-responsive">';
 	echo '<table id="calendar" class="table table-bordered">';
@@ -82,30 +103,35 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 		for ($i = 1; $i <= 7; $i++) {
 			
 			if ($i > 5) {
-				echo '			<td class="text-muted" width="14.28%">';
-			}
-			else {
-				echo '			<td width="14.28%">';
-			}
-			
-			
-			if (isset($dias[$i])) {
-				if (($_GET['mes'] == date('m')) && ($dias[$i] == $dia) || (!isset($_GET['mes']) && ($dias[$i] == $dia))) {
-					echo '				<p class="lead text-right text-info">'.$dias[$i].'</p>';
+				if (isset($dias[$i]) && ($mes == date('m')) && ($dias[$i] == date('d'))) {
+					echo '			<td class="text-muted today" width="14.28%">';
 				}
 				else {
-					echo '				<p class="lead text-right">'.$dias[$i].'</p>';
+					echo '			<td class="text-muted" width="14.28%">';
 				}
+			}
+			else {
+				if (isset($dias[$i]) && ($mes == date('m')) && ($dias[$i] == date('d'))) {
+					echo '			<td class="today" width="14.28%">';
+				}
+				else {
+					echo '			<td width="14.28%">';
+				}
+			}
+			
+			if (isset($dias[$i])) {
+
+				echo '				<p class="lead text-right">'.$dias[$i].'</p>';
 				
 				// Corrección en día
 				($dias[$i] < 10) ? $dia0 = '0'.$dias[$i] : $dia0 = $dias[$i];
 				
 				// CALENDARIO PERSONAL
-				$result = mysqli_query($GLOBALS['db_con'], "SELECT fecha, titulo FROM diario WHERE profesor = '".$_SESSION['profi']."'");
+				$result = mysqli_query($GLOBALS['db_con'], "SELECT id, fecha, titulo FROM diario WHERE profesor = '".$_SESSION['profi']."'");
 				while ($diario = mysqli_fetch_assoc($result)) {
 					
 					if ($diario['fecha'] == $anio.'-'.$mes.'-'.$dia0) {
-						echo '<div class="label label-info">'.$diario['titulo'].'</div>';
+						echo '<a href="#" data-toggle="modal" data-target="#modalEventoDiario'.$diario['id'].'" class="label label-info">'.$diario['titulo'].'</a>';
 					}
 				}
 				mysqli_free_result($result);
@@ -146,6 +172,9 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 				
 				
 			}
+			else {
+				echo '&nbsp;';
+			}
 			
 			echo '			</td>';
 		}
@@ -170,30 +199,111 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 			text-align: left;
 			margin-top: 5px;
 		}
+		
+		.today {
+			background-color: #ecf0f1;
+		}
+		
+		.today p.lead {
+			font-weight: bold;
+		}
+		
+		@media print {
+			html, body {
+				width: 100%;
+			}
+			.container, .col-md-9 {
+				width: 100%;
+			}
+		}
 		</style>
+		
+		<!-- MODAL NUEVO EVENTO -->
+		<div id="modalNuevoEvento" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title">Nuevo evento</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>One fine body&hellip;</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		        <button type="button" class="btn btn-primary">Crear</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		<!-- FIN MODAL NUEVO EVENTO -->
+		
+		<?php
+		// CALENDARIO PERSONAL
+		$result = mysqli_query($GLOBALS['db_con'], "SELECT id, fecha, titulo FROM diario WHERE profesor = '".$_SESSION['profi']."'");
+		while ($diario = mysqli_fetch_assoc($result)) {
+			
+			echo '<div id="modalEventoDiario'.$diario['id'].'" class="modal fade">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title">Nuevo evento</h4>
+			      </div>
+			      <div class="modal-body">
+			        <p>One fine body&hellip;</p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			        <button type="button" class="btn btn-primary">Crear</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->';
+		}
+		mysqli_free_result($result);
+		unset($diario);
+		
+		?>
+		
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Calendario</h2>
+			
+			<!-- BUTTONS -->
+			<div class="pull-right hidden-print">
+			
+				<a href="#" data-toggle="modal" data-target="#modalNuevoEvento" class="btn btn-primary">Nuevo</a>
+				  
+				<a href="#" onclick="javascrip:print()" class="btn btn-default">Imprimir</a>
+				
+				<div class="btn-group">
+				  <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>" class="btn btn-default">&laquo;</a>
+				  <a href="?mes=<?php echo date('n'); ?>&anio=<?php echo date('Y'); ?>" class="btn btn-default">Hoy</a>
+				  <a href="?mes=<?php echo $mes_sig; ?>&anio=<?php echo $anio_sig; ?>" class="btn btn-default">&raquo;</a>
+				</div>
+			</div>
+			
+			<h2>Calendario <small><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></small></h2>
 		</div>
 		
 		<!-- SCAFFOLDING -->
 		<div class="row">
 			
 			<!-- COLUMNA IZQUIERDA -->
-			<div class="col-md-3">
+			<div class="col-md-3 hidden-print">
 				
 				<div class="row">
 					<div class="col-xs-2 col-sm-3">
 					  <span class="fa-stack fa-2x text-info">
 					    <i class="fa fa-calendar-o fa-stack-2x"></i>
-					    <strong class="fa-stack-1x" style="margin-top: .2em;"><?php echo strftime('%e', strtotime($anio.'-'.$mes.'-'.$dia)); ?></strong>
+					    <strong class="fa-stack-1x" style="margin-top: .2em;"><?php echo strftime('%e', strtotime(date('Y-m-d'))); ?></strong>
 					  </span>
 					</div>
 					<div class="col-xs-10 col-sm-9">
 						<h4 style="margin-top: .2em; padding-top: 0; font-size: 1.5em;" class="text-info">
-							<strong><?php echo strftime('%A', strtotime($anio.'-'.$mes.'-'.$dia)); ?></strong><br>
-							<?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes.'-'.$dia)); ?>
+							<strong><?php echo strftime('%A', strtotime(date('Y-m-d'))); ?></strong><br>
+							<?php echo strftime('%B, %Y', strtotime(date('Y-m-d'))); ?>
 						</h4>
 						
 					</div> 
