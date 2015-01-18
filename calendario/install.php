@@ -104,8 +104,8 @@ echo "Migrando datos del calendario existente<br>";
 $result = mysqli_query($db_con, "SELECT eventdate, title, event FROM cal WHERE idact IS NULL ORDER BY eventdate ASC");
 while ($row = mysqli_fetch_assoc($result)) {
 	$fechaini = $row['eventdate'];
-	$nombre =  htmlspecialchars($row['title'], ENT_QUOTES, 'ISO-8859-1');
-	$descripcion = htmlspecialchars($row['event'], ENT_QUOTES, 'ISO-8859-1');
+	$nombre =  htmlspecialchars($row['title'], ENT_HTML5, 'ISO-8859-1');
+	$descripcion = htmlspecialchars($row['event'], ENT_HTML5, 'ISO-8859-1');
 	
 	$query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `fechareg`, `profesorreg`) VALUES (1, '$nombre', '$descripcion', '".$fechaini."', '00:00', '".$fechaini."', '00:00', NULL, NULL, NULL, '".$fechaini."', 'admin')";
 	mysqli_query($db_con, $query) or die(mysqli_error($db_con));
@@ -118,8 +118,8 @@ echo "Migrando datos de Actividades extraescolares<br>";
 $result = mysqli_query($db_con, "SELECT actividad, CONCAT(descripcion,' ',justificacion) AS descripcion, departamento, profesor, grupos, fecha, hoy FROM actividades WHERE confirmado=1 ORDER BY hoy ASC");
 while ($row = mysqli_fetch_assoc($result)) {
 	$fechaini = $row['fecha'];
-	$nombre = htmlspecialchars($row['actividad'], ENT_QUOTES, 'ISO-8859-1');
-	$descripcion = htmlspecialchars($row['descripcion'], ENT_QUOTES, 'ISO-8859-1');
+	$nombre = htmlspecialchars($row['actividad'], ENT_HTML5, 'ISO-8859-1');
+	$descripcion = htmlspecialchars($row['descripcion'], ENT_HTML5, 'ISO-8859-1');
 	$departamento = $row['departamento'];
 	$profesores = $row['profesor'];
 	$unidades = $row['grupos'];
@@ -139,8 +139,8 @@ while ($row_profesor = mysqli_fetch_assoc($result_profesor)) {
 	$result = mysqli_query($db_con, "SELECT fecha, grupo, titulo, observaciones FROM diario WHERE profesor='".$row_profesor['profesor']."'");
 	while ($row = mysqli_fetch_assoc($result)) {
 		$fechaini = $row['fecha'];
-		$nombre = htmlspecialchars($row['titulo'], ENT_QUOTES, 'ISO-8859-1');
-		$descripcion = htmlspecialchars($row['observaciones'], ENT_QUOTES, 'ISO-8859-1');
+		$nombre = htmlspecialchars($row['titulo'], ENT_HTML5, 'ISO-8859-1');
+		$descripcion = htmlspecialchars($row['observaciones'], ENT_HTML5, 'ISO-8859-1');
 		$unidades = $row['grupo'];
 		$profesorreg = $row_profesor['idea'];
 		
@@ -148,8 +148,10 @@ while ($row_profesor = mysqli_fetch_assoc($result_profesor)) {
 		$row_calendario = mysqli_fetch_assoc($result_calendario);
 		$idcalendario = $row_calendario['id'];
 		
-		$query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `fechareg`, `profesorreg`) VALUES ($idcalendario, '$nombre', '$descripcion', '".$fechaini."', '08:15', '".$fechaini."', '09:15', NULL, NULL, '$unidades', '".$fechaini."', '$profesorreg')";
-		mysqli_query($db_con, $query) or die(mysqli_error($db_con));
+		echo $query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `fechareg`, `profesorreg`) VALUES ($idcalendario, '$nombre', '$descripcion', '".$fechaini."', '08:15', '".$fechaini."', '09:15', NULL, NULL, '$unidades', '".$fechaini."', '$profesorreg')";
+		if ($idcalendario) {
+			mysqli_query($db_con, $query) or die(mysqli_error($db_con));
+		}
 	}
 	mysqli_free_result($result);
 }
