@@ -260,9 +260,11 @@ $PLUGIN_COLORPICKER = 1;
 			html, body {
 				width: 100%;
 			}
+			
 			.container, .col-md-9 {
 				width: 100%;
 			}
+			
 		}
 		</style>
 		
@@ -521,7 +523,7 @@ $PLUGIN_COLORPICKER = 1;
 							<?php if ($i > 1): ?>
 							<form class="pull-right" method="post" action="post/eliminarCalendario.php">
 								<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
-								<button type="submit" class="btn btn-link" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
+								<button type="submit" class="btn btn-link delete-calendar" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
 							</form>
 							<?php endif; ?>
 						</a>
@@ -551,7 +553,7 @@ $PLUGIN_COLORPICKER = 1;
 							<?php if ($row['id'] != 1 && $row['id'] != 2): ?>
 							<form class="pull-right" method="post" action="post/eliminarCalendario.php">
 								<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
-								<button type="submit" class="btn btn-link" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
+								<button type="submit" class="btn btn-link delete-calendar" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
 							</form>
 							<?php endif; ?>
 						</a>
@@ -857,6 +859,26 @@ $PLUGIN_COLORPICKER = 1;
 				pickTime: true,
 				pickDate: false
 			})
+			
+			
+            $(".delete-calendar").on("click", function(e) {
+            	bootbox.setDefaults({
+            	  locale: "es",
+            	  show: true,
+            	  backdrop: true,
+            	  closeButton: true,
+            	  animate: true,
+            	  title: "Confirmación para eliminar",
+            	});
+            	
+                e.preventDefault();
+                var _this = this;
+                bootbox.confirm("Esta acción eliminará permanentemente los eventos del calendario ¿Seguro que desea continuar?", function(result) {
+                    if (result) {
+                        $(_this).parent().submit();
+                    }
+                });
+            });
 		});
 	</script>
 </body>
