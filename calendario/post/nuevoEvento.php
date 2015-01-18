@@ -65,17 +65,17 @@ $fechafin_evento_sql = $exp_fechafin_evento[2].'-'.$exp_fechafin_evento[1].'-'.$
 $result = mysqli_query($db_con, "SELECT nombre FROM calendario WHERE nombre='$nombre_evento' AND fechaini='$fechaini_evento_sql' AND horaini='$horaini_evento' fechafin='$fechafin_evento_sql' AND horafin='$horafin_evento' AND calendario_evento='$calendario_evento' LIMIT 1");
 
 if (mysqli_num_rows($result)) {
-	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?errevento=1');
+	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
 	exit();
 }
 else {
 	$crear = mysqli_query($db_con, "INSERT INTO calendario (categoria, nombre, descripcion, fechaini, horaini, fechafin, horafin, lugar, departamento, profesores, unidades, fechareg, profesorreg) VALUES ($calendario_evento, '$nombre_evento', '$descripcion_evento', '$fechaini_evento_sql', '$horaini_evento', $fechafin_evento_sql, '$fechafin_evento_sql', '$lugar_evento', '$departamento_evento', '$profesores_evento', '$unidades_evento' , '$fechareg_evento', '$profesorreg_evento')") or die (mysqli_error($db_con));
 	if (! $crear) {
-		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?errevento=2');
+		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
 		exit();
 	}
 	else {
-		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?success=2');
+		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
 		exit();
 	}
 }

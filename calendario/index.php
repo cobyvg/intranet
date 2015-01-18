@@ -191,6 +191,23 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 
 }
 
+function randomColor() {
+    $str = '#';
+    for($i = 0 ; $i < 6 ; $i++) {
+        $randNum = rand(0 , 15);
+        switch ($randNum) {
+            case 10: $randNum = 'A'; break;
+            case 11: $randNum = 'B'; break;
+            case 12: $randNum = 'C'; break;
+            case 13: $randNum = 'D'; break;
+            case 14: $randNum = 'E'; break;
+            case 15: $randNum = 'F'; break;
+        }
+        $str .= $randNum;
+    }
+    return $str;
+}
+
 $PLUGIN_COLORPICKER = 1;
 ?>
 <?php include("../menu.php"); ?>
@@ -270,6 +287,8 @@ $PLUGIN_COLORPICKER = 1;
 				        <form id="formEditarEvento" method="post" action="post/editarEvento.php">
 				        	<fieldset>
 				        		
+				        		<input type="hidden" name="cmp_evento_id" value="'.$eventos1['id'].'">
+				        		
 				        		<div class="form-group">
 				        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
 				        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.$eventos1['nombre'].'" autofocus>
@@ -331,6 +350,7 @@ $PLUGIN_COLORPICKER = 1;
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				        <button type="submit" class="btn btn-danger" form="formEditarEvento" formaction="post/eliminarEvento.php">Eliminar</button>
 				        <button type="submit" class="btn btn-primary" form="formEditarEvento">Modificar</button>
 				      </div>
 				    </div><!-- /.modal-content -->
@@ -360,6 +380,8 @@ $PLUGIN_COLORPICKER = 1;
 					        
 					        <form id="formEditarEvento" method="post" action="post/editarEvento.php">
 					        	<fieldset>
+					        		
+					        		<input type="hidden" name="cmp_evento_id" value="'.$eventos1['id'].'">
 					        		
 					        		<div class="form-group">
 					        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
@@ -422,6 +444,7 @@ $PLUGIN_COLORPICKER = 1;
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					        <button type="submit" class="btn btn-danger" form="formEditarEvento" formaction="post/eliminarEvento.php">Eliminar</button>
 					        <button type="submit" class="btn btn-primary" form="formEditarEvento">Modificar</button>
 					      </div>
 					    </div><!-- /.modal-content -->
@@ -487,16 +510,25 @@ $PLUGIN_COLORPICKER = 1;
 				
 				<h3>Mis calendarios</h3>
 				
-				<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['profi']."' AND espublico=0"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['profi']."' AND espublico=0 ORDER BY id ASC"); ?>
 				<?php if (mysqli_num_rows($result)): ?>
 				<ul class="nav nav-pills nav-stacked">
+					<?php $i = 1; ?>
 					<?php while ($row = mysqli_fetch_assoc($result)): ?>
 					<li>
 						<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>">
 							<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span> <?php echo $row['nombre']; ?>
+							<?php if ($i > 1): ?>
+							<form class="pull-right" method="post" action="post/eliminarCalendario.php">
+								<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
+								<button type="submit" class="btn btn-link" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
+							</form>
+							<?php endif; ?>
 						</a>
 					</li>
+					<?php $i++; ?>
 					<?php endwhile; ?>
+					<?php unset($i); ?>
 					<li>
 						<a href="#" data-toggle="modal" data-target="#modalNuevoCalendario">
 							<span class="fa fa-plus fa-fw fa-lg"></span> Crear calendario
@@ -516,6 +548,12 @@ $PLUGIN_COLORPICKER = 1;
 					<li>
 						<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>">
 							<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span> <?php echo $row['nombre']; ?>
+							<?php if ($row['id'] != 1 && $row['id'] != 2): ?>
+							<form class="pull-right" method="post" action="post/eliminarCalendario.php">
+								<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
+								<button type="submit" class="btn btn-link" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
+							</form>
+							<?php endif; ?>
 						</a>
 					</li>
 					<?php endwhile; ?>
@@ -562,7 +600,7 @@ $PLUGIN_COLORPICKER = 1;
 	        		<div class="form-group" id="colorpicker1">
 	        			<label for="cmp_calendario_color">Color</label>
 	        			<div class="input-group">
-	        				<input type="date" class="form-control" id="cmp_calendario_color" name="cmp_calendario_color" value="#5367ce">
+	        				<input type="date" class="form-control" id="cmp_calendario_color" name="cmp_calendario_color" value="<?php echo randomColor(); ?>">
 	        				<span class="input-group-addon"><i></i></span>
 	        			</div>
 	        		</div>

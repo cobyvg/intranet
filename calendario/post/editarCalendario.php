@@ -54,17 +54,17 @@ else $publico_calendario = 1;
 $result = mysqli_query($db_con, "SELECT nombre FROM calendario_categorias WHERE nombre='$nombre_calendario' AND profesor='$profesor_calendario' LIMIT 1");
 
 if (mysqli_num_rows($result)) {
-	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?error=1');
+	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
 	exit();
 }
 else {
 	$crear = mysqli_query($db_con, "INSERT INTO calendario_categorias (nombre, fecha, profesor, color, espublico) VALUES ('$nombre_calendario', '$fecha_calendario', '$profesor_calendario', '$color_calendario', $publico_calendario)");
 	if (! $crear) {
-		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?error=2');
+		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
 		exit();
 	}
 	else {
-		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?success=1');
+		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
 		exit();
 	}
 }
