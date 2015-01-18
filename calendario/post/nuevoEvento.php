@@ -42,10 +42,10 @@ if (! isset($_POST['cmp_nombre'])) {
 
 // Limpiamos variables
 $nombre_evento = htmlspecialchars($_POST['cmp_nombre'], ENT_QUOTES, 'ISO-8859-1');
-$fechaini_evento = $_POST['cmp_fecha_ini'];
-$horaini_evento = $_POST['cmp_hora_ini'];
-$fechafin_evento = $_POST['cmp_fecha_fin'];
-$horafin_evento = $_POST['cmp_hora_fin'];
+$fechaini_evento = htmlspecialchars($_POST['cmp_fecha_ini'], ENT_QUOTES, 'ISO-8859-1');
+$horaini_evento = htmlspecialchars($_POST['cmp_hora_ini'], ENT_QUOTES, 'ISO-8859-1');
+$fechafin_evento = htmlspecialchars($_POST['cmp_fecha_fin'], ENT_QUOTES, 'ISO-8859-1');
+$horafin_evento = htmlspecialchars($_POST['cmp_hora_fin'], ENT_QUOTES, 'ISO-8859-1');
 $descripcion_evento = htmlspecialchars($_POST['cmp_descripcion'], ENT_QUOTES, 'ISO-8859-1');
 $lugar_evento = htmlspecialchars($_POST['cmp_lugar'], ENT_QUOTES, 'ISO-8859-1');
 $calendario_evento = htmlspecialchars($_POST['cmp_calendario'], ENT_QUOTES, 'ISO-8859-1');
@@ -55,15 +55,21 @@ $unidades_evento = htmlspecialchars($_POST['cmp_unidades'], ENT_QUOTES, 'ISO-885
 $profesorreg_evento = htmlspecialchars($_SESSION['profi'], ENT_QUOTES, 'ISO-8859-1');
 $fechareg_evento = date('Y-m-d');
 
+$exp_fechaini_evento = explode('/', $fechaini_evento);
+$fechaini_evento_sql = $exp_fechaini_evento[2].'-'.$exp_fechaini_evento[1].'-'.$exp_fechaini_evento[0];
+
+$exp_fechafin_evento = explode('/', $fechafin_evento);
+$fechafin_evento_sql = $exp_fechafin_evento[2].'-'.$exp_fechafin_evento[1].'-'.$exp_fechafin_evento[0];
+
 // Comprobamos si existe el calendario
-$result = mysqli_query($db_con, "SELECT nombre FROM calendario WHERE nombre='$nombre_evento' AND fechaini='$fechaini_evento' AND horaini='$horaini_evento' fechafin='$fechafin_evento' AND horafin='$horafin_evento' AND calendario_evento='$calendario_evento' LIMIT 1");
+$result = mysqli_query($db_con, "SELECT nombre FROM calendario WHERE nombre='$nombre_evento' AND fechaini='$fechaini_evento_sql' AND horaini='$horaini_evento' fechafin='$fechafin_evento_sql' AND horafin='$horafin_evento' AND calendario_evento='$calendario_evento' LIMIT 1");
 
 if (mysqli_num_rows($result)) {
 	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?errevento=1');
 	exit();
 }
 else {
-	$crear = mysqli_query($db_con, "INSERT INTO calendario (categoria, nombre, descripcion, fechaini, horaini, fechafin, horafin, lugar, departamento, profesores, unidades, fechareg, profesorreg) VALUES ($calendario_evento, '$nombre_evento', '$descripcion_evento', '$fechaini_evento', '$horaini_evento', $fechafin_evento, '$horafin_evento', '$lugar_evento', '$departamento_evento', '$profesores_evento', '$unidades_evento' , '$fechareg_evento', '$profesorreg_evento')") or die (mysqli_error($db_con));
+	$crear = mysqli_query($db_con, "INSERT INTO calendario (categoria, nombre, descripcion, fechaini, horaini, fechafin, horafin, lugar, departamento, profesores, unidades, fechareg, profesorreg) VALUES ($calendario_evento, '$nombre_evento', '$descripcion_evento', '$fechaini_evento_sql', '$horaini_evento', $fechafin_evento_sql, '$horafin_evento', '$lugar_evento', '$departamento_evento', '$profesores_evento', '$unidades_evento' , '$fechareg_evento', '$profesorreg_evento')") or die (mysqli_error($db_con));
 	if (! $crear) {
 		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?errevento=2');
 		exit();
