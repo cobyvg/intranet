@@ -35,13 +35,12 @@ if($_SESSION['cambiar_clave']) {
 	}
 }
 
-
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
 
 echo "Creando base de datos <strong>calendario</strong><br>";
-mysqli_query($db_con, "DROP TABLE `calendario`") or die(mysqli_error($db_con));
+mysqli_query($db_con, "DROP TABLE `calendario`");
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario` (
   `id` int(11) NOT NULL auto_increment,
   `categoria` int(11) NOT NULL,
@@ -63,7 +62,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario` (
 
 
 echo "Creando base de datos <strong>calendario_categorias</strong><br>";
-mysqli_query($db_con, "DROP TABLE `calendario_categorias`") or die(mysqli_error($db_con));
+mysqli_query($db_con, "DROP TABLE `calendario_categorias`");
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario_categorias` (
   `id` int(11) NOT NULL auto_increment,
   `nombre` varchar(80) collate latin1_spanish_ci NOT NULL,
@@ -105,8 +104,8 @@ echo "Migrando datos del calendario existente<br>";
 $result = mysqli_query($db_con, "SELECT eventdate, title, event FROM cal WHERE idact IS NULL ORDER BY eventdate ASC");
 while ($row = mysqli_fetch_assoc($result)) {
 	$fechaini = $row['eventdate'];
-	$nombre = $row['title'];
-	$descripcion = $row['event'];
+	$nombre =  htmlspecialchars($row['title'], ENT_QUOTES, 'ISO-8859-1');
+	$descripcion = htmlspecialchars($row['event'], ENT_QUOTES, 'ISO-8859-1');
 	
 	$query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `fechareg`, `profesorreg`) VALUES (1, '$nombre', '$descripcion', '".$fechaini."', '00:00', '".$fechaini."', '00:00', NULL, NULL, NULL, '".$fechaini."', 'admin')";
 	mysqli_query($db_con, $query) or die(mysqli_error($db_con));
@@ -119,8 +118,8 @@ echo "Migrando datos de Actividades extraescolares<br>";
 $result = mysqli_query($db_con, "SELECT actividad, CONCAT(descripcion,' ',justificacion) AS descripcion, departamento, profesor, grupos, fecha, hoy FROM actividades WHERE confirmado=1 ORDER BY hoy ASC");
 while ($row = mysqli_fetch_assoc($result)) {
 	$fechaini = $row['fecha'];
-	$nombre = $row['actividad'];
-	$descripcion = $row['descripcion'];
+	$nombre = htmlspecialchars($row['actividad'], ENT_QUOTES, 'ISO-8859-1');
+	$descripcion = htmlspecialchars($row['descripcion'], ENT_QUOTES, 'ISO-8859-1');
 	$departamento = $row['departamento'];
 	$profesores = $row['profesor'];
 	$unidades = $row['grupos'];
@@ -140,8 +139,8 @@ while ($row_profesor = mysqli_fetch_assoc($result_profesor)) {
 	$result = mysqli_query($db_con, "SELECT fecha, grupo, titulo, observaciones FROM diario WHERE profesor='".$row_profesor['profesor']."'");
 	while ($row = mysqli_fetch_assoc($result)) {
 		$fechaini = $row['fecha'];
-		$nombre = $row['titulo'];
-		$descripcion = $row['observaciones'];
+		$nombre = htmlspecialchars($row['titulo'], ENT_QUOTES, 'ISO-8859-1');
+		$descripcion = htmlspecialchars($row['observaciones'], ENT_QUOTES, 'ISO-8859-1');
 		$unidades = $row['grupo'];
 		$profesorreg = $row_profesor['idea'];
 		
