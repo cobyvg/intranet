@@ -69,7 +69,7 @@ if (mysqli_num_rows($result)) {
 	exit();
 }
 else {
-	$crear = mysqli_query($db_con, "INSERT INTO calendario (categoria, nombre, descripcion, fechaini, horaini, fechafin, horafin, lugar, departamento, profesores, unidades, fechareg, profesorreg) VALUES ($calendario_evento, '$nombre_evento', '$descripcion_evento', '$fechaini_evento_sql', '$horaini_evento', $fechafin_evento_sql, '$horafin_evento', '$lugar_evento', '$departamento_evento', '$profesores_evento', '$unidades_evento' , '$fechareg_evento', '$profesorreg_evento')") or die (mysqli_error($db_con));
+	$crear = mysqli_query($db_con, "INSERT INTO calendario (categoria, nombre, descripcion, fechaini, horaini, fechafin, horafin, lugar, departamento, profesores, unidades, fechareg, profesorreg) VALUES ($calendario_evento, '$nombre_evento', '$descripcion_evento', '$fechaini_evento_sql', '$horaini_evento', $fechafin_evento_sql, '$fechafin_evento_sql', '$lugar_evento', '$departamento_evento', '$profesores_evento', '$unidades_evento' , '$fechareg_evento', '$profesorreg_evento')") or die (mysqli_error($db_con));
 	if (! $crear) {
 		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?errevento=2');
 		exit();

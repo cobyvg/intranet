@@ -131,7 +131,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['profi']."' AND espublico=0");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini FROM calendario WHERE categoria='".$calendario['id']."'");
+					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)=$anio AND MONTH(fechaini)=$mes");
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($eventos['fechaini'] == $anio.'-'.$mes.'-'.$dia0) {
@@ -255,7 +255,7 @@ $PLUGIN_COLORPICKER = 1;
 		$result_calendarios1 = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['profi']."' AND espublico=0");
 		while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			
-			$result_eventos1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='".$calendario1['id']."'");
+			$result_eventos1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='".$calendario1['id']."' AND YEAR(fechaini)=$anio AND MONTH(fechaini)=$mes");
 			
 			while ($eventos1 = mysqli_fetch_assoc($result_eventos1)) {
 				echo '<div id="modalEvento'.$eventos1['id'].'" class="modal fade">
@@ -346,7 +346,7 @@ $PLUGIN_COLORPICKER = 1;
 			$result_calendarios1 = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 			while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 				
-				$result_eventos1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='".$calendario1['id']."'");
+				$result_eventos1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='".$calendario1['id']."' AND YEAR(fechaini)=$anio AND MONTH(fechaini)=$mes");
 				
 				while ($eventos1 = mysqli_fetch_assoc($result_eventos1)) {
 					echo '<div id="modalEvento'.$eventos1['id'].'" class="modal fade">
