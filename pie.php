@@ -32,6 +32,9 @@
     <script src="//<? echo $dominio;?>/intranet/js/datatables/jquery.dataTables.min.js"></script>
     <script src="//<? echo $dominio;?>/intranet/js/datatables/dataTables.bootstrap.js"></script>
     <?php endif; ?>
+    <?php if(isset($PLUGIN_COLORPICKER) && $PLUGIN_COLORPICKER): ?>
+    <script src="//<? echo $dominio;?>/intranet/js/colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <?php endif; ?>
     <?php if(isset($_GET['tour']) && $_GET['tour']): ?>
     <script src="//<? echo $dominio;?>/intranet/js/bootstrap-tour/bootstrap-tour.min.js"></script>
     <?php endif; ?>

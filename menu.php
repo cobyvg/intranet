@@ -36,6 +36,11 @@
 	href="//<?php echo $dominio; ?>/intranet/js/datatables/dataTables.bootstrap.css"
 	rel="stylesheet">
 <?php endif; ?>
+<?php if(isset($PLUGIN_COLORPICKER) && $PLUGIN_COLORPICKER): ?>
+<link
+	href="//<?php echo $dominio; ?>/intranet/js/colorpicker/css/bootstrap-colorpicker.min.css"
+	rel="stylesheet">
+<?php endif; ?>
 <?php if(isset($_GET['tour']) && $_GET['tour']): ?>
 <link
 	href="//<?php echo $dominio; ?>/intranet/js/bootstrap-tour/bootstrap-tour.min.css"
