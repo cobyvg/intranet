@@ -52,7 +52,7 @@ $calendario_evento = mysqli_real_escape_string($db_con, $_POST['cmp_calendario']
 $departamento_evento = mysqli_real_escape_string($db_con, $_POST['cmp_departamento']);
 $profesores_evento = mysqli_real_escape_string($db_con, $_POST['cmp_profesores']);
 $unidades_evento = mysqli_real_escape_string($db_con, $_POST['cmp_unidades']);
-$profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['profi']);
+$profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $fechareg_evento = date('Y-m-d');
 
 $exp_fechaini_evento = explode('/', $fechaini_evento);

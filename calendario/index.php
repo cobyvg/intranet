@@ -128,7 +128,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 				
 				
 				// Consultamos los calendarios privados del usuario
-				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['profi']."' AND espublico=0");
+				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					
 					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)=$anio AND MONTH(fechaini)=$mes");
@@ -231,7 +231,7 @@ $PLUGIN_COLORPICKER = 1;
 			font-weight: bold;
 		}
 		
-		<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['profi']."' AND espublico=0"); ?>
+		<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0"); ?>
 		<?php if (mysqli_num_rows($result)): ?>
 		<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		.idcal_<?php echo $row['id']; ?> {
@@ -272,7 +272,7 @@ $PLUGIN_COLORPICKER = 1;
 		
 		<?php
 		// CALENDARIOS PRIVADOS DEL PROFESOR
-		$result_calendarios1 = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['profi']."' AND espublico=0");
+		$result_calendarios1 = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
 		while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			
 			$result_eventos1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='".$calendario1['id']."' AND YEAR(fechaini)=$anio AND MONTH(fechaini)=$mes");
@@ -513,7 +513,7 @@ $PLUGIN_COLORPICKER = 1;
 				
 				<h3>Mis calendarios</h3>
 				
-				<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['profi']."' AND espublico=0 ORDER BY id ASC"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0 ORDER BY id ASC"); ?>
 				<?php if (mysqli_num_rows($result)): ?>
 				<ul class="nav nav-pills nav-stacked">
 					<?php $i = 1; ?>
@@ -703,7 +703,7 @@ $PLUGIN_COLORPICKER = 1;
 	        			<label for="cmp_calendario">Calendario</label>
 	        			<select class="form-control" id="cmp_calendario" name="cmp_calendario">
 	        				<optgroup label="Mis calendarios">
-	        					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['profi']."' AND espublico=0"); ?>
+	        					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0"); ?>
 	        					<?php while ($row = mysqli_fetch_assoc($result)): ?>
 	        					<option value="<?php echo $row['id']; ?>"><?php echo $row['nombre']; ?></option>
 	        					<?php endwhile; ?>
@@ -790,7 +790,7 @@ $PLUGIN_COLORPICKER = 1;
 	<script>
 		$(function() {
 			// MOSTRAR/OCULTAR CALENDARIOS
-			<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['profi']."' AND espublico=0"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0"); ?>
 			<?php if (mysqli_num_rows($result)): ?>
 			<?php while ($row = mysqli_fetch_assoc($result)): ?>
 			$("#toggle_calendario_<?php echo $row['id']; ?>").click(function() {

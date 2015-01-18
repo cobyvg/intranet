@@ -44,7 +44,7 @@ if (! isset($_POST['cmp_calendario_nombre'])) {
 $nombre_calendario = mysqli_real_escape_string($db_con, $_POST['cmp_calendario_nombre']);
 $color_calendario = mysqli_real_escape_string($db_con, $_POST['cmp_calendario_color']);
 $fecha_calendario = date('Y-m-d');
-$profesor_calendario = mysqli_real_escape_string($db_con, $_SESSION['profi']);
+$profesor_calendario = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $publico_calendario = mysqli_real_escape_string($db_con, $_POST['cmp_calendario_publico']);
 
 if ($publico_calendario == '') $publico_calendario = 0;
