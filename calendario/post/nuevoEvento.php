@@ -41,18 +41,18 @@ if (! isset($_POST['cmp_nombre'])) {
 }
 
 // Limpiamos variables
-$nombre_evento = htmlspecialchars($_POST['cmp_nombre'], ENT_QUOTES, 'ISO-8859-1');
-$fechaini_evento = htmlspecialchars($_POST['cmp_fecha_ini'], ENT_QUOTES, 'ISO-8859-1');
-$horaini_evento = htmlspecialchars($_POST['cmp_hora_ini'], ENT_QUOTES, 'ISO-8859-1');
-$fechafin_evento = htmlspecialchars($_POST['cmp_fecha_fin'], ENT_QUOTES, 'ISO-8859-1');
-$horafin_evento = htmlspecialchars($_POST['cmp_hora_fin'], ENT_QUOTES, 'ISO-8859-1');
-$descripcion_evento = htmlspecialchars($_POST['cmp_descripcion'], ENT_QUOTES, 'ISO-8859-1');
-$lugar_evento = htmlspecialchars($_POST['cmp_lugar'], ENT_QUOTES, 'ISO-8859-1');
-$calendario_evento = htmlspecialchars($_POST['cmp_calendario'], ENT_QUOTES, 'ISO-8859-1');
-$departamento_evento = htmlspecialchars($_POST['cmp_departamento'], ENT_QUOTES, 'ISO-8859-1');
-$profesores_evento = htmlspecialchars($_POST['cmp_profesores'], ENT_QUOTES, 'ISO-8859-1');
-$unidades_evento = htmlspecialchars($_POST['cmp_unidades'], ENT_QUOTES, 'ISO-8859-1');
-$profesorreg_evento = htmlspecialchars($_SESSION['profi'], ENT_QUOTES, 'ISO-8859-1');
+$nombre_evento = mysqli_real_escape_string($db_con, $_POST['cmp_nombre']);
+$fechaini_evento = mysqli_real_escape_string($db_con, $_POST['cmp_fecha_ini']);
+$horaini_evento = mysqli_real_escape_string($db_con, $_POST['cmp_hora_ini']);
+$fechafin_evento = mysqli_real_escape_string($db_con, $_POST['cmp_fecha_fin']);
+$horafin_evento = mysqli_real_escape_string($db_con, $_POST['cmp_hora_fin']);
+$descripcion_evento = mysqli_real_escape_string($db_con, $_POST['cmp_descripcion']);
+$lugar_evento = mysqli_real_escape_string($db_con, $_POST['cmp_lugar']);
+$calendario_evento = mysqli_real_escape_string($db_con, $_POST['cmp_calendario']);
+$departamento_evento = mysqli_real_escape_string($db_con, $_POST['cmp_departamento']);
+$profesores_evento = mysqli_real_escape_string($db_con, $_POST['cmp_profesores']);
+$unidades_evento = mysqli_real_escape_string($db_con, $_POST['cmp_unidades']);
+$profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['profi']);
 $fechareg_evento = date('Y-m-d');
 
 $exp_fechaini_evento = explode('/', $fechaini_evento);
