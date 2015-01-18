@@ -248,7 +248,7 @@ if (mysqli_num_rows($repi_db)>0) {
 $repit_db = mysqli_fetch_array($repi_db);
 $repite=substr($repit_db[1],0,1)."º, ";
 }
-	for ($i = 0; $i < 4; $i++) {
+	for ($i = 0; $i < 5; $i++) {
 	$ano = $db."".($index-$i);
 		$repi=mysqli_query($db_con,"select matriculas, curso from $ano.alma where claveal='".$row['claveal']."' and matriculas>'1'");
 		if (mysqli_num_rows($repi)>0) {
@@ -259,7 +259,6 @@ $repite=substr($repit_db[1],0,1)."º, ";
 	if (strlen($repite)>0) {
 		$repite=substr($repite,0,-2)." ESO";
 	}
-
 }
 ?>
 				<textarea class="form-control" name="rep-<?php echo $row['claveal']; ?>" rows="2" cols="8" style="font-size:10px;padding:2px;"><?php echo $repite; ?></textarea>
