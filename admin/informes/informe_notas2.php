@@ -164,7 +164,8 @@ while ($orden_nivel = mysqli_fetch_array($nivele)){
 <th>3-5 Susp.</th>
 <th>6-8 Susp.</th>
 <th>9+ Susp.</th>
-<th class='text-success'>Promo./Tit.</th>
+<th>Promo.</th>
+<th>Tit.</th>
 </thead>
 <tbody>
 <?
@@ -299,7 +300,7 @@ else{
 <td><? echo $tres_cinco;?></td>
 <td><? echo $seis_ocho;?></td>
 <td><? echo $nueve;?></td>
-<th class='text-success'><? echo $porciento." <span class='pull-right'>(".$promo2."".$promo1.")</span>";?></th>
+<th><? echo $porciento."</th><th>".$promo2."".$promo1."";?></th>
 </tr>
 <?
 }

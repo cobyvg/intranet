@@ -303,7 +303,7 @@ $PLUGIN_COLORPICKER = 1;
 				        				<div class="form-group datetimepicker1">
 				        					<label for="cmp_fecha_ini">Fecha inicio</label>
 				        					<div class="input-group">
-				            					<input type="date" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
+				            					<input class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
 				            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 				            				</div>
 				            			</div>
@@ -312,7 +312,7 @@ $PLUGIN_COLORPICKER = 1;
 				        				<div class="form-group datetimepicker2">
 				            				<label for="cmp_hora_ini">Hora inicio</label>
 				            				<div class="input-group">
-				            					<input type="date" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
+				            					<input class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
 				            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 				            				</div>
 				            			</div>
@@ -321,7 +321,7 @@ $PLUGIN_COLORPICKER = 1;
 				        				<div class="form-group datetimepicker3">
 				            				<label for="cmp_fecha_fin">Fecha fin</label>
 				            				<div class="input-group">
-				            					<input type="date" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
+				            					<input class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
 				            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 				            				</div>
 				            			</div>
@@ -330,7 +330,7 @@ $PLUGIN_COLORPICKER = 1;
 				        				<div class="form-group datetimepicker4">
 				            				<label for="cmp_hora_fin">Hora fin</label>
 				            				<div class="input-group">
-				            					<input type="date" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
+				            					<input class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
 				            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 				            				</div>
 				            			</div>
@@ -397,7 +397,7 @@ $PLUGIN_COLORPICKER = 1;
 					        				<div class="form-group datetimepicker1">
 					        					<label for="cmp_fecha_ini">Fecha inicio</label>
 					        					<div class="input-group">
-					            					<input type="date" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
+					            					<input class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
 					            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 					            				</div>
 					            			</div>
@@ -406,7 +406,7 @@ $PLUGIN_COLORPICKER = 1;
 					        				<div class="form-group datetimepicker2">
 					            				<label for="cmp_hora_ini">Hora inicio</label>
 					            				<div class="input-group">
-					            					<input type="date" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
+					            					<input class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
 					            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 					            				</div>
 					            			</div>
@@ -415,7 +415,7 @@ $PLUGIN_COLORPICKER = 1;
 					        				<div class="form-group datetimepicker3">
 					            				<label for="cmp_fecha_fin">Fecha fin</label>
 					            				<div class="input-group">
-					            					<input type="date" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
+					            					<input class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
 					            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 					            				</div>
 					            			</div>
@@ -424,7 +424,7 @@ $PLUGIN_COLORPICKER = 1;
 					        				<div class="form-group datetimepicker4">
 					            				<label for="cmp_hora_fin">Hora fin</label>
 					            				<div class="input-group">
-					            					<input type="date" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
+					            					<input class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
 					            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 					            				</div>
 					            			</div>
@@ -655,7 +655,7 @@ $PLUGIN_COLORPICKER = 1;
         					<div class="form-group datetimepicker1">
 	        					<label for="cmp_fecha_ini">Fecha inicio</label>
 	        					<div class="input-group">
-		        					<input type="date" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
+		        					<input class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
 		        					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 		        				</div>
 		        			</div>
@@ -664,7 +664,7 @@ $PLUGIN_COLORPICKER = 1;
 	        				<div class="form-group datetimepicker2">
 		        				<label for="cmp_hora_ini">Hora inicio</label>
 		        				<div class="input-group">
-		        					<input type="date" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="<?php echo date('H:i'); ?>" data-date-format="HH:mm">
+		        					<input class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="<?php echo date('H:i'); ?>" data-date-format="HH:mm">
 		        					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 		        				</div>
 		        			</div>
@@ -673,7 +673,7 @@ $PLUGIN_COLORPICKER = 1;
 	        				<div class="form-group datetimepicker3">
 		        				<label for="cmp_fecha_fin">Fecha fin</label>
 		        				<div class="input-group">
-		        					<input type="date" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
+		        					<input class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
 		        					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 		        				</div>
 		        			</div>
@@ -682,7 +682,7 @@ $PLUGIN_COLORPICKER = 1;
 	        				<div class="form-group datetimepicker4">
 		        				<label for="cmp_hora_fin">Hora fin</label>
 		        				<div class="input-group">
-		        					<input type="date" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="<?php echo date('H:i', strtotime('+1 hour', strtotime(date('H:i')))); ?>" data-date-format="HH:mm">
+		        					<input class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="<?php echo date('H:i', strtotime('+1 hour', strtotime(date('H:i')))); ?>" data-date-format="HH:mm">
 		        					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 		        				</div>
 		        			</div>

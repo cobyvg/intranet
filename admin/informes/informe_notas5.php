@@ -205,8 +205,8 @@ while ($ni = mysqli_fetch_array($niv)) {
 <thead>
 <th class='text-info'>Asignatura</th>
 <th class='text-info'>Matriculados</th>
-<th class='text-info'>Suspensos</th>
-<th class='text-info'>Aprobados</th>
+<th class='text-info'>Aprob. (%)</th>
+<th class='text-info'>Al. Aprob.</th>
 </thead>
 <tbody>	
 	<?
@@ -250,10 +250,10 @@ else{
 	$porciento_asig2 = "<span class='text-danger'>".substr($porcient_asig2,0,4)."%</span>";	
 }
 
-//if ($porcient_asig>0) {
+if ($num_matr>0) {
 			echo "<tr><th>$nomasi</th><td>$num_matr</td><td>";
-	echo $porciento_asig."<span class='pull-right'>(".$num_susp.")</span></td><td>$porciento_asig2 <span class='pull-right'>(".$num_apro.")</span></td></tr>";
-//	}
+	echo $porciento_asig2."</td><td>".$num_apro."</span></td></tr>";
+	}
 
 }
 ?>

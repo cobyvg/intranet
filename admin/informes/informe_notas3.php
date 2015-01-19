@@ -205,17 +205,15 @@ while ($orden_nivel = mysqli_fetch_array($nivele)){
 <thead>
 <th class='text-info'>Asignatura</th>
 <th class='text-info'>Matriculados</th>
-<th class='text-info'>Suspensos</th>
-<th class='text-info'>Aprobados</th>
+<th class='text-info' nowrap>Aprob.(%)</th>
+<th class='text-info' nowrap>Al. Aprob.</th>
 </thead>
 <tbody>	
 	<?
 $as = mysqli_query($db_con, "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%' and asignaturas.codigo not in 
 (select distinct codigo from asignaturas where nombre like 'Libre Disp%')");
-// echo "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%'";
 while ($asi = mysqli_fetch_array($as)) {
 	$n_c = mysqli_query($db_con, "select distinct curso from alma where curso = '$orden_nivel[1]'");
-	//echo "select distinct nivel from alma where curso = '$orden_nivel[1]'";
 	$niv_cur = mysqli_fetch_array($n_c);
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
@@ -251,9 +249,9 @@ else{
 	$porciento_asig2 = "<span class='text-danger'>".substr($porcient_asig2,0,4)."%</span>";	
 }
 
-if ($porcient_asig>0) {
-			echo "<tr><th>$nomasi</th><td>$num_matr</td><td>";
-	echo $porciento_asig."<span class='pull-right'>(".$num_susp.")</span></td><td>$porciento_asig2 <span class='pull-right'>(".$num_apro.")</span></td></tr>";
+if ($num_matr>0 and stristr($nomasi,"Tutor")==FALSE) {
+	echo "<tr><th>$nomasi</th><td>$num_matr</td><td>";
+	echo $porciento_asig2 ."</td><td>".$num_apro."</td></tr>";
 	}
 
 }
