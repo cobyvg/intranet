@@ -521,10 +521,11 @@ $PLUGIN_COLORPICKER = 1;
 					<li>
 						<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>">
 							<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span> <?php echo $row['nombre']; ?>
+							<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 							<?php if ($i > 1): ?>
 							<form class="pull-right" method="post" action="post/eliminarCalendario.php">
 								<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
-								<button type="submit" class="btn btn-link delete-calendar" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
+								<button type="submit" class="btn-link delete-calendar" style="margin-top: -10px; margin-right: -10px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
 							</form>
 							<?php else: ?>
 							<?php $idcal_diario = $row['id']; ?>
@@ -553,10 +554,11 @@ $PLUGIN_COLORPICKER = 1;
 					<li>
 						<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>">
 							<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span> <?php echo $row['nombre']; ?>
+							<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 							<?php if ($row['id'] != 1 && $row['id'] != 2): ?>
 							<form class="pull-right" method="post" action="post/eliminarCalendario.php">
 								<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
-								<button type="submit" class="btn btn-link delete-calendar" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
+								<button type="submit" class="btn-link delete-calendar" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
 							</form>
 							<?php endif; ?>
 						</a>
@@ -565,6 +567,7 @@ $PLUGIN_COLORPICKER = 1;
 					<li>
 						<a href="#" id="toggle_calendario_festivo">
 							<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
+							<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 						</a>
 					</li>
 				</ul>
@@ -605,7 +608,7 @@ $PLUGIN_COLORPICKER = 1;
 	        		<div class="form-group" id="colorpicker1">
 	        			<label for="cmp_calendario_color">Color</label>
 	        			<div class="input-group">
-	        				<input type="date" class="form-control" id="cmp_calendario_color" name="cmp_calendario_color" value="<?php echo randomColor(); ?>">
+	        				<input type="text" class="form-control" id="cmp_calendario_color" name="cmp_calendario_color" value="<?php echo randomColor(); ?>">
 	        				<span class="input-group-addon"><i></i></span>
 	        			</div>
 	        		</div>
@@ -824,6 +827,12 @@ $PLUGIN_COLORPICKER = 1;
 			<?php while ($row = mysqli_fetch_assoc($result)): ?>
 			$("#toggle_calendario_<?php echo $row['id']; ?>").click(function() {
 			  $('.idcal_<?php echo $row['id']; ?>').toggleClass("visible");
+			  if ($(".eyeicon_<?php echo $row['id']; ?>").html() == '<span class="fa fa-eye fa-fw fa-lg"></span>') {
+			 	 $(".eyeicon_<?php echo $row['id']; ?>").html('<span class="fa fa-eye-slash fa-fw fa-lg"></span>');
+			  }
+			  else {
+			  	$(".eyeicon_<?php echo $row['id']; ?>").html('<span class="fa fa-eye fa-fw fa-lg"></span>');
+			  }
 			});
 			<?php endwhile; ?>
 			<?php endif; ?>
@@ -833,12 +842,24 @@ $PLUGIN_COLORPICKER = 1;
 			<?php while ($row = mysqli_fetch_assoc($result)): ?>
 			$("#toggle_calendario_<?php echo $row['id']; ?>").click(function() {
 			  $('.idcalpub_<?php echo $row['id']; ?>').toggleClass("visible");
+			  if ($(".eyeicon_<?php echo $row['id']; ?>").html() == '<span class="fa fa-eye fa-fw fa-lg"></span>') {
+			  	 $(".eyeicon_<?php echo $row['id']; ?>").html('<span class="fa fa-eye-slash fa-fw fa-lg"></span>');
+			  }
+			  else {
+			  	$(".eyeicon_<?php echo $row['id']; ?>").html('<span class="fa fa-eye fa-fw fa-lg"></span>');
+			  }
 			});
 			<?php endwhile; ?>
 			<?php endif; ?>
 			
 			$("#toggle_calendario_festivo").click(function() {
 			  $('.hidden_calendario_festivo').toggleClass("visible");
+			  if ($(".eyeicon_festivo").html() == '<span class="fa fa-eye fa-fw fa-lg"></span>') {
+			  	 $(".eyeicon_festivo").html('<span class="fa fa-eye-slash fa-fw fa-lg"></span>');
+			  }
+			  else {
+			  	$(".eyeicon_festivo").html('<span class="fa fa-eye fa-fw fa-lg"></span>');
+			  }
 			});
 			
 			
