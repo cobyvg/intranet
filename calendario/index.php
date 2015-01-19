@@ -303,7 +303,7 @@ $PLUGIN_COLORPICKER = 1;
 				        				<div class="form-group datetimepicker1">
 				        					<label for="cmp_fecha_ini">Fecha inicio</label>
 				        					<div class="input-group">
-				            					<input class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
+				            					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
 				            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 				            				</div>
 				            			</div>
@@ -312,7 +312,7 @@ $PLUGIN_COLORPICKER = 1;
 				        				<div class="form-group datetimepicker2">
 				            				<label for="cmp_hora_ini">Hora inicio</label>
 				            				<div class="input-group">
-				            					<input class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
+				            					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
 				            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 				            				</div>
 				            			</div>
@@ -321,7 +321,7 @@ $PLUGIN_COLORPICKER = 1;
 				        				<div class="form-group datetimepicker3">
 				            				<label for="cmp_fecha_fin">Fecha fin</label>
 				            				<div class="input-group">
-				            					<input class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
+				            					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
 				            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 				            				</div>
 				            			</div>
@@ -330,7 +330,7 @@ $PLUGIN_COLORPICKER = 1;
 				        				<div class="form-group datetimepicker4">
 				            				<label for="cmp_hora_fin">Hora fin</label>
 				            				<div class="input-group">
-				            					<input class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
+				            					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
 				            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 				            				</div>
 				            			</div>
@@ -397,7 +397,7 @@ $PLUGIN_COLORPICKER = 1;
 					        				<div class="form-group datetimepicker1">
 					        					<label for="cmp_fecha_ini">Fecha inicio</label>
 					        					<div class="input-group">
-					            					<input class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
+					            					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
 					            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 					            				</div>
 					            			</div>
@@ -406,7 +406,7 @@ $PLUGIN_COLORPICKER = 1;
 					        				<div class="form-group datetimepicker2">
 					            				<label for="cmp_hora_ini">Hora inicio</label>
 					            				<div class="input-group">
-					            					<input class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
+					            					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
 					            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 					            				</div>
 					            			</div>
@@ -415,7 +415,7 @@ $PLUGIN_COLORPICKER = 1;
 					        				<div class="form-group datetimepicker3">
 					            				<label for="cmp_fecha_fin">Fecha fin</label>
 					            				<div class="input-group">
-					            					<input class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
+					            					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
 					            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 					            				</div>
 					            			</div>
@@ -424,7 +424,7 @@ $PLUGIN_COLORPICKER = 1;
 					        				<div class="form-group datetimepicker4">
 					            				<label for="cmp_hora_fin">Hora fin</label>
 					            				<div class="input-group">
-					            					<input class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
+					            					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
 					            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 					            				</div>
 					            			</div>
@@ -513,9 +513,9 @@ $PLUGIN_COLORPICKER = 1;
 				
 				<h3>Mis calendarios</h3>
 				
-				<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0 ORDER BY id ASC"); ?>
-				<?php if (mysqli_num_rows($result)): ?>
 				<ul class="nav nav-pills nav-stacked">
+					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0 ORDER BY id ASC"); ?>
+					<?php if (mysqli_num_rows($result)): ?>
 					<?php $i = 1; ?>
 					<?php while ($row = mysqli_fetch_assoc($result)): ?>
 					<li>
@@ -526,19 +526,21 @@ $PLUGIN_COLORPICKER = 1;
 								<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
 								<button type="submit" class="btn btn-link delete-calendar" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
 							</form>
+							<?php else: ?>
+							<?php $idcal_diario = $row['id']; ?>
 							<?php endif; ?>
 						</a>
 					</li>
 					<?php $i++; ?>
 					<?php endwhile; ?>
 					<?php unset($i); ?>
+					<?php endif; ?>
 					<li>
 						<a href="#" data-toggle="modal" data-target="#modalNuevoCalendario">
-							<span class="fa fa-plus fa-fw fa-lg"></span> Crear calendario
+							<span class="fa fa-plus-circle fa-fw fa-lg"></span> Crear calendario
 						</a>
 					</li>
 				</ul>
-				<?php endif; ?>
 				
 				<hr>
 				
@@ -655,7 +657,7 @@ $PLUGIN_COLORPICKER = 1;
         					<div class="form-group datetimepicker1">
 	        					<label for="cmp_fecha_ini">Fecha inicio</label>
 	        					<div class="input-group">
-		        					<input class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
+		        					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
 		        					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 		        				</div>
 		        			</div>
@@ -664,7 +666,7 @@ $PLUGIN_COLORPICKER = 1;
 	        				<div class="form-group datetimepicker2">
 		        				<label for="cmp_hora_ini">Hora inicio</label>
 		        				<div class="input-group">
-		        					<input class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="<?php echo date('H:i'); ?>" data-date-format="HH:mm">
+		        					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="<?php echo date('H:i'); ?>" data-date-format="HH:mm">
 		        					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 		        				</div>
 		        			</div>
@@ -673,7 +675,7 @@ $PLUGIN_COLORPICKER = 1;
 	        				<div class="form-group datetimepicker3">
 		        				<label for="cmp_fecha_fin">Fecha fin</label>
 		        				<div class="input-group">
-		        					<input class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
+		        					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
 		        					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 		        				</div>
 		        			</div>
@@ -682,7 +684,7 @@ $PLUGIN_COLORPICKER = 1;
 	        				<div class="form-group datetimepicker4">
 		        				<label for="cmp_hora_fin">Hora fin</label>
 		        				<div class="input-group">
-		        					<input class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="<?php echo date('H:i', strtotime('+1 hour', strtotime(date('H:i')))); ?>" data-date-format="HH:mm">
+		        					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="<?php echo date('H:i', strtotime('+1 hour', strtotime(date('H:i')))); ?>" data-date-format="HH:mm">
 		        					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
 		        				</div>
 		        			</div>
@@ -721,6 +723,21 @@ $PLUGIN_COLORPICKER = 1;
 	        			</select>
 	        		</div>
 	        		
+	        		<div id="opciones_diario">
+	        			<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo, materia FROM profesores WHERE profesor='".$_SESSION['profi']."'"); ?>
+	        			<?php if (mysqli_num_rows($result)): ?>
+	        			<div class="form-group">
+	        				<label for="cmp_unidad_asignatura">Unidad y asignatura</label>
+	        				
+	        				<select class="form-control" id="cmp_unidad_asignatura" name="cmp_unidad_asignatura[]" size="5" multiple>
+	        				<?php while ($row = mysqli_fetch_array($result)): ?>
+	        					<option value="<?php echo $row['grupo'].' => '.$row['materia']; ?>" <?php echo (isset($grupos) && in_array($row['grupo'].' => '.$row['materia'], $grupos)) ? 'selected' : ''; ?>><?php echo $row['grupo'].' ('.$row['materia'].')'; ?></option>
+	        				<?php endwhile; ?>
+	        				</select>
+	        			</div>
+	        			<?php endif; ?>
+	        		</div>
+	        		
 	        		<div id="opciones_actividades" class="row">
 	        			
 	        			<div class="col-sm-6">
@@ -728,11 +745,22 @@ $PLUGIN_COLORPICKER = 1;
 			        		<div class="form-group">
 			        			<label for="cmp_departamento">Departamento que lo organiza</label>
 			        			<select class="form-control" id="cmp_departamento" name="cmp_departamento">
-			        				<option value=""></option>
-			        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
+			        				<?php if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE)): ?>
+			        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento='".$_SESSION['dpt']."' ORDER BY departamento ASC"); ?>
 			        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 			        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
 			        				<?php endwhile; ?>
+			        				<?php elseif (stristr($_SESSION['cargo'],'d') == TRUE): ?>
+			        				<option value="Relaciones de Género">Relaciones de Género</option>
+			        				<?php else: ?>
+			        				<option value="Múltiples Departamentos">Múltiples Departamentos</option>
+			        				<option value="Actividades Extraescolares">Actividades Extraescolares</option>
+			        				<option value="Relaciones de Género">Relaciones de Género</option>
+			        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC"); ?>
+			        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
+			        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
+			        				<?php endwhile; ?>
+			        				<?php endif; ?>
 			        			</select>
 			        		</div>
 			        		
@@ -744,6 +772,7 @@ $PLUGIN_COLORPICKER = 1;
 			        				<option value="<?php echo $row['nombre']; ?>"><?php echo $row['nombre']; ?></option>
 			        				<?php endwhile; ?>
 			        			</select>
+			        			<p class="help-block">Para seleccionar varios profesores, mantén apretada la tecla <kbd>Ctrl</kbd> mientras los vas marcando con el ratón.</p>
 			        		</div>
 			        		
 			        	</div><!-- /.col-sm-6 -->
@@ -833,6 +862,15 @@ $PLUGIN_COLORPICKER = 1;
 			    }
 			});
 			
+			$('#cmp_calendario').change(function() {
+			    if ($('#cmp_calendario').val() == <?php echo $idcal_diario; ?>) {
+			        $('#opciones_diario').show();
+			    }
+			    else {
+			        $('#opciones_diario').hide();
+			    }
+			});
+			
 			$('#modalNuevoEvento').on('hidden.bs.modal', function () {
 				$('#formNuevoEvento')[0].reset();
 				$('#opciones_actividades').hide();
@@ -861,7 +899,7 @@ $PLUGIN_COLORPICKER = 1;
 				pickDate: false
 			})
 			
-			
+			// MODAL CONFIRMACION PARA ELIMINAR
             $(".delete-calendar").on("click", function(e) {
             	bootbox.setDefaults({
             	  locale: "es",
@@ -880,6 +918,7 @@ $PLUGIN_COLORPICKER = 1;
                     }
                 });
             });
+            
 		});
 	</script>
 </body>
