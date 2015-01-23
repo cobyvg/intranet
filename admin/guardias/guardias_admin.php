@@ -128,7 +128,7 @@ if ($profeso) {
 if ($profeso) {
 	$link = "1";
 	$pr=$profeso;
-	include("../../horario.php");
+	include("horario.php");
 
 }
 echo "</div>";

@@ -86,7 +86,7 @@ if (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="
 	if ($profeso) {
 		$pr=$profeso;
 		$link="1";
-		include("../../horario.php");
+		include("horario.php");
 		?> <?
 	}
 	?></div>
