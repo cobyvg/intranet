@@ -27,6 +27,9 @@ if (!(strstr($_SESSION['cargo'],"1") == TRUE)) {
 }
 $profesor = $_SESSION ['profi'];
 
+// PLUGINS
+$PLUGIN_DATATABLES = 1;
+
 include ("../../menu.php");
 include ("menu.php");
 /*
@@ -48,7 +51,7 @@ echo '<div align="center">';
 <?
 $n_col=0;
 $n_fila=0;
-$dep0 = mysqli_query($db_con, "select distinct departamento from departamentos where departamento not like '' order by departamento");
+$dep0 = mysqli_query($db_con, "select distinct departamentos.departamento from departamentos where nombre in (select distinct profesor from profesores) and departamentos.departamento in (select distinct r_departamento.departamento from r_departamento) order by departamentos.departamento");
 while ($dep = mysqli_fetch_array($dep0)) {
 	
 $departamento = $dep[0];
@@ -69,7 +72,9 @@ $n_col++;
 ?>
 <td valign="top">
 <p class="lead text-info" align="center"><? echo $departamento;?></p>
-	<TABLE class="table table-striped table-bordered" style="width:auto;">
+	<TABLE class="table table-striped table-bordered datatable" style="width:100%;">
+		<thead><th></th><th></th><th></th></thead>
+	
 <?	while($row = mysqli_fetch_object($result))
 	{
 	?>
@@ -119,6 +124,34 @@ echo "</table>";
 <?
 include("../../pie.php");
 ?>
+<script>  
+	$(document).ready(function() {
+		var table = $('.datatable').DataTable({
+		"paging":   true,
+	    "ordering": false,
+	    "info":     false,
+	    "searching":   false,
+	    
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+			
+			"order": [[ 0, "desc" ]],
+			
+			"language": {
+			            "lengthMenu": "_MENU_",
+			            "zeroRecords": "Sin resultados.",
+			            "info": "Página _PAGE_ de _PAGES_",
+			            "infoEmpty": "No hay resultados disponibles.",
+			            "infoFiltered": "(filtrado de _MAX_ resultados)",
+			            "paginate": {
+			                  "first": "Primera",
+			                  "next": "Última",
+			                  "next": "",
+			                  "previous": "",
+			                }
+			        }
+		});
+	});
+	</script>
 	
 </body>
 </html>
