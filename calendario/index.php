@@ -257,6 +257,18 @@ $PLUGIN_COLORPICKER = 1;
 			display: block;
 		}
 		
+		.ellipsis {
+			display: inline;
+			display: -webkit-box;
+			max-width: inherit;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.4*14;
+			white-space: nowrap;
+		}
+		
 		@media print {
 			html, body {
 				width: 100%;
@@ -304,7 +316,7 @@ $PLUGIN_COLORPICKER = 1;
 				        					<label for="cmp_fecha_ini">Fecha inicio</label>
 				        					<div class="input-group">
 				            					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
-				            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+				            					<span class="input-group-addon"><span class="fa fa-calendar">
 				            				</div>
 				            			</div>
 				        			</div>
@@ -313,7 +325,7 @@ $PLUGIN_COLORPICKER = 1;
 				            				<label for="cmp_hora_ini">Hora inicio</label>
 				            				<div class="input-group">
 				            					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
-				            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+				            					<span class="input-group-addon"><span class="fa fa-clock-o">
 				            				</div>
 				            			</div>
 				        			</div>
@@ -322,7 +334,7 @@ $PLUGIN_COLORPICKER = 1;
 				            				<label for="cmp_fecha_fin">Fecha fin</label>
 				            				<div class="input-group">
 				            					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
-				            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+				            					<span class="input-group-addon"><span class="fa fa-calendar">
 				            				</div>
 				            			</div>
 				        			</div>
@@ -331,7 +343,7 @@ $PLUGIN_COLORPICKER = 1;
 				            				<label for="cmp_hora_fin">Hora fin</label>
 				            				<div class="input-group">
 				            					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
-				            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+				            					<span class="input-group-addon"><span class="fa fa-clock-o">
 				            				</div>
 				            			</div>
 				        			</div>
@@ -398,7 +410,7 @@ $PLUGIN_COLORPICKER = 1;
 					        					<label for="cmp_fecha_ini">Fecha inicio</label>
 					        					<div class="input-group">
 					            					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
-					            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					            					<span class="input-group-addon"><span class="fa fa-calendar">
 					            				</div>
 					            			</div>
 					        			</div>
@@ -407,7 +419,7 @@ $PLUGIN_COLORPICKER = 1;
 					            				<label for="cmp_hora_ini">Hora inicio</label>
 					            				<div class="input-group">
 					            					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
-					            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+					            					<span class="input-group-addon"><span class="fa fa-clock-o">
 					            				</div>
 					            			</div>
 					        			</div>
@@ -416,7 +428,7 @@ $PLUGIN_COLORPICKER = 1;
 					            				<label for="cmp_fecha_fin">Fecha fin</label>
 					            				<div class="input-group">
 					            					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
-					            					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					            					<span class="input-group-addon"><span class="fa fa-calendar">
 					            				</div>
 					            			</div>
 					        			</div>
@@ -425,7 +437,7 @@ $PLUGIN_COLORPICKER = 1;
 					            				<label for="cmp_hora_fin">Hora fin</label>
 					            				<div class="input-group">
 					            					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
-					            					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+					            					<span class="input-group-addon"><span class="fa fa-clock-o">
 					            				</div>
 					            			</div>
 					        			</div>
@@ -519,8 +531,9 @@ $PLUGIN_COLORPICKER = 1;
 					<?php $i = 1; ?>
 					<?php while ($row = mysqli_fetch_assoc($result)): ?>
 					<li>
-						<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>">
-							<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span> <?php echo $row['nombre']; ?>
+						<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>" class="ellipsis">
+							<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
+							<span class="adjust-width"><?php echo $row['nombre']; ?></span>
 							<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 							<?php if ($i > 1): ?>
 							<form class="pull-right" method="post" action="post/eliminarCalendario.php">
@@ -552,8 +565,9 @@ $PLUGIN_COLORPICKER = 1;
 				<ul class="nav nav-pills nav-stacked">
 					<?php while ($row = mysqli_fetch_assoc($result)): ?>
 					<li>
-						<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>">
-							<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span> <?php echo $row['nombre']; ?>
+						<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>" class="ellipsis">
+							<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
+							<span class="adjust-width"><?php echo $row['nombre']; ?></span>
 							<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 							<?php if ($row['id'] != 1 && $row['id'] != 2): ?>
 							<form class="pull-right" method="post" action="post/eliminarCalendario.php">
@@ -567,7 +581,7 @@ $PLUGIN_COLORPICKER = 1;
 					<li>
 						<a href="#" id="toggle_calendario_festivo">
 							<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
-							<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg"></span></span>
+							<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg">
 						</a>
 					</li>
 				</ul>
@@ -651,7 +665,7 @@ $PLUGIN_COLORPICKER = 1;
 	        		
 	        		<div class="form-group">
 	        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-	        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" autofocus>
+	        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" required autofocus>
 	        		</div>
 	        		
 	        		
@@ -660,8 +674,8 @@ $PLUGIN_COLORPICKER = 1;
         					<div class="form-group datetimepicker1">
 	        					<label for="cmp_fecha_ini">Fecha inicio</label>
 	        					<div class="input-group">
-		        					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
-		        					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+		        					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY" required>
+		        					<span class="input-group-addon"><span class="fa fa-calendar">
 		        				</div>
 		        			</div>
         				</div>
@@ -670,7 +684,7 @@ $PLUGIN_COLORPICKER = 1;
 		        				<label for="cmp_hora_ini">Hora inicio</label>
 		        				<div class="input-group">
 		        					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="<?php echo date('H:i'); ?>" data-date-format="HH:mm">
-		        					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+		        					<span class="input-group-addon"><span class="fa fa-clock-o">
 		        				</div>
 		        			</div>
 	        			</div>
@@ -679,7 +693,7 @@ $PLUGIN_COLORPICKER = 1;
 		        				<label for="cmp_fecha_fin">Fecha fin</label>
 		        				<div class="input-group">
 		        					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
-		        					<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+		        					<span class="input-group-addon"><span class="fa fa-calendar">
 		        				</div>
 		        			</div>
 	        			</div>
@@ -688,7 +702,7 @@ $PLUGIN_COLORPICKER = 1;
 		        				<label for="cmp_hora_fin">Hora fin</label>
 		        				<div class="input-group">
 		        					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="<?php echo date('H:i', strtotime('+1 hour', strtotime(date('H:i')))); ?>" data-date-format="HH:mm">
-		        					<span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+		        					<span class="input-group-addon"><span class="fa fa-clock-o">
 		        				</div>
 		        			</div>
 	        			</div>
@@ -696,7 +710,7 @@ $PLUGIN_COLORPICKER = 1;
 	        		
 	        		<div class="form-group">
 	        			<label for="cmp_descripcion">Descripción</label>
-	        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion"></textarea>
+	        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" required></textarea>
 	        		</div>
 	        		
 	        		<div class="form-group">
@@ -714,9 +728,9 @@ $PLUGIN_COLORPICKER = 1;
 	        					<?php endwhile; ?>
 	        					<?php mysqli_free_result($result); ?>
 	        				</optgroup>
-	        				<?php if (stristr($_SESSION['cargo'],'1')): ?>
+	        				<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')): ?>
 	        				<optgroup label="Otros calendarios">
-	        					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1"); ?>
+	        					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1 $sql_where"); ?>
 	        					<?php while ($row = mysqli_fetch_assoc($result)): ?>
 	        					<option value="<?php echo $row['id']; ?>"><?php echo $row['nombre']; ?></option>
 	        					<?php endwhile; ?>
@@ -741,6 +755,7 @@ $PLUGIN_COLORPICKER = 1;
 	        			<?php endif; ?>
 	        		</div>
 	        		
+	        		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')): ?>
 	        		<div id="opciones_actividades" class="row">
 	        			
 	        			<div class="col-sm-6">
@@ -803,6 +818,7 @@ $PLUGIN_COLORPICKER = 1;
 			        		
 			        	</div><!-- /.col-sm-6 -->
 			        </div><!-- /.row -->
+			        <?php endif; ?>
 	        				        		
 	        	</fieldset>
 	        </form>

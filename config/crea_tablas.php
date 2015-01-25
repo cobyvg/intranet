@@ -21,9 +21,9 @@ include_once('../config/version.php');
     <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
     <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
       
-    <link href="http://<? echo $dominio;?>/intranet/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/otros.css" rel="stylesheet">
-    <link href="http://<? echo $dominio;?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="//<?php echo $dominio; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//<?php echo $dominio; ?>/intranet/css/otros.css" rel="stylesheet">
+    <link href="//<?php echo $dominio; ?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
 </head>
 <body>	
 <?

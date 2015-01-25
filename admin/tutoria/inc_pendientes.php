@@ -119,7 +119,7 @@ if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioau
 	
 	<br>
 
-	<a class="btn btn-primary btn-sm" href="http://<?php echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+	<a class="btn btn-primary btn-sm" href="//<?php echo $dominio; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 </div>
 
 <? 
@@ -141,7 +141,7 @@ $fechainicio = $inicio[2] . "-" . $inicio[1] . "-" . $inicio[0];
 	
 	<br>
 
-	<a class="btn btn-primary btn-sm" href="http://<?php echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+	<a class="btn btn-primary btn-sm" href="//<?php echo $dominio; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 </div>
 
 <? 
@@ -160,9 +160,9 @@ $count_fech=1;
 	
 	<br>
 
-	<form method="post" action="http://<? echo $dominio;?>/intranet/admin/fechorias/imprimir/expulsionaula.php">
+	<form method="post" action="//<?php echo $dominio; ?>/intranet/admin/fechorias/imprimir/expulsionaula.php">
 		<input type="hidden" name="id" value="<?php echo $id; ?>">
-		<a class="btn btn-primary btn-sm" href="http://<?php echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+		<a class="btn btn-primary btn-sm" href="//<?php echo $dominio; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir parte de expulsión</button>
 	</form>
 </div>
@@ -181,9 +181,9 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 	
 	<br>
 
-	<form method="post" action="http://<? echo $dominio;?>/intranet/admin/fechorias/imprimir/amonestescrita.php">
+	<form method="post" action="//<?php echo $dominio; ?>/intranet/admin/fechorias/imprimir/amonestescrita.php">
 		<input type="hidden" name="id" value="<?php echo $id; ?>">
-		<a class="btn btn-primary btn-sm" href="http://<?php echo $dominio;?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+		<a class="btn btn-primary btn-sm" href="//<?php echo $dominio; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir amonestación escrita</button>
 	</form>
 </div>

@@ -152,11 +152,11 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 	
 	</li>
 
-	<li <? echo $activo1;?>><a href="http://<? echo $dominio;?>/intranet/cuaderno.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>&foto=<? echo $foto;?>">Cuaderno de notas</a></li>
+	<li <? echo $activo1;?>><a href="//<?php echo $dominio; ?>/intranet/cuaderno.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>&foto=<? echo $foto;?>">Cuaderno de notas</a></li>
 	
-	<li <? echo $activo2;?>><a href="http://<? echo $dominio;?>/intranet/faltas/index.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Faltas de asistencia</a></li>
+	<li <? echo $activo2;?>><a href="//<?php echo $dominio; ?>/intranet/faltas/index.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Faltas de asistencia</a></li>
 
-	<li <? echo $activo3;?>><a href="http://<? echo $dominio;?>/intranet/admin/calendario/diario/index_cal.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Actividades del Grupo</a></li>
+	<li <? echo $activo3;?>><a href="//<?php echo $dominio; ?>/intranet/admin/calendario/diario/index_cal.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Actividades del Grupo</a></li>
 
 	<li <? echo $activo4;?>><a data-bs='tooltip' title='Trabajando en el asunto...' href="#?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Diario del Grupo</a></li>
 
