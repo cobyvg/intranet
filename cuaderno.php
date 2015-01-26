@@ -432,7 +432,7 @@ include("cuaderno/menu_cuaderno.php");
 							echo "<tr><td colspan='$col_total' class='active'><h4 align=center>$curso11[0]</h4></td></tr>";
 						}
 						$curso = $curso11[0];
-						$nivel_curso = substr($curso,0,1);
+						$nivel_curso2 = substr($curso,0,-1);
 						$nombre = $curso11[1];
 
 						// Número de Columnas para crear la tabla
@@ -443,7 +443,7 @@ include("cuaderno/menu_cuaderno.php");
 						if (mysqli_num_rows($profe_div)<1) {
 
 							$div = $curso;
-							$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+							$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
 							$grupo_diver = mysqli_fetch_row($grupo_div);
 							$curso = $grupo_diver[0];
 						}
