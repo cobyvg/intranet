@@ -65,7 +65,7 @@ echo "Creando base de datos <strong>calendario_categorias</strong><br>";
 mysqli_query($db_con, "DROP TABLE `calendario_categorias`");
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario_categorias` (
   `id` int(11) NOT NULL auto_increment,
-  `nombre` varchar(80) collate latin1_spanish_ci NOT NULL,
+  `nombre` varchar(30) collate latin1_spanish_ci NOT NULL,
   `fecha` date NOT NULL,
   `profesor` varchar(80) collate latin1_spanish_ci NOT NULL,
   `color` char(7) collate latin1_spanish_ci NOT NULL,

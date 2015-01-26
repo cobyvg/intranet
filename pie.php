@@ -12,13 +12,15 @@
     				<a href="//<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
     				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
     				<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
+    				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+    				<a href="https://github.com/IESMonterroso/intranet/compare/v<?php echo INTRANET_VERSION; ?>...master" target="_blank">Registro de cambios</a>
     			</small>
     		</p>
     	</div>
     </footer>
     
     <!-- BOOTSTRAP JS CORE -->
-    <script src="//<? echo $dominio;?>/intranet/js/jquery-1.11.1.min.js"></script>  
+    <script src="//<? echo $dominio;?>/intranet/js/jquery-1.11.2.min.js"></script>  
     <script src="//<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>
     
     <!-- PLUGINS JS -->

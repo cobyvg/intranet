@@ -54,7 +54,7 @@ else $publico_calendario = 1;
 $result = mysqli_query($db_con, "SELECT nombre FROM calendario_categorias WHERE nombre='$nombre_calendario' AND profesor='$profesor_calendario' LIMIT 1");
 
 if (mysqli_num_rows($result)) {
-	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?error=1');
+	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
 	exit();
 }
 else {

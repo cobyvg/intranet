@@ -581,7 +581,7 @@ $PLUGIN_COLORPICKER = 1;
 					<li>
 						<a href="#" id="toggle_calendario_festivo">
 							<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
-							<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg">
+							<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 						</a>
 					</li>
 				</ul>
@@ -616,13 +616,13 @@ $PLUGIN_COLORPICKER = 1;
 	        		
 	        		<div class="form-group">
 	        			<label for="cmp_calendario_nombre" class="visible-xs">Nombre</label>
-	        			<input type="text" class="form-control" id="cmp_calendario_nombre" name="cmp_calendario_nombre" placeholder="Nombre del calendario" autofocus>
+	        			<input type="text" class="form-control" id="cmp_calendario_nombre" name="cmp_calendario_nombre" placeholder="Nombre del calendario" required autofocus>
 	        		</div>
 	        		
 	        		<div class="form-group" id="colorpicker1">
 	        			<label for="cmp_calendario_color">Color</label>
 	        			<div class="input-group">
-	        				<input type="text" class="form-control" id="cmp_calendario_color" name="cmp_calendario_color" value="<?php echo randomColor(); ?>">
+	        				<input type="text" class="form-control" id="cmp_calendario_color" name="cmp_calendario_color" value="<?php echo randomColor(); ?>" required>
 	        				<span class="input-group-addon"><i></i></span>
 	        			</div>
 	        		</div>
