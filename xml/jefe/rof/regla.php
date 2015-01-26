@@ -59,9 +59,6 @@ else {
 // ENVIO DE FORMULARIO
 if(isset($_POST['submit'])) {
 	
-	// Modificamos tabla
-	mysqli_quety($db_con,"ALTER TABLE `listafechorias` CHANGE `ID` `ID` INT(4) NOT NULL AUTO_INCREMENT");
-	
 	$asunto = $_POST['asunto'];
 	$medida = $_POST['medida'];
 	$medida2 = $_POST['medida2'];
