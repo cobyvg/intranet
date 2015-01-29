@@ -364,10 +364,6 @@ $menu = array(
 						'titulo' => 'Perfiles de profesores',
 					),
 					array(
-						'href'   => 'TIC/documentos.php',
-						'titulo' => 'Documentos y manuales',
-					),
-					array(
 						'href'   => 'TIC/protocolo.php',
 						'titulo' => 'Protocolo de uso',
 					),
