@@ -602,7 +602,7 @@ $page_header = "Redactar mensaje";
 				<div id="grupo_bilingue" class="well">
 					
 					<fieldset>
-						<legend>Orientación</legend>
+						<legend>Profesores Bilinguismo</legend>
 						
 						<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo LIKE '%a%' ORDER BY nombre ASC"); ?>
 						<?php if(mysqli_num_rows($result)): ?>

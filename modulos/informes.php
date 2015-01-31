@@ -26,26 +26,27 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 			while($row1 = mysqli_fetch_array($result))
 			{
 			$num_pend="";	
-			$asigna_pend = "select nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row1[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto')) and abrev like '%\_%'";
-			//echo $asigna_pend;
+			$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row1[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto')) and abrev like '%\_%'";
 				//echo $asigna_pend;
 				$query_pend = mysqli_query($db_con,$asigna_pend);
 				if (mysqli_num_rows($query_pend) < 1){
-					$num_pend="OK";
+					$num_pend="0";
+				}
+				else{
+					$num_pend+="1";
 				}
 				while ($res_pend = mysqli_fetch_array($query_pend)) {
 					$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row1[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
-
 				if (mysqli_num_rows($si_pend) > 0)
 				{	
-					$num_pend="OK"; 
+					$num_pend+="1"; 
 				}
 				}
 
 				$hay = "select * from infotut_profesor where id_alumno = '$row1[0]'  and asignatura = '$asignatura'";
 				$si = mysqli_query($db_con, $hay);
-				if (mysqli_num_rows($si) > 0 and $num_pend == "OK")
-				{ }
+				if (mysqli_num_rows($si) > 0 and $num_pend < 1)
+				{}
 				else
 				{
 					$n_infotut = $n_infotut+1;
