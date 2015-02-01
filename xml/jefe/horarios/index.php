@@ -37,13 +37,52 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
+function abrevactividad($db_con, $actividad) {
+	$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE nomactividad = '$actividad'");
+	while ($row = mysqli_fetch_array($result)) {
+		$exp_nomactividad = explode('(', $row['nomactividad']);
+		
+		$exp_nomactividad = str_replace(' a ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' al ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' la ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' las ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' de ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' y ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace('.', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(',', ' ', $exp_nomactividad);
+		
+		$nomactividad = ucwords(mb_strtolower($exp_nomactividad[0]));
+		
+		$abrev = "";
+		for ($i = 0; $i < strlen($nomactividad); $i++) {
+			if ($nomactividad[$i] == mb_strtoupper($nomactividad[$i], 'ISO-8859-1') && $nomactividad[$i] != " " && $nomactividad[$i] != ".") {
+				$abrev .= mb_strtoupper($nomactividad[$i], 'ISO-8859-1');
+			}
+		}
+		
+		if (strlen($abrev) < 3) {
+			$exp_nomactividad = explode(' ', $nomactividad);
+			$abrev .= $exp_nomactividad[1][1].$exp_nomactividad[1][2];
+			$abrev = mb_strtoupper($abrev, 'ISO-8859-1');;
+		}
+		
+		if (strlen($abrev) < 2) {
+			$exp_nomactividad = explode(' ', $nomactividad);
+			$abrev .= $exp_nomactividad[0][1].$exp_nomactividad[0][2];
+			$abrev = mb_strtoupper($abrev, 'ISO-8859-1');;
+		}
+	}
+	
+	return $abrev;
+}
 
+
+// SELECCION DE PROFESOR
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
 	$profesor = $_SESSION['profi'];
 }
 else {
-	// SELECCION DE PROFESOR
 	if (isset($_SESSION['mod_horarios']['profesor'])) {
 		$profesor = $_SESSION['mod_horarios']['profesor'];
 	}
@@ -53,7 +92,6 @@ else {
 		$_SESSION['mod_horarios']['profesor'] = $profesor;
 	}	
 }
-
 
 
 // MODIFICADORES DE FORMULARIO
@@ -91,6 +129,14 @@ if (isset($_POST['enviar'])) {
 	$nomasignatura = $datos_asignatura['nombre'];
 	$abrevasignatura = $datos_asignatura['abrev'];
 	
+	if ($nomasignatura == '') {
+		$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='".$_POST['asignatura']."'");
+		$datos_asignatura = mysqli_fetch_array($result);
+		$codasignatura = $_POST['asignatura'];
+		$nomasignatura = $datos_asignatura['nomactividad'];
+		$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);
+	}
+	
 	// OBTENEMOS DATOS DE LA UNIDAD
 	$result = mysqli_query($db_con, "SELECT DISTINCT n_grupo FROM horw WHERE a_grupo='".$_POST['unidad']."'");
 	$datos_unidad = mysqli_fetch_array($result);
@@ -102,8 +148,6 @@ if (isset($_POST['enviar'])) {
 	$datos_dependencia = mysqli_fetch_array($result);
 	$coddependencia = $_POST['dependencia'];
 	$nomdependencia = $datos_dependencia['n_aula'];
-	
-	echo "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo, n_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$codunidad', '$nomunidad')";
 	
 	$result = mysqli_query($db_con, "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo, n_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$codunidad', '$nomunidad')");
 	
@@ -132,6 +176,14 @@ if (isset($_POST['actualizar'])) {
 	$codasignatura = $_POST['asignatura'];
 	$nomasignatura = $datos_asignatura['nombre'];
 	$abrevasignatura = $datos_asignatura['abrev'];
+	
+	if ($nomasignatura == '') {
+		$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='".$_POST['asignatura']."'");
+		$datos_asignatura = mysqli_fetch_array($result);
+		$codasignatura = $_POST['asignatura'];
+		$nomasignatura = $datos_asignatura['nomactividad'];
+		$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);
+	}
 	
 	// OBTENEMOS DATOS DE LA UNIDAD
 	$result = mysqli_query($db_con, "SELECT DISTINCT n_grupo FROM horw WHERE a_grupo='".$_POST['unidad']."'");
