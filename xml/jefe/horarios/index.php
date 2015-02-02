@@ -44,12 +44,25 @@ function abrevactividad($db_con, $actividad) {
 		
 		$exp_nomactividad = str_replace(' a ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' al ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' el ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' la ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' las ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' los ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' de ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' en ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' del ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' que ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(' y ', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace('.', ' ', $exp_nomactividad);
 		$exp_nomactividad = str_replace(',', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace('-', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' para ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' cuando ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' como ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' no ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' tengan ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' determine ', ' ', $exp_nomactividad);
+		$exp_nomactividad = str_replace(' correspondientes ', ' ', $exp_nomactividad);
 		
 		$nomactividad = ucwords(mb_strtolower($exp_nomactividad[0]));
 		
