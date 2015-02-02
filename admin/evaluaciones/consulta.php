@@ -36,28 +36,30 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
-$evaluaciones = array(
-	'1EV' => '1ª Evaluación',
-	'2EV' => '2ª Evaluación',
-	'3EV' => '3ª Evaluación',
-	'Ord' => 'Ordinaria',
-	'FFP' => 'Final FP',
-	'Ext' => 'Extraordinaria',
-	'FE1' => 'Final Excepcional 1ª Convocatoria',
-	'5CV' => '5º Convocatoria Extraordinaria de Evaluación',
-	'OT1' => 'Obtención título ESO (Primer año)',
-	'FE2' => 'Final Excepcional 2ª Convocatoria',
-	'OT2' => 'Obtención título ESO (Segundo año)',
-	'EP1' => 'Evaluación de pendientes 1ª Convovatoria',
-	'EVI' => 'Evaluación inicial',
-	'EP2' => 'Evaluación de pendientes 2ª Convovatoria',
-	//'IN1' => 'Evaluación intermedia (Octubre)',
-	//'IN2' => 'Evaluación intermedia (Noviembre)',
-	//'IN3' => 'Evaluación intermedia (Enero)',
-	//'IN4' => 'Evaluación intermedia (Febrero)',
-	//'IN5' => 'Evaluación intermedia (Abril)',
-	//'IN6' => 'Evaluación intermedia (Mayo)',
-);
+if ($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es') {
+	$evaluaciones = array(
+		'IN1' => 'Intermedia 1 (Febrero)',
+		'IN2' => 'Intermedia 2 (Mayo)'
+	);
+}
+else {
+	$evaluaciones = array(
+		'1EV' => '1ª Evaluación',
+		'2EV' => '2ª Evaluación',
+		'3EV' => '3ª Evaluación',
+		'Ord' => 'Ordinaria',
+		'FFP' => 'Final FP',
+		'Ext' => 'Extraordinaria',
+		'FE1' => 'Final Excepcional 1ª Convocatoria',
+		'5CV' => '5º Convocatoria Extraordinaria de Evaluación',
+		'OT1' => 'Obtención título ESO (Primer año)',
+		'FE2' => 'Final Excepcional 2ª Convocatoria',
+		'OT2' => 'Obtención título ESO (Segundo año)',
+		'EP1' => 'Evaluación de pendientes 1ª Convovatoria',
+		'EVI' => 'Evaluación inicial',
+		'EP2' => 'Evaluación de pendientes 2ª Convovatoria',
+	);
+}
 
 
 if (isset($_POST['curso'])) $curso = $_POST['curso'];
@@ -181,6 +183,9 @@ include("menu.php");
 					</thead>
 					<tbody>
 						<?php $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$curso'"); ?>
+						<?php if (!mysqli_num_rows($result)): ?>
+						<?php $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".substr($curso, 0, -1)."' AND (combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%')"); ?>
+						<?php endif; ?>
 						<?php $i = 0; ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
@@ -211,6 +216,7 @@ include("menu.php");
 					<?php if (stristr($_SESSION['cargo'],'1') == true || (stristr($_SESSION['cargo'],'2') == true && $esTutorUnidad)): ?>
 					<form class="form-horizontal" method="post" action="actas.php">
 						<a href="#" class="btn btn-primary" onclick="javascript:print();">Imprimir</a>
+						<button type="submit" class="btn btn-primary" formaction="imprimir_notas.php">Imprimir boletines</button>
 						<input type="hidden" name="curso" value="<?php echo $curso; ?>">
 						<input type="hidden" name="evaluacion" value="<?php echo $evaluacion; ?>">
 						<button type="submit" class="btn btn-primary" name="enviar">Redactar acta</button>

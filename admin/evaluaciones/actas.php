@@ -52,28 +52,30 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `evaluaciones_actas` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
 
-$evaluaciones = array(
-	'1EV' => '1ª Evaluación',
-	'2EV' => '2ª Evaluación',
-	'3EV' => '3ª Evaluación',
-	'Ord' => 'Ordinaria',
-	'FFP' => 'Final FP',
-	'Ext' => 'Extraordinaria',
-	'FE1' => 'Final Excepcional 1ª Convocatoria',
-	'5CV' => '5º Convocatoria Extraordinaria de Evaluación',
-	'OT1' => 'Obtención título ESO (Primer año)',
-	'FE2' => 'Final Excepcional 2ª Convocatoria',
-	'OT2' => 'Obtención título ESO (Segundo año)',
-	'EP1' => 'Evaluación de pendientes 1ª Convovatoria',
-	'EVI' => 'Evaluación inicial',
-	'EP2' => 'Evaluación de pendientes 2ª Convovatoria',
-	//'IN1' => 'Evaluación intermedia (Octubre)',
-	//'IN2' => 'Evaluación intermedia (Noviembre)',
-	//'IN3' => 'Evaluación intermedia (Enero)',
-	//'IN4' => 'Evaluación intermedia (Febrero)',
-	//'IN5' => 'Evaluación intermedia (Abril)',
-	//'IN6' => 'Evaluación intermedia (Mayo)',
-);
+if ($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es') {
+	$evaluaciones = array(
+		'IN1' => 'Intermedia 1 (Febrero)',
+		'IN2' => 'Intermedia 2 (Mayo)'
+	);
+}
+else {
+	$evaluaciones = array(
+		'1EV' => '1ª Evaluación',
+		'2EV' => '2ª Evaluación',
+		'3EV' => '3ª Evaluación',
+		'Ord' => 'Ordinaria',
+		'FFP' => 'Final FP',
+		'Ext' => 'Extraordinaria',
+		'FE1' => 'Final Excepcional 1ª Convocatoria',
+		'5CV' => '5º Convocatoria Extraordinaria de Evaluación',
+		'OT1' => 'Obtención título ESO (Primer año)',
+		'FE2' => 'Final Excepcional 2ª Convocatoria',
+		'OT2' => 'Obtención título ESO (Segundo año)',
+		'EP1' => 'Evaluación de pendientes 1ª Convovatoria',
+		'EVI' => 'Evaluación inicial',
+		'EP2' => 'Evaluación de pendientes 2ª Convovatoria',
+	);
+}
 
 
 if (isset($_POST['curso'])) $curso = $_POST['curso'];

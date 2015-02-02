@@ -237,7 +237,7 @@ include("cuaderno/menu_cuaderno.php");
 
 						$div = $curso;
 						$nivel_curso2 = substr($div,0,-1);
-						$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+						$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%')");
 						$grupo_diver = mysqli_fetch_row($grupo_div);
 						$curso = $grupo_diver[0];
 					}
