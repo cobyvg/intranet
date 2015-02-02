@@ -15,37 +15,34 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	$c_asig = $asigna2[0];
 	if(is_numeric($c_asig)){
 		$hoy = date('Y-m-d');
-		$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE
-	infotut_alumno.claveal = alma.claveal and  date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
+		$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and  date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
 		//echo $query;
 		$result = mysqli_query($db_con, $query);
 		$n_inotut="";
 		if (mysqli_num_rows($result) > 0)
 		{
+				
 			$n_i=1;
 			while($row1 = mysqli_fetch_array($result))
 			{
-			$num_pend="";	
 			$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row1[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto')) and abrev like '%\_%'";
 				//echo $asigna_pend;
 				$query_pend = mysqli_query($db_con,$asigna_pend);
-				if (mysqli_num_rows($query_pend) < 1){
-					$num_pend="0";
-				}
-				else{
-					$num_pend+="1";
-				}
+				if (mysqli_num_rows($query_pend) > 0){
+				$num_pend="";					
 				while ($res_pend = mysqli_fetch_array($query_pend)) {
 					$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row1[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
 				if (mysqli_num_rows($si_pend) > 0)
-				{	
-					$num_pend+="1"; 
+				{}
+				else{
+					$num_pend+=1; 
 				}
 				}
-
+				}
+								
 				$hay = "select * from infotut_profesor where id_alumno = '$row1[0]'  and asignatura = '$asignatura'";
 				$si = mysqli_query($db_con, $hay);
-				if (mysqli_num_rows($si) > 0 and $num_pend < 1)
+				if (mysqli_num_rows($si) > 0 and !($num_pend > 0))
 				{}
 				else
 				{
