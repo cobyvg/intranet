@@ -1,3 +1,3 @@
 <?php
-define('INTRANET_VERSION', '3.8.3');
+define('INTRANET_VERSION', '3.8.4');
 ?>
