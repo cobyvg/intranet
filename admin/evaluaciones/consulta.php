@@ -182,7 +182,7 @@ include("menu.php");
 						</tr>
 					</thead>
 					<tbody>
-						<?php $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$curso'"); ?>
+						<?php $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='$curso' AND (combasi NOT LIKE '%25204%' AND combasi NOT LIKE '%25226%' AND combasi NOT LIKE '%31307%')"); ?>
 						<?php if (!mysqli_num_rows($result)): ?>
 						<?php $result = mysqli_query($db_con, "SELECT apellidos, nombre, claveal FROM alma WHERE unidad='".substr($curso, 0, -1)."' AND (combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%')"); ?>
 						<?php endif; ?>

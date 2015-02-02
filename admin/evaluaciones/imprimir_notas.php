@@ -138,9 +138,10 @@ $MiPDF->SetMargins(25, 20, 20);
 $titulo = "Boletín de calificaciones";
 
 
-$result = mysqli_query($db_con, "SELECT * FROM alma WHERE unidad='$unidad'");
+$result = mysqli_query($db_con, "SELECT * FROM alma WHERE unidad='$unidad' AND (combasi NOT LIKE '%25204%' AND combasi NOT LIKE '%25226%' AND combasi NOT LIKE '%31307%')");
 if (!mysqli_num_rows($result)) {
-$result = mysqli_query($db_con, "SELECT * FROM alma WHERE unidad='".substr($unidad, 0, -1)."'");
+$div = substr($unidad, 0, -1);
+$result = mysqli_query($db_con, "SELECT * FROM alma WHERE unidad='".$div."' AND (combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%')");
 }
 
 $i = 0;
@@ -150,7 +151,6 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$alumno = $row['APELLIDOS'].', '.$row['NOMBRE'];
 	$numexp = $row['NUMEROEXPEDIENTE'];
 	$curso  = $row['CURSO'];
-	$unidad = $row['UNIDAD'];
 	
 	$padre = $row['NOMBRETUTOR'].' '.$row['PRIMERAPELLIDOTUTOR'].' '.$row['SEGUNDOAPELLIDOTUTOR'];
 	$direccion = $row['DOMICILIO'];
@@ -159,7 +159,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$provincia = $row['PROVINCIARESIDENCIA'];
 	
 	// Consultamos el tutor del grupo
-	$result1 = mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad='$unidad'");
+	$result1 = mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad='$unidad' OR unidad='$div'");
 	$tutor = mysqli_fetch_array($result1);
 	mysqli_free_result($result1);
 	
@@ -191,7 +191,12 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
 	$MiPDF->Cell(25, 5, 'Unidad:', 0, 0, 'R', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
-	$MiPDF->Cell(50, 5, $unidad, 0, 1, 'L', 0 );
+	if (isset($div)) {
+		$MiPDF->Cell(50, 5, $unidad.' (Diversificación)', 0, 1, 'L', 0 );
+	}
+	else {
+		$MiPDF->Cell(50, 5, $unidad, 0, 1, 'L', 0 );
+	}
 	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
 	$MiPDF->Cell(25, 5, 'Convocatoria:', 0, 0, 'R', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
