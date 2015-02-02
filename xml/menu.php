@@ -24,6 +24,7 @@
 	<li><a href="../config/cargos.php">Seleccionar Perfil de los Profesores</a></li>
 	<li><a href="jefe/gest_dep.php">Gestión de los Departamentos</a></li>
 	<li><a href="jefe/reset_password.php">Restablecer contraseñas</a></li>
+	<li><a href="jefe/horarios/index.php">Modificar Horarios</a></li>
 	<li><a href="jefe/index_hor.php">Copiar datos de un profesor a otro</a></li>
 	<li><a href="jefe/index_fotos_profes.php">Subir fotos de profesores</a></li>
 	<li><a href="jefe/informes/accesos.php">Informe de accesos</a></li>

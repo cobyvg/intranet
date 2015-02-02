@@ -220,7 +220,7 @@ if(stristr($carg,'2') == TRUE)
 	if (isset($_GET['asunto']) and $_GET['asunto'] == "Mensaje de confirmación") {
 		mysqli_query($db_con, "UPDATE mensajes SET recibidopadre = '1' WHERE id = $verifica_padres");
 	}
-	$men1 = "select ahora, asunto, texto, nombre, apellidos, id from mensajes, alma where mensajes.claveal = alma.claveal and mensajes.unidad = '$unidad_m' and recibidotutor = '0' order by ahora desc";
+	$men1 = "select ahora, asunto, texto, nombre, apellidos, id, archivo from mensajes, alma where mensajes.claveal = alma.claveal and mensajes.unidad = '$unidad_m' and recibidotutor = '0' order by ahora desc";
 	$men2 = mysqli_query($db_con, $men1);
 	if(mysqli_num_rows($men2) > 0)
 	{
@@ -260,6 +260,7 @@ if(stristr($carg,'2') == TRUE)
 			$nombre = $men[3];
 			$apellidos = $men[4];
 			$id = $men[5];
+			$archivo = $men[6];
 			$origen = $men[4].", ".$men[3];
 			?>
 <div class="modal fade" id="mensajep<? echo $n_mensajesp;?>">
@@ -273,7 +274,12 @@ if(stristr($carg,'2') == TRUE)
 el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body"><? echo $texto;?></div>
+<div class="modal-body">
+<? echo $texto;?>
+<?php if (strlen($archivo) > 5): ?>
+Archivo adjunto: <a href="//<?php echo $dominio; ?>/notas/files/<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
+<?php endif; ?>
+</div>
 <div class="modal-footer">
 <form name="mensaje_enviado" action="index.php" method="post"
 	enctype="multipart/form-data" class="form-inline"><a href="#"
