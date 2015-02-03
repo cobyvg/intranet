@@ -186,7 +186,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
 	$MiPDF->Cell(25, 5, 'Curso:', 0, 0, 'R', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 10 );
-	$MiPDF->Cell(50, 5, $curso, 0, 0, 'L', 0 );
+	$MiPDF->Cell(50, 5, (strlen($curso) > 31) ? substr($curso, 0 ,31).'...' : $curso, 0, 0, 'L', 0 );
 	$MiPDF->Cell(0, 5, $localidad.' - '.$codpostal.' '.mb_strtoupper($provincia, 'iso-8859-1'), 0, 1, 'L', 0 );
 	$MiPDF->SetFont ( 'NewsGotT', 'B', 10 );
 	$MiPDF->Cell(25, 5, 'Unidad:', 0, 0, 'R', 0 );
