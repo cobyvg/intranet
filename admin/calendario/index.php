@@ -71,6 +71,7 @@ foreach ( $alldays as $value ) {
 echo "</tr></thead><tbody><tr>";
 
 //Días en blanco
+if ($dayone < 0) $dayone = 6;
 for($i = 0; $i < $dayone; $i ++) {
 	echo "<th>&nbsp;</th>\n";
 }
