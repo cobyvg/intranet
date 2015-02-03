@@ -11,7 +11,7 @@ if (strstr($_SERVER['REQUEST_URI'],'infechoria.php')==TRUE){ $activo2 = ' class=
 if (strstr($_SERVER['REQUEST_URI'],'lfechorias.php')==TRUE){ $activo3 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'expulsados.php')==TRUE){ $activo4 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'convivencia.php')==TRUE){ $activo5 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'lfechorias3.php')==TRUE){ $activo6 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'convivencia_jefes.php')==TRUE){ $activo7 = ' class="active" ';}
 ?>
         <div class="container">
@@ -36,9 +36,15 @@ if (mysqli_num_rows($conv) > '0') {
 <?
 }
       ?>
-     <li <? echo $activo6;?>> <a href="//<?php echo $dominio; ?>/intranet/admin/fechorias/lfechorias3.php">
-      Ranking</a></li>
-      
+      <li class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE) ? ' active' : ''; ?>">
+			  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			    Ranking <span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu" role="menu">
+			  	<li> <a href="lfechorias3.php">General</a></li>
+      			<li> <a href="lfechorias3b.php">Tras última Expulsión del Centro</a></li>
+			  </ul>
+			</li>     
 <?   
 if(stristr($_SESSION['cargo'],'1') == TRUE){
 ?>
