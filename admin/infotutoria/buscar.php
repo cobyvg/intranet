@@ -114,7 +114,7 @@ echo "<td style='vertical-align:middle' nowrap><div class='btn-group'><a href='i
 $result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$row->unidad'" );
 $row0 = mysqli_fetch_array ( $result0 );	
 $tuti = $row0[0];
-		 if (stristr($_SESSION ['cargo'],'1') == TRUE or ($tuti == $_SESSION['profi'])) {
+		 if (stristr($_SESSION ['cargo'],'1') == TRUE or (nomprofesor($tuti) == nomprofesor($_SESSION['profi']))) {
    	echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary' data-bb='confirm-delete'><i class='fa fa-trash-o ' title='Borrar Informe' > </i></a>";
    	echo "<a href='informar.php?id=$row->ID' class='btn btn-primary'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
    }	

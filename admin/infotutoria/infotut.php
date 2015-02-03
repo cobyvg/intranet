@@ -42,9 +42,9 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../menu.php");
 include("menu.php");
 
-$prof=mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
+$prof = mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
 $fprof = mysqli_fetch_array($prof);
-if(!($_GET['tutor'])){$tutor=$fprof[0];}else{$fprof[0] = $_GET['tutor'];}
+$tutor = $fprof[0];
 ?>
 <div class="container">
 <div class="row">

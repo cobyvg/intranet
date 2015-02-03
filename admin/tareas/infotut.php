@@ -46,9 +46,9 @@ include("menu.php");
 
 eliminar_mayusculas($profesor);
 
-$prof=mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
+$prof = mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
 $fprof = mysqli_fetch_array($prof);
-if(!($tutor)){$tutor=$fprof[0];}else{$fprof[0] = $tutor;}
+$tutor = $fprof[0];
 ?>
 <div class="container">
 <div class="row">
