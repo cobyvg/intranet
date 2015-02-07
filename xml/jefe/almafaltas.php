@@ -51,7 +51,7 @@ if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
 <br />
 <div align="center">
 <div class="page-header">
-  <h2>Administración <small> Creación de la tabla de alumnos</small></h2>
+  <h2>Administraci�n <small> Creaci�n de la tabla de alumnos</small></h2>
 </div>
 <br />
 <div class="well well-large" style="width:600px;margin:auto;text-align:left">
@@ -115,11 +115,11 @@ else{
 // echo $alumnos;
 mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
+			<legend>ATENCIӓN:</legend>
 No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atr�s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 
   $SQL6 = "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL` )";
@@ -225,13 +225,8 @@ $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[
   $SQL4 = "DELETE FROM alma WHERE `unidad` = ''";
   $result4 = mysqli_query($db_con, $SQL4);
   
-// Exportamos cÃ³digos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluaciÃ³n
-if(phpversion() < '5'){
- include("exportacodigos_xslt.php");
-}
-else{
  include("exportacodigos.php");
-}
+
 ?>
 <?		
 // Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
@@ -248,11 +243,11 @@ mysqli_query($db_con, $SQL8);
 mysqli_query($db_con, "drop table almafaltas");
 mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
+			<legend>ATENCI�N:</legend>
 No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atr�s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 // Claveal primaria e Ã­ndice
   $SQL6 = "ALTER TABLE  `almafaltas` ADD INDEX (  `CLAVEAL` )";
@@ -292,15 +287,22 @@ $result2 = mysqli_query($db_con, $SQL2);
 }
 }
 }
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>Alma</strong>: los Alumnos se han introducido correctamente en la Base de datos.
 </div></div><br />';
 // Eliminamos temporales
 mysqli_query($db_con, "drop table almafaltas");
+
 // Datos para el alta masiva de usuarios TIC
 include("exportaTIC.php");
+
+// Alumnos con pendientes
+include("pendientes.php");
+
+// Alumnos con hermanos
 include("crear_hermanos.php");
+
 // Copia de la primera versiÃ³n de alma
 mysqli_query($db_con, "DROP TABLE alma_primera");
 mysqli_query($db_con, "DROP TABLE FALUMNOS_primero");
@@ -312,8 +314,8 @@ mysqli_query($db_con, "ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )"
 else{
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN:</legend>
-Parece que te está olvidando de enviar todos los archivos con los datos de los alumnos. Asegúrate de enviar ambos archivos descargados desde Séneca.
+			<legend>ATENCI�N:</legend>
+Parece que te est�s olvidando de enviar todos los archivos con los datos de los alumnos. Aseg�rate de enviar ambos archivos descargados desde S�neca.
 </div></div><br />';
 }
 ?>

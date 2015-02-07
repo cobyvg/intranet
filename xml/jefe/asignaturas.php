@@ -236,15 +236,24 @@ Tablas ASIGNATURAS y CALIFICACIONES:<br /> Los datos se han introducido correcta
 </div></div><br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div><hr>';
+</div><br>';
   // Comprobación con Horw
-echo "<p class='lead'>Comprobación de coherencia entre las Asignaturas de Séneca y de Horw.</p><br /> ";
+echo "<h4>Comprobación de coherencia entre las Asignaturas/Actividades de Séneca y de Horw.</h4> ";
+$n_h=0;
 $elimina = "select distinct c_asig, a_asig, asig from horw, asignaturas where c_asig NOT IN (select distinct codigo from asignaturas)";
 $elimina1 = mysqli_query($db_con, $elimina);
-echo "<p class='badge badge-important'>Asignaturas de Horw que no están en Séneca</p>";
+$no_hay = "<p class='badge badge-important'>Asignaturas/Actividades de Horw que no están en Séneca</p>";
 while($elimina2 = mysqli_fetch_array($elimina1))
 {
-echo "<li>". $elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] . "</li>";
+$activ = mysqli_query($db_con,"select idactividad from actividades_seneca where idactividad = '$elimina2[0]'");	
+if (mysqli_num_rows($activ)>0) {}
+else{
+$n_h+=1;	
+$no_hay.="<li>". $elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] . "</li>";
+}
+}
+if ($n_h>0) {
+echo $no_hay;
 }
 $elimina = "select distinct codigo, abrev, nombre, curso from asignaturas, horw where codigo NOT IN (select distinct c_asig from horw)";
 echo "<br /><p class='badge badge-warning'>Asignaturas de Séneca que no están en Horw.</p>";
@@ -253,7 +262,9 @@ while($elimina2 = mysqli_fetch_array($elimina1))
 {
 $pend = explode("_",$elimina2[1]);
 if(strlen($pend[1]) > 0) {} else
-{echo "<li>".$elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] .  " --> " . $elimina2[3] ."</li>";}
+{
+echo "<li>".$elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] .  " --> " . $elimina2[3] ."</li>";
+}
 }
 
 ?>

@@ -22,7 +22,7 @@ FALUMNOS.claveal NOT IN (select distinct claveal from almafaltas)";
 $elimina1 = mysqli_query($db_con, $elimina);
 if(mysqli_num_rows($elimina1) > 0)
 {
-echo "<br /><div class='form-group success'><p class='help-block' 
+echo "<div class='form-group success'><p class='help-block' 
 style='text-align:left'>Tabla FALUMNOS: los siguientes alumnos han sido 
 eliminados de la tabla FALUMNOS. <br>Comprueba los registros 
 creados:</p></div>";
@@ -37,6 +37,7 @@ echo "<li>".$elimina2[2] . " " . $elimina2[1] . " -- " . $elimina2[3] . "</li>";
   //$result17 = mysqli_query($db_con, $SQL17);
 }
 }
+echo "<br />";
 
 $SQL1 = "select distinct almafaltas.claveal, almafaltas.apellidos, 
 almafaltas.nombre, almafaltas.unidad from almafaltas, FALUMNOS where 
@@ -45,7 +46,7 @@ $result1 = mysqli_query($db_con, $SQL1);
 $total = mysqli_num_rows($result1);
 if ($total !== 0)
 {
-echo "<br /><div class='form-group warning'><p class='help-block' 
+echo "<div class='form-group warning'><p class='help-block' 
 style='text-align:left'>Tabla FALUMNOS: los nuevos alumnos han sido añadidos a 
 la tabla FALUMNOS. <br>Comprueba en la lista de abajo los registros 
 creados:</p></div>";
@@ -123,6 +124,7 @@ usuario = '$usuario', pass = '$passw', perfil = 'a', unidad = '$unidad', claveal
 echo "<li>TIC: ".$nombreorig . " " . $usuario . " -- " . $unidad . "  " .$claveal. "</li>";
 }
 }
+echo "<br />";
 }
 else 
 {

@@ -5,8 +5,6 @@ header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
 }
 
-//$borrar = "truncate table usuarioalumno";
-//mysqli_query($db_con, $borrar);
 $alumnos = "select distinct CLAVEAL, APELLIDOS, NOMBRE, UNIDAD from alma where claveal not in (select claveal from usuarioalumno)";
 $sqlal = mysqli_query($db_con, $alumnos);
 while ($sqlprof0 = mysqli_fetch_array($sqlal)) {
@@ -68,7 +66,7 @@ mysqli_query($db_con, "update usuarioalumno set usuario = '$nuevo' where claveal
 }	
 }
 }
-echo '<br /><div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;text-align:left">
+echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;text-align:left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de los alumnos se han importado correctamente en la tabla "usuarioalumno".<br> Se ha generado un fichero (alumnos.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva en el Servidor TIC.
 </div></div><br />';
@@ -110,14 +108,14 @@ $fpprof1=fopen("TIC/alumnos_moodle.txt","w+");
  }
  else
  {
- $fpprof1=fopen("TIC/alumnos_moodle.txt","w+") or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
+ $fpprof1=fopen("TIC/alumnos_moodle.txt","w+") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIN:</h5>
 No se ha podido escribir en el archivo TIC/profesores.txt. Has concedido permiso de escritura en ese directorio?
 </div></div><br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div>'); 
+</div><br />'); 
  }
  $pepito1=fwrite($fpprof1,$todos_moodle);
  fclose ($fpprof1);

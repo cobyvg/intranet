@@ -323,6 +323,10 @@ Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos
 // Alumnos TIC
 include("exportaTIC.php");
  ?>
+ <?
+ // Alumnos con pendientes
+ include("pendientes.php");
+ ?>
 <br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />

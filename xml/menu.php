@@ -13,10 +13,6 @@
 	<li><a href="jefe/indexdepartamentos.php">Importar Departamentos y Especialidades</a></li>
 	<li><a href="jefe/indexprofesores.php">Importar Profesores</a></li>
 <li><a href="../faltas/seneca/index_festivos.php">Importar días festivos</a></li>
-	<li><a href="jefe/index_pendientes.php">Importar Alumnos con pendientes</a></li>
-	  <? if ($mod_tic and $mod_horario) {?>
-	<!--<li><a href="../TIC/distribucion/crea_tabla.php">Crear Asignación TIC</a></li>-->
-	<?}?>
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
 
 
@@ -45,19 +41,16 @@
 	<? if ($mod_faltas) {?>
 
 	<li class="nav-header">Faltas de asistencia</li>
-	<li><a href="../faltas/absentismo/index.php">Alumnos Absentistas</a></li>
 	<li><a href="../admin/cursos/horariototal_faltas.php" target="_blank">Parte de faltas completo (por días)</a></li>
 	<li><a href="../admin/faltas/horario_semanal.php" target="_blank">Parte de faltas completo (semanal)</a></li>
 	<li><a href="../admin/faltas/horario_semanal_div.php" target="_blank">Parte de faltas completo Diversificación</a></li>		
-	<li><a href="../admin/faltas/cpadres.php">Informe de Faltas para Padres</a></li>
-	<? }?>
-	<? if ($mod_horario and $mod_faltas) {?>
 	<li><a href="../admin/cursos/horariofaltas.php">Horario de Faltas para Profesores</a> </li>
+	<li><a href="../admin/faltas/cpadres.php">Informe de Faltas para Padres</a></li>
+	<? if ($mod_sms) {?>
+	<li><a href="../sms/sms_cpadres.php">SMS de Faltas para Padres</a></li>
+	 <?}?>
+	<li><a href="../faltas/absentismo/index.php">Alumnos Absentistas</a></li>
 	<? }?>
-	<? if ($mod_sms and $mod_faltas) {?>
-	<li><a href="../sms/sms_cpadres.php">SMS
-	    de Faltas para Padres</a></li>
-	    <?}?>
 
 	<li class="nav-header">Alumnos</li>
 	<li><a href="../admin/cursos/listatotal.php">Listas de todos los Grupos</a></li>
