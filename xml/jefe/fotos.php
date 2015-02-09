@@ -102,7 +102,10 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 				$grande = filesize($ruta);
 				$imagen = addslashes(file_get_contents($ruta));
 				$ya = mysqli_query($db_con,"select * from foros where nombre = '$nombre'");
-				if (mysqli_num_rows($ya)>0) {}
+				if (mysqli_num_rows($ya)>0) {
+					mysqli_query($db_con,"UPDATE fotos SET datos='$imagen', fecha=now(), tamaño='$grande' WHERE nombre='$nombre'");	
+					$num+=mysqli_affected_rows($db_con);
+				}
 				else{
 					mysqli_query($db_con,"insert INTO fotos (nombre, datos, fecha, tamaño) VALUES('$nombre','$imagen',now(), '$grande')");					
 					$num+=mysqli_affected_rows($db_con);
