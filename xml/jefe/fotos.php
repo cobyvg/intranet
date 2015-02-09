@@ -97,13 +97,14 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 
 		if ($_POST['tabla']=='1') {
 			$nombre=$entry;
-			if (strlen($nombre)>'9') {
+			if (strlen($nombre)>'9' && $nombre != 'index.html') {
 				$ruta = $fotos_dir."/".$nombre;
 				$grande = filesize($ruta);
+				$imagen = addslashes(file_get_contents($ruta));
 				$ya = mysqli_query($db_con,"select * from foros where nombre = '$nombre'");
 				if (mysqli_num_rows($ya)>0) {}
 				else{
-					mysqli_query($db_con,"insert INTO fotos (nombre, datos, fecha, tamaño) VALUES('$nombre', LOAD_FILE('$ruta'),now(), '$grande')");					
+					mysqli_query($db_con,"insert INTO fotos (nombre, datos, fecha, tamaño) VALUES('$nombre','$imagen',now(), '$grande')");					
 					$num+=mysqli_affected_rows($db_con);
 				}
 			}
