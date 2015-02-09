@@ -42,6 +42,9 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 	exit;
 }
+
+require('../../lib/class.Images.php');
+
 ?>
 <?php
 include("../../menu.php");
@@ -99,15 +102,24 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 			$nombre=$entry;
 			if (strlen($nombre)>'9' && $nombre != 'index.html') {
 				$ruta = $fotos_dir."/".$nombre;
+				
+				$exp_nombre = explode('.', $nombre);
+				
+				$image = new Image($ruta);
+				$image->resize(240,320,'crop');
+				unlink($ruta);
+				$image->save($exp_nombre[0], $fotos_dir.'/', 'jpg');
+							
+				$imagen = addslashes(file_get_contents($fotos_dir.'/'.$exp_nombre[0].'.jpg'));
 				$grande = filesize($ruta);
-				$imagen = addslashes(file_get_contents($ruta));
-				$ya = mysqli_query($db_con,"select * from foros where nombre = '$nombre'");
+				
+				$ya = mysqli_query($db_con,"select * from fotos where nombre = '$nombre'");
 				if (mysqli_num_rows($ya)>0) {
 					mysqli_query($db_con,"UPDATE fotos SET datos='$imagen', fecha=now(), tamaño='$grande' WHERE nombre='$nombre'");	
 					$num+=mysqli_affected_rows($db_con);
 				}
 				else{
-					mysqli_query($db_con,"insert INTO fotos (nombre, datos, fecha, tamaño) VALUES('$nombre','$imagen',now(), '$grande')");					
+					mysqli_query($db_con,"insert INTO fotos (nombre, datos, fecha, tamaño) VALUES('$nombre','$imagen',now(), '$grande')");	
 					$num+=mysqli_affected_rows($db_con);
 				}
 			}
@@ -117,26 +129,26 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 // Directorio vacío
 	if ($n_file<5) {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong>Atención:</strong><br />
-Ha surgido un problema al importar las fotos. Parece que el directorio donde deben ser copiadas no existe o está vacío porque las fotos no se han subido correctamente. 
-Comprueba el estado del directorio (debe tener permiso de escritura) e inténtalo de nuevo.
-</div></div><br />
-<div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div>';
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Atención:</strong><br />
+				Ha surgido un problema al importar las fotos. Parece que el directorio donde deben ser copiadas no existe o está vacío porque las fotos no se han subido correctamente.
+				Comprueba el estado del directorio (debe tener permiso de escritura) e inténtalo de nuevo.
+				</div></div><br />
+				<div align="center">
+				<input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+				</div>';
 		exit();
 	}
 	else{
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-Las fotos se han subido correctamente al directorio correspondiente. Hay <strong>'. $n_file .'</strong> fotos de alumnos en el directorio.
-</div></div><br />
-<div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div>';
-	}
-	$d->close();
-	?></div>
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				Las fotos se han subido correctamente al directorio correspondiente. Hay <strong>'. $n_file .'</strong> fotos de alumnos en el directorio.
+				</div></div><br />
+				<div align="center">
+				<input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+				</div>';
+			}
+			$d->close();
+			?></div>
 </div>
-	<?php include("../../pie.php");	?>
+<?php include("../../pie.php");	?>
