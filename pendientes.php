@@ -270,8 +270,7 @@ if(stristr($carg,'2') == TRUE)
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 <h4 class="modal-title"><? echo $asunto;?><br>
-<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?>
-el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
 <div class="modal-body">
@@ -357,8 +356,7 @@ if(mysqli_num_rows($men2) > 0)
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 <h4 class="modal-title"><? echo $asunto;?><br>
-<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?>
-el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
 <div class="modal-body"><?php echo $texto; ?></div>
