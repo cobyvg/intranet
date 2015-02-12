@@ -57,7 +57,6 @@ return false;
  include("menu.php"); 
  
   $tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$pr'");
-  $borrar = mysqli_num_rows($tut);
   $tuto = mysqli_fetch_array($tut);
   $unidad = $tuto[0];
   
@@ -120,10 +119,10 @@ El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que
 	$query = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, FECHA_REGISTRO, valido FROM infotut_alumno, alma WHERE alma.claveal = infotut_alumno.claveal and date(F_ENTREV)>='$hoy' and alma.unidad = '$grupo' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
 	//echo $query."<br>";
 	$result = mysqli_query($db_con, $query);
-	$result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$grupo'" );
+	$result0 = mysqli_query($db_con, "select tutor, unidad from FTUTORES where unidad = '$grupo'" );
 	$row0 = mysqli_fetch_array ( $result0 );	
-	$tuti = $row0[0];	
-	//echo $tuti." == ",$_SESSION['profi'];
+	$tuti = mb_strtoupper($row0[0]);
+	$tuti_grupo = $row0[1];
 	if (mysqli_num_rows($result) > 0)
 {
 	echo "<form name='consulta' method='POST' action='tutoria.php'>";
@@ -151,19 +150,21 @@ $count = "";
 	 <input type='hidden' name='profesor' value='$profesor'>";
 		 if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} else{ 
+		//echo "$grupo == ".$_SESSION ['s_unidad'];
 			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
-			if ($borrar == '1' or stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
-				echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''><i class='fa fa-trash-o' data-bs='tooltip'  title='Borrar Informe' > </i> </a> 	";
+			if (stristr($cargo,'1') == TRUE or ($tuti == mb_strtoupper($_SESSION['profi']) and ($grupo == $_SESSION ['s_unidad']))) {
+				echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''>
+				<i class='fa fa-trash-o' data-bs='tooltip'  title='Borrar Informe' > </i> </a> 	";
 			}
 		}	
-
 		 
 	  if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} else{ 
 echo "&nbsp;<a href='informar.php?id=$row[0]' class=''><i class='fa fa-pencil-square-o' data-bs='tooltip'  title='Redactar Informe'> </i> </a>";
 				}
-		echo "</td><td>";		
-				if (stristr($cargo,'1') == TRUE or ($tuti == $_SESSION['profi'])) {
+		echo "</td><td>";	
+		//echo "$tuti == ".$_SESSION['profi']."<br>";
+				if (stristr($cargo,'1') == TRUE or ($tuti == mb_strtoupper($_SESSION['profi']))) {
 					if ($validado==1) {
 				echo "&nbsp;<a href='index.php?id=$row[0]&validar=1' class='text-info'><i class='fa fa-check-square-o fa-lg' data-bs='tooltip'  title='Informe validado por el Tutor' > </i></a> 	";				
 					}
