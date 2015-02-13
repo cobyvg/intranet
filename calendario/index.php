@@ -150,13 +150,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							
-							if (stristr($_SESSION['cargo'],'1')) {
-								echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'">'.$eventos['nombre'].'</a>';
-							}
-							else {
-								echo '<div class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'">'.$eventos['nombre'].'</div>';
-							}
+							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'">'.$eventos['nombre'].'</a>';
 						}
 					}
 					mysqli_free_result($result_eventos);
@@ -257,24 +251,12 @@ $PLUGIN_COLORPICKER = 1;
 			display: block;
 		}
 		
-		.ellipsis {
-			display: inline;
-			display: -webkit-box;
-			max-width: inherit;
-			-webkit-line-clamp: 1;
-			-webkit-box-orient: vertical;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			height: 1.4*14;
-			white-space: nowrap;
-		}
-		
 		@media print {
 			html, body {
 				width: 100%;
 			}
 			
-			.container, .col-md-9 {
+			.container, .col-md-12 {
 				width: 100%;
 			}
 			
@@ -283,319 +265,105 @@ $PLUGIN_COLORPICKER = 1;
 		
 		
 		<?php
-		// CALENDARIOS PRIVADOS DEL PROFESOR
-		$result_calendarios1 = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
-		while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
-			
-			$result_eventos1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='".$calendario1['id']."' AND YEAR(fechaini)=$anio AND MONTH(fechaini)=$mes");
-			
-			while ($eventos1 = mysqli_fetch_assoc($result_eventos1)) {
-				echo '<div id="modalEvento'.$eventos1['id'].'" class="modal fade">
-				  <div class="modal-dialog modal-lg">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title">'.$eventos1['nombre'].'</h4>
-				      </div>
-				      <div class="modal-body">
-				        
-				        <form id="formEditarEvento" method="post" action="post/editarEvento.php">
-				        	<fieldset>
-				        		
-				        		<input type="hidden" name="cmp_evento_id" value="'.$eventos1['id'].'">
-				        		
-				        		<div class="form-group">
-				        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-				        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.$eventos1['nombre'].'" autofocus>
-				        		</div>
-				        		
-				        		
-				        		<div class="row">
-				        			<div class="col-xs-6 col-sm-3">
-				        				<div class="form-group datetimepicker1">
-				        					<label for="cmp_fecha_ini">Fecha inicio</label>
-				        					<div class="input-group">
-				            					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
-				            					<span class="input-group-addon"><span class="fa fa-calendar">
-				            				</div>
-				            			</div>
-				        			</div>
-				        			<div class="col-xs-6 col-sm-3">
-				        				<div class="form-group datetimepicker2">
-				            				<label for="cmp_hora_ini">Hora inicio</label>
-				            				<div class="input-group">
-				            					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
-				            					<span class="input-group-addon"><span class="fa fa-clock-o">
-				            				</div>
-				            			</div>
-				        			</div>
-				        			<div class="col-xs-6 col-sm-3">
-				        				<div class="form-group datetimepicker3">
-				            				<label for="cmp_fecha_fin">Fecha fin</label>
-				            				<div class="input-group">
-				            					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
-				            					<span class="input-group-addon"><span class="fa fa-calendar">
-				            				</div>
-				            			</div>
-				        			</div>
-				        			<div class="col-xs-6 col-sm-3">
-				        				<div class="form-group datetimepicker4">
-				            				<label for="cmp_hora_fin">Hora fin</label>
-				            				<div class="input-group">
-				            					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
-				            					<span class="input-group-addon"><span class="fa fa-clock-o">
-				            				</div>
-				            			</div>
-				        			</div>
-				        		</div>
-				        		
-				        		<div class="form-group">
-				        			<label for="cmp_descripcion">Descripción</label>
-				        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion">'.$eventos1['descripcion'].'</textarea>
-				        		</div>
-				        		
-				        		<div class="form-group">
-				        			<label for="cmp_lugar">Lugar</label>
-				        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar" value="'.$eventos1['lugar'].'">
-				        		</div>
-				        						        				        		
-				        	</fieldset>
-				        </form>
-				        
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				        <button type="submit" class="btn btn-danger" form="formEditarEvento" formaction="post/eliminarEvento.php">Eliminar</button>
-				        <button type="submit" class="btn btn-primary" form="formEditarEvento">Modificar</button>
-				      </div>
-				    </div><!-- /.modal-content -->
-				  </div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->';	
-			}
-			mysqli_free_result($result_eventos1);
-		}
-		mysqli_free_result($result_calendarios1);
-		
-		if (stristr($_SESSION['cargo'],'1')) {
-			// CALENDARIOS PUBLICOS
-			$result_calendarios1 = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE espublico=1");
-			while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
-				
-				$result_eventos1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='".$calendario1['id']."' AND YEAR(fechaini)=$anio AND MONTH(fechaini)=$mes");
-				
-				while ($eventos1 = mysqli_fetch_assoc($result_eventos1)) {
-					echo '<div id="modalEvento'.$eventos1['id'].'" class="modal fade">
-					  <div class="modal-dialog modal-lg">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title">'.$eventos1['nombre'].'</h4>
-					      </div>
-					      <div class="modal-body">
-					        
-					        <form id="formEditarEvento" method="post" action="post/editarEvento.php">
-					        	<fieldset>
-					        		
-					        		<input type="hidden" name="cmp_evento_id" value="'.$eventos1['id'].'">
-					        		
-					        		<div class="form-group">
-					        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-					        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.$eventos1['nombre'].'" autofocus>
-					        		</div>
-					        		
-					        		
-					        		<div class="row">
-					        			<div class="col-xs-6 col-sm-3">
-					        				<div class="form-group datetimepicker1">
-					        					<label for="cmp_fecha_ini">Fecha inicio</label>
-					        					<div class="input-group">
-					            					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="'.$eventos1['fechaini'].'" data-date-format="DD/MM/YYYY">
-					            					<span class="input-group-addon"><span class="fa fa-calendar">
-					            				</div>
-					            			</div>
-					        			</div>
-					        			<div class="col-xs-6 col-sm-3">
-					        				<div class="form-group datetimepicker2">
-					            				<label for="cmp_hora_ini">Hora inicio</label>
-					            				<div class="input-group">
-					            					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="'.$eventos1['horaini'].'" data-date-format="HH:mm">
-					            					<span class="input-group-addon"><span class="fa fa-clock-o">
-					            				</div>
-					            			</div>
-					        			</div>
-					        			<div class="col-xs-6 col-sm-3">
-					        				<div class="form-group datetimepicker3">
-					            				<label for="cmp_fecha_fin">Fecha fin</label>
-					            				<div class="input-group">
-					            					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="'.$eventos1['fechafin'].'" data-date-format="DD/MM/YYYY">
-					            					<span class="input-group-addon"><span class="fa fa-calendar">
-					            				</div>
-					            			</div>
-					        			</div>
-					        			<div class="col-xs-6 col-sm-3">
-					        				<div class="form-group datetimepicker4">
-					            				<label for="cmp_hora_fin">Hora fin</label>
-					            				<div class="input-group">
-					            					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="'.$eventos1['horafin'].'" data-date-format="HH:mm">
-					            					<span class="input-group-addon"><span class="fa fa-clock-o">
-					            				</div>
-					            			</div>
-					        			</div>
-					        		</div>
-					        		
-					        		<div class="form-group">
-					        			<label for="cmp_descripcion">Descripción</label>
-					        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion">'.$eventos1['descripcion'].'</textarea>
-					        		</div>
-					        		
-					        		<div class="form-group">
-					        			<label for="cmp_lugar">Lugar</label>
-					        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar" value="'.$eventos1['lugar'].'">
-					        		</div>
-					        						        				        		
-					        	</fieldset>
-					        </form>
-					        
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					        <button type="submit" class="btn btn-danger" form="formEditarEvento" formaction="post/eliminarEvento.php">Eliminar</button>
-					        <button type="submit" class="btn btn-primary" form="formEditarEvento">Modificar</button>
-					      </div>
-					    </div><!-- /.modal-content -->
-					  </div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->';	
-				}
-				mysqli_free_result($result_eventos1);
-			}
-			mysqli_free_result($result_calendarios1);
-		}	
+		define('MOD_CALENDARIO', 1);
+		include('views.php');
 		?>
 		
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			
-			<!-- BUTTONS -->
-			<div class="col-md-9 pull-right">
-				
-				<h2 class="text-muted" style="display: inline;"><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></h2>
-				
-				<div class="pull-right hidden-print">
-					<a href="install.php" class="btn btn-danger">Migrar</a>
-					
-					<a href="#" data-toggle="modal" data-target="#modalNuevoEvento" class="btn btn-primary">Nuevo</a>
-					  
-					<a href="#" onclick="javascrip:print()" class="btn btn-default">Imprimir</a>
-					
-					<div class="btn-group">
-					  <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>" class="btn btn-default">&laquo;</a>
-					  <a href="?mes=<?php echo date('n'); ?>&anio=<?php echo date('Y'); ?>" class="btn btn-default">Hoy</a>
-					  <a href="?mes=<?php echo $mes_sig; ?>&anio=<?php echo $anio_sig; ?>" class="btn btn-default">&raquo;</a>
-					</div>
-				</div>
-			</div>
-			
-			<h2 class="hidden-print">Calendario</h2>
+			<h2>Calendario <small><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></small></h2>
 		</div>
 		
 		<!-- SCAFFOLDING -->
 		<div class="row">
 			
-			<!-- COLUMNA IZQUIERDA -->
-			<div class="col-md-3 hidden-print">
-				
-				<div class="row">
-					<div class="col-xs-2 col-sm-3">
-					  <span class="fa-stack fa-2x text-info">
-					    <i class="fa fa-calendar-o fa-stack-2x"></i>
-					    <strong class="fa-stack-1x" style="margin-top: .2em;"><?php echo strftime('%e', strtotime(date('Y-m-d'))); ?></strong>
-					  </span>
+			<!-- COLUMNA CENTRAL -->
+			<div class="col-md-12">
+			
+				<!-- BUTTONS -->
+				<div class="hidden-print">
+					<a href="install.php" class="btn btn-danger">Migrar</a>
+					
+					<div class="btn-group">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					    Calendarios <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu" style="min-width: 300px !important;">
+					  	<li role="presentation" class="dropdown-header">Mis calendarios</li>
+					    <?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0 ORDER BY id ASC"); ?>
+					    <?php if (mysqli_num_rows($result)): ?>
+					    <?php $i = 1; ?>
+					    <?php while ($row = mysqli_fetch_assoc($result)): ?>
+					    <li>
+					    	<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>">
+					    		<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
+					    		<?php echo $row['nombre']; ?>
+					    		<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
+					    		<?php if ($i > 1): ?>
+					    		<form class="pull-right" method="post" action="post/eliminarCalendario.php" style="display: inline; margin-top: -5px;">
+					    			<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
+					    			<button type="submit" class="btn-link delete-calendar"><span class="fa fa-trash fa-fw fa-lg"></span></button>
+					    		</form>
+					    		<?php else: ?>
+					    		<?php $idcal_diario = $row['id']; ?>
+					    		<?php endif; ?>
+					    	</a>
+					    </li>
+					    <?php $i++; ?>
+					    <?php endwhile; ?>
+					    <?php unset($i); ?>
+					    <?php endif; ?>
+					    <li class="divider"></li>
+					    <?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1"); ?>
+					    <?php if (mysqli_num_rows($result)): ?>
+				    	<li role="presentation" class="dropdown-header">Otros calendarios</li>
+				    	<?php while ($row = mysqli_fetch_assoc($result)): ?>
+				    	<li>
+				    		<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>">
+				    			<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
+				    			<?php echo $row['nombre']; ?>
+				    			<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
+				    			<?php if ($row['id'] != 1 && $row['id'] != 2): ?>
+				    			<form class="pull-right" method="post" action="post/eliminarCalendario.php" style="display: inline; margin-top: -5px;">
+				    				<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
+				    				<button type="submit" class="btn-link delete-calendar"><span class="fa fa-trash fa-fw fa-lg"></span></button>
+				    			</form>
+				    			<?php endif; ?>
+				    		</a>
+				    	</li>
+				    	<?php endwhile; ?>
+				    	<li>
+				    		<a href="#" id="toggle_calendario_festivo">
+				    			<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
+				    			<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg"></span></span>
+				    		</a>
+				    	</li>
+					    <?php endif; ?>
+					    <li class="divider"></li>
+					    <li><a href="#" data-toggle="modal" data-target="#modalNuevoCalendario">Crear calendario</a></li>
+					  </ul>
 					</div>
-					<div class="col-xs-10 col-sm-9">
-						<h4 style="margin-top: .2em; padding-top: 0; font-size: 1.5em;" class="text-info">
-							<strong><?php echo strftime('%A', strtotime(date('Y-m-d'))); ?></strong><br>
-							<?php echo strftime('%B, %Y', strtotime(date('Y-m-d'))); ?>
-						</h4>
+					
+					
+					<a href="#" data-toggle="modal" data-target="#modalNuevoEvento" class="btn btn-primary"><span class="fa fa-plus fa-fw"></span></a>
+					
+					<div class="pull-right">
+						<a href="#" onclick="javascrip:print()" class="btn btn-default"><span class="fa fa-print fa-fw"></span></a>
 						
-					</div> 
+						<div class="btn-group">
+						  <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>" class="btn btn-default">&laquo;</a>
+						  <a href="?mes=<?php echo date('n'); ?>&anio=<?php echo date('Y'); ?>" class="btn btn-default">Hoy</a>
+						  <a href="?mes=<?php echo $mes_sig; ?>&anio=<?php echo $anio_sig; ?>" class="btn btn-default">&raquo;</a>
+						</div>
+					</div>
 				</div>
 				
-				<hr>
-				
-				<h3>Mis calendarios</h3>
-				
-				<ul class="nav nav-pills nav-stacked">
-					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0 ORDER BY id ASC"); ?>
-					<?php if (mysqli_num_rows($result)): ?>
-					<?php $i = 1; ?>
-					<?php while ($row = mysqli_fetch_assoc($result)): ?>
-					<li>
-						<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>" class="ellipsis">
-							<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
-							<span class="adjust-width"><?php echo $row['nombre']; ?></span>
-							<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
-							<?php if ($i > 1): ?>
-							<form class="pull-right" method="post" action="post/eliminarCalendario.php">
-								<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
-								<button type="submit" class="btn-link delete-calendar" style="margin-top: -10px; margin-right: -10px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
-							</form>
-							<?php else: ?>
-							<?php $idcal_diario = $row['id']; ?>
-							<?php endif; ?>
-						</a>
-					</li>
-					<?php $i++; ?>
-					<?php endwhile; ?>
-					<?php unset($i); ?>
-					<?php endif; ?>
-					<li>
-						<a href="#" data-toggle="modal" data-target="#modalNuevoCalendario">
-							<span class="fa fa-plus-circle fa-fw fa-lg"></span> Crear calendario
-						</a>
-					</li>
-				</ul>
-				
-				<hr>
-				
-				<h3>Otros calendarios</h3>
-				
-				<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1"); ?>
-				<?php if (mysqli_num_rows($result)): ?>
-				<ul class="nav nav-pills nav-stacked">
-					<?php while ($row = mysqli_fetch_assoc($result)): ?>
-					<li>
-						<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>" class="ellipsis">
-							<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
-							<span class="adjust-width"><?php echo $row['nombre']; ?></span>
-							<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
-							<?php if ($row['id'] != 1 && $row['id'] != 2): ?>
-							<form class="pull-right" method="post" action="post/eliminarCalendario.php">
-								<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
-								<button type="submit" class="btn-link delete-calendar" style="margin-top: -10px; margin-right: -20px;"><span class="fa fa-trash fa-fw fa-lg"></span></button>
-							</form>
-							<?php endif; ?>
-						</a>
-					</li>
-					<?php endwhile; ?>
-					<li>
-						<a href="#" id="toggle_calendario_festivo">
-							<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
-							<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg"></span></span>
-						</a>
-					</li>
-				</ul>
-				<?php endif; ?>
-	
-			</div><!-- /.col-md-3 -->
-			
-			
-			<!-- COLUMNA CENTRAL -->
-			<div class="col-md-9">
+				<br class="hidden-print">
 				
 				<?php vista_mes($calendario, $dia, $mes, $anio, $_SESSION['cargo']); ?>
 				
-			</div><!-- /.col-md-9 -->
+			</div><!-- /.col-md-12 -->
 			
 		</div><!-- /.row -->
 		
