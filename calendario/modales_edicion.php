@@ -80,20 +80,29 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        		
 		        		<div id="opciones_diario">';
 		        		
-		        		if ($eventos1['unidades'] != "") {
-		        			$exp_unidades = explode('; ', $eventos1['unidades']);
-		        		}
-		        		
 		        		$result = mysqli_query($db_con, "SELECT DISTINCT grupo, materia FROM profesores WHERE profesor='".$_SESSION['profi']."'");
 		        		if (mysqli_num_rows($result)):
+		        		
+		        		if ($eventos1['unidades'] != "" && $eventos1['asignaturas'] != "") {
+		        			$eventos1['unidades'] = str_replace('; ', ';', $eventos1['unidades']);
+		        			$eventos1['asignaturas'] = str_replace('; ', ';', $eventos1['asignaturas']);
+		        			
+		        			$exp_unidades = explode(';', $eventos1['unidades']);
+		        			$exp_asignaturas = explode(';', $eventos1['asignaturas']);
+		        		}
+		        		
 		        		echo '<div class="form-group">
 		        				<label for="cmp_unidad_asignatura">Unidad y asignatura</label>
 		        				
 		        				<select class="form-control" id="cmp_unidad_asignatura" name="cmp_unidad_asignatura[]" size="5" multiple>';
+		        			
+		        			$i = 0;
+		        			
 		        			while ($row = mysqli_fetch_array($result)):
 		        					echo '<option value="'.$row['grupo'].' => '.$row['materia'].'"';
-		        					if (in_array($row['grupo'], $exp_unidades)) echo ' selected';
+		        					if (in_array($row['grupo'], $exp_unidades) && in_array($row['materia'], $exp_asignaturas)) echo ' selected';
 		        					echo '>'.$row['grupo'].' ('.$row['materia'].')'.'</option>';
+		        					$i++;
 		        			endwhile;
 		        			echo'</select>
 		        			</div>';

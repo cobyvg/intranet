@@ -44,7 +44,7 @@ $evento_id = mysqli_escape_string($db_con, $_POST['cmp_evento_id']);
 
 $result = mysqli_query($db_con, "DELETE FROM calendario WHERE id=$evento_id");
 if (! $result) {
-	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
+	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?msg=ErrorEliminarEvento');
 	exit();
 }
 else {

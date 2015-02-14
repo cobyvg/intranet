@@ -50,7 +50,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 $result = mysqli_query($db_con, "DELETE FROM calendario_categorias WHERE id=$calendario_id");
 if (! $result) {
-	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
+	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?msg=ErrorEliminarCalendario');
 	exit();
 }
 else {

@@ -51,9 +51,10 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario` (
   `fechafin` date default NULL,
   `horafin` time default NULL,
   `lugar` varchar(180) collate latin1_spanish_ci NOT NULL,
-  `departamento` varchar(80) collate latin1_spanish_ci default NULL,
-  `profesores` varchar(255) collate latin1_spanish_ci default NULL,
-  `unidades` varchar(120) collate latin1_spanish_ci default NULL,
+  `departamento` text collate latin1_spanish_ci default NULL,
+  `profesores` text collate latin1_spanish_ci default NULL,
+  `unidades` text collate latin1_spanish_ci default NULL,
+  `asignaturas` text collate latin1_spanish_ci default NULL,
   `fechareg` datetime NOT NULL,
   `profesorreg` varchar(60) collate latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
@@ -136,19 +137,20 @@ echo "Migrando datos de Diario<br>";
 
 $result_profesor = mysqli_query($db_con, "SELECT profesor, idea FROM c_profes ORDER BY profesor ASC");
 while ($row_profesor = mysqli_fetch_assoc($result_profesor)) {
-	$result = mysqli_query($db_con, "SELECT fecha, grupo, titulo, observaciones FROM diario WHERE profesor='".$row_profesor['profesor']."'");
+	$result = mysqli_query($db_con, "SELECT fecha, grupo, materia, titulo, observaciones FROM diario WHERE profesor='".$row_profesor['profesor']."'");
 	while ($row = mysqli_fetch_assoc($result)) {
 		$fechaini = $row['fecha'];
 		$nombre = mysqli_real_escape_string($db_con, $row['titulo']);
 		$descripcion = mysqli_real_escape_string($db_con, $row['observaciones']);
 		$unidades = $row['grupo'];
+		$asignaturas = mysqli_real_escape_string($db_con, $row['materia']);
 		$profesorreg = $row_profesor['idea'];
 		
 		$result_calendario = mysqli_query($db_con, "SELECT id FROM calendario_categorias WHERE profesor='$profesorreg' AND id NOT LIKE '1' AND id NOT LIKE '2'");
 		$row_calendario = mysqli_fetch_assoc($result_calendario);
 		$idcalendario = $row_calendario['id'];
 		
-		$query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `fechareg`, `profesorreg`) VALUES ($idcalendario, '$nombre', '$descripcion', '".$fechaini."', '08:15', '".$fechaini."', '09:15', NULL, NULL, '$unidades', '".$fechaini."', '$profesorreg')";
+		$query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `asignaturas`, `fechareg`, `profesorreg`) VALUES ($idcalendario, '$nombre', '$descripcion', '".$fechaini."', '08:15', '".$fechaini."', '09:15', NULL, NULL, '$unidades', '$asignaturas', '".$fechaini."', '$profesorreg')";
 		if ($idcalendario) {
 			mysqli_query($db_con, $query) or die(mysqli_error($db_con));
 		}

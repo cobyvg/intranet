@@ -185,6 +185,15 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 
 }
 
+$lista_errores = array(
+	'ErrorCalendarioExiste'   => 'Este calendario ya existe.',
+	'ErrorCalendarioInsertar' => 'Se ha producido un error al crear el calendario.',
+	'ErrorEliminarCalendario' => 'Se ha producido un error al eliminar el calendario.',
+	'ErrorEventoExiste'       => 'Este evento ya existe.',
+	'ErrorEventoInsertar'     => 'Se ha producido un error al crear el evento.',
+	'ErrorEliminarEvento'     => 'Se ha producido un error al eliminar el evento.'
+	);
+
 function randomColor() {
     $str = '#';
     for($i = 0 ; $i < 6 ; $i++) {
@@ -215,6 +224,13 @@ $PLUGIN_COLORPICKER = 1;
 			white-space: normal;
 			text-align: left;
 			margin-top: 5px;
+			text-decoration: none !important;
+			font-size: 0.9em;
+			font-weight: 400;
+		}
+		
+		p.lead {
+			margin-bottom: 0;
 		}
 		
 		.today {
@@ -266,7 +282,8 @@ $PLUGIN_COLORPICKER = 1;
 		
 		<?php
 		define('MOD_CALENDARIO', 1);
-		include('views.php');
+		include('modales_insercion.php');
+		include('modales_edicion.php');
 		?>
 		
 		
@@ -274,6 +291,8 @@ $PLUGIN_COLORPICKER = 1;
 		<div class="page-header">
 			<h2>Calendario <small><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></small></h2>
 		</div>
+		
+		
 		
 		<!-- SCAFFOLDING -->
 		<div class="row">
@@ -286,7 +305,7 @@ $PLUGIN_COLORPICKER = 1;
 					<a href="install.php" class="btn btn-danger">Migrar</a>
 					
 					<div class="btn-group">
-					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    Calendarios <span class="caret"></span>
 					  </button>
 					  <ul class="dropdown-menu" role="menu" style="min-width: 300px !important;">
@@ -296,7 +315,7 @@ $PLUGIN_COLORPICKER = 1;
 					    <?php $i = 1; ?>
 					    <?php while ($row = mysqli_fetch_assoc($result)): ?>
 					    <li>
-					    	<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>">
+					    	<a href="#" class="nohide" id="toggle_calendario_<?php echo $row['id']; ?>">
 					    		<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
 					    		<?php echo $row['nombre']; ?>
 					    		<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
@@ -320,7 +339,7 @@ $PLUGIN_COLORPICKER = 1;
 				    	<li role="presentation" class="dropdown-header">Otros calendarios</li>
 				    	<?php while ($row = mysqli_fetch_assoc($result)): ?>
 				    	<li>
-				    		<a href="#" id="toggle_calendario_<?php echo $row['id']; ?>">
+				    		<a href="#" class="nohide" id="toggle_calendario_<?php echo $row['id']; ?>">
 				    			<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
 				    			<?php echo $row['nombre']; ?>
 				    			<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
@@ -334,14 +353,14 @@ $PLUGIN_COLORPICKER = 1;
 				    	</li>
 				    	<?php endwhile; ?>
 				    	<li>
-				    		<a href="#" id="toggle_calendario_festivo">
+				    		<a href="#" class="nohide" id="toggle_calendario_festivo">
 				    			<span class="fa fa-square fa-fw fa-lg" style="color: #e14939;"></span> Días festivos
 				    			<span class="pull-right eyeicon_festivo"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 				    		</a>
 				    	</li>
 					    <?php endif; ?>
 					    <li class="divider"></li>
-					    <li><a href="#" data-toggle="modal" data-target="#modalNuevoCalendario">Crear calendario</a></li>
+					    <li><a href="#" data-toggle="modal" data-target="#modalNuevoCalendario">Crear calendario...</a></li>
 					  </ul>
 					</div>
 					
@@ -361,6 +380,12 @@ $PLUGIN_COLORPICKER = 1;
 				
 				<br class="hidden-print">
 				
+				<?php if ($_GET['msg']): ?>
+				<div class="alert alert-danger alert-block hidden-print">
+					<strong>Error: </strong> <?php echo $lista_errores[$_GET['msg']]; ?>
+				</div>
+				<?php endif; ?>
+				
 				<?php vista_mes($calendario, $dia, $mes, $anio, $_SESSION['cargo']); ?>
 				
 			</div><!-- /.col-md-12 -->
@@ -368,238 +393,6 @@ $PLUGIN_COLORPICKER = 1;
 		</div><!-- /.row -->
 		
 	</div><!-- /.container -->
-	
-	<!-- MODAL NUEVO CALENDARIO -->
-	<div id="modalNuevoCalendario" class="modal fade">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Nuevo calendario</h4>
-	      </div>
-	      <div class="modal-body">
-	        
-	        <form id="formNuevoCalendario" method="post" action="post/nuevoCalendario.php">
-	        	<fieldset>
-	        		
-	        		<div class="form-group">
-	        			<label for="cmp_calendario_nombre" class="visible-xs">Nombre</label>
-	        			<input type="text" class="form-control" id="cmp_calendario_nombre" name="cmp_calendario_nombre" placeholder="Nombre del calendario" required autofocus>
-	        		</div>
-	        		
-	        		<div class="form-group" id="colorpicker1">
-	        			<label for="cmp_calendario_color">Color</label>
-	        			<div class="input-group">
-	        				<input type="text" class="form-control" id="cmp_calendario_color" name="cmp_calendario_color" value="<?php echo randomColor(); ?>" required>
-	        				<span class="input-group-addon"><i></i></span>
-	        			</div>
-	        		</div>
-	        		
-	        		<?php if (stristr($_SESSION['cargo'],'1')): ?>
-	        		<div class="checkbox">
-	        		   <label>
-	        		     <input type="checkbox" id="cmp_calendario_publico" name="cmp_calendario_publico"> Hacer público este calendario.<br>
-	        		     <small class="text-muted">Será visible por todos los profesores del centro. Solo el Equipo directivo puede crear y editar eventos en este calendario.</small>
-	        		   </label>
-	        		</div>
-	        		<?php endif; ?>
-	        				        		
-	        	</fieldset>
-	        </form>
-	        
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-	        <button type="submit" class="btn btn-primary" form="formNuevoCalendario">Crear</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	<!-- FIN MODAL NUEVO CALENDARIO -->
-	
-	
-	<!-- MODAL NUEVO EVENTO -->
-	<div id="modalNuevoEvento" class="modal fade">
-	  <div class="modal-dialog modal-lg">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Nuevo evento o actividad</h4>
-	      </div>
-	      <div class="modal-body">
-	        
-	        <form id="formNuevoEvento" method="post" action="post/nuevoEvento.php">
-	        	<fieldset>
-	        		
-	        		<div class="form-group">
-	        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-	        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" required autofocus>
-	        		</div>
-	        		
-	        		
-        			<div class="row">
-        				<div class="col-xs-6 col-sm-3">
-        					<div class="form-group datetimepicker1">
-	        					<label for="cmp_fecha_ini">Fecha inicio</label>
-	        					<div class="input-group">
-		        					<input type="text" class="form-control" id="cmp_fecha_ini" name="cmp_fecha_ini" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY" required>
-		        					<span class="input-group-addon"><span class="fa fa-calendar">
-		        				</div>
-		        			</div>
-        				</div>
-	        			<div class="col-xs-6 col-sm-3">
-	        				<div class="form-group datetimepicker2">
-		        				<label for="cmp_hora_ini">Hora inicio</label>
-		        				<div class="input-group">
-		        					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="<?php echo date('H:i'); ?>" data-date-format="HH:mm">
-		        					<span class="input-group-addon"><span class="fa fa-clock-o">
-		        				</div>
-		        			</div>
-	        			</div>
-	        			<div class="col-xs-6 col-sm-3">
-	        				<div class="form-group datetimepicker3">
-		        				<label for="cmp_fecha_fin">Fecha fin</label>
-		        				<div class="input-group">
-		        					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
-		        					<span class="input-group-addon"><span class="fa fa-calendar">
-		        				</div>
-		        			</div>
-	        			</div>
-	        			<div class="col-xs-6 col-sm-3">
-	        				<div class="form-group datetimepicker4">
-		        				<label for="cmp_hora_fin">Hora fin</label>
-		        				<div class="input-group">
-		        					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="<?php echo date('H:i', strtotime('+1 hour', strtotime(date('H:i')))); ?>" data-date-format="HH:mm">
-		        					<span class="input-group-addon"><span class="fa fa-clock-o">
-		        				</div>
-		        			</div>
-	        			</div>
-	        		</div>
-	        		
-	        		<div class="form-group">
-	        			<label for="cmp_descripcion">Descripción</label>
-	        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" required></textarea>
-	        		</div>
-	        		
-	        		<div class="form-group">
-	        			<label for="cmp_lugar">Lugar</label>
-	        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar">
-	        		</div>
-	        		
-	        		<div class="form-group">
-	        			<label for="cmp_calendario">Calendario</label>
-	        			<select class="form-control" id="cmp_calendario" name="cmp_calendario">
-	        				<optgroup label="Mis calendarios">
-	        					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0"); ?>
-	        					<?php while ($row = mysqli_fetch_assoc($result)): ?>
-	        					<option value="<?php echo $row['id']; ?>"><?php echo $row['nombre']; ?></option>
-	        					<?php endwhile; ?>
-	        					<?php mysqli_free_result($result); ?>
-	        				</optgroup>
-	        				<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')): ?>
-	        				<optgroup label="Otros calendarios">
-	        					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1 $sql_where"); ?>
-	        					<?php while ($row = mysqli_fetch_assoc($result)): ?>
-	        					<option value="<?php echo $row['id']; ?>"><?php echo $row['nombre']; ?></option>
-	        					<?php endwhile; ?>
-	        					<?php mysqli_free_result($result); ?>
-	        				</optgroup>
-	        				<?php endif; ?>
-	        			</select>
-	        		</div>
-	        		
-	        		<div id="opciones_diario">
-	        			<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo, materia FROM profesores WHERE profesor='".$_SESSION['profi']."'"); ?>
-	        			<?php if (mysqli_num_rows($result)): ?>
-	        			<div class="form-group">
-	        				<label for="cmp_unidad_asignatura">Unidad y asignatura</label>
-	        				
-	        				<select class="form-control" id="cmp_unidad_asignatura" name="cmp_unidad_asignatura[]" size="5" multiple>
-	        				<?php while ($row = mysqli_fetch_array($result)): ?>
-	        					<option value="<?php echo $row['grupo'].' => '.$row['materia']; ?>" <?php echo (isset($grupos) && in_array($row['grupo'].' => '.$row['materia'], $grupos)) ? 'selected' : ''; ?>><?php echo $row['grupo'].' ('.$row['materia'].')'; ?></option>
-	        				<?php endwhile; ?>
-	        				</select>
-	        			</div>
-	        			<?php endif; ?>
-	        		</div>
-	        		
-	        		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')): ?>
-	        		<div id="opciones_actividades" class="row">
-	        			
-	        			<div class="col-sm-6">
-	        		
-			        		<div class="form-group">
-			        			<label for="cmp_departamento">Departamento que lo organiza</label>
-			        			<select class="form-control" id="cmp_departamento" name="cmp_departamento">
-			        				<?php if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE)): ?>
-			        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento='".$_SESSION['dpt']."' ORDER BY departamento ASC"); ?>
-			        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
-			        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
-			        				<?php endwhile; ?>
-			        				<?php elseif (stristr($_SESSION['cargo'],'d') == TRUE): ?>
-			        				<option value="Relaciones de Género">Relaciones de Género</option>
-			        				<?php else: ?>
-			        				<option value="Múltiples Departamentos">Múltiples Departamentos</option>
-			        				<option value="Actividades Extraescolares">Actividades Extraescolares</option>
-			        				<option value="Relaciones de Género">Relaciones de Género</option>
-			        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC"); ?>
-			        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
-			        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
-			        				<?php endwhile; ?>
-			        				<?php endif; ?>
-			        			</select>
-			        		</div>
-			        		
-			        		<div class="form-group">
-			        			<label for="cmp_profesores">Profesores que asistirán a la actividad</label>
-			        			<select class="form-control" id="cmp_profesores" name="cmp_profesores" size="21" multiple>
-			        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos ORDER BY departamento ASC, nombre ASC"); ?>
-			        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
-			        				<option value="<?php echo $row['nombre']; ?>"><?php echo $row['nombre']; ?></option>
-			        				<?php endwhile; ?>
-			        			</select>
-			        			<p class="help-block">Para seleccionar varios profesores, mantén apretada la tecla <kbd>Ctrl</kbd> mientras los vas marcando con el ratón.</p>
-			        		</div>
-			        		
-			        	</div><!-- /.col-sm-6 -->
-			        	
-			        	<div class="col-sm-6">
-			        		
-			        		<div class="form-group">
-			        			<label for="">Unidades que asistirán a la actividad</label>
-				        		<?php $result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC"); ?>
-				        		<?php while($row = mysqli_fetch_assoc($result)): ?>
-				        			<?php echo '<p class="text-info">'.$row['curso'].'</p>'; ?>
-				        			<?php $result1 = mysqli_query($db_con, "SELECT DISTINCT unidad FROM alma WHERE curso = '".$row['curso']."' ORDER BY unidad ASC"); ?>
-				        			<?php while($row1 = mysqli_fetch_array($result1)): ?>
-				        		                 
-				        			<div class="checkbox-inline"> 
-				        				<label>
-				        					<input name="<?php echo "grt".$row1['unidad']; ?>" type="checkbox" id="A" value="<?php echo $row1['unidad']; ?>">
-				        		            <?php echo $row1['unidad']; ?>
-				        		        </label>
-				        		    </div>
-				        		    
-				        		<?php endwhile; ?>         
-				        		<?php endwhile ?>
-				        	</div>
-			        		
-			        	</div><!-- /.col-sm-6 -->
-			        </div><!-- /.row -->
-			        <?php endif; ?>
-	        				        		
-	        	</fieldset>
-	        </form>
-	        
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-	        <button type="submit" class="btn btn-primary" form="formNuevoEvento">Crear</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	<!-- FIN MODAL NUEVO EVENTO -->
 
 <?php include("../pie.php"); ?>
 
@@ -644,6 +437,12 @@ $PLUGIN_COLORPICKER = 1;
 			  else {
 			  	$(".eyeicon_festivo").html('<span class="fa fa-eye fa-fw fa-lg"></span>');
 			  }
+			});
+			
+			
+			// OPCIONES DROPDOWN
+			$('.dropdown-menu input, .dropdown-menu a.nohide').click(function(e) {
+			    e.stopPropagation();
 			});
 			
 			

@@ -50,9 +50,9 @@ $descripcion_evento = mysqli_real_escape_string($db_con, $_POST['cmp_descripcion
 $lugar_evento = mysqli_real_escape_string($db_con, $_POST['cmp_lugar']);
 $calendario_evento = mysqli_real_escape_string($db_con, $_POST['cmp_calendario']);
 $unidad_asignatura_evento = $_POST['cmp_unidad_asignatura'];
-//$departamento_evento = mysqli_real_escape_string($db_con, $_POST['cmp_departamento']);
-//$profesores_evento = mysqli_real_escape_string($db_con, $_POST['cmp_profesores']);
-$unidades_evento = mysqli_real_escape_string($db_con, $_POST['cmp_unidades']);
+$departamento_evento = mysqli_real_escape_string($db_con, $_POST['cmp_departamento']);
+$profesores_evento = $_POST['cmp_profesores'];
+$unidades_evento = $_POST['cmp_unidades'];
 $profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $fechareg_evento = date('Y-m-d');
 
@@ -63,32 +63,63 @@ $exp_fechafin_evento = explode('/', $fechafin_evento);
 $fechafin_evento_sql = $exp_fechafin_evento[2].'-'.$exp_fechafin_evento[1].'-'.$exp_fechafin_evento[0];
 
 
+// Declaramos las variables para los tipos de calendario
+$string_departamento = "";
+$string_profesores = "";
+$string_unidad = "";
+$string_asignatura = "";
 
-// Pertenece al diario
-if (is_array($unidad_asignatura_evento)) {
-
-	$string_unidad = "";
+// Es una actividad extraescolar
+if ($calendario_evento == 2) {
 	
-	foreach ($unidad_asignatura_evento as $unidad) {
-		$exp_unidad = explode(' => ', $unidad);
-		$string_unidad .= mysqli_real_escape_string($db_con, $exp_unidad[0]).'; ';
+	$string_departamento = $departamento_evento;
+	
+	if (is_array($profesores_evento)) {
+	
+		foreach ($profesores_evento as $profesor) {
+			$string_profesores .= mysqli_real_escape_string($db_con, $profesor).'; ';
+		}
+		
+		$string_profesores = trim($string_profesores);
 	}
 	
-	$string_unidad = trim($string_unidad);
+	if (is_array($unidades_evento)) {
+	
+		foreach ($unidades_evento as $unidad) {
+			$string_unidad .= mysqli_real_escape_string($db_con, $unidad).'; ';
+		}
+		
+		$string_unidad = trim($string_unidad);
+	}
+}
+// Pertenece al diario del profesor
+elseif ($calendario_evento != 2 && $calendario_evento != 1) {
+	
+	if (is_array($unidad_asignatura_evento)) {
+		
+		foreach ($unidad_asignatura_evento as $unidad) {
+			$exp_unidad = explode(' => ', $unidad);
+			$string_unidad .= mysqli_real_escape_string($db_con, $exp_unidad[0]).'; ';
+			$string_asignatura .= mysqli_real_escape_string($db_con, $exp_unidad[1]).'; ';
+		}
+		
+		$string_unidad = trim($string_unidad);
+		$string_asignatura = trim($string_asignatura);
+	}
 }
 
 
-// Comprobamos si existe el calendario
-$result = mysqli_query($db_con, "SELECT nombre FROM calendario WHERE nombre='$nombre_evento' AND fechaini='$fechaini_evento_sql' AND horaini='$horaini_evento' fechafin='$fechafin_evento_sql' AND horafin='$horafin_evento' AND calendario_evento='$calendario_evento' LIMIT 1");
+// Comprobamos si existe el evento
+$result = mysqli_query($db_con, "SELECT nombre FROM calendario WHERE nombre='$nombre_evento' AND fechaini='$fechaini_evento_sql' AND horaini='$horaini_evento' AND fechafin='$fechafin_evento_sql' AND horafin='$horafin_evento' AND categoria='$calendario_evento' LIMIT 1");
 
 if (mysqli_num_rows($result)) {
-	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
+	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?msg=ErrorEventoExiste');
 	exit();
 }
 else {
-	$crear = mysqli_query($db_con, "INSERT INTO calendario (categoria, nombre, descripcion, fechaini, horaini, fechafin, horafin, lugar, departamento, profesores, unidades, fechareg, profesorreg) VALUES ($calendario_evento, '$nombre_evento', '$descripcion_evento', '$fechaini_evento_sql', '$horaini_evento', $fechafin_evento_sql, '$fechafin_evento_sql', '$lugar_evento', '$departamento_evento', '$profesores_evento', '$string_unidad' , '$fechareg_evento', '$profesorreg_evento')") or die (mysqli_error($db_con));
+	$crear = mysqli_query($db_con, "INSERT INTO calendario (categoria, nombre, descripcion, fechaini, horaini, fechafin, horafin, lugar, departamento, profesores, unidades, asignaturas, fechareg, profesorreg) VALUES ($calendario_evento, '$nombre_evento', '$descripcion_evento', '$fechaini_evento_sql', '$horaini_evento', '$fechafin_evento_sql', '$horafin_evento', '$lugar_evento', '$string_departamento', '$string_profesores', '$string_unidad', '$string_asignatura' , '$fechareg_evento', '$profesorreg_evento')") or die (mysqli_error($db_con));
 	if (! $crear) {
-		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php');
+		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?msg=ErrorEventoInsertar');
 		exit();
 	}
 	else {
