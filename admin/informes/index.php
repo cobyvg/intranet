@@ -106,9 +106,12 @@ include('../../menu.php');
 		<?php $row2 = mysqli_fetch_array($result); ?>
 		<?php mysqli_free_result($result); ?>
 		
-		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, unidad, numeroexpediente from alma where alma.claveal= '$claveal' order BY alma.apellidos"); ?>
+		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente, tutor from alma, FTUTORES where alma.unidad=FTUTORES.unidad and alma.claveal= '$claveal' order BY alma.apellidos"); ?>
 		
-		<?php if ($row = mysqli_fetch_array($result)): ?>
+		<?php if ($row = mysqli_fetch_array($result)): 
+		$tr_tutor = explode(", ",$row['tutor']);
+		$tutor = $tr_tutor[1]." ".$tr_tutor[0];
+		?>
 		<!-- SCAFFOLDING -->
 		<div class="well">
 		<div class="row">
@@ -168,6 +171,8 @@ include('../../menu.php');
 						  <dd><?php echo ($row['curso'] != "") ? $row['curso']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Unidad</dt>
 						  <dd><?php echo ($row['unidad'] != "") ? $row['unidad']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dt>Tutor</dt>
+						  <dd><?php echo ($tutor != "") ? $tutor: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Repetidor/a</dt>
 						  <dd><?php echo ($row['matriculas'] > 1) ? 'Sí': 'No'; ?></dd>
 						</dl>
