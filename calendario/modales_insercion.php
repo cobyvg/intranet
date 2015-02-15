@@ -1,16 +1,16 @@
 <?php if (! defined('MOD_CALENDARIO')) die ('<h3>FORBIDDEN</h3>'); ?>
 
 <!-- MODAL NUEVO CALENDARIO -->
-<div id="modalNuevoCalendario" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Nuevo calendario</h4>
-      </div>
-      <div class="modal-body">
+<form id="formNuevoCalendario" method="post" action="post/nuevoCalendario.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>">
+	<div id="modalNuevoCalendario" class="modal fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Nuevo calendario</h4>
+	      </div>
+	      <div class="modal-body">
         
-        <form id="formNuevoCalendario" method="post" action="post/nuevoCalendario.php">
         	<fieldset>
         		
         		<div class="form-group">
@@ -36,30 +36,30 @@
         		<?php endif; ?>
         				        		
         	</fieldset>
-        </form>
         
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary" form="formNuevoCalendario">Crear</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	        <button type="submit" class="btn btn-primary">Crear</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</form>
 <!-- FIN MODAL NUEVO CALENDARIO -->
 
 
 <!-- MODAL NUEVO EVENTO -->
-<div id="modalNuevoEvento" class="modal fade">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Nuevo evento o actividad</h4>
-      </div>
-      <div class="modal-body">
+<form id="formNuevoEvento" method="post" action="post/nuevoEvento.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>">
+	<div id="modalNuevoEvento" class="modal fade">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Nuevo evento o actividad</h4>
+	      </div>
+	      <div class="modal-body">
         
-        <form id="formNuevoEvento" method="post" action="post/nuevoEvento.php">
         	<fieldset>
         		
         		<div class="form-group">
@@ -225,14 +225,14 @@
 		        <?php endif; ?>
         				        		
         	</fieldset>
-        </form>
         
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary" form="formNuevoEvento">Crear</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	        <button type="submit" class="btn btn-primary">Crear</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</form>
 <!-- FIN MODAL NUEVO EVENTO -->

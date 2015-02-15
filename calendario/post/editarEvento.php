@@ -41,6 +41,7 @@ if (! isset($_POST['cmp_nombre'])) {
 }
 
 // Limpiamos variables
+$id_evento = mysqli_real_escape_string($db_con, $_POST['cmp_evento_id']);
 $nombre_evento = mysqli_real_escape_string($db_con, $_POST['cmp_nombre']);
 $fechaini_evento = mysqli_real_escape_string($db_con, $_POST['cmp_fecha_ini']);
 $horaini_evento = mysqli_real_escape_string($db_con, $_POST['cmp_hora_ini']);
@@ -110,16 +111,16 @@ elseif ($calendario_evento != 2 && $calendario_evento != 1) {
 
 
 // Comprobamos si existe el evento
-$result = mysqli_query($db_con, "SELECT nombre FROM calendario WHERE nombre='$nombre_evento' AND fechaini='$fechaini_evento_sql' AND horaini='$horaini_evento' AND fechafin='$fechafin_evento_sql' AND horafin='$horafin_evento' AND categoria='$calendario_evento' LIMIT 1");
+$result = mysqli_query($db_con, "SELECT nombre FROM calendario WHERE id=$id_evento LIMIT 1");
 
-if (mysqli_num_rows($result)) {
-	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoExiste');
+if (! mysqli_num_rows($result)) {
+	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoNoExiste');
 	exit();
 }
 else {
-	$crear = mysqli_query($db_con, "INSERT INTO calendario (categoria, nombre, descripcion, fechaini, horaini, fechafin, horafin, lugar, departamento, profesores, unidades, asignaturas, fechareg, profesorreg) VALUES ($calendario_evento, '$nombre_evento', '$descripcion_evento', '$fechaini_evento_sql', '$horaini_evento', '$fechafin_evento_sql', '$horafin_evento', '$lugar_evento', '$string_departamento', '$string_profesores', '$string_unidad', '$string_asignatura' , '$fechareg_evento', '$profesorreg_evento')");
-	if (! $crear) {
-		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoInsertar');
+	$editar = mysqli_query($db_con, "UPDATE calendario SET categoria='$calendario_evento', nombre='$nombre_evento', descripcion='$descripcion_evento', fechaini='$fechaini_evento_sql', horaini='$horaini_evento', fechafin='$fechafin_evento_sql', horafin='$horafin_evento', lugar='$lugar_evento', departamento='$string_departamento', profesores='$string_profesores', unidades='$string_unidad', asignaturas='$string_asignatura', fechareg='$fechareg_evento', profesorreg='$profesorreg_evento' WHERE id=$id_evento") or die (mysqli_error($db_con));
+	if (! $editar) {
+		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoEdicion');
 		exit();
 	}
 	else {

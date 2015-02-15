@@ -130,8 +130,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 				// Consultamos los calendarios privados del usuario
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
-					
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)=$anio AND MONTH(fechaini)=$mes");
+					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes'");
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($eventos['fechaini'] == $anio.'-'.$mes.'-'.$dia0) {
@@ -186,12 +185,16 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 }
 
 $lista_errores = array(
+	'ErrorCalendarioNoExiste' => 'El calendario que intenta modificar no existe.',
 	'ErrorCalendarioExiste'   => 'Este calendario ya existe.',
 	'ErrorCalendarioInsertar' => 'Se ha producido un error al crear el calendario.',
 	'ErrorEliminarCalendario' => 'Se ha producido un error al eliminar el calendario.',
+	'ErrorCalendarioEdicion'  => 'Se ha producido un error al modificar el calendario.',
+	'ErrorEventoNoExiste'     => 'El evento que intenta modificar no existe.',
 	'ErrorEventoExiste'       => 'Este evento ya existe.',
 	'ErrorEventoInsertar'     => 'Se ha producido un error al crear el evento.',
-	'ErrorEliminarEvento'     => 'Se ha producido un error al eliminar el evento.'
+	'ErrorEliminarEvento'     => 'Se ha producido un error al eliminar el evento.',
+	'ErrorEventoEdicion'      => 'Se ha producido un error al modificar el evento.'
 	);
 
 function randomColor() {
@@ -219,6 +222,9 @@ $PLUGIN_COLORPICKER = 1;
 	<div class="container">
 		
 		<style type="text/css">
+		table>tbody>tr>td {
+			height: 103px !important;
+		}
 		.label {
 			display: block;
 			white-space: normal;
@@ -320,7 +326,7 @@ $PLUGIN_COLORPICKER = 1;
 					    		<?php echo $row['nombre']; ?>
 					    		<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 					    		<?php if ($i > 1): ?>
-					    		<form class="pull-right" method="post" action="post/eliminarCalendario.php" style="display: inline; margin-top: -5px;">
+					    		<form class="pull-right" method="post" action="post/eliminarCalendario.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>" style="display: inline; margin-top: -5px;">
 					    			<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
 					    			<button type="submit" class="btn-link delete-calendar"><span class="fa fa-trash fa-fw fa-lg"></span></button>
 					    		</form>
@@ -344,7 +350,7 @@ $PLUGIN_COLORPICKER = 1;
 				    			<?php echo $row['nombre']; ?>
 				    			<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
 				    			<?php if ($row['id'] != 1 && $row['id'] != 2): ?>
-				    			<form class="pull-right" method="post" action="post/eliminarCalendario.php" style="display: inline; margin-top: -5px;">
+				    			<form class="pull-right" method="post" action="post/eliminarCalendario.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>" style="display: inline; margin-top: -5px;">
 				    				<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
 				    				<button type="submit" class="btn-link delete-calendar"><span class="fa fa-trash fa-fw fa-lg"></span></button>
 				    			</form>
@@ -467,7 +473,7 @@ $PLUGIN_COLORPICKER = 1;
 			});
 			
 			$('#cmp_calendario').change(function() {
-			    if ($('#cmp_calendario').val() == <?php echo $idcal_diario; ?>) {
+			    if ($('#cmp_calendario').val() != 1 && $('#cmp_calendario').val() != 2) {
 			        $('#opciones_diario').show();
 			    }
 			    else {
