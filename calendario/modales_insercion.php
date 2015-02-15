@@ -189,7 +189,7 @@
 		        				<?php $result_depto = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos WHERE departamento = '".$row['departamento']."' ORDER BY nombre ASC"); ?>
 		        				<optgroup label="<?php echo $row['departamento']; ?>">
 		        					<?php while ($row_profe = mysqli_fetch_assoc($result_depto)): ?>
-		        					<option value="<?php echo $row_profe['idea']; ?>"><?php echo $row_profe['nombre']; ?></option>
+		        					<option value="<?php echo $row_profe['nombre']; ?>"><?php echo $row_profe['nombre']; ?></option>
 		        					<?php endwhile; ?>
 		        				</optgroup>
 		        				<?php endwhile; ?>

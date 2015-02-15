@@ -267,11 +267,97 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        				echo '</optgroup>';
 			        				endif;
 			        			echo '</select>
-			        		</div>
+			        		</div>';
 			        		
+			        		if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')):
+			        		echo '<div id="opciones_actividades" class="row">
+			        			
+			        			<div class="col-sm-6">
+			        		
+			        				<div class="form-group">
+			        					<label for="cmp_departamento">Departamento que lo organiza</label>
+			        					<select class="form-control" id="cmp_departamento" name="cmp_departamento">';
+			        						if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE)):
+			        						$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento='".$_SESSION['dpt']."' ORDER BY departamento ASC");
+			        						while ($row = mysqli_fetch_assoc($result)):
+			        						echo '<option value="'.$row['departamento'].'"';
+			        						if ($eventos1['departamento'] == $row['departamento']) echo ' selected';
+			        						echo '>'.$row['departamento'].'</option>';
+			        						endwhile;
+			        						elseif (stristr($_SESSION['cargo'],'d') == TRUE):
+			        						echo '<option value="Relaciones de Género"';
+			        						if ("Relaciones de Género" == $row['departamento']) echo ' selected';
+			        						echo '>Relaciones de Género</option>';
+			        						else:
+			        						echo '<option value="Múltiples Departamentos"';
+			        						if ("Múltiples Departamentos" == $row['departamento']) echo ' selected';
+			        						echo '>Múltiples Departamentos</option>
+			        						<option value="Actividades Extraescolares"';
+			        						if ("Actividades Extraescolares" == $row['departamento']) echo ' selected';
+			        						echo '>Actividades Extraescolares</option>
+			        						<option value="Relaciones de Género"';
+			        						if ("Relaciones de Género" == $row['departamento']) echo ' selected';
+			        						echo '>Relaciones de Género</option>';
+			        						$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC");
+			        						while ($row = mysqli_fetch_assoc($result)):
+			        						echo '<option value="'.$row['departamento'].'"';
+			        						if ($eventos1['departamento'] == $row['departamento']) echo ' selected';
+			        						echo '>'.$row['departamento'].'</option>';
+			        						endwhile;
+			        						endif;
+			        		echo'			</select>
+			        				</div>
+			        				
+			        				<div class="form-group">
+			        					<label for="cmp_profesores">Profesores que asistirán a la actividad</label>
+			        					<select class="form-control" id="cmp_profesores" name="cmp_profesores[]" size="21" multiple>';
+			        						$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Conserjeria' AND departamento <> 'Administracion' ORDER BY departamento ASC");
+			        						while ($row = mysqli_fetch_assoc($result)):
+			        						$result_depto = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos WHERE departamento = '".$row['departamento']."' ORDER BY nombre ASC");
+			        						echo '<optgroup label="'.$row['departamento'].'">';
+			        							while ($row_profe = mysqli_fetch_assoc($result_depto)):
+			        							echo '<option value="'.$row_profe['nombre'].'"';
+			        							$exp_profesores = explode (';',str_replace('; ',';',$eventos1['profesores']));
+			        							if (in_array($row_profe['nombre'], $exp_profesores)) echo ' selected';
+			        							echo '>'.$row_profe['nombre'].'</option>';
+			        							endwhile;
+			        						echo '</optgroup>';
+			        						endwhile;
+			        					echo '</select>
+			        					<p class="help-block">Para seleccionar varios profesores, mantén apretada la tecla <kbd>Ctrl</kbd> mientras los vas marcando con el ratón.</p>
+			        				</div>
+			        				
+			        			</div><!-- /.col-sm-6 -->
+			        			
+			        			<div class="col-sm-6">
+			        				
+			        				<div class="form-group">
+			        					<label for="">Unidades que asistirán a la actividad</label>';
+			        		    		$result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC");
+			        		    		while($row = mysqli_fetch_assoc($result)):
+			        		    			echo '<p class="text-info">'.$row['curso'].'</p>';
+			        		    			$result1 = mysqli_query($db_con, "SELECT DISTINCT unidad FROM alma WHERE curso = '".$row['curso']."' ORDER BY unidad ASC");
+			        		    			while($row1 = mysqli_fetch_array($result1)):
+			        		    		                 
+			        		    			echo '<div class="checkbox-inline"> 
+			        		    				<label>
+			        		    					<input name="cmp_unidades[]" type="checkbox" value="'.$row1['unidad'].'"';
+			        		    					$exp_unidades = explode (';',str_replace('; ',';',$eventos1['unidades']));
+			        		    					if (in_array($row1['unidad'], $exp_unidades)) echo ' checked';
+			        		    					echo '>'.$row1['unidad'].'
+			        		    		        </label>
+			        		    		    </div>';
+			        		    		    
+			        		    		endwhile;
+			        		    		endwhile;
+			        		    	echo'</div>
+			        				
+			        			</div><!-- /.col-sm-6 -->
+			        		</div><!-- /.row -->';
+			        		endif;
 			        		
 			        						        				        		
-			        	</fieldset>
+			        	echo '</fieldset>
 			        
 				      </div>
 				      <div class="modal-footer">
