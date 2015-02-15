@@ -268,6 +268,8 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        				endif;
 			        			echo '</select>
 			        		</div>
+			        		
+			        		
 			        						        				        		
 			        	</fieldset>
 			        
@@ -290,7 +292,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			$fechafin_evento = $exp_fechafin_evento[2].'/'.$exp_fechafin_evento[1].'/'.$exp_fechafin_evento[0];
 			
 			echo '<div id="modalEvento'.$eventos1['id'].'" class="modal fade">
-			  <div class="modal-dialog modal-lg">
+			  <div class="modal-dialog">
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
@@ -301,41 +303,57 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 	        		<div class="row">
 	        			<div class="col-xs-6 col-sm-3">
 	        				<div class="form-group">
-	        					<label for="cmp_fecha_ini">Fecha inicio</label>
-	            				<p class="form-control-static text-info lead">'.$fechaini_evento.'</p>
+	        					<label for="">Fecha inicio</label>
+	            				<p class="form-control-static text-info">'.$fechaini_evento.'</p>
 	            			</div>
 	        			</div>
 	        			<div class="col-xs-6 col-sm-3">
 	        				<div class="form-group">
-	            				<label for="cmp_hora_ini">Hora inicio</label>
-	            				<p class="form-control-static text-info lead">'.substr($eventos1['horaini'], 0, -3).'</p>
+	            				<label for="">Hora inicio</label>
+	            				<p class="form-control-static text-info">'.substr($eventos1['horaini'], 0, -3).'</p>
 	            			</div>
 	        			</div>
 	        			<div class="col-xs-6 col-sm-3">
 	        				<div class="form-group">
-	            				<label for="cmp_fecha_fin">Fecha fin</label>
-	            				<p class="form-control-static text-info lead">'.$fechafin_evento.'</p>
+	            				<label for="">Fecha fin</label>
+	            				<p class="form-control-static text-info">'.$fechafin_evento.'</p>
 	            			</div>
 	        			</div>
 	        			<div class="col-xs-6 col-sm-3">
 	        				<div class="form-group">
-	            				<label for="cmp_hora_fin">Hora fin</label>
-	            				<p class="form-control-static text-info lead">'.substr($eventos1['horafin'], 0, -3).'</p>
+	            				<label for="">Hora fin</label>
+	            				<p class="form-control-static text-info">'.substr($eventos1['horafin'], 0, -3).'</p>
 	            			</div>
 	        			</div>
 	        		</div>
 	        		
 	        		<div class="form-group">
-	        			<label for="cmp_descripcion">Descripción</label>
-	        			<p class="form-control-static text-info lead">'.$eventos1['descripcion'].'</p>
+	        			<label for="">Descripción</label>
+	        			<p class="form-control-static text-info">'.$eventos1['descripcion'].'</p>
 	        		</div>
 	        		
 	        		<div class="form-group">
-	        			<label for="cmp_lugar">Lugar</label>
+	        			<label for="">Lugar</label>
 	        			<p class="form-control-static text-info lead">'.$eventos1['lugar'].'</p>
+	        		</div>';
+	        	if($eventos1['categoria'] == 2) {	
+	        		echo'	<div class="form-group">
+	        			<label for="">Departamento que lo organiza</label>
+	        			<p class="form-control-static text-info">'.$eventos1['departamento'].'</p>
 	        		</div>
+	        		
+	        		<div class="form-group">
+	        			<label for="">Profesores que asistirán a la actividad</label>
+	        			<p class="form-control-static text-info">'.str_replace(';', ' | ',$eventos1['profesores']).'</p>
+	        		</div>
+	        		
+	        		<div class="form-group">
+	        			<label for="">Unidades que asistirán a la actividad</label>
+	        			<p class="form-control-static text-info">'.str_replace(';', ' | ',$eventos1['unidades']).'</p>
+	        		</div>';
+	        	}
 			        
-			      </div>
+			   echo'   </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 			      </div>
