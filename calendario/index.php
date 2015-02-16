@@ -222,7 +222,7 @@ $PLUGIN_COLORPICKER = 1;
 	<div class="container">
 		
 		<style type="text/css">
-		table>tbody>tr>td {
+		table#calendar>tbody>tr>td {
 			height: 103px !important;
 		}
 		.label {
@@ -471,6 +471,82 @@ $PLUGIN_COLORPICKER = 1;
 			        $('#opciones_actividades').hide();
 			    }
 			});
+			
+			$('#cmp_fecha_diacomp').click(function() {  
+				if($('#cmp_fecha_diacomp').is(':checked')) {
+					$(".cmp_fecha_toggle").attr('disabled', true);
+					$(".cmp_fecha_toggle").attr('disabled', true);
+					$(".cmp_fecha_toggle").attr('disabled', true);
+				} else {  
+					$(".cmp_fecha_toggle").attr('disabled', false);
+					$(".cmp_fecha_toggle").attr('disabled', false);
+					$(".cmp_fecha_toggle").attr('disabled', false);
+				}  
+			});
+			
+			<?php
+			$result_calendarios = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
+			while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
+				$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes'");
+				
+				while ($eventos = mysqli_fetch_assoc($result_eventos)) {
+					echo '$("#cmp_fecha_diacomp_'.$eventos['id'].'").click(function() {  
+						if($("#cmp_fecha_diacomp_'.$eventos['id'].'").is(":checked")) {
+							$(".cmp_fecha_toggle").attr("disabled", true);
+							$(".cmp_fecha_toggle").attr("disabled", true);
+							$(".cmp_fecha_toggle").attr("disabled", true);
+						} else {  
+							$(".cmp_fecha_toggle").attr("disabled", false);
+							$(".cmp_fecha_toggle").attr("disabled", false);
+							$(".cmp_fecha_toggle").attr("disabled", false);
+						}  
+					});';
+				}
+				mysqli_free_result($result_eventos);
+			}
+			mysqli_free_result($result_calendarios);
+			
+			// Consultamos los calendarios públicos
+			$result_calendarios = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE espublico=1");
+			while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
+				
+				$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."'");
+				
+				while ($eventos = mysqli_fetch_assoc($result_eventos)) {
+					echo '$("#cmp_fecha_diacomp_'.$eventos['id'].'").click(function() {  
+						if($("#cmp_fecha_diacomp_'.$eventos['id'].'").is(":checked")) {
+							$(".cmp_fecha_toggle").attr("disabled", true);
+							$(".cmp_fecha_toggle").attr("disabled", true);
+							$(".cmp_fecha_toggle").attr("disabled", true);
+						} else {  
+							$(".cmp_fecha_toggle").attr("disabled", false);
+							$(".cmp_fecha_toggle").attr("disabled", false);
+							$(".cmp_fecha_toggle").attr("disabled", false);
+						}  
+					});';
+				}
+				mysqli_free_result($result_eventos);
+			}
+			mysqli_free_result($result_calendarios);
+			?>
+			
+			<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1"); ?>
+			<?php if (mysqli_num_rows($result)): ?>
+			<?php while ($row = mysqli_fetch_assoc($result)): ?>
+			$('#cmp_fecha_diacomp_<?php echo $row['id']; ?>').click(function() {  
+				if($('#cmp_fecha_diacomp_<?php echo $row['id']; ?>').is(':checked')) {
+					alert(1);
+					$(".cmp_fecha_toggle").attr('disabled', true);
+					$(".cmp_fecha_toggle").attr('disabled', true);
+					$(".cmp_fecha_toggle").attr('disabled', true);
+				} else {  
+					$(".cmp_fecha_toggle").attr('disabled', false);
+					$(".cmp_fecha_toggle").attr('disabled', false);
+					$(".cmp_fecha_toggle").attr('disabled', false);
+				}  
+			});
+			<?php endwhile; ?>
+			<?php endif; ?>
 			
 			$('#cmp_calendario').change(function() {
 			    if ($('#cmp_calendario').val() != 1 && $('#cmp_calendario').val() != 2) {

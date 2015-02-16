@@ -42,6 +42,7 @@ if (! isset($_POST['cmp_nombre'])) {
 
 // Limpiamos variables
 $id_evento = mysqli_real_escape_string($db_con, $_POST['cmp_evento_id']);
+$fechadiacomp_evento = mysqli_real_escape_string($db_con, $_POST['cmp_fecha_diacomp']);
 $nombre_evento = mysqli_real_escape_string($db_con, $_POST['cmp_nombre']);
 $fechaini_evento = mysqli_real_escape_string($db_con, $_POST['cmp_fecha_ini']);
 $horaini_evento = mysqli_real_escape_string($db_con, $_POST['cmp_hora_ini']);
@@ -57,11 +58,25 @@ $unidades_evento = $_POST['cmp_unidades'];
 $profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $fechareg_evento = date('Y-m-d');
 
-$exp_fechaini_evento = explode('/', $fechaini_evento);
-$fechaini_evento_sql = $exp_fechaini_evento[2].'-'.$exp_fechaini_evento[1].'-'.$exp_fechaini_evento[0];
 
-$exp_fechafin_evento = explode('/', $fechafin_evento);
-$fechafin_evento_sql = $exp_fechafin_evento[2].'-'.$exp_fechafin_evento[1].'-'.$exp_fechafin_evento[0];
+if ($fechadiacomp_evento == '') $fechadiacomp_evento = 0;
+else $fechadiacomp_evento = 1;
+
+if ($fechadiacomp_evento) {
+	$exp_fechaini_evento = explode('/', $fechaini_evento);
+	$fechaini_evento_sql = $exp_fechaini_evento[2].'-'.$exp_fechaini_evento[1].'-'.$exp_fechaini_evento[0];
+	
+	$fechafin_evento_sql = $fechaini_evento_sql;
+	$horaini_evento = '00:00:00';
+	$horafin_evento = '00:00:00';
+}
+else {
+	$exp_fechaini_evento = explode('/', $fechaini_evento);
+	$fechaini_evento_sql = $exp_fechaini_evento[2].'-'.$exp_fechaini_evento[1].'-'.$exp_fechaini_evento[0];
+	
+	$exp_fechafin_evento = explode('/', $fechafin_evento);
+	$fechafin_evento_sql = $exp_fechafin_evento[2].'-'.$exp_fechafin_evento[1].'-'.$exp_fechafin_evento[0];
+}
 
 
 // Declaramos las variables para los tipos de calendario

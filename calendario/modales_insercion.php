@@ -69,6 +69,18 @@
         		
         		
     			<div class="row">
+    				<div class="col-xs-12">
+	    				<div class="form-group">
+	    					<div class="checkbox">
+		    					<label>
+		    						<input type="checkbox" id="cmp_fecha_diacomp" name="cmp_fecha_diacomp" value="1">
+		    						<strong>Todo el día</strong>
+		    					</label>
+		    				</div>
+	    				</div>
+    				</div>
+    				
+    				
     				<div class="col-xs-6 col-sm-3">
     					<div class="form-group datetimepicker1">
         					<label for="cmp_fecha_ini">Fecha inicio</label>
@@ -82,7 +94,7 @@
         				<div class="form-group datetimepicker2">
 	        				<label for="cmp_hora_ini">Hora inicio</label>
 	        				<div class="input-group">
-	        					<input type="text" class="form-control" id="cmp_hora_ini" name="cmp_hora_ini" value="<?php echo date('H:i'); ?>" data-date-format="HH:mm" required>
+	        					<input type="text" class="form-control cmp_fecha_toggle" id="cmp_hora_ini" name="cmp_hora_ini" value="<?php echo date('H:i'); ?>" data-date-format="HH:mm">
 	        					<span class="input-group-addon"><span class="fa fa-clock-o">
 	        				</div>
 	        			</div>
@@ -91,7 +103,7 @@
         				<div class="form-group datetimepicker3">
 	        				<label for="cmp_fecha_fin">Fecha fin</label>
 	        				<div class="input-group">
-	        					<input type="text" class="form-control" id="cmp_fecha_fin" name="cmp_fecha_fin" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY" required>
+	        					<input type="text" class="form-control cmp_fecha_toggle" id="cmp_fecha_fin" name="cmp_fecha_fin" value="<?php echo date('d/m/Y'); ?>" data-date-format="DD/MM/YYYY">
 	        					<span class="input-group-addon"><span class="fa fa-calendar">
 	        				</div>
 	        			</div>
@@ -100,7 +112,7 @@
         				<div class="form-group datetimepicker4">
 	        				<label for="cmp_hora_fin">Hora fin</label>
 	        				<div class="input-group">
-	        					<input type="text" class="form-control" id="cmp_hora_fin" name="cmp_hora_fin" value="<?php echo date('H:i', strtotime('+1 hour', strtotime(date('H:i')))); ?>" data-date-format="HH:mm" required>
+	        					<input type="text" class="form-control cmp_fecha_toggle" id="cmp_hora_fin" name="cmp_hora_fin" value="<?php echo date('H:i', strtotime('+1 hour', strtotime(date('H:i')))); ?>" data-date-format="HH:mm">
 	        					<span class="input-group-addon"><span class="fa fa-clock-o">
 	        				</div>
 	        			</div>
