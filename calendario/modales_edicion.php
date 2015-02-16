@@ -269,7 +269,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        			echo '</select>
 			        		</div>';
 			        		
-			        		if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')):
+			        		if ($eventos1['categoria'] == 2 && (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5'))):
 			        		echo '<div id="opciones_actividades" class="row">
 			        			
 			        			<div class="col-sm-6">
