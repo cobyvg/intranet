@@ -94,67 +94,10 @@ echo '
 			</div></div>';  	
 			}
   }	
-  if($calendario == '1')
+ 
+  if($confirmado == '1')
   {
- $datos0 = "select fecha, actividad, grupos, descripcion from actividades where id = '$id'";
- $datos1 = mysqli_query($db_con, $datos0);
-$datos = mysqli_fetch_array($datos1);
-  $idact = $id.";";
-  $eventdate = $datos[0];
-  $title = str_replace("'","",$datos[1]);
-  $title = str_replace("\\","",$datos[1]);
-  $event = str_replace("'","",$datos[3]). "<br>Grupos que participan: " . $datos[2];
-  
-$html = "1"; 
-$querycal = "insert into cal (eventdate,title,event,html,idact) values ('".$eventdate."','".$title."','".$event."','".$html."','".$idact."')";
-mysqli_query($db_con, $querycal);
-//echo $querycal;
-
-$result = mysqli_query($db_con, "SELECT actividad, CONCAT(descripcion,' ',justificacion) AS descripcion, departamento, profesor, grupos, fecha, hoy FROM actividades WHERE id='$id'");
-$row = mysqli_fetch_assoc($result);
-$fechaini = $row['fecha'];
-$nombre = mysqli_real_escape_string($db_con, $row['actividad']);
-$descripcion = mysqli_real_escape_string($db_con, $row['descripcion']);
-$departamento = mysqli_real_escape_string($db_con, $row['departamento']);
-$profesores = mysqli_real_escape_string($db_con, $row['profesor']);
-$unidades = mysqli_real_escape_string($db_con, $row['grupos']);
-$fechareg = mysqli_real_escape_string($db_con, $row['hoy']);
-
-$query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `fechareg`, `profesorreg`) VALUES (2, '$nombre', '$descripcion', '".$fechaini."', '08:15', '".$fechaini."', '09:15', '$departamento', '$profesores', '$unidades', '".$fechareg."', 'admin')";
-mysqli_query($db_con, $query) or die(mysqli_error($db_con));
-
-echo '
-<div><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-La Actividad ha sido registrada en el Calendario del Centro.
-			</div></div>'; 
-   }
-  
-  
-  
-    if($act_calendario == '1')
-  {
-  $datos0 = "select fecha, actividad, grupos, descripcion from actividades where id = '$id'";
-  $datos1 = mysqli_query($db_con, $datos0);
-  $datos = mysqli_fetch_array($datos1);
-  $idact = $id.";";
-  $eventdate = $datos[0];
-  $title = str_replace("'","",$datos[1]);
-  $title = str_replace("\\","",$datos[1]);
-  $event = str_replace("'","",$datos[3]). "<br>Grupos que participan: " . $datos[2];
-  $cal0 = "select id, title, event, idact from cal where eventdate = '$eventdate'";
-  $cal1 = mysqli_query($db_con, $cal0);
-  $cal2 = mysqli_fetch_array($cal1);
-  $title0 = $cal2[1];
-  $event0 = $cal2[2];
-  $idact0 = $cal2[3];
-  $html = "1";
-  $titulo = "$title0<br>$title";
-  $texto = "$event0<br>$event";
-  $id_idact = "$idact0$idact";
-  $actualiza_datos0 = "update cal set title = '$titulo', event = '$texto', idact = '$id_idact' where eventdate = '$eventdate'";
-  //echo $actualiza_datos0;
-  mysqli_query($db_con, $actualiza_datos0);
+  mysqli_query($db_con, "UPDATE  actividades SET  confirmado =  '1' WHERE id = '$id'");
   
   $result = mysqli_query($db_con, "SELECT actividad, CONCAT(descripcion,' ',justificacion) AS descripcion, departamento, profesor, grupos, fecha, hoy FROM actividades WHERE id='$id'");
   $row = mysqli_fetch_assoc($result);
@@ -168,17 +111,6 @@ La Actividad ha sido registrada en el Calendario del Centro.
   
   $query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `fechareg`, `profesorreg`) VALUES (2, '$nombre', '$descripcion', '".$fechaini."', '08:15', '".$fechaini."', '09:15', '$departamento', '$profesores', '$unidades', '".$fechareg."', 'admin')";
   mysqli_query($db_con, $query) or die(mysqli_error($db_con));
-  
-  echo '
-<div><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-La Actividad se ha actualizado para esa fecha del Calendario.
-			</div></div>'; 
-  }  
- 
-  if($confirmado == '1')
-  {
-  mysqli_query($db_con, "UPDATE  actividades SET  confirmado =  '1' WHERE id = '$id'");
    echo '
 <div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -314,10 +246,7 @@ $datos[2]= str_replace("\\","",$datos[2]);
 			$cal_idact = $datos[0].";";
 			if(ereg($cal_idact, $br)) {$si = "1";} else{$si = "0";}
 			$n_idact = strstr($br,$cal_idact);
-			// No hay nada registrado para ese día en el Calendario
-			if(strlen($id[0]) == 0){echo " <a href='indexextra.php?id=$datos[0]&calendario=1' data-bs='tooltip' title='Añadir al calendario'><span class='fa fa-calendar fa-fw fa-lg'></span></a>";}
-			// hay datos en el Calendario pero la actividad no ha sido registrada.	
-			if(strlen($id[0]) > 0 and ($si == "0")){echo " <a href='indexextra.php?id=$datos[0]&act_calendario=1' data-bs='tooltip' title='Actualizar calendario'><span class='fa fa-refresh fa-fw fa-lg'></span></a>";}?>
+			?>
 			
 			<?
 			// echo  $_SESSION['dpt']." == ".$datos[4];
