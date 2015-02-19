@@ -109,6 +109,20 @@ $html = "1";
 $querycal = "insert into cal (eventdate,title,event,html,idact) values ('".$eventdate."','".$title."','".$event."','".$html."','".$idact."')";
 mysqli_query($db_con, $querycal);
 //echo $querycal;
+
+$result = mysqli_query($db_con, "SELECT actividad, CONCAT(descripcion,' ',justificacion) AS descripcion, departamento, profesor, grupos, fecha, hoy FROM actividades WHERE id='$id'");
+$row = mysqli_fetch_assoc($result);
+$fechaini = $row['fecha'];
+$nombre = mysqli_real_escape_string($db_con, $row['actividad']);
+$descripcion = mysqli_real_escape_string($db_con, $row['descripcion']);
+$departamento = mysqli_real_escape_string($db_con, $row['departamento']);
+$profesores = mysqli_real_escape_string($db_con, $row['profesor']);
+$unidades = mysqli_real_escape_string($db_con, $row['grupos']);
+$fechareg = mysqli_real_escape_string($db_con, $row['hoy']);
+
+$query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `fechareg`, `profesorreg`) VALUES (2, '$nombre', '$descripcion', '".$fechaini."', '08:15', '".$fechaini."', '09:15', '$departamento', '$profesores', '$unidades', '".$fechareg."', 'admin')";
+mysqli_query($db_con, $query) or die(mysqli_error($db_con));
+
 echo '
 <div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -141,6 +155,20 @@ La Actividad ha sido registrada en el Calendario del Centro.
   $actualiza_datos0 = "update cal set title = '$titulo', event = '$texto', idact = '$id_idact' where eventdate = '$eventdate'";
   //echo $actualiza_datos0;
   mysqli_query($db_con, $actualiza_datos0);
+  
+  $result = mysqli_query($db_con, "SELECT actividad, CONCAT(descripcion,' ',justificacion) AS descripcion, departamento, profesor, grupos, fecha, hoy FROM actividades WHERE id='$id'");
+  $row = mysqli_fetch_assoc($result);
+  $fechaini = $row['fecha'];
+  $nombre = mysqli_real_escape_string($db_con, $row['actividad']);
+  $descripcion = mysqli_real_escape_string($db_con, $row['descripcion']);
+  $departamento = mysqli_real_escape_string($db_con, $row['departamento']);
+  $profesores = mysqli_real_escape_string($db_con, $row['profesor']);
+  $unidades = mysqli_real_escape_string($db_con, $row['grupos']);
+  $fechareg = mysqli_real_escape_string($db_con, $row['hoy']);
+  
+  $query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `fechareg`, `profesorreg`) VALUES (2, '$nombre', '$descripcion', '".$fechaini."', '08:15', '".$fechaini."', '09:15', '$departamento', '$profesores', '$unidades', '".$fechareg."', 'admin')";
+  mysqli_query($db_con, $query) or die(mysqli_error($db_con));
+  
   echo '
 <div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
