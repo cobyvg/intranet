@@ -155,5 +155,5 @@ while ($row_profesor = mysqli_fetch_assoc($result_profesor)) {
 }
 mysqli_free_result($result_profesor);
 
-echo '<meta http-equiv="Refresh" content="0;url=index.php">';
+echo '<meta http-equiv="Refresh" content="0;url=../index.php">';
 ?>

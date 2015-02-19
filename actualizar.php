@@ -7,6 +7,27 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actualizacion` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
 /*
+	@descripcion: Calendarios
+	@fecha: 19 de febrero de 2015
+*/
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla de calendarios'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla de calendarios', NOW())");	
+	
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/calendario/install.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/calendario/install.php');
+		exit();
+	}
+}
+
+
+/*
 	@descripcion: Actualizaci�n de la tabla de noticias
 	@fecha: 5 de agosto de 2013
 */
