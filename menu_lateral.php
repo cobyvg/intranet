@@ -325,7 +325,6 @@ $menu = array(
 			array(
 				'href'   => '#',
 				'titulo' => 'Calendario',
-				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
 						'href'   => 'calendario/index.php',
@@ -334,6 +333,7 @@ $menu = array(
 					array(
 						'href'   => 'calendario/index_unidades.php',
 						'titulo' => 'Calendario de unidades',
+						'ncargos' => array('6'),
 					),
 				),
 			),
