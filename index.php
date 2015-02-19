@@ -148,7 +148,10 @@ if (stristr ( $carg, '2' ) == TRUE) {
 				<br><br>
 				
 				<div id="bs-tour-calendario">
-				<?php include("admin/calendario/index.php"); ?>
+				<?php
+				define('MOD_CALENDARIO', 1);
+				include("calendario/widget_calendario.php");
+				?>
 				</div>
 				
 				<br><br>

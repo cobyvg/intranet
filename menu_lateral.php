@@ -322,7 +322,21 @@ $menu = array(
 					),
 				),
 			),
-			
+			array(
+				'href'   => '#',
+				'titulo' => 'Calendario',
+				'ncargos' => array('6', '7'),
+				'items' => array(
+					array(
+						'href'   => 'calendario/index.php',
+						'titulo' => 'Ver calendario',
+					),
+					array(
+						'href'   => 'calendario/index_unidades.php',
+						'titulo' => 'Calendario de unidades',
+					),
+				),
+			),
 			array(
 				'href'   => '#',
 				'titulo' => 'Informes',
@@ -408,21 +422,6 @@ $menu = array(
 						'titulo' => 'Mensajes SMS',
 						'cargos'  => array('1'),
 						'modulo' => $mod_sms,
-					),
-				),
-			),
-			array(
-				'href'   => '#',
-				'titulo' => 'Actividades evaluables',
-				'ncargos' => array('6', '7'),
-				'items' => array(
-					array(
-						'href'   => 'admin/calendario/diario/index.php',
-						'titulo' => 'Nueva actividad',
-					),
-					array(
-						'href'   => 'admin/calendario/diario/index_cal.php',
-						'titulo' => 'Calendario de actividades por grupo',
 					),
 				),
 			),

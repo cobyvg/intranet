@@ -95,7 +95,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        		
 		        		<div class="form-group">
 		        			<label for="cmp_descripcion">Descripción</label>
-		        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion">'.$eventos1['descripcion'].'</textarea>
+		        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.$eventos1['descripcion'].'</textarea>
 		        		</div>
 		        		
 		        		<div class="form-group">
@@ -157,6 +157,24 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        					$i++;
 		        			endwhile;
 		        			echo'</select>
+		        			</div>';
+		        			
+		        			if ($eventos1['unidades'] != "") {
+		        				$eventos1['unidades'] = str_replace(';', ',', $eventos1['unidades']);
+		        			}
+		        			
+		        			$result_cuaderno = mysqli_query($db_con, "SELECT id FROM notas_cuaderno WHERE nombre='".$eventos1['nombre']."' AND fecha='".substr($eventos1['fechareg'], 0, 10)."' AND curso='".$eventos1['unidades']."'");
+		        			
+		        			echo '<div class="form-group">
+		        				<div class="checkbox">
+		        					<label for="cmp_cuaderno">
+		        						<input type="checkbox" id="cmp_cuaderno" name="cmp_cuaderno" value="1"';
+		        			if (mysqli_num_rows($result_cuaderno)) echo ' checked disabled'; 
+		        			echo '> Crear columna en mi cuaderno de notas<br>
+		        						<small class="text-muted">Se creará una columna de tipo numérico y no visible para las familias. Puede modificar estos valores en el cuaderno de notas.</small><br>
+		        						<small class="text-danger">Importante: Si la asignatura tiene desdoble de unidades, debe marcar todas las unidades afectadas. Deben ser del mismo curso y tener el mismo nombre de asignatura.</small>
+		        					</label>
+		        				</div>
 		        			</div>';
 		        		endif;
 		        		echo '</div>
@@ -273,7 +291,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        		
 			        		<div class="form-group">
 			        			<label for="cmp_descripcion">Descripción</label>
-			        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion">'.$eventos1['descripcion'].'</textarea>
+			        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.$eventos1['descripcion'].'</textarea>
 			        		</div>
 			        		
 			        		<div class="form-group">

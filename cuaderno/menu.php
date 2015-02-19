@@ -7,7 +7,6 @@ $activo5="";
 if (strstr($_SERVER['REQUEST_URI'],'cuaderno.php')==TRUE) {$activo1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'faltas')==TRUE) {$activo2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'calendario/')==TRUE){ $activo3 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'sin colocar')==TRUE){ $activo4 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'horario.php')==TRUE){ $activo5 = ' class="active" ';}
 
 if (isset($_GET['profesor'])) {
@@ -156,9 +155,7 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 	
 	<li <? echo $activo2;?>><a href="//<?php echo $dominio; ?>/intranet/faltas/index.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Faltas de asistencia</a></li>
 
-	<li <? echo $activo3;?>><a href="//<?php echo $dominio; ?>/intranet/admin/calendario/diario/index_cal.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Actividades del Grupo</a></li>
-
-	<li <? echo $activo4;?>><a data-bs='tooltip' title='Trabajando en el asunto...' href="#?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Diario del Grupo</a></li>
+	<li <? echo $activo3;?>><a href="//<?php echo $dominio; ?>/intranet/calendario/index_unidades.php?unidad=<?php echo $curso; ?>&menu_cuaderno=1">Actividades de la unidad</a></li>
 
 </ul>
 </div>

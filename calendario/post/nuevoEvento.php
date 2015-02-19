@@ -51,6 +51,7 @@ $descripcion_evento = mysqli_real_escape_string($db_con, $_POST['cmp_descripcion
 $lugar_evento = mysqli_real_escape_string($db_con, $_POST['cmp_lugar']);
 $calendario_evento = mysqli_real_escape_string($db_con, $_POST['cmp_calendario']);
 $unidad_asignatura_evento = $_POST['cmp_unidad_asignatura'];
+$cuaderno_evento = $_POST['cmp_cuaderno'];
 $departamento_evento = mysqli_real_escape_string($db_con, $_POST['cmp_departamento']);
 $profesores_evento = $_POST['cmp_profesores'];
 $unidades_evento = $_POST['cmp_unidades'];
@@ -121,6 +122,9 @@ elseif ($calendario_evento != 2 && $calendario_evento != 1) {
 		$string_unidad = trim($string_unidad);
 		$string_asignatura = trim($string_asignatura);
 	}
+	
+	if ($cuaderno_evento == '') $cuaderno_evento = 0;
+	else $cuaderno_evento = 1;
 }
 
 
@@ -138,6 +142,39 @@ else {
 		exit();
 	}
 	else {
+		
+		// Si se trata de una actividad extraescolar, lo registramos en la tabla de actividades extraescolares
+		if ($calendario_evento == 2) {
+			mysqli_query($db_con, "INSERT INTO actividades (grupos, actividad, descripcion, departamento, profesor, horario, fecha, hoy, confirmado, justificacion) VALUES ('".$string_unidad."','".$nombre_evento."','".$descripcion_evento."','".$string_departamento."','".$string_profesores."','".$horaini_evento." - ".$horafin_evento."','".$fechaini_evento_sql."','".$fechareg_evento."','1','')");
+		}
+		
+		// Comprobamos si el profesor ha marcado la opción de crear columna en el cuaderno
+		if ($calendario_evento != 1 && $calendario_evento != 2 && $cuaderno_evento == 1) {
+		
+			$string_unidades = "";
+			
+			foreach ($unidad_asignatura_evento as $unidad) {
+				$exp_unidad = explode(' => ', $unidad);
+				$string_unidades .= mysqli_real_escape_string($db_con, $exp_unidad[0]).', ';
+				
+				// Las siguiente variables sirven para obtener el código de la asignatura
+				$unidad = mysqli_real_escape_string($db_con, $exp_unidad[0]);
+				$nomasignatura = mysqli_real_escape_string($db_con, $exp_unidad[1]); 
+			}
+			
+			$string_unidades = trim($string_unidades);
+			
+			$result_asignatura = mysqli_query($db_con, "SELECT DISTINCT c_asig FROM horw WHERE prof='".$_SESSION['profi']."' AND a_grupo='$unidad' AND asig='$nomasignatura'");
+			$codasignatura = mysqli_fetch_array($result_asignatura);
+			$codigo = $codasignatura[0];
+			
+			$result_columnas = mysqli_query($db_con, "SELECT MAX(orden) FROM notas_cuaderno WHERE profesor = '".$_SESSION['profi']."' AND curso='$string_unidades' AND asignatura='$codigo'");
+			$numcolumna = mysqli_fetch_array($result_columnas);
+			$orden = $numcolumna[0] + 1;
+			
+			mysqli_query($db_con, "INSERT INTO notas_cuaderno (profesor, fecha, nombre, texto , asignatura, curso, orden, visible_nota, Tipo, color) VALUES ('".$_SESSION['profi']."', '$fechareg_evento', '$nombre_evento', '$descripcion_evento', '$codigo', '$string_unidades', '$orden', '0', 'Números', '#FFFFFF')") or die (mysqli_error($db_con));
+		}
+		
 		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'');
 		exit();
 	}

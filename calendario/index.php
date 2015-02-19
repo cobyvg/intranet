@@ -130,10 +130,10 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 				// Consultamos los calendarios privados del usuario
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes'");
+					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes'");
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
-						if ($eventos['fechaini'] == $anio.'-'.$mes.'-'.$dia0) {
+						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
 							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcal_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'">'.$eventos['nombre'].'</a>';
 						}
 					}
@@ -145,7 +145,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."'");
+					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes'");
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
@@ -308,8 +308,6 @@ $PLUGIN_COLORPICKER = 1;
 			
 				<!-- BUTTONS -->
 				<div class="hidden-print">
-					<a href="install.php" class="btn btn-danger">Migrar</a>
-					
 					<div class="btn-group">
 					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    Calendarios <span class="caret"></span>
@@ -451,6 +449,11 @@ $PLUGIN_COLORPICKER = 1;
 			    e.stopPropagation();
 			});
 			
+			// ABRIR MODALES
+			<?php if(isset($_GET['viewModal'])): ?>
+			$('#modalEvento<?php echo $_GET['viewModal']; ?>').modal('show');
+			<?php endif; ?>
+			
 			
 			// MODAL NUEVO CALENDARIO
 			$('#colorpicker1').colorpicker();
@@ -510,7 +513,7 @@ $PLUGIN_COLORPICKER = 1;
 			$result_calendarios = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 			while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 				
-				$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."'");
+				$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes'");
 				
 				while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 					echo '$("#cmp_fecha_diacomp_'.$eventos['id'].'").click(function() {  

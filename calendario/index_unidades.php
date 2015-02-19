@@ -143,10 +143,10 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 				// Consultamos los calendarios privados
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=0");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' AND unidades LIKE '%$unidad%'");
+					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' AND unidades LIKE '%$unidad%'");
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
-						if ($eventos['fechaini'] == $anio.'-'.$mes.'-'.$dia0) {
+						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
 							echo '<div class="label" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'">'.$eventos['nombre'].'</div>';
 						}
 					}
@@ -158,7 +158,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND unidades LIKE '%$unidad%'");
+					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' AND unidades LIKE '%$unidad%'");
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
@@ -196,8 +196,13 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 	echo '</div>';
 
 }
+
+include("../menu.php");
+
+if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) {
+	include('../cuaderno/menu.php');
+}
 ?>
-<?php include("../menu.php"); ?>
 
 	<div class="container">
 		
@@ -269,9 +274,9 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 						<a href="#" onclick="javascrip:print()" class="btn btn-default"><span class="fa fa-print fa-fw"></span></a>
 						
 						<div class="btn-group">
-						  <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>&unidad=<?php echo $unidad; ?>" class="btn btn-default">&laquo;</a>
-						  <a href="?mes=<?php echo date('n'); ?>&anio=<?php echo date('Y'); ?>&unidad=<?php echo $unidad; ?>" class="btn btn-default">Hoy</a>
-						  <a href="?mes=<?php echo $mes_sig; ?>&anio=<?php echo $anio_sig; ?>&unidad=<?php echo $unidad; ?>" class="btn btn-default">&raquo;</a>
+						  <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>&unidad=<?php echo $unidad; ?><?php if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) echo '&menu_cuaderno=1'; ?>" class="btn btn-default">&laquo;</a>
+						  <a href="?mes=<?php echo date('n'); ?>&anio=<?php echo date('Y'); ?>&unidad=<?php echo $unidad; ?><?php if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) echo '&menu_cuaderno=1'; ?>" class="btn btn-default">Hoy</a>
+						  <a href="?mes=<?php echo $mes_sig; ?>&anio=<?php echo $anio_sig; ?>&unidad=<?php echo $unidad; ?><?php if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) echo '&menu_cuaderno=1'; ?>" class="btn btn-default">&raquo;</a>
 						</div>
 					</div>
 				</div>
