@@ -35,6 +35,7 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
+$PLUGIN_COLORPICKER = 1;
 
 $pr = $_SESSION['profi'];
  include("../menu.php");
@@ -122,9 +123,9 @@ $tipo = $ident0[5];
 		</div>
 		<div class="row">
 		<div class="col-sm-5">
-		<div class="form-group">
-		<label for="color_nombre">Color de la columna</label>
-		<input type="color" id="color_nombre" name="color" value="<?if(strlen($color)>0){echo $color;}else{ echo "#FFFFFF";}?>" class="form-control" />
+		<div class="input-group" id="colorpicker1">
+			<input type="text" class="form-control" id="color_nombre" name="color" value="<?if(strlen($color)>0){echo $color;}else{ echo "#FFFFFF";}?>">
+			<span class="input-group-addon"><i></i></span>
 		</div>
 		</div>
 		</div>
@@ -140,11 +141,14 @@ $tipo = $ident0[5];
 	</div>
 </form>
 
+</div>
 <?php include('../pie.php'); ?>
 
   <script type="text/javascript">
   document.forms[0].elements['nombre'].focus(); 
+  
+  $('#colorpicker1').colorpicker();
   </script>
-  </div>
+
 </body>
 </html>

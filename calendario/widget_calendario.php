@@ -130,7 +130,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 				while ($festivo = mysqli_fetch_assoc($result)) {
 					
 					if ($festivo['fecha'] == $anio.'-'.$mes.'-'.$dia0) {
-						echo '<small style="margin-right: 2px;"><span class="fa fa-circle" style="color: #e14939;" data-bs="tooltip" title="Festivo - '.$festivo['nombre'].'"></span></small>';
+						echo '<small style="margin-right: 2px;"><span class="fa fa-circle" style="color: #e14939;" data-bs="tooltip" title="Día festivo - '.$festivo['nombre'].'"></span></small>';
 					}
 				}
 				mysqli_free_result($result);
@@ -172,7 +172,8 @@ if (mysqli_num_rows($result_calendarios)) {
 			while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 				if ($eventos['fechaini'] == $eventos['fechafin'] && $eventos['horaini'] != $eventos['horafin']) $hora_evento = substr($eventos['horaini'], 0, -3).' - '.substr($eventos['horafin'], 0, -3);
 				elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') >= $eventos['fechaini'] && date('Y-m-d') < $eventos['fechafin']) $hora_evento = "Todo el día";
-				elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) echo $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
+				elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
+				else $hora_evento = "Todo el día";
 				
 				echo '<a href="//'.$dominio.'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].'"></span>&nbsp;'.$eventos['nombre'].'</a>';
 				$profesor_libre=0;
@@ -198,7 +199,8 @@ while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 		
 			if ($eventos['fechaini'] == $eventos['fechafin'] && $eventos['horaini'] != $eventos['horafin']) $hora_evento = substr($eventos['horaini'], 0, -3).' - '.substr($eventos['horafin'], 0, -3);
 			elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') >= $eventos['fechaini'] && date('Y-m-d') < $eventos['fechafin']) $hora_evento = "Todo el día";
-			elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) echo $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
+			elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
+			else $hora_evento = "Todo el día";
 			
 			echo '<a href="//'.$dominio.'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].'"></span>&nbsp;'.$eventos['nombre'].'</a>';
 			$profesor_libre=0;
@@ -215,7 +217,7 @@ mysqli_free_result($result_calendarios);
 $result = mysqli_query($db_con, "SELECT fecha, nombre FROM festivos AND YEAR(fecha)='$anio_actual' AND MONTH(fecha)='$mes_actual' AND DAY(fecha)='$dia_actual'");
 while ($festivo = mysqli_fetch_assoc($result)) {
 	if (mysqli_num_rows($result_eventos)) {
-		echo '<a href="#" class="list-group-item"><span class="pull-right badge">Todo el día</span><span class="fa fa-circle" style="color: #e14939;" data-bs="tooltip" title="'.$festivo['nombre'].'"></span></a>';
+		echo '<a href="#" class="list-group-item"><span class="pull-right badge">Todo el día</span><span class="fa fa-circle" style="color: #e14939;" data-bs="tooltip" title="Día festivo"></span>&nbsp;'.$festivo['nombre'].'</a>';
 		$profesor_libre=0;
 	}
 	else {
