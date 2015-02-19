@@ -175,6 +175,7 @@ if (mysqli_num_rows($result_calendarios)) {
 				elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) echo $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
 				
 				echo '<a href="//'.$dominio.'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].'"></span>&nbsp;'.$eventos['nombre'].'</a>';
+				$profesor_libre=0;
 			}
 			mysqli_free_result($result_eventos);
 		}
@@ -200,6 +201,7 @@ while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 			elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) echo $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
 			
 			echo '<a href="//'.$dominio.'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].'"></span>&nbsp;'.$eventos['nombre'].'</a>';
+			$profesor_libre=0;
 		}
 		else {
 			$profesor_libre=1;
@@ -214,6 +216,7 @@ $result = mysqli_query($db_con, "SELECT fecha, nombre FROM festivos AND YEAR(fec
 while ($festivo = mysqli_fetch_assoc($result)) {
 	if (mysqli_num_rows($result_eventos)) {
 		echo '<a href="#" class="list-group-item"><span class="pull-right badge">Todo el día</span><span class="fa fa-circle" style="color: #e14939;" data-bs="tooltip" title="'.$festivo['nombre'].'"></span></a>';
+		$profesor_libre=0;
 	}
 	else {
 		$profesor_libre=1;
@@ -221,6 +224,7 @@ while ($festivo = mysqli_fetch_assoc($result)) {
 }
 mysqli_free_result($result);
 unset($festivo);
+
 
 if ($profesor_libre) {
 	echo '<a href="//'.$dominio.'/intranet/calendario/index.php" class="list-group-item lead text-center">
