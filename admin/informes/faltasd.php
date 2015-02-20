@@ -25,7 +25,7 @@ function tipo_falta($falta) {
 			<tr>
 				<th>Fecha</th>
 				<?php for ($i = 1; $i < 7; $i++): ?>
-				<th><?php echo $i; ?>ª hora</th>
+				<th><?php echo $i; ?>Âª hora</th>
 				<?php endfor; ?>
 			</tr>
 		</thead>
@@ -34,7 +34,8 @@ function tipo_falta($falta) {
 			<tr>
 				<th><?php echo $row['fecha']; ?></th>
 				<?php for ($i = 1; $i < 7; $i++): ?>
-				<?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre, falta FROM FALTAS JOIN asignaturas ON FALTAS.codasi = asignaturas.codigo  WHERE claveal = '$claveal' AND fecha = '".$row['fecha']."' AND hora = '$i'"); ?>
+				<?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre, falta FROM FALTAS JOIN asignaturas ON FALTAS.codasi = asignaturas.codigo  WHERE claveal = '$claveal' 
+				AND fecha = '".$row['fecha']."' AND hora = '$i' and abrev not like '%\_%'"); ?>
 				<?php $row_falta = mysqli_fetch_array($result_falta); ?>
 				<td>
 					<abbr data-bs="tooltip" title="<?php echo $row_falta['nombre']; ?>">
