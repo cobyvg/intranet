@@ -64,20 +64,20 @@ include("../../menu.php");
 								<th>&nbsp;</th>
 								<th>Lunes</th>
 								<th>Martes</th>
-								<th>Miércoles</th>
+								<th>MiÃ©rcoles</th>
 								<th>Jueves</th>
 								<th>Viernes</th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php $horas = array(1 => "1ª", 2 => "2ª", 3 => "3ª", 4 => "4ª", 5 => "5ª", 6 => "6ª"); ?>
+							<?php $horas = array(1 => "1Âª", 2 => "2Âª", 3 => "3Âª", 4 => "4Âª", 5 => "5Âª", 6 => "6Âª"); ?>
 							<?php foreach($horas as $hora => $desc): ?>
 							<tr>
 								<th><?php echo $desc; ?></th>
 								<?php for($i = 1; $i < 6; $i++): ?>
 								<td width="20%">
 									<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, prof,a_grupo FROM horw WHERE n_aula='$aula' AND dia='$i' AND hora='$hora'"); ?>
-									<?php $grupo="";?>
+									<?php $grupo=""; $asignatura=""; $profesor="";?>
 									<?php while($row = mysqli_fetch_array($result)): ?>
 									<?php $grupo .= "<abbr class='text-warning'>".$row['a_grupo']."<abbr>&nbsp;&nbsp;"; ?>
 									<?php $asignatura = $row['asig']; ?>
