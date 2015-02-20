@@ -67,7 +67,7 @@ include("menu.php");
 					
 					<br>
 					
-					<?php echo stripslashes($row['content']); ?>
+					<?php echo stripslashes(html_entity_decode($row['content'])); ?>
 					
 					<br>
 					<br>
