@@ -270,6 +270,28 @@ else{
 Parece que te está olvidando de enviar el archivo con los datos de los Profesores. Asegúrate de enviar el archivo descargado desde Séneca.
 </div></div><br />';
 }
+
+// CALENDARIO
+$result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos");
+while ($row = mysqli_fetch_assoc($result)) {
+	$exp_nombre = explode(',', $row['nombre']);
+	$nombre = trim($exp_nombre[1]);
+	if ($nombre == '') {
+		$exp_nombre = explode(' ', $row['nombre']);
+		$nombre = trim($exp_nombre[0]);
+	}
+	$idea = $row['idea'];
+	
+	
+	$calendarioExiste = mysqli_query($db_con, "SELECT id FROM calendario_categorias WHERE idea='$idea'");
+	if (! mysqli_num_rows($calendarioExiste)) {
+		$query = "INSERT INTO `calendario_categorias` (`nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES ('$nombre', '".date('Y-m-d')."', '$idea', '#3498db', 0)";
+		mysqli_query($db_con, $query);
+	}
+	mysqli_free_result($calendarioExiste);
+}
+mysqli_free_result($result);
+
 ?>
 <div align="center">
 <input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" class="btn btn-inverse" />

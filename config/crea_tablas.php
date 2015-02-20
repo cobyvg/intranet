@@ -157,19 +157,47 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `ausencias` (
 // ////////////////////////////////////////////////////////
 
 //
-// Estructura de tabla para la tabla `cal`
+// Estructura de tabla para la tabla `calendario_categorias`
 //
 
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `cal` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `eventdate` date NOT NULL DEFAULT '0000-00-00',
-  `html` tinyint(1) NOT NULL DEFAULT '0',
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `event` text NOT NULL,
-  `idact` varchar(32) DEFAULT NULL,
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `eventdate` (`eventdate`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario_categorias` (
+  `id` int(11) NOT NULL auto_increment,
+  `nombre` varchar(30) collate latin1_spanish_ci NOT NULL,
+  `fecha` date NOT NULL,
+  `profesor` varchar(80) collate latin1_spanish_ci NOT NULL,
+  `color` char(7) collate latin1_spanish_ci NOT NULL,
+  `espublico` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
+
+mysqli_query($db_con, "INSERT INTO `calendario_categorias` (`id`, `nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES
+(1, 'Calendario del centro', '".date('Y-m-d')."', 'admin', '#f29b12', 1),
+(2, 'Actividades extraescolares', '".date('Y-m-d')."', 'admin', '#18bc9c', 1);");
+
+// ////////////////////////////////////////////////////////
+
+//
+// Estructura de tabla para la tabla `calendario`
+//
+
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario` (
+  `id` int(11) NOT NULL auto_increment,
+  `categoria` int(11) NOT NULL,
+  `nombre` varchar(120) collate latin1_spanish_ci NOT NULL,
+  `descripcion` longtext collate latin1_spanish_ci NOT NULL,
+  `fechaini` date default NULL,
+  `horaini` time default NULL,
+  `fechafin` date default NULL,
+  `horafin` time default NULL,
+  `lugar` varchar(180) collate latin1_spanish_ci NOT NULL,
+  `departamento` text collate latin1_spanish_ci default NULL,
+  `profesores` text collate latin1_spanish_ci default NULL,
+  `unidades` text collate latin1_spanish_ci default NULL,
+  `asignaturas` text collate latin1_spanish_ci default NULL,
+  `fechareg` datetime NOT NULL,
+  `profesorreg` varchar(60) collate latin1_spanish_ci NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
 
 // ////////////////////////////////////////////////////////
 
@@ -297,24 +325,6 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `departamentos` (
   `idea` varchar(12) NOT NULL DEFAULT '',
   KEY `NOMBRE` (`NOMBRE`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
-
-//
-// Estructura de tabla para la tabla `diario`
-//
-
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `diario` (
-  `id` int(11) NOT NULL auto_increment,
-  `fecha` date NOT NULL,
-  `grupo` varchar(72) collate latin1_spanish_ci NOT NULL,
-  `materia` varchar(128) collate latin1_spanish_ci NOT NULL,
-  `tipo` varchar(24) collate latin1_spanish_ci NOT NULL,
-  `titulo` text collate latin1_spanish_ci NOT NULL,
-  `observaciones` text collate latin1_spanish_ci NOT NULL,
-  `calendario` int(1) default NULL,
-  `profesor` varchar(64) collate latin1_spanish_ci NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
-
 
 // Usuario admin y conntraseña
 $ya_adm = mysqli_query($db_con, "select * from c_profes, departamentos where departamentos.idea = c_profes.idea and (c_profes.PROFESOR='admin' or departamentos.cargo='%1%')");
@@ -1339,7 +1349,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `usuarioprofesor` (
 
 // Creamos Base de dtos principal
 
-mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS reservas");
+mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS `$db_reservas`");
 mysqli_select_db ($db_con, $db_reservas);
 
 for($ci=1;$ci<$num_aula+1;$ci++){
