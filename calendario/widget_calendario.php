@@ -73,7 +73,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 			
 			if ($i > 5) {
 				if (isset($dias[$i]) && ($mes == date('m')) && ($dias[$i] == date('d'))) {
-					echo '			<td class="text-muted today" width="14.28%">';
+					echo '			<td class="text-muted" style="background-color: #ecf0f1; font-weight: bold;" width="14.28%">';
 				}
 				else {
 					echo '			<td class="text-muted" width="14.28%">';

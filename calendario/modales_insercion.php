@@ -1,7 +1,7 @@
 <?php if (! defined('MOD_CALENDARIO')) die ('<h3>FORBIDDEN</h3>'); ?>
 
 <!-- MODAL NUEVO CALENDARIO -->
-<form id="formNuevoCalendario" method="post" action="post/nuevoCalendario.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>">
+<form id="formNuevoCalendario" method="post" action="post/nuevoCalendario.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>" data-toggle="validator">
 	<div id="modalNuevoCalendario" class="modal fade">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -50,7 +50,7 @@
 
 
 <!-- MODAL NUEVO EVENTO -->
-<form id="formNuevoEvento" method="post" action="post/nuevoEvento.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>">
+<form id="formNuevoEvento" method="post" action="post/nuevoEvento.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>" data-toggle="validator">
 	<div id="modalNuevoEvento" class="modal fade">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">

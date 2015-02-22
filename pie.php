@@ -25,6 +25,7 @@
     
     <!-- PLUGINS JS -->
     <script src="//<? echo $dominio;?>/intranet/js/bootbox.min.js"></script>
+    <script src="//<? echo $dominio;?>/intranet/js/validator/validator.min.js"></script>
     <script src="//<? echo $dominio;?>/intranet/js/summernote/summernote.min.js"></script>
     <script src="//<? echo $dominio;?>/intranet/js/summernote/summernote-es-ES.js"></script>
     <script src="//<? echo $dominio;?>/intranet/js/datetimepicker/moment.js"></script>
