@@ -15,7 +15,7 @@
         		
         		<div class="form-group">
         			<label for="cmp_calendario_nombre" class="visible-xs">Nombre</label>
-        			<input type="text" class="form-control" id="cmp_calendario_nombre" name="cmp_calendario_nombre" placeholder="Nombre del calendario" required autofocus>
+        			<input type="text" class="form-control" id="cmp_calendario_nombre" name="cmp_calendario_nombre" placeholder="Nombre del calendario" maxlength="30" required autofocus>
         		</div>
         		
         		<div class="form-group" id="colorpicker1">
@@ -64,7 +64,7 @@
         		
         		<div class="form-group">
         			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" required autofocus>
+        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" maxlength="120" required autofocus>
         		</div>
         		
         		

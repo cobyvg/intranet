@@ -31,7 +31,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        		
 		        		<div class="form-group">
 		        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-		        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.$eventos1['nombre'].'" autofocus>
+		        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.$eventos1['nombre'].'" maxlength="120" autofocus required>
 		        		</div>
 		        		
 		        		
@@ -227,7 +227,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        		
 			        		<div class="form-group">
 			        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-			        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.$eventos1['nombre'].'" autofocus>
+			        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.$eventos1['nombre'].'" maxlength="120" autofocus required>
 			        		</div>
 			        		
 			        		

@@ -193,6 +193,7 @@ $lista_errores = array(
 	'ErrorEventoNoExiste'     => 'El evento que intenta modificar no existe.',
 	'ErrorEventoExiste'       => 'Este evento ya existe.',
 	'ErrorEventoInsertar'     => 'Se ha producido un error al crear el evento.',
+	'ErrorEventoFecha'        => 'Se ha producido un error al crear el evento. La fecha de inicio no puede ser superior a la fecha final del evento.',
 	'ErrorEliminarEvento'     => 'Se ha producido un error al eliminar el evento.',
 	'ErrorEventoEdicion'      => 'Se ha producido un error al modificar el evento.'
 	);
