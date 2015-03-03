@@ -134,7 +134,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcal_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'">'.$eventos['nombre'].'</a>';
+							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcal_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr($eventos['descripcion'], 0, 500).'">'.$eventos['nombre'].'</a>';
 						}
 					}
 					mysqli_free_result($result_eventos);
@@ -149,7 +149,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'">'.$eventos['nombre'].'</a>';
+							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr($eventos['descripcion'], 0, 500).'">'.$eventos['nombre'].'</a>';
 						}
 					}
 					mysqli_free_result($result_eventos);
@@ -193,7 +193,7 @@ $lista_errores = array(
 	'ErrorEventoNoExiste'     => 'El evento que intenta modificar no existe.',
 	'ErrorEventoExiste'       => 'Este evento ya existe.',
 	'ErrorEventoInsertar'     => 'Se ha producido un error al crear el evento.',
-	'ErrorEventoFecha'        => 'Se ha producido un error al crear el evento. La fecha de inicio no puede ser superior a la fecha final del evento.',
+	'ErrorEventoFecha'        => 'Se ha producido un error al crear el evento. La fecha de inicio no puede ser posterior a la fecha final del evento.',
 	'ErrorEliminarEvento'     => 'Se ha producido un error al eliminar el evento.',
 	'ErrorEventoEdicion'      => 'Se ha producido un error al modificar el evento.'
 	);

@@ -47,6 +47,12 @@ $color_calendario = mysqli_real_escape_string($db_con, $_POST['cmp_calendario_co
 $profesor_calendario = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $publico_calendario = mysqli_real_escape_string($db_con, $_POST['cmp_calendario_publico']);
 
+
+// Eliminamos espacios innecesarios
+$nombre_calendario = trim($nombre_calendario);
+$color_calendario = trim($color_calendario);
+
+
 if ($publico_calendario == '') $publico_calendario = 0;
 else $publico_calendario = 1;
 

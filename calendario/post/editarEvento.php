@@ -58,6 +58,15 @@ $unidades_evento = $_POST['cmp_unidades'];
 $profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $fechareg_evento = date('Y-m-d');
 
+// Limpiamos espacios innecesarios
+$nombre_evento = trim($nombre_evento);
+$fechaini_evento = trim($fechaini_evento);
+$horaini_evento = trim($horaini_evento);
+$fechafin_evento = trim($fechafin_evento);
+$horafin_evento = trim($horafin_evento);
+$descripcion_evento = trim($descripcion_evento);
+$lugar_evento = trim($lugar_evento);
+
 
 if ($fechadiacomp_evento == '') $fechadiacomp_evento = 0;
 else $fechadiacomp_evento = 1;

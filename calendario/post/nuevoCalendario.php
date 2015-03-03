@@ -47,8 +47,15 @@ $fecha_calendario = date('Y-m-d');
 $profesor_calendario = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $publico_calendario = mysqli_real_escape_string($db_con, $_POST['cmp_calendario_publico']);
 
+
+// Eliminamos espacios innecesarios
+$nombre_calendario = trim($nombre_calendario);
+$color_calendario = trim($color_calendario);
+
+
 if ($publico_calendario == '') $publico_calendario = 0;
 else $publico_calendario = 1;
+
 
 // Comprobamos si existe el calendario
 $result = mysqli_query($db_con, "SELECT nombre FROM calendario_categorias WHERE nombre='$nombre_calendario' AND profesor='$profesor_calendario' LIMIT 1");
