@@ -79,7 +79,7 @@ include("menu.php");
 	    	
 	    	<br>
 	    	
-	      <?php echo stripslashes(html_entity_decode($mensaje['texto'])); ?>
+	      <?php echo stripslashes(html_entity_decode($mensaje['texto'], ENT_NOQUOTES, 'ISO-8859-1')); ?>
 	      
 				<br>
 				<br>
