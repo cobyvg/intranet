@@ -326,7 +326,7 @@ if($alumno){
 <h4>Historial de Intervenciones sobre <? echo $nombre." ".$apellidos." (".$unidad.")"; ?></h4><br>
 	<?
 
-	$result = mysqli_query($db_con, "select apellidos, nombre, fecha, accion, causa, observaciones, id from tutoria where claveal='$clave' and accion not like '%SMS' order by fecha");
+	$result = mysqli_query($db_con, "select apellidos, nombre, fecha, accion, causa, observaciones, id, orienta, jefatura from tutoria where claveal='$clave' order by fecha");
 	if ($row = mysqli_fetch_array($result))
 	{
 		echo '<table class="table table-striped">';
@@ -335,7 +335,8 @@ if($alumno){
 			$obs=substr($row[5],0,80)."...";
 			$dia3 = explode("-",$row[2]);
 			$fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
-			echo "<tr><td>$fecha3</td><td>$row[3]</td><td>$row[4]</a></td><td >
+			if($row[7]=="1"){$orienta = " class='info'";}elseif($row[8]=="1"){$orienta = " class='warning'";}else{$orienta="";}
+			echo "<tr $orienta><td>$fecha3</td><td>$row[3]</td><td>$row[4]</a></td><td >
 <a href='tutor.php?id=$row[6]'><i class='fa fa-search' title='Detalles'> </i> </a>
 <a href='tutor.php?id=$row[6]&eliminar=1'><i class='fa fa-trash-o </i> ' title='Borrar'></a></td></tr>";
 		}while($row = mysqli_fetch_array($result));

@@ -288,21 +288,28 @@ if ($profesor) {
 						</tr>
 					</thead>
 					<tbody>
-						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias ORDER BY fin DESC LIMIT 50"); ?>
+						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas, archivo FROM ausencias ORDER BY fin DESC LIMIT 50"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
 							<td nowrap><a href='index.php?pra=<?php echo $row['profesor']; ?>#history'><?php echo $row['profesor']; ?></a></td>
 							<td nowrap><?php echo $row['inicio']; ?></td>
 							<td nowrap><?php echo $row['fin']; ?></td>
 							<td><?php echo ($row['horas'] != '0') ? $row['horas'] : ''; ?></td>
-							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?></td>
-							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
-							<td>
+							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?>
+							<?
+							if(strlen($row['archivo'])>0){
+							echo "<a href='archivos/".$row['archivo']."'><i class='fa fa-paperclip pull-right'> </i>";
+							echo '</a>';
+							}?>
+							</td>
+							
+							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>							
+								<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
 									<span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Borrar"></span>
 								</a>
-							</td>
-							<?php endif; ?>
+								</td>
+							<?php endif; ?>							
 						</tr>
 						<?php endwhile; ?>
 					</tbody>
@@ -338,13 +345,19 @@ if ($profesor) {
 						</tr>
 					</thead>
 					<tbody>
-						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias WHERE profesor = '$profesor' ORDER BY fin ASC"); ?>
+						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas, archivo FROM ausencias WHERE profesor = '$profesor' ORDER BY fin ASC"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
 							<td nowrap><?php echo $row['inicio']; ?></td>
 							<td nowrap><?php echo $row['fin']; ?></td>
 							<td><?php echo ($row['horas'] != '0') ? $row['horas'] : ''; ?></td>
-							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?></td>
+							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?>
+							<?
+							if(strlen($row['archivo'])>0){
+							echo "<a href='archivos/".$row['archivo']."'><i class='fa fa-paperclip pull-right'> </i>";
+							echo '</a>';
+							}?>
+							</td>
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
@@ -387,13 +400,19 @@ if ($profesor) {
 						</tr>
 					</thead>
 					<tbody>
-						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas FROM ausencias WHERE profesor = '$pra' ORDER BY fin ASC"); ?>
+						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas, archivo FROM ausencias WHERE profesor = '$pra' ORDER BY fin ASC"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
 							<td nowrap><?php echo $row['inicio']; ?></td>
 							<td nowrap><?php echo $row['fin']; ?></td>
 							<td><?php echo ($row['horas'] != '0') ? $row['horas'] : ''; ?></td>
-							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?></td>
+							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?>
+							<?
+							if(strlen($row['archivo'])>0){
+							echo "<a href='archivos/".$row['archivo']."'><i class='fa fa-paperclip pull-right'> </i>";
+							echo '</a>';
+							}?>
+							</td>
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<td>
 								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>

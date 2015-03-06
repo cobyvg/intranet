@@ -232,7 +232,7 @@ if ($profesor_libre) {
 	echo '<a href="//'.$dominio.'/intranet/calendario/index.php" class="list-group-item lead text-center">
 	<span class="fa fa-coffee fa-2x"></span><br>
 	No hay eventos programados<br>
-	<small>Ver calendario</small></a>';
+	<small class="btn btn-default btn-sm">Ver calendario</small></a>';
 	echo '</div>';
 }
 else {

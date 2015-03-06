@@ -185,6 +185,10 @@ exit();
     {
     $AUXSQL .= " aula_conv > '0' OR";
     }
+		    if  ($tipo_fech == "Aula de Convivencia Jefatura")
+    {
+    $AUXSQL .= " (aula_conv > '0' and horas='123456') OR";
+    }
 		     if  ($tipo_fech == "Falta Grave")
     {
     $AUXSQL .= " grave = 'grave' OR";
