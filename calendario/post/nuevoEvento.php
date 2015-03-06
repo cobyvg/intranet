@@ -161,7 +161,7 @@ else {
 			
 			// Si se trata de una actividad extraescolar, lo registramos en la tabla de actividades extraescolares
 			if ($calendario_evento == 2) {
-				mysqli_query($db_con, "INSERT INTO actividades (grupos, actividad, descripcion, departamento, profesor, horario, fecha, hoy, confirmado, justificacion) VALUES ('".$string_unidad."','".$nombre_evento."','".$descripcion_evento."','".$string_departamento."','".$string_profesores."','".$horaini_evento." - ".$horafin_evento."','".$fechaini_evento_sql."','".$fechareg_evento."','1','')");
+				mysqli_query($db_con, "INSERT INTO actividades (grupos, actividad, descripcion, departamento, profesor, horario, fecha, hoy, confirmado, justificacion) VALUES ('".$string_unidad."','".$nombre_evento."','".$descripcion_evento."','".$string_departamento."','".$string_profesores."','".$horaini_evento." - ".$horafin_evento."','".$fechaini_evento_sql."','".$fechareg_evento."','0','')");
 			}
 			
 			// Comprobamos si el profesor ha marcado la opción de crear columna en el cuaderno
