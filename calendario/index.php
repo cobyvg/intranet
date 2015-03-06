@@ -195,7 +195,8 @@ $lista_errores = array(
 	'ErrorEventoInsertar'     => 'Se ha producido un error al crear el evento.',
 	'ErrorEventoFecha'        => 'Se ha producido un error al crear el evento. La fecha de inicio no puede ser posterior a la fecha final del evento.',
 	'ErrorEliminarEvento'     => 'Se ha producido un error al eliminar el evento.',
-	'ErrorEventoEdicion'      => 'Se ha producido un error al modificar el evento.'
+	'ErrorEventoEdicion'      => 'Se ha producido un error al modificar el evento.',
+	'EventoPendienteConfirmacion' => 'El evento ha sido registrado y está pendiente de aprobación por el Consejo Escolar. Debe esperar su aprobación para que aparezca oficialmente en el calendario.'
 	);
 
 function randomColor() {
@@ -385,9 +386,15 @@ $PLUGIN_COLORPICKER = 1;
 				
 				<br class="hidden-print">
 				
-				<?php if ($_GET['msg']): ?>
+				<?php if ($_GET['msg'] && $_GET['msg'] != "EventoPendienteConfirmacion"): ?>
 				<div class="alert alert-danger alert-block hidden-print">
 					<strong>Error: </strong> <?php echo $lista_errores[$_GET['msg']]; ?>
+				</div>
+				<?php endif; ?>
+				
+				<?php if ($_GET['msg'] && $_GET['msg'] == "EventoPendienteConfirmacion"): ?>
+				<div class="alert alert-info alert-block hidden-print">
+					<?php echo $lista_errores[$_GET['msg']]; ?>
 				</div>
 				<?php endif; ?>
 				
