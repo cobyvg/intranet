@@ -49,7 +49,7 @@ $curso_tutor=$query2[0];
 		<li><a href="consulta_absentismo.php">Alumnos absentistas</a></li>
 		<li class="divider"></li>
 		<li><a
-			href="../../upload/index.php?index=publico&direction=0&order=&directory=programaciones/Orientacion"
+			href="../../upload/index.php?index=publico&direction=0&order=&directory=departamentos/Orientacion Educativa"
 			target="_blank">Material de orientación</a></li>
 	</ul>
 	</li>

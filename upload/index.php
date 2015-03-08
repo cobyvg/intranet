@@ -50,7 +50,7 @@ $departamento1 = str_replace("í","i",$departamento1);
 $departamento1 = str_replace("ó","o",$departamento1);
 $departamento1 = str_replace("ú","u",$departamento1);
 $departamento1 = substr($departamento1,0,strlen($departamento1)-1);
-$departamento2 = "programaciones/$departamento1";
+$departamento2 = "departamentos/$departamento1";
 //echo $directory." => ". $_SESSION['ide'];
 ?>
 <?
