@@ -6,9 +6,10 @@ if (isset($_POST['codigo3'])) {$codigo3 = $_POST['codigo3'];}else{$codigo3="";}
 if (isset($_POST['control'])) {$control = $_POST['control'];}else{$control="";}
 	
 ?>
+<?  include("../conf_principal.php"); ?>
 <?  include("../cabecera.php"); ?>
 <?  include("../menu.php"); ?>
-<? include("../funciones.php"); ?>
+<?  //include("../funciones.php"); ?>
 <div class="span9">
 <div class="span8 offset2">
 <div align="center">

@@ -1,7 +1,7 @@
 <?
 session_start();
 	include("../conf_principal.php");
-	include("../funciones.php");	
+	//include("../funciones.php");	
 if (isset($_POST['clave'])) {
 
 // Se ha enviado la clave	
@@ -104,6 +104,7 @@ include "../cabecera.php";
 	$dni = $_SESSION['dni'];
 	$correo = $_SESSION['correo'];
 	//include 'datos.php';
+	include("../funciones.php");
 	registraPagina($_SERVER['REQUEST_URI'],$clave_al);
 	header('location:datos.php');
 	exit();
@@ -112,6 +113,7 @@ include "../cabecera.php";
 	// Alumno del Centro y contraseña mal escrita
 	elseif ($n_pass>0 and $alu00[0]!==$cod_sha){
 	session_start();
+	
 	include ("../cabecera.php");
 	include ("../menu.php");
 	echo '<div class="span9">
