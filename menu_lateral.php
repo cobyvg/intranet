@@ -38,6 +38,7 @@ switch (substr($codigo_postal_del_centro,0,2)) {
 //	de acceso que el item padre.
 //
 
+
 $menu = array(
 	array(
 		'menu_id' => 'direccion',
@@ -574,7 +575,7 @@ $menu = array(
 	      </a>
 	    </h4>
 	  </div>
-	  <div id="<?php echo $menu[$i]['menu_id']; ?>" class="panel-collapse collapse <?php echo ($nmenu == 1) ? 'in' : ''; ?>">
+	  <div id="<?php echo $menu[$i]['menu_id']; ?>" class="panel-collapse collapse <?php echo ($nmenu == 1 || ($menu[$i]['menu_id'] == 'departamento' && strstr($_SESSION['cargo'],'4')==TRUE)) ? 'in' : ''; ?>">
 	    <div class="panel-body">
 	    	<?php if(count($menu[$i]['items']) > 0): ?>
 				<ul class="nav nav-pills nav-stacked">
