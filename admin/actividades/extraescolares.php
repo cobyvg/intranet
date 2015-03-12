@@ -50,8 +50,8 @@ include("menu.php");
 <div class="col-sm-6 col-sm-offset-3">
     <div class="well well-lg">       
 <a href="javascript:seleccionar_todo()" class="btn btn-primary btn-sm">Marcar todos</a>
-<a href="javascript:deseleccionar_todo()" class="btn btn-primary btn-sm">Desmarcar todos</a>
-<br />
+<a href="javascript:deseleccionar_todo()" class="btn btn-primary btn-sm pull-right">Desmarcar todos</a>
+<br /><br />
     <FORM action="imprimir.php" method="POST" name="imprime">
 
   <?

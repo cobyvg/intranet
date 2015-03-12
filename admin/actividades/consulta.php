@@ -193,6 +193,9 @@ $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
 }
 elseif ($_SESSION['depto'] == $datos[4]){	 
 		if(stristr($_SESSION['cargo'],'4') == TRUE){
+			if ($datos[9]=="1") {
+			echo '<a href="extraescolares.php?id='.$datos[0].'" data-bs="tooltip" title="Seleccionar Alumnos e Imprimir autorizaciones"><span class="fa fa-print fa-fw fa-lg"></span></a>';		
+			}
 			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" data-bs="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
 			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" data-bs="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 	}

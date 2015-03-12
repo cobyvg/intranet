@@ -69,7 +69,10 @@ if(isset($_POST['submit'])) {
 	}
 	else {
 		if(isset($_GET['id'])) {
-			mysqli_query($db_con, "UPDATE listafechorias SET fechoria='$asunto', medidas='$medida', medidas2='$medida2', tipo='$gravedad' WHERE id='$id'") or die(mysqli_error($db_con));
+			$fechoria = mysqli_query($db_con, "select fechoria from listafechorias where id = '$id'");
+			$fechoria_act = mysqli_fetch_array($fechoria);
+			mysqli_query($db_con,"UPDATE Fechoria set asunto = '$asunto' where asunto = '$fechoria_act[0]'");
+			mysqli_query($db_con,"UPDATE listafechorias SET fechoria='$asunto', medidas='$medida', medidas2='$medida2', tipo='$gravedad' WHERE id='$id'") or die(mysqli_error($db_con));
 			header("Location:"."index.php?msg=update");
 		}
 		else {

@@ -64,11 +64,11 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `absentismo` (
 //
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actividadalumno` (
-  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `claveal` varchar(12) NOT NULL DEFAULT '',
-  `cod_actividad` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+  `id` int(10) NOT NULL auto_increment,
+  `claveal` varchar(12) collate latin1_spanish_ci NOT NULL default '',
+  `cod_actividad` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 

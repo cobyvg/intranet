@@ -185,4 +185,12 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Longtext en mensajes y noticias', NOW())");	
 }
 
+// Actualizamos estructura de la tabla donde se registran las actividades extraescolares de los alumnos
+$actua = mysqli_query($db_con, "select modulo from actualizacion where modulo = 'Estructura actividadalumno'");
+if (mysqli_num_rows($actua)>0) {}else{
+mysqli_query($db_con,"ALTER TABLE `actividadalumno` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT");
+mysqli_query($db_con,"ALTER TABLE `actividadalumno` CHANGE `cod_actividad` `cod_actividad` INT NOT NULL DEFAULT '0'");
+mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Estructura actividadalumno', NOW())");	
+}
+
 ?>
