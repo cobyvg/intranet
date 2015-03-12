@@ -1,3 +1,4 @@
+<?  include("../conf_principal.php"); ?>
 <?  include("../cabecera.php"); ?>
 <?  include("../menu.php"); ?>
 <?
