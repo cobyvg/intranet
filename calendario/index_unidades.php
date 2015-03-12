@@ -140,30 +140,55 @@ function vista_mes ($calendario, $dia, $mes, $anio, $unidad) {
 				($dias[$i] < 10) ? $dia0 = '0'.$dias[$i] : $dia0 = $dias[$i];
 				
 				
-				// Consultamos los calendarios privados
-				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=0");
-				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' AND unidades LIKE '%$unidad%'");
+				// Consultamos los calendarios privados del equipo educativo de la unidad
+				$result_equipo_educativo = mysqli_query($GLOBALS['db_con'], "SELECT DISTINCT prof, (SELECT idea FROM departamentos WHERE departamentos.nombre = h.prof) AS idea FROM horw AS h WHERE a_grupo = '$unidad'");
+				while ($row_equipoeducativo = mysqli_fetch_assoc($result_equipo_educativo)) {
 					
-					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
-						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<div class="label" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'">'.$eventos['nombre'].'</div>';
+					$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE profesor = '".$row_equipoeducativo['idea']."' AND espublico=0");
+					while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
+					
+						$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, horaini, fechafin, horafin, asignaturas FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' AND unidades LIKE '%$unidad%'");
+	
+						while ($eventos = mysqli_fetch_assoc($result_eventos)) {
+						
+							$exp_asignaturas = explode('; ', $eventos['asignaturas']);
+							$nomasignatura = trim($exp_asignaturas[0], ';');
+							
+							$horaini = substr($eventos['horaini'], 0, -3);
+							$horafin = substr($eventos['horafin'], 0, -3);
+							
+							if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
+								echo '<div class="label" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'"><p><strong>'.$horaini.' - '.$horafin.': '.$nomasignatura.'</strong></p>'.$eventos['nombre'].'</div>';
+							}
+							
+							unset($nomasignatura);
+							unset($horaini);
+							unset($horafin);
 						}
+						mysqli_free_result($result_eventos);
 					}
-					mysqli_free_result($result_eventos);
+					mysqli_free_result($result_calendarios);
 				}
-				mysqli_free_result($result_calendarios);
+				mysqli_free_result($result_equipo_educativo);
+				
 				
 				// Consultamos los calendarios públicos
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, color FROM calendario_categorias WHERE espublico=1");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' AND unidades LIKE '%$unidad%'");
+					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, horaini, fechafin, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' AND unidades LIKE '%$unidad%'");
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
+						
+						$horaini = substr($eventos['horaini'], 0, -3);
+						$horafin = substr($eventos['horafin'], 0, -3);
+						
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<div class="label" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'">'.$eventos['nombre'].'</div>';
+							echo '<div class="label" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.$eventos['descripcion'].'"><p><strong>'.$horaini.' - '.$horafin.'</strong></p>'.$eventos['nombre'].'</div>';
 						}
+						
+						unset($horaini);
+						unset($horafin);
 					}
 					mysqli_free_result($result_eventos);
 				}
@@ -236,6 +261,7 @@ if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) {
 		}
 		</style>
 		
+		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
 			<h2>Calendario <small><?php echo strftime('%B, %Y', strtotime($anio.'-'.$mes)); ?></small></h2>
@@ -281,6 +307,7 @@ if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) {
 					</div>
 				</div>
 				
+				<div class="clearfix"></div>
 				<br class="hidden-print">
 				
 				<?php vista_mes($calendario, $dia, $mes, $anio, $unidad); ?>

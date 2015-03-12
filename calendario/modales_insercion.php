@@ -164,7 +164,7 @@
         				</select>
         			</div>
         			
-        		<!--	<div class="form-group">
+        		    <div class="form-group">
         				<div class="checkbox">
         					<label for="cmp_cuaderno">
         						<input type="checkbox" id="cmp_cuaderno" name="cmp_cuaderno" value="1"> Crear columna en mi cuaderno de notas<br>
@@ -172,7 +172,7 @@
         						<small class="text-danger">Importante: Si la asignatura tiene desdoble de unidades, debe marcar todas las unidades afectadas. Deben ser del mismo curso y tener el mismo nombre de asignatura.</small>
         					</label>
         				</div>
-        			</div>-->
+        			</div>
         			<?php endif; ?>
         		</div>
         		
