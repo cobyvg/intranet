@@ -37,7 +37,7 @@ if($_SESSION['cambiar_clave']) {
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 
-if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'8') == TRUE))
+if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'c') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'8') == TRUE))
 {
 header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
@@ -154,7 +154,7 @@ echo "<table class='table table-striped table-bordered'>
     
   <tr>
     <td>TIPO DE FONDO: <span class='text-info'>$tipofondo</span></td>
-      <td>AÑO DE EDICI&Oacute;N: <span class='text-info'>$anoedicion</span></td>
+      <td>AÃ‘O DE EDICI&Oacute;N: <span class='text-info'>$anoedicion</span></td>
     </tr>
     
       <tr>
@@ -174,9 +174,9 @@ echo "<table class='table table-striped table-bordered'>
  
   $result = mysqli_query($db_con, "select id, Autor, Titulo, Editorial from biblioteca where 1 " . $AUXSQL . " order by Autor asc");
 if (mysqli_num_rows($result) > 0) {
-print "<h3>Búsqueda de Libros en la Biblioteca</h3>";
+print "<h3>BÃºsqueda de Libros en la Biblioteca</h3>";
 echo "<table class='table table-striped table-bordered'>";
-echo "<thead><th>Autor</th><th>Título</th><th>Editorial</th><th></th></thead><tbody>";
+echo "<thead><th>Autor</th><th>TÃ­tulo</th><th>Editorial</th><th></th></thead><tbody>";
 
 while($row = mysqli_fetch_array($result))
 		 {
@@ -196,12 +196,12 @@ printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='
             echo "</table>";
         }
         else {
-				echo ' <br /><div class="alert alert-warning"><h4>Problema en la Consulta de Fondos.</h4>Parece que ningún volumen de los Fondos de la Biblioteca responde a tu criterio de búsqueda, bien porque no existe el texto o bien porque no ha sido aún registrado. Puedes volver atrás e intentarlo de nuevo</div><br />';
+				echo ' <br /><div class="alert alert-warning"><h4>Problema en la Consulta de Fondos.</h4>Parece que ningÃºn volumen de los Fondos de la Biblioteca responde a tu criterio de bÃºsqueda, bien porque no existe el texto o bien porque no ha sido aÃºn registrado. Puedes volver atrÃ¡s e intentarlo de nuevo</div><br />';
         	}	
 }
 
 else {
-	echo ' <br /><div class="alert alert-warning"><h4>Problema en la Consulta de Fondos.</h4>Debes escribir algún dato en los campos "<em>Autor</em>", "<em>Título</em>" o "<em>Editorial</em>" del formulario de la página anterior. Vuelve atrás e inténtalo de nuevo rellenando algún campo del formulario.</div><br />';
+	echo ' <br /><div class="alert alert-warning"><h4>Problema en la Consulta de Fondos.</h4>Debes escribir algÃºn dato en los campos "<em>Autor</em>", "<em>TÃ­tulo</em>" o "<em>Editorial</em>" del formulario de la pÃ¡gina anterior. Vuelve atrÃ¡s e intÃ©ntalo de nuevo rellenando algÃºn campo del formulario.</div><br />';
 }	
   ?>	
   
