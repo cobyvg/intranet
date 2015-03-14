@@ -124,7 +124,8 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   }
   if ($result_found != 1) {//Buscar actividad  y marcarla.
     $sql_currentday = "$year-$month-$zz";
-    $eventQuery = "SELECT distinct fecha FROM diario WHERE grupo like '%$unidad%' and fecha = '$sql_currentday';";
+    $eventQuery = "SELECT distinct fechaini FROM calendario WHERE unidades like '%".$_SESSION['unidad']."%' and fechaini = '$sql_currentday' and categoria > '2'";
+    
     //echo $eventQuery;
     $eventExec = mysql_query($eventQuery);
     while($row = mysql_fetch_array($eventExec)) {

@@ -28,14 +28,13 @@ exit;
 <div class="span8">
 
 <?
-$eventQuery = mysql_query("SELECT id, fecha, grupo, materia, tipo, titulo FROM diario WHERE grupo like '%".$_SESSION['unidad']."%' and date(fecha)>'$inicio_curso'");
-echo "<table class='table table-bordered table-striped' align='center'><tr class='text-info'><th>FECHA</th><th>GRUPO</th><th>MATERIA</th><th>TÍTULO</th></tr><tbody>";
+$eventQuery = mysql_query("SELECT id, fechaini, unidades, nombre FROM calendario WHERE unidades like '%".$_SESSION['unidad']."%' and date(fechaini)>'$inicio_curso' and categoria > '2' order by fechaini");
+echo "<table class='table table-bordered table-striped' align='center'><tr class='text-info'><th>FECHA</th><th>GRUPO</th><th>ACTIVIDAD</th></tr><tbody>";
 while ($reg=mysql_fetch_array($eventQuery)) {
 	echo "<tr>
 	<td nowrap>$reg[1]</td>
 	<td>$reg[2]</td>
 	<td>$reg[3]</td>
-	<td>$reg[5]</td>
 	</tr>";
 }
 echo "</tbody></table>";

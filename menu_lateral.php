@@ -499,6 +499,11 @@ $menu = array(
 				'target' => '_blank',
 			),
 			array(
+				'href'   => 'http://www.iesmonterroso.net/moodle/',
+				'titulo' => 'Plataforma Moodle',
+				'target' => '_blank',
+			),
+			array(
 				'href'   => 'http://iesmonterroso.org/PC/index.htm',
 				'titulo' => 'Plan de centro',
 				'target' => '_blank',

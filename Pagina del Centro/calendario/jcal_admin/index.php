@@ -100,69 +100,42 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in" s
 <div class="span5 offset1">
 <div class="well well-small">
 <?
+echo "<p class='lead muted' align='center'>$daylong, $monthlong $today, $year</p>";
 
+echo "<legend class='text-warning'>Actividades del día</legend>";
+
+		  
 $sql_date = "$year-$month-$today";
-$eventQuery = "SELECT title, event, idact FROM cal WHERE eventdate = '$sql_date'";
+$eventQuery = "SELECT distinct nombre, descripcion, id, unidades, concat (horaini,' - ', horafin) FROM calendario WHERE date(fechaini)='$sql_date' and categoria < '3'";
+//echo $eventQuery;
+//$eventQuery = "SELECT title, event, idact FROM cal WHERE eventdate = '$sql_date'";
 $eventExec = mysql_query($eventQuery);
 if (mysql_num_rows($eventExec)>0) {
+
+	
+	
 while($row = mysql_fetch_array($eventExec)) {
-   $event_title = $row[0];
    $title = $row[0];
-   $event_event = $row[1];
+   $descripcion = $row[1];
    $idact = $row[2];
+   $grupos = $row[3];
+   $horario = $row[4];
+   echo "<p class='lead text-success'>$title </p><p class='text-info'>$descripcion<p>";
+   if(strlen($grupos)>1){
+  	echo "<p class='text-info'><b>Grupos que participan:</b> $grupos</p><p class='text-info'><b>Horario:</b> $horario</p>";
+   }
+   echo "<hr>";
+   
 }	
 }
 else{
 $fest = mysql_query("select distinct nombre from festivos WHERE fecha = '$sql_date'");
 		if (mysql_num_rows($fest)>0) {
 		$festiv=mysql_fetch_array($fest);
-		$event_title = "Festivo: ".$festiv[0];
-				}
-}
-echo "<p class='lead text-success' align='center'>$daylong, $monthlong $today, $year</p>";
-
-echo "<form name='jcal_post' action='jcal_post.php?year=$year&today=$today&month=$month' method='post'>";
-echo "<div align='left'>";
-		  $tr0 = explode("<br>",$event_title);
-		  $n_act="";
-		  $actividad0="";
-		  foreach($tr0 as $val0){
-			$n_act = $n_act + 1;
-		  	$actividad0.= $val0."<br>";
+		echo "<p class='lead text-success'><b>Festivo:</b> $festiv[0]</p>";
 		}
-		  echo "<p class='lead muted'>Actividades del día</p>";
-		  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_title' rows='6' cols='45' class='span10'>$event_title</textarea>";}else{echo "<p class='text-info'>$actividad0</p>";}
-		  echo "</p><hr />";
-		  if(empty($event_event)){}else{
-      echo "<p class='lead muted'>Información sobre las actividades</p>";
-	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5') == TRUE){echo "<textarea name='day_event' cols='45' rows='8' class='span10'>$event_event</textarea>";}else{echo "<p class='text-info'>$event_event</p>";}
-	  echo "<hr />";
 }
-      echo "<input type='hidden' value='$year' name='year'>
-      <input type='hidden' value='$month' name='month'>
-      <input type='hidden' value='$today' name='today'>";
-	  
-	  
-	  if(strlen($idact) > "0"){
-	  	
-	  	$n_act="";
-		  $idact = (substr($idact,0,strlen($idact)-1));
-		  $tr = explode(";",$idact);
-		  foreach($tr as $val){$id_act.= "'".$val."',";}
-		  $id_act = (substr($id_act,0,strlen($id_act)-1));	
-	  	  $act0 = mysql_query("select horario, id, actividad from actividades where id in ($id_act)");
-		  while($act = mysql_fetch_row($act0)){
-			  	$n_act0 = $n_act0 + 1;
-		  		$hor.= "".$act[2]." ==> ".$act[0]."\n";
-		  }		
-echo "<p class='lead muted'>Horario de las actividades</p>
-<textarea class='input span12' rows='5' disabled >$hor</textarea>
-</label>";
-	  echo "<br />";	  
-		}	  
-	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'8') == TRUE or stristr($cargo,'5')== TRUE ){echo "<input type='submit' name='actualizar' value='Introducir datos' class='btn btn-primary'>";}
-	  if(stristr($cargo,'1') == TRUE or stristr($cargo,'5') == TRUE){echo "<input type='submit' name='del' value='Borrar registro'  class='btn btn-danger' style='margin-left:40px;'>";}
-	  echo "</form></div>";
+
 ?>
 </div>
 </div>

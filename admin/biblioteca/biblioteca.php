@@ -68,10 +68,10 @@ include("menu.php");
   }
   
   if (isset($_POST['titulo0'])) {
-  	$itulo0 = $_POST['titulo0'];
+  	$titulo0 = $_POST['titulo0'];
   }
   elseif (isset($_GET['titulo0'])) {
-  	$itulo0 = $_GET['titulo0'];
+  	$titulo0 = $_GET['titulo0'];
   }
   
   if (isset($_POST['editorial'])) {
@@ -85,7 +85,7 @@ include("menu.php");
   $idfondo = $_GET['idfondo'];	
   }  
   $AUXSQL == "";
-  if  (TRIM("$autor")=="")
+  if  (TRIM($autor)=="")
     {
     $AUXSQL .= " AND 1=1 ";
     }
@@ -93,7 +93,7 @@ include("menu.php");
     {
     $AUXSQL .= " and Autor like '%$autor%'";
     }
-  if  (TRIM("$titulo")=="")
+  if  (TRIM($titulo0)=="")
     {
     $AUXSQL .= " AND 1=1 ";
     }
@@ -101,7 +101,7 @@ include("menu.php");
     {
     $AUXSQL .= " and Titulo like '%$titulo0%'";
     }
-  IF (TRIM("$editorial")=="")
+  IF (TRIM($editorial)=="")
     {
     $AUXSQL .= " AND 1=1 ";
     }
@@ -174,9 +174,9 @@ echo "<table class='table table-striped table-bordered'>
  
   $result = mysqli_query($db_con, "select id, Autor, Titulo, Editorial from biblioteca where 1 " . $AUXSQL . " order by Autor asc");
 if (mysqli_num_rows($result) > 0) {
-print "<h3>BÃºsqueda de Libros en la Biblioteca</h3>";
+print "<h3>Búsqueda de Libros en la Biblioteca</h3>";
 echo "<table class='table table-striped table-bordered'>";
-echo "<thead><th>Autor</th><th>TÃ­tulo</th><th>Editorial</th><th></th></thead><tbody>";
+echo "<thead><th>Autor</th><th>Tí­tulo</th><th>Editorial</th><th></th></thead><tbody>";
 
 while($row = mysqli_fetch_array($result))
 		 {
@@ -193,15 +193,16 @@ while($row = mysqli_fetch_array($result))
 				$limpia = explode(":",$row[3]);
 printf ("<tr><td class='text-success'>%s</td><td>%s</td><td>%s</td><td><a href='biblioteca.php?idfondo=$id&autor=$autor&titulo=$titulo0&editorial=$editorial' data-bs='tooltip' title='Detalles'><span class='fa fa-search fa-fw fa-lg'></span></a></td></tr>", $row[1], $row[2], $row[3]);
         }
-            echo "</table>";
+        echo "</table>";
         }
         else {
-				echo ' <br /><div class="alert alert-warning"><h4>Problema en la Consulta de Fondos.</h4>Parece que ningÃºn volumen de los Fondos de la Biblioteca responde a tu criterio de bÃºsqueda, bien porque no existe el texto o bien porque no ha sido aÃºn registrado. Puedes volver atrÃ¡s e intentarlo de nuevo</div><br />';
+	echo ' <br /><div class="alert alert-warning"><h4>Problema en la Consulta de Fondos.</h4>Parece que ningún volumen de los Fondos de la Biblioteca 
+	responde a tu criterio de búsqueda, bien porque no existe el texto o bien porque no ha sido aún registrado. Puedes volver atrás e intentarlo de nuevo</div><br />';
         	}	
 }
 
 else {
-	echo ' <br /><div class="alert alert-warning"><h4>Problema en la Consulta de Fondos.</h4>Debes escribir algÃºn dato en los campos "<em>Autor</em>", "<em>TÃ­tulo</em>" o "<em>Editorial</em>" del formulario de la pÃ¡gina anterior. Vuelve atrÃ¡s e intÃ©ntalo de nuevo rellenando algÃºn campo del formulario.</div><br />';
+	echo ' <br /><div class="alert alert-warning"><h4>Problema en la Consulta de Fondos.</h4>Debes escribir algún dato en los campos "<em>Autor</em>", "<em>Tí­tulo</em>" o "<em>Editorial</em>" del formulario de la página anterior. Vuelve atrás e inténtalo de nuevo rellenando algún campo del formulario.</div><br />';
 }	
   ?>	
   

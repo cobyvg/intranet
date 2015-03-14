@@ -93,20 +93,18 @@ for($zz = 1; $zz <= $numdays; $zz ++) {
     echo "<td align=\"center\" style='background-color:#555;color:#fff;font-size:0.8em;'>$zz</td>\n";
 		$result_found = 1;
 	}
-	if ($result_found != 1) { //Buscar actividad para el dóa y marcarla
+	if ($result_found != 1) { 
+		//Buscar actividad para el día y marcarla
 		$sql_currentday = "$year-$month-$zz";
 
-		$eventQuery = "SELECT title FROM cal WHERE eventdate = '$sql_currentday';";
+		$eventQuery = "SELECT nombre FROM calendario WHERE date(fechaini)='$sql_currentday' and categoria < '3'";
+		//echo $eventQuery;
 		$eventExec = mysql_query ( $eventQuery );
-		if (mysql_num_rows($eventExec)>0) {
-			while ( $row = mysql_fetch_array ( $eventExec ) ) {
-			if (strlen ( $row ["title"] ) > 0) {
-echo "<td valign=\"middle\" align=\"center\" style='background-color:#f89406;color:#fff;font-size:0.8em;cursor:pointer' onClick=\"window.location='" ."<? echo $dominio;?>calendario/jcal_admin/index.php". 
-	"?year=$year&month=$month&today=$zz';\">$zz</td>\n";
+		$row = mysql_fetch_array ( $eventExec );
+			if (strlen ( $row ["nombre"] ) > 0) {
+echo "<td valign=\"middle\" align=\"center\" style='background-color:#f89406;color:#fff;font-size:0.8em;'>$zz</td>\n";
 				$result_found = 1;
-			}
 		}	
-		}
 		else{
 		$sql_currentday = "$year-$month-$zz";
 		$fest = mysql_query("select distinct fecha from festivos WHERE fecha = '$sql_currentday'");
@@ -139,15 +137,10 @@ if ($create_emptys != 0) {
 }
 
 echo "</tr></table><hr />";
-$mes = date ( 'm' );
-$dia = date ( 'd' );
-$dia7 = date ( 'd' ) + 7;
-$año = date ( 'Y' );
-$hoy = mktime ( 0, 0, 0, $mes, $dia, $año );
-$hoy7 = mktime ( 0, 0, 0, $mes, $dia7, $año );
-$rango0 = date ( 'Y-m-d', $hoy );
-$rango7 = date ( 'Y-m-d', $hoy7 );
-$query = "SELECT distinct title, eventdate, event FROM cal WHERE eventdate >= '$rango0' limit 5";
+$rango7 = date ( 'Y-m-d');
+//$query = "SELECT distinct title, eventdate, event FROM cal WHERE eventdate >= '$rango0' limit 5";
+
+$query = "SELECT distinct nombre, fechaini FROM calendario WHERE date(fechaini)>='$rango7' and categoria < '3' order by fechaini limit 5";
 $result = mysql_query ( $query );
 if (mysql_num_rows ( $result ) > 0) {
 	echo '<li class="nav-header" style="margin-bottom:5px;"><i  class="icon-list"></i><small> Próximos días</li><br>';

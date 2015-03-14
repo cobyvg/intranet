@@ -124,8 +124,8 @@ $tipo = $ident0[5];
 		<div class="row">
 		<div class="col-sm-5">
 		<div class="input-group" id="colorpicker1">
-			<input type="text" class="form-control" id="color_nombre" name="color" value="<?if(strlen($color)>0){echo $color;}else{ echo "#FFFFFF";}?>">
-			<span class="input-group-addon"><i></i></span>
+			<input type="text" class="form-control" id="color_nombre" style="border:1px solid #aaa" name="color" value="<?if(strlen($color)>0){echo $color;}else{ echo "#fff";}?>">
+			<span class="input-group-addon" style="border:1px solid #aaa; background-color:#fee"><i></i></span>
 		</div>
 		</div>
 		</div>
