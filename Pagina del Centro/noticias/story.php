@@ -7,8 +7,9 @@ if (isset($_GET['id'])) {
 }
 ?>
 <div class="span9">
+<br>
 <div class="span10 offset1">
-<h3 align="center">Notas, Noticias, Novedades ...</h3>
+<h3 align="center"><i class='icon icon-list-alt'> </i> Notas, Noticias, Novedades ...</h3>
 <hr />
 		  <?
 // includes

@@ -2,8 +2,8 @@
 <? include "../cabecera.php"; ?>
 <? include('../menu.php'); ?>
 <div class="span9">	
-
-<h3 align='center'>A.M.P.A. &quot;Baccalaureatus&quot; I.E.S. MONTERROSO<br /></h3>
+<br>
+<h3 align='center'><i class='icon icon-user'> </i> A.M.P.A. &quot;Baccalaureatus&quot; I.E.S. MONTERROSO<br /></h3>
 <hr />
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs">

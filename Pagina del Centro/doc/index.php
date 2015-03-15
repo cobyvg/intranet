@@ -610,8 +610,8 @@ global $headerfontcolor,$normalfontcolor,$user_status, $grants, $phpExt;
 echo "<div class='span10 offset1'>";
 ?>
 <? 
-echo "<div align='center'>
-  <h3>Documentos del Centro</h3>
+echo "<div align='center'><br>
+  <h3><i class='icon icon-file'> </i> Documentos del Centro</h3>
 <hr />
 <p class='lead muted'> Directorio público del IES Monterroso</p>
 </div>

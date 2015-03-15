@@ -3,7 +3,8 @@
 <? include "../menu.php"; ?>
 
 <div class="span9">	
-<h3 align='center'>Consultas en los Fondos de la Biblioteca del Centro<br /></h3>  <hr />
+<br>
+<h3 align='center'><i class='icon icon-folder-close'> </i> Consultas en los Fondos de la Biblioteca del Centro<br /></h3>  <hr />
 <br>
   <div class="well well-large" style="width:60%;margin:auto;">
   <form action="biblioteca.php" method="post" name="libros" id="libros" class="form-horizontal">

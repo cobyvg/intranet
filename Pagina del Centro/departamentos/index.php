@@ -23,10 +23,9 @@ echo "</ul></DIV>";
 
 </div>
 
-<div class="span9">
-<h3 align='center'>Departamentos del Centro<br />
+<div class="span9"><br>
+<h3 align='center'><i class='icon icon-user'> </i> Departamentos del Centro<hr />
 </h3>
-<hr />
 <br>
 <div class="span8 offset2 well well-large"><?
 // DNI del Padre/Madr

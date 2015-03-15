@@ -33,7 +33,6 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
 <?
 include("../../menu.php"); 
-//include("menu.php"); 
 
 $check=mysqli_query($db_con,"select * from evalua_pendientes");
 if ($check) {}else{
@@ -122,8 +121,15 @@ do {
 						<legend>Consulta de Calificaciones</legend>
 						
 						<div class="form-group">
-						  <select class="form-control" name="curso">
+						<label>Curso</label>
+						  <select class="form-control" name="curso" onChange="submit()">
 <?php 
+if(isset($_POST['curso'])){
+echo "<option>".$_POST['curso']."</option>";
+}
+else{
+echo "<option></option>";
+}
 	$asig2 = mysqli_query($db_con,"select distinct curso from alma, cursos where curso=nomcurso and unidad in (select distinct unidad from pendientes) and curso not like '1%' order by idcurso");
 	while($asignatur2 = mysqli_fetch_row($asig2)){
 	$curso1 = $asignatur2[0];
@@ -134,7 +140,27 @@ do {
 ?>
 						  </select>
 						</div>
-					  	<div class="form-group">
+						
+						<div class="form-group">
+						<label>Grupo</label>
+						  <select class="form-control" name="unidad">
+						  <option></option>
+
+<?php 
+	$uni = mysqli_query($db_con,"select distinct unidad from alma where curso = '".$_POST['curso']."' order by unidad");
+	while($uni2 = mysqli_fetch_row($uni)){
+	$unidad = $uni2[0];
+?>
+    <option><?php  echo $unidad;?></option>
+    <?php 
+	}
+?>
+
+						  </select>
+						</div>
+						
+						<div class="form-group">
+						<label>Evaluación</label>
 						  <select class="form-control" name="evaluacion">
 
     <option value='1'>1ª Evaluación</option>

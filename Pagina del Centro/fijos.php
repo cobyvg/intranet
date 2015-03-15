@@ -17,20 +17,6 @@
   </div>   
 
 <div class="well well-large">
-   <li class="nav-header">Proyectos<i class="icon icon-gears icon-large pull-right"> </i></li>
-   <hr />	                
-     <p>
-     Estos son los proyectos en los que el Centro participa y trabaja:
-     <ul class="unstyled">
-     <? foreach($proyectos as $index=>$valor){
-     	echo '<li><a href="'.$index.'">'.$valor.'</a></li>';
-     }
-     ?>
-	 </ul>
-     </p>
-</div>
-
-<div class="well well-large">
  <li class="nav-header">Otras P&aacute;ginas<i class="icon icon-external-link icon-large pull-right"> </i></li>
  <hr />
  <ul class="unstyled">	

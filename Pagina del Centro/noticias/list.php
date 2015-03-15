@@ -4,8 +4,9 @@
 <? include("../funciones.php"); ?>
 
 <div class="span9">
+<br>
 <div class="span10 offset1">
-<h3 align="center">Notas, Noticias, Novedades ...</h3><hr />
+<h3 align="center"><i class='icon icon-list-alt'> </i> Notas, Noticias, Novedades ...</h3><hr />
 <p class="lead muted" style="display:inline">Registro de noticias en iesmonterroso.org
 <form class="form-search pull-right" action="buscar.php">       
     <div class="input-append">

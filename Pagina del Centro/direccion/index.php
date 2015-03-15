@@ -2,7 +2,8 @@
 <? include "../cabecera.php"; ?>
 <? include('../menu.php'); ?>
 <div class="span9">	
-<h3 align='center'>Dirección del Centro</h3><hr />
+<br>
+<h3 align='center'><i class='icon icon-gears'> </i> Dirección del Centro</h3><hr />
 
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs">

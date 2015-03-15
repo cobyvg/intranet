@@ -50,6 +50,13 @@ include "../../menu.php";
 <div class="col-sm-12">
 <?
 $curso_pendiente=$_POST["curso"];
+if(strlen($_POST["unidad"])>0){
+$grupo_pendiente=$_POST["unidad"];
+$extra = " and pendientes.claveal in (select claveal from alma where unidad = '$grupo_pendiente')";
+}
+else{
+$extra="";
+}
 $evaluacion_pendiente=$_POST["evaluacion"];
 ?>
 
@@ -59,7 +66,9 @@ $evaluacion_pendiente=$_POST["evaluacion"];
 
 <?
 $fila.= "<tr><th></th>";
-$asig = mysqli_query($db_con,"select distinct pendientes.codigo, asignaturas.curso, asignaturas.abrev from pendientes, asignaturas where asignaturas.codigo = pendientes.codigo and asignaturas.abrev like '%\_%' and curso = '$curso_pendiente' order by nombre");
+$asig = mysqli_query($db_con,"select distinct pendientes.codigo, asignaturas.curso, asignaturas.abrev from pendientes, asignaturas 
+where asignaturas.codigo = pendientes.codigo and asignaturas.abrev like '%\_%' and curso = '$curso_pendiente' $extra order by nombre");
+
 while($asignatur = mysqli_fetch_row($asig))
 {
 $ni+=1;
@@ -74,8 +83,11 @@ $fila.= "<th style='font-size:8px;'>$abreviatura</th>";
 $fila.="<th></th></tr>";
 echo $fila;
 $nf=0;
-$sql = "SELECT distinct alma.apellidos, alma.nombre, alma.unidad, alma.curso, pendientes.claveal, alma.matriculas FROM pendientes, asignaturas, alma WHERE asignaturas.codigo = pendientes.codigo and alma.curso='$curso_pendiente' AND asignaturas.abrev LIKE '%\_%' AND alma.claveal = pendientes.claveal ORDER BY alma.curso, alma.unidad, alma.apellidos, alma.nombre";
-$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
+$sql = "SELECT distinct alma.apellidos, alma.nombre, alma.unidad, alma.curso, pendientes.claveal, alma.matriculas 
+FROM pendientes, asignaturas, alma WHERE asignaturas.codigo = pendientes.codigo and alma.curso='$curso_pendiente' 
+AND asignaturas.abrev LIKE '%\_%' AND alma.claveal = pendientes.claveal $extra ORDER BY alma.curso, alma.unidad, alma.apellidos, alma.nombre";
+$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  
+
 while ($salida = mysqli_fetch_array($Recordset1)){
 	$nf++;
 	$claveal=$salida[4];
@@ -99,13 +111,19 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 		$as_pend=$tr_codigos[0];
 		$ab_pend=$tr_codigos[1];
 		$nota_evaluacion="";
+		
+		$hay=mysqli_query($db_con,"select * from pendientes where claveal='$claveal' and codigo='$as_pend'");
+		//echo "select * from pendientes where claveal='$claveal' and codigo='$as_pend'<br>";
+		$hay2=mysqli_fetch_array($hay);
+		if(strlen($hay2[0])>0){$extra="style='background-color:#edf'";} else{$extra="";}
+		
 		$datos=mysqli_query($db_con,"select nota from evalua_pendientes where evaluacion='$evaluacion_pendiente' and claveal='$claveal' and codigo='$as_pend' and materia='$ab_pend'");
 
 		$datos2=mysqli_fetch_array($datos);
 		$nota_evaluacion=$datos2[0];
 		if(strlen($nota_evaluacion)>0) {}else{$nota_evaluacion="";}
-		echo "<td>$nota_evaluacion</td>";
-	}
+		echo "<td $extra>$nota_evaluacion</td>";
+			}
 	echo $columna;
 	echo"</tr>";
 	

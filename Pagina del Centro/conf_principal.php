@@ -2,7 +2,7 @@
 
 ///////////////// Datos de la configuración de la Intranet
 
-$dominio='localhost/iesmonterroso.org/';
+$dominio='iesmonterroso.org/';
 
 // Personal del Equipo Directivo
 $director_del_centro='Francisco Javier Márquez';
@@ -33,33 +33,29 @@ $fin_curso='2015-06-24';
 $fotos_dir = "/opt/e-smith/fotos/";
 
 // Directorio raiz donde se encuentra la Intranet del Centro
-$raiz_dir = '/Applications/MAMP/htdocs/intranet/';
+$raiz_dir = '/home/e-smith/files/ibays/intranet/html/';
 
 // Directorio de los documentos
-$doc_dir = '/opt/e-smith/';
+$doc_dir = '/home/e-smith/files/primary/files/';
 
 // Variables para acceder a la Bases de Datos
 $host = "localhost";
-$user = "usuario_bd"; 
-$pass = "pass_bd";
+$user = "usuario"; 
+$pass = "pass";
 $db = "intranet";
 
 // El Centro ha activado el módulo de gestión de la Biblioteca de la Intranet y dispone de 
 // una base de datos donde se han importado los fondos de la misma. Se habilita la consulta de
-// estos fondos desde la Intranet
+// estos fondos desde la página del Centro
 $mod_biblio=1;
-if($mod_biblio==1){
-//Variables para acceder a la Base de datos de  la Biblioteca si $mod_bilio = 1;
-$biblio_host = "localhost";
-$biblio_user = "php";
-$biblio_pass = "camell";
-$biblio_db = "dbiblioteca";
-}
+
+// Fin Biblioteca
 
 // Fotos del centro. Valores posibles:1 ó 0
 $mod_fotos=1;
 
-// Directorio para los Departamentos en el directorio de documentación. Valores posibles:1 ó 0
+// Directorio para los Departamentos en el directorio de documentación. Valores posibles:1 ó 0. Si el valor es 1 hay que crear 
+// en ese directorio una carpeta (departamentos) conteniendo directosios con los nombres de los distintos departamentos del Centro.
 $mod_departamentos=1;
 
 // Estilo de la web. Comenta / descomenta para cambiar el estilo, colores y tipografías de estas páginas
@@ -87,19 +83,7 @@ if(stristr($_SERVER['SERVER_NAME'],"monterroso")==TRUE){
 // Fin Monterroso
 
 
-// En la página principal aparecen a la izquierda dos categorías relacionadas con los Proyectos en los que podría participar el Centro, y un conjunto de enlaces a páginas que el Centro considera interesantes para la comunidad educativa.
-
-//Proyectos en los que participa el Centro. Sigue el esquema: dirección web del proyecto - Nombre del Proyecto.
-$proyectos=array(
-    "http://www.juntadeandalucia.es/educacion/lecturaybiblioteca"=>"Lectura y Biblioteca",
-    "http://www.juntadeandalucia.es/averroes/impe/web/portadaEntidad?pag=/contenidos/B/InnovacionEInvestigacion/ProyectosInnovadores/EscuelaEspacioDePaz/"=>"Escuela: Espacio de Paz",
-    "http://www.juntadeandalucia.es/averroes/impe/web/portadaEntidad?pag=/contenidos/B/InnovacionEInvestigacion/ProyectosInnovadores/DeporteEnLaEscuela/"=>"Deporte en la Escuela",
-	"http://www.juntadeandalucia.es/averroes/impe/web/portadaEntidad?pag=/contenidos/B/InnovacionEInvestigacion/ProyectosInnovadores/IntegracionDeLasTIC/"=>"Centro TIC",
-	"http://www.juntadeandalucia.es/averroes/bilingue/"=>"Centro Bilingue",						
-    "http://www.juntadeandalucia.es/averroes/impe/web/contenido?pag=/contenidos/B/ProfesoradoEnRed/OrientacionEducativa/Seccion/ProgramaAcompanamiento/PresentacionAcompanamiento&idMenu=mE4&idSeccion=27391"=>"Plan de Acompañamiento",
-    "http://www.juntadeandalucia.es/averroes/impe/web/contenido?pag=/contenidos/B/InnovacionEInvestigacion/ProyectosInnovadores/EscuelaSaludable/Seccion/Forma_joven/forma_joven"=>"Forma Joven");
-
-// Enlaces de interés
+// En la página principal aparece a la derecha un conjunto de enlaces a otras páginas del Centro.
 $enlaces=array(
     "http://erasmusmonterroso.blogspot.com.es"=>"Erasmus+ con Alemania",		
     "http://iesmonterroso.org/dbiblioteca"=>"Biblioteca",
@@ -112,12 +96,12 @@ $enlaces=array(
 	"http://bilimonterroso.symbaloo.com"=>"Portal de Bilinguismo",	
 	"http://trinity.iesmonterroso.org"=>"Pruebas del Trinity");
 
-// Fin Categorías de Proyectos y enlaces
+// Fin enlaces
 
 
 // Si el Centro dispone de una plataforma Moodle a la que enlazar $moodle=1;
 // Si el Centro no dispone de una plataforma Moodle a la que enlazar $moodle=0;
 $moodle=1;
-
+$enlace_moodle = "http://www.iesmonterroso.net/moodle/";
 						
 ?>

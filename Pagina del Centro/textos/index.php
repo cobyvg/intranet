@@ -21,7 +21,8 @@ else{
 	$curso_textos=$curso_actual;
 }
 ?>
-<h3 align='center'>Libros de Texto para el Curso Escolar <? echo $curso_textos; ?>.
+<br>
+<h3 align='center'><i class='icon icon-book'> </i> Libros de Texto para el Curso Escolar <? echo $curso_textos; ?>.
 </h3>
 <hr />
 

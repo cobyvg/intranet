@@ -61,7 +61,7 @@ include("conf_principal.php");
           <li <? echo $activo2;?>><a href="http://<? echo $dominio;?>notas/">Acceso para Alumnos</a></li>
           <li <? echo $activo3;?>><a href="http://<? echo $dominio;?>doc">Documentos</a></li>
  		  <? if ($moodle==1) { ?>
- 		  <li><a href="http://www.iesmonterroso.net/moodle/">Moodle</a></li>
+ 		  <li><a href="<? echo $enlace_moodle; ?>">Moodle</a></li>
  		  <? } ?>
 		        </ul>
                       <form class="form-search navbar-search pull-right"  action="http://www.google.com/custom" method="get">
@@ -86,7 +86,7 @@ include("conf_principal.php");
 <div class="container-fluid">
 <div class="row-fluid">
 
-		      <br><h3 align="center">Localización del Centro en Estepona </h3><hr />
+		      <br><h3 align="center"><i class='icon icon-map-marker'> </i> Localización del Centro en Estepona </h3><hr />
 
 <div class="span6 offset1">		           
 	

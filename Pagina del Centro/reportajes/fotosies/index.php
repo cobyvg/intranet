@@ -2,8 +2,8 @@
 <? include "../../cabecera.php"; ?>
 <? include "../../menu.php"; ?>
 
-<div class="span9">	
-<h3 align='center'>Fotos del Centro<br /></h3>  <hr />    
+<div class="span9">	<br>
+<h3 align='center'><i class='icon icon-picture'> </i> Fotos del Centro<br /></h3>  <hr />    
 <div class="span8 offset2">
 <br>
 <div align="center">

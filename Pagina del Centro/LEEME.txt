@@ -38,7 +38,7 @@ configuración (/conf_principal.php) puedes elegir entre los múltiples archivos q
  poniendo a 0 el valor de <<$mod_fotos>> en el archivo de configuración.
  
 6. La página dedicada al Equipo Directivo contiene datos de nuestro Centro en <<Teléfonos y Contacto>>, así como en el apartado <<Funciones>> 
-(que ha sido extarído del Plan del Centro). Edita la página con un editor de textos y sustituye los datos por los de tu propio Centro.
+(que ha sido extraído del Plan del Centro). Edita la página con un editor de textos y sustituye los datos por los de tu propio Centro.
  En el menú de esta sección hay un enlace llamado <<Documentación>> que lleva a un directorio con nombre <<Documentos del Centro>>. Este 
  directorio se encuentra dentro del directorio de los Documentos que hemos escrito en el archivo de configuración. Nosotros colocamos ahí archivos de
  texto en formato PDF con el Plan del Centro, por ejemplo, y otros archivos que el Centro considera que es conveniente exponer a la Comunidad Educativa
@@ -56,9 +56,9 @@ un 0 como valor.
 contienen datos particulares sobre estudios específicos de nuestro Centro. Para adaptar la información a tu Centro debes editar estas páginas 
 y para ello te puedes servir de cualquiera de ellas como plantilla. La estructura es sencilla y no debe plantear dificultades.
 
-9. En la parte derecha de la página principal hay dos secciones dedicadas a los <<Proyectos>> en los que participa nuestro Centro, y con <<Otras páginas>>
- que hemos considerado importante enlazar por su interés para la comunidad educativa. Edítalas a tu gusto para adaptarlas a tu Centro. 
- Estas dos secciones se encuentran en el archivo <<fijos.php> que puedes encontrar en el directorio raíz. 
+9. En la parte derecha de la página principal hay una sección con el título <<Otras páginas>>
+ que contiene enlaces a páginas relacionadas con nuestro Centro. Edítalas a tu gusto para adaptarlas a tu Centro. 
+ Esta sección se encuentra en el archivo <<fijos.php> que puedes encontrar en el directorio raíz. 
  
 10. El <<Calendario>> de la página principal toma los datos del Calendario del Centro que edita el Equipo directivo desde la Intranet. De la misma manera, 
 las <<Noticias>> se toman de la Intranet cuando hayan sido creadas por el Equipo directivo (y marcadas para enviar a la página pública del Centro).

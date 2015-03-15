@@ -2,7 +2,8 @@
 <? include "../cabecera.php"; ?>
 <? include('../menu.php'); ?>
 <div class="span9">	
-<h3 align='center'>Actividades Extraescolares en este Curso Escolar</h3>
+<br>
+<h3 align='center'><i class='icon icon-plus-sign'> </i> Actividades Extraescolares en este Curso Escolar</h3>
 <hr />
 <div class="span10 offset1">
  <p class="muted" align="center"><small>(Las Fechas son aproximadas. Pueden variar en funcion de la Actividad, o bien si la misma se realiza fuera del Centro.)</small></p>
@@ -94,7 +95,5 @@ curso a día de hoy.</div></div>";
 
 
 	</div>
-
-<? include("../pie.php");?>
-
+</div>
 <? include("../pie.php");?>

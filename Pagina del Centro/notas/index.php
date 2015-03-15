@@ -6,7 +6,7 @@
 <div class="span10 offset1">
             <div align="center">
            <br>
-           <h3>Acceso privado para los Alumnos del Centro.</h3>
+           <h3><i class='icon icon-lock'> </i> Acceso privado para los Alumnos del Centro.</h3>
             <br />
 <div class="well well-large" style="width:450px; margin:auto; text-align:center">
 <form action="control.php" method="post" align="center" class="form-signin" name="form1">

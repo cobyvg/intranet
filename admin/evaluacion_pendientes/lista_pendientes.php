@@ -81,11 +81,15 @@ if(isset($_POST['enviar'])){
 			$check2=mysqli_query($db_con,"select id from evalua_pendientes where evaluacion='$eval' and claveal='$clave_eval' and codigo='$asig_eval' and materia='$abrev_eval'");
 			if (mysqli_num_rows($check2)==1) {
 				$ya = mysqli_fetch_array($check2);
+				if($nota_eval!==""){
 				mysqli_query($db_con,"update evalua_pendientes set nota='$nota_eval' where id='$ya[0]'");
+				}
 			}
 			else{
+				if($nota_eval!==""){
 				mysqli_query($db_con,"insert into evalua_pendientes 
 				VALUES ('','$eval','$clave_eval','$asig_eval','$abrev_eval','$nota_eval')");
+				}
 			}
 		}
 	}

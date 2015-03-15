@@ -5,10 +5,9 @@
 $curso = substr($curso_actual,0,4);
 ?>
 	
-	<div class="span10 offset1">	
-		<div class="page-header">
-			<h2>Calendario escolar <small>Curso <?php echo $curso; ?> / <?php echo $curso+1; ?></small></h2>
-		</div>
+	<div class="span10 offset1">
+	<br>	
+			<h3><i class='icon icon-calendar'> </i>  Calendario escolar <small>Curso <?php echo $curso; ?> / <?php echo $curso+1; ?></small></h3><hr>
 		
 		<?php
 		require('../lib/calendar.class.php');
