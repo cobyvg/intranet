@@ -106,7 +106,7 @@ echo "<legend class='text-warning'>Actividades del día</legend>";
 
 		  
 $sql_date = "$year-$month-$today";
-$eventQuery = "SELECT distinct nombre, descripcion, id, unidades, concat (horaini,' - ', horafin) FROM calendario WHERE date(fechaini)='$sql_date' and categoria < '3'";
+$eventQuery = "SELECT distinct nombre, descripcion, id, unidades, concat(horaini,' - ', horafin) FROM calendario WHERE date(fechaini)='$sql_date' and categoria < '3'";
 //echo $eventQuery;
 //$eventQuery = "SELECT title, event, idact FROM cal WHERE eventdate = '$sql_date'";
 $eventExec = mysql_query($eventQuery);

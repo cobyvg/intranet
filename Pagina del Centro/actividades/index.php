@@ -30,7 +30,8 @@ $mes1 = $mes[0];
   
   echo "<br><legend class='text-warning'>$mes2</legend>";
 	
-  $datos0 = "select unidades, descripcion, departamento, profesores, concat (horaini,' - ', horafin), concat(fechaini,' - ',fechafin), profesorreg, nombre from calendario where month(fechaini)='$mes1' and categoria = '2' order by id";
+  $datos0 = "select unidades, descripcion, departamento, profesores, concat(horaini,' - ', horafin), concat(fechaini,' - ',fechafin), profesorreg, nombre from calendario where month(fechaini)='$mes1' and categoria = '2' order by id";
+//echo $datos0;
   $datos1 = mysql_query($datos0);
   if(mysql_num_rows($datos1)>0){
   while($datos = mysql_fetch_array($datos1))
