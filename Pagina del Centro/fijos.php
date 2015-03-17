@@ -34,7 +34,11 @@
  <hr />
 <a href="http://www.juntadeandalucia.es/educacion/webportal/web/escuela-de-familias"><img class="img-polaroid" src="./img/imagenpresentacion1.jpg" /></a>
 <hr />
-<a href="http://www.juntadeandalucia.es/educacion/webportal/ishare-servlet/content/b9669569-4093-414c-8f20-c03b9b7f1524" target = "_blank">Guía de Derechos y Responsabilidades de las Familias Andaluzas en la Educación.</a>
+<a href="http://www.juntadeandalucia.es/educacion/webportal/ishare-servlet/content/b9669569-4093-414c-8f20-c03b9b7f1524" 
+target = "_blank">Guía de Derechos y Responsabilidades de las Familias Andaluzas en la Educación.</a>
+ <hr />
+<a href="http://www.juntadeandalucia.es/educacion/webportal/ishare-servlet/content/b9669569-4093-414c-8f20-c03b9b7f1524"><img class="img-polaroid" 
+src="./img/familia250.jpg" /></a>
 </div>	
 
 <? } ?>

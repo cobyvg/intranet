@@ -1,5 +1,6 @@
 <?
-if(isset($_POST['pondera'])){
+//variables();
+if(isset($_POST['pondera']) and $_POST['pondera']=="Guardar resultado como columna"){
 	//variables();
 	foreach ($_POST as $key => $val) {
 		if(is_numeric($key) and strlen($key)<5){
@@ -14,11 +15,15 @@ if(isset($_POST['pondera'])){
 	if (!(substr($curso,0,-1)==',')) {
 		$curso.=",";
 	}
+		if(strstr($curso,",,")==TRUE){
+	$curso= str_replace(",,",",",$curso);
+	}
 	$texto="Ponderacion de columnas: $id_cols";
 	$nombre="Ponderación de columnas: $id_cols";
 	$tipo="Ponderacion";
 
 	$serie = mysqli_query($db_con, "select max(orden) from notas_cuaderno where profesor = '$pr' and curso like '$curso%' and asignatura = '$asignatura'");
+	//echo "select max(orden) from notas_cuaderno where profesor = '$pr' and curso like '$curso%' and asignatura = '$asignatura'";
 	$num_col = mysqli_fetch_array($serie);
 	$orden = $num_col[0] + 1;
 

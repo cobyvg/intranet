@@ -42,6 +42,7 @@ $apellidos = $trozos[0];
 $nombre = $trozos[1];
 $dia = explode("-",$fecha_reg);
 $fecha2 = "$dia[2]-$dia[1]-$dia[0]";
+if($fecha2=="0000-00-00"){$fecha2=date('Y-m-d');}
 		$query="insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, jefatura, prohibido, claveal) values 
 		('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','1','".$prohibido."','".$clave."')";
 		 // echo $query;
