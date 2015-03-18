@@ -488,49 +488,94 @@ $menu = array(
 			),
 		),
 	),
-	
-	array(
-		'menu_id' => 'paginas_interes',
-		'nombre'  => 'Páginas de interés',
-		'items'   => array (
-			array(
-				'href'   => '//'.$dominio,
-				'titulo' => 'Página del '.$nombre_del_centro,
-				'target' => '_blank',
-			),
-			array(
-				'href'   => 'http://www.iesmonterroso.net/moodle/',
-				'titulo' => 'Plataforma Moodle',
-				'target' => '_blank',
-			),
-			array(
-				'href'   => 'http://iesmonterroso.org/PC/index.htm',
-				'titulo' => 'Plan de centro',
-				'target' => '_blank',
-			),
-			array(
-				'href'   => 'http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion='.$web_delegacion,
-				'titulo' => 'Delegación de Educación',
-				'target' => '_blank',
-			),
-			array(
-				'href'   => 'https://www.juntadeandalucia.es/educacion/portaldocente/',
-				'titulo' => 'Portal del Personal Docente',
-				'target' => '_blank',
-			),
-			array(
-				'href'   => 'http://www.mecd.gob.es',
-				'titulo' => 'Ministerio de Educación',
-				'target' => '_blank',
-			),
-			array(
-				'href'   => 'http://www.juntadeandalucia.es/educacion/portalaverroes',
-				'titulo' => 'Portal Averroes',
-				'target' => '_blank',
-			)
-		),
-	),
 );
+
+if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
+
+	$paginas_interes = array(
+		array(
+			'menu_id' => 'paginas_interes',
+			'nombre'  => 'Páginas de interés',
+			'items'   => array (
+				array(
+					'href'   => '//'.$dominio,
+					'titulo' => 'Página del '.$nombre_del_centro,
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'http://www.iesmonterroso.net/moodle/',
+					'titulo' => 'Plataforma Moodle',
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'http://iesmonterroso.org/PC/index.htm',
+					'titulo' => 'Plan de centro',
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion='.$web_delegacion,
+					'titulo' => 'Delegación de Educación',
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'https://www.juntadeandalucia.es/educacion/portaldocente/',
+					'titulo' => 'Portal del Personal Docente',
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'http://www.mecd.gob.es',
+					'titulo' => 'Ministerio de Educación',
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'http://www.juntadeandalucia.es/educacion/portalaverroes',
+					'titulo' => 'Portal Averroes',
+					'target' => '_blank',
+				)
+			),
+		),
+	);
+
+}
+else {
+	
+	$paginas_interes = array(
+		array(
+			'menu_id' => 'paginas_interes',
+			'nombre'  => 'Páginas de interés',
+			'items'   => array (
+				array(
+					'href'   => '//'.$dominio,
+					'titulo' => 'Página del '.$nombre_del_centro,
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion='.$web_delegacion,
+					'titulo' => 'Delegación de Educación',
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'https://www.juntadeandalucia.es/educacion/portaldocente/',
+					'titulo' => 'Portal del Personal Docente',
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'http://www.mecd.gob.es',
+					'titulo' => 'Ministerio de Educación',
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'http://www.juntadeandalucia.es/educacion/portalaverroes',
+					'titulo' => 'Portal Averroes',
+					'target' => '_blank',
+				)
+			),
+		),
+	);
+	
+}
+
+$menu = array_merge($menu, $paginas_interes);
 ?>
 <!-- MENU-LATERAL -->
 
@@ -643,6 +688,7 @@ $menu = array(
 <?php
 // Eliminamos las variables usadas
 unset($menu);
+unset($paginas_interes);
 unset($nmenu);
 unset($count);
 unset($web_delegacion);
