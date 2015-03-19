@@ -356,14 +356,12 @@ if($alumno){
 		echo "<thead><tr><th>Fecha</th><th>Clase</th><th>Causa</th><th></th></tr></thead><tbody>";
 			
 		do{
-			if($row[7]=="1" and $row[8]=="1"){}else{
 			$obs=substr($row[5],0,80)."...";
 			$dia3 = explode("-",$row[2]);
 			$fecha3 = "$dia3[2]-$dia3[1]-$dia3[0]";
 			echo "<tr><td>$fecha3</td><td>$row[3]</a></td><td>$row[4]</a></td><td >
 						<a href='index.php?id=$row[6]' data-bs='tooltip' title='Ver informe'><i class='fa fa-search fa-lg fa-fw'></i></a>
 						</td></tr>";
-		}
 		}
 		while($row = mysqli_fetch_array($result));
 

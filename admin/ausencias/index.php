@@ -35,7 +35,8 @@ if($_SESSION['cambiar_clave']) {
 
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
+//include("../../funciones.php");
+//variables();
 
 if (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];}elseif (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];}else{$borrar="";}
 if (isset($_GET['submit2'])) {$submit2 = $_GET['submit2'];}elseif (isset($_POST['submit2'])) {$submit2 = $_POST['submit2'];}else{$submit2="";}
@@ -46,6 +47,13 @@ if (isset($_GET['tareas'])) {$tareas = $_GET['tareas'];}elseif (isset($_POST['ta
 if (isset($_GET['horas'])) {$horas = $_GET['horas'];}elseif (isset($_POST['horas'])) {$horas = $_POST['horas'];}else{$horas="";}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['pra'])) {$pra = $_GET['pra'];}elseif (isset($_POST['pra'])) {$pra = $_POST['pra'];}else{$pra="";}
+if (isset($_GET['hora1'])) {$hora1 = $_GET['hora1'];}elseif (isset($_POST['hora1'])) {$hora1 = $_POST['hora1'];}else{$hora1="";}
+if (isset($_GET['hora2'])) {$hora2 = $_GET['hora2'];}elseif (isset($_POST['hora2'])) {$hora2 = $_POST['hora2'];}else{$hora2="";}
+if (isset($_GET['hora3'])) {$hora3 = $_GET['hora3'];}elseif (isset($_POST['hora3'])) {$hora3 = $_POST['hora3'];}else{$hora3="";}
+if (isset($_GET['hora4'])) {$hora4 = $_GET['hora4'];}elseif (isset($_POST['hora4'])) {$hora4 = $_POST['hora4'];}else{$hora4="";}
+if (isset($_GET['hora5'])) {$hora5 = $_GET['hora5'];}elseif (isset($_POST['hora5'])) {$hora5 = $_POST['hora5'];}else{$hora5="";}
+if (isset($_GET['hora6'])) {$hora6 = $_GET['hora6'];}elseif (isset($_POST['hora6'])) {$hora6 = $_POST['hora6'];}else{$hora6="";}
+
 
 
 
@@ -89,6 +97,10 @@ if (isset($_POST['submit2'])) {
 	$fech2=explode("-",$fin);
 	$inicio1 = "$fech1[2]-$fech1[1]-$fech1[0]";
 	$fin1 = "$fech2[2]-$fech2[1]-$fech2[0]";
+	//Horas
+	for ($i=1;$i<7;$i++){
+		$horas.=${hora.$i};
+	}
 	// Comprobamos datos enviados
 	if ($profesor and $inicio and $fin) {
 		$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$profesor' and inicio = '$inicio1' and fin = '$fin1'");
@@ -148,7 +160,16 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 				<div class="form-group">
 					<label for="profesor">Profesor/a</label>
 					<?
-					if(stristr($_SESSION['cargo'],'1') == TRUE)
+					$hora = date('g');
+					$minuto = date('s');
+					$hora_min = $hora.":".$minuto;
+					$dia_sem = date('w');
+					$hor=mysqli_query($db_con,"select tramo from jornada where hora_inicio < '$hora_min' and hora_fin > '$hora_min'");
+					$hora_act = mysqli_fetch_array($hor);
+					$hora_actual = $hora_act[0];
+					$gu = mysqli_query($db_con, "select * from horw where dia = '$dia_sem' and hora = '$hora_actual' and prof = '".$_SESSION['profi']."' and c_asig = '25'");
+					$guardia = mysqli_num_rows($gu);
+					if(stristr($_SESSION['cargo'],'1') == TRUE or $guardia > 0)
 					{
 						echo "<select class='form-control' id='profesor' name='profesor'>";
 						if ($profesor) {
@@ -203,10 +224,31 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 					</div>
 					
 				</div>
-				
+								
 				<div class="form-group">
-					<label for="horas">Horas sueltas <span class="fa fa-question-circle fa-fw" data-bs="tooltip" title="Escribe las horas concretas en las que vas a estar ausente y una detrás de otra. De este modo, si escribes '456' quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día."></span></label>
-					<input type="text" class="form-control" id="horas" name="horas" value="<? echo (isset($horas) && $horas) ? $horas : ''; ?>">
+				<label>Horas sueltas</label><br>
+				<?
+				for ($i=1;$i<7;$i++){
+				$hor = mysqli_query($db_con,"select horas from ausencias where inicio='$inicio1' and fin='$fin1' and profesor='$profesor' and horas like '%$i%'");
+				$hori=mysqli_fetch_array($hor);
+				if (strlen($hori[0])>0) {
+						$extra_hor=" checked";
+					}	
+					else{
+						$extra_hor="";
+					}
+				?>
+				
+				<div class="checkbox-inline"> 
+<label>
+<input name="<? echo "hora".$i;?>" type="checkbox" value="<? echo $i;?>" <? echo $extra_hor;?>>
+                   <? 
+                  echo "".$i."</label> </div>&nbsp;";
+					
+				}
+				?>
+<!--					<label for="horas">Horas sueltas <span class="fa fa-question-circle fa-fw" data-bs="tooltip" title="Escribe las horas concretas en las que vas a estar ausente y una detrás de otra. De este modo, si escribes '456' quieres decir que vas a faltas a 4ª, 5ª y 6ª hora del día."></span></label>
+					<input type="text" class="form-control" id="horas" name="horas" value="<? //echo (isset($horas) && $horas) ? $horas : ''; ?>">-->
 				</div>
 				
 				<div class="form-group">
