@@ -79,13 +79,30 @@ include("menu.php");
 <div class="col-md-8 col-md-offset-2">
 
 <?php
-if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];}else{$apellidos="";}
-if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
+if (isset($_GET['validar'])) {$validar = $_GET['validar'];
+if ($validar=='1') {
+	mysqli_query($db_con, "update infotut_alumno set valido='0' where id = '$id'");
+		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+El Informe ha sido marcado como <b>NO VALIDADO</b> por el Tutor. Esto significa que el Informe no podrá ser visto por los Padres del Alumno desde la página pública del Centro
+		</div></div>';
+}
+elseif ($validar=='0') {
+	mysqli_query($db_con, "update infotut_alumno set valido='1' where id = '$id'");
+		echo '<div align="center"><div class="alert alert-success alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+El Informe ha sido marcado como <b>VALIDADO</b> por el Tutor. Esto significa que el Informe podrá ser visto por los Padres del Alumno desde la página pública del Centro
+		</div></div>';
+}
+}
+if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];}elseif (isset($_GET['apellidos'])) {$apellidos = $_GET['apellidos']; $extra.="&apellidos=$apellidos";}else{$apellidos="";}
+if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}elseif (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];$extra.="&nombre=$nombre";}else{$nombre="";}
 if (!(empty($unidad))) {
 $grupo = $unidad;
+$extra.="&unidad=$unidad";
 }
 // Consulta
- $query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, unidad, tutor, F_ENTREV
+ $query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, unidad, tutor, F_ENTREV, valido
   FROM infotut_alumno WHERE 1=1 "; 
   if(!(empty($apellidos))) {$query .= "and apellidos like '%$apellidos%'";} 
   if(!(empty($nombre))) {$query .=  "and nombre like '%$nombre%'";} 
@@ -102,6 +119,8 @@ if (mysqli_num_rows($result) > 0)
 
 	while($row = mysqli_fetch_object($result))
 	{
+		$validado="";
+		$validado =  $row->valido;
    echo "<tr><td nowrap style='vertical-align:middle'>";
 		$foto="";
 		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64'  />";
@@ -117,7 +136,13 @@ $tuti = $row0[0];
 		 if (stristr($_SESSION ['cargo'],'1') == TRUE or (nomprofesor($tuti) == nomprofesor($_SESSION['profi']))) {
    	echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary' data-bb='confirm-delete'><i class='fa fa-trash-o ' title='Borrar Informe' > </i></a>";
    	echo "<a href='informar.php?id=$row->ID' class='btn btn-primary'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
-   }	
+		 if ($validado==1) {
+				echo "&nbsp;<a href='buscar.php?id=$row->ID&validar=1$extra' class='btn btn-primary text-info'><i class='fa fa-check-square-o' data-bs='tooltip'  title='Informe validado por el Tutor' > </i></a> 	";				
+					}
+					else{
+				echo "&nbsp;<a href='buscar.php?id=$row->ID&validar=0$extra' class='btn btn-primary text-danger'><i class='fa fa-minus-circle' data-bs='tooltip'  title='Informe no validado por el Tutor' > </i> </a> 	";					
+					}
+		 }	
 echo '</div></td></tr>';
 	}
 echo "</tbody></table><br />";
