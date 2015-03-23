@@ -2,6 +2,7 @@
 session_start();
 include("../config.php");
 include_once('../config/version.php');
+require("../lib/class.phpmailer.php");
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
@@ -74,10 +75,9 @@ if ($mod_sms) {
 
 		$SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero > '4'";
 		$result0 = mysqli_query($db_con, $SQL0);
-
+		
 		while ($row0 = mysqli_fetch_array($result0)){
-
-			$claveal = $row0[0];
+			$claveal = $row0[0];			
 			$clave_carta .= $claveal.",";
 			$SQL3 = "SELECT distinct alma.claveal, alma.telefono, alma.telefonourgencia, alma.apellidos, alma.nombre, alma.unidad
 	from alma where alma.claveal like '$claveal' and (alma.telefono not in (select telefono from hermanos) 
@@ -90,8 +90,36 @@ if ($mod_sms) {
 			$apellidos = $rowsql3[3];
 			$nombre = $rowsql3[4];
 			$unidad = $rowsql3[5];
+			$nombre_alumno = "$nombre $apellidos";
+			
+// Envío de Email						
+			$cor_control = mysqli_query($db_con,"select correo from control where claveal='$claveal'");
+			$cor_alma = mysqli_query($db_con,"select correo from alma where claveal='$claveal'");			
+			if(mysqli_num_rows($cor_alma)>0){
+				$correo1=mysqli_fetch_array($cor_alma);
+				$correo = $correo1[0];
+			}
+			elseif(mysqli_num_rows($cor_control)>0){
+				$correo2=mysqli_fetch_array($cor_control);
+				$correo = $correo2[0];
+			}
+			if (strlen(correo)>0) {
+	$texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta dirección de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con <strong> Jefatura de Estudios</strong>.';		
+	$mail = new PHPMailer();
+	$mail->Host = "localhost";
+	$mail->From = 'no-reply@'.$dominio;
+	$mail->FromName = $nombre_del_centro;
+	$mail->Sender = 'no-reply@'.$dominio;
+	$mail->IsHTML(true);
+	$mail->Subject = $nombre_del_centro.': Comunicación de Faltas de Asistencia a la familia del Alumno.';
+	$mail->Body = "Desde la Jefetura de Estudios del $nombre_del_centro le comunicamos que entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$unidad." ha faltado al menos 5 horas al Centro sin haber presentado ninguna justificación. <br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://$dominio, o bien contactando con la Jefatura de Estudios del Centro. <hr><br><br> $texto_pie";
+	$mail->AddAddress($correo, $nombre_alumno);
+	$mail->Send();				
+			}
 
-			// Telefonos móviles o sin telefono
+// Fin envío de correo.
+
+// Telefonos móviles o sin telefono
 			if(substr($tfno2,0,1)=="6" or substr($tfno2,0,1)=="7"){$mobil2=$tfno2;$sin="";}elseif((substr($tfno_u2,0,1)=="6" or substr($tfno_u2,0,1)=="7") and !(substr($tfno2,0,1)=="6") or substr($tfno2,0,1)=="7"){$mobil2=$tfno_u2;$sin="";}else{$mobil2="";$sin=$claveal;}
 
 			if(strlen($mobil2) > 0)

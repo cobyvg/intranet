@@ -2,6 +2,7 @@
 session_start();
 include("../../config.php");
 include("../../config/version.php");
+require("../../lib/class.phpmailer.php");
 
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
@@ -126,8 +127,7 @@ else{
 		$message = "Su hijo/a ha cometido una falta contra las normas de convivencia del Centro. Hable con su hijo/a y, ante cualquier duda, consulte en http://".$dominio;
 		mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
 		$login = $usuario_smstrend;
-		$password = $clave_smstrend;
-		;
+		$password = $clave_smstrend;	
 		?>
 <script language="javascript">
 function enviarForm() 
@@ -184,6 +184,33 @@ enviarForm();
 	$nfechoria0 = mysqli_query($db_con, $nfechoria );
 	$nfechoria1 = mysqli_fetch_row ( $nfechoria0 );
 	$id = $nfechoria1 [0];
+				
+// Envío de Email						
+			$cor_control = mysqli_query($db_con,"select correo from control where claveal='$claveal'");
+			$cor_alma = mysqli_query($db_con,"select correo from alma where claveal='$claveal'");			
+			if(mysqli_num_rows($cor_alma)>0){
+				$correo1=mysqli_fetch_array($cor_alma);
+				$correo = $correo1[0];
+			}
+			elseif(mysqli_num_rows($cor_control)>0){
+				$correo2=mysqli_fetch_array($cor_control);
+				$correo = $correo2[0];
+			}
+			if (strlen(correo)>0) {
+	$texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta dirección de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con <strong> Jefatura de Estudios</strong>.';		
+	$mail = new PHPMailer();
+	$mail->Host = "localhost";
+	$mail->From = 'no-reply@'.$dominio;
+	$mail->FromName = $nombre_del_centro;
+	$mail->Sender = 'no-reply@'.$dominio;
+	$mail->IsHTML(true);
+	$mail->Subject = $nombre_del_centro.': Comunicación de Problemas de Convivencia a la familia del Alumno.';
+	$mail->Body = "El I.E.S. Monterroso le comunica que, con fecha $fecha, su hijo ha cometido una falta $grave contra las normas de convivencia del Centro. El tipo de falta es el siguiente: $asunto.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://$dominio, o bien contactando con la Jefatura de Estudios del Centro. <hr><br><br> $texto_pie";
+	$mail->AddAddress($correo, $nombre_alumno);
+	$mail->Send();				
+			}
+
+// Fin envío de correo.	
 	echo "<table class='table table-striped' style='width:940px;'>";
 	echo "<tr>
 		<th>Fecha</th>
