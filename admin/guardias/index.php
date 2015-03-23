@@ -127,10 +127,8 @@ Estás intentando registrar una sustitución con dos días o más de diferencia resp
  	}
  	else{
 		
-		$fech_hoy = date("Y-m-d");
 		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and (profesor = '$profeso' or profe_aula = '$sustituido')");
 		
-		$fech_hoy = date("Y-m-d");			
 // echo "Guardia: $prof_sust --> Sustituido: $sustituido --> Registrado: $prof_reg";
 		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and profesor = '$profeso'");
 			if (mysqli_num_rows($reg_sust0) > '0') {
@@ -168,7 +166,23 @@ $sustituido .'ya ha sido sustituido a la '.$hora.' hora el día '.$fecha_reg.'. S
 			}	
 			else{
 			
-		if (!($c1) > '0') {				 	
+		if (!($c1) > '0') {
+			
+			$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$sustituido' and inicio >= '$g_fecha' and fin <= '$g_fecha'");
+			
+		if (mysqli_num_rows($ya) > '0') {
+			$ausencia_ya = mysqli_fetch_array($ya);
+			$horas = $ausencia_ya[4];
+			if ($horas!==0 and strstr($horas, $hora)==FALSE) {
+				$horas=$horas.$hora;	
+				$actualiza = mysqli_query($db_con, "update ausencias set horas = '$horas' where id = '$ausencia_ya[0]'");									
+				}
+		}
+		else{
+			$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$sustituido', '$g_fecha', '$g_fecha', '$hora', '', NOW(), '')");	
+		}
+		
+		
 			$r_profe = mb_strtoupper($profeso, "ISO-8859-1");
 			mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$sustituido', '$n_dia', '$hora', NOW(), '$g_fecha')");
 			if (mysqli_affected_rows() > 0) {
