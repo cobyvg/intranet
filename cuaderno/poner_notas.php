@@ -34,8 +34,8 @@ foreach($cursos as $unidad)
 }
 }
 
-  	// Borramos datos
-  	$contr = mysqli_query($db_con, "select id from notas_cuaderno where profesor = '$profesor' and tipo not like 'Ponderacion'");
+  	// Borramos datos en casillas de verificación visibles
+  	$contr = mysqli_query($db_con, "select id from notas_cuaderno where profesor = '$profesor' and Tipo like 'Casilla%' and oculto = '0'");
   	while($control_veri = mysqli_fetch_array($contr)){
   		//echo "Borramos registro $claveal ==> $id<br />";
   		$borra_veri = "delete from datos  WHERE datos.id = '$control_veri[0]'";
@@ -48,25 +48,28 @@ foreach($cursos as $unidad)
   	$trozos = explode("-",$key);
   	$id = $trozos[0];
   	$claveal = $trozos[1];
+  	
+	// Duplicados
+  	$dupli = mysqli_query($db_con, "select * from datos where id = '$id' and claveal = '$claveal'");
+	$duplic = mysqli_fetch_array($dupli);
 
 	// Condiciones para procesar los datos
   	if (is_numeric($claveal) and is_numeric($id)) {
 
-		if(empty($val) and !($val=="0")){
-		$borra = "delete from datos  WHERE datos.id = '$id' AND datos.claveal = '$claveal'";
+		if($val==""){
+		$borra = "delete from datos WHERE datos.id = '$id' AND datos.claveal = '$claveal'";
 		$borra0 = mysqli_query($db_con, $borra);
 		}
+  		elseif(strlen($duplic[1])>0){
+		$actualiza = "UPDATE datos SET nota = '$val' WHERE datos.id = '$id' AND datos.claveal = '$claveal'";
+		//echo $actualiza."<br />";
+		$actua0 = mysqli_query($db_con, $actualiza);
+		}		
 		else{
-			  	
-	// Duplicados
-  	$dupli = mysqli_query($db_con, "select * from datos where id = '$id' and claveal = '$claveal' and tipo='Ponderacion'");
-	if (mysqli_num_rows($dupli)>0) {}
-	else{
   		$insert = "insert into datos (id, claveal, nota, ponderacion) values ('$id','$claveal','$val','1')";
   		$insert0 = mysqli_query($db_con, $insert);	
-		//echo $insert."<br />";
+		echo $insert."<br />";
   		}
-		}
 		}
   }  
 mysqli_select_db($db_con, $db);
