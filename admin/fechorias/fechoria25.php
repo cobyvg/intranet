@@ -51,7 +51,7 @@ if (mysqli_num_rows($ya_esta)>0) {
 		echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <legend>Atenci&oacute;n:</legend>
-            Ya hay un problema de convivencia registrado que contiene los mismos datos que est·s enviando, y no queremos repetirlos... .
+            Ya hay un problema de convivencia registrado que contiene los mismos datos que est√°s enviando, y no queremos repetirlos... .
           </div></div><br />';
 		$back=2;
 }
@@ -60,33 +60,33 @@ else{
 	if (! $notas or ! $grave or ($nombre == 'Selecciona un Alumno') or ! $asunto or ! $fecha or ! $informa) {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCI”N:</legend>
-            No has introducido datos en alguno de los campos, y <strong>todos son obligatorios</strong>.<br> Vuelve atr·s, rellena los campos vacÌos e intÈntalo de nuevo.
+			<legend>ATENCI√ìN:</legend>
+            No has introducido datos en alguno de los campos, y <strong>todos son obligatorios</strong>.<br> Vuelve atr√°s, rellena los campos vac√≠os e int√©ntalo de nuevo.
           </div></div>';
 		  echo " <br />
-<INPUT class='btn btn-primary' TYPE='button' VALUE='Volver atr·s'
+<INPUT class='btn btn-primary' TYPE='button' VALUE='Volver atr√°s'
 	onClick='history.back()'>";
 			exit ();			
 	}
  	if (($grave == 'grave' OR $grave == 'muy grave') AND strlen ($notas) < '60' ) {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCI”N:</legend>
-            La descripciÛn de lo sucedido es demasiado breve. Es necesario que proporciones m·s detalles de lo ocurrido para que Jefatura de Estudios pueda hacerse una idea precisa del suceso.<br />Vuelve atr·s e intÈntalo de nuevo.
+			<legend>ATENCI√ìN:</legend>
+            La descripci√≥n de lo sucedido es demasiado breve. Es necesario que proporciones m√°s detalles de lo ocurrido para que Jefatura de Estudios pueda hacerse una idea precisa del suceso.<br />Vuelve atr√°s e int√©ntalo de nuevo.
           </div></div>';
 		  echo " <br />
-<INPUT class='btn btn-primary' TYPE='button' VALUE='Volver atr·s'
+<INPUT class='btn btn-primary' TYPE='button' VALUE='Volver atr√°s'
 	onClick='history.back()'>";
 			exit ();		
  	}
 	if ($grave == 'leve' AND strlen ($notas) < '25' ) {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCI”N:</legend>
-            La descripciÛn de lo sucedido es demasiado breve. Es necesario que proporciones m·s detalles de lo ocurrido para que Jefatura de Estudios pueda hacerse una idea precisa del suceso.<br />Vuelve atr·s e intÈntalo de nuevo.
+			<legend>ATENCI√ìN:</legend>
+            La descripci√≥n de lo sucedido es demasiado breve. Es necesario que proporciones m√°s detalles de lo ocurrido para que Jefatura de Estudios pueda hacerse una idea precisa del suceso.<br />Vuelve atr√°s e int√©ntalo de nuevo.
           </div></div>';
 		  echo " <br />
-<INPUT class='btn btn-primary' TYPE='button' VALUE='Volver atr·s'
+<INPUT class='btn btn-primary' TYPE='button' VALUE='Volver atr√°s'
 	onClick='history.back()'>";
 			exit ();		
  	}
@@ -134,7 +134,7 @@ function enviarForm()
 {
 ventana=window.open("", "ventanaForm", "top=100, left=100, toolbar=no,location=no, status=no,menubar=no,scrollbars=no, resizable=no, width=100,height=66,directories=no")
 document.enviar.submit()
-/*AQU’ PUEDES PONER UN TIEMPO*/
+/*AQU√ï PUEDES PONER UN TIEMPO*/
 /*ventana.close()*/
 }
 </script>
@@ -165,7 +165,7 @@ enviarForm();
 <?
 		$fecha2 = date ( 'Y-m-d' );
 		$observaciones = $message;
-		$accion = "EnvÌo de SMS";
+		$accion = "Env√≠o de SMS";
 		$causa = "Problemas de convivencia";
 		mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
 	} else {
@@ -185,7 +185,7 @@ enviarForm();
 	$nfechoria1 = mysqli_fetch_row ( $nfechoria0 );
 	$id = $nfechoria1 [0];
 				
-// EnvÌo de Email						
+// Env√≠o de Email						
 			$cor_control = mysqli_query($db_con,"select correo from control where claveal='$claveal'");
 			$cor_alma = mysqli_query($db_con,"select correo from alma where claveal='$claveal'");			
 			if(mysqli_num_rows($cor_alma)>0){
@@ -197,20 +197,20 @@ enviarForm();
 				$correo = $correo2[0];
 			}
 			if (strlen(correo)>0) {
-	$texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta direcciÛn de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor informaciÛn sobre el contenido de este mensaje, pÛngase en contacto con <strong> Jefatura de Estudios</strong>.';		
+	$texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta direcci√≥n de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor informaci√≥n sobre el contenido de este mensaje, p√≥ngase en contacto con <strong> Jefatura de Estudios</strong>.';		
 	$mail = new PHPMailer();
 	$mail->Host = "localhost";
 	$mail->From = 'no-reply@'.$dominio;
 	$mail->FromName = $nombre_del_centro;
 	$mail->Sender = 'no-reply@'.$dominio;
 	$mail->IsHTML(true);
-	$mail->Subject = $nombre_del_centro.': ComunicaciÛn de Problemas de Convivencia a la familia del Alumno.';
-	$mail->Body = "El I.E.S. Monterroso le comunica que, con fecha $fecha, su hijo ha cometido una falta $grave contra las normas de convivencia del Centro. El tipo de falta es el siguiente: $asunto.<br>Le recordamos que puede conseguir informaciÛn m·s detallada en la p·gina del alumno de nuestra web en http://$dominio, o bien contactando con la Jefatura de Estudios del Centro. <hr><br><br> $texto_pie";
+	$mail->Subject = $nombre_del_centro.': Comunicaci√≥n de Problemas de Convivencia a la familia del Alumno.';
+	$mail->Body = "El $nombre_del_centro le comunica que, con fecha $fecha, su hijo ha cometido una falta $grave contra las normas de convivencia del Centro. El tipo de falta es el siguiente: $asunto.<br>Le recordamos que puede conseguir informaci√≥n m√°s detallada en la p√°gina del alumno de nuestra web en http://$dominio, o bien contactando con la Jefatura de Estudios del Centro. <hr><br><br> $texto_pie";
 	$mail->AddAddress($correo, $nombre_alumno);
 	$mail->Send();				
 			}
 
-// Fin envÌo de correo.	
+// Fin env√≠o de correo.	
 	echo "<table class='table table-striped' style='width:940px;'>";
 	echo "<tr>
 		<th>Fecha</th>
