@@ -133,7 +133,7 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
 
 if($pr and $dia and $hora)
 {
-	$num_cursos0 = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'");
+	$num_cursos0 = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo");
 	// Todos los Grupos juntos
 	$curs = "";
 	$codigos = "";
@@ -160,7 +160,7 @@ if(isset($_POST['enviar']))
 }
 
 // Distintos códigos de la asignatura cuando hay varios grupos en una hora.
-$n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, profesores.nivel FROM  horw, profesores where prof = profesor and a_grupo = profesores.grupo and prof = '$pr' and dia = '$dia' and hora = '$hora'");
+$n_c = mysqli_query($db_con, "SELECT distinct  a_grupo, profesores.nivel FROM  horw, profesores where prof = profesor and a_grupo = profesores.grupo and prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo");
 
 while($varias = mysqli_fetch_array($n_c))
 {
@@ -215,7 +215,7 @@ include("cuaderno/menu_cuaderno.php");
 					</td>
 				</tr>
 				<?
-				$curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
+				$curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo";
 				//echo $curso0."<br />";
 				$curso20 = mysqli_query($db_con, $curso0);
 				$num_cursos = mysqli_num_rows($curso20);
@@ -423,7 +423,7 @@ include("cuaderno/menu_cuaderno.php");
 					}
 					echo "</tr>";
 					// Tabla para cada Grupo
-					$curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora'";
+					$curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo";
 					$curso20 = mysqli_query($db_con, $curso0);
 					$num_cursos = mysqli_num_rows($curso20);
 					while ($curso11 = mysqli_fetch_array($curso20))

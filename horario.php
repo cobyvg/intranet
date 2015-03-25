@@ -28,7 +28,7 @@ echo '<tr><th>'.$nombre.'ª</th>';
 			$extra = "and dia = '$z' and hora = '$n_hora'";
 		}
 
-		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo FROM  horw where prof = '$pr' $extra" );	
+		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo FROM  horw where prof = '$pr' $extra ORDER BY a_grupo" );	
 		$rowasignatur1 = mysqli_fetch_row ( $asignatur1 );
 		
 		if (strlen( $rowasignatur1 [2] )>1 and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")) {
@@ -47,7 +47,7 @@ echo '<tr><th>'.$nombre.'ª</th>';
 			}
 		}
 		// Recorremos los grupos a los que da en ese hora.
-		$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$pr' and dia = '$z' and hora = '$n_hora'" );
+		$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$pr' and dia = '$z' and hora = '$n_hora' ORDER BY a_grupo" );
 		while ( $rowasignaturas1 = mysqli_fetch_array ( $asignaturas1 ) ) {
 			$grupo = $rowasignaturas1 [1];
 				echo "<a href='//$dominio/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]' style='font-size:0.8em'>";
