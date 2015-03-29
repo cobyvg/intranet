@@ -99,11 +99,11 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 				// Consultamos los calendarios privados
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes'");
+					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' ORDER BY horaini ASC, horafin ASC");
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<small style="margin-right: 2px;"><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].' - '.$eventos['nombre'].'"></span></small>';
+							echo '<span class="fa fa-circle" style="color: '.$calendario['color'].'; margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="'.$calendario['nombre'].' - '.$eventos['nombre'].'"></span>';
 						}
 					}
 					mysqli_free_result($result_eventos);
@@ -114,11 +114,11 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 				$result_calendarios = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1");
 				while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					
-					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."'");
+					$result_eventos = mysqli_query($GLOBALS['db_con'], "SELECT id, nombre, descripcion, fechaini, fechafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio' AND MONTH(fechaini)='$mes' ORDER BY horaini ASC, horafin ASC");
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<small style="margin-right: 2px;"><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].' - '.$eventos['nombre'].'"></span></small>';
+							echo '<span class="fa fa-circle" style="color: '.$calendario['color'].'; margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="'.$calendario['nombre'].' - '.$eventos['nombre'].'"></span>';
 						}
 					}
 					mysqli_free_result($result_eventos);
@@ -130,7 +130,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 				while ($festivo = mysqli_fetch_assoc($result)) {
 					
 					if ($festivo['fecha'] == $anio.'-'.$mes.'-'.$dia0) {
-						echo '<small style="margin-right: 2px;"><span class="fa fa-circle" style="color: #e14939;" data-bs="tooltip" title="Día festivo - '.$festivo['nombre'].'"></span></small>';
+						echo '<span class="fa fa-circle" style="color: #e14939;  margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="Día festivo - '.$festivo['nombre'].'"></span>';
 					}
 				}
 				mysqli_free_result($result);
@@ -165,7 +165,7 @@ $result_calendarios = mysqli_query($db_con, "SELECT id, nombre, color FROM calen
 if (mysqli_num_rows($result_calendarios)) {
 	
 	while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
-		$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin, horaini, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio_actual' AND MONTH(fechaini)='$mes_actual' AND DAY(fechaini)='$dia_actual'");
+		$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin, horaini, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio_actual' AND MONTH(fechaini)='$mes_actual' AND DAY(fechaini)='$dia_actual' ORDER BY horaini ASC, horafin ASC");
 		
 		if (mysqli_num_rows($result_eventos)) {
 		
@@ -192,7 +192,7 @@ $result_calendarios = mysqli_query($db_con, "SELECT id, nombre, color FROM calen
 
 while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 	
-	$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin, horaini, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio_actual' AND MONTH(fechaini)='$mes_actual' AND DAY(fechaini)='$dia_actual'");
+	$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin, horaini, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio_actual' AND MONTH(fechaini)='$mes_actual' AND DAY(fechaini)='$dia_actual' ORDER BY horaini ASC, horafin ASC");
 	
 	while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 		if (mysqli_num_rows($result_eventos)) {

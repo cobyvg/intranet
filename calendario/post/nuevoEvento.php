@@ -177,7 +177,7 @@ else {
 						$exp_unidad = explode(' => ', $unidad);
 						$string_unidades .= mysqli_real_escape_string($db_con, $exp_unidad[0]).', ';
 						
-						// Las siguiente variables sirven para obtener el código de la asignatura
+						// Las siguientes variables sirven para obtener el código de la asignatura
 						$unidad = mysqli_real_escape_string($db_con, $exp_unidad[0]);
 						$nomasignatura = mysqli_real_escape_string($db_con, $exp_unidad[1]); 
 					}
