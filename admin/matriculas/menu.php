@@ -37,9 +37,10 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
 			    Importación <span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu" role="menu">
-			  	<li><a href="importar_primaria.php">Alumnado de Primaria</a></li>
+			  	<li><a href="index_primaria.php">Alumnado de Primaria</a></li>
 			  </ul>
 			</li>
+			<li><a href="consulta_transito.php">Informes de Tránsito</a></li>
 		</ul>
 		
 	</div>

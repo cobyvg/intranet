@@ -112,6 +112,11 @@ $menu = array(
 				'href'   => 'admin/actividades/index.php',
 				'titulo' => 'Actividades extraescolares'
 			),
+			array(
+				'href'   => 'admin/matriculas/consulta_transito.php',
+				'titulo' => 'Informes de Tránsito',
+				'modulo'  => $mod_matriculas,
+			),
 		)
 	),
 	

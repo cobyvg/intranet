@@ -122,6 +122,15 @@ No se ha podido crear el índice de la tabla. Busca ayuda.
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 
+  // Borramos archivos antiguos
+$d = opendir('../primaria/'); 
+while (false !== ($f = readdir($d))) {
+if (stristr($f, ".txt")){
+	//echo "$f<br>";
+	unlink($f);
+} 
+}
+closedir($d);
 
 // Descomprimimos el zip de las calificaciones en el directorio exporta/
 include('../../lib/pclzip.lib.php');   
@@ -134,7 +143,7 @@ $archive = new PclZip($_FILES['archivo1']['tmp_name']);
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir('../primaria')) {
    while (false !== ($file = readdir($handle))) {   	
-      if ($file != "." && $file != ".."&& $file != ".txt") { 
+      if ($file != "." && $file != ".." && $file != ".txt") { 
       $colegio = substr($file,0,-4); 
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
 
@@ -188,21 +197,29 @@ mysqli_query($db_con, $crear);
 
 // Separamos Nivel y Grupo si sigue el modelo clásico del guión (1E-F, 2B-C, etc)
   $SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma_primaria";
-  $result_1 = mysqli_query($db_con, $SQL_1);
-  $row_1 = mysqli_fetch_row($result_1);
-  if (strstr("-",$row_1[0])==TRUE) {
-  	 
-  $SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
-  $result0 = mysqli_query($db_con, $SQL0);
-
- while  ($row0 = mysqli_fetch_array($result0))
+  $result_1 = mysqli_query($db_con, $SQL_1);  
+ while  ($row0 = mysqli_fetch_array($result_1))
  {
-$trozounidad0 = explode("-",$row0[0]);
-$actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
-	mysqli_query($db_con, $actualiza);
+if (substr($row0[0],-1)=="A") {
+	$unidad_cole = "6P-A";
+}
+elseif (substr($row0[0],-1)=="B") {
+	$unidad_cole = "6P-B";
+}
+ elseif (substr($row0[0],-1)=="C") {
+	$unidad_cole = "6P-C";
+}
+ elseif (substr($row0[0],-1)=="D") {
+	$unidad_cole = "6P-A";
+}
+ELSE{
+	$unidad_cole = "6P-A";
+} 	
+$trozounidad0 = explode("-",$unidad_cole);
+$actualiza= "UPDATE alma_primaria SET UNIDAD = '$unidad_cole', NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
+mysqli_query($db_con, $actualiza);
  }
-  	
-  }
+
   
  // Apellidos unidos formando un solo campo.
    $SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma_primaria";
@@ -254,8 +271,100 @@ else
 Parece que te estás olvidando de enviar el archivo con los datos de los alumnos. Asegúrate de enviar el archivo comprimido con los datos de los Colegios.
 </div></div><br />';
 }
+
+// Creamos tabla de colegios para Fichas de Tránsito
+$c_t = mysqli_query($db_con,"select * from control_transito");
+if (mysqli_num_rows($c_t)>0) {}
+else{
+mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_control` (
+`id` int(11) NOT NULL,
+  `colegio` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `pass` varchar(254) COLLATE latin1_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
+mysqli_query($db_con,"ALTER TABLE `transito_control`
+ ADD PRIMARY KEY (`id`)");
+mysqli_query($db_con,"ALTER TABLE `transito_control`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
+
+// Apellidos unidos formando un solo campo.
+  $SQL6 = "SELECT distinct colegio FROM  alma_primaria";
+  $result6 = mysqli_query($db_con, $SQL6);
+ while  ($row6 = mysqli_fetch_array($result6))
+ {
+ 	$num++;
+ 	$n_cole = trim($row6[0]); 	
+ 	$pass=str_replace(" ", "", $n_cole)."_".$codigo_del_centro;
+ 	$pass=str_replace("á", "a", $pass);
+ 	$pass=str_replace("é", "e", $pass);
+ 	$pass=str_replace("í", "i", $pass);
+ 	$pass=str_replace("ó", "o", $pass);
+ 	$pass=str_replace("ú", "u", $pass);
+ 	$pass=str_replace("Á", "A", $pass);
+ 	$pass=str_replace("É", "E", $pass);
+ 	$pass=str_replace("Í", "I", $pass);
+ 	$pass=str_replace("Ó", "O", $pass);
+ 	$pass=str_replace("Ú", "U", $pass);
+ 	$pass=str_replace("ñ", "n", $pass);
+ 	$pass=str_replace("Ñ", "N", $pass);
+ 	$pass=strtolower($pass);
+	$n_pass=sha1($pass);	
+	mysqli_query($db_con, "INSERT INTO control_transito VALUES ('$num','$n_cole','$n_pass')");
+	echo "INSERT INTO control_transito VALUES ('$num','$n_cole','$n_pass')<br>";
+ }
+ mysqli_query($db_con,"CREATE TABLE `transito_datos` (
+`id` int(11) NOT NULL,
+  `claveal` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
+  `tipo` varchar(16) COLLATE latin1_spanish_ci NOT NULL,
+  `dato` text COLLATE latin1_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ");
+ mysqli_query($db_con,"ALTER TABLE `transito_datos`
+ ADD PRIMARY KEY (`id`)");
+ mysqli_query($db_con,"ALTER TABLE `transito_datos`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT");
+}
+mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_tipo` (
+`id` int(11) NOT NULL,
+  `tipo` varchar(16) COLLATE latin1_spanish_ci NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
+mysqli_query($db_con,"ALTER TABLE `transito_tipo`
+ ADD PRIMARY KEY (`id`);");
+mysqli_query($db_con,"ALTER TABLE `transito_tipo`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1");
+mysqli_query($db_con,"INSERT INTO `transito_tipo` (`id`, `tipo`) VALUES
+(1, 'repeticion'),
+(2, 'susp1'),
+(3, 'susp2'),
+(4, 'susp3'),
+(5, 'leng'),
+(6, 'mat'),
+(7, 'ing'),
+(8, 'con'),
+(9, 'edfis'),
+(10, 'mus'),
+(11, 'plas'),
+(12, 'asiste'),
+(13, 'dificultad'),
+(14, 'refuerzo'),
+(15, 'necreflen'),
+(16, 'necrefmat'),
+(17, 'necrefing'),
+(18, 'adcurr'),
+(19, 'necaclen'),
+(20, 'necacmat'),
+(21, 'necacing'),
+(22, 'exento'),
+(23, 'acompanamiento'),
+(24, 'nacion'),
+(25, 'integra'),
+(26, 'actitud'),
+(27, 'funciona'),
+(28, 'relacion'),
+(29, 'norelacion'),
+(30, 'disruptivo'),
+(31, 'expulsion'),
+(32, 'observaciones');
+");
 ?>
-<br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div></div>
