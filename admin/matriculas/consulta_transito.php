@@ -41,8 +41,6 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
-
-
 ?>
 <? $PLUGIN_DATATABLES = 1;?>
 <? include("../../menu.php");?>
@@ -51,28 +49,61 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Consulta Informes de Tránsito <small>Alumnado de Primaria</small></h2>
-	</div>		
+	
+			
+	  
+<!-- Button trigger modal -->
+<a href="#" class="pull-right" data-toggle="modal" data-target="#myModal">
+ <span class="fa fa-question-circle fa-2x"></span>
+</a>
+
+ <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+      </div>
+      <div class="modal-body">
+		<p class="help-block">
+		Las celdas que contienen datos numéricos variables o bolitas de colores (diversos tipos de dificultades propios de un alumno, p. ej.) presentan información sobre el texto simbolizado por el número o la bolita colocando el cursor encima de la celda. Aparecerá entonces el texto correspondiente a la opción numérica o el color de la bola.
+		</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+		<h2>Consulta Informes de Tránsito <small>Alumnado de Primaria</small>
+</h2>
+</div>
+
 	<!-- SCAFFOLDING -->
 	<div class="row">
 	<div class="col-sm-12">
 	<div class="table-responsive">
-	<table class="table table-striped table-bordered datatable"><thead><tr><th>Alumno</th><th>Colegio</th>
+	<table class="table table-striped table-bordered datatable"><thead>
 	<?
+	$cabecera="<tr><th>Alumno</th><th>Colegio</th>";
 	$col = mysqli_query($db_con,"select distinct tipo from transito_tipo where tipo not like 'norelacion' and tipo not like 'funciona' and tipo not like 'actitud' and tipo not like 'observaciones'");
 	while ($ncol=mysqli_fetch_array($col)) {
-		echo "<th>$ncol[0]</th>";
+		$cabecera.= "<th>$ncol[0]</th>";
 	}
+	$cabecera.="</tr>";
+	echo $cabecera;	
 	?>
-	</tr></thead>
+	</thead>
 	<?
 	$cl = mysqli_query($db_con,"select distinct claveal, apellidos, nombre, colegio from alma_primaria");
 	while ($clav = mysqli_fetch_array($cl)) {
+	
 		$link="";
 		$claveal=$clav[0];
 		$con = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal'");
 		if (mysqli_num_rows($con)>0) { $link = 1; }
-		echo "<tr><td nowrap>";
+		echo "<tr><td nowrap>$ni ";
 		if ($link==1) {
 			echo "<a href='informe_transito.php?claveal=$claveal' target='_blank'>";
 		}
@@ -145,7 +176,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 	      "ordering": true,
 	      "info":     false,
 	      
-	  		"lengthMenu": [[200, -1], [15, 35, 50, "Todos"]],
+			"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
 	  		
 	  		"order": [[ 1, "asc" ]],
 	  		
