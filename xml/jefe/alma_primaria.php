@@ -273,7 +273,7 @@ Parece que te estás olvidando de enviar el archivo con los datos de los alumnos.
 }
 
 // Creamos tabla de colegios para Fichas de Tránsito
-$c_t = mysqli_query($db_con,"select * from control_transito");
+$c_t = mysqli_query($db_con,"select * from transito_control");
 if (mysqli_num_rows($c_t)>0) {}
 else{
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_control` (
@@ -308,8 +308,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
  	$pass=str_replace("Ñ", "N", $pass);
  	$pass=strtolower($pass);
 	$n_pass=sha1($pass);	
-	mysqli_query($db_con, "INSERT INTO control_transito VALUES ('$num','$n_cole','$n_pass')");
-	echo "INSERT INTO control_transito VALUES ('$num','$n_cole','$n_pass')<br>";
+	mysqli_query($db_con, "INSERT INTO transito_control VALUES ('$num','$n_cole','$n_pass')");
  }
  mysqli_query($db_con,"CREATE TABLE `transito_datos` (
 `id` int(11) NOT NULL,
