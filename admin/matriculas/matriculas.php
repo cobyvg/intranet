@@ -46,29 +46,54 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 include("../../funciones.php");
 $db_con = mysqli_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
 mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
+
+$enf=mysqli_query($db_con,"show columns from matriculas WHERE field='enfermedad'");
+if (mysqli_num_rows($enf)>0) {}else{
+	mysqli_query($db_con,"ALTER TABLE `matriculas` ADD `enfermedad` VARCHAR(254) NOT NULL , ADD `otraenfermedad` VARCHAR(254) NOT NULL");
+}
+
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
 if (isset($_GET['dni'])) {$dni = $_GET['dni'];}elseif (isset($_POST['dni'])) {$dni = $_POST['dni'];}else{$dni="";}
 if (isset($_GET['claveal'])) {$claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) {$claveal = $_POST['claveal'];}else{$claveal="";}
 if (isset($_GET['enviar'])) {$enviar = $_GET['enviar'];}elseif (isset($_POST['enviar'])) {$enviar = $_POST['enviar'];}else{$enviar="";}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 
+// Enfermedades
+$enfermedades = array(
+array(
+													'id'     => 'Enfermedad1',
+													'nombre' => 'Enfermedad 1',
+),
+array(
+													'id'     => 'SIMON-Enfermedad2',
+													'nombre' => 'Enfermedad 2',
+),
+array(
+													'id'     => 'Enfermedad3',
+													'nombre' => 'Enfermedad 3',
+),
+array(
+													'id'     => 'Enfermedad4',
+													'nombre' => 'Enfermedad 4',
+),
+);
 
 // Centros adscritos
 $centros_adscritos = array(
 array(
-													'id'     => 'SANTO-TOMAS',
+													'id'     => 'Santo Tomas',
 													'nombre' => 'C.E.I.P. Santo Tomás de Aquino',
 ),
 array(
-													'id'     => 'SIMON-FERNANDEZ',
+													'id'     => 'Simon Fernandez',
 													'nombre' => 'C.E.I.P. Simón Fernández',
 ),
 array(
-													'id'     => 'GARCIA-LORCA',
+													'id'     => 'Garcia Lorca',
 													'nombre' => 'C.E.I.P. Federico García Lorca',
 ),
 array(
-													'id'     => 'JUAN-XXIII',
+													'id'     => 'Juan XXIII',
 													'nombre' => 'Colegio Juan XXIII',
 ),
 );
@@ -266,6 +291,10 @@ if(isset($_POST['enviar'])){
 			$vacios.="otrocolegio ";
 			$msg_error = "No has escrito el nombre del Centro del que procede el alumno. Rellena el nombre del Centro y envía los datos de nuevo para poder registrar tu solicitud correctamente.";
 		}
+		elseif($enfermedad == "Otra enfermedad" and ($otraenfermedad == "" or $otraenfermedad == "Escribe aquí el nombre de la enfermedad")){
+			$vacios.="otraenfermedad ";
+			$msg_error = "No has escrito el nombre de la enfermedad del alumno. Rellena el nombre de la enfermedad y envía los datos de nuevo para poder registrar tu solicitud correctamente.";
+		}
 		elseif(strstr($nacimiento,"-") == FALSE){
 			$msg_error = "La fecha de nacimiento que has escrito no es correcta. El formato adecuado para la fecha es DD-MM-YYYY (Por ejemplo: 01-01-2000).";
 		}
@@ -291,13 +320,13 @@ if(isset($_POST['enviar'])){
 				$ya = mysqli_fetch_array($ya_esta);
 				if (strlen($ruta_este) > 0 or strlen($ruta_oeste) > 0) {$transporte = '1';}
 				if(!($itinerario=='3')){$matematicas4="";}
-				$insert = "update matriculas set apellidos='$apellidos', nombre='$nombre', nacido='$nacido', provincia='$provincia', nacimiento='$fecha_nacimiento', domicilio='$domicilio', localidad='$localidad', dni='$dni', padre='$padre', dnitutor='$dnitutor', madre='$madre', dnitutor2='$dnitutor2', telefono1='$telefono1', telefono2='$telefono2', religion='$religion', colegio='$colegio', optativa1='$optativa1', optativa2='$optativa2', optativa3='$optativa3', optativa4='$optativa4', otrocolegio='$otrocolegio', letra_grupo='$letra_grupo', idioma='$idioma',  religion = '$religion', act1='$act1', observaciones='$observaciones', exencion='$exencion', bilinguismo='$bilinguismo', observaciones = '$observaciones', optativa21='$optativa21', optativa22='$optativa22', optativa23='$optativa23', optativa24='$optativa24', act21='$act21', act22='$act22', act23='$act23', act24='$act24', promociona='$promociona', transporte='$transporte', ruta_este='$ruta_este', ruta_oeste='$ruta_oeste', curso='$curso', sexo = '$sexo', hermanos = '$hermanos', nacionalidad = '$nacionalidad', claveal = '$claveal', matematicas4 = '$matematicas4', itinerario = '$itinerario', optativa5='$optativa5', optativa6='$optativa6', optativa7='$optativa7', diversificacion='$diversificacion', optativa25='$optativa25', optativa26='$optativa26', optativa27='$optativa27' where id = '$ya[0]'";
+				$insert = "update matriculas set apellidos='$apellidos', nombre='$nombre', nacido='$nacido', provincia='$provincia', nacimiento='$fecha_nacimiento', domicilio='$domicilio', localidad='$localidad', dni='$dni', padre='$padre', dnitutor='$dnitutor', madre='$madre', dnitutor2='$dnitutor2', telefono1='$telefono1', telefono2='$telefono2', religion='$religion', colegio='$colegio', optativa1='$optativa1', optativa2='$optativa2', optativa3='$optativa3', optativa4='$optativa4', otrocolegio='$otrocolegio', letra_grupo='$letra_grupo', idioma='$idioma',  religion = '$religion', act1='$act1', observaciones='$observaciones', exencion='$exencion', bilinguismo='$bilinguismo', observaciones = '$observaciones', optativa21='$optativa21', optativa22='$optativa22', optativa23='$optativa23', optativa24='$optativa24', act21='$act21', act22='$act22', act23='$act23', act24='$act24', promociona='$promociona', transporte='$transporte', ruta_este='$ruta_este', ruta_oeste='$ruta_oeste', curso='$curso', sexo = '$sexo', hermanos = '$hermanos', nacionalidad = '$nacionalidad', claveal = '$claveal', matematicas4 = '$matematicas4', itinerario = '$itinerario', optativa5='$optativa5', optativa6='$optativa6', optativa7='$optativa7', diversificacion='$diversificacion', optativa25='$optativa25', optativa26='$optativa26', optativa27='$optativa27', enfermedad = '$enfermedad', otraenfermedad = '$otraenfermedad' where id = '$ya[0]'";
 				mysqli_query($db_con, $insert);
 			}
 			else{
 
 				if (strlen($ruta) > 0) {$transporte = '1';}
-				$insert = "insert into matriculas (apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma, religion, optativa1, optativa2, optativa3, optativa4, act1, observaciones, curso, exencion, bilinguismo, fecha, optativa21, optativa22, optativa23, optativa24, act21, act22, act23, act24, promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, matematicas4, itinerario, optativa5, optativa6, optativa7, diversificacion, optativa25, optativa26, optativa27) VALUES ('$apellidos',  '$nombre', '$nacido', '$provincia', '$fecha_nacimiento', '$domicilio', '$localidad', '$dni', '$padre', '$dnitutor', '$madre', '$dnitutor2', '$telefono1', '$telefono2', '$colegio', '$otrocolegio', '$letra_grupo', '$correo', '$idioma', '$religion', '$optativa1', '$optativa2', '$optativa3', '$optativa4', '$act1', '$observaciones', '$curso', '$exencion', '$bilinguismo', now(), '$optativa21', '$optativa22', '$optativa23', '$optativa24', '$act21', '$act22', '$act23', '$act24', '$promociona', '$transporte', '$ruta_este', '$ruta_oeste', '$sexo', '$hermanos', '$nacionalidad', '$claveal', '$matematicas4', '$itinerario', '$optativa5', '$optativa6', '$optativa7', '$diversificacion', '$optativa25', '$optativa26', '$optativa27')";
+				$insert = "insert into matriculas (apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma, religion, optativa1, optativa2, optativa3, optativa4, act1, observaciones, curso, exencion, bilinguismo, fecha, optativa21, optativa22, optativa23, optativa24, act21, act22, act23, act24, promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, matematicas4, itinerario, optativa5, optativa6, optativa7, diversificacion, optativa25, optativa26, optativa27, enfermedad, otraenfermedad) VALUES ('$apellidos',  '$nombre', '$nacido', '$provincia', '$fecha_nacimiento', '$domicilio', '$localidad', '$dni', '$padre', '$dnitutor', '$madre', '$dnitutor2', '$telefono1', '$telefono2', '$colegio', '$otrocolegio', '$letra_grupo', '$correo', '$idioma', '$religion', '$optativa1', '$optativa2', '$optativa3', '$optativa4', '$act1', '$observaciones', '$curso', '$exencion', '$bilinguismo', now(), '$optativa21', '$optativa22', '$optativa23', '$optativa24', '$act21', '$act22', '$act23', '$act24', '$promociona', '$transporte', '$ruta_este', '$ruta_oeste', '$sexo', '$hermanos', '$nacionalidad', '$claveal', '$matematicas4', '$itinerario', '$optativa5', '$optativa6', '$optativa7', '$diversificacion', '$optativa25', '$optativa26', '$optativa27', '$enfermedad', '$otraenfermedad')";
 				mysqli_query($db_con, $insert);
 			}
 			$ya_esta1 = mysqli_query($db_con, "select id from matriculas where $extra");
@@ -731,7 +760,7 @@ exit();
 			<label for="colegio">Centro de procedencia</label> <select
 				class="form-control" id="colegio" name="colegio">
 				<?php if($curso == "1ESO"): ?>
-				<option value=""></option>
+				<option value="<?php echo (isset($colegio)) ? $colegio : ''; ?>"><?php echo (isset($colegio)) ? $colegio : ''; ?></option>
 				<?php for ($i = 0; $i < count($centros_adscritos); $i++): ?>
 				<option value="<?php echo $centros_adscritos[$i]['id']; ?>"
 				<?php echo (isset($colegio) && $colegio == $centros_adscritos[$i]['id']) ? 'selected' : ''; ?>><?php echo $centros_adscritos[$i]['nombre']; ?></option>
@@ -888,17 +917,9 @@ exit();
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
-				value="Historia de las Religiones"
-				<?php if($religion == 'Historia de las Religiones'){echo "checked";} ?>>
-			Historia de las Religiones </label></div>
-			</div>
-
-			<div
-				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
-			<div class="radio"><label> <input type="radio" name="religion"
-				value="Atención Educativa"
-				<?php if($religion == 'Atención Educativa'){echo "checked";} ?>>
-			Atención Educativa </label></div>
+				value="Valores Ciudadanos"
+				<?php if($religion == 'Valores Ciudadanos'){echo "checked";} ?>>
+			Valores Ciudadanos </label></div>
 			</div>
 			</td>
 		</tr>
@@ -1210,6 +1231,35 @@ exit();
 		</tr>
 		<?php endif; ?>
 
+		<!-- ENFERMEDADES -->
+		<tr>
+			<th colspan="4"><span class="text-uppercase">Enfermedades del Alumno:</span><br>
+			Señalar si el alumno tiene alguna enfermedad que es importante que el Centro conozca por poder afectar a la vida académica del mismo.</th>
+		</tr>
+		<tr>
+			<td colspan="4" style="border-top: 0;">
+		<div
+				class="form-group col-sm-4">
+			<label for="enfermedad">Enfermedades del Alumno</label> 
+			<select
+				class="form-control" id="enfermedad" name="enfermedad">
+				<option value="<?php echo (isset($enfermedad)) ? $enfermedad : ''; ?>"><?php echo (isset($enfermedad)) ? $enfermedad : ''; ?></option>
+				<?php for ($i = 0; $i < count($enfermedades); $i++): ?>
+				<option value="<?php echo $enfermedades[$i]['id']; ?>"
+				<?php echo (isset($enfermedad) && $enfermedad == $enfermedades[$i]['id']) ? 'selected' : ''; ?>><?php echo $enfermedades[$i]['nombre']; ?></option>
+				<?php endfor; ?>
+				<option value="Otra enfermedad">Otra enfermedad</option>
+			</select></div>
+			
+			<div id="form-otraenfermedad"
+				class="form-group <?php echo (isset($otraenfermedad) && !empty($otraenfermedad)) ? '' : 'hidden'; ?> col-sm-6">
+			<label for="otraenfermedad">Otras enfermedades</label> <input type="text"
+				class="form-control" id="otraenfermedad" name="otraenfermedad"
+				value="<?php echo (isset($otraenfermedad)) ? $otraenfermedad : ''; ?>"
+				maxlength="60" placeholder="Escribe aquí el nombre de la enfermedad"> 
+				</div>
+			</td>
+		</tr>
 		<!-- OBSERVACIONES -->
 		<tr>
 			<th colspan="4"><span class="text-uppercase">Observaciones:</span><br>
@@ -1221,7 +1271,6 @@ exit();
 				id="observaciones" name="observaciones" rows="5"><?php echo (isset($observaciones)) ? $observaciones : ''; ?></textarea>
 			</td>
 		</tr>
-
 	</tbody>
 </table>
 
@@ -1263,17 +1312,24 @@ que solicita la matriculación en este centro.</div>
 		})
 	});  
 	
-	$(document).ready(function() {
-		
-		// Selector de colegio
-		$('#colegio').change(function() {
-			if($('#colegio').val() == 'Otro Centro') {
-				$('#form-otrocolegio').removeClass('hidden');
-			}
-			else {
-				$('#form-otrocolegio').addClass('hidden');
-			}
-		});
+		$(document).ready(function() {
+			$('#enfermedad').change(function() {
+				if($('#enfermedad').val() == 'Otra enfermedad') {
+					$('#form-otraenfermedad').removeClass('hidden');
+				}
+				else {
+					$('#form-otraenfermedad').addClass('hidden');
+				}
+			});
+			// Selector de colegio
+			$('#colegio').change(function() {
+				if($('#colegio').val() == 'Otro Centro') {
+					$('#form-otrocolegio').removeClass('hidden');
+				}
+				else {
+					$('#form-otrocolegio').addClass('hidden');
+				}
+			});	
 		
 		// Selector de itinerarios
 		$('#itinerario1').click(function() { 
@@ -1318,6 +1374,7 @@ que solicita la matriculación en este centro.</div>
 		
 	});
 	</script>
+
 
 </body>
 </html>
