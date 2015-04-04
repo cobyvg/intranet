@@ -91,6 +91,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 	while ($ncol=mysqli_fetch_array($col)) {
 		$cabecera.= "<th>$ncol[0]</th>";
 	}
+	$cabecera.="<th>notas</th>";
 	$cabecera.="</tr>";
 	echo $cabecera;	
 	?>
@@ -112,13 +113,15 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 			echo "</a>";;
 		}
 		echo "</td><td nowrap>$clav[3]</td>";
-		$col = mysqli_query($db_con,"select distinct tipo from transito_tipo where tipo not like 'norelacion' and tipo not like 'funciona' and tipo not like 'actitud' and tipo not like 'observaciones'");
+		$col = mysqli_query($db_con,"select distinct tipo from transito_tipo");
 		while ($ncol=mysqli_fetch_array($col)) {
-			
+
 			$tipo = $ncol[0];
+			if ($tipo=='norelacion' or $tipo == 'funciona' or $tipo == 'actitud' or $tipo == 'observaciones') {
+			}
+			else{			
 			$col1 = mysqli_query($db_con,"select dato from transito_datos where claveal = '$claveal' and tipo = '$tipo'");
 			$dat = mysqli_fetch_array($col1);
-			//$dato="";
 			$dato = $dat[0];
 			$tt="";
 			if (stristr($tipo,"dificulta")==TRUE and stristr($dato,"1")==TRUE) {$ttd = "Tiene carencias en aprendizajes básicos. <br>";}
@@ -157,7 +160,20 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 			if (stristr($tipo,"expulsion")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Ha sido expulsado'";}
 			
 			echo "<td $tt>$dato</td>";
+
+			}	
+		
 		}
+
+		$col2 = mysqli_query($db_con,"select dato from transito_datos where claveal = '$claveal' and ((tipo='norelacion' and dato not like '') or (tipo = 'funciona' and dato not like '') or (tipo = 'actitud' and dato not like '') or (tipo = 'observaciones' and dato not like ''))");		
+		$dat1 = mysqli_num_rows($col2);
+		$notas="";
+				if ($dat1>0) {
+				$notas='<span class="fa fa-circle" style="color: orange;"></span>';
+				$tt=" data-bs='tooltip' title='Hay observaciones o notas sobre Actitud, Relación del Centro con la familia, etc.'";
+				}
+		echo "<td $tt>$notas</td>";				
+		
 		echo "</tr>";
 	}
 	?>

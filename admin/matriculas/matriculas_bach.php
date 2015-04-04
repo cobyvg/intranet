@@ -760,7 +760,7 @@ if ($dni or $claveal or $id) {
 			<div
 				class="form-group <?php echo (strstr($vacios,"padre, ")==TRUE) ? 'has-error' : ''; ?>">
 			<label for="padre">Apellidos y nombre del representante o guardador
-			legal 1 <small>(con quien conviva el alumno/a y tenga atribuida su
+			legal 1 <br><small class="text-muted">(con quien conviva el alumno/a y tenga atribuida su
 			guarda y custodia)</small></label> <input type="text"
 				class="form-control" id="padre" name="padre"
 				value="<?php echo (isset($padre)) ? $padre : ''; ?>" maxlength="60">
@@ -995,7 +995,7 @@ if ($dni or $claveal or $id) {
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">Mas
 			asignaturas optativas de Segundo de Bachillerato<br>
-			<small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small>
+			<p class="help-block"><small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small></p>
 			</th>
 		</tr>
 		<tr>
@@ -1031,9 +1031,9 @@ if ($dni or $claveal or $id) {
 		<!-- ASIGNATURAS OPTATIVAS DE PRIMERO DE BACHILLERATO -->
 		<tr id="no_repite1">
 			<th class="active text-center text-uppercase" colspan="4">
-			Asignaturas optativas de Primero de Bachillerato<br>
-			<small>(Para solicitar una modalidad o vía diferente a la que ya has
-			cursado debes pasar por Jefatura de Estudios)</small></th>
+			Asignaturas optativas de Primero de Bachillerato<p class="help-block"><small>
+			(Para solicitar una modalidad o vía diferente a la que ya has
+			cursado debes pasar por Jefatura de Estudios)</small></p></th>
 		</tr>
 		<tr>
 		<?php for ($i = 1; $i <= 2; $i++): ?>
@@ -1099,9 +1099,9 @@ if ($dni or $claveal or $id) {
 		<?php endif; ?>
 		<!-- ENFERMEDADES -->
 		<tr>
-			<th colspan="4"><span class="text-uppercase">Enfermedades del Alumno:</span><br>
+			<th colspan="4"><span class="text-uppercase">Enfermedades del Alumno:</span><p class="help-block"><small>
 			Señalar si el alumno tiene alguna enfermedad que es importante que el
-			Centro conozca por poder afectar a la vida académica del mismo.</th>
+			Centro conozca por poder afectar a la vida académica del alumno.</small></p></th>
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 0;">
@@ -1128,9 +1128,9 @@ if ($dni or $claveal or $id) {
 		</tr>
 		<!-- OBSERVACIONES -->
 		<tr>
-			<th colspan="4"><span class="text-uppercase">Observaciones:</span><br>
+			<th colspan="4"><span class="text-uppercase">Observaciones:</span><p class="help-block"><small>
 			Indique aquellas cuestiones que considere sean importantes para
-			conocimiento del centro (enfermedades, situación familiar, etc.)</th>
+			conocimiento del centro (enfermedades, situación familiar, etc.)</small></p></th>
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 0;"><textarea class="form-control"

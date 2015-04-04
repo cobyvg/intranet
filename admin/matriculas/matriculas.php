@@ -65,7 +65,7 @@ array(
 													'nombre' => 'Enfermedad 1',
 ),
 array(
-													'id'     => 'SIMON-Enfermedad2',
+													'id'     => 'Enfermedad2',
 													'nombre' => 'Enfermedad 2',
 ),
 array(
@@ -75,26 +75,6 @@ array(
 array(
 													'id'     => 'Enfermedad4',
 													'nombre' => 'Enfermedad 4',
-),
-);
-
-// Centros adscritos
-$centros_adscritos = array(
-array(
-													'id'     => 'Santo Tomas',
-													'nombre' => 'C.E.I.P. Santo Tomás de Aquino',
-),
-array(
-													'id'     => 'Simon Fernandez',
-													'nombre' => 'C.E.I.P. Simón Fernández',
-),
-array(
-													'id'     => 'Garcia Lorca',
-													'nombre' => 'C.E.I.P. Federico García Lorca',
-),
-array(
-													'id'     => 'Juan XXIII',
-													'nombre' => 'Colegio Juan XXIII',
 ),
 );
 
@@ -759,12 +739,14 @@ exit();
 				class="form-group <?php echo (strstr($vacios,"colegio, ")==TRUE) ? 'has-error' : ''; ?>">
 			<label for="colegio">Centro de procedencia</label> <select
 				class="form-control" id="colegio" name="colegio">
-				<?php if($curso == "1ESO"): ?>
+				<?php if($curso == "1ESO"): 
+				$cole_1=mysqli_query($db_con,"select distinct colegio from alma_primaria order by colegio");
+				?>
 				<option value="<?php echo (isset($colegio)) ? $colegio : ''; ?>"><?php echo (isset($colegio)) ? $colegio : ''; ?></option>
-				<?php for ($i = 0; $i < count($centros_adscritos); $i++): ?>
-				<option value="<?php echo $centros_adscritos[$i]['id']; ?>"
-				<?php echo (isset($colegio) && $colegio == $centros_adscritos[$i]['id']) ? 'selected' : ''; ?>><?php echo $centros_adscritos[$i]['nombre']; ?></option>
-				<?php endfor; ?>
+				<?php while ($centros_adscritos=mysqli_fetch_array($cole_1)): ?>
+				<option value="<?php echo $centros_adscritos[0]; ?>"
+				<?php echo (isset($colegio) && $colegio == $centros_adscritos[0]) ? 'selected' : ''; ?>><?php echo $centros_adscritos[0]; ?></option>
+				<?php endwhile; ?>
 				<?php else: ?>
 				<option value="<?php echo $nombre_del_centro; ?>"><?php echo $nombre_del_centro; ?></option>
 				<?php endif; ?>
@@ -797,8 +779,8 @@ exit();
 			<div
 				class="form-group <?php echo (strstr($vacios,"padre, ")==TRUE) ? 'has-error' : ''; ?>">
 			<label for="padre">Apellidos y nombre del representante o guardador
-			legal 1 <small>(con quien conviva el alumno/a y tenga atribuida su
-			guarda y custodia)</small></label> <input type="text"
+			legal 1 <p class="help-block"><small>(con quien conviva el alumno/a y tenga atribuida su
+			guarda y custodia)</small></p></label> <input type="text"
 				class="form-control" id="padre" name="padre"
 				value="<?php echo (isset($padre)) ? $padre : ''; ?>" maxlength="60">
 			</div>
@@ -871,7 +853,7 @@ exit();
 			extranjero</th>
 			<th class="active text-center text-uppercase" colspan="2">Opción de
 			enseñanza de religión o alternativa<br>
-			<small>(señale una)</small></th>
+			<p class="help-block"><small>(señale una)</small></p></th>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -928,14 +910,14 @@ exit();
 		<?php if($n_curso < 3): ?>
 		<tr>
 			<th class="active text-center" colspan="2"><span
-				class="text-uppercase">Asignatura optativa</span><br>
-			<small>(marca con 1, 2, 3, y 4 por orden de preferencia)</small></th>
+				class="text-uppercase">Asignatura optativa</span>
+			<p class="help-block"><small>(marca con 1, 2, 3, y 4 por orden de preferencia)</small></p></th>
 			<th class="active text-center" colspan="2"><span
-				class="text-uppercase">Programa de Refuerzo o Ampliación</span><br>
-			<small>Se elige una asignatura de refuerzo si el alumno tiene
+				class="text-uppercase">Programa de Refuerzo o Ampliación</span>
+			<p class="help-block"><small>Se elige una asignatura de refuerzo si el alumno tiene
 			asignaturas suspensas del curso anterior; se elige asignatura de
 			ampliación si el alumno pasa de curso sin suspensos. El Departamento
-			de Orientación decide finalmente.</small></th>
+			de Orientación decide finalmente.</small></p></th>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -975,8 +957,8 @@ exit();
 		<?php elseif($n_curso == 3): ?>
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">
-			Asignaturas optativas de 3º de ESO<br>
-			<small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small>
+			Asignaturas optativas de 3º de ESO<p class="help-block">
+			<small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small></p>
 			</th>
 		</tr>
 		<tr>
@@ -1005,10 +987,10 @@ exit();
 		<?php else: ?>
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">Elección de
-			asignaturas optativas de 4º de ESO<br>
+			asignaturas optativas de 4º de ESO<p class="help-block">
 			<small>(Debes marcar un Itinerario y luego seleccionar las
 			asignaturas optativas ofrecidas para el mismo en su orden de
-			preferencia: 1, 2, 3, etc.)</small></th>
+			preferencia: 1, 2, 3, etc.)</small></p></th>
 		</tr>
 
 		<?php
@@ -1101,8 +1083,8 @@ exit();
 		<?php if($n_curso == 4): ?>
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">
-			Asignaturas optativas de 3º de ESO<br>
-			<small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small>
+			Asignaturas optativas de 3º de ESO<p class="help-block">
+			<small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small></p>
 			</th>
 		</tr>
 		<tr>
@@ -1138,18 +1120,18 @@ exit();
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">Elección de
 			asignaturas optativas de <?php echo substr($curso, 0, 1) - 1; ?>º de
-			ESO<br>
+			ESO<p class="help-block">
 			<small>(Deben rellenarlo todos los alumnos, incluso si promocionan al
-			curso siguiente)</small></th>
+			curso siguiente)</small></p></th>
 		</tr>
 		<tr>
 			<th class="text-center text-uppercase" colspan="2">Asignaturas
-			optativas<br>
+			optativas<p class="help-block">
 			<small>(marque con 1, 2, 3, y 4 por orden de preferencia)</small></th>
 			<th class="text-center text-uppercase" colspan="2">Programa de
-			refuerzo o alternativo<br>
+			refuerzo o alternativo<p class="help-block">
 			<small>Estudios en función del Informe de tránsito elaborado por el
-			tutor y seleccionados por el Departamento de Orientación.</small></th>
+			tutor y seleccionados por el Departamento de Orientación.</small></p></</th>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -1233,8 +1215,8 @@ exit();
 
 		<!-- ENFERMEDADES -->
 		<tr>
-			<th colspan="4"><span class="text-uppercase">Enfermedades del Alumno:</span><br>
-			Señalar si el alumno tiene alguna enfermedad que es importante que el Centro conozca por poder afectar a la vida académica del mismo.</th>
+			<th colspan="4"><span class="text-uppercase">Enfermedades del Alumno:</span><p class="help-block"><small>
+			Señalar si el alumno tiene alguna enfermedad que es importante que el Centro conozca por poder afectar a la vida académica del alumno.</small></p></th>
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 0;">
@@ -1262,9 +1244,9 @@ exit();
 		</tr>
 		<!-- OBSERVACIONES -->
 		<tr>
-			<th colspan="4"><span class="text-uppercase">Observaciones:</span><br>
+			<th colspan="4"><span class="text-uppercase">Observaciones:</span><p class="help-block"><small>
 			Indique aquellas cuestiones que considere sean importantes para
-			conocimiento del centro (enfermedades, situación familiar, etc.)</th>
+			conocimiento del centro (enfermedades, situación familiar, etc.)</small></p></th>
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 0;"><textarea class="form-control"

@@ -144,7 +144,7 @@ $archive = new PclZip($_FILES['archivo1']['tmp_name']);
 if ($handle = opendir('../primaria')) {
    while (false !== ($file = readdir($handle))) {   	
       if ($file != "." && $file != ".." && $file != ".txt") { 
-      $colegio = substr($file,0,-4); 
+      $colegio = "C.E.I.P. ".substr($file,0,-4); 
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
 
 $fp = fopen ('../primaria/'.$file , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
