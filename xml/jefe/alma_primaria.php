@@ -144,7 +144,7 @@ $archive = new PclZip($_FILES['archivo1']['tmp_name']);
 if ($handle = opendir('../primaria')) {
    while (false !== ($file = readdir($handle))) {   	
       if ($file != "." && $file != ".." && $file != ".txt") { 
-      $colegio = "C.E.I.P. ".substr($file,0,-4); 
+      $colegio = substr($file,0,-4); 
 // Importamos los datos del fichero CSV (todos_alumnos.csv) en la tabña alma.
 
 $fp = fopen ('../primaria/'.$file , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
@@ -170,7 +170,7 @@ $row = 1;
         }
     $dato=substr($dato,0,strlen($dato)-2); 
     $lineasalto.=$dato; 
-    $lineasalto.=", \"$colegio\"";
+    $lineasalto.=", \"C.E.I.P. $colegio\"";
     $lineasalto.=");";
   //  echo $lineasalto."<br>";
     mysqli_query($db_con, $lineasalto);
@@ -273,9 +273,7 @@ Parece que te estás olvidando de enviar el archivo con los datos de los alumnos.
 }
 
 // Creamos tabla de colegios para Fichas de Tránsito
-$c_t = mysqli_query($db_con,"select * from transito_control");
-if (mysqli_num_rows($c_t)>0) {}
-else{
+mysqli_query($db_con,"drop table transito_control");
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_control` (
 `id` int(11) NOT NULL,
   `colegio` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
@@ -293,6 +291,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
  {
  	$num++;
  	$n_cole = trim($row6[0]); 	
+ 	$n_cole=str_replace("C.E.I.P. ","",$n_cole);
  	$pass=str_replace(" ", "", $n_cole)."_".$codigo_del_centro;
  	$pass=str_replace("á", "a", $pass);
  	$pass=str_replace("é", "e", $pass);
@@ -320,7 +319,8 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
  ADD PRIMARY KEY (`id`)");
  mysqli_query($db_con,"ALTER TABLE `transito_datos`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT");
-}
+
+mysqli_query($db_con,"drop table transito_tipo"); 
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_tipo` (
 `id` int(11) NOT NULL,
   `tipo` varchar(16) COLLATE latin1_spanish_ci NOT NULL
