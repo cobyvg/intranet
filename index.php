@@ -265,8 +265,8 @@ if (stristr ( $carg, '2' ) == TRUE) {
 	  },
 	  {
 	    element: "#bs-tour-calendario",
-	    title: "Calendario del centro y Calendario personal",
-	    content: "En la parte inferior del calendario aparecerán las actividades de los próximos 7 días. Si el texto está marcado en color naranja quiere decir que dicha actividad afecta a tu horario. También aparecerá tu <em>Calendario personal</em> con aquellas actividades evaluables que hayas registrado desde el menú <strong>Trabajo</strong>, <strong>Actividades evaluables</strong>.",
+	    title: "Calendario",
+	    content: "El calendario mostrará información sobre los eventos del Centro, Actividades extraescolares y tus anotaciones personales. Cada evento está identificado con una bola de color; al pasar el ratón por encima aparecerá la descripción del evento. Debajo del calendario aparerán los eventos programados para el día de hoy. Para programar un evento haz click en <strong>Ver calendario</strong> o dirígite al menú <strong>Trabajo</strong>, <strong>Calendario</strong>, <strong>Ver calendario</strong>.",
 	    container: "body",
 	    placement: "left",
 	    <?php if($mod_horario and ($n_curso > 0)): ?>

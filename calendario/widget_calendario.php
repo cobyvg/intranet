@@ -165,7 +165,7 @@ $result_calendarios = mysqli_query($db_con, "SELECT id, nombre, color FROM calen
 if (mysqli_num_rows($result_calendarios)) {
 	
 	while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
-		$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin, horaini, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio_actual' AND MONTH(fechaini)='$mes_actual' AND DAY(fechaini)='$dia_actual' ORDER BY horaini ASC, horafin ASC");
+		$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin, horaini, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio_actual' AND MONTH(fechaini)='$mes_actual' AND $dia_actual BETWEEN DAY(fechaini) AND DAY(fechafin) ORDER BY horaini ASC, horafin ASC");
 		
 		if (mysqli_num_rows($result_eventos)) {
 		
@@ -191,12 +191,12 @@ if (mysqli_num_rows($result_calendarios)) {
 $result_calendarios = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1");
 
 while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
-	
-	$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin, horaini, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio_actual' AND MONTH(fechaini)='$mes_actual' AND DAY(fechaini)='$dia_actual' ORDER BY horaini ASC, horafin ASC");
+
+	$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin, horaini, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio_actual' AND MONTH(fechaini)='$mes_actual' AND $dia_actual BETWEEN DAY(fechaini) AND DAY(fechafin) ORDER BY horaini ASC, horafin ASC");
 	
 	while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 		if (mysqli_num_rows($result_eventos)) {
-		
+			
 			if ($eventos['fechaini'] == $eventos['fechafin'] && $eventos['horaini'] != $eventos['horafin']) $hora_evento = substr($eventos['horaini'], 0, -3).' - '.substr($eventos['horafin'], 0, -3);
 			elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') >= $eventos['fechaini'] && date('Y-m-d') < $eventos['fechafin']) $hora_evento = "Todo el día";
 			elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
