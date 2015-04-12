@@ -319,7 +319,7 @@ No has seleccionado el Nivel. Así no podemos seguir...
 				$orden.="act1, act2, act3, act4, ";
 			}
 		else{
-				$orden.="$op_filtro, ";
+				$orden.="$op_filtro desc, ";
 			}
 		}
 		
@@ -348,14 +348,13 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
 	
 	
-$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado";
+$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad";
 
 if ($curso=="3ESO"){$num_opt = "7";}else{$num_opt = "4";}
 for ($i=1;$i<$num_opt+1;$i++)
 		{
 			$sql.=", optativa$i";		
 		}
-
 $sql.=" from matriculas where ". $extra ." order by curso, ". $orden ." grupo_actual, apellidos, nombre ";
 //echo $sql;
 $cons = mysqli_query($db_con, $sql);
@@ -383,7 +382,7 @@ if ($curso=="1ESO") {
 echo '<th>Colegio</th>';
 		}
 echo '<th>Rel.</th>';
-echo '<th>Transporte</th>';
+echo '<th>Transprt</th>';
 echo '<th>Bil.</th>';
 		if ($n_curso<3) {
 echo '<th>Ex.</th>';
@@ -413,6 +412,7 @@ echo '<th class="hdden-print">SI |PIL |NO </th>';
 		echo '<th class="hdden-print">Borrar</th>';
 ?>
 <th class="hdden-print">Conv.</th>
+<th class="hdden-print">Otros</th>
 </thead>
 <tbody>
 <?
@@ -423,7 +423,7 @@ echo '<th class="hdden-print">SI |PIL |NO </th>';
 	$apellidos = $consul[1];
 	$nombre= $consul[2];
 	$letra_grupo = $consul[4];
-	$colegio = $consul[5];
+	$colegio=str_ireplace("C.E.I.P.","",$consul[5]);
 	$bilinguismo = $consul[6];
 	$diversificacion = $consul[7];
 	$act1 = $consul[8];
@@ -439,6 +439,8 @@ echo '<th class="hdden-print">SI |PIL |NO </th>';
 	$ruta_este = $consul[18];
 	$ruta_oeste = $consul[19];
 	$revisado = $consul[20];
+	$foto = $consul[21];
+	$enf = $consul[22];
 	$back = mysqli_query($db_con, "select id from matriculas_backup where id = '$id'");
 	if (mysqli_num_rows($back)>0) {
 			$respaldo = '1';
@@ -457,7 +459,7 @@ echo '<th class="hdden-print">SI |PIL |NO </th>';
 		//echo $ruta_este;
 for ($i=1;$i<$num_opt+1;$i++)
 		{
-			${optativa.$i} = $consul[$i+20];		
+			${optativa.$i} = $consul[$i+22];		
 		}
 		
 // Problemas de Convivencia
@@ -492,7 +494,10 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 	<td>'.$letra_grupo.'</td>
 	<td><input name="grupo_actual-'. $id .'" type="text" class="form-control input-sm" style="width:35px" value="'. $grupo_actual .'" /></td>';
 	if ($curso=="1ESO") {
-		echo '<td>'. $colegio .'</td>';
+		echo '<td>';		
+		$clg = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal'");
+		if (mysqli_num_rows($clg)>0) {	echo "<a href='informe_transito.php?claveal=$claveal' target='_blank' data-bs='tooltip' title='Alumno de Primaria con Informe de Tránsito' class='text-info'>$colegio</a>";}
+		echo '</td>';
 		}
 	if (strstr($religion,"Cat")==TRUE) {
 			$color_rel = " style='background-color:#FFFF99;'";
@@ -635,17 +640,27 @@ echo '<td class="hdden-print"><input name="revisado-'. $id .'" type="checkbox" v
  if ($respaldo=='1') { 
  	echo $backup;
  }
- echo "</td><td class='hdden-print'>";
+ echo "</td>";
+ echo "<td class='hdden-print'>";
  echo "<a href='consultas.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
  echo "</td>";
+
 echo "<td class='hdden-print'>";
+$disr = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal' and (tipo='disruptivo' and dato='2')");
+if (mysqli_num_rows($disr)>0) {	echo "<a href='informe_transito.php?claveal=$claveal' target='_blank'><span class='label label-info' data-bs='tooltip' title='Alumno disruptivo de Primaria con Problemas de Convivencia'>Disrup.</span></a>";}
+$disr1 = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal' and (tipo='integra' and dato='4')");
+if (mysqli_num_rows($disr1)>0) {echo "<br><a href='informe_transito.php?claveal=$claveal' target='_blank'><span class='label label-warning' data-bs='tooltip' title='Viene de Primaria con Problemas de Integración en el Aula'>Integra</span></a>";}
 // Problemas de Convivencia
 if($n_fechorias >= 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-important'>$n_fechorias</span></a>";}
 elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-warning'>$n_fechorias</span></a>";}
 elseif($n_fechorias < 5 and $n_fechorias > 0){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-info'>$n_fechorias</span></a>";}
 // Fin de Convivencia.
 echo "</td>";
-
+echo "<td class='hdden-print'>";
+if($foto == 1){ echo '<span class="fa fa-circle" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>';}
+echo "<br>";
+if(!empty($enf)){ echo '<span class="fa fa-circle" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>';}
+echo "</td>";
 	echo '
 	</tr>';	
 }
@@ -680,7 +695,6 @@ for ($i=1;$i<$num_acti+1;$i++){
 }
 $rel = mysqli_query($db_con, "select religion from matriculas where $extra and religion like '%Católica%'");
 
-//echo "select religion from matriculas where curso = '$curso' and grupo_actual = '$grupo_actual' and religion like 'Rel%'";
 $num_rel = mysqli_num_rows($rel);
 //echo $num_rel;
 if ($curso=="3ESO"){$num_opta = "7";}else{$num_opta = "4";}

@@ -394,6 +394,12 @@ else{
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="repite"> Repite</label>
 </label>
+<label class="radio-inline">
+  <input type="radio" name="op_orden" value="foto"> Foto
+</label>
+<label class="radio-inline">
+  <input type="radio" name="op_orden" value="enfermedad"> Enfermedad
+</label>
 </div>
 </div>
 		      

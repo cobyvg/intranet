@@ -360,6 +360,12 @@ echo "".$tipo20[0]."</label></div>";
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="repite"> Repite
 </label>
+<label class="radio-inline">
+  <input type="radio" name="op_orden" value="foto"> Foto
+</label>
+<label class="radio-inline">
+  <input type="radio" name="op_orden" value="enfermedad"> Enfermedad
+</label>
 </div>
 </div>
 </div>

@@ -102,6 +102,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 	
 		$link="";
 		$claveal=$clav[0];
+		$clg=str_ireplace("C.E.I.P.","",$clav[3]);
 		$con = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal'");
 		if (mysqli_num_rows($con)>0) { $link = 1; }
 		echo "<tr><td nowrap>$ni ";
@@ -112,7 +113,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 		if ($link == 1) {
 			echo "</a>";;
 		}
-		echo "</td><td nowrap>$clav[3]</td>";
+		echo "</td><td nowrap>$clg</td>";
 		$col = mysqli_query($db_con,"select distinct tipo from transito_tipo");
 		while ($ncol=mysqli_fetch_array($col)) {
 
