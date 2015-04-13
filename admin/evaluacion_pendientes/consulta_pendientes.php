@@ -61,8 +61,7 @@ $evaluacion_pendiente=$_POST["evaluacion"];
 ?>
 
 <legend class="text-info" align="center"><strong><? echo $curso_pendiente;?></strong></legend>
-<div class="table-responsive">
-<table class='table table-striped table-bordered table-condensed' align='center'>
+<table class='table table-striped table-bordered table-condensed' style="width:auto;" align='center'>
 
 <?
 $fila.= "<tr><th></th>";
@@ -80,7 +79,7 @@ $fila.= "<th style='font-size:8px;'>$abreviatura</th>";
 }
 	$array_asigna=substr($array_asigna,0,-1);
 
-$fila.="<th></th></tr>";
+$fila.="</tr>";
 echo $fila;
 $nf=0;
 $sql = "SELECT distinct alma.apellidos, alma.nombre, alma.unidad, alma.curso, pendientes.claveal, alma.matriculas 
@@ -102,7 +101,7 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 		$rep='';
 	}
 	echo "<tr>";
-	$columna = "<td nowrap>$salida[2]&nbsp;&nbsp;<a href='//$dominio/intranet/admin/informes/index.php?claveal=$salida[5]&todos=Ver Informe Completo del Alumno'>$nombre_al</a> <span class='text-warning'>$rep</span></td>";
+	$columna = "<td nowrap>$salida[2]&nbsp;&nbsp;<span class='text-info'>$nombre_al</span>&nbsp;<span class='text-warning'>$rep</span></td>";
 	echo $columna;
 	$tr_asigna = explode(";",$array_asigna);
 	
@@ -124,8 +123,8 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 		if(strlen($nota_evaluacion)>0) {}else{$nota_evaluacion="";}
 		echo "<td $extra>$nota_evaluacion</td>";
 			}
-	echo $columna;
-	echo"</tr>";
+	//echo $columna;		
+  	echo"</tr>";
 	
 	if ($nf==15 or $nf==30 or $nf==45 or $nf==60 or $nf==75 or $nf==90 ) {
 		echo $fila;
@@ -136,8 +135,7 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 echo "</table></div>";
 echo "<br />";
 ?>
-<a href="index.php" class="btn btn-primary">Volver a la página de Pendientes</a>
-</div>
+<a href="index.php" class="btn btn-primary hidden-print">Volver a la página de Pendientes</a>
 </div>
 </div>
 <?php include("../../pie.php"); ?>

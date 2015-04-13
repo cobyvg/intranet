@@ -59,8 +59,12 @@
 	</a></li>
 	<li><a href="../admin/libros/indextextos.php">Libros de Texto Gratuitos
 	</a></li>
+	<? if ($mod_matriculas==1) { ?>
 	<li><a href="../admin/matriculas/index.php">Matriculación de alumnos
 	</a></li>
+	<li><a href="./jefe/index_mayores.php">Alumnos mayores de 18 años
+	</a></li>	
+	<? } ?>
 	<li><a href="jefe/informes/accesos_alumnos.php">Informe de accesos</a></li>
 
 	<li class="nav-header">Bases de datos</li>

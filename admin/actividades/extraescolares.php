@@ -49,15 +49,17 @@ include("menu.php");
 
 <div class="col-sm-6 col-sm-offset-3">
     <div class="well well-lg">       
-<a href="javascript:seleccionar_todo()" class="btn btn-primary btn-sm">Marcar todos</a>
-<a href="javascript:deseleccionar_todo()" class="btn btn-primary btn-sm pull-right">Desmarcar todos</a>
+<a href="javascript:seleccionar_todo()" class="btn btn-primary btn-sm hidden-print">Marcar todos</a>
+<a href="javascript:deseleccionar_todo()" class="btn btn-primary btn-sm pull-right hidden-print">Desmarcar todos</a>
 <br /><br />
     <FORM action="imprimir.php" method="POST" name="imprime">
 
   <?
-$cursos0 = mysqli_query($db_con, "select grupos, profesor from actividades where id = '$id'");
+$cursos0 = mysqli_query($db_con, "select grupos, profesor, actividad from actividades where id = '$id'");
 while($cursos = mysqli_fetch_array($cursos0))
 {
+$actividad=$cursos[2];
+echo "<legend align='center' class='text-info'>$actividad</legend>";
 $profesor="";
 $profes="";
 $profes = explode(";",$cursos[1]);
@@ -103,9 +105,14 @@ $apellidos = $alumno[0];
 $nombre = $alumno[1];
 $nc = $alumno[2];
 $claveal = $alumno[3];
+$extra_al="";
+$ya = mysqli_query($db_con,"select * from actividadalumno where cod_actividad='$id' and claveal='$claveal'");
+if (mysqli_num_rows($ya)>0) {
+	$extra_al = 'checked';
+}
 ?>
 <tr><td >
-<input name="<? echo $nc.$claveal;?>" type="checkbox" id="A" value="<? echo $claveal;?>"> </td>
+<input name="<? echo $nc.$claveal;?>" type="checkbox" id="A" value="<? echo $claveal;?>" <? echo $extra_al;?>> </td>
 <td>   
 <?
 echo " $nc. $apellidos $nombre</td></tr>";
@@ -117,7 +124,8 @@ echo " $nc. $apellidos $nombre</td></tr>";
 }
 ?>
 <br />
-<button type="submit" name="submit" value="Imprimir Carta para los Padres" class="btn btn-primary">Imprimir Carta para los Padres</button>
+<button type="submit" name="submit" value="Imprimir Carta para los Padres" class="btn btn-primary hidden-print">Imprimir Carta para los Padres</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" name="print"  class="btn btn-success hidden-print" value="Imprimir Lista de Alumnos" onclick="window.print();">
   </FORM>
   </div>
   </div>

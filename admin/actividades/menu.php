@@ -28,7 +28,7 @@ if (strstr($_SERVER['REQUEST_URI'],'indexextra.php')==TRUE) {$activo1 = ' class=
 if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE){ $activo2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'consulta.php')==TRUE){ $activo3 = ' class="active" ';}
 ?>
-    <div class="container">
+    <div class="container hidden-print">
     	
     	<form method="get" action="consulta.php">
     	
