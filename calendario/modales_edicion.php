@@ -413,11 +413,24 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        		endif;
 			        		
 			        						        				        		
-			        	echo '</fieldset>
+			        	echo '</fieldset>';
 			        
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				      echo '   </div>
+				      	  <div class="modal-footer">';
+				      	if ($eventos1['categoria'] == 2):
+				      		$result_actividad = mysqli_query($db_con, "SELECT * FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM actividades WHERE actividad = '".$eventos1['nombre']."')");
+				      		
+				      		if (mysqli_num_rows($result_actividad)):
+				      		
+				      	  		echo '<div class="pull-left">
+				      				<a class="btn btn-info" href="../admin/actividades/extraescolares.php?id='.$idact.'" target="_blank">Listado de alumnos</a>
+				      			</div>';
+				      			
+				      		endif;
+				      		
+				      	endif;
+				      
+				      	echo '<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 				        <button type="submit" class="btn btn-danger" formaction="post/eliminarEvento.php?mes='.$mes.'&anio='.$anio.'">Eliminar</button>
 				        <button type="submit" class="btn btn-primary">Modificar</button>
 				      </div>
@@ -510,9 +523,22 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 	        		</div>';
 	        	}
 			        
-			   echo'   </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				echo '   </div>
+				  <div class="modal-footer">';
+				if ($eventos1['categoria'] == 2):
+					$result_actividad = mysqli_query($db_con, "SELECT * FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM actividades WHERE actividad = '".$eventos1['nombre']."')");
+					
+					if (mysqli_num_rows($result_actividad)):
+					
+				  		echo '<div class="pull-left">
+							<a class="btn btn-info" href="../admin/actividades/extraescolares.php?id='.$idact.'" target="_blank">Listado de alumnos</a>
+						</div>';
+						
+					endif;
+							
+				endif;
+		      
+			 	echo '      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 			      </div>
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
