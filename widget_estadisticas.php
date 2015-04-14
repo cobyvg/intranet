@@ -2,7 +2,7 @@
 
 <div class="bs-module hidden-xs">
 
-	<h4><span class="fa fa-pie-chart fa-fw"></span> Estadísticas del día</h4>
+	<h4><span class="fa fa-pie-chart fa-fw"></span> EstadÃ­sticas del dÃ­a</h4>
 	
 	<div class="row">
 	
@@ -61,7 +61,7 @@
 		
 		
 		<div class="col-sm-3">
-			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND inicio < CURDATE() AND fin >= CURDATE()"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND inicio <= CURDATE() AND fin >= CURDATE()"); ?>
 			<?   $ayer = date('Y') . "-" . date('m') . "-" . (date('d') - 1);?>
 			<?php $result1 = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND fin = '$ayer'"); ?>
 			
@@ -257,7 +257,7 @@
 							
 							<p class="lead text-center text-muted">
 								<span class="fa fa-thumbs-o-up fa-5x"></span><br>
-								¡Genial! Todos los profesores han accedido hoy
+								Â¡Genial! Todos los profesores han accedido hoy
 							</p>
 							
 							<?php endif; ?>	
