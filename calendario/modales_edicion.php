@@ -21,7 +21,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title">'.$eventos1['nombre'].'</h4>
+			        <h4 class="modal-title">'.stripslashes($eventos1['nombre']).'</h4>
 			      </div>
 			      <div class="modal-body">
 		        
@@ -31,7 +31,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        		
 		        		<div class="form-group">
 		        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-		        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.$eventos1['nombre'].'" maxlength="120" autofocus required>
+		        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.stripslashes($eventos1['nombre']).'" maxlength="120" autofocus required>
 		        		</div>
 		        		
 		        		
@@ -95,12 +95,12 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        		
 		        		<div class="form-group">
 		        			<label for="cmp_descripcion">Descripción</label>
-		        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.$eventos1['descripcion'].'</textarea>
+		        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.stripslashes($eventos1['descripcion']).'</textarea>
 		        		</div>
 		        		
 		        		<div class="form-group">
 		        			<label for="cmp_lugar">Lugar</label>
-		        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar" value="'.$eventos1['lugar'].'">
+		        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar" value="'.stripslashes($eventos1['lugar']).'">
 		        		</div>
 		        		
 		        		<div class="form-group">
@@ -217,7 +217,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title">'.$eventos1['nombre'].'</h4>
+				        <h4 class="modal-title">'.stripslashes($eventos1['nombre']).'</h4>
 				      </div>
 				      <div class="modal-body">
 			        
@@ -227,7 +227,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        		
 			        		<div class="form-group">
 			        			<label for="cmp_nombre" class="visible-xs">Nombre</label>
-			        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.$eventos1['nombre'].'" maxlength="120" autofocus required>
+			        			<input type="text" class="form-control" id="cmp_nombre" name="cmp_nombre" placeholder="Nombre del evento o actividad" value="'.stripslashes($eventos1['nombre']).'" maxlength="120" autofocus required>
 			        		</div>
 			        		
 			        		
@@ -291,12 +291,12 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        		
 			        		<div class="form-group">
 			        			<label for="cmp_descripcion">Descripción</label>
-			        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.$eventos1['descripcion'].'</textarea>
+			        			<textarea type="text" class="form-control" id="cmp_descripcion" name="cmp_descripcion" rows="3">'.stripslashes($eventos1['descripcion']).'</textarea>
 			        		</div>
 			        		
 			        		<div class="form-group">
 			        			<label for="cmp_lugar">Lugar</label>
-			        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar" value="'.$eventos1['lugar'].'">
+			        			<input type="text" class="form-control" id="cmp_lugar" name="cmp_lugar" value="'.stripslashes($eventos1['lugar']).'">
 			        		</div>
 			        		
 			        		<div class="form-group">
@@ -418,9 +418,12 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 				      echo '   </div>
 				      	  <div class="modal-footer">';
 				      	if ($eventos1['categoria'] == 2):
-				      		$result_actividad = mysqli_query($db_con, "SELECT * FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM actividades WHERE actividad = '".$eventos1['nombre']."')");
+				      		$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM actividades WHERE actividad = '".$eventos1['nombre']."')  LIMIT 1");
 				      		
 				      		if (mysqli_num_rows($result_actividad)):
+				      			
+				      			$row_idact = mysqli_fetch_row($result_actividad);
+				      			$idact = $row_idact[0];
 				      		
 				      	  		echo '<div class="pull-left">
 				      				<a class="btn btn-info" href="../admin/actividades/extraescolares.php?id='.$idact.'" target="_blank">Listado de alumnos</a>
@@ -451,7 +454,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title">'.$eventos1['nombre'].'</h4>
+			        <h4 class="modal-title">'.stripslashes($eventos1['nombre']).'</h4>
 			      </div>
 			      <div class="modal-body">
 	        		
@@ -499,12 +502,12 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 	        		
 	        		<div class="form-group">
 	        			<label for="">Descripción</label>
-	        			<p class="form-control-static text-info">'.$eventos1['descripcion'].'</p>
+	        			<p class="form-control-static text-info">'.stripslashes($eventos1['descripcion']).'</p>
 	        		</div>
 	        		
 	        		<div class="form-group">
 	        			<label for="">Lugar</label>
-	        			<p class="form-control-static text-info lead">'.$eventos1['lugar'].'</p>
+	        			<p class="form-control-static text-info lead">'.stripslashes($eventos1['lugar']).'</p>
 	        		</div>';
 	        	if($eventos1['categoria'] == 2) {	
 	        		echo'	<div class="form-group">
@@ -526,10 +529,13 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 				echo '   </div>
 				  <div class="modal-footer">';
 				if ($eventos1['categoria'] == 2):
-					$result_actividad = mysqli_query($db_con, "SELECT * FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM actividades WHERE actividad = '".$eventos1['nombre']."')");
+					$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM actividades WHERE actividad = '".$eventos1['nombre']."') LIMIT 1");
 					
 					if (mysqli_num_rows($result_actividad)):
-					
+						
+						$row_idact = mysqli_fetch_row($result_actividad);
+						$idact = $row_idact[0];
+						
 				  		echo '<div class="pull-left">
 							<a class="btn btn-info" href="../admin/actividades/extraescolares.php?id='.$idact.'" target="_blank">Listado de alumnos</a>
 						</div>';

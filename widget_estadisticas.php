@@ -2,7 +2,7 @@
 
 <div class="bs-module hidden-xs">
 
-	<h4><span class="fa fa-pie-chart fa-fw"></span> EstadÃ­sticas del dÃ­a</h4>
+	<h4><span class="fa fa-pie-chart fa-fw"></span> Estadísticas del día</h4>
 	
 	<div class="row">
 	
@@ -257,7 +257,7 @@
 							
 							<p class="lead text-center text-muted">
 								<span class="fa fa-thumbs-o-up fa-5x"></span><br>
-								Â¡Genial! Todos los profesores han accedido hoy
+								¡Genial! Todos los profesores han accedido hoy
 							</p>
 							
 							<?php endif; ?>	
