@@ -210,7 +210,9 @@ while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					$row_idact = mysqli_fetch_array($result_actividad);
 					$idact = $row_idact[0];
 					
+
 					echo '<a href="//'.$dominio.'/intranet/calendario/index.php" class="list-group-item" style="float:left;width:85%;"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].'"></span>&nbsp;'.$eventos['nombre'].'</a><a href="admin/actividades/extraescolares.php?id='.$idact.'" class="list-group-item text-center" style="float:right;width:15%;"><span class="fa fa-users" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span></a>
+
 					  <div class="clearfix"></div>';
 					
 				else:

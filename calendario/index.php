@@ -138,7 +138,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 						$horafin = substr($eventos['horafin'], 0, -3);
 						
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcal_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr($eventos['descripcion'], 0, 500).'"><p><strong>'.$horaini.' - '.$horafin.'</strong></p>'.$eventos['nombre'].'<br>'.$eventos['unidades'].'</a>';
+							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcal_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr(stripslashes($eventos['descripcion']), 0, 500).'"><p><strong>'.$horaini.' - '.$horafin.'</strong></p>'.stripslashes($eventos['nombre']).'<br>'.$eventos['unidades'].'</a>';
 						}
 						
 						unset($horaini);
@@ -160,7 +160,7 @@ function vista_mes ($calendario, $dia, $mes, $anio, $cargo) {
 						$horafin = substr($eventos['horafin'], 0, -3);
 						
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr($eventos['descripcion'], 0, 500).'"><p><strong>'.$horaini.' - '.$horafin.'</strong></p>'.$eventos['nombre'].'<br>'.$eventos['unidades'].'</a>';
+							echo '<a href="#" data-toggle="modal" data-target="#modalEvento'.$eventos['id'].'" class="label idcalpub_'.$calendario['id'].' visible" style="background-color: '.$calendario['color'].';" data-bs="tooltip" title="'.substr(stripslashes($eventos['descripcion']), 0, 500).'"><p><strong>'.$horaini.' - '.$horafin.'</strong></p>'.stripslashes($eventos['nombre']).'<br>'.$eventos['unidades'].'</a>';
 						}
 						
 						unset($horaini);

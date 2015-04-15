@@ -61,7 +61,7 @@
 		
 		
 		<div class="col-sm-3">
-			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND inicio < CURDATE() AND fin >= CURDATE()"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND inicio <= CURDATE() AND fin >= CURDATE()"); ?>
 			<?   $ayer = date('Y') . "-" . date('m') . "-" . (date('d') - 1);?>
 			<?php $result1 = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND fin = '$ayer'"); ?>
 			
