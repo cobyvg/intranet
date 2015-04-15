@@ -1,4 +1,12 @@
 <?
+if (isset($_POST['submit1'])) {
+	include("imprimir.php");
+}
+elseif(isset($_POST['submit2'])){
+	include("registrar.php");
+}
+?>
+<?
 session_start();
 include("../../config.php");
 include_once('../../config/version.php');
@@ -35,6 +43,11 @@ if($_SESSION['cambiar_clave']) {
 
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE)
+{
+	$jefes=1;
+}
 ?>
   <?php
 include("../../menu.php");
@@ -47,12 +60,16 @@ include("menu.php");
 </div>
 </div>
 
-<div class="col-sm-6 col-sm-offset-3">
-    <div class="well well-lg">       
+<div class="col-sm-8 col-sm-offset-2">
+    <div class="well well-lg">      
+<?
+if ($jefes==1) {
+?>
 <a href="javascript:seleccionar_todo()" class="btn btn-primary btn-sm hidden-print">Marcar todos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-primary btn-sm pull-right hidden-print">Desmarcar todos</a>
 <br /><br />
-    <FORM action="imprimir.php" method="POST" name="imprime">
+<? } ?>
+    <FORM action="extraescolares.php" method="POST" name="imprime">
 
   <?
 $cursos0 = mysqli_query($db_con, "select grupos, profesor, actividad from actividades where id = '$id'");
@@ -89,13 +106,17 @@ $horario = $datos[1];
 $actividad = $datos[3];
 $descripcion = $datos[4];
 ?>
+<?
+if ($jefes==1) {
+?>
 <input name="fecha" type="hidden" id="A" value="<? echo $fecha;?>">
 <input name="horario" type="hidden" id="A" value="<? echo $horario;?>">
 <input name="profesor" type="hidden" id="A" value="<? echo $profesor;?>">
 <input name="actividad" type="hidden" id="A" value="<? echo $actividad;?>">
 <input name="descripcion" type="hidden" id="A" value="<? echo $descripcion;?>">
-<input name="id" type="hidden" id="A" value="<? echo $id;?>">   
-<table class="table table-striped table-condensed">
+<input name="id" type="hidden" id="A" value="<? echo $id;?>">  
+<?}?> 
+<table class="table table-striped">
 <tr><td colspan="2"><h4><? echo "Alumnos de $unidad";?></h4></td>
 </tr>
 
@@ -112,7 +133,8 @@ if (mysqli_num_rows($ya)>0) {
 }
 ?>
 <tr><td >
-<input name="<? echo $nc.$claveal;?>" type="checkbox" id="A" value="<? echo $claveal;?>" <? echo $extra_al;?>> </td>
+<input name="<? echo $nc.$claveal;?>" type="checkbox" id="A" value="<? echo $claveal;?>" <? echo $extra_al;?>> 
+</td>
 <td>   
 <?
 echo " $nc. $apellidos $nombre</td></tr>";
@@ -124,8 +146,15 @@ echo " $nc. $apellidos $nombre</td></tr>";
 }
 ?>
 <br />
-<button type="submit" name="submit" value="Imprimir Carta para los Padres" class="btn btn-primary hidden-print">Imprimir Carta para los Padres</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<div align="center">
+<?
+if ($jefes==1) {
+?>
+<button type="submit" name="submit1" value="Imprimir Carta para Padres" class="btn btn-primary hidden-print">Imprimir Carta para Padres</button>&nbsp;
+<button type="submit" name="submit2" value="Registrar Alumnos" class="btn btn-info hidden-print">Registrar Alumnos</button>&nbsp;
+<? } ?>
 <input type="button" name="print"  class="btn btn-success hidden-print" value="Imprimir Lista de Alumnos" onclick="window.print();">
+</div>
   </FORM>
   </div>
   </div>

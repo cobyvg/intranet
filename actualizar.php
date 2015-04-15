@@ -161,15 +161,19 @@ for ($i=$cur;$i>$cur-5;$i--)
 		}			
 	}
 }
-	mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Final Nivel-Grupo', NOW())");	
+	mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Final Nivel-Grupo', NOW())");
+	mysqli_select_db($db_con, $db);
 }
 
 // Actualizar datos de libros de texto a la desaparición de nivel-grupo
-$actua = mysqli_query($db_con, "select modulo from actualizacion where modulo = 'Tamano de a_grupo'");
-if (mysqli_num_rows($actua)>0) {}else{
-mysqli_query($db_con, "ALTER TABLE  `horw` CHANGE  `a_grupo`  `a_grupo` VARCHAR( 64 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
-mysqli_query($db_con, "ALTER TABLE  `horw_faltas` CHANGE  `a_grupo`  `a_grupo` VARCHAR( 64 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
-mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Tamano de a_grupo', NOW())");	
+$actua1 = mysqli_query($db_con, "select modulo from actualizacion where modulo = 'Tamano de a_grupo'");
+
+if (! mysqli_num_rows($actua1)) {
+
+	mysqli_query($db_con, "ALTER TABLE  `horw` CHANGE  `a_grupo`  `a_grupo` VARCHAR( 64 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
+	mysqli_query($db_con, "ALTER TABLE  `horw_faltas` CHANGE  `a_grupo`  `a_grupo` VARCHAR( 64 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''");
+	
+	mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Tamano de a_grupo', NOW())");	
 }
 
 /*

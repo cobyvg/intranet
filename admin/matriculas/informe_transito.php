@@ -19,7 +19,7 @@ if ($_SESSION['autentificado'] != 1) {
 		exit();
 	}
 }
-if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'7') == TRUE))
+if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'8') == TRUE))
 {
 header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	

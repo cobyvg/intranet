@@ -66,7 +66,7 @@ $apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nom
 	 $telefono2= "Teléfono Móvil: ".$telefono2;
 	 $telefonos="$telefono1\n   $telefono2";
 
-	 if ($datos_ya->colegio == "Otro Centro") { $colegio= "Centro de procedencia:  ".$datos_ya->otrocolegio; }else{	 $colegio= "Centro de procedencia:  ".$datos_ya->colegio; }
+	 if ($datos_ya->colegio == "Otro Centro") { $colegio= "".$datos_ya->otrocolegio; }else{	 $colegio= "".$datos_ya->colegio; }
 	 $correo= "Correo electrónico de padre o madre: ".$datos_ya->correo;
 	 // Optativas y refuerzos
 	 $n_curso = substr($curso, 0, 1);
@@ -177,11 +177,11 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(5,6,"3",1,0,'C',1);
 	$MiPDF->Cell(163,6,"DATOS DE MATRÍCULA",1,0,'C',1);
 	$MiPDF->Ln ( 8 );
-	$MiPDF->Cell(76,5,"CENTRO EN EL QUE SE MATRICULA",0,0,"C");
+	$MiPDF->Cell(76,5,"CENTRO DE ORIGEN",0,0,"C");
 	$MiPDF->Cell(46,5,"LOCALIDAD",0,0,"C");
 	$MiPDF->Cell(46,5,"CODIGO",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(76,5,$nombre_del_centro,1,0,'C');
+	$MiPDF->Cell(76,5,$colegio,1,0,'C');
 	$MiPDF->Cell(46,5,$localidad_del_centro,1,0,'C');
 	$MiPDF->Cell(46,5,$codigo_del_centro,1,0,'C');
 	$MiPDF->Ln ( 10 );

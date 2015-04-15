@@ -19,17 +19,7 @@ if (isset($_SESSION['profi'])) {
 	session_destroy();
 }
 
-/*
-	@descripcion: Modificación tabla c_profes para establecer estado de usuario
-	@fecha: 5 de diciembre de 2014
-*/
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Estado usuarios c_profes'");
-if (! mysqli_num_rows($actua)) {
-
-	mysqli_query($db_con, "ALTER TABLE `c_profes` ADD `estado` TINYINT (1) NOT NULL DEFAULT 0 ;");
-	
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Estado usuarios c_profes', NOW())");	
-}
+include('actualizar.php');
 
 // Entramos
 if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {
@@ -74,7 +64,6 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 				exit();
 			}
 			else {
-				include_once('actualizar.php');
 				header("location:clave.php?tour=1");
 				exit();
 			}
@@ -101,6 +90,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			$id_reg = mysqli_query($db_con, "select id from reg_intranet where profesor = '$profe' order by id desc limit 1" );
 			$id_reg0 = mysqli_fetch_array ( $id_reg );
 			$_SESSION['id_pag'] = $id_reg0 [0];
+
 			
 			// Comprobamos si el usuario es Admin y entra por primera vez
 			if ($profe=="admin" and $clave == sha1("12345678")) {
@@ -269,6 +259,5 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
         $('input:first').trigger('keyup');
   })
   </script>
-  
 </body>
 </html>

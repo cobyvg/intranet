@@ -202,7 +202,30 @@ while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 			elseif ($eventos['fechaini'] != $eventos['fechafin'] && date('Y-m-d') == $eventos['fechafin']) $hora_evento = "Hasta las ".substr($eventos['horafin'], 0, -3);
 			else $hora_evento = "Todo el día";
 			
-			echo '<a href="//'.$dominio.'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].'"></span>&nbsp;'.$eventos['nombre'].'</a>';
+			if ($calendario['id'] == 2):
+				$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM actividades WHERE actividad = '".$eventos['nombre']."')  LIMIT 1");
+					
+				if (mysqli_num_rows($result_actividad)):
+					
+					$row_idact = mysqli_fetch_array($result_actividad);
+					$idact = $row_idact[0];
+					
+					echo '<a href="//'.$dominio.'/intranet/calendario/index.php" class="list-group-item" style="float:left;width:85%;"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].'"></span>&nbsp;'.$eventos['nombre'].'</a><a href="admin/actividades/extraescolares.php?id='.$idact.'" class="list-group-item text-center" style="float:right;width:15%;"><span class="fa fa-users" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span></a>
+					  <div class="clearfix"></div>';
+					
+				else:
+					
+					echo '<a href="//'.$dominio.'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].'"></span>&nbsp;'.$eventos['nombre'].'</a>';
+					
+				endif;
+						
+			else:
+				
+				echo '<a href="//'.$dominio.'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" class="list-group-item"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.$calendario['nombre'].'"></span>&nbsp;'.$eventos['nombre'].'</a>';
+				
+			endif;
+			
+			
 			$profesor_libre=0;
 		}
 		else {
@@ -233,6 +256,7 @@ if ($profesor_libre) {
 	<span class="fa fa-coffee fa-2x"></span><br>
 	<p>Nada programado para hoy</p>
 	<small class="btn btn-default btn-sm">Ver calendario</small></a>';
+	
 	echo '</div>';
 }
 else {
