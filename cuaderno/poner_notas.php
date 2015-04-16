@@ -68,7 +68,7 @@ foreach($cursos as $unidad)
 		else{
   		$insert = "insert into datos (id, claveal, nota, ponderacion) values ('$id','$claveal','$val','1')";
   		$insert0 = mysqli_query($db_con, $insert);	
-		echo $insert."<br />";
+		//echo $insert."<br />";
   		}
 		}
   }  
