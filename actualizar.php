@@ -197,4 +197,22 @@ mysqli_query($db_con,"ALTER TABLE `actividadalumno` CHANGE `cod_actividad` `cod_
 mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Estructura actividadalumno', NOW())");	
 }
 
+// Actualizamos estructura de la tabla de matrículas
+$actua = mysqli_query($db_con, "select modulo from actualizacion where modulo = 'Estructura matriculas'");
+if (mysqli_num_rows($actua)>0) {}else{
+	// ESO
+	mysqli_query($db_con,"ALTER TABLE `matriculas` ADD `enfermedad` VARCHAR(254) NOT NULL , ADD `otraenfermedad` VARCHAR(254) NOT NULL");
+	mysqli_query($db_con,"ALTER TABLE `matriculas` ADD `foto` char(1) NULL");
+	mysqli_query($db_con,"ALTER TABLE `matriculas` ADD `divorcio` VARCHAR( 64 ) NULL");	
+	mysqli_query($db_con,"ALTER TABLE `matriculas` CHANGE `colegio` `colegio` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT '', CHANGE `otrocolegio` `otrocolegio` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL;");
+	// Bachillerato
+	mysqli_query($db_con,"ALTER TABLE `matriculas_bach` ADD `enfermedad` VARCHAR(254) NOT NULL , ADD `otraenfermedad` VARCHAR(254) NOT NULL");
+	mysqli_query($db_con,"ALTER TABLE `matriculas_bach` ADD `foto` char(1) NULL");
+	mysqli_query($db_con,"ALTER TABLE `matriculas_bach` ADD `divorcio` VARCHAR( 64 ) NULL");	
+	mysqli_query($db_con,"ALTER TABLE `matriculas_bach` CHANGE `colegio` `colegio` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT '', CHANGE `otrocolegio` `otrocolegio` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL;");	
+	mysqli_query($db_con,"ALTER TABLE `matriculas_bach` ADD `bilinguismo` CHAR( 2 ) NULL");	
+	
+mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Estructura matriculas', NOW())");	
+}
+
 ?>

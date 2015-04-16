@@ -366,6 +366,9 @@ echo "".$tipo20[0]."</label></div>";
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="enfermedad"> Enfermedad
 </label>
+<label class="radio-inline">
+  <input type="radio" name="op_orden" value="divorcio"> Divorcio
+</label>
 </div>
 </div>
 </div>

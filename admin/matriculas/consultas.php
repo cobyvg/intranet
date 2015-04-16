@@ -348,7 +348,7 @@ No has seleccionado el Nivel. Así no podemos seguir...
 	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
 	
 	
-$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad";
+$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio";
 
 if ($curso=="3ESO"){$num_opt = "7";}else{$num_opt = "4";}
 for ($i=1;$i<$num_opt+1;$i++)
@@ -441,6 +441,7 @@ echo '<th class="hdden-print">SI |PIL |NO </th>';
 	$revisado = $consul[20];
 	$foto = $consul[21];
 	$enf = $consul[22];
+	$divorcio = $consul[23];
 	$back = mysqli_query($db_con, "select id from matriculas_backup where id = '$id'");
 	if (mysqli_num_rows($back)>0) {
 			$respaldo = '1';
@@ -459,7 +460,7 @@ echo '<th class="hdden-print">SI |PIL |NO </th>';
 		//echo $ruta_este;
 for ($i=1;$i<$num_opt+1;$i++)
 		{
-			${optativa.$i} = $consul[$i+22];		
+			${optativa.$i} = $consul[$i+23];		
 		}
 		
 // Problemas de Convivencia
@@ -656,10 +657,14 @@ elseif($n_fechorias > 4 and $n_fechorias < 15){ echo "<a href='../fechorias/fech
 elseif($n_fechorias < 5 and $n_fechorias > 0){ echo "<a href='../fechorias/fechorias.php?claveal=$claveal&submit1=1' target='blank'><span class='badge badge-info'>$n_fechorias</span></a>";}
 // Fin de Convivencia.
 echo "</td>";
-echo "<td class='hdden-print'>";
-if($foto == 1){ echo '<span class="fa fa-circle" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>';}
-echo "<br>";
-if(!empty($enf)){ echo '<span class="fa fa-circle" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>';}
+echo "<td class='hdden-print' nowrap>";
+if($foto == 1){ echo '<span class="fa fa-camera" style="color: green;" data-bs="tooltip" title="Es posible publicar su foto."></span>&nbsp;';}
+if(!empty($enf)){ echo '<span class="fa fa-medkit" style="color: red;" data-bs="tooltip" title="'.$enf.'"></span>&nbsp;';}
+if(!empty($divorcio)){ 
+	if ($divorcio=="Guardia y Custodia compartida por Madre y Padre") {echo '<span class="fa fa-group" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
+	elseif($divorcio=="Guardia y Custodia de la Madre") {echo '<span class="fa fa-female" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
+	elseif($divorcio=="Guardia y Custodia del Padre") {echo '<span class="fa fa-male" style="color: orange;" data-bs="tooltip" title="'.$divorcio.'"></span>';}
+	}
 echo "</td>";
 	echo '
 	</tr>';	
