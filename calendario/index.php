@@ -476,6 +476,10 @@ $PLUGIN_COLORPICKER = 1;
 			$('#modalEvento<?php echo $_GET['viewModal']; ?>').modal('show');
 			<?php endif; ?>
 			
+			<?php if(isset($_GET['action']) && $_GET['action'] == 'nuevoEvento'): ?>
+			$('#modalNuevoEvento').modal('show');
+			<?php endif; ?>
+			
 			
 			// MODAL NUEVO CALENDARIO
 			$('#colorpicker1').colorpicker();
