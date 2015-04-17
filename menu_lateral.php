@@ -215,6 +215,7 @@ $menu = array(
 			array(
 				'href'   => '#',
 				'titulo' => 'Estadísticas',
+				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
 						'href'   => 'admin/informes/informe_notas1.php',
@@ -239,6 +240,12 @@ $menu = array(
 				'href'   => 'admin/biblioteca/index.php',
 				'titulo' => 'Fondos de la Biblioteca',
 				'modulo'  => $mod_biblio,
+				'ncargos' => array('6', '7'),
+			),
+			array(
+				'href'   => 'xml/jefe/index_mayores.php',
+				'titulo' => 'Alumnos mayores de 18 años',
+				'cargos' => array('6'),
 			),
 		),
 	),
