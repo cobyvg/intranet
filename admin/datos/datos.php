@@ -96,6 +96,20 @@ La contraseña del alumno para el acceso a la página pública del Centro se ha rei
 	}
 }
 
+// Borramos alumno de la base de datos
+if (isset($_GET['borrar']) and $_GET['borrar']==1) {
+	mysqli_query($db_con, "delete from control where claveal = '".$_GET['clave_alumno']."'");
+	mysqli_query($db_con, "delete from FALUMNOS where claveal = '".$_GET['clave_alumno']."'");
+	mysqli_query($db_con, "delete from usuarioalumno where claveal = '".$_GET['clave_alumno']."'");
+	mysqli_query($db_con, "delete from alma where claveal = '".$_GET['clave_alumno']."'");
+	if (mysqli_affected_rows($db_con)>0) {
+		echo '<div align="center"><div class="alert alert-success alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+		El alumno ha sido eliminado correctamente de la Base de datos.
+		</div></div>';  
+	}
+}
+
 if (isset($seleccionado) and $seleccionado=="1") {
 	$tr=explode(" --> ",$alumno);
 	$clave_al=$tr[1];
@@ -145,7 +159,7 @@ if ($seleccionado=='1') {
 $SQL = "select distinct alma.claveal, alma.apellidos, alma.nombre, alma.unidad, 
   alma.DNI, alma.fecha, alma.dni, alma.telefono, alma.telefonourgencia, padre, matriculas, correo from alma
   where 1 " . $AUXSQL . " order BY unidad, alma.apellidos, nombre";
-// echo $SQL;
+ //echo $SQL;
 $result = mysqli_query($db_con, $SQL);
 
 if ($row = mysqli_fetch_array($result))
@@ -206,17 +220,18 @@ if ($row = mysqli_fetch_array($result))
 	echo "</tbody></table>\n";
 } else
 {
+	if ($_GET['borrar']!=="1") {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
 No hubo suerte, bien porque te has equivocado
         al introducir los datos, bien porque ningún dato se ajusta a tus criterios.
 		</div></div>';
-
+	}
 }
 ?> <br />
 <?
-if ($_GET['seleccionado']=='1'){
+if ($_GET['seleccionado']=='1' and $_GET['borrar']!=="1"){
 
 	// Comprobamos si el centro cuenta con módulo de la página principal para el acceso de los alumnos
 	$sql_control = mysqli_query($db_con, "select * from control where claveal = '$claveal'");
@@ -258,6 +273,9 @@ if ($_GET['seleccionado']=='1'){
 			echo "&nbsp;<a class='btn btn-primary' href='datos.php?resetear=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Si el alumno o sus padres han olvidado la contraseña de acceso a la página principal, este botón permite reiniciar la contraseña al NIE del alumno. Si el alumno o tutores del mismo han registrado una dirección de correo electrónico, se les enviará un cooreo automaticamente. De lo contrario habrá que ponerse en contacto para hacérselo saber.'>Reiniciar Contraseña</a>";
 		}
 		}
+	}
+	if (stristr($_SESSION['cargo'],'1') == TRUE) {
+		echo "&nbsp;<a class='btn btn-primary' href='datos.php?borrar=1&clave_alumno=$clave_al&seleccionado=1&alumno=$alumno&unidad=$unidad&correo=$correo'  data-bs='tooltip' title='Esta acción borra el alumno de las tablas de alumnos de la Base de datos. Sólo utilizar en caso de una anomalía persistente y bien constatada (cuando el alumno aparece en la importación de datos de Séneca pero es absolutamente seguro que ya no está matriculado en el Centro, por ejemplo). Utilizar esta opción con mucho cuidado.' data-bb='confirm-delete'>Borrar alumno</a>";
 	}
 }
 ?>

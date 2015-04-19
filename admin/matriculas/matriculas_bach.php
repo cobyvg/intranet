@@ -513,7 +513,7 @@ if ($dni or $claveal or $id) {
 	$curso = str_replace(" ","",$curso);
 	// Comprobación de padre con varios hijos en el Centro
 	$ya_matricula = mysqli_query($db_con, "select claveal, apellidos, nombre, id from matriculas_bach where ". $conditio ."");
-	$ya_primaria = mysqli_query($db_con, "select claveal, apellidos, nombre from alma_secundaria where ". $conditio1 ."");
+	$ya_secundaria = mysqli_query($db_con, "select claveal, apellidos, nombre from alma_secundaria where ". $conditio1 ."");
 	$ya_alma = mysqli_query($db_con, "select claveal, apellidos, nombre, unidad, idcurso from alma, unidades where nomunidad=unidad and (". $conditio1 .")");
 	// Comprobamos si el alumno se ha registrado ya
 	$ya = mysqli_query($db_con, "select apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre,
@@ -536,8 +536,8 @@ if ($dni or $claveal or $id) {
 		}
 	}
 
-	// Viene de Colegio de Primaria
-	elseif (mysqli_num_rows($ya_primaria) > 0){
+	// Viene de Colegio de Secundaria
+	elseif (mysqli_num_rows($ya_secundaria) > 0){
 		$alma = mysqli_query($db_con, "select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, matriculas, claveal, colegio from alma_secundaria where ". $conditio1 ."");
 
 		if (mysqli_num_rows($alma) > 0) {
@@ -768,27 +768,30 @@ if ($dni or $claveal or $id) {
 				maxlength="120"></div>
 			</td>
 			<td rowspan="2">
-			<div
+<div
 				class="form-group <?php echo (strstr($vacios,"colegio, ")==TRUE) ? 'has-error' : ''; ?>">
 			<label for="colegio">Centro de procedencia</label> <select
 				class="form-control" id="colegio" name="colegio">
-				<?php if($curso == "1ESO"): ?>
-				<option value=""></option>
-				<?php for ($i = 0; $i < count($centros_adscritos); $i++): ?>
-				<option value="<?php echo $centros_adscritos[$i]['id']; ?>"
-				<?php echo (isset($colegio) && $colegio == $centros_adscritos[$i]['id']) ? 'selected' : ''; ?>><?php echo $centros_adscritos[$i]['nombre']; ?></option>
-				<?php endfor; ?>
+				<?php if($curso == "1BACH"): 
+				$cole_1=mysqli_query($db_con,"select distinct colegio from alma_secundaria order by colegio");
+				?>
+				<option value="<?php echo (isset($colegio)) ? $colegio : ''; ?>"><?php echo (isset($colegio)) ? $colegio : ''; ?></option>
+				<?php while ($centros_adscritos=mysqli_fetch_array($cole_1)): ?>
+				<option value="<?php echo $centros_adscritos[0]; ?>"
+				<?php echo (isset($colegio) && $colegio == $centros_adscritos[0]) ? 'selected' : ''; ?>><?php echo $centros_adscritos[0]; ?></option>
+				<?php endwhile; ?>
 				<?php else: ?>
 				<option value="<?php echo $nombre_del_centro; ?>"><?php echo $nombre_del_centro; ?></option>
 				<?php endif; ?>
 				<option value="Otro Centro">Otro Centro</option>
 			</select></div>
+			
 			<div id="form-otrocolegio"
 				class="form-group <?php echo (isset($otrocolegio) && !empty($otrocolegio)) ? '' : 'hidden'; ?>">
 			<label for="otrocolegio">Centro educativo</label> <input type="text"
 				class="form-control" id="otrocolegio" name="otrocolegio"
 				value="<?php echo (isset($otrocolegio)) ? $otrocolegio : ''; ?>"
-				maxlength="60" placeholder="Escribe aquí el nombre del centro"> <input
+				maxlength="60" placeholder="Escribe aquí el nombre del Centro"> <input
 				type="hidden" name="letra_grupo"
 				value="<?php echo (isset($letra_grupo)) ? $letra_grupo : ''; ?>"></div>
 			</td>
@@ -1193,7 +1196,8 @@ if ($dni or $claveal or $id) {
 				maxlength="60" placeholder="Escribe aquí el nombre de la enfermedad"> 
 				</div>
 			</td>
-			
+
+		<!-- DIVORCIOS -->			
 			<td colspan="2" style="border-top: 0;">
 			<p class="help-block"><small>
 			Señalar si el alumno procede de padres divorciados y cual es la situación legal de la Guardia y Custodia respecto al mismo.</small></p>

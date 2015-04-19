@@ -142,6 +142,7 @@ while($alumno = mysqli_fetch_array($alumnos1))
 {
 mysqli_query($db_con,"delete from actividadalumno where claveal='$value' and cod_actividad='$id'");
 mysqli_query($db_con, "insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
+//echo "insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')<br>";
 # insertamos la primera pagina del documento
 $MiPDF->Addpage();
 $cuerpo = "$alumno[2], con D.N.I $alumno[8], padre, madre o tutor/a legal de $alumno[0] $alumno[1], alumno/a del curso $alumno[9] de este Centro, se hace cargo bajo su responsabilidad de que su hijo/a participe en la siguiente actividad extraescolar o complementaria: 

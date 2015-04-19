@@ -38,6 +38,7 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
 			  </a>
 			  <ul class="dropdown-menu" role="menu">
 			  	<li><a href="index_primaria.php">Alumnado de Primaria</a></li>
+			  	<li><a href="index_secundaria.php">Alumnado de ESO</a></li>
 			  </ul>
 			</li>
 			<li><a href="consulta_transito.php">Informes de Tránsito</a></li>

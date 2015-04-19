@@ -57,6 +57,12 @@ if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'
 <?
 }
 ?>
+<?
+if (stristr ( $_SESSION ['cargo'], '5' ) == FALSE and stristr ( $_SESSION ['cargo'], '1' ) == FALSE) {
+?>
       <li<? echo $activo3;?>><a href="consulta.php">Lista de Actividades</a></li>
+<?
+}
+?>
     </ul>
   </div>

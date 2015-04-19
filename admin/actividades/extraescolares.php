@@ -77,6 +77,7 @@ while($cursos = mysqli_fetch_array($cursos0))
 {
 $actividad=$cursos[2];
 echo "<legend align='center' class='text-info'>$actividad</legend>";
+$profes_actividad = $cursos[1];
 $profesor="";
 $profes="";
 $profes = explode(";",$cursos[1]);
@@ -107,7 +108,8 @@ $actividad = $datos[3];
 $descripcion = $datos[4];
 ?>
 <?
-if ($jefes==1) {
+
+if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
 ?>
 <input name="fecha" type="hidden" id="A" value="<? echo $fecha;?>">
 <input name="horario" type="hidden" id="A" value="<? echo $horario;?>">
@@ -148,7 +150,7 @@ echo " $nc. $apellidos $nombre</td></tr>";
 <br />
 <div align="center">
 <?
-if ($jefes==1) {
+if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
 ?>
 <button type="submit" name="submit1" value="Imprimir Carta para Padres" class="btn btn-primary hidden-print">Imprimir Carta para Padres</button>&nbsp;
 <button type="submit" name="submit2" value="Registrar Alumnos" class="btn btn-info hidden-print">Registrar Alumnos</button>&nbsp;

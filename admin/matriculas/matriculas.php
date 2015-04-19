@@ -792,7 +792,7 @@ exit();
 			<label for="otrocolegio">Colegio</label> <input type="text"
 				class="form-control" id="otrocolegio" name="otrocolegio"
 				value="<?php echo (isset($otrocolegio)) ? $otrocolegio : ''; ?>"
-				maxlength="60" placeholder="Escribe aquí el nombre del colegio"> <input
+				maxlength="60" placeholder="Escribe aquí el nombre del Colegio"> <input
 				type="hidden" name="letra_grupo"
 				value="<?php echo (isset($letra_grupo)) ? $letra_grupo : ''; ?>"></div>
 			</td>
