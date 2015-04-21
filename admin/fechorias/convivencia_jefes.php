@@ -26,11 +26,20 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
 }
+
 ?>
 
 <?php
 include ("../../menu.php");
 include ("menu.php");
+?>
+<div class='container'>
+<div class="page-header">
+  <h2>Aula de Convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
+</div>
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1">
+ <? 
 $borrar = $_GET['borrar'];
 $id = $_GET['id'];
 $claveal = $_GET['claveal'];
@@ -73,7 +82,7 @@ foreach ( $_POST as $clave => $valor ) {
 			$mens = '1';	
 			}
 	else{
-			mysqli_query($db_con, "update convivencia set dia = '$tr[1]', hora = '$tr[2]' where claveal = '$tr[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");	
+			mysqli_query($db_con, "update convivencia set dia = '$tr[1]', hora = '$tr[2]' where claveal = '$tr[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
 			$mens = '2';	
 	}
 	}
@@ -84,6 +93,10 @@ if ($valor == "1") {
 if (!($valor == "1")) {
 	$tr1=explode("-", $clave);
 	mysqli_query($db_con, "update convivencia set trabajo = '0' where claveal = '$tr1[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
+}
+if (!is_numeric($valor)) {
+	$tr1=explode("-", $clave);
+	mysqli_query($db_con, "update convivencia set observaciones = '$valor' where claveal = '$tr1[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
 }
 }
 if ($mens == '1') {
@@ -113,23 +126,15 @@ else
 {
 $fecha0=$hoy;
 }
-  echo "<div class='container'>";
-  echo '<div class="row">';
-  echo '
-<div class="page-header">
-  <h2>Problemas de convivencia <small> &Uacute;ltimos Problemas de Convivencia</small></h2>
-</div>
-</div>
-<div class="col-sm-8 col-sm-offset-2">';
      
-echo " <h3 class='text-info' align='center'>";
+echo " <legend class='text-info' align='center'>";
 if (empty($hor))  {$hoy0 = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . date ( 'd' );}else {$hoy0 = $fecha0;}
 if ($hoy) {
 	$hoy0=$hoy;
 }
 $tr_h = explode("-", $hoy0);
 $hoy0 = "$tr_h[2]-$tr_h[1]-$tr_h[0]";
-echo "$hoy0</h3>";
+echo "$hoy0</legend>";
 	echo "<center><form name='conv' action='convivencia_jefes.php' method='post' enctype=multipart/form-data' class='form-inline'>";
 	?>
 <div class="well">	
@@ -180,38 +185,47 @@ $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.no
 <?php
 	echo "<center><table class='table table-striped' style='width:auto'>";
 	echo "<thead><th>Alumno</th>
-		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></thead>";
+		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th>Observaciones</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></thead>";
 	echo '<form name="conviv" action="convivencia_jefes.php" method="post" enctype="multipart/form-data">';
 while ( $row = mysqli_fetch_array ( $result ) ) {
+	$obs="";
 	$sel =  mysqli_query($db_con, "select * from convivencia where claveal = '$row[8]' and hora = '$hora_dia'  and fecha = '$hoy'");
 	$ya = mysqli_fetch_array($sel);
 	$id0 = $ya[0];
+	$obs_al = $ya[6];
+
 	if (empty($ya[0])) {$ch = '';} else{$ch=" checked";}
 	if ($ya[4] == 0) {$ch_tr = '';$trab = "";} else{$ch_tr=" checked";}
 		echo "<tr ><td style='vertical-align:middle'>$row[0], $row[1]</td>
 		<td style='vertical-align:middle'>$row[2]</td>
 		<td style='vertical-align:middle'>$row[4]</td>
 		<td style='vertical-align:middle'>$row[5]</td>
-		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i title='Detalles' class='fa fa-search'> </i> </A>$comentarios</td>
+		<td style='vertical-align:middle' align='center'><A HREF='detfechorias.php?id=$row[7]&claveal=$row[8]'><i data-bs='tooltip' title='Detalles sobre el problema que ha traído al alumno al Aula de Convivencia' class='fa fa-search'> </i> </A>$comentarios</td>
 		<td style='vertical-align:middle' align='center'>
 	
 		<input type='checkbox' name='$row[8]' value='$row[8]-$ndia-$hora_dia' $ch /></td>
 		<td style='vertical-align:middle' align='center'>
 		<input type='checkbox' name='$row[8]-trabajo'  value='1' $ch_tr/>
 		<input type='hidden' name='hoy'  value='$fecha0' />
-		<input type='hidden' name='hor'  value='$hora_dia' /></td>";
+		<input type='hidden' name='hor'  value='$hora_dia' /></td>
+		<td>
+		<textarea name='$row[8]-observaciones' rows='3' cols='25'>$obs_al</textarea>
+		</td>";
 		
 	for ($i = 1; $i < 7; $i++) {
-		echo "<td style='vertical-align:middle'>";
-		$asiste0 = "select hora, trabajo, id from convivencia where claveal = '$row[8]' and fecha = '$hoy' and hora = '$i'";
+		echo "<td>";
+		$asiste0 = "select hora, trabajo, id, observaciones from convivencia where claveal = '$row[8]' and fecha = '$hoy' and hora = '$i'";
 		//echo $asiste0;
 		$asiste1 = mysqli_query($db_con, $asiste0);
 			$asiste = mysqli_fetch_array($asiste1);
 			if ($asiste[1] == '0') {
-			echo "<center><i title='No trabaja' class='fa fa-exclamation-triangle'> </i> </center";
+			echo "<center><i data-bs='tooltip' title='No trabaja' class='fa fa-exclamation-triangle text-warning'> </i> </center";
 			}
 			if ($asiste[1] == '1') {
-			echo "<center><i title='Trabaja' class='fa fa-check'> </i> </center";
+			echo "<center><i data-bs='tooltip' title='Trabaja' class='fa fa-check text-success'> </i> </center";
+			}
+			if (!empty($asiste[3])) {
+			echo "<center><i data-bs='tooltip' title='$asiste[3]' class='fa fa-comment text-danger'> </i> </center";
 			}
 		echo "</td>";
 	}
@@ -229,6 +243,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 } 
 	echo "</table><input type='submit' name = 'enviar' value = 'Registrar' class='btn btn-primary' /></form></center>";
 ?>
+</div>
 </div>
 </div>
 <? include("../../pie.php");?>

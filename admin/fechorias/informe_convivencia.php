@@ -267,7 +267,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  while($nivel = mysqli_fetch_array($nivel1))
  {
  $nivel = $nivel[0];
- $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and month(fecha) >='09' and month(Fechoria.fecha) <= '12'  order by Fechoria.claveal";
+ $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12'  order by Fechoria.claveal";
  //echo $SQL."<br>";
  $result = mysqli_query($db_con, $SQL);
  $num_conv1 = mysqli_num_rows($result);
