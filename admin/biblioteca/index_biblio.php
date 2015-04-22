@@ -46,6 +46,20 @@ else
 
 include("../../menu.php");
 include("menu.php");
+
+$crea ="CREATE TABLE IF NOT EXISTS `morosos` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `curso` varchar(64) NOT NULL,
+  `apellidos` varchar(60) NOT NULL,
+  `nombre` varchar(25) NOT NULL,
+  `ejemplar` varchar(100) NOT NULL,
+  `devolucion` varchar(10) NOT NULL,
+  `hoy` date NOT NULL ,
+  `amonestacion` varchar(2) NOT NULL DEFAULT 'NO',
+  `sms` VARCHAR( 2 ) NOT NULL DEFAULT  'NO', 
+  PRIMARY KEY (`id`)
+) ";
+mysqli_query($db_con, $crea);
 ?>
 	<div class="container">
 		

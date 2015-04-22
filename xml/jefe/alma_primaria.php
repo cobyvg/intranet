@@ -312,7 +312,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
  mysqli_query($db_con,"CREATE TABLE `transito_datos` (
 `id` int(11) NOT NULL,
   `claveal` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
-  `tipo` varchar(16) COLLATE latin1_spanish_ci NOT NULL,
+  `tipo` varchar(24) COLLATE latin1_spanish_ci NOT NULL,
   `dato` text COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ");
  mysqli_query($db_con,"ALTER TABLE `transito_datos`
@@ -323,7 +323,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT");
 mysqli_query($db_con,"drop table transito_tipo"); 
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `transito_tipo` (
 `id` int(11) NOT NULL,
-  `tipo` varchar(16) COLLATE latin1_spanish_ci NOT NULL
+  `tipo` varchar(24) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
 mysqli_query($db_con,"ALTER TABLE `transito_tipo`
  ADD PRIMARY KEY (`id`);");
@@ -347,21 +347,25 @@ mysqli_query($db_con,"INSERT INTO `transito_tipo` (`id`, `tipo`) VALUES
 (15, 'necreflen'),
 (16, 'necrefmat'),
 (17, 'necrefing'),
-(18, 'adcurr'),
-(19, 'necaclen'),
-(20, 'necacmat'),
-(21, 'necacing'),
-(22, 'exento'),
-(23, 'acompanamiento'),
-(24, 'nacion'),
-(25, 'integra'),
-(26, 'actitud'),
-(27, 'funciona'),
-(28, 'relacion'),
-(29, 'norelacion'),
-(30, 'disruptivo'),
-(31, 'expulsion'),
-(32, 'observaciones');
+(18, 'exento'),
+(19, 'acompanamiento'),
+(20, 'areasadcurrsign'),
+(21, 'areasadcurrnosign'),
+(22, 'necareasadcurrsign'),
+(23, 'necareasadcurrnosign'),
+(24, 'PT_AL'),
+(25, 'PT_AL_aula'),
+(26, 'nacion'),
+(27, 'atal'),
+(28, 'necatal'),
+(29, 'integra'),
+(30, 'actitud'),
+(31, 'funciona'),
+(32, 'relacion'),
+(33, 'norelacion'),
+(34, 'disruptivo'),
+(35, 'expulsion'),
+(36, 'observaciones');
 ");
 ?>
 <div align="center">

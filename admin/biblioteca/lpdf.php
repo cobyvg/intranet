@@ -15,7 +15,7 @@ $options_left = array(
 				'justification' => 'left'
 					);
 $fecha_act = date('Y-m-d');	
-$lista=mysqli_query($db_con, "select curso,apellidos,nombre,ejemplar,devolucion from morosos where hoy = '$fecha' and date(devolucion)<'$fecha_act' order by curso, apellidos, devolucion") or die ("error query lista");
+$lista=mysqli_query($db_con, "select curso,apellidos,nombre,ejemplar,devolucion from morosos order by curso, apellidos, devolucion") or die ("error query lista");
 while($datatmp = mysqli_fetch_array($lista)) {
   if(strstr($datatmp[0],"Monter")==TRUE){$datatmp[0]="Prof.";}
 	$data[] = array(

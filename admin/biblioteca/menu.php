@@ -13,7 +13,7 @@ if (strstr($_SERVER['REQUEST_URI'],'_biblio.php')==TRUE){ $activo4 = ' class="ac
         <li><a href="<? echo $p_biblio;?>" target="_blank">Página de la Biblioteca</a></li>	
         <?php endif; ?>
         <li<? echo $activo1;?>><a href="../cursos/hor_aulas.php?aula=Biblioteca" target="_blank">Horario de la Biblioteca</a></li>	
-        <li<? echo $activo2;?>><a href="index_morosos.php">Gestión de los Préstamos</a></li>
+        <li<? echo $activo2;?>><a href="consulta.php">Gestión de los Préstamos</a></li>
         <li<? echo $activo3;?>><a href="index.php">Fondos de la Biblioteca</a></li>     
         <li<? echo $activo4;?>><a href="index_biblio.php">Importación de datos</a></li>
     </ul>
