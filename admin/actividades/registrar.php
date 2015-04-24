@@ -80,15 +80,8 @@ $hoy = formatea_fecha($fecha);
   { 
 //  echo "$key --> $value<br>";
 if(is_numeric(trim($key))){
-
-$alumnos0 = "select alma.nombre, alma.apellidos, padre, domicilio, codpostal, localidad, provinciaresidencia, NC, dnitutor, alma.unidad, alma.matriculas from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.claveal = '$value'";
-$alumnos1 = mysqli_query($db_con, $alumnos0);
-while($alumno = mysqli_fetch_array($alumnos1))
-{
 mysqli_query($db_con,"delete from actividadalumno where claveal='$value' and cod_actividad='$id'");
 mysqli_query($db_con, "insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
-# insertamos la primera pagina del documento
-	}
 }
 }
 echo '

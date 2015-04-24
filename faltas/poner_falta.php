@@ -94,10 +94,23 @@ foreach($_POST as $clave => $valor)
 		$hoy2 = strtotime($hoy);
 
 		$comienzo_del_curso = strtotime($inicio_curso);
+		
+		// Tiene actividad extraescolar en la fecha 
+		
+		/*$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$claveal' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))");
+		//echo "select cod_actividad from actividadalumno where claveal = '$claveal' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))<br>";
+		if (mysqli_num_rows($extraescolar) > '0') {
+			while($actividad = mysqli_fetch_array($extraescolar)){
+			$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and hour(horaini)>= (select hour(hora_inicio) from jornada where tramo = '$hora') and hour(horafin)<= (select hour(hora_fin) from jornada where tramo = '$hora')");
+			//echo "select * from calendario where id = '$actividad[0]'  and hour(horaini)>= (select hour(hora_inicio) from jornada where tramo = '$hora') and hour(horafin)<= (select hour(hora_fin) from jornada where tramo = '$hora')";	
+			}
+			
+		}*/
+		
+		// Es festivo
+		$fiesta=mysqli_query($db_con, "select fecha from festivos where date(fecha) = date('$hoy')");
 
-		$repe=mysqli_query($db_con, "select fecha from festivos where date(fecha) = date('$hoy')");
-
-		if (mysqli_num_rows($repe) > '0') {
+		if (mysqli_num_rows($fiesta) > '0') {
 			$dia_festivo='1';
 		}
 
@@ -114,7 +127,7 @@ foreach($_POST as $clave => $valor)
 		else{
 			// Insertamos las faltas de TODOS los alumnos.
 			$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA )
-VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";
+//VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";
 			//	echo $t0;
 			$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
 			$count += mysqli_affected_rows();

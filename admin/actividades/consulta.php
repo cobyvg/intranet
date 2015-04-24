@@ -178,6 +178,7 @@ $grupos = $gr1;
 }
 $fecha0 = explode("-",$datos[7]);
 $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
+if (substr($fecha0[1],0,1)=="0") {$mes_cal=str_replace("0","",$fecha0[1]);}else{$mes_cal=$fecha0[1];}
 ?>
   <tr>
     <td style="color:#08c;"><? echo $datos[2];?></td>
@@ -187,9 +188,19 @@ $fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
 	<td><? echo $mes2;?></td>
     <td nowrap><a href="consulta.php?id=<? echo $datos[0];?>&detalles=1" data-bs="tooltip" title="Detalles"><span class="fa fa-search fa-fw fa-lg"></span></a>
     <?
+    	$id_calendario="";
+		//$datos[1]=str_replace(" ","",$datos[1]);
+		// Añadir los grupos a la consulta cuando funcione correctamente el módulo
+		//  and unidades = '$datos[1]'
+		$cl = "select id from calendario where date(fechaini) = '$datos[7]' and nombre = '$datos[2]' and departamento = '$datos[4]' and date(fechaini)>'$inicio_curso'";
+		//echo $cl;
+		$clnd = mysqli_query($db_con, $cl);
+		$clndr = mysqli_fetch_array($clnd);
+		$id_calendario = $clndr[0];
+		if(empty($id_calendario)){ $cal_act = 'indexconsulta.php?modificar=1&id='.$datos[0]; } else {$cal_act = '//'.$dominio.'/intranet/calendario/index.php?mes='.$mes_cal.'&anio='.$fecha0[0].'&viewModal='.$id_calendario; }
     //echo $_SESSION['depto'] ."== $datos[4]";
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE){
-			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>';	
+			echo '<a href="'.$cal_act.'" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>';	
 			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 }
 elseif ($_SESSION['depto'] == $datos[4] or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE){	 
@@ -197,8 +208,8 @@ elseif ($_SESSION['depto'] == $datos[4] or strstr(mb_strtoupper($profes_activida
 			if ($datos[9]=="1") {
 			echo '<a href="extraescolares.php?id='.$datos[0].'" data-bs="tooltip" title="Seleccionar Alumnos e Imprimir autorizaciones"><span class="fa fa-users fa-fw fa-lg"></span></a>';		
 			}
-			if(stristr($_SESSION['cargo'],'4') == TRUE){
-			echo '<a href="indexconsulta.php?id='.$datos[0].'&modificar=1" data-bs="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
+			if(stristr($_SESSION['cargo'],'4') == TRUE){		
+			echo '<a href="'.$cal_act.'" data-bs="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>';	
 			echo '<a href="consulta.php?id='.$datos[0].'&eliminar=1" data-bs="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>';
 			}
 	}

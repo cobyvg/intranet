@@ -222,12 +222,25 @@ if($detalles == '1')
 		if($mes1 ==  "10") $mes2 = "Octubre";
 		if($mes1 ==  "11") $mes2 = "Noviembre";
 		if($mes1 ==  "12") $mes2 = "Diciembre";
-		$datos0 = "select * from actividades where month(fecha) = '$mes1' order by fecha";
+		$datos0 = "select * from actividades where month(fecha) = '$mes1' and date(fecha) > '$inicio_curso' order by fecha";
 		$datos1 = mysqli_query($db_con, $datos0);
 		while($datos = mysqli_fetch_array($datos1))
 		{
-			$fecha0 = explode("-",$datos[7]);
-			$fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
+		$id_calendario="";
+		$datos[1]=str_replace(" ","",$datos[1]);
+				
+		$fecha0 = explode("-",$datos[7]);
+		$fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
+		if (substr($fecha0[1],0,1)=="0") {$mes=str_replace("0","",$fecha0[1]);}else{$mes=$fecha0[1];}
+		// Añadir los grupos a la consulta cuando funcione correctamente el módulo
+		//  and unidades = '$datos[1]'
+		$cl = "select id from calendario where date(fechaini) = '$datos[7]' and nombre = '$datos[2]' and departamento = '$datos[4]' and date(fechaini)>'$inicio_curso'";
+		//echo $cl;
+		$clnd = mysqli_query($db_con, $cl);
+		$clndr = mysqli_fetch_array($clnd);
+		$id_calendario = $clndr[0];
+		if(empty($id_calendario)){ $cal_act = 'indexconsulta.php?modificar=1&id='.$datos[0]; } else {$cal_act = '//'.$dominio.'/intranet/calendario/index.php?mes='.$mes.'&anio='.$fecha0[0].'&viewModal='.$id_calendario; }
+
 			$autoriz = $datos[9];
 			$datos[2]= str_replace("\\","",$datos[2]);
 			?>
@@ -244,7 +257,7 @@ if($detalles == '1')
 			<a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1"
 				data-bs="tooltip" title="Detalles"><span
 				class="fa fa-search fa-fw fa-lg"></span></a> 
-				<a href="<? echo 'indexconsulta.php?id='.$datos[0];?>" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
+				<a href="<? echo $cal_act;?>" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
 					<?
 				if((stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE)){
 					?> <? if($autoriz=="1"){
