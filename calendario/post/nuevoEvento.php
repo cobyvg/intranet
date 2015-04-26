@@ -153,14 +153,6 @@ else {
 	}
 	else {
 	
-		// Si se trata de una actividad extraescolar, lo registramos en la tabla de actividades extraescolares
-		if ($calendario_evento == 2) {
-			mysqli_query($db_con, "INSERT INTO actividades (grupos, actividad, descripcion, departamento, profesor, horario, fecha, hoy, confirmado, justificacion) VALUES ('".$string_unidad."','".$nombre_evento."','".$descripcion_evento."','".$string_departamento."','".$string_profesores."','".$horaini_evento." - ".$horafin_evento."','".$fechaini_evento_sql."','".$fechareg_evento."','0','')");
-			
-			header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=EventoPendienteConfirmacion');
-			exit();
-		}
-		else {
 			$crear = mysqli_query($db_con, "INSERT INTO calendario (categoria, nombre, descripcion, fechaini, horaini, fechafin, horafin, lugar, departamento, profesores, unidades, asignaturas, fechareg, profesorreg) VALUES ($calendario_evento, '$nombre_evento', '$descripcion_evento', '$fechaini_evento_sql', '$horaini_evento', '$fechafin_evento_sql', '$horafin_evento', '$lugar_evento', '$string_departamento', '$string_profesores', '$string_unidad', '$string_asignatura' , '$fechareg_evento', '$profesorreg_evento')");
 			if (! $crear) {
 				header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoInsertar');
@@ -198,7 +190,7 @@ else {
 				header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'');
 				exit();
 			}
-		}
+		
 	}
 }
 ?>

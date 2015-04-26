@@ -418,7 +418,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 				      echo '   </div>
 				      	  <div class="modal-footer">';
 				      	if ($eventos1['categoria'] == 2):
-				      		$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM actividades WHERE actividad = '".$eventos1['nombre']."')  LIMIT 1");
+				      		$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM calendario WHERE nombre = '".$eventos1['nombre']."')  LIMIT 1");
 				      		
 				      		if (mysqli_num_rows($result_actividad)):
 				      			
@@ -529,7 +529,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 				echo '   </div>
 				  <div class="modal-footer">';
 				if ($eventos1['categoria'] == 2):
-					$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM actividades WHERE actividad = '".$eventos1['nombre']."') LIMIT 1");
+					$result_actividad = mysqli_query($db_con, "SELECT cod_actividad FROM `actividadalumno` WHERE cod_actividad = (SELECT id FROM calendario WHERE nombre = '".$eventos1['nombre']."') LIMIT 1");
 					
 					if (mysqli_num_rows($result_actividad)):
 						

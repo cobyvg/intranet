@@ -85,12 +85,8 @@ $menu = array(
 				'titulo' => 'Administrar actividades'
 			),
 			array(
-				'href'   => 'admin/actividades/index.php',
+				'href'   => 'calendario/index.php?action=nuevoEvento',
 				'titulo' => 'Introducir actividades'
-			),
-			array(
-				'href'   => 'admin/actividades/consulta.php',
-				'titulo' => 'Consultar actividades'
 			),
 		)
 	),
@@ -109,7 +105,7 @@ $menu = array(
 				'titulo' => 'Tutorías'
 			),
 			array(
-				'href'   => 'admin/actividades/index.php',
+				'href'   => 'calendario/index.php?action=nuevoEvento',
 				'titulo' => 'Actividades extraescolares'
 			),
 			array(
@@ -260,7 +256,7 @@ $menu = array(
 				'cargos' => array('7'),
 			),
 			array(
-				'href'   => 'admin/actividades/consulta.php',
+				'href'   => 'admin/actividades/indexextra.php',
 				'titulo' => 'Actividades extraescolares',
 				'cargos' => array('6', '7'),
 			),
@@ -481,14 +477,10 @@ $menu = array(
 				'cargos' => array('1'),
 			),
 			array(
-				'href'   => 'admin/actividades/index.php',
+				'href'   => 'calendario/index.php?action=nuevoEvento',
 				'titulo' => 'Añadir actividad',
 				'cargos' => array('4','d'),
 				'ncargos' => array('1'),
-			),
-			array(
-				'href'   => 'admin/actividades/consulta.php',
-				'titulo' => 'Listado de actividades',
 			),
 			array(
 				'href'   => 'admin/departamento/memoria.php',

@@ -63,7 +63,8 @@ include("menu.php");
 <div class="col-sm-8 col-sm-offset-2">
     <div class="well well-lg">      
 <?
-if ($jefes==1) {
+$profes_actividad = $_GET['profesores'];
+if ($jefes==1 or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
 ?>
 <a href="javascript:seleccionar_todo()" class="btn btn-primary btn-sm hidden-print">Marcar todos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-primary btn-sm pull-right hidden-print">Desmarcar todos</a>
@@ -72,7 +73,7 @@ if ($jefes==1) {
     <FORM action="extraescolares.php" method="POST" name="imprime">
 
   <?
-$cursos0 = mysqli_query($db_con, "select grupos, profesor, actividad from actividades where id = '$id'");
+$cursos0 = mysqli_query($db_con, "select unidades, profesores, nombre from calendario where id = '$id'");
 while($cursos = mysqli_fetch_array($cursos0))
 {
 $actividad=$cursos[2];
@@ -98,7 +99,7 @@ $alumnos1 = mysqli_query($db_con, $alumnos0);
 $num = mysqli_num_rows($alumnos1);
 if($alumno = mysqli_fetch_array($alumnos1))
 {
-$datos0 = "select fecha, horario, profesor, actividad, descripcion from actividades where id ='$id'";
+$datos0 = "select fechaini, horaini, profesores, nombre, descripcion, observaciones from calendario where id ='$id'";
 $datos1 = mysqli_query($db_con, $datos0);
 $datos = mysqli_fetch_array($datos1);
 $fecha0 = explode("-",$datos[0]);
@@ -106,6 +107,7 @@ $fecha  = $fecha0[2]."-". $fecha0[1]."-". $fecha0[0];
 $horario = $datos[1];
 $actividad = $datos[3];
 $descripcion = $datos[4];
+$observaciones = $datos[5];
 ?>
 <?
 
@@ -116,6 +118,7 @@ if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION
 <input name="profesor" type="hidden" id="A" value="<? echo $profesor;?>">
 <input name="actividad" type="hidden" id="A" value="<? echo $actividad;?>">
 <input name="descripcion" type="hidden" id="A" value="<? echo $descripcion;?>">
+<input name="observaciones" type="hidden" id="A" value="<? echo $observaciones;?>">
 <input name="id" type="hidden" id="A" value="<? echo $id;?>">  
 <?}?> 
 <table class="table table-striped">
