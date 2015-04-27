@@ -28,21 +28,7 @@ if (strstr($_SERVER['REQUEST_URI'],'indexextra.php')==TRUE) {$activo1 = ' class=
 if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE){ $activo2 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'consulta.php')==TRUE){ $activo3 = ' class="active" ';}
 ?>
-    <div class="container hidden-print">
-    	
-    	<form method="get" action="consulta.php">
-    	
-    		<div class="pull-right col-sm-3">
-    		   <div class="input-group">
-    		     <input type="text" class="form-control input-sm" id="q" name="q" maxlength="60" value="<?php echo (isset($_GET['q'])) ? $_GET['q'] : '' ; ?>" placeholder="Buscar...">
-    		     <span class="input-group-btn">
-    		       <button class="btn btn-default btn-sm" type="submit"><span class="fa fa-search fa-lg"></span></button>
-    		     </span>
-    		   </div><!-- /input-group -->
-    		 </div><!-- /.col-lg-3-->
-    		 
-    	</form>
-    	
+    <div class="container hidden-print">    	
       <ul class="nav nav-tabs">
 <?
 if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
@@ -60,7 +46,7 @@ if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'
 <?
 if (stristr ( $_SESSION ['cargo'], '5' ) == FALSE and stristr ( $_SESSION ['cargo'], '1' ) == FALSE) {
 ?>
-      <li<? echo $activo3;?>><a href="consulta.php">Lista de Actividades</a></li>
+      <li<? echo $activo3;?>><a href="indexextra.php">Lista de Actividades</a></li>
 <?
 }
 ?>

@@ -138,7 +138,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 	if (empty($ya[0])) {$ch = '';} else{$ch=" checked";}
 	if ($ya[4] == 0) {$ch_tr = '';$trab = "";} else{$ch_tr=" checked";}
 	$obs_al = $ya[6];
-		echo "<tr ><td>$row[0], $row[1]</td>
+		echo "<tr ><td style='vertical-align:middle'>$row[0], $row[1]</td>
 		<td style='vertical-align:middle'>$row[2]</td>
 		<td style='vertical-align:middle'>$row[4]</td>
 		<td style='vertical-align:middle'>$row[5]</td>

@@ -54,6 +54,7 @@ if (isset($_GET['horario'])) {$horario = $_GET['horario'];}elseif (isset($_POST[
 if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];}elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];}else{$profesor="";}
 if (isset($_GET['actividad'])) {$actividad = $_GET['actividad'];}elseif (isset($_POST['actividad'])) {$actividad = $_POST['actividad'];}else{$actividad="";}
 if (isset($_GET['descripcion'])) {$descripcion = $_GET['descripcion'];}elseif (isset($_POST['descripcion'])) {$descripcion = $_POST['descripcion'];}else{$descripcion="";}
+if (isset($_GET['observaciones'])) {$observaciones = $_GET['observaciones'];}elseif (isset($_POST['observaciones'])) {$observaciones = $_POST['observaciones'];}else{$observaciones="";}
 
 include_once ("../../funciones.php"); 
 // PDF
@@ -90,7 +91,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÃA DE EDUCACIÃ“N, CULTURA Y DEPORTE',0,1);
+		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -145,11 +146,11 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	# insertamos la primera pagina del documento
 	$MiPDF->Addpage();
 	
-	$autorizacion = "D./DÃ±a. $alumno[2] con D.N.I $alumno[8], como representante legal de $alumno[0] $alumno[1], alumno/a de la unidad $alumno[9], asume la responsabilidad de que su hijo/a participe en la siguiente Actividad Complementaria y Extraescolar e igualmente autoriza a los profesores/as responsables a tomar cuantas medidas sean necesarias para conseguir un desarrollo adecuado de la actividad programada.";
+	$autorizacion = "D./Dña. $alumno[2] con D.N.I $alumno[8], como representante legal de $alumno[0] $alumno[1], alumno/a de la unidad $alumno[9], asume la responsabilidad de que su hijo/a participe en la siguiente Actividad Complementaria y Extraescolar e igualmente autoriza a los profesores/as responsables a tomar cuantas medidas sean necesarias para conseguir un desarrollo adecuado de la actividad programada.";
 	
 	$alergias = "Al mismo tiempo indico que mi hijo/a:
-	__ Necesita tratamiento mÃ©dico o medicaciÃ³n especÃ­fica.
-	__ Es alÃ©rgico a algÃºn tipo de comidas.
+	__ Necesita tratamiento médico o medicación específica.
+	__ Es alérgico a algún tipo de comidas.
 	
 	Observaciones:
 	";
@@ -189,12 +190,20 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->Cell(130, 8, $actividad, 0, 1, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
-	$MiPDF->Cell(30, 8, 'DescripciÃ³n: ', 0, 0, 'L');
+	$MiPDF->Cell(30, 8, 'Descripción: ', 0, 0, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','',10);
 	$MiPDF->SetY($MiPDF->GetY()+1);
 	$MiPDF->SetX($MiPDF->GetX()+30);
-	$MiPDF->MultiCell(130, 5, $descripcion, 0, 'L' , 0);
+	$MiPDF->MultiCell(130, 8, $descripcion, 0, 'L' , 0);
+	
+	$MiPDF->SetFont('NewsGotT','B',10);
+	$MiPDF->Cell(30, 8, 'Observaciones: ', 0, 0, 'L');
+
+	$MiPDF->SetFont('NewsGotT','',10);
+	$MiPDF->SetY($MiPDF->GetY()+1);
+	$MiPDF->SetX($MiPDF->GetX()+30);
+	$MiPDF->MultiCell(130, 8, $observaciones, 0, 'L' , 0);
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
 	$MiPDF->Cell(30, 8, 'Profesor/es: ', 0, 0, 'L');
@@ -207,13 +216,13 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	
 		
 	// EJEMPLAR PARA EL PROFESOR
-	$txt_acuse = "D./DÃ±a. $alumno[2] con D.N.I $alumno[8], como representante legal de $alumno[0] $alumno[1], alumno/a de la unidad $alumno[9], autoriza a su hijo/a a participar en la actividad $actividad con referencia Act/".$id.".";
+	$txt_acuse = "D./Dña. $alumno[2] con D.N.I $alumno[8], como representante legal de $alumno[0] $alumno[1], alumno/a de la unidad $alumno[9], autoriza a su hijo/a a participar en la actividad $actividad con referencia Act/".$id.".";
 	
 	$MiPDF->Line(20, $MiPDF->GetY(), 190, $MiPDF->GetY());
 	$MiPDF->Ln(3);
 	
 	$MiPDF->SetFont('NewsGotT', 'B', 10);
-	$MiPDF->Multicell(0, 5, 'RECORTE POR LA LÃNEA Y ENTREGUE ESTE DOCUMENTO AL PROFESOR RESPONSABLE', 0, 'L', 0 );
+	$MiPDF->Multicell(0, 5, 'RECORTE POR LA LÍNEA Y ENTREGUE ESTE DOCUMENTO AL PROFESOR RESPONSABLE', 0, 'L', 0 );
 	$MiPDF->Ln(3);
 	
 	$MiPDF->SetFont('NewsGotT', '', 10);
@@ -221,23 +230,23 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->Ln(3);
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
-	$MiPDF->Cell(55, 8, 'TelÃ©fonos de contacto con la familia:', 0, 0, 'L');
+	$MiPDF->Cell(55, 8, 'Teléfonos de contacto con la familia:', 0, 0, 'L');
 	$MiPDF->SetFont('NewsGotT', '', 10);
 	$MiPDF->Cell(110, 8, $alumno[11] . ' / ' . $alumno[12], 0, 1, 'L');
 	$MiPDF->Ln(3);
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
-	$MiPDF->MultiCell(0, 8, 'InformaciÃ³n mÃ©dica (marque con una X):', 0, 'L', 0);
+	$MiPDF->MultiCell(0, 8, 'Información médica (marque con una X):', 0, 'L', 0);
 	
 	$MiPDF->SetFont('NewsGotT','',10);
 	$MiPDF->Cell(10, 8, '____', 0, 0, 'L');
-	$MiPDF->Cell(150, 8, ' Necesita tratamiento mÃ©dico o medicaciÃ³n especÃ­fica.', 0, 1, 'L');
+	$MiPDF->Cell(150, 8, ' Necesita tratamiento médico o medicación específica.', 0, 1, 'L');
 	
 	$MiPDF->Cell(10, 8, '____', 0, 0, 'L');
-	$MiPDF->Cell(150, 8, ' Es alÃ©rgico a algÃºn tipo de comida.', 0, 1, 'L');
+	$MiPDF->Cell(150, 8, ' Es alérgico a algún tipo de comida.', 0, 1, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','',8);
-	$MiPDF->MultiCell(0, 8, 'En el caso de haber marcado alguna opciÃ³n, anote en el reverso del documento las circunstancias que concurren.', 0, 'L', 0);
+	$MiPDF->MultiCell(0, 8, 'En el caso de haber marcado alguna opción, anote en el reverso del documento las circunstancias que concurren.', 0, 'L', 0);
 	$MiPDF->Ln(5);
 	
 	$MiPDF->SetFont('NewsGotT','',10);

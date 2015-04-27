@@ -95,17 +95,17 @@ foreach($_POST as $clave => $valor)
 
 		$comienzo_del_curso = strtotime($inicio_curso);
 		
-		// Tiene actividad extraescolar en la fecha 
-		
-		/*$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$claveal' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))");
-		//echo "select cod_actividad from actividadalumno where claveal = '$claveal' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))<br>";
+		// Tiene actividad extraescolar en la fecha
+		$hay_actividad="";
+		$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$claveal' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))");
 		if (mysqli_num_rows($extraescolar) > '0') {
 			while($actividad = mysqli_fetch_array($extraescolar)){
-			$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and hour(horaini)>= (select hour(hora_inicio) from jornada where tramo = '$hora') and hour(horafin)<= (select hour(hora_fin) from jornada where tramo = '$hora')");
-			//echo "select * from calendario where id = '$actividad[0]'  and hour(horaini)>= (select hour(hora_inicio) from jornada where tramo = '$hora') and hour(horafin)<= (select hour(hora_fin) from jornada where tramo = '$hora')";	
+				$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from jornada where tramo = '$hora') and horafin>= (select hora_fin from jornada where tramo = '$hora')");
+				if (mysqli_num_rows($tr)>0) {
+					$hay_actividad = 1;
+				}
 			}
-			
-		}*/
+		}
 		
 		// Es festivo
 		$fiesta=mysqli_query($db_con, "select fecha from festivos where date(fecha) = date('$hoy')");
@@ -124,11 +124,14 @@ foreach($_POST as $clave => $valor)
 		elseif ($hoy2 < $comienzo_del_curso) {
 			$mens_fecha = "No es posible poner Faltas del <b>Curso Anterior</b>.<br>Comprueba la Fecha: <b>$hoy</b>.";
 		}
+		elseif ($hay_actividad==1){
+			$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque están registrados en una Actividad Extraescolar programada.";
+		}
 		else{
 			// Insertamos las faltas de TODOS los alumnos.
 			$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA )
-//VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";
-			//	echo $t0;
+VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";
+				//echo $t0;
 			$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
 			$count += mysqli_affected_rows();
 		}

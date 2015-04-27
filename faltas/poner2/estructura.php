@@ -82,27 +82,27 @@ if (isset($registro)) {
 }
 if (isset($mens1)) {
 	echo '<div align="left""><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>1'.$mens1.'</div></div>';
+            <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens1.'</div></div>';
 }
 if (isset($mens2)) {
 	echo '<div align="left""><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>2'.$mens2.'</div></div>';
+            <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens2.'</div></div>';
 }
 if (isset($mens3)) {
 	echo '<div align="left""><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>3'.$mens3.'</div></div>';
+            <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens3.'</div></div>';
 }
 if (isset($mens4)) {
 	echo '<div align="left""><div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>4'.$mens_4.'</div></div>';
+            <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_4.'</div></div>';
 }
 if (isset($fiesta)) {
 	echo '<div align="left""><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>5'.$fiesta.'</div></div>';
+            <button type="button" class="close" data-dismiss="alert">&times;</button>'.$fiesta.'</div></div>';
 }
 if (isset($mens_fecha)) {
 	echo '<div align="left""><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>6'.$mens_fecha.'</div></div>';
+            <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_fecha.'</div></div>';
 }
 ?> <? include("cal.php"); ?></div>
 <div class="col-sm-8"><?

@@ -40,40 +40,14 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE))
 {
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-	exit;
+	//header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	//exit;
 }
 
 $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
 include("menu.php");
-
-// Actualizar datos de las actividades extraescolares
-
-$actua = mysqli_query($db_con, "select modulo from actualizacion where modulo = 'Actividades Extraescolares'");
-if (mysqli_num_rows($actua)>0) {}else{
-
-	$query3 = mysqli_query($db_con, "select distinct grupos, id from actividades");
-	while ($result4 = mysqli_fetch_array($query3)) {
-		if (strstr($result4[0],";")==TRUE) {}
-		else{
-			$nuevo="";
-			$tr = explode("-",$result4[0]);
-			foreach ($tr as $val){
-					
-				$nivel = substr($val,0,2);
-				$grupo = substr($val,2,1);
-					
-				$nuevo.="$nivel-$grupo;";
-			}
-			$nuevo = substr($nuevo,0,-2);
-			mysqli_query($db_con, "update actividades set grupos = '$nuevo' where id = '$result4[1]'");
-		}
-	}
-	mysqli_query($db_con, "insert into actualizacion (modulo, fecha) values ('Actividades Extraescolares', NOW())");
-}
-
 ?>
 <div class='container'>
 <div class="page-header">
@@ -84,8 +58,8 @@ if (mysqli_num_rows($actua)>0) {}else{
 
 <div class="col-sm-12"><?   
 if ($_GET['eliminar']=="1") {
-	mysqli_query($db_con, "delete from actividades where id = '".$_GET['id']."'");
-	if (mysqli_affected_rows()>'0') {
+	mysqli_query($db_con, "delete from calendario where id = '".$_GET['id']."'");
+	if (mysqli_affected_rows($db_con)>'0') {
 		echo '
 <br /><div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -96,20 +70,7 @@ if ($_GET['eliminar']=="1") {
 
 if($confirmado == '1')
 {
-	mysqli_query($db_con, "UPDATE  actividades SET  confirmado =  '1' WHERE id = '$id'");
-
-	$result = mysqli_query($db_con, "SELECT actividad, CONCAT(descripcion,' ',justificacion) AS descripcion, departamento, profesor, grupos, fecha, hoy FROM actividades WHERE id='$id'");
-	$row = mysqli_fetch_assoc($result);
-	$fechaini = $row['fecha'];
-	$nombre = mysqli_real_escape_string($db_con, $row['actividad']);
-	$descripcion = mysqli_real_escape_string($db_con, $row['descripcion']);
-	$departamento = mysqli_real_escape_string($db_con, $row['departamento']);
-	$profesores = mysqli_real_escape_string($db_con, $row['profesor']);
-	$unidades = mysqli_real_escape_string($db_con, $row['grupos']);
-	$fechareg = mysqli_real_escape_string($db_con, $row['hoy']);
-
-	$query = "INSERT INTO `calendario` (`categoria`, `nombre`, `descripcion`, `fechaini`, `horaini`, `fechafin`, `horafin`, `departamento`, `profesores`, `unidades`, `fechareg`, `profesorreg`) VALUES (2, '$nombre', '$descripcion', '".$fechaini."', '08:15', '".$fechaini."', '09:15', '$departamento', '$profesores', '$unidades', '".$fechareg."', 'admin')";
-	mysqli_query($db_con, $query) or die(mysqli_error($db_con));
+	mysqli_query($db_con, "UPDATE  calendario SET  confirmado =  '1' WHERE id = '$id'");
 	echo '
 <div><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -120,13 +81,12 @@ La Actividad ha sido confirmada por la Autoridad.
 if($detalles == '1')
 {
 	?> <?
-	$datos0 = "select * from actividades where id = '$id'";
+	$datos0 = "select * from calendario where id = '$id'";
 	$datos1 = mysqli_query($db_con, $datos0);
 	$datos = mysqli_fetch_array($datos1);
-	$fecha0 = explode("-",$datos[7]);
+	$fecha0 = explode("-",$datos[6]);
 	$fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
-	$fecha1 = explode("-",$datos[8]);
-	$registro = "$fecha1[2]-$fecha1[1]-$fecha1[0]";
+	$registro = $datos[13];
 	?>
 <div>
 <h3>Información completa de Actividad Extraescolar</h3>
@@ -141,7 +101,7 @@ if($detalles == '1')
 	</tr>
 	<tr>
 		<th>Grupos</th>
-		<td><? echo substr($datos[1],0,-1);?></td>
+		<td><? echo substr($datos[11],0,-1);?></td>
 	</tr>
 	<tr>
 		<th>Descripción</th>
@@ -149,20 +109,20 @@ if($detalles == '1')
 	</tr>
 	<tr>
 		<th>Departamento</th>
-		<td><? echo $datos[4];?></td>
+		<td><? echo $datos[9];?></td>
 	</tr>
 	<tr>
-		<th>Profesor</th>
-		<td><? echo $datos[5];?></td>
+		<th>Profesores</th>
+		<td><? echo $datos[10];?></td>
 	</tr>
 	<tr>
 		<th>Horario</th>
 		<td><? 
-		if ($datos[6]=="00:00:00 - 00:00:00") {
+		if ($datos[5]=="00:00:00") {
 			echo "Todo el día.";
 		}
 		else{
-		echo $datos[6];
+		echo $datos[5]." - ".$datos[7];
 		}
 		?>
 		</td>
@@ -186,6 +146,10 @@ if($detalles == '1')
 		}	
 		?></td>
 	</tr>
+		<tr>
+		<th>Observaciones</th>
+		<td><? echo $datos[16];?></td>
+	</tr>
 </table>
 </div>
 <br />
@@ -195,23 +159,23 @@ if($detalles == '1')
 }
 ?>
 
-<table class="table table-striped table-hover datatable"
-	style="width: auto;">
+<table class="table table-striped table-hover datatable">
 	<thead>
 		<tr>
 			<th>Fecha</th>
 			<th>Actividad</th>
+			<th>Unidades</th>
 			<th>Mes</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 	<?
-	$meses = "select distinct month(fecha) from actividades order by fecha";
+	$meses = "select distinct month(fechaini) from calendario where categoria='2' order by fechaini";
 	$meses0 = mysqli_query($db_con, $meses);
 	while ($mes = mysqli_fetch_array($meses0))
 	{
-		$mes1 = $mes[0];
+		$mes1 = $mes[0];				
 		if($mes1 ==  "01") $mes2 = "Enero";
 		if($mes1 ==  "02") $mes2 = "Febrero";
 		if($mes1 ==  "03") $mes2 = "Marzo";
@@ -222,42 +186,40 @@ if($detalles == '1')
 		if($mes1 ==  "10") $mes2 = "Octubre";
 		if($mes1 ==  "11") $mes2 = "Noviembre";
 		if($mes1 ==  "12") $mes2 = "Diciembre";
-		$datos0 = "select * from actividades where month(fecha) = '$mes1' and date(fecha) > '$inicio_curso' order by fecha";
+		$datos0 = "select id, unidades, nombre, descripcion, departamento, profesores, concat(horaini,'-',horafin), fechaini, confirmado from calendario where month(fechaini) = '$mes1' and date(fechaini) > '$inicio_curso' and categoria='2' order by fechaini";
 		$datos1 = mysqli_query($db_con, $datos0);
 		while($datos = mysqli_fetch_array($datos1))
 		{
-		$id_calendario="";
-		$datos[1]=str_replace(" ","",$datos[1]);
-				
-		$fecha0 = explode("-",$datos[7]);
-		$fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
-		if (substr($fecha0[1],0,1)=="0") {$mes=str_replace("0","",$fecha0[1]);}else{$mes=$fecha0[1];}
-		// Añadir los grupos a la consulta cuando funcione correctamente el módulo
-		//  and unidades = '$datos[1]'
-		$cl = "select id from calendario where date(fechaini) = '$datos[7]' and nombre = '$datos[2]' and departamento = '$datos[4]' and date(fechaini)>'$inicio_curso'";
-		//echo $cl;
-		$clnd = mysqli_query($db_con, $cl);
-		$clndr = mysqli_fetch_array($clnd);
-		$id_calendario = $clndr[0];
-		if(empty($id_calendario)){ $cal_act = 'indexconsulta.php?modificar=1&id='.$datos[0]; } else {$cal_act = '//'.$dominio.'/intranet/calendario/index.php?mes='.$mes.'&anio='.$fecha0[0].'&viewModal='.$id_calendario; }
+			$profes_actividad=	$datos[5];
+			$fecha0 = explode("-",$datos[7]);
+			$fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
+			if (substr($fecha0[1],0,1)=="0") {$mes=str_replace("0","",$fecha0[1]);}else{$mes=$fecha0[1];}
+			$cal_act = '//'.$dominio.'/intranet/calendario/index.php?mes='.$mes.'&anio='.$fecha0[0].'&viewModal='.$datos[0];
 
-			$autoriz = $datos[9];
+			$autoriz = $datos[8];
 			$datos[2]= str_replace("\\","",$datos[2]);
 			?>
 		<tr>
 			<td nowrap="nowrap"><? echo $datos[7];?></td>
 			<td><? echo $datos[2];?></td>
+			<td style="width:200px"><? echo $datos[1];?></td>
 			<td><? echo $mes2;?></td>
 			<td nowrap>
 			 <?
-				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
-					?> <a href="extraescolares.php?id=<? echo $datos[0];?>"><span
+				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['depto'] == $datos[4]) or ($_SESSION['depto'] == $datos[4] or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE)){
+					?> <a href="extraescolares.php?id=<? echo $datos[0];?>&profesores=<?  echo $datos[5];?>"><span
 				class="fa fa-users fa-fw fa-lg" data-bs="tooltip"
 				title="Seleccionar alumnos que realizan la Actividad"></span></a> <? } ?>
 			<a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1"
 				data-bs="tooltip" title="Detalles"><span
 				class="fa fa-search fa-fw fa-lg"></span></a> 
+			<?
+					if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
+			?>
 				<a href="<? echo $cal_act;?>" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
+			<?
+					}
+					?>	
 					<?
 				if((stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE)){
 					?> <? if($autoriz=="1"){
@@ -269,15 +231,8 @@ if($detalles == '1')
 				href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1"
 				data-bs="tooltip" title="Autorizar"><span
 				class="fa fa-check-circle fa-fw fa-lg text-danger"></span></a> <? } ?> <? 
-				$id_repe = "select id, idact from cal where eventdate = '$datos[7]'";
-				$repe0 = mysqli_query($db_con, $id_repe);
-				$id = mysqli_fetch_array($repe0);
-				$br = "$id[1]";
-				$cal_idact = $datos[0].";";
-				if(ereg($cal_idact, $br)) {$si = "1";} else{$si = "0";}
-				$n_idact = strstr($br,$cal_idact);
-				?> <?
-				// echo  $_SESSION['dpt']." == ".$datos[4];
+				?> 
+				<?
 				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 					?> <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1"
 				data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span
