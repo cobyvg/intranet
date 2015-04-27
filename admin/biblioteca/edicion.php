@@ -96,7 +96,7 @@ if(isset($_POST['sms'])){$sms=$_POST['sms'];}
 	$medida='Amonestación escrita';
 	$expulsionaula='0';
 	$enviado='1';
-	$recibido='1';
+	$recibido='0';
 	$causa='Otras';
 	$accion='Envío de SMS';
 
@@ -105,7 +105,7 @@ if(isset($_POST['sms'])){$sms=$_POST['sms'];}
 		{ 
 ?>
 
-<form action="impresion.php" method="post"><? 
+<? 
 $envio='';
 for($i=0; $i <= count($valor)-1; $i++)
 { 
@@ -114,9 +114,7 @@ $duplicado= mysqli_query($db_con, "select amonestacion from morosos where id=$va
 $duplicados=mysqli_fetch_array($duplicado);
 
 if($duplicados[0]=='NO'){
-	$envio='-'.$valor[$i];?> <input type="hidden" name="hola[]"
-	value="<? echo $valor[$i];?>" /> 
-	
+	$envio='-'.$valor[$i];?> 	
 	<? 
 
 if ($registro) {
@@ -138,7 +136,7 @@ if ($registro) {
 			$unidad=$clav[1]; //echo $nivel;
 			//insertamos, por fÃ­n, la fechorÃ­a
 if ($registro) {
-				$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechorÃ­a");
+				$fechoria = mysqli_query($db_con,  "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula,enviado,recibido) values ('" . $clave . "','" . $dia . "','" . $asunto . "','" . $asunto . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "','" . $enviado . "','" . $recibido . "')") or die ("error al registrar fechoría");
 				//ahora registramos la intervencion en la tabla tutorÃ­a, debido al tema de los SMS
 				$tutoria=mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal,jefatura) values ('" . $apellido . "','" . $nombre . "','" . $informa . "','" . $unidad . "','" . $asunto . "','" . $causa . "','" . $accion . "','" . $dia . "','" . $clave . "','" . $recibido . "')" ) or die ("error al registrar accion en tabla tutoria");
 			}
@@ -203,33 +201,6 @@ enviarForm();
 	}
 }
 }
-if ($registro) {
-	echo '<div align="center"><div class="alert alert-success alert-block fade in">
- <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCI&Oacute;N:</legend>
-Las amonestaciones se han registrado con &eacute;xito. Ahora debes pulsar en el bot&oacute;n, generar pdf, para poder imprimir las amonestaciones registradas..
-	</div></div><br />';
-	?>
-<div align="center">
-<button class="btn btn-primary" type="submit" name="impreso"
-	value="impreso"><i class="fa fa-file-o  "></i> Imprimir
-Amonestaciones en PDF</button>
-</div>
-</form>
-<hr />
-<? 
-}
-elseif($sms){
-	echo '<div align="center"><div class="alert alert-success alert-block fade in">
- <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCI&Oacute;N:</legend>
-Los mensajes SMS de aviso por retraso en la devolución de ejemplares de la Biblioteca han sido enviados correctamente (si en la pequeña ventana del navegador que aparece en la parte superior izquierda dice <b>OK</b>).
-	</div></div><br /></div>
-</div>
-</div>';
-include ("../../pie.php");
-exit();
-}
 	}
 	elseif ($j==0)     {
 		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
@@ -242,6 +213,22 @@ No se ha podido registrar la amonestaci&oacute;n porque no has elegido ning&uacu
 			</div>';			
 	}
 	}
+}
+if (isset($_POST['registro'])) {
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>ATENCI&Oacute;N:</legend>
+La amonestación se ha registrado con &eacute;xito. Los tutores de los alumnos recibirán el mensaje del problema de convivencia registrado y procederán a imprimir y entregar en Jefatura el impreso para los padres.
+	</div></div><br />';
+}
+elseif(isset($_POST['sms'])){
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>ATENCI&Oacute;N:</legend>
+Los mensajes SMS de aviso por retraso en la devolución de ejemplares de la Biblioteca han sido enviados correctamente (si en la pequeña ventana del navegador que aparece en la parte superior izquierda dice <b>OK</b>).
+	</div></div><br /></div>
+</div>
+</div>';
 }
 ?>
 </div>

@@ -86,17 +86,19 @@ foreach ( $_POST as $clave => $valor ) {
 			$mens = '2';	
 	}
 	}
+if (stristr($clave,"observa")==TRUE) {
+	$tr1=explode("-", $clave);
+	mysqli_query($db_con, "update convivencia set observaciones = '$valor' where claveal = '$tr1[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
+}
+else{
 if ($valor == "1") {
 	$tr1=explode("-", $clave);
 	mysqli_query($db_con, "update convivencia set trabajo = '1' where claveal = '$tr1[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
 }
-if (!($valor == "1")) {
+else {
 	$tr1=explode("-", $clave);
 	mysqli_query($db_con, "update convivencia set trabajo = '0' where claveal = '$tr1[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
 }
-if (!is_numeric($valor)) {
-	$tr1=explode("-", $clave);
-	mysqli_query($db_con, "update convivencia set observaciones = '$valor' where claveal = '$tr1[0]' and dia = '$tr[1]' and hora = '$tr[2]' and fecha = '$hoy'");
 }
 }
 if ($mens == '1') {
