@@ -1,18 +1,18 @@
 <?php
 switch (substr($codigo_postal_del_centro,0,2)) {
-	// Almería
+	// AlmerÃ­a
 	case '04' : $web_delegacion = '436'; break;
-	// Cádiz
+	// CÃ¡diz
 	case '11' : $web_delegacion = '437'; break;
-	// Córdoba
+	// CÃ³rdoba
 	case '14' : $web_delegacion = '438'; break;
 	// Granada
 	case '18' : $web_delegacion = '439'; break;
 	// Huelva
 	case '21' : $web_delegacion = '440'; break;
-	// Jaén
+	// JaÃ©n
 	case '23' : $web_delegacion = '441'; break;
-	// Málaga
+	// MÃ¡laga
 	case '29' : $web_delegacion = '442'; break;
 	// Sevilla
 	case '41' : $web_delegacion = '443'; break;
@@ -20,19 +20,19 @@ switch (substr($codigo_postal_del_centro,0,2)) {
 
 //	VALORES DEL MENU
 //	-----------------------------------------------------------------------------------------------------
-//	menu_id					(string) Identificador del menú
-//	nombre					(string) Nombre del menú
+//	menu_id					(string) Identificador del menÃº
+//	nombre					(string) Nombre del menÃº
 //	cargos					(array) ID de los cargos con privilegios para visualizar el menu
 //	ncargos					(array) ID de los cargos sin privilegios para visualizar el menu
-//	modulo					(boolean) Valor del módulo del que depende el menú
-//	meses					(array) Número del mes cuando está disponible el menú (sin 0 iniciales)
-//	items					(array) Opciones del menú
-//	items -> href			(string) URI de la página
-//	items -> titulo			(string) Título de la página
-//	items -> cargos			(array) ID de los cargos con privilegios para visualizar la opción del menú
-//	items -> ncargos		(array) ID de los cargos sin privilegios para visualizar la opción del menú
-//	items -> modulo			(boolean) Valor del módulo del que depende la opción del menú
-//	items -> meses			(array) Número del mes cuando está disponible la opción del menú (sin 0 iniciales)
+//	modulo					(boolean) Valor del mÃ³dulo del que depende el menÃº
+//	meses					(array) NÃºmero del mes cuando estÃ¡ disponible el menÃº (sin 0 iniciales)
+//	items					(array) Opciones del menÃº
+//	items -> href			(string) URI de la pÃ¡gina
+//	items -> titulo			(string) TÃ­tulo de la pÃ¡gina
+//	items -> cargos			(array) ID de los cargos con privilegios para visualizar la opciÃ³n del menÃº
+//	items -> ncargos		(array) ID de los cargos sin privilegios para visualizar la opciÃ³n del menÃº
+//	items -> modulo			(boolean) Valor del mÃ³dulo del que depende la opciÃ³n del menÃº
+//	items -> meses			(array) NÃºmero del mes cuando estÃ¡ disponible la opciÃ³n del menÃº (sin 0 iniciales)
 //
 //	Se puede realizar menus anidados en un item, estos submenus permiten las mismas acciones de control
 //	de acceso que el item padre.
@@ -42,12 +42,12 @@ switch (substr($codigo_postal_del_centro,0,2)) {
 $menu = array(
 	array(
 		'menu_id' => 'direccion',
-		'nombre'  => 'Dirección del centro',
+		'nombre'  => 'DirecciÃ³n del centro',
 		'cargos'  => array('1'),
 		'items'   => array (
 			array(
 				'href'   => 'xml/index.php',
-				'titulo' => 'Administración de la Intranet',
+				'titulo' => 'AdministraciÃ³n de la Intranet',
 			),
 			array(
 				'href'   => 'admin/jefatura/index.php',
@@ -55,20 +55,20 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/tutoria/index.php',
-				'titulo' => 'Control de Tutorías',
+				'titulo' => 'Control de TutorÃ­as',
 			),
 			array(
 				'href'   => 'admin/guardias/admin.php',
-				'titulo' => 'Gestión de Guardias',
+				'titulo' => 'GestiÃ³n de Guardias',
 				'modulo' => $mod_horario,
 			),
 			array(
 				'href'   => 'admin/ausencias/index.php',
-				'titulo' => 'Gestión de Ausencias',
+				'titulo' => 'GestiÃ³n de Ausencias',
 			),
 			array(
 				'href'   => 'admin/matriculas/index.php',
-				'titulo' => 'Matriculación de alumnos',
+				'titulo' => 'MatriculaciÃ³n de alumnos',
 				'modulo'  => $mod_matriculas,
 				'meses'	 => array(6, 7, 8, 9),
 			),
@@ -93,7 +93,7 @@ $menu = array(
 	
 	array(
 		'menu_id' => 'orientacion',
-		'nombre'  => 'Orientación',
+		'nombre'  => 'OrientaciÃ³n',
 		'cargos'  => array('8'),
 		'items'   => array (
 			array(
@@ -102,7 +102,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/tutoria/index.php',
-				'titulo' => 'Tutorías'
+				'titulo' => 'TutorÃ­as'
 			),
 			array(
 				'href'   => 'calendario/index.php?action=nuevoEvento',
@@ -110,7 +110,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/matriculas/consulta_transito.php',
-				'titulo' => 'Informes de Tránsito',
+				'titulo' => 'Informes de TrÃ¡nsito',
 				'modulo'  => $mod_matriculas,
 			),
 		)
@@ -118,7 +118,7 @@ $menu = array(
 	
 	array(
 		'menu_id' => 'tutoria',
-		'nombre'  => 'Tutoría de '.$_SESSION['s_unidad'],
+		'nombre'  => 'TutorÃ­a de '.$_SESSION['s_unidad'],
 		'cargos'  => array('2'),
 		'items'   => array (
 			array(
@@ -144,15 +144,15 @@ $menu = array(
 		'items'   => array (
 			array(
 				'href'   => $p_biblio,
-				'titulo' => 'Página de la Biblioteca'
+				'titulo' => 'PÃ¡gina de la Biblioteca'
 			),
 			array(
 				'href'   => 'admin/cursos/hor_aulas.php?aula=Biblioteca',
 				'titulo' => 'Horario de la Biblioteca'
 			),
 			array(
-				'href'   => 'admin/biblioteca/index_morosos.php',
-				'titulo' => 'Gestión de los Préstamo'
+				'href'   => 'admin/biblioteca/consulta.php',
+				'titulo' => 'GestiÃ³n de los PrÃ©stamo'
 			),
 			array(
 				'href'   => 'admin/biblioteca/index.php',
@@ -195,7 +195,7 @@ $menu = array(
 			),
 			array(
 				'href'   => '#',
-				'titulo' => 'Fotografías',
+				'titulo' => 'FotografÃ­as',
 				'items' => array(
 					array(
 						'href'   => 'admin/fotos/index.php',
@@ -210,7 +210,7 @@ $menu = array(
 			),
 			array(
 				'href'   => '#',
-				'titulo' => 'Estadísticas',
+				'titulo' => 'EstadÃ­sticas',
 				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
@@ -240,7 +240,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'xml/jefe/index_mayores.php',
-				'titulo' => 'Alumnos mayores de 18 años',
+				'titulo' => 'Alumnos mayores de 18 aÃ±os',
 				'cargos' => array('6'),
 			),
 		),
@@ -252,7 +252,7 @@ $menu = array(
 		'items'   => array (
 			array(
 				'href'   => 'admin/matriculas/index.php',
-				'titulo' => 'Matriculación de alumnos',
+				'titulo' => 'MatriculaciÃ³n de alumnos',
 				'cargos' => array('7'),
 			),
 			array(
@@ -275,7 +275,7 @@ $menu = array(
 					),
 					array(
 						'href'   => 'admin/fechorias/lfechorias.php',
-						'titulo' => 'Últimos problemas'
+						'titulo' => 'Ãšltimos problemas'
 					),
 					array(
 						'href'   => 'admin/fechorias/expulsados.php',
@@ -306,7 +306,7 @@ $menu = array(
 					),
 					array(
 						'href'   => 'faltas/poner2/index.php',
-						'titulo' => 'Tutoría de Faltas',
+						'titulo' => 'TutorÃ­a de Faltas',
 						'cargos' => array('1','3'),
 					),
 
@@ -321,7 +321,7 @@ $menu = array(
 					),
 					array(
 						'href'   => 'faltas/seneca/',
-						'titulo' => 'Importar faltas a Séneca',
+						'titulo' => 'Importar faltas a SÃ©neca',
 						'cargos' => array('1'),
 					),
 					array(
@@ -392,7 +392,7 @@ $menu = array(
 					),
 					array(
 						'href'   => 'TIC/estadisticas.php',
-						'titulo' => 'Estadísticas de las TIC',
+						'titulo' => 'EstadÃ­sticas de las TIC',
 					),
 				),
 			),
@@ -416,7 +416,7 @@ $menu = array(
 			),
 			array(
 				'href'   => '#',
-				'titulo' => 'Mensajería',
+				'titulo' => 'MensajerÃ­a',
 				'items' => array(
 					array(
 						'href'   => 'admin/mensajes/index.php',
@@ -424,7 +424,7 @@ $menu = array(
 					),
 					array(
 						'href'   => 'admin/mensajes/correo.php',
-						'titulo' => 'Correo electrónico',
+						'titulo' => 'Correo electrÃ³nico',
 					),
 					array(
 						'href'   => 'sms/index.php',
@@ -436,7 +436,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/evaluaciones/index.php',
-				'titulo' => 'Sesiones de evaluación',
+				'titulo' => 'Sesiones de evaluaciÃ³n',
 				'modulo' => $mod_eval,
 				'ncargos' => array('6', '7'),
 			),
@@ -478,7 +478,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'calendario/index.php?action=nuevoEvento',
-				'titulo' => 'Añadir actividad',
+				'titulo' => 'AÃ±adir actividad',
 				'cargos' => array('4','d'),
 				'ncargos' => array('1'),
 			),
@@ -488,7 +488,7 @@ $menu = array(
 			),
 			array(
 				'href'   => 'admin/evaluacion_pendientes/index.php',
-				'titulo' => 'Evaluación de Pendientes',
+				'titulo' => 'EvaluaciÃ³n de Pendientes',
 			),
 		),
 	),
@@ -499,11 +499,11 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 	$paginas_interes = array(
 		array(
 			'menu_id' => 'paginas_interes',
-			'nombre'  => 'Páginas de interés',
+			'nombre'  => 'PÃ¡ginas de interÃ©s',
 			'items'   => array (
 				array(
 					'href'   => '//'.$dominio,
-					'titulo' => 'Página del '.$nombre_del_centro,
+					'titulo' => 'PÃ¡gina del '.$nombre_del_centro,
 					'target' => '_blank',
 				),
 				array(
@@ -518,7 +518,7 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 				),
 				array(
 					'href'   => 'http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion='.$web_delegacion,
-					'titulo' => 'Delegación de Educación',
+					'titulo' => 'DelegaciÃ³n de EducaciÃ³n',
 					'target' => '_blank',
 				),
 				array(
@@ -528,7 +528,7 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 				),
 				array(
 					'href'   => 'http://www.mecd.gob.es',
-					'titulo' => 'Ministerio de Educación',
+					'titulo' => 'Ministerio de EducaciÃ³n',
 					'target' => '_blank',
 				),
 				array(
@@ -546,16 +546,16 @@ else {
 	$paginas_interes = array(
 		array(
 			'menu_id' => 'paginas_interes',
-			'nombre'  => 'Páginas de interés',
+			'nombre'  => 'PÃ¡ginas de interÃ©s',
 			'items'   => array (
 				array(
 					'href'   => '//'.$dominio,
-					'titulo' => 'Página del '.$nombre_del_centro,
+					'titulo' => 'PÃ¡gina del '.$nombre_del_centro,
 					'target' => '_blank',
 				),
 				array(
 					'href'   => 'http://www.juntadeandalucia.es/educacion/nav/delegaciones.jsp?delegacion='.$web_delegacion,
-					'titulo' => 'Delegación de Educación',
+					'titulo' => 'DelegaciÃ³n de EducaciÃ³n',
 					'target' => '_blank',
 				),
 				array(
@@ -565,7 +565,7 @@ else {
 				),
 				array(
 					'href'   => 'http://www.mecd.gob.es',
-					'titulo' => 'Ministerio de Educación',
+					'titulo' => 'Ministerio de EducaciÃ³n',
 					'target' => '_blank',
 				),
 				array(
