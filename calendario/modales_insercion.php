@@ -218,7 +218,10 @@
 		        			</select>
 		        			<p class="help-block">Para seleccionar varios profesores, mantén apretada la tecla <kbd>Ctrl</kbd> mientras los vas marcando con el ratón.</p>
 		        		</div>
-		        		
+		        		<div class="form-group">
+		        		<label for="cmp_descripcion">Observaciones (Precio de la Actividad, Recomendaciones para la misma, etc.)</label>
+        				<textarea type="text" class="form-control" id="cmp_observaciones" name="cmp_observaciones" rows="3"></textarea>
+		        		</div>
 		        	</div><!-- /.col-sm-6 -->
 		        	
 		        	<div class="col-sm-6">

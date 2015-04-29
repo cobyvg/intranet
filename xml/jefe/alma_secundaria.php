@@ -135,7 +135,7 @@ closedir($d);
 // Descomprimimos el zip de las calificaciones en el directorio exporta/
 include('../../lib/pclzip.lib.php');   
 $archive = new PclZip($_FILES['archivo1']['tmp_name']);  
-      if ($archive->extract(PCLZIP_OPT_PATH, '../primaria') == 0) 
+      if ($archive->extract(PCLZIP_OPT_PATH, '../secundaria') == 0) 
 	  {
         die("Error : ".$archive->errorInfo(true));
       } 
@@ -170,9 +170,9 @@ $row = 1;
         }
     $dato=substr($dato,0,strlen($dato)-2); 
     $lineasalto.=$dato; 
-    $lineasalto.=", \"C.E.I.P. $colegio\"";
+    $lineasalto.=", \"I.E.S. $colegio\"";
     $lineasalto.=");";
-  //  echo $lineasalto."<br>";
+    //echo $lineasalto."<br>";
     mysqli_query($db_con, $lineasalto);
 }
 fclose($fp);
@@ -201,25 +201,25 @@ mysqli_query($db_con, $crear);
  while  ($row0 = mysqli_fetch_array($result_1))
  {
 if (substr($row0[0],-1)=="A") {
-	$unidad_cole = "6P-A";
+	$unidad_cole = "4E-A";
 }
 elseif (substr($row0[0],-1)=="B") {
-	$unidad_cole = "6P-B";
+	$unidad_cole = "4E-B";
 }
  elseif (substr($row0[0],-1)=="C") {
-	$unidad_cole = "6P-C";
+	$unidad_cole = "4E-C";
 }
  elseif (substr($row0[0],-1)=="D") {
-	$unidad_cole = "6P-A";
+	$unidad_cole = "4E-A";
 }
   elseif (substr($row0[0],-1)=="E") {
-	$unidad_cole = "6P-E";
+	$unidad_cole = "4E-E";
 }
   elseif (substr($row0[0],-1)=="F") {
-	$unidad_cole = "6P-F";
+	$unidad_cole = "4E-F";
 }
 ELSE{
-	$unidad_cole = "6P-A";
+	$unidad_cole = "4E-A";
 } 	
 $trozounidad0 = explode("-",$unidad_cole);
 $actualiza= "UPDATE alma_secundaria SET UNIDAD = '$unidad_cole', NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";

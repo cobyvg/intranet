@@ -34,11 +34,13 @@ if (isset($_GET['sin_matricula'])) {$sin_matricula = $_GET['sin_matricula'];}els
 			</li>
 			<li class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'importar')==TRUE) ? ' active' : ''; ?>">
 			  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-			    Importación <span class="caret"></span>
+			    Herramientas <span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu" role="menu">
-			  	<li><a href="index_primaria.php">Alumnado de Primaria</a></li>
-			  	<li><a href="index_secundaria.php">Alumnado de ESO</a></li>
+			  	<li><a href="index_primaria.php">Importar Alumnado de Primaria</a></li>
+			  	<li><a href="index_secundaria.php">Importar Alumnado de ESO</a></li>
+			  	<li><a href="activar_matriculas.php?activar=1">Activar matriculación</a></li>
+			  	<li><a href="activar_matriculas.php?activar=2">Desactivar matriculación</a></li>
 			  </ul>
 			</li>
 			<li><a href="consulta_transito.php">Informes de Tránsito</a></li>

@@ -54,6 +54,7 @@ $calendario_evento = mysqli_real_escape_string($db_con, $_POST['cmp_calendario']
 $unidad_asignatura_evento = $_POST['cmp_unidad_asignatura'];
 $departamento_evento = mysqli_real_escape_string($db_con, $_POST['cmp_departamento']);
 $profesores_evento = $_POST['cmp_profesores'];
+$observaciones_evento = $_POST['cmp_observaciones'];
 $unidades_evento = $_POST['cmp_unidades'];
 $profesorreg_evento = mysqli_real_escape_string($db_con, $_SESSION['ide']);
 $fechareg_evento = date('Y-m-d');
@@ -65,6 +66,7 @@ $horaini_evento = trim($horaini_evento);
 $fechafin_evento = trim($fechafin_evento);
 $horafin_evento = trim($horafin_evento);
 $descripcion_evento = trim($descripcion_evento);
+$observaciones_evento = trim($observaciones_evento);
 $lugar_evento = trim($lugar_evento);
 
 
@@ -142,7 +144,7 @@ if (! mysqli_num_rows($result)) {
 	exit();
 }
 else {
-	$editar = mysqli_query($db_con, "UPDATE calendario SET categoria='$calendario_evento', nombre='$nombre_evento', descripcion='$descripcion_evento', fechaini='$fechaini_evento_sql', horaini='$horaini_evento', fechafin='$fechafin_evento_sql', horafin='$horafin_evento', lugar='$lugar_evento', departamento='$string_departamento', profesores='$string_profesores', unidades='$string_unidad', asignaturas='$string_asignatura', fechareg='$fechareg_evento', profesorreg='$profesorreg_evento' WHERE id=$id_evento") or die (mysqli_error($db_con));
+	$editar = mysqli_query($db_con, "UPDATE calendario SET categoria='$calendario_evento', nombre='$nombre_evento', descripcion='$descripcion_evento', fechaini='$fechaini_evento_sql', horaini='$horaini_evento', fechafin='$fechafin_evento_sql', horafin='$horafin_evento', lugar='$lugar_evento', departamento='$string_departamento', profesores='$string_profesores', unidades='$string_unidad', asignaturas='$string_asignatura', fechareg='$fechareg_evento', profesorreg='$profesorreg_evento', observaciones='$observaciones_evento' WHERE id=$id_evento") or die (mysqli_error($db_con));
 	if (! $editar) {
 		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEventoEdicion');
 		exit();
