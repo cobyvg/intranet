@@ -92,7 +92,7 @@ $profesor = substr($profesor,0,-5);
 $trozos = explode(";",$cursos[0]);
 foreach($trozos as $valor)
 {
-$unidad = $valor;
+$unidad = trim($valor);
 $alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.unidad = '$unidad' order by NC";
 //echo $cursos[0]." => ".$alumnos0."<br>";
 $alumnos1 = mysqli_query($db_con, $alumnos0);
@@ -126,7 +126,7 @@ if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION
 </tr>
 
 <?
-do{
+while($alumno = mysqli_fetch_array($alumnos1)){
 $apellidos = $alumno[0];
 $nombre = $alumno[1];
 $nc = $alumno[2];
@@ -143,11 +143,12 @@ if (mysqli_num_rows($ya)>0) {
 <td>   
 <?
 echo " $nc. $apellidos $nombre</td></tr>";
-}while($alumno = mysqli_fetch_array($alumnos1));
+}
 ?>
 </table>
 <?
-}}
+}
+}
 }
 ?>
 <br />
