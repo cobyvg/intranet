@@ -27,27 +27,22 @@ $curso_tutor=$query2[0];
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'intervencion.php')==TRUE) ? ' class="active"' : ''; ?>><a
 		href="intervencion.php">Intervenciones</a></li>
-		<?php if (isset($mod_sms) && $mod_sms): ?>
-	<li><a
-		href="../../sms/index.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'];?>">Enviar
-	SMS</a></li>
-	<?php endif; ?>
-	<li
-		class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'consulta_')==TRUE) ? ' active' : ''; ?>">
-	<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Consultas <span
+		<li	class="dropdown<?php echo (strstr($_SERVER['REQUEST_URI'],'Tutor')==TRUE) ? ' active' : ''; ?>">
+	<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Menú de Tutoría <span
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
-		<li><a
-			href="../datos/datos.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'] ?>">Datos
-		de alumnos/as</a></li>
-		<li><a
-			href="../cursos/ccursos.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>&submit1=1"
-			target="_blank">Listado de alumnos/as</a></li>
+		<li><a href="../datos/datos.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'] ?>">Datos de alumnos/as</a></li>
+		<li><a href="../cursos/ccursos.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>&submit1=1" target="_blank">Listado de alumnos/as</a></li>
+		<?php if (isset($mod_sms) && $mod_sms): ?>
+		<li><a href="../../sms/index.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'];?>">Enviar SMS</a></li>	
+		<?php endif; ?>
 		<li><a href="consulta_fotografias.php">Fotografías de alumnos/as</a></li>
 		<li><a href="consulta_mesas.php">Asignación de mesas</a></li>
 		<li><a href="../../xml/jefe/form_carnet.php">Credenciales de alumnos</a></li>
 		<li><a href="consulta_absentismo.php">Alumnos absentistas</a></li>
 		<li class="divider"></li>
+		<li><a href="../../admin/actividades/indexextra.php">Actividades Complementarias / Extraescolares</a></li>
+		<li class="divider"></li>		
 		<li><a
 			href="../../upload/index.php?index=publico&direction=0&order=&directory=departamentos/Orientacion Educativa"
 			target="_blank">Material de orientación</a></li>

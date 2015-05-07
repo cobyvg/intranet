@@ -139,7 +139,7 @@
         					<?php endwhile; ?>
         					<?php mysqli_free_result($result); ?>
         				</optgroup>
-        				<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')): ?>
+        				<?php if (stristr($_SESSION['cargo'],'1')): ?>
         				<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1 $sql_where"); ?>
         					<?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -148,6 +148,17 @@
         					<?php mysqli_free_result($result); ?>
         				</optgroup>
         				<?php endif; ?>
+        				
+        				<?php if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'2')): ?>
+        				<optgroup label="Otros calendarios">
+        					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where"); ?>
+        					<?php while ($row = mysqli_fetch_assoc($result)): ?>
+        					<option value="<?php echo $row['id']; ?>"><?php echo $row['nombre']; ?></option>
+        					<?php endwhile; ?>
+        					<?php mysqli_free_result($result); ?>
+        				</optgroup>
+        				<?php endif; ?>
+        				
         			</select>
         		</div>
         		
@@ -176,7 +187,7 @@
         			<?php endif; ?>
         		</div>
         		
-        		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')): ?>
+        		<?php if (stristr($_SESSION['cargo'],'1') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'2')): ?>
         		<div id="opciones_actividades" class="row">
         			
         			<div class="col-sm-6">
@@ -184,8 +195,12 @@
 		        		<div class="form-group">
 		        			<label for="cmp_departamento">Departamento que lo organiza</label>
 		        			<select class="form-control" id="cmp_departamento" name="cmp_departamento">
+		        				<?php if (stristr($_SESSION['cargo'],'2') == TRUE){ ?>
+		        				<option value="Orientación">Orientación</option>
+		        				<?php } else{ ?>
 		        				<?php if (!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'5') == TRUE) and !(stristr($_SESSION['cargo'],'d') == TRUE)): ?>
 		        				<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento='".$_SESSION['dpt']."' ORDER BY departamento ASC"); ?>
+		        				
 		        				<?php while ($row = mysqli_fetch_assoc($result)): ?>
 		        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
 		        				<?php endwhile; ?>
@@ -200,6 +215,8 @@
 		        				<option value="<?php echo $row['departamento']; ?>"><?php echo $row['departamento']; ?></option>
 		        				<?php endwhile; ?>
 		        				<?php endif; ?>
+		        				<?php } ?>
+
 		        			</select>
 		        		</div>
 		        		
@@ -228,10 +245,11 @@
 		        		
 		        		<div class="form-group">
 		        			<label for="">Unidades que asistirán a la actividad</label>
+		        			<? 	if (stristr($_SESSION['cargo'],'2')) {	$extra_tutor = "and unidad = '".$_SESSION ['s_unidad']."'";	}else{ $extra_tutor = ""; }?>
 			        		<?php $result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC"); ?>
 			        		<?php while($row = mysqli_fetch_assoc($result)): ?>
 			        			<?php echo '<p class="text-info">'.$row['curso'].'</p>'; ?>
-			        			<?php $result1 = mysqli_query($db_con, "SELECT DISTINCT unidad FROM alma WHERE curso = '".$row['curso']."' ORDER BY unidad ASC"); ?>
+			        			<?php $result1 = mysqli_query($db_con, "SELECT DISTINCT unidad FROM alma WHERE curso = '".$row['curso']."' $extra_tutor ORDER BY unidad ASC"); ?>
 			        			<?php while($row1 = mysqli_fetch_array($result1)): ?>
 			        		                 
 			        			<div class="checkbox-inline"> 

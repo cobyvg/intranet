@@ -37,7 +37,7 @@ if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'
        <li<? echo $activo1;?>><a href="indexextra.php">Administrar Actividades</a></li>
  <?
 }
-if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE or stristr ( $_SESSION ['cargo'], '4' ) == TRUE) {
+if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE or stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '2' ) == TRUE) {
 ?>
        <li<? echo $activo2;?>><a href="../../calendario/index.php?action=nuevoEvento" >Introducir Nueva Actividad</a></li>
 <?
