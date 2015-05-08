@@ -56,7 +56,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Actividades Complementarias y Extraescolares <small> Selección de alumnos</small></h2>
+  <h2>Actividades Complementarias y Extraescolares <small> SelecciÃ³n de alumnos</small></h2>
 </div>
 </div>
 
@@ -89,16 +89,21 @@ $profesor.=$profe[1]." ".$profe[0].", ";
 //$profesor.=$profeso.",";
 }
 $profesor = substr($profesor,0,-5);
-$trozos = explode(";",$cursos[0]);
+$uni=substr($cursos[0],0,strlen($cursos[0])-1);
+$trozos = explode(";",$uni);
 foreach($trozos as $valor)
 {
 $unidad = trim($valor);
+?> 
+<table class="table table-striped">
+<tr><td colspan="2"><h4><? echo "Alumnos de $unidad";?></h4></td>
+</tr>
+<?
 $alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.unidad = '$unidad' order by NC";
 //echo $cursos[0]." => ".$alumnos0."<br>";
 $alumnos1 = mysqli_query($db_con, $alumnos0);
 $num = mysqli_num_rows($alumnos1);
-if($alumno = mysqli_fetch_array($alumnos1))
-{
+
 $datos0 = "select fechaini, horaini, profesores, nombre, descripcion, observaciones from calendario where id ='$id'";
 $datos1 = mysqli_query($db_con, $datos0);
 $datos = mysqli_fetch_array($datos1);
@@ -120,12 +125,7 @@ if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION
 <input name="descripcion" type="hidden" id="A" value="<? echo $descripcion;?>">
 <input name="observaciones" type="hidden" id="A" value="<? echo $observaciones;?>">
 <input name="id" type="hidden" id="A" value="<? echo $id;?>">  
-<?}?> 
-<table class="table table-striped">
-<tr><td colspan="2"><h4><? echo "Alumnos de $unidad";?></h4></td>
-</tr>
-
-<?
+<?}
 while($alumno = mysqli_fetch_array($alumnos1)){
 $apellidos = $alumno[0];
 $nombre = $alumno[1];
@@ -149,7 +149,7 @@ echo " $nc. $apellidos $nombre</td></tr>";
 <?
 }
 }
-}
+
 ?>
 <br />
 <div align="center">
