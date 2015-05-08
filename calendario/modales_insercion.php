@@ -143,17 +143,17 @@
         				<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1 $sql_where"); ?>
         					<?php while ($row = mysqli_fetch_assoc($result)): ?>
-        					<option value="<?php echo $row['id']; ?>"><?php echo $row['nombre']; ?></option>
+        					<option value="<?php echo $row['id']; ?>" <?php echo (isset($_GET['calendario']) && ($_GET['calendario'] == 'Extraescolares' && $row['id'] == 2)) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
         					<?php endwhile; ?>
         					<?php mysqli_free_result($result); ?>
         				</optgroup>
         				<?php endif; ?>
         				
-        				<?php if (stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5') || stristr($_SESSION['cargo'],'2')): ?>
+        				<?php if (stristr($_SESSION['cargo'],'2') || stristr($_SESSION['cargo'],'4') || stristr($_SESSION['cargo'],'5')): ?>
         				<optgroup label="Otros calendarios">
         					<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE id='2' $sql_where"); ?>
         					<?php while ($row = mysqli_fetch_assoc($result)): ?>
-        					<option value="<?php echo $row['id']; ?>"><?php echo $row['nombre']; ?></option>
+        					<option value="<?php echo $row['id']; ?>" <?php echo (isset($_GET['calendario']) && ($_GET['calendario'] == 'Extraescolares' && $row['id'] == 2)) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
         					<?php endwhile; ?>
         					<?php mysqli_free_result($result); ?>
         				</optgroup>
