@@ -494,9 +494,11 @@ $PLUGIN_COLORPICKER = 1;
 			
 			if ($('#cmp_calendario').val() == 2) {
 			    $('#opciones_actividades').show();
+			    $('#opciones_diario').hide();
 			}
 			else {
 				$('#opciones_actividades').hide();
+				$('#opciones_diario').show();
 			}
 			
 			$('#cmp_calendario').change(function() {
