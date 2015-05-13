@@ -491,7 +491,16 @@ $PLUGIN_COLORPICKER = 1;
 			  backdrop: true
 			})
 			
-			$('#opciones_actividades').hide();
+			
+			if ($('#cmp_calendario').val() == 2) {
+			    $('#opciones_actividades').show();
+			    $('#opciones_diario').hide();
+			}
+			else {
+				$('#opciones_actividades').hide();
+				$('#opciones_diario').show();
+			}
+			
 			$('#cmp_calendario').change(function() {
 			    if ($('#cmp_calendario').val() == 2) {
 			        $('#opciones_actividades').show();
