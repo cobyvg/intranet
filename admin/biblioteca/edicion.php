@@ -162,7 +162,7 @@ if ($sms) {
 				$mobile = $tfno_u;
 			}
 			if ($registro) {
-				$message = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
+				$message = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro: No devolver en el tiempo debido material de la Biblioteca.";
 			}
 			else{
 				$message = "Su hijo/a no ha devuelto material de la Biblioteca en el plazo indicado. Si no lo devuelve en los próximos días se le impondrá un parte disciplinario grave.";

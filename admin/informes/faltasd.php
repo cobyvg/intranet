@@ -25,7 +25,7 @@ function tipo_falta($falta) {
 			<tr>
 				<th>Fecha</th>
 				<?php for ($i = 1; $i < 7; $i++): ?>
-				<th><?php echo $i; ?>Âª hora</th>
+				<th><?php echo $i; ?>ª hora</th>
 				<?php endfor; ?>
 			</tr>
 		</thead>
