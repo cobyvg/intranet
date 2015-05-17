@@ -611,7 +611,7 @@ for ($i = 0; $i < 16; $i++) {
 	// Junio
 		
 
-	if (date('m')=='6'){
+	if (date('m')=='06'){
 		//echo " ".$val_notas;
 	if ($val_notas<3) {$promociona="1";}
 	echo "<span class='muted' style='font-size:11px'> $val_notas&nbsp;</span>";

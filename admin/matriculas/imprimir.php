@@ -40,11 +40,11 @@ if (substr($curso, 0, 1) == '1') {
 }
 $n_curso = substr($curso, 0, 1);
 $result0 = mysqli_query($db_con, "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre" );
-//echo "select distinct id_matriculas from matriculas_temp, matriculas where id=id_matriculas order by curso".$mas.", letra_grupo, apellidos, nombre";
 while ($id_ar = mysqli_fetch_array($result0)) {
 $id = $id_ar[0];
 $result = mysqli_query($db_con, "select * from matriculas where id = '$id'");
 if ($row = mysqli_fetch_array ( $result )) {
+	$claveal= $row[1];
 	$apellidos = "Apellidos del Alumno: ". $row[2];
 	 $nombre= "Nombre: ".$row[3];
 	 $nacido= "Nacido en: ".$row[4];
@@ -106,6 +106,12 @@ if ($n_curso < '4'){
 	 $optativa3= "$row[24] - $opt1[2]";
 	 $optativa4= "$row[25] - $opt1[3]";
 	 if($n_curso=='3'){
+	 if ($matematicas4=="A") {
+	 	$mt4="Matemáticas Académicas";
+	 }
+	 elseif ($matematicas4=="B") {
+	 	$mt4="Matemáticas Aplicadas";
+	 }	
 	 $optativa5= "$row[52] - $opt1[4]";
 	 $optativa6= "$row[53] - $opt1[5]";
 	 $optativa7= "$row[54] - $opt1[6]";
@@ -310,6 +316,13 @@ for($i=1;$i<3;$i++){
 		$opt = "     $optativa1
 	    $optativa2
 	    $optativa3";
+	}
+	elseif($n_curso=="3"){
+	$opt = "     $mt4
+	    $optativa1										$optativa5
+	    $optativa2											$optativa6
+	    $optativa3											$optativa7
+	    $optativa4";
 	}
 	else{
 	$opt = "     $optativa1										$optativa5

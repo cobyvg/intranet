@@ -58,6 +58,7 @@ Ed. Torretriana. C/. Juan A. de Vizarrón, s/n. 41071 Sevilla
 Telf. 95 506 40 00. Fax: 95 506 40 03.
 e-mail: informacion.ced@juntadeandalucia.es
 ";
+
 // Religion
 
 if (substr($religion, 0, 1)=="R") {
@@ -78,54 +79,27 @@ if (substr($religion, 0, 1)=="R") {
 }
 
 // AMPA
+$num_eso="";
+$num_bach="";
+$hijos_ampa="";
 $dni_papa = explode(": ", $dnitutor);
 $dnipapa = $dni_papa[1];
-$hijos = mysqli_query($db_con, "select apellidos, nombre, nivel from alma where dnitutor = '$dnipapa'");
-$hijos_primaria = mysqli_query($db_con, "select apellidos, nombre, nivel from alma_secundaria where dnitutor = '$dnipapa'");
-$num_hijos = mysqli_num_rows($hijos);
-$num_hijos_primaria = mysqli_num_rows($hijos_primaria);
+$hijos_eso = mysqli_query($db_con, "select apellidos, nombre, curso from matriculas where dnitutor = '$dnipapa' and dnitutor not like ''");
+$hijos_bach = mysqli_query($db_con, "select apellidos, nombre, curso from matriculas_bach where dnitutor = '$dnipapa' and dnitutor not like ''");
 
-if ($num_hijos > 0) {
-$n_h="";
-while ($hij = mysqli_fetch_array($hijos)){
-	$n_h+=1;
-	${hijo.$n_h} = $hij[1]." ".$hij[0];
-	//echo $hij[2];
-	if (substr($hij[2], 0, 2) == '1E' or substr($hij[2], 0, 2) == '2E' or substr($hij[2], 0, 2) == '3E' or substr($hij[2], 0, 2) == '4E'){
-		$niv = substr($hij[2], 0, 1)+1;
-		//echo "$niv";
-		if ($niv == "5") {
-			${nivel.$n_h} = "1 BACHILLERATO";
-		}
-		else{
-			${nivel.$n_h} = $niv." ESO";			
-		}
-	}
+$num_eso = mysqli_num_rows($hijos_eso);
+$num_bach = mysqli_num_rows($hijos_bach);
+
+if ($num_eso > 0) {
+while ($hij_eso = mysqli_fetch_array($hijos_eso)){
+	$hijos_ampa.="$hij_eso[1] $hij_eso[0] $hij_eso[2]\n";
 }	
 }
-
-
-if ($num_hijos_primaria > 0) {
-$n_h_p="";
-while ($hij_primaria = mysqli_fetch_array($hijos_primaria)){
-	$n_h_p+=1;
-	${hijop.$n_h_p} = $hij_primaria[1]." ".$hij_primaria[0];
-	//echo $hij[2];
-	if (substr($hij_primaria[2], 0, 2) == '1E' or substr($hij_primaria[2], 0, 2) == '2E' or substr($hij_primaria[2], 0, 2) == '3E' or substr($hij_primaria[2], 0, 2) == '4E'){
-		$niv_primaria = substr($hij_primaria[2], 0, 1)+1;
-		//echo "$niv";
-		if ($niv_primaria == "5") {
-			${nivelp.$n_h_p} = "1 BACHILLERATO";
-		}
-		else{
-			${nivelp.$n_h_p} = $niv_primaria." ESO";			
-		}
-	}
-	
-}
+if ($num_bach > 0) {
+while ($hij_bach = mysqli_fetch_array($hijos_bach)){
+	$hijos_ampa.="$hij_bach[1] $hij_bach[0] $hij_bach[2]\n";
 }	
-
-	
+}
 	$tit_ampa = '
 I.E.S. MONTERROSO
 Avda. Sto. Tomás de Aquino s/n
@@ -144,32 +118,15 @@ Nombre del Padre, Madre o Tutor Legal: '.$papa.'. DNI: '.$dnipapa.'
 '.$telefono1.'
 '.$correo.'
 
-NOMBRE Y  APELLIDOS  DE SUS HIJOS/AS  Y CURSO EN QUE SE MATRICULAN EN '.$c_escolar.'
-';
+NOMBRE Y  APELLIDOS  DE SU HIJO/A  Y CURSO EN QUE SE MATRICULA EN '.$c_escolar.'
+'.$hijos_ampa.'';
+
 	$ampa31='EXCLUSIVO  PARA ALUMNOS  QUE  VAN  A  CURSAR 1º, 2º, 3º y 4º DE E.S.O.';
 	$ampa3 = '     Os recordamos que  es OBLIGATORIO el uso de la Agenda Escolar del Instituto para 1º, 2º, 3º y 4º de E.S.O., necesaria para el contacto permanente entre el profesorado y familia.  La Agenda será entregada gratuitamente a los alumnos que se hagan socios en el momento de la matriculación.
    
      Un cordial saludo.
 	
 	';
-	if ($num_hijos=="0" and $num_hijos_primaria=="0") {
-		$hijo1 = "$row[3] $row[2]";
-		$nivel1= $curso;
-		$ampa2.=$hijo1." ".$nivel1;
-	}
-	for ($i = 1; $i < $num_hijos+1; $i++) {
-		$ampa2.=${hijo.$i}.' '.${nivel.$i}.'
-';
-		
-	}
-	for ($i = 1; $i < $num_hijos_primaria+1; $i++) {
-		if (empty(${nivelp.$i})) {
-			${nivelp.$i}=$curso;
-		}
-		$ampa2.=${hijop.$i}.' '.${nivelp.$i}.'
-';
-		
-	}
 	
 	$MiPDF->Addpage ();
 	#### Cabecera con dirección

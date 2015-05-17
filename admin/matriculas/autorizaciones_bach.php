@@ -82,29 +82,25 @@ if (substr($religion, 0, 1)=="R") {
 }
 
 // AMPA
-$num_hijos="";
+$num_eso="";
+$num_bach="";
+$hijos_ampa="";
 $dni_papa = explode(": ", $dnitutor);
 $dnipapa = $dni_papa[1];
-$hijos = mysqli_query($db_con, "select apellidos, nombre, nivel from alma where dnitutor = '$dnipapa' and dnitutor not like ''");
+$hijos_eso = mysqli_query($db_con, "select apellidos, nombre, curso from matriculas where dnitutor = '$dnipapa' and dnitutor not like ''");
+$hijos_bach = mysqli_query($db_con, "select apellidos, nombre, curso from matriculas_bach where dnitutor = '$dnipapa' and dnitutor not like ''");
 
-$num_hijos = mysqli_num_rows($hijos);
+$num_eso = mysqli_num_rows($hijos_eso);
+$num_bach = mysqli_num_rows($hijos_bach);
 
-if ($num_hijos > 0) {
-$n_h="";
-while ($hij = mysqli_fetch_array($hijos)){
-	$n_h+=1;
-	${hijo.$n_h} = $hij[1]." ".$hij[0];
-	//echo $hij[2];
-	if (substr($hij[2], 0, 2) == '1E' or substr($hij[2], 0, 2) == '2E' or substr($hij[2], 0, 2) == '3E' or substr($hij[2], 0, 2) == '4E'){
-		$niv = substr($hij[2], 0, 1)+1;
-		//echo "$niv";
-		if ($niv == "5") {
-			${nivel.$n_h} = "1 BACHILLERATO";
-		}
-		else{
-			${nivel.$n_h} = $niv." ESO";			
-		}
-	}
+if ($num_eso > 0) {
+while ($hij_eso = mysqli_fetch_array($hijos_eso)){
+	$hijos_ampa.="$hij_eso[1] $hij_eso[0] $hij_eso[2]\n";
+}	
+}
+if ($num_bach > 0) {
+while ($hij_bach = mysqli_fetch_array($hijos_bach)){
+	$hijos_ampa.="$hij_bach[1] $hij_bach[0] $hij_bach[2]\n";
 }	
 }
 	
@@ -126,7 +122,7 @@ Nombre del Padre, Madre o Tutor Legal: '.$papa.'. DNI: '.$datos_ya->dnitutor.'
 '.$correo.'
 
 NOMBRE Y  APELLIDOS  DE SUS HIJOS/AS  Y CURSO EN QUE SE MATRICULAN EN '.$c_escolar.'
-';
+'.$hijos_ampa.'';
 	$ampa31='EXCLUSIVO  PARA ALUMNOS  QUE  VAN  A  CURSAR 1º, 2º, 3º y 4º DE E.S.O.';
 	$ampa3 = '     Os recordamos que  es OBLIGATORIO el uso de la Agenda Escolar del Instituto para 1º, 2º, 3º y 4º de E.S.O., necesaria para el contacto permanente entre el profesorado y familia.  La Agenda será entregada gratuitamente a los alumnos que se hagan socios en el momento de la matriculación.
    

@@ -42,7 +42,11 @@ $curso_tutor=$query2[0];
 		<li><a href="consulta_absentismo.php">Alumnos absentistas</a></li>
 		<li class="divider"></li>
 		<li><a href="../../admin/actividades/indexextra.php">Actividades Complementarias / Extraescolares</a></li>
-		<li class="divider"></li>		
+		<li class="divider"></li>	
+		<? if ($_SERVER['SERVER_NAME']=="iesmonterroso.org") { ?>	
+		<li><a
+			href="http://www.iesmonterroso.net/moodle/course/view.php?id=33" target="_blank">Moodle del Dpto. de Orientación</a></li>
+		<? } ?>
 		<li><a
 			href="../../upload/index.php?index=publico&direction=0&order=&directory=departamentos/Orientacion Educativa"
 			target="_blank">Material de orientación</a></li>

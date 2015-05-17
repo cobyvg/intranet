@@ -560,11 +560,11 @@ if ($dni or $claveal or $id) {
 			$al_alma = mysqli_fetch_array($alma);
 			if (empty($curso)) {
 				if ($al_alma[24]=="6204"){$curso="2BACH";}
-				if ($al_alma[24]=="6029"){$curso="1BACH";}
-				if ($al_alma[24]=="101143"){$curso="4ESO";}
+				if ($al_alma[24]=="6029"){$curso="2BACH";}
+				if ($al_alma[24]=="101143"){$curso="1BACH";}
 			}
 			else{
-				if ($al_alma[24]=="101143"){$curso="4ESO";}
+				if ($al_alma[24]=="101143"){$curso="1BACH";}
 			}
 			$n_curso = substr($curso,0,1);
 
