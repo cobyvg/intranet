@@ -39,15 +39,15 @@ if($_SESSION['cambiar_clave']) {
 }
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
-
+<div class="hidden-print">
 <? include("../../menu.php");?>
 <? include("./menu.php");?>
-
+</div>
 <div class="container">
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Informes de Tránsito <small>Consulta de alumnos</small></h2>
+		<h2>Informes de Tránsito <small class="hidden-print">Consulta de alumnos</small></h2>
 	</div>
 	
 	
@@ -84,7 +84,7 @@ Los datos se han actualizado correctamente.
 $cl = mysqli_query($db_con,"select distinct claveal, apellidos, nombre, colegio, unidad from alma_primaria where claveal = '$claveal'");
 $clav = mysqli_fetch_array($cl);
 ?>
-<h2 align="center" class="text-info"><? echo $clav[2]." ".$clav[1];?><br><small>Colegio <? echo $clav[3];?> (<? echo $clav[4];?>)</small></h2>
+<h3 align="center" class="text-info"><? echo $clav[2]." ".$clav[1];?><small> Colegio <? echo $clav[3];?> (<? echo $clav[4];?>)</small></h3>
 <br>
 <?
 $ya_hay=mysqli_query($db_con,"select * from transito_datos where claveal='$claveal'");
@@ -179,6 +179,11 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 <form class="form-inline" method="post">
 
 <input type="hidden" name="claveal" value="<? echo $claveal;?>" />
+<legend class="text-muted">TUTOR</legend>
+<label>
+  <input type="text"  style="width:300px"  name="tutor" value="<? echo $tutor;?>" placeholder="Nombre y Apellidos del Tutor del Grupo" >
+</label>
+<hr>
 
 <legend class="muted">ÁMBITO ACADÉMICO</legend>
 
@@ -563,9 +568,9 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 <br>
 <legend class="muted">OBSERVACIONES</legend>
 <p class="help-block">Otros aspectos a reseñar (agrupamientos, datos médicos, autonomía, etc).</p>
-<textarea name="observaciones" rows="10"cols="80"><? echo $observaciones;?></textarea>
+<textarea name="observaciones" rows="6" cols="80"><? echo $observaciones;?></textarea>
 <hr>
-<input type="submit" class="btn btn-large btn-info" name="submit0" value="Actualizar datos">
+<input type="submit" class="btn btn-large btn-info hidden-print" name="submit0" value="Actualizar datos">
 </form>
 
 

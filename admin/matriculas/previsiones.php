@@ -71,7 +71,7 @@ elseif(mysqli_num_rows($n1)>0){$n_eval = "notas1";}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administración de la Intranet --> Importar Calificaciones) para que este módulo funcione.
+			<h5>ATENCIÃ“N:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administración de la Intranet --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';
 	exit();
 }
@@ -96,7 +96,7 @@ else{
 		if ($todos < '1') {
 			echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
+			<h5>ATENCIÓ“N:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administracción --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';
 		}
 		while($row1 = mysqli_fetch_array($result1)){
@@ -124,6 +124,7 @@ else{
 				$cali = mysqli_fetch_row($asig);
 
 				// Borramos de la tabla la Libre Disposición de ESO
+
 				$lbd = mysqli_query($db_con,"select nombre from asignaturas where codigo = '$bloque[0]'");
 				$libre_disp = mysqli_fetch_array($lbd);
 				// strstr($libre_disp[0],"Libre Dispos")==FALSE and
@@ -254,4 +255,4 @@ VALUES (
 
 </div>
 </div>
-	<? include("../../pie.php");
+	<? include("../../pie.php"); ?>
