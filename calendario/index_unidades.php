@@ -283,11 +283,7 @@ if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) {
 						<div class="form-group">
 							<div class="col-xs-12">
 								<select class="form-control" id="unidad" name="unidad" onchange="submit()">
-									<?php if (stristr($_SESSION['cargo'],'1')): ?>
 									<?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad FROM alma ORDER BY unidad ASC"); ?>
-									<?php else: ?>
-									<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo AS unidad FROM profesores WHERE profesor='".$_SESSION['profi']."'"); ?>
-									<?php endif; ?>
 									<?php while($row = mysqli_fetch_assoc($result)): ?>
 									<option value="<?php echo $row['unidad']; ?>" <?php echo (isset($unidad) && $unidad == $row['unidad']) ? 'selected' : ''; ?>><?php echo $row['unidad']; ?></option>
 									<?php endwhile; ?>
