@@ -56,7 +56,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Actividades Complementarias y Extraescolares <small> SelecciÃ³n de alumnos</small></h2>
+  <h2>Actividades Complementarias y Extraescolares <small> Selección de alumnos</small></h2>
 </div>
 </div>
 
@@ -104,7 +104,7 @@ $alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FAL
 $alumnos1 = mysqli_query($db_con, $alumnos0);
 $num = mysqli_num_rows($alumnos1);
 
-$datos0 = "select fechaini, horaini, profesores, nombre, descripcion, observaciones from calendario where id ='$id'";
+$datos0 = "select fechaini, horaini, profesores, nombre, descripcion, observaciones, fechafin, horafin from calendario where id ='$id'";
 $datos1 = mysqli_query($db_con, $datos0);
 $datos = mysqli_fetch_array($datos1);
 $fecha0 = explode("-",$datos[0]);
@@ -113,6 +113,9 @@ $horario = $datos[1];
 $actividad = $datos[3];
 $descripcion = $datos[4];
 $observaciones = $datos[5];
+$fecha1 = explode("-",$datos[6]);
+$fecha2  = $fecha1[2]."-". $fecha1[1]."-". $fecha1[0];
+$horario2 = $datos[7];
 ?>
 <?
 
@@ -120,6 +123,8 @@ if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION
 ?>
 <input name="fecha" type="hidden" id="A" value="<? echo $fecha;?>">
 <input name="horario" type="hidden" id="A" value="<? echo $horario;?>">
+<input name="fechafin" type="hidden" id="A" value="<? echo $fecha2;?>">
+<input name="horariofin" type="hidden" id="A" value="<? echo $horario2;?>">
 <input name="profesor" type="hidden" id="A" value="<? echo $profesor;?>">
 <input name="actividad" type="hidden" id="A" value="<? echo $actividad;?>">
 <input name="descripcion" type="hidden" id="A" value="<? echo $descripcion;?>">

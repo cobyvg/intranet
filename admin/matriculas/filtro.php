@@ -257,8 +257,7 @@ echo "".$tipo20[0]."</label></div>";
 			<option>Religión Islámica</option>
 			<option>Religión Judía</option>
 			<option>Religión Evangélica</option>
-			<option>Historia de las Religiones</option>
-			<option>Atención Educativa</option>
+			<option>Valores Ciudadanos</option>
 		</select></div>
 </div>
 <div class="col-sm-3">

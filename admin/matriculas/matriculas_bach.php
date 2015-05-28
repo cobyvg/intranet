@@ -560,11 +560,11 @@ if ($dni or $claveal or $id) {
 			$al_alma = mysqli_fetch_array($alma);
 			if (empty($curso)) {
 				if ($al_alma[24]=="6204"){$curso="2BACH";}
-				if ($al_alma[24]=="6029"){$curso="2BACH";}
-				if ($al_alma[24]=="101143"){$curso="1BACH";}
+				if ($al_alma[24]=="6029"){$curso="1BACH";}
+				if ($al_alma[24]=="101143"){$curso="4ESO";}
 			}
 			else{
-				if ($al_alma[24]=="101143"){$curso="1BACH";}
+				if ($al_alma[24]=="101143"){$curso="4ESO";}
 			}
 			$n_curso = substr($curso,0,1);
 
@@ -971,9 +971,9 @@ if ($dni or $claveal or $id) {
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
-				value="Valores Ciudadanos"
-				<?php if($religion == 'Valores Ciudadanos'){echo "checked";} ?>>
-			Valores Ciudadanos </label></div>
+				value="Valores Éticos"
+				<?php if($religion == 'Valores Éticos'){echo "checked";} ?>>
+			Educación para la Ciudadanía y los Derechos Humanos </label></div>
 			</div>
 			</td>
 		</tr>

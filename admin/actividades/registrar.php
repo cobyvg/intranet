@@ -76,11 +76,14 @@ $hoy = formatea_fecha($fecha);
   $dia = $fecha[0];
   $mes = $fecha[1];
   $ano = $fecha[2];
+  
+ // Borramos registros anteriores
+ mysqli_query($db_con,"delete from actividadalumno where cod_actividad='$id'");
+
   foreach($_POST as $key => $value)
   { 
 //  echo "$key --> $value<br>";
 if(is_numeric(trim($key))){
-mysqli_query($db_con,"delete from actividadalumno where claveal='$value' and cod_actividad='$id'");
 mysqli_query($db_con, "insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
 }
 }

@@ -941,9 +941,9 @@ exit();
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
-				value="Valores Ciudadanos"
-				<?php if($religion == 'Valores Ciudadanos'){echo "checked";} ?>>
-			Valores Ciudadanos </label></div>
+				value="Valores Éticos"
+				<?php if($religion == 'Valores Éticos'){echo "checked";} ?>>
+			Valores Éticos </label></div>
 			</div>
 			</td>
 		</tr>

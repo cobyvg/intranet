@@ -296,8 +296,7 @@ else{
 			<option>Religión Islámica</option>
 			<option>Religión Judía</option>
 			<option>Religión Evangélica</option>
-			<option>Historia de las Religiones</option>
-			<option>Atención Educativa</option>
+			<option value="Valores Éticos">Educación para la Ciudadanía y los Derechos Humanos</option>
 		</select>
 		</div>
 </div>

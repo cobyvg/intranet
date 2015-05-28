@@ -380,7 +380,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 </label>
 <hr>
 
-<h5 class="text-info">Refuerzos o Adaptaciones</h5>
+<h5 class="text-info">Refuerzos</h5>
 <h6 class="text-success">Ha tenido Refuerzo:</h6>
 <label class="checkbox inline">
   <input type="checkbox" name="refuerzo[]" value="Lengua " <? echo $ref1;?>> Lengua
@@ -430,7 +430,7 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 </label>
 <hr>
 
-<h5 class="text-info">Adaptaciones Curriculares</h5>
+<h5 class="text-info">Medidas de Atención a la Diversidad</h5>
 <h6 class="text-success">Ha tenido Adaptación Curricular:</h6>
 <label>Areas cursadas en la Adaptación Curricular Significativa
   <input type="text" style="width:300px" name="areasadcurrsign" value="<? echo $areasadcurrsign;?>" caption="Tarari">

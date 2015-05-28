@@ -50,11 +50,29 @@ if (isset($_GET['act_calendario'])) {$act_calendario = $_GET['act_calendario'];}
 if (isset($_GET['confirmado'])) {$confirmado = $_GET['confirmado'];}elseif (isset($_POST['confirmado'])) {$confirmado = $_POST['confirmado'];}else{$confirmado="";}
 if (isset($_GET['detalles'])) {$detalles = $_GET['detalles'];}elseif (isset($_POST['detalles'])) {$detalles = $_POST['detalles'];}else{$detalles="";}
 if (isset($_GET['fecha'])) {$fecha = $_GET['fecha'];}elseif (isset($_POST['fecha'])) {$fecha = $_POST['fecha'];}else{$fecha="";}
+if (isset($_GET['fechafin'])) {$fechafin = $_GET['fechafin'];}elseif (isset($_POST['fechafin'])) {$fechafin = $_POST['fechafin'];}else{$fechafin="";}
 if (isset($_GET['horario'])) {$horario = $_GET['horario'];}elseif (isset($_POST['horario'])) {$horario = $_POST['horario'];}else{$horario="";}
+if (isset($_GET['horariofin'])) {$horariofin = $_GET['horariofin'];}elseif (isset($_POST['horariofin'])) {$horariofin = $_POST['horariofin'];}else{$horariofin="";}
 if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];}elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];}else{$profesor="";}
 if (isset($_GET['actividad'])) {$actividad = $_GET['actividad'];}elseif (isset($_POST['actividad'])) {$actividad = $_POST['actividad'];}else{$actividad="";}
 if (isset($_GET['descripcion'])) {$descripcion = $_GET['descripcion'];}elseif (isset($_POST['descripcion'])) {$descripcion = $_POST['descripcion'];}else{$descripcion="";}
 if (isset($_GET['observaciones'])) {$observaciones = $_GET['observaciones'];}elseif (isset($_POST['observaciones'])) {$observaciones = $_POST['observaciones'];}else{$observaciones="";}
+
+if($fecha == $fechafin){
+$fecha_act = $fecha;
+}
+else{
+$fecha_act = $fecha.' - '.$fechafin;
+}
+
+$horario = substr($horario,0,-3);
+$horariofin = substr($horariofin,0,-3);
+if($horario == $horariofin){
+$horario_act = $horario;
+}
+else{
+$horario_act = $horario.' - '.$horariofin;
+}
 
 include_once ("../../funciones.php"); 
 // PDF
@@ -132,6 +150,10 @@ $MiPDF->SetDisplayMode('fullpage');
   $dia = $fecha[0];
   $mes = $fecha[1];
   $ano = $fecha[2];
+
+// Borramos registros anteriores
+ mysqli_query($db_con,"delete from actividadalumno where cod_actividad='$id'");
+ 
   foreach($_POST as $key => $value)
   { 
 //  echo "$key --> $value<br>";
@@ -141,7 +163,6 @@ $alumnos0 = "select alma.nombre, alma.apellidos, padre, domicilio, codpostal, lo
 $alumnos1 = mysqli_query($db_con, $alumnos0);
 while($alumno = mysqli_fetch_array($alumnos1))
 {
-	mysqli_query($db_con,"delete from actividadalumno where claveal='$value' and cod_actividad='$id'");
 	mysqli_query($db_con, "insert into actividadalumno (claveal,cod_actividad) values ('".$value."','".$id."')");
 	# insertamos la primera pagina del documento
 	$MiPDF->Addpage();
@@ -175,13 +196,13 @@ while($alumno = mysqli_fetch_array($alumnos1))
 	$MiPDF->Cell(30, 8, 'Fecha: ', 0, 0, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','',10);
-	$MiPDF->Cell(130, 8, $fecha, 0, 1, 'L');
+	$MiPDF->Cell(130, 8, $fecha_act, 0, 1, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
 	$MiPDF->Cell(30, 8, 'Horario: ', 0, 0, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','',10);
-	$MiPDF->Cell(130, 8, $horario, 0, 1, 'L');
+	$MiPDF->Cell(130, 8, $horario_act, 0, 1, 'L');
 	
 	$MiPDF->SetFont('NewsGotT','B',10);
 	$MiPDF->Cell(30, 8, 'Actividad: ', 0, 0, 'L');

@@ -466,7 +466,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if (strstr($religion,"Cat")==TRUE) {
 			$color_rel = " style='background-color:#FFFF99;'";
 		}
-		if (strstr($religion,"Atenci")==TRUE) {
+		if (strstr($religion,"Valores")==TRUE) {
 			$color_rel = " style='background-color:#cdecab'";
 		}
 		echo '<td '.$color_rel.'>'.$religion.'</td>';

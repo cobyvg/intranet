@@ -503,7 +503,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 	if (strstr($religion,"Cat")==TRUE) {
 			$color_rel = " style='background-color:#FFFF99;'";
 		}
-	if (strstr($religion,"Atenci")==TRUE) {
+	if (strstr($religion,"Valores")==TRUE) {
 			$color_rel = " style='background-color:#cdecab'";
 		}
 echo '<td '.$color_rel.'></td>';
@@ -611,7 +611,7 @@ for ($i = 0; $i < 16; $i++) {
 	// Junio
 		
 
-	if (date('m')=='06'){
+	if (date('m')=='6'){
 		//echo " ".$val_notas;
 	if ($val_notas<3) {$promociona="1";}
 	echo "<span class='muted' style='font-size:11px'> $val_notas&nbsp;</span>";
