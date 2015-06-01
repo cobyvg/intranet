@@ -24,7 +24,7 @@ if (! mysqli_num_rows($actua)) {
 	  `accion` varchar(200) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
 	  `fecha` date NOT NULL DEFAULT '0000-00-00',
 	  PRIMARY KEY (`id`)
-	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;";
+	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 }
 
 /*
