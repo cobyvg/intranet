@@ -628,6 +628,23 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `infotut_profesor` (
 // ////////////////////////////////////////////////////////
 
 //
+// Estructura de tabla para la tabla `intervenciones_profesores`
+//
+
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `intervenciones_profesores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idea` varchar(12) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `nombre` varchar(60) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `observaciones` text COLLATE latin1_spanish_ci NOT NULL,
+  `causa` varchar(42) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `accion` varchar(200) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `fecha` date NOT NULL DEFAULT '0000-00-00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;";
+
+// ////////////////////////////////////////////////////////
+
+//
 // Estructura de tabla para la tabla `inventario`
 //
 

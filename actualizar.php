@@ -6,6 +6,27 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actualizacion` (
   PRIMARY KEY (`d`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
+
+/*
+ @descripcion: Nuevo módulo de intervención de profesores
+ @fecha: 1 de junio de 2013
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Intervención de profesores'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Intervención de profesores', NOW())");
+
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `intervenciones_profesores` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `idea` varchar(12) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+	  `nombre` varchar(60) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+	  `observaciones` text COLLATE latin1_spanish_ci NOT NULL,
+	  `causa` varchar(42) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+	  `accion` varchar(200) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+	  `fecha` date NOT NULL DEFAULT '0000-00-00',
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;";
+}
+
 /*
  @descripcion: Calendarios
  @fecha: 19 de febrero de 2015
