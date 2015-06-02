@@ -49,6 +49,7 @@ $cargo = $_SESSION['cargo'];
 $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
+include("menu.php");
 ?>
 
 <div

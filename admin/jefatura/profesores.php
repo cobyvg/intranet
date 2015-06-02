@@ -1,7 +1,7 @@
 <?
 session_start();
-include("../../../config.php");
-include_once('../../../config/version.php');
+include("../../config.php");
+include_once('../../config/version.php');
 
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
@@ -45,6 +45,17 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 
 $cargo = $_SESSION['cargo'];
 
+// Tabla
+mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `intervenciones_profesores` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `idea` varchar(12) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+	  `nombre` varchar(60) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+	  `observaciones` text COLLATE latin1_spanish_ci NOT NULL,
+	  `causa` varchar(42) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+	  `accion` varchar(200) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+	  `fecha` date NOT NULL DEFAULT '0000-00-00',
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // VARIABLES DEL FORMULARIO
 
@@ -112,6 +123,7 @@ if (isset($_POST['submit2'])) {
 }
 
 // ELIMINACIÓN
+		
 if (isset($_POST['submit3'])) {
 	
 	if (! empty($id)) {
@@ -121,7 +133,7 @@ if (isset($_POST['submit3'])) {
 			$msg_error = "No se ha podido eliminar la intervención. Error: ".mysqli_error($db_con);
 		}
 		else {
-			header('Location:'.'index.php');
+			$msg_success = "La intervención ha sido eliminada correctamente.";
 		}
 	}
 	
@@ -148,7 +160,8 @@ if (isset($_GET['id'])) {
 // PLUGINS
 $PLUGIN_DATATABLES = 1;
 
-include("../../../menu.php");
+include("../../menu.php");
+include("menu.php");
 ?>
 
 <div class="container">
@@ -208,7 +221,7 @@ include("../../../menu.php");
 							<div class="col-sm-5">
 								<div class="form-group" id="datetimepicker1"><label for="fecha_reg">Fecha</label>
 									<div class="input-group">
-										<input name="fecha_reg" type="text" class="input form-control" value="<?php echo (isset($fecha_reg)) ? $fecha_reg : ''; ?>" data-date-format="DD-MM-YYYY" id="fecha_reg">
+										<input name="fecha_reg" type="text" class="input form-control" value="<?php echo (isset($fecha_reg)) ? $fecha_reg : '' ?>" data-date-format="DD-MM-YYYY" id="fecha_reg">
 										<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 									</div>
 								</div>
@@ -251,7 +264,7 @@ include("../../../menu.php");
 						<?php if(isset($id)): ?>
 						<button type="submit" class="btn btn-primary" name="submit2">Actualizar</button>
 						<button type="submit" class="btn btn-danger" name="submit3">Eliminar</button>
-						<a class="btn btn-default" href="index.php">Nueva intervención</a>
+						<a class="btn btn-default" href="profesores.php">Nueva intervención</a>
 						<?php else: ?>
 						<button type="submit" class="btn btn-primary" name="submit1">Registrar</button>
 						<?php endif; ?>
@@ -266,7 +279,7 @@ include("../../../menu.php");
 			
 				<?php $result = mysqli_query($db_con, "SELECT id, idea, nombre, fecha, observaciones, accion, causa FROM intervenciones_profesores WHERE idea = '$profesor' ORDER BY fecha DESC"); ?>
 
-				<?php if ($row = mysqli_fetch_array($result)): ?>
+				<?php if (mysqli_num_rows($result)>0): ?>
 				<h4>Historial de intervenciones de <?php echo $row['nombre']; ?></h4>
 				
 				<br>
@@ -286,7 +299,9 @@ include("../../../menu.php");
 							<td><?php echo $row['fecha']; ?></td>
 							<td><?php echo $row['accion']; ?></td>
 							<td><?php echo $row['causa']; ?></td>
-							<td><a href="index.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver informe"><span class="fa fa-search fa-lg fa-fw"></span></a></td>
+							<td>
+							<a href="profesores.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Ver informe"><span class="fa fa-search fa-lg fa-fw"></span></a>
+							</td>
 						</tr>
 						<?php endwhile; ?>
 					</tbody>
@@ -326,7 +341,7 @@ include("../../../menu.php");
 					<?php while ($row1 = mysqli_fetch_array($result1)): ?>
 					<tr>
 						<td><?php echo $row1['id']; ?></td>
-						<td><a href="index.php?id=<?php echo $row1['id']; ?>"><?php echo $row1['nombre']; ?></a></td>
+						<td><a href="profesores.php?id=<?php echo $row1['id']; ?>"><?php echo $row1['nombre']; ?></a></td>
 						<td nowrap><?php echo $row1['fecha']; ?></td>
 					</tr>
 					<?php endwhile; ?>
@@ -348,7 +363,7 @@ include("../../../menu.php");
 	
 </div><!-- /.container -->
 
-	<?php include("../../../pie.php");?>
+	<?php include("../../pie.php");?>
 
 	<script>  
 	$(document).ready(function() {
