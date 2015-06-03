@@ -291,13 +291,28 @@ if (file_exists($foto_al)) {
     //$pdf->Text(32+$x+$dplz,40+$y,$cadena);
     
     if ($n_bib>0) {
-    	$pdf->Rect(24+$x+$dplz,36+$y,58-$dplz,13,'F');
-    	$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',25+$x+$dplz,37+$y,19,0,'PNG');
-    	$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',52+$x+$dplz,37+$y,25,0,'PNG');
+    	
+    	if ($longnie<7) {
+    		$pdf->Rect(24+$x+$dplz,36+$y,58-$dplz,13,'F');
+    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',25+$x+$dplz,37+$y,19,0,'PNG');
+    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',52+$x+$dplz,37+$y,25,0,'PNG');
+    	}
+    	else {
+    		$pdf->Rect(28+$x+$dplz,36+$y,54-$dplz,13,'F');
+    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',29+$x+$dplz,37+$y,24,0,'PNG');
+    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',56+$x+$dplz,37+$y,25,0,'PNG');
+    	}
+    	
     }
     else {
     	$pdf->Rect(46+$x+$dplz,36+$y,34-$dplz,13,'F');
-    	$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,49+$x+$dplz,37+$y,24,0,'PNG');
+    	
+    	if ($longnie<7) {
+    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,49+$x+$dplz,37+$y,24,0,'PNG');
+    	}
+    	else {
+    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,48+$x+$dplz,37+$y,30,0,'PNG');
+    	}
     }
     
 	$pdf->SetFont('Arial','',7);
