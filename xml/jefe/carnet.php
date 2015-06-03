@@ -278,7 +278,7 @@ $anyos = floor(($segundos-$sumadiasBis)/31536000);
 	
 	$pdf->Rect(2+$x,12+$y,23,30,'F');
 	#$pdf->Rect(46+$x,36+$y,33,11,F);
-	$pdf->Rect(29+$x+$dplz,36+$y,52-$dplz,12,'F');
+	
 
 $fileExtension=".jpg";
 $foto_al = "../fotos/".$claveal.".jpg";
@@ -286,9 +286,20 @@ if (file_exists($foto_al)) {
  	$pdf->Image($foto_al,2.5+$x,12.5+$y,22);
 }
 	
-	$pdf->SetFont('c128ab','',40);
-    $cadena= chr(124) . chr(172). $claveal . codigo_control($claveal) . chr(126);
-    $pdf->Text(32+$x+$dplz,47+$y,$cadena);    
+	//$pdf->SetFont('c128ab','',40);
+    //$cadena= chr(124) . chr(172). $claveal . codigo_control($claveal) . chr(126);
+    //$pdf->Text(32+$x+$dplz,40+$y,$cadena);
+    
+    if ($n_bib>0) {
+    	$pdf->Rect(24+$x+$dplz,36+$y,58-$dplz,13,'F');
+    	$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',25+$x+$dplz,37+$y,19,0,'PNG');
+    	$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',52+$x+$dplz,37+$y,25,0,'PNG');
+    }
+    else {
+    	$pdf->Rect(46+$x+$dplz,36+$y,34-$dplz,13,'F');
+    	$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,49+$x+$dplz,37+$y,24,0,'PNG');
+    }
+    
 	$pdf->SetFont('Arial','',7);
    	$pdf->Text(28+$x,16+$y,'Nombre:');
 	$pdf->Text(28+$x,21+$y,'Apellidos:');
@@ -303,7 +314,7 @@ if (file_exists($foto_al)) {
 #	$pdf->Text(60+$x,30+$y,);
 #	$pdf->Text(60+$x,42+$y,$claveal);
 	$pdf->SetFont('Arial','',7);
-   
+   	
     if ($n_bib>0) {
     	$pdf->SetFont('Arial','B',8);
    		$pdf->Text(2+$x,49+($y-2),$claveal."   ".$c_bib);
