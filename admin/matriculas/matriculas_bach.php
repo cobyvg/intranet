@@ -188,10 +188,24 @@ array(
 ),
 );
 // Asignaturas y Modalidades
-$it11 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "Ciencias y Tecnología");
-$it12 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
-$opt11=array("DBT11" => "Dibujo Técnico", "TIN11" => "Tecnología", "BYG11"=>"Biología y Geología");
-$opt12=array("GRI12-LAT12" => "Griego, Latín", "GRI12-ECO12" => "Griego, Economía", "MCS12-ECO12"=>"Matemáticas de Ciencias Sociales, Economía", "MCS12-LAT12"=>"Matemáticas de Ciencias Sociales, Latín");
+$it1 = array("1"=>"Ciencias e Ingeniería y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jurídicas");
+$opt11=array( "MAT1"=>"Matemáticas",  "FYQ1"=>"Física y Química", "DBT1" => "Dibujo Técnico", "TIN1" => "Tecnología");
+$opt12=array("MAT1"=>"Matemáticas",  "FYQ1"=>"Física y Química", "BYG11"=>"Biología y Geología", "AAP1"=>"Anatomía Aplicada");
+$opt13=array(
+""=>"",
+"LAT1-GRI1-PAC1" => "Latín, Griego, Patrimonio Artístico y Cultural", 
+"LAT1-GRI1-CEE1" => "Latín, Griego, Cultura Emprendedora y Empresarial",
+"LAT1-LUN1-PAC1" => "Latín, Literatura Universal, Patrimonio Artístico y Cultural",
+"LAT1-LUN1-CEE1" => "Latín, Literatura Universal, Cultura Emprendedora y Empresarial",
+"LAT1-ECO1-PAC1" => "Latín, Economía, Patrimonio Artístico y Cultural",
+"LAT1-ECO1-CEE1" => "Latín, Economía, Cultura Emprendedora y Empresarial",
+"MCS1-GRI1-PAC1" => "Matemáticas Aplicadas a Ciencias Sociales, Griego, Patrimonio Artístico y Cultural", 
+"MCS1-GRI1-CEE1" => "Matemáticas Aplicadas a Ciencias Sociales, Griego, Cultura Emprendedora y Empresarial",
+"MCS1-LUN1-PAC1" => "Matemáticas Aplicadas a Ciencias Sociales, Literatura Universal, Patrimonio Artístico y Cultural",
+"MCS1-LUN1-CEE1" => "Matemáticas Aplicadas a Ciencias Sociales, Literatura Universal, Cultura Emprendedora y Empresarial",
+"MCS1-ECO1-PAC1" => "Matemáticas Aplicadas a Ciencias Sociales, Economía, Patrimonio Artístico y Cultural",
+"MCS1-ECO1-CEE1" => "Matemáticas Aplicadas a Ciencias Sociales+, Economía, Cultura Emprendedora y Empresarial",
+);
 
 $it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "Ciencias y Tecnología");
 $it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
@@ -215,21 +229,13 @@ if(isset($_POST['enviar'])){
 	$itinerario2=substr($mod2,-1);
 	foreach($_POST as $key => $val)
 	{
-		if ($key=="mod1") {
-			foreach (${opt1.$itinerario1} as $opt => $n_opt){
-				foreach ($_POST as $clave=>$valor){
-					if ($valor==$opt) {
-						$n_o+=1;
-						${optativa.$n_o}=$valor;
-						if(${optativa.$n_o} == ""){
-							$vacios.= "optativa".$n_o.", ";
+		if ($key=="mod1" and $val>2) {
+
+						if($optativa1 == ""){
+							$vacios.= "optativas de modalidad, ";
 							$num+=1;
 						}
-						$tr_o = explode(", ",$n_opt);
-						$optativa1=$valor;
-					}
-				}
-			}
+
 		}
 		if ($key=="mod2"){
 			foreach (${opt2.$itinerario2} as $opt => $n_opt){
@@ -434,8 +440,10 @@ if(isset($_POST['enviar'])){
 
 				if (strlen($ruta) > 0) {$transporte = '1';}
 				if (empty($foto)) { $foto = "0";}
-				$con_matr =  "insert into matriculas_bach (apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma1, idioma2, religion, optativa1, optativa2, optativa2b1, optativa2b2, optativa2b3, optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, optativa2b9, optativa2b10, observaciones, curso, fecha, promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, itinerario1, itinerario2, repite, enfermedad, otrenfermedad, foto, bilinguismo, divorcio) VALUES ('$apellidos',  '$nombre', '$nacido', '$provincia', '$fecha_nacimiento', '$domicilio', '$localidad', '$dni', '$padre', '$dnitutor', '$madre', '$dnitutor2', '$telefono1', '$telefono2', '$colegio', '$otrocolegio', '$letra_grupo', '$correo', '$idioma1', '$idioma2', '$religion', '$optativa1', '$optativa2', '$optativa2b1', '$optativa2b2', '$optativa2b3', '$optativa2b4', '$optativa2b5', '$optativa2b6', '$optativa2b7', '$optativa2b8', '$optativa2b9', '$optativa2b10', '$observaciones', '$curso', now(), '$promociona', '$transporte', '$ruta_este', '$ruta_oeste', '$sexo', '$hermanos', '$nacionalidad', '$claveal', '$itinerario1', '$itinerario2', '$repetidor', '$enfermedad', '$otraenfermedad', '$foto', '$bilinguismo', '$divorcio')";
+				$con_matr =  "insert into matriculas_bach (apellidos, nombre, nacido, provincia, nacimiento, domicilio, localidad, dni, padre, dnitutor, madre, dnitutor2, telefono1, telefono2, colegio, otrocolegio, letra_grupo, correo, idioma1, idioma2, religion, optativa1, optativa2, optativa2b1, optativa2b2, optativa2b3, optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, optativa2b9, optativa2b10, observaciones, curso, fecha, promociona, transporte, ruta_este, ruta_oeste, sexo, hermanos, nacionalidad, claveal, itinerario1, itinerario2, repite, enfermedad, otraenfermedad, foto, bilinguismo, divorcio) VALUES ('$apellidos',  '$nombre', '$nacido', '$provincia', '$fecha_nacimiento', '$domicilio', '$localidad', '$dni', '$padre', '$dnitutor', '$madre', '$dnitutor2', '$telefono1', '$telefono2', '$colegio', '$otrocolegio', '$letra_grupo', '$correo', '$idioma1', '$idioma2', '$religion', '$optativa1', '$optativa2', '$optativa2b1', '$optativa2b2', '$optativa2b3', '$optativa2b4', '$optativa2b5', '$optativa2b6', '$optativa2b7', '$optativa2b8', '$optativa2b9', '$optativa2b10', '$observaciones', '$curso', now(), '$promociona', '$transporte', '$ruta_este', '$ruta_oeste', '$sexo', '$hermanos', '$nacionalidad', '$claveal', '$itinerario1', '$itinerario2', '$repetidor', '$enfermedad', '$otraenfermedad', '$foto', '$bilinguismo', '$divorcio')";
 				mysqli_query($db_con, $con_matr);
+				
+				echo $con_matr;
 			}
 			$ya_esta1 = mysqli_query($db_con, "select id from matriculas_bach where $extra");
 			$ya_id = mysqli_fetch_array($ya_esta1);
@@ -489,6 +497,22 @@ datos.</div>
 	rel="stylesheet">
 <link href="../../css/font-awesome.min.css" rel="stylesheet">
 </head>
+<script language="Javascript">
+function show()
+{
+
+    document.getElementById("form-it1").style.visibility="visible";
+    document.getElementById("form-it1").disabled=false;
+
+}
+function hide()
+{
+
+    document.getElementById("form-it1").style.visibility="hidden";
+    document.getElementById("form-it1").disabled=true;
+
+}
+</script>
 
 <body style="padding-top: 10px;">
 
@@ -538,14 +562,14 @@ if ($dni or $claveal or $id) {
 
 	// Viene de Colegio de Secundaria
 	elseif (mysqli_num_rows($ya_secundaria) > 0){
-		$alma = mysqli_query($db_con, "select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, matriculas, claveal, colegio from alma_secundaria where ". $conditio1 ."");
+		$alma = mysqli_query($db_con, "select apellidos, nombre, provinciaresidencia, fecha, domicilio, localidad, dni, padre, dnitutor, concat(PRIMERAPELLIDOTUTOR2,' ',SEGUNDOAPELLIDOTUTOR2,', ',NOMBRETUTOR2), dnitutor2, telefono, telefonourgencia, correo, concat(PRIMERAPELLIDOTUTOR,' ',SEGUNDOAPELLIDOTUTOR,', ',NOMBRETUTOR), curso, sexo, nacionalidad, matriculas, claveal, colegio, unidad from alma_secundaria where ". $conditio1 ."");
 
 		if (mysqli_num_rows($alma) > 0) {
 			$al_alma = mysqli_fetch_array($alma);
 			$apellidos = $al_alma[0];  $nombre = $al_alma[1]; $nacido = $al_alma[5]; $provincia = $al_alma[2]; $nacimiento = $al_alma[3]; $domicilio = $al_alma[4]; $localidad = $al_alma[5]; $dni = $al_alma[6]; $padre = $al_alma[7]; $dnitutor = $al_alma[8];
 			if (strlen($al_alma[9]) > 3) {$madre = $al_alma[9];	}else{ $madre = ""; }
 			; $dnitutor2 = $al_alma[10]; $telefono1 = $al_alma[11]; $telefono2 = $al_alma[12]; $correo = $al_alma[13]; $padre = $al_alma[14];
-			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = substr($al_alma[15],0,-1); $claveal= $al_alma[19]; $colegio= $al_alma[20];
+			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = substr($al_alma[21],strlen($al_alma[21])-1,1); $claveal= $al_alma[19]; $colegio= $al_alma[20];
 			$nacimiento= str_replace("/","-",$nacimiento);
 			$curso="1BACH";
 			$n_curso=substr($curso, 0, 1);
@@ -559,20 +583,20 @@ if ($dni or $claveal or $id) {
 		if (mysqli_num_rows($alma) > 0) {
 			$al_alma = mysqli_fetch_array($alma);
 			if (empty($curso)) {
-				if ($al_alma[24]=="6204"){$curso="2BACH";}
-				if ($al_alma[24]=="6029"){$curso="1BACH";}
-				if ($al_alma[24]=="101143"){$curso="4ESO";}
+				if ($al_alma[24]=="6204" or $al_alma[24]=="2063"){$curso="2BACH";}
+				if ($al_alma[24]=="6029" or $al_alma[24]=="2067"){$curso="2BACH";}
+				if ($al_alma[24]=="101143"){$curso="1BACH";}
 			}
 			else{
-				if ($al_alma[24]=="101143"){$curso="4ESO";}
+				if ($al_alma[24]=="101143"){$curso="1BACH";}
 			}
 			$n_curso = substr($curso,0,1);
 
 			$apellidos = $al_alma[0];  $nombre = $al_alma[1]; $nacido = $al_alma[5]; $provincia = $al_alma[2]; $nacimiento = $al_alma[3]; $domicilio = $al_alma[4]; $localidad = $al_alma[5]; $dni = $al_alma[6]; $padre = $al_alma[7]; $dnitutor = $al_alma[8];
 			if ($madre == "") { if (strlen($al_alma[9]) > 3) {$madre = $al_alma[9];	}else{ $madre = ""; }}
 			if ($dnitutor2 == "") { $dnitutor2 = $al_alma[10];} if ($telefono1 == "") { $telefono1 = $al_alma[11]; } if ($telefono2 == "") { $telefono2 = $al_alma[12];} if ($correo == "") { $correo = $al_alma[13];} $padre = $al_alma[14];
-			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = substr($al_alma[15],0,-1); $claveal= $al_alma[19]; $combasi = $al_alma[21]; $unidad = $al_alma[20]; $curso_largo = $al_alma[22]; $matriculas = $al_alma[23];
-			if (substr($curso,0,1) == substr($n_curso_ya,0,1)) {
+			$n_curso_ya = $al_alma[15]; $sexo = $al_alma[16]; $nacionalidad = $al_alma[17]; $letra_grupo = substr($al_alma[20],strlen($al_alma[20])-1,1); $claveal= $al_alma[19]; $combasi = $al_alma[21]; $unidad = $al_alma[20]; $curso_largo = $al_alma[22]; $matriculas = $al_alma[23];
+			if ($n_curso == substr($n_curso_ya,0,1)) {
 				echo '
 <script> 
  if(confirm("ATENCIÓN:\n ';
@@ -973,7 +997,7 @@ if ($dni or $claveal or $id) {
 			<div class="radio"><label> <input type="radio" name="religion"
 				value="Valores Éticos"
 				<?php if($religion == 'Valores Éticos'){echo "checked";} ?>>
-			Educación para la Ciudadanía y los Derechos Humanos </label></div>
+			<?php if($n_curso == 1){?>Educación para la Ciudadanía y los Derechos Humanos<? } else { ?>Atención Educativa<? } ?> </label></div>
 			</div>
 			</td>
 		</tr>
@@ -986,30 +1010,45 @@ if ($dni or $claveal or $id) {
 			Bachillerato</th>
 		</tr>
 
-		<!-- ASIGNATURAS DE MODALIDAD Y OPTATIVAS EN PRIMERO DE BACHILLERATO -->
+		<!-- ASIGNATURAS DE MODALIDAD Y OPTATIVAS EN PRIMERO DE BACHILLERATO opt11-->
 		<?php if($curso == "1BACH"): ?>
 		<tr>
-		<?php for ($i = 1; $i <= 2; $i++): ?>
-			<td class="text-center" colspan="2"><strong><?php echo ${it1.$i}[0]; ?></strong>
+		<?php foreach ($it1 as $n_it1=>$itiner1){ ?>
+			<td class="text-center" >
+			<strong>
+			<div class="radio" id='it1'>
+			<label> <input type="radio" name="mod1" value="<?php echo $n_it1; ?>" required <?php echo ($itinerario1 == $n_it1) ? 'checked' : ''; ?> <?php if($n_it1>2){echo 'onClick="show()"';}else{echo 'onClick="hide()"';}?> /><?php echo $itiner1; ?></label>
+			</div>
+			</strong>
 			</td>
-			<?php endfor; ?>
+			<?php } ?>
 		</tr>
 		<tr>
-		<?php for ($i = 1; $i <= 2; $i++): ?>
-			<td colspan="2"><?php $num1 = ""; ?> <?php $num_it = count(${opt1.$i}); ?>
-			<?php foreach (${opt1.$i} as $optit_1 => $nombre): ?> <?php $num1 += 1; ?>
-			<?php if (${optativa.$num1}=="0") {${optativa.$num1}="";} ?>
-			<div
-				class="form-group <?php echo (isset($opt_rep) && $opt_rep == 1) ? 'has-error"' : '' ; ?>">
-			<div class="radio"><label> <input type="radio"
-				value="<?php echo $optit_1; ?>" name="mod1"
-				<?php echo ($optativa1 == $optit_1) ? 'checked' : ''; ?>> <?php echo $nombre; ?>
-			</label></div>
-			</div>
-			<?php endforeach; ?></td>
-			<?php endfor; ?>
+		<?php for ($i = 1; $i <= 3; $i++){ ?>
+		
+		<?php if ($i<3) {?>
+		<td>
+		<?php foreach (${opt1.$i} as $optit_1 => $nombre){ ?>
+			<p><?php echo $nombre; ?></p>
+		<?php }?>
+		</td>		
+		<?php } else {?>
+		<td colspan="2">
+		<? if ($itinerario1>2) { $extra_opt1 = '';} else{$extra_opt1 = 'style="visibility:hidden" disabled';}?>
+			<div class="form-group"><select class="form-control" id="form-it1" name="optativa1" <? echo $extra_opt1;?> >
+		<?php foreach (${opt1.$i} as $optit_1 => $nombre){ ?> ?>		
+
+				<option value="<?php echo $optit_1; ?>"
+				<?php echo (isset($optativa1) && $optativa1 == $optit_1) ? 'selected' : ''; ?>><? echo $nombre; ?></option>
+				<?php }?>
+				</select></div>
+		</td>
+		
+		<?php }?>
+		<?php }?>
+	
 		</tr>
-		<?php endif; ?>
+		<?php endif;?>
 
 		<!-- ASIGNATURAS DE MODALIDAD Y OPTATIVAS EN SEGUNDO DE BACHILLERATO -->
 		<?php if ($curso == "2BACH"): ?>
@@ -1046,7 +1085,7 @@ if ($dni or $claveal or $id) {
 
 		<!-- OTRAS ASIGNATURAS OPTATIVAS DE SEGUNDO DE BACHILLERATO -->
 		<tr>
-			<th class="active text-center text-uppercase" colspan="4">Mas
+			<th class="active text-center text-uppercase" colspan="4">Más
 			asignaturas optativas de Segundo de Bachillerato<br>
 			<p class="help-block"><small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small></p>
 			</th>
@@ -1088,65 +1127,44 @@ if ($dni or $claveal or $id) {
 			(Para solicitar una modalidad o vía diferente a la que ya has
 			cursado debes pasar por Jefatura de Estudios)</small></p></th>
 		</tr>
+		
 		<tr>
-		<?php for ($i = 1; $i <= 2; $i++): ?>
-			<td class="text-center" colspan="2"><strong><?php echo ${it1.$i}[0]; ?></strong>
-			</td>
-			<?php endfor; ?>
-		</tr>
-		<tr>
-		<?php for ($i = 1; $i <= 2; $i++): ?>
-			<td colspan="2"><?php $num1 = ""; ?> <?php $num_it = count(${opt1.$i}); ?>
-			<?php foreach (${opt1.$i} as $optit_1 => $nombre): ?> <?php $num1 += 1; ?>
-			<?php if (${optativa.$num1}=="0") {${optativa.$num1}="";} ?> <?php
-			$combas = explode(":", $combasi);
-			foreach ($combas as $com) {
-				$q1 = "select abrev from asignaturas where codigo = '$com' and abrev not like '%\_%'";
-				$q2.=$q1."<br>";
-				$abrv = mysqli_query($db_con, $q1);
-				$abrev = mysqli_fetch_array($abrv);
-				$q7.="$optit_1 ==> $abrev[0] --> $com<br>";
-				$pos=0;
-
-				if (strstr($optit_1,$abrev[0])==TRUE) {
-					$pos+=1;
-				}
-			}
-
-			if ($matriculas > "1") {
-				$bd_ant = $db.substr($curso_actual,0,4);
-				$q5="select combasi from ". $bd_ant  .".alma where claveal = '$claveal' ";
-				$q6.=$q5."<br>";
-				$ant = mysqli_query($db_con, $q5);
-				$ant_comb = mysqli_fetch_array($ant);
-				$combasi_ant = $ant_comb[0];
-				$combas_anti = explode(":", $combasi_ant);
-
-				foreach ($combas_anti as $com_ant){
-					$q3 = "select abrev from ".$bd_ant.".asignaturas where codigo = '$com_ant'";
-					$q4.=$q3."<br>";
-					$abrv_ant = mysqli_query($db_con, $q3);
-					$abrev_ant = mysqli_fetch_array($abrv_ant);
-					$asig_ant = $abrev_ant[0];
-
-					if (strstr($optit_1,$abrev_ant[0])==TRUE) {
-						$pos+=1;
-					}
-				}
-			}
-			?>
-			<div
-				class="form-group <?php echo (strstr($vacios,"modalidad de 1º, ")==TRUE) ? 'has-error' : ''; ?>">
-			<div class="radio"><label> <input type="radio"
-				value="<?php echo $optit_1; ?>" name="mod1"
-				<?php echo ($optativa1 == $optit_1 || ($pos > ($i-1))) ? 'checked' : ''; ?>
-				<?php echo (strstr($curso_largo,${it1.$i}[3])==FALSE and !($cargo=="1")) ? 'disabled' : ''; ?>>
-				<?php echo $nombre; ?> </label></div>
+		<?php foreach ($it1 as $n_it1=>$itiner1){ ?>
+			<td class="text-center" >
+			<strong>
+			<div class="radio" id='it1'>
+			<label> <input type="radio" name="mod1" value="<?php echo $n_it1; ?>" required <?php echo ($itinerario1 == $n_it1) ? 'checked' : ''; ?> <?php if($n_it1>2){echo 'onClick="show()"';}else{echo 'onClick="hide()"';}?> /><?php echo $itiner1; ?></label>
 			</div>
-			<?php endforeach; ?></td>
-			<?php endfor; ?>
+			</strong>
+			</td>
+			<?php } ?>
 		</tr>
+		<tr>
+		<?php for ($i = 1; $i <= 3; $i++){ ?>
+		
+		<?php if ($i<3) {?>
+		<td>
+		<?php foreach (${opt1.$i} as $optit_1 => $nombre){ ?>
+			<p><?php echo $nombre; ?></p>
+		<?php }?>
+		</td>		
+		<?php } else {?>
+		<td colspan="2">
+		<? if ($itinerario1>2) { $extra_opt1 = '';} else{$extra_opt1 = 'style="visibility:hidden" disabled';}?>
+			<div class="form-group"><select class="form-control" id="form-it1" name="optativa1" <? echo $extra_opt1;?> >
+		<?php foreach (${opt1.$i} as $optit_1 => $nombre){ ?> ?>		
 
+				<option value="<?php echo $optit_1; ?>"
+				<?php echo (isset($optativa1) && $optativa1 == $optit_1) ? 'selected' : ''; ?>><? echo $nombre; ?></option>
+				<?php }?>
+				</select></div>
+		</td>
+		
+		<?php }?>
+		<?php }?>
+	
+		</tr>
+		
 		<?php endif; ?>
 
 		<?php endif; ?>
@@ -1184,7 +1202,7 @@ if ($dni or $claveal or $id) {
 				<option value="<?php echo $enfermedades[$i]['id']; ?>"
 				<?php echo (isset($enfermedad) && $enfermedad == $enfermedades[$i]['id']) ? 'selected' : ''; ?>><?php echo $enfermedades[$i]['nombre']; ?></option>
 				<?php endfor; ?>
-				<option value="Otra enfermedad">Otra enfermedad</option>
+				<option value="Otra enfermedad"<?php echo (isset($enfermedad) && $enfermedad == "Otra enfermedad") ? 'selected' : ''; ?>>Otra enfermedad</option>
 			</select></div>
 			
 			<div id="form-otraenfermedad"
@@ -1294,6 +1312,7 @@ que solicita la matriculación en este centro.</div>
 	});  
 	
 	$(document).ready(function() {
+			
 		// Selector de Enfermedad
 		$('#enfermedad').change(function() {
 				if($('#enfermedad').val() == 'Otra enfermedad') {
