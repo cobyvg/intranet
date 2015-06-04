@@ -58,7 +58,7 @@ $menu = array(
 						'titulo' => 'Intervenciones de alumnos'
 					),
 					array(
-						'href'   => 'admin/jefatura/profesores/index.php',
+						'href'   => 'admin/jefatura/profesores.php',
 						'titulo' => 'Intervenciones de profesores'
 					),
 				),
