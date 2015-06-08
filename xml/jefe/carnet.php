@@ -164,9 +164,9 @@ if ($n_bib>0) {
 FROM alma
 INNER JOIN biblioteca_lectores ON alma.apellidos = biblioteca_lectores.apellidos
 AND alma.nombre = biblioteca_lectores.nombre
-AND alma.unidad = biblioteca_lectores.grupo 
 AND claveal In (".$seleccion.")
 ORDER BY Apellidos ASC ";
+		//echo $query_Recordset1;
 	}
 	else{
 		$query_Recordset1 = "SELECT claveal, unidad, apellidos, nombre, fecha, combasi FROM alma WHERE claveal In (".$seleccion.") ORDER BY Apellidos ASC";
@@ -182,7 +182,6 @@ ORDER BY Apellidos ASC ";
 FROM alma
 INNER JOIN biblioteca_lectores ON alma.apellidos = biblioteca_lectores.apellidos
 AND alma.nombre = biblioteca_lectores.nombre
-AND alma.unidad = biblioteca_lectores.grupo 
 AND Unidad = '" .$selecc ."'
 ORDER BY Apellidos ASC ";
 	}
@@ -197,7 +196,6 @@ ORDER BY Apellidos ASC ";
 FROM alma
 INNER JOIN biblioteca_lectores ON alma.apellidos = biblioteca_lectores.apellidos
 AND alma.nombre = biblioteca_lectores.nombre
-AND alma.unidad = biblioteca_lectores.grupo
 ORDER BY Apellidos ASC ";
 	}
 	else{
@@ -290,17 +288,22 @@ if (file_exists($foto_al)) {
     //$cadena= chr(124) . chr(172). $claveal . codigo_control($claveal) . chr(126);
     //$pdf->Text(32+$x+$dplz,40+$y,$cadena);
     
-    if ($n_bib>0) {
+	if (stristr($_SERVER['SERVER_NAME'],"iesmonterroso.org")==TRUE){
+    		$pdf->Rect(34+$x+$dplz,36+$y,40-$dplz,13,'F');
+    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib,36+$x+$dplz,37+$y,33,0,'PNG');
+    }
+	    
+	elseif ($n_bib>0) {
     	
     	if ($longnie<7) {
     		$pdf->Rect(24+$x+$dplz,36+$y,58-$dplz,13,'F');
-    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',25+$x+$dplz,37+$y,19,0,'PNG');
-    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',52+$x+$dplz,37+$y,25,0,'PNG');
+    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',25+$x+$dplz,37+$y,19,0,'PNG');
+    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',52+$x+$dplz,37+$y,25,0,'PNG');
     	}
     	else {
     		$pdf->Rect(28+$x+$dplz,36+$y,54-$dplz,13,'F');
-    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',29+$x+$dplz,37+$y,24,0,'PNG');
-    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',56+$x+$dplz,37+$y,25,0,'PNG');
+    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',29+$x+$dplz,37+$y,24,0,'PNG');
+    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',56+$x+$dplz,37+$y,25,0,'PNG');
     	}
     	
     }
@@ -308,10 +311,10 @@ if (file_exists($foto_al)) {
     	$pdf->Rect(46+$x+$dplz,36+$y,34-$dplz,13,'F');
     	
     	if ($longnie<7) {
-    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,49+$x+$dplz,37+$y,24,0,'PNG');
+    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,49+$x+$dplz,37+$y,24,0,'PNG');
     	}
     	else {
-    		$pdf->Image('https://iesantoniomachado.es/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,48+$x+$dplz,37+$y,30,0,'PNG');
+    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,48+$x+$dplz,37+$y,30,0,'PNG');
     	}
     }
     

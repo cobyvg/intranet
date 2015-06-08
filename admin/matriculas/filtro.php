@@ -150,10 +150,10 @@ echo "".$tipo20[0]."</label></div>";
 		</select></div>
 </div>
 <div class="col-sm-3">
-<div class="form-group"><label>Matematicas 4º </label><select name="matematica4"class="form-control" >
+<div class="form-group"><label>Matematicas </label><select name="matematica4"class="form-control" >
 		<?php
-		if ($matematica4) {
-			echo "<option>$matematica4</option>";
+		if ($matematica4 or $matematica3) {
+			echo "<option>$matematica4$matematica3</option>";
 		}
 		?>
 			<option></option>
@@ -257,7 +257,7 @@ echo "".$tipo20[0]."</label></div>";
 			<option>Religión Islámica</option>
 			<option>Religión Judía</option>
 			<option>Religión Evangélica</option>
-			<option>Valores Ciudadanos</option>
+			<option>Valores Éticos</option>
 		</select></div>
 </div>
 <div class="col-sm-3">
@@ -327,7 +327,7 @@ echo "".$tipo20[0]."</label></div>";
   <input type="radio" name="op_orden" value="itinerario"> Itinerario de 4º
 </label>
 <label class="radio-inline">
-  <input type="radio" name="op_orden" value="matematicas4"> Matemáticas de 4º
+  <input type="radio" name="op_orden" value="matematicas4"> Matemáticas
 </label>
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="diversificacion"> Diversificación

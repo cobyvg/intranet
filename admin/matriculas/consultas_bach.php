@@ -410,7 +410,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		?>
 		<?
 		echo '<th class="hidden-print" style="align:center">Sí NO 3/4</th>';
-		echo '<th class="hidden-print">Rev.</th>';
+//		echo '<th class="hidden-print">Rev.</th>';
 		echo '<th class="hidden-print"></th>';
 		?>
 		<th class="hidden-print">Conv.</th>
@@ -469,7 +469,8 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		if (strstr($religion,"Valores")==TRUE) {
 			$color_rel = " style='background-color:#cdecab'";
 		}
-		echo '<td '.$color_rel.'>'.$religion.'</td>';
+		if (strstr($religion,"Rel")==TRUE) { $text_rel = substr($religion,9,3);}else{ $text_rel = substr($religion,0,3);}
+		echo '<td '.$color_rel.'>'.$text_rel.'</td>';
 		$trans = "";
 		if($ruta_este){$trans = substr($ruta_este, 0, 10).".";}
 		if($ruta_oeste){$trans = substr($ruta_oeste, 0, 10).".";}
@@ -620,9 +621,9 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 			}
 			echo "</td>";
 		}
-		echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
-		if($revisado=="1"){echo " checked";}
-		echo ' /></td>';
+//		echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
+//		if($revisado=="1"){echo " checked";}
+//		echo ' /></td>';
 		echo '<td class="hidden-print" style="text-align:right">';
 		$contr = mysqli_query($db_con, "select matriculas_bach.apellidos, alma.apellidos, matriculas_bach.nombre, alma.nombre, matriculas_bach.domicilio, alma.domicilio, matriculas_bach.dni, alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, alma.dnitutor, matriculas_bach.telefono1, alma.telefono, matriculas_bach.telefono2, alma.telefonourgencia from matriculas_bach, alma where alma.claveal=matriculas_bach.claveal and id = '$id'");
 		$control = mysqli_fetch_array($contr);
@@ -644,7 +645,7 @@ $text_contr="";
 		echo "<i class='$icon' title='".$text_contr."'> </i>&nbsp;&nbsp;";
 		
 
-		if ($observaciones) { echo "<i class='fa fa-bookmark' data-bs='tooltip' title='Tiene observaciones en la matrícula' > </i>";}
+		if ($observaciones) { echo "<i class='fa fa-bookmark' data-bs='tooltip' title='$observaciones' > </i>";}
 
 		if ($respaldo=='1') {
 			echo "&nbsp;".$backup;
