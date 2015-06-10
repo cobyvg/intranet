@@ -50,20 +50,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 $activar = $_GET['activar'];
 
 if ($activar==1) {
-/*	
-// Abrimos archivo de configuración para insertar directiva de activación de matrículas
-$archivo = '../../config.php';
-$abrir = fopen($archivo,'r+');
-$contenido = fread($abrir,filesize($archivo));
-fclose($abrir);
 
-$contenido = explode("\n",$contenido);
-$contenido[36] = '$activar_matriculas="1";';
-$contenido = implode("\n",$contenido);
-$abrir = fopen($archivo,'w');
-fwrite($abrir,$contenido);
-fclose($abrir);
-*/
 // Cambiamos la tabla de contraseñas de la página principal para convertir el NIE del alumno en la contraseña.
 	mysqli_query($db_con,"drop table control_matriculas");
 	mysqli_query($db_con,"create table control_matriculas select * from control");
@@ -78,21 +65,7 @@ $mensaje="Has activado la Matriculación desde la Página del Centro. Tanto la Cla
 }		
 		
 if ($activar==2) {
-	
-/*// Abrimos archivo de configuración para borrar la directiva de activación de matrículas
-$archivo = '../../config.php';
-$abrir = fopen($archivo,'r+');
-$contenido = fread($abrir,filesize($archivo));
-fclose($abrir);
 
-$contenido = explode("\n",$contenido);
-$contenido[36] = '$activar_matriculas="0";';
-$contenido = implode("\n",$contenido);
-
-$abrir = fopen($archivo,'w');
-fwrite($abrir,$contenido);
-fclose($abrir);
-*/
 // Restituimos las contraseñas de los padres y desactivamos el botón de Enviar datos para que no se puedan modificar los datos de la matrícula.
 mysqli_query($db_con,"truncate table control");
 mysqli_query($db_con,"insert into control select * from control_matriculas");
