@@ -5,7 +5,7 @@
 <?php if(mysqli_num_rows($result)): ?> <select
 	class="form-control input-sm" id="tutor" name="tutor"
 	onchange="submit()" style="width:280px;">
-	<?php while($row = mysqli_fetch_array($result)): ?>
+	<?php while($row = mysqli_fetch_array($result)): $curso_tutor=$row[2];?>
 	<option value="<?php echo $row['tutor'].' ==> '.$row['unidad']; ?>"
 	<?php echo ($_SESSION['mod_tutoria']['tutor'].' ==> '.$_SESSION['mod_tutoria']['unidad'] == $row['tutor'].' ==> '.$row['unidad']) ? 'selected' : ''; ?>><?php echo $row['unidad'].' - '.nomprofesor($row['tutor']); ?></option>
 	<?php endwhile; ?>
@@ -42,11 +42,7 @@ $curso_tutor=$query2[0];
 		<li><a href="consulta_absentismo.php">Alumnos absentistas</a></li>
 		<li class="divider"></li>
 		<li><a href="../../admin/actividades/indexextra.php">Actividades Complementarias / Extraescolares</a></li>
-		<li class="divider"></li>	
-		<? if ($_SERVER['SERVER_NAME']=="iesmonterroso.org") { ?>	
-		<li><a
-			href="http://www.iesmonterroso.net/moodle/course/view.php?id=33" target="_blank">Moodle del Dpto. de Orientación</a></li>
-		<? } ?>
+		<li class="divider"></li>		
 		<li><a
 			href="../../upload/index.php?index=publico&direction=0&order=&directory=departamentos/Orientacion Educativa"
 			target="_blank">Material de orientación</a></li>
@@ -80,7 +76,7 @@ $curso_tutor=$query2[0];
 	</ul>
 	</li>
 
-	<?php if(strstr($row['curso'],"E.S.O.")==TRUE and date('m')=='06'): ?>
+	<?php if(strstr($curso_tutor,"E.S.O.")==TRUE and date('m')=='06'): ?>
 	<li><a
 		href="../libros/libros.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>&tutor=1">Libros
 	de Texto</a></li>

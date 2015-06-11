@@ -1350,7 +1350,7 @@ exit();
 		<tr>
 			<th class="active text-center" colspan="4"><span class="text-uppercase">Observaciones:</span><p class="help-block"><small>
 			Indique aquellas cuestiones que considere sean importantes para
-			conocimiento del centro</small></p></th>
+			conocimiento del Centro</small></p></th>
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 0;"><textarea class="form-control"
