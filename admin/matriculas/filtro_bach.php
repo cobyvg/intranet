@@ -109,6 +109,11 @@ echo "".$tipo20[0]."</label></div>";
 			<option></option>
 			<option>1</option>
 			<option>2</option>
+			<? if ($curso=="1BACH") { ?>
+			<option>3</option>
+			<option>4</option>	
+			<? } ?>
+			
 		</select>
 		</div>
 </div>
@@ -117,15 +122,21 @@ echo "".$tipo20[0]."</label></div>";
 <div class="row">
 
 <div class="col-sm-3">
-<div class="form-group"><label>Optativas Modal. </label><select class="form-control"  name="optativ">
+<div class="form-group"><label>Optativas Modalidad </label><select class="form-control"  name="optativ">
 		<?php
 		if ($optativ) {
-			echo "<option>$optativ</option>";
+			for ($i = 1; $i < 4; $i++) {
+			foreach(${opt.$n_curso.$i} as $key=>$val){
+			if ($optativ == $key) {
+				echo "<option value='$optativ'>$val</option>";
+			}
+		}			
+		}			
 		}
 		?>
 			<option></option>
 		<?
-		for ($i = 1; $i < 3; $i++) {
+		for ($i = 1; $i < 4; $i++) {
 			foreach(${opt.$n_curso.$i} as $key=>$val){
 			echo '<option value="'.$key.'">'.$val.'</option>';
 		}			
@@ -151,18 +162,17 @@ echo "".$tipo20[0]."</label></div>";
 			  if($n_opt2==$optativ2){
 			echo '<option value="'.$n_opt2.'">'.$val0.'</option>';
 		}
-
 		}
 		}
 		?>
 			<option></option>
 		<?
-$n_opt2="";
-		for ($i = 1; $i < 11; $i++) {
+		$n_opt2="";
+
 			foreach(${opt23} as $key=>$val){
 			$n_opt2+=1;
 			echo '<option value="'.$n_opt2.'">'.$val.'</option>';
-		}			
+
 		}
 
 			
@@ -296,6 +306,7 @@ else{
 			<option>Religión Islámica</option>
 			<option>Religión Judía</option>
 			<option>Religión Evangélica</option>
+			<option>Cultura Científica</option>
 			<option value="Valores Éticos">Educación para la Ciudadanía y los Derechos Humanos</option>
 		</select>
 		</div>

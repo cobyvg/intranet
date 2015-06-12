@@ -42,16 +42,7 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') 
 header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
 }
-if (isset($_POST['nivel'])) {
-	$nivel = $_POST['nivel'];
-} 
-elseif (isset($_GET['nivel'])) {
-	$nivel = $_GET['nivel'];
-} 
-else
-{
-$nivel="";
-}
+
 if (isset($_POST['unidad'])) {
 	$unidad = $_POST['unidad'];
 } 
@@ -61,6 +52,19 @@ elseif (isset($_GET['unidad'])) {
 else
 {
 $unidad="";
+}
+
+if (isset($_POST['nivel'])) {
+	$nivel = $_POST['nivel'];
+} 
+elseif (isset($_GET['nivel'])) {
+	$nivel = $_GET['nivel'];
+} 
+else
+{
+$niv_uni = mysqli_query($db_con,"select curso from alma where unidad = '$unidad'");
+$niv_unidad = mysqli_fetch_array($niv_uni);
+$nivel = $niv_unidad[0];
 }
 
 if (isset($_POST['claveal'])) {
@@ -118,9 +122,8 @@ setInterval(string,540000);
 <?
 include("../../menu.php");
 
-$lista = mysqli_list_fields($db,"textos_alumnos");
-$col_curso = mysqli_field_name($lista,6);
-if ($col_curso=="curso") { }else{
+$lista = mysqli_query($db_con,"select curso from textos_alumnos");
+if (mysqli_num_rows($lista)>0) { }else{
 	mysqli_query($db_con, "ALTER TABLE  `textos_alumnos` ADD  `curso` VARCHAR( 7 ) NOT NULL ");
 }
 ?>
@@ -160,7 +163,7 @@ if(is_numeric($claveal) and ($val == "B" or $val == "R" or $val == "M" or $val =
 		}
 }
 }
-if(isset($_POST['procesar']) and $_POST['procesar'] == "Enviar"){
+if(isset($_POST['procesar']) and $_POST['procesar'] == "Enviar datos"){
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos se han actualizado correctamente en la base de datos.
@@ -181,7 +184,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE){
 echo "<thead><tr><th></th>";
 }
 $asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where (curso like '".$curso."') and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where textos_gratis.nivel = '".$curso."') order by codigo";
-//echo $asignaturas0;
+// echo $asignaturas0;
 $num_col = 1;
 $asignaturas1 = mysqli_query($db_con, $asignaturas0);
 $num_asig = mysqli_num_rows($asignaturas1);
@@ -234,7 +237,7 @@ if(stristr($_SESSION['cargo'],'1')){echo "<th style='background-color:#eee'>Esta
 $clave = $alumnos[4];
    	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {
-		echo "<br /><img class='img-thumbnail' src='../../xml/fotos/$clave.jpg' width='64' alt=''>";
+		echo "<br /><img class='img-thumbnail' src='../../xml/fotos/$clave.jpg' width='84' alt=''>";
 	}           	
 	echo "</td>";
 	for ($i=1;$i<$num_asig+1;$i++){
@@ -264,17 +267,17 @@ $clave = $alumnos[4];
   </div>
   <div class="radio">
     <label style="color:#f89406;">
-   	 <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "R"){echo "checked=\"checked\"";} ?> value="R" id="botones_1" /> <span class="label label-warning">B</span>
+   	 <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "R"){echo "checked=\"checked\"";} ?> value="R" id="botones_1" /> <span class="label label-warning">R</span>
    	</label>
   </div>
   <div class="radio">
     <label style="color:#9d261d;">
-    	<input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "M"){echo "checked=\"checked\"";} ?> value="M" id="botones_2" /> <span class="label label-danger">B</span>
+    	<input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "M"){echo "checked=\"checked\"";} ?> value="M" id="botones_2" /> <span class="label label-danger">M</span>
     </label>
   </div>
   <div class="radio">
     <label style="color:#46a546;">
-    	<input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "S"){echo "checked=\"checked\"";} ?> value="S" id="botones_4" /> <span class="label label-success">B</span>
+    	<input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "S"){echo "checked=\"checked\"";} ?> value="S" id="botones_4" /> <span class="label label-success">S</span>
     </label>
   </div>
     	
@@ -306,8 +309,8 @@ echo "</table>";
 ?>
 <br />
 <input type="hidden" name="nivel" value="<? echo $nivel;?>" />
-<input type="hidden" name="grupo" value="<? echo $grupo;?>" />
-<input type="submit" name="procesar" value="Enviar" class="btn btn-primary btn-large" />
+<input type="hidden" name="unidad" value="<? echo $unidad;?>" />
+<input type="submit" name="procesar" value="Enviar datos" class="btn btn-primary btn-large" />
 </form>
 </div>
 <? include("../../pie.php");?>		
