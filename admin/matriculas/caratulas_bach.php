@@ -73,11 +73,38 @@ $apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nom
 	 $n_curso2 = $n_curso-1;
 	 
 // Asignaturas y Modalidades
-$it11 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "Ciencias y Tecnología");
-$it12 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
-$opt11=array("DBT11" => "Dibujo Técnico", "TIN11" => "Tecnología", "BYG11"=>"Biología y Geología");
-$opt12=array("GRI12-LAT12" => "Griego, Latín", "GRI12-ECO12" => "Griego, Economía", "MCS12-ECO12"=>"Matemáticas de Ciencias Sociales, Economía", "MCS12-LAT12"=>"Matemáticas de Ciencias Sociales, Latín");
+// 1º BACH
 
+$opta_11=array( "MAT1"=>"Matemáticas",  "FYQ1"=>"Física y Química", "DBT1" => "Dibujo Técnico");
+$opta_12=array("MAT1"=>"Matemáticas",  "FYQ1"=>"Física y Química", "BYG11"=>"Biología y Geología");
+
+// Asignaturas y Modalidades
+$it1 = array("1"=>"Ciencias e Ingeniería y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jurídicas");
+$opt11=array( "TIN1" => "Tecnología Industrial", "TIC1" => "Tecnologías de Información y Comunicación");
+$opt12=array("AAP1"=>"Anatomía Aplicada", "TIC11" => "Tecnologías de Información y Comunicación");
+$opt13=array(
+""=>"",
+"LAT1-GRI1-PAC1" => "Latín, Griego, Patrimonio Artístico y Cultural", 
+"LAT1-GRI1-CEE1" => "Latín, Griego, Cultura Emprendedora y Empresarial",
+"LAT1-GRI1-TIC0" => "Latín, Griego, Tecnologías de la Información y Comunicación",
+"LAT1-LUN1-PAC1" => "Latín, Literatura Universal, Patrimonio Artístico y Cultural",
+"LAT1-LUN1-CEE1" => "Latín, Literatura Universal, Cultura Emprendedora y Empresarial",
+"LAT1-LUN1-TIC0" => "Latín, Literatura Universal, Tecnologías de la Información y Comunicación",
+"LAT1-ECO1-PAC1" => "Latín, Economía, Patrimonio Artístico y Cultural",
+"LAT1-ECO1-CEE1" => "Latín, Economía, Cultura Emprendedora y Empresarial",
+"LAT1-ECO1-TIC0" => "Latín, Economía, Tecnologías de la Información y Comunicación",
+"MCS1-GRI1-PAC1" => "Matemáticas Aplicadas a Ciencias Sociales, Griego, Patrimonio Artístico y Cultural", 
+"MCS1-GRI1-CEE1" => "Matemáticas Aplicadas a Ciencias Sociales, Griego, Cultura Emprendedora y Empresarial",
+"MCS1-GRI1-TIC0" => "Matemáticas Aplicadas a Ciencias Sociales, Griego, Tecnologías de la Información y Comunicación",
+"MCS1-LUN1-PAC1" => "Matemáticas Aplicadas a Ciencias Sociales, Literatura Universal, Patrimonio Artístico y Cultural",
+"MCS1-LUN1-CEE1" => "Matemáticas Aplicadas a Ciencias Sociales, Literatura Universal, Cultura Emprendedora y Empresarial",
+"MCS1-LUN1-TIC0" => "Matemáticas Aplicadas a Ciencias Sociales, Literatura Universal,Tecnologías de la Información y Comunicación",
+"MCS1-ECO1-PAC1" => "Matemáticas Aplicadas a Ciencias Sociales, Economía, Patrimonio Artístico y Cultural",
+"MCS1-ECO1-CEE1" => "Matemáticas Aplicadas a Ciencias Sociales, Economía, Cultura Emprendedora y Empresarial",
+"MCS1-ECO1-TIC0" => "Matemáticas Aplicadas a Ciencias Sociales, Economía, Tecnologías de la Información y Comunicación",
+);
+	 
+// 2BACH
 $it21 = array("Bachillerato de Ciencias y Tecnología", "Vía de Ciencias e Ingeniería", "Vía de Ciencias de la Naturaleza y la Salud", "Ciencias y Tecnología");
 $it22 = array("Bachillerato de Humanidades y Ciencias Sociales", "Vía de Humanidades", "Vía de Ciencias Sociales", "Humanidades y Ciencias Sociales");
 $opt21=array("FIS21_DBT21" => "Física, Dibujo Técnico", "FIS21_TIN21" => "Física, Tecnología", "FIS21_QUI21" => "Física, Química", "BIO21_QUI21" => "Biología, Química");
@@ -210,16 +237,48 @@ for($i=1;$i<3;$i++){
 	
 	
 	if ($curso=="1BACH") {
-		$opt="";
-		$mod_registro = ${it1.$itinerario1}[3];
-		for ($i = 1; $i < 3; $i++) {		
-			foreach (${opt1.$i} as $key=>$val){
-				if ($optativa1 == $key) {
-				$opt = $val;
-				}
+	// Optativas extra de 1 de bach.
+	$opt="";
+	$opta1="";
+	$opta2="";
+	$nombre_opta="";
+	$nombre_opt="";
+                foreach($it1 as $num_it=>$nombre_it){
+                    if($num_it==$itinerario1){
+                        $mod_registro = $nombre_it;
+                    }
+                }
+                foreach($opta_11 as $abrev_opta=>$nombre_opta){ 
+					$opta1.=$nombre_opta.", ";
+				}  
+				foreach($opta_12 as $abrev_opta=>$nombre_opta){ 
+					$opta2.=$nombre_opta.", ";
+				}        
+		for ($i = 1; $i < 4; $i++) {
+                    if($itinerario1 == 1){
+					foreach($opt11 as $abrev_opt=>$nombre_opt){ 
+                         if($optativa1==$abrev_opt){
+                                $opt = $nombre_opt;
+                         }
+                    }	
+                    $opt=$opta1.$opt;				
+                    }
+                    elseif($itinerario1 == 2){
+    					foreach($opt12 as $abrev_opt=>$nombre_opt){ 				
+                         if($optativa1==$abrev_opt){
+                                $opt = $nombre_opt;
+                         }
+                    }
+                    $opt=$opta2.$opt;					
+                    }
+                    else{
+                         foreach($opt13 as $abrev_opt=>$nombre_opt){   
+                         if($optativa1==$abrev_opt){
+                                $opt = "Historia del Mundo Contemporáneo, ".$nombre_opt;
+                         }
+                    }
 			}
-		}
-
+	}
 	}
 	else {
 		$opt="";
@@ -253,26 +312,8 @@ for($i=1;$i<3;$i++){
 	$MiPDF->MultiCell(168,5,$opt_2b,1);
 	$MiPDF->Ln ( 5 );
 	}
-	$hoy = formatea_fecha(date('Y-m-d'));
-	$f_hoy = "        En $localidad_del_centro, a ".$hoy;
-	$sello = "                                  Sello del Centro";
-	$firma_centro = "                                El/La Funcionario/a";
-	$firma_padre= "  Firma del representante o Guardador legal 1";
-	$MiPDF->Cell(84,8,$firma_padre,0);	
-	$MiPDF->Cell(84, 8, $firma_centro,0);
-	$MiPDF->Ln ( 20 );
-	$MiPDF->Cell(84, 8, $f_hoy,0);
-	$MiPDF->Cell(84, 8, $sello,0);
-	$MiPDF->Ln ( 9 );
-	$nota = "NOTA: Para la primera matriculación del alumnado en el centro docente se aportará documento acreditativo de la fecha de nacimimiento del alumno/a y documento de estar en posesión de los requisitos académicos establecidos en la legislación vigente.";
-	$MiPDF->SetFont ( 'Times', 'B', 8 );
-	$MiPDF->MultiCell(168,5,$nota,0);
-	$MiPDF->SetFont ( 'Times', '', 7 );
-	$MiPDF->Ln ( 3 );		
-	$MiPDF->MultiCell(168, 3, $datos_junta,1,'L',1);
+  }
 }
-	//include("autorizaciones_bach.php");
-	}
    $MiPDF->AutoPrint(true);     
    $MiPDF->Output ();
 

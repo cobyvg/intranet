@@ -127,26 +127,29 @@ INDEX (  `id_matriculas` )
 	echo '<br><h3 align="center">Alumnos de <span style="color:#08c">'.$curso.'</span> con datos cambiados.</h3><br /><br />';
 	echo "<div class='well well-large' style='width:520px;margin:auto;'>";
 	while ($cam = mysqli_fetch_array($camb)) {
+		$text_n="";
+		$text_t="";
 		$id_cambios = $cam[0];
 		if ($curso == "1ESO") {$alma="alma_primaria";}else{$alma="alma_primera";}
 		$contr = mysqli_query($db_con, "select matriculas.apellidos, $alma.apellidos, matriculas.nombre, $alma.nombre, matriculas.domicilio, $alma.domicilio, matriculas.dni, $alma.dni, matriculas.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas.dnitutor, $alma.dnitutor, matriculas.telefono1, $alma.telefono, matriculas.telefono2, $alma.telefonourgencia, $alma.claveal from matriculas, $alma where $alma.claveal=matriculas.claveal and id = '$id_cambios'");
 		//$col_datos = array()
 		$control = mysqli_fetch_array($contr);
 		if (strlen($control[16])>0) {
-			echo "<p style='color:#08c'>$control[16]: $control[0], $control[2]</p>";
+			$text_n = "<p style='color:#08c'>$control[16]: $control[0], $control[2]</p>";
 			for ($i = 0; $i < 18; $i++) {
 				if ($i%2) {
 					if ($i=="5" and strstr($control[$i], $control[$i-1])==TRUE) {}
 					elseif ($i=="17") {}
 					else{
 						if ($control[$i]==$control[$i-1]) {}else{
-							echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
+							$text_t.= "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
 						}
 					}
 				}
 			}
-			echo "<hr>";
-
+		}
+			if(strlen($text_t)>0){
+			echo $text_n.$text_t."<hr>";
 		}
 	}
 	echo "</div>";
@@ -180,8 +183,8 @@ if (isset($_POST['sin_matricula'])) {
 		echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de Colegios de Primaria.</h3><br />';
 		echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
 		while ($cam = mysqli_fetch_array($camb)) {
-
-			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] ($cam[6])</li>";
+			if(strlen($cam[6])>0){$cole = " ($cam[6])";}else{$cole="";}
+			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] $cole</li>";
 
 		}
 		echo "</ul></div><br />";
@@ -200,8 +203,8 @@ if (isset($_POST['sin_matricula'])) {
 	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de nuestro Centro.</h3><br />';
 	echo "<div class='well well-large' style='width:700px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysqli_fetch_array($camb2)) {
-
-		echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5] ($cam2[6])</li>";
+		if(strlen($cam[6])>0){$cole = " ($cam2[6])";}else{$cole="";}
+		echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5] $cole</li>";
 
 	}
 	echo "</ul></div><br />";
@@ -210,7 +213,6 @@ if (isset($_POST['sin_matricula'])) {
 	echo '<h3 align="center">Alumnos de '.$curso.' prematriculados sin confirmar.</h3><br />';
 	echo "<div class='well well-large' style='width:600px;margin:auto;'><ul class='unstyled'>";
 	while ($cam2 = mysqli_fetch_array($canf)) {
-
 		echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam2[0], $cam2[1]</span> --> <strong style='color:#9d261d'>$cam2[2]</strong> : $cam2[3] - $cam2[4] ==> $cam2[5]</li>";
 
 	}

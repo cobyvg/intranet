@@ -131,7 +131,14 @@ if (mysqli_num_rows($lista)>0) { }else{
 <div class="container">
 <div class="page-header">
   <h2>Programa de Ayudas al Estudio <small>Informe sobre el estado de los Libros</small></h2>
-  <h3 class="text-info"><? echo $nivel;?></h3>
+  <h3 class="text-info">
+  <? if (isset($unidad)) {
+	echo $unidad;
+}
+else{
+	echo $_POST['nivel'];
+}?>
+  </h3>
 </div>
 <br />
 <?
@@ -173,6 +180,7 @@ Los datos se han actualizado correctamente en la base de datos.
 $claveal = "";
 ?>
 <form action="libros.php" method="post" name="libros" class="formu">
+<input type="hidden" name="nivel" value="<? echo $nivel;?>" />
 <p class="help-block">OPCIONES: <span class="label label-info">B</span> = Bien, <span class="label label-warning">R</span> = Regular, <span class="label label-danger">M</span> = Mal, <span class="label label-default">N</span> = No hay Libro, <span class="label label-success">S</span> = Septiembre.</p>
 <?
 $curso = $nivel;
@@ -180,10 +188,16 @@ $curso = $nivel;
 
 echo "<br /><table class='table table-bordered'>";
 
-if(stristr($_SESSION['cargo'],'1') == TRUE){
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') == TRUE){
 echo "<thead><tr><th></th>";
 }
-$asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where (curso like '".$curso."') and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where textos_gratis.nivel = '".$curso."') order by codigo";
+if (isset($_POST['nivel'])) {
+	$p_nivel=$_POST['nivel'];
+}
+else{
+	$p_nivel=$nivel;
+}
+$asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where (curso like '".$curso."') and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where textos_gratis.nivel = '".$p_nivel."') order by codigo";
 // echo $asignaturas0;
 $num_col = 1;
 $asignaturas1 = mysqli_query($db_con, $asignaturas0);
@@ -204,10 +218,10 @@ if(!(empty($unidad))){
 if(stristr($_SESSION['cargo'],'1') == TRUE){
 	$jefe=1;
 	$fila=0;
-	echo "<th>Estado</th></tr></thead><tbody>";
+	echo "<th>Estado</th></tr>";
 }
-
-$alumnos0 = "select nc, FALUMNOS.apellidos, FALUMNOS.nombre, combasi, FALUMNOS.claveal, FALUMNOS.unidad from FALUMNOS, alma where alma.claveal = FALUMNOS.claveal and alma.curso = '$nivel' $extra order by FALUMNOS.apellidos, FALUMNOS.nombre, nc"; 
+echo "</thead><tbody>";
+$alumnos0 = "select nc, FALUMNOS.apellidos, FALUMNOS.nombre, combasi, FALUMNOS.claveal, FALUMNOS.unidad from FALUMNOS, alma where alma.claveal = FALUMNOS.claveal and alma.curso = '".$p_nivel."' $extra order by FALUMNOS.apellidos, FALUMNOS.nombre, nc"; 
 //echo $alumnos0;
 $fila_asig=0;
 $alumnos1 = mysqli_query($db_con, $alumnos0);
@@ -216,7 +230,7 @@ while ($alumnos = mysqli_fetch_array($alumnos1)) {
 	
 	$fila_asig+=1;
 	if(stristr($_SESSION['cargo'],'1') == TRUE){}else{}
-	if($fila_asig == $fila or $fila_asig == "5" or $fila_asig == "10" or $fila_asig == "15" or $fila_asig == "20" or $fila_asig == "25" or $fila_asig == "30" or $fila_asig == "35" or $fila_asig == "40")
+	if($fila_asig == "5" or $fila_asig == "10" or $fila_asig == "15" or $fila_asig == "20" or $fila_asig == "25" or $fila_asig == "30" or $fila_asig == "35" or $fila_asig == "40")
 {
 echo "</thead><tbody><tr><td style='background-color:#eee'></td>";
 $asignaturas0 = "select distinct nombre, codigo, abrev from asignaturas where curso like '".$curso."' and abrev not like '%\_%' and nombre in (select distinct materia from textos_gratis where textos_gratis.nivel = '".$curso."') order by codigo";
@@ -238,7 +252,10 @@ $clave = $alumnos[4];
    	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {
 		echo "<br /><img class='img-thumbnail' src='../../xml/fotos/$clave.jpg' width='84' alt=''>";
-	}           	
+	}    
+	else{
+		echo '<h4><span class="fa fa-user fa-fw fa-5x"></span></h4>';
+	}       	
 	echo "</td>";
 	for ($i=1;$i<$num_asig+1;$i++){
 		echo "<td nowrap>";
@@ -297,9 +314,9 @@ $clave = $alumnos[4];
 				echo '<td>';
 
 ?>
-<a  href="libros.php?claveal=<? echo $claveal;?>&imprimir=si&nivel=<? echo $nivel;?>" class="btn btn-primary btn-block" target="_blank"><i class="fa fa-print " title="imprimir"> </i></a> <br><br>
+<a  href="libros.php?claveal=<? echo $claveal;?>&imprimir=si&nivel=<? echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="fa fa-print " title="imprimir"> </i></a> <br><br>
 <?
-	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="fa fa-check " title="Devueltos"> </i> </button>';}
+	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="fa fa-check" title="Devueltos"> </i> </button>';}
 	echo "</td>";
 	}
 
@@ -308,7 +325,6 @@ echo "</tr>";
 echo "</table>";
 ?>
 <br />
-<input type="hidden" name="nivel" value="<? echo $nivel;?>" />
 <input type="hidden" name="unidad" value="<? echo $unidad;?>" />
 <input type="submit" name="procesar" value="Enviar datos" class="btn btn-primary btn-large" />
 </form>

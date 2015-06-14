@@ -50,7 +50,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $nombre= "Nombre: ".$row[3];
 	 $nacido= "Nacido en: ".$row[4];
 	 $provincia= "Provincia de: ".$row[5];
-	 $fecha_nacimiento= "Fecha de Nacimiento: $nacimiento";
+	 $fecha_nacimiento= "Fecha de Nacimiento: ". cambia_fecha($row[6]);
 	 $domicilio= "Domicilio: ".$row[7];
 	 $localidad= "Localidad: ".$row[8];
 	 $dni= "DNI del alumno: ".$row[9];
@@ -65,6 +65,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $religion = $row['religion'];
 	 $itinerario = $row['itinerario'];
 	 $matematicas4 = $row['matematicas4'];
+	 $matematicas3 = $row['matematicas3'];
 
 	 if ($row[16] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row[17]; }else{	 $colegio= "Centro de procedencia:  ".$row[16]; }
 	 $correo= "Correo electrónico de padre o madre: ".$row[19];
@@ -73,13 +74,13 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $n_curso2 = $n_curso-1;
 	 if ($n_curso == '1') {
 $opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-$a1 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C.","Taller de Teatro");
+$a1 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C.","Taller de Teatro","Taller de Lenguas Extranjeras");
 	 }
 	 if ($n_curso == '2') {
 $opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Métodos de la Ciencia");
-$a1 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C. II");
+$a1 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C. II","Taller de Teatro II");
 $opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-$a21 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C.","Taller de Teatro");
+$a21 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C.","Taller de Teatro","Taller de Lenguas Extranjeras");
 	 }
 	 if ($n_curso == '3') {
 $opt1 = array("Alemán 2º Idioma","Cambios Sociales", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
@@ -138,7 +139,7 @@ else{
  	 $optativa25= "$row[56] - $opt21[4]";
  	 $optativa26= "$row[57] - $opt21[5]";
  	 $optativa27= "$row[58] - $opt21[6]";
-	 for ($i=1;$i<6;$i++)
+	 for ($i=1;$i<7;$i++)
 	 {
 	 	if ($row[34] == $i) {
 	 		${act2.$i} = " X  " . $a21[$i-1];
@@ -261,9 +262,15 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	$MiPDF->Cell(84,8,$optativa4,0);
 	$MiPDF->Cell(84,8,$act4,0);
 	$MiPDF->Ln ( 5 );
+	$MiPDF->Cell(84,8,"",0);
+	$MiPDF->Cell(84,8,$act5,0);
+	$MiPDF->Ln ( 5 );
 	if ($n_curso=='1') {
 	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Cell(84,8,$act5,0);
+	$MiPDF->Ln ( 5 );
+	$MiPDF->Cell(84,8,"",0);
+	$MiPDF->Cell(84,8,$act6,0);
 	$MiPDF->Ln ( 5 );
 	}
 	}
@@ -287,6 +294,9 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	$MiPDF->Ln ( 5 );
 	}
 	elseif($n_curso=='3'){
+	if ($matematicas3=="A") {$mat_3="Matemáticas Académicas (Bachillerato)";}else{$mat_3="Matemáticas Aplicadas (Formación Profesional)";}
+	$MiPDF->Cell(168,6,$mat_3,1,0,'C',0);
+	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(84,8,$optativa1,0);
 	$MiPDF->Cell(84,8,$optativa5,0);
 	$MiPDF->Ln ( 5 );
@@ -323,6 +333,9 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Cell(84,8,$act25,0);
+	$MiPDF->Ln ( 5 );
+	$MiPDF->Cell(84,8,"",0);
+	$MiPDF->Cell(84,8,$act26,0);
 	}
 	}
 	elseif (substr($curso, 0, 1) == 4){

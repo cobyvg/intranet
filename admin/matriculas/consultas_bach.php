@@ -146,24 +146,27 @@ INDEX (  `id_matriculas` )
 			$alma="alma_primera";
 		}
 		$contr = mysqli_query($db_con, "select matriculas_bach.apellidos, $alma.apellidos, matriculas_bach.nombre, $alma.nombre, matriculas_bach.domicilio, $alma.domicilio, matriculas_bach.dni, $alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, $alma.dnitutor, matriculas_bach.telefono1, $alma.telefono, matriculas_bach.telefono2, $alma.telefonourgencia, $alma.claveal from matriculas_bach, $alma where $alma.claveal=matriculas_bach.claveal and id = '$id_cambios'");
+		$text_n="";
+		$text_t="";
 		//$col_datos = array()
 		$control = mysqli_fetch_array($contr);
 		if (strlen($control[16])>0) {
-		echo "<p style='color:#08c'>$control[16]: $control[0], $control[2]</p>";
+		$text_n= "<p style='color:#08c'>$control[16]: $control[0], $control[2]</p>";
 		for ($i = 0; $i < 18; $i++) {
 			if ($i%2) {
 				if ($i=="5" and strstr($control[$i], $control[$i-1])==TRUE) {}
 				elseif ($i=="17") {}
 				else{
 					if ($control[$i]==$control[$i-1]) {}else{
-						echo "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
+						$text_t.= "<li><span class='text-error'>Séneca:</span> ".$control[$i]." ==> <span class='text-error'>Matrícula:</span> ".$control[$i-1]."</li>";
 					}
 				}
 			}
 		}
-			echo "<hr>";
 		}
-		
+		if(strlen($text_t)>0){
+			echo $text_n.$text_t."<hr>";
+		}
 	}
 	echo "</div>";
 	mysqli_query($db_con, "drop table matriculas_bach_temp");

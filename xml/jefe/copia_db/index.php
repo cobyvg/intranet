@@ -47,7 +47,7 @@ function copia_bd($host,$user,$pass,$name) {
    
    $backup_file = 'db-backup_'.$name.'_'.date('YmdHis').'.sql.gz';
    
-   $command = "mysqldump --opt -h $host -u $user -p$pass $name | gzip -9 > $backup_file";
+   $command = "mysqldump --opt --ignore-table=$name.fotos -h $host -u $user -p$pass $name | gzip -9 > $backup_file";
     
    // ejecución y salida de éxito o errores
    system($command,$output);

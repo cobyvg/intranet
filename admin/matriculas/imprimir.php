@@ -317,19 +317,19 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(60,5,$extra,1,0,'C');
 	$opt="";
 	if ($n_curso=="4" and ($itinerario == "1" or $itinerario == "4") ) {
-		$opt = "    $optativa1
+		$opt = "     $optativa1
 	    $optativa2
 	    $optativa3";
 	}
 	elseif ($n_curso=="1" ) {
-		$opt = "    $optativa1
+		$opt = "     $optativa1
 	    $optativa2
 	    $optativa3
 	    $optativa4
 	    $optativa5";
 	}
 	else{
-	$opt = "    $optativa1										    $optativa5
+	$opt = "     $optativa1										     $optativa5
 	    $optativa2											     $optativa6
 	    $optativa3											     $optativa7
 	    $optativa4";
