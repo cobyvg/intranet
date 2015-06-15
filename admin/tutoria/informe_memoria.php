@@ -104,12 +104,6 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
 	include("../../pie.php");
 	exit();
 }
-$lista = mysqli_list_fields($db,"FTUTORES");
-$col_obs = mysqli_field_name($lista,3);
-if ($col_obs=="observaciones1") { }else{
-	mysqli_query($db_con, "ALTER TABLE  `FTUTORES` ADD  `observaciones1` TEXT NOT NULL ,
-						        ADD  `observaciones2` TEXT NOT NULL");
-}
 
  $obs1=mysqli_query($db_con, "select observaciones1, observaciones2 from FTUTORES where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
  $obs2=mysqli_fetch_array($obs1);
@@ -118,13 +112,12 @@ if ($col_obs=="observaciones1") { }else{
 		$boton = "Imprimir Memoria final de Tutoría";$click="onClick=print()";}
  ?>
   <div style="margin-bottom:0px;">
- <input type="button" class="btn btn-primary no_imprimir pull-right" value="<? echo $boton;?>" <? echo $click;?>>
+ <input type="button" class="btn btn-primary hidden-print pull-right" value="<? echo $boton;?>" <? echo $click;?>>
 </div>
  
 <br>
 <br />
  <h3>Datos Generales de los Alumnos</h3><br />
-
  <? 
  // Curso
  $SQL0 = "select distinct curso from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
@@ -163,40 +156,39 @@ if ($col_obs=="observaciones1") { }else{
  $result1 = mysqli_query($db_con, $SQL1);
 
  while ($num_promo0 = mysqli_fetch_array($result1))                                                                                                                                                           
-{                                                                                                                                                                                                          
+{                                                                                                                                                                                               
         $n_susp = "";                                                                                                                                                                                        
         $trozos0 = explode(";",$num_promo0[0]);                                                                                                                                                              
         foreach ($trozos0 as $val)                                                                                                                                                                           
         {                                                                                                                                                                                                    
         $trozos1 = explode(":",$val);                                                                                                                                                                        
                 {                                                                                                                                                                                            
-                if (stristr($curso_seneca."Bach")==TRUE)                                                                                                                                                                          
-                        {                                                                                                                                                                                    
+                if (stristr($curso_seneca,"Bach")==TRUE)                                                                                                                                                                          
+                        {                                                                                                                                                                       
                         if (($trozos1[1] > "416" and $trozos1[1] < "427") or ($trozos1[1] == "439"))          
                                 {                                                                                                                                                                            
-                $n_susp = $n_susp + 1;                                                                                                                                                                       
+                                    $n_susp++;                                                                                                                                                                       
                                 }                                                                                                                                                                            
                         }                                                                                                                                                                                                                                                                                                                                                                       
                 else                                                                                                                                                            
                         {                                                                                                                                                                                    
                 if (($trozos1[1] > "336" and $trozos1[1] < "347" and $trozos1[1] !== "339" and $trozos1[1] !== ""))                                                                                          
                                 {                                                                                                                                                                            
-                $n_susp = $n_susp + 1;                                                                                                                                                                       
+                                    $n_susp++;                                                                                                                                                                       
                                 }                                                                                                                                                                            
                         }                                                                                                                                                                                    
                 }                                                                                                                                                                                            
         }                                                                                                                                                                                                    
- if ($n_susp > "0" and (((stristr($curso_seneca."2")==TRUE) and (stristr($curso_seneca."Bach")==TRUE))  or (stristr($curso_seneca."4")==TRUE)))                                                                                                                                                                       
+ if ($n_susp > "0" and (((stristr($curso_seneca,"2")==TRUE) and (stristr($curso_seneca,"Bach")==TRUE))  or (stristr($curso_seneca,"4")==TRUE)))                                                                                                                                                                       
         {                                                                                                                                                                                                    
 //              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";                                                                                                            
                 $n_al = $n_al + 1;                                                                                                                                                                           
         }                                                                                                                                                                                                    
-        elseif($n_susp > "2" and !(((stristr($curso_seneca."2")==TRUE) and (stristr($curso_seneca."Bach")==TRUE))  or (stristr($curso_seneca."4")==TRUE)))                                                                                                                                                          
+        elseif($n_susp > "2" and !(((stristr($curso_seneca,"2")==TRUE) and (stristr($curso_seneca,"Bach")==TRUE))  or (stristr($curso_seneca,"4")==TRUE)))                                                                                                                                                          
         {                                                                                                                                                                                                    
 //              $valor = $valor ."$n_susp: $num_promo0[2] $num_promo0[1] --> $num_promo0[0]<br>";                                                                                                            
                 $n_al = $n_al + 1;                                                                                                                                                                           
-        }                                                                                                                                                                                                    
-}    
+        }                                                                                                                                                                                       }    
 
 ?>
 <table class="table table-striped" style="width:auto;">
@@ -269,8 +261,8 @@ if ($col_obs=="observaciones1") { }else{
  $num_acciones = mysqli_num_rows($result);
  ?>
    <?  
- $grupo_act = str_replace("-","",$_SESSION['mod_tutoria']['unidad']);  
- $SQL = "select * from actividades where grupos like '%$grupo_act%' order by id";
+ $grupo_act = $_SESSION['mod_tutoria']['unidad'];  
+ $SQL = "select * from calendario where unidades like '%$grupo_act%' and categoria='2'";
  $result = mysqli_query($db_con, $SQL);
  $num_actividades = mysqli_num_rows($result);
  ?>
@@ -457,7 +449,8 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  if(mysqli_num_rows($faltas0) > 0)
  {
 	 ?>
-	 </div> <div class="col-sm-7">
+	 </div> 
+	 <div class="col-sm-7">
  <hr><br /><legend>Intervenciones de Tutoría (excluidos SMS)</legend>
 
      <?
@@ -470,8 +463,8 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  }
  echo '</table>';
  }
-  $grupo_act2 = str_replace("-","",$_SESSION['mod_tutoria']['unidad']);  
-  $n_activ = mysqli_query($db_con, "select * from actividades where  grupos like '%$grupo_act2-%' and date(fecha) > '$inicio_curso'");
+  $grupo_act2 = $_SESSION['mod_tutoria']['unidad'];  
+  $n_activ = mysqli_query($db_con, "select * from calendario where  unidades like '%$grupo_act2%' and date(fechaini) > '$inicio_curso'");
   if(mysqli_num_rows($n_activ) > "0"){
  ?>
   </div>
@@ -480,10 +473,11 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  <hr><br /><legend>Informe sobre Actividades Extraescolares del Grupo</legend>
  <?
 include("inc_actividades.php");
-include("informe_notas.php");
- ?>
- <?
  }
+  ?>
+ <br />
+ <?
+include("inc_notas.php");
  ?>
 <?
 
@@ -504,7 +498,7 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 <input type="hidden" name="tutor" value="<? echo $_SESSION['mod_tutoria']['tutor']; ?>">
 <input type="hidden" name="unidad" value="<? echo $_SESSION['mod_tutoria']['unidad']; ?>">
 <br />
-<input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-primary no_imprimir">
+<input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-primary hidden-print">
 </form>
 <?
 if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
@@ -523,6 +517,8 @@ if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
 }
 }
  ?>
+ </div>
+ </div>
  </div>
  <script language="JavaScript">
  function doPrint(){

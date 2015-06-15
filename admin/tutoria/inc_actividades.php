@@ -2,8 +2,6 @@
 
 <!-- ACTIVIDADES EXTRAESCOLARES -->
 
-<h3 class="text-info">Actividades extraescolares</h3>
-
 <?php $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'); ?>
 <?php $grupo = $_SESSION['mod_tutoria']['unidad']; ?>
 <?php $result = mysqli_query($db_con, "SELECT DISTINCT MONTH(fechaini) AS mes FROM calendario WHERE categoria='2' and unidades LIKE '%$grupo%' ORDER BY MONTH(fechaini) ASC"); ?>
