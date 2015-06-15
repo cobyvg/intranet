@@ -231,6 +231,13 @@ if(isset($_POST['enviar'])){
 
 	}
 
+	if (substr($curso,0,1)=='3') {
+		if (empty($matematicas4)) {
+		$vacios.= "matematicas de 3º de ESO, ";
+		$num+=1;
+	}
+	}
+	
 	if ($itinerario) {
 		foreach (${opt4.$itinerario} as $opt){
 			foreach ($_POST as $clave=>$valor){
@@ -991,12 +998,30 @@ exit();
 		<!-- OPTATIVAS: 3 ESO -->
 		<?php elseif($n_curso == 3): ?>
 		<tr>
-			<th class="active text-center text-uppercase" colspan="4">
-			Asignaturas optativas de 3º de ESO<p class="help-block">
+			<th class="active text-uppercase"  colspan="4">Matemáticas de 3º de E.S.O.</th>
+		</tr>
+		<tr>
+			<td valign=top colspan="4">
+			<div class="radio">
+	<?	
+			echo "<label class='radio-inline'><input type='radio' name = 'matematicas4' value='A' ";
+			if ($matematicas4=="A") { echo "checked";}
+			echo "/>Matemáticas Académicas</label><label class='radio-inline'><input type='radio' name = 'matematicas4' value='B' ";
+			if ($matematicas4=="B") { echo "checked";}
+			echo "/>Matemáticas Aplicadas</label>";				
+		?>
+		</div>
+	</td>
+		</tr>
+		
+		<tr>
+
+	<th class="active text-uppercase" colspan="4">
+			Asignaturas optativas<p class="help-block">
 			<small>(marca con 1, 2, 3, 4, etc. por orden de preferencia)</small></p>
 			</th>
 		</tr>
-		<tr>
+		<tr>	
 			<td colspan="2" style="border-right: 0;">
 			<div class="form-horizontal"><?php $num1 = ""; ?> <?php for ($i = 1; $i < 8; $i++): ?>
 			<?php if (substr($curso, 0, 1) == $i): ?> <?php foreach (${opt.$i} as $opt_1): ?>
