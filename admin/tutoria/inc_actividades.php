@@ -14,11 +14,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php $result1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='2' and MONTH(fechaini)='".$row['mes']."' AND unidades LIKE '%$grupo%' ORDER BY fechaini ASC"); ?>
+		<?php $result1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='2' and MONTH(fechaini)='".$row['mes']."' AND unidades LIKE '%$grupo%' and date(fechaini) > '$inicio_curso' ORDER BY fechaini ASC"); ?>
 		<?php while ($row1 = mysqli_fetch_array($result1)): ?>
 		<tr>
 			<td>
-				<div class="pull-right"><?php echo strftime('%e %b',strtotime($row1[7])); ?></div>
+				<div class="pull-right"><?php echo strftime('%e %b',strtotime($row1['fechaini'])); ?></div>
 				<p><a href="det_actividades.php?id=<?php echo $row1[0]; ?>"><?php echo $row1[2]; ?></a></p>
 			</td>
 		</tr>

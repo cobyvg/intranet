@@ -262,7 +262,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
  ?>
    <?  
  $grupo_act = $_SESSION['mod_tutoria']['unidad'];  
- $SQL = "select * from calendario where unidades like '%$grupo_act%' and categoria='2'";
+ $SQL = "select * from calendario where unidades like '%$grupo_act%' and categoria='2' and date(fechaini) > '$inicio_curso'";
  $result = mysqli_query($db_con, $SQL);
  $num_actividades = mysqli_num_rows($result);
  ?>

@@ -73,7 +73,7 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 	<?
 $sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre
  and asignaturas.curso = '$nivel_curso' and profesores.grupo = '$unidad' and abrev not like '%\_%' and asignaturas.codigo not in 
-(select distinct asignaturas.codigo from asignaturas where asignaturas.nombre like 'Libre Disp%')";
+(select distinct asignaturas.codigo from asignaturas where asignaturas.nombre like 'Libre Disp%' or asignaturas.nombre like 'Relig%' or asignaturas.nombre like 'Atenci%')";
 //echo $sql;	
 $as = mysqli_query($db_con, $sql);
 while ($asi = mysqli_fetch_array($as)) {
