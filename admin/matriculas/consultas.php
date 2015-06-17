@@ -711,7 +711,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				$exen = mysqli_query($db_con, "select exencion from matriculas where $extra and exencion ='1'");
 				$num_exen = mysqli_num_rows($exen);
 
-				if ($curso=="1ESO" or $curso=="2ESO"){$num_acti = "5";}else{$num_acti = "4";}
+				if ($curso=="1ESO" or $curso=="2ESO"){$num_acti = "6";}else{$num_acti = "4";}
 				for ($i=1;$i<$num_acti+1;$i++){
 					${acti.$i} = mysqli_query($db_con, "select act1 from matriculas where $extra and act1 = '$i'");
 					${num_act.$i} = mysqli_num_rows(${acti.$i});
@@ -757,7 +757,13 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			for ($i=1;$i<$num_opta+1;$i++){
 				echo "<th>Optativa$i</th>";
 			}
-			if ($curso=="1ESO" or $curso=="2ESO"){
+			if ($curso=="1ESO"){
+				$num_acti = "6";
+				for ($i=1;$i<$num_acti+1;$i++){
+					echo "<th>Act$i</th>";
+				}
+			}
+			if ($curso=="2ESO"){
 				$num_acti = "5";
 				for ($i=1;$i<$num_acti+1;$i++){
 					echo "<th>Act$i</th>";
@@ -783,7 +789,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				echo "<td>${num_opta.$i}</td>";
 		}
 		if ($curso=="1ESO" OR $curso=="2ESO"){
-			if ($curso=="1ESO"){$num_acti = "5";}else{$num_acti = "5";}
+			if ($curso=="1ESO"){$num_acti = "6";}else{$num_acti = "6";}
 			for ($i=1;$i<$num_acti+1;$i++){
 				echo "<td>${num_act.$i}</td>";
 		}
