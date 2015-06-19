@@ -80,8 +80,8 @@ if (substr($religion, 0, 1)=="R") {
 // AMPA
 $dni_papa = explode(": ", $dnitutor);
 $dnipapa = $dni_papa[1];
-$hijos = mysqli_query($db_con, "select apellidos, nombre, nivel from alma where dnitutor = '$dnipapa'");
-$hijos_primaria = mysqli_query($db_con, "select apellidos, nombre, nivel from alma_secundaria where dnitutor = '$dnipapa'");
+$hijos = mysqli_query($db_con, "select apellidos, nombre, curso from matriculas where dnitutor = '$dnipapa'");
+$hijos_primaria = mysqli_query($db_con, "select apellidos, nombre, curso from matriculas_bach where dnitutor = '$dnipapa'");
 $num_hijos = mysqli_num_rows($hijos);
 $num_hijos_primaria = mysqli_num_rows($hijos_primaria);
 

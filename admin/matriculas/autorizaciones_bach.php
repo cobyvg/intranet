@@ -85,9 +85,12 @@ if (substr($religion, 0, 1)=="R") {
 $num_hijos="";
 $dni_papa = explode(": ", $dnitutor);
 $dnipapa = $dni_papa[1];
-$hijos = mysqli_query($db_con, "select apellidos, nombre, nivel from alma where dnitutor = '$dnipapa' and dnitutor not like ''");
 
+$hijos = mysqli_query($db_con, "select apellidos, nombre, curso from matriculas where dnitutor = '$dnipapa'");
+$hijos_primaria = mysqli_query($db_con, "select apellidos, nombre, curso from matriculas_bach where dnitutor = '$dnipapa'");
 $num_hijos = mysqli_num_rows($hijos);
+$num_hijos_primaria = mysqli_num_rows($hijos_primaria);
+
 
 if ($num_hijos > 0) {
 $n_h="";
@@ -107,7 +110,27 @@ while ($hij = mysqli_fetch_array($hijos)){
 	}
 }	
 }
+if ($num_hijos_primaria > 0) {
+$n_h_p="";
+while ($hij_primaria = mysqli_fetch_array($hijos_primaria)){
+	$n_h_p+=1;
+	${hijop.$n_h_p} = $hij_primaria[1]." ".$hij_primaria[0];
+	//echo $hij[2];
+	if (substr($hij_primaria[2], 0, 2) == '1E' or substr($hij_primaria[2], 0, 2) == '2E' or substr($hij_primaria[2], 0, 2) == '3E' or substr($hij_primaria[2], 0, 2) == '4E'){
+		$niv_primaria = substr($hij_primaria[2], 0, 1)+1;
+		//echo "$niv";
+		if ($niv_primaria == "5") {
+			${nivelp.$n_h_p} = "1 BACHILLERATO";
+		}
+		else{
+			${nivelp.$n_h_p} = $niv_primaria." ESO";			
+		}
+	}
 	
+}
+}
+
+
 	$tit_ampa = '
 I.E.S. MONTERROSO
 Avda. Sto. Tomás de Aquino s/n
@@ -133,14 +156,23 @@ NOMBRE Y  APELLIDOS  DE SUS HIJOS/AS  Y CURSO EN QUE SE MATRICULAN EN '.$c_escol
      Un cordial saludo.
 	
 	';
-	if ($num_hijos=="0") {
+	if ($num_hijos=="0" and $num_hijos_primaria=="0") {
 		$hijo1 = "$row[3] $row[2]";
 		$nivel1= $curso;
 		$ampa2.=$hijo1." ".$nivel1;
 	}
 	for ($i = 1; $i < $num_hijos+1; $i++) {
 		$ampa2.=${hijo.$i}.' '.${nivel.$i}.'
-';		
+';
+		
+	}
+	for ($i = 1; $i < $num_hijos_primaria+1; $i++) {
+		if (empty(${nivelp.$i})) {
+			${nivelp.$i}=$curso;
+		}
+		$ampa2.=${hijop.$i}.' '.${nivelp.$i}.'
+';
+		
 	}
 	
 	$MiPDF->Addpage ();

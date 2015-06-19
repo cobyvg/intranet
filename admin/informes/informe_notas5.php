@@ -220,6 +220,17 @@ while ($asi = mysqli_fetch_array($as)) {
 	$niv_cur = mysqli_fetch_array($n_c);
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
+	$nivel_curso=$orden_nivel[1];
+		if (stristr($nivel_curso,"3") and stristr($codasi,"25201") and $key==3) {
+		$codasi="25177";
+		$nomasi="Ciencias de la Naturaleza";
+	}
+	if (stristr($nivel_curso,"3") and (stristr($codasi,"25200")) and $key==3) {
+		$codasi="";
+		$nomasi="";
+	}
+	if (!($codasi=="")) {
+		
 	$cod_nota = mysqli_query($db_con, "select id from temp3, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp3.claveal and unidad = '$unidad'");
 	$cod_apro = mysqli_query($db_con, "select id from temp3, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp3.claveal and unidad = '$unidad'");
 	
@@ -254,7 +265,7 @@ if ($num_matr>0) {
 			echo "<tr><th>$nomasi</th><td>$num_matr</td><td>";
 	echo $porciento_asig2."</td><td>".$num_apro."</span></td></tr>";
 	}
-
+	}
 }
 ?>
 </tbody>

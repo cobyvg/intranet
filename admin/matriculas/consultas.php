@@ -695,7 +695,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 	// Control del envío de datos
 
-	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion2()' /><br>";
+//	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion2()' /><br>";
 
 	echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hdden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hdden-print' />";
 
