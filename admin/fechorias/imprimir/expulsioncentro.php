@@ -1,24 +1,7 @@
 <?
-session_start ();
-include("../../../config.php");
+require('../../../bootstrap.php');
+
 setlocale('LC_TIME', 'es_ES');
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
-registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 
 if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}
 if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}

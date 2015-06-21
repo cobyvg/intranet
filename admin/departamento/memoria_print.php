@@ -1,8 +1,9 @@
 <?
-include ("../../config.php");
+require('../../bootstrap.php');
+
 require_once("../../pdf/dompdf_config.inc.php"); 
-?>
-<?
+
+
 $n_preg=15;
 // Miembros
 //$depto=$_SESSION ['dpt'];
@@ -29,7 +30,7 @@ $pregunta[9]='5.2. Adaptaciones curriculares.';
 $nota[9]='¿Ha sido necesario aplicar alguna ACIs? En caso afirmativo, indicar alumno, nivel, asignatura y resultado.';
 $pregunta[10]='6. Proyecto TIC.';
 $nota[10]='Aplicación de las TIC en el aula, valoración y sugerencias.';
-$pregunta[11]='7. PLan de Lectura';
+$pregunta[11]='7. Plan de Lectura';
 $nota[11]='Acciones referentes al plan de lectura y valoración.';
 $pregunta[12]='8. Actividades complementarias y extraescolares.';
 $nota[12]='Valoración.';

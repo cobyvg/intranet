@@ -1,5 +1,6 @@
 <?
-include("../../config.php");
+require('../../bootstrap.php');
+
 require_once('../../pdf/class.ezpdf.php');
 $pdf =& new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');
@@ -49,7 +50,13 @@ $options = array(
 	
 			);
 
-$biblio= "Biblioteca Julio Pérez Santander";
+
+if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
+	$biblio= "Biblioteca Julio Pérez Santander";
+}
+else {
+	$biblio= "Biblioteca";
+}
 $txttit= $biblio.'. 
 ' . $nombre_del_centro.". Curso ".$curso_actual.".\n";
 $txttit.= "Lista de morosos con fecha ". $fecha ."\n";

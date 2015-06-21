@@ -1,34 +1,14 @@
 <?
-session_start();
-include("../../config.php");
-include_once('../../config/version.php');
+require('../../bootstrap.php');
 
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
 	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 	exit;
 }
-?>
-<?php
+
+
 include("../../menu.php");
 ?>
 	<div class="container">

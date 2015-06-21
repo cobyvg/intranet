@@ -3,47 +3,13 @@ if(isset($_POST['enviar']) and $_POST['enviar']=="Introducir datos"){
 include("intextos2.php");
 exit;
 }
-session_start();
-include("../../config.php");
-include_once('../../config/version.php');
 
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
-
-if($_SESSION['cambiar_clave']) {
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
-		exit();
-	}
-}
-
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+require('../../bootstrap.php');
 
 
 if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = '1'; }
-?>
-<?php
+
+
 include("../../menu.php");
 if (isset($_GET['titulo'])) {$titulo = $_GET['titulo'];}elseif (isset($_POST['titulo'])) {$titulo = $_POST['titulo'];}else{$titulo="";}
 if (isset($_GET['asignatura'])) {$asignatura = $_GET['asignatura'];}elseif (isset($_POST['asignatura'])) {$asignatura = $_POST['asignatura'];}else{$asignatura="";}

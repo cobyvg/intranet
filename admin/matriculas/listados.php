@@ -1,4 +1,5 @@
 <?
+require('../../bootstrap.php');
 include_once ("../../pdf/funciones.inc.php");
 # para el pdf
 require_once('../../pdf/class.ezpdf.php');

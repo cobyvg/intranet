@@ -1,5 +1,6 @@
 <?
-include("/opt/e-smith/conf_principal.php");
+require('../../bootstrap.php');
+
 include_once ("../../funciones.php");
 require("../../pdf/pdf_js.php");
 //require("../pdf/mc_table.php");

@@ -1,40 +1,5 @@
 <?
-session_start();
-include("../../config.php");
-include_once('../../config/version.php');
-
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
-
-if($_SESSION['cambiar_clave']) {
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
-		exit();
-	}
-}
-
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+require('../../bootstrap.php');
 
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
@@ -320,13 +285,15 @@ $matr = mysqli_query($db_con, "select * from matriculas");
 Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos a la tabla de las matrículas. Este proceso se termina el mes de Diciembre, momento en el que los adminstrativos han podido registrar los nuevos datos en Séneca. </div></div><br />';
 }
 
+// Caracteristicas propias de cada centro
+include("alma_centros.php");
+
 // Alumnos TIC
 include("exportaTIC.php");
- ?>
- <?
- // Alumnos con pendientes
- include("pendientes.php");
- ?>
+
+// Alumnos con pendientes
+include("pendientes.php");
+?>
 <br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />

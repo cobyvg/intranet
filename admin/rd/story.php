@@ -1,52 +1,14 @@
 <?
-session_start();
-include("../../config.php");
-include_once('../../config/version.php');
-
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
-
-if($_SESSION['cambiar_clave']) {
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
-		exit();
-	}
-}
-
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+require('../../bootstrap.php');
 
 
 if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = 'disabled'; }
-?>
-<?
+
 include("../../menu.php");
 echo '<div class="no_imprimir">';
 include("menu.php");
 echo '</div>';
-?>
 
-<? 
    	$query = "SELECT contenido, fecha, numero, departamento FROM r_departamento WHERE id = '$id'";
    	$result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
    	if (mysqli_num_rows($result) > 0)

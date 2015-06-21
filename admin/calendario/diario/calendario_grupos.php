@@ -55,7 +55,6 @@ $last_year = $year - 1;
 	{$monthlong = "Diciembre";}
 if ($today > $numdays) { $today--; }
 
-
 // Estructura de la Tabla
 
 

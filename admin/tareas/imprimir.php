@@ -1,25 +1,5 @@
 <?php
-session_start();
-include("../../config.php");
-include("../../config/version.php");
-setlocale('LC_TIME', 'es_ES');
-
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
+require('../../bootstrap.php');
 
 if(isset($_GET['id']) && !empty($_GET['id'])) {
 	$id = $_GET['id'];
