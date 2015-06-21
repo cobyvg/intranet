@@ -87,7 +87,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 	<table class="table table-striped table-bordered datatable"><thead>
 	<?
 	$cabecera="<tr><th>Alumno</th><th>Colegio</th>";
-	$col = mysqli_query($db_con,"select distinct tipo from transito_tipo where tipo not like 'norelacion' and tipo not like 'funciona' and tipo not like 'actitud' and tipo not like 'observaciones'");
+	$col = mysqli_query($db_con,"select distinct tipo from transito_tipo where tipo not like 'norelacion' and tipo not like 'funciona' and tipo not like 'actitud' and tipo not like 'observaciones' and tipo not like 'orientacion'");
 	while ($ncol=mysqli_fetch_array($col)) {
 		$cabecera.= "<th>$ncol[0]</th>";
 	}
@@ -118,7 +118,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 		while ($ncol=mysqli_fetch_array($col)) {
 
 			$tipo = $ncol[0];
-			if ($tipo=='norelacion' or $tipo == 'funciona' or $tipo == 'actitud' or $tipo == 'observaciones') {
+			if ($tipo=='norelacion' or $tipo == 'funciona' or $tipo == 'actitud' or $tipo == 'observaciones' or $tipo == 'orientacion') {
 			}
 			else{			
 			$col1 = mysqli_query($db_con,"select dato from transito_datos where claveal = '$claveal' and tipo = '$tipo'");
@@ -166,14 +166,23 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 		
 		}
 
-		$col2 = mysqli_query($db_con,"select dato from transito_datos where claveal = '$claveal' and ((tipo='norelacion' and dato not like '') or (tipo = 'funciona' and dato not like '') or (tipo = 'actitud' and dato not like '') or (tipo = 'observaciones' and dato not like ''))");		
+		$col2 = mysqli_query($db_con,"select dato from transito_datos where claveal = '$claveal' and ((tipo='norelacion' and dato not like '') or (tipo = 'funciona' and dato not like '') or (tipo = 'actitud' and dato not like '') or (tipo = 'observaciones' and dato not like '')))");		
 		$dat1 = mysqli_num_rows($col2);
 		$notas="";
 				if ($dat1>0) {
 				$notas='<span class="fa fa-circle" style="color: orange;"></span>';
 				$tt=" data-bs='tooltip' title='Hay observaciones o notas sobre Actitud, Relación del Centro con la familia, etc.'";
 				}
+				
+				$col3 = mysqli_query($db_con,"select dato from transito_datos where claveal = '$claveal' and (tipo = 'orientacion' and dato not like '')");		
+		$dat2 = mysqli_num_rows($col3);
+
+				if ($dat2>0) {
+				$notas.='<span class="fa fa-warning" style="color: blue;"></span>';
+				}
+				
 		echo "<td $tt>$notas</td>";				
+		
 		
 		echo "</tr>";
 	}

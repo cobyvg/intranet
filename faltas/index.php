@@ -36,6 +36,14 @@ if($_SESSION['cambiar_clave']) {
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 ?>
+<script language="JavaScript">
+<!--
+function uncheckRadio(rbutton) {
+if(rbutton.checked == true)
+rbutton.checked = false;  
+}
+//-->
+</script>
 <?
 $pr = $_SESSION['profi'];
 $prof1 = "SELECT distinct no_prof FROM horw where prof = '$pr'";
@@ -294,6 +302,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$filaprincipal.= "<br><small><strong>Fecha:</strong> ";
 			if(isset($fecha_dia)){$filaprincipal.= $fecha_dia;}else{ $filaprincipal.= date('d-m-Y');$fecha_dia=date('d-m-Y');$hoy=date('Y-m-d');}
 			$filaprincipal.= " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
+			$filaprincipal.="<p class='help-blocktext-danger small text-lowercase' style='color:orange;margin-top:10px;'>* Si has marcado por error un botón, puedes desactivarlo haciendo doble click sobre el mismo.</p>";
 			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
 			echo "</small>";
 		}
@@ -305,8 +314,10 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 		while($row = mysqli_fetch_array($result)){
 			$n+=1;
-			$chk="";
+			$chkT="";
+			$chkF="";
 			$chkJ="";
+			$chkR="";
 			$combasi = $row[5];
 			if ($row[5] == "") {}
 			else{
@@ -346,47 +357,49 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
 			$falta_dia = mysqli_fetch_array($falta_d);
 			if ($falta_dia[0] == "F") {
-				$chk = "checked";
+				$chkF = "checked";
 			}
 			elseif ($falta_dia[0] == "J"){
-				$chk = 'id="disable" disabled';
-				$chkJ = 'data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
+				$chkJ = 'checked';
+				$chkT = 'data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
+			}
+			elseif ($falta_dia[0] == "R"){
+				$chkR = 'checked';
+				$chkT = 'data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
 			}
 			elseif ($hay_actividad==1){
-				$chk = 'id="disable" disabled';
-				$chkJ = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
+				$chkF = 'id="disable" disabled';
+				$chkJ = 'id="disable" disabled';
+				$chkR = 'id="disable" disabled';
+				$chkT = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
 			}
-			?> <div style="width:30px;" <? echo $chkJ; ?>><input type="checkbox" id="falta_<? echo $row[1]."_".$curso;?>"
-	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chk; ?> value="F" /></div>
+			?> 
+
+			<div style="width:120px;" <? echo $chkT; ?>>
+			<span class="text-danger">F</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>"	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkF; ?> value="F" onDblClick="uncheckRadio(this)" /> &nbsp; 
+			<span class="text-success">J</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkJ; ?> value="J" onDblClick="uncheckRadio(this)"/> &nbsp; 
+			<span class="text-warning">R</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkR; ?> value="R" onDblClick="uncheckRadio(this)" /></div>
 			<?
 			echo "</span></label></td>";
 			?>
-<td style='vertical-align: middle;'><? 
+<td><? 
 $faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='F'");
 
 $faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='J'");
 $f_faltaT = mysqli_num_rows($faltaT_F);
 $f_justiT = mysqli_num_rows($faltaT_J);
-?> <span class="label label-danger" data-bs='tooltip'
-	title='Faltas de Asistencia en esta Asignatura'><? if ($f_faltaT>0) {echo "".$f_faltaT."";}?></span>
+?> <div class="label label-danger" data-bs='tooltip'
+	title='Faltas de Asistencia en esta Asignatura'><? if ($f_faltaT>0) {echo "".$f_faltaT."";}?></div>
 <?
-if ($f_faltaT>0) {echo "<br>";}
-?> <span class="label label-success" data-bs='tooltip'
-	title='Faltas Justificadas'><? if ($f_faltaT>0) {echo "".$f_justiT."";}?></span>
+if ($f_faltaT>0) {echo "<br><br>";}
+?> <div class="label label-success" data-bs='tooltip'
+	title='Faltas Justificadas'><? if ($f_faltaT>0) {echo "".$f_justiT."";}?></div>
 </td>
 <?
 echo "</tr>";
 		}
 	}
 	?>
-<tr>
-	<td colspan="2" align="center">
-	<div class="btn-group"><a href="javascript:seleccionar_todo()"
-		class="btn btn-success">Marcar todos</a> <a
-		href="javascript:deseleccionar_todo()" class="btn btn-warning">Desmarcar
-	todos</a></div>
-	</td>
-</tr>
 	<?
 	echo '</table>';
 }
@@ -420,7 +433,7 @@ echo '" />';
 echo '<input name="fecha_dia" type="hidden" value="';
 echo $fecha_dia;
 echo '" />';
-if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large btn-block">Registrar faltas de asistencia</button>';}
+if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class="btn btn-primary btn-large"><i class="fa fa-check"> </i> Registrar faltas de asistencia</button>';}
 
 ?></form>
 </div>
