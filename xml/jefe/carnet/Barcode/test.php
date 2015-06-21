@@ -9,7 +9,7 @@ require_once('class/BCGcode128.barcode.php');
 
 // Loading Font
 if (isset($_GET['show'])) {
-	$font = new BCGFontFile('./font/Arial.ttf', 18);
+	$font = new BCGFontFile('../../../../pdf/font/NewsGotT.ttf', 18);
 }
 else {
 	$font = 0;
