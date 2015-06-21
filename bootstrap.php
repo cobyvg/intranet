@@ -7,22 +7,27 @@ define('VERSION_FILE', 'config/version.php');
 if (file_exists(CONFIG_FILE)) {
 	include_once(CONFIG_FILE);
 	include_once('./'.VERSION_FILE);
+	include_once("./simplepie/autoloader.php");
 }
 elseif (file_exists('../'.CONFIG_FILE)) {
 	include_once('../'.CONFIG_FILE);
 	include_once('../'.VERSION_FILE);
+	include_once("../simplepie/autoloader.php");
 }
 elseif (file_exists('../../'.CONFIG_FILE)) {
 	include_once('../../'.CONFIG_FILE);
 	include_once('../../'.VERSION_FILE);
+	include_once("../../simplepie/autoloader.php");
 }
 elseif (file_exists('../../../'.CONFIG_FILE)) {
 	include_once('../../../'.CONFIG_FILE);
 	include_once('../../../'.VERSION_FILE);
+	include_once("../../../simplepie/autoloader.php");
 }
 elseif (file_exists('../../../../'.CONFIG_FILE)) {
 	include_once('../../../../'.CONFIG_FILE);
 	include_once('../../../../'.VERSION_FILE);
+	include_once("../../../../simplepie/autoloader.php");
 }
 else {
 	
