@@ -1,5 +1,5 @@
 <?
-require('../bootstrap.php');
+require('../../bootstrap.php');
 
 
 $pr = $_SESSION['profi'];

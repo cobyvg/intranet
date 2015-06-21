@@ -1,5 +1,5 @@
 <?
-require('../bootstrap.php');
+require('../../bootstrap.php');
 
 
 $db_con = mysqli_connect($db_host, $db_user, $db_pass) or die("Could not connect to database!");
