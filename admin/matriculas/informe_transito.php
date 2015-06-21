@@ -570,6 +570,11 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 <p class="help-block">Otros aspectos a reseñar (agrupamientos, datos médicos, autonomía, etc).</p>
 <textarea name="observaciones" rows="6" cols="80"><? echo $observaciones;?></textarea>
 <hr>
+<br>
+<legend class="muted">ORIENTACIÓN</legend>
+<p class="help-block">Informe privado del Dpto. de Orientación.</p>
+<textarea name="orientacion" rows="6" cols="80"><? echo $orientacion;?></textarea>
+<hr>
 <input type="submit" class="btn btn-large btn-info hidden-print" name="submit0" value="Actualizar datos">
 </form>
 

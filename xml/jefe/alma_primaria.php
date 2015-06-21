@@ -365,7 +365,8 @@ mysqli_query($db_con,"INSERT INTO `transito_tipo` (`id`, `tipo`) VALUES
 (33, 'norelacion'),
 (34, 'disruptivo'),
 (35, 'expulsion'),
-(36, 'observaciones');
+(36, 'observaciones'),
+(37, 'orientacion');
 ");
 ?>
 <div align="center">

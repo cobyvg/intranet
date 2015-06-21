@@ -87,11 +87,11 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 	<table class="table table-striped table-bordered datatable"><thead>
 	<?
 	$cabecera="<tr><th>Alumno</th><th>Colegio</th>";
-	$col = mysqli_query($db_con,"select distinct tipo from transito_tipo where tipo not like 'norelacion' and tipo not like 'funciona' and tipo not like 'actitud' and tipo not like 'observaciones'");
+	$col = mysqli_query($db_con,"select distinct tipo from transito_tipo where tipo not like 'norelacion' and tipo not like 'funciona' and tipo not like 'actitud' and tipo not like 'observaciones' and tipo not like 'orientacion'");
 	while ($ncol=mysqli_fetch_array($col)) {
 		$cabecera.= "<th>$ncol[0]</th>";
 	}
-	$cabecera.="<th>notas</th>";
+	$cabecera.="<th>notas</th><th>orientacion</th>";
 	$cabecera.="</tr>";
 	echo $cabecera;	
 	?>
@@ -166,7 +166,7 @@ registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
 		
 		}
 
-		$col2 = mysqli_query($db_con,"select dato from transito_datos where claveal = '$claveal' and ((tipo='norelacion' and dato not like '') or (tipo = 'funciona' and dato not like '') or (tipo = 'actitud' and dato not like '') or (tipo = 'observaciones' and dato not like ''))");		
+		$col2 = mysqli_query($db_con,"select dato from transito_datos where claveal = '$claveal' and ((tipo='norelacion' and dato not like '') or (tipo = 'funciona' and dato not like '') or (tipo = 'actitud' and dato not like '') or (tipo = 'observaciones' and dato not like '')  or (tipo = 'orientacion' and dato not like ''))");		
 		$dat1 = mysqli_num_rows($col2);
 		$notas="";
 				if ($dat1>0) {

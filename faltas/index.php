@@ -305,8 +305,10 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 		while($row = mysqli_fetch_array($result)){
 			$n+=1;
-			$chk="";
+			$chkT="";
+			$chkF="";
 			$chkJ="";
+			$chkR="";
 			$combasi = $row[5];
 			if ($row[5] == "") {}
 			else{
@@ -346,18 +348,26 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
 			$falta_dia = mysqli_fetch_array($falta_d);
 			if ($falta_dia[0] == "F") {
-				$chk = "checked";
+				$chkF = "checked";
 			}
 			elseif ($falta_dia[0] == "J"){
-				$chk = 'id="disable" disabled';
-				$chkJ = 'data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
+				$chkJ = 'checked';
+				$chkT = 'data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
+			}
+			elseif ($falta_dia[0] == "R"){
+				$chkR = 'checked';
+				$chkT = 'data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
 			}
 			elseif ($hay_actividad==1){
-				$chk = 'id="disable" disabled';
-				$chkJ = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
+				$chkF = 'id="disable" disabled';
+				$chkJ = 'id="disable" disabled';
+				$chkR = 'id="disable" disabled';
+				$chkT = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
 			}
-			?> <div style="width:30px;" <? echo $chkJ; ?>><input type="checkbox" id="falta_<? echo $row[1]."_".$curso;?>"
-	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chk; ?> value="F" /></div>
+			?> <div style="width:120px;" <? echo $chkT; ?>>F <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>"
+	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkF; ?> value="F" /> &nbsp; J <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>"
+	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkJ; ?> value="J" /> &nbsp; R <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>"
+	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkR; ?> value="R" /></div>
 			<?
 			echo "</span></label></td>";
 			?>

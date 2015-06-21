@@ -130,7 +130,7 @@ foreach($_POST as $clave => $valor)
 		else{
 			// Insertamos las faltas de TODOS los alumnos.
 			$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA )
-VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', 'F')";
+VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', '$valor')";
 				//echo $t0;
 			$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
 			$count += mysqli_affected_rows();
