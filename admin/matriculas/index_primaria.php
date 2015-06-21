@@ -1,23 +1,7 @@
 <?
-session_start();
-include("../../config.php");
-include_once('../../config/version.php');
+require('../../bootstrap.php');
 
-if($_SESSION['autentificado']!='1')
-{
-session_destroy();
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');	
-exit;
-}
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-$profe = $_SESSION['profi'];
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-exit;	
-}
-?>
-<?php
+
 include("../../menu.php");
 include("menu.php");
 ?>

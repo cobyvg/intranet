@@ -1,26 +1,9 @@
 <?
 ini_set("session.cookie_lifetime","5600");
 ini_set("session.gc_maxlifetime","7200");
-session_start();
-include("../../config.php");
-include("../../config/version.php");
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
 
-	if(isset($_SERVER['HTTPS'])) {
-		if ($_SERVER["HTTPS"] == "on") {
-			header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-			exit();
-		}
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
-registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
+require('../../bootstrap.php');
+
 $profesor = $_SESSION ['profi'];
 if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = 'disabled'; }
 
@@ -95,27 +78,6 @@ if($submit=="Registrar Acta del Departamento")
 		if (strstr($contenido,"_____________")==TRUE) {
 			$fecha_real = formatea_fecha($fecha);
 			$contenido = str_replace("_____________",$fecha_real,$contenido);
-			$contenido = '
- 			<style type="text/css">
- 			body {
- 				font-size: 10pt;
- 			}
- 			#footer {
- 				position: fixed;
-			  left: 0;
-				right: 0;
-				bottom: 0;
-				color: #aaa;
-				font-size: 0.9em;
-				text-align: right;
- 			}
- 			.page-number:before {
- 			  content: counter(page);
- 			}
- 			</style>
- 			<div id="footer">
- 			  Página <span class="page-number"></span>
- 			</div>'.$contenido;
 		}
 		$query1 = "INSERT INTO r_departamento ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES( '$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
 		//echo $query1;

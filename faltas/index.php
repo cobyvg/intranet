@@ -1,40 +1,5 @@
 <?
-session_start();
-include("../config.php");
-include("../config/version.php");
-
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-
-	if(isset($_SERVER['HTTPS'])) {
-		if ($_SERVER["HTTPS"] == "on") {
-			header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-			exit();
-		}
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
-
-if($_SESSION['cambiar_clave']) {
-	if(isset($_SERVER['HTTPS'])) {
-		if ($_SERVER["HTTPS"] == "on") {
-			header('Location:'.'https://'.$dominio.'/intranet/clave.php');
-			exit();
-		}
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
-		exit();
-	}
-}
-
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+require('../bootstrap.php');
 ?>
 <script language="JavaScript">
 <!--
@@ -45,6 +10,7 @@ rbutton.checked = false;
 //-->
 </script>
 <?
+
 $pr = $_SESSION['profi'];
 $prof1 = "SELECT distinct no_prof FROM horw where prof = '$pr'";
 $prof0 = mysqli_query($db_con, $prof1);
@@ -379,6 +345,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			<span class="text-danger">F</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>"	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkF; ?> value="F" onDblClick="uncheckRadio(this)" /> &nbsp; 
 			<span class="text-success">J</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkJ; ?> value="J" onDblClick="uncheckRadio(this)"/> &nbsp; 
 			<span class="text-warning">R</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkR; ?> value="R" onDblClick="uncheckRadio(this)" /></div>
+
 			<?
 			echo "</span></label></td>";
 			?>

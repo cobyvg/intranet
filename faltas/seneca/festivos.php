@@ -1,40 +1,5 @@
 <?
-session_start();
-include("../../config.php");
-include_once('../../config/version.php');
-
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
-
-if($_SESSION['cambiar_clave']) {
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
-		exit();
-	}
-}
-
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+require('../../bootstrap.php');
 
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
@@ -42,8 +7,8 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
 }
-?>
-<?php
+
+
 include("../../menu.php");
 include("../menu.php");
 ?>
@@ -79,7 +44,7 @@ $borrarvacios = "delete from festivos where date(fecha) = '0000-00-00'";
  mysqli_query($db_con, $borrarvacios);
  if (mysqli_affected_rows() > '0') {
 ?>
- 	<div align="center""><div class="alert alert-success alert-block fade in" align="left">
+ 	<div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 	 Los datos se han importado correctamente.
 			</div></div><br /> 

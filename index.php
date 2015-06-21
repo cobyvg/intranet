@@ -2,62 +2,8 @@
 // COMPROBAMOS LA VERSIÓN DE PHP
 if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.3.0 o superior para poder utilizar esta aplicación.</p>");
 
-session_start();
+require('bootstrap.php');
 
-// Comprobamos estado del archvo de configuraciï¿½n.
-$f_config = file_get_contents('config.php');
-
-$tam_fichero = strlen($f_config);
-if (file_exists ( "config.php" ) and $tam_fichero > '10') {
-}
-else{
-	// Compatibilidad con versiones anteriores: se mueve el archivo de configuraciï¿½n al directorio raï¿½z.
-	// Archivo de configuraciï¿½n en antiguo directorio se mueve al raiz de la intranet
-	if (file_exists ("/opt/e-smith/config.php")) {
-		$texto = fopen("config.php","w+");
-		if ($texto==FALSE) {
-			echo "<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el directorio de la Intranet. Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>";
-			fclose($texto);
-			exit();
-		}
-		else{
-			$lines = file('/opt/e-smith/config.php');
-			$Definitivo="";
-			foreach ($lines as $line_num => $line) {
-				$Definitivo.=$line;
-			}
-			$pepito=fwrite($texto,$Definitivo) or die("<script>alert('Parece que tenemos un problema serio para continuar: NO es posible escribir en el archivo de configuración de la Intranet ( config.php ). Debes asegurarte de que sea posible escribir en ese directorio, porque la aplicación necesita modificar datos y crear archivos dentro del mismo. Utiliza un Administrador de archvos para conceder permiso de escritura en el directorio donde se encuentra la intranet. Hasta entonces me temo que no podemos continuar.')</script>");
-			fclose ($texto);
-		}
-	}
-	else{
-		header("location:config/index.php");
-		exit();
-	}
-}
-
-// Archivo de configuración cargado
-include_once("config.php");
-include_once("config/version.php");
-
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
-
-registraPagina ( $_SERVER ['REQUEST_URI'], $db_host, $db_user, $db_pass, $db );
 $pr = $_SESSION ['profi'];
 // Comprobamos si da clase a alg&uacute;n grupo
 $cur0 = mysqli_query($db_con, "SELECT distinct prof FROM horw where prof = '$pr'" );

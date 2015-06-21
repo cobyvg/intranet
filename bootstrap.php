@@ -1,0 +1,77 @@
+<?php
+session_start();
+
+define('CONFIG_FILE', 'config.php');
+define('VERSION_FILE', 'config/version.php');
+
+if (file_exists(CONFIG_FILE)) {
+	include_once(CONFIG_FILE);
+	include_once('./'.VERSION_FILE);
+	include_once("./simplepie/autoloader.php");
+}
+elseif (file_exists('../'.CONFIG_FILE)) {
+	include_once('../'.CONFIG_FILE);
+	include_once('../'.VERSION_FILE);
+	include_once("../simplepie/autoloader.php");
+}
+elseif (file_exists('../../'.CONFIG_FILE)) {
+	include_once('../../'.CONFIG_FILE);
+	include_once('../../'.VERSION_FILE);
+	include_once("../../simplepie/autoloader.php");
+}
+elseif (file_exists('../../../'.CONFIG_FILE)) {
+	include_once('../../../'.CONFIG_FILE);
+	include_once('../../../'.VERSION_FILE);
+	include_once("../../../simplepie/autoloader.php");
+}
+elseif (file_exists('../../../../'.CONFIG_FILE)) {
+	include_once('../../../../'.CONFIG_FILE);
+	include_once('../../../../'.VERSION_FILE);
+	include_once("../../../../simplepie/autoloader.php");
+}
+else {
+	
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/config/index.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/config/index.php');
+		exit();
+	}
+	
+}
+
+// COMPROBAMOS LA SESION
+if ($_SESSION['autentificado'] != 1) {
+	$_SESSION = array();
+	session_destroy();
+	
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+		exit();
+	}
+}
+
+if($_SESSION['cambiar_clave']) {
+	if(isset($_SERVER['HTTPS'])) {
+	    if ($_SERVER["HTTPS"] == "on") {
+	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
+	        exit();
+	    } 
+	}
+	else {
+		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+		exit();
+	}
+}
+
+registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);

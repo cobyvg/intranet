@@ -1,10 +1,11 @@
 <?
+require('../../bootstrap.php');
+
 if(isset($_POST['impreso'])){
 	
 	$impreso=$_POST['impreso'];
 	$hola=$_POST['hola'];
 	
-	include("../../config.php");
 	$j=0;
 	foreach ($_POST as $ide => $valor) {
 		if(($ide<>'impreso') and (!empty( $valor))){

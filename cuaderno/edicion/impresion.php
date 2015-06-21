@@ -1,7 +1,6 @@
 <?php
-session_start();
-include("../../config.php");
-include("../../config/version.php");
+require('../../bootstrap.php');
+
 require_once("../../pdf/dompdf_config.inc.php"); 
 foreach($_GET as $key => $val)
 {

@@ -1,71 +1,24 @@
 <?
-session_start();
-include("../../config.php");
-include_once('../../config/version.php');
-
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-	
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
-}
-
-if($_SESSION['cambiar_clave']) {
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
-		exit();
-	}
-}
-
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
+require('../../bootstrap.php');
 
 
 $pr = $_SESSION['profi'];
 $cargo = $_SESSION['cargo'];
-?>
-<script>
-function confirmacion() {
-	var answer = confirm("ATENCIÓN:\n ¿Estás seguro de que quieres borrar el registro de la base de datos? Esta acción es irreversible. Para borrarlo, pulsa Aceptar; de lo contrario, pulsa Cancelar.")
-	if (answer){
-return true;
-	}
-	else{
-return false;
-	}
+
+
+$tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$pr'");
+$tuto = mysqli_fetch_array($tut);
+$unidad = $tuto[0];
+
+// Añadimos campo de validez del informe
+$valid = mysqli_query($db_con,"select valido from infotut_alumno");
+if (mysqli_num_rows($valid)>0) {}
+else{
+	mysqli_query($db_con,"ALTER TABLE `infotut_alumno` ADD `valido` BOOLEAN NOT NULL DEFAULT TRUE");
 }
-</script>
-  <?php
- include("../../menu.php");
- include("menu.php"); 
- 
-  $tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$pr'");
-  $tuto = mysqli_fetch_array($tut);
-  $unidad = $tuto[0];
-  
-  // Añadimos campo de validez del informe
-  $valid = mysqli_query($db_con,"select valido from infotut_alumno");
-  if (mysqli_num_rows($valid)>0) {}
-  else{
-  	mysqli_query($db_con,"ALTER TABLE `infotut_alumno` ADD `valido` BOOLEAN NOT NULL DEFAULT TRUE");
-  }
+
+include("../../menu.php");
+include("menu.php"); 
 ?>
 <div class="container">
 <div class="row">
@@ -192,6 +145,6 @@ No hay Informes de Tutor&iacute;a Activos para t&iacute;</div></div><hr>';
   </div>  
   </div>
   </div>
-<? include("../../pie.php");?>		
+<? include("../../pie.php");?>
 </body>
 </html>

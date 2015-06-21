@@ -13,9 +13,7 @@ if(isset($_POST["word"]))
 	echo '<ul class="nav nav-pills nav-stacked">';
 	while($row=mysqli_fetch_array($result))
 	{
-		// Mostramos las lineas que se mostraran en el desplegable. Cada enlace
-		// tiene una funcion javascript que pasa los parametros necesarios a la
-		// funcion selectItem
+		// Mostramos las lineas que se mostraran en el desplegable.
 		$datos=$row[0];
 		$clave_al=$row[1];
 		$curso_al=$row[2];

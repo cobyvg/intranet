@@ -1,4 +1,4 @@
-                 <?
+<?
 $profesor = $_SESSION['profi'];
 if (empty($today)) {	
 $year=date("Y");
