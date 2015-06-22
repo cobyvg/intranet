@@ -356,14 +356,14 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Ln ( 5 );
 	$MiPDF->MultiCell(168,5,$opt_2b,1);
 	}
-	$MiPDF->Ln ( 5 );
+	$MiPDF->Ln ( 4 );
 	$f_hoy = "        En $localidad_del_centro, a ".$hoy;
 	$sello = "                                  Sello del Centro";
 	$firma_centro = "                                El/La Funcionario/a";
 	$firma_padre= "  Firma del representante o Guardador legal 1";
 	$MiPDF->Cell(84,8,$firma_padre,0);	
 	$MiPDF->Cell(84, 8, $firma_centro,0);
-	$MiPDF->Ln ( 20 );
+	$MiPDF->Ln ( 17 );
 	$MiPDF->Cell(84, 8, $f_hoy,0);
 	$MiPDF->Cell(84, 8, $sello,0);
 	$MiPDF->Ln ( 9 );
@@ -474,7 +474,6 @@ SOLICITA:
 ";
 $firma_34 = "		
 En $localidad_del_centro, a $hoy
-
 
 
  Firma del padre/madre/tutor/a.

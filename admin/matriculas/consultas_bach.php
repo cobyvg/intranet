@@ -329,6 +329,7 @@ if ($promocion=="SI") { $extra.=" and promociona = '1'";}
 if ($promocion=="NO") { $extra.=" and promociona = '2'";}
 if ($promocion=="3/4") { $extra.=" and promociona = '3'";}
 
+if ($bilinguism=="Si") { $extra.=" and bilinguismo = 'Si'";}
 
 
 
@@ -405,6 +406,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		echo '<th>Idiom1</th>';
 		if ($curso=="1BACH") {
 		echo '<th>Idiom2</th>';
+		echo '<th>Bil.</th>';
 		}		
 		echo '<th>Mod.</th>';
 		echo "<th>Opt_Mod".$n_curso."</th>";
@@ -484,6 +486,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		echo '<td> '.$idioma1.'</td>';
 		if ($curso=="1BACH") {
 		echo '<td> '.$idioma2.'</td>';
+		echo '<td> '.$bilinguismo.'</td>';
 		}
 		echo '<td>'.${itinerario.$n_curso}.'</td>';
 		//if ($optativa1 == '0') {${optativa.$i}="";}

@@ -331,9 +331,24 @@ else{
 
 <div class="row">
 
-<div class="col-sm-12">
+<? if ($curso=="1BACH") {		
+?>
+<div class="col-sm-6">
+<div class="form-group">
+	<label >Bilinguismo </label><select class="form-control" name="bilinguism">
+		<? if ($bilinguism) {
+			echo "<option>$bilinguism</option>";
+		}
+		?>
+			<option></option>
+			<option>Si</option>
+		</select>
+</div>
+</div>
+<? } ?>
 <? if ($curso=="2BACH") {		
 ?>
+<div class="col-sm-6">
 <div class="form-group">
 <label>Idioma 1 </label><select class="form-control"  name="idiom1">
 		<?php
@@ -344,9 +359,11 @@ else{
 			<option></option>
 			<option>Inglés</option>
 			<option>Francés</option>
-		</select></div>
-&nbsp;&nbsp;&nbsp;
+		</select>
+		</div>
+		</div>
 <? } ?>
+<div class="col-sm-6">
 <div class="form-group">
 	<label >Problemas de Convivencia </label><select class="form-control" name="fechori">
 		<? if ($fechori) {
@@ -358,8 +375,10 @@ else{
 			<option>1 --> 5</option>
 			<option>5 --> 15</option>
 			<option>15 --> 1000</option>
-		</select></div>
+		</select>
 </div>
+</div>
+
 </div>	
 <div class="row">
 <div class="col-sm-12" align=left>
