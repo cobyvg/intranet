@@ -67,7 +67,7 @@ $apellidos = $datos_ya->apellidos; $id = $datos_ya->id; $nombre = $datos_ya->nom
 	 $telefono2= "Teléfono Móvil: ".$telefono2;
 	 $telefonos="$telefono1\n   $telefono2";
 
-	 if ($datos_ya->colegio == "Otro Centro") { $colegio= "".$datos_ya->otrocolegio; }else{	 $colegio= "".$datos_ya->colegio; }
+	 if ($datos_ya->colegio == "Otro Centro") { $colegio= "".$datos_ya->otrocolegio; }else{	 $colegio= "".$datos_ya->colegio." (".$datos_ya->letra_grupo.")"; }
 	 $correo= "Correo electrónico de padre o madre: ".$datos_ya->correo;
 	 // Optativas y refuerzos
 	 $n_curso = substr($curso, 0, 1);

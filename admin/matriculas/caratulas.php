@@ -68,7 +68,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $matematicas4 = $row['matematicas4'];
 	 $matematicas3 = $row['matematicas3'];
 
-	 if ($row[16] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row[17]; }else{	 $colegio= "Centro de procedencia:  ".$row[16]; }
+	 if ($row[16] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row[17]; }else{	 $colegio= "Centro de procedencia:  ".$row[16]." (".$row['letra_grupo'].")"; }
 	 $correo= "Correo electrónico de padre o madre: ".$row[19];
 	 // Optativas y refuerzos
 	 $n_curso = substr($curso, 0, 1);
