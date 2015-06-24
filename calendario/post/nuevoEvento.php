@@ -1,5 +1,5 @@
 <?php
-require('../bootstrap.php');
+require('../../bootstrap.php');
 
 $GLOBALS['db_con'] = $db_con;
 

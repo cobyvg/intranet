@@ -71,7 +71,7 @@ $sqlmem="SELECT * FROM mem_dep WHERE departamento='".$_GET['depto']."'";
 //echo $sqlmem;
 $datos_memoria= mysqli_query($db_con, $sqlmem);
 $memoria = mysqli_fetch_array($datos_memoria);
-
+$nombre_dep = $memoria[0];
 # Se le asigna a los campo un valor más manejable
 for ( $i = 1 ; $i <= $n_preg ; $i ++) {
 $p[$i]=$memoria[$i+1];
@@ -103,6 +103,7 @@ $html.=  '<div>';
 #Cabecera
 $html.=  '<h1 align="center">' . $nombre_del_centro . '</h1><hr style="color:#eee;">';
 $html.=  '<h2 align="center">Memoria final del Departamento<br /> '.$depto.'</h2>';
+$html.=  '<h3 align="center">Departamento:  '.$nombre_dep.'</h2>';
 $html.=  '<h3 align="center">Curso: '.$curso_actual.'</h3><hr style="color:#eee;"></div>';
 
 for ($i=1; $i<=$n_preg; $i++){
