@@ -1,5 +1,7 @@
 <?
-include("../../config.php");
+require('../../bootstrap.php');
+
+
 if (isset($_POST['eval'])) {$eval = $_POST['eval'];}else{$eval="";}
 
 if (strlen($eval)>1) {	
@@ -31,9 +33,6 @@ else{
 }	  	  
 exit;	
 }
-
-
-require('../../bootstrap.php');
 
 
 $profe = $_SESSION['profi'];

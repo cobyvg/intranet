@@ -7,9 +7,7 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 	exit;
 }
-?>
 
-<?
 include("../../menu.php");
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['no_dia'])) {$no_dia = $_GET['no_dia'];}elseif (isset($_POST['no_dia'])) {$no_dia = $_POST['no_dia'];}else{$no_dia="";}
