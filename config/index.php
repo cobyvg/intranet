@@ -4,6 +4,8 @@ if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incomp
 
 session_start();
 
+include_once("../simplepie/autoloader.php");
+
 if (strlen($_SESSION['mens_error']) > 10) {
 	echo $_SESSION['mens_error'];
 	$_SESSION['mens_error'] = "";
