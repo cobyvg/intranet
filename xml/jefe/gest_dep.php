@@ -10,13 +10,6 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 }
 
 include("../../menu.php");
-
-// Actualizamos campo departamento en tablas
-$n_dep = array("departamentos","inventario","actividades","mem_dep","r_departamento","Textos");
-foreach ($n_dep as $sust_dep){
-	mysqli_query($db_con, "ALTER TABLE `$sust_dep` CHANGE `DEPARTAMENTO` `DEPARTAMENTO` VARCHAR(80) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL");
-}
-
 ?>
 
 <div class="container">

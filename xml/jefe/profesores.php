@@ -100,7 +100,7 @@ if ($db_reservas != $db) {
 	<div align="center">
 	  <input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 	</div>'.mysqli_error($db_con));
-	mysqli_query($db_con, "ALTER TABLE ".$db_reservas.".profesores ADD INDEX (  `PROFESOR` )");
+	mysqli_query($db_con, "".$db_reservas.".profesores ADD INDEX (  `PROFESOR` )");
 }
 
 // Colocar códigos y nombre de asignaturas de Horw de acuerdo con Séneca (tabla Profesores)
@@ -184,8 +184,8 @@ mysqli_query($db_con, "create table horw_faltas select * from horw where (a_asig
 //Elimina las horas no lectivas
   $nolectiva = "UPDATE  horw_faltas SET  nivel =  '', a_grupo = '', n_grupo = '' WHERE  a_grupo NOT LIKE '1%' and a_grupo NOT LIKE '2%' and a_grupo NOT LIKE '3%' and a_grupo NOT LIKE '4%' and a_asig not like 'TUT%'";
   mysqli_query($db_con, $nolectiva);
-  mysqli_query($db_con, "ALTER TABLE  ".$db."horw_faltas ADD INDEX (`prof`)");
-  mysqli_query($db_con, "ALTER TABLE  ".$db."horw_faltas ADD index (`c_asig`)");
+  mysqli_query($db_con, " ".$db."horw_faltas ADD INDEX (`prof`)");
+  mysqli_query($db_con, " ".$db."horw_faltas ADD index (`c_asig`)");
   mysqli_query($db_con, "delete from horw_faltas where a_grupo='' or a_grupo is null");
   mysqli_query($db_con, "OPTIMIZE TABLE  `horw_faltas`");  
 //Profes que están en horw y no en profesores

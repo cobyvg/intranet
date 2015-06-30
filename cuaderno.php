@@ -47,15 +47,6 @@ input[type=number] {
 }
 </style>
 <?
-
-// Añadimos campo Color y Tipo
-$color_col = mysqli_query($db_con,"select color from notas_cuaderno");
-if(mysqli_num_rows($color_col)>0){}else{mysqli_query($db_con,"ALTER TABLE  `notas_cuaderno` ADD  `color` VARCHAR( 7 ) NOT NULL");}
-// Añadimos campo Color
-$tipo_col = mysqli_query($db_con,"select tipo from notas_cuaderno");
-if(mysqli_num_rows($tipo_col)>0){}else{mysqli_query($db_con, "ALTER TABLE  `notas_cuaderno` ADD  `Tipo` VARCHAR( 32 ) NULL");	
-}
-
 // Variables
 
 if (isset($_GET['nom_asig'])) {

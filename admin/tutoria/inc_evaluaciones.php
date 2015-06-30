@@ -15,10 +15,7 @@ foreach ($titulos as $key=>$val){
 `nota` TINYINT( 2 ) NOT NULL ,
 INDEX (  `claveal` )
 ) ENGINE = INNODB";
- mysqli_query($db_con, $crea_tabla2); 
-
- mysqli_query($db_con, "ALTER TABLE  `temp` CHANGE  `claveal`  `claveal` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL");
- 
+ mysqli_query($db_con, $crea_tabla2);  
  mysqli_query($db_con, "ALTER TABLE  `temp` ADD INDEX (  `asignatura` )");
 ?>
 <?

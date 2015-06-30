@@ -11,12 +11,6 @@ include("../../funciones.php");
 $db_con = mysqli_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
 mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
 
-// Ajustes LOMCE
-$m3 = mysqli_query($db_con,"select matematicas3 from matriculas");
-if(!$m3){
-mysqli_query($db_con,"ALTER TABLE  `matriculas` ADD  `matematicas3` CHAR( 1 ) NOT NULL");
-}
-
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{$curso="";}
 if (isset($_GET['dni'])) {$dni = $_GET['dni'];}elseif (isset($_POST['dni'])) {$dni = $_POST['dni'];}else{$dni="";}
 if (isset($_GET['claveal'])) {$claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) {$claveal = $_POST['claveal'];}else{$claveal="";}

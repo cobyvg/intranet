@@ -99,8 +99,6 @@ else {
 					  `a_aula` varchar(5) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
 					  `n_aula` varchar(64) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
 					  `a_grupo` varchar(64) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
-					  `nivel` varchar(10) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
-					  `n_grupo` varchar(10) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
 					  `clase` varchar(16) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
 					  PRIMARY KEY (`id`),
 					  KEY `prof` (`prof`),

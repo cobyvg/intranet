@@ -26,9 +26,6 @@ include("../../menu.php");
 // Vaciamos o borramos tablas
 mysqli_query($db_con, "TRUNCATE TABLE calificaciones");
 mysqli_query($db_con, "TRUNCATE TABLE asignaturas");
-mysqli_query($db_con, "ALTER TABLE  `asignaturas` CHANGE  `CURSO`  `CURSO` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL
-");
-
 mysqli_query($db_con, "drop table materias");
 
 // Asignaturas de Horw

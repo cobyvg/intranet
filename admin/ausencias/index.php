@@ -17,22 +17,6 @@ if (isset($_GET['hora4'])) {$hora4 = $_GET['hora4'];}elseif (isset($_POST['hora4
 if (isset($_GET['hora5'])) {$hora5 = $_GET['hora5'];}elseif (isset($_POST['hora5'])) {$hora5 = $_POST['hora5'];}else{$hora5="";}
 if (isset($_GET['hora6'])) {$hora6 = $_GET['hora6'];}elseif (isset($_POST['hora6'])) {$hora6 = $_POST['hora6'];}else{$hora6="";}
 
-
-
-
-$result = mysqli_query($db_con, "SHOW COLUMNS FROM ausencias"); 
-
-$fieldnames=array(); 
-if (mysqli_num_rows($result) > 0) { 
-	while ($row = mysqli_fetch_assoc($result)) { 
-	 $fieldnames[] = $row['Field']; 
-	} 
-  if ($fieldnames[7] != "archivo") {
-  	mysqli_query($db_con, "ALTER TABLE  `ausencias` ADD  `archivo` VARCHAR( 186 ) NOT NULL");
-  } 
-} 
-
-
 $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");

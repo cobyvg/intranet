@@ -1,6 +1,6 @@
 <?
-ini_set("session.cookie_lifetime","2800"); 
-ini_set("session.gc_maxlifetime","3600");
+ini_set("session.cookie_lifetime","5600"); 
+ini_set("session.gc_maxlifetime","7200");
 
 require('../../bootstrap.php');
 
@@ -11,7 +11,7 @@ $n_preg=15;
 include '../../menu.php';
 // Creación de la tabla
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `mem_dep` (
-  `departamento` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
+  `departamento` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
   `jefe` varchar(150) COLLATE latin1_spanish_ci NOT NULL,
   `p1` longtext COLLATE latin1_spanish_ci NOT NULL,
   `p2` longtext COLLATE latin1_spanish_ci NOT NULL,

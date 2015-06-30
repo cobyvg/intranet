@@ -5,13 +5,6 @@ require('../../bootstrap.php');
 include ("../../menu.php");
 include ("menu.php");
 
-// Añadimos campo observaciones
-$ob = mysqli_query($db_con,"show columns from convivencia where Field = 'observaciones'");
-if (mysqli_num_rows($ob)>0) {}
-else{
-	mysqli_query($db_con,"ALTER TABLE  `convivencia` ADD  `observaciones` TEXT NOT NULL");
-}
-
 $id = $_GET['id'];
 $claveal = $_GET['claveal'];
 if(isset($_GET['hor'])) {$hor = $_GET['hor'];} elseif(isset($_POST['hor'])) {$hor = $_POST['hor'];}

@@ -5,16 +5,6 @@ require('../../bootstrap.php');
 include("../../menu.php");
 include("../menu.php");
 
-
-
-$result = mysqli_query($db_con, "SHOW COLUMNS FROM absentismo");
-while ($row=mysqli_fetch_array($result)) {
-	$n_ss.=$row[0]." ";
-}
-if (stristr($n_ss,"serv_sociales")==FALSE) {
-	mysqli_query($db_con, "ALTER TABLE `absentismo` ADD `serv_sociales` TEXT NULL");
-}
-
 if (isset($_GET['mes'])) {$mes = $_GET['mes'];}elseif (isset($_POST['mes'])) {$mes = $_POST['mes'];}else{$mes="";}
 if (isset($_GET['claveal'])) {$claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) {$claveal = $_POST['claveal'];}else{$claveal="";}
 if (isset($_GET['del'])) {$del = $_GET['del'];}elseif (isset($_POST['del'])) {$del = $_POST['del'];}else{$del="";}

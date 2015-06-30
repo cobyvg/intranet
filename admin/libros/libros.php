@@ -86,11 +86,6 @@ setInterval(string,540000);
 <body onload=wait()>
 <?
 include("../../menu.php");
-
-$lista = mysqli_query($db_con,"select curso from textos_alumnos");
-if (mysqli_num_rows($lista)>0) { }else{
-	mysqli_query($db_con, "ALTER TABLE  `textos_alumnos` ADD  `curso` VARCHAR( 7 ) NOT NULL ");
-}
 ?>
 
 <div class="container">

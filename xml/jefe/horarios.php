@@ -41,13 +41,10 @@ mysqli_query($db_con,"truncate table horw_seg_faltas");
 mysqli_query($db_con,"insert into horw_seg_faltas select * from horw_faltas");
 
 mysqli_query($db_con,"truncate table horw");
-mysqli_query($db_con,"ALTER TABLE  `horw` CHANGE  `asig`  `asig` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  ''
-");
-// Claveal primaria e índice
 
 while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 	// Mientras hay líneas que leer... si necesitamos añdir sólo las clases hay que hacer aquí un if ($data[9]!='')
-	$sql="INSERT INTO horw (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a_aula,n_aula,a_grupo,nivel,n_grupo) ";
+	$sql="INSERT INTO horw (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a_aula,n_aula,a_grupo) ";
 	$sql.=" VALUES ( ";
 	foreach ($data as $indice=>$clave){
 		$sql.="'".trim($clave)."', ";
@@ -103,8 +100,6 @@ while($sin_codi = mysqli_fetch_array($sin_cd)){
 echo '</ul></div></div>';	
 }
 
-// Eliminamos Nivel y Grupo (obsoleto)
-mysqli_query($db_con,"update horw set n_grupo='', nivel=''");
 
 // Cambiamos los numeros de Horw para dejarlos en orden alfabético.
 $hor = mysqli_query($db_con, "select distinct prof from horw order by prof");
@@ -189,7 +184,7 @@ mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo
 	$tabla_tut =mysqli_query($db_con,"select * from FTUTORES");
 	if(mysql_num_rows($tabla_tut) > 0){}
 	else{
-		mysql_query("insert into FTUTORES (nivel, grupo, tutor) select distinct nivel, n_grupo, prof from horw where a_asig like '%TUT%'");
+		mysql_query("insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where a_asig like '%TUT%'");
 	}
 	?>
 	<div class="alert alert-success alert-block fade in" >

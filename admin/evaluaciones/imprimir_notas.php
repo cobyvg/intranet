@@ -187,7 +187,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$MiPDF->SetFont('NewsGotT', '', 10);
 	
 	// OBTENEMOS LAS ASIGNATURAS
-	$result_asig = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig FROM horw WHERE a_grupo='$unidad' AND nivel <> '' AND n_grupo <> '' AND a_asig NOT LIKE '%TUT%' AND a_asig <> 'PT' ORDER BY asig ASC");
+	$result_asig = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig FROM horw WHERE a_grupo='$unidad' AND a_asig NOT LIKE '%TUT%' AND a_asig <> 'PT' ORDER BY asig ASC");
 	
 	while ($row_asig = mysqli_fetch_array($result_asig)) {
 		

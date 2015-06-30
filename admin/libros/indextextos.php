@@ -9,14 +9,6 @@ exit;
 }
 
 include("../../menu.php");
-// Actualizamos el campo nivel
-mysqli_query($db_con, "ALTER TABLE  `textos_gratis` CHANGE  `nivel`  `nivel` VARCHAR( 48 ) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT  '' ");
-
-mysqli_query($db_con, "update `textos_gratis` set nivel = '1º de E.S.O.' WHERE nivel = '1E'");
-mysqli_query($db_con, "update `textos_gratis` set nivel = '2º de E.S.O.' WHERE nivel = '2E'");
-mysqli_query($db_con, "update `textos_gratis` set nivel = '3º de E.S.O.' WHERE nivel = '3E'");
-mysqli_query($db_con, "update `textos_gratis` set nivel = '4º de E.S.O.' WHERE nivel = '4E'");
-
 ?>
 
 

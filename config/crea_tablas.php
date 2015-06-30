@@ -53,6 +53,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `absentismo` (
   `jefatura` text,
   `tutoria` text,
   `orientacion` text,
+  `serv_sociales` text COLLATE latin1_spanish_ci,
   PRIMARY KEY (`id`),
   KEY `claveal` (`claveal`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
@@ -94,14 +95,15 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actividades` (
 // ////////////////////////////////////////////////////////
 
 //
-// Estructura de tabla para la tabla `alumnos`
+// Estructura de tabla para la tabla `actualizacion`
 //
 
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `alumnos` (
-  `nombre` varchar(71) DEFAULT NULL,
-  `unidad` varchar(255) DEFAULT NULL,
-  `claveal` varchar(8) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+mysqli_query($db_con, "CREATE TABLE `actualizacion` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+  `modulo` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `fecha` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
 
 // ////////////////////////////////////////////////////////
 
@@ -155,6 +157,60 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `ausencias` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
+
+//
+// Estructura de tabla para la tabla `Biblioteca`
+//
+
+mysqli_query($db_con, "CREATE TABLE `biblioteca` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+  `Autor` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `Titulo` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `Editorial` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `ISBN` varchar(15) COLLATE latin1_spanish_ci NOT NULL,
+  `Tipo` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
+  `anoEdicion` int(4) NOT NULL,
+  `extension` varchar(8) COLLATE latin1_spanish_ci NOT NULL,
+  `serie` int(11) NOT NULL,
+  `lugaredicion` varchar(48) COLLATE latin1_spanish_ci NOT NULL,
+  `tipoEjemplar` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `ubicacion` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+// ////////////////////////////////////////////////////////
+
+//
+// Estructura de tabla para la tabla `biblioteca_lectores`
+//
+
+mysqli_query($db_con, "CREATE TABLE `biblioteca_lectores` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+  `Codigo` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
+  `DNI` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
+  `Apellidos` varchar(48) COLLATE latin1_spanish_ci NOT NULL,
+  `Nombre` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `Grupo` varchar(6) COLLATE latin1_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+// ////////////////////////////////////////////////////////
+
+//
+// Estructura de tabla para la tabla `cal` (obsoleta)
+//
+
+mysqli_query($db_con, "CREATE TABLE `cal` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+  `eventdate` date NOT NULL DEFAULT '0000-00-00',
+  `html` tinyint(1) NOT NULL DEFAULT '0',
+  `title` varchar(255) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `event` text COLLATE latin1_spanish_ci NOT NULL,
+  `idact` varchar(32) COLLATE latin1_spanish_ci DEFAULT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+// ////////////////////////////////////////////////////////
+
 
 //
 // Estructura de tabla para la tabla `calendario_categorias`
@@ -222,8 +278,22 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calificaciones` (
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `cargos` (
   `dni` varchar(9) NOT NULL DEFAULT '',
   `cargo` varchar(8) NOT NULL DEFAULT '0',
-  KEY `dni` (`dni`)
+  PRIMARY KEY (`dni`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+// ////////////////////////////////////////////////////////
+
+//
+// Estructura de tabla para la tabla `control`
+//
+
+mysqli_query($db_con, "CREATE TABLE `control` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+  `claveal` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
+  `pass` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
+  `correo` varchar(128) COLLATE latin1_spanish_ci DEFAULT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -238,6 +308,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `convivencia` (
   `hora` int(1) NOT NULL DEFAULT '0',
   `trabajo` int(1) NOT NULL DEFAULT '0',
   `fecha` date NOT NULL DEFAULT '0000-00-00',
+  `observaciones` text COLLATE latin1_spanish_ci,
   PRIMARY KEY (`id`),
   KEY `claveal` (`claveal`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
@@ -249,7 +320,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `convivencia` (
 //
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `c_profes` (
-  `id` smallint(2) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `pass` varchar(48) COLLATE latin1_spanish_ci DEFAULT NULL,
   `PROFESOR` varchar(48) COLLATE latin1_spanish_ci DEFAULT NULL,
   `dni` varchar(9) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
@@ -308,7 +379,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `datos` (
   `nota` varchar(5) NOT NULL DEFAULT '',
   `ponderacion` char(3) DEFAULT NULL,
   `claveal` varchar(12) NOT NULL DEFAULT '',
-  KEY `id` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
@@ -320,10 +391,10 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `datos` (
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `departamentos` (
   `NOMBRE` varchar(48) NOT NULL DEFAULT '',
   `DNI` varchar(10) NOT NULL DEFAULT '',
-  `DEPARTAMENTO` varchar(48) NOT NULL DEFAULT '',
+  `DEPARTAMENTO` varchar(80) NOT NULL DEFAULT '',
   `CARGO` varchar(5) DEFAULT NULL,
   `idea` varchar(12) NOT NULL DEFAULT '',
-  KEY `NOMBRE` (`NOMBRE`)
+  PRIMARY KEY (`idea`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
 // Usuario admin y conntraseña
@@ -554,8 +625,6 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `horw` (
   `a_aula` varchar(5) collate latin1_spanish_ci NOT NULL default '',
   `n_aula` varchar(64) collate latin1_spanish_ci NOT NULL default '',
   `a_grupo` varchar(64) collate latin1_spanish_ci NOT NULL default '',
-  `nivel` varchar(10) collate latin1_spanish_ci NOT NULL default '',
-  `n_grupo` varchar(10) collate latin1_spanish_ci NOT NULL default '',
   `clase` varchar(16) collate latin1_spanish_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `prof` (`prof`),
@@ -581,8 +650,6 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `horw_faltas` (
   `a_aula` varchar(5) collate latin1_spanish_ci NOT NULL default '',
   `n_aula` varchar(64) collate latin1_spanish_ci NOT NULL default '',
   `a_grupo` varchar(64) collate latin1_spanish_ci NOT NULL default '',
-  `nivel` varchar(10) collate latin1_spanish_ci NOT NULL default '',
-  `n_grupo` varchar(10) collate latin1_spanish_ci NOT NULL default '',
   `clase` varchar(16) collate latin1_spanish_ci NOT NULL default ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci; ");
 
@@ -601,6 +668,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `infotut_alumno` (
   `F_ENTREV` date NOT NULL DEFAULT '0000-00-00',
   `TUTOR` varchar(40) NOT NULL DEFAULT '',
   `FECHA_REGISTRO` date NOT NULL DEFAULT '0000-00-00',
+  `valido` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`),
   KEY `CLAVEAL` (`CLAVEAL`),
   KEY `APELLIDOS` (`APELLIDOS`),
@@ -640,7 +708,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `intervenciones_profesores` (
   `accion` varchar(200) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
   `fecha` date NOT NULL DEFAULT '0000-00-00',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;";
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 
 // ////////////////////////////////////////////////////////
 
@@ -659,7 +727,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `inventario` (
   `unidades` int(11) NOT NULL DEFAULT '0',
   `fecha` varchar(10) NOT NULL DEFAULT '',
   `ahora` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `departamento` varchar(48) NOT NULL DEFAULT '',
+  `departamento` varchar(80) NOT NULL DEFAULT '',
   `profesor` varchar(48) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
@@ -833,6 +901,8 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `materias` (
   `ABREV` varchar(10) DEFAULT NULL,
   `CURSO` varchar(128) DEFAULT NULL,
   `GRUPO` varchar(6) DEFAULT NULL,
+  `id` int(11) NOT NULL auto_increment,
+  PRIMARY KEY  (`id`),
   KEY `CODIGO` (`CODIGO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
@@ -845,68 +915,73 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `materias` (
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `matriculas` (
   `id` int(11) NOT NULL auto_increment,
-  `claveal` varchar(8) collate latin1_spanish_ci NOT NULL default '',
-  `apellidos` varchar(36) collate latin1_spanish_ci NOT NULL default '',
-  `nombre` varchar(24) collate latin1_spanish_ci NOT NULL default '',
-  `nacido` varchar(24) collate latin1_spanish_ci NOT NULL default '',
-  `provincia` varchar(16) collate latin1_spanish_ci NOT NULL default '',
-  `nacimiento` date NOT NULL default '0000-00-00',
-  `domicilio` varchar(64) collate latin1_spanish_ci NOT NULL default '',
-  `localidad` varchar(24) collate latin1_spanish_ci NOT NULL default '',
-  `dni` varchar(13) collate latin1_spanish_ci NOT NULL default '',
-  `padre` varchar(48) collate latin1_spanish_ci NOT NULL default '',
-  `dnitutor` varchar(13) collate latin1_spanish_ci NOT NULL default '',
-  `madre` varchar(48) collate latin1_spanish_ci NOT NULL default '',
-  `dnitutor2` varchar(13) collate latin1_spanish_ci NOT NULL default '',
-  `telefono1` int(10) NOT NULL default '0',
-  `telefono2` int(10) NOT NULL default '0',
-  `colegio` varchar(16) collate latin1_spanish_ci NOT NULL default '',
-  `otrocolegio` varchar(32) collate latin1_spanish_ci default NULL,
-  `letra_grupo` char(1) collate latin1_spanish_ci default NULL,
-  `correo` varchar(36) collate latin1_spanish_ci default NULL,
-  `idioma` varchar(6) collate latin1_spanish_ci NOT NULL default '',
-  `religion` varchar(22) collate latin1_spanish_ci NOT NULL default '',
-  `optativa1` tinyint(1) NOT NULL default '0',
-  `optativa2` tinyint(1) NOT NULL default '0',
-  `optativa3` tinyint(1) NOT NULL default '0',
-  `optativa4` tinyint(1) NOT NULL default '0',
-  `act1` tinyint(1) default NULL,
-  `act2` tinyint(1) default NULL,
-  `act3` tinyint(1) default NULL,
-  `act4` tinyint(1) default NULL,
-  `optativa21` tinyint(1) default NULL,
-  `optativa22` tinyint(1) default NULL,
-  `optativa23` tinyint(1) default NULL,
-  `optativa24` tinyint(1) default NULL,
-  `act21` tinyint(1) default NULL,
-  `act22` tinyint(1) default NULL,
-  `act23` tinyint(1) default NULL,
-  `act24` tinyint(1) default NULL,
-  `observaciones` text collate latin1_spanish_ci,
-  `exencion` tinyint(1) default NULL,
-  `bilinguismo` char(2) collate latin1_spanish_ci default NULL,
-  `curso` varchar(5) collate latin1_spanish_ci NOT NULL default '',
-  `fecha` datetime NOT NULL default '0000-00-00 00:00:00',
-  `promociona` tinyint(1) default NULL,
-  `transporte` tinyint(1) default NULL,
-  `ruta_este` varchar(42) collate latin1_spanish_ci default NULL,
-  `ruta_oeste` varchar(42) collate latin1_spanish_ci default NULL,
-  `sexo` varchar(6) collate latin1_spanish_ci NOT NULL default '',
-  `hermanos` tinyint(2) default NULL,
-  `nacionalidad` varchar(32) collate latin1_spanish_ci NOT NULL default '',
-  `itinerario` tinyint(1) default NULL,
-  `matematicas4` char(1) collate latin1_spanish_ci default NULL,
-  `optativa5` tinyint(1) default NULL,
-  `optativa6` tinyint(1) default NULL,
-  `optativa7` tinyint(1) default NULL,
-  `diversificacion` tinyint(1) default NULL,
-  `optativa25` tinyint(1) default NULL,
-  `optativa26` tinyint(1) default NULL,
-  `optativa27` tinyint(1) default NULL,
-  `confirmado` tinyint(1) default NULL,
-  `admin` tinyint(1) default NULL,
-  `grupo_actual` char(2) collate latin1_spanish_ci default NULL,
-  `revisado` tinyint(1) default NULL,
+  `claveal` varchar(8) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `apellidos` varchar(36) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `nombre` varchar(24) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `nacido` varchar(24) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `provincia` varchar(16) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `nacimiento` date NOT NULL DEFAULT '0000-00-00',
+  `domicilio` varchar(64) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `localidad` varchar(24) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `dni` varchar(13) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `padre` varchar(48) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `dnitutor` varchar(13) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `madre` varchar(48) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `dnitutor2` varchar(13) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `telefono1` int(10) NOT NULL DEFAULT '0',
+  `telefono2` int(10) NOT NULL DEFAULT '0',
+  `colegio` varchar(64) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `otrocolegio` varchar(64) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `letra_grupo` char(1) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `correo` varchar(36) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `idioma` varchar(6) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `religion` varchar(22) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `optativa1` tinyint(1) NOT NULL DEFAULT '0',
+  `optativa2` tinyint(1) NOT NULL DEFAULT '0',
+  `optativa3` tinyint(1) NOT NULL DEFAULT '0',
+  `optativa4` tinyint(1) NOT NULL DEFAULT '0',
+  `act1` tinyint(1) DEFAULT NULL,
+  `act2` tinyint(1) DEFAULT NULL,
+  `act3` tinyint(1) DEFAULT NULL,
+  `act4` tinyint(1) DEFAULT NULL,
+  `optativa21` tinyint(1) DEFAULT NULL,
+  `optativa22` tinyint(1) DEFAULT NULL,
+  `optativa23` tinyint(1) DEFAULT NULL,
+  `optativa24` tinyint(1) DEFAULT NULL,
+  `act21` tinyint(1) DEFAULT NULL,
+  `act22` tinyint(1) DEFAULT NULL,
+  `act23` tinyint(1) DEFAULT NULL,
+  `act24` tinyint(1) DEFAULT NULL,
+  `observaciones` text COLLATE latin1_spanish_ci,
+  `exencion` tinyint(1) DEFAULT NULL,
+  `bilinguismo` char(2) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `curso` varchar(5) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `promociona` tinyint(1) DEFAULT NULL,
+  `transporte` tinyint(1) DEFAULT NULL,
+  `ruta_este` varchar(42) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `ruta_oeste` varchar(42) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `sexo` varchar(6) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `hermanos` tinyint(2) DEFAULT NULL,
+  `nacionalidad` varchar(32) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `itinerario` tinyint(1) DEFAULT NULL,
+  `matematicas4` char(1) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `optativa5` tinyint(1) DEFAULT NULL,
+  `optativa6` tinyint(1) DEFAULT NULL,
+  `optativa7` tinyint(1) DEFAULT NULL,
+  `diversificacion` tinyint(1) DEFAULT NULL,
+  `optativa25` tinyint(1) DEFAULT NULL,
+  `optativa26` tinyint(1) DEFAULT NULL,
+  `optativa27` tinyint(1) DEFAULT NULL,
+  `confirmado` tinyint(1) DEFAULT NULL,
+  `admin` tinyint(1) DEFAULT NULL,
+  `grupo_actual` char(2) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `revisado` tinyint(1) DEFAULT NULL,
+  `enfermedad` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
+  `otraenfermedad` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
+  `foto` tinyint(1) NOT NULL,
+  `divorcio` varchar(64) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `matematicas3` char(1) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
@@ -919,57 +994,63 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `matriculas` (
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `matriculas_bach` (
   `id` int(11) NOT NULL auto_increment,
-  `claveal` varchar(8) collate latin1_spanish_ci NOT NULL default '',
-  `apellidos` varchar(36) collate latin1_spanish_ci NOT NULL default '',
-  `nombre` varchar(24) collate latin1_spanish_ci NOT NULL default '',
-  `nacido` varchar(24) collate latin1_spanish_ci NOT NULL default '',
-  `provincia` varchar(16) collate latin1_spanish_ci NOT NULL default '',
-  `nacimiento` date NOT NULL default '0000-00-00',
-  `domicilio` varchar(64) collate latin1_spanish_ci NOT NULL default '',
-  `localidad` varchar(24) collate latin1_spanish_ci NOT NULL default '',
-  `dni` varchar(13) collate latin1_spanish_ci NOT NULL default '',
-  `padre` varchar(48) collate latin1_spanish_ci NOT NULL default '',
-  `dnitutor` varchar(13) collate latin1_spanish_ci NOT NULL default '',
-  `madre` varchar(48) collate latin1_spanish_ci NOT NULL default '',
-  `dnitutor2` varchar(13) collate latin1_spanish_ci NOT NULL default '',
-  `telefono1` int(10) NOT NULL default '0',
-  `telefono2` int(10) NOT NULL default '0',
-  `colegio` varchar(16) collate latin1_spanish_ci NOT NULL default '',
-  `otrocolegio` varchar(32) collate latin1_spanish_ci default NULL,
-  `letra_grupo` char(1) collate latin1_spanish_ci default NULL,
-  `correo` varchar(36) collate latin1_spanish_ci default NULL,
-  `idioma1` varchar(7) collate latin1_spanish_ci NOT NULL default '',
-  `idioma2` varchar(7) collate latin1_spanish_ci NOT NULL default '',
-  `religion` varchar(22) collate latin1_spanish_ci NOT NULL default '',
-  `observaciones` text collate latin1_spanish_ci,
-  `curso` varchar(5) collate latin1_spanish_ci NOT NULL default '',
-  `fecha` datetime NOT NULL default '0000-00-00 00:00:00',
-  `promociona` tinyint(1) default NULL,
-  `transporte` tinyint(1) default NULL,
-  `ruta_este` varchar(42) collate latin1_spanish_ci default NULL,
-  `ruta_oeste` varchar(42) collate latin1_spanish_ci default NULL,
-  `sexo` varchar(6) collate latin1_spanish_ci NOT NULL default '',
-  `hermanos` tinyint(2) default NULL,
-  `nacionalidad` varchar(32) collate latin1_spanish_ci NOT NULL default '',
-  `confirmado` tinyint(1) default NULL,
-  `admin` tinyint(1) default NULL,
-  `grupo_actual` char(2) collate latin1_spanish_ci default NULL,
-  `revisado` tinyint(1) default NULL,
-  `itinerario1` tinyint(1) default NULL,
-  `itinerario2` tinyint(1) default NULL,
-  `optativa1` varchar(64) collate latin1_spanish_ci default NULL,
-  `optativa2` varchar(64) collate latin1_spanish_ci default NULL,
-  `optativa2b1` tinyint(1) default NULL,
-  `optativa2b2` tinyint(1) default NULL,
-  `optativa2b3` tinyint(1) default NULL,
-  `optativa2b4` tinyint(1) default NULL,
-  `optativa2b5` tinyint(1) default NULL,
-  `optativa2b6` tinyint(1) default NULL,
-  `optativa2b7` tinyint(1) default NULL,
-  `optativa2b8` tinyint(1) default NULL,
-  `optativa2b9` tinyint(1) default NULL,
-  `optativa2b10` tinyint(1) default NULL,
-  `repite` tinyint(1) NOT NULL default '0',
+  `claveal` varchar(8) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `apellidos` varchar(36) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `nombre` varchar(24) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `nacido` varchar(24) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `provincia` varchar(16) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `nacimiento` date NOT NULL DEFAULT '0000-00-00',
+  `domicilio` varchar(64) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `localidad` varchar(24) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `dni` varchar(13) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `padre` varchar(48) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `dnitutor` varchar(13) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `madre` varchar(48) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `dnitutor2` varchar(13) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `telefono1` int(10) NOT NULL DEFAULT '0',
+  `telefono2` int(10) NOT NULL DEFAULT '0',
+  `colegio` varchar(64) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `otrocolegio` varchar(64) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `letra_grupo` char(1) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `correo` varchar(36) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `idioma1` varchar(7) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `idioma2` varchar(7) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `religion` varchar(22) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `observaciones` text COLLATE latin1_spanish_ci,
+  `curso` varchar(5) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `fecha` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `promociona` tinyint(1) DEFAULT NULL,
+  `transporte` tinyint(1) DEFAULT NULL,
+  `ruta_este` varchar(42) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `ruta_oeste` varchar(42) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `sexo` varchar(6) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `hermanos` tinyint(2) DEFAULT NULL,
+  `nacionalidad` varchar(32) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `confirmado` tinyint(1) DEFAULT NULL,
+  `admin` tinyint(1) DEFAULT NULL,
+  `grupo_actual` char(2) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `revisado` tinyint(1) DEFAULT NULL,
+  `itinerario1` tinyint(1) DEFAULT NULL,
+  `itinerario2` tinyint(1) DEFAULT NULL,
+  `optativa1` varchar(64) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `optativa2` varchar(64) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `optativa2b1` tinyint(1) DEFAULT NULL,
+  `optativa2b2` tinyint(1) DEFAULT NULL,
+  `optativa2b3` tinyint(1) DEFAULT NULL,
+  `optativa2b4` tinyint(1) DEFAULT NULL,
+  `optativa2b5` tinyint(1) DEFAULT NULL,
+  `optativa2b6` tinyint(1) DEFAULT NULL,
+  `optativa2b7` tinyint(1) DEFAULT NULL,
+  `optativa2b8` tinyint(1) DEFAULT NULL,
+  `optativa2b9` tinyint(1) DEFAULT NULL,
+  `optativa2b10` tinyint(1) DEFAULT NULL,
+  `repite` tinyint(1) NOT NULL DEFAULT '0',
+  `enfermedad` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
+  `otraenfermedad` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
+  `foto` tinyint(1) NOT NULL,
+  `divorcio` varchar(64) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `bilinguismo` char(2) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `religion1b` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
@@ -1062,6 +1143,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `notas_cuaderno` (
   `visible_nota` int(1) unsigned NOT NULL default '0',
   `orden` tinyint(2) NOT NULL default '0',
   `Tipo` varchar(32) collate latin1_spanish_ci default NULL,
+  `color` varchar(7) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `profesor` (`profesor`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
@@ -1322,19 +1404,6 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tutoria` (
 // ////////////////////////////////////////////////////////
 
 //
-// Estructura de tabla para la tabla `user`
-//
-
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `user` (
-  `id` tinyint(4) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(25) NOT NULL DEFAULT '',
-  `password` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
-
-// ////////////////////////////////////////////////////////
-
-//
 // Estructura de tabla para la tabla `usuarioalumno`
 //
 
@@ -1343,7 +1412,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `usuarioalumno` (
   `pass` varchar(16) NOT NULL DEFAULT '',
   `nombre` varchar(48) DEFAULT NULL,
   `perfil` char(1) NOT NULL DEFAULT '',
-  `unidad` varchar(5) NOT NULL DEFAULT '',
+  `unidad` varchar(64) NOT NULL DEFAULT '',
   `claveal` varchar(12) NOT NULL DEFAULT '',
   KEY `claveal` (`claveal`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");

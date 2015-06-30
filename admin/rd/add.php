@@ -19,7 +19,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS r_departamento (
 `contenido` LONGTEXT NOT NULL ,
 `jefedep` VARCHAR( 255 ) DEFAULT NULL ,
 `timestamp` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-`departamento` VARCHAR( 48 ) DEFAULT NULL ,
+`departamento` VARCHAR( 80 ) DEFAULT NULL ,
 `fecha` DATE NOT NULL ,
 `impreso` TINYINT( 1 ) NOT NULL ,
 `numero` INT NOT NULL ,
@@ -31,7 +31,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS r_departamento_backup (
 `contenido` LONGTEXT NOT NULL ,
 `jefedep` VARCHAR( 255 ) DEFAULT NULL ,
 `timestamp` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-`departamento` VARCHAR( 48 ) DEFAULT NULL ,
+`departamento` VARCHAR( 80 ) DEFAULT NULL ,
 `fecha` DATE NOT NULL ,
 `numero` INT NOT NULL ,
 PRIMARY KEY ( `id` )

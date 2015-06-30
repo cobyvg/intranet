@@ -10,13 +10,6 @@ $tut = mysqli_query($db_con, "select unidad from FTUTORES where tutor = '$pr'");
 $tuto = mysqli_fetch_array($tut);
 $unidad = $tuto[0];
 
-// Añadimos campo de validez del informe
-$valid = mysqli_query($db_con,"select valido from infotut_alumno");
-if (mysqli_num_rows($valid)>0) {}
-else{
-	mysqli_query($db_con,"ALTER TABLE `infotut_alumno` ADD `valido` BOOLEAN NOT NULL DEFAULT TRUE");
-}
-
 include("../../menu.php");
 include("menu.php"); 
 ?>
