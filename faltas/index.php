@@ -1,15 +1,5 @@
 <?
 require('../bootstrap.php');
-?>
-<script language="JavaScript">
-<!--
-function uncheckRadio(rbutton) {
-if(rbutton.checked == true)
-rbutton.checked = false;  
-}
-//-->
-</script>
-<?
 
 $pr = $_SESSION['profi'];
 $prof1 = "SELECT distinct no_prof FROM horw where prof = '$pr'";
@@ -342,9 +332,9 @@ while($hora2 = mysqli_fetch_row($hora0))
 			?> 
 
 			<div style="width:120px;" <? echo $chkT; ?>>
-			<span class="text-danger">F</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>"	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkF; ?> value="F" onDblClick="uncheckRadio(this)" /> &nbsp; 
-			<span class="text-success">J</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkJ; ?> value="J" onDblClick="uncheckRadio(this)"/> &nbsp; 
-			<span class="text-warning">R</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkR; ?> value="R" onDblClick="uncheckRadio(this)" /></div>
+			<span class="text-danger">F</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>"	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkF; ?> value="F" onClick="uncheckRadio(this)" /> &nbsp; 
+			<span class="text-success">J</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkJ; ?> value="J" onClick="uncheckRadio(this)"/> &nbsp; 
+			<span class="text-warning">R</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkR; ?> value="R" onClick="uncheckRadio(this)" /></div>
 
 			<?
 			echo "</span></label></td>";
@@ -472,6 +462,17 @@ function deseleccionar_todo(){
 	for (i=0;i<document.Cursos.elements.length;i++)
 		if(document.Cursos.elements[i].type == "checkbox")	
 			document.Cursos.elements[i].checked=0
+}
+</script>
+
+<script>
+var checkedradio;
+function uncheckRadio(rbutton) {
+    if (checkedradio == rbutton) {
+        rbutton.checked = false;
+        checkedradio = null;
+    }
+    else {checkedradio = rbutton;}
 }
 </script>
 </body>
