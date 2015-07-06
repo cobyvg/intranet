@@ -459,10 +459,10 @@ function contents_dir($current_dir, $directory)
 		if ($_GET['index'] == 'privado' && !is_dir("$current_dir/$filename")) {
 			// COMPARTIR ARCHIVO
 			if (isset($directory)) {
-				$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"../../varios/".$_SESSION['ide']."/$directory/$filename\">$filename</a>");
+				$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$directory/$filename\" target=\"_blank\">$filename</a>");
 			}
 			else {
-				$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"../../varios/".$_SESSION['ide']."/$filename\">$filename</a>");
+				$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$filename\" target=\"_blank\">$filename</a>");
 			}
 			
 			echo "<a href=\"../admin/mensajes/redactar.php?texto=$share_string\" rel=\"tooltip\" title=\"Compartir\"><span class=\"fa fa-share-alt fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
