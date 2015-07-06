@@ -7,7 +7,7 @@ $today=date("d");
 }
 ?>
   <div class="row">
-    <div class="col-sm-5 col-sm-offset-1">
+    <div class="col-sm-6">
     
       <?
 echo "<h4 align='center'>FECHA SELECCIONADA: &nbsp;<span style='font-size:1.0em; color:#08c'>$today-$month-$year</span></h4><br />
@@ -16,22 +16,6 @@ if ($mens_fecha) {
 echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_fecha.'</div></div>';	}
 $numerodia = getdate(mktime(0,0,0,$month,$today,$year));
-	if ($numerodia['wday']==0)
-		{
-echo '<div align="center"><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-			El día que has seleccionado es <b>DOMINGO</b>
-          </div></div>';
-		}
-	if ($numerodia['wday']==6)
-		{
-echo '<div align="center"><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-			El día que has seleccionado es <b>SÁBADO</b>
-          </div></div>';
-		}
 ?>
 		        <div class="well-trasparent well-large">
 		        <? 
@@ -39,6 +23,7 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in">
 ?>                   
                    </center>  
      <br />
+     <form action="index.php" method="POST">
       <table style="width:auto">
         <tr>
           <td style="background-color:#46a546;width:30px;"></td>
@@ -69,13 +54,34 @@ echo "</td></tr></table><br />";
  </div>
   </div>
   
-  <div class="col-sm-5">
+  <div class="col-sm-6">
+ 
+<!-- Button trigger modal -->
+<a href="#" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModal">
+ <span class="fa fa-question fa-lg"></span>
+</a>
+
+ <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+      </div>
+      <div class="modal-body">
+		<p class="help-block">
+		Para justificar una falta selecciona en primer lugar un alumno en la columna de la derecha. Una vez el alumno aparece seleccionado elige el mes correspondiente. Aparecerán en rojo las faltas de aistencia del alumno y en verde las faltas justificadas. <br>Al hacer click sobre una celda del calendario cambiamos su estado: si está vacía se pone roja, si está roja se pone verde, y si está verde la dejamos a cero. <br>Si la falta no ha sido registrada todavía (el día del calendario no es verde ni rojo), aparecerá un cuadro de diálogo en el que deberás seleccionar las horas en que el alumno ha estado ausente. Una vez marcadas las horas de la falta podrás justificarlas haciendo click de nuevo sobre el día elegido.
+		</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
            <? 
-           echo $profesor;
-           if (empty($profesor)) {
-           	echo "<br><h6>Selecciona Tutor:</h6><hr>";
-           }
           if ($profesor) {
 // Buscamos el grupo del que $profesor es tutor.
 	$tutor = mysqli_query($db_con, "SELECT unidad FROM FTUTORES WHERE TUTOR = '$profesor'") ;
@@ -117,9 +123,10 @@ while($filanivelgrupo1 = mysqli_fetch_array($nivelgrupo1))
 $completo1 =  "$filanivelgrupo1[0], $filanivelgrupo1[1]";
 $alumno1 =  $filanivelgrupo1[3];
 $clave1 = $filanivelgrupo1[3];
-echo "<input style='vertical-align:bottom' name='alumno' type='radio'";
+echo "<div class='radio'>
+  <label><input name='alumno' type='radio'";
 if($alumno == $alumno1){echo " checked";}
-echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 <br>";
+echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 </label></div>";
 		        	} 
 		        	echo "</div>";
 		        	echo "<div class='col-sm-6' align='left'>";
@@ -128,9 +135,10 @@ echo " value = '$clave1' onclick=submit() /> $filanivelgrupo1[2]. $completo1 <br
 $completo2 =  "$filanivelgrupo[0], $filanivelgrupo[1]";
 $alumno2 =  $filanivelgrupo[3];
 $clave2 = $filanivelgrupo[3];
-echo "<input style='vertical-align:bottom' name='alumno' type='radio'";
+echo "<div class='radio'>
+  <label><input name='alumno' type='radio'";
 if($alumno == $alumno2){echo " checked";}
-echo " value = '$clave2' onclick=submit() /> $filanivelgrupo[2]. $completo2 <br>";
+echo " value = '$clave2' onclick=submit() /> $filanivelgrupo[2]. $completo2 </label></div>";
 		        }		         	 
 	echo "</div>";
 	echo "</div>";	
@@ -141,3 +149,6 @@ echo " value = '$clave2' onclick=submit() /> $filanivelgrupo[2]. $completo2 <br>
           	echo "<input type=hidden name=unidad value= \"$unidad\">";
           }     
             ?>
+</div>
+</div>
+</div>

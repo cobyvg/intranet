@@ -359,8 +359,38 @@ $PLUGIN_COLORPICKER = 1;
 						  <a href="?mes=<?php echo $mes_ant; ?>&anio=<?php echo $anio_ant; ?>" class="btn btn-default">&laquo;</a>
 						  <a href="?mes=<?php echo date('n'); ?>&anio=<?php echo date('Y'); ?>" class="btn btn-default">Hoy</a>
 						  <a href="?mes=<?php echo $mes_sig; ?>&anio=<?php echo $anio_sig; ?>" class="btn btn-default">&raquo;</a>
-						</div>
+						 </div>
+						  <!-- Button trigger modal -->
+						  &nbsp;
+						  <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+ 							<span class="fa fa-question fa-lg"></span>
+						  </a>
+						  
+						
 					</div>
+
+ <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+      </div>
+      <div class="modal-body">
+		<p class="help-block">
+		Este módulo presenta los distintos calendarios que funcionan en la aplicación. <br><br>
+		El <b>Calendario personal</b> es propio de todos y cada uno de los profesores. Sólo es visible para el profesor concreto que es su propietario. Si la actividad afecta a Grupos de alumnos (hemos seleccionado alguno de nuestros grupos), también es visible para los profesores que dan clase en esos grupos. Es una forma fácil de controlar los exámenes o actividades que afectan al grupo por parte del Equipo Educativo del mismo. <br>Además del Calendario personal, podemos crear tantos calendarios personales como necesitemos (calendarios asociados a nuestros grupos para crear un diario de trabajo con los alumnos, etc.). Para añadir un calendartio hacemos click sobre el icono de '+' que aparece al lado del selector de calendarios.<br><br>
+		El <b>Calendario del Centro</b> es visble por todo el mundo, incluída la Página pública del Centro. El Equipo Directivo puede crear entradas en este calendario.<br><br>
+		El <b>Calendario de Actividades Complementarias y Extraescolares</b> es también visible por todo el mundo y pueden crear entradas los Jefes de Departamento, DACE y Dirección. También pueden editar las acividades los profesores asociados a una de ellas. El formulario de registro de Acividades aparece cuando hemos seleccionado este Calendario. Los campos son obligatorios.<br>
+		</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 				</div>
 				
 				<br class="hidden-print">
@@ -531,8 +561,7 @@ $PLUGIN_COLORPICKER = 1;
 				mysqli_free_result($result_eventos);
 			}
 			mysqli_free_result($result_calendarios);
-			?>
-			
+			?>			
 			<?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE espublico=1"); ?>
 			<?php if (mysqli_num_rows($result)): ?>
 			<?php while ($row = mysqli_fetch_assoc($result)): ?>

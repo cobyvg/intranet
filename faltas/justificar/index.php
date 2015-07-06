@@ -1,7 +1,6 @@
 <?
 require('../../bootstrap.php');
-
-
+	
 include("../../menu.php");
 include("../menu.php");
 if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];} elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];}
@@ -12,16 +11,13 @@ if (isset($_GET['alumno'])) {$alumno = $_GET['alumno'];}elseif (isset($_POST['al
 if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 if (isset($_GET['falta'])) {$falta = $_GET['falta'];}elseif (isset($_POST['falta'])) {$falta = $_POST['falta'];}else{$falta="";}
 ?>
+
 <div class="container">
 <div class="row">
 
 <div class="page-header">
   <h2>Faltas de Asistencia <small> Justificar faltas</small></h2>
 </div>
-<br />
-
-
-<form action="index.php" method="POST">
   
     <?php
 // Se presenta la estructura de las tablas del formulario.

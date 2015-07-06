@@ -16,6 +16,13 @@ if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}
 if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
 
+// Control de tablas
+$bck =mysqli_query($db_con,"select divorcio from matriculas_backup");
+if (mysqli_num_rows($bck)>0) {}else{
+	mysqli_query($db_con,"ALTER TABLE `matriculas_backup` ADD `enfermedad` VARCHAR(254) NULL , ADD `otraenfermedad` VARCHAR(254) NULL , ADD `foto` TINYINT(1) NOT NULL , ADD `divorcio` VARCHAR(64) NULL , ADD `matematicas3` CHAR(1) NULL");
+	mysqli_query($db_con,"ALTER TABLE `matriculas_bach_backup` ADD `enfermedad` VARCHAR(254) NULL , ADD `otraenfermedad` VARCHAR(254) NULL , ADD `foto` TINYINT(1) NOT NULL , ADD `divorcio` VARCHAR(64) NULL , ADD `bilinguismo` CHAR(2) NULL , ADD `religion1b` VARCHAR(64) NULL");
+}
+
 if (isset($_POST['listados'])) {
 	foreach ($_POST as $key=>$val)
 	{
@@ -598,10 +605,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					// Junio
 
 
-					if (date('m')=='6'){
+					if (date('m')>'05' and date('m')<'09'){
 						//echo " ".$val_notas;
 						if ($val_notas<3) {$promociona="1";}
-						echo "<span class='muted' style='font-size:11px'> $val_notas&nbsp;</span>";
+						echo "<span class='text-muted'> $val_notas&nbsp;</span>";
 						for ($i=1;$i<4;$i++){
 							echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
 							if($promociona == $i){echo " checked";}
@@ -611,7 +618,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					// Septiembre
 					elseif (date('m')=='09'){
 						if ($val_notas>2) {$promociona="3";}else{$promociona="1";}
-						echo "<span class='muted'> $val_notas&nbsp;</span>";
+						echo "<span class='text-muted'> $val_notas&nbsp;</span>";
 						for ($i=1;$i<4;$i++){
 							echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
 							if($promociona == $i){echo " checked";}
@@ -663,7 +670,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 	// Control del envío de datos
 
-//	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion2()' /><br>";
+	echo "<input type='submit' name='enviar' value='Enviar datos' class='btn btn-primary hdden-print' onclick='confirmacion2()' /><br>";
 
 	echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hdden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hdden-print' />";
 
@@ -679,7 +686,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				$exen = mysqli_query($db_con, "select exencion from matriculas where $extra and exencion ='1'");
 				$num_exen = mysqli_num_rows($exen);
 
-				if ($curso=="1ESO" or $curso=="2ESO"){$num_acti = "6";}else{$num_acti = "4";}
+				if ($curso=="1ESO" or $curso=="2ESO"){$num_acti = "7";}else{$num_acti = "4";}
 				for ($i=1;$i<$num_acti+1;$i++){
 					${acti.$i} = mysqli_query($db_con, "select act1 from matriculas where $extra and act1 = '$i'");
 					${num_act.$i} = mysqli_num_rows(${acti.$i});

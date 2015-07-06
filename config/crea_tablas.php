@@ -1551,6 +1551,23 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY  (`profesor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;");
 
+// Tabla de Dependencias ocultas
+
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS ocultas (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `aula` varchar(48) COLLATE latin1_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+// Tabla de Dependencias nuevas
+
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS nuevas (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `abrev` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
+  `nombre` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `texto` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 echo '<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />';
 

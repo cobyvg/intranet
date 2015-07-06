@@ -1,10 +1,14 @@
 <?
 // Justificación de las faltas.
-include("justifica.php");
+if ($_POST['F']==1 or $_GET['F']==1) {
+	include("justifica.php");
+}
 
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') == TRUE)
 {
-
+?>
+<form action="index.php" method="POST">
+<?
 if(empty($profesor))
 {
 ?>
@@ -53,22 +57,7 @@ echo "<h4 align='center'>FECHA SELECCIONADA: &nbsp;<span style='font-size:1.0em;
 ";		        	
 		
 $numerodia = getdate(mktime(0,0,0,$month,$today,$year));
-	if ($numerodia['wday']==0)
-		{
-			echo '<div align="center"><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-			El día que has seleccionado es <b>DOMINGO</b>
-          </div></div>';
-		  }		
-	if ($numerodia['wday']==6)
-		{
-echo '<div align="center"><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-			El día que has seleccionado es <b>DOMINGO</b>
-          </div></div>';
-		}
+
 		if (!(empty($mens_fecha))) {
 			echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_fecha.'</div></div>';
@@ -77,6 +66,7 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in">
 		        include("cal.php"); 
 ?>
       <br />
+      <form action="index.php" method="POST">
       <table>
         <tr>
           <td style="background-color:#46a546;width:30px;"></td>
@@ -107,11 +97,10 @@ echo "</td></tr></table><br />";
   
   
   <div class="col-sm-6">
-  
-  
+   
 <!-- Button trigger modal -->
 <a href="#" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModal">
- <span class="fa fa-question-circle fa-lg"></span>
+ <span class="fa fa-question fa-lg"></span>
 </a>
 
  <!-- Modal -->
@@ -124,7 +113,7 @@ echo "</td></tr></table><br />";
       </div>
       <div class="modal-body">
 		<p class="help-block">
-		Para justificar una falta selecciona en primer lugar un alumno en la columna de la derecha. Una vez el alumno aparece seleccionado elige el mes correspondiente. Aparecerán en rojo las faltas de aistencia del alumno y en verde las faltas justificadas. <br>Al hacer click sobre una fecha cambiamos su estado: si está vacía se pone roja, si está roja se pone verde, y si está verde la dejamos a cero.
+		Para justificar una falta selecciona en primer lugar un alumno en la columna de la derecha. Una vez el alumno aparece seleccionado elige el mes correspondiente. Aparecerán en rojo las faltas de aistencia del alumno y en verde las faltas justificadas. <br>Al hacer click sobre una celda del calendario cambiamos su estado: si está vacía se pone roja, si está roja se pone verde, y si está verde la dejamos a cero. <br>Si la falta no ha sido registrada todavía (el día del calendario no es verde ni rojo), aparecerá un cuadro de diálogo en el que deberás seleccionar las horas en que el alumno ha estado ausente. Una vez marcadas las horas de la falta podrás justificarlas haciendo click de nuevo sobre el día elegido.
 		</p>
       </div>
       <div class="modal-footer">
@@ -133,8 +122,6 @@ echo "</td></tr></table><br />";
     </div>
   </div>
 </div>
-
-
 
     <? 
            if (empty($profesor)) {

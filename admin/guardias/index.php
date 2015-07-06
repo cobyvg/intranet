@@ -45,7 +45,36 @@ if ($n_dia > $numerodiasemana) {
 <br>
 <div class="page-header">
 <h2>Guardias de Aula <small> Registro de Guardias</small></h2>
+
+<!-- Button trigger modal --> <a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal"> <span class="fa fa-question fa-lg"></span> </a>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
 </div>
+<div class="modal-body">
+<p class="help-block">Este módulo permite registrar las sustituciones de profesores ausentes que hemos hecho en su aula (guardias de aula). Aparece de entrada el número de sustituciones de todos los miembros del Equipo de Guardia. Si hacemos click sobre el nombre de un Compañero de guardia aparecen en la parte inferior de la página las sustituciones que ha realizado ese profesor. Hay que tener en cuenta que en la selección de profesores a sustituir sólo aparecen los profesores que tienen hora lectiva en ese momento según el horario importado en la Intranet.<br><br>
+Al registrar una sustitución cualquier compañero de la Guardia, aparece señalada en la parte superior de la página de tal modo que todos los compañeros puedan ver quién ha sustituido a quien en un aula durante esa hora. <br><br>
+Las sustituciones sólo pueden registrarse hasta dos días después de realizarse. Si nos olvidamos de hacerlo, tendremos que pedir alEquipo Directivo que nos la registren. 
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<br>
 <?
 if ($borrar=='1') {
 	mysqli_query($db_con, "delete from guardias where id='$id'");
@@ -53,25 +82,6 @@ if ($borrar=='1') {
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La sustitución ha sido borrada correctamente.
 </div></div>';
-}
-
-$sql = "SHOW TABLES FROM $db";
-$result = mysqli_query($db_con, $sql);
-$guardia="";
-while ($row = mysqli_fetch_row($result)) {
-    $guardia.=$row[0].";";
-}
-if (strstr($guardia,"guardias") == FALSE) {
-mysqli_query($db_con, "CREATE TABLE `guardias` (
-  `id` int(11) NOT NULL auto_increment,
-  `profesor` varchar(64) NOT NULL default '',
-  `profe_aula` varchar(64) NOT NULL default '',
-  `dia` tinyint(1) NOT NULL default '0',
-  `hora` tinyint(1) NOT NULL default '0',
-  `fecha` datetime NOT NULL default '0000-00-00 00:00:00',
-  `fecha_guardia` date NOT NULL default '0000-00-00',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");	
 }
 
 if ($submit) {
@@ -168,7 +178,7 @@ No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desp
 }	
 ?>
 <div class="col-md-8 col-md-offset-2">
-  <legend class="text-info" align="center"><? echo $nombre_dia.", ".$fecha_sp.", $hora"."Âª hora";?></legend>
+  <legend class="text-info" align="center"><? echo $nombre_dia.", ".$fecha_sp.", $hora"."ª hora";?></legend>
 
 <?
 $fech_hoy = date("Y-m-d");
@@ -223,7 +233,7 @@ while ($sust = mysqli_fetch_array($sust0)) {
 <input type="hidden" name="profeso" value="<? echo $profeso;?>">
 <input type="hidden" name="n_dia" value="<? echo $n_dia;?>">
 <input type="hidden" name="hora" value="<? echo $hora;?>">
-<input type="submit" name="submit" class="btn btn-primary btn-block" value="Registrar sustituciÃ³n del Profesor" />
+<input type="submit" name="submit" class="btn btn-primary btn-block" value="Registrar sustituci&oacute;n del Profesor" />
 </form>
 </div>
 </div>

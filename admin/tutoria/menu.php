@@ -36,6 +36,9 @@ $curso_tutor=$query2[0];
 		<?php if (isset($mod_sms) && $mod_sms): ?>
 		<li><a href="../../sms/index.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'];?>">Enviar SMS</a></li>	
 		<?php endif; ?>
+		<?php if (isset($mod_faltas) && $mod_faltas): ?>
+		<li><a href="../../faltas/justificar/index.php">Justificar Faltas de Asistencia del Grupo</a></li>	
+		<?php endif; ?>
 		<li><a href="consulta_fotografias.php">Fotografías de alumnos/as</a></li>
 		<li><a href="consulta_mesas.php">Asignación de mesas</a></li>
 		<li><a href="../../xml/jefe/form_carnet.php">Credenciales de alumnos</a></li>

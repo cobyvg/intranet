@@ -18,6 +18,13 @@ if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_PO
 
 //include("../../funciones.php");
 //variables();
+
+// Control de tablas
+$bck =mysqli_query($db_con,"select divorcio from matriculas_backup");
+if (mysqli_num_rows($bck)>0) {}else{
+	mysqli_query($db_con,"ALTER TABLE `matriculas_bach_backup` ADD `enfermedad` VARCHAR(254) NULL , ADD `otraenfermedad` VARCHAR(254) NULL , ADD `foto` TINYINT(1) NOT NULL , ADD `divorcio` VARCHAR(64) NULL , ADD `bilinguismo` CHAR(2) NULL , ADD `religion1b` VARCHAR(64) NULL");
+}
+
 if (isset($_POST['listados'])) {
 foreach ($_POST as $key=>$val)
 	{
@@ -569,6 +576,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 			// Junio
 				if (date('m')>'05' and date('m')<'09'){
 					if ($val_notas==0 and $num_ord>1) {$promociona="1";}
+					echo "<span class='text-muted'> $val_notas&nbsp;</span>";
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
 						echo " />";
@@ -581,7 +589,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 				}
 				// Septiembre
 				elseif (date('m')=='09'){
-					echo "<span class='muted'> $val_notas&nbsp;</span>";					
+					echo "<span class='text-muted'> $val_notas&nbsp;</span>";					
 					if ($val_notas>0 and $num_ord1>1) {$promociona="2";}else{$promociona="1";}
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -598,7 +606,8 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 				else{
 				if ($n_curso == "2") {
 			// Junio
-				if (date('m')>'04' and date('m')<'09'){					
+				if (date('m')>'04' and date('m')<'09'){			
+					echo "<span class='text-muted'> $val_notas&nbsp;</span>";	
 					if ($val_notas<3 and $num_ord>1) {$promociona="1";}
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
@@ -613,7 +622,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 				}
 				// Septiembre
 				elseif (date('m')=='09' and $num_ord1>1){
-					echo "<span class='muted'> $val_notas&nbsp;</span>";
+					echo "<span class='text-muted'> $val_notas&nbsp;</span>";
 					if ($val_notas<3) {$promociona="1";}elseif($val_notas>2 and $val_notas<5) {$promociona="3";}else{$promociona="2";}					
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}

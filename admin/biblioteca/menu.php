@@ -1,4 +1,6 @@
 <?
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'c') == TRUE)
+{
 $activo1="";
 $activo2="";
 $activo3="";
@@ -18,3 +20,6 @@ if (strstr($_SERVER['REQUEST_URI'],'_biblio.php')==TRUE){ $activo4 = ' class="ac
         <li<? echo $activo4;?>><a href="index_biblio.php">Importación de datos</a></li>
     </ul>
         </div>
+<?
+}
+?>
