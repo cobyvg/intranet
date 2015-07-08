@@ -53,16 +53,6 @@ $nota[20]='';
 
 if (isset($_POST['zprofe'])){$profe = $_POST['zprofe'];}
 
-##########################
-# Actualización de datos
-##########################
-# Se comprueba si hay envío y se actualiza el registro correspondiente con update
-
-
-##########################
-# Fin Actualización de datos
-###########################
-
 ###############
 # Lectura de los datos de la memoria
 ##############
@@ -85,7 +75,7 @@ body {
 }
 #footer {
 	position: fixed;
- left: 0;
+ 	left: 0;
 	right: 0;
 	bottom: 0;
 	color: #aaa;
@@ -112,7 +102,7 @@ if ($i==6) {$html.=  "<h3>"."4. Criterios de Evaluación."."</h3>";}
 if ($i==8) {$html.=  "<h3>"."5. Medidas de atención a la diversidad."."</h3>";}
 $html.=  "<h4>".$pregunta[$i]."</h4>";
 $html.=  "<h5>".$nota[$i]."</h5>";
-$html.=  '<div style="border:1px solid #aaa; padding: 10px;">';
+$html.=  '<div style="border:0px solid #aaa; padding: 10px;">';
 $html.=  strip_tags($p[$i], '<br><p><strong><em><b><i><ul><ol><li><table><tr><td><th>').'</div><br>';
 }
 

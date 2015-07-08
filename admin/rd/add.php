@@ -145,7 +145,7 @@ if ($edicion=="1") {
 
 <div class="well">
 
-<form method="post" action="" name="f1">
+<form method="post" action="add.php" name="f1">
 
 <div class="row">
 

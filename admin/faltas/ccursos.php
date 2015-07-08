@@ -27,21 +27,23 @@ include("../../menu.php");
   <h2>Listas de Alumnos <small> Partes de faltas de Aula</small></h2>
 </div>
 </div>
+<br>
 <div class="container">
 <div class="row">
-<div class="col-sm-4 col-sm-offset-4">
-<div align="center">
-<FORM action="ccursos.php" method="POST" name="listas2" class="well well-large form-inline">
-<legend>Partes de Faltas de Aula</legend> <br />     
-<label>
-Grupo: <SELECT  name="unidad" onChange="submit()" class="input-mini" style="display:inline;margin-right:15px;">
+<div class="col-md-4 col-md-offset-4">
+<FORM action="ccursos.php" method="POST" name="listas2" class="well well-large">
+<legend>Partes de Faltas de Aula</legend> <br /> 
+
+<div class="form-group">
+<label for="grupo" class="control-label"> Grupo </label>     
+<SELECT  name="unidad" onChange="submit()" class="form-control" id="unidad">
             <option><? echo $unidad;?></option>
             <? unidad($db_con);?>
           </SELECT>
 </label>
-        <br /><br />
-          <label>Día de la semana:
-          <select name="dia1" class="input-xsmall">
+<label for="dia1" class="control-label">
+          Día de la semana:</label>
+          <select name="dia1" class="form-control">
             <option>Lunes</option>
             <option>Martes</option>
             <option>Miércoles</option>
@@ -49,10 +51,10 @@ Grupo: <SELECT  name="unidad" onChange="submit()" class="input-mini" style="disp
             <option>Viernes</option>
             <option>Formato semanal</option>
           </select>
-          </label>
-          <br /><br />
-          <INPUT class="btn btn-success" type="submit" name="submit2" value="Lista del Curso">
-          </FORM>    
+          <hr />
+          <INPUT class="btn btn-primary" type="submit" name="submit2" value="Lista del Curso">
+          </div>
+</FORM>    
 </div>
 </div>
 </div>

@@ -15,11 +15,11 @@ input[type=number] {
 </style>
 
 <br />
-<div class="page-header" align="center">
-		<h2>Evaluación de Pendientes <small>Alumnos con la asignatura pendiente</small></h2>
-</div>
 
 <div class="container">
+<div class="page-header">
+		<h2>Evaluación de Pendientes <small>Alumnos con la asignatura pendiente</small></h2>
+</div>
 <div class="row">
 <div class="col-sm-8 col-sm-offset-2">
 <?

@@ -43,7 +43,36 @@ else
 
 <div class="container">
 <div class="page-header">
-<h2>Faltas de Asistencia <small> Consultas</small></h2>
+<h2 style="display:inline">Faltas de Asistencia <small> Consultas</small></h2>
+	<!-- Button trigger modal --> <a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal"  style="display:inline"> <span class="fa fa-question fa-lg"></span> </a>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+</div>
+<div class="modal-body">
+<p class="help-block"><b>Información sobre el registro de Actas del Departamento</b><br><br>
+Este módulo permite a los Jefes de Departamento crear un documento digital para las Reuniones del mismo, visible tanto por los miembros del Departamento como por el Equipo directivo. Sustituye al método tradicional del Libro de Actas, y puede ser imprimido en caso de necesida por el Departamento o la Dirección.
+<br><br>
+Seleccionamos en primer lugar la fecha de la reunión. Las Actas se numeran automáticamente por lo que no es necesario intervenir manualmente en ese campo. El formulario contiene un texto prefijado con el esquema de cualquier Acta: Departamento, Curso escolar, Nº de Acta, Asistentes etc. El texto comienza con el Orden del día, y continúa con la descripción de los contenidos tratados en la reunión. No es necesario escribir la fecha de la misma (línea seguida vacía) puesto que se coloca posteriormente con la fecha elegida.<br><br>
+A la derecha del formulario van apareciendo en su orden las Actas, visibles para todos los miembros del Departamento. El Jefe del Departamento puede editar las Actas <b>hasta el momento en que se impriman</b> para entregar al Director: en ese momento el Acta queda bloqueada y sólo puede ser visualizada o imprimida. Al ser imprimida aparece un icono de verificación sustituyendo al icono de edición en la lis ta de actas. Por esta razón, hay que se muy cuidadoso e imprimir el Acta sólo cuando la misma esté completada.<br><br>
+Los Administradores de la Intranet (Equipo Directivo, por ejemplo) tiene acceso a una opción, 'Todas las Actas', que les abre una página con todas las Actas de todos los Departamentos. La edición está prohibida, pero pueden verlas e imprimirlas.
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
 </div>
 <br />
 

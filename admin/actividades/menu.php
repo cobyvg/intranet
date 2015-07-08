@@ -23,12 +23,37 @@ if (isset($_GET['q'])) {$expresion = $_GET['q'];}elseif (isset($_POST['q'])) {$e
 
 $activo1="";
 $activo2="";
-$activo3="";
 if (strstr($_SERVER['REQUEST_URI'],'indexextra.php')==TRUE) {$activo1 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE){ $activo2 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'consulta.php')==TRUE){ $activo3 = ' class="active" ';}
+
 ?>
-    <div class="container hidden-print">    	
+    <div class="container hidden-print"> 
+    	<!-- Button trigger modal --> <a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal"> <span class="fa fa-question fa-lg"></span> </a>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+</div>
+<div class="modal-body">
+<p class="help-block"><b>Instrucciones de uso</b><br><br>
+El módulo de Actividades Extraescolares y Complementarias está unido al Calendario de Actividades. En el Calendario se registran las nuevas actividades por parte de DACE, Jefes de Departamento, Tutores o Equipo Directivo. Una vez registrada la actividad, el funcionamiento es el siguiente.<br><br>
+La actividad debe ser aprobada por el Consejo Escolar, donde la presenta el Director. En la Lista de Actividades, un icono de verificación rojo indica que la actividad no ha sido aprobada aun por el Director. Una vez aprobada por éste, el icono se pone verde y aparece en el Calendario como autorizada. <br>La actividad puede ser visualizada por todos los usuarios de la Intranet; editada por parte de Jefes de Departamento y profesores asociados a la actividad; eliminada por parte de DACE, Jefes de Departamento y Equipo Directivo; y por último puede ser vinculada a un conjunto de alumnos que seleccionamos para realizar la actividad (icono de usuario en reunión). Esta útlima tarea es especialmente importante si utilizamos el sistema de faltas de asistencia porque bloquea las faltas de aquellos alumnos que están realizando una actividad; también muestra en el Calendario de la página principal un enlace a los alumnos que asisten a la actividad para que sea conocido por los profesores que les dan clase (evitando el trabajo de crear una lista de los alumnos participantes que se entrega a los profesores).<br> 
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>   	
       <ul class="nav nav-tabs">
 <?
 if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
@@ -46,7 +71,7 @@ if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'
 <?
 if (stristr ( $_SESSION ['cargo'], '5' ) == FALSE and stristr ( $_SESSION ['cargo'], '1' ) == FALSE) {
 ?>
-      <li<? echo $activo3;?>><a href="indexextra.php">Lista de Actividades</a></li>
+      <li<? echo $activo1;?>><a href="indexextra.php">Lista de Actividades</a></li>
 <?
 }
 ?>

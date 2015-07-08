@@ -59,31 +59,13 @@ if(isset($_GET['imprimir']) and $_GET['imprimir'] == "si")
 	exit;
 }
 ?>
-<!DOCTYPE html>  
-<html lang="es">  
-  <head>  
-    <meta charset="iso-8859-1">  
-    <title>Intranet</title>  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del http://<? echo $nombre_del_centro;?>/">  
-    <meta name="author" content="">  
-    <link href="//<?php echo $dominio; ?>/intranet/css/bootstrap.min.css" rel="stylesheet"> 
-    <link href="//<?php echo $dominio; ?>/intranet/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="//<?php echo $dominio; ?>/intranet/css/otros.css" rel="stylesheet">   
-    <link href="//<?php echo $dominio; ?>/intranet/css/imprimir.css" rel="stylesheet" media="print">
-    <link href="//<?php echo $dominio; ?>/intranet/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="//<?php echo $dominio; ?>/intranet/css/font-awesome.min.css" rel="stylesheet">  
-    <link rel="stylesheet" type="text/css" href="//<?php echo $dominio; ?>/intranet/css/DataTable.bootstrap.css"> 
-    <SCRIPT LANGUAGE=javascript>
-
+<SCRIPT LANGUAGE=javascript>
 function wait(){
 string="document.forms.libros.submit();";
 setInterval(string,540000);
 }
-
+wait();
 </SCRIPT>
-  </head>  
-<body onload=wait()>
 <?
 include("../../menu.php");
 ?>
@@ -139,7 +121,7 @@ Los datos se han actualizado correctamente en la base de datos.
 }
 $claveal = "";
 ?>
-<form action="libros.php" method="post" name="libros" class="formu">
+<form action="libros.php" method="post" name="libros">
 <input type="hidden" name="nivel" value="<? echo $nivel;?>" />
 <p class="help-block">OPCIONES: <span class="label label-info">B</span> = Bien, <span class="label label-warning">R</span> = Regular, <span class="label label-danger">M</span> = Mal, <span class="label label-default">N</span> = No hay Libro, <span class="label label-success">S</span> = Septiembre.</p>
 <?

@@ -4,11 +4,12 @@ require('../../bootstrap.php');
 include "../../menu.php";
 ?>
 <br />
-<div class="page-header" align="center">
+
+<div class="container">
+<div class="page-header">
 		<h2>Evaluación de Pendientes <small>Calificación de las materias pendientes</small></h2>
 </div>
 
-<div class="container">
 <div class="row">
 <div class="col-sm-12">
 <?
@@ -98,7 +99,6 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 echo "</table></div>";
 echo "<br />";
 ?>
-<a href="index.php" class="btn btn-primary hidden-print">Volver a la página de Pendientes</a>
 </div>
 </div>
 <?php include("../../pie.php"); ?>
