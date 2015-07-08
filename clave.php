@@ -1,7 +1,8 @@
 <?
 session_start();
-include("config.php");
+include_once('config.php');
 include_once('config/version.php');
+include_once('simplepie/autoloader.php');
 
 // COMPROBAMOS LA SESION
 if ($_SESSION['autentificado'] != 1) {
