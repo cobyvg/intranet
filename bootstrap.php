@@ -33,12 +33,12 @@ else {
 	
 	if(isset($_SERVER['HTTPS'])) {
 	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/config/index.php');
+	        header('Location:'.'https://'.$_SERVER['SERVER_NAME'].'/intranet/config/index.php');
 	        exit();
 	    } 
 	}
 	else {
-		header('Location:'.'http://'.$dominio.'/intranet/config/index.php');
+		header('Location:'.'http://'.$_SERVER['SERVER_NAME'].'/intranet/config/index.php');
 		exit();
 	}
 	
