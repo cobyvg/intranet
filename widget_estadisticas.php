@@ -10,7 +10,7 @@
 			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, Fechoria.id, Fechoria.asunto, Fechoria.informa FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE Fechoria.fecha = CURDATE() ORDER BY Fechoria.fecha DESC"); ?>
 			<h4 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#fechoria">
-					<span class="lead"><?php echo mysqli_num_rows($result); ?></span><br>
+					<span class="lead"><?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?></span><br>
 					<small class="text-uppercase text-muted">Problemas convivencia</small>
 				</a>
 			</h4>
@@ -67,7 +67,7 @@
 			
 			<h4 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#expulsiones">
-					<span class="lead"> <?php echo mysqli_num_rows($result); ?> / <?php echo mysqli_num_rows($result1); ?></span><br>
+					<span class="lead"> <?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?> / <?php echo (mysqli_num_rows($result1)) ? mysqli_num_rows($result1) : '0'; ?></span><br>
 					<small class="text-uppercase text-muted">Expulsiones Reingresos</small>
 				</a>
 			</h4>
@@ -161,7 +161,7 @@
 			
 			<h4 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#visitas">
-					<span class="lead"><?php echo mysqli_num_rows($result); ?></span><br>
+					<span class="lead"><?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?></span><br>
 					<small class="text-uppercase text-muted">Visitas de padres</small>
 				</a>
 			</h4>
@@ -220,7 +220,7 @@
 			
 			<h4 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#accesos">
-					<span class="lead"><?php echo mysqli_num_rows($result); ?> <span class="text-muted">(<?php echo mysqli_num_rows($result1); ?>)</span></span><br>
+					<span class="lead"><?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?> <span class="text-muted">(<?php echo (mysqli_num_rows($result1)) ? mysqli_num_rows($result1) : '0'; ?>)</span></span><br>
 					<small class="text-uppercase text-muted">Profesores sin entrar</small>
 				</a>
 			</h4>
