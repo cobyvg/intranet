@@ -50,6 +50,8 @@ function mb_file($bytes) {
 
 // CREAR COPIA DE SEGURIDAD
 if(isset($_GET['action']) && $_GET['action']=="crear") {
+
+
 	$result = copia_bd($db_host, $db_user, $db_pass, $db);
 	
 	if($result) {
@@ -58,6 +60,18 @@ if(isset($_GET['action']) && $_GET['action']=="crear") {
 	else {
 		$msg_success = "Se ha creado una nueva copia de seguridad.";
 	}
+
+	if ($db != $db_reservas) {
+		$result = copia_bd($db_host, $db_user, $db_pass, $db_reservas);
+	
+		if($result) {
+			$msg_error = "No ha sido posible crear la copia de seguridad. Asegúrese de que el directorio <?php echo __DIR__; ?>/ tiene permiso de escritura.";
+		}
+		else {
+			$msg_success = "Se ha creado una nueva copia de seguridad.";
+		}
+	}
+
 }
 
 // DESCARGA DE ARCHIVO
