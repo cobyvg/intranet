@@ -8,6 +8,7 @@ define('VERSION_FILE', INTRANET_DIRECTORY .'/config/version.php');
 if (file_exists(CONFIG_FILE)) {
 	include_once(CONFIG_FILE);
 	include_once(VERSION_FILE);
+	include_once(INTRANET_DIRECTORY . '/funciones.php');
 	include_once(INTRANET_DIRECTORY . '/simplepie/autoloader.php');
 }
 else {
@@ -30,11 +31,9 @@ if ($_SESSION['autentificado'] != 1) {
 	$_SESSION = array();
 	session_destroy();
 	
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-	        exit();
-	    } 
+	if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
+		header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+		exit();
 	}
 	else {
 		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
@@ -43,14 +42,12 @@ if ($_SESSION['autentificado'] != 1) {
 }
 
 if($_SESSION['cambiar_clave']) {
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
-	        exit();
-	    } 
+	if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
+		header('Location:'.'https://'.$dominio.'/intranet/salir.php');
+		exit();
 	}
 	else {
-		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
+		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 		exit();
 	}
 }

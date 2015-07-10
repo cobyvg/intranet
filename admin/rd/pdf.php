@@ -17,28 +17,30 @@ if ($imprimir=="1") {
    	$result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
    	if (mysqli_num_rows($result) > 0)
    	{
-   	
-   	  	$html .= '<html><body>';
-   	  	$html .='<style type="text/css">
-   	  	body {
-   	  		font-size: 10pt;
-   	  	}
-   	  	#footer {
-   	  		position: fixed;
-   	  	 left: 0;
-   	  		right: 0;
-   	  		bottom: 0;
-   	  		color: #aaa;
-   	  		font-size: 0.9em;
-   	  		text-align: right;
-   	  	}
-   	  	.page-number:before {
-   	  	  content: counter(page);
-   	  	}
-   	  	</style>
-   	  	<div id="footer">
-   	  	  Página <span class="page-number"></span>
-   	  	</div>'; 
+   	  
+         if($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
+      	  	$html .= '<html><body>';
+      	  	$html .='<style type="text/css">
+      	  	body {
+      	  		font-size: 10pt;
+      	  	}
+      	  	#footer {
+      	  		position: fixed;
+      	  	 left: 0;
+      	  		right: 0;
+      	  		bottom: 0;
+      	  		color: #aaa;
+      	  		font-size: 0.9em;
+      	  		text-align: right;
+      	  	}
+      	  	.page-number:before {
+      	  	  content: counter(page);
+      	  	}
+      	  	</style>
+      	  	<div id="footer">
+      	  	  Página <span class="page-number"></span>
+      	  	</div>';
+         }
    	  	
    		$row = mysqli_fetch_array($result);
    		$contenido = $row[0];

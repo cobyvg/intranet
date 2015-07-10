@@ -1,6 +1,43 @@
-<?php include("funciones.php"); ?>
-<?php $idea = $_SESSION['ide']; ?>
-<?php setlocale(LC_TIME, 'es_ES'); ?>
+<?php 
+$idea = $_SESSION['ide'];
+setlocale(LC_TIME, 'es_ES');
+
+
+// FEED RSS
+$feed = new SimplePie();
+	 
+$feed->set_feed_url("http://www.juntadeandalucia.es/educacion/www/novedades.xml");
+$feed->set_output_encoding('ISO-8859-1');
+$feed->enable_cache(true);
+$feed->set_cache_duration(600);
+$feed->init();
+$feed->handle_content_type();
+
+$first_items = array();
+$items_per_feed = 5;
+
+for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
+{
+	$first_items[] = $feed->get_item($x);
+}
+
+
+// MENSAJERIA
+if (isset($_GET['verifica_padres'])) {
+	$verifica_padres = $_GET['verifica_padres'];
+	mysqli_query($db_con, "UPDATE mensajes SET recibidotutor = '1' WHERE id = $verifica_padres");
+}
+
+if (isset($_GET['verifica'])) {
+	$verifica = $_GET['verifica'];
+	mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
+}
+
+$result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, texto, profesor, id_profe, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' AND recibidoprofe=0");
+$mensajes_sin_leer = mysqli_num_rows($result_mensajes);
+mysqli_free_result($result_mensajes);
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -76,31 +113,12 @@
 
 <div class="navbar-right">
 <ul class="nav navbar-nav">
-	
-	<?php
-	$feed = new SimplePie();
-	 
-	$feed->set_feed_url("http://www.juntadeandalucia.es/educacion/www/novedades.xml");
-	$feed->set_output_encoding('ISO-8859-1');
-	$feed->enable_cache(true);
-	$feed->set_cache_duration(600);
-	$feed->init();
-	$feed->handle_content_type();
-	
-	$first_items = array();
-	$items_per_feed = 5;
-	
-	for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
-	{
-		$first_items[] = $feed->get_item($x);
-	}
-	?>
 	<li class="visible-xs"><a
 		href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6">Consejería</a></li>
 	<li class="dropdown hidden-xs" id="bs-tour-consejeria"><a href="#" class="dropdown-toggle"
 		data-toggle="dropdown" data-bs="tooltip" title="<?php echo $feed->get_title(); ?>" data-placement="bottom" data-container="body"> <span class="fa fa-rss fa-fw"></span> <b class="caret"></b> </a>
 		<ul class="dropdown-menu dropdown-feed">
-			<li class="dropdown-header"><h5><?php echo $feed->get_title(); ?></h5></li>
+			<li class="dropdown-header"><h5><?php echo ($feed->get_title()) ? $feed->get_title() : 'Novedades - Consejería Educación'; ?></h5></li>
 			<li class="divider"></li>
 			<?php if (count($first_items)): ?>
 			<?php foreach ($first_items as $item): ?>
@@ -113,7 +131,7 @@
 			<li class="divider"></li>
 			<?php endforeach; ?>
 			<?php else: ?>
-			<li><a href="#" class="disabled">Este módulo no está disponible en estos momentos. Disculpen las molestias.</a></li>
+			<li><p class="text-center text-muted">Este módulo no está disponible en estos momentos. Disculpen las molestias.</p></li>
 			<li class="divider"></li>
 			<?php endif; ?>
 			<li><a class="text-center"
@@ -121,13 +139,6 @@
 			todas las novedades <span class="fa fa-angle-right"></span></strong></a></li>
 		</ul>
 	</li>
-	
-<?php
-// Comprobamos mensajes sin leer
-$result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, texto, profesor, id_profe, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' AND recibidoprofe=0");
-$mensajes_sin_leer = mysqli_num_rows($result_mensajes);
-mysqli_free_result($result_mensajes);
-?>
 	<li
 		class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/')) ? 'active' : ''; ?>"><a
 		href="//<?php echo $dominio; ?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
@@ -136,9 +147,11 @@ mysqli_free_result($result_mensajes);
 		class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer) ? 'text-warning"' : ''; ?>"></span>
 	<b class="caret"></b> </a>
 	<ul class="dropdown-menu dropdown-messages">
-	<?php $result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
-	<?php if(mysqli_num_rows($result_mensajes)): ?>
-	<?php while ($row = mysqli_fetch_array($result_mensajes)): ?>
+		<li class="dropdown-header"><h5>Últimos mensajes</h5></li>
+		<li class="divider"></li>
+		<?php $result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
+		<?php if(mysqli_num_rows($result_mensajes)): ?>
+		<?php while ($row = mysqli_fetch_array($result_mensajes)): ?>
 		<li><a
 			href="//<?php echo $dominio; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
 		<div
@@ -151,6 +164,9 @@ mysqli_free_result($result_mensajes);
 		<li class="divider"></li>
 		<?php endwhile; ?>
 		<?php mysqli_free_result($result_mensajes); ?>
+		<?php else: ?>
+		<li><p class="text-center text-muted">No tienes mensajes pendientes.</p></li>
+		<li class="divider"></li>
 		<?php endif; ?>
 		<li><a class="text-center" href="//<?php echo $dominio; ?>/intranet/admin/mensajes/"><strong>Ver todos los mensajes <span class="fa fa-angle-right"></span></strong></a></li>
 	</ul>
