@@ -40,7 +40,7 @@
 	<!-- FIN MODAL SESIÓN -->
     
     <!-- BOOTSTRAP JS CORE -->
-    <script src="//<? echo $dominio;?>/intranet/js/jquery-1.11.2.min.js"></script>  
+    <script src="//<? echo $dominio;?>/intranet/js/jquery-1.11.3.min.js"></script>  
     <script src="//<? echo $dominio;?>/intranet/js/bootstrap.min.js"></script>
     
     <!-- PLUGINS JS -->
@@ -64,57 +64,57 @@
     <script src="//<? echo $dominio;?>/intranet/js/ajax_alumnos.js"></script>
     
 		
-		<script>
-		$(function () {
-		  var nua = navigator.userAgent
-		  var isAndroid = (nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1 && nua.indexOf('Chrome') === -1)
-		  if (isAndroid) {
-		    $('select.form-control').removeClass('form-control').css('width', '100%')
-		  }
-		  
-		  $("#toggleMenu").click(function() {
-		    $('#accordion').toggleClass("hidden-xs");
-		  });
-		  
-		})
-		</script>
-	
-		<script type="text/javascript">
-			$("[data-bs=tooltip]").tooltip({
-				container: 'body'
-			});
-		</script>
-	
-		<script>
-		$(document).on("click", "a[data-bb]", function(e) {
-		    e.preventDefault();
-		    var type = $(this).data("bb");
-				var link = $(this).attr("href");
-				
-				if (type == 'confirm-delete') {
-					bootbox.setDefaults({
-					  locale: "es",
-					  show: true,
-					  backdrop: true,
-					  closeButton: true,
-					  animate: true,
-					  title: "Confirmación para eliminar",
-					});
-					
-					bootbox.confirm("Esta acción eliminará permanentemente el elemento seleccionado ¿Seguro que desea continuar?", function(result) {
-					    if (result) {
-					    	document.location.href = link;
-					    }
-					});
-				}
-		});
-		</script>
+	<script>
+	$(function () {
+	  var nua = navigator.userAgent
+	  var isAndroid = (nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1 && nua.indexOf('Chrome') === -1)
+	  if (isAndroid) {
+	    $('select.form-control').removeClass('form-control').css('width', '100%')
+	  }
+	  
+	  $("#toggleMenu").click(function() {
+	    $('#accordion').toggleClass("hidden-xs");
+	  });
+	  
+	})
+	</script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-	setTimeout(function() {
-		$("#session_expired").modal('show');
-	},(<?php echo ini_get("session.gc_maxlifetime"); ?>*60000)-180000);
-});
-</script>
+	<script type="text/javascript">
+		$("[data-bs=tooltip]").tooltip({
+			container: 'body'
+		});
+	</script>
+
+	<script>
+	$(document).on("click", "a[data-bb]", function(e) {
+	    e.preventDefault();
+	    var type = $(this).data("bb");
+			var link = $(this).attr("href");
+			
+			if (type == 'confirm-delete') {
+				bootbox.setDefaults({
+				  locale: "es",
+				  show: true,
+				  backdrop: true,
+				  closeButton: true,
+				  animate: true,
+				  title: "Confirmación para eliminar",
+				});
+				
+				bootbox.confirm("Esta acción eliminará permanentemente el elemento seleccionado ¿Seguro que desea continuar?", function(result) {
+				    if (result) {
+				    	document.location.href = link;
+				    }
+				});
+			}
+	});
+	</script>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		setTimeout(function() {
+			$("#session_expired").modal('show');
+		},(<?php echo ini_get("session.gc_maxlifetime"); ?>*60000)-180000);
+	});
+	</script>
 		
