@@ -31,6 +31,13 @@
 	
 <?php else: ?>
 
+	<div class="text-center">
+		<br><br>
+		<span class="fa fa-th-list fa-5x text-muted"></span>
+		<p class="lead text-muted">No se ha publicado ninguna noticia.</p>
+		<br><br>
+	</div>
+
 <?php endif; ?>
 
 <a class="btn btn-primary btn-sm" href="admin/noticias/redactar.php">Nueva noticia</a>

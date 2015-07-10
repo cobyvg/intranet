@@ -154,7 +154,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 
 vista_mes($calendario, $dia, $mes, $anio);
 
-$profesor_libre = 0;
+$profesor_libre = 1;
 
 echo '<h4><span class="fa fa-tasks fa-fw"></span> Programado para hoy...</h4>';
 echo '<div class="list-group">';

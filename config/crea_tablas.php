@@ -239,21 +239,23 @@ mysqli_query($db_con, "INSERT INTO `calendario_categorias` (`id`, `nombre`, `fec
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calendario` (
   `id` int(11) NOT NULL auto_increment,
   `categoria` int(11) NOT NULL,
-  `nombre` varchar(120) collate latin1_spanish_ci NOT NULL,
+  `nombre` varchar(255) collate latin1_spanish_ci NOT NULL,
   `descripcion` longtext collate latin1_spanish_ci NOT NULL,
   `fechaini` date default NULL,
   `horaini` time default NULL,
   `fechafin` date default NULL,
   `horafin` time default NULL,
   `lugar` varchar(180) collate latin1_spanish_ci NOT NULL,
-  `departamento` text collate latin1_spanish_ci default NULL,
-  `profesores` text collate latin1_spanish_ci default NULL,
-  `unidades` text collate latin1_spanish_ci default NULL,
-  `asignaturas` text collate latin1_spanish_ci default NULL,
+  `departamento` text collate latin1_spanish_ci,
+  `profesores` text collate latin1_spanish_ci,
+  `unidades` text collate latin1_spanish_ci,
+  `asignaturas` text collate latin1_spanish_ci,
   `fechareg` datetime NOT NULL,
   `profesorreg` varchar(60) collate latin1_spanish_ci NOT NULL,
+  `confirmado` tinyint(1) NOT NULL,
+  `observaciones` text collate latin1_spanish_ci,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
 
 // ////////////////////////////////////////////////////////
 
