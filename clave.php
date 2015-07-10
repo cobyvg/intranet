@@ -2,6 +2,7 @@
 session_start();
 include_once('config.php');
 include_once('config/version.php');
+include_once("funciones.php");
 include_once('simplepie/autoloader.php');
 
 // COMPROBAMOS LA SESION
@@ -107,10 +108,8 @@ if (isset($_POST['submit'])) {
 $dat=mysqli_query($db_con, "select * from c_profes where profesor='$pr'");
 $todos=mysqli_fetch_array($dat);
 
+
 include("menu.php");
-
-
-
 ?>
 
 	<div class="container">

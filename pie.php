@@ -18,6 +18,26 @@
     		</p>
     	</div>
     </footer>
+
+    <!-- MODAL SESIÓN-->
+	<div class="modal fade" id="session_expired" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			    <h4 class="modal-title">Inactividad de la cuenta</h4>
+			  </div>
+			  <div class="modal-body">
+			    <p>Hemos detectado inactividad en su cuenta. Por seguridad, la sesión se cerrará automáticamente dentro de 
+			    	<strong>3 minutos</strong>. Realice alguna actividad en la aplicación para cancelar esta acción.</p>
+			  </div>
+			  <div class="modal-footer">
+			    <button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+			  </div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<!-- FIN MODAL SESIÓN -->
     
     <!-- BOOTSTRAP JS CORE -->
     <script src="//<? echo $dominio;?>/intranet/js/jquery-1.11.2.min.js"></script>  
@@ -89,4 +109,12 @@
 				}
 		});
 		</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	setTimeout(function() {
+		$("#session_expired").modal('show');
+	},(<?php echo ini_get("session.gc_maxlifetime"); ?>*60000)-180000);
+});
+</script>
 		
