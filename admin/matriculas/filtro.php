@@ -35,7 +35,7 @@ $tipo10 = mysqli_query($db_con, $tipo0);
         	if ($tipo20[0]=="") {
         		$tipo20[0]="Ninguno";
         	}
-echo "<div class='checkbox-inline'><label class='badge'><input name='grupo_actua[]' type='checkbox' value='$tipo20[0]' ";
+echo "<div class=''><label class='badge'><input name='grupo_actua[]' type='checkbox' value='$tipo20[0]' ";
 if ($_POST['grupo_actua']) {			
 		foreach ($_POST['grupo_actua'] as $grup_actua){
 			  if ($grup_actua==$tipo20[0]) {

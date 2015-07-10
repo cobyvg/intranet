@@ -72,7 +72,37 @@ include("../../menu.php");
 
 <div class="container">
 <div class="page-header">
-  <h2>Programa de Ayudas al Estudio <small>Informe sobre el estado de los Libros</small></h2>
+  <h2 style="display:inline;">Programa de Ayudas al Estudio <small>Informe sobre el estado de los Libros</small></h2>
+  	<!-- Button trigger modal --> 
+	<a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+</div>
+<div class="modal-body">
+<p class="help-block"><b>Información sobre el módulo TIC</b><br><br>
+El módulo permite gestionar los Libros de Texto dentro del Programa de Ayudas al Estudio de la Junta de Andalucía. Se activa durante los meses de Junio y Septiembre, y desaparece posteriormente.<br><br>
+El Tutor marca el estado de los libros según las siguientes opciones: Bien, Regular, Mal, No hay libro y Septiembre (en caso de que el alumno haya suspendido la asignatura en Junio, y pueda entregarlo tras la Evaluación Extraordinaria).<br>
+Para evitar un cierre inesperado de la página y la pérdida de datos, la aplicación envía el formulario cada 9 minutos, recargando la página. El comportamiento, por lo tanto, es normal.<br>
+Una vez terminado de marcar el estado de los libros de los alumnos de la Tutoría, se envían los datos del formulario por última vez para guardarlos. El Tutor puede modificar el estado hasta que desaparece el formulario en Septiembre.<br><br>
+El Secretario del Centro puede emitir con la aplicación Certificados de entrega y estado de los libros, así como Facturas en caso de que los libros se encuentren desaparecidos o en un estado inaceptable.
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
   <h3 class="text-info">
   <? if (isset($unidad)) {
 	echo $unidad;

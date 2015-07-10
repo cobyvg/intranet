@@ -20,13 +20,12 @@ if (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="
 ?>
 <div class="container">
 <div class="row">
-<br />
 <div class="page-header">
-<h2>Guardias de Aula <small> Registro de guardias</small></h2>
+<h2 style="display:inline">Guardias de Aula <small> Registro de guardias</small></h2>
 
 <!-- Button trigger modal --> <a href="#"
 	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal"> <span class="fa fa-question fa-lg"></span> </a>
+	data-target="#myModal" style="display:inline"> <span class="fa fa-question fa-lg"></span> </a>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"

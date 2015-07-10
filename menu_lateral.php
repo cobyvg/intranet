@@ -55,11 +55,11 @@ $menu = array(
 				'items' => array(
 					array(
 						'href'   => 'admin/jefatura/index.php',
-						'titulo' => 'Intervenciones de alumnos'
+						'titulo' => 'Intervenciones sobre alumnos'
 					),
 					array(
 						'href'   => 'admin/jefatura/profesores.php',
-						'titulo' => 'Intervenciones de profesores'
+						'titulo' => 'Intervenciones sobre profesores'
 					),
 				),
 			),
@@ -367,11 +367,11 @@ $menu = array(
 					),
 					array(
 						'href'   => 'admin/tareas/index.php',
-						'titulo' => 'Informes de tareas',
+						'titulo' => 'Informes de Tareas',
 					),
 					array(
 						'href'   => 'admin/infotutoria/index.php',
-						'titulo' => 'Informes de tutoria',
+						'titulo' => 'Informes de Tutoria',
 					),
 				),
 			),
@@ -609,7 +609,7 @@ $menu = array_merge($menu, $paginas_interes);
 		<div class="col-xs-3 text-center">
 			<a href="#" id="toggleMenu">
 				<span class="fa fa-ellipsis-h fa-2x"></span><br>
-				Opciones</a>
+				Menú</a>
 		</div>
 	</div>
 	<br>

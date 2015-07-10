@@ -171,11 +171,10 @@ include("menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Intervenciones sobre los alumnos</small></h2>
-			<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
-<!-- Button trigger modal --> <a href="#"
+			<h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Intervenciones sobre los alumnos</small></h2>
+			<!-- Button trigger modal --> <a href="#"
 	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal"> <span class="fa fa-question fa-lg"></span> </a>
+	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -185,18 +184,22 @@ include("menu.php");
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+<h4 class="modal-title" id="myModalLabel">Información sobre las Intervenciones de Tutoría</h4>
 </div>
 <div class="modal-body">
-<p class="help-block">Las Intervenciones del Tutor funcionan a modo de
+<p class="help-block">
+Las Intervenciones del Tutor funcionan a modo de
 Diario de Tutoría donde se registran las actividades de distinto tipo
 (entrevistas con Padres o Alumnos, llamadas de teléfono, etc.) que el
 Tutor realiza dentro de sus funciones. El Tutor recoge los datos de las
-intervenciónes de tal modo que pueda hacer un seguimiento de sus
-actividades con los alumnos de su tutoría. También aparecen regsitradas
+intervenciónes en el formulario de tal modo que pueda hacer un seguimiento de sus
+actividades con los alumnos de su tutoría. También aparecen registradas
 como Intervenciones los mensajes SMS enviados a los Padres con motivo de
 Problemas de Convivencia o Faltas de Asistencia. Estas intervenciones
-aparecen recogidas a final de Curso en la Memoria de Tutoría.</p>
+aparecen recogidas a final de Curso en la Memoria de Tutoría.
+<br>
+La página presenta el formulario de intervenciones y una lista con todas las intervenciones realizadas ordenadas por fecha. Al hacer click sobre un alumno de esta lista, se visualiza la intervención en el formulario (oudiendo editarla, borrarla, etc.) y aparece el historial de las intervenciones sobre el alumno bajo el formulario. 
+</p>
 </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -204,6 +207,8 @@ aparecen recogidas a final de Curso en la Memoria de Tutoría.</p>
 </div>
 </div>
 </div>
+
+<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 </div>
 		
 		

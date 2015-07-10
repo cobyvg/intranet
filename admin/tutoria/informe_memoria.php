@@ -56,6 +56,35 @@ include("menu.php");
 <div style="width:960px;margin:auto;padding:25px; border:1px solid #ddd">
 <h2 align="center">
  Tutoría del grupo: <? echo $_SESSION['mod_tutoria']['unidad']; ?> <br /><small>Tutor: <? echo $_SESSION['mod_tutoria']['tutor']; ?></small></h2>
+ 
+ 			<!-- Button trigger modal --> <a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+</div>
+<div class="modal-body">
+<p class="help-block">
+La Memoria de Tutoría ofrece a los Tutores un informe completo sobre los datos más relevantes que se han generado a lo largo del Curso escolar en relación con su Grupo de Alumnos. Presenta en primer lugar un conjunto de datos estadísticos de carácter general, y otro más específico sobre Problemas de Convivencia del Grupo. A partir de ahí, se muestran datos por Alumno sobre Faltas de Asistencia, Problemas de Convivencia, Expulsiones, Absentismo escolar, Visitas de Padres, Intervenciones del Tutor, Actividades Extraescolares y estadísticas de calificaciones en las distintas asignaturas del Tutor.
+<br><br>
+En la parte superior derecha de la página aparece un botón con el título 'Redactar Observaciones finales'. Al hacer click sobre este botón se nos presenta un cuadro de texto en el que procedemos a escribir la valoración que el Tutor realiza sobre el Grupo y su Tutoría, así como cualquier otro elemento que considere relevante. Una vez rrelenado el campo de observaciones, el botón cambia a 'Imprimir Memoria de Tutoría' y ya está lista para presentar en Jefatura de Estudios. Las observaciones aparecen en la parte inferior de la Memoria, y pueden ser editadas en todo momento hasta su impresión.
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+
  <br />
 
  <?

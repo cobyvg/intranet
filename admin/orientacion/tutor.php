@@ -10,7 +10,42 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-  <h2>Orientación <small>Intervenciones sobre los alumnos</small></h2>
+  <h2 style="display:inline;">Orientación <small>Intervenciones sobre los alumnos</small></h2>
+  
+  <!-- Button trigger modal --> <a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel"><b>Información sobre las Intervenciones de Orientación</b></h4>
+</div>
+<div class="modal-body">
+<p class="help-block">
+Las Intervenciones del Departamento de Orientación funcionan a modo de
+Diario donde se registran las actividades de distinto tipo
+(entrevistas con Padres o Alumnos, llamadas de teléfono, etc.) asociadas a determinadas causas (Orientación acdémica, evolución de estudios, técnicas de estudio, etc.) que el
+Departamento realiza dentro de sus funciones. El Orientador recoge los datos de las
+intervenciónes de tal modo que pueda hacer un seguimiento de sus
+actividades con los alumnos del Centro. <br>
+Además de sus propias Intervenciones (color azul), el Departamento puede ver las Intervenciones del Tutor (color naranja) así como otras intervenciones generadas por procesos automatizadas (envío de SMS por faltas de asistencia, problemas de convivencia, etc.) sobre un determinado alumno dentro del historial del mismo.
+<br>
+La página presenta el formulario de intervenciones y una lista con todas las intervenciones realizadas ordenadas por fecha. Al hacer click sobre un alumno de esta lista, se visualiza la intervención en el formulario (pudiendo editarla, borrarla, etc.) y aparece el historial de las intervenciones sobre el alumno bajo el formulario. 
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+
 	</div>
 	
 	

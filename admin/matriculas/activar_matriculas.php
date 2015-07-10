@@ -9,12 +9,21 @@ include("./menu.php");
 $activar = $_GET['activar'];
 
 if ($activar==1) {
-
+// Comprobamos que el módulo no está activado
+	$c1 = mysqli_query($db_con,"select * from alma");
+	$c10 = mysqli_num_rows($c1);
+	$c2 = mysqli_query($db_con,"select * from control");
+	$c20 = mysqli_num_rows($c2);
+	if ($c10==$c20 or (!($c20 < ($c10-5)) and !($c20 > ($c10+5)))) {
+			$mensaje="La Matriculación ya ha sido activada. Sólo puede ser desactivada.";
+	}
+	else{
+	
 // Cambiamos la tabla de contraseñas de la página principal para convertir el NIE del alumno en la contraseña.
 	mysqli_query($db_con,"drop table control_matriculas");
 	mysqli_query($db_con,"create table control_matriculas select * from control");
 	mysqli_query($db_con,"truncate table control");
-	$fa=mysqli_query($db_con,"select claveal from FALUMNOS");
+	$fa=mysqli_query($db_con,"select claveal from alma");
 	while ($fal=mysqli_fetch_array($fa)) {
 		$claveal=$fal[0];
 		$pass=sha1($fal[0]);
@@ -22,6 +31,7 @@ if ($activar==1) {
 	}
 $mensaje="Has activado la Matriculación desde la Página del Centro. Tanto la Clave del Centro como la Clave Personal del Alumno pasan ahora a ser la misma: el NIE del alumno. Los Tutores deberán darle el NIE a los alumnos para que estos procedan a la Matriculación, escribiendo el NIE en ambos campos.<br> Este proceso anula las claves generadas por los padres para acceder a la Página del Alumno, por lo que durante el tiempo en que esté activa la Matriculación sólo podrán acceder a la misma con el NIE. <br>Una vez completado el proceso de registro de las matrículas hay que desactivar la Matriculación. Al hacerlo, se restauran las claves originales de los Padres para acceder a la Página del alumno.";
 }		
+}
 		
 if ($activar==2) {
 

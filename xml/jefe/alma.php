@@ -24,6 +24,7 @@ if($archivo1 and $archivo2){
  // Conexión
 $db_con = mysqli_connect($db_host, $db_user, $db_pass);
 mysqli_select_db($db_con, $db);
+
 // Copia de Seguridad
 mysqli_query($db_con, "DROP TABLE alma_seg") ;
 mysqli_query($db_con, "create table alma_seg select * from alma");
@@ -214,6 +215,23 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>ALMA</strong>: los Alumnos se han introducido correctamente en la Base de datos.
 </div></div>';
+
+//Caso especial de 2º de Bachillerato en Mayo
+if (date('m')=='05' and date('d')>'25') {
+	$ct = mysqli_query($db_con,"select * from alma where curso like '2%' and curso like '%Bach%'");
+	if (mysqli_num_rows($ct)>0) {}
+	else{
+	$ctrl = mysqli_query($db_con,"insert into alma (select * from alma_seg where curso like '2%' and curso like '%Bach%')");
+	if (mysqli_affected_rows($ctrl)>0) {	} 
+	else{
+		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<h5>ATENCIÓN:</h5>
+Ha surgido un problema con la incorporación de alumnos de 2º de Bachillerato. Busca ayuda.
+</div></div><br />';
+	}
+	}
+}
 ?>	
 <?
 include("actualizar.php");

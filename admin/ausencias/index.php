@@ -26,11 +26,11 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Ausencias del profesorado <small>Registro de ausencias <?php echo (isset($profesor)) ? $profesor : ''; ?></small></h2>
-		
-				<!-- Button trigger modal --> <a href="#"
+	<h2 style="display:inline;">Ausencias del profesorado <small>Registro de ausencias <?php echo (isset($profesor)) ? $profesor : ''; ?></small></h2>
+	<!-- Button trigger modal --> 
+	<a href="#"
 	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal"> <span class="fa fa-question fa-lg"></span> </a>
+	data-target="#myModal"> <span class="fa fa-question fa-lg"  style="display:inline;"></span> </a>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -45,7 +45,9 @@ include("../../menu.php");
 <div class="modal-body">
 <p class="help-block"><b>Información sobre el Registro de Bajas y Ausencias</b><br><br>
 El módulo de Ausencias permite al profesor comunicar que no va a asistir al Centro en un rango de horas o fechas. Facilita sobre todo la tarea de los Profesores de Guardia y del Equipo Directivo.<br>
-El formulario de registro es muy sencillo: seleccionamos la fecha o rango de fechas de la baja; si la baja se va a limitar a ciertas horas sueltas elegimos las horas que vamos a estar ausentes (en caso de días completos no es necesario marcar las casillas de las horas sueltas); e introducimos la descripción de las tareas encargadas para los grupos de alumos afectados, o bien subimos un documento con las tareas. <br><br>Las ausencias aparecen bajo el menú de la página de inicio de la aplicación y un icono señala si el profesor ha dejado o no tareas para los alumnos. Al hacer click con el ratón sobre el profesor ausente entraremos en una página donde podremos ver el horario del día del profesor ausente, así como las tareas o documento con las mismas para poder atender a los alumnos durante esa hora.
+El formulario de registro es muy sencillo: seleccionamos la fecha o rango de fechas de la baja; si la baja se va a limitar a ciertas horas sueltas elegimos las horas que vamos a estar ausentes (en caso de días completos no es necesario marcar las casillas de las horas sueltas); e introducimos la descripción de las tareas encargadas para los grupos de alumos afectados, o bien subimos un documento con las tareas. <br><br>
+A la derecha del formulario aparecen las ausencias de los profesores, ordenadas temporakmente. Al hacer click con el ratón sobre el nombre de un profesor podemos ver las ausencias del mismo a lo largo del Curso Escolar.<br><br>
+Las ausencias aparecen bajo el menú de la página de inicio de la aplicación y un icono señala si el profesor ha dejado o no tareas para los alumnos. Al hacer click con el ratón sobre el profesor ausente entraremos en una página donde podremos ver el horario del día del profesor ausente, así como las tareas o documento con las mismas para poder atender a los alumnos durante esa hora.
 </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -56,6 +58,7 @@ El formulario de registro es muy sencillo: seleccionamos la fecha o rango de fec
 
 	</div>
 <br>
+
 <?php 
 if ($borrar == '1') {
 	$del = mysqli_query($db_con, "delete from ausencias where id = '$id'");
@@ -123,7 +126,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 	<!-- SCAFFOLDING -->
 	<div class="row">
 		
-		<div class="col-sm-6">
+		<div class="col-sm-5">
 			
 			<legend>Registro de ausencias</legend>
 			
@@ -229,7 +232,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 				</div>
 				
 				<div class="form-group">
-					<label for="userfile">Adjuntar documento con tareas</label>
+					<label for="userfile">Adjuntar archivo con tareas</label>
 					<input type="file" id="userfile" name="userfile">
 					<br>
 					<p class="block-help">Para adjuntar múltiples archivos es necesario comprimirlos en uno solo. El tamaño máximo permitido es de <?php echo ini_get('post_max_size'); ?>b.</p>
@@ -245,9 +248,9 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 		</div>
 		
 		
-		<div class="col-sm-6">
+		<div class="col-sm-7">
 
-			<legend>Historial de ausencias</legend>
+			<legend>Historial de ausencias del profesorado</legend>
 			
 			<div class="table-responsive">
 				<table class="table table-striped table-hover datatable">
@@ -257,27 +260,27 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 							<th>Inicio</th>
 							<th>Fin</th>
 							<th>Horas</th>
-							<th>Tareas</th>
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 							<th>&nbsp;</th>
 							<?php endif; ?>
 						</tr>
 					</thead>
 					<tbody>
-						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas, archivo FROM ausencias ORDER BY fin DESC"); ?>
+						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas, archivo FROM ausencias ORDER BY fin DESC LIMIT 50"); ?>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
-							<td nowrap><a href='index.php?pra=<?php echo $row['profesor']; ?>#history'><small><?php echo $row['profesor']; ?></small></a></td>
+							<td nowrap><a href='index.php?pra=<?php echo $row['profesor']; ?>#history'><?php echo $row['profesor']; ?></a></td>
 							<td nowrap><?php echo $row['inicio']; ?></td>
 							<td nowrap><?php echo $row['fin']; ?></td>
-							<td><?php echo ($row['horas'] != '0') ? $row['horas'] : ''; ?></td>
-							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?>
-							<?
-							if(strlen($row['archivo'])>0){
-							echo "<a href='archivos/".$row['archivo']."'><i class='fa fa-paperclip pull-right'> </i>";
-							echo '</a>';
-							}?>
+							<td>
+							<?php if ($row['horas'] != '0') { 
+							$hr = str_split($row['horas']);
+							foreach ($hr as $hora){
+								echo $hora."ª ";
+							}
+							}; ?>
 							</td>
+							
 							
 							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>							
 								<td>
@@ -295,63 +298,9 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 		</div><!-- /.col-sm-7 -->
 		
 	</div><!-- /.row -->
-	<hr>
-	
-	<?php if (isset($profesor) && !empty($profesor)): ?>
-	<div class="row">
-		
-		<div class="col-sm-6">
-			<?php $exp_profesor = explode(", ", $profesor); ?>
-			<?php $nomprof = $exp_profesor[1].' '.$exp_profesor[0]; ?>
-			
-			<a name="history"></a>
-			<legend>Historial de ausencias de <?php echo $nomprof; ?></legend>
-			
-			<div class="table-responsive">
-				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<th>Inicio</th>
-							<th>Fin</th>
-							<th>Horas</th>
-							<th>Tareas</th>
-							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
-							<th>&nbsp;</th>
-							<?php endif; ?>
-						</tr>
-					</thead>
-					<tbody>
-						<?php $result = mysqli_query($db_con, "SELECT inicio, fin, tareas, id, profesor, horas, archivo FROM ausencias WHERE profesor = '$profesor' ORDER BY fin ASC"); ?>
-						<?php while ($row = mysqli_fetch_array($result)): ?>
-						<tr>
-							<td nowrap><?php echo $row['inicio']; ?></td>
-							<td nowrap><?php echo $row['fin']; ?></td>
-							<td><?php echo ($row['horas'] != '0') ? $row['horas'] : ''; ?></td>
-							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?>
-							<?
-							if(strlen($row['archivo'])>0){
-							echo "<a href='archivos/".$row['archivo']."'><i class='fa fa-paperclip pull-right'> </i>";
-							echo '</a>';
-							}?>
-							</td>
-							<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
-							<td>
-								<a href="index.php?borrar=1&id=<?php echo $row['id']; ?>&profesor=<?php echo $profesor; ?>" data-bb='confirm-delete'>
-									<span class="fa fa-trash-o fa-fw fa-lg" data-bs="tooltip" title="Borrar"></span>
-								</a>
-							</td>
-							<?php endif; ?>
-						</tr>
-						<?php endwhile; ?>
-					</tbody>
-				</table>
-			</div>
-
-		</div><!-- /.col-sm-6 -->
-				
-	<?php endif; ?>
 	
 	<?php if (isset($pra) && !empty($pra)): ?>
+	<div class="row">
 		
 		<div class="col-sm-6">
 			<?php $exp_profesor = explode(", ", $pra); ?>
@@ -361,7 +310,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 			<legend>Historial de ausencias de <?php echo $nomprof; ?></legend>
 			
 			<div class="table-responsive">
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover" >
 					<thead>
 						<tr>
 							<th>Inicio</th>
@@ -379,11 +328,19 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 						<tr>
 							<td nowrap><?php echo $row['inicio']; ?></td>
 							<td nowrap><?php echo $row['fin']; ?></td>
-							<td><?php echo ($row['horas'] != '0') ? $row['horas'] : ''; ?></td>
-							<td><?php echo (strlen($row['tareas']) > 0) ? 'Sí' : 'No'; ?>
+							<td>
+							<?php if ($row['horas'] != '0') { 
+							$hr = str_split($row['horas']);
+							foreach ($hr as $hora){
+								echo $hora."ª ";
+							}
+							}; ?>
+							</td>
+							<td>
+							<?php echo (strlen($row['tareas']) > 0 or strlen($row['archivo'])>0) ? 'Sí' : 'No'; ?>
 							<?
 							if(strlen($row['archivo'])>0){
-							echo "<a href='archivos/".$row['archivo']."'><i class='fa fa-paperclip pull-right'> </i>";
+							echo "&nbsp;&nbsp;<a href='archivos/".$row['archivo']."'><i class='fa fa-file'> </i>";
 							echo '</a>';
 							}?>
 							</td>

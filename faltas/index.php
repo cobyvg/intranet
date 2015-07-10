@@ -258,7 +258,6 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$filaprincipal.= "<br><small><strong>Fecha:</strong> ";
 			if(isset($fecha_dia)){$filaprincipal.= $fecha_dia;}else{ $filaprincipal.= date('d-m-Y');$fecha_dia=date('d-m-Y');$hoy=date('Y-m-d');}
 			$filaprincipal.= " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
-			$filaprincipal.="<p class='help-blocktext-danger small text-lowercase' style='color:orange;margin-top:10px;'>* Si has marcado por error un botón, puedes desactivarlo haciendo doble click sobre el mismo.</p>";
 			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
 			echo "</small>";
 		}

@@ -7,11 +7,11 @@ include("../../menu.php");
 include("../../faltas/menu.php");
 ?>
 
+<div class="container">
 <div class="page-header">
   <h2>Faltas de Asistencia <small> Resumen de faltas por Grupo</small></h2>
   </div>
 <br />
-<div class="container">
 <div class="row">
 <div class="col-sm-8 col-sm-offset-2">
 

@@ -38,7 +38,7 @@
 				$ret = mysqli_fetch_array($ret_4);
 				$sql="";				
 				$sql = "insert into matriculas VALUES (''";
-				for ($i = 1; $i < 63; $i++) {
+				for ($i = 1; $i < 68; $i++) {
 					$sql.=", '$ret[$i]'";
 				}
 				$sql.=")";

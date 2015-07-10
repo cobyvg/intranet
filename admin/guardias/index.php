@@ -16,7 +16,7 @@ if (isset($_GET['historico'])) {$historico = $_GET['historico'];}elseif (isset($
 
 if ($n_dia == '1') {$nombre_dia = 'Lunes';}
 if ($n_dia == '2') {$nombre_dia = 'Martes';}
-if ($n_dia == '3') {$nombre_dia = 'MiÃ©rcoles';}
+if ($n_dia == '3') {$nombre_dia = 'Miércoles';}
 if ($n_dia == '4') {$nombre_dia = 'Jueves';}
 if ($n_dia == '5') {$nombre_dia = 'Viernes';}
 $mes=date('m');
@@ -41,14 +41,12 @@ if ($n_dia > $numerodiasemana) {
  	$fecha_sp = formatea_fecha($g_fecha);
 ?>
 <div class="container">
-<div class="row">
-<br>
 <div class="page-header">
-<h2>Guardias de Aula <small> Registro de Guardias</small></h2>
+<h2 style="display:inline">Guardias de Aula <small> Registro de Guardias</small></h2>
 
 <!-- Button trigger modal --> <a href="#"
 	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal"> <span class="fa fa-question fa-lg"></span> </a>
+	data-target="#myModal"> <span class="fa fa-question fa-lg" style="display:inline"></span> </a>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -75,6 +73,8 @@ Las sustituciones sólo pueden registrarse hasta dos días después de realizarse. 
 
 </div>
 <br>
+<div class="row">
+
 <?
 if ($borrar=='1') {
 	mysqli_query($db_con, "delete from guardias where id='$id'");

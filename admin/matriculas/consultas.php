@@ -369,7 +369,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		echo '<th>Rel.</th>';
 		echo '<th>Transprt</th>';
-		//echo '<th>Bil.</th>';
+		echo '<th>Bil.</th>';
 		if ($n_curso<3) {
 			echo '<th>Ex.</th>';
 		}
@@ -503,9 +503,9 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if($ruta_oeste){$trans = substr($ruta_oeste, 0, 10).".";}
 			echo '<td> '.$trans.'</td>';
 
-//			echo '<td><input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
-//			if($bilinguismo=="Si"){echo " checked";}
-//			echo ' /></td>';
+			echo '<td><input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
+			if($bilinguismo=="Si"){echo " checked";}
+			echo ' /></td>';
 
 			if ($n_curso<3) {
 			 if ($exencion=="0") {$exencion="";}
