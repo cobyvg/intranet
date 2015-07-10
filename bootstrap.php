@@ -1,33 +1,14 @@
 <?php
 session_start();
 
-define('CONFIG_FILE', 'config.php');
-define('VERSION_FILE', 'config/version.php');
+define('INTRANET_DIRECTORY', __DIR__);
+define('CONFIG_FILE', INTRANET_DIRECTORY . '/config.php');
+define('VERSION_FILE', INTRANET_DIRECTORY .'/config/version.php');
 
 if (file_exists(CONFIG_FILE)) {
 	include_once(CONFIG_FILE);
-	include_once('./'.VERSION_FILE);
-	include_once("./simplepie/autoloader.php");
-}
-elseif (file_exists('../'.CONFIG_FILE)) {
-	include_once('../'.CONFIG_FILE);
-	include_once('../'.VERSION_FILE);
-	include_once("../simplepie/autoloader.php");
-}
-elseif (file_exists('../../'.CONFIG_FILE)) {
-	include_once('../../'.CONFIG_FILE);
-	include_once('../../'.VERSION_FILE);
-	include_once("../../simplepie/autoloader.php");
-}
-elseif (file_exists('../../../'.CONFIG_FILE)) {
-	include_once('../../../'.CONFIG_FILE);
-	include_once('../../../'.VERSION_FILE);
-	include_once("../../../simplepie/autoloader.php");
-}
-elseif (file_exists('../../../../'.CONFIG_FILE)) {
-	include_once('../../../../'.CONFIG_FILE);
-	include_once('../../../../'.VERSION_FILE);
-	include_once("../../../../simplepie/autoloader.php");
+	include_once(VERSION_FILE);
+	include_once(INTRANET_DIRECTORY . '/simplepie/autoloader.php');
 }
 else {
 	
