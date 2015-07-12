@@ -227,7 +227,7 @@
 			
 			<!-- MODAL ACCESOS -->
 			<div id="accesos" class="modal fade" tabindex="-1" role="dialog">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -236,23 +236,24 @@
 						
 						<div class="modal-body">
 							<?php if (mysqli_num_rows($result)): ?>
-							<table class="table table-condensed table-hover table-striped">
-								<thead>
-									<tr>
-										<th>Profesor/a</th>
-										<th>Departamento</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php while($row = mysqli_fetch_array($result)): ?>
-									<tr style="font-size: 0.9em;">
-										<td nowrap><?php echo nomprofesor($row['nombre']); ?></td>
-										<td><?php echo $row['departamento']; ?></td>
-									</tr>
-									<?php endwhile; ?>
-								</tbody>
-								
-							</table>
+							<div class="table-responsive" style="height: 350px; overflow: scroll;">
+								<table class="table table-condensed table-hover table-striped">
+									<thead>
+										<tr>
+											<th>Profesor/a</th>
+											<th>Departamento</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php while($row = mysqli_fetch_array($result)): ?>
+										<tr style="font-size: 0.9em;">
+											<td nowrap><?php echo nomprofesor($row['nombre']); ?></td>
+											<td><?php echo $row['departamento']; ?></td>
+										</tr>
+										<?php endwhile; ?>
+									</tbody>
+								</table>
+							</div>
 							<?php else: ?>
 							
 							<p class="lead text-center text-muted">
