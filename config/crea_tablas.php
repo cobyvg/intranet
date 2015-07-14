@@ -1571,6 +1571,23 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS nuevas (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
+
+// Calendarios personales
+
+$result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos");
+while ($row = mysqli_fetch_assoc($result)) {
+	$exp_nombre = explode(',', $row['nombre']);
+	$nombre = trim($exp_nombre[1]);
+	if ($nombre == '') {
+		$exp_nombre = explode(' ', $row['nombre']);
+		$nombre = trim($exp_nombre[0]);
+	}
+	$idea = $row['idea'];
+	
+	mysqli_query($db_con, "INSERT INTO `calendario_categorias` (`nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES ('$nombre', '".date('Y-m-d')."', '$idea', '#3498db', 0)");
+}
+mysqli_free_result($result);
+
 echo '<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />';
 
 echo '<div align="center"><div class="well" style="max-width:500px" align="justify">
