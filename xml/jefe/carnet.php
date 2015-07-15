@@ -251,12 +251,14 @@ if (file_exists($foto_al)) {
     //$cadena= chr(124) . chr(172). $claveal . codigo_control($claveal) . chr(126);
     //$pdf->Text(32+$x+$dplz,40+$y,$cadena);
     
-	if (stristr($_SERVER['SERVER_NAME'],"iesmonterroso.org")==TRUE){
+/*	if (stristr($_SERVER['SERVER_NAME'],"iesmonterroso.org")==TRUE){
     		$pdf->Rect(34+$x+$dplz,36+$y,40-$dplz,13,'F');
     		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib,36+$x+$dplz,37+$y,33,0,'PNG');
     }
 	    
-	elseif ($n_bib>0) {
+	else*/
+	
+	if ($n_bib>0) {
     	
     	if ($longnie<7) {
     		$pdf->Rect(24+$x+$dplz,36+$y,58-$dplz,13,'F');

@@ -278,11 +278,10 @@ if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+        <h4 class="modal-title" id="myModalLabel">Información sobre el Calendario de Unidades</h4>
       </div>
       <div class="modal-body">
 		<p class="help-block">
-		<b>Información sobre el Calendario de Unidades</b>
 		El Calendario de los Grupos presenta información sobre los exámenes y actividades que los miembros de un Equipo Educativo han registrado en su Calendario Personal y han asociado a ese Grupo. Las actividades han sido introducidas a través del Calendario, y han quedado vinculadas a un Grupo o Grupos determinados. La información registrada para el Grupo también es visible desde la zona de acceso privado para los alumnos y sus padres en la Página del Centro, de tal modo que estos pueden ver el Calendario de exámenes y actividades de sus hijos.
 		</p>
       </div>

@@ -471,11 +471,17 @@ $menu = array(
 			array(
 				'href'   => 'admin/rd/add.php',
 				'titulo' => 'Actas del departamento',
-				'ncargos' => array('1'),
+				'cargos' => array('1','4'),
 			),
 			array(
 				'href'   => 'admin/textos/intextos.php',
 				'titulo' => 'Libros de texto',
+				'cargos' => array('1','4'),
+			),
+			array(
+				'href'   => 'admin/textos/consulta.php',
+				'titulo' => 'Libros de texto',
+				'ncargos' => array('1','4'),
 			),
 			array(
 				'href'   => 'admin/inventario/introducir.php',

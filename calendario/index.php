@@ -375,11 +375,10 @@ $PLUGIN_COLORPICKER = 1;
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+        <h4 class="modal-title" id="myModalLabel">Información sobre el Calendario.</h4>
       </div>
       <div class="modal-body">
 		<p class="help-block">
-		<b>Información sobre el Calendario de Unidades</b>
 		Este módulo presenta los distintos calendarios que funcionan en la aplicación. <br><br>
 		El <b>Calendario personal</b> es propio de todos y cada uno de los profesores. Sólo es visible para el profesor concreto que es su propietario. Si la actividad afecta a Grupos de alumnos (hemos seleccionado alguno de nuestros grupos), también es visible para los profesores que dan clase en esos grupos. Es una forma fácil de controlar los exámenes o actividades que afectan al grupo por parte del Equipo Educativo del mismo. <br>Además del Calendario personal, podemos crear tantos calendarios personales como necesitemos (calendarios asociados a nuestros grupos para crear un diario de trabajo con los alumnos, etc.). Para añadir un calendartio hacemos click sobre el icono de '+' que aparece al lado del selector de calendarios.<br><br>
 		El <b>Calendario del Centro</b> es visble por todo el mundo, incluída la Página pública del Centro. El Equipo Directivo puede crear entradas en este calendario.<br><br>

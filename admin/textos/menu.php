@@ -13,10 +13,10 @@
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+<h4 class="modal-title" id="myModalLabel">Información sobre los Libros de Texto del Departamento</h4>
 </div>
 <div class="modal-body">
-<p class="help-block"><b>Instrucciones sobre el registro de Libro de Texto del Departamento</b><br><br>
+<p class="help-block">
 Los Jefes de Departamento utilizan este formulario para registrar los Libros de Texto que afectan a sus asignaturas en los distintos Niveles o Grupos de alumnos. <br>
 Seleccionamos el Nivel y, en su caso, los Grupos correspondientes. Los campos del formulario marcados con un asterisco rojo son obligatorios.<br>
 Los Libros de Texto pueden ser consultados por todos los profesores dentro de la Intranet, pero también se trasladan a la Página del Centro, desde la cual pueden ser consultados por las Librerías y los Padres de los alumnos. La consulta puede realizarse por Nivel o por Departamento.

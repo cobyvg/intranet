@@ -273,7 +273,7 @@ include("menu.php");
 						<?php endfor; ?>
 						<tr>
 							<td colspan="<?php echo $col_profesor; ?>">
-								<p id="dragDropIndicator" class="text-muted hidden-print"><small>Arrastre un alumno/a a la mesa correspondiente</small></p>
+								<br><p id="dragDropIndicator" class="text-info hidden-print">Arrastre un alumno/a a la mesa correspondiente</p>
 							</td>
 							<td class="text-center">
 								<div>

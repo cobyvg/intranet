@@ -205,7 +205,7 @@ if ($_GET['seleccionado']=='1' and $_GET['borrar']!=="1"){
 	// Menú del alumno
 	echo "<a href='//$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno' class='btn btn-primary'>Datos completos</a>";
 	echo "&nbsp;<a class='btn btn-primary' href='//$dominio/intranet/admin/informes/cinforme.php?nombre_al=$alumno&unidad=$unidad'>Informe histórico del Alumno</a> ";
-	echo "&nbsp;<a class='btn btn-primary' href='../fechorias/infechoria.php?seleccionado=1&nombre_al=$alumno'>Problema de disciplina</a> ";
+	echo "&nbsp;<a class='btn btn-primary' href='../fechorias/infechoria.php?seleccionado=1&nombre=$claveal'>Problema de disciplina</a> ";
 	echo "&nbsp;<a class='btn btn-primary' href='//$dominio/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
 	if (stristr($_SESSION['cargo'],'1') == TRUE) {
 		$dat = mysqli_query($db_con, "select unidad from FALUMNOS where claveal='$clave_al'");

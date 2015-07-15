@@ -54,11 +54,12 @@ include("menu.php");
 ?>
 <br />
 <div style="width:960px;margin:auto;padding:25px; border:1px solid #ddd">
-<h2 align="center">
- Tutoría del grupo: <? echo $_SESSION['mod_tutoria']['unidad']; ?> <br /><small>Tutor: <? echo $_SESSION['mod_tutoria']['tutor']; ?></small></h2>
+<h2 style="display:inline;">
+ Tutoría del grupo: <? echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
  
- 			<!-- Button trigger modal --> <a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+ 	
+ 	<!-- Button trigger modal --> <a href="#"
+	class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal"
 	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
 
 <!-- Modal -->
@@ -84,6 +85,10 @@ En la parte superior derecha de la página aparece un botón con el título 'Redact
 </div>
 </div>
 </div>
+ 
+<h2><small>Tutor: <? echo $_SESSION['mod_tutoria']['tutor']; ?></small></h2>
+ 
+ 
 
  <br />
 

@@ -31,10 +31,10 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+<h4 class="modal-title" id="myModalLabel">Información sobre el registro de Actas del Departamento.</h4>
 </div>
 <div class="modal-body">
-<p class="help-block"><b>Información sobre el registro de Actas del Departamento</b><br><br>
+<p class="help-block">
 Este módulo permite a los Jefes de Departamento crear un documento digital para las Reuniones del mismo, visible tanto por los miembros del Departamento como por el Equipo directivo. Sustituye al método tradicional del Libro de Actas, y puede ser imprimido en caso de necesida por el Departamento o la Dirección.
 <br><br>
 Seleccionamos en primer lugar la fecha de la reunión. Las Actas se numeran automáticamente por lo que no es necesario intervenir manualmente en ese campo. El formulario contiene un texto prefijado con el esquema de cualquier Acta: Departamento, Curso escolar, Nº de Acta, Asistentes etc. El texto comienza con el Orden del día, y continúa con la descripción de los contenidos tratados en la reunión. No es necesario escribir la fecha de la misma (línea seguida vacía) puesto que se coloca posteriormente con la fecha elegida.<br><br>

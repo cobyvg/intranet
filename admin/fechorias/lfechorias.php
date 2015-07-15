@@ -20,15 +20,44 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
 	vertical-align:top !important;
 }
 </style>
-  <?php
 
-  echo "<div class='container'>";
-  echo '<div class="page-header">
-    <h2>Problemas de convivencia <small>Últimos problemas</small></h2>
-  </div>';
-  echo '<div class="row">';
-  echo '<div class="col-sm-12">';
-      
+  <div class='container'>
+  <div class="page-header">
+    <h2 style="display: inline;">Problemas de convivencia <small>Últimos problemas</small></h2>
+    		<!-- Button trigger modal --> <a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal" style="display:inline;"> <span
+	class="fa fa-question fa-lg"></span> </a> <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+</div>
+<div class="modal-body">
+<p class="help-block">
+Esta página presenta un listado de los últimos 300 Problemas de Convivencia que se han registrado.<br>
+La tabla con los resultados puede ser ordenada de forma ascendente o descendente pulsando con el ratón sobre el nombre de las columnas o las flechas que las acomompañan. También admite la introducción de criterios selectivos escribiendo datos en el campo de búsqueda que aparece en la parte superior derecha de la tabla.<br>
+La columna <b>NUM.</b> indica el número total de Problemas registrados para un alumno; la columna <b>CAD.</b> indica si el Problema ha caducado o no (30 días para los Problemas Leves y Graves, 60 días para los Muy Graves); la siguiente columna nos dice si el Tutor ha recibido y procesado la Notificación del Problema en su página de inicio. La última columna presenta un grupo de iconos con distintas funciones: podemos ver los detalles del Problema; acceder al historial de Convivencia de un alumno; y, si procede, podemos editar (hasta un máximo de 2 días después de haberlo registrado) o eliminar un Problema de Convivencia.<br>
+El Equipo Directivo tiene una columna con una casilla de verificación que indica si el Problema ha sido <b>Revisado</b> por Jefatura de Estudios.
+
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+	</div>
+  </div>
+  <div class="row">
+  <div class="col-sm-12">
+
+<?  
     echo '<div class="text-center" id="t_larga_barra">
     	<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
     </div>';
@@ -59,7 +88,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
   mysqli_query($db_con, "create table Fechcaduca select id, fecha, TO_DAYS(now()) - TO_DAYS(fecha) as dias from Fechoria order by fecha desc limit 500");
   mysqli_query($db_con, "ALTER TABLE  `Fechcaduca` ADD INDEX (  `id` )");
   mysqli_query($db_con, "ALTER TABLE  `Fechcaduca` ADD INDEX (  `fecha` )");
-  $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, confirmado, horas from Fechoria, FALUMNOS, Fechcaduca where Fechcaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal  order by Fechoria.fecha desc limit 500";
+  $query0 = "select FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.grave, Fechoria.claveal, Fechoria.id, Fechoria.expulsion, Fechoria.expulsionaula, Fechoria.medida, Fechoria.tutoria, recibido, dias, aula_conv, inicio_aula, fin_aula, confirmado, horas from Fechoria, FALUMNOS, Fechcaduca where Fechcaduca.id = Fechoria.id and FALUMNOS.claveal = Fechoria.claveal  order by Fechoria.fecha desc limit 300";
   // echo $query0;
   $result = mysqli_query($db_con, $query0);
  echo "<form action='lfechorias.php' method='post' name='cnf'>
@@ -146,7 +175,15 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		echo " <a href='detfechorias.php?id=$id&claveal=$claveal'><span class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles'></span></a>
 		<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-history fa-fw fa-lg' data-bs='tooltip' title='Historial'></span></a>
 		";
-        if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='infechoria.php?id=$id&claveal=$claveal'><span class='fa fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a><a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></span></a>";}
+		$ahora = mktime();
+		$tr_f = explode("-",$fecha);
+		$antes = mktime(0,0,0,$tr_f[1],$tr_f[2],$tr_f[0])+172800;
+        if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){
+        	if ($ahora < $antes) {
+        	echo "<a href='infechoria.php?id=$id&nombre=$claveal'><span class='fa fa-edit fa-fw fa-lg' data-bs='tooltip' title='Editar'></span></a>";	
+        	}
+        	echo "<a href='lfechorias.php?id= $row[9]&borrar=1' data-bb='confirm-delete'><span class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></span></a>";
+        }
 		echo "</td>
 		<td>";
 		//echo "$expulsion >  $expulsionaula";

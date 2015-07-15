@@ -10,7 +10,32 @@ include("menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Problemas de convivencia <small>Consultas</small></h2>
+		<h2 style="display:inline;">Problemas de convivencia <small>Consultas</small></h2>
+		<!-- Button trigger modal --> <a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal" style="display:inline;"> <span
+	class="fa fa-question fa-lg"></span> </a> <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+</div>
+<div class="modal-body">
+<p class="help-block">
+Las Consultas de Problemas de Convivencia no tienen ningún campo obligatorio, pero al menos uno de los campos debe contener criterios de búsqueda. Hay campos con criterios de tiempo (<b>Mes</b>, <b>Fecha</b>); criterios relacionados con un alumno o grupo de alumnos (<b>Unidad</b>, <b>Apellidos</b>, etc.); o podemos elegir entre criterios relacionados con los <b>Problemas de Convivencia</b>. <br>Hay que tener encuenta que los campos de búsqueda se pueden sumar: como regla general, cuanto mayor sea el número de criterios, más reducido será el resultado de la búsqueda.
+
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
 	</div>
 	
 	

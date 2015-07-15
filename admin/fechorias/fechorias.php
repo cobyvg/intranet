@@ -260,7 +260,15 @@ mysqli_query($db_con,"ALTER TABLE `Fechcaduca` ADD PRIMARY KEY (`id`);");
 		<td nowrap>$caducada</td>
 		<td nowrap>$comentarios1</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo "<a href='fechorias.php?id=$id&borrar=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></i></a><A HREF='infechoria.php?id=$id&claveal=$claveal'><i class='fa fa-pencil fa-fw fa-lg' data-bs='tooltip' title='Editar'></i></A>";}	
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){
+		$ahora = mktime();
+		$tr_f = explode("-",$fecha);
+		$antes = mktime(0,0,0,$tr_f[1],$tr_f[2],$tr_f[0])+172800;
+		if ($ahora < $antes) {
+			echo "<A HREF='infechoria.php?id=$id&nombre=$claveal'><i class='fa fa-pencil fa-fw fa-lg' data-bs='tooltip' title='Editar'></i></A>";
+		}
+	echo "<a href='fechorias.php?id=$id&borrar=1' data-bb='confirm-delete'><i class='fa fa-trash-o fa-fw fa-lg' data-bs='tooltip' title='Eliminar'></i></a>";
+}	
 		echo "<a href='lfechorias2.php?clave=$claveal'><span class='fa fa-user fa-fw fa-lg' data-bs='tooltip' title='Historial del alumno'></span></a>
 		 <A HREF='detfechorias.php?id=$id&claveal=$claveal'><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Detalles del problema e historial de problemas del alumno'></i></A></td>
 		<td>";
