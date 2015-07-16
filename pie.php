@@ -12,8 +12,6 @@
     				<a href="//<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
     				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
     				<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
-    				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-    				<a href="https://github.com/IESMonterroso/intranet/compare/v<?php echo INTRANET_VERSION; ?>...master" target="_blank">Registro de cambios</a>
     			</small>
     		</p>
     	</div>

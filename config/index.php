@@ -4,6 +4,8 @@ if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incomp
 
 session_start();
 
+include_once("version.php");
+include_once("../funciones.php");
 include_once("../simplepie/autoloader.php");
 
 if (strlen($_SESSION['mens_error']) > 10) {
@@ -140,21 +142,22 @@ include("tabla.php");
 ?>
 	
 	<footer class="hidden-print">
-		<div class="container-fluid" role="footer">
-			<hr>
-			
-			<p class="text-center">
-				<small class="text-muted"><?php echo date('Y'); ?> &copy;  IESMonterroso. Todos los derechos reservados.</small>
-			</p>
-			<p class="text-center">
-				<small>
-					<a href="//<?php echo $dominio; ?>/intranet/GPL.html">Licencia de uso</a>
-					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-					<a href="https://github.com/IESMonterroso/intranet">Github</a>
-				</small>
-			</p>
-		</div>
-	</footer>
+    	<div class="container-fluid" role="footer">
+    		<hr>
+    		
+    		<p class="text-center">
+    			<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> IESMonterroso</small><br>
+    			<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
+    		</p>
+    		<p class="text-center">
+    			<small>
+    				<a href="//<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
+    				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+    				<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
+    			</small>
+    		</p>
+    	</div>
+    </footer>
 	
 	
   <script src="../js/jquery-1.11.2.min.js"></script>  
