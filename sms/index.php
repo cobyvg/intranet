@@ -39,7 +39,22 @@ function contar(form,name) {
 
 <div class="page-header">
   <h2>SMS <small> Envío de mensajes</small></h2>
+<?
+if(strlen($unidad)>1){
+	$t0 = mysqli_query($db_con,"select Tutor from FTUTORES where unidad='$unidad'");
+	if (mysqli_num_rows($t0)>0) {
+		$t1 = mysqli_fetch_row($t0);
+?>
+<h4 class="text-info">Tutor/a: <?php echo nomprofesor($t1[0]); ?></h4>
+<?		
+	}
+?>
+<h4 class="text-info">Grupo: <?php echo $unidad; ?></h4>
+<?	 		
+	 	}
+?>
 </div>
+<br>
 <div class="row">
 
 <?
@@ -186,6 +201,7 @@ echo "<br>";
 else
 {
 	 if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE)){
+	 	
 		?>
 		
 <div class="col-md-4 col-md-offset-2">
@@ -263,7 +279,7 @@ $extid = $n_sms[0]+1;
 <div class="col-sm-4">
 <div class="well">
 <div class='form-group'>
-<label>Selección de Alumnos</label>
+<label>Selección de Alumnos<?echo "<span class='text-info'>: $unidad</span>"; ?></label>
         <?
   		echo '<SELECT  name=nombre[] multiple=multiple class="form-control" style="height:370px">';
   		if ($unidad=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE unidad like '$unidad%'";}

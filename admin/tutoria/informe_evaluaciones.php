@@ -104,7 +104,7 @@ include("menu.php");
 <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
 </div>
 <div class="modal-body">
-<p class="help-block"><b>Instrucciones sobre el Informe de Evaluaciones</b><br><br>
+<p><b>Instrucciones sobre el Informe de Evaluaciones</b><br><br>
 El módulo está abierto a Tutores, Equipo Directivo y Departamento de Orientación.<br><br> 
 El Informe de Evaluaciones presenta los datos más importantes que conviene tener en cuenta en el proceso de evaluación de un alumno de la ESO: Edad, Cursos repetidos, PIL, Exención de optativas, Refuerzo y Asignaturas pendientes. <br>Puede ser utilizado como fuente de información en las Sesiones de Evaluación. También puede utilizarse como un diario donde el Tutor, el Equipo Directivo o el Departamento de Orientación registran los datoss más relevantes en el campo de texto 'Observaciones'. Este campo es persistente: si en la Evaluación Ordinaria coloco el ratón sobre el mismo aparecerán en un cuadro superpuesto las observaciones realizadas en las anteriores Sesiones de Evaluación.   
 </p>

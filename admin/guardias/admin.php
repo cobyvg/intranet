@@ -38,7 +38,7 @@ if (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="
 <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
 </div>
 <div class="modal-body">
-<p class="help-block"><strong>Instrucciones de uso.</strong><br><br>
+<p><strong>Instrucciones de uso.</strong><br><br>
 Selecciona el Profesor al que quieres apuntar una sustitución no
 registrada. Te aparecerá el horario del Profesor, para que puedas
 determinar con precisión la hora de la guardia (1ª hora, 2ª hora, etc)

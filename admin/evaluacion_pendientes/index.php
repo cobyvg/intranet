@@ -68,7 +68,7 @@ $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
 </div>
 <div class="modal-body">
-<p class="help-block"><b>Instrucciones de Uso</b><br><br>
+<p><b>Instrucciones de Uso</b><br><br>
 Este módulo permite poner y consultar las notas de las distintas Evaluaciones de los alumnos con Asignaturas pendientes de otros Cursos.<br><br>
 El formulario para colocar las calificaciones nos presenta los Niveles en los que impartimos la asignatura. Al seleccionar un Nivel nos encontramos con los alumnos pendientes de alguno de nuestros Grupos en ese Nivel. <br>Los Jefes de Departamento pueden seleccionar todos los Niveles y colocar notas a todos los alumnos de ese Nivel; el Equipo Directivo puede seleccionar y poner notas en todos los Niveles y todas las Asignaturas.<br><br>
 La Consulta es abierta para todos los Profesores, Departamentos y Asignaturas. Nos presenta un bloque por Nivel en el que aparecen los alumnos con cualquier asignatura pendiente.

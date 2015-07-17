@@ -89,7 +89,7 @@ include("../../menu.php");
 <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
 </div>
 <div class="modal-body">
-<p class="help-block">
+<p>
 El módulo permite gestionar los Libros de Texto dentro del Programa de Ayudas al Estudio de la Junta de Andalucía. Se activa durante los meses de Junio y Septiembre, y desaparece posteriormente.<br><br>
 El Tutor marca el estado de los libros según las siguientes opciones: Bien, Regular, Mal, No hay libro y Septiembre (en caso de que el alumno haya suspendido la asignatura en Junio, y pueda entregarlo tras la Evaluación Extraordinaria).<br>
 Para evitar un cierre inesperado de la página y la pérdida de datos, la aplicación envía el formulario cada 9 minutos, recargando la página. El comportamiento, por lo tanto, es normal.<br>

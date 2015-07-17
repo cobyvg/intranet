@@ -133,39 +133,7 @@ include("menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2 style="display:inline;">Jefatura de estudios <small>Intervenciones sobre los profesores</small></h2>
-		
-					<!-- Button trigger modal --> <a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Información sobre las Intervenciones con Profesore</h4>
-</div>
-<div class="modal-body">
-<p class="help-block">
-Las Intervenciones de Jefatura sobre un Profesor funcionan de modo semejante a las Intervenciones sobre el alumno:  un
-Diario donde Jefatura registra las actividades de distinto tipo
-(entrevistas personal, comunicación por escrito, llamadas de teléfono, etc.) asociadas a determinadas causas (Tema Pedagógico, Disciplina, Tutorías con Familias, etc.) que Jefatura realiza sobre un dentro de sus funciones. Se recogen los datos de las
-intervenciónes en el formulario de tal modo que se pueda hacer un seguimiento de las
-actividades de Jefatura con los Profesores del Centro. <br>
-La página presenta el formulario de intervenciones y una lista con todas las intervenciones realizadas ordenadas por fecha. Al hacer click sobre un Profesor de esta lista, se visualiza la intervención en el formulario (pudiendo editarla, borrarla, etc.) y aparece el historial de las intervenciones sobre el Profesor bajo el formulario. 
-</p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>
-
+		<h2>Jefatura de estudios <small>Intervenciones sobre los profesores</small></h2>
 	</div>
 
 	<!-- SCAFFOLDING -->

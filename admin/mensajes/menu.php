@@ -15,7 +15,7 @@
 <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
 </div>
 <div class="modal-body">
-<p class="help-block"><b>Información sobre el módulo de Mensajes</b><br>
+<p><b>Información sobre el módulo de Mensajes</b><br>
 <br>
 Hay dos tipos de textos (y documentos) que pueden enviarse a través de
 la Intranet: la mensajería interna permite enviar un mensaje a un

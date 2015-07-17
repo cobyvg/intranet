@@ -1,4 +1,4 @@
-<?
+ <?
 // Justificación de las faltas.
 if ($_POST['F']==1 or $_GET['F']==1) {
 	include("justifica.php");
@@ -105,7 +105,7 @@ echo "</td></tr></table><br />";
 
  <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -113,7 +113,7 @@ echo "</td></tr></table><br />";
       </div>
       <div class="modal-body">
 		<p class="help-block">
-		Para justificar una falta selecciona en primer lugar un alumno en la columna de la derecha. Una vez el alumno aparece seleccionado elige el mes correspondiente. Aparecerán en rojo las faltas de aistencia del alumno y en verde las faltas justificadas. <br>Al hacer click sobre una celda del calendario cambiamos su estado: si está vacía se pone roja, si está roja se pone verde, y si está verde la dejamos a cero. <br>Si la falta no ha sido registrada todavía (el día del calendario no es verde ni rojo), aparecerá un cuadro de diálogo en el que deberás seleccionar las horas en que el alumno ha estado ausente. Una vez marcadas las horas de la falta podrás justificarlas haciendo click de nuevo sobre el día elegido.
+		Para justificar una falta selecciona en primer lugar un alumno en la columna de la derecha. Una vez el alumno aparece seleccionado elige el mes correspondiente. Aparecerán en rojo las faltas de aistencia del alumno y en verde las faltas justificadas. <br>Al hacer click sobre una celda del calendario cambiamos su estado: si está vacía se pone roja, si está roja se pone verde, y si está verde la dejamos a cero.<br> <br>Si la falta no ha sido registrada todavía (el día del calendario no es verde ni rojo), aparecerá un cuadro de diálogo en el que deberás seleccionar las horas en que el alumno ha estado ausente. Una vez marcadas las horas de la falta podrás justificarlas haciendo click de nuevo sobre el día elegido.
 		</p>
       </div>
       <div class="modal-footer">

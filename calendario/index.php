@@ -362,7 +362,7 @@ $PLUGIN_COLORPICKER = 1;
 						 </div>
 						  <!-- Button trigger modal -->
 						  &nbsp;
-						  <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+						  <a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">
  							<span class="fa fa-question fa-lg"></span>
 						  </a>
 						  
@@ -382,7 +382,7 @@ $PLUGIN_COLORPICKER = 1;
 		Este módulo presenta los distintos calendarios que funcionan en la aplicación. <br><br>
 		El <b>Calendario personal</b> es propio de todos y cada uno de los profesores. Sólo es visible para el profesor concreto que es su propietario. Si la actividad afecta a Grupos de alumnos (hemos seleccionado alguno de nuestros grupos), también es visible para los profesores que dan clase en esos grupos. Es una forma fácil de controlar los exámenes o actividades que afectan al grupo por parte del Equipo Educativo del mismo. <br>Además del Calendario personal, podemos crear tantos calendarios personales como necesitemos (calendarios asociados a nuestros grupos para crear un diario de trabajo con los alumnos, etc.). Para añadir un calendartio hacemos click sobre el icono de '+' que aparece al lado del selector de calendarios.<br><br>
 		El <b>Calendario del Centro</b> es visble por todo el mundo, incluída la Página pública del Centro. El Equipo Directivo puede crear entradas en este calendario.<br><br>
-		El <b>Calendario de Actividades Complementarias y Extraescolares</b> es también visible por todo el mundo y pueden crear entradas los Jefes de Departamento, Tutores, DACE y Dirección. También pueden editar las acividades los profesores asociados a una de ellas. El formulario de registro de Acividades aparece cuando hemos seleccionado este Calendario. Los campos son obligatorios. Si es el Tutor quien registra una actividad complementaria se encontrará limitado a su Grupo de Tutoría, y aprecerá bajo el Departamento de Orientación.<br>
+		El <b>Calendario de Actividades Complementarias y Extraescolares</b> es también visible por todo el mundo y pueden crear entradas los Jefes de Departamento, Tutores, DACE y Dirección. También pueden editar las acividades los profesores asociados a una de ellas. El formulario de registro de Acividades aparece cuando hemos seleccionado este Calendario. Los campos son obligatorios. Si es el Tutor quien registra una actividad complementaria se encontrará limitado a su Grupo de Tutoría, y aprecerá bajo el Departamento de Orientación. Más información sobre el mecanismo que regula las Actividades Extraescolares en el Menú de la página principal --> Departamento --> Actividades Extraescolares.<br>
 		</p>
       </div>
       <div class="modal-footer">

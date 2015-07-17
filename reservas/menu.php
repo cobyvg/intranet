@@ -23,7 +23,7 @@ if (isset($_GET['servicio_aula'])) {$servicio_aula = $_GET['servicio_aula'];}els
 <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
 </div>
 <div class="modal-body">
-<p class="help-block"><b>Información sobre el módulo de Reservas</b><br><br>
+<p><b>Información sobre el módulo de Reservas</b><br><br>
 El sistema de reservas permite controlar el uso de los medios del Centro (Dependencias, Recursos Audiovisuales, etc.). Hay tres categorías por defecto en el sistema: Aulas, Ordenadores y Medios. Se configura en la página de Adminsitración de la Intranet donde se define el número, nombre, etc. de los recursos que se integran en la reserva.<br><br>
 La reserva de Aulas y Dependencias del Centro está integrada con el módulo de Horarios. Puede funcionar sin la importación de los horarios si creamos las Aulas desde la opción del menú 'Crear/Ocultar/Eliminar Aulas/Dependencias', pero está pensado para tomar la lista de aulas desde el horario que hemos importado. Por defecto, todas las aulas del Centro aparecen en la lista como reservables. Si deseamos ocultar aulas del sistema utilizamos la opción mencionada del menú; también podemos crear aulas que no aparecen en el horario.<br>
 El funcionamiento es sencillo: elegimos el aula, fecha y hora; comprobamos que no ha sido reservada anteriormente por otro profesor y procedemos a registrarla. El Aula Magna (Salón de Usos Múltiples) sólo puede ser reservado por el Equipo Directivo (si necesitamos hacerlo, debemos pedir autorización a los miembros del mismo). El resto de las aulas sólo permiten la reserva cuando en la hora correspondiente el aula no está asignada en el horario a algún profesor en tareas lectivas. <br><br>

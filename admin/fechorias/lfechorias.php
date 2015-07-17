@@ -38,7 +38,7 @@ if(isset($_GET['id'])){$id = $_GET['id'];}
 <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
 </div>
 <div class="modal-body">
-<p class="help-block">
+<p>
 Esta página presenta un listado de los últimos 300 Problemas de Convivencia que se han registrado.<br>
 La tabla con los resultados puede ser ordenada de forma ascendente o descendente pulsando con el ratón sobre el nombre de las columnas o las flechas que las acomompañan. También admite la introducción de criterios selectivos escribiendo datos en el campo de búsqueda que aparece en la parte superior derecha de la tabla.<br>
 La columna <b>NUM.</b> indica el número total de Problemas registrados para un alumno; la columna <b>CAD.</b> indica si el Problema ha caducado o no (30 días para los Problemas Leves y Graves, 60 días para los Muy Graves); la siguiente columna nos dice si el Tutor ha recibido y procesado la Notificación del Problema en su página de inicio. La última columna presenta un grupo de iconos con distintas funciones: podemos ver los detalles del Problema; acceder al historial de Convivencia de un alumno; y, si procede, podemos editar (hasta un máximo de 2 días después de haberlo registrado) o eliminar un Problema de Convivencia.<br>

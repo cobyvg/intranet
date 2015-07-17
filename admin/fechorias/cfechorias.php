@@ -25,7 +25,7 @@ include("menu.php");
 <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
 </div>
 <div class="modal-body">
-<p class="help-block">
+<p>
 Las Consultas de Problemas de Convivencia no tienen ningún campo obligatorio, pero al menos uno de los campos debe contener criterios de búsqueda. Hay campos con criterios de tiempo (<b>Mes</b>, <b>Fecha</b>); criterios relacionados con un alumno o grupo de alumnos (<b>Unidad</b>, <b>Apellidos</b>, etc.); o podemos elegir entre criterios relacionados con los <b>Problemas de Convivencia</b>. <br>Hay que tener encuenta que los campos de búsqueda se pueden sumar: como regla general, cuanto mayor sea el número de criterios, más reducido será el resultado de la búsqueda.
 
 </p>

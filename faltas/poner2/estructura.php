@@ -16,7 +16,7 @@
 <h4 class="modal-title" id="myModalLabel1">Operaciones y Funciones.</h4>
 </div>
 <div class="modal-body">
-<p class="help-block">Esta página te permite registrar faltas de
+<p>Esta página te permite registrar faltas de
 aistencia semanalmente con un método alternativo. Selecciona en primer
 lugar un día de la semana en la que quieres marcar las faltas. A
 continuación, escribe el número de aula de los alumnos ausentes seguido

@@ -179,7 +179,7 @@ include("menu.php");
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
@@ -187,17 +187,18 @@ include("menu.php");
 <h4 class="modal-title" id="myModalLabel">Información sobre las Intervenciones de Tutoría</h4>
 </div>
 <div class="modal-body">
-<p class="help-block">
+<p>
 Las Intervenciones del Tutor funcionan a modo de
 Diario de Tutoría donde se registran las actividades de distinto tipo
 (entrevistas con Padres o Alumnos, llamadas de teléfono, etc.) que el
-Tutor realiza dentro de sus funciones. El Tutor recoge los datos de las
+Tutor realiza dentro de sus funciones. 
+<br><br>El Tutor recoge los datos de las
 intervenciónes en el formulario de tal modo que pueda hacer un seguimiento de sus
 actividades con los alumnos de su tutoría. También aparecen registradas
 como Intervenciones los mensajes SMS enviados a los Padres con motivo de
 Problemas de Convivencia o Faltas de Asistencia. Estas intervenciones
 aparecen recogidas a final de Curso en la Memoria de Tutoría.
-<br>
+<br><br>
 La página presenta el formulario de intervenciones y una lista con todas las intervenciones realizadas ordenadas por fecha. Al hacer click sobre un alumno de esta lista, se visualiza la intervención en el formulario (oudiendo editarla, borrarla, etc.) y aparece el historial de las intervenciones sobre el alumno bajo el formulario. 
 </p>
 </div>

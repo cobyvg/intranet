@@ -465,13 +465,13 @@ $menu = array(
 		'items'   => array (
 			array(
 				'href'   => 'admin/rd/index_admin.php',
-				'titulo' => 'Actas de los departamentos',
+				'titulo' => 'Actas de los Departamentos',
 				'cargos' => array('1'),
 			),
 			array(
 				'href'   => 'admin/rd/add.php',
-				'titulo' => 'Actas del departamento',
-				'cargos' => array('1','4'),
+				'titulo' => 'Actas del Departamento',
+				'ncargos' => array('1'),
 			),
 			array(
 				'href'   => 'admin/textos/intextos.php',
