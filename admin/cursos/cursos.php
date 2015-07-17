@@ -1,7 +1,5 @@
 <?
 require('../../bootstrap.php');
-
-include_once ("../../pdf/funciones.inc.php");
 require_once('../../pdf/class.ezpdf.php');
 $pdf = new Cezpdf('a4');
 $pdf->selectFont('../../pdf/fonts/Helvetica.afm');

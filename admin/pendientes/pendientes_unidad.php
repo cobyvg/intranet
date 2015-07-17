@@ -4,7 +4,6 @@ require('../../bootstrap.php');
 
 if ($_POST['pdf']==1) {
 	require("../../pdf/fpdf.php");
-	include_once ("../../pdf/funciones.inc.php");
 	
 	// Variables globales para el encabezado y pie de pagina
 	$GLOBALS['CENTRO_NOMBRE'] = $nombre_del_centro;

@@ -1,4 +1,4 @@
-<?
+<?php
 function redondeo($n){
 
 	$entero10 = explode(".",$n);
@@ -12,6 +12,7 @@ function redondeo($n){
 		
 	else {echo $n;}
 }
+
 function media_ponderada($n){
 
 	$entero10 = explode(".",$n);
@@ -137,6 +138,27 @@ function cambia_fecha($fec)
 	}
 }
 
+/////////////
+//Devuelve el numero de dia de la semana de la fecha
+//////////////
+
+function dia_dma($a)
+{
+if (es_fecha($a)){
+					$a = strtr($a,"/","-");
+					$a_ok=explode("-",$a);				
+					$fecha = getdate(mktime(0,0,0,$a_ok[1],$a_ok[0],$a_ok[2]));
+					if ($fecha['wday']!=0){return $fecha['wday'];}else{return 7;}
+					}else{
+					return '';
+					}
+}
+
+function dia_amd($a)
+{
+$a=cambia_fecha($a);
+return dia_dma($a);
+}
 
 function cambia_fecha_dia_mes($fec)
 {
@@ -175,14 +197,14 @@ function formatea_fecha($fec){
 	$fec_ok=explode("-",$fec);
 	return ($fec_ok[2]." de ".elmes($fec_ok[1])." de ".$fec_ok[0]);
 }
-?>
-<?
+
 function formatDate($val)
 {
 	$arr = explode("-", $val);
 	return date("d M Y", mktime(0,0,0, $arr[1], $arr[2], $arr[0]));
 
 }
+
 function fecha_actual($valor_fecha){
 
 	/*    if($valor_fecha == ""){
@@ -209,6 +231,7 @@ function fecha_actual($valor_fecha){
 	 echo "$diames0 de ".$mes0[$nmes0].", $nano0";
 	 }	*/
 }
+
 function fecha_actual3($valor_fecha){
 
 	$arr0 = explode(" ", $valor_fecha);
@@ -265,6 +288,7 @@ function fecha_sin($valor_fecha){
 	echo "$diames0 de ".$mes0[$nmes0].", $nano0";
 	//}
 }
+
 //Asignacion de ordenadores a alumnos
 function posicion($db_con, $curso, $profi){
 
@@ -300,5 +324,3 @@ function eliminar_mayusculas(&$n_profeso) {
 function nomprofesor($nombre) {
 	return mb_convert_case($nombre, MB_CASE_TITLE, "iso-8859-1");
 }
-
-?>
