@@ -3,19 +3,17 @@ require('../bootstrap.php');
 
 
 // RECOPILACION DE INFORMACION
-$exp_inicio_curso = explode('-', $inicio_curso);
-$inicio_curso_sql = $exp_inicio_curso[2].'-'.$exp_inicio_curso[1].'-'.$exp_inicio_curso[0];
 
 mysqli_query($db_con, "TRUNCATE TABLE usuario");
 
-$result = mysqli_query($db_con, "SELECT DISTINCT profesor FROM $bd.profesores ORDER BY profesor ASC");
+$result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos ORDER BY nombre ASC");
 while ($row = mysqli_fetch_array($result)) {
 	
 	$profesor = $row[0];
 
 	for ($i = 1; $i <= $num_carrito; $i++) {
 	
-		$result1 = mysqli_query($db_con, "SELECT eventdate FROM carrito$i WHERE date(eventdate) > '$inicio_curso_sql' AND (event1='$profesor' OR event2='$profesor' OR event3='$profesor' OR event4='$profesor' OR event5= '$profesor' OR event6='$profesor' OR event7='$profesor')") or die ("Error in query: $query. " . mysqli_error($db_con));
+		$result1 = mysqli_query($db_con, "SELECT eventdate FROM reservas WHERE servicio='TIC_$i' and date(eventdate) > date('$inicio_curso') AND (event1='$profesor' OR event2='$profesor' OR event3='$profesor' OR event4='$profesor' OR event5= '$profesor' OR event6='$profesor' OR event7='$profesor')") or die ("Error in query: $query. " . mysqli_error($db_con));
 		
 		$dias_profesor = mysqli_num_rows($result1);	
 		
@@ -48,7 +46,7 @@ include("../TIC/menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2>Centro TIC <small>Estadísticas de las TIC</small></h2>
+			<h2>Centro TIC <small>Estadísticas de uso de Recursos TIC</small></h2>
 		</div>
 		
 		<!-- SCAFFOLDING -->
@@ -57,17 +55,17 @@ include("../TIC/menu.php");
 			<!-- COLUMNA IZQUIERDA -->
 			<div class="col-sm-4">
 				
-				<h3>Información de carros TIC</h3>
+				<h3>Información de Recursos TIC</h3>
 				
 				<br>
 				
 				<?php for ($i = 1; $i <= $num_carrito; $i++): ?>
-				<?php $result = mysqli_query($db_con, "SELECT eventdate FROM `carrito$i` WHERE DATE(eventdate) > '$inicio_curso_sql'"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT eventdate FROM `reservas` WHERE DATE(eventdate) > date('$inicio_curso') and servicio='TIC_$i'"); ?>
 				<?php $n_dias = mysqli_num_rows($result); ?>
 				<?php $n_horas = 0; ?>
 				<?php if ($n_dias): ?>
 				<?php while ($row = mysqli_fetch_array($result)): ?>
-				<?php $result1 = mysqli_query($db_con, "SELECT * FROM `carrito$i` WHERE eventdate='".$row['eventdate']."'"); ?>
+				<?php $result1 = mysqli_query($db_con, "SELECT * FROM reservas WHERE servicio='TIC_$i' and eventdate='".$row['eventdate']."'"); ?>
 				<?php $row1 = mysqli_fetch_array($result1); ?>
 				<?php for ($j = 3; $j < 10; $j++): ?>
 				<?php if(!empty($row1[$j])): ?>
@@ -80,7 +78,7 @@ include("../TIC/menu.php");
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th colspan="2">Carro TIC <?php echo $i; ?></th>
+							<th colspan="2">Recurso TIC <?php echo $i; ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -112,7 +110,7 @@ include("../TIC/menu.php");
 						<thead>
 							<th>Profesor/a</th>
 							<?php for ($i = 1; $i <= $num_carrito; $i++): ?>
-							<th class="text-center">C. TIC <?php echo $i; ?></th>
+							<th class="text-center">TIC <?php echo $i; ?></th>
 							<?php endfor; ?>
 						</thead>
 						<tbody>

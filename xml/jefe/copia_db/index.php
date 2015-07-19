@@ -60,18 +60,6 @@ if(isset($_GET['action']) && $_GET['action']=="crear") {
 	else {
 		$msg_success = "Se ha creado una nueva copia de seguridad de la base de datos " . $bd . ".";
 	}
-
-	if ($db != $db_reservas) {
-		$result = copia_bd($db_host, $db_user, $db_pass, $db_reservas);
-	
-		if($result) {
-			$msg_error = "No ha sido posible crear la copia de seguridad. Asegúrese de que el directorio <?php echo __DIR__; ?>/ tiene permiso de escritura.";
-		}
-		else {
-			$msg_success = "Se ha creado una nueva copia de seguridad de la base de datos " . $bd_reservas . ".";
-		}
-	}
-
 }
 
 // DESCARGA DE ARCHIVO

@@ -6,7 +6,6 @@ $pr = $_SESSION['profi'];
 
 include("../../menu.php");
 include("../menu.php");
-mysqli_select_db($db_con, $db_reservas);
 
 if (isset($_POST['enviar']) or isset($_GET['enviar'])) {
 
@@ -42,8 +41,8 @@ $_GET['day_event'.$i]; }
 	$hoy = getdate($semana);
 	$numero_dia = $hoy['wday'];
 
-	$eventQuery = "SELECT id FROM `$db_reservas`.`$servicio` WHERE eventdate 
-= '$sql_date';";
+	$eventQuery = "SELECT id FROM `reservas` WHERE eventdate 
+= '$sql_date' and servicio='$servicio'";
 	//echo $eventQuery;
 	$eventExec = mysqli_query($db_con, $eventQuery);
 	$event_found = "";
@@ -61,31 +60,31 @@ $_GET['day_event'.$i]; }
 
 	if ($event_found == 1) {
 		//UPDATE
-		$postQuery = "UPDATE `$servicio` SET event1 = '".$day_event1."', 
+		$postQuery = "UPDATE `reservas` SET event1 = '".$day_event1."', 
 event2 = '".$day_event2."', event3 = '".$day_event3."',
     event4 = '".$day_event4."', event5 = '".$day_event5."', event6 = 
-'".$day_event6."', event7 = '".$day_event7."' WHERE eventdate = '$sql_date';";
+'".$day_event6."', event7 = '".$day_event7."' WHERE eventdate = '$sql_date' and servicio='$servicio';";
 		// echo $postQuery;
 		$postExec = mysqli_query($db_con, $postQuery) or die("Could not 
-Post UPDATE `$db_reservas`.`$servicio` Event to database!");
-		mysqli_query($db_con, "DELETE FROM `$db_reservas`.`$servicio` 
+Post UPDATE Event to database!");
+		mysqli_query($db_con, "DELETE FROM `reservas` 
 WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 
-= ''  and event6 = ''  and event7 = '' ");
+= ''  and event6 = ''  and event7 = '' and servicio='$servicio' ");
 		$mens="actualizar";
 	} else {
 		//INSERT
-		$postQuery = "INSERT INTO `$servicio` 
-(eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html) VALUES 
+		$postQuery = "INSERT INTO `reservas` 
+(eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html, servicio) VALUES 
 ('$sql_date','$numero_dia','".$day_event1."','".$day_event2."','".$day_event3."'
 ,'".$day_event4."','".$day_event5."','".$day_event6."','".$day_event7."',
-'$show_html');";
-		// echo $postQuery;
+'$show_html', '$servicio')";
+		 //echo $postQuery;
 		$postExec = mysqli_query($db_con, $postQuery) or die("Could not 
-Post INSERT `$db_reservas`.`$servicio` Event to database!");
+Post INSERT `reservas` Event to database!");
 
-		mysqli_query($db_con, "DELETE FROM `$db_reservas`.`$servicio` 
+		mysqli_query($db_con, "DELETE FROM `reservas` 
 WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 
-= ''  and event6 = ''  and event7 = '' ");
+= ''  and event6 = ''  and event7 = '' and servicio='$servicio'");
 		$mens="insertar";
 	}
 }
@@ -93,29 +92,14 @@ WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5
 if (isset($_POST['permanente'])) {
 	$numero_dia = $_POST['numero_dia'];
 	// Comprobamos que existe la tabla del aula
-	$tabla_perm = $servicio."hor";
-	$reg = mysqli_query($db_con, "show tables from reservas");
+	$tabla_perm = "reservas_hor";
+	$reg = mysqli_query($db_con,"select distinct servicio from reservas");
 	while ($t_reg = mysqli_fetch_array($reg)){
 		if ($t_reg[0]==$tabla_perm){$existe = "1";}
 	}
 
-	if ($existe == "1") {}else{
-		mysqli_query($db_con,"
-	CREATE TABLE IF NOT EXISTS `".$db_reservas."`.`".$servicio."hor` (
-  `dia` tinyint(1) NOT NULL DEFAULT '0',
-  `hora1` varchar(24) DEFAULT NULL,
-  `hora2` varchar(24) DEFAULT NULL,
-  `hora3` varchar(24) DEFAULT NULL,
-  `hora4` varchar(24) DEFAULT NULL,
-  `hora5` varchar(24) DEFAULT NULL,
-  `hora6` varchar(24) DEFAULT NULL,
-  `hora7` varchar(24) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1");
-	}
-
 	// Insertamos datos después de borrar la fila del día
-	mysqli_query($db_con,"delete from `".$db_reservas."`.`".$servicio."hor` 
-where dia='$numero_dia'");
+	mysqli_query($db_con,"delete from reservas_hor where dia='$numero_dia' and servicio = '$servicio'");
 
 	//INSERT
 	for ($i = 1; $i < 8; $i++) {
@@ -123,12 +107,12 @@ where dia='$numero_dia'");
 			$_POST['day_event'.$i]="";
 		}
 	}
-	$post_perm = "INSERT INTO `".$db_reservas."`.`".$servicio."hor`  VALUES 
+	$post_perm = "INSERT INTO reservas_hor  VALUES 
 ('$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST[
 'day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST
-['day_event6']."','".$_POST['day_event7']."')";
+['day_event6']."','".$_POST['day_event7']."','".$servicio."')";
 	$exec_permanente = mysqli_query($db_con, $post_perm) or die("Could not 
-Post INSERT `".$db_reservas."`.`".$servicio."hor` Event to database!");
+Post INSERT Event to database!");
 
 }
 
@@ -206,29 +190,11 @@ if ($servicio) {
 	$n_servicio = strtoupper($tr_serv[0]);
 }
 // Comprobamos que existe la tabla del aula
-$reg = mysqli_query($db_con, "show tables from reservas");
-while ($t_reg = mysqli_fetch_array($reg)){
-	if ($t_reg[0]==$servicio){$existe = "1";}
+	$reg = mysqli_query($db_con,"select distinct servicio from reservas");
+	while ($t_reg = mysqli_fetch_array($reg)){
+		if ($t_reg[0]==$servicio){$existe = "1";}
 }
-if ($existe == "1") {}else{
-	$sql_hor = "CREATE TABLE `$db_reservas`.`$n_servicio` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `eventdate` date DEFAULT NULL,
-  `dia` tinyint(1) NOT NULL DEFAULT '0',
-  `html` tinyint(1) NOT NULL DEFAULT '0',
-  `event1` varchar(64) DEFAULT NULL,
-  `event2` varchar(64) NOT NULL DEFAULT '',
-  `event3` varchar(64) NOT NULL DEFAULT '',
-  `event4` varchar(64) NOT NULL DEFAULT '',
-  `event5` varchar(64) NOT NULL DEFAULT '',
-  `event6` varchar(64) NOT NULL DEFAULT '',
-  `event7` varchar(64) NOT NULL DEFAULT '',
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `date` (`eventdate`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ";
-	//echo $sql_hor;
-	mysqli_query($db_con, $sql_hor);
-}
+
 // Estructura de la Tabla
 ?>
 
@@ -236,57 +202,6 @@ if ($existe == "1") {}else{
 
 <div class="page-header">
 <h2>Reservas <small> Reserva de <?php echo $servicio; ?>
-<?
-if(stristr($_SESSION['cargo'],'1') == TRUE){
-?>
-<a href="#"
-	class="pull-right" data-toggle="modal" data-target="#myModal"> <span
-	class="fa fa-question-circle fa-lg"></span> </a> <!-- Modal -->
-<div class="modal fade pull-right" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span 
-class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Información sobre la reserva de 
-aulas.</h4>
-</div>
-<div class="modal-body">
-<p class="help-block text-info"><small class="text-info">
-El Equipo directivo puede asignar el horario de las dependencias del Centro de 
-varias maneras. Si el aula aparece en el Horario y este se ha importado en la 
-base de datos, se presentarán las horas del aula con la asignatura que se 
-imparte en ese momento con la expresión <strong>Asignada por Horario</strong>. 
-El Equipo directivo puede asignar el aula a otro profesor por encima del Horario 
-si por alguna razón lo considera necesario. La hora aparecerá entonces en el 
-formulario con la expresión <strong>Asignada por Dirección.</strong><br>
-Si el aula está vacía en ese momento cualquier profesor puede seleccionar esa 
-hora para utilizar el aula.<br>
-Si queremos asignar una hora a un profesor durante todo el curso escolar, 
-seleccionamos al mismo en el formulario y pulsamos sobre el botón rojo 
-<strong>Reservar todo el Curso</strong>. Es importante elegir un día sin reserva 
-alguna de profesores para realizar la asignación permanente porque ls profesores 
-que aparezcan en el formulario quedarán fijados para todo el curso escolar. Los 
-campos en los que aparezca la palabra "Asignación" (bien por Horario o bien por 
-Dirección) no se registran en la reserva permanete. A partir de ese momento los 
-profesores verán en ese campo la expresión <strong>Asignada por 
-Dirección</strong></strong> y no podrán elegir el aula en esa hora. Este 
-procedimiento se puede aplicar tantas veces como queramos para aquellas 
-dependencias o aulas que aparezcan en el horario.   
-</small></p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" 
-data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>	
-<?	
-}
-?>
 </small>
 </h2>
 </div>
@@ -369,7 +284,7 @@ $aula;
 		$sql_currentday = "$year-$month-$zz";
 
 		$eventQuery = "SELECT event1, event2, event3, event4, event5, 
-event6, event7 FROM `$aula` WHERE eventdate = '$sql_currentday';";
+event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio';";
 		$eventExec = mysqli_query($db_con, $eventQuery );
 		if (mysqli_num_rows($eventExec)>0) {
 			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
@@ -422,7 +337,7 @@ $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
 $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, 
-html FROM `$aula` WHERE eventdate = '$sql_date'";
+html FROM `reservas` WHERE eventdate = '$sql_date' and servicio='$servicio'";
 $eventExec = mysqli_query($db_con, $eventQuery);
 while($row = mysqli_fetch_array($eventExec)) {
 	$event_event1 = stripslashes($row["event1"]);
@@ -451,8 +366,8 @@ if($aula){
 		echo '<div class="form-group">';
 
 		// Comprobamos reserva definitiva del aula
-		$aula_hor = "SELECT hora$i FROM `".$aula."hor` WHERE dia = 
-'$numero_dia'";
+		$aula_hor = "SELECT hora$i FROM reservas_hor WHERE dia = 
+'$numero_dia' and servicio='$servicio'";
 //echo $aula_hor."<br>";
 		$res_aula_hor = mysqli_query($db_con, $aula_hor);
 		$num_aula_hor = mysqli_fetch_row($res_aula_hor);

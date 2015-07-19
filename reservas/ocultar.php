@@ -15,7 +15,7 @@ include("menu.php");
 <?
 if (isset($_POST['nueva'])) {
 mysqli_query($db_con,"
-CREATE TABLE IF NOT EXISTS $db_reservas.nuevas (
+CREATE TABLE IF NOT EXISTS nuevas (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `abrev` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
   `nombre` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
@@ -29,13 +29,13 @@ CREATE TABLE IF NOT EXISTS $db_reservas.nuevas (
 		$nombre_nueva = $_POST['nombre_nueva'];
 		$texto = $_POST['texto'];
 		if ($_POST['nueva']=="Crear nueva Aula / Dependencia") {
-				mysqli_query($db_con,"insert into $db_reservas.nuevas values ('','$abrev_nueva','$nombre_nueva','$texto')");
+				mysqli_query($db_con,"insert into nuevas values ('','$abrev_nueva','$nombre_nueva','$texto')");
 				if (mysqli_affected_rows($db_con)>0) {
 					$msg = "Los datos se han registrado correctamente. Las aulas / dependencias creadas aparecerán en el sistema de reservas a partir de ahora.";
 				}			}			
 		
 		elseif ($_POST['nueva']=="Actualizar datos del Aula / Dependencia") {
-				mysqli_query($db_con,"update $db_reservas.nuevas set abrev='$abrev_nueva', nombre='$nombre_nueva', texto='$texto' where id = '".$_POST['id']."'");
+				mysqli_query($db_con,"update nuevas set abrev='$abrev_nueva', nombre='$nombre_nueva', texto='$texto' where id = '".$_POST['id']."'");
 				if (mysqli_affected_rows($db_con)>0) {
 					$msg = "Los datos se han actualizado correctamente. Las aulas / dependencias actualizadas aparecerán en el sistema de reservas con los nuevos datos.";
 				}
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS $db_reservas.nuevas (
 
 if (isset($_POST['enviar'])) {
 mysqli_query($db_con,"
-CREATE TABLE IF NOT EXISTS $db_reservas.ocultas (
+CREATE TABLE IF NOT EXISTS ocultas (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `aula` varchar(48) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
@@ -59,10 +59,10 @@ CREATE TABLE IF NOT EXISTS $db_reservas.ocultas (
 
 	$num = count($_POST);
 	if ($num>1) {
-		mysqli_query($db_con,"truncate table $db_reservas.ocultas");
+		mysqli_query($db_con,"truncate table ocultas");
 		foreach ($_POST as $valor){
 			if ($valor!=="Enviar datos") {
-			mysqli_query($db_con,"insert into $db_reservas.ocultas values ('','$valor')");
+			mysqli_query($db_con,"insert into ocultas values ('','$valor')");
 		}
 	}	
 ?>
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS $db_reservas.ocultas (
 
 if (isset($_GET['eliminar'])) {
 	$id = $_GET['id'];
-				mysqli_query($db_con,"delete from $db_reservas.nuevas where id = '$id'");
+				mysqli_query($db_con,"delete from nuevas where id = '$id'");
 				if (mysqli_affected_rows($db_con)>0) {
 					$msg = "El aula/dependencia ha sido eliminada del sistema de reservas.";
 		}
@@ -90,7 +90,7 @@ if (isset($_GET['eliminar'])) {
 
 if (isset($_GET['editar'])) {
 	$id = $_GET['id'];
-	$ya = mysqli_query($db_con,"select * from $db_reservas.nuevas where id = '$id'");
+	$ya = mysqli_query($db_con,"select * from nuevas where id = '$id'");
 			if (mysqli_num_rows($ya)>0) {
 				$ya_id = mysqli_fetch_array($ya);
 				$abrev_nueva = $ya_id[1];
@@ -115,7 +115,7 @@ while ($aula = mysqli_fetch_array($aulas)) {
 	$check="";
 	$abrev0 = $aula[0];
 	$nombre0 = $aula[1];
-	$ya = mysqli_query($db_con,"select * from $db_reservas.ocultas where aula = '$abrev0'");
+	$ya = mysqli_query($db_con,"select * from ocultas where aula = '$abrev0'");
 	if (mysqli_num_rows($ya)>0) {
 		$check = " checked";
 	}
@@ -127,14 +127,14 @@ while ($aula = mysqli_fetch_array($aulas)) {
 }
 ?>
 <?
-$aulas_nueva = mysqli_query($db_con,"select distinct abrev, nombre, id from $db_reservas.nuevas order by abrev");
+$aulas_nueva = mysqli_query($db_con,"select distinct abrev, nombre, id from nuevas order by abrev");
 echo "<thead><th colspan=3>Aulas fuera del Horario</th></thead>";
 while ($aula_nueva = mysqli_fetch_array($aulas_nueva)) {
 	$check="";
 	$abrev_nueva0 = $aula_nueva[0];
 	$nombre_nueva0 = $aula_nueva[1];
 	$id_nueva0 = $aula_nueva[2];
-	$ya_nueva = mysqli_query($db_con,"select * from $db_reservas.ocultas where aula = '$abrev_nueva0'");
+	$ya_nueva = mysqli_query($db_con,"select * from ocultas where aula = '$abrev_nueva0'");
 	if (mysqli_num_rows($ya_nueva)>0) {
 		$check = " checked";
 	}

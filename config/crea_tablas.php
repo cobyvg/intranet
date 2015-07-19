@@ -1433,18 +1433,12 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `usuarioprofesor` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 
-// Base de datos de Reservas
+// Sistema de Reservas
 
-// Creamos Base de dtos principal
 
-mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS `$db_reservas`");
-mysqli_select_db ($db_con, $db_reservas);
+// Tabla Reservas
 
-for($ci=1;$ci<$num_aula+1;$ci++){
-
-// Tabla de Aulas
-
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `aula".$ci."` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `reservas` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `eventdate` date default NULL,
   `dia` tinyint(1) NOT NULL default '0',
@@ -1456,13 +1450,13 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `aula".$ci."` (
   `event5` varchar(64) NOT NULL default '',
   `event6` varchar(64) NOT NULL default '',
   `event7` varchar(64) NOT NULL default '',
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `date` (`eventdate`)
+  `servicio` varchar(32) NOT NULL,
+  UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
-// Estructura de tabla para la tabla `aulahor`
+// Estructura de tabla para la tabla `reservas_hor`
 
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `aula".$ci."hor` (
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `reservas_hor` (
   `dia` tinyint(1) NOT NULL default '0',
   `hora1` varchar(24) default NULL,
   `hora2` varchar(24) default NULL,
@@ -1471,67 +1465,11 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `aula".$ci."hor` (
   `hora5` varchar(24) default NULL,
   `hora6` varchar(24) default NULL,
   `hora7` varchar(24) default NULL,
+  `servicio` varchar(32) NOT NULL,
   KEY `dia` (`dia`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1");
-}
 
-for($ci=1;$ci<$num_medio+1;$ci++){
-
-// Tabla de Medios
-
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `medio".$ci."` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
-  `eventdate` date default NULL,
-  `dia` tinyint(1) NOT NULL default '0',
-  `html` tinyint(1) NOT NULL default '0',
-  `event1` varchar(64) default NULL,
-  `event2` varchar(64) NOT NULL default '',
-  `event3` varchar(64) NOT NULL default '',
-  `event4` varchar(64) NOT NULL default '',
-  `event5` varchar(64) NOT NULL default '',
-  `event6` varchar(64) NOT NULL default '',
-  `event7` varchar(64) NOT NULL default '',
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `date` (`eventdate`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
-
-// Estructura de tabla para la tabla `mediohor`
-
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `medio".$ci."hor` (
-  `dia` tinyint(1) NOT NULL default '0',
-  `hora1` varchar(24) default NULL,
-  `hora2` varchar(24) default NULL,
-  `hora3` varchar(24) default NULL,
-  `hora4` varchar(24) default NULL,
-  `hora5` varchar(24) default NULL,
-  `hora6` varchar(24) default NULL,
-  `hora7` varchar(24) default NULL,
-  KEY `dia` (`dia`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1");
-}
-
-for($ci=1;$ci<$num_carrito+1;$ci++){
-
-// Tabla de Carritos
-
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `carrito".$ci."` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
-  `eventdate` date default NULL,
-  `dia` tinyint(1) NOT NULL default '0',
-  `html` tinyint(1) NOT NULL default '0',
-  `event1` varchar(64) default NULL,
-  `event2` varchar(64) NOT NULL default '',
-  `event3` varchar(64) NOT NULL default '',
-  `event4` varchar(64) NOT NULL default '',
-  `event5` varchar(64) NOT NULL default '',
-  `event6` varchar(64) NOT NULL default '',
-  `event7` varchar(64) NOT NULL default '',
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `date` (`eventdate`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
-}
-
-// Tabla de Usuarios TIC
+// Tabla de Estadísticas TIC
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `usuario` (
   `profesor` varchar(48) NOT NULL default '',

@@ -7,7 +7,6 @@ $pr = $_SESSION['profi'];
 
 include("../../menu.php");
 include("../menu.php");
-mysqli_select_db($db_con, $db_reservas);
 
 if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
 if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
@@ -145,7 +144,7 @@ for ($i = 0; $i < $dayone; $i++) {
 			//Buscar actividad para el dóa y marcarla
 			$sql_currentday = "$year-$month-$zz";
 	
-	    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
+	    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio='$servicio';";
 					$eventExec = mysqli_query($db_con, $eventQuery );
 			if (mysqli_num_rows($eventExec)>0) {
 				while ( $row = mysqli_fetch_array ( $eventExec ) ) {
@@ -195,7 +194,7 @@ $sql_date = "$year-$month-$today";
 $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
-$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, html FROM $servicio WHERE eventdate = '$sql_date';";
+$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7, html FROM reservas WHERE eventdate = '$sql_date' and servicio='$servicio'";
 $eventExec = mysqli_query($db_con, $eventQuery);
 while($row = mysqli_fetch_array($eventExec)) {
    $event_event1 = stripslashes($row["event1"]);
@@ -211,7 +210,7 @@ if($_SESSION['profi'] == 'conserje' or stristr($_SESSION['cargo'],'1') == TRUE){
 else{$SQL = "select distinct nombre from $db.departamentos where nombre = '". $_SESSION['profi'] ."'";}
 
 if($servicio){
-$eventQuery2 = "SELECT hora1 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
+$eventQuery2 = "SELECT hora1 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
 $reservado0 = mysqli_query($db_con, $eventQuery2);
 if (mysqli_num_rows($reservado0) == 1) {
 $reservado1 = mysqli_fetch_row($reservado0);
@@ -236,7 +235,7 @@ if (empty($event_event1)) { echo "<label>1ª hora</label> &nbsp;&nbsp; <select na
 	echo '</div>';
 		
 	
-if($servicio){$eventQuery2 = "SELECT hora2 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
+if($servicio){$eventQuery2 = "SELECT hora2 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
 $reservado0 = mysqli_query($db_con, $eventQuery2);
 if (mysqli_num_rows($reservado0)>0) {
 $reservado1 = mysqli_fetch_row($reservado0);
@@ -257,7 +256,7 @@ if (empty($event_event2)) { echo "<label>2ª hora</label> &nbsp;&nbsp; <select na
 	echo '</div>';
 		
 	
-if($servicio){$eventQuery2 = "SELECT hora3 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
+if($servicio){$eventQuery2 = "SELECT hora3 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
 $reservado0 = mysqli_query($db_con, $eventQuery2);
 if (mysqli_num_rows($reservado0)>0) {
 $reservado1 = mysqli_fetch_row($reservado0);
@@ -279,7 +278,7 @@ if(empty($event_event3)) { echo "<label>3ª hora</label> &nbsp;&nbsp; <select nam
 	echo '</div>';
 		
 	
-if($servicio){$eventQuery2 = "SELECT hora4 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
+if($servicio){$eventQuery2 = "SELECT hora4 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
 $reservado0 = mysqli_query($db_con, $eventQuery2);
 if (mysqli_num_rows($reservado0)>0) {
 $reservado1 = mysqli_fetch_row($reservado0);
@@ -300,7 +299,7 @@ if (empty($event_event4)) { echo "<label>4ª hora</label> &nbsp;&nbsp; <select na
 	echo '</div>';
 		
 	
-if($servicio){$eventQuery2 = "SELECT hora5 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
+if($servicio){$eventQuery2 = "SELECT hora5 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
 $reservado0 = mysqli_query($db_con, $eventQuery2);
 if (mysqli_num_rows($reservado0)>0) {
 $reservado1 = mysqli_fetch_row($reservado0);
@@ -317,11 +316,11 @@ if (empty($event_event5)) { echo "<label>5ª hora</label> &nbsp;&nbsp; <select na
 	} echo "</select>";} 
 	else {
 	if(mb_strtolower($pr) == mb_strtolower($event_event5)) {echo "<label>5ª hora</label> &nbsp;&nbsp; <div class=\"form-group\"><input class=\"form-control\" type=\"text\" name=\"day_event5\"  value=\"$event_event5\"></div>"; } 
-	else{echo "5Âª Hora &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event5'></div><input type=\"hidden\" value=\"$event_event5\" name=\"day_event5\">"; }}	}	
+	else{echo "5ª Hora &nbsp;&nbsp; <div class=\"form-group\"><input disabled class=\"form-control\" type=\"text\"  value='$event_event5'></div><input type=\"hidden\" value=\"$event_event5\" name=\"day_event5\">"; }}	}	
 	echo '</div>';
 		
 	
-if($servicio){$eventQuery2 = "SELECT hora6 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
+if($servicio){$eventQuery2 = "SELECT hora6 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
 $reservado0 = mysqli_query($db_con, $eventQuery2);
 if (mysqli_num_rows($reservado0)>0) {
 $reservado1 = mysqli_fetch_row($reservado0);
@@ -342,7 +341,7 @@ if (empty($event_event6)) { echo "<label>6ª hora</label> &nbsp;&nbsp; <select na
 	echo '</div>';
 		
 	
-if($servicio){$eventQuery2 = "SELECT hora7 FROM ".$servicio."hor WHERE dia = '$numero_dia'";
+if($servicio){$eventQuery2 = "SELECT hora7 FROM reservas_hor WHERE dia = '$numero_dia' and servicio='$servicio'";
 $reservado0 = mysqli_query($db_con, $eventQuery2);
 if (mysqli_num_rows($reservado0)>0) {
 $reservado1 = mysqli_fetch_row($reservado0);

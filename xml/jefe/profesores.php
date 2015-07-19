@@ -88,21 +88,6 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 Tabla <strong>Profesores</strong>: los datos han sido introducidos correctamente.
 </div></div><br />';
 
-if ($db_reservas != $db) {
-	$base0 = "DROP TABLE ".$db_reservas.".profesores";
-	mysqli_query($db_con, $base0);
-	$faltasprofexml = "create table ".$db_reservas.".profesores select NIVEL, MATERIA, GRUPO, PROFESOR from ".$db.".profesores";
-	mysqli_query($db_con, $faltasprofexml) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
-	            <button type="button" class="close" data-dismiss="alert">&times;</button>
-				<legend>ATENCIӓN:</legend>
-	No se ha podido crear la tabla <strong>profesores</strong> en la base de datos <strong>Reservas</strong>.<br> Aseg&uacute;rate de que su formato es correcto.
-	</div></div><br />
-	<div align="center">
-	  <input type="button" value="Volver atr&aacute;s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-	</div>'.mysqli_error($db_con));
-	mysqli_query($db_con, "".$db_reservas.".profesores ADD INDEX (  `PROFESOR` )");
-}
-
 // Colocar códigos y nombre de asignaturas de Horw de acuerdo con Séneca (tabla Profesores)
 $sql = mysqli_query($db_con, "select id, prof, a_grupo, a_asig, asig, c_asig from horw where a_grupo not like 'G%' and a_grupo IS NOT NULL");
 //echo "select id, prof, a_grupo, a_asig, asig, c_asig from horw where a_grupo not like 'G%' and a_grupo IS NOT NULL<br>";

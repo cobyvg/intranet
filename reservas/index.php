@@ -5,13 +5,13 @@ require('../bootstrap.php');
 if (isset($_GET['recurso'])) {
 	
 	switch ($_GET['recurso']) {
-		case 'carrito' : $nmedios = $num_carrito+1; $nombre_rec = "Carritos TIC"; break;
+		case 'TIC_' : $nmedios = $num_carrito+1; $nombre_rec = "Recursos TIC"; break;
 		case 'medio'   : $nmedios = $num_medio+1; $nombre_rec = "Medios audiovisuales"; break;
 	}
 	
 }
 else {
-	header('Location:'.'index.php?recurso=carrito');
+	header('Location:'.'index.php?recurso=TIC_');
 }
 
 
@@ -26,7 +26,6 @@ include("menu.php");
 	</div>
 
 <?php
-mysqli_select_db($db_con, $db_reservas);
 
 if (isset($_GET['month'])) { $month = $_GET['month']; $month = preg_replace ("/[[:space:]]/", "", $month); $month = preg_replace ("/[[:punct:]]/", "", $month); $month = preg_replace ("/[[:alpha:]]/", "", $month); }
 if (isset($_GET['year'])) { $year = $_GET['year']; $year = preg_replace ("/[[:space:]]/", "", $year); $year = preg_replace ("/[[:punct:]]/", "", $year); $year = preg_replace ("/[[:alpha:]]/", "", $year); if ($year < 1990) { $year = 1990; } if ($year > 2035) { $year = 2035; } }
@@ -135,7 +134,7 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
   if ($result_found != 1) { 
 		//Buscar actividad para el día y marcarla
 		$sql_currentday = "$year-$month-$zz";
-    	$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
+    	$eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio = '$servicio'";
  		$eventExec = mysqli_query($db_con, $eventQuery );
 		if (mysqli_num_rows($eventExec)>0) {
 			while ( $row = mysqli_fetch_array ( $eventExec ) ) {
@@ -203,7 +202,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
 	{$dayname = "Sábado";}
     
     $sql_currentday = "$current_year-$current_month-$current_day";
-    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `$servicio` WHERE eventdate = '$sql_currentday';";
+    $eventQuery = "SELECT event1, event2, event3, event4, event5, event6, event7 FROM `reservas` WHERE eventdate = '$sql_currentday' and servicio = '$servicio'";
     $eventExec = mysqli_query($db_con, $eventQuery);
     while($row = mysqli_fetch_array($eventExec)) {
    if (mysqli_num_rows($eventExec) == 1) {

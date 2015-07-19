@@ -415,7 +415,7 @@ $menu = array(
 						'titulo' => 'Aulas de grupo',
 					),
 					array(
-						'href'   => 'reservas/index.php?recurso=carrito',
+						'href'   => 'reservas/index.php?recurso=TIC_',
 						'titulo' => 'Carros TIC',
 					),
 					array(

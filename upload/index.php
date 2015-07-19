@@ -589,6 +589,36 @@ function show_contents() {
 	echo "  <ul class=\"nav nav-tabs\">\n";
 	echo "    <li $activo1><a href=\"index.${phpExt}?index=publico\">Documentos públicos</a></li>\n";
 	echo "    <li $activo2><a href=\"index.${phpExt}?index=privado\">Documentos personales</a></li>\n";
+	?>
+	<!-- Button trigger modal --> <a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal"> <span class="fa fa-question fa-lg"></span> </a>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel">Información sobre los Documentos.</h4>
+</div>
+<div class="modal-body">
+<p>
+La página presenta dos tipos de documentos: los <b><em>Documentos públicos del Centro</em></b> y los <b><em>Documentos privados de cada Profesor</em></b>.
+<br><br>Los <b><em>Documentos Públicos</em></b> se configuran en la instalación de la Intranet, y nos ofrecen un directorio donde el Equipo directivo coloca aquellos archivos que considera relevantes para su Comunidad educativa (Programaciones, Plan del Centro, etc.). Es posible también crear un directorio llamado <b><em>Departamentos</em></b>; dentro del mismo creamos también un conjunto de directorios para los Departamentos (con el mismo nombre que tiene ese Departamento en la Intranet). Estos pueden usarlo para subir documentos accesibles desde la Página pública del Centro. Los miembros de un departamento pueden subir y borrar los archivos, y también crear directorios donde subir nuevos archivos.
+<br><br>Los <b><em>Documentos Personales</em></b> son propios de cada Profesor. Podemos subir archivos para luegos usarlos en el Centro, o bien utilizar esos archivos para incrustarlos en un mensaje que luego comparte dentro de la Intranet. Este módulo se puede también entender como un pequeño Explorador personal de nuestros archivos. No es visble desde la Página pública del Centro.
+
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>  
+	<?
 	echo "  </ul>\n";
 	
 	echo "   <div class=\"page-header\">\n";

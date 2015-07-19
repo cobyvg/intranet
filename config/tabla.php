@@ -364,20 +364,12 @@ for($i=1;$i<2;$i++){
 <div class="tab-pane fade in" id="tab5">
 <h3>Sistema de Reservas</h3><br />
    <table class="table table-condensed table-bordered table-striped" > 
-    <tr>
-      <td class="col-sm-3">Base de datos de Reservas<span style='color:#9d261d'> (*)</span>
-        </td>
-      <td class="col-sm-4"><input type="text" class="form-control" name="db_reservas" <?php echo (isset($db_reservas)) ? 'value="'.$db_reservas.'"' : ''; ?> placeholder="reservas" maxlength="20" required></td>
-      <td>Nombre
-        de la base de datos para las reservas de port&aacute;tiles, aulas
-        y medios diversos.</td>
-    </tr>
     <?php          
 if(empty($num_carrito))
 {
 ?>
     <tr>
-      <td>Número de Carritos TIC:
+      <td>Número de Recursos TIC:
         </td>
       <td><select class="form-control" name="num_carrito" onchange="carritos();">
           <option value="0"></option>
@@ -385,16 +377,16 @@ if(empty($num_carrito))
 		for($i=1;$i<16;$i++) { echo '<option value="'.$i.'">'.$i.'</option>'; }
 	?>
         </select></td>
-      <td>Número de Carritos con Ordenadores TIC.</td>
+      <td>Número de Recursos TIC.</td>
     </tr>
     <tr>
       <td></td>
       <td><?php
 for($i=1;$i<16;$i++){
-echo '<input type="text" class="form-control" id="carrito'.$i.'" name="carrito'.$i.'"/>';
+echo '<input type="text" class="form-control" id="TIC_'.$i.'" name="TIC_'.$i.'" style="display:none"/>';
 }
 ?></td>
-      <td>Lugar o Descripción de los Carritos de Portátiles</td>
+      <td>Nombre, Lugar o Descripción de los Recursos TIC</td>
     </tr>
 
 <?php 
@@ -403,7 +395,7 @@ else
 {
 ?>
     <tr>
-      <th>Número de Carritos TIC:
+      <th>Número de Recursos TIC:
         </th>
       <td><select class="form-control" name="num_carrito" onchange="carritos();">
           <option>
@@ -415,16 +407,16 @@ echo "<option>$i</option>";
 }
 ?>
         </select></td>
-      <td>Número de Carritos con Ordenadores TIC.</td>
+      <td>Número de Recursos TIC.</td>
     </tr>
       <?php
 for($i=1;$i<$num_carrito+1;$i++){
 ?>
     <tr>
-      <td>Carrito<?php echo $i;?>:
+      <td>TIC_<?php echo $i;?>:
         </td>
-      <td><input type="text" class="form-control" name="carrito<?php echo $i;?>" value="<?php if(empty(${'carrito'.$i})){ echo "";}else{echo ${'carrito'.$i};}?>"/></td>
-      <td>Nombre o Lugar del Carrito nº <?php echo $i;?></td>
+      <td><input type="text" class="form-control" name="TIC_<?php echo $i;?>" value="<?php if(empty(${'TIC_'.$i})){ echo "";}else{echo ${'TIC_'.$i};}?>"/></td>
+      <td>Nombre o Lugar del Recursos TIC nº <?php echo $i;?></td>
     </tr>
     <?php
 }
@@ -449,7 +441,7 @@ for($i=1;$i-11;$i++){ echo '<option value="'.$i.'">'.$i.'</option>'; }
       <td></td>
       <td><?php
 for($i=1;$i-11;$i++){
-echo '<input type="text" class="form-control" id="medio'.$i.'" name="medio'.$i.'"/>';
+echo '<input type="text" class="form-control" id="medio'.$i.'" name="medio'.$i.'" style="display:none"/>';
 }
 ?></td>
       <td>Nombre, Lugar o Descripción de los Medios Audiovisuales</td>
@@ -461,7 +453,7 @@ else
     <tr>
       <th nowrap>Número de Medios Audiovisuales:
         </th>
-      <td><select class="form-control" name="num_medio" onchange="submit()">
+      <td><select class="form-control" name="num_medio" onchange="medios()">
           <option>
           <?php if(empty($num_medio)){ echo "";}else{echo $num_medio;}?>
           </option>
@@ -502,7 +494,7 @@ for($i=1;$i<$num_medio+1;$i++){
 
 <script> 
 function carritos(){ 
-var elementos = document.forms[0].length;
+var elementos = document.configura.length;
 	for(z = 0; z <= elementos; z++) {
 var nombre = document.forms[0].elements[z].name;
 if(nombre == "num_carrito"){
@@ -514,7 +506,7 @@ val = eval(num_carro + valor );
 if(i <= val){
 var n_car = eval(i - num_carro)
 document.forms[0].elements[i].style.display = "inline";
-document.forms[0].elements[i].value = "Carrito nº "+n_car; 
+document.forms[0].elements[i].value = "TIC nº "+n_car; 
 }
 else{
 document.forms[0].elements[i].style.display = "none";
@@ -522,7 +514,7 @@ document.forms[0].elements[i].style.display = "none";
 	}
 
 function medios(){ 
-var elementos = document.forms[0].length;
+var elementos = document.configura.length;
 	for(z = 0; z <= elementos; z++) {
 var nombre = document.forms[0].elements[z].name;
 if(nombre == "num_medio"){

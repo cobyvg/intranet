@@ -86,7 +86,7 @@ mysqli_free_result($result_mensajes);
 </head>
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top hidden-print"
+<nav class="navbar navbar-default navbar-fixed-top hidden-print"
 	role="navigation">
 <div class="container-fluid"><!-- Brand and toggle get grouped for better mobile display -->
 <div class="navbar-header">
@@ -159,7 +159,7 @@ mysqli_free_result($result_mensajes);
 		<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row['ahora'])); ?></em></span>
 		<strong><?php echo nomprofesor($row['origen']); ?></strong></div>
 		<div
-		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>><?php echo $row['asunto']; ?></div>
+		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>><?php echo substr($row['asunto'],0,96); ?></div>
 		</a></li>
 		<li class="divider"></li>
 		<?php endwhile; ?>

@@ -21,10 +21,9 @@ $primera = 1;
 if ($_POST['enviar'] or $_POST['num_carrito'] or $_POST['num_aula'] or $_POST['num_medio'])
 {	
 
-if(!(empty($_POST['db']) or empty($_POST['db_reservas']) or empty($_POST['db_host']) or empty($_POST['db_user']) or empty($_POST['db_pass']) or empty($_POST['dominio']) or empty($_POST['nombre_del_centro']) or empty($_POST['codigo_del_centro']) or empty($_POST['email_del_centro']) or empty($_POST['director_del_centro']) or empty($_POST['jefatura_de_estudios']) or empty($_POST['secretario_del_centro']) or empty($_POST['direccion_del_centro']) or empty($_POST['localidad_del_centro']) or empty($_POST['codigo_postal_del_centro']) or empty($_POST['telefono_del_centro']) or empty($_POST['curso_actual']) or empty($_POST['inicio_curso']) or empty($_POST['fin_curso'])))
+if(!(empty($_POST['db']) or empty($_POST['db_host']) or empty($_POST['db_user']) or empty($_POST['db_pass']) or empty($_POST['dominio']) or empty($_POST['nombre_del_centro']) or empty($_POST['codigo_del_centro']) or empty($_POST['email_del_centro']) or empty($_POST['director_del_centro']) or empty($_POST['jefatura_de_estudios']) or empty($_POST['secretario_del_centro']) or empty($_POST['direccion_del_centro']) or empty($_POST['localidad_del_centro']) or empty($_POST['codigo_postal_del_centro']) or empty($_POST['telefono_del_centro']) or empty($_POST['curso_actual']) or empty($_POST['inicio_curso']) or empty($_POST['fin_curso'])))
 {	
 $db = $_POST['db'];
-$db_reservas = $_POST['db_reservas'];
 $db_host = $_POST['db_host'];
 $db_user = $_POST['db_user'];
 $funcion = '

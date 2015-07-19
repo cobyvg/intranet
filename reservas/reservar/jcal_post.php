@@ -1,10 +1,6 @@
 <?
 require('../../bootstrap.php');
 
-
-$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die("Could not connect to database!");
-mysqli_select_db($db_con, $db_reservas);
-
 if (isset($_GET['month'])) {
 	$month = $_GET['month'];
 }
@@ -45,7 +41,7 @@ $semana = date( mktime(0, 0, 0, $month, $today, $year));
 $hoy = getdate($semana);
 $numero_dia = $hoy['wday'];
 
-$eventQuery = "SELECT id FROM $servicio WHERE eventdate = '$sql_date'";
+$eventQuery = "SELECT id FROM reservas WHERE eventdate = '$sql_date' and servicio = '$servicio'";
 $eventExec = mysqli_query($db_con, $eventQuery); 
 $event_found = "";
 while($row = mysqli_fetch_array($eventExec)) {
@@ -67,18 +63,19 @@ $day_event_safe6 = addslashes($day_event6);
 $day_event_safe7 = addslashes($day_event7);
 if ($event_found == 1) {
   //UPDATE
-    $postQuery = "UPDATE `$servicio` SET event1 = '".$_POST['day_event1']."', event2 = '".$_POST['day_event2']."', event3 = '".$_POST['day_event3']."', 
-    event4 = '".$_POST['day_event4']."', event5 = '".$_POST['day_event5']."', event6 = '".$_POST['day_event6']."', event7 = '".$_POST['day_event7']."' WHERE eventdate = '$sql_date';";
-    $postExec = mysqli_query($db_con, $postQuery) or die("Could not Post UPDATE $servicio Event to database!");
-    mysqli_query($db_con, "DELETE FROM `$servicio` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' ");
+    $postQuery = "UPDATE `reservas` SET event1 = '".$_POST['day_event1']."', event2 = '".$_POST['day_event2']."', event3 = '".$_POST['day_event3']."', 
+    event4 = '".$_POST['day_event4']."', event5 = '".$_POST['day_event5']."', event6 = '".$_POST['day_event6']."', event7 = '".$_POST['day_event7']."' WHERE eventdate = '$sql_date' and servicio = '$servicio';";
+    $postExec = mysqli_query($db_con, $postQuery) or die("Could not Post UPDATE Event to database!");
+    mysqli_query($db_con, "DELETE FROM `reservas` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' and servicio = '$servicio'");
 mysqli_close($conn);
 	header("Location: index.php?servicio=$servicio&year=$year&month=$month&today=$today&mens=actualizar");
 
 } else {
   //INSERT
-    $postQuery = "INSERT INTO `$servicio` (eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html) VALUES ('$sql_date','$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST['day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST['day_event6']."','".$_POST['day_event7']."','$show_html');";
-    $postExec = mysqli_query($db_con, $postQuery) or die("Could not Post INSERT $servicio Event to database!");
-    mysqli_query($db_con, "DELETE FROM `$servicio` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' ");
+    $postQuery = "INSERT INTO `reservas` (eventdate,dia,event1,event2,event3,event4,event5,event6,event7,html,servicio) VALUES ('$sql_date','$numero_dia','".$_POST['day_event1']."','".$_POST['day_event2']."','".$_POST['day_event3']."','".$_POST['day_event4']."','".$_POST['day_event5']."','".$_POST['day_event6']."','".$_POST['day_event7']."','$show_html', '$servicio')";
+   
+    $postExec = mysqli_query($db_con, $postQuery) or die("Could not Post INSERT Event to database!");
+    mysqli_query($db_con, "DELETE FROM `reservas` WHERE event1 = '' and event2 = ''  and event3 = ''  and event4 = ''  and event5 = ''  and event6 = ''  and event7 = '' and servicio = '$servicio'");
 mysqli_close($conn);
     header("Location: index.php?servicio=$servicio&year=$year&month=$month&today=$today&mens=insertar");
 

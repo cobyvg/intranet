@@ -345,12 +345,6 @@ else {
 
 	mysqli_query($db_con, "OPTIMIZE TABLE  `horw_faltas`");
 
-	// Copia del horario en Reservas
-	mysqli_query($db_con, "DROP TABLE IF EXISTS  `reservas`.`horw`");
-
-	mysqli_query($db_con, "create table reservas.horw select * from horw_faltas");
-
-
 	echo '<p class="lead">Los datos han sido importados correctamente.</p>';
 
 }
