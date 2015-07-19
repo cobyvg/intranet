@@ -42,6 +42,7 @@
 	<? if ($mod_faltas) {?>
 
 	<li class="nav-header">Faltas de asistencia</li>
+	<li><a href="../faltas/seneca/importarSeneca.php?admin=1">Importar Faltas de Asistencia</a></li>
 	<li><a href="../admin/cursos/horariototal_faltas.php" target="_blank">Parte de faltas completo (por días)</a></li>
 	<li><a href="../admin/faltas/horario_semanal.php" target="_blank">Parte de faltas completo (semanal)</a></li>
 	<li><a href="../admin/faltas/horario_semanal_div.php" target="_blank">Parte de faltas completo Diversificación</a></li>		

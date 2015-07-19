@@ -16,12 +16,14 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
  <div class="container">   
           <ul class="nav nav-tabs">
             <li class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    <a class="dropdown-toggle " data-toggle="dropdown" href="#">
       Importación de datos <span class="caret"></span>
     </a>
     <ul class="dropdown-menu" role="menu">
+	   <?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+       <li><a href="http://<? echo $dominio; ?>/intranet/faltas/seneca/importarSeneca.php">Importar Faltas de Asistencia</a></li>        
+       <?php endif; ?>
 
-                  
          <?
 	  if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') == TRUE)
 	  {
