@@ -330,7 +330,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			}
 			?> 
 
-			<div style="width:120px;" <? echo $chkT; ?>>
+			<div style="width:120px; display:inline;" <? echo $chkT; ?>>
 			<span class="text-danger">F</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>"	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkF; ?> value="F" onClick="uncheckRadio(this)" /> &nbsp; 
 			<span class="text-success">J</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkJ; ?> value="J" onClick="uncheckRadio(this)"/> &nbsp; 
 			<span class="text-warning">R</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkR; ?> value="R" onClick="uncheckRadio(this)" /></div>

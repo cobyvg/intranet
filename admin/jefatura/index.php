@@ -136,9 +136,7 @@ if ($id and ($unidad=='' and $alumno=='')) {
 }
 
 
-?>
-
-<!-- SCAFFOLDING -->
+?> <!-- SCAFFOLDING -->
 <div class="row"><!-- COLUMNA IZQUIERDA -->
 <div class="col-sm-7"><?php if(isset($id) && $alumno && !($alumno == "Todos los Alumnos")): ?>
 <?php $tr = explode(" --> ",$alumno); ?> <?php $al = $tr[0]; ?> <?php $clave = $tr[1]; ?>
@@ -147,8 +145,8 @@ if ($id and ($unidad=='' and $alumno=='')) {
 <div class="well">
 
 <form method="post" action="index.php">
-<fieldset>
-<?php if(isset($id)): ?> <input type="hidden" name="id2" value="<?php echo $id; ?>"> <?php endif; ?>
+<fieldset><?php if(isset($id)): ?> <input type="hidden" name="id2"
+	value="<?php echo $id; ?>"> <?php endif; ?>
 
 <div class="row"><!--FORMLISTACURSOS
 							<div class="col-sm-6">
@@ -159,10 +157,9 @@ if ($id and ($unidad=='' and $alumno=='')) {
 							FORMLISTACURSOS//-->
 
 <div class="col-sm-10">
-<div class="form-group"><label for="unidad">Unidad</label> 
-<?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
-<?php if(mysqli_num_rows($result)): ?> 
-<select class="form-control" id="unidad" name="unidad" onchange="submit()">
+<div class="form-group"><label for="unidad">Unidad</label> <?php $result = mysqli_query($db_con, "SELECT DISTINCT unidad, SUBSTRING(unidad,2,1) AS orden FROM alma ORDER BY orden ASC"); ?>
+<?php if(mysqli_num_rows($result)): ?> <select class="form-control"
+	id="unidad" name="unidad" onchange="submit()">
 	<option></option>
 	<?php while($row = mysqli_fetch_array($result)): ?>
 	<option value="<?php echo $row['unidad']; ?>"
@@ -189,8 +186,7 @@ if ($clave !== "") {
 
 <div class="row">
 <div class="col-sm-7">
-<div class="form-group"><label for="alumno">Alumno/a</label> 
-<?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC ASC"); ?>
+<div class="form-group"><label for="alumno">Alumno/a</label> <?php $result = mysqli_query($db_con, "SELECT DISTINCT APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad='$unidad' ORDER BY NC ASC"); ?>
 <?php if(mysqli_num_rows($result)): ?> <select class="form-control"
 	id="alumno" name="alumno" onchange="submit()">
 	<option></option>
@@ -208,11 +204,12 @@ if ($clave !== "") {
 </div>
 
 <div class="col-sm-5">
-<div class="form-group" id="datetimepicker1"><label for="fecha_reg">Fecha</label>
+<div class="form-group" id="datetimepicker1"><label for="fecha_reg">Fecha
+</label>
 <div class="input-group"><input name="fecha_reg" type="text"
-	class="input form-control"
+	class="form-control"
 	value="<?php echo (isset($id) && $fecha_reg) ? $fecha_reg : date('d-m-Y'); ?>"
-	data-date-format="DD-MM-YYYY" id="fecha_reg"> <span
+	data-date-format="DD-MM-YYYY" id="fecha_reg" required> <span
 	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
 </div>
 </div>

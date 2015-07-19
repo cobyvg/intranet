@@ -1,13 +1,41 @@
 <?php
 require('../../bootstrap.php');
 
+if (isset($_POST['tema'])) {
+			
+	if ($_POST['fondo']=="1") {
+				$p_fondo = 'navbar-inverse';
+			}
+	else{
+				$p_fondo = 'navbar-default';
+			}
+			
+if (empty($_POST['tema'])) {
+		$_SESSION ['tema']="bootstrap.min.css";
+		$_POST ['tema']="bootstrap.min.css";
+	}
+			
+	$res = mysqli_query($db_con, "select distinct tema, fondo from temas where idea = '".$_SESSION['ide']."'" );
+		
+	if (mysqli_num_rows($res)>0) {
+		
+		//$ro = mysqli_fetch_array ( $res );
 
-$profe = $_SESSION['profi'];
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-	exit;
-}
+			mysqli_query($db_con,"update temas set tema='".$_POST['tema']."', fondo='".$p_fondo."' where idea='".$_SESSION['ide']."'");		
+	}
+	else{
+			mysqli_query($db_con,"insert into temas (idea, tema, fondo) VALUES ('".$_SESSION['ide']."','".$_POST['tema']."', '".$p_fondo."')");
+	}
+		
+	$_SESSION ['tema'] = $_POST['tema'];
+		
+	$_SESSION ['fondo'] = $p_fondo;
+
+$mens = '<div class="alert alert-success alert-block fade in">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+El tema se ha modificado correctamente. Comprueba los cambios.</div>';
+
+	}
 
 include("../../menu.php");
 ?>
@@ -19,79 +47,52 @@ include("../../menu.php");
 
 <!-- SCAFFOLDING -->
 <div class="row"><!-- COLUMNA IZQUIERDA -->
-<div class="col-sm-6 col-sm-offset-3"><br>
 <?
-if (isset($_POST['tema'])) {
-	$tema = $_POST['tema'];
-	$file = "../../css/temas/$tema";
-	$newfile = '../../css/bootstrap.min.css';
-
-	if (!copy($file, $newfile)) {
-		echo '<div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-No ha sido posible modificar el tema. ¿Estás seguro de haber concedido permiso de escritura al directorio de la Intranet?
-</div><br />';
-	}
-	if (isset($_POST['inverso'])) {			
-		$file = '../../menu.php';
-		$current = file_get_contents($file);
-		if (stristr($current,"navbar navbar-default")==TRUE) {
-			$bar = "navbar navbar-default";
-			$bar_inverse = "navbar navbar-inverse";
-		}
-		else{
-			$bar = "navbar navbar-inverse";
-			$bar_inverse = "navbar navbar-default";
-		}
-		$current = str_replace($bar,$bar_inverse,$current);
-		file_put_contents($file, $current);
-	}
-	else{
-		?>
-<div class="alert alert-success alert-block fade in">
-<button type="button" class="close" data-dismiss="alert">&times;</button>
-El tema se ha modificado correctamente. Comprueba los cambios.</div>
-<br />
-
-		<?
-	}
-}
+echo $mens;
 ?>
+<div class="col-sm-6 col-sm-offset-3"><br>
+
 <div class="well well-lg">
 <form action="index_temas.php" enctype="multipart/form-data"
 	method="post">
 <fieldset>
 <div class="form-group"><label>Selecciona el tema</label> <select
 	class="form-control" name="tema">
-	<option><? echo $tema;?></option>
 	<optgroup label='Temas de la aplicación'>
-	<?
+	<?	
 	$d = dir("../../css/temas/");
 	while (false !== ($entry = $d->read())) {
 		if (stristr($entry,".css")==TRUE and !($entry=="bootstrap.min.css")) {
-			echo "<option>$entry</option>";
+			if (stristr($_SESSION ['tema'],$entry)==TRUE) {
+				$sel = "selected";
+			}
+			else{
+				$sel="";
+			}
+			echo "<option $sel value='temas/$entry'>$entry</option>";
 		}
 	}
+	
+	if ($_SESSION ['tema']=="bootstrap.min.css") {
+				$sel2 = "selected";
+			}
 	echo "</optgroup><optgroup label='Tema por defecto'>
-	<option>bootstrap.min.css</option>
+	<option value='bootstrap.min.css' $sel2>bootstrap.min.css</option>
 	</optgroup>";	
 	$d->close();
 	?>
 </select></div>
-<div class="checkbox"><label><input type="checkbox" name="inverso"
-	value="1" />Invertir colores del tema</label></div>
+<div class="checkbox"><label><input type="checkbox" name="fondo"
+	value="1" <? if($_SESSION ['fondo']=="navbar-inverse"){echo "checked";}?>/>Invertir colores de la Barra de Navegación</label></div>
 <div class="form-group"><input type="submit" name="submit"
 	value="Cambiar tema" class="btn btn-primary" /></div>
 </fieldset>
-<p class="help-block text-justify">Al construirse sobre <a
-	href="http://getbootstrap.com"><strong>BootStrap</strong></a>, el
+<p class="help-block text-justify">El
 aspecto que presentan las páginas de la Intranet puede ser modificado
-con temas. Los archivos <strong>CSS</strong> de los temas se encuentran
-en la carpeta <em>/css/temas/</em>. La aplicación contiene un conjunto
-de temas ya preparados libres y gratuitos, descargados desde la página
-de <a href="http://bootswatch.com"><strong>Bootswatch</strong></a>.
-Puedes colocar nuevos temas en ese directorio, pero recuerda que solo
-funcionan aquellos temas que contienen un único archivo <strong>CSS</strong>.<br>
+mediante <em><b>Temas</b></em>. La aplicación contiene un conjunto
+de temas que modifican los distintos elementos que constituyen su presentación visual: el tipo de letra, los fondos, botones, etiquetas, colores de los distintos elementos, barra de navegación, etc. Puedes probar los distintos temas que suministramos seleccionando uno de ellos de la lista desplegable, pulsando el botón para enviar los datos y observando los cambios. Puedes cambiar de tema tantas veces como quieras ya que no afecta al funcionamiento de la Intranet.
+<br>El tema por defecto siempre está a mano para recuperar el estado original de la aplicación.
+<br>
 No te olvides de refrescar la página si los cambios no aparecen inmediatamente.
 </p>
 </form>

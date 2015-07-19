@@ -22,12 +22,25 @@ else{
 $_SESSION ['ide'] = $cargo1 [2];
 $idea = $_SESSION ['ide'];
 }
+
 if (stristr ( $carg, '2' ) == TRUE) {
 	$result = mysqli_query($db_con, "select distinct unidad from FTUTORES where tutor = '$pr'" );
 	$row = mysqli_fetch_array ( $result );
 	$_SESSION ['tut'] = $pr;
 	$_SESSION ['s_unidad'] = $row [0];
 }
+
+$res = mysqli_query($db_con, "select distinct tema, fondo from temas where idea = '$idea'" );
+if (mysqli_num_rows($res)>0) {
+	$ro = mysqli_fetch_array ( $res );
+	$_SESSION ['tema'] = $ro[0];
+	$_SESSION ['fondo'] = $ro[1];
+}
+else{
+	$_SESSION ['tema']="bootstrap.min.css";
+	$_SESSION ['fondo'] = "navbar-default";
+}
+
 ?>
 <? include("menu.php");?>
 

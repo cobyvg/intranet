@@ -9,7 +9,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actualizacion` (
 
 /*
  @descripcion: Integración del sistema de reservas en base de datos principal.
- @fecha: 1 de junio de 2013
+ @fecha: 17 de julio de 2013
  */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Reservas en base  de datos principal'");
 if (! mysqli_num_rows($actua)) {
@@ -113,8 +113,24 @@ while ($bk = mysqli_fetch_array($bck)) {
 			mysqli_query($db_con,"insert into $db.reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");
 		}
 	}
-}
-	
+}	
 }
 
+/*
+ @descripcion: Temas personalizados para cada profesor.
+ @fecha: 19 de julio de 2013
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Temas del Profesor'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Temas del Profesor', NOW())");
+
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `temas` (
+  `idea` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
+  `tema` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
+  `fondo` varchar(16) COLLATE latin1_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+mysqli_query($db_con, "ALTER TABLE `temas`
+ ADD UNIQUE KEY `idea` (`idea`)");
+}
 ?>

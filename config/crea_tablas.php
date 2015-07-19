@@ -1319,6 +1319,20 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tareas_profesor` (
 // ////////////////////////////////////////////////////////
 
 //
+// Estructura de tabla para la tabla `Temas`
+//
+mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `temas` (
+  `idea` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
+  `tema` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
+  `fondo` varchar(16) COLLATE latin1_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+mysqli_query($db_con, "ALTER TABLE `temas`
+ ADD UNIQUE KEY `idea` (`idea`)");
+
+// ////////////////////////////////////////////////////////
+
+//
 // Estructura de tabla para la tabla `Textos`
 //
 

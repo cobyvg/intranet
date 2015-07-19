@@ -51,7 +51,7 @@ mysqli_free_result($result_mensajes);
 	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 
 <!-- BOOTSTRAP CSS CORE -->
-<link href="//<?php echo $dominio; ?>/intranet/css/bootstrap.min.css"
+<link href="//<?php echo $dominio; ?>/intranet/css/<?php echo $_SESSION['tema']; ?>"
 	rel="stylesheet">
 
 <!-- CUSTOM CSS THEME -->
@@ -86,7 +86,7 @@ mysqli_free_result($result_mensajes);
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top hidden-print"
+<nav class="navbar <? echo $_SESSION['fondo']; ?> navbar-fixed-top hidden-print"
 	role="navigation">
 <div class="container-fluid"><!-- Brand and toggle get grouped for better mobile display -->
 <div class="navbar-header">
@@ -181,6 +181,9 @@ mysqli_free_result($result_mensajes);
 		<li><a
 			href="//<?php echo $dominio; ?>/intranet/admin/fotos/fotos_profes.php"><i
 			class="fa fa-camera fa-fw"></i> Cambiar fotografía</a></li>
+		<li><a
+			href="//<?php echo $dominio; ?>/intranet/xml/jefe/index_temas.php"><i
+			class="fa fa-eye fa-fw"></i> Aspecto visual</a></li>	
 		<li><a href="//<?php echo $dominio; ?>/intranet/salir.php"><i
 			class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a></li>
 	</ul>
