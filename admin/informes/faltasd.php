@@ -32,7 +32,7 @@ function tipo_falta($falta) {
 		<tbody>
 			<?php while ($row = mysqli_fetch_array($result)): ?>
 			<tr>
-				<th><?php echo $row['fecha']; ?></th>
+				<th><abbr data-bs="tooltip" title="<?php echo strftime('%A', strtotime($row['fecha'])); ?>"><?php echo $row['fecha']; ?></abbr></th>
 				<?php for ($i = 1; $i < 7; $i++): ?>
 				<?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre, falta FROM FALTAS JOIN asignaturas ON FALTAS.codasi = asignaturas.codigo  WHERE claveal = '$claveal' 
 				AND fecha = '".$row['fecha']."' AND hora = '$i' and abrev not like '%\_%'"); ?>
