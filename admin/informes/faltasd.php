@@ -44,6 +44,7 @@ function tipo_falta($falta) {
 					
 					<abbr data-bs="tooltip" title="<?php echo tipo_falta($row_falta['falta']); ?>">
 					<?php echo ($row_falta['falta'] == "I" || $row_falta['falta'] == "F") ? '<span class="label label-danger">'.$row_falta['falta'].'</label>' : ''; ?>
+					<?php echo ($row_falta['falta'] == "R") ? '<span class="label label-warning">'.$row_falta['falta'].'</label>' : ''; ?>
 					<?php echo ($row_falta['falta'] == "J") ? '<span class="label label-success">'.$row_falta['falta'].'</label>' : ''; ?>
 					</abbr>
 				</td>
