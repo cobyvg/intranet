@@ -18,6 +18,7 @@ if (isset($_POST['enviar'])) {
 	$mail->Host = "localhost";
 	$mail->From = $mail_from;
 	$mail->FromName = $profe_envia;
+	$mail->AddReplyTo($mail_from, $profe_envia);
 	$mail->Sender = $mail_from;
 	$mail->IsHTML(true);
 	$mail->Subject = $_POST['tema'];
