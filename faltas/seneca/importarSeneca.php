@@ -70,6 +70,16 @@ if (isset($_POST['submit'])) {
 	        $tag_fechahasta	= $doc->getElementsByTagName("FECHA_HASTA");
 	        $fecha_desde = $tag_fechadesde->item(0)->nodeValue;
 	        $fecha_hasta = $tag_fechahasta->item(0)->nodeValue;
+	        
+	       	// Obtenemos los datos del curso
+	        $tag_xofertamatrig	= $doc->getElementsByTagName("X_OFERTAMATRIG");
+	        $tag_dofertamatrig	= $doc->getElementsByTagName("D_OFERTAMATRIG");
+	        $tag_xunidad 		= $doc->getElementsByTagName("X_UNIDAD");
+	        $tag_tnombre		= $doc->getElementsByTagName("T_NOMBRE");
+	        $X_OFERTAMATRIG 	= $tag_xofertamatrig->item(0)->nodeValue;
+	        $D_OFERTAMATRIG		= utf8_decode($tag_dofertamatrig->item(0)->nodeValue);
+	        $X_UNIDAD			= $tag_xunidad->item(0)->nodeValue;
+	        $T_NOMBRE			= utf8_decode($tag_tnombre->item(0)->nodeValue);
 
 	        if ($draw_html == 0) {
 		        echo '
@@ -80,18 +90,13 @@ if (isset($_POST['submit'])) {
 		    }
 
 	        // Copia la tabla y elimina los datos para evitar duplicaciones
-	        mysqli_query($db_con, "CREATE TABLE faltas_temp SELECT * FROM FALTAS");
-	        mysqli_query($db_con, "DELETE FROM FALTAS WHERE FECHA BETWEEN '$fecha_desde' AND '$fecha_hasta'");
-
-	        // Obtenemos los datos del curso
-	        $tag_xofertamatrig	= $doc->getElementsByTagName("X_OFERTAMATRIG");
-	        $tag_dofertamatrig	= $doc->getElementsByTagName("D_OFERTAMATRIG");
-	        $tag_xunidad 		= $doc->getElementsByTagName("X_UNIDAD");
-	        $tag_tnombre		= $doc->getElementsByTagName("T_NOMBRE");
-	        $X_OFERTAMATRIG 	= $tag_xofertamatrig->item(0)->nodeValue;
-	        $D_OFERTAMATRIG		= utf8_decode($tag_dofertamatrig->item(0)->nodeValue);
-	        $X_UNIDAD			= $tag_xunidad->item(0)->nodeValue;
-	        $T_NOMBRE			= utf8_decode($tag_tnombre->item(0)->nodeValue);
+	        mysqli_query($db_con, "drop TABLE FALTAS_seg");
+	        mysqli_query($db_con, "CREATE TABLE FALTAS_seg SELECT * FROM FALTAS");
+	        
+			$fecha_desde=cambia_fecha($fecha_desde);
+	        $fecha_hasta=cambia_fecha($fecha_hasta);
+	        
+	        mysqli_query($db_con, "DELETE FROM FALTAS WHERE FECHA BETWEEN '$fecha_desde' AND '$fecha_hasta' and unidad = '$T_NOMBRE'");
 	        
 	        if ($draw_html == 0) {
 	       		echo '<div class="well">';
@@ -132,9 +137,15 @@ if (isset($_POST['submit'])) {
 	        		$L_DIACOM = $tag_ldiacom->item(0)->nodeValue;
 
 	        		// Obtenemos el tramo horario
-		    		$result = mysqli_query($db_con, "SELECT hora FROM tramos WHERE tramo = '$X_TRAMO' LIMIT 1");
+		    		$result = mysqli_query($db_con, "SELECT hora FROM tramos WHERE tramo = '$X_TRAMO' and hora not like '4%' LIMIT 1");
 		    		$row = mysqli_fetch_assoc($result);
-		    		$hora_tramo = $row['hora'];
+		    		if ($row['hora']>3) {
+		    			$hora_tramo = $row['hora']-1;
+		    		}
+		    		else{
+		    			$hora_tramo = $row['hora'];
+		    		}
+		    		
 		    		mysqli_free_result($result);
 
 		    		if ($C_TIPFAL == 'I') {
@@ -146,7 +157,7 @@ if (isset($_POST['submit'])) {
 
 		    		if ($L_DIACOM == 'S') {
 		    			for ($i=1; $i < 6; $i++) { 
-		    				if ($i != 4) {
+		    				
 		    					// Obtenemos el código del profesor y de la asignatura que se imparte en el día y hora
 					    		$result = mysqli_query($db_con, "SELECT no_prof, c_asig FROM horw WHERE dia = '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."' AND hora = '$i' AND a_grupo = '$T_NOMBRE'");
 
@@ -160,7 +171,7 @@ if (isset($_POST['submit'])) {
 
 					    		$result = mysqli_query($db_con, "INSERT INTO FALTAS (CLAVEAL, unidad, NC, FECHA, DIA, HORA, PROFESOR, CODASI, FALTA) VALUES ('$C_NUMESCOLAR', '$T_NOMBRE', '$nc_alumno', '".fecha_mysql($F_FALASI)."', '".strftime("%u", strtotime(fecha_mysql($F_FALASI)))."', '$i', '$nprofesor', '$codasig', '$tipo_falta')");
 				        	}
-			        	}
+			        	
 		    		}
 		    		else {
 		    			// Obtenemos el código del profesor y de la asignatura que se imparte en el día y hora
@@ -241,7 +252,7 @@ else {
 				
 				<p>Este apartado se encarga de importar los faltas de asistencia de los alumnos matriculados en el centro.</p>
 
-				<p>Para obtener el archivo de exportación de calificaciones debe dirigirse al apartado <strong>Utilidades</strong>, <strong>Importación/Exportación de datos</strong>. Seleccione <strong>Exportación de Faltas del Alumnado</strong>. Seleccione una fecha comprendida en un rango de un mes y añada todas las unidades de todos los cursos del centro. Proceda a descargar el archivo comprimido.</p>
+				<p>Para obtener el archivo de exportación de Faltas de Asistencia debe dirigirse al apartado <strong>Utilidades</strong>, <strong>Importación/Exportación de datos</strong>. Seleccione <strong>Exportación de Faltas del Alumnado</strong>. Seleccione una fecha comprendida en un rango de un mes y añada todas las unidades de todos los cursos del centro. Proceda a descargar el archivo comprimido.</p>
 			</div>
 
 		</div>

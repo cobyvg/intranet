@@ -2,10 +2,14 @@
 <div class="container">
 <div class="row">
 <div class="page-header">
-<h2>Faltas de Asistencia <small> Poner faltas</small></h2>
-<!-- Button trigger modal --> <a href="#" class="pull-right"
-	data-toggle="modal" data-target="#myModal1"> <span
-	class="fa fa-question-circle fa-2x"></span> </a> <!-- Modal -->
+<h2 style="display:inline">Faltas de Asistencia <small> Poner faltas</small></h2>
+<!-- Button trigger modal --> 
+<a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal1" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
+	
+
+	<!-- Modal -->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel1" aria-hidden="true">
 <div class="modal-dialog">
@@ -13,11 +17,11 @@
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel1">Operaciones y Funciones.</h4>
+<h4 class="modal-title" id="myModalLabel1">Instrucciones de Uso</h4>
 </div>
 <div class="modal-body">
 <p>Esta página te permite registrar faltas de
-aistencia semanalmente con un método alternativo. Selecciona en primer
+asistencia semanalmente con un método alternativo. Selecciona en primer
 lugar un día de la semana en la que quieres marcar las faltas. A
 continuación, escribe el número de aula de los alumnos ausentes seguido
 de un punto (por ejemplo: 3.12.27.31.). Cuando hayas terminado con una

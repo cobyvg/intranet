@@ -331,7 +331,12 @@ $menu = array(
 					),
 					array(
 						'href'   => 'faltas/seneca/',
-						'titulo' => 'Importar faltas a Séneca',
+						'titulo' => 'Subir faltas a Séneca',
+						'cargos' => array('1'),
+					),
+					array(
+						'href'   => 'faltas/seneca/importarSeneca.php',
+						'titulo' => 'Descargar faltas de Séneca',
 						'cargos' => array('1'),
 					),
 					array(

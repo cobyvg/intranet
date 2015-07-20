@@ -92,7 +92,38 @@ if ($mod_faltas) {
 <div class="container">
 
 <div class="page-header">
-<h2>Faltas de Asistencia <small> Poner faltas</small></h2>
+<h2 style="display:inline;">Faltas de Asistencia <small> Poner faltas</small></h2>
+
+<!-- Button trigger modal --> 
+<a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal1" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
+	
+
+	<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel1">Operaciones y Funciones.</h4>
+</div>
+<div class="modal-body">
+<p>Esta página te permite registrar las faltas de
+asistencia de los alumnos de uno de tus Grupos. Está pensado para ser utilizado en tiempo real de trabajo en el aula (de una forma similar a como funciona la aplicación <em>iSéneca</em>), pero también puede ser utilizado en cualquier momneto posterior. Se ofrecen tres opciones: Falta No Justificada (F), Falta Justificada (J) o Retraso (R).Está también adaptada para su uso en dispositivos móviles, y aparece en el Menú de iconos específicos de estos dispositivos en la página de inicio de la Intranet.<br><br>
+Selecciona la fecha y luego el Grupo o Grupos de una de tus asignaturas. Aparecerá la lista de tus alumnos y podrás marcar las faltas. Envía las Faltas para guardarlas en la Base de datos.<br><br>
+Hay un método alternativo para registrar las faltas semanalmente. Si quieres utilizarlo, pulsa en el Menú superior sobre <em><b>Poner</b></em> y se abrirá la página. Tienes información sobre el procedimiento a seguir en la propia página. 
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 <div class="row"><?
 // Unir todos los grupos para luego comprobar que no hay duplicaciones (4E-E,4E-Dd)
