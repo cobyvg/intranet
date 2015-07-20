@@ -59,6 +59,7 @@
 	<div class="col-sm-3">
 		
 		<?php $result = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = $claveal group by FALUMNOS.APELLIDOS, FALTAS.fecha"); ?>
+		<?php $total = 0; ?>
 		<?php $total = mysqli_num_rows($result); ?>
 		
 		<h3 class="text-info text-center">

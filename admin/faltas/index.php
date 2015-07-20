@@ -20,18 +20,22 @@ if (isset($_GET['materia'])) {$materia = $_GET['materia'];}elseif (isset($_POST[
 if ($submit1)
 {
 	include("faltas.php");
+	exit;
 }
 elseif ($submit2)
 {
 	include("informes.php");
+	exit;
 }
 elseif ($submit3)
 {
 	include("asignaturas.php");
+	exit;
 }
 elseif ($submit4)
 {
 	include("faltasdias.php");
+	exit;
 }
 else
 {

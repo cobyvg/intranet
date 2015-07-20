@@ -1,6 +1,18 @@
 <?
 require('../../bootstrap.php');
 
+function tipo_falta($falta) {
+      
+  switch ($falta) {
+    case 'J' : $tipo = 'Justificada'; break;
+    case 'F' : $tipo = 'Injustificada'; break;
+    case 'I' : $tipo = 'Injustificada'; break;
+    case 'R' : $tipo = 'Retraso'; break;
+  }
+
+  return $tipo;
+}
+
 
 include("../../menu.php");
 include("../../faltas/menu.php");
@@ -85,113 +97,200 @@ else
 {
 $submit2="";
 }
-echo "<div align='center'>";
-   $claveal0 = explode(" --> ",$nombre);
-  if(empty($claveal)){$claveal = $claveal0[1];} 
-  if($fechasp1 or $fechasp2){}
-  else{  
-    $fechasp0=explode("-",$fecha4);
-	$fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
-	$fechasp2=explode("-",$fecha3);
-	$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
-  }
-  $SQL10 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad from FALUMNOS where   CLAVEAL = '$claveal'";
-  $result10 = mysqli_query($db_con, $SQL10);
-  $row10 = mysqli_fetch_array($result10);
-          echo "<div align='center'>";
-          echo '<div class="page-header">
-  <h2>Faltas de Asistencia <small> Informe de faltas del alumno</small></h2>
-  </div>
-<br />';
-    $foto = '../../xml/fotos/'.$row10[0].'.jpg';
-	if (file_exists($foto)) {
-		echo "<div class='well well-small' style='width:110px;margin:auto;'>";
-		echo "<img src='$foto' border='2' width='100' height='119' class='img-thumbnail'  />";
-		echo "</div><br /><br />";
-	}         
-		echo "<table class='table table-striped' style='width:auto;'>";
 
-                printf ("<tr><th>%s</th><th>%s</th>
-				<th>%s</th></tr>\n", $row10[1], $row10[2],$row10[3]);
+$claveal0 = explode(" --> ",$nombre);
+if(empty($claveal)){$claveal = $claveal0[1];} 
+if($fechasp1 or $fechasp2){}
+else{  
+  $fechasp0=explode("-",$fecha4);
+  $fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
+  $fechasp2=explode("-",$fecha3);
+  $fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
+}
+
+$result = mysqli_query($db_con, "SELECT FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad FROM FALUMNOS WHERE CLAVEAL = '$claveal'");
+$row = mysqli_fetch_array($result);
+
+$foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
+?>
+  
+  <div class="container">
+
+    <div class="page-header">
+      <h2>Faltas de Asistencia <small> Informe de faltas del alumno</small></h2>
+    </div>
+    
+    <br>
+
+    <div class="row">
+      
+      <div class="col-sm-12">
         
-        echo "</table>";
-  // Datos del Alumno
- 
-if($submit2)
-{
- $SQL0 = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
- //echo $SQL0;
-  $result0 = mysqli_query($db_con, $SQL0);
-  $row0 = mysqli_fetch_array($result0);
-  // Justificadas
-  $SQLJ = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.falta = 'J' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
-  $resultJ = mysqli_query($db_con, $SQLJ);
-  $rowJ = mysqli_fetch_array($resultJ);
-  // Sin justificar
-  $SQLF = "select FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad, FALUMNOS.nc, FALTAS.falta, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal and FALUMNOS.CLAVEAL = '$claveal' and FALTAS.falta = 'F' and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' GROUP BY FALUMNOS.apellidos";
+        <div class="media">
+          <div class="media-left">
+              <img class="media-object img-thumbnail" src="<?php echo $foto; ?>" alt="<?php echo $row['nombre'].' '.$row['apellidos']; ?>" style="width: 80px">
+          </div>
+          <div class="media-body">
+            <h2 class="media-heading"><?php echo $row['nombre'].' '.$row['apellidos']; ?></h2>
+            <h3 class="text-info">Unidad: <?php echo $row['unidad']; ?></h3>
+          </div>
+        </div>
 
-  $resultF = mysqli_query($db_con, $SQLF);
-  $rowF = mysqli_fetch_array($resultF);  
+        <br><br>
+        <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
+        <div class="alert alert-info hidden-print">
+            <span class="fa fa-filter fa-fw"></span> Mostrando resultados entre los días <strong><?php echo $fechasp1; ?></strong> y <strong><?php echo $fechasp3; ?></strong>.
+        </div>
+        <?php endif; ?>
 
-  if ($row0[0]=1)
-        {
-  	if($rowF[6]=="")
-		$rowF[6]="0";
-	if($rowJ[6]=="")
-		$rowJ[6]="0";
-		echo "<br /><p class='lead'>El Alumno tiene  <span style='color:#9d261d'>$row0[6]</span> Faltas de Asistencia en total.</p>		
-		<table class='table' style='width:auto;'><tr><th> No justificadas</th><td> <strong style='color:#9d261d'>$rowF[6] </strong></td></tr>
-		<tr><th> Justificadas </th><td> <strong style='color:#46a546'>$rowJ[6] </strong></td></tr></table>";
-        } else
-        {
-			echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;text-align:left">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-			No hay registros de faltas de asistencia para el alumno seleccionado.
-			</div></div><br />';
-        }
-  $SQL = "SELECT distinct alma.CLAVEAL, alma.APELLIDOS, alma.NOMBRE, alma.unidad, alma.matriculas,
-  FALTAS.FECHA, FALTAS.HORA, FALTAS.CODASI, FALTAS.falta, asignaturas.abrev
-  FROM alma, FALTAS, asignaturas where  alma.CLAVEAL = FALTAS.CLAVEAL and FALTAS.codasi = asignaturas.codigo and FALTAS.fecha >= '$fechasp1' and FALTAS.fecha <= '$fechasp3' and alma.CLAVEAL = '$claveal' and asignaturas.abrev not like '%\_%' order BY FALTAS.FECHA, FALTAS.HORA";
-   $result = mysqli_query($db_con, $SQL);
-   //echo $SQL;
-echo "<br /><br /><p class='lead'>Lista detallada de Faltas de Asistencia.</p>";
-   if ($rowsql = mysqli_fetch_array($result))
-        {
-		echo "<div class='well' align='left' style='width:600px'>";
-        $f = "";
-        $horas = "";
-                do
-                   {
-                if ($rowsql[5] == $f)
-                        {
-                         $horas .= $rowsql[6] . " " . $rowsql[9] . "(" . $rowsql[8] . ") <span style='color:#08c;font-weight:bold;'> | </span> ";
-                        }
-                else
-                        {
-                        if ($horas <> "")
-                        printf ("" . $horas . "<div class=linea STYLE='margin-top:6px;'></div>");
-          	$comienzo=explode("-",$rowsql[5]);
-		$fechasp=$comienzo[2]."-".$comienzo[1]."-".$comienzo[0];
-	 	$horas = "<span style='color:#08c;'>" . $fechasp . "</span>:&nbsp;&nbsp;&nbsp;" ."" . $rowsql[6] .  "&nbsp;" . "" . $rowsql[9] . "" . "(" . "" . $rowsql[8] . "" . ") <span style='color:#08c;font-weight:bold;'> | </span> ";
-                        $f = $rowsql[5];
-                        }
-                        }
-                while($rowsql = mysqli_fetch_array($result));
-                 	printf ("" . $horas . "");
-					echo "</div>";
-					}
-                else
-        {
-echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;text-align:left">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-			No hay registros de faltas de asistencia para el alumno seleccionado.
-			</div></div><br />';	
-			}
-			}
-  ?>
+        <h3>Resumen de faltas de asistencia</h3>
+
+        <div class="row">
+          
+          <div class="col-sm-3">
+            
+            <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
+            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'F' AND FALUMNOS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php else: ?>
+            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'F' AND FALUMNOS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php endif; ?>
+
+            <?php $total = 0; ?>
+            <?php if (mysqli_num_rows($result)): ?>
+            <?php $row = mysqli_fetch_array($result); ?>
+            <?php $total = $row['total']; ?>
+            <?php mysqli_free_result($result); ?>
+            <?php endif; ?>
+            
+            <h3 class="text-info text-center">
+              <?php echo $total; ?><br>
+              <small class="text-uppercase">faltas injustificadas</small>
+            </h3>
+            
+          </div>
+          
+          <div class="col-sm-3">
+            <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
+            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'J' AND FALUMNOS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php else: ?>
+            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'J' AND  FALUMNOS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php endif; ?>
+
+            <?php $total = 0; ?>
+            <?php if (mysqli_num_rows($result)): ?>
+            <?php $row = mysqli_fetch_array($result); ?>
+            <?php $total = $row['total']; ?>
+            <?php mysqli_free_result($result); ?>
+            <?php endif; ?>
+            
+            <h3 class="text-info text-center">
+              <?php echo $total; ?><br>
+              <small class="text-uppercase">faltas justificadas</small>
+            </h3>
+            
+          </div>
+
+          <div class="col-sm-3">
+            <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
+            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'R' AND FALUMNOS.claveal = '$claveal' AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php else: ?>
+            <?php $result = mysqli_query($db_con, "SELECT DISTINCT FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.fecha, COUNT(*) AS total FROM FALTAS, FALUMNOS WHERE FALUMNOS.claveal = FALTAS.claveal AND FALTAS.falta = 'R' AND FALUMNOS.claveal = '$claveal' GROUP BY FALUMNOS.apellidos"); ?>
+            <?php endif; ?>
+
+            <?php $total = 0; ?>
+            <?php if (mysqli_num_rows($result)): ?>
+            <?php $row = mysqli_fetch_array($result); ?>
+            <?php $total = $row['total']; ?>
+            <?php mysqli_free_result($result); ?>
+            <?php endif; ?>
+            
+            <h3 class="text-info text-center">
+              <?php echo $total; ?><br>
+              <small class="text-uppercase">retrasos injustificados</small>
+            </h3>
+            
+          </div>
+          
+          <div class="col-sm-3">
+            <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
+            <?php $result = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = $claveal AND FALTAS.fecha BETWEEN '$fechasp1' AND '$fechasp3' group by FALUMNOS.APELLIDOS, FALTAS.fecha"); ?>
+            <?php else: ?>
+            <?php $result = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALTAS.falta, FALTAS.fecha FROM FALUMNOS, FALTAS where FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.falta = 'F' and  FALUMNOS.claveal = $claveal group by FALUMNOS.APELLIDOS, FALTAS.fecha"); ?>
+            <?php endif; ?>
+            <?php $total = 0; ?>
+            <?php $total = mysqli_num_rows($result); ?>
+            
+            <h3 class="text-info text-center">
+              <?php echo $total; ?><br>
+              <small class="text-uppercase">días completos injustificados</small>
+            </h3>
+            
+          </div>
+
+        </div>
+
+        <br>
+
+        <h3>Informe detallado de faltas de asistencia</h3>
+        <br>
+        
+        <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
+        <?php $result = mysqli_query($db_con, "SELECT DISTINCT fecha FROM FALTAS WHERE claveal = '$claveal' AND claveal = '$claveal' AND fecha BETWEEN '$fechasp1' AND '$fechasp3'"); ?>
+        <?php else: ?>
+        <?php $result = mysqli_query($db_con, "SELECT DISTINCT fecha FROM FALTAS WHERE claveal = '$claveal' ORDER BY fecha DESC"); ?>
+        <?php endif; ?>
+
+        <?php if (mysqli_num_rows($result)): ?>
+        <div class="table-responsive">
+          <table class="table table-bordered table-condensed table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <?php for ($i = 1; $i < 7; $i++): ?>
+                <th><?php echo $i; ?>ª hora</th>
+                <?php endfor; ?>
+              </tr>
+            </thead>
+            <tbody>
+              <?php while ($row = mysqli_fetch_array($result)): ?>
+              <tr>
+                <th><abbr data-bs="tooltip" title="<?php echo strftime('%A', strtotime($row['fecha'])); ?>"><?php echo $row['fecha']; ?></abbr></th>
+                <?php for ($i = 1; $i < 7; $i++): ?>
+                <?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre, falta FROM FALTAS JOIN asignaturas ON FALTAS.codasi = asignaturas.codigo  WHERE claveal = '$claveal' 
+                AND fecha = '".$row['fecha']."' AND hora = '$i' and abrev not like '%\_%'"); ?>
+                <?php $row_falta = mysqli_fetch_array($result_falta); ?>
+                <td>
+                  <abbr data-bs="tooltip" title="<?php echo $row_falta['nombre']; ?>">
+                    <span class="label label-default"><?php echo $row_falta['abrev']; ?></span>
+                  </abbr>
+                  
+                  <abbr data-bs="tooltip" title="<?php echo tipo_falta($row_falta['falta']); ?>">
+                  <?php echo ($row_falta['falta'] == "I" || $row_falta['falta'] == "F") ? '<span class="label label-danger">'.$row_falta['falta'].'</label>' : ''; ?>
+                  <?php echo ($row_falta['falta'] == "R") ? '<span class="label label-warning">'.$row_falta['falta'].'</label>' : ''; ?>
+                  <?php echo ($row_falta['falta'] == "J") ? '<span class="label label-success">'.$row_falta['falta'].'</label>' : ''; ?>
+                  </abbr>
+                </td>
+                <?php endfor; ?>
+              </tr>
+              <?php endwhile; ?>
+            </tbody>
+          </table>
+        </div>
+        <?php endif; ?>
+
+        <div class="hidden-print">
+          <a class="btn btn-primary" href="#" onclick="javascript:print();">Imprimir</a>
+          <a class="btn btn-default" href="javascript:history.go(-1);">Volver</a>
+        </div>
+
+      </div><!-- /.col-sm-12 -->
+
+    </div><!-- /.row -->
+
+
   </div>
-<? include("../../pie.php");?>
+
+  <?php include("../../pie.php");?>
+
 </body>
 </html>
