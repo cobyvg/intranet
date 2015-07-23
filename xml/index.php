@@ -76,16 +76,6 @@ Si disponemos de horario (incluso si no contamos con él, puesto que otros módulo
 			<p>	
 			El <strong>quinto grupo (<span class="text-info">Notas de Evaluación</span>)</strong> crea y actualiza la tabla de las Notas de Evaluación que aparecen en los Informes de la Intranet, pero también presenta las Calificaciones del alumno en la pagina principal. Los archivos necesarios se descargan de Séneca desde &quot;Intercambio de Información --&gt; Exportación desde Seneca --&gt; Exportación de Calificaciones&quot;.</p>
 			<hr>
-			<p>El <strong>sexto grupo <span class="text-info">(Faltas de asistencia</span>)</strong> contiene un grupo de funciones que aparecen si el módulo de Faltas de asistencia ha sido activado en la página de Configuración de la intranet.</p>
-			<ul>
-			  <li>&quot;Alumnos Absentistas&quot; da entrada al módulo de Absentismo, desde el cual se registran los alumnos y permite al Tutor, Dirección y Orientación informar sobre los mismos. </li>
-			  <li>El &quot;Parte de Faltas completo&quot; genera todos los partes de aula de Faltas de Asistencia para todas las clases,  todos los días de la semana. </li>
-			  <li>El &quot;Informe de Faltas para Padres&quot; presenta las cartas que se envían a los papás con las faltas del nene,
-			    preparadas para imprimir, pero solo en aquellos casos para los que no se envíen SMS con la siguiente opción, &quot;SMS de Faltas para Padres&quot;. </li>
-			  <li>&quot;Horario de faltas para profesores&quot; crea los horarios que los profesores necesitan para registrar las faltas de asistencia de los alumnos. Cada profesor marca en su horario el número de clase de los alumnos ausentes en una semana, y, o bien las registra posteriormente en el módulo de &quot;Poner faltas&quot;, o bien lo entrega para que los Tutores de Faltas lo hagan.</li>
-			  <li>&quot;SMS de faltas para los Padres&quot; permite enviar regularmente un SMS de faltas a los padres de modo masivo. Se envían SMS a los padres de todos los alumnos que tengan un mínimo de una falta de asistencia en el plazo de tiempo seleccionado.</li>
-			</ul>
-			<hr>
 			<p>El <strong>séptimo grupo <span class="text-info">(Alumnos)</span></strong> toca asuntos varios relacionados con los mismos. </p>
 			<ul>
 			 <li>Las Listas de Grupos. Supone que se han realizado todas las tareas anteriores (Horario, Profesores, Alumnos, etc.). Presenta la lista de todos los Grupos del Centro preparada para ser imprimida y entregada a los Profesores a principios de Curso. </li>

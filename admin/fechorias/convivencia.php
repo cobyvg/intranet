@@ -16,13 +16,40 @@ $hoy2 = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );
 $ayer = date ( 'Y' ) . "-" . date ( 'm' ) . "-" . (date ( 'd' ) - 1);
 
   echo "<div class='container'>";
-  echo '
+  ?>
 <div class="page-header">
-  <h2>Aula de Convivencia <small> Alumnos en el Aula</small></h2>
+  <h2 style="display: inline;">Aula de Convivencia <small> Alumnos en el Aula</small></h2>
+  <!-- Button trigger modal --> <a href="#"
+	class="btn btn-default btn-sm pull-right" data-toggle="modal"
+	data-target="#myModal" style="display: inline;"> <span
+	class="fa fa-question fa-lg"></span> </a> <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
+</div>
+<div class="modal-body">
+<p>
+Este módulo permite hacer un seguimiento de los alumnos que son enviados al Aula de Convivencia, en caso de que el Centro disponga de una. Los Profesores que atienden el Aula en una determinada hora en su Guardia deben aparecer en el Horario con el código de las Guardias (25), pero con la abreviatura <b>GUCON</b> en vez de la tradicional <b>GU</b>. Cuando un Profesor tiene este tipo de Guardia en el Aula de Convivencia, en el Horario que aparece en la parte inferior derecha de la Página de entrada de la aplicación aparece un enlace (<b>GUCON</b>) que nos lleva a la página del módulo.
+<br>
+Esta página nos presenta una tabla con los alumnos que deberían encontrarse en el Aula (al haber rellenado Jefatura el formulario de Expulsión al Aula de Convivencia en el Informe del Problema) en una hora y día determinados. El Profesor puede informar sobre la <b><em>Asistencia</em></b> y <b><em>Trabajo</em></b> del alumno. Si necesita además informar sobre otro asunto, puede utilizar el campo <b><em>Observaciones</em></b>. Una vez terminado de marcar las opciones de cada alumno, enviamos los datos para guardarlos. El Equipo directivo, por su parte, visualiza en todo momento la actividad en el Aula al recibir los datos de todos los Profesores que hacen allí su Guardia.
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="row">
-<div class="col-sm-12">';
+<div class="col-sm-12">
    
+  <? 
 echo " <legend class='lead text-info' align='center' >";
 echo "$hoy2</legend>";
 
