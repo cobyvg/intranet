@@ -60,7 +60,7 @@ $result = mysqli_query($db_con, $SQL);
         {
 			echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;text-align:left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIï¿½N:</h5>
+			<h5>ATENCIÓN:</h5>
 No hay registros coincidentes, bien porque te has equivocado
         al introducir los datos, bien porque ningun dato se ajusta a tus criterios.
 		</div></div><br />';

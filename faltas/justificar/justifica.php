@@ -114,12 +114,15 @@ else
 								$unica = "select combasi from alma where alma.claveal = '$alumno'";
 								$unica0 = mysqli_query($db_con, $unica);
 								$unica1 = mysqli_fetch_row($unica0);
-								$combasi=$unica1[0];
+								$combasi=rtrim($unica1[0]);
+								$comb_asi=explode(':', $combasi);
 								//echo $combasi."<br>";
 								$codasi10 = "select prof, a_asig, c_asig, no_prof from horw_faltas where a_grupo like '%$unidad%' and dia = '$num_dia' and hora = '$i'";
-								//echo $codasi10."<br>";
 								$codasi0 = mysqli_query($db_con, $codasi10);
 								while ($codasi1 = mysqli_fetch_row($codasi0)) {
+									$cod_orig = $codasi1[2];
+									$prof_orig = $codasi1[3];
+									
 									if ($codasi1[2]=="2") {
 										$codasi = "2";
 										$profeso = $codasi1[3];
@@ -129,11 +132,16 @@ else
 										$profeso = $codasi1[3];
 									}
 									else {
-										if (strlen(strstr($combasi,$codasi1[2]))>0) {
+										if(in_array($codasi1[2], $comb_asi)) {
+										//if (stristr($combasi,$codasi1[2])==TRUE) {
 											$codasi = $codasi1[2];
 											$profeso = $codasi1[3];
 										}
 									}
+								}
+								if ($codasi=="") {
+									$codasi = $cod_orig;
+									$profeso = $prof_orig;	
 								}
 								$clavenc = "SELECT NC FROM FALUMNOS WHERE claveal = '$alumno'";
 								$clavenc0 = mysqli_query($db_con, $clavenc);

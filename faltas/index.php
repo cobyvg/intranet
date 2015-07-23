@@ -65,17 +65,6 @@ if($ndia == "2"){$nom_dia = "Martes";}
 if($ndia == "3"){$nom_dia = "Miércoles";}
 if($ndia == "4"){$nom_dia = "Jueves";}
 if($ndia == "5"){$nom_dia = "Viernes";}
-
-//$nl_curs10 = "select distinct a_grupo from horw where no_prof = '30' and dia = '1' and hora = '1'";
-$nl_curs10 = "select distinct a_grupo from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
-$nl_curs11 = mysqli_query($db_con, $nl_curs10);
-$nml0 = mysqli_fetch_array($nl_curs11);
-$nml = $nml0[0];
-
-
-
-
-
 ?>
 <?
 if ($mod_faltas) {
@@ -93,49 +82,10 @@ if ($mod_faltas) {
 
 <div class="page-header">
 <h2 style="display:inline;">Faltas de Asistencia <small> Poner faltas</small></h2>
-
-<!-- Button trigger modal --> 
-<a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal1" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
-	
-
-	<!-- Modal -->
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel1">Operaciones y Funciones.</h4>
-</div>
-<div class="modal-body">
-<p>Esta página te permite registrar las faltas de
-asistencia de los alumnos de uno de tus Grupos. Está pensado para ser utilizado en tiempo real de trabajo en el aula (de una forma similar a como funciona la aplicación <em>iSéneca</em>), pero también puede ser utilizado en cualquier momneto posterior. Se ofrecen tres opciones: Falta No Justificada (F), Falta Justificada (J) o Retraso (R).Está también adaptada para su uso en dispositivos móviles, y aparece en el Menú de iconos específicos de estos dispositivos en la página de inicio de la Intranet.<br><br>
-Selecciona la fecha y luego el Grupo o Grupos de una de tus asignaturas. Aparecerá la lista de tus alumnos y podrás marcar las faltas. Envía las Faltas para guardarlas en la Base de datos.<br><br>
-Hay un método alternativo para registrar las faltas semanalmente. Si quieres utilizarlo, pulsa en el Menú superior sobre <em><b>Poner</b></em> y se abrirá la página. Tienes información sobre el procedimiento a seguir en la propia página. 
-</p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
 </div>
 
-</div>
 <div class="row"><?
-// Unir todos los grupos para luego comprobar que no hay duplicaciones (4E-E,4E-Dd)
-//$n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
-$n_curs0 = "select distinct a_grupo, c_asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
-$n_curs1 = mysqli_query($db_con, $n_curs0);
-while($n_cur = mysqli_fetch_array($n_curs1))
-{
-	$curs .= $n_cur[0].", ";
-	$cod.=$n_cur[1]." ";
-}
-//echo $n_curs0;
+
 if($mensaje){
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

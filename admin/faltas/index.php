@@ -73,8 +73,7 @@ else
 
 <div class="form-group col-md-9">
 <label for="al" class="control-label"> Alumno </label> 
-<select id="al"
-	name='nombre' class="form-control">
+<select id="al"	name='nombre' class="form-control" required>
 	<?
 	printf ("<OPTION></OPTION>");
 

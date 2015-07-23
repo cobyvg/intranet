@@ -9,30 +9,6 @@ include("../menu.php");
 <div class="row">
 <div class="page-header">
   <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
-  <!-- Button trigger modal --> 
-			<a href="#" class="btn btn-default btn-sm pull-right"
-			data-toggle="modal" data-target="#myModal1"> <span
-			class="fa fa-question fa-lg"></span> </a> <!-- Modal -->
-		<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel1" aria-hidden="true">
-		<div class="modal-dialog">
-		<div class="modal-content">
-		<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal"><span
-			aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		<h4 class="modal-title" id="myModalLabel1">Operaciones y Funciones.</h4>
-		</div>
-		<div class="modal-body">
-		<p class="help-block">
-		Selecciona un día de la semana en la que quieres marcar las faltas. A continuación, escribe el número de aula de los alumnos ausentes seguido de un punto (por ejemplo: 3.12.27.31.). Cuando hayas terminado con una semana envía los datos con el botón (Registrar las faltas de asistencia). Selecciona otra semana y repite el procedimiento.
-		</p>
-		</div>
-		<div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-		</div>
-		</div>
-		</div>
-		</div>
 </div>
 
 <?
