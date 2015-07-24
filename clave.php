@@ -1,5 +1,9 @@
 <?
-require('bootstrap.php');
+session_start();
+include_once('config.php');
+include_once('config/version.php');
+include_once('funciones.php');
+include_once('simplepie/autoloader.php');
 
 $pr = $_SESSION['profi'] ;
 
