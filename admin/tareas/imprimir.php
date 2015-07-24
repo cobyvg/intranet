@@ -86,7 +86,7 @@ $MiPDF->Cell(40, 5, mb_convert_case($row['tutor'], MB_CASE_TITLE, "iso-8859-1"),
 
 $MiPDF->Ln(5);
 
-mysql_free_result($result);
+mysqli_free_result($result);
 
 
 // TAREAS
@@ -107,7 +107,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$MiPDF->Row(array($row['asignatura'], $row['profesor'], $row['tarea']), 1, 6);	
 }
 
-mysql_free_result($result);
+mysqli_free_result($result);
 
 
 // SALIDA

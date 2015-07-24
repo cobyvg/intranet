@@ -86,7 +86,7 @@ mysqli_query($db_con, "delete from profesores where profesor like '%Profesor/a%'
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>Profesores</strong>: los datos han sido introducidos correctamente.
-</div></div><br />';
+</div></div>';
 
 // Colocar códigos y nombre de asignaturas de Horw de acuerdo con Séneca (tabla Profesores)
 $sql = mysqli_query($db_con, "select id, prof, a_grupo, a_asig, asig, c_asig from horw where a_grupo not like 'G%' and a_grupo IS NOT NULL");
@@ -167,7 +167,7 @@ $base0 = "DROP TABLE horw_faltas";
 mysqli_query($db_con, $base0);
 mysqli_query($db_con, "create table horw_faltas select * from horw where (a_asig not like '%TTA%' and a_asig not like '%TPESO%')");
 //Elimina las horas no lectivas
-  $nolectiva = "UPDATE  horw_faltas SET  nivel =  '', a_grupo = '', n_grupo = '' WHERE  a_grupo NOT LIKE '1%' and a_grupo NOT LIKE '2%' and a_grupo NOT LIKE '3%' and a_grupo NOT LIKE '4%' and a_asig not like 'TUT%'";
+  $nolectiva = "UPDATE  horw_faltas SET  a_grupo = '' WHERE  a_grupo NOT LIKE '1%' and a_grupo NOT LIKE '2%' and a_grupo NOT LIKE '3%' and a_grupo NOT LIKE '4%' and c_asig not like '2'";
   mysqli_query($db_con, $nolectiva);
   mysqli_query($db_con, " ".$db."horw_faltas ADD INDEX (`prof`)");
   mysqli_query($db_con, " ".$db."horw_faltas ADD index (`c_asig`)");
@@ -198,7 +198,7 @@ Parece que te est&aacute;s olvidando de enviar el archivo con los datos de los P
 }
 ?>
 <div align="center">
-<input type="button" value="Volver atr&aacute;s" name="boton" onclick="history.back(2)" class="btn btn-inverse" />
+  <a  href="../index.php" class="btn btn-primary" />Volver a Administraci�n</a>
 </div>
 </div>
 </div>

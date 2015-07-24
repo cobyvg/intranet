@@ -17,6 +17,7 @@
 
 	<li class="nav-header">Actualizaci&oacute;n</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
+	<li><a href="jefe/asignaturas.php?actualiza=1">Actualizar Asignaturas</a></li>
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
 	<li><a href="jefe/indexprofesores.php">Actualizar Profesores</a></li>
 	<li><a href="jefe/indexdepartamentos2.php">Actualizar Departamentos</a></li>

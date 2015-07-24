@@ -35,7 +35,7 @@ No ha sido posible conectar con el Servidor de las Bases de datos. Esto quiere d
           </div></div>');
 
 // Creamos Base de dtos principal
-mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS $db");
+mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS `$db` DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci");
 mysqli_select_db ($db_con, $db);
 
 // Extructura de FALTAS
@@ -104,24 +104,6 @@ mysqli_query($db_con, "CREATE TABLE `actualizacion` (
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
-
-// ////////////////////////////////////////////////////////
-
-//
-// Estructura de tabla para la tabla `AsignacionMesasTIC`
-//
-
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `AsignacionMesasTIC` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `prof` varchar(50) NOT NULL DEFAULT '',
-  `c_asig` varchar(6) NOT NULL DEFAULT '',
-  `agrupamiento` varchar(50) NOT NULL DEFAULT '',
-  `CLAVEAL` varchar(8) NOT NULL DEFAULT '',
-  `no_mesa` varchar(2) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `CLAVEAL` (`CLAVEAL`),
-  KEY `prof` (`prof`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
 
@@ -195,22 +177,6 @@ mysqli_query($db_con, "CREATE TABLE `biblioteca_lectores` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////
-
-//
-// Estructura de tabla para la tabla `cal` (obsoleta)
-//
-
-mysqli_query($db_con, "CREATE TABLE `cal` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-  `eventdate` date NOT NULL DEFAULT '0000-00-00',
-  `html` tinyint(1) NOT NULL DEFAULT '0',
-  `title` varchar(255) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
-  `event` text COLLATE latin1_spanish_ci NOT NULL,
-  `idact` varchar(32) COLLATE latin1_spanish_ci DEFAULT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
-
-// ////////////////////////////////////////////////////////
-
 
 //
 // Estructura de tabla para la tabla `calendario_categorias`
@@ -533,22 +499,6 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `festivos` (
 
 // ////////////////////////////////////////////////////////
 
-//
-// Estructura de tabla para la tabla `fotocopias`
-//
-/*
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `fotocopias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(48) NOT NULL DEFAULT '',
-  `numero` int(11) NOT NULL DEFAULT '0',
-  `observaciones` text NOT NULL,
-  `tipo` tinyint(1) NOT NULL DEFAULT '0',
-  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
-
-// ////////////////////////////////////////////////////////
-*/
 //
 // Estructura de tabla para la tabla `FTUTORES`
 //
@@ -889,24 +839,6 @@ mysqli_query($db_con, "INSERT INTO `listafechorias` (`ID`, `fechoria`, `medidas`
 (79, 'Promover el uso de bebidas alcohólicas, sustancias psicotrópicas y material pornográfico', 'Amonestación escrita', 'Jefatura tratará el caso con la familia y, si es grave, denunciar en la Policía. Traslado del caso al Dep. de Orientación o Asuntos Sociales. Trabajo sobre hábitos saludables. Imponer correcciones como: estancia en el Aula de Convivencia varios días; estancia de un familiar en el aula, con el alumno, durante varios días; o expulsión del centro entre 1 y 29 días en función de la gravedad', 'muy grave'),
 (81, 'Cualquier acto grave dirigido directamente a impedir el normal desarrollo de las actividades', 'Amonestación escrita', 'Jefatura tratará el caso con la familia. Imponer correcciones como: estancia en el Aula de Convivencia varios días; estancia de un familiar en el aula, con el alumno, durante varios días; o expulsión del centro entre 1 y 29 días en función de la gravedad', 'muy grave'),
 (82, 'No realizar las tareas encomendadas durante el periodo de expulsión', 'Amonestación escrita', 'Jefatura tratará el caso con la familia. Imponer correcciones como: estancia en el Aula de Convivencia varios días; estancia de un familiar en el aula, con el alumno, durante varios días; o expulsión del centro entre 1 y 29 días en función de la gravedad', 'muy grave')");
-
-
-// ////////////////////////////////////////////////////////
-
-//
-// Estructura de tabla para la tabla `materias`
-//
-
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `materias` (
-  `CODIGO` varchar(10) DEFAULT NULL,
-  `NOMBRE` varchar(64) DEFAULT NULL,
-  `ABREV` varchar(10) DEFAULT NULL,
-  `CURSO` varchar(128) DEFAULT NULL,
-  `GRUPO` varchar(6) DEFAULT NULL,
-  `id` int(11) NOT NULL auto_increment,
-  PRIMARY KEY  (`id`),
-  KEY `CODIGO` (`CODIGO`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 
 // ////////////////////////////////////////////////////////
@@ -1481,7 +1413,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `reservas_hor` (
   `hora7` varchar(24) default NULL,
   `servicio` varchar(32) NOT NULL,
   KEY `dia` (`dia`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // Tabla de Estadísticas TIC
 
@@ -1503,7 +1435,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `usuario` (
   `c14` smallint(6) default NULL,
   `c15` smallint(6) default NULL,
   PRIMARY KEY  (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
 
 // Tabla de Dependencias ocultas
 

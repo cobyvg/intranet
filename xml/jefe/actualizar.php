@@ -1,6 +1,5 @@
 <? 
 // Creamos versión corta para FALTAS
-mysqli_query($db_con, "drop table almafaltas");
 mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE, 
 APELLIDOS, Unidad from alma") or die('<div align="center"><div class="alert 
 alert-danger alert-block fade in">
@@ -12,7 +11,7 @@ Ponte en contacto con quien pueda resolver el problema.
 </div></div><br /><br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" 
-onClick="history.back(2)" class="btn btn-inverse" />
+onClick="../index.php" class="btn btn-primary" />
 </div>');
 mysqli_query($db_con, "ALTER TABLE almafaltas ADD PRIMARY KEY (  `CLAVEAL` )");
 
@@ -152,5 +151,6 @@ mysqli_query($db_con, "update FALUMNOS set NC = '$f_numero', unidad =
 '$cambio[1]' where claveal = '$cambio[0]'");
 }
 }
+mysqli_query($db_con, "drop table almafaltas");
 ?>
 

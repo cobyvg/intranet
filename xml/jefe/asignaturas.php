@@ -28,9 +28,11 @@ mysqli_query($db_con, "TRUNCATE TABLE calificaciones");
 mysqli_query($db_con, "TRUNCATE TABLE asignaturas");
 mysqli_query($db_con, "drop table materias");
 
+/*if($_GET['actualiza']==1){
 // Asignaturas de Horw
 $asignaturas = "insert into asignaturas (CODIGO, NOMBRE, ABREV, CURSO) select distinct c_asig, asig, a_asig, curso from horw, alma where alma.unidad=horw.a_grupo";
 mysqli_query($db_con, $asignaturas);	
+}*/
 
   // Crear la tabla temporal donde guardar todas las asignaturas de todos los gruposy la tabla del sistema de calificaciones	
 $crear = "CREATE TABLE  IF NOT EXISTS `materias_temp` (
@@ -147,7 +149,7 @@ else{
 No se han colocado los ficheros de Evaluación de Séneca en el directorio exporta/.<br> Descárgalos de Séneca y colócalos allí antes de continuar.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-primary" />
 </div>';
 exit();
 }
@@ -174,8 +176,11 @@ while ($pr10 = mysqli_fetch_array($pr1)){
 mysqli_query($db_con, "drop table materias_temp");
 mysqli_query($db_con, "drop table calificaciones_temp");
 
-// Borramos registros tomados from Horw que son iguales a las asignaturas de Séneca
+/*if($_GET['actualiza']==1){
+// Borramos registros tomados de Horw que son iguales a las asignaturas de Séneca
 mysqli_query($db_con, "delete from asignaturas where codigo in (select distinct codigo from materias)") or die("No se pueden borrar los registros duplicados.");
+}*/
+
 // Depuramos los códigos de las asignaturas eliminando duplicados y creamos tabla definitiva asignaturas.
 $crear = "insert into asignaturas select distinct CODIGO, NOMBRE, ABREV, CURSO from materias order by CODIGO" ;
 mysqli_query($db_con, $crear) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
@@ -184,11 +189,11 @@ mysqli_query($db_con, $crear) or die('<div align="center"><div class="alert aler
 No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-primary" />
 </div>'); 
 
 // Añadimos excepciones
-mysqli_query($db_con,"INSERT INTO `faltas`.`asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('2', 'Tutoría con Alumnos', 'TUT', '1º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TUT', '2º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TUT', '3º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TUT', '4º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '1º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '2º de E.S.O.')");
+mysqli_query($db_con,"INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('2', 'Tutoría con Alumnos', 'TUT', '1º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TUT', '2º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TUT', '3º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TUT', '4º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '1º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '2º de E.S.O.')");
    
 echo '<br />
 <div align="center"><div class="alert alert-success alert-block fade in">
@@ -196,8 +201,10 @@ echo '<br />
 Tablas ASIGNATURAS y CALIFICACIONES:<br /> Los datos se han introducido correctamente en la Base de Datos.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-primary" />
 </div><br>';
+
+/*if($_GET['actualiza']==1){
   // Comprobación con Horw
 echo "<h4>Comprobación de coherencia entre las Asignaturas/Actividades de Séneca y de Horw.</h4> ";
 $n_h=0;
@@ -227,7 +234,7 @@ if(strlen($pend[1]) > 0) {} else
 echo "<li>".$elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] .  " --> " . $elimina2[3] ."</li>";
 }
 }
-
+}*/
 ?>
 
 </div>

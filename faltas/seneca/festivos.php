@@ -13,7 +13,8 @@ include("../../menu.php");
 include("../menu.php");
 ?>
 <br />
-<div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Faltas de Asistencia <small> Días festivos y vacaciones</small></h2>
 </div>
@@ -42,7 +43,7 @@ mysqli_query($db_con, $datos1);
 fclose($handle);
 $borrarvacios = "delete from festivos where date(fecha) = '0000-00-00'";
  mysqli_query($db_con, $borrarvacios);
- if (mysqli_affected_rows() > '0') {
+ if (mysqli_affected_rows($db_con) > '0') {
 ?>
  	<div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -52,7 +53,8 @@ $borrarvacios = "delete from festivos where date(fecha) = '0000-00-00'";
 			}
 ?>
 <br />
-<input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" />
 </div>
+</div>
+
 </body>
 </html>

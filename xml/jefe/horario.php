@@ -373,7 +373,12 @@ archivo XML</legend>
 <p>Este apartado se encarga de importar los <strong>horarios generados
 por el programa generador de horarios</strong>.</p>
 
-<p>La opción <strong>Generar XML</strong> se encarga de comprobar la
+<p>
+El primer formulario nos ofrece la posibilidad de importar el horario del Centro desde un archivo XML. Necesitamos el archivo en formato XML que las aplicaciones comerciales de Horarios (Horwin, etc.) crean para subir a Séneca. <b>Importar</b> extrae el horario del archivo y lo introduce en la tabla <b>Horw</b>.<br>
+El segundo formulario nos ofrece la posibilidad de importar el horario del Centro desde un archivo DEL. Más información abajo.
+</p>
+
+<p>La opción <strong>Generar XML</strong> del primer formulario se encarga de comprobar la
 compatibilidad de los horarios con Séneca, evitando tener que corregir
 manualmente los horarios de cada profesor. El resultado es la descarga
 del archivo <strong>Importacion_horarios_seneca.xml</strong> preparado
@@ -389,7 +394,7 @@ genera el archivo XML.</p>
 <p>La importación de los horarios con el archivo DEL creado por Horwin
 es una opción que sólo debe ser utilizada si no contamos con el archivo
 XML, que es la opción preferida. Se mantiene para aquellos casos en los
-que no tenemos a mano el XML para exportar a Séneca. Las preferencias de
+que no tenemos a mano el XML para exportar a Séneca, o este produce errores en la importación. Las preferencias de
 generación del archivo DEL aparecen marcadas en la imagen de abajo.</p>
 <img border="0" src="exporta_horw.jpg"></div>
 <!-- /.col-sm-6 --></div>

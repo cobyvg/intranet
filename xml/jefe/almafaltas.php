@@ -194,17 +194,16 @@ $actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[
 ?>
 <?		
 // Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
-$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (unidad like '%E-' or unidad like '%B-' or unidad like '%P-') and ESTADOMATRICULA != 'Obtiene TÃ­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
+$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.' or curso like '%Bach' or curso like 'P.C.P.I.') and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
 $result6 = mysqli_query($db_con, $SQL6);
 // Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
-$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene TÃ­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
+$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
 mysqli_query($db_con, $SQL7);
 // Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
 $SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
 mysqli_query($db_con, $SQL8);
 
  // Creamos versiÃƒÂ³n corta para FALTAS
-mysqli_query($db_con, "drop table almafaltas");
 mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
@@ -288,7 +287,7 @@ Parece que te estás olvidando de enviar todos los archivos con los datos de los 
 ?>
 <br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <a  href="../index.php" class="btn btn-primary" />Volver a Administración</a>
 </div>
 </div>
 </div>

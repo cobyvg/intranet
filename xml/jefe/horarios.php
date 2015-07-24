@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	header('Location:'.'http://_'.$dominio.'/intranet/salir.php');
 	exit;
 }
 
@@ -47,7 +47,9 @@ while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 	$sql="INSERT INTO horw (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a_aula,n_aula,a_grupo) ";
 	$sql.=" VALUES ( ";
 	foreach ($data as $indice=>$clave){
-		$sql.="'".trim($clave)."', ";
+		if ($indice<11) {
+			$sql.="'".trim($clave)."', ";
+		}		
 	}
 	$sql=substr($sql,0,strlen($sql)-2);
 	$sql.=" )";
@@ -155,7 +157,7 @@ if (mysqli_num_rows($asig2)>0) {
 
 	// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
 	$tabla_profes =mysqli_query($db_con,"select * from profesores");
-	if (mysql_num_rows($tabla_profes) > 0) {}
+	if (mysqli_num_rows($tabla_profes) > 0) {}
 	else{
 		// Recorremos la tabla Profesores bajada de Séneca
 		$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo like '1%' or a_grupo like '2%' or a_grupo like '3%' or a_grupo like '4%' order by prof");
@@ -182,9 +184,9 @@ mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo
 
 	// Tutores
 	$tabla_tut =mysqli_query($db_con,"select * from FTUTORES");
-	if(mysql_num_rows($tabla_tut) > 0){}
+	if(mysqli_num_rows($tabla_tut) > 0){}
 	else{
-		mysql_query("insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where a_asig like '%TUT%'");
+		mysqli_query($db_con,"insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where c_asig = '2'");
 	}
 	?>
 	<div class="alert alert-success alert-block fade in" >
@@ -192,7 +194,7 @@ mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo
 El Horario ha sido importado correctamente.
 </div></div><br />
 <div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+  <a  href="../index.php" class="btn btn-primary" />Volver a Administración</a>
 </div><br />
 	</div>
 	</div>

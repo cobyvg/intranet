@@ -235,7 +235,8 @@ if (isset($_POST['submit'])) {
 
 		}
 	}
-
+// Eliminamos faltas de alumnos que se han dado de baja en el Centro.
+mysqli_query($db_con,"delete from FALTAS where nc='0'");
 	echo '</ul>';
 	echo '</div>';
 	echo '<br>';

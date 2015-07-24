@@ -5,6 +5,7 @@ if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incomp
 session_start();
 
 include("config.php");
+include("funciones.php");
 include_once("config/version.php");
 
 

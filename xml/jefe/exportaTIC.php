@@ -66,7 +66,7 @@ mysqli_query($db_con, "update usuarioalumno set usuario = '$nuevo' where claveal
 }	
 }
 }
-echo '<div align="center"><div class="alert alert-success alert-block fade in" style="max-width:500px;text-align:left">
+echo '<div align="center"><div class="alert alert-success alert-block fade in" style="text-align:left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de los alumnos se han importado correctamente en la tabla "usuarioalumno".<br> Se ha generado un fichero (alumnos.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva en el Servidor TIC.
 </div></div><br />';

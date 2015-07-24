@@ -253,7 +253,7 @@ mysqli_free_result($result);
 
 ?>
 <div align="center">
-<input type="button" value="Volver atrás" name="boton" onclick="history.back(2)" class="btn btn-inverse" />
+  <a  href="../index.php" class="btn btn-primary" />Volver a Administración</a>
 </div>
 </div>
 </div>

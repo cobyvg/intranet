@@ -115,19 +115,13 @@ if (isset($_POST['enviar'])) {
 		$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);
 	}
 	
-	// OBTENEMOS DATOS DE LA UNIDAD
-	$result = mysqli_query($db_con, "SELECT DISTINCT n_grupo FROM horw WHERE a_grupo='".$_POST['unidad']."'");
-	$datos_unidad = mysqli_fetch_array($result);
-	$codunidad = $_POST['unidad'];
-	$nomunidad = $datos_unidad['n_grupo'];
-	
 	// OBTENEMOS DATOS DE LA DEPENDENCIA
 	$result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw WHERE a_aula='".$_POST['dependencia']."'");
 	$datos_dependencia = mysqli_fetch_array($result);
 	$coddependencia = $_POST['dependencia'];
 	$nomdependencia = $datos_dependencia['n_aula'];
 	
-	$result = mysqli_query($db_con, "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo, n_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$codunidad', '$nomunidad')");
+	$result = mysqli_query($db_con, "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$codunidad')");
 	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
@@ -163,19 +157,13 @@ if (isset($_POST['actualizar'])) {
 		$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);
 	}
 	
-	// OBTENEMOS DATOS DE LA UNIDAD
-	$result = mysqli_query($db_con, "SELECT DISTINCT n_grupo FROM horw WHERE a_grupo='".$_POST['unidad']."'");
-	$datos_unidad = mysqli_fetch_array($result);
-	$codunidad = $_POST['unidad'];
-	$nomunidad = $datos_unidad['n_grupo'];
-	
 	// OBTENEMOS DATOS DE LA DEPENDENCIA
 	$result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw WHERE a_aula='".$_POST['dependencia']."'");
 	$datos_dependencia = mysqli_fetch_array($result);
 	$coddependencia = $_POST['dependencia'];
 	$nomdependencia = $datos_dependencia['n_aula'];
 	
-	$result = mysqli_query($db_con, "UPDATE horw SET dia='$dia', hora='$hora', a_asig='$abrevasignatura', asig='$nomasignatura', c_asig='$codasignatura', a_aula='$coddependencia', n_aula='$nomdependencia', a_grupo='$codunidad', n_grupo='$nomunidad' WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='".$profesor."'");
+	$result = mysqli_query($db_con, "UPDATE horw SET dia='$dia', hora='$hora', a_asig='$abrevasignatura', asig='$nomasignatura', c_asig='$codasignatura', a_aula='$coddependencia', n_aula='$nomdependencia', a_grupo='$codunidad' WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='".$profesor."'");
 	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
