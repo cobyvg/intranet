@@ -41,8 +41,8 @@ else{
 	$_SESSION ['fondo'] = "navbar-default";
 }
 
+include("menu.php");
 ?>
-<? include("menu.php");?>
 
 	<div class="container-fluid" style="padding-top: 15px;">
 		
