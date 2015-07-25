@@ -1,4 +1,4 @@
-<?  
+<?php  
 // Procesamos los datos
 if ($seleccionar=="1") {
 $curso = substr($curso,0,strlen($curso)-1);

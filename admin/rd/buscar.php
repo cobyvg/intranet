@@ -22,7 +22,7 @@ echo '<div align="center">';
 </div>
 <br />';
 ?>
-<p class="lead" align="center">Actas que contienen la expresión<a href="#"> &quot;<? echo $expresion;?></a>&quot;</p><br /><?
+<p class="lead" align="center">Actas que contienen la expresión<a href="#"> &quot;<?php echo $expresion;?></a>&quot;</p><br /><?
 $trozos = explode(" ",$expresion,5);
 $frase="";
 for($i=0;$i<5;$i++)
@@ -64,8 +64,8 @@ if(mysqli_num_rows($result) > 0)
 	?>	
 </td>
 <td style="text-align:right;">
-<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" data-bs="tooltip" title='Ver el Acta'> </i></a> 
-<a href="pdf.php?id=<? echo $row->id; ?>"  style="color:#990000"> <i class="fa fa-print" data-bs="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>  
+<a href="story.php?id=<?php echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" data-bs="tooltip" title='Ver el Acta'> </i></a> 
+<a href="pdf.php?id=<?php echo $row->id; ?>"  style="color:#990000"> <i class="fa fa-print" data-bs="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>  
 </div>
         </td>
       </tr>

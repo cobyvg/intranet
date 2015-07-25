@@ -43,7 +43,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
     <th>Informes</th>
         <th>Comunicaciones</th>
 </tr>
-<? 
+<?php 
  
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12'  order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
@@ -55,7 +55,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $result = mysqli_query($db_con, $SQL);
  $num_conv3 = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_leves1 = mysqli_num_rows($result);
@@ -67,7 +67,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $num_leves3 = mysqli_num_rows($result);
  ?>
  
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_graves1 = mysqli_num_rows($result);
@@ -79,7 +79,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $num_graves3 = mysqli_num_rows($result);
  ?>
  
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_muygraves1 = mysqli_num_rows($result);
@@ -91,7 +91,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $num_muygraves3 = mysqli_num_rows($result);
  ?>
  
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsion1 = mysqli_num_rows($result);
@@ -103,7 +103,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $num_expulsion3 = mysqli_num_rows($result);
  ?>
  
-  <?    
+  <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados1 = mysqli_num_rows($result);
@@ -115,7 +115,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $num_expulsados3 = mysqli_num_rows($result);
  ?>
  
-   <?    
+   <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados1 = mysqli_num_rows($result);
@@ -127,7 +127,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $num_expulsados3 = mysqli_num_rows($result);
  ?>
  
-    <?    
+    <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsadosaula1 = mysqli_num_rows($result);
@@ -139,7 +139,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $num_expulsadosaula3 = mysqli_num_rows($result);
  ?>
  
-   <?    
+   <?php    
  $SQL = "select distinct id from infotut_alumno where month(F_ENTREV) >='09' and month(F_ENTREV) <= '12' order by claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_informes1 = mysqli_num_rows($result);
@@ -151,7 +151,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $num_informes3 = mysqli_num_rows($result);
  ?>
  
-   <?    
+   <?php    
  $SQL = "select distinct id from tutoria where month(fecha) >='09' and month(fecha) <= '12' and date(fecha) > '$inicio_curso' order by id";
  $result = mysqli_query($db_con, $SQL);
  $num_acciones1 = mysqli_num_rows($result);
@@ -163,7 +163,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $num_acciones3 = mysqli_num_rows($result);
  ?>
  
-   <?    
+   <?php    
  $SQL = "select distinct id from tutoria where causa = 'Faltas de Asistencia' and month(fecha) >='09' and month(fecha) <= '12' and date(fecha) > '$inicio_curso' order by id";
  $result = mysqli_query($db_con, $SQL);
  $num_comunica1 = mysqli_num_rows($result);
@@ -175,7 +175,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $num_comunica3 = mysqli_num_rows($result);
  ?>
  
- <?  
+ <?php  
  //mysqli_query($db_con, "truncate table absentismo");
  for($i=1;$i<13;$i++)
  {
@@ -204,17 +204,17 @@ $num_informes = $num_informes1 + $num_informes2 + $num_informes3;
 $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 ?>
 <tr>
-    <td><? echo $num_faltas; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_conv1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_conv2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_conv3; ?><hr><strong><? echo $num_conv; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_leves1; ?><br /><span style="color:#abc">2T.</span>  <? echo $num_leves2; ?><br /><span style="color:#abc">3T.</span>  <? echo $num_leves3; ?><hr><strong><? echo $num_leves; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_graves1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_graves2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_graves3; ?><hr><strong><? echo $num_graves; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_muygraves1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_muygraves2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_muygraves3; ?><hr><strong><? echo $num_muygraves; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_expulsion1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_expulsion2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_expulsion3; ?><hr><strong><? echo $num_expulsion; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_expulsados1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_expulsados2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_expulsados3; ?><hr><strong><? echo $num_expulsados; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_expulsadosaula1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_expulsadosaula2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_expulsadosaula3; ?><hr><strong><? echo $num_expulsadosaula; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_acciones1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_acciones2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_acciones3; ?><hr><strong><? echo $num_acciones; ?></td> 
-    <td><span style="color:#abc">1T.</span>  <? echo $num_informes1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_informes2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_informes3; ?><hr><strong><? echo $num_informes; ?></td>
-	<td><span style="color:#abc">1T.</span>  <? echo $num_comunica1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_comunica2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_comunica3; ?><hr><strong><? echo $num_comunica; ?></td>
+    <td><?php echo $num_faltas; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_conv1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_conv2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_conv3; ?><hr><strong><?php echo $num_conv; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_leves1; ?><br /><span style="color:#abc">2T.</span>  <?php echo $num_leves2; ?><br /><span style="color:#abc">3T.</span>  <?php echo $num_leves3; ?><hr><strong><?php echo $num_leves; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_graves1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_graves2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_graves3; ?><hr><strong><?php echo $num_graves; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_muygraves1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_muygraves2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_muygraves3; ?><hr><strong><?php echo $num_muygraves; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_expulsion1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_expulsion2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_expulsion3; ?><hr><strong><?php echo $num_expulsion; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_expulsados1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_expulsados2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_expulsados3; ?><hr><strong><?php echo $num_expulsados; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_expulsadosaula1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_expulsadosaula2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_expulsadosaula3; ?><hr><strong><?php echo $num_expulsadosaula; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_acciones1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_acciones2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_acciones3; ?><hr><strong><?php echo $num_acciones; ?></td> 
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_informes1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_informes2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_informes3; ?><hr><strong><?php echo $num_informes; ?></td>
+	<td><span style="color:#abc">1T.</span>  <?php echo $num_comunica1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_comunica2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_comunica3; ?><hr><strong><?php echo $num_comunica; ?></td>
 </tr>
  </table>
 <hr style="width:950px">
@@ -226,7 +226,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 
 <h3>Información por Nivel</h3>
 <br />
-<? 
+<?php 
  $nivel0 = "select distinct nomcurso from cursos";
  $nivel1 = mysqli_query($db_con, $nivel0);
  while($nivel = mysqli_fetch_array($nivel1))
@@ -243,7 +243,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $result = mysqli_query($db_con, $SQL);
  $num_conv3 = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'leve' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_leves1 = mysqli_num_rows($result);
@@ -255,7 +255,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_leves3 = mysqli_num_rows($result);
  ?>
  
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_graves1 = mysqli_num_rows($result);
@@ -267,7 +267,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_graves3 = mysqli_num_rows($result);
  ?>
  
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and grave = 'muy grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_muygraves1 = mysqli_num_rows($result);
@@ -279,7 +279,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_muygraves3 = mysqli_num_rows($result);
  ?>
  
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsion1 = mysqli_num_rows($result);
@@ -291,7 +291,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_expulsion3 = mysqli_num_rows($result);
  ?>
  
-  <?    
+  <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados1 = mysqli_num_rows($result);
@@ -303,7 +303,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_expulsados3 = mysqli_num_rows($result);
  ?>
  
-   <?    
+   <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados1 = mysqli_num_rows($result);
@@ -315,7 +315,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_expulsados3 = mysqli_num_rows($result);
  ?>
  
-    <?    
+    <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.curso = '$nivel' and alma.claveal = Fechoria.claveal  and expulsionaula = '1' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsadosaula1 = mysqli_num_rows($result);
@@ -327,7 +327,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_expulsadosaula3 = mysqli_num_rows($result);
  ?>
  
-   <?    
+   <?php    
  $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and month(F_ENTREV) >='09' and month(F_ENTREV) <= '12' order by infotut_alumno.claveal";
  //echo $SQL."<br>";
  $result = mysqli_query($db_con, $SQL);
@@ -340,7 +340,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_informes3 = mysqli_num_rows($result);
  ?>
  
-   <?    
+   <?php    
  $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and month(tutoria.fecha) >='09' and month(tutoria.fecha) <= '12' and date(tutoria.fecha) > '$inicio_curso' order by id";
  $result = mysqli_query($db_con, $SQL);
  $num_acciones1 = mysqli_num_rows($result);
@@ -352,7 +352,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_acciones3 = mysqli_num_rows($result);
  ?>
  
-   <?    
+   <?php    
  $SQL = "select distinct id from tutoria , alma where alma.claveal=tutoria.claveal and curso = '$nivel' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='09' and month(tutoria.fecha) <= '12' and date(tutoria.fecha) > '$inicio_curso' order by id";
  $result = mysqli_query($db_con, $SQL);
  $num_comunica1 = mysqli_num_rows($result);
@@ -364,7 +364,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_comunica3 = mysqli_num_rows($result);
  ?>
  
- <?  
+ <?php  
  
  $faltas = "select distinct absentismo.claveal from absentismo, alma where alma.claveal=absentismo.claveal and  curso = '$nivel'";
  $faltas0 = mysqli_query($db_con, $faltas);
@@ -400,24 +400,24 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
         <th>Comunicaciones</th>
 </tr>
 <tr>
-    <td><span class="badge badge-success"><? echo $nivel; ?></span></td>
-    <td><? echo $num_faltas; ?></td>	
-	<td><span style="color:#abc"><span style="color:#abc">1T.</span> </span> <? echo $num_conv1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_conv2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_conv3; ?><hr><strong><? echo $num_conv; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_leves1; ?><br /><span style="color:#abc">2T.</span>  <? echo $num_leves2; ?><br /><span style="color:#abc">3T.</span>  <? echo $num_leves3; ?><hr><strong><? echo $num_leves; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_graves1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_graves2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_graves3; ?><hr><strong><? echo $num_graves; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_muygraves1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_muygraves2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_muygraves3; ?><hr><strong><? echo $num_muygraves; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_expulsion1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_expulsion2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_expulsion3; ?><hr><strong><? echo $num_expulsion; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_expulsados1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_expulsados2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_expulsados3; ?><hr><strong><? echo $num_expulsados; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_expulsadosaula1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_expulsadosaula2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_expulsadosaula3; ?><hr><strong><? echo $num_expulsadosaula; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_acciones1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_acciones2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_acciones3; ?><hr><strong><? echo $num_acciones; ?></td> 
-    <td><span style="color:#abc">1T.</span>  <? echo $num_informes1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_informes2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_informes3; ?><hr><strong><? echo $num_informes; ?></td>
-	<td><span style="color:#abc">1T.</span>  <? echo $num_comunica1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_comunica2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_comunica3; ?><hr><strong><? echo $num_comunica; ?></td>
+    <td><span class="badge badge-success"><?php echo $nivel; ?></span></td>
+    <td><?php echo $num_faltas; ?></td>	
+	<td><span style="color:#abc"><span style="color:#abc">1T.</span> </span> <?php echo $num_conv1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_conv2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_conv3; ?><hr><strong><?php echo $num_conv; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_leves1; ?><br /><span style="color:#abc">2T.</span>  <?php echo $num_leves2; ?><br /><span style="color:#abc">3T.</span>  <?php echo $num_leves3; ?><hr><strong><?php echo $num_leves; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_graves1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_graves2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_graves3; ?><hr><strong><?php echo $num_graves; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_muygraves1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_muygraves2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_muygraves3; ?><hr><strong><?php echo $num_muygraves; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_expulsion1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_expulsion2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_expulsion3; ?><hr><strong><?php echo $num_expulsion; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_expulsados1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_expulsados2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_expulsados3; ?><hr><strong><?php echo $num_expulsados; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_expulsadosaula1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_expulsadosaula2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_expulsadosaula3; ?><hr><strong><?php echo $num_expulsadosaula; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_acciones1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_acciones2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_acciones3; ?><hr><strong><?php echo $num_acciones; ?></td> 
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_informes1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_informes2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_informes3; ?><hr><strong><?php echo $num_informes; ?></td>
+	<td><span style="color:#abc">1T.</span>  <?php echo $num_comunica1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_comunica2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_comunica3; ?><hr><strong><?php echo $num_comunica; ?></td>
 
 </tr>
 </table>
 <hr>
 <br />
-<? } ?>
+<?php } ?>
 
 <hr style="width:950px">
 
@@ -439,7 +439,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $unidad = $cursos[0]."-".$cursos[1];
 ?> 
  
- <? 
+ <?php 
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_conv1 = mysqli_num_rows($result);
@@ -450,7 +450,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $result = mysqli_query($db_con, $SQL);
  $num_conv3 = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'leve' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_leves1 = mysqli_num_rows($result);
@@ -461,7 +461,7 @@ $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.cla
  $result = mysqli_query($db_con, $SQL);
  $num_leves3 = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_graves1 = mysqli_num_rows($result);
@@ -472,7 +472,7 @@ $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.cla
  $result = mysqli_query($db_con, $SQL);
  $num_graves3 = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and grave = 'muy grave' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_muygraves1 = mysqli_num_rows($result);
@@ -483,7 +483,7 @@ $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.cla
  $result = mysqli_query($db_con, $SQL);
  $num_muygraves3 = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsion1 = mysqli_num_rows($result);
@@ -494,7 +494,7 @@ $SQL = "select distinct id from Fechoria, alma where alma.claveal = Fechoria.cla
  $result = mysqli_query($db_con, $SQL);
  $num_expulsion3 = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados1 = mysqli_num_rows($result);
@@ -505,7 +505,7 @@ $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal 
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados3 = mysqli_num_rows($result);
  ?>
-   <?    
+   <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsion > '0' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados1 = mysqli_num_rows($result);
@@ -516,7 +516,7 @@ $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal 
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados3 = mysqli_num_rows($result);
  ?>
-    <?    
+    <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal = Fechoria.claveal and curso = '$nivel' and unidad = '$grupo' and expulsionaula = '1' and month(Fechoria.fecha) >='09' and month(Fechoria.fecha) <= '12' and date(Fechoria.fecha) > '$inicio_curso' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsadosaula1 = mysqli_num_rows($result);
@@ -527,7 +527,7 @@ $SQL = "select distinct Fechoria.claveal from Fechoria, alma where alma.claveal 
  $result = mysqli_query($db_con, $SQL);
  $num_expulsadosaula3 = mysqli_num_rows($result);
  ?>
-   <?    
+   <?php    
  $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_alumno.claveal and curso = '$nivel' and infotut_alumno.unidad = '$grupo' and month(F_ENTREV) >='09' and month(F_ENTREV) <= '12' and date(F_ENTREV) > '$inicio_curso' order by infotut_alumno.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_informes1 = mysqli_num_rows($result);
@@ -538,7 +538,7 @@ $SQL = "select distinct id from infotut_alumno, alma where alma.claveal=infotut_
  $result = mysqli_query($db_con, $SQL);
  $num_informes3 = mysqli_num_rows($result);
  ?>
-   <?    
+   <?php    
  $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and tutoria.unidad = '$grupo' and month(tutoria.fecha) >='09' and month(tutoria.fecha) <= '12' and date(tutoria.fecha) > '$inicio_curso' order by id";
  $result = mysqli_query($db_con, $SQL);
  $num_acciones1 = mysqli_num_rows($result);
@@ -549,7 +549,7 @@ $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal
  $result = mysqli_query($db_con, $SQL);
  $num_acciones3 = mysqli_num_rows($result);
  ?>
-   <?    
+   <?php    
  $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal and curso = '$nivel' and tutoria.unidad = '$grupo' and causa = 'Faltas de Asistencia' and month(tutoria.fecha) >='09' and month(tutoria.fecha) <= '12' and date(tutoria.fecha) > '$inicio_curso' order by id";
  $result = mysqli_query($db_con, $SQL);
  $num_comunica1 = mysqli_num_rows($result);
@@ -561,7 +561,7 @@ $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal
  $num_comunica3 = mysqli_num_rows($result);
  ?>
 
- <?  
+ <?php  
  $faltas = "select distinct absentismo.claveal from absentismo, alma where alma.claveal=absentismo.claveal and curso = '$nivel' and absentismo.unidad = '$grupo' order by absentismo.claveal";
  $faltas0 = mysqli_query($db_con, $faltas);
  $num_faltas = mysqli_num_rows($faltas0);
@@ -578,7 +578,7 @@ $num_acciones = $num_acciones1 + $num_acciones2 + $num_acciones3;
 $num_informes = $num_informes1 + $num_informes2 + $num_informes3;
 $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 ?>
-<h3 align="center"><span  class="badge badge-info"><? echo $unidad;?></span></h3><br />
+<h3 align="center"><span  class="badge badge-info"><?php echo $unidad;?></span></h3><br />
 <table class="table table-striped" style="width:auto">
 <tr>
          <th>Absentismo</th>
@@ -594,17 +594,17 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
         <th>Comunicaciones</th>
 </tr>
 <tr>
-    <td><? echo $num_faltas; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_conv1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_conv2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_conv3; ?><hr><strong><? echo $num_conv; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_leves1; ?><br /><span style="color:#abc">2T.</span>  <? echo $num_leves2; ?><br /><span style="color:#abc">3T.</span>  <? echo $num_leves3; ?><hr><strong><? echo $num_leves; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_graves1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_graves2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_graves3; ?><hr><strong><? echo $num_graves; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_muygraves1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_muygraves2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_muygraves3; ?><hr><strong><? echo $num_muygraves; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_expulsion1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_expulsion2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_expulsion3; ?><hr><strong><? echo $num_expulsion; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_expulsados1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_expulsados2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_expulsados3; ?><hr><strong><? echo $num_expulsados; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_expulsadosaula1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_expulsadosaula2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_expulsadosaula3; ?><hr><strong><? echo $num_expulsadosaula; ?></td>
-    <td><span style="color:#abc">1T.</span>  <? echo $num_acciones1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_acciones2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_acciones3; ?><hr><strong><? echo $num_acciones; ?></td> 
-    <td><span style="color:#abc">1T.</span>  <? echo $num_informes1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_informes2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_informes3; ?><hr><strong><? echo $num_informes; ?></td>
-	<td><span style="color:#abc">1T.</span>  <? echo $num_comunica1; ?><br /><span style="color:#abc">2T.</span> <? echo $num_comunica2; ?><br /><span style="color:#abc">3T.</span> <? echo $num_comunica3; ?><hr><strong><? echo $num_comunica; ?></td>
+    <td><?php echo $num_faltas; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_conv1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_conv2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_conv3; ?><hr><strong><?php echo $num_conv; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_leves1; ?><br /><span style="color:#abc">2T.</span>  <?php echo $num_leves2; ?><br /><span style="color:#abc">3T.</span>  <?php echo $num_leves3; ?><hr><strong><?php echo $num_leves; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_graves1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_graves2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_graves3; ?><hr><strong><?php echo $num_graves; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_muygraves1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_muygraves2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_muygraves3; ?><hr><strong><?php echo $num_muygraves; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_expulsion1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_expulsion2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_expulsion3; ?><hr><strong><?php echo $num_expulsion; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_expulsados1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_expulsados2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_expulsados3; ?><hr><strong><?php echo $num_expulsados; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_expulsadosaula1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_expulsadosaula2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_expulsadosaula3; ?><hr><strong><?php echo $num_expulsadosaula; ?></td>
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_acciones1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_acciones2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_acciones3; ?><hr><strong><?php echo $num_acciones; ?></td> 
+    <td><span style="color:#abc">1T.</span>  <?php echo $num_informes1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_informes2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_informes3; ?><hr><strong><?php echo $num_informes; ?></td>
+	<td><span style="color:#abc">1T.</span>  <?php echo $num_comunica1; ?><br /><span style="color:#abc">2T.</span> <?php echo $num_comunica2; ?><br /><span style="color:#abc">3T.</span> <?php echo $num_comunica3; ?><hr><strong><?php echo $num_comunica; ?></td>
 </tr>
 </table>
 <hr>
@@ -756,7 +756,7 @@ echo "</div></div>";
 
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
  <script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';

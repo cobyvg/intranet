@@ -57,7 +57,7 @@ $mensaje="Has desactivado la Matriculación desde la Página del Centro. Tanto la 
 			
 	<div class="alert alert-success alert-block fade in">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-	<? echo $mensaje; ?>
+	<?php echo $mensaje; ?>
 	</div>
 		
 	

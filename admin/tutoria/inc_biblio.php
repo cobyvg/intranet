@@ -1,7 +1,7 @@
 <?php if (! defined('INC_TUTORIA')) die ('<h1>Forbidden</h1>'); ?>
 
 <!-- Biblioteca -->
-<? if($mod_biblio=="1"): ?>
+<?php if($mod_biblio=="1"): ?>
 <h3 class="text-info">Devolución de Libros</h3>
 
 <?php $grupo = $_SESSION['mod_tutoria']['unidad']; 
@@ -21,7 +21,7 @@
 	while ($list=mysqli_fetch_array($lista)){
 	?>
 	<tr>
-		<td><span data-bs='tooltip' title='<? echo $list[3];?>'><a><? echo $list[1].', '.$list[2];   ?></a></span></td>
+		<td><span data-bs='tooltip' title='<?php echo $list[3];?>'><a><?php echo $list[1].', '.$list[2];   ?></a></span></td>
 		<td nowrap style="text-align: center" class="text-danger"><?php echo strftime('%e %b',strtotime($list[4])); ?></td>
 	</tr>
 	<?	} ?>

@@ -21,7 +21,7 @@ function enviar(){
 <div class="tabbable">
 <ul class="nav nav-tabs">
 	<li><a
-		href='<? echo "cuaderno/c_nota.php?$var";?>'><i
+		href='<?php echo "cuaderno/c_nota.php?$var";?>'><i
 		class="fa fa-plus-circle fa-fw"></i> Nueva columna de datos</a></li>
 
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
@@ -101,8 +101,8 @@ function enviar(){
 				$colum1[3] ? $icon_lock = '<i class="fa fa-lock" data-bs="tooltip" title="Columna oculta en el Cuaderno"></i>' : $icon_lock  = '';
 
 				echo "<tr><td nowrap style='vertical-align:middle;'>";
-				?> <input type="checkbox"  onchange="enviar();" name="<? echo $id;?>"
-		value="<? if(mysqli_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>">
+				?> <input type="checkbox"  onchange="enviar();" name="<?php echo $id;?>"
+		value="<?php if(mysqli_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>">
 		<?
 		echo "&nbsp;$n_col &nbsp;$icon_eye &nbsp;$icon_lock";
 

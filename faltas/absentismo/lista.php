@@ -58,7 +58,7 @@ else
 {
 ?> 
 <form enctype='multipart/form-data' action='lista.php' method='post'> 
- <? 
+ <?php 
                     if($mes=='Septiembre'){$n_mes='09';}
                     if($mes=='Octubre'){$n_mes='10';}
                     if($mes=='Noviembre'){$n_mes='11';}
@@ -122,7 +122,7 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 // Eliminar Tabla temporal
  mysqli_query($db_con, "DROP table `faltastemp2`");
   ?>
- <INPUT name="num_mes" type="hidden" value="<? echo $n_mes;?>"> 
+ <INPUT name="num_mes" type="hidden" value="<?php echo $n_mes;?>"> 
  <br />
  <INPUT name="submit" type="submit" value="Enviar Datos" id="submit" align="center" class="btn btn-danger"> 
 
@@ -135,4 +135,4 @@ if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE
 </div>
 </div>
 
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>

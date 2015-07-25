@@ -73,7 +73,7 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
 </div>
 </div>
 </div>
- <? include("../../pie.php");?>
+ <?php include("../../pie.php");?>
   <script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';

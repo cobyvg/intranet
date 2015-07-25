@@ -95,7 +95,7 @@ if($siguiente == '1'){
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
 <div class="tab-pane fade in active" id="tab1">
 <br>
-<?  
+<?php  
 // Procesamos los datosxxxx
 $datos1 = "select distinct fecha, nombre, nota from datos, notas_cuaderno where  notas_cuaderno.id = datos.id and profesor = '$profesor' and curso like '%$curso%,' and claveal = '$claveal' and asignatura = '$asignatura' order by orden";
 $datos0 = mysqli_query($db_con, $datos1);
@@ -149,7 +149,7 @@ include("informes/notas.php");
 </div>
 </div>
 </div>
-<? 
+<?php 
 include("../pie.php");
 ?>
   </body>

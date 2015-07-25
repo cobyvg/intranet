@@ -181,7 +181,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 						<div class="form-group" id="datimepicker1">
 							<label for="inicio">Inicio de la ausencia</label>
 							<div class="input-group">
-								<input type="text" class="form-control" id="inicio" name="inicio" value="<? echo (isset($inicio) && $inicio) ? $inicio : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
+								<input type="text" class="form-control" id="inicio" name="inicio" value="<?php echo (isset($inicio) && $inicio) ? $inicio : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
 								<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 							</div>
 						</div>
@@ -193,7 +193,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 						<div class="form-group" id="datimepicker2">
 							<label for="inicio">Fin de la ausencia</label>
 							<div class="input-group">
-								<input type="text" class="form-control" id="fin" name="fin" value="<? echo (isset($fin) && $fin) ? $fin : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
+								<input type="text" class="form-control" id="fin" name="fin" value="<?php echo (isset($fin) && $fin) ? $fin : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY">
 								<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 							</div>
 						</div>
@@ -218,8 +218,8 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 				
 				<div class="checkbox-inline"> 
 <label>
-<input name="<? echo "hora".$i;?>" type="checkbox" value="<? echo $i;?>" <? echo $extra_hor;?>>
-                   <? 
+<input name="<?php echo "hora".$i;?>" type="checkbox" value="<?php echo $i;?>" <?php echo $extra_hor;?>>
+                   <?php 
                   echo "".$i."</label> </div>&nbsp;";
 					
 				}

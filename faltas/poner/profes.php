@@ -126,7 +126,7 @@ if (!(isset($ano))) {
 ?>
     </span></div></td>
   
-  <? }?></tr><? }?>
+  <?php }?></tr><?php }?>
 </table>
 
 

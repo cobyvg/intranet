@@ -99,6 +99,6 @@ Si disponemos de horario (incluso si no contamos con él, puesto que otros módulo
 </div><!-- /.container -->
 
 
-<? include("../pie.php");?>  
+<?php include("../pie.php");?>  
 </body>
 </html>

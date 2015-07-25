@@ -20,7 +20,7 @@ include ("menu.php");
 </div>
 <div class="row">
 <div class="col-sm-10 col-sm-offset-1">
- <? 
+ <?php 
 $borrar = $_GET['borrar'];
 $id = $_GET['id'];
 $claveal = $_GET['claveal'];
@@ -124,7 +124,7 @@ echo "$hoy0</legend>";
 	<div class="form-group" id="datetimepicker1">
 <label>Selecciona el Día </label>
 <div class="input-group">
-  <input name="fecha0" id="fecha0" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<? echo $hoy0;?>" >
+  <input name="fecha0" id="fecha0" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<?php echo $hoy0;?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </div>
@@ -229,7 +229,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 <script>  
 $(function ()  
 { 

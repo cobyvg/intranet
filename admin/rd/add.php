@@ -166,7 +166,7 @@ la Reunión</label>
 
 <div class="form-group"><label for="numero">Nº de Acta</label> <input
 	type="text" class="form-control" id="numero" name="numero"
-	value="<? echo $numero; ?>"></div>
+	value="<?php echo $numero; ?>"></div>
 
 </div>
 
@@ -174,7 +174,7 @@ la Reunión</label>
 
 <div class="form-group"><label for="editor">Acta</label> <textarea
 	class="form-control" id="editor" name="contenido">
-<? if ($edicion=="1") {
+<?php if ($edicion=="1") {
 	echo $ed->contenido;
 }
 else{
@@ -189,13 +189,13 @@ else{
 }
 ?></p>
 
-<? echo $texto_dep; ?><br><? echo $nombre_del_centro ?> (<? echo $localidad_del_centro ?>) <br>Curso Escolar: <? echo $curso_actual;?><br> Acta N&ordm; <? echo $numero; ?>
+<?php echo $texto_dep; ?><br><?php echo $nombre_del_centro ?> (<?php echo $localidad_del_centro ?>) <br>Curso Escolar: <?php echo $curso_actual;?><br> Acta N&ordm; <?php echo $numero; ?>
 </p>
 <p><br></p>
 <p style="text-align: center;"><strong
 	style="text-decoration: underline;">ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
 <p><br></p>
-<p>En <? echo $localidad_del_centro ?>, a las <? echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <? echo $departament; ?> del <? echo $nombre_del_centro ?> de <? echo $localidad_del_centro ?>, con el siguiente <span
+<p>En <?php echo $localidad_del_centro ?>, a las <?php echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $nombre_del_centro ?> de <?php echo $localidad_del_centro ?>, con el siguiente <span
 	style="text-decoration: underline;"> orden del d&iacute;a:</span></p>
 <p><br></p>
 <p><br></p>
@@ -212,7 +212,7 @@ else{
         		</textarea></div>
 
 <div class="form-group"><label for="jefedep">Jefe del Departamento</label>
-<? if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
+<?php if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
 	$rd_profesor=$profesor;
 }
 else{
@@ -221,7 +221,7 @@ else{
 	$rd_profesor = $rd_profes[0];
 }
 ?><input type="text" class="form-control" id="jefedep" name="jefedep"
-	value="<? echo $rd_profesor; ?>" readonly></div>
+	value="<?php echo $rd_profesor; ?>" readonly></div>
 
 <?
 if ($edicion=="1") {
@@ -250,21 +250,21 @@ if (mysqli_num_rows($result) > 0)
 		<th>Fecha</th>
 		<th></th>
 	</thead>
-	<? while($row = mysqli_fetch_object($result)) { ?>
+	<?php while($row = mysqli_fetch_object($result)) { ?>
 	<tr>
-		<td nowrap><? echo $row->numero; ?></td>
-		<td nowrap><? echo fecha_sin($row->fecha); ?></td>
-		<td nowrap><a href="story.php?id=<? echo $row->id; ?>"><span
+		<td nowrap><?php echo $row->numero; ?></td>
+		<td nowrap><?php echo fecha_sin($row->fecha); ?></td>
+		<td nowrap><a href="story.php?id=<?php echo $row->id; ?>"><span
 			class="fa fa-search fa-fw fa-lg" data-bs="tooltip" title='Ver'></span></a>
 			<?
 			if($row->impreso<>1){
 				if ($j_s == 'disabled') {} else {
-					?> <a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"><span
+					?> <a href="pdf.php?id=<?php echo $row->id; ?>&imprimir=1"><span
 			class="fa fa-print fa-fw fa-lg" data-bs="tooltip" title='Imprimir'> </span></a>
-		<a href="add.php?borrar=1&id=<? echo $row->id; ?>"
+		<a href="add.php?borrar=1&id=<?php echo $row->id; ?>"
 			data-bb="confirm-delete"><span class="fa fa-trash-o fa-fw fa-lg"
 			data-bs="tooltip" title="Borrar el Acta"></span></a> <a
-			href="add.php?edicion=1&id=<? echo $row->id; ?>"><span
+			href="add.php?edicion=1&id=<?php echo $row->id; ?>"><span
 			class="fa fa-pencil fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>
 			<?
 				}
@@ -273,7 +273,7 @@ if (mysqli_num_rows($result) > 0)
 				?> <a href="#"><span class="fa fa-check fa-fw fa-lg"
 			data-bs="tooltip" title="El acta ha sido impresa"></span></a> <?
 			if ($j_s == 'disabled') {} else {
-				?> <a href="pdf.php?id=<? echo $row->id; ?>"><span
+				?> <a href="pdf.php?id=<?php echo $row->id; ?>"><span
 			class="fa fa-print fa-fw fa-lg" data-bs="tooltip" title="Imprimir"></span></a>
 			<?
 			}

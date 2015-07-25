@@ -70,7 +70,7 @@ for ($i=1;$i<5;$i++){
 
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
 <br>
-<? 
+<?php 
 // Comprobamos datos de evaluaciones
 $n1 = mysqli_query($db_con, "select * from notas where notas1 not like ''");
 if(mysqli_num_rows($n1)>0){}
@@ -100,7 +100,7 @@ INDEX (  `claveal` )
  mysqli_query($db_con, "ALTER TABLE  `temp3` ADD INDEX (  `asignatura` )");
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
-<div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
+<div class="tab-pane fade in<?php echo $activ;?>" id="<?php echo "tab".$key;?>">
 <?
 // Evaluaciones ESO
 $nivele = mysqli_query($db_con, "select * from cursos");
@@ -157,14 +157,14 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 $nivele = mysqli_query($db_con, "select * from cursos");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
 ?>
-	<legend><? echo $orden_nivel[1]; ?></legend><hr />
+	<legend><?php echo $orden_nivel[1]; ?></legend><hr />
 <?
 // UNIDADES DEL CURSO
 $niv = mysqli_query($db_con, "select distinct unidad from alma where curso = '$orden_nivel[1]' order by unidad");
 while ($ni = mysqli_fetch_array($niv)) {
 	$unidad = $ni[0];
 	?>
-	<p class="lead"><? echo $unidad; ?></p>
+	<p class="lead"><?php echo $unidad; ?></p>
 <table class="table table-striped table-bordered"  align="center" style="width:700px;" valign="top">
 <thead>
 <th class='text-info'>Asignatura</th>
@@ -250,4 +250,4 @@ mysqli_query($db_con, "drop table temp3");
 </div>
 </div>
 
-<? include("../../pie.php"); ?>
+<?php include("../../pie.php"); ?>

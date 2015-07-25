@@ -46,6 +46,6 @@ if(isset($_POST['enviar']))
 include("estructura.php");
 ?>
 </form>
-  <? include("../../pie.php"); ?> 
+  <?php include("../../pie.php"); ?> 
 </body>
 </html>

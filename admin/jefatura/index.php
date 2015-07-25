@@ -171,7 +171,7 @@ if ($id and ($unidad=='' and $alumno=='')) {
 	<option></option>
 </select> <?php endif; ?></div>
 </div>
-<div class="col-md-2"><?    
+<div class="col-md-2"><?php    
 if ($clave !== "") {
 	$foto = '../../xml/fotos/'.$clave.'.jpg';
 	if (file_exists($foto)) {

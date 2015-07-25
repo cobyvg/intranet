@@ -80,7 +80,7 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 	<script>
 	$(document).ready(function() {
 	  var table = $('.datatable').DataTable({

@@ -57,7 +57,7 @@ elseif (isset($_POST['foto'])) {
 <div class="container hidden-print">
 <div class="tabbable">
 <ul class="nav nav-tabs">
-	<li <? echo $activo5;?>>
+	<li <?php echo $activo5;?>>
 	<!-- Button trigger modal --> 
 		<a href="#"	class="pull-right" data-toggle="modal" data-target="#myModal0"> Horario </a> 
 		<!-- Modal -->
@@ -151,11 +151,11 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 	
 	</li>
 
-	<li <? echo $activo1;?>><a href="//<?php echo $dominio; ?>/intranet/cuaderno.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>&foto=<? echo $foto;?>">Cuaderno de notas</a></li>
+	<li <?php echo $activo1;?>><a href="//<?php echo $dominio; ?>/intranet/cuaderno.php?menu_cuaderno=1&profesor=<?php echo $_SESSION['profi'];?>&dia=<?php echo $dia;?>&hora=<?php echo $hora;?>&curso=<?php echo $curso;?>&asignatura=<?php echo $asignatura;?>&foto=<?php echo $foto;?>">Cuaderno de notas</a></li>
 	
-	<li <? echo $activo2;?>><a href="//<?php echo $dominio; ?>/intranet/faltas/index.php?menu_cuaderno=1&profesor=<? echo $_SESSION['profi'];?>&dia=<? echo $dia;?>&hora=<? echo $hora;?>&curso=<? echo $curso;?>&asignatura=<? echo $asignatura;?>">Faltas de asistencia</a></li>
+	<li <?php echo $activo2;?>><a href="//<?php echo $dominio; ?>/intranet/faltas/index.php?menu_cuaderno=1&profesor=<?php echo $_SESSION['profi'];?>&dia=<?php echo $dia;?>&hora=<?php echo $hora;?>&curso=<?php echo $curso;?>&asignatura=<?php echo $asignatura;?>">Faltas de asistencia</a></li>
 
-	<li <? echo $activo3;?>><a href="//<?php echo $dominio; ?>/intranet/calendario/index_unidades.php?unidad=<?php echo $curso; ?>&menu_cuaderno=1">Actividades de la unidad</a></li>
+	<li <?php echo $activo3;?>><a href="//<?php echo $dominio; ?>/intranet/calendario/index_unidades.php?unidad=<?php echo $curso; ?>&menu_cuaderno=1">Actividades de la unidad</a></li>
 
 </ul>
 </div>

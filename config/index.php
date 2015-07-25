@@ -132,7 +132,7 @@ exit();
 }
 }
 ?>
-<? 
+<?php 
 }
 include("tabla.php");
 

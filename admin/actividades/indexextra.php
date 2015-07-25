@@ -19,7 +19,7 @@ include("menu.php");
 
 <div class="row">
 
-<div class="col-sm-12"><?   
+<div class="col-sm-12"><?php   
 if ($_GET['eliminar']=="1") {
 	mysqli_query($db_con, "delete from calendario where id = '".$_GET['id']."'");
 	if (mysqli_affected_rows($db_con)>'0') {
@@ -59,28 +59,28 @@ if($detalles == '1')
 <table align="center" class="table table-bordered table-striped" style="width:auto;">
 	<tr>
 		<th colspan="2">
-		<h4 class="text-info"><? echo $datos[2];?></h4>
+		<h4 class="text-info"><?php echo $datos[2];?></h4>
 		</th>
 	</tr>
 	<tr>
 		<th>Grupos</th>
-		<td><? echo substr($datos[11],0,-1);?></td>
+		<td><?php echo substr($datos[11],0,-1);?></td>
 	</tr>
 	<tr>
 		<th>Descripción</th>
-		<td><? echo $datos[3];?></td>
+		<td><?php echo $datos[3];?></td>
 	</tr>
 	<tr>
 		<th>Departamento</th>
-		<td><? echo $datos[9];?></td>
+		<td><?php echo $datos[9];?></td>
 	</tr>
 	<tr>
 		<th>Profesores</th>
-		<td><? echo $datos[10];?></td>
+		<td><?php echo $datos[10];?></td>
 	</tr>
 	<tr>
 		<th>Horario</th>
-		<td><? 
+		<td><?php 
 		if ($datos[5]=="00:00:00") {
 			echo "Todo el día.";
 		}
@@ -92,11 +92,11 @@ if($detalles == '1')
 	</tr>
 	<tr>
 		<th>Fecha</th>
-		<td><? echo $fecha;?></td>
+		<td><?php echo $fecha;?></td>
 	</tr>
 	<tr>
 		<th>Registro</th>
-		<td><? echo $registro;?></td>
+		<td><?php echo $registro;?></td>
 	</tr>
 	<tr>
 		<th>Autorizada</th>
@@ -111,7 +111,7 @@ if($detalles == '1')
 	</tr>
 		<tr>
 		<th>Observaciones</th>
-		<td><? echo $datos[16];?></td>
+		<td><?php echo $datos[16];?></td>
 	</tr>
 </table>
 </div>
@@ -163,44 +163,44 @@ if($detalles == '1')
 			$datos[2]= str_replace("\\","",$datos[2]);
 			?>
 		<tr>
-			<td nowrap="nowrap"><? echo $datos[7];?></td>
-			<td><? echo $datos[2];?></td>
-			<td style="width:200px"><? echo $datos[1];?></td>
-			<td><? echo $mes2;?></td>
+			<td nowrap="nowrap"><?php echo $datos[7];?></td>
+			<td><?php echo $datos[2];?></td>
+			<td style="width:200px"><?php echo $datos[1];?></td>
+			<td><?php echo $mes2;?></td>
 			<td nowrap>
 			 <?
 				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['depto'] == $datos[4]) or ($_SESSION['depto'] == $datos[4] or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE)){
-					?> <a href="extraescolares.php?id=<? echo $datos[0];?>&profesores=<?  echo $datos[5];?>"><span
+					?> <a href="extraescolares.php?id=<?php echo $datos[0];?>&profesores=<?php  echo $datos[5];?>"><span
 				class="fa fa-users fa-fw fa-lg" data-bs="tooltip"
-				title="Seleccionar alumnos que realizan la Actividad"></span></a> <? } ?>
-			<a href="indexextra.php?id=<? echo $datos[0];?>&detalles=1"
+				title="Seleccionar alumnos que realizan la Actividad"></span></a> <?php } ?>
+			<a href="indexextra.php?id=<?php echo $datos[0];?>&detalles=1"
 				data-bs="tooltip" title="Detalles"><span
 				class="fa fa-search fa-fw fa-lg"></span></a> 
 			<?
 					if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 			?>
-				<a href="<? echo $cal_act;?>" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
+				<a href="<?php echo $cal_act;?>" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
 			<?
 					}
 					?>	
 					<?
 				if((stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE)){
-					?> <? if($autoriz=="1"){
+					?> <?php if($autoriz=="1"){
 					?>
 					<span
 				class="fa fa-check-circle fa-fw fa-lg text-success"></span>
 					<?	
 					}else{ ?> <a
-				href="indexextra.php?id=<? echo $datos[0];?>&confirmado=1"
+				href="indexextra.php?id=<?php echo $datos[0];?>&confirmado=1"
 				data-bs="tooltip" title="Autorizar"><span
-				class="fa fa-check-circle fa-fw fa-lg text-danger"></span></a> <? } ?> <? 
+				class="fa fa-check-circle fa-fw fa-lg text-danger"></span></a> <?php } ?> <?php 
 				?> 
 				<?
 				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
-					?> <a href="indexextra.php?id=<? echo $datos[0];?>&eliminar=1"
+					?> <a href="indexextra.php?id=<?php echo $datos[0];?>&eliminar=1"
 				data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span
-				class="fa fa-trash-o fa-fw fa-lg"></span></a> <? } ?></td>
-				<? }?>
+				class="fa fa-trash-o fa-fw fa-lg"></span></a> <?php } ?></td>
+				<?php }?>
 		</tr>
 		<?
 		}
@@ -211,7 +211,7 @@ if($detalles == '1')
 </div>
 </div>
 </div>
-	<? include("../../pie.php");?>
+	<?php include("../../pie.php");?>
 
 <script>
 	$(document).ready(function() {

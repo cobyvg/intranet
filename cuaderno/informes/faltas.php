@@ -1,4 +1,4 @@
- <? 
+ <?php 
   $SQLT = "select DISTINCTROW FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc,
   FALTAS.fecha, count(*) from FALTAS, FALUMNOS where FALUMNOS.claveal = FALTAS.claveal
   and FALTAS.falta = 'F' and FALUMNOS.claveal = $claveal GROUP BY FALUMNOS.apellidos";

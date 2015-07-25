@@ -17,7 +17,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Administración <small>Alumnos mayores de 18 años hoy (<? echo date('d-m-Y'); ?>)</small></h2>
+		<h2>Administración <small>Alumnos mayores de 18 años hoy (<?php echo date('d-m-Y'); ?>)</small></h2>
 	</div>
 		
 	<!-- SCAFFOLDING -->

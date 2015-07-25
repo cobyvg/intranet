@@ -47,7 +47,7 @@ include("../../menu.php");
 									<?php $asignatura = $row['asig']; ?>
 									<?php $profesor = nomprofesor($row['prof']);?>
 									<?php endwhile; ?>
-									<? echo "<span class='text-danger'>$asignatura</span><br><span class='text-info'>$profesor</span><br>$grupo";?>
+									<?php echo "<span class='text-danger'>$asignatura</span><br><span class='text-info'>$profesor</span><br>$grupo";?>
 								</td>
 								<?php endfor; ?>
 							</tr>

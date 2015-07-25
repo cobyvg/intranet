@@ -15,7 +15,7 @@ if(is_numeric($profesor))
 else{$n_profe = $profesor;}
 if(strlen($n_profe)>0){
 	?>
-<div align="center"><legend><small> <? eliminar_mayusculas($n_profe); echo $n_profe;?></small></legend>
+<div align="center"><legend><small> <?php eliminar_mayusculas($n_profe); echo $n_profe;?></small></legend>
 	<?
 }
 ?> <?
@@ -77,7 +77,7 @@ if (isset($mens_fecha)) {
 	echo '<div align="left""><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_fecha.'</div></div>';
 }
-?> <? include("cal.php"); ?></div>
+?> <?php include("cal.php"); ?></div>
 <div class="col-sm-8"><?
 echo "<legend align='center'><small class='text-uppercase'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</small></legend><br />";
 echo "<input type=hidden name=today value= \"$today\">";

@@ -117,7 +117,7 @@ else{
 ?> 
 
 <script language="javascript">
-setTimeout("window.location='index.php?fecha_dia=<? if (!empty($fecha_dia)) {  echo $fecha_dia;}else {echo date('d-m-Y');}?>&hora_dia=<? echo $hora; ?><? echo $extra;?>'", 2000) 
+setTimeout("window.location='index.php?fecha_dia=<?php if (!empty($fecha_dia)) {  echo $fecha_dia;}else {echo date('d-m-Y');}?>&hora_dia=<?php echo $hora; ?><?php echo $extra;?>'", 2000) 
 </script> 
 
 </body>

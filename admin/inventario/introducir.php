@@ -73,16 +73,16 @@ Parece que no has escrito nada en alguno de los campos obligatorios del formular
 }
 ?>
 <div class="row">
-<? 
+<?php 
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
 { ?>
 <div class="col-sm-6">
 
-<legend>Registro de Material <span style="color:#9d261d">(<? echo $departament;?>)</span></legend>
+<legend>Registro de Material <span style="color:#9d261d">(<?php echo $departament;?>)</span></legend>
 <div class="well" align="left">
 <form name="textos" method="post" action="introducir.php">
 <div align="center"><p class="help-block"> <span style="color:#9d261d">(*)</span> --> Campos obligatorios</p></div>
-<input type="hidden" name="departamento" value="<? echo $departamento;?>">
+<input type="hidden" name="departamento" value="<?php echo $departamento;?>">
 
 <div class='form-group'><label>Familia<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
 <select name="familia" onchange="submit()" class="form-control">
@@ -175,15 +175,15 @@ while($item = mysqli_fetch_row($it))
 		$marca = $item[1];
 	}
 ?>
-<tr><td><? echo $item[0];?></td><td><? echo $marca;?></td><td><? echo $item[3];?></td><td align=right>
+<tr><td><?php echo $item[0];?></td><td><?php echo $marca;?></td><td><?php echo $item[3];?></td><td align=right>
 <?
 if ($j_s == '') {
 ?>
-<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1" data-bb='confirm-delete'><i class="fa fa-trash-o" title="Borrar registro"> </i> </a>
+<a href="introducir.php?id=<?php echo $item[4];?>&eliminar=1" data-bb='confirm-delete'><i class="fa fa-trash-o" title="Borrar registro"> </i> </a>
 <?
 }
 ?>
-&nbsp;<a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="fa fa-pencil" title="Editar registro"> </i> </a></td></tr>
+&nbsp;<a href="editar.php?id=<?php echo $item[4];?>&departamento=<?php echo $departamento;?>"><i class="fa fa-pencil" title="Editar registro"> </i> </a></td></tr>
 <?
 }
 	echo '
@@ -192,7 +192,7 @@ if ($j_s == '') {
 ?>
 </div>
 </div>
-<? include("../../pie.php");?>	
+<?php include("../../pie.php");?>	
 <script>  
 $(function ()  
 { 

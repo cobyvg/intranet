@@ -138,6 +138,6 @@ No hay Informes de Tutor&iacute;a Activos para t&iacute;</div></div><hr>';
   </div>  
   </div>
   </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 </body>
 </html>

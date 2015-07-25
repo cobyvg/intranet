@@ -31,7 +31,7 @@ if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['nu
         <h4>Selecciona el Grupo</h4><br />
           <div class="form-group">
            <select  name="unidad" class="form-control" onChange="submit()">
-            <option><? echo $unidad;?></option>
+            <option><?php echo $unidad;?></option>
             <?
 unidad($db_con);
 ?>
@@ -42,7 +42,7 @@ unidad($db_con);
         Selecciona los Alumnos...</h4><br />
                     <div class="form-group">
           <select name="nombre[]" multiple class="form-control" style="height:560px;">
-            <? 
+            <?php 
 $alumno = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FROM FALUMNOS WHERE unidad like '$unidad%'  order by APELLIDOS asc");
   while($falumno = mysqli_fetch_array($alumno))
         {

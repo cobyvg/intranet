@@ -36,7 +36,7 @@ include("../menu.php");
 </FORM>
 <br />
 </div>
-    <? 
+    <?php 
 include("../../pie.php");
 ?>
 </body>

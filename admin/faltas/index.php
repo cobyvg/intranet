@@ -66,8 +66,8 @@ else
 <label for="grupo" class="control-label"> Grupo </label> 
 <SELECT id="grupo"
 	name="unidad1" onChange="submit()" class="form-control">
-	<OPTION><? echo $unidad1;?></OPTION>
-	<? unidad($db_con);?>
+	<OPTION><?php echo $unidad1;?></OPTION>
+	<?php unidad($db_con);?>
 </SELECT>
 </div>
 
@@ -146,8 +146,8 @@ else
 <label class="control-label" for="unidad"> Grupo </label> 
 <SELECT
 	id="unidad" name="unidad" onChange="submit()" class="form-control">
-	<OPTION><? echo $_POST['unidad'];?></OPTION>
-	<? unidad($db_con);?>
+	<OPTION><?php echo $_POST['unidad'];?></OPTION>
+	<?php unidad($db_con);?>
 </SELECT>
 </div>
 
@@ -316,11 +316,11 @@ seleccionadas. )</p>
 </div>
 </div>
 
-	<? }?>
+	<?php }?>
 
 </div>
 </div>
-	<? include("../../pie.php");?>
+	<?php include("../../pie.php");?>
 
 <script>  
 $(function ()  

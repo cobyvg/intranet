@@ -207,13 +207,13 @@ VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombre
 if(!(empty($mens_fecha)) or !(empty($mens1)) or !(empty($mens2)) or !(empty($mens3)) or !(empty($mens4)))
 {
 ?>
-setTimeout("window.location='index.php?year=<? echo $ano;?>&today=<? echo $today;?>&month=<? echo $mes;?>'", 3000) 
+setTimeout("window.location='index.php?year=<?php echo $ano;?>&today=<?php echo $today;?>&month=<?php echo $mes;?>'", 3000) 
 <?
 }
 else
 {
 ?>
-setTimeout("window.location='index.php?registro=1&year=<? echo $ano;?>&today=<? echo $today;?>&month=<? echo $mes;?>'", 5) 
+setTimeout("window.location='index.php?registro=1&year=<?php echo $ano;?>&today=<?php echo $today;?>&month=<?php echo $mes;?>'", 5) 
 <?
 }
 ?>

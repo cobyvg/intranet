@@ -68,7 +68,7 @@ for ($i=1;$i<5;$i++){
 </ul>
 
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
-<? 
+<?php 
 // Comprobamos datos de evaluaciones
 $n1 = mysqli_query($db_con, "select * from notas where notas1 not like ''");
 if(mysqli_num_rows($n1)>0){}
@@ -99,7 +99,7 @@ foreach ($titulos as $key=>$val){
 	
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
-<div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
+<div class="tab-pane fade in<?php echo $activ;?>" id="<?php echo "tab".$key;?>">
 <h3>Resultados de los Alumnos por Nivel</h3><br />
 <p class="help-block text-warning" align="left">En 4º de ESO y 2º de Bachillerato, los alumnos titulan con <strong>0</strong> asignaturas suspensas. En el resto de los grupos de ESO y Bachillerato los alumnos promocionan con <strong>2 o menos</strong> asignaturas suspensas. </p>
 <table class="table table-striped table-bordered"  align="center" style="width:auto" valign="top">
@@ -234,15 +234,15 @@ else{
 ?>
 
 <tr>
-<th><? echo $curso;?></th>
-<th class='text-info'><? echo $total;?></th>
-<td class='text-warning'><? echo $num_pil;?></td>
-<td><? echo $cero;?></td>
-<td><? echo $uno_dos;?></td>
-<td><? echo $tres_cinco;?></td>
-<td><? echo $seis_ocho;?></td>
-<td><? echo $nueve;?></td>
-<th><? echo $porciento." <span class='pull-right'>(".$promo2."".$promo1.")</span>";?></th>
+<th><?php echo $curso;?></th>
+<th class='text-info'><?php echo $total;?></th>
+<td class='text-warning'><?php echo $num_pil;?></td>
+<td><?php echo $cero;?></td>
+<td><?php echo $uno_dos;?></td>
+<td><?php echo $tres_cinco;?></td>
+<td><?php echo $seis_ocho;?></td>
+<td><?php echo $nueve;?></td>
+<th><?php echo $porciento." <span class='pull-right'>(".$promo2."".$promo1.")</span>";?></th>
 </tr>
 <?
 }
@@ -264,7 +264,7 @@ mysqli_close();
 </div>
 </div>
 
-<? include("../../pie.php");?> 
+<?php include("../../pie.php");?> 
 </body>
 </html>
                                                                                                                                                                                                   

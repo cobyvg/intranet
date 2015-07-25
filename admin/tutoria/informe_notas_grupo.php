@@ -20,7 +20,7 @@ include("menu.php");
 
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
 <br>
-<? 
+<?php 
 // Comprobamos datos de evaluaciones
 $n1 = mysqli_query($db_con, "select * from notas where notas1 not like ''");
 if(mysqli_num_rows($n1)>0){}
@@ -51,7 +51,7 @@ INDEX (  `claveal` )
  mysqli_query($db_con, "ALTER TABLE  `temp` ADD INDEX (  `asignatura` )");
 $key == '1' ? $activ=" active" : $activ='';
 ?>
-<div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
+<div class="tab-pane fade in<?php echo $activ;?>" id="<?php echo "tab".$key;?>">
 <?
 
 	$rep = ""; 
@@ -99,7 +99,7 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 ?>
 <h3>Resultados de los Alumnos por Materias y Grupo</h3><br />
 
-	<legend><? echo $unidad; ?></legend><hr />
+	<legend><?php echo $unidad; ?></legend><hr />
 
 <table class="table table-striped table-bordered"  align="center" style="width:700px;" valign="top">
 <thead>
@@ -172,4 +172,4 @@ mysqli_query($db_con, "drop table temp");
 </div>
 </div>
 
-<? include("../../pie.php"); ?>
+<?php include("../../pie.php"); ?>

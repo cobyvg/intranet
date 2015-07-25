@@ -1,6 +1,6 @@
 
 <!-- MODULO DE AUSENCIAS -->
-<? 
+<?php 
 					$hora = date('g');
 					$minuto = date('s');
 					$hora_min = $hora.":".$minuto;

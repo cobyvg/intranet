@@ -110,7 +110,7 @@ $result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FAL
 		$numeroexpulsiones= mysqli_num_rows($numeroexpulsiones0);
 ?>
 <legend align="center">
-  <? echo "$nombre $apellidos ($unidad)";?>
+  <?php echo "$nombre $apellidos ($unidad)";?>
   </legend>
   <br />
 <div class="row">
@@ -127,54 +127,54 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
           </tr>
           <tr>
             <th>NOMBRE</th>
-            <td colspan="4"><? echo $nombre." ".$apellidos; ?>
+            <td colspan="4"><?php echo $nombre." ".$apellidos; ?>
             </td>
           </tr>
           <tr>
             <th>GRUPO</th>
-            <td colspan="4"><? echo $unidad; ?></td>
+            <td colspan="4"><?php echo $unidad; ?></td>
           </tr>
           <tr>
             <th>FECHA</th>
-            <td colspan="4"><? echo $fecha; ?></td>
+            <td colspan="4"><?php echo $fecha; ?></td>
           </tr>
           <tr>
             <th>OBSERVACIONES</th>
-            <td colspan="4"><? echo $notas; ?></td>
+            <td colspan="4"><?php echo $notas; ?></td>
           </tr>
           <tr>
             <th>ASUNTO</th>
-            <td colspan="4"><? echo $asunto; ?></td>
+            <td colspan="4"><?php echo $asunto; ?></td>
           </tr>
           <tr>
             <th>MEDIDAS</th>
-            <td colspan="4"><? echo $medida; ?></td>
+            <td colspan="4"><?php echo $medida; ?></td>
           </tr>
           <tr>
             <th>GRAVEDAD</th>
-            <td colspan="4"><? echo $grave; ?></td>
+            <td colspan="4"><?php echo $grave; ?></td>
           </tr>
           <tr>
             <th>ANTECEDENTES</th>
-            <td >Total: <? echo $numerototal; ?></td>
-            <td >Graves: <? echo $numerograves; ?></td>
-            <td >Muy Graves: <? echo $numeromuygraves; ?></td>
-            <td >Expulsiones: <? echo $numeroexpulsiones; ?></td>
+            <td >Total: <?php echo $numerototal; ?></td>
+            <td >Graves: <?php echo $numerograves; ?></td>
+            <td >Muy Graves: <?php echo $numeromuygraves; ?></td>
+            <td >Expulsiones: <?php echo $numeroexpulsiones; ?></td>
           </tr>
           <tr>
             <th>PROTOCOLOS</th>
-            <td colspan="4"><? echo $medidas2; ?></td>
+            <td colspan="4"><?php echo $medidas2; ?></td>
           </tr>
           <tr>
             <th>PROFESOR</th>
-            <td colspan="4"><? echo $informa; ?></td>
+            <td colspan="4"><?php echo $informa; ?></td>
           </tr>
         </table>
         <br />
-        <div align="center"><a href="../informes/index.php?claveal=<? echo $claveal;?>&todos=1" target="_blank" class="btn btn-primary">
+        <div align="center"><a href="../informes/index.php?claveal=<?php echo $claveal;?>&todos=1" target="_blank" class="btn btn-primary">
         Ver Informe del Alumno
         </a> 
-        <a href="../jefatura/index.php?alumno=<? echo $apellidos.", ".$nombre;?>&unidad=<? echo $unidad;?>&grupo=<? echo $grupo;?>" target="_blank" class="btn btn-primary">Registrar intervención de Jefatura</a></div>
+        <a href="../jefatura/index.php?alumno=<?php echo $apellidos.", ".$nombre;?>&unidad=<?php echo $unidad;?>&grupo=<?php echo $grupo;?>" target="_blank" class="btn btn-primary">Registrar intervención de Jefatura</a></div>
     </div>
     <hr>
     <br />
@@ -217,18 +217,18 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
     <form id="form1" name="form1" method="post" action="detfechorias.php" class="">
       <div class="form-group">
 	<label> N&ordm; de D&iacute;as:</label>
-        <input name="expulsion" type="text" id="textfield" <? if($expulsion > 0){echo "value=$expulsion";}?> maxlength="2" class="form-control" />
+        <input name="expulsion" type="text" id="textfield" <?php if($expulsion > 0){echo "value=$expulsion";}?> maxlength="2" class="form-control" />
         
       </div>
        
-      <input name="id" type="hidden" value="<? echo $id; ?>"/>
-      <input name="claveal" type="hidden" value="<? echo $claveal; ?>"/>
+      <input name="id" type="hidden" value="<?php echo $id; ?>"/>
+      <input name="claveal" type="hidden" value="<?php echo $claveal; ?>"/>
  
 
 <div class="form-group " id="datetimepicker1">
 <label>Inicio:</label>
 <div class="input-group">
-  <input name="inicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="inicio" <? if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?>  >
+  <input name="inicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="inicio" <?php if(strlen($inicio) > '0' and !($inicio == '00-00-0000')){echo "value='$inicio'";}?>  >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </div>
@@ -236,13 +236,13 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 <div class="form-group " id="datetimepicker2">
 <label>Fin:</label>
 <div class="input-group">
-  <input name="fin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fin" <? if(strlen($fin) > '0' and !($fin == '00-00-0000')){echo "value='$fin'";}?>  >
+  <input name="fin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fin" <?php if(strlen($fin) > '0' and !($fin == '00-00-0000')){echo "value='$fin'";}?>  >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </div>
 
 <div class="row">
-<? if($mod_sms){?>      
+<?php if($mod_sms){?>      
    <div class="form-group col-sm-6">
       <div class="checkbox">    
          <label>
@@ -250,11 +250,11 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
         Enviar SMS </label>
       </div>
       </div>
- <? } ?>
+ <?php } ?>
   <div class="form-group col-sm-6">
       <div class="checkbox pull-right">    
          <label>
-         <input name="borrar_exp" type="checkbox" id="borrar_exp" value="<? echo $id;?>" />
+         <input name="borrar_exp" type="checkbox" id="borrar_exp" value="<?php echo $id;?>" />
         Borrar datos </label>
       </div>
       </div>
@@ -293,13 +293,13 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
       
       <div class="form-group">
       <label >N&uacute;mero de D&iacute;as</label>
-        <input name="convivencia" type="text" id="expulsion" <? if($convivencia > 0){echo "value=$convivencia";}else{ if ($gucon == '1') {
+        <input name="convivencia" type="text" id="expulsion" <?php if($convivencia > 0){echo "value=$convivencia";}else{ if ($gucon == '1') {
           	echo "value=";}}?> size="2" maxlength="2" class="form-control" />
       </div>
       
       <div class="form-group">
       <label >Horas sueltas</label>
-        <input name="horas" type="text" <? if($horas > 0){echo "value=$horas";}else{ 
+        <input name="horas" type="text" <?php if($horas > 0){echo "value=$horas";}else{ 
           	if (stristr($_SESSION['cargo'],'1') == TRUE) {
           		echo "value=123456";
           	}else{
@@ -308,8 +308,8 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
           	}
           	?> size="6" maxlength="6" class="form-control" />
             </div>
-        <input name="id" type="hidden" value="<? echo $id;?>" />
-        <input name="claveal" type="hidden" value="<? echo $claveal;?>" />
+        <input name="id" type="hidden" value="<?php echo $id;?>" />
+        <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
      <hr>
      
      <div class="form-group"  id="datetimepicker3">
@@ -337,7 +337,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
           </label>
           </div>
           </div>
-          <? if($mod_sms){ ?>
+          <?php if($mod_sms){ ?>
           <div class="form-group  col-sm-6">
            <div class="checkbox">
           <label for='sms'>
@@ -346,11 +346,11 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
           </label>
           </div>             
           </div>
-          <? } ?>
+          <?php } ?>
           <div class="form-group  col-sm-6">
            <div class="checkbox">
           <label for='borrar_aula'>
-          <input name="borrar_aula" type="checkbox" id="borrar_aula" value="<? echo $id;?>"  />
+          <input name="borrar_aula" type="checkbox" id="borrar_aula" value="<?php echo $id;?>"  />
           Borrar datos
           </label>
           </div>
@@ -373,10 +373,10 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
 	?>
     <h6>EXPULSI&Oacute;N DEL CENTRO</h6>
     <form id="form2" name="form2" method="post" action="imprimir/expulsioncentro.php">
-      <input name="id" type="hidden" value="<? echo $id;?>" />
-      <input name="claveal" type="hidden" value="<? echo $claveal;?>" />
-      <input name="fechainicio" type="hidden" id="textfield2" size="10" maxlength="10" <? if($inicio){echo "value=$inicio";}?> />
-      <input name="fechafin" type="hidden" id="textfield3" size="10" maxlength="10" <? if($fin){echo "value=$fin";}?> />
+      <input name="id" type="hidden" value="<?php echo $id;?>" />
+      <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
+      <input name="fechainicio" type="hidden" id="textfield2" size="10" maxlength="10" <?php if($inicio){echo "value=$inicio";}?> />
+      <input name="fechafin" type="hidden" id="textfield3" size="10" maxlength="10" <?php if($fin){echo "value=$fin";}?> />
       
         <input type="submit" name="imprimir" value="Expulsi&oacute;n del Centro" class="btn btn-danger"/>
       
@@ -384,11 +384,11 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
     <h6>EXPULSI&Oacute;N AL AULA DE CONVIVENCIA</h6>
     
       <form id="form3" name="form3" method="post" action="imprimir/convivencia.php">
-        <input name="id" type="hidden" value="<? echo $id;?>" />
-        <input name="claveal" type="hidden" value="<? echo $claveal;?>" />
-        <input name="fechainicio" type="hidden" id="textfield2" size="10" maxlength="10" <? if($inicio_aula){echo "value=$inicio_aula";}?> />
-        <input name="fechafin" type="hidden" id="textfield3" size="10" maxlength="10" <? if($fin_aula){echo "value=$fin_aula";}?> />
-        <input name="horas" type="hidden" value="<? echo $horas;?>" />
+        <input name="id" type="hidden" value="<?php echo $id;?>" />
+        <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
+        <input name="fechainicio" type="hidden" id="textfield2" size="10" maxlength="10" <?php if($inicio_aula){echo "value=$inicio_aula";}?> />
+        <input name="fechafin" type="hidden" id="textfield3" size="10" maxlength="10" <?php if($fin_aula){echo "value=$fin_aula";}?> />
+        <input name="horas" type="hidden" value="<?php echo $horas;?>" />
         <input type="submit" name="imprimir5" value="Aula de Convivencia"  class="btn btn-danger" />
       </form>
         <?
@@ -398,16 +398,16 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
       DEL AULA </h6>
     <form id="form3" name="form3" method="post" action="imprimir/expulsionaula.php">
       
-        <input name="id" type="hidden" value="<? echo $id;?>" />
-        <input name="claveal" type="hidden" value="<? echo $claveal;?>" />
+        <input name="id" type="hidden" value="<?php echo $id;?>" />
+        <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
         <input type="submit" name="imprimir2" value="Parte de Expulsi&oacute;n del Aula" class="btn btn-danger" />
       
     </form>
     <h6>AMONESTACI&Oacute;N ESCRITA </h6>
     <form id="form3" name="form3" method="post" action="imprimir/amonestescrita.php">
       
-        <input name="id" type="hidden" value="<? echo $id;?>" />
-        <input name="claveal" type="hidden" value="<? echo $claveal;?>" />
+        <input name="id" type="hidden" value="<?php echo $id;?>" />
+        <input name="claveal" type="hidden" value="<?php echo $claveal;?>" />
         <input type="submit" name="imprimir3" value="Amonestaci&oacute;n escrita " class="btn btn-danger" />
       
     </form>
@@ -416,7 +416,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 	<script>  
 	$(function ()  
 	{ 

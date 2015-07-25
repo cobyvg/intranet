@@ -46,7 +46,7 @@ mysqli_free_result($result_mensajes);
 <title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
-	content="Intranet del <? echo $nombre_del_centro; ?>">
+	content="Intranet del <?php echo $nombre_del_centro; ?>">
 <meta name="author"
 	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 
@@ -104,7 +104,7 @@ mysqli_free_result($result_mensajes);
 		href="//<?php echo $dominio; ?>/intranet/index.php">Inicio</a></li>
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/upload/')) ? 'class="active"' : ''; ?>><a
-		href="http://<? echo $dominio;	?>/intranet/upload/">Documentos</a></li>
+		href="http://<?php echo $dominio;	?>/intranet/upload/">Documentos</a></li>
 	<li><a
 		href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio"
 		target="_blank">Séneca</a></li>
@@ -172,7 +172,7 @@ mysqli_free_result($result_mensajes);
 	</li>
 
 	<li class="dropdown" id="bs-tour-usermenu"><a href="#" class="dropdown-toggle"
-		data-toggle="dropdown"> <span class="fa fa-user fa-fw"></span> <? echo $idea; ?>
+		data-toggle="dropdown"> <span class="fa fa-user fa-fw"></span> <?php echo $idea; ?>
 	<b class="caret"></b> </a>
 	<ul class="dropdown-menu">
 		<li><a href="//<?php echo $dominio; ?>/intranet/clave.php"><i

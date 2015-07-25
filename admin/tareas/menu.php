@@ -54,7 +54,7 @@ El Equipo Directivo dispone de una opción, <b>Control de Informes</b>, que prese
 </div> 
   <div class="tabbable">
           <ul class="nav nav-tabs">
-<li <? echo $activo1;?>> <a href="index.php">Página de Informes de Tareas</a></li>
+<li <?php echo $activo1;?>> <a href="index.php">Página de Informes de Tareas</a></li>
 <?
 if(stristr($_SESSION ['cargo'],'2') == TRUE or stristr($_SESSION ['cargo'],'1') == TRUE)
 {
@@ -62,14 +62,14 @@ if(stristr($_SESSION ['cargo'],'2') == TRUE or stristr($_SESSION ['cargo'],'1') 
 	$tutor = $_SESSION ['tut'];
 }
 ?>
-     <li <? echo $activo2;?>><a href="infotut.php?<? if (isset($_SESSION ['s_unidad'])) {echo  "unidad=".$_SESSION ['s_unidad'];}?>">Activar Nuevo Informe</a></li>
-     <? }?>
-     <li <? echo $activo3;?>> <a href="buscar.php?todos=1">Ver Todos los Informes</a></li>
-     <li <? echo $activo4;?>> <a href="index_buscar.php">Buscar Informes</a></li>
+     <li <?php echo $activo2;?>><a href="infotut.php?<?php if (isset($_SESSION ['s_unidad'])) {echo  "unidad=".$_SESSION ['s_unidad'];}?>">Activar Nuevo Informe</a></li>
+     <?php }?>
+     <li <?php echo $activo3;?>> <a href="buscar.php?todos=1">Ver Todos los Informes</a></li>
+     <li <?php echo $activo4;?>> <a href="index_buscar.php">Buscar Informes</a></li>
      <?
      if(stristr($_SESSION ['cargo'],'1') == TRUE){?>
-     <li <? echo $activo5;?>> <a href="control.php">Control de Informes</a></li>
-     <? }?>
+     <li <?php echo $activo5;?>> <a href="control.php">Control de Informes</a></li>
+     <?php }?>
     </ul>
         </div>
         </div>

@@ -119,7 +119,7 @@ include("menu.php");
 							<div class="form-group">
 						    <label for="usuario" class="col-sm-4 control-label">Usuario IdEA</label>
 						    <div class="col-sm-8">
-						      <input type="text" class="form-control" id="usuario" name="usuario" value="<? echo $todos[2];?>" readonly>
+						      <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $todos[2];?>" readonly>
 						    </div>
 						  </div>
 						  
@@ -140,7 +140,7 @@ include("menu.php");
 						  <div id="form-group-email" class="form-group">
 						    <label for="correo" class="col-sm-4 control-label">Correo electrónico</label>
 						    <div class="col-sm-8">
-						      <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico" value="<? echo $todos[5];?>">
+						      <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico" value="<?php echo $todos[5];?>">
 						    </div>
 						  </div>
 							

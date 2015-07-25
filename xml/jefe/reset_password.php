@@ -72,7 +72,7 @@ $pro=mb_strtolower($carg1[0]);
 $pro = ucwords($pro);
 $dni=$carg1[1];
 ?>
-		<option value="<? echo $dni;?>"><? echo $pro;?></option>
+		<option value="<?php echo $dni;?>"><?php echo $pro;?></option>
 <?
 }
 	echo "</select>";
@@ -94,6 +94,6 @@ Instrucciones
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 </body>
 </html>

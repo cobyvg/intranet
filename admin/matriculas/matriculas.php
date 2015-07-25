@@ -333,10 +333,10 @@ if(isset($_POST['enviar'])){
 <html lang="es">
 <head>
 <meta charset="iso-8859-1">
-<title>Intranet &middot; <? echo $nombre_del_centro; ?></title>
+<title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
-	content="Intranet del <? echo $nombre_del_centro; ?>">
+	content="Intranet del <?php echo $nombre_del_centro; ?>">
 <meta name="author"
 	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 
@@ -379,13 +379,13 @@ if ($dni or $claveal or $id) {
 	if (mysqli_num_rows($ya_alma) > 1) {
 		?>
 <form id="form2" name="form1" method="post"
-	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
+	action="matriculas.php<?php if($cargo == "1"){echo "?cargo=1";}?>">
 <div align="center">
 <div class="alert alert-success alert-block fade in">
 <button type="button" class="close" data-dismiss="alert">&times;</button>
 Elige el alumno que quieres matricular en nuestro Centro: <?
 while ($row_alma = mysqli_fetch_array($ya_alma)) {
-	?> <input type="radio" name="claveal" value="<? echo $row_alma[0]; ?>"
+	?> <input type="radio" name="claveal" value="<?php echo $row_alma[0]; ?>"
 	style="margin: 6px 2px; line-height: 18px; vertical-align: top;"
 	onclick="submit()" /></div>
 </div>
@@ -402,7 +402,7 @@ while ($row_alma = mysqli_fetch_array($ya_alma)) {
 	if ($al_alma[3]=="101142"){$curso="3ESO";}
 	if ($al_alma[3]=="101143"){$curso="4ESO";}
 ?>
-<input type="hidden" name="curso" value="<? echo $curso;?>" />
+<input type="hidden" name="curso" value="<?php echo $curso;?>" />
 <?
 echo "</form></div>";
 exit();
@@ -412,13 +412,13 @@ exit();
 	if (mysqli_num_rows($ya_primaria) > 1) {
 		?>
 <form id="form2" name="form1" method="post"
-	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
+	action="matriculas.php<?php if($cargo == "1"){echo "?cargo=1";}?>">
 <div align="center">
 <div class="alert alert-success alert-block fade in">
 <button type="button" class="close" data-dismiss="alert">&times;</button>
 Elige el alumno que quieres matricular en nuestro Centro: <?
 while ($row_alma = mysqli_fetch_array($ya_primaria)) {
-	?> <input type="radio" name="claveal" value="<? echo $row_alma[0]; ?>"
+	?> <input type="radio" name="claveal" value="<?php echo $row_alma[0]; ?>"
 	style="margin: 6px 2px; line-height: 18px; vertical-align: top;"
 	onclick="submit()" /></div>
 </div>
@@ -428,7 +428,7 @@ while ($row_alma = mysqli_fetch_array($ya_primaria)) {
 }
 ?>
 </div>
-<input type="hidden" name="curso" value="<? echo $curso;?>" /> <?
+<input type="hidden" name="curso" value="<?php echo $curso;?>" /> <?
 echo "</form></div>";
 exit();
 	}
@@ -437,13 +437,13 @@ exit();
 	if (mysqli_num_rows($ya_matricula) > 1) {
 		?>
 <form id="form2" name="form1" method="post"
-	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>">
+	action="matriculas.php<?php if($cargo == "1"){echo "?cargo=1";}?>">
 <div align="center">
 <div class="alert alert-success alert-block fade in">
 <button type="button" class="close" data-dismiss="alert">&times;</button>
 Elige el alumno que quieres matricular en nuestro Centro: <?
 while ($row_alma = mysqli_fetch_array($ya_matricula)) {
-	?> <input type="radio" name="claveal" value="<? echo $row_alma[0]; ?>"
+	?> <input type="radio" name="claveal" value="<?php echo $row_alma[0]; ?>"
 	style="margin: 6px 2px; line-height: 18px; vertical-align: top;"
 	onclick="submit()" /></div>
 </div>
@@ -453,7 +453,7 @@ while ($row_alma = mysqli_fetch_array($ya_matricula)) {
 }
 ?>
 </div>
-<input type="hidden" name="curso" value="<? echo $curso;?>" /> <?
+<input type="hidden" name="curso" value="<?php echo $curso;?>" /> <?
 echo "</form></div>";
 exit();
 	}
@@ -531,7 +531,7 @@ exit();
 
 	?> <!-- FORMULARIO MATRICULA -->
 <form method="post"
-	action="matriculas.php<? if($cargo == "1"){echo "?cargo=1";}?>"
+	action="matriculas.php<?php if($cargo == "1"){echo "?cargo=1";}?>"
 	id="form1" name="form1">
 
 <table align="center" class="table table-bordered">
@@ -906,7 +906,7 @@ exit();
 			<div class="radio"><label> <input type="radio" name="religion"
 				value="Valores Éticos"
 				<?php if($religion == 'Valores Éticos'){echo "checked";} ?>>
-			<?php if($n_curso == 1 or $n_curso == 3){?>Valores Éticos<? } else { ?>Atención Educativa<? } ?></label></div>
+			<?php if($n_curso == 1 or $n_curso == 3){?>Valores Éticos<?php } else { ?>Atención Educativa<?php } ?></label></div>
 			</div>
 			</td>
 		</tr>
@@ -1033,7 +1033,7 @@ exit();
 			<td class="text-center">
 			<div class="radio"><label> <input type="radio"
 				id="itinerario<?php echo $i; ?>" name="itinerario"
-				<? if($itinerario == $i){echo " checked";} ?>
+				<?php if($itinerario == $i){echo " checked";} ?>
 				value="<?php echo $i; ?>"> <span class="text-uppercase"><strong>Itinerario
 				<?php echo $i; ?></strong></span><br>
 			<small class="text-info"><?php echo ${it4.$i}[0]; ?></small> </label>
@@ -1079,7 +1079,7 @@ exit();
 				class="form-control itinerario<?php echo $i; ?>"
 				id="<?php echo $optit_1; ?>" name="<?php echo $optit_1; ?>"
 				<?php echo ($itinerario != $i) ? 'disabled' : ''; ?>>
-				<? 					echo '<option>';
+				<?php 					echo '<option>';
 					if ($itinerario == $i) {
 						echo ${optativa.$num1};
 					}
@@ -1200,7 +1200,7 @@ exit();
 			<div class="form-group">
 			<div class="radio"><label> <input type="radio" name="act21"
 				value="<?php echo $num1; ?>"
-				<? echo ($act21 == $num1) ? 'checked' : ''; ?>> <?php echo $act_1; ?>
+				<?php echo ($act21 == $num1) ? 'checked' : ''; ?>> <?php echo $act_1; ?>
 			</label></div>
 			</div>
 			<?php endforeach; ?> <?php endif; ?> <?php endfor; ?></td>
@@ -1297,8 +1297,8 @@ exit();
 		<div
 				class="checkbox">
 			<label for="foto"> 
-			<? if ($foto==1 or $foto=="") { $extra_foto = "checked";	} else {$extra_foto="";} ?>
-			<input	type="checkbox" name = "foto"  id="foto" value = "1" <? echo $extra_foto;?>>
+			<?php if ($foto==1 or $foto=="") { $extra_foto = "checked";	} else {$extra_foto="";} ?>
+			<input	type="checkbox" name = "foto"  id="foto" value = "1" <?php echo $extra_foto;?>>
 			 Foto del Alumno </label>
 			</div>
 			</td>

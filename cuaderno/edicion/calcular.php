@@ -1,4 +1,4 @@
-<? $nums_ids=0;
+<?php $nums_ids=0;
 foreach ($_POST as $id => $valor) {
 	if (is_numeric($id) and is_numeric($valor)){
 		$columnas = $columnas + 1;

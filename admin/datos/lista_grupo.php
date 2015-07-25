@@ -1,4 +1,4 @@
-<? 
+<?php 
 require('../../bootstrap.php');
 
 if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];} else{$unidad="";}

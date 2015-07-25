@@ -82,4 +82,4 @@ No hubo suerte, bien porque te has equivocado
 </div>
 </div>
 
- <? include("../../pie.php");?>		
+ <?php include("../../pie.php");?>		

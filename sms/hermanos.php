@@ -50,17 +50,17 @@ $extid = $n_sms[0]+1;
 <script language="javascript">
 function enviarForm()
 {
-ventana=window.open("", "ventanaForm<? echo $num;?>", "top=100, left=100, toolbar=no,location=no, status=no,menubar=no,scrollbars=no, resizable=no, width=300,height=66,directories=no")
-document.enviar<? echo $num;?>.submit()
+ventana=window.open("", "ventanaForm<?php echo $num;?>", "top=100, left=100, toolbar=no,location=no, status=no,menubar=no,scrollbars=no, resizable=no, width=300,height=66,directories=no")
+document.enviar<?php echo $num;?>.submit()
 /*AQUÕ PUEDES PONER UN TIEMPO*/
 /*ventana.close()*/
 }
 </script>
-<form action="http://www.smstrend.net/esp/sendMessageFromPost.oeg" method="post" name="enviar<? echo $num;?>" target="ventanaForm<? echo $num;?>">
-			<input name="login" type="hidden" value="<? echo $login;?>" />
-            <input name="password" type="hidden" value="<? echo $password;?>"  />   
-            <input name="extid" type="hidden" value="<? echo $extid;?>" /> 
-            <input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" /> 
+<form action="http://www.smstrend.net/esp/sendMessageFromPost.oeg" method="post" name="enviar<?php echo $num;?>" target="ventanaForm<?php echo $num;?>">
+			<input name="login" type="hidden" value="<?php echo $login;?>" />
+            <input name="password" type="hidden" value="<?php echo $password;?>"  />   
+            <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
+            <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" /> 
             <input name="mobile" type="hidden" value="<?echo $mobil2;?>"/>
  			<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        

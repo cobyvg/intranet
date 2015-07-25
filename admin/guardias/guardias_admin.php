@@ -46,7 +46,7 @@ $fecha_sp = formatea_fecha($g_fecha);
 <div class="container">
 <div class="row"><br>
 <div class="page-header">
-<h2>Guardias de Aula <small> <? echo $fecha_sp;?></small></h2>
+<h2>Guardias de Aula <small> <?php echo $fecha_sp;?></small></h2>
 </div>
 
 <div align="center"><br>
@@ -54,7 +54,7 @@ $fecha_sp = formatea_fecha($g_fecha);
 <FORM action="guardias_admin.php" method="POST" name="Cursos">
 <div class="form-group"><label>Selecciona Profesor</label> <SELECT
 	name=profeso onchange="submit()" class="form-control">
-	<option value="<? echo $profeso; ?>"><? echo nomprofesor($profeso); ?></option>
+	<option value="<?php echo $profeso; ?>"><?php echo nomprofesor($profeso); ?></option>
 	<?
 	$profe = mysqli_query($db_con, " SELECT distinct prof FROM horw where a_asig='GU' order by prof asc");
 	if ($filaprofe = mysqli_fetch_array($profe))
@@ -117,8 +117,8 @@ if (mysqli_num_rows($h_gu0)>0) {
 if ($profeso and $no_dia and $hora) {
 	echo '<a name="marca"></a>';
 	?>
-<legend>Sustituciones realizadas durante la <? echo "<span class='text-danger'>".$hora."ª </span>";?>
-hora del <? echo "<span class='text-danger'>$nombre_dia</span>";?></legend>
+<legend>Sustituciones realizadas durante la <?php echo "<span class='text-danger'>".$hora."ª </span>";?>
+hora del <?php echo "<span class='text-danger'>$nombre_dia</span>";?></legend>
 	<?
 }	
 echo '<table class="table table-striped">';
@@ -169,6 +169,6 @@ No hay datos sobre las Guardias del profesor.
 ?></div>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 </BODY>
 </HTML>

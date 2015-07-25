@@ -27,18 +27,18 @@ if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE){ $activo3 = ' class="acti
         <div class="tabbable">
           <ul class="nav nav-tabs">
 
-     <li <? echo $activo1;?>><a href="introducir.php">Introducir / Listar registros</a></li>
+     <li <?php echo $activo1;?>><a href="introducir.php">Introducir / Listar registros</a></li>
 <?
 if ($j_s == '') {
 ?>    
-     <li <? echo $activo2;?>> <a href="buscar.php">Buscar / Consultar / Imprimir</a></li>
+     <li <?php echo $activo2;?>> <a href="buscar.php">Buscar / Consultar / Imprimir</a></li>
 <?
 }
 ?>
      <?
      if(stristr($_SESSION ['cargo'],'1') == TRUE){?>
-     <li <? echo $activo3;?>><a href="index.php">Seleccionar Departamento</a></li>
-     <? }?>
+     <li <?php echo $activo3;?>><a href="index.php">Seleccionar Departamento</a></li>
+     <?php }?>
     </ul>
         </div>
         </div>

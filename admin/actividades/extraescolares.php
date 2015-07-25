@@ -34,7 +34,7 @@ if ($jefes==1 or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION
 <a href="javascript:seleccionar_todo()" class="btn btn-primary btn-sm hidden-print">Marcar todos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-primary btn-sm pull-right hidden-print">Desmarcar todos</a>
 <br /><br />
-<? } ?>
+<?php } ?>
     <FORM action="extraescolares.php" method="POST" name="imprime">
 
   <?
@@ -61,7 +61,7 @@ foreach($trozos as $valor)
 $unidad = trim($valor);
 ?> 
 <table class="table table-striped">
-<tr><td colspan="2"><h4><? echo "Alumnos de $unidad";?></h4></td>
+<tr><td colspan="2"><h4><?php echo "Alumnos de $unidad";?></h4></td>
 </tr>
 <?
 $alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.unidad = '$unidad' order by NC";
@@ -86,15 +86,15 @@ $horario2 = $datos[7];
 
 if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
 ?>
-<input name="fecha" type="hidden" id="A" value="<? echo $fecha;?>">
-<input name="horario" type="hidden" id="A" value="<? echo $horario;?>">
-<input name="fechafin" type="hidden" id="A" value="<? echo $fecha2;?>">
-<input name="horariofin" type="hidden" id="A" value="<? echo $horario2;?>">
-<input name="profesor" type="hidden" id="A" value="<? echo $profesor;?>">
-<input name="actividad" type="hidden" id="A" value="<? echo $actividad;?>">
-<input name="descripcion" type="hidden" id="A" value="<? echo $descripcion;?>">
-<input name="observaciones" type="hidden" id="A" value="<? echo $observaciones;?>">
-<input name="id" type="hidden" id="A" value="<? echo $id;?>">  
+<input name="fecha" type="hidden" id="A" value="<?php echo $fecha;?>">
+<input name="horario" type="hidden" id="A" value="<?php echo $horario;?>">
+<input name="fechafin" type="hidden" id="A" value="<?php echo $fecha2;?>">
+<input name="horariofin" type="hidden" id="A" value="<?php echo $horario2;?>">
+<input name="profesor" type="hidden" id="A" value="<?php echo $profesor;?>">
+<input name="actividad" type="hidden" id="A" value="<?php echo $actividad;?>">
+<input name="descripcion" type="hidden" id="A" value="<?php echo $descripcion;?>">
+<input name="observaciones" type="hidden" id="A" value="<?php echo $observaciones;?>">
+<input name="id" type="hidden" id="A" value="<?php echo $id;?>">  
 <?}
 while($alumno = mysqli_fetch_array($alumnos1)){
 $apellidos = $alumno[0];
@@ -108,7 +108,7 @@ if (mysqli_num_rows($ya)>0) {
 }
 ?>
 <tr><td >
-<input name="<? echo $nc.$claveal;?>" type="checkbox" id="A" value="<? echo $claveal;?>" <? echo $extra_al;?>> 
+<input name="<?php echo $nc.$claveal;?>" type="checkbox" id="A" value="<?php echo $claveal;?>" <?php echo $extra_al;?>> 
 </td>
 <td>   
 <?
@@ -128,7 +128,7 @@ if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION
 ?>
 <button type="submit" name="submit1" value="Imprimir Carta para Padres" class="btn btn-primary hidden-print">Imprimir Carta para Padres</button>&nbsp;
 <button type="submit" name="submit2" value="Registrar Alumnos" class="btn btn-info hidden-print">Registrar Alumnos</button>&nbsp;
-<? } ?>
+<?php } ?>
 <input type="button" name="print"  class="btn btn-success hidden-print" value="Imprimir Lista de Alumnos" onclick="window.print();">
 </div>
   </FORM>
@@ -148,4 +148,4 @@ function deseleccionar_todo(){
 			document.imprime.elements[i].checked=0
 }
 </script>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>

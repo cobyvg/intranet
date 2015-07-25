@@ -26,7 +26,7 @@ include("../../menu.php");
 						
 						<div class="form-group">
 						  <select class="form-control" name="curso">
-						  	<? unidad($db_con);?>
+						  	<?php unidad($db_con);?>
 						  </select>
 						</div>
 					  

@@ -106,7 +106,7 @@ No hay Informes de Tareas disponibles con esos criterios.</div></div><hr>';
 </div>
 </div>
 		</div>
-		<? include("../../pie.php");?>
+		<?php include("../../pie.php");?>
 		
 		<script>
 		$(document).ready(function() {

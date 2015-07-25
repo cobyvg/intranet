@@ -24,7 +24,7 @@ if (isset($_GET['falta'])) {$falta = $_GET['falta'];}elseif (isset($_POST['falta
 include("estructura.php");
 ?>
 </form>
-<? 
+<?php 
 mysqli_close();
 include("../../pie.php"); ?>
 </body>

@@ -96,7 +96,7 @@ document.enviar.submit()
 	value="<?
 		echo $extid;
 		?>" /> <input name="tpoa" type="hidden"
-	value="<? echo $nombre_corto; ?>" /> <input name="mobile" type="hidden"
+	value="<?php echo $nombre_corto; ?>" /> <input name="mobile" type="hidden"
 	value="<?
 		echo $mobile;
 		?>" /> <input name="messageQty" type="hidden" value="GOLD" /> <input

@@ -40,7 +40,7 @@ include("../menu.php");
 <br />
 </div>
 </div>
-    <? 
+    <?php 
 include("../../pie.php");
 ?>
 </body>

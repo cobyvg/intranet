@@ -198,4 +198,4 @@ El Horario ha sido importado correctamente.
 </div><br />
 	</div>
 	</div>
-	<? include("../../pie.php");?>
+	<?php include("../../pie.php");?>

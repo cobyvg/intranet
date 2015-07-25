@@ -45,14 +45,14 @@ function enviarForm()  {
 }
 </script>
 <form name="enviar" action="http://www.smstrend.net/esp/sendMessageFromPost.oeg" target="ventanaForm" method="POST" enctype="application/x-www-form-urlencoded">
-	<input name="login" type="hidden" value="<? echo $usuario_smstrend; ?>" />
-	<input name="password" type="hidden" value="<? echo $clave_smstrend; ?>" />
-	<input name="extid" type="hidden" value="<? echo $extid; ?>" />
-	<input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" />
-	<input name="mobile" type="hidden" value="<? echo $mobile; ?>" />
+	<input name="login" type="hidden" value="<?php echo $usuario_smstrend; ?>" />
+	<input name="password" type="hidden" value="<?php echo $clave_smstrend; ?>" />
+	<input name="extid" type="hidden" value="<?php echo $extid; ?>" />
+	<input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" />
+	<input name="mobile" type="hidden" value="<?php echo $mobile; ?>" />
 	<input name="messageQty" type="hidden" value="GOLD" />
 	<input name="messageType" type="hidden" value="PLUS" />
-	<input name="message" type="hidden" value="<? echo $message; ?>" maxlength="159" size="60" />
+	<input name="message" type="hidden" value="<?php echo $message; ?>" maxlength="159" size="60" />
 </form>
 
 <script>
@@ -122,7 +122,7 @@ if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioau
 	<a class="btn btn-primary btn-sm" href="//<?php echo $dominio; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 </div>
 
-<? 
+<?php 
 }
 
 // Expulsión del Centro
@@ -144,7 +144,7 @@ $fechainicio = $inicio[2] . "-" . $inicio[1] . "-" . $inicio[0];
 	<a class="btn btn-primary btn-sm" href="//<?php echo $dominio; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 </div>
 
-<? 
+<?php 
 }
 if($recibido == 0)
 { 
@@ -167,7 +167,7 @@ $count_fech=1;
 	</form>
 </div>
 
-<? } 
+<?php } 
 elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación escrita") 
 {
 	$count_fech=1;
@@ -189,8 +189,8 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 </div>
 
 
-<? }?>
-<? 
+<?php }?>
+<?php 
 }
 }while($row1 = mysqli_fetch_array($result1));
 ?>

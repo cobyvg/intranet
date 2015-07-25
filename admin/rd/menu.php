@@ -60,11 +60,11 @@ Los Administradores de la Intranet (Equipo Directivo, por ejemplo) tiene acceso 
  	</form>  
  	
   	 			<ul class="nav nav-tabs">
- <li <? echo $activo1;?>><a href="add.php">Nueva Acta / Lista de Actas</a></li>                 		
+ <li <?php echo $activo1;?>><a href="add.php">Nueva Acta / Lista de Actas</a></li>                 		
  <?
           if (strstr($_SESSION['cargo'],"1") == TRUE) {
           	?>
-          	<li <? echo $activo2;?>><a href="index_admin.php">Todas las Actas</a></li>
+          	<li <?php echo $activo2;?>><a href="index_admin.php">Todas las Actas</a></li>
           	<?
           }
           ?>

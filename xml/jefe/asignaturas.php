@@ -238,7 +238,7 @@ echo "<li>".$elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] .  " 
 ?>
 
 </div>
- <? include("../../pie.php");?>
+ <?php include("../../pie.php");?>
   <script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';

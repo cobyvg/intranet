@@ -55,7 +55,7 @@ include("menu.php");
 <br />
 <div style="width:960px;margin:auto;padding:25px; border:1px solid #ddd">
 <h2 style="display:inline;">
- Tutoría del grupo: <? echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
+ Tutoría del grupo: <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
  
  	
  	<!-- Button trigger modal --> <a href="#"
@@ -86,7 +86,7 @@ En la parte superior derecha de la página aparece un botón con el título 'Redact
 </div>
 </div>
  
-<h2><small>Tutor: <? echo $_SESSION['mod_tutoria']['tutor']; ?></small></h2>
+<h2><small>Tutor: <?php echo $_SESSION['mod_tutoria']['tutor']; ?></small></h2>
  
  
 
@@ -112,13 +112,13 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
 		$boton = "Imprimir Memoria final de Tutoría";$click="onClick=print()";}
  ?>
   <div style="margin-bottom:0px;">
- <input type="button" class="btn btn-primary hidden-print pull-right" value="<? echo $boton;?>" <? echo $click;?>>
+ <input type="button" class="btn btn-primary hidden-print pull-right" value="<?php echo $boton;?>" <?php echo $click;?>>
 </div>
  
 <br>
 <br />
  <h3>Datos Generales de los Alumnos</h3><br />
- <? 
+ <?php 
  // Curso
  $SQL0 = "select distinct curso from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."'";
  $result0 = mysqli_query($db_con, $SQL0);
@@ -201,12 +201,12 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
     <th>Nuevas Incorporaciones</th>
 </tr>
 <tr>
-	<td><? echo $num_empiezan; ?></td>
-    <td><? echo $num_acaban; ?></td>
-    <td><? echo $n_al; // echo "<br>".$valor;?></td> 
-    <td><? echo $num_acaban-$n_al; ?></td> 
-    <td><? echo $num_repetidores; ?></td> 
-    <td><? echo $nuevos; ?></td>     
+	<td><?php echo $num_empiezan; ?></td>
+    <td><?php echo $num_acaban; ?></td>
+    <td><?php echo $n_al; // echo "<br>".$valor;?></td> 
+    <td><?php echo $num_acaban-$n_al; ?></td> 
+    <td><?php echo $num_repetidores; ?></td> 
+    <td><?php echo $nuevos; ?></td>     
     </tr>
 </table>
 <?
@@ -215,52 +215,52 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
  $faltas0 = mysqli_query($db_con, $faltas);
  $num_faltas = mysqli_num_rows($faltas0);
   ?>
- <? 
+ <?php 
  $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_conv = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'leve' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_leves = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'grave' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_graves = mysqli_num_rows($result);
  ?>
-   <?    
+   <?php    
  $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'muy grave' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_muygraves = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct id from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsion = mysqli_num_rows($result);
  ?>
-  <?    
+  <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsados = mysqli_num_rows($result);
  ?>
-   <?    
+   <?php    
  $SQL = "select distinct Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' order by Fechoria.claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_expulsadosaula = mysqli_num_rows($result);
  ?>
-   <?    
+   <?php    
  $SQL = "select distinct id from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by claveal";
  $result = mysqli_query($db_con, $SQL);
  $num_informes = mysqli_num_rows($result);
  ?>
-   <?    
+   <?php    
  $SQL = "select id from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' order by id";
  $result = mysqli_query($db_con, $SQL);
  $num_acciones = mysqli_num_rows($result);
  ?>
-   <?  
+   <?php  
  $grupo_act = $_SESSION['mod_tutoria']['unidad'];  
  $SQL = "select * from calendario where unidades like '%$grupo_act%' and categoria='2' and date(fechaini) > '$inicio_curso'";
  $result = mysqli_query($db_con, $SQL);
@@ -275,11 +275,11 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
     <th>Actividades Extraescolares</th>
 </tr>
 <tr>
-	<td><? echo $num_faltas; ?></td>
-    <td><? echo $num_conv; ?></td>
-    <td><? echo $num_informes; ?></td> 
-    <td><? echo $num_acciones; ?></td>
-    <td><? echo $num_actividades; ?></td>
+	<td><?php echo $num_faltas; ?></td>
+    <td><?php echo $num_conv; ?></td>
+    <td><?php echo $num_informes; ?></td> 
+    <td><?php echo $num_acciones; ?></td>
+    <td><?php echo $num_actividades; ?></td>
 </tr>
 </table>
 <hr>
@@ -295,12 +295,12 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
 	<th>Expulsi&oacute;n del Aula</th>
 </tr>
 <tr>
-    <td><? echo $num_leves; ?></td>
-    <td><? echo $num_graves; ?></td>
-    <td><? echo $num_muygraves; ?></td>	
-    <td><? echo $num_expulsion; ?></td>
-    <td><? echo $num_expulsados; ?></td>
-	<td><? echo $num_expulsadosaula; ?></td>
+    <td><?php echo $num_leves; ?></td>
+    <td><?php echo $num_graves; ?></td>
+    <td><?php echo $num_muygraves; ?></td>	
+    <td><?php echo $num_expulsion; ?></td>
+    <td><?php echo $num_expulsados; ?></td>
+	<td><?php echo $num_expulsadosaula; ?></td>
 </tr>
 </table>
 
@@ -488,15 +488,15 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 <hr><br /><legend>
  Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</legend>
  <form action="" method="POST">
- <textarea class="form-control" name="observaciones1" rows="7"><? echo $obs2[0];?></textarea>
+ <textarea class="form-control" name="observaciones1" rows="7"><?php echo $obs2[0];?></textarea>
  <hr>
 <br />
 <legend>
  Otras Observaciones</legend>
- <textarea class="form-control" name="observaciones2" rows="7"><? echo $obs2[1];?></textarea>
+ <textarea class="form-control" name="observaciones2" rows="7"><?php echo $obs2[1];?></textarea>
  <br />
-<input type="hidden" name="tutor" value="<? echo $_SESSION['mod_tutoria']['tutor']; ?>">
-<input type="hidden" name="unidad" value="<? echo $_SESSION['mod_tutoria']['unidad']; ?>">
+<input type="hidden" name="tutor" value="<?php echo $_SESSION['mod_tutoria']['tutor']; ?>">
+<input type="hidden" name="unidad" value="<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">
 <br />
 <input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-primary hidden-print">
 </form>
@@ -505,13 +505,13 @@ if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
 {
 ?>
 <br />
-  <p align="center">En <?php echo $localidad_del_centro; ?> a   <? $today = date("d") . "/" . date("m") . "/" . date("Y"); echo $today;?></p>
+  <p align="center">En <?php echo $localidad_del_centro; ?> a   <?php $today = date("d") . "/" . date("m") . "/" . date("Y"); echo $today;?></p>
   <br>
 <p align="center">EL Tutor</p>
 <br>
 <br>
 <br>
-<p align="center">Fdo. <?  echo $_SESSION['mod_tutoria']['tutor']; ?></p>
+<p align="center">Fdo. <?php  echo $_SESSION['mod_tutoria']['tutor']; ?></p>
 <br />
 <?
 }

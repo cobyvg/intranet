@@ -475,10 +475,10 @@ datos.</div>
 <html lang="es">
 <head>
 <meta charset="iso-8859-1">
-<title>Intranet &middot; <? echo $nombre_del_centro; ?></title>
+<title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
-	content="Intranet del <? echo $nombre_del_centro; ?>">
+	content="Intranet del <?php echo $nombre_del_centro; ?>">
 <meta name="author"
 	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 
@@ -593,7 +593,7 @@ if ($dni or $claveal or $id) {
 	}
 	?>
 <form id="form1" name="form1" method="post"
-	action="matriculas_bach.php<? if($cargo == "1"){echo "?cargo=1";}?>">
+	action="matriculas_bach.php<?php if($cargo == "1"){echo "?cargo=1";}?>">
 
 <table align="center" class="table table-bordered">
 	<!-- CABECERA: LOGOTIPO -->
@@ -975,13 +975,13 @@ if ($dni or $claveal or $id) {
 				<?php if($religion == 'Cultura Científica'){echo "checked";} ?>>
 			Cultura Científica </label></div>
 			</div>
-			<? endif; ?>
+			<?php endif; ?>
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
 				value="Valores Éticos"
 				<?php if($religion == 'Valores Éticos'){echo "checked";} ?>>
-			<?php if($n_curso == 1){?>Educación para la Ciudadanía y los Derechos Humanos<? } else { ?>Atención Educativa<? } ?> </label></div>
+			<?php if($n_curso == 1){?>Educación para la Ciudadanía y los Derechos Humanos<?php } else { ?>Atención Educativa<?php } ?> </label></div>
 			</div>
 			</td>
 		</tr>
@@ -1012,13 +1012,13 @@ if ($dni or $claveal or $id) {
 		
 		<?php if ($i<3) {?>
 		<td>
-		<? if ($i==1) { echo "<p>Matemáticas<br>Física y Química<br>Dibujo Técnico</p>";}elseif($i==2){echo "<p>Matemáticas<br>Física y Química<br>Biología y Geología</p>";}?>
+		<?php if ($i==1) { echo "<p>Matemáticas<br>Física y Química<br>Dibujo Técnico</p>";}elseif($i==2){echo "<p>Matemáticas<br>Física y Química<br>Biología y Geología</p>";}?>
 		<div class="form-group">
-		<select class="form-control" name="optativa1<?echo $i;?>"  <? if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 == $i){echo 'style="background-color:#FFFF66;"';}?>>
+		<select class="form-control" name="optativa1<?echo $i;?>"  <?php if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 == $i){echo 'style="background-color:#FFFF66;"';}?>>
 		<option></option>
 		<?php foreach (${opt1.$i} as $optit_1 => $nombre){ ?>
 				<option value="<?php echo $optit_1; ?>"
-				<?php echo (isset($optativa1) && $optativa1 == $optit_1) ? 'selected' : ''; ?>><? echo $nombre; ?></option>
+				<?php echo (isset($optativa1) && $optativa1 == $optit_1) ? 'selected' : ''; ?>><?php echo $nombre; ?></option>
 
 				
 		<?php }?>
@@ -1027,14 +1027,14 @@ if ($dni or $claveal or $id) {
 		</td>		
 		<?php } else {?>
 		<td colspan="2">
-		<? if ($itinerario1>2) { $extra_opt1 = ''; } else{$extra_opt1 = 'style="visibility:hidden" disabled';}?>
+		<?php if ($itinerario1>2) { $extra_opt1 = ''; } else{$extra_opt1 = 'style="visibility:hidden" disabled';}?>
 			<p id='p-it1' >Historia del Mundo Contemporáneo</p>
 			<div class="form-group">
-			<select class="form-control" name="optativa13"  <? if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 > 2){echo 'style="background-color:#FFFF66;"';}?>>
+			<select class="form-control" name="optativa13"  <?php if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 > 2){echo 'style="background-color:#FFFF66;"';}?>>
 		<?php foreach (${opt1.$i} as $optit_1 => $nombre){ ?> ?>		
 
 				<option value="<?php echo $optit_1; ?>"
-				<?php echo (isset($optativa1) && $optativa1 == $optit_1) ? 'selected' : ''; ?>><? echo $nombre; ?></option>
+				<?php echo (isset($optativa1) && $optativa1 == $optit_1) ? 'selected' : ''; ?>><?php echo $nombre; ?></option>
 				<?php }?>
 				</select>
 				</div>
@@ -1128,7 +1128,7 @@ if ($dni or $claveal or $id) {
 	<td colspan="4">
 	<div class="form-group">
 	<div class="checkbox"><label> <input type="checkbox" name="bilinguismo"
-		value="Si" <? if($bilinguismo == 'Si'){echo "checked";} ?>> El
+		value="Si" <?php if($bilinguismo == 'Si'){echo "checked";} ?>> El
 	alumno/a solicita participar en el programa de bilingüismo (Inglés) en 1º de BACHILLERATO </label></div>
 	</div>
 	</td>
@@ -1144,34 +1144,34 @@ if ($dni or $claveal or $id) {
 			<td colspan="4">
 			
 			
-			<table style="width: 100%; border: none;<? if(stristr($vacios,"religion o alternativa de 1BACH")==TRUE){echo ' background-color:#FFFF66;"';}else{ echo '"';} ?> >
+			<table style="width: 100%; border: none;<?php if(stristr($vacios,"religion o alternativa de 1BACH")==TRUE){echo ' background-color:#FFFF66;"';}else{ echo '"';} ?> >
 			<tr>
 				<td valign=top style="border: none;width:50%">
 				<input type="radio" name="religion1b" value="Religión Catolica"
 					style="margin: 2px 2px"
-		<? if($religion1b == 'Religión Catolica'){echo "checked";} ?> required />
+		<?php if($religion1b == 'Religión Catolica'){echo "checked";} ?> required />
 				Religi&oacute;n Cat&oacute;lica<br />
 				<input type="radio"
 					name="religion1b" value="Religión Islámica" style="margin: 2px 2px"
-		<? if($religion1b == 'Religión Islámica'){echo "checked";} ?>  required />
+		<?php if($religion1b == 'Religión Islámica'){echo "checked";} ?>  required />
 				Religi&oacute;n Isl&aacute;mica<br />
 				<input type="radio" name="religion1b" value="Religión Judía"
 					style="margin: 2px 2px"
-		<? if($religion1b == 'Religión Judía'){echo "checked";} ?>  required />
+		<?php if($religion1b == 'Religión Judía'){echo "checked";} ?>  required />
 				Religi&oacute;n Jud&iacute;a
 				</td>
 				<td valign=top style="border: none"><input type="radio"
 					name="religion1b" value="Religión Evangélica" style="margin: 2px 2px"
-		<? if($religion1b == 'Religión Evangélica'){echo "checked";} ?>  required />
+		<?php if($religion1b == 'Religión Evangélica'){echo "checked";} ?>  required />
 
 				Religi&oacute;n Evang&eacute;lica<br />
 				<input type="radio" name="religion1b" value="Cultura Científica"
 					style="margin: 2px 2px"
-		<? if($religion1b == 'Cultura Científica'){echo "checked";} ?>  required />
+		<?php if($religion1b == 'Cultura Científica'){echo "checked";} ?>  required />
 				Cultura Científica<br />
 				<input type="radio" name="religion1b" value="Valores Éticos"
 					style="margin: 2px 2px"
-		<? if($religion1b == 'Valores Éticos'){echo "checked";} ?>  required />
+		<?php if($religion1b == 'Valores Éticos'){echo "checked";} ?>  required />
 				Educación para la Ciudadanía y los Derechos Humanos </td>
 			</tr>
 		</table>
@@ -1202,13 +1202,13 @@ if ($dni or $claveal or $id) {
 		
 		<?php if ($i<3) {?>
 		<td>
-		<? if ($i==1) { echo "<p>Matemáticas<br>Física y Química<br>Dibujo Técnico</p>";}elseif($i==2){echo "<p>Matemáticas<br>Física y Química<br>Biología y Geología</p>";}?>
+		<?php if ($i==1) { echo "<p>Matemáticas<br>Física y Química<br>Dibujo Técnico</p>";}elseif($i==2){echo "<p>Matemáticas<br>Física y Química<br>Biología y Geología</p>";}?>
 		<div class="form-group">
-		<select class="form-control" name="optativa1<?echo $i;?>"  <? if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 == $i){echo 'style="background-color:#FFFF66;"';}?>>
+		<select class="form-control" name="optativa1<?echo $i;?>"  <?php if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 == $i){echo 'style="background-color:#FFFF66;"';}?>>
 		<option></option>
 		<?php foreach (${opt1.$i} as $optit_1 => $nombre){ ?>
 				<option value="<?php echo $optit_1; ?>"
-				<?php echo (isset($optativa1) && $optativa1 == $optit_1) ? 'selected' : ''; ?>><? echo $nombre; ?></option>
+				<?php echo (isset($optativa1) && $optativa1 == $optit_1) ? 'selected' : ''; ?>><?php echo $nombre; ?></option>
 
 				
 		<?php }?>
@@ -1217,14 +1217,14 @@ if ($dni or $claveal or $id) {
 		</td>		
 		<?php } else {?>
 		<td colspan="2">
-		<? if ($itinerario1>2) { $extra_opt1 = ''; } else{$extra_opt1 = 'style="visibility:hidden" disabled';}?>
+		<?php if ($itinerario1>2) { $extra_opt1 = ''; } else{$extra_opt1 = 'style="visibility:hidden" disabled';}?>
 			<p id='p-it1' >Historia del Mundo Contemporáneo</p>
 			<div class="form-group">
-			<select class="form-control" name="optativa13"  <? if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 > 2){echo 'style="background-color:#FFFF66;"';}?>>
+			<select class="form-control" name="optativa13"  <?php if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 > 2){echo 'style="background-color:#FFFF66;"';}?>>
 		<?php foreach (${opt1.$i} as $optit_1 => $nombre){ ?> ?>		
 
 				<option value="<?php echo $optit_1; ?>"
-				<?php echo (isset($optativa1) && $optativa1 == $optit_1) ? 'selected' : ''; ?>><? echo $nombre; ?></option>
+				<?php echo (isset($optativa1) && $optativa1 == $optit_1) ? 'selected' : ''; ?>><?php echo $nombre; ?></option>
 				<?php }?>
 				</select>
 				</div>
@@ -1246,12 +1246,12 @@ if ($dni or $claveal or $id) {
 			<div class="form-group">
 			<div class="checkbox"><label> <input type="checkbox"
 				name="bilinguismo" value="Si"
-				<? if($bilinguismo == 'Si'){echo "checked";} ?>> El alumno/a
+				<?php if($bilinguismo == 'Si'){echo "checked";} ?>> El alumno/a
 			solicita participar en el programa de bilingüismo (Inglés) </label></div>
 			</div>
 			</td>
 		</tr>
-		<? endif; ?>
+		<?php endif; ?>
 		<!-- ENFERMEDADES -->
 		<tr>
 			<th class="active text-center" colspan="4"><span class="text-uppercase">Enfermedades del Alumno:</span><p class="help-block"><small>
@@ -1314,8 +1314,8 @@ if ($dni or $claveal or $id) {
 		<div
 				class="checkbox">
 			<label for="foto"> 
-			<? if ($foto==1 or $foto=="") { $extra_foto = "checked";	} else {$extra_foto="";} ?>
-			<input	type="checkbox" name = "foto"  id="foto" value = "1" <? echo $extra_foto;?>>
+			<?php if ($foto==1 or $foto=="") { $extra_foto = "checked";	} else {$extra_foto="";} ?>
+			<input	type="checkbox" name = "foto"  id="foto" value = "1" <?php echo $extra_foto;?>>
 			 Foto del Alumno </label>
 			</div>
 			</td>

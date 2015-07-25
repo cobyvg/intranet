@@ -185,7 +185,7 @@ class="btn btn-danger">
 	}
 ?>
 </div>
-	<? include("../../pie.php");?>						
+	<?php include("../../pie.php");?>						
 		
 </body>
 </html>

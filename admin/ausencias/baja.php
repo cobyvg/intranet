@@ -11,7 +11,7 @@ $pr_trozos=explode(", ",$profe_baja);
 <div align="center">
 <div class="page-header">
 <h2>Ausencias del profesorado <small> Profesores ausentes</small></h1>
-<h3 class="muted"><? echo "$pr_trozos[1] $pr_trozos[0]";?></h3>
+<h3 class="muted"><?php echo "$pr_trozos[1] $pr_trozos[0]";?></h3>
 </div>
 <div class="container-fluid">
 <div class="row">

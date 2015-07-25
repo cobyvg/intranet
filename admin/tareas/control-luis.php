@@ -15,7 +15,7 @@ if (isset($_POST['profes'])) {$profes = $_POST['profes'];}else{$profes="";}
 $detalles = '1'; 
 ?>
 <div class="row">
-<h3 class="text-info" align="center"><? echo $profes;?></h3><br />
+<h3 class="text-info" align="center"><?php echo $profes;?></h3><br />
 <div class="col-sm-4 col-sm-offset-2" align="left">   
 
 <?
@@ -154,7 +154,7 @@ echo "<tr><td>$malo2[0]</td><td>$malo2[1]</td></tr>";
 </div>
 
 
-<? 
+<?php 
 mysqli_query($db_con, "drop table tareas_temp");
 
 include("../../pie.php");

@@ -59,19 +59,19 @@ La actividad debe ser aprobada por el Consejo Escolar, donde la presenta el Dire
 if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
 ?>
     
-       <li<? echo $activo1;?>><a href="indexextra.php">Administrar Actividades</a></li>
+       <li<?php echo $activo1;?>><a href="indexextra.php">Administrar Actividades</a></li>
  <?
 }
 if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE or stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '2' ) == TRUE) {
 ?>
-       <li<? echo $activo2;?>><a href="../../calendario/index.php?action=nuevoEvento&calendario=Extraescolares" >Introducir Nueva Actividad</a></li>
+       <li<?php echo $activo2;?>><a href="../../calendario/index.php?action=nuevoEvento&calendario=Extraescolares" >Introducir Nueva Actividad</a></li>
 <?
 }
 ?>
 <?
 if (stristr ( $_SESSION ['cargo'], '5' ) == FALSE and stristr ( $_SESSION ['cargo'], '1' ) == FALSE) {
 ?>
-      <li<? echo $activo1;?>><a href="indexextra.php">Lista de Actividades</a></li>
+      <li<?php echo $activo1;?>><a href="indexextra.php">Lista de Actividades</a></li>
 <?
 }
 ?>

@@ -160,9 +160,9 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 <html lang="es">  
   <head>  
     <meta charset="iso-8859-1">  
-    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+    <title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
+    <meta name="description" content="Intranet del <?php echo $nombre_del_centro; ?>">  
     <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
       
     <link href="//<?php echo $dominio; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">

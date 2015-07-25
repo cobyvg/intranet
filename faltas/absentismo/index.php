@@ -78,7 +78,7 @@ include("../menu.php");
 </div>
 </div>
 </div>
-    <? 
+    <?php 
 include("../../pie.php");
 ?>
 </body>

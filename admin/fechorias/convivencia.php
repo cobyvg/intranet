@@ -49,7 +49,7 @@ Esta página nos presenta una tabla con los alumnos que deberían encontrarse en e
 <div class="row">
 <div class="col-sm-12">
    
-  <? 
+  <?php 
 echo " <legend class='lead text-info' align='center' >";
 echo "$hoy2</legend>";
 
@@ -188,7 +188,7 @@ while ( $row = mysqli_fetch_array ( $result ) ) {
 </div>
 ';
 ?>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
   </body>
 </html>
 

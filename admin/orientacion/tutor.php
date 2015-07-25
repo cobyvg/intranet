@@ -162,13 +162,13 @@ El registro ha sido actualizado en la Base de datos.
 <label> Grupo </label>
 <SELECT name="unidad"
 	onChange="submit()" class="form-control">
-	<option><? echo $unidad;?></option>
-	<? unidad($db_con);?>
+	<option><?php echo $unidad;?></option>
+	<?php unidad($db_con);?>
 </SELECT> 
 </div>
 </div>
 <div class="col-md-2">
-<?    
+<?php    
 if ($alumno) {
 	$tr = explode(" --> ",$alumno);
 	$al = $tr[0];
@@ -237,12 +237,12 @@ if ($alumno) {
 ?>	
 <div class="form-group">
 <label> Observaciones </label>
-<textarea name='observaciones' rows='8' class='form-control'><? echo $observaciones; ?></textarea>
+<textarea name='observaciones' rows='8' class='form-control'><?php echo $observaciones; ?></textarea>
 </div>
 
 <div class="checkbox">
   <label class="text-danger">
-    <input name="prohibido" type="checkbox" <? if ($prohibido == "1"){echo "checked";}
+    <input name="prohibido" type="checkbox" <?php if ($prohibido == "1"){echo "checked";}
  ?> id="prohibido" value="1"> Informe privado </label>
 </div>
 
@@ -252,7 +252,7 @@ if ($alumno) {
 <div class="form-group">  
 <label>Causa </label>
 <select name="causa" class='form-control'>
-	<option><? echo $causa; ?></option>
+	<option><?php echo $causa; ?></option>
 	<option>Orientación académica y profesional</option>
 	<option>Evoluci&oacute;n acad&eacute;mica</option>
 	<option>T&eacute;cnicas de estudio</option>
@@ -302,7 +302,7 @@ foreach ($opcion as $opc)
 
 
 
-<input name="id2" type="hidden" value="<? echo $id; ?>" /> <input
+<input name="id2" type="hidden" value="<?php echo $id; ?>" /> <input
 	name='submit1' type='submit'
 	value='Registrar intervención' class='btn btn-primary'>
 &nbsp; <input name='submit2' type='submit'
@@ -322,7 +322,7 @@ if($alumno){
 	?>
 <hr>
 <div class="well">
-<h4>Historial de Intervenciones sobre <? echo $nombre." ".$apellidos." (".$unidad.")"; ?></h4><br>
+<h4>Historial de Intervenciones sobre <?php echo $nombre." ".$apellidos." (".$unidad.")"; ?></h4><br>
 	<?
 
 	$result = mysqli_query($db_con, "select apellidos, nombre, fecha, accion, causa, observaciones, id, orienta, jefatura, prohibido from tutoria where claveal='$clave' order by fecha");
@@ -352,11 +352,11 @@ if($alumno){
 
 <div class="col-sm-5">
 <legend>Intervenciones del Tutor</legend>
-<? include("ultimos.php");?>
+<?php include("ultimos.php");?>
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 	<script>  
 	$(function ()  
 	{ 

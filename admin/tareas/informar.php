@@ -24,7 +24,7 @@ include("menu.php");
 <div class="col-md-6 col-md-offset-3">	
 
 <div class="well well-large" >
-<form name="informar" method="POST" action="informar.php?id=<? echo $id;?>">         
+<form name="informar" method="POST" action="informar.php?id=<?php echo $id;?>">         
 <?php
  
 $db_con = mysqli_connect( $db_host, $db_user, $db_pass );
@@ -119,6 +119,6 @@ echo "<div class='form-group'><label>Informe</label><textarea rows='6' name='inf
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>		
+<?php include("../../pie.php");?>		
 </body>
 </html>

@@ -239,8 +239,8 @@ if(stristr($carg,'2') == TRUE)
 			$origen = $men[4].", ".$men[3];
 			?>
 <li><a class="alert-link" data-toggle="modal"
-	href="#mensajep<? echo $n_mensajesp;?>"> <? echo $asunto; ?> </a> <br />
-			<? echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+	href="#mensajep<?php echo $n_mensajesp;?>"> <?php echo $asunto; ?> </a> <br />
+			<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 			<?
 		}
@@ -260,18 +260,18 @@ if(stristr($carg,'2') == TRUE)
 			$archivo = $men[6];
 			$origen = $men[4].", ".$men[3];
 			?>
-<div class="modal fade" id="mensajep<? echo $n_mensajesp;?>">
+<div class="modal fade" id="mensajep<?php echo $n_mensajesp;?>">
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-<h4 class="modal-title"><? echo $asunto;?><br>
+<h4 class="modal-title"><?php echo $asunto;?><br>
 <small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
 <div class="modal-body">
-<? echo stripslashes(html_entity_decode($texto, ENT_NOQUOTES, 'ISO-8859-1'));?>
+<?php echo stripslashes(html_entity_decode($texto, ENT_NOQUOTES, 'ISO-8859-1'));?>
 <?php if (strlen($archivo) > 5): ?>
 Archivo adjunto: <a href="//<?php echo $dominio; ?>/notas/files/<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
 <?php endif; ?>
@@ -282,7 +282,7 @@ Archivo adjunto: <a href="//<?php echo $dominio; ?>/notas/files/<?php echo $arch
 	class="btn btn-danger" data-dismiss="modal">Cerrar</a> <?
 	$asunto = 'RE: '.$asunto;
 	echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
-	?> <a href="index.php?verifica_padres=<? echo $id;?>" target="_top"
+	?> <a href="index.php?verifica_padres=<?php echo $id;?>" target="_top"
 	class="btn btn-success">Leído</a> <input type='hidden' name='id_ver'
 	value='<?php echo $id; ?>' /></form>
 </div>
@@ -321,8 +321,8 @@ if(mysqli_num_rows($men2) > 0)
 		$origen = $origen0[1]." ".$origen0[0];
 		?>
 <li><a class="alert-link" data-toggle="modal"
-	href="#mensaje<? echo $n_mensajes;?>"> <? echo $asunto; ?> </a> <br>
-		<? echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+	href="#mensaje<?php echo $n_mensajes;?>"> <?php echo $asunto; ?> </a> <br>
+		<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 		<?
 	}
@@ -349,7 +349,7 @@ if(mysqli_num_rows($men2) > 0)
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-<h4 class="modal-title"><? echo $asunto;?><br>
+<h4 class="modal-title"><?php echo $asunto;?><br>
 <small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 

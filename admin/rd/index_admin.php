@@ -53,7 +53,7 @@ if($n_col%4==0) {
 $n_col++;
 ?>
 <td valign="top">
-<p class="lead text-info" align="center"><? echo $departamento;?></p>
+<p class="lead text-info" align="center"><?php echo $departamento;?></p>
 	<TABLE class="table table-striped table-bordered datatable" style="width:100%;">
 		<thead><th></th><th></th><th></th></thead>
 	
@@ -61,15 +61,15 @@ $n_col++;
 	{
 	?>
       <TR> 
-        <TD nowrap><? echo $row->numero; ?></td> 
-		<TD nowrap><? echo fecha_sin($row->fecha); ?></td>        
+        <TD nowrap><?php echo $row->numero; ?></td> 
+		<TD nowrap><?php echo fecha_sin($row->fecha); ?></td>        
         <TD nowrap>
         <?
 	if(($row->departamento == $_SESSION['dpt']) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
 		?>
-<a href="story.php?id=<? echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" data-bs="tooltip" title='Ver el Acta'> </i></a> 
-<a href="pdf.php?id=<? echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px;"> <i class="fa fa-print" data-bs="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
-<? 
+<a href="story.php?id=<?php echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" data-bs="tooltip" title='Ver el Acta'> </i></a> 
+<a href="pdf.php?id=<?php echo $row->id; ?>&imprimir=1"  style="color:#990000;margin-right:10px;"> <i class="fa fa-print" data-bs="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i></a>
+<?php 
 if ($row->impreso == '0') {
 ?>
 <i class="fa fa-exclamation-triangle" data-bs="tooltip" title='El Acta aún no ha sido imprimida.'> </i>

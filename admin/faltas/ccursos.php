@@ -37,8 +37,8 @@ include("../../menu.php");
 <div class="form-group">
 <label for="grupo" class="control-label"> Grupo </label>     
 <SELECT  name="unidad" onChange="submit()" class="form-control" id="unidad">
-            <option><? echo $unidad;?></option>
-            <? unidad($db_con);?>
+            <option><?php echo $unidad;?></option>
+            <?php unidad($db_con);?>
           </SELECT>
 </label>
 <label for="dia1" class="control-label">
@@ -60,7 +60,7 @@ include("../../menu.php");
 </div>
    
 
-<?  
+<?php  
 }
 	include("../../pie.php");
 ?>

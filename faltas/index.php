@@ -94,11 +94,11 @@ if($mensaje){
 }
 ?>
 <div class="col-md-5"><br>
-<div class="well"><? if (isset($_GET['menu_cuaderno'])) {
+<div class="well"><?php if (isset($_GET['menu_cuaderno'])) {
 	$extra = "?menu_cuaderno=1&profesor=".$_SESSION['profi']."&dia=$dia&hora=$hora&curso=$curso&asignatura=$asignatura";
 }
 ?>
-<form id="form1" method="post" action="index.php<? echo $extra;?>">
+<form id="form1" method="post" action="index.php<?php echo $extra;?>">
 
 <fieldset><legend>Seleccione fecha y grupo</legend>
 
@@ -168,7 +168,7 @@ else{
 		?>
 <h2 class="text-muted text-center"><span class="fa fa-clock-o fa-5x"></span>
 <br>
-Sin alumnos en esta hora (<? echo $hora_dia;?>ª)</h2>
+Sin alumnos en esta hora (<?php echo $hora_dia;?>ª)</h2>
 		<?
 	}
 }
@@ -311,26 +311,26 @@ while($hora2 = mysqli_fetch_row($hora0))
 			}
 			?> 
 
-			<div style="width:120px; display:inline;" <? echo $chkT; ?>>
-			<span class="text-danger">F</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>"	name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkF; ?> value="F" onClick="uncheckRadio(this)" /> &nbsp; 
-			<span class="text-success">J</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkJ; ?> value="J" onClick="uncheckRadio(this)"/> &nbsp; 
-			<span class="text-warning">R</span> <input type="radio" id="falta_<? echo $row[1]."_".$curso;?>" name="falta_<? echo $row[1]."_".$curso;?>" <? echo $chkR; ?> value="R" onClick="uncheckRadio(this)" /></div>
+			<div style="width:120px; display:inline;" <?php echo $chkT; ?>>
+			<span class="text-danger">F</span> <input type="radio" id="falta_<?php echo $row[1]."_".$curso;?>"	name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkF; ?> value="F" onClick="uncheckRadio(this)" /> &nbsp; 
+			<span class="text-success">J</span> <input type="radio" id="falta_<?php echo $row[1]."_".$curso;?>" name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkJ; ?> value="J" onClick="uncheckRadio(this)"/> &nbsp; 
+			<span class="text-warning">R</span> <input type="radio" id="falta_<?php echo $row[1]."_".$curso;?>" name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkR; ?> value="R" onClick="uncheckRadio(this)" /></div>
 
 			<?
 			echo "</span></label></td>";
 			?>
-<td><? 
+<td><?php 
 $faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='F'");
 
 $faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='J'");
 $f_faltaT = mysqli_num_rows($faltaT_F);
 $f_justiT = mysqli_num_rows($faltaT_J);
 ?> <div class="label label-danger" data-bs='tooltip'
-	title='Faltas de Asistencia en esta Asignatura'><? if ($f_faltaT>0) {echo "".$f_faltaT."";}?></div>
+	title='Faltas de Asistencia en esta Asignatura'><?php if ($f_faltaT>0) {echo "".$f_faltaT."";}?></div>
 <?
 if ($f_faltaT>0) {echo "<br><br>";}
 ?> <div class="label label-success" data-bs='tooltip'
-	title='Faltas Justificadas'><? if ($f_faltaT>0) {echo "".$f_justiT."";}?></div>
+	title='Faltas Justificadas'><?php if ($f_faltaT>0) {echo "".$f_justiT."";}?></div>
 </td>
 <?
 echo "</tr>";

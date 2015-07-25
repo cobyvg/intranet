@@ -57,7 +57,7 @@ El Equipo Directivo tiene una columna con una casilla de verificación que indica
   <div class="row">
   <div class="col-sm-12">
 
-<?  
+<?php  
     echo '<div class="text-center" id="t_larga_barra">
     	<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
     </div>';
@@ -197,7 +197,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
         echo "</form>";
 		echo "</div></div></div></div>";
   ?>
-  <? include("../../pie.php");?>
+  <?php include("../../pie.php");?>
   
   <script>
   $(document).ready(function() {

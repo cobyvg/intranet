@@ -27,7 +27,7 @@ if (isset($_GET['servicio_aula'])) {$servicio_aula = $_GET['servicio_aula'];}els
 El sistema de reservas permite controlar el uso de los medios del Centro (Dependencias, Recursos Audiovisuales, etc.). Hay tres categorías por defecto en el sistema: Aulas, Ordenadores y Medios. Se configura en la página de Administración de la Intranet donde se define el número, nombre, etc. de los recursos que se integran en la reserva.<br><br>
 La reserva de Aulas y Dependencias del Centro está integrada con el módulo de Horarios. Puede funcionar sin la importación de los horarios si creamos las Aulas desde la opción del menú 'Crear/Ocultar/Eliminar Aulas/Dependencias', pero está pensado para tomar la lista de aulas desde el horario que hemos importado. Por defecto, todas las aulas del Centro aparecen en la lista como reservables. Si deseamos ocultar aulas del sistema utilizamos la opción mencionada del menú; también podemos crear aulas que no aparecen en el horario.<br>
 El funcionamiento es sencillo: elegimos el aula (Recurso TIC o Medio), fecha y hora; comprobamos que no ha sido reservada anteriormente por otro profesor y procedemos a registrarla. El Aula Magna (Salón de Usos Múltiples) sólo puede ser reservado por el Equipo Directivo (si necesitamos hacerlo, debemos pedir autorización a los miembros del mismo). El resto de las aulas sólo permiten la reserva cuando en la hora correspondiente el aula no está asignada en el horario a algún profesor en tareas lectivas. Si nos hemos equivocado o queremos eliminar una reserva, seleccionamos el día de la misma y borramos nuestro nombre el día y la hora elegidos. Una vez borrado, enviamos los datos del formulario con el botón <em><b>Reservar</b></em> y desaparecerá de la lista.
-<? if (strstr($_SESSION['cargo'],"1")==TRUE): ?>
+<?php if (strstr($_SESSION['cargo'],"1")==TRUE): ?>
 <br>El Equipo directivo puede asignar el horario de las dependencias del Centro de 
 varias maneras. Si el aula aparece en el Horario y este se ha importado en la 
 base de datos, se presentarán las horas del aula con la asignatura que se 
@@ -59,15 +59,15 @@ Si hemos marcado la opción 'Centro TIC' en la instalación de la aplicación, apar
 </div>
 </div>
 </div>
-			<? if ($mod_horario=="1"): ?>
+			<?php if ($mod_horario=="1"): ?>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index_aula')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $dominio; ?>/intranet/reservas/index_aula.php?recurso=aula_grupo">Aulas y Dependencias del Centro</a></li>
 			<?php endif; ?>
-			<? if ($mod_tic=="1"): ?>
+			<?php if ($mod_tic=="1"): ?>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php?recurso=TIC_')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $dominio; ?>/intranet/reservas/index.php?recurso=TIC_">Ordenadores TIC</a></li>
 			<?php endif; ?>	
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php?recurso=medio')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $dominio; ?>/intranet/reservas/index.php?recurso=medio">Medios audiovisuales</a></li>
-			<? if ($mod_horario=="1"): ?>
-			<? if (strstr($_SESSION['cargo'],"1")==TRUE): ?>
+			<?php if ($mod_horario=="1"): ?>
+			<?php if (strstr($_SESSION['cargo'],"1")==TRUE): ?>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'ocultar.php')==TRUE) ? ' class="active"' : ''; ?>><a href="//<?php echo $dominio; ?>/intranet/reservas/ocultar.php">Crear / Ocultar / Eliminar Aulas/Dependencias</a></li>			
 			<?php endif; ?>		
 			<?php endif; ?>		

@@ -202,7 +202,7 @@ Parece que te est&aacute;s olvidando de enviar el archivo con los datos de los P
 </div>
 </div>
 </div>
- <? include("../../pie.php");?>
+ <?php include("../../pie.php");?>
   <script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';

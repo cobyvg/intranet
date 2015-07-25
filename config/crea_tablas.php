@@ -1,4 +1,4 @@
-<? 
+<?php 
 if(!(file_exists("../config.php")) OR filesize("../config.php")<10){
 $mens_bd = "No se encuentra el fichero de configuracion. Debes crearlo en primer lugar."; 
 header("location:index.php?mens_bd=1");
@@ -16,9 +16,9 @@ include_once('../config/version.php');
 <html lang="es">  
   <head>  
     <meta charset="iso-8859-1">  
-    <title>Intranet &middot; <? echo $nombre_del_centro; ?></title>  
+    <title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Intranet del <? echo $nombre_del_centro; ?>">  
+    <meta name="description" content="Intranet del <?php echo $nombre_del_centro; ?>">  
     <meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
       
     <link href="//<?php echo $dominio; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">

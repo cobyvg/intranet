@@ -10,7 +10,7 @@ if(isset($_POST['ver_todos'])){
  <br />
      <div align=center>
   <div class="page-header">
-  <h2><? echo $nombre_del_centro;?> <small><br />Claustro de Profesores <? echo " ($curso_actual)";?></small></h2>
+  <h2><?php echo $nombre_del_centro;?> <small><br />Claustro de Profesores <?php echo " ($curso_actual)";?></small></h2>
 </div>
 <?
 $dep0=mysqli_query($db_con, "select distinct departamento from departamentos where departamento not like 'Administracion' and departamento not like 'ADMIN' and departamento not like 'Conserjeria' order by departamento");

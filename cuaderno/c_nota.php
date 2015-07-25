@@ -53,19 +53,19 @@ $tipo = $ident0[5];
 // Formulario general y datos ocultos
 ?>
 <form action="n_col.php" method="post">
-	<input type="hidden" name="asignatura" value = "<? echo $asignatura;?>" />
-	<input type="hidden" name="curso_nota" value = "<? echo $curso_nota;?>" />
-	<input type="hidden" name="curso" value = "<? echo $curso;?>" />
-		<input type="hidden" name="curso_nota" value = "<? echo $curso_nota;?>" />
-	<input type="hidden" name="dia" value = "<? echo $dia;?>" />
-	<input type="hidden" name="hora" value = "<? echo $hora;?>" />
-	<input type="hidden" name="id" value = "<? echo $id;?>" />
-	<input type="hidden" name="nom_asig" value = "<? echo $nom_asig;?>" />
+	<input type="hidden" name="asignatura" value = "<?php echo $asignatura;?>" />
+	<input type="hidden" name="curso_nota" value = "<?php echo $curso_nota;?>" />
+	<input type="hidden" name="curso" value = "<?php echo $curso;?>" />
+		<input type="hidden" name="curso_nota" value = "<?php echo $curso_nota;?>" />
+	<input type="hidden" name="dia" value = "<?php echo $dia;?>" />
+	<input type="hidden" name="hora" value = "<?php echo $hora;?>" />
+	<input type="hidden" name="id" value = "<?php echo $id;?>" />
+	<input type="hidden" name="nom_asig" value = "<?php echo $nom_asig;?>" />
 	
 	<div class="well well-large" align="left">
 		<div class="form-group">
 		<label for="cmp_nombre">Nombre de la columna</label>
-		<input type="text" id="cmp_nombre" name="nombre" size="32" value="<? echo $nombre;?>" class="form-control" />
+		<input type="text" id="cmp_nombre" name="nombre" size="32" value="<?php echo $nombre;?>" class="form-control" />
 		</div>
 		<div class="form-group">
 			<label for="select_tipo">Tipo de datos</label>
@@ -85,7 +85,7 @@ $tipo = $ident0[5];
 		</div>
 		<div class="form-group">
 		<label for="cmp_observaciones">Observaciones</label>
-		<textarea name="texto" rows="6" id="cmp_observaciones" class="form-control"><? echo $texto;?></textarea>
+		<textarea name="texto" rows="6" id="cmp_observaciones" class="form-control"><?php echo $texto;?></textarea>
 		</div>
 		<div class="row">
 		<div class="col-sm-5">

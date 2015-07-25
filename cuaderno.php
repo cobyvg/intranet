@@ -106,7 +106,7 @@ if($pr and $dia and $hora)
 <div class='row'>
 <div class='page-header hidden-print'>
 <h2 class='no_imprimir'>Cuaderno de Notas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small
-	class="text-info">&nbsp;<i class='fa fa-users'> </i>&nbsp;<? echo substr($curs,0,-2)." ( ".$nom_asig," )";?></small></h2>
+	class="text-info">&nbsp;<i class='fa fa-users'> </i>&nbsp;<?php echo substr($curs,0,-2)." ( ".$nom_asig," )";?></small></h2>
 </div>
 
 <div align="center"><?
@@ -268,8 +268,8 @@ include("cuaderno/menu_cuaderno.php");
 				<tr>
 					<td nowrap style='vertical-align: middle; height: 74px;'
 						class='text-info' data-bs='tooltip'
-						title=' <? echo $apellidos.", ".$nombre_al;?>'><a href="#"
-						onclick="window.open('<? echo $inf;?>')"> <?
+						title=' <?php echo $apellidos.", ".$nombre_al;?>'><a href="#"
+						onclick="window.open('<?php echo $inf;?>')"> <?
 						if ($foto=="1") {
 						$foto1='<span class="fa fa-user fa-fw fa-3x"></span>';
 						}
@@ -298,7 +298,7 @@ include("cuaderno/menu_cuaderno.php");
 			<table class='table table-bordered table-condensed'
 				style='width: auto'>
 				<tr>
-				<? if ($mod_faltas==1) { ?>
+				<?php if ($mod_faltas==1) { ?>
 					
 					<td>
 					<div style='width: 40px; height: 104px;'>
@@ -306,7 +306,7 @@ include("cuaderno/menu_cuaderno.php");
 					</div>
 					</div>
 					</td>
-				<? } ?>	
+				<?php } ?>	
 					<?
 					// Número de las columnas de la tabla
 					$cols2=0;
@@ -523,21 +523,21 @@ include("cuaderno/menu_cuaderno.php");
 							{
 								echo "<tr>";
 								?>
-					<? if ($mod_faltas==1) { ?>
-					<td style='vertical-align: middle; height: 74px !important;'><? 
+					<?php if ($mod_faltas==1) { ?>
+					<td style='vertical-align: middle; height: 74px !important;'><?php 
 					$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'");
 
 					$faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='J'");
 					$f_faltaT = mysqli_num_rows($faltaT_F);
 					$f_justiT = mysqli_num_rows($faltaT_J);
 					?> <span class="label label-danger" data-bs='tooltip'
-						title='Faltas de Asistencia en esta Asignatura'><? if ($f_faltaT>0) {echo "".$f_faltaT."";}?></span>
+						title='Faltas de Asistencia en esta Asignatura'><?php if ($f_faltaT>0) {echo "".$f_faltaT."";}?></span>
 						<?
 						if ($f_faltaT>0) {echo "<br>";}
 						?> <span class="label label-info" data-bs='tooltip'
-						title='Faltas Justificadas'><? if ($f_faltaT>0) {echo "".$f_justiT."";}?></span>
+						title='Faltas Justificadas'><?php if ($f_faltaT>0) {echo "".$f_justiT."";}?></span>
 					</td>
-					<? } ?>
+					<?php } ?>
 					<?
 					// Si hay datos escritos rellenamos la casilla correspondiente
 					$colu10 = "select distinct id, Tipo, color, nombre from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by orden";
@@ -599,8 +599,8 @@ include("cuaderno/menu_cuaderno.php");
 					<td  class='warning'
 						style="vertical-align: middle; text-align: center; height: 74px !important;">
 					<div class="checkbox"><input
-						name="select_<? echo $row[1]."_".$curso;?>" type="checkbox"
-						id="selal" <? if ($marcado == "1") {echo "checked ";}?> value="1" /></div>
+						name="select_<?php echo $row[1]."_".$curso;?>" type="checkbox"
+						id="selal" <?php if ($marcado == "1") {echo "checked ";}?> value="1" /></div>
 					</td>
 					<?
 							}
@@ -646,7 +646,7 @@ include("cuaderno/menu_cuaderno.php");
 </div>
 </div>
 </div>
-					<? include("pie.php");?>
+					<?php include("pie.php");?>
 <script type="text/javascript">
 
 /*Desactivar rueda del ratón en campos numéricos*/

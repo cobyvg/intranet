@@ -142,11 +142,11 @@ document.enviar.submit()
 	action="http://www.smstrend.net/esp/sendMessageFromPost.oeg"
 	target="ventanaForm" method="POST"
 	enctype="application/x-www-form-urlencoded"><input name="login"
-	type="hidden" value="<? echo $login;?>" /> <input name="password"
-	type="hidden" value="<? echo $password;?>" /> <input name="extid"
-	type="hidden" value="<? echo $extid;?>" /> <input name="tpoa"
-	type="hidden" value="<? echo $nombre_corto; ?>" /> <input name="mobile"
-	type="hidden" value="<? echo $mobile2;?>" /> <input name="messageQty"
+	type="hidden" value="<?php echo $login;?>" /> <input name="password"
+	type="hidden" value="<?php echo $password;?>" /> <input name="extid"
+	type="hidden" value="<?php echo $extid;?>" /> <input name="tpoa"
+	type="hidden" value="<?php echo $nombre_corto; ?>" /> <input name="mobile"
+	type="hidden" value="<?php echo $mobile2;?>" /> <input name="messageQty"
 	type="hidden" value="GOLD" /> <input name="messageType" type="hidden"
 	value="PLUS" /> <input name="message" type="hidden"
 	value="<?echo $text;?>" maxlength="159" size="60" /></form>
@@ -211,7 +211,7 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 <div class="form-group" id="datetimepicker1"><label>Inicio</label>
 <div class="input-group"><input name="fecha12" type="text"
 	class="form-control"
-	value="<? if(isset($_POST['fecha12'])){ echo $_POST['fecha12'];}else{echo $fech1;} ?>"
+	value="<?php if(isset($_POST['fecha12'])){ echo $_POST['fecha12'];}else{echo $fech1;} ?>"
 	data-date-format="DD-MM-YYYY" id="fecha12"> <span
 	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
 </div>
@@ -219,7 +219,7 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 <div class="form-group" id="datetimepicker2"><label>Fin</label>
 <div class="input-group"><input name="fecha22" type="text"
 	class="form-control"
-	value="<? if(isset($_POST['fecha22'])){ echo $_POST['fecha22'];}else{echo $fech2;}  ?>"
+	value="<?php if(isset($_POST['fecha22'])){ echo $_POST['fecha22'];}else{echo $fech2;}  ?>"
 	data-date-format="DD-MM-YYYY" id="fecha22"> <span
 	class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
 </div>
@@ -256,7 +256,7 @@ El módulo de envío de SMS debe ser activado en la Configuración general de la In
           </div></div>';
 }
 ?>
-<? include("../pie.php");?>
+<?php include("../pie.php");?>
 <script>  
 $(function ()  
 { 

@@ -63,7 +63,7 @@ $curso_tutor=$query2[0];
 		<li><a href="../tareas/index.php">Informes de tareas</a></li>
 		<li class="divider"></li>
 		
-		<? 
+		<?php 
 		$inf_t = mysqli_query($db_con,"select idcurso from unidades where nomunidad = '".$_SESSION['mod_tutoria']['unidad']."'"); 
 		$id_t = mysqli_fetch_array($inf_t);
 		if (strstr($id_t[0],"10114")==TRUE or $id_t[0]=="105806" or $id_t[0]=="7858"):

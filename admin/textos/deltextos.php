@@ -24,6 +24,6 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
 			El Libro de Texto ha sido borrado de la Base de datos.
 		</div></div>';
 ?>
- <? include("../../pie.php");?>		
+ <?php include("../../pie.php");?>		
 </body>
 </html>

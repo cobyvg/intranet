@@ -23,6 +23,6 @@ El Informe ha sido borrado sin problemas.
 ?>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 </body>
 </html>

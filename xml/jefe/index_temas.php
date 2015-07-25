@@ -83,7 +83,7 @@ echo $mens;
 	?>
 </select></div>
 <div class="checkbox"><label><input type="checkbox" name="fondo"
-	value="1" <? if($_SESSION ['fondo']=="navbar-inverse"){echo "checked";}?>/>Invertir colores de la Barra de Navegación</label></div>
+	value="1" <?php if($_SESSION ['fondo']=="navbar-inverse"){echo "checked";}?>/>Invertir colores de la Barra de Navegación</label></div>
 <div class="form-group"><input type="submit" name="submit"
 	value="Cambiar tema" class="btn btn-primary" /></div>
 </fieldset>

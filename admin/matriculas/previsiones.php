@@ -13,7 +13,7 @@ include("menu.php");
 
 <!-- SCAFFOLDING -->
 <div class="row"><!-- COLUMNA IZQUIERDA -->
-<div class="col-sm-12"><? 
+<div class="col-sm-12"><?php 
 $crea_tabla = "CREATE TABLE IF NOT EXISTS `suspensos` (
   `claveal` varchar(12) NOT NULL,
   `suspensos` tinyint(4) NOT NULL,
@@ -171,39 +171,39 @@ VALUES (
 			<tbody>
 				<tr>
 					<th>Más de 4</th>
-					<td style='text-align: right'><? echo $mas_cuatro;?></td>
+					<td style='text-align: right'><?php echo $mas_cuatro;?></td>
 				</tr>
 				<th>4</th>
-				<td style='text-align: right'><? echo $cuatro;?></td>
+				<td style='text-align: right'><?php echo $cuatro;?></td>
 				</tr>
 				<th>Menos de 4</th>
-				<td style='text-align: right'><? echo $menos_cuatro;?></td>
+				<td style='text-align: right'><?php echo $menos_cuatro;?></td>
 				</tr>
 				<tr>
-					<th><? echo $rep_pil;?></th>
-					<td style='text-align: right'><? echo $num_pil;?></td>
+					<th><?php echo $rep_pil;?></th>
+					<td style='text-align: right'><?php echo $num_pil;?></td>
 				</tr>
 		
 		</table>
 		<table class="table table-bordered" align="center" style="width: 96%">
 			<tr>
 				<th class="danger">Repiten</th>
-				<td style='text-align: right' class="danger"><? echo $rep;?></td>
+				<td style='text-align: right' class="danger"><?php echo $rep;?></td>
 			</tr>
 			<tr>
 				<th class="success">Promocionan</th>
-				<td style='text-align: right' class="success"><? echo $promo;?></td>
+				<td style='text-align: right' class="success"><?php echo $promo;?></td>
 			</tr>
 			<tr>
 			<th colspan="2">Alumnos</th>
 			</tr>
 			<tr>
 				<th class="info">Total con Calificaciones</th>
-				<td style='text-align: right' class="info"><? echo $total_notas;?></td>
+				<td style='text-align: right' class="info"><?php echo $total_notas;?></td>
 			</tr>
 			<tr>
 				<th class=warning>Total matriculados</th>
-				<td style='text-align: right' class="warning"><? echo $total;?></td>
+				<td style='text-align: right' class="warning"><?php echo $total;?></td>
 			</tr>
 		</table>
 		</td>
@@ -217,4 +217,4 @@ VALUES (
 
 </div>
 </div>
-	<? include("../../pie.php"); ?>
+	<?php include("../../pie.php"); ?>

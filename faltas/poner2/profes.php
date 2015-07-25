@@ -120,7 +120,7 @@ $faltas14 = rtrim($faltas13, ".");
 ?>
     </div></td>
   
-  <? }?></tr><? }?>
+  <?php }?></tr><?php }?>
 </table>
 
 

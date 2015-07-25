@@ -1,4 +1,4 @@
-<? 
+<?php 
 // Creación de tabla temporal.
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `AsignacionMesasTICtmp` (
   `prof` varchar(50) NOT NULL,

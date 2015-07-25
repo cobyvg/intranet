@@ -389,14 +389,14 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		if ($curso) {
 			//$n_cons = mysqli_num_rows($cons);
 			?>
-<h3 align=center><? if($_POST['grupo_actua']){ 
+<h3 align=center><?php if($_POST['grupo_actua']){ 
 	echo $curso." ";
 	foreach ($_POST['grupo_actua'] as $grup_actua){
 		echo $grup_actua." ";
 	}
 } else{ echo $n_curso."º de Bachillerato";}?></h3>
 <br />
-<form action="consultas_bach.php?curso=<? echo $curso;?>&consulta=1"
+<form action="consultas_bach.php?curso=<?php echo $curso;?>&consulta=1"
 	name="form1" method="post">
 <table class="table table-striped table-condensed" align="center"
 	style="width: auto">
@@ -825,7 +825,7 @@ echo "<br>
 </div>
 </div>
 	
-	<? include("../../pie.php"); ?>
+	<?php include("../../pie.php"); ?>
   <?
   // Control del envío de datos
 

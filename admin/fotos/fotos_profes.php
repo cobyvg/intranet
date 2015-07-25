@@ -140,6 +140,6 @@ include("../../menu.php");
 	
 </div><!-- /.container -->
 
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 </body>
 </html>

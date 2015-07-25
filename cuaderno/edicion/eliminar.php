@@ -24,7 +24,7 @@ La columna ha sido eliminada correctamente.
 $mens = "../cuaderno.php?profesor=$profesor&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso&clave=$clave";
 ?>
 <script>
-setTimeout("window.location='<? echo $mens; ?>'", 1000) 
+setTimeout("window.location='<?php echo $mens; ?>'", 1000) 
 </script>
 <?
 		}

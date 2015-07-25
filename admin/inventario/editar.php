@@ -111,7 +111,7 @@ $fecha=$dat[8];
 ?>
 <div class="row">
 <div class="col-sm-6">
-<legend>Cambio de datos <span style="color:#9d261d">(<? echo $departament;?>)</span></legend>
+<legend>Cambio de datos <span style="color:#9d261d">(<?php echo $departament;?>)</span></legend>
 <div class="well" align="left">
 <?
 if ($j_s == '') {
@@ -121,8 +121,8 @@ if ($j_s == '') {
 }
 ?>
 <div align="center"><p class="help-block"> <span style="color:#9d261d">(*)</span> --> Campos obligatorios</p></div>
-<input type="hidden" name="id" value="<? echo $id;?>">
-<input type="hidden" name="departamento" value="<? echo $departamento;?>">
+<input type="hidden" name="id" value="<?php echo $id;?>">
+<input type="hidden" name="departamento" value="<?php echo $departamento;?>">
 
 <div class="form-group"><label>Familia<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
 <select name="familia" onchange="submit()" class="form-control">
@@ -161,24 +161,24 @@ while($lug = mysqli_fetch_array($luga))
 </select>
 </div>
 <div class="form-group"><label>Descipción</label>
-<textarea name="descripcion" cols="45" rows="5" class="form-control"><? echo $descripcion;?></textarea>
+<textarea name="descripcion" cols="45" rows="5" class="form-control"><?php echo $descripcion;?></textarea>
 </div>
 <div class="form-group"><label>Marca</label>
-<input type="text" name="marca" size="40" class="form-control" value="<? echo $marca;?>"/>
+<input type="text" name="marca" size="40" class="form-control" value="<?php echo $marca;?>"/>
 </div>
 <div class="form-group"><label>Modelo</label>
-<input type="text" name="modelo" size="40"class="form-control" value="<? echo $modelo;?>" />
+<input type="text" name="modelo" size="40"class="form-control" value="<?php echo $modelo;?>" />
 </div>
 <div class="form-group"><label>Nº Serie</label>
-<input type="text" name="serie" size="25" class="form-control" value="<? echo $serie;?>"/>
+<input type="text" name="serie" size="25" class="form-control" value="<?php echo $serie;?>"/>
 </div>
 <div class="form-group"><label>Nº de Unidades<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
-<input type="text" name="unidades" size="5" class="form-control" value="<? echo $unidades;?>"/>
+<input type="text" name="unidades" size="5" class="form-control" value="<?php echo $unidades;?>"/>
 </div>
 <div class="form-group"  id="datetimepicker1">
 <label>Fecha de Alta<span style="color:#9d261d;"> (*) </span></label>
 <div class="input-group">
-  <input name="fecha" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<? echo $fecha;?>">
+  <input name="fecha" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fecha" value="<?php echo $fecha;?>">
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </div>
@@ -211,15 +211,15 @@ while($item = mysqli_fetch_row($it))
 		$marca = $item[1];
 	}
 ?>
-<tr><td><? echo $item[0];?></td><td><? echo $marca;?></td><td><? echo $item[3];?></td><td align=right>
+<tr><td><?php echo $item[0];?></td><td><?php echo $marca;?></td><td><?php echo $item[3];?></td><td align=right>
 <?
 if ($j_s == '') {
 ?>
-<a href="introducir.php?id=<? echo $item[4];?>&eliminar=1" data-bb='confirm-delete'><i class="fa fa-trash-o" title="Borrar registro" > </i> </a>
+<a href="introducir.php?id=<?php echo $item[4];?>&eliminar=1" data-bb='confirm-delete'><i class="fa fa-trash-o" title="Borrar registro" > </i> </a>
 <?
 }
 ?>
-&nbsp;&nbsp;<a href="editar.php?id=<? echo $item[4];?>&departamento=<? echo $departamento;?>"><i class="fa fa-pencil" title="Editar registro"> </i> </a></td></tr>
+&nbsp;&nbsp;<a href="editar.php?id=<?php echo $item[4];?>&departamento=<?php echo $departamento;?>"><i class="fa fa-pencil" title="Editar registro"> </i> </a></td></tr>
 <?
 }
 	echo '
@@ -229,7 +229,7 @@ if ($j_s == '') {
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>	
+<?php include("../../pie.php");?>	
 <script>  
 $(function ()  
 { 

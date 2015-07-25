@@ -110,6 +110,6 @@ if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){echo 
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 </body>
 </html>

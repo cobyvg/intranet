@@ -75,7 +75,7 @@ echo"</table>";
 </div>
 </div>
 
-<? include("../../pie.php");?>		
+<?php include("../../pie.php");?>		
 
 </body>
 </html>

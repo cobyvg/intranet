@@ -67,13 +67,13 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 
 <div class="modal fade" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true"
-	id="infotut<? echo $n_infotut;?>">
+	id="infotut<?php echo $n_infotut;?>">
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Informe de Tutoría para <? echo "$row1[2] $row1[1]";?></h4>
+<h4 class="modal-title" id="myModalLabel">Informe de Tutoría para <?php echo "$row1[2] $row1[1]";?></h4>
 </div>
 <div class="modal-body"><?
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'");

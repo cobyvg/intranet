@@ -18,7 +18,7 @@ echo '<div align="center"><div class="alert alert-danger alert-block fade in">
 $numerodia = getdate(mktime(0,0,0,$month,$today,$year));
 ?>
 		        <div class="well-trasparent well-large">
-		        <? 
+		        <?php 
 		        include("cal.php"); 
 ?>                   
                    </center>  
@@ -33,7 +33,7 @@ $numerodia = getdate(mktime(0,0,0,$month,$today,$year));
           <td>&nbsp;Faltas sin Justificar&nbsp;</td>
         </tr>
       </table>
-<? 
+<?php 
 
 if ($alumno) {
 $alu0 = "SELECT NC, CLAVEAL, apellidos, nombre FROM FALUMNOS WHERE claveal = '$alumno'";
@@ -81,7 +81,7 @@ echo "</td></tr></table><br />";
   </div>
 </div>
 
-           <? 
+           <?php 
           if ($profesor) {
 // Buscamos el grupo del que $profesor es tutor.
 	$tutor = mysqli_query($db_con, "SELECT unidad FROM FTUTORES WHERE TUTOR = '$profesor'") ;

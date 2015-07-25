@@ -20,7 +20,7 @@ include("menu.php");
 <div class="row">
 
 <div class="col-sm-12 ">	
-<?   
+<?php   
   $hoy = date('Y') . "-" . date('m') . "-" . date('d');
   $ayer = date('Y') . "-" . date('m') . "-" . (date('d') - 1);
   $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad,

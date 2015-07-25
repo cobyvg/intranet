@@ -196,7 +196,7 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 <div class="form-group">
   <label for="al1">Alumnos disponibles</label>
 <select multiple size="15" name="al1" id="al1" class="form-control">
-	<? $alumnos = mysqli_query($db_con, $query_noal);
+	<?php $alumnos = mysqli_query($db_con, $query_noal);
 	while ($alumnado = mysqli_fetch_row($alumnos)){ 
 		echo "<Option value='$alumnado[0]'>$alumnado[1] $alumnado[2] , $alumnado[3] "; 
 	} #del while
@@ -214,7 +214,7 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 <div class="form-group">
   <label>Alumnos seleccionados</label>
 <select multiple size="15" name="al2" id="al2" class="form-control">
-	<? $alumnos = mysqli_query($db_con, $query_al);
+	<?php $alumnos = mysqli_query($db_con, $query_al);
 	while ($alumnado = mysqli_fetch_row($alumnos)){ 
 		echo "<Option value='$alumnado[0]'>$alumnado[1] $alumnado[2] , $alumnado[3] "; 
 	} #del while ?>
@@ -231,7 +231,7 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 </form>
 </div>
 
-<? if(stristr($_SESSION['cargo'],'1') == TRUE) {
+<?php if(stristr($_SESSION['cargo'],'1') == TRUE) {
 	echo ' <div class="well well-lg" >';
 	echo '<legend>Impresión de todos los Alumnos</legend>';
 	echo "<a href='carnet.php?todos=1' class='btn btn-primary btn-block'><i class='fa fa-print '> </i> Imprimir todos los cursos</a></div>";

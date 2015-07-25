@@ -36,12 +36,12 @@ if (mysqli_num_rows($si) > 0)
 	</span>
 	</p>";
 ?>	
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="tarea<? echo $n_tareas;?>">
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="tarea<?php echo $n_tareas;?>">
 	  <div class="modal-dialog">
     <div class="modal-content">	
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Informe de Tareas para <? echo "$row1[3] $row1[2]";?></h3>
+    <h3>Informe de Tareas para <?php echo "$row1[3] $row1[2]";?></h3>
   </div>
   <div class="modal-body">
 <?	

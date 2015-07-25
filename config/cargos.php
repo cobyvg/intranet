@@ -101,7 +101,7 @@ include ("../menu.php");
 		
 		<div class="table-responsive">
 		<table class="table table-bordered table-striped table-condensed">
-		<? echo $head;?>
+		<?php echo $head;?>
 			<tbody>
 		<?
 		$carg0 = mysqli_query($db_con, "select distinct nombre, cargo, dni from departamentos order by nombre" );
@@ -276,6 +276,6 @@ include ("../menu.php");
 	<a class="btn btn-default" href="../xml/index.php">Volver</a>
 </form>
             </div></div></div>
-<? include("../pie.php");?>
+<?php include("../pie.php");?>
 </body>
 </html>

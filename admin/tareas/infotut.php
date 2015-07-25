@@ -41,8 +41,8 @@ else
 <div class="form-group">
 <label>Grupo: </label>
 <SELECT name="unidad" onChange="submit()" class="form-control">
-	<option><? echo $unidad;?></option>
-	<? unidad($db_con);?>
+	<option><?php echo $unidad;?></option>
+	<?php unidad($db_con);?>
 </SELECT> 
 </FORM>
 </div>
@@ -105,7 +105,7 @@ echo '<input type="submit" value="Activar informe de Tareas" class="btn btn-prim
 </div>
 </div>
 
-<? 	
+<?php 	
 include("../../pie.php");
 ?>
 <script>  

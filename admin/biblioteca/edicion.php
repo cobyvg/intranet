@@ -86,7 +86,7 @@ if(isset($_POST['sms'])){$sms=$_POST['sms'];}
 		{ 
 ?>
 
-<? 
+<?php 
 $envio='';
 for($i=0; $i <= count($valor)-1; $i++)
 { 
@@ -96,7 +96,7 @@ $duplicados=mysqli_fetch_array($duplicado);
 
 if($duplicados[0]=='NO'){
 	$envio='-'.$valor[$i];?> 	
-	<? 
+	<?php 
 
 if ($registro) {
 		$upd = mysqli_query($db_con, "update morosos set amonestacion='SI' where id=$valor[$i]") or die ("No se ha podido actualizar el registro");
@@ -165,7 +165,7 @@ if ($sms) {
 		?>" /> <input name="extid" type="hidden"
 	value="<?
 	echo $extid;
-		?>" /> <input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" /> <input
+		?>" /> <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" /> <input
 	name="mobile" type="hidden" value="<?
 	echo $mobile;
 		?>" /> <input name="messageQty" type="hidden" value="GOLD" /> <input
@@ -215,7 +215,7 @@ Los mensajes SMS de aviso por retraso en la devolución de ejemplares de la Bibli
 </div>
 </div>
 </div>
-<? include ("../../pie.php"); ?>
+<?php include ("../../pie.php"); ?>
 
 
 

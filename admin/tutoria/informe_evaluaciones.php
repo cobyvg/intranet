@@ -143,7 +143,7 @@ El Informe de Evaluaciones presenta los datos más importantes que conviene tener
 <legend>Seleccione evaluación</legend>
 <div class="form-group">
 <select class="form-control" id="evaluacion" name="evaluacion" onchange="submit()">
-	<option><? if (isset($_POST['evaluacion'])) {
+	<option><?php if (isset($_POST['evaluacion'])) {
 		echo $evaluacion;
 	} ?></option>
 	<option>Ev. Inicial</option>
@@ -202,10 +202,10 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 ?>
 			<th>Pend.</th>
 			<th>Observaciones</th>
-			<? if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
+			<?php if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
 			<th>Orientación</th>
 			<th>Otros</th>
-			<? }?>
+			<?php }?>
 		</tr>
 	</thead>
 	<tbody>
@@ -355,9 +355,9 @@ if (mysqli_num_rows($chk4)>0) {
 	$obs = $obs0[0];
 }
 ?>
-			<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="5" cols="45" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<? echo $obs_extra;?>"><?php echo $obs; ?></textarea>
+			<textarea class="form-control" name="obs-<?php echo $row['claveal']; ?>" rows="5" cols="45" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<?php echo $obs_extra;?>"><?php echo $obs; ?></textarea>
 			</td>
-<? if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
+<?php if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
 <td>			
 <?
 $ori_extra = "";			
@@ -375,7 +375,7 @@ if (mysqli_num_rows($chk5)>0) {
 	$ori = $ori0[0];
 }
 ?>			
-			<textarea class="form-control" name="ori-<?php echo $row['claveal']; ?>" rows="5" cols="45" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<? echo $ori_extra;?>"><?php echo $ori; ?></textarea>
+			<textarea class="form-control" name="ori-<?php echo $row['claveal']; ?>" rows="5" cols="45" style="font-size:10px;padding:1px;" data-bs="tooltip" data-html="true" title="<?php echo $ori_extra;?>"><?php echo $ori; ?></textarea>
 			</td>
 			<td nowrap>
 			<div class="form-group">
@@ -388,7 +388,7 @@ if (mysqli_num_rows($chk6)>0) {
 }
 ?>			
 			<select class="form-control input-sm" name="inf-<?php echo $row['claveal']; ?>">
-			<option><? echo $inf;?></option>
+			<option><?php echo $inf;?></option>
 			<option>SI</option>
 			<option>NO</option>
 			</select>
@@ -405,7 +405,7 @@ if (mysqli_num_rows($chk7)>0) {
 }
 ?>			
 			<select class="form-control input-sm" name="aci-<?php echo $row['claveal']; ?>">
-			<option><? echo $aci;?></option>
+			<option><?php echo $aci;?></option>
 			<option>SI</option>
 			<option>NO</option>
 			</select>
@@ -422,7 +422,7 @@ if (mysqli_num_rows($chk8)>0) {
 }
 ?>			
 			<select class="form-control input-sm" name="dct-<?php echo $row['claveal']; ?>">
-			<option><? echo $dct;?></option>
+			<option><?php echo $dct;?></option>
 			<option>SI</option>
 			<option>NO</option>
 			</select>
@@ -432,7 +432,7 @@ if (mysqli_num_rows($chk8)>0) {
 			
 			
 			</td>
-<? }?>
+<?php }?>
 			
 		</tr>
 		<?php endwhile; ?>

@@ -84,15 +84,15 @@ echo  "<table class='table' style='width:auto' align=center><tr><th align='cente
 <tr class='warning'><td align='center'>$datos[0], $datos[1]</td><td id='' align='center'>$datos[2]</td><td id='' align='center'>$mes</td><td id='' align='center'>$datos[4]</td></tr></table><br />";
 echo "<form enctype='multipart/form-data' action='index2.php' method='post'>";
 ?>
-<input name="claveal" type="hidden" value="<? echo $claveal;?>">
-<input name="mes" type="hidden" value="<? echo $mes;?>">
+<input name="claveal" type="hidden" value="<?php echo $claveal;?>">
+<input name="mes" type="hidden" value="<?php echo $mes;?>">
 <div class="form-group"><label>Observaciones</label>
-<textarea name="texto" title="Informe de Alumno absentista." class="form-control" rows="12"><? echo $obs;?></textarea></div>
+<textarea name="texto" title="Informe de Alumno absentista." class="form-control" rows="12"><?php echo $obs;?></textarea></div>
 <?
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
 ?>
 <div class="form-group"><label>Informe de Servicios Sociales</label>
-<textarea name="texto2" title="Informe de Alumno absentista." class="form-control" rows="12"><? echo $obs2;?></textarea></div>
+<textarea name="texto2" title="Informe de Alumno absentista." class="form-control" rows="12"><?php echo $obs2;?></textarea></div>
 <?
 }
 ?>
@@ -107,7 +107,7 @@ echo "</div></div>";
 <div class="row">
 <div class="col-sm-10 col-sm-offset-1">
 <br />
-<legend align="center">Alumnos con informes de absentismo pendiente <br /><span class="text-info"><? echo  $titulo;?></span> </legend><br />
+<legend align="center">Alumnos con informes de absentismo pendiente <br /><span class="text-info"><?php echo  $titulo;?></span> </legend><br />
 <?
 
 $SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, matriculas, numero, mes, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and mes='$mes' $mas  order by unidad";
@@ -166,4 +166,4 @@ Parece que no hay alumnos absentistas registrados en ese mes. Si te has equivoca
 </div>
 </div>
 
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>

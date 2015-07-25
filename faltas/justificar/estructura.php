@@ -98,7 +98,7 @@ echo "</td></tr></table><br />";
   
   <div class="col-sm-6">
 
-    <? 
+    <?php 
            if (empty($profesor)) {
            	echo "<br><h6>Selecciona Tutor:</h6><hr>";
            }

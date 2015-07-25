@@ -69,11 +69,11 @@ echo $mens10;
 </div>
 </div>
 <script language="javascript">
-<? 
+<?php 
 // Redireccionamos al Cuaderno    
 $mens = "../cuaderno.php?profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso&clave=$clave";
 ?>
-setTimeout("window.location='<? echo $mens; ?>'", 1000) 
+setTimeout("window.location='<?php echo $mens; ?>'", 1000) 
 </script>
 </body>
 </html>

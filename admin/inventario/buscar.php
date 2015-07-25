@@ -26,7 +26,7 @@ if (empty($buscar)) {
 <div class="col-sm-6 col-sm-offset-3">
 <div class="well" align="center">
             <form method="post" action="buscar.php">
-                  <input type="text" name="expresion" id="exp" value="<? echo $expresion;?>" class="form-control" />
+                  <input type="text" name="expresion" id="exp" value="<?php echo $expresion;?>" class="form-control" />
                   <br /><button type="submit"  name="buscar" value="Buscar datos" class="btn btn-primary"><i class="fa fa-search "> </i> Buscar datos </button>
             </form>
 </div>
@@ -85,7 +85,7 @@ $fecha=$dat[8];
 $id=$dat[9];
 $departamento=$dat[10];
 ?>
-<tr><td><? echo $familia;?></td><td><? echo $clase;?></td><td><? echo $lugar;?></td><td><? echo $descripcion;?></td><td><? echo $marca;?></td><td><? echo $modelo;?></td><td><? echo $serie;?></td><td><? echo $unidades;?></td><td><? echo $departamento;?></td><td><a href="introducir.php?id=<? echo $id;?>&eliminar=1" data-bb='confirm-delete'><i class="fa fa-trash-o" title="Borrar" > </i> </a></td><td><a href="editar.php?id=<? echo $id;?>&departamento=<? echo $departamento;?>"><i class="fa fa-pencil" title="Modificar"> </i> </a></td></tr>
+<tr><td><?php echo $familia;?></td><td><?php echo $clase;?></td><td><?php echo $lugar;?></td><td><?php echo $descripcion;?></td><td><?php echo $marca;?></td><td><?php echo $modelo;?></td><td><?php echo $serie;?></td><td><?php echo $unidades;?></td><td><?php echo $departamento;?></td><td><a href="introducir.php?id=<?php echo $id;?>&eliminar=1" data-bb='confirm-delete'><i class="fa fa-trash-o" title="Borrar" > </i> </a></td><td><a href="editar.php?id=<?php echo $id;?>&departamento=<?php echo $departamento;?>"><i class="fa fa-pencil" title="Modificar"> </i> </a></td></tr>
 <?
 }
 	echo '</table>';

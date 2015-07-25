@@ -20,7 +20,7 @@ if ($row)
 {?>
  <div align="center">
 <div class="page-header">
-  <h2>Actas del Departamento <small> Registro de Reuniones ( <?  echo $row->departamento;?> )</small></h2>
+  <h2>Actas del Departamento <small> Registro de Reuniones ( <?php  echo $row->departamento;?> )</small></h2>
 </div>
 </div>
 <div class="container-fluid">
@@ -39,14 +39,14 @@ if ($row)
 <?
 if (!($j_s=='disabled')) {
 ?>
-<a href="pdf.php?id=<? echo $id; ?>&imprimir=1"  style="margin-right:20px;" class="btn btn-primary pull-right no_imprimir"> 
+<a href="pdf.php?id=<?php echo $id; ?>&imprimir=1"  style="margin-right:20px;" class="btn btn-primary pull-right no_imprimir"> 
 <i class="fa fa-print " data-bs="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i> Imprimir PDF</a>
 <?
 }
 ?>
 
 
-<?  
+<?php  
 			echo $row->contenido;
 ?>
  </div>
@@ -58,7 +58,7 @@ else
 ?>
  <div align="center">
 <div class="page-header">
-  <h2>Actas del Departamento <small> Contenido de la Reunión ( <?  echo $row->departamento;?> )</small></h2>
+  <h2>Actas del Departamento <small> Contenido de la Reunión ( <?php  echo $row->departamento;?> )</small></h2>
 </div>
 
 <div class="container-fluid">
@@ -74,6 +74,6 @@ else
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 </body>
 </html>

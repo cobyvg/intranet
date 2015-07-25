@@ -104,7 +104,7 @@ El Secretario del Centro puede emitir con la aplicación Certificados de entrega 
 </div>
 </div>
   <h3 class="text-info">
-  <? if (isset($unidad)) {
+  <?php if (isset($unidad)) {
 	echo $unidad;
 }
 else{
@@ -152,7 +152,7 @@ Los datos se han actualizado correctamente en la base de datos.
 $claveal = "";
 ?>
 <form action="libros.php" method="post" name="libros">
-<input type="hidden" name="nivel" value="<? echo $nivel;?>" />
+<input type="hidden" name="nivel" value="<?php echo $nivel;?>" />
 <p class="help-block">OPCIONES: <span class="label label-info">B</span> = Bien, <span class="label label-warning">R</span> = Regular, <span class="label label-danger">M</span> = Mal, <span class="label label-default">N</span> = No hay Libro, <span class="label label-success">S</span> = Septiembre.</p>
 <?
 $curso = $nivel;
@@ -246,27 +246,27 @@ $clave = $alumnos[4];
 ?>
 	<div class="radio">
 		<label style="color:black;">
-    	<input type="radio" name="<? echo $r_nombre;?>" <? echo "checked=\"checked\""; ?> value="N" id="botones_3" /> <span class="label label-default">N</span>
+    	<input type="radio" name="<?php echo $r_nombre;?>" <?php echo "checked=\"checked\""; ?> value="N" id="botones_3" /> <span class="label label-default">N</span>
     </label>
   </div>
   <div class="radio">
     <label style="color:#3a87ad;">
-    	<input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "B"){echo "checked=\"checked\"";} ?> value="B" id="botones_0" /> <span class="label label-info">B</span>
+    	<input type="radio" name="<?php echo $r_nombre;?>" <?php if($estado == "B"){echo "checked=\"checked\"";} ?> value="B" id="botones_0" /> <span class="label label-info">B</span>
     </label>
   </div>
   <div class="radio">
     <label style="color:#f89406;">
-   	 <input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "R"){echo "checked=\"checked\"";} ?> value="R" id="botones_1" /> <span class="label label-warning">R</span>
+   	 <input type="radio" name="<?php echo $r_nombre;?>" <?php if($estado == "R"){echo "checked=\"checked\"";} ?> value="R" id="botones_1" /> <span class="label label-warning">R</span>
    	</label>
   </div>
   <div class="radio">
     <label style="color:#9d261d;">
-    	<input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "M"){echo "checked=\"checked\"";} ?> value="M" id="botones_2" /> <span class="label label-danger">M</span>
+    	<input type="radio" name="<?php echo $r_nombre;?>" <?php if($estado == "M"){echo "checked=\"checked\"";} ?> value="M" id="botones_2" /> <span class="label label-danger">M</span>
     </label>
   </div>
   <div class="radio">
     <label style="color:#46a546;">
-    	<input type="radio" name="<? echo $r_nombre;?>" <? if($estado == "S"){echo "checked=\"checked\"";} ?> value="S" id="botones_4" /> <span class="label label-success">S</span>
+    	<input type="radio" name="<?php echo $r_nombre;?>" <?php if($estado == "S"){echo "checked=\"checked\"";} ?> value="S" id="botones_4" /> <span class="label label-success">S</span>
     </label>
   </div>
     	
@@ -286,7 +286,7 @@ $clave = $alumnos[4];
 				echo '<td>';
 
 ?>
-<a  href="libros.php?claveal=<? echo $claveal;?>&imprimir=si&nivel=<? echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="fa fa-print " title="imprimir"> </i></a> <br><br>
+<a  href="libros.php?claveal=<?php echo $claveal;?>&imprimir=si&nivel=<?php echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="fa fa-print " title="imprimir"> </i></a> <br><br>
 <?
 	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="fa fa-check" title="Devueltos"> </i> </button>';}
 	echo "</td>";
@@ -297,10 +297,10 @@ echo "</tr>";
 echo "</table>";
 ?>
 <br />
-<input type="hidden" name="unidad" value="<? echo $unidad;?>" />
+<input type="hidden" name="unidad" value="<?php echo $unidad;?>" />
 <input type="submit" name="procesar" value="Enviar datos" class="btn btn-primary btn-large" />
 </form>
 </div>
-<? include("../../pie.php");?>		
+<?php include("../../pie.php");?>		
 </body>
 </html>

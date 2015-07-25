@@ -8,8 +8,8 @@ require('../../bootstrap.php');
 <head>
 <title>Páginas de Conserjería</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<LINK href="//<?php echo $dominio; ?>/<? echo $css1; ?>" rel="stylesheet" type="text/css">
-<LINK href="//<?php echo $dominio; ?>/<? echo $css2; ?>" rel="stylesheet" type="text/css">
+<LINK href="//<?php echo $dominio; ?>/<?php echo $css1; ?>" rel="stylesheet" type="text/css">
+<LINK href="//<?php echo $dominio; ?>/<?php echo $css2; ?>" rel="stylesheet" type="text/css">
 <script languaje="javascript">
 function habilitaDeshabilita()
 {
@@ -63,7 +63,7 @@ VALUES (NULL , '$profeso', '$n_numero', '$n_observaciones', '$tipo')");
             </td>
           <td> <div align="center">
               <SELECT  name=profeso onChange="submit()">
-              <option><? echo $profeso;?></option>
+              <option><?php echo $profeso;?></option>
 		        <?
   $profe = mysqli_query($db_con, " SELECT distinct nombre FROM departamentos where nombre not like 'admin' order by nombre asc");
   if ($filaprofe = mysqli_fetch_array($profe))
@@ -101,16 +101,16 @@ while ($copia=mysqli_fetch_array($ft)) {
 	</td></tr>
 	<tr><td colspan="2" style="text-align:center;">
 	<span id="filaprincipal" style="background-color:white;margin-left:25px;">
-	Administracción<input id="administraccion" name="tipo" type="checkbox" value="1" <? if ($profeso=="CONSERJE") {echo "checked";} ?> onClick="habilitaDeshabilita()" /></span>
+	Administracción<input id="administraccion" name="tipo" type="checkbox" value="1" <?php if ($profeso=="CONSERJE") {echo "checked";} ?> onClick="habilitaDeshabilita()" /></span>
 	<span id="filaprincipal" style="background-color:white;margin-left:25px;">
 	Personal<input id="personal" name="tipo" type="checkbox" value="2" onClick="habilitaDeshabilita()" /></span>
 	</td></tr>
 	<tr><td id="filaprincipal">Observaciones</td>
 	<td><textarea name="n_observaciones" value="" cols="30" type="text"  /></textarea></td></tr>
-	<tr><td colspan="2" style="text-align:center;"><span style="font-size:1.0em;color:#261;word-spacing:1px;">Total de copias:</span><span style="color:red;font-weight:bold;margin-left:2px;"><? echo $total;?></span><span style="margin-left:15px;font-size:1.0em;color:#261;word-spacing:1px;">Sesiones: </span><span style="color:blue;font-weight:bold;margin-left:2px;"><? echo mysqli_num_rows($ft);?></span></td></tr>
+	<tr><td colspan="2" style="text-align:center;"><span style="font-size:1.0em;color:#261;word-spacing:1px;">Total de copias:</span><span style="color:red;font-weight:bold;margin-left:2px;"><?php echo $total;?></span><span style="margin-left:15px;font-size:1.0em;color:#261;word-spacing:1px;">Sesiones: </span><span style="color:blue;font-weight:bold;margin-left:2px;"><?php echo mysqli_num_rows($ft);?></span></td></tr>
 	<tr><td colspan="2" id="filaprincipal" style="text-align:center;padding:6px;"><input name="submit" value="Enviar datos" type="submit" style="width:100px;" /></td></tr>
 	</table>
-	<input type="hidden" value="<? echo $profeso;?>" name="profeso" />
+	<input type="hidden" value="<?php echo $profeso;?>" name="profeso" />
 	</form>
 <?
 }

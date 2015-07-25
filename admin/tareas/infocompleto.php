@@ -126,6 +126,6 @@ Los Profesores no han rellenado aún su Informe de tareas.<br /><br />
 }
 ?>
 </div>
-	<? include("../../pie.php");?>								
+	<?php include("../../pie.php");?>								
 </body>
 </html>

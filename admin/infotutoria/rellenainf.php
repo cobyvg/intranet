@@ -67,6 +67,6 @@ if($informe[0] == $asignatura){$fondo=" class='info' ";}
 echo"</table>";
 }
 ?>
-<? include("../../pie.php");?>		
+<?php include("../../pie.php");?>		
 </body>
 </html>

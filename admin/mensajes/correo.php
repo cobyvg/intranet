@@ -161,10 +161,10 @@ include("menu.php");
       					
       					<div class="checkbox">
       						<label>
-         						<input type="checkbox" id="dato0" name="<? echo $dni;?>" value="cambio"> <?php echo nomprofesor($pro); ?>
+         						<input type="checkbox" id="dato0" name="<?php echo $dni;?>" value="cambio"> <?php echo nomprofesor($pro); ?>
          					</label>
       					</div>
-      					<input type="hidden" name="<? echo $dni.":".$perf;?>" value="<? echo $perf;?>">
+      					<input type="hidden" name="<?php echo $dni.":".$perf;?>" value="<?php echo $perf;?>">
 							<?php endwhile; ?>
 							
 							<?php else: ?>

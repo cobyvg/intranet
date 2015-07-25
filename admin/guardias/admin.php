@@ -63,14 +63,14 @@ largo del curso.
 </div>
 <br>
 <div class="col-sm-5 col-sm-offset-1"><br>
-<? if ($mod_horario) {
+<?php if ($mod_horario) {
 	?>
 <div class="well well-large">
 <FORM action="admin.php" method="POST" name="Cursos">
 <div class="form-group"><label> Selecciona Profesor </label> 
 <SELECT
 	name=profeso onChange="submit()" class="form-control" required>
-	<option value="<? echo $profeso;?>"><?php echo nomprofesor($profeso); ?></option>
+	<option value="<?php echo $profeso;?>"><?php echo nomprofesor($profeso); ?></option>
 	<?
 	$profe = mysqli_query($db_con, "SELECT distinct prof FROM horw where a_asig = 'GU' order by prof asc");
 	if ($filaprofe = mysqli_fetch_array($profe))
@@ -98,10 +98,10 @@ largo del curso.
 <br>
 <div class="well well-large">
 <FORM action="guardias.php" method="POST" name="f1">
-	<input type="hidden" name="profeso" value="<? echo $profeso;?>">	<div class="form-group">
+	<input type="hidden" name="profeso" value="<?php echo $profeso;?>">	<div class="form-group">
 	<label>Profesor a sustituir</label>
               <SELECT  name="sustituido" class="form-control" required>
-              <option value="<? echo $sustituido; ?>"><? echo nomprofesor($sustituido); ?></option>
+              <option value="<?php echo $sustituido; ?>"><?php echo nomprofesor($sustituido); ?></option>
 		        <?
   $profe = mysqli_query($db_con, " SELECT distinct prof FROM horw order by prof asc");
   if ($filaprofe = mysqli_fetch_array($profe))
@@ -120,7 +120,7 @@ largo del curso.
     <div class="form-group" id="datetimepicker1">     
 	<label>Fecha de la sustitución</label>
 	     <div class="input-group">
-<input name="gu_fecha" type="text" class="form-control" value="<? echo $gu_fecha;?>" data-date-format="DD-MM-YYYY" id="gu_fecha" required>
+<input name="gu_fecha" type="text" class="form-control" value="<?php echo $gu_fecha;?>" data-date-format="DD-MM-YYYY" id="gu_fecha" required>
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>   
 </div>
@@ -159,7 +159,7 @@ else {
 El módulo de Horarios debe ser activado en la Configuración general de la Intranet para poder acceder a estas páginas, y ahora mismo está desactivado
           </div></div>';
 }
-?> <? include("../../pie.php");?> <script>  
+?> <?php include("../../pie.php");?> <script>  
 $(function ()  
 { 
 	$('#datetimepicker1').datetimepicker({

@@ -35,7 +35,7 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuev
 }
 ?>
 <div class="well well-large">
- <form name="informar" method="POST" action="informar.php?id=<? echo $id;?>"> 
+ <form name="informar" method="POST" action="informar.php?id=<?php echo $id;?>"> 
 <?
 echo "<input type='hidden'  name='ident' value='$id'>";
 echo "<input type='hidden'  name='profesor' value='$pr'>";
@@ -124,6 +124,6 @@ echo "<div class='form-group'><label>Informe</label><textarea rows='6' name='inf
 </div>
 </div>
 
-<? include("../../pie.php");?>		
+<?php include("../../pie.php");?>		
 </body>
 </html>

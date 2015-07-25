@@ -44,7 +44,7 @@ include 'menu.php';
 </div>
 <div class="container">
 <div class="row">
-<? 
+<?php 
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') == TRUE)
 { 
 ?>
@@ -79,7 +79,7 @@ echo "<option>$completo</option>";
 <div class="form-group">
      <label>Grupos</label>
 <br>
-      <input name="ano" type="hidden" value="<? 
+      <input name="ano" type="hidden" value="<?php 
 // Cosas de la Fecha
 $fecha = (date("Y"));
 echo $fecha;
@@ -98,21 +98,21 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
 						
 	?>
 </div>
-    <input name="nivel" type="hidden" value="<? echo $nivel;?>">
+    <input name="nivel" type="hidden" value="<?php echo $nivel;?>">
     <legend>Datos del Libro de
       Texto</legend>
 <div class="form-group">
     <label>T&iacute;tulo <span style="color:#9d261d"> (*)</span></label>
-      <input name="titulo" type="text" id="titulo" class="form-control" value="<? echo $titulo; ?>" required>
+      <input name="titulo" type="text" id="titulo" class="form-control" value="<?php echo $titulo; ?>" required>
     </div>
     
     <div class="form-group">
     <label>Autor</label>
-      <input name="autor" type="text" id="autor" class="form-control" value="<? echo $autor; ?>">
+      <input name="autor" type="text" id="autor" class="form-control" value="<?php echo $autor; ?>">
 </div>
 <div class="form-group">    
     <label>Editorial<span style="color:#9d261d"> (*)</span></label>
-      <input name="editorial" type="text" id="editorial" class="form-control" value="<? echo $editorial; ?>" required>
+      <input name="editorial" type="text" id="editorial" class="form-control" value="<?php echo $editorial; ?>" required>
 </div> 
 <div class="form-group">   
     <label>Departamento<span style="color:#9d261d"> (*)</span></label>
@@ -120,15 +120,15 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
     if(stristr($_SESSION['cargo'],'4') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE)
     {
     ?>
-        <input type="text" name="departamento" id="departamento"  value ="<? echo  $departamento;?>" readonly class="form-control">
+        <input type="text" name="departamento" id="departamento"  value ="<?php echo  $departamento;?>" readonly class="form-control">
     
     <?	
     }
     else{
     ?>
-    <select name="departamento" id="departamento"  value =" value="<? echo $departamento; ?>"" onChange="submit()"  class="form-control" required>
+    <select name="departamento" id="departamento"  value =" value="<?php echo $departamento; ?>"" onChange="submit()"  class="form-control" required>
         <option>
-        <?  echo $departamento;?>
+        <?php  echo $departamento;?>
         </option>
         <?
   $profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos, profesores where departamento not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' order by departamento asc");
@@ -141,12 +141,12 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
 	} 
 	?>
       </select>
-      <? } ?>
+      <?php } ?>
     </div>
     
 <div class="form-group">
     <label>Asignatura <span style="color:#9d261d"> (*)</span></label>
-      <select name="asignatura" id="asignatura" class="form-control"  value="<? echo $asignatura; ?>" required>
+      <select name="asignatura" id="asignatura" class="form-control"  value="<?php echo $asignatura; ?>" required>
         <option>
         <?
    // Datos de la Asignatura
@@ -180,11 +180,11 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
 
 <div class="form-group">    
     <label>ISBN<span style="color:#9d261d"> (*)</span></label>
-      <input name="isbn" type="text" id="isbn" class="form-control" value="<? echo $isbn; ?>" required>
+      <input name="isbn" type="text" id="isbn" class="form-control" value="<?php echo $isbn; ?>" required>
     </div>
     
 <div class="form-group">    <label>Observaciones</label>
-      <textarea name="NOTAS" class="form-control" rows="6"> <? echo $NOTAS; ?></textarea>
+      <textarea name="NOTAS" class="form-control" rows="6"> <?php echo $NOTAS; ?></textarea>
     </div>
     <p class="help-block"><span style="color:#9d261d">(*)</span> Campos obligatorios del formulario.</p>
     <hr />

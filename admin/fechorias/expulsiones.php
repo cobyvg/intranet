@@ -90,11 +90,11 @@ document.enviar.submit()
 }
 </script>
 <form  name="enviar" action="http://www.smstrend.net/esp/sendMessageFromPost.oeg" target="ventanaForm" method="POST" enctype="application/x-www-form-urlencoded">   
-	<input name="login" type="hidden" value="<? echo $login;?>" />
-            <input name="password" type="hidden" value="<? echo $password;?>"  />   
-            <input name="extid" type="hidden" value="<? echo $extid;?>" /> 
-            <input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" /> 
-            <input name="mobile" type="hidden" value="<? echo $mobile;?>"/>
+	<input name="login" type="hidden" value="<?php echo $login;?>" />
+            <input name="password" type="hidden" value="<?php echo $password;?>"  />   
+            <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
+            <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" /> 
+            <input name="mobile" type="hidden" value="<?php echo $mobile;?>"/>
  	<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        
 	<input name="message" type="hidden" value="<?echo $mens_total;?>" maxlength="159" size="60"/>    
@@ -204,11 +204,11 @@ document.enviar.submit()
 }
 </script>
 <form  name="enviar" action="http://www.smstrend.net/esp/sendMessageFromPost.oeg" target="ventanaForm" method="POST" enctype="application/x-www-form-urlencoded">   
-			<input name="login" type="hidden" value="<? echo $login;?>" />
-            <input name="password" type="hidden" value="<? echo $password;?>"  />   
-            <input name="extid" type="hidden" value="<? echo $extid;?>" /> 
-            <input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" /> 
-            <input name="mobile" type="hidden" value="<? echo $mobile;?>"/>
+			<input name="login" type="hidden" value="<?php echo $login;?>" />
+            <input name="password" type="hidden" value="<?php echo $password;?>"  />   
+            <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
+            <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" /> 
+            <input name="mobile" type="hidden" value="<?php echo $mobile;?>"/>
  			<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        
 			<input name="message" type="hidden" value="<?echo $message;?>" maxlength="159" size="60"/>    

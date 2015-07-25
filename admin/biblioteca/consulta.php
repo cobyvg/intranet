@@ -47,15 +47,15 @@ include("menu.php");
 		
 	?>
 	<tr>
-	<? 	
+	<?php 	
 		$n+=1   
 	?>
 		<td style="text-align: center"><input type="checkbox" name="id[]"
-			value="<? echo $list[6] ;?>" /></td>
-		<td style="text-align: center"><? echo $list[0];   ?></td>
-		<td><? echo $list[1].', '.$list[2];   ?></td>
-		<td><? echo $list[3];   ?></td>
-		<td nowrap style="text-align: center"><? echo $list[4];   ?></td>
+			value="<?php echo $list[6] ;?>" /></td>
+		<td style="text-align: center"><?php echo $list[0];   ?></td>
+		<td><?php echo $list[1].', '.$list[2];   ?></td>
+		<td><?php echo $list[3];   ?></td>
+		<td nowrap style="text-align: center"><?php echo $list[4];   ?></td>
 		<td style="text-align: left" nowrap>
 		<?
 		if ($list[7] == "SI") {

@@ -21,7 +21,7 @@ include("menu.php");
 </ul>
 
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
-<? 
+<?php 
 // Comprobamos datos de evaluaciones
 $n1 = mysqli_query($db_con, "select * from pendientes");
 if(mysqli_num_rows($n1)>0){}
@@ -62,7 +62,7 @@ INDEX (  `claveal` )
  
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
-<div class="tab-pane fade in<? echo $activ;?>" id="<? echo "tab".$key;?>">
+<div class="tab-pane fade in<?php echo $activ;?>" id="<?php echo "tab".$key;?>">
 <h3>Resultados de los Alumnos por Nivel</h3><br />
 
 <table class="table table-striped table-bordered"  align="center" style="width:auto" valign="top">
@@ -197,14 +197,14 @@ else{
 ?>
 
 <tr>
-<th><? echo $curso;?></th>
-<th class='text-info'><? echo $total;?></th>
-<td class='text-warning'><? echo $num_pil;?></td>
-<td><? echo $cero;?></td>
-<td><? echo $uno_dos;?></td>
-<td><? echo $tres_cinco;?></td>
-<td><? echo $seis_ocho;?></td>
-<td><? echo $nueve;?></td>
+<th><?php echo $curso;?></th>
+<th class='text-info'><?php echo $total;?></th>
+<td class='text-warning'><?php echo $num_pil;?></td>
+<td><?php echo $cero;?></td>
+<td><?php echo $uno_dos;?></td>
+<td><?php echo $tres_cinco;?></td>
+<td><?php echo $seis_ocho;?></td>
+<td><?php echo $nueve;?></td>
 </tr>
 <?
 }
@@ -220,7 +220,7 @@ else{
 $nivele = mysqli_query($db_con, "select * from cursos where nomcurso not like '1%'");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
 	?>
-	<legend><? echo $orden_nivel[1]; ?></legend>
+	<legend><?php echo $orden_nivel[1]; ?></legend>
 <table class="table table-striped table-bordered"  align="center" style="width:700px;" valign="top">
 <thead>
 <th class='text-info'>Asignatura</th>
@@ -295,6 +295,6 @@ mysqli_close();
 </div>
 </div>
 
-<? include("../../pie.php");?> 
+<?php include("../../pie.php");?> 
 </body>
 </html>

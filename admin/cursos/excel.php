@@ -1,4 +1,4 @@
-<? 
+<?php 
 require('../../bootstrap.php');
 
 require_once("../../includes/php-excel/excel.php"); 

@@ -126,9 +126,9 @@ if ($_GET['id'] or $_POST['id']) {
 <div class="form-group"><label for="unidad">Unidad</label> <select
 	class="form-control" id="unidad" name="unidad" onchange="submit()">
 
-	<option><? echo $unidad;?></option>
+	<option><?php echo $unidad;?></option>
 
-	<? unidad($db_con);?>
+	<?php unidad($db_con);?>
 </select></div>
 <label for="nombre">Alumno/a</label> <?
 if ((isset($nombre)) and isset($unidad) and !(is_array($nombre)))
@@ -202,7 +202,7 @@ sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Proble
 
 <div class="form-group"><label for="grave"> Gravedad</label> <select
 	class="form-control" id="grave" name="grave" onchange="submit()" required>
-	<option><? echo $grave;?></option>
+	<option><?php echo $grave;?></option>
 	<?
 	tipo($db_con);
 	?>
@@ -210,7 +210,7 @@ sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Proble
 
 <div class="form-group"><label for="asunto">Conducta negativa</label> <select
 	class="form-control" id="asunto" name="asunto" onchange="submit()" required>
-	<option><? 
+	<option><?php 
 
 	$sql0 = mysqli_query($db_con, "select tipo from listafechorias where fechoria = '$asunto'");
 	$sql1 = mysqli_fetch_array($sql0);
@@ -242,12 +242,12 @@ while($tipo2 = mysqli_fetch_array($tipo1))
 	}
 }
 
-?> <input type="text" value="<? echo $medidaescr;?>" readonly
+?> <input type="text" value="<?php echo $medidaescr;?>" readonly
 	class="form-control" /></div>
 
 <div class="form-group"><label for="medidas">Medidas complementarias que
 deben tomarse</label> <textarea class="form-control" id="medidas"
-	name="medidas" rows="7" disabled><? if($medidas){ echo $medidad; }else{  medida2($db_con, $asunto);} ?></textarea>
+	name="medidas" rows="7" disabled><?php if($medidas){ echo $medidad; }else{  medida2($db_con, $asunto);} ?></textarea>
 </div>
 
 <?
@@ -255,7 +255,7 @@ if($grave == 'grave' or $grave == 'muy grave'){
 	?>
 <div class="checkbox"><label> <input type="checkbox" id="expulsionaula"
 	name="expulsionaula" value="1"
-	<?  if ($expulsionaula == "1") { echo " checked ";}?>> El alumno ha
+	<?php  if ($expulsionaula == "1") { echo " checked ";}?>> El alumno ha
 sido <u>expulsado</u> del aula </label></div>
 
 	<?
@@ -264,7 +264,7 @@ sido <u>expulsado</u> del aula </label></div>
 
 <div class="form-group"><label for="notas">Descripción:</label> <textarea
 	class="form-control" id="notas" name="notas" rows="7"
-	placeholder="Describe aquí los detalles del incidente..." required><? echo $notas; ?></textarea>
+	placeholder="Describe aquí los detalles del incidente..." required><?php echo $notas; ?></textarea>
 </div>
 
 <?
@@ -308,7 +308,7 @@ else{
 	}
 	else{
 		?> <input type="hidden" id="informa" name="informa"
-	value="<? echo $_SESSION['profi'];?>"> <?
+	value="<?php echo $_SESSION['profi'];?>"> <?
 	}
 
 }

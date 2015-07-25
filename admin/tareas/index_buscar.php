@@ -41,8 +41,8 @@ if (mysqli_num_rows($tut) > 0) {
    <div class="form-group">
    <label> Grupo</label> 
 <SELECT name="unidad" class="form-control">
-      <OPTION><? echo $unidad;?></OPTION>
-      <? unidad($db_con);?>
+      <OPTION><?php echo $unidad;?></OPTION>
+      <?php unidad($db_con);?>
     </SELECT>
         </div>   
 

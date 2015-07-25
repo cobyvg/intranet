@@ -6,7 +6,7 @@
 	<li><a href="jefe/index2.php">Importar Alumnos</a></li>
 	<li><a href="jefe/asignaturas.php">Importar Asignaturas</a></li>
 	<li><a href="jefe/index_xml.php">Importar datos del Centro</a></li>
-	  <? if ($mod_horario) {?>
+	  <?php if ($mod_horario) {?>
 	<li><a href="jefe/horario.php">Importar/Preparar Horarios </a></li>
 	<?}?>
 	<li><a href="jefe/indexdepartamentos.php">Importar Departamentos y Especialidades</a></li>
@@ -21,7 +21,7 @@
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
 	<li><a href="jefe/indexprofesores.php">Actualizar Profesores</a></li>
 	<li><a href="jefe/indexdepartamentos2.php">Actualizar Departamentos</a></li>
-	<? if ($mod_horario) {?>
+	<?php if ($mod_horario) {?>
 	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
 	<?}?>
 
@@ -41,12 +41,12 @@
 	</a></li>
 	<li><a href="../admin/libros/indextextos.php">Libros de Texto Gratuitos
 	</a></li>
-	<? if ($mod_matriculas==1) { ?>
+	<?php if ($mod_matriculas==1) { ?>
 	<li><a href="../admin/matriculas/index.php">Matriculación de alumnos
 	</a></li>
 	<li><a href="./jefe/index_mayores.php">Alumnos mayores de 18 años
 	</a></li>	
-	<? } ?>
+	<?php } ?>
 	<li><a href="jefe/informes/accesos_alumnos.php">Informe de accesos</a></li>
 
 	<li class="nav-header">Notas de evaluaci&oacute;n</li>

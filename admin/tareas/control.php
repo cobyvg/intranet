@@ -165,7 +165,7 @@ echo "<tr><td>$malo2[0]</td><td>$malo2[1]</td></tr>";
 </table>
 </div>
 </div>
-<? 
+<?php 
 mysqli_query($db_con, "drop table tareas_temp");
 
 	include("../../pie.php");

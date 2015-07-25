@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS nuevas (
 ?>
 		<br>
 		<div class="alert alert-success">
-			<p><? echo $msg;?><p>
+			<p><?php echo $msg;?><p>
 		</div>
 <?		
 	}
@@ -83,7 +83,7 @@ if (isset($_GET['eliminar'])) {
 ?>
 		<br>
 		<div class="alert alert-success">
-			<p><? echo $msg;?><P>
+			<p><?php echo $msg;?><P>
 		</div>
 <?				
 }
@@ -160,20 +160,20 @@ Si el Centro no ha importado el Horario en la Base de datos, o bien si quieres p
 <form action="ocultar.php" method="post">
 <div class="form-group">
 <label>Abreviatura</label>
-<input class="form-control" type = "text" maxlength="5" name="abrev_nueva" value="<? echo $abrev_nueva;?>" placeholder="5 caracteres como máximo">
+<input class="form-control" type = "text" maxlength="5" name="abrev_nueva" value="<?php echo $abrev_nueva;?>" placeholder="5 caracteres como máximo">
 </div>
 <div class="form-group"> 
 <label>Nombre del Aula</label>
-<input class="form-control" type = "text" name="nombre_nueva" value="<? echo $nombre_nueva;?>">
+<input class="form-control" type = "text" name="nombre_nueva" value="<?php echo $nombre_nueva;?>">
 </div>
 <div class="form-group">
 <label>Observaciones</label>
-<textarea class="form-control" name="texto"><? echo $texto;?></textarea>
+<textarea class="form-control" name="texto"><?php echo $texto;?></textarea>
 </div>
-<? 
+<?php 
 if ($id) {
 ?>
-<input type="hidden" name="id" value="<? echo $id;?>">
+<input type="hidden" name="id" value="<?php echo $id;?>">
 <input class="btn btn-default" type="submit" name="nueva" value="Actualizar datos del Aula / Dependencia" />
 <?	
 }
@@ -189,7 +189,7 @@ else{
 </div>
 </div>
 </div>
-<? include("../pie.php");?>  
+<?php include("../pie.php");?>  
 
 </body>
 </html>

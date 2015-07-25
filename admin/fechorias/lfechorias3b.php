@@ -94,7 +94,7 @@ include ("menu.php");
 		</div>
 		</div>
 
-        <? include("../../pie.php");?>
+        <?php include("../../pie.php");?>
    <script>
    $(document).ready(function() {
      var table = $('.datatable').DataTable({

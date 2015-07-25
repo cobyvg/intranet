@@ -130,48 +130,48 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 			//echo "<a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month\" class=\"normal\">$zz</a>";
 			?>
 <!-- Button trigger modal -->
-<a href="#" data-toggle="modal" data-target="#myModal<? echo "_".$zz;?>">
-			<? echo $zz;
+<a href="#" data-toggle="modal" data-target="#myModal<?php echo "_".$zz;?>">
+			<?php echo $zz;
 			?> </a>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal<? echo "_".$zz;?>" tabindex="-1"
+<div class="modal fade" id="myModal<?php echo "_".$zz;?>" tabindex="-1"
 	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title text-info" id="myModalLabel<? echo "_".$zz;?>">Selecciona
+<h4 class="modal-title text-info" id="myModalLabel<?php echo "_".$zz;?>">Selecciona
 las Horas de la Ausencia.</h4>
 </div>
 <div class="modal-body">
-<a onClick="seleccionar_todo<? echo "_".$zz;?>()"
+<a onClick="seleccionar_todo<?php echo "_".$zz;?>()"
 	class="btn btn-success" style="display: inline">Marcar todas</a>
 <form action="index.php" method="POST"
-	name="marcar_falta<? echo "_".$zz;?>" style="display: inline">&nbsp;&nbsp;
+	name="marcar_falta<?php echo "_".$zz;?>" style="display: inline">&nbsp;&nbsp;
 <div class="checkbox" style="display: inline; align: center;"><label
 	class="checkbox-inline"> <input type="checkbox"
-	name="1<? echo "_".$zz;?>" value="1">1ª</label> <label
+	name="1<?php echo "_".$zz;?>" value="1">1ª</label> <label
 	class="checkbox-inline"> <input type="checkbox"
-	name="2<? echo "_".$zz;?>" value="2">2ª</label> <label
+	name="2<?php echo "_".$zz;?>" value="2">2ª</label> <label
 	class="checkbox-inline"> <input type="checkbox"
-	name="3<? echo "_".$zz;?>" value="3">3ª</label> <label
+	name="3<?php echo "_".$zz;?>" value="3">3ª</label> <label
 	class="checkbox-inline"> <input type="checkbox"
-	name="4<? echo "_".$zz;?>" value="4">4ª</label> <label
+	name="4<?php echo "_".$zz;?>" value="4">4ª</label> <label
 	class="checkbox-inline"> <input type="checkbox"
-	name="5<? echo "_".$zz;?>" value="5">5ª</label> <label
+	name="5<?php echo "_".$zz;?>" value="5">5ª</label> <label
 	class="checkbox-inline"> <input type="checkbox"
-	name="6<? echo "_".$zz;?>" value="6">6ª</label></div>
+	name="6<?php echo "_".$zz;?>" value="6">6ª</label></div>
 
 </div>
 <div class="modal-footer"><input type="hidden" name="profesor"
-	value="<? echo $profesor;?>"> <input type="hidden" name="unidad"
-	value="<? echo $unidad;?>"> <input type="hidden" name="alumno"
-	value="<? echo $alumno;?>"> <input type="hidden" name="year"
-	value="<? echo $year;?>"> <input type="hidden" name="month"
-	value="<? echo $month;?>"> <input type="hidden" name="today"
-	value="<? echo $zz;?>"> <input type="hidden" name="F" value="1"> <input
+	value="<?php echo $profesor;?>"> <input type="hidden" name="unidad"
+	value="<?php echo $unidad;?>"> <input type="hidden" name="alumno"
+	value="<?php echo $alumno;?>"> <input type="hidden" name="year"
+	value="<?php echo $year;?>"> <input type="hidden" name="month"
+	value="<?php echo $month;?>"> <input type="hidden" name="today"
+	value="<?php echo $zz;?>"> <input type="hidden" name="F" value="1"> <input
 	type="submit" class="btn btn-danger" name="Enviar" value="Registrar">
 <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
 </form>
@@ -180,10 +180,10 @@ las Horas de la Ausencia.</h4>
 </div>
 </div>
 <script>
-function seleccionar_todo<? echo "_".$zz;?>(){
-	for (i=0;i<document.marcar_falta<? echo "_".$zz;?>.elements.length;i++)
-		if(document.marcar_falta<? echo "_".$zz;?>.elements[i].type == "checkbox")	
-			document.marcar_falta<? echo "_".$zz;?>.elements[i].checked=1
+function seleccionar_todo<?php echo "_".$zz;?>(){
+	for (i=0;i<document.marcar_falta<?php echo "_".$zz;?>.elements.length;i++)
+		if(document.marcar_falta<?php echo "_".$zz;?>.elements[i].type == "checkbox")	
+			document.marcar_falta<?php echo "_".$zz;?>.elements[i].checked=1
 }
 </script>
 			<?

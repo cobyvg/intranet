@@ -13,8 +13,8 @@ exit;
 <head>
 <title>Páginas de Conserjería</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<LINK href="//<?php echo $dominio; ?>/<? echo $css1; ?>" rel="stylesheet" type="text/css">
-<LINK href="//<?php echo $dominio; ?>/<? echo $css2; ?>" rel="stylesheet" type="text/css">
+<LINK href="//<?php echo $dominio; ?>/<?php echo $css1; ?>" rel="stylesheet" type="text/css">
+<LINK href="//<?php echo $dominio; ?>/<?php echo $css2; ?>" rel="stylesheet" type="text/css">
 </head>
   <body onload="document.getElementById('n_numero').style.backgroundColor='#cde';document.getElementById('n_total').style.backgroundColor='#afc';
 document.getElementById('n_numero').style.border='#aaaaaa solid 1px'; 

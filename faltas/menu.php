@@ -76,7 +76,7 @@ Grupo, de una Asignatura, así como consultar que alumnos tienen un
 determinado número mínimo de faltas en un rango de fechas. Cada
 formulario de consulta contiene una descripción de su función
 específica.</p>
-<? if (stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'2') == TRUE) { ?>
+<?php if (stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'2') == TRUE) { ?>
 <h5>Justificar faltas a los Alumnos</h5>
 <p>Para justificar como Tutor una falta de tu Grupo selecciona en primer
 lugar un alumno en la columna de la derecha. Una vez el alumno aparece
@@ -90,8 +90,8 @@ verde ni rojo), aparecerá un cuadro de diálogo en el que deberás
 seleccionar las horas en que el alumno ha estado ausente. Una vez
 marcadas las horas de la falta podrás justificarlas haciendo click de
 nuevo sobre el día elegido.</p>
-<? } ?> 
-<? if (stristr($_SESSION['cargo'],'1') == TRUE) { ?>
+<?php } ?> 
+<?php if (stristr($_SESSION['cargo'],'1') == TRUE) { ?>
 <h5>Absentismo</h5>
 <p>El módulo de alumnos absentistas permite hacer un seguimiento de los
 alumnos con faltas de asistencia frecuentes (Séneca habla de 25 faltas
@@ -130,7 +130,7 @@ los Tutores de Faltas lo hagan.<br>
 </p>
 
 
-<? } ?></div>
+<?php } ?></div>
 <div class="modal-footer">
 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 </div>
@@ -146,14 +146,14 @@ los Tutores de Faltas lo hagan.<br>
 if(stristr($_SESSION['cargo'],'3') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE)
 {
 	?>
-	<li <? echo $activo3;?>><a
-		href="http://<? echo $dominio; ?>/intranet/faltas/poner2/index.php">
+	<li <?php echo $activo3;?>><a
+		href="http://<?php echo $dominio; ?>/intranet/faltas/poner2/index.php">
 	Poner</a></li>
 	<?
 } else {
 	?>
-	<li <? echo $activo3;?>><a
-		href="http://<? echo $dominio; ?>/intranet/faltas/poner/index.php">
+	<li <?php echo $activo3;?>><a
+		href="http://<?php echo $dominio; ?>/intranet/faltas/poner/index.php">
 	Poner</a></li>
 	<?
 }
@@ -163,21 +163,21 @@ if(stristr($_SESSION['cargo'],'3') == TRUE or stristr($_SESSION['cargo'],'1') ==
 if(stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') == TRUE)
 {
 	?>
-	<li <? echo $activo5;?>><a
-		href="http://<? echo $dominio; ?>/intranet/faltas/justificar/index.php">
+	<li <?php echo $activo5;?>><a
+		href="http://<?php echo $dominio; ?>/intranet/faltas/justificar/index.php">
 	Justificar</a></li>
 	<?
 }
 ?>
-	<li <? echo $activo6;?>><a
-		href="http://<? echo $dominio; ?>/intranet/admin/faltas/index.php">
+	<li <?php echo $activo6;?>><a
+		href="http://<?php echo $dominio; ?>/intranet/admin/faltas/index.php">
 	Consultar</a></li>
 	<?
 	if(stristr($_SESSION['cargo'],'2') == TRUE)
 	{
 		?>
-	<li <? echo $activo7;?>><a
-		href="http://<? echo $dominio; ?>/intranet/admin/tutoria/consulta_absentismo.php">
+	<li <?php echo $activo7;?>><a
+		href="http://<?php echo $dominio; ?>/intranet/admin/tutoria/consulta_absentismo.php">
 	Alumnos Absentistas</a></li>
 	<?
 	}
@@ -186,18 +186,18 @@ if(stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'1') ==
 	if(stristr($_SESSION['cargo'],'1') == TRUE)
 	{
 		?>
-	<li <? echo $activo7;?>><a
-		href="http://<? echo $dominio; ?>/intranet/faltas/absentismo/index.php">
+	<li <?php echo $activo7;?>><a
+		href="http://<?php echo $dominio; ?>/intranet/faltas/absentismo/index.php">
 	Alumnos Absentistas</a></li>
 
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
 		href="#"> Administración <span class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
-		<li <? echo $activo1;?>><a
-			href="http://<? echo $dominio; ?>/intranet/faltas/seneca/index.php">
+		<li <?php echo $activo1;?>><a
+			href="http://<?php echo $dominio; ?>/intranet/faltas/seneca/index.php">
 		Subir Faltas a S&eacute;neca</a></li>
-		<li <? echo $activo4;?>><a
-			href="http://<? echo $dominio; ?>/intranet/faltas/seneca/importarSeneca.php">Descargar
+		<li <?php echo $activo4;?>><a
+			href="http://<?php echo $dominio; ?>/intranet/faltas/seneca/importarSeneca.php">Descargar
 		Faltas de Séneca</a></li>
 		<hr>
 		<li><a href="../admin/cursos/horariototal_faltas.php" target="_blank">Parte
@@ -209,7 +209,7 @@ if(stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'1') ==
 		<li><a href="../admin/cursos/horariofaltas.php">Horario de Faltas para
 		Profesores</a></li>
 		<hr>
-		<? if ($mod_sms) {?>
+		<?php if ($mod_sms) {?>
 		<li><a href="../sms/sms_cpadres.php">SMS de Faltas para Padres</a></li>
 		<?}?>
 		<li><a href="../admin/faltas/cpadres.php">Informe de Faltas para

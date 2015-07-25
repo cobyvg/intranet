@@ -142,10 +142,10 @@ document.enviar.submit()
 </script>
 
 <form  name="enviar" action="http://www.smstrend.net/esp/sendMessageFromPost.oeg" target="ventanaForm" method="POST" enctype="application/x-www-form-urlencoded">   
-			<input name="login" type="hidden" value="<? echo $login;?>" />
-            <input name="password" type="hidden" value="<? echo $password;?>"  />   
-            <input name="extid" type="hidden" value="<? echo $extid;?>" /> 
-            <input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" /> 
+			<input name="login" type="hidden" value="<?php echo $login;?>" />
+            <input name="password" type="hidden" value="<?php echo $password;?>"  />   
+            <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
+            <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" /> 
             <input name="mobile" type="hidden" value="<?echo $mobile;?>"/>
  			<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        
@@ -215,22 +215,22 @@ else
 <div class="well well-large" align="left">
 <form method="post" action="index.php" name="nameform" class="form-vertical">
 
-      <? if(stristr($_SESSION['cargo'],'2') == TRUE){} else{ ?>
+      <?php if(stristr($_SESSION['cargo'],'2') == TRUE){} else{ ?>
       <div class="form-group">
       <label>Grupo </label>
 		<select  name="unidad" class="form-control" onChange="submit()">
-          <option><? echo $unidad;?></option>
-          <? if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<option>Cualquiera</option>";} ?>
-          <? unidad($db_con); ?>
+          <option><?php echo $unidad;?></option>
+          <?php if(stristr($_SESSION['cargo'],'1') == TRUE){echo "<option>Cualquiera</option>";} ?>
+          <?php unidad($db_con); ?>
         </select>
         </div>
-        <? }?>
+        <?php }?>
       
           	<div class="form-group">
           	<label>Causa</label>
 			<select name="causa" class="form-control">
- <? if(stristr($_SESSION['cargo'],'8') == TRUE){?>
-		    <option><? echo $causa; ?></option>
+ <?php if(stristr($_SESSION['cargo'],'8') == TRUE){?>
+		    <option><?php echo $causa; ?></option>
 		    <option>Orientación académica y profesional</option>
 		    <option>Evoluci&oacute;n acad&eacute;mica</option>
 		    <option>T&eacute;cnicas de estudio</option>
@@ -240,14 +240,14 @@ else
             <option>Dificultades de Aprendizaje</option>
             <option>Faltas de Asistencia</option>
             <option>Otras</option>
-<? } else{ ?>
-            <option><? echo $causa; ?></option>
+<?php } else{ ?>
+            <option><?php echo $causa; ?></option>
             <option>Estado general del Alumno</option>
             <option>Evoluci&oacute;n acad&eacute;mica</option>
             <option>Faltas de Asistencia</option>
             <option>Problemas de convivencia</option>
             <option>Otras</option>
-<? } ?>        
+<?php } ?>        
 	</select>
     </div>
 <?
@@ -262,10 +262,10 @@ $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 ?>
       	
-      	<input name="login" type="hidden" value="<?  echo $usuario_smstrend;?>" />
-        <input name="password" type="hidden" value="<?  echo $clave_smstrend;?>"  />
-        <input name="extid" type="hidden" value="<? echo $extid;?>" />
-        <input name="tpoa" type="hidden" value="<? echo $nombre_corto; ?>" />
+      	<input name="login" type="hidden" value="<?php  echo $usuario_smstrend;?>" />
+        <input name="password" type="hidden" value="<?php  echo $clave_smstrend;?>"  />
+        <input name="extid" type="hidden" value="<?php echo $extid;?>" />
+        <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" />
         <input name="messageQty" type="hidden" value="GOLD" />
         <input name="messageType" type="hidden" value="PLUS" />
         <br /><input type="submit" name="submit0" value="Enviar SMS" class="btn btn-primary"/>
@@ -316,7 +316,7 @@ echo '</div>
 </div>
 </div>
 </div>
-<? include("../pie.php");?>
+<?php include("../pie.php");?>
 
 </body>
 </html>

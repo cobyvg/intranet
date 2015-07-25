@@ -123,15 +123,15 @@ No hay Informes de Tutor&iacute;a disponibles.</div></div><hr>';
 <?
 if(mysqli_num_rows($result0) > 50) {
 ?>
-<a href="buscar.php?pag=<? echo $pag;?>" class="btn btn-primary">Siguientes 50 Informes</a>
-<? 
+<a href="buscar.php?pag=<?php echo $pag;?>" class="btn btn-primary">Siguientes 50 Informes</a>
+<?php 
 }
 ?>
 </div>
 </div>
 
 		</div>
-<? include("../../pie.php");?>		
+<?php include("../../pie.php");?>		
 
 	<script>
 	$(document).ready(function() {

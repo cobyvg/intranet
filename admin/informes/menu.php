@@ -14,11 +14,11 @@ if (strstr($_SERVER['REQUEST_URI'],'6')==TRUE){ $activo6 = ' class="active" ';}
 ?>
     <div class="container">  
           <ul class="nav nav-tabs">
-        <li<? echo $activo1;?>><a href="informe_notas1.php">Alumnos y Nivel</a></li>	
-        <li<? echo $activo2;?>><a href="informe_notas2.php">Alumnos y Grupo</a></li>
-        <li<? echo $activo3;?>><a href="informe_notas3.php">Materias y Nivel</a></li>     
-        <li<? echo $activo4;?>><a href="informe_notas4.php">Materias / Nivel / Grupo</a></li>	
-        <li<? echo $activo5;?>><a href="informe_notas5.php">Materias y Grupo</a></li>	
-        <li<? echo $activo6;?>><a href="informe_notas6.php">Alumnos con Pendientes</a></li>	
+        <li<?php echo $activo1;?>><a href="informe_notas1.php">Alumnos y Nivel</a></li>	
+        <li<?php echo $activo2;?>><a href="informe_notas2.php">Alumnos y Grupo</a></li>
+        <li<?php echo $activo3;?>><a href="informe_notas3.php">Materias y Nivel</a></li>     
+        <li<?php echo $activo4;?>><a href="informe_notas4.php">Materias / Nivel / Grupo</a></li>	
+        <li<?php echo $activo5;?>><a href="informe_notas5.php">Materias y Grupo</a></li>	
+        <li<?php echo $activo6;?>><a href="informe_notas6.php">Alumnos con Pendientes</a></li>	
     </ul>
         </div>

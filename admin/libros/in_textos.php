@@ -8,7 +8,7 @@ header("location://$dominio/intranet/index.php");
 exit;	
 }
 ?>
-<? include("../../menu.php");?>
+<?php include("../../menu.php");?>
       <div class="page-header">
   <h2>Programa de Ayudas al Estudio <small> Importación de datos</small></h2>
 </div>

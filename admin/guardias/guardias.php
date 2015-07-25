@@ -48,8 +48,8 @@ $g_dia = substr($g_dia,1,strlen($g_dia));
 <div class="page-header">
  <h2>Guardias de Aula <small> Registro de guardias</small></h2></div>
 <div align="center">
-<h2><small>Fecha de la guardia: <span class="text-success"><? echo $fecha_sp;?></span><br />
-Profesor de guardia: <span class="text-info text-capitalize"><? echo $profeso;?></span></small></h2><br>
+<h2><small>Fecha de la guardia: <span class="text-success"><?php echo $fecha_sp;?></span><br />
+Profesor de guardia: <span class="text-info text-capitalize"><?php echo $profeso;?></span></small></h2><br>
 <?
 $sql = "SHOW TABLES FROM $db";
 $result = mysqli_query($db_con, $sql);
@@ -142,6 +142,6 @@ No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desp
 </div>
 </div>
 </div>
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 </BODY>
 </HTML>

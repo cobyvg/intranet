@@ -18,7 +18,7 @@ if ($n>2) {
 
 <label>Selecciona Nivel&nbsp;</label>
 <select class="form-control" name="curso" id="curso" onChange="submit()">
-	<option><? echo $curso;?></option>
+	<option><?php echo $curso;?></option>
 	<option>1BACH</option>
 	<option>2BACH</option>
 </select>
@@ -62,7 +62,7 @@ echo "".$tipo20[0]."</label></div>";
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="avanzado" class="panel-collapse collapse<? echo $mostrar_filtro;?>">
+			    <div id="avanzado" class="panel-collapse collapse<?php echo $mostrar_filtro;?>">
 			      <div class="panel-body">
 			      
 <div class="row">
@@ -109,10 +109,10 @@ echo "".$tipo20[0]."</label></div>";
 			<option></option>
 			<option>1</option>
 			<option>2</option>
-			<? if ($curso=="1BACH") { ?>
+			<?php if ($curso=="1BACH") { ?>
 			<option>3</option>
 			<option>4</option>	
-			<? } ?>
+			<?php } ?>
 			
 		</select>
 		</div>
@@ -150,7 +150,7 @@ echo "".$tipo20[0]."</label></div>";
 
 
 
-<? if($curso=="2BACH"){ ?>
+<?php if($curso=="2BACH"){ ?>
 <div class="col-sm-3">
 <div class="form-group"><label>Otras Optativas </label><select class="form-control"  name="optativ2">
 		<?php
@@ -177,7 +177,7 @@ echo "".$tipo20[0]."</label></div>";
 
 			
 		?>	
-		</select></div></div><? }
+		</select></div></div><?php }
 else{
 	?>
 	<div class="col-sm-3">
@@ -214,7 +214,7 @@ else{
 	</center>
 		</div>
 		</div>	
-<? }
+<?php }
 		?>
 
 		
@@ -228,9 +228,9 @@ else{
 			<option></option>
 			<option>SI</option>
 			<option>NO</option>
-		<? if ($n_curso=="1") {?>
+		<?php if ($n_curso=="1") {?>
 			<option>3/4</option>
-			<? }?>
+			<?php }?>
 			
 		</select>
 		</div>
@@ -331,12 +331,12 @@ else{
 
 <div class="row">
 
-<? if ($curso=="1BACH") {		
+<?php if ($curso=="1BACH") {		
 ?>
 <div class="col-sm-6">
 <div class="form-group">
 	<label >Bilinguismo </label><select class="form-control" name="bilinguism">
-		<? if ($bilinguism) {
+		<?php if ($bilinguism) {
 			echo "<option>$bilinguism</option>";
 		}
 		?>
@@ -345,8 +345,8 @@ else{
 		</select>
 </div>
 </div>
-<? } ?>
-<? if ($curso=="2BACH") {		
+<?php } ?>
+<?php if ($curso=="2BACH") {		
 ?>
 <div class="col-sm-6">
 <div class="form-group">
@@ -362,11 +362,11 @@ else{
 		</select>
 		</div>
 		</div>
-<? } ?>
+<?php } ?>
 <div class="col-sm-6">
 <div class="form-group">
 	<label >Problemas de Convivencia </label><select class="form-control" name="fechori">
-		<? if ($fechori) {
+		<?php if ($fechori) {
 			echo "<option>$fechori</option>";
 		}
 		?>

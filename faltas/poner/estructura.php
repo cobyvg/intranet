@@ -1,5 +1,5 @@
 <div class="col-sm-4">
-<legend><small> <? eliminar_mayusculas($profesor); echo $profesor;?> &nbsp;&nbsp;</small></legend><br />
+<legend><small> <?php eliminar_mayusculas($profesor); echo $profesor;?> &nbsp;&nbsp;</small></legend><br />
 <?
   if (isset($_SESSION['todo_profe'])) {
 		  $trozos = explode("_ ",$_SESSION['todo_profe']) ;
@@ -55,7 +55,7 @@ profesor();
 </div>
 <div class="col-sm-8">
 
-<?          
+<?php          
             echo "<input type=hidden name=today value= \"$today\">";
 			echo "<input type=hidden name=year value= \"$year\">";
 			echo "<input type=hidden name=month value= \"$month\">";

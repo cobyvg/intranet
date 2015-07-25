@@ -47,11 +47,11 @@ $obliga = $row[10];
 	}
 	?>
 </select></div>
-<input type="hidden" name="id" value="<? echo $id; ?>" /></form>
+<input type="hidden" name="id" value="<?php echo $id; ?>" /></form>
 
 <form name="textos" method="post" action="editextos.php"><input
-	type="hidden" name="id" value="<? echo $id; ?>" /> <input type="hidden"
-	name="nivel" value="<? echo $nivel; ?>" />
+	type="hidden" name="id" value="<?php echo $id; ?>" /> <input type="hidden"
+	name="nivel" value="<?php echo $nivel; ?>" />
 
 <div class="form-group"><label>Grupos: </label><br> <?	
 $tipo0 = "select distinct unidad from alma where curso = '$nivel' order by unidad";
@@ -76,20 +76,20 @@ while($tipo20 = mysqli_fetch_array($tipo10))
 
 <div class="form-group"><label>T&iacute;tulo</label> <input
 	name="titulo" type="text" id="titulo"
-	value='<? echo $row[3];?>' class="form-control" required></div>
+	value='<?php echo $row[3];?>' class="form-control" required></div>
 
 <div class="form-group"><label>Autor</label> <input name="autor"
-	type="text" id="autor" value='<? echo $row[2];?>'
+	type="text" id="autor" value='<?php echo $row[2];?>'
 	class="form-control" required></div>
 
 <div class="form-group"><label>Editorial</label> <input name="editorial"
-	type="text" id="editorial" value="<? echo $row[4];?>"
+	type="text" id="editorial" value="<?php echo $row[4];?>"
 	class="form-control" required></div>
 
 <div class="form-group"><label>Departamento</label> <select
 	name="departamento" id="departamento" value="Todos ..."
 	onChange="submit()" class="form-control" required>
-	<option><? if($departamento){echo $departamento;}else{echo $row[0];}?></option>
+	<option><?php if($departamento){echo $departamento;}else{echo $row[0];}?></option>
 	<?
 	$profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos order by departamento asc");
 	while($filaprofe = mysqli_fetch_array($profe))
@@ -105,7 +105,7 @@ while($tipo20 = mysqli_fetch_array($tipo10))
 
 <div class="form-group"><label>Asignatura</label> <select
 	name="asignatura" id="asignatura" class="form-control" required>
-	<option><? if($asignatura){echo $asignatura;}else{echo $row[1];}?></option>
+	<option><?php if($asignatura){echo $asignatura;}else{echo $row[1];}?></option>
 	<option><?
 	// Datos de la Asignatura
 	$asignatu = "SELECT DISTINCT asignaturas.NOMBRE, ABREV FROM asignaturas, departamentos, profesores where asignaturas.nombre=profesores.materia and profesores.profesor=departamentos.nombre and curso = '$nivel' ";
@@ -128,18 +128,18 @@ while($tipo20 = mysqli_fetch_array($tipo10))
 </select></div>
 
 <div class="form-group"><select name="obligatorio" class="form-control">
-	<option><? if($obliga){echo $obliga;}?></option>
+	<option><?php if($obliga){echo $obliga;}?></option>
 
 	<option>Obligatorio</option>
 	<option>Recomendado</option>
 </select></div>
 
 <div class="form-group"><label>Observaciones</label> <textarea
-	name="NOTAS" cols="50" rows="6" class="form-control"><? echo $row[5];?></textarea>
+	name="NOTAS" cols="50" rows="6" class="form-control"><?php echo $row[5];?></textarea>
 </div>
 
 <div class="form-group"><label>ISBN</label> <input name="isbn"
-	type="text" id="isbn"  value="<? echo $row[7];?>"
+	type="text" id="isbn"  value="<?php echo $row[7];?>"
 	class="form-control" required></div>
 
 <center>

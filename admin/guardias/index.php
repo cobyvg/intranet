@@ -178,7 +178,7 @@ No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desp
 }	
 ?>
 <div class="col-md-8 col-md-offset-2">
-  <legend class="text-info" align="center"><? echo $nombre_dia.", ".$fecha_sp.", $hora"."ª hora";?></legend>
+  <legend class="text-info" align="center"><?php echo $nombre_dia.", ".$fecha_sp.", $hora"."ª hora";?></legend>
 
 <?
 $fech_hoy = date("Y-m-d");
@@ -194,7 +194,7 @@ if (mysqli_num_rows($hoy0) > 0) {
 	echo "</table></div>";
 }
 ?>
-<p class='lead text-warning'>Sustituciones realizadas durante la <? echo "<span style=''>".$hora."ª</span>";?> hora del <? echo "<span style=''>$nombre_dia</span>";?></p>
+<p class='lead text-warning'>Sustituciones realizadas durante la <?php echo "<span style=''>".$hora."ª</span>";?> hora del <?php echo "<span style=''>$nombre_dia</span>";?></p>
 <div class="row">
 <div class="col-sm-6">
 <?
@@ -230,9 +230,9 @@ while ($sust = mysqli_fetch_array($sust0)) {
 ?>
 </select>
 </div>
-<input type="hidden" name="profeso" value="<? echo $profeso;?>">
-<input type="hidden" name="n_dia" value="<? echo $n_dia;?>">
-<input type="hidden" name="hora" value="<? echo $hora;?>">
+<input type="hidden" name="profeso" value="<?php echo $profeso;?>">
+<input type="hidden" name="n_dia" value="<?php echo $n_dia;?>">
+<input type="hidden" name="hora" value="<?php echo $hora;?>">
 <input type="submit" name="submit" class="btn btn-primary btn-block" value="Registrar sustituci&oacute;n del Profesor" />
 </form>
 </div>
@@ -273,6 +273,6 @@ if (mysqli_num_rows($h_hoy0) > 0) {
 </div>
 </div>
 
-<? include("../../pie.php");?>
+<?php include("../../pie.php");?>
 </BODY>
 </HTML>

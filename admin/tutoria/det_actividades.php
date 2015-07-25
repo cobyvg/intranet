@@ -49,28 +49,28 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 <table align="center" class="table table-bordered table-striped" style="width:800px;">
 	<tr>
 		<th colspan="2">
-		<h4 class="text-info"><? echo $datos[2];?></h4>
+		<h4 class="text-info"><?php echo $datos[2];?></h4>
 		</th>
 	</tr>
 	<tr>
 		<th>Grupos</th>
-		<td><? echo substr($datos[11],0,-1);?></td>
+		<td><?php echo substr($datos[11],0,-1);?></td>
 	</tr>
 	<tr>
 		<th>Descripción</th>
-		<td><? echo $datos[3];?></td>
+		<td><?php echo $datos[3];?></td>
 	</tr>
 	<tr>
 		<th>Departamento</th>
-		<td><? echo $datos[9];?></td>
+		<td><?php echo $datos[9];?></td>
 	</tr>
 	<tr>
 		<th>Profesores</th>
-		<td><? echo $datos[10];?></td>
+		<td><?php echo $datos[10];?></td>
 	</tr>
 	<tr>
 		<th>Horario</th>
-		<td><? 
+		<td><?php 
 		if ($datos[5]=="00:00:00") {
 			echo "Todo el día.";
 		}
@@ -82,11 +82,11 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 	</tr>
 	<tr>
 		<th>Fecha</th>
-		<td><? echo $fecha;?></td>
+		<td><?php echo $fecha;?></td>
 	</tr>
 	<tr>
 		<th>Registro</th>
-		<td><? echo $registro;?></td>
+		<td><?php echo $registro;?></td>
 	</tr>
 	<tr>
 		<th>Autorizada</th>
@@ -101,7 +101,7 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 	</tr>
 		<tr>
 		<th>Observaciones</th>
-		<td><? echo $datos[16];?></td>
+		<td><?php echo $datos[16];?></td>
 	</tr>
 </table>
 </div>
