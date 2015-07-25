@@ -51,7 +51,6 @@ mysqli_free_result($result_mensajes);
 	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 
 <!-- BOOTSTRAP CSS CORE -->
-<<<<<<< HEAD
 
 <link href="//<?php echo $dominio; ?>/intranet/css/<?php echo (isset($_SESSION['tema'])) ? $_SESSION['tema'] : 'bootstrap.min.css'; ?>" rel="stylesheet">
 
@@ -87,12 +86,7 @@ mysqli_free_result($result_mensajes);
 </head>
 <body>
 
-<<<<<<< HEAD
 <nav class="navbar <?php echo (isset($_SESSION['fondo'])) ? $_SESSION['fondo'] : 'navbar-default'; ?> navbar-fixed-top hidden-print" role="navigation">
-=======
-<nav class="navbar <?php echo (isset($_SESSION['fondo'])) ? $_SESSION['fondo'] : 'navbar-default'; ?> navbar-fixed-top hidden-print"
-	role="navigation">
->>>>>>> origin/master
 <div class="container-fluid"><!-- Brand and toggle get grouped for better mobile display -->
 <div class="navbar-header">
 <button type="button" class="navbar-toggle" data-toggle="collapse"
