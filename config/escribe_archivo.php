@@ -94,7 +94,7 @@ fwrite($f1,"$"."medio8='".$_POST['medio8']."';\r\n");
 fwrite($f1,"$"."medio9='".$_POST['medio9']."';\r\n");	
 fwrite($f1,"$"."medio10='".$_POST['medio10']."';\r\n");		
 fwrite($f1,$funcion);	
-fwrite($f1,"?>\r\n",150);
+fwrite($f1,"\r\n",150);
 
 rewind($f1); 
 fclose($f1);

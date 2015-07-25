@@ -87,7 +87,6 @@ mysqli_free_result($result_mensajes);
 <body>
 
 <nav class="navbar <?php echo (isset($_SESSION['fondo'])) ? $_SESSION['fondo'] : 'navbar-default'; ?> navbar-fixed-top hidden-print" role="navigation">
-
 <div class="container-fluid"><!-- Brand and toggle get grouped for better mobile display -->
 <div class="navbar-header">
 <button type="button" class="navbar-toggle" data-toggle="collapse"
