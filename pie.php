@@ -16,6 +16,44 @@
     		</p>
     	</div>
     </footer>
+    
+    <?php if(isset($_SESSION['user_admin'])): ?>
+    <?php
+    function convert($size)
+    {
+        $unit=array('B','KB','MB','GB','TB','PB');
+        return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+    }
+    ?>
+    <div class="" style="clear: both; position: fixed; bottom: 0; width: 100%; padding: 15px 20px; padding-bottom: 0; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%;">
+    
+    	<div class="row">
+    	
+    		<div class="col-sm-6">
+    			<p class="form-control-static" style="padding-top: 5px;">Memoria utilizada: <?php echo convert(memory_get_peak_usage()).' / '.ini_get('memory_limit').'B'; ?></p>
+    		</div>
+    		
+    		<div class="col-sm-6">
+    			<form method="post" class="form-horizontal pull-right" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+    				<div class="form-group">
+    				    <label for="view_as_user" class="col-sm-4 control-label" style="padding-top: 5px;">Ver como</label>
+						<div class="col-sm-8">
+							<select class="form-control" id="view_as_user" name="view_as_user" onchange="submit()" style="height: 30px; font-size: 86%;">
+								<?php $result = mysqli_query($db_con, "SELECT PROFESOR, idea FROM c_profes ORDER BY PROFESOR ASC"); ?>
+								<?php while($row = mysqli_fetch_assoc($result)): ?>
+								<option value="<?php echo $row['PROFESOR']; ?>"<?php echo ($row['PROFESOR'] == $_SESSION['profi']) ? ' selected' : ''; ?>><?php echo $row['PROFESOR']; ?></option>
+								<?php endwhile; ?>
+								<?php mysqli_free_result($result); ?>
+							</select>
+						</div>
+    				</div>
+    			</form>
+    		</div>
+    		
+    	</div>
+    	
+    </div>
+    <?php endif; ?>
 
     <!-- MODAL SESIÓN-->
 	<div class="modal fade" id="session_expired" tabindex="-1" role="dialog">

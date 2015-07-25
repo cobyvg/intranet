@@ -56,3 +56,8 @@ if($_SESSION['cambiar_clave']) {
 }
 
 registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
+
+
+// Ver como usuario
+if($_SESSION['profi'] == 'admin') $_SESSION['user_admin'] = 1;
+if(isset($_SESSION['user_admin']) && isset($_POST['view_as_user'])) $_SESSION['profi'] = $_POST['view_as_user'];

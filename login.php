@@ -224,41 +224,40 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 					<a href="//<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
 					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
 					<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
-					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-					<a href="https://github.com/IESMonterroso/intranet/compare/v<?php echo INTRANET_VERSION; ?>...master" target="_blank">Registro de cambios</a>
 				</small>
 			</p>
 		</div>
 	</footer>
 	
-  <script src="//<?php echo $dominio; ?>/intranet/js/jquery-1.11.2.min.js"></script>  
-  <script src="//<?php echo $dominio; ?>/intranet/js/bootstrap.min.js"></script>
-  
-  <?php if($msg_error): ?>
-      <script>$("#form-group").addClass( "has-error" );</script>
-  <?php endif; ?>
-  <script>
-  $(function(){
-        // Deshabilitamos el botón
-        $("button[type=submit]").attr("disabled", "disabled");
-   
-        // Cuando se presione una tecla en un input del formulario
-        // realizamos la validación
-        $('input').keyup(function(){
-              // Validamos el formulario
-              var validated = true;
-              if($('#idea').val().length < 5) validated = false;
-              if($('#clave').val().length < 8) validated = false;
-   
-              // Si el formulario es válido habilitamos el botón, en otro caso
-              // lo volvemos a deshabilitar
-              if(validated) $("button[type=submit]").removeAttr("disabled");
-              else $("button[type=submit]").attr("disabled", "disabled");
-                                          
-        });
-        
-        $('input:first').trigger('keyup');
-  })
-  </script>
+	
+	<script src="//<?php echo $dominio; ?>/intranet/js/jquery-1.11.2.min.js"></script>  
+	<script src="//<?php echo $dominio; ?>/intranet/js/bootstrap.min.js"></script>
+	
+	<?php if($msg_error): ?>
+	<script>$("#form-group").addClass( "has-error" );</script>
+	<?php endif; ?>
+	<script>
+	$(function(){
+	// Deshabilitamos el botón
+	$("button[type=submit]").attr("disabled", "disabled");
+	
+	// Cuando se presione una tecla en un input del formulario
+	// realizamos la validación
+	$('input').keyup(function(){
+	      // Validamos el formulario
+	      var validated = true;
+	      if($('#idea').val().length < 5) validated = false;
+	      if($('#clave').val().length < 8) validated = false;
+	
+	      // Si el formulario es válido habilitamos el botón, en otro caso
+	      // lo volvemos a deshabilitar
+	      if(validated) $("button[type=submit]").removeAttr("disabled");
+	      else $("button[type=submit]").attr("disabled", "disabled");
+	                                  
+	});
+	
+	$('input:first').trigger('keyup');
+	})
+	</script>
 </body>
 </html>
