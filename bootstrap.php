@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+error_reporting(0);
+
 define('INTRANET_DIRECTORY', __DIR__);
 define('CONFIG_FILE', INTRANET_DIRECTORY . '/config.php');
 define('VERSION_FILE', INTRANET_DIRECTORY .'/config/version.php');
