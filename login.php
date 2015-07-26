@@ -172,10 +172,24 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 
 <body id="login">
 
+	<!--[if lte IE 9 ]>
+	<div id="old-ie" class="modal">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	      	<br>
+	        <p class="lead text-center">Estás utilizando una versión de Internet Explorer demasiado antigua. <br>Actualiza tu navegador o cámbiate a <a href="http://www.google.com/chrome/">Chrome</a> o <a href="https://www.mozilla.org/es-ES/firefox/new/">Firefox</a>.</p>
+	        <br>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<![endif]-->
+
 	<div id="wrap">
 	
 		<div class="container">
-		        
+  
 		  <div class="text-center">
 		    <h1><?php echo $nombre_del_centro; ?></h1>
 		    <h4>Inicia sesión para acceder</h4>
@@ -238,6 +252,13 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	<?php endif; ?>
 	<script>
 	$(function(){
+	
+	$('#old-ie').modal({
+		backdrop: true,
+		keyboard: false,
+		show: true
+	});
+	
 	// Deshabilitamos el botón
 	$("button[type=submit]").attr("disabled", "disabled");
 	
