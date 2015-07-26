@@ -178,6 +178,7 @@ mysqli_query($db_con,"ALTER TABLE `Fechcaduca` ADD PRIMARY KEY (`id`);");
   $result = mysqli_query($db_con, $query0);
  echo "<br /><center>
  <form action='fechorias.php' method='post' name='cnf'>
+ <div class='table-responsive'>
  <table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>Expulsión del Centro</td><td class='amonestacion-escrita'>Amonestación escrita</td><td class='expulsion-aula'>Expulsión del aula</td><td class='aula-convivencia-jefatura'>Aula de convivencia (Jefatura)</td><td class='aula-convivencia-profesor'>Aula de convivencia (Profesor)</td></tr></table><br />";
 		echo "<center><form action='fechorias.php' method='post' name='cnf'>
 		<table class='table table-bordered table-striped table-vcentered datatable'>";
@@ -280,7 +281,7 @@ if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){
 		
 		echo "</td></tr>";
         }
-        echo "</tbody></table>
+        echo "</tbody></table></div>
         <input type='hidden' name='confirma' value='si' />
         </form></center>\n";
         

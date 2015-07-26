@@ -2,7 +2,7 @@
 require('../bootstrap.php');
 
 
-$departamento = str_replace(" P.E.S.","",$_SESSION['depto']);
+$departamento = str_replace(" P.E.S.","",$_SESSION['dpt']);
 $departamento1 = str_replace("·","a",$departamento);
 $departamento1 = str_replace("È","e",$departamento1);
 $departamento1 = str_replace("Ì","i",$departamento1);

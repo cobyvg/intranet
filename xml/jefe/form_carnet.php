@@ -45,7 +45,7 @@ $unidad = $row_Recordset1[16];
 
 <?
 if (stristr($_SESSION['cargo'],'2') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE) {
-	$unidad_tutor = $_SESSION ['s_unidad'];
+	$unidad_tutor = $_SESSION['mod_tutoria']['unidad'];
 	echo "<input type='text' name='select' value='$unidad_tutor' readonly class='form-control'/>"; 
 }
 else{

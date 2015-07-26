@@ -411,7 +411,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        				
 			        				<div class="form-group">
 			        					<label for="">Unidades que asistirán a la actividad</label>';
-			if (stristr($_SESSION['cargo'],'2')) {	$extra_tutor = "and unidad = '".$_SESSION ['s_unidad']."'";	}else{ $extra_tutor = ""; }
+			if (stristr($_SESSION['cargo'],'2')) {	$extra_tutor = "and unidad = '".$_SESSION['mod_tutoria']['unidad']."'";	}else{ $extra_tutor = ""; }
 			$result = mysqli_query($db_con, "SELECT DISTINCT curso FROM alma ORDER BY curso ASC");
 			while($row = mysqli_fetch_assoc($result)):
 			echo '<p class="text-info">'.$row['curso'].'</p>';

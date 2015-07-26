@@ -122,6 +122,7 @@ if (isset($_POST['enviar'])) {
 	$nomdependencia = $datos_dependencia['n_aula'];
 	
 	$result = mysqli_query($db_con, "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$codunidad')");
+	$result2 = mysqli_query($db_con, "INSERT INTO horw_faltas (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$codunidad')");
 	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
@@ -164,6 +165,7 @@ if (isset($_POST['actualizar'])) {
 	$nomdependencia = $datos_dependencia['n_aula'];
 	
 	$result = mysqli_query($db_con, "UPDATE horw SET dia='$dia', hora='$hora', a_asig='$abrevasignatura', asig='$nomasignatura', c_asig='$codasignatura', a_aula='$coddependencia', n_aula='$nomdependencia', a_grupo='$codunidad' WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='".$profesor."'");
+	$result3 = mysqli_query($db_con, "UPDATE horw_faltas SET dia='$dia', hora='$hora', a_asig='$abrevasignatura', asig='$nomasignatura', c_asig='$codasignatura', a_aula='$coddependencia', n_aula='$nomdependencia', a_grupo='$codunidad' WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='".$profesor."'");
 	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
@@ -179,6 +181,8 @@ if (isset($_POST['eliminar'])) {
 	$unidad = $_POST['unidad'];
 	
 	$result = mysqli_query($db_con, "DELETE FROM horw WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='".$profesor."'");
+	$result4 = mysqli_query($db_con, "DELETE FROM horw_faltas WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='".$profesor."'");
+	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
 	}

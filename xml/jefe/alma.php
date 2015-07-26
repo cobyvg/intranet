@@ -198,14 +198,12 @@ mysqli_query($db_con, $cambiar_nombre);
 // Exportamos códigos de asignaturas de los alumnos y CLAVEAL1 para las consultas de evaluación
  include("exportacodigos.php");
 
-?>
-<?
-
 // Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
-$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.' or curso like '%Bach' or curso like 'P.C.P.I.') and ESTADOMATRICULA != 'Obtiene Título' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
+$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.%' or curso like '%Bach%' or curso like '%P.C.P.I.$') and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repite' and ESTADOMATRICULA not like 'Promociona' and ESTADOMATRICULA not like 'Pendiente de confirma%')";
 $result6 = mysqli_query($db_con, $SQL6);
+
 // Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
-$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene Tí­tulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
+$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repite' and ESTADOMATRICULA not like 'Promociona'  and ESTADOMATRICULA not like 'Pendiente de confirma%'";
 mysqli_query($db_con, $SQL7);
 
 // Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
@@ -217,7 +215,7 @@ Tabla <strong>ALMA</strong>: los Alumnos se han introducido correctamente en la 
 </div></div>';
 
 //Caso especial de 2º de Bachillerato en Mayo
-if (date('m')=='05' and date('d')>'25') {
+if ((date('m')=='05' and date('d')>'25') ) {
 	$ct = mysqli_query($db_con,"select * from alma where curso like '2%' and curso like '%Bach%'");
 	if (mysqli_num_rows($ct)>0) {}
 	else{

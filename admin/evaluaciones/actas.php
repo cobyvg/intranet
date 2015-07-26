@@ -218,7 +218,7 @@ include("menu.php");
 			
 			<div class="col-sm-12">
 				<?php if (stristr($_SESSION['cargo'],'2') == true): ?>
-				<?php $result = mysqli_query($db_con, "SELECT ea.id, ea.unidad, t.tutor, ea.evaluacion, ea.fecha, ea.impresion FROM evaluaciones_actas AS ea JOIN FTUTORES AS t ON ea.unidad = t.unidad WHERE ea.unidad='".$_SESSION['s_unidad']."'"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT ea.id, ea.unidad, t.tutor, ea.evaluacion, ea.fecha, ea.impresion FROM evaluaciones_actas AS ea JOIN FTUTORES AS t ON ea.unidad = t.unidad WHERE ea.unidad='".$_SESSION['mod_tutoria']['unidad']."'"); ?>
 				<?php else: ?>
 				<?php $result = mysqli_query($db_con, "SELECT ea.id, ea.unidad, t.tutor, ea.evaluacion, ea.fecha, ea.impresion FROM evaluaciones_actas AS ea JOIN FTUTORES AS t ON ea.unidad = t.unidad"); ?>
 				<?php endif; ?>

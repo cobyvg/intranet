@@ -96,9 +96,9 @@ $count = "";
 	 <input type='hidden' name='profesor' value='$profesor'>";
 		 if (mysqli_num_rows($si) > 0 and $count < 1)
 		{} else{ 
-		//echo "$grupo == ".$_SESSION ['s_unidad'];
+		//echo "$grupo == ".$_SESSION['mod_tutoria']['unidad'];
 			echo "<a href='infocompleto.php?id=$row[0]&c_asig=$asignatura' class=''><i class='fa fa-search' data-bs='tooltip'  title='Ver Informe'> </i></a>";	
-			if (stristr($cargo,'1') == TRUE or ($tuti == mb_strtoupper($_SESSION['profi']) and ($grupo == $_SESSION ['s_unidad']))) {
+			if (stristr($cargo,'1') == TRUE or ($tuti == mb_strtoupper($_SESSION['profi']) and ($grupo == $_SESSION['mod_tutoria']['unidad']))) {
 				echo "&nbsp;<a href='borrar_informe.php?id=$row[0]&del=1' class=''>
 				<i class='fa fa-trash-o' data-bs='tooltip'  title='Borrar Informe' > </i> </a> 	";
 			}

@@ -212,7 +212,7 @@ $n_mensajesp = 0;
 
 if(stristr($carg,'2') == TRUE)
 {
-	$unidad_m = $_SESSION ['s_unidad'];
+	$unidad_m = $_SESSION['mod_tutoria']['unidad'];
 
 	if (isset($_GET['asunto']) and $_GET['asunto'] == "Mensaje de confirmación") {
 		mysqli_query($db_con, "UPDATE mensajes SET recibidopadre = '1' WHERE id = $verifica_padres");

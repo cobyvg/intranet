@@ -115,7 +115,7 @@ include 'menu.php';
 							<th>Departamento</th>
 							<th>Asignatura</th>
 							<th>Grupos</th>
-							<?php if((stristr($_SESSION['cargo'],'1') == true) || ((stristr($_SESSION['cargo'],'4') == true) && ($_SESSION['depto'] == $row['departamento']))): ?>
+							<?php if((stristr($_SESSION['cargo'],'1') == true) || ((stristr($_SESSION['cargo'],'4') == true) && ($_SESSION['dpt'] == $row['departamento']))): ?>
 							<th></th>
 							<?php endif; ?>
 						</tr>
@@ -129,7 +129,7 @@ include 'menu.php';
 							<td><?php echo $row['departamento']; ?></td>
 							<td><?php echo $row['asignatura']; ?></td>
 							<td><?php echo $row['grupo']; ?></td>
-							<?php if((stristr($_SESSION['cargo'],'1') == true) || ((stristr($_SESSION['cargo'],'4') == true) && ($_SESSION['depto'] == $row['departamento']))): ?>
+							<?php if((stristr($_SESSION['cargo'],'1') == true) || ((stristr($_SESSION['cargo'],'4') == true) && ($_SESSION['dpt'] == $row['departamento']))): ?>
 							<td nowrap>
 								<a href="editextos.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>
 								<a href="textos.php?action=delete&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar" data-bb='confirm-delete'><span class="fa fa-trash-o fa-fw fa-lg"></span></a>

@@ -4,42 +4,12 @@ if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incomp
 
 require('bootstrap.php');
 
-$pr = $_SESSION ['profi'];
-// Comprobamos si da clase a alg&uacute;n grupo
-$cur0 = mysqli_query($db_con, "SELECT distinct prof FROM horw where prof = '$pr'" );
-$cur1 = mysqli_num_rows ( $cur0 );
-$_SESSION ['n_cursos'] = $cur1;
-$n_curso = $_SESSION ['n_cursos'];
 // Variable del cargo del Profesor
-$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$pr'" );
-$cargo1 = mysqli_fetch_array ( $cargo0 );
-$_SESSION ['cargo'] = $cargo1 [0];
-$carg = $_SESSION ['cargo'];
-$_SESSION ['dpt'] = $cargo1 [1];
-$dpto = $_SESSION ['dpt'];
-if (isset($_POST['idea'])) {}
-else{
-$_SESSION ['ide'] = $cargo1 [2];
-$idea = $_SESSION ['ide'];
-}
-
-if (stristr ( $carg, '2' ) == TRUE) {
-	$result = mysqli_query($db_con, "select distinct unidad from FTUTORES where tutor = '$pr'" );
-	$row = mysqli_fetch_array ( $result );
-	$_SESSION ['tut'] = $pr;
-	$_SESSION ['s_unidad'] = $row [0];
-}
-
-$res = mysqli_query($db_con, "select distinct tema, fondo from temas where idea = '$idea'" );
-if (mysqli_num_rows($res)>0) {
-	$ro = mysqli_fetch_array ( $res );
-	$_SESSION ['tema'] = $ro[0];
-	$_SESSION ['fondo'] = $ro[1];
-}
-else{
-	$_SESSION ['tema']="bootstrap.min.css";
-	$_SESSION ['fondo'] = "navbar-default";
-}
+$pr = $_SESSION ['profi']; // Nombre
+$carg = $_SESSION ['cargo']; // Perfil
+$dpto = $_SESSION ['dpt']; // Departamento
+$idea = $_SESSION ['ide']; // Usuario iDea de Séneca
+$n_curso = $_SESSION ['n_cursos']; // Tiene Horario
 
 include("menu.php");
 ?>
@@ -71,9 +41,6 @@ include("menu.php");
 				
 				<?php 
 				if (stristr($carg, '2' )==TRUE) {
-					$_SESSION['mod_tutoria']['tutor']  = $_SESSION['tut'];
-					$_SESSION['mod_tutoria']['unidad'] = $_SESSION['s_unidad'];
-					
 					define('INC_TUTORIA', 1);
 					include("admin/tutoria/inc_pendientes.php");
 				}

@@ -128,7 +128,7 @@ $menu = array(
 	
 	array(
 		'menu_id' => 'tutoria',
-		'nombre'  => 'Tutoría de '.$_SESSION['s_unidad'],
+		'nombre'  => 'Tutoría de '.$_SESSION['mod_tutoria']['unidad'],
 		'cargos'  => array('2'),
 		'items'   => array (
 			array(
@@ -136,7 +136,7 @@ $menu = array(
 				'titulo' => 'Resumen global',
 			),
 			array(
-				'href'   => 'admin/datos/datos.php?unidad='.$_SESSION['s_unidad'],
+				'href'   => 'admin/datos/datos.php?unidad='.$_SESSION['mod_tutoria']['unidad'],
 				'titulo' => 'Datos de alumnos',
 			),
 			array(

@@ -162,7 +162,7 @@ Fuera de horario escolar</h2>
 	<?
 }
 else{
-	$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
 	$hora0 = mysqli_query($db_con, $hora1);
 	if (mysqli_num_rows($hora0)<1) {
 		?>
@@ -208,7 +208,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 	$c_a="";
 	$res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and FALUMNOS.unidad = '$curso' and ( ";
 	//$n_curs10 = "select distinct c_asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
-	$n_curs10 = "select distinct c_asig from horw where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
+	$n_curs10 = "select distinct c_asig from horw_faltas where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
 	$n_curs11 = mysqli_query($db_con, $n_curs10);
 	$nm = mysqli_num_rows($n_curs11);
 	while ($nm_asig0=mysqli_fetch_array($n_curs11)){

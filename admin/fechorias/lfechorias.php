@@ -53,7 +53,7 @@ El Equipo Directivo tiene una columna con una casilla de verificación que indica
 </div>
 </div>
 	</div>
-  </div>
+  
   <div class="row">
   <div class="col-sm-12">
 
@@ -92,6 +92,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
   // echo $query0;
   $result = mysqli_query($db_con, $query0);
  echo "<form action='lfechorias.php' method='post' name='cnf'>
+ <div class='table-responsive'>
  <table class='table table-bordered' style='width:auto' align='center'><tr><td class='expulsion-centro'>Expulsión del Centro</td><td class='amonestacion-escrita'>Amonestación escrita</td><td class='expulsion-aula'>Expulsión del aula</td><td class='aula-convivencia-jefatura'>Aula de convivencia (Jefatura)</td><td class='aula-convivencia-profesor'>Aula de convivencia (Profesor)</td></tr></table><br />";
 		echo '<div class="table-responsive"><table class="table table-striped table-bordered table-vcentered datatable">';
 		$fecha1 = (date("d").-date("m").-date("Y"));
@@ -192,10 +193,10 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		}		
 		echo "</td></tr>";
         }
-        echo "</tbody></table></div>";
+        echo "</tbody></table></div></div>";
         echo "<input type='hidden' name='confirma' value='si' />";
         echo "</form>";
-		echo "</div></div></div></div>";
+		echo "</div></div></div></div></div>";
   ?>
   <?php include("../../pie.php");?>
   

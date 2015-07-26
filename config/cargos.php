@@ -39,10 +39,10 @@ include ("../menu.php");
 				mysqli_query($db_con, "insert INTO `FTUTORES` ( `unidad` , `tutor` ) VALUES ('$unidad', '$n_tutor')" );
 			
 			} elseif (strlen ( $cargo_profe ) < "2") {
+				$dni=trim($dni);
 				mysqli_query($db_con, "update departamentos set cargo = ''" );
 				$dni = substr ( $dni, 0, - 1 );
 				mysqli_query($db_con, "INSERT INTO `cargos` ( `dni` , `cargo` ) VALUES ('$dni', '$cargo_profe')" );
-				//echo "INSERT INTO `cargos` ( `dni` , `cargo` ) VALUES ('$dni', '$cargo_profe')<br />"; 
 			}
 		}
 		mysqli_query($db_con, "delete from cargos where cargo = '0'" );

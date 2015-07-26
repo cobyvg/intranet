@@ -169,7 +169,7 @@ if($detalles == '1')
 			<td><?php echo $mes2;?></td>
 			<td nowrap>
 			 <?
-				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['depto'] == $datos[4]) or ($_SESSION['depto'] == $datos[4] or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE)){
+				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4]) or ($_SESSION['dpt'] == $datos[4] or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE)){
 					?> <a href="extraescolares.php?id=<?php echo $datos[0];?>&profesores=<?php  echo $datos[5];?>"><span
 				class="fa fa-users fa-fw fa-lg" data-bs="tooltip"
 				title="Seleccionar alumnos que realizan la Actividad"></span></a> <?php } ?>

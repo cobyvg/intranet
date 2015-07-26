@@ -16,8 +16,8 @@ else {
 	// COMPROBAMOS SI ES EL TUTOR, SINO ES DEL EQ. DIRECTIVO U ORIENTADOR
 	if (stristr($_SESSION['cargo'],'2') == TRUE) {
 		
-		$_SESSION['mod_tutoria']['tutor']  = $_SESSION['tut'];
-		$_SESSION['mod_tutoria']['unidad'] = $_SESSION['s_unidad'];
+		$_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
+		$_SESSION['mod_tutoria']['unidad'] = $_SESSION['mod_tutoria']['unidad'];
 		
 	}
 	else {

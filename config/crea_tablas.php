@@ -246,7 +246,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `calificaciones` (
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `cargos` (
   `dni` varchar(9) NOT NULL DEFAULT '',
   `cargo` varchar(8) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`dni`)
+  KEY `claveal` (`dni`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 // ////////////////////////////////////////////////////////

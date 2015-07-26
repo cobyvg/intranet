@@ -35,7 +35,7 @@ if (isset($_POST['evaluacion']) && !empty($_POST['evaluacion'])) $evaluacion = $
 $esTutorUnidad = 0;
 if (stristr($_SESSION['cargo'],'2') == true) {
 	
-	if (isset($curso) && $curso == $_SESSION['s_unidad']) {
+	if (isset($curso) && $curso == $_SESSION['mod_tutoria']['unidad']) {
 		$esTutorUnidad = 1;
 	}
 	
