@@ -25,7 +25,7 @@
         return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
     }
     ?>
-    <div class="" style="clear: both; position: fixed; bottom: 0; width: 100%; padding: 15px 20px; padding-bottom: 0; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%;">
+    <div class="" style="z-index: 1000; clear: both; position: fixed; bottom: 0; width: 100%; padding: 15px 20px; padding-bottom: 0; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%;">
     
     	<div class="row">
     	

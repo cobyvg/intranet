@@ -244,6 +244,8 @@ if ($_GET['seleccionado']=='1' and $_GET['borrar']!=="1"){
 }
 ?>
 </div>
+</div>
+</div>
 
 <?php include("../../pie.php"); ?>
 

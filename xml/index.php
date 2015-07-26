@@ -1,4 +1,4 @@
-<?
+<?php
 require('../bootstrap.php');
 
 
@@ -94,7 +94,9 @@ Si disponemos de horario (incluso si no contamos con él, puesto que otros módulo
 			
 		</div><!-- /.col-sm-8 -->
 		
-	</div><!-- /.row -->
+	</div><!-- /.col-sm-8 -->
+		
+	</div><!-- /.row-->
 
 </div><!-- /.container -->
 

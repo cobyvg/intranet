@@ -1,4 +1,4 @@
-<?
+<?php
 require('../bootstrap.php');
 
 
@@ -608,7 +608,7 @@ function show_contents() {
 <p>
 La página presenta dos tipos de documentos: los <b><em>Documentos públicos del Centro</em></b> y los <b><em>Documentos privados de cada Profesor</em></b>.
 <br><br>Los <b><em>Documentos Públicos</em></b> se configuran en la instalación de la Intranet, y nos ofrecen un directorio donde el Equipo directivo coloca aquellos archivos que considera relevantes para su Comunidad educativa (Programaciones, Plan del Centro, etc.). Es posible también crear un directorio llamado <b><em>Departamentos</em></b>; dentro del mismo creamos también un conjunto de directorios para los Departamentos (con el mismo nombre que tiene ese Departamento en la Intranet). Estos pueden usarlo para subir documentos accesibles desde la Página pública del Centro. Los miembros de un departamento pueden subir y borrar los archivos, y también crear directorios donde subir nuevos archivos.
-<br><br>Los <b><em>Documentos Personales</em></b> son propios de cada Profesor. Podemos subir archivos para luegos usarlos en el Centro, o bien utilizar esos archivos para incrustarlos en un mensaje que luego comparte dentro de la Intranet. Este módulo se puede también entender como un pequeño Explorador personal de nuestros archivos. No es visble desde la Página pública del Centro.
+<br><br>Los <b><em>Documentos Personales</em></b> son propios de cada Profesor. Podemos subir archivos para luego usarlos en el Centro, o bien utilizar esos archivos para incrustarlos en un mensaje que luego comparte dentro de la Intranet. Este módulo se puede también entender como un pequeño Explorador personal de nuestros archivos. No es visible desde la Página pública del Centro.
 
 </p>
 </div>
@@ -706,6 +706,7 @@ La página presenta dos tipos de documentos: los <b><em>Documentos públicos del C
 	echo "       </div>\n";
 	
 	echo "    </div>\n";
+	echo "</div>\n";
 }
 
 

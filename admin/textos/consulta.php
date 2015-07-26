@@ -30,7 +30,6 @@ include("../../menu.php");
 include 'menu.php';
 ?>
 <div class="container">
-<div class="row">
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
