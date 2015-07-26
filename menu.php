@@ -8,7 +8,7 @@ $feed = new SimplePie();
 	 
 $feed->set_feed_url("http://www.juntadeandalucia.es/educacion/www/novedades.xml");
 $feed->set_output_encoding('ISO-8859-1');
-$feed->enable_cache(true);
+$feed->enable_cache(false);
 $feed->set_cache_duration(600);
 $feed->init();
 $feed->handle_content_type();

@@ -237,86 +237,113 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 
 <body id="login">
 
-<div id="wrap">
+	<!--[if lte IE 9 ]>
+	<div id="old-ie" class="modal">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	      	<br>
+	        <p class="lead text-center">Estás utilizando una versión de Internet Explorer demasiado antigua. <br>Actualiza tu navegador o cámbiate a <a href="http://www.google.com/chrome/">Chrome</a> o <a href="https://www.mozilla.org/es-ES/firefox/new/">Firefox</a>.</p>
+	        <br>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<![endif]-->
 
-<div class="container">
-
-<div class="text-center">
-<h1><?php echo $nombre_del_centro; ?></h1>
-<h4>Inicia sesión para acceder</h4>
-</div>
-
-<form id="form-signin" class="form-signin well" method="POST"
-	autocomplete="on">
-<div class="text-center text-muted form-signin-heading"><span
-	class="fa-stack fa-4x"> <i class="fa fa-circle fa-stack-2x"></i> <i
-	class="fa fa-user fa-stack-1x fa-inverse"></i> </span></div>
-
-<div id="form-group" class="form-group"><input type="text"
-	class="form-control" id="idea" name="idea" placeholder="Usuario IdEA"
-	required autofocus> <input type="password" class="form-control"
-	id="clave" name="clave" placeholder="Contraseña" required> <?php if($msg_error): ?>
-<label class="control-label text-danger"><?php echo $msg_error; ?></label>
-<?php endif; ?></div>
-
-
-
-<button class="btn btn-lg btn-primary btn-block" type="submit"
-	name="submit">Iniciar sesión</button>
-
-<div class="form-signin-footer"></div>
-</form>
-
-</div>
-<!-- /.container --></div>
-<!-- /#wrap -->
-
-<footer class="hidden-print">
-<div class="container-fluid" role="footer">
-<hr>
-
-<p class="text-center"><small class="text-muted">Versión <?php echo INTRANET_VERSION; ?>
-- Copyright &copy; <?php echo date('Y'); ?> IESMonterroso</small><br>
-<small class="text-muted">Este programa es software libre, liberado bajo
-la GNU General Public License.</small></p>
-<p class="text-center"><small> <a
-	href="//<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia
-de uso</a> &nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp; <a
-	href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
-&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp; <a
-	href="https://github.com/IESMonterroso/intranet/compare/v<?php echo INTRANET_VERSION; ?>...master"
-	target="_blank">Registro de cambios</a> </small></p>
-</div>
-</footer>
-
-<script src="//<?php echo $dominio; ?>/intranet/js/jquery-1.11.2.min.js"></script>
-<script src="//<?php echo $dominio; ?>/intranet/js/bootstrap.min.js"></script>
-
-<?php if($msg_error): ?>
-<script>$("#form-group").addClass( "has-error" );</script>
-<?php endif; ?>
-<script>
-  $(function(){
-        // Deshabilitamos el botón
-        $("button[type=submit]").attr("disabled", "disabled");
-   
-        // Cuando se presione una tecla en un input del formulario
-        // realizamos la validación
-        $('input').keyup(function(){
-              // Validamos el formulario
-              var validated = true;
-              if($('#idea').val().length < 5) validated = false;
-              if($('#clave').val().length < 8) validated = false;
-   
-              // Si el formulario es válido habilitamos el botón, en otro caso
-              // lo volvemos a deshabilitar
-              if(validated) $("button[type=submit]").removeAttr("disabled");
-              else $("button[type=submit]").attr("disabled", "disabled");
-                                          
-        });
-        
-        $('input:first').trigger('keyup');
-  })
-  </script>
+	<div id="wrap">
+	
+		<div class="container">
+  
+		  <div class="text-center">
+		    <h1><?php echo $nombre_del_centro; ?></h1>
+		    <h4>Inicia sesión para acceder</h4>
+		  </div>
+		  
+		  <form id="form-signin" class="form-signin well" method="POST" autocomplete="on">
+		      <div class="text-center text-muted form-signin-heading">
+		        <span class="fa-stack fa-4x">
+		          <i class="fa fa-circle fa-stack-2x"></i>
+		          <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+		        </span>
+		      </div>
+		      
+		      <div id="form-group" class="form-group">
+		        <input type="text" class="form-control" id="idea" name="idea" placeholder="Usuario IdEA" required autofocus>
+		        <input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña" required>
+		        
+		        <?php if($msg_error): ?>
+		            <label class="control-label text-danger"><?php echo $msg_error; ?></label>
+		        <?php endif; ?>
+		      </div>
+		      
+		      
+		      
+		      <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Iniciar sesión</button>
+		      
+		      <div class="form-signin-footer">
+		        
+		      </div>
+		  </form>
+		
+		</div><!-- /.container -->
+	
+	</div><!-- /#wrap -->
+	
+	<footer class="hidden-print">
+		<div class="container-fluid" role="footer">
+			<hr>
+			
+			<p class="text-center">
+				<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> IESMonterroso</small><br>
+				<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
+			</p>
+			<p class="text-center">
+				<small>
+					<a href="//<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
+					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+					<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
+				</small>
+			</p>
+		</div>
+	</footer>
+	
+	
+	<script src="//<?php echo $dominio; ?>/intranet/js/jquery-1.11.2.min.js"></script>  
+	<script src="//<?php echo $dominio; ?>/intranet/js/bootstrap.min.js"></script>
+	
+	<?php if($msg_error): ?>
+	<script>$("#form-group").addClass( "has-error" );</script>
+	<?php endif; ?>
+	<script>
+	$(function(){
+	
+	$('#old-ie').modal({
+		backdrop: true,
+		keyboard: false,
+		show: true
+	});
+	
+	// Deshabilitamos el botón
+	$("button[type=submit]").attr("disabled", "disabled");
+	
+	// Cuando se presione una tecla en un input del formulario
+	// realizamos la validación
+	$('input').keyup(function(){
+	      // Validamos el formulario
+	      var validated = true;
+	      if($('#idea').val().length < 5) validated = false;
+	      if($('#clave').val().length < 8) validated = false;
+	
+	      // Si el formulario es válido habilitamos el botón, en otro caso
+	      // lo volvemos a deshabilitar
+	      if(validated) $("button[type=submit]").removeAttr("disabled");
+	      else $("button[type=submit]").attr("disabled", "disabled");
+	                                  
+	});
+	
+	$('input:first').trigger('keyup');
+	})
+	</script>
 </body>
 </html>

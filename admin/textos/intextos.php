@@ -194,7 +194,7 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
   </div>
  </div>
  </div>
- 
+ </div>
  <?
 }
 ?>
