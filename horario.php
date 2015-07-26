@@ -1,4 +1,5 @@
 <h4><span class="fa fa-clock-o fa-fw"></span> Horario</h4>
+
 <table class="table table-bordered table-condensed table-striped table-centered">
 <thead>
   <tr>
@@ -21,8 +22,7 @@ echo '<tr><th>'.$nombre.'ª</th>';
 	for($z = 1; $z < 6; $z ++) {
 
 		?>
-<td valign="top">
-<div align=center>
+<td>
       <?php
 		if (! (empty ( $z ) and ! ($n_hora))) {
 			$extra = "and dia = '$z' and hora = '$n_hora'";
@@ -40,24 +40,38 @@ echo '<tr><th>'.$nombre.'ª</th>';
 		}
 		elseif (($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44") and $mod_faltas == '1') {
 			if (strstr($_SESSION ['cargo'],"1")==TRUE) {
-				echo "<a href='//$dominio/intranet/admin/guardias/admin.php'><span class='label label-danger'>".$rowasignatur1[1]."</span>";
+				echo "<a href='//$dominio/intranet/admin/guardias/admin.php' style='text-decoration: none;'><span class='label label-danger'>".$rowasignatur1[1]."</span>";
 			}
 			else{
-				echo "<a href='//$dominio/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$pr' class='label label-danger'>" . $rowasignatur1 [1] . "</a>";
+				echo "<a href='//$dominio/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$pr' style='text-decoration: none;'><span class='label label-danger'>" . $rowasignatur1 [1] . "</span></a>";
 			}
 		}
 		// Recorremos los grupos a los que da en ese hora.
+		$rep_grupo = "";
+		$cont = 1;
 		$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$pr' and dia = '$z' and hora = '$n_hora' ORDER BY a_grupo" );
 		while ( $rowasignaturas1 = mysqli_fetch_array ( $asignaturas1 ) ) {
 			$grupo = $rowasignaturas1 [1];
-				echo "<a href='//$dominio/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]' style='font-size:0.8em'>";
+			
+			echo "<a href='//$dominio/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]' style='font-size:0.8em'>";
 			if (is_numeric ( substr ( $grupo, 0, 1 ) )) {
-				echo $grupo . "<br />";
+				if ($grupo != $rep_grupo) {
+
+					if($cont > 1) {
+						$exp_grupo = explode('-', $grupo);
+						echo "/".$exp_grupo[1];
+					}
+					else {
+						echo $grupo;
+					}
+				}
 			}
-				echo "</a>";
+			echo "</a>";
+			$rep_grupo = $grupo;
+			$cont++;
 		}
 		?>
-    </span></div>
+    </span>
 </td>
 <?
 	}
@@ -67,5 +81,4 @@ echo '<tr><th>'.$nombre.'ª</th>';
 </tbody>
 </table>
 
-
-
+<a class="btn btn-sm btn-default" href="xml/jefes/horarios/index.php">Modificar horario</a>
