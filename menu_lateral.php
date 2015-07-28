@@ -212,7 +212,7 @@ $menu = array(
 						'titulo' => 'Fotos de los alumnos'
 					),
 					array(
-						'href'   => 'admin/fotos/fotos_profes.php',
+						'href'   => 'admin/fotos/profes.php',
 						'titulo' => 'Fotos de los profesores'
 					),
 				),

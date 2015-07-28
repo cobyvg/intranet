@@ -1,19 +1,6 @@
-<?
+<?php
 ini_set("memory_limit","192M");
-
 require('../../bootstrap.php');
-
-
-$idea = $_SESSION['ide'];
-if (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}
-
-
-// COMPROBAMOS SI EL PROFESOR HA SUBIDO SU FOTOGRAFIA
-$foto = 0;
-if(file_exists("../../xml/fotos_profes/".$_SESSION['ide'].".jpg")){
-	$ruta = '../../xml/fotos_profes/'.$_SESSION['ide'].'.jpg?t'.time();
-	$foto = 1;
-}
 
 
 // ENVIO DEL FORMULARIO
@@ -40,6 +27,13 @@ if (isset($_POST['enviar'])) {
 		
 	}
 	
+}
+
+// COMPROBAMOS SI EL PROFESOR HA SUBIDO SU FOTOGRAFIA
+$foto = 0;
+if(file_exists("../../xml/fotos_profes/".$_SESSION['ide'].".jpg")){
+	$ruta = '../../xml/fotos_profes/'.$_SESSION['ide'].'.jpg?t'.time();
+	$foto = 1;
 }
 
 
@@ -127,12 +121,6 @@ include("../../menu.php");
 				<li>Fotografía de cerca que incluya la cabeza y parte superior de los hombros, la cara ocuparía un 70-80% de la fotografía.</li>
 				<li>Fotografía perfectamente enfocada y clara.</li>
 			</ul>
-				
-			<?php if (!isset($_GET['tour']) && !$_GET['tour']): ?>
-			<form method="post" action="profes.php">
-				<button type="submit" class="btn btn-info btn-block" name="ver_todos">Todas las fotografías</button>
-			</form>
-			<?php endif; ?>
 			
 		</div><!-- /.col-sm-6 -->
 	
