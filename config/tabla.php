@@ -22,22 +22,11 @@ body {
 </style>
 <?php
 else:
+require('../bootstrap.php');
 
-// COMPROBAMOS LA SESION
-if ($_SESSION['autentificado'] != 1) {
-	$_SESSION = array();
-	session_destroy();
-
-	if(isset($_SERVER['HTTPS'])) {
-		if ($_SERVER["HTTPS"] == "on") {
-			header('Location:'.'https://'.$dominio.'/intranet/salir.php');
-			exit();
-		}
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-		exit();
-	}
+if (! (stristr($_SESSION['cargo'], '1')==TRUE)) {
+	header("location://$dominio/intranet/salir.php");
+	exit();
 }
 
 include("../menu.php");

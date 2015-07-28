@@ -143,7 +143,7 @@ enviarForm();
 	 	$correo2=mysqli_fetch_array($cor_control);
 	 	$correo = $correo2[0];
 	 }
-	 if (strlen(correo)>0) {
+	 if (strlen($correo)>0) {
 	 	/*	
 	 	 $texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta direcci&oacute;n de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor informaci&oacute;n sobre el contenido de este mensaje, p&oacute;ngase en contacto con <strong> Jefatura de Estudios</strong>.';
 	 	 $mail = new PHPMailer();
