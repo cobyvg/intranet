@@ -324,3 +324,10 @@ function eliminar_mayusculas(&$n_profeso) {
 function nomprofesor($nombre) {
 	return mb_convert_case($nombre, MB_CASE_TITLE, "iso-8859-1");
 }
+
+
+function size_convert($size)
+{
+    $unit=array('B','KB','MB','GB','TB','PB');
+    return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+}
