@@ -26,8 +26,8 @@
     }
     ?>
     <div class="hidden-print" style="z-index: 1000; clear: both; position: fixed; bottom: 0; width: 100%; padding: 15px 20px; padding-bottom: 0; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%;">
-    
-    	<div class="row">
+    	<a href="#" id="debug_button" style="position: absolute; margin-top: -40px; padding: 5px 10px; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%; text-transform: uppercase;"><span class="fa fa-dashboard fa-fw"></span> Análisis</a>
+    	<div id="debug" class="row" style="display: none;">
     	
     		<div class="col-sm-6">
     			<p class="form-control-static" style="padding-top: 5px;">Memoria utilizada: <?php echo convert(memory_get_peak_usage()).' / '.ini_get('memory_limit').'B'; ?></p>
@@ -107,6 +107,10 @@
 	  if (isAndroid) {
 	    $('select.form-control').removeClass('form-control').css('width', '100%')
 	  }
+	  
+	  $("#debug_button").click(function() {
+	    $('#debug').slideToggle();
+	  });
 	  
 	  $("#toggleMenu").click(function() {
 	    $('#accordion').toggleClass("hidden-xs");
