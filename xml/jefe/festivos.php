@@ -10,7 +10,6 @@ exit;
 
 
 include("../../menu.php");
-include("../menu.php");
 ?>
 <br />
 <div class="container">
@@ -49,12 +48,15 @@ $borrarvacios = "delete from festivos where date(fecha) = '0000-00-00'";
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 	 Los datos se han importado correctamente.
 			</div></div><br /> 
+			<div align="center"><a href="../index.php" class="btn btn-primary" />Volver
+a Administración</a></div>
 			<?
 			}
 ?>
-<br />
 </div>
 </div>
-
+    <?php 
+include("../../pie.php");
+?>
 </body>
 </html>

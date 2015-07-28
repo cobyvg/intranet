@@ -68,6 +68,7 @@ mysqli_query($db_con, "update usuarioalumno set usuario = '$nuevo' where claveal
 }
 echo '<div align="center"><div class="alert alert-success alert-block fade in" style="text-align:left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>CENTRO TIC:</h5>
 Los datos de los alumnos se han importado correctamente en la tabla "usuarioalumno".<br> Se ha generado un fichero (alumnos.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva en el Servidor TIC.
 </div></div><br />';
 
@@ -110,7 +111,7 @@ $fpprof1=fopen("TIC/alumnos_moodle.txt","w+");
  {
  $fpprof1=fopen("TIC/alumnos_moodle.txt","w+") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIN:</h5>
+			<h5>ATENCIÓN:</h5>
 No se ha podido escribir en el archivo TIC/profesores.txt. Has concedido permiso de escritura en ese directorio?
 </div></div><br />
 <div align="center">
@@ -119,10 +120,11 @@ No se ha podido escribir en el archivo TIC/profesores.txt. Has concedido permiso
  }
  $pepito1=fwrite($fpprof1,$todos_moodle);
  fclose ($fpprof1);
- echo '<div align="center"><div class="alert alert-success alert-block fade in">
+ echo '<div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>MOODLE:</h5>
  Se ha generado un fichero (alumnos_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en cualquier Plataforma Moodle distinta a la de la Red TIC de la Junta de Andalucía.
-</div></div><br />'; 
+</div><br />'; 
  
  ?>
 

@@ -86,7 +86,7 @@ No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quie
   <input type="button" value="Volver atr·s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>');
 
-		$SQL6 = "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL` )";
+		$SQL6 = "ALTER TABLE `alma` ADD PRIMARY KEY(`CLAVEAL`)";
 		$result6 = mysqli_query($db_con, $SQL6);
 
 		// Importamos los datos del fichero CSV (todos_alumnos.csv) en la tab√É¬±a alma.
@@ -132,27 +132,14 @@ No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo
 ADD  `COMBASI` VARCHAR( 250 ) NULL FIRST ,
 ADD  `APELLIDOS` VARCHAR( 40 ) NULL AFTER  `UNIDAD` ,
 ADD  `CLAVEAL1` VARCHAR( 8 ) NULL AFTER  `CLAVEAL`,
-ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`,
-ADD  `NIVEL` VARCHAR( 5) NULL AFTER  `APELLIDOS` ,
-ADD  `GRUPO` VARCHAR( 1 ) NULL AFTER  `NIVEL`
+ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`
 ";
 		mysqli_query($db_con, $crear);
-
-		// Separamos Nivel y Grupo si sigue el modelo cl√°sico del gui√≥n (1E-F, 2B-C, etc)
-		$SQL_1 = "SELECT UNIDAD, CLAVEAL  FROM  alma where unidad not like 'Unida%' and unidad not like ''";
-		$result_1 = mysqli_query($db_con, $SQL_1);
-		$row_1 = mysqli_fetch_array($result_1);
-		if (strstr($row_1[0],"-")==TRUE) {
-			$SQL0 = "SELECT UNIDAD, CLAVEAL  FROM  alma";
-			$result0 = mysqli_query($db_con, $SQL0);
-
-			while  ($row0 = mysqli_fetch_array($result0))
-			{
-				$trozounidad0 = explode("-",$row0[0]);
-				$actualiza= "UPDATE alma SET NIVEL = '$trozounidad0[0]', GRUPO = '$trozounidad0[1]' where CLAVEAL = '$row0[1]'";
-				mysqli_query($db_con, $actualiza);
-			}
-		}
+		
+		// Ìndices
+		mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `CLAVEAL1` )");
+		mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `NOMBRE` )");
+		mysqli_query($db_con, "ALTER TABLE  `alma` ADD INDEX (  `APELLIDOS` )");
 
 		// Apellidos unidos formando un solo campo.
 		$SQL2 = "SELECT apellido1, apellido2, CLAVEAL, NOMBRE FROM  alma";
@@ -192,11 +179,11 @@ ADD  `GRUPO` VARCHAR( 1 ) NULL AFTER  `NIVEL`
 		include("exportacodigos.php");
 
 		// Eliminamos alumnos sin asignaturas que tienen la matricula pendiente, y que no pertenecen a los Ciclos
-		$SQL6 = "DELETE FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.%' or curso like '%Bach%' or curso like '%P.C.P.I.%') and ESTADOMATRICULA != 'Obtiene TÌtulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona' and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado')";
+$SQL6 = "delete FROM alma WHERE (COMBASI IS NULL and (curso like '%E.S.O.%' or curso like '%Bach%' or curso like '%P.C.P.I.$' or curso like '%F.P.B.$') and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%' and ESTADOMATRICULA not like 'Pendiente de confirma%')";
 		$result6 = mysqli_query($db_con, $SQL6);
 
 		// Eliminamos a los alumnoos de Ciclos con algun dato en estadomatricula
-		$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA != '' and ESTADOMATRICULA != 'Obtiene TÌtulo' and ESTADOMATRICULA != 'Repite' and ESTADOMATRICULA != 'Promociona'  and ESTADOMATRICULA != 'Pendiente de confirmacion de traslado'";
+		$SQL7 = "DELETE FROM alma WHERE ESTADOMATRICULA not like '' and ESTADOMATRICULA not like 'Obtiene T%' and ESTADOMATRICULA not like 'Repit%' and ESTADOMATRICULA not like 'Promocion%'  and ESTADOMATRICULA not like 'Pendiente de confirm%'";
 		mysqli_query($db_con, $SQL7);
 
 		// Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
@@ -246,7 +233,7 @@ No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto co
 		}
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-Tabla <strong>Alma</strong>: los Alumnos se han introducido correctamente en la Base de datos.
+<h5>ALUMNOS DEL CENTRO</h5>: los Alumnos se han introducido correctamente en la Base de datos.
 </div></div><br />';
 		// Eliminamos temporales
 		mysqli_query($db_con, "drop table almafaltas");
@@ -256,9 +243,6 @@ Tabla <strong>Alma</strong>: los Alumnos se han introducido correctamente en la 
 
 		// Datos para el alta masiva de usuarios TIC
 		include("exportaTIC.php");
-
-		// Alumnos con pendientes
-		include("pendientes.php");
 
 		// Alumnos con hermanos
 		include("crear_hermanos.php");

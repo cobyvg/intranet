@@ -263,7 +263,7 @@ else {
 	}
 
 
-	// Cargos varios
+// Cargos varios
 
 	$carg = mysqli_query($db_con, "select distinct prof from horw");
 	while ($cargo = mysqli_fetch_array($carg)) {
@@ -286,16 +286,17 @@ else {
 			if ($profe_dpt[0]=="384") {
 				$cargos.="9";
 			}
-
 			if ($profe_dpt[0]=="26") {
 				$cargos.="c";
 			}
-
 			if ($profe_dpt[0]=="2") {
 				$cargos.="2";
 			}
 		}
-		// Tutores
+		
+		mysqli_query($db_con,"update departamentos set cargo='$cargos' where nombre = '$cargo[0]'");
+		
+			// Tutores
 		$tabla_tut = mysqli_query($db_con, "select * from FTUTORES where tutor = '$cargo[0]'");
 		if(mysqli_num_rows($tabla_tut) > 0){}
 		else{
@@ -303,11 +304,6 @@ else {
 			{
 				mysqli_query($db_con, "insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where c_asig like '2' and prof = '$cargo[0]' and prof in (select nombre from departamentos)");
 			}
-		}
-		$act = mysqli_query($db_con,"select cargo from departamentos where nombre = '$cargo[0]'");
-		if (mysqli_num_rows($act)>0) {}
-		else{
-			mysqli_query($db_con, "update departamentos set cargo = '$cargos' where nombre = '$cargo[0]'");
 		}
 	}
 
@@ -327,8 +323,6 @@ else {
 		}
 	}
 	$prof_sin = " and ".substr($prof_sin,0,strlen($prof_sin)-3);
-
-	// mysqli_query($db_con, "delete from horw_faltas where (1=1 $prof_sin or c_asig  like '118' or c_asig  like '117')");
 
 	mysqli_query($db_con, "delete from horw_faltas where a_grupo = ''");
 

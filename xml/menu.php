@@ -11,8 +11,8 @@
 	<?}?>
 	<li><a href="jefe/indexdepartamentos.php">Importar Departamentos y Especialidades</a></li>
 	<li><a href="jefe/indexprofesores.php">Importar Profesores</a></li>
-	<li><a href="../faltas/seneca/index_festivos.php">Importar días festivos</a></li>
-	<li><a href="../faltas/seneca/index_jornada.php">Importar Jornada</a></li> 
+	<li><a href="jefe/index_festivos.php">Importar días festivos</a></li>
+	<li><a href="jefe/index_jornada.php">Importar Jornada</a></li> 
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
 
 	<li class="nav-header">Actualizaci&oacute;n</li>

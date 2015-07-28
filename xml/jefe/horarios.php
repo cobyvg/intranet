@@ -11,12 +11,12 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 
 include("../../menu.php");
 ?>
-	<div class="container">
-			<div class="page-header">
-			<h2>Administración <small>Importación del horario con archivo DEL de Horw</small></h2>
-		</div>	
-			<div class="row">
-<?
+<div class="container">
+<div class="page-header">
+<h2>Administración <small>Importación del horario con archivo DEL de
+Horw</small></h2>
+</div>
+<div class="row"><?
 
 $fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
 if (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
@@ -49,7 +49,7 @@ while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
 	foreach ($data as $indice=>$clave){
 		if ($indice<11) {
 			$sql.="'".trim($clave)."', ";
-		}		
+		}
 	}
 	$sql=substr($sql,0,strlen($sql)-2);
 	$sql.=" )";
@@ -89,17 +89,17 @@ while($s_asigna = mysqli_fetch_array($s_cod)){
 $sin_codigo="";
 $sin_cd = mysqli_query($db_con,"select distinct a_asig, asig from horw where c_asig = '' or c_asig is null");
 if (mysqli_num_rows($sin_cd)>0) {
-	
-echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:600px;" align="left">
+
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:600px;" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha registrado un código para las asignaturas que aparecen abajo. Esta situación producirá problemas en módulos fundamentales de la Intranet. Asigna el código correcto y actualiza el horario cuanto antes, a menos que sepas lo que haces.
 <br><br><ul>';
-	
-while($sin_codi = mysqli_fetch_array($sin_cd)){
-	echo "<li>$sin_codi[0] => $sin_codi[1]</li>";
-}
-echo '</ul></div></div>';	
+
+	while($sin_codi = mysqli_fetch_array($sin_cd)){
+		echo "<li>$sin_codi[0] => $sin_codi[1]</li>";
+	}
+	echo '</ul></div></div>';
 }
 
 
@@ -119,83 +119,119 @@ while ($h2 = mysqli_fetch_array($h1)) {
 	$curso = $h2[5];
 	$cod = $h2[1];
 	$nombre_asignatura = $h2[3];
-	
-	
-// Primera pasada	
+
+
+	// Primera pasada
 	$asig = mysqli_query($db_con, "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and nombre = '$nombre_asignatura' and codigo not like '2' and abrev not like '%\_%'");
-if (mysqli_num_rows($asig)>0) {
-	$asignatur = mysqli_fetch_array($asig);
-	$asignatura=$asignatur[0];
-	if (!($asignatura==$cod)) {
-		$codasi = $asignatura;
-		mysqli_query($db_con, "update horw set c_asig = '$codasi' where id = '$id_horw'");
-		//echo "update horw set c_asig = '$codasi' where id = '$id_horw'<br>";
+	if (mysqli_num_rows($asig)>0) {
+		$asignatur = mysqli_fetch_array($asig);
+		$asignatura=$asignatur[0];
+		if (!($asignatura==$cod)) {
+			$codasi = $asignatura;
+			mysqli_query($db_con, "update horw set c_asig = '$codasi' where id = '$id_horw'");
+			//echo "update horw set c_asig = '$codasi' where id = '$id_horw'<br>";
+		}
+		else{
+			$codasi="";
+		}
 	}
-	else{
-		$codasi="";
-	}	
-}
 
-// Segunda pasada	
+	// Segunda pasada
 	$asig2 = mysqli_query($db_con, "select codigo, nombre from asignaturas where curso = '$curso' and curso not like '' and (codigo not like '2' and codigo = '$cod') and abrev not like '%\_%'");
-if (mysqli_num_rows($asig2)>0) {
-	$asignatur2 = mysqli_fetch_array($asig2);
-	$asignatura2=$asignatur2[0];
-	$nombre_asig2=$asignatur2[1];
-	if ($asignatura2==$cod) {
-		$codasi2 = $asignatura2;
-		mysqli_query($db_con, "update horw set c_asig = '$codasi2', asig='$nombre_asig2' where id = '$id_horw'");
+	if (mysqli_num_rows($asig2)>0) {
+		$asignatur2 = mysqli_fetch_array($asig2);
+		$asignatura2=$asignatur2[0];
+		$nombre_asig2=$asignatur2[1];
+		if ($asignatura2==$cod) {
+			$codasi2 = $asignatura2;
+			mysqli_query($db_con, "update horw set c_asig = '$codasi2', asig='$nombre_asig2' where id = '$id_horw'");
+		}
+		else{
+			$codasi2="";
+		}
+
 	}
-	else{
-		$codasi2="";
-	}
-	
 }
 
+// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
+$tabla_profes =mysqli_query($db_con,"select * from profesores");
+if (mysqli_num_rows($tabla_profes) > 0) {}
+else{
+	// Recorremos la tabla Profesores bajada de Séneca
+	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo like '1%' or a_grupo like '2%' or a_grupo like '3%' or a_grupo like '4%' order by prof");
+	while ($prf =mysqli_fetch_array($pro)) {
+		$materia = $prf[0];
+		$grupo = $prf[1];
+		$profesor = $prf[2];
+		$niv =mysqli_query($db_con,"select distinct curso from alma where unidad = '$grupo'");
+		$nive =mysqli_fetch_array($niv);
+		$nivel = $nive[0];
 
-}
-
-	// Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
-	$tabla_profes =mysqli_query($db_con,"select * from profesores");
-	if (mysqli_num_rows($tabla_profes) > 0) {}
-	else{
-		// Recorremos la tabla Profesores bajada de Séneca
-		$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo like '1%' or a_grupo like '2%' or a_grupo like '3%' or a_grupo like '4%' order by prof");
-		while ($prf =mysqli_fetch_array($pro)) {
-			$materia = $prf[0];
-			$grupo = $prf[1];
-			$profesor = $prf[2];
-			$niv =mysqli_query($db_con,"select distinct curso from alma where unidad = '$grupo'");
-			$nive =mysqli_fetch_array($niv);
-			$nivel = $nive[0];
-
-			mysqli_query($db_con,"INSERT INTO  profesores (
+		mysqli_query($db_con,"INSERT INTO  profesores (
 `nivel` ,
 `materia` ,
 `grupo` ,
 `profesor`
 ) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
-		}
 	}
-	
+}
+
 // Horw para Faltas
 mysqli_query($db_con, "drop table horw_faltas");
 mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and a_grupo not like 'GU%'");
 
-	// Tutores
-	$tabla_tut =mysqli_query($db_con,"select * from FTUTORES");
-	if(mysqli_num_rows($tabla_tut) > 0){}
-	else{
-		mysqli_query($db_con,"insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where c_asig = '2'");
+// Cargos varios
+
+	$carg = mysqli_query($db_con, "select distinct prof from horw");
+	while ($cargo = mysqli_fetch_array($carg)) {
+		$cargos="";
+
+		$profe_dep = mysqli_query($db_con, "select distinct c_asig from horw where prof = '$cargo[0]' and (a_grupo = '' or c_asig = '2' or c_asig = '279' or c_asig = '117')");
+		while ($profe_dpt = mysqli_fetch_array($profe_dep)) {
+			if ($profe_dpt[0]=="44") {
+				$cargos="1";
+			}
+			if ($profe_dpt[0]=="45") {
+				$cargos.="4";
+			}
+			if ($profe_dpt[0]=="50") {
+				$cargos.="8";
+			}
+			if ($profe_dpt[0]=="376") {
+				$cargos.="a";
+			}
+			if ($profe_dpt[0]=="384") {
+				$cargos.="9";
+			}
+			if ($profe_dpt[0]=="26") {
+				$cargos.="c";
+			}
+			if ($profe_dpt[0]=="2") {
+				$cargos.="2";
+			}
+		}
+		
+		mysqli_query($db_con,"update departamentos set cargo='$cargos' where nombre = '$cargo[0]'");
+		
+			// Tutores
+		$tabla_tut = mysqli_query($db_con, "select * from FTUTORES where tutor = '$cargo[0]'");
+		if(mysqli_num_rows($tabla_tut) > 0){}
+		else{
+			if(strstr($cargos,"2")==TRUE)
+			{
+				mysqli_query($db_con, "insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where c_asig like '2' and prof = '$cargo[0]' and prof in (select nombre from departamentos)");
+			}
+		}
 	}
-	?>
-	<div class="alert alert-success alert-block fade in" >
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Horario ha sido importado correctamente.
-</div></div><br />
-<div align="center">
-  <a  href="../index.php" class="btn btn-primary" />Volver a Administración</a>
-</div><br />
-	</div>
-	</div>
-	<?php include("../../pie.php");?>
+?>
+<div class="alert alert-success alert-block fade in">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+El Horario ha sido importado correctamente.</div>
+</div>
+<br />
+<div align="center"><a href="../index.php" class="btn btn-primary" />Volver
+a Administración</a></div>
+<br />
+</div>
+</div>
+<?php include("../../pie.php");?>

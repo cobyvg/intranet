@@ -10,12 +10,12 @@ exit;
 
 
 include("../../menu.php");
-include("../menu.php");
 ?>
 <div class="container">
 <br />
 <div class="page-header">
   <h2>Faltas de Asistencia <small> importación de la Jornada Escolar del centro</small></h2>
+  </div>
 <div class="row">
 <br />
 <?
@@ -57,7 +57,9 @@ fclose($handle);
  	<div align="center""><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 	 Los datos se han importado correctamente.
-			</div></div>
+			</div></div><br>
+			<div align="center"><a href="../index.php" class="btn btn-primary" />Volver
+a Administración</a></div>
 			<?
 
 $borrarvacios = "delete from jornada where minutos = ''";
@@ -65,8 +67,10 @@ mysqli_query($db_con, $borrarvacios);
 mysqli_query($db_con,"ALTER TABLE `jornada` ADD PRIMARY KEY (`tramo`)");
 	
 ?>
-<br />
 </div>
 </div>
+   <?php 
+include("../../pie.php");
+?>
 </body>
 </html>
