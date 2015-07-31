@@ -192,7 +192,7 @@ No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
 </div>'); 
 
 	// Añadimos excepciones
-	mysqli_query($db_con,"INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('2', 'Tutoría con Alumnos', 'TUT', '1º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TUT', '2º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TUT', '3º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TUT', '4º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '1º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '2º de E.S.O.')");
+	mysqli_query($db_con,"INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('2', 'Tutoría con Alumnos', 'TCA', '1º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '2º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '3º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '4º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '1º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '2º de E.S.O.')");
 
 	echo '<br />
 <div align="center"><div class="alert alert-success alert-block fade in">

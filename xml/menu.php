@@ -14,22 +14,21 @@
 	<li><a href="jefe/index_festivos.php">Importar días festivos</a></li>
 	<li><a href="jefe/index_jornada.php">Importar Jornada</a></li> 
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
-
+	<?php if ($mod_horario) {?>
+	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
+	<?}?>
 	<li class="nav-header">Actualizaci&oacute;n</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
 	<li><a href="jefe/asignaturas.php?actualiza=1">Actualizar Asignaturas</a></li>
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
 	<li><a href="jefe/indexprofesores.php">Actualizar Profesores</a></li>
 	<li><a href="jefe/indexdepartamentos2.php">Actualizar Departamentos</a></li>
-	<?php if ($mod_horario) {?>
-	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
-	<?}?>
 
 	<li class="nav-header">Profesores</li> 
 	<li><a href="../config/cargos.php">Seleccionar Perfil de los Profesores</a></li>
 	<li><a href="jefe/gest_dep.php">Gestión de los Departamentos</a></li>
 	<li><a href="jefe/reset_password.php">Restablecer contraseñas</a></li>
-	<li><a href="jefe/horarios/index.php">Modificar Horarios</a></li>
+	<li><a href="jefe/horarios/index.php">Modificar/Crear Horarios</a></li>
 	<li><a href="jefe/index_hor.php">Copiar datos de un profesor a otro</a></li>
 	<li><a href="jefe/index_fotos_profes.php">Subir fotos de profesores</a></li>
 	<li><a href="jefe/informes/accesos.php">Informe de accesos</a></li>

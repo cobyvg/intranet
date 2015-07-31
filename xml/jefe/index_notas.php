@@ -98,7 +98,7 @@ include("../../menu.php");
 			
 			<h3>Información sobre la importación</h3>
 			
-			<p>Para obtener el archivo de exportación de calificaciones debe dirigirse al apartado <strong>Utilidades</strong>, <strong>Importación/Exportación de datos</strong>. Seleccione <strong>Exportación de Calificaciones</strong>. Seleccione la convocatoria y añada todas las unidades de todos los cursos del centro. Proceda a descargar el archivo comprimido.<p>
+			<p>Para obtener el archivo de exportación de calificaciones debes dirigirte a Séneca, y luego en el Menú a <strong>Utilidades</strong>, <strong>Importación/Exportación de datos</strong>. Selecciona <strong>Exportación de Calificaciones</strong>. Seleccion luego la convocatoria y añade todas las unidades de todos los cursos del centro. Procede a descargar el archivo comprimido.<p>
 			
 		</div><!-- /.col-sm-6 -->
 		

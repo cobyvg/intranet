@@ -110,7 +110,7 @@ las dependencias elegidas quedarán ocultas en la selección de aulas del sistema 
 <table class="table table-striped">
 <?
 echo "<thead><th colspan=3>Aulas en el Horario</th></thead>";
-$aulas = mysqli_query($db_con,"select distinct a_aula, n_aula from horw where n_aula not like 'GU%' and a_aula not like ''");
+$aulas = mysqli_query($db_con,"select distinct a_aula, n_aula from horw where c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21') and a_aula not like ''");
 while ($aula = mysqli_fetch_array($aulas)) {
 	$check="";
 	$abrev0 = $aula[0];

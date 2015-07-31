@@ -153,6 +153,15 @@ while ($h2 = mysqli_fetch_array($h1)) {
 	}
 }
 
+// Actualizamos nombre de las materias / actividades para hacerlas más intuitivas
+mysqli_query($db_con, "update horw set a_asig = 'TCA' where c_asig = '2'");
+mysqli_query($db_con, "update asignaturas set abrev = 'TCA' where codigo = '2'");
+mysqli_query($db_con, "update horw set a_asig = 'TCF' where c_asig = '279'");
+mysqli_query($db_con, "update horw set a_asig = 'TAP' where c_asig = '117'");
+mysqli_query($db_con, "update horw set a_asig = 'GU' where c_asig = '25'");
+mysqli_query($db_con, "update horw set a_asig = 'GUREC' where c_asig = '353'");
+mysqli_query($db_con, "update horw set a_asig = 'GUBIB' where c_asig = '26'");
+
 // Metemos a los profes en la tabla profesores hasta que el horario se haya exportado a Séneca y consigamos los datos reales de los mismos
 $tabla_profes =mysqli_query($db_con,"select * from profesores");
 if (mysqli_num_rows($tabla_profes) > 0) {}
@@ -178,51 +187,51 @@ else{
 
 // Horw para Faltas
 mysqli_query($db_con, "drop table horw_faltas");
-mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and a_grupo not like 'GU%'");
+mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
 
 // Cargos varios
 
-	$carg = mysqli_query($db_con, "select distinct prof from horw");
-	while ($cargo = mysqli_fetch_array($carg)) {
-		$cargos="";
+$carg = mysqli_query($db_con, "select distinct prof from horw");
+while ($cargo = mysqli_fetch_array($carg)) {
+	$cargos="";
 
-		$profe_dep = mysqli_query($db_con, "select distinct c_asig from horw where prof = '$cargo[0]' and (a_grupo = '' or c_asig = '2' or c_asig = '279' or c_asig = '117')");
-		while ($profe_dpt = mysqli_fetch_array($profe_dep)) {
-			if ($profe_dpt[0]=="44") {
-				$cargos="1";
-			}
-			if ($profe_dpt[0]=="45") {
-				$cargos.="4";
-			}
-			if ($profe_dpt[0]=="50") {
-				$cargos.="8";
-			}
-			if ($profe_dpt[0]=="376") {
-				$cargos.="a";
-			}
-			if ($profe_dpt[0]=="384") {
-				$cargos.="9";
-			}
-			if ($profe_dpt[0]=="26") {
-				$cargos.="c";
-			}
-			if ($profe_dpt[0]=="2") {
-				$cargos.="2";
-			}
+	$profe_dep = mysqli_query($db_con, "select distinct c_asig from horw where prof = '$cargo[0]' and (a_grupo = '' or c_asig = '2' or c_asig = '279' or c_asig = '117')");
+	while ($profe_dpt = mysqli_fetch_array($profe_dep)) {
+		if ($profe_dpt[0]=="44") {
+			$cargos="1";
 		}
-		
-		mysqli_query($db_con,"update departamentos set cargo='$cargos' where nombre = '$cargo[0]'");
-		
-			// Tutores
-		$tabla_tut = mysqli_query($db_con, "select * from FTUTORES where tutor = '$cargo[0]'");
-		if(mysqli_num_rows($tabla_tut) > 0){}
-		else{
-			if(strstr($cargos,"2")==TRUE)
-			{
-				mysqli_query($db_con, "insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where c_asig like '2' and prof = '$cargo[0]' and prof in (select nombre from departamentos)");
-			}
+		if ($profe_dpt[0]=="45") {
+			$cargos.="4";
+		}
+		if ($profe_dpt[0]=="50") {
+			$cargos.="8";
+		}
+		if ($profe_dpt[0]=="376") {
+			$cargos.="a";
+		}
+		if ($profe_dpt[0]=="384") {
+			$cargos.="9";
+		}
+		if ($profe_dpt[0]=="26") {
+			$cargos.="c";
+		}
+		if ($profe_dpt[0]=="2") {
+			$cargos.="2";
 		}
 	}
+
+	mysqli_query($db_con,"update departamentos set cargo='$cargos' where nombre = '$cargo[0]'");
+
+	// Tutores
+	$tabla_tut = mysqli_query($db_con, "select * from FTUTORES where tutor = '$cargo[0]'");
+	if(mysqli_num_rows($tabla_tut) > 0){}
+	else{
+		if(strstr($cargos,"2")==TRUE)
+		{
+			mysqli_query($db_con, "insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where c_asig like '2' and prof = '$cargo[0]' and prof in (select nombre from departamentos)");
+		}
+	}
+}
 ?>
 <div class="alert alert-success alert-block fade in">
 <button type="button" class="close" data-dismiss="alert">&times;</button>

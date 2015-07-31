@@ -233,7 +233,7 @@ include("../../../menu.php");
 						  <label for="profesor">Profesor/a</label>
 						  <select class="form-control" id="profesor" name="profesor" onchange="submit()">
 						  	<option value=""></option>
-						  	<?php $result = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' ORDER BY nombre ASC"); ?>
+						  	<?php $result = mysqli_query($db_con, "SELECT nombre, departamento FROM departamentos WHERE departamento <> 'Admin' AND departamento <> 'Administracion' AND departamento <> 'Conserjeria' ORDER BY nombre ASC"); ?>
 						  	<?php while ($row = mysqli_fetch_array($result)): ?>
 						  	<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($profesor) && $row['nombre'] == $profesor) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 						  	<?php endwhile; ?>
@@ -269,11 +269,11 @@ include("../../../menu.php");
 						
 						<div class="form-group">
 						  <label for="unidad">Unidad</label>
-						  <select class="form-control" id="unidad" name="unidad">
+						  <select class="form-control" id="unidad" name="unidad" onchange="submit()">
 						  	<option value=""></option>
 						  	<?php $result = mysqli_query($db_con, "SELECT unidades.nomunidad, cursos.nomcurso FROM unidades JOIN cursos ON unidades.idcurso=cursos.idcurso"); ?>
-						  	<?php while ($row = mysqli_fetch_array($result)): ?>
-						  	<option value="<?php echo $row['nomunidad']; ?>" <?php echo (isset($unidad) && $row['nomunidad'] == $unidad) ? 'selected' : ''; ?>><?php echo $row['nomunidad'].' ('.$row['nomcurso'].')'; ?></option>
+						  	<?php while ($row = mysqli_fetch_array($result)):?>
+						  	<option value="<?php echo $row['nomunidad']; ?>" <?php echo (isset($_POST['unidad']) && $row['nomunidad'] == $_POST['unidad']) ? 'selected' : ''; ?>><?php echo $row['nomunidad'].' ('.$row['nomcurso'].')'; ?></option>
 						  	<?php endwhile; ?>
 						  </select>
 						</div>
@@ -283,13 +283,13 @@ include("../../../menu.php");
 						  <select class="form-control" id="asignatura" name="asignatura">
 						 	<option value=""></option>
 						  	<optgroup label="Asignaturas">
-						  	  	<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM asignaturas WHERE codigo <> '' AND abrev NOT LIKE '%\_%' ORDER BY curso ASC, nombre ASC"); ?>
+						  	  	<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM asignaturas WHERE curso = (select distinct curso from alma where unidad = '".$_POST['unidad']."') and codigo <> '' AND abrev NOT LIKE '%\_%' ORDER BY nombre ASC"); ?>
 						  	  	<?php while ($row = mysqli_fetch_array($result)): ?>
 						  	  	<option value="<?php echo $row['codigo']; ?>" <?php echo (isset($asignatura) && $row['codigo'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['curso'].' - '.$row['nombre'].' ('.$row['abrev'].')'; ?></option>
 						  	  	<?php endwhile; ?>
 						  	</optgroup>
 						  	<optgroup label="Actividades">
-							  	<?php $result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca"); ?>
+							  	<?php $result = mysqli_query($db_con, "select distinct nomactividad from actividades_seneca where idactividad in (select distinct c_asig from horw where c_asig in (select distinct idactividad from actividades_seneca))"); ?>
 							  	<?php while ($row = mysqli_fetch_array($result)): ?>
 							  	<option value="<?php echo $row['idactividad']; ?>" <?php echo (isset($asignatura) && $row['idactividad'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['nomactividad']; ?></option>
 							  	<?php endwhile; ?>

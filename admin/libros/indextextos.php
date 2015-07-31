@@ -1,4 +1,4 @@
-<?
+	<?php
 require('../../bootstrap.php');
 
 
@@ -19,7 +19,13 @@ include("../../menu.php");
 		<h2>Programa de Ayudas al Estudio <small>Libros gratuitos de la ESO</small></h2>
 	</div>
 	
-	<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
+
+	
+	
+	<!-- SCAFFOLDING -->
+	<div class="row">
+	<div class="col-sm-6">
+		<?php if(stristr($_SESSION['cargo'],'1') == TRUE): ?>
 	
 	<?php $result = mysqli_query($db_con, "SELECT * FROM textos_gratis LIMIT 1"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
@@ -28,14 +34,7 @@ include("../../menu.php");
 	</div>
 	<?php endif; ?>
 	
-	
-	<!-- SCAFFOLDING -->
-	<div class="row">
-		
-		<!-- COLUMNA IZQUIERDA -->
-		<div class="col-sm-6">
-			
-			<div class="well">
+	<div class="well">
 				
 				<form enctype="multipart/form-data" method="post" action="in_textos.php">
 					<fieldset>
@@ -54,33 +53,9 @@ include("../../menu.php");
 				</form>
 				
 			</div><!-- /.well -->
+					<?php endif; ?>
 			
-		</div><!-- /.col-sm-6 -->
-		
-		
-		<!-- COLUMNA DERECHA -->
-		<div class="col-sm-6">
-			
-			<h3>Información sobre la importación</h3>
-			
-			<p>Para obtener el catálogo de libros de texto del programa de gratuidad debe dirigirse al apartado <strong>Alumnado</strong>, <strong>Ayuda al Estudio</strong>, <strong>Gratuidad en Libros de Texto</strong>, <strong>Asignación de libros a materias</strong>. Seleccione el curso y haga click en <strong>Exportar datos</strong>. El formato de exportación debe ser <strong>Texto plano</strong>.</p>
-			
-			<p>Debe renombrar el archivo RegAsiLibMat.txt descargado por el nombre del curso seleccionado. De modo, que debe tener cuatro archivos llamados 1ESO.txt, 2ESO.txt, 3ESO.txt, 4ESO.txt.</p>
-			
-		</div>
-				
-	
-	</div><!-- /.row -->
-	
-	<hr>
-	<?php endif; ?>
-	
-	<div class="row">
-		
-		<!-- COLUMNA IZQUIERDA -->
-		<div class="col-sm-6">
-			
-			<div class="well">
+				<div class="well">
 				
 				<form method="post" action="reposicion.php">
 					<fieldset>
@@ -107,12 +82,6 @@ include("../../menu.php");
 				</form>
 				
 			</div><!-- /.well -->
-			
-		</div><!-- /.col-sm-6 -->
-		
-		
-		<!-- COLUMNA DERECHA -->
-		<div class="col-sm-6">
 			
 			<div class="well">
 							
@@ -143,16 +112,21 @@ include("../../menu.php");
 				</form>
 				
 			</div><!-- /.well -->
+				
+	</div>
+	<div class="col-sm-6">
+	<h3>Información sobre la importación</h3>
 			
-		</div><!-- /.col-sm-6 -->
+			<p>En primer lugar, debemos obtener el catálogo de libros de texto del Programa de Gratuidad desde Séneca. Entramos en Séneca y en el Menú vamos a <strong>Alumnado</strong>, <strong>Ayuda al Estudio</strong>, <strong>Gratuidad en Libros de Texto</strong>, <strong>Asignación de libros a materias</strong>. Seleccionamos el curso y pulsamos en <strong>Exportar datos</strong>. El formato de exportación debe ser <strong>Texto plano</strong>. El archivo resultante se llama <em>RegAsiLibMat.txt</em>. <br>
+			Con cada Curso descargado, renombramos el archivo  por el nombre del Curso seleccionado (1ESO.txt). Al final debemos tener cuatro archivos llamados 1ESO.txt, 2ESO.txt, 3ESO.txt y 4ESO.txt, que utilizamos para importar los libros de texto de cada Curso.</p>
 			
-		
-	</div><!-- /.row -->
+			<p>El módulo permite a los Tutores Consultar el estado de los Libros de Texto, así como utilizar la aplicación para registrarlo al final de cada Curso Escolar. También permite Consultar el estado de los Libros por Nivel al Equipo Directivo, así como generar Certificados de Reposición (Facturas en su caso) en formato PDF preparados para entregar oficialmente a los Padres del Alumno. </p>
+	</div>	
 	
+	</div>
+	</div>
 	
-</div><!-- /.container -->
-  
-<?php include("../../pie.php"); ?>
+	<?php include("../../pie.php"); ?>
 	
 </body>
 </html>

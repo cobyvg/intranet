@@ -221,11 +221,13 @@ else {
 	}
 
 
-	// Actualizamos nombre de las materias / actividades para hacerlas más intuitivas y ajustarlas al patrón antiguo
-	mysqli_query($db_con, "update horw set a_asig = 'TUT' where c_asig = '2'");
-	mysqli_query($db_con, "update asignaturas set abrev = 'TUT' where codigo = '2'");
+	// Actualizamos nombre de las materias / actividades para hacerlas más intuitivas
+	mysqli_query($db_con, "update horw set a_asig = 'TCA' where c_asig = '2'");
+	mysqli_query($db_con, "update asignaturas set abrev = 'TCA' where codigo = '2'");	
+	mysqli_query($db_con, "update horw set a_asig = 'TCF' where c_asig = '279'");
+	mysqli_query($db_con, "update horw set a_asig = 'TAP' where c_asig = '117'");		
 	mysqli_query($db_con, "update horw set a_asig = 'GU' where c_asig = '25'");
-	mysqli_query($db_con, "update horw set a_asig = 'GURE' where c_asig = '353'");
+	mysqli_query($db_con, "update horw set a_asig = 'GUREC' where c_asig = '353'");
 	mysqli_query($db_con, "update horw set a_asig = 'GUBIB' where c_asig = '26'");
 
 	// Eliminamos el Recreo como 4ª Hora.
@@ -311,7 +313,7 @@ else {
 	// Creamos horw_faltas
 	//
 	mysqli_query($db_con, "drop table horw_faltas");
-	mysqli_query($db_con, "create table horw_faltas select * from horw");
+	mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
 
 	// Eliminamos residuos y cambiamos alguna cosa.
 

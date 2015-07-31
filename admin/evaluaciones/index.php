@@ -158,7 +158,7 @@ include("menu.php");
 								<select class="form-control" id="curso" name="curso" onchange="submit()">
 									<option value=""></option>
 									<optgroup label="Unidades donde imparto clase">
-									<?php $result = mysqli_query($db_con, "SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND a_grupo <> '' AND a_asig NOT LIKE '%TUT%' AND a_grupo NOT LIKE '%GU%' ORDER BY a_grupo ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND a_grupo <> '' AND c_asig not in (select distinct idactividad from actividades_seneca) ORDER BY a_grupo ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 										<option value="<?php echo $row['a_grupo'].'-->'.$row['c_asig']; ?>"
 										<?php echo (isset($form_curso) && $form_curso == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : (isset($curso) && isset($asignatura) && $curso.'-->'.$asignatura == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : ''; ?>><?php echo $row['a_grupo']; ?>
@@ -167,7 +167,7 @@ include("menu.php");
 									</optgroup>
 									<?php if (strstr($_SESSION['cargo'], '1') == true): ?>
 									<optgroup label="Todas las unidades">
-									<?php $result = mysqli_query($db_con, "SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE a_grupo <> '' AND a_grupo NOT LIKE '%GU%' AND a_asig  NOT LIKE '%TUT%' ORDER BY a_grupo ASC"); ?>
+									<?php $result = mysqli_query($db_con, "SELECT DISTINCT c_asig, asig, a_grupo FROM horw WHERE a_grupo <> '' AND c_asig not in (select distinct idactividad from actividades_seneca) ORDER BY a_grupo ASC"); ?>
 									<?php while ($row = mysqli_fetch_array($result)): ?>
 										<option value="<?php echo $row['a_grupo'].'-->'.$row['c_asig']; ?>"
 										<?php echo (isset($form_curso) && $form_curso == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : (isset($curso) && isset($asignatura) && $curso.'-->'.$asignatura == $row['a_grupo'].'-->'.$row['c_asig']) ? 'selected' : ''; ?>><?php echo $row['a_grupo']; ?>

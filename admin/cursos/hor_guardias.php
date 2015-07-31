@@ -35,25 +35,25 @@ $profes_total = mysqli_num_rows($profes_tot);
 
 $sql = "SELECT DISTINCT prof, COUNT( * ) AS num
 FROM  `horw` 
-WHERE a_asig =  'GU'
+WHERE c_asig =  '25'
 GROUP BY prof
 ORDER BY  `prof` ASC ";
 
 $sql_gu = "SELECT DISTINCT prof, COUNT( * ) AS num
 FROM  `horw` 
-WHERE a_asig LIKE  'GU%'
+WHERE (c_asig = '25' or c_asig = '353')
 GROUP BY prof
 ORDER BY  `num` ASC ";
 
 $sql_bib = "SELECT DISTINCT prof, COUNT( * ) AS num
 FROM  `horw` 
-WHERE a_asig LIKE  '%GUB%'
+WHERE c_asig = '26'
 GROUP BY prof
 ORDER BY  `prof` ASC ";
 
 $sql_conv = "SELECT DISTINCT prof, COUNT( * ) AS num
 FROM  `horw` 
-WHERE a_asig LIKE  '%GUC%'
+WHERE a_asig LIKE  'GUC%'
 GROUP BY prof
 ORDER BY  `prof` ASC ";
 
@@ -190,7 +190,7 @@ while ($arr_reg = mysqli_fetch_array($query_reg)) {
 	
 $sql1 = mysqli_query($db_con, "SELECT prof
 FROM  `horw` 
-WHERE a_asig = 'GU' and prof = '$arr_reg[0]'");
+WHERE c_asig = '25' and prof = '$arr_reg[0]'");
 $num_gu = mysqli_num_rows($sql1);	
 
 echo "<tr><td>".nomprofesor($arr_reg[0])."</td><td class='col-sm-2' nowrap>$arr_reg[1] </td><td class='col-sm-2 text-muted' nowrap>$num_gu</td></tr>";

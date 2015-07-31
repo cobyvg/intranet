@@ -85,9 +85,9 @@ include("menu.php");
 									<div class="form-group">
 										<label for="curso">Unidad</label>
 										<?php if (strstr($_SESSION['cargo'], '1') == true): ?>
-										<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE a_asig NOT LIKE '%TUT%' AND a_asig NOT LIKE '%GU%' AND a_asig NOT LIKE '%GU%' ORDER BY a_grupo ASC"); ?>
+										<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE c_asig != '2' AND c_asig not in (select distinct idactividad from actividades_seneca) ORDER BY a_grupo ASC"); ?>
 										<?php else: ?>
-										<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND a_asig NOT LIKE '%TUT%' AND a_asig NOT LIKE '%GU%' ORDER BY a_grupo ASC"); ?>
+										<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE prof='".mb_strtoupper($_SESSION['profi'], 'iso-8859-1')."' AND c_asig != '2' AND c_asig not in (select distinct idactividad from actividades_seneca) ORDER BY a_grupo ASC"); ?>
 										<?php endif; ?>
 										<select class="form-control" id="curso" name="curso" onchange="submit()">
 											<option value=""></option>
@@ -140,7 +140,7 @@ include("menu.php");
 					<thead>
 						<tr>
 							<th>Alumno/a</th>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig FROM horw WHERE a_grupo='$curso' AND a_asig NOT LIKE '%TUT%' ORDER BY asig ASC") or die (mysqli_error($db_con)); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig FROM horw WHERE a_grupo='$curso' AND c_asig NOT LIKE '2' ORDER BY asig ASC") or die (mysqli_error($db_con)); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<th><abbr data-bs="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr></th>
 							<?php endwhile; ?>
@@ -155,7 +155,7 @@ include("menu.php");
 						<?php while ($row = mysqli_fetch_array($result)): ?>
 						<tr>
 							<td nowrap><?php echo $row['apellidos'].', '.$row['nombre']; ?></td>
-							<?php $result1 = mysqli_query($db_con, "SELECT DISTINCT c_asig FROM horw WHERE a_grupo='$curso' AND a_asig NOT LIKE '%TUT%' ORDER BY asig ASC") or die (mysqli_error($db_con)); ?>
+							<?php $result1 = mysqli_query($db_con, "SELECT DISTINCT c_asig FROM horw WHERE a_grupo='$curso' AND c_asig NOT LIKE '2' ORDER BY asig ASC") or die (mysqli_error($db_con)); ?>
 							<?php while ($row1 = mysqli_fetch_array($result1)): ?>
 								
 							<?php $result2 = mysqli_query($db_con, "SELECT calificaciones FROM evaluaciones WHERE unidad='$curso' AND evaluacion='$evaluacion' AND asignatura='".$row1['c_asig']."'"); ?>

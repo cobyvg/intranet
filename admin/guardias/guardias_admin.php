@@ -56,7 +56,7 @@ $fecha_sp = formatea_fecha($g_fecha);
 	name=profeso onchange="submit()" class="form-control">
 	<option value="<?php echo $profeso; ?>"><?php echo nomprofesor($profeso); ?></option>
 	<?
-	$profe = mysqli_query($db_con, " SELECT distinct prof FROM horw where a_asig='GU' order by prof asc");
+	$profe = mysqli_query($db_con, "SELECT distinct prof FROM horw where c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21') order by prof asc");
 	if ($filaprofe = mysqli_fetch_array($profe))
 	{
 		do {
@@ -112,7 +112,7 @@ if (mysqli_num_rows($hoy0) > 0) {
 }
 ?> 
 <?
-$h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$no_dia' and hora = '$hora' and a_asig = 'GU'");
+$h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$no_dia' and hora = '$hora' and c_asig != '2' AND c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
 if (mysqli_num_rows($h_gu0)>0) {
 if ($profeso and $no_dia and $hora) {
 	echo '<a name="marca"></a>';

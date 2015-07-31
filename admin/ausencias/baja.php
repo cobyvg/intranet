@@ -71,7 +71,7 @@ echo '<table class="table table-striped table-bordered" style="width:100$;">';
 	$ndia = date ( "w" );
 	for ($i=1;$i<7;$i++){
 	echo "<td align='center'>";	
-	$hor = mysqli_query($db_con, "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
+	$hor = mysqli_query($db_con, "select a_asig, a_grupo, a_aula, c_asig from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
 	//echo "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'<br>";
 	$hor_asig=mysqli_fetch_array($hor);
 	if (mysqli_num_rows($hor) > '0'){
@@ -79,7 +79,7 @@ echo '<table class="table table-striped table-bordered" style="width:100$;">';
 	if (strlen($hor_asig[2] > '1')){
 	echo "Aula<div style='color:#9d261d'><span style='font-weight:normal;'>$hor_asig[2]</div><br />";
 	}
-	if (strlen($hor_asig[1]) > '1' and strstr($hor_asig[0], 'GU') == FALSE){
+	if (strlen($hor_asig[1]) > '1' and $hor_asig[3]!="25"){
 		$hor2 = mysqli_query($db_con, "select a_grupo from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
 		echo "Grupos<div style='color:#08c'>";
 	while($hor_bj = mysqli_fetch_array($hor2)){

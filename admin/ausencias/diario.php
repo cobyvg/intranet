@@ -36,13 +36,13 @@ $hoy = date('Y-m-d');
 	$ndia = date ( "w" );
 	for ($i=1;$i<7;$i++){
 	echo "<td>";	
-	$hor = mysqli_query($db_con, "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
+	$hor = mysqli_query($db_con, "select a_asig, a_grupo, a_aula, c_asig from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
 	//echo "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'<br>";
 	$hor_asig=mysqli_fetch_array($hor);
 	if (mysqli_num_rows($hor) > '0'){
 
 	echo "<p class='text-info'>Horario: $hor_asig[0]</p>";
-	if (strlen($hor_asig[1]) > '1' and strstr($hor_asig[0], 'GU') == FALSE){
+	if (strlen($hor_asig[1]) > '1' and $hor_asig[3]!="25"){
 		$hor2 = mysqli_query($db_con, "select a_grupo from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
 		echo "<p class='text-success'>Grupos: ";
 	while($hor_bj = mysqli_fetch_array($hor2)){

@@ -53,13 +53,11 @@ mysqli_query($db_con, "OPTIMIZE TABLE `horw`");
 // creamos Horw para las Faltas
 $base0 = "DROP TABLE horw_faltas";
 mysqli_query($db_con, $base0);
-mysqli_query($db_con, "create table horw_faltas select * from horw where (a_asig not like '%TTA%' and a_asig not like '%TPESO%')");
-//Elimina las horas no lectivas
-  $nolectiva = "UPDATE  horw_faltas SET a_grupo = '' WHERE  a_grupo NOT LIKE '1%' and a_grupo NOT LIKE '2%' and a_grupo NOT LIKE '3%' and a_grupo NOT LIKE '4%' and a_asig not like 'TUT%'";
+	mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
+
   mysqli_query($db_con, $nolectiva);
   mysqli_query($db_con, "ALTER TABLE  ".$db."horw_faltas ADD INDEX (`prof`)");
   mysqli_query($db_con, "ALTER TABLE  ".$db."horw_faltas ADD index (`c_asig`)");
-  mysqli_query($db_con, "delete from horw_faltas where a_grupo='' or a_grupo is null");
   mysqli_query($db_con, "OPTIMIZE TABLE  `horw_faltas`");  
   
 echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">

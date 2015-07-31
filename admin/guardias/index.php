@@ -199,7 +199,7 @@ if (mysqli_num_rows($hoy0) > 0) {
 <div class="col-sm-6">
 <?
 echo '<table class="table table-striped" align="center">';
-$h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$n_dia' and hora = '$hora' and a_asig = 'GU'");
+$h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
 
 while ($h_gu = mysqli_fetch_array($h_gu0)) {
 	echo "<tr><td>";
@@ -223,7 +223,7 @@ echo "</table>";
 <select name="sustituido" class="form-control">
 <option></option>
 <?
-$sust0 = mysqli_query($db_con, "select distinct prof from horw where dia = '$n_dia' and hora = '$hora' and a_asig not like 'GU' and a_grupo not like '' order by prof");
+$sust0 = mysqli_query($db_con, "select distinct prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21') and a_grupo not like '' order by prof");
 while ($sust = mysqli_fetch_array($sust0)) {
 	echo "<option>$sust[0]</option>";
 }

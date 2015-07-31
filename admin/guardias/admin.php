@@ -72,7 +72,7 @@ largo del curso.
 	name=profeso onChange="submit()" class="form-control" required>
 	<option value="<?php echo $profeso;?>"><?php echo nomprofesor($profeso); ?></option>
 	<?
-	$profe = mysqli_query($db_con, "SELECT distinct prof FROM horw where a_asig = 'GU' order by prof asc");
+	$profe = mysqli_query($db_con, "SELECT distinct prof FROM horw where c_asig = '2' order by prof asc");
 	if ($filaprofe = mysqli_fetch_array($profe))
 	{
 		do {
