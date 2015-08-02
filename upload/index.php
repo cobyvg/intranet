@@ -618,7 +618,7 @@ La página presenta dos tipos de documentos: los <b><em>Documentos públicos del C
 </div>
 </div>
 </div>  
-	<?
+	<?php 
 	echo "  </ul>\n";
 	
 	echo "   <div class=\"page-header\">\n";
@@ -1166,5 +1166,3 @@ switch($action)
 }
 ?>
 
-</body>
-</html>

@@ -47,7 +47,7 @@ include("../../menu.php");
 
 <!-- SCAFFOLDING -->
 <div class="row"><!-- COLUMNA IZQUIERDA -->
-<?
+<?php
 echo $mens;
 ?>
 <div class="col-sm-6 col-sm-offset-3"><br>
@@ -59,7 +59,7 @@ echo $mens;
 <div class="form-group"><label>Selecciona el tema</label> <select
 	class="form-control" name="tema">
 	<optgroup label='Temas de la aplicación'>
-	<?	
+	<?php
 	$d = dir("../../css/temas/");
 	while (false !== ($entry = $d->read())) {
 		if (stristr($entry,".css")==TRUE and !($entry=="bootstrap.min.css")) {

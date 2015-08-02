@@ -26,7 +26,7 @@ include_once('../config/version.php');
     <link href="//<?php echo $dominio; ?>/intranet/css/font-awesome.min.css" rel="stylesheet" >
 </head>
 <body>	
-<?
+<?php
 // Conexion de datos
 $db_con = mysqli_connect($db_host, $db_user, $db_pass) or die('<br /><div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -1478,4 +1478,5 @@ echo '<div align="center"><div class="well" style="max-width:500px" align="justi
 Las Bases de datos y sus tablas han sido creadas correctamente. Ahora debes ir a la página principal y continuar con la importación de los datos de Séneca hacia la Intranet. Esto lo haces identificándote como Administrador (usuario: <em>admin</em>; Clave de acceso: <em>12345678</em>), y yendo a la página de Administración de la Intranet (en el Menú de la Izquierda).<br><br /><div align="center"><a href="//'.$dominio.'/intranet/" class="btn btn-primary">Ir a la Página Principal</a></div>
           </div></div>';
 }
-?> 
+?>
+

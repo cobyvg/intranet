@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -75,7 +75,7 @@ Las sustituciones sólo pueden registrarse hasta dos días después de realizarse. 
 <br>
 <div class="row">
 
-<?
+<?php
 if ($borrar=='1') {
 	mysqli_query($db_con, "delete from guardias where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
@@ -180,7 +180,7 @@ No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desp
 <div class="col-md-8 col-md-offset-2">
   <legend class="text-info" align="center"><?php echo $nombre_dia.", ".$fecha_sp.", $hora"."ª hora";?></legend>
 
-<?
+<?php
 $fech_hoy = date("Y-m-d");
 $hoy0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha'");
 if (mysqli_num_rows($hoy0) > 0) {
@@ -197,7 +197,7 @@ if (mysqli_num_rows($hoy0) > 0) {
 <p class='lead text-warning'>Sustituciones realizadas durante la <?php echo "<span style=''>".$hora."ª</span>";?> hora del <?php echo "<span style=''>$nombre_dia</span>";?></p>
 <div class="row">
 <div class="col-sm-6">
-<?
+<?php 
 echo '<table class="table table-striped" align="center">';
 $h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
 
@@ -239,7 +239,7 @@ while ($sust = mysqli_fetch_array($sust0)) {
 </div>
 </div>
 
-<?
+<?php 
 if ($historico == '1') {
 	if (stristr($_SESSION['cargo'],'1') == TRUE) {
 		$extra = "";

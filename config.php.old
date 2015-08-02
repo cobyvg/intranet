@@ -1,0 +1,90 @@
+<?php
+$force_ssl='';
+$dominio='iesportada.org';
+$nombre_del_centro='I.E.S. Portada Alta';
+$nombre_corto='Portada';
+$codigo_del_centro='29700412';
+$email_del_centro='29700412.edu@juntadeandalucia.es';
+$director_del_centro='Sagrario Grau González';
+$jefatura_de_estudios='Arturo Aguilera Bueno';
+$secretario_del_centro='María Jesús Sánchez Merino';
+$direccion_del_centro='C/ Cómpeta, 31';
+$localidad_del_centro='Málaga';
+$codigo_postal_del_centro='29007';
+$telefono_del_centro='951297929';
+$fax_del_centro='951297935';
+$curso_actual='2015/16';
+$inicio_curso='2015-09-14';
+$fin_curso='2016-06-23';
+$usuario_smstrend='';
+$clave_smstrend='';
+$db='intranet';
+$db_user='root';
+$db_host='localhost';
+$db_pass='123';
+$mantenimiento='0';
+$mod_tic='1';
+$mod_horario='1';
+$mod_faltas='0';
+$mod_bilingue='1';
+$mod_transporte='0';
+$mod_sms='0';
+$mod_biblio='0';
+$p_biblio='';
+$mod_eval='1';
+$mod_matriculas='1';
+$raiz_dir='/var/www/intranet/';
+$doc_dir='/var/www/intranet/varios/';
+$fotos_dir='/tmp';
+$num_administ='2';
+$num_conserje='1';
+$administ1='Loli';
+$dnia1='12345671';
+$idea1='';
+$administ2='Marga';
+$dnia2='12345672';
+$idea2='';
+$administ3='';
+$dnia3='';
+$conserje1='Lolita';
+$dnic1='1234567C';
+$num_carrito='1';
+$TIC_1='Videoproyector Benq';
+$TIC_2='';
+$TIC_3='';
+$TIC_4='';
+$TIC_5='';
+$TIC_6='';
+$TIC_7='';
+$TIC_8='';
+$TIC_9='';
+$TIC_10='';
+$TIC_11='';
+$TIC_12='';
+$TIC_13='';
+$TIC_14='';
+$TIC_15='';
+$num_medio='2';
+$medio1='Audiovisuales 1';
+$medio2='Audiovisuales 2';
+$medio3='';
+$medio4='';
+$medio5='';
+$medio6='';
+$medio7='';
+$medio8='';
+$medio9='';
+$medio10='';
+
+
+$db_con = mysqli_connect($db_host, $db_user, $db_pass);
+mysqli_select_db($db_con, $db);
+
+function registraPagina($pagina,$host,$user,$pass,$base)
+{
+$db_con = mysqli_connect($host, $user, $pass);
+mysqli_select_db($db_con, $base);
+$id_reg = $_SESSION['id_pag'];
+mysqli_query($db_con, "INSERT INTO reg_paginas (id_reg,pagina) VALUES ('$id_reg','$pagina')");	
+}
+

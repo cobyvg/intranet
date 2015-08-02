@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -55,7 +55,7 @@ $fecha_sp = formatea_fecha($g_fecha);
 <div class="form-group"><label>Selecciona Profesor</label> <SELECT
 	name=profeso onchange="submit()" class="form-control">
 	<option value="<?php echo $profeso; ?>"><?php echo nomprofesor($profeso); ?></option>
-	<?
+	<?php
 	$profe = mysqli_query($db_con, "SELECT distinct prof FROM horw where c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21') order by prof asc");
 	if ($filaprofe = mysqli_fetch_array($profe))
 	{
@@ -87,7 +87,7 @@ if ($profeso) {
 	echo '<br /><legend>'.nomprofesor($profeso).'</legend>';
 	echo '  <div align="center" class="well well-large">';
 }
-?>  <?
+?>  <?php 
 if ($profeso) {
 	$link = "1";
 	$pr=$profeso;
@@ -111,7 +111,7 @@ if (mysqli_num_rows($hoy0) > 0) {
 	echo "</table><br>";
 }
 ?> 
-<?
+<?php 
 $h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$no_dia' and hora = '$hora' and c_asig != '2' AND c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
 if (mysqli_num_rows($h_gu0)>0) {
 if ($profeso and $no_dia and $hora) {
@@ -119,7 +119,7 @@ if ($profeso and $no_dia and $hora) {
 	?>
 <legend>Sustituciones realizadas durante la <?php echo "<span class='text-danger'>".$hora."ª </span>";?>
 hora del <?php echo "<span class='text-danger'>$nombre_dia</span>";?></legend>
-	<?
+	<?php 
 }	
 echo '<table class="table table-striped">';
 while ($h_gu = mysqli_fetch_array($h_gu0)) {
