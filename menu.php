@@ -1,7 +1,7 @@
 <?php 
 $idea = $_SESSION['ide'];
 setlocale(LC_TIME, 'es_ES');
-
+date_default_timezone_set('Europe/Madrid');
 
 // FEED RSS
 $feed = new SimplePie();

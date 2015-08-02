@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -10,7 +10,7 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 }
 ?>
 
-<?
+<?php
 include("../../menu.php");
 if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];}else{$profeso="";}
 if (isset($_GET['sustituido'])) {$sustituido = $_GET['sustituido'];}elseif (isset($_POST['sustituido'])) {$sustituido = $_POST['sustituido'];}else{$sustituido="";}
@@ -71,7 +71,7 @@ largo del curso.
 <SELECT
 	name=profeso onChange="submit()" class="form-control" required>
 	<option value="<?php echo $profeso;?>"><?php echo nomprofesor($profeso); ?></option>
-	<?
+	<?php
 	$profe = mysqli_query($db_con, "SELECT distinct prof FROM horw where c_asig = '2' order by prof asc");
 	if ($filaprofe = mysqli_fetch_array($profe))
 	{
@@ -85,12 +85,12 @@ largo del curso.
 	?>
 </select></div>
 </FORM>
-	<?
+	<?php
 	if ($profeso) {
 		$pr=$profeso;
 		$link="1";
 		include("horario.php");
-		?> <?
+		?> <?php
 	}
 	?></div>
 </div>
@@ -102,7 +102,7 @@ largo del curso.
 	<label>Profesor a sustituir</label>
               <SELECT  name="sustituido" class="form-control" required>
               <option value="<?php echo $sustituido; ?>"><?php echo nomprofesor($sustituido); ?></option>
-		        <?
+		        <?php
   $profe = mysqli_query($db_con, " SELECT distinct prof FROM horw order by prof asc");
   if ($filaprofe = mysqli_fetch_array($profe))
         {

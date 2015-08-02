@@ -59,9 +59,9 @@ echo '<tr><th>'.$nombre.'ª</th>';
 		?>
     </span></div>
 </td>
-<?
+<?php
 	}
-	?></tr><?
+	?></tr><?php
 }
 ?>
 </tbody>

@@ -1,4 +1,4 @@
-<?
+<?php
 
 define('IN_PHPATM', true);
 include('include/conf.php');

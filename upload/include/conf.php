@@ -1,4 +1,4 @@
-<?
+<?php
 
 if ( !defined('IN_PHPATM') )
 {
@@ -280,7 +280,6 @@ $invalidchars = array (
 '*',
 '|',
 '?',
-'§',
 '+',
 '^',
 '(',

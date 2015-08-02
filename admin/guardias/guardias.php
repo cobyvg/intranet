@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -8,7 +8,7 @@ header('Location:'.'http://'.$dominio.'/intranet/salir.php');
 exit;	
 }
 ?>
-<?
+<?php
 include("../../menu.php");
 if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];}else{$profeso="";}
 if (isset($_GET['sustituido'])) {$sustituido = $_GET['sustituido'];}elseif (isset($_POST['sustituido'])) {$sustituido = $_POST['sustituido'];}else{$sustituido="";}
@@ -50,7 +50,7 @@ $g_dia = substr($g_dia,1,strlen($g_dia));
 <div align="center">
 <h2><small>Fecha de la guardia: <span class="text-success"><?php echo $fecha_sp;?></span><br />
 Profesor de guardia: <span class="text-info text-capitalize"><?php echo $profeso;?></span></small></h2><br>
-<?
+<?php
 $sql = "SHOW TABLES FROM $db";
 $result = mysqli_query($db_con, $sql);
 $guardia="";

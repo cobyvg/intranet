@@ -8,7 +8,7 @@
 	<li><a href="jefe/index_xml.php">Importar datos del Centro</a></li>
 	  <?php if ($mod_horario) {?>
 	<li><a href="jefe/horario.php">Importar/Preparar Horarios </a></li>
-	<?}?>
+	<?php }?>
 	<li><a href="jefe/indexdepartamentos.php">Importar Departamentos y Especialidades</a></li>
 	<li><a href="jefe/indexprofesores.php">Importar Profesores</a></li>
 	<li><a href="jefe/index_festivos.php">Importar días festivos</a></li>
@@ -16,7 +16,7 @@
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
 	<?php if ($mod_horario) {?>
 	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
-	<?}?>
+	<?php }?>
 	<li class="nav-header">Actualizaci&oacute;n</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
 	<li><a href="jefe/asignaturas.php?actualiza=1">Actualizar Asignaturas</a></li>
