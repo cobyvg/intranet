@@ -44,13 +44,13 @@ if (isset($_POST['nuevo_item'])) {
 			}
 		}
 		if ($actual <> 1) {
-				mysqli_query($db_con,"insert into reservas_tipos values ('','$nuevo_tipo','$observaciones')");
+				mysqli_query($db_con,"insert into reservas_tipos values ('','".mysqli_real_escape_string($db_con, $nuevo_tipo)."','".mysqli_real_escape_string($db_con, $observaciones)."')");
 				if (mysqli_affected_rows($db_con)>0) {
 					$msg = "Los datos se han registrado correctamente. Un nuevo Tipo de Recurso aparecerá en el sistema de reservas a partir de ahora.";
 				}			}			
 		
 		else {
-				mysqli_query($db_con,"update reservas_tipos set  tipo='$nuevo_tipo', observaciones='$observaciones' where id = '".$_POST['id_tipo']."'");
+				mysqli_query($db_con,"update reservas_tipos set  tipo='".mysqli_real_escape_string($db_con, $nuevo_tipo)."', observaciones='".mysqli_real_escape_string($db_con, $observaciones)."' where id = '".$_POST['id_tipo']."'");
 				if (mysqli_affected_rows($db_con)>0) {
 					$msg = "Los datos se han actualizado correctamente.";
 				}

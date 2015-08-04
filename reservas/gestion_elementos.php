@@ -42,14 +42,14 @@ if (isset($_POST['enviar_elm'])) {
 
 	if ($actual <> 1) {
 		
-		mysqli_query($db_con,"insert into reservas_elementos values ('','$nuevo_elm','$id_tipo','0','$observaciones')");
+		mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, $nuevo_elm)."','$id_tipo','0','".mysqli_real_escape_string($db_con,$observaciones)."')");
 		if (mysqli_affected_rows($db_con)>0) {
 			$msg = "Los datos se han registrado correctamente. Un nuevo Tipo de Recurso aparecerá en el sistema de reservas a partir de ahora.";
 		}			}
 
 		else {
-			mysqli_query($db_con,"update reservas_elementos set  elemento='$nuevo_elm', observaciones = '$observaciones' where id = '$id_elm'");
-			mysqli_query($db_con,"update reservas set servicio='$nuevo_elm' where servicio = '$viejo_elm')");
+			mysqli_query($db_con,"update reservas_elementos set  elemento='".mysqli_real_escape_string($db_con, $nuevo_elm)."', observaciones = '".mysqli_real_escape_string($db_con, $observaciones)."' where id = '$id_elm'");
+			mysqli_query($db_con,"update reservas set servicio='".mysqli_real_escape_string($db_con, $nuevo_elm)."' where servicio = '".mysqli_real_escape_string($db_con, $viejo_elm)."')");
 			
 			if (mysqli_affected_rows($db_con)>0) {
 				$msg = "Los datos se han actualizado correctamente.";
@@ -107,7 +107,7 @@ if (isset($_GET['editar_elm'])) {
 		?>
 	<div class="alert alert-warning">
 	<p>No se han definido Tipos de Recursos en el sistema de reservas.
-	Pulsa en el botón para crearlos en primer lugar. Una vez definidoslos
+	Pulsa en el botón para crearlos en primer lugar. Una vez definidos los
 	Tipos de Recursos, puedes volver a esta página y crear Elementos dentro
 	de cada categoría. 
 	

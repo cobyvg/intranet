@@ -412,8 +412,22 @@ $menu = array(
 				),
 			),
 			array(
-				'href'   => 'reservas/',
+				'href'   => '#',
 				'titulo' => 'Sistema de Reservas',
+				'items' => array(
+					array(
+						'href'   => 'reservas/index.php?recurso=TIC',
+						'titulo' => 'Carros TIC',
+					),
+					array(
+						'href'   => 'reservas/index.php?recurso=Medios%20Audiovisuales',
+						'titulo' => 'Medios Audiovisuales',
+					),
+					array(
+						'href'   => 'reservas/index_aula.php?recurso=aula_grupo',
+						'titulo' => 'Aulas y dependencias',
+					),
+				),
 			),
 			array(
 				'href'   => '#',
