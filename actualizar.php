@@ -139,7 +139,7 @@ mysqli_query($db_con,"ALTER TABLE `reservas_elementos` CHANGE `id` `id` INT(11) 
 
 // Recuperamos elementos del antiguo sistema de reservas.
 for ($i = 1; $i < $num_carrito+1; $i++) {
-			mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, ${TIC_.$i})."','1','0','')");
+			mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, ${carrito_.$i})."','1','0','')");
 }
 for ($i = 1; $i < $num_medio+1; $i++) {
 			mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, ${medio.$i})."','2','0','')");
