@@ -19,7 +19,7 @@ include("menu.php");
 <div class="container">
 
 <div class="page-header">
-<h2>Reservas <small><?php echo $nombre_rec; ?></small></h2>
+<h2>Sistema de Reservas <small><?php echo $nombre_rec; ?></small></h2>
 </div>
 
 <div class="row">

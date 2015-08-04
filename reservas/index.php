@@ -1,19 +1,9 @@
 <?
 require('../bootstrap.php');
 
-
-if (isset($_GET['recurso'])) {
-	
-	switch ($_GET['recurso']) {
-		case 'TIC_' : $nmedios = $num_carrito+1; $nombre_rec = "Recursos TIC"; break;
-		case 'medio'   : $nmedios = $num_medio+1; $nombre_rec = "Medios audiovisuales"; break;
-	}
-	
+if (isset($_GET['recurso'])) {	
+			$nombre_rec = $_GET['recurso'];	
 }
-else {
-	header('Location:'.'index.php?recurso=TIC_');
-}
-
 
 include("../menu.php");
 include("menu.php");
@@ -22,7 +12,7 @@ include("menu.php");
 <div class="container">
 
 	<div class="page-header">
-	  <h2>Reservas <small> <?php echo $nombre_rec; ?></small></h2>
+	  <h2>Sistema de Reservas <small> <?php echo $nombre_rec; ?></small></h2>
 	</div>
 
 <?php
@@ -85,11 +75,11 @@ $last_year = $year - 1;
 if ($today > $numdays) { $today--; }
 
 $primero = 0;
-for($ci=1;$ci<$nmedios;$ci++){
-
-	// Lugares y situación
-	$servicio = $recurso.$ci;
-	$lugar = ${$servicio};	
+$rc = mysqli_query($db_con, "select reservas_tipos.id, tipo, elemento, id_tipo, reservas_elementos.observaciones from reservas_tipos, reservas_elementos where reservas_tipos.id = reservas_elementos.id_tipo and tipo = '$recurso'");
+	while ($srv = mysqli_fetch_array($rc)) {
+		$ci++;	
+		$servicio = $srv[2];
+		$lugar = $srv[4];
 	
 if ($ci % 4 == 0 || $ci == 1){
 	echo ($primero) ? '</div> <hr>' : '';
@@ -97,10 +87,11 @@ if ($ci % 4 == 0 || $ci == 1){
 	$primero = 1;
 }	
 
-echo '<div class="col-sm-4">';
 ?>
+<div class="col-sm-4">
 	<a name="<?php echo $servicio; ?>"></a>
-	<h3 class="text-center"><?php echo $lugar; ?> <br><small><?php echo ucwords($servicio); ?></small></h3>
+	<h3 class="text-center"><?php echo $servicio; ?></h3> 
+	<h4><small><?php echo $lugar; ?></small></h4>
 	
 	<table class="table table-bordered table-centered">
 		<thead>

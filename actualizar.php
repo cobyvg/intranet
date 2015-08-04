@@ -11,9 +11,9 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actualizacion` (
  @descripcion: Integración del sistema de reservas en base de datos principal.
  @fecha: 17 de julio de 2013
  */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Reservas en base  de datos principal'");
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Reservas en base de datos principal'");
 if (! mysqli_num_rows($actua)) {
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Reservas en base  de datos principal', NOW())");
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Reservas en base de datos principal', NOW())");
 
 // Estructura de tabla para la tabla `reservas`
 
@@ -90,11 +90,9 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS $db.nuevas (
 
 $bck = mysqli_query($db_con,"show tables from reservas like 'carrito%'");
 while ($bk = mysqli_fetch_array($bck)) {
-	$servicio = str_replace("carrito","",$bk[0]);
 	$nombre_largo = $bk[0];
-	$n_servicio = "TIC_".$servicio;
+	$n_servicio = $nombre_largo;
 	if (stristr($servicio,"hor")==FALSE) {
-		//echo "Servicio = TIC_".$nombre_tabla."<br>";
 		$dat = mysqli_query($db_con,"select * from reservas.$nombre_largo");
 		while ($datos = mysqli_fetch_array($dat)) {
 			mysqli_query($db_con,"insert into $db.reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");
@@ -113,7 +111,39 @@ while ($bk = mysqli_fetch_array($bck)) {
 			mysqli_query($db_con,"insert into $db.reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");
 		}
 	}
-}	
+}
+
+mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `$db`.`reservas_tipos` (
+`id` int(11) NOT NULL,
+  `tipo` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
+  `observaciones` VARCHAR(255) COLLATE latin1_spanish_ci NOT NULL 
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+");
+mysqli_query($db_con,"INSERT INTO `$db`.`reservas_tipos` (`id`, `tipo`) VALUES
+(1, 'TIC'),
+(2, 'Medios Audiovisuales');");
+mysqli_query($db_con,"ALTER TABLE `$db`.`reservas_tipos`
+ ADD PRIMARY KEY (`id`);");
+mysqli_query($db_con,"ALTER TABLE `$db`.`reservas_tipos` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT");
+
+mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `$db`.`reservas_elementos` (
+`id` int(11) NOT NULL,
+  `elemento` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `id_tipo` tinyint(2) NOT NULL,
+  `oculto` tinyint(1) NOT NULL DEFAULT '0',
+  `observaciones` VARCHAR(255) COLLATE latin1_spanish_ci NOT NULL 
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+mysqli_query($db_con,"ALTER TABLE `reservas_elementos`
+ ADD PRIMARY KEY (`id`)");
+mysqli_query($db_con,"ALTER TABLE `reservas_elementos` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT");
+
+// Recuperamos elementos del antiguo sistema de reservas.
+for ($i = 1; $i < $num_carrito+1; $i++) {
+			mysqli_query($db_con,"insert into reservas_elementos values ('','${carrito.$i}','1','0','')");
+}
+for ($i = 1; $i < $num_medio+1; $i++) {
+			mysqli_query($db_con,"insert into reservas_elementos values ('','${medio.$i}','2','0','')");
+}
 }
 
 /*
@@ -133,3 +163,5 @@ if (! mysqli_num_rows($actua)) {
 mysqli_query($db_con, "ALTER TABLE `temas`
  ADD UNIQUE KEY `idea` (`idea`)");
 }
+
+

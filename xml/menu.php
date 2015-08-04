@@ -13,6 +13,7 @@
 	<li><a href="jefe/indexprofesores.php">Importar Profesores</a></li>
 	<li><a href="jefe/index_festivos.php">Importar días festivos</a></li>
 	<li><a href="jefe/index_jornada.php">Importar Jornada</a></li> 
+	<li><a href="../reservas/gestion_tipo.php">Configuración del Sistema de Reservas</a></li> 
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
 	<?php if ($mod_horario) {?>
 	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>

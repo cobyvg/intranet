@@ -1415,28 +1415,6 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `reservas_hor` (
   KEY `dia` (`dia`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
-// Tabla de Estadísticas TIC
-
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `usuario` (
-  `profesor` varchar(48) NOT NULL default '',
-  `c1` smallint(3) default NULL,
-  `c2` smallint(3) default NULL,
-  `c3` smallint(3) default NULL,
-  `c4` smallint(3) default NULL,
-  `c5` smallint(3) default NULL,
-  `c6` smallint(3) default NULL,
-  `c7` smallint(3) default NULL,
-  `c8` smallint(3) default NULL,
-  `c9` smallint(3) default NULL,
-  `c10` smallint(3) default NULL,
-  `c11` smallint(3) default NULL,
-  `c12` smallint(6) default NULL,
-  `c13` smallint(6) default NULL,
-  `c14` smallint(6) default NULL,
-  `c15` smallint(6) default NULL,
-  PRIMARY KEY  (`profesor`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;");
-
 // Tabla de Dependencias ocultas
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS ocultas (
@@ -1455,6 +1433,35 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS nuevas (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
+// Tablas de Tipos de Recursos y Elementos de los mismos
+mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `$db`.`reservas_tipos` (
+`id` int(11) NOT NULL,
+  `tipo` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
+  `observaciones` VARCHAR(255) COLLATE latin1_spanish_ci NOT NULL 
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+");
+
+mysqli_query($db_con,"INSERT INTO `$db`.`reservas_tipos` (`id`, `tipo`) VALUES
+(1, 'TIC'),
+(2, 'Medios Audiovisuales');");
+
+mysqli_query($db_con,"ALTER TABLE `$db`.`reservas_tipos`
+ ADD PRIMARY KEY (`id`);");
+
+mysqli_query($db_con,"ALTER TABLE `$db`.`reservas_tipos` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT");
+
+mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `$db`.`reservas_elementos` (
+`id` int(11) NOT NULL,
+  `elemento` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
+  `id_tipo` tinyint(2) NOT NULL,
+  `oculto` tinyint(1) NOT NULL DEFAULT '0',
+  `observaciones` VARCHAR(255) COLLATE latin1_spanish_ci NOT NULL 
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+mysqli_query($db_con,"ALTER TABLE `reservas_elementos`
+ ADD PRIMARY KEY (`id`)");
+
+mysqli_query($db_con,"ALTER TABLE `reservas_elementos` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT");
 
 // Calendarios personales
 

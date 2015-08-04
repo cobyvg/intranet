@@ -201,7 +201,7 @@ if ($servicio) {
 <div class="container">
 
 <div class="page-header">
-<h2>Reservas <small> Reserva de <?php echo $servicio; ?>
+<h2>Sistema de Reservas <small> Reserva de <?php echo $servicio; ?>
 </small>
 </h2>
 </div>

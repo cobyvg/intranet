@@ -62,7 +62,9 @@ include("../menu.php");
 <li>Los <span class="text-info">Días Festivos</span> y la <span class="text-info">Jornada Escolar</span> deben importarse incluso si no contamos con horario, porque varios módulos de la misma (Calendario, etc.) dependen de los datos.
 </li>
 <li><span class="text-info">Modificar ROF</span> permite ajustar la lista y tipo de Problemas de Convivencia al Reglamento de Organización y Funcionamiento que está en vigor en nuestro Centro. </li>
-<li><br> La última opción, <span class="text-info">Limpiar Horarios</span>, se debe ejecutar cuando los cambios en los horarios se han dado por terminados y estos se encuentran en perfecto estado en Séneca. Supone que hemos actualizado en primer lugar los profesores.</li>
+<li><span class="text-info">El Sistema de Reservas</span> se configura bien en la página de Administración de la Intranet (<em>Configuración del Sistema de Reservas</em>) o bien en la propia página de las Reservas (<em>Menú --> Gestión del Sistema de Reservas --> Crear Tipos de Recursos</em>). Defines en primer lugar los <em>Tipos de Recurso</em> que vas abrir al sistema (Ordenadores TIC y Medios Audiovisuales aparecen por defecto). Una vez definidos los Tipos de Recursos, crea los <em>Elementos</em> (Carrito nº 1, Videoproyector nº 1, etc.) dentro de cada Tipo. Puedes añadir una descripción o información más precisa en el campo <em>Observaciones</em>, y aparecerá bajo el nombre del recurso en la página de entrada del módulo de reservas.
+</li>
+<li>La última opción, <span class="text-info">Limpiar Horarios</span>, se debe ejecutar cuando los cambios en los horarios se han dado por terminados y estos se encuentran en perfecto estado en Séneca. Supone que hemos actualizado en primer lugar los profesores.</li>			
 			</ul>
 			</p>
 			<hr>

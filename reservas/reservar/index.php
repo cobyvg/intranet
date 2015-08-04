@@ -70,7 +70,7 @@ if ($today > $numdays) { $today--; }
 <div class="container">
 
 	<div class="page-header">
-	  <h2>Reservas <small> Reserva del <?php echo $servicio; ?></small></h2>
+	  <h2>Sistema de Reservas <small> Reserva de <?php echo $servicio; ?></small></h2>
 	</div>
 
 	<?php if (isset($_GET['mens'])): ?>
