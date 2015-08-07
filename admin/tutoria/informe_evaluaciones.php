@@ -237,7 +237,7 @@ if (mysqli_num_rows($chk1)>0) {
 	$repite = $rep0[0];
 }
 else{
-$index = substr($curso_actual,0,4)+1;
+$index = substr($config['curso_actual'],0,4)+1;
 $repi_db=mysqli_query($db_con,"select matriculas, curso from $db.alma where claveal='".$row['claveal']."' and matriculas > '1'");
 
 if (mysqli_num_rows($repi_db)>0) {

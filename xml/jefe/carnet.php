@@ -5,7 +5,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 ?>
@@ -170,11 +170,11 @@ $Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error("No e
 $totalRows_Recordset1 = mysqli_num_rows($Recordset1);  #cantidad de registros
 
 $pdf=new PDF();
-$curso='Curso '.$curso_actual;
+$curso='Curso '.$config['curso_actual'];
 $curso_an=date('Y');
 $mes_an=date('m');
 //$curso_an=substr($curso,6,4)+1;
-//echo "$curso_actual => $curso_an<br />";
+//echo "$config['curso_actual'] => $curso_an<br />";
 $pdf->SetFillColor(255,255,255);
 $pdf->AddPage();
 $pdf->AddFont('c128ab');
@@ -229,7 +229,7 @@ $anyos = floor(($segundos-$sumadiasBis)/31536000);
 	$pdf->SetFont('Arial','B',7);
 	$pdf->Text(33+$x,6.1+$y,$curso);
 	$pdf->SetFont('Arial','B',5);
-	$pdf->Text(57.2+$x,7.7+$y,$nombre_del_centro);
+	$pdf->Text(57.2+$x,7.7+$y,$config['centro_denominacion']);
 	$pdf->SetTextColor(0,0,0);
 
 	$longnie=strlen($claveal);
@@ -253,7 +253,7 @@ if (file_exists($foto_al)) {
     
 /*	if (stristr($_SERVER['SERVER_NAME'],"iesmonterroso.org")==TRUE){
     		$pdf->Rect(34+$x+$dplz,36+$y,40-$dplz,13,'F');
-    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib,36+$x+$dplz,37+$y,33,0,'PNG');
+    		$pdf->Image('http://'.$config['dominio'].'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib,36+$x+$dplz,37+$y,33,0,'PNG');
     }
 	    
 	else*/
@@ -262,13 +262,13 @@ if (file_exists($foto_al)) {
     	
     	if ($longnie<7) {
     		$pdf->Rect(24+$x+$dplz,36+$y,58-$dplz,13,'F');
-    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',25+$x+$dplz,37+$y,19,0,'PNG');
-    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',52+$x+$dplz,37+$y,25,0,'PNG');
+    		$pdf->Image('http://'.$config['dominio'].'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',25+$x+$dplz,37+$y,19,0,'PNG');
+    		$pdf->Image('http://'.$config['dominio'].'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',52+$x+$dplz,37+$y,25,0,'PNG');
     	}
     	else {
     		$pdf->Rect(28+$x+$dplz,36+$y,54-$dplz,13,'F');
-    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',29+$x+$dplz,37+$y,24,0,'PNG');
-    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',56+$x+$dplz,37+$y,25,0,'PNG');
+    		$pdf->Image('http://'.$config['dominio'].'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal.'&show=1',29+$x+$dplz,37+$y,24,0,'PNG');
+    		$pdf->Image('http://'.$config['dominio'].'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$c_bib.'&show=1',56+$x+$dplz,37+$y,25,0,'PNG');
     	}
     	
     }
@@ -276,10 +276,10 @@ if (file_exists($foto_al)) {
     	$pdf->Rect(46+$x+$dplz,36+$y,34-$dplz,13,'F');
     	
     	if ($longnie<7) {
-    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,49+$x+$dplz,37+$y,24,0,'PNG');
+    		$pdf->Image('http://'.$config['dominio'].'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,49+$x+$dplz,37+$y,24,0,'PNG');
     	}
     	else {
-    		$pdf->Image('http://'.$dominio.'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,48+$x+$dplz,37+$y,30,0,'PNG');
+    		$pdf->Image('http://'.$config['dominio'].'/intranet/xml/jefe/carnet/Barcode/test.php?text='.$claveal,48+$x+$dplz,37+$y,30,0,'PNG');
     	}
     }
     

@@ -5,7 +5,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 
@@ -57,8 +57,8 @@ $mysqli_FECHA_DESDE = fecha_mysql($FECHA_DESDE);
 $mysqli_FECHA_HASTA = fecha_mysql($FECHA_HASTA);
 
 $fechaHoy = date('d/m/Y H:i:s');
-$anio_curso = substr($inicio_curso,0,4);
-$provincia = utf8_decode(obtenerProvincia($codigo_postal_del_centro));
+$anio_curso = substr($config['curso_inicio'],0,4);
+$provincia = utf8_decode(obtenerProvincia($config['centro_codpostal']));
 
 // FLAGS DE CONTROL
 $flag_fincurso=0;	// Controla que no imprima las etiquetas </UNIDADES> u </CURSO> al comienzo.
@@ -76,9 +76,9 @@ $docXML .= "    <FECHA>$fechaHoy</FECHA>\n";
 $docXML .= "    <C_ANNO>$anio_curso</C_ANNO>\n";
 $docXML .= "    <FECHA_DESDE>$FECHA_DESDE</FECHA_DESDE>\n";
 $docXML .= "    <FECHA_HASTA>$FECHA_HASTA</FECHA_HASTA>\n";
-$docXML .= "    <CODIGO_CENTRO>$codigo_del_centro</CODIGO_CENTRO>\n";
-$docXML .= "    <NOMBRE_CENTRO>$nombre_del_centro</NOMBRE_CENTRO>\n";
-$docXML .= "    <LOCALIDAD_CENTRO>$localidad_del_centro ($provincia)</LOCALIDAD_CENTRO>\n";
+$docXML .= "    <CODIGO_CENTRO>".$config['centro_codigo']."</CODIGO_CENTRO>\n";
+$docXML .= "    <NOMBRE_CENTRO>".$config['centro_denominacion']."</NOMBRE_CENTRO>\n";
+$docXML .= "    <LOCALIDAD_CENTRO>".$config['localidad_del_centro']." ($provincia)</LOCALIDAD_CENTRO>\n";
 $docXML .= "  </DATOS_GENERALES>\n";
 $docXML .= "  <CURSOS>\n";
 

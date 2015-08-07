@@ -147,13 +147,13 @@ if(stristr($_SESSION['cargo'],'3') == TRUE or stristr($_SESSION['cargo'],'1') ==
 {
 	?>
 	<li <?php echo $activo3;?>><a
-		href="http://<?php echo $dominio; ?>/intranet/faltas/poner2/index.php">
+		href="http://<?php echo $config['dominio']; ?>/intranet/faltas/poner2/index.php">
 	Poner</a></li>
 	<?
 } else {
 	?>
 	<li <?php echo $activo3;?>><a
-		href="http://<?php echo $dominio; ?>/intranet/faltas/poner/index.php">
+		href="http://<?php echo $config['dominio']; ?>/intranet/faltas/poner/index.php">
 	Poner</a></li>
 	<?
 }
@@ -164,20 +164,20 @@ if(stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'1') ==
 {
 	?>
 	<li <?php echo $activo5;?>><a
-		href="http://<?php echo $dominio; ?>/intranet/faltas/justificar/index.php">
+		href="http://<?php echo $config['dominio']; ?>/intranet/faltas/justificar/index.php">
 	Justificar</a></li>
 	<?
 }
 ?>
 	<li <?php echo $activo6;?>><a
-		href="http://<?php echo $dominio; ?>/intranet/admin/faltas/index.php">
+		href="http://<?php echo $config['dominio']; ?>/intranet/admin/faltas/index.php">
 	Consultar</a></li>
 	<?
 	if(stristr($_SESSION['cargo'],'2') == TRUE)
 	{
 		?>
 	<li <?php echo $activo7;?>><a
-		href="http://<?php echo $dominio; ?>/intranet/admin/tutoria/consulta_absentismo.php">
+		href="http://<?php echo $config['dominio']; ?>/intranet/admin/tutoria/consulta_absentismo.php">
 	Alumnos Absentistas</a></li>
 	<?
 	}
@@ -187,17 +187,17 @@ if(stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'1') ==
 	{
 		?>
 	<li <?php echo $activo7;?>><a
-		href="http://<?php echo $dominio; ?>/intranet/faltas/absentismo/index.php">
+		href="http://<?php echo $config['dominio']; ?>/intranet/faltas/absentismo/index.php">
 	Alumnos Absentistas</a></li>
 
 	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
 		href="#"> Administración <span class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
 		<li <?php echo $activo1;?>><a
-			href="http://<?php echo $dominio; ?>/intranet/faltas/seneca/index.php">
+			href="http://<?php echo $config['dominio']; ?>/intranet/faltas/seneca/index.php">
 		Subir Faltas a S&eacute;neca</a></li>
 		<li <?php echo $activo4;?>><a
-			href="http://<?php echo $dominio; ?>/intranet/faltas/seneca/importarSeneca.php">Descargar
+			href="http://<?php echo $config['dominio']; ?>/intranet/faltas/seneca/importarSeneca.php">Descargar
 		Faltas de Séneca</a></li>
 		<hr>
 		<li><a href="../admin/cursos/horariototal_faltas.php" target="_blank">Parte
@@ -209,7 +209,7 @@ if(stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'1') ==
 		<li><a href="../admin/cursos/horariofaltas.php">Horario de Faltas para
 		Profesores</a></li>
 		<hr>
-		<?php if ($mod_sms) {?>
+		<?php if ($config['mod_sms']) {?>
 		<li><a href="../sms/sms_cpadres.php">SMS de Faltas para Padres</a></li>
 		<?}?>
 		<li><a href="../admin/faltas/cpadres.php">Informe de Faltas para
@@ -233,7 +233,7 @@ if(stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'1') ==
 			$festivos='actualizar';
 		}
 
-		$repe=mysqli_query($db_con, "select fecha from festivos where date(fecha) < date('$inicio_curso')");
+		$repe=mysqli_query($db_con, "select fecha from festivos where date(fecha) < date('".$config['curso_inicio']."')");
 		if (mysqli_num_rows($repe) > '0') {
 			$festivos='actualizar';
 		}

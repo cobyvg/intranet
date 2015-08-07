@@ -386,7 +386,7 @@ La página presenta el formulario de intervenciones y una lista con todas las int
 				
 				<legend>Intervenciones registradas</legend>
 				
-				<?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha) > '$inicio_curso' ORDER BY apellidos ASC, nombre ASC"); ?>
+				<?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha) > '".$config['curso_inicio']."' ORDER BY apellidos ASC, nombre ASC"); ?>
 				<?php if (mysqli_num_rows($result)): ?>
 				<table class="table table-striped datatable">
 					<thead>
@@ -398,7 +398,7 @@ La página presenta el formulario de intervenciones y una lista con todas las int
 					</thead>
 					<tbody>
 						<?php while ($row = mysqli_fetch_array($result)): ?>
-						<?php $result1 = mysqli_query($db_con, "SELECT fecha, id FROM tutoria WHERE claveal = '".$row['claveal']."' AND prohibido = '0' AND unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha)> '$inicio_curso' ORDER BY fecha DESC LIMIT 1"); ?>
+						<?php $result1 = mysqli_query($db_con, "SELECT fecha, id FROM tutoria WHERE claveal = '".$row['claveal']."' AND prohibido = '0' AND unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha)> '".$config['curso_inicio']."' ORDER BY fecha DESC LIMIT 1"); ?>
 						<?php while ($row1 = mysqli_fetch_array($result1)): ?>
 						<tr>
 							<td><?php echo $row1['id']; ?></td>

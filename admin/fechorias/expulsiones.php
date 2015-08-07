@@ -63,14 +63,14 @@ mysqli_query($db_con, $actualizar);
 		$tfno_u = $row[20];
 		}
 // SMS		
-if ($mod_sms and $mens_movil == 'envia_sms') {
+if ($config['mod_sms'] and $mens_movil == 'envia_sms') {
 if((substr($tfno,0,1)=="6" or substr($tfno,0,1)=="7" or substr($tfno_u,0,1)=="6" or substr($tfno_u,0,1)=="7"))
 {
 $sms_n = mysqli_query($db_con, "select max(id) from sms");
 $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
-$login=$usuario_smstrend;
-$password=$clave_smstrend;;
+$login=$config['mod_sms_user'];
+$password=$config['mod_sms_pass'];;
 if(substr($tfno,0,1)=="6" or substr($tfno,0,1)=="6"){$mobile=$tfno;}else{$mobile=$tfno_u;}
 $message1 = "Le comunicamos que su hijo/a va a ser expulsado al Aula de Convivencia. ";
 $message2= "Por favor, p&oacute;ngase en contacto con nosotros.";
@@ -93,7 +93,7 @@ document.enviar.submit()
 	<input name="login" type="hidden" value="<?php echo $login;?>" />
             <input name="password" type="hidden" value="<?php echo $password;?>"  />   
             <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
-            <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" /> 
+            <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> 
             <input name="mobile" type="hidden" value="<?php echo $mobile;?>"/>
  	<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        
@@ -177,12 +177,12 @@ $result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FAL
 		}
 
 // SMS
-if ($mod_sms and $mens_movil == 'envia_sms') {
+if ($config['mod_sms'] and $mens_movil == 'envia_sms') {
 $sms_n = mysqli_query($db_con, "select max(id) from sms");
 $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
-$login=$usuario_smstrend;
-$password=$clave_smstrend;
+$login=$config['mod_sms_user'];
+$password=$config['mod_sms_pass'];
 if(substr($tfno,0,1)=="6"){$mobile=$tfno;}else{$mobile=$tfno_u;}	
 $repe0 = mysqli_query($db_con, "select * from sms where telefono = '$mobile' and mensaje like '%$message%' and profesor = '$tutor' and date(fecha) = date(now())");
 if (mysqli_num_rows($repe0)<"1") {	
@@ -207,7 +207,7 @@ document.enviar.submit()
 			<input name="login" type="hidden" value="<?php echo $login;?>" />
             <input name="password" type="hidden" value="<?php echo $password;?>"  />   
             <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
-            <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" /> 
+            <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> 
             <input name="mobile" type="hidden" value="<?php echo $mobile;?>"/>
  			<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        

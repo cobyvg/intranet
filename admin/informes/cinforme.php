@@ -99,7 +99,7 @@ else{
 							    <label for="c_escolar">Curso escolar</label>
 							    
 							    <select class="form-control" id="c_escolar" name="c_escolar">
-							    	<?php $ano=explode("/",$curso_actual); ?>
+							    	<?php $ano=explode("/",$config['curso_actual']); ?>
 							    	<?php for($i = 0; $i < 5; $i++): ?>
 							    	<?php ${b.$i}=$ano[0]-$i; ?>
 							    	<?php ${c.$i}=$ano[1]-$i; ?>
@@ -123,13 +123,13 @@ else{
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="faltas" value="faltas" <?php echo ($mod_faltas == '1') ? '' : 'disabled' ?> checked> Resumen de faltas de asistencia
+										<input type="checkbox" name="faltas" value="faltas" <?php echo ($config['mod_asistencia']) ? '' : 'disabled' ?> checked> Resumen de faltas de asistencia
 									</label>
 								</div>
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="faltasd" value="faltasd" <?php echo ($mod_faltas == '1') ? '' : 'disabled' ?> checked> Faltas de asistencia detalladas
+										<input type="checkbox" name="faltasd" value="faltasd" <?php echo ($config['mod_asistencia']) ? '' : 'disabled' ?> checked> Faltas de asistencia detalladas
 									</label>
 								</div>
 								
@@ -159,7 +159,7 @@ else{
 								
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="horarios" value="horarios" <?php echo ($mod_horario == '1') ? '' : 'disabled' ?> checked> Horario del alumno
+										<input type="checkbox" name="horarios" value="horarios" <?php echo ($config['mod_horarios']) ? '' : 'disabled' ?> checked> Horario del alumno
 									</label>
 								</div>
 							</fieldset>

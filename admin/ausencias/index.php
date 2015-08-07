@@ -162,7 +162,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 						echo "</select>";
 					
 						$fecha = (date("d").-date("m").-date("Y"));
-						$comienzo=explode("-",$inicio_curso);
+						$comienzo=explode("-",$config['curso_inicio']);
 						$comienzo_curso=$comienzo[2]."-".$comienzo[1]."-".$comienzo[0];
 						$fecha2 = date("m");
 						?> </select> <?

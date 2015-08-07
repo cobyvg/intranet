@@ -30,17 +30,17 @@ else $publico_calendario = 1;
 $result = mysqli_query($db_con, "SELECT nombre FROM calendario_categorias WHERE nombre='$nombre_calendario' AND profesor='$profesor_calendario' LIMIT 1");
 
 if (mysqli_num_rows($result)) {
-	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorCalendarioExiste');
+	header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorCalendarioExiste');
 	exit();
 }
 else {
 	$crear = mysqli_query($db_con, "INSERT INTO calendario_categorias (nombre, fecha, profesor, color, espublico) VALUES ('$nombre_calendario', '$fecha_calendario', '$profesor_calendario', '$color_calendario', $publico_calendario)");
 	if (! $crear) {
-		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorCalendarioInsertar');
+		header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorCalendarioInsertar');
 		exit();
 	}
 	else {
-		header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'');
+		header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'');
 		exit();
 	}
 }

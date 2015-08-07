@@ -55,7 +55,7 @@ for ($i=0;$i<$num_a;$i++){
 		$tfno_u = trim ( $rowa [6] );
 
 		// SMS
-		if ($mod_sms==1) {
+		if ($config['mod_sms']) {
 
 
 			$hora_f = date ( "G" );
@@ -69,10 +69,10 @@ for ($i=0;$i<$num_a;$i++){
 				} else {
 					$mobile = $tfno_u;
 				}
-				$message = "Su hijo/a ha cometido una falta contra las normas de convivencia del Centro. Hable con su hijo/a y, ante cualquier duda, consulte en http://".$dominio;
+				$message = "Su hijo/a ha cometido una falta contra las normas de convivencia del Centro. Hable con su hijo/a y, ante cualquier duda, consulte en http://".$config['dominio'];
 				mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
-				$login = $usuario_smstrend;
-				$password = $clave_smstrend;
+				$login = $config['mod_sms_user'];
+				$password = $config['mod_sms_pass'];
 				?>
 <script language="javascript">
 function enviarForm() 
@@ -96,7 +96,7 @@ document.enviar.submit()
 	value="<?
 		echo $extid;
 		?>" /> <input name="tpoa" type="hidden"
-	value="<?php echo $nombre_corto; ?>" /> <input name="mobile" type="hidden"
+	value="<?php echo $config['mod_sms_id']; ?>" /> <input name="mobile" type="hidden"
 	value="<?
 		echo $mobile;
 		?>" /> <input name="messageQty" type="hidden" value="GOLD" /> <input
@@ -148,12 +148,12 @@ enviarForm();
 	 	 $texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta direcci&oacute;n de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor informaci&oacute;n sobre el contenido de este mensaje, p&oacute;ngase en contacto con <strong> Jefatura de Estudios</strong>.';
 	 	 $mail = new PHPMailer();
 	 	 $mail->Host = "localhost";
-	 	 $mail->From = 'no-reply@'.$dominio;
-	 	 $mail->FromName = $nombre_del_centro;
-	 	 $mail->Sender = 'no-reply@'.$dominio;
+	 	 $mail->From = 'no-reply@'.$config['dominio'];
+	 	 $mail->FromName = $config['centro_denominacion'];
+	 	 $mail->Sender = 'no-reply@'.$config['dominio'];
 	 	 $mail->IsHTML(true);
-	 	 $mail->Subject = $nombre_del_centro.': Comunicaci&oacute;n de Problemas de Convivencia a la familia del Alumno.';
-	 	 $mail->Body = "El $nombre_del_centro le comunica que, con fecha $fecha, su hijo ha cometido una falta $grave contra las normas de convivencia del Centro. El tipo de falta es el siguiente: $asunto.<br>Le recordamos que puede conseguir informaci&oacute;n m&aacute;s detallada en la p&aacute;gina del alumno de nuestra web en http://$dominio, o bien contactando con la Jefatura de Estudios del Centro. <hr><br><br> $texto_pie";
+	 	 $mail->Subject = $config['centro_denominacion'].': Comunicaci&oacute;n de Problemas de Convivencia a la familia del Alumno.';
+	 	 $mail->Body = "El ".$config['centro_denominacion']." le comunica que, con fecha $fecha, su hijo ha cometido una falta $grave contra las normas de convivencia del Centro. El tipo de falta es el siguiente: $asunto.<br>Le recordamos que puede conseguir informaci&oacute;n m&aacute;s detallada en la p&aacute;gina del alumno de nuestra web en http://"-$config['dominio'].", o bien contactando con la Jefatura de Estudios del Centro. <hr><br><br> $texto_pie";
 	 	 $mail->AddAddress($correo, $nombre_alumno);
 	 	 $mail->Send();	
 	 	 */

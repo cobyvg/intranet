@@ -273,7 +273,7 @@ if(stristr($carg,'2') == TRUE)
 <div class="modal-body">
 <?php echo stripslashes(html_entity_decode($texto, ENT_NOQUOTES, 'ISO-8859-1'));?>
 <?php if (strlen($archivo) > 5): ?>
-Archivo adjunto: <a href="//<?php echo $dominio; ?>/notas/files/<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
+Archivo adjunto: <a href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
 <?php endif; ?>
 </div>
 <div class="modal-footer">

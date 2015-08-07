@@ -47,23 +47,14 @@ $profesor = $exp_informa[1].' '.$exp_informa[0];
 require("../../../pdf/fpdf.php");
 
 // Variables globales para el encabezado y pie de pagina
-$GLOBALS['CENTRO_NOMBRE'] = $nombre_del_centro;
-$GLOBALS['CENTRO_DIRECCION'] = $direccion_del_centro;
-$GLOBALS['CENTRO_CODPOSTAL'] = $codigo_postal_del_centro;
-$GLOBALS['CENTRO_LOCALIDAD'] = $localidad_del_centro;
-$GLOBALS['CENTRO_TELEFONO'] = $telefono_del_centro;
-$GLOBALS['CENTRO_FAX'] = $fax_del_centro;
-$GLOBALS['CENTRO_CORREO'] = $email_del_centro;
-
-
-if(substr($codigo_postal_del_centro,0,2)=="04") $GLOBALS['CENTRO_PROVINCIA'] = 'Almería';
-if(substr($codigo_postal_del_centro,0,2)=="11") $GLOBALS['CENTRO_PROVINCIA'] = 'Cádiz';
-if(substr($codigo_postal_del_centro,0,2)=="14") $GLOBALS['CENTRO_PROVINCIA'] = 'Córdoba';
-if(substr($codigo_postal_del_centro,0,2)=="18") $GLOBALS['CENTRO_PROVINCIA'] = 'Granada';
-if(substr($codigo_postal_del_centro,0,2)=="21") $GLOBALS['CENTRO_PROVINCIA'] = 'Huelva';
-if(substr($codigo_postal_del_centro,0,2)=="23") $GLOBALS['CENTRO_PROVINCIA'] = 'Jaén';
-if(substr($codigo_postal_del_centro,0,2)=="29") $GLOBALS['CENTRO_PROVINCIA'] = 'Málaga';
-if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = 'Sevilla';
+$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
+$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
+$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
+$GLOBALS['CENTRO_LOCALIDAD'] = $config['localidad_del_centro'];
+$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
+$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
+$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
+$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
 
 # creamos la clase extendida de fpdf.php 
 class GranPDF extends FPDF {
@@ -115,7 +106,7 @@ Pongo en su conocimiento que con fecha ".strftime("%e de %B de %Y", strtotime($f
 
 Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.
 
-En $localidad_del_centro, a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+En ".$config['localidad_del_centro'].", a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 
 
 for($i = 0; $i < 1; $i ++) {

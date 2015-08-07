@@ -47,7 +47,7 @@ include '../../menu.php';
 	<div class="container nopad-right">
 	
 		<div class="page-header">
-			<h2>Claustro de profesores <small>Curso <?php echo $curso_actual; ?></small></h2>
+			<h2>Claustro de profesores <small>Curso <?php echo $config['curso_actual']; ?></small></h2>
 		</div>
 		
 		<div class="row">

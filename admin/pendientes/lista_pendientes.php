@@ -6,22 +6,14 @@ if ($_POST['pdf']==1) {
 	require("../../pdf/fpdf.php");
 	
 	// Variables globales para el encabezado y pie de pagina
-	$GLOBALS['CENTRO_NOMBRE'] = $nombre_del_centro;
-	$GLOBALS['CENTRO_DIRECCION'] = $direccion_del_centro;
-	$GLOBALS['CENTRO_CODPOSTAL'] = $codigo_postal_del_centro;
-	$GLOBALS['CENTRO_LOCALIDAD'] = $localidad_del_centro;
-	$GLOBALS['CENTRO_TELEFONO'] = $telefono_del_centro;
-	$GLOBALS['CENTRO_FAX'] = $fax_del_centro;
-	$GLOBALS['CENTRO_CORREO'] = $email_del_centro;
-	
-	if(substr($codigo_postal_del_centro,0,2)=="04") $GLOBALS['CENTRO_PROVINCIA'] = 'Almería';
-	if(substr($codigo_postal_del_centro,0,2)=="11") $GLOBALS['CENTRO_PROVINCIA'] = 'Cádiz';
-	if(substr($codigo_postal_del_centro,0,2)=="14") $GLOBALS['CENTRO_PROVINCIA'] = 'Córdoba';
-	if(substr($codigo_postal_del_centro,0,2)=="18") $GLOBALS['CENTRO_PROVINCIA'] = 'Granada';
-	if(substr($codigo_postal_del_centro,0,2)=="21") $GLOBALS['CENTRO_PROVINCIA'] = 'Huelva';
-	if(substr($codigo_postal_del_centro,0,2)=="23") $GLOBALS['CENTRO_PROVINCIA'] = 'Jaén';
-	if(substr($codigo_postal_del_centro,0,2)=="29") $GLOBALS['CENTRO_PROVINCIA'] = 'Málaga';
-	if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = 'Sevilla';
+	$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
+	$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
+	$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
+	$GLOBALS['CENTRO_LOCALIDAD'] = $config['localidad_del_centro'];
+	$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
+	$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
+	$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
+	$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
 	
 	define('FPDF_FONTPATH','../../pdf/font/');
 	# creamos la clase extendida de fpdf.php
@@ -193,7 +185,7 @@ ORDER BY alma.curso, alma.unidad, nc';
 			$rep='';
 		}
 		$n1+=1;	
-		echo "<tr><td>$salida[2]</td><td>$salida[6]</td><td nowrap><a href='//$dominio/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a> <span class='text-warning'>$rep</span></td><td>$salida[4] </td></tr>";
+		echo "<tr><td>$salida[2]</td><td>$salida[6]</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a> <span class='text-warning'>$rep</span></td><td>$salida[4] </td></tr>";
 
 		}
 //}

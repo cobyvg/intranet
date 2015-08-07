@@ -7,7 +7,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'7') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 
@@ -727,7 +727,7 @@ echo "<br>
 		$num_promo = mysqli_num_rows($promo);
 		$pil = mysqli_query($db_con, "select promociona from matriculas_bach where $extra and promociona = '3'");
 		$num_34 = mysqli_num_rows($pil);
-		$an_bd = substr($curso_actual,0,4);
+		$an_bd = substr($config['curso_actual'],0,4);
 		$repit = mysqli_query($db_con, "select promociona from matriculas_bach where $extra and promociona = '2'");
 		$num_repit = mysqli_num_rows($repit);
 		

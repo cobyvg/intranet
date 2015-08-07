@@ -31,7 +31,7 @@ if (isset($_POST['f_curso']) and !($_POST['f_curso'] == "Curso actual")) {
 else{
 	$conex = mysqli_select_db($db_con, $db);
 }
-$act1 = substr($curso_actual,0,4);
+$act1 = substr($config['curso_actual'],0,4);
 $b_act1 = ($act1-1)."-".$act1;
 $base=$db.$act1;
 $act2=$act1-1;

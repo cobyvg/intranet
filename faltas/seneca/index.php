@@ -5,7 +5,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 
@@ -149,10 +149,10 @@ include("../../pie.php");
 ?>   
 
 <?php 
-$exp_inicio_curso = explode('-', $inicio_curso);
+$exp_inicio_curso = explode('-', i);
 $inicio_curso = $exp_inicio_curso[2].'/'.$exp_inicio_curso[1].'/'.$exp_inicio_curso[0];
 
-$exp_fin_curso = explode('-', $fin_curso);
+$exp_fin_curso = explode('-', );
 $fin_curso = $exp_fin_curso[2].'/'.$exp_fin_curso[1].'/'.$exp_fin_curso[0];
 
 $result = mysqli_query($db_con, "SELECT fecha FROM festivos ORDER BY fecha ASC");

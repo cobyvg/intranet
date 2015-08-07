@@ -3,7 +3,7 @@ require('../bootstrap.php');
 
 
 // MODIFICAR ESTA VARIABLE POR EL CORREO DEL COORDINADOR TIC
-$correo_coordinador = "admin@".$dominio;
+$correo_coordinador = "admin@".$config['dominio'];
 
 
 

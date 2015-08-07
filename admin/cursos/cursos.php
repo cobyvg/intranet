@@ -76,7 +76,7 @@ $options = array(
 				'width'=>500
 			);
 $txttit = "Lista del Grupo $unidad\n";
-$txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
+$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
@@ -155,7 +155,7 @@ $options = array(
 				'width'=>500
 			);
 $txttit = "Lista del Grupo $tr_unidad0 $text2\n";
-$txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
+$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);
@@ -236,7 +236,7 @@ $options = array(
 				'width'=>500
 			);
 $txttit = "<b>Alumnos del grupo: $tr_unidad0 $text2</b>\n";
-$txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";	
+$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";	
 $pdf->ezText($txttit, 12,$options_center);
 
 $pdf->ezTable($data, $titles, '', $options);

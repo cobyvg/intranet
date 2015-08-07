@@ -298,7 +298,7 @@ include("cuaderno/menu_cuaderno.php");
 			<table class='table table-bordered table-condensed'
 				style='width: auto'>
 				<tr>
-				<?php if ($mod_faltas==1) { ?>
+				<?php if ($config['mod_asistencia']) { ?>
 					
 					<td>
 					<div style='width: 40px; height: 104px;'>
@@ -523,7 +523,7 @@ include("cuaderno/menu_cuaderno.php");
 							{
 								echo "<tr>";
 								?>
-					<?php if ($mod_faltas==1) { ?>
+					<?php if ($config['mod_asistencia']) { ?>
 					<td style='vertical-align: middle; height: 74px !important;'><?php 
 					$faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and $fal_e and claveal='$claveal' and falta='F'");
 

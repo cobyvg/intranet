@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 
@@ -64,7 +64,7 @@ $t_nombre = $t_nombr->item(0)->nodeValue;
 $n_curso=utf8_decode($d_oferta); 
 $n_curso1 = utf8_decode($n_curso);     
 $hoy = date('d/m/Y')." 08:00:00"; 
-$ano_curso=substr($inicio_curso,0,4); 
+$ano_curso=substr($config['curso_inicio'],0,4); 
 $xml="<SERVICIO>
   <DATOS_GENERALES>
     <MODULO>FALTAS DE ASISTENCIA</MODULO>
@@ -74,9 +74,9 @@ $xml="<SERVICIO>
     <C_ANNO>$ano_curso</C_ANNO>
     <FECHA_DESDE>$iniciofalta</FECHA_DESDE>
     <FECHA_HASTA>$finfalta</FECHA_HASTA>
-    <CODIGO_CENTRO>$codigo_del_centro</CODIGO_CENTRO>
-    <NOMBRE_CENTRO>$nombre_del_centro</NOMBRE_CENTRO>
-    <LOCALIDAD_CENTRO>$localidad_del_centro</LOCALIDAD_CENTRO>
+    <CODIGO_CENTRO>".$config['centro_codigo']."</CODIGO_CENTRO>
+    <NOMBRE_CENTRO>".$config['centro_denominacion']."</NOMBRE_CENTRO>
+    <LOCALIDAD_CENTRO>".$config['localidad_del_centro']."</LOCALIDAD_CENTRO>
   </DATOS_GENERALES>
   <CURSOS>
     <CURSO>

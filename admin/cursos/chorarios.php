@@ -2,7 +2,7 @@
 require('../../bootstrap.php');
 
 
-if (!$mod_horario) header('Location:'.'http://'.$dominio.'/intranet/');
+if (!$config['mod_horarios']) header('Location:'.'http://'.$config['dominio'].'/intranet/');
 
 include("../../menu.php");
 ?>

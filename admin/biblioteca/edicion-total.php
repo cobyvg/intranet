@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 if((!(stristr($_SESSION['cargo'],'1') == TRUE)) and (!(stristr($_SESSION['cargo'],'c') == TRUE)) )
 {
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 	exit;
 }
 
@@ -56,23 +56,14 @@ elseif ($registro){
 		include ("../pdf/fpdf.php");
 		define ( 'FPDF_FONTPATH', '../pdf/font/' );
 		// Variables globales para el encabezado y pie de pagina
-		$GLOBALS['CENTRO_NOMBRE'] = $nombre_del_centro;
-		$GLOBALS['CENTRO_DIRECCION'] = $direccion_del_centro;
-		$GLOBALS['CENTRO_CODPOSTAL'] = $codigo_postal_del_centro;
-		$GLOBALS['CENTRO_LOCALIDAD'] = $localidad_del_centro;
-		$GLOBALS['CENTRO_TELEFONO'] = $telefono_del_centro;
-		$GLOBALS['CENTRO_FAX'] = $fax_del_centro;
-		$GLOBALS['CENTRO_CORREO'] = $email_del_centro;
-
-
-		if(substr($codigo_postal_del_centro,0,2)=="04") $GLOBALS['CENTRO_PROVINCIA'] = 'Almer�a';
-		if(substr($codigo_postal_del_centro,0,2)=="11") $GLOBALS['CENTRO_PROVINCIA'] = 'C�diz';
-		if(substr($codigo_postal_del_centro,0,2)=="14") $GLOBALS['CENTRO_PROVINCIA'] = 'C�rdoba';
-		if(substr($codigo_postal_del_centro,0,2)=="18") $GLOBALS['CENTRO_PROVINCIA'] = 'Granada';
-		if(substr($codigo_postal_del_centro,0,2)=="21") $GLOBALS['CENTRO_PROVINCIA'] = 'Huelva';
-		if(substr($codigo_postal_del_centro,0,2)=="23") $GLOBALS['CENTRO_PROVINCIA'] = 'Ja�n';
-		if(substr($codigo_postal_del_centro,0,2)=="29") $GLOBALS['CENTRO_PROVINCIA'] = 'M�laga';
-		if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = 'Sevilla';
+		$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
+		$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
+		$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
+		$GLOBALS['CENTRO_LOCALIDAD'] = $config['localidad_del_centro'];
+		$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
+		$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
+		$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
+		$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
 
 		# creamos la clase extendida de fpdf.php
 		class GranPDF extends FPDF {
@@ -174,7 +165,7 @@ Pongo en su conocimiento que con  fecha $hoy su hijo/a $nombre $apellido alumno 
 					$cuerpo2 = utf8_decode("Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.");
 					$cuerpo3 = utf8_decode("----------------------------------------------------------------------------------------------------------------------------------------------
 
-En $localidad_del_centro, a _________________________________
+En $config['localidad_del_centro'], a _________________________________
 Firmado: El Padre/Madre/Representante legal:
 
 
@@ -198,10 +189,10 @@ COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 					$MiPDF->SetFont ( 'NewsGotT', '', 10 );
 					$MiPDF->SetTextColor ( 0, 0, 0 );
 					$MiPDF->SetTextColor ( 0, 0, 0 );
-					$MiPDF->Text ( 128, 35, $nombre_del_centro );
-					$MiPDF->Text ( 128, 39, $direccion_del_centro );
-					$MiPDF->Text ( 128, 43, $codigo_postal_del_centro . " (" . $localidad_del_centro . ")" );
-					$MiPDF->Text ( 128, 47, "Tlfno. " . $telefono_del_centro );
+					$MiPDF->Text ( 128, 35, $config['centro_denominacion'] );
+					$MiPDF->Text ( 128, 39, $config['centro_direccion'] );
+					$MiPDF->Text ( 128, 43, $config['centro_codpostal'] . " (" . $config['localidad_del_centro'] . ")" );
+					$MiPDF->Text ( 128, 47, "Tlfno. " . $config['centro_telefono']);
 					#Cuerpo.
 					$MiPDF->Ln ( 45 );
 					$MiPDF->SetFont ( 'NewsGotT', 'B', 11 );
@@ -212,7 +203,7 @@ COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 					$MiPDF->Ln ( 3 );
 					$MiPDF->Multicell ( 0, 4, $cuerpo2, 0, 'J', 0 );
 					$MiPDF->Ln ( 6 );
-					$MiPDF->Multicell ( 0, 4, 'En ' . $localidad_del_centro . ', a ' . $hoy, 0, 'C', 0 );
+					$MiPDF->Multicell ( 0, 4, 'En ' . $config['localidad_del_centro'] . ', a ' . $hoy, 0, 'C', 0 );
 					$MiPDF->Ln ( 6 );
 					$MiPDF->Multicell ( 0, 4, 'Jefatura de Estudios', 0, 'C', 0 );
 					$MiPDF->Ln ( 16 );

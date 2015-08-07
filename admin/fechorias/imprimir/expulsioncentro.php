@@ -14,23 +14,14 @@ include_once ("../../../funciones.php");
 require ("../../../pdf/fpdf.php");
 
 // Variables globales para el encabezado y pie de pagina
-$GLOBALS['CENTRO_NOMBRE'] = $nombre_del_centro;
-$GLOBALS['CENTRO_DIRECCION'] = $direccion_del_centro;
-$GLOBALS['CENTRO_CODPOSTAL'] = $codigo_postal_del_centro;
-$GLOBALS['CENTRO_LOCALIDAD'] = $localidad_del_centro;
-$GLOBALS['CENTRO_TELEFONO'] = $telefono_del_centro;
-$GLOBALS['CENTRO_FAX'] = $fax_del_centro;
-$GLOBALS['CENTRO_CORREO'] = $email_del_centro;
-
-
-if(substr($codigo_postal_del_centro,0,2)=="04") $GLOBALS['CENTRO_PROVINCIA'] = 'Almería';
-if(substr($codigo_postal_del_centro,0,2)=="11") $GLOBALS['CENTRO_PROVINCIA'] = 'Cádiz';
-if(substr($codigo_postal_del_centro,0,2)=="14") $GLOBALS['CENTRO_PROVINCIA'] = 'Córdoba';
-if(substr($codigo_postal_del_centro,0,2)=="18") $GLOBALS['CENTRO_PROVINCIA'] = 'Granada';
-if(substr($codigo_postal_del_centro,0,2)=="21") $GLOBALS['CENTRO_PROVINCIA'] = 'Huelva';
-if(substr($codigo_postal_del_centro,0,2)=="23") $GLOBALS['CENTRO_PROVINCIA'] = 'Jaén';
-if(substr($codigo_postal_del_centro,0,2)=="29") $GLOBALS['CENTRO_PROVINCIA'] = 'Málaga';
-if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = 'Sevilla';
+$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
+$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
+$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
+$GLOBALS['CENTRO_LOCALIDAD'] = $config['localidad_del_centro'];
+$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono']
+$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
+$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
+$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
 
 # creamos la clase extendida de fpdf.php 
 class GranPDF extends FPDF {
@@ -111,7 +102,7 @@ if (mysqli_num_rows ( $repe ) == "0") {
 } 
 
 $titulo = "Comunicación de expulsión del centro";
-$cuerpo = "El Director del $nombre_del_centro de $localidad_del_centro, en virtud de las facultades otorgadas por el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio en el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, una vez estudiado el expediente disciplinario de $nombre $apellidos, alumno/a del grupo $unidad.
+$cuerpo = "El Director del ".$config['centro_denominacion']." de ".$config['localidad_del_centro'].", en virtud de las facultades otorgadas por el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio en el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, una vez estudiado el expediente disciplinario de $nombre $apellidos, alumno/a del grupo $unidad.
 
 Acuerda:
 
@@ -122,7 +113,7 @@ Acuerda:
 
 NOTA: El padre, madre o representante legal podrá presentar en el registro de entrada del Centro, en el plazo de dos días lectivos, una reclamación dirigida a la Dirección del Centro contra las correcciones impuestas.
 
-En $localidad_del_centro, a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+En ".$config['localidad_del_centro'].", a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 
 
 	# insertamos la primera pagina del documento
@@ -157,10 +148,10 @@ En $localidad_del_centro, a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 	$MiPDF->Cell (55, 20, '', 0, 1, 'C', 0 );
 	$MiPDF->SetFont('NewsGotT', '', 10);
 	$MiPDF->Cell (90, 5, 'Fdo. '.$padre, 0, 0, 'C', 0 );
-	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($director_del_centro, MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'C', 0 );
+	$MiPDF->Cell (55, 5, 'Fdo. '.mb_convert_case($config['directivo_direccion'], MB_CASE_TITLE, "iso-8859-1"), 0, 1, 'C', 0 );
 	
   
-$result1 = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$inicio_curso."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos");
+$result1 = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos");
 $num = mysqli_num_rows($result1);
 
 $tit_fech = "PROBLEMAS DE CONVIVENCIA DEL ALUMNO EN EL CURSO ACTUAL";
@@ -173,7 +164,7 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln ( 3 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$inicio_curso."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 0, 24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 0, 24");
 
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
@@ -196,7 +187,7 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln ( 3 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$inicio_curso."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 25, 24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 25, 24");
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
                 {
@@ -220,7 +211,7 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln ( 3 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$inicio_curso."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 50,24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 50,24");
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
                 {
@@ -244,7 +235,7 @@ $MiPDF->Addpage ();
 	$MiPDF->Ln ( 3 );
 	$MiPDF->SetFont ( 'NewsGotT', '', 12);
 	
-$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$inicio_curso."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 75,24");
+$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.informa, Fechoria.claveal from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and FALUMNOS.claveal = $claveal and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha DESC, FALUMNOS.unidad, FALUMNOS.apellidos limit 75,24");
  // print "$AUXSQL";
   while($row = mysqli_fetch_array($result))
                 {

@@ -34,8 +34,8 @@ while ($rep = mysqli_fetch_array($rep0)) {
 		}
 		$message = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, pongase en contacto con nosotros.";
 		mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
-		$login = $usuario_smstrend;
-		$password = $clave_smstrend;
+		$login = $config['mod_sms_user'];
+		$password = $config['mod_sms_pass'];
 	}
 ?>	
 <script>
@@ -45,10 +45,10 @@ function enviarForm()  {
 }
 </script>
 <form name="enviar" action="http://www.smstrend.net/esp/sendMessageFromPost.oeg" target="ventanaForm" method="POST" enctype="application/x-www-form-urlencoded">
-	<input name="login" type="hidden" value="<?php echo $usuario_smstrend; ?>" />
-	<input name="password" type="hidden" value="<?php echo $clave_smstrend; ?>" />
+	<input name="login" type="hidden" value="<?php echo $config['mod_sms_user']; ?>" />
+	<input name="password" type="hidden" value="<?php echo $config['mod_sms_pass']; ?>" />
 	<input name="extid" type="hidden" value="<?php echo $extid; ?>" />
-	<input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" />
+	<input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" />
 	<input name="mobile" type="hidden" value="<?php echo $mobile; ?>" />
 	<input name="messageQty" type="hidden" value="GOLD" />
 	<input name="messageType" type="hidden" value="PLUS" />
@@ -119,7 +119,7 @@ if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioau
 	
 	<br>
 
-	<a class="btn btn-primary btn-sm" href="//<?php echo $dominio; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+	<a class="btn btn-primary btn-sm" href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 </div>
 
 <?php 
@@ -141,7 +141,7 @@ $fechainicio = $inicio[2] . "-" . $inicio[1] . "-" . $inicio[0];
 	
 	<br>
 
-	<a class="btn btn-primary btn-sm" href="//<?php echo $dominio; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+	<a class="btn btn-primary btn-sm" href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 </div>
 
 <?php 
@@ -160,9 +160,9 @@ $count_fech=1;
 	
 	<br>
 
-	<form method="post" action="//<?php echo $dominio; ?>/intranet/admin/fechorias/imprimir/expulsionaula.php">
+	<form method="post" action="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/imprimir/expulsionaula.php">
 		<input type="hidden" name="id" value="<?php echo $id; ?>">
-		<a class="btn btn-primary btn-sm" href="//<?php echo $dominio; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+		<a class="btn btn-primary btn-sm" href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir parte de expulsión</button>
 	</form>
 </div>
@@ -181,9 +181,9 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 	
 	<br>
 
-	<form method="post" action="//<?php echo $dominio; ?>/intranet/admin/fechorias/imprimir/amonestescrita.php">
+	<form method="post" action="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/imprimir/amonestescrita.php">
 		<input type="hidden" name="id" value="<?php echo $id; ?>">
-		<a class="btn btn-primary btn-sm" href="//<?php echo $dominio; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
+		<a class="btn btn-primary btn-sm" href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir amonestación escrita</button>
 	</form>
 </div>

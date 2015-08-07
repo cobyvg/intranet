@@ -18,16 +18,16 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 <ul class="nav nav-tabs">
 
 	<li <?php echo $activo1;?>><a
-		href="//<?php echo $dominio; ?>/intranet/admin/fechorias/cfechorias.php">
+		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/cfechorias.php">
 	Consultar Problemas</a></li>
 	<li <?php echo $activo2;?>><a
-		href="//<?php echo $dominio; ?>/intranet/admin/fechorias/infechoria.php">
+		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/infechoria.php">
 	Registrar Problema</a></li>
 	<li <?php echo $activo3;?>><a
-		href="//<?php echo $dominio; ?>/intranet/admin/fechorias/lfechorias.php">
+		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/lfechorias.php">
 	Últimos Problemas</a></li>
 	<li <?php echo $activo4;?>><a
-		href="//<?php echo $dominio; ?>/intranet/admin/fechorias/expulsados.php">
+		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/expulsados.php">
 	Alumnos expulsados</a></li>
 
 	<li
@@ -46,7 +46,7 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 	if (mysqli_num_rows($conv) > '0') {
 		?>
 	<li <?php echo $activo5;?>><a
-		href="//<?php echo $dominio; ?>/intranet/admin/fechorias/convivencia.php">Aula
+		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia.php">Aula
 	de Convivencia</a></li>
 	<?
 	}
@@ -55,7 +55,7 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 	if(stristr($_SESSION['cargo'],'1') == TRUE){
 		?>
 	<li <?php echo $activo5;?>><a
-		href="//<?php echo $dominio; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula
+		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula
 	de Convivencia</a></li>
 	<?
 	}

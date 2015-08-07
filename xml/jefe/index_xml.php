@@ -5,7 +5,7 @@ require('../../bootstrap.php');
 $profe = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 	exit;
 }
 
@@ -46,7 +46,7 @@ include("../../menu.php");
 					<fieldset>
 						<legend>Importación de datos del centro</legend>
 						
-						<input type="hidden" name="curso_escolar" value="<?php echo $curso_actual; ?>">
+						<input type="hidden" name="curso_escolar" value="<?php echo $config['curso_actual']; ?>">
 						
 						<div class="form-group">
 						  <label for="ExpGenHor"><span class="text-info">ExportacionHorarios.xml</span></label>

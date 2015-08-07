@@ -34,7 +34,7 @@ while ($row = mysqli_fetch_array($result)) {
 	while ($elm1 = mysqli_fetch_array($srv0)) {
 		$n_elm = $elm1[0];
 		
-		$result1 = mysqli_query($db_con, "SELECT eventdate FROM reservas WHERE servicio='$n_elm' and date(eventdate) > date('$inicio_curso') AND (event1='$profesor' OR event2='$profesor' OR event3='$profesor' OR event4='$profesor' OR event5= '$profesor' OR event6='$profesor' OR event7='$profesor')") or die ("Error in query: $query. " . mysqli_error($db_con));
+		$result1 = mysqli_query($db_con, "SELECT eventdate FROM reservas WHERE servicio='$n_elm' and date(eventdate) > date('".$config['curso_inicio']."') AND (event1='$profesor' OR event2='$profesor' OR event3='$profesor' OR event4='$profesor' OR event5= '$profesor' OR event6='$profesor' OR event7='$profesor')") or die ("Error in query: $query. " . mysqli_error($db_con));
 
 		$dias_profesor = mysqli_num_rows($result1);
 
@@ -86,7 +86,7 @@ $srv = mysqli_query($db_con,"select distinct elemento from reservas_elementos wh
 while ($elm = mysqli_fetch_array($srv)):
 $rc_tic = $elm[0];
 ?> 
-<?php $result = mysqli_query($db_con, "SELECT eventdate FROM `reservas` WHERE DATE(eventdate) > date('$inicio_curso') and servicio='$rc_tic'"); ?>
+<?php $result = mysqli_query($db_con, "SELECT eventdate FROM `reservas` WHERE DATE(eventdate) > date('".$config['curso_inicio']."') and servicio='$rc_tic'"); ?>
 <?php $n_dias = mysqli_num_rows($result); ?> 
 <?php $n_horas = 0; ?> <?php if ($n_dias): ?>
 <?php while ($row = mysqli_fetch_array($result)): ?> 

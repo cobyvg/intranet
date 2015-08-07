@@ -3,7 +3,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE))
 {
-	//header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	//header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 	//exit;
 }
 
@@ -149,7 +149,7 @@ if($detalles == '1')
 		if($mes1 ==  "10") $mes2 = "Octubre";
 		if($mes1 ==  "11") $mes2 = "Noviembre";
 		if($mes1 ==  "12") $mes2 = "Diciembre";
-		$datos0 = "select id, unidades, nombre, descripcion, departamento, profesores, concat(horaini,'-',horafin), fechaini, confirmado from calendario where month(fechaini) = '$mes1' and date(fechaini) > '$inicio_curso' and categoria='2' order by fechaini";
+		$datos0 = "select id, unidades, nombre, descripcion, departamento, profesores, concat(horaini,'-',horafin), fechaini, confirmado from calendario where month(fechaini) = '$mes1' and date(fechaini) > '".$config['curso_inicio']."' and categoria='2' order by fechaini";
 		$datos1 = mysqli_query($db_con, $datos0);
 		while($datos = mysqli_fetch_array($datos1))
 		{
@@ -157,7 +157,7 @@ if($detalles == '1')
 			$fecha0 = explode("-",$datos[7]);
 			$fecha = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
 			if (substr($fecha0[1],0,1)=="0") {$mes=str_replace("0","",$fecha0[1]);}else{$mes=$fecha0[1];}
-			$cal_act = '//'.$dominio.'/intranet/calendario/index.php?mes='.$mes.'&anio='.$fecha0[0].'&viewModal='.$datos[0];
+			$cal_act = '//'.$config['dominio'].'/intranet/calendario/index.php?mes='.$mes.'&anio='.$fecha0[0].'&viewModal='.$datos[0];
 
 			$autoriz = $datos[8];
 			$datos[2]= str_replace("\\","",$datos[2]);

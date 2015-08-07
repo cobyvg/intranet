@@ -18,14 +18,14 @@ if(isset($_POST['horarios'])){$horarios = $_POST['horarios'];}else{ $horarios=""
 if(isset($_POST['act_tutoria'])){$act_tutoria = $_POST['act_tutoria'];}else{ $act_tutoria=""; }
 
 
-if (!($c_escolar==$curso_actual)) {
+if (!($c_escolar==$config['curso_actual'])) {
 	$an = explode("/",$c_escolar);
 	$c_db = $an[0]+1;
 	$base = $db.$c_db;	
 	mysqli_select_db($db_con, $base);
 }
 if (empty($c_escolar)){
-	$c_escolar=$curso_actual;
+	$c_escolar=$config['curso_actual'];
 }
 
 if ($claveal) {
@@ -166,7 +166,7 @@ include('../../menu.php');
 				</style>
 				
 				<ul class="nav nav-tabs nav-justified" role="tablist">
-					<?php if (!($faltas == "" && $todos == "") && $mod_faltas): ?>
+					<?php if (!($faltas == "" && $todos == "") && $config['mod_asistencia']): ?>
 					<?php $tab1 = 1; ?>
 				  <li <?php echo ($tab1) ? 'class="active"' : ''; ?>><a href="#asistencia" role="tab" data-toggle="tab">Faltas de asistencia</a></li>
 				  <?php endif; ?>

@@ -168,10 +168,10 @@ else{
 $fech = explode(" ",$fecha_total);
 $fecha = $fech[0];
 $titulo1 = "SOLICITUD DE MATRÍCULA EN ".$n_curso."º DE E.S.O.";
-$an = substr($curso_actual,0,4);
+$an = substr($config['curso_actual'],0,4);
 $an1 = $an+1;
 $hoy = formatea_fecha(date('Y-m-d'));
-$cuerpo3 = "En $localidad_del_centro, a $hoy
+$cuerpo3 = "En ".$config['localidad_del_centro'].", a $hoy
 Firma del Padre/Madre/Representante legal D/Dª
 
 
@@ -179,7 +179,7 @@ Firma del Padre/Madre/Representante legal D/Dª
 Fdo. D/Dª ---------------------------------------------
 que asegura la veracidad de los datos registrados en el formulario.
 ";
-$datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, el $nombre_del_centro le informa que los datos personales obtenidos mediante la cumplimentación de este formulario y demás documentación que se adjunta van a ser incorporados, para su tratamiento, a nuestra base de datos, con la finalidad de recoger los datos personales y académicos del alumnado que cursa estudios en nuestro Centro, así como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría del Instituto en C/ Santo Tomás de Aquino, s/n, $codigo_postal_del_centro $localidad_del_centro, Málaga";
+$datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, el ".$config['centro_denominacion']." le informa que los datos personales obtenidos mediante la cumplimentación de este formulario y demás documentación que se adjunta van a ser incorporados, para su tratamiento, a nuestra base de datos, con la finalidad de recoger los datos personales y académicos del alumnado que cursa estudios en nuestro Centro, así como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría del Instituto en ".$config['centro_direccion'].", ".$config['centro_codpostal']." ".$config['localidad_del_centro'].", Málaga";
 
 	# insertamos la primera pagina del documento
 	$MiPDF->Addpage ();

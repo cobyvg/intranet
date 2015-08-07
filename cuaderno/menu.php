@@ -112,19 +112,19 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 		elseif (empty ( $rowasignatur1 [2] ) and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")) {
 			echo "<span class='label label-default'>" . $rowasignatur1 [1] . "</span><br />";
 		}
-		elseif (($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44") and $mod_faltas == '1') {
+		elseif (($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44") and $config['mod_asistencia']) {
 			if (strstr($_SESSION ['cargo'],"1")==TRUE) {
-				echo "<a href='//$dominio/intranet/admin/guardias/admin.php'><span class='label label-danger'>".$rowasignatur1[1]."</span>";
+				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/admin.php'><span class='label label-danger'>".$rowasignatur1[1]."</span>";
 			}
 			else{
-				echo "<a href='//$dominio/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$profesor' class='label label-danger'>" . $rowasignatur1 [1] . "</a>";
+				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$profesor' class='label label-danger'>" . $rowasignatur1 [1] . "</a>";
 			}
 		}
 		// Recorremos los grupos a los que da en ese hora.
 		$asignaturas1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_grupo FROM  horw where prof = '$profesor' and dia = '$z' and hora = '$n_hora'" );
 		while ( $rowasignaturas1 = mysqli_fetch_array ( $asignaturas1 ) ) {
 			$grupo = $rowasignaturas1 [1];
-				echo "<a href='//$dominio/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]&profesor=$profesor&foto=$foto' style='font-size:0.8em'>";
+				echo "<a href='//".$config['dominio']."/intranet/cuaderno.php?dia=$z&hora=$n_hora&curso=$grupo&asignatura=$rowasignatur1[0]&profesor=$profesor&foto=$foto' style='font-size:0.8em'>";
 			if (is_numeric ( substr ( $grupo, 0, 1 ) )) {
 				echo $grupo . "<br />";
 			}
@@ -151,11 +151,11 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 	
 	</li>
 
-	<li <?php echo $activo1;?>><a href="//<?php echo $dominio; ?>/intranet/cuaderno.php?menu_cuaderno=1&profesor=<?php echo $_SESSION['profi'];?>&dia=<?php echo $dia;?>&hora=<?php echo $hora;?>&curso=<?php echo $curso;?>&asignatura=<?php echo $asignatura;?>&foto=<?php echo $foto;?>">Cuaderno de notas</a></li>
+	<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/cuaderno.php?menu_cuaderno=1&profesor=<?php echo $_SESSION['profi'];?>&dia=<?php echo $dia;?>&hora=<?php echo $hora;?>&curso=<?php echo $curso;?>&asignatura=<?php echo $asignatura;?>&foto=<?php echo $foto;?>">Cuaderno de notas</a></li>
 	
-	<li <?php echo $activo2;?>><a href="//<?php echo $dominio; ?>/intranet/faltas/index.php?menu_cuaderno=1&profesor=<?php echo $_SESSION['profi'];?>&dia=<?php echo $dia;?>&hora=<?php echo $hora;?>&curso=<?php echo $curso;?>&asignatura=<?php echo $asignatura;?>">Faltas de asistencia</a></li>
+	<li <?php echo $activo2;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/index.php?menu_cuaderno=1&profesor=<?php echo $_SESSION['profi'];?>&dia=<?php echo $dia;?>&hora=<?php echo $hora;?>&curso=<?php echo $curso;?>&asignatura=<?php echo $asignatura;?>">Faltas de asistencia</a></li>
 
-	<li <?php echo $activo3;?>><a href="//<?php echo $dominio; ?>/intranet/calendario/index_unidades.php?unidad=<?php echo $curso; ?>&menu_cuaderno=1">Actividades de la unidad</a></li>
+	<li <?php echo $activo3;?>><a href="//<?php echo $config['dominio']; ?>/intranet/calendario/index_unidades.php?unidad=<?php echo $curso; ?>&menu_cuaderno=1">Actividades de la unidad</a></li>
 
 </ul>
 </div>

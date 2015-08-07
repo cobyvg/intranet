@@ -15,14 +15,14 @@ include('include/constants.'.$phpExt);
 //include("../../config.php");
 //
 //
-$homeurl = $dominio."/intranet/upload/index.php";
+$homeurl = $config['dominio']."/intranet/upload/index.php";
 
 //
 $admin_name = 'Admin';
 
 //
 //
-$admin_email = 'admin@'.$dominio;
+$admin_email = 'admin@'.$config['dominio'];
 
 //
 $use_smtp = false;
@@ -32,7 +32,7 @@ $smtp_password = '';
 
 //
 
-$domain_name = $dominio;
+$domain_name = $config['dominio'];
 $script_folder_path = 'intranet/upload/';
 $installurl = 'http://' . $domain_name . '/' . $script_folder_path;
 
@@ -42,7 +42,7 @@ $userstat_folder_name = 'userstat';
 
 switch ($_GET['index']) {
 	default :
-	case 'publico' : $uploads_folder_name = $doc_dir; $index="publico"; break;
+	case 'publico' : $uploads_folder_name = $config['mod_documentos_dir']; $index="publico"; break;
 	case 'privado' : $uploads_folder_name = '../varios/'.$_SESSION['ide'].'/'; $index="privado"; break;
 }
 
@@ -84,7 +84,7 @@ $grants = array(
 $default_user_status = ANONYMOUS;
 
 //
-$page_title = 'Archivos del '.$nombre_del_centro;
+$page_title = 'Archivos del '.$config['centro_denominacion'];
 
 //
 $GMToffset = date('Z')/3600;

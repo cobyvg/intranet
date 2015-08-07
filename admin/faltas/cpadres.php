@@ -62,7 +62,7 @@ $alumno = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FRO
   <div class="well well-large">
           <?
 	$fecha32 = date('d')."-".date('m')."-".date('Y');
-  $tr = explode("-",$inicio_curso);
+  $tr = explode("-",$config['curso_inicio']);
   $inicio = "$tr[2]-$tr[1]-$tr[0]";
 ?>
          <h4> Rango de fechas</h4><br />      

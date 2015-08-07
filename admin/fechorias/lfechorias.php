@@ -139,7 +139,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
 		if(($dias > 30 and ($grave == 'leve' or $grave == 'grave')) or ($dias > 60 and $grave == 'muy grave'))
 		{$caducada="Sí";} else {$caducada="No";}
 		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
-		like '%$claveal%' and Fechoria.fecha >= '$inicio_curso' order by Fechoria.fecha"); 
+		like '%$claveal%' and Fechoria.fecha >= '".$config['curso_inicio']."' order by Fechoria.fecha"); 
 		$rownumero= mysqli_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;

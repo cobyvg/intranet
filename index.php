@@ -1,15 +1,12 @@
 <?php
-// COMPROBAMOS LA VERSIÓN DE PHP
-if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.3.0 o superior para poder utilizar esta aplicación.</p>");
-
 require('bootstrap.php');
 
 // Variable del cargo del Profesor
-$pr = $_SESSION ['profi']; // Nombre
-$carg = $_SESSION ['cargo']; // Perfil
-$dpto = $_SESSION ['dpt']; // Departamento
-$idea = $_SESSION ['ide']; // Usuario iDea de Séneca
-$n_curso = $_SESSION ['n_cursos']; // Tiene Horario
+$pr = $_SESSION['profi']; // Nombre
+$carg = $_SESSION['cargo']; // Perfil
+$dpto = $_SESSION['dpt']; // Departamento
+$idea = $_SESSION['ide']; // Usuario iDea de Séneca
+$n_curso = $_SESSION['n_cursos']; // Tiene Horario
 
 include("menu.php");
 ?>
@@ -82,7 +79,7 @@ include("menu.php");
 				
 				<br><br>
 				
-				<?php if($mod_horario and ($n_curso > 0)): ?>
+				<?php if($config['mod_horarios'] and ($n_curso > 0)): ?>
 				<div id="bs-tour-horario">
 				<?php include("horario.php"); ?>
 				</div>
@@ -103,7 +100,7 @@ include("menu.php");
 		
 		onEnd: function() {
 			localStorage.removeItem('tour_current_step');
-		  return window.location.href = '//<?php echo $dominio; ?>/intranet/index.php';
+		  return window.location.href = '//<?php echo $config['dominio']; ?>/intranet/index.php';
 		},
 		
 		keyboard: true,
@@ -195,14 +192,14 @@ include("menu.php");
 	    content: "El calendario mostrará información sobre los eventos del Centro, Actividades extraescolares y tus anotaciones personales. Cada evento está identificado con una bola de color; al pasar el ratón por encima aparecerá la descripción del evento. Debajo del calendario aparerán los eventos programados para el día de hoy. Para programar un evento haz click en <strong>Ver calendario</strong> o dirígite al menú <strong>Trabajo</strong>, <strong>Calendario</strong>, <strong>Ver calendario</strong>.",
 	    container: "body",
 	    placement: "left",
-	    <?php if($mod_horario and ($n_curso > 0)): ?>
+	    <?php if($config['mod_horarios'] and ($n_curso > 0)): ?>
 	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button></div></div>",
 	    <?php else: ?>
 	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default btn-sm' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default btn-sm' data-role='next'>Siguiente »</button><button class='btn btn-primary btn-sm' data-role='end'>Entendido</button></div></div>",
 	    <?php endif; ?>
 	    backdrop: true,
 	  },
-	  <?php if($mod_horario and ($n_curso > 0)): ?>
+	  <?php if($config['mod_horarios'] and ($n_curso > 0)): ?>
 	  {
 	    element: "#bs-tour-horario",
 	    title: "Horario y cuaderno de notas",

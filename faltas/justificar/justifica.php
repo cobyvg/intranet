@@ -51,8 +51,8 @@ else
 		$fecha_fiesta= strtotime($fecha33);
 
 		// Fiestas del Año, Vacaciones, etc.
-		$comienzo_del_curso = strtotime($inicio_curso);
-		$final_del_curso = strtotime($fin_curso);
+		$comienzo_del_curso = strtotime($config['curso_inicio']);
+		$final_del_curso = strtotime($config['curso_fin']);
 		$dia_festivo="";
 		$mens_fecha="";
 		$repe=mysqli_query($db_con, "select fecha from festivos where date(fecha) = date('$fecha33')");

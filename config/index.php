@@ -1,206 +1,974 @@
-<?php
-// COMPROBAMOS LA VERSIÓN DE PHP
-if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incompatible</h1>\n<p>Necesita PHP 5.3.0 o superior para poder utilizar esta aplicación.</p>");
-
-session_start();
-
-include_once("version.php");
-include_once("../funciones.php");
-include_once("../simplepie/autoloader.php");
-
-if (strlen($_SESSION['mens_error']) > 10) {
-	echo $_SESSION['mens_error'];
-	$_SESSION['mens_error'] = "";
-}
-
-if(!(file_exists("../config.php")) OR filesize("../config.php")<10)
-{
-$primera = 1;
-}
-
-if ($_POST['enviar'] or $_POST['num_carrito'] or $_POST['num_aula'] or $_POST['num_medio'])
-{	
-
-if(!(empty($_POST['db']) or empty($_POST['db_host']) or empty($_POST['db_user']) or empty($_POST['db_pass']) or empty($_POST['dominio']) or empty($_POST['nombre_del_centro']) or empty($_POST['codigo_del_centro']) or empty($_POST['email_del_centro']) or empty($_POST['director_del_centro']) or empty($_POST['jefatura_de_estudios']) or empty($_POST['secretario_del_centro']) or empty($_POST['direccion_del_centro']) or empty($_POST['localidad_del_centro']) or empty($_POST['codigo_postal_del_centro']) or empty($_POST['telefono_del_centro']) or empty($_POST['curso_actual']) or empty($_POST['inicio_curso']) or empty($_POST['fin_curso'])))
-{	
-$db = $_POST['db'];
-$db_host = $_POST['db_host'];
-$db_user = $_POST['db_user'];
-$funcion = '
-
-$db_con = mysqli_connect($db_host, $db_user, $db_pass);
-mysqli_select_db($db_con, $db);
-
-function registraPagina($pagina,$host,$user,$pass,$base)
-{
-$db_con = mysqli_connect($host, $user, $pass);
-mysqli_select_db($db_con, $base);
-$id_reg = $_SESSION[\'id_pag\'];
-mysqli_query($db_con, "INSERT INTO reg_paginas (id_reg,pagina) VALUES (\'$id_reg\',\'$pagina\')");	
-}
-';
-$f1=fopen("../config.php","w+");
-			
-if($f1==FALSE){
-	echo '<br /><br /><div align="center"><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
-No es posible crear o abrir el archivo de configuración.<br>
-Esto quiere decir que no le has concedido permiso de escritura al directorio donde has colocado la Intranet, y es un requisito necesario para el funcionamiento de la aplicación. Debes permitir la escritura en ese directorio o la aplicación no podrá funcionar.
-          </div><br /><input type="button" value="Volver atrás" name="boton" onClick="history.back(1)" class="btn btn-inverse" /></div>';
-	exit();
-}
-else{
-
-include 'escribe_archivo.php';
-include 'escribe_htaccess.php';
-}
-if($primera == 1){
-// Comprobamos estado de las Bases de datos para saber si podemos ofrecer el botón de creación de las mismas o bien ya han sido creadas
-mysqli_connect($db_host, $db_user, $db_pass);
-$hay_bd = mysqli_select_db($db_con, $db);
-if ($hay_bd) {
-$hay_tablas = mysqli_list_tables($db);
-if (mysqli_num_rows($hay_tablas) == 0) {
-	$no_tablas = '1';
-} 
-}
-else{
-	$no_tablas ='1';
-}	
-
-// Si no hay bases de datos o bien estas no contiene tablas...
-if($no_tablas=="1")
-{
-$form = "<br /><div class='well' align='center' style='width:500px;margin:auto'>Es el momento de crear o reparar la Base de datos y la estructura de las Tablas. <br />Presiona el botón para proceder."; 
-$form.= '<form enctype="multipart/form-data" action="crea_tablas.php" method="post">';
-$form.= '<br /><input  type="submit" name="bdatos" value="Crear Bases de Datos y Tablas" class="btn btn-primary" />';
-$form.= '</form></div><br />';
-}
-}
-}
-else{
-$mens = '<div align="center"><div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h4>ATENCIÓN:</h4>
-Todos los campos marcados con (<span style="color:#9d261d">*</span>) en el formulario son obligatorios. <br>Escribe los datos en los campos vacíos y envíalos de nuevo
-          </div></div>';
-}
-$mens = '<div align="center"><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-Los datos se han guardado correctamente en el archivo de configuración de la aplicación.     
-</div></div>';
-} // Final de envío de datos
-
-
-if(file_exists("../config.php") AND filesize("../config.php")>10)
-{
-include("../config.php");
-$admin=mysqli_query($db_con, "select * from departamentos, c_profes where profesor=nombre and profesor='admin'");
-$hay_admin = mysqli_num_rows($admin);
-if($hay_admin>0)
-{
-}
-else{
-	$adm=sha1("12345678");
-	mysqli_query($db_con, "INSERT INTO c_profes ( `pass` , `PROFESOR` , `dni`, `idea` ) VALUES ('$adm', 'admin', '12345678', 'admin');");
-	mysqli_query($db_con, "insert into departamentos (nombre, dni, departamento, cargo, idea) values ('admin', '12345678', 'Admin', '1', 'admin')");
-
-if($_SESSION['cambiar_clave']) {
-	if(isset($_SERVER['HTTPS'])) {
-	    if ($_SERVER["HTTPS"] == "on") {
-	        header('Location:'.'https://'.$dominio.'/intranet/clave.php');
-	        exit();
-	    } 
-	}
-	else {
-		header('Location:'.'http://'.$dominio.'/intranet/clave.php');
-		exit();
-	}
-}
-
-
-registraPagina($_SERVER['REQUEST_URI'],$db_host,$db_user,$db_pass,$db);
-
-
-if (!($primera==1)) {
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
-exit();	
-}
-}
-}
-?>
 <?php 
+setlocale(LC_CTYPE, 'es_ES');
+define('CONFIG_FILE', '../config.php');
+if (file_exists(CONFIG_FILE) && !(isset($_POST['instalar']))) header('Location:'.'../index.php');
+
+include('version.php');
+
+
+// TITULO DE LA PAGINA
+$page_header = 'Instalación de la Intranet';
+
+
+// FUNCIONES Y VARIABLES NECESARIAS PARA LA INSTALACIÓN
+$config_existe = 0;
+$doc_dir = substr(__DIR__, 0, -6).'varios/publico/';
+
+$provincias = array('Almería', 'Cádiz', 'Córdoba', 'Granada', 'Huelva', 'Jaén', 'Málaga', 'Sevilla');
+
+function crear_archivo($filename)
+{
+	if($file = fopen($filename, 'w+'))
+	{
+		fclose($file);
+		unlink($filename);
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
-include("tabla.php");
+
+function crear_directorio($dirname)
+{
+	mkdir($dirname);
+	if(! file_exists($dirname))
+	{
+		return 0;
+	}
+	else
+	{
+		rmdir($dirname);
+		return 1;
+	}
+}
+
+function generador_password($long)
+{
+	$str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
+	$cad = '';
+	
+	for($i=0; $i<$long; $i++)
+	{
+		$cad .= substr($str,rand(0,62),1);
+	}
+	return $cad;
+}
+
+function limpiar_string($string)
+{
+	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
+}
+
+
+// PROCESAMOS EL FORMULARIO
+if (isset($_POST['instalar']))
+{
+	
+	// LIMPIAMOS CARACTERES
+	$dominio_centro		= limpiar_string($_POST['dominio_centro']);
+	(isset($_POST['forzar_ssl'])) ? $forzar_ssl = 1 : $forzar_ssl = 0;
+	
+	$nombre_centro		= limpiar_string($_POST['nombre_centro']);
+	$codigo_centro		= limpiar_string($_POST['codigo_centro']);
+	$email_centro		= limpiar_string($_POST['email_centro']);
+	$direccion_centro	= limpiar_string($_POST['direccion_centro']);
+	$codpostal_centro	= limpiar_string($_POST['codpostal_centro']);
+	$localidad_centro	= limpiar_string($_POST['localidad_centro']);
+	$provincia_centro	= limpiar_string($_POST['provincia_centro']);
+	$telefono_centro	= limpiar_string($_POST['telefono_centro']);
+	$fax_centro			= limpiar_string($_POST['fax_centro']);
+	
+	$direccion_director			= limpiar_string($_POST['direccion_director']);
+	$direccion_jefe_estudios	= limpiar_string($_POST['direccion_jefe_estudios']);
+	$direccion_secretaria		= limpiar_string($_POST['direccion_secretaria']);
+	
+	$db_host	= limpiar_string($_POST['db_host']);
+	$db_name	= limpiar_string($_POST['db_name']);
+	$db_user	= limpiar_string($_POST['db_user']);
+	$db_pass	= limpiar_string($_POST['db_pass']);
+	
+	$curso_escolar	= limpiar_string($_POST['curso_escolar']);
+	$fecha_inicio	= limpiar_string($_POST['fecha_inicio']);
+	$fecha_final	= limpiar_string($_POST['fecha_final']);
+	
+	(isset($_POST['mod_biblioteca'])) ? $modulo_biblioteca = 1 : $modulo_biblioteca = 0;
+	$modulo_biblioteca_web	= limpiar_string($_POST['mod_biblioteca_web']);
+	
+	(isset($_POST['mod_bilingue'])) ? $modulo_bilingue = 1 : $modulo_bilingue = 0;
+	
+	(isset($_POST['mod_centrotic'])) ? $modulo_centrotic = 1 : $modulo_centrotic = 0;
+	
+	(isset($_POST['mod_documentos'])) ? $modulo_documentos = 1 : $modulo_documentos = 0;
+	$modulo_documentos_dir	= limpiar_string($_POST['mod_documentos_dir']);
+	
+	(isset($_POST['mod_sms'])) ? $modulo_sms = 1 : $modulo_sms = 0;
+	$modulo_sms_id		= limpiar_string($_POST['mod_sms_id']);
+	$modulo_sms_user	= limpiar_string($_POST['mod_sms_user']);
+	$modulo_sms_pass	= limpiar_string($_POST['mod_sms_pass']);
+	
+	(isset($_POST['mod_asistencia'])) ? $modulo_asistencia = 1 : $modulo_asistencia = 0;
+	
+	(isset($_POST['mod_horarios'])) ? $modulo_horarios = 1 : $modulo_horarios = 0;
+	
+	(isset($_POST['mod_matriculacion'])) ? $modulo_matriculacion = 1 : $modulo_matriculacion = 0;
+	(isset($_POST['mod_transporte_escolar'])) ? $modulo_transporte_escolar = 1 : $modulo_transporte_escolar = 0;
+	
+	
+	// CREACIÓN DEL ARCHIVO DE CONFIGURACIÓN
+	if($file = fopen(CONFIG_FILE, 'w+'))
+	{
+		fwrite($file, "<?php \r\n");
+		
+		fwrite($file, "\r\n// CONFIGURACIÓN INTRANET\r\n");
+		fwrite($file, "\$config['dominio']\t\t\t= '$dominio_centro';\r\n");
+		fwrite($file, "\$config['forzar_ssl']\t\t= $forzar_ssl;\r\n");
+		fwrite($file, "\$config['mantenimiento']\t= 0;\r\n");
+		
+		fwrite($file, "\r\n// INFORMACIÓN DEL CENTRO\r\n");
+		fwrite($file, "\$config['centro_denominacion']\t= '$nombre_centro';\r\n");
+		fwrite($file, "\$config['centro_codigo']\t\t= '$codigo_centro';\r\n");
+		fwrite($file, "\$config['centro_email']\t\t\t= '$email_centro';\r\n");
+		fwrite($file, "\$config['centro_direccion']\t\t= '$direccion_centro';\r\n");
+		fwrite($file, "\$config['centro_codpostal']\t\t= '$codpostal_centro';\r\n");
+		fwrite($file, "\$config['centro_localidad']\t\t= '$localidad_centro';\r\n");
+		fwrite($file, "\$config['centro_provincia']\t\t= '$provincia_centro';\r\n");
+		fwrite($file, "\$config['centro_telefono']\t\t= '$telefono_centro';\r\n");
+		fwrite($file, "\$config['centro_fax']\t\t\t= '$fax_centro';\r\n");
+		
+		fwrite($file, "\r\n// EQUIPO DIRECTIVO\r\n");
+		fwrite($file, "\$config['directivo_direccion']\t= '$direccion_director';\r\n");
+		fwrite($file, "\$config['directivo_jefatura']\t= '$direccion_jefe_estudios';\r\n");
+		fwrite($file, "\$config['directivo_secretaria']\t= '$direccion_secretaria';\r\n");
+		
+		fwrite($file, "\r\n// BASE DE DATOS\r\n");
+		fwrite($file, "\$config['db_host']\t= '$db_host';\r\n");
+		fwrite($file, "\$config['db_name']\t= '$db_name';\r\n");
+		fwrite($file, "\$config['db_user']\t= '$db_user';\r\n");
+		fwrite($file, "\$config['db_pass']\t= '$db_pass';\r\n");
+		
+		fwrite($file, "\r\n// CURSO ESCOLAR\r\n");
+		fwrite($file, "\$config['curso_actual']\t= '$curso_escolar';\r\n");
+		fwrite($file, "\$config['curso_inicio']\t= '$fecha_inicio';\r\n");
+		fwrite($file, "\$config['curso_fin']\t= '$fecha_final';\r\n");
+		
+		fwrite($file, "\r\n// MÓDULO: BIBLIOTECA\r\n");
+		fwrite($file, "\$config['mod_biblioteca']\t\t= $modulo_biblioteca;\r\n");
+		fwrite($file, "\$config['mod_biblioteca_web']\t= '$modulo_biblioteca_web';\r\n");
+		
+		fwrite($file, "\r\n// MÓDULO: BILINGÜE\r\n");
+		fwrite($file, "\$config['mod_bilingue']\t\t\t= $modulo_bilingue;\r\n");
+		
+		fwrite($file, "\r\n// MÓDULO: CENTRO TIC\r\n");
+		fwrite($file, "\$config['mod_centrotic']\t\t= $modulo_centrotic;\r\n");
+		
+		fwrite($file, "\r\n// MÓDULO: DOCUMENTOS\r\n");
+		fwrite($file, "\$config['mod_documentos']\t\t= $modulo_documentos;\r\n");
+		fwrite($file, "\$config['mod_documentos_dir']\t= '$modulo_documentos_dir';\r\n");
+		
+		fwrite($file, "\r\n// MÓDULO: SMS\r\n");
+		fwrite($file, "\$config['mod_sms']\t\t\t\t= $modulo_sms;\r\n");
+		fwrite($file, "\$config['mod_sms_id']\t\t\t= '$modulo_sms_id';\r\n");
+		fwrite($file, "\$config['mod_sms_user']\t\t\t= '$modulo_sms_user';\r\n");
+		fwrite($file, "\$config['mod_sms_pass']\t\t\t= '$modulo_sms_pass';\r\n");
+		
+		fwrite($file, "\r\n// MÓDULO: FALTAS DE ASISTENCIA\r\n");
+		fwrite($file, "\$config['mod_asistencia']\t\t= $modulo_asistencia;\r\n");
+		
+		fwrite($file, "\r\n// MÓDULO: HORARIOS\r\n");
+		fwrite($file, "\$config['mod_horarios']\t\t\t= $modulo_horarios;\r\n");
+		
+		fwrite($file, "\r\n// MÓDULO: MATRICULACIÓN\r\n");
+		fwrite($file, "\$config['mod_matriculacion']\t\t= $modulo_matriculacion;\r\n");
+		fwrite($file, "\$config['mod_transporte_escolar']\t= $modulo_transporte_escolar;\r\n");
+		
+		fwrite($file, "\r\n\r\n// Fin del archivo de configuración");
+		
+		$config_existe = 1;
+		fclose($file);
+	}
+	
+	// FORZAR USO DE HTTPS
+	if($forzar_ssl)
+	{
+		if($file = fopen('../.htaccess', 'w+'))
+		{
+			fwrite($file, "Options +FollowSymLinks\r\n");
+			fwrite($file, "RewriteEngine On\r\n");
+			fwrite($file, "RewriteCond %{SERVER_PORT} 80\r\n");
+			fwrite($file, "RewriteCond %{REQUEST_URI} intranet\r\n");
+			fwrite($file, "RewriteRule ^(.*)$ https://".$dominio_centro."/intranet/$1 [R,L]\r\n");
+		}
+		fclose($fp);
+	}
+	
+	
+	if ($config_existe)
+	{
+		include(CONFIG_FILE);
+		
+		$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass']);
+		
+		if (mysqli_connect_errno())
+		{
+			$esError = 1;
+			$details_error = mysqli_connect_error();
+			
+			unlink(CONFIG_FILE);
+		}
+		else
+		{
+			// CREACIÓN DE LA BASE DE DATOS
+			mysqli_query($db_con, "CREATE DATABASE IF NOT EXISTS `$db_name` DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci");
+			mysqli_select_db($db_con, $db_name);
+			
+			// IMPORTACIÓN DE TABLAS
+			$sql = file_get_contents('tablas.sql');
+			mysqli_multi_query($db_con, $sql);
+			while (mysqli_next_result($db_con));
+			
+			// AÑADIENDO USUARIO ADMINISTRADOR
+			$pass_admin = generador_password(8);
+			$pass_sha1	= sha1($pass_admin);
+			
+			mysqli_query($db_con, "INSERT INTO `c_profes` (`id`, `pass`, `PROFESOR`, `dni`, `idea`, `correo`, `estado`) VALUES 
+			(1, '$pass_sha1', 'Administrador', '$pass_admin', 'admin', NULL, 0)");
+			
+			mysqli_query($db_con, "INSERT INTO `departamentos` (`NOMBRE`, `DNI`, `DEPARTAMENTO`, `CARGO`, `idea`) VALUES 
+			('Administrador', '$pass_admin', 'Admin', '1', 'admin')");
+			
+			mysqli_query($db_con, "INSERT INTO `calendario_categorias` (`id`, `nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES
+			(1, 'Calendario del centro', '".date('Y-m-d')."', 'admin', '#f29b12', 1),
+			(2, 'Actividades extraescolares', '".date('Y-m-d')."', 'admin', '#18bc9c', 1),
+			(3, 'Administrador', '".date('Y-m-d')."', 'admin', '#3498db', 0)");
+
+						
+			mysqli_close($db_con);
+			
+			$esError = 0;
+		}
+		
+	}
+}
 
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="iso-8859-1">
+	<title><?php echo $page_header; ?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Intranet del <?php echo $config['centro_denominacion']; ?>">
+	<meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+	
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/font-awesome.min.css" rel="stylesheet">
+	<link href="../css/otros.css" rel="stylesheet">
+	
+	<style type="text/css">
+	.dl-horizontal dt
+{
+		width: 230px;
+	}
+	
+	.dl-horizontal dd
+{
+		margin-left: 250px;
+	}
+	</style>
+</head>
+
+<body style="padding-top: 0;">
+
+	<!--[if lte IE 9 ]>
+	<div id="old-ie" class="modal">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	      	<br>
+	        <p class="lead text-center">Estás utilizando una versión de Internet Explorer demasiado antigua. <br>Actualiza tu navegador o cámbiate a <a href="http://www.google.com/chrome/">Chrome</a> o <a href="https://www.mozilla.org/es-ES/firefox/new/">Firefox</a>.</p>
+	        <br>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<![endif]-->
+	
+	<div class="container">
+		
+		<div class="page-header">
+			<h1 class="text-center">
+				<span class="fa fa-dashboard fa-2x"></span><br>
+				<?php echo $page_header; ?>
+			</h1>
+		</div>
+		
+		<form id="form-instalacion" class="form-horizontal" data-toggle="validator" action="" method="post" role="form">
+		
+		<div class="row">
+			
+			<div class="col-sm-offset-2 col-sm-8">
+				
+				<div id="tabs-instalacion" class="tab-content">
+					<?php if(! $config_existe): ?>
+					<!-- TERMINOS Y CONDICIONES DE USO -->
+				    <div role="tabpanel" class="tab-pane active" id="terminos">
+				    
+				    	<div class="well">
+				    		<h3>Términos y condiciones de uso</h3>
+				    		<br>
+				    		<object type="text/html" data="../LICENSE.md" style="width: 100%; min-height: 300px; border: 1px solid #dedede; background-color: #fff;"></object>
+				    		
+				    		<div class="checkbox">
+				    			<label for="terms-accept">
+				    				<input type="checkbox" name="terms-accept" id="terms-accept" value="YES">
+				    				Acepto los términos y condiciones de uso de esta aplicación.
+				    			</label>
+				    		</div>
+				    		
+				    		<br>
+				    		
+				    		<div class="pull-right">
+				    			<a href="#php-config" aria-controls="php-config" data-toggle="tab" class="btn btn-primary disabled">Continuar <span class="fa fa-chevron-right fa-fw"></span></a>
+				    		</div>
+				    		<div class="clearfix"></div>
+				    	</div>
+				    
+				    </div>
+				    
+				    <!-- COMPROBACIÓN CONFIGURACIÓN PHP -->
+				    <div role="tabpanel" class="tab-pane" id="php-config">
+				    
+				    	<div class="well">
+				    		<h3>Configuración de PHP</h3>
+				    		<br>
+				    		
+				    		<p class="text-center text-info">Para una mejor experiencia en el uso de la Intranet, es recomendable que las variables de configuración de PHP estén marcadas en verde. En el caso de que aparezca marcada en rojo, modifique la configuración en <em>php.ini</em> o póngase en contacto con su proveedor de alojamiento Web y vuelva a iniciar esta instalación.</p>
+				    		<br>
+				    		
+				    		<dl class="dl-horizontal">
+				    		  <dt>Versión de PHP</dt>
+				    		  <dd><?php echo (phpversion() < '5.3.0') ? '<span class="text-danger">Versión actual: '.phpversion().'. Actualice a la versión 5.3.0 o superior</span>' : '<span class="text-success">'.phpversion().'</span>'; ?></dd>
+				    		</dl>
+				    		
+				    		<dl class="dl-horizontal">
+				    		  <dt>Display errors</dt>
+				    		  <dd><?php echo (ini_get('display_errors') == 0) ? '<span class="text-success">Deshabilitado</span>' : '<span class="text-danger">Valor actual: Habilitado. Por seguridad, deshabilite la variable <em>display_errors</em></span>'; ?></dd>
+				    		</dl>
+				    		
+				    		<dl class="dl-horizontal">
+				    		  <dt>Register globals</dt>
+				    		  <dd><?php echo (ini_get('register_globals') == 0) ? '<span class="text-success">Deshabilitado</span>' : '<span class="text-danger">Valor actual: Habilitado. Por seguridad, deshabilite la variable <em>register_globals</em></span>'; ?></dd>
+				    		</dl>
+				    		
+				    		<dl class="dl-horizontal">
+				    		  <dt>Upload max filesize</dt>
+				    		  <dd><?php echo (substr(ini_get('upload_max_filesize'),0,-1) < '16') ? '<span class="text-danger">Valor actual: '.ini_get('upload_max_filesize').'B. Aumente el tamaño máximo de archivos a 16 MB o superior.</span>' : '<span class="text-success">'.ini_get('upload_max_filesize').'B</span>'; ?></dd>
+				    		</dl>
+				    		
+				    		<dl class="dl-horizontal">
+				    		  <dt>Memory limit</dt>
+				    		  <dd><?php echo (substr(ini_get('memory_limit'),0,-1) < '32') ? '<span class="text-danger">Valor actual: '.ini_get('memory_limit').'B. Aumente el tamaño de memoria a 32 MB o superior.</span>' : '<span class="text-success">'.ini_get('memory_limit').'B</span>'; ?></dd>
+				    		</dl>
+				    		
+				    		<dl class="dl-horizontal">
+				    		  <dt>Escritura/lectura de archivos</dt>
+				    		  <dd><?php echo (crear_archivo('install_tmp.txt')) ? '<span class="text-success">Habilitado</span>' : '<span class="text-danger">Valor actual: Deshabilitado. Debe crear el archivo <em>configuracion.php</em> en el directorio principal de la Intranet con permisos de escritura y lectura.</span>'; ?></dd>
+				    		</dl>
+				    		
+				    		<dl class="dl-horizontal">
+				    		  <dt>Escritura/lectura de directorios</dt>
+				    		  <dd><?php echo (crear_directorio('install_tmp')) ? '<span class="text-success">Habilitado</span>' : '<span class="text-danger">Valor actual: Deshabilitado. Debe dar permisos de escritura y lectura a todos los directorios de la Intranet.</span>'; ?></dd>
+				    		</dl>
+				    		
+				    		<br>
+				    		
+				    		<div class="pull-left">
+				    			<a href="#terminos" aria-controls="terminos" data-toggle="tab" class="btn btn-default"><span class="fa fa-chevron-left fa-fw"></span> Anterior</a>
+				    		</div>
+				    		<div class="pull-right">
+				    			<a href="#informacion" aria-controls="informacion" data-toggle="tab" class="btn btn-primary disabled">Continuar <span class="fa fa-chevron-right fa-fw"></span></a>
+				    		</div>
+				    		<div class="clearfix"></div>
+				    	</div>
+				    
+				    </div>
+				    
+				    
+				    <!-- INFORMACIÓN CENTRO EDUCATIVO -->
+				    <div role="tabpanel" class="tab-pane" id="informacion">
+				    	
+				    	<div class="well">
+				    		<h3>Información de su centro educativo</h3>
+				    		<br>
+				    		
+				    		<?php $tam_label = 3; ?>
+				    		<?php $tam_control = 8; ?>
+				    			
+				    		  <input type="hidden" name="dominio_centro" value="<?php echo ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'] : $_SERVER['SERVER_NAME']; ?>">
+				    		  
+				    		  <?php $ssl = ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'] : 'https://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; ?>
+				    		  <?php if(file_get_contents($ssl, NULL, NULL, 0, 5)): ?>
+				    		  <input type="hidden" name="forzar_ssl" value="1">
+				    		  <?php endif; ?>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="nombre_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Denominación</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="nombre_centro" name="nombre_centro" placeholder="I.E.S. Monterroso" data-error="La denominación del centro no es válida" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="codigo_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Centro código</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="codigo_centro" name="codigo_centro" placeholder="29002885" maxlength="8" data-minlength="8" data-error="El código del centro no es válido" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="email_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Correo electrónico</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="email" class="form-control" id="email_centro" name="email_centro" placeholder="29002885.edu@juntadeandalucia.es" data-error="La dirección de correo electrónico no es válida" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="direccion_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Dirección postal</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="direccion_centro" name="direccion_centro" placeholder="Calle Santo Tomás de Aquino, s/n" data-error="La dirección postal no es válida" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="codpostal_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Código postal</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="codpostal_centro" name="codpostal_centro" placeholder="29680" maxlength="5" data-minlength="5" data-error="El código postal no es válido" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="localidad_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Localidad</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="localidad_centro" name="localidad_centro" placeholder="Estepona" data-error="La localidad no es válida" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="provincia_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Provincia</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <select class="form-control" id="provincia_centro" name="provincia_centro" data-error="La provincia no es válida" required>
+				    		      	<option value=""></option>
+				    		      	<?php foreach($provincias as $provincia): ?>
+				    		      	<option value="<?php echo $provincia; ?>"><?php echo $provincia; ?></option>
+				    		      	<?php endforeach; ?>
+				    		      </select>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="telefono_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Teléfono</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="tel" class="form-control" id="telefono_centro" name="telefono_centro" placeholder="952795802" maxlength="9" data-minlength="9" data-error="El télefono no es válido" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="fax_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Fax</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="tel" class="form-control" id="fax_centro" name="fax_centro" placeholder="952795802" maxlength="9" data-minlength="9" data-error="El fax no es válido">
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="direccion_director" class="col-sm-<?php echo $tam_label; ?> control-label">Director/a</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="direccion_director" name="direccion_director" placeholder="Nombre y apellidos" maxlength="60" data-error="Este campo es obligatorio" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="direccion_jefe_estudios" class="col-sm-<?php echo $tam_label; ?> control-label">Jefe/a de Estudios</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="direccion_jefe_estudios" name="direccion_jefe_estudios" placeholder="Nombre y apellidos" maxlength="60" data-error="Este campo es obligatorio" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="direccion_secretaria" class="col-sm-<?php echo $tam_label; ?> control-label">Secretario/a</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="direccion_secretaria" name="direccion_secretaria" placeholder="Nombre y apellidos" maxlength="60" data-error="Este campo es obligatorio" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		
+				    		<br>
+				    		
+				    		<div class="pull-left">
+				    			<a href="#php-config" aria-controls="php-config" data-toggle="tab" class="btn btn-default"><span class="fa fa-chevron-left fa-fw"></span> Anterior</a>
+				    		</div>
+				    		<div class="pull-right">
+				    			<a href="#base-datos" aria-controls="base-datos" data-toggle="tab" class="btn btn-primary disabled">Continuar <span class="fa fa-chevron-right fa-fw"></span></a>
+				    		</div>
+				    		<div class="clearfix"></div>
+				    	</div>
+				    	
+				    </div>
+				    
+				    
+				    <!-- CONFIGURACIÓN DE LA BASE DE DATOS -->
+				    <div role="tabpanel" class="tab-pane" id="base-datos">
+				    	
+				    	<div class="well">
+				    		<h3>Configuración de la base de datos</h3>
+				    		<br>
+				    		  
+				    		  <?php $tam_label = 3; ?>
+				    		  <?php $tam_control = 8; ?>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="db_host" class="col-sm-<?php echo $tam_label; ?> control-label">Servidor</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="db_host" name="db_host" placeholder="localhost" data-error="La dirección servidor de base de datos no es válida" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="db_name" class="col-sm-<?php echo $tam_label; ?> control-label">Base de datos</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="db_name" name="db_name" placeholder="intranet" data-error="El nombre de la base de datos no es válido" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="db_user" class="col-sm-<?php echo $tam_label; ?> control-label">Usuario</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="db_user" name="db_user" data-error="El nombre de usuario de la base de datos no es válido" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="db_pass" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="password" class="form-control" id="db_pass" name="db_pass" data-error="La contraseña de la base de datos no es válido" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		
+				    		<br>
+				    		
+				    		<div class="pull-left">
+				    			<a href="#informacion" aria-controls="informacion" data-toggle="tab" class="btn btn-default"><span class="fa fa-chevron-left fa-fw"></span> Anterior</a>
+				    		</div>
+				    		<div class="pull-right">
+				    			<a href="#curso-escolar" aria-controls="curso-escolar" data-toggle="tab" class="btn btn-primary disabled">Continuar <span class="fa fa-chevron-right fa-fw"></span></a>
+				    		</div>
+				    		<div class="clearfix"></div>
+				    	</div>
+				    	
+				    </div>
+				    
+				    
+				    <!-- INFORMACIÓN CURSO ESCOLAR -->
+				    <div role="tabpanel" class="tab-pane" id="curso-escolar">
+				    	
+				    	<div class="well">
+				    		<h3>Información del curso escolar</h3>
+				    		<br>
+				    		  
+				    		  <?php $tam_label = 3; ?>
+				    		  <?php $tam_control = 8; ?>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="curso_escolar" class="col-sm-<?php echo $tam_label; ?> control-label">Curso escolar</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="curso_escolar" name="curso_escolar" value="<?php echo (date('n') > 6) ?  date('Y').'/'.(date('y')+1) : (date('Y')-1).'/'.date('y'); ?>" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="fecha_inicio" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha de inicio</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="fecha_inicio" name="fecha_inicio" value="<?php echo (date('n') > 6) ?  date('Y').'-09-15' : (date('Y')-1).'-09-15'; ?>" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		  
+				    		  <div class="form-group">
+				    		    <label for="fecha_final" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha final</label>
+				    		    <div class="col-sm-<?php echo $tam_control; ?>">
+				    		      <input type="text" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo (date('n') > 6) ?  (date('Y')+1).'-06-23' : date('Y').'-06-23'; ?>" required>
+				    		      <div class="help-block with-errors"></div>
+				    		    </div>
+				    		  </div>
+				    		
+				    		<br>
+				    		
+				    		<div class="pull-left">
+				    			<a href="#base-datos" aria-controls="base-datos" data-toggle="tab" class="btn btn-default"><span class="fa fa-chevron-left fa-fw"></span> Anterior</a>
+				    		</div>
+				    		<div class="pull-right">
+				    			<a href="#modulos" aria-controls="modulos" data-toggle="tab" class="btn btn-primary disabled">Continuar <span class="fa fa-chevron-right fa-fw"></span></a>
+				    		</div>
+				    		<div class="clearfix"></div>
+				    	</div>
+				    	
+				    </div>
+				    
+				    <!-- SELECCIÓN DE MÓDULOS -->
+				    <div role="tabpanel" class="tab-pane" id="modulos">
+				    	
+				    	<div class="well">
+				    		<h3>Configuración de módulos</h3>
+							<br>
+	    		            
+				    		<div class="row">
+				    			<div class="col-sm-4" style="border-right: 3px solid #dce4ec; margin-right: 25px;">
+									<ul class="nav nav-pills nav-stacked" role="tablist">
+										<li class="active"><a href="#mod_biblioteca" aria-controls="mod_biblioteca" role="tab" data-toggle="tab">Biblioteca</a></li>
+										<li><a href="#mod_bilingue" aria-controls="mod_bilingue" role="tab" data-toggle="tab">Centro Bilingüe</a></li>
+										<li><a href="#mod_centrotic" aria-controls="mod_centrotic" role="tab" data-toggle="tab">Centro TIC</a></li>
+										<li><a href="#mod_documentos" aria-controls="mod_documentos" role="tab" data-toggle="tab">Documentos</a></li>
+										<li><a href="#mod_sms" aria-controls="mod_sms" role="tab" data-toggle="tab">Envío SMS</a></li>
+										<li><a href="#mod_asistencia" aria-controls="mod_asistencia" role="tab" data-toggle="tab">Faltas de Asistencia</a></li>
+										<li><a href="#mod_horarios" aria-controls="mod_horarios" role="tab" data-toggle="tab">Horarios</a></li>
+										<li><a href="#mod_matriculacion" aria-controls="mod_matriculacion" role="tab" data-toggle="tab">Matriculación</a></li>
+									</ul>
+								</div>
+								
+				    			<div class="tab-content col-sm-7">
+				    				
+				    				<!-- MÓDULO: BIBLIOTECA -->
+				    			    <div role="tabpanel" class="tab-pane active" id="mod_biblioteca">
+				    			    	
+				    			    	<div class="form-group">
+					    			    	<div class="checkbox">
+					    			    		<label>
+						    			    		<input type="checkbox" name="mod_biblioteca" value="1">
+						    			    		<strong>Biblioteca</strong>
+						    			    		<p class="help-block">Si el Centro dispone de Biblioteca que funciona con Abies, y cuenta con un equipo de profesores dedicados a su mantenimiento, puedes activar este módulo. Permite consultar e importar los fondos, lectores y préstamos, así como hacer un seguimiento de los alumnos morosos.</p>
+						    			    	</label>
+					    			    	</div>
+					    			    </div>
+				    			    	
+				    			    	<br>
+				    			    	
+				    			    	<div class="form-group">
+				    			    		<label for="mod_biblioteca_web">Página web de la Biblioteca</label>
+				    			    		<div class="input-group">
+			    			    		      <div class="input-group-addon">http://</div>
+			    			    		      <input type="text" class="form-control" id="mod_biblioteca_web" name="mod_biblioteca_web" placeholder="iesmonterroso.org/biblioteca/">
+			    			    		    </div>
+				    			    	</div>
+				    			    	
+				    			    </div>
+				    			    
+				    			    
+				    			    <!-- MÓDULO: CENTRO BILINGÜE -->
+				    			    <div role="tabpanel" class="tab-pane" id="mod_bilingue">
+				    			    	
+				    			    	<div class="form-group">
+					    			    	<div class="checkbox">
+					    			    		<label>
+						    			    		<input type="checkbox" name="mod_bilingue" value="1">
+						    			    		<strong>Centro Bilingüe</strong>
+						    			    		<p class="help-block">Activa características para los Centros Bilingües, como el envío de mensajes a los profesores que pertenecen al programa bilingüe.</p>
+						    			    	</label>
+					    			    	</div>
+					    			    </div>
+				    			    	
+				    			    </div>
+				    			    
+				    			    
+				    			    <!-- MÓDULO: CENTRO TIC -->
+				    			    <div role="tabpanel" class="tab-pane" id="mod_centrotic">
+				    			    	
+				    			    	<div class="form-group">
+					    			    	<div class="checkbox">
+					    			    		<label>
+						    			    		<input type="checkbox" name="mod_centrotic" value="1">
+						    			    		<strong>Centro TIC</strong>
+						    			    		<p class="help-block">Aplicaciones propias de un Centro TIC: Incidencias, usuarios, etc.</p>
+						    			    	</label>
+					    			    	</div>
+					    			    </div>
+				    			    	
+				    			    </div>
+				    			    
+				    			    
+				    			    <!-- MÓDULO: DOCUMENTOS --> 
+				    			    <div role="tabpanel" class="tab-pane" id="mod_documentos">
+				    			    	
+				    			    	<div class="form-group">
+					    			    	<div class="checkbox">
+					    			    		<label>
+					    			    			<input type="checkbox" name="mod_documentos" value="1" checked>
+					    			    			<strong>Documentos</strong>
+					    			    			<p class="help-block">Directorio en el Servidor local donde tenemos documentos públicos que queremos administrar (visualizar, eliminar, subir, compartir, etc.) con la Intranet.</p>
+					    			    		</label>
+					    			    	</div>
+					    			    </div>
+				    			    				    			    	
+				    			    	<div class="form-group">
+				    			    		<label for="mod_documentos_dir">Directorio público</label>
+				    			    	    <input type="text" class="form-control" id="mod_documentos_dir" name="mod_documentos_dir" value="<?php echo $doc_dir; ?>">
+				    			    	</div>
+				    			    	
+				    			    </div>
+				    			    
+				    			    
+				    			    <!-- MÓDULO: ENVÍO DE SMS -->
+				    			    <div role="tabpanel" class="tab-pane" id="mod_sms">
+				    			    	
+				    			    	<div class="form-group">
+					    			    	<div class="checkbox">
+					    			    		<label>
+					    			    			<input type="checkbox" name="mod_sms" value="1">
+					    			    			<strong>Envío de SMS</strong>
+					    			    			<p class="help-block">Pone en funcionamiento el envío de SMS en distintos lugares de la Intranet (Problemas de convivencia, faltas de asistencia, etc.). La aplicación está preparada para trabajar con la API de <a href="http://www.trendoo.es/" target="_blank">Trendoo</a>.</p>
+					    			    		</label>
+					    			    	</div>
+					    			    </div>
+				    			    	
+				    			    	<div class="form-group">
+				    			    		<label for="mod_sms_id">Nombre de identificación (<abbr title="Transmission Path Originating Address">TPOA</abbr>)</label>
+				    			    	    <input type="text" class="form-control" id="mod_sms_id" name="mod_sms_id" placeholder="P. ej. IMonterroso" maxlength="11">
+				    			    	    <p class="help-block">11 caracteres como máximo.</p>
+				    			    	</div>
+				    			    	
+				    			    	<div class="form-group">
+				    			    		<label for="mod_sms_user">Usuario</label>
+				    			    	    <input type="text" class="form-control" id="mod_sms_user" name="mod_sms_user">
+				    			    	</div>
+				    			    	
+				    			    	<div class="form-group">
+				    			    		<label for="mod_sms_pass">Contraseña</label>
+				    			    	    <input type="password" class="form-control" id="mod_sms_pass" name="mod_sms_pass">
+				    			    	</div>
+				    			    	
+				    			    </div>
+				    			    
+				    			    
+				    			    <!-- MÓDULO: FALTAS DE ASISTENCIA -->
+				    			    <div role="tabpanel" class="tab-pane" id="mod_asistencia">
+				    			    	
+				    			    	<div class="form-group">
+					    			    	<div class="checkbox">
+					    			    		<label>
+					    			    			<input type="checkbox" id="check_asistencia" name="mod_asistencia" value="1">
+					    			    			<strong>Faltas de Asistencia</strong>
+					    			    			<p class="help-block">El módulo de faltas permite gestionar las faltas a través de la Intranet para luego exportarlas a Séneca. Es posible también descargar las faltas desde Séneca para utilizar los módulo de la aplicación basados en faltas de asistencia (Informes de alumnos, Tutoría, Absentismo, etc.).</p>
+					    			    		</label>
+					    			    	</div>
+					    			    </div>
+				    			    	
+				    			    	<div class="alert alert-warning">Este módulo depende del módulo de Horarios. Si decide utilizarlo se activará el módulo de Horarios automáticamente.</div>
+				    			    	
+				    			    </div>
+				    			    
+				    			    
+				    			    <!-- MÓDULO: HORARIOS -->
+				    			    <div role="tabpanel" class="tab-pane" id="mod_horarios">
+				    			    	
+				    			    	<div class="form-group">
+					    			    	<div class="checkbox">
+					    			    		<label>
+					    			    			<input type="checkbox" id="check_horarios" name="mod_horarios" value="1">
+					    			    			<strong>Horarios</strong>
+					    			    			<p class="help-block">Si disponemos de un archivo de Horario en formato XML (como el que se utiliza para subir a Séneca) o DEL (como el que genera el programa Horw) para importar sus datos a la Intranet. Aunque no obligatoria, esta opción es necesaria si queremos hacernos una idea de todo lo que la aplicación puede ofrecer.</p>
+					    			    		</label>
+					    			    	</div>
+					    			    </div>
+				    			    	
+				    			    </div>
+				    			    
+				    			    
+				    			    <!-- MÓDULO: MATRICULACIÓN -->
+				    			    <div role="tabpanel" class="tab-pane" id="mod_matriculacion">
+				    			    	
+				    			    	<div class="form-group">
+					    			    	<div class="checkbox">
+					    			    		<label>
+					    			    			<input type="checkbox" name="mod_matriculacion" value="1">
+					    			    			<strong>Matriculación</strong>
+					    			    			<p class="help-block">Este módulo permite matricular a los alumnos desde la propia aplicación o bien desde la página pública del Centro incluyendo el código correspondiente.</p>
+					    			    		</label>
+					    			    	</div>
+					    			    </div>
+					    			    
+				    			    	<div class="form-group">
+					    			    	<div class="checkbox">
+					    			    		<label>
+					    			    			<input type="checkbox" name="mod_transporte_escolar" value="1">
+					    			    			<strong>Transporte escolar</strong>
+					    			    			<p class="help-block">Activa la selección de transporte escolar</p>
+					    			    		</label>
+					    			    	</div>
+					    			    </div>
+				    			    	
+				    			    </div>
+				    			  </div>
+				    		</div>
+				    		
+				    		<br><br>
+				    		
+				    		<div class="pull-left">
+				    			<a href="#base-datos" aria-controls="base-datos" data-toggle="tab" class="btn btn-default"><span class="fa fa-chevron-left fa-fw"></span> Anterior</a>
+				    		</div>
+				    		<div class="pull-right">
+				    			<button type="submit" class="btn btn-success" name="instalar">Instalar</button>
+				    		</div>
+				    		<div class="clearfix"></div>
+				    	</div>
+				    	
+				    </div>
+				    
+				    <?php else: ?>
+				    
+				    <!-- INSTALACION -->
+				    <div role="tabpanel" class="tab-pane active" id="instalacion">
+				    	
+				    	
+				    	<div class="well well-lg">
+				    	
+				    		<?php if ($esError): ?>
+				    		<div class="text-center text-error">
+				    			<span class="fa fa-meh-o fa-5x"></span>
+				    		</div>
+				    		<h3 class="text-center text-error">Error al conectar con la base de datos</h3>
+				    		<br>
+				    		<code style="display: block;"><?php echo $details_error; ?></code>
+				    		<br>
+				    		<div class="text-center">
+				    			<a href="index2.php" class="btn btn-default">Volver</a>
+				    		</div>
+				    		<?php else: ?>
+				    		<div class="text-center text-success">
+				    			<span class="fa fa-check fa-5x"></span>
+				    		</div>
+				    		<h3 class="text-center text-success">La Intranet ha sido instalada correctamente</h3>
+				    		
+				    		<br>
+				    		<p class="text-center" style="font-size: 1.12em;">Inicie sesión como Administrador para continuar con la importación de los datos de Séneca.<br>En el menú de la página principal encontrará el enlace <em>Administración de la Intranet</em>, lea atentamente las instrucciones que aparecen para la puesta en marcha de la aplicación. Haga click en el botón Iniciar sesión y utilice el usuario <strong>admin</strong> y la siguiente contraseña:</p>
+				    		
+				    		<div class="text-center">
+				    			<code class="text-center lead"><?php echo $pass_admin; ?></code>
+				    		</div>
+				    		
+				    		<br><br>
+				    		
+				    		<div class="text-center">
+				    			<a href="../index.php" class="btn btn-primary">Iniciar sesión</a>
+				    		</div>
+				    		<?php endif; ?>
+				    		
+				    	</div>
+				    	
+				    	<br><br>
+				    	
+				    </div>
+				    <?php endif; ?>
+				    
+				  </div><!-- /.tab-content -->
+				
+			</div><!-- /.col-sm-offset-2 .col-sm-8 -->
+			
+		</div><!-- /.row -->
+		
+		</form>
+		
+		
+	</div><!-- /.container -->
+	
 	
 	<footer class="hidden-print">
-    	<div class="container-fluid" role="footer">
-    		<hr>
-    		
-    		<p class="text-center">
-    			<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> IESMonterroso</small><br>
-    			<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
-    		</p>
-    		<p class="text-center">
-    			<small>
-    				<a href="//<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
-    				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
-    				<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
-    			</small>
-    		</p>
-    	</div>
-    </footer>
+		<div class="container-fluid" role="footer">
+			<hr>
+			
+			<p class="text-center">
+				<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> IESMonterroso</small><br>
+				<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
+			</p>
+			<p class="text-center">
+				<small>
+					<a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
+					&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
+					<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
+				</small>
+			</p>
+		</div>
+	</footer>
 	
 	
-  <script src="../js/jquery-1.11.3.min.js"></script>  
-  <script src="../js/bootstrap.min.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>  
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/validator/validator.min.js"></script>
+	
 
-	<script language="javascript">
-	function activarMod_faltas() {
-		var elemHorario = document.getElementById("mod_horario") ;
-		var elemFaltas = document.getElementById("mod_faltas") ;
+	<script>
+	$(document).ready(function()
+	{
 		
-		 if (elemHorario.checked == true) {
-			elemFaltas.disabled = false ;
-		}
-		else {
-			elemFaltas.disabled = true ;
-		}
+		$('#old-ie').modal({
+			backdrop: true,
+			keyboard: false,
+			show: true
+		});
 		
-	}
-	function activarMod_sms() {
-		var usuario_sms = document.getElementById("usuario_smstrend") ;
-		var clave_sms = document.getElementById("clave_smstrend") ;
-		var sms = document.getElementById("mod_sms") ;
 		
-		 if (sms.checked == false) {
-			usuario_sms.disabled = true ;
-			clave_sms.disabled = true ;
-		}
-		else {
-			usuario_sms.disabled = false ;
-			clave_sms.disabled = false ;
-		}
+		$("#terms-accept").click(function()
+		{  
+	        if($("#terms-accept").is(':checked'))
+			{  
+	            $("a").removeClass("disabled"); 
+	        }
+	        else
+			{  
+	            $("a").addClass("disabled");   
+	        }  
+	    });
+	    
+	    $("#check_asistencia").click(function()
+		{  
+	        if($("#check_asistencia").is(':checked'))
+			{  
+	            $("#check_horarios").prop('checked', true);
+	        }
+	        else
+			{  
+	            $("#check_horarios").prop('checked', false);
+	        }  
+	    });
+	    
+	    $("#check_horarios").click(function()
+		{  
+	        if(! $("#check_horarios").is(':checked'))
+			{  
+	            $("#check_asistencia").prop('checked', false);
+	        }
+	    });
+	    
+	    $('#form-instalacion').validator();
 		
-	}
-	function activarMod_biblio() {
-		var p_bibli = document.getElementById("p_biblio") ;
-		var bibli = document.getElementById("mod_biblio") ;
-		
-		 if (bibli.checked == false) {
-			p_bibli.disabled = true ;
-		}
-		else {
-			p_bibli.disabled = false ;
-		}
-		
-	}
+	});
 	</script>
-
+	
 </body>
 </html>

@@ -209,7 +209,7 @@ for ($i = $today; $i <= ($today + 6); $i++) {
     }
     
 	echo '<p><span class="fa fa-calendar-o fa-fw"></span> '.$dayname.' - '.$current_day.'</p>';
-	echo '<a href="//'.$dominio.'/intranet/reservas/reservar/index.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
+	echo '<a href="//'.$config['dominio'].'/intranet/reservas/reservar/index.php?year='.$current_year.'&today='.$current_day.'&month='.$current_month.'&servicio='.$servicio.'">';
 
   //Nombre del día
  if (mysqli_num_rows($eventExec) == 1) 
@@ -249,7 +249,7 @@ echo "</a></p>";
    $event_event7 = "";
 }
 echo '<br>';
-echo '<a class="btn btn-primary btn-block" href="//'.$dominio.'/intranet/reservas/reservar/index.php?servicio='.$servicio.'">Reservar...</a>';
+echo '<a class="btn btn-primary btn-block" href="//'.$config['dominio'].'/intranet/reservas/reservar/index.php?servicio='.$servicio.'">Reservar...</a>';
 echo '</div>';
 echo '</div>';
 

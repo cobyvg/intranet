@@ -33,10 +33,10 @@ $curso_tutor=$query2[0];
 	<ul class="dropdown-menu" role="menu">
 		<li><a href="../datos/datos.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'] ?>">Datos de alumnos/as</a></li>
 		<li><a href="../cursos/ccursos.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>&submit1=1" target="_blank">Listado de alumnos/as</a></li>
-		<?php if (isset($mod_sms) && $mod_sms): ?>
+		<?php if (isset($config['mod_sms']) && $config['mod_sms']): ?>
 		<li><a href="../../sms/index.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad'];?>">Enviar SMS</a></li>	
 		<?php endif; ?>
-		<?php if (isset($mod_faltas) && $mod_faltas): ?>
+		<?php if (isset($config['mod_asistencia']) && $config['mod_asistencia']): ?>
 		<li><a href="../../faltas/justificar/index.php">Justificar Faltas de Asistencia del Grupo</a></li>	
 		<?php endif; ?>
 		<li><a href="consulta_fotografias.php">Fotografías de alumnos/as</a></li>

@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 
@@ -256,7 +256,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
  	$num++;
  	$n_cole = trim($row6[0]); 	
  	$n_cole=str_replace("C.E.I.P. ","",$n_cole);
- 	$pass=str_replace(" ", "", $n_cole)."_".$codigo_del_centro;
+ 	$pass=str_replace(" ", "", $n_cole)."_".$config['centro_codigo'];
  	$pass=str_replace("á", "a", $pass);
  	$pass=str_replace("é", "e", $pass);
  	$pass=str_replace("í", "i", $pass);

@@ -11,8 +11,8 @@ if (strstr($_SERVER['REQUEST_URI'],'_biblio.php')==TRUE){ $activo4 = ' class="ac
 ?>
     <div class="container hidden-print">  
           <ul class="nav nav-tabs">
-        <?php if ($p_biblio != ""): ?>
-        <li><a href="<?php echo $p_biblio;?>" target="_blank">Página de la Biblioteca</a></li>	
+        <?php if ($config['mod_biblioteca_web'] != ""): ?>
+        <li><a href="http://<?php echo $config['mod_biblioteca_web']; ?>" target="_blank">Página de la Biblioteca</a></li>	
         <?php endif; ?>
         <li<?php echo $activo1;?>><a href="../cursos/hor_aulas.php?aula=Biblioteca" target="_blank">Horario de la Biblioteca</a></li>	
         <li<?php echo $activo2;?>><a href="consulta.php">Gestión de los Préstamos</a></li>

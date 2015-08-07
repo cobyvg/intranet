@@ -5,24 +5,24 @@ $hoy = formatea_fecha(date('Y-m-d'));
 $titulo4 = "AUTORIZACIÓN  PARA FOTOS Y GRABACIONES";
 $autoriza_fotos="
 D./Dª $papa, con DNI $datos_ya->dnitutor, representante legal del alumno/a $datos_ya->nombre $datos_ya->apellidos
-AUTORIZA al $nombre_del_centro a fotografiar o grabar con video a su hijo o hija con fines educativos 
+AUTORIZA al ".$config['centro_denominacion']." a fotografiar o grabar con video a su hijo o hija con fines educativos 
 y dentro del contexto educativo del centro o de actividades complementarias o extraescolares desarrolladas por el mismo. 
 ";
 $titulo5 = "		
-En $localidad_del_centro, a $hoy
+En ".$config['localidad_del_centro'].", a $hoy
 
 
 Firmado. D./Dª
 NOTA: Los padres y madres son libres de firmar,  o no,  esta autorización.";
 
 // Religion
-$an = substr($curso_actual,0,4);
+$an = substr($config['curso_actual'],0,4);
 $an1 = $an+1;
 $an2 = $an+2;
 $c_escolar = $an1."/".$an2;
 $titulo_religion = "SOLICITUD PARA CURSAR LAS ENSEÑANZAS DE RELIGIÓN";
 $autoriza_religion="
-D./Dª $papa, como padre, madre o tutor legal del alumno/a $datos_ya->nombre $datos_ya->apellidos del curso ".$n_curso."º de ESO del $nombre_del_centro, en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación, modificada por la Ley Orgánica 8/2013, de 9 de diciembre, para la mejora de la calidad educativa.
+D./Dª $papa, como padre, madre o tutor legal del alumno/a $datos_ya->nombre $datos_ya->apellidos del curso ".$n_curso."º de ESO del ".$config['centro_denominacion'].", en desarrollo de la Ley Orgánica 2/2006 de 3 de Mayo, de Educación, modificada por la Ley Orgánica 8/2013, de 9 de diciembre, para la mejora de la calidad educativa.
 
 SOLICITA:
 
@@ -30,7 +30,7 @@ Cursar a partir del curso escolar $c_escolar. mientras no modifique expresamente
 x $religion
 ";
 $firma_religion = "		
-En $localidad_del_centro, a $hoy
+En ".$config['localidad_del_centro'].", a $hoy
 
 
 Firmado. D./Dª

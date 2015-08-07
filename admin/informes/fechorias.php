@@ -31,7 +31,7 @@ Fechoria.notas, Fechoria.asunto, Fechoria.informa, Fechoria.claveal, grave FROM 
 	</table>
 </div>
 
-<?php $result = mysqli_query($db_con, "SELECT expulsion, inicio, fin, asunto, aula_conv, inicio_aula, fin_aula FROM Fechoria WHERE Fechoria.claveal = '$claveal' AND (expulsion > '0' OR aula_conv>0) AND Fechoria.fecha >= '$inicio_curso' ORDER BY Fechoria.fecha"); ?>
+<?php $result = mysqli_query($db_con, "SELECT expulsion, inicio, fin, asunto, aula_conv, inicio_aula, fin_aula FROM Fechoria WHERE Fechoria.claveal = '$claveal' AND (expulsion > '0' OR aula_conv>0) AND Fechoria.fecha >= '".$config['curso_inicio']."' ORDER BY Fechoria.fecha"); ?>
 <?php if (mysqli_num_rows($result)): ?>
 <h3>Expulsiones</h3>
 <div class="table-responsive">

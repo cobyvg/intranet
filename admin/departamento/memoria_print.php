@@ -91,10 +91,10 @@ body {
 </div>'; 
 $html.=  '<div>';
 #Cabecera
-$html.=  '<h1 align="center">' . $nombre_del_centro . '</h1><hr style="color:#eee;">';
+$html.=  '<h1 align="center">' . $config['centro_denominacion'] . '</h1><hr style="color:#eee;">';
 $html.=  '<h2 align="center">Memoria final del Departamento<br /> '.$depto.'</h2>';
 $html.=  '<h3 align="center">Departamento:  '.$nombre_dep.'</h2>';
-$html.=  '<h3 align="center">Curso: '.$curso_actual.'</h3><hr style="color:#eee;"></div>';
+$html.=  '<h3 align="center">Curso: '.$config['curso_actual'].'</h3><hr style="color:#eee;"></div>';
 
 for ($i=1; $i<=$n_preg; $i++){
 if ($i==1) {$html.=  "<h3>"."1. Aspectos organizativos del departamento"."</h3>";}
@@ -116,7 +116,7 @@ $html.=  '</td></tr></table>';
 
 # Firma del tutor/a
 include_once '../../funciones.php';
-$html.=  '<div align=center><br><br>'.$localidad_del_centro.', '.formatea_fecha(date("Y/m/d"));
+$html.=  '<div align=center><br><br>'.$config['localidad_del_centro'].', '.formatea_fecha(date("Y/m/d"));
 $html.=  '<br><br><br><br>';
 $html.=  'Fdo.: '.$memoria[1];
 

@@ -1,11 +1,5 @@
 <?php
-session_start();
-include_once('config.php');
-include_once('config/version.php');
-include_once('funciones.php');
-include_once('simplepie/autoloader.php');
-
-$pr = $_SESSION['profi'] ;
+require('bootstrap.php');
 
 
 function validarContrasena($contrasena) {
@@ -62,7 +56,7 @@ if (isset($_POST['submit'])) {
 					// Obtenemos el hash de la contraseña
 					$hash = sha1($codigo2);
 					
-					$result = mysqli_query($db_con, "UPDATE c_profes SET pass='$hash', correo='$correo' WHERE profesor='$pr'");
+					$result = mysqli_query($db_con, "UPDATE c_profes SET pass='$hash', correo='$correo' WHERE profesor='".$_SESSION['profi']."'");
 					
 					// Comprobamos si se ha relizado la consulta a la base de datos
 					if(!$result) {
@@ -86,8 +80,8 @@ if (isset($_POST['submit'])) {
 	}
 }
 
-$dat=mysqli_query($db_con, "select * from c_profes where profesor='$pr'");
-$todos=mysqli_fetch_array($dat);
+$result = mysqli_query($db_con, "select * from c_profes where profesor='".$_SESSION['profi']."'");
+$row = mysqli_fetch_array($result);
 
 
 include("menu.php");
@@ -119,7 +113,7 @@ include("menu.php");
 							<div class="form-group">
 						    <label for="usuario" class="col-sm-4 control-label">Usuario IdEA</label>
 						    <div class="col-sm-8">
-						      <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $todos[2];?>" readonly>
+						      <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $row['idea'];?>" readonly>
 						    </div>
 						  </div>
 						  
@@ -140,7 +134,7 @@ include("menu.php");
 						  <div id="form-group-email" class="form-group">
 						    <label for="correo" class="col-sm-4 control-label">Correo electrónico</label>
 						    <div class="col-sm-8">
-						      <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico" value="<?php echo $todos[5];?>">
+						      <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico" value="<?php echo $row['correo'];?>">
 						    </div>
 						  </div>
 							

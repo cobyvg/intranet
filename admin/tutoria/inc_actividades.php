@@ -14,7 +14,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php $result1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='2' and MONTH(fechaini)='".$row['mes']."' AND unidades LIKE '%$grupo%' and date(fechaini) > '$inicio_curso' ORDER BY fechaini ASC"); ?>
+		<?php $result1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='2' and MONTH(fechaini)='".$row['mes']."' AND unidades LIKE '%$grupo%' and date(fechaini) > '".$config['curso_inicio']."' ORDER BY fechaini ASC"); ?>
 		<?php while ($row1 = mysqli_fetch_array($result1)): ?>
 		<tr>
 			<td>

@@ -262,7 +262,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
  ?>
    <?php  
  $grupo_act = $_SESSION['mod_tutoria']['unidad'];  
- $SQL = "select * from calendario where unidades like '%$grupo_act%' and categoria='2' and date(fechaini) > '$inicio_curso'";
+ $SQL = "select * from calendario where unidades like '%$grupo_act%' and categoria='2' and date(fechaini) > '".$config['curso_inicio']."'";
  $result = mysqli_query($db_con, $SQL);
  $num_actividades = mysqli_num_rows($result);
  ?>
@@ -333,7 +333,7 @@ $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from 
 <?php
  echo "<table class='table table-striped' style='width:auto;'>";
 		
-$SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, FALUMNOS  where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '$inicio_curso' group BY apellidos, nombre";
+$SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, FALUMNOS  where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group BY apellidos, nombre";
 $result = mysqli_query($db_con, $SQL);
 
   if ($row = mysqli_fetch_array($result))
@@ -353,7 +353,7 @@ $result = mysqli_query($db_con, $SQL);
   <hr><br /><legend>Problemas de Convivencia</legend>
 
 <?
-$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '$inicio_curso' group by NC";
+$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group by NC";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -374,7 +374,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 <?
   
  
- $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' and date(fecha) > '$inicio_curso' group by NC";
+ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' and date(fecha) > '".$config['curso_inicio']."' group by NC";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -391,7 +391,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  </div> <div class="col-sm-4"><hr><br /><legend>Alumnos expulsados del aula</legend>
 
  <?
-$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' and date(fecha) > '$inicio_curso' group by NC";
+$faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' and date(fecha) > '".$config['curso_inicio']."' group by NC";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -411,7 +411,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  <hr><br /><legend>Informes de Tutoría por visita de padres</legend>
 
 <?
- $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(F_ENTREV) > '$inicio_curso' group by apellidos";
+ $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(F_ENTREV) > '".$config['curso_inicio']."' group by apellidos";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -430,7 +430,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 <hr><br /><legend>Intervenciones del Tutor</legend>
 
 <?
- $faltas = "select distinct apellidos, nombre, count(*) from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and date(fecha) > '$inicio_curso' group by apellidos";
+ $faltas = "select distinct apellidos, nombre, count(*) from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and date(fecha) > '".$config['curso_inicio']."' group by apellidos";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -444,7 +444,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
  
- $faltas = "select distinct apellidos, nombre, causa, accion, observaciones from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and accion not like '%SMS%'  and date(fecha) > '$inicio_curso' order by apellidos";
+ $faltas = "select distinct apellidos, nombre, causa, accion, observaciones from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and accion not like '%SMS%'  and date(fecha) > '".$config['curso_inicio']."' order by apellidos";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
@@ -464,7 +464,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
   $grupo_act2 = $_SESSION['mod_tutoria']['unidad'];  
-  $n_activ = mysqli_query($db_con, "select * from calendario where  unidades like '%$grupo_act2%' and date(fechaini) > '$inicio_curso'");
+  $n_activ = mysqli_query($db_con, "select * from calendario where  unidades like '%$grupo_act2%' and date(fechaini) > '".$config['curso_inicio']."'");
   if(mysqli_num_rows($n_activ) > "0"){
  ?>
   </div>
@@ -505,7 +505,7 @@ if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
 {
 ?>
 <br />
-  <p align="center">En <?php echo $localidad_del_centro; ?> a   <?php $today = date("d") . "/" . date("m") . "/" . date("Y"); echo $today;?></p>
+  <p align="center">En <?php echo $config['localidad_del_centro']; ?> a   <?php $today = date("d") . "/" . date("m") . "/" . date("Y"); echo $today;?></p>
   <br>
 <p align="center">EL Tutor</p>
 <br>

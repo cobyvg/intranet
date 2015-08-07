@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 
@@ -37,12 +37,12 @@ foreach($_POST['cambio'] as $p_dni){
 	
 	$mail = new PHPMailer();
 	$mail->Host = "localhost";
-	$mail->From = 'no-reply@'.$dominio;
-	$mail->FromName = $nombre_del_centro;
-	$mail->Sender = 'no-reply@'.$dominio;
+	$mail->From = 'no-reply@'.$config['dominio'];
+	$mail->FromName = $config['centro_denominacion'];
+	$mail->Sender = 'no-reply@'.$config['dominio'];
 	$mail->IsHTML(true);
 	$mail->Subject = 'Aviso de la Intranet: Tu contraseña ha sido restablecida';
-	$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="//'.$dominio.'/intranet/">//'.$dominio.'/intranet/</a> Utiliza tu NIF como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+	$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="//'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza tu NIF como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
 	$mail->AddAddress($mail_correo, $mail_nomprofesor);
 	$mail->Send();
 }

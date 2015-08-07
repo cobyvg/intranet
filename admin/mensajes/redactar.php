@@ -226,7 +226,7 @@ $page_header = "Redactar mensaje";
                 	</div>
                 </div>
                 
-                <?php if(isset($mod_biblio) && $mod_biblio): ?>
+                <?php if(isset($config['mod_biblioteca']) && $config['mod_biblioteca']): ?>
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
@@ -274,7 +274,7 @@ $page_header = "Redactar mensaje";
               		</div>
               	</div>
               	
-              	<?php if(isset($mod_bilingue) && $mod_bilingue): ?>
+              	<?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>
               	<div class="form-group">
               		<div class="checkbox">
               			<label>

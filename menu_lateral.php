@@ -1,5 +1,5 @@
 <?php
-switch (substr($codigo_postal_del_centro,0,2)) {
+switch (substr($config['centro_codpostal'],0,2)) {
 	// Almería
 	case '04' : $web_delegacion = '436'; break;
 	// Cádiz
@@ -70,7 +70,7 @@ $menu = array(
 			array(
 				'href'   => 'admin/guardias/admin.php',
 				'titulo' => 'Gestión de Guardias',
-				'modulo' => $mod_horario,
+				'modulo' => $config['mod_horarios'],
 			),
 			array(
 				'href'   => 'admin/ausencias/index.php',
@@ -79,7 +79,7 @@ $menu = array(
 			array(
 				'href'   => 'admin/matriculas/index.php',
 				'titulo' => 'Matriculación de alumnos',
-				'modulo'  => $mod_matriculas,
+				'modulo'  => $config['mod_matriculacion'],
 				'meses'	 => array(6, 7, 8, 9),
 			),
 		)
@@ -121,7 +121,7 @@ $menu = array(
 			array(
 				'href'   => 'admin/matriculas/consulta_transito.php',
 				'titulo' => 'Informes de Tránsito',
-				'modulo'  => $mod_matriculas,
+				'modulo'  => $config['mod_matriculacion'],
 			),
 		)
 	),
@@ -149,11 +149,11 @@ $menu = array(
 	array(
 		'menu_id' => 'biblioteca',
 		'nombre'  => 'Biblioteca',
-		'modulo'  => $mod_biblio,
+		'modulo'  => $config['mod_biblioteca'],
 		'cargos'  => array('c'),
 		'items'   => array (
 			array(
-				'href'   => $p_biblio,
+				'href'   => 'http://'.$config['mod_biblioteca_web'],
 				'titulo' => 'Página de la Biblioteca'
 			),
 			array(
@@ -187,7 +187,7 @@ $menu = array(
 			array(
 				'href'   => 'admin/cursos/chorarios.php',
 				'titulo' => 'Horarios de profesores/grupos',
-				'modulo' => $mod_horario,
+				'modulo' => $config['mod_horarios'],
 			),
 			array(
 				'href'   => '#',
@@ -234,7 +234,7 @@ $menu = array(
 					array(
 						'href'   => 'admin/cursos/hor_guardias.php',
 						'titulo' => 'Informes sobre guardias',
-						'modulo' => $mod_horario,
+						'modulo' => $config['mod_horarios'],
 					),
 				),
 			),
@@ -245,7 +245,7 @@ $menu = array(
 			array(
 				'href'   => 'admin/biblioteca/index.php',
 				'titulo' => 'Fondos de la Biblioteca',
-				'modulo'  => $mod_biblio,
+				'modulo'  => $config['mod_biblioteca'],
 				'ncargos' => array('6', '7'),
 			),
 			array(
@@ -307,7 +307,7 @@ $menu = array(
 			array(
 				'href'   => '#',
 				'titulo' => 'Faltas de asistencia',
-				'modulo' => $mod_faltas,
+				'modulo' => $config['mod_asistencia'],
 				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
@@ -383,7 +383,7 @@ $menu = array(
 			array(
 				'href'   => '#',
 				'titulo' => 'Centro TIC',
-				'modulo' => $mod_tic,
+				'modulo' => $config['mod_centrotic'],
 				'items' => array(
 					array(
 						'href'   => 'TIC/index.php',
@@ -445,7 +445,7 @@ $menu = array(
 						'href'   => 'sms/index.php',
 						'titulo' => 'Mensajes SMS',
 						'cargos'  => array('1'),
-						'modulo' => $mod_sms,
+						'modulo' => $config['mod_sms'],
 					),
 				),
 			),
@@ -516,8 +516,8 @@ if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 			'nombre'  => 'Páginas de interés',
 			'items'   => array (
 				array(
-					'href'   => '//'.$dominio,
-					'titulo' => 'Página del '.$nombre_del_centro,
+					'href'   => '//'.$config['dominio'],
+					'titulo' => 'Página del '.$config['centro_denominacion'],
 					'target' => '_blank',
 				),
 				array(
@@ -563,8 +563,8 @@ else {
 			'nombre'  => 'Páginas de interés',
 			'items'   => array (
 				array(
-					'href'   => '//'.$dominio,
-					'titulo' => 'Página del '.$nombre_del_centro,
+					'href'   => '//'.$config['dominio'],
+					'titulo' => 'Página del '.$config['centro_denominacion'],
 					'target' => '_blank',
 				),
 				array(
@@ -600,7 +600,7 @@ $menu = array_merge($menu, $paginas_interes);
 <!-- PHONE SCREENS -->
 <div class="visible-xs">
 	<div class="row">
-		<?php if (isset($mod_faltas) && $mod_faltas): ?>
+		<?php if (isset($config['mod_asistencia']) && $config['mod_asistencia']): ?>
 		<div class="col-xs-3 text-center">
 			<a href="faltas/index.php">
 				<span class="fa fa-clock-o fa-2x"></span><br>

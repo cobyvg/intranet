@@ -4,8 +4,8 @@ require('../../bootstrap.php');
 
 if (!(strstr($_SESSION['cargo'],"1") == TRUE)) {
 	session_destroy ();
-	header ( "location://$dominio/intranet/salir.php" );
-	exit ();
+	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
+	exit;
 }
 $profesor = $_SESSION ['profi'];
 

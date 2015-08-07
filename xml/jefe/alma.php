@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 	exit;
 }
 include("../../menu.php");
@@ -218,7 +218,7 @@ ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`
 		?> <?
 		include("actualizar.php");
 		?> <?
-		if ($mod_sms=='1') {
+		if ($config['mod_sms']) {
 			include("crear_hermanos.php");
 		}
 	}

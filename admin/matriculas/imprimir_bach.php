@@ -124,7 +124,7 @@ $opt23 =array("aleman_25" => "Alemán 2º Idioma", "frances_25" => "Francés 2º Idi
 $fech = explode(" ",$fecha_total);
 $fecha = $fech[0];
 //$hoy = formatea_fecha($fech[0]);
-$an = substr($curso_actual,0,4);
+$an = substr($config['curso_actual'],0,4);
 $an1 = $an+1;
 $hoy = formatea_fecha(date('Y-m-d'));
 $titulo_documentacion = "DOCUMENTACIÓN NECESARIA PARA LA MATRICULACIÓN";
@@ -208,17 +208,8 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(100,5,$datos_ya->domicilio,1,0,'C');
 	$MiPDF->Cell(25,5,$datos_ya->localidad,1,0,'C');
-	$MiPDF->Cell(15,5,$codigo_postal_del_centro,1,0,'C');
-	if(substr($codigo_postal_del_centro,0,2)=="04") $provincia_del_centro = 'Almería';
-	if(substr($codigo_postal_del_centro,0,2)=="11") $provincia_del_centro = 'Cádiz';
-	if(substr($codigo_postal_del_centro,0,2)=="14") $provincia_del_centro = 'Córdoba';
-	if(substr($codigo_postal_del_centro,0,2)=="18") $provincia_del_centro = 'Granada';
-	if(substr($codigo_postal_del_centro,0,2)=="21") $provincia_del_centro = 'Huelva';
-	if(substr($codigo_postal_del_centro,0,2)=="23") $provincia_del_centro = 'Jaén';
-	if(substr($codigo_postal_del_centro,0,2)=="29") $provincia_del_centro = 'Málaga';
-	if(substr($codigo_postal_del_centro,0,2)=="41") $provincia_del_centro = 'Sevilla';
-	
-	$MiPDF->Cell(28,5,$provincia_del_centro,1,0,'C');
+	$MiPDF->Cell(15,5,$config['centro_codpostal'],1,0,'C');
+	$MiPDF->Cell(28,5,$config['provincia_del_centro'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 
 	$MiPDF->Cell(84,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,"C");
@@ -252,9 +243,9 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Cell(46,5,"LOCALIDAD",0,0,"C");
 	$MiPDF->Cell(46,5,"CODIGO",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(76,5,$localidad_del_centro,1,0,'C');
-	$MiPDF->Cell(46,5,$localidad_del_centro,1,0,'C');
-	$MiPDF->Cell(46,5,$codigo_del_centro,1,0,'C');
+	$MiPDF->Cell(76,5,$config['centro_denominacion'],1,0,'C');
+	$MiPDF->Cell(46,5,$config['localidad_del_centro'],1,0,'C');
+	$MiPDF->Cell(46,5,$config['centro_codigo'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 	
 	if ($curso=="2BACH") {
@@ -357,7 +348,7 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->MultiCell(168,5,$opt_2b,1);
 	}
 	$MiPDF->Ln ( 4 );
-	$f_hoy = "        En $localidad_del_centro, a ".$hoy;
+	$f_hoy = "        En $config['localidad_del_centro'], a ".$hoy;
 	$sello = "                                  Sello del Centro";
 	$firma_centro = "                                El/La Funcionario/a";
 	$firma_padre= "  Firma del representante o Guardador legal 1";
@@ -455,12 +446,12 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Multicell ( 0, 6, $firma_moviles, 0, 'C', 0 );
 	
 	$titulo_34 = "REPETIDORES DE 1º DE BACHILLERATO";
-$an = substr($curso_actual,0,4);
+$an = substr($config['curso_actual'],0,4);
 $an1 = $an+1;
 $an2 = $an+2;
 $c_escolar = $an1."/".$an2;
 $autoriza_34="
-D./Dª $papa, como padre, madre o tutor legal del alumno/a ".$datos_ya->nombre." ".$datos_ya->apellidos." del curso ".$n_curso."º de Bachillerato, matriculado en el $nombre_del_centro ($localidad_del_centro) durante el curso académico $c_escolar:
+D./Dª $papa, como padre, madre o tutor legal del alumno/a ".$datos_ya->nombre." ".$datos_ya->apellidos." del curso ".$n_curso."º de Bachillerato, matriculado en el ".$config['centro_denominacion']." ($config['localidad_del_centro']) durante el curso académico $c_escolar:
 
 
 
@@ -473,7 +464,7 @@ SOLICITA:
    2) Que su hijo/a sea matriculado de nuevo en segundo curso de Bachillerato en su totalidad, de forma que tenga la oportunidad de consolidar su formación en las materias.
 ";
 $firma_34 = "		
-En $localidad_del_centro, a $hoy
+En $config['localidad_del_centro'], a $hoy
 
 
  Firma del padre/madre/tutor/a.
