@@ -59,7 +59,7 @@ $options = array(
 				'width'=>500
 			);
 $txttit = "Lista del Grupo $unidad\n";
-$txttit.= $nombre_del_centro.". Curso ".$curso_actual.".\n";
+$txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
 	
 $pdf->ezText($txttit, 13,$options_center);
 $pdf->ezTable($data, $titles, '', $options);

@@ -218,7 +218,7 @@ if ($alumno) {
 </div>
 <?
 
-	$index = substr($curso_actual,0,4)+1;
+	$index = substr($config['curso_actual'],0,4)+1;
 	for ($i = 0; $i < 6; $i++) {
 	$ano = $db."".($index-$i);
 		$rep=mysqli_query($db_con,"select matriculas from $ano.alma where claveal='$clave' and matriculas>'1'");

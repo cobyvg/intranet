@@ -41,7 +41,7 @@ if ($result) {
         $foto="";
 		$foto = "<img src='../../xml/fotos/$row[0].jpg' width='55' height='64'  />";
 		echo $foto."&nbsp;&nbsp;";
-        echo "<a href='informes.php?claveal=$row[0]&fechasp1=$inicio_curso&fechasp3=$fin_curso&submit2=2'>$row[3]</a></td><td style='vertical-align:middle'><strong>$row[1]</strong></td></tr>\n"; 
+        echo "<a href='informes.php?claveal=$row[0]&fechasp1=".$config['curso_inicio']."&fechasp3=".$config['curso_fin']."&submit2=2'>$row[3]</a></td><td style='vertical-align:middle'><strong>$row[1]</strong></td></tr>\n"; 
         } while($row = mysqli_fetch_array($result));
         echo "</tbody></table></center>";
         } 

@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 
@@ -129,7 +129,7 @@ if($val == "B" or $val == "R" or $val == "M" or $val == "N" or $val == "S"){$asi
 
 if(is_numeric($claveal) and ($val == "B" or $val == "R" or $val == "M" or $val == "N" or $val == "S"))
 {
-		$query = "select estado from textos_alumnos where claveal = '$claveal' and materia = '$asignatura' and curso = '$curso_actual'";
+		$query = "select estado from textos_alumnos where claveal = '$claveal' and materia = '$asignatura' and curso = '".$config['curso_actual']."'";
 		//echo $query;
 		$edit = mysqli_query($db_con, $query);
 		$estado0 = mysqli_fetch_array($edit);
@@ -138,7 +138,7 @@ if(is_numeric($claveal) and ($val == "B" or $val == "R" or $val == "M" or $val =
 		mysqli_query($db_con, "update textos_alumnos set estado = '$val' where claveal = '$claveal' and materia = '$asignatura'");		
 		}
 		else{
-		mysqli_query($db_con, "insert into textos_alumnos (claveal, materia, estado, fecha,curso) values ('$claveal','$asignatura','$val',now(),'$curso_actual')");
+		mysqli_query($db_con, "insert into textos_alumnos (claveal, materia, estado, fecha,curso) values ('$claveal','$asignatura','$val',now(),'"..')");
 		}
 }
 }
@@ -238,7 +238,7 @@ $clave = $alumnos[4];
 		$trozos = explode("-",$r_nombre);
 		$claveal = $trozos[0];
 		$asignatura = $trozos[1];
-		$query = "select estado from textos_alumnos where claveal = '$claveal' and materia like '$asignatura' and curso = '$curso_actual'";
+		$query = "select estado from textos_alumnos where claveal = '$claveal' and materia like '$asignatura' and curso = '".$config['curso_actual']."'";
 		//echo $query;
 		$edit = mysqli_query($db_con, $query);
 		$estado0 = mysqli_fetch_array($edit);
@@ -277,7 +277,7 @@ $clave = $alumnos[4];
 		
 	}
 	
-		$query2 = "select devuelto from textos_alumnos where claveal = '$claveal' and curso = '$curso_actual'";
+		$query2 = "select devuelto from textos_alumnos where claveal = '$claveal' and curso = '".$config['curso_actual']."'";
 		$edit2 = mysqli_query($db_con, $query2);
 		$estado2 = mysqli_fetch_array($edit2);
 		$estadoP = $estado2[0];

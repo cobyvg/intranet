@@ -99,8 +99,8 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 
 	if ($result_found != 1) {
 		$timestamp0 = strtotime($sql_currentday);
-		$timestamp1 = strtotime($fin_curso);
-		$timestamp2= strtotime($inicio_curso);
+		$timestamp1 = strtotime($config['curso_fin']);
+		$timestamp2= strtotime($config['curso_inicio']);
 		
 		
 		$dia_festivo="";

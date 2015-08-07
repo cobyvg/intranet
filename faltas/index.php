@@ -67,7 +67,7 @@ if($ndia == "4"){$nom_dia = "Jueves";}
 if($ndia == "5"){$nom_dia = "Viernes";}
 ?>
 <?
-if ($mod_faltas) {
+if ($config['mod_asistencia']) {
 	include("../menu.php");
 	if (isset($_GET['menu_cuaderno'])) {
 		include("../cuaderno/menu.php");
@@ -394,11 +394,11 @@ include("../pie.php");
 ?>
 
 <?php
-$exp_inicio_curso = explode('-', $inicio_curso);
+$exp_inicio_curso = explode('-', $config['curso_inicio']);
 $inicio_curso = $exp_inicio_curso[2].'/'.$exp_inicio_curso[1].'/'.$exp_inicio_curso[0];
 
-$exp_fin_curso = explode('-', $fin_curso);
-$hoy_mismo = date('d/m/Y');
+$exp_fin_curso = explode('-', $config['curso_fin']);
+$fin_curso = date('d/m/Y');
 
 $result = mysqli_query($db_con, "SELECT fecha FROM festivos ORDER BY fecha ASC");
 $festivos = '';
@@ -418,7 +418,7 @@ $festivos = substr($festivos,0,-2);
 			language: 'es',
 			pickTime: false,
 			minDate:'<?php echo $inicio_curso; ?>',
-			maxDate:'<?php echo $hoy_mismo; ?>',
+			maxDate:'<?php echo $fin_curso; ?>',
 			disabledDates: [<?php echo $festivos; ?>],
 			daysOfWeekDisabled:[0,6] 
 		});

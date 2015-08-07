@@ -5,7 +5,7 @@ require("../lib/class.phpmailer.php");
 
 
 $profe = $_SESSION['profi'];
-if ($mod_sms) {
+if ($config['mod_sms']) {
 	if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{unset($curso);}
 
 	if (isset($_GET['hermanos'])) {$hermanos = $_GET['hermanos'];}elseif (isset($_POST['hermanos'])) {$hermanos = $_POST['hermanos'];}else{$hermanos="";}
@@ -69,12 +69,12 @@ if ($mod_sms) {
 	$texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta dirección de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con <strong> Jefatura de Estudios</strong>.';		
 	$mail = new PHPMailer();
 	$mail->Host = "localhost";
-	$mail->From = 'no-reply@'.$dominio;
-	$mail->FromName = $nombre_del_centro;
-	$mail->Sender = 'no-reply@'.$dominio;
+	$mail->From = 'no-reply@'.$config['dominio'];
+	$mail->FromName = $config['centro_denominacion'];
+	$mail->Sender = 'no-reply@'.$config['dominio'];
 	$mail->IsHTML(true);
-	$mail->Subject = $nombre_del_centro.': Comunicación de Faltas de Asistencia a la familia del Alumno.';
-	$mail->Body = "Desde la Jefetura de Estudios del $nombre_del_centro le comunicamos que entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$unidad." ha faltado al menos 5 horas al Centro sin haber presentado ninguna justificación. <br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://$dominio, o bien contactando con la Jefatura de Estudios del Centro. <hr><br><br> $texto_pie";
+	$mail->Subject = $config['centro_denominacion'].': Comunicación de Faltas de Asistencia a la familia del Alumno.';
+	$mail->Body = "Desde la Jefetura de Estudios del ".$config['centro_denominacion']." le comunicamos que entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$unidad." ha faltado al menos 5 horas al Centro sin haber presentado ninguna justificación. <br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://".$config['dominio'].", o bien contactando con la Jefatura de Estudios del Centro. <hr><br><br> $texto_pie";
 	$mail->AddAddress($correo, $nombre_alumno);
 	$mail->Send();				
 			}
@@ -125,9 +125,9 @@ if(isset($curso))
 	$tr_curso = explode("(",$curso);
 	$niv = $tr_curso[0];
 
-	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Más info en http://".$dominio;
-	$login = $usuario_smstrend;
-	$password = $clave_smstrend;
+	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Más info en http://".$config['dominio'];
+	$login = $config['mod_sms_user'];
+	$password = $config['mod_sms_pass'];
 	?> <script language="javascript">
 function enviarForm() /*el formulario se llama crear*/
 {
@@ -145,7 +145,7 @@ document.enviar.submit()
 	type="hidden" value="<?php echo $login;?>" /> <input name="password"
 	type="hidden" value="<?php echo $password;?>" /> <input name="extid"
 	type="hidden" value="<?php echo $extid;?>" /> <input name="tpoa"
-	type="hidden" value="<?php echo $nombre_corto; ?>" /> <input name="mobile"
+	type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> <input name="mobile"
 	type="hidden" value="<?php echo $mobile2;?>" /> <input name="messageQty"
 	type="hidden" value="GOLD" /> <input name="messageType" type="hidden"
 	value="PLUS" /> <input name="message" type="hidden"

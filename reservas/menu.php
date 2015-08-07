@@ -102,15 +102,15 @@ if (isset($_GET['servicio_aula'])) {$servicio_aula = $_GET['servicio_aula'];}els
 	?>
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php?recurso='.$srv[0].'')==TRUE) ? ' class="active"' : ''; ?>><a
-		href="//<?php echo $dominio; ?>/intranet/reservas/index.php?recurso=<?php echo $srv[0];?>"><?php echo $srv[0];?></a></li>
+		href="//<?php echo $config['dominio']; ?>/intranet/reservas/index.php?recurso=<?php echo $srv[0];?>"><?php echo $srv[0];?></a></li>
 	<?php
 	}
 	?>
 	
-	<?php if ($mod_horario=="1"): ?>
+	<?php if ($config['mod_horarios']): ?>
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'index_aula')==TRUE) ? ' class="active"' : ''; ?>><a
-		href="//<?php echo $dominio; ?>/intranet/reservas/index_aula.php?recurso=aula_grupo">Aulas
+		href="//<?php echo $config['dominio']; ?>/intranet/reservas/index_aula.php?recurso=aula_grupo">Aulas
 	y Dependencias del Centro</a></li>
 	<?php endif; ?>
 	<?php if (strstr($_SESSION['cargo'],"1")==TRUE): ?>	
@@ -118,15 +118,15 @@ if (isset($_GET['servicio_aula'])) {$servicio_aula = $_GET['servicio_aula'];}els
 	<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Gestión de las Reservas<span
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">	
-	<?php if ($mod_horario=="1"): ?>
+	<?php if ($config['mod_horarios']): ?>
 
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'ocultar.php')==TRUE) ? ' class="active"' : ''; ?>><a
-		href="//<?php echo $dominio; ?>/intranet/reservas/ocultar.php">Crear /
+		href="//<?php echo $config['dominio']; ?>/intranet/reservas/ocultar.php">Crear /
 	Ocultar / Eliminar Aulas/Dependencias</a></li>
 	<?php endif; ?>
-	<li><a href="//<?php echo $dominio; ?>/intranet/reservas/gestion_tipo.php">Crear Tipos de Recursos</a></li>
-	<li><a href="//<?php echo $dominio; ?>/intranet/reservas/gestion_elementos.php">Crear Elementos de un Tipo de Recurso</a></li>
+	<li><a href="//<?php echo $config['dominio']; ?>/intranet/reservas/gestion_tipo.php">Crear Tipos de Recursos</a></li>
+	<li><a href="//<?php echo $config['dominio']; ?>/intranet/reservas/gestion_elementos.php">Crear Elementos de un Tipo de Recurso</a></li>
 	</ul>
 	</li>
 	<?php endif; ?>

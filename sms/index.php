@@ -5,7 +5,7 @@ require('../bootstrap.php');
 $profe = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'2') == TRUE) and !(stristr($_SESSION['cargo'],'6') == TRUE) and !(stristr($_SESSION['cargo'],'7') == TRUE) and !(stristr($_SESSION['cargo'],'8') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 include("../menu.php");
@@ -58,7 +58,7 @@ if(strlen($unidad)>1){
 <div class="row">
 
 <?
- if ($mod_sms) {
+ if ($config['mod_sms']) {
 // variables(); 
 // Procesado de los datos del Formulario
 if($submit0 == "Enviar SMS")
@@ -145,7 +145,7 @@ document.enviar.submit()
 			<input name="login" type="hidden" value="<?php echo $login;?>" />
             <input name="password" type="hidden" value="<?php echo $password;?>"  />   
             <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
-            <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" /> 
+            <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> 
             <input name="mobile" type="hidden" value="<?echo $mobile;?>"/>
  			<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        
@@ -262,10 +262,10 @@ $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 ?>
       	
-      	<input name="login" type="hidden" value="<?php  echo $usuario_smstrend;?>" />
-        <input name="password" type="hidden" value="<?php  echo $clave_smstrend;?>"  />
+      	<input name="login" type="hidden" value="<?php  echo $config['mod_sms_user'];?>" />
+        <input name="password" type="hidden" value="<?php  echo $config['mod_sms_pass'];?>"  />
         <input name="extid" type="hidden" value="<?php echo $extid;?>" />
-        <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" />
+        <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" />
         <input name="messageQty" type="hidden" value="GOLD" />
         <input name="messageType" type="hidden" value="PLUS" />
         <br /><input type="submit" name="submit0" value="Enviar SMS" class="btn btn-primary"/>

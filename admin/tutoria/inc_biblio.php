@@ -1,7 +1,7 @@
 <?php if (! defined('INC_TUTORIA')) die ('<h1>Forbidden</h1>'); ?>
 
 <!-- Biblioteca -->
-<?php if($mod_biblio=="1"): ?>
+<?php if($config['mod_biblioteca']): ?>
 <h3 class="text-info">Devolución de Libros</h3>
 
 <?php $grupo = $_SESSION['mod_tutoria']['unidad']; 

@@ -3,7 +3,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'7') == TRUE))
 {
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 	exit;
 }
 
@@ -282,7 +282,7 @@ if(isset($_POST['enviar'])){
 			$msg_error = "La fecha de nacimiento que has escrito no es correcta. El formato adecuado para la fecha es DD-MM-YYYY (Por ejemplo: 01-01-2000).";
 		}
 		elseif(strlen($ruta_este) > 0 and strlen($ruta_oeste) > 0){
-			$msg_error = "Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y solo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de '.$localidad_del_centro.'.Elige una sola parada y vuelve a enviar los datos.";
+			$msg_error = "Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y solo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de ".$config['localidad_del_centro'].".Elige una sola parada y vuelve a enviar los datos.";
 
 			$ruta_error = "";
 		}
@@ -333,10 +333,10 @@ if(isset($_POST['enviar'])){
 <html lang="es">
 <head>
 <meta charset="iso-8859-1">
-<title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>
+<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
-	content="Intranet del <?php echo $nombre_del_centro; ?>">
+	content="Intranet del <?php echo $config['centro_denominacion']; ?>">
 <meta name="author"
 	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 
@@ -520,7 +520,7 @@ exit();
 				$repetidor = '1';
 			}
 			$nacimiento= str_replace("/","-",$nacimiento);
-			$colegio = $nombre_del_centro;
+			$colegio = $config['centro_denominacion'];
 		}
 	}
 	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
@@ -544,7 +544,7 @@ exit();
 			<td colspan="2">
 			<h4 class="text-uppercase"><strong>Consejería de Educación, Cultura y
 			Deporte</strong></h4>
-			<h5 class="text-uppercase"><strong><?php echo $nombre_del_centro; ?></strong></h5>
+			<h5 class="text-uppercase"><strong><?php echo $config['centro_denominacion']; ?></strong></h5>
 			</td>
 		</tr>
 	</thead>
@@ -753,7 +753,7 @@ exit();
 				<?php echo (isset($colegio) && $colegio == $centros_adscritos[0]) ? 'selected' : ''; ?>><?php echo $centros_adscritos[0]; ?></option>
 				<?php endwhile; ?>
 				<?php else: ?>
-				<option value="<?php echo $nombre_del_centro; ?>"><?php echo $nombre_del_centro; ?></option>
+				<option value="<?php echo $config['centro_denominacion']; ?>"><?php echo $config['centro_denominacion']; ?></option>
 				<?php endif; ?>
 				<option value="Otro Centro">Otro Centro</option>
 			</select></div>
@@ -817,7 +817,7 @@ exit();
 			</td>
 		</tr>
 
-		<?php if($mod_transporte): ?>
+		<?php if($config['mod_transporte_escolar']): ?>
 		<!-- TRANSPORTE ESCOLAR -->
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">Solicitud

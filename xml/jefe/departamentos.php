@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 
@@ -195,7 +195,7 @@ if (!($rowprof[0]=='admin') and !($rowprof[0]=='conserje') and !($rowprof[4]=='7
 $nombre_profe = $n_pro[1];	
 $apellidos_profe = $n_pro[0];
 
-$linea_moodle = "$rowprof[0];$rowprof[1];$nombre_profe;$apellidos_profe;$rowprof[3];$localidad_del_centro;ES\n";
+$linea_moodle = "$rowprof[0];$rowprof[1];$nombre_profe;$apellidos_profe;$rowprof[3];".$config['localidad_del_centro'].";ES\n";
 $todos_moodle.=$linea_moodle;
 	}
 }

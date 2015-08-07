@@ -58,7 +58,7 @@ foreach($_POST as $clave => $valor)
 
 		$hoy2 = strtotime($hoy);
 
-		$comienzo_del_curso = strtotime($inicio_curso);
+		$comienzo_del_curso = strtotime($config['curso_inicio']);
 		
 		// Tiene actividad extraescolar en la fecha
 		$hay_actividad="";

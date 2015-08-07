@@ -1,4 +1,9 @@
 <?php
+function registraPagina($db_link, $pagina)
+{
+	mysqli_query($db_link, "INSERT INTO reg_paginas (id_reg,pagina) VALUES ('".mysqli_real_escape_string($db_link, $_SESSION['id_pag'])."','".mysqli_real_escape_string($db_link, $pagina)."')");
+}
+
 function redondeo($n){
 
 	$entero10 = explode(".",$n);

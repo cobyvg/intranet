@@ -7,23 +7,14 @@ define('FPDF_FONTPATH','../../pdf/font/');
 # creamos la clase extendida de fpdf.php
 
 // Variables globales para el encabezado y pie de pagina
-$GLOBALS['CENTRO_NOMBRE'] = $nombre_del_centro;
-$GLOBALS['CENTRO_DIRECCION'] = $direccion_del_centro;
-$GLOBALS['CENTRO_CODPOSTAL'] = $codigo_postal_del_centro;
-$GLOBALS['CENTRO_LOCALIDAD'] = $localidad_del_centro;
-$GLOBALS['CENTRO_TELEFONO'] = $telefono_del_centro;
-$GLOBALS['CENTRO_FAX'] = $fax_del_centro;
-$GLOBALS['CENTRO_CORREO'] = $email_del_centro;
-
-
-if(substr($codigo_postal_del_centro,0,2)=="04") $GLOBALS['CENTRO_PROVINCIA'] = 'Almería';
-if(substr($codigo_postal_del_centro,0,2)=="11") $GLOBALS['CENTRO_PROVINCIA'] = 'Cádiz';
-if(substr($codigo_postal_del_centro,0,2)=="14") $GLOBALS['CENTRO_PROVINCIA'] = 'Córdoba';
-if(substr($codigo_postal_del_centro,0,2)=="18") $GLOBALS['CENTRO_PROVINCIA'] = 'Granada';
-if(substr($codigo_postal_del_centro,0,2)=="21") $GLOBALS['CENTRO_PROVINCIA'] = 'Huelva';
-if(substr($codigo_postal_del_centro,0,2)=="23") $GLOBALS['CENTRO_PROVINCIA'] = 'Jaén';
-if(substr($codigo_postal_del_centro,0,2)=="29") $GLOBALS['CENTRO_PROVINCIA'] = 'Málaga';
-if(substr($codigo_postal_del_centro,0,2)=="41") $GLOBALS['CENTRO_PROVINCIA'] = 'Sevilla';
+$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
+$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
+$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
+$GLOBALS['CENTRO_LOCALIDAD'] = $config['localidad_del_centro'];
+$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
+$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
+$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
+$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
 
 # creamos la clase extendida de fpdf.php
 class GranPDF extends FPDF {
@@ -113,12 +104,12 @@ $texto1=" Justificante de que el alumno ha entegado los libros de texto";
 $texto2=" Se debe reponer o en su caso abonar el importe indicado ";
 
 $titulo1="CERTIFICACIÓN DE ENTREGA DE LIBROS";
-$cuerpo11="D. $secretario_del_centro, como Secretario del centro $nombre_del_centro, y con el visto bueno de la Direccción, ";
+$cuerpo11="D./Dña. ".$config['directivo_secretaria'].", como Secretario/a del centro ".$config['centro_denominacion'].", y con el visto bueno de la Direccción, ";
 $cuerpo12="CERTIFICO que el/la alumno/a: $alumno matriculado/a en el curso $unidad, con fecha $fecha ha hecho entrega de los libros que se le asignaron con cargo al Programa de Gratuidad de Libros de Texto, en el estado de conservación que se indica: ";
 $importante1='Importante: los libros prestados para Septiembre deben ser devueltos el día de la Convocatoria Extraordinaria ';
 $importante1.='en buen estado.';
 $titulo2="NOTIFICACIÓN DE REPOSICION DE LIBROS DE TEXTO";
-$cuerpo21="D. $secretario_del_centro, como Secretario del centro $nombre_del_centro, y con el visto bueno de la Direccción, ";
+$cuerpo21="D./Dña. ".$config['directivo_secretaria'].", como Secretario/a del centro ".$config['centro_denominacion'].", y con el visto bueno de la Direccción, ";
 $cuerpo22="CERTIFICA que el/la alumno/a: $alumno matriculado/a en el curso $unidad, revisados sus libros con fecha $fecha, debe ";
 $cuerpo22.="reponer (o en su caso abonar el importe segun tarifa marcada por la Junta de Andalucía) los siguientes libros: ";
 $importante2='En caso de no atender a este requerimiento el/la alumno/a no podrá disfrutar del programa de gratuidad el curso próximo.';
@@ -158,11 +149,11 @@ if (!($mal=='1')){
 	$MiPDF->SetX(20);
 	$MiPDF->SetFont('NewsGotT','',11);
 	$MiPDF->Ln(6);
-	$MiPDF->Multicell(0,4,'En '.$localidad_del_centro.', a '.$hoy,0,'C',0);
+	$MiPDF->Multicell(0,4,'En '.$config['localidad_del_centro'].', a '.$hoy,0,'C',0);
 	$MiPDF->Ln(6);
 	$MiPDF->Multicell(0,4,'Secretario/a:                        Sello del Centro                         Director/a:',0,'C',0);
 	$MiPDF->Ln(16);
-	$MiPDF->Multicell(0,4,$secretario_del_centro.'                                             '.$director_del_centro,0,'C',0);
+	$MiPDF->Multicell(0,4,$config['directivo_secretaria'].'                                             '.$config['directivo_direccion'],0,'C',0);
 	$MiPDF->Ln(10);
 	if ($nota==1) {$MiPDF->Multicell(0,4,$importante1,0,'J',0);
 	}
@@ -198,11 +189,11 @@ if (!($mal=='1')){
 	$MiPDF->Multicell(0,4,' Total: '.$total.' Euros',0,'D',0);
 	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Ln(5);
-	$MiPDF->Multicell(0,4,'En '.$localidad_del_centro.', a '.$hoy,0,'C',0);
+	$MiPDF->Multicell(0,4,'En '.$config['localidad_del_centro'].', a '.$hoy,0,'C',0);
 	$MiPDF->Ln(5);
 	$MiPDF->Multicell(0,4,'Secretario/a:                        Sello del Centro                         Director/a:',0,'C',0);
 	$MiPDF->Ln(14);
-	$MiPDF->Multicell(0,4,$secretario_del_centro.'                                             '.$director_del_centro,0,'C',0);
+	$MiPDF->Multicell(0,4,$config['directivo_secretaria'].'                                             '.$config['directivo_direccion'],0,'C',0);
 	$MiPDF->Ln(4);
 	$MiPDF->Multicell(0,4,$importante2,0,'J',0);
 

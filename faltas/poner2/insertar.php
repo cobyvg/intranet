@@ -37,15 +37,15 @@ while($i < $total - 2)
 		$fecha1 = $año . "-" . $mes . "-" . $dia0;
 		$fecha11 = $dia0 . "-" . $mes . "-" . $año;
 		$fecha2 = mktime(0,0,0,$mes,$dia0,$año);
-		$fecha22 = strtotime($inicio_curso);
+		$fecha22 = strtotime($config['curso_inicio']);
 		$diames = date("j");
 		$nmes = date("n");
 		$nano = date("Y");
 		$hoy1 = mktime(0,0,0,$nmes,$diames,$nano);
 
 		// Fiestas del Año, Vacaciones, etc.
-		$comienzo_del_curso = strtotime($inicio_curso);
-		$final_del_curso = strtotime($fin_curso);
+		$comienzo_del_curso = strtotime($config['curso_inicio']);
+		$final_del_curso = strtotime($config['curso_fin']);
 
 		// Festivos
 		$repe=mysqli_query($db_con, "select fecha from festivos where date(fecha) = date('$fecha1')");

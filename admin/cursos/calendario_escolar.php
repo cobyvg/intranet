@@ -2,7 +2,7 @@
 require('../../bootstrap.php');
 
 
-$curso = substr($curso_actual,0,4);
+$curso = substr($config['curso_actual'],0,4);
 
 include("../../menu.php");
 ?>

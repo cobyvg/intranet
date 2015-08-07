@@ -4,8 +4,8 @@
 
 <h3 class="text-info">Faltas sin justificar</h3>
 
-<?php $exp_inicio_curso = explode('-', $inicio_curso); ?>
-<?php $inicio_curso2 = $exp_inicio_curso[2].'-'.$exp_inicio_curso[1].'-'.$exp_inicio_curso[0]; ?>
+<?php $exp_inicio_curso = explode('-', $config['curso_inicio']); ?>
+<?php $config['curso_inicio']2 = $exp_inicio_curso[2].'-'.$exp_inicio_curso[1].'-'.$exp_inicio_curso[0]; ?>
 
 <?php $result = mysqli_query($db_con, "CREATE TABLE FALTASTEMP SELECT DISTINCT FALTAS.claveal, FALTAS.falta, COUNT(*) AS NUMERO, apellidos, nombre FROM FALTAS, FALUMNOS  
  WHERE FALTAS.claveal = FALUMNOS.claveal AND FALTAS.falta = 'F' AND FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' GROUP BY FALTAS.claveal"); ?>
@@ -22,7 +22,7 @@
 	<tbody>
 		<?php while ($row = mysqli_fetch_array($result)): ?>
 		<tr>
-			<td><a href="../faltas/informes.php?claveal=<?php echo $row['claveal']; ?>&fecha4=<?php echo $inicio_curso2; ?>&fecha3=<?php echo date('d-m-Y'); ?>&submit2=2"><?php echo $row['nombre'].' '.$row['apellidos']; ?></a></td>
+			<td><a href="../faltas/informes.php?claveal=<?php echo $row['claveal']; ?>&fecha4=<?php echo $config['curso_inicio']; ?>&fecha3=<?php echo date('d-m-Y'); ?>&submit2=2"><?php echo $row['nombre'].' '.$row['apellidos']; ?></a></td>
 			<td class="text-center"><div class="badge"><?php echo $row['NUMERO']; ?></div></td>
 		</tr>
 		<?php endwhile; ?>

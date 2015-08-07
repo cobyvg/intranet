@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 	if((!(stristr($_SESSION['cargo'],'1') == TRUE)) and (!(stristr($_SESSION['cargo'],'c') == TRUE)) )
 {
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 	exit;
 }
 ?>
@@ -150,8 +150,8 @@ if ($sms) {
 			}
 			
 			mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
-			$login = $usuario_smstrend;
-			$password = $clave_smstrend;
+			$login = $config['mod_sms_user'];
+			$password = $config['mod_sms_pass'];
 			?>
 <form name="enviar"
 	action="http://www.smstrend.net/esp/sendMessageFromPost.oeg"
@@ -165,7 +165,7 @@ if ($sms) {
 		?>" /> <input name="extid" type="hidden"
 	value="<?
 	echo $extid;
-		?>" /> <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" /> <input
+		?>" /> <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> <input
 	name="mobile" type="hidden" value="<?
 	echo $mobile;
 		?>" /> <input name="messageQty" type="hidden" value="GOLD" /> <input

@@ -15,7 +15,7 @@ $_SESSION['autentificado'] = 0;
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>
+    <title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -121,7 +121,7 @@ $_SESSION['autentificado'] = 0;
         
         <br>
         
-        <p><a class="btn btn-lg btn-success" href="//<?php echo $dominio; ?>" role="button">Ir a la página del centro</a></p>
+        <p><a class="btn btn-lg btn-success" href="//<?php echo $config['dominio']; ?>" role="button">Ir a la página del centro</a></p>
       </div>
 
       <footer class="hidden-print">
@@ -134,7 +134,7 @@ $_SESSION['autentificado'] = 0;
       		</p>
       		<p class="text-center">
       			<small>
-      				<a href="//<?php echo $dominio; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
+      				<a href="//<?php echo $config['dominio']; ?>/intranet/LICENSE.md" target="_blank">Licencia de uso</a>
       				&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;
       				<a href="https://github.com/IESMonterroso/intranet" target="_blank">Github</a>
       			</small>

@@ -1,7 +1,6 @@
 <?php 
 $idea = $_SESSION['ide'];
-setlocale(LC_TIME, 'es_ES');
-date_default_timezone_set('Europe/Madrid');
+
 
 // FEED RSS
 $feed = new SimplePie();
@@ -43,44 +42,44 @@ mysqli_free_result($result_mensajes);
 <head>
 <meta charset="iso-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Intranet &middot; <?php echo $nombre_del_centro; ?></title>
+<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
-	content="Intranet del <?php echo $nombre_del_centro; ?>">
+	content="Intranet del <?php echo $config['centro_denominacion']; ?>">
 <meta name="author"
 	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
 
 <!-- BOOTSTRAP CSS CORE -->
 
-<link href="//<?php echo $dominio; ?>/intranet/css/<?php echo (isset($_SESSION['tema'])) ? $_SESSION['tema'] : 'bootstrap.min.css'; ?>" rel="stylesheet">
+<link href="//<?php echo $config['dominio']; ?>/intranet/css/<?php echo (isset($_SESSION['tema'])) ? $_SESSION['tema'] : 'bootstrap.min.css'; ?>" rel="stylesheet">
 
 <!-- CUSTOM CSS THEME -->
-<link href="//<?php echo $dominio; ?>/intranet/css/otros.css"
+<link href="//<?php echo $config['dominio']; ?>/intranet/css/otros.css"
 	rel="stylesheet">
 
 <!-- PLUGINS CSS -->
 <link
-	href="//<?php echo $dominio; ?>/intranet/css/font-awesome.min.css"
+	href="//<?php echo $config['dominio']; ?>/intranet/css/font-awesome.min.css"
 	rel="stylesheet">
 <link
-	href="//<?php echo $dominio; ?>/intranet/js/summernote/summernote.css"
+	href="//<?php echo $config['dominio']; ?>/intranet/js/summernote/summernote.css"
 	rel="stylesheet">
 <link
-	href="//<?php echo $dominio; ?>/intranet/js/datetimepicker/bootstrap-datetimepicker.css"
+	href="//<?php echo $config['dominio']; ?>/intranet/js/datetimepicker/bootstrap-datetimepicker.css"
 	rel="stylesheet">
 <?php if(isset($PLUGIN_DATATABLES) && $PLUGIN_DATATABLES): ?>
 <link
-	href="//<?php echo $dominio; ?>/intranet/js/datatables/dataTables.bootstrap.css"
+	href="//<?php echo $config['dominio']; ?>/intranet/js/datatables/dataTables.bootstrap.css"
 	rel="stylesheet">
 <?php endif; ?>
 <?php if(isset($PLUGIN_COLORPICKER) && $PLUGIN_COLORPICKER): ?>
 <link
-	href="//<?php echo $dominio; ?>/intranet/js/colorpicker/css/bootstrap-colorpicker.min.css"
+	href="//<?php echo $config['dominio']; ?>/intranet/js/colorpicker/css/bootstrap-colorpicker.min.css"
 	rel="stylesheet">
 <?php endif; ?>
 <?php if(isset($_GET['tour']) && $_GET['tour']): ?>
 <link
-	href="//<?php echo $dominio; ?>/intranet/js/bootstrap-tour/bootstrap-tour.min.css"
+	href="//<?php echo $config['dominio']; ?>/intranet/js/bootstrap-tour/bootstrap-tour.min.css"
 	rel="stylesheet">
 <?php endif; ?>
 </head>
@@ -93,7 +92,7 @@ mysqli_free_result($result_mensajes);
 	data-target="#navbar"><span class="sr-only">Cambiar navegación</span> <span
 	class="icon-bar"></span> <span class="icon-bar"></span> <span
 	class="icon-bar"></span></button>
-<a class="navbar-brand" href="//<?php echo $dominio; ?>/intranet/"><?php echo $nombre_del_centro; ?></a>
+<a class="navbar-brand" href="//<?php echo $config['dominio']; ?>/intranet/"><?php echo $config['centro_denominacion']; ?></a>
 </div>
 
 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -101,10 +100,10 @@ mysqli_free_result($result_mensajes);
 <ul class="nav navbar-nav">
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/index.php')) ? 'class="active"' : ''; ?>><a
-		href="//<?php echo $dominio; ?>/intranet/index.php">Inicio</a></li>
+		href="//<?php echo $config['dominio']; ?>/intranet/index.php">Inicio</a></li>
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/upload/')) ? 'class="active"' : ''; ?>><a
-		href="http://<?php echo $dominio;	?>/intranet/upload/">Documentos</a></li>
+		href="http://<?php echo $config['dominio'];	?>/intranet/upload/">Documentos</a></li>
 	<li><a
 		href="https://www.juntadeandalucia.es/educacion/portalseneca/web/seneca/inicio"
 		target="_blank">Séneca</a></li>
@@ -140,7 +139,7 @@ mysqli_free_result($result_mensajes);
 	</li>
 	<li
 		class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/')) ? 'active' : ''; ?>"><a
-		href="//<?php echo $dominio; ?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
+		href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
 	<li class="dropdown hidden-xs" id="bs-tour-mensajes"><a href="#" class="dropdown-toggle"
 		data-toggle="dropdown" data-bs="tooltip" title="Mensajes recibidos" data-placement="bottom" data-container="body"> <span
 		class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer) ? 'text-warning"' : ''; ?>"></span>
@@ -152,7 +151,7 @@ mysqli_free_result($result_mensajes);
 		<?php if(mysqli_num_rows($result_mensajes)): ?>
 		<?php while ($row = mysqli_fetch_array($result_mensajes)): ?>
 		<li><a
-			href="//<?php echo $dominio; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
+			href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
 		<div
 		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
 		<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row['ahora'])); ?></em></span>
@@ -167,7 +166,7 @@ mysqli_free_result($result_mensajes);
 		<li><p class="text-center text-muted">No tienes mensajes pendientes.</p></li>
 		<li class="divider"></li>
 		<?php endif; ?>
-		<li><a class="text-center" href="//<?php echo $dominio; ?>/intranet/admin/mensajes/"><strong>Ver todos los mensajes <span class="fa fa-angle-right"></span></strong></a></li>
+		<li><a class="text-center" href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/"><strong>Ver todos los mensajes <span class="fa fa-angle-right"></span></strong></a></li>
 	</ul>
 	</li>
 
@@ -175,15 +174,15 @@ mysqli_free_result($result_mensajes);
 		data-toggle="dropdown"> <span class="fa fa-user fa-fw"></span> <?php echo $idea; ?>
 	<b class="caret"></b> </a>
 	<ul class="dropdown-menu">
-		<li><a href="//<?php echo $dominio; ?>/intranet/clave.php"><i
+		<li><a href="//<?php echo $config['dominio']; ?>/intranet/clave.php"><i
 			class="fa fa-key fa-fw"></i> Cambiar contraseña</a></li>
 		<li><a
-			href="//<?php echo $dominio; ?>/intranet/admin/fotos/fotos_profes.php"><i
+			href="//<?php echo $config['dominio']; ?>/intranet/admin/fotos/fotos_profes.php"><i
 			class="fa fa-camera fa-fw"></i> Cambiar fotografía</a></li>
 		<li><a
-			href="//<?php echo $dominio; ?>/intranet/xml/jefe/index_temas.php"><i
+			href="//<?php echo $config['dominio']; ?>/intranet/xml/jefe/index_temas.php"><i
 			class="fa fa-eye fa-fw"></i> Aspecto visual</a></li>	
-		<li><a href="//<?php echo $dominio; ?>/intranet/salir.php"><i
+		<li><a href="//<?php echo $config['dominio']; ?>/intranet/salir.php"><i
 			class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a></li>
 	</ul>
 	</li>

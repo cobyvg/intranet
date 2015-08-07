@@ -38,7 +38,7 @@ echo '<tr><th>'.$nombre.'ª</th>';
 		elseif (empty ( $rowasignatur1 [2] ) and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")) {
 			echo "<span class='label label-default'>" . $rowasignatur1 [1] . "</span><br />";
 		}
-		elseif (($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44") and $mod_faltas == '1') {
+		elseif (($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44") and $config['mod_asistencia']) {
 			if (strstr($_SESSION ['cargo'],"1")==TRUE) {
 				echo "<a href='#'><span class='label label-danger'>".$rowasignatur1[1]."</span>";
 			}

@@ -92,7 +92,7 @@ else
 		} while($falumno = mysqli_fetch_array($alumnosql));
 	}
 	$fecha = (date("d").-date("m").-date("Y"));
-	$comienzo=explode("-",$inicio_curso);
+	$comienzo=explode("-",$config['curso_inicio']);
 	$comienzo_curso=$comienzo[2]."-".$comienzo[1]."-".$comienzo[0];
 	$fecha2 = date("m");
 	?>

@@ -5,7 +5,7 @@ require('../../bootstrap.php');
 $profesor = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 	exit;
 }
 ?>
@@ -63,7 +63,7 @@ largo del curso.
 </div>
 <br>
 <div class="col-sm-5 col-sm-offset-1"><br>
-<?php if ($mod_horario) {
+<?php if ($config['mod_horarios']) {
 	?>
 <div class="well well-large">
 <FORM action="admin.php" method="POST" name="Cursos">

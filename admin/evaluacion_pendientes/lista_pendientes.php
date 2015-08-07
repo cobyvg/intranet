@@ -108,7 +108,7 @@ while ($salida = mysqli_fetch_array($Recordset1)){
 		$rep='';
 	}
 	$n1+=1;
-	echo "<tr><td>$salida[2]</td><td>$salida[6]</td><td nowrap><a href='//$dominio/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a> <span class='text-warning'>$rep</span></td>";
+	echo "<tr><td>$salida[2]</td><td>$salida[6]</td><td nowrap><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$salida[7]&todos=Ver Informe Completo del Alumno'>$salida[0], $salida[1]</a> <span class='text-warning'>$rep</span></td>";
 	
 	for ($i = 1; $i < 5; $i++) {
 		$nota_evaluacion="";

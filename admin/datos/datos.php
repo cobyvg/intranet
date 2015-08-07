@@ -53,7 +53,7 @@ La contraseña del alumno para el acceso a la página pública del Centro se ha rei
 		</div></div>';    
 		if (strstr($_GET['correo'],'@')==TRUE) {
 		$direccion = $_GET['correo'];
-		$tema = "Contraseña de acceso privado reiniciada en $dominio";
+		$tema = "Contraseña de acceso privado reiniciada en ".$config['dominio'];
 		$texto = "La clave de acceso privada del alumno/a ha sido reiniciada. Para entrar en las páginas personales del alumno deberás introducir de nuevo el NIE (Número de Identificación Escolar) que el Centro te ha proporcionado en los dos campos del formulario de acceso. Si a pesar de todo persisten los problemas y no puedes entrar, ponte en contacto con el Tutor o Jefatura de Estudios. Dsiculpa las molestias. ";
 		mail($direccion, $tema, $texto);  
 		}  
@@ -178,7 +178,7 @@ if ($row = mysqli_fetch_array($result))
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';
 		}
-		echo "<td><a href='//$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Ver detalles'></i> ";
+		echo "<td><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Ver detalles'></i> ";
 		echo '</a></td></tr>';
 	} while($row = mysqli_fetch_array($result));
 	echo "</tbody></table>\n";
@@ -203,10 +203,10 @@ if ($_GET['seleccionado']=='1' and $_GET['borrar']!=="1"){
 		$s_control = '1';
 	}
 	// Menú del alumno
-	echo "<a href='//$dominio/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno' class='btn btn-primary'>Datos completos</a>";
-	echo "&nbsp;<a class='btn btn-primary' href='//$dominio/intranet/admin/informes/cinforme.php?nombre_al=$alumno&unidad=$unidad'>Informe histórico del Alumno</a> ";
+	echo "<a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno' class='btn btn-primary'>Datos completos</a>";
+	echo "&nbsp;<a class='btn btn-primary' href='//".$config['dominio']."/intranet/admin/informes/cinforme.php?nombre_al=$alumno&unidad=$unidad'>Informe histórico del Alumno</a> ";
 	echo "&nbsp;<a class='btn btn-primary' href='../fechorias/infechoria.php?seleccionado=1&nombre=$claveal'>Problema de disciplina</a> ";
-	echo "&nbsp;<a class='btn btn-primary' href='//$dominio/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
+	echo "&nbsp;<a class='btn btn-primary' href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
 	if (stristr($_SESSION['cargo'],'1') == TRUE) {
 		$dat = mysqli_query($db_con, "select unidad from FALUMNOS where claveal='$clave_al'");
 		$tut=mysqli_fetch_row($dat);

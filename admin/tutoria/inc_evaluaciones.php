@@ -35,7 +35,7 @@ while($row1 = mysqli_fetch_array($result1)){
 $asignatura1 = substr($row1[0], 0, strlen($row1[0])-1);
 $claveal = $row1[1];
 $grupo = $row1[3];
-$curso_actual = $row1[4];
+$config['curso_actual'] = $row1[4];
 if ($row1[2]>"1") {
 	$pil = "1";
 }
@@ -72,7 +72,7 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 <tbody>	
 	<?
 $sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre
- and asignaturas.curso = '$curso_actual' and profesores.grupo = '".$_SESSION['mod_tutoria']['unidad']."' and abrev not like '%\_%' and asignaturas.codigo not in 
+ and asignaturas.curso = '".$config['curso_actual']."' and profesores.grupo = '".$_SESSION['mod_tutoria']['unidad']."' and abrev not like '%\_%' and asignaturas.codigo not in 
 (select distinct asignaturas.codigo from asignaturas where asignaturas.nombre like 'Libre Disp%')";
 //echo $sql;	
 $as = mysqli_query($db_con, $sql);

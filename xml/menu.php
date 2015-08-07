@@ -1,13 +1,13 @@
 <ul class="nav nav-pills nav-stacked">
 	<li class="nav-header">Configuración</li> 
-	<li><a href="../config/index.php">Cambiar Configuración</a></li>
+	<li><a href="../config/config.php">Cambiar Configuración</a></li>
 	
 	<li class="nav-header">A principio de curso...</li>
 	<li><a href="jefe/index2.php">Importar Alumnos</a></li>
 	<li><a href="jefe/asignaturas.php">Importar Asignaturas</a></li>
 	<li><a href="jefe/index_xml.php">Importar datos del Centro</a></li>
 	<li><a href="jefe/index_departamentos.php">Importar Departamentos y Especialidades</a></li>
-	  <?php if ($mod_horario) {?>
+	  <?php if ($config['mod_horarios']) {?>
 	<li><a href="jefe/horario.php">Importar/Preparar Horarios </a></li>
 	<?php }?>
 	<li><a href="jefe/index_profesores.php">Importar Profesores</a></li>
@@ -15,7 +15,7 @@
 	<li><a href="jefe/index_jornada.php">Importar Jornada</a></li> 
 	<li><a href="../reservas/gestion_tipo.php">Configuración del Sistema de Reservas</a></li> 
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
-	<?php if ($mod_horario) {?>
+	<?php if ($config['mod_horarios']) {?>
 	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
 	<?php }?>
 	<li class="nav-header">Actualizaci&oacute;n</li>
@@ -41,7 +41,7 @@
 	</a></li>
 	<li><a href="../admin/libros/indextextos.php">Libros de Texto Gratuitos
 	</a></li>
-	<?php if ($mod_matriculas==1) { ?>
+	<?php if ($config['mod_matriculacion']) { ?>
 	<li><a href="../admin/matriculas/index.php">Matriculación de alumnos
 	</a></li>
 	<li><a href="./jefe/index_mayores.php">Alumnos mayores de 18 años

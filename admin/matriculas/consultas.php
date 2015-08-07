@@ -7,7 +7,7 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'7') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE))
 {
-	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 	exit;
 }
 
@@ -712,7 +712,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			$pil = mysqli_query($db_con, "select promociona from matriculas where $extra and promociona = '2'");
 			$num_pil = mysqli_num_rows($pil);
 
-			$an_bd = substr($curso_actual,0,4);
+			$an_bd = substr($config['curso_actual'],0,4);
 			$repit = mysqli_query($db_con, "select * from matriculas_bach, ".$db.$an_bd.".alma where ".$db.$an_bd.".alma.claveal = matriculas_bach.claveal and matriculas_bach.curso = '$curso' and ".$db.$an_bd.".alma.unidad like '$n_curso%'");
 			$num_repit = mysqli_num_rows($repit);
 			?>

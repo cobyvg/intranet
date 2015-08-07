@@ -40,8 +40,8 @@ $claveal = $row0[0];
 $nombrecor = explode(" ",$nombre);
 $nombrecorto = $nombrecor[0];
 $text = "Le comunicamos que su hijo/a $nombrecorto tiene Faltas de Asistencia sin justificar dentro del periodo del ".$fecha12." al ".$fecha22.". Contacte con su Tutor";
-$login = $usuario_smstrend;
-$password = $clave_smstrend;
+$login = $config['mod_sms_user'];
+$password = $config['mod_sms_pass'];
 // Identificador del mensaje
 $sms_n = mysqli_query($db_con, "select max(id) from sms");
 $n_sms =mysqli_fetch_array($sms_n);
@@ -60,7 +60,7 @@ document.enviar<?php echo $num;?>.submit()
 			<input name="login" type="hidden" value="<?php echo $login;?>" />
             <input name="password" type="hidden" value="<?php echo $password;?>"  />   
             <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
-            <input name="tpoa" type="hidden" value="<?php echo $nombre_corto; ?>" /> 
+            <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> 
             <input name="mobile" type="hidden" value="<?echo $mobil2;?>"/>
  			<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        

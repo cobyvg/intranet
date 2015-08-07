@@ -188,7 +188,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 		<th></th>
 		</tr>";
 	// Consulta de datos del alumno.
-	$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.grave, Fechoria.id from Fechoria where claveal = '$claveal' and fecha >= '$inicio_curso' order by fecha DESC" );
+	$result = mysqli_query($db_con, "select distinct Fechoria.fecha, Fechoria.asunto, Fechoria.grave, Fechoria.id from Fechoria where claveal = '$claveal' and fecha >= '".$config['curso_inicio']."' order by fecha DESC" );
 	
 	while ( $row = mysqli_fetch_array ( $result ) ) {
 		echo "<tr>
@@ -242,7 +242,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
 </div>
 
 <div class="row">
-<?php if($mod_sms){?>      
+<?php if($config['mod_sms']){?>      
    <div class="form-group col-sm-6">
       <div class="checkbox">    
          <label>
@@ -337,7 +337,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
           </label>
           </div>
           </div>
-          <?php if($mod_sms){ ?>
+          <?php if($config['mod_sms']){ ?>
           <div class="form-group  col-sm-6">
            <div class="checkbox">
           <label for='sms'>

@@ -8,8 +8,8 @@ require('../../bootstrap.php');
 <head>
 <title>Páginas de Conserjería</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<LINK href="//<?php echo $dominio; ?>/<?php echo $css1; ?>" rel="stylesheet" type="text/css">
-<LINK href="//<?php echo $dominio; ?>/<?php echo $css2; ?>" rel="stylesheet" type="text/css">
+<LINK href="//<?php echo $config['dominio']; ?>/<?php echo $css1; ?>" rel="stylesheet" type="text/css">
+<LINK href="//<?php echo $config['dominio']; ?>/<?php echo $css2; ?>" rel="stylesheet" type="text/css">
 <script languaje="javascript">
 function habilitaDeshabilita()
 {

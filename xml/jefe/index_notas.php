@@ -26,10 +26,10 @@ No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te ha
       }  
 	  
 if(phpversion() < '5'){
-	header("location://$dominio/intranet/xml/notas/notas_xslt.php?directorio=$exporta&trans=$xml");
+	header("location://".$config['dominio']."/intranet/xml/notas/notas_xslt.php?directorio=$exporta&trans=$xml");
 }
 else{
-	header("location://$dominio/intranet/xml/notas/notas.php?directorio=$exporta");
+	header("location://".$config['dominio']."/intranet/xml/notas/notas.php?directorio=$exporta");
 }	  	  
 exit;	
 }
@@ -38,7 +38,7 @@ exit;
 $profe = $_SESSION['profi'];
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 

@@ -189,13 +189,13 @@ else{
 }
 ?></p>
 
-<?php echo $texto_dep; ?><br><?php echo $nombre_del_centro ?> (<?php echo $localidad_del_centro ?>) <br>Curso Escolar: <?php echo $curso_actual;?><br> Acta N&ordm; <?php echo $numero; ?>
+<?php echo $texto_dep; ?><br><?php echo $config['centro_denominacion'] ?> (<?php echo $config['localidad_del_centro'] ?>) <br>Curso Escolar: <?php echo $config['curso_actual'];?><br> Acta N&ordm; <?php echo $numero; ?>
 </p>
 <p><br></p>
 <p style="text-align: center;"><strong
 	style="text-decoration: underline;">ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
 <p><br></p>
-<p>En <?php echo $localidad_del_centro ?>, a las <?php echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $nombre_del_centro ?> de <?php echo $localidad_del_centro ?>, con el siguiente <span
+<p>En <?php echo $config['localidad_del_centro'] ?>, a las <?php echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $config['centro_denominacion'] ?> de <?php echo $config['localidad_del_centro'] ?>, con el siguiente <span
 	style="text-decoration: underline;"> orden del d&iacute;a:</span></p>
 <p><br></p>
 <p><br></p>

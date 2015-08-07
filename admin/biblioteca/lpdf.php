@@ -58,7 +58,7 @@ else {
 	$biblio= "Biblioteca";
 }
 $txttit= $biblio.'. 
-' . $nombre_del_centro.". Curso ".$curso_actual.".\n";
+' . $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
 $txttit.= "Lista de morosos con fecha ". $fecha ."\n";
 	
 $pdf->ezText($txttit, 13, $options_center);

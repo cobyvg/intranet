@@ -19,11 +19,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 $result = mysqli_query($db_con, "DELETE FROM calendario_categorias WHERE id=$calendario_id");
 if (! $result) {
-	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEliminarCalendario');
+	header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'&msg=ErrorEliminarCalendario');
 	exit();
 }
 else {
-	header('Location:'.'http://'.$dominio.'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'');
+	header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'');
 	exit();
 }
 ?>

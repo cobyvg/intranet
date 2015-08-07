@@ -32,7 +32,7 @@
 				}				
 				}
 				elseif($curso == "1BACH"){
-				$a_bd = substr($curso_actual,0,4);
+				$a_bd = substr($config['curso_actual'],0,4);
 				mysqli_query($db_con, "insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
 				$ret_4 = mysqli_query($db_con, "select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'");
 				$ret = mysqli_fetch_array($ret_4);

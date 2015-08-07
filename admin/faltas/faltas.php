@@ -53,7 +53,7 @@ $result = mysqli_query($db_con, $SQL);
         $foto="";
 		$foto = "<img src='../../xml/fotos/$row[0].jpg' width='55' height='64' class=''  />";
 		echo $foto."&nbsp;&nbsp;";
-                echo "<a href='informes.php?claveal=$row[0]&fechasp1=$inicio_curso&fechasp3=$fin_curso&submit2=2'>$row[1], $row[2]</a></td><td>$row[3]</td><td>$row[4]</td><td style='color:#9d261d'><strong>$row[5]</strong></td></tr>\n"; 
+                echo "<a href='informes.php?claveal=$row[0]&fechasp1=".$config['curso_inicio']."&fechasp3=".$config['curso_fin']."&submit2=2'>$row[1], $row[2]</a></td><td>$row[3]</td><td>$row[4]</td><td style='color:#9d261d'><strong>$row[5]</strong></td></tr>\n"; 
         } while($row = mysqli_fetch_array($result));
         echo "</tbody></table>";
         } else

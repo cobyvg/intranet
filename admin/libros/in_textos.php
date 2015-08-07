@@ -4,8 +4,8 @@ require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 {
-header("location://$dominio/intranet/index.php");
-exit;	
+	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
+	exit;	
 }
 ?>
 <?php include("../../menu.php");?>

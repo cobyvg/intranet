@@ -164,5 +164,3 @@ if (! mysqli_num_rows($actua)) {
 mysqli_query($db_con, "ALTER TABLE `temas`
  ADD UNIQUE KEY `idea` (`idea`)");
 }
-
-
