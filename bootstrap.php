@@ -87,7 +87,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
 	registraPagina($db_link, $_SERVER['REQUEST_URI']);
 	
 	// Ver como usuario
-	if($_SESSION['profi'] == 'admin') $_SESSION['user_admin'] = 1;
+	if($_SESSION['ide'] == 'admin') $_SESSION['user_admin'] = 1;
 	if(isset($_SESSION['user_admin']) && isset($_POST['view_as_user'])) {
 		$_SESSION['profi'] = $_POST['view_as_user'];
 		$profe = $_SESSION['profi'];
