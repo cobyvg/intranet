@@ -219,11 +219,13 @@ if (isset($_POST['instalar']))
 		}
 		else
 		{
-			$pass_admin = generador_password(8);
+			$pass_admin = generador_password(9);
 			$pass_sha1	= sha1($pass_admin);
 			
 			// COMPROBAMOS SI SE TRATA DE UNA ACTUALIZACIÓN DE LA APLICACIÓN
 			if(isset($_GET['update']) && $_GET['update']) {
+				mysqli_select_db($db_con, $db_name);
+				
 				mysqli_query($db_con, "UPDATE c_profes SET pass='$pass_sha1', PROFESOR='Administrador', dni='$pass_admin' WHERE idea='admin' LIMIT 1");
 				mysqli_query($db_con, "UPDATE departamentos SET NOMBRE='Administrador', DNI='$pass_admin', DEPARTAMENTO='Admin', CARGO='1' WHERE idea='admin' LIMIT 1");
 				mysqli_query($db_con, "UPDATE calendario_categorias SET nombre='Administrador', fecha='".date('Y-m-d')."' WHERE nombre='admin' AND profesor='admin'");
