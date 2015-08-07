@@ -627,8 +627,17 @@ include('../menu.php');
 		
 	</div><!-- /.container -->
 	
-	<script src="../js/validator/validator.min.js"></script>
+	
 	<?php include('../pie.php'); ?>
+	
+	<script src="../js/validator/validator.min.js"></script>
+	<script>
+	$(document).ready(function()
+	{
+	    $('#form-instalacion').validator();
+	});
+	</script>
+	
 
 </body>
 </html>
