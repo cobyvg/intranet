@@ -314,7 +314,7 @@ if (isset($_POST['instalar']))
 			</h1>
 		</div>
 		
-		<form id="form-instalacion" class="form-horizontal" data-toggle="validator" action="" method="post" role="form">
+		<form id="form-instalacion" class="form-horizontal" data-toggle="validator" action="" method="post" role="form" autocomplete="off">
 		
 		<div class="row">
 			

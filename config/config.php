@@ -172,7 +172,7 @@ include('../menu.php');
 		</div>
 		<?php endif; ?>
 		
-		<form id="form-configuracion" class="form-horizontal" data-toggle="validator" class="form-horizontal" method="post" action="">
+		<form id="form-configuracion" class="form-horizontal" data-toggle="validator" class="form-horizontal" method="post" action="" autocomplete="off">
 			
 			<ul class="nav nav-tabs" role="tablist">
 				<li class="active"><a href="#configuracion" aria-controls="configuracion" role="tab" data-toggle="tab">Configuración general</a></li>
