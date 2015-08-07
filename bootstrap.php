@@ -25,7 +25,7 @@ if (file_exists(CONFIG_FILE)) {
 	
 	if ($num_lineas > 78) {
 		unlink(CONFIG_FILE);
-		header('Location:'.'http://'.$_SERVER['SERVER_NAME'].'/intranet/config/index.php');
+		header('Location:'.'http://'.$_SERVER['SERVER_NAME'].'/intranet/config/index.php?update=1');
 		exit;
 	}
 	
