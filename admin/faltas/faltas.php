@@ -71,13 +71,13 @@ No hay registros coincidentes, bien porque te has equivocado
  $SQLDEL = "DROP table `FALTASTEMP`";
  mysqli_query($db_con, $SQLDEL);
   ?>
+
+</div>
+</div>
+</div>
  <?
 include("../../pie.php");
  ?>
-</div>
-</div>
-</div>
-
 	<script>
 	$(document).ready(function() {
 		var table = $('.datatable').DataTable({

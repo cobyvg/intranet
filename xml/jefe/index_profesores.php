@@ -59,9 +59,9 @@ include("../../menu.php");
 			
 			<h3>Información sobre la importación</h3>
 			
-			<p>Este apartado se encarga de importar la relación de <strong>profesores, aulas y asignaturas</strong> que imparten. Esto permitirá comprobar incoherencias en el horario de Horw y Séneca.</p>
+			<p>Este apartado se encarga de importar los <strong>Profesores del Centro</strong>, junto con los Grupos y y las Asignaturas que imparten. Esto permitirá comprobar incoherencias en el horario de Horwin en relación con Séneca. El enlace <strong>Limpiar Horarios</strong>, más abajo, se encarga de eliminar esas incoherencias depurando la tabla de los Horarios.</p>
 			
-			<p>Para obtener el archivo de exportación de alumnos debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>, <strong>Unidades y materias</strong> <em>(icono arriba a la derecha)</em>. Muestre todos los profesores y haga clic en el botón <strong>Exportar datos</strong>. El formato de exportación debe ser <strong>Texto plano</strong>.</p>
+			<p>Para obtener el archivo de exportación de los Profesores debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>, <strong>Unidades y materias</strong> <em>(icono arriba a la derecha)</em>. Muestre todos los profesores y haga clic en el botón <strong>Exportar datos</strong>. El formato de exportación debe ser <strong>Texto plano</strong>.</p>
 
 		</div>
 		

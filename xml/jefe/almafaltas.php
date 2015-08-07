@@ -231,10 +231,10 @@ No se ha podido crear la tabla <strong>Almafaltas</strong>. Ponte en contacto co
 				}
 			}
 		}
-		echo '<div align="center"><div class="alert alert-success alert-block fade in">
+		echo '<div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-<h5>ALUMNOS DEL CENTRO</h5>: los Alumnos se han introducido correctamente en la Base de datos.
-</div></div><br />';
+<h5>ALUMNOS DEL CENTRO:</h5> los Alumnos se han introducido correctamente en la Base de datos.
+</div><br />';
 		// Eliminamos temporales
 		mysqli_query($db_con, "drop table almafaltas");
 

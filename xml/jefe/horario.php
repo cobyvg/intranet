@@ -291,7 +291,7 @@ else {
 			if ($profe_dpt[0]=="26") {
 				$cargos.="c";
 			}
-			if ($profe_dpt[0]=="2") {
+			if ($profe_dpt[0]=="2" or $profe_dpt[0]=="117") {
 				$cargos.="2";
 			}
 		}
@@ -305,6 +305,7 @@ else {
 			if(strstr($cargos,"2")==TRUE)
 			{
 				mysqli_query($db_con, "insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where c_asig like '2' and prof = '$cargo[0]' and prof in (select nombre from departamentos)");
+				mysqli_query($db_con,"insert into FTUTORES (unidad, tutor) select distinct  prof from horw where c_asig like '117' and prof = '$cargo[0]' and prof not in (select tutor from FTUTORES)");
 			}
 		}
 	}

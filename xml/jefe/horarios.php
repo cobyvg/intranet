@@ -18,11 +18,37 @@ Horw</small></h2>
 </div>
 <div class="row"><?
 
-$fp = fopen ( $_FILES['archivo']['tmp_name'] , "r" );
-if (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
-	$num_col=count($data);
+$contents = file($_FILES['archivo']['tmp_name']);
+$n_lineas = count($contents);
+
+if ($n_lineas>10) {
+
+// Backup
+mysqli_query($db_con,"truncate table horw_seg");
+mysqli_query($db_con,"insert into horw_seg select * from horw");
+mysqli_query($db_con,"truncate table horw_seg_faltas");
+mysqli_query($db_con,"insert into horw_seg_faltas select * from horw_faltas");
+mysqli_query($db_con,"truncate table horw");
+
+}
+else{
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>Atención:</legend>
+El archivo de Horw que intentas descargar está <strong>VACÍO</strong>. Inténtalo de nuevo con el archivo de datos exportado desde HORWIN.
+</div></div><br />
+<div align="center">
+  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+</div><br />';
+		exit();	
+}
+foreach($contents as $linea){
+	$campo = explode('","',$linea);
+	$campo = str_replace('"','',$campo);
+	$num_col = count($campo);
+	
 	if ($num_col<>13) {
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
+	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>Atención:</legend>
 El archivo de Horw que estás intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>13 columnas</strong>. Asegúrate de que el archivo de Horw sigue las instrucciones de la imagen, y vuelve a intentarlo.
@@ -32,38 +58,27 @@ El archivo de Horw que estás intentando exportar contiene <strong>'.$num_col.' c
 </div><br />';
 		exit();
 	}
-}
-
-// Backup
-mysqli_query($db_con,"truncate table horw_seg");
-mysqli_query($db_con,"insert into horw_seg select * from horw");
-mysqli_query($db_con,"truncate table horw_seg_faltas");
-mysqli_query($db_con,"insert into horw_seg_faltas select * from horw_faltas");
-
-mysqli_query($db_con,"truncate table horw");
-
-while (( $data = fgetcsv ( $fp , 1000 , "," )) !== FALSE ) {
-	// Mientras hay líneas que leer... si necesitamos añdir sólo las clases hay que hacer aquí un if ($data[9]!='')
+			
 	$sql="INSERT INTO horw (dia,hora,a_asig,asig,c_asig,prof,no_prof,c_prof,a_aula,n_aula,a_grupo) ";
-	$sql.=" VALUES ( ";
-	foreach ($data as $indice=>$clave){
+	$sql.=" VALUES ( ";		
+	foreach ($campo as $indice=>$clave){
+		
 		if ($indice<11) {
 			$sql.="'".trim($clave)."', ";
 		}
 	}
 	$sql=substr($sql,0,strlen($sql)-2);
 	$sql.=" )";
-	//echo $sql."<br>";
-	mysqli_query($db_con,$sql) or die ('<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:500px;">
+
+	mysqli_query($db_con,$sql) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se han podido insertar los datos en la tabla <strong>Horw</strong>. Ponte en contacto con quien pueda resolver el problema.
 </div></div><br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div>');	
+</div>');
 }
-fclose ( $fp );
 
 // Eliminamos el Recreo como 4ª Hora.
 $recreo = "update horw set hora = 'R' WHERE hora ='4'";
@@ -90,7 +105,7 @@ $sin_codigo="";
 $sin_cd = mysqli_query($db_con,"select distinct a_asig, asig from horw where c_asig = '' or c_asig is null");
 if (mysqli_num_rows($sin_cd)>0) {
 
-	echo '<div align="center"><div class="alert alert-danger alert-block fade in" style="max-width:600px;" align="left">
+	echo '<div align="center"><div class="alert alert-warning alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se ha registrado un código para las asignaturas que aparecen abajo. Esta situación producirá problemas en módulos fundamentales de la Intranet. Asigna el código correcto y actualiza el horario cuanto antes, a menos que sepas lo que haces.
@@ -215,7 +230,7 @@ while ($cargo = mysqli_fetch_array($carg)) {
 		if ($profe_dpt[0]=="26") {
 			$cargos.="c";
 		}
-		if ($profe_dpt[0]=="2") {
+		if ($profe_dpt[0]=="2" OR $profe_dpt[0]=="117") {
 			$cargos.="2";
 		}
 	}
@@ -229,6 +244,7 @@ while ($cargo = mysqli_fetch_array($carg)) {
 		if(strstr($cargos,"2")==TRUE)
 		{
 			mysqli_query($db_con, "insert into FTUTORES (unidad, tutor) select distinct a_grupo, prof from horw where c_asig like '2' and prof = '$cargo[0]' and prof in (select nombre from departamentos)");
+			mysqli_query($db_con,"insert into FTUTORES (unidad, tutor) select distinct  prof from horw where c_asig like '117' and prof = '$cargo[0]' and prof not in (select tutor from FTUTORES)");
 		}
 	}
 }

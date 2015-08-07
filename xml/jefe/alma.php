@@ -194,10 +194,10 @@ ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`
 		// Creamos una asignatura ficticia para que los alumnos sin Asignaturas puedan aparecer en las listas
 		$SQL8 = "update alma set combasi = 'Sin_Asignaturas' where combasi IS NULL";
 		mysqli_query($db_con, $SQL8);
-		echo '<div align="center"><div class="alert alert-success alert-block fade in">
+		echo '<div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-<h5>ALUMNOS DEL CENTRO</h5>: los Alumnos se han introducido correctamente en la Base de datos.
-</div></div>';
+<h5>ALUMNOS DEL CENTRO:</h5> los Alumnos se han introducido correctamente en la Base de datos.
+</div>';
 
 		//Caso especial de 2º de Bachillerato en Mayo
 		/*if ((date('m')=='05' and date('d')>'25') OR (date('m')>'5' and date('m')<'9') ) {

@@ -81,4 +81,4 @@ echo '<tr><th>'.$nombre.'ª</th>';
 </tbody>
 </table>
 
-<a class="btn btn-sm btn-default" href="xml/jefes/horarios/index.php">Modificar horario</a>
+<a class="btn btn-sm btn-default" href="xml/jefe/horarios/index.php">Modificar horario</a>

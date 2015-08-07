@@ -14,7 +14,7 @@ include("../../menu.php");
 <div class="container">
 <br />
 <div class="page-header">
-  <h2>Faltas de Asistencia <small> importación de la Jornada Escolar del centro</small></h2>
+  <h2>Administración <small> Importación de la Jornada Escolar del centro</small></h2>
   </div>
 <div class="row">
 <br />

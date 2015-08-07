@@ -92,7 +92,8 @@ $bck = mysqli_query($db_con,"show tables from reservas like 'carrito%'");
 while ($bk = mysqli_fetch_array($bck)) {
 	$nombre_largo = $bk[0];
 	$n_servicio = $nombre_largo;
-	if (stristr($servicio,"hor")==FALSE) {
+	if (stristr($n_servicio,"hor")==FALSE) {
+		mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, $n_servicio)."','1','0','Importado del Sistema TIC antiguo')");
 		$dat = mysqli_query($db_con,"select * from reservas.$nombre_largo");
 		while ($datos = mysqli_fetch_array($dat)) {
 			mysqli_query($db_con,"insert into $db.reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");
@@ -104,8 +105,8 @@ $bck = mysqli_query($db_con,"show tables from reservas like 'medio%'");
 while ($bk = mysqli_fetch_array($bck)) {
 	$nombre_largo = $bk[0];
 	$n_servicio = $nombre_largo;
-	if (stristr($servicio,"hor")==FALSE) {
-		//echo "Servicio = TIC_".$nombre_tabla."<br>";
+	if (stristr($n_servicio,"hor")==FALSE) {
+		mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, $n_servicio)."','2','0','Importado del Sistema de Medios antiguo')");		
 		$dat = mysqli_query($db_con,"select * from reservas.$nombre_largo");
 		while ($datos = mysqli_fetch_array($dat)) {
 			mysqli_query($db_con,"insert into $db.reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");

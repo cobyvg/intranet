@@ -21,7 +21,7 @@ $cont_falt=0;
 
 
 if (!isset($_GET['iniciofalta']) && !isset($_GET['finfalta'])) {
-	die("Error: Debe introducir los par√°metros FECHA_DESDE y FECHA_HASTA para generar el archivo.");
+	die("Error: Debe introducir los par·metros FECHA_DESDE y FECHA_HASTA para generar el archivo.");
 }
 
 $FECHA_DESDE = $_GET['iniciofalta'];
@@ -37,18 +37,16 @@ function fecha_seneca($fecha_mysql) {
 	return $trozo[2]."/".$trozo[1]."/".$trozo[0];
 }
 
-function obtenerProvincia($codpostal) {
-	
+function obtenerProvincia($codpostal) {	
 	$prov = substr($codpostal,0,2);
-	
 	switch ($prov) {
-		case 04 : return "Almer√≠a";
-		case 11 : return "C√°diz";
-		case 14 : return "C√≥rdoba";
+		case 04 : return "AlmerÌa";
+		case 11 : return "C·diz";
+		case 14 : return "CÛrdoba";
 		case 18 : return "Granada";
 		case 21 : return "Huelva";
-		case 23 : return "Ja√©n";
-		case 29 : return "M√°laga";
+		case 23 : return "JaÈn";
+		case 29 : return "M·laga";
 		case 41 : return "Sevilla";
 	}
 }
@@ -58,7 +56,7 @@ $mysqli_FECHA_HASTA = fecha_mysql($FECHA_HASTA);
 
 $fechaHoy = date('d/m/Y H:i:s');
 $anio_curso = substr($inicio_curso,0,4);
-$provincia = utf8_decode(obtenerProvincia($codigo_postal_del_centro));
+$provincia = obtenerProvincia($codigo_postal_del_centro);
 
 // FLAGS DE CONTROL
 $flag_fincurso=0;	// Controla que no imprima las etiquetas </UNIDADES> u </CURSO> al comienzo.
@@ -88,12 +86,7 @@ sort($directorio);
 foreach ($directorio as $archivo) {
 	
     if (!is_dir($archivo) and stristr($archivo,".xml")==TRUE)
-    {
-    	// Obtenemos el nivel y grupo
-        $curso = explode("_",$archivo);
-        $nivel = strtoupper(substr($curso[0],0,2));
-        $grupo = strtoupper(substr($curso[0],2,1));
-               
+    {               
         $doc = new DOMDocument('1.0', 'iso-8859-1');
         $doc->load( './origen/'.$archivo );
         
@@ -153,23 +146,31 @@ foreach ($directorio as $archivo) {
         	// COMIENZO FALTAS DE ASISTENCIA
         	$docXML .= "              <FALTAS_ASISTENCIA>\n";
         	
-        	$result = mysqli_query($db_con, "SELECT FALTAS.FECHA, FALTAS.HORA FROM FALTAS JOIN alma ON FALTAS.CLAVEAL=alma.CLAVEAL WHERE FALTAS.FECHA BETWEEN '$mysqli_FECHA_DESDE' AND '$mysqli_FECHA_HASTA' AND FALTAS.FALTA='F' AND alma.CLAVEAl1='$X_MATRICULA'");
+        	$result = mysqli_query($db_con, "SELECT FALTAS.FECHA, FALTAS.HORA, FALTAS.FALTA FROM FALTAS JOIN alma ON FALTAS.CLAVEAL=alma.CLAVEAL WHERE FALTAS.FECHA BETWEEN '$mysqli_FECHA_DESDE' AND '$mysqli_FECHA_HASTA' AND (FALTAS.FALTA='F' OR FALTAS.FALTA='J') AND alma.CLAVEAl1='$X_MATRICULA'");
         	if (!$result) echo mysqli_error($db_con);
         	
         	while($faltas = mysqli_fetch_array($result)) {
-	        	
-	        	// Obtenemos la fecha de la falta en formato S√©neca
+	        	if ($faltas[2]=="F") {
+	        		$faltas_tipo = "I";
+	        	}
+	        	elseif($faltas[2]=="J"){
+	        		$faltas_tipo = "J";
+	        	}
+	        	elseif($faltas[2]=="R"){
+	        		$faltas_tipo = "R";
+	        	}
+	        	// Obtenemos la fecha de la falta en formato SÈneca
 	        	$F_FALASI = fecha_seneca($faltas[0]);
 	        	
-	        	// Obtenemos el c√≥digo de tramo
-	        	if ($faltas[1] > 3) $faltas[1]++; // No es lo m√°s √≥ptimo, pero soluciona el problema... :/
+	        	// Obtenemos el cÛdigo de tramo
+	        	if ($faltas[1] > 3) $faltas[1]++; // No es lo m·s Ûptimo, pero soluciona el problema... :/
 	        	$result_tramos = mysqli_query($db_con, "SELECT tramo FROM tramos WHERE hora='$faltas[1]'");
 	        	$tramos = mysqli_fetch_array($result_tramos);
 	        	
 	        	$docXML .= "                <FALTA_ASISTENCIA>\n";
 	        	$docXML .= "                  <F_FALASI>$F_FALASI</F_FALASI>\n";
 	        	$docXML .= "                  <X_TRAMO>$tramos[0]</X_TRAMO>\n";
-	        	$docXML .= "                  <C_TIPFAL>I</C_TIPFAL>\n";
+	        	$docXML .= "                  <C_TIPFAL>$faltas_tipo</C_TIPFAL>\n";
 	        	$docXML .= "                  <L_DIACOM>N</L_DIACOM>\n";
 	        	$docXML .= "                </FALTA_ASISTENCIA>\n";
         	}
@@ -237,7 +238,7 @@ if ($MODO_DEPURACION) {
 		
 		$error=0;
 		if ($diasem == 0 || $diasem == 6 || $filas>1) {
-			echo "<span style='color:red'>$dias[$i]  -->  $diasem (Es d√≠a festivo o fin de semana: (6) S√°bado, (0) Domingo)</span><br>";
+			echo "<span style='color:red'>$dias[$i]  -->  $diasem (Es dÌa festivo o fin de semana: (6) S·bado, (0) Domingo)</span><br>";
 			$error=1;
 		}
 		

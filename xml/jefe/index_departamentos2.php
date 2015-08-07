@@ -16,7 +16,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Administración <small>Actualización de departamentos</small></h2>
+		<h2>Administración <small>Actualización de Departamentos</small></h2>
 	</div>
 	
 	<?php $result = mysqli_query($db_con, "SELECT * FROM departamentos LIMIT 1"); ?>

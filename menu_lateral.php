@@ -417,7 +417,7 @@ $menu = array(
 				'items' => array(
 					array(
 						'href'   => 'reservas/index.php?recurso=TIC',
-						'titulo' => 'Carros TIC',
+						'titulo' => 'Recursos TIC',
 					),
 					array(
 						'href'   => 'reservas/index.php?recurso=Medios%20Audiovisuales',

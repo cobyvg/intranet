@@ -6,11 +6,11 @@
 	<li><a href="jefe/index2.php">Importar Alumnos</a></li>
 	<li><a href="jefe/asignaturas.php">Importar Asignaturas</a></li>
 	<li><a href="jefe/index_xml.php">Importar datos del Centro</a></li>
+	<li><a href="jefe/index_departamentos.php">Importar Departamentos y Especialidades</a></li>
 	  <?php if ($mod_horario) {?>
 	<li><a href="jefe/horario.php">Importar/Preparar Horarios </a></li>
 	<?php }?>
-	<li><a href="jefe/indexdepartamentos.php">Importar Departamentos y Especialidades</a></li>
-	<li><a href="jefe/indexprofesores.php">Importar Profesores</a></li>
+	<li><a href="jefe/index_profesores.php">Importar Profesores</a></li>
 	<li><a href="jefe/index_festivos.php">Importar días festivos</a></li>
 	<li><a href="jefe/index_jornada.php">Importar Jornada</a></li> 
 	<li><a href="../reservas/gestion_tipo.php">Configuración del Sistema de Reservas</a></li> 
@@ -22,8 +22,8 @@
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
 	<li><a href="jefe/asignaturas.php?actualiza=1">Actualizar Asignaturas</a></li>
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
-	<li><a href="jefe/indexprofesores.php">Actualizar Profesores</a></li>
-	<li><a href="jefe/indexdepartamentos2.php">Actualizar Departamentos</a></li>
+	<li><a href="jefe/index_profesores.php">Actualizar Profesores</a></li>
+	<li><a href="jefe/index_departamentos2.php">Actualizar Departamentos</a></li>
 
 	<li class="nav-header">Profesores</li> 
 	<li><a href="../config/cargos.php">Seleccionar Perfil de los Profesores</a></li>

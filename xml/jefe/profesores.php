@@ -88,8 +88,7 @@ Tabla <strong>Profesores</strong>: los datos han sido introducidos correctamente
 </div></div>';
 
 		// Colocar codigos y nombre de asignaturas de Horw de acuerdo con Seneca (tabla Profesores)
-		$sql = mysqli_query($db_con, "select id, prof, a_grupo, a_asig, asig, c_asig from horw where c_asig not like '25' and a_grupo not like ''");
-		//echo "select id, prof, a_grupo, a_asig, asig, c_asig from horw where a_grupo not like 'G%' and a_grupo IS NOT NULL<br>";
+		$sql = mysqli_query($db_con, "select id, prof, a_grupo, a_asig, asig, c_asig from horw where a_grupo not like '' and c_asig not in (select idactividad from actividades_seneca)");
 		while($row = mysqli_fetch_array($sql))
 		{
 			$curso = substr($row[2],0,1);
@@ -103,7 +102,7 @@ Tabla <strong>Profesores</strong>: los datos han sido introducidos correctamente
 			$cur=mysqli_query($db_con, "select distinct curso from alma where unidad= '$a_grupo'");
 			$cur0=mysqli_fetch_array($cur);
 			$curs2=$cur0[0];
-			$asig0 = mysqli_query($db_con, "select distinct materia, abrev, codigo, curso from profesores, asignaturas, horw where profesor = prof and profesores.nivel = asignaturas.curso and materia = nombre and grupo = '$a_grupo' and id= '$id' and abrev not like '%\_%' and curso like '%$curs2%' and c_asig not like '2'");
+			$asig0 = mysqli_query($db_con, "select distinct materia, abrev, codigo, curso from profesores, asignaturas, horw where profesor = prof and profesores.nivel = asignaturas.curso and materia = nombre and grupo = '$a_grupo' and id= '$id' and abrev not like '%\_%' and curso like '%$curs2%' and c_asig not in (select idactividad from actividades_seneca)");
 			$codigo="";
 			while($asigna = mysqli_fetch_array($asig0))
 			{
@@ -115,7 +114,7 @@ Tabla <strong>Profesores</strong>: los datos han sido introducidos correctamente
 				if(mysqli_num_rows($asig0) == 1)
 				{
 					$num+=1;
-					//	echo "Unidad única.<br>";
+					//	echo "Unidad �nica.<br>";
 					mysqli_query($db_con, "insert into horw_var select * from horw where id='$id'");
 					mysqli_query($db_con, "update horw_var set clase='Actualizado' where id='$id'");
 					mysqli_query($db_con, "update horw set a_asig = '$abrev', c_asig = '$codigo', asig = '$materia' where id= '$id'");
@@ -143,7 +142,6 @@ Tabla <strong>Profesores</strong>: los datos han sido introducidos correctamente
 						mysqli_query($db_con, "insert into horw_var select * from horw where id='$id'");
 						mysqli_query($db_con, "update horw_var set clase='$percent2' where id='$id'");
 						mysqli_query($db_con, "update horw set a_asig = '$abrev', c_asig = '$codigo', asig = '$materia' where id= '$id'");
-						// echo "Porcentaje +75%<br>";
 						// echo "$id => $prof => $materia => $asig => $abrev => $codigo => $a_asig => $c_asig => $a_grupo => $percent2;<br>";
 						$codigo="";
 					}
@@ -167,8 +165,8 @@ Tabla <strong>Profesores</strong>: los datos han sido introducidos correctamente
 		mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
 		//Elimina las horas no lectivas
 		mysqli_query($db_con, $nolectiva);
-		mysqli_query($db_con, " ".$db."horw_faltas ADD INDEX (`prof`)");
-		mysqli_query($db_con, " ".$db."horw_faltas ADD index (`c_asig`)");
+		mysqli_query($db_con, "ALTER TABLE ".$db."horw_faltas ADD INDEX (`prof`)");
+		mysqli_query($db_con, "ALTER TABLE ".$db."horw_faltas ADD index (`c_asig`)");
 		mysqli_query($db_con, "OPTIMIZE TABLE  `horw_faltas`");
 		//Profes que están en horw y no en profesores
 		echo "<hr><p class='lead text-important' style='text-align:left'>Profesores en Horw que no aparecen en la tabla Profesores
@@ -183,8 +181,6 @@ creados desde S&eacute;neca:</p>";
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Departamentos, una vez actualizados los Profesores.<br>Vuelve a la p&aacute;gina de Administraci&oacute;n y actualiza los Departamentos inmediatamente.
 </div></div>';
-		$base1 = "DROP TABLE ".$db.".horw_var";
-		mysqli_query($db_con, $base1);
 	}
 	else{
 		echo '<hr><div align="center"><div class="alert alert-danger alert-block fade in">

@@ -15,7 +15,7 @@ include("../../menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Faltas de Asistencia <small> Días festivos y vacaciones</small></h2>
+  <h2>Administración <small> Días festivos y vacaciones</small></h2>
 </div>
 <br />
 <?

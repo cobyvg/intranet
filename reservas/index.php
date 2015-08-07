@@ -77,11 +77,11 @@ if ($today > $numdays) { $today--; }
 $primero = 0;
 $rc = mysqli_query($db_con, "select reservas_tipos.id, tipo, elemento, id_tipo, reservas_elementos.observaciones from reservas_tipos, reservas_elementos where reservas_tipos.id = reservas_elementos.id_tipo and tipo = '$recurso'");
 	while ($srv = mysqli_fetch_array($rc)) {
-		$ci++;	
+		$ci+=1;	
 		$servicio = $srv[2];
 		$lugar = $srv[4];
 	
-if ($ci % 4 == 0 || $ci == 1){
+if ($ci == 3 or $ci == 6 or $ci == 9 or $ci == 12 or $ci == 15 or $ci == 18){
 	echo ($primero) ? '</div> <hr>' : '';
 	echo '<div class="row">';
 	$primero = 1;
@@ -90,7 +90,7 @@ if ($ci % 4 == 0 || $ci == 1){
 ?>
 <div class="col-sm-4">
 	<a name="<?php echo $servicio; ?>"></a>
-	<h3 class="text-center"><?php echo $servicio; ?></h3> 
+	<h3 class="text-center"><?php echo $servicio;?></h3> 
 	<h4><small><?php echo $lugar; ?></small></h4>
 	
 	<table class="table table-bordered table-centered">

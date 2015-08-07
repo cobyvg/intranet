@@ -57,13 +57,9 @@ if (isset($_POST['enviar_elm'])) {
 		}
 		?>
 <div class="alert alert-success">
-<p><?php echo $msg;?>
-
-
-
-
 <p>
-
+<?php echo $msg;?>
+</p>
 </div>
 <?
 }
@@ -76,13 +72,9 @@ if (isset($_GET['eliminar_elm'])) {
 	}
 	?>
 <div class="alert alert-success">
-<p><?php echo $msg;?>
-
-
-
-
-<P>
-
+<p>
+<?php echo $msg;?>
+</p>
 </div>
 <?
 }
@@ -110,10 +102,7 @@ if (isset($_GET['editar_elm'])) {
 	Pulsa en el botón para crearlos en primer lugar. Una vez definidos los
 	Tipos de Recursos, puedes volver a esta página y crear Elementos dentro
 	de cada categoría. 
-	
-	
-	
-	<p>
+	</p>
 </div>
 <?php
 	}
