@@ -266,31 +266,39 @@ if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) {
 						  <a href="?mes=<?php echo date('n'); ?>&anio=<?php echo date('Y'); ?>&unidad=<?php echo $unidad; ?><?php if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) echo '&menu_cuaderno=1'; ?>" class="btn btn-default">Hoy</a>
 						  <a href="?mes=<?php echo $mes_sig; ?>&anio=<?php echo $anio_sig; ?>&unidad=<?php echo $unidad; ?><?php if (isset($_GET['menu_cuaderno']) && $_GET['menu_cuaderno'] == 1) echo '&menu_cuaderno=1'; ?>" class="btn btn-default">&raquo;</a>
 						</div>
-						 <!-- Button trigger modal -->
-						  &nbsp;
-						  <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myModal">
- 							<span class="fa fa-question fa-lg"></span>
-						  </a>
+						
+						<!-- Button trigger modal -->
+						<a href="#"class="btn btn-default hidden-print" data-toggle="modal" data-target="#modalAyuda">
+							<span class="fa fa-question fa-lg"></span>
+						</a>
+					
+						<!-- Modal -->
+						<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+										<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+									</div>
+									<div class="modal-body">
+										<p>El Calendario de los Grupos presenta información sobre los exámenes 
+										y actividades que los miembros de un Equipo Educativo han registrado 
+										en su Calendario Personal y han asociado a ese Grupo. Las actividades 
+										han sido introducidas a través del Calendario, y han quedado vinculadas 
+										a un Grupo o Grupos determinados. La información registrada para el 
+										Grupo también es visible desde la zona de acceso privado para los alumnos 
+										y sus padres en la Página del Centro, de tal modo que estos pueden ver 
+										el Calendario de exámenes y actividades de sus hijos.</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
 					</div>
-					<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Información sobre el Calendario de Unidades</h4>
-      </div>
-      <div class="modal-body">
-		<p class="help-block">
-		El Calendario de los Grupos presenta información sobre los exámenes y actividades que los miembros de un Equipo Educativo han registrado en su Calendario Personal y han asociado a ese Grupo. Las actividades han sido introducidas a través del Calendario, y han quedado vinculadas a un Grupo o Grupos determinados. La información registrada para el Grupo también es visible desde la zona de acceso privado para los alumnos y sus padres en la Página del Centro, de tal modo que estos pueden ver el Calendario de exámenes y actividades de sus hijos.
-		</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 				</div>
 				
 				<div class="clearfix"></div>

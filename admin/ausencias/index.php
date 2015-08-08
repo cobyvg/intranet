@@ -26,35 +26,43 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-	<h2 style="display:inline;">Ausencias del profesorado <small>Registro de ausencias <?php echo (isset($profesor)) ? $profesor : ''; ?></small></h2>
-	<!-- Button trigger modal --> 
-	<a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal"> <span class="fa fa-question fa-lg"  style="display:inline;"></span> </a>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
-</div>
-<div class="modal-body">
-<p><b>Información sobre el Registro de Bajas y Ausencias</b><br><br>
-El módulo de Ausencias permite al profesor comunicar que no va a asistir al Centro en un rango de horas o fechas. Facilita sobre todo la tarea de los Profesores de Guardia y del Equipo Directivo.<br>
-El formulario de registro es muy sencillo: seleccionamos la fecha o rango de fechas de la baja; si la baja se va a limitar a ciertas horas sueltas elegimos las horas que vamos a estar ausentes (en caso de días completos no es necesario marcar las casillas de las horas sueltas); e introducimos la descripción de las tareas encargadas para los grupos de alumos afectados, o bien subimos un documento con las tareas. <br><br>
-A la derecha del formulario aparecen las ausencias de los profesores, ordenadas temporakmente. Al hacer click con el ratón sobre el nombre de un profesor podemos ver las ausencias del mismo a lo largo del Curso Escolar.<br><br>
-Las ausencias aparecen bajo el menú de la página de inicio de la aplicación y un icono señala si el profesor ha dejado o no tareas para los alumnos. Al hacer click con el ratón sobre el profesor ausente entraremos en una página donde podremos ver el horario del día del profesor ausente, así como las tareas o documento con las mismas para poder atender a los alumnos durante esa hora.
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>
+		<h2 style="display:inline;">Ausencias del profesorado <small>Registro de ausencias <?php echo (isset($profesor)) ? $profesor : ''; ?></small></h2>
+		
+		<!-- Button trigger modal -->
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+			<span class="fa fa-question fa-lg"></span>
+		</a>
+	
+		<!-- Modal -->
+		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					</div>
+					<div class="modal-body">
+						<p>El módulo de Ausencias permite al profesor comunicar que no va a asistir al Centro en un rango de 
+						horas o fechas. Facilita sobre todo la tarea de los Profesores de Guardia y del Equipo Directivo.</p>
+						El formulario de registro es muy sencillo: seleccionamos la fecha o rango de fechas de la baja; si 
+						la baja se va a limitar a ciertas horas sueltas elegimos las horas que vamos a estar ausentes (en 
+						caso de días completos no es necesario marcar las casillas de las horas sueltas); e introducimos la 
+						descripción de las tareas encargadas para los grupos de alumnos afectados, o bien subimos un documento 
+						con las tareas.</p>
+						<p>A la derecha del formulario aparecen las ausencias de los profesores, ordenadas temporalmente. Al 
+						hacer click con el ratón sobre el nombre de un profesor podemos ver las ausencias del mismo a lo largo 
+						del Curso Escolar.</p>
+						<p>Las ausencias aparecen bajo el menú de la página de inicio de la aplicación y un icono señala si el 
+						profesor ha dejado o no tareas para los alumnos. Al hacer click con el ratón sobre el profesor ausente 
+						entraremos en una página donde podremos ver el horario del día del profesor ausente, así como las tareas 
+						o documento con las mismas para poder atender a los alumnos durante esa hora.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</div>
 <br>

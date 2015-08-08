@@ -1,8 +1,6 @@
 <?php
 require('../../bootstrap.php');
-
-setlocale('LC_TIME', 'es_ES');
-
+error_reporting(E_ALL);
 
 // COMPROBACION DE ACCESO AL MODULO
 if ((stristr($_SESSION['cargo'],'1') == false) && (stristr($_SESSION['cargo'],'2') == false) && (stristr($_SESSION['cargo'],'8') == false)) {
@@ -36,10 +34,6 @@ else {
 	}
 }
 
-
-
-// SE DEFINE UNA VARIABLE PARA CARGAR LOS INCLUDES
-define('INC_TUTORIA',1);
 
 include("../../menu.php");
 include("menu.php");

@@ -9,36 +9,46 @@ include("../../menu.php");
 include("menu.php");
 ?>
 	<div class="container">
-<div class="page-header">
-  <h2 style="display: inline;">Problemas de convivencia <small> Informe personal del Problema</small></h2>
-  
-   <!-- Button trigger modal --> <a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal" style="display: inline;"> <span
-	class="fa fa-question fa-lg"></span> </a> <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
-</div>
-<div class="modal-body">
-<p>
-Esta página tiene varias funciones. En primer lugar, ofrece información detallada de un problema de convivencia registrado por un Profesor. Presenta también datos numéricos sobre los problemas y tipos de problema del alumno. En la parte inferior tenemos una tabla donde se recoge el historial delictivo de la criatura. <br>
-En la parte derecha nos encontramos, si pertenecemos al Equipo directivo, un par de formularios para expulsar al alumno del Centro o expulsarlo al Aula de Convivencia una serie de horas o días. La fecha de la expulsión no debe ser inmediata, considerando que los Profesores del Equipo educativo del alumno que va a ser expulsado necesitarán algún tiempo para rellenar su Informe de Tareas de tal modo que éste trabaje durante su ausencia.<br>
-También nos encontramos una serie de botones para imprimir partes oficiales relacionados con el problema registrado, en caso de que necesitemos hacerlo. Generan documentos oficiales preparados para ser enviados a los Padres del alumno, por lo que su uso está limitado a Tutores y Equipo directivo.
-</p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>
-</div>
+	
+		<div class="page-header">
+			<h2 style="display: inline;">Problemas de convivencia <small> Informe personal del Problema</small></h2>
+			
+			<!-- Button trigger modal -->
+			<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+				<span class="fa fa-question fa-lg"></span>
+			</a>
+		
+			<!-- Modal -->
+			<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+							<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+						</div>
+						<div class="modal-body">
+							<p>Esta página tiene varias funciones. En primer lugar, ofrece información detallada de un 
+							problema de convivencia registrado por un Profesor. Presenta también datos numéricos sobre 
+							los problemas y tipos de problema del alumno. En la parte inferior tenemos una tabla donde 
+							se recoge el historial delictivo del alumno.</p>
+							<p>En la parte derecha nos encontramos, si pertenecemos al Equipo directivo, un par de 
+							formularios para expulsar al alumno del Centro o expulsarlo al Aula de Convivencia una serie 
+							de horas o días. La fecha de la expulsión no debe ser inmediata, considerando que los 
+							Profesores del Equipo educativo del alumno que va a ser expulsado necesitarán algún tiempo 
+							para rellenar su Informe de Tareas de tal modo que éste trabaje durante su ausencia.</p>
+							<p>También nos encontramos una serie de botones para imprimir partes oficiales relacionados 
+							con el problema registrado, en caso de que necesitemos hacerlo. Generan documentos oficiales 
+							preparados para ser enviados a los Padres del alumno, por lo que su uso está limitado a 
+							Tutores y Equipo directivo.</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		  
+		</div>
 
 <?
 if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}

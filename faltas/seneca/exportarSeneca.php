@@ -37,26 +37,11 @@ function fecha_seneca($fecha_mysql) {
 	return $trozo[2]."/".$trozo[1]."/".$trozo[0];
 }
 
-function obtenerProvincia($codpostal) {	
-	$prov = substr($codpostal,0,2);
-	switch ($prov) {
-		case 04 : return "Almería";
-		case 11 : return "Cádiz";
-		case 14 : return "Córdoba";
-		case 18 : return "Granada";
-		case 21 : return "Huelva";
-		case 23 : return "Jaén";
-		case 29 : return "Málaga";
-		case 41 : return "Sevilla";
-	}
-}
-
 $mysqli_FECHA_DESDE = fecha_mysql($FECHA_DESDE);
 $mysqli_FECHA_HASTA = fecha_mysql($FECHA_HASTA);
 
 $fechaHoy = date('d/m/Y H:i:s');
 $anio_curso = substr($config['curso_inicio'],0,4);
-$provincia = utf8_decode(obtenerProvincia($config['centro_codpostal']));
 
 // FLAGS DE CONTROL
 $flag_fincurso=0;	// Controla que no imprima las etiquetas </UNIDADES> u </CURSO> al comienzo.
@@ -76,7 +61,7 @@ $docXML .= "    <FECHA_DESDE>$FECHA_DESDE</FECHA_DESDE>\n";
 $docXML .= "    <FECHA_HASTA>$FECHA_HASTA</FECHA_HASTA>\n";
 $docXML .= "    <CODIGO_CENTRO>".$config['centro_codigo']."</CODIGO_CENTRO>\n";
 $docXML .= "    <NOMBRE_CENTRO>".$config['centro_denominacion']."</NOMBRE_CENTRO>\n";
-$docXML .= "    <LOCALIDAD_CENTRO>".$config['localidad_del_centro']." ($provincia)</LOCALIDAD_CENTRO>\n";
+$docXML .= "    <LOCALIDAD_CENTRO>".$config['centro_localidad']." (".$config['centro_provincia'].")</LOCALIDAD_CENTRO>\n";
 $docXML .= "  </DATOS_GENERALES>\n";
 $docXML .= "  <CURSOS>\n";
 

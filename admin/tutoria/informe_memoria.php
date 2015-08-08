@@ -46,51 +46,79 @@ if (isset($_POST['observaciones2'])) {
 	$observaciones2 = $_POST['observaciones2'];
 }
 
-// SE DEFINE UNA VARIABLE PARA CARGAR LOS INCLUDES
-define('INC_TUTORIA',1);
 
 include("../../menu.php");
 include("menu.php");
 ?>
-<br />
-<div style="width:960px;margin:auto;padding:25px; border:1px solid #ddd">
-<h2 style="display:inline;">
- Tutoría del grupo: <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
- 
+<style type="text/css">
+@media print {
+	body {
+		font-size: 10px;
+	}
+	h2 {
+		font-size: 22px;
+	}
+	
+	h3 {
+		font-size: 16px;
+	}
+	
+	h4 {
+		font-size: 18px;
+	}
+	.container {
+		width: 100%;
+	}
+}
+</style>
+
+<div class="container">
+	
+	<!-- TITULO DE LA PAGINA -->
+	<div class="page-header">
+		<h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?></h2>
+	 	
+	 	<!-- Button trigger modal -->
+ 		<a href="#" class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+ 			<span class="fa fa-question fa-lg"></span>
+ 		</a>
  	
- 	<!-- Button trigger modal --> <a href="#"
-	class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal"
-	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
-</div>
-<div class="modal-body">
-<p>
-La Memoria de Tutoría ofrece a los Tutores un informe completo sobre los datos más relevantes que se han generado a lo largo del Curso escolar en relación con su Grupo de Alumnos. Presenta en primer lugar un conjunto de datos estadísticos de carácter general, y otro más específico sobre Problemas de Convivencia del Grupo. A partir de ahí, se muestran datos por Alumno sobre Faltas de Asistencia, Problemas de Convivencia, Expulsiones, Absentismo escolar, Visitas de Padres, Intervenciones del Tutor, Actividades Extraescolares y estadísticas de calificaciones en las distintas asignaturas del Tutor.
-<br><br>
-En la parte superior derecha de la página aparece un botón con el título 'Redactar Observaciones finales'. Al hacer click sobre este botón se nos presenta un cuadro de texto en el que procedemos a escribir la valoración que el Tutor realiza sobre el Grupo y su Tutoría, así como cualquier otro elemento que considere relevante. Una vez rrelenado el campo de observaciones, el botón cambia a 'Imprimir Memoria de Tutoría' y ya está lista para presentar en Jefatura de Estudios. Las observaciones aparecen en la parte inferior de la Memoria, y pueden ser editadas en todo momento hasta su impresión.
-</p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>
- 
-<h2><small>Tutor: <?php echo $_SESSION['mod_tutoria']['tutor']; ?></small></h2>
- 
- 
-
- <br />
+ 		<!-- Modal -->
+ 		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+ 			<div class="modal-dialog modal-lg">
+ 				<div class="modal-content">
+ 					<div class="modal-header">
+ 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+ 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+ 					</div>
+ 					<div class="modal-body">
+ 						<p>La Memoria de Tutoría ofrece a los Tutores un informe completo sobre 
+ 						los datos más relevantes que se han generado a lo largo del Curso escolar 
+ 						en relación con su Grupo de Alumnos. Presenta en primer lugar un conjunto 
+ 						de datos estadísticos de carácter general, y otro más específico sobre 
+ 						Problemas de Convivencia del Grupo. A partir de ahí, se muestran datos por 
+ 						Alumno sobre Faltas de Asistencia, Problemas de Convivencia, Expulsiones, 
+ 						Absentismo escolar, Visitas de Padres, Intervenciones del Tutor, 
+ 						Actividades Extraescolares y estadísticas de calificaciones en las 
+ 						distintas asignaturas del Tutor.</p>
+ 						<p>En la parte superior derecha de la página aparece un botón con el título 
+ 						'Redactar Observaciones finales'. Al hacer click sobre este botón se nos 
+ 						presenta un cuadro de texto en el que procedemos a escribir la valoración 
+ 						que el Tutor realiza sobre el Grupo y su Tutoría, así como cualquier otro 
+ 						elemento que considere relevante. Una vez rellenado el campo de observaciones, 
+ 						el botón cambia a 'Imprimir Memoria de Tutoría' y ya está lista para presentar 
+ 						en Jefatura de Estudios. Las observaciones aparecen en la parte inferior de 
+ 						la Memoria, y pueden ser editadas en todo momento hasta su impresión.</p>
+ 					</div>
+ 					<div class="modal-footer">
+ 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+	 
+		<h4 class="text-info">Tutor: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
+	</div>
 
  <?
 if (isset($_POST['imp_memoria'])) {
@@ -191,7 +219,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
         }                                                                                                                                                                                       }    
 
 ?>
-<table class="table table-striped" style="width:auto;">
+<table class="table table-bordered table-striped">
 <tr>
     <th>Comienzan el Curso</th>
     <th>Terminan el Curso</th>
@@ -266,7 +294,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
  $result = mysqli_query($db_con, $SQL);
  $num_actividades = mysqli_num_rows($result);
  ?>
- <table class="table table-striped" style="width:auto;">
+ <table class="table table-bordered table-striped">
 <tr>
     <th>Absentismo</th>
     <th>Problemas de Convivencia</th>
@@ -283,9 +311,9 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
 </tr>
 </table>
 <hr>
- <br /><h3>
- Informaci&oacute;n sobre Problemas de Convivencia</h3><br />
- <table class="table table-striped" style="width:auto;">
+ <br />
+ <h3>Informaci&oacute;n sobre Problemas de Convivencia</h3><br />
+ <table class="table table-bordered table-striped">
 <tr>
     <th>Problemas Leves</th>
     <th>Problemas Graves</th>
@@ -308,14 +336,14 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
  <hr><br /><h3>Información de Tutoría por Alumno</h3>
   <div class="row">     
  <div class="col-sm-6">
- <hr><br /><legend>Alumnos absentistas</legend>
+ <hr><br /><h3>Alumnos absentistas</h3>
 
 <?
 $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, FALUMNOS where absentismo.claveal = FALUMNOS.claveal and absentismo.unidad = '".$_SESSION['mod_tutoria']['unidad']."'  group by apellidos, nombre";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
- echo '<table class="table table-striped" style="width:auto;">';
+ echo '<table class="table table-bordered table-striped">';
  while($absentista = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
@@ -328,10 +356,10 @@ $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from 
  </div> 
 
   <div class="col-sm-6">       
- <hr><br /><legend>Faltas sin Justificar</legend>
+ <hr><br /><h3>Faltas sin Justificar</h3>
 
 <?php
- echo "<table class='table table-striped' style='width:auto;'>";
+ echo "<table class='table table-bordered table-striped'>";
 		
 $SQL = "select distinct FALTAS.claveal, count(*), apellidos, nombre from FALTAS, FALUMNOS  where FALTAS .claveal = FALUMNOS .claveal and FALTAS.falta = 'F' and FALTAS.unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group BY apellidos, nombre";
 $result = mysqli_query($db_con, $SQL);
@@ -350,14 +378,14 @@ $result = mysqli_query($db_con, $SQL);
 </div>
   <div class="row">     
  <div class="col-sm-4">
-  <hr><br /><legend>Problemas de Convivencia</legend>
+  <hr><br /><h3>Problemas de Convivencia</h3>
 
 <?
 $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group by NC";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
- echo '<table class="table table-striped" style="width:auto;">';
+ echo '<table class="table table-bordered table-striped">';
   while($fech = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
@@ -369,7 +397,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  ?>
                    </div>
                     <div class="col-sm-4">
-                    <hr><br /><legend>Alumnos expulsados</legend>
+                    <hr><br /><h3>Alumnos expulsados</h3>
 
 <?
   
@@ -378,7 +406,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
- echo '<table class="table table-striped" style="width:auto;">';
+ echo '<table class="table table-bordered table-striped">';
  while($exp = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
@@ -388,7 +416,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  echo '</table>';
  }
  ?>
- </div> <div class="col-sm-4"><hr><br /><legend>Alumnos expulsados del aula</legend>
+ </div> <div class="col-sm-4"><hr><br /><h3>Alumnos expulsados del aula</h3>
 
  <?
 $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' and date(fecha) > '".$config['curso_inicio']."' group by NC";
@@ -408,18 +436,18 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  </div>
  </div>
  
- <hr><br /><legend>Informes de Tutoría por visita de padres</legend>
+ <hr><br /><h3>Informes de Tutoría por visita de padres</h3>
 
 <?
  $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(F_ENTREV) > '".$config['curso_inicio']."' group by apellidos";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
- echo '<table class="table table-striped" style="width:auto;">';
+ echo '<table class="table table-bordered table-striped" style="width: auto;">';
  while($infotut = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
-<td style="text-align:left">'.$infotut[2] .' '. $infotut[3].'</td><td>'.$infotut[1].'</td>
+<td class="col-sm-6" style="text-align:left">'.$infotut[2] .' '. $infotut[3].'</td><td class="col-sm-1">'.$infotut[1].'</td>
 </tr>';
  }
  echo '</table>';
@@ -427,14 +455,14 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  ?>
  <div class="row">
   <div class="col-sm-5">
-<hr><br /><legend>Intervenciones del Tutor</legend>
+<hr><br /><h3>Intervenciones del Tutor</h3>
 
 <?
  $faltas = "select distinct apellidos, nombre, count(*) from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and date(fecha) > '".$config['curso_inicio']."' group by apellidos";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
  {
- echo '<table class="table table-striped" style="width:auto;">';
+ echo '<table class="table table-bordered table-striped">';
  while($tutoria = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
@@ -451,10 +479,10 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 	 ?>
 	 </div> 
 	 <div class="col-sm-7">
- <hr><br /><legend>Intervenciones de Tutoría (excluidos SMS)</legend>
+ <hr><br /><h3>Intervenciones de Tutoría (excluidos SMS)</h3>
 
      <?
- echo '<table class="table table-striped" style="width:auto;">';
+ echo '<table class="table table-bordered table-striped">';
  while($tutoria = mysqli_fetch_array($faltas0))
  {
  echo '<tr>
@@ -470,7 +498,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
   </div>
   </div>
   
- <hr><br /><legend>Informe sobre Actividades Extraescolares del Grupo</legend>
+ <hr><br /><h3>Informe sobre Actividades Extraescolares del Grupo</h3>
  <?
 include("inc_actividades.php");
  }
@@ -485,14 +513,14 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 {
 ?>
 <a name="observaciones" id="obs"></a>
-<hr><br /><legend>
- Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</legend>
+<hr><br /><h3>
+ Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</h3>
  <form action="" method="POST">
  <textarea class="form-control" name="observaciones1" rows="7"><?php echo $obs2[0];?></textarea>
  <hr>
 <br />
-<legend>
- Otras Observaciones</legend>
+<h3>
+ Otras Observaciones</h3>
  <textarea class="form-control" name="observaciones2" rows="7"><?php echo $obs2[1];?></textarea>
  <br />
 <input type="hidden" name="tutor" value="<?php echo $_SESSION['mod_tutoria']['tutor']; ?>">

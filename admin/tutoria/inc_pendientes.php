@@ -1,5 +1,5 @@
-<?php if (! defined('INC_TUTORIA')) die ('<h1>Forbidden</h1>'); ?>
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 // Cobntrol de faltas leves reiteradas
 $rep0 = mysqli_query($db_con, "select id, Fechoria.claveal, count(*) as numero from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'Leve' and medida not like 'Sancionada' group by Fechoria.claveal");
 while ($rep = mysqli_fetch_array($rep0)) {
@@ -78,15 +78,12 @@ enviarForm();
 	}
 
 }
-?>
-<?
+
 // Problemas varios de convivencia
 
 $result1 = mysqli_query($db_con, "select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and medida = 'Amonestación escrita'");
 if(mysqli_num_rows($result1)>0)
 {
-?>
-<?
 	do
 	{
 $id=$row1[0];
