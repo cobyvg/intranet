@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 include("../../menu.php");

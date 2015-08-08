@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -13,7 +13,7 @@ include("menu.php");
 </div>
 <br />
     
-<?
+<?php
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,unidad,id,TUTOR, F_ENTREV FROM infotut_alumno WHERE ID='$id_alumno'");
 $dalumno = mysqli_fetch_array($alumno);
 echo "

@@ -1,4 +1,4 @@
-<?
+<?php
 mysqli_query($db_con, "drop TABLE pendientes");
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS pendientes (
   id int(11) NOT NULL auto_increment,

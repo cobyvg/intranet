@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 require_once("../../pdf/dompdf_config.inc.php"); 

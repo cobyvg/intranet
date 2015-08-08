@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -99,7 +99,7 @@ while( $row = mysqli_fetch_array($result));
   </div>
   </div>
   </div>
-  <?
+  <?php
    include("../../pie.php");
    ?>
   </body>

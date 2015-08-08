@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 include "../../menu.php";
@@ -12,7 +12,7 @@ include "../../menu.php";
 
 <div class="row">
 <div class="col-sm-12">
-<?
+<?php
 $curso_pendiente=$_POST["curso"];
 if(strlen($_POST["unidad"])>0){
 $grupo_pendiente=$_POST["unidad"];
@@ -27,7 +27,7 @@ $evaluacion_pendiente=$_POST["evaluacion"];
 <legend class="text-info" align="center"><strong><?php echo $curso_pendiente;?></strong></legend>
 <table class='table table-striped table-bordered table-condensed' style="width:auto;" align='center'>
 
-<?
+<?php
 $fila.= "<tr><th></th>";
 $asig = mysqli_query($db_con,"select distinct pendientes.codigo, asignaturas.curso, asignaturas.abrev from pendientes, asignaturas 
 where asignaturas.codigo = pendientes.codigo and asignaturas.abrev like '%\_%' and curso = '$curso_pendiente' $extra order by nombre");

@@ -231,7 +231,7 @@ echo "</table>";
 <label>Selecciona el Profesor que vas a cubrir</label>
 <select name="sustituido" class="form-control">
 <option></option>
-<?
+<?php
 $sust0 = mysqli_query($db_con, "select distinct prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21') and a_grupo not like '' order by prof");
 while ($sust = mysqli_fetch_array($sust0)) {
 	echo "<option>$sust[0]</option>";

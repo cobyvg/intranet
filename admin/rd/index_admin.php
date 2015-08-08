@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -30,7 +30,7 @@ echo '<div align="center">';
 ?>
 <table class="table table-bordered" style="width:auto">
 
-<?
+<?php
 $n_col=0;
 $n_fila=0;
 $dep0 = mysqli_query($db_con, "select distinct departamentos.departamento from departamentos where nombre in (select distinct profesor from profesores) and departamentos.departamento in (select distinct r_departamento.departamento from r_departamento) order by departamentos.departamento");
@@ -64,7 +64,7 @@ $n_col++;
         <TD nowrap><?php echo $row->numero; ?></td> 
 		<TD nowrap><?php echo fecha_sin($row->fecha); ?></td>        
         <TD nowrap>
-        <?
+        <?php
 	if(($row->departamento == $_SESSION['dpt']) or (strstr($_SESSION['cargo'],"1") == TRUE)){	
 		?>
 <a href="story.php?id=<?php echo $row->id; ?>"  style="color:#08c;margin-right:10px;"><i class="fa fa-search" data-bs="tooltip" title='Ver el Acta'> </i></a> 
@@ -73,26 +73,26 @@ $n_col++;
 if ($row->impreso == '0') {
 ?>
 <i class="fa fa-exclamation-triangle" data-bs="tooltip" title='El Acta aún no ha sido imprimida.'> </i>
-<?
+<?php
 }
 else{
 ?>
 <i class="fa fa-check" data-bs="tooltip" title='El Acta ya ha sido imprimida.'> </i>
-<?
+<?php
 }
 ?>
 </td>
-<?
+<?php
 		}
 		?>
       </tr>
-	<?
+	<?php
 	}
 	echo "</TABLE>";
 }
 ?>
 </td>
-<?
+<?php
 if($n_actas < ($n_col * $n_filas)) echo '<td></td>';
 if($n_col%4==0) echo "</tr>";
 
@@ -103,7 +103,7 @@ echo "</table>";
 <input type="submit" name="imp_todas" value="Imprimir actas no impresas" class="btn btn-primary">
 </form>
 --></div>
-<?
+<?php
 include("../../pie.php");
 ?>
 <script>  

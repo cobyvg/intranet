@@ -1,4 +1,4 @@
-<?
+<?php
 if(isset($_POST['submit1'])) {	
 
 	if(!$asunto or !$texto or empty($profesor)) { 

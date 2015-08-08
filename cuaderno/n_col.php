@@ -1,4 +1,4 @@
-<?
+<?php
 require('../bootstrap.php');
 
 
@@ -9,7 +9,7 @@ include("../menu.php");
 <div class='container'>
 <div class='row'>
 <br>
-<?
+<?php
  echo "<br /><div align='center' class='page-header'>";
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";

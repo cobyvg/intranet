@@ -1,4 +1,4 @@
-<?
+<?php
 require('../bootstrap.php');
 
 if (! (stristr ( $_SESSION ['cargo'], '1' ) == TRUE)) {
@@ -103,7 +103,7 @@ include ("../menu.php");
 		<table class="table table-bordered table-striped table-condensed">
 		<?php echo $head;?>
 			<tbody>
-		<?
+		<?php
 		$carg0 = mysqli_query($db_con, "select distinct nombre, cargo, dni from departamentos order by nombre" );
 		$num_profes = mysqli_num_rows ( $carg0 );
 		while ( $carg1 = mysqli_fetch_array ( $carg0 ) ) {
@@ -116,41 +116,41 @@ include ("../menu.php");
 			}
 			?>
 		<tr>
-				<td nowrap><small><?
+				<td nowrap><small><?php
 			echo $pro;
 			?></small></td>
-				<td class="text-center"><input type="checkbox" name="<?
+				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>1"
-					value="1" <?
+					value="1" <?php
 			if (stristr ( $car, '1' ) == TRUE) {
 				echo "checked";
 			}
 			?>
 					id="dato0" /></td>
-				<td class="form-inline" nowrap><input type="checkbox" name="<?
+				<td class="form-inline" nowrap><input type="checkbox" name="<?php
 			echo $dni;
 			?>2"
 					value="2" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, '2' ) == TRUE) {
 				echo "checked";
 			}
 			?> /> <select class="form-control" style="width: 80px;"
-					name="<?
+					name="<?php
 			echo $dni;
 			?>2t">
-		  <?
+		  <?php
 			$curso_tut = mysqli_query($db_con, "select unidad from FTUTORES, departamentos where tutor=nombre and dni='$dni'" );
 			$curso_tut0 = mysqli_fetch_array ( $curso_tut );
 			$unidad = $curso_tut0 [0];
 			?>
-		  <option><?
+		  <option><?php
 		  if (strlen($unidad) > '1') {
 		  		echo $unidad;
 		  }
 			?></option>
-		<?
+		<?php
 			echo "<option></option>";
 			$tipo = "select distinct unidad from alma order by unidad";
 			$tipo1 = mysqli_query($db_con, $tipo );
@@ -160,112 +160,112 @@ include ("../menu.php");
 			
 			?>
 		  </select></td>
-				<td class="text-center"><input type="checkbox" name="<?
+				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>3"
 					value="3" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, '3' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
-				<td class="text-center"><input type="checkbox" name="<?
+				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>4"
 					value="4" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, '4' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
-				<td class="text-center"><input type="checkbox" name="<?
+				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>9"
 					value="9" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, '9' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
-				<td class="text-center"><input type="checkbox" name="<?
+				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>5"
 					value="5" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, '5' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
-				<td class="text-center"><input type="checkbox" name="<?
+				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>6"
 					value="6" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, '6' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
-				<td class="text-center"><input type="checkbox" name="<?
+				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>7"
 					value="7" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, '7' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
-				<td class="text-center"><input type="checkbox" name="<?
+				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>8"
 					value="8" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, '8' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
 			<?php if($config['mod_bilingue']) { ?>
-				<td class="text-center"><input type="checkbox" name="<?
+				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>9"
 					value="a" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, 'a' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
 			<?php } ?>
-			<td class="text-center"><input type="checkbox" name="<?
+			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>10"
 					value="b" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, 'b' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
 			<?php if($config['mod_biblioteca']) { ?>
-			<td class="text-center"><input type="checkbox" name="<?
+			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>11"
 					value="c" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, 'c' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
 			<?php } ?>
-			<td class="text-center"><input type="checkbox" name="<?
+			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>11"
 					value="d" id="dato0"
-					<?
+					<?php
 			if (stristr ( $car, 'd' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
-			<td class="text-center"><a href="cargos.php?borrar=1&dni_profe=<?echo $dni;?>" data-bb='confirm-delete'><span class="fa fa-trash-o fa-lg fa-fw"></span></a></td>
+			<td class="text-center"><a href="cargos.php?borrar=1&dni_profe=<?php echo $dni;?>" data-bb='confirm-delete'><span class="fa fa-trash-o fa-lg fa-fw"></span></a></td>
 			</tr>
-		<?
+		<?php
 			}
 		?>
 		</tbody>

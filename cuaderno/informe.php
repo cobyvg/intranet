@@ -1,4 +1,4 @@
-<?
+<?php
 require('../bootstrap.php');
 
 
@@ -7,7 +7,7 @@ include("menu.php");
 ?>
 <div class="container">
 <div class="row">
-<?
+<?php
 echo "<div class='page-header'>";
 $n_profe = explode(", ",$pr);
 $nombre_profe = "$n_profe[1] $n_profe[0]";
@@ -16,7 +16,7 @@ echo "</div>";
 echo '<div align="center">';
 ?>
 <div class="col-sm-8 col-sm-offset-2">
-<?
+<?php
 
 $dia = $_GET['dia'];
 $hora = $_GET['hora'];
@@ -103,7 +103,7 @@ $datos0 = mysqli_query($db_con, $datos1);
 		?>
     <h4 class='text-info'>
  Notas en la Columnas</h4><br />
-    <?
+    <?php
 echo "<table align='center' class='table table-striped' style='width:auto'>\n"; 
 echo "<tr><th>Fecha</td><th>Columna</td><th>Datos</td>";
 		while($datos = mysqli_fetch_array($datos0))

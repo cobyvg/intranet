@@ -1,4 +1,4 @@
-<?
+<?php
 
 $headerpage="include/header.htm";    
 

@@ -58,7 +58,7 @@ function enviarForm()  {
 <script>
 enviarForm();
 </script>
-<?
+<?php
 		$fecha2 = date ( 'Y-m-d' );
 		$observaciones = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
 		$accion = "Envío de SMS";
@@ -126,7 +126,7 @@ if($aula > 0 and strtotime($fechareg) <= strtotime($hoy) and strtotime($inicioau
 if($expulsion > 0 and $fechareg <= $hoy and $inicio >= $hoy) {
 	$count_fech=1;
  	?>
-    <?
+    <?php
 $inicio= explode("-",$row1[5]);
 $fechainicio = $inicio[2] . "-" . $inicio[1] . "-" . $inicio[0];
 ?> 

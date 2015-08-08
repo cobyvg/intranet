@@ -1,4 +1,4 @@
-<?
+<?php
 $activo1="";
 $activo3="";
 $activo4="";
@@ -139,47 +139,47 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 	
 
 	<ul class="nav nav-tabs">
-	<?
+	<?php
 	if(stristr($_SESSION['cargo'],'3') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE)
 	{
 		?>
 		<li <?php echo $activo3;?>><a
 			href="http://<?php echo $config['dominio']; ?>/intranet/faltas/poner2/index.php">
 		Poner</a></li>
-		<?
+		<?php
 	} else {
 		?>
 		<li <?php echo $activo3;?>><a
 			href="http://<?php echo $config['dominio']; ?>/intranet/faltas/poner/index.php">
 		Poner</a></li>
-		<?
+		<?php
 	}
 	?>
 	
-	<?
+	<?php
 	if(stristr($_SESSION['cargo'],'2') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') == TRUE)
 	{
 		?>
 		<li <?php echo $activo5;?>><a
 			href="http://<?php echo $config['dominio']; ?>/intranet/faltas/justificar/index.php">
 		Justificar</a></li>
-		<?
+		<?php
 	}
 	?>
 		<li <?php echo $activo6;?>><a
 			href="http://<?php echo $config['dominio']; ?>/intranet/admin/faltas/index.php">
 		Consultar</a></li>
-		<?
+		<?php
 		if(stristr($_SESSION['cargo'],'2') == TRUE)
 		{
 			?>
 		<li <?php echo $activo7;?>><a
 			href="http://<?php echo $config['dominio']; ?>/intranet/admin/tutoria/consulta_absentismo.php">
 		Alumnos Absentistas</a></li>
-		<?
+		<?php
 		}
 		?>
-		<?
+		<?php
 		if(stristr($_SESSION['cargo'],'1') == TRUE)
 		{
 			?>
@@ -213,14 +213,14 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 			Padres</a></li>
 		</ul>
 		</li>
-		<?
+		<?php
 		}
 		?>
 	</ul>
 	
 </div>
 
-<?
+<?php
 // Comprobación de Festivos
 $festivos="";
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') == TRUE)

@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -12,7 +12,7 @@ include("menu.php");
   <h2>Informes de Tutoría <small> Borrar Informe</small></h2>
 </div>
 <br />
-<?
+<?php
 if ($del=='1') {
 	mysqli_query($db_con, "delete from infotut_alumno where id = '$id'");
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">

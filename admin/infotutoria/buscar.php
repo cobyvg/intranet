@@ -120,7 +120,7 @@ else
 No hay Informes de Tutor&iacute;a disponibles.</div></div><hr>';
 }
 ?>
-<?
+<?php
 if(mysqli_num_rows($result0) > 50) {
 ?>
 <a href="buscar.php?pag=<?php echo $pag;?>" class="btn btn-primary">Siguientes 50 Informes</a>

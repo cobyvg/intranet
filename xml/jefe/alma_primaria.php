@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -17,7 +17,7 @@ include("../../menu.php");
 </div>
 <br />
 <div class="well well-large" style="width:600px;margin:auto;text-align:left">
-<?
+<?php
 if($_FILES['archivo1']){
 // Creamos Base de datos y enlazamos con ella.
  $base0 = "DROP TABLE `alma_primaria`";

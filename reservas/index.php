@@ -1,4 +1,4 @@
-<?
+<?php
 require('../bootstrap.php');
 
 if (isset($_GET['recurso'])) {	
@@ -104,7 +104,7 @@ if ($ci == 3 or $ci == 6 or $ci == 9 or $ci == 12 or $ci == 15 or $ci == 18){
 				<?php endforeach; ?>
 			</tr>
 		</thead>
-<?
+<?php
 //Días vacíos
 if ($dayone < 0) $dayone = 6;
 for ($i = 0; $i < $dayone; $i++) {
@@ -164,7 +164,7 @@ echo "</table>";
 ?>
 	<div class="well">
 		<h4 class="text-info">Próximos días</h4>
-<?
+<?php
 for ($i = $today; $i <= ($today + 6); $i++) {
   $current_day = $i;
   $current_year = $year;

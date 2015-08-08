@@ -1,4 +1,4 @@
-<?
+<?php
 
 $dia0 = explode ( "-", $fecha );
 $fecha3 = "$dia0[2]-$dia0[1]-$dia0[0]";
@@ -87,28 +87,28 @@ document.enviar.submit()
 	action="http://www.smstrend.net/esp/sendMessageFromPost.oeg"
 	target="ventanaForm" method="POST"
 	enctype="application/x-www-form-urlencoded"><input name="login"
-	type="hidden" value="<?
+	type="hidden" value="<?php
 		echo $login;
 		?>" /> <input name="password" type="hidden"
-	value="<?
+	value="<?php
 		echo $password;
 		?>" /> <input name="extid" type="hidden"
-	value="<?
+	value="<?php
 		echo $extid;
 		?>" /> <input name="tpoa" type="hidden"
 	value="<?php echo $config['mod_sms_id']; ?>" /> <input name="mobile" type="hidden"
-	value="<?
+	value="<?php
 		echo $mobile;
 		?>" /> <input name="messageQty" type="hidden" value="GOLD" /> <input
 	name="messageType" type="hidden" value="PLUS" /> <input name="message"
-	type="hidden" value="<?
+	type="hidden" value="<?php
 		echo $message;
 		?>" maxlength="159"
 	size="60" /></form>
 <script>
 enviarForm();
 </script>
-		<?
+		<?php
 		$fecha2 = date ( 'Y-m-d' );
 		$observaciones = $message;
 		$accion = "Env&iacute;o de SMS";

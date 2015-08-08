@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -27,21 +27,21 @@ if ($row)
 <div class="row">
 <div class="col-sm-1"></div>
 <div class="col-sm-10">
-<?
+<?php
 		?>
 
 <div class="well-transparent" style="width:925px;margin:auto;">
 <legend class="no_imprimir">
-<?
+<?php
 //fecha_actual($row->fecha);
 ?>
 </legend>
-<?
+<?php
 if (!($j_s=='disabled')) {
 ?>
 <a href="pdf.php?id=<?php echo $id; ?>&imprimir=1"  style="margin-right:20px;" class="btn btn-primary pull-right no_imprimir"> 
 <i class="fa fa-print " data-bs="tooltip" title='Crear PDF del Acta para imprimir o guardar'> </i> Imprimir PDF</a>
-<?
+<?php
 }
 ?>
 
@@ -51,7 +51,7 @@ if (!($j_s=='disabled')) {
 ?>
  </div>
 <br /> 
-  <?
+  <?php
 }
 else
 {
@@ -68,7 +68,7 @@ else
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h4>ATENCIÓN:</h4>Esa noticia no se encuentra en la base de datos
           </div>
-<?
+<?php
 }
 ?>
 </div>

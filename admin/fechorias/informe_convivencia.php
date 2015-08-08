@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -18,7 +18,7 @@ include("../../menu.php");
 <li class="active"><a href="#tab1" data-toggle="tab">Resumen general</a></li>
 <li><a href="#tab2" data-toggle="tab">Resumen por Nivel</a></li>
 <li><a href="#tab3" data-toggle="tab">Resumen por Grupo</a></li>
-<?
+<?php
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
 {
 echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';	
@@ -191,7 +191,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
  $faltas0 = mysqli_query($db_con, $faltas);
  $num_faltas = mysqli_num_rows($faltas0);
  ?>
-<?
+<?php
 $num_conv = $num_conv1 + $num_conv2 + $num_conv3;
 $num_leves = $num_leves1 + $num_leves2 + $num_leves3;
 $num_graves = $num_graves1 + $num_graves2 + $num_graves3;
@@ -371,7 +371,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  $num_faltas = mysqli_num_rows($faltas0);
  ?>
 
-<?
+<?php
 $num_conv = $num_conv1 + $num_conv2 + $num_conv3;
 $num_leves = $num_leves1 + $num_leves2 + $num_leves3;
 $num_graves = $num_graves1 + $num_graves2 + $num_graves3;
@@ -429,7 +429,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 <h3>
  Informaci&oacute;n de los Grupos </h3>
  
-<?
+<?php
  $cursos0 = "select distinct curso, unidad from alma order by curso";
  $cursos1 = mysqli_query($db_con, $cursos0);
  while($cursos = mysqli_fetch_array($cursos1))
@@ -566,7 +566,7 @@ $SQL = "select distinct id from tutoria, alma where alma.claveal=tutoria.claveal
  $faltas0 = mysqli_query($db_con, $faltas);
  $num_faltas = mysqli_num_rows($faltas0);
  ?>
- <?
+ <?php
 $num_conv = $num_conv1 + $num_conv2 + $num_conv3;
 $num_leves = $num_leves1 + $num_leves2 + $num_leves3;
 $num_graves = $num_graves1 + $num_graves2 + $num_graves3;
@@ -614,7 +614,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
   <th>Tipo de Problema</th>
   <th>Número</th>
 </tr>
-<?
+<?php
 $tabla = str_replace("-","",$grupo);
 $temp = mysqli_query($db_con, "create table $tabla select Fechoria.asunto from Fechoria, alma where Fechoria.claveal = alma.claveal and alma.unidad = '$grupo'"); 
 $ini0 = mysqli_query($db_con, "SELECT distinct asunto, COUNT( * ) FROM  `$tabla` group by asunto");
@@ -624,7 +624,7 @@ $ini0 = mysqli_query($db_con, "SELECT distinct asunto, COUNT( * ) FROM  `$tabla`
   <td><?php  echo $ini[0];?></td>
   <td><?php  echo $ini[1];?></td>
 </tr>
-<?
+<?php
  }
  $borra_temp = mysqli_query($db_con, "drop table $tabla");
  echo "</tbody>
@@ -634,7 +634,7 @@ $ini0 = mysqli_query($db_con, "SELECT distinct asunto, COUNT( * ) FROM  `$tabla`
   }
   ?>
  </div>
-<?
+<?php
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
 {
 ?>
@@ -656,7 +656,7 @@ for ($i=$cur;$i>$cur-3;$i--)
 ?>
 
 
-<?
+<?php
 	if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
 ?>
@@ -683,26 +683,26 @@ while ($total0 = mysqli_fetch_array($tot0)){
     <?php  echo $total0[1];?>
       </td>
   </tr>
-  <?
+  <?php
 }
 ?>
 </tbody>
 </table>
 </div>
-<?
+<?php
 mysqli_query($db_con, "drop table fech_temp");
 }
 }
 ?>
 </div>
 </div>
-<?
+<?php
 }
 ?>
 <div class="tab-pane fade in" id="tab5">
 <div class="col-sm-8 col-sm-offset-2">
 <h3>Informe por Tipo de problema</h3><br />
-<?
+<?php
 $cur = substr($config['curso_inicio'],0,4)+1;
 for ($i=$cur;$i>$cur-3;$i--)
 {
@@ -738,13 +738,13 @@ while ($total = mysqli_fetch_array($tot)){
     <td ><?php  echo $total[1];?></td>
     <td><?php  echo $total[2];?></td>
   </tr>
-  <?
+  <?php
 }
 ?>
 </table>
 <hr>
 <br />
-<?
+<?php
 }
 echo "</div></div>";
 ?>

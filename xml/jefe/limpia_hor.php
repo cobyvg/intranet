@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -23,7 +23,7 @@ include("../../menu.php");
 <div id='t_larga' style='display:none' >
 
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
-<?
+<?php
 
 // Limpiamos Tabla de Horarios de grupos que no da el profesor
 echo "<p class='lead text-important' style='text-align:left'>Profesores y Asignaturas de<strong> Horw </strong>que no aparecen en S&eacute;neca.</p>";

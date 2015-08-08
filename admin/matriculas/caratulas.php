@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 require("../../pdf/pdf_js.php");

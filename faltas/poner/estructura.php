@@ -1,6 +1,6 @@
 <div class="col-sm-4">
 <legend><small> <?php eliminar_mayusculas($profesor); echo $profesor;?> &nbsp;&nbsp;</small></legend><br />
-<?
+<?php
   if (isset($_SESSION['todo_profe'])) {
 		  $trozos = explode("_ ",$_SESSION['todo_profe']) ;
 		  $id = $trozos[0];
@@ -48,7 +48,7 @@ profesor();
 		}				
 		?>
                  
-                 <?
+                 <?php
 				  
                   include("cal.php"); 
                   ?>                   

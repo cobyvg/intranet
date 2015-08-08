@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['departamento'])) {$departamento = $_GET['departamento'];}elseif (isset($_POST['departamento'])) {$departamento = $_POST['departamento'];}else{$departamento="";}
 if (isset($_GET['familia'])) {$familia = $_GET['familia'];}elseif (isset($_POST['familia'])) {$familia = $_POST['familia'];}else{$familia="";}
@@ -28,14 +28,14 @@ if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE){ $activo3 = ' class="acti
           <ul class="nav nav-tabs">
 
      <li <?php echo $activo1;?>><a href="introducir.php">Introducir / Listar registros</a></li>
-<?
+<?php
 if ($j_s == '') {
 ?>    
      <li <?php echo $activo2;?>> <a href="buscar.php">Buscar / Consultar / Imprimir</a></li>
-<?
+<?php
 }
 ?>
-     <?
+     <?php
      if(stristr($_SESSION ['cargo'],'1') == TRUE){?>
      <li <?php echo $activo3;?>><a href="index.php">Seleccionar Departamento</a></li>
      <?php }?>

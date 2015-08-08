@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -23,7 +23,7 @@ include("menu.php");
 <h2>Jefatura de estudios <small>Intervenciones sobre los alumnos</small></h2>
 </div>
 
-<?
+<?php
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 }
@@ -214,7 +214,7 @@ if ($clave !== "") {
 </div>
 </div>
 </div>
-		<?
+		<?php
 
 		$index = substr($config['curso_actual'],0,4)+1;
 		for ($i = 0; $i < 6; $i++) {

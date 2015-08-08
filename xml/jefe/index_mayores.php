@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -29,7 +29,7 @@ include("../../menu.php");
 		<table class="table table-striped table-bordered datatable">
 		<thead><tr><th>Alumno</th><th>Fecha de Nacimiento</th><th>Curso</th></tr></thead>
 		
-			<?
+			<?php
 			$hoy = date('Y-m-d',strtotime('-18 year'));
 			$result = mysqli_query($db_con, "SELECT apellidos, nombre, nacimiento, CONCAT( curso, '-', grupo_actual ) FROM matriculas_bach where date(nacimiento) < '$hoy' order by apellidos, nombre, curso, grupo_actual");
 			

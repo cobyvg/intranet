@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -18,7 +18,7 @@ include("../../menu.php");
   <h2>Administración <small> Días festivos y vacaciones</small></h2>
 </div>
 <br />
-<?
+<?php
  
 // Borramos datos
 mysqli_query($db_con, "truncate table festivos");	
@@ -47,7 +47,7 @@ $borrarvacios = "delete from festivos where date(fecha) = '0000-00-00'";
 			</div></div><br /> 
 			<div align="center"><a href="../index.php" class="btn btn-primary" />Volver
 a Administración</a></div>
-			<?
+			<?php
 			}
 ?>
 </div>

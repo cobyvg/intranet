@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -11,7 +11,7 @@ $PLUGIN_DATATABLES = 1;
 	vertical-align:middle;
 }
 </style>
-<?
+<?php
 $imprimir_activado = true;
   $fechasq0=explode("-",$fecha10);
   $fechasq1=$fechasq0[2]."-".$fechasq0[1]."-".$fechasq0[0];

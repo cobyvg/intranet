@@ -1,4 +1,4 @@
-<?
+<?php
 echo "<div class='alert alert-warning fade in' role='alert'><p class='lead'><i class='fa fa-bell'> </i> Informes de Tutor&iacute;a activos por visita de padres</p><br />";
 $resultcurs = mysqli_query($db_con, $SQLcurso);
 while($rowcurs = mysqli_fetch_array($resultcurs))
@@ -75,7 +75,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 <h4 class="modal-title" id="myModalLabel">Informe de Tutoría para <?php echo "$row1[2] $row1[1]";?></h4>
 </div>
-<div class="modal-body"><?
+<div class="modal-body"><?php
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, TUTOR, F_ENTREV, CLAVEAL FROM infotut_alumno WHERE ID='$row1[0]'");
 $dalumno = mysqli_fetch_array($alumno);
 $claveal=$dalumno[6];
@@ -97,7 +97,7 @@ else{
 </div>
 </div>
 
-<?
+<?php
 				}
 			}
 		}

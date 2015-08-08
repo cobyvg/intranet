@@ -1,4 +1,4 @@
-<?
+<?php
  // Aula de Convivencia
   if($imprimir4)
   {
@@ -97,9 +97,9 @@ document.enviar.submit()
             <input name="mobile" type="hidden" value="<?php echo $mobile;?>"/>
  	<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        
-	<input name="message" type="hidden" value="<?echo $mens_total;?>" maxlength="159" size="60"/>    
+	<input name="message" type="hidden" value="<?php echo $mens_total;?>" maxlength="159" size="60"/>    
 </form>
-<?
+<?php
 if (mysqli_num_rows($repe0)<"1") {
 echo "
 <script>
@@ -211,12 +211,12 @@ document.enviar.submit()
             <input name="mobile" type="hidden" value="<?php echo $mobile;?>"/>
  			<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        
-			<input name="message" type="hidden" value="<?echo $message;?>" maxlength="159" size="60"/>    
+			<input name="message" type="hidden" value="<?php echo $message;?>" maxlength="159" size="60"/>    
 </form>
 <script>
 enviarForm();
 </script>
-<?
+<?php
 $fecha2 = date('Y-m-d');
 $tutor = "Jefatura de Estudios";
 $causa = "Problemas de Convivencia";

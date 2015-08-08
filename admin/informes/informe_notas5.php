@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -11,7 +11,7 @@ include("menu.php");
   <h2>Informe de Evaluaciones <small> Estadísticas de Calificaciones</small></h2>
 </div>
 
-<?
+<?php
 if (isset($_POST['f_curso']) and !($_POST['f_curso'] == "Curso actual")) {
 	$f_curs = substr($_POST['f_curso'],5,4);
 	$base_actual = $db.$f_curs;
@@ -44,7 +44,7 @@ if (mysqli_query($db_con, "select * from $base.notas")) {
 <form method="POST" class="well well-large" style="width:450px; margin:auto">
 <p class="lead">Informe Histórico</p>
 <select name="f_curso" onchange="submit()" class="form-control">
-<?
+<?php
 echo "<option>".$_POST['f_curso']."</option>";
 echo "<option>Curso actual</option>";
 for ($i=1;$i<5;$i++){
@@ -58,7 +58,7 @@ for ($i=1;$i<5;$i++){
 </select>
 </form>
 <hr />
-<?
+<?php
 }
 ?>
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -84,7 +84,7 @@ else{
 ?>
 
 
-<?
+<?php
 $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria");
 foreach ($titulos as $key=>$val){
 
@@ -101,7 +101,7 @@ INDEX (  `claveal` )
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<?php echo $activ;?>" id="<?php echo "tab".$key;?>">
-<?
+<?php
 // Evaluaciones ESO
 $nivele = mysqli_query($db_con, "select * from cursos");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
@@ -153,12 +153,12 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 }
 ?>
 <h3>Resultados de los Alumnos por Materias y Grupo</h3><br />
-<?
+<?php
 $nivele = mysqli_query($db_con, "select * from cursos");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
 ?>
 	<legend><?php echo $orden_nivel[1]; ?></legend><hr />
-<?
+<?php
 // UNIDADES DEL CURSO
 $niv = mysqli_query($db_con, "select distinct unidad from alma where curso = '$orden_nivel[1]' order by unidad");
 while ($ni = mysqli_fetch_array($niv)) {
@@ -173,7 +173,7 @@ while ($ni = mysqli_fetch_array($niv)) {
 <th class='text-info'>Al. Aprob.</th>
 </thead>
 <tbody>	
-	<?
+	<?php
 $sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre
  and asignaturas.curso = '$orden_nivel[1]' and profesores.grupo = '$unidad' and abrev not like '%\_%' and asignaturas.codigo not in 
 (select distinct asignaturas.codigo from asignaturas where asignaturas.nombre like 'Libre Disp%')";
@@ -236,12 +236,12 @@ if ($num_matr>0) {
 </table>
 <br />
 <hr />
-<?
+<?php
 }
 }
 ?>
 </div>
-<?
+<?php
 mysqli_query($db_con, "drop table temp3");
 }
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 require('../bootstrap.php');
 
 
@@ -39,7 +39,7 @@ function contar(form,name) {
 
 <div class="page-header">
   <h2>SMS <small> Envío de mensajes</small></h2>
-<?
+<?php
 if(strlen($unidad)>1){
 	$t0 = mysqli_query($db_con,"select Tutor from FTUTORES where unidad='$unidad'");
 	if (mysqli_num_rows($t0)>0) {
@@ -57,7 +57,7 @@ if(strlen($unidad)>1){
 <br>
 <div class="row">
 
-<?
+<?php
  if ($config['mod_sms']) {
 // variables(); 
 // Procesado de los datos del Formulario
@@ -146,16 +146,16 @@ document.enviar.submit()
             <input name="password" type="hidden" value="<?php echo $password;?>"  />   
             <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
             <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> 
-            <input name="mobile" type="hidden" value="<?echo $mobile;?>"/>
+            <input name="mobile" type="hidden" value="<?php echo $mobile;?>"/>
  			<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        
-			<input name="message" type="hidden" value="<?echo $text;?>" maxlength="159" size="60"/>    
+			<input name="message" type="hidden" value="<?php echo $text;?>" maxlength="159" size="60"/>    
 </form>
 <script>
 enviarForm();
 </script>
 
-<?
+<?php
 mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -206,7 +206,7 @@ else
 		
 <div class="col-md-4 col-md-offset-2">
 
-        <?
+        <?php
 	}
 	else{
 	echo '<div class="col-md-4 col-md-offset-4">';	
@@ -250,7 +250,7 @@ else
 <?php } ?>        
 	</select>
     </div>
-<?
+<?php
 if(empty($text)){$text = "";}
 echo "<div class='form-group'>
 <label>Texto del mensaje</label>
@@ -279,8 +279,8 @@ $extid = $n_sms[0]+1;
 <div class="col-sm-4">
 <div class="well">
 <div class='form-group'>
-<label>Selección de Alumnos<?echo "<span class='text-info'>: $unidad</span>"; ?></label>
-        <?
+<label>Selección de Alumnos<?php echo "<span class='text-info'>: $unidad</span>"; ?></label>
+        <?php
   		echo '<SELECT  name=nombre[] multiple=multiple class="form-control" style="height:370px">';
   		if ($unidad=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE unidad like '$unidad%'";}
   $alumno = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $alumno_sel order by APELLIDOS asc");
@@ -296,7 +296,7 @@ $extid = $n_sms[0]+1;
 		
 ?>
   </form>
-<?
+<?php
 }
  } 
  else {

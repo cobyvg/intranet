@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -169,7 +169,7 @@ echo "$hoy0</legend>";
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <div class="form-group">	
     <label>
-	<?
+	<?php
 	echo "  y la Hora &nbsp;</label>";
 	echo "<select name = 'hor' class='form-control'>";
 	if (empty($hor)) {

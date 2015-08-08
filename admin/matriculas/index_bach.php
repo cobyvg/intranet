@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'7') == TRUE))

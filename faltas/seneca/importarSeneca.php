@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 require('../../lib/pclzip.lib.php');
 

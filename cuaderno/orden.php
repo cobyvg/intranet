@@ -1,4 +1,4 @@
-<?
+<?php
 ini_set("session.cookie_lifetime","2800");
 ini_set("session.gc_maxlifetime","3600");
 
@@ -18,7 +18,7 @@ include("menu.php");
 columnas del Cuaderno</small></h2>
 </div>
 
-<?
+<?php
 $pr = $_SESSION['profi'];
 
 if (isset($_GET['asignatura'])) {
@@ -61,7 +61,7 @@ El orden de las Columnas del Cuaderno se ha modificado correctamente.
 	}
 }
 ?>
-<div class="col-sm-4 col-sm-offset-4"><?
+<div class="col-sm-4 col-sm-offset-4"><?php
 $curso_sin=substr($curso,0,-1);
 echo "<h3 align='center' ><span class='label label-info' style='padding:8px'>$curso_sin -- Columnas del Cuaderno </span></h3><br>";
 

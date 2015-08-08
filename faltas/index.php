@@ -1,4 +1,4 @@
-<?
+<?php
 require('../bootstrap.php');
 
 $pr = $_SESSION['profi'];
@@ -66,7 +66,7 @@ if($ndia == "3"){$nom_dia = "Miércoles";}
 if($ndia == "4"){$nom_dia = "Jueves";}
 if($ndia == "5"){$nom_dia = "Viernes";}
 ?>
-<?
+<?php
 if ($config['mod_asistencia']) {
 	include("../menu.php");
 	if (isset($_GET['menu_cuaderno'])) {
@@ -84,7 +84,7 @@ if ($config['mod_asistencia']) {
 <h2 style="display:inline;">Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
 
-<div class="row"><?
+<div class="row"><?php
 
 if($mensaje){
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
@@ -112,7 +112,7 @@ if($mensaje){
 
 <div class="form-group"><label for="grupo">Grupo</label> <select
 	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
-	<?
+	<?php
 
 	for ($i = 1; $i < 7; $i++) {
 		$gr_hora = mysqli_query($db_con,"select a_grupo, asig from horw_faltas where hora = '$i' and dia='$ndia' and prof = '$pr' and a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
@@ -151,7 +151,7 @@ if($mensaje){
 </div>
 
 <div class="col-md-7">
-<div align="left"><?
+<div align="left"><?php
 //$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
 
 if ($ndia>5) {
@@ -159,7 +159,7 @@ if ($ndia>5) {
 <h2 class="text-muted text-center"><span class="fa fa-clock-o fa-5x"></span>
 <br>
 Fuera de horario escolar</h2>
-	<?
+	<?php
 }
 else{
 	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
@@ -169,7 +169,7 @@ else{
 <h2 class="text-muted text-center"><span class="fa fa-clock-o fa-5x"></span>
 <br>
 Sin alumnos en esta hora (<?php echo $hora_dia;?>ª)</h2>
-		<?
+		<?php
 	}
 }
 while($hora2 = mysqli_fetch_row($hora0))
@@ -200,7 +200,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 		}
 	}
 	?>
-<form action="poner_falta.php<?echo $extra;?>" method="post"
+<form action="poner_falta.php<?php echo $extra;?>" method="post"
 	name="Cursos"><?php
 
 	// Codigo del profe
@@ -316,7 +316,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			<span class="text-success">J</span> <input type="radio" id="falta_<?php echo $row[1]."_".$curso;?>" name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkJ; ?> value="J" onClick="uncheckRadio(this)"/> &nbsp; 
 			<span class="text-warning">R</span> <input type="radio" id="falta_<?php echo $row[1]."_".$curso;?>" name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkR; ?> value="R" onClick="uncheckRadio(this)" /></div>
 
-			<?
+			<?php
 			echo "</span></label></td>";
 			?>
 <td><?php 
@@ -327,17 +327,17 @@ $f_faltaT = mysqli_num_rows($faltaT_F);
 $f_justiT = mysqli_num_rows($faltaT_J);
 ?> <div class="label label-danger" data-bs='tooltip'
 	title='Faltas de Asistencia en esta Asignatura'><?php if ($f_faltaT>0) {echo "".$f_faltaT."";}?></div>
-<?
+<?php
 if ($f_faltaT>0) {echo "<br><br>";}
 ?> <div class="label label-success" data-bs='tooltip'
 	title='Faltas Justificadas'><?php if ($f_faltaT>0) {echo "".$f_justiT."";}?></div>
 </td>
-<?
+<?php
 echo "</tr>";
 		}
 	}
 	?>
-	<?
+	<?php
 	echo '</table>';
 }
 echo '<input name="nprofe" type="hidden" value="';
@@ -378,7 +378,7 @@ if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class
 
 </div>
 </div>
-<?
+<?php
 }
 
 else {
@@ -389,7 +389,7 @@ El módulo de Faltas de Asistencia debe ser activado en la Configuración general 
 	echo "<div style='color:brown; text-decoration:underline;'>Las Faltas han sido registradas.</div>";
 }
 ?>
-<?
+<?php
 include("../pie.php");
 ?>
 

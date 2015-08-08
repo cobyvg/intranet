@@ -1,4 +1,4 @@
-<?
+<?php
 ini_set("session.cookie_lifetime","2800");
 ini_set("session.gc_maxlifetime","3600");
 
@@ -46,7 +46,7 @@ input[type=number] {
 	-moz-appearance: textfield;
 }
 </style>
-<?
+<?php
 // Variables
 
 if (isset($_GET['nom_asig'])) {
@@ -109,7 +109,7 @@ if($pr and $dia and $hora)
 	class="text-info">&nbsp;<i class='fa fa-users'> </i>&nbsp;<?php echo substr($curs,0,-2)." ( ".$nom_asig," )";?></small></h2>
 </div>
 
-<div align="center"><?
+<div align="center"><?php
 // Enviar datos y procesarlos
 if(isset($_POST['enviar']))
 {
@@ -150,7 +150,7 @@ else{
 	$seleccionar = "";
 }
 }
-?> <?
+?> <?php
 include("cuaderno/menu_cuaderno.php");
 ?>
 
@@ -171,7 +171,7 @@ include("cuaderno/menu_cuaderno.php");
 					</div>
 					</td>
 				</tr>
-				<?
+				<?php
 				$curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo";
 				//echo $curso0."<br />";
 				$curso20 = mysqli_query($db_con, $curso0);
@@ -269,7 +269,7 @@ include("cuaderno/menu_cuaderno.php");
 					<td nowrap style='vertical-align: middle; height: 74px;'
 						class='text-info' data-bs='tooltip'
 						title=' <?php echo $apellidos.", ".$nombre_al;?>'><a href="#"
-						onclick="window.open('<?php echo $inf;?>')"> <?
+						onclick="window.open('<?php echo $inf;?>')"> <?php
 						if ($foto=="1") {
 						$foto1='<span class="fa fa-user fa-fw fa-3x"></span>';
 						}
@@ -278,10 +278,10 @@ include("cuaderno/menu_cuaderno.php");
 						$foto1 = "<img src='xml/fotos/$claveal.jpg' width='50' height='60' class=''  />";													
 						}
 						echo $foto1;
-						echo "&nbsp;".$row[1];?>&nbsp; <?
+						echo "&nbsp;".$row[1];?>&nbsp; <?php
 						echo $nombre_completo;?></a></td>
 				</tr>
-				<?
+				<?php
 					}
 				}
 				?>
@@ -307,7 +307,7 @@ include("cuaderno/menu_cuaderno.php");
 					</div>
 					</td>
 				<?php } ?>	
-					<?
+					<?php
 					// Número de las columnas de la tabla
 					$cols2=0;
 					while($col20 = mysqli_fetch_array($col0)){
@@ -359,7 +359,7 @@ include("cuaderno/menu_cuaderno.php");
 
 						if ($tipo_col=="Ponderacion") {
 							?>
-							<?
+							<?php
 							echo "<td nowrap style='background-color:#555' id='$id' onmouseover='cambia_color($id_pond)' onmouseout='descambia_color($id_pond)'>
 <div style='width:40px;height:104px;'>
 <div class='Rotate-90'><span text-lowercase' style='font-weight:normal;color:#fff'>$col_vert</span></div>
@@ -532,13 +532,13 @@ include("cuaderno/menu_cuaderno.php");
 					$f_justiT = mysqli_num_rows($faltaT_J);
 					?> <span class="label label-danger" data-bs='tooltip'
 						title='Faltas de Asistencia en esta Asignatura'><?php if ($f_faltaT>0) {echo "".$f_faltaT."";}?></span>
-						<?
+						<?php
 						if ($f_faltaT>0) {echo "<br>";}
 						?> <span class="label label-info" data-bs='tooltip'
 						title='Faltas Justificadas'><?php if ($f_faltaT>0) {echo "".$f_justiT."";}?></span>
 					</td>
 					<?php } ?>
-					<?
+					<?php
 					// Si hay datos escritos rellenamos la casilla correspondiente
 					$colu10 = "select distinct id, Tipo, color, nombre from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by orden";
 					$colu20 = mysqli_query($db_con, $colu10);
@@ -602,7 +602,7 @@ include("cuaderno/menu_cuaderno.php");
 						name="select_<?php echo $row[1]."_".$curso;?>" type="checkbox"
 						id="selal" <?php if ($marcado == "1") {echo "checked ";}?> value="1" /></div>
 					</td>
-					<?
+					<?php
 							}
 							echo "</tr>";
 						}
@@ -638,7 +638,7 @@ include("cuaderno/menu_cuaderno.php");
 <div align="center" class="hidden-print"><input name="enviar"
 	type="submit" value="Enviar datos" class="btn btn-primary" /></div>
 </FORM>
-					<?
+					<?php
 
 					$colum24= "select distinct id, nombre, orden from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";
 					$colu = mysqli_query($db_con, $colum24);

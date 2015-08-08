@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 include("../../menu.php");
@@ -12,7 +12,7 @@ include("menu.php");
 </div>
 <br>
 
-<div class="col-sm-6 col-sm-offset-3"><?
+<div class="col-sm-6 col-sm-offset-3"><?php
 if(isset($_FILES['archivo'])){
 	mysqli_query($db_con,"create table morosos_tmp select * from morosos");
 	mysqli_query($db_con,"truncate table morosos_tmp");
@@ -72,7 +72,7 @@ atr&aacute;s y compru&eacute;balo. </div>
 <div align="center"><input type="button" value="Volver atr&aacute;s"
 	name="boton" onClick="history.back(2)" class="btn btn-inverse" /></div>
 
-	<?
+	<?php
 }
 mysqli_query($db_con,"drop table morosos_tmp");
 ?></div>

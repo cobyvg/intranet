@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -19,7 +19,7 @@ include("../../menu.php");
 </div>
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
-<?
+<?php
 if(isset($_FILES['archivo'])){  
 // BacKup de la tabla
 mysqli_query($db_con, "drop table departamentos_seg");

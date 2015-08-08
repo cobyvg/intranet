@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -34,7 +34,7 @@ else{
 ?>
 
 
-<?
+<?php
 $unidad = $_GET['unidad'];
 $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria");
 foreach ($titulos as $key=>$val){
@@ -52,7 +52,7 @@ INDEX (  `claveal` )
 $key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<?php echo $activ;?>" id="<?php echo "tab".$key;?>">
-<?
+<?php
 
 	$rep = ""; 
 	$promo = "";
@@ -109,7 +109,7 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 <th class='text-info'>Aprobados</th>
 </thead>
 <tbody>	
-	<?
+	<?php
 $sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre
  and asignaturas.curso = '$nivel_curso' and profesores.grupo = '$unidad' and abrev not like '%\_%' and asignaturas.codigo not in 
 (select distinct asignaturas.codigo from asignaturas where asignaturas.nombre like 'Libre Disp%')";
@@ -164,7 +164,7 @@ if ($porcient_asig>0) {
 <hr />
 
 </div>
-<?
+<?php
 mysqli_query($db_con, "drop table temp");
 }
 ?>

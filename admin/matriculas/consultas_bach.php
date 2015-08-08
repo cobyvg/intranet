@@ -1,4 +1,4 @@
-<?
+<?php
 ini_set("session.cookie_lifetime",1800);
 ini_set("session.gc_maxlifetime",1800);
 
@@ -204,7 +204,7 @@ return false;
 	}
 }
 </script>
-<?
+<?php
 include("../../menu.php");
 include("menu.php");
  	
@@ -226,7 +226,7 @@ foreach($_GET as $key_get => $val_get)
 	</div>
 
 
-<?
+<?php
 // Asignaturas y Modalidades
 // 1BACH
 $it1 = array("1"=>"Ciencias e Ingeniería y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jurídicas");
@@ -403,7 +403,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<th>Curso</th>
 		<th>Gr1</th>
 		<th>Gr2</th>
-		<?
+		<?php
 		echo '<th>Centro</th>';
 		echo '<th>Rel.</th>';
 		echo '<th>Transporte</th>';
@@ -420,7 +420,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 		}
 		?>
-		<?
+		<?php
 		echo '<th class="hidden-print" style="align:center">Sí NO 3/4</th>';
 //		echo '<th class="hidden-print">Rev.</th>';
 		echo '<th class="hidden-print"></th>';
@@ -428,7 +428,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<th class="hidden-print">Conv.</th>
 		<th class="hidden-print">Otros</th>
 	</tr>
-	<?
+	<?php
 	while($datos_ya = mysqli_fetch_object($cons)){
 
 		$backup="";
@@ -708,7 +708,7 @@ echo "<br>
 	}
 	echo "</div></form>";
 	?>
-	<?
+	<?php
 	if ($curso) {
 
 		$rel = mysqli_query($db_con, "select religion from matriculas_bach where $extra and religion like '%Católica%'");
@@ -742,7 +742,7 @@ echo "<br>
 	<table class="table table-striped table-bordered" align="center"
 		style="width: auto">
 		<tr>
-		<?
+		<?php
 		echo "<th>Religión</th>";
 
 		//echo "<th>Optativa$n_curso</th>";
@@ -763,7 +763,7 @@ echo "<br>
 		?>
 		</tr>
 		<tr>
-		<?
+		<?php
 		echo "<td>$num_rel</td>";
 		echo "<td>$num_promo</td>";
 		echo "<td>$num_repit</td>";		
@@ -790,7 +790,7 @@ echo "<br>
 	?>
 		</tr>
 	</table>
-	<?
+	<?php
 		}
 		?>
 
@@ -798,7 +798,7 @@ echo "<br>
 	<table class="table table-striped table-bordered hidden-print"
 		align="center" style="width:500px;">
 		<tr>
-			<td><?
+			<td><?php
 			if ($curso=="2BACH") {
 			foreach ($opt23 as $valor){
 				$n_index+=1;
@@ -812,7 +812,7 @@ echo "<br>
 			?></td>
 		</tr>
 	</table>
-	<?
+	<?php
 }
 	}
 	}
@@ -823,7 +823,7 @@ echo "<br>
 </div>
 	
 	<?php include("../../pie.php"); ?>
-  <?
+  <?php
   // Control del envío de datos
 
   if (($mes_submit>5 and $mes_submit<9)) {
@@ -839,7 +839,7 @@ return false;
 	}
 }
 </script>
-<?
+<?php
   }
   elseif ($mes_submit=="9") {
 ?>
@@ -854,7 +854,7 @@ return false;
 	}
 }
 </script>
-<?
+<?php
   	  }
   
   ?>

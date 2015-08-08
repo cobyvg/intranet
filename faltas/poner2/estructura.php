@@ -4,7 +4,7 @@
 <div class="page-header">
 <h2 style="display:inline">Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
-<div class="col-sm-4"><?
+<div class="col-sm-4"><?php
 if(is_numeric($profesor))
 {
 	$nombre_p=mysqli_query($db_con, "select distinct prof from horw where no_prof = '$profesor'");
@@ -16,9 +16,9 @@ else{$n_profe = $profesor;}
 if(strlen($n_profe)>0){
 	?>
 <div align="center"><legend><small> <?php eliminar_mayusculas($n_profe); echo $n_profe;?></small></legend>
-	<?
+	<?php
 }
-?> <?
+?> <?php
 if ($profesor) {
 	$trozos = explode("_ ",$profesor) ;
 	$id = $trozos[0];
@@ -28,7 +28,7 @@ if ($profesor) {
 
 	echo "<input type=hidden name=profesor value= \"$profesor\"><hr>";
 }
-?> <?
+?> <?php
 if(empty($profesor)){
 	echo '<div align="center">';
 	echo '<legend>Selecciona un profesor</legend>';
@@ -46,7 +46,7 @@ if(empty($profesor)){
 	echo "</select></div>";
 	echo "</div>";
 }
-?> <?
+?> <?php
 if (isset($registro)) {
 	echo '<div align="left""><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -78,7 +78,7 @@ if (isset($mens_fecha)) {
             <button type="button" class="close" data-dismiss="alert">&times;</button>'.$mens_fecha.'</div></div>';
 }
 ?> <?php include("cal.php"); ?></div>
-<div class="col-sm-8"><?
+<div class="col-sm-8"><?php
 echo "<legend align='center'><small class='text-uppercase'>Semana:&nbsp;&nbsp;$lunes1 &nbsp;&nbsp;-->&nbsp;&nbsp; $viernes&nbsp;&nbsp;</small></legend><br />";
 echo "<input type=hidden name=today value= \"$today\">";
 echo "<input type=hidden name=year value= \"$year\">";

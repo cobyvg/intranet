@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -19,7 +19,7 @@ include("menu.php");
 <br>
 
 <div class="col-md-8 col-md-offset-2">	
-<?
+<?php
 if (empty($informe) or empty($asignatura)) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -120,7 +120,7 @@ include("menu.php");
 		<h4 class="text-info">Tutor: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 	</div>
 
- <?
+ <?php
 if (isset($_POST['imp_memoria'])) {
 	mysqli_query($db_con, "update FTUTORES set observaciones1 = '$observaciones1', observaciones2='$observaciones2' where tutor = '".$_SESSION['mod_tutoria']['tutor']."'");
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
@@ -237,7 +237,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
     <td><?php echo $nuevos; ?></td>     
     </tr>
 </table>
-<?
+<?php
 // Tabla de Absentismo.
  $faltas = "select distinct claveal from absentismo where unidad = '".$_SESSION['mod_tutoria']['unidad']."' order by claveal";
  $faltas0 = mysqli_query($db_con, $faltas);
@@ -338,7 +338,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
  <div class="col-sm-6">
  <hr><br /><h3>Alumnos absentistas</h3>
 
-<?
+<?php
 $faltas = "select distinct absentismo.claveal, count(*), nombre, apellidos from absentismo, FALUMNOS where absentismo.claveal = FALUMNOS.claveal and absentismo.unidad = '".$_SESSION['mod_tutoria']['unidad']."'  group by apellidos, nombre";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
@@ -380,7 +380,7 @@ $result = mysqli_query($db_con, $SQL);
  <div class="col-sm-4">
   <hr><br /><h3>Problemas de Convivencia</h3>
 
-<?
+<?php
 $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(fecha) > '".$config['curso_inicio']."' group by NC";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
@@ -399,7 +399,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
                     <div class="col-sm-4">
                     <hr><br /><h3>Alumnos expulsados</h3>
 
-<?
+<?php
   
  
  $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsion > '0' and date(fecha) > '".$config['curso_inicio']."' group by NC";
@@ -418,7 +418,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  ?>
  </div> <div class="col-sm-4"><hr><br /><h3>Alumnos expulsados del aula</h3>
 
- <?
+ <?php
 $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fechoria, FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and expulsionaula = '1' and date(fecha) > '".$config['curso_inicio']."' group by NC";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
@@ -438,7 +438,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  
  <hr><br /><h3>Informes de Tutoría por visita de padres</h3>
 
-<?
+<?php
  $faltas = "select distinct claveal, count(*), nombre, apellidos from infotut_alumno where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and date(F_ENTREV) > '".$config['curso_inicio']."' group by apellidos";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
@@ -457,7 +457,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
   <div class="col-sm-5">
 <hr><br /><h3>Intervenciones del Tutor</h3>
 
-<?
+<?php
  $faltas = "select distinct apellidos, nombre, count(*) from tutoria where unidad = '".$_SESSION['mod_tutoria']['unidad']."' and prohibido not like '1' and date(fecha) > '".$config['curso_inicio']."' group by apellidos";
  $faltas0 = mysqli_query($db_con, $faltas);
  if(mysqli_num_rows($faltas0) > 0)
@@ -481,7 +481,7 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
 	 <div class="col-sm-7">
  <hr><br /><h3>Intervenciones de Tutoría (excluidos SMS)</h3>
 
-     <?
+     <?php
  echo '<table class="table table-bordered table-striped">';
  while($tutoria = mysqli_fetch_array($faltas0))
  {
@@ -499,15 +499,15 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
   </div>
   
  <hr><br /><h3>Informe sobre Actividades Extraescolares del Grupo</h3>
- <?
+ <?php
 include("inc_actividades.php");
  }
   ?>
  <br />
- <?
+ <?php
 include("inc_notas.php");
  ?>
-<?
+<?php
 
 if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 {
@@ -528,7 +528,7 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 <br />
 <input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-primary hidden-print">
 </form>
-<?
+<?php
 if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
 {
 ?>
@@ -541,7 +541,7 @@ if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
 <br>
 <p align="center">Fdo. <?php  echo $_SESSION['mod_tutoria']['tutor']; ?></p>
 <br />
-<?
+<?php
 }
 }
  ?>

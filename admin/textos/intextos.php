@@ -1,4 +1,4 @@
-<?
+<?php
 if(isset($_POST['enviar']) and $_POST['enviar']=="Introducir datos"){
 include("intextos2.php");
 exit;
@@ -58,7 +58,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') ==
   <label>
   Nivel</label>
     <select name="nivel" id="select4" onChange="submit()" class="form-control">
-      <?
+      <?php
  if(isset($_POST['nivel']))
         {
         $nivel = $_POST['nivel'];
@@ -116,7 +116,7 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
 </div> 
 <div class="form-group">   
     <label>Departamento<span style="color:#9d261d"> (*)</span></label>
-    <?
+    <?php
     if(stristr($_SESSION['cargo'],'4') == TRUE and stristr($_SESSION['cargo'],'1') == FALSE)
     {
     ?>
@@ -130,7 +130,7 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
         <option>
         <?php  echo $departamento;?>
         </option>
-        <?
+        <?php
   $profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos, profesores where departamento not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' order by departamento asc");
   while($filaprofe = mysqli_fetch_array($profe))
 	{
@@ -148,7 +148,7 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
     <label>Asignatura <span style="color:#9d261d"> (*)</span></label>
       <select name="asignatura" id="asignatura" class="form-control"  value="<?php echo $asignatura; ?>" required>
         <option>
-        <?
+        <?php
    // Datos de la Asignatura
   $asignatur = mysqli_query($db_con, "SELECT DISTINCT asignaturas.NOMBRE, ABREV FROM asignaturas, departamentos, profesores where asignaturas.nombre=profesores.materia and profesores.profesor=departamentos.nombre and curso = '$nivel' and departamento like '$departamento%' ORDER BY NOMBRE asc"); 
         while($fasignatur = mysqli_fetch_array($asignatur)) {
@@ -195,7 +195,7 @@ echo "<input name='grupo$ng' type='checkbox' id='$tipo20[0]' value='$tipo20[0]' 
  </div>
  </div>
  </div>
- <?
+ <?php
 }
 ?>
 <?php

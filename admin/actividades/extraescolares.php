@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_POST['submit1'])) {
 	include("imprimir.php");
 }
@@ -27,7 +27,7 @@ include("menu.php");
 
 <div class="col-sm-8 col-sm-offset-2">
     <div class="well well-lg">      
-<?
+<?php
 $profes_actividad = $_GET['profesores'];
 if ($jefes==1 or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
 ?>
@@ -37,7 +37,7 @@ if ($jefes==1 or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION
 <?php } ?>
     <FORM action="extraescolares.php" method="POST" name="imprime">
 
-  <?
+  <?php
 $cursos0 = mysqli_query($db_con, "select unidades, profesores, nombre from calendario where id = '$id'");
 while($cursos = mysqli_fetch_array($cursos0))
 {
@@ -63,7 +63,7 @@ $unidad = trim($valor);
 <table class="table table-striped">
 <tr><td colspan="2"><h4><?php echo "Alumnos de $unidad";?></h4></td>
 </tr>
-<?
+<?php
 $alumnos0 = "select alma.nombre, alma.apellidos, NC, alma.claveal from alma, FALUMNOS where alma.claveal = FALUMNOS.claveal and alma.unidad = '$unidad' order by NC";
 //echo $cursos[0]." => ".$alumnos0."<br>";
 $alumnos1 = mysqli_query($db_con, $alumnos0);
@@ -82,7 +82,7 @@ $fecha1 = explode("-",$datos[6]);
 $fecha2  = $fecha1[2]."-". $fecha1[1]."-". $fecha1[0];
 $horario2 = $datos[7];
 ?>
-<?
+<?php
 
 if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
 ?>
@@ -111,19 +111,19 @@ if (mysqli_num_rows($ya)>0) {
 <input name="<?php echo $nc.$claveal;?>" type="checkbox" id="A" value="<?php echo $claveal;?>" <?php echo $extra_al;?>> 
 </td>
 <td>   
-<?
+<?php
 echo " $nc. $apellidos $nombre</td></tr>";
 }
 ?>
 </table>
-<?
+<?php
 }
 }
 
 ?>
 <br />
 <div align="center">
-<?
+<?php
 if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
 ?>
 <button type="submit" name="submit1" value="Imprimir Carta para Padres" class="btn btn-primary hidden-print">Imprimir Carta para Padres</button>&nbsp;

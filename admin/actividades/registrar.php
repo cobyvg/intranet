@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 include("../../menu.php");
@@ -11,7 +11,7 @@ include("menu.php");
 </div>
 </div>
 
-<?
+<?php
 $tutor = $_SESSION['profi'];
 
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}

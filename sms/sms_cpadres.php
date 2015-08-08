@@ -1,4 +1,4 @@
-<?
+<?php
 require('../bootstrap.php');
 
 require("../lib/class.phpmailer.php");
@@ -105,7 +105,7 @@ if ($config['mod_sms']) {
 	}
 
 	?>
-	<?
+	<?php
 	include("../menu.php");
 	?>
 <div class="container">
@@ -149,10 +149,10 @@ document.enviar.submit()
 	type="hidden" value="<?php echo $mobile2;?>" /> <input name="messageQty"
 	type="hidden" value="GOLD" /> <input name="messageType" type="hidden"
 	value="PLUS" /> <input name="message" type="hidden"
-	value="<?echo $text;?>" maxlength="159" size="60" /></form>
+	value="<?php echo $text;?>" maxlength="159" size="60" /></form>
 <script>
  enviarForm();
-</script> <?
+</script> <?php
 if(strlen($mobil2) > 0){
 	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile2','$text','Jefatura de Estudios')");
 	echo '<div class="alert alert-success alert-block fade in" align="left">
@@ -228,7 +228,7 @@ $fech2 = "$fc2[2]-$fc2[1]-$fc2[0]";
 <div class="col-sm-5 ">
 <div class="well well-large">
 
-<div class="form-group"><?
+<div class="form-group"><?php
 $cursos_sen = mysqli_query($db_con, "select nomcurso from cursos");
 $n_c=1;
 while ($cursos_seneca = mysqli_fetch_array($cursos_sen)) {
@@ -244,7 +244,7 @@ while ($cursos_seneca = mysqli_fetch_array($cursos_sen)) {
 </div>
 </div>
 </div>
-<?
+<?php
 // Tabla temporalñ y recogida de datos
 mysqli_query($db_con, "DROP table `faltastemp2`");
 }

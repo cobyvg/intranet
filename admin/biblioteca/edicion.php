@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -30,7 +30,7 @@ include("../../menu.php");
 <br>
 
 <div class="col-sm-8 col-sm-offset-2">
-<?
+<?php
 if(isset($_POST['borrar'])){
 	//echo $fecha;
 	$i=0;
@@ -157,27 +157,27 @@ if ($sms) {
 	action="http://www.smstrend.net/esp/sendMessageFromPost.oeg"
 	target="ventanaForm" method="POST"
 	enctype="application/x-www-form-urlencoded"><input name="login"
-	type="hidden" value="<?
+	type="hidden" value="<?php
 	echo $login;
 		?>" /> <input name="password" type="hidden"
-	value="<?
+	value="<?php
 	echo $password;
 		?>" /> <input name="extid" type="hidden"
-	value="<?
+	value="<?php
 	echo $extid;
 		?>" /> <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> <input
-	name="mobile" type="hidden" value="<?
+	name="mobile" type="hidden" value="<?php
 	echo $mobile;
 		?>" /> <input name="messageQty" type="hidden" value="GOLD" /> <input
 	name="messageType" type="hidden" value="PLUS" /> <input name="message"
-	type="hidden" value="<?
+	type="hidden" value="<?php
 	echo $message;
 		?>" maxlength="159"
 	size="60" /></form>
 <script>
 enviarForm();
 </script>
-<?
+<?php
 		}
 	}
 }

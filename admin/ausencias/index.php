@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 if (isset($_GET['borrar'])) {$borrar = $_GET['borrar'];}elseif (isset($_POST['borrar'])) {$borrar = $_POST['borrar'];}else{$borrar="";}
@@ -144,7 +144,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 				
 				<div class="form-group">
 					<label for="profesor">Profesor/a</label>
-					<?
+					<?php
 					$hora = date('g');
 					$minuto = date('s');
 					$hora_min = $hora.":".$minuto;
@@ -173,7 +173,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 						$comienzo=explode("-",$config['curso_inicio']);
 						$comienzo_curso=$comienzo[2]."-".$comienzo[1]."-".$comienzo[0];
 						$fecha2 = date("m");
-						?> </select> <?
+						?> </select> <?php
 					}
 					else{
 						$profesor = $_SESSION['profi'];
@@ -212,7 +212,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 								
 				<div class="form-group">
 				<label>Horas sueltas</label><br>
-				<?
+				<?php
 				for ($i=1;$i<7;$i++){
 				$hor = mysqli_query($db_con,"select horas from ausencias where inicio='$inicio1' and fin='$fin1' and profesor='$profesor' and horas like '%$i%'");
 				$hori=mysqli_fetch_array($hor);
@@ -346,7 +346,7 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 							</td>
 							<td>
 							<?php echo (strlen($row['tareas']) > 0 or strlen($row['archivo'])>0) ? 'Sí' : 'No'; ?>
-							<?
+							<?php
 							if(strlen($row['archivo'])>0){
 							echo "&nbsp;&nbsp;<a href='archivos/".$row['archivo']."'><i class='fa fa-file'> </i>";
 							echo '</a>';

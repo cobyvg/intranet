@@ -16,7 +16,7 @@ include("../../faltas/menu.php");
 <div class="row">
 <div class="col-sm-6 col-sm-offset-3">
 
-<?
+<?php
 
 if (isset($profe)) {}else{$profe= $_SESSION['profi'];}
 if (isset($materia)) {
@@ -54,7 +54,7 @@ No hay registros coincidentes, bien porque te has equivocado
         al introducir los datos, bien porque ningun dato se ajusta a tus criterios.
 		</div></div><br />';
 ?>
-        <?
+        <?php
         }
 }
 else{
@@ -65,7 +65,7 @@ Debes seleccionar una asugnatura con su Grupo y Nivel. Vuelve atrás e inténtalo 
 		</div></div><br />';
 }
   ?>
- <?
+ <?php
 include("../../pie.php");
  ?>
 </div>

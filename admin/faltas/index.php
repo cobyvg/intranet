@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 if (isset($_GET['unidad1'])) {$unidad1 = $_GET['unidad1'];}elseif (isset($_POST['unidad1'])) {$unidad1 = $_POST['unidad1'];}else{$unidad1="";}
 if (isset($_GET['mes'])) {$mes = $_GET['mes'];}elseif (isset($_POST['mes'])) {$mes = $_POST['mes'];}else{$mes="";}
@@ -74,7 +74,7 @@ else
 <div class="form-group col-md-9">
 <label for="al" class="control-label"> Alumno </label> 
 <select id="al"	name='nombre' class="form-control" required>
-	<?
+	<?php
 	printf ("<OPTION></OPTION>");
 
 	// Datos del alumno que hace la consulta. No aparece el nombre del a&iuml;&iquest;&frac12; de la nota. Se podr&iuml;&iquest;&frac12; incluir.
@@ -156,7 +156,7 @@ else
 <SELECT name='mes' id='mes'
 	class="form-control">
 	<OPTION></OPTION>
-	<?
+	<?php
 	for($i=1;$i<13;$i++){
 		echo "<OPTION>$i</OPTION>";
 	}
@@ -207,7 +207,7 @@ else
 <label class="control-label" for="profe"> Profesor </label> 
 <SELECT
 	id="profe" name="profe" onChange="submit()" class="form-control" required>
-<?
+<?php
 if (isset($_POST['profe'])) {
 	$profe = $_POST['profe'];
 }
@@ -233,7 +233,7 @@ if (isset($_POST['profe'])) {
 <SELECT name='materia' id='materia'
 	class="form-control" required>
 	<OPTION></OPTION>
-<?
+<?php
 	$asig0 = mysqli_query($db_con, "SELECT distinct materia, grupo, nivel FROM profesores WHERE profesor = '$profe' order by grupo, nivel, materia asc");
 
 	if ($asig = mysqli_fetch_array($asig0))

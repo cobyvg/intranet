@@ -1,4 +1,4 @@
-  <?
+  <?php
 // Conecxión con la base de datos.
    
   

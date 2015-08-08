@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -31,7 +31,7 @@ if (empty($buscar)) {
             </form>
 </div>
 <br />
-<?
+<?php
 		echo '<div class="well well-lg">INSTRUCCIONES.<BR><div style="text-align:left;width:inherit;">1. Puedes buscar en cualquier campo de la tabla de datos: familia, clase, lugar, descripción, marca, modelo, etc. <br>Si introduces varias palabras, se buscarán los registros que contengan <em>todas</em> las palabras.<br>2. La(-s) palabra(-s) que introduzcas no tienen porque ser completas, así que puedes escribir un trozo de palabra para aumentar los resultados de la búsqueda.<br>3. Por esa razón, si no escribes ningún texto en el campo de búsqueda, se presentarán todos los registros que has introducido, lo cual es interesante, por ejemplo, para imprimir un listado completo del material del Departamento. Los miembros del Equipo directivo verán, en este caso, la totalidad de los materiales registrados por todos los Departamentos y la propia Dirección,<br>4. Los nombres de las columnas de la tabla de resultados contienen un enlace que ordena los resultados de modo ascendente o descendente. Haciendo click sobre el nombre de una columna, podemos ordenar los resultados por familia, clase, modelo, etc.</div></div>';
 
 		echo "</div></div></div>";
@@ -41,7 +41,7 @@ if (empty($buscar)) {
 <div class="container-fluid">
 <div class="row">
 <div class="col-sm-12">
-<?
+<?php
 if ($ser) {$ser=" order by $ser";}else{$ser=" order by fecha";}
 if ($orden=="desc") {$ord="asc";}else{$orden="asc";	$ord="desc";}
 if ($buscar=="Buscar datos") {
@@ -66,7 +66,7 @@ if (mysqli_num_rows($datos) > 0)
 <div class="page-header" align=center>
 <h2>Material del Centro <small> Registros encontrados</small></h2>
 </div>
-<?
+<?php
 echo '<table class="table table-striped table-bordered datatable">
 <thead>
 <tr><th>Familia</th><th>Clase</th><th>Lugar</th><th>Descripción</th><th>Marca</th><th>Modelo</th><th nowrap>Nº Serie</th><th>Unidad</th><th>Departamento</th><th></th><th></th></tr>
@@ -86,7 +86,7 @@ $id=$dat[9];
 $departamento=$dat[10];
 ?>
 <tr><td><?php echo $familia;?></td><td><?php echo $clase;?></td><td><?php echo $lugar;?></td><td><?php echo $descripcion;?></td><td><?php echo $marca;?></td><td><?php echo $modelo;?></td><td><?php echo $serie;?></td><td><?php echo $unidades;?></td><td><?php echo $departamento;?></td><td><a href="introducir.php?id=<?php echo $id;?>&eliminar=1" data-bb='confirm-delete'><i class="fa fa-trash-o" title="Borrar" > </i> </a></td><td><a href="editar.php?id=<?php echo $id;?>&departamento=<?php echo $departamento;?>"><i class="fa fa-pencil" title="Modificar"> </i> </a></td></tr>
-<?
+<?php
 }
 	echo '</table>';
 echo '</div>';
@@ -104,7 +104,7 @@ Ningún registro del Inventario responde a tu criterio.
 </div>
 </div>
 </div>
-<?
+<?php
 	include("../../pie.php");
 ?>
 

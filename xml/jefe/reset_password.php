@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -19,7 +19,7 @@ include("../../menu.php");
 	</div>
 			<div class="row">
 
-<?
+<?php
 if (isset($_POST['enviar'])){$enviar=$_POST['enviar'];}else{$enviar='';}
 
 if (isset($_POST['enviar'])) {
@@ -63,7 +63,7 @@ Las claves de los profesores seleccionados se han reiniciado. El NIF del profeso
 <div class="form-group">
 	<label>Selecciona los profesores</label>
 <select name="cambio[]" multiple class="form-control" style="height:300px">
-<?
+<?php
 $n_carg=mysqli_query($db_con, "select distinct profesor, dni from c_profes where profesor in (select distinct nombre from departamentos) order by profesor");
 
 while($carg1=mysqli_fetch_array($n_carg))
@@ -73,7 +73,7 @@ $pro = ucwords($pro);
 $dni=$carg1[1];
 ?>
 		<option value="<?php echo $dni;?>"><?php echo $pro;?></option>
-<?
+<?php
 }
 	echo "</select>";
 ?>

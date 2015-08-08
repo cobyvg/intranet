@@ -1,4 +1,4 @@
-<?
+<?php
 // Eliminamos de FALTAS las faltas borradas por el profesor. La tarea es cosa del fichero borrar.php
 include("borrar.php");
 // Conexión
@@ -203,18 +203,18 @@ VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombre
 //exit();
 ?>
 <script language="javascript">
-<?
+<?php
 if(!(empty($mens_fecha)) or !(empty($mens1)) or !(empty($mens2)) or !(empty($mens3)) or !(empty($mens4)))
 {
 ?>
 setTimeout("window.location='index.php?year=<?php echo $ano;?>&today=<?php echo $today;?>&month=<?php echo $mes;?>'", 3000) 
-<?
+<?php
 }
 else
 {
 ?>
 setTimeout("window.location='index.php?registro=1&year=<?php echo $ano;?>&today=<?php echo $today;?>&month=<?php echo $mes;?>'", 5) 
-<?
+<?php
 }
 ?>
 </script>

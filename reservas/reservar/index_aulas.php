@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -216,7 +216,7 @@ correctamente.</div>
 
 <div class="row">
 
-<div class="col-sm-5"><?
+<div class="col-sm-5"><?php
 $mes_sig = $month+1;
 $mes_ant = $month-1;
 $ano_ant = $ano_sig = $year;
@@ -327,7 +327,7 @@ echo "";
 
 <div class="col-sm-7">
 
-<div class="well"><?
+<div class="well"><?php
 echo "<form method=\"post\" 
 action=\"index_aulas.php?servicio=$aula&year=$year&today=$today&month=$month\" 
 name=\"jcal_post\">";
@@ -471,7 +471,7 @@ echo "</form>";
 echo "</div>";
 ?></div>
 </div>
-<?
+<?php
 if ($_SERVER['SERVER_NAME']=="iesmonterroso.org" and $servicio=="AMAG") {
 	?>
 <h3>NUEVAS NORMAS DE USO Y FUNCIONAMIENTO PARA EL AULA MAGNA</h3>
@@ -551,12 +551,12 @@ cortinas.</li>
 todos para con el cuidado de este importante espacio educativo de
 nuestro instituto. Tan único como valioso!</p>
 
-	<?
+	<?php
 }
 ?></div>
 </div>
 
-<?
+<?php
 include("../../pie.php");
 ?>
 </body>

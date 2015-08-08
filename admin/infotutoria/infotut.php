@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -18,7 +18,7 @@ include("menu.php");
 
 <div class="col-md-4 col-md-offset-4">	
 <div class="well well-large">
-<?
+<?php
 if($unidad)
 {
 	echo '<h5>Grupo: <span class="text-info">';
@@ -41,7 +41,7 @@ else
 </SELECT> 
 </FORM>
 </div>
-	<?
+	<?php
 }
 ?> <?php
 echo "<form name='alumno' method='POST' action='activar.php' role='form'>";
@@ -80,7 +80,7 @@ else
 	</div>
 </div>
 
- <?
+ <?php
 echo '<input type=submit value="Activar informe" class="btn btn-primary btn-block">';
 ?>
 </form>

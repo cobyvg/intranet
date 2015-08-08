@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -8,7 +8,7 @@ header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
 exit;	
 }
 ?>
-<?
+<?php
 include("../../menu.php");
 ?>
 <br />
@@ -18,7 +18,7 @@ include("../../menu.php");
 </div>
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
-<?
+<?php
 $directorio = $_GET['directorio'];
 //echo $directorio."<br>";
 if ($directorio=="../exporta1") {

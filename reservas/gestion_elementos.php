@@ -26,7 +26,7 @@ if(!empty($recurso)){
 }
 ?>
 
-<div class="row"><?
+<div class="row"><?php
 if (isset($_POST['enviar_elm'])) {
 	$nuevo_elm = $_POST['nuevo_elm'];
 	$id_elm = $_POST['id_elm'];
@@ -61,7 +61,7 @@ if (isset($_POST['enviar_elm'])) {
 <?php echo $msg;?>
 </p>
 </div>
-<?
+<?php
 }
 
 if (isset($_GET['eliminar_elm'])) {
@@ -76,7 +76,7 @@ if (isset($_GET['eliminar_elm'])) {
 <?php echo $msg;?>
 </p>
 </div>
-<?
+<?php
 }
 
 if (isset($_GET['editar_elm'])) {
@@ -93,7 +93,7 @@ if (isset($_GET['editar_elm'])) {
 <div class="form-group"><label>Tipo de Recurso</label> <select
 	class="form-control" name="recurso" onchange="submit()">
 	<option></option>
-	<?
+	<?php
 	$srv = mysqli_query($db_con,"select distinct tipo from reservas_tipos order by tipo");
 	if (mysqli_num_rows($srv)<1) {
 		?>
@@ -129,7 +129,7 @@ if (isset($_GET['editar_elm'])) {
 <form action="gestion_elementos.php" method="post">
 <table class="table table-striped">
 
-<?
+<?php
 $elm = mysqli_query($db_con,"select distinct elemento, id, id_tipo, observaciones from reservas_elementos where id_tipo = (select id from reservas_tipos where tipo = '$recurso')");
 if (mysqli_num_rows($elm)>0) {
 	echo "<thead><th colspan=3>$recurso</th></thead>";

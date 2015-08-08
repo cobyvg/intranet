@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -22,7 +22,7 @@ include("../../menu.php");
 <div id='t_larga' style='display: none'>
 
 <div class="well well-large"
-	style="width: 700px; margin: auto; text-align: left"><?
+	style="width: 700px; margin: auto; text-align: left"><?php
 	// Vaciamos o borramos tablas
 	mysqli_query($db_con, "TRUNCATE TABLE calificaciones");
 	mysqli_query($db_con, "TRUNCATE TABLE asignaturas");

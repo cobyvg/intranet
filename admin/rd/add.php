@@ -1,4 +1,4 @@
-<?
+<?php
 ini_set("session.cookie_lifetime","5600");
 ini_set("session.gc_maxlifetime","7200");
 
@@ -47,12 +47,12 @@ else{
 	}
 }
 ?>
-<div class="container"><?
+<div class="container"><?php
 echo '<div class="page-header">
   <h2>Actas del Departamento <small> Registro de Reuniones</small></h2>
   <h3 class="text-info">'.$departament.'</h3>
 </div>';
-?> <?
+?> <?php
 if($borrar=="1"){
 	$query = "DELETE from r_departamento WHERE id = '$id'";
 	$result = mysqli_query($db_con, $query) or die ('<div align="center">
@@ -180,7 +180,7 @@ la Reunión</label>
 else{
 	?>
 <p>
-<?
+<?php
 if ($departament == "Dirección del Centro") {
 	$texto_dep = $departament;
 }
@@ -206,7 +206,7 @@ else{
 <p><u>Profesores&nbsp;Ausentes:</u></p>
 <p><br></p>
 <p><br></p>
-<?
+<?php
 }
 ?>
         		</textarea></div>
@@ -223,7 +223,7 @@ else{
 ?><input type="text" class="form-control" id="jefedep" name="jefedep"
 	value="<?php echo $rd_profesor; ?>" readonly></div>
 
-<?
+<?php
 if ($edicion=="1") {
 	echo '<input type="hidden" name="id" value="'.$id.'" class="btn btn-primary">';
 	echo '<input type="submit" name="actualiza" value="Actualizar Acta del Departamento" class="btn btn-primary"'.$j_s.'>';
@@ -237,7 +237,7 @@ else{
 <!-- /.well --></div>
 <!-- /.col-sm-8 -->
 
-<div class="col-sm-4"><?
+<div class="col-sm-4"><?php
 $query = "SELECT id, fecha, departamento, contenido, numero, impreso FROM r_departamento where departamento = '$departament' ORDER BY numero DESC";
 $result = mysqli_query($db_con, $query) or die ("Error in query: $query. " . mysqli_error($db_con));
 $n_actas = mysqli_num_rows($result);
@@ -256,7 +256,7 @@ if (mysqli_num_rows($result) > 0)
 		<td nowrap><?php echo fecha_sin($row->fecha); ?></td>
 		<td nowrap><a href="story.php?id=<?php echo $row->id; ?>"><span
 			class="fa fa-search fa-fw fa-lg" data-bs="tooltip" title='Ver'></span></a>
-			<?
+			<?php
 			if($row->impreso<>1){
 				if ($j_s == 'disabled') {} else {
 					?> <a href="pdf.php?id=<?php echo $row->id; ?>&imprimir=1"><span
@@ -266,25 +266,25 @@ if (mysqli_num_rows($result) > 0)
 			data-bs="tooltip" title="Borrar el Acta"></span></a> <a
 			href="add.php?edicion=1&id=<?php echo $row->id; ?>"><span
 			class="fa fa-pencil fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>
-			<?
+			<?php
 				}
 			}
 			else{
 				?> <a href="#"><span class="fa fa-check fa-fw fa-lg"
-			data-bs="tooltip" title="El acta ha sido impresa"></span></a> <?
+			data-bs="tooltip" title="El acta ha sido impresa"></span></a> <?php
 			if ($j_s == 'disabled') {} else {
 				?> <a href="pdf.php?id=<?php echo $row->id; ?>"><span
 			class="fa fa-print fa-fw fa-lg" data-bs="tooltip" title="Imprimir"></span></a>
-			<?
+			<?php
 			}
 			}
 			?></td>
 	</tr>
-	<?
+	<?php
 	}
 	?>
 </table>
-	<?
+	<?php
 }
 else
 {
@@ -294,7 +294,7 @@ else
 <h5>ATENCIÓN:</h5>
 No hay Actas disponibles en la base de datos. Tu puedes ser el primero
 en inaugurar la lista.</div>
-	<?
+	<?php
 }
 ?></div>
 </div>

@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 if (isset($_GET['alumno'])) {$alumno = $_GET['alumno'];}elseif (isset($_POST['alumno'])) {$alumno = $_POST['alumno'];}else{$alumno="";}
 if (isset($_GET['fecha'])) {$fecha = $_GET['fecha'];}elseif (isset($_POST['fecha'])) {$fecha = $_POST['fecha'];}else{$fecha="";}
@@ -87,7 +87,7 @@ if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="ac
 			<?php }?>
 			<li <?php echo $activo3;?>> <a href="buscar.php?todos=1">Ver Todos los Informes</a></li>
 			<li <?php echo $activo4;?>> <a href="index_buscar.php">Buscar Informes</a></li>
-			<?
+			<?php
 			if(stristr($_SESSION ['cargo'],'1') == TRUE){?>
 			<li <?php echo $activo5;?>> <a href="control.php">Control de Informes</a></li>
 			<?php }?>

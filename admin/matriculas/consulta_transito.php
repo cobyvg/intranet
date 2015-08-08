@@ -53,7 +53,7 @@ include("./menu.php");
 	<div class="col-sm-12">
 	<div class="table-responsive">
 	<table class="table table-striped table-bordered datatable"><thead>
-	<?
+	<?php
 	$cabecera="<tr><th>Alumno</th><th>Colegio</th>";
 	$col = mysqli_query($db_con,"select distinct tipo from transito_tipo where tipo not like 'norelacion' and tipo not like 'funciona' and tipo not like 'actitud' and tipo not like 'observaciones' and tipo not like 'orientacion'");
 	while ($ncol=mysqli_fetch_array($col)) {
@@ -64,7 +64,7 @@ include("./menu.php");
 	echo $cabecera;	
 	?>
 	</thead>
-	<?
+	<?php
 	$cl = mysqli_query($db_con,"select distinct claveal, apellidos, nombre, colegio from alma_primaria");
 	while ($clav = mysqli_fetch_array($cl)) {
 	

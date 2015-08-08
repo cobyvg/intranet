@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -18,7 +18,7 @@ if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
 </div>
 <br />
 <div class="well well-large"
-	style="width: 600px; margin: auto; text-align: left"><?
+	style="width: 600px; margin: auto; text-align: left"><?php
 	if($archivo1 and $archivo2){
 
 		// Copia de Seguridad
@@ -211,9 +211,9 @@ ADD  `PADRE` VARCHAR( 78 ) NULL AFTER  `CLAVEAL1`
 		}
 		}
 		}*/
-		?> <?
+		?> <?php
 		include("actualizar.php");
-		?> <?
+		?> <?php
 		if ($config['mod_sms']) {
 			include("crear_hermanos.php");
 		}

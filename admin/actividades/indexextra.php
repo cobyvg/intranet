@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR stristr($_SESSION['cargo'],'4') == TRUE))
@@ -43,7 +43,7 @@ La Actividad ha sido confirmada por la Autoridad.
 }
 if($detalles == '1')
 {
-	?> <?
+	?> <?php
 	$datos0 = "select * from calendario where id = '$id'";
 	$datos1 = mysqli_query($db_con, $datos0);
 	$datos = mysqli_fetch_array($datos1);
@@ -100,7 +100,7 @@ if($detalles == '1')
 	</tr>
 	<tr>
 		<th>Autorizada</th>
-		<td><?
+		<td><?php
 		if ($datos[9]=="0") {
 			echo "NO";
 		}
@@ -118,7 +118,7 @@ if($detalles == '1')
 <br />
 
 
-	<?
+	<?php
 }
 ?>
 
@@ -133,7 +133,7 @@ if($detalles == '1')
 		</tr>
 	</thead>
 	<tbody>
-	<?
+	<?php
 	$meses = "select distinct month(fechaini) from calendario where categoria='2' order by fechaini";
 	$meses0 = mysqli_query($db_con, $meses);
 	while ($mes = mysqli_fetch_array($meses0))
@@ -168,7 +168,7 @@ if($detalles == '1')
 			<td style="width:200px"><?php echo $datos[1];?></td>
 			<td><?php echo $mes2;?></td>
 			<td nowrap>
-			 <?
+			 <?php
 				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4]) or ($_SESSION['dpt'] == $datos[4] or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE)){
 					?> <a href="extraescolares.php?id=<?php echo $datos[0];?>&profesores=<?php  echo $datos[5];?>"><span
 				class="fa fa-users fa-fw fa-lg" data-bs="tooltip"
@@ -176,14 +176,14 @@ if($detalles == '1')
 			<a href="indexextra.php?id=<?php echo $datos[0];?>&detalles=1"
 				data-bs="tooltip" title="Detalles"><span
 				class="fa fa-search fa-fw fa-lg"></span></a> 
-			<?
+			<?php
 					if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 			?>
 				<a href="<?php echo $cal_act;?>" data-bs="tooltip" title="Editar"><span class="fa fa-edit fa-fw fa-lg"></span></a>
-			<?
+			<?php
 					}
 					?>	
-					<?
+					<?php
 				if((stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE)){
 					?> <?php if($autoriz=="1"){
 					?>
@@ -195,14 +195,14 @@ if($detalles == '1')
 				data-bs="tooltip" title="Autorizar"><span
 				class="fa fa-check-circle fa-fw fa-lg text-danger"></span></a> <?php } ?> <?php 
 				?> 
-				<?
+				<?php
 				if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'5') == TRUE  OR (stristr($_SESSION['cargo'],'4') == TRUE and $_SESSION['dpt'] == $datos[4])){
 					?> <a href="indexextra.php?id=<?php echo $datos[0];?>&eliminar=1"
 				data-bs="tooltip" title="Eliminar" data-bb="confirm-delete"><span
 				class="fa fa-trash-o fa-fw fa-lg"></span></a> <?php } ?></td>
 				<?php }?>
 		</tr>
-		<?
+		<?php
 		}
 	}
 	?>

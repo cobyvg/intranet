@@ -29,7 +29,7 @@ else{
 </small></h2>
 	</div>
 
-<?
+<?php
 if (isset($_POST['nuevo_item'])) {
 		$nuevo_tipo = $_POST['nuevo_tipo'];
 		$id_tipo = $_POST['id_tipo'];
@@ -93,7 +93,7 @@ if (isset($_GET['editar_tipo'])) {
 <br>
 <table class="table table-striped">
 
-<?
+<?php
 $srv = mysqli_query($db_con,"select distinct tipo, id, observaciones from reservas_tipos order by tipo");
 echo "<thead><th colspan=3>$recurso</th></thead>";
 

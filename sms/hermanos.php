@@ -1,4 +1,4 @@
-<?
+<?php
 // Fechas y demás...
 		$fechasp0=explode("-",$_POST['fecha12']);
 		$fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
@@ -61,15 +61,15 @@ document.enviar<?php echo $num;?>.submit()
             <input name="password" type="hidden" value="<?php echo $password;?>"  />   
             <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
             <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> 
-            <input name="mobile" type="hidden" value="<?echo $mobil2;?>"/>
+            <input name="mobile" type="hidden" value="<?php echo $mobil2;?>"/>
  			<input name="messageQty" type="hidden" value="GOLD" />
             <input name="messageType" type="hidden" value="PLUS" />        
-			<input name="message" type="hidden" value="<?echo $text;?>"/>    
+			<input name="message" type="hidden" value="<?php echo $text;?>"/>    
 </form>
 <script>
 enviarForm();
 </script>
-<?
+<?php
 mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
 $num=$num+1;
 endwhile;

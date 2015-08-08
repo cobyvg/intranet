@@ -1,4 +1,4 @@
-<?
+<?php
     $directorio = "../../varios/";
 	$archivo = "Importacion_horarios_Seneca.xml";
 	$archivo_origen = $HorExpSen;

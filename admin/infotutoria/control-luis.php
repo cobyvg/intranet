@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -15,12 +15,12 @@ if (isset($_POST['profes'])) {$profes = $_POST['profes'];}else{$profes="";}
 </div>
 <br />
 </div>
-<?
+<?php
 $detalles = '1'; 
 ?>
 <div class="row">
 <div class="col-sm-4 col-sm-offset-2" align="left">   
-<?
+<?php
 $hoy = date('Y-m-d');
 //echo $hoy;
  if($detalles == '1')
@@ -109,7 +109,7 @@ if($detalles == '1')
 echo "<p>$row[6] --> <span style='color:#08c'>$row[4] $row[5]</span> --> $row[2]</p>";
 ?>
 <ul  class='unstyled'>
-<?
+<?php
 echo "<li><i class='fa fa-user'> </i> $profesores ==> $nomasi[0]</li>";
 echo "</ul>";
 echo "<hr />";
@@ -124,7 +124,7 @@ echo "<hr />";
 ?>
 </div>
 <div class="col-sm-4">
-<?
+<?php
 echo '<h4>Resultados globales por Profesor</h4><br />';
 $malo0 = "select profesor, count(*) as total from infotut_temp group by profesor";
 //echo "$combasi0<br>";
@@ -137,7 +137,7 @@ echo "<tr><td>$malo2[0]</td><td>$malo2[1]</td></tr>";
 ?>
 </table>
 <br />
-<?
+<?php
 echo '<h4>Resultados globales por Asignatura</h4><br />';
 $malo0 = "select distinct asignatura, count(*) as total from infotut_temp where profesor like '$profes' group by asignatura";
 //echo "$combasi0<br>";

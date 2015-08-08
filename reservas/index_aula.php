@@ -39,7 +39,7 @@ if(mysqli_num_rows($ocul)>0){
 ?>
 <select class="form-control" name="servicio_aula" onchange="submit()">
 	<option value=""></option>
-<?
+<?php
 $aula_res = "SELECT DISTINCT a_aula, n_aula FROM $db.horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' $extra_ocultas1 ORDER BY n_aula ASC";
 $result = mysqli_query($db_con,$aula_res); 
 ?> 
@@ -51,7 +51,7 @@ $result = mysqli_query($db_con,$aula_res);
 	<?php endwhile; ?>
 	</optgroup>	
 	<?php endif; ?>
-<?
+<?php
 $aula_res2 = "SELECT DISTINCT abrev, nombre FROM nuevas WHERE abrev NOT LIKE '' $extra_ocultas2 ORDER BY abrev ASC";
 $result2 = mysqli_query($db_con,$aula_res2); ?> 
 <?php if(mysqli_num_rows($result2)): ?>
@@ -185,7 +185,7 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 			<?php endforeach; ?>
 		</tr>
 	</thead>
-	<?
+	<?php
 	//Días vacíos
 	if ($dayone < 0) $dayone = 6;
 	for ($i = 0; $i < $dayone; $i++) {
@@ -246,7 +246,7 @@ $result2 = mysqli_query($db_con,$aula_res2); ?>
 	?>
 	<div class="well">
 	<h4 class="text-info">Próximos días</h4>
-	<?
+	<?php
 	for ($i = $today; $i <= ($today + 6); $i++) {
 		$current_day = $i;
 		$current_year = $year;

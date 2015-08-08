@@ -1,4 +1,4 @@
-<?
+<?php
 // Aquí empieza la justificación.
 // Buscamos registros siguiendo a cal.php
 // Datos complementarios para el formulario
@@ -94,7 +94,7 @@ else
 				for ($i=1;$i<7;$i++)
 				{
 					?>
-					<?
+					<?php
 					foreach ($_POST as $clave => $valor){
 						if (strstr($clave,"_")==TRUE) {
 							$codasi="";

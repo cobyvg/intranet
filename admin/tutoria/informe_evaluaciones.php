@@ -197,12 +197,12 @@ include("menu.php");
 			<th >Fecha</th>
 			<th >Rep.</th>
 			<th >PIL</th>
-<?
+<?php
 if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 ?>			
 			<th >Exen.</th>
 			<th >Ref.</th>
-<?
+<?php
 }
 ?>
 			<th>Pend.</th>
@@ -234,7 +234,7 @@ if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 			<td><?php echo $row['fecha'].'<br><span class="text-success">('.$row['edad'].')</span>'; ?></td>
 			
 			<td>			
-<?
+<?php
 $repite = "";
 $chk1 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'rep'");
 if (mysqli_num_rows($chk1)>0) {
@@ -266,7 +266,7 @@ $repite=substr($repit_db[1],0,1)."º, ";
 			</td>
 			
 			<td>
-			<?
+			<?php
 
 $pil = "";			
 $chk2 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'pil'");
@@ -284,11 +284,11 @@ echo "<input type='text' class='form-control input-sm' style='width:45px' maxlen
 			?>
 			</td>
 
-<?
+<?php
 if ((strstr($curso,"1")==TRUE or strstr($curso,"2")==TRUE) or $orienta==1) {
 ?>
 <td>
-			<?
+			<?php
 
 $exen = "";			
 $chk21 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'exen'");
@@ -307,7 +307,7 @@ echo "<input type='text' class='form-control input-sm' style='width:30px' maxlen
 			</td>
 
 			<td>
-	<?
+	<?php
 
 $ref = "";			
 $chk22 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'ref'");
@@ -329,11 +329,11 @@ if (mysqli_num_rows($chk22)>0) {
 echo "<input type='text' class='form-control input-sm' style='width:50px' maxlength='3' name='ref-".$row['claveal']."' value='$ref' />";
 			?>
 			</td>
-<?
+<?php
 }
 ?>						
 			<td>
-			<?
+			<?php
 			$pendiente="";
 			$pend = mysqli_query($db_con,"select distinct pendientes.codigo, abrev from pendientes, asignaturas where pendientes.codigo=asignaturas.codigo and abrev like '%\_%' and claveal = '".$row['claveal']."'");
 			while ($pendi = mysqli_fetch_row($pend)) {
@@ -344,7 +344,7 @@ echo "<input type='text' class='form-control input-sm' style='width:50px' maxlen
 			</td>
 			
 			<td>
-<?
+<?php
 $obs_extra = "";			
 $chk44 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'obs'");
 if (mysqli_num_rows($chk44)>0) {
@@ -364,7 +364,7 @@ if (mysqli_num_rows($chk4)>0) {
 			</td>
 <?php if(stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'1') == TRUE){?>
 <td>			
-<?
+<?php
 $ori_extra = "";			
 $chk55 = mysqli_query($db_con, "select valor, evaluacion from evalua_tutoria where unidad = '$curso' and alumno = '".$row['claveal']."' and campo = 'ori'");
 if (mysqli_num_rows($chk55)>0) {
@@ -384,7 +384,7 @@ if (mysqli_num_rows($chk5)>0) {
 			</td>
 			<td nowrap>
 			<div class="form-group">
-<?
+<?php
 $inf = "";			
 $chk6 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'inf'");
 if (mysqli_num_rows($chk6)>0) {
@@ -401,7 +401,7 @@ if (mysqli_num_rows($chk6)>0) {
 			<label><small>Informe</small></label><br>
 			
 			<div class="form-group">
-<?
+<?php
 $aci = "";			
 $chk7 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'aci'");
 if (mysqli_num_rows($chk7)>0) {
@@ -418,7 +418,7 @@ if (mysqli_num_rows($chk7)>0) {
 			<label><small>ACI</small></label><br>
 			
 			<div class="form-group">
-<?
+<?php
 $dct = "";			
 $chk8 = mysqli_query($db_con, "select valor from evalua_tutoria where unidad = '$curso' and evaluacion = '$evaluacion' and alumno = '".$row['claveal']."' and campo = 'dct'");
 if (mysqli_num_rows($chk8)>0) {

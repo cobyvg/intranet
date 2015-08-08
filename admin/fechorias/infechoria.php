@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 include("../../menu.php");
@@ -83,7 +83,7 @@ include("menu.php");
 		
 	</div>
 
-<div class="row"><?
+<div class="row"><?php
 //variables();
 if ( $_POST['unidad']) {$unidad = $_POST['unidad'];}
 if (isset($_GET['id'])) { $id = $_GET['id'];}elseif (isset($_POST['id'])) { $id = $_POST['id'];}
@@ -155,7 +155,7 @@ if ($_GET['id'] or $_POST['id']) {
 <div class="form-group" id="datetimepicker1"><label for="fecha">Fecha</label>
 <div class="input-group"><input name="fecha" type="text"
 	class="form-control" data-date-format="DD-MM-YYYY" id="fecha"
-	value="<?if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>"
+	value="<?php if($fecha == "") { echo date('d-m-Y'); } else { echo $fecha;}?>"
 	required> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div>
 </div>
@@ -166,7 +166,7 @@ if ($_GET['id'] or $_POST['id']) {
 
 	<?php unidad($db_con);?>
 </select></div>
-<label for="nombre">Alumno/a</label> <?
+<label for="nombre">Alumno/a</label> <?php
 if ((isset($nombre)) and isset($unidad) and !(is_array($nombre)))
 {
 
@@ -190,13 +190,13 @@ if ((isset($nombre)) and isset($unidad) and !(is_array($nombre)))
 	}
 	?>
 	</select>
-	<?
+	<?php
 }
 else{
 
 	?> <select class="form-control" id="nombre" name="nombre[]"
 	multiple='multiple' style='height: 450px;' required>
-	<?
+	<?php
 	if ($unidad) {
 		$uni = " WHERE unidad like '$unidad%'";
 	}
@@ -224,7 +224,7 @@ else{
 <p class="help-block">Puedes seleccionar varios alumnos manteniendo
 presionada la tecla <kbd>Ctrl</kbd> mientras haces click con el ratón
 sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Problema a todos los alumnos del Grupo, marca con el ratón el primer alumno y, mientras mantienes pulsada la tecla <kbd>Mayúsculas (Shift)</kbd>, marca el último de los alumnos para seleccionarlos a todos.</p>
-<?
+<?php
 }
 ?>
 
@@ -239,7 +239,7 @@ sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Proble
 <div class="form-group"><label for="grave"> Gravedad</label> <select
 	class="form-control" id="grave" name="grave" onchange="submit()" required>
 	<option><?php echo $grave;?></option>
-	<?
+	<?php
 	tipo($db_con);
 	?>
 </select></div>
@@ -256,12 +256,12 @@ sobre los mismos. <br>Si has seleccionado un Grupo y quieres registrar un Proble
 	}
 	else
 	{ echo $asunto;}  ?></option>
-	<?
+	<?php
 	fechoria($db_con, $grave);
 	?>
 </select></div>
 
-<div class="form-group"><label class="medida">Medida Adoptada</label> <?
+<div class="form-group"><label class="medida">Medida Adoptada</label> <?php
 
 $tipo = "select distinct medidas from listafechorias where fechoria = '$asunto'";
 $tipo1 = mysqli_query($db_con, $tipo);
@@ -286,7 +286,7 @@ deben tomarse</label> <textarea class="form-control" id="medidas"
 	name="medidas" rows="7" disabled><?php if($medidas){ echo $medidad; }else{  medida2($db_con, $asunto);} ?></textarea>
 </div>
 
-<?
+<?php
 if($grave == 'grave' or $grave == 'muy grave'){
 	?>
 <div class="checkbox"><label> <input type="checkbox" id="expulsionaula"
@@ -294,7 +294,7 @@ if($grave == 'grave' or $grave == 'muy grave'){
 	<?php  if ($expulsionaula == "1") { echo " checked ";}?>> El alumno ha
 sido <u>expulsado</u> del aula </label></div>
 
-	<?
+	<?php
 }
 ?>
 
@@ -303,13 +303,13 @@ sido <u>expulsado</u> del aula </label></div>
 	placeholder="Describe aquí los detalles del incidente..." required><?php echo $notas; ?></textarea>
 </div>
 
-<?
+<?php
 if ($id) {
 	?>
 
 <div class="form-group"><label for="informa">Profesor</label> <select
 	class="form-control" id="informa" name="informa">
-	<?
+	<?php
 	if ($id) {
 		echo "<OPTION>".$informa."</OPTION>";
 	}
@@ -320,14 +320,14 @@ if ($id) {
 	}
 	?>
 </select></div>
-	<?
+	<?php
 }
 else{
 	if(stristr($_SESSION['cargo'],'1') == TRUE OR stristr($_SESSION['cargo'],'b') == TRUE){
 		?>
 <div class="form-group"><label class="informa">Profesor</label> <select
 	class="form-control" id="informa" name="informa">
-	<?
+	<?php
 	if ($id) {
 		echo '<OPTION value="'.$informa.'">'.nomprofesor($informa).'</OPTION>';
 	}
@@ -340,11 +340,11 @@ else{
 	}
 	?>
 </select></div>
-	<?
+	<?php
 	}
 	else{
 		?> <input type="hidden" id="informa" name="informa"
-	value="<?php echo $_SESSION['profi'];?>"> <?
+	value="<?php echo $_SESSION['profi'];?>"> <?php
 	}
 
 }
@@ -353,7 +353,7 @@ else{
 
 
 <hr />
-<?
+<?php
 if ($id) {
 	echo '<input type="hidden" name="id" value="'.$id.'">';
 	echo '<input type="hidden" name="claveal" value="'.$claveal.'">';
@@ -367,7 +367,7 @@ else{
 </form>
 </div>
 </div>
-<?
+<?php
 include("../../pie.php");
 ?>
 <script>  

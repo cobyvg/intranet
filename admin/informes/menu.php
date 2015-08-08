@@ -1,4 +1,4 @@
-<?
+<?php
 $activo1="";
 $activo2="";
 $activo3="";

@@ -1,4 +1,4 @@
-<?
+<?php
 $n_dep = array("inventario","actividades","mem_dep","r_departamento","Textos");
 foreach ($n_dep as $sust_dep){
 $dep0 = mysqli_query($db_con, "select id, departamento from $sust_dep");

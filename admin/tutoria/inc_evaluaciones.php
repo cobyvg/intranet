@@ -3,7 +3,7 @@
 <br />
 <h3>Resultados por Materias</h3><br />
 
-<?
+<?php
 $titulos = array("3"=>"Evaluación Ordinaria");
 foreach ($titulos as $key=>$val){
 
@@ -18,7 +18,7 @@ INDEX (  `claveal` )
  mysqli_query($db_con, $crea_tabla2);  
  mysqli_query($db_con, "ALTER TABLE  `temp` ADD INDEX (  `asignatura` )");
 ?>
-<?
+<?php
 $todos="";
 $notas1 = "select notas". $key .", claveal1, matriculas, unidad, alma.curso from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.unidad = '$unidad'";
 //echo $notas1."<br>";
@@ -70,7 +70,7 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 <th class='text-info'>Aprobados</th>
 </thead>
 <tbody>	
-	<?
+	<?php
 $sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas, profesores where profesores.materia = asignaturas.nombre
  and asignaturas.curso = '".$config['curso_actual']."' and profesores.grupo = '".$_SESSION['mod_tutoria']['unidad']."' and abrev not like '%\_%' and asignaturas.codigo not in 
 (select distinct asignaturas.codigo from asignaturas where asignaturas.nombre like 'Libre Disp%')";
@@ -121,10 +121,10 @@ if ($porcient_asig>0) {
 </table>
 <br />
 <hr />
-<?
+<?php
 ?>
 
-<?
+<?php
 }
 mysqli_query($db_con, "drop table temp");
 ?>

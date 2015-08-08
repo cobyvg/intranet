@@ -1,4 +1,4 @@
-<?
+<?php
 if(stristr($_SESSION['cargo'],'4') == TRUE)
 {
 	include("introducir.php");
@@ -21,7 +21,7 @@ include("menu.php");
 	name="departamento" id="departamento" class="form-control"
 	value="Todos ...">
 	<option></option>
-	<?
+	<?php
 	$profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos, profesores where departamento not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria' order by departamento asc");
 	while($filaprofe = mysqli_fetch_array($profe))
 	{
@@ -45,7 +45,7 @@ include("menu.php");
 </div>
 </div>
 </div>
-	<?
+	<?php
 }
 include("../../pie.php");
 ?>

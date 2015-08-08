@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -14,7 +14,7 @@ include("../menu.php");
 <br />
 <div class="col-sm-5 col-sm-offset-1">
 <div class="well well-large" style="text-align:left;">
-<?
+<?php
 	  if(stristr($_SESSION['cargo'],'1') == TRUE)
 	  {
 ?>
@@ -46,7 +46,7 @@ include("../menu.php");
 			              <INPUT name="submit4" type="submit" value="Enviar Datos" id="submit4" class="btn btn-primary"> 
 </fieldset>
 </form>
-<?
+<?php
 	  }
 ?>
 </div>

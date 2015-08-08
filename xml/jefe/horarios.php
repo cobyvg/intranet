@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -16,7 +16,7 @@ include("../../menu.php");
 <h2>Administración <small>Importación del horario con archivo DEL de
 Horw</small></h2>
 </div>
-<div class="row"><?
+<div class="row"><?php
 
 $contents = file($_FILES['archivo']['tmp_name']);
 $n_lineas = count($contents);

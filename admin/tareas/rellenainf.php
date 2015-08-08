@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -18,7 +18,7 @@ $profesor =$_POST['profesor'];
 <br>
 
 <div class="col-md-8 col-md-offset-2">	
-<?
+<?php
 if (empty($informe) or empty($asignatura) or empty($id_alumno)) {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

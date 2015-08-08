@@ -73,9 +73,9 @@ echo '<tr><th>'.$nombre.'ª</th>';
 		?>
     </span>
 </td>
-<?
+<?php
 	}
-	?></tr><?
+	?></tr><?php
 }
 ?>
 </tbody>

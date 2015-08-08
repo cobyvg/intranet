@@ -1,4 +1,4 @@
-<?
+<?php
 $pa = explode(", ", $datos_ya->padre);
 $papa = "$pa[1] $pa[0]";
 $hoy = formatea_fecha(date('Y-m-d'));

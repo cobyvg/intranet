@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -35,7 +35,7 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
   <br><h3>Información completa de Actividad Extraescolar
   </h3><br />
   
-  <?
+  <?php
  	$datos0 = "select * from calendario where id = '$id'";
 	$datos1 = mysqli_query($db_con, $datos0);
 	$datos = mysqli_fetch_array($datos1);
@@ -90,7 +90,7 @@ $SQL = "select unidad from FTUTORES where tutor = '$tutor'";
 	</tr>
 	<tr>
 		<th>Autorizada</th>
-		<td><?
+		<td><?php
 		if ($datos[9]=="0") {
 			echo "NO";
 		}

@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 if(isset($_POST['impreso'])){

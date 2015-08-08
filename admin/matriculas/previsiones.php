@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 include("../../menu.php");
@@ -41,7 +41,7 @@ else{
 <table align="center" style="width: auto" cellpadding=6>
 	<tr>
 
-	<?
+	<?php
 	// Evaluaciones ESO
 	$niv = mysqli_query($db_con, "select nomcurso from cursos where nomcurso like '%E.S.O.%' or nomcurso like '%Bach%'");
 	while ($ni = mysqli_fetch_array($niv)) {
@@ -154,7 +154,7 @@ VALUES (
 
 		<table class="table table-striped" align="center" style="width: 96%"
 			valign="top">
-			<?
+			<?php
 			if (strstr($curso, "E.S.O.") == TRUE) {
 				echo "<h4>".$curso."</h4>";
 				$rep_pil = "PIL <br /><small class='muted'>(+4: $pil_mas_cuatro; 4: $pil_cuatro; -4: $pil_menos_cuatro)</small>";
@@ -207,7 +207,7 @@ VALUES (
 			</tr>
 		</table>
 		</td>
-		<?
+		<?php
 	}
 	mysqli_query($db_con, "drop table suspensos");
 

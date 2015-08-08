@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'7') == TRUE))
@@ -458,7 +458,7 @@ Los datos de la Matrícula se han registrado correctamente en la Base de
 datos.</div>
 </div>
 <br />
-				<?
+				<?php
 			}
 			//	exit();
 		}
@@ -490,7 +490,7 @@ datos.</div>
 <div class="alert alert-danger"><?php echo $msg_error; ?></div>
 <?php endif; ?> <?php if(isset($msg_success)): ?>
 <div class="alert alert-success"><?php echo $msg_success; ?></div>
-<?php endif; ?> <?
+<?php endif; ?> <?php
 
 $cargo="1";
 
@@ -622,7 +622,7 @@ if ($dni or $claveal or $id) {
 			</td>
 		</tr>
 
-		<?
+		<?php
 		if (substr($curso,0,1) == substr($n_curso_ya,0,1) and (substr($n_curso_ya,0,1) == "1") and $cargo == '1') {$repite_1bach = "1";}
 		if (substr($curso,0,1) == substr($n_curso_ya,0,1) and (substr($n_curso_ya,0,1) == "2") and $cargo == '1') {$repite_2bach = "1";}
 		?>
@@ -1008,7 +1008,7 @@ if ($dni or $claveal or $id) {
 		<td>
 		<?php if ($i==1) { echo "<p>Matemáticas<br>Física y Química<br>Dibujo Técnico</p>";}elseif($i==2){echo "<p>Matemáticas<br>Física y Química<br>Biología y Geología</p>";}?>
 		<div class="form-group">
-		<select class="form-control" name="optativa1<?echo $i;?>"  <?php if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 == $i){echo 'style="background-color:#FFFF66;"';}?>>
+		<select class="form-control" name="optativa1<?php echo $i;?>"  <?php if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 == $i){echo 'style="background-color:#FFFF66;"';}?>>
 		<option></option>
 		<?php foreach (${opt1.$i} as $optit_1 => $nombre){ ?>
 				<option value="<?php echo $optit_1; ?>"
@@ -1198,7 +1198,7 @@ if ($dni or $claveal or $id) {
 		<td>
 		<?php if ($i==1) { echo "<p>Matemáticas<br>Física y Química<br>Dibujo Técnico</p>";}elseif($i==2){echo "<p>Matemáticas<br>Física y Química<br>Biología y Geología</p>";}?>
 		<div class="form-group">
-		<select class="form-control" name="optativa1<?echo $i;?>"  <?php if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 == $i){echo 'style="background-color:#FFFF66;"';}?>>
+		<select class="form-control" name="optativa1<?php echo $i;?>"  <?php if(stristr($vacios,"optativas de modalidad de 1B")==TRUE and $mod1 == $i){echo 'style="background-color:#FFFF66;"';}?>>
 		<option></option>
 		<?php foreach (${opt1.$i} as $optit_1 => $nombre){ ?>
 				<option value="<?php echo $optit_1; ?>"
@@ -1350,7 +1350,7 @@ cambios</button>
 
 </form>
 
-				<?
+				<?php
 }
 else{ ?> <?php if($dni == '' || $dnitutor == ''): ?>
 <div class="alert alert-danger">Debes introducir el DNI / Pasaporte o

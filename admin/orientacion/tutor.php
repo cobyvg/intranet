@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -57,7 +57,7 @@ include("../../menu.php");
 	<!-- SCAFFOLDING -->
 	<div class="row">
 	
-<?
+<?php
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 }
@@ -221,7 +221,7 @@ if ($alumno) {
 </div>
 </div>
 </div>
-<?
+<?php
 
 	$index = substr($config['curso_actual'],0,4)+1;
 	for ($i = 0; $i < 6; $i++) {
@@ -277,7 +277,7 @@ if ($alumno) {
 <select name="accion[]" multiple class='form-control'>
 
 
-<?
+<?php
 $opcion = array(   'Entrevista con el Alumno',
 		      'Entrevista personal con la Familia',
                           'Entrevista con el Equipo Educativo',
@@ -316,7 +316,7 @@ foreach ($opcion as $opc)
 	value='Eliminar' class='btn btn-danger'>
 </form>
 
-<?
+<?php
 if($alumno){
 	$tr = explode(" --> ",$alumno);
 	$al = $tr[0];
@@ -328,7 +328,7 @@ if($alumno){
 <hr>
 <div class="well">
 <h4>Historial de Intervenciones sobre <?php echo $nombre." ".$apellidos." (".$unidad.")"; ?></h4><br>
-	<?
+	<?php
 
 	$result = mysqli_query($db_con, "select apellidos, nombre, fecha, accion, causa, observaciones, id, orienta, jefatura, prohibido from tutoria where claveal='$clave' order by fecha");
 	if ($row = mysqli_fetch_array($result))

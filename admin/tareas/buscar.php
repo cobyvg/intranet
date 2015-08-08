@@ -1,4 +1,4 @@
-<?
+<?php
   if(isset($_GET['todos']) and $_GET['todos'] == "1") { 
   $titulo = "Todos los Informes en este año escolar";
 } else { 
@@ -100,7 +100,7 @@ else
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 No hay Informes de Tareas disponibles con esos criterios.</div></div><hr>';
 ?>
-<?
+<?php
 }
 ?>
 </div>

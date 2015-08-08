@@ -109,7 +109,7 @@ $asignatura="";
 			<div class="well">
 				
 				<form method="post" action="excel.php">
-<?
+<?php
 if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE or stristr($_SESSION['cargo'],'5') == TRUE or stristr($_SESSION['cargo'],'d') == TRUE or $todos == "1"){
 	$query_Recordset1 = "SELECT distinct unidad, SUBSTRING(unidad, 2,1) AS orden FROM alma ORDER BY orden ASC";
 }
