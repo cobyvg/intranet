@@ -78,15 +78,12 @@ enviarForm();
 	}
 
 }
-?>
-<?
+
 // Problemas varios de convivencia
 
 $result1 = mysqli_query($db_con, "select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and medida = 'Amonestación escrita'");
 if(mysqli_num_rows($result1)>0)
 {
-?>
-<?
 	do
 	{
 $id=$row1[0];

@@ -350,7 +350,7 @@ $PLUGIN_COLORPICKER = 1;
 					</div>
 					
 					
-					<a href="#" data-toggle="modal" data-target="#modalNuevoEvento" class="btn btn-primary"><span class="fa fa-plus fa-fw"></span></a>
+					<a href="#" data-toggle="modal" data-target="#modalNuevoEvento" class="btn btn-primary"><span class="fa fa-calendar-plus-o fa-fw"></span></a>
 					
 					<div class="pull-right">
 						<a href="#" onclick="javascrip:print()" class="btn btn-default"><span class="fa fa-print fa-fw"></span></a>
@@ -360,37 +360,54 @@ $PLUGIN_COLORPICKER = 1;
 						  <a href="?mes=<?php echo date('n'); ?>&anio=<?php echo date('Y'); ?>" class="btn btn-default">Hoy</a>
 						  <a href="?mes=<?php echo $mes_sig; ?>&anio=<?php echo $anio_sig; ?>" class="btn btn-default">&raquo;</a>
 						 </div>
-						  <!-- Button trigger modal -->
-						  &nbsp;
-						  <a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">
- 							<span class="fa fa-question fa-lg"></span>
-						  </a>
-						  
+						 
+						<!-- Button trigger modal -->
+					 	<a href="#"class="btn btn-default hidden-print" data-toggle="modal" data-target="#modalAyuda">
+					 		<span class="fa fa-question fa-lg"></span>
+					 	</a>
+					 
+					 	<!-- Modal -->
+					 	<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+					 		<div class="modal-dialog modal-lg">
+					 			<div class="modal-content">
+					 				<div class="modal-header">
+					 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+					 					<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					 				</div>
+					 				<div class="modal-body">
+					 					<p>Este módulo presenta los distintos calendarios que funcionan en la aplicación.</p>
+					 					<p>El <strong>Calendario personal</strong> es propio de todos y cada uno de los 
+					 					profesores. Sólo es visible para el profesor concreto que es su propietario. Si la 
+					 					actividad afecta a Grupos de alumnos (hemos seleccionado alguno de nuestros grupos), 
+					 					también es visible para los profesores que dan clase en esos grupos. Es una forma 
+					 					fácil de controlar los exámenes o actividades que afectan al grupo por parte del 
+					 					Equipo Educativo del mismo.</p>
+					 					<p>Además del Calendario personal, podemos crear tantos calendarios personales como 
+					 					necesitemos (calendarios asociados a nuestros grupos para crear un diario de trabajo 
+					 					con los alumnos, etc.). Para añadir un calendario hacemos click sobre el icono de 
+					 					<span class="fa fa-calendar-plus-o fa-fw"></span> que aparece al lado del selector de 
+					 					calendarios.</p>
+					 					<p>El <strong>Calendario del Centro</strong> es visible por todo el mundo, incluida 
+					 					la Página pública del Centro. El Equipo Directivo puede crear entradas en este calendario.</p>
+					 					<p>El <strong>Calendario de Actividades Complementarias y Extraescolares</strong> es 
+					 					también visible por todo el mundo y pueden crear entradas los Jefes de Departamento, 
+					 					Tutores, DACE y Dirección. También pueden editar las actividades los profesores 
+					 					asociados a una de ellas. El formulario de registro de Actividades aparece cuando 
+					 					hemos seleccionado este Calendario. Los campos son obligatorios. Si es el Tutor 
+					 					quien registra una actividad complementaria se encontrará limitado a su Grupo de 
+					 					Tutoría, y aparecerá bajo el Departamento de Orientación. Más información sobre el 
+					 					mecanismo que regula las Actividades Extraescolares en el Menú de la página 
+					 					principal --> Departamento --> Actividades Extraescolares.</p>
+					 				</div>
+					 				<div class="modal-footer">
+					 					<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					 				</div>
+					 			</div>
+					 		</div>
+					 	</div>					  
 						
 					</div>
 
- <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Información sobre el Calendario.</h4>
-      </div>
-      <div class="modal-body">
-		<p class="help-block">
-		Este módulo presenta los distintos calendarios que funcionan en la aplicación. <br><br>
-		El <b>Calendario personal</b> es propio de todos y cada uno de los profesores. Sólo es visible para el profesor concreto que es su propietario. Si la actividad afecta a Grupos de alumnos (hemos seleccionado alguno de nuestros grupos), también es visible para los profesores que dan clase en esos grupos. Es una forma fácil de controlar los exámenes o actividades que afectan al grupo por parte del Equipo Educativo del mismo. <br>Además del Calendario personal, podemos crear tantos calendarios personales como necesitemos (calendarios asociados a nuestros grupos para crear un diario de trabajo con los alumnos, etc.). Para añadir un calendartio hacemos click sobre el icono de '+' que aparece al lado del selector de calendarios.<br><br>
-		El <b>Calendario del Centro</b> es visble por todo el mundo, incluída la Página pública del Centro. El Equipo Directivo puede crear entradas en este calendario.<br><br>
-		El <b>Calendario de Actividades Complementarias y Extraescolares</b> es también visible por todo el mundo y pueden crear entradas los Jefes de Departamento, Tutores, DACE y Dirección. También pueden editar las acividades los profesores asociados a una de ellas. El formulario de registro de Acividades aparece cuando hemos seleccionado este Calendario. Los campos son obligatorios. Si es el Tutor quien registra una actividad complementaria se encontrará limitado a su Grupo de Tutoría, y aprecerá bajo el Departamento de Orientación. Más información sobre el mecanismo que regula las Actividades Extraescolares en el Menú de la página principal --> Departamento --> Actividades Extraescolares.<br>
-		</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
 				</div>
 				
 				<br class="hidden-print">

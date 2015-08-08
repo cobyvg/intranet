@@ -53,33 +53,37 @@ $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 	<div class="page-header">
 		<h2 style="display:inline;">Evaluación de Pendientes <small>Listado de pendientes por asignatura</small></h2>
 		
-			<!-- Button trigger modal --> <a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
-</div>
-<div class="modal-body">
-<p><b>Instrucciones de Uso</b><br><br>
-Este módulo permite poner y consultar las notas de las distintas Evaluaciones de los alumnos con Asignaturas pendientes de otros Cursos.<br><br>
-El formulario para colocar las calificaciones nos presenta los Niveles en los que impartimos la asignatura. Al seleccionar un Nivel nos encontramos con los alumnos pendientes de alguno de nuestros Grupos en ese Nivel. <br>Los Jefes de Departamento pueden seleccionar todos los Niveles y colocar notas a todos los alumnos de ese Nivel; el Equipo Directivo puede seleccionar y poner notas en todos los Niveles y todas las Asignaturas.<br><br>
-La Consulta es abierta para todos los Profesores, Departamentos y Asignaturas. Nos presenta un bloque por Nivel en el que aparecen los alumnos con cualquier asignatura pendiente.
-</p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>
+		<!-- Button trigger modal -->
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+			<span class="fa fa-question fa-lg"></span>
+		</a>
+	
+		<!-- Modal -->
+		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					</div>
+					<div class="modal-body">
+						<p>Este módulo permite poner y consultar las notas de las distintas Evaluaciones de los alumnos con 
+						Asignaturas pendientes de otros Cursos.</p>
+						<p>El formulario para colocar las calificaciones nos presenta los Niveles en los que impartimos la 
+						asignatura. Al seleccionar un Nivel nos encontramos con los alumnos pendientes de alguno de nuestros 
+						Grupos en ese Nivel.</p>
+						<p>Los Jefes de Departamento pueden seleccionar todos los Niveles y colocar notas a todos los alumnos 
+						de ese Nivel; el Equipo Directivo puede seleccionar y poner notas en todos los Niveles y todas las 
+						Asignaturas.</p>
+						<p>La Consulta es abierta para todos los Profesores, Departamentos y Asignaturas. Nos presenta un 
+						bloque por Nivel en el que aparecen los alumnos con cualquier asignatura pendiente.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</div>
 	

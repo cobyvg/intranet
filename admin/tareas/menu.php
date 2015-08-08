@@ -22,55 +22,75 @@ if (strstr($_SERVER['REQUEST_URI'],'buscar.php')==TRUE){ $activo3 = ' class="act
 if (strstr($_SERVER['REQUEST_URI'],'index_buscar.php')==TRUE){ $activo4 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'control.php')==TRUE){ $activo5 = ' class="active" ';}
 ?>      
-    <div class="container hidden-print"> 
-    			<!-- Button trigger modal --> 
-	<a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones sobre los Informes de Tareas</h4>
-</div>
-<div class="modal-body">
-<p>
-Los Informes de Tareas son activados por la Jefatura de Estudios cuando un alumno va a ser expulsado del Centro por algún Problema de Convivencia de tipo Grave o Muy Grave; también pueden ser activados por el Tutor cuando un alumno se va a ausentar del Centro un tiempo por motivos diversos (enfermedad, viaje, etc.). Cuando han sido activados mediante el formulario correspondiente (en el que el Tutor selecciona al alumno y las fechas de comienzo y fin de la ausencia o expulsión), los profesores del Equipo Educativo del alumno reciben una solicitud de información para que propongan tareas  en su asignatura durante la ausencia del alumno. La notificación a los profesores aparece en la página de inicio de la Intranet, o bien en la página de Informes de Tareas. La notificación desaparece cuando hemos rellenado el Informe o la fecha de regreso ha pasado. <br>
-Una vez recibida la solicituda de tareas, el profesor entra en un formulario en el que aparece la asignatura (o asignaturas, en el caso de que el profesor imparta más de una al alumno, o éste tenga una asignatura pendiente de continuidad), escribe sus tareas para el alumno y envía los datos. Los Informes son visibles en todo momento para el resto de los profesores del alumno. <br>Cuando el alumno ha regresado, una nueva notificación aparece preguntando a los profesores del mismo si este ha realizado las tareas o no para que el Tutor y Jefatura de Estudios estén informados y determinen las acciones a tomar.<br><br>
-El módulo contiene la posibilidad de ver la totalidad de los Informes de Tareas a lo largo del Curso Escolar, o bien de buscar entre los Informes los correspondientes a un alumno determinado. Hay que tener en cuenta que, una vez pasada la fecha de lregreso del alumno, los Informes de TutTareasoría quedan bloqueados, aunque siguen siendo visibles.<br><br>
-El Equipo Directivo dispone de una opción, <b>Control de Informes</b>, que presenta estadísticas por alumno y profesor sobre los Informes de Tareas.
-</p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div> 
-  <div class="tabbable">
-          <ul class="nav nav-tabs">
-<li <?php echo $activo1;?>> <a href="index.php">Página de Informes de Tareas</a></li>
-<?
-if(stristr($_SESSION ['cargo'],'2') == TRUE or stristr($_SESSION ['cargo'],'1') == TRUE)
-{
-	if(stristr($_SESSION ['cargo'],'2') == TRUE){
-	$tutor = $_SESSION['mod_tutoria']['tutor'];
-}
-?>
-     <li <?php echo $activo2;?>><a href="infotut.php?<?php if (isset($_SESSION['mod_tutoria']['unidad'])) {echo  "unidad=".$_SESSION['mod_tutoria']['unidad'];}?>">Activar Nuevo Informe</a></li>
-     <?php }?>
-     <li <?php echo $activo3;?>> <a href="buscar.php?todos=1">Ver Todos los Informes</a></li>
-     <li <?php echo $activo4;?>> <a href="index_buscar.php">Buscar Informes</a></li>
-     <?
-     if(stristr($_SESSION ['cargo'],'1') == TRUE){?>
-     <li <?php echo $activo5;?>> <a href="control.php">Control de Informes</a></li>
-     <?php }?>
-    </ul>
-        </div>
-        </div>
-      
+    <div class="container hidden-print">
+    	
+    	<!-- Button trigger modal -->
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+			<span class="fa fa-question fa-lg"></span>
+		</a>
+	
+		<!-- Modal -->
+		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					</div>
+					<div class="modal-body">
+						<p>Los Informes de Tareas son activados por la Jefatura de Estudios cuando 
+						un alumno va a ser expulsado del Centro por algún Problema de Convivencia 
+						de tipo Grave o Muy Grave; también pueden ser activados por el Tutor cuando 
+						un alumno se va a ausentar del Centro un tiempo por motivos diversos 
+						(enfermedad, viaje, etc.). Cuando han sido activados mediante el formulario 
+						correspondiente (en el que el Tutor selecciona al alumno y las fechas de 
+						comienzo y fin de la ausencia o expulsión), los profesores del Equipo 
+						Educativo del alumno reciben una solicitud de información para que propongan 
+						tareas en su asignatura durante la ausencia del alumno. La notificación a 
+						los profesores aparece en la página de inicio de la Intranet, o bien en la 
+						página de Informes de Tareas. La notificación desaparece cuando hemos 
+						rellenado el Informe o la fecha de regreso ha pasado.</p>
+						<p>Una vez recibida la notificación de tareas, el profesor entra en un 
+						formulario en el que aparece la asignatura (o asignaturas, en el caso de que 
+						el profesor imparta más de una al alumno, o éste tenga una asignatura 
+						pendiente de continuidad), escribe sus tareas para el alumno y envía los 
+						datos. Los Informes son visibles en todo momento para el resto de los 
+						profesores del alumno.</p>
+						<p>Cuando el alumno ha regresado, una nueva notificación aparece preguntando 
+						a los profesores del mismo si este ha realizado las tareas o no para que el 
+						Tutor y Jefatura de Estudios estén informados y determinen las acciones a tomar.</p>
+						<p>El módulo contiene la posibilidad de ver la totalidad de los Informes de 
+						Tareas a lo largo del Curso Escolar, o bien de buscar entre los Informes los 
+						correspondientes a un alumno determinado. Hay que tener en cuenta que, una 
+						vez pasada la fecha de regreso del alumno, los Informes de Tareas quedan 
+						bloqueados, aunque siguen siendo visibles.</p>
+						<p>El Equipo Directivo dispone de una opción, <strong>Control de Informes</strong>, 
+						que presenta estadísticas por alumno y profesor sobre los Informes de Tareas.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					</div>
+				</div>
+			</div>
+		</div>
+    	
+		<ul class="nav nav-tabs">
+			<li <?php echo $activo1;?>> <a href="index.php">Página de Informes de Tareas</a></li>
+			<?php
+			if(stristr($_SESSION ['cargo'],'2') == TRUE or stristr($_SESSION ['cargo'],'1') == TRUE)
+			{
+			if(stristr($_SESSION ['cargo'],'2') == TRUE){
+			$tutor = $_SESSION['mod_tutoria']['tutor'];
+			}
+			?>
+			<li <?php echo $activo2;?>><a href="infotut.php?<?php if (isset($_SESSION['mod_tutoria']['unidad'])) {echo  "unidad=".$_SESSION['mod_tutoria']['unidad'];}?>">Activar Nuevo Informe</a></li>
+			<?php }?>
+			<li <?php echo $activo3;?>> <a href="buscar.php?todos=1">Ver Todos los Informes</a></li>
+			<li <?php echo $activo4;?>> <a href="index_buscar.php">Buscar Informes</a></li>
+			<?
+			if(stristr($_SESSION ['cargo'],'1') == TRUE){?>
+			<li <?php echo $activo5;?>> <a href="control.php">Control de Informes</a></li>
+			<?php }?>
+		</ul>
+		
+	</div>      

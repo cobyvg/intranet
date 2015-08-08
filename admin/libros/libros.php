@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -58,68 +58,61 @@ if(isset($_GET['imprimir']) and $_GET['imprimir'] == "si")
 	include("cert_pdf.php");
 	exit;
 }
-?>
-<SCRIPT LANGUAGE=javascript>
-function wait(){
-string="document.forms.libros.submit();";
-setInterval(string,540000);
-}
-wait();
-</SCRIPT>
-<?
+
 include("../../menu.php");
 ?>
-
 <div class="container">
-<div class="page-header">
-  <h2 style="display:inline;">Programa de Ayudas al Estudio <small>Informe sobre el estado de los Libros</small></h2>
-  	<!-- Button trigger modal --> 
-	<a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
-</div>
-<div class="modal-body">
-<p>
-El módulo permite gestionar los Libros de Texto dentro del Programa de Ayudas al Estudio de la Junta de Andalucía. Se activa durante los meses de Junio y Septiembre, y desaparece posteriormente.<br><br>
-El Tutor marca el estado de los libros según las siguientes opciones: Bien, Regular, Mal, No hay libro y Septiembre (en caso de que el alumno haya suspendido la asignatura en Junio, y pueda entregarlo tras la Evaluación Extraordinaria).<br>
-Para evitar un cierre inesperado de la página y la pérdida de datos, la aplicación envía el formulario cada 9 minutos, recargando la página. El comportamiento, por lo tanto, es normal.<br>
-Una vez terminado de marcar el estado de los libros de los alumnos de la Tutoría, se envían los datos del formulario por última vez para guardarlos. El Tutor puede modificar el estado hasta que desaparece el formulario en Septiembre.<br><br>
-El Secretario del Centro puede emitir con la aplicación Certificados de entrega y estado de los libros, así como Facturas en caso de que los libros se encuentren desaparecidos o en un estado inaceptable.
-</p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>
-  <h3 class="text-info">
-  <?php if (isset($unidad)) {
-	echo $unidad;
-}
-else{
-	echo $_POST['nivel'];
-}?>
-  </h3>
-</div>
+	<div class="page-header">
+		<h2 style="display:inline;">Programa de Ayudas al Estudio <small>Informe sobre el estado de los Libros</small></h2>
+		
+		<!-- Button trigger modal -->
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+			<span class="fa fa-question fa-lg"></span>
+		</a>
+	
+		<!-- Modal -->
+		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					</div>
+					<div class="modal-body">
+						<p>El módulo permite gestionar los Libros de Texto dentro del Programa de Ayudas al 
+						Estudio de la Junta de Andalucía. Se activa durante los meses de Junio y Septiembre, 
+						y desaparece posteriormente.</p>
+						<p>El Tutor marca el estado de los libros según las siguientes opciones: Bien, Regular, 
+						Mal, No hay libro y Septiembre (en caso de que el alumno haya suspendido la asignatura 
+						en Junio, y pueda entregarlo tras la Evaluación Extraordinaria).</p>
+						<p>Para evitar un cierre inesperado de la página y la pérdida de datos, la aplicación 
+						envía el formulario cada 9 minutos, recargando la página. El comportamiento, por lo 
+						tanto, es normal.</p>
+						<p>Una vez terminado de marcar el estado de los libros de los alumnos de la Tutoría, 
+						se envían los datos del formulario por última vez para guardarlos. El Tutor puede 
+						modificar el estado hasta que desaparece el formulario en Septiembre.</p>
+						<p>El Secretario del Centro puede emitir con la aplicación Certificados de entrega y 
+						estado de los libros, así como Facturas en caso de que los libros se encuentren 
+						desaparecidos o en un estado inaceptable.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<h3 class="text-info"><?php echo (isset($unidad) && $unidad != "") ? $unidad : $_POST['nivel']; ?></h3>
+	</div>
 <br />
 <?
-$tarari="";
+$tarari=0;
 foreach($_POST as $key0 => $val0)
 {
 if(strlen($val0) > "0"){$tarari=$tarari+1;}
 }
-if($tarari>"0"){
+if($tarari>0){
 foreach($_POST as $key => $val)
 {
 //	echo "$key --> $val <br>";
@@ -138,7 +131,7 @@ if(is_numeric($claveal) and ($val == "B" or $val == "R" or $val == "M" or $val =
 		mysqli_query($db_con, "update textos_alumnos set estado = '$val' where claveal = '$claveal' and materia = '$asignatura'");		
 		}
 		else{
-		mysqli_query($db_con, "insert into textos_alumnos (claveal, materia, estado, fecha,curso) values ('$claveal','$asignatura','$val',now(),'"..')");
+		mysqli_query($db_con, "insert into textos_alumnos (claveal, materia, estado, fecha, curso) values ('$claveal','$asignatura','$val',now(),'$nivel')");
 		}
 }
 }
@@ -301,6 +294,13 @@ echo "</table>";
 <input type="submit" name="procesar" value="Enviar datos" class="btn btn-primary btn-large" />
 </form>
 </div>
-<?php include("../../pie.php");?>		
+<?php include("../../pie.php");?>
+<script>
+function wait(){
+	string="document.forms.libros.submit();";
+	setInterval(string,540000);
+}
+wait();
+</script>
 </body>
 </html>

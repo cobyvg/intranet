@@ -19,49 +19,46 @@ if (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="
 
 ?>
 <div class="container">
+
+	<div class="page-header">
+		<h2 style="display:inline">Guardias de Aula <small> Registro de guardias</small></h2>
+		
+		<!-- Button trigger modal -->
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+			<span class="fa fa-question fa-lg"></span>
+		</a>
+	
+		<!-- Modal -->
+		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					</div>
+					<div class="modal-body">
+						<p>Selecciona el Profesor al que quieres apuntar una sustitución no registrada. Te 
+						aparecerá el horario del Profesor, para que puedas determinar con precisión la hora 
+						de la guardia (1ª hora, 2ª hora, etc) del día en cuestión.</p>
+						<p>Seleccionas a continuación el Profesor sustituido. Al hacer click en el campo de 
+						la fecha, aparecerá una nueva ventana con el calendario en el que debes pinchar sobre 
+						la fecha elegida. Escribe la hora de la guardia (1, 2, 3, etc) y envía los datos.</p>
+						<p>Si quieres consultar el historial de guardias de un Profesor, pincha en 
+						<em>Consultar guardias y profesores</em>. Selecciona el Profesor y aparecerá un 
+						histórico con todas las sustituciones realizadas. Si pinchas en una de las guardias 
+						de su horario, podrás ver las sustituciones de todos los profesores de esa guardia 
+						en esa hora a lo largo del curso.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
 <div class="row">
-<div class="page-header">
-<h2 style="display:inline">Guardias de Aula <small> Registro de guardias</small></h2>
-
-<!-- Button trigger modal --> <a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal" style="display:inline"> <span class="fa fa-question fa-lg"></span> </a>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
-</div>
-<div class="modal-body">
-<p><strong>Instrucciones de uso.</strong><br><br>
-Selecciona el Profesor al que quieres apuntar una sustitución no
-registrada. Te aparecerá el horario del Profesor, para que puedas
-determinar con precisión la hora de la guardia (1ª hora, 2ª hora, etc)
-del día en cuestión. <br>Seleccionas a continuación el Profesor sustituido.
-Al hacer click en el campo de la fecha, aparecerá una nueva ventana con
-el calendario en el que debes pinchar sobre la fecha elegida. Escribe la
-hora de la guardia (1, 2, 3, etc) y envía los datos.<br /><br>
-Si quieres consultar el historial de guardias de un Profesor, pincha en
-<em>Consultar guardias y profesores</em>. Selecciona el Profesor y
-aparecerá un histórico con todas las sustituciones realizadas. Si
-pinchas en una de las guardias de su horario, podrás ver las
-sutituciones de todos los profesores de esa guardia en esa hora a lo
-largo del curso.
-</p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<br>
 <div class="col-sm-5 col-sm-offset-1"><br>
 <?php if ($config['mod_horarios']) {
 	?>

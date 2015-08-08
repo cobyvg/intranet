@@ -41,38 +41,47 @@ if ($n_dia > $numerodiasemana) {
  	$fecha_sp = formatea_fecha($g_fecha);
 ?>
 <div class="container">
-<div class="page-header">
-<h2 style="display:inline">Guardias de Aula <small> Registro de Guardias</small></h2>
 
-<!-- Button trigger modal --> <a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal"> <span class="fa fa-question fa-lg" style="display:inline"></span> </a>
+	<div class="page-header">
+		<h2 style="display:inline">Guardias de Aula <small> Registro de Guardias</small></h2>
+		
+		<!-- Button trigger modal -->
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+			<span class="fa fa-question fa-lg"></span>
+		</a>
+	
+		<!-- Modal -->
+		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					</div>
+					<div class="modal-body">
+						<p>Este módulo permite registrar las sustituciones de profesores ausentes que hemos 
+						hecho en su aula (guardias de aula). Aparece de entrada el número de sustituciones 
+						de todos los miembros del Equipo de Guardia. Si hacemos click sobre el nombre de un 
+						Compañero de guardia aparecen en la parte inferior de la página las sustituciones que 
+						ha realizado ese profesor. Hay que tener en cuenta que en la selección de profesores 
+						a sustituir sólo aparecen los profesores que tienen hora lectiva en ese momento 
+						según el horario importado en la Intranet.</p>
+						<p>Al registrar una sustitución cualquier compañero de la Guardia, aparece señalada 
+						en la parte superior de la página de tal modo que todos los compañeros puedan ver 
+						quién ha sustituido a quien en un aula durante esa hora.</p>
+						<p>Las sustituciones sólo pueden registrarse hasta dos días después de realizarse. 
+						Si nos olvidamos de hacerlo, tendremos que pedir al Equipo Directivo que nos la 
+						registren.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	</div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
-</div>
-<div class="modal-body">
-<p>Este módulo permite registrar las sustituciones de profesores ausentes que hemos hecho en su aula (guardias de aula). Aparece de entrada el número de sustituciones de todos los miembros del Equipo de Guardia. Si hacemos click sobre el nombre de un Compañero de guardia aparecen en la parte inferior de la página las sustituciones que ha realizado ese profesor. Hay que tener en cuenta que en la selección de profesores a sustituir sólo aparecen los profesores que tienen hora lectiva en ese momento según el horario importado en la Intranet.<br><br>
-Al registrar una sustitución cualquier compañero de la Guardia, aparece señalada en la parte superior de la página de tal modo que todos los compañeros puedan ver quién ha sustituido a quien en un aula durante esa hora. <br><br>
-Las sustituciones sólo pueden registrarse hasta dos días después de realizarse. Si nos olvidamos de hacerlo, tendremos que pedir alEquipo Directivo que nos la registren. 
-</p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>
-
-</div>
-<br>
 <div class="row">
 
 <?php

@@ -88,33 +88,38 @@ include("menu.php");
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
 		<h2 style="display:inline;">Tutoría de <?php echo $_SESSION['mod_tutoria']['unidad']; ?> <small>Evaluaciones del tutor (<?php echo $evaluacion; ?>)</small></h2>
-			<!-- Button trigger modal --> 
-	<a href="#"
-	class="btn btn-default btn-sm pull-right" data-toggle="modal"
-	data-target="#myModal" style="display:inline;"> <span class="fa fa-question fa-lg"></span> </a>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
-</div>
-<div class="modal-body">
-<p><b>Instrucciones sobre el Informe de Evaluaciones</b><br><br>
-El módulo está abierto a Tutores, Equipo Directivo y Departamento de Orientación.<br><br> 
-El Informe de Evaluaciones presenta los datos más importantes que conviene tener en cuenta en el proceso de evaluación de un alumno de la ESO: Edad, Cursos repetidos, PIL, Exención de optativas, Refuerzo y Asignaturas pendientes. <br>Puede ser utilizado como fuente de información en las Sesiones de Evaluación. También puede utilizarse como un diario donde el Tutor, el Equipo Directivo o el Departamento de Orientación registran los datoss más relevantes en el campo de texto 'Observaciones'. Este campo es persistente: si en la Evaluación Ordinaria coloco el ratón sobre el mismo aparecerán en un cuadro superpuesto las observaciones realizadas en las anteriores Sesiones de Evaluación.   
-</p>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-</div>
-</div>
-</div>
-</div>
+		
+		<!-- Button trigger modal -->
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+			<span class="fa fa-question fa-lg"></span>
+		</a>
+	
+		<!-- Modal -->
+		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					</div>
+					<div class="modal-body">
+						<p>El módulo está abierto a Tutores, Equipo Directivo y Departamento de Orientación.</p>
+						<p>El Informe de Evaluaciones presenta los datos más importantes que conviene tener en 
+						cuenta en el proceso de evaluación de un alumno de la ESO: Edad, Cursos repetidos, PIL, 
+						Exención de optativas, Refuerzo y Asignaturas pendientes. <br>Puede ser utilizado como 
+						fuente de información en las Sesiones de Evaluación. También puede utilizarse como un 
+						diario donde el Tutor, el Equipo Directivo o el Departamento de Orientación registran 
+						los datos más relevantes en el campo de texto 'Observaciones'. Este campo es persistente: 
+						si en la Evaluación Ordinaria coloco el ratón sobre el mismo aparecerán en un cuadro 
+						superpuesto las observaciones realizadas en las anteriores Sesiones de Evaluación.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<h4 class="text-info">Tutor/a: <?php echo nomprofesor($_SESSION['mod_tutoria']['tutor']); ?></h4>
 	</div>
 	

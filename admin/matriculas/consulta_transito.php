@@ -17,36 +17,36 @@ include("./menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
+		<h2 style="display:inline;">Consulta Informes de Tránsito <small>Alumnado de Primaria</small></h2>
+		
+		<!-- Button trigger modal -->
+		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
+			<span class="fa fa-question fa-lg"></span>
+		</a>
 	
-			
-	  
-<!-- Button trigger modal -->
-<a href="#" class="pull-right" data-toggle="modal" data-target="#myModal">
- <span class="fa fa-question-circle fa-2x"></span>
-</a>
-
- <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Instrucciones de uso.</h4>
-      </div>
-      <div class="modal-body">
-		<p class="help-block">
-		Las celdas que contienen datos numéricos variables o bolitas de colores (diversos tipos de dificultades propios de un alumno, p. ej.) presentan información sobre el texto simbolizado por el número o la bolita colocando el cursor encima de la celda. Aparecerá entonces el texto correspondiente a la opción numérica o el color de la bola.
-		</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-		<h2>Consulta Informes de Tránsito <small>Alumnado de Primaria</small>
-</h2>
-</div>
+		<!-- Modal -->
+		<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
+					</div>
+					<div class="modal-body">
+						<p>Las celdas que contienen datos numéricos variables o bolitas de colores 
+						(diversos tipos de dificultades propios de un alumno, p. ej.) presentan 
+						información sobre el texto simbolizado por el número o la bolita colocando el 
+						cursor encima de la celda. Aparecerá entonces el texto correspondiente a la 
+						opción numérica o el color de la bola.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
 
 	<!-- SCAFFOLDING -->
 	<div class="row">
@@ -149,8 +149,10 @@ include("./menu.php");
 				$notas.='<span class="fa fa-warning" style="color: blue;"></span>';
 				}
 				
-		echo "<td $tt>$notas</td>";				
+		echo "<td $tt>$notas</td>";		
 		
+		// COLUMNA DE ORIENTACIÓN ¿?		
+		echo "<td></td>";
 		
 		echo "</tr>";
 	}
