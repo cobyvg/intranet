@@ -1,7 +1,7 @@
 <ul class="nav nav-pills nav-stacked">
 	<li class="nav-header">Configuración</li> 
 	<li><a href="../config/config.php">Configuración general y módulos</a></li>
-	<li><a href="../reservas/gestion_tipo.php">Sistema de Reservas</a></li> 
+	<li><a href="../reservas/gestion_tipo.php">Gestión de reservas</a></li> 
 	
 	<li class="nav-header">A principio de curso...</li>
 	<li><a href="jefe/index2.php">Importar Alumnos</a></li>
@@ -17,7 +17,7 @@
 	<li><a href="jefe/index_jornada.php">Importar Jornada</a></li> 
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
 	
-	<li class="nav-header">Actualizaci&oacute;n</li>
+	<li class="nav-header">Actualización</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
 	<li><a href="jefe/asignaturas.php?actualiza=1">Actualizar Asignaturas</a></li>
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
@@ -50,7 +50,7 @@
 	<?php endif; ?>
 	<li><a href="jefe/informes/accesos_alumnos.php">Informe de accesos</a></li>
 
-	<li class="nav-header">Notas de evaluaci&oacute;n</li>
+	<li class="nav-header">Notas de evaluación</li>
 	<li>
 	<a href="jefe/index_notas.php">Importar Calificaciones</a></li>
 	

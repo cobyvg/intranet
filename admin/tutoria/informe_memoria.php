@@ -46,8 +46,6 @@ if (isset($_POST['observaciones2'])) {
 	$observaciones2 = $_POST['observaciones2'];
 }
 
-// SE DEFINE UNA VARIABLE PARA CARGAR LOS INCLUDES
-define('INC_TUTORIA',1);
 
 include("../../menu.php");
 include("menu.php");

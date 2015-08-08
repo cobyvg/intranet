@@ -1,4 +1,5 @@
-<?
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 $unidad = $_SESSION['mod_tutoria']['unidad'];
 $titulos = array("3"=>"Evaluación Ordinaria");
 foreach ($titulos as $key=>$val){
@@ -14,12 +15,10 @@ INDEX (  `claveal` )
  mysqli_query($db_con, $crea_tabla2); 
  mysqli_query($db_con, "ALTER TABLE  `temp` ADD INDEX (  `asignatura` )");
 $key == '1' ? $activ=" active" : $activ='';
-?>
-<?
 
-	$rep = ""; 
-	$promo = "";
-	$todos="";
+$rep = ""; 
+$promo = "";
+$todos="";
 $notas1 = "select notas". $key .", claveal1, matriculas, unidad, curso from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.unidad = '$unidad'";
 //echo $notas1."<br>";
 

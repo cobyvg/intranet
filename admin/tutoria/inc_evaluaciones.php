@@ -1,4 +1,4 @@
-<?php if (! defined('INC_TUTORIA')) die ('<h1>Forbidden</h1>'); ?>
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 <hr />
 <br />
 <h3>Resultados por Materias</h3><br />

@@ -38,7 +38,6 @@ include("menu.php");
 				
 				<?php 
 				if (stristr($carg, '2' )==TRUE) {
-					define('INC_TUTORIA', 1);
 					include("admin/tutoria/inc_pendientes.php");
 				}
 				?>
@@ -47,7 +46,6 @@ include("menu.php");
 				</div>
 				
 				<?php if (stristr($carg, '1' )==TRUE): ?>
-				<?php define('INC_DIRECCION',1); ?>
 				<?php include('widget_estadisticas.php'); ?>
 				<?php endif; ?>     
 				
