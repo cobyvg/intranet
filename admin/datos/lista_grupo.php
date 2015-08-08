@@ -8,7 +8,6 @@ if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al=""
 ?>
 <?php 
 # para el pdf
-include('../../funciones.php');
 require_once('../../pdf/class.ezpdf.php');
 $pdf=new Cezpdf('a4','landscape');
 

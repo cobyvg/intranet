@@ -24,8 +24,6 @@ include("../../menu.php");
 <div class="well well-large"
 	style="width: 700px; margin: auto; text-align: left"><?
 	if(isset($_FILES['archivo'])){
-		$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die("Error de conexión");
-		mysqli_select_db($db_con, $db);
 
 		//Creamos backup de horarios
 		mysqli_query($db_con, "drop table horw_seg");

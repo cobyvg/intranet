@@ -39,9 +39,6 @@ $llenar="";
 
 if(empty($llenar)){}else{$id = $llenar;}
 
-$db_con = mysqli_connect( $db_host, $db_user, $db_pass );
-mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
-
 $alumno = mysqli_query($db_con, "SELECT APELLIDOS,NOMBRE,tareas_alumnos.unidad,tareas_alumnos.id, tutor, FECHA, duracion, claveal FROM tareas_alumnos, FTUTORES WHERE FTUTORES.unidad = tareas_alumnos.unidad and ID='$id'");
 $dalumno = mysqli_fetch_array ( $alumno );
 $claveal = $dalumno[7];

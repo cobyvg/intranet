@@ -20,8 +20,6 @@ include("../../menu.php");
 <br />
 <?
  // Conexión 
-$db_con = mysqli_connect($db_host, $db_user, $db_pass);
-mysqli_select_db($db_con, $db);
 
 // Creamos tabla 
 

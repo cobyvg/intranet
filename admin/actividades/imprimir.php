@@ -39,7 +39,6 @@ else{
 $horario_act = $horario.' - '.$horariofin;
 }
 
-include_once ("../../funciones.php"); 
 // PDF
 $fecha2 = date('Y-m-d');
 $hoy = formatea_fecha($fecha);

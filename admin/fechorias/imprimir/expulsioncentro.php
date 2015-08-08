@@ -10,7 +10,6 @@ if (isset($_POST['fechainicio'])) { $fechainicio = $_POST['fechainicio']; }
 if (isset($_POST['fechafin'])) { $fechafin = $_POST['fechafin']; }
 
 $tutor = $_SESSION ['profi'];
-include_once ("../../../funciones.php");
 require ("../../../pdf/fpdf.php");
 
 // Variables globales para el encabezado y pie de pagina

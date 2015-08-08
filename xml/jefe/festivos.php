@@ -19,10 +19,7 @@ include("../../menu.php");
 </div>
 <br />
 <?
- // Conexión 
-$db_con = mysqli_connect($db_host, $db_user, $db_pass);
-mysqli_select_db($db_con, $db);
-
+ 
 // Borramos datos
 mysqli_query($db_con, "truncate table festivos");	
 

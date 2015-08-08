@@ -13,8 +13,6 @@ include("menu.php");
 <?
 if(isset($_GET['id'])){$id = $_GET['id'];}else{$id="";}
 
-$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die ("No es posible conectar con la base de datos!");
-mysqli_select_db($db_con, $db) or die ("No es posible conectar con la base de datos!");
 $query = "DELETE FROM Fechoria WHERE id = '$id'";
 $result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
 mysqli_close($db_con);

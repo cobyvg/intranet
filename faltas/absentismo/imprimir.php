@@ -3,7 +3,7 @@ require('../../bootstrap.php');
 
 
 $tutor = $_SESSION['profi'];
-include_once ("../../funciones.php"); 
+
 // PDF
 $mes = $_GET['mes'];
 $fecha2 = date('Y-m-d');

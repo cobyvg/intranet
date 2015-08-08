@@ -1,7 +1,6 @@
 <?
 require('../../bootstrap.php');
 
-include_once ("../../funciones.php");
 require("../../pdf/pdf_js.php");
 //require("../pdf/mc_table.php");
 
@@ -35,8 +34,6 @@ $MiPDF->SetMargins ( 20, 20, 20 );
 # ajustamos al 100% la visualización
 $MiPDF->SetDisplayMode ( 'fullpage' );
 // Consulta  en curso. 
-$db_con = mysqli_connect($db_host,$db_user,$db_pass) or die ("Imposible conectar con la Base de datos");
-mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
 if (substr($curso, 0, 1) == '1') {
 	$mas = ", colegio";
 }

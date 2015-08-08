@@ -115,7 +115,6 @@ $html.=  '<table style="border:0px; padding: 1px;><tr><td style="border:0px; pad
 $html.=  '</td></tr></table>';
 
 # Firma del tutor/a
-include_once '../../funciones.php';
 $html.=  '<div align=center><br><br>'.$config['localidad_del_centro'].', '.formatea_fecha(date("Y/m/d"));
 $html.=  '<br><br><br><br>';
 $html.=  'Fdo.: '.$memoria[1];

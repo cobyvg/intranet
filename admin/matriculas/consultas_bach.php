@@ -16,9 +16,6 @@ if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
 
-//include("../../funciones.php");
-//variables();
-
 // Control de tablas
 $bck =mysqli_query($db_con,"select divorcio from matriculas_backup");
 if (mysqli_num_rows($bck)>0) {}else{

@@ -30,7 +30,6 @@ if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];}elseif (isset($_PO
 if (isset($_GET['actividad'])) {$actividad = $_GET['actividad'];}elseif (isset($_POST['actividad'])) {$actividad = $_POST['actividad'];}else{$actividad="";}
 if (isset($_GET['descripcion'])) {$descripcion = $_GET['descripcion'];}elseif (isset($_POST['descripcion'])) {$descripcion = $_POST['descripcion'];}else{$descripcion="";}
 
-include_once ("../../funciones.php"); 
 // PDF
 $fecha2 = date('Y-m-d');
 $hoy = formatea_fecha($fecha);

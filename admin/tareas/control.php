@@ -43,10 +43,7 @@ $detalles = '1';
 <br />     
 <?
 $hoy = date('Y-m-d');
-//echo $hoy;
- 
-$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die ("Imposible conectar!");
-mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
+
 //  Estructura de tabla para la tabla `tareas_temp`
 
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `tareas_temp` (

@@ -1,7 +1,6 @@
 <?
 require('../../bootstrap.php');
 
-include_once ("../../funciones.php");
 include("../../pdf/fpdf.php");
 define('FPDF_FONTPATH','../../pdf/font/');
 # creamos la clase extendida de fpdf.php

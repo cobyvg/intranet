@@ -26,9 +26,7 @@ $hoy = date('Y-m-d');
  if($detalles == '1')
 { 
 echo '<h4>Detalles de cada Informe individual</h4><br />';
-} 
-$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die ("Imposible conectar!");
-mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
+}
 
 //  Estructura de tabla para la tabla `infotut_temp`
 

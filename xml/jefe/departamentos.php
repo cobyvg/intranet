@@ -12,7 +12,8 @@ exit;
 include("../../menu.php");
 ?>
 <br />
-<div align="center">
+<div class="container">
+<div class="row">
 <div class="page-header">
   <h2>Administración <small> Departamentos del Centro</small></h2>
 </div>
@@ -20,8 +21,6 @@ include("../../menu.php");
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 <?
 if(isset($_FILES['archivo'])){  
-$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die("Error de conexión");
-mysqli_select_db($db_con, $db);
 // BacKup de la tabla
 mysqli_query($db_con, "drop table departamentos_seg");
 mysqli_query($db_con, "create table departamentos_seg select * from departamentos");
@@ -254,6 +253,7 @@ mysqli_free_result($result);
 ?>
 <div align="center">
   <a  href="../index.php" class="btn btn-primary" />Volver a Administración</a>
+</div>
 </div>
 </div>
 </div>

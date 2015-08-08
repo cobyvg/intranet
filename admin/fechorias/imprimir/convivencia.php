@@ -4,7 +4,6 @@ require('../../../bootstrap.php');
 setlocale('LC_TIME', 'es_ES');
 
 $tutor = $_SESSION ['profi'];
-include_once ("../../../funciones.php");
 
 if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}
 if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}

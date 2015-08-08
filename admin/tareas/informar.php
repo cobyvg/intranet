@@ -26,9 +26,6 @@ include("menu.php");
 <div class="well well-large" >
 <form name="informar" method="POST" action="informar.php?id=<?php echo $id;?>">         
 <?php
- 
-$db_con = mysqli_connect( $db_host, $db_user, $db_pass );
-mysqli_select_db($db_con, $db) or die ("Imposible seleccionar base de datos!");
 
 echo "<input type='hidden'  name='ident' value='$id'>";
 echo "<input type='hidden'  name='profesor' value='$profesor'>";

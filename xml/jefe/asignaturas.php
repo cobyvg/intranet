@@ -10,8 +10,9 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
 
 include("../../menu.php");
 ?>
+<div class="container">
+<div class="row">
 <br />
-<div align="center">
 <div class="page-header">
 <h2>Administración <small> Asignaturas y Calificaciones</small></h2>
 </div>
@@ -142,11 +143,11 @@ VALUES ('$codigo0',  '$nombre_utf',  '$abrev0',  '$orden0')");
 		closedir($handle);
 	}
 	else{
-		echo '<div align="center"><div class="alert alert-danger alert-block fade in">
+		echo '<div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se han colocado los ficheros de Evaluación de Séneca en el directorio exporta/.<br> Descárgalos de Séneca y colócalos allí antes de continuar.
-</div></div><br />
+</div><br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-primary" />
 </div>';
@@ -175,18 +176,13 @@ No se han colocado los ficheros de Evaluación de Séneca en el directorio exporta
 	mysqli_query($db_con, "drop table materias_temp");
 	mysqli_query($db_con, "drop table calificaciones_temp");
 
-	/*if($_GET['actualiza']==1){
-	 // Borramos registros tomados de Horw que son iguales a las asignaturas de Séneca
-	 mysqli_query($db_con, "delete from asignaturas where codigo in (select distinct codigo from materias)") or die("No se pueden borrar los registros duplicados.");
-	 }*/
-
 	// Depuramos los códigos de las asignaturas eliminando duplicados y creamos tabla definitiva asignaturas.
 	$crear = "insert into asignaturas select distinct CODIGO, NOMBRE, ABREV, CURSO from materias order by CODIGO" ;
-	mysqli_query($db_con, $crear) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
+	mysqli_query($db_con, $crear) or die('<div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
-</div></div><br />
+</div><br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-primary" />
 </div>'); 
@@ -195,47 +191,21 @@ No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
 	mysqli_query($db_con,"INSERT INTO `asignaturas` (`CODIGO`, `NOMBRE`, `ABREV`, `CURSO`) VALUES ('2', 'Tutoría con Alumnos', 'TCA', '1º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '2º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '3º de E.S.O.'), ('2', 'Tutoría con Alumnos', 'TCA', '4º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '1º de E.S.O.'), ('21', 'Refuerzo Pedagógico', 'REF', '2º de E.S.O.')");
 
 	echo '<br />
-<div align="center"><div class="alert alert-success alert-block fade in">
+	<div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 <h5>ASIGNATURAS y CALIFICACIONES:</h5> Los datos se han introducido correctamente en la Base de Datos.
-</div></div><br />';
+</div><br />';
 
 
 	// Alumnos con pendientes
 	include("pendientes.php");
 
-	/*if($_GET['actualiza']==1){
-	 // Comprobación con Horw
-	 echo "<h4>Comprobación de coherencia entre las Asignaturas/Actividades de Séneca y de Horw.</h4> ";
-	 $n_h=0;
-	 $elimina = "select distinct c_asig, a_asig, asig from horw, asignaturas where c_asig NOT IN (select distinct codigo from asignaturas)";
-	 $elimina1 = mysqli_query($db_con, $elimina);
-	 $no_hay = "<p class='badge badge-important'>Asignaturas/Actividades de Horw que no están en Séneca</p>";
-	 while($elimina2 = mysqli_fetch_array($elimina1))
-	 {
-	 $activ = mysqli_query($db_con,"select idactividad from actividades_seneca where idactividad = '$elimina2[0]'");
-	 if (mysqli_num_rows($activ)>0) {}
-	 else{
-	 $n_h+=1;
-	 $no_hay.="<li>". $elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] . "</li>";
-	 }
-	 }
-	 if ($n_h>0) {
-	 echo $no_hay;
-	 }
-	 $elimina = "select distinct codigo, abrev, nombre, curso from asignaturas, horw where codigo NOT IN (select distinct c_asig from horw)";
-	 echo "<br /><p class='badge badge-warning'>Asignaturas de Séneca que no están en Horw.</p>";
-	 $elimina1 = mysqli_query($db_con, $elimina);
-	 while($elimina2 = mysqli_fetch_array($elimina1))
-	 {
-	 $pend = explode("_",$elimina2[1]);
-	 if(strlen($pend[1]) > 0) {} else
-	 {
-	 echo "<li>".$elimina2[0] . " --> " . $elimina2[1] . " --> " . $elimina2[2] .  " --> " . $elimina2[3] ."</li>";
-	 }
-	 }
-	 }*/
-	?></div>
+	?>
+	</div>
+	</div>
+	</div>
+	</div>
+	
 <?php include("../../pie.php");?> <script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';

@@ -21,10 +21,6 @@ if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
 	style="width: 600px; margin: auto; text-align: left"><?
 	if($archivo1 and $archivo2){
 
-		// Conexión
-		$db_con = mysqli_connect($db_host, $db_user, $db_pass);
-		mysqli_select_db($db_con, $db);
-
 		// Copia de Seguridad
 		mysqli_query($db_con, "DROP TABLE alma_seg") ;
 		mysqli_query($db_con, "create table alma_seg select * from alma");

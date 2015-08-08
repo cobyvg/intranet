@@ -17,8 +17,7 @@ if(isset($_FILES['archivo'])){
 	mysqli_query($db_con,"create table morosos_tmp select * from morosos");
 	mysqli_query($db_con,"truncate table morosos_tmp");
 	$archivo = $_FILES['archivo'];
-	$db_con = mysqli_connect($db_host, $db_user, $db_pass) or die("Error de conexión");
-	mysqli_select_db($db_con, $db);
+	
 	ini_set('auto_detect_line_endings',TRUE);
 	$handle = fopen ($_FILES['archivo']['tmp_name'] , 'r' ) or die
 	('<div align="center"><div class="alert alert-danger alert-block fade in">

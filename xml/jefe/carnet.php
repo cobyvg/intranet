@@ -10,8 +10,6 @@ exit;
 }
 ?>
 <?
-include_once ("../../funciones.php");
-//variables();
 require('../../pdf/fpdf.php');
 ################ Definimos la clase extendida PDF ########### 
 class PDF extends FPDF {
