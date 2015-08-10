@@ -84,8 +84,8 @@ enviarForm();
 $result1 = mysqli_query($db_con, "select distinct id, recibido, Fechoria.claveal, expulsionaula, expulsion, inicio, aula_conv, inicio_aula, fin_aula, Fechoria.fecha, Fechoria.medida from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and medida = 'Amonestación escrita'");
 if(mysqli_num_rows($result1)>0)
 {
-	do
-	{
+
+while($row1 = mysqli_fetch_array($result1)) {
 $id=$row1[0];
 $recibido=$row1[1];
 $claveal=$row1[2];
@@ -189,7 +189,7 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 <?php }?>
 <?php 
 }
-}while($row1 = mysqli_fetch_array($result1));
+}
 ?>
 <?php
 }
