@@ -191,8 +191,6 @@ if (! mysqli_num_rows($actua)) {
  @descripcion: Eliminar calendarios duplicados
  @fecha: 10 de agosto de 2015
  */
- mysqli_query($db_con, "DELETE FROM actualizacion WHERE modulo = 'Eliminar calendarios duplicados'");
- 
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminar calendarios duplicados'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminar calendarios duplicados', NOW())");
