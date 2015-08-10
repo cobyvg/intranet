@@ -1,19 +1,11 @@
 <?php
 require('../../../bootstrap.php');
 
-
+acl_acceso($_SESSION['cargo'], array(1));
 
 $profe = $_SESSION['profi'];
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE)) {
-	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-	exit;	
-}
-
 $PLUGIN_DATATABLES = 1;
-
 include("../../../menu.php"); 
-
 ?>
 	
 	<div class="container">

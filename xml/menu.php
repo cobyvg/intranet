@@ -1,3 +1,5 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <ul class="nav nav-pills nav-stacked">
 	<li class="nav-header">Configuración</li> 
 	<li><a href="../config/config.php">Configuración general y módulos</a></li>

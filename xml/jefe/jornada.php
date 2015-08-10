@@ -1,13 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
-
+acl_acceso($_SESSION['cargo'], array(1));
 
 include("../../menu.php");
 ?>

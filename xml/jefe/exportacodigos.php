@@ -1,9 +1,6 @@
 <?php
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
+acl_acceso($_SESSION['cargo'], array(1));
+
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir('../exporta')) {
    while (false !== ($file = readdir($handle))) {   	

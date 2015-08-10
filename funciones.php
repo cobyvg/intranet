@@ -4,6 +4,54 @@ function registraPagina($db_link, $pagina)
 	mysqli_query($db_link, "INSERT INTO reg_paginas (id_reg,pagina) VALUES ('".mysqli_real_escape_string($db_link, $_SESSION['id_pag'])."','".mysqli_real_escape_string($db_link, $pagina)."')");
 }
 
+function acl_permiso($cargo_usuario, $cargo_requerido) {
+	
+	if(is_array($cargo_requerido)) {
+		if(! in_array($cargo_usuario, $cargo_requerido)) {
+			return 1;
+		}
+	}
+	else {
+		// Convertimos a string si se trata de cualquier otro tipo de dato
+		$cargo_requerido = (string) $cargo_requerido;
+		
+		if (stristr($cargo_usuario, $cargo_requerido) == FALSE) {
+			return 1;
+		}
+	}
+	
+	return 0;
+}
+
+
+function acl_acceso($cargo_usuario, $cargo_requerido) {
+	$noTienePermiso = acl_permiso($cargo_usuario, $cargo_requerido);
+	
+	if ($noTienePermiso) {
+		include(INTRANET_DIRECTORY . '/config.php');
+		include(INTRANET_DIRECTORY . '/menu.php');
+		
+		echo "\t\t<div class=\"container\" style=\"margin-top: 80px; margin-bottom: 120px;\">\n";
+		echo "\t\t\t<div class=\"row\">\n";
+		echo "\t\t\t\t<div class=\"col-sm-offset-2 col-sm-8\">\n";
+		echo "\t\t\t\t\t<div class=\"well text-center\">\n";
+		echo "\t\t\t\t\t\t<span class=\"fa fa-hand-paper-o fa-5x\"></span>\n";
+		echo "\t\t\t\t\t\t<h2 class=\"text-center\">¡Acceso prohibido!</h2>";
+		echo "\t\t\t\t\t\t<hr>";
+		echo "\t\t\t\t\t\t<p class=\"lead text-center\">No tiene privilegios para acceder a esta página.<br>Si cree que se trata de algún error, póngase en contacto con algún miembro del equipo directivo de su centro.</p>";
+		echo "\t\t\t\t\t\t<hr>";
+		echo "\t\t\t\t\t\t<a href=\"javascript:history.go(-1)\" class=\"btn btn-primary\">Volver atrás</a>";
+		echo "\t\t\t\t\t</div>\n";
+		echo "\t\t\t\t</div>\n";
+		echo "\t\t\t</div>\n";
+		echo "\t\t</div>\n";
+		include(INTRANET_DIRECTORY . '/pie.php');
+		echo "\t</body>\n";
+		echo "</html>\n";
+		exit();
+	}
+}
+
 function redondeo($n){
 
 	$entero10 = explode(".",$n);

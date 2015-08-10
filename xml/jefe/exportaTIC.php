@@ -1,9 +1,5 @@
 <?php
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
+acl_acceso($_SESSION['cargo'], array(1));
 
 $alumnos = "select distinct CLAVEAL, APELLIDOS, NOMBRE, UNIDAD from alma where claveal not in (select claveal from usuarioalumno)";
 $sqlal = mysqli_query($db_con, $alumnos);

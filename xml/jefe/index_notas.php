@@ -1,47 +1,38 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
+
 
 if (isset($_POST['eval'])) {$eval = $_POST['eval'];}else{$eval="";}
 
-if (strlen($eval)>1) {	
-if (substr($eval,0,1)=='1') {$exporta='../exporta1';$xml='xslt/notas1.xsl';}
-if (substr($eval,0,1)=='2') {$exporta='../exporta2';$xml='xslt/notas2.xsl';}
-if (substr($eval,0,1)=='J') {$exporta='../exportaO';$xml='xslt/notas3.xsl';}
-if (substr($eval,0,1)=='S') {$exporta='../exportaE';$xml='xslt/notas4.xsl';}
-//echo $exporta;
-// Descomprimimos el zip de las calificaciones en el directorio exporta/
-include('../../lib/pclzip.lib.php');   
-$archive = new PclZip($_FILES['archivo2']['tmp_name']);  
-      if ($archive->extract(PCLZIP_OPT_PATH,$exporta) == 0) 
-	  {
-        die('<div align="center"><div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
-No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo está corrompido.
-</div></div><br />
-<div align="center">
-  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-</div>'); 
-      }  
-	  
-if(phpversion() < '5'){
-	header("location://".$config['dominio']."/intranet/xml/notas/notas_xslt.php?directorio=$exporta&trans=$xml");
-}
-else{
-	header("location://".$config['dominio']."/intranet/xml/notas/notas.php?directorio=$exporta");
-}	  	  
-exit;	
+	if (strlen($eval)>1) {	
+	if (substr($eval,0,1)=='1') {$exporta='../exporta1';$xml='xslt/notas1.xsl';}
+	if (substr($eval,0,1)=='2') {$exporta='../exporta2';$xml='xslt/notas2.xsl';}
+	if (substr($eval,0,1)=='J') {$exporta='../exportaO';$xml='xslt/notas3.xsl';}
+	if (substr($eval,0,1)=='S') {$exporta='../exportaE';$xml='xslt/notas4.xsl';}
+	//echo $exporta;
+	// Descomprimimos el zip de las calificaciones en el directorio exporta/
+	include('../../lib/pclzip.lib.php');   
+	$archive = new PclZip($_FILES['archivo2']['tmp_name']);  
+	      if ($archive->extract(PCLZIP_OPT_PATH,$exporta) == 0) 
+		  {
+	        die('<div align="center"><div class="alert alert-danger alert-block fade in">
+	            <button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h5>ATENCIÓN:</h5>
+	No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo está corrompido.
+	</div></div><br />
+	<div align="center">
+	  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+	</div>'); 
+	      }  
+		  
+	header("location://".$config['dominio']."/intranet/xml/notas/notas.php?directorio=$exporta");	  	  
+	exit;	
 }
 
 
 $profe = $_SESSION['profi'];
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
-
 include("../../menu.php");
 ?>
 
