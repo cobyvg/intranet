@@ -58,11 +58,11 @@ if (isset($_POST['enviar'])) {
 		// Excepción para el usuario Administrador
 		if ($mail_nomprofesor == 'Administrador') {
 			$mail->Subject = 'Aviso de la Intranet: Restablecimiento de la cuenta de Administrador';
-			$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="//'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza la contraseña que aparece a continuación:<br><br>'.$pass_admin.'<br><br>Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+			$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza la contraseña que aparece a continuación:<br><br>'.$pass_admin.'<br><br>Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
 		}
 		else {
 			$mail->Subject = 'Aviso de la Intranet: Tu contraseña ha sido restablecida';
-			$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="//'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+			$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
 		}
 		$mail->AddAddress($mail_correo, $mail_nomprofesor);
 		$mail->Send();
@@ -70,7 +70,7 @@ if (isset($_POST['enviar'])) {
 		$num++;
 	}
 	
-	if ($num > 1) {
+	if($num > 1) {
 		echo '<div class="alert alert-success">Se han restablecido las contraseñas seleccionadas. Se ha enviado un correo electrónico a los usuarios afectados.</div>';
 	}
 	else {
