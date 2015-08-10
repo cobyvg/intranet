@@ -29,8 +29,9 @@ function acl_acceso($cargo_usuario, $cargo_requerido) {
 	
 	if ($noTienePermiso) {
 		include(INTRANET_DIRECTORY . '/config.php');
-		include(INTRANET_DIRECTORY . '/menu.php');
+		$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']); 
 		
+		include(INTRANET_DIRECTORY . '/menu.php');
 		echo "\t\t<div class=\"container\" style=\"margin-top: 80px; margin-bottom: 120px;\">\n";
 		echo "\t\t\t<div class=\"row\">\n";
 		echo "\t\t\t\t<div class=\"col-sm-offset-2 col-sm-8\">\n";
