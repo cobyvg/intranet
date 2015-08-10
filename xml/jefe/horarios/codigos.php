@@ -1,8 +1,6 @@
 <?php
 require('../../../bootstrap.php');
 
-
-
 $result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca");
 while ($row = mysqli_fetch_array($result)) {
 	$exp_nomactividad = explode('(', $row['nomactividad']);
@@ -52,6 +50,4 @@ while ($row = mysqli_fetch_array($result)) {
 	
 	echo $abrev . ' --> ' . $row['nomactividad'] . '<br>';
 }
-
-
 ?>

@@ -1,5 +1,4 @@
-<?php
-acl_acceso($_SESSION['cargo'], array(1));
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 $alumnos = "select distinct CLAVEAL, APELLIDOS, NOMBRE, UNIDAD from alma where claveal not in (select claveal from usuarioalumno)";
 $sqlal = mysqli_query($db_con, $alumnos);

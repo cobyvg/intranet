@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 mysqli_query($db_con, "drop TABLE pendientes");
 mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS pendientes (
   id int(11) NOT NULL auto_increment,

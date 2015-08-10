@@ -7,8 +7,7 @@ include("../../menu.php");
 ?>
 <div class="container">
 <div class="page-header">
-<h2>Administración <small>Importación del horario con archivo DEL de
-Horw</small></h2>
+<h2>Administración <small>Importación del horario con archivo DEL de Horw</small></h2>
 </div>
 <div class="row"><?php
 

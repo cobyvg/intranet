@@ -1,4 +1,5 @@
-<?php 
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
  // Creamos tabla hermanos para enviar SMS al telefono de varios hermanos.
 mysqli_query($db_con, "truncate table hermanos");
 mysqli_query($db_con, "create table hermanos_temp select * from hermanos");

@@ -1,7 +1,6 @@
 <?php
 require('../../../bootstrap.php');
 
-
 function abrevactividad($db_con, $actividad) {
 	$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE nomactividad = '$actividad'");
 	while ($row = mysqli_fetch_array($result)) {

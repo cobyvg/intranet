@@ -1,5 +1,4 @@
-<?php
-acl_acceso($_SESSION['cargo'], array(1));
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir('../exporta')) {
