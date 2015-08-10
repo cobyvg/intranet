@@ -46,14 +46,14 @@ function crear_directorio($dirname)
 
 function generador_password($long)
 {
-	$str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
-	$cad = '';
-	
-	for($i=0; $i<$long; $i++)
-	{
-		$cad .= substr($str,rand(0,62),1);
-	}
-	return $cad;
+	$alfabeto = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+    $pass = array();
+    $long_alfabeto = strlen($alfabeto) - 1;
+    for ($i = 0; $i < $long; $i++) {
+        $p = rand(0, $long_alfabeto);
+        $pass[] = $alfabeto[$p];
+    }
+    return implode($pass);
 }
 
 function limpiar_string($string)
@@ -219,7 +219,7 @@ if (isset($_POST['instalar']))
 		}
 		else
 		{
-			$pass_admin = generador_password(9);
+			$pass_admin = generador_password(10);
 			$pass_sha1	= sha1($pass_admin);
 			
 			// COMPROBAMOS SI SE TRATA DE UNA ACTUALIZACIÓN DE LA APLICACIÓN
