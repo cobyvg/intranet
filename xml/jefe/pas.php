@@ -130,7 +130,7 @@ include("../../menu.php");
 										}
 										
 										// Conserje = '6';
-										if($pas_departamento == 'Conserje') {
+										if($pas_departamento == 'Conserje' || $pas_departamento == 'Ordenanza') {
 										
 											$resultDepto = mysqli_query($db_con, "SELECT * FROM departamentos WHERE idea = '$pas_idea'");
 											(mysqli_num_rows($resultDepto)) ? $usuarioExiste = 1 : $usuarioExiste = 0;
