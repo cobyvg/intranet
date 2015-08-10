@@ -164,3 +164,24 @@ if (! mysqli_num_rows($actua)) {
 mysqli_query($db_con, "ALTER TABLE `temas`
  ADD UNIQUE KEY `idea` (`idea`)");
 }
+
+
+/*
+ @descripcion: Eliminado usuario conserje
+ @fecha: 10 de agosto de 2015
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminado usuario conserje'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminado usuario conserje', NOW())");
+
+	mysqli_query($db_con, "DELETE FROM departamentos WHERE nombre='conserje' LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM departamentos WHERE nombre='Conserjeria' LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM c_profes WHERE profesor='conserje' LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM c_profes WHERE profesor='Conserjeria' LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM calendario_categorias WHERE nombre='conserje'");
+	mysqli_query($db_con, "DELETE FROM calendario_categorias WHERE nombre='Conserjeria'");
+	mysqli_query($db_con, "DELETE FROM mens_texto WHERE origen='conserje'");
+	mysqli_query($db_con, "DELETE FROM mens_texto WHERE origen='Conserjeria'");
+	mysqli_query($db_con, "DELETE FROM reg_intranet WHERE profesor='conserje'");
+	mysqli_query($db_con, "DELETE FROM reg_intranet WHERE profesor='Conserjeria'");
+}

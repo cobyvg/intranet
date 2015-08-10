@@ -16,7 +16,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2>Administración <small>Importación de departamentos</small></h2>
+		<h2>Administración <small>Importación de Personal de Administración y Servicios</small></h2>
 	</div>
 	
 	<?php $result = mysqli_query($db_con, "SELECT * FROM departamentos LIMIT 1"); ?>
@@ -35,9 +35,9 @@ include("../../menu.php");
 			
 			<div class="well">
 				
-				<form enctype="multipart/form-data" method="post" action="departamentos.php">
+				<form enctype="multipart/form-data" method="post" action="pas.php">
 					<fieldset>
-						<legend>Importación de departamentos</legend>
+						<legend>Importación de Personal no docente</legend>
 						
 						<div class="form-group">
 						  <label for="archivo"><span class="text-info">RelPerCen.txt</span></label>
@@ -60,11 +60,9 @@ include("../../menu.php");
 			
 			<h3>Información sobre la importación</h3>
 			
-			<p>Este apartado se encarga de importar los <strong>Departamentos</strong> de los profesores que trabajan en el Centro.</p>
+			<p>Este apartado se encarga de importar el <strong>Personal no docente</strong> que trabaja en el Centro.</p>
 			
-			<p>Una vez importados los datos es conveniente ir a la página de <strong>Gestión de los Departamentos</strong> para personalizar los datos y adaptar a la estructura real del Centro. Esta tarea debe realizarse cada vez que se importan o actualizan los Departamentos y profesores.</p>
-			
-			<p>Para obtener el archivo de exportación de profesores debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>. Muestre todos los profesores del centro y haga clic en el botón <strong>Exportar datos</strong>. El formato de exportación debe ser <strong>Texto plano</strong>.</p>
+			<p>Para obtener el archivo de exportación del personal no docente debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>. Seleccione <strong>Personal no docente</strong> y haga clic en el botón <strong>Exportar datos</strong>. El formato de exportación debe ser <strong>Texto plano</strong>.</p>
 						
 		</div>
 		

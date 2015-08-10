@@ -241,7 +241,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$idea = $row['idea'];
 	
 	
-	$calendarioExiste = mysqli_query($db_con, "SELECT id FROM calendario_categorias WHERE idea='$idea'");
+	$calendarioExiste = mysqli_query($db_con, "SELECT id FROM calendario_categorias WHERE profesor='$idea'");
 	if (! mysqli_num_rows($calendarioExiste)) {
 		$query = "INSERT INTO `calendario_categorias` (`nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES ('$nombre', '".date('Y-m-d')."', '$idea', '#3498db', 0)";
 		mysqli_query($db_con, $query);

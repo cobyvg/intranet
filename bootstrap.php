@@ -3,7 +3,7 @@ if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incomp
 
 session_start();
 
-// CONFIGURACIÃ“N INICIAL
+// CONFIGURACIÓN INICIAL
 error_reporting(0);
 date_default_timezone_set('Europe/Madrid');
 setlocale(LC_TIME, 'es_ES');
@@ -49,7 +49,7 @@ else {
 	
 }
 
-// CONEXIÃ“N A LA BASE DE DATOS
+// CONEXIÓN A LA BASE DE DATOS
 $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 
 
 
