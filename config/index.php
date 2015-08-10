@@ -219,7 +219,7 @@ if (isset($_POST['instalar']))
 		}
 		else
 		{
-			$pass_admin = generador_password(10);
+			$pass_admin = generador_password(9);
 			$pass_sha1	= sha1($pass_admin);
 			
 			// COMPROBAMOS SI SE TRATA DE UNA ACTUALIZACIÓN DE LA APLICACIÓN

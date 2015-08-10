@@ -3,6 +3,18 @@ require('../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1));
 
+function generador_password($long)
+{
+	$alfabeto = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+    $pass = array();
+    $long_alfabeto = strlen($alfabeto) - 1;
+    for ($i = 0; $i < $long; $i++) {
+        $p = rand(0, $long_alfabeto);
+        $pass[] = $alfabeto[$p];
+    }
+    return implode($pass);
+}
+
 include("../../menu.php");
 ?>
 
@@ -14,41 +26,58 @@ include("../../menu.php");
 			<div class="row">
 
 <?php
-if (isset($_POST['enviar'])){$enviar=$_POST['enviar'];}else{$enviar='';}
-
 if (isset($_POST['enviar'])) {
 
-foreach($_POST['cambio'] as $p_dni){
-	mysqli_query($db_con, "update c_profes set pass='$p_dni', estado=0 where dni='$p_dni'");
+	$num = 0;
+	foreach($_POST['cambio'] as $p_dni){
+		mysqli_query($db_con, "update c_profes set pass='$p_dni', estado=0 where dni='$p_dni'");
+		
+		$mail0 = mysqli_query($db_con, "select correo, profesor from c_profes where dni='$p_dni'");
+		$mail = mysqli_fetch_array($mail0);
+		
+		$mail_correo = $mail[0];
+		$mail_nomprofesor = $mail[1];
+		
+		// Excepción para el usuario Administrador
+		if ($mail_nomprofesor == 'Administrador') {
+			$pass_admin = generador_password(9);
+			$pass_sha1	= sha1($pass_admin);
+			
+			mysqli_query($db_con, "UPDATE c_profes SET pass='$pass_sha1', dni='$pass_admin' estado=0 WHERE profesor='Administrador'");
+		}
+		
+		require("../../lib/class.phpmailer.php");
+		
+		$mail = new PHPMailer();
+		$mail->Host = "localhost";
+		$mail->From = 'no-reply@'.$config['dominio'];
+		$mail->FromName = $config['centro_denominacion'];
+		$mail->Sender = 'no-reply@'.$config['dominio'];
+		$mail->IsHTML(true);
+		
+		// Excepción para el usuario Administrador
+		if ($mail_nomprofesor == 'Administrador') {
+			$mail->Subject = 'Aviso de la Intranet: Restablecimiento de la cuenta de Administrador';
+			$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="//'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza la contraseña que aparece a continuación:<br><br>'.$pass_admin.'<br><br>Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+		}
+		else {
+			$mail->Subject = 'Aviso de la Intranet: Tu contraseña ha sido restablecida';
+			$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="//'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+		}
+		$mail->AddAddress($mail_correo, $mail_nomprofesor);
+		$mail->Send();
+		
+		$num++;
+	}
 	
-	$mail0 = mysqli_query($db_con, "select correo, profesor from c_profes where dni='$p_dni'");
-	$mail = mysqli_fetch_array($mail0);
-	
-	$mail_correo = $mail[0];
-	$mail_nomprofesor = $mail[1];
-	
-	require("../../lib/class.phpmailer.php");
-	
-	$mail = new PHPMailer();
-	$mail->Host = "localhost";
-	$mail->From = 'no-reply@'.$config['dominio'];
-	$mail->FromName = $config['centro_denominacion'];
-	$mail->Sender = 'no-reply@'.$config['dominio'];
-	$mail->IsHTML(true);
-	$mail->Subject = 'Aviso de la Intranet: Tu contraseña ha sido restablecida';
-	$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="//'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza tu NIF como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
-	$mail->AddAddress($mail_correo, $mail_nomprofesor);
-	$mail->Send();
+	if ($num > 1) {
+		echo '<div class="alert alert-success">Se han restablecido las contraseñas seleccionadas. Se ha enviado un correo electrónico a los usuarios afectados.</div>';
+	}
+	else {
+		echo '<div class="alert alert-success">Se ha restablecido la contraseña seleccionada. Se ha enviado un correo electrónico al usuario afectado.</div>';
+	}
+
 }
-
-echo '<div class="alert alert-success">
-Las claves de los profesores seleccionados se han reiniciado. El NIF del profesor pasa a ser la nueva clave de acceso.
-</div>';
-
-
-
-//mysqli_query($db_con, "drop table if exists cargos");
-} # del si se ha enviado
 ?>
 			<div class="col-sm-6">
 <form name="cargos" action="reset_password.php" method="post">
