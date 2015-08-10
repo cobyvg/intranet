@@ -83,7 +83,6 @@ if (isset($_POST['submit'])) {
 $result = mysqli_query($db_con, "SELECT idea, correo FROM c_profes WHERE idea='".$_SESSION['ide']."' LIMIT 1");
 $row = mysqli_fetch_assoc($result);
 
-
 include("menu.php");
 ?>
 
@@ -113,7 +112,7 @@ include("menu.php");
 							<div class="form-group">
 						    <label for="usuario" class="col-sm-4 control-label">Usuario IdEA</label>
 						    <div class="col-sm-8">
-						      <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $row['idea'];?>" readonly>
+						      <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $row['idea']; ?>" readonly>
 						    </div>
 						  </div>
 						  

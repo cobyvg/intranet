@@ -30,7 +30,7 @@ if (isset($_POST['enviar'])) {
 
 	$num = 0;
 	foreach($_POST['cambio'] as $p_dni){
-		mysqli_query($db_con, "update c_profes set pass='$p_dni', estado=0 where dni='$p_dni'");
+		mysqli_query($db_con, "update c_profes set pass='".sha1($p_dni)."', estado=0 where dni='$p_dni'");
 		
 		$mail0 = mysqli_query($db_con, "select correo, profesor from c_profes where dni='$p_dni'");
 		$mail = mysqli_fetch_array($mail0);
@@ -43,7 +43,8 @@ if (isset($_POST['enviar'])) {
 			$pass_admin = generador_password(9);
 			$pass_sha1	= sha1($pass_admin);
 			
-			mysqli_query($db_con, "UPDATE c_profes SET pass='$pass_sha1', dni='$pass_admin' estado=0 WHERE profesor='Administrador'");
+			mysqli_query($db_con, "UPDATE c_profes SET pass='$pass_sha1', dni='$pass_admin', estado=0 WHERE PROFESOR='Administrador' LIMIT 1");
+			mysqli_query($db_con, "UPDATE departamentos SET DNI='$pass_admin' WHERE NOMBRE='Administrador' LIMIT 1");
 		}
 		
 		require("../../lib/class.phpmailer.php");
