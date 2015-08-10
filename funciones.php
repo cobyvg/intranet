@@ -6,21 +6,40 @@ function registraPagina($db_link, $pagina)
 
 function acl_permiso($cargo_usuario, $cargo_requerido) {
 	
-	if(is_array($cargo_requerido)) {
-		if(! in_array($cargo_usuario, $cargo_requerido)) {
-			return 1;
-		}
+	$nopermitido = 0;
+	$permitido = 0;
+	
+	if(empty($cargo_usuario)) {
+		$nopermitido = 1;
 	}
 	else {
-		// Convertimos a string si se trata de cualquier otro tipo de dato
-		$cargo_requerido = (string) $cargo_requerido;
-		
-		if (stristr($cargo_usuario, $cargo_requerido) == FALSE) {
-			return 1;
+		if(is_array($cargo_requerido)) {
+			for($i = 0; $i < strlen($cargo_usuario); $i++) {
+				// Si alguno de los permisos coincide, prevalecerá el valor del flag 'permitido'.
+				if(! in_array($cargo_usuario[$i], $cargo_requerido)) {
+					$nopermitido = 1;
+				}
+				else {
+					$permitido = 1;
+				}
+			}
 		}
+		else {
+			// Convertimos a string si se trata de cualquier otro tipo de dato
+			$cargo_requerido = (string) $cargo_requerido;
+			
+			if (stristr($cargo_usuario, $cargo_requerido) == FALSE) {
+				$nopermitido = 1;
+			}
+		}	
 	}
 	
-	return 0;
+	// Si se activó el flag 'permitido' se permite el acceso a la página
+	if ($permitido) {
+		$nopermitido = 0;
+	}
+	
+	return $nopermitido;
 }
 
 
