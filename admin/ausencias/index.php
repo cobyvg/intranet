@@ -98,11 +98,17 @@ Los datos se han actualizado correctamente.
           </div></div>';			
 		}
 			else{
-			if ($_FILES['userfile']['name']<>''){
+			if ($_FILES['userfile']['name'] != ''){
 				$nombre_archivo = $_FILES['userfile']['name'];
 				$tipo_archivo = $_FILES['userfile']['type'];
 				$tamano_archivo = $_FILES['userfile']['size'];
 				#esta es la extension
+				
+				// Sanitizamos el nombre del archivo
+				$caracteres_no_permitidos = array(' ', 'á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú');
+				$caracteres_permitidos = array('_', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+				$nombre_archivo = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $nombre_archivo);
+				
 				if (move_uploaded_file($_FILES['userfile']['tmp_name'], "./archivos/".$nombre_archivo)){}
 				else{
 					echo '<div class="alert alert-success">
