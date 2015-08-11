@@ -78,6 +78,7 @@ if($submit=="Registrar Acta del Departamento")
 		if (strstr($contenido,"FECHA_DE_LA_REUNIÓN")==TRUE) {
 			$fecha_real = formatea_fecha($fecha);
 			$contenido = str_replace("FECHA_DE_LA_REUNIÓN", $fecha_real, $contenido);
+			$contenido = mysqli_real_escape_string($db_con, $contenido);
 		}
 		$query1 = "INSERT INTO r_departamento ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES( '$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
 		//echo $query1;
