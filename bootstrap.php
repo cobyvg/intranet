@@ -92,7 +92,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
 		$_SESSION['profi'] = $_POST['view_as_user'];
 		$profe = $_SESSION['profi'];
 		
-		// Variables de sesiÃ³n del cargo del Profesor
+		// Variables de sesión del cargo del Profesor
 		$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$profe'" );
 		$cargo1 = mysqli_fetch_array ( $cargo0 );
 		$_SESSION['cargo'] = $cargo1 [0];

@@ -1,4 +1,6 @@
 <?php
+$GLOBALS['db_con'] = $db_con;
+
 function registraPagina($db_link, $pagina)
 {
 	mysqli_query($db_link, "INSERT INTO reg_paginas (id_reg,pagina) VALUES ('".mysqli_real_escape_string($db_link, $_SESSION['id_pag'])."','".mysqli_real_escape_string($db_link, $pagina)."')");
@@ -47,9 +49,9 @@ function acl_acceso($cargo_usuario, $cargo_requerido) {
 	$noTienePermiso = acl_permiso($cargo_usuario, $cargo_requerido);
 	
 	if ($noTienePermiso) {
-		include(INTRANET_DIRECTORY . '/config.php');
-		$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']); 
+		$db_con = $GLOBALS['db_con'];
 		
+		include(INTRANET_DIRECTORY . '/config.php');
 		include(INTRANET_DIRECTORY . '/menu.php');
 		echo "\t\t<div class=\"container\" style=\"margin-top: 80px; margin-bottom: 120px;\">\n";
 		echo "\t\t\t<div class=\"row\">\n";
@@ -404,3 +406,5 @@ function size_convert($size)
     $unit=array('B','KB','MB','GB','TB','PB');
     return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
 }
+
+unset($GLOBALS['db_con']);

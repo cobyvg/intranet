@@ -94,7 +94,7 @@ $sqlcod1 = mysqli_query($db_con, $codigo1);
 $todos_moodle="username;password;firstname;lastname;email;city;country\n";
 while($rowprof = mysqli_fetch_array($sqlcod1))
 {
-$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[0]@".$config['dominio'].";".$config['localidad_del_centro'].";ES\n";
+$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[0]@".$config['dominio'].";".$config['centro_localidad'].";ES\n";
 $todos_moodle.=$linea_moodle;
 }
 

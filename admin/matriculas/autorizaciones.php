@@ -9,7 +9,7 @@ AUTORIZA al ".$config['centro_denominacion']." a fotografiar o grabar con video 
 y dentro del contexto educativo del centro o de actividades complementarias o extraescolares desarrolladas por el mismo. 
 ";
 $titulo5 = "		
-En ".$config['localidad_del_centro'].", a $hoy
+En ".$config['centro_localidad'].", a $hoy
 
 
 Firmado. D./Dª
@@ -46,7 +46,7 @@ Cursar a partir del curso escolar $c_escolar. mientras no modifique expresamente
 x $religion
 ";
 $firma_religion = "		
-En ".$config['localidad_del_centro'].", a $hoy
+En ".$config['centro_localidad'].", a $hoy
 
 
 Firmado. D./Dª

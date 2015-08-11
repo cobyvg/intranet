@@ -1,5 +1,6 @@
 <?php 
 $idea = $_SESSION['ide'];
+$profi = $_SESSION['profi'];
 
 
 // FEED RSS
@@ -190,7 +191,7 @@ mysqli_free_result($result_mensajes);
 <p class="navbar-text navbar-link" style="margin-top:7px;margin-bottom:0px;">
 	<small><i class="fa fa-clock-o fa-lg"></i> Última conexión:<br class="hidden-xs">
 	<?php
-	$time = mysqli_query($db_con, "select fecha from reg_intranet where profesor = '".$_SESSION['profi']."' order by fecha desc limit 2");
+	$time = mysqli_query($db_con, "select fecha from reg_intranet where profesor = '".$profi."' order by fecha desc limit 2");
 	
 	$num = 0;
 	while($last = mysqli_fetch_array($time)) {

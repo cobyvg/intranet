@@ -17,11 +17,11 @@ define('FPDF_FONTPATH','../../pdf/font/');
 $GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
 $GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
 $GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['localidad_del_centro'];
+$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
 $GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
 $GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
 $GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
-$GLOBALS['CENTRO_PROVINCIA'] = $config['provincia_del_centro'];
+$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
 
 # creamos la clase extendida de fpdf.php 
 class GranPDF extends FPDF {
@@ -188,7 +188,7 @@ Atentamente le saluda la Dirección del Centro.
 	$MiPDF->Text(120,35,$padre);
 	$MiPDF->Text(120,39,$direcion);
 	$MiPDF->Text(120,43,$localidad);
-	$MiPDF->Text(120,47,$config['provincia_del_centro']);
+	$MiPDF->Text(120,47,$config['centro_provincia']);
 	$MiPDF->Text(120,58,$fecha);
 	
 	#Cuerpo.
@@ -205,7 +205,7 @@ Atentamente le saluda la Dirección del Centro.
 	$MiPDF->SetFont('Times','',10);
 	$MiPDF->Multicell(0,4,$cuerpo3,0,'J',0);
 	$MiPDF->Ln(6);
-	$MiPDF->Multicell(0,4,'En '.$config['localidad_del_centro'].', a '.$fecha,0,'C',0);
+	$MiPDF->Multicell(0,4,'En '.$config['centro_localidad'].', a '.$fecha,0,'C',0);
 	$MiPDF->Ln(6);
 	$MiPDF->Multicell(0,4,'Jefe de Estudios:                    Sello del Centro                   Director/a:',0,'C',0);
 	$MiPDF->Ln(16);

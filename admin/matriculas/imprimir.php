@@ -250,7 +250,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(100,5,$row[7],1,0,'C');
 	$MiPDF->Cell(25,5,$row[8],1,0,'C');
 	$MiPDF->Cell(15,5,$config['centro_codpostal'],1,0,'C');
-	$MiPDF->Cell(28,5,$config['provincia_del_centro'],1,0,'C');
+	$MiPDF->Cell(28,5,$config['centro_provincia'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 		
 	$MiPDF->Cell(84,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,"C");
@@ -285,7 +285,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(46,5,"CODIGO",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(76,5,$config['centro_denominacion'],1,0,'C');
-	$MiPDF->Cell(46,5,$config['localidad_del_centro'],1,0,'C');
+	$MiPDF->Cell(46,5,$config['centro_localidad'],1,0,'C');
 	$MiPDF->Cell(46,5,$config['centro_codigo'],1,0,'C');
 	$MiPDF->Ln ( 6 );
 	//echo $itinerario;
@@ -324,7 +324,7 @@ for($i=1;$i<3;$i++){
 	}
 	$MiPDF->MultiCell(108,5,$opt,1);
 	$MiPDF->Ln ( 4 );
-	$f_hoy = "        En ".$config['localidad_del_centro'].", a ".$hoy;
+	$f_hoy = "        En ".$config['centro_localidad'].", a ".$hoy;
 	$sello = "                                  Sello del Centro";
 	$firma_centro = "                                El/La Funcionario/a";
 	$firma_padre= "  Firma del representante o Guardador legal 1";

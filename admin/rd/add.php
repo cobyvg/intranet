@@ -75,9 +75,9 @@ if($submit=="Registrar Acta del Departamento")
 	$tr_fecha = explode("-",$fecha);
 	$fecha = "$tr_fecha[2]-$tr_fecha[1]-$tr_fecha[0]";
 	if (sizeof ( $errorList ) == 0) {
-		if (strstr($contenido,"_____________")==TRUE) {
+		if (strstr($contenido,"FECHA_DE_LA_REUNIÓN")==TRUE) {
 			$fecha_real = formatea_fecha($fecha);
-			$contenido = str_replace("_____________",$fecha_real,$contenido);
+			$contenido = str_replace("FECHA_DE_LA_REUNIÓN", $fecha_real, $contenido);
 		}
 		$query1 = "INSERT INTO r_departamento ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES( '$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
 		//echo $query1;
@@ -124,7 +124,7 @@ else{
 }
 $fecha2 = date ( 'Y-m-d' );
 $hoy = formatea_fecha ( $fecha2 );
-$d_rd0 = mysqli_query($db_con, "select hora from horw where prof = '$profesor' and a_asig = 'RD'");
+$d_rd0 = mysqli_query($db_con, "select hora from horw where prof = '$profesor' and c_asig = '51'");
 $d_rd = mysqli_fetch_array($d_rd0);
 $hor = $d_rd[0];
 $reunion = array("1" => "8.15","2" => "9.15","3" => "10.15","4" => "11.45","5" => "12.45","6" => "13.45", "10" => "17");
@@ -189,29 +189,29 @@ else{
 }
 ?></p>
 
-<?php echo $texto_dep; ?><br><?php echo $config['centro_denominacion'] ?> (<?php echo $config['localidad_del_centro'] ?>) <br>Curso Escolar: <?php echo $config['curso_actual'];?><br> Acta N&ordm; <?php echo $numero; ?>
+<?php echo $texto_dep; ?><br><?php echo $config['centro_denominacion'] ?> (<?php echo $config['centro_localidad'] ?>) <br>Curso Escolar: <?php echo $config['curso_actual'];?><br> Acta N&ordm; <?php echo $numero; ?>
 </p>
 <p><br></p>
 <p style="text-align: center;"><strong
 	style="text-decoration: underline;">ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
 <p><br></p>
-<p>En <?php echo $config['localidad_del_centro'] ?>, a las <?php echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $config['centro_denominacion'] ?> de <?php echo $config['localidad_del_centro'] ?>, con el siguiente <span
+<p>En <?php echo $config['centro_localidad'] ?>, a las <?php echo $hora; ?> horas del FECHA_DE_LA_REUNIÓN, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $config['centro_denominacion'] ?> de <?php echo $config['centro_localidad'] ?>, con el siguiente <span
 	style="text-decoration: underline;"> orden del d&iacute;a:</span></p>
+<p><br></p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
 <p><u>Profesores Asistentes:</u></p>
 <p><br></p>
 <p><br></p>
-<p><u>Profesores&nbsp;Ausentes:</u></p>
+<p><u>Profesores Ausentes:</u></p>
 <p><br></p>
 <p><br></p>
-<?php
-}
-?>
-        		</textarea></div>
-
-<div class="form-group"><label for="jefedep">Jefe del Departamento</label>
+<p><br></p>
+<p>Sin mas asuntos que tratar, se levantan la sesión a las <?php echo $hora+1; ?> horas.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
 <?php if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
 	$rd_profesor=$profesor;
 }
@@ -220,7 +220,15 @@ else{
 	$rd_profes = mysqli_fetch_array($rd_profe);
 	$rd_profesor = $rd_profes[0];
 }
-?><input type="text" class="form-control" id="jefedep" name="jefedep"
+?>
+<p>Fdo.: <?php echo $rd_profesor; ?></p>
+<?php
+}
+?>
+        		</textarea></div>
+
+<div class="form-group"><label for="jefedep">Jefe del Departamento</label>
+<input type="text" class="form-control" id="jefedep" name="jefedep"
 	value="<?php echo $rd_profesor; ?>" readonly></div>
 
 <?php

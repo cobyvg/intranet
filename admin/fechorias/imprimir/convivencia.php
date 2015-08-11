@@ -56,7 +56,7 @@ require("../../../pdf/fpdf.php");
 $GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
 $GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
 $GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['localidad_del_centro'];
+$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
 $GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
 $GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
 $GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
@@ -113,7 +113,7 @@ Pongo en su conocimiento que con fecha ".strftime("%e de %B de %Y", strtotime($f
 
 Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.
 
-En ".$config['localidad_del_centro'].", a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+En ".$config['centro_localidad'].", a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 
 
 	# insertamos la primera pagina del documento

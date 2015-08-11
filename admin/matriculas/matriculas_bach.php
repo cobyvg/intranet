@@ -378,7 +378,7 @@ if(isset($_POST['enviar'])){
 			echo '
 <script> 
  alert("ATENCIÓN:\n';
-			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y solo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de '.$config['localidad_del_centro'].'.\nElige una sola parada y vuelve a enviar los datos.")
+			echo 'Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y solo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de '.$config['centro_localidad'].'.\nElige una sola parada y vuelve a enviar los datos.")
  </script>
 ';
 			$ruta_error = "";

@@ -278,7 +278,7 @@ if(isset($_POST['enviar'])){
 			$msg_error = "La fecha de nacimiento que has escrito no es correcta. El formato adecuado para la fecha es DD-MM-YYYY (Por ejemplo: 01-01-2000).";
 		}
 		elseif(strlen($ruta_este) > 0 and strlen($ruta_oeste) > 0){
-			$msg_error = "Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y solo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de ".$config['localidad_del_centro'].".Elige una sola parada y vuelve a enviar los datos.";
+			$msg_error = "Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y solo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de ".$config['centro_localidad'].".Elige una sola parada y vuelve a enviar los datos.";
 
 			$ruta_error = "";
 		}
