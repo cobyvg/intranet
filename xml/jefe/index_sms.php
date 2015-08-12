@@ -110,12 +110,14 @@ include('../../menu.php');
 				</table>
 				<?php else: ?>
 				
+				<br><br>
 				<div class="text-center">
 					
 					<span class="fa fa-mobile fa-4x text-muted"></span>
 					<p class="lead text-muted">No se han enviado mensajes en esta semana</p>
 					
 				</div>
+				<br><br>
 				
 				<?php endif; ?>
 			
