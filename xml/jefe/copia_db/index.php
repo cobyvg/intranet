@@ -5,7 +5,7 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 $profe = $_SESSION['profi'];
 
-function copia_bd($host,$user,$pass,$name) {
+function copia_bd($host, $user, $pass, $name) {
    
    $backup_file = 'db-backup_'.$name.'_'.date('YmdHis').'.sql.gz';
    
@@ -49,10 +49,10 @@ function mb_file($bytes) {
 if(isset($_GET['action']) && $_GET['action']=="crear") {
 
 
-	$result = copia_bd($db_host, $db_user, $db_pass, $db);
+	$result = copia_bd($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
 	
 	if($result) {
-		$msg_error = "No ha sido posible crear la copia de seguridad. Asegúrese de que el directorio <?php echo __DIR__; ?>/ tiene permiso de escritura.";
+		$msg_error = "No ha sido posible crear la copia de seguridad. Asegúrese de que el directorio ".__DIR__." tiene permiso de escritura.";
 	}
 	else {
 		$msg_success = "Se ha creado una nueva copia de seguridad de la base de datos " . $bd . ".";

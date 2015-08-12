@@ -209,7 +209,7 @@ else{
 <p><br></p>
 <p><br></p>
 <p><br></p>
-<p>Sin mas asuntos que tratar, se levantan la sesión a las <?php echo $hora+1; ?> horas.</p>
+<p>Sin más asuntos que tratar, se levanta la sesión a las <?php echo $hora+1; ?> horas.</p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
