@@ -44,7 +44,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 						de cualquier Acta: Departamento, Curso escolar, Nº de Acta, Asistentes etc. 
 						El texto comienza con el Orden del día, y continúa con la descripción de 
 						los contenidos tratados en la reunión. No es necesario escribir la fecha 
-						de la misma (línea seguida vacía) puesto que se coloca posteriormente con 
+						de la misma (FECHA_DE_LA_REUNIÓN) puesto que se coloca posteriormente con 
 						la fecha elegida.</p>
 						<p>A la derecha del formulario van apareciendo en su orden las Actas, 
 						visibles para todos los miembros del Departamento. El Jefe del Departamento 

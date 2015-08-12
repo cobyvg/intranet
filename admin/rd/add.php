@@ -197,7 +197,7 @@ else{
 	style="text-decoration: underline;">ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
 <p><br></p>
 <p>En <?php echo $config['centro_localidad'] ?>, a las <?php echo $hora; ?> horas del FECHA_DE_LA_REUNIÓN, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $config['centro_denominacion'] ?> de <?php echo $config['centro_localidad'] ?>, con el siguiente <span
-	style="text-decoration: underline;"> orden del d&iacute;a:</span></p>
+	style="text-decoration: underline;">orden del d&iacute;a</span>:</p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
