@@ -3,7 +3,10 @@
 <ul class="nav nav-pills nav-stacked">
 	<li class="nav-header">Configuración</li> 
 	<li><a href="../config/config.php">Configuración general y módulos</a></li>
-	<li><a href="../reservas/gestion_tipo.php">Gestión de reservas</a></li> 
+	<li><a href="../reservas/gestion_tipo.php">Gestión de reservas</a></li>
+	<?php if(isset($config['mod_sms']) && $config['mod_sms']): ?>
+	<li><a href="jefe/index_sms.php">Información envíos SMS</a></li> 
+	<?php endif; ?>
 	
 	<li class="nav-header">A principio de curso...</li>
 	<li><a href="jefe/index2.php">Importar Alumnos</a></li>

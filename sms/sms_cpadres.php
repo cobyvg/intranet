@@ -12,10 +12,7 @@ if ($config['mod_sms']) {
 	if (isset($_GET['login'])) {$login = $_GET['login'];}elseif (isset($_POST['login'])) {$login = $_POST['login'];}else{$login="";}
 	if (isset($_GET['password'])) {$password = $_GET['password'];}elseif (isset($_POST['password'])) {$password = $_POST['password'];}else{$password="";}
 	if (isset($_GET['extid'])) {$extid = $_GET['extid'];}elseif (isset($_POST['extid'])) {$extid = $_POST['extid'];}else{$extid="";}
-	if (isset($_GET['tpoa'])) {$tpoa = $_GET['tpoa'];}elseif (isset($_POST['tpoa'])) {$tpoa = $_POST['tpoa'];}else{$tpoa="";}
 	if (isset($_GET['mobile'])) {$mobile = $_GET['mobile'];}elseif (isset($_POST['mobile'])) {$mobile = $_POST['mobile'];}else{$mobile="";}
-	if (isset($_GET['messageQty'])) {$messageQty = $_GET['messageQty'];}elseif (isset($_POST['messageQty'])) {$messageQty = $_POST['messageQty'];}else{$messageQty="";}
-	if (isset($_GET['messageType'])) {$messageType = $_GET['messageType'];}elseif (isset($_POST['messageType'])) {$messageType = $_POST['messageType'];}else{$messageType="";}
 
 	// Si se han mandado datos desde el Formulario principal de mas abajo...
 
@@ -126,33 +123,18 @@ if(isset($curso))
 	$niv = $tr_curso[0];
 
 	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Más info en http://".$config['dominio'];
-	$login = $config['mod_sms_user'];
-	$password = $config['mod_sms_pass'];
-	?> <script language="javascript">
-function enviarForm() /*el formulario se llama crear*/
-{
-ventana=window.open("", "ventanaForm", "top=100, left=100, toolbar=no,location=no, status=no,menubar=no,scrollbars=no, resizable=no, width=100,height=66,directories=no")
-document.enviar.submit()
-/*AQUÕ PUEDES PONER UN TIEMPO*/
-/*ventana.close()*/
-}
-</script>
-
-<form name="enviar"
-	action="http://www.smstrend.net/esp/sendMessageFromPost.oeg"
-	target="ventanaForm" method="POST"
-	enctype="application/x-www-form-urlencoded"><input name="login"
-	type="hidden" value="<?php echo $login;?>" /> <input name="password"
-	type="hidden" value="<?php echo $password;?>" /> <input name="extid"
-	type="hidden" value="<?php echo $extid;?>" /> <input name="tpoa"
-	type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> <input name="mobile"
-	type="hidden" value="<?php echo $mobile2;?>" /> <input name="messageQty"
-	type="hidden" value="GOLD" /> <input name="messageType" type="hidden"
-	value="PLUS" /> <input name="message" type="hidden"
-	value="<?php echo $text;?>" maxlength="159" size="60" /></form>
-<script>
- enviarForm();
-</script> <?php
+	
+	// ENVIO DE SMS
+	require('../lib/trendoo/sendsms.php');
+	$sms = new Trendoo_SMS();
+	$sms->sms_type = SMSTYPE_GOLD_PLUS;
+	$sms->add_recipient('+34'.$mobile2);
+	$sms->message = $text;
+	$sms->sender = $config['mod_sms_id'];
+	$sms->set_immediate();
+	if ($sms->validate()) $sms->send();
+	
+	
 if(strlen($mobil2) > 0){
 	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile2','$text','Jefatura de Estudios')");
 	echo '<div class="alert alert-success alert-block fade in" align="left">

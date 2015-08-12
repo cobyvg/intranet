@@ -40,36 +40,22 @@ $claveal = $row0[0];
 $nombrecor = explode(" ",$nombre);
 $nombrecorto = $nombrecor[0];
 $text = "Le comunicamos que su hijo/a $nombrecorto tiene Faltas de Asistencia sin justificar dentro del periodo del ".$fecha12." al ".$fecha22.". Contacte con su Tutor";
-$login = $config['mod_sms_user'];
-$password = $config['mod_sms_pass'];
+
 // Identificador del mensaje
 $sms_n = mysqli_query($db_con, "select max(id) from sms");
 $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
-?>
-<script language="javascript">
-function enviarForm()
-{
-ventana=window.open("", "ventanaForm<?php echo $num;?>", "top=100, left=100, toolbar=no,location=no, status=no,menubar=no,scrollbars=no, resizable=no, width=300,height=66,directories=no")
-document.enviar<?php echo $num;?>.submit()
-/*AQUÕ PUEDES PONER UN TIEMPO*/
-/*ventana.close()*/
-}
-</script>
-<form action="http://www.smstrend.net/esp/sendMessageFromPost.oeg" method="post" name="enviar<?php echo $num;?>" target="ventanaForm<?php echo $num;?>">
-			<input name="login" type="hidden" value="<?php echo $login;?>" />
-            <input name="password" type="hidden" value="<?php echo $password;?>"  />   
-            <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
-            <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> 
-            <input name="mobile" type="hidden" value="<?php echo $mobil2;?>"/>
- 			<input name="messageQty" type="hidden" value="GOLD" />
-            <input name="messageType" type="hidden" value="PLUS" />        
-			<input name="message" type="hidden" value="<?php echo $text;?>"/>    
-</form>
-<script>
-enviarForm();
-</script>
-<?php
+
+// ENVIO DE SMS
+require('../lib/trendoo/sendsms.php');
+$sms = new Trendoo_SMS();
+$sms->sms_type = SMSTYPE_GOLD_PLUS;
+$sms->add_recipient('+34'.$mobil2);
+$sms->message = $text;
+$sms->sender = $config['mod_sms_id'];
+$sms->set_immediate();
+if ($sms->validate()) $sms->send();
+
 mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
 $num=$num+1;
 endwhile;

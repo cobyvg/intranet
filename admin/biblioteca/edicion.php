@@ -150,34 +150,17 @@ if ($sms) {
 			}
 			
 			mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
-			$login = $config['mod_sms_user'];
-			$password = $config['mod_sms_pass'];
-			?>
-<form name="enviar"
-	action="http://www.smstrend.net/esp/sendMessageFromPost.oeg"
-	target="ventanaForm" method="POST"
-	enctype="application/x-www-form-urlencoded"><input name="login"
-	type="hidden" value="<?php
-	echo $login;
-		?>" /> <input name="password" type="hidden"
-	value="<?php
-	echo $password;
-		?>" /> <input name="extid" type="hidden"
-	value="<?php
-	echo $extid;
-		?>" /> <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> <input
-	name="mobile" type="hidden" value="<?php
-	echo $mobile;
-		?>" /> <input name="messageQty" type="hidden" value="GOLD" /> <input
-	name="messageType" type="hidden" value="PLUS" /> <input name="message"
-	type="hidden" value="<?php
-	echo $message;
-		?>" maxlength="159"
-	size="60" /></form>
-<script>
-enviarForm();
-</script>
-<?php
+			
+			// ENVIO DE SMS
+			require('../../lib/trendoo/sendsms.php');
+			$sms = new Trendoo_SMS();
+			$sms->sms_type = SMSTYPE_GOLD_PLUS;
+			$sms->add_recipient('+34'.$mobile);
+			$sms->message = $message;
+			$sms->sender = $config['mod_sms_id'];
+			$sms->set_immediate();
+			if ($sms->validate()) $sms->send();
+
 		}
 	}
 }
