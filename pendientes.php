@@ -297,7 +297,7 @@ Archivo adjunto: <a href="//<?php echo $config['dominio']; ?>/notas/files/<?php 
 // Comprobar mensajes de profesores
 $n_mensajes = 0;
 
-$men1 = "select ahora, asunto, texto, profesor, id_profe, origen from mens_profes, mens_texto where mens_texto.id = mens_profes.id_texto and profesor = '$pr' and recibidoprofe = '0' order by ahora desc";
+$men1 = "select ahora, asunto, texto, profesor, id_profe, origen from mens_profes, mens_texto where mens_texto.id = mens_profes.id_texto and profesor = '".$_SESSION['ide']."' and recibidoprofe = '0' order by ahora desc";
 $men2 = mysqli_query($db_con, $men1);
 if(mysqli_num_rows($men2) > 0)
 {
@@ -314,15 +314,15 @@ if(mysqli_num_rows($men2) > 0)
 		$fechacompl = $men[0];
 		$asunto = $men[1];
 		$texto = html_entity_decode($men[2]);
-		$pr = $men[3];
 		$id = $men[4];
 		$orig = $men[5];
-		$origen0 = explode(", ",$men[5]);
-		$origen = $origen0[1]." ".$origen0[0];
+		$query = mysqli_query($db_con,"select nombre from departamentos where idea = '$orig'");
+		$row = mysqli_fetch_array($query);
+		$nombre_profe = $row[0];
 		?>
 <li><a class="alert-link" data-toggle="modal"
 	href="#mensaje<?php echo $n_mensajes;?>"> <?php echo $asunto; ?> </a> <br>
-		<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+		<?php echo "<small>".mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 		<?
 	}
@@ -336,11 +336,11 @@ if(mysqli_num_rows($men2) > 0)
 		$fechacompl = $men[0];
 		$asunto = $men[1];
 		$texto = html_entity_decode($men[2]);
-		$pr = $men[3];
 		$id = $men[4];
 		$orig = $men[5];
-		$origen0 = explode(", ",$men[5]);
-		$origen = $origen0[1]." ".$origen0[0];
+		$query = mysqli_query($db_con,"select nombre from departamentos where idea = '$orig'");
+		$row = mysqli_fetch_array($query);
+		$nombre_profe = $row[0];
 		?>
 <div class="modal fade" id="mensaje<?php echo $n_mensajes;?>">
 
@@ -350,7 +350,7 @@ if(mysqli_num_rows($men2) > 0)
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 <h4 class="modal-title"><?php echo $asunto;?><br>
-<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+<small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
 <div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_NOQUOTES, 'ISO-8859-1')); ?></div>

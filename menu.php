@@ -147,7 +147,7 @@ mysqli_free_result($result_mensajes);
 	<ul class="dropdown-menu dropdown-messages">
 		<li class="dropdown-header"><h5>Últimos mensajes</h5></li>
 		<li class="divider"></li>
-		<?php $result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
+		<?php $result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['ide']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
 		<?php if(mysqli_num_rows($result_mensajes)): ?>
 		<?php while ($row = mysqli_fetch_array($result_mensajes)): ?>
 		<li><a
@@ -155,7 +155,11 @@ mysqli_free_result($result_mensajes);
 		<div
 		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
 		<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row['ahora'])); ?></em></span>
-		<strong><?php echo nomprofesor($row['origen']); ?></strong></div>
+		<strong><?php 
+		$query = mysqli_query($db_con,"select nombre from departamentos where idea = '".$row['origen']."'");
+		$row = mysqli_fetch_array($query);
+		echo nomprofesor($row[0]); 
+		?></strong></div>
 		<div
 		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>><?php echo substr($row['asunto'],0,96); ?></div>
 		</a></li>

@@ -3,7 +3,7 @@ require('../../bootstrap.php');
 
 
 
-$profesor = $_SESSION['profi'];
+$profesor = $_SESSION['ide'];
 
 
 isset($_GET['inbox']) ? $_buzon = $_GET['inbox'] : $_buzon = 'recibidos';
@@ -22,6 +22,7 @@ switch ($_buzon) {
 		
 		$tabla_encabezado = array('De', 'Asunto', 'Fecha', ' ');
 		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, origen, id_profe, texto, recibidoprofe FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE profesor = '$profesor' ORDER BY ahora DESC LIMIT 0, 500");
+		$rec = 1;
 		break;
 	
 	case 'enviados'  :
@@ -102,7 +103,39 @@ include("menu.php");
         $_buzon=='recibidos' ? $leido = $row[6] : $leido=1;
         ?>
           <tr> 
-            <td width="25%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php echo nomprofesor($row[3]); ?><?php if(!$leido) echo '</strong>'; ?></a></td>        
+            <td width="25%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php 
+            $n_p = str_ireplace("; ","",$row[3]);
+            
+            $numero = trim(substr($n_p,strlen($n_p)-3,strlen($n_p)));
+            
+            if(is_numeric(trim($n_p))){           	
+            $real = "";	
+            $trozos = explode("; ",$row[3]);	
+            foreach($trozos as $val){
+            $query0 = mysqli_query($db_con,"select nombre, apellidos from alma where claveal = '$val'");
+			$row0 = mysqli_fetch_array($query0);
+            $real.=$row0[0]." ". $row0[1]."; ";           
+            }
+            $dest = substr($real,0,-2);
+            }            
+            elseif(is_numeric($numero)) {
+            $real = "";	
+            $trozos = explode("; ",$row[3]);	
+            foreach($trozos as $val){
+            $query0 = mysqli_query($db_con,"select nombre from departamentos where idea = '$val'");
+			$row0 = mysqli_fetch_array($query0);
+            $real.=$row0[0]."; ";           
+            }
+            $dest = substr($real,0,-2);
+            }
+            else{
+            $dest = $n_p;
+            }
+            if (strlen($dest)>150) {
+            	$dest = substr($dest,0,150)."...";
+            }
+            echo $dest;
+            ?><?php if(!$leido) echo '</strong>'; ?></a></td>        
             <td width="55%"><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php echo $row[1]; if($pos !== false) echo ' <span class="pull-right fa fa-paperclip fa-lg"></span>'; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
             <td width="15%" data-order="<?php echo $row[0]; ?>" nowrap><?php if(!$leido) echo '<strong>'; ?><a class="link-msg" href="mensaje.php?id=<?php echo $row[2]; ?>&idprof=<?php echo $row[4]; ?>"><?php echo $row[0]; ?></a><?php if(!$leido) echo '</strong>'; ?></td>
             <td width="5%" nowrap>

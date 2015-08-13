@@ -851,7 +851,8 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
   `recibidotutor` tinyint(1) NOT NULL DEFAULT '0',
   `recibidopadre` tinyint(1) NOT NULL DEFAULT '0',
   `correo` varchar(72) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `unidad` varchar(64) COLLATE latin1_spanish_ci NOT NULL DEFAULT ''
+  `unidad` varchar(64) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  `archivo` VARCHAR(254) COLLATE latin1_spanish_ci NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------

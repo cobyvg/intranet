@@ -467,8 +467,7 @@ function contents_dir($current_dir, $directory)
 			
 			echo "<a href=\"../admin/mensajes/redactar.php?texto=$share_string\" rel=\"tooltip\" title=\"Compartir\"><span class=\"fa fa-share-alt fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
 		}
-		
-	
+			
 		echo "</td>";
 		echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
 		echo "<span class=\"text-muted\">";

@@ -98,7 +98,7 @@ if (isset($_GET['id'])) {
 		$ahora = $row['ahora'];
 		$asunto = htmlspecialchars($row['asunto']);
 		$texto = htmlspecialchars($row['texto']);
-		$destino = trim($row['destino'],'; ');
+		$destino = trim($row['destino']);
 		
 		$num_seg = (strtotime(date('Y-m-d H:i:s')) - strtotime($ahora)) * 60;
 		if ($num_seg > (60 * 60)) {
@@ -178,7 +178,7 @@ $page_header = "Redactar mensaje";
       		<fieldset>
       			<legend>Grupos de destinatarios</legend>
       			
-      			<input type="hidden" name="profesor" value="<?php echo $pr; ?>">
+      			<input type="hidden" name="profesor" value="<?php echo $_SESSION['ide']; ?>">
       			
       			<?php if (!isset($bloq_destinatarios) && !$bloq_destinatarios): ?>
             <div class="row">
@@ -295,7 +295,36 @@ $page_header = "Redactar mensaje";
               </div>
               <?php else: ?>
               
-              <p class="help-block"><?php echo $destino; ?></p>
+              <p class="help-block">
+              <?php 
+            $n_p = str_ireplace("; ","",$row[3]);
+            $numero = trim(substr($n_p,strlen($n_p)-3,strlen($n_p)));
+            
+            if(is_numeric(trim($n_p))){           	
+            $real = "";	
+            $trozos = explode("; ",$destino);	
+            foreach($trozos as $val){
+            $query0 = mysqli_query($db_con,"select nombre, apellidos from alma where claveal = '$val'");
+			$row0 = mysqli_fetch_array($query0);
+            $real.=$row0[0]." ". $row0[1]."; ";           
+            }
+            $dest = substr($real,0,-2);
+            }            
+            elseif(is_numeric($numero)) {
+            $real = "";	
+            $trozos = explode("; ",$destino);	
+            foreach($trozos as $val){
+            $query0 = mysqli_query($db_con,"select nombre from departamentos where idea = '$val'");
+			$row0 = mysqli_fetch_array($query0);
+            $real.=$row0[0]."; ";           
+            }
+            $dest = substr($real,0,-2);
+            }
+            else{
+            $dest = $n_p;
+            }
+            echo $dest;
+              ?></p>
               
               <?php endif; ?>
             
@@ -314,11 +343,11 @@ $page_header = "Redactar mensaje";
 						<?php $s_origen = mb_strtoupper($origen); ?>
 						
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos ORDER BY nombre ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="profeso[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
-								<option value="<?php echo $row['nombre']; ?>" <?php echo (isset($origen) && mb_strtoupper($origen) == mb_strtoupper($row['nombre'])) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
+								<option value="<?php echo $row['idea']; ?>;<? echo $row['nombre']; ?>" <?php echo (isset($origen) && mb_strtoupper($origen) == mb_strtoupper($row['idea'])) ? 'selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 								<?php endwhile; ?>
 								<?php mysqli_free_result($result); ?>
 							</select>
@@ -347,11 +376,11 @@ $page_header = "Redactar mensaje";
 						<legend>Seleccione tutores</legend>
 						
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT tutor, unidad FROM FTUTORES ORDER BY unidad ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT tutor, unidad, idea FROM FTUTORES, departamentos where tutor = nombre  ORDER BY unidad ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="tutor[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
-								<option value="<?php echo $row['tutor']; ?> --> <?php echo $row['unidad']; ?>-"><?php echo $row['unidad']; ?> - <?php echo $row['tutor']; ?></option>
+								<option value="<?php echo $row['idea']; ?> --> <?php echo $row['unidad']; ?>-"><?php echo $row['unidad']; ?> - <?php echo $row['tutor']; ?></option>
 								<?php endwhile; ?>
 								<?php mysqli_free_result($result); ?>
 							</select>
@@ -626,11 +655,11 @@ $page_header = "Redactar mensaje";
 						<legend>Familias y alumnos</legend>
 						
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad FROM alma $sql_where ORDER BY unidad ASC, apellidos ASC, nombre ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, claveal FROM alma $sql_where ORDER BY unidad ASC, apellidos ASC, nombre ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="padres[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
-								<option value="<?php echo $row['apellidos'].', '.$row['nombre']; ?>" <?php echo (isset($origen) && $origen == $row['apellidos'].', '.$row['nombre']) ? 'selected' : ''; ?>><?php echo $row['unidad'].' - '.$row['apellidos'].', '.$row['nombre']; ?></option>
+								<option value="<?php echo $row['claveal']; ?>" <?php echo (isset($origen) && $origen == $row['apellidos'].', '.$row['nombre']) ? 'selected' : ''; ?>><?php echo $row['unidad'].' - '.$row['apellidos'].', '.$row['nombre']; ?></option>
 								<?php endwhile; ?>
 								<?php mysqli_free_result($result); ?>
 							</select>
@@ -655,42 +684,6 @@ $page_header = "Redactar mensaje";
 				<button type="button" class="btn btn-primary btn-block" id="mostrar_grupos">Seleccionar otro grupo de destinatarios</button>
 				<?php endif; ?>
 				
-				
-<?php
-//$perfil = $_SESSION['cargo'];
-// Queda preparado para que todos los profesores puedan enviar mensajes a los padres en la página exterior.
-//Solo hay que eliminar $perfil == '1', y añadir la posibilidad de responder al mensaje del profesor
-//desde la página principal(actualmente solo es posible responder al tutor del grupo).
-/*					
-if (!($perfil == '1')) {
-$extra0 = "where profesor = '$pr'";
-}
-
-if($padres == '1' and $perfil == '1') {
-echo "<hr /><legend class='text-warning'>Padres de Alumnos</legend><div class='well well-transparent'>";
-echo '<SELECT  name=padres[] multiple=multiple size=15 >';
-$tut = mysqli_query($db_con, "select distinct grupo from profesores $extra0");
-while ($tuto = mysqli_fetch_array($tut)) {
-$unidad = $tuto[0];
-echo "<OPTION style='color:brown;background-color:#cf9;' disabled>$unidad</OPTION>";
-$extra = "where unidad='$unidad'";
-$padre = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE  FROM alma $extra order by unidad, apellidos");
-while($filapadre = mysqli_fetch_array($padre))
-{
-$al_sel = "$filapadre[0], $filapadre[1]";
-if ($al_sel==$origen) {
-$seleccionado='selected';
-}else{$seleccionado="";}
-echo "<OPTION $seleccionado>$filapadre[0], $filapadre[1]</OPTION>";
-}
-
-}
-}
-echo  '</select>';
-echo "</div>";
-*/
-?>
-
 			</div><!-- /.col-sm-5 -->
 			
 		</div><!-- /.row -->

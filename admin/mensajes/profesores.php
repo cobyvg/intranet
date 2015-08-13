@@ -15,7 +15,7 @@ if(isset($_POST['submit1'])) {
 		
 		if ($_SESSION['msg_block'] == 1) {
 		
-			$query0="insert into mens_texto (asunto,texto, origen) values ('".$asunto."','".$texto."','".$profesor."')";
+			$query0="insert into mens_texto (asunto, texto, origen) values ('".$asunto."','".$texto."','".$profesor."')";
 			mysqli_query($db_con, $query0);
 			$id0 = mysqli_query($db_con, "select id from mens_texto where asunto = '$asunto' and texto = '$texto' and origen = '$profesor'");
 			$id1 = mysqli_fetch_array($id0);
@@ -28,9 +28,11 @@ if(isset($_POST['submit1'])) {
 			$profiso = $_POST["profeso"];
 				foreach($profiso as $nombre)
 				{
-				$query1="insert into mens_profes (id_texto, profesor) values ('".$id."','".$nombre."')";
+				$trozo = explode(";",$nombre);
+				$idea = $trozo[0];	
+				$query1="insert into mens_profes (id_texto, profesor) values ('".$id."','".$idea."')";
 				mysqli_query($db_con, $query1);
-				$t_nombres.=$nombre."; ";
+				$t_nombres.=$idea."; ";
 				}
 				$ok=1;
 				mysqli_query($db_con, "update mens_texto set destino = '$t_nombres' where id = '$id'");	
@@ -58,7 +60,7 @@ if(isset($_POST['submit1'])) {
 			$dep = $_POST["departamento"];
 				foreach($dep as $nombre_dep)
 				{
-				$dep0 = mysqli_query($db_con, "select distinct nombre from departamentos where departamento = '$nombre_dep'");
+				$dep0 = mysqli_query($db_con, "select distinct idea from departamentos where departamento = '$nombre_dep'");
 				while($dep1 = mysqli_fetch_array($dep0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$dep1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
@@ -76,7 +78,7 @@ if(isset($_POST['submit1'])) {
 			$eq = $_POST["equipo"];
 			foreach($eq as $nombre_eq)
 				{
-				$eq0 = mysqli_query($db_con, "select distinct nombre from profesores, departamentos where nombre = profesor and grupo = '$nombre_eq' or cargo like '%8%'");
+				$eq0 = mysqli_query($db_con, "select distinct idea from profesores, departamentos where nombre = profesor and grupo = '$nombre_eq' or cargo like '%8%'");
 				while($eq1 = mysqli_fetch_array($eq0))
 				{
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$eq1[0]'");
@@ -92,38 +94,34 @@ if(isset($_POST['submit1'])) {
 			
 			if($ca == '1')
 				{
-				$ca0 = mysqli_query($db_con, "select distinct nombre from departamentos where cargo like '%9%'");
+				$ca0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%9%'");
 				while($ca1 = mysqli_fetch_array($ca0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$ca1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
 				if(strlen($num0[0]) < 1)
 				 mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$ca1[0]."')");
-				//echo "insert into mens_profes (id_texto, profesor) values ('".$id."','".$ca1[0]."')";
 				}
 				 mysqli_query($db_con, "update mens_texto set destino = 'CA' where id = '$id'");
-				//echo "update mens_texto set destino = 'CA' where id = '$id'";
 				$ok=1;
 				}
 			
 			if($etcp == '1')
 				{
-				$etcp0 = mysqli_query($db_con, "select distinct nombre from departamentos where cargo like '%4%'");
+				$etcp0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%4%'");
 				while($etcp1 = mysqli_fetch_array($etcp0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$etcp1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
 				if(strlen($num0[0]) < 1)
 				 mysqli_query($db_con, "insert into mens_profes (id_texto, profesor) values ('".$id."','".$etcp1[0]."')");
-				//echo "insert into mens_profes (id_texto, profesor) values ('".$id."','".$etcp1[0]."')";
 				}
 				 mysqli_query($db_con, "update mens_texto set destino = 'ETCP' where id = '$id'");
-				//echo "update mens_texto set destino = 'ETCP' where id = '$id'";
 				$ok=1;
 				}	
 			
 				
 			if($claustro == '1')
 				{
-				$cl0 = mysqli_query($db_con, "select distinct nombre from departamentos");
+				$cl0 = mysqli_query($db_con, "select distinct idea from departamentos");
 				while($cl1 = mysqli_fetch_array($cl0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$cl1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
@@ -136,7 +134,7 @@ if(isset($_POST['submit1'])) {
 			
 			if($direccion == '1')
 				{
-				$dir0 = mysqli_query($db_con, "select distinct nombre from departamentos where cargo like '%1%'");
+				$dir0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%1%'");
 				while($dir1 = mysqli_fetch_array($dir0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$dir1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
@@ -149,7 +147,7 @@ if(isset($_POST['submit1'])) {
 			
 			if($orientacion == '1')
 				{
-				$orienta0 = mysqli_query($db_con, "select distinct nombre from departamentos where cargo like '%8%'");
+				$orienta0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%8%'");
 				while($orienta1 = mysqli_fetch_array($orienta0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$orienta1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
@@ -162,7 +160,7 @@ if(isset($_POST['submit1'])) {
 				
 			if($bilingue == '1')
 				{
-				$bilingue0 = mysqli_query($db_con, "select distinct nombre from departamentos where cargo like '%a%'");
+				$bilingue0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%a%'");
 				while($bilingue1 = mysqli_fetch_array($bilingue0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$bilingue1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
@@ -175,7 +173,7 @@ if(isset($_POST['submit1'])) {
 				
 			if($biblio == '1')
 				{
-				$biblio0 = mysqli_query($db_con, "select distinct nombre from departamentos where cargo like '%c%'");
+				$biblio0 = mysqli_query($db_con, "select distinct idea from departamentos where cargo like '%c%'");
 				while($biblio1 = mysqli_fetch_array($biblio0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id = '$id' and profesor = '$biblio1[0]'");
 				$num0 = mysqli_fetch_row($rep0);
