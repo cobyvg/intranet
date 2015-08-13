@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -11,7 +11,7 @@ include("menu.php");
 <div class="page-header">
   <h2>Material del Centro <small> Inventario</small></h2>
 </div>
-<?
+<?php
 /*if (empty($departamento) or stristr ( $_SESSION ['cargo'], '1' ) == FALSE){
 	$departamento=$_SESSION['dpt'];
 	$departament=$departamento;
@@ -36,7 +36,7 @@ else{
 }
 
 ?>
-<?
+<?php
 if ($_GET['eliminar']=="1") {
 	mysqli_query($db_con, "delete from inventario where id='".$_GET['id']."'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
@@ -86,7 +86,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'4') ==
 
 <div class='form-group'><label>Familia<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
 <select name="familia" onchange="submit()" class="form-control">
-        <?
+        <?php
 echo "<option>$familia</option>";
 $famil = mysqli_query($db_con, " SELECT distinct familia FROM inventario_clases order by familia asc");
 while($fam = mysqli_fetch_array($famil))
@@ -98,7 +98,7 @@ while($fam = mysqli_fetch_array($famil))
 </div>
 <div class='form-group'><label>Clase<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
 <select name="clase" class="form-control">
-        <?
+        <?php
 echo "<option></option>";
 $cla = mysqli_query($db_con, " SELECT distinct clase FROM inventario_clases where familia='$familia' order by familia asc");
 while($clas = mysqli_fetch_array($cla))
@@ -110,7 +110,7 @@ while($clas = mysqli_fetch_array($cla))
 </div>
 <div class='form-group'><label>Lugar<span style="color:#9d261d;font-size:12px;"> (*) </span></label>
 <select name="lugar" class="form-control">
-        <?
+        <?php
 echo "<option></option>";
 $luga = mysqli_query($db_con, " SELECT distinct lugar FROM inventario_lugares order by lugar asc");
 while($lug = mysqli_fetch_array($luga))
@@ -148,7 +148,7 @@ while($lug = mysqli_fetch_array($luga))
 <input type="submit" name="enviar"  value="Enviar datos" class="btn btn-primary btn-block"/>
 </form>
 </div>
-  <?
+  <?php
 }
 if ($j_s == '1') {
 	echo '<div class="col-sm-6 col-sm-offset-3">';
@@ -157,7 +157,7 @@ else{
 	echo '<div class="col-sm-6">';
 }
 ?>
-<?
+<?php
 $it = mysqli_query($db_con, "select inventario_clases.clase, marca, modelo, unidades, inventario.id from inventario, inventario_clases where inventario_clases.id=inventario.clase and departamento='$departamento'");
 if (mysqli_num_rows($it)>0) {
 	echo '<legend>Inventario: ';
@@ -176,15 +176,15 @@ while($item = mysqli_fetch_row($it))
 	}
 ?>
 <tr><td><?php echo $item[0];?></td><td><?php echo $marca;?></td><td><?php echo $item[3];?></td><td align=right>
-<?
+<?php
 if ($j_s == '') {
 ?>
 <a href="introducir.php?id=<?php echo $item[4];?>&eliminar=1" data-bb='confirm-delete'><i class="fa fa-trash-o" title="Borrar registro"> </i> </a>
-<?
+<?php
 }
 ?>
 &nbsp;<a href="editar.php?id=<?php echo $item[4];?>&departamento=<?php echo $departamento;?>"><i class="fa fa-pencil" title="Editar registro"> </i> </a></td></tr>
-<?
+<?php
 }
 	echo '
 </table>	';

@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -13,7 +13,7 @@ if(!(stristr($_SESSION['cargo'],'1') == TRUE))
   <h2>Programa de Ayudas al Estudio <small> Importación de datos</small></h2>
 </div>
 <br />
-<?
+<?php
 if(isset($_POST['enviar']))
 {
 // Nivel de los Libros

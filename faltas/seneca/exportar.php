@@ -76,7 +76,7 @@ $xml="<SERVICIO>
     <FECHA_HASTA>$finfalta</FECHA_HASTA>
     <CODIGO_CENTRO>".$config['centro_codigo']."</CODIGO_CENTRO>
     <NOMBRE_CENTRO>".$config['centro_denominacion']."</NOMBRE_CENTRO>
-    <LOCALIDAD_CENTRO>".$config['localidad_del_centro']."</LOCALIDAD_CENTRO>
+    <LOCALIDAD_CENTRO>".$config['centro_localidad']."</LOCALIDAD_CENTRO>
   </DATOS_GENERALES>
   <CURSOS>
     <CURSO>

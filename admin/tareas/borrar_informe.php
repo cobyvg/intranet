@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -11,7 +11,7 @@ include("menu.php");
   <h2>Informes de Tareas <small> Borrar Informe</small></h2>
 </div>
 <br />
-<?
+<?php
 if ($del=='1') {
 	mysqli_query($db_con, "delete from tareas_alumnos where id = '$id'");
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">

@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_POST['submit1']) and $_POST['submit1']=="Enviar Datos") {
 	include("rellenainf.php");
 	exit;

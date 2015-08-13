@@ -1,4 +1,4 @@
-<?
+<?php
 // Procesamos los datos
  foreach ($_POST as $id => $valor) {
 // Condiciones para procesar los datos
@@ -26,6 +26,6 @@ $mens = "../cuaderno.php?profesor=$profesor&asignatura=$asignatura&dia=$dia&hora
 <script>
 setTimeout("window.location='<?php echo $mens; ?>'", 1000) 
 </script>
-<?
+<?php
 		}
 ?>.

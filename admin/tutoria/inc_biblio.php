@@ -14,7 +14,7 @@
 			<th class="text-center">Devolución</th>
 		</tr>
 	</thead>
-<?
+<?php
 	$lista=mysqli_query($db_con, "select curso, apellidos, nombre, ejemplar, devolucion, amonestacion, id, sms from morosos where date(devolucion)<'$fecha_act' and curso='$grupo'  order by apellidos, nombre asc");
 
 	$n=0;

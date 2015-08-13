@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['nivel'])) {$nivel = $_GET['nivel'];}elseif (isset($_POST['nivel'])) {$nivel = $_POST['nivel'];}else{$nivel="";}
 
@@ -22,7 +22,7 @@ include 'menu.php';
 <div class="col-sm-6 col-sm-offset-3">
 <div class="well well-lg" align="left">
 
-<?
+<?php
 $textos = mysqli_query($db_con, "SELECT Departamento, Asignatura, Autor, Titulo, Editorial, Notas, Id, isbn, nivel, grupo, Obligatorio FROM Textos where Id='$id'");
 $row = mysqli_fetch_array($textos);
 $id = $row[6];
@@ -33,7 +33,7 @@ $obliga = $row[10];
 
 <div class="form-group"><label> Nivel:</label> <select name="nivel"
 	id="select4" onChange="submit()" class="form-control">
-	<?
+	<?php
 	echo "<option>$nivel</option>";
 	$tipo = "select distinct curso from alma order by NIVEL";
 	$tipo1 = mysqli_query($db_con, $tipo);
@@ -90,7 +90,7 @@ while($tipo20 = mysqli_fetch_array($tipo10))
 	name="departamento" id="departamento" value="Todos ..."
 	onChange="submit()" class="form-control" required>
 	<option><?php if($departamento){echo $departamento;}else{echo $row[0];}?></option>
-	<?
+	<?php
 	$profe = mysqli_query($db_con, " SELECT distinct departamento FROM departamentos order by departamento asc");
 	while($filaprofe = mysqli_fetch_array($profe))
 	{
@@ -106,7 +106,7 @@ while($tipo20 = mysqli_fetch_array($tipo10))
 <div class="form-group"><label>Asignatura</label> <select
 	name="asignatura" id="asignatura" class="form-control" required>
 	<option><?php if($asignatura){echo $asignatura;}else{echo $row[1];}?></option>
-	<option><?
+	<option><?php
 	// Datos de la Asignatura
 	$asignatu = "SELECT DISTINCT asignaturas.NOMBRE, ABREV FROM asignaturas, departamentos, profesores where asignaturas.nombre=profesores.materia and profesores.profesor=departamentos.nombre and curso = '$nivel' ";
 	if($departamento){$asignatu.="and departamento like '$departamento%'";}else{$asignatu.="and departamento like '$row[1]%'";}

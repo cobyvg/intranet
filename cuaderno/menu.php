@@ -1,4 +1,4 @@
-<?
+<?php
 $activo1="";
 $activo2="";
 $activo3="";
@@ -133,9 +133,9 @@ echo '<tr><th>'.$nombre_hora.'ª</th>';
 		?>
     </span></div>
 </td>
-<?
+<?php
 	}
-	?></tr><?
+	?></tr><?php
 }
 ?>
 </tbody>

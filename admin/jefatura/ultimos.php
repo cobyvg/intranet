@@ -14,7 +14,7 @@ if($n_filas > 0)
   {
 echo '<table class="table table-striped table-bordered datatable">';
 ?>
-<?
+<?php
 echo "<thead><tr><th>#</th><th>Alumno</th><th>Fecha</th></tr></thead><tbody>";
   while($alumn = mysqli_fetch_array($result0))
   {

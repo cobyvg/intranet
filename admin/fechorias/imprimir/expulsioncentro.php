@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../../bootstrap.php');
 
 setlocale('LC_TIME', 'es_ES');
@@ -16,7 +16,7 @@ require ("../../../pdf/fpdf.php");
 $GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
 $GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
 $GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['localidad_del_centro'];
+$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
 $GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono']
 $GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
 $GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
@@ -101,7 +101,7 @@ if (mysqli_num_rows ( $repe ) == "0") {
 } 
 
 $titulo = "Comunicación de expulsión del centro";
-$cuerpo = "El Director del ".$config['centro_denominacion']." de ".$config['localidad_del_centro'].", en virtud de las facultades otorgadas por el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio en el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, una vez estudiado el expediente disciplinario de $nombre $apellidos, alumno/a del grupo $unidad.
+$cuerpo = "El Director del ".$config['centro_denominacion']." de ".$config['centro_localidad'].", en virtud de las facultades otorgadas por el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio en el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, una vez estudiado el expediente disciplinario de $nombre $apellidos, alumno/a del grupo $unidad.
 
 Acuerda:
 
@@ -112,7 +112,7 @@ Acuerda:
 
 NOTA: El padre, madre o representante legal podrá presentar en el registro de entrada del Centro, en el plazo de dos días lectivos, una reclamación dirigida a la Dirección del Centro contra las correcciones impuestas.
 
-En ".$config['localidad_del_centro'].", a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+En ".$config['centro_localidad'].", a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 
 
 	# insertamos la primera pagina del documento

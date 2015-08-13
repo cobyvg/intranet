@@ -1,7 +1,7 @@
-<?
+<?php
 require('../bootstrap.php');
 ?>
-<?
+<?php
 include("../menu.php");
 if (isset($_GET['menu_cuaderno'])) {
 	include("../cuaderno/menu.php");

@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -17,7 +17,7 @@ if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['nu
 <br />
 <div class="col-sm-6 col-sm-offset-3">
 
-<?
+<?php
 if (isset($_POST['submit'])) {
 	          if($mes=='Septiembre'){$n_mes='09';}
                     if($mes=='Octubre'){$n_mes='10';}
@@ -127,7 +127,7 @@ $fecha=$fhoy[mday]."-".$fhoy[mon]."-".$fhoy[year];
  <INPUT name="submit" type="submit" value="Enviar Datos" id="submit" align="center" class="btn btn-danger"> 
 
 </form>
-<?
+<?php
 }
 if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE) {echo '<br><div align="center"><br /><a href="index.php" class="btn btn-primary">Volver a la Página de Absentismo</a>';}
 ?>

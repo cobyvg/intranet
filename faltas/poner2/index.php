@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -13,7 +13,7 @@ if (isset($_GET['hoy'])) {$hoy = $_GET['hoy'];}elseif (isset($_POST['hoy'])) {$h
 if (isset($_GET['registro'])) {$registro = $_GET['registro'];}elseif (isset($_POST['registro'])) {$$registro = $_POST['registro'];}
 if (isset($_GET['profesor'])) {$profesor = $_GET['profesor'];} elseif (isset($_POST['profesor'])) {$profesor = $_POST['profesor'];} else{$profesor="";}				
 	?>
-<?
+<?php
 // Limpiamos Faltas de alumnos expulsados.
 $expulsados0 = "Select claveal, inicio, fin from Fechoria where expulsion > '0'";
 $expulsados1 = mysqli_query($db_con, $expulsados0);

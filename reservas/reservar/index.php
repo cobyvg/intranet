@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -88,7 +88,7 @@ if ($today > $numdays) { $today--; }
  <div class="row">
 	
 	<div class="col-sm-5">
-	<?
+	<?php
 	$mes_sig = $month+1;
 	$mes_ant = $month-1;
 	$ano_ant = $ano_sig = $year;
@@ -187,7 +187,7 @@ for ($i = 0; $i < $dayone; $i++) {
 	<div class="col-sm-7">
 	
 		<div class="well">
-    <?
+    <?php
   echo "<form method=\"post\" action=\"jcal_post.php?servicio=$servicio&year=$year&today=$today&month=$month\" name=\"jcal_post\">";
 	echo "<legend>Reserva para el $daylong, $today de $monthlong</legend><br />";	
 $sql_date = "$year-$month-$today";
@@ -374,7 +374,7 @@ echo "</div>";
 </div>
 </div>
 
-<?
+<?php
 include("../../pie.php");
 ?>
 </body>

@@ -1,5 +1,6 @@
 <?php 
 $idea = $_SESSION['ide'];
+$profi = $_SESSION['profi'];
 
 
 // FEED RSS
@@ -149,9 +150,9 @@ mysqli_free_result($result_mensajes);
 		<li class="divider"></li>
 		<?php $result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['ide']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
 		<?php if(mysqli_num_rows($result_mensajes)): ?>
-		<?php while ($row = mysqli_fetch_array($result_mensajes)): ?>
+		<?php while ($row_mens = mysqli_fetch_array($result_mensajes)): ?>
 		<li><a
-			href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
+			href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row_mens['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
 		<div
 		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
 		<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row['ahora'])); ?></em></span>
@@ -161,7 +162,7 @@ mysqli_free_result($result_mensajes);
 		echo nomprofesor($row[0]); 
 		?></strong></div>
 		<div
-		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>><?php echo substr($row['asunto'],0,96); ?></div>
+		<?php echo ($row_mens['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>><?php echo substr($row_mens['asunto'],0,96); ?></div>
 		</a></li>
 		<li class="divider"></li>
 		<?php endwhile; ?>
@@ -194,7 +195,7 @@ mysqli_free_result($result_mensajes);
 <p class="navbar-text navbar-link" style="margin-top:7px;margin-bottom:0px;">
 	<small><i class="fa fa-clock-o fa-lg"></i> Última conexión:<br class="hidden-xs">
 	<?php
-	$time = mysqli_query($db_con, "select fecha from reg_intranet where profesor = '".$_SESSION['profi']."' order by fecha desc limit 2");
+	$time = mysqli_query($db_con, "select fecha from reg_intranet where profesor = '".$profi."' order by fecha desc limit 2");
 	
 	$num = 0;
 	while($last = mysqli_fetch_array($time)) {

@@ -1,16 +1,9 @@
-<?
+<?php
 require('../../bootstrap.php');
 
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-	exit;
-}
+acl_acceso($_SESSION['cargo'], array(1));
 
 require('../../lib/class.Images.php');
-
-
 include("../../menu.php");
 ?>
 <div align="center">
@@ -41,7 +34,7 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 </div>');
 	}
 	?> <br />
-	<?
+	<?php
 	if ($_POST['tabla']=='1') {
 		// Si no existe la tabla, la creamos por compatibilidad con versiones anteriores.
 		mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `fotos` (

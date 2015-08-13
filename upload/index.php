@@ -626,7 +626,7 @@ function show_contents() {
 			</div>
 		</div>
 	</div>
-	<?
+	<?php
 	echo "  <ul class=\"nav nav-tabs\">\n";
 	echo "    <li $activo1><a href=\"index.${phpExt}?index=publico\">Documentos públicos</a></li>\n";
 	echo "    <li $activo2><a href=\"index.${phpExt}?index=privado\">Documentos personales</a></li>\n";

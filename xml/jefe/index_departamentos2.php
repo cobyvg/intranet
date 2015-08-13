@@ -1,14 +1,9 @@
-<?
+<?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
 
 $profe = $_SESSION['profi'];
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
-
 include("../../menu.php");
 ?>
 
@@ -60,10 +55,10 @@ include("../../menu.php");
 			
 			<h3>Información sobre la actualización</h3>
 			
-	<p>Este apartado se encarga de actualizar los <strong>los Departamentos y Especialidades</strong> de los profesores que trabajan en el Centro.</p>
-			<p>
-			Una vez importados los datos es conveniente ir a la página de <strong>Gestión de los Departamentos</strong> para personalizarlos y adaptarlos a la estructura real del Centro. Esta tarea debe realizarse cada vez que se importan o actualizan los Departamentos y profesores.
-			</p>
+			<p>Este apartado se encarga de actualizar los <strong>Departamentos</strong> de los profesores que trabajan en el Centro.</p>
+			
+			<p>Una vez importados los datos es conveniente ir a la página de <strong>Gestión de los Departamentos</strong> para personalizarlos y adaptarlos a la estructura real del Centro. Esta tarea debe realizarse cada vez que se importan o actualizan los Departamentos y profesores.</p>
+			
 			<p>Para obtener el archivo de exportación de profesores debe dirigirse al apartado <strong>Personal</strong>, <strong>Personal del centro</strong>. Muestre todos los profesores del centro y haga clic en el botón <strong>Exportar datos</strong>. El formato de exportación debe ser <strong>Texto plano</strong>.</p>		
 		</div>
 		

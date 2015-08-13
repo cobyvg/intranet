@@ -1,14 +1,9 @@
-<?
+<?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
 
 $profe = $_SESSION['profi'];
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-	exit;
-}
-
 include("../../menu.php");
 ?>
 
@@ -30,7 +25,7 @@ datos</b></em>. Si actualizas los Departamentos, no te olvides
 incorporar a los profesores nuevos en el Departamento correspondiente,
 ya que aparecerán asociados a su <em>Especialidad de Séneca</em>.</p>
 <br />
-<?
+<?php
 if (isset($_POST['enviar']) and $_POST['enviar'] == "Enviar datos") {
 	$n_reg="";
 	foreach ($_POST as $key=>$val){
@@ -101,7 +96,7 @@ if ($_GET['borrar']=='1') {
 		<th></th>
 	</thead>
 	<tbody>
-	<?
+	<?php
 	$dep0 = "select distinct nomdepartamento from departamentos_seneca order by nomdepartamento";
 	$dep1 = mysqli_query($db_con, $dep0);
 	$n_d="";
@@ -141,7 +136,7 @@ Departamentos, no te olvides incorporar a los profesores nuevos en el
 Departamento correspondiente, ya que aparecerán asociados a su <em>Especialidad
 de Séneca</em>.</p>
 <br />
-	<?
+	<?php
 	if (isset($_POST['cambiar']) and $_POST['cambiar'] == "Cambiar Departamento") {
 		foreach ($_POST as $key=>$val){
 			// Actualizamos tabla departamentos
@@ -160,7 +155,7 @@ de Séneca</em>.</p>
 		<th>Departamento</th>
 	</thead>
 	<tbody>
-	<?
+	<?php
 	$prof0 = "select distinct nombre, idea from departamentos where departamento not like 'admin' and departamento not like 'Administracion' and departamento not like 'Conserjeria'  order by nombre";
 	$prof1 = mysqli_query($db_con, $prof0);
 

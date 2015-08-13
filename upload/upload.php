@@ -1,5 +1,5 @@
 <html>
-<?
+<?php
 $realname = $_FILES['userfile']['name'];
 if(!empty($_FILES['userfile']['tmp_name'])) {
 

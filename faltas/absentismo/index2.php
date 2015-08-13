@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -13,7 +13,7 @@ if (isset($_GET['texto'])) {$texto = $_GET['texto'];}elseif (isset($_POST['texto
 if (isset($_GET['texto2'])) {$texto2 = $_GET['texto2'];}elseif (isset($_POST['texto2'])) {$texto2 = $_POST['texto2'];}else{$texto2="";}
 $mas2="";
 ?>
-<?
+<?php
 if (strstr($_SESSION['cargo'],'8')==TRUE) {
 	$mas="";
 	$titulo="Departamento de orientación  ";
@@ -40,7 +40,7 @@ if (strstr($_SESSION['cargo'],'1')==TRUE) {
   <h2>Faltas de Asistencia <small> Alumnos absentistas</small></h2>
 </div>
 <br />
-<?
+<?php
 // Borramos alumnos
 if ($del=='1') {
 	mysqli_query($db_con, "delete from absentismo where claveal = '$claveal' and mes = '$mes'");
@@ -88,16 +88,16 @@ echo "<form enctype='multipart/form-data' action='index2.php' method='post'>";
 <input name="mes" type="hidden" value="<?php echo $mes;?>">
 <div class="form-group"><label>Observaciones</label>
 <textarea name="texto" title="Informe de Alumno absentista." class="form-control" rows="12"><?php echo $obs;?></textarea></div>
-<?
+<?php
 if (strstr($_SESSION['cargo'],'1')==TRUE) {
 ?>
 <div class="form-group"><label>Informe de Servicios Sociales</label>
 <textarea name="texto2" title="Informe de Alumno absentista." class="form-control" rows="12"><?php echo $obs2;?></textarea></div>
-<?
+<?php
 }
 ?>
 <input type="submit" name="submit" value="Enviar Informe" class="btn btn-primary">
-<?
+<?php
 echo "</form>";
 echo "";
 }
@@ -108,7 +108,7 @@ echo "</div></div>";
 <div class="col-sm-10 col-sm-offset-1">
 <br />
 <legend align="center">Alumnos con informes de absentismo pendiente <br /><span class="text-info"><?php echo  $titulo;?></span> </legend><br />
-<?
+<?php
 
 $SQL0 = "SELECT absentismo.CLAVEAL, apellidos, nombre, absentismo.unidad, matriculas, numero, mes, jefatura, orientacion, tutoria, serv_sociales FROM absentismo, alma WHERE alma.claveal = absentismo.claveal and mes='$mes' $mas  order by unidad";
 

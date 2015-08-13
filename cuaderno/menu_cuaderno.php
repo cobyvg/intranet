@@ -14,7 +14,7 @@ function enviar(){
     }
 }
 </script>
-<?
+<?php
 	$var = "profesor=$pr&asignatura=$asignatura&dia=$dia&hora=$hora&curso=$curso_sin&nom_asig=$nom_asig";
 ?>
 <div class="container hidden-print" style="margin-top: -15px">
@@ -57,7 +57,7 @@ function enviar(){
 	</div>
 	<div class="modal-body">
 	<div class="row">
-	<div class="col-sm-7"><?
+	<div class="col-sm-7"><?php
 	$colum= "select distinct id, nombre, orden, oculto from notas_cuaderno where profesor = '$pr' and curso = '$curs' and asignatura='$asignatura' order by orden asc";
 	$colum0 = mysqli_query($db_con, $colum);
 	echo '<form action="cuaderno/editar.php" method="POST" id="editar" name ="form1">';
@@ -103,7 +103,7 @@ function enviar(){
 				echo "<tr><td nowrap style='vertical-align:middle;'>";
 				?> <input type="checkbox"  onchange="enviar();" name="<?php echo $id;?>"
 		value="<?php if(mysqli_num_rows($pon)==0){echo 1;} else{ echo $pond;}?>">
-		<?
+		<?php
 		echo "&nbsp;$n_col &nbsp;$icon_eye &nbsp;$icon_lock";
 
 		echo "</td><td style='vertical-align:middle;'>";

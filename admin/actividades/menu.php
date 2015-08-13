@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['eliminar'])) {$id = $_GET['eliminar'];}elseif (isset($_POST['eliminar'])) {$eliminar = $_POST['eliminar'];}else{$eliminar="";}
 if (isset($_GET['enviar'])) {$enviar = $_GET['enviar'];}elseif (isset($_POST['enviar'])) {$enviar = $_POST['enviar'];}else{$enviar="";}
@@ -65,24 +65,24 @@ if (strstr($_SERVER['REQUEST_URI'],'index.php')==TRUE){ $activo2 = ' class="acti
 		</div>
 			
       <ul class="nav nav-tabs">
-<?
+<?php
 if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
 ?>
     
        <li<?php echo $activo1;?>><a href="indexextra.php">Administrar Actividades</a></li>
- <?
+ <?php
 }
 if (stristr ( $_SESSION ['cargo'], '5' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE or stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '2' ) == TRUE) {
 ?>
        <li<?php echo $activo2;?>><a href="../../calendario/index.php?action=nuevoEvento&calendario=Extraescolares" >Introducir Nueva Actividad</a></li>
-<?
+<?php
 }
 ?>
-<?
+<?php
 if (stristr ( $_SESSION ['cargo'], '5' ) == FALSE and stristr ( $_SESSION ['cargo'], '1' ) == FALSE) {
 ?>
       <li<?php echo $activo1;?>><a href="indexextra.php">Lista de Actividades</a></li>
-<?
+<?php
 }
 ?>
     </ul>

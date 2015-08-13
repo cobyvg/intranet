@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -194,7 +194,7 @@ No hubo suerte, bien porque te has equivocado
 	}
 }
 ?> <br />
-<?
+<?php
 if ($_GET['seleccionado']=='1' and $_GET['borrar']!=="1"){
 
 	// Comprobamos si el centro cuenta con módulo de la página principal para el acceso de los alumnos

@@ -1,13 +1,7 @@
-<?
+<?php
 require('../../bootstrap.php');
 
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
-
+acl_acceso($_SESSION['cargo'], array(1));
 
 include("../../menu.php");
 
@@ -40,7 +34,7 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
 
-<?
+<?php
 // Comprobamos estado del directorio con las fotos.
 
 $d = dir($fotos_dir);

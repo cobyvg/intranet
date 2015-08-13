@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_POST['poner'])) {
 	include 'lista_pendientes.php';
 	exit();

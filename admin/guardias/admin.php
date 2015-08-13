@@ -147,7 +147,7 @@ y Profesores</a>
 </div>
 </div>
 
-	<?
+	<?php
 }
 else {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">

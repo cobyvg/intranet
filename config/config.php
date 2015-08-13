@@ -1,6 +1,8 @@
 <?php
 require('../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
+
 // TITULO DE LA PAGINA
 $page_header = 'Configuración de la Intranet';
 

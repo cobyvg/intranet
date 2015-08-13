@@ -1,13 +1,7 @@
-<?
+<?php
 require('../../bootstrap.php');
 
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
-
+acl_acceso($_SESSION['cargo'], array(1));
 
 include("../../menu.php");
 ?>
@@ -19,7 +13,7 @@ include("../../menu.php");
 </div>
 <br />
 <div class="well well-large" style="width:700px;margin:auto;text-align:left">
-<?
+<?php
 if(isset($_FILES['archivo'])){  
 // BacKup de la tabla
 mysqli_query($db_con, "drop table departamentos_seg");
@@ -194,7 +188,7 @@ if (!($rowprof[0]=='admin') and !($rowprof[0]=='conserje') and !($rowprof[4]=='7
 $nombre_profe = $n_pro[1];	
 $apellidos_profe = $n_pro[0];
 
-$linea_moodle = "$rowprof[0];$rowprof[1];$nombre_profe;$apellidos_profe;$rowprof[3];".$config['localidad_del_centro'].";ES\n";
+$linea_moodle = "$rowprof[0];$rowprof[1];$nombre_profe;$apellidos_profe;$rowprof[3];".$config['centro_localidad'].";ES\n";
 $todos_moodle.=$linea_moodle;
 	}
 }
@@ -241,7 +235,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$idea = $row['idea'];
 	
 	
-	$calendarioExiste = mysqli_query($db_con, "SELECT id FROM calendario_categorias WHERE idea='$idea'");
+	$calendarioExiste = mysqli_query($db_con, "SELECT id FROM calendario_categorias WHERE profesor='$idea'");
 	if (! mysqli_num_rows($calendarioExiste)) {
 		$query = "INSERT INTO `calendario_categorias` (`nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES ('$nombre', '".date('Y-m-d')."', '$idea', '#3498db', 0)";
 		mysqli_query($db_con, $query);

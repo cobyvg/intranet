@@ -1,13 +1,7 @@
-<?
+<?php
 require('../../bootstrap.php');
 
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-	exit;
-}
-
+acl_acceso($_SESSION['cargo'], array(1));
 
 include("../../menu.php");
 ?>
@@ -22,7 +16,7 @@ include("../../menu.php");
 <div id='t_larga' style='display: none'>
 
 <div class="well well-large"
-	style="width: 700px; margin: auto; text-align: left"><?
+	style="width: 700px; margin: auto; text-align: left"><?php
 	if(isset($_FILES['archivo'])){
 
 		//Creamos backup de horarios

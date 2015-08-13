@@ -1,5 +1,5 @@
 <!-- MODULO HORARIO Y PROFESORES -->
-<?
+<?php
 // Asignaturas
 mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `asig_tmp` (
   `claveal` varchar(12) collate latin1_spanish_ci NOT NULL,
@@ -48,7 +48,7 @@ foreach ($tr_combasi as $codigo){
 		</tbody>
 	</table>
 </div>
-<?
+<?php
 mysqli_query($db_con,"DROP TABLE asig_tmp");
 ?>
 <br>

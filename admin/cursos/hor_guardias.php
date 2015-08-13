@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -28,7 +28,7 @@ include("../../menu.php");
 </div>
 <hr />
 <br />
-<?
+<?php
 
 $profes_tot = mysqli_query($db_con, "select distinct prof from horw");
 $profes_total = mysqli_num_rows($profes_tot);
@@ -78,7 +78,7 @@ Profesor
 #
 </th>
 </thead>
-<?
+<?php
 $query = mysqli_query($db_con, $sql);
 while ($arr = mysqli_fetch_array($query)) {
 	
@@ -120,7 +120,7 @@ Profesor
 #
 </th>
 </thead>
-<?
+<?php
 $query_bib = mysqli_query($db_con, $sql_bib);
 while ($arr_bib = mysqli_fetch_array($query_bib)) {
 	
@@ -140,7 +140,7 @@ Profesor
 #
 </th>
 </thead>
-<?
+<?php
 $query_conv = mysqli_query($db_con, $sql_conv);
 while ($arr_conv = mysqli_fetch_array($query_conv)) {
 	echo "<tr><td>".nomprofesor($arr_conv[0])."</td><td class='col-sm-2'>$arr_conv[1]</td></tr>";
@@ -160,7 +160,7 @@ Profesor
 #
 </th>
 </thead>
-<?
+<?php
 $query_rec = mysqli_query($db_con, $sql_rec);
 while ($arr_rec = mysqli_fetch_array($query_rec)) {
 	echo "<tr><td>".nomprofesor($arr_rec[0])."</td><td class='col-sm-2'>$arr_rec[1]</td></tr>";
@@ -184,7 +184,7 @@ Profesor
 #
 </th>
 </thead>
-<?
+<?php
 $query_reg = mysqli_query($db_con, $sql_reg);
 while ($arr_reg = mysqli_fetch_array($query_reg)) {
 	
@@ -214,7 +214,7 @@ echo "</table>";
 
 </div>
 </div>
-<?
+<?php
 include("../../pie.php");
 ?>
 

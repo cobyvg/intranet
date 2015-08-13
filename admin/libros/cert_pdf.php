@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 include("../../pdf/fpdf.php");
@@ -9,7 +9,7 @@ define('FPDF_FONTPATH','../../pdf/font/');
 $GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
 $GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
 $GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['localidad_del_centro'];
+$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
 $GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
 $GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
 $GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
@@ -148,7 +148,7 @@ if (!($mal=='1')){
 	$MiPDF->SetX(20);
 	$MiPDF->SetFont('NewsGotT','',11);
 	$MiPDF->Ln(6);
-	$MiPDF->Multicell(0,4,'En '.$config['localidad_del_centro'].', a '.$hoy,0,'C',0);
+	$MiPDF->Multicell(0,4,'En '.$config['centro_localidad'].', a '.$hoy,0,'C',0);
 	$MiPDF->Ln(6);
 	$MiPDF->Multicell(0,4,'Secretario/a:                        Sello del Centro                         Director/a:',0,'C',0);
 	$MiPDF->Ln(16);
@@ -188,7 +188,7 @@ if (!($mal=='1')){
 	$MiPDF->Multicell(0,4,' Total: '.$total.' Euros',0,'D',0);
 	$MiPDF->SetFont('NewsGotT','',12);
 	$MiPDF->Ln(5);
-	$MiPDF->Multicell(0,4,'En '.$config['localidad_del_centro'].', a '.$hoy,0,'C',0);
+	$MiPDF->Multicell(0,4,'En '.$config['centro_localidad'].', a '.$hoy,0,'C',0);
 	$MiPDF->Ln(5);
 	$MiPDF->Multicell(0,4,'Secretario/a:                        Sello del Centro                         Director/a:',0,'C',0);
 	$MiPDF->Ln(14);

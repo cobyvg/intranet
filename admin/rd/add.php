@@ -1,4 +1,4 @@
-<?
+<?php
 ini_set("session.cookie_lifetime","5600");
 ini_set("session.gc_maxlifetime","7200");
 
@@ -47,12 +47,12 @@ else{
 	}
 }
 ?>
-<div class="container"><?
+<div class="container"><?php
 echo '<div class="page-header">
   <h2>Actas del Departamento <small> Registro de Reuniones</small></h2>
   <h3 class="text-info">'.$departament.'</h3>
 </div>';
-?> <?
+?> <?php
 if($borrar=="1"){
 	$query = "DELETE from r_departamento WHERE id = '$id'";
 	$result = mysqli_query($db_con, $query) or die ('<div align="center">
@@ -75,9 +75,10 @@ if($submit=="Registrar Acta del Departamento")
 	$tr_fecha = explode("-",$fecha);
 	$fecha = "$tr_fecha[2]-$tr_fecha[1]-$tr_fecha[0]";
 	if (sizeof ( $errorList ) == 0) {
-		if (strstr($contenido,"_____________")==TRUE) {
+		if (strstr($contenido,"FECHA_DE_LA_REUNIÓN")==TRUE) {
 			$fecha_real = formatea_fecha($fecha);
-			$contenido = str_replace("_____________",$fecha_real,$contenido);
+			$contenido = str_replace("FECHA_DE_LA_REUNIÓN", $fecha_real, $contenido);
+			$contenido = mysqli_real_escape_string($db_con, $contenido);
 		}
 		$query1 = "INSERT INTO r_departamento ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES( '$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
 		//echo $query1;
@@ -124,7 +125,7 @@ else{
 }
 $fecha2 = date ( 'Y-m-d' );
 $hoy = formatea_fecha ( $fecha2 );
-$d_rd0 = mysqli_query($db_con, "select hora from horw where prof = '$profesor' and a_asig = 'RD'");
+$d_rd0 = mysqli_query($db_con, "select hora from horw where prof = '$profesor' and c_asig = '51'");
 $d_rd = mysqli_fetch_array($d_rd0);
 $hor = $d_rd[0];
 $reunion = array("1" => "8.15","2" => "9.15","3" => "10.15","4" => "11.45","5" => "12.45","6" => "13.45", "10" => "17");
@@ -180,7 +181,7 @@ la Reunión</label>
 else{
 	?>
 <p>
-<?
+<?php
 if ($departament == "Dirección del Centro") {
 	$texto_dep = $departament;
 }
@@ -189,29 +190,29 @@ else{
 }
 ?></p>
 
-<?php echo $texto_dep; ?><br><?php echo $config['centro_denominacion'] ?> (<?php echo $config['localidad_del_centro'] ?>) <br>Curso Escolar: <?php echo $config['curso_actual'];?><br> Acta N&ordm; <?php echo $numero; ?>
+<?php echo $texto_dep; ?><br><?php echo $config['centro_denominacion'] ?> (<?php echo $config['centro_localidad'] ?>) <br>Curso Escolar: <?php echo $config['curso_actual'];?><br> Acta N&ordm; <?php echo $numero; ?>
 </p>
 <p><br></p>
 <p style="text-align: center;"><strong
 	style="text-decoration: underline;">ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
 <p><br></p>
-<p>En <?php echo $config['localidad_del_centro'] ?>, a las <?php echo $hora;?> horas del _____________, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $config['centro_denominacion'] ?> de <?php echo $config['localidad_del_centro'] ?>, con el siguiente <span
-	style="text-decoration: underline;"> orden del d&iacute;a:</span></p>
+<p>En <?php echo $config['centro_localidad'] ?>, a las <?php echo $hora; ?> horas del FECHA_DE_LA_REUNIÓN, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $config['centro_denominacion'] ?> de <?php echo $config['centro_localidad'] ?>, con el siguiente <span
+	style="text-decoration: underline;">orden del d&iacute;a</span>:</p>
+<p><br></p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
 <p><u>Profesores Asistentes:</u></p>
 <p><br></p>
 <p><br></p>
-<p><u>Profesores&nbsp;Ausentes:</u></p>
+<p><u>Profesores Ausentes:</u></p>
 <p><br></p>
 <p><br></p>
-<?
-}
-?>
-        		</textarea></div>
-
-<div class="form-group"><label for="jefedep">Jefe del Departamento</label>
+<p><br></p>
+<p>Sin más asuntos que tratar, se levanta la sesión a las <?php echo $hora+1; ?> horas.</p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
 <?php if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE) {
 	$rd_profesor=$profesor;
 }
@@ -220,10 +221,18 @@ else{
 	$rd_profes = mysqli_fetch_array($rd_profe);
 	$rd_profesor = $rd_profes[0];
 }
-?><input type="text" class="form-control" id="jefedep" name="jefedep"
+?>
+<p>Fdo.: <?php echo $rd_profesor; ?></p>
+<?php
+}
+?>
+        		</textarea></div>
+
+<div class="form-group"><label for="jefedep">Jefe del Departamento</label>
+<input type="text" class="form-control" id="jefedep" name="jefedep"
 	value="<?php echo $rd_profesor; ?>" readonly></div>
 
-<?
+<?php
 if ($edicion=="1") {
 	echo '<input type="hidden" name="id" value="'.$id.'" class="btn btn-primary">';
 	echo '<input type="submit" name="actualiza" value="Actualizar Acta del Departamento" class="btn btn-primary"'.$j_s.'>';
@@ -237,7 +246,7 @@ else{
 <!-- /.well --></div>
 <!-- /.col-sm-8 -->
 
-<div class="col-sm-4"><?
+<div class="col-sm-4"><?php
 $query = "SELECT id, fecha, departamento, contenido, numero, impreso FROM r_departamento where departamento = '$departament' ORDER BY numero DESC";
 $result = mysqli_query($db_con, $query) or die ("Error in query: $query. " . mysqli_error($db_con));
 $n_actas = mysqli_num_rows($result);
@@ -256,7 +265,7 @@ if (mysqli_num_rows($result) > 0)
 		<td nowrap><?php echo fecha_sin($row->fecha); ?></td>
 		<td nowrap><a href="story.php?id=<?php echo $row->id; ?>"><span
 			class="fa fa-search fa-fw fa-lg" data-bs="tooltip" title='Ver'></span></a>
-			<?
+			<?php
 			if($row->impreso<>1){
 				if ($j_s == 'disabled') {} else {
 					?> <a href="pdf.php?id=<?php echo $row->id; ?>&imprimir=1"><span
@@ -266,25 +275,25 @@ if (mysqli_num_rows($result) > 0)
 			data-bs="tooltip" title="Borrar el Acta"></span></a> <a
 			href="add.php?edicion=1&id=<?php echo $row->id; ?>"><span
 			class="fa fa-pencil fa-fw fa-lg" data-bs="tooltip" title="Editar"></span></a>
-			<?
+			<?php
 				}
 			}
 			else{
 				?> <a href="#"><span class="fa fa-check fa-fw fa-lg"
-			data-bs="tooltip" title="El acta ha sido impresa"></span></a> <?
+			data-bs="tooltip" title="El acta ha sido impresa"></span></a> <?php
 			if ($j_s == 'disabled') {} else {
 				?> <a href="pdf.php?id=<?php echo $row->id; ?>"><span
 			class="fa fa-print fa-fw fa-lg" data-bs="tooltip" title="Imprimir"></span></a>
-			<?
+			<?php
 			}
 			}
 			?></td>
 	</tr>
-	<?
+	<?php
 	}
 	?>
 </table>
-	<?
+	<?php
 }
 else
 {
@@ -294,7 +303,7 @@ else
 <h5>ATENCIÓN:</h5>
 No hay Actas disponibles en la base de datos. Tu puedes ser el primero
 en inaugurar la lista.</div>
-	<?
+	<?php
 }
 ?></div>
 </div>

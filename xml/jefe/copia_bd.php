@@ -1,4 +1,5 @@
-<?
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 // Copia de la Base de datos principal para mantener registro de cursos académicos
 $curso_pasado=date('Y');
 $nombre_copia=$db.$curso_pasado;

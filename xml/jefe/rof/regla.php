@@ -1,12 +1,9 @@
-<?
+<?php
 require('../../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
+
 $profe = $_SESSION['profi'];
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
 
 // COMPROBAMOS SI SE AÑADE O SE MODIFICA UNA REGLA
 if(isset($_GET['id'])) {
@@ -46,8 +43,7 @@ if(isset($_POST['submit'])) {
 		}
 	}
 }
-?>
-<?php
+
 include("../../../menu.php");
 ?>
 <div class="container">

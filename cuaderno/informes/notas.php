@@ -1,4 +1,4 @@
-  <?
+  <?php
 echo "<h4 class='text-info'>Evaluaciones del Alumno</h4><br />";
 
  echo "<table class='table table-striped' style='width:auto'>

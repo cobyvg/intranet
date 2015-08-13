@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 if(isset($_POST['impreso'])){
@@ -15,7 +15,7 @@ if(isset($_POST['impreso'])){
 $GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
 $GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
 $GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-$GLOBALS['CENTRO_LOCALIDAD'] = $config['localidad_del_centro'];
+$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
 $GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
 $GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
 $GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
@@ -89,7 +89,7 @@ Pongo en su conocimiento que con  fecha $hoy su hijo/a $nombre $apellido alumno 
 				$cuerpo2 = "Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.";
 				$cuerpo3 = "----------------------------------------------------------------------------------------------------------------------------------------------
 
-En ".$config['localidad_del_centro'].", a _________________________________
+En ".$config['centro_localidad'].", a _________________________________
 Firmado: El Padre/Madre/Representante legal:
 
 
@@ -115,7 +115,7 @@ COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 				$MiPDF->SetTextColor ( 0, 0, 0 );
 				$MiPDF->Text ( 128, 35, $config['centro_denominacion'] );
 				$MiPDF->Text ( 128, 39, $config['centro_direccion'] );
-				$MiPDF->Text ( 128, 43, $config['centro_codpostal'] . " (" . $config['localidad_del_centro'] . ")" );
+				$MiPDF->Text ( 128, 43, $config['centro_codpostal'] . " (" . $config['centro_localidad'] . ")" );
 				$MiPDF->Text ( 128, 47, "Tlfno. " . $config['centro_telefono']);
 				#Cuerpo.
 				$MiPDF->Ln ( 45 );
@@ -127,7 +127,7 @@ COMUNICACIÓN DE AMONESTACIÓN ESCRITA
 				$MiPDF->Ln ( 3 );
 				$MiPDF->Multicell ( 0, 4, $cuerpo2, 0, 'J', 0 );
 				$MiPDF->Ln ( 6 );
-				$MiPDF->Multicell ( 0, 4, 'En ' . $config['localidad_del_centro'] . ', a ' . $hoy, 0, 'C', 0 );
+				$MiPDF->Multicell ( 0, 4, 'En ' . $config['centro_localidad'] . ', a ' . $hoy, 0, 'C', 0 );
 				$MiPDF->Ln ( 20 );
 				$MiPDF->Multicell ( 0, 4, $tutor, 0, 'C', 0 );
 				$MiPDF->Ln ( 5 );

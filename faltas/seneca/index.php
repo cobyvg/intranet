@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -38,7 +38,7 @@ include("../menu.php");
   <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
 </div>
 <br />
- <?
+ <?php
  if(isset($_POST['enviar'])) {
  // Descomprimimos el zip de las calificaciones en el directorio origen/ tras eliminar los antiguos
 $dir = "./origen/";

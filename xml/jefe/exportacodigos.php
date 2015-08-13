@@ -1,9 +1,5 @@
-<?
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir('../exporta')) {
    while (false !== ($file = readdir($handle))) {   	

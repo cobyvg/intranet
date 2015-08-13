@@ -15,7 +15,7 @@ include("../../faltas/menu.php");
 <div class="row">
 <div class="col-sm-8 col-sm-offset-2">
 
-<?
+<?php
   $AUXSQL == "";
   
  IF (TRIM("$unidad")=="")
@@ -65,7 +65,7 @@ No hay registros coincidentes, bien porque te has equivocado
         al introducir los datos, bien porque ningun dato se ajusta a tus criterios.
 		</div></div><br />';
 ?>
-        <?
+        <?php
         }
 // Eliminar Tabla temporal
  $SQLDEL = "DROP table `FALTASTEMP`";
@@ -75,7 +75,7 @@ No hay registros coincidentes, bien porque te has equivocado
 </div>
 </div>
 </div>
- <?
+ <?php
 include("../../pie.php");
  ?>
 	<script>

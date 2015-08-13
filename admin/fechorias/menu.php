@@ -1,4 +1,4 @@
-<?
+<?php
 $activo1="";
 $activo2="";
 $activo3="";
@@ -39,7 +39,7 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 		<li><a href="lfechorias3b.php">Tras última Expulsión del Centro</a></li>
 	</ul>
 	</li>
-	<?
+	<?php
 	$pr_conv = $_SESSION['profi'];
 	$conv = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr_conv'");
 	// echo "select distinct prof from horw where a_asig = 'GUCON' and prof = '$pr'";
@@ -48,16 +48,16 @@ if (strstr($_SERVER['REQUEST_URI'],'lfechorias3')==TRUE){ $activo6 = ' class="ac
 	<li <?php echo $activo5;?>><a
 		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia.php">Aula
 	de Convivencia</a></li>
-	<?
+	<?php
 	}
 	?>
-	<?
+	<?php
 	if(stristr($_SESSION['cargo'],'1') == TRUE){
 		?>
 	<li <?php echo $activo5;?>><a
 		href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/convivencia_jefes.php">Aula
 	de Convivencia</a></li>
-	<?
+	<?php
 	}
 	?>
 

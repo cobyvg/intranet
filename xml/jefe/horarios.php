@@ -1,22 +1,15 @@
-<?
+<?php
 require('../../bootstrap.php');
 
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-	exit;
-}
-
+acl_acceso($_SESSION['cargo'], array(1));
 
 include("../../menu.php");
 ?>
 <div class="container">
 <div class="page-header">
-<h2>Administración <small>Importación del horario con archivo DEL de
-Horw</small></h2>
+<h2>Administración <small>Importación del horario con archivo DEL de Horw</small></h2>
 </div>
-<div class="row"><?
+<div class="row"><?php
 
 $contents = file($_FILES['archivo']['tmp_name']);
 $n_lineas = count($contents);

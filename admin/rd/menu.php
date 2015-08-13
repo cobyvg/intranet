@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['edicion'])) {$edicion = $_GET['edicion'];}elseif (isset($_POST['edicion'])) {$edicion = $_POST['edicion'];}else{$edicion="";}
 if (isset($_GET['submit'])) {$submit = $_GET['submit'];}elseif (isset($_POST['submit'])) {$submit = $_POST['submit'];}else{$submit="";}
@@ -44,7 +44,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 						de cualquier Acta: Departamento, Curso escolar, Nº de Acta, Asistentes etc. 
 						El texto comienza con el Orden del día, y continúa con la descripción de 
 						los contenidos tratados en la reunión. No es necesario escribir la fecha 
-						de la misma (línea seguida vacía) puesto que se coloca posteriormente con 
+						de la misma (FECHA_DE_LA_REUNIÓN) puesto que se coloca posteriormente con 
 						la fecha elegida.</p>
 						<p>A la derecha del formulario van apareciendo en su orden las Actas, 
 						visibles para todos los miembros del Departamento. El Jefe del Departamento 

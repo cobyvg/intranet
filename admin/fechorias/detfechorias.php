@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -50,7 +50,7 @@ include("menu.php");
 		  
 		</div>
 
-<?
+<?php
 if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}
 if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
 if (isset($_POST['expulsion'])) { $expulsion = $_POST['expulsion']; }
@@ -126,7 +126,7 @@ $result = mysqli_query($db_con, "select FALUMNOS.apellidos, FALUMNOS.nombre, FAL
 <div class="row">
   <div class="col-sm-7">
       <div class="well well-large">
-      <?
+      <?php
             if(file_exists("../../xml/fotos/".$claveal.".jpg")){
 echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119' style='margin-bottom:-145px' class='img-thumbnail img-circle pull-right hidden-phone' />";
             }
@@ -189,7 +189,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
     <hr>
     <br />
     <h4>Problemas de Convivencia en el Curso</h4>
-    <?
+    <?php
     echo "<br /><table class='table table-striped' style='width:auto;'>";
 	echo "<tr>
 		<th>Fecha</th>
@@ -214,7 +214,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
   </div>
   
   <div class="col-sm-5">
-    <?
+    <?php
    $pr = $_SESSION ['profi'];
    $conv = mysqli_query($db_con, "SELECT DISTINCT nombre FROM departamentos WHERE cargo like '%b%' AND nombre = '$pr'");
    if (mysqli_num_rows($conv) > '0') {$gucon = '1';}
@@ -273,7 +273,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
       
     </form>
     </div>
-    <?
+    <?php
 		}
     ?>
     <?php 
@@ -325,7 +325,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
      <div class="form-group"  id="datetimepicker3">
 <label>Inicio:</label>
 <div class="input-group">
-  <input name="fechainicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechainicio" <?if($inicio_aula){echo "value=$inicio_aula";}else{if ($gucon == '1'){	$def_inicio = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' ); 	echo "value='$def_inicio'";}} ?> >
+  <input name="fechainicio" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechainicio" <?php if($inicio_aula){echo "value=$inicio_aula";}else{if ($gucon == '1'){	$def_inicio = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' ); 	echo "value='$def_inicio'";}} ?> >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </div>
@@ -333,7 +333,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
     <div class="form-group" id="datetimepicker4">
 <label>Fin:</label>
 <div class="input-group">
-  <input name="fechafin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechafin" <?if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}} ?>  >
+  <input name="fechafin" type="text" class="form-control" data-date-format="DD-MM-YYYY" id="fechafin" <?php if($fin_aula){echo "value=$fin_aula";}else{ if ($gucon == '1'){$def_fin = date ( 'd' ) . "-" . date ( 'm' ) . "-" . date ( 'Y' );  echo "value='$def_fin'";}} ?>  >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </div>
@@ -371,13 +371,13 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
         
     </form>
     </div>
-    <?
+    <?php
 }
    ?>
    <div>
    <div class="well">
     <h4>Impresión de partes</h4><br>
-    <?
+    <?php
 if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
 	?>
@@ -401,7 +401,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE)
         <input name="horas" type="hidden" value="<?php echo $horas;?>" />
         <input type="submit" name="imprimir5" value="Aula de Convivencia"  class="btn btn-danger" />
       </form>
-        <?
+        <?php
 }
    ?>
     <h6>EXPULSI&Oacute;N

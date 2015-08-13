@@ -1,4 +1,4 @@
-<?
+<?php
 require('../bootstrap.php');
 
 
@@ -14,13 +14,8 @@ if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['un
 if (isset($_GET['text'])) {$text = $_GET['text'];}elseif (isset($_POST['text'])) {$text = $_POST['text'];}else{$text="";}
 if (isset($_GET['causa'])) {$causa = $_GET['causa'];}elseif (isset($_POST['causa'])) {$causa = $_POST['causa'];}else{$causa="";}
 if (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];}elseif (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];}else{$nombre="";}
-if (isset($_GET['login'])) {$login = $_GET['login'];}elseif (isset($_POST['login'])) {$login = $_POST['login'];}else{$login="";}
-if (isset($_GET['password'])) {$password = $_GET['password'];}elseif (isset($_POST['password'])) {$password = $_POST['password'];}else{$password="";}
 if (isset($_GET['extid'])) {$extid = $_GET['extid'];}elseif (isset($_POST['extid'])) {$extid = $_POST['extid'];}else{$extid="";}
-if (isset($_GET['tpoa'])) {$tpoa = $_GET['tpoa'];}elseif (isset($_POST['tpoa'])) {$tpoa = $_POST['tpoa'];}else{$tpoa="";}
 if (isset($_GET['mobile'])) {$mobile = $_GET['mobile'];}elseif (isset($_POST['mobile'])) {$mobile = $_POST['mobile'];}else{$mobile="";}
-if (isset($_GET['messageQty'])) {$messageQty = $_GET['messageQty'];}elseif (isset($_POST['messageQty'])) {$messageQty = $_POST['messageQty'];}else{$messageQty="";}
-if (isset($_GET['messageType'])) {$messageType = $_GET['messageType'];}elseif (isset($_POST['messageType'])) {$messageType = $_POST['messageType'];}else{$messageType="";}
 
 ?>
 <script>
@@ -39,7 +34,7 @@ function contar(form,name) {
 
 <div class="page-header">
   <h2>SMS <small> Envío de mensajes</small></h2>
-<?
+<?php
 if(strlen($unidad)>1){
 	$t0 = mysqli_query($db_con,"select Tutor from FTUTORES where unidad='$unidad'");
 	if (mysqli_num_rows($t0)>0) {
@@ -57,7 +52,7 @@ if(strlen($unidad)>1){
 <br>
 <div class="row">
 
-<?
+<?php
  if ($config['mod_sms']) {
 // variables(); 
 // Procesado de los datos del Formulario
@@ -130,32 +125,17 @@ No has seleccionado ningún alumno para el envío de SMS.<br />Vuelve atrás, selec
 $sms_n = mysqli_query($db_con, "select max(id) from sms");
 $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
-?>
-<script language="javascript">
-function enviarForm() /*el formulario se llama crear*/
-{
-ventana=window.open("", "ventanaForm", "top=100, left=100,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=100,height=66,directories=no")
-document.enviar.submit()
-/*AQUÕ PUEDES PONER UN TIEMPO*/
-/*ventana.close()*/
-}
-</script>
 
-<form  name="enviar" action="http://www.smstrend.net/esp/sendMessageFromPost.oeg" target="ventanaForm" method="POST" enctype="application/x-www-form-urlencoded">   
-			<input name="login" type="hidden" value="<?php echo $login;?>" />
-            <input name="password" type="hidden" value="<?php echo $password;?>"  />   
-            <input name="extid" type="hidden" value="<?php echo $extid;?>" /> 
-            <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" /> 
-            <input name="mobile" type="hidden" value="<?echo $mobile;?>"/>
- 			<input name="messageQty" type="hidden" value="GOLD" />
-            <input name="messageType" type="hidden" value="PLUS" />        
-			<input name="message" type="hidden" value="<?echo $text;?>" maxlength="159" size="60"/>    
-</form>
-<script>
-enviarForm();
-</script>
+// ENVIO DE SMS
+require('../lib/trendoo/sendsms.php');
+$sms = new Trendoo_SMS();
+$sms->sms_type = SMSTYPE_GOLD_PLUS;
+$sms->add_recipient('+34'.$mobile);
+$sms->message = $text;
+$sms->sender = $config['mod_sms_id'];
+$sms->set_immediate();
+if ($sms->validate()) $sms->send();
 
-<?
 mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
 echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -206,7 +186,7 @@ else
 		
 <div class="col-md-4 col-md-offset-2">
 
-        <?
+        <?php
 	}
 	else{
 	echo '<div class="col-md-4 col-md-offset-4">';	
@@ -250,7 +230,7 @@ else
 <?php } ?>        
 	</select>
     </div>
-<?
+<?php
 if(empty($text)){$text = "";}
 echo "<div class='form-group'>
 <label>Texto del mensaje</label>
@@ -262,12 +242,7 @@ $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 ?>
       	
-      	<input name="login" type="hidden" value="<?php  echo $config['mod_sms_user'];?>" />
-        <input name="password" type="hidden" value="<?php  echo $config['mod_sms_pass'];?>"  />
-        <input name="extid" type="hidden" value="<?php echo $extid;?>" />
-        <input name="tpoa" type="hidden" value="<?php echo $config['mod_sms_id']; ?>" />
-        <input name="messageQty" type="hidden" value="GOLD" />
-        <input name="messageType" type="hidden" value="PLUS" />
+
         <br /><input type="submit" name="submit0" value="Enviar SMS" class="btn btn-primary"/>
 
   <?	  
@@ -279,8 +254,8 @@ $extid = $n_sms[0]+1;
 <div class="col-sm-4">
 <div class="well">
 <div class='form-group'>
-<label>Selección de Alumnos<?echo "<span class='text-info'>: $unidad</span>"; ?></label>
-        <?
+<label>Selección de Alumnos<?php echo "<span class='text-info'>: $unidad</span>"; ?></label>
+        <?php
   		echo '<SELECT  name=nombre[] multiple=multiple class="form-control" style="height:370px">';
   		if ($unidad=="Cualquiera") {$alumno_sel="";}else{$alumno_sel = "WHERE unidad like '$unidad%'";}
   $alumno = mysqli_query($db_con, "SELECT distinct APELLIDOS, NOMBRE, claveal FROM alma $alumno_sel order by APELLIDOS asc");
@@ -296,7 +271,7 @@ $extid = $n_sms[0]+1;
 		
 ?>
   </form>
-<?
+<?php
 }
  } 
  else {

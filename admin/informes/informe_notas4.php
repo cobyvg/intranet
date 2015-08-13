@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -11,7 +11,7 @@ include("menu.php");
   <h2>Informe de Evaluaciones <small> Estadísticas de Calificaciones</small></h2>
 </div>
 
-<?
+<?php
 if (isset($_POST['f_curso']) and !($_POST['f_curso'] == "Curso actual")) {
 	$f_curs = substr($_POST['f_curso'],5,4);
 	$base_actual = $db.$f_curs;
@@ -44,7 +44,7 @@ if (mysqli_query($db_con, "select * from $base.notas")) {
 <form method="POST" class="well well-large" style="width:450px; margin:auto">
 <p class="lead">Informe Histórico</p>
 <select name="f_curso" onchange="submit()" class="form-control">
-<?
+<?php
 echo "<option>".$_POST['f_curso']."</option>";
 echo "<option>Curso actual</option>";
 for ($i=1;$i<5;$i++){
@@ -58,7 +58,7 @@ for ($i=1;$i<5;$i++){
 </select>
 </form>
 <hr />
-<?
+<?php
 }
 ?>
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -84,7 +84,7 @@ else{
 ?>
 
 
-<?
+<?php
 $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria");
 foreach ($titulos as $key=>$val){
 
@@ -101,7 +101,7 @@ INDEX (  `claveal` )
 	$key == '1' ? $activ=" active" : $activ='';
 ?>
 <div class="tab-pane fade in<?php echo $activ;?>" id="<?php echo "tab".$key;?>">
-<?
+<?php
 // Evaluaciones ESO
 $nivele = mysqli_query($db_con, "select * from cursos");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
@@ -154,14 +154,14 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 <h3>Resultados de los Alumnos por Materias / Nivel / Grupo:</h3>
 <span class="help-block"> ( * ) En color <strong class="text-success">verde</strong> los aprobados; en color <strong class="text-warning">naranja</strong> los suspensos</span>
 <br />
-<?
+<?php
 $nivele = mysqli_query($db_con, "select * from cursos");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
 ?>
 <legend><?php echo $orden_nivel[1]; ?></legend>
 <table class="table table-striped table-condensed table-bordered"  align="center" style="width:700px;" valign="top">
 <tr><th></th>
-<?
+<?php
 $sql_asig = "select distinct unidad from alma where curso = '$orden_nivel[1]' order by unidad";
 $query_asig = mysqli_query($db_con, $sql_asig);
 while ($a_asig = mysqli_fetch_array($query_asig)) {
@@ -176,7 +176,7 @@ $sql = "select distinct asignaturas.nombre, asignaturas.codigo, abrev from asign
 $as = mysqli_query($db_con, $sql);
 while ($asi = mysqli_fetch_array($as)) {
 ?>
-<?
+<?php
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
 	$abrev = $asi[2];
@@ -226,12 +226,12 @@ echo "</tr>";
 </table>
 <hr />
 <br />
-<?
+<?php
 }
 
 ?>
 </div>
-<?
+<?php
 mysqli_query($db_con, "drop table temp2");
 }
 ?>

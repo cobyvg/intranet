@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_POST['impresion'])) {
 foreach($_POST as $key => $val)
 {
@@ -70,7 +70,7 @@ elseif ($media_pond2) {
 }
 echo $edicion;
 ?>
-<?
+<?php
 include("../pie.php")
 ?>
 </body>

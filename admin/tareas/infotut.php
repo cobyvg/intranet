@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -23,7 +23,7 @@ $tutor = $fprof[0];
 <br>
 <div class="col-md-4 col-md-offset-4">	
 <div class="well well-large">
-      <?
+      <?php
 if($unidad)
 {
 	echo '<h5>Grupo: <span class="text-info">';
@@ -47,7 +47,7 @@ else
 </FORM>
 </div>
       </FORM>
-    <?
+    <?php
 }
 ?>
     <form name="alumno" method="POST" action="ejecutactivar.php">
@@ -89,7 +89,7 @@ $ano = $hoy[2];
 	</div>
 </div>
 
-<?
+<?php
 
 echo "<div class='form-group'>
 <label>Duracion de la ausencia (en d&iacute;as)</label>";

@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 require_once('../../pdf/class.ezpdf.php');
 

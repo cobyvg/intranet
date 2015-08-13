@@ -1,6 +1,5 @@
 <?php
 require('../../bootstrap.php');
-error_reporting(E_ALL);
 
 // COMPROBACION DE ACCESO AL MODULO
 if ((stristr($_SESSION['cargo'],'1') == false) && (stristr($_SESSION['cargo'],'2') == false) && (stristr($_SESSION['cargo'],'8') == false)) {

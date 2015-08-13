@@ -12,7 +12,7 @@ include("menu.php");
 	  <h2>Reservas <small> Crear y Ocultar Aulas / Dependencias del centro</small></h2>
 	</div>
 <div class="row">
-<?
+<?php
 if (isset($_POST['nueva'])) {
 mysqli_query($db_con,"
 CREATE TABLE IF NOT EXISTS nuevas (
@@ -108,7 +108,7 @@ las dependencias elegidas quedarán ocultas en la selección de aulas del sistema 
 </p>
 <form action="ocultar.php" method="post">
 <table class="table table-striped">
-<?
+<?php
 echo "<thead><th colspan=3>Aulas en el Horario</th></thead>";
 $aulas = mysqli_query($db_con,"select distinct a_aula, n_aula from horw where c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21') and a_aula not like ''");
 while ($aula = mysqli_fetch_array($aulas)) {
@@ -126,7 +126,7 @@ while ($aula = mysqli_fetch_array($aulas)) {
 	echo "</tr>";
 }
 ?>
-<?
+<?php
 $aulas_nueva = mysqli_query($db_con,"select distinct abrev, nombre, id from nuevas order by abrev");
 echo "<thead><th colspan=3>Aulas fuera del Horario</th></thead>";
 while ($aula_nueva = mysqli_fetch_array($aulas_nueva)) {
@@ -180,7 +180,7 @@ if ($id) {
 else{
 ?>
 <input class="btn btn-default" type="submit" name="nueva" value="Crear nueva Aula / Dependencia" />
-<?
+<?php
 }
 ?>
 </form>

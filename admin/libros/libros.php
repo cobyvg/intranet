@@ -106,7 +106,7 @@ include("../../menu.php");
 		<h3 class="text-info"><?php echo (isset($unidad) && $unidad != "") ? $unidad : $_POST['nivel']; ?></h3>
 	</div>
 <br />
-<?
+<?php
 $tarari=0;
 foreach($_POST as $key0 => $val0)
 {
@@ -147,7 +147,7 @@ $claveal = "";
 <form action="libros.php" method="post" name="libros">
 <input type="hidden" name="nivel" value="<?php echo $nivel;?>" />
 <p class="help-block">OPCIONES: <span class="label label-info">B</span> = Bien, <span class="label label-warning">R</span> = Regular, <span class="label label-danger">M</span> = Mal, <span class="label label-default">N</span> = No hay Libro, <span class="label label-success">S</span> = Septiembre.</p>
-<?
+<?php
 $curso = $nivel;
 //$fila_asig = $fila_asig + 1;
 
@@ -263,7 +263,7 @@ $clave = $alumnos[4];
     </label>
   </div>
     	
-<?
+<?php
 //			echo $col{$i};
 		}
 		echo "</td>";
@@ -280,7 +280,7 @@ $clave = $alumnos[4];
 
 ?>
 <a  href="libros.php?claveal=<?php echo $claveal;?>&imprimir=si&nivel=<?php echo $nivel;?>" class="btn btn-primary" target="_blank"><i class="fa fa-print " title="imprimir"> </i></a> <br><br>
-<?
+<?php
 	if($estadoP == "1" ){ echo '<button class="btn btn-success"><i class="fa fa-check" title="Devueltos"> </i> </button>';}
 	echo "</td>";
 	}

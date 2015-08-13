@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 include("../../menu.php");
@@ -17,7 +17,7 @@ $pr_trozos=explode(", ",$profe_baja);
 <div class="row">
 <div class="col-sm-5 col-sm-offset-1">
 <div align="left">
-<?
+<?php
 echo "<h3 align=center>Datos de la ausencia</h3><br />";
 echo "<div class='well well-large'>";
 echo '<table class="table table-striped table-bordered" style="width:100$;">';

@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -13,7 +13,7 @@ if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = 
 
 <div class="row">
 <div class="col-sm-6 col-sm-offset-3">
-<?
+<?php
 $query = "DELETE FROM Textos WHERE id = '$id'";
 $result = mysqli_query($db_con, $query) or die ("Error en la Consulta: $query. " . mysqli_error($db_con));
 

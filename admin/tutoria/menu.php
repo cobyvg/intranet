@@ -73,7 +73,7 @@ $curso_tutor=$query2[0];
 		<?php endif; ?>
 		
 		<li><a href="../tutoria/informe_notas_grupo.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Estadísticas de Evaluación del Grupo</a></li>
-		<li><a href="../tutoria/informe_notas_nivel.php?curso=<?echo $curso_tutor;?>">Estadísticas de Evaluación del Nivel</a></li>
+		<li><a href="../tutoria/informe_notas_nivel.php?curso=<?php echo $curso_tutor;?>">Estadísticas de Evaluación del Nivel</a></li>
 		<li class="divider"></li>
 		<li><a href="informe_memoria.php">Memoria de tutoría</a></li>
 	</ul>

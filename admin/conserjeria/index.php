@@ -28,14 +28,14 @@ document.getElementById('personal').checked = false
   <body onload="document.getElementById('n_numero').style.backgroundColor='#cde';
 document.getElementById('n_numero').style.border='#aaaaaa solid 1px'; 
 document.getElementById('n_numero').focus();">
-  <?
+  <?php
   	include("../../menu.php");
   ?>
 <div align=center>
   <div class=titulogeneral style="margin:auto;margin-top:25px;margin-bottom:5px;width:500px;">Registro de Fotocopias</div>
 </div>
 <div align="center">
-<?
+<?php
 if ($submit=="Enviar datos")
 {
 if (is_numeric($n_numero) and strlen($n_numero)>0) {
@@ -64,7 +64,7 @@ VALUES (NULL , '$profeso', '$n_numero', '$n_observaciones', '$tipo')");
           <td> <div align="center">
               <SELECT  name=profeso onChange="submit()">
               <option><?php echo $profeso;?></option>
-		        <?
+		        <?php
   $profe = mysqli_query($db_con, " SELECT distinct nombre FROM departamentos where nombre not like 'admin' order by nombre asc");
   if ($filaprofe = mysqli_fetch_array($profe))
         {
@@ -85,7 +85,7 @@ VALUES (NULL , '$profeso', '$n_numero', '$n_observaciones', '$tipo')");
 		  </TD>
       </tr>
   </TABLE>
-  <?
+  <?php
 if ($profeso) {
 	$total="0";
 $ft=mysqli_query($db_con, "select numero from fotocopias where nombre = '$profeso'");
@@ -112,14 +112,14 @@ while ($copia=mysqli_fetch_array($ft)) {
 	</table>
 	<input type="hidden" value="<?php echo $profeso;?>" name="profeso" />
 	</form>
-<?
+<?php
 }
 if(stristr($_SESSION['cargo'],'1') == TRUE)
 {
 ?>
 <br>
 <a href="total.php" style="color:#261;font-size:1.0em;word-spacing:1px;border:1px solid #aaa;background-color:#feb;padding:5px 15px; margin-top:15px;">Ver estadísticas de fotocopias</a>
-<?
+<?php
 }
 ?>
 

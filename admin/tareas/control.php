@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -12,7 +12,7 @@ include("menu.php");
 </div>
 <br>
 
-<?
+<?php
 $detalles = '1';
 ?>
 <div align="center">
@@ -21,7 +21,7 @@ $detalles = '1';
 <label>Informe sobre un Profesor</label>
   <SELECT  name=profes onChange="submit()" class="form-control">
     <option></option>
-    <?
+    <?php
   $profe = mysqli_query($db_con, " SELECT distinct profesor FROM profesores order by profesor asc");
   if ($filaprofe = mysqli_fetch_array($profe))
         {
@@ -41,7 +41,7 @@ $detalles = '1';
 <div class="col-sm-1"></div> 
 <div class="col-sm-6" align="left">    
 <br />     
-<?
+<?php
 $hoy = date('Y-m-d');
 
 //  Estructura de tabla para la tabla `tareas_temp`
@@ -135,7 +135,7 @@ echo "<hr width='90%' />";}
 </div>
 <div class="col-sm-4">
 <br />
-<?
+<?php
 echo '<h4>Resultados globales por Profesor</h4><br />';
 $malo0 = "select profesor, count(*) as total from tareas_temp group by profesor";
 //echo "$combasi0<br>";
@@ -148,7 +148,7 @@ echo "<tr><td>$malo2[0]</td><td>$malo2[1]</td></tr>";
 ?>
 </table>
 <br />
-<?
+<?php
 echo '<h4>Resultados globales por Asignatura</h4><br />';
 $malo0 = "select distinct asignatura, count(*) as total from tareas_temp group by asignatura";
 //echo "$combasi0<br>";

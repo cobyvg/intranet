@@ -1,7 +1,12 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <ul class="nav nav-pills nav-stacked">
 	<li class="nav-header">Configuración</li> 
 	<li><a href="../config/config.php">Configuración general y módulos</a></li>
-	<li><a href="../reservas/gestion_tipo.php">Gestión de reservas</a></li> 
+	<li><a href="../reservas/gestion_tipo.php">Gestión de reservas</a></li>
+	<?php if(isset($config['mod_sms']) && $config['mod_sms']): ?>
+	<li><a href="jefe/index_sms.php">Información envíos SMS</a></li> 
+	<?php endif; ?>
 	
 	<li class="nav-header">A principio de curso...</li>
 	<li><a href="jefe/index2.php">Importar Alumnos</a></li>
@@ -9,6 +14,7 @@
 	<li><a href="jefe/index_xml.php">Importar datos del Centro</a></li>
 	<li><a href="jefe/index_departamentos.php">Importar Departamentos</a></li>
 	<li><a href="jefe/index_profesores.php">Importar Profesores</a></li>
+	<li><a href="jefe/index_pas.php">Importar Personal no docente</a></li>
 	<?php if(isset($config['mod_horarios']) && $config['mod_horarios']): ?>
 	<li><a href="jefe/horario.php">Importar/Preparar Horarios </a></li>
 	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
@@ -22,6 +28,7 @@
 	<li><a href="jefe/asignaturas.php?actualiza=1">Actualizar Asignaturas</a></li>
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
 	<li><a href="jefe/index_profesores.php">Actualizar Profesores</a></li>
+	<li><a href="jefe/index_pas.php">Actualizar Personal no docente</a></li>
 	<li><a href="jefe/index_departamentos2.php">Actualizar Departamentos</a></li>
 
 	<li class="nav-header">Personal del Centro</li> 

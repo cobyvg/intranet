@@ -1,4 +1,4 @@
-<?
+<?php
 $profesor = $_SESSION['profi'];
 if (empty($today)) {	
 $year=date("Y");
@@ -9,7 +9,7 @@ $today=date("d");
   <div class="row">
     <div class="col-sm-6">
     
-      <?
+      <?php
 echo "<h4 align='center'>FECHA SELECCIONADA: &nbsp;<span style='font-size:1.0em; color:#08c'>$today-$month-$year</span></h4><br />
 ";			        
 if ($mens_fecha) {
@@ -152,7 +152,7 @@ echo " value = '$clave2' onclick=submit() /> $filanivelgrupo[2]. $completo2 </la
 	echo "</div>";	
 		        }
 	?>
-   <?
+   <?php
           	echo "<input type=hidden name=profesor value= \"$profesor\">";
           	echo "<input type=hidden name=unidad value= \"$unidad\">";
           }     

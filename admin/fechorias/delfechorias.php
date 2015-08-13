@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -10,7 +10,7 @@ include("menu.php");
   <h2>Problemas de convivencia <small> Borrar problema</small></h2>
 </div>
 <br />
-<?
+<?php
 if(isset($_GET['id'])){$id = $_GET['id'];}else{$id="";}
 
 $query = "DELETE FROM Fechoria WHERE id = '$id'";

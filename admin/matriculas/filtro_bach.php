@@ -1,4 +1,4 @@
-<?
+<?php
 foreach($_POST as $val)
 {
 if (strlen($val)>0) {
@@ -135,7 +135,7 @@ echo "".$tipo20[0]."</label></div>";
 		}
 		?>
 			<option></option>
-		<?
+		<?php
 		for ($i = 1; $i < 4; $i++) {
 			foreach(${opt.$n_curso.$i} as $key=>$val){
 			echo '<option value="'.$key.'">'.$val.'</option>';
@@ -166,7 +166,7 @@ echo "".$tipo20[0]."</label></div>";
 		}
 		?>
 			<option></option>
-		<?
+		<?php
 		$n_opt2="";
 
 			foreach(${opt23} as $key=>$val){

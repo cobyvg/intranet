@@ -1,4 +1,4 @@
-<?
+<?php
 //variables();
 if(isset($_POST['pondera']) and $_POST['pondera']=="Guardar resultado como columna"){
 	//variables();
@@ -53,7 +53,7 @@ if(isset($_POST['recalcula'])){
 	}
 }
 ?>
-<form action="editar.php" method="POST" id="editar"><?
+<form action="editar.php" method="POST" id="editar"><?php
 // Codigo Curso
 echo '<input name=curso type=hidden value="';
 echo $curso;
@@ -324,7 +324,7 @@ foreach ($_POST as $id => $valor2) {
 
 	echo '</table>';
 	?> <br />
-<legend>Cambiar la ponderaci&oacute;n de las notas</legend> <?
+<legend>Cambiar la ponderaci&oacute;n de las notas</legend> <?php
 $nid='';
 $name="";
 foreach ($_POST as $id => $valor) {
@@ -350,7 +350,7 @@ while ($colum1 = mysqli_fetch_array($colum0)) {
 	$pond= $pon0[0];
 	$mens0 = "../cuaderno/c_nota.php?profesor=$pr&curso=$curs0&dia=$dia&hora=$hora&id=$id&orden=$ident";
 	echo "<tr><td><a href='$mens0'>$n_col</a></td><td><a href='$mens0'>$nombre</td></a>";
-	?> <?
+	?> <?php
 	echo"<td align='center'><input type=input name='$colum1[0]' value='$pon0[0]' class='form-control' style='color:$color;'/></td>";
 	echo "</tr>";
 

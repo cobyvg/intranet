@@ -1,13 +1,9 @@
-<?
+<?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
 
 $profe = $_SESSION['profi'];
-if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'6') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
 $PLUGIN_DATATABLES = 1;
 include("../../menu.php");
 ?>
@@ -29,7 +25,7 @@ include("../../menu.php");
 		<table class="table table-striped table-bordered datatable">
 		<thead><tr><th>Alumno</th><th>Fecha de Nacimiento</th><th>Curso</th></tr></thead>
 		
-			<?
+			<?php
 			$hoy = date('Y-m-d',strtotime('-18 year'));
 			$result = mysqli_query($db_con, "SELECT apellidos, nombre, nacimiento, CONCAT( curso, '-', grupo_actual ) FROM matriculas_bach where date(nacimiento) < '$hoy' order by apellidos, nombre, curso, grupo_actual");
 			

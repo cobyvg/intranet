@@ -1,12 +1,7 @@
-<?
+<?php
 require('../../bootstrap.php');
 
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-	exit;
-}
+acl_acceso($_SESSION['cargo'], array(1));
 
 include '../../menu.php';
 if (isset($_FILES['archivo1'])) {$archivo1 = $_FILES['archivo1'];}
@@ -19,7 +14,7 @@ if (isset($_FILES['archivo2'])) {$archivo2 = $_FILES['archivo2'];}
 </div>
 <br />
 <div class="well well-large"
-	style="width: 600px; margin: auto; text-align: left"><?
+	style="width: 600px; margin: auto; text-align: left"><?php
 	if($archivo1 and $archivo2){
 		// Comprobamos si es la primera vez que se ha creado una base de datos.
 		$fechorias = mysqli_query($db_con, "select * from Fechoria");

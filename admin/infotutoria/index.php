@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -22,7 +22,7 @@ include("menu.php");
 
 <div class="col-md-6 col-md-offset-3">	
     
-<?
+<?php
  //Validación del Informe por el Tutor o Directivo
 if (isset($_GET['validar'])) {
 	$validar = $_GET['validar'];

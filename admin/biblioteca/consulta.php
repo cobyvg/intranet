@@ -38,7 +38,7 @@ include("menu.php");
 		</tr>	
 	</thead>
 	<tbody>
-	<?
+	<?php
 	$fecha_act = date('Y-m-d');
 	$lista=mysqli_query($db_con, "select curso, apellidos, nombre, ejemplar, devolucion, amonestacion, id, sms from morosos order by devolucion, apellidos asc");
 
@@ -57,7 +57,7 @@ include("menu.php");
 		<td><?php echo $list[3];   ?></td>
 		<td nowrap style="text-align: center"><?php echo $list[4];   ?></td>
 		<td style="text-align: left" nowrap>
-		<?
+		<?php
 		if ($list[7] == "SI") {
 			echo '<span class="fa fa-comment fa-fw fa-lg" data-bs="tooltip" title="Se ha enviado SMS de advertencia"></span>';
 		}

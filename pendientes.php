@@ -1,4 +1,4 @@
-<?
+<?php
 // Alumnos expulsados que vuelven
 if (isset($_GET['id_tareas'])) {
 	$id_tareas = $_GET['id_tareas'];
@@ -192,7 +192,7 @@ if (strstr($_SESSION['cargo'],'1')==TRUE or strstr($_SESSION['cargo'],'2')==TRUE
 if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0')) OR (($count04 > '0'))){
 	?>
 
-	<?
+	<?php
 	if (isset($count0)) {
 		if($count0 > '0'){include("modulos/tareas.php");}
 	}
@@ -203,7 +203,7 @@ if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0')) OR (($count04 > '0'))){
 		if($count04 > '0'){include("modulos/absentismo.php");}
 	}
 	?>
-	<?
+	<?php
 }
 
 
@@ -242,7 +242,7 @@ if(stristr($carg,'2') == TRUE)
 	href="#mensajep<?php echo $n_mensajesp;?>"> <?php echo $asunto; ?> </a> <br />
 			<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
-			<?
+			<?php
 		}
 		echo "</ul>";
 		echo "</div>";
@@ -279,7 +279,7 @@ Archivo adjunto: <a href="//<?php echo $config['dominio']; ?>/notas/files/<?php 
 <div class="modal-footer">
 <form name="mensaje_enviado" action="index.php" method="post"
 	enctype="multipart/form-data" class="form-inline"><a href="#"
-	class="btn btn-danger" data-dismiss="modal">Cerrar</a> <?
+	class="btn btn-danger" data-dismiss="modal">Cerrar</a> <?php
 	$asunto = 'RE: '.$asunto;
 	echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
 	?> <a href="index.php?verifica_padres=<?php echo $id;?>" target="_top"
@@ -289,7 +289,7 @@ Archivo adjunto: <a href="//<?php echo $config['dominio']; ?>/notas/files/<?php 
 </div>
 </div>
 </div>
-	<?
+	<?php
 		}
 	}
 }
@@ -324,7 +324,7 @@ if(mysqli_num_rows($men2) > 0)
 	href="#mensaje<?php echo $n_mensajes;?>"> <?php echo $asunto; ?> </a> <br>
 		<?php echo "<small>".mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
-		<?
+		<?php
 	}
 	echo "</ul>";
 	echo "</div>";
@@ -358,7 +358,7 @@ if(mysqli_num_rows($men2) > 0)
 <div class="modal-footer">
 <form name="mensaje_enviado" action="index.php" method="post"
 	enctype="multipart/form-data" class="form-inline"><a href="#"
-	target="_top" data-dismiss="modal" class="btn btn-danger">Cerrar</a> <?
+	target="_top" data-dismiss="modal" class="btn btn-danger">Cerrar</a> <?php
 	$asunto = str_replace('"','',$asunto);
 	$asunto = 'RE: '.$asunto;
 	echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
@@ -369,7 +369,7 @@ if(mysqli_num_rows($men2) > 0)
 </div>
 </div>
 </div>
-	<?
+	<?php
 	}
 }
 

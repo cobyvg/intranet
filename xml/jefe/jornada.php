@@ -1,13 +1,7 @@
-<?
+<?php
 require('../../bootstrap.php');
 
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
-
+acl_acceso($_SESSION['cargo'], array(1));
 
 include("../../menu.php");
 ?>
@@ -18,7 +12,7 @@ include("../../menu.php");
   </div>
 <div class="row">
 <br />
-<?
+<?php
  // Conexión 
 
 // Creamos tabla 
@@ -58,7 +52,7 @@ fclose($handle);
 			</div></div><br>
 			<div align="center"><a href="../index.php" class="btn btn-primary" />Volver
 a Administración</a></div>
-			<?
+			<?php
 
 $borrarvacios = "delete from jornada where minutos = ''";
 mysqli_query($db_con, $borrarvacios);

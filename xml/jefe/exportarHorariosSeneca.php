@@ -1,4 +1,5 @@
-<?
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
     $directorio = "../../varios/";
 	$archivo = "Importacion_horarios_Seneca.xml";
 	$archivo_origen = $HorExpSen;

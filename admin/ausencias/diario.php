@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 include("../../menu.php");
@@ -82,7 +82,7 @@ $result2 = mysqli_query($db_con, "select inicio, fin, tareas, id, profesor, hora
 </div>
 </div>
 </div>
-<?
+<?php
 include("../../pie.php");
 ?>
 </body>

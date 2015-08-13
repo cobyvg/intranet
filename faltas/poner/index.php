@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -11,7 +11,7 @@ include("../menu.php");
   <h2>Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
 
-<?
+<?php
 if (isset($_GET['year'])) {$year = $_GET['year'];}elseif (isset($_POST['year'])) {$year = $_POST['year'];}
 if (isset($_GET['month'])) {$month = $_GET['month'];}elseif (isset($_POST['month'])) {$month = $_POST['month'];}
 if (isset($_GET['today'])) {$today = $_GET['today'];}elseif (isset($_POST['today'])) {$today = $_POST['today'];}
@@ -35,7 +35,7 @@ $profe = mysqli_query($db_con, "SELECT distinct prof, no_prof FROM horw order by
 		     	echo "</select>";
 			}				
 	?>
-<?
+<?php
 // Limpiamos Faltas de alumnos expulsados.
 $expulsados0 = "Select claveal, inicio, fin from Fechoria where expulsion > '0'";
 $expulsados1 = mysqli_query($db_con, $expulsados0);

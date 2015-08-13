@@ -1,9 +1,4 @@
-<?
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 $alumnos = "select distinct CLAVEAL, APELLIDOS, NOMBRE, UNIDAD from alma where claveal not in (select claveal from usuarioalumno)";
 $sqlal = mysqli_query($db_con, $alumnos);
@@ -99,7 +94,7 @@ $sqlcod1 = mysqli_query($db_con, $codigo1);
 $todos_moodle="username;password;firstname;lastname;email;city;country\n";
 while($rowprof = mysqli_fetch_array($sqlcod1))
 {
-$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[0]@".$config['dominio'].";".$config['localidad_del_centro'].";ES\n";
+$linea_moodle = "$rowprof[0];$rowprof[1];$rowprof[3];$rowprof[2];$rowprof[0]@".$config['dominio'].";".$config['centro_localidad'].";ES\n";
 $todos_moodle.=$linea_moodle;
 }
 

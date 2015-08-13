@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -11,7 +11,7 @@ include("menu.php");
   <h2>Informes de Tareas <small> Borrar Informe</small></h2>
 </div>
 <br />
-<?
+<?php
 $alumno=mysqli_query($db_con, "SELECT APELLIDOS, NOMBRE, unidad, id, profesor, fecha FROM tareas_alumnos WHERE ID='$id_alumno'");
 $dalumno = mysqli_fetch_array($alumno);
 echo "

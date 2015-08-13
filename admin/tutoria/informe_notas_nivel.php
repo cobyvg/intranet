@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -36,7 +36,7 @@ else{
 ?>
 
 
-<?
+<?php
 $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria");
 foreach ($titulos as $key=>$val){
 	
@@ -56,7 +56,7 @@ foreach ($titulos as $key=>$val){
 <div class="tab-pane fade in<?php echo $activ;?>" id="<?php echo "tab".$key;?>">
 <h3>Resultados de los Alumnos por Grupo</h3><br />
 <p class="help-block text-warning" align="left">En 4º de ESO y 2º de Bachillerato, los alumnos titulan con <strong>0</strong> asignaturas suspensas. En el resto de los grupos de ESO y Bachillerato los alumnos promocionan con <strong>2 o menos</strong> asignaturas suspensas. </p>
-<?
+<?php
 $curso_tutor = $_GET['curso'];
 // CURSOS
 $nivele = mysqli_query($db_con, "select * from cursos where nomcurso = '$curso_tutor'");
@@ -80,7 +80,7 @@ while ($orden_nivel = mysqli_fetch_array($nivele)){
 <th class='text-success'>Promo./Tit.</th>
 </thead>
 <tbody>
-<?
+<?php
 
 // UNIDADES DEL CURSO
 $niv = mysqli_query($db_con, "select distinct curso, nivel, unidad, idcurso from alma, cursos where curso=nomcurso and curso = '$orden_nivel[1]' order by unidad");
@@ -214,7 +214,7 @@ else{
 <td><?php echo $nueve;?></td>
 <th class='text-success'><?php echo $porciento." <span class='pull-right'>(".$promo2."".$promo1.")</span>";?></th>
 </tr>
-<?
+<?php
 }
 
 ?>
@@ -222,14 +222,14 @@ else{
 </table>
 <hr style="width:700px;" />
 <br />
-<?
+<?php
 }
 ?>
 <!--  Estadísticas por asignatura -->
 <br />
 <br />
 </div>
-<?
+<?php
 mysqli_query($db_con, "drop table suspensos");
 }
 ?>

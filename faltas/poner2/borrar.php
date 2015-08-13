@@ -1,4 +1,4 @@
-<?
+<?php
 $total0 = count($_POST);
 $clavesw = array_values($_POST);
 // Misma operación que en el fichero insertar.php

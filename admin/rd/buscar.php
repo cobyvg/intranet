@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -22,7 +22,7 @@ echo '<div align="center">';
 </div>
 <br />';
 ?>
-<p class="lead" align="center">Actas que contienen la expresión<a href="#"> &quot;<?php echo $expresion;?></a>&quot;</p><br /><?
+<p class="lead" align="center">Actas que contienen la expresión<a href="#"> &quot;<?php echo $expresion;?></a>&quot;</p><br /><?php
 $trozos = explode(" ",$expresion,5);
 $frase="";
 for($i=0;$i<5;$i++)
@@ -49,17 +49,17 @@ if(mysqli_num_rows($result) > 0)
 	{
 	?>      <tr> 
         <td>       
-      <?
+      <?php
 	echo $row->numero; 
 	?>	
 </td>
  <td>       
-      <?
+      <?php
 	echo $row->fecha; 
 	?>	
 </td>
  <td>       
-      <?
+      <?php
 	echo $row->departamento; 
 	?>	
 </td>
@@ -70,7 +70,7 @@ if(mysqli_num_rows($result) > 0)
         </td>
       </tr>
 
-	<?
+	<?php
 	}
 		echo "</TABLE></div>";
 
@@ -83,11 +83,11 @@ else
 Lo sentimos, pero ninguna noticia responde a ese criterio de búsqueda.          
 </div>
 </div>
-<?
+<?php
 }
 ?>
 
-</div><?
+</div><?php
 
 include("../../pie.php");
 ?>

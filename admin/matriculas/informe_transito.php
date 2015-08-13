@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -29,7 +29,7 @@ include("../../menu.php");
 		
 <?php if (isset($_GET['claveal'])) {$claveal = $_GET['claveal'];}elseif (isset($_POST['claveal'])) {$claveal = $_POST['claveal'];} ?>
 
-<?
+<?php
 // Actualizar de datos
 if ($_POST['submit0']=="Actualizar datos") {
 	mysqli_query($db_con,"delete from transito_datos where claveal='$claveal'");
@@ -56,7 +56,7 @@ $clav = mysqli_fetch_array($cl);
 ?>
 <h3 align="center" class="text-info"><?php echo $clav[2]." ".$clav[1];?><small> Colegio <?php echo $clav[3];?> (<?php echo $clav[4];?>)</small></h3>
 <br>
-<?
+<?php
 $ya_hay=mysqli_query($db_con,"select * from transito_datos where claveal='$claveal'");
 if (mysqli_num_rows($ya_hay)>0) {
 	$proc=1;
@@ -315,15 +315,15 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 <hr>
 <h5 class="text-info">Asistencia</h5>
 <label class="radio inline">
-  <input type="radio" name="asiste" value="1" <?echo $as1;?>> Presenta faltas de asistencia
+  <input type="radio" name="asiste" value="1" <?php echo $as1;?>> Presenta faltas de asistencia
 </label>
 &nbsp;
 <label class="radio inline">
-  <input type="radio" name="asiste" value="2" <?echo $as2;?>> Falta más de lo normal
+  <input type="radio" name="asiste" value="2" <?php echo $as2;?>> Falta más de lo normal
 </label>
 &nbsp;
 <label class="radio inline">
-  <input type="radio" name="asiste" value="3" <?echo $as3;?>> Absentismo
+  <input type="radio" name="asiste" value="3" <?php echo $as3;?>> Absentismo
 </label>
 <hr>
 <h5 class="text-info">Dificultades de Aprendizaje</h5>

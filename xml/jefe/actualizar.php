@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 // Creamos versión corta para FALTAS
 mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE,
 APELLIDOS, Unidad from alma") or die('<div align="center"><div class="alert 

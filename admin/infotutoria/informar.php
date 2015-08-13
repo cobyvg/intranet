@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_POST['submit1']) and $_POST['submit1']=="Enviar Datos") {
 	include("rellenainf.php");
 	exit;
@@ -36,7 +36,7 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuev
 ?>
 <div class="well well-large">
  <form name="informar" method="POST" action="informar.php?id=<?php echo $id;?>"> 
-<?
+<?php
 echo "<input type='hidden'  name='ident' value='$id'>";
 echo "<input type='hidden'  name='profesor' value='$pr'>";
 $claveal=trim($dalumno[0]);

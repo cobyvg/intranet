@@ -1,4 +1,4 @@
-<?
+<?php
   if(isset($_GET['ver']) or isset($_POST['ver'])) { 
 include("infocompleto.php");
 }

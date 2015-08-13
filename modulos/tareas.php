@@ -1,5 +1,5 @@
 <div class='alert alert-warning'><p class="lead"><i class='fa fa-bell'> </i> Tareas Activas por Expulsión o Ausencia del Alumno</p><br />
-<?
+<?php
 $resultcurs = mysqli_query($db_con, $SQLcurso);
 	while($rowcurs = mysqli_fetch_array($resultcurs))
 	{
@@ -69,7 +69,7 @@ echo '<p style="color:#08c"> Los Profesores no han rellenado aún su Informe de t
 </div>
 </div>
 </div>
-<?
+<?php
 		}
 	}
 }

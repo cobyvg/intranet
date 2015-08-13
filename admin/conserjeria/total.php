@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -19,14 +19,14 @@ exit;
   <body onload="document.getElementById('n_numero').style.backgroundColor='#cde';document.getElementById('n_total').style.backgroundColor='#afc';
 document.getElementById('n_numero').style.border='#aaaaaa solid 1px'; 
 document.getElementById('n_numero').focus()">
-  <?
+  <?php
   	include("../../menu.php");
   ?>
 <div align=center>
   <div class=titulogeneral style="margin:auto;margin-top:25px;margin-bottom:5px;width:500px;">Registro de Fotocopias</div>
 </div>
 <div align="center">
-<?
+<?php
 echo "<table class='tabla'><tr><td id=filasecundaria>Total Depto.</td><td id=filasecundaria>Total Adm.</td><td id=filasecundaria>Total Pers.</td></tr>";
 	$t_copia0=mysqli_query($db_con, "select numero from fotocopias where tipo = '3'");
 	while ($t_copia=mysqli_fetch_array($t_copia0)) {

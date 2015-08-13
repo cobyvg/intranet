@@ -73,7 +73,7 @@ $fecha_sp = formatea_fecha($g_fecha);
 </div>
 <div class="row">
 <br>
-<?
+<?php
 if ($borrar=='1') {
 	mysqli_query($db_con, "delete from guardias where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
@@ -82,7 +82,7 @@ La sustitución ha sido borrada correctamente. Puedes comprobarlo en la tabla de 
           </div></div>';
 }
 ?>
-<div class="col-sm-5"><?
+<div class="col-sm-5"><?php
 if ($profeso) {
 	echo '<br /><legend>'.nomprofesor($profeso).'</legend>';
 	echo '  <div align="center" class="well well-large">';
@@ -98,7 +98,7 @@ echo "</div>";
 ?></div>
 <div class="col-sm-7">
 <br>
-<?
+<?php
 $fech_hoy = date("Y-m-d");
 $hoy0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha from guardias where dia = '$no_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha'");
 if (mysqli_num_rows($hoy0) > 0) {
@@ -136,7 +136,7 @@ while ($h_gu = mysqli_fetch_array($h_gu0)) {
 echo "</table><br>";
 }
 
-?> <?
+?> <?php
 if ($profeso) {
 	$extra = " and hora = '$hora' and dia = '$no_dia'";
 	$extra1 = " a ".$hora."ª hora del ".$nombre_dia;

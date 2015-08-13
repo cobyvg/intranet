@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -11,7 +11,7 @@ include("menu.php");
   <h2>Informe de Evaluaciones <small> Estadísticas de Calificaciones</small></h2>
 </div>
 
-<?
+<?php
 if (isset($_POST['f_curso']) and !($_POST['f_curso'] == "Curso actual")) {
 	$f_curs = substr($_POST['f_curso'],5,4);
 	$base_actual = $db.$f_curs;
@@ -43,7 +43,7 @@ if (mysqli_query($db_con, "select * from $base.notas")) {
 <form method="POST" class="well well-large" style="width:450px; margin:auto">
 <p class="lead">Informe Histórico</p>
 <select name="f_curso" onchange="submit()" class="form-control">
-<?
+<?php
 echo "<option>".$_POST['f_curso']."</option>";
 echo "<option>Curso actual</option>";
 for ($i=1;$i<5;$i++){
@@ -57,7 +57,7 @@ for ($i=1;$i<5;$i++){
 </select>
 </form>
 <hr />
-<?
+<?php
 }
 ?>
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -82,7 +82,7 @@ else{
 ?>
 
 
-<?
+<?php
 $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria");
 foreach ($titulos as $key=>$val){
 	
@@ -115,7 +115,7 @@ foreach ($titulos as $key=>$val){
 <th class='text-success'>Promo./Tit.</th>
 </thead>
 <tbody>
-<?
+<?php
 // Evaluaciones ESO
 $nivele = mysqli_query($db_con, "select * from cursos");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
@@ -244,7 +244,7 @@ else{
 <td><?php echo $nueve;?></td>
 <th><?php echo $porciento." <span class='pull-right'>(".$promo2."".$promo1.")</span>";?></th>
 </tr>
-<?
+<?php
 }
 }
 ?>
@@ -254,7 +254,7 @@ else{
 <!--  Estadísticas por asignatura -->
 <br />
 </div>
-<?
+<?php
 mysqli_query($db_con, "drop table suspensos");
 }
 mysqli_close();

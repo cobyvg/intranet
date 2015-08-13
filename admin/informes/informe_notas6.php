@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -11,7 +11,7 @@ include("menu.php");
   <h2>Informe de Evaluaciones <small> Estadísticas de Calificaciones</small></h2>
 </div>
 
-<?
+<?php
 ?>
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs">
@@ -35,7 +35,7 @@ else{
 ?>
 
 
-<?
+<?php
 $titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria");
 foreach ($titulos as $key=>$val){
 	
@@ -77,7 +77,7 @@ INDEX (  `claveal` )
 <th>9+ Susp.</th>
 </thead>
 <tbody>
-<?
+<?php
 // Evaluaciones ESO
 $nivele = mysqli_query($db_con, "select * from cursos");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
@@ -206,7 +206,7 @@ else{
 <td><?php echo $seis_ocho;?></td>
 <td><?php echo $nueve;?></td>
 </tr>
-<?
+<?php
 }
 }
 ?>
@@ -216,7 +216,7 @@ else{
 <br />
 <!--  Estadísticas por asignatura -->
 <h3>Resultados de las Materias por Nivel</h3><br />
-<?
+<?php
 $nivele = mysqli_query($db_con, "select * from cursos where nomcurso not like '1%'");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
 	?>
@@ -229,7 +229,7 @@ while ($orden_nivel = mysqli_fetch_array($nivele)){
 <th class='text-info'>Aprobados</th>
 </thead>
 <tbody>	
-	<?
+	<?php
 $as = mysqli_query($db_con, "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev like '%\_%'");
 // echo "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%'";
 while ($asi = mysqli_fetch_array($as)) {
@@ -279,12 +279,12 @@ else{
 </table>
 <br />
 <hr />
-<?
+<?php
 }
 ?>
 <br />
 </div>
-<?
+<?php
 mysqli_query($db_con, "drop table suspensos3");
 mysqli_query($db_con, "drop table temp4");
 }

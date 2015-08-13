@@ -1,6 +1,5 @@
-<?
+<?php
 require('../../../bootstrap.php');
-
 
 function abrevactividad($db_con, $actividad) {
 	$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE nomactividad = '$actividad'");
@@ -82,8 +81,33 @@ else $hora = $_POST['hora'];
 if (isset($_GET['asignatura'])) $asignatura = urldecode($_GET['asignatura']);
 else $asignatura = $_POST['asignatura'];
 
-if (isset($_GET['unidad'])) $unidad = urldecode($_GET['unidad']);
-else $unidad = $_POST['unidad'];
+if (isset($_GET['unidad'])) {
+	$unidad = urldecode($_GET['unidad']);
+	
+	// A partir del código de la asignatura y la unidad, descubrimos el curso...
+	$result = mysqli_query($db_con, "SELECT CURSO FROM materias WHERE GRUPO='$unidad' AND CODIGO = '$asignatura' LIMIT 1");
+	$esDesdoble = 0;
+	if (! mysqli_num_rows($result)) {
+		// En el caso de ser un desdoble
+		$unidad = substr($unidad, 0, -1);
+		$result = mysqli_query($db_con, "SELECT CURSO FROM materias WHERE GRUPO='$unidad' AND CODIGO = '$asignatura' LIMIT 1");
+		$datos_curso = mysqli_fetch_assoc($result);
+		$curso = $datos_curso['CURSO'];
+		$esDesdoble = 1;
+	}
+	else {
+		$datos_curso = mysqli_fetch_assoc($result);
+		$curso = $datos_curso['CURSO'];
+	}
+	
+	$unidad_curso = $unidad.'|'.$curso;
+}
+else {
+	$unidad_curso = $_POST['unidad'];
+	$exp_unidad = explode('|', $unidad_curso);
+	$unidad = $exp_unidad[0];
+	$curso = $exp_unidad[1];
+}
 
 if (isset($_GET['dependencia'])) $dependencia = urldecode($_GET['dependencia']);
 else $dependencia = $_POST['dependencia'];
@@ -121,8 +145,8 @@ if (isset($_POST['enviar'])) {
 	$coddependencia = $_POST['dependencia'];
 	$nomdependencia = $datos_dependencia['n_aula'];
 	
-	$result = mysqli_query($db_con, "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$codunidad')");
-	$result2 = mysqli_query($db_con, "INSERT INTO horw_faltas (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$codunidad')");
+	$result = mysqli_query($db_con, "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$unidad')");
+	mysqli_query($db_con, "INSERT INTO horw_faltas (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$unidad')");
 	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
@@ -164,8 +188,13 @@ if (isset($_POST['actualizar'])) {
 	$coddependencia = $_POST['dependencia'];
 	$nomdependencia = $datos_dependencia['n_aula'];
 	
-	$result = mysqli_query($db_con, "UPDATE horw SET dia='$dia', hora='$hora', a_asig='$abrevasignatura', asig='$nomasignatura', c_asig='$codasignatura', a_aula='$coddependencia', n_aula='$nomdependencia', a_grupo='$codunidad' WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='".$profesor."'");
-	$result3 = mysqli_query($db_con, "UPDATE horw_faltas SET dia='$dia', hora='$hora', a_asig='$abrevasignatura', asig='$nomasignatura', c_asig='$codasignatura', a_aula='$coddependencia', n_aula='$nomdependencia', a_grupo='$codunidad' WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='".$profesor."'");
+	if($esDesdoble) {
+		$unidad = $unidad.'D';
+	}
+	
+	$result = mysqli_query($db_con, "UPDATE horw SET dia='$dia', hora='$hora', a_asig='$abrevasignatura', asig='$nomasignatura', c_asig='$codasignatura', a_aula='$coddependencia', n_aula='$nomdependencia', a_grupo='$unidad' WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='$profesor' LIMIT 1");
+	
+	mysqli_query($db_con, "UPDATE horw_faltas SET dia='$dia', hora='$hora', a_asig='$abrevasignatura', asig='$nomasignatura', c_asig='$codasignatura', a_aula='$coddependencia', n_aula='$nomdependencia', a_grupo='$unidad' WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='$profesor' LIMIT 1");
 	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
@@ -178,10 +207,12 @@ if (isset($_POST['actualizar'])) {
 if (isset($_POST['eliminar'])) {
 	$dia = $_POST['dia'];
 	$hora = $_POST['hora'];
-	$unidad = $_POST['unidad'];
+	$unidad_curso = $_POST['unidad'];
+	$exp_unidad = explode('|', $unidad_curso);
+	$unidad = $exp_unidad[0];
 	
-	$result = mysqli_query($db_con, "DELETE FROM horw WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='".$profesor."'");
-	$result4 = mysqli_query($db_con, "DELETE FROM horw_faltas WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='".$profesor."'");
+	$result = mysqli_query($db_con, "DELETE FROM horw WHERE dia='$dia' AND hora='$hora' AND a_grupo='$unidad' AND prof='$profesor' LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM horw_faltas WHERE dia='$dia' AND hora='$hora' AND a_grupo='$unidad' AND prof='$profesor' LIMIT 1");
 	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
@@ -272,8 +303,8 @@ include("../../../menu.php");
 						  <select class="form-control" id="unidad" name="unidad" onchange="submit()">
 						  	<option value=""></option>
 						  	<?php $result = mysqli_query($db_con, "SELECT unidades.nomunidad, cursos.nomcurso FROM unidades JOIN cursos ON unidades.idcurso=cursos.idcurso"); ?>
-						  	<?php while ($row = mysqli_fetch_array($result)):?>
-						  	<option value="<?php echo $row['nomunidad']; ?>" <?php echo (isset($_POST['unidad']) && $row['nomunidad'] == $_POST['unidad']) ? 'selected' : ''; ?>><?php echo $row['nomunidad'].' ('.$row['nomcurso'].')'; ?></option>
+						  	<?php while ($row = mysqli_fetch_array($result)): ?>
+						  	<option value="<?php echo $row['nomunidad'].'|'.$row['nomcurso']; ?>" <?php echo (isset($unidad_curso) && $row['nomunidad'].'|'.$row['nomcurso'] == $unidad_curso) ? 'selected' : ''; ?>><?php echo $row['nomunidad'].' ('.$row['nomcurso'].')'; ?></option>
 						  	<?php endwhile; ?>
 						  </select>
 						</div>
@@ -283,13 +314,17 @@ include("../../../menu.php");
 						  <select class="form-control" id="asignatura" name="asignatura">
 						 	<option value=""></option>
 						  	<optgroup label="Asignaturas">
-						  	  	<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM asignaturas WHERE curso = (select distinct curso from alma where unidad = '".$_POST['unidad']."') and codigo <> '' AND abrev NOT LIKE '%\_%' ORDER BY nombre ASC"); ?>
-						  	  	<?php while ($row = mysqli_fetch_array($result)): ?>
-						  	  	<option value="<?php echo $row['codigo']; ?>" <?php echo (isset($asignatura) && $row['codigo'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['curso'].' - '.$row['nombre'].' ('.$row['abrev'].')'; ?></option>
-						  	  	<?php endwhile; ?>
-						  	</optgroup>
+						  		<?php if ($unidad): ?>
+						  		<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM asignaturas WHERE codigo <> '' AND abrev NOT LIKE '%\_%' AND curso='$curso' ORDER BY curso ASC, nombre ASC"); ?>
+						  		<?php else: ?>
+						  		<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM asignaturas WHERE codigo <> '' AND abrev NOT LIKE '%\_%' ORDER BY curso ASC, nombre ASC"); ?>
+						  		<?php endif; ?>
+					  		  	<?php while ($row = mysqli_fetch_array($result)): ?>
+					  		  	<option value="<?php echo $row['codigo']; ?>" <?php echo (isset($asignatura) && $row['codigo'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['curso'].' - '.$row['nombre'].' ('.$row['abrev'].')'; ?></option>
+					  		  	<?php endwhile; ?>
+					  		</optgroup>
 						  	<optgroup label="Actividades">
-							  	<?php $result = mysqli_query($db_con, "select distinct nomactividad from actividades_seneca where idactividad in (select distinct c_asig from horw where c_asig in (select distinct idactividad from actividades_seneca))"); ?>
+							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad IN (SELECT DISTINCT c_asig FROM horw WHERE c_asig IN (SELECT DISTINCT idactividad FROM actividades_seneca))"); ?>
 							  	<?php while ($row = mysqli_fetch_array($result)): ?>
 							  	<option value="<?php echo $row['idactividad']; ?>" <?php echo (isset($asignatura) && $row['idactividad'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['nomactividad']; ?></option>
 							  	<?php endwhile; ?>
@@ -299,12 +334,29 @@ include("../../../menu.php");
 						
 						<div class="form-group">
 						  <label for="dependencia">Aula</label>
+						  <?php $ocultar_dependencias_seneca = TRUE; ?>
 						  <select class="form-control" id="dependencia" name="dependencia">
 						  	<option value=""></option>
 						  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula <> 'n_aula' ORDER BY n_aula"); ?>
-						  	<?php while ($row = mysqli_fetch_array($result)): ?>
-						  	<option value="<?php echo $row['a_aula']; ?>" <?php echo (isset($dependencia) && $row['a_aula'] == $dependencia) ? 'selected' : ''; ?>><?php echo $row['n_aula']; ?></option>
-						  	<?php endwhile; ?>
+						  	<?php if(mysqli_num_rows($result)): ?>
+						  	<?php $ocultar_dependencias_seneca = FALSE; ?>
+						  	<optgroup label="Aulas registradas en Horw">
+							  	<?php while ($row = mysqli_fetch_array($result)): ?>
+							  	<option value="<?php echo $row['a_aula']; ?>" <?php echo (isset($dependencia) && $row['a_aula'] == $dependencia) ? 'selected' : ''; ?>><?php echo $row['n_aula']; ?></option>
+							  	<?php endwhile; ?>
+						  	</optgroup>
+						  	<?php endif; ?>
+						  	
+						  	<?php if($ocultar_dependencias_seneca): ?>
+						  	<?php $result = mysqli_query($db_con, "SELECT nomdependencia, descdependencia FROM dependencias ORDER BY nomdependencia ASC"); ?>
+					  		<?php if(mysqli_num_rows($result)): ?>
+					  		<optgroup label="Aulas registradas en Séneca">
+						  	  	<?php while ($row = mysqli_fetch_array($result)): ?>
+						  	  	<option value="<?php echo $row['nomdependencia']; ?>" <?php echo (isset($dependencia) && $row['nomdependencia'] == $dependencia) ? 'selected' : ''; ?>><?php echo $row['descdependencia']; ?></option>
+						  	  	<?php endwhile; ?>
+					  		</optgroup>
+					  		<?php endif; ?>
+					  		<?php endif; ?>
 						  </select>
 						</div>
 						

@@ -3,7 +3,7 @@ if (version_compare(phpversion(), '5.3.0', '<')) die ("<h1>Versión de PHP incomp
 
 session_start();
 
-// CONFIGURACIÃ“N INICIAL
+// CONFIGURACIÓN INICIAL
 error_reporting(0);
 date_default_timezone_set('Europe/Madrid');
 setlocale(LC_TIME, 'es_ES');
@@ -49,7 +49,7 @@ else {
 	
 }
 
-// CONEXIÃ“N A LA BASE DE DATOS
+// CONEXIÓN A LA BASE DE DATOS
 $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 
 
 
@@ -92,7 +92,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
 		$_SESSION['profi'] = $_POST['view_as_user'];
 		$profe = $_SESSION['profi'];
 		
-		// Variables de sesiÃ³n del cargo del Profesor
+		// Variables de sesión del cargo del Profesor
 		$cargo0 = mysqli_query($db_con, "select cargo, departamento, idea from departamentos where nombre = '$profe'" );
 		$cargo1 = mysqli_fetch_array ( $cargo0 );
 		$_SESSION['cargo'] = $cargo1 [0];

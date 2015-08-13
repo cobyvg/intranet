@@ -1,4 +1,4 @@
- <?
+ <?php
 // Justificación de las faltas.
 if ($_POST['F']==1 or $_GET['F']==1) {
 	include("justifica.php");
@@ -8,17 +8,17 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') ==
 {
 ?>
 <form action="index.php" method="POST">
-<?
+<?php
 if(empty($profesor))
 {
 ?>
 <div class="row">
 <div class="col-md-4"></div>
 <div class="col-md-4">
-  <?
+  <?php
 echo "<legend align='center'>Selecciona Tutor</legend>";
 	?>
-  <?
+  <?php
 				echo "<div class='form-group col-md-12'>         
 <SELECT name='profesor' onchange='submit()' class='form-control'>
               <OPTION></OPTION>";
@@ -40,7 +40,7 @@ echo "<legend align='center'>Selecciona Tutor</legend>";
 </div>
 </div>
 </div>
-  <?
+  <?php
 }
 else 
 {
@@ -76,7 +76,7 @@ $numerodia = getdate(mktime(0,0,0,$month,$today,$year));
           <td>&nbsp;Faltas sin Justificar&nbsp;</td>
         </tr>
       </table>
-      <?
+      <?php
 if (!(empty($alumno))) {
 $alu0 = "SELECT NC, CLAVEAL, apellidos, nombre FROM FALUMNOS WHERE claveal = '$alumno'";
 $tr = mysqli_query($db_con, $alu0);
@@ -176,7 +176,7 @@ echo "$filanivelgrupo[2]. $completo2 </label>
 	echo "</div>";	
 		        }
 	?>
-    <?
+    <?php
           	echo "<br><center>
 			<a href='index.php?year=$year&today=$today&month=$month' class='btn btn-primary'>Volver al principio</a></center>";
           	echo "<br>";
@@ -188,7 +188,7 @@ echo "$filanivelgrupo[2]. $completo2 </label>
   </div>
 </div>
 </div>
-<?
+<?php
 }
 elseif(stristr($_SESSION['cargo'],'2') == TRUE)
 {

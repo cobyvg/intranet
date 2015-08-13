@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -22,7 +22,7 @@ input[type=number] {
 </div>
 <div class="row">
 <div class="col-sm-8 col-sm-offset-2">
-<?
+<?php
 if(isset($_POST['enviar'])){
 	
 	foreach ($_POST as $clave=>$valor){

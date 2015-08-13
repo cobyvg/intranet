@@ -1,4 +1,4 @@
-<?
+<?php
 
 $dia0 = explode ( "-", $fecha );
 $fecha3 = "$dia0[2]-$dia0[1]-$dia0[0]";
@@ -71,49 +71,22 @@ for ($i=0;$i<$num_a;$i++){
 				}
 				$message = "Su hijo/a ha cometido una falta contra las normas de convivencia del Centro. Hable con su hijo/a y, ante cualquier duda, consulte en http://".$config['dominio'];
 				mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
-				$login = $config['mod_sms_user'];
-				$password = $config['mod_sms_pass'];
-				?>
-<script language="javascript">
-function enviarForm() 
-{
-ventana=window.open("", "ventanaForm", "top=100, left=100, toolbar=no,location=no, status=no,menubar=no,scrollbars=no, resizable=no, width=100,height=66,directories=no")
-document.enviar.submit()
-/*AQUÕ PUEDES PONER UN TIEMPO*/
-/*ventana.close()*/
-}
-</script>
-<form name="enviar"
-	action="http://www.smstrend.net/esp/sendMessageFromPost.oeg"
-	target="ventanaForm" method="POST"
-	enctype="application/x-www-form-urlencoded"><input name="login"
-	type="hidden" value="<?
-		echo $login;
-		?>" /> <input name="password" type="hidden"
-	value="<?
-		echo $password;
-		?>" /> <input name="extid" type="hidden"
-	value="<?
-		echo $extid;
-		?>" /> <input name="tpoa" type="hidden"
-	value="<?php echo $config['mod_sms_id']; ?>" /> <input name="mobile" type="hidden"
-	value="<?
-		echo $mobile;
-		?>" /> <input name="messageQty" type="hidden" value="GOLD" /> <input
-	name="messageType" type="hidden" value="PLUS" /> <input name="message"
-	type="hidden" value="<?
-		echo $message;
-		?>" maxlength="159"
-	size="60" /></form>
-<script>
-enviarForm();
-</script>
-		<?
-		$fecha2 = date ( 'Y-m-d' );
-		$observaciones = $message;
-		$accion = "Env&iacute;o de SMS";
-		$causa = "Problemas de convivencia";
-		mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
+				
+				// ENVIO DE SMS
+				require('../../lib/trendoo/sendsms.php');
+				$sms = new Trendoo_SMS();
+				$sms->sms_type = SMSTYPE_GOLD_PLUS;
+				$sms->add_recipient('+34'.$mobile);
+				$sms->message = $message;
+				$sms->sender = $config['mod_sms_id'];
+				$sms->set_immediate();
+				if ($sms->validate()) $sms->send();
+
+				$fecha2 = date ( 'Y-m-d' );
+				$observaciones = $message;
+				$accion = "Env&iacute;o de SMS";
+				$causa = "Problemas de convivencia";
+				mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
 			}
 		}
 

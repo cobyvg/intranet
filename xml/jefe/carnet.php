@@ -1,15 +1,10 @@
-<?
+<?php
 ini_set("memory_limit","1024M");
 
 require('../../bootstrap.php');
 
-if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'2') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
-?>
-<?
+acl_acceso($_SESSION['cargo'], array(1));
+
 require('../../pdf/fpdf.php');
 ################ Definimos la clase extendida PDF ########### 
 class PDF extends FPDF {

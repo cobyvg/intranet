@@ -1,4 +1,4 @@
-<?
+<?php
 if(isset($_POST['padres']))
 {
 include("padres.php");
@@ -32,7 +32,7 @@ if (isset($_GET['numero'])) {$numero = $_GET['numero'];}elseif (isset($_POST['nu
           <div class="form-group">
            <select  name="unidad" class="form-control" onChange="submit()">
             <option><?php echo $unidad;?></option>
-            <?
+            <?php
 unidad($db_con);
 ?>
 </select>
@@ -60,7 +60,7 @@ $alumno = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FRO
 <div class="col-sm-4">
  
   <div class="well well-large">
-          <?
+          <?php
 	$fecha32 = date('d')."-".date('m')."-".date('Y');
   $tr = explode("-",$config['curso_inicio']);
   $inicio = "$tr[2]-$tr[1]-$tr[0]";
@@ -69,14 +69,14 @@ $alumno = mysqli_query($db_con, " SELECT distinct APELLIDOS, NOMBRE, claveal FRO
          <label> Inicio: </label>
       <div class="form-group"  id="datetimepicker1">
       <div class="input-group">
-            <input name="fecha12" type="text" class="form-control" data-date-format="DD/MM/YYYY" id="fecha12" value="<?if($fecha12){ echo $fecha12;}?>" >
+            <input name="fecha12" type="text" class="form-control" data-date-format="DD/MM/YYYY" id="fecha12" value="<?php if($fecha12){ echo $fecha12;}?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 </div> 
 </div>
 <label>Fin: </label>
 	<div class="form-group"  id="datetimepicker2">
  <div class="input-group">
-  <input name="fecha22" type="text" class="form-control" data-date-format="DD/MM/YYYY" id="fecha22" value="<?if($fecha22){ echo $fecha22;}?>" >
+  <input name="fecha22" type="text" class="form-control" data-date-format="DD/MM/YYYY" id="fecha22" value="<?php if($fecha22){ echo $fecha22;}?>" >
   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
  </div>
 </div> 

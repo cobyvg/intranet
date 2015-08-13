@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'7') == TRUE))
@@ -278,7 +278,7 @@ if(isset($_POST['enviar'])){
 			$msg_error = "La fecha de nacimiento que has escrito no es correcta. El formato adecuado para la fecha es DD-MM-YYYY (Por ejemplo: 01-01-2000).";
 		}
 		elseif(strlen($ruta_este) > 0 and strlen($ruta_oeste) > 0){
-			$msg_error = "Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y solo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de ".$config['localidad_del_centro'].".Elige una sola parada y vuelve a enviar los datos.";
+			$msg_error = "Parece que has seleccionado dos rutas incompatibles para el Transporte Escolar, y solo puedes seleccionar una ruta, hacia el Este o hacia el Oeste de ".$config['centro_localidad'].".Elige una sola parada y vuelve a enviar los datos.";
 
 			$ruta_error = "";
 		}
@@ -350,7 +350,7 @@ if(isset($_POST['enviar'])){
 <div class="alert alert-danger"><?php echo $msg_error; ?></div>
 <?php endif; ?> <?php if(isset($msg_success)): ?>
 <div class="alert alert-success"><?php echo $msg_success; ?></div>
-<?php endif; ?> <?
+<?php endif; ?> <?php
 
 $cargo="1";
 
@@ -379,7 +379,7 @@ if ($dni or $claveal or $id) {
 <div align="center">
 <div class="alert alert-success alert-block fade in">
 <button type="button" class="close" data-dismiss="alert">&times;</button>
-Elige el alumno que quieres matricular en nuestro Centro: <?
+Elige el alumno que quieres matricular en nuestro Centro: <?php
 while ($row_alma = mysqli_fetch_array($ya_alma)) {
 	?> <input type="radio" name="claveal" value="<?php echo $row_alma[0]; ?>"
 	style="margin: 6px 2px; line-height: 18px; vertical-align: top;"
@@ -387,19 +387,19 @@ while ($row_alma = mysqli_fetch_array($ya_alma)) {
 </div>
 <br />
 
-	<?
+	<?php
 }
 ?>
 
 </div>
-<?
+<?php
 	if ($al_alma[3]=="101140"){$curso="1ESO";}
 	if ($al_alma[3]=="101141"){$curso="2ESO";}
 	if ($al_alma[3]=="101142"){$curso="3ESO";}
 	if ($al_alma[3]=="101143"){$curso="4ESO";}
 ?>
 <input type="hidden" name="curso" value="<?php echo $curso;?>" />
-<?
+<?php
 echo "</form></div>";
 exit();
 	}
@@ -412,7 +412,7 @@ exit();
 <div align="center">
 <div class="alert alert-success alert-block fade in">
 <button type="button" class="close" data-dismiss="alert">&times;</button>
-Elige el alumno que quieres matricular en nuestro Centro: <?
+Elige el alumno que quieres matricular en nuestro Centro: <?php
 while ($row_alma = mysqli_fetch_array($ya_primaria)) {
 	?> <input type="radio" name="claveal" value="<?php echo $row_alma[0]; ?>"
 	style="margin: 6px 2px; line-height: 18px; vertical-align: top;"
@@ -420,11 +420,11 @@ while ($row_alma = mysqli_fetch_array($ya_primaria)) {
 </div>
 <br />
 
-	<?
+	<?php
 }
 ?>
 </div>
-<input type="hidden" name="curso" value="<?php echo $curso;?>" /> <?
+<input type="hidden" name="curso" value="<?php echo $curso;?>" /> <?php
 echo "</form></div>";
 exit();
 	}
@@ -437,7 +437,7 @@ exit();
 <div align="center">
 <div class="alert alert-success alert-block fade in">
 <button type="button" class="close" data-dismiss="alert">&times;</button>
-Elige el alumno que quieres matricular en nuestro Centro: <?
+Elige el alumno que quieres matricular en nuestro Centro: <?php
 while ($row_alma = mysqli_fetch_array($ya_matricula)) {
 	?> <input type="radio" name="claveal" value="<?php echo $row_alma[0]; ?>"
 	style="margin: 6px 2px; line-height: 18px; vertical-align: top;"
@@ -445,11 +445,11 @@ while ($row_alma = mysqli_fetch_array($ya_matricula)) {
 </div>
 <br />
 
-	<?
+	<?php
 }
 ?>
 </div>
-<input type="hidden" name="curso" value="<?php echo $curso;?>" /> <?
+<input type="hidden" name="curso" value="<?php echo $curso;?>" /> <?php
 echo "</form></div>";
 exit();
 	}

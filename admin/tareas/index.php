@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -18,7 +18,7 @@ include("menu.php");
 
 <div class="col-md-6 col-md-offset-3">	
 
-<?
+<?php
 // Buscamos los grupos que tiene el Profesor, con su asignatura y nivel
 	$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$profesor'";
 	//echo $SQLcurso;

@@ -1,4 +1,4 @@
-<?
+<?php
 require('../../bootstrap.php');
 
 
@@ -12,7 +12,7 @@ include("menu.php");
 </div>
 <br>
           
-<?
+<?php
 $tutor = $_POST['tutor'];
 $alumno = $_POST['alumno'];
 
