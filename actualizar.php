@@ -175,9 +175,6 @@ if (! mysqli_num_rows($actua)) {
 
 mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Idea en Mensajes', NOW())");
 
-// SI QUEREMOS INCORPORAR MENSAJES DE CURSOS ANTERIORES AL NUEVO SISTEMA, DESCOMENTAR ESTAS LÍNEAS (tarda un tiempo).
-
-/*
 mysqli_query($db_con,"create table if not exists mens_texto_seg select * from mens_texto");
 mysqli_query($db_con,"create table if not exists mens_profes_seg select * from mens_profes");
 
@@ -202,9 +199,8 @@ while ($row = mysqli_fetch_array($query)) {
 		}
 	}
 }
-echo "Tabla mens_profes: PROFESOR $n<br>";
 
-$n="";
+$n=0;
 $query = mysqli_query($db_con,"select distinct origen from mens_texto");
 while ($row = mysqli_fetch_array($query)) {
 	if (strlen($row[0])>10) {		
@@ -219,9 +215,8 @@ while ($row = mysqli_fetch_array($query)) {
 		}
 	}
 }
-echo "Tabla mens_texto: ORIGEN $n<br>";
 
-$n="";
+$n=0;
 $query = mysqli_query($db_con,"select distinct destino from faltas2014.mens_texto where destino not like 'Departamento%' and destino not like 'Equipo Educativo%' and destino not like 'CA%' and destino not like 'ETCP%' and destino not like 'Claustro%' and destino not like 'Equipo Directivo%' and destino not like 'Biling%' and destino not like ''");
 while ($row = mysqli_fetch_array($query)) {
 	$idea = "";
@@ -240,9 +235,10 @@ while ($row = mysqli_fetch_array($query)) {
 		mysqli_query($db_con,"update mens_texto set destino = '$idea' where destino = '$row[0]'");
 	}
 }
-echo "Tabla mens_texto: DESTINO $n<br>";
 mysqli_query($db_con,"drop table departamento_tmp");
-*/
+
+unset($idea);
+unset($n);
 }
 
 /*
