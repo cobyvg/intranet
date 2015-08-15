@@ -167,6 +167,69 @@ mysqli_query($db_con, "ALTER TABLE `temas`
 
 
 /*
+ @descripcion: Eliminado usuario conserje
+ @fecha: 10 de agosto de 2015
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminado usuario conserje'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminado usuario conserje', NOW())");
+
+	mysqli_query($db_con, "DELETE FROM departamentos WHERE nombre='conserje' LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM departamentos WHERE nombre='Conserjeria' LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM c_profes WHERE profesor='conserje' LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM c_profes WHERE profesor='Conserjeria' LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM calendario_categorias WHERE nombre='conserje'");
+	mysqli_query($db_con, "DELETE FROM calendario_categorias WHERE nombre='Conserjeria'");
+	mysqli_query($db_con, "DELETE FROM mens_texto WHERE origen='conserje'");
+	mysqli_query($db_con, "DELETE FROM mens_texto WHERE origen='Conserjeria'");
+	mysqli_query($db_con, "DELETE FROM reg_intranet WHERE profesor='conserje'");
+	mysqli_query($db_con, "DELETE FROM reg_intranet WHERE profesor='Conserjeria'");
+}
+
+
+/*
+ @descripcion: Eliminar calendarios duplicados
+ @fecha: 10 de agosto de 2015
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminar calendarios duplicados'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminar calendarios duplicados', NOW())");
+	
+	$result_profesores = mysqli_query($db_con, "SELECT DISTINCT profesor FROM calendario_categorias ORDER BY profesor ASC");
+	
+	while ($row = mysqli_fetch_array($result_profesores)) {
+		
+		$result_calendarios = mysqli_query($db_con, "SELECT id, nombre FROM calendario_categorias WHERE profesor='".$row['profesor']."' AND color='#3498db' AND espublico=0 ORDER BY id ASC");
+		
+		$i = 0;
+		while ($row_calendario = mysqli_fetch_array($result_calendarios)) {
+		
+			if ($i == 0) {
+				$calendario_principal = $row_calendario['id'];
+			}
+			else {
+				$result_eventos = mysqli_query($db_con, "SELECT id FROM calendario WHERE categoria='".$row_calendario['id']."' ORDER BY id ASC");
+				
+				while ($row_evento = mysqli_fetch_array($result_eventos)) {
+					mysqli_query($db_con, "UPDATE calendario SET categoria='".$calendario_principal."' WHERE categoria='".$row_evento['id']."' LIMIT 1");
+				}
+				mysqli_free_result($result_eventos);
+				
+				mysqli_query($db_con, "DELETE FROM calendario_categorias WHERE id='".$row_calendario['id']."' LIMIT 1");
+			}
+			
+			$i++;
+		}
+		mysqli_free_result($result_calendarios);
+		
+	}
+	mysqli_free_result($result_profesores);
+	
+	unset($calendario_principal);
+	unset($i);
+}
+
+/*
  @descripcion: Actualización de tablas de mensajes a Idea.
  @fecha: 12 de agosto de 2015
  */
@@ -239,67 +302,4 @@ mysqli_query($db_con,"drop table departamento_tmp");
 
 unset($idea);
 unset($n);
-}
-
-/*
- @descripcion: Eliminado usuario conserje
- @fecha: 10 de agosto de 2015
- */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminado usuario conserje'");
-if (! mysqli_num_rows($actua)) {
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminado usuario conserje', NOW())");
-
-	mysqli_query($db_con, "DELETE FROM departamentos WHERE nombre='conserje' LIMIT 1");
-	mysqli_query($db_con, "DELETE FROM departamentos WHERE nombre='Conserjeria' LIMIT 1");
-	mysqli_query($db_con, "DELETE FROM c_profes WHERE profesor='conserje' LIMIT 1");
-	mysqli_query($db_con, "DELETE FROM c_profes WHERE profesor='Conserjeria' LIMIT 1");
-	mysqli_query($db_con, "DELETE FROM calendario_categorias WHERE nombre='conserje'");
-	mysqli_query($db_con, "DELETE FROM calendario_categorias WHERE nombre='Conserjeria'");
-	mysqli_query($db_con, "DELETE FROM mens_texto WHERE origen='conserje'");
-	mysqli_query($db_con, "DELETE FROM mens_texto WHERE origen='Conserjeria'");
-	mysqli_query($db_con, "DELETE FROM reg_intranet WHERE profesor='conserje'");
-	mysqli_query($db_con, "DELETE FROM reg_intranet WHERE profesor='Conserjeria'");
-}
-
-
-/*
- @descripcion: Eliminar calendarios duplicados
- @fecha: 10 de agosto de 2015
- */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminar calendarios duplicados'");
-if (! mysqli_num_rows($actua)) {
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminar calendarios duplicados', NOW())");
-	
-	$result_profesores = mysqli_query($db_con, "SELECT DISTINCT profesor FROM calendario_categorias ORDER BY profesor ASC");
-	
-	while ($row = mysqli_fetch_array($result_profesores)) {
-		
-		$result_calendarios = mysqli_query($db_con, "SELECT id, nombre FROM calendario_categorias WHERE profesor='".$row['profesor']."' AND color='#3498db' AND espublico=0 ORDER BY id ASC");
-		
-		$i = 0;
-		while ($row_calendario = mysqli_fetch_array($result_calendarios)) {
-		
-			if ($i == 0) {
-				$calendario_principal = $row_calendario['id'];
-			}
-			else {
-				$result_eventos = mysqli_query($db_con, "SELECT id FROM calendario WHERE categoria='".$row_calendario['id']."' ORDER BY id ASC");
-				
-				while ($row_evento = mysqli_fetch_array($result_eventos)) {
-					mysqli_query($db_con, "UPDATE calendario SET categoria='".$calendario_principal."' WHERE categoria='".$row_evento['id']."' LIMIT 1");
-				}
-				mysqli_free_result($result_eventos);
-				
-				mysqli_query($db_con, "DELETE FROM calendario_categorias WHERE id='".$row_calendario['id']."' LIMIT 1");
-			}
-			
-			$i++;
-		}
-		mysqli_free_result($result_calendarios);
-		
-	}
-	mysqli_free_result($result_profesores);
-	
-	unset($calendario_principal);
-	unset($i);
 }
