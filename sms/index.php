@@ -82,7 +82,7 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto
 	{
 	$trozos = explode(" --> ",$tel);
 	$claveal = trim($trozos[0]);
-	$tel0 = mysqli_query($db_con, "select telefono, telefonourgencia, apellidos, nombre, alma.unidad, alma.matriculas, tutor from alma, FTUTORES where FTUTORES.unidad = alma.unidad and claveal = '$claveal'");
+	$tel0 = mysqli_query($db_con, "select telefono, telefonourgencia, apellidos, alma.nombre, alma.unidad, alma.matriculas, tutor, idea from alma, FTUTORES, departamentos where FTUTORES.unidad = alma.unidad and FTUTORES.tutor = departamentos.nombre and claveal = '$claveal'");
 	
 	$tel1 = mysqli_fetch_array($tel0);
 	$tfno = $tel1[0];	
@@ -90,10 +90,11 @@ No has escrito ningún texto para el Mensaje.<br />Vuelve atrás, redacta el texto
 	$apellidos = $tel1[2];
 	$nombre = $tel1[3];
 	$unidad = $tel1[4];
-	$alumno_mens.="$nombre $apellidos|$unidad;";
+	$alumno_mens.="$claveal|$unidad;";
 	$tutor_mens = $tel1[6];
-	if (stristr($todos_tutores,"$tutor_mens|$unidad;")==FALSE) {
-		$todos_tutores.="$tutor_mens|$unidad;";
+	$tutor_idea = $tel1[7];
+	if (stristr($todos_tutores,"$tutor_idea|$unidad;")==FALSE) {
+		$todos_tutores.="$tutor_idea|$unidad;";
 	}
 	
 	if(substr($tfno,0,1)=="6" OR substr($tfno,0,1)=="7"){$mobil=$tfno;}elseif((substr($tfno_u,0,1)=="6" OR substr($tfno_u,0,1)=="7") and !(substr($tfno,0,1)=="6" OR substr($tfno,0,1)=="7")){$mobil=$tfno_u;}else{$mobil="";}
@@ -151,22 +152,28 @@ if (stristr($_SESSION['cargo'],'1') == TRUE) {
 		$tut = $tr_tutor[0];
 		$unidad_tut = $tr_tutor[1];
 		$alumnos_sms="";
+		$alumnos_nombre="";
 		
 			$trozos_alumnos = explode(";",$alumno_mens);
 			foreach ($trozos_alumnos as $val_alumno){
 				$tr_al = explode("|",$val_alumno);
 				$al_sms = $tr_al[0];
 				$unidad_al = $tr_al[1];
+				$al_nom  = mysqli_query($db_con, "select nombre, apellidos from alma where claveal='$al_sms'");
+				$al_nombre = mysqli_fetch_array($al_nom);
+				$al_nombre_sms = "$al_nombre[0] $al_nombre[1]";
+				
 				if ($unidad_tut == $unidad_al) {
 					$alumnos_sms.= "$al_sms; ";
+					$alumnos_nombre.= "$al_nombre_sms; ";
 				}
 			}
 if (!empty($tut)) {
 				
-$query0="insert into mens_texto (asunto, texto, origen, destino) values ('Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_sms." con el siguiente texto:<< ".$observaciones.">>','".$observaciones."','".$profe."', '$alumnos_sms')";
+$query0="insert into mens_texto (asunto, texto, origen, destino) values ('Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_nombre." con el siguiente texto:<< ".$observaciones.">>','".$observaciones."','".$profe."', '$alumnos_sms')";
 //echo "$query0<br>";
 mysqli_query($db_con, $query0);
-$id0 = mysqli_query($db_con, "select id from mens_texto where asunto like 'Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_sms."%' and texto = '$observaciones' and origen = '$profe'");
+$id0 = mysqli_query($db_con, "select id from mens_texto where asunto like 'Envío de SMS desde Jefatura de Estudios a los padres de ".$alumnos_nombre."%' and texto = '$observaciones' and origen = '$profe'");
 $id1 = mysqli_fetch_array($id0);
 $id = $id1[0];
 $query1="insert into mens_profes (id_texto, profesor) values ('".$id."','".$tut."')";

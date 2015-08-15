@@ -170,19 +170,19 @@ mysqli_query($db_con, "ALTER TABLE `temas`
  @descripcion: Actualización de tablas de mensajes a Idea.
  @fecha: 12 de agosto de 2015
  */
+/*
+
+// SI QUEREMOS INCORPORAR MENSAJES DE CURSOS ANTERIORES AL NUEVO SISTEMA, DESCOMENTAR ESTAS LÍNEAS (tarda un tiempo, dependiendo del número de mensajes en la tabla).
+ 
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Idea en Mensajes'");
 if (! mysqli_num_rows($actua)) {
 
-mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Idea en Mensajes', NOW())");
-
-// SI QUEREMOS INCORPORAR MENSAJES DE CURSOS ANTERIORES AL NUEVO SISTEMA, DESCOMENTAR ESTAS LÍNEAS (tarda un tiempo).
-
-/*
-mysqli_query($db_con,"create table if not exists mens_texto_seg select * from mens_texto");
-mysqli_query($db_con,"create table if not exists mens_profes_seg select * from mens_profes");
+mysqli_query($db_con,"drop table mens_texto_backup");
+mysqli_query($db_con,"drop table mens_profes_backup");
+mysqli_query($db_con,"create table mens_texto_backup select * from mens_texto");
+mysqli_query($db_con,"create table mens_profes_backup select * from mens_profes");
 
 mysqli_query($db_con,"create table departamento_tmp select nombre, idea, dni from departamentos");
-mysqli_query($db_con,"insert into departamento_tmp select nombre, idea, dni from ".$config['db_name']."2015.departamentos where nombre not in (select nombre from departamento_tmp)");
 mysqli_query($db_con,"insert into departamento_tmp select nombre, idea, dni from ".$config['db_name']."2014.departamentos where nombre not in (select nombre from departamento_tmp)");
 mysqli_query($db_con,"insert into departamento_tmp select nombre, idea, dni from ".$config['db_name']."2013.departamentos where nombre not in (select nombre from departamento_tmp)");
 mysqli_query($db_con,"insert into departamento_tmp select nombre, idea, dni from ".$config['db_name']."2012.departamentos where nombre not in (select nombre from departamento_tmp)");
@@ -202,7 +202,7 @@ while ($row = mysqli_fetch_array($query)) {
 		}
 	}
 }
-echo "Tabla mens_profes: PROFESOR $n<br>";
+//echo "Tabla mens_profes: PROFESOR $n<br>";
 
 $n="";
 $query = mysqli_query($db_con,"select distinct origen from mens_texto");
@@ -219,10 +219,10 @@ while ($row = mysqli_fetch_array($query)) {
 		}
 	}
 }
-echo "Tabla mens_texto: ORIGEN $n<br>";
+//echo "Tabla mens_texto: ORIGEN $n<br>";
 
 $n="";
-$query = mysqli_query($db_con,"select distinct destino from faltas2014.mens_texto where destino not like 'Departamento%' and destino not like 'Equipo Educativo%' and destino not like 'CA%' and destino not like 'ETCP%' and destino not like 'Claustro%' and destino not like 'Equipo Directivo%' and destino not like 'Biling%' and destino not like ''");
+$query = mysqli_query($db_con,"select distinct destino from mens_texto where destino not like 'Departamento%' and destino not like 'Equipo Educativo%' and destino not like 'CA%' and destino not like 'ETCP%' and destino not like 'Claustro%' and destino not like 'Equipo Directivo%' and destino not like 'Biling%' and destino not like '' and destino not like '; '");
 while ($row = mysqli_fetch_array($query)) {
 	$idea = "";
 	$trozos = explode("; ",$row[0]);
@@ -240,10 +240,12 @@ while ($row = mysqli_fetch_array($query)) {
 		mysqli_query($db_con,"update mens_texto set destino = '$idea' where destino = '$row[0]'");
 	}
 }
-echo "Tabla mens_texto: DESTINO $n<br>";
+//echo "Tabla mens_texto: DESTINO $n<br>";
 mysqli_query($db_con,"drop table departamento_tmp");
-*/
+
+mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Idea en Mensajes', NOW())");
 }
+*/
 
 /*
  @descripcion: Eliminado usuario conserje

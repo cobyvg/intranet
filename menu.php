@@ -152,12 +152,12 @@ mysqli_free_result($result_mensajes);
 		<?php if(mysqli_num_rows($result_mensajes)): ?>
 		<?php while ($row_mens = mysqli_fetch_array($result_mensajes)): ?>
 		<li><a
-			href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row_mens['id']; ?>&idprof=<?php echo $row['id_profe']; ?>">
+			href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row_mens['id']; ?>&idprof=<?php echo $row_mens['id_profe']; ?>">
 		<div
-		<?php echo ($row['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
-		<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row['ahora'])); ?></em></span>
+		<?php echo ($row_mens['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
+		<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row_mens['ahora'])); ?></em></span>
 		<strong><?php 
-		$query = mysqli_query($db_con,"select nombre from departamentos where idea = '".$row['origen']."'");
+		$query = mysqli_query($db_con,"select nombre from departamentos where idea = '".$row_mens['origen']."'");
 		$row = mysqli_fetch_array($query);
 		echo nomprofesor($row[0]); 
 		?></strong></div>

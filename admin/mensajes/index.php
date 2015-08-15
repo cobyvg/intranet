@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 
 $profesor = $_SESSION['ide'];
-
+$profe_nombre = $_SESSION['profi'];
 
 isset($_GET['inbox']) ? $_buzon = $_GET['inbox'] : $_buzon = 'recibidos';
 isset($_GET['delete']) ? $idmensaje = intval($_GET['delete']) : $idmensaje=0;
@@ -21,7 +21,7 @@ switch ($_buzon) {
 		}
 		
 		$tabla_encabezado = array('De', 'Asunto', 'Fecha', ' ');
-		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, origen, id_profe, texto, recibidoprofe FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE profesor = '$profesor' ORDER BY ahora DESC LIMIT 0, 500");
+		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, origen, id_profe, texto, recibidoprofe FROM mens_profes JOIN mens_texto ON mens_texto.id = mens_profes.id_texto WHERE (profesor = '$profesor' or profesor = '$profe_nombre') ORDER BY ahora DESC LIMIT 0, 500");
 		$rec = 1;
 		break;
 	
@@ -35,7 +35,7 @@ switch ($_buzon) {
 		}
 		
 		$tabla_encabezado = array('Para', 'Asunto', 'Fecha', ' ');
-		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, destino, id, texto FROM mens_texto WHERE origen = '$profesor' AND oculto NOT LIKE '1' ORDER BY ahora DESC LIMIT 0, 500");
+		$result = mysqli_query($db_con, "SELECT ahora, asunto, id, destino, id, texto FROM mens_texto WHERE (origen = '$profesor' or origen = '$profe_nombre') AND oculto NOT LIKE '1' ORDER BY ahora DESC LIMIT 0, 500");
 		break;
 }
 
@@ -129,7 +129,7 @@ include("menu.php");
             $dest = substr($real,0,-2);
             }
             else{
-            $dest = $n_p;
+            $dest = $row[3];
             }
             if (strlen($dest)>150) {
             	$dest = substr($dest,0,150)."...";

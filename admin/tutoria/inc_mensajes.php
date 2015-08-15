@@ -36,7 +36,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-        <h4 class="modal-title"><?php echo $row['asunto']; ?><br /><small>Enviado por <?php echo $row['nombre'].' '.$row['apellidos']; ?> el <?php echo strftime('%A, %e de %B',strtotime($row['ahora'])); ?>.</small></h4>
+        <h4 class="modal-title"><?php echo $row['asunto']; ?><br /><small>Enviado por <?php echo $row['nombre'].' '.$row['apellidos']; ?> el <?php         echo mb_convert_encoding(strftime('%A, %e de %B',strtotime($row['ahora'])), 'ISO-8859-1', 'UTF-8'); ?>.</small></h4>
       </div>
       <div class="modal-body">
         <p><?php echo html_entity_decode($row['texto']); ?></p>

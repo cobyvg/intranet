@@ -6,7 +6,7 @@ require_once("../../pdf/dompdf_config.inc.php");
 
 $n_preg=15;
 // Miembros
-//$depto=$_SESSION ['dpt'];
+$depto=$_SESSION ['dpt'];
 
 $campos=array('p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','p13','p14','p15','p16','p17','p18','p19','p20');
 #Preguntas
@@ -122,6 +122,7 @@ $html.=  'Fdo.: '.$memoria[1];
 $html.=  '</div></div></body></html>';
 
 $html = mb_convert_encoding($html, 'UTF-8', 'ISO-8859-1');
+$depto = mb_convert_encoding($depto, 'UTF-8', 'ISO-8859-1');
 
 $dompdf = new DOMPDF();
 $dompdf->load_html($html);
