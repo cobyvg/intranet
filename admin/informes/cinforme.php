@@ -95,19 +95,22 @@ else{
 							    <?php endif; ?>
 							  </div>
 							  
+							  <?php if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')): ?>
 							  <div class="form-group">
 							    <label for="c_escolar">Curso escolar</label>
 							    
 							    <select class="form-control" id="c_escolar" name="c_escolar">
-							    	<?php $ano=explode("/",$config['curso_actual']); ?>
-							    	<?php for($i = 0; $i < 5; $i++): ?>
-							    	<?php ${b.$i}=$ano[0]-$i; ?>
-							    	<?php ${c.$i}=$ano[1]-$i; ?>
-							    	<?php ${a.$i}=${b.$i}."/".${c.$i}; ?>
-							    	<option><?php echo ${a.$i}; ?></option>
+							    	<?php $exp_c_escolar = explode("/", $config['curso_actual']); ?>
+							    	<?php for($i=0; $i<5; $i++): ?>
+							    	<?php $anio_escolar = $exp_c_escolar[0] - $i; ?>
+							    	<?php $anio_escolar_sig = substr(($exp_c_escolar[0] - $i + 1), 2, 2); ?>
+							    	<?php if($i == 0 || (isset($config['db_host_c'.$anio_escolar]) && $config['db_host_c'.$anio_escolar] != "")): ?>
+							    	<option value="<?php echo $anio_escolar.'/'.$anio_escolar_sig; ?>"><?php echo $anio_escolar.'/'.$anio_escolar_sig; ?></option>
+							    	<?php endif; ?>
 							    	<?php endfor; ?>
 							    </select>
 							  </div>
+							  <?php endif; ?>
 							  
 							</fieldset>
 							

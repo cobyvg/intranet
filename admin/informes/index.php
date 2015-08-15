@@ -18,15 +18,18 @@ if(isset($_POST['horarios'])){$horarios = $_POST['horarios'];}else{ $horarios=""
 if(isset($_POST['act_tutoria'])){$act_tutoria = $_POST['act_tutoria'];}else{ $act_tutoria=""; }
 
 
-if (!($c_escolar==$config['curso_actual'])) {
-	$an = explode("/",$c_escolar);
-	$c_db = $an[0]+1;
-	$base = $db.$c_db;	
-	mysqli_select_db($db_con, $base);
+if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
+	if ($c_escolar != $config['curso_actual']) {
+		$exp_c_escolar = explode("/", $c_escolar);
+		$anio_escolar = $exp_c_escolar[0];
+		
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+	}
+	if (empty($c_escolar)){
+		$c_escolar = $config['curso_actual'];
+	}
 }
-if (empty($c_escolar)){
-	$c_escolar=$config['curso_actual'];
-}
+
 
 if ($claveal) {
 	 $SQL1 = "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.claveal, claveal1, numeroexpediente from alma where claveal = '$claveal' order BY alma.apellidos";
@@ -213,7 +216,7 @@ include('../../menu.php');
 				  <?php 
 				  if (!($act_tutoria== "" and $todos == "")) {
 				  	$tutori = $_SESSION['profi'];
-				    $activ = mysqli_query($db_con, "select * from FTUTORES where tutor='$tutori' and unidad = '$unidad' o'");
+				    $activ = mysqli_query($db_con, "select * from FTUTORES where tutor='$tutori' and unidad = '$unidad'");
 				    
 				    if (mysqli_num_rows($activ) > 0 || stristr($_SESSION['cargo'],'1') == TRUE) {
 				    	include("act_tutoria.php");	
