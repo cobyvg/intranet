@@ -62,6 +62,7 @@
 	<a href="jefe/index_notas.php">Importar Calificaciones</a></li>
 	
 	<li class="nav-header">Bases de datos</li>
+	<li><a href="../config/config_datos.php">Bases de datos de cursos anteriores</a></li>
 	<li><a href="jefe/copia_db/index.php">Copias de seguridad</a></li>
 	</a></li>
 </ul>
