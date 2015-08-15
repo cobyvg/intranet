@@ -8,28 +8,13 @@ xml/fotos_profes/*.jpg
 xml/jefe/TIC/*.txt
 cache/*
 /config.php
+/config_datos.php
 *_seg*
-
 *.gz
-
 pdf/lib/fonts/log.htm
-
 .buildpath
-
 prueba.php
-
 *.sublime-project
-
 *.sublime-workspace
-
-xml/primaria/Garcia Lorca.txt
-
-xml/primaria/JuanXXIII.txt
-
-xml/primaria/Santo Tomas.txt
-
-xml/primaria/Simon Fernandez.txt
-
-xml/primaria/Juan XXIII.txt
-
+xml/primaria/*.txt
 *.txt
