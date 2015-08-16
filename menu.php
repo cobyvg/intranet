@@ -148,21 +148,18 @@ mysqli_free_result($result_mensajes);
 	<ul class="dropdown-menu dropdown-messages">
 		<li class="dropdown-header"><h5>Últimos mensajes</h5></li>
 		<li class="divider"></li>
-		<?php $result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['ide']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
-		<?php if(mysqli_num_rows($result_mensajes)): ?>
-		<?php while ($row_mens = mysqli_fetch_array($result_mensajes)): ?>
-		<li><a
-			href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row_mens['id']; ?>&idprof=<?php echo $row_mens['id_profe']; ?>">
-		<div
-		<?php echo ($row_mens['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
+		<?php $result = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['ide']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
+		<?php if(mysqli_num_rows($result)): ?>
+		<?php while ($row_mens = mysqli_fetch_array($result)): ?>
+		<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row_mens['id']; ?>&idprof=<?php echo $row_mens['id_profe']; ?>">
+		<div <?php echo ($row_mens['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
+		<?php $result_dest = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE idea='".$row_mens['origen']."' LIMIT 1"); ?>
+		<?php $row_dest = mysqli_fetch_array($result_dest); ?>
 		<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($row_mens['ahora'])); ?></em></span>
-		<strong><?php 
-		$query = mysqli_query($db_con,"select nombre from departamentos where idea = '".$row_mens['origen']."'");
-		$row = mysqli_fetch_array($query);
-		echo nomprofesor($row[0]); 
-		?></strong></div>
-		<div
-		<?php echo ($row_mens['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>><?php echo substr($row_mens['asunto'],0,96); ?></div>
+		<strong><?php echo nomprofesor($row_dest['nombre']); ?></strong></div>
+		<div <?php echo ($row_mens['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
+		<?php echo substr($row_mens['asunto'],0 , 96); ?>
+		</div>
 		</a></li>
 		<li class="divider"></li>
 		<?php endwhile; ?>
