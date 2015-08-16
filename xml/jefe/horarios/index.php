@@ -291,10 +291,16 @@ include("../../../menu.php");
 						  <label for="hora">Hora</label>
 						  <select class="form-control" id="hora" name="hora">
 						  	<option value=""></option>
-						  	<?php $arrhoras = array(1=>'08:15 - 09:15',2=>'09:15 - 10:15',3=>'10:15 - 11:15',4=>'11:45 - 12:45',5=>'12:45 - 13:45',6=>'13:45 - 14:45'); ?>
-						  	<?php foreach ($arrhoras as $numhora => $nomhora): ?>
-						  	<option value="<?php echo $numhora; ?>" <?php echo (isset($hora) && $numhora == $hora) ? 'selected' : ''; ?>><?php echo $nomhora; ?></option>
-						  	<?php endforeach; ?>
+						  	<?php 
+						  	$hr = mysqli_query($db_con,"select hora_inicio, hora_fin, tramo from jornada where tramo < '7'");
+							while ($hor = mysqli_fetch_array($hr)) {
+								$nomhora = "$hor[0] - $hor[1]";
+								$numhora = $hor[2];
+							?>
+							<option value="<?php echo $numhora; ?>" <?php echo (isset($hora) && $numhora == $hora) ? 'selected' : ''; ?>><?php echo $nomhora; ?></option>
+							<?
+							}
+							?>
 						  </select>
 						</div>
 						

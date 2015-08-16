@@ -155,7 +155,7 @@ $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Temas del Profesor', NOW())");
 
-	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `temas` (
+	mysqli_query($db_con, "CREATE TABLE `temas` (
   `idea` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
   `tema` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   `fondo` varchar(16) COLLATE latin1_spanish_ci NOT NULL
@@ -307,6 +307,9 @@ while ($row = mysqli_fetch_array($query)) {
 mysqli_query($db_con,"drop table departamento_tmp");
 
 mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Idea en Mensajes', NOW())");
+
+unset($idea);
+unset($n);
 }
 
 
@@ -329,10 +332,4 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "DELETE FROM reg_intranet WHERE profesor='conserje'");
 	mysqli_query($db_con, "DELETE FROM reg_intranet WHERE profesor='Conserjeria'");
 }
-=======
-mysqli_query($db_con,"drop table departamento_tmp");
->>>>>>> origin/master
 
-unset($idea);
-unset($n);
-}

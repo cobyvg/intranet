@@ -30,12 +30,12 @@ include("../../menu.php");
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th>08:15 - 09:15</th>
-								<th>09:15 - 10:15</th>
-								<th>10:15 - 11:15</th>
-								<th>11:45 - 12:45</th>
-								<th>12:45 - 13:45</th>
-								<th>13:45 - 14:45</th>
+							<?
+							$hr = mysqli_query($db_con,"select hora_inicio, hora_fin from jornada where tramo < '7'");
+							while ($hor = mysqli_fetch_array($hr)) {
+								echo "<th>$hor[0] - $hor[1]</th>";
+							}
+							?>
 							</tr>
 						</thead>
 						<tbody>

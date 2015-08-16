@@ -31,20 +31,24 @@ foreach ($tr_combasi as $codigo){
 			</tr>
 		</thead>
 		<tbody>
-			<?php $horas = array(1 => "8.15-9.15", 2 => "9.15-10.15", 3 => "10.15-11.15", 4 => "11.45-12.45", 5 => "12.45-13.45", 6 => "13.45-14.45" ); ?>
-			<?php foreach($horas as $hora => $desc): ?>
+			<?php 
+			$hr = mysqli_query($db_con,"select hora_inicio, hora_fin, tramo from jornada where tramo < '7'");
+				while ($hor = mysqli_fetch_array($hr)) {
+					$desc = $hor[0]."-".$hor[1];	
+					$hora = $hor[2];
+			?>
 			<tr>
 				<th nowrap class="text-warning"><?php echo $desc; ?></th>
 				<?php for($i = 1; $i < 6; $i++): ?>
 				<td width="20%">
-					<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula, n_aula FROM horw WHERE (a_grupo=(select unidad from alma where claveal = '$claveal') or a_grupo = (select distinct a_grupo from horw where c_asig='25204') or a_grupo = (select distinct a_grupo from horw where c_asig='25226')) AND dia='$i' AND hora='$hora' and c_asig in (select codigo from asig_tmp)"); ?>
+					<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula, n_aula FROM horw WHERE (a_grupo=(select unidad from alma where claveal = '$claveal') or a_grupo = (select distinct a_grupo from horw where c_asig='25204') or a_grupo = (select distinct a_grupo from horw where c_asig='25226')) AND dia='$i' AND hora='$hora' and c_asig in (select codigo from asig_tmp)");?>
 					<?php while($row = mysqli_fetch_array($result)): ?>
 					<?php echo $row[0]."<div class='text-success' data-bs='tooltip' title='".$row[3]."'>".$row[2]."</div>"; ?>
 					<?php endwhile; ?>
 				</td>
 				<?php endfor; ?>
 			</tr>
-			<?php endforeach; ?>
+			<?php } ?>
 		</tbody>
 	</table>
 </div>

@@ -21,35 +21,7 @@ if ($imprimir=="1") {
    	  	
    	  	$html .= '<html><body>';
    	  	
-		if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
-			$html .= '
-					<style type="text/css">
-					html {
-					  margin: 0 !important;
-					}
-					body {
-					  font-family: Arial, Helvetica, sans-serif !important;
-					  font-size: 11pt !important;
-					  margin: 20mm 20mm 30mm 25mm !important;
-					}
-					</style>
-					<script type="text/php">
-					    if ( isset($pdf) ) { 
-					        $pdf->page_script(\'
-					            if ($PAGE_COUNT) {
-					                $font = Font_Metrics::get_font("Arial, Helvetica, sans-serif", "normal");
-					                $size = 11;
-					                $pageText = $PAGE_NUM;
-					                $y = 785;
-					                $x = 535;
-					                $pdf->text($x, $y, $pageText, $font, $size);
-					            } 
-					        \');
-					    }
-					</script>';
-		}
-		else {
-			$html .= '
+		$html .= '
 					<style type="text/css">
 					html {
 					  margin: 0 !important;
@@ -60,7 +32,6 @@ if ($imprimir=="1") {
 					  margin: 20mm 20mm 30mm 25mm !important;
 					}
 					</style>';
-		}
    	  	
    		$row = mysqli_fetch_array($result);
    		$contenido = $row[0];

@@ -125,15 +125,11 @@ else{
 }
 $fecha2 = date ( 'Y-m-d' );
 $hoy = formatea_fecha ( $fecha2 );
-$d_rd0 = mysqli_query($db_con, "select hora from horw where prof = '$profesor' and c_asig = '51'");
+$d_rd0 = mysqli_query($db_con, "select hora, hora_inicio from horw, jornada where hora = tramo  and prof = '$profesor' and c_asig = '51'");
 $d_rd = mysqli_fetch_array($d_rd0);
 $hor = $d_rd[0];
-$reunion = array("1" => "8.15","2" => "9.15","3" => "10.15","4" => "11.45","5" => "12.45","6" => "13.45", "10" => "17");
-foreach ($reunion as $key => $val){
-	if ($key == $hor){
-		$hora = $val;
-	}
-}
+$hora = $d_rd[1];
+
 if ($edicion=="1") {
 	$fecha_r =  $ed->fecha;
 }
