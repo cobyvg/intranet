@@ -19,7 +19,7 @@ if(isset($_POST['act_tutoria'])){$act_tutoria = $_POST['act_tutoria'];}else{ $ac
 
 
 if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
-	if ($c_escolar != $config['curso_actual']) {
+	if (!empty($c_escolar) && ($c_escolar != $config['curso_actual'])) {
 		$exp_c_escolar = explode("/", $c_escolar);
 		$anio_escolar = $exp_c_escolar[0];
 		
@@ -35,8 +35,8 @@ else {
 
 
 if ($claveal) {
-	 $SQL1 = "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.claveal, claveal1, numeroexpediente from alma where claveal = '$claveal' order BY alma.apellidos";
-  $result1= mysqli_query($db_con, $SQL1);
+  	$result1 = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, claveal, claveal1, numeroexpediente FROM alma WHERE claveal = '$claveal' ORDER BY apellidos");
+  	
 	if ($row1 = mysqli_fetch_array($result1)) {
 	  $claveal = $row1[3];
 	  $unidad = $row1[2];
@@ -143,7 +143,7 @@ include('../../menu.php');
 						  <dt>Unidad</dt>
 						  <dd><?php echo ($row['unidad'] != "") ? $row['unidad']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Tutor</dt>
-						  <dd><?php echo ($tutor != "") ? $tutor: '<span class="text-muted">Sin registrar</span>'; ?></dd>
+						  <dd><?php echo ($tutor != "") ? mb_convert_case($tutor, MB_CASE_TITLE, 'ISO-8859-1'): '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Repetidor/a</dt>
 						  <dd><?php echo ($row['matriculas'] > 1) ? 'Sí': 'No'; ?></dd>
 						</dl>
