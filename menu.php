@@ -148,9 +148,9 @@ mysqli_free_result($result_mensajes);
 	<ul class="dropdown-menu dropdown-messages">
 		<li class="dropdown-header"><h5>Últimos mensajes</h5></li>
 		<li class="divider"></li>
-		<?php $result = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['ide']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
-		<?php if(mysqli_num_rows($result)): ?>
-		<?php while ($row_mens = mysqli_fetch_array($result)): ?>
+		<?php $result_mens = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['ide']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
+		<?php if(mysqli_num_rows($result_mens)): ?>
+		<?php while ($row_mens = mysqli_fetch_array($result_mens)): ?>
 		<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/mensaje.php?id=<?php echo $row_mens['id']; ?>&idprof=<?php echo $row_mens['id_profe']; ?>">
 		<div <?php echo ($row_mens['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
 		<?php $result_dest = mysqli_query($db_con, "SELECT nombre FROM departamentos WHERE idea='".$row_mens['origen']."' LIMIT 1"); ?>
@@ -163,7 +163,7 @@ mysqli_free_result($result_mensajes);
 		</a></li>
 		<li class="divider"></li>
 		<?php endwhile; ?>
-		<?php mysqli_free_result($result_mensajes); ?>
+		<?php mysqli_free_result($result_mens); ?>
 		<?php else: ?>
 		<li><p class="text-center text-muted">No tienes mensajes pendientes.</p></li>
 		<li class="divider"></li>
