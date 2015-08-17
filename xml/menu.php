@@ -26,10 +26,10 @@
 	<li class="nav-header">Actualización</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
 	<li><a href="jefe/asignaturas.php?actualiza=1">Actualizar Asignaturas</a></li>
+	<li><a href="jefe/index_departamentos2.php">Actualizar Departamentos</a></li>
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
 	<li><a href="jefe/index_profesores.php">Actualizar Profesores</a></li>
 	<li><a href="jefe/index_pas.php">Actualizar Personal no docente</a></li>
-	<li><a href="jefe/index_departamentos2.php">Actualizar Departamentos</a></li>
 
 	<li class="nav-header">Personal del Centro</li> 
 	<li><a href="../config/cargos.php">Perfiles de los profesores</a></li>
