@@ -1,6 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1, 8));
 
 $PLUGIN_DATATABLES = 1;
 

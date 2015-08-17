@@ -1,37 +1,28 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1, 2, 8));
 
-// COMPROBACION DE ACCESO AL MODULO
-if ((stristr($_SESSION['cargo'],'1') == false) && (stristr($_SESSION['cargo'],'2') == false) && (stristr($_SESSION['cargo'],'8') == false)) {
+// COMPROBAMOS SI ES EL TUTOR, SINO ES DEL EQ. DIRECTIVO U ORIENTADOR
+if (stristr($_SESSION['cargo'],'2') == TRUE) {
 	
-	if (isset($_SESSION['mod_tutoria'])) unset($_SESSION['mod_tutoria']);
-	die ("<h1>FORBIDDEN</h1>");
+	$_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
+	$_SESSION['mod_tutoria']['unidad'] = $_SESSION['mod_tutoria']['unidad'];
 	
 }
 else {
-	
-	// COMPROBAMOS SI ES EL TUTOR, SINO ES DEL EQ. DIRECTIVO U ORIENTADOR
-	if (stristr($_SESSION['cargo'],'2') == TRUE) {
-		
-		$_SESSION['mod_tutoria']['tutor']  = $_SESSION['mod_tutoria']['tutor'];
-		$_SESSION['mod_tutoria']['unidad'] = $_SESSION['mod_tutoria']['unidad'];
-		
+
+	if(isset($_POST['tutor'])) {
+		$exp_tutor = explode('==>', $_POST['tutor']);
+		$_SESSION['mod_tutoria']['tutor'] = trim($exp_tutor[0]);
+		$_SESSION['mod_tutoria']['unidad'] = trim($exp_tutor[1]);
 	}
-	else {
-	
-		if(isset($_POST['tutor'])) {
-			$exp_tutor = explode('==>', $_POST['tutor']);
-			$_SESSION['mod_tutoria']['tutor'] = trim($exp_tutor[0]);
-			$_SESSION['mod_tutoria']['unidad'] = trim($exp_tutor[1]);
+	else{
+		if (!isset($_SESSION['mod_tutoria'])) {
+			header('Location:'.'tutores.php');
 		}
-		else{
-			if (!isset($_SESSION['mod_tutoria'])) {
-				header('Location:'.'tutores.php');
-			}
-		}
-		
 	}
+	
 }
 
 

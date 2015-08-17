@@ -1,3 +1,5 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <center> 
 <table class="table table-striped table-condensed table-bordered" style="">
     <tr>

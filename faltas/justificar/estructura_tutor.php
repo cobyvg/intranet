@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 $profesor = $_SESSION['profi'];
 if (empty($today)) {	
 $year=date("Y");

@@ -16,7 +16,7 @@ $AUXSQL = "";
     {
     $AUXSQL .= " AND 1=1 ";
     }
-    ELSE
+    else
     {
     $AUXSQL .= " and Textos.Departamento = '$departamento'";
     }

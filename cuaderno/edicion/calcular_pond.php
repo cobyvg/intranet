@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 //variables();
 if(isset($_POST['pondera']) and $_POST['pondera']=="Guardar resultado como columna"){
 	//variables();

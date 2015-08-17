@@ -1,3 +1,5 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <script language="JavaScript" type="text/javascript">
 function enviar(){
     for (i=0;i<document.form1.elements.length;i++){

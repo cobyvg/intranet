@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 //$alldays=array("L","M","X","J","V");
 // Variables para profes.php y cal.php
 // Variables para profes.php y cal.php

@@ -1,6 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1, 2));
 
 $profesor = $_SESSION['profi'];
 $cargo = $_SESSION['cargo'];

@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 // Procesamos los datos
  foreach ($_POST as $id => $valor) {
 // Condiciones para procesar los datos

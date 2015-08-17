@@ -1,3 +1,5 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <h4 class='text-info'>
  Datos del Alumno</h4><br />
   <?php

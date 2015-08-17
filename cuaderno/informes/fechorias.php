@@ -1,5 +1,5 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
 
-  <?php
 echo "<h4 class='text-info'>Problemas de convivencia</h4>";
 
 // Consulta del a� en curso.

@@ -2,7 +2,7 @@
 require('../bootstrap.php');
 
 if (isset($_GET['recurso'])) {	
-			$nombre_rec = $_GET['recurso'];	
+	$nombre_rec = $_GET['recurso'];	
 }
 
 include("../menu.php");

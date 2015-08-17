@@ -1,12 +1,8 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
 
-if (!(strstr($_SESSION['cargo'],"1") == TRUE)) {
-	session_destroy ();
-	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-	exit;
-}
 $profesor = $_SESSION ['profi'];
 
 // PLUGINS

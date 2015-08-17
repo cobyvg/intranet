@@ -1,20 +1,10 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1, 8));
 
-// COMPROBACION DE ACCESO AL MODULO
-if ((stristr($_SESSION['cargo'],'1') == false) && (stristr($_SESSION['cargo'],'8') == false)) {
-	
-	if (isset($_SESSION['mod_tutoria'])) unset($_SESSION['mod_tutoria']);
-	die ("<h1>FORBIDDEN</h1>");
-	
-}
-else {
-
-	if (isset($_SESSION['mod_tutoria'])) {
-		header('Location:'.'index.php');
-	}
-	
+if (isset($_SESSION['mod_tutoria'])) {
+	header('Location:'.'index.php');
 }
 
 

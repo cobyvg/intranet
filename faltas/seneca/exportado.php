@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 $falta_inicial0 = "$fecha0[2]-$fecha0[1]-$fecha0[0]";
 $falta_final0 = "$fecha10[2]-$fecha10[1]-$fecha10[0]";
 

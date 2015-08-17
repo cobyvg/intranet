@@ -1,12 +1,7 @@
-<?
+<?php
 require('../../bootstrap.php');
 
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
+acl_acceso($_SESSION['cargo'], array(1));
 
 include("../../menu.php");
 include("../menu.php");
@@ -18,7 +13,7 @@ include("../menu.php");
   <h2>Faltas de Asistencia <small> Subir faltas a S&eacute;neca</small></h2>
 </div>
 <br />
-<?
+<?php
 if (isset($_GET['iniciofalta'])) {$iniciofalta = $_GET['iniciofalta'];}elseif (isset($_POST['iniciofalta'])) {$iniciofalta = $_POST['iniciofalta'];}
 if (isset($_GET['finfalta'])) {$finfalta = $_GET['finfalta'];}elseif (isset($_POST['finfalta'])) {$finfalta = $_POST['finfalta'];}
 if (isset($_GET['Submit'])) {$Submit = $_GET['Submit'];}elseif (isset($_POST['Submit'])) {$Submit = $_POST['Submit'];}
@@ -125,20 +120,20 @@ if ($ni==0) {
 exit();
 }
 ?>
-<div align="center""><div class="alert alert-success alert-block fade in" align="left">
+<div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 	 Las Faltas de Asistencia se han escrito correctamente en los archivos  del directorio /exportado/. <br />Puedes proceder a importarlos a Séneca.
 			</div></div><br />
-<?
+<?php
 }
 else{
 	
 	?>
-<div align="center""><div class="alert alert-success alert-block fade in" align="left">
+<div align="center"><div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Selecciona las fechas de comienzo y final del registro de faltas en el formulario.
 			</div></div><br />	
-	<?
+	<?php
 }
 ?>
 </div>

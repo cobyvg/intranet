@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 
 // Eliminamos de FALTAS las faltas borradas por el profesor. La tarea es cosa del fichero borrar.php
 include("borrar.php");

@@ -1,4 +1,5 @@
-  <?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 echo "<h4 class='text-info'>Evaluaciones del Alumno</h4><br />";
 
  echo "<table class='table table-striped' style='width:auto'>

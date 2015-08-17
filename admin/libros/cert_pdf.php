@@ -1,6 +1,8 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
+
 include("../../pdf/fpdf.php");
 define('FPDF_FONTPATH','../../pdf/font/');
 # creamos la clase extendida de fpdf.php

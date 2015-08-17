@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 // Aquí empieza la justificación.
 // Buscamos registros siguiendo a cal.php
 // Datos complementarios para el formulario

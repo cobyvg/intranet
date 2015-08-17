@@ -1,6 +1,8 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
+
 if (isset($_POST['niv'])) {$niv = $_POST['niv'];}else{$niv="";}	
 include("../../pdf/fpdf.php");
 define('FPDF_FONTPATH','../../pdf/font/');

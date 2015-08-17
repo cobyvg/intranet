@@ -1,3 +1,4 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
 <div class="container hidden-print"><?php if (strstr($_SESSION['cargo'],'1') == TRUE || strstr($_SESSION['cargo'],'8') == TRUE): ?>
 <form method="post" action="">

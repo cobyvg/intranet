@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 $total0 = count($_POST);
 $clavesw = array_values($_POST);
 // Misma operación que en el fichero insertar.php

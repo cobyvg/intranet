@@ -1,3 +1,5 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <div align="center">
 <?php
 //$ocultar = $_POST['ocultar'];
