@@ -29,6 +29,9 @@ if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
 		$c_escolar = $config['curso_actual'];
 	}
 }
+else {
+	$c_escolar = $config['curso_actual'];
+}
 
 
 if ($claveal) {
