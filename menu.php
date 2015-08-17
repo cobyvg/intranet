@@ -1,4 +1,5 @@
-<?php 
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 $idea = $_SESSION['ide'];
 $profi = $_SESSION['profi'];
 

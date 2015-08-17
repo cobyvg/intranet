@@ -1,5 +1,4 @@
-<?php
-if (! defined('MOD_CALENDARIO')) die ('<h3>FORBIDDEN</h3>');
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 // CALENDARIO
 $dia_actual = date('d');

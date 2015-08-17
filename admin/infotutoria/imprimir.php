@@ -1,8 +1,6 @@
 <?php
 require('../../bootstrap.php');
 
-setlocale('LC_TIME', 'es_ES');
-
 
 if(isset($_GET['id']) && !empty($_GET['id'])) {
 	$id = $_GET['id'];

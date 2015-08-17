@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 // Alumnos expulsados que vuelven
 if (isset($_GET['id_tareas'])) {
 	$id_tareas = $_GET['id_tareas'];

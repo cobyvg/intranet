@@ -5,8 +5,7 @@ if (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];} elseif (isset($_GET['
 if (isset($_POST['nombre'])) {$nombre = $_POST['nombre'];} elseif (isset($_GET['nombre'])) {$nombre = $_GET['nombre'];} else{$nombre="";}
 if (isset($_POST['apellidos'])) {$apellidos = $_POST['apellidos'];} elseif (isset($_GET['apellidos'])) {$apellidos = $_GET['apellidos'];} else{$apellidos="";}
 if (isset($_GET['clave_al'])) {$clave_al = $_GET['clave_al'];} else{$clave_al="";}
-?>
-<?php 
+
 # para el pdf
 require_once('../../pdf/class.ezpdf.php');
 $pdf=new Cezpdf('a4','landscape');

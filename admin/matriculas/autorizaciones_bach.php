@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 $pa = explode(", ", $datos_ya->padre);
 $papa = "$pa[1] $pa[0]";
 $hoy = formatea_fecha(date('Y-m-d'));

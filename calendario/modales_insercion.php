@@ -1,4 +1,4 @@
-<?php if (! defined('MOD_CALENDARIO')) die ('<h3>FORBIDDEN</h3>'); ?>
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
 <!-- MODAL NUEVO CALENDARIO -->
 <form id="formNuevoCalendario" method="post" action="post/nuevoCalendario.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>" data-toggle="validator">

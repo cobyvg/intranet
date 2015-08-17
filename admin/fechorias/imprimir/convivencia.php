@@ -1,8 +1,6 @@
 <?php
 require('../../../bootstrap.php');
 
-setlocale('LC_TIME', 'es_ES');
-
 $tutor = $_SESSION ['profi'];
 
 if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}

@@ -1,28 +1,11 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
 
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
+include("../../menu.php");
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-<title>Páginas de Conserjería</title>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<LINK href="//<?php echo $config['dominio']; ?>/<?php echo $css1; ?>" rel="stylesheet" type="text/css">
-<LINK href="//<?php echo $config['dominio']; ?>/<?php echo $css2; ?>" rel="stylesheet" type="text/css">
-</head>
-  <body onload="document.getElementById('n_numero').style.backgroundColor='#cde';document.getElementById('n_total').style.backgroundColor='#afc';
-document.getElementById('n_numero').style.border='#aaaaaa solid 1px'; 
-document.getElementById('n_numero').focus()">
-  <?php
-  	include("../../menu.php");
-  ?>
-<div align=center>
+<div class="container">
   <div class=titulogeneral style="margin:auto;margin-top:25px;margin-bottom:5px;width:500px;">Registro de Fotocopias</div>
 </div>
 <div align="center">

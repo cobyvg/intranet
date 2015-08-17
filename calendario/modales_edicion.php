@@ -1,5 +1,4 @@
-<?php
-if (! defined('MOD_CALENDARIO')) die ('<h3>FORBIDDEN</h3>');
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
 
 // CALENDARIOS PRIVADOS DEL PROFESOR
 $result_calendarios1 = mysqli_query($db_con, "SELECT id, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0");

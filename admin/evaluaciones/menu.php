@@ -1,3 +1,5 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <div class="container">
 
 	<ul class="nav nav-tabs" role="tablist">

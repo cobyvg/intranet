@@ -101,7 +101,7 @@ while ($copia=mysqli_fetch_array($ft)) {
 	</td></tr>
 	<tr><td colspan="2" style="text-align:center;">
 	<span id="filaprincipal" style="background-color:white;margin-left:25px;">
-	Administracción<input id="administraccion" name="tipo" type="checkbox" value="1" <?php if ($profeso=="CONSERJE") {echo "checked";} ?> onClick="habilitaDeshabilita()" /></span>
+	Administración<input id="administraccion" name="tipo" type="checkbox" value="1" <?php if ($profeso=="CONSERJE") {echo "checked";} ?> onClick="habilitaDeshabilita()" /></span>
 	<span id="filaprincipal" style="background-color:white;margin-left:25px;">
 	Personal<input id="personal" name="tipo" type="checkbox" value="2" onClick="habilitaDeshabilita()" /></span>
 	</td></tr>

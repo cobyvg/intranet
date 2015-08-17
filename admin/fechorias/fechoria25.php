@@ -1,4 +1,4 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
 
 $dia0 = explode ( "-", $fecha );
 $fecha3 = "$dia0[2]-$dia0[1]-$dia0[0]";

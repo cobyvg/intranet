@@ -1,6 +1,8 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1, 'c'));
+
 if(isset($_POST['impreso'])){
 	
 	$impreso=$_POST['impreso'];

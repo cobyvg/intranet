@@ -1,3 +1,4 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
     
     <footer class="hidden-print">
     	<div class="container-fluid" role="footer">

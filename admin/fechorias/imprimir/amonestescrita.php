@@ -1,8 +1,6 @@
 <?php
 require('../../../bootstrap.php');
 
-setlocale('LC_TIME', 'es_ES');
-
 // Consulta  en curso.
 
 if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}

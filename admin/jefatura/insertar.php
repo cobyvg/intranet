@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 // Control de errores
 if (!$fecha_reg or !$observaciones or !$causa or !$accion)
 {

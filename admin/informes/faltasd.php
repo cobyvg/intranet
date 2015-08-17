@@ -1,3 +1,5 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <!-- MODULO DETALLADO FALTAS DE ASISTENCIA -->
 
 <?php

@@ -1,8 +1,6 @@
 <?php
 require('../../../bootstrap.php');
 
-setlocale('LC_TIME', 'es_ES');
-
 if(!($_POST['id'])){$id = $_GET['id'];}else{$id = $_POST['id'];}
 if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
 if (isset($_POST['expulsion'])) { $expulsion = $_POST['expulsion']; }

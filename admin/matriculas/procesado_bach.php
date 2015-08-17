@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 	if ($_POST) {
 		foreach ($_POST as $key=>$val){
 			$n_curso = substr($curso, 0, 1);

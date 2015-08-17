@@ -1,13 +1,10 @@
 <?php
 require('../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1, 2, 6, 7, 8));
 
 $profe = $_SESSION['profi'];
-if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'2') == TRUE) and !(stristr($_SESSION['cargo'],'6') == TRUE) and !(stristr($_SESSION['cargo'],'7') == TRUE) and !(stristr($_SESSION['cargo'],'8') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
+
 include("../menu.php");
 if (isset($_GET['submit0'])) {$submit0 = $_GET['submit0'];}elseif (isset($_POST['submit0'])) {$submit0 = $_POST['submit0'];}else{$submit0="";}
 if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}

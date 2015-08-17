@@ -1,6 +1,8 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1));
+
 require("../../pdf/pdf_js.php");
 
 class PDF_AutoPrint extends PDF_JavaScript

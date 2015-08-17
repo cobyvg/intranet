@@ -1,25 +1,10 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1, 'c'));
 
-	if((!(stristr($_SESSION['cargo'],'1') == TRUE)) and (!(stristr($_SESSION['cargo'],'c') == TRUE)) )
-{
-	header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-	exit;
-}
-?>
-<script language="javascript">
-function enviarForm()
-{
-	ventana=window.open("", "ventanaForm", "top=100, left=100, toolbar=no,location=no, status=no,menubar=no,scrollbars=no, resizable=no, width=100,height=66,directories=no")
-	document.enviar.submit()
-	/*AQUÕ PUEDES PONER UN TIEMPO*/
-	/*ventana.close()*/
-}
-</script>
-<?php
 include("../../menu.php");
- include("menu.php");
+include("menu.php");
 ?>
 <br>
 <div class="container">

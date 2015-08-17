@@ -8,12 +8,10 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <style>
-<!--
 .table th{
 	font-size:0.8em;
 	vertical-align:top !important;
 }
--->
 </style>
 	<div class="container">
 	

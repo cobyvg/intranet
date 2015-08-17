@@ -4,7 +4,7 @@ require('../../bootstrap.php');
 
 include("../../menu.php");
 include("menu.php");
- ?>
+?>
 <div align=center>
 <div class="page-header">
   <h2>Problemas de convivencia <small> Borrar problema</small></h2>

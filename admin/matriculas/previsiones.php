@@ -1,6 +1,8 @@
 <?php
 require('../../bootstrap.php');
 
+acl_acceso($_SESSION['cargo'], array(1, 7, 8));
+
 include("../../menu.php");
 include("menu.php");
 ?>

@@ -1,9 +1,7 @@
-  <?php
-// Conecxión con la base de datos.
-   
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
   
- echo "<h3>Evaluaciones</h3><br>";
- echo "<div class='table-responsive'><table class='table table-bordered table-striped table-hover'>
+echo "<h3>Evaluaciones</h3><br>";
+echo "<div class='table-responsive'><table class='table table-bordered table-striped table-hover'>
 		<thead><tr><th>Asignatura / Materia</th><th>1Ev.</th><th>2Ev.</th><th>Ord.</th><th>Ext.</th></tr></thead>";
 
 // Evaluaciones

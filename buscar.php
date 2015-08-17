@@ -1,3 +1,5 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <h4><span class="fa fa-search fa-fw"></span> Buscar...</h4>
 
 <form method="get" action="admin/noticias/buscar.php">

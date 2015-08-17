@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 $GLOBALS['db_con'] = $db_con;
 
 function registraPagina($db_link, $pagina)

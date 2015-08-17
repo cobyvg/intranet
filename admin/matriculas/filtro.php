@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 foreach($_POST as $val)
 {
 if (strlen($val)>0) {

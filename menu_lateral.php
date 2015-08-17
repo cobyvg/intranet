@@ -1,21 +1,14 @@
-<?php
-switch (substr($config['centro_codpostal'],0,2)) {
-	// Almería
-	case '04' : $web_delegacion = '436'; break;
-	// Cádiz
-	case '11' : $web_delegacion = '437'; break;
-	// Córdoba
-	case '14' : $web_delegacion = '438'; break;
-	// Granada
-	case '18' : $web_delegacion = '439'; break;
-	// Huelva
-	case '21' : $web_delegacion = '440'; break;
-	// Jaén
-	case '23' : $web_delegacion = '441'; break;
-	// Málaga
-	case '29' : $web_delegacion = '442'; break;
-	// Sevilla
-	case '41' : $web_delegacion = '443'; break;
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
+switch ($config['centro_provincia']) {
+	case 'Almería' : $web_delegacion = '436'; break;
+	case 'Cádiz' : $web_delegacion = '437'; break;
+	case 'Córdoba' : $web_delegacion = '438'; break;
+	case 'Granada' : $web_delegacion = '439'; break;
+	case 'Huelva' : $web_delegacion = '440'; break;
+	case 'Jaén' : $web_delegacion = '441'; break;
+	case 'Málaga' : $web_delegacion = '442'; break;
+	case 'Sevilla' : $web_delegacion = '443'; break;
 }
 
 //	VALORES DEL MENU

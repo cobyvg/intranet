@@ -1,8 +1,6 @@
 <?php
 require('../../bootstrap.php');
 
-
-
 include("../../menu.php");
 include("../../faltas/menu.php");
 ?>

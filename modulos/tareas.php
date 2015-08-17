@@ -1,5 +1,8 @@
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
+
 <div class='alert alert-warning'><p class="lead"><i class='fa fa-bell'> </i> Tareas Activas por Expulsión o Ausencia del Alumno</p><br />
 <?php
+
 $resultcurs = mysqli_query($db_con, $SQLcurso);
 	while($rowcurs = mysqli_fetch_array($resultcurs))
 	{

@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 if(isset($_POST['submit1'])) {	
 
 	if(!$asunto or !$texto or empty($profesor)) { 

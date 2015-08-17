@@ -1,10 +1,1 @@
-<?php
-require('../../bootstrap.php');
-
-
-if(!(stristr($_SESSION['cargo'],'1') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
-?>
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>

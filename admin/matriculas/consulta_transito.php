@@ -1,12 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-if(!(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'7') == TRUE) and !(stristr($_SESSION['cargo'],'8') == TRUE))
-{
-header('Location:'.'http://'.$config['dominio'].'/intranet/salir.php');
-exit;	
-}
-
+acl_acceso($_SESSION['cargo'], array(1, 7, 8));
 
 $PLUGIN_DATATABLES = 1;
 

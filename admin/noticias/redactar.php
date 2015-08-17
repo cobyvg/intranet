@@ -1,10 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-
 $profesor = $_SESSION ['profi'];
-
-setlocale(LC_TIME, "es_ES");
 
 if($_POST['token']) $token = $_POST['token'];
 if(!isset($token)) $token = time(); 

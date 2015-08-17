@@ -10,10 +10,8 @@ include("../menu.php");
 include("menu.php");
 ?>
 
-
-<?php if(isset($_POST['enviar'])) : ?>
-
 <?php
+if(isset($_POST['enviar'])) :
 $exp_unidad = explode('-->',$curso);
 $unidad = $exp_unidad[0];
 $asignatura = $exp_unidad[3];

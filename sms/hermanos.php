@@ -1,11 +1,12 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
+
 // Fechas y demás...
-		$fechasp0=explode("-",$_POST['fecha12']);
-		$fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
-		$fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
-		$fechasp2=explode("-",$_POST['fecha22']);
-		$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
-		$fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
+$fechasp0=explode("-",$_POST['fecha12']);
+$fechasp1=$fechasp0[2]."-".$fechasp0[1]."-".$fechasp0[0];
+$fechasp11=$fechasp0[0]."-".$fechasp0[1]."-".$fechasp0[2];
+$fechasp2=explode("-",$_POST['fecha22']);
+$fechasp3=$fechasp2[2]."-".$fechasp2[1]."-".$fechasp2[0];
+$fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
 
  $SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero FROM  FALTAS, alma, hermanos where FALTAS.claveal = alma.claveal and alma.telefono = hermanos.telefono and falta = 'F' and date(FALTAS.fecha) >= '$fechasp1' and date(FALTAS.fecha) <= '$fechasp3' group by FALTAS.claveal";
   //echo $SQLTEMP;

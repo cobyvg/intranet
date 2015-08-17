@@ -1,6 +1,1 @@
-<?php
-require('../../bootstrap.php');
-
-
-header('Location:'.'http://'.$config['dominio'].'/intranet/admin/fechorias/lfechorias.php');
-?>
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>

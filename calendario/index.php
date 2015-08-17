@@ -197,8 +197,8 @@ function randomColor() {
 
 $PLUGIN_DATETIMEPICKER = 1;
 $PLUGIN_COLORPICKER = 1;
-?>
-<?php include("../menu.php"); ?>
+
+include("../menu.php"); ?>
 
 	<div class="container">
 		
@@ -268,7 +268,6 @@ $PLUGIN_COLORPICKER = 1;
 		
 		
 		<?php
-		define('MOD_CALENDARIO', 1);
 		include('modales_insercion.php');
 		include('modales_edicion.php');
 		?>

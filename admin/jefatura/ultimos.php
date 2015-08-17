@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
 $tr = explode(" --> ",$alumno);
 $al = $tr[0];
 $clave = $tr[1];
