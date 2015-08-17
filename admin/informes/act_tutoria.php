@@ -5,7 +5,7 @@
 $tuto = mysqli_query($db_con, "SELECT tutor FROM FTUTORES WHERE unidad='$unidad'");
 $tut = mysqli_fetch_array($tuto);
 $tutor = $tut[0];
-if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'8') or $_SESSION['profi']==$tutor) {
+if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'2') or stristr($_SESSION['cargo'],'8') or $_SESSION['profi']==$tutor) {
 echo "<h3>Intervenciones de tutoría</h3>";
 if (stristr($_SESSION['cargo'],'1') or stristr($_SESSION['cargo'],'8')) {$prohibido="";}else{$prohibido=" and prohibido = '0'";}
 $alumno=mysqli_query($db_con, "select tutoria.fecha, accion, causa, tutoria.observaciones from tutoria where tutoria.claveal = '$claveal' $prohibido");

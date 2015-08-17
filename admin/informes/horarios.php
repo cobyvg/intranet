@@ -62,29 +62,27 @@ mysqli_query($db_con,"DROP TABLE asig_tmp");
 <br>
 
 <div class="table-responsive">
-<table class="table table-striped" style="width:auto">
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th class="col-sm-4">Asignatura</th>
 				<th class="col-sm-8">Profesor/a</th>
 			</tr>
 		</thead>
-<?php 
-	//echo "<br><div class='row'><div class='span8 offset2'><table class='table table-striped'>";
-				
-$comb = mysqli_query($db_con,"select combasi, unidad, curso from alma where claveal = '$claveal'");
-$combasi = mysqli_fetch_array($comb);
-$tr_combasi = explode(":",$combasi[0]);
-foreach ($tr_combasi as $codigo){
-	  $SQL = mysqli_query($db_con,"select distinct materia, nivel, profesor from profesores, asignaturas where materia= nombre and grupo = '".$combasi[1]."' and codigo = '$codigo' and abrev not like '%\_%' and curso = '".$combasi[2]."'");
-
-  while ($rowasig = mysqli_fetch_array($SQL))
-        {
-	printf ("<tr><td>$rowasig[0]</td><td class='text-info'>$rowasig[2]</tr>");				
-	}	
-}
-
-echo "</table>
-</div>";
-?>
+		<tbody>
+		<?php $result = mysqli_query($db_con, "SELECT combasi, unidad, curso FROM alma WHERE claveal='$claveal' LIMIT 1"); ?>
+		<?php $combasi = mysqli_fetch_array($result); ?>
+		<?php $exp_combasi = explode(":", $combasi['combasi']); ?>
+		<?php foreach($exp_combasi as $codigo): ?>
+		<?php $result = mysqli_query($db_con, "SELECT DISTINCT materia, profesor FROM profesores, asignaturas WHERE materia= nombre AND grupo = '".$combasi['unidad']."' AND codigo = '$codigo' AND abrev NOT LIKE '%\_%' AND curso = '".$combasi['curso']."' ORDER BY materia ASC"); ?>
+			<?php while($row = mysqli_fetch_array($result)): ?>
+			<tr>
+				<td><?php echo $row['materia']; ?></td>
+				<td class="text-info"><?php echo $row['profesor']; ?></td>
+			</tr>
+			<?php endwhile; ?>
+		<?php endforeach; ?>	
+		</tbody>		
+	</table>
+</div>
 <!-- FIN MODULO HORARIO Y PROFESORES -->

@@ -58,6 +58,11 @@ if (!$claveal) {
 	$nombrepil = trim($nombrepila);
 } 
 
+// COMPROBAMOS SI ES EL TUTOR
+$esTutor = 0;
+$result = mysqli_query($db_con, "SELECT * FROM FTUTORES WHERE tutor='".$_SESSION['profi']."' AND unidad = '$unidad'");
+if (mysqli_num_rows($result)) $esTutor = 1;
+
 
 $PLUGIN_DATATABLES = 1;
 
@@ -122,7 +127,18 @@ include('../../menu.php');
 						  <dt>Teléfono urgencias</dt>
 						  <dd><?php echo ($row['telefonourgencia'] != "") ? '<a href="tel:'.$row['telefonourgencia'].'">'.$row['telefonourgencia'].'</a>': '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						  <dt>Correo electrónico</dt>
-						  <dd><?php echo ($row['correo'] != "") ? '<a href="mailto:'.$row['correo'].'">'.$row['correo'].'</a>' : ($row2['correo'] != "") ? '<a href="mailto:'.$row2['correo'].'">'.$row2['correo'].'</a>' : '<span class="text-muted">Sin registrar</span>'; ?></dd>
+							<?php 
+							if ($row['correo'] != "") {
+								$correo = '<a href="mailto:'.$row['correo'].'">'.$row['correo'].'</a>';
+							}
+							elseif($row2['correo'] != "") {
+								$correo = '<a href="mailto:'.$row2['correo'].'">'.$row2['correo'].'</a>';
+							}
+							else {
+								$correo = '<span class="text-muted">Sin registrar</span>';
+							}
+							?>
+						  <dd><?php echo $correo ?></dd>
 						  <dt>Representante legal</dt>
 						  <dd><?php echo ($row['padre'] != "") ? $row['padre']: '<span class="text-muted">Sin registrar</span>'; ?></dd>
 						</dl>
@@ -193,8 +209,10 @@ include('../../menu.php');
 				  <li <?php echo ($tab5) ? 'class="active"' : ''; ?>><a href="#horario" role="tab" data-toggle="tab">Horario y profesores</a></li>
 				  <?php endif; ?>
 				  <?php if (!($act_tutoria == "" && $todos == "")): ?>
-				   <?php if(!isset($tab1) && !isset($tab2) && !isset($tab3) && !isset($tab4) && !isset($tab5)) $tab6 = 1; ?>
+				  <?php if(!acl_permiso($_SESSION['cargo'], array(1)) || (!acl_permiso($_SESSION['cargo'], array(2)) && $esTutor)): ?>
+				  <?php if(!isset($tab1) && !isset($tab2) && !isset($tab3) && !isset($tab4) && !isset($tab5)) $tab6 = 1; ?>
 				  <li <?php echo ($tab6) ? 'class="active"' : ''; ?>><a href="#intervenciones" role="tab" data-toggle="tab">Intervenciones</a></li>
+				  <?php endif; ?>
 				  <?php endif; ?>
 				</ul>
 				
@@ -215,18 +233,11 @@ include('../../menu.php');
 				  <div class="tab-pane <?php echo ($tab5) ? 'active' : ''; ?>" id="horario">
 				  <?php if (!($horarios== "" and $todos == "")) include("horarios.php"); ?>
 				  </div>
+				  <?php if(!acl_permiso($_SESSION['cargo'], array(1)) || (!acl_permiso($_SESSION['cargo'], array(2)) && $esTutor)): ?>
 				  <div class="tab-pane <?php echo ($tab6) ? 'active' : ''; ?>" id="intervenciones">
-				  <?php 
-				  if (!($act_tutoria== "" and $todos == "")) {
-				  	$tutori = $_SESSION['profi'];
-				    $activ = mysqli_query($db_con, "select * from FTUTORES where tutor='$tutori' and unidad = '$unidad'");
-				    
-				    if (mysqli_num_rows($activ) > 0 || stristr($_SESSION['cargo'],'1') == TRUE) {
-				    	include("act_tutoria.php");	
-				    }
-				  }
-				  ?>
+				  <?php if (!($act_tutoria== "" and $todos == ""))include("act_tutoria.php"); ?>
 				  </div>
+				  <?php endif; ?>
 				 </div>
 				
 			</div>
