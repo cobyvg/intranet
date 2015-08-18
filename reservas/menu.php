@@ -31,10 +31,10 @@ if (isset($_GET['servicio_aula'])) {$servicio_aula = $_GET['servicio_aula'];}els
 					<p>El módulo se configura bien desde el menú en la página de Administración de 
 					la Intranet (<em><strong>Configuración --> Gestión de Reservas</strong></em>) o 
 					bien en la propia página de las Reservas (<em><strong>Gestión de Reservas --> 
-					Crear tipos de Recursos</strong></em>). Defines en primer lugar los <em>Tipos 
-					de Recurso</em> que vas abrir al sistema (Ordenadores TIC y Medios Audiovisuales 
-					aparecen por defecto). Una vez definidos los Tipos de Recursos, crea los 
-					<em>Elementos</em> (Carrito nº 1, Videoproyector nº 1, etc.) dentro de cada Tipo.
+					Administración de recursos</strong></em>). Defines en primer lugar los <em>tipos 
+					de recursos</em> que vas abrir al sistema (Ordenadores TIC y Medios Audiovisuales 
+					aparecen por defecto). Una vez definidos los tipos de recursos, crea los 
+					<em>elementos</em> (Carrito nº 1, Videoproyector nº 1, etc.) dentro de cada tipo.
 					Puedes añadir una descripción o información más precisa en el campo 
 					<em><strong>Observaciones</strong></em>, y aparecerá bajo el nombre del recurso 
 					en la página de entrada del módulo de reservas.</p>
@@ -42,7 +42,7 @@ if (isset($_GET['servicio_aula'])) {$servicio_aula = $_GET['servicio_aula'];}els
 					<?php endif; ?>
 					<p>La reserva de Aulas y Dependencias del Centro está integrada con el módulo de 
 					Horarios. Puede funcionar sin la importación de los horarios si creamos las Aulas 
-					desde la opción del menú 'Crear/Ocultar/Eliminar Aulas/Dependencias', pero está 
+					desde la opción del menú 'Administrar Aulas y Dependencias', pero está 
 					pensado para tomar la lista de aulas desde el horario que hemos importado. Por 
 					defecto, todas las aulas del Centro aparecen en la lista como reservables. Si 
 					deseamos ocultar aulas del sistema utilizamos la opción mencionada del menú; 
@@ -123,11 +123,9 @@ if (isset($_GET['servicio_aula'])) {$servicio_aula = $_GET['servicio_aula'];}els
 
 	<li
 	<?php echo (strstr($_SERVER['REQUEST_URI'],'ocultar.php')==TRUE) ? ' class="active"' : ''; ?>><a
-		href="//<?php echo $config['dominio']; ?>/intranet/reservas/ocultar.php">Crear /
-	Ocultar / Eliminar Aulas/Dependencias</a></li>
+		href="//<?php echo $config['dominio']; ?>/intranet/reservas/ocultar.php">Administración de aulas y dependencias</a></li>
 	<?php endif; ?>
-	<li><a href="//<?php echo $config['dominio']; ?>/intranet/reservas/gestion_tipo.php">Crear Tipos de Recursos</a></li>
-	<li><a href="//<?php echo $config['dominio']; ?>/intranet/reservas/gestion_elementos.php">Crear Elementos de un Tipo de Recurso</a></li>
+	<li><a href="//<?php echo $config['dominio']; ?>/intranet/reservas/gestion_tipo.php">Administración de recursos</a></li>
 	</ul>
 	</li>
 	<?php endif; ?>
