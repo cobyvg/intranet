@@ -11,9 +11,6 @@ while ($faltas = mysqli_fetch_array($faltas1))
 $fecha20 = explode("-",$faltas[0]); 
 $fecha = "$fecha20[2]/$fecha20[1]/$fecha20[0]";
 $hora_al = $faltas[1];
-if ($hora_al>3) {
-	$hora_al+=1;
-}
 
 $tramos0 = "select tramo from tramos where hora = '$hora_al'";
 //echo $tramos0;

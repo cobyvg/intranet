@@ -11,7 +11,6 @@ $profe = explode(", ",$profeso);
 
 include("../../menu.php");
 ?>
-
 	<div class="container">
 		
 		<!-- TITULO DE LA PAGINA -->
@@ -44,7 +43,7 @@ include("../../menu.php");
 								<th><?php echo $desc; ?></th>
 								<?php for($i = 1; $i < 6; $i++): ?>
 								<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, a_grupo, a_aula, n_aula FROM horw WHERE prof='$profeso' AND dia='$i' AND hora='$hora'"); ?>
-								<td width="20%">
+								<td width="20%" style="border-right:2px solid #ddd;">
 						 			<?php while($row = mysqli_fetch_array($result)): ?>
 						 			<abbr data-bs="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr><br>
 						 			<?php echo (!empty($row['n_aula']) && $row['n_aula'] != 'Sin asignar o sin aula' && $row['n_aula'] != 'NULL') ? '<abbr class="pull-right text-danger" data-bs="tooltip" title="'.$row['n_aula'].'">'.$row['a_aula'].'</abbr>' : ''; ?>

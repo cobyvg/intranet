@@ -142,7 +142,7 @@ foreach ($directorio as $archivo) {
 	        	$F_FALASI = fecha_seneca($faltas[0]);
 	        	
 	        	// Obtenemos el código de tramo
-	        	if ($faltas[1] > 3) $faltas[1]++; // No es lo más óptimo, pero soluciona el problema... :/
+	        	// if ($faltas[1] > 3) $faltas[1]++; // No es lo más óptimo, pero soluciona el problema... :/
 	        	$result_tramos = mysqli_query($db_con, "SELECT tramo FROM tramos WHERE hora='$faltas[1]'");
 	        	$tramos = mysqli_fetch_array($result_tramos);
 	        	

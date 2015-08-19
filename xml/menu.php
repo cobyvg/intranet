@@ -20,7 +20,6 @@
 	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
 	<?php endif; ?>
 	<li><a href="jefe/index_festivos.php">Importar días festivos</a></li>
-	<li><a href="jefe/index_jornada.php">Importar Jornada</a></li> 
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
 	
 	<li class="nav-header">Actualización</li>

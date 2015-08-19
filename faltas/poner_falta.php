@@ -64,7 +64,7 @@ foreach($_POST as $clave => $valor)
 		$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$claveal' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))");
 		if (mysqli_num_rows($extraescolar) > '0') {
 			while($actividad = mysqli_fetch_array($extraescolar)){
-				$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from jornada where tramo = '$hora') and horafin>= (select hora_fin from jornada where tramo = '$hora')");
+				$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from tramos where hora = '$hora') and horafin>= (select hora_fin from tramos where hora = '$hora')");
 				if (mysqli_num_rows($tr)>0) {
 					$hay_actividad = 1;
 				}
@@ -77,8 +77,15 @@ foreach($_POST as $clave => $valor)
 		if (mysqli_num_rows($fiesta) > '0') {
 			$dia_festivo='1';
 		}
-
-		if($dia_festivo=='1')
+		
+		$hoy_num = strtotime($hoy);
+		$inicio_num = strtotime($config['curso_inicio']);
+		$fin_num = strtotime($config['curso_fin']);
+		//echo "$hoy_num $inicio_num $fin_num";
+		if (($hoy_num < $inicio_num) or ($hoy_num > $fin_num)) {
+			$mens_fecha = "Sólo es posible poner Faltas en el <b>Curso Escolar actual</b>. <br>Comprueba la Fecha: <b>$hoy</b>";
+		}
+		elseif($dia_festivo=='1')
 		{
 			$mens_fecha = "No es posible poner Faltas en un <b>Día Festivo</b> o en <b>Vacaciones</b>. <br>Comprueba la Fecha: <b>$hoy</b>";
 		}

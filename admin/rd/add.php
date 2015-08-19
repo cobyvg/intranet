@@ -125,7 +125,7 @@ else{
 }
 $fecha2 = date ( 'Y-m-d' );
 $hoy = formatea_fecha ( $fecha2 );
-$d_rd0 = mysqli_query($db_con, "select hora, hora_inicio from horw, jornada where hora = tramo  and prof = '$profesor' and c_asig = '51'");
+$d_rd0 = mysqli_query($db_con, "select hora, hora_inicio from tramos where tramos.hora = (select horw.hora from horw where prof = '$profesor' and c_asig = '51')");
 $d_rd = mysqli_fetch_array($d_rd0);
 $hor = $d_rd[0];
 $hora = $d_rd[1];

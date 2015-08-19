@@ -330,3 +330,19 @@ if (! mysqli_num_rows($actua)) {
 	unset($idea);
 	unset($n);
 }
+
+
+/*
+ @descripcion: Integración de la tabla Jornada en la tabla Tramos.
+ @fecha: 18 de agosto de 2015
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminacion tabla jornada'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Eliminacion tabla jornada', NOW())");
+	
+	$query_j = mysqli_query($db_con,"select hora_inicio from tramos");
+	if (mysqli_num_rows($query_j)>0) {	}
+	else{
+		mysqli_query($db_con,"ALTER TABLE `tramos` ADD `hora_inicio` VARCHAR(5) NOT NULL , ADD `hora_fin` VARCHAR(5) NOT NULL");
+	}
+}

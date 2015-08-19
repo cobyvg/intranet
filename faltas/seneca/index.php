@@ -142,10 +142,10 @@ include("../../pie.php");
 ?>   
 
 <?php 
-$exp_inicio_curso = explode('-', i);
+$exp_inicio_curso = explode('-', $config['curso_inicio']);
 $inicio_curso = $exp_inicio_curso[2].'/'.$exp_inicio_curso[1].'/'.$exp_inicio_curso[0];
 
-$exp_fin_curso = explode('-', );
+$exp_fin_curso = explode('-', $config['curso_fin']);
 $fin_curso = $exp_fin_curso[2].'/'.$exp_fin_curso[1].'/'.$exp_fin_curso[0];
 
 $result = mysqli_query($db_con, "SELECT fecha FROM festivos ORDER BY fecha ASC");

@@ -131,15 +131,11 @@ if (isset($_POST['submit'])) {
 					$L_DIACOM = $tag_ldiacom->item(0)->nodeValue;
 
 					// Obtenemos el tramo horario
-					$result = mysqli_query($db_con, "SELECT hora FROM tramos WHERE tramo = '$X_TRAMO' and hora not like '4%' LIMIT 1");
+					$result = mysqli_query($db_con, "SELECT hora FROM tramos WHERE tramo = '$X_TRAMO' LIMIT 1");
 					$row = mysqli_fetch_assoc($result);
-					if ($row['hora']>3) {
-						$hora_tramo = $row['hora']-1;
-					}
-					else{
+					
 						$hora_tramo = $row['hora'];
-					}
-
+					
 					mysqli_free_result($result);
 
 					if ($C_TIPFAL == 'I') {

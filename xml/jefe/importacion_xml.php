@@ -280,6 +280,8 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
   `hora` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
   `horini` int(4) unsigned NOT NULL,
   `horfin` int(4) unsigned NOT NULL,
+  `hora_inicio` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
+  `hora_fin` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`tramo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 		mysqli_query($db_con, "truncate TABLE tramos");				
@@ -293,7 +295,24 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 			$horini = utf8_decode($tramos->dato[2]);
 			$horfin = utf8_decode($tramos->dato[3]);
 			
-			$result = mysqli_query($db_con, "INSERT tramos (tramo, hora, horini, horfin) VALUES ('$idtramo','$nomtramo','$horini','$horfin')");
+			$div_ini = floor($horini / 60);
+			$rest_ini = $horini % 60;
+			$div_fin = floor($horfin / 60);
+			$rest_fin = $horfin % 60;
+			
+			$hora_inicio = "$div_ini:$rest_ini";
+			$hora_fin = "$div_fin:$rest_fin";
+			
+			if (strstr($nomtramo,"R")==TRUE) {	$nomtramo="R";	}
+			if (strstr($nomtramo,"5")==TRUE) {	$nomtramo="4";	}
+			if (strstr($nomtramo,"6")==TRUE) {	$nomtramo="5";	}
+			if (strstr($nomtramo,"7")==TRUE) {	$nomtramo="6";	}
+			if (strstr($nomtramo,"T1")==TRUE) {	$nomtramo="7";	}
+			if (strstr($nomtramo,"T2")==TRUE) {	$nomtramo="8";	}
+			if (strstr($nomtramo,"T3")==TRUE) {	$nomtramo="9";	}
+			if (strstr($nomtramo,"T4")==TRUE) {	$nomtramo="10";	}
+			
+			$result = mysqli_query($db_con, "INSERT tramos (tramo, hora, horini, horfin, hora_inicio, hora_fin) VALUES ('$idtramo','$nomtramo','$horini','$horfin','$hora_inicio','$hora_fin')");
 			if (!$result) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP

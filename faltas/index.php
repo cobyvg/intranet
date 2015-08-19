@@ -15,8 +15,8 @@ if(empty($hora_dia)){
 	$hora = date("G");// hora ahora
 	$minutos = date("i");
 
-	// Se han importado los daos de la jornada escolar desde Séneca
-	$jor = mysqli_query($db_con,"select tramo, hora_inicio, hora_fin from jornada");
+	// Se han importado los daos de la tramos escolar desde Séneca
+	$jor = mysqli_query($db_con,"select hora, hora_inicio, hora_fin from tramos");
 	if(mysqli_num_rows($jor)>0){
 		while($jornad = mysqli_fetch_array($jor)){
 			$hora_real = $hora."".$minutos;
@@ -26,11 +26,13 @@ if(empty($hora_dia)){
 			if( $hora_real > $h_ini and $hora_real < $h_fin){
 				$hora_dia = $jornad[0];
 			}
+			else{
+				$hora_dia = $jornad[0];
+			}
 		}
 
 	}
 	else{
-
 		// No se han importado: se asume el horario del Monterroso
 
 		if(($hora == '8' and $minutos > 15 ) or ($hora == '9' and $minutos < 15 ) ){$hora_dia = '1';}
@@ -168,7 +170,7 @@ else{
 		?>
 <h2 class="text-muted text-center"><span class="fa fa-clock-o fa-5x"></span>
 <br>
-Sin alumnos en esta hora (<?php echo $hora_dia;?>ª)</h2>
+Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo "ª";?>)</h2>
 		<?php
 	}
 }
@@ -283,7 +285,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$row[0]' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))");
 			if (mysqli_num_rows($extraescolar) > '0') {
 				while($actividad = mysqli_fetch_array($extraescolar)){
-					$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from jornada where tramo = '$hora_dia') and horafin>= (select hora_fin from jornada where tramo = '$hora_dia')");
+					$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from tramos where tramo = '$hora_dia') and horafin>= (select hora_fin from tramos where tramo = '$hora_dia')");
 					if (mysqli_num_rows($tr)>0) {
 						$hay_actividad = 1;
 					}
@@ -393,19 +395,19 @@ El módulo de Faltas de Asistencia debe ser activado en la Configuración general 
 include("../pie.php");
 ?>
 
-<?php
+<?php 
 $exp_inicio_curso = explode('-', $config['curso_inicio']);
 $inicio_curso = $exp_inicio_curso[2].'/'.$exp_inicio_curso[1].'/'.$exp_inicio_curso[0];
 
 $exp_fin_curso = explode('-', $config['curso_fin']);
-$fin_curso = date('d/m/Y');
+$fin_curso = $exp_fin_curso[2].'/'.$exp_fin_curso[1].'/'.$exp_fin_curso[0];
 
 $result = mysqli_query($db_con, "SELECT fecha FROM festivos ORDER BY fecha ASC");
 $festivos = '';
 while ($row = mysqli_fetch_array($result)) {
 	$exp_festivo = explode('-', $row['fecha']);
 	$dia_festivo = $exp_festivo[2].'/'.$exp_festivo[1].'/'.$exp_festivo[0];
-
+	
 	$festivos .= '"'.$dia_festivo.'", ';
 }
 

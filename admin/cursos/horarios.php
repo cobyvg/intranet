@@ -39,7 +39,7 @@ include("../../menu.php");
 							<tr>
 								<th><?php echo $desc; ?></th>
 								<?php for($i = 1; $i < 6; $i++): ?>
-								<td width="20%">
+								<td width="20%" style="border-right:2px solid #ddd;">
 									<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, a_aula, n_aula FROM horw WHERE a_grupo='$curso' AND dia='$i' AND hora='$hora'"); ?>
 									<?php while($row = mysqli_fetch_array($result)): ?>
 									<?php echo '<div style="display: block; font-size: 0.9em; margin-bottom: 5px;">'; ?>

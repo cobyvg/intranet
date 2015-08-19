@@ -33,9 +33,9 @@
     				    <label for="view_as_user" class="col-sm-4 control-label" style="padding-top: 5px;">Ver como</label>
 						<div class="col-sm-8">
 							<select class="form-control" id="view_as_user" name="view_as_user" onchange="submit()" style="height: 30px; font-size: 86%;">
-								<?php $result = mysqli_query($db_con, "SELECT PROFESOR, idea FROM c_profes ORDER BY PROFESOR ASC"); ?>
+								<?php $result = mysqli_query($db_con, "SELECT nombre, idea FROM departamentos ORDER BY nombre ASC"); ?>
 								<?php while($row = mysqli_fetch_assoc($result)): ?>
-								<option value="<?php echo $row['PROFESOR']; ?>"<?php echo ($row['PROFESOR'] == $_SESSION['profi']) ? ' selected' : ''; ?>><?php echo $row['PROFESOR']; ?></option>
+								<option value="<?php echo $row['nombre']; ?>"<?php echo ($row['nombre'] == $_SESSION['profi']) ? ' selected' : ''; ?>><?php echo $row['nombre']; ?></option>
 								<?php endwhile; ?>
 								<?php mysqli_free_result($result); ?>
 							</select>

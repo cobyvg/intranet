@@ -89,7 +89,7 @@ while($i < $total - 2)
 					$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$clavealT' and cod_actividad in (select id from calendario where date(fechaini) >= date('$fecha1') and date(fechafin) <= date('$fecha1'))");
 					if (mysqli_num_rows($extraescolar) > '0') {
 						while($actividad = mysqli_fetch_array($extraescolar)){
-							$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from jornada where tramo = '$trozos[5]') and horafin>= (select hora_fin from jornada where tramo = '$trozos[5]')");
+							$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from tramos where hora = '$trozos[5]') and horafin>= (select hora_fin from tramos where hora = '$trozos[5]')");
 							if (mysqli_num_rows($tr)>0) {
 								$hay_actividad = 1;
 							}
@@ -154,7 +154,7 @@ VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombre
 							$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$claveal' and cod_actividad in (select id from calendario where date(fechaini) >= date('$fecha1') and date(fechafin) <= date('$fecha1'))");
 							if (mysqli_num_rows($extraescolar) > '0') {
 								while($actividad = mysqli_fetch_array($extraescolar)){
-									$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from jornada where tramo = '$trozos[5]') and horafin>= (select hora_fin from jornada where tramo = '$trozos[5]')");
+									$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from tramos where hora = '$trozos[5]') and horafin>= (select hora_fin from tramos where hora = '$trozos[5]')");
 									if (mysqli_num_rows($tr)>0) {
 										$hay_actividad = 1;
 									}
