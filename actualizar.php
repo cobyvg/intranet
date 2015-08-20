@@ -124,7 +124,7 @@ if (! mysqli_num_rows($actua)) {
 			mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, $n_servicio)."','1','0','Importado del Sistema TIC antiguo')");
 			$dat = mysqli_query($db_con,"select * from reservas.$nombre_largo");
 			while ($datos = mysqli_fetch_array($dat)) {
-				mysqli_query($db_con,"insert into $config['db_name'].reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");
+				mysqli_query($db_con,"insert into ".$config['db_name'].".reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");
 			}
 		}
 		
@@ -140,7 +140,7 @@ if (! mysqli_num_rows($actua)) {
 			mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, $n_servicio)."','2','0','Importado del Sistema de Medios antiguo')");		
 			$dat = mysqli_query($db_con,"select * from reservas.$nombre_largo");
 			while ($datos = mysqli_fetch_array($dat)) {
-				mysqli_query($db_con,"insert into $config['db_name'].reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");
+				mysqli_query($db_con,"insert into ".$config['db_name'].".reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");
 			}
 		}
 		
