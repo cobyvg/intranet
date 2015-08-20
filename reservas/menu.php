@@ -96,14 +96,15 @@ if (isset($_GET['servicio_aula'])) {$servicio_aula = $_GET['servicio_aula'];}els
 		</div>
 	</div>
 
+
 	<ul class="nav nav-tabs">
 	<?php
 	$rc = mysqli_query($db_con, "select tipo from reservas_tipos");
 	while ($srv = mysqli_fetch_array($rc)) {
 	?>
 	<li
-	<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php?recurso='.$srv[0].'')==TRUE) ? ' class="active"' : ''; ?>><a
-		href="//<?php echo $config['dominio']; ?>/intranet/reservas/index.php?recurso=<?php echo $srv[0];?>"><?php echo $srv[0];?></a></li>
+	<?php echo (strstr($_SERVER['REQUEST_URI'],'index.php?recurso='.urlencode($srv[0]))==TRUE) ? ' class="active"' : ''; ?>><a
+		href="//<?php echo $config['dominio']; ?>/intranet/reservas/index.php?recurso=<?php echo urlencode($srv[0]);?>"><?php echo $srv[0];?></a></li>
 	<?php
 	}
 	?>

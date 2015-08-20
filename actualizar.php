@@ -9,12 +9,18 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actualizacion` (
 
 
 /*
- @descripcion: Integración del sistema de reservas en base de datos principal.
- @fecha: 17 de julio de 2015
+ @descripcion: Sistema de reservas
+ @fecha: 20 de agosto de 2015
  */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Reservas en base de datos principal'");
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Sistema de reservas'");
 if (! mysqli_num_rows($actua)) {
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Reservas en base de datos principal', NOW())");
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Sistema de reservas', NOW())");
+	
+	// Eliminamos antigua actualización
+	$result = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Reservas en base de datos principal'");
+	if (! mysqli_num_rows($result)) {
+	 mysqli_query($db_con, "DELETE FROM actualizacion WHERE modulo = 'Reservas en base de datos principal' LIMIT 1");
+	}
 
 	// Estructura de tabla para la tabla `reservas`
 	
@@ -90,72 +96,111 @@ if (! mysqli_num_rows($actua)) {
 	) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 	
 	
-	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS ".$config['db_name'].".`reservas_tipos` (
-	`id` int(11) NOT NULL,
+	// CREACIÓN TABLA: RESERVAS_TIPOS
+	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `".$config['db_name']."`.`reservas_tipos` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
 	  `tipo` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
-	  `observaciones` VARCHAR(255) COLLATE latin1_spanish_ci NOT NULL 
-	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-	");
-	mysqli_query($db_con,"INSERT INTO ".$config['db_name'].".`reservas_tipos` (`id`, `tipo`) VALUES
-	(1, 'TIC'),
-	(2, 'Medios Audiovisuales');");
-	mysqli_query($db_con,"ALTER TABLE ".$config['db_name'].".`reservas_tipos`
-	 ADD PRIMARY KEY (`id`);");
-	mysqli_query($db_con,"ALTER TABLE ".$config['db_name'].".`reservas_tipos` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT");
+	  `observaciones` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
+	  PRIMARY KEY (`id`)
+	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
+	mysqli_query($db_con, "TRUNCATE TABLE `".$config['db_name']."`.`reservas_tipos`");
 	
-	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS ".$config['db_name'].".`reservas_elementos` (
-	`id` int(11) NOT NULL,
+	// CREACIÓN TABLA: RESERVAS_ELEMENTOS
+	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `".$config['db_name']."`.`reservas_elementos` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
 	  `elemento` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
 	  `id_tipo` tinyint(2) NOT NULL,
 	  `oculto` tinyint(1) NOT NULL DEFAULT '0',
-	  `observaciones` VARCHAR(255) COLLATE latin1_spanish_ci NOT NULL 
-	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
-	mysqli_query($db_con,"ALTER TABLE `reservas_elementos`
-	 ADD PRIMARY KEY (`id`)");
-	mysqli_query($db_con,"ALTER TABLE `reservas_elementos` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT");
+	  `observaciones` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
+	  PRIMARY KEY (`id`)
+	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
+	mysqli_query($db_con, "TRUNCATE TABLE `".$config['db_name']."`.`reservas_elementos`");
+	
+	// INSERTAMOS LOS TIPOS DE RESERVAS POR DEFECTO DE LA APLICACIÓN
+	mysqli_query($db_con,"INSERT INTO `".$config['db_name']."`.`reservas_tipos` (`id`, `tipo`, `observaciones`) VALUES
+	(1, 'TIC', ''),
+	(2, 'Medios Audiovisuales', '');");
 	
 	
-	$bck = mysqli_query($db_con,"show tables from reservas like 'carrito%'");
-	$num_carritos = 0;
-	while ($bk = mysqli_fetch_array($bck)) {
-		$nombre_largo = $bk[0];
-		$n_servicio = $nombre_largo;
-		if (stristr($n_servicio,"hor")==FALSE) {
-			mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, $n_servicio)."','1','0','Importado del Sistema TIC antiguo')");
-			$dat = mysqli_query($db_con,"select * from reservas.$nombre_largo");
-			while ($datos = mysqli_fetch_array($dat)) {
-				mysqli_query($db_con,"insert into $config['db_name'].reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");
-			}
-		}
-		
-		$num_carritos++;
+	// INSERTAMOS LOS CARRITOS TIC
+	$result = mysqli_query($db_con, "SHOW TABLES FROM `reservas` LIKE 'carrito%'");
+	if(! mysqli_num_rows($result)) {
+		$result = mysqli_query($db_con, "SHOW TABLES FROM `".$config['db_name']."` LIKE 'carrito%'");
 	}
 	
-	$bck = mysqli_query($db_con,"show tables from reservas like 'medio%'");
-	$num_medios = 0;
-	while ($bk = mysqli_fetch_array($bck)) {
-		$nombre_largo = $bk[0];
-		$n_servicio = $nombre_largo;
-		if (stristr($n_servicio,"hor")==FALSE) {
-			mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, $n_servicio)."','2','0','Importado del Sistema de Medios antiguo')");		
-			$dat = mysqli_query($db_con,"select * from reservas.$nombre_largo");
-			while ($datos = mysqli_fetch_array($dat)) {
-				mysqli_query($db_con,"insert into $config['db_name'].reservas(`id`, `eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('', '$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$n_servicio')");
-			}
+	$i = 1;
+	while ($row = mysqli_fetch_array($result)) {
+	
+		if ((stristr($row[0], 'hor') == FALSE)) {
+			$nomcarrito = mysqli_real_escape_string($db_con, $row[0]);
+			
+			mysqli_query($db_con, "INSERT INTO `".$config['db_name']."`.reservas_elementos (elemento, id_tipo, oculto, observaciones) VALUES ('TIC $i', '1', '0', '')");
+			
+			$i++;
 		}
 		
-		$num_medios++;
+	}
+	mysqli_free_result($result);
+	
+	// INSERTAMOS LOS MEDIOS AUDIOVISUALES
+	$result = mysqli_query($db_con, "SHOW TABLES FROM `reservas` LIKE 'medio%'");
+	if(! mysqli_num_rows($result)) {
+		$result = mysqli_query($db_con, "SHOW TABLES FROM `".$config['db_name']."` LIKE 'medio%'");
 	}
 	
+	$i = 1;
+	while ($row = mysqli_fetch_array($result)) {
+		
+		if ((stristr($row[0], 'hor') == FALSE)) {
+			$nommedio = mysqli_real_escape_string($db_con, $row[0]);
+			
+			mysqli_query($db_con, "INSERT INTO `".$config['db_name']."`.reservas_elementos (elemento, id_tipo, oculto, observaciones) VALUES ('Medio $i', '2', '0', '')");
+			
+			$i++;
+		}
+		
+	}
+	mysqli_free_result($result);
+	
+	// ELIMINACIÓN DE DATOS
+	
+	// ELIMINAMOS TABLAS DE AULAS Y DEPENDENCIAS 
+	$result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' ORDER BY n_aula ASC");
+	while ($row = mysqli_fetch_array($result)) {
+	
+		$nomdependencia = mysqli_real_escape_string($db_con, $row[0]);
+		mysqli_query($db_con, "DROP TABLE ".$config['db_name'].".`$nomdependencia`");
+		
+	}
+	mysqli_free_result($result);
+	
+	// ELIMINAMOS TABLAS DE CARRITOS TIC
+	$result = mysqli_query($db_con, "SHOW TABLES FROM `".$config['db_name']."` LIKE 'carrito%'");
+	while ($row = mysqli_fetch_array($result)) {
+	
+		$nomcarrito = mysqli_real_escape_string($db_con, $row[0]);
+		mysqli_query($db_con, "DROP TABLE ".$config['db_name'].".`$nomcarrito`");
+		
+	}
+	mysqli_free_result($result);
+	
+	// ELIMINAMOS TABLAS DE MEDIOS AUDIOVISUALES
+	$result = mysqli_query($db_con, "SHOW TABLES FROM `".$config['db_name']."` LIKE 'medio%'");
+	while ($row = mysqli_fetch_array($result)) {
+	
+		$nommedio = mysqli_real_escape_string($db_con, $row[0]);
+		mysqli_query($db_con, "DROP TABLE ".$config['db_name'].".`$nommedio`");
+		
+	}
+	mysqli_free_result($result);
+	
+	// ELIMINAMOS LA BASE DE DATOS DE RESERVAS
+	mysqli_query($db_con, "DROP DATABASE `reservas`");
+	
+	unset($nomcarrito);
+	unset($nommedio);
+	unset($i);
 
-	
-	// Recuperamos elementos del antiguo sistema de reservas.
-	for ($i = 1; $i < ($num_carritos+1); $i++) {
-				mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, 'TIC '.$i)."','1','0','')");
-	}
-	for ($i = 1; $i < ($num_medios+1); $i++) {
-				mysqli_query($db_con,"insert into reservas_elementos values ('','".mysqli_real_escape_string($db_con, 'Medio '.$i)."','2','0','')");
-	}
 }
 
 /*
