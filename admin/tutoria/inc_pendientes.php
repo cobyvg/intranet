@@ -1,69 +1,77 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 // Cobntrol de faltas leves reiteradas
-$rep0 = mysqli_query($db_con, "select id, Fechoria.claveal, count(*) as numero from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'Leve' and medida not like 'Sancionada' group by Fechoria.claveal");
-while ($rep = mysqli_fetch_array($rep0)) {
-	
-	if ($rep[2] > 4) {
-	$count_fech=1;		
-	$claveal = $rep[1];	
-	$alumno = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
+if($_SERVER['SERVER_NAME'] != 'iesbahiamarbella.es') {
+	$rep0 = mysqli_query($db_con, "select id, Fechoria.claveal, count(*) as numero from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'Leve' and medida not like 'Sancionada' group by Fechoria.claveal");
+	while ($rep = mysqli_fetch_array($rep0)) {
 		
-	$rowa = mysqli_fetch_array ( $alumno );
-	$asunto = "Reiteración en el mismo trimestre de cinco o más faltas leves";
-	$medida = "Amonestación escrita";
-	$apellidos = trim ( $rowa [0] );
-	$nombre = trim ( $rowa [1] );
-	$unidad = trim ( $rowa [2] );
-	$claveal = trim ( $rowa [4] );
-	$tfno = trim ( $rowa [5] );
-	$tfno_u = trim ( $rowa [6] );
-	$informa = $_SESSION ['profi'];
-	$grave = 'grave';
-	// SMS
-	$hora_f = date ( "G" );
-	if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '19') {
-		$sms_n = mysqli_query($db_con, "select max(id) from sms" );
-		$n_sms = mysqli_fetch_array ( $sms_n );
-		$extid = $n_sms [0] + 1;
-		
-		if (substr ( $tfno, 0, 1 ) == "6") {
-			$mobile = $tfno;
-		} else {
-			$mobile = $tfno_u;
+		if ($rep[2] > 4) {
+		$count_fech=1;		
+		$claveal = $rep[1];	
+		$alumno = mysqli_query($db_con, "SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
+			
+		$rowa = mysqli_fetch_array ( $alumno );
+		$asunto = "Reiteración en el mismo trimestre de cinco o más faltas leves";
+		$medida = "Amonestación escrita";
+		$apellidos = trim ( $rowa [0] );
+		$nombre = trim ( $rowa [1] );
+		$unidad = trim ( $rowa [2] );
+		$claveal = trim ( $rowa [4] );
+		$tfno = trim ( $rowa [5] );
+		$tfno_u = trim ( $rowa [6] );
+		$informa = $_SESSION ['profi'];
+		$grave = 'grave';
+		// SMS
+		$hora_f = date ( "G" );
+		if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '19') {
+			$sms_n = mysqli_query($db_con, "select max(id) from sms" );
+			$n_sms = mysqli_fetch_array ( $sms_n );
+			$extid = $n_sms [0] + 1;
+			
+			if (substr ( $tfno, 0, 1 ) == "6") {
+				$mobile = $tfno;
+			} else {
+				$mobile = $tfno_u;
+			}
+			$message = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, pongase en contacto con nosotros.";
+			
+			if(isset($config['mod_sms']) && $config['mod_sms']) {
+				mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
+				
+				// ENVIO DE SMS
+				require('../../lib/trendoo/sendsms.php');
+				$sms = new Trendoo_SMS();
+				$sms->sms_type = SMSTYPE_GOLD_PLUS;
+				$sms->add_recipient('+34'.$mobile);
+				$sms->message = $message;
+				$sms->sender = $config['mod_sms_id'];
+				$sms->set_immediate();
+				if ($sms->validate()) $sms->send();
+			}
 		}
-		$message = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, pongase en contacto con nosotros.";
-		mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
 		
-		// ENVIO DE SMS
-		require('../../lib/trendoo/sendsms.php');
-		$sms = new Trendoo_SMS();
-		$sms->sms_type = SMSTYPE_GOLD_PLUS;
-		$sms->add_recipient('+34'.$mobile);
-		$sms->message = $message;
-		$sms->sender = $config['mod_sms_id'];
-		$sms->set_immediate();
-		if ($sms->validate()) $sms->send();
-	}
-
-	$fecha2 = date ( 'Y-m-d' );
-	$observaciones = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
-	$accion = "Envío de SMS";
-	$causa = "Problemas de convivencia";
-	mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre . "','" . $informa . "','".$_SESSION['mod_tutoria']['unidad']."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
-
+		$fecha2 = date ( 'Y-m-d' );
+		
+		// Mensaje SMS a la base de datos
+		if(isset($config['mod_sms']) && $config['mod_sms']) {
+			$observaciones = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
+			$accion = "Envío de SMS";
+			$causa = "Problemas de convivencia";
+			
+			mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre . "','" . $informa . "','".$_SESSION['mod_tutoria']['unidad']."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
+		}
+		
+		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','grave','" . $medida . "','0')";
+		mysqli_query($db_con, $query );	
+		
+		// Actualizamos la Fechoría para amortizarla
+		$rep1 = mysqli_query($db_con, "select id from Fechoria where claveal = '$claveal' and grave = 'Leve' and medida not like 'Sancionada'");
+		while ($rep11 = mysqli_fetch_array($rep1)) {
+			mysqli_query($db_con, "update Fechoria set medida = 'Sancionada' where id = '$rep11[0]'");
+		}	
+		}
 	
-	// Mensaje SMS a la base de datos
-	$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','grave','" . $medida . "','0')";
-	mysqli_query($db_con, $query );	
-	
-	// Actualizamos la Fechoría para amortizarla
-	$rep1 = mysqli_query($db_con, "select id from Fechoria where claveal = '$claveal' and grave = 'Leve' and medida not like 'Sancionada'");
-	while ($rep11 = mysqli_fetch_array($rep1)) {
-		mysqli_query($db_con, "update Fechoria set medida = 'Sancionada' where id = '$rep11[0]'");
-	}	
 	}
-
 }
 
 // Problemas varios de convivencia

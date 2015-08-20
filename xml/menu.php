@@ -52,17 +52,16 @@
 	</a></li>	
 	<?php endif; ?>
 	<li><a href="jefe/informes/accesos_alumnos.php">Informe de accesos</a></li>
-
+	
 	<li class="nav-header">Notas de evaluación</li>
-	<li>
-	<a href="jefe/index_notas.php">Importar Calificaciones</a></li>
+	<li><a href="jefe/index_notas.php">Importar Calificaciones</a></li>
 	
 	<li class="nav-header">Bases de datos</li>
 	<li><a href="../config/config_datos.php">Bases de datos de cursos anteriores</a></li>
 	<li><a href="jefe/copia_db/index.php">Copias de seguridad</a></li>
-	</a></li>
+	
+	<?php if(isset($config['mod_sms']) && $config['mod_sms']): ?>
 	<li class="nav-header">SMS</li>
-		<?php if(isset($config['mod_sms']) && $config['mod_sms']): ?>
 	<li><a href="jefe/index_sms.php">Información envíos SMS</a></li> 
 	<?php endif; ?>
 </ul>
