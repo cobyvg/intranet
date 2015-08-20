@@ -1,4 +1,4 @@
-# [Intranet del Monterroso](http://iesmonterroso.org/intranet_ies/)
+# [Intranet del Monterroso](http://iesmonterroso.github.io/intranet/)
 
 Lo que aquí llamamos la Intranet del Monterroso es una aplicación web creada y probada a lo largo de los años en nuestro Centro. Nació dentro del Programa de Autoevaluación y Mejora de la Consejería de Educación de la Junta de Andalucía, y ha sido pensada para facilitar y simplificar el trabajo diario de los profesores en general.
 
@@ -9,7 +9,6 @@ La Intranet se ha ajustado a las exigencias y necesidades del IES Monterroso, pe
 
 ## Requisitos
 
-* Sistema Operativo basado en Linux: [Debian](https://www.debian.org/index.es.html) / [CentOS](http://www.centos.org)
 * Servidor Web: [Apache (versión 2 o superior)](http://httpd.apache.org/) 
 * Versión de PHP: [PHP 5.3 o superior](http://www.php.net/)
 * Base de datos: [MySQL 5 o superior](http://www.php.net/)
@@ -42,7 +41,7 @@ La aplicación ha sido pensada también para realizar tareas específicas de un 
 
 ## Notas de la instalación
 
-* El primer requisito para la instalación es tener dónde hacerlo. Hay dos posibilidades. La primera es instalar la aplicación en un servidor dentro del mismo Centro; la segunda es alojarla en un servidor externo contratado con alguna de las empresas que ofrecen servicios web (Nominalia, Arsys, etc.). Si optamos por la primera opción, el Centro debe disponer de una máquina (el Servidor) y una línea propia de ADSL (preferiblemente con una dirección IP estática, aunque no es necesario). Debe también disponer de un Dominio (iesmonterroso.org), y este dominio debe apuntar a la IP de vuestro ADSL. Además, debéis redirigir todos los Puertos del Router ADSL hacia la dirección IP del Servidor. Ideas básicas sobre instalación de un Servidor Linux preparado para estas tareas la podéis encontrar en nuestra página principal, concretamente aquí.
+* El primer requisito para la instalación es tener dónde hacerlo. Hay dos posibilidades. La primera es instalar la aplicación en un servidor dentro del mismo Centro; la segunda es alojarla en un servidor externo contratado con alguna de las empresas que ofrecen servicios de alojamiento web. Si optamos por la primera opción, el Centro debe disponer de una máquina (el Servidor) y una línea propia de ADSL (preferiblemente con una dirección IP estática, aunque no es necesario). Debe también disponer de un Dominio (iesmonterroso.org), y este dominio debe apuntar a la IP de vuestro ADSL. Además, debéis redirigir todos los Puertos del Router ADSL hacia la dirección IP del Servidor. Ideas básicas sobre instalación de un Servidor Linux preparado para estas tareas la podéis encontrar en nuestra página principal, concretamente aquí.
 * El segundo requisito, opcional pero recomendable, es tener un Horario que pueda ser exportado a la Base de datos de la aplicación. La Intranet está preparada para trabajar con Horw, pero la mayoría de las aplicaciones que generan horarios pueden importar datos desde Séneca, por lo que debería ser posible trabajar con las mismas. 
 Si hemos optado por incorporar el horario de Horw, es esencial que se den dos condiciones por razones de compatibilidad con Séneca:
 *La primera es que los nombres de los profesores y el nombre de los grupos sean los mismos en Séneca que en Horw, exactamente los mismos. 
@@ -51,11 +50,9 @@ Si hemos optado por incorporar el horario de Horw, es esencial que se den dos co
 Por otro lado, se puede usar la Intranet sin horario, aunque las funciones quedan reducidas.
 
 * Descargamos el archivo comprimido desde el enlace de Descargas, lo descomprimimos y colocamos los archivos en el directorio de nuestro servidor local o remoto. La aplicación necesita escribir y modificar archivos, por ejemplo a la hora de importar los datos de Séneca o cambiar el archivo de configuración. Por esa razón, el directorio donde se colocan los archivos de la Intranet debe tener permiso de escritura ( en un sistema con Linux instalado, podemos hacerlo fácilmente con el comando chmod 777 -R /ruta_de_la_aplicacion/intranet/* ).
-* Vamos a la dirección de la Intranet, por ejemplo [http://iesmonterroso.org/intranet/](http://iesmonterroso.org/intranet/). La primera vez que se ejecuta la aplicación se presenta la página de configuración. Lo más importante de esta página es el nombre del dominio donde se encuentra la Intranet ( en nuestro caso, iesmonterroso.org), así como el usuario y contraseña de MySQL para crear las bases de datos. Una vez completada la configuración, se procede al registro de las Bases de datos. Si todo ha ido bien, podéis empezar la importación de datos de Alumnos y Profesores de Séneca desde la página de Administración de la Intranet.
-* El único usuario creado por la instalación, y el que por lo tanto debéis utilizar es `admin`, contraseña `12345678`. Entrando como admin, dirigiros a la página de administración de la Intranet y comenzar el proceso de importación de los datos de Séneca. En la propia página de Administración de la Intranet tenéis información sobre los archivos que debéis descargar de Séneca, así como el lugar de Séneca desde el que podéis bajaros cada uno de ellos.
+* Vamos a la dirección de la Intranet, por ejemplo [http://iesmonterroso.org/intranet/](http://iesmonterroso.org/intranet/). La primera vez que se ejecuta la aplicación se presenta la página de instalación. Si todo ha ido bien, podéis empezar la importación de datos de Alumnos y Profesores de Séneca desde la página de Administración de la Intranet. En la propia página de Administración de la Intranet tenéis información sobre los archivos que debéis descargar de Séneca, así como el lugar de Séneca desde el que podéis bajaros cada uno de ellos.
 * Una vez importados los datos de alumnos, profesores , departamentos y, llegado el caso, el horario del Centro debéis ir a la página de Perfiles de los Profesores desde la misma página de Administración de la Intranet. Seleccionar el perfil o perfiles de cada profesor (puede tener varios, no hay problema). Marcar también los Tutores y elegir su grupo.
 * Recordad que todos los miembros del Equipo Directivo tienen el perfil de Administradores de la Aplicación. A partir de este momento, la Intranet está operativa y los profesores ya pueden entrar con su usuario IdEA (el usuario de Séneca) y el DNI. La primera vez que entran se les obliga a cambiar la contraseña, y es aconsejable que elijan como nueva contraseña la que usan para entrar en Séneca.
-* La Intranet usa las fotos de los alumnos en unos cuantos módulos, por lo que es una buena idea subirlas a la aplicación. Para hacerlo, necesitáis crear un archivo comprimido con las fotos de los niños. Las fotos de los alumnos deben tener el formato siguiente: NIE (el Número de Identificación que Séneca asigna a cada alumno).jpg (por ejemplo, 7264024.jpg). Con el archivo comprimido nos vamos a la Administración de la Intranet --> Subir fotos de Alumnos y procedemos.
 
 
 ## Autores
