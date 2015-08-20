@@ -287,7 +287,8 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 		mysqli_query($db_con, "truncate TABLE tramos");				
 		
 		$tabla = 'tramos'; // Descripción del trabajo para la barra de progreso
-				
+		
+		$i = 1;
 		foreach ($xml->BLOQUE_DATOS->grupo_datos[6]->grupo_datos as $tramos) {
 		
 			$idtramo = utf8_decode($tramos->dato[0]);
@@ -303,17 +304,14 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 			$hora_inicio = "$div_ini:$rest_ini";
 			$hora_fin = "$div_fin:$rest_fin";
 			
-			if (strstr($nomtramo,"R")==TRUE) {	$nomtramo="R";	}
-			if (strstr($nomtramo,"5")==TRUE) {	$nomtramo="4";	}
-			if (strstr($nomtramo,"6")==TRUE) {	$nomtramo="5";	}
-			if (strstr($nomtramo,"7")==TRUE) {	$nomtramo="6";	}
-			if (strstr($nomtramo,"T1")==TRUE) {	$nomtramo="7";	}
-			if (strstr($nomtramo,"T2")==TRUE) {	$nomtramo="8";	}
-			if (strstr($nomtramo,"T3")==TRUE) {	$nomtramo="9";	}
-			if (strstr($nomtramo,"T4")==TRUE) {	$nomtramo="10";	}
+			if($i == 4) $numtramo = 'R';
+			elseif($i > 4) $numtramo = $i-1;
+			else $numtramo = $i;
 			
-			$result = mysqli_query($db_con, "INSERT tramos (tramo, hora, horini, horfin, hora_inicio, hora_fin) VALUES ('$idtramo','$nomtramo','$horini','$horfin','$hora_inicio','$hora_fin')");
+			$result = mysqli_query($db_con, "INSERT tramos (tramo, hora, horini, horfin, hora_inicio, hora_fin) VALUES ('$idtramo','$numtramo','$horini','$horfin','$hora_inicio','$hora_fin')");
 			if (!$result) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
+			
+			$i++;
 			
 			// Vacía los búferes de escritura de PHP
 			
@@ -321,6 +319,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 			flush();
 			ob_flush();
 		}
+		unset($i);
 		
 		
 		/* ----------------------------------------------------------------------
