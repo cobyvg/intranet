@@ -43,7 +43,7 @@ foreach ($tr_combasi as $codigo){
 				<th nowrap class="text-warning"><?php echo $desc; ?></th>
 				<?php for($i = 1; $i < 6; $i++): ?>
 				<td width="20%">
-					<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula, n_aula FROM horw WHERE (a_grupo=(select unidad from alma where claveal = '$claveal') or a_grupo = (select distinct a_grupo from horw where c_asig='25204' LIMIT 1) or a_grupo = (select distinct a_grupo from horw where c_asig='25226' LIMIT 1)) AND dia='$i' AND hora='$hora' and c_asig in (select codigo from asig_tmp)");?>
+					<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula, n_aula FROM horw WHERE (a_grupo=(select unidad from alma where claveal = '$claveal')) AND dia='$i' AND hora='$hora' and c_asig in (select codigo from asig_tmp)");?>
 					<?php while($row = mysqli_fetch_array($result)): ?>
 					<?php echo $row[0]."<div class='text-success' data-bs='tooltip' title='".$row[3]."'>".$row[2]."</div>"; ?>
 					<?php endwhile; ?>
