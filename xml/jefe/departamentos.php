@@ -109,7 +109,7 @@ if ($total !== 0)
 	echo "<div class='form-group success'><p class='help-block' style='text-align:left'>Tabla <strong>c_profes</strong>: los nuevos Profesores han sido añadidos a la tabla de usuarios de la Intranet. <br>Comprueba en la lista de abajo los registros creados:</p></div>";
 while  ($row1= mysqli_fetch_array($result1))
  {
-$SQL2 = "INSERT INTO c_profes (profesor, dni, pass, idea) VALUES (\"". $row1[0]. "\",\"". $row1[1] . "\",\"". $row1[1] . "\",\"". $row1[2] . "\")";
+$SQL2 = "INSERT INTO c_profes (profesor, dni, pass, idea) VALUES (\"". $row1[0]. "\",\"". $row1[1] . "\",\"". sha1($row1[1]) . "\",\"". $row1[2] . "\")";
 echo "<li>".$row1[0] . "</li>";
 $result2 = mysqli_query($db_con, $SQL2);
 }
