@@ -35,7 +35,7 @@ include("../menu.php");
 			<p>	
 			Esta es la pagina de Administración de la Intranet y de las Bases de Datos de la misma. A continuación siguen algunas explicaciones sobre la mayoría de los módulos de gestión.</p>
 			<hr>
-			<p>La <strong>primera opción (<span class="text-info">Cambiar la Configuración</span>)</strong> permite editar y modificar los datos de la configuración que se crearon cuando se instaló la Intranet por primera vez.</p> 
+			<p>El <strong>primer grupo de opciones (<span class="text-info">Configuración</span>)</strong> permite editar y modificar los datos de la configuración que se crearon cuando se instaló la Intranet por primera vez (cambiar información del Centro o de la Base de datos, seleccionar módulos activos en la aplicación, entra en modo Mantenimiento, etc.). También ofrece la posibilidad de gestionar el Sistema de Reservas contenido en la aplicación (crear categorías, y dentro de estas Elementos para reservar).</p> 
 			
 			<hr>
 			<p>	
