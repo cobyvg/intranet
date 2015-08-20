@@ -55,7 +55,7 @@ foreach ($tr_combasi as $codigo){
 	</table>
 </div>
 <?php
-//mysqli_query($db_con,"DROP TABLE asig_tmp");
+mysqli_query($db_con,"DROP TABLE asig_tmp");
 ?>
 <br>
 <h3>Equipo educativo</h3>
