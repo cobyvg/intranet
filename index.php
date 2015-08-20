@@ -25,7 +25,7 @@ include("menu.php");
 
 	<div class="container-fluid" style="padding-top: 15px;">
 		
-		<?php if($ultima_version > INTRANET_VERSION): ?>
+		<?php if((stristr($carg, '1') == TRUE) && $ultima_version > INTRANET_VERSION): ?>
 		<a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" target="_blank" class="alert alert-info" style="display: block; text-decoration: none; color: #fff;">
 			<strong>Actualización disponible.</strong> Está disponible para su descarga la versión <?php echo $ultima_version; ?> de la Intranet. Haga click aquí para más información.
 		</a>
