@@ -90,20 +90,20 @@ if (! mysqli_num_rows($actua)) {
 	) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 	
 	
-	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `$db`.`reservas_tipos` (
+	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS ".$config['db_name'].".`reservas_tipos` (
 	`id` int(11) NOT NULL,
 	  `tipo` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
 	  `observaciones` VARCHAR(255) COLLATE latin1_spanish_ci NOT NULL 
 	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 	");
-	mysqli_query($db_con,"INSERT INTO `$db`.`reservas_tipos` (`id`, `tipo`) VALUES
+	mysqli_query($db_con,"INSERT INTO ".$config['db_name'].".`reservas_tipos` (`id`, `tipo`) VALUES
 	(1, 'TIC'),
 	(2, 'Medios Audiovisuales');");
-	mysqli_query($db_con,"ALTER TABLE `$db`.`reservas_tipos`
+	mysqli_query($db_con,"ALTER TABLE ".$config['db_name'].".`reservas_tipos`
 	 ADD PRIMARY KEY (`id`);");
-	mysqli_query($db_con,"ALTER TABLE `$db`.`reservas_tipos` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT");
+	mysqli_query($db_con,"ALTER TABLE ".$config['db_name'].".`reservas_tipos` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT");
 	
-	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `$db`.`reservas_elementos` (
+	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS ".$config['db_name'].".`reservas_elementos` (
 	`id` int(11) NOT NULL,
 	  `elemento` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
 	  `id_tipo` tinyint(2) NOT NULL,
@@ -312,7 +312,7 @@ if (! mysqli_num_rows($actua)) {
 		}
 	}
 	
-	$n="";
+	$n=0;
 	$query = mysqli_query($db_con,"select distinct destino from mens_texto where destino not like 'Departamento%' and destino not like 'Equipo Educativo%' and destino not like 'CA%' and destino not like 'ETCP%' and destino not like 'Claustro%' and destino not like 'Equipo Directivo%' and destino not like 'Biling%' and destino not like '' and destino not like '; '");
 	
 	while ($row = mysqli_fetch_array($query)) {

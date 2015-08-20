@@ -44,7 +44,7 @@ include("../../menu.php");
 	
 	<!-- TITULO DE LA PAGINA -->
 	<div class="page-header">
-		<h2><?php echo (isset($_GET['tour']) && $_GET['tour']) ? 'Para terminar. Suba o actualice su fotografía.' : 'Fotografías <small>Profesores</small>'; ?></h2>
+		<h2><?php echo (isset($_GET['tour']) && $_GET['tour']) ? 'Para terminar. Suba o actualice su foto.' : 'Cambiar foto'; ?></h2>
 	</div>
 	
 	<!-- MENSAJES -->
@@ -71,7 +71,7 @@ include("../../menu.php");
 				
 				<form method="post" action="" enctype="multipart/form-data">
 					<fieldset>
-						<legend><?php echo $foto ? 'Actualizar' : 'Subir'; ?> fotografía</legend>
+						<legend><?php echo $foto ? 'Actualizar' : 'Subir'; ?> foto</legend>
 						
 						<div class="row">
 							<?php if($foto): ?>
@@ -93,7 +93,7 @@ include("../../menu.php");
 								
 								<button type="submit" class="btn btn-primary" name="enviar"><?php echo $foto ? 'Actualizar' : 'Subir'; ?> fotografía</button>
 								<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
-								<a href="../../index.php?tour=1" class="btn btn-default">Omitir</a>
+								<a href="../../xml/jefe/index_temas.php?tour=1" class="btn btn-default">Omitir</a>
 								<?php endif; ?>
 							</div>
 						</div>
