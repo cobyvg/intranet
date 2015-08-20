@@ -169,26 +169,62 @@ if (! mysqli_num_rows($actua)) {
 	while ($row = mysqli_fetch_array($result)) {
 	
 		$nomdependencia = mysqli_real_escape_string($db_con, $row[0]);
+		
+		// MIGRAMOS LOS DATOS
+		$result_reservas = mysqli_query($db_con, "SELECT * FROM `reservas`.`$nomdependencia`");
+		if(! mysqli_num_rows($result_reservas)) {
+			$result_reservas = mysqli_query($db_con, "SELECT * FROM `".$config['db_name']."`.`$nomdependencia`");
+		}
+		while ($datos = mysqli_fetch_array($result_reservas)) {
+			mysqli_query($db_con,"INSERT INTO `".$config['db_name']."`.`reservas` (`eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$nomdependencia')");
+		}
+		
 		mysqli_query($db_con, "DROP TABLE ".$config['db_name'].".`$nomdependencia`");
 		
 	}
 	mysqli_free_result($result);
 	
 	// ELIMINAMOS TABLAS DE CARRITOS TIC
-	$result = mysqli_query($db_con, "SHOW TABLES FROM `".$config['db_name']."` LIKE 'carrito%'");
+	$result = mysqli_query($db_con, "SHOW TABLES FROM `reservas` LIKE 'carrito%'");
+	if(! mysqli_num_rows($result)) {
+		$result = mysqli_query($db_con, "SHOW TABLES FROM `".$config['db_name']."` LIKE 'carrito%'");
+	}
 	while ($row = mysqli_fetch_array($result)) {
 	
 		$nomcarrito = mysqli_real_escape_string($db_con, $row[0]);
+		
+		// MIGRAMOS LOS DATOS
+		$result_reservas = mysqli_query($db_con, "SELECT * FROM `reservas`.`$nomcarrito`");
+		if(! mysqli_num_rows($result_reservas)) {
+			$result_reservas = mysqli_query($db_con, "SELECT * FROM `".$config['db_name']."`.`$nomcarrito`");
+		}
+		while ($datos = mysqli_fetch_array($result_reservas)) {
+			mysqli_query($db_con,"INSERT INTO `".$config['db_name']."`.`reservas` (`eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$nomcarrito')");
+		}
+		
 		mysqli_query($db_con, "DROP TABLE ".$config['db_name'].".`$nomcarrito`");
 		
 	}
 	mysqli_free_result($result);
 	
 	// ELIMINAMOS TABLAS DE MEDIOS AUDIOVISUALES
-	$result = mysqli_query($db_con, "SHOW TABLES FROM `".$config['db_name']."` LIKE 'medio%'");
+	$result = mysqli_query($db_con, "SHOW TABLES FROM `reservas` LIKE 'medio%'");
+	if(! mysqli_num_rows($result)) {
+		$result = mysqli_query($db_con, "SHOW TABLES FROM `".$config['db_name']."` LIKE 'medio%'");
+	}
 	while ($row = mysqli_fetch_array($result)) {
 	
 		$nommedio = mysqli_real_escape_string($db_con, $row[0]);
+		
+		// MIGRAMOS LOS DATOS
+		$result_reservas = mysqli_query($db_con, "SELECT * FROM `reservas`.`$nommedio`");
+		if(! mysqli_num_rows($result_reservas)) {
+			$result_reservas = mysqli_query($db_con, "SELECT * FROM `".$config['db_name']."`.`$nommedio`");
+		}
+		while ($datos = mysqli_fetch_array($result_reservas)) {
+			mysqli_query($db_con,"INSERT INTO `".$config['db_name']."`.`reservas` (`eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$nommedio')");
+		}
+		
 		mysqli_query($db_con, "DROP TABLE ".$config['db_name'].".`$nommedio`");
 		
 	}
