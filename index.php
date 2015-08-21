@@ -1,24 +1,26 @@
 <?php
 require('bootstrap.php');
 
-// Comprueba la última release de la aplicación
-function getLatestTagUrl($repository, $default = 'master') {
-    $file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false,
-        stream_context_create(['http' => ['header' => "User-Agent: Vestibulum\r\n"]])
-    ));
-    return sprintf("https://github.com/$repository/archive/%s.zip", $file ? reset($file)->name : $default);
-}
-
-$exp_version_git = explode('/', getLatestTagUrl('IESMonterroso/intranet'));
-$ultima_version = ltrim(str_ireplace('.zip', '', $exp_version_git[6]), 'v');
-
-
 // Variable del cargo del Profesor
 $pr = $_SESSION['profi']; // Nombre
 $carg = $_SESSION['cargo']; // Perfil
 $dpto = $_SESSION['dpt']; // Departamento
 $idea = $_SESSION['ide']; // Usuario iDea de Séneca
 $n_curso = $_SESSION['n_cursos']; // Tiene Horario
+
+// Comprueba la última release de la aplicación
+if (stristr($carg, '1') == TRUE) {
+
+	function getLatestVersion($repository, $default = 'master') {
+	    $file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false,
+	        stream_context_create(['http' => ['header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"]])
+	    ));
+	    return sprintf("%s", $file ? reset($file)->name : $default);
+	}
+	
+	$ultima_version = ltrim(getLatestVersion('IESMonterroso/intranet'), 'v');
+	
+}
 
 include("menu.php");
 ?>
