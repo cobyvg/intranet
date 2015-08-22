@@ -108,4 +108,7 @@ Tienes dos opciones para solucionar el problema: o bien te aseguras de que la di
 			$d->close();
 			?></div>
 </div>
-<?php include("../../pie.php");	?>
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

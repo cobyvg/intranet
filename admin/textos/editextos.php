@@ -154,7 +154,7 @@ while($tipo20 = mysqli_fetch_array($tipo10))
 </div>
 </div>
 
-	<?php
-	include("../../pie.php");
-	?>
-
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

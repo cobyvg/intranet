@@ -400,3 +400,6 @@ if($alumno){
 	  	});
 	});
 	</script>
+	
+</body>
+</html>

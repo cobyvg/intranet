@@ -137,6 +137,8 @@ No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desp
 </div>
 </div>
 </div>
-<?php include("../../pie.php");?>
-</BODY>
-</HTML>
+
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

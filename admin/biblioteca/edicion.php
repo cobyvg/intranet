@@ -183,8 +183,8 @@ Los mensajes SMS de aviso por retraso en la devolución de ejemplares de la Bibli
 </div>
 </div>
 </div>
-<?php include ("../../pie.php"); ?>
 
-
-
-
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

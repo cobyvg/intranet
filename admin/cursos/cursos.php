@@ -242,19 +242,25 @@ $pdf->ezText($txttit, 12,$options_center);
 
 $pdf->ezTable($data, $titles, '', $options);
 
-if (strstr($unidadn,"E.S.O.")==TRUE AND (strstr($unidadn,"1")==TRUE OR strstr($unidadn,"2")==TRUE)) {
-	$pdf->ezText($libd12, 9,$options);
-	$pdf->ezText("\n\n\n", 5);
-}
+if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
 
-if (strstr($unidadn,"3")==TRUE) {
-	$pdf->ezText($lc3, 9,$options);
-	$pdf->ezText("\n\n\n", 5);
-}
-
-if (strstr($unidadn,"BACH.")==TRUE AND strstr($unidadn,"1")==TRUE) {
-	$pdf->ezText($lc1b, 9,$options);
-	$pdf->ezText("\n\n\n", 5);
+	if (strstr($unidadn,"E.S.O.")==TRUE AND (strstr($unidadn,"1")==TRUE OR strstr($unidadn,"2")==TRUE)) {
+		$pdf->ezText($libd12, 9,$options);
+		$pdf->ezText("\n\n\n", 5);
+	}
+	
+	if (strstr($unidadn,"3")==TRUE) {
+		$pdf->ezText($lc3, 9,$options);
+		$pdf->ezText("\n\n\n", 5);
+	}
+	
+	if (strstr($unidadn,"BACH.")==TRUE AND strstr($unidadn,"1")==TRUE) {
+		$pdf->ezText($lc1b, 9,$options);
+		$pdf->ezText("\n\n\n", 5);
+	}
+	else{
+		$pdf->ezText("\n\n\n", 10);
+	}
 }
 else{
 	$pdf->ezText("\n\n\n", 10);

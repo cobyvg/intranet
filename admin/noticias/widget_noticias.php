@@ -42,6 +42,6 @@
 <?php endif; ?>
 
 <a class="btn btn-primary btn-sm" href="admin/noticias/redactar.php">Nueva noticia</a>
-<a class="btn btn-default btn-sm" href="admin/noticias/">Ver noticias </a>
+<a class="btn btn-default btn-sm" href="admin/noticias/index.php">Ver noticias </a>
 
 <!-- FIN MODULO DE NOTICIAS -->

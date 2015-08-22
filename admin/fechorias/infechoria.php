@@ -367,9 +367,9 @@ else{
 </form>
 </div>
 </div>
-<?php
-include("../../pie.php");
-?>
+
+	<?php include("../../pie.php"); ?>
+	
 <script>  
 	$(function ()  
 	{ 
@@ -379,5 +379,6 @@ include("../../pie.php");
 		})
 	});  
 	</script>
-</BODY>
-</HTML>
+	
+</body>
+</html>

@@ -36,5 +36,8 @@ La importación de los alumnos de Primaria también permite que los Colegios adscr
 </div>
 
 
-<?php include("../../pie.php");
+	<?php include("../../pie.php"); ?>
+
+</body>
+</html>
 

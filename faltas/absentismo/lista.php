@@ -135,4 +135,7 @@ if (strstr($_SESSION['cargo'],'1')==TRUE OR strstr($_SESSION['cargo'],'8')==TRUE
 </div>
 </div>
 
-<?php include("../../pie.php");?>
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

@@ -149,7 +149,11 @@ else {
 El módulo de Horarios debe ser activado en la Configuración general de la Intranet para poder acceder a estas páginas, y ahora mismo está desactivado
           </div></div>';
 }
-?> <?php include("../../pie.php");?> <script>  
+?> 
+
+	<?php include("../../pie.php"); ?>
+	
+<script>  
 $(function ()  
 { 
 	$('#datetimepicker1').datetimepicker({
@@ -158,5 +162,6 @@ $(function ()
 	})
 });  
 </script>
-</BODY>
-</HTML>
+	
+</body>
+</html>

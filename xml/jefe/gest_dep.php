@@ -194,4 +194,7 @@ de Séneca</em>.</p>
 </div>
 </div>
 
-	<?php include("../../pie.php");	?>
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

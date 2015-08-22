@@ -238,9 +238,7 @@ $query_noal = "SELECT claveal, Unidad, Apellidos, Nombre FROM alma where 1=1 ".$
 </div>
 
 
-
-<?
-#}
-mysqli_close();
-include ("../../pie.php");
-?>
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

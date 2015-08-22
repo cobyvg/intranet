@@ -121,6 +121,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
 	echo '<center><input type="button" value="Volver a la Memoria de Tutoría" name="boton" onclick="window.location.href = \'informe_memoria.php\'" class="btn btn-primary" /></center>';
 	echo "</div>";
 	include("../../pie.php");
+	echo '</body></html>';
 	exit();
 }
 

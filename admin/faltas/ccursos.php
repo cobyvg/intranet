@@ -62,7 +62,9 @@ include("../../menu.php");
 
 <?php  
 }
-	include("../../pie.php");
 ?>
-</BODY>
-</HTML>
+
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

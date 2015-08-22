@@ -97,7 +97,7 @@ echo '<table class="table table-striped table-bordered" style="width:100$;">';
 </div>
 </div>
 
-<?php include("../../pie.php"); ?>
-
+	<?php include("../../pie.php"); ?>
+	
 </body>
 </html>

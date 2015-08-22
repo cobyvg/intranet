@@ -21,7 +21,7 @@ include("../../menu.php");
   <div class="controls">
   <label class="control-label" for="file">Selecciona el archivo con los datos de las Fiestas y Vacaciones
   </label>
-  <input type="file" name="archivo" class="input input-file id="file">
+  <input type="file" name="archivo" class="input input-file" id="file">
   <hr>
   <div align="center">
     <INPUT type="submit" name="enviar" value="Aceptar" class="btn btn-primary">

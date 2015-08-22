@@ -164,6 +164,8 @@ No hay datos sobre las Guardias del profesor.
 ?></div>
 </div>
 </div>
-<?php include("../../pie.php");?>
-</BODY>
-</HTML>
+
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

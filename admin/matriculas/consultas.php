@@ -895,5 +895,5 @@ return false;
   
   ?>
 
-		</body>
-		</html>
+</body>
+</html>

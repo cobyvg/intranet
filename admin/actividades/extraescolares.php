@@ -148,4 +148,8 @@ function deseleccionar_todo(){
 			document.imprime.elements[i].checked=0
 }
 </script>
-<?php include("../../pie.php");?>
+
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

@@ -63,11 +63,11 @@ Debes seleccionar una asugnatura con su Grupo y Nivel. Vuelve atrás e inténtalo 
 		</div></div><br />';
 }
   ?>
- <?php
-include("../../pie.php");
- ?>
 </div>
 </div>
 </div>
+
+	<?php include("../../pie.php"); ?>
+	
 </body>
 </html>

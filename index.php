@@ -57,7 +57,7 @@ include("menu.php");
 			<div class="col-md-5">
 				
 				<?php 
-				if (stristr($carg, '2' )==TRUE) {
+				if (stristr($carg, '2')==TRUE) {
 					include("admin/tutoria/inc_pendientes.php");
 				}
 				?>
@@ -65,7 +65,7 @@ include("menu.php");
 				<?php include ("pendientes.php"); ?>
 				</div>
 				
-				<?php if (stristr($carg, '1' )==TRUE): ?>
+				<?php if (stristr($carg, '1')==TRUE): ?>
 				<?php include('widget_estadisticas.php'); ?>
 				<?php endif; ?>     
 				

@@ -1134,7 +1134,7 @@ if ($dni or $claveal or $id) {
 			<td colspan="4">
 			
 			
-			<table style="width: 100%; border: none;<?php if(stristr($vacios,"religion o alternativa de 1BACH")==TRUE){echo ' background-color:#FFFF66;"';}else{ echo '"';} ?> >
+			<table style="width: 100%; border: none; <?php if(stristr($vacios,"religion o alternativa de 1BACH")==TRUE) {echo 'background-color: #FFFF66;'; } ?>">
 			<tr>
 				<td valign=top style="border: none;width:50%">
 				<input type="radio" name="religion1b" value="Religión Catolica"

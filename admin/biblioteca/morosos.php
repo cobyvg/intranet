@@ -79,5 +79,7 @@ mysqli_query($db_con,"drop table morosos_tmp");
 </div>
 </div>
 
-<?php include("../../pie.php");?>
-
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

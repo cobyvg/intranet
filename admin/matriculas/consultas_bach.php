@@ -135,6 +135,7 @@ INDEX (  `id_matriculas` )
 	echo "</div>";
 	mysqli_query($db_con, "drop table matriculas_bach_temp");
 	include("../../pie.php");
+	echo '</body></html>';
 	exit();
 }
 
@@ -182,6 +183,7 @@ echo "</ul></div><br />";
 	}
 echo "</ul></div>";
 include("../../pie.php");
+echo '</body></html>';
 	exit();
 }
 

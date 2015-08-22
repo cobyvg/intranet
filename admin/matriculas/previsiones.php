@@ -185,7 +185,7 @@ VALUES (
 					<th><?php echo $rep_pil;?></th>
 					<td style='text-align: right'><?php echo $num_pil;?></td>
 				</tr>
-		
+			</tbody>
 		</table>
 		<table class="table table-bordered" align="center" style="width: 96%">
 			<tr>
@@ -220,3 +220,6 @@ VALUES (
 </div>
 </div>
 	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

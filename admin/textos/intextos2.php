@@ -94,5 +94,8 @@ while($row = mysqli_fetch_array($textos))
  </div>
  </div>
  
- <?php include("../../pie.php");?>		
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>
 

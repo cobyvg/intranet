@@ -82,8 +82,8 @@ $result2 = mysqli_query($db_con, "select inicio, fin, tareas, id, profesor, hora
 </div>
 </div>
 </div>
-<?php
-include("../../pie.php");
-?>
+
+	<?php include("../../pie.php"); ?>
+	
 </body>
 </html>

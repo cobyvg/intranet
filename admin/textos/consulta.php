@@ -160,5 +160,7 @@ include 'menu.php';
 	
 </div><!-- /.container -->
 
-<?php include("../../pie.php"); ?>
-
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

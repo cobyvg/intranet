@@ -166,4 +166,7 @@ Parece que no hay alumnos absentistas registrados en ese mes. Si te has equivoca
 </div>
 </div>
 
-<?php include("../../pie.php");?>
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>

@@ -35,5 +35,7 @@ include("menu.php");
 </div>
 
 
-<?php include("../../pie.php");
+	<?php include("../../pie.php"); ?>
 
+</body>
+</html>

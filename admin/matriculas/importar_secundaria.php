@@ -30,5 +30,8 @@ include("menu.php");
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 </div>
 </div>
-<?php include("../../pie.php");
 
+	<?php include("../../pie.php"); ?>
+
+</body>
+</html>

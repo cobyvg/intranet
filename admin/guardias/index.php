@@ -282,6 +282,7 @@ if (mysqli_num_rows($h_hoy0) > 0) {
 </div>
 </div>
 
-<?php include("../../pie.php");?>
-</BODY>
-</HTML>
+	<?php include("../../pie.php"); ?>
+	
+</body>
+</html>
