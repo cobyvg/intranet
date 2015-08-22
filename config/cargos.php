@@ -133,7 +133,7 @@ include ("../menu.php");
 			if (stristr ( $car, '2' ) == TRUE) {
 				echo "checked";
 			}
-			?> /> <select class="form-control" style="width: 80px;"
+			?> /> <select class="form-control" style="width: 100px;"
 					name="<?php
 			echo $dni;
 			?>2t">

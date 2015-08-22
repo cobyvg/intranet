@@ -262,5 +262,6 @@ Parece que te estás olvidando de enviar todos los archivos con los datos de los 
 a Administración</a></div>
 </div>
 </div>
+<?php include("../../pie.php");?> 
 </body>
 </html>

@@ -33,7 +33,7 @@ if (isset($_POST['config']))
 	{
 		fwrite($file, "<?php \r\n");
 		
-		for($i=0; $i<4; $i++) {
+		for($i=0; $i<6; $i++) {
 			$curso_ini = $curso_bd - $i;
 			$curso_fin = $curso_bd - $i + 1;
 			
@@ -81,7 +81,7 @@ include('../menu.php');
 						<?php $curso_bd = substr($config['curso_actual'], 0, 4); ?>
 						<?php $curso_bd -= 1; ?>
 						 						
-						<?php for($i=0; $i<4; $i++): ?>
+						<?php for($i=0; $i<6; $i++): ?>
 						<h3>Curso <?php echo ($curso_ini = $curso_bd - $i); ?>/<?php echo ($curso_fin = $curso_bd - $i + 1); ?></h3>
 						<br>
 

@@ -288,5 +288,6 @@ Se han modificado los datos personales de '.$num_filas.' alumnos para ajustarlos
 	?>
 </div>
 </div>
+<?php include("../../pie.php");?> 
 </body>
 </html>

@@ -201,7 +201,9 @@ No se pueden crear los registros en la tabla asignaturas. Busca ayuda.
 	</div>
 	</div>
 	
-<?php include("../../pie.php");?> <script>
+<?php include("../../pie.php");?> 
+
+<script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';
         document.getElementById("t_larga_barra").style.display = 'none';        

@@ -6,7 +6,9 @@ acl_acceso($_SESSION['cargo'], array(1));
 include("../../menu.php");
 ?>
 <br />
-<div align="center">
+<div class="container">
+<div class="row">
+
 <div class="page-header">
 <h2>Administraci&oacute;n <small> Actualizaci&oacute;n de los profesores</small></h2>
 </div>
@@ -160,15 +162,19 @@ Tabla <strong>Profesores</strong>: los datos han sido introducidos correctamente
 		mysqli_query($db_con, "ALTER TABLE ".$db."horw_faltas ADD INDEX (`prof`)");
 		mysqli_query($db_con, "ALTER TABLE ".$db."horw_faltas ADD index (`c_asig`)");
 		mysqli_query($db_con, "OPTIMIZE TABLE  `horw_faltas`");
-		//Profes que estÃ¡n en horw y no en profesores
-		echo "<hr><p class='lead text-important' style='text-align:left'>Profesores en Horw que no aparecen en la tabla Profesores
-creados desde S&eacute;neca:</p>";
+		//Profes que estan en horw y no en profesores
+		echo '<br /><div class="alert alert-warning alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Profesores en Horw que no aparecen en la tabla Profesores
+creados desde S&eacute;neca (probablemente por no tener horario lectivo):<br><ul>';
 		$pro0 = "select distinct prof from horw where prof not in (select distinct profesor from profesores)";
 		$pro1 = mysqli_query($db_con, $pro0);
 		while($pro = mysqli_fetch_array($pro1))
-		{if(!(empty($pro[0])))
+		{
+			if(!(empty($pro[0])))
 		echo "<li>$pro[0]</li>";
 		}
+		echo "</ul></div>";
 		echo '<br /><div align="center"><div class="alert alert-success alert-block fade in"><br />
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Tabla <strong>Profesores</strong>: los datos se han introducido correctamente en la Base de datos. Es necesario que actualizes las tablas de Departamentos, una vez actualizados los Profesores.<br>Vuelve a la p&aacute;gina de Administraci&oacute;n y actualiza los Departamentos inmediatamente.
@@ -182,10 +188,13 @@ Parece que te est&aacute;s olvidando de enviar el archivo con los datos de los P
 </div></div><br />';
 	}
 	?>
-<div align="center"><a href="../index.php" class="btn btn-primary" />Volver
+<div align="center"><br><a href="../index.php" class="btn btn-primary" />Volver
 a Administración</a></div>
 </div>
 </div>
+</div>
+</div>
+
 <?php include("../../pie.php");?> <script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';

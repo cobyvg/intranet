@@ -203,7 +203,7 @@ $carg = mysqli_query($db_con, "select distinct prof from horw");
 while ($cargo = mysqli_fetch_array($carg)) {
 	$cargos="";
 
-	$profe_dep = mysqli_query($db_con, "select distinct c_asig from horw where prof = '$cargo[0]' and (a_grupo = '' or c_asig = '2' or c_asig = '279' or c_asig = '117')");
+	$profe_dep = mysqli_query($db_con, "select distinct c_asig from horw where prof = '$cargo[0]'");
 	while ($profe_dpt = mysqli_fetch_array($profe_dep)) {
 		if ($profe_dpt[0]=="44") {
 			$cargos="1";
@@ -217,13 +217,13 @@ while ($cargo = mysqli_fetch_array($carg)) {
 		if ($profe_dpt[0]=="376") {
 			$cargos.="a";
 		}
-		if ($profe_dpt[0]=="384") {
+		if ($profe_dpt[0]=="716" OR $profe_dpt[0]=="717" OR $profe_dpt[0]=="718" OR $profe_dpt[0]=="719") {
 			$cargos.="9";
 		}
 		if ($profe_dpt[0]=="26") {
 			$cargos.="c";
 		}
-		if ($profe_dpt[0]=="2" OR $profe_dpt[0]=="117") {
+		if ($profe_dpt[0]=="2" OR $profe_dpt[0]=="351" OR $profe_dpt[0]=="279") {
 			$cargos.="2";
 		}
 	}

@@ -6,7 +6,9 @@ acl_acceso($_SESSION['cargo'], array(1));
 include("../../menu.php");
 ?>
 <br />
-<div align="center">
+<div class="container">
+<div class="row">
+
 <div class="page-header">
   <h2>Administraci&oacute;n <small> Depuraci&oacute;n y limpieza de las tablas de Horarios</small></h2>
 </div>
@@ -65,6 +67,9 @@ echo '<br /><div align="center"><div class="alert alert-success alert-block fade
 </div>
 </div>
 </div>
+</div>
+</div>
+
  <?php include("../../pie.php");?>
   <script>
 function espera( ) {

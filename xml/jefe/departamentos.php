@@ -68,8 +68,10 @@ $elimina = "select distinct NOMBRE, DNI, DEPARTAMENTO, IDEA from departamento_te
 $elimina1 = mysqli_query($db_con, $elimina);
  if(mysqli_num_rows($elimina1) > 0)
 {
-echo "<div class='form-group success'><p class='help-block' style='text-align:left'>
-Tabla Departamentos: los siguientes Profesores han sido añadidos a la tabla. <br>Comprueba los registros creados:</p></div>";
+echo "
+<br /><div align='center'><div class='alert alert-success alert-block fade in'>
+            <button type='button'' class='close' data-dismiss='alert'>&times;</button>
+Tabla <strong>Departamentos</strong>: los siguientes Profesores han sido añadidos a la tabla. <br>Comprueba los registros creados:</div></div>";
 while($elimina2 = mysqli_fetch_array($elimina1))
 {
 echo "<li>".$elimina2[0] . " -- " . $elimina2[1] . " -- " . $elimina2[2] . "</li>";
@@ -83,10 +85,10 @@ else {
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ATENCIÓN:</h5>
 Tabla <strong>Departamentos</strong>: No se ha añadido ningún registro a la tabla.
-</div></div><br />';
+</div></div>';
 	}
 
-// Actualizamos nombre de los depratmentos en la tabla y tablas relacionadas
+// Actualizamos nombre de los departamentos en la tabla y tablas relacionadas
 include("actualiza_dep.php");
 // Registramos los tutores desde FTUTORES
 $tut0=mysqli_query($db_con, "select distinct tutor from FTUTORES");
@@ -101,7 +103,7 @@ mysqli_query($db_con, "update departamentos set cargo = '$cargo_tutor' where  no
 }
 // Usuario
   // Actualización de IDEA de los Profesores del Centro.
-$SQL1 = "select distinct nombre, dni, idea from departamentos where nombre NOT IN (select distinct profesor from c_profes) and departamento not like '%Conserjer_a%' and departamento not like '%Administraci_n%' and idea not like 'admin'";
+$SQL1 = "select distinct nombre, dni, idea from departamentos where nombre NOT IN (select distinct profesor from c_profes) and departamento not like '%Conserjer%' and idea not like 'admin'";
 $result1 = mysqli_query($db_con, $SQL1);
 $total = mysqli_num_rows($result1);
 if ($total !== 0)
@@ -210,7 +212,7 @@ No se ha podido escribir en el archivo TIC/profesores.txt. ¿Has concedido permis
  }
  $pepito1=fwrite($fpprof1,$todos_moodle);
  fclose ($fpprof1);
- echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+ echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
  Se ha generado un fichero (profesores_moodle.txt) en el subdirectorio "xml/jefe/TIC/" preparado para el alta masiva de usuarios en la Plataforma Moodle.
 </div></div><br />'; 

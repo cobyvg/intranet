@@ -22,10 +22,11 @@ FALUMNOS.claveal NOT IN (select distinct claveal from almafaltas)";
 $elimina1 = mysqli_query($db_con, $elimina);
 if(mysqli_num_rows($elimina1) > 0)
 {
-	echo "<div class='form-group success'><p class='help-block'
-style='text-align:left'>Tabla FALUMNOS: los siguientes alumnos han sido 
+	echo "<div align='center'><div class='alert alert-warning alert-block fade in'>
+            <button type='button'' class='close' data-dismiss='alert'>&times;</button>
+            Tabla FALUMNOS: los siguientes alumnos han sido 
 eliminados de la tabla FALUMNOS. <br>Comprueba los registros 
-creados:</p></div>";
+creados:</div></div><br />";
 	while($elimina2 = mysqli_fetch_array($elimina1))
 	{
 		echo "<li>".$elimina2[2] . " " . $elimina2[1] . " -- " . $elimina2[3] . "</li>";
@@ -44,10 +45,11 @@ $result1 = mysqli_query($db_con, $SQL1);
 $total = mysqli_num_rows($result1);
 if ($total !== 0)
 {
-	echo "<div class='form-group warning'><p class='help-block'
-style='text-align:left'>Tabla FALUMNOS: los nuevos alumnos han sido añadidos a 
+	echo "<div align='center'><div class='alert alert-success alert-block fade in'>
+            <button type='button'' class='close' data-dismiss='alert'>&times;</button>
+            Tabla FALUMNOS: los nuevos alumnos han sido añadidos a 
 la tabla FALUMNOS. <br>Comprueba en la lista de abajo los registros 
-creados:</p></div>";
+creados:</div></div><br />";
 	while  ($row1= mysqli_fetch_array($result1))
 	{
 		// Buscamos el ultimo numero del Grupo del Alumno
@@ -126,10 +128,11 @@ usuario = '$usuario', pass = '$passw', perfil = 'a', unidad = '$unidad', claveal
 }
 else
 {
-	echo "<div class='form-group warning'><p class='help-block'
-style='text-align:left'>Tabla FALUMNOS: No se ha encontrado ningun registro 
+	echo "<div align='center'><div class='alert alert-warning alert-block fade in'>
+            <button type='button'' class='close' data-dismiss='alert'>&times;</button>
+            Tabla FALUMNOS: No se ha encontrado ningun registro 
 nuevo para añadir en FALUMNOS.<br>Si crees que hay un problema, ponte en 
-contacto con quien sepa arreglarlo</p></div><br />";	
+contacto con quien sepa arreglarlo</div></div><br />";	
 }
 
 // Cambio de grupo de un alumno.

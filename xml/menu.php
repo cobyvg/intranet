@@ -10,14 +10,16 @@
 	<li><a href="jefe/asignaturas.php">Importar Asignaturas</a></li>
 	<li><a href="jefe/index_xml.php">Importar datos del Centro</a></li>
 	<li><a href="jefe/index_departamentos.php">Importar Departamentos</a></li>
-	<li><a href="jefe/index_profesores.php">Importar Profesores</a></li>
-	<li><a href="jefe/index_pas.php">Importar Personal no docente</a></li>
 	<?php if(isset($config['mod_horarios']) && $config['mod_horarios']): ?>
 	<li><a href="jefe/horario.php">Importar/Preparar Horarios </a></li>
-	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
 	<?php endif; ?>
+	<li><a href="jefe/index_profesores.php">Importar Profesores</a></li>
+	<li><a href="jefe/index_pas.php">Importar Personal no docente</a></li>
 	<li><a href="jefe/index_festivos.php">Importar días festivos</a></li>
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
+	<?php if(isset($config['mod_horarios']) && $config['mod_horarios']): ?>
+	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
+	<?php endif; ?>
 	
 	<li class="nav-header">Actualización</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
