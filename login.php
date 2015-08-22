@@ -115,7 +115,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 				$mail->Sender = 'no-reply@'.$config['dominio'];
 				$mail->IsHTML(true);
 				$mail->Subject = 'Aviso de la Intranet: Cuenta temporalmente bloqueada';
-				$mail->Body = 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta esté bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla fácilmente en unos pocos pasos.<br><br>Pónte en contacto con algún miembro del equipo directivo para restablecer tu contraseña. Una vez restablecida podrás acceder a la Intranet utilizando tu NIF como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+				$mail->Body = 'Estimado '.$profe.',<br><br>Para ayudar a proteger tu cuenta contra fraudes o abusos, hemos tenido que bloquear el acceso temporalmente porque se ha detectado alguna actividad inusual. Sabemos que el hecho de que tu cuenta esté bloqueada puede resultar frustrante, pero podemos ayudarte a recuperarla fácilmente en unos pocos pasos.<br><br>Pónte en contacto con algún miembro del equipo directivo para restablecer tu contraseña. Una vez restablecida podrás acceder a la Intranet utilizando tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
 				$mail->AddAddress($correo, $profe);
 				$mail->Send();
 
