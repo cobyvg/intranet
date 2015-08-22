@@ -26,7 +26,7 @@ importación para Séneca</small></h2>
 <div class="alert alert-warning">Ya existe información en la base de
 datos. Este proceso actualizará la información de los horarios. Es
 recomendable realizar una <a href="copia_db/index.php"
-	class="alert-link">copia de seguridad</a> antes de proceder a la
+	class="alert-link" class="alert-link">copia de seguridad</a> antes de proceder a la
 importación de los datos.</div>
 <?php endif; ?> <!-- SCAFFOLDING -->
 

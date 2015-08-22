@@ -236,12 +236,10 @@ mysqli_query($db_con,"delete from FALTAS where nc='0'");
 	echo '<a href="../index.php" class="btn btn-default">Volver</a>';
 }
 else {
-	?> <?php $result = mysqli_query($db_con, "SELECT * FROM FALTAS"); ?> <?php if(mysqli_num_rows($result)): ?>
-<div class="alert alert-warning">Ya existe información en la base de
-datos. Este proceso sobreescribirá la información de la Intranet. Es
-recomendable realizar una <a href="copia_db/index.php"
-	class="alert-link">copia de seguridad</a> antes de proceder a la
-importación de los datos.</div>
+	?>
+	<?php $result = mysqli_query($db_con, "SELECT * FROM FALTAS"); ?>
+	<?php if(mysqli_num_rows($result)): ?>
+	<div class="alert alert-warning">Ya existe información en la base de datos. Este proceso sobreescribirá la información de la Intranet. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.</div>
 	<?php endif; ?>
 
 <div class="row">

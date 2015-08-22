@@ -25,7 +25,7 @@ include("../../menu.php");
 	<?php $result = mysqli_query($db_con, "SELECT * FROM textos_gratis LIMIT 1"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
-		Ya existe información en la base de datos. Este proceso actualizará el listado de libros de texto. Es recomendable realizar una <a class="copia_db/dump_db.php">copia de seguridad</a> antes de proceder a la importación de los datos.
+		Ya existe información en la base de datos. Este proceso actualizará el listado de libros de texto. Es recomendable realizar una <a class="../../admin/jefe/copia_db/index.php">copia de seguridad</a> antes de proceder a la importación de los datos.
 	</div>
 	<?php endif; ?>
 	
