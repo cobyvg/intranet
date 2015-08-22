@@ -21,7 +21,6 @@ include("../../menu.php");
 	</div>
 	<?php endif; ?>
 	
-	
 	<!-- SCAFFOLDING -->
 	<div class="row">
 	

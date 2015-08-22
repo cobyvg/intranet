@@ -17,8 +17,12 @@ include("../../menu.php");
 			<strong>Información:</strong> Las nuevas incorporaciones aparecen marcadas en verde.
 		</div>
 		
+		<div id="status-loading" class="text-center">
+			<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+		</div>
 		
-		<div class="row">
+		
+		<div id="wrap" class="row" style="display: none;">
 		
 			<div class="col-sm-12">
 								
@@ -198,5 +202,14 @@ include("../../menu.php");
 	</div>
 
 	<?php include("../../pie.php");	?>
+	
+	<script>
+	function espera() {
+		document.getElementById("wrap").style.display = '';
+		document.getElementById("status-loading").style.display = 'none';        
+	}
+	window.onload = espera;
+	</script>
+	
 </body>
 </html>

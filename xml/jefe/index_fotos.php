@@ -32,10 +32,10 @@ include("../../menu.php");
 						  <input type="file" id="archivo" name="archivo" accept="application/zip">
 						</div>
 						<div class="checkbox">
-						  	<label>
-						    	<input type="checkbox" name="tabla" value="1"> Crear tabla de fotos para Página Pública
-						    </label>
-						  </div>
+					  	<label>
+					    	<input type="checkbox" name="tabla" value="1"> Crear tabla de fotos para Página Pública
+					    </label>
+					  </div>
 						<br>
 						
 					  <button type="submit" class="btn btn-primary" name="enviar">Importar</button>

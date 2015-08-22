@@ -88,7 +88,7 @@ include("../../menu.php");
   
 <?php include("../../pie.php"); ?>
 
- <script>
+<script>
 function espera() {
 	document.getElementById("wrap").style.display = '';
 	document.getElementById("status-loading").style.display = 'none';        
