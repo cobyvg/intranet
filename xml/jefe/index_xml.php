@@ -28,9 +28,14 @@ include("../../menu.php");
 	</div>
 	<?php endif; ?>
 	
+	<?php if(isset($_FILES['ExpGenHor'])): ?>
+	<div id="status-loading" class="text-center">
+		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+	</div>
+	<?php endif; ?>
 	
 	<!-- SCAFFOLDING -->
-	<div class="row">
+	<div id="wrap" class="row" style="display: none;">
 	
 		<!-- COLUMNA IZQUIERDA -->
 		<div class="col-sm-6">
@@ -57,13 +62,11 @@ include("../../menu.php");
 				
 			</div><!-- /.well -->
 			
-			<?php
-			$ExpGenHor = $_FILES['ExpGenHor']['tmp_name'];
-			if (isset($ExpGenHor)) {
-				include ('importacion_xml.php');
-				importarDatos($db_con);
-			}
-			?>
+			<?php $ExpGenHor = $_FILES['ExpGenHor']['tmp_name']; ?>
+			<?php if (isset($ExpGenHor)): ?>
+			<?php	include ('importacion_xml.php'); ?>
+			<?php	importarDatos($db_con); ?>
+			<?php	endif; ?>
 			
 		</div><!-- /.col-sm-6 -->
 		
@@ -84,6 +87,14 @@ include("../../menu.php");
 </div><!-- /.container -->
   
 <?php include("../../pie.php"); ?>
+
+ <script>
+function espera() {
+	document.getElementById("wrap").style.display = '';
+	document.getElementById("status-loading").style.display = 'none';        
+}
+window.onload = espera;
+</script>  
 	
 </body>
 </html>
