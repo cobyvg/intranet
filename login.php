@@ -142,20 +142,19 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="iso-8859-1">
-<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description"
-	content="Intranet del <?php echo $config['centro_denominacion']; ?>">
-<meta name="author"
-	content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
-
-<link href="//<?php echo $config['dominio']; ?>/intranet/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="//<?php echo $config['dominio']; ?>/intranet/css/font-awesome.min.css"
-	rel="stylesheet">
-<link href="//<?php echo $config['dominio']; ?>/intranet/css/otros.css"
-	rel="stylesheet">
+	<meta charset="iso-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Intranet del <?php echo $config['centro_denominacion']; ?>">
+	<meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+	<meta name="robots" content="noindex, nofollow">
+	
+	<title>Intranet &middot; <?php echo $config['centro_denominacion']; ?></title>
+	
+	<link href="//<?php echo $config['dominio']; ?>/intranet/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//<?php echo $config['dominio']; ?>/intranet/css/font-awesome.min.css" rel="stylesheet">
+	<link href="//<?php echo $config['dominio']; ?>/intranet/css/animate.css" rel="stylesheet">
+	<link href="//<?php echo $config['dominio']; ?>/intranet/css/otros.css" rel="stylesheet">
 </head>
 
 <body id="login">
@@ -178,7 +177,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	
 		<div class="container">
   
-		  <div class="text-center">
+		  <div class="text-center" style="-webkit-animation: fadeInDown 1s;">
 		    <h1><?php echo $config['centro_denominacion']; ?></h1>
 		    <h4>Inicia sesión para acceder</h4>
 		  </div>
