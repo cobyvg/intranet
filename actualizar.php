@@ -5,7 +5,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `actualizacion` (
   `modulo` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`d`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 
 /*
@@ -53,7 +53,7 @@ if (! mysqli_num_rows($actua)) {
 	  `hora7` varchar(24) default NULL,
 	  `servicio` varchar(32) NOT NULL,
 	  KEY `dia` (`dia`)
-	) ENGINE=MyISAM DEFAULT CHARSET=latin1");
+	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 	
 	// Tabla de Estadísticas TIC
 	
@@ -75,11 +75,11 @@ if (! mysqli_num_rows($actua)) {
 	  `c14` smallint(6) default NULL,
 	  `c15` smallint(6) default NULL,
 	  PRIMARY KEY  (`profesor`)
-	) ENGINE=MyISAM DEFAULT CHARSET=latin1;");
+	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 	
 	// Tabla de Dependencias ocultas
 	
-	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS ".$config['db_name'].".ocultas (
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `".$config['db_name']."`.`ocultas` (
 	  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
 	  `aula` varchar(48) COLLATE latin1_spanish_ci NOT NULL,
 	  PRIMARY KEY (`id`)
@@ -87,7 +87,7 @@ if (! mysqli_num_rows($actua)) {
 	
 	// Tabla de Dependencias nuevas
 	
-	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS ".$config['db_name'].".nuevas (
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `".$config['db_name']."`.`nuevas` (
 	  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
 	  `abrev` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
 	  `nombre` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
@@ -103,6 +103,7 @@ if (! mysqli_num_rows($actua)) {
 	  `observaciones` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
 	  PRIMARY KEY (`id`)
 	) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
+
 	mysqli_query($db_con, "TRUNCATE TABLE `".$config['db_name']."`.`reservas_tipos`");
 	
 	// CREACIÓN TABLA: RESERVAS_ELEMENTOS
@@ -113,7 +114,8 @@ if (! mysqli_num_rows($actua)) {
 	  `oculto` tinyint(1) NOT NULL DEFAULT '0',
 	  `observaciones` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
 	  PRIMARY KEY (`id`)
-	) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
+
+	) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 	mysqli_query($db_con, "TRUNCATE TABLE `".$config['db_name']."`.`reservas_elementos`");
 	
 	// INSERTAMOS LOS TIPOS DE RESERVAS POR DEFECTO DE LA APLICACIÓN
@@ -134,7 +136,7 @@ if (! mysqli_num_rows($actua)) {
 		if ((stristr($row[0], 'hor') == FALSE)) {
 			$nomcarrito = mysqli_real_escape_string($db_con, $row[0]);
 			
-			mysqli_query($db_con, "INSERT INTO `".$config['db_name']."`.reservas_elementos (elemento, id_tipo, oculto, observaciones) VALUES ('TIC $i', '1', '0', '')");
+			mysqli_query($db_con, "INSERT INTO `".$config['db_name']."`.`reservas_elementos` (elemento, id_tipo, oculto, observaciones) VALUES ('TIC $i', '1', '0', '')");
 			
 			$i++;
 		}
@@ -154,7 +156,7 @@ if (! mysqli_num_rows($actua)) {
 		if ((stristr($row[0], 'hor') == FALSE)) {
 			$nommedio = mysqli_real_escape_string($db_con, $row[0]);
 			
-			mysqli_query($db_con, "INSERT INTO `".$config['db_name']."`.reservas_elementos (elemento, id_tipo, oculto, observaciones) VALUES ('Medio $i', '2', '0', '')");
+			mysqli_query($db_con, "INSERT INTO `".$config['db_name']."`.`reservas_elementos` (elemento, id_tipo, oculto, observaciones) VALUES ('Medio $i', '2', '0', '')");
 			
 			$i++;
 		}
@@ -165,7 +167,7 @@ if (! mysqli_num_rows($actua)) {
 	// ELIMINACIÓN DE DATOS
 	
 	// ELIMINAMOS TABLAS DE AULAS Y DEPENDENCIAS 
-	$result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' ORDER BY n_aula ASC");
+	$result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE c_asig NOT LIKE '25' AND a_aula NOT LIKE '' ORDER BY n_aula ASC");
 	while ($row = mysqli_fetch_array($result)) {
 	
 		$nomdependencia = mysqli_real_escape_string($db_con, $row[0]);
