@@ -949,7 +949,7 @@ CREATE TABLE IF NOT EXISTS `nuevas` (
   `abrev` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
   `nombre` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
   `texto` varchar(128) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -960,7 +960,7 @@ CREATE TABLE IF NOT EXISTS `nuevas` (
 CREATE TABLE IF NOT EXISTS `ocultas` (
   `id` smallint(5) unsigned NOT NULL,
   `aula` varchar(48) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -1067,7 +1067,7 @@ CREATE TABLE IF NOT EXISTS `reservas_elementos` (
   `id_tipo` tinyint(2) NOT NULL,
   `oculto` tinyint(1) NOT NULL DEFAULT '0',
   `observaciones` varchar(255) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -1097,7 +1097,7 @@ CREATE TABLE IF NOT EXISTS `reservas_tipos` (
   `id` int(11) NOT NULL,
   `tipo` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
   `observaciones` varchar(255) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `reservas_tipos`
@@ -1178,7 +1178,7 @@ CREATE TABLE IF NOT EXISTS `temas` (
   `idea` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
   `tema` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   `fondo` varchar(16) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
 

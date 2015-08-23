@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS nuevas (
   `nombre` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
   `texto` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 	$num = count($_POST);
 	if ($num>1) {
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS ocultas (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `aula` varchar(48) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 	$num = count($_POST);
 	if ($num>1) {

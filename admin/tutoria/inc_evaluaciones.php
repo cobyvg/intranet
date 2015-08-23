@@ -14,7 +14,7 @@ foreach ($titulos as $key=>$val){
 `asignatura` INT( 8 ) NOT NULL ,
 `nota` TINYINT( 2 ) NOT NULL ,
 INDEX (  `claveal` )
-) ENGINE = INNODB";
+) ENGINE = MyISAM";
  mysqli_query($db_con, $crea_tabla2);  
  mysqli_query($db_con, "ALTER TABLE  `temp` ADD INDEX (  `asignatura` )");
 ?>
