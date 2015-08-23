@@ -1,6 +1,13 @@
 <?php
 require('../bootstrap.php');
 
+$result = mysqli_query($db_con, "SELECT grupo FROM profesores WHERE profesor ='".$_SESSION['profi']."'");
+$unidades = array(); 
+while ($row = mysqli_fetch_array($result)) {
+	$unidades[] = $row['grupo']; 
+}
+mysqli_free_result($result);
+
 
 $departamento = str_replace(" P.E.S.","",$_SESSION['dpt']);
 $departamento1 = str_replace("·","a",$departamento);
@@ -15,12 +22,24 @@ $departamento1 = str_replace("ó","o",$departamento1);
 $departamento1 = str_replace("ú","u",$departamento1);
 $departamento1 = substr($departamento1,0,strlen($departamento1)-1);
 $departamento2 = "departamentos/$departamento1";
-//echo $directory." => ". $_SESSION['ide'];
 
 
 define('IN_PHPATM', true);
 include('include/conf.php');
 include('include/common.'.$phpExt);
+
+
+if($index=='publico') {
+ if(!file_exists($config['mod_documentos_dir'].'/Biblioteca')) mkdir($config['mod_documentos_dir'].'/Biblioteca', 0777);
+ if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos')) mkdir($config['mod_documentos_dir'].'/Recursos educativos', 0777);
+ 
+ $result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
+ while ($row = mysqli_fetch_array($result)) {
+ 	 if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) mkdir($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], 0777);
+ }
+ mysqli_free_result($result);
+ 
+}
 
 if($index=='privado' && !file_exists($uploads_folder_name)) mkdir("$uploads_folder_name", 0777);
 

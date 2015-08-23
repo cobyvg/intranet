@@ -80,6 +80,22 @@ $grants = array(
 );
 }
 
+// PERMISOS PARA BIBLIOTECA Y RECURSOS EDUCATIVOS
+$exp_dir = explode('/', $_GET['directory']);
+
+if($exp_dir[0] == 'Biblioteca' && (stristr($_SESSION['cargo'],'c') == TRUE)) {
+	$grants = array(
+		POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
+	);
+}
+
+if($exp_dir[0] == 'Recursos educativos' && in_array($exp_dir[1], $unidades)) {
+	$grants = array(
+		POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
+	);
+}
+
+
 //
 $default_user_status = ANONYMOUS;
 

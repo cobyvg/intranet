@@ -83,7 +83,7 @@ if (! mysqli_num_rows($actua)) {
 	  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
 	  `aula` varchar(48) COLLATE latin1_spanish_ci NOT NULL,
 	  PRIMARY KEY (`id`)
-	) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 	
 	// Tabla de Dependencias nuevas
 	
@@ -93,7 +93,7 @@ if (! mysqli_num_rows($actua)) {
 	  `nombre` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
 	  `texto` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
 	  PRIMARY KEY (`id`)
-	) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 	
 	
 	// CREACIÓN TABLA: RESERVAS_TIPOS
@@ -102,7 +102,7 @@ if (! mysqli_num_rows($actua)) {
 	  `tipo` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
 	  `observaciones` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
 	  PRIMARY KEY (`id`)
-	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
+	) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 	mysqli_query($db_con, "TRUNCATE TABLE `".$config['db_name']."`.`reservas_tipos`");
 	
 	// CREACIÓN TABLA: RESERVAS_ELEMENTOS
@@ -113,7 +113,7 @@ if (! mysqli_num_rows($actua)) {
 	  `oculto` tinyint(1) NOT NULL DEFAULT '0',
 	  `observaciones` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
 	  PRIMARY KEY (`id`)
-	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
+	) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci ;");
 	mysqli_query($db_con, "TRUNCATE TABLE `".$config['db_name']."`.`reservas_elementos`");
 	
 	// INSERTAMOS LOS TIPOS DE RESERVAS POR DEFECTO DE LA APLICACIÓN
@@ -251,7 +251,7 @@ if (! mysqli_num_rows($actua)) {
   `idea` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
   `tema` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   `fondo` varchar(16) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 
 mysqli_query($db_con, "ALTER TABLE `temas`
  ADD UNIQUE KEY `idea` (`idea`)");
