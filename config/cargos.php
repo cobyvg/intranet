@@ -42,7 +42,7 @@ include ("../menu.php");
 				mysqli_query($db_con, "INSERT INTO `cargos` ( `dni` , `cargo` ) VALUES ('$dni', '$cargo_profe')" );
 			}
 		}
-		mysqli_query($db_con, "delete from cargos where cargo = '0'" );
+
 		$n_cargo = mysqli_query($db_con, "select dni from departamentos" );
 		while ( $n_carg = mysqli_fetch_array ( $n_cargo ) ) {
 			$num_cargos = "";
@@ -72,6 +72,7 @@ include ("../menu.php");
 		$head = '<thead>
 			<tr>
 				<th>Profesor</th>
+				<th><span data-bs="tooltip" title="Administradores de la Aplicación">Admin</span></th>
 				<th><span data-bs="tooltip" title="Miembros del Equipo Directivo del Centro">Dirección</span></th>
 				<th><span data-bs="tooltip" title="Tutores de Grupo de todos los niveles">Tutor</span></th>
 				<th><span data-bs="tooltip" title="Tutores de faltas de asistencia. Estos tutores se encargan de pasar a la Intranet las faltas que los profesores registran en su parte personal (Administracción de la Intranet --> Faltas de Asistencia -> Horario de faltas para profesores), que entregan los viernes en Jefatura o Conserjería. ">Faltas</span></th>
@@ -101,12 +102,13 @@ include ("../menu.php");
 		<?php echo $head;?>
 			<tbody>
 		<?php
-		$carg0 = mysqli_query($db_con, "select distinct nombre, cargo, dni from departamentos order by nombre" );
+		$carg0 = mysqli_query($db_con, "select distinct nombre, cargo, dni, idea from departamentos order by nombre" );
 		$num_profes = mysqli_num_rows ( $carg0 );
 		while ( $carg1 = mysqli_fetch_array ( $carg0 ) ) {
 			$pro = $carg1 [0];
 			$car = $carg1 [1];
 			$dni = $carg1 [2];
+			$idea = $carg1 [3];
 			$n_i = $n_i + 10;
 			if ($n_i%"100"=="0") {
 				echo $head;
@@ -115,7 +117,22 @@ include ("../menu.php");
 		<tr>
 				<td nowrap><small><?php
 			echo $pro;
-			?></small></td>
+			?></small>
+			</td>
+			
+			<td class="text-center"><input type="checkbox" name="<?php
+			echo $dni;
+			?>0"
+					value="0" <?php
+			if (stristr ( $car, '0' ) == TRUE) {
+				echo "checked";
+			}
+			if ($idea == "admin") {
+				echo "disabled";
+			}
+			?>
+					id="dato0" /></td>
+					
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>1"

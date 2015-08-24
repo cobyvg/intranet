@@ -249,7 +249,7 @@ if (isset($_POST['instalar']))
 				(1, '$pass_sha1', 'Administrador', '$pass_admin', 'admin', NULL, 0)");
 				
 				mysqli_query($db_con, "INSERT INTO `departamentos` (`NOMBRE`, `DNI`, `DEPARTAMENTO`, `CARGO`, `idea`) VALUES 
-				('Administrador', '$pass_admin', 'Admin', '1', 'admin')");
+				('Administrador', '$pass_admin', 'Admin', '01', 'admin')");
 				
 				mysqli_query($db_con, "INSERT INTO `calendario_categorias` (`id`, `nombre`, `fecha`, `profesor`, `color`, `espublico`) VALUES
 				(1, 'Calendario del centro', '".date('Y-m-d')."', 'admin', '#f29b12', 1),

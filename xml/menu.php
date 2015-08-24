@@ -1,10 +1,10 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>
 
 <ul class="nav nav-pills nav-stacked">
+	<? if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE):?>
 	<li class="nav-header">Configuración</li> 
 	<li><a href="../config/config.php">Configuración general y módulos</a></li>
-	<li><a href="../reservas/gestion_tipo.php">Gestión de reservas</a></li>
-	
+	<? endif;?>
 	<li class="nav-header">A principio de curso...</li>
 	<li><a href="jefe/index2.php">Importar Alumnos</a></li>
 	<li><a href="jefe/asignaturas.php">Importar Asignaturas</a></li>
@@ -58,9 +58,14 @@
 	<li class="nav-header">Notas de evaluación</li>
 	<li><a href="jefe/index_notas.php">Importar Calificaciones</a></li>
 	
+	<li class="nav-header">Sistema de Reservas</li> 
+	<li><a href="../reservas/gestion_tipo.php">Gestión de reservas</a></li>
+	
+	<? if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE):?>
 	<li class="nav-header">Bases de datos</li>
 	<li><a href="../config/config_datos.php">Bases de datos de cursos anteriores</a></li>
 	<li><a href="jefe/copia_db/index.php">Copias de seguridad</a></li>
+	<?php endif; ?>
 	
 	<?php if(isset($config['mod_sms']) && $config['mod_sms']): ?>
 	<li class="nav-header">SMS</li>

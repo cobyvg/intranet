@@ -13,8 +13,7 @@ if (stristr($carg, '1') == TRUE) {
 
 	function getLatestVersion($repository, $default = 'master') {
 	    $file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false,
-	        stream_context_create(['http' => ['header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"]])
-	    ));
+	        stream_context_create(['http' => ['header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"]])));
 	    return sprintf("%s", $file ? reset($file)->name : $default);
 	}
 	
@@ -26,12 +25,6 @@ include("menu.php");
 ?>
 
 	<div class="container-fluid" style="padding-top: 15px;">
-		
-		<?php if((stristr($carg, '1') == TRUE) && $ultima_version > INTRANET_VERSION): ?>
-		<a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" target="_blank" class="alert alert-info" style="display: block; text-decoration: none; color: #fff;">
-			<strong>Actualización disponible.</strong> Está disponible para su descarga la versión <?php echo $ultima_version; ?> de la Intranet. Haga click aquí para más información.
-		</a>
-		<?php endif; ?>
 		
 		<div class="row">
 			
