@@ -38,7 +38,7 @@ if($index=='publico') {
 	if(isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) {
 		
 		if(!file_exists($config['mod_documentos_dir'].'/Departamentos')) mkdir($config['mod_documentos_dir'].'/Departamentos', 0777);
-		$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Administraci_n' AND departamento NOT LIKE 'Conserjer_a' ORDER BY departamento ASC");
+		$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Auxiliar de Conversaci_n' AND departamento NOT LIKE 'Administraci_n' AND departamento NOT LIKE 'Conserjer_a' ORDER BY departamento ASC");
 		while ($row = mysqli_fetch_array($result)) {
 			if(!file_exists($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'])) mkdir($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'], 0777);
 		}
@@ -447,8 +447,8 @@ function contents_dir($current_dir, $directory)
         $filenameandpath .= $filename;
       }
   
-		  $dir_protegidos = array('Biblioteca', 'Recursos educativos', 'programaciones');
-		  $subdir_protegidos = array('Recursos educativos', 'programaciones');
+		  $dir_protegidos = array('Biblioteca', 'Recursos educativos', 'Departamentos');
+		  $subdir_protegidos = array('Recursos educativos', 'Departamentos');
 		
 			echo "    <tr>\n";
 			
