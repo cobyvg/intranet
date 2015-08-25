@@ -9,35 +9,41 @@ while ($row = mysqli_fetch_array($result)) {
 mysqli_free_result($result);
 
 
-$departamento = str_replace(" P.E.S.","",$_SESSION['dpt']);
-$departamento1 = str_replace("·","a",$departamento);
-$departamento1 = str_replace("È","e",$departamento1);
-$departamento1 = str_replace("Ì","i",$departamento1);
-$departamento1 = str_replace("Û","o",$departamento1);
-$departamento1 = str_replace("?","u",$departamento1);
-$departamento1 = str_replace("á","a",$departamento);
-$departamento1 = str_replace("é","e",$departamento1);
-$departamento1 = str_replace("í","i",$departamento1);
-$departamento1 = str_replace("ó","o",$departamento1);
-$departamento1 = str_replace("ú","u",$departamento1);
-$departamento1 = substr($departamento1,0,strlen($departamento1)-1);
-$departamento2 = "departamentos/$departamento1";
-
-
 define('IN_PHPATM', true);
 include('include/conf.php');
 include('include/common.'.$phpExt);
 
 
 if($index=='publico') {
- if(!file_exists($config['mod_documentos_dir'].'/Biblioteca')) mkdir($config['mod_documentos_dir'].'/Biblioteca', 0777);
- if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos')) mkdir($config['mod_documentos_dir'].'/Recursos educativos', 0777);
- 
- $result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
- while ($row = mysqli_fetch_array($result)) {
- 	 if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) mkdir($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], 0777);
- }
- mysqli_free_result($result);
+	// Biblioteca
+	if(isset($config['mod_documentos_biblioteca']) && $config['mod_documentos_biblioteca']) {
+	
+		if(!file_exists($config['mod_documentos_dir'].'/Biblioteca')) mkdir($config['mod_documentos_dir'].'/Biblioteca', 0777);
+		
+	}
+	
+	// Recursos educativos
+	if(isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos']) {
+	
+		if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos')) mkdir($config['mod_documentos_dir'].'/Recursos educativos', 0777);
+		$result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
+		while ($row = mysqli_fetch_array($result)) {
+			if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) mkdir($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], 0777);
+		}
+		mysqli_free_result($result);
+		
+	}
+	
+	// Departamentos
+	if(isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) {
+		
+		if(!file_exists($config['mod_documentos_dir'].'/Departamentos')) mkdir($config['mod_documentos_dir'].'/Departamentos', 0777);
+		$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Administraci_n' AND departamento NOT LIKE 'Conserjer_a' ORDER BY departamento ASC");
+		while ($row = mysqli_fetch_array($result)) {
+			if(!file_exists($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'])) mkdir($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'], 0777);
+		}
+		mysqli_free_result($result);
+	}
  
 }
 
@@ -95,9 +101,9 @@ function list_zip($filename)
 	echo "<table class='table table-bordered table-striped'>";
 	echo "<thead>";
 	echo "<tr>
-	<th>$mess[15]</th>
-	<th>$mess[17]</th>
-	<th>$mess[47]</th>
+	<th nowrap>$mess[15]</th>
+	<th nowrap>$mess[17]</th>
+	<th nowrap>$mess[47]</th>
 	</tr>";
 	echo "</thead>";
 	echo "<tbody>";
@@ -401,7 +407,11 @@ function contents_dir($current_dir, $directory)
 	global $file_out_max_caracters,$normalfontcolor, $phpExt, $hidden_dirs, $showhidden;
 	global $comment_max_caracters,$datetimeformat, $logged_user_name;
 	global $user_status,$activationcode,$max_filesize_to_mail,$mail_functions_enabled, $timeoffset, $grants;
-
+	
+	$direction = 0;
+	
+	$num_row = 0;
+	
   // Read directory
   list($liste, $totalsize) = listing($current_dir);
 
@@ -409,6 +419,9 @@ function contents_dir($current_dir, $directory)
   {
     while (list($filename,$mime) = each($liste))
     {
+    	
+    	$num_row++;
+    	
       if (is_dir("$current_dir/$filename"))
       {
 
@@ -433,77 +446,128 @@ function contents_dir($current_dir, $directory)
         }
         $filenameandpath .= $filename;
       }
-
-	echo "    <tr>\n";
-	
-    echo "      <td>\n";
-	echo "        <img src=\"images/".get_mimetype_img("$current_dir/$filename")."\" width=\"32\" alt=\"\">\n"; 		  
-	if (is_dir("$current_dir/$filename")) echo "<a href=\"$filenameandpath\">";
-	echo substr($filename,0,$file_out_max_caracters);
-	if (is_dir("$current_dir/$filename")) echo "</a>";
-	echo "        $content\n";
-	echo "      </td>\n";
-	
-	echo "      <td nowrap>\n";
-	if ($grants[$user_status][DELALL] || ($upl_user == $logged_user_name && $grants[$user_status][DELOWN]))
-	{
-		if (!is_dir("$current_dir/$filename"))
-		{
-			echo "<a href=\"index.${phpExt}?index=$index&action=deletefile&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
-	    }
-	    else
-	    {
-	    	if ($grants[$user_status][DELALL])
-	    	{
-			    echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
-			}
-	    }
-	}
-
-
-	if ($grants[$user_status][MODALL] || ($upl_user == $logged_user_name && $grants[$user_status][MODOWN]))
-	{
-		if (!is_dir("$current_dir/$filename") || $grants[$user_status][MODALL])
-		{
-	    }
-	}
-
-
-	if ($grants[$user_status][DOWNLOAD] && !is_dir("$current_dir/$filename")) {
+  
+		  $dir_protegidos = array('Biblioteca', 'Recursos educativos', 'programaciones');
+		  $subdir_protegidos = array('Recursos educativos', 'programaciones');
 		
-		//	DESCARGAR ARCHIVO
-		echo "<a href=\"index.${phpExt}?index=$index&action=downloadfile&filename=$filename&directory=$directory\" rel=\"tooltip\" title=\"Descargar\"><span class=\"fa fa-cloud-download fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
-		}
-		
-		if ($_GET['index'] == 'privado' && !is_dir("$current_dir/$filename")) {
-			// COMPARTIR ARCHIVO
-			if (isset($directory)) {
-				$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$directory/$filename\" target=\"_blank\">$filename</a>");
+			echo "    <tr>\n";
+			
+		  echo "      <td>\n";
+			echo "        <img src=\"images/".get_mimetype_img("$current_dir/$filename")."\" width=\"32\" alt=\"\">\n"; 		  
+			if (is_dir("$current_dir/$filename")) echo "<a href=\"$filenameandpath\">";
+			
+			if(strlen($filename) > $file_out_max_caracters) {
+				echo substr($filename, 0, $file_out_max_caracters-4).'...';
 			}
 			else {
-				$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$filename\" target=\"_blank\">$filename</a>");
+				echo $filename;
+			}
+			if (is_dir("$current_dir/$filename")) echo "</a>";
+			echo "        $content\n";
+			echo "      </td>\n";
+			
+			echo "      <td nowrap>\n";
+			if ($grants[$user_status][DELALL] || ($upl_user == $logged_user_name && $grants[$user_status][DELOWN]))
+			{
+				if (!is_dir("$current_dir/$filename"))
+				{
+					echo "<a href=\"index.${phpExt}?index=$index&action=deletefile&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
+			    }
+			    else
+			    {
+			    	if ($grants[$user_status][DELALL])
+			    	{
+			    		if (! in_array($filename, $dir_protegidos) && ! in_array($directory, $subdir_protegidos)) {
+					    	echo "<a href=\"index.${phpExt}?index=$index&action=deletedir&filename=$filename&directory=$directory\" data-bb=\"confirm-delete\" rel=\"tooltip\" title=\"Eliminar\"><span class=\"fa fa-trash-o fa-lg fa-fw\" alt=\"$mess[169]\"></span></a>";
+							}
+						}
+			    }
+			}
+		
+		
+			if ($grants[$user_status][MODALL] || ($upl_user == $logged_user_name && $grants[$user_status][MODOWN]))
+			{
+				
+				if (! in_array($filename, $dir_protegidos) && ! in_array($directory, $subdir_protegidos)) {
+					// RENOMBRAR
+					echo "<a href=\"#\" data-toggle=\"modal\" data-target=\"#modal_$num_row\" rel=\"tooltip\" title=\"Renombrar\"><span class=\"fa fa-edit fa-lg fa-fw\" alt=\"Renombrar\"></span></a>
+						
+						<div id=\"modal_$num_row\" class=\"modal fade\">
+						  <div class=\"modal-dialog\">
+						  	<form method=\"post\" action=\"\">
+							    <div class=\"modal-content\">
+							      <div class=\"modal-header\">
+							        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Cerrar\"><span aria-hidden=\"true\">&times;</span></button>
+							        <h4 class=\"modal-title\">Renombrar</h4>
+							      </div>
+							      <div class=\"modal-body\">
+							        		
+					        		<input type=\"hidden\" name=\"action\" value=\"rename\">
+					        		<input type=\"hidden\" name=\"directory\" value=\"$directory\">
+					        		<input type=\"hidden\" name=\"filename\" value=\"$filename\">
+					        		<input type=\"hidden\" name=\"index\" value=\"$index\">
+					        		<input type=\"hidden\" name=\"direction\" value=\"$direction\">
+					        		
+						        	<div class=\"form-group\">
+						        		<label for=\"userfile\">Nuevo nombre</label>
+					        			<input type=\"text\" class=\"form-control\" id=\"userfile\" name=\"userfile\" value=\"$filename\" maxlenght=\"250\">
+					        		</div>
+							        	
+							      </div>
+							      <div class=\"modal-footer\">
+							        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancelar</button>
+							        <button type=\"submit\" class=\"btn btn-primary\">Renombrar</button>
+							      </div>
+							    </div><!-- /.modal-content -->
+							   </form>
+						  </div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->";
+				}
+					
+				if (!is_dir("$current_dir/$filename") || $grants[$user_status][MODALL])
+				{
+			  }
+			}
+		
+		
+			if ($grants[$user_status][DOWNLOAD] && !is_dir("$current_dir/$filename")) {
+				
+				
+				// DESCARGAR ARCHIVO
+				echo "<a href=\"index.${phpExt}?index=$index&action=downloadfile&filename=$filename&directory=$directory\" rel=\"tooltip\" title=\"Descargar\"><span class=\"fa fa-cloud-download fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
+			}
+				
+				if ($_GET['index'] == 'privado' && !is_dir("$current_dir/$filename")) {
+					// COMPARTIR ARCHIVO
+					if (isset($directory)) {
+						$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$directory/$filename\" target=\"_blank\">$filename</a>");
+					}
+					else {
+						$share_string = urlencode("<br><br>Archivo adjunto:<br><span class=\"fa fa-download fa-fw\"></span> <a href=\"http://".$_SERVER['SERVER_NAME']."/intranet/varios/".$_SESSION['ide']."/$filename\" target=\"_blank\">$filename</a>");
+					}
+					
+					echo "<a href=\"../admin/mensajes/redactar.php?texto=$share_string\" rel=\"tooltip\" title=\"Compartir\"><span class=\"fa fa-share-alt fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
+				}
+					
+				echo "</td>";
+				echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
+				echo "<span class=\"text-muted\">";
+				// TIPO DE ARCHIVO
+				if (is_dir("$current_dir/$filename")) echo "directorio";
+				else echo get_filesize("$current_dir/$filename");
+				echo "</span>";
+				echo "</td>";
+				echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
+				
+				// FECHA DE MODIFICACIÓN
+				$file_modif_time = filemtime("$current_dir/$filename") - $timeoffset * 3600;
+				echo "<span class=\"text-muted\">".date($datetimeformat, $file_modif_time)."</span>";
+				
+				echo "</td>\n";
+				echo "</tr>\n";
 			}
 			
-			echo "<a href=\"../admin/mensajes/redactar.php?texto=$share_string\" rel=\"tooltip\" title=\"Compartir\"><span class=\"fa fa-share-alt fa-lg fa-fw\" alt=\"$mess[23]\"></span></a>";
-		}
 			
-		echo "</td>";
-		echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
-		echo "<span class=\"text-muted\">";
-		// TIPO DE ARCHIVO
-		if (is_dir("$current_dir/$filename")) echo "directorio";
-		else echo get_filesize("$current_dir/$filename");
-		echo "</span>";
-		echo "</td>";
-		echo "<td class=\"hidden-xs hidden-sm\" nowrap>";
-		
-		// FECHA DE MODIFICACIÓN
-		$file_modif_time = filemtime("$current_dir/$filename") - $timeoffset * 3600;
-		echo "<span class=\"text-muted\">".date($datetimeformat, $file_modif_time)."</span>";
-		
-		echo "</td>\n";
-		echo "</tr>\n";
-	}
   }
 }
 
@@ -549,13 +613,11 @@ function delete_dir($location)
 		{
 			if (is_dir("$location/$file") && $file != '..' && $file != '.')
 			{
-				// echo "ESTAS SEGURO";
 				delete_dir("$location/$file");
 				rmdir("$location/$file");
 			}
 			elseif (is_file("$location/$file"))
 			{
-				//echo "ESTAS SEGURO $location/$file";
 				unlink("$location/$file");
 			}
 			unset($file);
@@ -1127,7 +1189,7 @@ switch($action)
 
 		if (!file_exists("$current_dir/$filename"))
 		{
-		//	place_header($mess[125]);
+			place_header($mess[125]);
 			include("../menu.php");
 			show_contents();
 			include("../pie.php");
@@ -1166,7 +1228,20 @@ switch($action)
 					if ($filename != $userfile)
 					{
 						if (file_exists("$current_dir/$filename"))
-							rename("$current_dir/$filename", "$current_dir/$userfile");
+						{
+						
+							if(! is_dir("$current_dir/$filename")) {
+								$filetype = end(explode(".", $filename));
+								$userfile2 = str_replace($filetype, '', $userfile);
+								
+								rename("$current_dir/$filename", "$current_dir/$userfile2.$filetype");
+							}
+							else {
+								rename("$current_dir/$filename", "$current_dir/$userfile");
+							}
+							
+							
+						}
 					}
 
 					if (!is_dir("$current_dir/$userfile") && ($old_description != $new_description))

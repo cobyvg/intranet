@@ -56,6 +56,9 @@ if (isset($_POST['config']))
 	
 	(isset($_POST['mod_documentos'])) ? $modulo_documentos = 1 : $modulo_documentos = 0;
 	$modulo_documentos_dir	= limpiar_string($_POST['mod_documentos_dir']);
+	(isset($_POST['mod_documentos_biblioteca'])) ? $mod_documentos_biblioteca = 1 : $mod_documentos_biblioteca = 0;
+	(isset($_POST['mod_documentos_recursos'])) ? $mod_documentos_recursos = 1 : $mod_documentos_recursos = 0;
+	(isset($_POST['mod_documentos_departamentos'])) ? $mod_documentos_departamentos = 1 : $mod_documentos_departamentos = 0;
 	
 	(isset($_POST['mod_sms'])) ? $modulo_sms = 1 : $modulo_sms = 0;
 	$modulo_sms_id		= limpiar_string($_POST['mod_sms_id']);
@@ -120,6 +123,9 @@ if (isset($_POST['config']))
 		fwrite($file, "\r\n// MÓDULO: DOCUMENTOS\r\n");
 		fwrite($file, "\$config['mod_documentos']\t\t= $modulo_documentos;\r\n");
 		fwrite($file, "\$config['mod_documentos_dir']\t= '$modulo_documentos_dir';\r\n");
+		fwrite($file, "\$config['mod_documentos_biblioteca']\t= '$mod_documentos_biblioteca';\r\n");
+		fwrite($file, "\$config['mod_documentos_recursos']\t= '$mod_documentos_recursos';\r\n");
+		fwrite($file, "\$config['mod_documentos_departamentos']\t= '$mod_documentos_departamentos';\r\n");
 		
 		fwrite($file, "\r\n// MÓDULO: SMS\r\n");
 		fwrite($file, "\$config['mod_sms']\t\t\t\t= $modulo_sms;\r\n");
@@ -509,6 +515,30 @@ include('../menu.php');
 							    	<div class="form-group">
 							    		<label for="mod_documentos_dir">Directorio público</label>
 							    	    <input type="text" class="form-control" id="mod_documentos_dir" name="mod_documentos_dir" value="<?php echo $config['mod_documentos_dir']; ?>">
+							    	</div>
+							    	
+							    	<div class="checkbox">
+							    		<label>
+							    			<input type="checkbox" name="mod_documentos_biblioteca" value="1" <?php echo (isset($config['mod_documentos_biblioteca']) && $config['mod_documentos_biblioteca']) ? 'checked' : ''; ?>>
+							    			<strong>Biblioteca</strong>
+							    			<p class="help-block">Creará una carpeta donde el personal de Biblioteca puede subir documentos de interés para la comunidad educativa.</p>
+							    		</label>
+							    	</div>
+							    	
+							    	<div class="checkbox">
+							    		<label>
+							    			<input type="checkbox" name="mod_documentos_recursos" value="1" <?php echo (isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos']) ? 'checked' : ''; ?>>
+							    			<strong>Recursos educativos</strong>
+							    			<p class="help-block">Creará una carpeta con las unidades del centro donde los profesores que impartan alguna materia en la unidad podrá subir recursos para los alumnos/as.</p>
+							    		</label>
+							    	</div>
+							    	
+							    	<div class="checkbox">
+							    		<label>
+							    			<input type="checkbox" name="mod_documentos_departamentos" value="1" <?php echo (isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) ? 'checked' : ''; ?>>
+							    			<strong>Departamentos</strong>
+							    			<p class="help-block">Creará una carpeta con los departamentos del centro donde se podrán subir las programaciones u otros documentos de interés para la comunidad educativa.</p>
+							    		</label>
 							    	</div>
 							    	
 							    </div>

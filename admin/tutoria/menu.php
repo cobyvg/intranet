@@ -48,7 +48,7 @@ $curso_tutor=$query2[0];
 		<li><a href="../../admin/actividades/indexextra.php">Actividades Complementarias / Extraescolares</a></li>
 		<li class="divider"></li>		
 		<li><a
-			href="../../upload/index.php?index=publico&direction=0&order=&directory=departamentos/Orientacion Educativa"
+			href="../../upload/index.php?index=publico&direction=0&order=&directory=Departamentos/Orientaci%F3n%20Educativa"
 			target="_blank">Material de orientación</a></li>
 	</ul>
 	</li>

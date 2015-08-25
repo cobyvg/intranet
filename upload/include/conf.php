@@ -62,7 +62,7 @@ $grants = array(
 	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
 );
 }
-elseif(strstr($_GET['directory'],$departamento2) == TRUE)
+elseif(strstr(rawurldecode($_GET['directory']), $_SESSION['dpt']) == TRUE)
 {
 $grants = array(
 	POWER     => array(TRUE,    TRUE,    TRUE,    TRUE,     TRUE,    TRUE,    TRUE,    TRUE,    TRUE ,   TRUE,     TRUE ),
@@ -140,7 +140,7 @@ $datetimeformat = 'd/m/Y H:i';
 $file_name_max_caracters = 150;
 
 //
-$file_out_max_caracters = 40;
+$file_out_max_caracters = 50;
 
 //
 //
