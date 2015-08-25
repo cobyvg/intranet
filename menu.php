@@ -58,6 +58,7 @@ mysqli_free_result($result_mensajes);
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/<?php echo (isset($_SESSION['tema'])) ? $_SESSION['tema'] : 'bootstrap.min.css'; ?>" rel="stylesheet">
 	
 	<!-- CUSTOM CSS THEME -->
+	<link href="//<?php echo $config['dominio']; ?>/intranet/css/animate.css" rel="stylesheet">
 	<link href="//<?php echo $config['dominio']; ?>/intranet/css/otros.css" rel="stylesheet">
 	
 	<!-- PLUGINS CSS -->

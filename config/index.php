@@ -271,23 +271,26 @@ if (isset($_POST['instalar']))
 <html lang="es">
 <head>
 	<meta charset="iso-8859-1">
-	<title><?php echo $page_header; ?></title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Intranet del <?php echo $config['centro_denominacion']; ?>">
 	<meta name="author" content="IESMonterroso (https://github.com/IESMonterroso/intranet/)">
+	<meta name="robots" content="noindex, nofollow">
+	
+	<title><?php echo $page_header; ?></title>
 	
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link href="../css/font-awesome.min.css" rel="stylesheet">
+	<link href="../css/animate.css" rel="stylesheet">
 	<link href="../css/otros.css" rel="stylesheet">
+	<link href="../css/font-awesome.min.css" rel="stylesheet">
 	
 	<style type="text/css">
 	.dl-horizontal dt
-{
+	{
 		width: 230px;
 	}
 	
 	.dl-horizontal dd
-{
+	{
 		margin-left: 250px;
 	}
 	</style>
