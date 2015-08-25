@@ -662,20 +662,20 @@ if (isset($_POST['instalar']))
 							<br>
 	    		            
 				    		<div class="row">
-				    			<div class="col-sm-4" style="border-right: 3px solid #dce4ec; margin-right: 25px;">
-									<ul class="nav nav-pills nav-stacked" role="tablist">
-										<li class="active"><a href="#mod_biblioteca" aria-controls="mod_biblioteca" role="tab" data-toggle="tab">Biblioteca</a></li>
-										<li><a href="#mod_bilingue" aria-controls="mod_bilingue" role="tab" data-toggle="tab">Centro Bilingüe</a></li>
-										<li><a href="#mod_centrotic" aria-controls="mod_centrotic" role="tab" data-toggle="tab">Centro TIC</a></li>
-										<li><a href="#mod_documentos" aria-controls="mod_documentos" role="tab" data-toggle="tab">Documentos</a></li>
-										<li><a href="#mod_sms" aria-controls="mod_sms" role="tab" data-toggle="tab">Envío SMS</a></li>
-										<li><a href="#mod_asistencia" aria-controls="mod_asistencia" role="tab" data-toggle="tab">Faltas de Asistencia</a></li>
-										<li><a href="#mod_horarios" aria-controls="mod_horarios" role="tab" data-toggle="tab">Horarios</a></li>
-										<li><a href="#mod_matriculacion" aria-controls="mod_matriculacion" role="tab" data-toggle="tab">Matriculación</a></li>
-									</ul>
-								</div>
+				    			<div class="col-sm-4" style="border-right: 3px solid #dce4ec; margin-right: -3px;">
+										<ul class="nav nav-pills nav-stacked" role="tablist">
+											<li class="active"><a href="#mod_biblioteca" aria-controls="mod_biblioteca" role="tab" data-toggle="tab">Biblioteca</a></li>
+											<li><a href="#mod_bilingue" aria-controls="mod_bilingue" role="tab" data-toggle="tab">Centro Bilingüe</a></li>
+											<li><a href="#mod_centrotic" aria-controls="mod_centrotic" role="tab" data-toggle="tab">Centro TIC</a></li>
+											<li><a href="#mod_documentos" aria-controls="mod_documentos" role="tab" data-toggle="tab">Documentos</a></li>
+											<li><a href="#mod_sms" aria-controls="mod_sms" role="tab" data-toggle="tab">Envío SMS</a></li>
+											<li><a href="#mod_asistencia" aria-controls="mod_asistencia" role="tab" data-toggle="tab">Faltas de Asistencia</a></li>
+											<li><a href="#mod_horarios" aria-controls="mod_horarios" role="tab" data-toggle="tab">Horarios</a></li>
+											<li><a href="#mod_matriculacion" aria-controls="mod_matriculacion" role="tab" data-toggle="tab">Matriculación</a></li>
+										</ul>
+									</div>
 								
-				    			<div class="tab-content col-sm-7">
+				    			<div class="tab-content col-sm-7" style="border-left: 3px solid #dce4ec; padding-left: 45px;">
 				    				
 				    				<!-- MÓDULO: BIBLIOTECA -->
 				    			    <div role="tabpanel" class="tab-pane active" id="mod_biblioteca">
