@@ -21,6 +21,9 @@ if($index=='publico') {
 		if(!file_exists($config['mod_documentos_dir'].'/Biblioteca')) mkdir($config['mod_documentos_dir'].'/Biblioteca', 0777);
 		
 	}
+	else {
+		unlink($config['mod_documentos_dir'].'/Biblioteca');
+	}
 	
 	// Recursos educativos
 	if(isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos']) {
@@ -33,6 +36,9 @@ if($index=='publico') {
 		mysqli_free_result($result);
 		
 	}
+	else {
+		unlink($config['mod_documentos_dir'].'/Recursos educativos');
+	}
 	
 	// Departamentos
 	if(isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) {
@@ -43,6 +49,9 @@ if($index=='publico') {
 			if(!file_exists($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'])) mkdir($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'], 0777);
 		}
 		mysqli_free_result($result);
+	}
+	else {
+		//unlink($config['mod_documentos_dir'].'/Departamentos');
 	}
  
 }
