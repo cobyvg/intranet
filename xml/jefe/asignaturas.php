@@ -51,7 +51,7 @@ include("../../menu.php");
 				// Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 				if ($handle = opendir('../exporta')) {
 					while (false !== ($file = readdir($handle))) {
-						if ($file != "." && $file != ".."&& $file != ".xml") {
+						if ($file != "." && $file != ".." && $file != "index.php" ) {
 							//echo $file."<br />";
 							$num+=1;
 							$doc = new DOMDocument('1.0', 'iso-8859-1');
@@ -125,8 +125,7 @@ include("../../menu.php");
 										$ordenes0 = $calificacion->getElementsByTagName( "N_ORDEN" );
 										$orden0 = $ordenes0->item(0)->nodeValue;
 										$nombre_utf = utf8_decode($nombre0);
-										mysqli_query($db_con, "INSERT INTO  `calificaciones_temp`
-			VALUES ('$codigo0',  '$nombre_utf',  '$abrev0',  '$orden0')");
+										mysqli_query($db_con, "INSERT INTO  `calificaciones_temp` VALUES ('$codigo0',  '$nombre_utf',  '$abrev0',  '$orden0')");
 									}
 								}
 			

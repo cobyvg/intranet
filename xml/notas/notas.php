@@ -28,7 +28,7 @@ if ($directorio=="../exporta1") {
 // Recorremos directorio donde se encuentran los ficheros y aplicamos la plantilla.
 if ($handle = opendir($directorio)) {
    while (false !== ($file = readdir($handle))) {   	
-      if ($file != "." && $file != ".."&& $file != ".xml") {
+      if ($file != "." && $file != ".." && $file != "index.php") {
        	
 $doc = new DOMDocument('1.0', 'utf-8');
 

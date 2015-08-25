@@ -36,6 +36,3 @@ if (mysqli_num_rows($asig2)>0) {
 Los alumnos con asignaturas pendientes han sido importados en la base de datos. Ya es posible realizar consultas y ver listados de pendientes por Grupo o Asignatura (Menú de la página principal ==> Consultas ==> Listados ==> Listas de Pendientes).
 </div>
  <br />
-<div align="center"><a href="../index.php" class="btn btn-primary" />Volver
-a Administración</a></div>
-<br>
