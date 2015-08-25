@@ -85,15 +85,16 @@ include("../menu.php");
 			    </ul>
 			<hr>
 			
-			<p>	
-			El <strong>sexto grupo (<span class="text-info">Notas de Evaluación</span>)</strong> crea y actualiza la tabla de las Notas de Evaluación que aparecen en los Informes de la Intranet, pero también presenta las Calificaciones del alumno en la pagina principal. Los archivos necesarios se descargan de Séneca desde &quot;Intercambio de Información --&gt; Exportación desde Seneca --&gt; Exportación de Calificaciones&quot;.</p>
+			<p>El <strong>sexto grupo (<span class="text-info">Notas de Evaluación</span>)</strong> crea y actualiza la tabla de las Notas de Evaluación que aparecen en los Informes de la Intranet, pero también presenta las Calificaciones del alumno en la pagina principal. Los archivos necesarios se descargan de Séneca desde &quot;Intercambio de Información --&gt; Exportación desde Seneca --&gt; Exportación de Calificaciones&quot;.</p>
 			<hr>
 			
-			<p>	
-			El <strong>séptimo grupo (<span class="text-info">Sistema de Reservas</span>)</strong> ofrece la posibilidad de gestionar el módulo de Reservas contenido en la aplicación (crear categorías, y dentro de estas Elementos para reservar).</p>
+			<p>El <strong>séptimo grupo (<span class="text-info">Centro TIC</span>)</strong> proporciona los archivos de importación de usuarios alumnos y profesores para las plataformas Gesuser (creación de perfiles de usuario de los ordenadores portátiles con Guadalinex) y Moodle (Plataforma educativa propia del centro o de la Junta de Andalucía).</p>
 			<hr>
 			
-			<p>El <strong>octavo grupo (<span class="text-info">Base de datos</span></strong>) permite realizar copias de seguridad de las bases de datos que contienen los datos esenciales de la Intranet. La copia de seguridad crea un archivo, comprimido o en formato texto (SQL), en un directorio de la aplicación ( /intranet/xml/jefe/copia_db/ ). Esta copia puede ser descargada una vez creada. También podemos restaurar la copia de seguridad seleccionando el archivo que hemos creado anteriormente. 
+			<p>El <strong>octavo grupo (<span class="text-info">Sistema de Reservas</span>)</strong> ofrece la posibilidad de gestionar el módulo de Reservas contenido en la aplicación (crear categorías, y dentro de estas Elementos para reservar).</p>
+			<hr>
+			
+			<p>El <strong>noveno grupo (<span class="text-info">Base de datos</span></strong>) permite realizar copias de seguridad de las bases de datos que contienen los datos esenciales de la Intranet. La copia de seguridad crea un archivo, comprimido o en formato texto (SQL), en un directorio de la aplicación ( /intranet/xml/jefe/copia_db/ ). Esta copia puede ser descargada una vez creada. También podemos restaurar la copia de seguridad seleccionando el archivo que hemos creado anteriormente. 
 			<br>Si el Centro ha tenido la aplicación funcionando durante varios cursos escolares, la opción <strong>Bases de datos de Cursos anteriores</strong> nos ofrece la posibilidad de incorporarlas a la Intranet. De este modo, podemos acceder a los datos de los alumnos a lo largo de los últimos años, especialmente en los <em>Informes de un Alumno</em>, o en el <em>Informe histórico del alumno</em> cuando vemos los <em>Datos de los alumnos</em>.</p>
 			
 		</div><!-- /.col-sm-8 -->
