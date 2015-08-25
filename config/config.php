@@ -180,7 +180,11 @@ include('../menu.php');
 		</div>
 		<?php endif; ?>
 		
-		<form id="form-configuracion" class="form-horizontal" data-toggle="validator" class="form-horizontal" method="post" action="" autocomplete="off">
+		<div id="status-loading" class="text-center">
+			<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+		</div>
+		
+		<form id="form-configuracion" class="form-horizontal" data-toggle="validator" class="form-horizontal" method="post" action="" autocomplete="off" style="display: none;">
 			
 			<ul class="nav nav-tabs" role="tablist">
 				<li class="active"><a href="#configuracion" aria-controls="configuracion" role="tab" data-toggle="tab">Configuración general</a></li>
@@ -662,6 +666,14 @@ include('../menu.php');
 	
 	<?php include('../pie.php'); ?>
 	
+	<script>
+	function espera() {
+		document.getElementById("form-configuracion").style.display = '';
+		document.getElementById("status-loading").style.display = 'none';        
+	}
+	window.onload = espera;
+	</script>
+	
 	<script src="../js/validator/validator.min.js"></script>
 	<script>
 	$(document).ready(function()
@@ -669,7 +681,6 @@ include('../menu.php');
 	    $('#form-instalacion').validator();
 	});
 	</script>
-	
 
 </body>
 </html>
