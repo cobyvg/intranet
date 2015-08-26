@@ -13,51 +13,7 @@ define('IN_PHPATM', true);
 include('include/conf.php');
 include('include/common.'.$phpExt);
 
-
-if($index=='publico') {
-	// Biblioteca
-	if(isset($config['mod_documentos_biblioteca']) && $config['mod_documentos_biblioteca']) {
-	
-		if(!file_exists($config['mod_documentos_dir'].'/Biblioteca')) mkdir($config['mod_documentos_dir'].'/Biblioteca', 0777);
-		
-	}
-	else {
-		unlink($config['mod_documentos_dir'].'/Biblioteca');
-	}
-	
-	// Recursos educativos
-	if(isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos']) {
-	
-		if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos')) mkdir($config['mod_documentos_dir'].'/Recursos educativos', 0777);
-		$result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
-		while ($row = mysqli_fetch_array($result)) {
-			if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) mkdir($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], 0777);
-		}
-		mysqli_free_result($result);
-		
-	}
-	else {
-		unlink($config['mod_documentos_dir'].'/Recursos educativos');
-	}
-	
-	// Departamentos
-	if(isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) {
-		
-		if(!file_exists($config['mod_documentos_dir'].'/Departamentos')) mkdir($config['mod_documentos_dir'].'/Departamentos', 0777);
-		$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Auxiliar de Conversaci_n' AND departamento NOT LIKE 'Administraci_n' AND departamento NOT LIKE 'Conserjer_a' ORDER BY departamento ASC");
-		while ($row = mysqli_fetch_array($result)) {
-			if(!file_exists($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'])) mkdir($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'], 0777);
-		}
-		mysqli_free_result($result);
-	}
-	else {
-		//unlink($config['mod_documentos_dir'].'/Departamentos');
-	}
- 
-}
-
-if($index=='privado' && !file_exists($uploads_folder_name)) mkdir("$uploads_folder_name", 0777);
-
+//
 //
 function msdos_time_to_unix($DOSdate, $DOStime)
 {
@@ -819,6 +775,55 @@ function is_path_safe(&$path, &$filename) {
 
 	return true;
 }
+
+//----------------------------------------------------------------------------
+//   CREACIÓN / ELIMINACIÓN DE DIRECTORIOS EN FUNCIÓN DE LA CONFIGURACIÓN
+//----------------------------------------------------------------------------
+
+if($index=='publico') {
+	// Biblioteca
+	if(isset($config['mod_documentos_biblioteca']) && $config['mod_documentos_biblioteca']) {
+	
+		if(!file_exists($config['mod_documentos_dir'].'/Biblioteca')) mkdir($config['mod_documentos_dir'].'/Biblioteca', 0777);
+		
+	}
+	else {
+		delete_dir($config['mod_documentos_dir'].'/Biblioteca');
+	}
+	
+	// Recursos educativos
+	if(isset($config['mod_documentos_recursos']) && $config['mod_documentos_recursos']) {
+	
+		if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos')) mkdir($config['mod_documentos_dir'].'/Recursos educativos', 0777);
+		$result = mysqli_query($db_con, "SELECT nomunidad FROM unidades ORDER BY nomunidad ASC");
+		while ($row = mysqli_fetch_array($result)) {
+			if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) mkdir($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], 0777);
+		}
+		mysqli_free_result($result);
+		
+	}
+	else {
+		delete_dir($config['mod_documentos_dir'].'/Recursos educativos');
+	}
+	
+	// Departamentos
+	if(isset($config['mod_documentos_departamentos']) && $config['mod_documentos_departamentos']) {
+		
+		if(!file_exists($config['mod_documentos_dir'].'/Departamentos')) mkdir($config['mod_documentos_dir'].'/Departamentos', 0777);
+		$result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos WHERE departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Auxiliar de Conversaci_n' AND departamento NOT LIKE 'Administraci_n' AND departamento NOT LIKE 'Conserjer_a' ORDER BY departamento ASC");
+		while ($row = mysqli_fetch_array($result)) {
+			if(!file_exists($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'])) mkdir($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'], 0777);
+		}
+		mysqli_free_result($result);
+	}
+	else {
+		//delete_dir($config['mod_documentos_dir'].'/Departamentos');
+	}
+ 
+}
+
+if($index=='privado' && !file_exists($uploads_folder_name)) mkdir("$uploads_folder_name", 0777);
+
 
 //----------------------------------------------------------------------------
 //      MAIN
