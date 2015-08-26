@@ -1242,7 +1242,7 @@ switch($action)
 						
 							if(! is_dir("$current_dir/$filename")) {
 								$filetype = end(explode(".", $filename));
-								$userfile2 = str_replace($filetype, '', $userfile);
+								$userfile2 = str_replace('.'.$filetype, '', $userfile);
 								
 								rename("$current_dir/$filename", "$current_dir/$userfile2.$filetype");
 							}
@@ -1267,10 +1267,6 @@ switch($action)
 		show_contents();
 		include("../pie.php");
 		break;
-
-	case 'phpinfo';
-		echo phpinfo();
-		exit();
 
 	default;
 	    
