@@ -9,9 +9,13 @@ $idea = $_SESSION['ide']; // Usuario iDea de Séneca
 $n_curso = $_SESSION['n_cursos']; // Tiene Horario
 
 include("menu.php");
-?>
+?>	
 
-	<div class="container-fluid" style="padding-top: 15px;">
+	<div id="status-loading" class="text-center" style="min-height: 300px; margin-top: 200px;">
+		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
+	</div>
+
+	<div id="wrap" class="container-fluid" style="padding-top: 15px; display: none;">
 		
 		<div class="row">
 			
@@ -90,6 +94,14 @@ include("menu.php");
 	</div><!-- /.container-fluid -->
 
 <?php include("pie.php"); ?>
+	
+	<script>
+	function espera() {
+		document.getElementById("wrap").style.display = '';
+		document.getElementById("status-loading").style.display = 'none';        
+	}
+	window.onload = espera;
+	</script>
 	
 	<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
 	<script>

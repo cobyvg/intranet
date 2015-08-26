@@ -173,7 +173,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	</div><!-- /.modal -->
 	<![endif]-->
 
-	<div id="wrap">
+	<div id="wrapper">
 	
 		<div class="container">
   

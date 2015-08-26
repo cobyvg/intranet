@@ -254,7 +254,7 @@ div.tour > div.popover-content {
   border-top-right-radius: 0;
 }
 
-#wrap {
+#wrapper {
   min-height: 100%;
   height: auto;
   /* Negative indent footer by its height */
