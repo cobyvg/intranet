@@ -116,7 +116,7 @@ mysqli_free_result($result_mensajes);
 								<?php if (count($first_items)): ?>
 								<?php foreach ($first_items as $item): ?>
 								<li>
-									<a href="<?php echo $item->get_permalink(); ?>">
+									<a href="<?php echo $item->get_permalink(); ?>" target="_blank">
 										<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($item->get_date('j M Y, g:i a'))); ?></em></span>
 										<?php echo $item->get_title(); ?>
 									</a>
