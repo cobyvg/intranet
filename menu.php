@@ -101,18 +101,7 @@ mysqli_free_result($result_mensajes);
 				</ul>
 		
 				<div class="navbar-right">
-					<ul class="nav navbar-nav">
-					
-					<?php if($_SESSION['user_admin'] == '1' && $ultima_version > INTRANET_VERSION): ?>
-					<!-- ACTUALIZACIONES -->
-						
-						<li class="hidden-xs">
-							<a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" target="_blank" data-bs="tooltip" title="<strong>Actualización disponible.</strong><br> Está disponible para su descarga la versión <?php echo $ultima_version; ?> de la Intranet. Pulsa en el icono para más información." data-placement="bottom" data-container="body" data-html="on">
-								<span class="fa fa-refresh fa-fw"></span> 
-							</a>
-						</li>
-					<?php endif; ?>
-					
+					<ul class="nav navbar-nav">					
 					
 						<!-- CONSEJERIA DE EDUCACION -->
 						<li class="visible-xs"><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6"><?php echo $feed_title; ?></a></li>

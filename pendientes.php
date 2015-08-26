@@ -1,5 +1,31 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
+// Actualizaciones de la aplicación.
+// Comprueba la última release de la aplicación
+if (stristr($carg, '1') == TRUE) {
+
+	function getLatestVersion($repository, $default = 'master') {
+		$file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false,
+		stream_context_create(['http' => ['header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"]])));
+		return sprintf("%s", $file ? reset($file)->name : $default);
+	}
+
+	$ultima_version = ltrim(getLatestVersion('IESMonterroso/intranet'), 'v');
+
+}
+
+if(isset($_SESSION['user_admin']) && $ultima_version > INTRANET_VERSION):
+?>
+
+<a
+	href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>"
+	target="_blank" class="alert alert-info"
+	style="display: block; text-decoration: none; color: #fff;"> <strong>Actualización de la aplicación.<br></strong> Está disponible para su descarga la versión <?php echo $ultima_version; ?>
+de la Intranet. Haz click aquí para más información. </a>
+
+<?php endif;
+
+
 // Alumnos expulsados que vuelven
 if (isset($_GET['id_tareas'])) {
 	$id_tareas = $_GET['id_tareas'];
@@ -142,18 +168,18 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 				//echo $asigna_pend;
 				$query_pend = mysqli_query($db_con,$asigna_pend);
 				if (mysqli_num_rows($query_pend)>0) {
-				while ($res_pend = mysqli_fetch_array($query_pend)) {
-					$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
+					while ($res_pend = mysqli_fetch_array($query_pend)) {
+						$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
 
-				if (mysqli_num_rows($si_pend) > 0)
-				{ }
-				else
-				{
-					$count03 = $count03 + 1;
+						if (mysqli_num_rows($si_pend) > 0)
+						{ }
+						else
+						{
+							$count03 = $count03 + 1;
+						}
+					}
 				}
-				}
-				}
-				
+
 				$si03 = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$asignatura3'");
 				if (mysqli_num_rows($si03) > 0)
 				{ }
@@ -240,7 +266,8 @@ if(stristr($carg,'2') == TRUE)
 			$origen = $men[4].", ".$men[3];
 			?>
 <li><a class="alert-link" data-toggle="modal"
-	href="#mensajep<?php echo $n_mensajesp;?>"> <?php echo $asunto; ?> </a> <br />
+	href="#mensajep<?php echo $n_mensajesp;?>"> <?php echo $asunto; ?> </a>
+<br />
 			<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 			<?php
@@ -268,15 +295,14 @@ if(stristr($carg,'2') == TRUE)
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 <h4 class="modal-title"><?php echo $asunto;?><br>
-<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?>
+el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body">
-<?php echo stripslashes(html_entity_decode($texto, ENT_NOQUOTES, 'ISO-8859-1'));?>
-<?php if (strlen($archivo) > 5): ?>
-Archivo adjunto: <a href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
-<?php endif; ?>
-</div>
+<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_NOQUOTES, 'ISO-8859-1'));?>
+			<?php if (strlen($archivo) > 5): ?> Archivo adjunto: <a
+	href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>"
+	target="_blank"><?php echo $archivo; ?></a> <?php endif; ?></div>
 <div class="modal-footer">
 <form name="mensaje_enviado" action="index.php" method="post"
 	enctype="multipart/form-data" class="form-inline"><a href="#"
@@ -351,7 +377,8 @@ if(mysqli_num_rows($men2) > 0)
 <button type="button" class="close" data-dismiss="modal"><span
 	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 <h4 class="modal-title"><?php echo $asunto;?><br>
-<small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+<small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?>
+el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
 <div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_NOQUOTES, 'ISO-8859-1')); ?></div>

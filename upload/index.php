@@ -694,18 +694,14 @@ function show_contents() {
 					públicos del Centro</em></strong> y los <strong><em>Documentos privados de 
 					cada Profesor</em></strong>.</p>
 					<p>Los <strong><em>Documentos Públicos</em></strong> se configuran en la 
-					instalación de la Intranet, y nos ofrecen un directorio donde el Equipo 
-					directivo coloca aquellos archivos que considera relevantes para su Comunidad 
-					educativa (Programaciones, Plan del Centro, etc.). Es posible también crear 
-					un directorio llamado <strong><em>Departamentos</em></strong>; dentro del 
-					mismo creamos también un conjunto de directorios para los Departamentos (con 
-					el mismo nombre que tiene ese Departamento en la Intranet). Estos pueden usarlo 
-					para subir documentos accesibles desde la Página pública del Centro. Los 
-					miembros de un departamento pueden subir y borrar los archivos, y también 
-					crear directorios donde subir nuevos archivos.</p>
+					instalación de la Intranet, y son visibles desde la página pública del Centro. Ofrecen un directorio donde el Equipo 
+					directivo y demás profesores colocan aquellos archivos que consideran relevantes para la Comunidad 
+					educativa (Programaciones, Plan del Centro, etc.). <br>					
+					Dependiendo de las opciones elegidas en la instalación, podemos encontrar tres categorías: <strong><em>Biblioteca</em></strong>, donde los miembros del equipo de la misma pueden subir y compartir sus archivos; <strong><em>Departamentos</em></strong>, dentro del 
+					cual encontraremos directorios de los distintos Departamentos del Centro y que pueden ser utilizados por los miembros de los mismos; y <strong><em>Recursos</em></strong>, con un directorio para cada grupo del Centro en el que los Equipos educativos pueden colocar materiales diversos para sus alumnos.</p>
 					<p>Los <strong><em>Documentos Personales</em></strong> son propios de cada 
-					Profesor. Podemos subir archivos para luego usarlos en el Centro, o bien 
-					utilizar esos archivos para incrustarlos en un mensaje que luego comparte 
+					Profesor y sólo son accesibles por él. Podemos subir archivos para luego usarlos en el Centro, o bien 
+					utilizar esos archivos para incrustarlos en un mensaje que luego se comparte 
 					dentro de la Intranet. Este módulo se puede también entender como un pequeño 
 					Explorador personal de nuestros archivos. No es visible desde la Página 
 					pública del Centro.</p>
