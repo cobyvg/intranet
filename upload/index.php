@@ -422,10 +422,10 @@ function contents_dir($current_dir, $directory)
 			if (is_dir("$current_dir/$filename")) echo "<a href=\"$filenameandpath\">";
 			
 			if(strlen($filename) > $file_out_max_caracters) {
-				echo substr($filename, 0, $file_out_max_caracters-4).'...';
+				echo htmlspecialchars(substr($filename, 0, $file_out_max_caracters-4).'...', ENT_QUOTES, 'ISO-8859-1');
 			}
 			else {
-				echo $filename;
+				echo htmlspecialchars($filename, ENT_QUOTES, 'ISO-8859-1');
 			}
 			if (is_dir("$current_dir/$filename")) echo "</a>";
 			echo "        $content\n";
