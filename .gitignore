@@ -18,3 +18,4 @@ prueba.php
 *.sublime-workspace
 xml/primaria/*.txt
 *.txt
+php.ini
