@@ -439,3 +439,15 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con,"ALTER TABLE `tramos` ADD `hora_inicio` VARCHAR(5) NOT NULL , ADD `hora_fin` VARCHAR(5) NOT NULL");
 	}
 }
+
+/*
+ @descripcion: Modificación Tabla listafechorias
+ @fecha: 27 de agosto de 2015
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla listafechorias'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla listafechorias', NOW())");
+	
+	mysqli_query($db_con, "ALTER TABLE `listafechorias` CHANGE `ID` `ID` INT(4) NOT NULL AUTO_INCREMENT;";
+	
+}

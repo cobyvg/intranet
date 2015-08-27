@@ -5,28 +5,31 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 $profe = $_SESSION['profi'];
 
-// COMPROBAMOS SI SE AÑADE O SE MODIFICA UNA REGLA
+$titulo = "Añadir nueva regla";
+$boton = "Añadir regla";
+
+// COMPROBAMOS SI SE MODIFICA UNA REGLA
 if(isset($_GET['id'])) {
-	if (!intval($_GET['id'])) die ("<h1>Forbidden</h3>");
+	if (!intval($_GET['id'])) {
+		unset($_GET['id']);
+	}
+	else {
 	
-	$titulo = "Modificación de regla";
-	$boton = "Actualizar";
-	$id = $_GET['id'];
-}
-else {
-	$titulo = "Añadir nueva regla";
-	$boton = "Añadir regla";
+		$titulo = "Modificación de regla";
+		$boton = "Actualizar";
+		$id = $_GET['id'];
+	}
 }
 
 // ENVIO DE FORMULARIO
 if(isset($_POST['submit'])) {
 	
-	$asunto = $_POST['asunto'];
-	$medida = $_POST['medida'];
-	$medida2 = $_POST['medida2'];
-	$gravedad = $_POST['gravedad'];
+	$asunto = mysqli_real_escape_string($db_con, trim($_POST['asunto']));
+	$medida = mysqli_real_escape_string($db_con, trim($_POST['medida']));
+	$medida2 = mysqli_real_escape_string($db_con, trim($_POST['medida2']));
+	$gravedad = mysqli_real_escape_string($db_con, trim($_POST['gravedad']));
 	
-	if(empty($asunto) || empty($medida2)) {
+	if(empty($asunto)) {
 		$msg = "Todos los campos son obligatorios";
 	}
 	else {
@@ -95,7 +98,7 @@ include("../../../menu.php");
 					echo '  </select>';
 					echo '  <br><br>';
 					echo '  <label for="medida2">Medida complementaria</label>';
-					echo '  <textarea type="text" id="medida2" class="form-control" name="medida2" rows="5" required>'.$fechoria[2].'</textarea>';
+					echo '  <textarea type="text" id="medida2" class="form-control" name="medida2" rows="5">'.$fechoria[2].'</textarea>';
 					echo '  <br>';
 					echo '  <label for="gravedad">Gravedad</label>';
 					echo '  <select class="form-control" name="gravedad" required>';
