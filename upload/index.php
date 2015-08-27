@@ -546,25 +546,27 @@ function list_dir($directory)
 	$directory = clean_path($directory);
 	$current_dir = init($directory);
 	$filenameandpath = ($directory != '') ? "&directory=".$directory : '';
-
+	
+	echo "<div class=\"table-responsive\">";
 	echo "<table class=\"table table-striped table-hover\">";
 	echo "  <thead>\n";
 	echo "    <tr>\n";
-	echo "      <th>$mess[15]</th>\n";
-	echo "      <th>$mess[16]</th>\n";
-	echo "      <th class=\"hidden-xs hidden-sm\">$mess[17]</th>\n";
-	echo "      <th class=\"hidden-xs hidden-sm\">$mess[18]</th>\n";
+	echo "      <th nowrap>$mess[15]</th>\n";
+	echo "      <th nowrap>$mess[16]</th>\n";
+	echo "      <th class=\"hidden-xs hidden-sm\" nowrap>$mess[17]</th>\n";
+	echo "      <th class=\"hidden-xs hidden-sm\" nowrap>$mess[18]</th>\n";
 	echo "    </tr>\n";
 	echo "  </thead>\n";
-
-    contents_dir($current_dir, $directory);
-    
-    echo "  <tfoot>\n";
-    echo "    <tr>\n";
-    echo "      <td colspan=\"4\"><p class=\"text-right text-muted\">$mess[43]: $totalsize</p></td>\n";
-    echo "    </tr>\n";
-    echo "	</tfooter>\n";
-    echo "</table>\n";
+	
+	contents_dir($current_dir, $directory);
+	
+	echo "  <tfoot>\n";
+	echo "    <tr>\n";
+	echo "      <td colspan=\"4\"><p class=\"text-right text-muted\">$mess[43]: $totalsize</p></td>\n";
+	echo "    </tr>\n";
+	echo "	</tfooter>\n";
+	echo "</table>\n";
+	echo "</div>";
 	
 }
 
@@ -728,7 +730,7 @@ function show_contents() {
 		echo "                <input type=\"hidden\" name=\"index\" value=\"$index\">\n";
 		echo "                <input type=\"hidden\" name=\"direction\" value=\"$direction\">\n";
 		echo "                <div class=\"form-group\">\n";
-		echo "                <input type=\"file\" name=\"userfile\">\n";
+		echo "                <input type=\"file\" name=\"userfile[]\" multiple>\n";
 		echo "                </div>\n";
 		echo "                <input type=\"submit\" class=\"btn btn-primary\" value=\"$mess[20]\">\n";
 		echo "              </fieldset>\n";
@@ -1051,75 +1053,81 @@ switch($action)
 
 	case 'upload';
 		$message = $mess[40];
-		$userfile_name = $userfile['name'];
-		$userfile_size = $userfile['size'];
-		$destination = $uploads_folder_name."/$directory";
-
-		if (!$grants[$user_status][UPLOAD])
-		{
-			place_header(sprintf($mess[49], "<b>$userfile_name</b>"));
-			include("../menu.php");
-			show_contents();
-			include("../pie.php");
-			break;
-		}
-
-		if (!is_path_safe($directory, $userfile_name))
-		{
-			place_header(sprintf($mess[49], "<b>$userfile_name</b>"));
-			include("../menu.php");
-			show_contents();
-			include("../pie.php");
-			break;
-		}
-
-		if ($userfile_name == '')
-		{
-			$message = $mess[34];
-		}
-
-		if ($userfile_size != 0)
-		{
-			$size_kb = $userfile_size/1024;
-		}
-		else
-		{
-			$message = $mess[34];
-			$size_kb = 0;
-		}
-
-		if ($userfile_name != '' && $userfile_size !=0)
-		{
-			$userfile_name = normalize_filename($userfile_name);
-			if (file_exists("$destination/$userfile_name") || eregi($rejectedfiles, $userfile_name) || ($size_kb > $max_allowed_filesize))
-			{
-				if ($size_kb > $max_allowed_filesize)
-					$message="$mess[38] <b>$userfile_name</b> $mess[50] ($max_allowed_filesize Kb)!";
-				else
-					if (eregi($rejectedfiles, $userfile_name))  // If file is script
-						$message=sprintf($mess[49], "<b>$userfile_name</b>");
-					else
-						$message="$mess[38] <b>$userfile_name</b> $mess[39]";
-			}
-			else
-			{
-				if (($user_status != ANONYMOUS) && ($logged_user_name != ''))  // Update user statistics
+		
+		for ($i = 0; $i < count($userfile['name']); $i++) {
+				
+				$userfile_name = $userfile['name'][$i];
+				$userfile_size = $userfile['size'][$i];
+				$destination = $uploads_folder_name."/$directory";
+		
+				if (!$grants[$user_status][UPLOAD])
 				{
-					list($files_uploaded, $files_downloaded, $files_emailed) = load_userstat($logged_user_name);
-					$files_uploaded++;
-					save_userstat($logged_user_name, $files_uploaded, $files_downloaded, $files_emailed, time());
+					place_header(sprintf($mess[49], "<b>$userfile_name</b>"));
+					include("../menu.php");
+					show_contents();
+					include("../pie.php");
+					break;
 				}
-
-				// Save description
-				$ip = getenv('REMOTE_ADDR');
-
-				if (!move_uploaded_file($userfile['tmp_name'], "$destination/$userfile_name"))
-					$message="$mess[33] $userfile_name";
+		
+				if (!is_path_safe($directory, $userfile_name))
+				{
+					place_header(sprintf($mess[49], "<b>$userfile_name</b>"));
+					include("../menu.php");
+					show_contents();
+					include("../pie.php");
+					break;
+				}
+		
+				if ($userfile_name == '')
+				{
+					$message = $mess[34];
+				}
+		
+				if ($userfile_size != 0)
+				{
+					$size_kb = $userfile_size/1024;
+				}
 				else
-					$message="$mess[36] <b>$userfile_name</b> $mess[37]";
-				chmod("$destination/$userfile_name",0777);
+				{
+					$message = $mess[34];
+					$size_kb = 0;
 				}
+		
+				if ($userfile_name != '' && $userfile_size !=0)
+				{
+					$userfile_name = normalize_filename($userfile_name);
+					if (file_exists("$destination/$userfile_name") || eregi($rejectedfiles, $userfile_name) || ($size_kb > $max_allowed_filesize))
+					{
+						if ($size_kb > $max_allowed_filesize)
+							$message="$mess[38] <b>$userfile_name</b> $mess[50] ($max_allowed_filesize Kb)!";
+						else
+							if (eregi($rejectedfiles, $userfile_name))  // If file is script
+								$message=sprintf($mess[49], "<b>$userfile_name</b>");
+							else
+								$message="$mess[38] <b>$userfile_name</b> $mess[39]";
+					}
+					else
+					{
+						if (($user_status != ANONYMOUS) && ($logged_user_name != ''))  // Update user statistics
+						{
+							list($files_uploaded, $files_downloaded, $files_emailed) = load_userstat($logged_user_name);
+							$files_uploaded++;
+							save_userstat($logged_user_name, $files_uploaded, $files_downloaded, $files_emailed, time());
+						}
+		
+						// Save description
+						$ip = getenv('REMOTE_ADDR');
+		
+						if (!move_uploaded_file($userfile['tmp_name'][$i], "$destination/$userfile_name"))
+							$message="$mess[33] $userfile_name";
+						else
+							$message="$mess[36] <b>$userfile_name</b> $mess[37]";
+						chmod("$destination/$userfile_name",0777);
+						}
+				}
+				
 		}
+				
 	  include("../menu.php");
 	  show_contents();
 	  include("../pie.php");
