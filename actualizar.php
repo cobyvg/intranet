@@ -448,6 +448,6 @@ $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla listafechorias', NOW())");
 	
-	mysqli_query($db_con, "ALTER TABLE `listafechorias` CHANGE `ID` `ID` INT(4) NOT NULL AUTO_INCREMENT;";
+	mysqli_query($db_con, "ALTER TABLE `listafechorias` CHANGE `ID` `ID` INT(4) NOT NULL AUTO_INCREMENT;");
 	
 }
