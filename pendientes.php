@@ -2,7 +2,7 @@
 
 // Actualizaciones de la aplicación.
 // Comprueba la última release de la aplicación
-if (stristr($carg, '1') == TRUE) {
+if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 
 	function getLatestVersion($repository, $default = 'master') {
 		$file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false,
@@ -15,9 +15,9 @@ if (stristr($carg, '1') == TRUE) {
 }
 ?>
 
-<?php if(isset($_SESSION['user_admin']) && $ultima_version > INTRANET_VERSION): ?>
+<?php if((isset($_SESSION['user_admin']) && $_SESSION['user_admin']) && $ultima_version > INTRANET_VERSION): ?>
 <a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" target="_blank" class="alert alert-info" style="display: block; text-decoration: none; color: #fff;">
-	<h4>Actualización de la aplicación</h4>
+	<h4>Nueva actualización disponible</h4>
 	Está disponible para su descarga la versión <?php echo $ultima_version; ?> de la Intranet. Haz click aquí para más información.
 </a>
 <?php endif; ?>
