@@ -36,11 +36,22 @@ include("../../../menu.php");
 						<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
 					</div>
 					<div class="modal-body">
-						<p>El registro de Problemas de Convivencia supone que las Conductas Negativas de los alumnos han sido definidas y organizadas en categorías. Estas conductas, a su vez, son las que aparecen en el ROF del Centro, y se clasifican en función de la gravedad de los hechos (Leve, Grave y Muy Grave). La lista más abajo presenta las Conductas Negativas o Problemas de Convivencia de nuestro Centro, y por eso debe ser adaptada al Centro en el que se instala la Intranet. La edición, modificación y eliminación de las Conductas contra las normas del Centro es fundamental para que los profesores puedan registrar los Problema de Convivencia en el marco del reglamento propio de cada I.E.S. 
-						</p>
-						<p>
-						La edición de una regla o la creación de una nueva nos presenta un formulario con cuatro campos. El <strong>Asunto</strong> debe contener el enunciado conciso y preciso de la Conducta Negativa del alumno o alumnos. El campo <strong>Medida</strong> indica la acción emprendida por el profesor o Jefe de Estudios en relación a la Conducta. La <strong>Medida Complementaria</strong> precisa el contenido de la <strong>Medida</strong> que debe ser tomada con el alumno. La <strong>Gravedad</strong> clasifica la Conducta dentro de tres categorías: <em>Leve, Grave y Muy Grave</em>.
-						</p>
+						<p>El registro de Problemas de Convivencia supone que las Conductas Negativas de los 
+						alumnos han sido definidas y organizadas en categorías. Estas conductas, a su vez, son 
+						las que aparecen en el ROF del Centro, y se clasifican en función de la gravedad de 
+						los hechos (Leve, Grave y Muy Grave). La lista más abajo presenta las Conductas Negativas 
+						o Problemas de Convivencia de nuestro Centro, y por eso debe ser adaptada al Centro en 
+						el que se instala la Intranet. La edición, modificación y eliminación de las Conductas 
+						contra las normas del Centro es fundamental para que los profesores puedan registrar 
+						los Problema de Convivencia en el marco del reglamento propio de cada I.E.S.</p>
+						
+						<p>La edición de una regla o la creación de una nueva nos presenta un formulario con 
+						cuatro campos. El <strong>Asunto</strong> debe contener el enunciado conciso y preciso 
+						de la Conducta Negativa del alumno o alumnos. El campo <strong>Medida</strong> indica 
+						la acción emprendida por el profesor o Jefe de Estudios en relación a la Conducta. La 
+						<strong>Medida Complementaria</strong> precisa el contenido de la <strong>Medida</strong> 
+						que debe ser tomada con el alumno. La <strong>Gravedad</strong> clasifica la Conducta 
+						dentro de tres categorías: <em>Leve, Grave y Muy Grave</em>.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>

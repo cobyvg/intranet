@@ -4,7 +4,7 @@
 // Comprueba la última release de la aplicación
 if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 
-	function getLatestVersion($repository, $default = 'master') {
+	function getLatestVersion($repository, $default = INTRANET_VERSION) {
 		$file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false,
 		stream_context_create(['http' => ['header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"]])));
 		return sprintf("%s", $file ? reset($file)->name : $default);
@@ -15,7 +15,7 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 }
 ?>
 
-<?php if(isset($_SESSION['user_admin']) && $ultima_version > INTRANET_VERSION && $ultima_version !== "master"): ?>
+<?php if(isset($_SESSION['user_admin']) && $ultima_version > INTRANET_VERSION): ?>
 <a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" target="_blank" class="alert alert-info" style="display: block; text-decoration: none; color: #fff;">
 	<h4>Nueva actualización disponible</h4>
 	Está disponible para su descarga la versión <?php echo $ultima_version; ?> de la Intranet. Haz click aquí para más información.
