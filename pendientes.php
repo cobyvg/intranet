@@ -15,7 +15,7 @@ if (stristr($carg, '1') == TRUE) {
 }
 ?>
 
-<?php if(isset($_SESSION['user_admin']) && $ultima_version > INTRANET_VERSION): ?>
+<?php if(isset($_SESSION['user_admin']) && $ultima_version > INTRANET_VERSION && $ultima_version !== "master"): ?>
 <a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" target="_blank" class="alert alert-info" style="display: block; text-decoration: none; color: #fff;">
 	<h4>Actualización de la aplicación</h4>
 	Está disponible para su descarga la versión <?php echo $ultima_version; ?> de la Intranet. Haz click aquí para más información.
