@@ -379,18 +379,43 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 </div><!-- /.container -->
 
 <?php include("../../pie.php"); ?> 
+<?php 
+$exp_inicio_curso = explode('-', $config['curso_inicio']);
+$inicio_curso = $exp_inicio_curso[2].'/'.$exp_inicio_curso[1].'/'.$exp_inicio_curso[0];
 
+$exp_fin_curso = explode('-', $config['curso_fin']);
+$fin_curso = $exp_fin_curso[2].'/'.$exp_fin_curso[1].'/'.$exp_fin_curso[0];
+
+$result = mysqli_query($db_con, "SELECT fecha FROM festivos ORDER BY fecha ASC");
+$festivos = '';
+while ($row = mysqli_fetch_array($result)) {
+	$exp_festivo = explode('-', $row['fecha']);
+	$dia_festivo = $exp_festivo[2].'/'.$exp_festivo[1].'/'.$exp_festivo[0];
+	
+	$festivos .= '"'.$dia_festivo.'", ';
+}
+
+$festivos = substr($festivos,0,-2);
+?>
 	<script>  
 	$(function ()  
 	{ 
 		$('#datimepicker1').datetimepicker({
 			language: 'es',
-			pickTime: false
+			pickTime: false,
+			minDate:'<?php echo $inicio_curso; ?>',
+			maxDate:'<?php echo $fin_curso; ?>',
+			disabledDates: [<?php echo $festivos; ?>],
+			daysOfWeekDisabled:[0,6] 
 		});
 		
 		$('#datimepicker2').datetimepicker({
 			language: 'es',
-			pickTime: false
+			pickTime: false,
+			minDate:'<?php echo $inicio_curso; ?>',
+			maxDate:'<?php echo $fin_curso; ?>',
+			disabledDates: [<?php echo $festivos; ?>],
+			daysOfWeekDisabled:[0,6] 
 		});
 	});  
 	</script>

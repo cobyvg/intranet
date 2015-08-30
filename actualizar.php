@@ -249,7 +249,7 @@ $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Temas del Profesor', NOW())");
 
-	mysqli_query($db_con, "CREATE TABLE `temas` (
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `temas` (
   `idea` varchar(12) COLLATE latin1_spanish_ci NOT NULL,
   `tema` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   `fondo` varchar(16) COLLATE latin1_spanish_ci NOT NULL

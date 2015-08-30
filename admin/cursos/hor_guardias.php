@@ -8,13 +8,10 @@ $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
   ?>
- <br />
-  <div align=center>
+ <div class="container">
   <div class="page-header">
-  <h2>Información sobre Guardias <small><br /> Datos y Estadísticas</small></h2>
+  <h2>Información sobre Guardias <small> Datos y Estadísticas</small></h2>
 </div>
-</div>
-<div class="container">
 <div class="row">
 <div class="well well-larfe" style="width:750px;margin:auto">
 <p class="block-help">

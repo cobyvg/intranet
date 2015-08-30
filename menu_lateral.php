@@ -213,20 +213,20 @@ $menu = array(
 			),
 			array(
 				'href'   => '#',
-				'titulo' => 'Estadísticas',
+				'titulo' => 'Información y Estadísticas',
 				'ncargos' => array('6', '7'),
 				'items' => array(
 					array(
 						'href'   => 'admin/informes/informe_notas1.php',
-						'titulo' => 'Informes sobre las evaluaciones'
+						'titulo' => 'Informe sobre las Evaluaciones'
 					),
 					array(
 						'href'   => 'admin/fechorias/informe_convivencia.php',
-						'titulo' => 'Informes sobre convivencia'
+						'titulo' => 'Informe sobre Convivencia'
 					),
 					array(
 						'href'   => 'admin/cursos/hor_guardias.php',
-						'titulo' => 'Informes sobre guardias',
+						'titulo' => 'Informe sobre Guardias',
 						'modulo' => $config['mod_horarios'],
 					),
 				),
@@ -658,7 +658,7 @@ $menu = array_merge($menu, $paginas_interes);
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[0], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[1], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[2], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[3], $menu[$i]['items'][$j]['items'][$k]['cargos']) || in_array($carg[4], $menu[$i]['items'][$j]['items'][$k]['cargos'])): ?>
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['ncargos']) || !in_array($carg[0], $menu[$i]['items'][$j]['items'][$k]['ncargos']) && !in_array($carg[1], $menu[$i]['items'][$j]['items'][$k]['ncargos']) && !in_array($carg[2], $menu[$i]['items'][$j]['items'][$k]['ncargos']) && !in_array($carg[3], $menu[$i]['items'][$j]['items'][$k]['ncargos']) && !in_array($carg[4], $menu[$i]['items'][$j]['items'][$k]['ncargos'])): ?>
 							<?php if(!isset($menu[$i]['items'][$j]['items'][$k]['meses']) || in_array(date('n'), $menu[$i]['items'][$j]['items'][$k]['meses'])): ?>
-							<li><a href="<?php echo $menu[$i]['items'][$j]['items'][$k]['href']; ?>" <?php echo ($menu[$i]['items'][$j]['items'][$k]['target'] == '_blank') ? 'target="_blank"' : ''; ?>><?php echo $menu[$i]['items'][$j]['items'][$k]['titulo']; ?></a></li>
+							<li style="margin-left:15px;"><a href="<?php echo $menu[$i]['items'][$j]['items'][$k]['href']; ?>" <?php echo ($menu[$i]['items'][$j]['items'][$k]['target'] == '_blank') ? 'target="_blank"' : ''; ?>><?php echo $menu[$i]['items'][$j]['items'][$k]['titulo']; ?></a></li>
 							<?php endif; ?>
 							<?php endif; ?>
 							<?php endif; ?>

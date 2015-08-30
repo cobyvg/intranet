@@ -238,10 +238,10 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'3') ==
 }
 
 if($festivos == 'actualizar'){
-	echo '<br /><div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;text-align:left">
+	echo '<br /><div align="center"><a href="../../xml/jefe/index_festivos.php"><div class="alert alert-warning alert-block fade in" style="max-width:500px;text-align:left">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
 		<legend>Atenci&oacute;n:</legend>
-No se han importado los <strong>Días festivos </strong>de este Curso Escolar en la Base de datos.</span> Hazlo antes de comenzar a utilizar la aplicación de Faltas de asistencia, o tendrás problemas para exportar posteriormente los datos a Séneca. Sigue el enlace del menú ( <strong><em>Importar Días festivos</em></strong> ) para proceder a la importación de las fechas.
-	</div></div>';	
+No se han importado los <strong>Días festivos </strong>de este Curso Escolar en la Base de datos.</span> Hazlo antes de comenzar a utilizar la aplicación de Faltas de asistencia, o tendrás problemas para exportar posteriormente los datos a Séneca. Haz click para proceder a la importación de las fechas.
+	</div></a></div>';	
 }
 ?>

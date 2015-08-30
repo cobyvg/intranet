@@ -142,6 +142,35 @@ include("../../menu.php");
 	
 	</div><!-- /.row -->
 	
+	<div class="row">
+	
+	<div class="col-sm-6">
+			
+			<div class="well">
+				
+				<form method="post" action="horario_guardias.php">
+					<fieldset>
+						<legend>Guardias</legend>
+						
+						<div class="form-group">
+							<?php $dias = array('Lunes','Martes','Miércoles','Jueves','Viernes'); ?>
+					    <select class="form-control" id="n_dia" name="n_dia">
+					    	<?php for($i = 0; $i < count($dias); $i++): ?>
+					    	<option value="<?php echo $dias[$i]; ?>"><?php echo $dias[$i]; ?></option>
+					    	<?php endfor; ?>
+					    </select>
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary" name="submit5">Consultar</button>
+				  </fieldset>
+				</form>
+				
+			</div><!-- /.well -->
+			
+		</div><!-- /.col-sm-6 -->
+		
+	</div>
+	
 </div><!-- /.container -->
 
 <?php include("../../pie.php"); ?>
