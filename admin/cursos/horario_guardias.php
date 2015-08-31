@@ -52,11 +52,11 @@ include("../../menu.php");
 								<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof, a_aula, n_aula, c_asig FROM horw WHERE (c_asig='25' or c_asig='26' or c_asig='353') and dia='$dia' and hora='$hora' ORDER BY a_aula ASC"); ?>
 								<?php while ($row = mysqli_fetch_array($result)): ?>
 								<?php if ($row['c_asig'] == "353"){ ?>
-									<p><a href="profes.php?profeso=<?php echo $row['prof']; ?>" class="text-success"><small><?php echo $row['prof']; ?></small></a><span class="text-warning pull-right" data-bs="tooltip" title="<?php echo $row['n_aula'];?>"><?php if($row['a_aula']==""){ echo "BIB";} else{ echo $row['a_aula'];} ?></span></p><hr>
+									<p><a href="profes.php?profeso=<?php echo $row['prof']; ?>" class="text-success"><small><?php echo $row['prof']; ?></small></a><span class="text-warning pull-right" data-bs="tooltip" title="<?php echo $row['n_aula'];?>"><?php if($row['a_aula']==""){ echo "GUREC";} else{ echo $row['a_aula'];} ?></span></p><hr>
 								<?php } elseif($row['c_asig']=="26") { ?>
-									<p><a href="profes.php?profeso=<?php echo $row['prof']; ?>" class="text-warning"><small><?php echo $row['prof']; ?></small></a><span class="text-success pull-right" data-bs="tooltip" title="<?php echo $row['n_aula'];?>"><?php if($row['a_aula']==""){ echo "BIB";} else{ echo $row['a_aula'];} ?></span></p><hr>
+									<p><a href="profes.php?profeso=<?php echo $row['prof']; ?>" class="text-default"><small><?php echo $row['prof']; ?></small></a><span class="text-info pull-right" data-bs="tooltip" title="<?php echo $row['n_aula'];?>"><?php if($row['a_aula']==""){ echo "GUBIB";} else{ echo $row['a_aula'];} ?></span></p><hr>
 								<?php } else { ?>
-								<p><a href="profes.php?profeso=<?php echo $row['prof']; ?>"><small><?php echo $row['prof']; ?></small></a><span class="text-danger pull-right" data-bs="tooltip" title="<?php echo $row['n_aula'];?>"><?php if($row['a_aula']==""){ echo "BIB";} else{ echo $row['a_aula'];} ?></span></p><hr>
+								<p><a href="profes.php?profeso=<?php echo $row['prof']; ?>"><small><?php echo $row['prof']; ?></small></a><span class="text-danger pull-right" data-bs="tooltip" title="<?php echo $row['n_aula'];?>"><?php if($row['a_aula']==""){ echo "GU";} else{ echo $row['a_aula'];} ?></span></p><hr>
 								<?php } ?>
 								<?php endwhile; ?>
 								</td>
