@@ -319,18 +319,20 @@ include("../../../menu.php");
 						  <label for="asignatura">Asignatura</label>
 						  <select class="form-control" id="asignatura" name="asignatura">
 						 	<option value=""></option>
+						 		<?php if ($unidad): ?>
 						  	<optgroup label="Asignaturas">
-						  		<?php if ($unidad): ?>
 						  		<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM asignaturas WHERE codigo <> '' AND abrev NOT LIKE '%\_%' AND curso='$curso' ORDER BY curso ASC, nombre ASC"); ?>
-						  		<?php else: ?>
-						  		<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM asignaturas WHERE codigo <> '' AND abrev NOT LIKE '%\_%' ORDER BY curso ASC, nombre ASC"); ?>
-						  		<?php endif; ?>
-					  		  	<?php while ($row = mysqli_fetch_array($result)): ?>
-					  		  	<option value="<?php echo $row['codigo']; ?>" <?php echo (isset($asignatura) && $row['codigo'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['curso'].' - '.$row['nombre'].' ('.$row['abrev'].')'; ?></option>
-					  		  	<?php endwhile; ?>
+				  		  	<?php while ($row = mysqli_fetch_array($result)): ?>
+				  		  	<option value="<?php echo $row['codigo']; ?>" <?php echo (isset($asignatura) && $row['codigo'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['curso'].' - '.$row['nombre'].' ('.$row['abrev'].')'; ?></option>
+				  		  	<?php endwhile; ?>
 					  		</optgroup>
+					  		<?php endif; ?>
 						  	<optgroup label="Actividades">
-							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad IN (SELECT DISTINCT c_asig FROM horw WHERE c_asig IN (SELECT DISTINCT idactividad FROM actividades_seneca))"); ?>
+						  		<?php if ($unidad): ?>
+							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='136' ORDER BY nomactividad ASC"); ?>
+							  	<?php else: ?>
+							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad <> 1 ORDER BY nomactividad ASC"); ?>
+							  	<?php endif; ?>
 							  	<?php while ($row = mysqli_fetch_array($result)): ?>
 							  	<option value="<?php echo $row['idactividad']; ?>" <?php echo (isset($asignatura) && $row['idactividad'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['nomactividad']; ?></option>
 							  	<?php endwhile; ?>
