@@ -201,7 +201,8 @@ if (! mysqli_num_rows($actua)) {
 			$result_reservas = mysqli_query($db_con, "SELECT * FROM `".$config['db_name']."`.`$nomcarrito`");
 		}
 		while ($datos = mysqli_fetch_array($result_reservas)) {
-			mysqli_query($db_con,"INSERT INTO `".$config['db_name']."`.`reservas` (`eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$nomcarrito')");
+			$nombre_tic = str_replace("carrito","TIC ",$nomcarrito);
+			mysqli_query($db_con,"INSERT INTO `".$config['db_name']."`.`reservas` (`eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$nombre_tic')");
 		}
 		
 		mysqli_query($db_con, "DROP TABLE ".$config['db_name'].".`$nomcarrito`");
@@ -224,7 +225,8 @@ if (! mysqli_num_rows($actua)) {
 			$result_reservas = mysqli_query($db_con, "SELECT * FROM `".$config['db_name']."`.`$nommedio`");
 		}
 		while ($datos = mysqli_fetch_array($result_reservas)) {
-			mysqli_query($db_con,"INSERT INTO `".$config['db_name']."`.`reservas` (`eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$nommedio')");
+			$nombre_medio = str_replace("medio","medio ",$nommedio);
+			mysqli_query($db_con,"INSERT INTO `".$config['db_name']."`.`reservas` (`eventdate`, `dia`, `html`, `event1`, `event2`, `event3`, `event4`, `event5`, `event6`, `event7`, `servicio`) VALUES ('$datos[1]', '$datos[2]', '$datos[3]', '$datos[4]', '$datos[5]', '$datos[6]', '$datos[7]', '$datos[8]', '$datos[9]', '$datos[10]', '$nombre_medio')");
 		}
 		
 		mysqli_query($db_con, "DROP TABLE ".$config['db_name'].".`$nommedio`");
