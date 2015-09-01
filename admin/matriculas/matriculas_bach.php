@@ -248,7 +248,7 @@ if(isset($_POST['enviar'])){
 		$vacios.= "religion, ";
 		$num+=1;
 	}
-	if ($religion1b == "" and $curso=="2BACH") {
+	if ($religion1b == "" and $curso=="2BACH" and $repetidor<>1) {
 		$vacios.= "religion o alternativa de 1BACH, ";
 		$num+=1;
 	}
