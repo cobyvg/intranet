@@ -10,6 +10,14 @@ $config_nuevo = 0;
 
 $provincias = array('Almería', 'Cádiz', 'Córdoba', 'Granada', 'Huelva', 'Jaén', 'Málaga', 'Sevilla');
 
+function forzar_ssl() {
+	$ssl = ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/intranet/config/ssl.json' : 'https://'.$_SERVER['SERVER_NAME'].'/intranet/config/ssl.json';
+	
+	$file = @json_decode(@file_get_contents($ssl, false,
+	stream_context_create(['http' => ['header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"]])));
+	return sprintf("%s", $file ? reset($file)->ssl : 0);
+}
+
 function limpiar_string($string)
 {
 	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
@@ -180,11 +188,8 @@ include('../menu.php');
 		</div>
 		<?php endif; ?>
 		
-		<div id="status-loading" class="text-center">
-			<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
-		</div>
 		
-		<form id="form-configuracion" class="form-horizontal" data-toggle="validator" class="form-horizontal" method="post" action="" autocomplete="off" style="display: none;">
+		<form id="form-configuracion" class="form-horizontal" data-toggle="validator" class="form-horizontal" method="post" action="" autocomplete="off">
 			
 			<ul class="nav nav-tabs" role="tablist">
 				<li class="active"><a href="#configuracion" aria-controls="configuracion" role="tab" data-toggle="tab">Configuración general</a></li>
@@ -208,8 +213,7 @@ include('../menu.php');
 								
 								<input type="hidden" name="dominio_centro" value="<?php echo ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'] : $_SERVER['SERVER_NAME']; ?>">
 								
-								<?php $ssl = ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'] : 'https://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; ?>
-								<?php if(file_get_contents($ssl, NULL, NULL, 0, 5)): ?>
+								<?php if(forzar_ssl()): ?>
 								<input type="hidden" name="forzar_ssl" value="1">
 								<?php endif; ?>
 								
@@ -217,7 +221,7 @@ include('../menu.php');
 								<?php $tam_control = 7; ?>
 								
 								<div class="form-group">
-								  <label for="nombre_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Denominación</label>
+								  <label for="nombre_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Denominación <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <input type="text" class="form-control" id="nombre_centro" name="nombre_centro" value="<?php echo $config['centro_denominacion']; ?>" data-error="La denominación del centro no es válida" required>
 								    <div class="help-block with-errors"></div>
@@ -225,7 +229,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="codigo_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Centro código</label>
+								  <label for="codigo_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Centro código <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <input type="text" class="form-control" id="codigo_centro" name="codigo_centro" value="<?php echo $config['centro_codigo']; ?>" maxlength="8" data-minlength="8" data-error="El código del centro no es válido" required>
 								    <div class="help-block with-errors"></div>
@@ -233,7 +237,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="email_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Correo electrónico</label>
+								  <label for="email_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Correo electrónico <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <input type="email" class="form-control" id="email_centro" name="email_centro" value="<?php echo $config['centro_email']; ?>" data-error="La dirección de correo electrónico no es válida" required>
 								    <div class="help-block with-errors"></div>
@@ -241,7 +245,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="direccion_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Dirección postal</label>
+								  <label for="direccion_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Dirección postal <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <input type="text" class="form-control" id="direccion_centro" name="direccion_centro" value="<?php echo $config['centro_direccion']; ?>" data-error="La dirección postal no es válida" required>
 								    <div class="help-block with-errors"></div>
@@ -249,7 +253,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="codpostal_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Código postal</label>
+								  <label for="codpostal_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Código postal <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <input type="text" class="form-control" id="codpostal_centro" name="codpostal_centro" value="<?php echo $config['centro_codpostal']; ?>" maxlength="5" data-minlength="5" data-error="El código postal no es válido" required>
 								    <div class="help-block with-errors"></div>
@@ -257,7 +261,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="localidad_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Localidad</label>
+								  <label for="localidad_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Localidad <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <input type="text" class="form-control" id="localidad_centro" name="localidad_centro" value="<?php echo $config['centro_localidad']; ?>" data-error="La localidad no es válida" required>
 								    <div class="help-block with-errors"></div>
@@ -265,7 +269,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="provincia_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Provincia</label>
+								  <label for="provincia_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Provincia <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <select class="form-control" id="provincia_centro" name="provincia_centro" data-error="La provincia no es válida" required>
 								    	<option value=""></option>
@@ -278,7 +282,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="telefono_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Teléfono</label>
+								  <label for="telefono_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Teléfono <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <input type="tel" class="form-control" id="telefono_centro" name="telefono_centro" value="<?php echo $config['centro_telefono']; ?>" maxlength="9" data-minlength="9" data-error="El télefono no es válido" required>
 								    <div class="help-block with-errors"></div>
@@ -294,7 +298,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="direccion_director" class="col-sm-<?php echo $tam_label; ?> control-label">Director/a</label>
+								  <label for="direccion_director" class="col-sm-<?php echo $tam_label; ?> control-label">Director/a <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <input type="text" class="form-control" id="direccion_director" name="direccion_director" value="<?php echo $config['directivo_direccion']; ?>" maxlength="60" data-error="Este campo es obligatorio" required>
 								    <div class="help-block with-errors"></div>
@@ -302,7 +306,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="direccion_jefe_estudios" class="col-sm-<?php echo $tam_label; ?> control-label">Jefe/a de Estudios</label>
+								  <label for="direccion_jefe_estudios" class="col-sm-<?php echo $tam_label; ?> control-label">Jefe/a de Estudios <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <input type="text" class="form-control" id="direccion_jefe_estudios" name="direccion_jefe_estudios" value="<?php echo $config['directivo_jefatura']; ?>" maxlength="60" data-error="Este campo es obligatorio" required>
 								    <div class="help-block with-errors"></div>
@@ -310,7 +314,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-								  <label for="direccion_secretaria" class="col-sm-<?php echo $tam_label; ?> control-label">Secretario/a</label>
+								  <label for="direccion_secretaria" class="col-sm-<?php echo $tam_label; ?> control-label">Secretario/a <span class="text-danger">*</span></label>
 								  <div class="col-sm-<?php echo $tam_control; ?>">
 								    <input type="text" class="form-control" id="direccion_secretaria" name="direccion_secretaria" value="<?php echo $config['directivo_secretaria']; ?>" maxlength="60" data-error="Este campo es obligatorio" required>
 								    <div class="help-block with-errors"></div>
@@ -334,7 +338,7 @@ include('../menu.php');
 								<?php $tam_control = 7; ?>
 								
 								<div class="form-group">
-									<label for="db_host" class="col-sm-<?php echo $tam_label; ?> control-label">Servidor</label>
+									<label for="db_host" class="col-sm-<?php echo $tam_label; ?> control-label">Servidor <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
 									  <input type="text" class="form-control" id="db_host" name="db_host" value="<?php echo $config['db_host']; ?>" data-error="La dirección servidor de base de datos no es válida" required>
 									  <div class="help-block with-errors"></div>
@@ -342,7 +346,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-									<label for="db_name" class="col-sm-<?php echo $tam_label; ?> control-label">Base de datos</label>
+									<label for="db_name" class="col-sm-<?php echo $tam_label; ?> control-label">Base de datos <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
 									  <input type="text" class="form-control" id="db_name" name="db_name" value="<?php echo $config['db_name']; ?>" data-error="El nombre de la base de datos no es válido" required>
 									  <div class="help-block with-errors"></div>
@@ -350,7 +354,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-									<label for="db_user" class="col-sm-<?php echo $tam_label; ?> control-label">Usuario</label>
+									<label for="db_user" class="col-sm-<?php echo $tam_label; ?> control-label">Usuario <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
 									  <input type="text" class="form-control" id="db_user" name="db_user" value="<?php echo $config['db_user']; ?>" data-error="El nombre de usuario de la base de datos no es válido" required>
 									  <div class="help-block with-errors"></div>
@@ -358,7 +362,7 @@ include('../menu.php');
 								</div>
 								
 								<div class="form-group">
-									<label for="db_pass" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña</label>
+									<label for="db_pass" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña <span class="text-danger">*</span></label>
 									<div class="col-sm-<?php echo $tam_control; ?>">
 									  <input type="password" class="form-control" id="db_pass" name="db_pass" value="<?php echo $config['db_pass']; ?>" data-error="La contraseña de la base de datos no es válido" required>
 									  <div class="help-block with-errors"></div>
@@ -376,7 +380,7 @@ include('../menu.php');
 								  <?php $tam_control = 7; ?>
 								  
 								  <div class="form-group">
-								    <label for="curso_escolar" class="col-sm-<?php echo $tam_label; ?> control-label">Curso escolar</label>
+								    <label for="curso_escolar" class="col-sm-<?php echo $tam_label; ?> control-label">Curso escolar <span class="text-danger">*</span></label>
 								    <div class="col-sm-<?php echo $tam_control; ?>">
 								      <input type="text" class="form-control" id="curso_escolar" name="curso_escolar" value="<?php echo $config['curso_actual']; ?>" required>
 								      <div class="help-block with-errors"></div>
@@ -384,7 +388,7 @@ include('../menu.php');
 								  </div>
 								  
 								  <div class="form-group">
-								    <label for="fecha_inicio" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha de inicio</label>
+								    <label for="fecha_inicio" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha de inicio <span class="text-danger">*</span></label>
 								    <div class="col-sm-<?php echo $tam_control; ?>">
 								      <input type="text" class="form-control" id="fecha_inicio" name="fecha_inicio" value="<?php echo $config['curso_inicio']; ?>" required>
 								      <div class="help-block with-errors"></div>
@@ -392,7 +396,7 @@ include('../menu.php');
 								  </div>
 								  
 								  <div class="form-group">
-								    <label for="fecha_final" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha final</label>
+								    <label for="fecha_final" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha final <span class="text-danger">*</span></label>
 								    <div class="col-sm-<?php echo $tam_control; ?>">
 								      <input type="text" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo $config['curso_fin']; ?>" required>
 								      <div class="help-block with-errors"></div>
@@ -665,14 +669,6 @@ include('../menu.php');
 	
 	
 	<?php include('../pie.php'); ?>
-	
-	<script>
-	function espera() {
-		document.getElementById("form-configuracion").style.display = '';
-		document.getElementById("status-loading").style.display = 'none';        
-	}
-	window.onload = espera;
-	</script>
 	
 	<script src="../js/validator/validator.min.js"></script>
 	<script>

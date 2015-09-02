@@ -56,6 +56,14 @@ function generador_password($long)
     return implode($pass);
 }
 
+function forzar_ssl() {
+	$ssl = ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/intranet/config/ssl.json' : 'https://'.$_SERVER['SERVER_NAME'].'/intranet/config/ssl.json';
+	
+	$file = @json_decode(@file_get_contents($ssl, false,
+	stream_context_create(['http' => ['header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"]])));
+	return sprintf("%s", $file ? reset($file)->ssl : 0);
+}
+
 function limpiar_string($string)
 {
 	return trim(htmlspecialchars($string, ENT_QUOTES,'ISO-8859-1'));
@@ -431,13 +439,12 @@ if (isset($_POST['instalar']))
 				    			
 				    		  <input type="hidden" name="dominio_centro" value="<?php echo ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'] : $_SERVER['SERVER_NAME']; ?>">
 				    		  
-				    		  <?php $ssl = ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'] : 'https://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; ?>
-				    		  <?php if(file_get_contents($ssl, NULL, NULL, 0, 5)): ?>
+				    		  <?php if(forzar_ssl()): ?>
 				    		  <input type="hidden" name="forzar_ssl" value="1">
 				    		  <?php endif; ?>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="nombre_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Denominación</label>
+				    		    <label for="nombre_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Denominación <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="nombre_centro" name="nombre_centro" placeholder="I.E.S. Monterroso" data-error="La denominación del centro no es válida" required>
 				    		      <div class="help-block with-errors"></div>
@@ -445,7 +452,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="codigo_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Centro código</label>
+				    		    <label for="codigo_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Centro código <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="codigo_centro" name="codigo_centro" placeholder="29002885" maxlength="8" data-minlength="8" data-error="El código del centro no es válido" required>
 				    		      <div class="help-block with-errors"></div>
@@ -453,7 +460,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="email_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Correo electrónico</label>
+				    		    <label for="email_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Correo electrónico <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="email" class="form-control" id="email_centro" name="email_centro" placeholder="29002885.edu@juntadeandalucia.es" data-error="La dirección de correo electrónico no es válida" required>
 				    		      <div class="help-block with-errors"></div>
@@ -461,7 +468,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="direccion_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Dirección postal</label>
+				    		    <label for="direccion_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Dirección postal <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="direccion_centro" name="direccion_centro" placeholder="Calle Santo Tomás de Aquino, s/n" data-error="La dirección postal no es válida" required>
 				    		      <div class="help-block with-errors"></div>
@@ -469,7 +476,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="codpostal_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Código postal</label>
+				    		    <label for="codpostal_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Código postal <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="codpostal_centro" name="codpostal_centro" placeholder="29680" maxlength="5" data-minlength="5" data-error="El código postal no es válido" required>
 				    		      <div class="help-block with-errors"></div>
@@ -477,7 +484,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="localidad_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Localidad</label>
+				    		    <label for="localidad_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Localidad <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="localidad_centro" name="localidad_centro" placeholder="Estepona" data-error="La localidad no es válida" required>
 				    		      <div class="help-block with-errors"></div>
@@ -485,7 +492,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="provincia_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Provincia</label>
+				    		    <label for="provincia_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Provincia <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <select class="form-control" id="provincia_centro" name="provincia_centro" data-error="La provincia no es válida" required>
 				    		      	<option value=""></option>
@@ -498,7 +505,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="telefono_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Teléfono</label>
+				    		    <label for="telefono_centro" class="col-sm-<?php echo $tam_label; ?> control-label">Teléfono <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="tel" class="form-control" id="telefono_centro" name="telefono_centro" placeholder="952795802" maxlength="9" data-minlength="9" data-error="El télefono no es válido" required>
 				    		      <div class="help-block with-errors"></div>
@@ -514,7 +521,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="direccion_director" class="col-sm-<?php echo $tam_label; ?> control-label">Director/a</label>
+				    		    <label for="direccion_director" class="col-sm-<?php echo $tam_label; ?> control-label">Director/a <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="direccion_director" name="direccion_director" placeholder="Nombre y apellidos" maxlength="60" data-error="Este campo es obligatorio" required>
 				    		      <div class="help-block with-errors"></div>
@@ -522,7 +529,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="direccion_jefe_estudios" class="col-sm-<?php echo $tam_label; ?> control-label">Jefe/a de Estudios</label>
+				    		    <label for="direccion_jefe_estudios" class="col-sm-<?php echo $tam_label; ?> control-label">Jefe/a de Estudios <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="direccion_jefe_estudios" name="direccion_jefe_estudios" placeholder="Nombre y apellidos" maxlength="60" data-error="Este campo es obligatorio" required>
 				    		      <div class="help-block with-errors"></div>
@@ -530,7 +537,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="direccion_secretaria" class="col-sm-<?php echo $tam_label; ?> control-label">Secretario/a</label>
+				    		    <label for="direccion_secretaria" class="col-sm-<?php echo $tam_label; ?> control-label">Secretario/a <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="direccion_secretaria" name="direccion_secretaria" placeholder="Nombre y apellidos" maxlength="60" data-error="Este campo es obligatorio" required>
 				    		      <div class="help-block with-errors"></div>
@@ -562,7 +569,7 @@ if (isset($_POST['instalar']))
 				    		  <?php $tam_control = 8; ?>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="db_host" class="col-sm-<?php echo $tam_label; ?> control-label">Servidor</label>
+				    		    <label for="db_host" class="col-sm-<?php echo $tam_label; ?> control-label">Servidor <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="db_host" name="db_host" placeholder="localhost" data-error="La dirección servidor de base de datos no es válida" required>
 				    		      <div class="help-block with-errors"></div>
@@ -570,7 +577,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="db_name" class="col-sm-<?php echo $tam_label; ?> control-label">Base de datos</label>
+				    		    <label for="db_name" class="col-sm-<?php echo $tam_label; ?> control-label">Base de datos <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="db_name" name="db_name" placeholder="intranet" data-error="El nombre de la base de datos no es válido" required>
 				    		      <div class="help-block with-errors"></div>
@@ -578,7 +585,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="db_user" class="col-sm-<?php echo $tam_label; ?> control-label">Usuario</label>
+				    		    <label for="db_user" class="col-sm-<?php echo $tam_label; ?> control-label">Usuario <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="db_user" name="db_user" data-error="El nombre de usuario de la base de datos no es válido" required>
 				    		      <div class="help-block with-errors"></div>
@@ -586,7 +593,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="db_pass" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña</label>
+				    		    <label for="db_pass" class="col-sm-<?php echo $tam_label; ?> control-label">Contraseña <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="password" class="form-control" id="db_pass" name="db_pass" data-error="La contraseña de la base de datos no es válido" required>
 				    		      <div class="help-block with-errors"></div>
@@ -618,7 +625,7 @@ if (isset($_POST['instalar']))
 				    		  <?php $tam_control = 8; ?>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="curso_escolar" class="col-sm-<?php echo $tam_label; ?> control-label">Curso escolar</label>
+				    		    <label for="curso_escolar" class="col-sm-<?php echo $tam_label; ?> control-label">Curso escolar <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="curso_escolar" name="curso_escolar" value="<?php echo (date('n') > 6) ?  date('Y').'/'.(date('y')+1) : (date('Y')-1).'/'.date('y'); ?>" required>
 				    		      <div class="help-block with-errors"></div>
@@ -626,7 +633,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="fecha_inicio" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha de inicio</label>
+				    		    <label for="fecha_inicio" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha de inicio <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="fecha_inicio" name="fecha_inicio" value="<?php echo (date('n') > 6) ?  date('Y').'-09-15' : (date('Y')-1).'-09-15'; ?>" required>
 				    		      <div class="help-block with-errors"></div>
@@ -634,7 +641,7 @@ if (isset($_POST['instalar']))
 				    		  </div>
 				    		  
 				    		  <div class="form-group">
-				    		    <label for="fecha_final" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha final</label>
+				    		    <label for="fecha_final" class="col-sm-<?php echo $tam_label; ?> control-label">Fecha final <span class="text-danger">*</span></label>
 				    		    <div class="col-sm-<?php echo $tam_control; ?>">
 				    		      <input type="text" class="form-control" id="fecha_final" name="fecha_final" value="<?php echo (date('n') > 6) ?  (date('Y')+1).'-06-23' : date('Y').'-06-23'; ?>" required>
 				    		      <div class="help-block with-errors"></div>
@@ -657,9 +664,9 @@ if (isset($_POST['instalar']))
 				    <!-- SELECCIÓN DE MÓDULOS -->
 				    <div role="tabpanel" class="tab-pane" id="modulos">
 				    	
-				    	<div class="well">
+				    	<div id="wrap_modulos" class="well">
 				    		<h3>Configuración de módulos</h3>
-							<br>
+								<br>
 	    		            
 				    		<div class="row">
 				    			<div class="col-sm-4" style="border-right: 3px solid #dce4ec; margin-right: -3px;">
@@ -879,11 +886,23 @@ if (isset($_POST['instalar']))
 				    			<a href="#base-datos" aria-controls="base-datos" data-toggle="tab" class="btn btn-default"><span class="fa fa-chevron-left fa-fw"></span> Anterior</a>
 				    		</div>
 				    		<div class="pull-right">
-				    			<button type="submit" class="btn btn-success" name="instalar">Instalar</button>
+				    			<button type="button" class="btn btn-success" id="instalar">Instalar</button>
 				    		</div>
 				    		<div class="clearfix"></div>
-				    	</div>
+				    	</div><!-- /.well -->
 				    	
+				    	<div id="wrap_instalacion" class="well" style="display: none; padding: 50px 0; min-height: 300px;">
+				    		
+				    		<div class="text-center text-success">
+				    			<span class="fa fa-cog fa-spin fa-5x"></span>
+				    		</div>
+				    		<h3 class="text-center text-success">Instalando la Intranet&hellip;</h3>
+				    		
+				    		<br>
+				    		<p class="text-center" style="font-size: 1.12em;">Este proceso puede tardar unos segundos.<br>No cierre esta página mientras se está instalando.</p>
+				    		
+				    	</div>
+				    			    	
 				    </div>
 				    
 				    <?php else: ?>
@@ -981,37 +1000,55 @@ if (isset($_POST['instalar']))
 		
 		$("#terms-accept").click(function()
 		{  
-	        if($("#terms-accept").is(':checked'))
-			{  
-	            $("a").removeClass("disabled"); 
-	        }
-	        else
-			{  
-	            $("a").addClass("disabled");   
-	        }  
-	    });
-	    
-	    $("#check_asistencia").click(function()
+		    if($("#terms-accept").is(':checked'))
+				{  
+		        $("a").removeClass("disabled"); 
+		    }
+		    else
+				{  
+		        $("a").addClass("disabled");   
+		    }  
+		});
+		
+		$("#check_asistencia").click(function()
 		{  
-	        if($("#check_asistencia").is(':checked'))
-			{  
-	            $("#check_horarios").prop('checked', true);
-	        }
-	        else
-			{  
-	            $("#check_horarios").prop('checked', false);
-	        }  
-	    });
-	    
-	    $("#check_horarios").click(function()
+		    if($("#check_asistencia").is(':checked'))
+				{  
+		        $("#check_horarios").prop('checked', true);
+		    }
+		    else
+				{  
+		        $("#check_horarios").prop('checked', false);
+		    }  
+		});
+		
+		$("#check_horarios").click(function()
 		{  
-	        if(! $("#check_horarios").is(':checked'))
-			{  
-	            $("#check_asistencia").prop('checked', false);
-	        }
-	    });
-	    
-	    $('#form-instalacion').validator();
+		    if(! $("#check_horarios").is(':checked'))
+				{  
+		        $("#check_asistencia").prop('checked', false);
+		    }
+		});
+		
+		$('#instalar').click(function(e)
+		{ 
+			if(! $(this).hasClass('disabled')) {
+				$('#wrap_modulos').hide();
+				$('#wrap_instalacion').show();
+				
+				setTimeout(function(){
+					$('#wrap_instalacion').append($("<input type=\"hidden\" name=\"instalar\" value=\"instalar\">"));
+					$("form").submit();
+				}, 1500);
+			}
+			else {
+				$("form").submit();
+			}
+						
+		});
+		
+		$('#form-instalacion').validator();
+		
 		
 	});
 	</script>
