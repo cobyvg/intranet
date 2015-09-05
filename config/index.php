@@ -922,7 +922,7 @@ if (isset($_POST['instalar']))
 				    		<code style="display: block;"><?php echo $details_error; ?></code>
 				    		<br>
 				    		<div class="text-center">
-				    			<a href="index2.php" class="btn btn-default">Volver</a>
+				    			<a href="index.php" class="btn btn-default">Volver</a>
 				    		</div>
 				    		<?php else: ?>
 				    		<div class="text-center text-success">
