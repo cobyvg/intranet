@@ -692,7 +692,7 @@ if (isset($_POST['instalar']))
 					    			    		<label>
 						    			    		<input type="checkbox" name="mod_biblioteca" value="1">
 						    			    		<strong>Biblioteca</strong>
-						    			    		<p class="help-block">Si el Centro dispone de Biblioteca que funciona con Abies, y cuenta con un equipo de profesores dedicados a su mantenimiento, puedes activar este módulo. Permite consultar e importar los fondos, lectores y préstamos, así como hacer un seguimiento de los alumnos morosos.</p>
+						    			    		<p class="help-block">Si el Centro dispone de Biblioteca que funciona con Abies, y cuenta con un equipo de profesores dedicados a su mantenimiento, este módulo permite consultar e importar los fondos, lectores y préstamos, así como hacer un seguimiento de los alumnos morosos. También incorpora el código de barras generado por Abies al Carnet del Alumno para facilitar la lectura por parte del scanner de la Biblioteca.</p>
 						    			    	</label>
 					    			    	</div>
 					    			    </div>
@@ -750,7 +750,7 @@ if (isset($_POST['instalar']))
 					    			    		<label>
 					    			    			<input type="checkbox" name="mod_documentos" value="1" checked>
 					    			    			<strong>Documentos</strong>
-					    			    			<p class="help-block">Directorio en el Servidor local donde tenemos documentos públicos que queremos administrar (visualizar, eliminar, subir, compartir, etc.) con la Intranet.</p>
+					    			    			<p class="help-block">Directorio en el Servidor local donde tenemos documentos públicos que queremos administrar (visualizar, eliminar, subir, compartir, etc.) con la Intranet. </p>
 					    			    		</label>
 					    			    	</div>
 					    			    </div>
@@ -764,7 +764,7 @@ if (isset($_POST['instalar']))
 				    			    		<label>
 				    			    			<input type="checkbox" name="mod_documentos_biblioteca" value="1">
 				    			    			<strong>Biblioteca</strong>
-				    			    			<p class="help-block">Creará una carpeta donde el personal de Biblioteca puede subir documentos de interés para la comunidad educativa.</p>
+				    			    			<p class="help-block">Si hemos activado el módulo de <strong>Biblioteca</strong>, crea una carpeta donde el personal de la Biblioteca puede subir y compartir documentos de interés.</p>
 				    			    		</label>
 				    			    	</div>
 				    			    	
@@ -772,7 +772,7 @@ if (isset($_POST['instalar']))
 				    			    		<label>
 				    			    			<input type="checkbox" name="mod_documentos_recursos" value="1">
 				    			    			<strong>Recursos educativos</strong>
-				    			    			<p class="help-block">Creará una carpeta con las unidades del centro donde los profesores que impartan alguna materia en la unidad podrá subir recursos para los alumnos/as.</p>
+				    			    			<p class="help-block">Creará una carpeta <strong>Recursos</strong>, con el nombre de cada Grupo de Alumnos en el que los miembros de un Equipo Educativo pueden subir archivos visibles para Padres y Alumnos en <u>Acceso para Alumnos</u> de la <em>Página del Centro</em>.</p>
 				    			    		</label>
 				    			    	</div>
 				    			    	
@@ -780,7 +780,7 @@ if (isset($_POST['instalar']))
 				    			    		<label>
 				    			    			<input type="checkbox" name="mod_documentos_departamentos" value="1">
 				    			    			<strong>Departamentos</strong>
-				    			    			<p class="help-block">Creará una carpeta con los departamentos del centro donde se podrán subir las programaciones u otros documentos de interés para la comunidad educativa.</p>
+				    			    			<p class="help-block">Creará una carpeta para los Departamentos del Centro donde estos pueden colocar documentos importantes y públicos (Programaciones, etc.) visibles desde la <em>Página del Centro</em>.</p>
 				    			    		</label>
 				    			    	</div>
 				    			    	
@@ -827,7 +827,7 @@ if (isset($_POST['instalar']))
 					    			    		<label>
 					    			    			<input type="checkbox" id="check_asistencia" name="mod_asistencia" value="1">
 					    			    			<strong>Faltas de Asistencia</strong>
-					    			    			<p class="help-block">El módulo de faltas permite gestionar las faltas a través de la Intranet para luego exportarlas a Séneca. Es posible también descargar las faltas desde Séneca para utilizar los módulo de la aplicación basados en faltas de asistencia (Informes de alumnos, Tutoría, Absentismo, etc.).</p>
+					    			    			<p class="help-block">El módulo de Faltas gestiona las asistencia de los alumnos. Permite registrar las ausencias diarias, al modo de <em>iSeneca</em>), que luego podremos gestionar (Consultar, Justificar, crear Informes, enviar SMS, etc.) y subir finalmente a Séneca. <br>O bien podemos descargar las faltas desde Séneca para utilizar los módulos de la aplicación basados en faltas de asistencia (Informes de alumnos, Tutoría, Absentismo, etc.).</p>
 					    			    		</label>
 					    			    	</div>
 					    			    </div>
@@ -861,7 +861,7 @@ if (isset($_POST['instalar']))
 					    			    		<label>
 					    			    			<input type="checkbox" name="mod_matriculacion" value="1">
 					    			    			<strong>Matriculación</strong>
-					    			    			<p class="help-block">Este módulo permite matricular a los alumnos desde la propia aplicación o bien desde la página pública del Centro incluyendo el código correspondiente.</p>
+					    			    			<p class="help-block">Este módulo permite matricular a los alumnos desde la propia aplicación o bien desde la página pública del Centro. Requiere que cada Centro personalice las materias y optativas que va a ofrecer a sus Alumnos.</p>
 					    			    		</label>
 					    			    	</div>
 					    			    </div>

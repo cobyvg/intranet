@@ -138,38 +138,14 @@ function unidad($db_con)
 {
 	// include("opt/e-smith/config.php");
 
-	$tipo = "select distinct unidad, SUBSTRING(unidad, 2,1) AS orden from alma order by orden ASC";
+	$tipo = "select distinct unidad from alma, unidades where nomunidad=unidad order by idunidad ASC";
 	$tipo1 = mysqli_query($db_con, $tipo);
 	while($tipo2 = mysqli_fetch_array($tipo1))
 	{
 		echo "<option>".$tipo2[0]."</option>";
 	}
 }
-/*
- function nivel()
- {
- // include("opt/e-smith/config.php");
 
- $tipo = "select distinct NIVEL from alma order by NIVEL";
- $tipo1 = mysqli_query($db_con, $tipo);
- while($tipo2 = mysqli_fetch_array($tipo1))
- {
- echo "<option>".$tipo2[0]."</option>";
- }
- }
-
- function grupo($niveles)
- {
- // include("opt/e-smith/config.php");
-
- $tipo = "select distinct GRUPO from alma where NIVEL = '$niveles' order by GRUPO";
- $tipo1 = mysqli_query($db_con, $tipo);
- while($tipo2 = mysqli_fetch_array($tipo1))
- {
- echo "<option>".$tipo2[0]."</option>";
- }
- }
- */
 function variables()
 {
 	foreach($_POST as $key => $val)
@@ -195,7 +171,6 @@ function es_fecha($fec)
 			return false;
 		}
 	}
-	#checkdate(mes,dia,año);
 }
 
 // DAR LA VUELTA A LA FECHA
@@ -282,9 +257,7 @@ function formatDate($val)
 }
 
 function fecha_actual($valor_fecha){
-
-	/*    if($valor_fecha == ""){
-	 */	$mes = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
+	$mes = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
 	8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre");
 	$dia = array("domingo", "lunes","martes","miércoles","jueves","viernes","sábado");
 	$diames = date("j");
@@ -292,20 +265,6 @@ function fecha_actual($valor_fecha){
 	$ndia = date("w");
 	$nano = date("Y");
 	echo $diames." de ".$mes[$nmes].", ".$nano;
-	/*	}
-	 else{
-	 $arr = explode("-", $valor_fecha);
-	 $mes0 = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
-	 8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre");
-	 $dia0 = array("domingo", "lunes","martes","miércoles","jueves","viernes","sábado");
-	 $diames0 = date("j",mktime(0,0,0,$arr[1],$arr[2],$arr[0]));
-	 $nmes0 = $arr[1];
-	 if(substr($nmes0,0,1) == "0"){$nmes0 = substr($nmes0,1,1);}
-	 // $ndia0 = $arr[2];
-	 $ndia0 = date("w",mktime(0,0,0,$arr[1],$arr[2],$arr[0]));
-	 $nano0 = $arr[0];
-	 echo "$diames0 de ".$mes0[$nmes0].", $nano0";
-	 }	*/
 }
 
 function fecha_actual3($valor_fecha){
@@ -318,7 +277,6 @@ function fecha_actual3($valor_fecha){
 	$diames0 = date("j",mktime($arr[1],$arr[2],$arr[0]));
 	$nmes0 = $arr[1];
 	if(substr($nmes0,0,1) == "0"){$nmes0 = substr($nmes0,1,1);}
-	// $ndia0 = $arr[2];
 	$ndia0 = date("w",mktime($arr[1],$arr[2],$arr[0]));
 	$nano0 = $arr[0];
 	echo "$diames0 de ".$mes0[$nmes0];
@@ -333,24 +291,12 @@ function fecha_actual2($valor_fecha){
 	$diames0 = date("j",mktime(0,0,0,$arr[1],$arr[2],$arr[0]));
 	$nmes0 = $arr[1];
 	if(substr($nmes0,0,1) == "0"){$nmes0 = substr($nmes0,1,1);}
-	// $ndia0 = $arr[2];
 	$ndia0 = date("w",mktime(0,0,0,$arr[1],$arr[2],$arr[0]));
 	$nano0 = $arr[0];
 	return "$diames0 de ".$mes0[$nmes0].", $nano0";
 }
 
 function fecha_sin($valor_fecha){
-	/*    if($valor_fecha == ""){
-	 $mes = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
-	 8=>"agosto",9=>"septiembre",10=>"octubre",11=>"noviembre",12=>"diciembre");
-	 $dia = array("domingo", "lunes","martes","miércoles","jueves","viernes","sábado");
-	 $diames = date("j");
-	 $nmes = date("n");
-	 $ndia = date("w");
-	 $nano = date("Y");
-	 echo "$diames de ".$mes[$nmes].", $nano";
-	 }
-	 else{*/
 	$arr0 = explode(" ", $valor_fecha);
 	$arr = explode("-", $arr0[0]);
 	$mes0 = array(1=>"enero",2=>"febrero",3=>"marzo",4=>"abril",5=>"mayo",6=>"junio",7=>"julio",
@@ -358,42 +304,15 @@ function fecha_sin($valor_fecha){
 	$diames0 = date("j",mktime(0,0,0,$arr[1],$arr[2],$arr[0]));
 	$nmes0 = $arr[1];
 	if(substr($nmes0,0,1) == "0"){$nmes0 = substr($nmes0,1,1);}
-	// $ndia0 = $arr[2];
 	$ndia0 = date("w",mktime(0,0,0,$arr[1],$arr[2],$arr[0]));
 	$nano0 = $arr[0];
 	echo "$diames0 de ".$mes0[$nmes0].", $nano0";
-	//}
-}
-
-//Asignacion de ordenadores a alumnos
-function posicion($db_con, $curso, $profi){
-
-	$sql=mysqli_query($db_con, "select distinct no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' order by no_mesa");
-	while ($sqlr=mysqli_fetch_array($sql)){
-		$posi=$sqlr[0];
-		echo "<option>".$posi."</option>";
-	}
-
-}
-
-function alumno($db_con, $curso,$profi){
-	$sql=mysqli_query($db_con, "select CLAVEAL,no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' and no_mesa not like ' '");
-	echo "select CLAVEAL,no_mesa from AsignacionMesasTIC where agrupamiento='$curso' and prof='$profi' and no_mesa not like ' '";
-	while ($sqlr=mysqli_fetch_array($sql)){
-		$al=mysqli_query($db_con, "select NOMBRE,APELLIDOS from FALUMNOS where CLAVEAL='$sqlr[0]' order by APELLIDOS");
-		while ($alr=mysqli_fetch_array($al)){
-			$nombre=$alr[1] .', '.$alr[0].'-->'.$sqlr[0];
-			echo"<option>";
-			echo $nombre;
-			echo "</option>";}}
 }
 
 // Eliminar nombre de profesor con mayúsculas completo
 function eliminar_mayusculas(&$n_profeso) {
 	$n_profeso = mb_strtolower($n_profeso);
 	$n_profeso = ucwords($n_profeso);
-	//return $n_profeso;
-	//echo "<span class='text-capitalize'>$minusc</span>";
 }
 
 
