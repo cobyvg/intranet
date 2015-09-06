@@ -87,7 +87,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
 	}
 	
 	// REGISTRAMOS EL ACCESO A LA PAGINA
-	registraPagina($db_link, $_SERVER['REQUEST_URI']);
+	registraPagina($db_con, $_SERVER['REQUEST_URI']);
 	
 	// Ver como usuario
 	

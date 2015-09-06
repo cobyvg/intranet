@@ -212,9 +212,9 @@
 		
 		
 		<div class="col-sm-3">
-			<?php mysqli_query($db_con, "CREATE TABLE tmp_accesos SELECT DISTINCT profesor FROM reg_intranet WHERE fecha LIKE CONCAT(CURDATE(),'%') AND profesor IN (SELECT nombre FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria') ORDER BY profesor ASC"); ?>
+			<?php mysqli_query($db_con, "CREATE TABLE tmp_accesos SELECT DISTINCT profesor FROM reg_intranet WHERE fecha LIKE CONCAT(CURDATE(),'%') AND profesor IN (SELECT idea FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria') ORDER BY profesor ASC"); ?>
 			
-			<?php $result = mysqli_query($db_con, "SELECT nombre, departamento FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria' AND nombre NOT IN (SELECT profesor FROM tmp_accesos) ORDER BY nombre ASC"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT nombre, departamento FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria' AND idea NOT IN (SELECT profesor FROM tmp_accesos) ORDER BY nombre ASC"); ?>
 			
 			<?php $result1 = mysqli_query($db_con, "SELECT * FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria'"); ?>
 			
@@ -258,7 +258,7 @@
 							
 							<p class="lead text-center text-muted">
 								<span class="fa fa-thumbs-o-up fa-5x"></span><br>
-								¡Genial! Todos los profesores han accedido hoy
+								Todos los profesores han accedido hoy
 							</p>
 							
 							<?php endif; ?>	
