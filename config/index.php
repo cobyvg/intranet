@@ -750,7 +750,7 @@ if (isset($_POST['instalar']))
 					    			    		<label>
 					    			    			<input type="checkbox" name="mod_documentos" value="1" checked>
 					    			    			<strong>Documentos</strong>
-					    			    			<p class="help-block">Directorio en el Servidor local donde tenemos documentos públicos que queremos administrar (visualizar, eliminar, subir, compartir, etc.) con la Intranet. </p>
+					    			    			<p class="help-block">Directorio en el Servidor local donde tenemos documentos públicos que queremos administrar (visualizar, eliminar, subir, compartir, etc.) con la Intranet.</p>
 					    			    		</label>
 					    			    	</div>
 					    			    </div>
