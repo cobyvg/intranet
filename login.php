@@ -81,21 +81,15 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 
 			unset($_SESSION['intentos']);
 			
-			if (isset($config['mantenimiento']) && $config['mantenimiento']) {
-				header("location:mantenimiento.php");
+			if ($dni == $clave0 || (strlen($codigo) < '12'))
+			{
+				$_SESSION['cambiar_clave'] = 1;
+				header("location:clave.php?tour=1");
 				exit();
 			}
 			else {
-				if ($dni == $clave0 || (strlen($codigo) < '12'))
-				{
-					$_SESSION['cambiar_clave'] = 1;
-					header("location:clave.php?tour=1");
-					exit();
-				}
-				else {
-					header("location:index.php");
-					exit();
-				}
+				header("location:index.php");
+				exit();
 			}
 		
 		}

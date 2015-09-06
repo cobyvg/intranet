@@ -72,6 +72,14 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
 			exit();
 		}
 	}
+	else {
+	
+		if ((stristr($_SESSION['cargo'],'1') != TRUE) && (isset($config['mantenimiento']) && $config['mantenimiento'])) {
+			header('Location:'.'https://'.$config['dominio'].'/intranet/mantenimiento.php');
+			exit();
+		}
+		
+	}
 	
 	if($_SERVER['SCRIPT_NAME'] != '/intranet/clave.php') {
 		if($_SESSION['cambiar_clave']) {
@@ -89,12 +97,13 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
 	// REGISTRAMOS EL ACCESO A LA PAGINA
 	registraPagina($db_con, $_SERVER['REQUEST_URI']);
 	
-	// Ver como usuario
+	
+	// VER COMO USUARIO
 	
 	// Es el Administrador de la Aplicación.
-			if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE) {
-				$_SESSION['user_admin'] = 1;
-			}
+	if (($_SESSION['ide'] == 'admin') || (stristr($_SESSION['cargo'],'0') == TRUE)) {
+		$_SESSION['user_admin'] = 1;
+	}
 			
 	if(isset($_SESSION['user_admin']) && isset($_POST['view_as_user'])) {
 		$_SESSION['profi'] = $_POST['view_as_user'];
@@ -112,7 +121,7 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
 		}
 			
 		// Si es tutor
-		if (stristr ( $_SESSION['cargo'], '2' ) == TRUE) {
+		if (stristr($_SESSION['cargo'], '2') == TRUE) {
 			$result = mysqli_query($db_con, "select distinct unidad from FTUTORES where tutor = '$profe'" );
 			$row = mysqli_fetch_array ( $result );
 			$_SESSION['mod_tutoria']['tutor'] = $profe;
