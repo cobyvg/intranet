@@ -75,8 +75,14 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
 	else {
 	
 		if ((stristr($_SESSION['cargo'],'1') != TRUE) && (isset($config['mantenimiento']) && $config['mantenimiento'])) {
-			header('Location:'.'https://'.$config['dominio'].'/intranet/mantenimiento.php');
-			exit();
+			if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == "on") {
+				header('Location:'.'https://'.$config['dominio'].'/intranet/mantenimiento.php');
+				exit();
+			}
+			else {
+				header('Location:'.'http://'.$config['dominio'].'/intranet/mantenimiento.php');
+				exit();
+			}
 		}
 		
 	}
