@@ -241,7 +241,7 @@ if(stristr($carg,'2') == TRUE)
 	if (isset($_GET['asunto']) and $_GET['asunto'] == "Mensaje de confirmación") {
 		mysqli_query($db_con, "UPDATE mensajes SET recibidopadre = '1' WHERE id = $verifica_padres");
 	}
-	$men1 = "select ahora, asunto, texto, nombre, apellidos, id, archivo from mensajes, alma where mensajes.claveal = alma.claveal and mensajes.unidad = '$unidad_m' and recibidotutor = '0' order by ahora desc";
+	$men1 = "SELECT ahora, asunto, texto, nombre, apellidos, id, archivo FROM mensajes JOIN alma ON mensajes.claveal = alma.claveal WHERE mensajes.unidad = '$unidad_m' AND recibidotutor = '0' ORDER BY ahora DESC";
 	$men2 = mysqli_query($db_con, $men1);
 	if(mysqli_num_rows($men2) > 0)
 	{
@@ -295,7 +295,7 @@ if(stristr($carg,'2') == TRUE)
 <small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_NOQUOTES, 'ISO-8859-1'));?>
+<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto));?>
 			<?php if (strlen($archivo) > 5): ?> Archivo adjunto: <a
 	href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>"
 	target="_blank"><?php echo $archivo; ?></a> <?php endif; ?></div>
@@ -376,7 +376,7 @@ if(mysqli_num_rows($men2) > 0)
 <small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_NOQUOTES, 'ISO-8859-1')); ?></div>
+<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto)); ?></div>
 
 <div class="modal-footer">
 <form name="mensaje_enviado" action="index.php" method="post"

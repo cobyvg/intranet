@@ -32,7 +32,7 @@ include("menu.php");
 					
 					<br>
 					
-					<?php echo stripslashes(html_entity_decode($row['content'], ENT_NOQUOTES, 'ISO-8859-1')); ?>
+					<?php echo stripslashes(html_entity_decode($row['content'])); ?>
 					
 					<br>
 					<br>
