@@ -295,7 +295,7 @@ if(stristr($carg,'2') == TRUE)
 <small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto));?>
+<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1'));?>
 			<?php if (strlen($archivo) > 5): ?> Archivo adjunto: <a
 	href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>"
 	target="_blank"><?php echo $archivo; ?></a> <?php endif; ?></div>
@@ -376,7 +376,7 @@ if(mysqli_num_rows($men2) > 0)
 <small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 </div>
 
-<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto)); ?></div>
+<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?></div>
 
 <div class="modal-footer">
 <form name="mensaje_enviado" action="index.php" method="post"
