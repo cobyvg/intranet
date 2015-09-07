@@ -11,6 +11,12 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+@media print {
+	body {
+		padding-top: 0;
+	}
+}
+
 /* DataTables */
 
 table.dataTable thead .sorting,
