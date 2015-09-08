@@ -59,8 +59,13 @@ function generador_password($long)
 function forzar_ssl() {
 	$ssl = ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) ? 'https://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/intranet/config/ssl.json' : 'https://'.$_SERVER['SERVER_NAME'].'/intranet/config/ssl.json';
 	
-	$file = @json_decode(@file_get_contents($ssl, false,
-	stream_context_create(['http' => ['header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"]])));
+	$context = array(
+	  'http' => array(
+	  	'header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
+	  )
+	);
+	
+	$file = @json_decode(@file_get_contents($ssl, false, stream_context_create($context)));
 	return sprintf("%s", $file ? reset($file)->ssl : 0);
 }
 

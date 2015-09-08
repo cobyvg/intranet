@@ -5,8 +5,14 @@
 if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 
 	function getLatestVersion($repository, $default = INTRANET_VERSION) {
-		$file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false,
-		stream_context_create(['http' => ['header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"]])));
+		
+		$context = array(
+		  'http' => array(
+		  	'header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
+		  )
+		);
+		
+		$file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false, stream_context_create($context)));
 		return sprintf("%s", $file ? reset($file)->name : $default);
 	}
 
