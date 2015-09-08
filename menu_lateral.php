@@ -442,12 +442,14 @@ $menu = array(
 					),
 				),
 			),
+			/*
 			array(
 				'href'   => 'admin/evaluaciones/index.php',
 				'titulo' => 'Sesiones de evaluación',
 				'modulo' => $mod_eval,
 				'ncargos' => array('6', '7'),
 			),
+			*/
 			array(
 				'href'   => 'admin/ausencias/index.php',
 				'titulo' => 'Registrar ausencia',
