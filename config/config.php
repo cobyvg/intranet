@@ -160,6 +160,8 @@ if (isset($_POST['config']))
 		
 		$config_nuevo = 1;
 		fclose($file);
+		
+		include('../config.php');
 	}
 	
 	// FORZAR USO DE HTTPS

@@ -48,6 +48,8 @@ if (isset($_POST['config']))
 		
 		$config_datos_nuevo = 1;
 		fclose($file);
+		
+		include('../config_datos.php');
 	}
 	
 	unset($curso_ini);
