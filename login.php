@@ -183,8 +183,8 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		      </div>
 		      
 		      <div id="form-group" class="form-group">
-		        <input type="text" class="form-control" id="idea" name="idea" placeholder="Usuario IdEA" required autofocus>
-		        <input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña" required>
+		        <input type="text" class="form-control" id="idea" name="idea" placeholder="Usuario IdEA" maxlength="12" required autofocus>
+		        <input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña" maxlength="12" required>
 		        
 		        <?php if($msg_error): ?>
 		            <label class="control-label text-danger"><?php echo $msg_error; ?></label>
