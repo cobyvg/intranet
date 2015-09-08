@@ -17,7 +17,7 @@ function restaurar_bd($backup_file,$host,$user,$pass,$name) {
 // RESTAURAR COPIA GUARDADA EN LOCAL
 if (isset($_GET['archivo']) && file_exists($_GET['archivo'])) {
 	$backup_file = $_GET['archivo'];
-	$result = restaurar_bd($backup_file, $db_host, $db_user, $db_pass, $db);
+	$result = restaurar_bd($backup_file, $config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
 	
 	if (!$result) $msg_success = "La copia de seguridad ha sido restaurada.";
 	else $msg_error = "No se ha podido restaurar la copia de seguridad. Utilice un Gestor de Base de Datos para restaurar la copia de seguridad.";	
@@ -29,7 +29,7 @@ if (isset($_POST['enviar'])) {
 	if (isset($_FILES['archivo']['tmp_name'])) {
 		$backup_file = $_FILES['archivo']['tmp_name'];
 		
-		$result = restaurar_bd($backup_file, $db_host, $db_user, $db_pass, $db);
+		$result = restaurar_bd($backup_file, $config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
 		
 		if (!$result) $msg_success = "La copia de seguridad ha sido restaurada.";
 		else $msg_error = "No se ha podido restaurar la copia de seguridad. Utilice un Gestor de Base de Datos para restaurar la copia de seguridad.";	
