@@ -36,7 +36,7 @@ if (isset($_GET['verifica'])) {
 	mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
 }
 
-$result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, texto, profesor, id_profe, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['profi']."' AND recibidoprofe=0");
+$result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, texto, profesor, id_profe, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['ide']."' AND recibidoprofe=0");
 $mensajes_sin_leer = mysqli_num_rows($result_mensajes);
 mysqli_free_result($result_mensajes);
 
@@ -137,11 +137,11 @@ mysqli_free_result($result_mensajes);
 						<li class="visible-xs <?php echo (strstr($_SERVER['REQUEST_URI'],'intranet/admin/mensajes/')) ? 'active' : ''; ?>"><a href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/index.php">Mensajes</a></li>
 						<li id="bs-tour-mensajes" class="dropdown hidden-xs">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs="tooltip" title="Mensajes recibidos" data-placement="bottom" data-container="body">
-								<span class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer) ? 'text-warning"' : ''; ?>"></span> <b class="caret"></b>
+								<span class="fa fa-envelope fa-fw <?php echo ($mensajes_sin_leer) ? 'text-warning' : ''; ?>"></span> <b class="caret"></b>
 							</a>
 							
 							<ul class="dropdown-menu dropdown-messages">
-								<li class="dropdown-header"><h5>Últimos mensajes</h5></li>
+								<li class="dropdown-header"><h5>Últimos mensajes <?php echo ($mensajes_sin_leer) ? '<span class="label label-warning pull-right">'.$mensajes_sin_leer.'</span>' : ''; ?></h5></li>
 								<li class="divider"></li>
 								<?php $result_mens = mysqli_query($db_con, "SELECT ahora, asunto, id, id_profe, recibidoprofe, texto, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['ide']."' ORDER BY ahora DESC LIMIT 0, 5"); ?>
 								<?php if(mysqli_num_rows($result_mens)): ?>
