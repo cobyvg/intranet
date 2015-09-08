@@ -1,35 +1,109 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-// Copia de la Base de datos principal para mantener registro de cursos académicos
-$curso_pasado=date('Y');
-$nombre_copia=$db.$curso_pasado;
-echo '<div align="center">
-<div class="alert alert-info alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            A principio de cada Curso escolar se crea una copia de la base de datos principal, <strong><em>'.$db.'</em></strong>, con el año del curso escolar añadido al final del nombre (en este caso <strong><em>'.$nombre_copia.'</em></strong>). A continuación se vacían las tablas adecuadas, aunque se mantienen las que contienen datos persistentes. Una vez completadas estas tareas, comienza la importación de datos de alumnos.</div></div><br />';
+// TABLAS INTOCABLES
+$intocables = array("alma_primaria", "alma_secundaria", "absentismo","biblioteca","actualizacion","calendario","calendario_categorias", "c_profes", "control", "departamentos", "fotos", "inventario_clases", "inventario", "inventario_lugares", "listafechorias", "matriculas", "matriculas_bach", "matriculas_backup", "matriculas_bach_backup", "mem_dep", "mensajes", "mens_profes", "mens_texto", "noticias", "partestic", "recursos", "reservas", "reservas_tipos", "reservas_elementos", "r_departamento", "temas", "Textos", "textos_gratis");
 
-mysqli_query($db_con, "CREATE DATABASE if not exists ".$nombre_copia."") or die('
-<div align="center">
-<div class="alert alert-danger alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong>ATENCIÓN:</strong>
-Ha surgido un error al crear la copia de seguridad de la Base de datos de forma automática. Debes crear una base de datos manualmente para recibir la copia de seguridad de los datos actuales. El nombre de la base de datos sigue el patrón que se describe más arriba (<strong><em>'.$nombre_copia.'</em></strong>, en tu caso). Una vez creada la base de datos, asegúrate que el usuario de MySQL que has registrado en la página de configuración tiene permiso para escribir en la nueva base de datos, y vuelve a recargar esta página para completar el proceso.
-</div></div><br />');
-
-// Vaciado de tablas para comenzar cada curso
-$tablas = mysqli_query($db_con, "show tables");
-while ($tabla = mysqli_fetch_array($tablas)) {
-mysqli_query($db_con, "create table ".$nombre_copia.".".$tabla[0]." SELECT * FROM ".$db.".".$tabla[0]);
-	$protegida = "";
-	$intocables = array("alma_primaria", "alma_secundaria", "absentismo","biblioteca","actualizacion","calendario","calendario_categorias", "c_profes", "control", "departamentos", "fotos", "inventario_clases", "inventario", "inventario_lugares", "listafechorias", "matriculas", "matriculas_bach", "matriculas_backup", "matriculas_bach_backup", "mem_dep", "mensajes", "mens_profes", "mens_texto", "noticias", "partestic", "recursos", "reservas", "reservas_tipos", "reservas_elementos", "r_departamento", "temas", "Textos", "textos_gratis");
-	foreach ($intocables as $notocar){
-		if ($tabla[0]==$notocar) {
-			$protegida = "1";
+if (isset($_GET['action']) && ($_GET['action'] == 'bdtruncate')) {
+	
+	$tablas = mysqli_query($db_con, "SHOW TABLES");
+	
+	while ($tabla = mysqli_fetch_array($tablas)) {
+		
+		$protegida = 0;
+		
+		foreach ($intocables as $notocar) {
+			if ($tabla[0] == $notocar) $protegida = 1;
+		}
+		
+		if (! $protegida) {
+			mysqli_query($db_con, "TRUNCATE TABLE `".$tabla[0]."`");
 		}
 	}
-	if (!($protegida == "1")) {
-		mysqli_query($db_con, "truncate table $tabla[0]");
-	}
+	echo 1;
+	
 }
-
+else {
+	
+	// Copia de la Base de datos principal para mantener registro de cursos académicos
+	$curso_pasado = date('Y');
+	$nombre_copia = $config['db_name'].$curso_pasado;
+	
+	echo '
+		<div class="text-center">
+		
+			<div class="alert alert-info">
+	    	Si el servidor de base de datos es propio del centro, a principio de cada curso escolar se crea una copia de la base de datos, <strong><em>'.$config['db_name'].'</em></strong>, con el año del curso escolar añadido al final del nombre (en este caso <strong><em>'.$nombre_copia.'</em></strong>). A continuación, se vacían las tablas adecuadas, aunque se mantienen las que contienen datos persistentes. Una vez completadas estas tareas, comienza la importación de datos de alumnos.
+	    </div>
+	    
+	   </div>
+	   
+	   <br>';
+	
+	$result = mysqli_query($db_con, "CREATE DATABASE `".$nombre_copia."`");
+	
+	if (! $result) {
+		echo '
+			
+				<div class="alert alert-danger">
+					<h4>ATENCIÓN:</h4>
+					
+					Ha surgido un error al crear la nueva base de datos de forma automática. Esto se debe a que estas utilizando la Intranet en un servidor comercial y no tienes privilegios para crear una nueva base de datos. Es importante que no cierre esta página y siga los siguientes pasos para continuar:
+					
+					<ol>
+						<li>Diríjase a la página de gestión de su alojamiento web y cree una nueva base de datos. Apunte los parámetros de conexión: <strong>servidor</strong>, <strong>usuario</strong>, <strong>contraseña</strong> y <strong>nombre de la base de datos</strong>.</li>
+						<li>Realice una <a href="copia_db/index.php" class="alert-link" target="_blank">copia de seguridad</a> de la base de datos actual.</li>
+						<li>Descargue la copia de seguridad que ha generado.</li>
+						<li>Importe la copia de seguridad en la nueva base de datos. Para ello, el proveedor de alojamiento web, suele ofrecer una herramienta de Administración de Bases de datos como PHPMyAdmin.</li>
+						<li>Una vez importado los datos, modifique la configuración de la base de datos en <a href="../../config/config.php" class="alert-link" target="_blank">Configuración general y módulos</a> por los nuevos parámetros.</li>
+						<li>Haga click en <em>Continuar</em> e importe de nuevo los datos.</li>
+					</ol>
+					
+					<a href="index2.php?action=bdtruncate" class="btn btn-primary">Continuar</a>
+					
+				</div>
+				
+			</div>
+		</div>
+		</div>
+		</div>
+		';
+		include('../../pie.php');
+		echo '
+		<script>
+		function espera() {
+			document.getElementById("wrap").style.display = \'\';
+			document.getElementById("status-loading").style.display = \'none\';        
+		}
+		window.onload = espera;
+		</script>
+		
+		</body>
+		</html>
+		';
+		exit();
+	}
+	else {
+				
+		$tablas = mysqli_query($db_con, "SHOW TABLES");
+		
+		while ($tabla = mysqli_fetch_array($tablas)) {
+		
+			// COPIA DEL CONTENIDO
+			mysqli_query($db_con, "CREATE TABLE `".$nombre_copia."`.`".$tabla[0]."` SELECT * FROM `".$config['db_name']."`.`".$tabla[0]."`");
+			
+			$protegida = 0;
+			
+			foreach ($intocables as $notocar) {
+				if ($tabla[0] == $notocar) $protegida = 1;
+			}
+			
+			if (! $protegida) {
+				mysqli_query($db_con, "TRUNCATE TABLE `".$tabla[0]."`");
+			}
+		}
+		
+	}
+	
+	
+}
 ?>

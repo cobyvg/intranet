@@ -29,7 +29,7 @@ include("../../menu.php");
 			
 			<div class="well">
 				
-				<form enctype="multipart/form-data" method="post" action="almafaltas.php">
+				<form enctype="multipart/form-data" method="post" action="<?php echo (isset($_GET['action']) && isset($_GET['action']) == 'bdtruncate') ? 'almafaltas.php?action=bdtruncate' : 'almafaltas.php'; ?>">
 					<fieldset>
 						<legend>Importación de alumnos</legend>
 						

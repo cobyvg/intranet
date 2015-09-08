@@ -12,7 +12,7 @@ include '../../menu.php';
 <div class="container">
 
 	<div class="page-header">
-		<h2>Administración <small> Creación de la tabla de alumnos</small></h2>
+		<h2>Administración <small> Creaciónn de la tabla de alumnos</small></h2>
 	</div>
 	
 	<div id="status-loading" class="text-center">
@@ -32,8 +32,7 @@ include '../../menu.php';
 					$mensajes = mysqli_query($db_con, "select * from mens_texto");
 					$reg_int = mysqli_query($db_con, "select * from reg_intranet");
 			
-					if (mysqli_num_rows($fechorias)<"5" and mysqli_num_rows($mensajes)<"5" and mysqli_num_rows($reg_int)<"5") {}
-					else{
+					if ((mysqli_num_rows($fechorias) > 5) && (mysqli_num_rows($mensajes) > 5) && (mysqli_num_rows($reg_int) > 5)) {
 						include("copia_bd.php");
 					}
 			
@@ -41,7 +40,7 @@ include '../../menu.php';
 					$base0 = "DROP TABLE `alma`";
 					mysqli_query($db_con, $base0);
 			
-					// CreaciÃƒÂ³n de la tabla alma
+					// Creación de la tabla alma
 					$alumnos = "CREATE TABLE  `alma` (
 			`Alumno/a` varchar( 255 ) default NULL ,
 			 `ESTADOMATRICULA` varchar( 255 ) default NULL ,
@@ -85,7 +84,7 @@ include '../../menu.php';
 					// echo $alumnos;
 					mysqli_query($db_con, $alumnos) or die ('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<legend>ATENCIÓ“N:</legend>
+						<legend>ATENCIÓN:</legend>
 			No se ha podido crear la tabla <strong>Alma</strong>. Ponte en contacto con quien pueda resolver el problema.
 			</div></div><br />
 			<div align="center">
@@ -99,11 +98,11 @@ include '../../menu.php';
 			
 					$fp = fopen ($_FILES['archivo1']['tmp_name'] , "r" ) or die('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h5>ATENCIÃ“N:</h5>
-			No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo estÃ¡ corrompido.
+						<h5>ATENCIÓN:</h5>
+			No se ha podido abrir el archivo RegAlum.txt. O bien te has olvidado de enviarlo o el archivo está corrompido.
 			</div></div><br />
 			<div align="center">
-			  <input type="button" value="Volver atrÃ¡s" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+			  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 			</div>'); 
 					$row = 1;
 					while (!feof($fp))
@@ -171,14 +170,14 @@ include '../../menu.php';
 						mysqli_query($db_con, $actualiza1P);
 					}
 			
-					// EliminaciÃƒÂ³n de campos innecesarios por repetidos
+					// Eliminación de campos innecesarios por repetidos
 					$SQL3 = "ALTER TABLE alma
 			  DROP `apellido1`,
 			  DROP `Alumno/a`,
 			  DROP `apellido2`";
 					$result3 = mysqli_query($db_con, $SQL3);
 			
-					// EliminaciÃƒÂ³n de alumnos dados de baja
+					// Eliminación de alumnos dados de baja
 					$SQL4 = "DELETE FROM alma WHERE `unidad` = ''";
 					$result4 = mysqli_query($db_con, $SQL4);
 			
@@ -197,6 +196,7 @@ include '../../menu.php';
 					mysqli_query($db_con, $SQL8);
 			
 					// Creamos version corta para FALTAS
+					mysqli_query($db_con, "DROP TABLE almafaltas");
 					mysqli_query($db_con, "CREATE TABLE almafaltas select CLAVEAL, NOMBRE, APELLIDOS, unidad from alma") or die('<div align="center"><div class="alert alert-danger alert-block fade in">
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 						<legend>ATENCIÓN:</legend>
@@ -253,7 +253,7 @@ include '../../menu.php';
 					// Alumnos con hermanos
 					include("crear_hermanos.php");
 			
-					// Copia de la primera versiÃƒÂ³n de alma
+					// Copia de la primera versión de alma
 					mysqli_query($db_con, "DROP TABLE alma_primera");
 					mysqli_query($db_con, "DROP TABLE FALUMNOS_primero");
 					mysqli_query($db_con, "create table alma_primera select * from alma");
