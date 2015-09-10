@@ -26,16 +26,19 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 
 
 // MENSAJERIA
-if (isset($_GET['verifica_padres'])) {
-	$verifica_padres = $_GET['verifica_padres'];
-	mysqli_query($db_con, "UPDATE mensajes SET recibidotutor = '1' WHERE id = $verifica_padres");
+
+// VERIFICACIÓN DE LECTURA
+if (isset($_POST['verifica_padres'])) {
+	$verifica_padres = $_POST['verifica_padres'];
+	mysqli_query($db_con, "UPDATE mensajes SET recibidotutor='1' WHERE id=$verifica_padres LIMIT 1");
 }
 
-if (isset($_GET['verifica'])) {
-	$verifica = $_GET['verifica'];
-	mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe = '1' WHERE id_profe = '$verifica'");
+if (isset($_POST['verifica'])) {
+	$verifica = $_POST['verifica'];
+	mysqli_query($db_con, "UPDATE mens_profes SET recibidoprofe='1' WHERE id_profe=$verifica LIMIT 1");
 }
 
+// MENSAJES PENDIENTES DE LECTURA
 $result_mensajes = mysqli_query($db_con, "SELECT ahora, asunto, texto, profesor, id_profe, origen FROM mens_profes, mens_texto WHERE mens_texto.id = mens_profes.id_texto AND profesor='".$_SESSION['ide']."' AND recibidoprofe=0");
 $mensajes_sin_leer = mysqli_num_rows($result_mensajes);
 mysqli_free_result($result_mensajes);
@@ -191,7 +194,7 @@ mysqli_free_result($result_mensajes);
 										<small class="text-muted">
 											Último acceso: 
 											<?php
-											$time = mysqli_query($db_con, "select fecha from reg_intranet where profesor = '".$profi."' order by fecha desc limit 2");
+											$time = mysqli_query($db_con, "select fecha from reg_intranet where profesor = '".$idea."' order by fecha desc limit 2");
 											$num = 0;
 											while($last = mysqli_fetch_array($time)) {
 												$num+=1;

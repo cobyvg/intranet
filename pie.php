@@ -113,13 +113,16 @@
 	})
 	</script>
 
-	<script type="text/javascript">
-		$("[data-bs=tooltip]").tooltip({
-			container: 'body'
-		});
-	</script>
-
 	<script>
+	$('.modalmens').on('hidden.bs.modal', function (event) {
+		var modal_id = $(this).data("idmodal");
+	  $('#' + modal_id).submit();
+	})
+	
+	$("[data-bs=tooltip]").tooltip({
+		container: 'body'
+	});
+	
 	$(document).on("click", "a[data-bb]", function(e) {
 	    e.preventDefault();
 	    var type = $(this).data("bb");
@@ -144,7 +147,7 @@
 	});
 	</script>
 
-	<script type="text/javascript">
+	<script>
 	$(document).ready(function() {
 		setTimeout(function() {
 			$("#session_expired").modal('show');

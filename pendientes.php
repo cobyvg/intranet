@@ -291,32 +291,37 @@ if(stristr($carg,'2') == TRUE)
 			$archivo = $men[6];
 			$origen = $men[4].", ".$men[3];
 			?>
-<div class="modal fade" id="mensajep<?php echo $n_mensajesp;?>">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-<h4 class="modal-title"><?php echo $asunto;?><br>
-<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
-</div>
-
-<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1'));?>
-			<?php if (strlen($archivo) > 5): ?> Archivo adjunto: <a
-	href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>"
-	target="_blank"><?php echo $archivo; ?></a> <?php endif; ?></div>
-<div class="modal-footer">
-<form name="mensaje_enviado" action="index.php" method="post"
-	enctype="multipart/form-data" class="form-inline"><a href="#"
-	class="btn btn-danger" data-dismiss="modal">Cerrar</a> <?php
-	$asunto = 'RE: '.$asunto;
-	echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
-	?> <a href="index.php?verifica_padres=<?php echo $id;?>" target="_top"
-	class="btn btn-success">Leído</a> <input type='hidden' name='id_ver'
-	value='<?php echo $id; ?>' /></form>
-</div>
-</div>
-</div>
+<div id="mensajep<?php echo $n_mensajesp;?>" data-idmodal="mensajep<?php echo $n_mensajesp;?>_modal" class="modal modalmens fade">
+	<div class="modal-dialog">
+		<form id="mensajep<?php echo $n_mensajesp;?>_modal" action="index.php" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+					</button>
+					<h4 class="modal-title"><?php echo $asunto;?><br><small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+				</div>
+			
+				<div class="modal-body">
+					<?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?>
+					<?php if (strlen($archivo) > 5): ?>
+					Archivo adjunto: 
+					<a href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
+					<?php endif; ?>
+				</div>
+			
+				<div class="modal-footer">
+						<a href="#" target="_top" data-dismiss="modal" class="btn btn-default">Cerrar</a>
+						<?php
+						$asunto = str_replace('"','',$asunto);
+						$asunto = 'RE: '.$asunto;
+						echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
+						?>
+						<input type="hidden" name="verifica_padres" value="<?php echo $id; ?>">
+				</div>
+			</div>
+		</form>
+	</div>
 </div>
 	<?php
 		}
@@ -371,32 +376,31 @@ if(mysqli_num_rows($men2) > 0)
 		$row = mysqli_fetch_array($query);
 		$nombre_profe = $row[0];
 		?>
-<div class="modal fade" id="mensaje<?php echo $n_mensajes;?>">
-
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-<h4 class="modal-title"><?php echo $asunto;?><br>
-<small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
-</div>
-
-<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?></div>
-
-<div class="modal-footer">
-<form name="mensaje_enviado" action="index.php" method="post"
-	enctype="multipart/form-data" class="form-inline"><a href="#"
-	target="_top" data-dismiss="modal" class="btn btn-danger">Cerrar</a> <?php
-	$asunto = str_replace('"','',$asunto);
-	$asunto = 'RE: '.$asunto;
-	echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
-	?> <a href="index.php?verifica=<?php echo $id; ?>" target="_top"
-	class="btn btn-success">Leído</a> <input type='hidden' name='id_ver'
-	value='<?php echo $id; ?>' /></form>
-</div>
-</div>
-</div>
+<div id="mensaje<?php echo $n_mensajes;?>" data-idmodal="mensaje<?php echo $n_mensajes;?>_modal" class="modal modalmens fade">
+	<div class="modal-dialog">
+		<form id="mensaje<?php echo $n_mensajes;?>_modal" action="index.php" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+					</button>
+					<h4 class="modal-title"><?php echo $asunto;?><br><small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+				</div>
+			
+				<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?></div>
+			
+				<div class="modal-footer">
+						<a href="#" target="_top" data-dismiss="modal" class="btn btn-default">Cerrar</a>
+						<?php
+						$asunto = str_replace('"','',$asunto);
+						$asunto = 'RE: '.$asunto;
+						echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
+						?>
+						<input type="hidden" name="verifica" value="<?php echo $id; ?>">
+				</div>
+			</div>
+		</form>
+	</div>
 </div>
 	<?php
 	}
