@@ -347,7 +347,7 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->MultiCell(168,5,$opt_2b,1);
 	}
 	$MiPDF->Ln ( 4 );
-	$f_hoy = "        En $config['centro_localidad'], a ".$hoy;
+	$f_hoy = "        En ".$config['centro_localidad'].", a ".$hoy;
 	$sello = "                                  Sello del Centro";
 	$firma_centro = "                                El/La Funcionario/a";
 	$firma_padre= "  Firma del representante o Guardador legal 1";
@@ -450,7 +450,7 @@ $an1 = $an+1;
 $an2 = $an+2;
 $c_escolar = $an1."/".$an2;
 $autoriza_34="
-D./Dª $papa, como padre, madre o tutor legal del alumno/a ".$datos_ya->nombre." ".$datos_ya->apellidos." del curso ".$n_curso."º de Bachillerato, matriculado en el ".$config['centro_denominacion']." ($config['centro_localidad']) durante el curso académico $c_escolar:
+D./Dª $papa, como padre, madre o tutor legal del alumno/a ".$datos_ya->nombre." ".$datos_ya->apellidos." del curso ".$n_curso."º de Bachillerato, matriculado en el ".$config['centro_denominacion']." (".$config['centro_localidad'].") durante el curso académico $c_escolar:
 
 
 
@@ -463,7 +463,7 @@ SOLICITA:
    2) Que su hijo/a sea matriculado de nuevo en segundo curso de Bachillerato en su totalidad, de forma que tenga la oportunidad de consolidar su formación en las materias.
 ";
 $firma_34 = "		
-En $config['centro_localidad'], a $hoy
+En ".$config['centro_localidad'].", a $hoy
 
 
  Firma del padre/madre/tutor/a.

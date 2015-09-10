@@ -19,7 +19,7 @@ if ($nivel != '' || $departamento != '') {
 
 // ELIMINAR UN LIBRO
 if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'delete') {
-	$result = mysqli_query($db_con, "DELETE FROM Textos WHERE id='$id' LIMIT 1");
+	$result = mysqli_query($db_con, "DELETE FROM Textos WHERE id='".$_GET['id']."' LIMIT 1");
 	
 	if (!$result) $msg_error = "No se ha podido eliminar el libro de texto. Error: ".mysqli_error($db_con);
 	else $msg_success = "El libro de texto ha sido eliminado.";
@@ -131,7 +131,7 @@ include 'menu.php';
 							<?php if((stristr($_SESSION['cargo'],'1') == true) || ((stristr($_SESSION['cargo'],'4') == true) && ($_SESSION['dpt'] == $row['departamento']))): ?>
 							<td nowrap>
 								<a href="editextos.php?id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Editar"><span class="fa fa-pencil fa-fw fa-lg"></span></a>
-								<a href="textos.php?action=delete&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar" data-bb='confirm-delete'><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+								<a href="consulta.php?action=delete&id=<?php echo $row['id']; ?>" data-bs="tooltip" title="Eliminar" data-bb='confirm-delete'><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 							</td>
 							<?php endif; ?>
 						</tr>

@@ -343,6 +343,7 @@ else{
 		?>
 			<option></option>
 			<option>Si</option>
+			<option>No</option>
 		</select>
 </div>
 </div>

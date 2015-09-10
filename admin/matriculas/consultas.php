@@ -1,10 +1,16 @@
-<?php
+<?
 ini_set("session.cookie_lifetime",1800);
 ini_set("session.gc_maxlifetime",1800);
 
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1, 7, 8));
+
+if(!(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'7') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE))
+{
+	header('Location:'.'http://'.$dominio.'/intranet/salir.php');
+	exit;
+}
+
 
 if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}
@@ -191,7 +197,7 @@ if (isset($_POST['sin_matricula'])) {
 
 ?>
 
-<?php
+<?
 include("../../menu.php");
 include("./menu.php");
 
@@ -212,7 +218,7 @@ foreach($_GET as $key_get => $val_get)
 </div>
 <br>
 
-<?php
+<?
 echo '<div  class="hdden-print">';
 include 'filtro.php';
 echo "</div>";
@@ -266,7 +272,7 @@ if ($_POST['grupo_actua']) {
 	$extra.=")";
 
 }
-//if ($grupo_actua) { if($grupo_actua=="Ninguno"){$extra.=" and grupo_actual = ''";} else{  $extra.=" and grupo_actual = '$grupo_actua'";}}
+if ($grupo_actua_seg) { if($grupo_actua_seg=="Ninguno"){$extra.=" and grupo_actual = ''";} else{  $extra.=" and grupo_actual = '$grupo_actua_seg'";}}
 if ($colegi) { $extra.=" and colegio = '$colegi'";}
 if ($actividade) { $extra.=" and act1 = '$actividade'";}
 if ($itinerari and $n_curso=='4') { $extra.=" and itinerario = '$itinerari'";}
@@ -340,14 +346,14 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	else{
 		if ($curso) {
 			?>
-<h3 align=center><?php if($_POST['grupo_actua']){ 
+<h3 align=center><? if($_POST['grupo_actua']){ 
 	echo $curso." ";
 	foreach ($_POST['grupo_actua'] as $grup_actua){
 		echo $grup_actua." ";
 	}
 } else{ echo $curso;}?></h3>
 <br />
-<form action="consultas.php?curso=<?php echo $curso;?>&consulta=1"
+<form action="consultas.php?curso=<? echo $curso;?>&consulta=1"
 	name="form1" method="post">
 <table class="table table-striped table-condensed" align="center"
 	style="width: auto">
@@ -357,7 +363,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<th>Curso</th>
 		<th>Gr1</th>
 		<th>Gr2</th>
-		<?php
+		<?
 		if ($curso=="1ESO") {
 			echo '<th>Colegio</th>';
 		}
@@ -386,7 +392,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		?>
 
 		<th class="hdden-print">Opciones</th>
-		<?php
+		<?
 		if ($n_curso>1) {
 			echo '<th class="hdden-print">SI |PIL |NO </th>';
 		}
@@ -398,7 +404,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<th class="hdden-print">Otros</th>
 	</thead>
 	<tbody>
-	<?php
+	<?
 	while($consul = mysqli_fetch_array($cons)){
 		$backup="";
 		$respaldo='1';
@@ -576,7 +582,8 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 					$nota = mysqli_fetch_array($not);
 					$tr_not = explode(";", $nota[0]);
-
+					
+					if (date('m')>'05' and date('m')<'09'){
 					foreach ($tr_not as $val_asig) {
 						$tr_notas = explode(":", $val_asig);
 						foreach ($tr_notas as $key_nota=>$val_nota) {
@@ -585,7 +592,9 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 							}
 						}
 					}
-
+					}
+					
+					elseif (date('m')=='09'){
 					$tr_not2 = explode(";", $nota[1]);
 					foreach ($tr_not2 as $val_asig) {
 						$tr_notas = explode(":", $val_asig);
@@ -594,7 +603,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 								$val_notas=$val_notas+1;
 							}
 						}
-
+					}
 					}
 					// Junio
 
@@ -673,7 +682,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		echo "</div></form>";
 		?>
-		<?php
+		<?
 		if ($curso) {
 
 			if ($curso=="1ESO" OR $curso=="2ESO"){
@@ -706,7 +715,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			$pil = mysqli_query($db_con, "select promociona from matriculas where $extra and promociona = '2'");
 			$num_pil = mysqli_num_rows($pil);
 
-			$an_bd = substr($config['curso_actual'],0,4);
+			$an_bd = substr($curso_actual,0,4);
 			$repit = mysqli_query($db_con, "select * from matriculas_bach, ".$db.$an_bd.".alma where ".$db.$an_bd.".alma.claveal = matriculas_bach.claveal and matriculas_bach.curso = '$curso' and ".$db.$an_bd.".alma.unidad like '$n_curso%'");
 			$num_repit = mysqli_num_rows($repit);
 			?>
@@ -714,7 +723,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<table class="table table-striped table-bordered" align="center"
 			style="width: auto">
 			<tr>
-			<?php
+			<?
 			echo "<th>Religión</th>";
 			if ($curso=="1ESO" OR $curso=="2ESO"){
 				echo "<th>Exención</th>";
@@ -745,7 +754,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			?>
 			</tr>
 			<tr>
-			<?php
+			<?
 			echo "<td>$num_rel</td>";
 			if ($curso=="1ESO" OR $curso=="2ESO"){
 				echo "<td>$num_exen</td>";
@@ -769,7 +778,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		?>
 			</tr>
 		</table>
-		<?php
+		<?
 	}
 	?>
 
@@ -777,7 +786,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<table class="table table-striped table-bordered hdden-print"
 			align="center" style="width: auto">
 			<tr>
-				<td><?php
+				<td><?
 				if ($curso=="4ESO") {
 
 					for ($i=1;$i<$num_opt;$i++){
@@ -803,7 +812,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				?></td>
 			</tr>
 		</table>
-		<?php
+		<?
 		if ($n_curso<3){
 			echo '<table class="table table-striped table-bordered hdden-print" align="center" style="width:auto"><tr>
 <td>';
@@ -818,7 +827,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	}
 	?>
 		</div>
-		<?php include("../../pie.php"); ?>
+		<? include("../../pie.php"); ?>
 		<script language="javascript">
  function desactivaOpcion(){ 
      with (document.form2){ 
@@ -859,7 +868,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
      } 
     } 	
   </script>
-  <?php
+  <?
   // Control del envío de datos
 
   if (($mes_submit>5 and $mes_submit<9)) {
@@ -875,7 +884,7 @@ return false;
 	}
 }
 </script>
-<?php
+<?
   }
   elseif ($mes_submit=="9") {
   	?>
@@ -890,10 +899,10 @@ return false;
 	}
 }
 </script>
-		<?php
+		<?
   	  }
   
   ?>
 
-</body>
-</html>
+		</body>
+		</html>

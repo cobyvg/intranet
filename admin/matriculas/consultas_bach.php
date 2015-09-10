@@ -32,11 +32,14 @@ if (isset($_POST['listado_total'])) {
 	exit();
 }
 
-if (isset($_POST['imprimir'])) {
+if (isset($_POST['imprimir'])) {	
+
+	mysqli_query($db_con, "drop table if exists matriculas_temp");
 	mysqli_query($db_con, "CREATE TABLE if not exists  `matriculas_bach_temp` (
  `id_matriculas` INT NOT NULL ,
 INDEX (  `id_matriculas` )
 )");
+
 	foreach ($_POST as $key=>$val)
 	{
 		//echo "$key => $val<br>";
@@ -330,6 +333,7 @@ if ($promocion=="NO") { $extra.=" and promociona = '2'";}
 if ($promocion=="3/4") { $extra.=" and promociona = '3'";}
 
 if ($bilinguism=="Si") { $extra.=" and bilinguismo = 'Si'";}
+if ($bilinguism=="No") { $extra.=" and bilinguismo = ''";}
 
 
 

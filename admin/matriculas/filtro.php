@@ -1,5 +1,4 @@
-<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
-
+<?
 foreach($_POST as $val)
 {
 if (strlen($val)>0) {
@@ -17,7 +16,7 @@ if ($n>2) {
 <div class="form-group" align="left">
 <label>Selecciona Nivel&nbsp;</label>
 <select class="form-control" name="curso" id="curso" onChange="desactivaOpcion();">
-	<option><?php echo $curso;?></option>
+	<option><? echo $curso;?></option>
 	<option>1ESO</option>
 	<option>2ESO</option>
 	<option>3ESO</option>
@@ -36,7 +35,7 @@ $tipo10 = mysqli_query($db_con, $tipo0);
         	if ($tipo20[0]=="") {
         		$tipo20[0]="Ninguno";
         	}
-echo "<div class=''><label class='badge'><input name='grupo_actua[]' type='checkbox' value='$tipo20[0]' ";
+echo "<div class='checkbox-inline'><label class='badge'><input name='grupo_actua[]' type='checkbox' value='$tipo20[0]' ";
 if ($_POST['grupo_actua']) {			
 		foreach ($_POST['grupo_actua'] as $grup_actua){
 			  if ($grup_actua==$tipo20[0]) {
@@ -61,7 +60,7 @@ echo "".$tipo20[0]."</label></div>";
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="avanzado" class="panel-collapse collapse<?php echo $mostrar_filtro;?>">
+			    <div id="avanzado" class="panel-collapse collapse<? echo $mostrar_filtro;?>">
 			      <div class="panel-body">
 <div class="row">
 <div class="col-sm-3">
@@ -99,7 +98,7 @@ echo "".$tipo20[0]."</label></div>";
 </div>
 <div class="col-sm-3">
 <div class="form-group"><label>Bilinguismo </label><select name="bilinguism" class="form-control" >
-		<?php if ($bilinguism) {
+		<? if ($bilinguism) {
 			echo "<option>$bilinguism</option>";
 		}
 		?>
@@ -298,7 +297,7 @@ echo "".$tipo20[0]."</label></div>";
 <div class="row">
 <div class="col-sm-12">
 <div class="form-group"><label align=center>Problemas de Convivencia </label><select name="fechori" class="form-control" >
-		<?php if ($fechori) {
+		<? if ($fechori) {
 			echo "<option>$fechori</option>";
 		}
 		?>
