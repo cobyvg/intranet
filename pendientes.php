@@ -236,6 +236,7 @@ if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0')) OR (($count04 > '0'))){
 	<?php
 }
 
+$mensajes_pendientes = 0;
 
 // Comprobar mensajes de Padres
 $n_mensajesp = 0;
@@ -252,13 +253,14 @@ if(stristr($carg,'2') == TRUE)
 	if(mysqli_num_rows($men2) > 0)
 	{
 		$count_mpadres =  1;
-		echo '<div class="alert alert-success">
+		echo '<div id="alert_mensajes_familias" class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p class="lead"><span class="fa fa-comments fa-fw"></span> Mensajes de Familias y alumnos</p>
 	<br>
-	<ul>';
+	<ul id="lista_mensajes_familias">';
 		while($men = mysqli_fetch_row($men2))
 		{
+			$mensajes_pendientes++;
 			$n_mensajesp=$n_mensajesp+1;
 			$fechacompl = $men[0];
 			$asunto = stripslashes($men[1]);
@@ -268,10 +270,10 @@ if(stristr($carg,'2') == TRUE)
 			$id = $men[5];
 			$origen = $men[4].", ".$men[3];
 			?>
-<li><a class="alert-link" data-toggle="modal"
-	href="#mensajep<?php echo $n_mensajesp;?>"> <?php echo $asunto; ?> </a>
-<br />
-			<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+<li id="mensaje_link_familia_<?php echo $id; ?>">
+	<a class="alert-link" data-toggle="modal" href="#mensajep<?php echo $n_mensajesp;?>"><?php echo $asunto; ?></a>
+	<br />
+	<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 			<?php
 		}
@@ -291,36 +293,33 @@ if(stristr($carg,'2') == TRUE)
 			$archivo = $men[6];
 			$origen = $men[4].", ".$men[3];
 			?>
-<div id="mensajep<?php echo $n_mensajesp;?>" data-idmodal="mensajep<?php echo $n_mensajesp;?>_modal" class="modal modalmens fade">
+<div id="mensajep<?php echo $n_mensajesp;?>" data-verifica-familia="<?php echo $id; ?>" class="modal modalmensfamilia fade">
 	<div class="modal-dialog">
-		<form id="mensajep<?php echo $n_mensajesp;?>_modal" action="index.php" method="post">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
-					</button>
-					<h4 class="modal-title"><?php echo $asunto;?><br><small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
-				</div>
-			
-				<div class="modal-body">
-					<?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?>
-					<?php if (strlen($archivo) > 5): ?>
-					Archivo adjunto: 
-					<a href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
-					<?php endif; ?>
-				</div>
-			
-				<div class="modal-footer">
-						<a href="#" target="_top" data-dismiss="modal" class="btn btn-default">Cerrar</a>
-						<?php
-						$asunto = str_replace('"','',$asunto);
-						$asunto = 'RE: '.$asunto;
-						echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
-						?>
-						<input type="hidden" name="verifica_padres" value="<?php echo $id; ?>">
-				</div>
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+				</button>
+				<h4 class="modal-title"><?php echo $asunto;?><br><small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 			</div>
-		</form>
+		
+			<div class="modal-body">
+				<?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?>
+				<?php if (strlen($archivo) > 5): ?>
+				Archivo adjunto: 
+				<a href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
+				<?php endif; ?>
+			</div>
+		
+			<div class="modal-footer">
+					<a href="#" target="_top" data-dismiss="modal" class="btn btn-default">Cerrar</a>
+					<?php
+					$asunto = str_replace('"','',$asunto);
+					$asunto = 'RE: '.$asunto;
+					echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
+					?>
+			</div>
+		</div>
 	</div>
 </div>
 	<?php
@@ -337,13 +336,14 @@ if(mysqli_num_rows($men2) > 0)
 {
 	$count_mprofes =  1;
 	echo '
-<div class="alert alert-success">
+<div id="alert_mensajes" class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<p class="lead"><span class="fa fa-comments fa-fw"></span> Mensajes de Profesores</p>
 	<br>
-	<ul>';
+	<ul id="lista_mensajes">';
 	while($men = mysqli_fetch_row($men2))
 	{
+		$mensajes_pendientes++;
 		$n_mensajes+=1;
 		$fechacompl = $men[0];
 		$asunto = $men[1];
@@ -354,9 +354,10 @@ if(mysqli_num_rows($men2) > 0)
 		$row = mysqli_fetch_array($query);
 		$nombre_profe = $row[0];
 		?>
-<li><a class="alert-link" data-toggle="modal"
-	href="#mensaje<?php echo $n_mensajes;?>"> <?php echo $asunto; ?> </a> <br>
-		<?php echo "<small>".mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+<li id="mensaje_link_<?php echo $id; ?>">
+	<a class="alert-link" data-toggle="modal" href="#mensaje<?php echo $n_mensajes;?>"><?php echo $asunto; ?></a>
+	<br>
+	<?php echo "<small>".mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 		<?php
 	}
@@ -376,30 +377,27 @@ if(mysqli_num_rows($men2) > 0)
 		$row = mysqli_fetch_array($query);
 		$nombre_profe = $row[0];
 		?>
-<div id="mensaje<?php echo $n_mensajes;?>" data-idmodal="mensaje<?php echo $n_mensajes;?>_modal" class="modal modalmens fade">
+<div id="mensaje<?php echo $n_mensajes;?>" data-verifica="<?php echo $id; ?>" class="modal modalmens fade">
 	<div class="modal-dialog">
-		<form id="mensaje<?php echo $n_mensajes;?>_modal" action="index.php" method="post">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
-					</button>
-					<h4 class="modal-title"><?php echo $asunto;?><br><small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
-				</div>
-			
-				<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?></div>
-			
-				<div class="modal-footer">
-						<a href="#" target="_top" data-dismiss="modal" class="btn btn-default">Cerrar</a>
-						<?php
-						$asunto = str_replace('"','',$asunto);
-						$asunto = 'RE: '.$asunto;
-						echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
-						?>
-						<input type="hidden" name="verifica" value="<?php echo $id; ?>">
-				</div>
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+				</button>
+				<h4 class="modal-title"><?php echo $asunto;?><br><small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
 			</div>
-		</form>
+		
+			<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?></div>
+		
+			<div class="modal-footer">
+					<a href="#" target="_top" data-dismiss="modal" class="btn btn-default">Cerrar</a>
+					<?php
+					$asunto = str_replace('"','',$asunto);
+					$asunto = 'RE: '.$asunto;
+					echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
+					?>
+			</div>
+		</div>
 	</div>
 </div>
 	<?php

@@ -91,6 +91,70 @@ include("menu.php");
 
 <?php include("pie.php"); ?>
 	
+	<script>
+	function notificar_mensajes(nmens) {
+		if(nmens > 0) {
+			$('#icono_notificacion_mensajes').addClass('text-warning');
+		}
+		else {
+			$('#icono_notificacion_mensajes').removeClass('text-warning');
+		}	
+	}
+	
+	<?php if (isset($mensajes_pendientes) && $mensajes_pendientes): ?>
+	var mensajes_familias = $("#lista_mensajes_familias li").size();
+	var mensajes_profesores = $("#lista_mensajes li").size();
+	var mensajes_pendientes = <?php echo $mensajes_pendientes; ?>;
+	notificar_mensajes(mensajes_pendientes);
+	<?php endif; ?>
+	
+	$('.modalmens').on('hidden.bs.modal', function (event) {
+		var idp = $(this).data("verifica");
+	  
+	  $.post( "./admin/mensajes/post_verifica.php", { "idp" : idp }, null, "json" )
+	      .done(function( data, textStatus, jqXHR ) {
+	          if ( data.status ) {
+	              if (mensajes_profesores < 2) {
+	              	$('#alert_mensajes').slideUp();
+	              	$('#menu_mensaje_' + idp + ' div').removeClass('text-warning');
+	              	mensajes_profesores--;
+	              	mensajes_pendientes--;
+	              	notificar_mensajes(mensajes_pendientes);
+	              }
+	              else {
+	              	$('#mensaje_link_' + idp).slideUp();
+	              	$('#menu_mensaje_' + idp + ' div').removeClass('text-warning');
+	              	mensajes_profesores--;
+	              	mensajes_pendientes--;
+	              	notificar_mensajes(mensajes_pendientes);
+	              }
+	          }
+	  });
+	});
+	
+	$('.modalmensfamilia').on('hidden.bs.modal', function (event) {
+		var idf = $(this).data("verifica-familia");
+	  
+	  $.post( "./admin/mensajes/post_verifica.php", { "idf" : idf }, null, "json" )
+	      .done(function( data, textStatus, jqXHR ) {
+	          if ( data.status ) {
+	              if (mensajes_familias < 2 ) {
+	              	$('#alert_mensajes_familias').slideUp();
+	              	mensajes_familias--;
+	              	mensajes_pendientes--;
+	              	notificar_mensajes(mensajes_pendientes);
+	              }
+	              else {
+	              	$('#mensaje_link_familia_' + idf).slideUp();
+	              	mensajes_familias--;
+	              	mensajes_pendientes--;
+	              	notificar_mensajes(mensajes_pendientes);
+	              }
+	          }
+	  });
+	});
+	</script>
+	
 	<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
 	<script>
 	// Instance the tour

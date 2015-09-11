@@ -114,11 +114,6 @@
 	</script>
 
 	<script>
-	$('.modalmens').on('hidden.bs.modal', function (event) {
-		var modal_id = $(this).data("idmodal");
-	  $('#' + modal_id).submit();
-	})
-	
 	$("[data-bs=tooltip]").tooltip({
 		container: 'body'
 	});
