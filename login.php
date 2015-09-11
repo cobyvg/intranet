@@ -193,7 +193,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		      
 		      
 		      
-		      <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Iniciar sesión</button>
+		      <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" disabled>Iniciar sesión</button>
 		      
 		      <div class="form-signin-footer">
 		        
@@ -232,32 +232,25 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	<script>
 	$(function(){
 	
-	$('#old-ie').modal({
-		backdrop: true,
-		keyboard: false,
-		show: true
+		$('#old-ie').modal({
+			backdrop: true,
+			keyboard: false,
+			show: true
+		});
+		
+		$('input').on('input',function(e){
+	    // Validamos el formulario
+	    var validated = true;
+	    if($('#idea').val().length < 5) validated = false;
+	    if($('#clave').val().length < 8) validated = false;
+	
+	    // Si el formulario es válido habilitamos el botón, en otro caso
+	    // lo volvemos a deshabilitar
+	    if(validated) $("button[type=submit]").attr("disabled", false);
+	    else $("button[type=submit]").attr("disabled", true);
+		});
+		
 	});
-	
-	// Deshabilitamos el botón
-	$("button[type=submit]").attr("disabled", "disabled");
-	
-	// Cuando se presione una tecla en un input del formulario
-	// realizamos la validación
-	$('input').keyup(function(){
-	      // Validamos el formulario
-	      var validated = true;
-	      if($('#idea').val().length < 5) validated = false;
-	      if($('#clave').val().length < 8) validated = false;
-	
-	      // Si el formulario es válido habilitamos el botón, en otro caso
-	      // lo volvemos a deshabilitar
-	      if(validated) $("button[type=submit]").removeAttr("disabled");
-	      else $("button[type=submit]").attr("disabled", "disabled");
-	                                  
-	});
-	
-	$('input:first').trigger('keyup');
-	})
 	</script>
 </body>
 </html>
