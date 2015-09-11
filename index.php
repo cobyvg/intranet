@@ -116,18 +116,14 @@ include("menu.php");
 	          if ( data.status ) {
 	              if (mensajes_profesores < 2) {
 	              	$('#alert_mensajes').slideUp();
-	              	$('#menu_mensaje_' + idp + ' div').removeClass('text-warning');
-	              	mensajes_profesores--;
-	              	mensajes_pendientes--;
-	              	notificar_mensajes(mensajes_pendientes);
 	              }
 	              else {
 	              	$('#mensaje_link_' + idp).slideUp();
-	              	$('#menu_mensaje_' + idp + ' div').removeClass('text-warning');
-	              	mensajes_profesores--;
-	              	mensajes_pendientes--;
-	              	notificar_mensajes(mensajes_pendientes);
 	              }
+	              $('#menu_mensaje_' + idp + ' div').removeClass('text-warning');
+	              mensajes_profesores--;
+	              mensajes_pendientes--;
+	              notificar_mensajes(mensajes_pendientes);
 	          }
 	  });
 	});
@@ -140,16 +136,13 @@ include("menu.php");
 	          if ( data.status ) {
 	              if (mensajes_familias < 2 ) {
 	              	$('#alert_mensajes_familias').slideUp();
-	              	mensajes_familias--;
-	              	mensajes_pendientes--;
-	              	notificar_mensajes(mensajes_pendientes);
 	              }
 	              else {
 	              	$('#mensaje_link_familia_' + idf).slideUp();
-	              	mensajes_familias--;
-	              	mensajes_pendientes--;
-	              	notificar_mensajes(mensajes_pendientes);
 	              }
+	              mensajes_familias--;
+	              mensajes_pendientes--;
+	              notificar_mensajes(mensajes_pendientes);
 	          }
 	  });
 	});
