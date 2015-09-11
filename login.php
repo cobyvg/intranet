@@ -193,7 +193,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		      
 		      
 		      
-		      <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" disabled>Iniciar sesión</button>
+		      <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Iniciar sesión</button>
 		      
 		      <div class="form-signin-footer">
 		        
@@ -237,6 +237,8 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			keyboard: false,
 			show: true
 		});
+		
+		$("button[type=submit]").attr("disabled", true);
 		
 		$('input').keyup(function(){
 	    // Validamos el formulario
