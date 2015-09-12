@@ -809,7 +809,8 @@ if($index=='publico') {
 		
 			if(!file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']))) mkdir($config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']), 0777);
 			
-			if(file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['departamento'])) rename($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], $config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']));
+			// Se puede eliminar esta linea en futuras actualizaciones...
+			if(file_exists($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'])) rename($config['mod_documentos_dir'].'/Recursos educativos/'.$row['nomunidad'], $config['mod_documentos_dir'].'/Recursos educativos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['nomunidad']));
 		}
 		mysqli_free_result($result);
 		
@@ -827,6 +828,7 @@ if($index=='publico') {
 		
 			if(!file_exists($config['mod_documentos_dir'].'/Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']))) mkdir($config['mod_documentos_dir'].'/Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']), 0777);
 			
+			// Se puede eliminar esta linea en futuras actualizaciones...
 			if(file_exists($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'])) rename($config['mod_documentos_dir'].'/Departamentos/'.$row['departamento'], $config['mod_documentos_dir'].'/Departamentos/'.str_replace($caracteres_no_permitidos, $caracteres_permitidos, $row['departamento']));
 		}
 		mysqli_free_result($result);
