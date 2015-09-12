@@ -608,6 +608,8 @@ function delete_dir($location)
 function normalize_filename($name)
 {
 	global $file_name_max_caracters, $invalidchars;
+	$caracteres_no_permitidos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú');
+	$caracteres_permitidos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
 
 	$name = stripslashes($name);
 
@@ -618,6 +620,8 @@ function normalize_filename($name)
 	}
 
 	$name = substr($name, 0, $file_name_max_caracters);
+	$name = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $name);
+	
 	return $name;
 }
 
