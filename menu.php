@@ -149,7 +149,10 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								<li><p class="text-center text-muted">No tienes mensajes pendientes.</p></li>
 								<li class="divider"></li>
 								<?php endif; ?>
-								<li><a class="text-center" href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/"><strong>Ver todos los mensajes <span class="fa fa-angle-right"></span></strong></a></li>
+								
+								<a class="text-info pull-left" style="margin:20px;" href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/"><strong>Ver todos los mensajes </strong></a>
+							<a class="pull-right" style="margin:20px" href="//<?php echo $config['dominio']; ?>/intranet/admin/mensajes/redactar.php"><strong>Redactar mensaje </strong></a>
+							
 							</ul>
 						</li>
 						
