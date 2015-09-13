@@ -6,7 +6,7 @@
 
 <?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' AND DATE(fecha) > '".$config['curso_inicio']."' ORDER BY apellidos ASC, nombre ASC"); ?>
 <?php if (mysqli_num_rows($result)): ?>
-<table class="table table-hover dt-tutor">
+<table class="table table-hover datatable dt-tutor">
 	<thead>
 		<tr>
 			<th>Alumno/a</th>

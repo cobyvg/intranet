@@ -8,7 +8,7 @@
 <?php $result = mysqli_query($db_con, "SELECT id, ahora, apellidos, nombre, asunto, texto FROM alma, mensajes WHERE alma.claveal = mensajes.claveal AND mensajes.unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(ahora) > '".$config['curso_inicio']."' ORDER BY id DESC"); ?>
 
 <?php if (mysqli_num_rows($result) > 0): ?>
-<table class="table table-hover">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
 			<th>De</th>

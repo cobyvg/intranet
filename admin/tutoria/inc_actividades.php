@@ -4,7 +4,7 @@
 
 <?php $meses = array(1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'); ?>
 <?php $grupo = $_SESSION['mod_tutoria']['unidad']; ?>
-<?php $result = mysqli_query($db_con, "SELECT DISTINCT MONTH(fechaini) AS mes FROM calendario WHERE categoria='2' and unidades LIKE '%$grupo%' ORDER BY MONTH(fechaini) ASC"); ?>
+<?php $result = mysqli_query($db_con, "SELECT DISTINCT MONTH(fechaini) AS mes FROM calendario WHERE categoria='2' and unidades LIKE '%$grupo%' and date(fechaini) > '".$config['curso_inicio']."' ORDER BY MONTH(fechaini) ASC"); ?>
 <?php if (mysqli_num_rows($result)): ?>
 <?php while ($row = mysqli_fetch_array($result)): ?>
 <table class="table table-bordered table-hover">
@@ -14,7 +14,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php $result1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='2' and MONTH(fechaini)='".$row['mes']."' AND unidades LIKE '%$grupo%' and date(fechaini) > '".$config['curso_inicio']."' ORDER BY fechaini ASC"); ?>
+		<?php $result1 = mysqli_query($db_con, "SELECT * FROM calendario WHERE categoria='2' and MONTH(fechaini)='".$row['mes']."' AND unidades LIKE '%$grupo%' and date(fechaini) > '".$config['curso_inicio']."' ORDER BY fechaini ASC"); ?>		
 		<?php while ($row1 = mysqli_fetch_array($result1)): ?>
 		<tr>
 			<td>

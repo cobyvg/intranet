@@ -3,6 +3,8 @@ require('../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1, 2, 8));
 
+$PLUGIN_DATATABLES = 1; 
+
 // COMPROBAMOS SI ES EL TUTOR, SINO ES DEL EQ. DIRECTIVO U ORIENTADOR
 if (stristr($_SESSION['cargo'],'2') == TRUE) {
 	
@@ -101,6 +103,33 @@ include("menu.php");
 	</div><!-- /.container -->
   
 <?php include("../../pie.php"); ?>
-
+		<script>
+	$(document).ready(function() {
+	  var table = $('.datatable').DataTable({
+	  		"paging":   true,
+	      "ordering": true,
+	      "info":     false,
+	      
+	  		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
+	  		
+	  		"order": [[ 1, "desc" ]],
+	  		
+	  		"language": {
+	  		            "lengthMenu": "_MENU_",
+	  		            "zeroRecords": "No se ha encontrado ningún resultado con ese criterio.",
+	  		            "info": "Página _PAGE_ de _PAGES_",
+	  		            "infoEmpty": "No hay resultados disponibles.",
+	  		            "infoFiltered": "(filtrado de _MAX_ resultados)",
+	  		            "search": "Buscar: ",
+	  		            "paginate": {
+	  		                  "first": "Primera",
+	  		                  "next": "Última",
+	  		                  "next": "",
+	  		                  "previous": ""
+	  		                }
+	  		        }
+	  	});
+	});
+	</script>
 </body>
 </html>

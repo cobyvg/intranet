@@ -6,7 +6,7 @@
 
 <?php $result = mysqli_query($db_con, "SELECT id, claveal, apellidos, nombre, f_entrev FROM infotut_alumno WHERE unidad='".$_SESSION['mod_tutoria']['unidad']."' ORDER BY f_entrev DESC"); ?>
 <?php if (mysqli_num_rows($result)): ?>
-<table class="table table-hover">
+<table class="table table-hover datatable">
 	<thead>
 		<tr>
 			<th>Alumno/a</th>

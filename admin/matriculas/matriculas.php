@@ -1200,6 +1200,11 @@ exit();
 
 		<?php endif; ?>
 
+		<!-- BILINGUISMO -->
+		<?php if($bilinguismo == 'Si'): ?>
+		<input type="hidden" name="bilinguismo" value="Si">
+		<?php endif; ?>
+	
 		<!-- EXENCIÓN DE ASIGNATURA OPTATIVA -->
 		<?php if(substr($curso, 0, 1) < 3): ?>
 		<tr>
