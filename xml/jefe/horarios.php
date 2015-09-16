@@ -40,11 +40,11 @@ foreach($contents as $linea){
 	$campo = str_replace('"','',$campo);
 	$num_col = count($campo);
 	
-	if ($num_col<>13) {
+	if ($num_col<>11) {
 	echo '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>Atención:</legend>
-El archivo de Horw que estás intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>13 columnas</strong>. Asegúrate de que el archivo de Horw sigue las instrucciones de la imagen, y vuelve a intentarlo.
+El archivo de Horw que estás intentando exportar contiene <strong>'.$num_col.' columnas</strong> de datos y debe contener <strong>11 columnas</strong>. Asegúrate de que el archivo de Horw sigue las instrucciones de la imagen, y vuelve a intentarlo.
 </div></div><br />
 <div align="center">
   <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
