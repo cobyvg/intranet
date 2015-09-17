@@ -31,12 +31,14 @@ $options_left = array(
 		$sqldatos.="itinerario2, optativa2, optativa2b1, optativa2b2, optativa2b3, optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, optativa2b9, optativa2b10, ";	
 		$num_opc = 14;
 		}
-		$sqldatos .= "religion FROM matriculas_bach WHERE curso = '$curso' and grupo_actual='".$grupo_actual[0]."' ORDER BY apellidos, nombre";
+		$sqldatos .= "religion, bilinguismo FROM matriculas_bach WHERE curso = '$curso' and grupo_actual='".$grupo_actual[0]."' ORDER BY apellidos, nombre";
 
 $lista= mysqli_query($db_con, $sqldatos );
 $nc=0;
 unset($data);
 while($datatmp = mysqli_fetch_array($lista)) { 
+	$bil = "";
+    if($datatmp['bilinguismo']=="Si"){$bil = " (Bil.)";}
 	$religion = "";
 	for ($i = 0; $i < $num_opc; $i++) {
 		if ($datatmp[$i]=="0") {
@@ -58,6 +60,7 @@ for ($i = 3; $i < 13; $i++) {
 		if (strstr($datatmp[13],"Cat")==TRUE) {
 			$religion ="X";
 		}
+		
 	$opt = '
 	
 	Itinerarios: 1 => Ciencias de la Salud y Tecnológico; 2 => Humanidades y Ciencias Sociales
@@ -69,7 +72,7 @@ for ($i = 3; $i < 13; $i++) {
 	$optas = str_replace("22","",$optas);
 	$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>$datatmp[0].$bil,
 				'c1'=>$religion,
 				'c2'=>$datatmp[1],
 				'c3'=>$optas,
@@ -103,18 +106,31 @@ for ($i = 3; $i < 13; $i++) {
 			);
 }
 if ($curso=="1BACH") {
+
 		if (strstr($datatmp[5],"Cat")==TRUE) {
-			$religion ="X";
+			$religion ="R. Cat.";
+		}
+		elseif (strstr($datatmp[5],"Isl")==TRUE) {
+			$religion ="R. Isl.";
+		}
+		elseif (strstr($datatmp[5],"Eva")==TRUE) {
+			$religion ="R. Evan.";
+		}
+		elseif (strstr($datatmp[5],"Valo")==TRUE) {
+			$religion ="E. Ciud.";
+		}
+		elseif (strstr($datatmp[5],"Cult")==TRUE) {
+			$religion ="C. Cient.";
 		}
 		$opt = '
 	
-	Itinerarios: 1 => Ciencias de la Salud y Tecnológico; 2 => Humanidades y Ciencias Sociales
+	Itinerarios de 1º de Bachillerato: 1 => Tecnología; 2 => Salud; 3 => Humanidades; 4 => Ciencias Sociales
 	';
 	$optas = str_replace("11","",$datatmp[2]);
 	$optas = str_replace("12","",$optas);
 	$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>$datatmp[0].$bil,
 				'c1'=>$religion,
 				'c2'=>$datatmp[1],
 				'c3'=>$optas,
@@ -124,7 +140,7 @@ if ($curso=="1BACH") {
 	$titles = array(
 				'num'=>'<b>Nº</b>',
 				'nombre'=>'<b>Alumno</b>',
-				'c1'=>'Rel.Cat.',
+				'c1'=>'',
 				'c2'=>'It1',
 				'c3'=>'Opt1',
 				'c4'=>'Idioma1',

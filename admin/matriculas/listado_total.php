@@ -24,19 +24,22 @@ $options_left = array(
 	$grupo_actual = $total[1];
 						
 	if ($curso=="3ESO") {
-		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, optativa5, optativa6, optativa7, act1, religion, diversificacion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
+		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, optativa5, optativa6, optativa7, act1, religion, diversificacion, matematicas3, bilinguismo FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
 		$div3=mysqli_query($db_con,"SELECT diversificacion FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' and diversificacion='1'");
 		if (mysqli_num_rows($div3)>0) {
 			$div_3 = $grupo_actual;
 		}		
 	}
 	else{
-		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, act1, itinerario, religion, diversificacion, matematicas4 FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
+		$sqldatos="SELECT concat(apellidos,', ',nombre), exencion, optativa1, optativa2, optativa3, optativa4, act1, itinerario, religion, diversificacion, matematicas4, bilinguismo FROM matriculas WHERE curso = '$curso' and grupo_actual='".$grupo_actual."' ORDER BY apellidos, nombre";
 	}
 $lista= mysqli_query($db_con, $sqldatos );
 $nc=0;
 unset($data);
 while($datatmp = mysqli_fetch_array($lista)) { 
+        $bil = "";
+        if($datatmp['bilinguismo']=="Si"){$bil = " (Bil.)";}
+        
 	$religion = "";
 	
 if ($curso=="3ESO") {
@@ -96,11 +99,13 @@ if ($curso=="3ESO") {
 	
 	Optativas:
 	1 => Alemán 2º Idioma,	2 => Cambios Sociales y Género,	3 => Francés 2º Idioma,	4 => Cultura Clásica, 5 => Taller T.I.C. III,	6 => Taller de Cerámica, 7 => Taller de Teatro
+	
+	Matemáticas: A => Mat. Académicas; B => Mat. Enseñanzas Aplicadas
 	";
 	if ($div_3 == $grupo_actual) {
 			$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>$datatmp[0].$bil,
 				'c9'=>$religion,
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
@@ -110,6 +115,8 @@ if ($curso=="3ESO") {
 				'c7'=>$datatmp[7],
 				'c8'=>$datatmp[8],
 				'c11'=>$datatmp[11],
+				'c12'=>$datatmp[12],
+				
 				);
 	$titles = array(
 				'num'=>'<b>Nº</b>',
@@ -123,13 +130,14 @@ if ($curso=="3ESO") {
 				'c7'=>'Opt6',
 				'c8'=>'Opt7',
 				'c11'=>'Div',
+				'c12'=>'Mat',
 			);
 	}
 	else{
 			$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
-				'c9'=>$religion,
+				'nombre'=>$datatmp[0].$bil,
+				'c10'=>$religion,
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
 				'c4'=>$datatmp[4],
@@ -137,11 +145,12 @@ if ($curso=="3ESO") {
 				'c6'=>$datatmp[6],
 				'c7'=>$datatmp[7],
 				'c8'=>$datatmp[8],
+				'c9'=>$datatmp[12],
 				);
 	$titles = array(
 				'num'=>'<b>Nº</b>',
 				'nombre'=>'<b>Alumno</b>',
-				'c9'=>'Rel. Cat.',
+				'c10'=>'Rel. Cat.',
 				'c2'=>'Opt1',
 				'c3'=>'Opt2',
 				'c4'=>'Opt3',
@@ -149,6 +158,7 @@ if ($curso=="3ESO") {
 				'c6'=>'Opt5',
 				'c7'=>'Opt6',
 				'c8'=>'Opt7',
+				'c9'=>'Mat',
 			);
 	}
 
@@ -167,7 +177,7 @@ if ($curso=="2ESO") {
 	
 	$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>$datatmp[0].$bil,
 				'c7'=>$religion,
 				'c2'=>$datatmp[2],
 				'c3'=>$datatmp[3],
@@ -240,7 +250,7 @@ if ($curso=="4ESO") {
 if ($datatmp[7]=="1" or $datatmp[7]=="2") {
 $data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>$datatmp[0].$bil,
 				'c6'=>$religion,
 				'It.'=>$datatmp[7],
 				'c2'=>$datatmp[2],
@@ -263,7 +273,7 @@ $data[] = array(
 		elseif ($datatmp[7]=="3") {
 $data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>$datatmp[0].$bil,
 				'c6'=>$religion,
 				'It.'=>$datatmp[7],
 				'c2'=>$datatmp[2],
@@ -288,7 +298,7 @@ $data[] = array(
 	else{
 		$data[] = array(
 				'num'=>$nc,
-				'nombre'=>$datatmp[0],
+				'nombre'=>$datatmp[0].$bil,
 				'c6'=>$religion,
 				'It.'=>$datatmp[7],
 				'c2'=>$datatmp[2],

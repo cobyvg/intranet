@@ -27,6 +27,11 @@ foreach ($_POST as $key=>$val)
 	exit();
 }
 
+if (isset($_POST['listado_simple'])) {
+	include("listado_simple_bach.php");
+	exit();
+}
+
 if (isset($_POST['listado_total'])) {
 	include("listado_total_bach.php");
 	exit();
@@ -704,7 +709,8 @@ echo "<br>
 	<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hidden-print' />";} 
 	else{ 
 	echo "&nbsp;&nbsp;
-	<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />";
+	<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hidden-print' />
+	&nbsp;&nbsp;<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-inverse hdden-print' />";
 	}
 	echo "</div></form>";
 	?>

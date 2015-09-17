@@ -38,6 +38,12 @@ if (isset($_POST['listado_total'])) {
 	include("listado_total.php");
 	exit();
 }
+
+if (isset($_POST['listado_simple'])) {
+	include("listado_simple.php");
+	exit();
+}
+
 if (isset($_POST['imprimir'])) {
 	mysqli_query($db_con, "drop table if exists matriculas_temp");
 	mysqli_query($db_con, "CREATE TABLE  `matriculas_temp` (
@@ -678,7 +684,8 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	echo "<br><input type='submit' name='imprimir' value='Imprimir'  class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='caratulas' value='Imprimir Carátulas' class='btn btn-success hdden-print' />&nbsp;&nbsp;<input type='submit' name='cambios' value='Ver cambios en datos' class='btn btn-warning hdden-print' />&nbsp;&nbsp;<input type='submit' name='sin_matricula' value='Alumnos sin matricular' class='btn btn-danger hdden-print' />";
 
 	if(count($grupo_actua)=='1'){
-		echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hdden-print' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hdden-print' />";
+		echo "<input type='hidden' name='grupo_actual' value='$grupo_actua' />&nbsp;&nbsp;<input type='submit' name='listados' value='Listado en PDF' class='btn btn-inverse hdden-print' />";} else{ echo "&nbsp;&nbsp;<input type='submit' name='listado_total' value='Listado PDF total' class='btn btn-inverse hdden-print' />
+		&nbsp;&nbsp;<input type='submit' name='listado_simple' value='Listado Simple' class='btn btn-inverse hdden-print' />";
 		}
 		echo "</div></form>";
 		?>
