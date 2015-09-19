@@ -836,44 +836,38 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		</div>
 		<? include("../../pie.php"); ?>
 		<script language="javascript">
- function desactivaOpcion(){ 
-     with (document.form2){ 
-      switch (curso.selectedIndex){ 
-       case 1: 
-        itinerari.disabled = true; 
-        matematica4.disabled = true;
-        diversificacio.disabled = true;
-        promocion.disabled = true;
-        actividade.disabled = false;
-        exencio.disabled = false;
-        break; 
-       case 2: 
-        itinerari.disabled = true; 
-        matematica4.disabled = true;
-        diversificacio.disabled = true;
-        promocion.disabled = false;
-        actividade.disabled = false;
-        exencio.disabled = false;
-        break; 
-       case 3: 
-     	  itinerari.disabled = true; 
-           matematica4.disabled = false;
-           actividade.disabled = true;
-           exencio.disabled = true;
-           diversificacio.disabled = false;
-           promocion.disabled = false;
-        break; 
-       case 4: 
-     	  actividade.disabled = true;
-           exencio.disabled = true;
-           itinerari.disabled = false; 
-           matematica4.disabled = false;
-           diversificacio.disabled = false;
-           promocion.disabled = false;         
-        break; 
-      } 
-     } 
-    } 	
+		 if (document.form2.curso.value=="1ESO"){ 
+			 document.form2.itinerari.disabled = true; 
+			 document.form2.matematica4.disabled = true;
+			 document.form2.diversificacio.disabled = true;
+			 document.form2.promocion.disabled = true;
+			 document.form2.actividade.disabled = false;
+			 document.form2.exencio.disabled = false;
+			}
+		 if (document.form2.curso.value=="2ESO"){ 
+			 document.form2.itinerari.disabled = true; 
+			 document.form2.matematica4.disabled = true;
+			 document.form2.diversificacio.disabled = true;
+			 document.form2.promocion.disabled = false;
+			 document.form2.actividade.disabled = false;
+			 document.form2.exencio.disabled = false;
+			}
+		 if (document.form2.curso.value=="3ESO"){ 
+			 document.form2.itinerari.disabled = true; 
+			 document.form2.matematica4.disabled = false;
+			 document.form2.actividade.disabled = true;
+			 document.form2.exencio.disabled = true;
+			 document.form2.diversificacio.disabled = false;
+			 document.form2.promocion.disabled = false;
+			}
+		 if (document.form2.curso.value=="4ESO"){ 
+			 document.form2.actividade.disabled = true;
+			 document.form2.exencio.disabled = true;
+			 document.form2.itinerari.disabled = false; 
+			 document.form2.matematica4.disabled = false;
+			 document.form2.diversificacio.disabled = false;
+			 document.form2.promocion.disabled = false;  
+			}
   </script>
   <?
   // Control del envío de datos

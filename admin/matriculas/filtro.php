@@ -15,7 +15,7 @@ if ($n>2) {
 <div class="col-sm-4">
 <div class="form-group" align="left">
 <label>Selecciona Nivel&nbsp;</label>
-<select class="form-control" name="curso" id="curso" onChange="desactivaOpcion();">
+<select class="form-control" name="curso" id="curso" onChange="submit()">
 	<option><? echo $curso;?></option>
 	<option>1ESO</option>
 	<option>2ESO</option>
@@ -24,6 +24,9 @@ if ($n>2) {
 </select>
 </div>
 </div>
+<script type="text/javascript">
+desactivaOpcion();
+</script>
 <div class="col-sm-8">
 <label>Grupos:
     </label><br>
