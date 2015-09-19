@@ -145,13 +145,13 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 	{
 		?>
 		<li <?php echo $activo3;?>><a
-			href="http://<?php echo $config['dominio']; ?>/intranet/faltas/poner2/index.php">
+			href="//<?php echo $config['dominio']; ?>/intranet/faltas/poner2/index.php">
 		Poner</a></li>
 		<?php
 	} else {
 		?>
 		<li <?php echo $activo3;?>><a
-			href="http://<?php echo $config['dominio']; ?>/intranet/faltas/poner/index.php">
+			href="//<?php echo $config['dominio']; ?>/intranet/faltas/poner/index.php">
 		Poner</a></li>
 		<?php
 	}
@@ -162,20 +162,20 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 	{
 		?>
 		<li <?php echo $activo5;?>><a
-			href="http://<?php echo $config['dominio']; ?>/intranet/faltas/justificar/index.php">
+			href="//<?php echo $config['dominio']; ?>/intranet/faltas/justificar/index.php">
 		Justificar</a></li>
 		<?php
 	}
 	?>
 		<li <?php echo $activo6;?>><a
-			href="http://<?php echo $config['dominio']; ?>/intranet/admin/faltas/index.php">
+			href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/index.php">
 		Consultar</a></li>
 		<?php
 		if(stristr($_SESSION['cargo'],'2') == TRUE)
 		{
 			?>
 		<li <?php echo $activo7;?>><a
-			href="http://<?php echo $config['dominio']; ?>/intranet/admin/tutoria/consulta_absentismo.php">
+			href="//<?php echo $config['dominio']; ?>/intranet/admin/tutoria/consulta_absentismo.php">
 		Alumnos Absentistas</a></li>
 		<?php
 		}
@@ -185,32 +185,24 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 		{
 			?>
 		<li <?php echo $activo7;?>><a
-			href="http://<?php echo $config['dominio']; ?>/intranet/faltas/absentismo/index.php">
+			href="//<?php echo $config['dominio']; ?>/intranet/faltas/absentismo/index.php">
 		Alumnos Absentistas</a></li>
 	
 		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
 			href="#"> Administración <span class="caret"></span> </a>
 		<ul class="dropdown-menu" role="menu">
-			<li <?php echo $activo1;?>><a
-				href="http://<?php echo $config['dominio']; ?>/intranet/faltas/seneca/index.php">
-			Subir Faltas a S&eacute;neca</a></li>
-			<li <?php echo $activo4;?>><a
-				href="http://<?php echo $config['dominio']; ?>/intranet/faltas/seneca/importarSeneca.php">Descargar
-			Faltas de Séneca</a></li>
+			<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/seneca/index.php"> Subir Faltas a S&eacute;neca</a></li>
+			<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/seneca/importarSeneca.php">Descargar Faltas de Séneca</a></li>
 			<hr>
-			<li><a href="../admin/cursos/horariototal_faltas.php" target="_blank">Parte
-			de faltas completo (por días)</a></li>
-			<li><a href="../admin/faltas/horario_semanal.php" target="_blank">Parte
-			de faltas completo (semanal)</a></li>
-			<li><a href="../admin/faltas/horario_semanal_div.php" target="_blank">Parte
-			de faltas completo Diversificación</a></li>
-			<li><a href="../admin/cursos/horariofaltas.php">Horario de Faltas para
-			Profesores</a></li>
+			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariototal_faltas.php" target="_blank">Parte de faltas completo (por días)</a></li>
+			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/horario_semanal.php" target="_blank">Parte de faltas completo (semanal)</a></li>
+			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/horario_semanal_div.php" target="_blank">Parte de faltas completo Diversificación</a></li>
+			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariofaltas.php">Horario de Faltas para Profesores</a></li>
 			<hr>
 			<?php if ($config['mod_sms']) {?>
-			<li><a href="../sms/sms_cpadres.php">SMS de Faltas para Padres</a></li>
+			<li><a href="//<?php echo $config['dominio']; ?>/intranet/sms/sms_cpadres.php">SMS de Faltas para Padres</a></li>
 			<?}?>
-			<li><a href="../admin/faltas/cpadres.php">Informe de Faltas para
+			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/cpadres.php">Informe de Faltas para
 			Padres</a></li>
 		</ul>
 		</li>

@@ -339,9 +339,24 @@ $menu = array(
 						'cargos' => array('1'),
 					),
 					array(
+						'href'   => 'admin/cursos/horariototal_faltas.php',
+						'titulo' => 'Partes de faltas (por días)',
+						'cargos' => array('1'),
+					),
+					array(
+						'href'   => 'admin/faltas/horario_semanal.php',
+						'titulo' => 'Partes de faltas (semanal)',
+						'cargos' => array('1'),
+					),
+					array(
+						'href'   => 'admin/faltas/horario_semanal_div.php',
+						'titulo' => 'Partes de faltas (Diversificación)',
+						'cargos' => array('1'),
+					),
+					array(
 						'href'   => 'admin/faltas/ccursos.php',
 						'titulo' => 'Partes de Faltas de Grupo',
-						'cargos' => array('1','2'),
+						'cargos' => array('2'),
 					),
 				),
 			),
