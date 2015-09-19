@@ -53,6 +53,7 @@
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'perfiles_alumnos.php')==TRUE) ? ' class="active"' : ''; ?>><a href="perfiles_alumnos.php">Perfiles alumnos</a></li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'perfiles_profesores.php')==TRUE) ? ' class="active"' : ''; ?>><a href="perfiles_profesores.php">Perfiles profesores</a></li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'protocolo.php')==TRUE) ? ' class="active"' : ''; ?>><a href="protocolo.php">Protocolo de uso</a></li>
+			<li><a href="Guia_Rapida_SDI1.pdf" target="_blank">Manual de la SDI</a></li>
 			<li<?php echo (strstr($_SERVER['REQUEST_URI'],'estadisticas.php')==TRUE) ? ' class="active"' : ''; ?>><a href="estadisticas.php">Estadísticas TIC</a></li>
 		</ul>
 		

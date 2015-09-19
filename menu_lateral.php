@@ -420,6 +420,11 @@ $menu = array(
 						'titulo' => 'Protocolo de uso',
 					),
 					array(
+						'href'   => 'TIC/Guia_Rapida_SDI1.pdf',
+						'titulo' => 'Manual de la SDI',
+						'target' => '_blank',
+					),
+					array(
 						'href'   => 'TIC/estadisticas.php',
 						'titulo' => 'Estadísticas de las TIC',
 					),
@@ -579,6 +584,11 @@ else {
 				array(
 					'href'   => '//'.$config['dominio'],
 					'titulo' => 'Página del '.$config['centro_denominacion'],
+					'target' => '_blank',
+				),
+				array(
+					'href'   => 'http://www.juntadeandalucia.es/averroes/centros-tic/'.$config['centro_codigo'].'/',
+					'titulo' => 'Servidor de contenidos',
 					'target' => '_blank',
 				),
 				array(
