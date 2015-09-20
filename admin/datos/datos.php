@@ -74,7 +74,10 @@ if (isset($_GET['borrar']) and $_GET['borrar']==1) {
 	}
 }
 
+$d_table="datatable";
+
 if (isset($seleccionado) and $seleccionado=="1") {
+	$d_table="";
 	$tr=explode(" --> ",$alumno);
 	$clave_al=$tr[1];
 	$nombre_al=$tr[0];
@@ -129,7 +132,7 @@ $result = mysqli_query($db_con, $SQL);
 if ($row = mysqli_fetch_array($result))
 {
 
-	echo "<table class='table table-bordered table-striped table-vcentered datatable'>";
+	echo "<table class='table table-bordered table-striped table-vcentered $d_table'>";
 	echo "<thead><tr>
 					<th></th>
 					<th>Alumno/a</th>
@@ -178,7 +181,7 @@ if ($row = mysqli_fetch_array($result))
 		if ($seleccionado=='1'){
 			$todo = '&todos=Ver Informe Completo del Alumno';
 		}
-		echo "<td><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Ver detalles'></i> ";
+		echo "<td><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno'><i class='fa fa-search fa-fw fa-lg' data-bs='tooltip' title='Ver Informe completo del Alumno'></i> ";
 		echo '</a></td></tr>';
 	} while($row = mysqli_fetch_array($result));
 	echo "</tbody></table>\n";
@@ -203,7 +206,6 @@ if ($_GET['seleccionado']=='1' and $_GET['borrar']!=="1"){
 		$s_control = '1';
 	}
 	// Menú del alumno
-	echo "<a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo del Alumno' class='btn btn-primary'>Datos completos</a>";
 	echo "&nbsp;<a class='btn btn-primary' href='//".$config['dominio']."/intranet/admin/informes/cinforme.php?nombre_al=$alumno&unidad=$unidad'>Informe histórico del Alumno</a> ";
 	echo "&nbsp;<a class='btn btn-primary' href='../fechorias/infechoria.php?seleccionado=1&nombre=$claveal'>Problema de disciplina</a> ";
 	echo "&nbsp;<a class='btn btn-primary' href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?curso=$unidad'>Horario</a>";
