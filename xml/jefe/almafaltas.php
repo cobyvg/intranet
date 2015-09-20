@@ -219,7 +219,7 @@ include '../../menu.php';
 					$result0 = mysqli_query($db_con, $SQL0);
 					while  ($row0 = mysqli_fetch_array($result0))
 					{
-						$SQL1 = "SELECT distinct CLAVEAL, APELLIDOS, NOMBRE, unidad FROM  alma WHERE unidad = '$row0[0]'";
+						$SQL1 = "SELECT distinct CLAVEAL, APELLIDOS, NOMBRE, unidad FROM  alma WHERE unidad = '$row0[0]' ORDER BY APELLIDOS ASC, NOMBRE ASC";
 						$result1 = mysqli_query($db_con, $SQL1);
 			
 						// Calculamos el numero de alumnos en cada curso
