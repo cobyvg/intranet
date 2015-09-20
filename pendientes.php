@@ -24,13 +24,12 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 <?php if(isset($_SESSION['user_admin']) && $ultima_version > INTRANET_VERSION): ?>
 <div  class="alert alert-info" >
 	<h4>Nueva actualización de la Intranet</h4>
-	<div class="col-sm-9">Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación.</div>
-	<div class="col-sm-3">
-	<a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" target="_blank" class="btn btn-primary"> <i class="fa fa-download"> </i>
-	&nbsp;Descargar
-</a>
-</div>
- <br><br>
+	<div class="row">
+		<div class="col-sm-8">Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación.</div>
+		<div class="col-sm-4">
+			<a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" target="_blank" class="btn btn-primary pull-right"><span class="fa fa-download"></span> Descargar</a>
+		</div>
+	</div>
 </div>
 <?php endif; ?>
 
