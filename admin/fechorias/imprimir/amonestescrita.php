@@ -8,31 +8,29 @@ if(!($_POST['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['cl
 
 $actualizar = "UPDATE  Fechoria SET  recibido =  '1' WHERE  Fechoria.id = '$id'";
 mysqli_query($db_con, $actualizar );
-$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.nivel, 
-  alma.grupo, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, 
+$result = mysqli_query($db_con, "select alma.apellidos, alma.nombre, alma.unidad, Fechoria.fecha, Fechoria.notas, Fechoria.asunto, Fechoria.informa, 
   Fechoria.grave, Fechoria.medida, listafechorias.medidas2, Fechoria.expulsion, Fechoria.tutoria, Fechoria.claveal, alma.padre, alma.domicilio, alma.localidad, alma.codpostal, alma.provinciaresidencia, tutor, Fechoria.id from Fechoria, alma, listafechorias, FTUTORES where FTUTORES.unidad = alma.unidad and  Fechoria.claveal = alma.claveal and listafechorias.fechoria = Fechoria.asunto  and Fechoria.id = '$id' order by Fechoria.fecha DESC" ) or die (mysqli_error($db_con));
 
 if ($row = mysqli_fetch_array ( $result )) {
 	$apellidos = $row [0];
 	$nombre = $row [1];
-	$nivel = $row [2];
-	$grupo = $row [3];
-	$fecha = $row [4];
-	$notas = $row [5];
-	$asunto = $row [6];
-	$informa = $row [7];
-	$grave = $row [8];
-	$medida = $row [9];
-	$medidas2 = $row [10];
-	$expulsion = $row [11];
-	$tutoria = $row [12];
-	$claveal = $row [13];
-	$padre = $row [14];
-	$direccion = $row [15];
-	$localidad = $row [16];
-	$codpostal = $row [17];
-	$provincia = $row [18];
-	$tutor = $row [19];
+	$unidad = $row [2];
+	$fecha = $row [3];
+	$notas = $row [4];
+	$asunto = $row [5];
+	$informa = $row [6];
+	$grave = $row [7];
+	$medida = $row [8];
+	$medidas2 = $row [9];
+	$expulsion = $row [10];
+	$tutoria = $row [11];
+	$claveal = $row [12];
+	$padre = $row [13];
+	$direccion = $row [14];
+	$localidad = $row [15];
+	$codpostal = $row [16];
+	$provincia = $row [17];
+	$tutor = $row [18];
 }
 $tr_tut = explode(", ", $tutor);
 $tutor = "$tr_tut[1] $tr_tut[0]";
@@ -97,7 +95,7 @@ $MiPDF->SetDisplayMode ( 'fullpage' );
 $titulo = "Comunicación de amonestación escrita";
 $cuerpo = "Muy Srs. nuestros:
 
-Pongo en su conocimiento que con fecha ".strftime("%e de %B de %Y", strtotime($fecha))." su hijo/a $nombre $apellidos alumno del grupo $nivel-$grupo ha sido amonestado/a por \"$asunto\".
+Pongo en su conocimiento que con fecha ".strftime("%e de %B de %Y", strtotime($fecha))." su hijo/a $nombre $apellidos alumno del grupo $unidad ha sido amonestado/a por \"$asunto\".
 
 Asimismo, le comunico que, según contempla el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio por el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, de reincidir su hijo/a en este tipo de conductas contrarias a las normas de convivencia del Centro podría imponérsele otra medida de corrección que podría llegar a ser la suspensión del derecho de asistencia al Centro.
 
@@ -140,7 +138,7 @@ for($i = 0; $i < 1; $i ++) {
 	
 	
 	// RECIBI
-	$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo $nivel-$grupo, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+	$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$row['id']." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 	
 	$MiPDF->Ln(8);
 
