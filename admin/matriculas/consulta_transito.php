@@ -1,7 +1,7 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1, 7, 8));
+acl_acceso($_SESSION['cargo'], array(1, 2, 7, 8));
 
 $PLUGIN_DATATABLES = 1;
 
@@ -60,7 +60,13 @@ include("./menu.php");
 	?>
 	</thead>
 	<?php
-	$cl = mysqli_query($db_con,"select distinct claveal, apellidos, nombre, colegio from alma_primaria");
+	if (strstr($_SESSION['cargo'],"2")==TRUE) {
+		$extra = " where claveal in (select claveal from alma where unidad = '".$_SESSION['mod_tutoria']['unidad']."')";
+	}
+	else{
+		$extra = "";
+	}
+	$cl = mysqli_query($db_con,"select distinct claveal, apellidos, nombre, colegio from alma_primaria $extra");
 	while ($clav = mysqli_fetch_array($cl)) {
 	
 		$link="";
