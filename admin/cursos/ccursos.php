@@ -93,7 +93,7 @@ $asignatura="";
 						    </label>
 						  </div>
 						  
-						  <button type="submit" class="btn btn-primary" name="submit1">Consultar</button>
+						  <button type="submit" class="btn btn-primary" name="submit1" formtarget="_blank">Consultar</button>
 						</fieldset>
 						
 				</form>
