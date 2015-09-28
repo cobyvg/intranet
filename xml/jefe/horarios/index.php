@@ -322,7 +322,7 @@ include("../../../menu.php");
 					  		<?php endif; ?>
 						  	<optgroup label="Actividades">
 						  		<?php if ($unidad): ?>
-							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='136' ORDER BY nomactividad ASC"); ?>
+							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='21' OR idactividad='136' OR idactividad='356' OR idactividad='386' OR idactividad='861' ORDER BY nomactividad ASC"); ?>
 							  	<?php else: ?>
 							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad <> 1 ORDER BY nomactividad ASC"); ?>
 							  	<?php endif; ?>
