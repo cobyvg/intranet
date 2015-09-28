@@ -60,8 +60,17 @@ echo '<tr><th>'.$nombre.'ª</th>';
 				if ($grupo != $rep_grupo) {
 
 					if($cont > 1) {
-						$exp_grupo = explode('-', $grupo);
-						echo "/".$exp_grupo[1];
+						if (stristr($grupo, '-') == TRUE) {
+							$exp_grupo = explode('-', $grupo);
+							echo "/".$exp_grupo[1];
+						}
+						elseif (stristr($grupo, 'º') == TRUE) {
+							$exp_grupo = explode('º', $grupo);
+							echo "/".$exp_grupo[1];
+						}
+						else {
+							echo $grupo;
+						}
 					}
 					else {
 						echo $grupo;

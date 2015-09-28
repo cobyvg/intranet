@@ -188,9 +188,8 @@ if (isset($_POST['actualizar'])) {
 	$coddependencia = $_POST['dependencia'];
 	$nomdependencia = $datos_dependencia['n_aula'];
 	
-	if($esDesdoble) {
-		$unidad = $unidad.'D';
-	}
+	if($esDesdoble) $unidad = $unidad.'D';
+	if ($unidad == 'D') $unidad = '';
 	
 	$result = mysqli_query($db_con, "UPDATE horw SET dia='$dia', hora='$hora', a_asig='$abrevasignatura', asig='$nomasignatura', c_asig='$codasignatura', a_aula='$coddependencia', n_aula='$nomdependencia', a_grupo='$unidad' WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='$profesor' LIMIT 1");
 	
@@ -205,9 +204,9 @@ if (isset($_POST['actualizar'])) {
 }
 
 if (isset($_POST['eliminar'])) {
-	$dia = $_POST['dia'];
-	$hora = $_POST['hora'];
-	$unidad_curso = $_POST['unidad'];
+	$dia = $_GET['dia'];
+	$hora = $_GET['hora'];
+	$unidad_curso = $_GET['unidad'];
 	$exp_unidad = explode('|', $unidad_curso);
 	$unidad = $exp_unidad[0];
 	
@@ -291,16 +290,10 @@ include("../../../menu.php");
 						  <label for="hora">Hora</label>
 						  <select class="form-control" id="hora" name="hora">
 						  	<option value=""></option>
-						  	<?php 
-						  	$hr = mysqli_query($db_con,"select hora_inicio, hora_fin, hora from tramos where hora < '7'");
-							while ($hor = mysqli_fetch_array($hr)) {
-								$nomhora = "$hor[0] - $hor[1]";
-								$numhora = $hor[2];
-							?>
-							<option value="<?php echo $numhora; ?>" <?php echo (isset($hora) && $numhora == $hora) ? 'selected' : ''; ?>><?php echo $nomhora; ?></option>
-							<?
-							}
-							?>
+						  	<?php $result_horas = mysqli_query($db_con,"SELECT hora_inicio, hora_fin, hora FROM tramos WHERE hora < '7' OR hora = 'R'"); ?>
+								<?php while ($horas = mysqli_fetch_array($result_horas)): ?>
+								<option value="<?php echo $horas['hora']; ?>" <?php echo (isset($hora) && $horas['hora'] == $hora) ? 'selected' : ''; ?>><?php echo $horas['hora_inicio'].' - '.$horas['hora_fin'].' ('.$horas['hora'].')'; ?></option>
+								<?php endwhile; ?>
 						  </select>
 						</div>
 						
@@ -404,19 +397,23 @@ include("../../../menu.php");
 						</tr>
 					</thead>
 					<tbody>
-					<?php $dia = ""; ?>
-					<?php $horas = array(1 => "1ª", 2 => "2ª", 3 => "3ª", 4 => "4ª", 5 => "5ª", 6 => "6ª" ); ?>
-					<?php foreach($horas as $hora => $desc): ?>
+					<?php $thoras = ""; ?>
+					<?php $result_horas = mysqli_query($db_con,"SELECT hora FROM tramos WHERE hora < '7' OR hora = 'R'"); ?>
+					<?php while ($row = mysqli_fetch_array($result_horas)): ?>
+					<?php $thoras[] = $row['hora']; ?>
+					<?php endwhile; ?>
+					
+					<?php foreach($thoras as $thora): ?>
 						<tr>
-							<th><?php echo $desc; ?></th>
+							<th><?php echo $thora; ?></th>
 							<?php for($i = 1; $i < 6; $i++): ?>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig, a_grupo, a_aula, n_aula FROM horw WHERE prof='$profesor' AND dia='$i' AND hora='$hora'"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_asig, asig, c_asig, a_grupo, a_aula, n_aula FROM horw WHERE prof='$profesor' AND dia='$i' AND hora='$thora'"); ?>
 							<td width="20%">
 					 			<?php while($row = mysqli_fetch_array($result)): ?>
 					 			<abbr data-bs="tooltip" title="<?php echo $row['asig']; ?>"><?php echo $row['a_asig']; ?></abbr><br>
 					 			<?php echo (!empty($row['n_aula']) && $row['n_aula'] != 'Sin asignar o sin aula' && $row['n_aula'] != 'NULL') ? '<abbr class="pull-right text-danger" data-bs="tooltip" title="'.$row['n_aula'].'">'.$row['a_aula'].'</abbr>' : ''; ?>
 					 			<?php echo (!empty($row['a_grupo'])) ? '<span class="text-warning">'.$row['a_grupo'].'</span>' : ''; ?><br>
-					 			<a href="index.php?dia=<?php echo $i; ?>&hora=<?php echo $hora; ?>&unidad=<?php echo $row['a_grupo']; ?>&asignatura=<?php echo $row['c_asig']; ?>&dependencia=<?php echo $row['a_aula']; ?>"><span class="fa fa-edit fa-fw fa-lg"></span></a>
+					 			<a href="index.php?dia=<?php echo $i; ?>&hora=<?php echo $thora; ?>&unidad=<?php echo $row['a_grupo']; ?>&asignatura=<?php echo $row['c_asig']; ?>&dependencia=<?php echo $row['a_aula']; ?>"><span class="fa fa-edit fa-fw fa-lg"></span></a>
 				 				<?php echo '<hr>'; ?>
 					 			<?php endwhile; ?>
 					 			<?php mysqli_free_result($result); ?>
