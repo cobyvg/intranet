@@ -65,17 +65,17 @@ include("../../menu.php");
 							 nodos encontrados */
 							$cursos = $doc->getElementsByTagName( "D_OFERTAMATRIG");
 							$cur = $cursos->item(0)->nodeValue;
-			
+							
+							$unidades = $doc->getElementsByTagName( "T_NOMBRE");
+							$unidad = utf8_decode($unidades->item(0)->nodeValue);
+							
 							$materias = $doc->getElementsByTagName( "MATERIA" );
 			
 							/*Al ser $materias una lista de nodos
 							 lo puedo recorrer y obtener todo
 							 su contenido*/
 							foreach( $materias as $materia )
-							{
-								$file0 = substr($file, 0, 2);
-								$file1 = substr($file, 2, 1);
-								$grupo = $file0."-".$file1;
+							{	
 								$codigos = $materia->getElementsByTagName( "X_MATERIAOMG" );
 			
 								/*Obtengo el valor del primer elemento 'item(0)'
@@ -95,7 +95,7 @@ include("../../menu.php");
 			`CURSO` ,
 			`GRUPO`
 			)
-			VALUES ('$codigo',  '$nombre',  '$abrev',  '$cur', '$grupo')");}
+			VALUES ('$codigo',  '$nombre',  '$abrev',  '$cur', '$unidad')");}
 			
 								//
 								if ($num=="1") {
@@ -128,7 +128,7 @@ include("../../menu.php");
 										mysqli_query($db_con, "INSERT INTO  `calificaciones_temp` VALUES ('$codigo0',  '$nombre_utf',  '$abrev0',  '$orden0')");
 									}
 								}
-			
+								
 						}
 					}
 					closedir($handle);
