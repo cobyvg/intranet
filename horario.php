@@ -16,7 +16,7 @@
 <tbody>
 <?php	
 // Horas del día
-$todas_horas = array (1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6" );
+$todas_horas = array (1 => "1", 2 => "2", 3 => "3", 'R' => "R", 4 => "4", 5 => "5", 6 => "6" );
 foreach ( $todas_horas as $n_hora => $nombre ) {	
 echo '<tr><th>'.$nombre.'ª</th>';
 	
