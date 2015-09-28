@@ -3,17 +3,17 @@ require('../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1, 2));
 
+include("../../menu.php");
+include("menu.php");
+
 $prof = mysqli_query($db_con, "SELECT TUTOR FROM FTUTORES WHERE unidad like '$unidad%'");
 $fprof = mysqli_fetch_array($prof);
 $tutor = $fprof[0];
-
-include("../../menu.php");
-include("menu.php");
 ?>
 <div class="container">
 <div class="row">
 <div class="page-header">
-<h2>Informes de Tutoría <small> Activar Informe</small></h2>
+<h2>Informes de TutorÃ­a <small> Activar Informe</small></h2>
 </div>
 <br>
 
@@ -73,7 +73,7 @@ else
 ?>
 
 <div class='form-group' id="datetimepicker1">
-<label>Fecha de la reunión</label>
+<label>Fecha de la reuniÃ³n</label>
 <div class="input-group">
 <input name="fecha"	type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" required> 
 	<span class="input-group-addon"><i class="fa fa-calendar"></i>
