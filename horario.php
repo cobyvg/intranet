@@ -69,7 +69,7 @@ echo '<tr><th>'.$nombre.'ª</th>';
 							echo "/".$exp_grupo[1];
 						}
 						else {
-							echo $grupo;
+							echo $grupo.'<br>';
 						}
 					}
 					else {
