@@ -34,9 +34,14 @@ if (isset($_POST['enviar'])) {
 		$dni=$var;
 		$cambia[$dni]=$valor;
 	}
-
+	
+	
+	
 	foreach($cambia as $eldni => $valor){
 		$mail0=mysqli_query($db_con, "select correo, PROFESOR from c_profes where dni='$eldni'");
+		if (mysqli_num_rows($mail0)>0) {
+			$numcor++;
+		}
 		$mail1=mysqli_fetch_row($mail0);
 		$direccion = $mail1[0];
 		$profes = $mail1[1];
@@ -55,8 +60,14 @@ if (isset($_POST['enviar'])) {
 		$msg_class = "alert-danger";
 		$msg = "Error: " . $mail->ErrorInfo;
 	} else {
+		if (!($numcor>0)) {	
+		$msg_class = "alert-danger";	
+		$msg = '<strong>Atención:</strong> No has seleccionado <em>destinatario</em> para enviar el correo. Procede a a hacerlo para completar la operación.';			
+	}
+	else{
 		$msg_class = "alert-success";
 		$msg = "El mensaje ha sido enviado.";
+		}
 	}
 }
 

@@ -1,12 +1,16 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1, 8));
+acl_acceso($_SESSION['cargo'], array(1, 2, 8));
 
 include("../../menu.php");
 ?>
 <div class="hidden-print">
-<?php include("./menu.php");?>
+<?php 
+if (strstr($_SESSION['cargo'],"2")==FALSE) :
+include("./menu.php");
+endif;
+?>
 </div>
 <div class="container">
 	
@@ -540,7 +544,12 @@ if ($PT_AL_aula=="Aula") {$ptalaula1="checked";}elseif ($PT_AL_aula=="Fuera") {$
 <p class="help-block">Informe privado del Dpto. de Orientación.</p>
 <textarea name="orientacion" rows="6" cols="80"><?php echo $orientacion;?></textarea>
 <hr>
-<input type="submit" class="btn btn-large btn-info hidden-print" name="submit0" value="Actualizar datos">
+<?php
+if (strstr($_SESSION['cargo'],"2")==TRUE) :
+$extra = "disabled";
+endif;
+?>
+<input type="submit" class="btn btn-large btn-info hidden-print" name="submit0" value="Actualizar datos" <?php echo $extra; ?>>
 </form>
 
 

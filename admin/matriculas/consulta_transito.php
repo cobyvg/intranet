@@ -6,7 +6,10 @@ acl_acceso($_SESSION['cargo'], array(1, 2, 7, 8));
 $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
+
+if (strstr($_SESSION['cargo'],"2")==FALSE) :
 include("./menu.php");
+endif;
 ?>
 <div class="container">
 	
@@ -111,21 +114,21 @@ include("./menu.php");
 			
 			if (stristr($tipo,"asiste")==TRUE and $dato==1) {$tt=" data-bs='tooltip' title='El alumno presenta faltas de asistencia.'";$dato='<span class="fa fa-circle" style="color: yellow;"></span>';}elseif(stristr($tipo,"asiste")==TRUE and $dato==2){$tt=" data-bs='tooltip' title='El alumno falta más de lo normal'";$dato='<span class="fa fa-circle" style="color: orange;"></span>';}elseif(stristr($tipo,"asiste")==TRUE and $dato==3){$tt=" data-bs='tooltip' title='El alumno es absentista'";$dato='<span class="fa fa-circle" style="color: red;"></span>';}
 						
-			if (stristr($tipo,"nacion")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='No conoce el español'";}
-			if (stristr($tipo,"nacion")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Nociones básicas de español'";}
-			if (stristr($tipo,"nacion")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Dificultades lectoescritiras en español'";}
-			if (stristr($tipo,"nacion")==TRUE and $dato==4) {$tt = " data-bs='tooltip' title='Puede seguir el Curriculum'";}
-			if (stristr($tipo,"integra")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Líder'";}
-			if (stristr($tipo,"integra")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Integrado'";}
-			if (stristr($tipo,"integra")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Poco integrado'";}
-			if (stristr($tipo,"integra")==TRUE and $dato==4) {$tt = " data-bs='tooltip' title='Se aísla'";}
-			if (stristr($tipo,"integra")==TRUE and $dato==5) {$tt = " data-bs='tooltip' title='Alumno rechazado'";}
-			if (stristr($tipo,"relacion")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Colaboración constante de la familia'";}
-			if (stristr($tipo,"relacion")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Colaboración sólo cuando el Centro la ha solicitado'";}
-			if (stristr($tipo,"relacion")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Demanda constante por parte de los Padres'";}
-			if (stristr($tipo,"disruptivo")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Nunca'";}
-			if (stristr($tipo,"disruptivo")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Ocasionalmente'";}
-			if (stristr($tipo,"disruptivo")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Alumno disruptivo'";}
+			if (stristr($tipo,"nacion")==TRUE and $dato==4) {$tt = " data-bs='tooltip' title='No conoce el español'";}
+			if (stristr($tipo,"nacion")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Nociones básicas de español'";}
+			if (stristr($tipo,"nacion")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Dificultades lectoescritiras en español'";}
+			if (stristr($tipo,"nacion")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Puede seguir el Curriculum'";}
+			if (stristr($tipo,"integra")==TRUE and $dato==5) {$tt = " data-bs='tooltip' title='Líder'";}
+			if (stristr($tipo,"integra")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Integrado'";}
+			if (stristr($tipo,"integra")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Poco integrado'";}
+			if (stristr($tipo,"integra")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Se aísla'";}
+			if (stristr($tipo,"integra")==TRUE and $dato==4) {$tt = " data-bs='tooltip' title='Alumno rechazado'";}
+			if (stristr($tipo,"relacion")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Colaboración constante de la familia'";}
+			if (stristr($tipo,"relacion")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Colaboración sólo cuando el Centro la ha solicitado'";}
+			if (stristr($tipo,"relacion")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Demanda constante por parte de los Padres'";}
+			if (stristr($tipo,"disruptivo")==TRUE and $dato==3) {$tt = " data-bs='tooltip' title='Nunca'";}
+			if (stristr($tipo,"disruptivo")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='Ocasionalmente'";}
+			if (stristr($tipo,"disruptivo")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Alumno disruptivo'";}
 			if (stristr($tipo,"expulsion")==TRUE and $dato==1) {$tt = " data-bs='tooltip' title='No ha sido expulsado'";}
 			if (stristr($tipo,"expulsion")==TRUE and $dato==2) {$tt = " data-bs='tooltip' title='Ha sido expulsado'";}
 			
