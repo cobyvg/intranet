@@ -59,8 +59,8 @@ echo '<div class="media">';
 $foto = '../../xml/fotos/'.$claveal.'.jpg';
 if (file_exists($foto)) {
 	echo '
-		<div class="pull-left hidden-xs" style="width: 100px">
-	    <img class="media-object img-thumbnail" src="../../xml/fotos/'.$claveal.'.jpg" alt="">
+		<div class="pull-left hidden-xs">
+	    <img class="media-object img-thumbnail" src="../../xml/fotos/'.$claveal.'.jpg" style="width: 100px !important;" alt="">
 	  </div>';
 }
 

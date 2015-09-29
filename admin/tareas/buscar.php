@@ -45,8 +45,7 @@ if (!(empty($unidad))) {
 <div class="col-md-10 col-md-offset-1">
 <?php
 // Consulta
- $query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, unidad, FECHA
-  FROM tareas_alumnos WHERE 1=1 "; 
+ $query = "SELECT ID, CLAVEAL, APELLIDOS, NOMBRE, unidad, FECHA FROM tareas_alumnos WHERE 1=1 "; 
   if(!(empty($apellidos))) {$query .= "and apellidos like '%$apellidos%'";} 
   if(!(empty($nombre))) {$query .=  "and nombre like '%$nombre%'";} 
   if(!(empty($unidad))) {$query .=  "and unidad = '$unidad'";} 
@@ -79,7 +78,7 @@ if (mysqli_num_rows($result) > 0)
 		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64'  />";
 		echo $foto."&nbsp;&nbsp;";	
    echo "$row->APELLIDOS $row->NOMBRE</TD>
-   <TD style='vertical-align:middle'>$row->UNIDAD</TD>
+   <TD style='vertical-align:middle'>$row->unidad</TD>
    <TD style='vertical-align:middle'>$row->FECHA</TD><TD style='vertical-align:middle'>$si</TD><TD style='vertical-align:middle'>$no</TD><TD style='vertical-align:middle'>$bola</TD>";
    echo "<td style='vertical-align:middle'><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-search ' title='Ver Informe'> </i></a>";
    $result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$row->unidad'" );

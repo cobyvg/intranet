@@ -2,14 +2,13 @@
 require('../../bootstrap.php');
 
 
+include("../../menu.php");
+include("menu.php");
+
 $id_alumno=$_POST['ident'];
 $asignatura=$_POST['asignatura'];
 $informe=$_POST['informe'];
 $profesor =$_POST['profesor'];
-
-
-include("../../menu.php");
-include("menu.php");
 ?>
 <div class="container">
 <div class="row">

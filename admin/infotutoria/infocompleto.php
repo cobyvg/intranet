@@ -62,9 +62,8 @@ echo '<div class="media">';
 $foto = '../../xml/fotos/'.$claveal.'.jpg';
 if (file_exists($foto)) {
 	echo '
-		<div class="pull-left hidden-xs" style="width: 100px">
-	    <img class="media-object img-thumbnail" 
-src="../../xml/fotos/'.$claveal.'.jpg" alt="">
+		<div class="pull-left hidden-xs">
+	    <img class="media-object img-thumbnail" src="../../xml/fotos/'.$claveal.'.jpg" alt="" style="width: 100px !important;">
 	  </div>';
 }
 
@@ -95,7 +94,7 @@ if($informe[3] == $_SESSION['profi']){$fondo="background-color:#dff0d8;";}
 		  <td>$informe[1]";
 		if (strlen($fondo) > '0') {
 		echo "<a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id&asignatura=$asignatura&profesor=$informe[3]'><i
-		class='fa fa-trash-o pull-right' title='Borrar'></a>";
+		class='fa fa-trash-o fa-fw fa-lg pull-right' title='Borrar'></a>";
 	}
 	echo"</td></tr>";
 }
@@ -143,14 +142,14 @@ if(mysqli_num_rows($prof1)>0){
 $ya_hay = mysqli_query($db_con,"select * from infotut_profesor where id_alumno='$id' and asignatura='$nombre_asig[0] ($nombre_asig[1])'");
 if (mysqli_num_rows($ya_hay)>0) {}
 else{
-	$profe_pènd="";
+	$profe_pend="";
 	while($prof2=mysqli_fetch_array($prof1))
 	{
-		$profe_pènd.= "$prof2[0], ";
+		$profe_pend.= "$prof2[0], ";
 	}
-	$profe_pènd=substr($profe_pènd,0,-2);
+	$profe_pend=substr($profe_pend,0,-2);
 	echo "<tr><td style='width:15%;'><strong>$nombre_asig[0] ($nombre_asig[1])</strong></td>
-	<td style='width:20%;'>$profe_pènd</td>
+	<td style='width:20%;'>$profe_pend</td>
 	  <td></td></tr>";
 }	
 }
