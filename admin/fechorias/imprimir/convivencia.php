@@ -260,6 +260,6 @@ $MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );
                 }
 }
    
-$MiPDF->Output ();
+$MiPDF->Output();
 
 ?>

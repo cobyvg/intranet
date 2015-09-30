@@ -158,6 +158,6 @@ for($i = 0; $i < 1; $i ++) {
 	$MiPDF->Cell (55, 15, 'Fdo. '.$nombre.' '.$apellidos, 0, 0, 'L', 0 );
 }
 
-$MiPDF->Output ();
+$MiPDF->Output();
 
 ?>

@@ -28,7 +28,7 @@ class GranPDF extends FPDF {
 		$this->SetFont('ErasDemiBT','B',10);
 		$this->SetY(15);
 		$this->Cell(75);
-		$this->Cell(80,5,'CONSEJERÃA DE EDUCACIÃ“N, CULTURA Y DEPORTE',0,1);
+		$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
 		$this->SetFont('ErasMDBT','I',10);
 		$this->Cell(75);
 		$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
@@ -98,17 +98,17 @@ if (mysqli_num_rows ( $repe ) == "0") {
 	 mysqli_query($db_con, "INSERT into tareas_alumnos (CLAVEAL,APELLIDOS,NOMBRE,unidad,FECHA,DURACION,PROFESOR,FIN) VALUES ('$claveal','$apellidos','$nombre','$unidad', '$fecha','$expulsion','$tutor','$fecha_fin')" ) or die ( "Error, no se ha podido activar el informe:" . mysqli_error($db_con) );
 } 
 
-$titulo = "ComunicaciÃ³n de expulsiÃ³n del centro";
-$cuerpo = "El Director del ".$config['centro_denominacion']." de ".$config['centro_localidad'].", en virtud de las facultades otorgadas por el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio en el que se aprueba el Reglamento OrgÃ¡nico de los Institutos de EducaciÃ³n Secundaria, una vez estudiado el expediente disciplinario de $nombre $apellidos, alumno/a del grupo $unidad.
+$titulo = "Comunicación de expulsión del centro";
+$cuerpo = "El Director del ".$config['centro_denominacion']." de ".$config['centro_localidad'].", en virtud de las facultades otorgadas por el Plan de Convivencia del Centro, regulado por el Decreto 327/2010 de 13 de Julio en el que se aprueba el Reglamento Orgánico de los Institutos de Educación Secundaria, una vez estudiado el expediente disciplinario de $nombre $apellidos, alumno/a del grupo $unidad.
 
 Acuerda:
 
 1.- Tipificar la conducta de este alumno(a) como contraria a las normas de convivencia del Centro, suponiendo falta $grave.
 2.- Imponer las siguientes correcciones:
-     AmonestaciÃ³n que constarÃ¡ en el expediente individual del alumno/a. 
-    SuspensiÃ³n del derecho de asistencia a clase por un periodo de $expulsion dÃ­as lectivos, desde el $inicio1 hasta el $fin1, ambos inclusive, sin que ello implique la pÃ©rdida de evaluaciÃ³n. Durante esos dÃ­as, el alumno/a deberÃ¡ permanecer en su domicilio durante el horario escolar realizando los deberes o trabajos que tenga encomendados. La no realizaciÃ³n de las tareas supone el incumplimiento de la correcciÃ³n por lo que dicha conducta se considerarÃ¡ gravemente perjudicial para la convivencia y, como consecuencia, conllevarÃ­a la imposiciÃ³n de una nueva medida correctora.
+     Amonestación que constará en el expediente individual del alumno/a. 
+    Suspensión del derecho de asistencia a clase por un periodo de $expulsion días lectivos, desde el $inicio1 hasta el $fin1, ambos inclusive, sin que ello implique la pérdida de evaluación. Durante esos días, el alumno/a deberá permanecer en su domicilio durante el horario escolar realizando los deberes o trabajos que tenga encomendados. La no realización de las tareas supone el incumplimiento de la corrección por lo que dicha conducta se considerará gravemente perjudicial para la convivencia y, como consecuencia, conllevaría la imposición de una nueva medida correctora.
 
-NOTA: El padre, madre o representante legal podrÃ¡ presentar en el registro de entrada del Centro, en el plazo de dos dÃ­as lectivos, una reclamaciÃ³n dirigida a la DirecciÃ³n del Centro contra las correcciones impuestas.
+NOTA: El padre, madre o representante legal podrá presentar en el registro de entrada del Centro, en el plazo de dos días lectivos, una reclamación dirigida a la Dirección del Centro contra las correcciones impuestas.
 
 En ".$config['centro_localidad'].", a ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 
@@ -244,14 +244,14 @@ $MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );
 }
 
 // RECIBI
-$txt_recibi = "D./DÃ±a. $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$idfec." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$idfec." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 
 $MiPDF->Ln(8);
 $MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
 $MiPDF->Ln(5);
 
 $MiPDF->SetFont('NewsGotT', 'B', 12);
-	$MiPDF->Multicell(0, 5, 'RECIBÃ', 0, 'C', 0 );
+	$MiPDF->Multicell(0, 5, 'RECIBÍ', 0, 'C', 0 );
 	$MiPDF->Ln(5);
 	
 	$MiPDF->SetFont('NewsGotT', '', 12);
