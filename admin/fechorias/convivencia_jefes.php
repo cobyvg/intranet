@@ -49,7 +49,7 @@ include ("menu.php");
 	</div>
 	
 <div class="row">
-<div class="col-sm-10 col-sm-offset-1">
+<div class="col-sm-12">
  <?php 
 $borrar = $_GET['borrar'];
 $id = $_GET['id'];
@@ -195,8 +195,9 @@ $result = mysqli_query($db_con, "select distinct FALUMNOS.apellidos, FALUMNOS.no
   FALUMNOS where FALUMNOS.claveal = Fechoria.claveal and aula_conv > '0' and inicio_aula <= '$hoy' and fin_aula >= '$hoy' and horas like '%$hora_dia%' order by apellidos, nombre " );
 ?>
 </div>
+</div>
 <?php
-	echo "<center><table class='table table-striped' style='width:auto'>";
+	echo "<center><table class='table table-striped'>";
 	echo "<thead><th>Alumno</th>
 		<th>Grupo</th><th>Días</th><th>Inicio</th><th>Detalles</th><th>Asistencia</th><th>Trabajo</th><th>Observaciones</th><th align='center'>1</th><th align='center'>2</th><th align='center'>3</th><th align='center'>4</th><th align='center'>5</th><th align='center'>6</th><th align='center'></th><th></th></thead>";
 	echo '<form name="conviv" action="convivencia_jefes.php" method="post" enctype="multipart/form-data">';

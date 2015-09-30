@@ -101,10 +101,10 @@ $tuti = $row0[0];
    	echo "<a href='borrar_informe.php?id=$row->ID&del=1' class='btn btn-primary' data-bb='confirm-delete'><i class='fa fa-trash-o ' title='Borrar Informe' > </i></a>";
    	echo "<a href='informar.php?id=$row->ID' class='btn btn-primary'><i class='fa fa-pencil-square-o ' title='Rellenar Informe'> </i> </a>";
 		 if ($validado==1) {
-				echo "&nbsp;<a href='buscar.php?id=$row->ID&validar=1$extra' class='btn btn-primary text-info'><i class='fa fa-check-square-o' data-bs='tooltip'  title='Informe validado por el Tutor' > </i></a> 	";				
+				echo "<a href='buscar.php?id=$row->ID&validar=1$extra' class='btn btn-primary text-info'><i class='fa fa-check-square-o' data-bs='tooltip'  title='Informe validado por el Tutor' > </i></a> 	";				
 					}
 					else{
-				echo "&nbsp;<a href='buscar.php?id=$row->ID&validar=0$extra' class='btn btn-primary text-danger'><i class='fa fa-minus-circle' data-bs='tooltip'  title='Informe no validado por el Tutor' > </i> </a> 	";					
+				echo "<a href='buscar.php?id=$row->ID&validar=0$extra' class='btn btn-primary text-danger'><i class='fa fa-minus-circle' data-bs='tooltip'  title='Informe no validado por el Tutor' > </i> </a> 	";					
 					}
 		 }	
 echo '</div></td></tr>';
