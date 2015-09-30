@@ -41,7 +41,7 @@ if (isset($_POST['enviar']) and $_POST['enviar'] == "Enviar datos") {
 					// Actualizamos tabla departamentos
 					mysqli_query($db_con, "update departamentos set departamento = '$val' where departamento = \"$q2[0]\"");
 					// Actualizamos departamento en tablas relacionadas
-					$n_dep = array("inventario","actividades","mem_dep","r_departamento","Textos");
+					$n_dep = array("inventario","actividades","mem_dep","r_departamento","Textos","calendario");
 					foreach ($n_dep as $sust_dep){
 						mysqli_query($db_con, "update $sust_dep set departamento = '$val' where departamento = '$q2[0]'");
 					}
@@ -55,14 +55,14 @@ if (isset($_POST['enviar']) and $_POST['enviar'] == "Enviar datos") {
 				$trasform1 = str_ireplace(" ","_",$q2[0]);
 				$trasform2 = str_ireplace(".","_",$trasform1);
 				if ($key==$trasform2) {
+					
 					// Actualizamos tabla departamentos
 					mysqli_query($db_con, "update departamentos set departamento = '$val' where departamento = '$q2[0]'");
-					//echo "update departamentos set departamento = '$val' where departamento = '$q2[0]'<br>";
+
 					// Actualizamos departamento en tablas relacionadas
-					$n_dep = array("inventario","actividades","mem_dep","r_departamento","Textos");
+					$n_dep = array("inventario","actividades","mem_dep","r_departamento","Textos","calendario");
 					foreach ($n_dep as $sust_dep){
 						mysqli_query($db_con, "update $sust_dep set departamento = '$val' where departamento = '$q2[0]'");
-						//echo "update $sust_dep set departamento = '$val' where departamento = '$key'<br>";
 					}
 				}
 			}
