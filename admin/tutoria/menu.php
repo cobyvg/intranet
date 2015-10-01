@@ -59,9 +59,7 @@ $curso_tutor=$query2[0];
 	<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Informes <span
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
-		<li><?php echo $_SERVER['SERVER_NAME']; ?><a
-			href="../informes/cinforme.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe
-		de un alumno/a</a></li>
+		<li><a href="../informes/cinforme.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe de un alumno/a</a></li>
 		<li><a href="../infotutoria/index.php">Informes de tutoría</a></li>
 		<li><a href="../tareas/index.php">Informes de tareas</a></li>
 		<li class="divider"></li>
