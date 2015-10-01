@@ -46,10 +46,12 @@ $curso_tutor=$query2[0];
 		<li><a href="consulta_absentismo.php">Alumnos absentistas</a></li>
 		<li class="divider"></li>
 		<li><a href="../../admin/actividades/indexextra.php">Actividades Complementarias / Extraescolares</a></li>
-		<li class="divider"></li>		
+		<li class="divider"></li>	
+		<?php if($_SERVER['SERVER_NAME']=="iesmonterroso.org"): ?>	
 		<li><a
-			href="../../upload/index.php?index=publico&direction=0&order=&directory=Departamentos/Orientacion%20Educativa"
-			target="_blank">Material de orientación</a></li>
+			href="http://www.iesmonterroso.net/moodle/course/view.php?id=33"
+			target="_blank">Moodle de Orientación</a></li>
+		<?php endif; ?>
 	</ul>
 	</li>
 	<li
@@ -57,7 +59,7 @@ $curso_tutor=$query2[0];
 	<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Informes <span
 		class="caret"></span> </a>
 	<ul class="dropdown-menu" role="menu">
-		<li><a
+		<li><?php echo $_SERVER['SERVER_NAME']; ?><a
 			href="../informes/cinforme.php?unidad=<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">Informe
 		de un alumno/a</a></li>
 		<li><a href="../infotutoria/index.php">Informes de tutoría</a></li>

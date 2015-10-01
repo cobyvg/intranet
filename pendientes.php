@@ -114,7 +114,7 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 
 // Informes de Tareas
 $count0=0;
-$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
+$SQLcurso = "select distinct grupo, materia, nivel from profesores where profesor = '$pr' and materia not like '%Tutor%'";
 $resultcurso = mysqli_query($db_con, $SQLcurso);
 while($rowcurso = mysqli_fetch_array($resultcurso))
 {
@@ -146,7 +146,7 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 }
 // Informes de tutoria
 $count03=0;
-$SQLcurso3 = "select distinct grupo, materia, nivel from profesores where profesor = '$pr'";
+$SQLcurso3 = "select distinct grupo, materia, nivel from profesores where profesor = '$pr' and materia not like '%Tutor%'";
 //echo $SQLcurso3."<br>";
 $resultcurso3 = mysqli_query($db_con, $SQLcurso3);
 while($rowcurso3 = mysqli_fetch_array($resultcurso3))
