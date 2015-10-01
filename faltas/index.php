@@ -193,7 +193,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 	$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
 	if (mysqli_num_rows($profe_div)<1) {
 
-		$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+		$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%' OR combasi LIKE '%135785%')");
 		if (mysqli_num_rows($grupo_div)>0) {
 			$diversificacion = 1;
 			$div = $curso;

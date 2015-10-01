@@ -100,7 +100,7 @@ if($_POST['asignaturas']==""){
 	
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
 if (strstr($tr_unidad0,"DIV")==TRUE) {
-	$sqldatos.= " and (combasi like '%25204%' or combasi LIKE '%25226%')";
+	$sqldatos.= " and (combasi like '%25204%' or combasi LIKE '%25226%' OR combasi LIKE '%135785%')";
 }
 
 if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
@@ -177,7 +177,7 @@ if ($_POST['asignaturas']=='1'){
 
 $sqldatos="SELECT concat(alma.apellidos,', ',alma.nombre), combasi, NC, alma.unidad, matriculas, FALUMNOS.claveal, CURSO FROM FALUMNOS, alma WHERE  alma.claveal = FALUMNOS.claveal";
 if (strstr($tr_unidad0,"DIV")==TRUE) {
-	$sqldatos.= " and (combasi like '%25204%' or combasi LIKE '%25226%')";
+	$sqldatos.= " and (combasi like '%25204%' or combasi LIKE '%25226%' OR combasi LIKE '%135785%')";
 }
 if(strlen($tr_codasi[0])>1 and strlen($tr_codasi[1])>1){
 $sqldatos.=" and (combasi like '%$tr_codasi[0]%' or combasi like '%$tr_codasi[1]%')";

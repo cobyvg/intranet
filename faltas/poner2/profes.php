@@ -68,7 +68,7 @@ $n = count($asignaturas1);
 			$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$rowasignaturas1[1]'");
 			if (mysqli_num_rows($profe_div)<1) {		
 				$diversificacion = 1;
-				$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%')");
+				$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso%' and (combasi like '%25204%' or combasi LIKE '%25226%' OR combasi LIKE '%135785%')");
 				$grupo_diver = mysqli_fetch_row($grupo_div);
 				$curso_con = $grupo_diver[0];
 			}	

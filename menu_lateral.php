@@ -342,16 +342,19 @@ $menu = array(
 						'href'   => 'admin/cursos/horariototal_faltas.php',
 						'titulo' => 'Partes de faltas (por días)',
 						'cargos' => array('1'),
+						'target' => '_blank',
 					),
 					array(
 						'href'   => 'admin/faltas/horario_semanal.php',
 						'titulo' => 'Partes de faltas (semanal)',
 						'cargos' => array('1'),
+						'target' => '_blank',
 					),
 					array(
 						'href'   => 'admin/faltas/horario_semanal_div.php',
 						'titulo' => 'Partes de faltas (Diversificación)',
 						'cargos' => array('1'),
+						'target' => '_blank',
 					),
 					array(
 						'href'   => 'admin/faltas/ccursos.php',

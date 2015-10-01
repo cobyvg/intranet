@@ -86,7 +86,7 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' ORDER BY Apelli
 		$cuenta=1;
 		$alumno='';
 		while ($salida = mysqli_fetch_array($Recordset1)){
-	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$salida[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%')");
+	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$salida[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%' OR combasi LIKE '%135785%')");
 	if (mysqli_num_rows($uni)>0) {}
 			else{
 			if ($salida[0]<>$alumno){
@@ -153,7 +153,7 @@ $val_nivel=substr($valor,0,1);
 $pend = mysqli_query($db_con, "select distinct pendientes.claveal, alma.apellidos, alma.nombre, nc, matriculas from pendientes, alma, FALUMNOS where pendientes.claveal=alma.claveal and alma.claveal = FALUMNOS.claveal  and alma.unidad = '$valor' order by nc, apellidos, nombre");
 $n1="";
 while ($pendi = mysqli_fetch_array($pend)) {
-	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%2522%' or combasi like '%25227%' or combasi like '%25205%' or combasi like '%25204%')");
+	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%2522%' or combasi like '%25227%' or combasi like '%25205%' or combasi like '%25204%' OR combasi LIKE '%135785%')");
 	if (mysqli_num_rows($uni)>0) {}
 			else{
 	if ($pendi[4]>1) {
@@ -171,7 +171,7 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
 		if (mysqli_num_rows($Recordset1)>0) {
 		while ($salida = mysqli_fetch_array($Recordset1)){	
-		//	echo "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%')";
+		//	echo "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%' OR combasi LIKE '%135785%')";
 						
 			echo " $salida[4]|  ";
 							

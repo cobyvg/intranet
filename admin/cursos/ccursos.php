@@ -41,7 +41,7 @@ include("../../menu.php");
 <?php
 if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'8') == TRUE || stristr($_SESSION['cargo'],'5') == TRUE || stristr($_SESSION['cargo'],'d') == TRUE || $todos=="1"){
  unidad($db_con);
- $SQLcurso = "SELECT DISTINCT unidad FROM alma WHERE combasi LIKE '%25204%' OR combasi LIKE '%25226%'";
+ $SQLcurso = "SELECT DISTINCT unidad FROM alma WHERE combasi LIKE '%25204%' OR combasi LIKE '%25226%' OR combasi LIKE '%135785%'";
 $resultcurso = mysqli_query($db_con, $SQLcurso);
 while($rowcurso = mysqli_fetch_array($resultcurso)){
 	echo "<option>$rowcurso[0] DIV</option>";	

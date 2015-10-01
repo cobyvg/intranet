@@ -97,10 +97,10 @@ $MiPDF->SetMargins(25, 20, 20);
 $titulo = "Boletín de calificaciones";
 
 
-$result = mysqli_query($db_con, "SELECT * FROM alma WHERE unidad='$unidad' AND (combasi NOT LIKE '%25204%' AND combasi NOT LIKE '%25226%' AND combasi NOT LIKE '%31307%')");
+$result = mysqli_query($db_con, "SELECT * FROM alma WHERE unidad='$unidad' AND (combasi NOT LIKE '%25204%' AND combasi NOT LIKE '%25226%' AND combasi NOT LIKE '%31307%' AND combasi NOT LIKE '%135785%')");
 if (!mysqli_num_rows($result)) {
 $div = substr($unidad, 0, -1);
-$result = mysqli_query($db_con, "SELECT * FROM alma WHERE unidad='".$div."' AND (combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%')");
+$result = mysqli_query($db_con, "SELECT * FROM alma WHERE unidad='".$div."' AND (combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%' OR combasi LIKE '%135785%')");
 }
 
 $i = 0;
