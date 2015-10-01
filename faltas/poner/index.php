@@ -1,6 +1,20 @@
 <?php
 require('../../bootstrap.php');
 
+// Corregimos identificadores de asignaturas
+$result = mysqli_query($db_con, "SELECT id, dia, hora, profesor, codasi, unidad FROM FALTAS");
+
+while ($row = mysqli_fetch_array($result)) {
+	
+	$result_asignatura = mysqli_query($db_con, "SELECT c_asig FROM horw WHERE no_prof='".$row['profesor']."' AND dia='".$row['dia']."' AND hora='".$row['hora']."' AND a_grupo='".$row['unidad']."' LIMIT 1") or die(mysqli_error($db_con));
+	$row_asignatura = mysqli_fetch_array($result_asignatura);
+	$asignatura = $row_asignatura['c_asig'];
+	
+	if ($row['codasi'] != $asignatura) {
+		mysqli_query($db_con, "UPDATE FALTAS SET CODASI='$asignatura' WHERE id='".$row['id']."' LIMIT 1");
+	}
+	
+}
 
 include("../../menu.php");
 include("../menu.php");
