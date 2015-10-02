@@ -130,14 +130,17 @@ ORDER BY alma.curso, alma.unidad, nc';
 }
 else{
 	include "../../menu.php";
-	echo '<br />
-
+?>
+<br />
+<div class="container">
 <div class="page-header" align="center">
   <h2>Listas de Alumnos <small> Lista de Alumnos con asignaturas pendientes</small></h2>
 </div>
 
-<div class="container">
-<div class="row">';
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
+
+<?php
 	foreach($_POST["select"] as  $val) {
 		$grupos.=$val.";";
 	}
@@ -146,14 +149,13 @@ echo "<input type='hidden' name='grupos' value='".$grupos."' />";
 echo "<input type='hidden' name='pdf' value='1' />";
 echo "<button class='btn btn-primary pull-right' name='submit10' type='submit' value='Crear PDF para imprimir'><i class='fa fa-print'> Crear PDF para imprimir</i></button>";
 echo "</form><br />";
-echo '<div class="col-sm-6 col-sm-offset-3">';
 
 foreach($_POST["select"] as  $valor) {
 	$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$valor' order by nombre");
 	$asignatur = mysqli_fetch_row($asig);
 	$asignatura = $asignatur[0];
 	$curso = $asignatur[1];
-echo '<br><legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend><hr />';	
+echo '<br><legend class="text-info" align="center"><strong>'.$asignatura.' ('.$curso.')</strong></legend>';	
 echo "<table class='table table-striped' align='center'><thead><th>Grupo</th><th>NC</th><th>Alumno</th><th>Asignatura</th></thead><tbody>";
 //$pend = mysqli_query($db_con, "SELECT * from asignaturas where nombre='$valor' and abrev like '%\_%' and asignaturas.nombre in (select distinct materia from profesores) order by curso");
 //while ($pendi = mysqli_fetch_array($pend)) {
@@ -197,6 +199,9 @@ ORDER BY alma.curso, alma.unidad, nc';
 }
 
 ?>
+</div>
+</div>
+</div>
 <?php include("../../pie.php"); ?>
 </body>
 </html>

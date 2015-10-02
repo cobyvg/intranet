@@ -86,7 +86,7 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' ORDER BY Apelli
 		$cuenta=1;
 		$alumno='';
 		while ($salida = mysqli_fetch_array($Recordset1)){
-	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$salida[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%' OR combasi LIKE '%135785%')");
+	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$salida[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%')");
 	if (mysqli_num_rows($uni)>0) {}
 			else{
 			if ($salida[0]<>$alumno){
@@ -123,14 +123,16 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' ORDER BY Apelli
 }
 else{
 	include "../../menu.php";
-	echo '<br />
-<div align=center>
+?>
+<br />
+<div class="container">
 <div class="page-header">
   <h2>Listas de Alumnos <small> Lista de Alumnos con asignaturas pendientes</small></h2>
 </div>
-</div>
-<div class="container">
-<div class="row"><div class="col-sm-8 col-sm-offset-2">';
+
+<div class="row">
+<div class="col-sm-8 col-sm-offset-2">
+<?php
 	foreach($_POST["select1"] as  $val) {
 		$grupos.=$val.";";
 	}
@@ -140,7 +142,7 @@ echo "<input type='hidden' name='pdf' value='1' />";
 echo "<button class='btn btn-primary pull-right' name='submit10' type='submit' value='Crear PDF para imprimir'><i class='fa fa-print'> Crear PDF para imprimir</i></button>";
 echo "</form><br />";	
 	foreach($_POST["select1"] as  $valor) {
-echo '<legend class="text-info" align="center"><strong>'.$valor.'</strong></legend><hr />';
+echo '<legend class="text-info" align="center"><strong>'.$valor.'</strong></legend>';
 		if (strstr($valor,"1")==TRUE) {
 			   echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -153,7 +155,7 @@ $val_nivel=substr($valor,0,1);
 $pend = mysqli_query($db_con, "select distinct pendientes.claveal, alma.apellidos, alma.nombre, nc, matriculas from pendientes, alma, FALUMNOS where pendientes.claveal=alma.claveal and alma.claveal = FALUMNOS.claveal  and alma.unidad = '$valor' order by nc, apellidos, nombre");
 $n1="";
 while ($pendi = mysqli_fetch_array($pend)) {
-	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%2522%' or combasi like '%25227%' or combasi like '%25205%' or combasi like '%25204%' OR combasi LIKE '%135785%')");
+	$uni = mysqli_query($db_con, "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%2522%' or combasi like '%25227%' or combasi like '%25205%' or combasi like '%25204%')");
 	if (mysqli_num_rows($uni)>0) {}
 			else{
 	if ($pendi[4]>1) {
@@ -171,7 +173,7 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata;
 		if (mysqli_num_rows($Recordset1)>0) {
 		while ($salida = mysqli_fetch_array($Recordset1)){	
-		//	echo "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%' OR combasi LIKE '%135785%')";
+		//	echo "select combasi from alma where claveal = '$pendi[0]' and (combasi like '%25227%' or combasi like '%252276' or combasi like '%25205%' or combasi like '%25204%')";
 						
 			echo " $salida[4]|  ";
 							
@@ -181,13 +183,17 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 }
 }
 		echo "</tbody></table>";
-		echo "<hr />";			
+					
 		}
 
 	}
+	echo "<hr />";
 }
 
 ?>
+</div>
+</div>
+</div>
 <?php include("../../pie.php"); ?>
 </body>
 </html>

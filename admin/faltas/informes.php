@@ -126,17 +126,22 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
       
       <div class="col-sm-12">
         
-        <div class="media">
-          <div class="media-left">
-              <img class="media-object img-thumbnail" src="<?php echo $foto; ?>" alt="<?php echo $row['nombre'].' '.$row['apellidos']; ?>" style="width: 80px">
-          </div>
-          <div class="media-body">
-            <h2 class="media-heading"><?php echo $row['nombre'].' '.$row['apellidos']; ?></h2>
-            <h3 class="text-info">Unidad: <?php echo $row['unidad']; ?></h3>
-          </div>
-        </div>
+      <div class="well">
+		<div class="row">
+			
+			<!-- COLUMNA IZQUIERDA -->
+			<div class="col-sm-2 text-center">
+      			<img class="media-object img-thumbnail" src="<?php echo $foto; ?>" alt="<?php echo $row['nombre'].' '.$row['apellidos']; ?>" style="width: 80px">   
+			</div>
+			<div class="col-sm-10 text-left">
+ 				<h2 class="media-heading"><?php echo $row['nombre'].' '.$row['apellidos']; ?></h2>
+            	<h3 class="text-info">Unidad: <?php echo $row['unidad']; ?></h3>
+			</div>
+		</div>
+		</div>	
 
-        <br><br>
+
+        <br>
         <?php if($fechasp1 != "" && $fechasp3 != ""): ?>
         <div class="alert alert-info hidden-print">
             <span class="fa fa-filter fa-fw"></span> Mostrando resultados entre los días <strong><?php echo $fechasp1; ?></strong> y <strong><?php echo $fechasp3; ?></strong>.
@@ -256,14 +261,17 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
               <tr>
                 <th><abbr data-bs="tooltip" title="<?php echo strftime('%A', strtotime($row['fecha'])); ?>"><?php echo $row['fecha']; ?></abbr></th>
                 <?php for ($i = 1; $i < 7; $i++): ?>
-                <?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre, falta FROM FALTAS JOIN asignaturas ON FALTAS.codasi = asignaturas.codigo  WHERE claveal = '$claveal' 
-                AND fecha = '".$row['fecha']."' AND hora = '$i' and abrev not like '%\_%'"); ?>
-                <?php $row_falta = mysqli_fetch_array($result_falta); ?>
-                <td>
-                  <abbr data-bs="tooltip" title="<?php echo $row_falta['nombre']; ?>">
-                    <span class="label label-default"><?php echo $row_falta['abrev']; ?></span>
-                  </abbr>
-                  
+                <?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT falta, codasi FROM FALTAS WHERE claveal = '$claveal' AND fecha = '".$row['fecha']."' AND hora = '$i'"); ?>
+				<?php $row_falta = mysqli_fetch_array($result_falta); ?>
+				
+				<?php $result_asig = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre FROM asignaturas WHERE asignaturas.codigo = '".$row_falta['codasi']."' and abrev not like '%\_%'"); ?>
+				<?php $row_asig = mysqli_fetch_array($result_asig); ?>
+				
+				<td>
+					<abbr data-bs="tooltip" title="<?php echo $row_asig['nombre']; ?>">
+						<span class="label label-default"><?php echo $row_asig['abrev']; ?></span>
+					</abbr>
+					
                   <abbr data-bs="tooltip" title="<?php echo tipo_falta($row_falta['falta']); ?>">
                   <?php echo ($row_falta['falta'] == "I" || $row_falta['falta'] == "F") ? '<span class="label label-danger">'.$row_falta['falta'].'</label>' : ''; ?>
                   <?php echo ($row_falta['falta'] == "R") ? '<span class="label label-warning">'.$row_falta['falta'].'</label>' : ''; ?>
