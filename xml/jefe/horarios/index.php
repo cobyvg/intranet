@@ -132,11 +132,18 @@ if (isset($_POST['enviar'])) {
 	$abrevasignatura = $datos_asignatura['abrev'];
 	
 	if ($nomasignatura == '') {
-		$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='".$_POST['asignatura']."'");
-		$datos_asignatura = mysqli_fetch_array($result);
-		$codasignatura = $_POST['asignatura'];
-		$nomasignatura = $datos_asignatura['nomactividad'];
-		$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);
+		if ($_POST['asignatura'] == 'GUC') {
+			$codasignatura = '25';
+			$nomasignatura = 'Servicio de Guardia';
+			$abrevasignatura = 'GUC';
+		}
+		else {
+			$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='".$_POST['asignatura']."'");
+			$datos_asignatura = mysqli_fetch_array($result);
+			$codasignatura = $_POST['asignatura'];
+			$nomasignatura = $datos_asignatura['nomactividad'];
+			$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);
+		}			
 	}
 	
 	// OBTENEMOS DATOS DE LA DEPENDENCIA
@@ -329,6 +336,7 @@ include("../../../menu.php");
 							  	<?php while ($row = mysqli_fetch_array($result)): ?>
 							  	<option value="<?php echo $row['idactividad']; ?>" <?php echo (isset($asignatura) && $row['idactividad'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['nomactividad']; ?></option>
 							  	<?php endwhile; ?>
+							  	<option value="GUC">Servicio de Guardia (Aula de Convivencia)</option>
 						  	</optgroup>
 						  </select>
 						</div>
