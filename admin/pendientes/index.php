@@ -76,7 +76,7 @@ do {
 					    <select class="form-control" name="select1[]" multiple size="20">
 <?php 
 do {  
-	if (strstr($row_Recordset2['curso'],"E.S.O.") or strstr($row_Recordset2['curso'],"Bachillerato")) {	
+	if ((strstr($row_Recordset2['curso'],"E.S.O.") || strstr($row_Recordset2['curso'], "Bachillerato")) && !strstr($row_Recordset2['curso'], "1º ")) {	
 ?>
     <option value="<?php  echo $row_Recordset2['unidad']?>"><?php  echo $row_Recordset2['unidad']?> (<?php  echo $row_Recordset2['curso']?>)</option>
     <?php 

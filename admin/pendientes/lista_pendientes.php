@@ -2,131 +2,98 @@
 require('../../bootstrap.php');
 
 
-if ($_POST['pdf']==1) {
-	require("../../pdf/fpdf.php");
+if ($_POST['pdf'] == 1) {
 	
-	// Variables globales para el encabezado y pie de pagina
-	$GLOBALS['CENTRO_NOMBRE'] = $config['centro_denominacion'];
-	$GLOBALS['CENTRO_DIRECCION'] = $config['centro_direccion'];
-	$GLOBALS['CENTRO_CODPOSTAL'] = $config['centro_codpostal'];
-	$GLOBALS['CENTRO_LOCALIDAD'] = $config['centro_localidad'];
-	$GLOBALS['CENTRO_TELEFONO'] = $config['centro_telefono'];
-	$GLOBALS['CENTRO_FAX'] = $config['centro_fax'];
-	$GLOBALS['CENTRO_CORREO'] = $config['centro_email'];
-	$GLOBALS['CENTRO_PROVINCIA'] = $config['centro_provincia'];
+	require("../../pdf/mc_table.php");
 	
-	define('FPDF_FONTPATH','../../pdf/font/');
-	# creamos la clase extendida de fpdf.php
-	class GranPDF extends FPDF {
+	class GranPDF extends PDF_MC_Table {
 		function Header() {
 			$this->SetTextColor(0, 122, 61);
 			$this->Image( '../../img/encabezado.jpg',25,14,53,'','jpg');
 			$this->SetFont('ErasDemiBT','B',10);
 			$this->SetY(15);
 			$this->Cell(75);
-			$this->Cell(80,5,'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE',0,1);
-			$this->SetFont('ErasMDBT','I',10);
-			$this->Cell(75);
-			$this->Cell(80,5,$GLOBALS['CENTRO_NOMBRE'],0,1);
-			$this->SetTextColor(255, 255, 255);
+			$this->MultiCell(170, 5, 'CONSEJERÍA DE EDUCACIÓN, CULTURA Y DEPORTE', 0,'R', 0);
+			$this->Ln(15);
 		}
 		function Footer() {
 			$this->SetTextColor(0, 122, 61);
-			$this->Image( '../../img/pie.jpg', 0, 245, 25, '', 'jpg' );
-			$this->SetY(275);
-			$this->SetFont('ErasMDBT','',8);
-			$this->Cell(75);
-			$this->Cell(80,4,$GLOBALS['CENTRO_DIRECCION'].'. '.$GLOBALS['CENTRO_CODPOSTAL'].', '.$GLOBALS['CENTRO_LOCALIDAD'].' ('.$GLOBALS['CENTRO_PROVINCIA'] .')',0,1);
-			$this->Cell(75);
-			$this->Cell(80,4,'Telf: '.$GLOBALS['CENTRO_TELEFONO'].'   Fax: '.$GLOBALS['CENTRO_FAX'],0,1);
-			$this->Cell(75);
-			$this->Cell(80,4,'Correo-e: '.$GLOBALS['CENTRO_CORREO'],0,1);
-			$this->SetTextColor(255, 255, 255);
+			$this->Image( '../../img/pie.jpg', 0, 160, 24, '', 'jpg' );
 		}
 	}
-	#abre la base de datos
-	# creamos el nuevo objeto partiendo de la clase ampliada
-	$MiPDF=new GranPDF('P','mm','A4');
+	
+	$MiPDF = new GranPDF('L', 'mm', 'A4');
+	
 	$MiPDF->AddFont('NewsGotT','','NewsGotT.php');
 	$MiPDF->AddFont('NewsGotT','B','NewsGotTb.php');
 	$MiPDF->AddFont('ErasDemiBT','','ErasDemiBT.php');
 	$MiPDF->AddFont('ErasDemiBT','B','ErasDemiBT.php');
 	$MiPDF->AddFont('ErasMDBT','','ErasMDBT.php');
 	$MiPDF->AddFont('ErasMDBT','I','ErasMDBT.php');
-	$MiPDF->SetMargins(25,20,20);
-	# ajustamos al 100% la visualización
+	
+	$MiPDF->SetMargins(25, 20, 20);
 	$MiPDF->SetDisplayMode('fullpage');
-	#elige selección múltiple
+	
+	$titulo = "Listado de alumnos con asignaturas pendientes";
+	
 	$grupos=substr($_POST['grupos'],0,-1);
 	$tr_gr = explode(";",$grupos);
-	//echo $grupos;
+	
 	foreach($tr_gr as  $valor) {
-		$fila=1;
 		$MiPDF->Addpage();
-		$MiPDF->Ln(8);
-		$MiPDF->SetFont('NewsGotT','B',12);
-		$MiPDF->Multicell(0,4,"LISTA DE ALUMNOS CON ASIGNATURAS PENDIENTES",0,'J',0);
-		$MiPDF->Ln(3);
-
-
-			$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$valor' order by nombre");
-	$asignatur = mysqli_fetch_row($asig);
-	$asignatura = $asignatur[0];
-	$curso = $asignatur[1];
-		$tit = $asignatura.' ('.$curso.')';
-		$MiPDF->SetFont('NewsGotT','B',12);
-		$MiPDF->Multicell(0,4,"".$tit,0,'J',0);
-		$MiPDF->Ln(3);
 		
-		$sql = 'SELECT distinct alma.apellidos, alma.nombre, alma.unidad, asignaturas.nombre, asignaturas.abrev, alma.curso, FALUMNOS.nc, pendientes.claveal, matriculas
-FROM pendientes, asignaturas, alma, FALUMNOS
-WHERE asignaturas.codigo = pendientes.codigo
-AND FALUMNOS.claveal=alma.claveal
-AND alma.claveal = pendientes.claveal
-AND alma.unidad NOT LIKE  "%p-%"  
-AND asignaturas.codigo =  "'.$valor.'" and alma.unidad not like "1%"
-AND abrev LIKE  "%\_%"
-ORDER BY alma.curso, alma.unidad, nc';
+		$MiPDF->SetFont('NewsGotT', 'B', 12);
+		$MiPDF->Multicell(0, 5, mb_strtoupper($titulo, 'iso-8859-1'), 0, 'C', 0 );
+		$MiPDF->Ln(5);
 		
-		$Recordset1 = mysqli_query($db_con, $sql) or die(mysqli_error($db_con));  #crea la consulata
-
-		$MiPDF->SetFont('NewsGotT','',12);
-		$linea='';
-		$x=0;
-		$cuenta=1;
-		$alumno='';
-		while ($salida = mysqli_fetch_array($Recordset1)){
-			$n1+=1;
-//echo "$c_unidad => $c_curso<br>";
-		if ($salida[8]>1) {
-			$rep = "(Rep.)";
-		}
-		else{
-			$rep='';
-		}
-				$alumno=$salida[0];
-				$MiPDF->SetFont('NewsGotT','',12);
-				if ($linea!=''){$MiPDF->ln(2);$MiPDF->Multicell(0,4,$linea,0,'J',0);}
-				#$MiPDF->Text(20,35+$x,$salida[1].', '.$salida[2]);$x=$x+5;
-				$linea=$salida[2].' | '.$salida[6] .'. '.$salida[0].', '.$salida[1].' '.$rep;
+		
+		$MiPDF->SetFont('NewsGotT', '', 12);
+		
+		
+		// INFORMACION
+		$result = mysqli_query($db_con, "SELECT DISTINCT nombre, curso FROM asignaturas WHERE codigo='$valor' ORDER BY nombre ASC");
+		
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		
+		$MiPDF->SetFont('NewsGotT', 'B', 12);
+		$MiPDF->Cell(25, 5, 'Asignatura: ', 0, 0, 'L', 0);
+		$MiPDF->SetFont('NewsGotT', '', 12);
+		$MiPDF->Cell(100, 5, $row['nombre'].' ('.$row['curso'].')', 0, 1, 'L', 0 );
+		
+		$MiPDF->Ln(5);
+		
+		mysqli_free_result($result);
+		
+		
+		// INFORME
+		
+		$MiPDF->SetWidths(array(20, 10, 90, 30, 105));
+		$MiPDF->SetFont('NewsGotT', 'B', 12);
+		$MiPDF->SetTextColor(255, 255, 255);
+		$MiPDF->SetFillColor(61, 61, 61);
+		
+		$MiPDF->Row(array('Unidad', 'Nº', 'Alumno/a', 'Asignatura', 'Observaciones'), 0, 6);	
+		
+		$result = mysqli_query($db_con, "SELECT DISTINCT alma.unidad, FALUMNOS.NC, CONCAT(alma.apellidos, ', ', alma.nombre) AS alumno, alma.matriculas, asignaturas.abrev FROM pendientes, asignaturas, alma, FALUMNOS WHERE asignaturas.codigo = pendientes.codigo AND FALUMNOS.claveal=alma.claveal AND alma.claveal = pendientes.claveal AND alma.unidad NOT LIKE '%p-%' AND asignaturas.codigo = '$valor' and alma.unidad not like '1%' AND abrev LIKE  '%\_%' ORDER BY alma.curso, alma.unidad, nc");
+		
+		$MiPDF->SetTextColor(0, 0, 0);
+		$MiPDF->SetFont('NewsGotT', '', 12);
+		
+		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		
+			$observaciones = ($row['matriculas']>1) ? 'Repetidor/a' : '';
 			
-
-			if ($x>35){
-				$x=0;
-				$MiPDF->Addpage();
-				$MiPDF->Ln(8);
-			}		
+			$MiPDF->Row(array($row['unidad'], $row['NC'], $row['alumno'], $row['abrev'], $observaciones), 1, 6);	
+		}
 		
-		$x++;
-		}#del while
-		$MiPDF->ln(2);$MiPDF->Multicell(0,4,$linea,0,'J',0);
-
-
-
-	}#del foreach de la seleccion
-
+		mysqli_free_result($result);
+	}
+	
+	
+	// SALIDA
+	
 	$MiPDF->Output();
-	mysqli_free_result($Recordset1);
+	exit();
 }
 else{
 	include "../../menu.php";
