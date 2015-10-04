@@ -13,7 +13,7 @@ $tutor = $fprof[0];
 <div class="container">
 <div class="row">
 <div class="page-header">
-<h2>Informes de TutorÃ­a <small> Activar Informe</small></h2>
+<h2>Informes de Tutoría <small> Activar Informe</small></h2>
 </div>
 <br>
 
@@ -73,7 +73,7 @@ else
 ?>
 
 <div class='form-group' id="datetimepicker1">
-<label>Fecha de la reuniÃ³n</label>
+<label>Fecha de la reunión</label>
 <div class="input-group">
 <input name="fecha"	type="text" class="form-control" value="" data-date-format="DD-MM-YYYY" id="fecha" required> 
 	<span class="input-group-addon"><i class="fa fa-calendar"></i>

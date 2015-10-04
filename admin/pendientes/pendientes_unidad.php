@@ -123,26 +123,29 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' ORDER BY Apelli
 }
 else{
 	include "../../menu.php";
-?>
-<br />
-<div class="container">
-<div class="page-header">
-  <h2>Listas de Alumnos <small> Lista de Alumnos con asignaturas pendientes</small></h2>
-</div>
-
-<div class="row">
-<div class="col-sm-8 col-sm-offset-2">
-<?php
+	
 	foreach($_POST["select1"] as  $val) {
 		$grupos.=$val.";";
 	}
-echo "<form action='pendientes_unidad.php' method='post'>";	
-echo "<input type='hidden' name='grupos' value='".$grupos."' />";
-echo "<input type='hidden' name='pdf' value='1' />";
-echo "<button class='btn btn-primary pull-right' name='submit10' type='submit' value='Crear PDF para imprimir'><i class='fa fa-print'> Crear PDF para imprimir</i></button>";
-echo "</form><br />";	
+	
+	echo '
+<div class="container">
+
+	<div class="page-header">
+	  <h2 style="display: inline;">Listas de Alumnos <small> Lista de Alumnos con asignaturas pendientes</small></h2>';
+	  echo "<form class=\"pull-right\" action='pendientes_unidad.php' method='post'>";	
+	  echo "<input type='hidden' name='grupos' value='".$grupos."' />";
+	  echo "<input type='hidden' name='pdf' value='1' />";
+	  echo "<button class='btn btn-primary pull-right' name='submit10' type='submit' formtarget='_blank'><i class='fa fa-print fa-fw'></i> Imprimir</button>";
+	  echo "</form>";
+	echo '
+	</div>
+
+	<div class="row">
+	<div class="col-sm-8 col-sm-offset-2">';
+	
 	foreach($_POST["select1"] as  $valor) {
-echo '<legend class="text-info" align="center"><strong>'.$valor.'</strong></legend>';
+echo '<legend class="text-info" align="center"><strong>'.$valor.'</strong></legend><hr />';
 		if (strstr($valor,"1")==TRUE) {
 			   echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -182,18 +185,17 @@ AND asignaturas.codigo = pendientes.codigo and abrev like '%\_%' and asignaturas
 		echo "</td></tr>";
 }
 }
-		echo "</tbody></table>";
-					
+		echo "</tbody></table>";		
 		}
 
 	}
-	echo "<hr />";
 }
 
 ?>
 </div>
 </div>
 </div>
-<?php include("../../pie.php"); ?>
+
+	<?php include("../../pie.php"); ?>
 </body>
 </html>
