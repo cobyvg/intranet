@@ -51,9 +51,9 @@ echo '<br /><br /><input type="button" onClick="history.back(1)" value="Volver" 
 exit;
 }
 
- $insertar=mysqli_query($db_con, "INSERT infotut_alumno (CLAVEAL,APELLIDOS,NOMBRE,unidad,F_ENTREV,TUTOR,FECHA_REGISTRO)
+ $insertar=mysqli_query($db_con, "INSERT infotut_alumno (CLAVEAL,APELLIDOS,NOMBRE,unidad,F_ENTREV,TUTOR,FECHA_REGISTRO,motivo)
 VALUES ('$dalumno[0]',\"$dalumno[1]\",'$dalumno[2]','$dalumno[3]',
-'$fecha','".$_POST['tutor']."', '$hoy')") or die ("Error en la activación del informe: " . mysqli_error($db_con));
+'$fecha','".$_POST['tutor']."', '$hoy', '$motivo')") or die ("Error en la activación del informe: " . mysqli_error($db_con));
 
  echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>';

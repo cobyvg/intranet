@@ -22,7 +22,7 @@ include("menu.php");
         
 <?php
 $asignatura = $_POST['asignatura'];
-$alumno=mysqli_query($db_con, "SELECT infotut_alumno.CLAVEAL, infotut_alumno.APELLIDOS, infotut_alumno.NOMBRE, infotut_alumno.unidad, infotut_alumno.id, curso FROM infotut_alumno, alma WHERE alma.claveal=infotut_alumno.claveal and ID='$id'");
+$alumno=mysqli_query($db_con, "SELECT infotut_alumno.CLAVEAL, infotut_alumno.APELLIDOS, infotut_alumno.NOMBRE, infotut_alumno.unidad, infotut_alumno.id, curso, infotut_alumno.motivo FROM infotut_alumno, alma WHERE alma.claveal=infotut_alumno.claveal and ID='$id'");
 $dalumno = mysqli_fetch_array($alumno);
 $n_cur=$dalumno[5];
 if (empty($dalumno[0])) {
@@ -59,6 +59,9 @@ echo "<p align=center class='lead'>$dalumno[2] $dalumno[1] ( $dalumno[3] )</p>";
 		echo "</div>";
 	}
 echo "<br />";
+echo "<label>Motivo de la reunión:</label>";
+$motivo_reunion = ($dalumno['motivo']) ? $dalumno['motivo'] : 'No se ha especificado el motivo de la reunión.';
+echo "<p class=\"text-info\">".$motivo_reunion."</p>";
 
 $depto = $_SESSION ['dpt'];
 $extra_dep = "where departamento = '$depto'";

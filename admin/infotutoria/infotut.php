@@ -17,7 +17,7 @@ $tutor = $fprof[0];
 </div>
 <br>
 
-<div class="col-md-4 col-md-offset-4">	
+<div class="col-md-6 col-md-offset-3">	
 <div class="well well-large">
 <?php
 if($unidad)
@@ -79,6 +79,11 @@ else
 	<span class="input-group-addon"><i class="fa fa-calendar"></i>
 	</span>
 	</div>
+</div>
+
+<div class="form-group">
+	<label for="motivo">Motivo de la reunión</label>
+	<textarea class="form-control" id="motivo" name="motivo" rows="3"></textarea>
 </div>
 
  <?php

@@ -11,6 +11,7 @@ if (isset($_GET['id_del'])) {$id_del = $_GET['id_del'];}elseif (isset($_POST['id
 if (isset($_GET['id_alumno'])) {$id_alumno = $_GET['id_alumno'];}elseif (isset($_POST['id_alumno'])) {$id_alumno = $_POST['id_alumno'];}else{$id_alumno="";}
 if (isset($_GET['c_asig'])) {$c_asig = $_GET['c_asig'];}elseif (isset($_POST['c_asig'])) {$c_asig = $_POST['c_asig'];}else{$c_asig="";}
 if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
+if (isset($_GET['motivo'])) {$motivo = $_GET['motivo'];}elseif (isset($_POST['motivo'])) {$motivo = $_POST['motivo'];}else{$motivo="";}
 $activo1="";
 $activo2="";
 $activo3="";
