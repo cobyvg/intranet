@@ -16,7 +16,7 @@ $hora_actual = $hora_act[0];
 
 <div class="well well-sm">
 	
-	<h4><span class="fa fa-users fa-fw"></span> Profesores de baja</h4>
+	<h4><span class="fa fa-users fa-fw"></span> Profesores ausentes</h4>
 	
 	<div class="list-group">
 		<?php while ($row = mysqli_fetch_array($result)): ?>

@@ -1,7 +1,7 @@
 <?php
 require('../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1, 2, 6, 7, 8));
+acl_acceso($_SESSION['cargo'], array(1, 2, 6, 7, 8, a));
 
 $profe = $_SESSION['profi'];
 
@@ -184,7 +184,7 @@ echo "<br>";
 }
 else
 {
-	 if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE)){
+	 if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE) or stristr($_SESSION['cargo'],'a') == TRUE or stristr($_SESSION['cargo'],'8?') == TRUE){
 	 	
 		?>
 		
@@ -193,7 +193,7 @@ else
         <?php
 	}
 	else{
-	echo '<div class="col-md-4 col-md-offset-4">';	
+	echo '<div class="col-md-4 col-md-offset-2">';	
 	}
 ?>
 <div class="well well-large" align="left">
@@ -250,7 +250,7 @@ $extid = $n_sms[0]+1;
         <br /><input type="submit" name="submit0" value="Enviar SMS" class="btn btn-primary"/>
 
   <?	  
-  if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE))
+  if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE) or stristr($_SESSION['cargo'],'a') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
 	    {	
 		?>
 </div>
@@ -286,7 +286,7 @@ El módulo de envío de SMS debe ser activado en la Configuración general de la In
           </div></div>';
  }
  
- if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE))
+ if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE)  or stristr($_SESSION['cargo'],'a') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE)
 	    {	
 echo '</div>
 </div></div>';

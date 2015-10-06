@@ -62,7 +62,7 @@ if (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="
 	name=profeso onChange="submit()" class="form-control" required>
 	<option value="<?php echo $profeso;?>"><?php echo nomprofesor($profeso); ?></option>
 	<?php
-	$profe = mysqli_query($db_con, "SELECT distinct prof FROM horw where c_asig = '2' order by prof asc");
+	$profe = mysqli_query($db_con, "SELECT distinct prof FROM horw where c_asig = '25' order by prof asc");
 	if ($filaprofe = mysqli_fetch_array($profe))
 	{
 		do {

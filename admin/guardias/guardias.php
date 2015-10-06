@@ -46,25 +46,6 @@ $g_dia = substr($g_dia,1,strlen($g_dia));
 <h2><small>Fecha de la guardia: <span class="text-success"><?php echo $fecha_sp;?></span><br />
 Profesor de guardia: <span class="text-info text-capitalize"><?php echo $profeso;?></span></small></h2><br>
 <?php
-$sql = "SHOW TABLES FROM $db";
-$result = mysqli_query($db_con, $sql);
-$guardia="";
-while ($row = mysqli_fetch_row($result)) {
-    $guardia.=$row[0].";";
-}
-if (strstr($guardia,"guardias") == FALSE) {
-mysqli_query($db_con, "CREATE TABLE `guardias` (
-  `id` int(11) NOT NULL auto_increment,
-  `profesor` varchar(64) NOT NULL default '',
-  `profe_aula` varchar(64) NOT NULL default '',
-  `dia` tinyint(1) NOT NULL default '0',
-  `hora` tinyint(1) NOT NULL default '0',
-  `fecha` datetime NOT NULL default '0000-00-00 00:00:00',
-  `fecha_guardia` date NOT NULL default '0000-00-00',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE latin1_spanish_ci ");	
-}
-
 if ($submit2) {
 	$fecha_guardia = explode("-",$gu_fecha);
 	$g_dia = $fecha_guardia[0];

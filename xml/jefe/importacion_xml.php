@@ -301,6 +301,13 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 			$div_fin = floor($horfin / 60);
 			$rest_fin = $horfin % 60;
 			
+			if (strlen($rest_ini)=="1") {
+				$rest_ini.="0";
+			}
+			if (strlen($rest_fin)=="1") {
+				$rest_fin.="0";
+			}
+			
 			$hora_inicio = "$div_ini:$rest_ini";
 			$hora_fin = "$div_fin:$rest_fin";
 			

@@ -27,6 +27,7 @@ while ($sqlprof0 = mysqli_fetch_array($sqlal)) {
 	$apellido[0] = str_replace("ú","u",$apellido[0]);
 	$apellido[0] = str_replace("ü","u",$apellido[0]);
 	$apellido[0] = str_replace("ö","o",$apellido[0]);
+	$apellido[0] = str_replace("'","",$apellido[0]);
 
 	
 	$userpass = "a".strtolower(substr($nombre,0,1)).strtolower($apellido[0]);

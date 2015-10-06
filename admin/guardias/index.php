@@ -1,4 +1,4 @@
-<?php
+<?
 require('../../bootstrap.php');
 
 
@@ -16,7 +16,7 @@ if (isset($_GET['historico'])) {$historico = $_GET['historico'];}elseif (isset($
 
 if ($n_dia == '1') {$nombre_dia = 'Lunes';}
 if ($n_dia == '2') {$nombre_dia = 'Martes';}
-if ($n_dia == '3') {$nombre_dia = 'Miércoles';}
+if ($n_dia == '3') {$nombre_dia = 'MiÃ©rcoles';}
 if ($n_dia == '4') {$nombre_dia = 'Jueves';}
 if ($n_dia == '5') {$nombre_dia = 'Viernes';}
 $mes=date('m');
@@ -41,11 +41,12 @@ if ($n_dia > $numerodiasemana) {
  	$fecha_sp = formatea_fecha($g_fecha);
 ?>
 <div class="container">
+<div class="row">
+<br>
+<div class="page-header">
+<h2 style="display:inline">Guardias de Aula <small> Registro de Guardias</small></h2>
 
-	<div class="page-header">
-		<h2 style="display:inline">Guardias de Aula <small> Registro de Guardias</small></h2>
-		
-		<!-- Button trigger modal -->
+<!-- Button trigger modal -->
 		<a href="#"class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
 			<span class="fa fa-question fa-lg"></span>
 		</a>
@@ -79,12 +80,8 @@ if ($n_dia > $numerodiasemana) {
 				</div>
 			</div>
 		</div>
-	
-	</div>
-
-<div class="row">
-
-<?php
+</div>
+<?
 if ($borrar=='1') {
 	mysqli_query($db_con, "delete from guardias where id='$id'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
@@ -187,9 +184,9 @@ No has seleccionado a ningún profesor para sustituir. Elige uno de la lista desp
 }	
 ?>
 <div class="col-md-8 col-md-offset-2">
-  <legend class="text-info" align="center"><?php echo $nombre_dia.", ".$fecha_sp.", $hora"."ª hora";?></legend>
+  <legend class="text-info" align="center"><? echo $nombre_dia.", ".$fecha_sp.", $hora"."ª hora";?></legend>
 
-<?php
+<?
 $fech_hoy = date("Y-m-d");
 $hoy0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha'");
 if (mysqli_num_rows($hoy0) > 0) {
@@ -203,13 +200,12 @@ if (mysqli_num_rows($hoy0) > 0) {
 	echo "</table></div>";
 }
 ?>
-<p class='lead text-warning'>Sustituciones realizadas durante la <?php echo "<span style=''>".$hora."ª</span>";?> hora del <?php echo "<span style=''>$nombre_dia</span>";?></p>
+<p class='lead text-warning'>Sustituciones realizadas durante la <? echo "<span style=''>".$hora."ª</span>";?> hora del <? echo "<span style=''>$nombre_dia</span>";?></p>
 <div class="row">
 <div class="col-sm-6">
-<?php 
+<?
 echo '<table class="table table-striped" align="center">';
-$h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
-
+$h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig = '25'");
 while ($h_gu = mysqli_fetch_array($h_gu0)) {
 	echo "<tr><td>";
 		echo "<a href='index.php?historico=1&profeso=$profeso&h_profe=$h_gu[0]&n_dia=$n_dia&hora=$hora#marca' style='font-size:0.9em'>$h_gu[0]</a></td>";
@@ -231,24 +227,24 @@ echo "</table>";
 <label>Selecciona el Profesor que vas a cubrir</label>
 <select name="sustituido" class="form-control">
 <option></option>
-<?php
-$sust0 = mysqli_query($db_con, "select distinct prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21') and a_grupo not like '' order by prof");
+<?
+$sust0 = mysqli_query($db_con, "select distinct prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig not like '25' and a_grupo not like '' order by prof");
 while ($sust = mysqli_fetch_array($sust0)) {
 	echo "<option>$sust[0]</option>";
 }
 ?>
 </select>
 </div>
-<input type="hidden" name="profeso" value="<?php echo $profeso;?>">
-<input type="hidden" name="n_dia" value="<?php echo $n_dia;?>">
-<input type="hidden" name="hora" value="<?php echo $hora;?>">
-<input type="submit" name="submit" class="btn btn-primary btn-block" value="Registrar sustituci&oacute;n del Profesor" />
+<input type="hidden" name="profeso" value="<? echo $profeso;?>">
+<input type="hidden" name="n_dia" value="<? echo $n_dia;?>">
+<input type="hidden" name="hora" value="<? echo $hora;?>">
+<input type="submit" name="submit" class="btn btn-primary btn-block" value="Registrar sustitución del Profesor" />
 </form>
 </div>
 </div>
 </div>
 
-<?php 
+<?
 if ($historico == '1') {
 	if (stristr($_SESSION['cargo'],'1') == TRUE) {
 		$extra = "";
@@ -282,7 +278,6 @@ if (mysqli_num_rows($h_hoy0) > 0) {
 </div>
 </div>
 
-	<?php include("../../pie.php"); ?>
-	
-</body>
-</html>
+<? include("../../pie.php");?>
+</BODY>
+</HTML>
