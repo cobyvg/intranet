@@ -1,7 +1,7 @@
 <?php
 require('../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1, 2, 6, 7, 8, a));
+acl_acceso($_SESSION['cargo'], array(1, 2, 6, 7, 8, 'a'));
 
 $profe = $_SESSION['profi'];
 
@@ -184,7 +184,7 @@ echo "<br>";
 }
 else
 {
-	 if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE) or stristr($_SESSION['cargo'],'a') == TRUE or stristr($_SESSION['cargo'],'8?') == TRUE){
+	 if((!(empty($unidad))) or (stristr($_SESSION['cargo'],'1') == TRUE) or stristr($_SESSION['cargo'],'a') == TRUE or stristr($_SESSION['cargo'],'8') == TRUE){
 	 	
 		?>
 		
