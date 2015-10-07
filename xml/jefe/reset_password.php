@@ -1,5 +1,6 @@
 <?php
 require('../../bootstrap.php');
+require("../../lib/class.phpmailer.php");
 
 acl_acceso($_SESSION['cargo'], array(1));
 
@@ -38,35 +39,36 @@ if (isset($_POST['enviar'])) {
 		$mail_correo = $mail[0];
 		$mail_nomprofesor = $mail[1];
 		
-		// Excepción para el usuario Administrador
-		if ($mail_nomprofesor == 'Administrador') {
-			$pass_admin = generador_password(9);
-			$pass_sha1	= sha1($pass_admin);
+		if($mail_correo != "") {
+		
+			// Excepción para el usuario Administrador
+			if ($mail_nomprofesor == 'Administrador') {
+				$pass_admin = generador_password(9);
+				$pass_sha1	= sha1($pass_admin);
+				
+				mysqli_query($db_con, "UPDATE c_profes SET pass='$pass_sha1', dni='$pass_admin', estado=0 WHERE PROFESOR='Administrador' LIMIT 1");
+				mysqli_query($db_con, "UPDATE departamentos SET DNI='$pass_admin' WHERE NOMBRE='Administrador' LIMIT 1");
+			}
 			
-			mysqli_query($db_con, "UPDATE c_profes SET pass='$pass_sha1', dni='$pass_admin', estado=0 WHERE PROFESOR='Administrador' LIMIT 1");
-			mysqli_query($db_con, "UPDATE departamentos SET DNI='$pass_admin' WHERE NOMBRE='Administrador' LIMIT 1");
+			$mail = new PHPMailer();
+			$mail->Host = "localhost";
+			$mail->From = 'no-reply@'.$config['dominio'];
+			$mail->FromName = $config['centro_denominacion'];
+			$mail->Sender = 'no-reply@'.$config['dominio'];
+			$mail->IsHTML(true);
+			
+			// Excepción para el usuario Administrador
+			if ($mail_nomprofesor == 'Administrador') {
+				$mail->Subject = 'Aviso de la Intranet: Restablecimiento de la cuenta de Administrador';
+				$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza la contraseña que aparece a continuación:<br><br>'.$pass_admin.'<br><br>Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+			}
+			else {
+				$mail->Subject = 'Aviso de la Intranet: Tu contraseña ha sido restablecida';
+				$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+			}
+			$mail->AddAddress($mail_correo, $mail_nomprofesor);
+			$mail->Send();
 		}
-		
-		require("../../lib/class.phpmailer.php");
-		
-		$mail = new PHPMailer();
-		$mail->Host = "localhost";
-		$mail->From = 'no-reply@'.$config['dominio'];
-		$mail->FromName = $config['centro_denominacion'];
-		$mail->Sender = 'no-reply@'.$config['dominio'];
-		$mail->IsHTML(true);
-		
-		// Excepción para el usuario Administrador
-		if ($mail_nomprofesor == 'Administrador') {
-			$mail->Subject = 'Aviso de la Intranet: Restablecimiento de la cuenta de Administrador';
-			$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza la contraseña que aparece a continuación:<br><br>'.$pass_admin.'<br><br>Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
-		}
-		else {
-			$mail->Subject = 'Aviso de la Intranet: Tu contraseña ha sido restablecida';
-			$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
-		}
-		$mail->AddAddress($mail_correo, $mail_nomprofesor);
-		$mail->Send();
 		
 		$num++;
 	}
@@ -88,7 +90,7 @@ if (isset($_POST['enviar'])) {
 	<label>Selecciona los profesores</label>
 <select name="cambio[]" multiple class="form-control" style="height:300px">
 <?php
-$n_carg=mysqli_query($db_con, "select distinct profesor, dni from c_profes where profesor in (select distinct nombre from departamentos) order by profesor");
+$n_carg=mysqli_query($db_con, "SELECT DISTINCT profesor, dni FROM c_profes ORDER BY profesor");
 
 while($carg1=mysqli_fetch_array($n_carg))
 {

@@ -4,16 +4,18 @@ require('../../bootstrap.php');
 
 include("../../menu.php");
 ?>
-<br />
-<div align="center" style="max-width:1250px;margin:auto;">
-<div class="page-header">
-  <h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
-</div>
+
+<div class="container">
+
+	<div class="page-header">
+	  <h2>Jefatura de Estudios <small> Informe de Problemas de Convivencia</small></h2>
+	</div>
+	
 <div class="text-center" id="t_larga_barra">
 	<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
 </div>
  <div id='t_larga' style='display:none' >
-<div class="tabbable" style="margin-bottom: 18px;">
+<div>
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab">Resumen general</a></li>
 <li><a href="#tab2" data-toggle="tab">Resumen por Nivel</a></li>
@@ -26,7 +28,7 @@ echo '<li><a href="#tab4" data-toggle="tab">Informe por Profesor</a></li>';
 ?>
 <li><a href="#tab5" data-toggle="tab">Informe por Tipo</a></li>
 </ul>
-<div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+<div class="tab-content" style="padding-bottom: 9px;">
 <div class="tab-pane fade in active" id="tab1">
 <h3>Resumen General</h3><br />
  <table class="table table-striped" style="width:auto">
@@ -640,30 +642,48 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') ==
 ?>
 <div class="tab-pane fade in" id="tab4">
 <h3>Informe por Profesor</h3><br />
-<div class="container">
+<div class="row">
 <?php 
-$cur = substr($config['curso_inicio'],0,4)+1;
-for ($i=$cur;$i>$cur-3;$i--)
+
+if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
+	if (!empty($c_escolar) && ($c_escolar != $config['curso_actual'])) {
+		$exp_c_escolar = explode("/", $c_escolar);
+		$anio_escolar = $exp_c_escolar[0];
+		
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+	}
+	if (empty($c_escolar)){
+		$c_escolar = $config['curso_actual'];
+	}
+}
+else {
+	$c_escolar = $config['curso_actual'];
+}
+
+$cur = substr($config['curso_inicio'],0,4);
+for ($i = 3; $i >= 0; $i--)
 {
-	//$b_d = "";
-	if ($i == $cur){
-		$b_d = "faltas";
+	$anio_escolar = $cur-$i;
+	$haydatos = 0;
+	
+	if($i > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+		$haydatos = 1;
 	}
-	else{
-		$b_d = "faltas".$i;
+	
+	if ($i == 0) {
+		$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+		$haydatos = 1;
 	}
-	mysqli_select_db($db_con, $b_d);
-?>
-
-
-<?php
-	if(stristr($_SESSION['cargo'],'1') == TRUE)
+	
+	
+	if($haydatos && stristr($_SESSION['cargo'],'1') == TRUE)
 {
 ?>
 <div class="col-sm-4">
-<h4 align="center">Curso <?php echo $i-1; echo "-".$i;?></h4>
+<h4 class="text-info">Curso <?php echo $anio_escolar; echo "-".($anio_escolar+1);?></h4>
 <br />
-<table class="table table-striped" align="center" style="width:auto">
+<table class="table table-bordered table-striped table-hover">
 <thead>
 <tr>
 <th>Profesor</th><th width="62">Número</th>
@@ -673,8 +693,8 @@ for ($i=$cur;$i>$cur-3;$i--)
 
   <?php 
 $tot0 = '';
-$tot1 = mysqli_query($db_con, "create table fech_temp select informa, count(*) as numeros from $b_d.Fechoria group by informa");
-$tot0 = mysqli_query($db_con, "select informa, numeros from $b_d.fech_temp order by numeros desc");
+$tot1 = mysqli_query($db_con, "create table fech_temp select informa, count(*) as numeros from Fechoria group by informa");
+$tot0 = mysqli_query($db_con, "select informa, numeros from fech_temp order by numeros desc");
 while ($total0 = mysqli_fetch_array($tot0)){
 ?>
   <tr>
@@ -700,26 +720,46 @@ mysqli_query($db_con, "drop table fech_temp");
 }
 ?>
 <div class="tab-pane fade in" id="tab5">
-<div class="col-sm-8 col-sm-offset-2">
 <h3>Informe por Tipo de problema</h3><br />
 <?php
-$cur = substr($config['curso_inicio'],0,4)+1;
-for ($i=$cur;$i>$cur-3;$i--)
+if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
+	if (!empty($c_escolar) && ($c_escolar != $config['curso_actual'])) {
+		$exp_c_escolar = explode("/", $c_escolar);
+		$anio_escolar = $exp_c_escolar[0];
+		
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+	}
+	if (empty($c_escolar)){
+		$c_escolar = $config['curso_actual'];
+	}
+}
+else {
+	$c_escolar = $config['curso_actual'];
+}
+
+$cur = substr($config['curso_inicio'],0,4);
+for ($i = 0; $i <= 3; $i++)
 {
-	//$b_d = "";
-	if ($i == $cur){
-		$b_d = "faltas";
+	$anio_escolar = $cur-$i;
+	$haydatos = 0;
+	
+	if($i > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+		$haydatos = 1;
 	}
-	else{
-		$b_d = "faltas".$i;
+	
+	if ($i == 0) {
+		$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+		$haydatos = 1;
 	}
-	mysqli_select_db($db_con, $b_d);
+	
+	if($haydatos) {
 ?>
 
-<h4 align="center">Problemas de Convivencia en el Curso <?php echo $i-1; echo "-".$i;?></h4>
+<h4 class="text-info">Problemas de Convivencia en el Curso <?php echo $anio_escolar; echo "-".($anio_escolar+1);?></h4>
 <br />
 
-<table class="table table-striped" align="center" style="width:100%">
+<table class="table table-bordered table-striped table-hover">
   <thead>
   <tr>
     <th>Tipo de Problema</th>
@@ -730,7 +770,7 @@ for ($i=$cur;$i>$cur-3;$i--)
   <tbody>
   <?php 
 $tot = '';
-$tot = mysqli_query($db_con, "select asunto, count(*), grave from $b_d.Fechoria group by grave, asunto");
+$tot = mysqli_query($db_con, "select asunto, count(*), grave from Fechoria group by grave, asunto");
 while ($total = mysqli_fetch_array($tot)){
 ?>
   <tr>
@@ -742,13 +782,12 @@ while ($total = mysqli_fetch_array($tot)){
 }
 ?>
 </table>
-<hr>
 <br />
 <?php
 }
-echo "</div></div>";
+}
 ?>
-
+</div>
 </div>
 
 </div>
