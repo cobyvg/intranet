@@ -1,6 +1,8 @@
 <?php
 require('../../bootstrap.php');
 
+$PLUGIN_DATATABLES = 1;
+include('../../menu.php');
      
 if(isset($_GET['todos'])){$todos = $_GET['todos'];}
 if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
@@ -33,7 +35,6 @@ else {
 	$c_escolar = $config['curso_actual'];
 }
 
-
 if ($claveal) {
   	$result1 = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, unidad, claveal, claveal1, numeroexpediente FROM alma WHERE claveal = '$claveal' ORDER BY apellidos");
   	
@@ -45,7 +46,6 @@ if ($claveal) {
 	  $nombrepil = $row1[1];
   } 
 }
-
   
 $clave = explode(" --> ", $nombre);
 
@@ -58,15 +58,11 @@ if (!$claveal) {
 	$nombrepil = trim($nombrepila);
 } 
 
+
 // COMPROBAMOS SI ES EL TUTOR
 $esTutor = 0;
 $result = mysqli_query($db_con, "SELECT * FROM FTUTORES WHERE tutor='".$_SESSION['profi']."' AND unidad = '$unidad'");
 if (mysqli_num_rows($result)) $esTutor = 1;
-
-
-$PLUGIN_DATATABLES = 1;
-
-include('../../menu.php');
 ?>
 
 
