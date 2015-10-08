@@ -1,8 +1,5 @@
 <?php
 require('../../bootstrap.php');
-
-$PLUGIN_DATATABLES = 1;
-include('../../menu.php');
      
 if(isset($_GET['todos'])){$todos = $_GET['todos'];}
 if(isset($_GET['claveal'])){$claveal = $_GET['claveal'];}else{$claveal = $_POST['claveal'];}
@@ -18,6 +15,15 @@ if(isset($_POST['notas'])){$notas = $_POST['notas'];}else{ $notas=""; }
 if(isset($_POST['tutoria'])){$tutoria = $_POST['tutoria'];}else{ $tutoria=""; }
 if(isset($_POST['horarios'])){$horarios = $_POST['horarios'];}else{ $horarios=""; }
 if(isset($_POST['act_tutoria'])){$act_tutoria = $_POST['act_tutoria'];}else{ $act_tutoria=""; }
+
+$PLUGIN_DATATABLES = 1;
+include('../../menu.php');
+
+
+// COMPROBAMOS SI ES EL TUTOR
+$esTutor = 0;
+$result = mysqli_query($db_con, "SELECT * FROM FTUTORES WHERE tutor='".$_SESSION['profi']."' AND unidad = '$unidad'");
+if (mysqli_num_rows($result)) $esTutor = 1;
 
 
 if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
@@ -56,13 +62,7 @@ if (!$claveal) {
 	$nombrepila = $nombrealumno[1];
 	$apellido = trim($apellidos);
 	$nombrepil = trim($nombrepila);
-} 
-
-
-// COMPROBAMOS SI ES EL TUTOR
-$esTutor = 0;
-$result = mysqli_query($db_con, "SELECT * FROM FTUTORES WHERE tutor='".$_SESSION['profi']."' AND unidad = '$unidad'");
-if (mysqli_num_rows($result)) $esTutor = 1;
+}
 ?>
 
 
