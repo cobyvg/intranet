@@ -21,7 +21,7 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 ?>
 
 <?php if(isset($_SESSION['user_admin']) && version_compare($ultima_version, INTRANET_VERSION, '>')): ?>
-<div  class="alert alert-info" >
+<div class="alert alert-info" >
 	<h4>Nueva actualización de la Intranet</h4>
 	<div class="row">
 		<div class="col-sm-8">Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación.</div>
