@@ -96,10 +96,14 @@ $resultcurso = mysqli_query($db_con, $SQLcurso);
 while ($exp = mysqli_fetch_array($resultcurso)) {
 	$unidad = $exp[0];
 	$materia = $exp[1];
+	$niv_curso = $exp[2];
+	$cd = mysqli_query($db_con, "select distinct codigo from asignaturas where nombre = '$materia' and curso = '$niv_curso' and abrev not like '%\_%'");
+	$cdm = mysqli_fetch_array($cd);
+	$cod_mat = $cdm[0];
 	$hoy = date('Y') . "-" . date('m') . "-" . date('d');
 	$ayer0 = time() + (1 * 24 * 60 * 60);
 	$ayer = date('Y-m-d', $ayer0);
-	$result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria, alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' order by Fechoria.fecha ");
+	$result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria, alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' and combasi like '%$cod_mat%' order by Fechoria.fecha ");
 	if (mysqli_num_rows($result) > '0') {
 		$count_van = 1;
 		while ($row = mysqli_fetch_array($result))

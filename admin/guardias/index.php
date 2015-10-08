@@ -16,7 +16,7 @@ if (isset($_GET['historico'])) {$historico = $_GET['historico'];}elseif (isset($
 
 if ($n_dia == '1') {$nombre_dia = 'Lunes';}
 if ($n_dia == '2') {$nombre_dia = 'Martes';}
-if ($n_dia == '3') {$nombre_dia = 'MiÃ©rcoles';}
+if ($n_dia == '3') {$nombre_dia = 'Miércoles';}
 if ($n_dia == '4') {$nombre_dia = 'Jueves';}
 if ($n_dia == '5') {$nombre_dia = 'Viernes';}
 $mes=date('m');
@@ -103,11 +103,8 @@ Estáss intentando registrar una sustitución con dos días o más de diferencia res
 
  	}
  	else{
-		
-		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and (profesor = '$profeso' or profe_aula = '$sustituido')");
-		
-// echo "Guardia: $prof_sust --> Sustituido: $sustituido --> Registrado: $prof_reg";
 		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and profesor = '$profeso'");
+
 			if (mysqli_num_rows($reg_sust0) > '0') {
 		$c1 = "1";
 		$reg_sust = mysqli_fetch_array($reg_sust0);
@@ -228,7 +225,7 @@ echo "</table>";
 <select name="sustituido" class="form-control">
 <option></option>
 <?
-$sust0 = mysqli_query($db_con, "select distinct prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig not like '25' and a_grupo not like '' order by prof");
+$sust0 = mysqli_query($db_con, "select distinct prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig not like '25' and a_grupo not like '' or a_grupo like 'GCON%' order by prof");
 while ($sust = mysqli_fetch_array($sust0)) {
 	echo "<option>$sust[0]</option>";
 }

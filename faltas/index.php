@@ -25,6 +25,7 @@ if(empty($hora_dia)){
 
 			if( $hora_real > $h_ini and $hora_real < $h_fin){
 				$hora_dia = $jornad[0];
+				break;
 			}
 			else{
 				$hora_dia = $jornad[0];
@@ -59,6 +60,7 @@ if (isset($fecha_dia)) {
 }
 else {
 	$ndia = date("w");// nº de día de la semana (1,2, etc.)
+	$hoy = date("Y-m-d");
 	$hoy_actual = "$diames-$nmes-$nano";
 }
 

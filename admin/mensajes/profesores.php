@@ -79,7 +79,9 @@ if(isset($_POST['submit1'])) {
 			$eq = $_POST["equipo"];
 			foreach($eq as $nombre_eq)
 				{
-				$eq0 = mysqli_query($db_con, "select distinct idea from profesores, departamentos where nombre = profesor and grupo = '$nombre_eq' or cargo like '%8%'");
+				$eso = mysqli_query($db_con,"select distinct curso from alma where unidad = '$nombre_eq' and curso like '%E.S.O.%'");
+				if(mysqli_num_rows($eso)>0){$extra_eso="or cargo like '%8%'";}else{$extra_eso="";}
+				$eq0 = mysqli_query($db_con, "select distinct idea from profesores, departamentos where nombre = profesor and grupo = '$nombre_eq' $extra_eso");
 				while($eq1 = mysqli_fetch_array($eq0))
 				{
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$eq1[0]'");
