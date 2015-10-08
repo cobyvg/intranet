@@ -17,11 +17,10 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 	}
 
 	$ultima_version = ltrim(getLatestVersion('IESMonterroso/intranet'), 'v');
-
 }
 ?>
 
-<?php if(isset($_SESSION['user_admin']) && $ultima_version > INTRANET_VERSION): ?>
+<?php if(isset($_SESSION['user_admin']) && version_compare($ultima_version, INTRANET_VERSION, '>')): ?>
 <div  class="alert alert-info" >
 	<h4>Nueva actualización de la Intranet</h4>
 	<div class="row">
