@@ -74,7 +74,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 			}
 			
 			// Registramos la entrada en la Intranet
-			mysqli_query($db_con, "insert into reg_intranet (profesor, fecha,ip) values ('".$_SESSION['ide']."',now(),'" . $_SERVER ['REMOTE_ADDR'] . "')" );
+			mysqli_query($db_con, "insert into reg_intranet (profesor, fecha,ip) values ('".$_SESSION['ide']."','".date('Y-m-d H:i:s')."','" . $_SERVER ['REMOTE_ADDR'] . "')");
 			$id_reg = mysqli_query($db_con, "select id from reg_intranet where profesor = '".$_SESSION['ide']."' order by id desc limit 1" );
 			$id_reg0 = mysqli_fetch_array ( $id_reg );
 			$_SESSION['id_pag'] = $id_reg0 [0];

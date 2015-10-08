@@ -493,7 +493,7 @@ recrear un orden cronológico, las siguientes:</p>
 
 <ul>
 	<li class="text-justify">Reserva del Aula Magna. Si el uso es para la
-	mañana ya no se puede llevar a cabo a travás del módulo que hay en la
+	mañana ya no se puede llevar a cabo a través del módulo que hay en la
 	Intranet puesto que se ha deshabilitado esa opción. Este tipo de
 	reserva €œmatutina solo se puede hacer hablando con el alguien del
 	equipo directivo o la persona responsable del D.A.C.E., salvo las ya
@@ -519,20 +519,19 @@ recrear un orden cronológico, las siguientes:</p>
 	aunque haya que dejarlas entornadas por motivos de necesidad de una
 	opacidad en el Aula. Esto es para evitar problemas en el caso de
 	evacuación por emergencia. No estamos hablando de la llave ni de la
-	puerta de acceso al párking de profesores. Esa llave tambián se
+	puerta de acceso al parking de profesores. Esa llave también se
 	encuentra en el juego de llaves del Aula Magna en la Conserjería.</li>
 
 	<li class="text-justify">Comprobar si la alarma está o no activada.
 	Habría que preguntar antes la clave de la alarma si no supiera con
-	anterioridad. Aparece un mensaje en la pantallita de la alarma que
+	anterioridad. Aparece un mensaje en la pantalla de la alarma que
 	dice: "€œSistema Activo"€.</li>
 
 	<li class="text-justify">En el caso de que haya que subir las
 	persianas, abrir las ventanas y/o descorrer las cortinas rojas, se
 	encargará de ello única y exclusivamente el profesor responsable de la
 	actividad para evitar malos usos. Del mismo modo se procederá cuando
-	toque bajar las persianas, cerrar las ventanas y/o correr las 
-cortinas.</li>
+	toque bajar las persianas, cerrar las ventanas y/o correr las cortinas.</li>
 
 	<li class="text-justify">Se deberá mantener la limpieza en el Aula
 	Magna de forma que el alumnado utilice las papeleras que hay en la
