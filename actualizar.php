@@ -463,3 +463,24 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Informes de tutoría - Nuevo campo motivo', NOW())"); 
  	mysqli_query($db_con, "ALTER TABLE `infotut_alumno` ADD `motivo` VARCHAR(255) NULL");
 }
+
+/*
+ @descripcion: Tabla Usuarioalumno - Aumento de longitid del campo (5 a 64)
+ @fecha: 10 de octubre de 2015
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Usuarioalumno - actualizacion campo unidad'");
+if (! mysqli_num_rows($actua)) {
+mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Usuarioalumno - actualizacion campo unidad', NOW())"); 
+
+mysqli_query($db_con,"ALTER TABLE `usuarioalumno` CHANGE `unidad` `unidad` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");
+
+$cambio0 = mysqli_query($db_con, "select claveal, unidad, apellidos, nombre from alma");
+while($cambio = mysqli_fetch_array($cambio0)){
+	$f_cambio0 = mysqli_query($db_con, "select unidad from usuarioalumno where claveal = '$cambio[0]'");
+	$f_cambio = mysqli_fetch_array($f_cambio0);
+	if($cambio[1] == $f_cambio[0]){}
+	else{
+		mysqli_query($db_con, "update usuarioalumno set unidad = '$cambio[1]' where claveal = '$cambio[0]'");
+	}	
+}
+}

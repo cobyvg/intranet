@@ -107,7 +107,7 @@ creados:</div></div><br />";
 
 			$usuario  = $userpass;
 			$passw = $userpass . preg_replace('/([ ])/e', 'rand(0,9)', '   ');
-			$unidad = $row1[3]."-".$row1[4] ;
+			$unidad = $row1[3];
 
 			$repetidos = mysqli_query($db_con, "select usuario from usuarioalumno where
 usuario like '$usuario%'");
@@ -118,8 +118,8 @@ usuario like '$usuario%'");
 			}
 			$n_a+=1;
 			$usuario = $usuario.$n_a;
-			mysqli_query($db_con, "insert into usuarioalumno set nombre = '$nombreorig',
-usuario = '$usuario', pass = '$passw', perfil = 'a', unidad = '$unidad', claveal 
+			mysqli_query($db_con, "insert into usuarioalumno set nombre = \"".$nombreorig. "\",
+usuario = \"".$usuario. "\", pass = '$passw', perfil = 'a', unidad = '$unidad', claveal 
 = '$claveal'");
 			echo "<li>TIC: ".$nombreorig . " " . $usuario . " -- " . $unidad . "  " .$claveal. "</li>";
 		}
@@ -151,8 +151,21 @@ while($cambio = mysqli_fetch_array($cambio0)){
 		$f_numero = $f_result[0] + 1;
 		mysqli_query($db_con, "update FALUMNOS set NC = '$f_numero', unidad =
 '$cambio[1]' where claveal = '$cambio[0]'");
-	}
+	}	
 }
+
+$cambio0 = mysqli_query($db_con, "select claveal, unidad, apellidos, nombre from
+alma");
+while($cambio = mysqli_fetch_array($cambio0)){
+	$f_cambio0 = mysqli_query($db_con, "select unidad from usuarioalumno where claveal =
+'$cambio[0]'");
+	$f_cambio = mysqli_fetch_array($f_cambio0);
+	if($cambio[1] == $f_cambio[0]){}
+	else{
+		mysqli_query($db_con, "update usuarioalumno set unidad = '$cambio[1]' where claveal = '$cambio[0]'");
+	}	
+}
+
 mysqli_query($db_con, "drop table almafaltas");
 ?>
 
