@@ -292,7 +292,7 @@ include("../menu.php"); ?>
 					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    Calendarios <span class="caret"></span>
 					  </button>
-					  <ul class="dropdown-menu" role="menu" style="min-width: 300px !important;">
+					  <ul class="dropdown-menu" role="menu" style="min-width: 340px !important;">
 					  	<li role="presentation" class="dropdown-header">Mis calendarios</li>
 					    <?php $result = mysqli_query($db_con, "SELECT id, nombre, color FROM calendario_categorias WHERE profesor='".$_SESSION['ide']."' AND espublico=0 ORDER BY id ASC"); ?>
 					    <?php if (mysqli_num_rows($result)): ?>
@@ -327,7 +327,7 @@ include("../menu.php"); ?>
 				    			<span class="fa fa-square fa-fw fa-lg" style="color: <?php echo $row['color']; ?>;"></span>
 				    			<?php echo $row['nombre']; ?>
 				    			<span class="pull-right eyeicon_<?php echo $row['id']; ?>"><span class="fa fa-eye fa-fw fa-lg"></span></span>
-				    			<?php if ($row['id'] != 1 && $row['id'] != 2): ?>
+				    			<?php if ((stristr($_SESSION['cargo'], '1')==TRUE) && $row['id'] != 1 && $row['id'] != 2): ?>
 				    			<form class="pull-right" method="post" action="post/eliminarCalendario.php?mes=<?php echo $mes; ?>&anio=<?php echo $anio; ?>" style="display: inline; margin-top: -5px;">
 				    				<input type="hidden" name="cmp_calendario_id" value="<?php echo $row['id']; ?>">
 				    				<button type="submit" class="btn-link delete-calendar"><span class="fa fa-trash fa-fw fa-lg"></span></button>
