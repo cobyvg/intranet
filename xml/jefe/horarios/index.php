@@ -406,7 +406,7 @@ include("../../../menu.php");
 					</thead>
 					<tbody>
 					<?php $thoras = ""; ?>
-					<?php $result_horas = mysqli_query($db_con,"SELECT hora FROM tramos WHERE hora < '7' OR hora = 'R'"); ?>
+					<?php $result_horas = mysqli_query($db_con,"SELECT hora FROM tramos WHERE hora < 7 OR hora = 'R'"); ?>
 					<?php while ($row = mysqli_fetch_array($result_horas)): ?>
 					<?php $thoras[] = $row['hora']; ?>
 					<?php endwhile; ?>

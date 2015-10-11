@@ -10,6 +10,8 @@ if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST[
 if (isset($_GET['sustituido'])) {$sustituido = $_GET['sustituido'];}elseif (isset($_POST['sustituido'])) {$sustituido = $_POST['sustituido'];}else{$sustituido="";}
 if (isset($_GET['hora'])) {$hora = $_GET['hora'];}elseif (isset($_POST['hora'])) {$hora = $_POST['hora'];}else{$hora="";}
 if (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="";}
+
+include 'menu.php';
 ?>
 <div class="container">
 
@@ -134,8 +136,6 @@ if (isset($_POST['gu_fecha'])) {$gu_fecha = $_POST['gu_fecha'];}else{$gu_fecha="
 <br />
 
 </div>
-<a href='guardias_admin.php' class="btn btn-primary btn-block">Consultar Guardias
-y Profesores</a>
 </div>
 </div>
 </div>

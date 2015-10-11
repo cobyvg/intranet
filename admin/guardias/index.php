@@ -23,6 +23,9 @@ $mes=date('m');
 $dia_n = date('d');
 $ano = date('Y');
 $numerodiasemana = date('w', mktime(0,0,0,$mes,$dia_n,$ano));
+if ($numerodiasemana==0) {
+	$numerodiasemana=7;
+}
 if ($n_dia > $numerodiasemana) {
 	$dif = $n_dia - $numerodiasemana;
 	$dif2 = $numerodiasemana-$n_dia;

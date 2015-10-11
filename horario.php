@@ -32,13 +32,15 @@ echo '<tr><th>'.$nombre.'ª</th>';
 
 		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo FROM  horw where prof = '$pr' $extra ORDER BY a_grupo" );	
 		$rowasignatur1 = mysqli_fetch_row ( $asignatur1 );
-		
-		if (strlen( $rowasignatur1 [2] )>1 and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")) {
-			echo "<span class='label label-info'>" . $rowasignatur1 [1] . "</span><br />";
-		}
-		
-		elseif (empty ( $rowasignatur1 [2] ) and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")) {
+		$act_seneca = mysqli_query($db_con, "SELECT * FROM  actividades_seneca where idactividad = '$rowasignatur1[0]' and nomactividad not like 'TUT%' and nomactividad not like '%dep%'" );	
+		if(mysqli_num_rows($act_seneca)>0 and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")){
 			echo "<span class='label label-default'>" . $rowasignatur1 [1] . "</span><br />";
+		}		
+		elseif (strlen( $rowasignatur1 [2] )>1 and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")) {
+			echo "<span class='label label-info'>" . $rowasignatur1 [1] . "</span><br />";
+		}		
+		elseif (empty ( $rowasignatur1 [2] )) {
+			echo "<span class='label label-warning'>" . $rowasignatur1 [1] . "</span><br />";
 		}
 		elseif (($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44") and $config['mod_asistencia']) {
 			if (strstr($_SESSION ['cargo'],"1")==TRUE) {

@@ -4,6 +4,8 @@ require('../../bootstrap.php');
 acl_acceso($_SESSION['cargo'], array(1));
 
 include("../../menu.php");
+include 'menu.php';
+
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}else{$id="";}
 if (isset($_GET['no_dia'])) {$no_dia = $_GET['no_dia'];}elseif (isset($_POST['no_dia'])) {$no_dia = $_POST['no_dia'];}else{$no_dia="";}
 if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];}else{$profeso="";}
@@ -162,6 +164,7 @@ No hay datos sobre las Guardias del profesor.
 	}
 }
 ?></div>
+</div>
 </div>
 </div>
 
