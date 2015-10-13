@@ -85,9 +85,9 @@ mysqli_query($db_con,$hora6);
 mysqli_query($db_con,"OPTIMIZE TABLE  `horw`");
 
 // Quitamos las S del codigo de las Actividades
-$s_l="";
 $s_cod = mysqli_query($db_con,"select distinct c_asig from horw where c_asig like 'S%'");
 while($s_asigna = mysqli_fetch_array($s_cod)){
+	$s_l="";
 	$trozos = explode(" ",$s_asigna[0]);
 	$s_l = substr($trozos[0],1,strlen($trozos[0]));
 	mysqli_query($db_con,"update horw set c_asig = '$s_l', asig = (select nomactividad from actividades_seneca where idactividad = '$s_l') where c_asig = '$s_asigna[0]'");
@@ -174,6 +174,18 @@ $asig = mysqli_query($db_con, "select codigo from asignaturas where curso = '$cu
 	}
 }
 
+// Depuramos nombres y abreviaturas de asignaturas
+$pro =mysqli_query($db_con,"select distinct asig, a_asig, c_asig from horw where a_grupo in (select nomunidad from unidades) and c_asig not like '2' order by prof");
+	while ($prf =mysqli_fetch_array($pro)) {
+		$asig = $prf[0];
+		$a_asig = $prf[1];
+		$c_asig = $prf[2];
+		$niv =mysqli_query($db_con,"select distinct nombre, abrev from asignaturas where codigo = '$c_asig' and abrev not like '%\_%'");
+		if (mysqli_num_rows($niv)>0) {
+			$nive =mysqli_fetch_array($niv);
+			mysqli_query($db_con,"update horw set asig = '$nive[0]', a_asig = '$nive[1]' where c_asig = '$c_asig'");
+		}
+	}
 	
 // Recorremos la tabla Profesores bajada de Séneca
 $tabla_profes =mysqli_query($db_con,"select * from profesores");
@@ -182,7 +194,7 @@ if (mysqli_num_rows($tabla_profes) > 0) {
 }
 else{
 	$nohay_profes=1;
-	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo in (select nomunidad from unidades) and c_asig not like '2' and c_asig not like '21' order by prof");
+	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo in (select nomunidad from unidades) and c_asig not like '2' order by prof");
 	while ($prf =mysqli_fetch_array($pro)) {
 		$materia = $prf[0];
 		$grupo = $prf[1];
@@ -217,7 +229,7 @@ mysqli_query($db_con, "update horw set a_asig = 'GUBIB' where c_asig = '26'");
 // Recorremos la tabla Profesores bajada de Séneca
 if ($nohay_profes==1) {
 	mysqli_query($db_con,"truncate table profesores");
-	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo in (select nomunidad from unidades) and c_asig not like '2' and c_asig not like '21' order by prof");
+	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo in (select nomunidad from unidades) and c_asig not like '2' order by prof");
 	while ($prf =mysqli_fetch_array($pro)) {
 		$materia = $prf[0];
 		$grupo = $prf[1];
@@ -237,7 +249,7 @@ if ($nohay_profes==1) {
 
 // Horw para Faltas
 mysqli_query($db_con, "drop table horw_faltas");
-mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
+mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2')");
 
 // Cargos varios
 $carg = mysqli_query($db_con, "select distinct prof from horw");
