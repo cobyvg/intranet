@@ -16,9 +16,9 @@
 <tbody>
 <?php	
 // Horas del día
-$todas_horas = array (1 => "1", 2 => "2", 3 => "3", 'R' => "R", 4 => "4", 5 => "5", 6 => "6" );
+$todas_horas = array (1 => "1ª", 2 => "2ª", 3 => "3ª", 'R' => "R", 4 => "4ª", 5 => "5ª", 6 => "6ª" );
 foreach ( $todas_horas as $n_hora => $nombre ) {	
-echo '<tr><th>'.$nombre.'ª</th>';
+echo '<tr><th>'.$nombre.'</th>';
 	
 	//Días
 	for($z = 1; $z < 6; $z ++) {
@@ -30,24 +30,24 @@ echo '<tr><th>'.$nombre.'ª</th>';
 			$extra = "and dia = '$z' and hora = '$n_hora'";
 		}
 
-		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo FROM  horw where prof = '$pr' $extra ORDER BY a_grupo" );	
+		$asignatur1 = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo, asig FROM  horw where prof = '$pr' $extra ORDER BY a_grupo" );	
 		$rowasignatur1 = mysqli_fetch_row ( $asignatur1 );
 		$act_seneca = mysqli_query($db_con, "SELECT * FROM  actividades_seneca where idactividad = '$rowasignatur1[0]' and nomactividad not like 'TUT%' and nomactividad not like '%dep%'" );	
 		if(mysqli_num_rows($act_seneca)>0 and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")){
-			echo "<span class='label label-default'>" . $rowasignatur1 [1] . "</span><br />";
+			echo "<span class='label label-default' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span><br />";
 		}		
 		elseif (strlen( $rowasignatur1 [2] )>1 and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")) {
-			echo "<span class='label label-info'>" . $rowasignatur1 [1] . "</span><br />";
+			echo "<span class='label label-info' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span><br />";
 		}		
-		elseif (empty ( $rowasignatur1 [2] )) {
-			echo "<span class='label label-warning'>" . $rowasignatur1 [1] . "</span><br />";
+		elseif (empty ( $rowasignatur1 [2] ) and ! ($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44")) {
+			echo "<span class='label label-warning' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span><br />";
 		}
 		elseif (($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44") and $config['mod_asistencia']) {
 			if (strstr($_SESSION ['cargo'],"1")==TRUE) {
-				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/admin.php' style='text-decoration: none;'><span class='label label-danger'>".$rowasignatur1[1]."</span>";
+				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/admin.php' style='text-decoration: none;'><span class='label label-danger' data-bs='tooltip' title='".$rowasignatur1[3]."'>".$rowasignatur1[1]."</span>";
 			}
 			else{
-				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$pr' style='text-decoration: none;'><span class='label label-danger'>" . $rowasignatur1 [1] . "</span></a>";
+				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$pr' style='text-decoration: none;'><span class='label label-danger' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span></a>";
 			}
 		}
 		// Recorremos los grupos a los que da en ese hora.
