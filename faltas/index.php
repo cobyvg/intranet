@@ -113,13 +113,12 @@ if($mensaje){
 	data-date-format="DD-MM-YYYY"> <span class="input-group-addon"><span
 	class="fa fa-calendar"></span></span></div>
 </div>
-
 <div class="form-group"><label for="grupo">Grupo</label> <select
 	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
 	<?php
 
 	for ($i = 1; $i < 7; $i++) {
-		$gr_hora = mysqli_query($db_con,"select a_grupo, asig from horw_faltas where hora = '$i' and dia='$ndia' and prof = '$pr' and a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21')");
+		$gr_hora = mysqli_query($db_con,"select a_grupo, asig from horw_faltas where hora = '$i' and dia='$ndia' and prof = '$pr' and a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '386')");
 		if (mysqli_num_rows($gr_hora)>0) {
 
 			while ($grupo_hora = mysqli_fetch_array($gr_hora)) {
@@ -178,7 +177,7 @@ Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo
 }
 while($hora2 = mysqli_fetch_row($hora0))
 {
-
+	$c_a="";
 	$codasi= $hora2[0];
 	if (empty($hora2[1])) {
 		$curso="";
@@ -201,6 +200,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$div = $curso;
 			$grupo_diver = mysqli_fetch_row($grupo_div);
 			$curso = $grupo_diver[0];
+			$c_a="(combasi like '%25204%' or combasi LIKE '%25226%' OR combasi LIKE '%135785%') or ";
 		}
 	}
 	?>
@@ -209,14 +209,16 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 	// Codigo del profe
 	//echo "$hora_dia -- $ndia -- $hoy -- $codasi -- $pr -- $clave<br>";
-	$c_a="";
+	
 	$res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and FALUMNOS.unidad = '$curso' and ( ";
 	//$n_curs10 = "select distinct c_asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
 	$n_curs10 = "select distinct c_asig from horw_faltas where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
 	$n_curs11 = mysqli_query($db_con, $n_curs10);
 	$nm = mysqli_num_rows($n_curs11);
+	if (strlen($c_a)>0) {}else{
 	while ($nm_asig0=mysqli_fetch_array($n_curs11)){
 		$c_a.="combasi like '%".$nm_asig0[0]."%' or ";
+	}
 	}
 
 	$res.=substr($c_a,0,strlen($c_a)-3);

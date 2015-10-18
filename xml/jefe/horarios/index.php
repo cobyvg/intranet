@@ -125,11 +125,12 @@ if (isset($_POST['enviar'])) {
 	$codprofesor = $datos_profesor['c_prof'];
 	
 	// OBTENEMOS DATOS DE LA ASIGNATURA
-	$result = mysqli_query($db_con, "SELECT nombre, abrev FROM asignaturas WHERE codigo='".$_POST['asignatura']."' AND abrev NOT LIKE '%\_%'");
+	$result = mysqli_query($db_con, "SELECT nombre, abrev, curso FROM asignaturas WHERE codigo='".$_POST['asignatura']."' AND abrev NOT LIKE '%\_%'");
 	$datos_asignatura = mysqli_fetch_array($result);
 	$codasignatura = $_POST['asignatura'];
 	$nomasignatura = $datos_asignatura['nombre'];
 	$abrevasignatura = $datos_asignatura['abrev'];
+	$curso_asignatura = $datos_asignatura['curso'];
 	
 	if ($nomasignatura == '') {
 		if ($_POST['asignatura'] == 'GUC') {
@@ -154,6 +155,13 @@ if (isset($_POST['enviar'])) {
 	
 	$result = mysqli_query($db_con, "INSERT INTO horw (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$unidad')");
 	mysqli_query($db_con, "INSERT INTO horw_faltas (dia, hora, a_asig, asig, c_asig, prof, no_prof, c_prof, a_aula, n_aula, a_grupo) VALUES ('$dia', '$hora', '$abrevasignatura', '$nomasignatura', '$codasignatura', '$profesor', '$numprofesor', '$codprofesor', '$coddependencia', '$nomdependencia', '$unidad')");
+	
+	$t_profesores = mysqli_query($db_con,"select * from profesores where nivel='$curso_asignatura' and materia='$nomasignatura' and profesor='$profesor' and grupo='$unidad'");
+	if (mysqli_num_rows($t_profesores)>0) {}
+	else{
+		mysqli_query($db_con, "INSERT INTO profesores (nivel, materia, profesor, grupo) VALUES ('$curso_asignatura', '$nomasignatura', '$profesor', '$unidad')");
+	}
+	
 	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
@@ -214,11 +222,13 @@ if (isset($_POST['eliminar'])) {
 	$dia = $_GET['dia'];
 	$hora = $_GET['hora'];
 	$unidad_curso = $_GET['unidad'];
+	$asig = $_GET['asignatura'];
 	$exp_unidad = explode('|', $unidad_curso);
 	$unidad = $exp_unidad[0];
 	
 	$result = mysqli_query($db_con, "DELETE FROM horw WHERE dia='$dia' AND hora='$hora' AND a_grupo='$unidad' AND prof='$profesor' LIMIT 1");
 	mysqli_query($db_con, "DELETE FROM horw_faltas WHERE dia='$dia' AND hora='$hora' AND a_grupo='$unidad' AND prof='$profesor' LIMIT 1");
+	mysqli_query($db_con, "DELETE FROM profesores WHERE grupo='$unidad' AND profesor='$profesor' and materia = (select distinct nombre from asignaturas where codigo='$asig' and abrev not like '%\_%')");
 	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
@@ -308,7 +318,7 @@ include("../../../menu.php");
 						  <label for="unidad">Unidad</label>
 						  <select class="form-control" id="unidad" name="unidad" onchange="submit()">
 						  	<option value=""></option>
-						  	<?php $result = mysqli_query($db_con, "SELECT unidades.nomunidad, cursos.nomcurso FROM unidades JOIN cursos ON unidades.idcurso=cursos.idcurso"); ?>
+						  	<?php $result = mysqli_query($db_con, "SELECT unidades.nomunidad, cursos.nomcurso FROM unidades JOIN cursos ON unidades.idcurso=cursos.idcurso order by unidades.idunidad"); ?>
 						  	<?php while ($row = mysqli_fetch_array($result)): ?>
 						  	<option value="<?php echo $row['nomunidad'].'|'.$row['nomcurso']; ?>" <?php echo (isset($unidad_curso) && $row['nomunidad'].'|'.$row['nomcurso'] == $unidad_curso) ? 'selected' : ''; ?>><?php echo $row['nomunidad'].' ('.$row['nomcurso'].')'; ?></option>
 						  	<?php endwhile; ?>

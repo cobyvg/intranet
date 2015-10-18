@@ -191,12 +191,13 @@ include("cuaderno/menu_cuaderno.php");
 					//	Problemas con Diversificación (4E-Dd)
 					$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
 					if (mysqli_num_rows($profe_div)<1) {
-
+						$asig_div="";						
 						$div = $curso;
 						$nivel_curso2 = substr($div,0,-1);
 						$grupo_div = mysqli_query($db_con, "select distinct unidad from alma where unidad like '$nivel_curso2%' and (combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%' OR combasi LIKE '%135785%')");
 						$grupo_diver = mysqli_fetch_row($grupo_div);
 						$curso = $grupo_diver[0];
+						$asig_div = "combasi like '%25204%' or combasi LIKE '%25226%' or combasi LIKE '%31307%' OR combasi LIKE '%135785%'";
 					}
 					if (empty($seleccionar)) {
 						if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
@@ -233,6 +234,9 @@ include("cuaderno/menu_cuaderno.php");
 							$resul.=" combasi like '%$asignatura:%' ";
 						}
 					}
+					elseif(strlen($asig_div)>0){
+							$resul.= $asig_div;
+						}
 					else{
 						$resul.=" combasi like '%$asignatura:%' ";
 					}
