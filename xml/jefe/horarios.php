@@ -249,7 +249,7 @@ if ($nohay_profes==1) {
 
 // Horw para Faltas
 mysqli_query($db_con, "drop table horw_faltas");
-mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '386')");
+mysqli_query($db_con, "create table horw_faltas select * from horw where a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '386' and idactividad not like '21')");
 
 // Cargos varios
 $carg = mysqli_query($db_con, "select distinct prof from horw");
