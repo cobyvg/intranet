@@ -15,7 +15,7 @@ if (isset($_POST['enviar'])) {
 	else{
 		$sustituido = $_POST['sustituido'];
 		$sustituto = $_POST['sustituto'];
-		$ok = 0;
+		$ok = 1;
 		
 		// ACTUALIZACION EN HORARIOS
 		$result1 = mysqli_query($db_con, "UPDATE horw SET prof='$sustituto' WHERE prof='$sustituido'");
@@ -59,7 +59,7 @@ if (isset($_POST['enviar'])) {
 			$ok = 0;
 		}
 		
-		if($ok) $msg_success = "Los datos han sido modificados correctamente.";
+		if($ok==1) $msg_success = "Los datos han sido modificados correctamente.";
 		
 	}
 

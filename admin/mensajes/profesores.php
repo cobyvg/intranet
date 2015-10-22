@@ -124,7 +124,7 @@ if(isset($_POST['submit1'])) {
 				
 			if($claustro == '1')
 				{
-				$cl0 = mysqli_query($db_con, "select distinct idea from departamentos");
+				$cl0 = mysqli_query($db_con, "select distinct idea from departamentos where departamento not like 'Administracion' and departamento not like 'Admin' and departamento not like 'Conserjeria'");
 				while($cl1 = mysqli_fetch_array($cl0)){
 				$rep0 = mysqli_query($db_con, "select * from mens_profes where id_texto = '$id' and profesor = '$cl1[0]'");
 				$num0 = mysqli_fetch_row($rep0);

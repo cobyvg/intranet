@@ -228,12 +228,18 @@ mysqli_query($db_con, "update horw set a_asig = 'GUBIB' where c_asig = '26'");
 
 // Recorremos la tabla Profesores bajada de Séneca
 if ($nohay_profes==1) {
+        mysqli_query($db_con,"drop table profesores_seg");
+        mysqli_query($db_con,"create table profesores_seg select * from profesores");
 	mysqli_query($db_con,"truncate table profesores");
-	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where a_grupo in (select nomunidad from unidades) and c_asig not like '2' order by prof");
+	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where (a_grupo in (select nomunidad from unidades) or a_grupo in (select distinct a_grupo from horw where c_asig = '135785' or c_asig = '25226')) and c_asig not like '2' order by prof");
 	while ($prf =mysqli_fetch_array($pro)) {
 		$materia = $prf[0];
 		$grupo = $prf[1];
 		$profesor = $prf[2];
+		$tr_g = explode("-",$grupo);
+		if(strlen($tr_g[1])>1){
+		$grupo = substr($grupo,0,-1);
+		}
 		$niv =mysqli_query($db_con,"select distinct curso from alma where unidad = '$grupo'");
 		$nive =mysqli_fetch_array($niv);
 		$nivel = $nive[0];

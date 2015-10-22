@@ -210,6 +210,31 @@ if (isset($_POST['actualizar'])) {
 	
 	mysqli_query($db_con, "UPDATE horw_faltas SET dia='$dia', hora='$hora', a_asig='$abrevasignatura', asig='$nomasignatura', c_asig='$codasignatura', a_aula='$coddependencia', n_aula='$nomdependencia', a_grupo='$unidad' WHERE dia='".$_GET['dia']."' AND hora='".$_GET['hora']."' AND a_grupo='".$_GET['unidad']."' AND prof='$profesor' LIMIT 1");
 	
+	// Actualizamos tabla Profesores
+	
+	mysqli_query($db_con,"delete from profesores where profesor = '$profesor'");
+	
+	$pro =mysqli_query($db_con,"select distinct asig, a_grupo, prof from horw where prof = '$profesor' and (a_grupo in (select nomunidad from unidades) or a_grupo in (select distinct a_grupo from horw where c_asig = '135785' or c_asig = '25226')) and c_asig not like '2' order by prof");
+	while ($prf =mysqli_fetch_array($pro)) {
+		$materia = $prf[0];
+		$grupo = $prf[1];
+		$profesor = $prf[2];
+		$tr_g = explode("-",$grupo);
+		if(strlen($tr_g[1])>1){
+		$grupo = substr($grupo,0,-1);
+		}
+		$niv =mysqli_query($db_con,"select distinct curso from alma where unidad = '$grupo'");
+		$nive =mysqli_fetch_array($niv);
+		$nivel = $nive[0];
+
+		mysqli_query($db_con,"INSERT INTO  profesores (
+`nivel` ,
+`materia` ,
+`grupo` ,
+`profesor`
+) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
+	}
+	
 	if (! $result) {
 		$msg_error = "Error al modificar el horario. Error: ".mysqli_error($db_con);
 	}

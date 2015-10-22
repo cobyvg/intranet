@@ -17,7 +17,7 @@ include("menu.php");
 		<div class="row">
 		
 			<!-- COLUMNA CENTRAL -->
-			<div class="col-sm-12">
+			<div class="col-sm-8 col-sm-offset-2">
 				
 				<div class="table-responsive">	
 					<table class="table table-bordered table-striped">
@@ -26,20 +26,16 @@ include("menu.php");
 								<th>Profesor</th>
 								<th>Usuario</th>
 								<th>Contraseña</th>
-								<th>&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = ''; else $sql_where = 'WHERE nombre=\''.$_SESSION['profi'].'\' LIMIT 1'; ?>
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT usuario, nombre FROM usuarioprofesor $sql_where"); ?>
+							<?php if (stristr($_SESSION['cargo'],'1') == TRUE) $sql_where = ''; else $sql_where = 'and  idea=\''.$_SESSION['ide'].'\' LIMIT 1'; ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT idea, profesor, dni FROM c_profes where idea in (select idea from departamentos) $sql_where"); ?>
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
-								<td><?php echo $row['nombre']; ?></td>
-								<td><?php echo $row['usuario']; ?></td>
-								<td><?php echo $row['usuario']; ?></td>
-								<td>
-									<a href="http://c0/gesuser/" target="_blank"><span class="fa fa-key fa-fw fa-lg" data-bs="tooltip" title="Cambiar contraseña"></span></a>
-								</td>
+								<td><?php echo mb_strtoupper($row['profesor']); ?></td>
+								<td><?php echo $row['idea']; ?></td>
+								<td><?php echo $row['dni']; ?></td>
 							</tr>
 							<?php endwhile; ?>
 							<?php mysqli_free_result($result); ?>

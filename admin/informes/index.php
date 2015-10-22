@@ -78,10 +78,12 @@ if (!$claveal) {
 		<?php $row2 = mysqli_fetch_array($result); ?>
 		<?php mysqli_free_result($result); ?>
 		
-		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente, tutor from alma, FTUTORES where alma.unidad=FTUTORES.unidad and alma.claveal= '$claveal' order BY alma.apellidos"); ?>
+		<?php $result = mysqli_query($db_con, "select distinct alma.claveal, alma.DNI, alma.fecha, alma.domicilio, alma.telefono, alma.padre, alma.matriculas, telefonourgencia, paisnacimiento, correo, nacionalidad, edad, curso, alma.unidad, numeroexpediente from alma where alma.claveal= '$claveal' order BY alma.apellidos"); ?>
 		
 		<?php if ($row = mysqli_fetch_array($result)): 
-		$tr_tutor = explode(", ",$row['tutor']);
+		$tut = mysqli_query($db_con,"SELECT tutor FROM FTUTORES WHERE unidad = '".$row['unidad']."'");
+		$tuto = mysqli_fetch_array($tut);
+		$tr_tutor = explode(", ",$tuto['tutor']);
 		$tutor = $tr_tutor[1]." ".$tr_tutor[0];
 		?>
 		<!-- SCAFFOLDING -->
