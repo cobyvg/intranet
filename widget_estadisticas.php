@@ -7,7 +7,7 @@
 	<div class="row">
 	
 		<div class="col-sm-3">
-			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, Fechoria.id, Fechoria.asunto, Fechoria.informa FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE Fechoria.fecha = CURDATE() ORDER BY Fechoria.fecha DESC"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, Fechoria.id, Fechoria.asunto, Fechoria.informa FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE Fechoria.fecha = '".date('Y-m-d')."' ORDER BY Fechoria.fecha DESC"); ?>
 			<h4 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#fechoria">
 					<span class="lead"><?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?></span><br>
@@ -61,9 +61,11 @@
 		
 		
 		<div class="col-sm-3">
-			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND inicio <= CURDATE() AND fin >= CURDATE()"); ?>
+			<?php $cadena = "SELECT alma.apellidos, alma.nombre, alma.claveal, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND inicio <= '".date('Y-m-d')."' AND fin >= '".date('Y-m-d')."'"; ?>
+			<?php $result = mysqli_query($db_con, $cadena); ?>
+			
 			<?php   $ayer = date('Y') . "-" . date('m') . "-" . (date('d') - 1);?>
-			<?php $result1 = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND fin = '$ayer'"); ?>
+			<?php $result1 = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND fin = '$ayer'"); ?>
 			
 			<h4 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#expulsiones">
@@ -157,7 +159,7 @@
 		
 		
 		<div class="col-sm-3">
-			<?php $result = mysqli_query($db_con, "SELECT id, apellidos, nombre, unidad, tutor FROM infotut_alumno WHERE F_ENTREV = CURDATE()"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT id, apellidos, nombre, unidad, tutor FROM infotut_alumno WHERE F_ENTREV = '".date('Y-m-d')."'"); ?>
 			
 			<h4 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#visitas">
@@ -212,7 +214,7 @@
 		
 		
 		<div class="col-sm-3">
-			<?php mysqli_query($db_con, "CREATE TABLE tmp_accesos SELECT DISTINCT profesor FROM reg_intranet WHERE fecha LIKE CONCAT(CURDATE(),'%') AND profesor IN (SELECT idea FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria') ORDER BY profesor ASC"); ?>
+			<?php mysqli_query($db_con, "CREATE TABLE tmp_accesos SELECT DISTINCT profesor FROM reg_intranet WHERE fecha LIKE CONCAT('".date('Y-m-d')."','%') AND profesor IN (SELECT idea FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria') ORDER BY profesor ASC"); ?>
 			
 			<?php $result = mysqli_query($db_con, "SELECT nombre, departamento FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria' AND idea NOT IN (SELECT profesor FROM tmp_accesos) ORDER BY nombre ASC"); ?>
 			
