@@ -1,7 +1,7 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 echo "<div class='alert alert-warning fade in' role='alert'><p class='lead'><i class='fa fa-bell'> </i> Informes de Tutor&iacute;a activos por visita de padres</p><br />";
-$resultcurs = mysqli_query($db_con, $SQLcurso);
+$resultcurs = mysqli_query($db_con, $SQLcurso3);
 while($rowcurs = mysqli_fetch_array($resultcurs))
 {
 	$curso = $rowcurs[0];

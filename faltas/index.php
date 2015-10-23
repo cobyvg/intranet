@@ -85,7 +85,7 @@ if ($config['mod_asistencia']) {
 <div class="container">
 
 <div class="page-header">
-<h2 style="display:inline;">Faltas de Asistencia <small> Poner faltas</small></h2>
+<h2 style="display: inline;">Faltas de Asistencia <small> Poner faltas</small></h2>
 </div>
 
 <div class="row"><?php
@@ -155,7 +155,6 @@ if($mensaje){
 
 <div class="col-md-7">
 <div align="left"><?php
-//$hora1 = "select distinct c_asig, a_grupo, asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
 
 if ($ndia>5) {
 	?>
@@ -178,6 +177,7 @@ Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo
 while($hora2 = mysqli_fetch_row($hora0))
 {
 	$c_a="";
+	$c_b="";
 	$codasi= $hora2[0];
 	if (empty($hora2[1])) {
 		$curso="";
@@ -207,20 +207,17 @@ while($hora2 = mysqli_fetch_row($hora0))
 <form action="poner_falta.php<?php echo $extra;?>" method="post"
 	name="Cursos"><?php
 
-	// Codigo del profe
-	//echo "$hora_dia -- $ndia -- $hoy -- $codasi -- $pr -- $clave<br>";
-	
 	$res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and FALUMNOS.unidad = '$curso' and ( ";
-	//$n_curs10 = "select distinct c_asig from horw where no_prof = '30' and dia = '1' and hora = '1'";
 	$n_curs10 = "select distinct c_asig from horw_faltas where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
 	$n_curs11 = mysqli_query($db_con, $n_curs10);
 	$nm = mysqli_num_rows($n_curs11);
 	if (strlen($c_a)>0) {}else{
-	while ($nm_asig0=mysqli_fetch_array($n_curs11)){
-		$c_a.="combasi like '%".$nm_asig0[0]."%' or ";
+		while ($nm_asig0=mysqli_fetch_array($n_curs11)){
+			$c_a.="combasi like '%".$nm_asig0[0]."%' or ";
+			$c_b.="asignatura = '".$nm_asig0[0]."' or ";
+		}
 	}
-	}
-
+	$cod_asig = substr($c_b,0,strlen($c_b)-3);
 	$res.=substr($c_a,0,strlen($c_a)-3);
 	$res.=") order by NC";
 	//echo $res;
@@ -261,89 +258,116 @@ while($hora2 = mysqli_fetch_row($hora0))
 			$chkJ="";
 			$chkR="";
 			$combasi = $row[5];
-			if ($row[5] == "") {}
-			else{
-				echo "<tr>";
-				$foto = '../xml/fotos/'.$row[0].'.jpg';
-				if (file_exists($foto)) {
-					echo '<td class="text-center" width="70"><img src="'.$foto.'" width="50" height="60" alt=""></td>';
-				}
-				else {
-					echo '<td><span class="fa fa-user fa-fw fa-3x"></span></td>';
-				}
 
-				echo "<td style='vertical-align:middle'>
-				<label for='falta_".$row[1]."_".$curso."' style='display:block;'>
-					<span class='label label-info'>$row[1]</span>
-					&nbsp;&nbsp;$row[2], $row[3]
-				";
-				if ($row[4] == "2" or $row[4] == "3") {echo " (R)";}
-			}
-			echo "<span class='pull-right' style='margin-right:5px'>";
-
-
-			$fecha_hoy = date('Y')."-".date('m')."-".date('d');
-
-			// Tiene actividad extraescolar en la fecha
-			$hay_actividad="";
-			$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$row[0]' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))");
-			if (mysqli_num_rows($extraescolar) > '0') {
-				while($actividad = mysqli_fetch_array($extraescolar)){
-					$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from tramos where tramo = '$hora_dia') and horafin>= (select hora_fin from tramos where tramo = '$hora_dia')");
-					if (mysqli_num_rows($tr)>0) {
-						$hay_actividad = 1;
+			$nc_grupo = $row['NC'];
+			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$curso' and $cod_asig");
+			$hay_grupo = mysqli_num_rows($sel);
+			if ($hay_grupo>0) {
+				$sel_al = mysqli_fetch_array($sel);
+				$al_sel = explode(",",$sel_al[0]);
+				$hay_al="";
+				foreach($al_sel as $num_al){
+					if ($num_al == $nc_grupo) {
+						$hay_al = "1";;
 					}
 				}
 			}
 
-			$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
-			$falta_dia = mysqli_fetch_array($falta_d);
-			if ($falta_dia[0] == "F") {
-				$chkF = "checked";
-			}
-			elseif ($falta_dia[0] == "J"){
-				$chkJ = 'checked';
-				$chkT = 'data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
-			}
-			elseif ($falta_dia[0] == "R"){
-				$chkR = 'checked';
-				$chkT = 'data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
-			}
-			elseif ($hay_actividad==1){
-				$chkF = 'id="disable" disabled';
-				$chkJ = 'id="disable" disabled';
-				$chkR = 'id="disable" disabled';
-				$chkT = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
-			}
-			?> 
+			if ($hay_al=="1" or $hay_grupo<1) {
+				if ($row[5] == "") {}
+				else{
+					echo "<tr>";
+					$foto = '../xml/fotos/'.$row[0].'.jpg';
+					if (file_exists($foto)) {
+						echo '<td class="text-center" width="70"><img src="'.$foto.'" width="50" height="60" alt=""></td>';
+					}
+					else {
+						echo '<td><span class="fa fa-user fa-fw fa-3x"></span></td>';
+					}
 
-			<div style="width:120px; display:inline;" <?php echo $chkT; ?>>
-			<span class="text-danger">F</span> <input type="radio" id="falta_<?php echo $row[1]."_".$curso;?>"	name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkF; ?> value="F" onClick="uncheckRadio(this)" /> &nbsp; 
-			<span class="text-success">J</span> <input type="radio" id="falta_<?php echo $row[1]."_".$curso;?>" name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkJ; ?> value="J" onClick="uncheckRadio(this)"/> &nbsp; 
-			<span class="text-warning">R</span> <input type="radio" id="falta_<?php echo $row[1]."_".$curso;?>" name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkR; ?> value="R" onClick="uncheckRadio(this)" /></div>
+					echo "<td style='vertical-align:middle'>
+				<label for='falta_".$row[1]."_".$curso."' style='display:block;'>
+					<span class='label label-info'>$row[1]</span>
+					&nbsp;&nbsp;$row[2], $row[3]
+				";
+					if ($row[4] == "2" or $row[4] == "3") {echo " (R)";}
+				}
+				echo "<span class='pull-right' style='margin-right:5px'>";
 
-			<?php
-			echo "</span></label></td>";
-			?>
+
+				$fecha_hoy = date('Y')."-".date('m')."-".date('d');
+
+				// Tiene actividad extraescolar en la fecha
+				$hay_actividad="";
+				$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$row[0]' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))");
+				if (mysqli_num_rows($extraescolar) > '0') {
+					while($actividad = mysqli_fetch_array($extraescolar)){
+						$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from tramos where tramo = '$hora_dia') and horafin>= (select hora_fin from tramos where tramo = '$hora_dia')");
+						if (mysqli_num_rows($tr)>0) {
+							$hay_actividad = 1;
+						}
+					}
+				}
+
+				$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
+				$falta_dia = mysqli_fetch_array($falta_d);
+				if ($falta_dia[0] == "F") {
+					$chkF = "checked";
+				}
+				elseif ($falta_dia[0] == "J"){
+					$chkJ = 'checked';
+					$chkT = 'data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
+				}
+				elseif ($falta_dia[0] == "R"){
+					$chkR = 'checked';
+					$chkT = 'data-bs="tooltip" data-placement="right" title="Justificada por el Tutor"';
+				}
+				elseif ($hay_actividad==1){
+					$chkF = 'id="disable" disabled';
+					$chkJ = 'id="disable" disabled';
+					$chkR = 'id="disable" disabled';
+					$chkT = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
+				}
+				?>
+
+<div style="width: 120px; display: inline;" <?php echo $chkT; ?>><span
+	class="text-danger">F</span> <input type="radio"
+	id="falta_<?php echo $row[1]."_".$curso;?>"
+	name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkF; ?>
+	value="F" onClick="uncheckRadio(this)" /> &nbsp; <span
+	class="text-success">J</span> <input type="radio"
+	id="falta_<?php echo $row[1]."_".$curso;?>"
+	name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkJ; ?>
+	value="J" onClick="uncheckRadio(this)" /> &nbsp; <span
+	class="text-warning">R</span> <input type="radio"
+	id="falta_<?php echo $row[1]."_".$curso;?>"
+	name="falta_<?php echo $row[1]."_".$curso;?>" <?php echo $chkR; ?>
+	value="R" onClick="uncheckRadio(this)" /></div>
+
+				<?php
+				echo "</span></label></td>";
+				?>
 <td><?php 
 $faltaT_F = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='F'");
 
 $faltaT_J = mysqli_query($db_con,"select falta from FALTAS where profesor = (select distinct no_prof from horw where prof ='$pr') and FALTAS.codasi='$codasi' and claveal='$row[0]' and falta='J'");
 $f_faltaT = mysqli_num_rows($faltaT_F);
 $f_justiT = mysqli_num_rows($faltaT_J);
-?> <div class="label label-danger" data-bs='tooltip'
+?>
+<div class="label label-danger" data-bs='tooltip'
 	title='Faltas de Asistencia en esta Asignatura'><?php if ($f_faltaT>0) {echo "".$f_faltaT."";}?></div>
 <?php
 if ($f_faltaT>0) {echo "<br><br>";}
-?> <div class="label label-success" data-bs='tooltip'
+?>
+<div class="label label-success" data-bs='tooltip'
 	title='Faltas Justificadas'><?php if ($f_faltaT>0) {echo "".$f_justiT."";}?></div>
 </td>
 <?php
 echo "</tr>";
+			}
 		}
 	}
-	?>
-	<?php
+	?> <?php
 	echo '</table>';
 }
 echo '<input name="nprofe" type="hidden" value="';
@@ -399,7 +423,7 @@ El módulo de Faltas de Asistencia debe ser activado en la Configuración general 
 include("../pie.php");
 ?>
 
-<?php 
+<?php
 $exp_inicio_curso = explode('-', $config['curso_inicio']);
 $inicio_curso = $exp_inicio_curso[2].'/'.$exp_inicio_curso[1].'/'.$exp_inicio_curso[0];
 
@@ -411,7 +435,7 @@ $festivos = '';
 while ($row = mysqli_fetch_array($result)) {
 	$exp_festivo = explode('-', $row['fecha']);
 	$dia_festivo = $exp_festivo[2].'/'.$exp_festivo[1].'/'.$exp_festivo[0];
-	
+
 	$festivos .= '"'.$dia_festivo.'", ';
 }
 

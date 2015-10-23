@@ -93,9 +93,15 @@ foreach ($_POST['unidad'] as $unida){
 $tr_c = explode(" -> ",$unida);
 $tr_unidad0 = $tr_c[0];
 $tr_unidad = str_replace(" DIV","",$tr_unidad0);
+$cod_asig = $tr_c[2];
 $tr_codasi = explode("-",$tr_c[2]);
 $n_uni+=1;
 $cuenta = count($_POST['unidad']);
+$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '".$_SESSION['profi']."' and curso = '$tr_unidad0' and asignatura = '$cod_asig'");
+$hay_sel = mysqli_num_rows($sel);
+$hay_grupo = mysqli_fetch_array($sel);
+$hay_alumno = explode(",",$hay_grupo[0]);
+
 if($_POST['asignaturas']==""){
 	
 $sqldatos="SELECT concat(FALUMNOS.apellidos,', ',FALUMNOS.nombre), nc, matriculas, FALUMNOS.claveal, curso FROM FALUMNOS, alma WHERE alma.claveal=FALUMNOS.claveal";
@@ -115,6 +121,9 @@ $sqldatos.=" $text and alma.unidad='".$tr_unidad."' ORDER BY nc, FALUMNOS.apelli
 $lista= mysqli_query($db_con, $sqldatos );
 $num=0;
 unset($data);
+
+		
+
 while($datatmp = mysqli_fetch_array($lista)) { 
 	if ($datatmp[2]>1) {
 		$datatmp[0]=$datatmp[0]." (R)";
@@ -127,11 +136,13 @@ while($datatmp = mysqli_fetch_array($lista)) {
 	$datatmp[0]=$datatmp[0]." (Ex)";
 	}
 	}
+	if ($hay_sel==0 or in_array($datatmp[1],$hay_alumno) or $_POST['todos']=="1") {
 	$data[] = array(
 				'num'=>$datatmp[1],
 				'nombre'=>$datatmp[0],
 				);
 }
+}	
 $titles = array(
 				'num'=>'<b>Nº</b>',
 				'nombre'=>'<b>Alumno</b>',
@@ -157,9 +168,10 @@ $options = array(
 			);
 $txttit = "Lista del Grupo $tr_unidad0 $text2\n";
 $txttit.= $config['centro_denominacion'].". Curso ".$config['curso_actual'].".\n";
-	
 $pdf->ezText($txttit, 13,$options_center);
+
 $pdf->ezTable($data, $titles, '', $options);
+	
 $pdf->ezText("\n\n\n", 10);
 $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10,$options_right);
 //echo "Cuenta = $cuenta; grupos = $n_uni;<br>";
@@ -218,11 +230,15 @@ while($datatmp = mysqli_fetch_array($lista)) {
 		}
 //	echo $mat."<br>";		
 	$ixx = $datatmp[2];
+	
+if ($hay_sel==0 or in_array($datatmp[2],$hay_alumno) or $_POST['todos']=="1") {
 	$data[] = array(
 				'num'=>$ixx,
 				'nombre'=>$datatmp[0],
 				'asig'=>$mat
 				);
+}
+	
 }
 $titles = array(
 				'num'=>'<b>Nº</b>',

@@ -62,12 +62,17 @@ if (isset($_GET['clave'])) {
 elseif (isset($_POST['clave'])) {
 	$clave = $_POST['clave'];
 }
+
 if (isset($_GET['seleccionar'])) {
 	$seleccionar = $_GET['seleccionar'];
 }
 elseif (isset($_POST['seleccionar'])) {
 	$seleccionar = $_POST['seleccionar'];
 }
+else{
+	$seleccionar = "";
+}
+
 if (isset($_GET['foto'])) {
 	$foto = $_GET['foto'];
 }
@@ -140,15 +145,6 @@ $col0 = mysqli_query($db_con, $col);
 $cols = mysqli_num_rows($col0);
 $sin_coma=$curso;
 
-//echo "<h3 style='margin-bottom:20px'><span class='label label-info' style='padding:8px'>$curso_sin -- $nom_asig </span></h3>";
-
-
-if(isset($_GET['seleccionar'])){
-	$seleccionar=$_GET['seleccionar'];
-}
-else{
-	$seleccionar = "";
-}
 }
 ?> <?php
 include("cuaderno/menu_cuaderno.php");

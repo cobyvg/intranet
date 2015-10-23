@@ -5,15 +5,15 @@
 if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 
 	function getLatestVersion($repository, $default = INTRANET_VERSION) {
-		
+
 		$context = array(
 		  'http' => array(
 		  	'header' => "User-Agent: ".$_SERVER['HTTP_USER_AGENT']."\r\n"
-		  )
-		);
-		
-		$file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false, stream_context_create($context)));
-		return sprintf("%s", $file ? reset($file)->name : $default);
+		  	)
+		  	);
+
+		  	$file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/tags", false, stream_context_create($context)));
+		  	return sprintf("%s", $file ? reset($file)->name : $default);
 	}
 
 	$ultima_version = ltrim(getLatestVersion('IESMonterroso/intranet'), 'v');
@@ -21,14 +21,16 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin']) {
 ?>
 
 <?php if(isset($_SESSION['user_admin']) && version_compare($ultima_version, INTRANET_VERSION, '>')): ?>
-<div class="alert alert-info" >
-	<h4>Nueva actualización de la Intranet</h4>
-	<div class="row">
-		<div class="col-sm-8">Disponible para su descarga la versión <?php echo $ultima_version; ?> de la aplicación.</div>
-		<div class="col-sm-4">
-			<a href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>" target="_blank" class="btn btn-primary pull-right"><span class="fa fa-download"></span> Descargar</a>
-		</div>
-	</div>
+<div class="alert alert-info">
+<h4>Nueva actualización de la Intranet</h4>
+<div class="row">
+<div class="col-sm-8">Disponible para su descarga la versión <?php echo $ultima_version; ?>
+de la aplicación.</div>
+<div class="col-sm-4"><a
+	href="https://github.com/IESMonterroso/intranet/releases/tag/v<?php echo $ultima_version; ?>"
+	target="_blank" class="btn btn-primary pull-right"><span
+	class="fa fa-download"></span> Descargar</a></div>
+</div>
 </div>
 <?php endif; ?>
 
@@ -55,9 +57,10 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 	$a_asig0 = mysqli_query($db_con, "select distinct codigo from asignaturas where curso = '$exp[2]' and nombre = '$materia' and abrev not like '%\_%'");
 	$cod_asig = mysqli_fetch_array($a_asig0);
 	$hoy = date('Y') . "-" . date('m') . "-" . date('d');
-	$expul= "SELECT DISTINCT alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, tareas_profesor.id
-FROM tareas_alumnos, tareas_profesor, alma
-WHERE alma.claveal = tareas_alumnos.claveal
+	$expul= "SELECT DISTINCT alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, tareas_profesor.id, nc
+FROM tareas_alumnos, tareas_profesor, alma, FALUMNOS
+WHERE alma.claveal = tareas_alumnos.claveal 
+and FALUMNOS.claveal = alma.claveal
 AND tareas_alumnos.id = tareas_profesor.id_alumno
 AND (date(tareas_alumnos.fin) =  date_sub('$hoy', interval 1 day) 
 OR date(tareas_alumnos.fin) =  date_sub('$hoy', interval 2 day) 
@@ -72,18 +75,36 @@ AND alma.combasi LIKE  '%$cod_asig[0]%'
 and tareas_profesor.profesor='$pr' 
 and confirmado is null
 ORDER BY tareas_alumnos.fecha";
+	//echo $expul;
 	$result = mysqli_query($db_con, $expul);
 	while ($row = mysqli_fetch_array($result))
 	{
-		if (mysqli_num_rows($result) == '0') {
+
+		$nc_grupo = $row['nc'];
+		$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad' and asignatura = '$cod_asig[0]'");
+		$hay_grupo = mysqli_num_rows($sel);
+		if ($hay_grupo>0) {
+			$sel_al = mysqli_fetch_array($sel);
+			$al_sel = explode(",",$sel_al[0]);
+			$hay_al="";
+			foreach($al_sel as $num_al){
+				if ($num_al == $nc_grupo) {
+					$hay_al = "1";;
+				}
+			}
 		}
-		else{
-			$count_vuelven = 1;
-			echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que se reincorporan tras su Expulsión<br /></h4>
+
+		if ($hay_al=="1" or $hay_grupo<1) {
+			if (mysqli_num_rows($result) == '0') {
+			}
+			else{
+				$count_vuelven = 1;
+				echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que se reincorporan tras su Expulsión<br /></h4>
 	<h5>$materia</h5>";
-			echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad."</p>";
-			echo "<p>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary btn-sm'>SI</button></a>&nbsp;&nbsp;<a href='index.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger btn-sm'>NO</button></a></p>";
-			echo "</div>";
+				echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad."</p>";
+				echo "<p>¿Ha realizado el alumno las tareas que le has encomendado?&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.php?tareas_expulsion=Si&id_tareas=$row[4]'><button class='btn btn-primary btn-sm'>SI</button></a>&nbsp;&nbsp;<a href='index.php?tareas_expulsion=No&id_tareas=$row[4]'><button class='btn btn-danger btn-sm'>NO</button></a></p>";
+				echo "</div>";
+			}
 		}
 	}
 }
@@ -102,18 +123,35 @@ while ($exp = mysqli_fetch_array($resultcurso)) {
 	$hoy = date('Y') . "-" . date('m') . "-" . date('d');
 	$ayer0 = time() + (1 * 24 * 60 * 60);
 	$ayer = date('Y-m-d', $ayer0);
-	$result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria from Fechoria, alma where alma.claveal = Fechoria.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' and combasi like '%$cod_mat%' order by Fechoria.fecha ");
+	$result = mysqli_query($db_con, "select distinct alma.apellidos, alma.nombre, alma.unidad, alma.matriculas, Fechoria.expulsion, inicio, fin, id, Fechoria.claveal, tutoria, nc from Fechoria, alma, FALUMNOS where alma.claveal = Fechoria.claveal and FALUMNOS.claveal = alma.claveal and expulsion > '0' and Fechoria.inicio = '$ayer' and alma.unidad = '$unidad' and combasi like '%$cod_mat%' order by Fechoria.fecha");
 	if (mysqli_num_rows($result) > '0') {
 		$count_van = 1;
 		while ($row = mysqli_fetch_array($result))
 		{
-			echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que mañana abandonan el Centro por Expulsión </h4><br>";
-			echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad." (Expulsado $row[4] días) </p>";
-			echo "<h5>$materia</h5>
+
+			$nc_grupo = $row['nc'];
+			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad' and asignatura = '$cod_mat'");
+			$hay_grupo = mysqli_num_rows($sel);
+			if ($hay_grupo>0) {
+				$sel_al = mysqli_fetch_array($sel);
+				$al_sel = explode(",",$sel_al[0]);
+				$hay_al="";
+				foreach($al_sel as $num_al){
+					if ($num_al == $nc_grupo) {
+						$hay_al = "1";;
+					}
+				}
+			}
+			if ($hay_al=="1" or $hay_grupo<1) {
+				echo "<div class='alert alert-info'><h4><i class='fa fa-warning'> </i> Alumnos que mañana abandonan el Centro por Expulsión </h4><br>";
+				echo "<p>".$row[0].", ".$row[1]." ==> ".$unidad." (Expulsado $row[4] días) </p>";
+				echo "<h5>$materia</h5>
 	</div>";
+			}
 		}
 	}
 }
+
 
 // Informes de Tareas
 $count0=0;
@@ -131,22 +169,41 @@ while($rowcurso = mysqli_fetch_array($resultcurso))
 	$codasi = $asigna2[0];
 	$hoy = date('Y-m-d');
 	$query = "SELECT tareas_alumnos.ID, tareas_alumnos.CLAVEAL, tareas_alumnos.APELLIDOS, tareas_alumnos.NOMBRE, tareas_alumnos.unidad, tareas_alumnos.FIN,
-	tareas_alumnos.FECHA, tareas_alumnos.DURACION FROM tareas_alumnos, alma WHERE tareas_alumnos.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. unidad = '$unidad_t' and combasi like '%$codasi:%' ORDER BY tareas_alumnos.FECHA asc";
+	tareas_alumnos.FECHA, tareas_alumnos.DURACION, nc FROM tareas_alumnos, alma, FALUMNOS WHERE tareas_alumnos.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and date(tareas_alumnos.FECHA)>='$hoy' and tareas_alumnos. unidad = '$unidad_t' and combasi like '%$codasi:%' ORDER BY tareas_alumnos.FECHA asc";
 	$result = mysqli_query($db_con, $query);
 	if (mysqli_num_rows($result) > 0)
 	{
 		while($row = mysqli_fetch_array($result))
 		{
-			$si0 = mysqli_query($db_con, "select * from tareas_profesor where id_alumno = '$row[0]'  and asignatura = '$asignatura'");
-			if (mysqli_num_rows($si0) > 0)
-			{ }
-			else
-			{
-				$count0 = $count0 + 1;
+
+			$nc_grupo = $row['nc'];
+			$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad_t' and asignatura = '$codasi'");
+			$hay_grupo = mysqli_num_rows($sel);
+			if ($hay_grupo>0) {
+				$sel_al = mysqli_fetch_array($sel);
+				$al_sel = explode(",",$sel_al[0]);
+				$hay_al="";
+				foreach($al_sel as $num_al){
+					if ($num_al == $nc_grupo) {
+						$hay_al = "1";;
+					}
+				}
+			}
+
+			if ($hay_al=="1" or $hay_grupo<1) {
+				$si0 = mysqli_query($db_con, "select * from tareas_profesor where id_alumno = '$row[0]'  and asignatura = '$asignatura'");
+				if (mysqli_num_rows($si0) > 0)
+				{ }
+				else
+				{
+					$count0 = $count0 + 1;
+				}
 			}
 		}
 	}
 }
+
+
 // Informes de tutoria
 $count03=0;
 $SQLcurso3 = "select distinct grupo, materia, nivel from profesores where profesor = '$pr' and materia not like '%Tutor%'";
@@ -166,7 +223,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 		$hoy = date('Y-m-d');
 		//echo $hoy;
 
-		$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and
+		$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, nc FROM infotut_alumno, alma, FALUMNOS WHERE infotut_alumno.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and
 	 date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and combasi like '%$c_asig3:%' ORDER BY F_ENTREV asc";
 	 //echo $query3."<br>";
 		$result3 = mysqli_query($db_con, $query3);
@@ -175,28 +232,46 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 			while($row3 = mysqli_fetch_array($result3))
 			{
 
-				$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row3[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto')) and abrev like '%\_%'";
-				//echo $asigna_pend;
-				$query_pend = mysqli_query($db_con,$asigna_pend);
-				if (mysqli_num_rows($query_pend)>0) {
-					while ($res_pend = mysqli_fetch_array($query_pend)) {
-						$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
-
-						if (mysqli_num_rows($si_pend) > 0)
-						{ }
-						else
-						{
-							$count03 = $count03 + 1;
+				$nc_grupo = $row3['nc'];
+				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad3' and asignatura = '$c_asig3'");
+				$hay_grupo = mysqli_num_rows($sel);
+				if ($hay_grupo>0) {
+					$sel_al = mysqli_fetch_array($sel);
+					$al_sel = explode(",",$sel_al[0]);
+					$hay_al="";
+					foreach($al_sel as $num_al){
+						if ($num_al == $nc_grupo) {
+							$hay_al = "1";;
 						}
 					}
 				}
 
-				$si03 = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$asignatura3'");
-				if (mysqli_num_rows($si03) > 0)
-				{ }
-				else
-				{
-					$count03 = $count03 + 1;
+
+				if ($hay_al=="1" or $hay_grupo<1) {
+
+					$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row3[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto')) and abrev like '%\_%'";
+					//echo $asigna_pend;
+					$query_pend = mysqli_query($db_con,$asigna_pend);
+					if (mysqli_num_rows($query_pend)>0) {
+						while ($res_pend = mysqli_fetch_array($query_pend)) {
+							$si_pend = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$res_pend[0] ($res_pend[1])'");
+
+							if (mysqli_num_rows($si_pend) > 0)
+							{ }
+							else
+							{
+								$count03 = $count03 + 1;
+							}
+						}
+					}
+
+					$si03 = mysqli_query($db_con, "select * from infotut_profesor where id_alumno = '$row3[0]' and asignatura = '$asignatura3'");
+					if (mysqli_num_rows($si03) > 0)
+					{ }
+					else
+					{
+						$count03 = $count03 + 1;
+					}
 				}
 			}
 		}
@@ -246,6 +321,7 @@ if(($n_curso > 0 and ($count0 > '0' OR $count03 > '0')) OR (($count04 > '0'))){
 
 $mensajes_pendientes = 0;
 
+
 // Comprobar mensajes de Padres
 $n_mensajesp = 0;
 
@@ -278,10 +354,10 @@ if(stristr($carg,'2') == TRUE)
 			$id = $men[5];
 			$origen = $men[4].", ".$men[3];
 			?>
-<li id="mensaje_link_familia_<?php echo $id; ?>">
-	<a class="alert-link" data-toggle="modal" href="#mensajep<?php echo $n_mensajesp;?>"><?php echo $asunto; ?></a>
-	<br />
-	<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+<li id="mensaje_link_familia_<?php echo $id; ?>"><a class="alert-link"
+	data-toggle="modal" href="#mensajep<?php echo $n_mensajesp;?>"><?php echo $asunto; ?></a>
+<br />
+			<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 			<?php
 		}
@@ -301,39 +377,38 @@ if(stristr($carg,'2') == TRUE)
 			$archivo = $men[6];
 			$origen = $men[4].", ".$men[3];
 			?>
-<div id="mensajep<?php echo $n_mensajesp;?>" data-verifica-familia="<?php echo $id; ?>" class="modal modalmensfamilia fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
-				</button>
-				<h4 class="modal-title"><?php echo $asunto;?><br><small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
-			</div>
-		
-			<div class="modal-body">
-				<?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?>
-				<?php if (strlen($archivo) > 5): ?>
-				Archivo adjunto: 
-				<a href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>" target="_blank"><?php echo $archivo; ?></a>
-				<?php endif; ?>
-			</div>
-		
-			<div class="modal-footer">
-					<a href="#" target="_top" data-dismiss="modal" class="btn btn-default">Cerrar</a>
-					<?php
-					$asunto = str_replace('"','',$asunto);
-					$asunto = 'RE: '.$asunto;
-					echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
-					?>
-			</div>
-		</div>
-	</div>
+<div id="mensajep<?php echo $n_mensajesp;?>"
+	data-verifica-familia="<?php echo $id; ?>"
+	class="modal modalmensfamilia fade">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+<h4 class="modal-title"><?php echo $asunto;?><br>
+<small class="muted">Enviado por <?php echo mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1"); ?>
+el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+</div>
+
+<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?>
+			<?php if (strlen($archivo) > 5): ?> Archivo adjunto: <a
+	href="//<?php echo $config['dominio']; ?>/notas/files/<?php echo $archivo; ?>"
+	target="_blank"><?php echo $archivo; ?></a> <?php endif; ?></div>
+
+<div class="modal-footer"><a href="#" target="_top" data-dismiss="modal"
+	class="btn btn-default">Cerrar</a> <?php
+	$asunto = str_replace('"','',$asunto);
+	$asunto = 'RE: '.$asunto;
+	echo '<a href="./admin/mensajes/redactar.php?padres=1&asunto='.$asunto.'&origen='.$origen.'" target="_top" class="btn btn-primary">Responder</a>';
+	?></div>
+</div>
+</div>
 </div>
 	<?php
 		}
 	}
 }
+
 
 // Comprobar mensajes de profesores
 $n_mensajes = 0;
@@ -362,10 +437,10 @@ if(mysqli_num_rows($men2) > 0)
 		$row = mysqli_fetch_array($query);
 		$nombre_profe = $row[0];
 		?>
-<li id="mensaje_link_<?php echo $id; ?>">
-	<a class="alert-link" data-toggle="modal" href="#mensaje<?php echo $n_mensajes;?>"><?php echo $asunto; ?></a>
-	<br>
-	<?php echo "<small>".mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
+<li id="mensaje_link_<?php echo $id; ?>"><a class="alert-link"
+	data-toggle="modal" href="#mensaje<?php echo $n_mensajes;?>"><?php echo $asunto; ?></a>
+<br>
+		<?php echo "<small>".mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
 		<?php
 	}
@@ -385,35 +460,38 @@ if(mysqli_num_rows($men2) > 0)
 		$row = mysqli_fetch_array($query);
 		$nombre_profe = $row[0];
 		?>
-<div id="mensaje<?php echo $n_mensajes;?>" data-verifica="<?php echo $id; ?>" class="modal modalmens fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
-				</button>
-				<h4 class="modal-title"><?php echo $asunto;?><br><small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?> el <?php echo fecha_actual2($fechacompl); ?></small></h4>
-			</div>
-		
-			<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?></div>
-		
-			<div class="modal-footer">
-					<a href="#" target="_top" data-dismiss="modal" class="btn btn-default">Cerrar</a>
-					<?php
-					$asunto = str_replace('"','',$asunto);
-					$asunto = 'RE: '.$asunto;
-					echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
-					?>
-					<button type="button" class="btn btn-info" id="noleido-<?php echo $id; ?>" data-toggle="button" aria-pressed="false" data-dismiss="modal"  autocomplete="off">
-					  Marcar como no leído
-					</button>
-			</div>
-		</div>
-	</div>
+<div id="mensaje<?php echo $n_mensajes;?>"
+	data-verifica="<?php echo $id; ?>" class="modal modalmens fade">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+<h4 class="modal-title"><?php echo $asunto;?><br>
+<small class="muted">Enviado por <?php echo mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1"); ?>
+el <?php echo fecha_actual2($fechacompl); ?></small></h4>
+</div>
+
+<div class="modal-body"><?php echo stripslashes(html_entity_decode($texto, ENT_QUOTES, 'ISO-8859-1')); ?></div>
+
+<div class="modal-footer"><a href="#" target="_top" data-dismiss="modal"
+	class="btn btn-default">Cerrar</a> <?php
+	$asunto = str_replace('"','',$asunto);
+	$asunto = 'RE: '.$asunto;
+	echo '<a href="./admin/mensajes/redactar.php?profes=1&asunto='.$asunto.'&origen='.$orig.'&verifica='.$id.'" target="_top" class="btn btn-primary">Responder</a>';
+	?>
+<button type="button" class="btn btn-info"
+	id="noleido-<?php echo $id; ?>" data-toggle="button"
+	aria-pressed="false" data-dismiss="modal" autocomplete="off">Marcar
+como no leído</button>
+</div>
+</div>
+</div>
 </div>
 	<?php
 	}
 }
+
 
 if ($count_vuelven > 0 or $count_van > 0 or $count0 > 0 or $count03 > 0 or $count04 > 0 or $count_mprofes > 0 or $count_mpadres > 0 or $count_fech > 0) {
 	echo "<br>";
