@@ -3,7 +3,7 @@
 require_once(INTRANET_DIRECTORY.'/lib/trendoo/sendsms.php');
 
 // Control de faltas leves reiteradas
-if($_SERVER['SERVER_NAME'] != 'iesbahiamarbella.es') {
+if($_SERVER['SERVER_NAME'] != 'iesbahiamarbella.es' || $_SERVER['SERVER_NAME'] != 'iesportada.org') {
 	$rep0 = mysqli_query($db_con, "select id, Fechoria.claveal, count(*) as numero from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'Leve' and medida not like 'Sancionada' group by Fechoria.claveal");
 	while ($rep = mysqli_fetch_array($rep0)) {
 		
@@ -170,6 +170,8 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 <div class="alert alert-info">
 	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 	<h4><?php echo $alumno; ?> tiene una amonestación escrita</h4>
+	
+	<?php if($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'): ?>
 	<p>El alumno/a está pendiente de la amonestación escrita del tutor.</p>
 	
 	<br>
@@ -179,15 +181,16 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 		<a class="btn btn-primary btn-sm" href="//<?php echo $config['dominio']; ?>/intranet/admin/fechorias/detfechorias.php?claveal=<?php echo $claveal; ?>&id=<?php echo $id; ?>">Ver detalles</a>
 		<button type="submit" class="btn btn-primary btn-sm" name="amonestacion">Imprimir amonestación escrita</button>
 	</form>
+	<?php else: ?>
+	<p>Jefatura de estudios se encargará de imprimir el comunicado de amonestación escrita para los padres.</p>
+	<?php mysqli_query($db_con, "UPDATE Fechoria SET recibido='1' WHERE Fechoria.id='$id'"); ?>
+	<?php endif; ?>
 </div>
 
 
-<?php }?>
 <?php 
 }
 }
-?>
-<?php
 }
-
+}
 ?>
