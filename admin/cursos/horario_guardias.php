@@ -18,8 +18,21 @@ include("../../menu.php");
 		
 		<!-- TITULO DE LA PAGINA -->
 		<div class="page-header">
-			<h2><?php echo $n_dia; ?> <small>Consulta de Guardias</small></h2>
-		</div>
+<form method="post" action="">
+<h2><?php echo $n_dia; ?> <small>Consulta de Guardias
+<?php $dias = array('Lunes','Martes','Miércoles','Jueves','Viernes'); ?>
+<div class="pull-right"><select
+	class="form-control input-small col-sm-3" id="n_dia" name="n_dia"
+	onChange="submit()">
+	<option value="<?php echo $_POST['n_dia']; ?>"><?php echo $_POST['n_dia']; ?></option>
+<?php for($i = 0; $i < count($dias); $i++): ?>	
+<option value="<?php echo $dias[$i]; ?>"><?php echo $dias[$i]; ?></option>
+<?php endfor; ?>
+</select>
+</div>
+</small></h2>
+</form>
+</div>
 		
 		<!-- SCAFFOLDING -->
 		<div class="row">
