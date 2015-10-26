@@ -42,6 +42,15 @@ if (isset($_POST['enviar'])) {
 		$image->resize(240,320,'crop');
 		$image->save($claveal, '../../xml/fotos/', 'jpg');
 		
+		$file_content = mysqli_real_escape_string($db_con, file_get_contents('../../xml/fotos/'.$claveal.'.jpg'));
+		$file_size = filesize('../../xml/fotos/'.$claveal.'.jpg');
+		
+		// Eliminamos posibles imagenes que hayan en la tabla
+		mysqli_query($db_con, "DELETE FROM fotos WHERE nombre='".$claveal.".jpg'");
+		
+		// Insertamos la foto en la tabla, esto es útil para la página externa
+		mysqli_query($db_con, "INSERT fotos (nombre, datos, fecha, tamaño) VALUES ('".$claveal.".jpg', '$file_content', '".date('Y-m-d H:i:s')."', '".$file_size."')");
+		
 		$msg_success = "La fotografía se ha actualizado.";
 	}
 	
