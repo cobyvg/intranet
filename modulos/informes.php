@@ -16,7 +16,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	$c_asig = $asigna2[0];
 	if(is_numeric($c_asig)){
 		$hoy = date('Y-m-d');
-		$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal FROM infotut_alumno, alma WHERE infotut_alumno.claveal = alma.claveal and  date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
+		$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal, nc FROM infotut_alumno, alma, FALUMNOS WHERE infotut_alumno.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
 		//echo $query;
 		$result = mysqli_query($db_con, $query);
 		$n_inotut="";
@@ -26,6 +26,22 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 			$n_i=1;
 			while($row1 = mysqli_fetch_array($result))
 			{
+				
+				$nc_grupo = $row1['nc'];
+				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$nivel_i' and asignatura = '$c_asig'");
+				$hay_grupo = mysqli_num_rows($sel);
+				if ($hay_grupo>0) {
+					$sel_al = mysqli_fetch_array($sel);
+					$al_sel = explode(",",$sel_al[0]);
+					$hay_al="";
+					foreach($al_sel as $num_al){
+						if ($num_al == $nc_grupo) {
+							$hay_al = "1";;
+						}
+					}
+				}
+
+				if ($hay_al=="1" or $hay_grupo<1) {
 			$num_pend="";
 			$asigna_pend = "select distinct nombre, abrev from pendientes, asignaturas where asignaturas.codigo=pendientes.codigo and claveal = '$row1[4]' and asignaturas.nombre in (select distinct materia from profesores where profesor in (select distinct departamentos.nombre from departamentos where departamento = '$dpto')) and abrev like '%\_%'";
 
@@ -103,6 +119,7 @@ else{
 			}
 		}
 	}
+}
 }
 if ($n_i==1) {
 	echo "<br>";
