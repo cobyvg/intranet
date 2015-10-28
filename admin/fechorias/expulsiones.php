@@ -1,4 +1,5 @@
-<?php
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+
  // Aula de Convivencia
   if($imprimir4)
   {
@@ -81,7 +82,6 @@ if (mysqli_num_rows($repe0)<"1") {
 	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$mens_total','$tutor')");	
 	
 	// ENVIO DE SMS
-	require('../../lib/trendoo/sendsms.php');
 	$sms = new Trendoo_SMS();
 	$sms->sms_type = SMSTYPE_GOLD_PLUS;
 	$sms->add_recipient('+34'.$mobile);
@@ -178,7 +178,6 @@ $message = "Le comunicamos que su hijo/a va a ser expulsado del Centro. Por favo
 mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$tutor')");
 
 // ENVIO DE SMS
-require('../../lib/trendoo/sendsms.php');
 $sms = new Trendoo_SMS();
 $sms->sms_type = SMSTYPE_GOLD_PLUS;
 $sms->add_recipient('+34'.$mobile);
