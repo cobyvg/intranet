@@ -1,13 +1,6 @@
 <?php
 require('bootstrap.php');
 
-// Variable del cargo del Profesor
-$pr = $_SESSION['profi']; // Nombre
-$carg = $_SESSION['cargo']; // Perfil
-$dpto = $_SESSION['dpt']; // Departamento
-$idea = $_SESSION['ide']; // Usuario iDea de Séneca
-$n_curso = $_SESSION['n_cursos']; // Tiene Horario
-
 include("menu.php");
 ?>	
 

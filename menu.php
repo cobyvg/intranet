@@ -1,9 +1,5 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-$idea = $_SESSION['ide'];
-$profi = $_SESSION['profi'];
-
-
 // FEED RSS
 $feed = new SimplePie();
 	 
@@ -85,7 +81,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 		
 				<div class="navbar-right">
 					<ul class="nav navbar-nav">					
-					
+						
 						<!-- CONSEJERIA DE EDUCACION -->
 						<li class="visible-xs"><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6"><?php echo $feed_title; ?></a></li>
 						<li id="bs-tour-consejeria" class="dropdown hidden-xs">
