@@ -36,6 +36,7 @@ if (file_exists(CONFIG_FILE)) {
 	include_once(VERSION_FILE);
 	include_once(INTRANET_DIRECTORY . '/funciones.php');
 	include_once(INTRANET_DIRECTORY . '/simplepie/autoloader.php');
+	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
 }
 else {
 	

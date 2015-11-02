@@ -1,7 +1,5 @@
 <?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-require_once(INTRANET_DIRECTORY.'/lib/trendoo/sendsms.php');
-
 // Control de faltas leves reiteradas
 if($_SERVER['SERVER_NAME'] != 'iesbahiamarbella.es' || $_SERVER['SERVER_NAME'] != 'iesportada.org') {
 	$rep0 = mysqli_query($db_con, "select id, Fechoria.claveal, count(*) as numero from Fechoria, FALUMNOS where Fechoria.claveal = FALUMNOS.claveal and unidad = '".$_SESSION['mod_tutoria']['unidad']."' and grave = 'Leve' and medida not like 'Sancionada' group by Fechoria.claveal");
@@ -171,7 +169,7 @@ elseif($expulsionaula == 0 and $expulsion == "0"  and $medida == "Amonestación e
 	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
 	<h4><?php echo $alumno; ?> tiene una amonestación escrita</h4>
 	
-	<?php if($_SERVER['SERVER_NAME'] == 'iesmonterroso.org'): ?>
+	<?php if($_SERVER['SERVER_NAME'] != 'iesbahiamarbella.es' || $_SERVER['SERVER_NAME'] != 'iesantoniomachado.es' || $_SERVER['SERVER_NAME'] != 'iesportada.org'): ?>
 	<p>El alumno/a está pendiente de la amonestación escrita del tutor.</p>
 	
 	<br>

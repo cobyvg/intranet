@@ -73,7 +73,6 @@ for ($i=0;$i<$num_a;$i++){
 				mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
 				
 				// ENVIO DE SMS
-				require_once('../../lib/trendoo/sendsms.php');
 				$sms = new Trendoo_SMS();
 				$sms->sms_type = SMSTYPE_GOLD_PLUS;
 				$sms->add_recipient('+34'.$mobile);

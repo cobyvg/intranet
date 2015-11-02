@@ -1,6 +1,5 @@
 <?php
 require('../../bootstrap.php');
-require('../../lib/trendoo/sendsms.php');
 
 
 $tutor = $_SESSION['profi'];
