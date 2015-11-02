@@ -36,7 +36,6 @@ if (file_exists(CONFIG_FILE)) {
 	include_once(VERSION_FILE);
 	include_once(INTRANET_DIRECTORY . '/funciones.php');
 	include_once(INTRANET_DIRECTORY . '/simplepie/autoloader.php');
-	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
 }
 else {
 	
@@ -58,7 +57,7 @@ $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pas
 
 
 if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
-
+	
 	// COMPROBAMOS LA SESION
 	if ($_SESSION['autentificado'] != 1) {
 		$_SESSION = array();
@@ -104,6 +103,8 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
 	// REGISTRAMOS EL ACCESO A LA PAGINA
 	registraPagina($db_con, $_SERVER['REQUEST_URI']);
 	
+	// API SMS Trendoo
+	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
 	
 	// VER COMO USUARIO
 	
