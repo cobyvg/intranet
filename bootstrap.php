@@ -103,9 +103,6 @@ if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
 	// REGISTRAMOS EL ACCESO A LA PAGINA
 	registraPagina($db_con, $_SERVER['REQUEST_URI']);
 	
-	// API SMS Trendoo
-	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
-	
 	// VER COMO USUARIO
 	
 	// Es el Administrador de la Aplicación.

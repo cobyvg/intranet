@@ -329,6 +329,16 @@ $menu = array(
 						'titulo' => 'Consultas'
 					),
 					array(
+						'href'   => 'faltas/absentismo/index.php',
+						'titulo' => 'Alumnos absentistas',
+						'cargos' => array('1'),
+					),
+					array(
+						'href'   => 'admin/tutoria/consulta_absentismo.php',
+						'titulo' => 'Alumnos absentistas',
+						'cargos' => array('2'),
+					),
+					array(
 						'href'   => 'faltas/seneca/',
 						'titulo' => 'Subir faltas a Séneca',
 						'cargos' => array('1'),

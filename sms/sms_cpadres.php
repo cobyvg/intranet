@@ -125,6 +125,7 @@ if(isset($curso))
 	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Más info en http://".$config['dominio'];
 	
 	// ENVIO DE SMS
+	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
 	$sms = new Trendoo_SMS();
 	$sms->sms_type = SMSTYPE_GOLD_PLUS;
 	$sms->add_recipient('+34'.$mobile2);

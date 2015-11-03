@@ -125,6 +125,7 @@ $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 
 // ENVIO DE SMS
+include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
 $sms = new Trendoo_SMS();
 $sms->sms_type = SMSTYPE_GOLD_PLUS;
 $sms->add_recipient('+34'.$mobile);
