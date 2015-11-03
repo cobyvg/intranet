@@ -175,7 +175,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 										?>
 										<img class="img-thumbnail pull-left" width="40" src="<?php echo $foto_usuario; ?>" alt="" style="margin-right: 10px;">
 										
-										<span style="font-weight: bold;"><?php echo $profi; ?></span><br>
+										<span style="font-weight: bold;"><?php echo $pr; ?></span><br>
 										<small class="text-muted">
 											Último acceso: 
 											<?php
