@@ -1,4 +1,4 @@
-<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); 
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
 // Aquí empieza la justificación.
 // Buscamos registros siguiendo a cal.php
@@ -22,12 +22,23 @@ else
 	$justifica1 = mysqli_query($db_con, $justifica0);
 	if (mysqli_num_rows($justifica1) > 0) {
 		while ($faltones = mysqli_fetch_array($justifica1)) {
-			$justificacion = "UPDATE  FALTAS SET  FALTA =  'J' WHERE  FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno' and FALTAS.FALTA = 'F'";
-			mysqli_query($db_con, $justificacion);
+			foreach ($_POST as $clave => $valor){
+				if (strstr($clave,"_")==TRUE) {
+					$tr_dia = explode("_",$clave);					
+					if ($valor==$faltones[3]) {
+						$justificacion = "UPDATE  FALTAS SET  FALTA =  'J' WHERE  FECHA = '$year-$month-$today' and FALTAS.claveal = '$alumno' and FALTAS.FALTA = 'F' and hora='$valor'";
+						//echo $justificacion."<br>";
+						mysqli_query($db_con, $justificacion);
+					}
+				}
+			}
+				
+				
+
 		}
 	}
 	// S i el tutor quiere justificar una falta antes de que haya sido introducida en la base de datos, procedemos a rellenar las horas marcadas de ese día con la "J".
-	elseif($_POST['Enviar']=="Registrar"){ 
+	elseif($_POST['Enviar']=="Registrar"){
 		foreach ($_POST as $clave => $valor){
 			if (strstr($clave,"_")==TRUE) {
 				$tr_dia = explode("_",$clave);
@@ -38,7 +49,7 @@ else
 		if ($today == "") {
 			$today = date('d');
 		}
-		
+
 		$fecha2 = mktime(0,0,0,$month,$today,$year);
 		$fecha22 = mktime(0,0,0,9,15,2008);
 		$diames = date("j");
@@ -77,12 +88,12 @@ else
 		elseif (($ndia ['wday']== "0") or ($ndia ['wday']== "6")) {
 		}
 			
-		else 
-		
+		else
+
 		{
 
 			$ctrl=0;
-			
+				
 			if ($today == "") {
 				$today = date('d');
 			}
@@ -110,7 +121,7 @@ else
 							$semana = date( mktime(0, 0, 0, $month, $hoy_mismo, $year));
 							$hoy = getdate($semana);
 							$nombredia = $hoy[wday];
-								
+
 							if ($valor == $i) {
 								$unica = "select combasi from alma where alma.claveal = '$alumno'";
 								$unica0 = mysqli_query($db_con, $unica);
@@ -123,7 +134,7 @@ else
 								while ($codasi1 = mysqli_fetch_row($codasi0)) {
 									$cod_orig = $codasi1[2];
 									$prof_orig = $codasi1[3];
-									
+										
 									if ($codasi1[2]=="2") {
 										$codasi = "2";
 										$profeso = $codasi1[3];
@@ -134,7 +145,7 @@ else
 									}
 									else {
 										if(in_array($codasi1[2], $comb_asi)) {
-										//if (stristr($combasi,$codasi1[2])==TRUE) {
+											//if (stristr($combasi,$codasi1[2])==TRUE) {
 											$codasi = $codasi1[2];
 											$profeso = $codasi1[3];
 										}
@@ -142,7 +153,7 @@ else
 								}
 								if ($codasi=="") {
 									$codasi = $cod_orig;
-									$profeso = $prof_orig;	
+									$profeso = $prof_orig;
 								}
 								$clavenc = "SELECT NC FROM FALUMNOS WHERE claveal = '$alumno'";
 								$clavenc0 = mysqli_query($db_con, $clavenc);
@@ -160,7 +171,7 @@ else
 			}
 			if ($ctrl==0) {
 				echo '<div align="center"><div class="alert alert-danger alert-block fade in"><button type="button" class="close" data-dismiss="alert">&times;</button>Debes marcar al menos una hora de ausencia para poder justificarla posteriormente, y no has marcado ninguna en elcuadro de diálogo que ha aparecido anteriormente.</div></div>';
-			}			
+			}
 		}
 	}
 }

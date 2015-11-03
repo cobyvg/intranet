@@ -56,7 +56,6 @@ include("../../menu.php");
 				</form>
 				
 			</div><!-- /.well -->
-			
 		</div><!-- /.col-sm-6 -->
 		
 		

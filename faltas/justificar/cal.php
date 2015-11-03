@@ -79,14 +79,84 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 
 		$sql_currentday = "$year-$month-$zz";
 		// echo $sql_currentday;
-		$eventQuery = "SELECT FALTA FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' and FALTA not like 'R'";
+		$hora_F="";
+		$falta_F="";
+		$event = "SELECT FALTA, hora FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' and FALTA not like 'R'";
 		//echo $eventQuery;
-		$eventExec = mysqli_query($db_con, $eventQuery);
-		if($row = mysqli_fetch_array($eventExec)) {
+		$Exec = mysqli_query($db_con, $event);		
+		while($h_f = mysqli_fetch_row($Exec)){
+			if ($h_f[0] == "F") {	
+				$hora_F.=$h_f[1].",";
+			}
+				$falta_F.=$h_f[0].",";
+				}
+				
+		$eventQuery = "SELECT FALTA, hora FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' and FALTA not like 'R'";
+		//echo $eventQuery;
+		$eventExec = mysqli_query($db_con, $eventQuery);		
+		if($row = mysqli_fetch_array($eventExec)) {	
+					
 			if (strlen($row[0]) > 0) {
-				if ($row[0] == "F") {
-						
-					echo "<td style=\"background-color:#9d261d\"><a href=\"".$_SERVER['PHP_SELF']."?profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month&F=1\" class=\"normal\"><span style=color:white>$zz</a></span></td>\n";
+				if ($row[0] == "F" or strstr($falta_F,"F")==TRUE) {						
+				echo "<td style=\"background-color:#9d261d\">";									
+			?>
+					
+<!-- Button trigger modal -->
+<a href="<?php echo $_SERVER['PHP_SELF']."?falta=J&profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month&J=1>";?>" data-toggle="modal" data-target="#myModalF<?php echo "_".$zz;?>">
+			<span style=color:white> <?php echo $zz; ?></span></a>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalF<?php echo "_".$zz;?>" tabindex="-1"
+	role="dialog" aria-labelledby="myModalFLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title text-info" id="myModalFLabel<?php echo "_".$zz;?>">Selecciona
+las Horas para Justificar: <span class='text-success'> <?php echo "$zz-$month-$year";?></span></h4>
+</div>
+<div class="modal-body">
+<form action="index.php" method="POST"
+	name="marcar_falta<?php echo "_".$zz;?>" style="display: inline">&nbsp;&nbsp;
+<div class="checkbox" style="display: inline; align: center;"><label
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"1")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	name="1<?php echo "_".$zz;?>" value="1">1ª</label> <label
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"2")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	name="2<?php echo "_".$zz;?>" value="2">2ª</label> <label
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"3")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	name="3<?php echo "_".$zz;?>" value="3">3ª</label> <label
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"4")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	name="4<?php echo "_".$zz;?>" value="4">4ª</label> <label
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"5")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	name="5<?php echo "_".$zz;?>" value="5">5ª</label> <label
+	class="checkbox-inline"> <input type="checkbox" <?php if (strstr($hora_F,"6")==TRUE){ echo "checked"; } else{ echo "disabled";}?>
+	name="6<?php echo "_".$zz;?>" value="6">6ª</label></div>
+
+</div>
+<div class="modal-footer"><input type="hidden" name="profesor"
+	value="<?php echo $profesor;?>"> <input type="hidden" name="unidad"
+	value="<?php echo $unidad;?>"> <input type="hidden" name="alumno"
+	value="<?php echo $alumno;?>"> <input type="hidden" name="year"
+	value="<?php echo $year;?>"> <input type="hidden" name="month"
+	value="<?php echo $month;?>"> <input type="hidden" name="today"
+	value="<?php echo $zz;?>"> <input type="hidden" name="F" value="1"> <input
+	type="submit" class="btn btn-danger" name="Enviar" value="Justificar">
+<button class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+<script>
+function seleccionar_todo<?php echo "_".$zz;?>(){
+	for (i=0;i<document.marcar_falta<?php echo "_".$zz;?>.elements.length;i++)
+		if(document.marcar_falta<?php echo "_".$zz;?>.elements[i].type == "checkbox")	
+			document.marcar_falta<?php echo "_".$zz;?>.elements[i].checked=1
+}
+</script>
+					<?
+					echo "</td>";
 					$result_found = 1;
 				}
 				elseif($row[0] == "J") {
