@@ -115,7 +115,7 @@ if ($id) {
 	$alumno = $row[0].", ".$row[1]." --> ".$row[10];
 	$fecha0 = $row[2];
 	$dia = explode("-",$fecha0);
-	$fecha = "$dia[2]-$dia[1]-$dia[0]";
+	$fecha_reg = "$dia[2]-$dia[1]-$dia[0]";
 	$accion0 = $row[3];
 	$causa = $row[4];
 	$observaciones = $row[5];
@@ -139,7 +139,7 @@ if (isset($_POST['submit2'])) {
 	{
 		$completo .= $tipos."; ";
 	}
-	$dia = explode("-",$fecha);
+	$dia = explode("-",$fecha_reg);
 	$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 	$actualizar ="UPDATE  tutoria SET observaciones = '$observaciones', causa = '$causa', accion = '$completo', fecha = '$fecha2', prohibido = '$prohibido' WHERE  id = '$id2'";
 	//echo $actualizar;
