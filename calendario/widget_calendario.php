@@ -117,7 +117,7 @@ function vista_mes ($calendario, $dia, $mes, $anio) {
 					
 					while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 						if ($anio.'-'.$mes.'-'.$dia0 >= $eventos['fechaini'] && $anio.'-'.$mes.'-'.$dia0 <= $eventos['fechafin']) {
-							echo '<span class="fa fa-circle" style="color: '.$calendario['color'].'; margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="'.stripslashes($calendario['nombre']).' - '.stripslashes($eventos['nombre'].'"></span>';
+							echo '<span class="fa fa-circle" style="color: '.$calendario['color'].'; margin-right: 2px;  font-size: 0.7em;" data-bs="tooltip" title="'.stripslashes($calendario['nombre']).' - '.stripslashes($eventos['nombre']).'"></span>';
 						}
 					}
 					mysqli_free_result($result_eventos);
