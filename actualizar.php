@@ -470,17 +470,45 @@ if (! mysqli_num_rows($actua)) {
  */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Usuarioalumno - actualizacion campo unidad'");
 if (! mysqli_num_rows($actua)) {
-mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Usuarioalumno - actualizacion campo unidad', NOW())"); 
-
-mysqli_query($db_con,"ALTER TABLE `usuarioalumno` CHANGE `unidad` `unidad` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");
-
-$cambio0 = mysqli_query($db_con, "select claveal, unidad, apellidos, nombre from alma");
-while($cambio = mysqli_fetch_array($cambio0)){
-	$f_cambio0 = mysqli_query($db_con, "select unidad from usuarioalumno where claveal = '$cambio[0]'");
-	$f_cambio = mysqli_fetch_array($f_cambio0);
-	if($cambio[1] == $f_cambio[0]){}
-	else{
-		mysqli_query($db_con, "update usuarioalumno set unidad = '$cambio[1]' where claveal = '$cambio[0]'");
-	}	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Usuarioalumno - actualizacion campo unidad', NOW())"); 
+	
+	mysqli_query($db_con,"ALTER TABLE `usuarioalumno` CHANGE `unidad` `unidad` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL DEFAULT ''");
+	
+	$cambio0 = mysqli_query($db_con, "select claveal, unidad, apellidos, nombre from alma");
+	while($cambio = mysqli_fetch_array($cambio0)){
+		$f_cambio0 = mysqli_query($db_con, "select unidad from usuarioalumno where claveal = '$cambio[0]'");
+		$f_cambio = mysqli_fetch_array($f_cambio0);
+		if($cambio[1] == $f_cambio[0]){}
+		else{
+			mysqli_query($db_con, "update usuarioalumno set unidad = '$cambio[1]' where claveal = '$cambio[0]'");
+		}	
+	}
 }
+
+/*
+ @descripcion: Tabla FALTAS - Aumento de longitud del campo CODASI (5 a 10)
+ @fecha: 4 de noviembre de 2015
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla FALTAS - Aumento de longitud del campo CODASI'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla FALTAS - Aumento de longitud del campo CODASI', NOW())"); 
+	
+	if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
+		$anio_escolar = substr($config['curso_actual'], 0, 4)-1;
+		
+		while ($config['db_host_c'.$anio_escolar] != "") {
+			$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+			
+			mysqli_query($db_con, "ALTER TABLE `FALTAS` CHANGE `CODASI` `CODASI` VARCHAR(10) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL;");
+			
+			mysqli_close($db_con);
+			
+			$anio_escolar--;
+		}
+		
+		$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
+	}
+	else {
+		mysqli_query($db_con, "ALTER TABLE `FALTAS` CHANGE `CODASI` `CODASI` VARCHAR(10) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL;");
+	}
 }
