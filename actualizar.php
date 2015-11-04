@@ -507,6 +507,8 @@ if (! mysqli_num_rows($actua)) {
 		}
 		
 		$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
+		
+		mysqli_query($db_con, "ALTER TABLE `FALTAS` CHANGE `CODASI` `CODASI` VARCHAR(10) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL;");
 	}
 	else {
 		mysqli_query($db_con, "ALTER TABLE `FALTAS` CHANGE `CODASI` `CODASI` VARCHAR(10) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL;");
