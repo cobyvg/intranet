@@ -82,7 +82,7 @@ include('../../menu.php');
 						<?php if($history[$i]->order_id): ?>
 						<?php 
 						$anio = substr($history[$i]->create_time, 0, 4); 
-						$mes = substr($history[$i]->create_time, 5, 1);
+						$mes = substr($history[$i]->create_time, 4, 2);
 						$dia = substr($history[$i]->create_time, 6, 2);
 						$hora = substr($history[$i]->create_time, 8, 2);
 						$minuto = substr($history[$i]->create_time, 10, 2);

@@ -40,7 +40,7 @@ $claveal = $row0[0];
 	mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
 $nombrecor = explode(" ",$nombre);
 $nombrecorto = $nombrecor[0];
-$text = "Le comunicamos que su hijo/a $nombrecorto tiene Faltas de Asistencia sin justificar dentro del periodo del ".$fecha12." al ".$fecha22.". Contacte con su Tutor";
+$text = "Le comunicamos que su hijo/a $nombrecorto tiene Faltas de Asistencia sin justificar dentro del periodo del ".$_POST['fecha12']." al ".$_POST['fecha22'].". Contacte con su Tutor";
 
 // Identificador del mensaje
 $sms_n = mysqli_query($db_con, "select max(id) from sms");
