@@ -124,7 +124,6 @@ $sms_n = mysqli_query($db_con, "select max(id) from sms");
 $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 
-<<<<<<< HEAD
 if(strlen($mobile) == 9) {
 
 	// ENVIO DE SMS
@@ -135,10 +134,16 @@ if(strlen($mobile) == 9) {
 	$sms->message = $text;
 	$sms->sender = $config['mod_sms_id'];
 	$sms->set_immediate();
-	if ($sms->validate()) $sms->send();
+	if ($sms->validate())$sms->send();
 	
 	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
+	mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+	echo '<div align="center"><div class="alert alert-success alert-block fade in">
+	            <button type="button" class="close" data-dismiss="alert">&times;</button>
+	El mensaje SMS se ha enviado correctamente a los siguientes alumnos: '.$alumno_nombre.'.<br>Una nueva acción tutorial ha sido también registrada.
+	          </div></div>';
 	
+	} 	
 }
 else {
 	echo "
@@ -148,27 +153,7 @@ else {
 	<br>";
 }
 
-=======
-// ENVIO DE SMS
-include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
-$sms = new Trendoo_SMS();
-$sms->sms_type = SMSTYPE_GOLD_PLUS;
-$sms->add_recipient('+34'.$mobile);
-$sms->message = $text;
-$sms->sender = $config['mod_sms_id'];
-$sms->set_immediate();
-if ($sms->validate()){
-$sms->send();
-mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
-mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
->>>>>>> origin/master
-echo '<div align="center"><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-El mensaje SMS se ha enviado correctamente a los siguientes alumnos: '.$alumno_nombre.'.<br>Una nueva acción tutorial ha sido también registrada.
-          </div></div>';
 
-} 
-}
 // Mensaje al Tutor
 if (stristr($_SESSION['cargo'],'1') == TRUE) {
 	$trozos_tutores = explode(";",$todos_tutores);
