@@ -345,7 +345,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 			        				<div class="form-group">
 			        					<label for="cmp_departamento">Departamento que lo organiza</label>
 			        					<select class="form-control" id="cmp_departamento" name="cmp_departamento">';
-			if (stristr($_SESSION['cargo'],'2') == TRUE){ 
+			if (stristr($_SESSION['cargo'],'2') == TRUE  and !(stristr($_SESSION['cargo'],'1') == TRUE) and !(stristr($_SESSION['cargo'],'4') == TRUE)){ 
 		       echo '<option value="Orientación">Orientación</option>';
 		    } 
 		    else{ 		        				

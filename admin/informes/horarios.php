@@ -15,6 +15,9 @@ $tr_combasi = explode(":",$combasi[0]);
 foreach ($tr_combasi as $codigo){
 	 mysqli_query($db_con,"insert into asig_tmp(claveal, codigo) VALUES ('$claveal','$codigo')");
 }
+$uni = mysqli_query($db_con,"select unidad from alma where claveal = '$claveal'");
+$unid = mysqli_fetch_array($uni);
+$unidad_al = $unid[0];
 ?>
 <a name="horario"></a>
 <h3>Horario de la unidad</h3>
@@ -43,7 +46,7 @@ foreach ($tr_combasi as $codigo){
 				<th nowrap class="text-warning"><?php echo $desc; ?></th>
 				<?php for($i = 1; $i < 6; $i++): ?>
 				<td width="20%">
-					<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula, n_aula FROM horw WHERE (a_grupo=(select unidad from alma where claveal = '$claveal')) AND dia='$i' AND hora='$hora' and (c_asig in (select codigo from asig_tmp) or c_asig = '2')");?>
+					<?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, c_asig, a_aula, n_aula FROM horw WHERE a_grupo like '$unidad_al%' AND dia='$i' AND hora='$hora' and (c_asig in (select codigo from asig_tmp) or c_asig = '2')");?>
 					<?php while($row = mysqli_fetch_array($result)): ?>
 					<?php echo $row[0]."<div class='text-success' data-bs='tooltip' title='".$row[3]."'>".$row[2]."</div>"; ?>
 					<?php endwhile; ?>
