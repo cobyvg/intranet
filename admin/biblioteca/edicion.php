@@ -134,17 +134,27 @@ if ($sms) {
 				$message = "Su hijo/a no ha devuelto material de la Biblioteca en el plazo indicado. Si no lo devuelve en los próximos días se le impondrá un parte disciplinario grave.";
 			}
 			
-			mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
+			if(strlen($mobile) == 9) {
 			
-			// ENVIO DE SMS
-			include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
-			$sms = new Trendoo_SMS();
-			$sms->sms_type = SMSTYPE_GOLD_PLUS;
-			$sms->add_recipient('+34'.$mobile);
-			$sms->message = $message;
-			$sms->sender = $config['mod_sms_id'];
-			$sms->set_immediate();
-			if ($sms->validate()) $sms->send();
+				mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
+				
+				// ENVIO DE SMS
+				include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
+				$sms = new Trendoo_SMS();
+				$sms->sms_type = SMSTYPE_GOLD_PLUS;
+				$sms->add_recipient('+34'.$mobile);
+				$sms->message = $message;
+				$sms->sender = $config['mod_sms_id'];
+				$sms->set_immediate();
+				if ($sms->validate()) $sms->send();
+				
+			}
+			else {
+				echo "
+				<div class=\"alert alert-error\">
+					<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$mobile.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+				</div>
+				<br>";			}
 
 		}
 	}

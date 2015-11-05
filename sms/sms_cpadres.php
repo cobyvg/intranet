@@ -124,19 +124,29 @@ if(isset($curso))
 
 	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Más info en http://".$config['dominio'];
 	
-	// ENVIO DE SMS
-	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
-	$sms = new Trendoo_SMS();
-	$sms->sms_type = SMSTYPE_GOLD_PLUS;
-	$sms->add_recipient('+34'.$mobile2);
-	$sms->message = $text;
-	$sms->sender = $config['mod_sms_id'];
-	$sms->set_immediate();
-	if ($sms->validate()) $sms->send();
+	if(strlen($mobile) == 9) {
 	
+		// ENVIO DE SMS
+		include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
+		$sms = new Trendoo_SMS();
+		$sms->sms_type = SMSTYPE_GOLD_PLUS;
+		$sms->add_recipient('+34'.$mobile2);
+		$sms->message = $text;
+		$sms->sender = $config['mod_sms_id'];
+		$sms->set_immediate();
+		if ($sms->validate()) $sms->send();
+		
+		mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile2','$text','Jefatura de Estudios')");
+		
+	}
+	else {
+		echo "
+		<div class=\"alert alert-error\">
+			<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$mobile2.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+		</div>
+		<br>";
+	}
 	
-if(strlen($mobil2) > 0){
-	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile2','$text','Jefatura de Estudios')");
 	echo '<div class="alert alert-success alert-block fade in" align="left">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El mensaje SMS se ha enviado correctamente para los alumnos con faltas sin justificar de '. $curso.'.<br>Una nueva acción tutorial ha sido también registrada.

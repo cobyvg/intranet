@@ -79,17 +79,22 @@ $message2= "Por favor, p&oacute;ngase en contacto con nosotros.";
 $repe0 = mysqli_query($db_con, "select * from sms where telefono = '$mobile' and mensaje like '%$message1%' and profesor = '$tutor' and date(fecha) = date(now())");
 if (mysqli_num_rows($repe0)<"1") {
 	$mens_total=$message1.$message2;
-	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$mens_total','$tutor')");	
 	
-	// ENVIO DE SMS
-	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
-	$sms = new Trendoo_SMS();
-	$sms->sms_type = SMSTYPE_GOLD_PLUS;
-	$sms->add_recipient('+34'.$mobile);
-	$sms->message = $mens_total;
-	$sms->sender = $config['mod_sms_id'];
-	$sms->set_immediate();
-	if ($sms->validate()) $sms->send();
+	if(strlen($mobile) == 9) {
+	
+		mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$mens_total','$tutor')");	
+		
+		// ENVIO DE SMS
+		include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
+		$sms = new Trendoo_SMS();
+		$sms->sms_type = SMSTYPE_GOLD_PLUS;
+		$sms->add_recipient('+34'.$mobile);
+		$sms->message = $mens_total;
+		$sms->sender = $config['mod_sms_id'];
+		$sms->set_immediate();
+		if ($sms->validate()) $sms->send();
+		
+	}
 }
 
 
@@ -178,21 +183,30 @@ if((substr($tfno,0,1)=="6" or substr($tfno_u,0,1)=="6"))
 $message = "Le comunicamos que su hijo/a va a ser expulsado del Centro. Por favor, p&oacute;ngase en contacto con nosotros.";
 mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$tutor')");
 
-// ENVIO DE SMS
-$sms = new Trendoo_SMS();
-$sms->sms_type = SMSTYPE_GOLD_PLUS;
-$sms->add_recipient('+34'.$mobile);
-$sms->message = $message;
-$sms->sender = $config['mod_sms_id'];
-$sms->set_immediate();
-if ($sms->validate()) $sms->send();
-
-
-$fecha2 = date('Y-m-d');
-$tutor = "Jefatura de Estudios";
-$causa = "Problemas de Convivencia";
-$accion = "Envío de SMS";
-mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,jefatura) values ('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$message."','".$causa."','".$accion."','".$fecha2."','1')");
+	if(strlen($mobile) == 9) {
+		// ENVIO DE SMS
+		$sms = new Trendoo_SMS();
+		$sms->sms_type = SMSTYPE_GOLD_PLUS;
+		$sms->add_recipient('+34'.$mobile);
+		$sms->message = $message;
+		$sms->sender = $config['mod_sms_id'];
+		$sms->set_immediate();
+		if ($sms->validate()) $sms->send();
+	
+	
+		$fecha2 = date('Y-m-d');
+		$tutor = "Jefatura de Estudios";
+		$causa = "Problemas de Convivencia";
+		$accion = "Envío de SMS";
+		mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,jefatura) values ('".$apellidos."','".$nombre."','".$tutor."','".$unidad."','".$message."','".$causa."','".$accion."','".$fecha2."','1')");
+	}
+	else {
+		echo "
+		<div class=\"alert alert-error\">
+			<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$mobile.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+		</div>
+		<br>";
+	}
 }
 }
 }

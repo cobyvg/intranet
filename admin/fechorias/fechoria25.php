@@ -70,23 +70,35 @@ for ($i=0;$i<$num_a;$i++){
 					$mobile = $tfno_u;
 				}
 				$message = "Su hijo/a ha cometido una falta contra las normas de convivencia del Centro. Hable con su hijo/a y, ante cualquier duda, consulte en http://".$config['dominio'];
-				mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
 				
-				// ENVIO DE SMS
-				include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
-				$sms = new Trendoo_SMS();
-				$sms->sms_type = SMSTYPE_GOLD_PLUS;
-				$sms->add_recipient('+34'.$mobile);
-				$sms->message = $message;
-				$sms->sender = $config['mod_sms_id'];
-				$sms->set_immediate();
-				if ($sms->validate()) $sms->send();
-
-				$fecha2 = date ( 'Y-m-d' );
-				$observaciones = $message;
-				$accion = "Env&iacute;o de SMS";
-				$causa = "Problemas de convivencia";
-				mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
+				if(strlen($mobile) == 9) {
+				
+					mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
+					
+					// ENVIO DE SMS
+					include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
+					$sms = new Trendoo_SMS();
+					$sms->sms_type = SMSTYPE_GOLD_PLUS;
+					$sms->add_recipient('+34'.$mobile);
+					$sms->message = $message;
+					$sms->sender = $config['mod_sms_id'];
+					$sms->set_immediate();
+					if ($sms->validate()) $sms->send();
+	
+					$fecha2 = date ( 'Y-m-d' );
+					$observaciones = $message;
+					$accion = "Env&iacute;o de SMS";
+					$causa = "Problemas de convivencia";
+					mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha, claveal) values ('" . $apellidos . "','" . $nombre_alum . "','" . $informa . "','" . $unidad ."','" . $observaciones . "','" . $causa . "','" . $accion . "','" . $fecha2 . "','" . $claveal . "')" );
+					
+				}
+				else {
+					echo "
+					<div class=\"alert alert-error\">
+						<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$mobile.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+					</div>
+					<br>";
+				}
 			}
 		}
 

@@ -47,17 +47,27 @@ $sms_n = mysqli_query($db_con, "select max(id) from sms");
 $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 
-// ENVIO DE SMS
-include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
-$sms = new Trendoo_SMS();
-$sms->sms_type = SMSTYPE_GOLD_PLUS;
-$sms->add_recipient('+34'.$mobil2);
-$sms->message = $text;
-$sms->sender = $config['mod_sms_id'];
-$sms->set_immediate();
-if ($sms->validate()) $sms->send();
+if(strlen($mobil2) == 9) {
+	// ENVIO DE SMS
+	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
+	$sms = new Trendoo_SMS();
+	$sms->sms_type = SMSTYPE_GOLD_PLUS;
+	$sms->add_recipient('+34'.$mobil2);
+	$sms->message = $text;
+	$sms->sender = $config['mod_sms_id'];
+	$sms->set_immediate();
+	if ($sms->validate()) $sms->send();
+	
+	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
+}
+else {
+	echo "
+	<div class=\"alert alert-error\">
+		<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$mobil2.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+	</div>
+	<br>";
+}
 
-mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
 $num=$num+1;
 endwhile;
   }
