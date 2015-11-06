@@ -124,24 +124,35 @@ $sms_n = mysqli_query($db_con, "select max(id) from sms");
 $n_sms =mysqli_fetch_array($sms_n);
 $extid = $n_sms[0]+1;
 
-if(strlen($mobile) == 9) {
+
 
 	// ENVIO DE SMS
 	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
 	$sms = new Trendoo_SMS();
 	$sms->sms_type = SMSTYPE_GOLD_PLUS;
-	$sms->add_recipient('+34'.$mobile);
+	
+	$exp_moviles = explode(',', $mobile);
+	
+	foreach ($exp_moviles as $num_movil) {
+		
+		$num_movil = trim($num_movil);
+		
+		if(strlen($num_movil) == 9) {
+			$sms->add_recipient('+34'.$num_movil);
+		}
+		else {
+			echo "
+			<div class=\"alert alert-error\">
+				<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$num_movil.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
+			</div>
+			<br>";
+		}
+	}
+	
 	$sms->message = $text;
 	$sms->sender = $config['mod_sms_id'];
 	$sms->set_immediate();
 	if ($sms->validate()) $sms->send();
-	else {
-		echo "
-		<div class=\"alert alert-error\">
-			<strong>Error:</strong> ".$sms->problem."
-		</div>
-		<br>";
-	}
 	
 	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
 	mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
@@ -150,16 +161,7 @@ if(strlen($mobile) == 9) {
 	El mensaje SMS se ha enviado correctamente a los siguientes alumnos: '.$alumno_nombre.'.<br>Una nueva acción tutorial ha sido también registrada.
 	          </div></div>';
 	
-	} 	
 }
-else {
-	echo "
-	<div class=\"alert alert-error\">
-		<strong>Error:</strong> No se pudo enviar el SMS al teléfono (+34) ".$mobile.". Corrija la información de contacto del alumno/a en Séneca e importe los datos nuevamente.
-	</div>
-	<br>";
-}
-
 
 // Mensaje al Tutor
 if (stristr($_SESSION['cargo'],'1') == TRUE) {
