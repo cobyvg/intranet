@@ -134,7 +134,14 @@ if(strlen($mobile) == 9) {
 	$sms->message = $text;
 	$sms->sender = $config['mod_sms_id'];
 	$sms->set_immediate();
-	if ($sms->validate())$sms->send();
+	if ($sms->validate()) $sms->send();
+	else {
+		echo "
+		<div class=\"alert alert-error\">
+			<strong>Error:</strong> ".$sms->problem."
+		</div>
+		<br>";
+	}
 	
 	mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$text','$profe')");
 	mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
