@@ -11,7 +11,12 @@ include("../../../menu.php");
 	<div class="container">
 	
 	<?php
-	$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/control.php' ORDER BY claveal ASC");
+	if($_SERVER['SERVER_NAME'] == 'iesantoniomachado.es' || $_SERVER['SERVER_NAME'] == 'iesbahiamarbella.es') {
+		$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/alumnos/login.php' ORDER BY claveal ASC");
+	}
+	else {
+		$query_accesos = mysqli_query($db_con, "SELECT rp.claveal, COUNT(*) AS accesos FROM reg_principal AS rp GROUP BY claveal, pagina HAVING pagina='/notas/control.php' ORDER BY claveal ASC");
+	}
 	?>
 		
 		<!-- TITULO DE LA PAGINA -->
