@@ -134,7 +134,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 											<strong><?php echo nomprofesor($row_dest['nombre']); ?></strong>
 										</div>
 										<div <?php echo ($row_mens['recibidoprofe']==0) ? 'class="text-warning"' : ''; ?>>
-											<?php echo substr($row_mens['asunto'],0 , 96); ?>
+											<?php echo substr(stripslashes($row_mens['asunto']),0 , 96); ?>
 										</div>
 									</a>
 								</li>

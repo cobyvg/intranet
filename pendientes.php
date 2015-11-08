@@ -354,7 +354,7 @@ if(stristr($carg,'2') == TRUE)
 			$origen = $men[4].", ".$men[3];
 			?>
 <li id="mensaje_link_familia_<?php echo $id; ?>"><a class="alert-link"
-	data-toggle="modal" href="#mensajep<?php echo $n_mensajesp;?>"><?php echo $asunto; ?></a>
+	data-toggle="modal" href="#mensajep<?php echo $n_mensajesp;?>"><?php echo stripslashes($asunto); ?></a>
 <br />
 			<?php echo "<small>".mb_convert_case($origen, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>
@@ -436,7 +436,7 @@ if(mysqli_num_rows($men2) > 0)
 		$nombre_profe = $row[0];
 		?>
 <li id="mensaje_link_<?php echo $id; ?>"><a class="alert-link"
-	data-toggle="modal" href="#mensaje<?php echo $n_mensajes;?>"><?php echo $asunto; ?></a>
+	data-toggle="modal" href="#mensaje<?php echo $n_mensajes;?>"><?php echo stripslashes($asunto); ?></a>
 <br>
 		<?php echo "<small>".mb_convert_case($nombre_profe, MB_CASE_TITLE, "iso-8859-1")." (".fecha_actual2($fechacompl).")</small>";?>
 </li>

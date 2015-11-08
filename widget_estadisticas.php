@@ -6,7 +6,7 @@
 	
 	<div class="row">
 	
-			<div class="col-sm-3">
+			<div class="col-sm-20">
 			<?php mysqli_query($db_con, "CREATE TABLE tmp_accesos SELECT DISTINCT profesor FROM reg_intranet WHERE fecha LIKE CONCAT('".date('Y-m-d')."','%') AND profesor IN (SELECT idea FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria') ORDER BY profesor ASC"); ?>
 			
 			<?php $result = mysqli_query($db_con, "SELECT nombre, departamento FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria' AND idea NOT IN (SELECT profesor FROM tmp_accesos) ORDER BY nombre ASC"); ?>
@@ -76,7 +76,7 @@
 			
 		</div><!-- /.col-sm-2 -->
 		
-		<div class="col-sm-2">
+		<div class="col-sm-20">
 			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, Fechoria.id, Fechoria.asunto, Fechoria.informa FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE Fechoria.fecha = '".date('Y-m-d')."' ORDER BY Fechoria.fecha DESC"); ?>
 			<h5 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#fechoria">
@@ -130,7 +130,7 @@
 		</div><!-- /.col-sm-2 -->
 		
 		
-		<div class="col-sm-2">
+		<div class="col-sm-20">
 			<?php $cadena = "SELECT alma.apellidos, alma.nombre, alma.claveal, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND inicio <= '".date('Y-m-d')."' AND fin >= '".date('Y-m-d')."'"; ?>
 			<?php $result = mysqli_query($db_con, $cadena); ?>
 			
@@ -228,7 +228,7 @@
 		</div><!-- /.col-sm-2 -->
 		
 		
-		<div class="col-sm-2">
+		<div class="col-sm-20">
 			<?php $result = mysqli_query($db_con, "SELECT id, apellidos, nombre, unidad, tutor FROM infotut_alumno WHERE F_ENTREV = '".date('Y-m-d')."'"); ?>
 			
 			<h5 class="text-center">
@@ -283,7 +283,7 @@
 		</div><!-- /.col-sm-2 -->
 		
 		
-		<div class="col-sm-3">
+		<div class="col-sm-20">
 			<?php mysqli_query($db_con, "create table mens_tmp select * from mens_profes where recibidoprofe='0' order by id_texto desc limit 5000"); ?>
 			<?php mysqli_query($db_con, "delete from mens_tmp where profesor not in (select idea from departamentos)"); ?>
 			<?php mysqli_query($db_con, "create table mens_tmp2 SELECT profesor, count(*) as num FROM mens_tmp group by profesor"); ?>
