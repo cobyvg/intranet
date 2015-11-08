@@ -6,14 +6,84 @@
 	
 	<div class="row">
 	
-		<div class="col-sm-3">
+			<div class="col-sm-3">
+			<?php mysqli_query($db_con, "CREATE TABLE tmp_accesos SELECT DISTINCT profesor FROM reg_intranet WHERE fecha LIKE CONCAT('".date('Y-m-d')."','%') AND profesor IN (SELECT idea FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria') ORDER BY profesor ASC"); ?>
+			
+			<?php $result = mysqli_query($db_con, "SELECT nombre, departamento FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria' AND idea NOT IN (SELECT profesor FROM tmp_accesos) ORDER BY nombre ASC"); ?>
+			
+			<?php $result1 = mysqli_query($db_con, "SELECT * FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria'"); ?>
+			
+			<h5 class="text-center">
+				<a href="#" data-toggle="modal" data-target="#accesos">
+					<span class="lead"><?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?> <span class="text-muted">(<?php echo (mysqli_num_rows($result1)) ? mysqli_num_rows($result1) : '0'; ?>)</span></span><br>
+					<small class="text-uppercase text-muted">Profesores sin entrar</small>
+				</a>
+			</h5>
+			
+			<!-- MODAL ACCESOS -->
+			<div id="accesos" class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+							<h4 class="modal-title">Profesores que no han accedido hoy</h4>
+						</div>
+						
+						<div class="modal-body">
+							<?php if (mysqli_num_rows($result)): ?>
+							<div class="table-responsive" style="height: 350px; overflow: scroll;">
+								<table class="table table-condensed table-hover table-striped">
+									<thead>
+										<tr>
+											<th>Profesor/a</th>
+											<th>Departamento</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php while($row = mysqli_fetch_array($result)): ?>
+										<tr style="font-size: 0.9em;">
+											<td nowrap><?php echo nomprofesor($row['nombre']); ?></td>
+											<td><?php echo $row['departamento']; ?></td>
+										</tr>
+										<?php endwhile; ?>
+									</tbody>
+								</table>
+							</div>
+							<?php else: ?>
+							
+							<p class="lead text-center text-muted">
+								<span class="fa fa-thumbs-o-up fa-5x"></span><br>
+								Todos los profesores han accedido hoy
+							</p>
+							
+							<?php endif; ?>	
+						</div>
+						
+						<?php if (mysqli_num_rows($result)): ?>
+						<div class="modal-footer">
+						<a href="#" target="_top" data-dismiss="modal"
+	class="btn btn-primary">Cerrar</a>
+							<a href="./xml/jefe/informes/accesos.php" class="btn btn-danger">Ver accesos</a>
+						</div>
+						<?php endif; ?>	
+					</div>
+				</div>
+			</div>
+			<!-- FIN MODAL ACCESOS -->
+			<?php mysqli_query($db_con,"drop table tmp_accesos"); ?>
+			<?php mysqli_free_result($result); ?>
+			<?php mysqli_free_result($result1); ?>
+			
+		</div><!-- /.col-sm-2 -->
+		
+		<div class="col-sm-2">
 			<?php $result = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, Fechoria.id, Fechoria.asunto, Fechoria.informa FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE Fechoria.fecha = '".date('Y-m-d')."' ORDER BY Fechoria.fecha DESC"); ?>
-			<h4 class="text-center">
+			<h5 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#fechoria">
 					<span class="lead"><?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?></span><br>
 					<small class="text-uppercase text-muted">Problemas convivencia</small>
 				</a>
-			</h4>
+			</h5>
 			
 			<!-- MODAL FECHORIAS -->
 			<div id="fechoria" class="modal fade" tabindex="-1" role="dialog">
@@ -57,22 +127,22 @@
 			<!-- FIN MODAL FECHORIAS -->
 			<?php mysqli_free_result($result); ?>
 			
-		</div><!-- /.col-sm-3 -->
+		</div><!-- /.col-sm-2 -->
 		
 		
-		<div class="col-sm-3">
+		<div class="col-sm-2">
 			<?php $cadena = "SELECT alma.apellidos, alma.nombre, alma.claveal, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND inicio <= '".date('Y-m-d')."' AND fin >= '".date('Y-m-d')."'"; ?>
 			<?php $result = mysqli_query($db_con, $cadena); ?>
 			
 			<?php   $ayer = date('Y') . "-" . date('m') . "-" . (date('d') - 1);?>
 			<?php $result1 = mysqli_query($db_con, "SELECT alma.apellidos, alma.nombre, alma.claveal, alma.unidad, Fechoria.id, Fechoria.asunto, Fechoria.informa, Fechoria.inicio, Fechoria.fin FROM Fechoria JOIN alma ON Fechoria.claveal = alma.claveal WHERE expulsion > 0 AND fin = '$ayer'"); ?>
 			
-			<h4 class="text-center">
+			<h5 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#expulsiones">
 					<span class="lead"> <?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?> / <?php echo (mysqli_num_rows($result1)) ? mysqli_num_rows($result1) : '0'; ?></span><br>
 					<small class="text-uppercase text-muted">Expulsiones Reingresos</small>
 				</a>
-			</h4>
+			</h5>
 			
 			<!-- MODAL EXPULSIONES Y REINGRESOS -->
 			<div id="expulsiones" class="modal fade" tabindex="-1" role="dialog">
@@ -155,18 +225,18 @@
 			<?php mysqli_free_result($result); ?>
 			<?php mysqli_free_result($result1); ?>
 			
-		</div><!-- /.col-sm-3 -->
+		</div><!-- /.col-sm-2 -->
 		
 		
-		<div class="col-sm-3">
+		<div class="col-sm-2">
 			<?php $result = mysqli_query($db_con, "SELECT id, apellidos, nombre, unidad, tutor FROM infotut_alumno WHERE F_ENTREV = '".date('Y-m-d')."'"); ?>
 			
-			<h4 class="text-center">
+			<h5 class="text-center">
 				<a href="#" data-toggle="modal" data-target="#visitas">
 					<span class="lead"><?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?></span><br>
 					<small class="text-uppercase text-muted">Visitas de padres</small>
 				</a>
-			</h4>
+			</h5>
 			
 			<!-- MODAL VISITAS PADRES -->
 			<div id="visitas" class="modal fade" tabindex="-1" role="dialog">
@@ -210,30 +280,30 @@
 			<!-- FIN MODAL VISITAS PADRES -->
 			<?php mysqli_free_result($result); ?>
 			
-		</div><!-- /.col-sm-3 -->
+		</div><!-- /.col-sm-2 -->
 		
 		
 		<div class="col-sm-3">
-			<?php mysqli_query($db_con, "CREATE TABLE tmp_accesos SELECT DISTINCT profesor FROM reg_intranet WHERE fecha LIKE CONCAT('".date('Y-m-d')."','%') AND profesor IN (SELECT idea FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria') ORDER BY profesor ASC"); ?>
+			<?php mysqli_query($db_con, "create table mens_tmp select * from mens_profes where recibidoprofe='0' order by id_texto desc limit 5000"); ?>
+			<?php mysqli_query($db_con, "delete from mens_tmp where profesor not in (select idea from departamentos)"); ?>
+			<?php mysqli_query($db_con, "create table mens_tmp2 SELECT profesor, count(*) as num FROM mens_tmp group by profesor"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT nombre, num FROM mens_tmp2, departamentos where departamentos.idea = mens_tmp2.profesor and num > '25' order by nombre"); ?>
 			
-			<?php $result = mysqli_query($db_con, "SELECT nombre, departamento FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria' AND idea NOT IN (SELECT profesor FROM tmp_accesos) ORDER BY nombre ASC"); ?>
 			
-			<?php $result1 = mysqli_query($db_con, "SELECT * FROM departamentos WHERE departamento NOT LIKE 'Administracion' AND departamento NOT LIKE 'Admin' AND departamento NOT LIKE 'Conserjeria'"); ?>
-			
-			<h4 class="text-center">
-				<a href="#" data-toggle="modal" data-target="#accesos">
-					<span class="lead"><?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?> <span class="text-muted">(<?php echo (mysqli_num_rows($result1)) ? mysqli_num_rows($result1) : '0'; ?>)</span></span><br>
-					<small class="text-uppercase text-muted">Profesores sin entrar</small>
+			<h5 class="text-center">
+				<a href="#" data-toggle="modal" data-target="#noleidos">
+					<span class="lead"><?php echo (mysqli_num_rows($result)) ? mysqli_num_rows($result) : '0'; ?> </span><br>
+					<small class="text-uppercase text-muted">+25 Mensajes sin leer</small>
 				</a>
-			</h4>
+			</h5>
 			
-			<!-- MODAL ACCESOS -->
-			<div id="accesos" class="modal fade" tabindex="-1" role="dialog">
-				<div class="modal-dialog modal-lg">
+			<!-- MODAL noleidos -->
+			<div id="noleidos" class="modal fade" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-							<h4 class="modal-title">Profesores que no han accedido hoy</h4>
+							<h4 class="modal-title">Profesores con más de 25 mensajes sin leer</h4>
 						</div>
 						
 						<div class="modal-body">
@@ -243,14 +313,14 @@
 									<thead>
 										<tr>
 											<th>Profesor/a</th>
-											<th>Departamento</th>
+											<th>No leídos</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php while($row = mysqli_fetch_array($result)): ?>
 										<tr style="font-size: 0.9em;">
 											<td nowrap><?php echo nomprofesor($row['nombre']); ?></td>
-											<td><?php echo $row['departamento']; ?></td>
+											<td><?php echo $row['num']; ?></td>
 										</tr>
 										<?php endwhile; ?>
 									</tbody>
@@ -260,26 +330,24 @@
 							
 							<p class="lead text-center text-muted">
 								<span class="fa fa-thumbs-o-up fa-5x"></span><br>
-								Todos los profesores han accedido hoy
+								Sin mensajes no leídos
 							</p>
 							
 							<?php endif; ?>	
 						</div>
-						
-						<?php if (mysqli_num_rows($result)): ?>
-						<div class="modal-footer">
-							<a href="./xml/jefe/informes/accesos.php" class="btn btn-primary">Ver accesos</a>
+						<div class="modal-footer"><a href="#" target="_top" data-dismiss="modal"
+	class="btn btn-primary">Cerrar</a>
 						</div>
-						<?php endif; ?>	
 					</div>
 				</div>
 			</div>
 			<!-- FIN MODAL ACCESOS -->
 			<?php mysqli_query($db_con,"drop table tmp_accesos"); ?>
+			<?php mysqli_query($db_con,"drop table mens_tmp"); ?>
+			<?php mysqli_query($db_con,"drop table mens_tmp2"); ?>
 			<?php mysqli_free_result($result); ?>
-			<?php mysqli_free_result($result1); ?>
 			
-		</div><!-- /.col-sm-3 -->
+		</div><!-- /.col-sm-2 -->
 	
 	</div><!-- /.row -->
 	

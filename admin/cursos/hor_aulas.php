@@ -17,7 +17,7 @@ include("../../menu.php");
 		<h2 style="display: inline;"><?php echo $aula; ?> <small>Consulta de horario</small></h2>
 		
 		<form class="pull-right col-sm-2" method="post" action="">
-			<?php $result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY n_aula ASC"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY a_aula ASC"); ?>
 			<select class="form-control" id="aula" name="aula" onChange="submit()">
 				<?php while($row = mysqli_fetch_array($result)): ?>
 				<option value="<?php echo $row['n_aula']; ?>" <?php echo ($row['n_aula'] == $aula) ? 'selected' : ''; ?>><?php echo $row['n_aula']; ?></option>
@@ -45,16 +45,23 @@ include("../../menu.php");
 						</tr>
 					</thead>
 					<tbody>
-					<?php $horas = array(1 => "1ª", 2 => "2ª", 3 => "3ª", 4 => "4ª", 5 => "5ª", 6 => "6ª"); ?>
+					<?php $horas = array(1 => "1ª", 2 => "2ª", 3 => "3ª", R => "R", 4 => "4ª", 5 => "5ª", 6 => "6ª"); ?>
 					<?php foreach($horas as $hora => $desc): ?>
 						<tr>
 							<th><?php echo $desc; ?></th>
 							<?php for($i = 1; $i < 6; $i++): ?>
-							<td width="20%"><?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, prof,a_grupo FROM horw WHERE n_aula='$aula' AND dia='$i' AND hora='$hora'"); ?>
-							<?php $grupo=""; $asignatura=""; $profesor="";?> <?php while($row = mysqli_fetch_array($result)): ?>
-							<?php $grupo .= "<abbr class='text-warning'>".$row['a_grupo']."<abbr>&nbsp;&nbsp;"; ?>
-							<?php $asignatura = $row['asig']; ?> <?php $profesor = nomprofesor($row['prof']);?>
-							<?php endwhile; ?> <?php echo "<span class='text-danger'>$asignatura</span><br><span class='text-info'>$profesor</span><br>$grupo";?>
+							<td width="20%"><?php $result = mysqli_query($db_con, "SELECT DISTINCT asig, prof FROM horw WHERE n_aula='$aula' AND dia='$i' AND hora='$hora'"); ?>
+							<?php $result2 = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE n_aula='$aula' AND dia='$i' AND hora='$hora'"); ?>
+							<?php $grupo=""; $asignatura=""; $profesor="";?> 
+							<?php while($row = mysqli_fetch_array($result)): ?>
+							<?php while($row2 = mysqli_fetch_array($result2)): ?>
+							<?php $grupo .= "<abbr class='text-warning'>".$row2['a_grupo']."<abbr>&nbsp;&nbsp;"; ?>
+							<?php endwhile; ?>
+							<?php $asignatura = $row['asig']; ?> 
+							<?php $profesor .= nomprofesor($row['prof'])."<br>";?>							
+							<?php endwhile; ?>
+							<?php $profesor=substr($profesor,0,-4);?>
+							<?php echo "<span class='text-danger'>$asignatura</span><br><span class='text-info'>$profesor</span><br>$grupo";?>
 							</td>
 							<?php endfor; ?>
 						</tr>
