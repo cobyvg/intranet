@@ -129,7 +129,11 @@ li.nav-header {
 }
 
 .dropdown-messages {
-	min-width: 360px;
+	min-width: 380px;
+}
+
+.dropdown-messages.dropdown-menu>li>a {
+	white-space: normal !important;
 }
 
 .dropdown-feed {
