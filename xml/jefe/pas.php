@@ -76,7 +76,7 @@ include("../../menu.php");
 										}
 										
 										// Administracion = 7;
-										if($pas_departamento == 'Administrativo/a' || $pas_departamento == 'Auxiliar administrativo/a' || $pas_departamento == 'Titulado/a Superior') {
+										if($pas_departamento == 'Administrativo/a' || $pas_departamento == 'Auxiliar administrativo/a' || $pas_departamento == 'Titulado/a Superior' ) {
 											
 											$resultDepto = mysqli_query($db_con, "SELECT * FROM departamentos WHERE idea = '$pas_idea'");
 											(mysqli_num_rows($resultDepto)) ? $usuarioExiste = 1 : $usuarioExiste = 0;
@@ -122,6 +122,32 @@ include("../../menu.php");
 											echo "<td>".$pas_nombre."</td>\n";
 											echo "<td>".$pas_dni."</td>\n";
 											echo "<td>Auxiliar de Conversacion</td>\n";
+											echo "<td>".$pas_idea."</td>\n";
+											echo "<td>".$pas_dni."</td>\n";
+											echo "</tr>\n";
+										}
+										
+										// Educador/a social = '';
+										if(stristr($pas_departamento, 'Educador/a') == TRUE) {
+											
+											$resultDepto = mysqli_query($db_con, "SELECT * FROM departamentos WHERE idea = '$pas_idea'");
+											(mysqli_num_rows($resultDepto)) ? $usuarioExiste = 1 : $usuarioExiste = 0;
+											
+											$clase = '';
+											if(! $usuarioExiste) {
+												// TABLA DEPARTAMENTOS
+												mysqli_query($db_con, "INSERT INTO departamentos (NOMBRE, DNI, DEPARTAMENTO, CARGO, idea) VALUES ('".$pas_nombre."', '".$pas_dni."', 'Educador', '', '".$pas_idea."')");
+												
+												// INCORPORACIÓN EN TABLA C_PROFES
+												mysqli_query($db_con, "INSERT INTO c_profes (pass, PROFESOR, dni, idea, estado) VALUES ('".sha1($pas_dni)."', '".$pas_nombre."', '".$pas_dni."', '".$pas_idea."', 0)");
+											
+												$clase = ' class="success"';
+											}
+											
+											echo "<tr".$clase.">\n";
+											echo "<td>".$pas_nombre."</td>\n";
+											echo "<td>".$pas_dni."</td>\n";
+											echo "<td>Educador/a</td>\n";
 											echo "<td>".$pas_idea."</td>\n";
 											echo "<td>".$pas_dni."</td>\n";
 											echo "</tr>\n";

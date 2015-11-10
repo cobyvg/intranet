@@ -14,7 +14,7 @@ include("../../menu.php");
 		<h2>Administración <small>Importación de Personal de Administración y Servicios</small></h2>
 	</div>
 	
-	<?php $result = mysqli_query($db_con, "SELECT * FROM departamentos WHERE DEPARTAMENTO='Administracion' OR DEPARTAMENTO='Auxiliar de Conversacion' OR DEPARTAMENTO='Conserjeria'"); ?>
+	<?php $result = mysqli_query($db_con, "SELECT * FROM departamentos WHERE DEPARTAMENTO='Administracion' OR DEPARTAMENTO='Auxiliar de Conversacion' OR DEPARTAMENTO='Conserjeria OR DEPARTAMENTO='Educador'"); ?>
 	<?php if(mysqli_num_rows($result)): ?>
 	<div class="alert alert-warning">
 		Ya existe información en la base de datos. Este proceso actualizará la información de los departamentos. Es recomendable realizar una <a href="copia_db/index.php" class="alert-link">copia de seguridad</a> antes de proceder a la importación de los datos.
