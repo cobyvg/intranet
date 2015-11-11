@@ -4,6 +4,7 @@ require('../../bootstrap.php');
 acl_acceso($_SESSION['cargo'], array(1));
 
 include("../../menu.php");
+include("menu.php");
 
 if (isset($_GET['profeso'])) {$profeso = $_GET['profeso'];}elseif (isset($_POST['profeso'])) {$profeso = $_POST['profeso'];}else{$profeso="";}
 if (isset($_GET['sustituido'])) {$sustituido = $_GET['sustituido'];}elseif (isset($_POST['sustituido'])) {$sustituido = $_POST['sustituido'];}else{$sustituido="";}
@@ -96,12 +97,12 @@ exit();
 		if (!($c1 > '0')) {				 	
 			$r_profe = mb_strtoupper($profeso, "ISO-8859-1");
 			mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$sustituido', '$n_dia', '$hora', NOW(), '$g_fecha')");
-			if (mysqli_affected_rows() > 0) {
+			
 				echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Has registrado correctamente a '.$sustituido.' a '.$hora.' hora para sustituirle en el Aula.
           </div></div>';
-			}	
+				
 		}
 
 
