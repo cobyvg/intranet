@@ -94,16 +94,20 @@ for ($zz = 1; $zz <= $numdays; $zz++) {
 		$eventQuery = "SELECT FALTA, hora FROM FALTAS, FALUMNOS WHERE FALUMNOS.CLAVEAL = FALTAS.CLAVEAL and FALTAS.FECHA = '$sql_currentday' and FALTAS.claveal = '$alumno' and FALTA not like 'R'";
 		//echo $eventQuery;
 		$eventExec = mysqli_query($db_con, $eventQuery);		
-		if($row = mysqli_fetch_array($eventExec)) {	
-					
+		if($row = mysqli_fetch_array($eventExec)) {
 			if (strlen($row[0]) > 0) {
 				if ($row[0] == "F" or strstr($falta_F,"F")==TRUE) {						
-				echo "<td style=\"background-color:#9d261d\">";									
+				echo "<td style=\"background-color:#9d261d;\">";	
+				
 			?>
 					
 <!-- Button trigger modal -->
 <a href="<?php echo $_SERVER['PHP_SELF']."?falta=J&profesor=$profesor&unidad=$unidad&alumno=$alumno&year=$year&today=$zz&month=$month&J=1>";?>" data-toggle="modal" data-target="#myModalF<?php echo "_".$zz;?>">
-			<span style=color:white> <?php echo $zz; ?></span></a>
+			<span style=color:white> <?php echo $zz; ?></span>
+			<?php if(strstr($falta_F,"J")==TRUE){?>
+			<i class="fa fa-warning pull-right" style="color:white;" data-bs="tooltip" title="El alumno tiene faltas de asistencia justificadas y no justificadas"></i>
+			<?php }?>
+			</a>
 
 <!-- Modal -->
 <div class="modal fade" id="myModalF<?php echo "_".$zz;?>" tabindex="-1"

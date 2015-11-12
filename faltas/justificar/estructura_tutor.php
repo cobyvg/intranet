@@ -56,40 +56,7 @@ echo "</td></tr></table><br />";
   </div>
   
   <div class="col-sm-6">
-  	
-  	<!-- Button trigger modal -->
-	<a href="#" class="btn btn-default btn-sm pull-right hidden-print" data-toggle="modal" data-target="#modalAyuda">
-		<span class="fa fa-question fa-lg"></span>
-	</a>
-
-	<!-- Modal -->
-	<div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="modal_ayuda_titulo" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-					<h4 class="modal-title" id="modal_ayuda_titulo">Instrucciones de uso</h4>
-				</div>
-				<div class="modal-body">
-					<p>Para justificar una falta selecciona en primer lugar un alumno en la 
-					columna de la derecha. Una vez el alumno aparece seleccionado elige el 
-					mes correspondiente. Aparecerán en rojo las faltas de asistencia del 
-					alumno y en verde las faltas justificadas.</p>
-					<p>Al hacer click sobre una celda del calendario cambiamos su estado: si 
-					está vacía se pone roja, si está roja se pone verde, y si está verde la 
-					dejamos a cero. <br><br>Si la falta no ha sido registrada todavía (el 
-					día del calendario no es verde ni rojo), aparecerá un cuadro de diálogo
-					 en el que deberás seleccionar las horas en que el alumno ha estado 
-					 ausente. Una vez marcadas las horas de la falta podrás justificarlas 
-					 haciendo click de nuevo sobre el día elegido.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Entendido</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	
+ 	
            <?php 
           if ($profesor) {
 // Buscamos el grupo del que $profesor es tutor.

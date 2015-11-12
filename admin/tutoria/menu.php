@@ -46,11 +46,13 @@ $curso_tutor=$query2[0];
 		<li><a href="consulta_absentismo.php">Alumnos absentistas</a></li>
 		<li class="divider"></li>
 		<li><a href="../../admin/actividades/indexextra.php">Actividades Complementarias / Extraescolares</a></li>
-		<li class="divider"></li>	
-		<?php if($_SERVER['SERVER_NAME']=="iesmonterroso.org"): ?>	
-		<li><a
-			href="http://www.iesmonterroso.net/moodle/course/view.php?id=33"
-			target="_blank">Moodle de Orientación</a></li>
+		<?php if($_SERVER['SERVER_NAME']=="iesmonterroso.org"): ?>
+		<li class="divider"></li>
+		<li><a href="http://www.iesmonterroso.net/moodle/course/view.php?id=33"	target="_blank">Moodle de Orientación</a></li>
+		<?php endif; ?>
+		<?php if($config['centro_provincia']=="Málaga"): ?>
+		<li class="divider"></li>
+		<li><a href="http://lnx.educacionenmalaga.es/orientamalaga/plan-provincial-2/" target="_blank">Plan Provincial contra el Absentismo Escolar</a></li>
 		<?php endif; ?>
 	</ul>
 	</li>
