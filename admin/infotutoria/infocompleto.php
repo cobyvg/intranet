@@ -90,8 +90,8 @@ while($informe = mysqli_fetch_array($datos))
 $fondo = "";
 if($informe[3] == $_SESSION['profi']){$fondo="background-color:#dff0d8;";}
 	echo "<tr><td style='width:15%;'><strong>$informe[0]</strong></td>
-			<td style='width:20%;'>$informe[3]</td>
-		  <td>$informe[1]";
+			<td style='width:20%;'>".stripslashes($informe[3])."</td>
+		  <td>".stripslashes($informe[1])." ";
 		if (strlen($fondo) > '0') {
 		echo "<a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id&asignatura=$asignatura&profesor=$informe[3]'><i
 		class='fa fa-trash-o fa-fw fa-lg pull-right' title='Borrar'></a>";

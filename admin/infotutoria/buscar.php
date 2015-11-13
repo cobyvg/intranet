@@ -89,8 +89,8 @@ if (mysqli_num_rows($result) > 0)
 		$foto="";
 		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64'  />";
 		echo $foto."&nbsp;&nbsp;";	
-   echo "$row->NOMBRE $row->APELLIDOS</TD>
-   <TD style='vertical-align:middle' nowrap>$row->unidad</TD>
+   echo stripslashes($row->NOMBRE).' '.stripslashes($row->APELLIDOS).'</TD>';
+  echo " <TD style='vertical-align:middle' nowrap>$row->unidad</TD>
    <TD style='vertical-align:middle' nowrap>$row->F_ENTREV</TD>";
 echo "<td style='vertical-align:middle' nowrap><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary'><i class='fa fa-search ' title='Ver Informe'> </i></a>";	
 
