@@ -129,19 +129,35 @@ for ($i=0;$i<$num_a;$i++){
 	 	$correo = $correo2[0];
 	 }
 	 if (strlen($correo)>0) {
-	 	/*	
-	 	 $texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta direcci&oacute;n de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor informaci&oacute;n sobre el contenido de este mensaje, p&oacute;ngase en contacto con <strong> Jefatura de Estudios</strong>.';
+	 	
+	 	/*
 	 	 $mail = new PHPMailer();
 	 	 $mail->Host = "localhost";
 	 	 $mail->From = 'no-reply@'.$config['dominio'];
 	 	 $mail->FromName = $config['centro_denominacion'];
 	 	 $mail->Sender = 'no-reply@'.$config['dominio'];
 	 	 $mail->IsHTML(true);
-	 	 $mail->Subject = $config['centro_denominacion'].': Comunicaci&oacute;n de Problemas de Convivencia a la familia del Alumno.';
-	 	 $mail->Body = "El ".$config['centro_denominacion']." le comunica que, con fecha $fecha, su hijo ha cometido una falta $grave contra las normas de convivencia del Centro. El tipo de falta es el siguiente: $asunto.<br>Le recordamos que puede conseguir informaci&oacute;n m&aacute;s detallada en la p&aacute;gina del alumno de nuestra web en http://"-$config['dominio'].", o bien contactando con la Jefatura de Estudios del Centro. <hr><br><br> $texto_pie";
+	 	 
+	 	 $message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
+	 	 $message = str_replace('{{dominio}}', $config['dominio'], $message);
+	 	 $message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
+	 	 $message = str_replace('{{centro_codigo}}', $config['centro_codigo'], $message);
+	 	 $message = str_replace('{{centro_direccion}}', $config['centro_direccion'], $message);
+	 	 $message = str_replace('{{centro_codpostal}}', $config['centro_codpostal'], $message);
+	 	 $message = str_replace('{{centro_localidad}}', $config['centro_localidad'], $message);
+	 	 $message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
+	 	 $message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
+	 	 $message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+	 	 $message = str_replace('{{titulo}}', 'Comunicación de Problemas de Convivencia', $message);
+	 	 $message = str_replace('{{contenido}}', 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
+	 	 
+	 	 $mail->msgHTML($message);
+	 	 $mail->Subject = $config['centro_denominacion'].' - Comunicación de Problemas de Convivencia';
+	 	 $mail->AltBody = 'Jefatura de Estudios le comunica que, con fecha '.$fecha.', su hijo ha cometido una falta '.$grave.' contra las normas de convivencia del Centro. El tipo de falta es el siguiente: '.$asunto.'.<br>Le recordamos que puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.'
+
 	 	 $mail->AddAddress($correo, $nombre_alumno);
 	 	 $mail->Send();	
-	 	 */
+	 	*/
 	 }
 	}
 }

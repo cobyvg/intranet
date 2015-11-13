@@ -63,15 +63,31 @@ if ($config['mod_sms']) {
 				$correo = $correo2[0];
 			}
 			if (strlen(correo)>0) {
-	$texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta dirección de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con <strong> Jefatura de Estudios</strong>.';		
+			
 	$mail = new PHPMailer();
 	$mail->Host = "localhost";
 	$mail->From = 'no-reply@'.$config['dominio'];
 	$mail->FromName = $config['centro_denominacion'];
 	$mail->Sender = 'no-reply@'.$config['dominio'];
 	$mail->IsHTML(true);
-	$mail->Subject = $config['centro_denominacion'].': Comunicación de Faltas de Asistencia a la familia del Alumno.';
-	$mail->Body = "Desde la Jefetura de Estudios del ".$config['centro_denominacion']." le comunicamos que entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$unidad." ha faltado al menos 5 horas al Centro sin haber presentado ninguna justificación. <br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://".$config['dominio'].", o bien contactando con la Jefatura de Estudios del Centro. <hr><br><br> $texto_pie";
+	
+	$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
+	$message = str_replace('{{dominio}}', $config['dominio'], $message);
+	$message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
+	$message = str_replace('{{centro_codigo}}', $config['centro_codigo'], $message);
+	$message = str_replace('{{centro_direccion}}', $config['centro_direccion'], $message);
+	$message = str_replace('{{centro_codpostal}}', $config['centro_codpostal'], $message);
+	$message = str_replace('{{centro_localidad}}', $config['centro_localidad'], $message);
+	$message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
+	$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
+	$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+	$message = str_replace('{{titulo}}', 'Comunicación de Faltas de Asistencia', $message);
+	$message = str_replace('{{contenido}}', 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de '.$unidad.' ha faltado al menos 5 horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.', $message);
+	
+	$mail->msgHTML($message);
+	$mail->Subject = $config['centro_denominacion'].' - Comunicación de Faltas de Asistencia';
+	$mail->AltBody = 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de ".$unidad." ha faltado al menos 5 horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
+
 	$mail->AddAddress($correo, $nombre_alumno);
 	//$mail->Send();				
 			}

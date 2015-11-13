@@ -1,7 +1,6 @@
 <?php
 require('../../bootstrap.php');
 
-
 if($_POST['token']) $token = $_POST['token'];
 if(!isset($token)) $token = time(); 
 
@@ -11,7 +10,8 @@ if (isset($_POST['enviar'])) {
 	$cor_pr0 = mysqli_fetch_array($cor_pr);
 	$mail_from = $cor_pr0[0];
 	
-	$texto_pie = '<br><br><hr>Este correo es informativo. Por favor no responder a esta dirección de correo, ya que no se encuentra habilitada para recibir mensajes. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con <strong>'.$profe_envia.'</strong> a través de la Intranet.';
+	$titulo = stripslashes(mysqli_real_escape_string($db_con, $_POST['tema']));
+	$contenido = stripslashes(mysqli_real_escape_string($db_con, $_POST['texto']));
 
 	require("../../lib/class.phpmailer.php");
 	$mail = new PHPMailer();
@@ -21,14 +21,24 @@ if (isset($_POST['enviar'])) {
 	$mail->AddReplyTo($mail_from, $profe_envia);
 	$mail->Sender = $mail_from;
 	$mail->IsHTML(true);
-	$mail->Subject = $_POST['tema'];
 	
-	if ($_SERVER['SERVER_NAME'] == 'iesmonterroso.org') {
-		$mail->Body = $_POST['texto'].' '.$texto_pie;
-	}
-	else {
-		$mail->Body = $_POST['texto'];
-	}
+	$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
+	$message = str_replace('{{dominio}}', $config['dominio'], $message);
+	$message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
+	$message = str_replace('{{centro_codigo}}', $config['centro_codigo'], $message);
+	$message = str_replace('{{centro_direccion}}', $config['centro_direccion'], $message);
+	$message = str_replace('{{centro_codpostal}}', $config['centro_codpostal'], $message);
+	$message = str_replace('{{centro_localidad}}', $config['centro_localidad'], $message);
+	$message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
+	$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
+	$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+	$message = str_replace('{{titulo}}', 'Nuevo mensaje', $message);
+	$message = str_replace('{{contenido}}', '<strong>'.$titulo.'</strong><br>'.$contenido.'<br><br><small>Enviado por: '.$profe_envia.'</small>', $message);
+	
+	$mail->msgHTML($message);
+	$mail->Subject = $config['centro_denominacion'].' - Nuevo mensaje';
+	$mail->AltBody = $titulo.' '.$contenido;
+
 
 	foreach($_POST as $var => $valor) {
 		$dni=$var;

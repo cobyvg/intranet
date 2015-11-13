@@ -57,15 +57,35 @@ if (isset($_POST['enviar'])) {
 			$mail->Sender = 'no-reply@'.$config['dominio'];
 			$mail->IsHTML(true);
 			
+			$message = file_get_contents(INTRANET_DIRECTORY.'/lib/mail_template/index.htm');
+			$message = str_replace('{{dominio}}', $config['dominio'], $message);
+			$message = str_replace('{{centro_denominacion}}', $config['centro_denominacion'], $message);
+			$message = str_replace('{{centro_codigo}}', $config['centro_codigo'], $message);
+			$message = str_replace('{{centro_direccion}}', $config['centro_direccion'], $message);
+			$message = str_replace('{{centro_codpostal}}', $config['centro_codpostal'], $message);
+			$message = str_replace('{{centro_localidad}}', $config['centro_localidad'], $message);
+			$message = str_replace('{{centro_provincia}}', $config['centro_provincia'], $message);
+			$message = str_replace('{{centro_telefono}}', $config['centro_telefono'], $message);
+			$message = str_replace('{{centro_fax}}', $config['centro_fax'], $message);
+						
 			// Excepción para el usuario Administrador
 			if ($mail_nomprofesor == 'Administrador') {
-				$mail->Subject = 'Aviso de la Intranet: Restablecimiento de la cuenta de Administrador';
-				$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza la contraseña que aparece a continuación:<br><br>'.$pass_admin.'<br><br>Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+				$message = str_replace('{{titulo}}', 'Restablecimiento de la cuenta de Administrador', $message);
+				$message = str_replace('{{contenido}}', 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">http://'.$config['dominio'].'/intranet/</a>. Utiliza la contraseña que aparece a continuación:<br><br>'.$pass_admin.'<br><br>Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.', $message);
+				
+				$mail->Subject = $config['centro_denominacion'].' - Restablecimiento de la cuenta de Administrador';
+				$mail->AltBody = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">http://'.$config['dominio'].'/intranet/</a>. Utiliza la contraseña que aparece a continuación:<br><br>'.$pass_admin.'<br><br>Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
 			}
 			else {
-				$mail->Subject = 'Aviso de la Intranet: Tu contraseña ha sido restablecida';
-				$mail->Body = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">//'.$config['dominio'].'/intranet/</a> Utiliza tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
+				$message = str_replace('{{titulo}}', 'Restablecimiento de contraseña', $message);
+				$message = str_replace('{{contenido}}', 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del Equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">http://'.$config['dominio'].'/intranet/</a>. Utiliza tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.', $message);
+				
+				$mail->Subject = $config['centro_denominacion'].' - Restablecimiento de contraseña';
+				$mail->AltBody = 'Estimado '.$mail_nomprofesor.',<br><br>Tu contraseña ha sido restablecida por algún miembro del Equipo directivo. Para acceder a la Intranet haz click en la siguiente dirección <a href="http://'.$config['dominio'].'/intranet/">http://'.$config['dominio'].'/intranet/</a>. Utiliza tu DNI como contraseña. Para mantener tu seguridad utilice una contraseña segura.<br><br><hr>Este es un mensaje automático y no es necesario responder.';
 			}
+			
+			$mail->msgHTML($message);
+			
 			$mail->AddAddress($mail_correo, $mail_nomprofesor);
 			$mail->Send();
 		}
