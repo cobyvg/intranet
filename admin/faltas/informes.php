@@ -128,11 +128,18 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
         
         <div class="media">
           <div class="media-left">
+          	  <?php if (file_exists($foto)): ?>
               <img class="media-object img-thumbnail" src="<?php echo $foto; ?>" alt="<?php echo $row['nombre'].' '.$row['apellidos']; ?>" style="width: 80px">
+              <?php else: ?>
+              <span class="fa-stack fa-3x text-muted">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+              </span>
+              <?php endif; ?>
           </div>
           <div class="media-body">
-            <h2 class="media-heading"><?php echo $row['nombre'].' '.$row['apellidos']; ?></h2>
-            <h3 class="text-info">Unidad: <?php echo $row['unidad']; ?></h3>
+            <h3 class="media-heading" style="margin-top: 4px;"><?php echo $row['nombre'].' '.$row['apellidos']; ?></h3>
+            <h4 class="text-info">Unidad: <?php echo $row['unidad']; ?></h4>
           </div>
         </div>
 
