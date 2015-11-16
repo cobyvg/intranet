@@ -284,10 +284,16 @@
 		
 		
 		<div class="col-sm-20">
+			<!-- Se han enviado datos para resetear los mensajes de algún profesor -->
+			<?php 
+			if ($_GET['resetea_mensaje']==1) {
+				mysqli_query($db_con,"update mens_profes set recibidoprofe='1' where profesor='".$_GET['idea_mensaje']."'");
+			}
+			?>
 			<?php mysqli_query($db_con, "create table mens_tmp select * from mens_profes where recibidoprofe='0' order by id_texto desc limit 5000"); ?>
 			<?php mysqli_query($db_con, "delete from mens_tmp where profesor not in (select idea from departamentos)"); ?>
 			<?php mysqli_query($db_con, "create table mens_tmp2 SELECT profesor, count(*) as num FROM mens_tmp group by profesor"); ?>
-			<?php $result = mysqli_query($db_con, "SELECT nombre, num FROM mens_tmp2, departamentos where departamentos.idea = mens_tmp2.profesor and num > '25' order by nombre"); ?>
+			<?php $result = mysqli_query($db_con, "SELECT profesor, nombre, num FROM mens_tmp2, departamentos where departamentos.idea = mens_tmp2.profesor and num > '25' order by nombre"); ?>
 			
 			
 			<h5 class="text-center">
@@ -313,14 +319,14 @@
 									<thead>
 										<tr>
 											<th>Profesor/a</th>
-											<th>No leídos</th>
+											<th style="width:20%">No leídos</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php while($row = mysqli_fetch_array($result)): ?>
 										<tr style="font-size: 0.9em;">
 											<td nowrap><?php echo nomprofesor($row['nombre']); ?></td>
-											<td><?php echo $row['num']; ?></td>
+											<td><?php echo $row['num']; ?><a href='index.php?resetea_mensaje=1&idea_mensaje=<?php echo $row['profesor'];?>'><i class='fa fa-refresh pull-right' data-bs='tooltip' title='Marcar todos los mensajes como leídos'> </i></a></td>
 										</tr>
 										<?php endwhile; ?>
 									</tbody>

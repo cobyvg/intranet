@@ -59,9 +59,9 @@ FROM  `guardias` where profesor not like ''
 GROUP BY profesor
 ORDER BY  `numero` ASC ";
 
-$sql_rec = "SELECT profesor, numero
-FROM  `recreo` where profesor not like ''
-ORDER BY  profesor, numero ASC ";
+$sql_rec = "SELECT prof, count(*) as numero
+FROM  `horw` where prof not like '' and hora = 'R' and c_asig = '353'
+group by prof ORDER BY  prof ASC";
 ?>
 
 <div class="col-sm-4">

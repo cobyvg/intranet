@@ -117,18 +117,22 @@ if ($profeso and $no_dia and $hora) {
 <legend>Sustituciones realizadas durante la <?php echo "<span class='text-danger'>".$hora."ª </span>";?>
 hora del <?php echo "<span class='text-danger'>$nombre_dia</span>";?></legend>
 	<?php 
-}	
+}
+	
 echo '<table class="table table-striped">';
 while ($h_gu = mysqli_fetch_array($h_gu0)) {
-	echo "<td>";
-	echo "<span>$h_gu[0]</span>";
-
-	echo "</td><td>";
 	$num_g0=mysqli_query($db_con, "select id from guardias where profesor = '$h_gu[0]' and dia = '$no_dia' and hora = '$hora'");
 	$ng_prof = mysqli_num_rows($num_g0);
-	echo $ng_prof;
-	echo "</td>";
-	echo "</tr>";
+	if ($ng_prof>0) {
+		echo "<tr>";
+		echo "<td>";
+		echo "<span>$h_gu[0]</span>";
+		echo "</td><td>";
+		echo $ng_prof;
+		echo "</td>";
+		echo "</tr>";
+	}
+	
 }
 echo "</table><br>";
 }

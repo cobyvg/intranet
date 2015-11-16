@@ -58,8 +58,8 @@ if ($algo=="1") {
 			echo "<span class='label label-warning' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span><br />";
 		}
 		elseif (($rowasignatur1 [0] == "25" or $rowasignatur1 [0] == "44") and $config['mod_asistencia']) {
-			if (strstr($_SESSION ['cargo'],"1")==TRUE) {
-				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/admin.php' style='text-decoration: none;'><span class='label label-danger' data-bs='tooltip' title='".$rowasignatur1[3]."'>".$rowasignatur1[1]."</span>";
+			if (strstr($_SESSION ['cargo'],"1")==TRUE and $rowasignatur1 [0] == "44") {
+				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/admin.php' style='text-decoration: none;'><span class='label label-success' data-bs='tooltip' title='".$rowasignatur1[3]."'>".$rowasignatur1[1]."</span>";
 			}
 			else{
 				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$pr' style='text-decoration: none;'><span class='label label-danger' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span></a>";
