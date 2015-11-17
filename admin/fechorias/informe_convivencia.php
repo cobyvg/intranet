@@ -611,16 +611,20 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 </table>
 <hr>
 
-<br /><table class="table table-striped" align="center" style="width:800px">
+<br />
+<?php 
+$tabla = 'tmp_'.$grupo;
+$temp = mysqli_query($db_con, "create table `$tabla` select Fechoria.asunto from Fechoria, alma where Fechoria.claveal = alma.claveal and alma.unidad = '$grupo'"); 
+$ini0 = mysqli_query($db_con, "SELECT distinct asunto, COUNT( * ) FROM  `$tabla` group by asunto");
+if (mysqli_num_rows($ini0)): 
+?>
+<table class="table table-striped" align="center" style="width:800px">
 <tr>
   <th>Tipo de Problema</th>
   <th>Número</th>
 </tr>
 <?php
-$tabla = str_replace("-","",$grupo);
-$temp = mysqli_query($db_con, "create table $tabla select Fechoria.asunto from Fechoria, alma where Fechoria.claveal = alma.claveal and alma.unidad = '$grupo'"); 
-$ini0 = mysqli_query($db_con, "SELECT distinct asunto, COUNT( * ) FROM  `$tabla` group by asunto");
-	while ($ini = mysqli_fetch_array($ini0)){
+while ($ini = mysqli_fetch_array($ini0)){
 ?>
 <tr>
   <td><?php  echo $ini[0];?></td>
@@ -628,9 +632,10 @@ $ini0 = mysqli_query($db_con, "SELECT distinct asunto, COUNT( * ) FROM  `$tabla`
 </tr>
 <?php
  }
- $borra_temp = mysqli_query($db_con, "drop table $tabla");
+ $borra_temp = mysqli_query($db_con, "drop table `$tabla`");
  echo "</tbody>
 </table>";
+ endif;
  echo '<hr style="width:800px">
 <br />';
   }
