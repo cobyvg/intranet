@@ -100,8 +100,18 @@ while($i < $total - 2)
 							}
 						}
 					}
+					// Expulsado del Centro o Aula de Convivencia en la fecha
+					$hay_expulsión="";
+					$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$clavealT' and (expulsion > '0' and date(inicio) <= date('$fecha1') and date(fin) >= date('$fecha1')) or (aula_conv > '0' and date(inicio_aula) <= date('$fecha1') and date(fin_aula) >= date('$fecha1'))");
+					if (mysqli_num_rows($exp) > '0') {
+								$hay_expulsión = 1;
+					}
+
 					if ($hay_actividad==1){
 						$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque están registrados en una Actividad Extraescolar programada.";
+					}
+					elseif ($hay_expulsión==1){
+						$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque expulsados del Centro o están en el Aula de Convivencia.";
 					}
 					else{
 						// Si la falta no se ha metido, insertamos los datos.
@@ -167,9 +177,20 @@ VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombre
 									}
 								}
 							}
+
+							// Expulsado del Centro o Aula de Convivencia en la fecha
+							$hay_expulsión="";
+							$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$claveal' and (expulsion > '0' and date(inicio) <= date('$fecha1') and date(fin) >= date('$fecha1')) or (aula_conv > '0' and date(inicio_aula) <= date('$fecha1') and date(fin_aula) >= date('$fecha1'))");
+							if (mysqli_num_rows($exp) > '0') {
+										$hay_expulsión = 1;
+							}
+
 							if ($hay_actividad==1){
 								$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque están registrados en una Actividad Extraescolar programada.";
 							}
+							elseif ($hay_expulsión==1){
+								$mens_fecha = "No es posible poner Falta a alguno de los alumnos porque están expulsados del Centro o en el Aula de Convivencia.";
+					}
 							else{
 								// Si la falta no se ha metido, insertamos los datos.
 								if ($duplicados1 == "0" and $jt1 == "0") {

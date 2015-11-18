@@ -189,7 +189,7 @@ $page_header = "Redactar mensaje";
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
-                			<input name="profes" type="checkbox" value="1" onClick="submit()" <?php if($profes=='1' and !$claustro) echo 'checked'; ?>> Profesores
+                			<input name="profes" type="checkbox" value="1" onClick="submit()" <?php if($profes=='1' and !$claustro) echo 'checked'; ?>> Personal del Centro
                 		</label>
                 	</div>
                 </div>
@@ -338,7 +338,7 @@ $page_header = "Redactar mensaje";
 				<div id="grupo_profesores" class="well">
 					
 					<fieldset>
-						<legend>Seleccione profesores</legend>
+						<legend>Selección de Personal</legend>
 						
 						<?php $s_origen = mb_strtoupper($origen); ?>
 						

@@ -133,20 +133,21 @@ if (isset($_POST['enviar'])) {
 	$curso_asignatura = $datos_asignatura['curso'];
 	
 	if ($nomasignatura == '') {
-		if ($_POST['asignatura'] == 'GUC') {
-			$codasignatura = '25';
-			$nomasignatura = 'Servicio de Guardia';
-			$abrevasignatura = 'GUC';
+		$hor = mysqli_query($db_con, "select distinct a_asig, asig from horw where c_asig='".$_POST['asignatura']."'");
+		if (mysqli_num_rows($hor)>0) {
+			$hor_act = mysqli_fetch_array($hor);
+			$codasignatura = $_POST['asignatura'];
+			$nomasignatura = $hor_act['asig'];
+			$abrevasignatura = $hor_act['a_asig'];
 		}
-		else {
+		else{
 			$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='".$_POST['asignatura']."'");
 			$datos_asignatura = mysqli_fetch_array($result);
 			$codasignatura = $_POST['asignatura'];
 			$nomasignatura = $datos_asignatura['nomactividad'];
-			$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);
-		}			
+			$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);			
+		}
 	}
-	
 	// OBTENEMOS DATOS DE LA DEPENDENCIA
 	$result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw WHERE a_aula='".$_POST['dependencia']."'");
 	$datos_dependencia = mysqli_fetch_array($result);
@@ -190,12 +191,21 @@ if (isset($_POST['actualizar'])) {
 	$abrevasignatura = $datos_asignatura['abrev'];
 	
 	if ($nomasignatura == '') {
+		$hor = mysqli_query($db_con, "select distinct a_asig, asig from horw where c_asig='".$_POST['asignatura']."'");
+		if (mysqli_num_rows($hor)>0) {
+			$hor_act = mysqli_fetch_array($hor);
+			$codasignatura = $_POST['asignatura'];
+			$nomasignatura = $hor_act['asig'];
+			$abrevasignatura = $hor_act['a_asig'];
+		}
+		else{
 		$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='".$_POST['asignatura']."'");
 		$datos_asignatura = mysqli_fetch_array($result);
 		$codasignatura = $_POST['asignatura'];
 		$nomasignatura = $datos_asignatura['nomactividad'];
 		$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);
 	}
+}
 	
 	// OBTENEMOS DATOS DE LA DEPENDENCIA
 	$result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw WHERE a_aula='".$_POST['dependencia']."'");

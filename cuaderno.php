@@ -233,12 +233,14 @@ include("cuaderno/menu_cuaderno.php");
 					elseif(strlen($asig_div)>0){
 							$resul.= $asig_div;
 						}
+					elseif($asignatura=="21" or $asignatura=="2"){
+							$resul.= " 1=1 ";
+						}
 					else{
 						$resul.=" combasi like '%$asignatura:%' ";
 					}
 					$resul.=") ". $todos ." order by NC ASC";
 
-					// echo $resul.'<br>';
 					$result = mysqli_query($db_con, $resul);
 					while($row = mysqli_fetch_array($result))
 					{
@@ -464,6 +466,10 @@ include("cuaderno/menu_cuaderno.php");
 								$resul.=" combasi like '%$asignatura:%' ";
 								$fal_e =" FALTAS.codasi='$asignatura' ";
 							}
+						}
+						elseif($asignatura=="21" or $asignatura=="2"){
+								$resul.= " 1=1 ";
+								$fal_e.= " 1=1 ";
 						}
 						else{
 							$resul.=" combasi like '%$asignatura:%' ";

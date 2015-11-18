@@ -8,7 +8,7 @@ $activo6="";
 $activo7="";
 if (strstr($_SERVER['REQUEST_URI'],'importar')==TRUE) {$activo4 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'seneca/index.php')==TRUE) {$activo1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'poner')==TRUE) {$activo3 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'faltas/index.php')==TRUE) {$activo3 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'justificar')==TRUE) {$activo5 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'intranet/faltas/index.php')==TRUE) {$activo3 = ' class="active" ';}
 if (strstr($_SERVER['REQUEST_URI'],'admin/faltas/index.php')==TRUE) {$activo6 = ' class="active" ';}
@@ -151,7 +151,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 	} else {
 		?>
 		<li <?php echo $activo3;?>><a
-			href="//<?php echo $config['dominio']; ?>/intranet/faltas/poner/index.php">
+			href="//<?php echo $config['dominio']; ?>/intranet/faltas/index.php">
 		Poner</a></li>
 		<?php
 	}

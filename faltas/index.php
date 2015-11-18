@@ -213,8 +213,14 @@ while($hora2 = mysqli_fetch_row($hora0))
 	$nm = mysqli_num_rows($n_curs11);
 	if (strlen($c_a)>0) {}else{
 		while ($nm_asig0=mysqli_fetch_array($n_curs11)){
-			$c_a.="combasi like '%".$nm_asig0[0]."%' or ";
-			$c_b.="asignatura = '".$nm_asig0[0]."' or ";
+			if ($nm_asig0[0]=="2" or $nm_asig0[0]=="21") {
+				$c_a.=" 1=1 or ";
+				$c_b.=" 1=1 or ";
+			}
+			else{
+				$c_a.="combasi like '%".$nm_asig0[0]."%' or ";
+				$c_b.="asignatura = '".$nm_asig0[0]."' or ";	
+			}			
 		}
 	}
 	$cod_asig = substr($c_b,0,strlen($c_b)-3);
@@ -302,11 +308,18 @@ while($hora2 = mysqli_fetch_row($hora0))
 				$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$row[0]' and cod_actividad in (select id from calendario where date(fechaini) >= date('$hoy') and date(fechafin) <= date('$hoy'))");
 				if (mysqli_num_rows($extraescolar) > '0') {
 					while($actividad = mysqli_fetch_array($extraescolar)){
-						$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from tramos where tramo = '$hora_dia') and horafin>= (select hora_fin from tramos where tramo = '$hora_dia')");
+						$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from tramos where hora = '$hora_dia') and horafin>= (select hora_fin from tramos where hora = '$hora_dia')");
 						if (mysqli_num_rows($tr)>0) {
 							$hay_actividad = 1;
 						}
 					}
+				}
+
+				// Expulsado del Centro o Aula de Convivencia en la fecha
+				$hay_expulsión="";
+				$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$row[0]' and (expulsion > '0' and date(inicio) <= date('$hoy') and date(fin) >= date('$hoy')) or (aula_conv > '0' and date(inicio_aula) <= date('$hoy') and date(fin_aula) >= date('$hoy'))");
+				if (mysqli_num_rows($exp) > '0') {
+							$hay_expulsión = 1;
 				}
 
 				$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
@@ -327,6 +340,12 @@ while($hora2 = mysqli_fetch_row($hora0))
 					$chkJ = 'id="disable" disabled';
 					$chkR = 'id="disable" disabled';
 					$chkT = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
+				}
+				elseif ($hay_expulsión==1){
+					$chkF = 'id="disable" disabled';
+					$chkJ = 'id="disable" disabled';
+					$chkR = 'id="disable" disabled';
+					$chkT = 'data-bs="tooltip" data-placement="right" title="Alumno expulsado del Centro o en el Aula de Convivencia"';
 				}
 				?>
 
