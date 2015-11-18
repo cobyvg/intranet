@@ -106,7 +106,9 @@ El Acta del Departamento ha sido registrada correctamente.
 }
 
 elseif ($actualiza) {
-	mysqli_query($db_con, "update r_departamento set contenido = '$contenido' where id = '$id'") ;
+	$tr_fecha = explode("-",$fecha);
+	$fecha = "$tr_fecha[2]-$tr_fecha[1]-$tr_fecha[0]";
+	mysqli_query($db_con, "update r_departamento set contenido = '$contenido', fecha='$fecha' where id = '$id'") ;
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido actualizada correctamente.
@@ -131,7 +133,8 @@ $hor = $d_rd[0];
 $hora = $d_rd[1];
 
 if ($edicion=="1") {
-	$fecha_r =  $ed->fecha;
+	$exp_fecha_reg = explode('-', $ed->fecha);
+	$fecha_r =  $exp_fecha_reg[2].'-'.$exp_fecha_reg[1].'-'.$exp_fecha_reg[0];
 }
 
 ?>
