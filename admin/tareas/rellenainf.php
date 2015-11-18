@@ -5,10 +5,10 @@ require('../../bootstrap.php');
 include("../../menu.php");
 include("menu.php");
 
-$id_alumno=$_POST['ident'];
-$asignatura=$_POST['asignatura'];
-$informe=$_POST['informe'];
-$profesor =$_POST['profesor'];
+$id_alumno = mysqli_real_escape_string($db_con, $_POST['ident']);
+$asignatura = mysqli_real_escape_string($db_con, $_POST['asignatura']);
+$informe = mysqli_real_escape_string($db_con, $_POST['informe']);
+$profesor = mysqli_real_escape_string($db_con, $_POST['profesor']);
 ?>
 <div class="container">
 <div class="row">
@@ -63,9 +63,9 @@ echo "<table class='table' align='center'>";
 {
 $fondo = "";
 if($informe[0] == $asignatura){$fondo=" class='info' ";}
-	echo "<tr $fondo><td nowrap >$informe[0]</td>
-		  <td>$informe[1]</td>";
-	echo "<td><a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id_alumno&asignatura=$asignatura&profesor=$profesor' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i> </a></td>";
+	echo "<tr $fondo><td nowrap >".stripslashes($informe[0])."</td>
+		  <td>".stripslashes($informe[1])."</td>";
+	echo "<td><a href='borrar.php?del=1&id_del=$informe[2]&id_alumno=$id_alumno&asignatura=".stripslashes($asignatura)."&profesor=".stripslashes($profesor)."' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i> </a></td>";
 	echo"</tr>";
 }
 echo"</table>";

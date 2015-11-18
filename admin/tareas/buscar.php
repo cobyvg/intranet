@@ -77,8 +77,8 @@ if (mysqli_num_rows($result) > 0)
 		$foto="";
 		$foto = "<img src='../../xml/fotos/".$row->CLAVEAL.".jpg' width='55' height='64'  />";
 		echo $foto."&nbsp;&nbsp;";	
-   echo "$row->APELLIDOS $row->NOMBRE</TD>
-   <TD style='vertical-align:middle'>$row->unidad</TD>
+   echo stripslashes($row->APELLIDOS)." ".stripslashes($row->NOMBRE)."</TD>
+   <TD style='vertical-align:middle'>".stripslashes($row->unidad)."</TD>
    <TD style='vertical-align:middle'>$row->FECHA</TD><TD style='vertical-align:middle'>$si</TD><TD style='vertical-align:middle'>$no</TD><TD style='vertical-align:middle'>$bola</TD>";
    echo "<td style='vertical-align:middle'><div class='btn-group'><a href='infocompleto.php?id=$row->ID' class='btn btn-primary btn-mini'><i class='fa fa-search ' title='Ver Informe'> </i></a>";
    $result0 = mysqli_query($db_con, "select tutor from FTUTORES where unidad = '$row->unidad'" );
