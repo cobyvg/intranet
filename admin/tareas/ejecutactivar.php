@@ -8,7 +8,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Informes de Tareas <small> Informes por expulsión</small></h2>
+  <h2>Informes de Tareas <small> Expulsión o ausencia del Alumno</small></h2>
 </div>
 <br>
           

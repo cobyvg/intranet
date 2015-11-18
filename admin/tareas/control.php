@@ -9,7 +9,7 @@ include("menu.php");
 <div class="container">
 <div class="row">
 <div class="page-header">
-  <h2>Informes de Tareas <small> Profesores que no redactan Informe</small></h2>
+  <h2>Informes de Tareas <small> Profesores que no redactan Informes</small></h2>
 </div>
 <br>
 
