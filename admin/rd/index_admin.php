@@ -29,7 +29,7 @@ echo '<div align="center">';
 <?php
 $n_col=0;
 $n_fila=0;
-$dep0 = mysqli_query($db_con, "select distinct departamentos.departamento from departamentos where nombre in (select distinct profesor from profesores) and departamentos.departamento in (select distinct r_departamento.departamento from r_departamento) order by departamentos.departamento");
+$dep0 = mysqli_query($db_con, "select distinct departamentos.departamento from departamentos where departamentos.departamento in (select distinct r_departamento.departamento from r_departamento) order by departamentos.departamento");
 while ($dep = mysqli_fetch_array($dep0)) {
 	
 $departamento = $dep[0];
