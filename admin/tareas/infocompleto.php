@@ -67,7 +67,7 @@ if (file_exists($foto)) {
 echo '
 	<div class="media-body">
     <h2>'.$dalumno[0].', '.$dalumno[1].' <small>Unidad: '.$dalumno[2].'</small></h2>
-    <h4 class="text-warning">Fecha de expulsión: '.strftime('%e de %B de %Y',strtotime($dalumno[5])).' ('.$dalumno[6].' días)</h4>
+    <h4 class="text-warning">Fecha de la ausencia: '.strftime('%e de %B de %Y',strtotime($dalumno[5])).' ('.$dalumno[6].' días)</h4>
     <h4 class="text-info">Tutor/a: '.mb_convert_case($dalumno[4], MB_CASE_TITLE, "iso-8859-1").'</h4>
   </div>
 </div>
