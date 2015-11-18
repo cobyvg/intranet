@@ -50,8 +50,8 @@ $n_col++;
 ?>
 <td valign="top">
 <p class="lead text-info" align="center"><?php echo $departamento;?></p>
-	<TABLE class="table table-striped table-bordered datatable" style="width:100%;">
-		<thead><th></th><th></th><th></th></thead>
+	<TABLE class="table table-striped table-bordered datatable">
+		<thead><th>#</th><th>Fecha</th><th>Opc.</th></thead>
 	
 <?	while($row = mysqli_fetch_object($result))
 	{
