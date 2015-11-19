@@ -14,11 +14,6 @@ function seleccionar_todo(){
 		if(document.form1.elements[i].type == "checkbox")	
 			document.form1.elements[i].checked=1
 }
-function deseleccionar_todo(){
-	for (i=0;i<document.form1.elements.length;i++)
-		if(document.form1.elements[i].type == "checkbox")	
-			document.form1.elements[i].checked=0
-}
 </script>
 <div class="container">
 	
@@ -37,7 +32,7 @@ function deseleccionar_todo(){
 <table class='table table-striped datatable'>
 	<thead>
 		<tr>		
-		<th  style="width:60px"><a onClick="seleccionar_todo()" onClick="deseleccionar_todo()"><i class="fa fa-check"> </i></a></th>
+		<th  style="width:60px"><a onClick="seleccionar_todo()" data-bs="tooltip" title="Seleccionar todos."><i class="fa fa-lg fa-check-square-o"> </i></a></th>
 		<th style="width:100px">Grupo </th>
 		<th>Alumno </th>
 		<th>Título </th>
