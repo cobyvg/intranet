@@ -7,28 +7,29 @@ $trozos = explode (", ", $al);
 $apellidos = $trozos[0];
 $nombre = $trozos[1];
 
-$n_fil = mysqli_query($db_con, "select distinct apellidos, nombre, claveal from tutoria where jefatura = '1'");
-$n_fil0 = mysqli_num_rows($n_fil);
-$result0 = mysqli_query($db_con, "select distinct apellidos, nombre, claveal from tutoria where jefatura = '1' order by fecha desc");
-$n_filas = mysqli_num_rows($result0);
-if($n_filas > 0) 
-  {
-echo '<table class="table table-striped table-bordered datatable">';
 ?>
-<?php
-echo "<thead><tr><th>#</th><th>Alumno</th><th>Fecha</th></tr></thead><tbody>";
-  while($alumn = mysqli_fetch_array($result0))
-  {
-    $result = mysqli_query($db_con, "select distinct apellidos, nombre, fecha, accion, causa, observaciones, unidad, tutor, id, prohibido from tutoria where jefatura = '1' and claveal = '$alumn[2]' order by fecha desc limit 1");
-while($row = mysqli_fetch_array($result))
-{
-$id3 = $row[8];
-$prohibido = $row[9];
 
-echo "<tr><td>$row[8]</td><td><a href='index.php?id=$id3'>$row[1] $row[0]</a></div></td><td nowrap>$row[2]</td></tr>";
-}	
-  }
-echo "</tbody></table>";
-	}
-
-  ?>
+<?php $result = mysqli_query($db_con, "SELECT DISTINCT apellidos, nombre, claveal FROM tutoria WHERE jefatura = '1' ORDER BY fecha DESC"); ?>
+<?php if(mysqli_num_rows($result) > 0): ?>
+<table class="table table-striped table-bordered datatable">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Alumno</th>
+			<th>Fecha</th>
+		</tr>
+	</thead>
+	<tbody>
+  	<?php while ($row = mysqli_fetch_array($result)): ?>
+    <?php $result = mysqli_query($db_con, "SELECT DISTINCT id, apellidos, nombre, fecha FROM tutoria WHERE jefatura = '1' AND claveal = '".$row['claveal']."' ORDER BY fecha DESC LIMIT 1"); ?>
+	<?php while($row = mysqli_fetch_array($result)): ?>
+		<tr>
+			<td><?php echo $row['id']; ?></td>
+			<td><a href="index.php?id=<?php echo $row['id']; ?>"><?php echo $row['nombre'].' '.$row['apellidos']; ?></a></td>
+			<td nowrap><?php echo $row['fecha']; ?></td>
+		</tr>
+	<?php endwhile; ?>
+	<?php endwhile; ?>
+	</tbody>
+</table>
+<?php endif; ?>
