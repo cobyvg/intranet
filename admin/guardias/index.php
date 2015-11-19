@@ -205,7 +205,7 @@ if (mysqli_num_rows($hoy0) > 0) {
 <div class="col-sm-6">
 <?
 echo '<table class="table table-striped" align="center">';
-$h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig = '25'");
+$h_gu0= mysqli_query($db_con, "select prof from horw where dia = '$n_dia' and hora = '$hora' and c_asig = '25' and a_asig not like 'GUCON'");
 while ($h_gu = mysqli_fetch_array($h_gu0)) {
 	echo "<tr><td>";
 		echo "<a href='index.php?historico=1&profeso=$profeso&h_profe=$h_gu[0]&n_dia=$n_dia&hora=$hora#marca' style='font-size:0.9em'>$h_gu[0]</a></td>";

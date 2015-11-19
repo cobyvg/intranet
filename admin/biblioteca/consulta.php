@@ -8,6 +8,18 @@ include("../../menu.php");
 include("menu.php");
 	
 ?>
+<script>
+function seleccionar_todo(){
+	for (i=0;i<document.form1.elements.length;i++)
+		if(document.form1.elements[i].type == "checkbox")	
+			document.form1.elements[i].checked=1
+}
+function deseleccionar_todo(){
+	for (i=0;i<document.form1.elements.length;i++)
+		if(document.form1.elements[i].type == "checkbox")	
+			document.form1.elements[i].checked=0
+}
+</script>
 <div class="container">
 	
 	<!-- TITULO DE LA PAGINA -->
@@ -21,15 +33,15 @@ include("menu.php");
 	
 	<!-- COLUMNA CENTRAL -->
   <div class="col-sm-12">
-<form name="form1" action="edicion.php" method="post">
+  <form name="form1" action="edicion.php" method="post">
 <table class='table table-striped datatable'>
 	<thead>
 		<tr>		
-		<th></th>
-		<th>Grupo </th>
+		<th  style="width:60px"><a onClick="seleccionar_todo()" onClick="deseleccionar_todo()"><i class="fa fa-check"> </i></a></th>
+		<th style="width:100px">Grupo </th>
 		<th>Alumno </th>
 		<th>Título </th>
-		<th nowrap>Fecha dev.</th>
+		<th nowrap  style="width:150px">Fecha dev.</th>
 		<th></th>
 		</tr>	
 	</thead>

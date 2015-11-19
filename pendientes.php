@@ -213,17 +213,44 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 	$curso3 = $rowcurso3[0];
 	$unidad3 = $curso3;
 	$asignatura3 = trim($rowcurso3[1]);
-	$asigna03 = "select codigo from asignaturas where nombre = '$asignatura3' and curso = '$rowcurso3[2]' and abrev not like '%\_%'";
+
+	// Problema con asignaturas comunes de Bachillerato con distinto código
+	if(strlen($rowcurso3[2])>15){
+		$rowcurso3[2] = substr($rowcurso3[2],0,15);
+	}
+
+	$asigna03 = "select codigo from asignaturas where nombre = '$asignatura3' and curso like '$rowcurso3[2]%' and abrev not like '%\_%'";
 	//echo $asigna03."<br>";
+	$texto_asig3="";
+	$c_asig3="";
 	$asigna13 = mysqli_query($db_con, $asigna03);
+	if(mysqli_num_rows($asigna13)>1){
+	$texto_asig="";
+	while($asigna23 = mysqli_fetch_array($asigna13)){
+		$texto_asig3.=" combasi like '%$asigna23[0]:%' or";
+		$c_asig3.=" asignatura = '$asigna23[0]' or";
+	}
+	$texto_asig3=substr($texto_asig3,0,-3);
+	$c_asig3=substr($c_asig3,0,-3);
+	}
+	else{
+		$asigna23 = mysqli_fetch_array($asigna13);
+		$texto_asig3=" combasi like '%$asigna23[0]:%'";
+		$c_asig3=" asignatura = '$asigna23[0]'";
+	}
+
+
+
+/*	$asigna13 = mysqli_query($db_con, $asigna03);
 	$asigna23 = mysqli_fetch_array($asigna13);
 	$c_asig3 = $asigna23[0];
-	if(is_numeric($c_asig3)){
+*/
+	if($c_asig3){
 		$hoy = date('Y-m-d');
 		//echo $hoy;
 
 		$query3 = "SELECT id, infotut_alumno.apellidos, infotut_alumno.nombre, F_ENTREV, infotut_alumno.claveal, nc FROM infotut_alumno, alma, FALUMNOS WHERE infotut_alumno.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and
-	 date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and combasi like '%$c_asig3:%' ORDER BY F_ENTREV asc";
+	 date(F_ENTREV) >= '$hoy' and infotut_alumno. unidad = '$unidad3' and (".$texto_asig3.") ORDER BY F_ENTREV asc";
 	 //echo $query3."<br>";
 		$result3 = mysqli_query($db_con, $query3);
 		if (mysqli_num_rows($result3) > 0)
@@ -232,7 +259,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 			{
 
 				$nc_grupo = $row3['nc'];
-				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad3' and asignatura = '$c_asig3'");
+				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad3' and ($c_asig3");
 				$hay_grupo = mysqli_num_rows($sel);
 				if ($hay_grupo>0) {
 					$sel_al = mysqli_fetch_array($sel);

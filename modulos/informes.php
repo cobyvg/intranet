@@ -8,15 +8,33 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 	$curso0 = explode("-",$curso);
 	$nivel_i = $curso;
 	$asignatura = trim($rowcurs[1]);
-	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso = '$rowcurs[2]' and abrev not like '%\_%'";
+	$texto_asig="";
+	$c_asig="";
+	// Problema con asignaturas comunes de Bachillerato con distinto código
+	if(strlen($rowcurs[2])>15){
+		$rowcurs[2] = substr($rowcurs[2],0,15);
+	}
+	$asigna0 = "select codigo from asignaturas where nombre = '$asignatura' and curso like '$rowcurs[2]%' and abrev not like '%\_%'";
 	//echo $asigna0."<br>";
 
 	$asigna1 = mysqli_query($db_con, $asigna0);
-	$asigna2 = mysqli_fetch_array($asigna1);
-	$c_asig = $asigna2[0];
-	if(is_numeric($c_asig)){
+	if(mysqli_num_rows($asigna1)>1){
+	while($asigna2 = mysqli_fetch_array($asigna1)){
+		$texto_asig.=" combasi like '%$asigna2[0]:%' or";
+		$c_asig.=" asignatura = '$asigna2[0]' or";
+	}
+		$texto_asig=substr($texto_asig,0,-3);
+		$c_asig=substr($c_asig,0,-3);
+	}
+	else{
+		$asigna2 = mysqli_fetch_array($asigna1);
+		$texto_asig=" combasi like '%$asigna2[0]:%'";
+		$c_asig=" asignatura = '$asigna2[0]'";
+	}
+
+	if($c_asig){
 		$hoy = date('Y-m-d');
-		$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal, nc FROM infotut_alumno, alma, FALUMNOS WHERE infotut_alumno.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and combasi like '%$c_asig%' ORDER BY F_ENTREV asc";
+		$query = "SELECT infotut_alumno.id, infotut_alumno.apellidos, infotut_alumno.nombre, infotut_alumno.F_ENTREV, infotut_alumno.claveal, nc FROM infotut_alumno, alma, FALUMNOS WHERE infotut_alumno.claveal = alma.claveal and FALUMNOS.claveal = alma.claveal and date(F_ENTREV)>='$hoy' and infotut_alumno.unidad = '$nivel_i' and (".$texto_asig.") ORDER BY F_ENTREV asc";
 		//echo $query;
 		$result = mysqli_query($db_con, $query);
 		$n_inotut="";
@@ -28,7 +46,7 @@ while($rowcurs = mysqli_fetch_array($resultcurs))
 			{
 				
 				$nc_grupo = $row1['nc'];
-				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$nivel_i' and asignatura = '$c_asig'");
+				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$nivel_i' and ($c_asig)");
 				$hay_grupo = mysqli_num_rows($sel);
 				if ($hay_grupo>0) {
 					$sel_al = mysqli_fetch_array($sel);

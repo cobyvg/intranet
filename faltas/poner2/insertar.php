@@ -102,7 +102,7 @@ while($i < $total - 2)
 					}
 					// Expulsado del Centro o Aula de Convivencia en la fecha
 					$hay_expulsión="";
-					$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$clavealT' and (expulsion > '0' and date(inicio) <= date('$fecha1') and date(fin) >= date('$fecha1')) or (aula_conv > '0' and date(inicio_aula) <= date('$fecha1') and date(fin_aula) >= date('$fecha1'))");
+					$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$clavealT' and ((expulsion > '0' and date(inicio) <= date('$fecha1') and date(fin) >= date('$fecha1')) or (aula_conv > '0' and date(inicio_aula) <= date('$fecha1') and date(fin_aula) >= date('$fecha1')))");
 					if (mysqli_num_rows($exp) > '0') {
 								$hay_expulsión = 1;
 					}
@@ -180,7 +180,7 @@ VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombre
 
 							// Expulsado del Centro o Aula de Convivencia en la fecha
 							$hay_expulsión="";
-							$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$claveal' and (expulsion > '0' and date(inicio) <= date('$fecha1') and date(fin) >= date('$fecha1')) or (aula_conv > '0' and date(inicio_aula) <= date('$fecha1') and date(fin_aula) >= date('$fecha1'))");
+							$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$claveal' and ((expulsion > '0' and date(inicio) <= date('$fecha1') and date(fin) >= date('$fecha1')) or (aula_conv > '0' and date(inicio_aula) <= date('$fecha1') and date(fin_aula) >= date('$fecha1')))");
 							if (mysqli_num_rows($exp) > '0') {
 										$hay_expulsión = 1;
 							}

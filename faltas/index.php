@@ -317,7 +317,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 				// Expulsado del Centro o Aula de Convivencia en la fecha
 				$hay_expulsión="";
-				$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$row[0]' and (expulsion > '0' and date(inicio) <= date('$hoy') and date(fin) >= date('$hoy')) or (aula_conv > '0' and date(inicio_aula) <= date('$hoy') and date(fin_aula) >= date('$hoy'))");
+				$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$row[0]' and ((expulsion > '0' and date(inicio) <= date('$hoy') and date(fin) >= date('$hoy')) or (aula_conv > '0' and date(inicio_aula) <= date('$hoy') and date(fin_aula) >= date('$hoy')))");
 				if (mysqli_num_rows($exp) > '0') {
 							$hay_expulsión = 1;
 				}
