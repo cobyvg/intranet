@@ -1,15 +1,31 @@
 <?php
 require('../bootstrap.php');
 
-$pr = $_SESSION['profi'];
+if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];}elseif (isset($_GET['fecha_dia'])) {$fecha_dia = $_GET['fecha_dia'];}
+if (isset($_POST['hora_dia'])) {$hora_dia = $_POST['hora_dia'];}elseif (isset($_GET['hora_dia'])) {$hora_dia = $_GET['hora_dia'];}
+if (isset($_POST['hora_guardia']) and $_POST['hora_dia']==$_POST['hora_guardia']) {$hora_dia = $_POST['hora_guardia'];}
+
+if (isset($_POST['profe']) and !empty($_POST['profe'])) {
+	$pr = $_POST['profe'];
+	$extra_gu = "";
+}
+else{
+	$pr = $_SESSION['profi'];
+	$extra_gu = " and a_asig not like 'GUCON'";
+	unset($_SESSION['profe']);
+	unset($_SESSION['hora_guardia']);
+}
+
+if ($_POST['fecha_dia']!==date('d-m-Y')) {
+	$guardia="0";
+	$pr = $_SESSION['profi'];
+}
+
 $prof1 = "SELECT distinct no_prof FROM horw where prof = '$pr'";
 $prof0 = mysqli_query($db_con, $prof1);
 $filaprof0 = mysqli_fetch_array($prof0);
-$profesi = $filaprof0[0]."_ ".$pr;
-$_SESSION['todo_profe'] = $profesi;
+$no_prof = $filaprof0[0];
 
-if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];}elseif (isset($_GET['fecha_dia'])) {$fecha_dia = $_GET['fecha_dia'];}
-if (isset($_POST['hora_dia'])) {$hora_dia = $_POST['hora_dia'];}elseif (isset($_GET['hora_dia'])) {$hora_dia = $_GET['hora_dia'];}
 
 if(empty($hora_dia)){
 	$hora = date("G");// hora ahora
@@ -113,12 +129,12 @@ if($mensaje){
 	data-date-format="DD-MM-YYYY"> <span class="input-group-addon"><span
 	class="fa fa-calendar"></span></span></div>
 </div>
+
 <div class="form-group"><label for="grupo">Grupo</label> <select
 	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
 	<?php
-
 	for ($i = 1; $i < 7; $i++) {
-		$gr_hora = mysqli_query($db_con,"select a_grupo, asig from horw_faltas where hora = '$i' and dia='$ndia' and prof = '$pr' and a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '386')");
+		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '386' and idactividad not like '25' $extra_gu)");
 		if (mysqli_num_rows($gr_hora)>0) {
 
 			while ($grupo_hora = mysqli_fetch_array($gr_hora)) {
@@ -145,8 +161,40 @@ if($mensaje){
 	?>
 </select></div>
 
-<button type="submit" class="btn btn-primary" name="aceptar">Aceptar</button>
+<?php 
 
+
+$gu = mysqli_query($db_con,"select distinct c_asig, a_asig from horw where prof = '$pr' and hora='$hora_dia' and dia='$ndia'");
+$sg = mysqli_fetch_array($gu);
+
+if (($sg['c_asig']=="25" and stristr($sg['a_asig'],"CON")==FALSE and $guardia!=="0") or !empty($_POST['profe']) and $guardia!=="0" and $_POST['hora_dia']==$_POST['hora_guardia']) { ?>
+
+<div class="form-group"><label for="profe">Profesor</label> <select
+	class="form-control" id="profe" name="profe" onChange=submit()>
+	<?php
+	echo "<option>".$_POST['profe']."</option>";
+		$gu_hora = mysqli_query($db_con,"select distinct prof from horw_faltas where hora = '$hora_dia' and dia='$ndia' order by prof");
+		if (mysqli_num_rows($gu_hora)>0) {
+
+			while ($grupo_gu = mysqli_fetch_array($gu_hora)) {
+				echo "<option>$grupo_gu[0]</option>";
+			}
+		}
+	?>
+</select></div>
+
+<?php if (isset($_POST['profe']) and $guardia!=="0") {?>
+
+<input type="hidden" name="hora_guardia" value="<?php echo $hora_dia;?>">
+
+<?php }?>
+
+<?php } ?>
+
+<div class="row">
+<div class="col-sm-12">
+<button type="submit" class="btn btn-primary" name="aceptar">Aceptar</button>
+</div>
 </fieldset>
 
 </form>
@@ -164,7 +212,8 @@ Fuera de horario escolar</h2>
 	<?php
 }
 else{
-	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+	//echo $hora1;
 	$hora0 = mysqli_query($db_con, $hora1);
 	if (mysqli_num_rows($hora0)<1) {
 		?>
@@ -208,7 +257,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 	name="Cursos"><?php
 
 	$res = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and FALUMNOS.unidad = '$curso' and ( ";
-	$n_curs10 = "select distinct c_asig from horw_faltas where no_prof = '$filaprof0[0]' and dia = '$ndia' and hora = '$hora_dia'";
+	$n_curs10 = "select distinct c_asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia'";
 	$n_curs11 = mysqli_query($db_con, $n_curs10);
 	$nm = mysqli_num_rows($n_curs11);
 	if (strlen($c_a)>0) {}else{
@@ -390,7 +439,7 @@ echo "</tr>";
 	echo '</table>';
 }
 echo '<input name="nprofe" type="hidden" value="';
-echo $filaprof0[0];
+echo $no_prof;
 echo '" />';
 // Hora escolar
 echo '<input name="hora" type="hidden" value="';

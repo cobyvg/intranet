@@ -259,7 +259,7 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 			{
 
 				$nc_grupo = $row3['nc'];
-				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad3' and ($c_asig3");
+				$sel = mysqli_query($db_con,"select alumnos from grupos where profesor = '$pr' and curso = '$unidad3' and ($c_asig3)");
 				$hay_grupo = mysqli_num_rows($sel);
 				if ($hay_grupo>0) {
 					$sel_al = mysqli_fetch_array($sel);
