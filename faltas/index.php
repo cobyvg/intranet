@@ -4,31 +4,7 @@ require('../bootstrap.php');
 if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];}elseif (isset($_GET['fecha_dia'])) {$fecha_dia = $_GET['fecha_dia'];}
 if (isset($_POST['hora_dia'])) {$hora_dia = $_POST['hora_dia'];}elseif (isset($_GET['hora_dia'])) {$hora_dia = $_GET['hora_dia'];}
 if (isset($_POST['profe_ausente'])) {$profe_ausente = $_POST['profe_ausente'];}elseif (isset($_GET['profe_ausente'])) {$profe_ausente = $_GET['profe_ausente'];}
-<<<<<<< HEAD
 
-=======
-
-
-/*if (isset($_POST['hora_guardia']) and $_POST['hora_dia']==$_POST['hora_guardia']) {$hora_dia = $_POST['hora_guardia'];}
-
-if (isset($_POST['profe']) and !empty($_POST['profe'])) {
-	$pr = $_POST['profe'];
-	$extra_gu = "";
-}
-else{
-	$pr = $_SESSION['profi'];
-	$extra_gu = " and a_asig not like 'GUCON'";
-	unset($_SESSION['profe']);
-	unset($_SESSION['hora_guardia']);
-}
-
-if ($_POST['fecha_dia']!==date('d-m-Y')) {
-	$guardia="0";
-	$pr = $_SESSION['profi'];
-}
-*/
-
->>>>>>> origin/master
 $pr = $_SESSION['profi'];
 
 $prof1 = "SELECT distinct no_prof FROM horw where prof = '$pr'";
@@ -40,7 +16,7 @@ if(empty($hora_dia)){
 	$hora = date("G");// hora ahora
 	$minutos = date("i");
 
-	// Se han importado los daos de la tramos escolar desde SÃ©neca
+	// Se han importado los daos de la tramos escolar desde Séneca
 	$jor = mysqli_query($db_con,"select hora, hora_inicio, hora_fin from tramos");
 	if(mysqli_num_rows($jor)>0){
 		while($jornad = mysqli_fetch_array($jor)){
@@ -84,14 +60,14 @@ if (isset($fecha_dia)) {
 	//echo "$ndia $hora_dia $fecha_dia $hoy $an-$me-$di";
 }
 else {
-	$ndia = date("w");// nÂº de dÃ­a de la semana (1,2, etc.)
+	$ndia = date("w");// nº de día de la semana (1,2, etc.)
 	$hoy = date("Y-m-d");
 	$hoy_actual = "$diames-$nmes-$nano";
 }
 
 if($ndia == "1"){$nom_dia = "Lunes";}
 if($ndia == "2"){$nom_dia = "Martes";}
-if($ndia == "3"){$nom_dia = "MiÃ©rcoles";}
+if($ndia == "3"){$nom_dia = "Miércoles";}
 if($ndia == "4"){$nom_dia = "Jueves";}
 if($ndia == "5"){$nom_dia = "Viernes";}
 ?>
@@ -107,7 +83,7 @@ if ($config['mod_asistencia']) {
 	}
 	?>
 
-<div class="container">
+<div class="container"> 
 
 <div class="page-header">
 <h2 style="display: inline;">Faltas de Asistencia <small> Poner faltas</small></h2>
@@ -222,20 +198,12 @@ Fuera de horario escolar</h2>
 }
 elseif (!empty($_POST['profe_ausente']) and $_POST['hora_dia']==$_POST['hora_guardia']){
 	//echo "Tarari";
-<<<<<<< HEAD
 	$prof2 = "SELECT distinct no_prof, prof FROM horw where prof = '".$_POST['profe_ausente']."'";
 	$prof20 = mysqli_query($db_con, $prof2);
 	$filaprof2 = mysqli_fetch_array($prof20);
 	$no_prof = $filaprof2[0];
 	$profesor_ausente = $filaprof2[1];
 	$hora1 = "select distinct c_asig, a_grupo, asig, prof from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
-=======
-	$prof2 = "SELECT distinct no_prof FROM horw where prof = '".$_POST['profe_ausente']."'";
-	$prof20 = mysqli_query($db_con, $prof2);
-	$filaprof2 = mysqli_fetch_array($prof20);
-	$no_prof = $filaprof2[0];
-	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
->>>>>>> origin/master
 	//echo $hora1;
 	$hora0 = mysqli_query($db_con, $hora1);
 }
@@ -247,7 +215,7 @@ else{
 		?>
 <h2 class="text-muted text-center"><span class="fa fa-clock-o fa-5x"></span>
 <br>
-Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo "Âª";?>)</h2>
+Sin alumnos en esta hora (<?php echo $hora_dia;  if (is_numeric($hora_dia)) echo "ª";?>)</h2>
 		<?php
 	}
 }
@@ -266,7 +234,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 
 	$nivel_curso = substr($curso,0,1);
 
-	//	Problemas con DiversificaciÃ³n (4E-Dd)
+	//	Problemas con Diversificación (4E-Dd)
 	$diversificacion = "";
 	$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
 	if (mysqli_num_rows($profe_div)<1) {
@@ -316,16 +284,16 @@ while($hora2 = mysqli_fetch_row($hora0))
 		$filaprincipal.= $curso." ($asignatura)";
 
 		/*	if(!($t_grupos=="")){
-		 $filaprincipal.= "<br><small><strong>Fecha:</strong> $hoy_actual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DÃ­a:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
-		 if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "Âª hora";}
+		 $filaprincipal.= "<br><small><strong>Fecha:</strong> $hoy_actual &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
+		 if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
 		 echo "</small>";
 		 }
 		 */
 		if(!($t_grupos=="")){
 			$filaprincipal.= "<br><small><strong>Fecha:</strong> ";
 			if(isset($fecha_dia)){$filaprincipal.= $fecha_dia;}else{ $filaprincipal.= date('d-m-Y');$fecha_dia=date('d-m-Y');$hoy=date('Y-m-d');}
-			$filaprincipal.= " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DÃ­a:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
-			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "Âª hora";}
+			$filaprincipal.= " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Día:</strong> $nom_dia &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> $hora_dia";
+			if(!($hora_dia == "Fuera del Horario Escolar")){$filaprincipal. "ª hora";}
 			echo "</small>";
 		}
 		echo "</h4></th></tr></thead>";
@@ -393,10 +361,10 @@ while($hora2 = mysqli_fetch_row($hora0))
 				}
 
 				// Expulsado del Centro o Aula de Convivencia en la fecha
-				$hay_expulsiÃ³n="";
+				$hay_expulsión="";
 				$exp=mysqli_query($db_con, "select expulsion, aula_conv from Fechoria where claveal = '$row[0]' and ((expulsion > '0' and date(inicio) <= date('$hoy') and date(fin) >= date('$hoy')) or (aula_conv > '0' and date(inicio_aula) <= date('$hoy') and date(fin_aula) >= date('$hoy')))");
 				if (mysqli_num_rows($exp) > '0') {
-							$hay_expulsiÃ³n = 1;
+							$hay_expulsión = 1;
 				}
 
 				$falta_d = mysqli_query($db_con, "select distinct falta from FALTAS where dia = '$ndia' and hora = '$hora_dia' and claveal = '$row[0]' and fecha = '$hoy'");
@@ -418,7 +386,7 @@ while($hora2 = mysqli_fetch_row($hora0))
 					$chkR = 'id="disable" disabled';
 					$chkT = 'data-bs="tooltip" data-placement="right" title="Actividad Extraescolar o Complementaria"';
 				}
-				elseif ($hay_expulsiÃ³n==1){
+				elseif ($hay_expulsión==1){
 					$chkF = 'id="disable" disabled';
 					$chkJ = 'id="disable" disabled';
 					$chkR = 'id="disable" disabled';
@@ -517,7 +485,7 @@ if($result){echo '<button name="enviar" type="submit" value="Enviar datos" class
 else {
 	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-El mÃ³dulo de Faltas de Asistencia debe ser activado en la ConfiguraciÃ³n general de la Intranet para poder accede a estas pÃ¡ginas, y ahora mismo estÃ¡ desactivado.
+El módulo de Faltas de Asistencia debe ser activado en la Configuración general de la Intranet para poder accede a estas páginas, y ahora mismo está desactivado.
           </div></div>'; 
 	echo "<div style='color:brown; text-decoration:underline;'>Las Faltas han sido registradas.</div>";
 }
