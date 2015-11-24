@@ -106,7 +106,7 @@ Estáss intentando registrar una sustitución con dos días o más de diferencia res
 
  	}
  	else{
-		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and profesor = '$profeso'");
+		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = date('$g_fecha') and profesor = '$profeso'");
 
 			if (mysqli_num_rows($reg_sust0) > '0') {
 		$c1 = "1";
@@ -125,7 +125,7 @@ Has actualizado correctamente los datos del Profesor que sustituyes.
 		}		
 		else{
 			
-		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = '$g_fecha' and profe_aula = '$sustituido'");
+		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = date('$g_fecha') and profe_aula = '$sustituido'");
 			if (mysqli_num_rows($reg_sust0) > '0') {
 		$c1 = "2";
 		$reg_sust = mysqli_fetch_array($reg_sust0);	
@@ -137,7 +137,7 @@ Has actualizado correctamente los datos del Profesor que sustituyes.
 		$fecha_reg = $fecha_reg0[0];
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIÓN“N:</legend>'.
+			<legend>ATENCIÓN:</legend>'.
 $sustituido .'ya ha sido sustituido a la '.$hora.' hora el día '.$fecha_reg.'. Selecciona otro profesor y continúa.
 </div></div><br>';
 			}	
@@ -145,7 +145,7 @@ $sustituido .'ya ha sido sustituido a la '.$hora.' hora el día '.$fecha_reg.'. S
 			
 		if (!($c1) > '0') {
 
-			$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$sustituido' and date(inicio) <= '$g_fecha' and date(fin) >= '$g_fecha'");
+			$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$sustituido' and date(inicio) <= date('$g_fecha') and date(fin) >= ('$g_fecha')");
 			
 		if (mysqli_num_rows($ya) > '0') {
 			$ausencia_ya = mysqli_fetch_array($ya);

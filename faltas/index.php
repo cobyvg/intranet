@@ -1,31 +1,16 @@
 <?php
 require('../bootstrap.php');
-
+//variables();
 if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];}elseif (isset($_GET['fecha_dia'])) {$fecha_dia = $_GET['fecha_dia'];}
 if (isset($_POST['hora_dia'])) {$hora_dia = $_POST['hora_dia'];}elseif (isset($_GET['hora_dia'])) {$hora_dia = $_GET['hora_dia'];}
-if (isset($_POST['hora_guardia']) and $_POST['hora_dia']==$_POST['hora_guardia']) {$hora_dia = $_POST['hora_guardia'];}
+if (isset($_POST['profe_ausente'])) {$profe_ausente = $_POST['profe_ausente'];}elseif (isset($_GET['profe_ausente'])) {$profe_ausente = $_GET['profe_ausente'];}
 
-if (isset($_POST['profe']) and !empty($_POST['profe'])) {
-	$pr = $_POST['profe'];
-	$extra_gu = "";
-}
-else{
-	$pr = $_SESSION['profi'];
-	$extra_gu = " and a_asig not like 'GUCON'";
-	unset($_SESSION['profe']);
-	unset($_SESSION['hora_guardia']);
-}
-
-if ($_POST['fecha_dia']!==date('d-m-Y')) {
-	$guardia="0";
-	$pr = $_SESSION['profi'];
-}
+$pr = $_SESSION['profi'];
 
 $prof1 = "SELECT distinct no_prof FROM horw where prof = '$pr'";
 $prof0 = mysqli_query($db_con, $prof1);
 $filaprof0 = mysqli_fetch_array($prof0);
 $no_prof = $filaprof0[0];
-
 
 if(empty($hora_dia)){
 	$hora = date("G");// hora ahora
@@ -134,7 +119,7 @@ if($mensaje){
 	class="form-control" id="hora_dia" name="hora_dia" onChange=submit()>
 	<?php
 	for ($i = 1; $i < 7; $i++) {
-		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_grupo not like '' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '386' and idactividad not like '25' $extra_gu)");
+		$gr_hora = mysqli_query($db_con,"select a_grupo, asig, c_asig from horw where hora = '$i' and dia='$ndia' and prof = '".$_SESSION['profi']."' and a_grupo not like '' and a_asig not like 'GUCON' and c_asig not in (select distinct idactividad from actividades_seneca where idactividad not like '2' and idactividad not like '21' and idactividad not like '386' and idactividad not like '25')");
 		if (mysqli_num_rows($gr_hora)>0) {
 
 			while ($grupo_hora = mysqli_fetch_array($gr_hora)) {
@@ -166,13 +151,13 @@ if($mensaje){
 
 $gu = mysqli_query($db_con,"select distinct c_asig, a_asig from horw where prof = '$pr' and hora='$hora_dia' and dia='$ndia'");
 $sg = mysqli_fetch_array($gu);
-
-if (($sg['c_asig']=="25" and stristr($sg['a_asig'],"CON")==FALSE and $guardia!=="0") or !empty($_POST['profe']) and $guardia!=="0" and $_POST['hora_dia']==$_POST['hora_guardia']) { ?>
+$cod_guardia = $sg['c_asig'];
+if (($sg['c_asig']=="25" and stristr($sg['a_asig'],"CON")==FALSE)) { ?>
 
 <div class="form-group"><label for="profe">Profesor</label> <select
-	class="form-control" id="profe" name="profe" onChange=submit()>
+	class="form-control" id="profe" name="profe_ausente" onChange=submit()>
 	<?php
-	echo "<option>".$_POST['profe']."</option>";
+	echo "<option>".$_POST['profe_ausente']."</option>";
 		$gu_hora = mysqli_query($db_con,"select distinct prof from horw_faltas where hora = '$hora_dia' and dia='$ndia' order by prof");
 		if (mysqli_num_rows($gu_hora)>0) {
 
@@ -183,11 +168,11 @@ if (($sg['c_asig']=="25" and stristr($sg['a_asig'],"CON")==FALSE and $guardia!==
 	?>
 </select></div>
 
-<?php if (isset($_POST['profe']) and $guardia!=="0") {?>
+<?php if (!empty($_POST['profe_ausente']) or $cod_guardia == "25") {?>
 
 <input type="hidden" name="hora_guardia" value="<?php echo $hora_dia;?>">
 
-<?php }?>
+<?php } ?>
 
 <?php } ?>
 
@@ -210,6 +195,17 @@ if ($ndia>5) {
 <br>
 Fuera de horario escolar</h2>
 	<?php
+}
+elseif (!empty($_POST['profe_ausente']) and $_POST['hora_dia']==$_POST['hora_guardia']){
+	//echo "Tarari";
+	$prof2 = "SELECT distinct no_prof, prof FROM horw where prof = '".$_POST['profe_ausente']."'";
+	$prof20 = mysqli_query($db_con, $prof2);
+	$filaprof2 = mysqli_fetch_array($prof20);
+	$no_prof = $filaprof2[0];
+	$profesor_ausente = $filaprof2[1];
+	$hora1 = "select distinct c_asig, a_grupo, asig, prof from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
+	//echo $hora1;
+	$hora0 = mysqli_query($db_con, $hora1);
 }
 else{
 	$hora1 = "select distinct c_asig, a_grupo, asig from horw_faltas where no_prof = '$no_prof' and dia = '$ndia' and hora = '$hora_dia' and a_grupo not like ''";
@@ -461,6 +457,13 @@ echo '" />';
 echo '<input name="profesor" type="hidden" value="';
 echo $pr;
 echo '" />';
+if (!empty($profesor_ausente)) {
+	// Profesor ausente
+echo '<input name="profesor_ausente" type="hidden" value="';
+echo $profesor_ausente;
+echo '" />';
+}
+
 // Clave
 echo '<input name="clave" type="hidden" value="';
 echo $clave;

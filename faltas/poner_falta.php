@@ -109,21 +109,83 @@ VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  
 
 	}
 }
+
+//Faltas en una Guardia
+if (!empty($_POST['profesor_ausente'])) {
+	$tiempo = '7000';
+	$profesor_ausente = $_POST['profesor_ausente'];
+	$profesor_real = $_POST['profesor'];
+	$n_dia = $_POST['ndia'];
+	
+	// Cambiamos fecha
+	$inicio1=$_POST['hoy'];
+	$fin1 = $inicio1;
+	
+	//Horas
+	$horas=$_POST['hora'];
+
+	// Registramos o actualizamos ausencia del profesor sustituído en la guardia
+	$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$profesor_ausente' and date(inicio)<= date('$inicio1') and date(fin) >= date('$fin1')");
+		if (mysqli_num_rows($ya) > '0') {
+			$ya_hay = mysqli_fetch_array($ya);
+			$horas_ya = $ya_hay['horas'];
+			if (strstr($horas_ya,$horas)==FALSE) {
+				$horas=$horas_ya.$horas;
+			}
+			$actualiza = mysqli_query($db_con, "update ausencias set horas = '$horas' where id = '$ya_hay[0]'");
+			echo '<div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamente.
+          </div>';			
+		}
+			else{
+			$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$profesor_ausente', '$inicio1', '$fin1', '$horas', '', NOW(), '')");
+				echo '<div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Se ha registrado la ausencia del profesor '.$profesor_ausente.'.
+          </div>';		
+			}
+			
+			//Registramos sustitución en la tabla de Guardias
+			$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
+			if (mysqli_num_rows($gu)>0) {
+				$guardi = mysqli_fetch_row($gu);
+				echo '<div class="alert alert-warning alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+			<legend>ATENCIÓN:</legend>No ha sido posible registrar la guardia porque el profesor aparentemente ya ha sido sustituído por un compañero de guardia: '.$guardi[1].'
+</div>';
+			}
+			else{
+				$r_profe = mb_strtoupper($profesor, "ISO-8859-1");
+			mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1')");
+			if (mysqli_affected_rows($db_con) > 0) {
+			echo '<div class="alert alert-info alert-block fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+Has registrado correctamente a '.$profesor_ausente.' a '.$horas.' hora para sustituirle en al Aula.
+</div>';
+			}	
+		}			
+	}
+
 if (empty($mens_fecha)) {
-	echo '<br /><div align="center"><div class="alert alert-success alert-block fade in">
+	echo '<div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Las Faltas han sido registradas.
-          </div></div>'; 
+          </div>'; 
 }
 else{
-	echo '<br /><div align="center"><div class="alert alert-danger alert-block fade in">
+	echo '<div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            '. $mens_fecha.'</div></div>'; 
+            '. $mens_fecha.'</div>'; 
+}
+
+if (empty($tiempo)) {
+	$tiempo="2000";
 }
 ?> 
 
 <script language="javascript">
-setTimeout("window.location='index.php?fecha_dia=<?php if (!empty($fecha_dia)) {  echo $fecha_dia;}else {echo date('d-m-Y');}?>&hora_dia=<?php echo $hora; ?><?php echo $extra;?>'", 2000) 
+setTimeout("window.location='index.php?fecha_dia=<?php if (!empty($fecha_dia)) {  echo $fecha_dia;}else {echo date('d-m-Y');}?>&hora_dia=<?php echo $hora; ?><?php echo $extra;?>'", <?php echo $tiempo;?>) 
 </script> 
 
 </body>
