@@ -91,10 +91,10 @@ while($i < $total - 2)
 
 					// Tiene actividad extraescolar en la fecha
 					$hay_actividad="";
-					$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$clavealT' and cod_actividad in (select id from calendario where date(fechaini) >= date('$fecha1') and date(fechafin) <= date('$fecha1'))");
+					$extraescolar=mysqli_query($db_con, "select cod_actividad from actividadalumno where claveal = '$clavealT' and cod_actividad in (select id from calendario where date(fechaini) <= date('$fecha1') and date(fechafin) >= date('$fecha1'))");
 					if (mysqli_num_rows($extraescolar) > '0') {
 						while($actividad = mysqli_fetch_array($extraescolar)){
-							$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and horaini<= (select hora_inicio from tramos where hora = '$trozos[5]') and horafin>= (select hora_fin from tramos where hora = '$trozos[5]')");
+							$tr = mysqli_query($db_con,"select * from calendario where id = '$actividad[0]' and (horaini<= (select hora_inicio from tramos where hora = '$trozos[5]') or horaini='00:00:00') and (horafin>= (select hora_fin from tramos where hora = '$trozos[5]') or horafin='00:00:00' )");
 							if (mysqli_num_rows($tr)>0) {
 								$hay_actividad = 1;
 							}

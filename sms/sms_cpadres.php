@@ -105,7 +105,17 @@ if ($config['mod_sms']) {
 
 	$text = "Entre el ".$_POST['fecha12']." y el ".$_POST['fecha22']." su hijo/a de ".$niv." ha faltado al menos 5 horas injustificadas al centro. Mas info en http://".$config['dominio'];
 	
+        // Registramos intervención de tutoría
+        $causa = "Faltas de Asistencia";
+        $observaciones = "Comunicación de Faltas de Asistencia a la familia del Alumno.";
+        $accion = "Envío de SMS";
+        $tuto = "Jefatura de Estudios";
+        $fecha2 = date('Y-m-d');
+        mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
+	
 	// ENVIO DE SMS
+        mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
+
 	
 	include_once(INTRANET_DIRECTORY . '/lib/trendoo/sendsms.php');
         $sms = new Trendoo_SMS();
@@ -121,27 +131,16 @@ if ($config['mod_sms']) {
             $sms->send();
 			
             $mobile2 .= $mobil2.",";
-            
-            // Variables para la acción de tutoría
-            $causa = "Faltas de Asistencia";
-            $observaciones = "Comunicación de Faltas de Asistencia a la familia del Alumno.";
-            $accion = "Envío de SMS";
-            $tuto = "Jefatura de Estudios";
-            $fecha2 = date('Y-m-d');
-            
-            mysqli_query($db_con, "insert into tutoria (apellidos, nombre, tutor,unidad,observaciones,causa,accion,fecha,claveal) values ('".$apellidos."','".$nombre."','".$tuto."','".$unidad."','".$observaciones."','".$causa."','".$accion."','".$fecha2."','".$claveal."')");
-            
-            mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobil2','$text','Jefatura de Estudios')");
-			}
                 }
+            }
 			//echo $mobile2;
 			if(strlen($sin) > 0){$sin2 .= $sin.";";}
-		}
+	}
 		// Identificador del mensaje
 		$sms_n = mysqli_query($db_con, "select max(id) from sms");
 		$n_sms =mysqli_fetch_array($sms_n);
 		$extid = $n_sms[0]+1;
-	}
+    }
 
 	?>
 	<?php

@@ -1,6 +1,5 @@
 <?php
 require('../../../bootstrap.php');
-
 function abrevactividad($db_con, $actividad) {
 	$result = mysqli_query($db_con, "SELECT idactividad, nomactividad FROM actividades_seneca WHERE nomactividad = '$actividad'");
 	while ($row = mysqli_fetch_array($result)) {
@@ -81,7 +80,7 @@ else $hora = $_POST['hora'];
 if (isset($_GET['asignatura'])) $asignatura = urldecode($_GET['asignatura']);
 else $asignatura = $_POST['asignatura'];
 
-if (isset($_GET['unidad'])) {
+if (isset($_GET['unidad']) and $_GET['asignatura']!=="25") {
 	$unidad = urldecode($_GET['unidad']);
 	
 	// A partir del código de la asignatura y la unidad, descubrimos el curso...
@@ -103,12 +102,12 @@ if (isset($_GET['unidad'])) {
 	$unidad_curso = $unidad.'|'.$curso;
 }
 else {
+	$unidad = substr($_POST['unidad'],0,-1);
 	$unidad_curso = $_POST['unidad'];
 	$exp_unidad = explode('|', $unidad_curso);
 	$unidad = $exp_unidad[0];
 	$curso = $exp_unidad[1];
 }
-
 if (isset($_GET['dependencia'])) $dependencia = urldecode($_GET['dependencia']);
 else $dependencia = $_POST['dependencia'];
 
@@ -147,6 +146,9 @@ if (isset($_POST['enviar'])) {
 			$nomasignatura = $datos_asignatura['nomactividad'];
 			$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);			
 		}
+	}
+if ($codasignatura=="25") {
+		$unidad="GU";
 	}
 	// OBTENEMOS DATOS DE LA DEPENDENCIA
 	$result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw WHERE a_aula='".$_POST['dependencia']."'");
@@ -206,7 +208,9 @@ if (isset($_POST['actualizar'])) {
 		$abrevasignatura = abrevactividad($db_con, $datos_asignatura['nomactividad']);
 	}
 }
-	
+	if ($codasignatura=="25") {
+		$unidad="GU";
+	}
 	// OBTENEMOS DATOS DE LA DEPENDENCIA
 	$result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw WHERE a_aula='".$_POST['dependencia']."'");
 	$datos_dependencia = mysqli_fetch_array($result);
@@ -359,7 +363,7 @@ include("../../../menu.php");
 						  	<?php endwhile; ?>
 						  </select>
 						</div>
-						
+
 						<div class="form-group">
 						  <label for="asignatura">Asignatura</label>
 						  <select class="form-control" id="asignatura" name="asignatura">
@@ -374,7 +378,7 @@ include("../../../menu.php");
 					  		<?php endif; ?>
 						  	<optgroup label="Actividades">
 						  		<?php if ($unidad): ?>
-							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='21' OR idactividad='136' OR idactividad='356' OR idactividad='386' OR idactividad='861' ORDER BY nomactividad ASC"); ?>
+							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='21' OR idactividad='136' OR idactividad='356' OR idactividad='386' OR idactividad='861' OR idactividad='25' ORDER BY nomactividad ASC"); ?>
 							  	<?php else: ?>
 							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad <> 1 ORDER BY nomactividad ASC"); ?>
 							  	<?php endif; ?>
