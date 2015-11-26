@@ -191,7 +191,7 @@ $result_calendarios = mysqli_query($db_con, "SELECT id, nombre, color FROM calen
 
 while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 
-	$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin, horaini, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND YEAR(fechaini)='$anio_actual' AND MONTH(fechaini)='$mes_actual' AND $dia_actual BETWEEN DAY(fechaini) AND DAY(fechafin) ORDER BY horaini ASC, horafin ASC");
+	$result_eventos = mysqli_query($db_con, "SELECT id, nombre, descripcion, fechaini, fechafin, horaini, horafin FROM calendario WHERE categoria='".$calendario['id']."' AND date('$anio_actual-$mes_actual-$dia_actual') between date(fechaini) and date(fechafin) ORDER BY horaini ASC, horafin ASC");
 	
 	while ($eventos = mysqli_fetch_assoc($result_eventos)) {
 		if (mysqli_num_rows($result_eventos)) {

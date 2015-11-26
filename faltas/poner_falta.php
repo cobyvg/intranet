@@ -123,21 +123,22 @@ if (!empty($_POST['profesor_ausente'])) {
 	
 	//Horas
 	$horas=$_POST['hora'];
-
 	// Registramos o actualizamos ausencia del profesor sustituído en la guardia
-	$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$profesor_ausente' and date(inicio)<= date('$inicio1') and date(fin) >= date('$fin1')");
+	$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$profesor_ausente' and date(inicio)<= date('$inicio1') and date(fin) >= date('$fin1') and horas !='0'");
 		if (mysqli_num_rows($ya) > '0') {
 			$ya_hay = mysqli_fetch_array($ya);
+			if ($ya_hay['horas']>'0') {
 			$horas_ya = $ya_hay['horas'];
 			if (strstr($horas_ya,$horas)==FALSE) {
 				$horas=$horas_ya.$horas;
-			}
-			$actualiza = mysqli_query($db_con, "update ausencias set horas = '$horas' where id = '$ya_hay[0]'");
-			echo '<div class="alert alert-info">
+				$actualiza = mysqli_query($db_con, "update ausencias set horas = '$horas' where id = '$ya_hay[0]'");
+				echo '<div class="alert alert-info">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamente.
-          </div>';			
-		}
+          </div>';	
+			}		
+			}
+			}
 			else{
 			$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$profesor_ausente', '$inicio1', '$fin1', '$horas', '', NOW(), '')");
 				echo '<div class="alert alert-info">
@@ -145,8 +146,9 @@ Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamen
 Se ha registrado la ausencia del profesor '.$profesor_ausente.'.
           </div>';		
 			}
-			
+
 			//Registramos sustitución en la tabla de Guardias
+			$horas=$_POST['hora'];
 			$gu = mysqli_query($db_con, "select * from guardias where profe_aula = '$profesor_ausente' and dia = '$n_dia' and hora = '$horas' and fecha_guardia = '$inicio1'");
 			if (mysqli_num_rows($gu)>0) {
 				$guardi = mysqli_fetch_row($gu);
@@ -156,7 +158,7 @@ Se ha registrado la ausencia del profesor '.$profesor_ausente.'.
 </div>';
 			}
 			else{
-				$r_profe = mb_strtoupper($profesor, "ISO-8859-1");
+			$r_profe = mb_strtoupper($profesor, "ISO-8859-1");
 			mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia) VALUES ('$r_profe', '$profesor_ausente', '$n_dia', '$horas', NOW(), '$inicio1')");
 			if (mysqli_affected_rows($db_con) > 0) {
 			echo '<div class="alert alert-info alert-block fade in">

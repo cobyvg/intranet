@@ -132,7 +132,6 @@ Has actualizado correctamente los datos del Profesor que sustituyes.
 		$id= $reg_sust[0];
 		$prof_sust= $reg_sust[1];
 		$prof_reg= $reg_sust[2];
-//		$hor_reg = $reg_sust[3];
 		$fecha_reg0 = explode(" ",$reg_sust[4]);
 		$fecha_reg = $fecha_reg0[0];
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in">

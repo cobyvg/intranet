@@ -151,11 +151,11 @@ No se pueden procesar los datos. Has dejado campos vacíos en el formulario que e
 				<div class="form-group">
 					<label for="profesor">Profesor/a</label>
 					<?php
-					$hora = date('g');
+					$hora = date('G');
 					$minuto = date('i');
 					$hora_min = $hora.":".$minuto;
 					$dia_sem = date('w');
-					$hor=mysqli_query($db_con,"select hora from tramos where hora_inicio < '$hora_min' and hora_fin > '$hora_min'");
+					$hor=mysqli_query($db_con,"select hora from tramos where hora_inicio <= '$hora_min' and hora_fin >= '$hora_min'");
 					$hora_act = mysqli_fetch_array($hor);
 					$hora_actual = $hora_act[0];
 					$gu = mysqli_query($db_con, "select * from horw where dia = '$dia_sem' and hora = '$hora_actual' and prof = '".$_SESSION['profi']."' and c_asig = '25'");

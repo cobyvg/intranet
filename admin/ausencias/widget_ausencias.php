@@ -1,17 +1,17 @@
 
 <!-- MODULO DE AUSENCIAS -->
 <?php 
-$hora = date('g');
+$hora = date('G');
 $minuto = date('i');
 $hora_min = $hora.":".$minuto;
 $dia_sem = date('w');
-$hor=mysqli_query($db_con,"select hora from tramos where hora_inicio <= '$hora_min' and hora_fin >= '$hora_min'");
+$hor=mysqli_query($db_con,"select hora from tramos where hora_inicio <= '$hora_min' and  hora_fin >= '$hora_min'");
 $hora_act = mysqli_fetch_array($hor);
 $hora_actual = $hora_act[0];
 //echo $hora_actual;
 ?>
-<?php $result = mysqli_query($db_con, "SELECT profesor, id, tareas from ausencias where  date(inicio) <= '".date('Y-m-d')."' and date(fin) >= '".date('Y-m-d')."' and (horas like '%$hora_actual%' or horas = '')"); 
-//echo "SELECT profesor, id, tareas from ausencias where  date(inicio) <= '".date('Y-m-d')."' and date(fin) >= '".date('Y-m-d')."' and (horas like '%$hora_actual%' or horas = '')";?>
+<?php $result = mysqli_query($db_con, "SELECT profesor, id, tareas from ausencias where  date(inicio) <= '".date('Y-m-d')."' and date(fin) >= '".date('Y-m-d')."' and (horas like '%$hora_actual%' or horas = '0')"); 
+?>
 <?php if (mysqli_num_rows($result)): ?>
 
 <div class="well well-sm">
