@@ -110,7 +110,6 @@ else{
 
 $result = mysqli_query($db_con, "SELECT FALUMNOS.claveal, FALUMNOS.apellidos, FALUMNOS.nombre, FALUMNOS.unidad FROM FALUMNOS WHERE CLAVEAL = '$claveal'");
 $row = mysqli_fetch_array($result);
-
 $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
 ?>
   
@@ -258,28 +257,35 @@ $foto = '../../xml/fotos/'.$row['claveal'].'.jpg';
                 <?php endfor; ?>
               </tr>
             </thead>
-            <tbody>
-              <?php while ($row = mysqli_fetch_array($result)): ?>
-              <tr>
-                <th><abbr data-bs="tooltip" title="<?php echo strftime('%A', strtotime($row['fecha'])); ?>"><?php echo $row['fecha']; ?></abbr></th>
-                <?php for ($i = 1; $i < 7; $i++): ?>
-                <?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre, falta FROM FALTAS JOIN asignaturas ON FALTAS.codasi = asignaturas.codigo  WHERE claveal = '$claveal' AND fecha = '".$row['fecha']."' AND hora = '$i' and abrev not like '%\_%'"); ?>
-                <?php $row_falta = mysqli_fetch_array($result_falta); ?>
-                <td>
-                  <abbr data-bs="tooltip" title="<?php echo $row_falta['nombre']; ?>">
-                    <span class="label label-default"><?php echo $row_falta['abrev']; ?></span>
-                  </abbr>
-                  
-                  <abbr data-bs="tooltip" title="<?php echo tipo_falta($row_falta['falta']); ?>">
-                  <?php echo ($row_falta['falta'] == "I" || $row_falta['falta'] == "F") ? '<span class="label label-danger">'.$row_falta['falta'].'</label>' : ''; ?>
-                  <?php echo ($row_falta['falta'] == "R") ? '<span class="label label-warning">'.$row_falta['falta'].'</label>' : ''; ?>
-                  <?php echo ($row_falta['falta'] == "J") ? '<span class="label label-success">'.$row_falta['falta'].'</label>' : ''; ?>
-                  </abbr>
-                </td>
-                <?php endfor; ?>
-              </tr>
-              <?php endwhile; ?>
-            </tbody>
+            
+  
+            
+            		<tbody>
+			<?php while ($row = mysqli_fetch_array($result)): ?>
+			<tr>
+				<th><abbr data-bs="tooltip" title="<?php echo strftime('%A', strtotime($row['fecha'])); ?>"><?php echo $row['fecha']; ?></abbr></th>
+				<?php for ($i = 1; $i < 7; $i++): ?>
+				<?php $result_falta = mysqli_query($db_con, "SELECT DISTINCT falta, codasi FROM FALTAS WHERE claveal = '$claveal' AND fecha = '".$row['fecha']."' AND hora = '$i'"); ?>
+				<?php $row_falta = mysqli_fetch_array($result_falta); ?>
+				<?php $result_asig = mysqli_query($db_con, "SELECT DISTINCT asignaturas.abrev, asignaturas.nombre FROM asignaturas WHERE asignaturas.codigo = '".$row_falta['codasi']."' and abrev not like '%\_%'"); ?>
+				<?php $row_asig = mysqli_fetch_array($result_asig); ?>
+				
+				<td>
+					<abbr data-bs="tooltip" title="<?php echo $row_asig['nombre']; ?>">
+						<span class="label label-default"><?php echo $row_asig['abrev']; ?></span>
+					</abbr>
+					
+					<abbr data-bs="tooltip" title="<?php echo tipo_falta($row_falta['falta']); ?>">
+					<?php echo ($row_falta['falta'] == "I" || $row_falta['falta'] == "F") ? '<span class="label label-danger">'.$row_falta['falta'].'</label>' : ''; ?>
+					<?php echo ($row_falta['falta'] == "R") ? '<span class="label label-warning">'.$row_falta['falta'].'</label>' : ''; ?>
+					<?php echo ($row_falta['falta'] == "J") ? '<span class="label label-success">'.$row_falta['falta'].'</label>' : ''; ?>
+					</abbr>
+				</td>
+				<?php endfor; ?>
+			</tr>
+			<?php endwhile; ?>
+		</tbody>
+		
           </table>
         </div>
         <?php endif; ?>
