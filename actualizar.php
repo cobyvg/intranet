@@ -514,10 +514,7 @@ if (! mysqli_num_rows($actua)) {
 		mysqli_query($db_con, "ALTER TABLE `FALTAS` CHANGE `CODASI` `CODASI` VARCHAR(10) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL;");
 	}
 }
-?>
 
-
-<?php
 /*
  @descripcion: Tabla FALTAS - Correción regular de error de código de asignatura vacía (hasta confirmar que error ha desaparecido, como parece)
  @fecha: 28 de noviembre de 2015
@@ -526,26 +523,24 @@ $hoy= date('Y-m-d');
 $tr_dia = explode("-",$hoy);
 $n_dia = date('N', mktime(0, 0, 0, $tr_dia[1], $tr_dia[2], $tr_dia[0]));
 $n_hora = date('G');
-?>
-<?php if($config['mod_asistencia']=="1" and $n_dia = "1" and $n_hora = "8") { ?>
-<?php $result_falta = mysqli_query($db_con, "SELECT distinct claveal, hora, dia, unidad FROM FALTAS WHERE codasi = '' ORDER BY fecha DESC"); ?>
-<?php while($row_falta = mysqli_fetch_array($result_falta)){ ?> 
-<?php
-$claveal = $row_falta['claveal'];
-$dia = $row_falta['dia'];
-$unidad = $row_falta['unidad'];
-$hora = $row_falta['hora'];
-$sin_cod=mysqli_query($db_con,"select c_asig from horw_faltas where dia='$dia' and hora='$hora' and a_grupo like '$unidad%'");
-while ($sin_codigo = mysqli_fetch_array($sin_cod)) {
-	$asig_nene = mysqli_query($db_con,"select combasi from alma where claveal = '$claveal' and combasi like '%$sin_codigo[0]:%'");
-	if (mysqli_num_rows($asig_nene)>0) {
-		$codigo_asignatura=$sin_codigo[0];
-		$num++;
-		mysqli_query($db_con,"update FALTAS set codasi = '$codigo_asignatura' where claveal = '$claveal' and hora = '$hora' and dia = '$dia'");
-		break;
+
+if($config['mod_asistencia']=="1" and $n_dia = "1" and $n_hora = "8") { 
+	$result_falta = mysqli_query($db_con, "SELECT distinct claveal, hora, dia, unidad FROM FALTAS WHERE codasi = '' ORDER BY fecha DESC");
+	while($row_falta = mysqli_fetch_array($result_falta)){
+		$claveal = $row_falta['claveal'];
+		$dia = $row_falta['dia'];
+		$unidad = $row_falta['unidad'];
+		$hora = $row_falta['hora'];
+		$sin_cod=mysqli_query($db_con,"select c_asig from horw_faltas where dia='$dia' and hora='$hora' and a_grupo like '$unidad%'");
+		while ($sin_codigo = mysqli_fetch_array($sin_cod)) {
+			$asig_nene = mysqli_query($db_con,"select combasi from alma where claveal = '$claveal' and combasi like '%$sin_codigo[0]:%'");
+			if (mysqli_num_rows($asig_nene)>0) {
+				$codigo_asignatura=$sin_codigo[0];
+				$num++;
+				mysqli_query($db_con,"update FALTAS set codasi = '$codigo_asignatura' where claveal = '$claveal' and hora = '$hora' and dia = '$dia'");
+				break;
+			}
+		}
 	}
+	echo $num;
 }
-}
-echo $num;
-?>
-<?php } ?> 
