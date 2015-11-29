@@ -80,7 +80,7 @@ else $hora = $_POST['hora'];
 if (isset($_GET['asignatura'])) $asignatura = urldecode($_GET['asignatura']);
 else $asignatura = $_POST['asignatura'];
 
-if (isset($_GET['unidad']) and $_GET['asignatura']!=="25") {
+if (isset($_GET['unidad']) && $_GET['asignatura'] !== '25') {
 	$unidad = urldecode($_GET['unidad']);
 	
 	// A partir del código de la asignatura y la unidad, descubrimos el curso...
@@ -101,13 +101,14 @@ if (isset($_GET['unidad']) and $_GET['asignatura']!=="25") {
 	
 	$unidad_curso = $unidad.'|'.$curso;
 }
-else {
-	$unidad = substr($_POST['unidad'],0,-1);
+elseif ((isset($_GET['unidad']) && $_GET['unidad'] == '') && isset($_POST['unidad'])) {
+	$unidad = substr($_POST['unidad'], 0, -1);
 	$unidad_curso = $_POST['unidad'];
 	$exp_unidad = explode('|', $unidad_curso);
 	$unidad = $exp_unidad[0];
 	$curso = $exp_unidad[1];
 }
+
 if (isset($_GET['dependencia'])) $dependencia = urldecode($_GET['dependencia']);
 else $dependencia = $_POST['dependencia'];
 
