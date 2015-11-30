@@ -421,9 +421,9 @@ function contents_dir($current_dir, $directory)
 			echo "    <tr>\n";
 			
 		  echo "      <td>\n";
-			echo "        <img src=\"images/".get_mimetype_img("$current_dir/$filename")."\" width=\"32\" alt=\"\">\n"; 		  
-			if (is_dir("$current_dir/$filename")) echo "<a href=\"$filenameandpath\">";
-			
+		 	if (is_dir("$current_dir/$filename")) echo "<a href=\"$filenameandpath\">";
+		  	echo "		  <span class=\"fa " . get_mimetype_img("$current_dir/$filename") . " fa-fw fa-lg\"></span>";	  
+		  	
 			if(strlen($filename) > $file_out_max_caracters) {
 				echo htmlspecialchars(substr($filename, 0, $file_out_max_caracters-4).'...', ENT_QUOTES, 'ISO-8859-1');
 			}
