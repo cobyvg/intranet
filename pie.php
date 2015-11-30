@@ -93,6 +93,29 @@
     <?php endif; ?>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/ajax_alumnos.js"></script>
     
+    <script>
+    $(function () {
+    	<?php if($_SERVER['SCRIPT_NAME'] == '/intranet/index.php'): ?>
+    	localStorage.clear();
+    	gray_color_theme = $(".panel-heading").css("background-color");
+    	localStorage['gray_color_theme'] = gray_color_theme;
+    	<?php endif; ?>
+    	$(".table > thead > tr > th").css("background-color", localStorage['gray_color_theme']);
+    	$(".today").css("background-color", localStorage['gray_color_theme']);
+     });
+    </script>
+   
+    
+    <style type="text/css">
+    table.dataTable thead .sorting,
+    table.dataTable thead .sorting_asc,
+    table.dataTable thead .sorting_desc,
+    table.dataTable thead .sorting_asc_disabled,
+    table.dataTable thead .sorting_desc_disabled {
+        background-color: ;
+        cursor: pointer;
+    }
+    </style>
 		
 	<script>
 	$(function () {

@@ -544,3 +544,21 @@ if($config['mod_asistencia']=="1" and $n_dia = "1" and $n_hora = "8") {
 	}
 	echo $num;
 }
+
+/*
+ @descripcion: Modificación temas - Standard y Yeti
+ @fecha: 30 de noviembre de 2015
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modificación temas - Standard y Yeti'");
+if (! mysqli_num_rows($actua)) {
+	mysqli_query($db_con, "UPDATE temas SET tema = 'temas/bootstrap.min-standard.css' WHERE tema = 'temas/bootstrap.min.standard.css'");
+	mysqli_query($db_con, "UPDATE temas SET tema = 'temas/bootstrap.min-yeti.css' WHERE tema = 'temas/bootstrap.min-jeti.css'");
+	
+	unlink(INTRANET_DIRECTORY . '/css/temas/bootstrap.min.standard.css');
+	unlink(INTRANET_DIRECTORY . '/img/temas/standard.png');
+	
+	unlink(INTRANET_DIRECTORY . '/css/temas/bootstrap.min-jeti.css');
+	unlink(INTRANET_DIRECTORY . '/css/temas/jeti.png');
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificación temas - Standard y Yeti', NOW())"); 
+}
