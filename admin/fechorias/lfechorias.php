@@ -221,7 +221,7 @@ echo '<div align="center"><div class="alert alert-success alert-block fade in">
         
     		"lengthMenu": [[15, 35, 50, -1], [15, 35, 50, "Todos"]],
     		
-    		"order": [[ 2, "desc" ]],
+    		"order": [[ 3, "desc" ]],
     		
     		"language": {
     		            "lengthMenu": "_MENU_",
