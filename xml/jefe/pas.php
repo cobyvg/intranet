@@ -76,7 +76,7 @@ include("../../menu.php");
 										}
 										
 										// Administracion = '7';
-										if($pas_departamento == 'Administrativo/a' || $pas_departamento == 'Auxiliar administrativo/a' || $pas_departamento == 'Titulado/a Superior') {
+										if($pas_departamento == 'Administrativo/a' || $pas_departamento == 'Auxiliar administrativo/a' || $pas_departamento == 'Titulado/a Grado Medio' || $pas_departamento == 'Titulado/a Superior') {
 											
 											$resultDepto = mysqli_query($db_con, "SELECT * FROM departamentos WHERE idea = '$pas_idea'");
 											(mysqli_num_rows($resultDepto)) ? $usuarioExiste = 1 : $usuarioExiste = 0;
