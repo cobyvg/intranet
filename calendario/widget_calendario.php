@@ -210,9 +210,15 @@ while ($calendario = mysqli_fetch_assoc($result_calendarios)) {
 					$idact = $row_idact[0];
 					
 
-					echo '<a href="//'.$config['dominio'].'/intranet/calendario/index.php" class="list-group-item" style="float:left;width:85%;"><span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes($eventos['nombre']).'</a><a href="admin/actividades/extraescolares.php?id='.$idact.'" class="list-group-item text-center" style="float:right;width:15%;"><span class="fa fa-users" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span></a>
-
-					  <div class="clearfix"></div>';
+					echo '<div class="list-group-item" style="padding: 0px;">
+					<a href="//'.$config['dominio'].'/intranet/calendario/index.php?viewModal='.$eventos['id'].'" style=" float: left; width: 85%; padding: 15px; border-right: 1px solid #dddddd; color: #555555; text-decoration: none;">
+						<span class="pull-right badge">'.$hora_evento.'</span><span class="fa fa-circle" style="color: '.$calendario['color'].';" data-bs="tooltip" title="'.stripslashes(str_replace('"', '\'', $calendario['nombre'])).'"></span>&nbsp;'.stripslashes($eventos['nombre']).'
+					</a>
+					<a href="admin/actividades/extraescolares.php?id='.$idact.'" class="text-center" style=" float: right; width: 15%; padding: 15px; color: #555555; text-decoration: none;">
+						<span class="fa fa-users fa-fw fa-lg" data-bs="tooltip" title="Ver la lista de alumnos seleccionados que realizan la actividad"></span>
+					</a>
+					<div class="clearfix"></div>
+					</div>';
 					
 				else:
 					
