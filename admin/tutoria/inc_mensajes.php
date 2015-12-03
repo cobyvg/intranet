@@ -5,7 +5,7 @@
 <h3 class="text-info">Mensajes de tutoría</h3>
 
 <?php setlocale(LC_ALL, 'es_ES'); ?>
-<?php $result = mysqli_query($db_con, "SELECT id, ahora, apellidos, nombre, asunto, texto FROM alma, mensajes WHERE alma.claveal = mensajes.claveal AND mensajes.unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(ahora) > '".$config['curso_inicio']."' ORDER BY id DESC"); ?>
+<?php $result = mysqli_query($db_con, "SELECT id, ahora, apellidos, nombre, asunto, texto FROM alma, mensajes WHERE alma.claveal = mensajes.claveal AND mensajes.unidad = '".$_SESSION['mod_tutoria']['unidad']."' AND DATE(ahora) > '".$config['curso_inicio']."' ORDER BY ahora desc"); ?>
 
 <?php if (mysqli_num_rows($result) > 0): ?>
 <table class="table table-hover datatable">
@@ -20,7 +20,7 @@
 		<?php while ($row = mysqli_fetch_array($result)): ?>
 		<tr>
 			<td><a href="#mensaje<?php echo $i; ?>" data-toggle="modal"><?php echo $row['nombre'].' '.$row['apellidos']; ?></a></td>
-			<td><?php echo strftime('%e %b',strtotime($row['ahora'])); ?></td>
+			<td><?php $tr_dia = explode(" ",$row['ahora']); echo $tr_dia[0]; ?></td>
 		</tr>
 		<?php $i++; ?>
 		<?php endwhile; ?>

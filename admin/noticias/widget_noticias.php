@@ -15,7 +15,7 @@
 <div style="border-bottom: 1px solid #ecf0f1; margin-bottom: 15px;">
 	
 	<h5>
-		<a href="//<?php echo $config['dominio']; ?>/intranet/admin/noticias/noticia.php?id=<?php echo $row['id']; ?>"><?php echo $row['slug']; ?></a>
+		<a class='alert-link' data-toggle='modal' href='#noticia<?php echo $row['id']; ?>'><?php echo $row['slug']; ?></a>
 	</h5>
 
 	<p>
@@ -26,6 +26,29 @@
 		</small>
 	</p>
 </div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_noticia" aria-hidden="true" id="noticia<?php echo $row['id']; ?>">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span
+	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<h4 class="modal-title" id="myModalLabel_noticia"><?php echo $row['slug']; ?></h4>
+</div>
+<div class="modal-body">
+    <h5 class="text-muted">Por <?php echo nomprofesor($profesor); ?> <?php echo strftime('%e %b, %H:%M',strtotime($row['timestamp'])); ?></h5>
+    <br>
+    <?php echo stripslashes(html_entity_decode($row['content'], ENT_QUOTES, 'ISO-8859-1')); ?>
+
+</div>
+<div class="modal-footer">
+<a href="#" class="btn btn-primary" data-dismiss="modal">Cerrar</a>
+</div>
+</div>
+</div>
+</div>
+
 		
 <?php endwhile; ?>
 <?php mysqli_free_result($result); ?>

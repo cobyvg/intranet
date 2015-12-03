@@ -80,8 +80,8 @@ $rc = mysqli_query($db_con, "select reservas_tipos.id, tipo, elemento, id_tipo, 
 		$ci+=1;	
 		$servicio = $srv[2];
 		$lugar = $srv[4];
-	
-if ($ci == 3 or $ci == 6 or $ci == 9 or $ci == 12 or $ci == 15 or $ci == 18){
+		
+if ($ci == 1 or $ci == 4 or $ci == 7 or $ci == 10 or $ci == 13 or $ci == 16){
 	echo ($primero) ? '</div> <hr>' : '';
 	echo '<div class="row">';
 	$primero = 1;

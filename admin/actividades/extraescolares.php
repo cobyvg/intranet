@@ -29,7 +29,7 @@ include("menu.php");
     <div class="well well-lg">      
 <?php
 $profes_actividad = $_GET['profesores'];
-if ($jefes==1 or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
+if (($jefes==1 or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) and $_GET['ver_lista']!=="1") {
 ?>
 <a href="javascript:seleccionar_todo()" class="btn btn-primary btn-sm hidden-print">Marcar todos</a>
 <a href="javascript:deseleccionar_todo()" class="btn btn-primary btn-sm pull-right hidden-print">Desmarcar todos</a>
@@ -106,13 +106,30 @@ $ya = mysqli_query($db_con,"select * from actividadalumno where cod_actividad='$
 if (mysqli_num_rows($ya)>0) {
 	$extra_al = 'checked';
 }
+if($_GET['ver_lista']=="1" and $extra_al!==""){
 ?>
-<tr><td >
+<tr>
+<td >
+<?php 
+echo " $nc. $apellidos $nombre";
+?>
+</td>
+</tr>
+<?php 
+}
+elseif($_GET['ver_lista']!=="1"){
+?>
+<tr>
+<td>
 <input name="<?php echo $nc.$claveal;?>" type="checkbox" id="A" value="<?php echo $claveal;?>" <?php echo $extra_al;?>> 
 </td>
-<td>   
+<td>
 <?php
-echo " $nc. $apellidos $nombre</td></tr>";
+echo " $nc. $apellidos $nombre";
+?>
+</td></tr>
+<?php
+}
 }
 ?>
 </table>
@@ -124,7 +141,7 @@ echo " $nc. $apellidos $nombre</td></tr>";
 <br />
 <div align="center">
 <?php
-if ($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) {
+if (($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSION['profi']))==TRUE) and $_GET['ver_lista']!=="1") {
 ?>
 <button type="submit" name="submit1" value="Imprimir Carta para Padres" class="btn btn-primary hidden-print">Imprimir Carta para Padres</button>&nbsp;
 <button type="submit" name="submit2" value="Registrar Alumnos" class="btn btn-info hidden-print">Registrar Alumnos</button>&nbsp;
