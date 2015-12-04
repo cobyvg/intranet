@@ -28,25 +28,30 @@
 </div>
 
 
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_noticia" aria-hidden="true" id="noticia<?php echo $row['id']; ?>">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal"><span
-	aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-<h4 class="modal-title" id="myModalLabel_noticia"><?php echo $row['slug']; ?></h4>
-</div>
-<div class="modal-body">
-    <h5 class="text-muted">Por <?php echo nomprofesor($profesor); ?> <?php echo strftime('%e %b, %H:%M',strtotime($row['timestamp'])); ?></h5>
-    <br>
-    <?php echo stripslashes(html_entity_decode($row['content'], ENT_QUOTES, 'ISO-8859-1')); ?>
-
-</div>
-<div class="modal-footer">
-<a href="#" class="btn btn-primary" data-dismiss="modal">Cerrar</a>
-</div>
-</div>
-</div>
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="noticia<?php echo $row['id']; ?>">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+				<h4 class="modal-title">
+					<?php echo $row['slug']; ?><br>
+					<small>
+						<span class="fa fa-user fa-fw"></span> <?php echo nomprofesor($profesor); ?> &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+						<span class="fa fa-clock-o fa-fw"></span> <?php echo strftime('%e %b, %H:%M',strtotime($row['timestamp'])); ?>h &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+						<span class="fa fa-tag fa-fw"></span> <?php echo ($row['clase']) ? $row['clase'] : 'Sin categoría'; ?>
+					</small>
+				</h4>
+			</div>
+			
+			<div class="modal-body">
+			    <?php echo stripslashes(html_entity_decode($row['content'], ENT_QUOTES, 'ISO-8859-1')); ?>
+			</div>
+			
+			<div class="modal-footer">
+				<a href="#" class="btn btn-primary" data-dismiss="modal">Cerrar</a>
+			</div>
+		</div>
+	</div>
 </div>
 
 		
