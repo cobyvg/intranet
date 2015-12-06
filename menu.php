@@ -57,7 +57,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 
 <body>
 
-	<nav class="navbar <?php echo (isset($_SESSION['fondo'])) ? $_SESSION['fondo'] : 'navbar-default'; ?> navbar-fixed-top hidden-print" role="navigation">
+	<nav id="topmenu" class="navbar <?php echo (isset($_SESSION['fondo'])) ? $_SESSION['fondo'] : 'navbar-default'; ?> navbar-fixed-top hidden-print" role="navigation">
 		<div class="container-fluid">
 			
 			<!-- Brand and toggle get grouped for better mobile display -->
