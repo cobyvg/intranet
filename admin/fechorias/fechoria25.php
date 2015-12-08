@@ -130,7 +130,7 @@ for ($i=0;$i<$num_a;$i++){
 	 }
 	 if (strlen($correo)>0) {
 	 	
-	 	/*
+	 	
 	 	 $mail = new PHPMailer();
 	 	 $mail->Host = "localhost";
 	 	 $mail->From = 'no-reply@'.$config['dominio'];
@@ -157,7 +157,7 @@ for ($i=0;$i<$num_a;$i++){
 
 	 	 $mail->AddAddress($correo, $nombre_alumno);
 	 	 $mail->Send();	
-	 	*/
+	 	
 	 }
 	}
 }

@@ -129,7 +129,7 @@ include("menu.php");
 								<td><?php echo (! $row['oculto']) ? 'Visible' : 'Oculto'; ?></td>
 								<td class="text-right">
 									<a href="#" data-bs="tooltip" title="Editar" data-toggle="modal" data-target="#modalNuevoElemento" data-id="<?php echo $row['id']; ?>" data-name="<?php echo $row['elemento']; ?>" data-obs="<?php echo $row['observaciones']; ?>" data-visibility="<?php echo $row['oculto']; ?>"><span class="fa fa-edit fa-fw fa-lg"></span></a>
-									<a href="gestion_elemento.php?id=<?php echo $id_recurso; ?>&item_id=<?php echo $row['id']; ?>&action=delete" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
+									<a href="gestion_elementos.php?id=<?php echo $id_recurso; ?>&item_id=<?php echo $row['id']; ?>&action=delete" data-bb="confirm-delete" data-bs="tooltip" title="Eliminar"><span class="fa fa-trash-o fa-fw fa-lg"></span></a>
 								</td>
 							</tr>
 						<?php endwhile; ?>

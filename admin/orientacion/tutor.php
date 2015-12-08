@@ -77,10 +77,14 @@ if (isset($_POST['fecha_reg'])) {
 } else{$fecha_reg="";}
 if (isset($_POST['unidad'])) {
 	$unidad = $_POST['unidad'];
+} elseif (isset($_GET['unidad'])) {
+	$unidad = $_GET['unidad'];
 } else{$unidad="";}
 
 if (isset($_POST['alumno'])) {
 	$alumno = $_POST['alumno'];
+} elseif (isset($_GET['alumno'])) {
+	$alumno = $_GET['alumno'];
 }   else{$alumno="";}
 if (isset($_POST['observaciones'])) {
 	$observaciones = $_POST['observaciones'];
@@ -357,7 +361,7 @@ if($alumno){
 
 
 <div class="col-sm-5">
-<legend>Intervenciones del Tutor</legend>
+<legend>Intervenciones de Orientación</legend>
 <?php include("ultimos.php");?>
 </div>
 </div>

@@ -26,6 +26,7 @@ else {
 }
 
 if (isset($_POST['alumno'])) $alumno = $_POST['alumno'];
+if (isset($_GET['alumno'])) $alumno = $_GET['alumno'];
 
 
 // COMPROBAMOS SI SE PASA UN ID DE INTERVENCION

@@ -91,7 +91,7 @@ if(isset($_POST['enviar'])) {
 				$tema = "Nuevo parte de incidencia";
 				$texto = "Datos de la incidencia:
 				Grupo --> '$unidad';
-				Carrito --> '$carrito';
+				Recurso --> '$carrito';
 				Nª de Serie --> '$numeroserie';
 				Fecha --> '$fecha_sql';
 				Hora --> '$hora';
@@ -208,7 +208,7 @@ include("menu.php");
 						  <div class="row">
 						  	<div class="col-sm-2">
 					  			<div class="form-group">
-					  				<label for="carrito">Carrito</label>
+					  				<label for="carrito">Recurso</label>
 					  				<input type="text" class="form-control" id="carrito" name="carrito" value="<?php echo (isset($carrito) && $carrito) ? $carrito : ''; ?>" maxlength="1">
 					  			</div>
 						  	</div>

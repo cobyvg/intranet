@@ -68,7 +68,7 @@ include("menu.php");
 							<tr>
 								<th>#</th>
 								<th>Fecha</th>
-								<th>Carro</th>
+								<th>Recurso</th>
 								<th>Ordenador</th>
 								<th>Incidencia</th>
 								<th>Profesor/a</th>
@@ -80,7 +80,7 @@ include("menu.php");
 							<?php while ($row = mysqli_fetch_array($result)): ?>
 							<tr>
 								<td><?php echo $row['parte']; ?></td>
-								<td><?php echo $row['fecha']; ?></td>
+								<td nowrap><?php echo $row['fecha']; ?></td>
 								<td><?php echo $row['carro']; ?></td>
 								<td><?php echo $row['nserie']; ?></td>
 								<td><?php echo $row['descripcion']; ?></td>
