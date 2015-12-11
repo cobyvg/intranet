@@ -265,4 +265,4 @@ echo "<li><a href='//".$config['dominio']."/intranet/admin/cursos/horarios.php?c
 	</script>
 
 </body>
-</html>                                                                    
+</html>
