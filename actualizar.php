@@ -585,5 +585,5 @@ while($hor_profe = mysqli_fetch_array($hor)){
 	mysqli_query($db_con, "delete from horw_faltas where prof = '$hor_profe[0]' and c_asig = '$hor_profe[1]' and a_grupo = '$hor_profe[2]'");
 	mysqli_query($db_con, "delete from grupos where id = '$hor_profe[3]'");
 	}
-mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('orrar grupos seleccionados sin alumnos del horario', NOW())"); 
+mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Borrar grupos seleccionados sin alumnos del horario', NOW())"); 
 }
