@@ -23,7 +23,7 @@ $hora_inicio = $todas_horas[1];
 $nombre = $hora_inicio;
 $algo = "";
 for($i = 1; $i < 6; $i ++) {
-$hay_algo = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo, asig FROM  horw where prof = '$pr' and dia = '$i' and hora = '$n_hora' ORDER BY a_grupo" );	
+$hay_algo = mysqli_query($db_con, "SELECT distinct  c_asig, a_asig, a_grupo, asig FROM  horw where prof = '$pr' and dia = '$i' and hora = '$n_hora' ORDER BY a_grupo" );
 if (mysqli_num_rows($hay_algo)>0) {
 	$algo = "1";
 }

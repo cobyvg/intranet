@@ -562,3 +562,28 @@ if (! mysqli_num_rows($actua)) {
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificación temas - Standard y Yeti', NOW())"); 
 }
+
+/*
+ @descripcion: Eliminar del horario grupos seleccionados del Cuaderno en los que no impartimos clase a ningún alumno.
+ @fecha: 11 de Diciembre de 2015
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Borrar grupos seleccionados sin alumnos del horario'");
+if (! mysqli_num_rows($actua)) {
+$hor = mysqli_query($db_con, "select distinct profesor, asignatura, curso, id from grupos where alumnos=''");
+while($hor_profe = mysqli_fetch_array($hor)){
+
+	// Varios códigos de asignatura en Bachillerato
+		$bach1 = mysqli_query($db_con,"select nomcurso from unidades, cursos where unidades.idcurso=cursos.idcurso and nomunidad='$hor_profe[2]");
+		$bach2 = mysqli_fetch_array($bach1);
+		if (stristr($bach2[0], "Bachill")==TRUE) {
+			$asig1 = mysqli_query($db_con,"select codigo from asignaturas, unidades, cursos where unidades.idcurso=cursos.idcurso and nomcurso=asignaturas.curso and nomunidad='$hor_profe[2]' and nombre = (select distinct nombre from asignaturas where codigo = '".$hor_profe[1]."' and abrev not like '%\_%')");
+			$asig2 = mysqli_fetch_array($asig1);
+			$asignatura=$asig2[0];
+		}
+
+	mysqli_query($db_con, "delete from horw where prof = '$hor_profe[0]' and c_asig = '$hor_profe[1]' and a_grupo = '$hor_profe[2]'");
+	mysqli_query($db_con, "delete from horw_faltas where prof = '$hor_profe[0]' and c_asig = '$hor_profe[1]' and a_grupo = '$hor_profe[2]'");
+	mysqli_query($db_con, "delete from grupos where id = '$hor_profe[3]'");
+	}
+mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('orrar grupos seleccionados sin alumnos del horario', NOW())"); 
+}

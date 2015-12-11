@@ -16,7 +16,21 @@ foreach($cursos as $unidad)
 		$alumnos .= $trozos[1].","; 		
 		}
 		}
-		}	
+		}
+
+		// Varios códigos de asignatura en Bachillerato
+		$bach1 = mysqli_query($db_con,"select nomcurso from unidades, cursos where unidades.idcurso=cursos.idcurso and nomunidad='$unidad'");
+		$bach2 = mysqli_fetch_array($bach1);
+		if (stristr($bach2[0], "Bachill")==TRUE) {
+			$asig1 = mysqli_query($db_con,"select codigo from asignaturas, unidades, cursos where unidades.idcurso=cursos.idcurso and nomcurso=asignaturas.curso and nomunidad='$unidad' and nombre = (select distinct nombre from asignaturas where codigo = '".$_POST['asignatura']."' and abrev not like '%\_%')");
+			$asig2 = mysqli_fetch_array($asig1);
+			$asignatura=$asig2[0];
+
+		}
+		else{
+			$asignatura=$_POST['asignatura'];
+		}
+
 		$select1 = "select id, curso, alumnos from grupos where profesor = '$profesor' and asignatura = '$asignatura'  and curso = '$unidad'";
 		$select0 = mysqli_query($db_con, $select1);
 		$select = mysqli_fetch_array($select0);
@@ -28,11 +42,17 @@ foreach($cursos as $unidad)
 			}
 		}
 		else{
-  		$insert = "insert into grupos (profesor, asignatura, curso, alumnos) values ('$profesor','$asignatura','$unidad', '$alumnos')";
-  		//echo $insert."<br>";
-  		$insert0 = mysqli_query($db_con, $insert);	
+			// Eliminamos el grupo del horario si los alumnos son igual a 0.
+  		if ($alumnos=="") {
+  			mysqli_query($db_con,"delete from horw where c_asig = '$asignatura' and prof = '$profesor' and a_grupo = '$unidad'");
+  			mysqli_query($db_con,"delete from horw_faltas where c_asig = '$asignatura' and prof = '$profesor' and a_grupo = '$unidad'");
+  			}  	
+  			else{
+  			$insert = "insert into grupos (profesor, asignatura, curso, alumnos) values ('$profesor','$asignatura','$unidad', '$alumnos')";
+  			$insert0 = mysqli_query($db_con, $insert);	
+  			}
  		}		
-}
+	}
 }
 
   	// Borramos datos en casillas de verificación visibles

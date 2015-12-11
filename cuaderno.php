@@ -589,6 +589,17 @@ include("cuaderno/menu_cuaderno.php");
 							// Casilla para seleccionar alumnos
 							if($seleccionar == "1")
 							{
+								// Varios códigos de asignatura en Bachillerato
+								$bach1 = mysqli_query($db_con,"select nomcurso from unidades, cursos where unidades.idcurso=cursos.idcurso and nomunidad='$curso_orig'");
+								$bach2 = mysqli_fetch_array($bach1);
+								if (stristr($bach2[0], "Bachill")==TRUE) {
+								$asig1 = mysqli_query($db_con,"select codigo from asignaturas, unidades, cursos where unidades.idcurso=cursos.idcurso and nomcurso=asignaturas.curso and nomunidad='$curso_orig' and nombre = (select distinct nombre from asignaturas where codigo = '".$asignatura."' and abrev not like '%\_%')");
+								$asig2 = mysqli_fetch_array($asig1);
+								$asignatura=$asig2[0];
+
+							}
+
+
 								if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $grupo_simple;}
 								$grupos2 = "select alumnos from grupos where profesor = '$pr' and curso = '$curso_orig' and asignatura = '$asignatura'";
 								$marcado = "";
