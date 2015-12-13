@@ -131,7 +131,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		        		
 		        		<div id="opciones_diario">';
 
-		$result = mysqli_query($db_con, "SELECT DISTINCT grupo, materia FROM profesores WHERE profesor='".$_SESSION['profi']."'");
+		$result = mysqli_query($db_con, "SELECT DISTINCT grupo, materia FROM profesores WHERE profesor='".$_SESSION['profi']."' order by materia, grupo");
 		if (mysqli_num_rows($result)):
 
 		if ($eventos1['unidades'] != "" && $eventos1['asignaturas'] != "") {
@@ -168,7 +168,7 @@ while ($calendario1 = mysqli_fetch_assoc($result_calendarios1)) {
 		 <div class="checkbox">
 		 <label for="cmp_cuaderno">
 		 <input type="checkbox" id="cmp_cuaderno" name="cmp_cuaderno" value="1"';*/
-		if (mysqli_num_rows($result_cuaderno)) echo ' checked disabled';
+		if (mysqli_num_rows($result_cuaderno)) echo ' ';
 		/*echo '> Crear columna en mi cuaderno de notas<br>
 		 <small class="text-muted">Se creará una columna de tipo numérico y no visible para las familias. Puede modificar estos valores en el cuaderno de notas.</small><br>
 		 <small class="text-danger">Importante: Si la asignatura tiene desdoble de unidades, debe marcar todas las unidades afectadas. Deben ser del mismo curso y tener el mismo nombre de asignatura.</small>

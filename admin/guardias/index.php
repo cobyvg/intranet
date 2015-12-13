@@ -86,7 +86,7 @@ if ($n_dia > $numerodiasemana) {
 </div>
 <?
 if ($borrar=='1') {
-	mysqli_query($db_con, "delete from guardias where id='$id'");
+	mysqli_query($db_con, "delete from guardias where id='".$_GET['id']."'");
 	echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 La sustitución ha sido borrada correctamente.
@@ -264,7 +264,7 @@ if (mysqli_num_rows($h_hoy0) > 0) {
 		 	$fecha_sp = formatea_fecha($h_hoy[4]);
 			echo "<tr><td>$h_hoy[2]</td><td>$fecha_sp</td>
 			<td>";
-			if ($h_profe==$_SESSION['profi']) {
+			if (mb_strtolower($h_profe)==mb_strtolower($_SESSION['profi'])) {
 			echo "<a href='index.php?id=$h_hoy[0]&borrar=1&profeso=$profeso&n_dia=$n_dia&hora=$hora' style='margin-top:5px;color:brown;' data-bb='confirm-delete'><i class='fa fa-trash-o' title='Borrar' > </i> </a>";				
 			}
 			echo "</td></tr>";

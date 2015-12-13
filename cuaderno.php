@@ -95,7 +95,7 @@ $nombre_profe = "$n_profe[1] $n_profe[0]";
 
 if($pr and $dia and $hora)
 {
-	$num_cursos0 = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo");
+	$num_cursos0 = mysqli_query($db_con, "SELECT distinct  a_grupo FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo");
 	// Todos los Grupos juntos
 	$curs = "";
 	$codigos = "";
@@ -103,9 +103,23 @@ if($pr and $dia and $hora)
 	while($n_cur = mysqli_fetch_array($num_cursos0))
 	{
 		$curs .= $n_cur[0].", ";
-		$codigos.= $n_cur[1]." ";
-		$nom_asig = $n_cur[2];
 	}
+
+	$num_asig0 = mysqli_query($db_con, "SELECT distinct c_asig, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY c_asig");
+	while ($num_asig1=mysqli_fetch_array($num_asig0)) {	
+		$num_codigos++;
+		$codigos.= $num_asig1[0]." ";
+		${asignatura.$num_codigos}=$num_asig1[0];
+		$nom_asig = $num_asig1[1];
+	}
+
+	if (strlen($asignatura2)>1) {
+			$extra_asig = " or asignatura = '$asignatura2'";
+	}
+	else{
+			$asignatura2=$asignatura1;
+			$extra_asig = "";
+	}	
 	?>
 <div class='container'>
 <div class='row'>
@@ -138,9 +152,10 @@ $codigos = substr($codigos,0,-1);
 $curs0 = substr($curs,0,(strlen($curs)-1));
 // Eliminamos la última coma para el título.
 $curso_sin = substr($curs0,0,(strlen($curs0)-1));
+$curso_asignatura = substr($curso_sin, 0, 8);
 //Número de columnas
-$col = "select distinct id, nombre, orden, visible_nota, Tipo, texto_pond from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
-
+$col = "select distinct id, nombre, orden, visible_nota, Tipo, texto_pond from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and (asignatura='$asignatura' $extra_asig) and oculto = '0' order by orden asc";
+//echo $col;
 $col0 = mysqli_query($db_con, $col);
 $cols = mysqli_num_rows($col0);
 $sin_coma=$curso;
@@ -198,7 +213,7 @@ include("cuaderno/menu_cuaderno.php");
 					if (empty($seleccionar)) {
 						if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
 						mysqli_select_db($db_con, $db);
-						$hay0 = "select alumnos from grupos where profesor='$pr' and asignatura = '$asignatura' and curso = '$curso_orig'";
+						$hay0 = "select alumnos from grupos where profesor='$pr' and (asignatura = '$asignatura' $extra_asig) and curso = '$curso_orig'";
 						//echo $hay0."<br>";
 						$hay1 = mysqli_query($db_con, $hay0);
 						$hay = mysqli_fetch_row($hay1);
@@ -217,19 +232,8 @@ include("cuaderno/menu_cuaderno.php");
 					$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
 					//Alumnos de 2º de Bachillerato
 					if (strstr($nombre_curso,"Bach")==TRUE) {
-						if (strlen($codigos)>'6') {
-							$cod_var='';
-							$d_cod = explode(" ",$codigos);
-							foreach ($d_cod as $cod_var){
-								$resul.=" combasi like '%$cod_var:%' or";
-							}
-							$resul = substr($resul,0,-3);
-							//echo $varias."<br>";
+							$resul.=" combasi like '%$asignatura:%' or combasi like '%$asignatura2:%'";
 						}
-						else{
-							$resul.=" combasi like '%$asignatura:%' ";
-						}
-					}
 					elseif(strlen($asig_div)>0){
 							$resul.= $asig_div;
 						}
@@ -240,7 +244,6 @@ include("cuaderno/menu_cuaderno.php");
 						$resul.=" combasi like '%$asignatura:%' ";
 					}
 					$resul.=") ". $todos ." order by NC ASC";
-
 					$result = mysqli_query($db_con, $resul);
 					while($row = mysqli_fetch_array($result))
 					{
@@ -431,7 +434,7 @@ include("cuaderno/menu_cuaderno.php");
 						if (empty($seleccionar)) {
 							if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $curso;}
 							mysqli_select_db($db_con, $db);
-							$hay0 = "select alumnos from grupos where profesor='$pr' and asignatura = '$asignatura' and curso = '$curso_orig'";
+							$hay0 = "select alumnos from grupos where profesor='$pr' and (asignatura = '$asignatura' $extra_asig) and curso = '$curso_orig'";
 							//echo $hay0."<br>";
 							$hay1 = mysqli_query($db_con, $hay0);
 							$hay = mysqli_fetch_row($hay1);
@@ -451,21 +454,8 @@ include("cuaderno/menu_cuaderno.php");
 						$resul = "select distinctrow FALUMNOS.CLAVEAL, FALUMNOS.NC, FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, alma.MATRICULAS, alma.combasi, alma.unidad, alma.curso from FALUMNOS, alma WHERE FALUMNOS.CLAVEAL = alma.CLAVEAL and alma.unidad = '$curso' and (";
 						//Alumnos de 2º de Bachillerato
 						if (strstr($nombre_curso,"Bach")==TRUE) {
-							if (strlen($codigos)>'6') {
-								$cod_var='';
-								$fal_e="";
-								$d_cod = explode(" ",$codigos);
-								foreach ($d_cod as $cod_var){
-									$resul.=" combasi like '%$cod_var:%' or";
-									$fal_e.=" FALTAS.codasi='$cod_var' or";
-								}
-								$resul = substr($resul,0,-3);
-								$fal_e = substr($fal_e,0,-3);
-							}
-							else{
-								$resul.=" combasi like '%$asignatura:%' ";
-								$fal_e =" FALTAS.codasi='$asignatura' ";
-							}
+							$resul.=" combasi like '%$asignatura1:%' or combasi like '%$asignatura2:%'";
+							$fal_e =" FALTAS.codasi='$asignatura' or FALTAS.codasi='$asignatura2'";
 						}
 						elseif($asignatura=="21" or $asignatura=="2"){
 								$resul.= " 1=1 ";
@@ -484,7 +474,7 @@ include("cuaderno/menu_cuaderno.php");
 							$n_fila2+=1;
 							if ($n_fila2=="10" or $n_fila2=="20" or $n_fila2=="30" or $n_fila2=="40") {
 								echo "<tr>";
-								$col_col = "select distinct id, nombre, Tipo from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura'  and oculto = '0' order by orden asc";
+								$col_col = "select distinct id, nombre, Tipo from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and (asignatura='$asignatura' $extra_asig)  and oculto = '0' order by orden asc";
 								$col00 = mysqli_query($db_con, $col_col);
 								echo "<td nowrap>
 <div style='width:40px;height:90px;'>
@@ -546,7 +536,7 @@ include("cuaderno/menu_cuaderno.php");
 					<?php } ?>
 					<?php
 					// Si hay datos escritos rellenamos la casilla correspondiente
-					$colu10 = "select distinct id, Tipo, color, nombre from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and asignatura = '$asignatura' and oculto = '0' order by orden";
+					$colu10 = "select distinct id, Tipo, color, nombre from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and (asignatura = '$asignatura' $extra_asig) and oculto = '0' order by orden";
 					$colu20 = mysqli_query($db_con, $colu10);
 					while($colus10 = mysqli_fetch_array($colu20)){
 						$id = $colus10[0];
@@ -589,19 +579,8 @@ include("cuaderno/menu_cuaderno.php");
 							// Casilla para seleccionar alumnos
 							if($seleccionar == "1")
 							{
-								// Varios códigos de asignatura en Bachillerato
-								$bach1 = mysqli_query($db_con,"select nomcurso from unidades, cursos where unidades.idcurso=cursos.idcurso and nomunidad='$curso_orig'");
-								$bach2 = mysqli_fetch_array($bach1);
-								if (stristr($bach2[0], "Bachill")==TRUE) {
-								$asig1 = mysqli_query($db_con,"select codigo from asignaturas, unidades, cursos where unidades.idcurso=cursos.idcurso and nomcurso=asignaturas.curso and nomunidad='$curso_orig' and nombre = (select distinct nombre from asignaturas where codigo = '".$asignatura."' and abrev not like '%\_%')");
-								$asig2 = mysqli_fetch_array($asig1);
-								$asignatura=$asig2[0];
-
-							}
-
-
 								if(!(empty($div))){$curso_orig = $div;}else{$curso_orig = $grupo_simple;}
-								$grupos2 = "select alumnos from grupos where profesor = '$pr' and curso = '$curso_orig' and asignatura = '$asignatura'";
+								$grupos2 = "select alumnos from grupos where profesor = '$pr' and curso = '$curso_orig' and (asignatura = '$asignatura' $extra_asig)";
 								$marcado = "";
 								$grupos0 = mysqli_query($db_con, $grupos2);
 								$grupos1 = mysqli_fetch_array($grupos0);
@@ -657,7 +636,7 @@ include("cuaderno/menu_cuaderno.php");
 </FORM>
 					<?php
 
-					$colum24= "select distinct id, nombre, orden from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and asignatura='$asignatura' order by orden asc";
+					$colum24= "select distinct id, nombre, orden from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and (asignatura='$asignatura' $extra_asig) order by orden asc";
 					$colu = mysqli_query($db_con, $colum24);
 					?></div>
 </div>

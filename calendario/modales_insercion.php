@@ -163,7 +163,7 @@
         		</div>
         		
         		<div id="opciones_diario">
-        			<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo, materia FROM profesores WHERE profesor='".$_SESSION['profi']."'"); ?>
+        			<?php $result = mysqli_query($db_con, "SELECT DISTINCT grupo, materia FROM profesores WHERE profesor='".$_SESSION['profi']."' order by materia, grupo"); ?>
         			<?php if (mysqli_num_rows($result)): ?>
         			<div class="form-group">
         				<label for="cmp_unidad_asignatura">Unidad y asignatura</label>

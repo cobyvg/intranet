@@ -130,7 +130,7 @@ else {
 			}
 			else {
 				
-				// Comprobamos si el profesor ha marcado la opciÃ³n de crear columna en el cuaderno
+				// Comprobamos si el profesor ha marcado la opción de crear columna en el cuaderno
 				if ($calendario_evento != 1 && $calendario_evento != 2 && $cuaderno_evento == 1) {
 				
 					$string_unidades = "";
@@ -139,22 +139,37 @@ else {
 						$exp_unidad = explode(' => ', $unidad);
 						$string_unidades .= mysqli_real_escape_string($db_con, $exp_unidad[0]).', ';
 						
-						// Las siguientes variables sirven para obtener el cÃ³digo de la asignatura
+						// Las siguientes variables sirven para obtener el código de la asignatura
 						$unidad = mysqli_real_escape_string($db_con, $exp_unidad[0]);
 						$nomasignatura = mysqli_real_escape_string($db_con, $exp_unidad[1]); 
+
+						// Códigos diferentes en Bachillerato
+						$extra_unidad.="a_grupo='$unidad' or ";
 					}
 					
+					$extra_unidades=substr($extra_unidad, 0, strlen($extra_unidad)-3);
 					$string_unidades = trim($string_unidades);
+
+					$result_asignatura = mysqli_query($db_con, "SELECT DISTINCT c_asig FROM horw WHERE prof='".$_SESSION['profi']."' AND ($extra_unidades) AND asig='$nomasignatura'");
+					while($codasignatura = mysqli_fetch_array($result_asignatura)){					
+						$num_codigos++;
+						${asignatura.$num_codigos}=$codasignatura[0];
+					}
+
+					// Códigos diferentes en Bachillerato 2ª parte
+					if ($num_codigos>1) {
+						$extra_asig = " or asignatura = '$asignatura2'";
+					}
+					else{
+						$extra_asig = "";
+					}
 					
-					$result_asignatura = mysqli_query($db_con, "SELECT DISTINCT c_asig FROM horw WHERE prof='".$_SESSION['profi']."' AND a_grupo='$unidad' AND asig='$nomasignatura'");
-					$codasignatura = mysqli_fetch_array($result_asignatura);
-					$codigo = $codasignatura[0];
-					
-					$result_columnas = mysqli_query($db_con, "SELECT MAX(orden) FROM notas_cuaderno WHERE profesor = '".$_SESSION['profi']."' AND curso='$string_unidades' AND asignatura='$codigo'");
+					$result_columnas = mysqli_query($db_con, "SELECT MAX(orden) FROM notas_cuaderno WHERE profesor = '".$_SESSION['profi']."' AND curso='$string_unidades' AND (asignatura='$asignatura1' $extra_asig)");
 					$numcolumna = mysqli_fetch_array($result_columnas);
 					$orden = $numcolumna[0] + 1;
 					
-					mysqli_query($db_con, "INSERT INTO notas_cuaderno (profesor, fecha, nombre, texto , asignatura, curso, orden, visible_nota, Tipo, color) VALUES ('".$_SESSION['profi']."', '$fechareg_evento', '$nombre_evento', '$descripcion_evento', '$codigo', '$string_unidades', '$orden', '0', 'NÃºmeros', '#FFFFFF')") or die (mysqli_error($db_con));
+					$tipo="Números";
+					mysqli_query($db_con, "INSERT INTO notas_cuaderno (profesor, fecha, nombre, texto , asignatura, curso, orden, visible_nota, Tipo, color) VALUES ('".$_SESSION['profi']."', '$fechareg_evento', '$nombre_evento', '$descripcion_evento', '$asignatura1', '$string_unidades', '$orden', '0', '$tipo', '#FFFFFF')") or die (mysqli_error($db_con));
 				}
 				
 				header('Location:'.'http://'.$config['dominio'].'/intranet/calendario/index.php?mes='.$_GET['mes'].'&anio='.$_GET['anio'].'');
