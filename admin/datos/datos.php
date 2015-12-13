@@ -161,10 +161,11 @@ if ($row = mysqli_fetch_array($result))
 		}
 		echo "<td style='width:100px'>";
 		echo '<div class="btn-group hidden-print">
-  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw fa-lg"></i> </a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down"></span></a>
-  <ul class="dropdown-menu">';
+ 	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+     <span class="fa fa-user fa-fw"></span>
+     <span class="caret"></span>
+   </button>
+  <ul class="dropdown-menu dropdown-menu-right">';
 
 echo "<li><a href='//".$config['dominio']."/intranet/admin/informes/index.php?claveal=$claveal&todos=Ver Informe Completo'><i class='fa fa-search fa-fw'></i> Informe completo</a></li>";
 echo "<li><a href='//".$config['dominio']."/intranet/admin/informes/cinforme.php?nombre_al=$alumno&unidad=$unidad'><i class='fa fa-calendar fa-fw'></i> Informe histórico</a></li>";
