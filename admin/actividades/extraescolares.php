@@ -35,7 +35,7 @@ if (($jefes==1 or strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSIO
 <a href="javascript:deseleccionar_todo()" class="btn btn-primary btn-sm pull-right hidden-print">Desmarcar todos</a>
 <br /><br />
 <?php } ?>
-    <FORM action="extraescolares.php" method="POST" name="imprime">
+    <form action="extraescolares.php" method="POST" name="imprime">
 
   <?php
 $cursos0 = mysqli_query($db_con, "select unidades, profesores, nombre from calendario where id = '$id'");
@@ -148,7 +148,7 @@ if (($jefes==1 OR strstr(mb_strtoupper($profes_actividad),mb_strtoupper($_SESSIO
 <?php } ?>
 <input type="button" name="print"  class="btn btn-success hidden-print" value="Imprimir Lista de Alumnos" onclick="window.print();">
 </div>
-  </FORM>
+  </form>
   </div>
   </div>
   </div>
