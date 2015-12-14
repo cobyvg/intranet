@@ -16,7 +16,7 @@ $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Sistema de reservas', NOW())");
 	
-	// Eliminamos antigua actualizaci髇
+	// Eliminamos antigua actualizaci贸n
 	$result = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Reservas en base de datos principal'");
 	if (! mysqli_num_rows($result)) {
 	 mysqli_query($db_con, "DELETE FROM actualizacion WHERE modulo = 'Reservas en base de datos principal' LIMIT 1");
@@ -55,7 +55,7 @@ if (! mysqli_num_rows($actua)) {
 	  KEY `dia` (`dia`)
 	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 	
-	// Tabla de Estad韘ticas TIC
+	// Tabla de Estad铆sticas TIC
 	
 	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS ".$config['db_name'].".`usuario` (
 	  `profesor` varchar(48) NOT NULL default '',
@@ -96,7 +96,7 @@ if (! mysqli_num_rows($actua)) {
 	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 	
 	
-	// CREACI覰 TABLA: RESERVAS_TIPOS
+	// CREACI脫N TABLA: RESERVAS_TIPOS
 	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `".$config['db_name']."`.`reservas_tipos` (
 	  `id` int(11) NOT NULL AUTO_INCREMENT,
 	  `tipo` varchar(254) COLLATE latin1_spanish_ci NOT NULL,
@@ -106,7 +106,7 @@ if (! mysqli_num_rows($actua)) {
 
 	mysqli_query($db_con, "TRUNCATE TABLE `".$config['db_name']."`.`reservas_tipos`");
 	
-	// CREACI覰 TABLA: RESERVAS_ELEMENTOS
+	// CREACI脫N TABLA: RESERVAS_ELEMENTOS
 	mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `".$config['db_name']."`.`reservas_elementos` (
 	  `id` int(11) NOT NULL AUTO_INCREMENT,
 	  `elemento` varchar(128) COLLATE latin1_spanish_ci NOT NULL,
@@ -118,7 +118,7 @@ if (! mysqli_num_rows($actua)) {
 	) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
 	mysqli_query($db_con, "TRUNCATE TABLE `".$config['db_name']."`.`reservas_elementos`");
 	
-	// INSERTAMOS LOS TIPOS DE RESERVAS POR DEFECTO DE LA APLICACI覰
+	// INSERTAMOS LOS TIPOS DE RESERVAS POR DEFECTO DE LA APLICACI脫N
 	mysqli_query($db_con,"INSERT INTO `".$config['db_name']."`.`reservas_tipos` (`id`, `tipo`, `observaciones`) VALUES
 	(1, 'TIC', ''),
 	(2, 'Medios Audiovisuales', '');");
@@ -164,7 +164,7 @@ if (! mysqli_num_rows($actua)) {
 	}
 	mysqli_free_result($result);
 	
-	// ELIMINACI覰 DE DATOS
+	// ELIMINACI脫N DE DATOS
 	
 	// ELIMINAMOS TABLAS DE AULAS Y DEPENDENCIAS 
 	$result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE c_asig NOT LIKE '25' AND a_aula NOT LIKE '' ORDER BY n_aula ASC");
@@ -347,7 +347,7 @@ if (! mysqli_num_rows($actua)) {
 
 
 /*
- @descripcion: Actualizaci髇 de tablas de mensajes a Idea.
+ @descripcion: Actualizaci贸n de tablas de mensajes a Idea.
  @fecha: 12 de agosto de 2015
  */
  
@@ -428,7 +428,7 @@ if (! mysqli_num_rows($actua)) {
 
 
 /*
- @descripcion: Integraci髇 de la tabla Jornada en la tabla Tramos.
+ @descripcion: Integraci贸n de la tabla Jornada en la tabla Tramos.
  @fecha: 18 de agosto de 2015
  */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Eliminacion tabla jornada'");
@@ -443,7 +443,7 @@ if (! mysqli_num_rows($actua)) {
 }
 
 /*
- @descripcion: Modificaci髇 Tabla listafechorias
+ @descripcion: Modificaci贸n Tabla listafechorias
  @fecha: 27 de agosto de 2015
  */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla listafechorias'");
@@ -455,12 +455,12 @@ if (! mysqli_num_rows($actua)) {
 }
 
 /*
- @descripcion: Informes de tutor韆 - Nuevo campo motivo
+ @descripcion: Informes de tutor铆a - Nuevo campo motivo
  @fecha: 5 de octubre de 2015
  */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Informes de tutor韆 - Nuevo campo motivo'");
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Informes de tutor铆a - Nuevo campo motivo'");
 if (! mysqli_num_rows($actua)) {
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Informes de tutor韆 - Nuevo campo motivo', NOW())"); 
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Informes de tutor铆a - Nuevo campo motivo', NOW())"); 
  	mysqli_query($db_con, "ALTER TABLE `infotut_alumno` ADD `motivo` VARCHAR(255) NULL");
 }
 
@@ -516,7 +516,7 @@ if (! mysqli_num_rows($actua)) {
 }
 
 /*
- @descripcion: Tabla FALTAS - Correci髇 regular de error de c骴igo de asignatura vac韆 (hasta confirmar que error ha desaparecido, como parece)
+ @descripcion: Tabla FALTAS - Correci贸n regular de error de c贸digo de asignatura vac铆a (hasta confirmar que error ha desaparecido, como parece)
  @fecha: 28 de noviembre de 2015
  */
 $hoy= date('Y-m-d');
@@ -546,10 +546,10 @@ if($config['mod_asistencia']=="1" and $n_dia = "1" and $n_hora = "8") {
 }
 
 /*
- @descripcion: Modificaci髇 temas - Standard y Yeti
+ @descripcion: Modificaci贸n temas - Standard y Yeti
  @fecha: 30 de noviembre de 2015
  */
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modificaci髇 temas - Standard y Yeti'");
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Modificaci贸n temas - Standard y Yeti'");
 if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "UPDATE temas SET tema = 'temas/bootstrap.min-standard.css' WHERE tema = 'temas/bootstrap.min.standard.css'");
 	mysqli_query($db_con, "UPDATE temas SET tema = 'temas/bootstrap.min-yeti.css' WHERE tema = 'temas/bootstrap.min-jeti.css'");
@@ -560,11 +560,11 @@ if (! mysqli_num_rows($actua)) {
 	unlink(INTRANET_DIRECTORY . '/css/temas/bootstrap.min-jeti.css');
 	unlink(INTRANET_DIRECTORY . '/css/temas/jeti.png');
 	
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificaci髇 temas - Standard y Yeti', NOW())"); 
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Modificaci贸n temas - Standard y Yeti', NOW())"); 
 }
 
 /*
- @descripcion: Eliminar del horario grupos seleccionados del Cuaderno en los que no impartimos clase a ning鷑 alumno.
+ @descripcion: Eliminar del horario grupos seleccionados del Cuaderno en los que no impartimos clase a ning煤n alumno.
  @fecha: 11 de Diciembre de 2015
  */
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Borrar grupos seleccionados sin alumnos del horario'");
@@ -572,8 +572,8 @@ if (! mysqli_num_rows($actua)) {
 $hor = mysqli_query($db_con, "select distinct profesor, asignatura, curso, id from grupos where alumnos=''");
 while($hor_profe = mysqli_fetch_array($hor)){
 
-	// Varios c骴igos de asignatura en Bachillerato
-		$bach1 = mysqli_query($db_con,"select nomcurso from unidades, cursos where unidades.idcurso=cursos.idcurso and nomunidad='$hor_profe[2]");
+	// Varios c贸digos de asignatura en Bachillerato
+		$bach1 = mysqli_query($db_con,"select nomcurso from unidades, cursos where unidades.idcurso=cursos.idcurso and nomunidad='$hor_profe[2]'");
 		$bach2 = mysqli_fetch_array($bach1);
 		if (stristr($bach2[0], "Bachill")==TRUE) {
 			$asig1 = mysqli_query($db_con,"select codigo from asignaturas, unidades, cursos where unidades.idcurso=cursos.idcurso and nomcurso=asignaturas.curso and nomunidad='$hor_profe[2]' and nombre = (select distinct nombre from asignaturas where codigo = '".$hor_profe[1]."' and abrev not like '%\_%')");
