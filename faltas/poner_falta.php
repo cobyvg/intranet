@@ -124,23 +124,24 @@ if (!empty($_POST['profesor_ausente'])) {
 	//Horas
 	$horas=$_POST['hora'];
 	// Registramos o actualizamos ausencia del profesor sustituído en la guardia
-	$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$profesor_ausente' and date(inicio)<= date('$inicio1') and date(fin) >= date('$fin1') and horas !='0'");
+	$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$profesor_ausente' and date(inicio)<= date('$inicio1') and date(fin) >= date('$fin1')");
+	echo "select * from ausencias where profesor = '$profesor_ausente' and date(inicio)<= date('$inicio1') and date(fin) >= date('$fin1')";
 		if (mysqli_num_rows($ya) > '0') {
 			$ya_hay = mysqli_fetch_array($ya);
-			if ($ya_hay['horas']>'0') {
 			$horas_ya = $ya_hay['horas'];
-			if (strstr($horas_ya,$horas)==FALSE) {
+			if (strstr($horas_ya,$horas)==FALSE and $horas_ya!=="0" and $horas_ya!=="") {
 				$horas=$horas_ya.$horas;
 				$actualiza = mysqli_query($db_con, "update ausencias set horas = '$horas' where id = '$ya_hay[0]'");
+				echo "update ausencias set horas = '$horas' where id = '$ya_hay[0]'";
 				echo '<div class="alert alert-info">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Los datos de la ausencia de '.$profesor_ausente.' se han actualizado correctamente.
           </div>';	
-			}		
 			}
 			}
 			else{
 			$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$profesor_ausente', '$inicio1', '$fin1', '$horas', '', NOW(), '')");
+			echo "insert into ausencias VALUES ('', '$profesor_ausente', '$inicio1', '$fin1', '$horas', '', NOW(), '')";
 				echo '<div class="alert alert-info">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 Se ha registrado la ausencia del profesor '.$profesor_ausente.'.

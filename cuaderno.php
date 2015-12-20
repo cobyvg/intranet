@@ -159,7 +159,6 @@ $col = "select distinct id, nombre, orden, visible_nota, Tipo, texto_pond from n
 $col0 = mysqli_query($db_con, $col);
 $cols = mysqli_num_rows($col0);
 $sin_coma=$curso;
-
 }
 ?> <?php
 include("cuaderno/menu_cuaderno.php");
@@ -198,6 +197,8 @@ include("cuaderno/menu_cuaderno.php");
 
 					// Número de Columnas para crear la tabla
 					$num_col =  $cols2;
+
+					
 
 					//	Problemas con Diversificación (4E-Dd)
 					$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
@@ -313,6 +314,23 @@ include("cuaderno/menu_cuaderno.php");
 					</td>
 				<?php } ?>	
 					<?php
+					// Notas de las Evaluaciones de Séneca
+					$ev_sen1 = mysqli_query($db_con,"select notas1 from notas where notas1 != ''");
+					$ev_sen2 = mysqli_query($db_con,"select notas2 from notas where notas2 != ''");
+					$ev_sen3 = mysqli_query($db_con,"select notas3 from notas where notas3 != ''");
+					$num_ev1 = mysqli_num_rows($ev_sen1);
+					$num_ev2 = mysqli_num_rows($ev_sen2);
+					$num_ev3 = mysqli_num_rows($ev_sen3);
+
+					for ($i=1; $i < 4; $i++) { 
+									if (${num_ev.$i}>0) {
+									echo "<td nowrap>
+									<div style='width:40px;height:104px;'>
+									<div class='Rotate-90'><span style='font-weight:bold'>".$i."ª Evalución Séneca</span></div>
+									</div> </td>";
+									}
+								}
+
 					// Número de las columnas de la tabla
 					$cols2=0;
 					while($col20 = mysqli_fetch_array($col0)){
@@ -377,12 +395,18 @@ include("cuaderno/menu_cuaderno.php");
 </div> </td>";
 						}
 					}
+
+					
+
 					if($seleccionar == 1){
 						echo "<td nowrap class='warning'>
 <div style='width:40px;height:104px;'>
 <div class='Rotate-90'><span class='text-lowercase' style='font-weight:normal'> Selección de alumnos </span></div>
 </div> </td>";
 					}
+
+					
+
 					echo "</tr>";
 					// Tabla para cada Grupo
 					$curso0 = "SELECT distinct a_grupo, asig FROM  horw where prof = '$pr' and dia = '$dia' and hora = '$hora' ORDER BY a_grupo";
@@ -399,6 +423,8 @@ include("cuaderno/menu_cuaderno.php");
 
 						// Número de Columnas para crear la tabla
 						$num_col =  $cols2;
+					
+
 
 						//	Problemas con Diversificación (4E-Dd)
 						$profe_div = mysqli_query($db_con, "select * from profesores where grupo = '$curso'");
@@ -411,7 +437,6 @@ include("cuaderno/menu_cuaderno.php");
 						}
 						else{
 							if($seleccionar=="1"){	$num_col += 1;	}
-
 						}
 
 						// Seleccionar alumnos
@@ -476,10 +501,23 @@ include("cuaderno/menu_cuaderno.php");
 								echo "<tr>";
 								$col_col = "select distinct id, nombre, Tipo from notas_cuaderno where profesor = '$pr' and curso = '$curs0' and (asignatura='$asignatura' $extra_asig)  and oculto = '0' order by orden asc";
 								$col00 = mysqli_query($db_con, $col_col);
+								
+								if ($config['mod_asistencia']) { 
 								echo "<td nowrap>
-<div style='width:40px;height:90px;'>
-<div class='Rotate-corto'>Asistencia</div>
-</div> </td>";
+								<div style='width:40px;height:90px;'>
+								<div class='Rotate-corto'></div>
+								</div> </td>";
+								}
+
+								for ($i=1; $i < 4; $i++) { 
+									if (${num_ev.$i}>0) {
+									echo "<td>
+									<div style='width:40px;height:90px;'>
+									<div class='Rotate-90'></div>
+									</div> </td>";
+									}
+								}
+
 								while($col30 = mysqli_fetch_array($col00)){
 									$tipo_col = $col30[2];
 									
@@ -506,6 +544,7 @@ include("cuaderno/menu_cuaderno.php");
 <div class='Rotate-corto'></div>
 </div> </td>";
 								}
+
 								echo "</tr>";
 							}
 
@@ -535,6 +574,30 @@ include("cuaderno/menu_cuaderno.php");
 					</td>
 					<?php } ?>
 					<?php
+						for ($i=1; $i < 4; $i++) { 
+									if (${num_ev.$i}>0) {
+									?>
+					<td style="background-color:#444;color:#fff;vertical-align: middle; text-align: center; height: 74px !important;">
+					<?php
+					${seneca.$i} = mysqli_query($db_con, "select notas".$i." from notas where claveal = (select claveal1 from alma where claveal = '$claveal')");
+					${dato_seneca.$i} = mysqli_fetch_array(${seneca.$i});
+					$tr_n = explode(";", ${dato_seneca.$i}[0]);
+					foreach ($tr_n as $value) {
+						
+							$tr_d = explode(":", $value);
+							if ($tr_d[0]==$asignatura) {
+								$califica = "select nombre from calificaciones where codigo = '" . $tr_d[1] . "'";
+								$calificacion = mysqli_query($db_con, $califica);
+								$rown = mysqli_fetch_array($calificacion);
+								echo $rown[0];
+							}
+						}	
+					?>	
+					</td>
+					<?php
+								}
+							}
+
 					// Si hay datos escritos rellenamos la casilla correspondiente
 					$colu10 = "select distinct id, Tipo, color, nombre from notas_cuaderno where profesor = '$pr' and curso like '%$curso%' and (asignatura = '$asignatura' $extra_asig) and oculto = '0' order by orden";
 					$colu20 = mysqli_query($db_con, $colu10);
@@ -600,6 +663,7 @@ include("cuaderno/menu_cuaderno.php");
 					</td>
 					<?php
 							}
+
 							echo "</tr>";
 						}
 					}

@@ -119,7 +119,7 @@ while($varias = mysqli_fetch_array($n_c))
 	$largo = strlen($varias[1]);
 	if (strlen($varias[1]) > 10) {$nombre_asig = substr($varias[1],0,10);} else {$nombre_asig = substr($varias[1],0,6);}
 	$nombre_asig = trim($nombre_asig);
-	$asig_sen0 = mysqli_query($db_con, "select codigo from asignaturas where curso = '$nombre_curso' and nombre like '$nombre_asig%' and abrev not like '%º'");
+	$asig_sen0 = mysqli_query($db_con, "select codigo from asignaturas where curso = '$nombre_curso' and nombre like '$nombre_asig%' and abrev not like '%\_%'");
 	while($asig_sen1 = mysqli_fetch_row($asig_sen0)){
 		if (strstr($asigna_a , $asig_sen1[0]) == false)
 		{
