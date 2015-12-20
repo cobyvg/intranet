@@ -13,18 +13,13 @@ if(isset($_POST['pondera']) and $_POST['pondera']=="Guardar resultado como colum
 	$fecha = date('Y-m-d');
 	$asignatura=$_POST['asignatura'];
 	$curso=$_POST['curso'];
-	if (!(substr($curso,0,-1)==',')) {
-		$curso.=",";
-	}
-		if(strstr($curso,",,")==TRUE){
-	$curso= str_replace(",,",",",$curso);
-	}
 	$texto="Ponderacion de columnas: $id_cols";
 	$nombre="Ponderación de columnas: $id_cols";
 	$tipo="Ponderacion";
-
-	$serie = mysqli_query($db_con, "select max(orden) from notas_cuaderno where profesor = '$pr' and curso like '$curso%' and asignatura = '$asignatura'");
+	
 	//echo "select max(orden) from notas_cuaderno where profesor = '$pr' and curso like '$curso%' and asignatura = '$asignatura'";
+	
+	$serie = mysqli_query($db_con, "select max(orden) from notas_cuaderno where profesor = '$pr' and curso like '".rtrim($curso, ', ')."%' and asignatura = '$asignatura'");
 	$num_col = mysqli_fetch_array($serie);
 	$orden = $num_col[0] + 1;
 
@@ -45,6 +40,7 @@ La nueva columna ha sido añadida a la tabla del Cuaderno.
 			$insert0 = mysqli_query($db_con, $insert);
 		}
 	}
+	
 }
 
 if(isset($_POST['recalcula'])){
@@ -67,7 +63,7 @@ echo '" />';
 echo '<input name=asignatura type=hidden value="';
 echo $asignatura;
 echo '" />';
-// DÃ­a.
+// Día.
 echo '<input name=dia type=hidden value="';
 echo $dia;
 echo '" />';
@@ -137,7 +133,7 @@ if (!(empty($asignatura1))) {
 if (!(empty($asignatura2))) {
 	$otras .= " or combasi like '%$asignatura2:%' ";
 }
-// Tabla con las distintas notas_cuaderno y la mediaxx
+// Tabla con las distintas notas_cuaderno y la media
 
 // Todos los Grupos juntos
 $n_cursos = mysqli_query($db_con, "SELECT distinct  a_grupo, c_asig FROM  horw where prof = '$profesor' and dia = '$dia' and hora = '$hora'");
@@ -145,20 +141,18 @@ while($n_cur = mysqli_fetch_array($n_cursos))
 {
 	$curs .= $n_cur[0].", ";
 }
-// Eliminamos el espacio
-$curs0 = substr($curs,0,(strlen($curs)-1));
-// Eliminamos la Ãºltima coma para el tÃ­tulo.
-$curso_sin = substr($curs0,0,(strlen($curs0)-1));
-//NÃºmero de columnas
 
-$col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$profesor' and curso like '%$curso%' and oculto = '0' and ($celdas)  order by orden asc";
+// Eliminamos la última coma para el título.
+$curso_sin = rtrim($curs, ', ');
+
+//Número de columnas
+
+$col = "select distinct id, nombre, orden from notas_cuaderno where profesor = '$profesor' and curso like '%$curso_sin%' and oculto = '0' and ($celdas)  order by orden asc";
 $col0 = mysqli_query($db_con, $col);
-
-$curso_sin = substr($curso,0,strlen($curso) - 1);
 
 echo "<table align='center' class='table table-striped' style='width:auto'>";
 echo "<thead><th style='background-color:#fff'>NC</th><th style='background-color:#fff' colspan='2' align='center'>Alumno</th>";
-// NÃºmero de las columnas de la tabla
+// Número de las columnas de la tabla
 while($col20 = mysqli_fetch_array($col0)){
 	$ident= $col20[2];
 	$id = $col20[0];
@@ -188,7 +182,7 @@ while ($curso11 = mysqli_fetch_array($curso20))
 	$curso = $curso11[0];
 	$asignatura = $curso11[1];
 	$nombre = $curso11[2];
-	// NÃºmero de Columnas para crear la tabla
+	// Número de Columnas para crear la tabla
 	$num_col = 4 + $num_ids;
 	$nivel_curso = substr($curso,0,1);
 	//	Problemas con Diversificación (4E-Dd)

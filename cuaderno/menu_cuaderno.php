@@ -124,7 +124,7 @@ function enviar(){
 
 	// Codigo Curso
 	echo '<input name=curso type=hidden value="';
-	echo $curso;
+	echo $curs;
 	echo '" />';
 	// Profesor
 	echo '<input name=profesor type=hidden value="';

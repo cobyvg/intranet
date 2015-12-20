@@ -39,7 +39,7 @@ foreach($_POST as $key => $val)
 {
 	${$key} = $val;
 }
-echo "<h3><span class='label label-info' style='padding:8px'>$curso -- $nom_asig </span></h3><br>";
+echo "<h3><span class='label label-info' style='padding:8px'>".rtrim($curso, ', ')." -- $nom_asig </span></h3><br>";
 
 // Procesamos los datos
 if ($eliminar) {
