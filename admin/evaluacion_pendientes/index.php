@@ -28,17 +28,17 @@ mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `evalua_pendientes` (
 
 $depto = $_SESSION ['dpt'];
 $profe_dep = $_SESSION ['profi'];
-if(stristr($_SESSION['cargo'],'1') == TRUE){
-$query_Recordset1 = "SELECT distinct pendientes.codigo FROM pendientes order by codigo";
+if(stristr($_SESSION['cargo'],'1') == TRUE or stristr ( $_SESSION ['cargo'], '4' ) == TRUE){
+$query_Recordset1 = "SELECT distinct pendientes.codigo FROM pendientes order by grupo";
 }
-elseif (stristr ( $_SESSION ['cargo'], '4' ) == TRUE)
+/*elseif (stristr ( $_SESSION ['cargo'], '4' ) == TRUE)
 {
 $query_Recordset1 = "select distinct codigo from 
 profesores, asignaturas where asignaturas.nombre = materia and profesor in (select distinct departamentos.nombre from departamentos where departamento = '$depto') and abrev like '%\_%' and codigo in (SELECT distinct pendientes.codigo FROM pendientes order by codigo)";
-}
+}*/
 else{
 $query_Recordset1 = "select distinct codigo from 
-profesores, asignaturas where asignaturas.nombre = materia and profesor in (select distinct departamentos.nombre from departamentos where departamento = '$depto') and abrev like '%\_%' and codigo in (SELECT distinct pendientes.codigo FROM pendientes where grupo in (select distinct grupo from profesores where profesor = '$profe_dep') order by codigo)";	
+profesores, asignaturas where asignaturas.nombre = materia and profesor in (select distinct departamentos.nombre from departamentos where departamento = '$depto') and abrev like '%\_%' and codigo in (SELECT distinct pendientes.codigo FROM pendientes where grupo in (select distinct grupo from profesores where profesor = '$profe_dep') order by grupo)";	
 }
 
 $Recordset1 = mysqli_query($db_con, $query_Recordset1) or die(mysqli_error($db_con));
@@ -103,7 +103,7 @@ $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 						  <select class="form-control" name="select">
 <?php 
 do {  
-	$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$row_Recordset1[0]' order by curso, nombre");
+	$asig = mysqli_query($db_con,"select distinct nombre, curso from asignaturas where codigo = '$row_Recordset1[0]' and abrev like '%\_%' order by curso, nombre");
 	$asignatur = mysqli_fetch_row($asig);
 	$asignatura = $asignatur[0];
 	$curso = $asignatur[1];
