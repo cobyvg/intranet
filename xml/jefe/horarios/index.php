@@ -80,9 +80,16 @@ else $hora = $_POST['hora'];
 if (isset($_GET['asignatura'])) $asignatura = urldecode($_GET['asignatura']);
 else $asignatura = $_POST['asignatura'];
 
-if (isset($_GET['unidad']) && $_GET['asignatura'] !== '25') {
+if (isset($_POST['unidad'])) {
+	$unidad = substr($_POST['unidad'], 0, -1);
+	$unidad_curso = $_POST['unidad'];
+	$exp_unidad = explode('|', $unidad_curso);
+	$unidad = $exp_unidad[0];
+	$curso = $exp_unidad[1];
+}
+elseif (isset($_GET['unidad']) && $_GET['asignatura'] !== '25' and $_POST['unidad']=="") {
 	$unidad = urldecode($_GET['unidad']);
-	
+
 	// A partir del código de la asignatura y la unidad, descubrimos el curso...
 	$result = mysqli_query($db_con, "SELECT CURSO FROM materias WHERE GRUPO='$unidad' AND CODIGO = '$asignatura' LIMIT 1");
 	$esDesdoble = 0;
@@ -90,6 +97,7 @@ if (isset($_GET['unidad']) && $_GET['asignatura'] !== '25') {
 		// En el caso de ser un desdoble
 		$unidad = substr($unidad, 0, -1);
 		$result = mysqli_query($db_con, "SELECT CURSO FROM materias WHERE GRUPO='$unidad' AND CODIGO = '$asignatura' LIMIT 1");
+
 		$datos_curso = mysqli_fetch_assoc($result);
 		$curso = $datos_curso['CURSO'];
 		$esDesdoble = 1;
@@ -101,7 +109,7 @@ if (isset($_GET['unidad']) && $_GET['asignatura'] !== '25') {
 	
 	$unidad_curso = $unidad.'|'.$curso;
 }
-elseif ((isset($_GET['unidad']) && $_GET['unidad'] == '') && isset($_POST['unidad'])) {
+elseif ((isset($_GET['unidad']) && $_GET['unidad'] == '')) {
 	$unidad = substr($_POST['unidad'], 0, -1);
 	$unidad_curso = $_POST['unidad'];
 	$exp_unidad = explode('|', $unidad_curso);
@@ -109,9 +117,8 @@ elseif ((isset($_GET['unidad']) && $_GET['unidad'] == '') && isset($_POST['unida
 	$curso = $exp_unidad[1];
 }
 
-if (isset($_GET['dependencia'])) $dependencia = urldecode($_GET['dependencia']);
-else $dependencia = $_POST['dependencia'];
-
+if (isset($_GET['dependencia'])) {$dependencia = urldecode($_GET['dependencia']);}
+else {$dependencia = $_POST['dependencia'];}
 
 // ENVIO DE FORMULARIO
 if (isset($_POST['enviar'])) {
@@ -174,7 +181,6 @@ if ($codasignatura=="25") {
 		header('Location:'.'index.php?msg_success=1');
 	}
 }
-
 
 if (isset($_POST['actualizar'])) {
 	$dia = $_POST['dia'];
@@ -371,7 +377,7 @@ include("../../../menu.php");
 						 	<option value=""></option>
 						 		<?php if ($unidad): ?>
 						  	<optgroup label="Asignaturas">
-						  		<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM asignaturas WHERE codigo <> '' AND abrev NOT LIKE '%\_%' AND curso='$curso' ORDER BY curso ASC, nombre ASC"); ?>
+						  		<?php $result = mysqli_query($db_con, "SELECT codigo, nombre, abrev, curso FROM materias WHERE codigo <> '' AND abrev NOT LIKE '%\_%' AND curso='$curso' and grupo = '$unidad' ORDER BY curso ASC, nombre ASC"); ?>
 				  		  	<?php while ($row = mysqli_fetch_array($result)): ?>
 				  		  	<option value="<?php echo $row['codigo']; ?>" <?php echo (isset($asignatura) && $row['codigo'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['curso'].' - '.$row['nombre'].' ('.$row['abrev'].')'; ?></option>
 				  		  	<?php endwhile; ?>
@@ -379,14 +385,16 @@ include("../../../menu.php");
 					  		<?php endif; ?>
 						  	<optgroup label="Actividades">
 						  		<?php if ($unidad): ?>
-							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='21' OR idactividad='136' OR idactividad='356' OR idactividad='386' OR idactividad='861' OR idactividad='25' ORDER BY nomactividad ASC"); ?>
+							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad='21' OR idactividad='136' OR idactividad='356' OR idactividad='386' OR idactividad='861' ORDER BY nomactividad ASC"); ?>
 							  	<?php else: ?>
 							  	<?php $result = mysqli_query($db_con, "SELECT DISTINCT idactividad, nomactividad FROM actividades_seneca WHERE idactividad <> 1 ORDER BY nomactividad ASC"); ?>
 							  	<?php endif; ?>
 							  	<?php while ($row = mysqli_fetch_array($result)): ?>
 							  	<option value="<?php echo $row['idactividad']; ?>" <?php echo (isset($asignatura) && $row['idactividad'] == $asignatura) ? 'selected' : ''; ?>><?php echo $row['nomactividad']; ?></option>
 							  	<?php endwhile; ?>
+							  	<?php if (!$unidad): ?>
 							  	<option value="GUC">Servicio de Guardia (Aula de Convivencia)</option>
+							  	<?php endif; ?>
 						  	</optgroup>
 						  </select>
 						</div>

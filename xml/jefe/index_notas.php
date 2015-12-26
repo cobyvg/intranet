@@ -3,8 +3,9 @@ require('../../bootstrap.php');
 
 acl_acceso($_SESSION['cargo'], array(1));
 
+$profe = $_SESSION['profi'];
 
-if (isset($_POST['eval'])) {$eval = $_POST['eval'];}else{$eval="";}
+if (isset($_POST['eval']) and !empty($_POST['eval'])) {$eval = $_POST['eval'];}else{$eval="";}
 
 	if (strlen($eval)>1) {	
 	if (substr($eval,0,1)=='1') {$exporta='../exporta1';}
@@ -12,12 +13,15 @@ if (isset($_POST['eval'])) {$eval = $_POST['eval'];}else{$eval="";}
 	if (substr($eval,0,1)=='J') {$exporta='../exportaO';}
 	if (substr($eval,0,1)=='S') {$exporta='../exportaE';}
 	//echo $exporta;
+
 	// Descomprimimos el zip de las calificaciones en el directorio exporta/
-	include('../../lib/pclzip.lib.php');   
+	include('../../lib/pclzip.lib.php');
+						   
 	$archive = new PclZip($_FILES['archivo2']['tmp_name']);  
 	      if ($archive->extract(PCLZIP_OPT_PATH,$exporta) == 0) 
 		  {
-	        die('<div align="center"><div class="alert alert-danger alert-block fade in">
+		  	include("../../menu.php");
+	        die('<br><div align="center"><div class="alert alert-danger alert-block fade in">
 	            <button type="button" class="close" data-dismiss="alert">&times;</button>
 				<h5>ATENCIÓN:</h5>
 	No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo está corrompido.
@@ -26,14 +30,33 @@ if (isset($_POST['eval'])) {$eval = $_POST['eval'];}else{$eval="";}
 	  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
 	</div>'); 
 	      }  
+
+	// Borramos archivos antiguos					
+	$files = glob($exporta.'/*'); 
+	foreach($files as $file)
+		{ 
+  		if(is_file($file) and stristr($file, "index")==FALSE)
+    		unlink($file); 
+		}      
 		  
 	header("location://".$config['dominio']."/intranet/xml/notas/notas.php?directorio=$exporta");	  	  
 	exit;	
 }
+else{
+			include("../../menu.php");
+	        die('<br><div align="center"><div class="alert alert-danger alert-block fade in">
+	            <button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h5>ATENCIÓN:</h5>
+	No has seleccionado la Evaluación que vas a importar. 
+	</div></div><br />
+	<div align="center">
+	  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+	</div>'); 
 
+}
 
-$profe = $_SESSION['profi'];
 include("../../menu.php");
+
 ?>
 
 
@@ -58,7 +81,7 @@ include("../../menu.php");
 						
 						<div class="form-group">
 							<label for="eval"><span class="text-info">Evaluación</span></label>
-							<select class="form-control" id="eval" name="eval">
+							<select class="form-control" id="eval" name="eval" required>
 								<option value=""></option>
 								<option value="1ª Evaluación">1ª Evaluación</option>
 								<option value="2ª Evaluación">2ª Evaluación</option>
