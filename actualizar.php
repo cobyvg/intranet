@@ -587,3 +587,37 @@ while($hor_profe = mysqli_fetch_array($hor)){
 	}
 mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Borrar grupos seleccionados sin alumnos del horario', NOW())"); 
 }
+
+/*
+ @descripcion: cambiar estructura de la tabla profesores_seneca para simplificarla Y actualizar nombre de profesores en Horw.
+ @fecha: 28 de Diciembre de 2015
+ */
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Estructura tabla profesores_seneca'");
+if (! mysqli_num_rows($actua)) {
+mysqli_query($db_con,"ALTER TABLE `profesores_seneca` CHANGE `nomprofesor` `nomprofesor` VARCHAR(64) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL;");
+
+// Cambiamos el nombre de los profesores de Horw para ajustarlos a Séneca.	
+	$nom_prof = mysqli_query($db_con, "select ape1profesor, ape2profesor, nomprofesor, idprofesor from profesores_seneca");
+	while($nom_profe = mysqli_fetch_row($nom_prof)){
+		$nombre_profesor = "$nom_profe[0] $nom_profe[1], $nom_profe[2]";
+		mysqli_query($db_con,"update profesores_seneca set nomprofesor = '$nombre_profesor' where idprofesor = '$nom_profe[3]'");
+	}
+
+// Borramos campos innecesarios
+mysqli_query($db_con,"ALTER TABLE `profesores_seneca` DROP `ape1profesor`");
+mysqli_query($db_con,"ALTER TABLE `profesores_seneca` DROP `ape2profesor`");
+
+// Cambiamos el nombre de los profesores de Horw para ajustarlos a Séneca.
+$hor0 = mysqli_query($db_con, "select distinct c_prof, prof from horw order by prof");
+while($hor_profe0 = mysqli_fetch_array($hor0)){
+	
+	$nom_prof0 = mysqli_query($db_con, "select nomprofesor from profesores_seneca where idprofesor = '$hor_profe0[0]'");
+	$nom_profe0 = mysqli_fetch_row($nom_prof0);
+	mysqli_query($db_con,"update horw set prof = '$nom_profe0[0]' where c_prof = '$hor_profe0[0]'");
+	mysqli_query($db_con,"update horw_faltas set prof = '$nom_profe0[0]' where c_prof = '$hor_profe0[0]'");
+	mysqli_query($db_con,"update profesores set profesor = '$nom_profe0[0]' where profesor = '$hor_profe0[1]'");
+}
+
+mysqli_query($db_con,"delete from profesores where nivel='' or grupo=''");
+mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Estructura tabla profesores_seneca', NOW())"); 
+}

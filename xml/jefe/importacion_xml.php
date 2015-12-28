@@ -334,9 +334,7 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 		 * ----------------------------------------------------------------------*/
 		mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `profesores_seneca` (
   `idprofesor` int(9) unsigned NOT NULL,
-  `ape1profesor` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `ape2profesor` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `nomprofesor` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
+  `nomprofesor` varchar(64) COLLATE latin1_spanish_ci NOT NULL,
   `deptoprofesor` varchar(80) COLLATE latin1_spanish_ci NOT NULL,
   `correoprofesor` varchar(80) COLLATE latin1_spanish_ci DEFAULT NULL,
   `telefonoprofesor` char(9) COLLATE latin1_spanish_ci DEFAULT NULL,
@@ -353,11 +351,12 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 			$ape1profesor = utf8_decode($tramos->dato[3]);
 			$ape2profesor = utf8_decode($tramos->dato[4]);
 			$nomprofesor = utf8_decode($tramos->dato[5]);
+			$nombre_profesor= "$ape1profesor $ape2profesor, $nomprofesor";
 			$deptoprofesor = limpiarNombreDepartamento(utf8_decode($tramos->dato[2]));
 			
-			$result = mysqli_query($db_con, "INSERT profesores_seneca (idprofesor, ape1profesor, ape2profesor, nomprofesor, deptoprofesor) VALUES ($idprofesor,'$ape1profesor','$ape2profesor','$nomprofesor','$deptoprofesor')");
+			$result = mysqli_query($db_con, "INSERT profesores_seneca (idprofesor, nomprofesor, deptoprofesor) VALUES ($idprofesor,'$nombre_profesor','$deptoprofesor')");
 			
-			if(mysqli_errno()==1062) mysqli_query($db_con, "UPDATE profesores_seneca SET ape1profesor='$ape1profesor', ape2profesor='$ape2profesor', nomprofesor='$nomprofesor', deptoprofesor='$deptoprofesor' WHERE idprofesor=$idprofesor");
+			if(mysqli_errno()==1062) mysqli_query($db_con, "UPDATE profesores_seneca SET nomprofesor='$nombre_profesor', deptoprofesor='$deptoprofesor' WHERE idprofesor=$idprofesor");
 			elseif(mysqli_errno()!=0) echo '<span class="text-danger">ERROR '.mysqli_errno().': '.mysqli_error($db_con).'</span><br>';
 			
 			// Vacía los búferes de escritura de PHP

@@ -1,26 +1,5 @@
-<?php
-require('../../bootstrap.php');
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-acl_acceso($_SESSION['cargo'], array(1));
-
-include("../../menu.php");
-?>
-<div class="container">
-
-	<div class="page-header">
-		<h2>Administración <small> Asignaturas y Calificaciones</small></h2>
-	</div>
-
-	<div id="status-loading" class="text-center">
-		<span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando...</span>
-	</div>
-	
-	<div id="wrap" class="row" style="display: none;">
-	
-		<div class="col-sm-8 col-sm-offset-2">
-	
-			<div class="well">
-				<?php
 				// Vaciamos o borramos tablas
 				mysqli_query($db_con, "TRUNCATE TABLE calificaciones");
 				mysqli_query($db_con, "TRUNCATE TABLE asignaturas");
@@ -191,29 +170,4 @@ include("../../menu.php");
 				// Alumnos con pendientes
 				include("pendientes.php");
 			
-				?>
-					
-				<div class="text-center">
-					 <a href="../index.php" class="btn btn-primary">Volver a Administración</a>
-				</div>
-			
-			</div><!-- /.well -->
-	
-		</div><!-- /.col-sm-8 -->
-		
-	</div><!-- /.row -->
-	
-</div><!-- /.container -->
-
-<?php include("../../pie.php");	?>
-
-<script>
-function espera() {
-	document.getElementById("wrap").style.display = '';
-	document.getElementById("status-loading").style.display = 'none';        
-}
-window.onload = espera;
-</script>
-
-</body>
-</html>
+?>

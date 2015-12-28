@@ -11,7 +11,6 @@
 	<!-- A PRINCIPIO DE CURSO -->
 	<li class="nav-header">A principio de curso...</li>
 	<li><a href="jefe/index2.php">Importar Alumnos</a></li>
-	<li><a href="jefe/asignaturas.php">Importar Asignaturas</a></li>
 	<li><a href="jefe/index_xml.php">Importar datos del Centro</a></li>
 	<li><a href="jefe/index_departamentos.php">Importar Departamentos</a></li>
 	<?php if(isset($config['mod_horarios']) && $config['mod_horarios']): ?>
@@ -28,7 +27,6 @@
 	<!-- ACTUALIZACIÓN -->
 	<li class="nav-header">Actualización</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
-	<li><a href="jefe/asignaturas.php?actualiza=1">Actualizar Asignaturas</a></li>
 	<li><a href="jefe/index_departamentos2.php">Actualizar Departamentos</a></li>
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
 	<li><a href="jefe/index_profesores.php">Actualizar Profesores</a></li>

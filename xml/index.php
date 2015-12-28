@@ -61,7 +61,7 @@ include("../menu.php");
 			</p>
 			<hr>
 			<p>
-			    El <strong>tercer grupo (<span class="text-info">Actualización</span>)</strong> permite actualizar los datos de Alumnos, Profesores y Departamentos del Centro. Esta pensado para la actualización de los alumnos que se van matriculando a lo largo del Curso, así como para la puesta al día de la lista de Profesores y Departamentos. Los archivos requeridos son los mismos que hemos mencionado más arriba.</p>
+			    El <strong>tercer grupo (<span class="text-info">Actualización</span>)</strong> permite actualizar los datos de Alumnos, Asignaturas, Profesores y Departamentos del Centro. Esta pensado para la actualización de los alumnos que se van matriculando a lo largo del Curso, así como para la puesta al día de la lista de Profesores y Departamentos. Los archivos requeridos son los mismos que hemos mencionado más arriba.</p>
 			    <hr>
 			    <p>
 			El <strong>cuarto grupo de opciones</strong> afecta a los <strong><span class="text-info">Profesores</span></strong>.<br> 

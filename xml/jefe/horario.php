@@ -185,7 +185,7 @@ else {
 			}
 
 
-			$nom_prof = mysqli_query($db_con, "select concat(ape1profesor,' ',ape2profesor,', ',nomprofesor) from profesores_seneca where idprofesor = '$idprofesor'");
+			$nom_prof = mysqli_query($db_con, "select nomprofesor from profesores_seneca where idprofesor = '$idprofesor'");
 			$nom_profe = mysqli_fetch_row($nom_prof);
 			$nombre_profesor = $nom_profe[0];
 

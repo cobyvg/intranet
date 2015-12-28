@@ -170,7 +170,9 @@ if ($codasignatura=="25") {
 	$t_profesores = mysqli_query($db_con,"select * from profesores where nivel='$curso_asignatura' and materia='$nomasignatura' and profesor='$profesor' and grupo='$unidad'");
 	if (mysqli_num_rows($t_profesores)>0) {}
 	else{
-		mysqli_query($db_con, "INSERT INTO profesores (nivel, materia, profesor, grupo) VALUES ('$curso_asignatura', '$nomasignatura', '$profesor', '$unidad')");
+		if (strlen($curso_asignatura) > '0' and strlen($unidad) > '0') {
+			mysqli_query($db_con, "INSERT INTO profesores (nivel, materia, profesor, grupo) VALUES ('$curso_asignatura', '$nomasignatura', '$profesor', '$unidad')");
+		}		
 	}
 	
 	
@@ -248,12 +250,14 @@ if (isset($_POST['actualizar'])) {
 		$nive =mysqli_fetch_array($niv);
 		$nivel = $nive[0];
 
+		if (strlen($nivel) > '0' and strlen($grupo) > '0') {
 		mysqli_query($db_con,"INSERT INTO  profesores (
 `nivel` ,
 `materia` ,
 `grupo` ,
 `profesor`
 ) VALUES ('$nivel', '$materia', '$grupo', '$profesor')");
+	}
 	}
 	
 	if (! $result) {

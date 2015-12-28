@@ -300,8 +300,8 @@ include("../../menu.php");
 				// Alumnos TIC
 				include("exportaTIC.php");
 			
-				// Alumnos con pendientes
-				include("pendientes.php");
+				// Asignaturas y alumnos con pendientes
+				include("asignaturas.php");
 			
 				?>
 				

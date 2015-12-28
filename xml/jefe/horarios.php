@@ -110,13 +110,21 @@ No se ha registrado un código para las asignaturas que aparecen abajo. Esta situ
 	echo '</ul></div></div>';
 }
 
+// Cambiamos el nombre de los profesores de Horw para ajustarlos a Séneca.
+$hor0 = mysqli_query($db_con, "select distinct c_prof from horw order by prof");
+while($hor_profe0 = mysqli_fetch_array($hor0)){
+	
+	$nom_prof = mysqli_query($db_con, "select nomprofesor from profesores_seneca where idprofesor = '$hor_profe0[0]'");
+	$nom_profe = mysqli_fetch_row($nom_prof);
+	$nombre_profesor = $nom_profe[0];
+	mysqli_query($db_con,"update horw set prof = '$nom_profe[0]' where c_prof = '$hor_profe0[0]'");
+}
 
 // Cambiamos los numeros de Horw para dejarlos en orden alfabético.
 $hor = mysqli_query($db_con, "select distinct prof from horw order by prof");
 while($hor_profe = mysqli_fetch_array($hor)){
 	$np+=1;
 	$sql = "update horw set no_prof='$np' where prof = '$hor_profe[0]'";
-	//echo "$sql<br>";
 	$sql1 = mysqli_query($db_con, $sql);
 }
 

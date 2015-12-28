@@ -250,9 +250,18 @@ include '../../menu.php';
 			            <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<h5>ALUMNOS DEL CENTRO:</h5> los Alumnos se han introducido correctamente en la Base de datos.
 			</div><br />';
+					
 					// Eliminamos temporales
 					mysqli_query($db_con, "drop table almafaltas");
-			
+					
+					// Copia de la primera versión de alma
+					mysqli_query($db_con, "DROP TABLE alma_primera");
+					mysqli_query($db_con, "DROP TABLE FALUMNOS_primero");
+					mysqli_query($db_con, "create table alma_primera select * from alma");
+					mysqli_query($db_con, "ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
+					mysqli_query($db_con, "CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre, unidad FROM FALUMNOS WHERE claveal IN (SELECT claveal FROM alma_primera)");
+					mysqli_query($db_con, "ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");			
+					
 					// Caracteristicas propias de cada centro
 					include("alma_centros.php");
 			
@@ -261,14 +270,10 @@ include '../../menu.php';
 			
 					// Alumnos con hermanos
 					include("crear_hermanos.php");
+
+					// Asignaturas y alumnos con pendientes
+					include("asignaturas.php");
 			
-					// Copia de la primera versión de alma
-					mysqli_query($db_con, "DROP TABLE alma_primera");
-					mysqli_query($db_con, "DROP TABLE FALUMNOS_primero");
-					mysqli_query($db_con, "create table alma_primera select * from alma");
-					mysqli_query($db_con, "ALTER TABLE  `alma_primera` ADD INDEX (  `CLAVEAL` )");
-					mysqli_query($db_con, "CREATE TABLE FALUMNOS_primero SELECT claveal, nc, apellidos, nombre, unidad FROM FALUMNOS WHERE claveal IN (SELECT claveal FROM alma_primera)");
-					mysqli_query($db_con, "ALTER TABLE  `FALUMNOS_primero` ADD INDEX (  `CLAVEAL` )");
 				}
 				else{
 					echo '<div align="center"><div class="alert alert-danger alert-block fade in">
