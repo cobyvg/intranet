@@ -135,9 +135,9 @@ while ($orden_nivel = mysqli_fetch_array($nivele)){
 <?php
 
 // UNIDADES DEL CURSO
-$niv = mysqli_query($db_con, "select distinct curso, nivel, unidad, idcurso from alma, cursos where curso=nomcurso and curso = '$orden_nivel[1]' order by unidad");
+$niv = mysqli_query($db_con, "select distinct curso, unidad, idcurso from alma, cursos where curso=nomcurso and curso = '$orden_nivel[1]' order by unidad");
 while ($ni = mysqli_fetch_array($niv)) {
-	$unidad = $ni[2];
+	$unidad = $ni[1];
 	
 	$idn = $ini[3];
 	if ($idn=="101140") { $nivel="1E"; }

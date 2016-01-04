@@ -119,9 +119,9 @@ foreach ($titulos as $key=>$val){
 // Evaluaciones ESO
 $nivele = mysqli_query($db_con, "select * from cursos");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
-$niv = mysqli_query($db_con, "select distinct curso, nivel, idcurso from alma, cursos where curso=nomcurso and curso = '$orden_nivel[1]'");
+$niv = mysqli_query($db_con, "select distinct curso, idcurso from alma, cursos where curso=nomcurso and curso = '$orden_nivel[1]'");
 while ($ni = mysqli_fetch_array($niv)) {
-	$idn = $ni[2];
+	$idn = $ni[1];
 	if ($idn=="101140") { $nivel="1E"; }
 	elseif ($idn=="101141") { $nivel="2E"; }
 	elseif ($idn=="101142") { $nivel="3E"; }
@@ -132,7 +132,7 @@ while ($ni = mysqli_fetch_array($niv)) {
 	
 	$rep = ""; 
 	$promo = "";
-$notas1 = "select notas". $key .", claveal1, matriculas, unidad, nivel from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso'";
+$notas1 = "select notas". $key .", claveal1, matriculas, unidad from alma, notas where alma.CLAVEAL1 = notas.claveal and alma.curso = '$curso'";
 //echo $notas1."<br>";
 
 $result1 = mysqli_query($db_con, $notas1);
