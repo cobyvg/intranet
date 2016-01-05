@@ -1,7 +1,6 @@
 <?php
 require('../../bootstrap.php');
 
-
 $pr = $_SESSION['profi'];
 
 if (isset($_POST['profes'])) {
@@ -136,7 +135,7 @@ $page_header = "Redactar mensaje";
 	  <?php endif; ?>
 	  
 	  
-	  <form method="post" action="">
+	  <form method="post" action="" name="formulario" onSubmit="return checkAsunto(this)">
 	  
 	  <!-- SCALLFODING -->
 		<div class="row">
@@ -161,7 +160,7 @@ $page_header = "Redactar mensaje";
 	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000"><?php echo (isset($texto) && $texto) ? $texto : ''; ?></textarea>
 	      		</div>
 	      		
-	      		<button type="submit" class="btn btn-primary" data-loading-text="Loading..." name="submit1">Enviar mensaje</button>
+	      		<button type="submit" class="btn btn-primary" name="submit1">Enviar mensaje</button>
 	      		<a href="index.php" class="btn btn-default">Volver</a>
       		
       		</fieldset>
@@ -189,7 +188,7 @@ $page_header = "Redactar mensaje";
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
-                			<input name="profes" type="checkbox" value="1" onClick="submit()" <?php if($profes=='1' and !$claustro) echo 'checked'; ?>> Personal del Centro
+                			<input id="profes" name="profes" type="checkbox" value="1" <?php if($profes=='1' and !$claustro) echo 'checked'; ?>> Personal del Centro
                 		</label>
                 	</div>
                 </div>
@@ -197,7 +196,7 @@ $page_header = "Redactar mensaje";
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
-                			<input name="tutores" type="checkbox" value="1" onClick="submit()" <?php if($tutores=='1' and !$claustro) echo 'checked'; ?>> Tutores
+                			<input id="tutores" name="tutores" type="checkbox" value="1" <?php if($tutores=='1' and !$claustro) echo 'checked'; ?>> Tutores
                 		</label>
                 	</div>
                 </div>
@@ -205,7 +204,7 @@ $page_header = "Redactar mensaje";
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
-                			<input name="departamentos" type="checkbox" value="1" onClick="submit()" <?php if($departamentos=='1' and !$claustro) echo 'checked'; ?>> Departamentos
+                			<input id="departamentos" name="departamentos" type="checkbox" value="1" <?php if($departamentos=='1' and !$claustro) echo 'checked'; ?>> Departamentos
                 		</label>
                 	</div>
                 </div>
@@ -213,7 +212,7 @@ $page_header = "Redactar mensaje";
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
-                			<input name="equipos" type="checkbox" value="1" onClick="submit()" <?php if($equipos=='1' and !$claustro) echo 'checked'; ?>> Equipos educativos
+                			<input id="equipos" name="equipos" type="checkbox" value="1" <?php if($equipos=='1' and !$claustro) echo 'checked'; ?>> Equipos educativos
                 		</label>
                 	</div>
                 </div>
@@ -221,7 +220,7 @@ $page_header = "Redactar mensaje";
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
-                			<input name="claustro" type="checkbox" value="1" onClick="submit()" <?php if($claustro=='1') echo 'checked'; ?>> Todo el claustro
+                			<input id="claustro" name="claustro" type="checkbox" value="1" <?php if($claustro=='1') echo 'checked'; ?>> Todo el claustro
                 		</label>
                 	</div>
                 </div>
@@ -230,7 +229,7 @@ $page_header = "Redactar mensaje";
                 <div class="form-group">
                 	<div class="checkbox">
                 		<label>
-                			<input name="biblio" type="checkbox" value="1" onClick="submit()" <?php if($biblio=='1' and !$claustro) echo 'checked'; ?>> Biblioteca
+                			<input id="biblio" name="biblio" type="checkbox" value="1" <?php if($biblio=='1' and !$claustro) echo 'checked'; ?>> Biblioteca
                 		</label>
                 	</div>
                 </div>
@@ -245,7 +244,7 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input name="etcp" type="checkbox" value="1" onClick="submit()" <?php if($etcp=='1' and !$claustro) echo 'checked'; ?>> Jefes Departamento
+              				<input id="etcp" name="etcp" type="checkbox" value="1" <?php if($etcp=='1' and !$claustro) echo 'checked'; ?>> Jefes Departamento
               			</label>
               		</div>
               	</div>
@@ -253,7 +252,7 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input name="ca" type="checkbox" value="1" onClick="submit()" <?php if($ca=='1' and !$claustro) echo 'checked'; ?>> Coordinadores Área
+              				<input id="ca" name="ca" type="checkbox" value="1" <?php if($ca=='1' and !$claustro) echo 'checked'; ?>> Coordinadores Área
               			</label>
               		</div>
               	</div>
@@ -261,7 +260,7 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input name="direccion" type="checkbox" value="1" onClick="submit()" <?php if($direccion=='1' and !$claustro) echo 'checked'; ?>> Equipo directivo
+              				<input id="direccion" name="direccion" type="checkbox" value="1" <?php if($direccion=='1' and !$claustro) echo 'checked'; ?>> Equipo directivo
               			</label>
               		</div>
               	</div>
@@ -269,7 +268,7 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input name="orientacion" type="checkbox" value="1" onClick="submit()" <?php if($orientacion=='1' and !$claustro) echo 'checked'; ?>> Orientación
+              				<input id="orientacion" name="orientacion" type="checkbox" value="1" <?php if($orientacion=='1' and !$claustro) echo 'checked'; ?>> Orientación
               			</label>
               		</div>
               	</div>
@@ -278,20 +277,21 @@ $page_header = "Redactar mensaje";
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input name="bilingue" type="checkbox" value="1" onClick="submit()" <?php if($bilingue=='1' and !$claustro) echo 'checked'; ?>> Profesores bilingüe
+              				<input id="bilingue" name="bilingue" type="checkbox" value="1" <?php if($bilingue=='1' and !$claustro) echo 'checked'; ?>> Profesores bilingüe
               			</label>
               		</div>
               	</div>
               	<?php endif; ?>
-              	
+
+              	<?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>
               	<div class="form-group">
               		<div class="checkbox">
               			<label>
-              				<input name="padres" type="checkbox" value="1" onClick="submit()" <?php if($padres=='1' and !$claustro) echo 'checked'; ?>> Familias y alumnos
+              				<input id="padres" name="padres" type="checkbox" value="1" <?php if($padres=='1' and !$claustro) echo 'checked'; ?>> Familias y alumnos
               			</label>
               		</div>
               	</div>
-              
+              <?php endif; ?>
               </div>
               <?php else: ?>
               
@@ -333,9 +333,8 @@ $page_header = "Redactar mensaje";
       	</div>
       	
 				
-				<?php if(isset($profes) && $profes == 1 && !isset($claustro)): ?>
 				<!-- PROFESORES -->
-				<div id="grupo_profesores" class="well">
+				<div id="grupo_profesores" class="well <?php echo (isset($profes) && !empty($profes)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Selección de Personal</legend>
@@ -363,14 +362,9 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 					
 				</div>
-				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
-     
-     
-    		<?php if(isset($tutores) && $tutores == 1 && !isset($claustro)): ?>
+
 				<!-- TUTORES -->
-				<div id="grupo_tutores" class="well">
+				<div id="grupo_tutores" class="well <?php echo (isset($tutores) && !empty($tutores)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Seleccione tutores</legend>
@@ -396,19 +390,14 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
-				
-				
-				<?php if(isset($departamentos) && $departamentos == 1 && !isset($claustro)): ?>
 				<!-- JEFES DE DEPARTAMENTO -->
-				<div id="grupo_departamentos" class="well">
+				<div id="grupo_departamentos" class="well <?php echo (isset($departamentos) && !empty($departamentos)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Seleccione departamentos</legend>
 						
 						<div class="form-group">
-							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos ORDER BY departamento ASC"); ?>
+							<?php $result = mysqli_query($db_con, "SELECT DISTINCT departamento FROM departamentos where departamento not like 'Admin%' and departamento not like 'Conserje%' ORDER BY departamento ASC"); ?>
 							<?php if(mysqli_num_rows($result)): ?>
 							<select class="form-control" name="departamento[]" multiple="multiple" size="23">
 								<?php while($row = mysqli_fetch_array($result)): ?>
@@ -428,13 +417,8 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
-				
-				
-				<?php if(isset($equipos) && $equipos == 1 && !isset($claustro)): ?>
 				<!-- EQUIPOS EDUCATIVOS -->
-				<div id="grupo_equipos" class="well">
+				<div id="grupo_equipos" class="well <?php echo (isset($equipos) && !empty($equipos)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Seleccione equipos educativos</legend>
@@ -460,13 +444,9 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
 				
-				
-				<?php if(isset($claustro)): ?>
 				<!-- CLAUSTRO DEL CENTRO -->
-				<div id="grupo_claustro" class="well">
+				<div id="grupo_claustro" class="well <?php echo (isset($claustro) && !empty($claustro)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Claustro de profesores</legend>
@@ -484,13 +464,9 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
 				
-				
-				<?php if(isset($biblio) && $biblio == 1 && !isset($claustro)): ?>
 				<!-- BIBLIOTECA -->
-				<div id="grupo_biblioteca" class="well">
+				<div id="grupo_biblioteca" class="well <?php echo (isset($biblio) && !empty($biblio)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Biblioteca</legend>
@@ -508,13 +484,9 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
 				
-				
-				<?php if(isset($etcp) && $etcp == 1 && !isset($claustro)): ?>
 				<!-- JEFES DE DEPARTAMENTO -->
-				<div id="grupo_etcp" class="well">
+				<div id="grupo_etcp" class="well <?php echo (isset($etcp) && !empty($etcp)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Jefes de departamento</legend>
@@ -530,15 +502,10 @@ $page_header = "Redactar mensaje";
 						<?php endif; ?>
 						
 					</fieldset>
-				</div>
+				</div>				
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
-				
-				
-				<?php if(isset($ca) && $ca == 1 && !isset($claustro)): ?>
 				<!-- COORDINADORES DE AREA -->
-				<div id="grupo_coordinadores" class="well">
+				<div id="grupo_coordinadores" class="well <?php echo (isset($ca) && !empty($ca)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Coordinadores de área</legend>
@@ -556,13 +523,9 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
 				
-				
-				<?php if(isset($direccion) && $direccion == 1 && !isset($claustro)): ?>
 				<!-- EQUIPO DIRECTIVO -->
-				<div id="grupo_directivo" class="well">
+				<div id="grupo_directivo" class="well <?php echo (isset($direccion) && !empty($direccion)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Equipo directivo</legend>
@@ -580,13 +543,9 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
 				
-				
-				<?php if(isset($orientacion) && $orientacion == 1 && !isset($claustro)): ?>
 				<!-- ORIENTACION -->
-				<div id="grupo_orientacion" class="well">
+				<div id="grupo_orientacion" class="well <?php echo (isset($orientacion) && !empty($orientacion)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Orientación</legend>
@@ -603,15 +562,10 @@ $page_header = "Redactar mensaje";
 						
 					</fieldset>
 				</div>
+
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
-				
-				
-				
-				<?php if(isset($bilingue) && $bilingue == 1 && !isset($claustro)): ?>
 				<!-- BILINGÜE -->
-				<div id="grupo_bilingue" class="well">
+				<div id="grupo_bilingue" class="well <?php echo (isset($bilingue) && !empty($bilingue)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Profesores Bilinguismo</legend>
@@ -629,10 +583,6 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
-				
-				
 				<?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>
 				
 				<?php $sql_where = ""; ?>
@@ -647,9 +597,8 @@ $page_header = "Redactar mensaje";
 				<?php endif; ?>
 										
 				
-				<?php if(isset($padres) && $padres == 1 && !isset($claustro)): ?>
 				<!-- FAMILIAS Y ALUMNOS -->
-				<div id="grupo_padres" class="well">
+				<div id="grupo_padres" class="well <?php echo (isset($padres) && !empty($padres)) ? '' : 'hidden'; ?>">
 					
 					<fieldset>
 						<legend>Familias y alumnos</legend>
@@ -675,13 +624,6 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 				
-				<?php $ocultar_grupos = 1; ?>
-				<?php endif; ?>
-				
-				<?php endif; ?>
-				
-				<?php if(isset($ocultar_grupos)): ?>
-				<button type="button" class="btn btn-primary btn-block" id="mostrar_grupos">Seleccionar otro grupo de destinatarios</button>
 				<?php endif; ?>
 				
 			</div><!-- /.col-sm-5 -->
@@ -696,11 +638,132 @@ $page_header = "Redactar mensaje";
 <?php include("../../pie.php"); ?>
 	
 	<script>
-	$('[type=submit]').on('click', function() {
-	    $(this).button('loading');
-	});
 	
 	$(document).ready(function() {
+		
+		// Campos visibles
+
+			//Personal
+			$('#profes').change(function() {
+				if(profes.checked==true) {
+					$('#grupo_profesores').removeClass('hidden');
+				}
+				else {
+					$('#grupo_profesores').addClass('hidden');
+				}
+			});
+
+			// Tutores
+			$('#tutores').change(function() {
+				if(tutores.checked==true) {
+					$('#grupo_tutores').removeClass('hidden');
+				}
+				else {
+					$('#grupo_tutores').addClass('hidden');
+				}
+			});
+
+			// Departamentos
+			$('#departamentos').change(function() {
+				if(departamentos.checked==true) {
+					$('#grupo_departamentos').removeClass('hidden');
+				}
+				else {
+					$('#grupo_departamentos').addClass('hidden');
+				}
+			});
+
+			// Equipos
+			$('#equipos').change(function() {
+				if(equipos.checked==true) {
+					$('#grupo_equipos').removeClass('hidden');
+				}
+				else {
+					$('#grupo_equipos').addClass('hidden');
+				}
+			});
+
+			//Claustro
+			$('#claustro').change(function() {
+				if(claustro.checked==true) {
+					$('#grupo_claustro').removeClass('hidden');
+				}
+				else {
+					$('#grupo_claustro').addClass('hidden');
+				}
+			});
+
+			// Biblioteca
+			$('#biblio').change(function() {
+				if(biblio.checked==true) {
+					$('#grupo_biblioteca').removeClass('hidden');
+				}
+				else {
+					$('#grupo_biblioteca').addClass('hidden');
+				}
+			});
+
+			// Jefes Departamento
+			$('#etcp').change(function() {
+				if(etcp.checked==true) {
+					$('#grupo_etcp').removeClass('hidden');
+				}
+				else {
+					$('#grupo_etcp').addClass('hidden');
+				}
+			});
+
+			// Coordinadores Área
+			$('#ca').change(function() {
+				if(ca.checked==true) {
+					$('#grupo_coordinadores').removeClass('hidden');
+				}
+				else {
+					$('#grupo_coordinadores').addClass('hidden');
+				}
+			});
+
+			// Direccion
+			$('#direccion').change(function() {
+				if(direccion.checked==true) {
+					$('#grupo_directivo').removeClass('hidden');
+				}
+				else {
+					$('#grupo_directivo').addClass('hidden');
+				}
+			});
+
+			// Orientación
+			$('#orientacion').change(function() {
+				if(orientacion.checked==true) {
+					$('#grupo_orientacion').removeClass('hidden');
+				}
+				else {
+					$('#grupo_orientacion').addClass('hidden');
+				}
+			});
+
+			// Bilinguismo
+			$('#bilingue').change(function() {
+				if(bilingue.checked==true) {
+					$('#grupo_bilingue').removeClass('hidden');
+				}
+				else {
+					$('#grupo_bilingue').addClass('hidden');
+				}
+			});
+
+			// Padres
+			$('#padres').change(function() {
+				if(padres.checked==true) {
+					$('#grupo_padres').removeClass('hidden');
+				}
+				else {
+					$('#grupo_padres').addClass('hidden');
+				}
+			});
+
+
 		// EDITOR DE TEXTO
 		$('#texto').summernote({
 			height: 300,
@@ -714,40 +777,41 @@ $page_header = "Redactar mensaje";
 		
 		$('#texto').code(localStorage['summernote-<?php echo $token; ?>']);
 	  
-	  function ocultar_grupos() {
-	  	$('#grupos_destinatarios').slideUp();
-	  	
-	  	$('#mostrar_grupos').show();
-	  }
-	  
-	  function mostrar_grupos() {
-	  	$('#grupos_destinatarios').slideDown();
-	  	
-	  	$('#grupo_profesores').slideUp();
-	  	$('#grupo_tutores').slideUp();
-	  	$('#grupo_departamentos').slideUp();
-	  	$('#grupo_equipos').slideUp();
-	  	$('#grupo_claustro').slideUp();
-	  	$('#grupo_biblioteca').slideUp();
-	  	$('#grupo_etcp').slideUp();
-	  	$('#grupo_coordinadores').slideUp();
-	  	$('#grupo_directivo').slideUp();
-	  	$('#grupo_orientacion').slideUp();
-	  	$('#grupo_padres').slideUp();
-	  	
-	  	$('#mostrar_grupos').hide();
-	  }
-	  
-	  <?php if($ocultar_grupos): ?>
-	  ocultar_grupos();
-	  <?php endif; ?>
-	  
-	  $('#mostrar_grupos').click(function() {
+	  	$('#mostrar_grupos').click(function() {
 	  	mostrar_grupos();
 	  });
 	  
 	});
 	</script>
 
+	<script type="text/javascript">
+
+  function checkAsunto(form)
+  {
+
+    // Comprobación de Asunto vacío
+    if(formulario.asunto.value == "") {
+      alert("No has escrito nada en el Asunto del formulario. No podemos enviar un mensaje sin título.");
+      form.asunto.focus();
+      return false;
+    }
+
+    // Comprobación de Grupo de destinatarios sin marcar       
+    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.claustro.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.bilingue.checked == false) {
+      alert("No has seleccionado ningún Grupo de Destinatarios para el mensaje. No podemos enviar un mensaje sin destinatario.");
+      return false;
+    }
+
+    // Comprobación de destinatario vacío         
+    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1) {
+      alert("No has seleccionado Destinatario para el mensaje. No podemos enviar un mensaje sin destinatario.");
+      return false;
+  	}
+
+ 	return true;
+
+  }
+
+</script>
 </body>
 </html>

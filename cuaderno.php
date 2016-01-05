@@ -323,11 +323,12 @@ include("cuaderno/menu_cuaderno.php");
 					$num_ev3 = mysqli_num_rows($ev_sen3);
 
 					for ($i=1; $i < 4; $i++) { 
-									if (${num_ev.$i}>0) {
+									if (${num_ev.$i}>0 and $asignatura!=="2") {
 									echo "<td nowrap>
 									<div style='width:40px;height:104px;'>
 									<div class='Rotate-90'><span style='font-weight:bold'>".$i."ª Evalución Séneca</span></div>
 									</div> </td>";
+									${extra_sen.$i} = "1";
 									}
 								}
 
@@ -396,16 +397,12 @@ include("cuaderno/menu_cuaderno.php");
 						}
 					}
 
-					
-
 					if($seleccionar == 1){
 						echo "<td nowrap class='warning'>
 <div style='width:40px;height:104px;'>
 <div class='Rotate-90'><span class='text-lowercase' style='font-weight:normal'> Selección de alumnos </span></div>
 </div> </td>";
 					}
-
-					
 
 					echo "</tr>";
 					// Tabla para cada Grupo
@@ -415,6 +412,10 @@ include("cuaderno/menu_cuaderno.php");
 					while ($curso11 = mysqli_fetch_array($curso20))
 					{
 						if ($num_cursos>1) {
+							$col_total=$cols+1;
+							if ($extra_sen1==1) {$col_total+=1;}
+							if ($extra_sen2==1) {$col_total+=1;}
+							if ($extra_sen3==1) {$col_total+=1;}
 							echo "<tr><td colspan='$col_total' class='active'><h4 align=center>$curso11[0]</h4></td></tr>";
 						}
 						$curso = $curso11[0];
@@ -505,15 +506,15 @@ include("cuaderno/menu_cuaderno.php");
 								if ($config['mod_asistencia']) { 
 								echo "<td nowrap>
 								<div style='width:40px;height:90px;'>
-								<div class='Rotate-corto'></div>
+								<div class='Rotate-corto'>Asistencia</div>
 								</div> </td>";
 								}
 
 								for ($i=1; $i < 4; $i++) { 
 									if (${num_ev.$i}>0) {
-									echo "<td>
+									echo "<td nowrap>
 									<div style='width:40px;height:90px;'>
-									<div class='Rotate-90'></div>
+									<div class='Rotate-corto'>".$i."ª Ev. Séneca</div>
 									</div> </td>";
 									}
 								}
@@ -575,7 +576,7 @@ include("cuaderno/menu_cuaderno.php");
 					<?php } ?>
 					<?php
 						for ($i=1; $i < 4; $i++) { 
-									if (${num_ev.$i}>0) {
+									if (${num_ev.$i}>0 and $asignatura!=="2") {
 									?>
 					<td style="background-color:#444;color:#fff;vertical-align: middle; text-align: center; height: 74px !important;">
 					<?php
@@ -585,7 +586,7 @@ include("cuaderno/menu_cuaderno.php");
 					foreach ($tr_n as $value) {
 						
 							$tr_d = explode(":", $value);
-							if ($tr_d[0]==$asignatura) {
+							if ($tr_d[0]==$asignatura or $tr_d[0]==$asignatura2) {
 								$califica = "select nombre from calificaciones where codigo = '" . $tr_d[1] . "'";
 								$calificacion = mysqli_query($db_con, $califica);
 								$rown = mysqli_fetch_array($calificacion);

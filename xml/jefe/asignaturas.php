@@ -77,7 +77,7 @@
 			VALUES ('$codigo',  '$nombre',  '$abrev',  '$cur', '$unidad')");}
 			
 								//
-								if ($num=="1") {
+								if ($num=="3") {
 									///*Obtengo el nodo Calificación del XML
 									//a traves del metodo getElementsByTagName,
 									//este nos entregara una lista de todos los

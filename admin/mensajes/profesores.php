@@ -2,7 +2,7 @@
 
 if(isset($_POST['submit1'])) {	
 
-	if(!$asunto or !$texto or empty($profesor)) { 
+	if(!$asunto or empty($texto) or empty($profesor)) { 
   		$msg_error = "Todos los campos del formulario son obligatorios.";
   		$_SESSION['msg_block'] = 0;
   	}

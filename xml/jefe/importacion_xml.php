@@ -351,7 +351,13 @@ mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `unidades` (
 			$ape1profesor = utf8_decode($tramos->dato[3]);
 			$ape2profesor = utf8_decode($tramos->dato[4]);
 			$nomprofesor = utf8_decode($tramos->dato[5]);
-			$nombre_profesor= "$ape1profesor $ape2profesor, $nomprofesor";
+			if (strlen($ape2profesor)>0) {
+				$ape2profesor=" ".$ape2profesor;
+			}
+			else{
+				$ape2profesor="";
+			}
+			$nombre_profesor = $ape1profesor.$ape2profesor.", ".$nomprofesor;
 			$deptoprofesor = limpiarNombreDepartamento(utf8_decode($tramos->dato[2]));
 			
 			$result = mysqli_query($db_con, "INSERT profesores_seneca (idprofesor, nomprofesor, deptoprofesor) VALUES ($idprofesor,'$nombre_profesor','$deptoprofesor')");

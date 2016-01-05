@@ -43,10 +43,10 @@ Debes seleccionar un alumno en primer lugar.<br>Vuelve atrás e inténtalo de nuev
 	exit();	
 }
 $claveal=trim($dalumno[0]);
-echo "<table align=center class='table table-striped' '>";
+echo "<table align=center class='table table-striped'>";
 echo "<thead><tr  class='active'><th>Alumno/a </th>
- <th>Grupo</th><th nowrap>Fecha Expulsión</th><th>Duración</th><tr></thead><tbody>
-<TR><td nowrap>$dalumno[1], $dalumno[2]</td>
+ <th>Grupo</th><th nowrap>Expulsión</th><th>Duración</th><tr></thead><tbody>
+<TR><td>$dalumno[1], $dalumno[2]</td>
 <td>$dalumno[3]</td><td>$dalumno[5]</td><td>$dalumno[6]</td></tr></TABLE>";
 
    	$foto = '../../xml/fotos/'.$claveal.'.jpg';
