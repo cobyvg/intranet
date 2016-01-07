@@ -795,15 +795,23 @@ $page_header = "Redactar mensaje";
       form.asunto.focus();
       return false;
     }
-
+	<?php 
+    if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE){
+    $extra_padre = " && formulario.padres.checked == false";
+    }
+    ?>
     // Comprobación de Grupo de destinatarios sin marcar       
-    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.claustro.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.bilingue.checked == false) {
+    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.claustro.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.bilingue.checked == false <?php echo $extra_padre;?>) {
       alert("No has seleccionado ningún Grupo de Destinatarios para el mensaje. No podemos enviar un mensaje sin destinatario.");
       return false;
     }
-
+    <?php 
+    if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE){
+    $extra_papa = " && document.forms['formulario']['padres[]'].selectedIndex == -1";
+    }
+    ?>
     // Comprobación de destinatario vacío         
-    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1) {
+    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1 <?php echo $extra_papa;?>) {
       alert("No has seleccionado Destinatario para el mensaje. No podemos enviar un mensaje sin destinatario.");
       return false;
   	}
