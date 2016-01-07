@@ -7,7 +7,7 @@ $profe = $_SESSION['profi'];
 
 if (isset($_POST['eval']) and !empty($_POST['eval'])) {$eval = $_POST['eval'];}else{$eval="";}
 
-	if (strlen($eval)>1) {	
+if (strlen($eval)>1) {	
 	if (substr($eval,0,1)=='1') {$exporta='../exporta1';}
 	if (substr($eval,0,1)=='2') {$exporta='../exporta2';}
 	if (substr($eval,0,1)=='J') {$exporta='../exportaO';}
@@ -16,43 +16,31 @@ if (isset($_POST['eval']) and !empty($_POST['eval'])) {$eval = $_POST['eval'];}e
 
 	// Descomprimimos el zip de las calificaciones en el directorio exporta/
 	include('../../lib/pclzip.lib.php');
-						   
-	$archive = new PclZip($_FILES['archivo2']['tmp_name']);  
-	      if ($archive->extract(PCLZIP_OPT_PATH,$exporta) == 0) 
-		  {
-		  	include("../../menu.php");
-	        die('<br><div align="center"><div class="alert alert-danger alert-block fade in">
-	            <button type="button" class="close" data-dismiss="alert">&times;</button>
-				<h5>ATENCIÓN:</h5>
-	No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo está corrompido.
-	</div></div><br />
-	<div align="center">
-	  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-	</div>'); 
-	      }  
-
+	
 	// Borramos archivos antiguos					
 	$files = glob($exporta.'/*'); 
 	foreach($files as $file)
-		{ 
-  		if(is_file($file) and stristr($file, "index")==FALSE)
-    		unlink($file); 
-		}      
+	{ 
+		if(is_file($file) and stristr($file, "index")==FALSE)
+		unlink($file); 
+	}    
+		   
+	$archive = new PclZip($_FILES['archivo2']['tmp_name']);  
+	if ($archive->extract(PCLZIP_OPT_PATH,$exporta) == 0) 
+	{
+		include("../../menu.php");
+		die('<br><div align="center"><div class="alert alert-danger alert-block fade in">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<h5>ATENCIÓN:</h5>
+		No se ha podido abrir el archivo comprimido con las Calificaciones. O bien te has olvidado de enviarlo o el archivo está corrompido.
+		</div></div><br />
+		<div align="center">
+		<input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
+		</div>'); 
+	}
 		  
 	header("location://".$config['dominio']."/intranet/xml/notas/notas.php?directorio=$exporta");	  	  
 	exit;	
-}
-else{
-			include("../../menu.php");
-	        die('<br><div align="center"><div class="alert alert-danger alert-block fade in">
-	            <button type="button" class="close" data-dismiss="alert">&times;</button>
-				<h5>ATENCIÓN:</h5>
-	No has seleccionado la Evaluación que vas a importar. 
-	</div></div><br />
-	<div align="center">
-	  <input type="button" value="Volver atrás" name="boton" onClick="history.back(2)" class="btn btn-inverse" />
-	</div>'); 
-
 }
 
 include("../../menu.php");
