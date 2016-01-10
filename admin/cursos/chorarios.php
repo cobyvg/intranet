@@ -14,18 +14,23 @@ include("../../menu.php");
 		<h2>Horarios <small>Consulta por grupos, profesores y aulas</small></h2>
 	</div>
 	
-	
-	<!-- SCAFFOLDING -->
-	<div class="row">
-	
-		<!-- COLUMNA 1 -->
-		<div class="col-sm-6">
-			
-			<div class="well">
+<div class="tabbable" style="margin-bottom: 18px;">
+<ul class="nav nav-tabs">
+<li class="active"><a href="#tab1" data-toggle="tab">Grupos</a></li>
+<li><a href="#tab2" data-toggle="tab">Profesores</a></li>
+<li><a href="#tab3" data-toggle="tab">Aulas</a></li>
+<li><a href="#tab4" data-toggle="tab">Aulas Libres</a></li>
+<li><a href="#tab5" data-toggle="tab">Guardias</a></li>
+</ul>
+<div class="tab-content" style="padding-bottom: 9px;">
+<br>
+<br>	
+<div class="tab-pane fade in active" id="tab1">
+			<div class="well col-sm-6 col-sm-offset-3">
 				
 				<form method="post" action="horarios.php">
 					<fieldset>
-						<legend>Grupos</legend>
+						<legend>Horario de Grupos</legend>
 						
 						<div class="form-group">
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT a_grupo FROM horw WHERE a_grupo NOT LIKE 'G%' AND a_grupo NOT LIKE '' ORDER BY a_grupo"); ?>
@@ -46,18 +51,13 @@ include("../../menu.php");
 				</form>
 				
 			</div><!-- /.well -->
-			
-		</div><!-- /.col-sm-6 -->
-		
-		
-		<!-- COLUMNA 2 -->
-		<div class="col-sm-6">
-			
-			<div class="well">
+</div>
+<div class="tab-pane fade in" id="tab2">
+			<div class="well col-sm-6 col-sm-offset-3">
 				
 				<form method="post" action="profes.php">
 					<fieldset>
-						<legend>Profesores</legend>
+						<legend>Horario de Profesores</legend>
 						
 						<div class="form-group">
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw WHERE prof NOT LIKE '' ORDER BY prof ASC"); ?>
@@ -78,18 +78,12 @@ include("../../menu.php");
 				</form>
 				
 			</div><!-- /.well -->
-			
-		</div><!-- /.col-sm-6 -->
-		
-		
-		<!-- COLUMNA 3 -->
-		<div class="col-sm-6">
-			
-			<div class="well">
-				
+</div>
+<div class="tab-pane fade in" id="tab3">
+			<div class="well col-sm-6 col-sm-offset-3">
 				<form method="post" action="hor_aulas.php">
 					<fieldset>
-						<legend>Aulas</legend>
+						<legend>Horario de Aulas</legend>
 						
 						<div class="form-group">
 							<?php $result = mysqli_query($db_con, "SELECT DISTINCT n_aula FROM horw where n_aula not like 'G%' ORDER BY n_aula ASC"); ?>
@@ -110,14 +104,9 @@ include("../../menu.php");
 				</form>
 				
 			</div><!-- /.well -->
-			
-		</div><!-- /.col-sm-6 -->
-		
-		
-		<!-- COLUMNA 4 -->
-		<div class="col-sm-6">
-			
-			<div class="well">
+</div>
+<div class="tab-pane fade in" id="tab4">
+			<div class="well col-sm-6 col-sm-offset-3">
 				
 				<form method="post" action="aulas_libres.php">
 					<fieldset>
@@ -137,20 +126,13 @@ include("../../menu.php");
 				</form>
 				
 			</div><!-- /.well -->
-			
-		</div><!-- /.col-sm-6 -->
-	
-	</div><!-- /.row -->
-	
-	<div class="row">
-	
-	<div class="col-sm-6">
-			
-			<div class="well">
+</div>
+<div class="tab-pane fade in" id="tab5">
+			<div class="well col-sm-6 col-sm-offset-3">
 				
 				<form method="post" action="horario_guardias.php">
 					<fieldset>
-						<legend>Guardias</legend>
+						<legend>Horario de Guardias</legend>
 						
 						<div class="form-group">
 							<?php $dias = array('Lunes','Martes','Miércoles','Jueves','Viernes'); ?>
@@ -166,11 +148,9 @@ include("../../menu.php");
 				</form>
 				
 			</div><!-- /.well -->
-			
-		</div><!-- /.col-sm-6 -->
-		
-	</div>
-	
+</div>
+</div>
+</div>	
 </div><!-- /.container -->
 
 <?php include("../../pie.php"); ?>

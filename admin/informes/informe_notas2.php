@@ -13,55 +13,47 @@ include("menu.php");
 </div>
 
 <?php
-if (isset($_POST['f_curso']) and !($_POST['f_curso'] == "Curso actual")) {
-	$f_curs = substr($_POST['f_curso'],5,4);
-	$base_actual = $db.$f_curs;
-	//echo $base_actual;
-	$conex = mysqli_select_db($db_con, $base_actual);
-	if (!$conex) {
-		echo "Fallo al seleccionar la base de datos $base_actual";
-	}
-	else{
-		mysqli_query($db_con, "drop table cursos");
-		mysqli_query($db_con, "create table cursos select * from $db.cursos");
-		//echo "create table if not exists cursos select * from $db.cursos";
-	}
+if (isset($_POST['f_curso'])) {
+	$f_curso=$_POST['f_curso'];
 }
-else{
-	$conex = mysqli_select_db($db_con, $db);
-}
-$act1 = substr($config['curso_actual'],0,4);
-$b_act1 = ($act1-1)."-".$act1;
-$base=$db.$act1;
-$act2=$act1-1;
-$b_act2 = ($act2-1)."-".$act2;
-$act3=$act1-2;
-$b_act3 = ($act3-1)."-".$act3;
-$act4=$act1-3;
-$b_act4 = ($act4-1)."-".$act4;
 
-if (mysqli_query($db_con, "select * from $base.notas")) {
-?>
-<form method="POST" class="well well-large" style="width:450px; margin:auto">
-<p class="lead">Informe Histórico</p>
-<select name="f_curso" onchange="submit()" class="form-control">
-<?php
-echo "<option>".$_POST['f_curso']."</option>";
-echo "<option>Curso actual</option>";
-for ($i=1;$i<5;$i++){
-	$base_contr = $db.($act1-$i);
-	$sql_contr = mysqli_query($db_con, "select * from $base_contr.notas");
-	if (mysqli_num_rows($sql_contr)>0) {
-		echo "<option>${b_act.$i}</option>";
+if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
+
+	if (!empty($f_curso) && ($f_curso != $config['curso_actual'])) {
+		$exp_c_escolar = explode("/", $f_curso);
+		$anio_escolar = $exp_c_escolar[0];
+		
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+	}
+	if (empty($f_curso)){
+		$f_curso = $config['curso_actual'];
 	}
 }
-?>
-</select>
-</form>
-<hr />
-<?php
+else {
+		$f_curso = $config['curso_actual'];
 }
 ?>
+
+<?php if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')): ?>
+<form method="POST" class="well well-large" style="width:450px; margin:auto">
+<p class="lead">Informe Histórico</p>	
+  	<div class="form-group">
+  			    <label for="f_curso">Curso escolar</label>
+  			    
+  			    <select class="form-control" id="f_curso" name="f_curso" onChange="submit()">
+  			    	<?php $exp_c_escolar = explode("/", $config['curso_actual']); ?>
+  			    	<?php for($i=0; $i<5; $i++): ?>
+  			    	<?php $anio_escolar = $exp_c_escolar[0] - $i; ?>
+  			    	<?php $anio_escolar_sig = substr(($exp_c_escolar[0] - $i + 1), 2, 2); ?>
+  			    	<?php if($i == 0 || (isset($config['db_host_c'.$anio_escolar]) && $config['db_host_c'.$anio_escolar] != "")): ?>
+  			    	<option value="<?php echo $anio_escolar.'/'.$anio_escolar_sig; ?>"<?php if ($_POST['f_curso']==$anio_escolar.'/'.$anio_escolar_sig) { echo "selected"; }?>><?php echo $anio_escolar.'/'.$anio_escolar_sig; ?></option>
+  			    	<?php endif; ?>
+  			    	<?php endfor; ?>
+  			    </select>
+  	</div>
+</form>
+<hr />  	
+<?php endif; ?>
 
 <div class="tabbable" style="margin-bottom: 18px;">
 
@@ -110,10 +102,10 @@ foreach ($titulos as $key=>$val){
 <?php
 
 // CURSOS
-$nivele = mysqli_query($db_con, "select * from cursos");
+$nivele = mysqli_query($db_con, "select distinct curso from alma order by curso");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
 	
-	echo '<legend>'.$orden_nivel[1].'</legend>';
+	echo '<legend>'.$orden_nivel[0].'</legend>';
 	/*$c_uni = mysqli_query($db_con, "select distint unidad from alma where curso = '$orden_nivel[1]'");
 	while ($c_unidad = mysqli_fetch_array($c_uni)) {
 		$unidad = $c_unidad[0];*/
@@ -135,7 +127,7 @@ while ($orden_nivel = mysqli_fetch_array($nivele)){
 <?php
 
 // UNIDADES DEL CURSO
-$niv = mysqli_query($db_con, "select distinct curso, unidad, idcurso from alma, cursos where curso=nomcurso and curso = '$orden_nivel[1]' order by unidad");
+$niv = mysqli_query($db_con, "select distinct curso, unidad from alma where curso = '$orden_nivel[0]' order by unidad");
 while ($ni = mysqli_fetch_array($niv)) {
 	$unidad = $ni[1];
 	
@@ -231,12 +223,12 @@ $total=mysqli_num_rows($tota);
 
 // Promocion
 	$extra1 = " and suspensos = '0'";
-	$prom1 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2, cursos where nivel = nomcurso and grupo = '$grupo' and idcurso not like '101140' and idcurso not like '101141' and idcurso not like '101142' and idcurso not like '6029' and idcurso not like '2063' $extra1");
+	$prom1 = mysqli_query($db_con, "select distinct suspensos2.claveal, suspensos2.grupo from suspensos2, alma where suspensos2.nivel = curso and suspensos2.grupo = '$grupo' and (curso like '4%' or curso like '2º de bach%') $extra1");
 	$promo1=mysqli_num_rows($prom1);
 	if ($promo1==0) { $promo1=""; }
 
 	$extra2 = " and suspensos < '3'";
-	$prom2 = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2, cursos where nivel = nomcurso and grupo = '$grupo' and (idcurso like '101140' or idcurso like '101141' or idcurso like '101142' or idcurso like '6029' or idcurso like '2063')  $extra2");
+	$prom2 = mysqli_query($db_con, "select distinct suspensos2.claveal, suspensos2.grupo from suspensos2, alma where suspensos2.nivel = curso and suspensos2.grupo = '$grupo' and (curso not like '4%' and curso not like '2º de bach%')  $extra2");
 	$promo2=mysqli_num_rows($prom2);
 	if ($promo2==0) { $promo2=""; }
 

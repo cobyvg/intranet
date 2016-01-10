@@ -14,55 +14,47 @@ include("menu.php");
 </div>
 
 <?php
-if (isset($_POST['f_curso']) and !($_POST['f_curso'] == "Curso actual")) {
-	$f_curs = substr($_POST['f_curso'],5,4);
-	$base_actual = $db.$f_curs;
-	//echo $base_actual;
-	$conex = mysqli_select_db($db_con, $base_actual);
-	if (!$conex) {
-		echo "Fallo al seleccionar la base de datos $base_actual";
-	}
-	else{
-		mysqli_query($db_con, "drop table cursos");
-		mysqli_query($db_con, "create table cursos select * from $db.cursos");
-		//echo "create table if not exists cursos select * from $db.cursos";
-	}
+if (isset($_POST['f_curso'])) {
+	$f_curso=$_POST['f_curso'];
 }
-else{
-	$conex = mysqli_select_db($db_con, $db);
-}
-$act1 = substr($config['curso_actual'],0,4);
-$b_act1 = ($act1-1)."-".$act1;
-$base=$db.$act1;
-$act2=$act1-1;
-$b_act2 = ($act2-1)."-".$act2;
-$act3=$act1-2;
-$b_act3 = ($act3-1)."-".$act3;
-$act4=$act1-3;
-$b_act4 = ($act4-1)."-".$act4;
 
-if (mysqli_query($db_con, "select * from $base.notas")) {
-?>
-<form method="POST" class="well well-large" style="width:450px; margin:auto">
-<p class="lead">Informe Histórico</p>
-<select name="f_curso" onchange="submit()" class="form-control">
-<?php
-echo "<option>".$_POST['f_curso']."</option>";
-echo "<option>Curso actual</option>";
-for ($i=1;$i<5;$i++){
-	$base_contr = $db.($act1-$i);
-	$sql_contr = mysqli_query($db_con, "select * from $base_contr.notas");
-	if (mysqli_num_rows($sql_contr)>0) {
-		echo "<option>${b_act.$i}</option>";
+if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
+
+	if (!empty($f_curso) && ($f_curso != $config['curso_actual'])) {
+		$exp_c_escolar = explode("/", $f_curso);
+		$anio_escolar = $exp_c_escolar[0];
+		
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+	}
+	if (empty($f_curso)){
+		$f_curso = $config['curso_actual'];
 	}
 }
-?>
-</select>
-</form>
-<hr />
-<?php
+else {
+		$f_curso = $config['curso_actual'];
 }
 ?>
+
+<?php if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')): ?>
+<form method="POST" class="well well-large" style="width:450px; margin:auto">
+<p class="lead">Informe Histórico</p>	
+  	<div class="form-group">
+  			    <label for="f_curso">Curso escolar</label>
+  			    
+  			    <select class="form-control" id="f_curso" name="f_curso" onChange="submit()">
+  			    	<?php $exp_c_escolar = explode("/", $config['curso_actual']); ?>
+  			    	<?php for($i=0; $i<5; $i++): ?>
+  			    	<?php $anio_escolar = $exp_c_escolar[0] - $i; ?>
+  			    	<?php $anio_escolar_sig = substr(($exp_c_escolar[0] - $i + 1), 2, 2); ?>
+  			    	<?php if($i == 0 || (isset($config['db_host_c'.$anio_escolar]) && $config['db_host_c'.$anio_escolar] != "")): ?>
+  			    	<option value="<?php echo $anio_escolar.'/'.$anio_escolar_sig; ?>"<?php if ($_POST['f_curso']==$anio_escolar.'/'.$anio_escolar_sig) { echo "selected"; }?>><?php echo $anio_escolar.'/'.$anio_escolar_sig; ?></option>
+  			    	<?php endif; ?>
+  			    	<?php endfor; ?>
+  			    </select>
+  	</div>
+</form>
+<hr />  	
+<?php endif; ?>
 <div class="tabbable" style="margin-bottom: 18px;">
 
 <ul class="nav nav-tabs">
@@ -106,9 +98,9 @@ $key == '1' ? $activ=" active" : $activ='';
 
 <?php
 // Evaluaciones ESO
-$nivele = mysqli_query($db_con, "select * from cursos");
+$nivele = mysqli_query($db_con, "select distinct curso from alma order by curso");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
-$niv = mysqli_query($db_con, "select distinct curso from alma where curso = '$orden_nivel[1]'");
+$niv = mysqli_query($db_con, "select distinct curso from alma where curso = '$orden_nivel[0]'");
 while ($ni = mysqli_fetch_array($niv)) {
 	$n_grupo+=1;
 	$curso = $ni[0];
@@ -161,10 +153,10 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 ?>
 <h3>Resultados de las Materias por Nivel</h3><br />
 <?php
-$nivele = mysqli_query($db_con, "select * from cursos");
+$nivele = mysqli_query($db_con, "select distinct curso from alma order by curso");
 while ($orden_nivel = mysqli_fetch_array($nivele)){
 	?>
-	<legend><?php echo $orden_nivel[1]; ?></legend>
+	<legend><?php echo $orden_nivel[0]; ?></legend>
 <table class="table table-striped table-bordered"  align="center" style="width:700px;" valign="top">
 <thead>
 <th class='text-info'>Asignatura</th>
@@ -174,23 +166,23 @@ while ($orden_nivel = mysqli_fetch_array($nivele)){
 </thead>
 <tbody>	
 	<?php
-$as = mysqli_query($db_con, "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[1]' and abrev not like '%\_%' and asignaturas.codigo not in 
+$as = mysqli_query($db_con, "select asignaturas.nombre, asignaturas.codigo from asignaturas where curso = '$orden_nivel[0]' and abrev not like '%\_%' and asignaturas.codigo not in 
 (select distinct codigo from asignaturas where nombre like 'Libre Disp%')");
 while ($asi = mysqli_fetch_array($as)) {
-	$n_c = mysqli_query($db_con, "select distinct curso from alma where curso = '$orden_nivel[1]'");
+	$n_c = mysqli_query($db_con, "select distinct curso from alma where curso = '$orden_nivel[0]'");
 	$niv_cur = mysqli_fetch_array($n_c);
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
-	$cod_nota = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[1]'");
+	$cod_nota = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[0]'");
 	//echo "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[1]'";
-	$cod_apro = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[1]'");
+	$cod_apro = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[0]'");
 	
 	//echo "select id from temp where asignatura = '$codasi'<br>";
 	$num_susp='';
 	$num_susp = mysqli_num_rows($cod_nota);
 	$num_apro='';
 	$num_apro = mysqli_num_rows($cod_apro);
-	$combas = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi%' and curso = '$orden_nivel[1]'");
+	$combas = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi%' and curso = '$orden_nivel[0]'");
 	//echo "select claveal from alma where combasi like '%$codasi%'  and nivel like '$niv_cur[0]%' and curso = '$orden_nivel[1]'<br>";
 	$num_matr='';
 	$num_matr = mysqli_num_rows($combas);

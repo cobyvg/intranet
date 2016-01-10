@@ -12,54 +12,48 @@ include("menu.php");
 </div>
 
 <?php
-if (isset($_POST['f_curso']) and !($_POST['f_curso'] == "Curso actual")) {
-	$f_curs = substr($_POST['f_curso'],5,4);
-	$base_actual = $db.$f_curs;
-	//echo $base_actual;
-	$conex = mysqli_select_db($db_con, $base_actual);
-	if (!$conex) {
-		echo "Fallo al seleccionar la base de datos $base_actual";
+if (isset($_POST['f_curso'])) {
+	$f_curso=$_POST['f_curso'];
+}
+
+if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')) {
+
+	if (!empty($f_curso) && ($f_curso != $config['curso_actual'])) {
+		$exp_c_escolar = explode("/", $f_curso);
+		$anio_escolar = $exp_c_escolar[0];
+		
+		$db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
 	}
-	else{
-		mysqli_query($db_con, "drop table cursos");
-		mysqli_query($db_con, "create table cursos select * from $db.cursos");
-		//echo "create table if not exists cursos select * from $db.cursos";
+	if (empty($f_curso)){
+		$f_curso = $config['curso_actual'];
 	}
 }
-else{
-	$conex = mysqli_select_db($db_con, $db);
+else {
+		$f_curso = $config['curso_actual'];
 }
-$act1 = substr($config['curso_actual'],0,4);
-$b_act1 = ($act1-1)."-".$act1;
-$base=$db.$act1;
-$act2=$act1-1;
-$b_act2 = ($act2-1)."-".$act2;
-$act3=$act1-2;
-$b_act3 = ($act3-1)."-".$act3;
-$act4=$act1-3;
-$b_act4 = ($act4-1)."-".$act4;
-if (mysqli_query($db_con, "select * from $base.notas")) {
 ?>
+
+<?php if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')): ?>
 <form method="POST" class="well well-large" style="width:450px; margin:auto">
-<p class="lead">Informe Histórico</p>
-<select name="f_curso" onchange="submit()" class="form-control">
-<?php
-echo "<option>".$_POST['f_curso']."</option>";
-echo "<option>Curso actual</option>";
-for ($i=1;$i<5;$i++){
-	$base_contr = $db.($act1-$i);
-	$sql_contr = mysqli_query($db_con, "select * from $base_contr.notas");
-	if (mysqli_num_rows($sql_contr)>0) {
-		echo "<option>${b_act.$i}</option>";
-	}
-}
-?>
-</select>
+<p class="lead">Informe Histórico</p>	
+  	<div class="form-group">
+  			    <label for="f_curso">Curso escolar</label>
+  			    
+  			    <select class="form-control" id="f_curso" name="f_curso" onChange="submit()">
+  			    	<?php $exp_c_escolar = explode("/", $config['curso_actual']); ?>
+  			    	<?php for($i=0; $i<5; $i++): ?>
+  			    	<?php $anio_escolar = $exp_c_escolar[0] - $i; ?>
+  			    	<?php $anio_escolar_sig = substr(($exp_c_escolar[0] - $i + 1), 2, 2); ?>
+  			    	<?php if($i == 0 || (isset($config['db_host_c'.$anio_escolar]) && $config['db_host_c'.$anio_escolar] != "")): ?>
+  			    	<option value="<?php echo $anio_escolar.'/'.$anio_escolar_sig; ?>"<?php if ($_POST['f_curso']==$anio_escolar.'/'.$anio_escolar_sig) { echo "selected"; }?>><?php echo $anio_escolar.'/'.$anio_escolar_sig; ?></option>
+  			    	<?php endif; ?>
+  			    	<?php endfor; ?>
+  			    </select>
+  	</div>
 </form>
-<hr />
-<?php
-}
-?>
+<hr />  	
+<?php endif; ?>
+
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab">1ª Evaluación</a></li>
@@ -267,4 +261,3 @@ mysqli_close();
 <?php include("../../pie.php");?> 
 </body>
 </html>
-                                                                                                                                                                                                  

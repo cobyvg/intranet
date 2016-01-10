@@ -10,13 +10,13 @@
 	
 	<!-- A PRINCIPIO DE CURSO -->
 	<li class="nav-header">A principio de curso...</li>
-	<li><a href="jefe/index2.php">Importar Alumnos</a></li>
 	<li><a href="jefe/index_xml.php">Importar datos del Centro</a></li>
-	<li><a href="jefe/index_departamentos.php">Importar Departamentos</a></li>
+	<li><a href="jefe/index2.php">Importar Alumnos y Asignaturas</a></li>
+	<li><a href="jefe/index_departamentos.php">Importar Profesores y Departamentos</a></li>
 	<?php if(isset($config['mod_horarios']) && $config['mod_horarios']): ?>
 	<li><a href="jefe/horario.php">Importar/Preparar Horarios </a></li>
 	<?php endif; ?>
-	<li><a href="jefe/index_profesores.php">Importar Profesores</a></li>
+	<li><a href="jefe/index_profesores.php">Importar Profesores, Unidades y Materias</a></li>
 	<li><a href="jefe/index_pas.php">Importar Personal no docente</a></li>
 	<li><a href="jefe/index_festivos.php">Importar días festivos</a></li>
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
@@ -27,9 +27,9 @@
 	<!-- ACTUALIZACIÓN -->
 	<li class="nav-header">Actualización</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
-	<li><a href="jefe/index_departamentos2.php">Actualizar Departamentos</a></li>
+	<li><a href="jefe/index_departamentos2.php">Actualizar Profesores y Departamentos</a></li>
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
-	<li><a href="jefe/index_profesores.php">Actualizar Profesores</a></li>
+	<li><a href="jefe/index_profesores.php">Actualizar Profesores, Unidades y Materias</a></li>
 	<li><a href="jefe/index_pas.php">Actualizar Personal no docente</a></li>
 	
 	<!-- PERSONAL DEL CENTRO -->

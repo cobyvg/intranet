@@ -320,6 +320,9 @@ if(isset($_POST['enviar'])){
 		}
 	}
 }
+
+$n_curso="";
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -460,6 +460,9 @@ datos.</div>
 		}
 	}
 }
+
+$n_curso="";
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
