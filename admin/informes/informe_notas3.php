@@ -174,16 +174,13 @@ while ($asi = mysqli_fetch_array($as)) {
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
 	$cod_nota = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[0]'");
-	//echo "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[1]'";
 	$cod_apro = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota > '4' and alma.claveal1 = temp.claveal and curso = '$orden_nivel[0]'");
 	
-	//echo "select id from temp where asignatura = '$codasi'<br>";
 	$num_susp='';
 	$num_susp = mysqli_num_rows($cod_nota);
 	$num_apro='';
 	$num_apro = mysqli_num_rows($cod_apro);
 	$combas = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi%' and curso = '$orden_nivel[0]'");
-	//echo "select claveal from alma where combasi like '%$codasi%'  and nivel like '$niv_cur[0]%' and curso = '$orden_nivel[1]'<br>";
 	$num_matr='';
 	$num_matr = mysqli_num_rows($combas);
 	
