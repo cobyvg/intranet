@@ -147,8 +147,7 @@ if($cali[0] < '5' and !($cali[0] == ''))	{
 <span class="help-block"> ( * ) En color <strong class="text-success">verde</strong> los aprobados; en color <strong class="text-warning">naranja</strong> los suspensos</span>
 <br />
 <?php
-$nivele = mysqli_query($db_con, "select distinct curso from alma order by curso");
-while ($orden_nivel = mysqli_fetch_array($nivele)){
+  while ($orden_nivel = mysqli_fetch_array($nivele)){
 ?>
 <legend><?php echo $orden_nivel[0]; ?></legend>
 <table class="table table-striped table-condensed table-bordered"  align="center" style="width:700px;" valign="top">
