@@ -244,8 +244,7 @@ while ($asi = mysqli_fetch_array($as)) {
 	$num_susp2='';
 	$num_susp2 = mysqli_num_rows($cod_nota2);
 
-	$combas2 = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi2%' and nivel like '$niv_cur[0]%' and curso = '$orden_nivel[1]'");
-	//echo "select claveal from alma where combasi like '%$codasi2%'  and nivel like '$niv_cur[0]%' and curso = '$orden_nivel[1]'<br>";
+	$combas2 = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi2%' and curso = '$orden_nivel[1]'");
 	$num_matr2='';
 	$num_matr2 = mysqli_num_rows($combas2);
 	
