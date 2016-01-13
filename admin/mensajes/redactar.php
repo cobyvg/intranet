@@ -157,7 +157,7 @@ $page_header = "Redactar mensaje";
 	      		
 	      		<div class="form-group">
 	      			<label for="texto" class="sr-only">Contenido</label>
-	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000" required><?php echo (isset($texto) && $texto) ? $texto : ''; ?></textarea>
+	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000"><?php echo (isset($texto) && $texto) ? $texto : ''; ?></textarea>
 	      		</div>
 	      		
 	      		<button type="submit" class="btn btn-primary" name="submit1">Enviar mensaje</button>
