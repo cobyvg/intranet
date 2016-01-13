@@ -135,7 +135,7 @@ $page_header = "Redactar mensaje";
 	  <?php endif; ?>
 	  
 	  
-	  <form method="post" action="" name="formulario" onSubmit="return checkAsunto(this)">
+	  <form id="formMensaje" method="post" action="" name="formulario">
 	  
 	  <!-- SCALLFODING -->
 		<div class="row">
@@ -152,12 +152,12 @@ $page_header = "Redactar mensaje";
       		
 	      		<div class="form-group">
 	      			<label for="asunto">Asunto</label>
-	      			<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto del mensaje" value="<?php echo (isset($asunto)) ? $asunto : ''; ?>" maxlength="120" autofocus>
+	      			<input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto del mensaje" value="<?php echo (isset($asunto)) ? $asunto : ''; ?>" maxlength="120" required autofocus>
 	      		</div>
 	      		
 	      		<div class="form-group">
 	      			<label for="texto" class="sr-only">Contenido</label>
-	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000"><?php echo (isset($texto) && $texto) ? $texto : ''; ?></textarea>
+	      			<textarea class="form-control" id="texto" name="texto" rows="10" maxlength="3000" required><?php echo (isset($texto) && $texto) ? $texto : ''; ?></textarea>
 	      		</div>
 	      		
 	      		<button type="submit" class="btn btn-primary" name="submit1">Enviar mensaje</button>
@@ -687,9 +687,32 @@ $page_header = "Redactar mensaje";
 			$('#claustro').change(function() {
 				if(claustro.checked==true) {
 					$('#grupo_claustro').removeClass('hidden');
+					$('#profes').prop('disabled', true);
+					$('#tutores').prop('disabled', true);
+					$('#departamentos').prop('disabled', true);
+					$('#equipos').prop('disabled', true);
+					$('#biblio').prop('disabled', true);
+					$('#etcp').prop('disabled', true);
+					$('#ca').prop('disabled', true);
+					$('#direccion').prop('disabled', true);
+					$('#orientacion').prop('disabled', true);
+					$('#bilingue').prop('disabled', true);
+					$('#padres').prop('disabled', true);
 				}
 				else {
 					$('#grupo_claustro').addClass('hidden');
+					$('#profes').prop('disabled', false);
+					$('#tutores').prop('disabled', false);
+					$('#departamentos').prop('disabled', false);
+					$('#equipos').prop('disabled', false);
+					$('#biblio').prop('disabled', false);
+					$('#etcp').prop('disabled', false);
+					$('#ca').prop('disabled', false);
+					$('#direccion').prop('disabled', false);
+					$('#orientacion').prop('disabled', false);
+					$('#bilingue').prop('disabled', false);
+					$('#padres').prop('disabled', false);
+					
 				}
 			});
 
@@ -783,43 +806,5 @@ $page_header = "Redactar mensaje";
 	  
 	});
 	</script>
-
-	<script type="text/javascript">
-
-  function checkAsunto(form)
-  {
-
-    // Comprobación de Asunto vacío
-    if(formulario.asunto.value == "") {
-      alert("No has escrito nada en el Asunto del formulario. No podemos enviar un mensaje sin título.");
-      form.asunto.focus();
-      return false;
-    }
-	<?php 
-    if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE){
-    $extra_padre = " && formulario.padres.checked == false";
-    }
-    ?>
-    // Comprobación de Grupo de destinatarios sin marcar       
-    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.claustro.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false && formulario.bilingue.checked == false <?php echo $extra_padre;?>) {
-      alert("No has seleccionado ningún Grupo de Destinatarios para el mensaje. No podemos enviar un mensaje sin destinatario.");
-      return false;
-    }
-    <?php 
-    if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE){
-    $extra_papa = " && document.forms['formulario']['padres[]'].selectedIndex == -1";
-    }
-    ?>
-    // Comprobación de destinatario vacío         
-    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1 <?php echo $extra_papa;?>) {
-      alert("No has seleccionado Destinatario para el mensaje. No podemos enviar un mensaje sin destinatario.");
-      return false;
-  	}
-
- 	return true;
-
-  }
-
-</script>
 </body>
 </html>
