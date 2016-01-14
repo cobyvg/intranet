@@ -18,24 +18,27 @@ $hoy = date('Y-m-d');
 	echo '<br /><table class="table table-striped table-bordered" style="width:100%;">';	
 	echo "
 	<thead>
-	<th>1ª Hora</th>
-	<th>2ª Hora</th>
-	<th>3ª Hora</th>
-	<th>4ª Hora</th>
-	<th>5ª Hora</th>
-	<th>6ª Hora</th>
+	<th>1Âª Hora</th>
+	<th>2Âª Hora</th>
+	<th>3Âª Hora</th>
+	<th>4Âª Hora</th>
+	<th>5Âª Hora</th>
+	<th>6Âª Hora</th>
 	</thead><tbody>";
 	while($row = mysqli_fetch_array ( $result )){
 	
 	$profe_baja=$row[4];
 	$tar = $row[2];
+	$horas = $row[5];
 
 	echo "<tr><th colspan='6' style='text-align:center'>";
 		echo "$profe_baja";
 		echo "</th></tr><tr>";
 	$ndia = date ( "w" );
 	for ($i=1;$i<7;$i++){
-	echo "<td>";	
+	echo "<td>";
+	if($horas==0 or mb_strstr($horas, $i)){
+	
 	$hor = mysqli_query($db_con, "select a_asig, a_grupo, a_aula, c_asig from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'");
 	//echo "select a_asig, a_grupo, a_aula from horw where prof = '$profe_baja' and dia = '$ndia' and hora = '$i'<br>";
 	$hor_asig=mysqli_fetch_array($hor);
@@ -52,6 +55,7 @@ $hoy = date('Y-m-d');
 	}
 	if (strlen($hor_asig[2] > '1')){
 	echo "<p class='text-warning'>Aula: <span style='font-weight:normal;'>$hor_asig[2]</p>";
+	}
 	}
 	}
 	echo "</td>";
