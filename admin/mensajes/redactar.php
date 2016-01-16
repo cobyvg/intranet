@@ -135,7 +135,7 @@ $page_header = "Redactar mensaje";
 	  <?php endif; ?>
 	  
 	  
-	  <form id="formMensaje" method="post" action="" name="formulario">
+	  <form id="formMensaje" method="post" action="" name="formulario" onsubmit="return checkAsunto(this);">
 	  
 	  <!-- SCALLFODING -->
 		<div class="row">
@@ -563,7 +563,7 @@ $page_header = "Redactar mensaje";
 					</fieldset>
 				</div>
 
-				
+				<?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>
 				<!-- BILINGÜE -->
 				<div id="grupo_bilingue" class="well <?php echo (isset($bilingue) && !empty($bilingue)) ? '' : 'hidden'; ?>">
 					
@@ -582,6 +582,7 @@ $page_header = "Redactar mensaje";
 						
 					</fieldset>
 				</div>
+				<?php endif; ?>
 				
 				<?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>
 				
@@ -784,8 +785,7 @@ $page_header = "Redactar mensaje";
 				else {
 					$('#grupo_padres').addClass('hidden');
 				}
-			});
-
+			});	
 
 		// EDITOR DE TEXTO
 		$('#texto').summernote({
@@ -805,6 +805,47 @@ $page_header = "Redactar mensaje";
 	  });
 	  
 	});
+	</script>
+	
+	<script>
+	
+	bootbox.setDefaults({
+	  locale: "es",
+	  show: true,
+	  backdrop: true,
+	  closeButton: true,
+	  animate: true,
+	  title: "Enviar mensaje",
+	});
+	
+	
+	
+	
+	function checkAsunto(form)
+	  {
+
+	    // Comprobación de Asunto vacío
+	    if($('#asunto').val() == "") {
+	      bootbox.alert("No ha escrito nada en el asunto del formulario.");
+	      $('#asunto').parent('.form-group').addClass('has-error');
+	      return false;
+	    }
+	
+	    // Comprobación de Grupo de destinatarios sin marcar       
+	    if(formulario.profes.checked == false && formulario.tutores.checked == false && formulario.departamentos.checked == false && formulario.equipos.checked == false && formulario.claustro.checked == false && formulario.biblio.checked == false && formulario.etcp.checked == false && formulario.ca.checked == false && formulario.direccion.checked == false && formulario.orientacion.checked == false <?php if(isset($config['mod_bilingue']) && $config['mod_bilingue']): ?>&& formulario.bilingue.checked == false<?php endif; ?><?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& formulario.padres.checked == false<?php endif; ?>) {
+			bootbox.alert("No ha seleccionado ningún grupo de destinatarios para el mensaje.");
+			return false;
+	    }
+	
+	    // Comprobación de destinatario vacío         
+	    if(document.forms['formulario']['profeso[]'].selectedIndex == -1 && document.forms['formulario']['equipo[]'].selectedIndex == -1 && document.forms['formulario']['tutor[]'].selectedIndex == -1 && document.forms['formulario']['departamento[]'].selectedIndex == -1 <?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>&& document.forms['formulario']['padres[]'].selectedIndex == -1<?php endif; ?>) {
+	    	bootbox.alert("No ha seleccionado ningún destinatario para el mensaje.");
+	    	return false;
+	  	}
+		
+		return true;
+	
+	  }
 	</script>
 </body>
 </html>
