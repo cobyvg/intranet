@@ -62,7 +62,7 @@ for ($i = 0; $i <= 3; $i++)
     <th>Expulsiones</th>
     <th>Alumnos Expulsados</th>
   <th>Expulsi&oacute;n del Aula</th>
-    <th>Acciones Tutoría</th>
+    <th>Acciones TutorÃ­a</th>
     <th>Informes</th>
         <th>Comunicaciones</th>
 </tr>
@@ -208,7 +208,7 @@ for ($i = 0; $i <= 3; $i++)
  //mysqli_query($db_con, "truncate table absentismo");
  for($z=1;$z<13;$z++)
  {
-// Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
+// CreaciÃ³n de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
  $SQLTEMP = "create table absentismo$z SELECT claveal, falta, (count(*)) AS numero, unidad FROM FALTAS where falta = 'F' and MONTH(fecha) = '$z' group by claveal";
  $resultTEMP= mysqli_query($db_con, $SQLTEMP);
  mysqli_query($db_con, "insert into absentismo select * from absentismo$z where numero > '25'");
@@ -254,7 +254,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 </div>
 <div class="tab-pane fade in" id="tab2">
 
-<br /><h3>Información por Nivel</h3>
+<br /><h3>InformaciÃ³n por Nivel</h3>
 <br />
 
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -517,6 +517,9 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
  Informaci&oacute;n de los Grupos </h3>
  <br>
 <?php
+ 
+ $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+
  $cursos0 = "select distinct curso, unidad from alma order by curso";
  $cursos1 = mysqli_query($db_con, $cursos0);
  while($cursos = mysqli_fetch_array($cursos1))
@@ -707,7 +710,7 @@ if (mysqli_num_rows($ini0)):
 <table class="table table-striped" align="left" style="width:800px">
 <tr>
   <th>Tipo de Problema</th>
-  <th>Número</th>
+  <th>NÃºmero</th>
 </tr>
 <?php
 while ($ini = mysqli_fetch_array($ini0)){
@@ -735,7 +738,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') ==
 ?>
 <div class="tab-pane fade in" id="tab4">
 
-<br /><h3>Información por Profesor</h3>
+<br /><h3>InformaciÃ³n por Profesor</h3>
 <br />
 
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -790,7 +793,7 @@ for ($i = 0; $i < 4; $i++)
 <table class="table table-bordered table-striped table-hover" style="width:auto">
 <thead>
 <tr>
-<th>Profesor</th><th width="62">Número</th>
+<th>Profesor</th><th width="62">NÃºmero</th>
 </tr>
 </thead>
 <tbody>
@@ -886,7 +889,7 @@ for ($i = 0; $i < 4; $i++)
   <thead>
   <tr>
     <th>Tipo de Problema</th>
-    <th width="62">Número</th>
+    <th width="62">NÃºmero</th>
     <th width="72">Gravedad</th>
   </tr>
   </thead>
