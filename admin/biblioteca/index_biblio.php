@@ -34,15 +34,70 @@ mysqli_query($db_con, $crea);
 				
 				
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#tab1" data-toggle="tab">Catálogo de Fondos</a></li>
-					<li><a href="#tab2" data-toggle="tab">Lectores de la Biblioteca</a></li>
-					<li><a href="#tab3" data-toggle="tab">Prestamos de Ejemplares</a></li>
+					<li class="active"><a href="#tab1" data-toggle="tab">Prestamos de Ejemplares</a></li>
+					<li><a href="#tab2" data-toggle="tab">Catálogo de Fondos</a></li>
+					<li><a href="#tab3" data-toggle="tab">Lectores de la Biblioteca</a></li>
+					
 				</ul>
 			
 				<br>
 				
 				<div class="tab-content">
 					<div class="tab-pane in active" id="tab1">
+						
+							<div class="row">
+							
+								<div class="col-sm-6">
+									
+									<div class="well">
+									
+										<form method="post" action="morosos.php" enctype="multipart/form-data">
+												
+												<fieldset>
+													<legend>Préstamos de Ejemplares</legend>
+													
+													<div class="form-group">
+														<label for="archivo">Archivo</label>
+														<input type="file" id="archivo" name="archivo">
+													</div>
+													
+													<br>
+													
+													<button type="submit" class="btn btn-primary" name="enviar">Importar</button>
+												
+											</fieldset>
+											
+										</form>
+										
+									</div><!-- /well -->
+								
+								</div><!-- /.col-sm-6 -->
+								
+								
+								<div class="col-sm-6">
+									
+									<h3>Información sobre la importación</h3>
+									
+									<p>La importación de los Préstamos de ejemplares permite gestionar las Devoluciones de los libros como asuntos de Disciplina (considerar el retraso en la devolución como falta grave, enviar SMS de advertencia, etc.) en <em>Gestión de Préstamos</em>.</p>
+									
+									<p>El archivo que se solicita es el informe de <b>Préstamos</b> que genera el programa Abies siguiendo los siguientes pasos:
+									</p>
+									
+									<ul>
+										<li>En Abies vamos a Préstamos-Informes y una vez en el asistente de creación de informes pulsamos Siguiente.</li>
+										<li>Seleccionamos de la lista de campos disponibles los siguientes: Curso, Apellidos, Nombre, Título, Devolución. Pulsamos Siguiente.</li>
+										<li>En la siguiente pantalla elegimos "Archivo de Texto (campos delimitados) dejando el punto y coma como delimitador. Siguiente.</li>
+										<li>Esta pantalla podemos dejarla como está y pulsamos Siguiente.</li>
+										<li>Finalizamos guardando el documento generado en formato .txt.</li>
+									</ul>
+								
+								</div><!-- /.col-sm-6 -->
+							
+							</div><!-- /.row -->
+					
+						</div>
+					
+					<div class="tab-pane" id="tab2">
 					
 						<div class="row">
 						
@@ -95,7 +150,7 @@ mysqli_query($db_con, $crea);
 					
 					</div>
 				
-					<div class="tab-pane" id="tab2">
+					<div class="tab-pane" id="tab3">
 					
 						<div class="row">
 						
@@ -143,60 +198,6 @@ mysqli_query($db_con, $crea);
 								</ul>
 								
 								<p>Es importante tener en cuenta que al importar los <b>Lectores de la Biblioteca</b> a la Base de datos, <em><b>el Carnet del Alumno incorporará el Código de la Biblioteca tras el NIE</b></em>. De este modo, se genera un Carnet que es válido también para su uso en la Biblioteca del Centro.</p>
-							
-							</div><!-- /.col-sm-6 -->
-						
-						</div><!-- /.row -->
-				
-					</div>
-			
-					<div class="tab-pane" id="tab3">
-					
-						<div class="row">
-						
-							<div class="col-sm-6">
-								
-								<div class="well">
-								
-									<form method="post" action="morosos.php" enctype="multipart/form-data">
-											
-											<fieldset>
-												<legend>Préstamos de Ejemplares</legend>
-												
-												<div class="form-group">
-													<label for="archivo">Archivo</label>
-													<input type="file" id="archivo" name="archivo">
-												</div>
-												
-												<br>
-												
-												<button type="submit" class="btn btn-primary" name="enviar">Importar</button>
-											
-										</fieldset>
-										
-									</form>
-									
-								</div><!-- /well -->
-							
-							</div><!-- /.col-sm-6 -->
-							
-							
-							<div class="col-sm-6">
-								
-								<h3>Información sobre la importación</h3>
-								
-								<p>La importación de los Préstamos de ejemplares permite gestionar las Devoluciones de los libros como asuntos de Disciplina (considerar el retraso en la devolución como falta grave, enviar SMS de advertencia, etc.) en <em>Gestión de Préstamos</em>.</p>
-								
-								<p>El archivo que se solicita es el informe de <b>Préstamos</b> que genera el programa Abies siguiendo los siguientes pasos:
-								</p>
-								
-								<ul>
-									<li>En Abies vamos a Préstamos-Informes y una vez en el asistente de creación de informes pulsamos Siguiente.</li>
-									<li>Seleccionamos de la lista de campos disponibles los siguientes: Curso, Apellidos, Nombre, Título, Devolución. Pulsamos Siguiente.</li>
-									<li>En la siguiente pantalla elegimos "Archivo de Texto (campos delimitados) dejando el punto y coma como delimitador. Siguiente.</li>
-									<li>Esta pantalla podemos dejarla como está y pulsamos Siguiente.</li>
-									<li>Finalizamos guardando el documento generado en formato .txt.</li>
-								</ul>
 							
 							</div><!-- /.col-sm-6 -->
 						
