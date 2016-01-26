@@ -62,7 +62,7 @@ for ($i = 0; $i <= 3; $i++)
     <th>Expulsiones</th>
     <th>Alumnos Expulsados</th>
   <th>Expulsi&oacute;n del Aula</th>
-    <th>Acciones TutorÃ­a</th>
+    <th>Acciones Tutoría</th>
     <th>Informes</th>
         <th>Comunicaciones</th>
 </tr>
@@ -208,7 +208,7 @@ for ($i = 0; $i <= 3; $i++)
  //mysqli_query($db_con, "truncate table absentismo");
  for($z=1;$z<13;$z++)
  {
-// CreaciÃ³n de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
+// Creación de la tabla temporal donde guardar los registros. La variable para el bucle es 10224;  
  $SQLTEMP = "create table absentismo$z SELECT claveal, falta, (count(*)) AS numero, unidad FROM FALTAS where falta = 'F' and MONTH(fecha) = '$z' group by claveal";
  $resultTEMP= mysqli_query($db_con, $SQLTEMP);
  mysqli_query($db_con, "insert into absentismo select * from absentismo$z where numero > '25'");
@@ -254,7 +254,7 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 </div>
 <div class="tab-pane fade in" id="tab2">
 
-<br /><h3>InformaciÃ³n por Nivel</h3>
+<br /><h3>Información por Nivel</h3>
 <br />
 
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -263,16 +263,25 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 $cur = substr($config['curso_inicio'],0,4);
 for ($a = 0; $a < 4; $a++)
 {
-  if ($a==0) {
-    $activ = "class='active'";
-  }
-  else{
-    $activ="";
-  }
   $anio_escolar = $cur-$a;
+  $haydatos = 0;
+  
+  if($a > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
+    $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+    $haydatos = 1;
+  }
+  
+  if ($a == 0) {
+    $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+    $haydatos = 1;
+  }
+  
+  if($haydatos) {
+  
 ?>
-<li <?php echo $activ;?>><a href="#n<?php echo $a+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
+<li<?php echo ($a == 0) ? ' class="active"' : '';?>><a href="#n<?php echo $a+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
 <?php  
+}
 }
 ?>
 </ul>
@@ -513,9 +522,11 @@ $num_comunica = $num_comunica1 + $num_comunica2 + $num_comunica3;
 <div class="tab-pane fade in" id="tab3">
 
 
-<br /><h3>
- Informaci&oacute;n de los Grupos </h3>
- <br>
+<br />
+<h3>Información por Grupo</h3>
+
+<br>
+ <h4 class="text-info">Curso <?php echo $config['curso_actual']; ?></h4>
 <?php
  
  $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
@@ -710,7 +721,7 @@ if (mysqli_num_rows($ini0)):
 <table class="table table-striped" align="left" style="width:800px">
 <tr>
   <th>Tipo de Problema</th>
-  <th>NÃºmero</th>
+  <th>Número</th>
 </tr>
 <?php
 while ($ini = mysqli_fetch_array($ini0)){
@@ -738,7 +749,7 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') ==
 ?>
 <div class="tab-pane fade in" id="tab4">
 
-<br /><h3>InformaciÃ³n por Profesor</h3>
+<br /><h3>Información por Profesor</h3>
 <br />
 
 <div class="tabbable" style="margin-bottom: 18px;">
@@ -747,16 +758,26 @@ if(stristr($_SESSION['cargo'],'1') == TRUE or stristr($_SESSION['cargo'],'8') ==
 $cur = substr($config['curso_inicio'],0,4);
 for ($b = 0; $b < 4; $b++)
 {
-  if ($b==0) {
-    $activ = "class='active'";
-  }
-  else{
-    $activ="";
-  }
+  
   $anio_escolar = $cur-$b;
+  $haydatos = 0;
+  
+  if($b > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
+    $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+    $haydatos = 1;
+  }
+  
+  if ($b == 0) {
+    $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+    $haydatos = 1;
+  }
+  
+  if($haydatos) {
+  
 ?>
-<li <?php echo $activ;?>><a href="#m<?php echo $b+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
+<li<?php echo ($b == 0) ? ' class="active"' : '';?>><a href="#m<?php echo $b+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
 <?php  
+}
 }
 ?>
 </ul>
@@ -793,7 +814,7 @@ for ($i = 0; $i < 4; $i++)
 <table class="table table-bordered table-striped table-hover" style="width:auto">
 <thead>
 <tr>
-<th>Profesor</th><th width="62">NÃºmero</th>
+<th>Profesor</th><th width="62">Número</th>
 </tr>
 </thead>
 <tbody>
@@ -824,9 +845,7 @@ mysqli_query($db_con, "drop table fech_temp");
 }
 ?>
  </div>
- </div>
 
- 
 </div>
 <?php
 }
@@ -840,16 +859,24 @@ mysqli_query($db_con, "drop table fech_temp");
 $cur = substr($config['curso_inicio'],0,4);
 for ($c = 0; $c < 4; $c++)
 {
-  if ($c==0) {
-    $activ = "class='active'";
-  }
-  else{
-    $activ="";
-  }
   $anio_escolar = $cur-$c;
+  $haydatos = 0;
+  
+  if($c > 0 && ! empty($config['db_host_c'.$anio_escolar])) {
+    $db_con = mysqli_connect($config['db_host_c'.$anio_escolar], $config['db_user_c'.$anio_escolar], $config['db_pass_c'.$anio_escolar], $config['db_name_c'.$anio_escolar]);
+    $haydatos = 1;
+  }
+  
+  if ($c == 0) {
+    $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die('error');
+    $haydatos = 1;
+  }
+  
+  if($haydatos) {
 ?>
-<li <?php echo $activ;?>><a href="#p<?php echo $c+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
+<li<?php echo ($c == 0) ? ' class="active"' : '';?>><a href="#p<?php echo $c+1;?>" data-toggle="tab">Curso <?php echo $anio_escolar."-".($anio_escolar+1);?></a></li>
 <?php  
+}
 }
 ?>
 </ul>
@@ -889,7 +916,7 @@ for ($i = 0; $i < 4; $i++)
   <thead>
   <tr>
     <th>Tipo de Problema</th>
-    <th width="62">NÃºmero</th>
+    <th width="62">Número</th>
     <th width="72">Gravedad</th>
   </tr>
   </thead>
@@ -928,7 +955,9 @@ while ($total = mysqli_fetch_array($tot)){
 
 </div>
 </div>
-<?php include("../../pie.php");?>
+<?php 
+$db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
+include("../../pie.php");?>
  <script>
 function espera( ) {
         document.getElementById("t_larga").style.display = '';
