@@ -13,32 +13,8 @@ include ("menu.php");
 // PLUGINS
 $PLUGIN_DATATABLES = 1;
 
-mysqli_select_db($db_con, $db);
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS r_departamento (
-`id` SMALLINT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
-`contenido` LONGTEXT NOT NULL ,
-`jefedep` VARCHAR( 255 ) DEFAULT NULL ,
-`timestamp` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-`departamento` VARCHAR( 80 ) DEFAULT NULL ,
-`fecha` DATE NOT NULL ,
-`impreso` TINYINT( 1 ) NOT NULL ,
-`numero` INT NOT NULL ,
-PRIMARY KEY ( `id` )
-) ENGINE = MYISAM DEFAULT CHARSET = latin1");
-
-mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS r_departamento_backup (
-`id` SMALLINT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
-`contenido` LONGTEXT NOT NULL ,
-`jefedep` VARCHAR( 255 ) DEFAULT NULL ,
-`timestamp` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-`departamento` VARCHAR( 80 ) DEFAULT NULL ,
-`fecha` DATE NOT NULL ,
-`numero` INT NOT NULL ,
-PRIMARY KEY ( `id` )
-) ENGINE = MYISAM DEFAULT CHARSET = latin1");
-
 if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE){
-	$departament="Dirección del Centro";
+	$departament="DirecciÃ³n del Centro";
 }
 else{
 	if (empty($departamento)) {
@@ -70,14 +46,14 @@ if($submit=="Registrar Acta del Departamento")
 {
 	$errorList = array ();
 	$count = 0;
-	if (!$contenido) { $errorList[$count] = "Entrada inválida: Contenido del Acta"; $count++; }
-	if (!$fecha) { $errorList[$count] = "Entrada inválida: Fecha"; $count++; }
+	if (!$contenido) { $errorList[$count] = "Entrada invÃ¡lida: Contenido del Acta"; $count++; }
+	if (!$fecha) { $errorList[$count] = "Entrada invÃ¡lida: Fecha"; $count++; }
 	$tr_fecha = explode("-",$fecha);
 	$fecha = "$tr_fecha[2]-$tr_fecha[1]-$tr_fecha[0]";
 	if (sizeof ( $errorList ) == 0) {
-		if (strstr($contenido,"FECHA_DE_LA_REUNIÓN")==TRUE) {
+		if (strstr($contenido,"FECHA_DE_LA_REUNIÃ“N")==TRUE) {
 			$fecha_real = formatea_fecha($fecha);
-			$contenido = str_replace("FECHA_DE_LA_REUNIÓN", $fecha_real, $contenido);
+			$contenido = str_replace("FECHA_DE_LA_REUNIÃ“N", $fecha_real, $contenido);
 			$contenido = mysqli_real_escape_string($db_con, $contenido);
 		}
 		$query1 = "INSERT INTO r_departamento ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES( '$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
@@ -85,14 +61,14 @@ if($submit=="Registrar Acta del Departamento")
 		$query2 = "INSERT INTO r_departamento_backup ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES('$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
 		$result1 = mysqli_query($db_con, $query1 ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÓN:</h5>
+			<h5>ATENCIÃ“N:</h5>
 Se ha producido un error grave al registar el Acta en la base de datos. Busca ayuda.<br><br>'.mysqli_error($db_con).'</div></div>' );
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido registrada correctamente.
 </div></div><br>';
 		$result2 = mysqli_query($db_con, $query2 );
-		echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrás</a></div>';
+		echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrÃ¡s</a></div>';
 		exit();
 	}
 	else {
@@ -108,13 +84,19 @@ El Acta del Departamento ha sido registrada correctamente.
 elseif ($actualiza) {
 	$tr_fecha = explode("-",$fecha);
 	$fecha = "$tr_fecha[2]-$tr_fecha[1]-$tr_fecha[0]";
-	mysqli_query($db_con, "update r_departamento set contenido = '$contenido', fecha='$fecha' where id = '$id'") ;
-	echo '<div align="center"><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-El Acta del Departamento ha sido actualizada correctamente.
-</div></div><br>';
-	echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrás</a></div>';
-	exit();
+	mysqli_query($db_con, "update r_departamento set contenido = '$contenido', fecha='$fecha', numero='$numero' where id = '$id'") ;
+	if (mysqli_affected_rows($db_con)>0) {
+		echo '<div align="center"><div class="alert alert-success alert-block fade in">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+		El Acta del Departamento ha sido actualizada correctamente.
+		</div></div><br>';
+	}
+	else{
+		echo '<div align="center"><div class="alert alert-error alert-block fade in">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+		El Acta del Departamento no ha podido ser actualizada. Busca ayuda.
+		</div></div><br>';
+	}
 
 }
 $nm0 = mysqli_query($db_con, "select max(numero) from r_departamento where departamento = '$departament'");
@@ -152,7 +134,7 @@ if ($edicion=="1") {
 <div class="col-sm-5">
 
 <div class="form-group" id="datetimepicker1"><label for="fecha">Fecha de
-la Reunión</label>
+la ReuniÃ³n</label>
 <div class="input-group"><input type="text" class="form-control"
 	name="fecha" id="fecha"
 	value="<?php echo (isset($fecha_r)) ? $fecha_r : date('d-m-Y'); ?>"
@@ -164,7 +146,7 @@ la Reunión</label>
 
 <div class="col-sm-3 col-sm-offset-4">
 
-<div class="form-group"><label for="numero">Nº de Acta</label> <input
+<div class="form-group"><label for="numero">NÂº de Acta</label> <input
 	type="text" class="form-control" id="numero" name="numero"
 	value="<?php echo $numero; ?>"></div>
 
@@ -181,7 +163,7 @@ else{
 	?>
 <p>
 <?php
-if ($departament == "Dirección del Centro") {
+if ($departament == "DirecciÃ³n del Centro") {
 	$texto_dep = $departament;
 }
 else{
@@ -193,9 +175,9 @@ else{
 </p>
 <p><br></p>
 <p style="text-align: center;"><strong
-	style="text-decoration: underline;">ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
+	style="text-decoration: underline;">ACTA DE REUNIÃ“N DEL DEPARTAMENTO</strong></p>
 <p><br></p>
-<p>En <?php echo $config['centro_localidad'] ?>, a las <?php echo $hora; ?> horas del FECHA_DE_LA_REUNIÓN, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $config['centro_denominacion'] ?> de <?php echo $config['centro_localidad'] ?>, con el siguiente <span
+<p>En <?php echo $config['centro_localidad'] ?>, a las <?php echo $hora; ?> horas del FECHA_DE_LA_REUNIÃ“N, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $config['centro_denominacion'] ?> de <?php echo $config['centro_localidad'] ?>, con el siguiente <span
 	style="text-decoration: underline;">orden del d&iacute;a</span>:</p>
 <p><br></p>
 <p><br></p>
@@ -208,7 +190,7 @@ else{
 <p><br></p>
 <p><br></p>
 <p><br></p>
-<p>Sin más asuntos que tratar, se levanta la sesión a las <?php echo $hora+1; ?> horas.</p>
+<p>Sin mÃ¡s asuntos que tratar, se levanta la sesiÃ³n a las <?php echo $hora+1; ?> horas.</p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
@@ -254,7 +236,7 @@ if (mysqli_num_rows($result) > 0)
 	?> <legend>Actas del departamento</legend>
 <table class="table table-striped datatable">
 	<thead>
-		<th style="width: 60px">Nº</th>
+		<th style="width: 60px">NÂº</th>
 		<th>Fecha</th>
 		<th></th>
 	</thead>
@@ -299,7 +281,7 @@ else
 	?>
 <div class="alert alert-warning alert-block fade in">
 <button type="button" class="close" data-disiss="alert">&times;</button>
-<h5>ATENCIÓN:</h5>
+<h5>ATENCIÃ“N:</h5>
 No hay Actas disponibles en la base de datos. Tu puedes ser el primero
 en inaugurar la lista.</div>
 	<?php
@@ -342,13 +324,13 @@ en inaugurar la lista.</div>
 		"language": {
 			            "lengthMenu": "_MENU_",
 			            "zeroRecords": "Sin resultados.",
-			            "info": "Página _PAGE_ de _PAGES_",
+			            "info": "PÃ¡gina _PAGE_ de _PAGES_",
 			            "infoEmpty": "No hay resultados disponibles.",
 			            "infoFiltered": "(filtrado de _MAX_ resultados)",
 			            "search": "",
 			            "paginate": {
 			                  "first": "Primera",
-			                  "next": "Última",
+			                  "next": "Ãšltima",
 			                  "next": "",
 			                  "previous": ""
 			                }
