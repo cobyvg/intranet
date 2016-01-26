@@ -1,5 +1,5 @@
 <?php
-ini_set("memory_limit","1024M");
+ini_set("memory_limit","2048M");
 
 require('../../bootstrap.php');
 
