@@ -5,12 +5,12 @@
 <br>
 <h4><span class="fa fa-fire fa-fw"></span> Noticias destacadas</h4>
 
-<?php $result = mysqli_query($db_con, "SELECT id, slug, timestamp, content, clase from noticias where pagina like '%1%' and fechafin > '".date('Y-m-d')."' ORDER BY timestamp DESC"); ?>
+<?php $result = mysqli_query($db_con, "SELECT id, slug, timestamp, clase from noticias where pagina like '%1%' and fechafin >= '".date('Y-m-d')."' ORDER BY timestamp DESC"); ?>
 <?php if(mysqli_num_rows($result)): ?>
 
 <div class="list-group">
 <?php while ($row = mysqli_fetch_array($result)): ?>
-	<a class="list-group-item" href="//<?php echo $config['dominio']; ?>/intranet/admin/noticias/noticia.php?id=<?php echo $row['id']; ?>">
+	<a class="list-group-item" href="//<?php echo $config['dominio']; ?>/intranet/admin/noticias/noticia.php?id=<?php echo $row['id']; ?>&widget=1">
 		<small class="text-muted pull-right"><?php echo strftime('%e %b',strtotime($row['timestamp'])); ?></small>
 		<span class="text-info"><?php echo $row['slug']; ?></span>
 	</a>

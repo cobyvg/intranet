@@ -45,7 +45,11 @@ include("menu.php");
 						<a class="btn btn-info" href="redactar.php?id=<?php echo $_GET['id']; ?>">Editar</a>
 						<a class="btn btn-danger" href="index.php?id=<?php echo $_GET['id']; ?>&borrar=1">Eliminar</a>
 						<?php endif; ?>
+						<?php if(isset($_GET['widget']) && $_GET['widget'] == 1): ?>
+						<a class="btn btn-default" href="../../index.php">Volver</a>
+						<?php else: ?>
 						<a class="btn btn-default" href="index.php">Volver</a>
+						<?php endif; ?>
 					</div>
 					
 				<?php else: ?>
