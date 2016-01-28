@@ -7,6 +7,7 @@ require('../../bootstrap.php');
 $profesor = $_SESSION ['profi'];
 if (stristr ( $_SESSION ['cargo'], '4' ) == TRUE or stristr ( $_SESSION ['cargo'], '1' ) == TRUE) { } else { $j_s = 'disabled'; }
 
+
 include ("../../menu.php");
 include ("menu.php");
 
