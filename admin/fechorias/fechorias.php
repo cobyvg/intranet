@@ -161,6 +161,10 @@ exit();
     {
     $AUXSQL .= " grave = 'muy grave' OR";
     }
+    	     if  ($tipo_fech == "Biblioteca")
+    {
+    $AUXSQL .= " asunto like '%Biblioteca%' OR";
+    }
     }
     	$AUXSQL=substr($AUXSQL,0,-2);
     	$AUXSQL .=" )";
@@ -225,7 +229,7 @@ mysqli_query($db_con,"ALTER TABLE `Fechcaduca` ADD PRIMARY KEY (`id`);");
 		if(($dias > 30 and ($grave == 'leve' or $grave == 'grave')) or ($dias > 60 and $grave == 'muy grave'))
 		{$caducada="Sí";} else {$caducada="No";}
 		$numero = mysqli_query($db_con, "select Fechoria.claveal from Fechoria where Fechoria.claveal 
-		like '%$claveal%' and Fechoria.fecha >= '2006-09-15' order by Fechoria.fecha"); 
+		like '%$claveal%' order by Fechoria.fecha"); 
 		$rownumero= mysqli_num_rows($numero);
 		$rowcurso = $unidad;
         $rowalumno = $nombre."&nbsp;".$apellidos;
@@ -247,7 +251,7 @@ mysqli_query($db_con,"ALTER TABLE `Fechcaduca` ADD PRIMARY KEY (`id`);");
 		echo "<tr>
 		<td>";
 		$foto="<span class='fa fa-user fa-fw fa-3x'></span>";
-		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img class='img-thumbnail' src='../../xml/fotos/$claveal.jpg' width='65' height='73'>";
+		if(file_exists('../../xml/fotos/'.$claveal.'.jpg')) $foto = "<img src='../../xml/fotos/$claveal.jpg' width='50'>";
 		echo $foto."</td>";
 		echo "<td>$rowalumno</td>
 		<td>$rowcurso</td>
@@ -259,7 +263,7 @@ mysqli_query($db_con,"ALTER TABLE `Fechcaduca` ADD PRIMARY KEY (`id`);");
 		<td nowrap>$caducada</td>
 		<td nowrap>$comentarios1</td>
 		<td  nowrap>"; 
-if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE){
+if($_SESSION['profi']==$row[6] or stristr($_SESSION['cargo'],'1') == TRUE or (stristr($_SESSION['cargo'],'c') == TRUE and stristr($asunto,"Biblioteca")==TRUE)){
 		$ahora = mktime();
 		$tr_f = explode("-",$fecha);
 		$antes = mktime(0,0,0,$tr_f[1],$tr_f[2],$tr_f[0])+172800;
