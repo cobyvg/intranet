@@ -33,11 +33,11 @@ function seleccionar_todo(){
 	<thead>
 		<tr>		
 		<th  style="width:60px"><a onClick="seleccionar_todo()" data-bs="tooltip" title="Seleccionar todos."><i class="fa fa-lg fa-check-square-o"> </i></a></th>
-		<th style="width:100px">Código </th>
-		<th style="width:100px">Grupo </th>
-		<th>Alumno </th>
-		<th>Título </th>
-		<th nowrap  style="width:150px">Fecha dev.</th>
+		<th style="width:100px">Código</th>
+		<th style="width:100px">Grupo</th>
+		<th>Alumno</th>
+		<th>Título</th>
+		<th nowrap style="width:150px">Fecha dev.</th>
 		<th></th>
 		</tr>	
 	</thead>
@@ -54,12 +54,12 @@ function seleccionar_todo(){
 	<?php 	
 		$n+=1   
 	?>
-		<td style="text-align: center"><input type="checkbox" name="id[]" value="<?php echo $list[6] ;?>" /></td>
-		<td style="text-align: center"><?php echo $list[6];   ?></td>
-		<td style="text-align: center"><?php echo $list[0];   ?></td>
-		<td><?php echo $list[1].', '.$list[2];   ?></td>
-		<td><?php echo $list[3];   ?></td>
-		<td nowrap style="text-align: center"><?php echo $list[4];   ?></td>
+		<td style="text-align: center"><input type="checkbox" name="id[]" value="<?php echo $list[6]; ?>" /></td>
+		<td style="text-align: center"><?php echo $list[6]; ?></td>
+		<td style="text-align: center"><?php echo $list[0]; ?></td>
+		<td><?php echo $list[1].', '.$list[2]; ?></td>
+		<td><?php echo $list[3]; ?></td>
+		<td nowrap style="text-align: center"><?php echo $list[4]; ?></td>
 		<td style="text-align: left" nowrap>
 		<?php
 		if ($list[7] == "SI") {
