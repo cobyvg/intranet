@@ -154,7 +154,7 @@ include("../../menu.php");
 										}
 										
 										// Mentor acompañante = '';
-										if($pas_departamento == 'Mentor acompañante') {
+										if(stristr($pas_departamento, 'Mentor acompañante') == TRUE) {
 											
 											$resultDepto = mysqli_query($db_con, "SELECT * FROM departamentos WHERE idea = '$pas_idea'");
 											(mysqli_num_rows($resultDepto)) ? $usuarioExiste = 1 : $usuarioExiste = 0;
