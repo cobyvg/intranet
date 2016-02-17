@@ -37,6 +37,7 @@ if($_SERVER['SERVER_NAME'] != 'iesbahiamarbella.es' || $_SERVER['SERVER_NAME'] !
 				$message = "Le comunicamos que su hijo/a ha cometido una falta contra las normas de Convivencia del Centro. Por favor, pongase en contacto con nosotros.";
 				
 				if(isset($config['mod_sms']) && $config['mod_sms']) {
+				/*
 					
 					if(strlen($mobile) == 9) {
 						mysqli_query($db_con, "insert into sms (fecha,telefono,mensaje,profesor) values (now(),'$mobile','$message','$informa')" );
@@ -58,6 +59,7 @@ if($_SERVER['SERVER_NAME'] != 'iesbahiamarbella.es' || $_SERVER['SERVER_NAME'] !
 						</div>
 						<br>";
 					}
+                                    */
 				}
 			}
 			
