@@ -312,8 +312,7 @@ function fecha_sin($valor_fecha){
 
 // Eliminar nombre de profesor con mayúsculas completo
 function eliminar_mayusculas(&$n_profeso) {
-	$n_profeso = mb_strtolower($n_profeso);
-	$n_profeso = ucwords($n_profeso);
+	$n_profeso = mb_convert_case($n_profeso, MB_CASE_TITLE, "iso-8859-1");
 }
 
 
