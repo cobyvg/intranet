@@ -19,3 +19,7 @@ prueba.php
 xml/primaria/*.txt
 *.txt
 php.ini
+
+admin/jefatura/index_prof.php
+
+admin/jefatura/insertar_prof.php
