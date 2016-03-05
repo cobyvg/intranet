@@ -3,7 +3,7 @@
 // FEED RSS
 $feed = new SimplePie();
 	 
-$feed->set_feed_url("http://www.juntadeandalucia.es/educacion/www/novedades.xml");
+$feed->set_feed_url("http://www.juntadeandalucia.es/educacion/portals/delegate/rss/ced/portalconsejeria/-/-/-/true/OR/true/cm_modified/DESC/");
 $feed->set_output_encoding('ISO-8859-1');
 $feed->enable_cache(false);
 $feed->set_cache_duration(600);
@@ -83,7 +83,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 					<ul class="nav navbar-nav">					
 						
 						<!-- CONSEJERIA DE EDUCACION -->
-						<li class="visible-xs"><a href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6"><?php echo $feed_title; ?></a></li>
+						<li class="visible-xs"><a href="http://www.juntadeandalucia.es/educacion/portals/web/ced#tabContentNovedades"><?php echo $feed_title; ?></a></li>
 						<li id="bs-tour-consejeria" class="dropdown hidden-xs">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs="tooltip" title="<?php echo $feed_title; ?>" data-placement="bottom" data-container="body">
 								<span class="fa fa-rss fa-fw"></span> <b class="caret"></b>
@@ -97,7 +97,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								<li>
 									<a href="<?php echo $item->get_permalink(); ?>" target="_blank">
 										<span class="pull-right text-muted"><em><?php echo strftime('%e %b',strtotime($item->get_date('j M Y, g:i a'))); ?></em></span>
-										<?php echo $item->get_title(); ?>
+										<?php echo substr($item->get_title(), 13); ?>
 									</a>
 								</li>
 								<li class="divider"></li>
@@ -107,7 +107,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								<li class="divider"></li>
 								<?php endif; ?>
 								<li><a class="text-center"
-									href="http://www.juntadeandalucia.es/educacion/nav/navegacion.jsp?lista_canales=6" target="_blank"><strong>Ver
+									href="http://www.juntadeandalucia.es/educacion/portals/web/ced#tabContentNovedades" target="_blank"><strong>Ver
 								todas las novedades <span class="fa fa-angle-right"></span></strong></a></li>
 							</ul>
 						</li>
