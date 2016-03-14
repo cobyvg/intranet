@@ -987,7 +987,7 @@ if (isset($_POST['instalar']))
 	</footer>
 	
 	
-	<script src="../js/jquery-1.11.3.min.js"></script>  
+	<script src="../js/jquery-1.12.1.min.js"></script>  
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/validator/validator.min.js"></script>
 	

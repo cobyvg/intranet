@@ -239,7 +239,7 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 	</footer>
 	
 	
-	<script src="//<?php echo $config['dominio']; ?>/intranet/js/jquery-1.11.2.min.js"></script>  
+	<script src="//<?php echo $config['dominio']; ?>/intranet/js/jquery-1.12.1.min.js"></script>  
 	<script src="//<?php echo $config['dominio']; ?>/intranet/js/bootstrap.min.js"></script>
 	
 	<?php if($msg_error): ?>
