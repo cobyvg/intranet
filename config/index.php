@@ -973,7 +973,7 @@ if (isset($_POST['instalar']))
 			<hr>
 			
 			<p class="text-center">
-				<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - Copyright &copy; <?php echo date('Y'); ?> IESMonterroso</small><br>
+				<small class="text-muted">Versión <?php echo INTRANET_VERSION; ?> - &copy; <?php echo date('Y'); ?> <span id="copyright">IESMonterroso</span></small><br>
 				<small class="text-muted">Este programa es software libre, liberado bajo la GNU General Public License.</small>
 			</p>
 			<p class="text-center">
