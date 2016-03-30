@@ -115,10 +115,10 @@ while ($orden_nivel = mysqli_fetch_array($nivele)){
 <th></th>
 <th class='text-info'>Alumnos</th>
 <th class='text-warning'>Repiten</th>
-<th>0 Susp.</th>
-<th>1-2 Susp.</th>
-<th>3-5 Susp.</th>
-<th>6-8 Susp.</th>
+<th>0 Susp</th>
+<th>1-3 Susp</th>
+<th>4 Susp</th>
+<th>5-8 Susp</th>
 <th>9+ Susp.</th>
 <th>Promo.</th>
 <th>Tit.</th>
@@ -200,15 +200,15 @@ $cer = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 whe
 $cero = '';
 $cero=mysqli_num_rows($cer);
 
-$uno_do = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos > '0' and suspensos < '3'");
+$uno_do = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos > '0' and suspensos < '4'");
 $uno_dos='';
 $uno_dos=mysqli_num_rows($uno_do);
 
-$tres_cinc = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos > '2' and suspensos < '6'");
+$tres_cinc = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos = '4'");
 $tres_cinco='';
 $tres_cinco=mysqli_num_rows($tres_cinc);
 
-$seis_och = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos > '5' and suspensos < '9'");
+$seis_och = mysqli_query($db_con, "select distinct claveal, grupo from suspensos2 where grupo = '$grupo' and suspensos > '4' and suspensos < '9'");
 $seis_ocho='';
 $seis_ocho=mysqli_num_rows($seis_och);
 
