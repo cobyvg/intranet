@@ -41,7 +41,7 @@ if ($n_dia > $numerodiasemana) {
  	$g_dia = date('d');
  }
  	$g_fecha = date("Y-m-$g_dia");
- 	$fecha_sp = formatea_fecha($g_fecha);
+ 	$fecha_sp = formatDate($g_fecha);
 ?>
 <div class="container">
 <div class="row">
