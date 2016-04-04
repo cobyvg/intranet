@@ -8,7 +8,7 @@ include("menu.php");
 <br />
 <div align="center" style="width:auto;margin:auto;">
 <div class="page-header">
-  <h2>Informe de Evaluaciones <small> EstadÃ­sticas de Calificaciones</small></h2>
+  <h2>Informe de Evaluaciones <small> Estadísticas de Calificaciones</small></h2>
 </div>
 
 <?php
@@ -35,7 +35,7 @@ else {
 
 <?php if (file_exists(INTRANET_DIRECTORY . '/config_datos.php')): ?>
 <form method="POST" class="well well-large" style="width:450px; margin:auto">
-<p class="lead">Informe HistÃ³rico</p>	
+<p class="lead">Informe Histórico</p>	
   	<div class="form-group">
   			    <label for="f_curso">Curso escolar</label>
   			    
@@ -55,9 +55,9 @@ else {
 <?php endif; ?>
 <div class="tabbable" style="margin-bottom: 18px;">
 <ul class="nav nav-tabs"  style="max-width:980px">
-<li class="active"><a href="#tab1" data-toggle="tab">1Âª EvaluaciÃ³n</a></li>
-<li><a href="#tab2" data-toggle="tab">2Âª EvaluaciÃ³n</a></li>
-<li><a href="#tab3" data-toggle="tab">EvaluaciÃ³n Ordinaria</a></li>
+<li class="active"><a href="#tab1" data-toggle="tab">1ª Evaluación</a></li>
+<li><a href="#tab2" data-toggle="tab">2ª Evaluación</a></li>
+<li><a href="#tab3" data-toggle="tab">Evaluación Ordinaria</a></li>
 </ul>
 
 <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
@@ -69,7 +69,7 @@ if(mysqli_num_rows($n1)>0){}
 else{
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÃ“N:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde SÃ©neca (AdministraciÃ³n de la Intranet --> Importar Calificaciones) para que este mÃ³dulo funcione.
+			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones en la tabla NOTAS. Debes importar las Calificaciones desde Séneca (Administración de la Intranet --> Importar Calificaciones) para que este módulo funcione.
           </div></div>';
 	exit();
 }
@@ -77,7 +77,7 @@ else{
 
 
 <?php
-$titulos = array("1"=>"1Âª EvaluaciÃ³n","2"=>"2Âª EvaluaciÃ³n","3"=>"EvaluaciÃ³n Ordinaria");
+$titulos = array("1"=>"1ª Evaluación","2"=>"2ª Evaluación","3"=>"Evaluación Ordinaria");
 foreach ($titulos as $key=>$val){
 
 // Tabla temporal.
@@ -111,7 +111,7 @@ $todos = mysqli_num_rows($result1);
 if ($todos < '1') {
 	echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:920px">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÃ“N:</h5>No hay datos de Calificaciones del Curso <strong class=text-danger>'.$curso.'</strong>. 
+			<h5>ATENCIÓN:</h5>No hay datos de Calificaciones del Curso <strong class=text-danger>'.$curso.'</strong>. 
           </div></div>';
 }
 while($row1 = mysqli_fetch_array($result1)){
@@ -189,7 +189,7 @@ while ($a_asig = mysqli_fetch_array($query_asig)) {
 	$num_apro='';
 	$num_apro = mysqli_num_rows($cod_apro);
 	
-	$combas = mysqli_query($db_con, "select claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'");
+	$combas = mysqli_query($db_con, "select distinct temp2.claveal from temp2 where claveal in (select claveal1 from alma where combasi like '%$codasi%' and unidad = '$unidad')");
 	//echo "select claveal from alma where combasi like '%$codasi%' and unidad = '$unidad'<br>";
 	$num_matr='';
 	$num_matr = mysqli_num_rows($combas);
