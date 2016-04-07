@@ -15,7 +15,7 @@ include ("menu.php");
 $PLUGIN_DATATABLES = 1;
 
 if (stristr ( $_SESSION ['cargo'], '1' ) == TRUE){
-	$departament="DirecciÃ³n del Centro";
+	$departament="Dirección del Centro";
 }
 else{
 	if (empty($departamento)) {
@@ -47,14 +47,14 @@ if($submit=="Registrar Acta del Departamento")
 {
 	$errorList = array ();
 	$count = 0;
-	if (!$contenido) { $errorList[$count] = "Entrada invÃ¡lida: Contenido del Acta"; $count++; }
-	if (!$fecha) { $errorList[$count] = "Entrada invÃ¡lida: Fecha"; $count++; }
+	if (!$contenido) { $errorList[$count] = "Entrada inválida: Contenido del Acta"; $count++; }
+	if (!$fecha) { $errorList[$count] = "Entrada inválida: Fecha"; $count++; }
 	$tr_fecha = explode("-",$fecha);
 	$fecha = "$tr_fecha[2]-$tr_fecha[1]-$tr_fecha[0]";
 	if (sizeof ( $errorList ) == 0) {
-		if (strstr($contenido,"FECHA_DE_LA_REUNIÃ“N")==TRUE) {
+		if (strstr($contenido,"FECHA_DE_LA_REUNIÓN")==TRUE) {
 			$fecha_real = formatea_fecha($fecha);
-			$contenido = str_replace("FECHA_DE_LA_REUNIÃ“N", $fecha_real, $contenido);
+			$contenido = str_replace("FECHA_DE_LA_REUNIÓN", $fecha_real, $contenido);
 			$contenido = mysqli_real_escape_string($db_con, $contenido);
 		}
 		$query1 = "INSERT INTO r_departamento ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES( '$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
@@ -62,14 +62,14 @@ if($submit=="Registrar Acta del Departamento")
 		$query2 = "INSERT INTO r_departamento_backup ( contenido, jefedep, timestamp, departamento, fecha, numero) VALUES('$contenido', '$jefedep', NOW(), '$departament', '$fecha', '$numero')";
 		$result1 = mysqli_query($db_con, $query1 ) or die ( '<div align="center"><div class="alert alert-danger alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<h5>ATENCIÃ“N:</h5>
+			<h5>ATENCIÓN:</h5>
 Se ha producido un error grave al registar el Acta en la base de datos. Busca ayuda.<br><br>'.mysqli_error($db_con).'</div></div>' );
 		echo '<div align="center"><div class="alert alert-success alert-block fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 El Acta del Departamento ha sido registrada correctamente.
 </div></div><br>';
 		$result2 = mysqli_query($db_con, $query2 );
-		echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrÃ¡s</a></div>';
+		echo '<div align="center"><a href="add.php" class="btn btn-primary">Volver atrás</a></div>';
 		exit();
 	}
 	else {
@@ -135,7 +135,7 @@ if ($edicion=="1") {
 <div class="col-sm-5">
 
 <div class="form-group" id="datetimepicker1"><label for="fecha">Fecha de
-la ReuniÃ³n</label>
+la Reunión</label>
 <div class="input-group"><input type="text" class="form-control"
 	name="fecha" id="fecha"
 	value="<?php echo (isset($fecha_r)) ? $fecha_r : date('d-m-Y'); ?>"
@@ -147,7 +147,7 @@ la ReuniÃ³n</label>
 
 <div class="col-sm-3 col-sm-offset-4">
 
-<div class="form-group"><label for="numero">NÂº de Acta</label> <input
+<div class="form-group"><label for="numero">Nº de Acta</label> <input
 	type="text" class="form-control" id="numero" name="numero"
 	value="<?php echo $numero; ?>"></div>
 
@@ -164,7 +164,7 @@ else{
 	?>
 <p>
 <?php
-if ($departament == "DirecciÃ³n del Centro") {
+if ($departament == "Dirección del Centro") {
 	$texto_dep = $departament;
 }
 else{
@@ -176,9 +176,9 @@ else{
 </p>
 <p><br></p>
 <p style="text-align: center;"><strong
-	style="text-decoration: underline;">ACTA DE REUNIÃ“N DEL DEPARTAMENTO</strong></p>
+	style="text-decoration: underline;">ACTA DE REUNIÓN DEL DEPARTAMENTO</strong></p>
 <p><br></p>
-<p>En <?php echo $config['centro_localidad'] ?>, a las <?php echo $hora; ?> horas del FECHA_DE_LA_REUNIÃ“N, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $config['centro_denominacion'] ?> de <?php echo $config['centro_localidad'] ?>, con el siguiente <span
+<p>En <?php echo $config['centro_localidad'] ?>, a las <?php echo $hora; ?> horas del FECHA_DE_LA_REUNIÓN, se re&uacute;ne el Departamento de <?php echo $departament; ?> del <?php echo $config['centro_denominacion'] ?> de <?php echo $config['centro_localidad'] ?>, con el siguiente <span
 	style="text-decoration: underline;">orden del d&iacute;a</span>:</p>
 <p><br></p>
 <p><br></p>
@@ -191,7 +191,7 @@ else{
 <p><br></p>
 <p><br></p>
 <p><br></p>
-<p>Sin mÃ¡s asuntos que tratar, se levanta la sesiÃ³n a las <?php echo $hora+1; ?> horas.</p>
+<p>Sin más asuntos que tratar, se levanta la sesión a las <?php echo $hora+1; ?> horas.</p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
@@ -237,7 +237,7 @@ if (mysqli_num_rows($result) > 0)
 	?> <legend>Actas del departamento</legend>
 <table class="table table-striped datatable">
 	<thead>
-		<th style="width: 60px">NÂº</th>
+		<th style="width: 60px">Nº</th>
 		<th>Fecha</th>
 		<th></th>
 	</thead>
@@ -282,7 +282,7 @@ else
 	?>
 <div class="alert alert-warning alert-block fade in">
 <button type="button" class="close" data-disiss="alert">&times;</button>
-<h5>ATENCIÃ“N:</h5>
+<h5>ATENCIÓN:</h5>
 No hay Actas disponibles en la base de datos. Tu puedes ser el primero
 en inaugurar la lista.</div>
 	<?php
@@ -325,13 +325,13 @@ en inaugurar la lista.</div>
 		"language": {
 			            "lengthMenu": "_MENU_",
 			            "zeroRecords": "Sin resultados.",
-			            "info": "PÃ¡gina _PAGE_ de _PAGES_",
+			            "info": "Página _PAGE_ de _PAGES_",
 			            "infoEmpty": "No hay resultados disponibles.",
 			            "infoFiltered": "(filtrado de _MAX_ resultados)",
 			            "search": "",
 			            "paginate": {
 			                  "first": "Primera",
-			                  "next": "Ãšltima",
+			                  "next": "Última",
 			                  "next": "",
 			                  "previous": ""
 			                }
