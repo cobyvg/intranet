@@ -183,7 +183,7 @@ No has seleccionado a ningún profesor para sustituir. Elige uno de la lista des
 }	
 ?>
 <div class="col-md-8 col-md-offset-2">
-  <legend class="text-info" align="center"><? echo $nombre_dia.", ".$fecha_sp.", $hora"."ª hora";?></legend>
+  <legend class="text-info" align="center"><? echo $nombre_dia.", ".$fecha_sp.", $hora"."&#170; hora";?></legend>
 
 <?
 $fech_hoy = date("Y-m-d");
@@ -199,7 +199,7 @@ if (mysqli_num_rows($hoy0) > 0) {
 	echo "</table></div>";
 }
 ?>
-<p class='lead text-warning'>Sustituciones realizadas durante la <? echo "<span style=''>".$hora."ª</span>";?> hora del <? echo "<span style=''>$nombre_dia</span>";?></p>
+<p class='lead text-warning'>Sustituciones realizadas durante la <? echo "<span style=''>".$hora."&#170;</span>";?> hora del <? echo "<span style=''>$nombre_dia</span>";?></p>
 <div class="row">
 <div class="col-sm-6">
 <?
@@ -251,7 +251,7 @@ if ($historico == '1') {
 	}
 	else{
 		$extra = " and hora = '$hora' and dia = '$n_dia'";
-		$extra1 = " a ".$hora."ª hora del ".$nombre_dia;		
+		$extra1 = " a ".$hora."&#170; hora del ".$nombre_dia;		
 	}
 	echo '<br><a name="marca"></a>';
 $h_hoy0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where profesor = '$h_profe' $extra");
