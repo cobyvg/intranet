@@ -266,7 +266,7 @@ echo "<img src='../../xml/fotos/$claveal.jpg' border='2' width='100' height='119
   <div class="form-group col-sm-4">
           <div class="checkbox">
          <label for='tareas'>
-          <input name="tareas_exp" type="checkbox" id="tareas" value="insertareas_exp" <?php if ($expul == '1') {}else{  echo 'checked="checked"'; }?> />
+          <input name="tareas_exp" type="checkbox" id="tareas" value="insertareas_exp" checked="checked" />
           Activar Tareas
           </label>
           </div>
