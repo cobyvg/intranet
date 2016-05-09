@@ -87,7 +87,7 @@ $apel=$tr1[2];
 $nom=$tr1[3];
    	$foto = '../../xml/fotos/'.$alumno.'.jpg';
 	if (file_exists($foto)) {
-		echo "<h4>$tr1[3] $tr1[2]</h4><br /><div align=center><img src='../../xml/fotos/$alumno.jpg' border='2' width='120' height='143' style='border:1px solid #bbb;'  /></div>";
+		echo "<h4>$tr1[3] $tr1[2]</h4><br /><div align=center><img src='$foto' border='2' width='120' height='143' style='border:1px solid #bbb;'  /></div>";
 	}    
 echo "</td></tr></table><br />";
 		        }
