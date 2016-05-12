@@ -135,6 +135,12 @@ nuevo para añadir en FALUMNOS.<br>Si crees que hay un problema, ponte en
 contacto con quien sepa arreglarlo</div></div><br />";	
 }
 
+// Actualizamos nombre y apellidos en FALUMNOS para incorporar cambios en Séneca.
+$act_fal = mysqli_query($db_con,"select distinct claveal, apellidos, nombre from alma");
+while ($af = mysqli_fetch_array($act_fal)) {
+	mysqli_query($db_con, "update FALUMNOS set apellidos='$af[1]', nombre='$af[2]' where claveal='$af[0]'");
+}
+
 // Cambio de grupo de un alumno.
 $cambio0 = mysqli_query($db_con, "select claveal, unidad, apellidos, nombre from
 alma");
