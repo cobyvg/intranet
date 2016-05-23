@@ -238,7 +238,7 @@ $MiPDF->Multicell ( 0, 4, $dato, 0, 'J', 0 );
 }
 
 // RECIBI
-$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo $unidad, he recibido la $titulo con referencia Fec/".$idfec." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
+$txt_recibi = "D./Dña. $nombre $apellidos, alumno/a del grupo ".$unidad.", he recibido la $titulo con referencia Fec/".$idfec." registrado el ".strftime("%e de %B de %Y", strtotime($fecha)).".";
 
 $MiPDF->Ln(8);
 $MiPDF->Line(25, $MiPDF->GetY(), 190, $MiPDF->GetY());
