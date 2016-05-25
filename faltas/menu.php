@@ -215,7 +215,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 		else{
 			?>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariofaltas.php?horario_profesor=1" target="_blank">Horario de Faltas para Profesores</a></li>
-			<?
+			<?php
 		}
 		?>
 	</ul>
