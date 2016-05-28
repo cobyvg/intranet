@@ -1070,7 +1070,7 @@ CREATE TABLE IF NOT EXISTS `listafechorias` (
   PRIMARY KEY  (`ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=83 ;
 
--
+--
 -- Volcado de datos para la tabla `listafechorias`
 --
 
