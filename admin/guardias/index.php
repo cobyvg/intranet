@@ -155,7 +155,7 @@ $sustituido .'ya ha sido sustituido a la '.$hora.' hora el día '.$fecha_reg.'. 
 				}
 		}
 		else{
-			$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$sustituido', '$g_fecha', '$g_fecha', '$hora', '', NOW(), '')");	
+			$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$sustituido', '$g_fecha', '$g_fecha', '$hora', '', NOW(), '', '')");	
 		}
 		
 		
