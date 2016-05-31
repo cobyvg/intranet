@@ -237,7 +237,7 @@ while ($sust = mysqli_fetch_array($sust0)) {
 <input type="hidden" name="profeso" value="<? echo $profeso;?>">
 <input type="hidden" name="n_dia" value="<? echo $n_dia;?>">
 <input type="hidden" name="hora" value="<? echo $hora;?>">
-<input type="submit" name="submit" class="btn btn-primary btn-block" value="Registrar sustitución del Profesor" />
+<input type="submit" name="submit" class="btn btn-primary btn-block" value="Registrar sustituci&oacute;n del Profesor" />
 </form>
 </div>
 </div>
