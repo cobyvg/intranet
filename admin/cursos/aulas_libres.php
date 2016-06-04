@@ -51,8 +51,8 @@ include("../../menu.php");
 					<tbody>
 						<tr>
 						<?php for($i = 1; $i < 7; $i++): ?>
-							<td><?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE a_aula NOT LIKE 'B%' AND a_aula NOT LIKE 'G%' AND a_aula NOT LIKE '' AND a_aula NOT LIKE 'ACO%' AND a_aula NOT LIKE 'DI%' ORDER BY n_aula ASC"); ?>
-							<?php while ($row = mysqli_fetch_array($result)): ?> <?php $grupo = mysqli_query($db_con, "SELECT a_grupo FROM horw where a_aula = '$row[0]' AND dia='$dia' AND hora='$i' AND a_grupo NOT LIKE 'B%' AND a_grupo NOT LIKE 'G%' ORDER BY a_grupo ASC"); ?>
+							<td><?php $result = mysqli_query($db_con, "SELECT DISTINCT a_aula, n_aula FROM horw WHERE c_asig NOT LIKE '25' AND a_aula NOT LIKE '' AND a_aula NOT LIKE 'ACO%' AND a_aula NOT LIKE 'DI%' ORDER BY n_aula ASC"); ?>
+							<?php while ($row = mysqli_fetch_array($result)): ?> <?php $grupo = mysqli_query($db_con, "SELECT a_grupo FROM horw where a_aula = '$row[0]' AND dia='$dia' AND hora='$i' AND c_asig NOT LIKE '25' ORDER BY a_grupo ASC"); ?>
 				
 							<?php $asig = mysqli_fetch_array($grupo); ?> <?php if($asig['a_grupo'] == ''): ?>
 							<p><a href="hor_aulas.php?aula=<?php echo $row['n_aula']; ?>"><?php echo $row['n_aula']; ?></a></p>
