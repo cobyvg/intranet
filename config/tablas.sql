@@ -1251,7 +1251,10 @@ CREATE TABLE IF NOT EXISTS `matriculas` (
   `foto` tinyint(1) NOT NULL,
   `divorcio` varchar(64) collate latin1_spanish_ci default NULL,
   `matematicas3` char(1) collate latin1_spanish_ci NOT NULL,
+<<<<<<< HEAD
   `ciencias4` char(1) collate latin1_spanish_ci NOT NULL,
+=======
+>>>>>>> origin/master
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
 
@@ -1321,6 +1324,7 @@ CREATE TABLE IF NOT EXISTS `matriculas_bach` (
   `divorcio` varchar(64) collate latin1_spanish_ci default NULL,
   `bilinguismo` char(2) collate latin1_spanish_ci default NULL,
   `religion1b` varchar(64) collate latin1_spanish_ci NOT NULL,
+<<<<<<< HEAD
   `opt_aut21` int(1) NOT NULL,
   `opt_aut22` int(1) NOT NULL,
   `opt_aut23` int(1) NOT NULL,
@@ -1329,6 +1333,10 @@ CREATE TABLE IF NOT EXISTS `matriculas_bach` (
   `opt_aut26` int(1) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+=======
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+>>>>>>> origin/master
 
 -- --------------------------------------------------------
 

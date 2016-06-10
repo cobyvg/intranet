@@ -52,7 +52,7 @@ $today=date("d");
 ?>
   <div class="row">
     <div class="col-sm-6">
-      <?	
+      <?php	
 echo "<h4 align='center'>FECHA SELECCIONADA: &nbsp;<span style='font-size:1.0em; color:#08c'>$today-$month-$year</span></h4><br />
 ";		        	
 		

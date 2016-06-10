@@ -172,12 +172,19 @@ $it22 = array("Bachillerato de Ciencias", "Ciencias y Ciencias de la Salud", "Ma
 $it23 = array("Bachillerato de Humanidades", "Humanidades", "Latín II", "Historia del Arte");
 $it24 = array("Bachillerato de Ciencias Sociales", "Ciencias Sociales y Jurídicas", "Matemáticas de las Ciencias Sociales II", "Geografía");
 
+<<<<<<< HEAD
 $opt21=array("TIN21" => "Tecnología Industrial II", "CTM21" => "Ciencias de la Tierra y del Medio Ambiente", "PSI21" => "Psicología", "GEO21" => "Geología", "TIC21" => "TIC II", "AL21" => "Alemán 2º Idioma", "FR21" => "Francés 2º Idioma", "ING21" => "Inglés 2º Idioma", "ELT21" => "Electrotecnia");
 $opt22=array("TIN22" => "Tecnología Industrial II", "CTM22" => "Ciencias de la Tierra y del Medio Ambiente", "PSI22" => "Psicología", "GEO22" => "Geología", "TIC22" => "TIC II", "AL22" => "Alemán 2º Idioma", "FR22" => "Francés 2º Idioma", "ING22" => "Inglés 2º Idioma");
 $opt23=array( "TIC23" => "TIC II", "AL23" => "Alemán 2º Idioma", "FR23" => "Francés 2º Idioma", "ING23" => "Inglés 2º Idioma");
 $opt24=array( "TIC24" => "TIC II", "FAG24" => "Fundamentos de Administracción y Gestión", "AL24" => "Alemán 2º Idioma", "FR24" => "Francés 2º Idioma", "ING24" => "Inglés 2º Idioma");
 
 $opt_aut2=array("opt_aut21" => "Educación Física", "opt_aut22" => "Estadística", "opt_aut23" => "Introducción Ciencias de la Salud", "opt_aut24" => "Alemán 2º Idioma", "opt_aut25" => "Francés 2º Idioma", "opt_aut26" => "Inglés 2º Idioma");
+=======
+$opt21=array("TIN21" => "Tecnología Industrial II", "CTM21" => "Ciencias de la Tierra y del Medio Ambiente", "PSI21" => "Psicología", "GEO21" => "Geología", "TIC21" => "TIC II", "AL21" => "Alemán 2º Idioma", "FR21" => "Francés 2º Idioma", "ING21" => "Inglés 2º Idioma");
+$opt22=array("TIN22" => "Tecnología Industrial II", "CTM22" => "Ciencias de la Tierra y del Medio Ambiente", "PSI22" => "Psicología", "GEO22" => "Geología", "TIC22" => "TIC II", "AL22" => "Alemán 2º Idioma", "FR22" => "Francés 2º Idioma", "ING22" => "Inglés 2º Idioma");
+$opt23=array( "TIC23" => "TIC II", "AL23" => "Alemán 2º Idioma", "FR23" => "Francés 2º Idioma", "ING23" => "Inglés 2º Idioma");
+$opt24=array( "TIC24" => "TIC II", "FAG24" => "Fundamentos de Administracción y Gestión", "AL24" => "Alemán 2º Idioma", "FR24" => "Francés 2º Idioma", "ING24" => "Inglés 2º Idioma");
+>>>>>>> origin/master
 
 // Se procesan los datos enviados ppor el formulario
 if(isset($_POST['enviar'])){
@@ -197,6 +204,7 @@ if(isset($_POST['enviar'])){
 	{		
 		if ($mod1==1) {$optativa1=$optativa11;}elseif ($mod1==2) {$optativa1=$optativa12;}elseif($mod1==3){$optativa1=$optativa13;}elseif($mod1==4){$optativa1=$optativa14;}else{$optativa1="";}
 		if ($key=="mod1") {
+<<<<<<< HEAD
 						if($optativa11=="" and $optativa12=="" and $optativa13=="" and $optativa14==""){
 							$vacios.= "optativas de modalidad de 1BACH, ";
 							$num+=1;
@@ -207,6 +215,16 @@ if(isset($_POST['enviar'])){
 
 		if ($key=="mod2"){
 
+=======
+			if($optativa11=="" and $optativa12=="" and $optativa13=="" and $optativa14==""){
+				$vacios.= "optativas de modalidad de 1BACH, ";
+				$num+=1;
+			}
+	}
+		
+
+		if ($key=="mod2"){
+>>>>>>> origin/master
 			if ($mod2 > 2) {
 				if($optativa2 == ""){
 					$vacios.= "optativa2, ";
@@ -215,7 +233,15 @@ if(isset($_POST['enviar'])){
 				}	
 			}
 							
+<<<<<<< HEAD
 			$n_o="";
+=======
+
+			$n_o="";
+			$num="";
+
+			$numero_opt = count(${opt2.$mod2});
+>>>>>>> origin/master
 
 				foreach (${opt2.$itinerario2} as $opt => $n_opt){
 					foreach ($_POST as $clave=>$valor){
@@ -244,8 +270,6 @@ if(isset($_POST['enviar'])){
 					}
 				}
 			}
-		}
-
 
 		if(strstr($campos,$key." ")==TRUE){
 			if($val == ""){
@@ -271,8 +295,16 @@ if(isset($_POST['enviar'])){
 		$vacios.= "2º idioma, ";
 		$num+=1;
 	}
-	if ($curso=="2BACH" and $repetidor == ""  and (empty($itinerario1) or empty($itinerario2))) {
+	if ($curso=="2BACH" and empty($optativa2)) {
+		$vacios.= "asignatura de modalidad de 2, ";
+		$num+=1;
+	}
+	if ($curso=="2BACH" and $repetidor == ""  and (empty($itinerario2))) {
 		$vacios.= "modalidad de 2, ";
+		$num+=1;
+	}
+	if ($curso=="2BACH" and $repetidor == ""  and (empty($itinerario1))) {
+		$vacios.= "modalidad de1 1";
 		$num+=1;
 	}
 	if ($curso=="2BACH" and $repetidor == "1" and empty($itinerario2)) {
@@ -298,11 +330,10 @@ if(isset($_POST['enviar'])){
 		$num_cur_ant = $num_cur - 1;
 		$cur_act = substr($curso,0,1)."º de BACHILLERATO";
 		$cur_ant = $num_cur_ant . "º de BACHILLERATO";
-		for ($i=1;$i<8;$i++){
-			$adv= str_replace("optativa$i", "optativa de $cur_ant $i", $adv);
-		}
-		for ($i=1;$i<5;$i++){
+		
+		for ($i=1;$i<10;$i++){
 			$adv= str_replace("optativa$i", "optativa de $cur_act  $i", $adv);
+			$opt_bach=1;
 		}
 		echo $adv.'.\n';
 		echo 'Rellena los campos mencionados y envía los datos de nuevo para poder registrar tu solicitud correctamente.")
@@ -331,40 +362,11 @@ if(isset($_POST['enviar'])){
 				}
 			}
 		}
-
-/*		if ($curso=="2BACH" and $repetidor <> "1") {
-			if ($itinerario2==1 and $itinerario1>2){
+		if ($curso=="2BACH" and $repetidor <> "1") {
+			if (!($mod2==$mod1)){
 				$incompat = 1;
 			}
-			if ($itinerario2==2 and $itinerario1<3){
-				$incompat = 1;
-			}
-		}*/
-		
-	/*	if ($curso=="2BACH" and $repetidor <> "1") {
-			if ($itinerario1=="1"){
-				if ($optativa1=="BYG11" and (strstr($optativa2,"BIO")==FALSE and strstr($optativa2,"QUI")==FALSE)) {
-					$incompat = 1;
-				}
-				if (strstr($optativa1,"BYG")==FALSE and (strstr($optativa2,"BIO")==TRUE or strstr($optativa2,"QUI")==TRUE)) {
-					$incompat = 1;
-				}
-			}
-			else
-			{
-				$n_opcs="";
-				$it_csh = explode("-",$optativa1);
-				foreach ($it_csh as $o_cs1){
-					$o_cs1 = substr($o_cs1,0,3);
-					if (strstr($optativa2,$o_cs1)==TRUE) {
-						$n_opcs+=1;
-					}
-				}
-				if ($n_opcs<>2) {
-					$incompat = 1;
-				}
-			}
-		}*/
+		}
 
 		if (substr($curso,0,1)==1 and ($idioma1==$idioma2)){
 			$idioma_rep="1";
@@ -1062,6 +1064,7 @@ if ($dni or $claveal or $id) {
 			<label> <input required type="radio" name="mod2" value="<?php echo $n_it2; ?>" <?php echo ($itinerario2 == $n_it2) ? 'checked' : ''; ?> /><strong><?php echo $itiner2; ?></strong></label>
 			</div>
 			</strong>
+<<<<<<< HEAD
 			</td>
 			<?php } ?>
 		</tr>
@@ -1093,10 +1096,14 @@ if ($dni or $claveal or $id) {
 
 			<?php } ?>
 			</div>
+=======
+>>>>>>> origin/master
 			</td>
-			<?php endfor; ?>
+			<?php } ?>
 		</tr>
+
 		<tr>
+<<<<<<< HEAD
 			<th colspan="4" class="active text-center text-uppercase">
 				Asignaturas específicas de Modalidad en Segundo de Bachillerato (4 horas lectivas)
 			</th>
@@ -1122,11 +1129,39 @@ if ($dni or $claveal or $id) {
 			</div>
 
 			
+=======
+		<?php for ($i = 1; $i <= 4; $i++): ?>
+			<td>
+			<div class="text-left">
+			<p><?php echo ${it2.$i}[2]; ?></p>
+			<p><?php echo ${it2.$i}[3]; ?></p>
+			<?php if($i<3){echo ${it2.$i}[4];} else{ ?>
+			<hr>
+			<div class="form-group <?php echo ($opt_mod2 ==1  and $itinerario2==$i) ? 'has-error"' : '' ; ?>">
+			<div class="radio">
+			<label> 
+			<input type="radio"	value="Griego II" name="optativa2" <?php echo ($optativa2 == 'Griego II' and $itinerario2 == $i) ? 'checked' : ''; ?>>
+			Griego II 
+			</label>
+>>>>>>> origin/master
 			</div>
-			<?php endforeach; ?></td>
+			<div class="radio">
+			<label> 
+			<input type="radio"	value="Economía de la Empresa" name="optativa2"	<?php echo ($optativa2 == 'Economía de la Empresa' and $itinerario2 == $i) ? 'checked' : ''; ?>>
+			Economía de la Empresa 
+			</label>
+			<br>
+			<small class="help-block">(Selecciona una de las materias)</small>
+			</div>
+			</div>
+
+			<?php } ?>
+			</div>
+			</td>
 			<?php endfor; ?>
 		</tr>
 		<tr>
+<<<<<<< HEAD
 			<th class="active text-center text-uppercase" colspan="4">Asignaturas Optativas de 2º de Bachillerato (2 horas)<p class="help-block">
 			<small>(Debes seleccionar las asignaturas optativas en su orden de preferencia: 1, 2, 3, etc.)</small></p></th>
 		</tr>
@@ -1148,6 +1183,39 @@ if ($dni or $claveal or $id) {
 			<?php endforeach; ?> 
 			</div>
 			</td>
+=======
+			<th colspan="4" class="active text-center text-uppercase">
+				Asignaturas específicas de Modalidad en Segundo de Bachillerato
+			</th>
+		</tr>
+		<tr>
+		<?php for ($i = 1; $i <= 4; $i++): ?>
+			<td><?php $num1=""; $num_it = count(${opt2.$i}); ?>
+			<?php foreach (${opt2.$i} as $optit_1 => $nombre): ?> <?php $num1 += 1; ?>
+			<div class="form-horizontal">
+				<label class="col-sm-8 control-label">
+				<div class="text-left"><?php echo $nombre; ?></div> </label>
+			<div class="form-group <?php echo ((isset($opt_rep) && $opt_rep == 1 and $itinerario2==$i) or ($opt_bach==1 and $itinerario2==$i)) ? 'has-error"' : '' ; ?>">
+			<div class="col-sm-4">
+				<select class="form-control" name="<?php echo $optit_1; ?>" id="<?php echo $optit_1; ?>">
+				<option value=""></option>
+				<?php for ($z = 1; $z <= $num_it; $z++): ?>
+				<option value="<?php echo $z; ?>"
+					<?php if (isset($itinerario2) and $itinerario2==$i) {
+						if(${optativa2b.$num1} == $z){ echo 'selected';} 
+					}?>
+					><?php echo $z; ?>
+				</option>
+			<?php endfor; ?>
+			</select>
+			</div>
+			</div>
+
+			
+			</div>
+			<?php endforeach; ?></td>
+			<?php endfor; ?>
+>>>>>>> origin/master
 		</tr>
 
 		<?php if ($repetidor <> 1): ?>
@@ -1254,8 +1322,12 @@ if ($dni or $claveal or $id) {
 		</select>
 		</div>
 		</td>		
+<<<<<<< HEAD
 		<?php } ?>
 	
+=======
+		<?php } ?>	
+>>>>>>> origin/master
 		</tr>
 
 		<?php endif; ?>
