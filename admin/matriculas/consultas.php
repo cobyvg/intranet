@@ -1,4 +1,4 @@
-<?
+<?php
 ini_set("session.cookie_lifetime",1800);
 ini_set("session.gc_maxlifetime",1800);
 
@@ -203,7 +203,7 @@ if (isset($_POST['sin_matricula'])) {
 
 ?>
 
-<?
+<?php
 include("../../menu.php");
 include("./menu.php");
 
@@ -224,7 +224,7 @@ foreach($_GET as $key_get => $val_get)
 </div>
 <br>
 
-<?
+<?php
 echo '<div  class="hdden-print">';
 include 'filtro.php';
 echo "</div>";
@@ -282,7 +282,7 @@ if ($grupo_actua_seg) { if($grupo_actua_seg=="Ninguno"){$extra.=" and grupo_actu
 if ($colegi) { $extra.=" and colegio = '$colegi'";}
 if ($actividade) { $extra.=" and act1 = '$actividade'";}
 if ($itinerari and $n_curso=='4') { $extra.=" and itinerario = '$itinerari'";}
-if ($matematica4 and $n_curso=='4') { $extra.=" and matematicas4 = '$matematica4'";}
+if ($matematica4 and $n_curso=='4') { $extra.=" and optativas4 = '$matematica4'";}
 if ($matematica4 and $n_curso=='3') { $extra.=" and matematicas3 = '$matematica4'";}
 if ($transport == "ruta_este") { $extra.=" and ruta_este != ''";}
 if ($transport == "ruta_oeste") { $extra.=" and ruta_oeste != ''";}
@@ -332,7 +332,7 @@ if (!($orden)) {
 	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
 
 
-	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, matematicas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3 ";
+	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, optativas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3 ";
 
 	if ($curso=="3ESO"){$num_opt = "7";}else{$num_opt = "4";}
 	for ($i=1;$i<$num_opt+1;$i++)
@@ -369,7 +369,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<th>Curso</th>
 		<th>Gr1</th>
 		<th>Gr2</th>
-		<?
+		<?php
 		if ($curso=="1ESO") {
 			echo '<th>Colegio</th>';
 		}
@@ -398,7 +398,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		?>
 
 		<th class="hdden-print">Opciones</th>
-		<?
+		<?php
 		if ($n_curso>1) {
 			echo '<th class="hdden-print">SI |PIL |NO </th>';
 		}
@@ -410,7 +410,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<th class="hdden-print">Otros</th>
 	</thead>
 	<tbody>
-	<?
+	<?php
 	while($consul = mysqli_fetch_array($cons)){
 		$backup="";
 		$respaldo='1';
@@ -428,7 +428,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		$exencion = $consul[12];
 		$religion = $consul[13];
 		$itinerario = $consul[14];
-		$matematicas4 = $consul[15];
+		$optativas4 = $consul[15];
 		$promociona = $consul[16];
 		$claveal = $consul[17];
 		$ruta_este = $consul[18];
@@ -527,7 +527,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 			if ($n_curso=="4") {
 				if ($itinerario == '0'){$itinerario="";}
-				if ($itinerario == '3') {$it = $itinerario."".$matematicas4."";}else{$it=$itinerario;}
+				if ($itinerario == '3') {$it = $itinerario."".$optativas4."";}else{$it=$itinerario;}
 				echo '<td>'.$it.'</td>';
 			}
 			if ($n_curso=="3") {
@@ -689,7 +689,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		echo "</div></form>";
 		?>
-		<?
+		<?php
 		if ($curso) {
 
 			if ($curso=="1ESO" OR $curso=="2ESO"){
@@ -730,7 +730,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<table class="table table-striped table-bordered" align="center"
 			style="width: auto">
 			<tr>
-			<?
+			<?php
 			echo "<th>Religión</th>";
 			if ($curso=="1ESO" OR $curso=="2ESO"){
 				echo "<th>Exención</th>";
@@ -761,7 +761,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			?>
 			</tr>
 			<tr>
-			<?
+			<?php
 			echo "<td>$num_rel</td>";
 			if ($curso=="1ESO" OR $curso=="2ESO"){
 				echo "<td>$num_exen</td>";
@@ -785,7 +785,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		?>
 			</tr>
 		</table>
-		<?
+		<?php
 	}
 	?>
 
@@ -793,7 +793,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<table class="table table-striped table-bordered hdden-print"
 			align="center" style="width: auto">
 			<tr>
-				<td><?
+				<td><?php
 				if ($curso=="4ESO") {
 
 					for ($i=1;$i<$num_opt;$i++){
@@ -819,7 +819,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				?></td>
 			</tr>
 		</table>
-		<?
+		<?php
 		if ($n_curso<3){
 			echo '<table class="table table-striped table-bordered hdden-print" align="center" style="width:auto"><tr>
 <td>';
@@ -869,7 +869,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			 document.form2.promocion.disabled = false;  
 			}
   </script>
-  <?
+  <?php
   // Control del envío de datos
 
   if (($mes_submit>5 and $mes_submit<9)) {
@@ -885,7 +885,7 @@ return false;
 	}
 }
 </script>
-<?
+<?php
   }
   elseif ($mes_submit=="9") {
   	?>
@@ -900,7 +900,7 @@ return false;
 	}
 }
 </script>
-		<?
+		<?php
   	  }
   
   ?>
