@@ -16,12 +16,6 @@ if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso
 if (isset($_GET['id'])) {$id = $_GET['id'];}elseif (isset($_POST['id'])) {$id = $_POST['id'];}
 if (isset($_GET['consulta'])) {$consulta = $_GET['consulta'];}elseif (isset($_POST['consulta'])) {$consulta = $_POST['consulta'];}
 
-// Control de tablas
-$bck =mysqli_query($db_con,"select divorcio from matriculas_backup");
-if (mysqli_num_rows($bck)>0) {}else{
-	mysqli_query($db_con,"ALTER TABLE `matriculas_backup` ADD `enfermedad` VARCHAR(254) NULL , ADD `otraenfermedad` VARCHAR(254) NULL , ADD `foto` TINYINT(1) NOT NULL , ADD `divorcio` VARCHAR(64) NULL , ADD `matematicas3` CHAR(1) NULL");
-	mysqli_query($db_con,"ALTER TABLE `matriculas_bach_backup` ADD `enfermedad` VARCHAR(254) NULL , ADD `otraenfermedad` VARCHAR(254) NULL , ADD `foto` TINYINT(1) NOT NULL , ADD `divorcio` VARCHAR(64) NULL , ADD `bilinguismo` CHAR(2) NULL , ADD `religion1b` VARCHAR(64) NULL");
-}
 
 if (isset($_POST['listados'])) {
 	foreach ($_POST as $key=>$val)
@@ -281,9 +275,16 @@ if ($_POST['grupo_actua']) {
 if ($grupo_actua_seg) { if($grupo_actua_seg=="Ninguno"){$extra.=" and grupo_actual = ''";} else{  $extra.=" and grupo_actual = '$grupo_actua_seg'";}}
 if ($colegi) { $extra.=" and colegio = '$colegi'";}
 if ($actividade) { $extra.=" and act1 = '$actividade'";}
-if ($itinerari and $n_curso=='4') { $extra.=" and itinerario = '$itinerari'";}
-if ($matematica4 and $n_curso=='4') { $extra.=" and optativas4 = '$matematica4'";}
-if ($matematica4 and $n_curso=='3') { $extra.=" and matematicas3 = '$matematica4'";}
+if ($itinerari and $n_curso=='4') { 
+	if(strlen($itinerari)>1){
+		$it1 = substr($itinerari,0,1);
+		$cienci = substr($itinerari,3,1);
+		$extra.=" and itinerario = '$it1' and ciencias4 = '$cienci'";
+	}
+	else{$extra.=" and itinerario = '$itinerari'";}}
+if ($optativ4 and $n_curso=='4') { $extra.=" and optativas4 = '$optativ4'";}
+if ($matematica3 and $n_curso=='3') { $extra.=" and matematicas3 = '$matematica3'";}
+if ($ciencia4 and $n_curso=='4') { $extra.=" and ciencias4 = '$ciencias4'";}
 if ($transport == "ruta_este") { $extra.=" and ruta_este != ''";}
 if ($transport == "ruta_oeste") { $extra.=" and ruta_oeste != ''";}
 if ($bilinguism == "Si") { $extra.=" and bilinguismo = 'Si'";}
@@ -319,28 +320,28 @@ if (!($orden)) {
 
 	include 'procesado.php';
 
-	// Optativas de ESO
 	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-	$opt2 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Métodos de la Ciencia");
+	$opt2 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma");
 	$opt3 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-	$opt41=array("Alemán2_1" => "Alemán 2º Idioma", "Francés2_1" => "Francés 2º Idioma", "Informatica_1" => "Informática");
-	$opt42=array("Alemán2_2" => "Alemán 2º Idioma", "Francés2_2" => "Francés 2º Idioma", "Informatica_2" => "Informática", "EdPlástica_2" => "Ed. Plástica y Visual");
-	$opt43=array("Alemán2_3" => "Alemán 2º Idioma", "Francés2_3" => "Francés 2º Idioma", "Informatica_3" => "Informática", "EdPlástica_3" => "Ed. Plástica y Visual");
-	$opt44=array("Alemán2_4" => "Alemán 2º Idioma", "Francés2_4" => "Francés 2º Idioma", "Tecnología_4" => "Tecnología");
-	//	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro");
-	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Taller de Teatro", "Ampliación: Taller de Lenguas Extranjeras");
+	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Matemáticas Recreativas", "Ampliación: Taller de Teatro", "Ampliación: Taller de Lenguas Extranjeras (Se debe elegir Alemán o Francés como Optativa)");
 	$a2 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
+	$a3 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Lengua", "Ampliación: Matemáticas", "Ampliación: Inglés");
+		
+	$it41 = array("(Bachillerato de Ciencias)", "Matemáticas Académicas", "Tecnología (Sólo Ingeniería y Arquitectura)", "Física y Química", "Biología y Geología", "Economía");
+	$it42 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Matemáticas Académicas", "Latín", "Economía");
+	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "Matemáticas Aplicadas", "Tecnología", "Ciencias Aplicadas a la Actividad Profesional", "Iniciación a la Actividad Emprendedora y Empresarial");
 
+	$opt4=array("Alemán2" => "Alemán 2º Idioma", "Francés2" => "Francés 2º Idioma", "TIC" => "TIC", "EdPlastica" => "Ed. Plástica y Visual", "Música" => "Música");
 
-	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, optativas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3 ";
-
-	if ($curso=="3ESO"){$num_opt = "7";}else{$num_opt = "4";}
+	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, optativas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3, ciencias4 ";
+	
+	if ($curso=="3ESO"){$num_opt = "7";}elseif ($curso=="1ESO"){$num_opt = "4";}elseif ($curso=="2ESO"){$num_opt = "3";}else{$num_opt = "5";}
 	for ($i=1;$i<$num_opt+1;$i++)
 	{
 		$sql.=", optativa$i";
 	}
 	$sql.=" from matriculas where ". $extra ." order by curso, ". $orden ." grupo_actual, apellidos, nombre ";
-	//echo $sql;
+	// echo $sql;
 	$cons = mysqli_query($db_con, $sql);
 	if(mysqli_num_rows($cons) < 1){
 		echo '<div align="center"><div class="alert alert-warning alert-block fade in" style="max-width:500px;">
@@ -384,6 +385,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		if ($n_curso=="4") {
 			echo '<th>Itin.</th>';
+			echo '<th>Opt. Mod.</th>';
 		}
 		if ($n_curso=="3") {
 			echo '<th>Mat.</th>';
@@ -392,7 +394,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		{
 			echo "<th>Opt".$i."</th>";
 		}
-		if ($n_curso<3) {
+		if ($n_curso<4) {
 			echo '<th>Act.</th>';
 		}
 		?>
@@ -414,30 +416,31 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 	while($consul = mysqli_fetch_array($cons)){
 		$backup="";
 		$respaldo='1';
-		$id = $consul[0];
-		$apellidos = $consul[1];
-		$nombre= $consul[2];
-		$letra_grupo = $consul[4];
-		$colegio=str_ireplace("C.E.I.P.","",$consul[5]);
-		$bilinguismo = $consul[6];
-		$diversificacion = $consul[7];
-		$act1 = $consul[8];
-		$confirmado = $consul[9];
-		$grupo_actual = $consul[10];
-		$observaciones = $consul[11];
-		$exencion = $consul[12];
-		$religion = $consul[13];
-		$itinerario = $consul[14];
-		$optativas4 = $consul[15];
-		$promociona = $consul[16];
-		$claveal = $consul[17];
-		$ruta_este = $consul[18];
-		$ruta_oeste = $consul[19];
-		$revisado = $consul[20];
-		$foto = $consul[21];
-		$enf = $consul[22];
-		$divorcio = $consul[23];
-		$matematicas3 = $consul[24];
+		$id = $consul['id'];
+		$apellidos = $consul['apellidos'];
+		$nombre= $consul['nombre'];
+		$letra_grupo = $consul['letra_grupo'];
+		$colegio=str_ireplace("C.E.I.P.","",$consul['colegio']);
+		$bilinguismo = $consul['bilinguismo'];
+		$diversificacion = $consul['diversificacion'];
+		$act1 = $consul['act1'];
+		$confirmado = $consul['confirmado'];
+		$grupo_actual = $consul['grupo_actual'];
+		$observaciones = $consul['observaciones'];
+		$exencion = $consul['exencion'];
+		$religion = $consul['religion'];
+		$itinerario = $consul['itinerario'];
+		$optativas4 = $consul['optativas4'];
+		$promociona = $consul['promociona'];
+		$claveal = $consul['claveal'];
+		$ruta_este = $consul['ruta_este'];
+		$ruta_oeste = $consul['ruta_oeste'];
+		$revisado = $consul['revisado'];
+		$foto = $consul['foto'];
+		$enf = $consul['enfermedad'];
+		$divorcio = $consul['divorcio'];
+		$matematicas3 = $consul['matematicas3'];
+		$ciencias4 = $consul['ciencias4'];
 		$back = mysqli_query($db_con, "select id from matriculas_backup where id = '$id'");
 		if (mysqli_num_rows($back)>0) {
 			$respaldo = '1';
@@ -453,10 +456,9 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 		}
 
-		//echo $ruta_este;
 		for ($i=1;$i<$num_opt+1;$i++)
 		{
-			${optativa.$i} = $consul[$i+24];
+			${optativa.$i} = $consul['optativa'.$i];
 		}
 
 		// Problemas de Convivencia
@@ -527,9 +529,18 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 			if ($n_curso=="4") {
 				if ($itinerario == '0'){$itinerario="";}
-				if ($itinerario == '3') {$it = $itinerario."".$optativas4."";}else{$it=$itinerario;}
+				if ($itinerario == '1') {$it = $itinerario." (".$ciencias4.")";}else{$it=$itinerario;}
 				echo '<td>'.$it.'</td>';
 			}
+
+
+			if ($n_curso=="4") {
+				if($optativas4 == 'Biología y Geología'){$opt44 = 'BG';}elseif($optativas4 == 'Economía'){$opt44 = 'ECO';}elseif(stristr($optativas4,'Ciencias Aplicadas')==TRUE){$opt44 = 'CAAP';}elseif(stristr($optativas4,'Iniciaci')==TRUE){$opt44 = 'IAEE';}else{$optativas4="";}
+				echo '<td>'.$opt44.'</td>';
+			}
+
+
+
 			if ($n_curso=="3") {
 				echo '<td>'.$matematicas3.'</td>';
 			}
@@ -541,7 +552,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				echo ">".${optativa.$i}."</td>";
 			}
 
-			if ($n_curso<3) {
+			if ($n_curso<4) {
 				if ($act1==0) {
 					$act1="";
 				}
@@ -705,9 +716,8 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			$rel = mysqli_query($db_con, "select religion from matriculas where $extra and religion like '%Católica%'");
 
 			$num_rel = mysqli_num_rows($rel);
-			//echo $num_rel;
-			if ($curso=="3ESO"){$num_opta = "7";}else{$num_opta = "4";}
-			for ($i=1;$i<$num_opta+1;$i++){
+
+			for ($i=1;$i<$num_opt+1;$i++){
 				${opta.$i} = mysqli_query($db_con, "select optativa$i from matriculas where $extra and optativa$i = '1'");
 				${num_opta.$i} = mysqli_num_rows(${opta.$i});
 			}
@@ -738,8 +748,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($curso=="3ESO" OR $curso=="4ESO"){
 				echo "<th>Diversificación</th>";
 			}
-			if ($curso=="3ESO"){$num_opta = "7";}else{$num_opta = "4";}
-			for ($i=1;$i<$num_opta+1;$i++){
+			for ($i=1;$i<$num_opt+1;$i++){
 				echo "<th>Optativa$i</th>";
 			}
 			if ($curso=="1ESO"){
@@ -769,8 +778,8 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($curso=="3ESO" OR $curso=="4ESO"){
 				echo "<td>$num_diver</td>";
 			}
-			if ($curso=="3ESO"){$num_opta = "7";}else{$num_opta = "4";}
-			for ($i=1;$i<$num_opta+1;$i++){
+			if ($curso=="3ESO"){$num_opt = "7";}else{$num_opt = "4";}
+			for ($i=1;$i<$num_opt+1;$i++){
 				echo "<td>${num_opta.$i}</td>";
 		}
 		if ($curso=="1ESO" OR $curso=="2ESO"){
@@ -798,16 +807,21 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 
 					for ($i=1;$i<$num_opt;$i++){
 						$nombre_optativa = "";
-						$nom_opt.= "<span style='font-weight:bold;color:#9d261d;'>Itinerario $i: </span>";
-						foreach (${opt4.$i} as $nombre_opt => $valor){
-
-							$nombre_optativa=$nombre_optativa+1;
-							$nom_opt.="<span style='color:#08c;'>Opt".$nombre_optativa."</span> = ".$valor."; ";
-						}
+						$nom_opt.= "<span style='font-weight:bold;color:#9d261d;'>Itinerario $i </span>";
+						foreach (${it4.$i} as $nombre_opt => $valor){
+							if(stristr($valor,"(")==TRUE and stristr($valor,"Tecnolo")==FALSE) {
+								$nombre_optativa=$valor;
+								$nom_opt.="<span class='text-warning'>".$valor.": </span> ";
+							}
+							else{
+								$nombre_optativa=$nombre_optativa+1;
+								$nom_opt.="<span style='color:#08c;'>Opt".$nombre_optativa."</span> = ".$valor."; ";
+							}
 						//echo substr($nom_opt,0,-2);
-						$nom_opt.= "<br>";
+						
 					}
-
+					$nom_opt.= "<br>";
+				}
 				}
 				else{
 					foreach (${opt.$n_curso} as $nombre_opt => $valor){
@@ -820,7 +834,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			</tr>
 		</table>
 		<?php
-		if ($n_curso<3){
+		if ($n_curso<4){
 			echo '<table class="table table-striped table-bordered hdden-print" align="center" style="width:auto"><tr>
 <td>';
 			foreach (${a.$n_curso} as $nombre_a => $valora){
@@ -854,8 +868,8 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 		 if (document.form2.curso.value=="3ESO"){ 
 			 document.form2.itinerari.disabled = true; 
-			 document.form2.matematica4.disabled = false;
-			 document.form2.actividade.disabled = true;
+			 document.form2.matematica3.disabled = false;
+			 document.form2.actividade.disabled = false;
 			 document.form2.exencio.disabled = true;
 			 document.form2.diversificacio.disabled = false;
 			 document.form2.promocion.disabled = false;

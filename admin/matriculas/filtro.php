@@ -78,8 +78,7 @@ echo "".$tipo20[0]."</label></div>";
          </div>
 </div>
 <div class="col-sm-3">
-<div class="form-group"><label>
-		Apellidos </label><input type="text" name="apellid" class="form-control" 
+<div class="form-group"><label>Apellidos </label><input type="text" name="apellid" class="form-control" 
 		<?php
 		if ($apellid) {
 			echo "value='$apellid'";
@@ -89,8 +88,7 @@ echo "".$tipo20[0]."</label></div>";
          </div>
 </div>
 <div class="col-sm-3">
-<div class="form-group"><label>
-		Nombre </label><input type="text" name="nombr" class="form-control" 
+<div class="form-group"><label>Nombre </label><input type="text" name="nombr" class="form-control" 
 		<?php
 		if ($nombr) {
 			echo "value='$nombr'";
@@ -127,6 +125,22 @@ echo "".$tipo20[0]."</label></div>";
 		</select></div>
 </div>
 <div class="col-sm-3">
+<div class="form-group"><label>Itinerario </label><select name="itinerari"class="form-control" >
+		<?php
+		if ($itinerari) {
+			echo "<option>$itinerari</option>";
+		}
+		?>
+			<option></option>
+			<option>1 (1)</option>
+			<option>1 (2)</option>
+			<option>2</option>
+			<option>3</option>
+		</select></div>
+</div>
+
+<?php if($curso=="1ESO" or $curso=="2ESO"){?>
+<div class="col-sm-3">
 <div class="form-group"><label>Exención </label><select name="exencio"class="form-control" >
 		<?php
 		if ($exencio) {
@@ -138,31 +152,56 @@ echo "".$tipo20[0]."</label></div>";
 			<option>No</option>
 		</select></div>
 </div>
+
+<?php } elseif($curso=="3ESO"){?>	
 <div class="col-sm-3">
-<div class="form-group"><label>Itinerario </label><select name="itinerari"class="form-control" >
+<div class="form-group"><label>Matematicas 3º</label><select name="matematica3"class="form-control" >
 		<?php
-		if ($itinerari) {
-			echo "<option>$itinerari</option>";
-		}
-		?>
-			<option></option>
-			<option>1</option>
-			<option>2</option>
-			<option>3</option>
-			<option>4</option>
-		</select></div>
-</div>
-<div class="col-sm-3">
-<div class="form-group"><label>Matematicas </label><select name="matematica4"class="form-control" >
-		<?php
-		if ($matematica4 or $matematica3) {
-			echo "<option>$matematica4$matematica3</option>";
+		if ($matematica3) {
+			echo "<option>$matematica3</option>";
 		}
 		?>
 			<option></option>
 			<option>A</option>
 			<option>B</option>
-		</select></div>
+		</select>
+</div>
+</div>
+
+<?php } elseif($curso=="4ESO"){?>
+<div class="col-sm-3">
+<div class="form-group"><label>Optativas Itinerario de 4º</label><select name="optativ4"class="form-control" >
+		<?php
+		if ($optativ4) {
+			echo "<option>$optativ4</option>";
+		}
+		?>
+			<option></option>
+			<option>Ciencias Aplicadas</option>
+			<option>Biología y Geología</option>
+			<option>Iniciación</option>
+			<option>Economía</option>
+		</select>
+</div>
+</div>
+<?php }?>
+<div class="col-sm-3">
+<div class="form-group"><label>Actividades </label><select name="actividade" class="form-control" >
+		<?php
+		if ($actividade) {
+			echo "<option>$actividade</option>";
+		}
+		?>
+			<option></option>
+		<?php if ($curso=="1ESO" or $curso=="2ESO") { $n_act = '8';}else{$n_act='7';}
+		for ($i=1; $i < $n_act; $i++) { 
+		?>
+			<option><?php echo $i;?></option>
+		<?php
+		}
+		?>
+		</select>
+	</div>
 </div>
 </div>
 <div class="row">
@@ -218,20 +257,20 @@ echo "".$tipo20[0]."</label></div>";
 		</select></div>
 </div>
 <div class="col-sm-3">
-<div class="form-group"><label>Optativa </label><select name="optativ" class="form-control" ">
+<div class="form-group"><label>Optativa </label><select name="optativ" class="form-control">
 		<?php
 		if ($optativ) {
 			echo "<option>$optativ</option>";
 		}
 		?>
 			<option></option>
-			<option>optativa1</option>
-			<option>optativa2</option>
-			<option>optativa3</option>
-			<option>optativa4</option>
-			<option>optativa5</option>
-			<option>optativa6</option>
-			<option>optativa7</option>
+		<?php if ($curso=="1ESO") { $n_optati = '5';}elseif ($curso=="2ESO") { $n_optati = '4';}elseif ($curso=="3ESO") { $n_optati = '8';}else{$n_optati = '6';}
+		for ($i=1; $i < $n_optati; $i++) { 
+		?>
+			<option><?php echo "optativa".$i;?></option>
+		<?php
+		}
+		?>
 		</select></div>
 </div>
 </div>
@@ -280,25 +319,6 @@ echo "".$tipo20[0]."</label></div>";
 		</select></div>
 </div>
 <div class="col-sm-3">
-<div class="form-group"><label>Actividades </label><select name="actividade" class="form-control" >
-		<?php
-		if ($actividade) {
-			echo "<option>$actividade</option>";
-		}
-		?>
-			<option></option>
-			<option>1</option>
-			<option>2</option>
-			<option>3</option>
-			<option>4</option>
-			<option>5</option>
-			<option>6</option>
-		</select></div>
-</div>
-</div>
-
-<div class="row">
-<div class="col-sm-12">
 <div class="form-group"><label align=center>Problemas de Convivencia </label><select name="fechori" class="form-control" >
 		<? if ($fechori) {
 			echo "<option>$fechori</option>";
@@ -331,7 +351,10 @@ echo "".$tipo20[0]."</label></div>";
   <input type="radio" name="op_orden" value="itinerario"> Itinerario de 4º
 </label>
 <label class="radio-inline">
-  <input type="radio" name="op_orden" value="matematicas4"> Matemáticas
+  <input type="radio" name="op_orden" value="matematicas3"> Matematicas 3º
+</label>
+<label class="radio-inline">
+  <input type="radio" name="op_orden" value="optativas4"> Optativas Mod. 4
 </label>
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="diversificacion"> Diversificación
@@ -343,10 +366,10 @@ echo "".$tipo20[0]."</label></div>";
   <input type="radio" name="op_orden" value="grupo_actual"> Grupo actual
 </label>
 <label class="radio-inline">
-  <input type="radio" name="op_orden" value="opt_orden"> Optativas
+  <input type="radio" name="op_orden" value="optativas"> Optativas
 </label>
 <label class="radio-inline">
-  <input type="radio" name="op_orden" value="act_orden"> Actividades
+  <input type="radio" name="op_orden" value="actividades"> Actividades
 </label>
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="religion"> Religion

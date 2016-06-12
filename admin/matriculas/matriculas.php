@@ -201,7 +201,17 @@ if(isset($_POST['enviar'])){
 	}
 	}
 	
+	if (substr($curso,0,1)<'4') {
+		if (empty($act1)) {
+		$vacios.= "Refuerzo o Ampliación de $curso, ";
+		$num+=1;
+		}
+	}
+
 	if ($itinerario) {
+		if($itinerario == '2' and !empty($optativas4)){
+			$optativas4="";
+			}
 		foreach ($opt4 as $opt){
 			foreach ($_POST as $clave=>$valor){
 				if (strstr($clave,$opt)==TRUE) {
@@ -929,7 +939,15 @@ exit();
 
 
 			<td colspan="2">
-			<div class="form-horizontal"><?php $num1 = ''; ?> <?php for ($i = 1; $i < 6; $i++): ?>
+			<div class="form-horizontal"><?php $num1 = ''; ?>
+			<?php 
+			for ($i = 1; $i < 3; $i++) {
+				if (substr($curso, 0, 1) == $i) {
+				$num_optativas = count(${opt.$i})+1;
+				}
+			}
+			?>
+			 <?php for ($i = 1; $i < $num_optativas; $i++): ?>
 			<?php if (substr($curso, 0, 1) == $i): ?> <?php foreach (${opt.$i} as $opt_1): ?>
 			<?php $num1 += 1; ?>
 			<div
@@ -938,7 +956,7 @@ exit();
 				name="optativa<?php echo $num1; ?>"
 				id="optativa<?php echo $num1; ?>">
 				<option value=""></option>
-				<?php for ($z = 1; $z < 5; $z++): ?>
+				<?php for ($z = 1; $z < $num_optativas; $z++): ?>
 				<option value="<?php echo $z; ?>"
 				<?php echo (${optativa.$num1} == $z) ? 'selected': ''; ?>><?php echo $z; ?></option>
 				<?php endfor; ?>
@@ -955,8 +973,8 @@ exit();
 			<?php if (substr($curso, 0, 1) == $i): ?> <?php foreach (${a.$i} as $act_1): ?>
 			<?php $n_a = count(${a.$i})+1; ?> <?php $num1 += 1; ?> <?php if (${act.$num1} == 0) ${act.$num1} = ''; ?>
 			<div class="form-group">
-			<div class="radio"><label> <input type="radio" name="act1"
-				value="<?php echo $num1; ?>" required
+			<div class="radio"><label> <input type="radio" name="act1" required
+				value="<?php echo $num1; ?>" 
 				<?php echo ($act1 == $num1) ? 'checked' : ''; ?>> <?php echo $act_1; ?>
 			</label></div>
 			</div>
@@ -1064,7 +1082,7 @@ exit();
 					<tr>
 				<?php for ($i = 1; $i < 4; $i++): ?>
 						<td class="<?php if($i==1 or $i==2){echo "info";}else{echo "warning";}?> text-center" style="width:33%">
-							<div class="radio"><label> <input type="radio"
+							<div class="radio"><label> <input type="radio" onClick="getElementById('r1').disabled = false;"
 				id="itinerario<?php echo $i; ?>" name="itinerario" required
 							<?php if($itinerario == $i){echo " checked";} ?>
 				value="<?php echo $i; ?>"> <span class="text-uppercase"><strong>Itinerario
@@ -1105,14 +1123,14 @@ exit();
 			<!-- Optativas de It. 1 --> <?php if($i == 1): ?>
 			<p class="form-control-static"><?php echo ${it4.$i}[3]; ?></p>
 			<div class="form-group">
-			<div class="radio"><label> <input type="radio"
+			<div class="radio"><label> <input type="radio" id="r1" disabled
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Biología y Geología"
 				<?php echo ($optativas4 == 'Biología y Geología') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[4]; ?>
 			</label></div>
 			</div>
 			<div class="form-group">
-			<div class="radio"><label> <input type="radio"
+			<div class="radio"><label> <input type="radio" id="r1" disabled
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Economía"
 				<?php echo ($optativas4 == 'Economía') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[5]; ?>
@@ -1121,14 +1139,14 @@ exit();
 
 			<!-- Optativas de It. 3 --> <?php elseif($i == 3): ?>
 			<div class="form-group">
-			<div class="radio"><label> <input type="radio"
+			<div class="radio"><label> <input type="radio" id="r2" 
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Ciencias Aplicadas"
 				<?php echo ($optativas4 == 'Ciencias Aplicadas') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[3]; ?>
 			</label></div>
 			</div>
 			<div class="form-group">
-			<div class="radio"><label> <input type="radio"
+			<div class="radio"><label> <input type="radio" id="r2"
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Iniciación"
 				<?php echo ($optativas4 == 'Iniciación') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[4]; ?>
