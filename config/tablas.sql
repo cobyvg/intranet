@@ -777,6 +777,7 @@ CREATE TABLE IF NOT EXISTS `guardias` (
   `hora` tinyint(1) NOT NULL default '0',
   `fecha` datetime NOT NULL default '0000-00-00 00:00:00',
   `fecha_guardia` date NOT NULL default '0000-00-00',
+  `turno` TINYINT(1) NOT NULL default '1',
   PRIMARY KEY  (`id`),
   KEY `profesor` (`profesor`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
