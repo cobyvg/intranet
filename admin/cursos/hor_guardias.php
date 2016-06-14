@@ -7,7 +7,11 @@ $profesor = $_SESSION['profi'];
 $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
-  ?>
+
+if (isset($_GET['menu']) && $_GET['menu'] == 'guardias' && ! acl_permiso($_SESSION['cargo'], array(1))) {
+	include("../guardias/menu.php");
+}
+?>
  <div class="container">
   <div class="page-header">
   <h2>Información sobre Guardias <small> Datos y Estadísticas</small></h2>
@@ -185,14 +189,22 @@ Profesor
 $query_reg = mysqli_query($db_con, $sql_reg);
 while ($arr_reg = mysqli_fetch_array($query_reg)) {
 	
-$sql1 = mysqli_query($db_con, "SELECT prof
-FROM  `horw` 
-WHERE c_asig = '25' and prof = '$arr_reg[0]'");
-$num_gu = mysqli_num_rows($sql1);	
+	$num_g0=mysqli_query($db_con, "select turno from guardias where profesor = '$arr_reg[0]'");
+	$cont = 0;
+	while ($reg = mysqli_fetch_array($num_g0))
+	{
+		if ( $reg[0] == 2 )
+			$cont = $cont + 0.5;
+		elseif ( $reg[0] == 3 )
+			$cont = $cont + 0.5;
+		else
+			$cont = $cont + 1;
+	}
 
-echo "<tr><td>".nomprofesor($arr_reg[0])."</td><td class='col-sm-2' nowrap>$arr_reg[1] </td><td class='col-sm-2 text-muted' nowrap>$num_gu</td></tr>";
+echo "<tr><td>".nomprofesor($arr_reg[0])."</td><td class='col-sm-2' nowrap>$arr_reg[1] </td><td class='col-sm-2 text-muted' nowrap>$cont</td></tr>";
 
-$num_gureg+=$arr_reg[1];
+//$num_gureg+=$arr_reg[1];
+$num_gureg+=$cont;
 $num_profreg+=1;
 }
 echo "</table>";

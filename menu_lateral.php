@@ -61,7 +61,7 @@ $menu = array(
 				'titulo' => 'Control de Tutorías',
 			),
 			array(
-				'href'   => 'admin/guardias/admin.php',
+				'href'   => 'admin/guardias/index_admin.php',
 				'titulo' => 'Gestión de Guardias',
 				'modulo' => $config['mod_horarios'],
 			),

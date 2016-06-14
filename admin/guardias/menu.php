@@ -2,15 +2,20 @@
 
 $activo1="";
 $activo2="";
+$activo3="";
+$activo4="";
 
-if (strstr($_SERVER['REQUEST_URI'],'/admin.php')==TRUE) {$activo1 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'guardias_admin.php')==TRUE) {$activo2 = ' class="active" ';}
-if (strstr($_SERVER['REQUEST_URI'],'hor_guardias.php')==TRUE) {$activo3 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo1 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'procesa_guardias.php')==TRUE) {$activo1 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'consulta_profesores.php')==TRUE) {$activo2 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'consulta_fechas.php')==TRUE) {$activo3 = ' class="active" ';}
+if (strstr($_SERVER['REQUEST_URI'],'hor_guardias.php')==TRUE) {$activo4 = ' class="active" ';}
 ?>
 		<div class="container hidden-print">			
 			<ul class="nav nav-tabs">
-				<li <?php echo $activo1;?>> <a href="admin.php">Registrar Guardia</a></li>
-				<li <?php echo $activo2;?>> <a href="guardias_admin.php?todos=1">Consultar Guardias</a></li>
-				<li <?php echo $activo3;?>> <a href="../cursos/hor_guardias.php">Informe sobre las Guardias</a></li>
+				<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/index_admin.php">Registrar guardia</a></li>
+				<li <?php echo $activo2;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/consulta_profesores.php">Consulta por profesores</a></li>
+				<li <?php echo $activo3;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/guardias/consulta_fechas.php">Consulta por fechas</a></li>
+				<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/hor_guardias.php?menu=guardias">Informe sobre las Guardias</a></li>
 			</ul>
 		</div>

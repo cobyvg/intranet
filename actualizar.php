@@ -634,4 +634,16 @@ if (! mysqli_num_rows($actua)) {
 	mysqli_query($db_con, "ALTER TABLE  `ausencias` ADD  `Observaciones` TEXT NULL");
 }
 
+/*
+ @descripcion: Campo turno en tabla guardias
+ @fecha: 12 de Junio de 2016
+ */
 
+ $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Campo turno en tabla guardias'");
+if (! mysqli_num_rows($actua)) {
+	
+	mysqli_query($db_con, "ALTER TABLE guardias ADD turno TINYINT(1);");
+	mysqli_query($db_con, "UPDATE guardias SET turno = 1;");
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Campo turno en tabla guardias', NOW())");
+}

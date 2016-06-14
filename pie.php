@@ -70,7 +70,7 @@
 	<!-- FIN MODAL SESIÓN -->
     
     <!-- BOOTSTRAP JS CORE -->
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/jquery-1.12.1.min.js"></script>  
+    <script src="//<?php echo $config['dominio'];?>/intranet/js/jquery-1.12.4.min.js"></script>  
     <script src="//<?php echo $config['dominio'];?>/intranet/js/bootstrap.min.js"></script>
     
     <!-- PLUGINS JS -->
