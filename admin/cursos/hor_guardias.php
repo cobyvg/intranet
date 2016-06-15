@@ -8,7 +8,7 @@ $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
 
-if (isset($_GET['menu']) && $_GET['menu'] == 'guardias' && ! acl_permiso($_SESSION['cargo'], array(1))) {
+if (isset($_GET['menu']) && $_GET['menu'] == 'guardias' && acl_permiso($_SESSION['cargo'], array(1))) {
 	include("../guardias/menu.php");
 }
 ?>

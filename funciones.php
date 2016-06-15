@@ -43,14 +43,14 @@ function acl_permiso($cargo_usuario, $cargo_requerido) {
 		$nopermitido = 0;
 	}
 	
-	return $nopermitido;
+	return $nopermitido ? 0 : 1;
 }
 
 
 function acl_acceso($cargo_usuario, $cargo_requerido) {
-	$noTienePermiso = acl_permiso($cargo_usuario, $cargo_requerido);
+	$tienePermiso = acl_permiso($cargo_usuario, $cargo_requerido);
 	
-	if ($noTienePermiso) {
+	if (! $tienePermiso) {
 		$db_con = $GLOBALS['db_con'];
 		
 		include(INTRANET_DIRECTORY . '/config.php');
