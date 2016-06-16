@@ -1,46 +1,40 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1));
-
-
 if (isset($_GET['id'])) $id = $_GET['id']; elseif (isset($_POST['id'])) $id = $_POST['id']; else $id="";
 if (isset($_GET['profesor'])) $profesor = $_GET['profesor']; 
 elseif (isset($_POST['profesor'])) $profesor = $_POST['profesor']; 
 else {
-	$result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw WHERE c_asig NOT IN (SELECT DISTINCT idactividad FROM actividades_seneca WHERE idactividad <> '2' AND idactividad <> '21') ORDER BY prof ASC LIMIT 1");
-	$row = mysqli_fetch_array($result);
-	$profesor = $row['prof'];
+	if (acl_permiso($_SESSION['cargo'], array(1))) {  
+		$result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw WHERE c_asig NOT IN (SELECT DISTINCT idactividad FROM actividades_seneca WHERE idactividad <> '2' AND idactividad <> '21') ORDER BY prof ASC LIMIT 1");
+		$row = mysqli_fetch_array($result);
+		$profesor = $row['prof'];
+	}
+	else {
+		$profesor = $pr;
+	}
 }
+if (isset($_GET['diasem'])) $diasem = $_GET['diasem']; 
+if (isset($_GET['hora'])) $hora = $_GET['hora']; 
 
 
-if ($no_dia== '1') {$nombre_dia = 'Lunes';}
-if ($no_dia== '2') {$nombre_dia = 'Martes';}
-if ($no_dia== '3') {$nombre_dia = 'Miércoles';}
-if ($no_dia== '4') {$nombre_dia = 'Jueves';}
-if ($no_dia== '5') {$nombre_dia = 'Viernes';}
-$mes=date('m');
-$dia_n = date('d');
-$ano = date('Y');
-$numerodiasemana = date('w', mktime(0,0,0,$mes,$dia_n,$ano));
-
-if ($no_dia> $numerodiasemana) {
-	$dif = $no_dia- $numerodiasemana;
-	$g_dia = date('d')+$dif;
+function dia_semana($dia) {
+	
+	$texto = "";
+	
+	switch ($dia) {
+		case 1 : $texto = 'lunes'; break;
+		case 2 : $texto = 'martes'; break;
+		case 3 : $texto = 'miércoles'; break;
+		case 4 : $texto = 'jueves'; break;
+		case 5 : $texto = 'viernes'; break;
+		case 6 : $texto = 'sábado'; break;
+		case 7 : $texto = 'domingo'; break;
+	}
+	
+	return $texto;
+	
 }
-if ($no_dia< $numerodiasemana) {
-	$dif = $numerodiasemana - $no_dia;
-	$g_dia = date('d')-$dif;
-}
-if ($no_dia== $numerodiasemana) {
-	$dif = 0;
-	$g_dia = date('d');
-}
-if ($g_dia=="") {
-	$g_dia = date('d');
-}
-$g_fecha = date("Y-m-$g_dia");
-$fecha_sp = formatea_fecha($g_fecha);
 
 include("../../menu.php");
 include("menu.php");
@@ -57,6 +51,7 @@ include("menu.php");
 <div class="container">
 	
 	<div class="page-header">
+		<?php if (acl_permiso($_SESSION['cargo'], array(1))): ?>
 		<form method="post" action="">
 			<div class="pull-right">
 				<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw WHERE c_asig NOT IN (SELECT DISTINCT idactividad FROM actividades_seneca WHERE idactividad <> '2' AND idactividad <> '21') ORDER BY prof ASC"); ?>
@@ -74,6 +69,7 @@ include("menu.php");
 				<?php mysqli_free_result($result); ?>
 			</div>
 		</form>
+		<?php endif; ?>
 		
 		<h2 style="display: inline;">Guardias de aula <small>Consulta por profesores</small></h2>
 	</div>
@@ -106,9 +102,21 @@ include("menu.php");
 
 		<div class="col-sm-7 col-print-100">
 			
-			<h4><span class="fa fa-history fa-fw"></span> Histórico de guardias</h4>
+			<?php if (! empty($diasem) && ! empty($hora)): ?>
+			<h4>
+				<span class="fa fa-history fa-fw"></span> Histórico de guardias: <span class="text-info"><?php echo dia_semana($diasem).' a '.$hora; ?>ª hora</span>
+				<a class="btn btn-default btn-sm pull-right" href="consulta_profesores.php">Eliminar filtro</a>
+			</h4>
+			<?php $result = mysqli_query($db_con, "SELECT id, profesor, profe_aula, fecha_guardia, dia, hora, turno FROM guardias WHERE profesor = '$profesor' AND dia = '$diasem' AND hora = '$hora' ORDER BY fecha_guardia DESC"); ?>
+			<?php $uri_extra = "&diasem=$diasem&hora=$hora"; ?>
 
+			<?php else: ?>
+			
+			<h4><span class="fa fa-history fa-fw"></span> Histórico de guardias</h4>
 			<?php $result = mysqli_query($db_con, "SELECT id, profesor, profe_aula, fecha_guardia, dia, hora, turno FROM guardias WHERE profesor = '$profesor' ORDER BY fecha_guardia DESC"); ?>
+			
+			<?php endif; ?>
+			
 			<?php if (mysqli_num_rows($result)): ?>
 			
 			<div class="table-responsive">
@@ -119,7 +127,9 @@ include("menu.php");
 							<th>Fecha</th>
 							<th>Hora</th>
 							<th>Turno</th>
+							<?php if (acl_permiso($_SESSION['cargo'], array(1)) || nomprofesor($profesor) == nomprofesor($pr)): ?>
 							<th class="hidden-print"></th>
+							<?php endif; ?>
 						</tr>
 					</thead>
 					<tbody>
@@ -128,10 +138,12 @@ include("menu.php");
 							<td><?php echo nomprofesor($row['profe_aula']); ?></td>
 							<td><?php echo strftime('%A %e, %B %Y' ,strtotime($row['fecha_guardia'])); ?></td>
 							<td><?php echo $row['hora']; ?>ª</td>
-							<td><?php if ($row['turno'] == 1) echo '1 hora'; elseif ($row['turno'] == 2) echo '1ª media hora'; else echo '2ª media hora'; ?></td>
+							<td><?php if ($row['turno'] == 1) echo 'Hora completa'; elseif ($row['turno'] == 2) echo '1ª media hora'; else echo '2ª media hora'; ?></td>
+							<?php if (acl_permiso($_SESSION['cargo'], array(1)) || nomprofesor($profesor) == nomprofesor($pr)): ?>
 							<td class="hidden-print">
-								<a href="?id=<?php echo $row['id']; ?>&borrar=1&profesor=<?php echo $row['profesor']; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Borrar"><span class="fa fa-trash fa-lg fa-fw"></span></a>
+								<a href="?id=<?php echo $row['id']; ?>&borrar=1&profesor=<?php echo nomprofesor($row['profesor']); ?><?php if (isset($uri_extra)) echo $uri_extra; ?>" data-bb="confirm-delete" data-bs="tooltip" title="Borrar"><span class="fa fa-trash fa-lg fa-fw"></span></a>
 							</td>
+							<?php endif; ?>
 						</tr>
 						<?php endwhile; ?>
 					</tbody>

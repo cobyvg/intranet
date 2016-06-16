@@ -1,7 +1,6 @@
 <?php
 require('../../bootstrap.php');
 
-acl_acceso($_SESSION['cargo'], array(1));
 
 function texto_turno($turno) {
 	
@@ -26,19 +25,19 @@ if (isset($_POST['fecha_guardia'])) $fecha_guardia = mysqli_real_escape_string($
 if (isset($_POST['hora_guardia'])) $hora = mysqli_real_escape_string($db_con, $_POST['hora_guardia']);
 if (isset($_POST['turno_guardia'])) $turno = mysqli_real_escape_string($db_con, $_POST['turno_guardia']);
 
-
 // COMPROBACIÓN DEL FORMULARIO
 
 // Campos vacíos
-if (empty($_POST['profesor']) || empty($_POST['ausente']) || empty($_POST['fecha_guardia']) || empty($_POST['hora_guardia']) || empty($_POST['turno_guardia'])) {
+if (empty($_POST['profesor']) || empty($_POST['ausente']) || empty($_POST['fecha_guardia']) || empty($_POST['hora_guardia']) || empty($_POST['turno_guardia']) || (isset($_POST['diasdif']) && $_POST['diasdif'] > 2)) {
 
-	$msg_error = "<h4>Campos sin cumplimentar</h4>\n<ul>";
+	$msg_error = "<h4>Error al procesar el formulario</h4>\n<ul>";
 
-	if (empty($_POST['profesor'])) $msg_error .= "<li>Profesor sustituto - No has seleccionado el profesor que va a realizar la guardia.</li>\n";
-	if (empty($_POST['ausente'])) $msg_error .= "<li>Profesor ausente - No has seleccionado el profesor que va a ausentarse.</li>\n";
+	if (empty($_POST['profesor'])) $msg_error .= "<li>Profesor/a de guardia - No has seleccionado el profesor que va a realizar la guardia.</li>\n";
+	if (empty($_POST['ausente'])) $msg_error .= "<li>Profesor/a ausente - No has seleccionado el profesor que va a ausentarse.</li>\n";
 	if (empty($_POST['fecha_guardia'])) $msg_error .= "<li>Fecha de la guardia - No has seleccionado la fecha de la guardia.</li>\n";
 	if (empty($_POST['hora_guardia'])) $msg_error .= "<li>Hora de la guardia - No has seleccionado la hora de la guardia.</li>\n";
 	if (empty($_POST['turno_guardia'])) $msg_error .= "<li>Turno de la guardia - No has seleccionado el turno de la guardia.</li>\n";
+	if (isset($_POST['diasdif']) && $_POST['diasdif'] > 2) $msg_error .= "<li>Plazo de registro - Estás intentando registrar una guardia con dos días o más de diferencia respecto a la fecha de la guardia, y eso no es posible. Si por motivo justificado necesitas hacerlo, ponte en contacto con algún miembro del Equipo directivo.</li>\n";
 
 	$msg_error .= "</ul>\n";
 }
@@ -73,7 +72,7 @@ else {
 		
 	}
 	else {
-	
+		
 		$result = mysqli_query($db_con, "SELECT id, profesor, profe_aula, hora, fecha, fecha_guardia, turno FROM guardias WHERE dia = '$diasem' AND hora = '$hora' AND fecha_guardia = '$fechasql' AND profe_aula = '$ausente'");
 		
 		if ($num_reg = mysqli_num_rows($result)) {
@@ -298,7 +297,11 @@ include("menu.php");
 			<?php else: ?>
 			
 			<div class="text-center">
+				<?php if (acl_permiso($_SESSION['cargo'], array(1))): ?>
 				<a class="btn btn-primary" href="index_admin.php">Volver</a>
+				<?php else: ?>
+				<a class="btn btn-primary" href="index.php?diasem=<?php echo $diasem; ?>&hora=<?php echo $hora; ?>">Volver</a>
+				<?php endif; ?>
 			</div>
 			<?php endif; ?>
 			
@@ -306,130 +309,8 @@ include("menu.php");
 			
 		</div>
 
-
-
 	</div>
 
-<?php
-/*
-
-
-		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = date('$g_fecha') and profesor = '$profesor'"  );
-
-		if (mysqli_num_rows($reg_sust0) > '0') {
-			$c1 = "1";
-			
-			$reg_sust = mysqli_fetch_array($reg_sust0);
-			$id= $reg_sust[0];
-			$prof_sust= $reg_sust[1];
-			$prof_reg= $reg_sust[2];
-			$hor_reg = $reg_sust[3];
-			$fecha_reg0 = explode(" ",$reg_sust[4]);
-			$fecha_reg = $fecha_reg0[0];
-			
-			$reg_sust1 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia, turno from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = date('$g_fecha') and profe_aula = '$sustituido'");
-			
-			// en el caso de que ya haya sido sustituido por otro profesor ya no puede cambiar guardia hasta que el otro profesor borre su guardia, compruebo que sea > 1 ya que 1 es el registro que quiere modificar y si hay otro es que otro profesor ha cogido la otra media hora.
-			    
-			if (mysqli_num_rows($reg_sust1) > '1') {
-				$c1 = "2";
-				
-				$reg_sust2 = mysqli_fetch_array($reg_sust1);
-				$id= $reg_sust2[0];
-				$prof_sust= $reg_sust2[1];
-				$prof_reg= $reg_sust2[2];
-				$fecha_reg0 = explode(" ",$reg_sust2[4]);
-				$fecha_reg = $fecha_reg0[0];
-				
-				echo '<div class="alert alert-warning alert-block fade in"><legend>ATENCIï¿½N:</legend>'.$sustituido .'ya ha sido sustituido a la '.$hora.' hora el dï¿½a '.$fecha_reg.'. Selecciona otro profesor y continï¿½a.</div>';
-				
-			}
-			else{
-				
-				mysqli_query($db_con, "update guardias set profe_aula = '$sustituido', turno='$turno' where id = '$id'");
-				echo '<div class="alert alert-success alert-block fade in">Has actualizado correctamente los datos del Profesor que sustituyes.</div>';
-			}
-		}
-		else{
-
-		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = date('$g_fecha') and profe_aula = '$sustituido' and (turno='$turno' or turno='1')");
-		    // en el caso de que ya haya sido sustituido por otro profesor con el mismo turno o a hora completa manda mensaje de error
-			if (mysqli_num_rows($reg_sust0) > '0' ) {
-		$c1 = "2";
-		$reg_sust = mysqli_fetch_array($reg_sust0);
-		$id= $reg_sust[0];
-		$prof_sust= $reg_sust[1];
-		$prof_reg= $reg_sust[2];
-		$fecha_reg0 = explode(" ",$reg_sust[4]);
-		$fecha_reg = $fecha_reg0[0];
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIï¿½N:</legend>'.
-$sustituido .'ya ha sido sustituido a la '.$hora.' hora el dï¿½a '.$fecha_reg.'. Selecciona otro profesor y continï¿½a.
-</div></div><br>';
-			}
-		else{
-
-		$reg_sust0 = mysqli_query($db_con, "select id, profesor, profe_aula, hora, fecha_guardia from guardias where dia = '$n_dia' and hora = '$hora' and date(fecha_guardia) = date('$g_fecha') and profe_aula = '$sustituido' and turno <> '$turno'");
-		    // en el caso de que ya haya sido sustituido por otro profesor con distinto turno y quiera apuntarse toda la hora
-			if ((mysqli_num_rows($reg_sust0) > '0')  && ($turno == 1)) {
-		$c1 = "2";
-		$reg_sust = mysqli_fetch_array($reg_sust0);
-		$id= $reg_sust[0];
-		$prof_sust= $reg_sust[1];
-		$prof_reg= $reg_sust[2];
-		$fecha_reg0 = explode(" ",$reg_sust[4]);
-		$fecha_reg = $fecha_reg0[0];
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIï¿½N:</legend>'.
-$sustituido .'ya ha sido sustituido a la '.$hora.' hora el dï¿½a '.$fecha_reg.'. Selecciona otro profesor y continï¿½a.
-</div></div><br>';
-			}
-			else{
-
-		if (!($c1) > '0') {
-
-			$ya = mysqli_query($db_con, "select * from ausencias where profesor = '$sustituido' and date(inicio) <= date('$g_fecha') and date(fin) >= ('$g_fecha')");
-
-		if (mysqli_num_rows($ya) > '0') {
-			$ausencia_ya = mysqli_fetch_array($ya);
-			$horas = $ausencia_ya[4];
-			if ($horas!=="0" and $horas!=="" and strstr($horas, $hora)==FALSE) {
-				$horas=$horas.$hora;
-				$actualiza = mysqli_query($db_con, "update ausencias set horas = '$horas' where id = '$ausencia_ya[0]'");
-				}
-		}
-		else{
-			$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$sustituido', '$g_fecha', '$g_fecha', '$hora', '', NOW(), '')");
-		}
-
-
-			$r_profe = mb_strtoupper($profesor, "ISO-8859-1");
-			mysqli_query($db_con, "insert into guardias (profesor, profe_aula, dia, hora, fecha, fecha_guardia, turno ) VALUES ('$r_profe', '$sustituido', '$n_dia', '$hora', NOW(), '$g_fecha', '$turno')");
-			if (mysqli_affected_rows() > 0) {
-				echo '<div align="center"><div class="alert alert-success alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-Has registrado correctamente a '.$sustituido.' a '.$hora.' hora en el turno '.$turno.' para sustituirle en al Aula.
-</div></div><br>';
-			}
-		}
-			}
-		}
-		}
-
-
-	}
-	else{
-		echo '<div align="center"><div class="alert alert-warning alert-block fade in">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<legend>ATENCIï¿½N:</legend>
-No has seleccionado a ningï¿½n profesor para sustituir. Elige uno de la lista desplegable para registrar esta hora.
-          </div></div>';
-		}
-}
-*/
-?>
 </div>
 </div>
 </div>

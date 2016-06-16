@@ -65,7 +65,7 @@ if ($algo) {
 				echo "<a href='//".$config['dominio']."/intranet/admin/fechorias/admin.php' style='text-decoration: none;'><span class='label label-success' data-bs='tooltip' title='".$rowasignatur1[3]."'>".$rowasignatur1[1]."</span>";
 			}
 			else{
-				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/index.php?n_dia=$z&hora=$n_hora&profeso=$pr' style='text-decoration: none;'><span class='label label-danger' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span></a>";
+				echo "<a href='//".$config['dominio']."/intranet/admin/guardias/index.php?diasem=$z&hora=$n_hora' style='text-decoration: none;'><span class='label label-danger' data-bs='tooltip' title='".$rowasignatur1[3]."'>" . $rowasignatur1 [1] . "</span></a>";
 			}
 		}
 		// Recorremos los grupos a los que da en ese hora.

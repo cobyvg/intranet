@@ -73,7 +73,7 @@ $fecha = date("Y-m-d", mktime(0,0,0, $mes, $dia, $anio));
 								<td><?php echo nomprofesor($row2['profe_aula']); ?></td>
 								<td><?php echo $row2['a_grupo']; ?></td>
 								<td><?php echo $row2['n_aula']; ?></td>
-								<td><?php if ($row2['turno'] == 1) echo '1 hora'; elseif ($row2['turno'] == 2) echo '1ª media hora'; else echo '2ª media hora'; ?></td>
+								<td><?php if ($row2['turno'] == 1) echo 'Hora completa'; elseif ($row2['turno'] == 2) echo '1ª media hora'; else echo '2ª media hora'; ?></td>
 							</tr>
 							<?php endwhile; ?>
 							<?php else: ?>

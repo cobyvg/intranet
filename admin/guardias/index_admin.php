@@ -6,9 +6,6 @@ acl_acceso($_SESSION['cargo'], array(1));
 include("../../menu.php");
 
 if (isset($_POST['profesor'])) $profesor = $_POST['profesor']; else $profesor="";
-if (isset($_POST['sustituido'])) $sustituido = $_POST['sustituido']; else $sustituido="";
-if (isset($_POST['hora'])) $hora = $_POST['hora']; else $hora="";
-if (isset($_POST['gu_fecha'])) $gu_fecha = $_POST['gu_fecha']; else $gu_fecha="";
 
 include 'menu.php';
 ?>
@@ -54,9 +51,8 @@ include 'menu.php';
 	
 	
 	<?php if (! $config['mod_horarios']): ?>
-	<div class="alert alert-warning alert-block fade in">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		<h5>ATENCIÓN:</h5>
+	<div class="alert alert-warning">
+		<h5>Módulo desactivado</h5>
 		El módulo de Horarios debe ser activado en la Configuración general de la Intranet para poder acceder a estas páginas, y ahora mismo está desactivado.
 	</div>
 	<?php else: ?>
@@ -73,7 +69,7 @@ include 'menu.php';
 						<legend>Profesor/a de guardia</legend>
 				
 						<div class="form-group">
-							<label>Seleccione profesor/a</label> 
+							<label for="profesor">Seleccione profesor/a</label> 
 							<select class="form-control" id="profesor" name="profesor" onchange="submit()" required>
 								<option value=""></option>
 								<?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw WHERE c_asig = '25' ORDER BY prof ASC"); ?>
@@ -107,12 +103,12 @@ include 'menu.php';
 						<input type="hidden" id="profesorh" name="profesor" value="<?php echo $profesor; ?>">
 						
 						<div class="form-group">
-							<label>Profesor/a ausente</label>
+							<label for="ausente">Profesor/a ausente</label>
 							<select class="form-control" id="ausente" name="ausente" required>
 								<option value=""></option>
 							    <?php $result = mysqli_query($db_con, "SELECT DISTINCT prof FROM horw WHERE prof <>'".$profesor."' ORDER BY prof ASC"); ?>
 								<?php while ($row = mysqli_fetch_array($result)): ?>
-								<option value="<?php echo nomprofesor($row['prof']); ?>" <?php echo ($row['prof'] == $ausente) ? 'selected' : ''; ?>><?php echo nomprofesor($row['prof']); ?></option>
+								<option value="<?php echo nomprofesor($row['prof']); ?>"><?php echo nomprofesor($row['prof']); ?></option>
 								<?php endwhile; ?>
 							</select>
 					    </div>
@@ -122,9 +118,9 @@ include 'menu.php';
 					    	<div class="col-md-6">
 					    		
 					    		<div class="form-group" id="datetimepicker1">     
-					    			<label>Fecha</label>
+					    			<label for="fecha_guardia">Fecha</label>
 					    				<div class="input-group">
-					    					<input type="text" class="form-control" id="fecha_guardia" name="fecha_guardia" value="<?php echo (isset($fecha_guardia) && $fecha_guardia) ? $fecha_guardia : date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY" required>
+					    					<input type="text" class="form-control" id="fecha_guardia" name="fecha_guardia" value="<?php echo date('d-m-Y'); ?>" data-date-format="DD-MM-YYYY" required>
 					    				<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
 					    			</div>   
 					    		</div>
@@ -134,7 +130,7 @@ include 'menu.php';
 					    	<div class="col-md-6">
 					    		
 					    		<div class="form-group">
-					    			<label>Hora:</label> 
+					    			<label for="hora_guardia">Hora:</label> 
 					    			<select class="form-control" id="hora_guardia" name="hora_guardia" required>
 					    				<?php for ($i = 1; $i < 7; $i++): ?>
 					    				<option value="<?php echo $i; ?>" <?php echo ($i == $hora) ? 'selected' : ''; ?>><?php echo $i; ?>ª hora</option>
@@ -146,10 +142,10 @@ include 'menu.php';
 					    
 					    </div><!-- /.row -->
 						
-						<?php $array_turnos = array(1 => '1 hora', 2 => '1ª media hora', 3 => '2ª media hora'); ?> 
+						<?php $array_turnos = array(1 => 'Hora completa', 2 => '1ª media hora', 3 => '2ª media hora'); ?> 
 						
 						<div class="form-group">
-							<label>Turno:</label> 
+							<label for="turno_guardia">Turno:</label> 
 							<select	class="form-control" id="turno_guardia" name="turno_guardia" required>
 								<?php for ($i = 1; $i < count($array_turnos)+1; $i++): ?>
 								<option value="<?php echo $i; ?>"><?php echo $array_turnos[$i]; ?></option>
