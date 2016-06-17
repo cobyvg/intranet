@@ -777,7 +777,6 @@ CREATE TABLE IF NOT EXISTS `guardias` (
   `hora` tinyint(1) NOT NULL default '0',
   `fecha` datetime NOT NULL default '0000-00-00 00:00:00',
   `fecha_guardia` date NOT NULL default '0000-00-00',
-  `turno` TINYINT(1) NOT NULL default '1',
   PRIMARY KEY  (`id`),
   KEY `profesor` (`profesor`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
@@ -1314,7 +1313,6 @@ CREATE TABLE IF NOT EXISTS `matriculas_bach` (
   `optativa2b7` tinyint(1) default NULL,
   `optativa2b8` tinyint(1) default NULL,
   `optativa2b9` tinyint(1) default NULL,
-  `optativa2b10` tinyint(1) default NULL,
   `repite` tinyint(1) NOT NULL default '0',
   `enfermedad` varchar(254) collate latin1_spanish_ci NOT NULL,
   `otraenfermedad` varchar(254) collate latin1_spanish_ci NOT NULL,
@@ -1328,6 +1326,7 @@ CREATE TABLE IF NOT EXISTS `matriculas_bach` (
   `opt_aut24` int(1) NOT NULL,
   `opt_aut25` int(1) NOT NULL,
   `opt_aut26` int(1) NOT NULL,
+  `opt_aut27` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1;
 
