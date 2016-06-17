@@ -98,39 +98,55 @@ if (isset($_POST['submit2'])) {
 Los datos se han actualizado correctamente.
           </div></div>';			
 		}
-			else{
-			if ($_FILES['userfile']['name'] != ''){
+		else{
+			$ok = 1;
+			if ($_FILES['userfile']['name'] != '') {
 				$nombre_archivo = $_FILES['userfile']['name'];
 				$tipo_archivo = $_FILES['userfile']['type'];
 				$tamano_archivo = $_FILES['userfile']['size'];
 				#esta es la extension
 				
-				// Sanitizamos el nombre del archivo
-				$caracteres_no_permitidos = array(' ', 'á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú');
-				$caracteres_permitidos = array('_', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
-				$nombre_archivo = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $nombre_archivo);
+				$formatos_no_validos = array('text/php','text/javascript','text/html');
 				
-				if (move_uploaded_file($_FILES['userfile']['tmp_name'], "./archivos/".$nombre_archivo)){}
-				else{
-					echo '<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong>Atención:</strong><br />Ha ocurrido un error al subir el aechivo. Busca ayuda.
-          </div>';
+				if (in_array($tipo_archivo, $formatos_no_validos)) {
+					echo '<div class="alert alert-danger">
+					        <button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Atención:</strong><br />Ha ocurrido un error al subir el archivo. El formato del archivo no es válido.
+					      </div>';
+					$ok = 0;
 				}
+				else {
+					// Sanitizamos el nombre del archivo
+					$caracteres_no_permitidos = array(' ', 'á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú');
+					$caracteres_permitidos = array('_', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+					$nombre_archivo = str_replace($caracteres_no_permitidos, $caracteres_permitidos, $nombre_archivo);
+					
+					if (! move_uploaded_file($_FILES['userfile']['tmp_name'], "./archivos/".$nombre_archivo)) {
+						echo '<div class="alert alert-danger">
+					            <button type="button" class="close" data-dismiss="alert">&times;</button>
+								<strong>Atención:</strong><br />No ha sido posible subir el archivo. Contacta con el administrador de la aplicación.
+					          </div>';
+					    $ok = 0;
+					}
 				}
+			}
+			
+			if ($ok) {
 				$inserta = mysqli_query($db_con, "insert into ausencias VALUES ('', '$profesor', '$inicio1', '$fin1', '$horas', '$tareas', NOW(), '$nombre_archivo', '$observaciones')");
 				echo '<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-Los datos se han registrado correctamente.
-          </div>';		
+				        <button type="button" class="close" data-dismiss="alert">&times;</button>
+				        Los datos se han registrado correctamente.
+				      </div>';		
 			}
+			
+		}
 			
 	}
 	else{
 		echo '<div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
 			<legend>ATENCIÓN:</legend>
-No se pueden procesar los datos. Has dejado campos vacíos en el formulario que es necesario rellenar. Vuelve atrás e inténtalo de nuevo.
+			No se pueden procesar los datos. Has dejado campos vacíos en el formulario que es necesario rellenar. Vuelve atrás e inténtalo de nuevo.
           </div>';
 
 		exit();
