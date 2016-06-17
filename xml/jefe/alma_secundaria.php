@@ -14,9 +14,9 @@ include("../../menu.php");
 <div class="well well-large" style="width:600px;margin:auto;text-align:left">
 <?php
 if($_FILES['archivo1']){
+
 // Creamos Base de datos y enlazamos con ella.
- $base0 = "DROP TABLE `alma_secundaria`";
- mysqli_query($db_con, $base0);
+ mysqli_query($db_con, "DROP TABLE `alma_secundaria`");
 
  // Creación de la tabla alma
  $alumnos = "CREATE TABLE  `alma_secundaria` (

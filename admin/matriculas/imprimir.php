@@ -45,84 +45,86 @@ while ($id_ar = mysqli_fetch_array($result0)) {
 $id = $id_ar[0];
 $result = mysqli_query($db_con, "select * from matriculas where id = '$id'");
 if ($row = mysqli_fetch_array ( $result )) {
-	$apellidos = "Apellidos del Alumno: ". $row[2];
-	 $nombre= "Nombre: ".$row[3];
-	 $nacido= "Nacido en: ".$row[4];
-	 $nacimiento = cambia_fecha($row[6]);
-	 $provincia= "Provincia de: ".$row[5];
+	$apellidos = "Apellidos del Alumno: ". $row['apellidos'];
+	 $nombre= "Nombre: ".$row['nombre'];
+	 $nacido= "Nacido en: ".$row['nacido'];
+	 $nacimiento = cambia_fecha($row['nacimiento']);
+	 $provincia= "Provincia de: ".$row['provincia'];
 	 $fecha_nacimiento= "Fecha de Nacimiento: $nacimiento";
-	 $domicilio= "Domicilio: ".$row[7];
-	 $localidad= "Localidad: ".$row[8];
-	 $dni= "DNI del alumno: ".$row[9];
-	 $padre= "Apellidos y nombre del Tutor legal 1: ".$row[10];
-	 $pa = explode(", ", $row[10]);
+	 $domicilio= "Domicilio: ".$row['domicilio'];
+	 $localidad= "Localidad: ".$row['localidad'];
+	 $dni= "DNI del alumno: ".$row['dni'];
+	 $padre= "Apellidos y nombre del Tutor legal 1: ".$row['padre'];
+	 $pa = explode(", ", $row['padre']);
 	 $papa = "$pa[1] $pa[0]";
-	 $dnitutor= "DNI: ".$row[11];
-	 $madre= "Apellidos y nombre del Tutor legal 2: ".$row[12];
-	 $dnitutor2= "DNI: ".$row[13];
-	 $telefono1= "Teléfono Casa: ".$row[14];
-	 $telefono2= "Teléfono Móvil: ".$row[15];
+	 $dnitutor= "DNI: ".$row['dnitutor'];
+	 $madre= "Apellidos y nombre del Tutor legal 2: ".$row['madre'];
+	 $dnitutor2= "DNI: ".$row['dnitutor2'];
+	 $telefono1= "Teléfono Casa: ".$row['telefono1'];
+	 $telefono2= "Teléfono Móvil: ".$row['telefono2'];
 	 $telefonos="$telefono1\n   $telefono2";
-	 $idioma = $row[20];
-	 $religion = $row[21];
+	 $idioma = $row['idioma'];
+	 $religion = $row['religion'];
 	 $itinerario = $row['itinerario'];
-	 $matematicas4 = $row['matematicas4'];
+	 $optativas4 = $row['optativas4'];
+	  if(stristr($optativas4,'Iniciaci')==TRUE){$optativas4='Iniciación Actividad Emprendedora';}
 	 $matematicas3 = $row['matematicas3'];
-	 if ($row[16] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row[17]; }else{	 $colegio= "Centro de procedencia:  ".$row[16]; }
-	 $correo= "Correo electrónico de padre o madre: ".$row[19];
+	 if ($row['colegio'] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row['otrocolegio']; }else{	 $colegio= "Centro de procedencia:  ".$row['colegio']; }
+	 $correo= "Correo electrónico de padre o madre: ".$row['correo'];
 	 // Optativas y refuerzos
 	 $n_curso = substr($curso, 0, 1);
 	 $n_curso2 = $n_curso-1;
+
 	 if ($n_curso == '1') {
-$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-$a1 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C.", "Taller de Lenguas Extranjeras");
+	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
+	$a1 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Matemáticas Recreativas", "Ampliación: Taller de Teatro", "Ampliación: Taller de Lenguas Extranjeras");
 	 }
+
 	 if ($n_curso == '2') {
-$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Métodos de la Ciencia");
-$a1 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C. II");
-$opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
-$a21 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C.", "Taller de Lenguas Extranjeras");
+	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma");
+	$a1 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
+	$opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Tecnología Aplicada");
+	$a21 = array("Actividades de refuerzo de Lengua Castellana", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C.", "Ampliación: Matemáticas Recreativas", "Ampliación: Taller de Teatro", "Ampliación: Taller de Lenguas Extranjeras (Se debe elegir Alemán o Francés como Optativa)");
 	 }
+
 	 if ($n_curso == '3') {
-$opt1 = array("Alemán 2º Idioma","Cambios Sociales", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-$opt21 = array("Alemán 2º Idioma","Cambios Sociales", "Francés 2º Idioma","Métodos de la Ciencia");
-$a21 = array("Actividades de Lengua Castellana ", "Actividades de Matemáticas", "Actividades de Inglés", "Taller T.I.C. II");
+	$opt1 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
+	$a1 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Lengua", "Ampliación: Matemáticas", "Ampliación: Inglés");
+	$opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma");
+	$a21 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
 	 }
+
 if ($n_curso == '4') {
-	$it41 = array("(Bachillerato de Ciencias y Tecnología - Vía de Ciencias de la Naturaleza y la Salud)", "Física y Química", "Biología y Geología", "Matemáticas B", "Alemán 2º Idioma", "Francés 2º Idioma", "Informática");
-	$it42 = array("(Bachillerato de Ciencias y Tecnología - Vía de Ciencias e Ingeniería)", "Física y Química", "Tecnología", "Matemáticas B", "Alemán 2º Idioma", "Francés 2º Idioma", "Informática", "Ed. Plástica y Visual");
-	$it43 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Latín", "Música", "Matemáticas A", "Matemáticas B", "Alemán 2º Idioma", "Francés 2º Idioma", "Informática", "Ed. Plástica y Visual");
-	$it44 = array("(Ciclos Formativos y Mundo Laboral)", "Informática", "Ed. Plástica y Visual", "Matemáticas A", "Alemán 2º Idioma", "Francés 2º Idioma", "Tecnología");
-	
-	$opt41=array("Alemán 2º Idioma", "Francés 2º Idioma", "Informática");
-	$opt42=array("Alemán 2º Idioma", "Francés 2º Idioma","Informática", "Ed. Plástica y Visual");
-	$opt43=array("Alemán 2º Idioma", "Francés 2º Idioma", "Informática", "Ed. Plástica y Visual");
-	$opt44=array("Alemán 2º Idioma", "Francés 2º Idioma", "Tecnología");
-	
+	$it41 = array("(Bachillerato de Ciencias)", "Matemáticas Académicas", "Tecnología (Sólo Ingeniería y Arquitectura)", "Física y Química", "Biología y Geología", "Economía");
+	$it42 = array("(Bachillerato de Humanidades y Ciencias Sociales)", "Matemáticas Académicas", "Latín", "Economía");
+	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "Matemáticas Aplicadas", "Tecnología", "Ciencias Aplicadas a la Actividad Profesional", "Iniciación a la Actividad Emprendedora y Empresarial");
+	$opt1=array("Alemán 2º Idioma", "Francés 2º Idioma", "TIC", "Ed. Plástica y Visual", "Música");
 	$opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
+	$a21 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
 }
+
 if ($n_curso < '4'){
-	 $optativa1= "$row[22] - $opt1[0]";
-	 $optativa2= "$row[23] - $opt1[1]";
-	 $optativa3= "$row[24] - $opt1[2]";
-	 $optativa4= "$row[25] - $opt1[3]";
+	 $optativa1= $row['optativa1']." - $opt1[0]";
+	 $optativa2= $row['optativa2']." - $opt1[1]";
+	 $optativa3= $row['optativa3']." - $opt1[2]";
+	 $optativa4= $row['optativa4']." - $opt1[3]";
 if($n_curso=='3'){
-	 $optativa5= "$row[52] - $opt1[4]";
-	 $optativa6= "$row[53] - $opt1[5]";
-	 $optativa7= "$row[54] - $opt1[6]";
+	 $optativa5= $row['optativa5']." - $opt1[4]";
+	 $optativa6= $row['optativa6']." - $opt1[5]";
+	 $optativa7= $row['optativa7']." - $opt1[6]";
 		 }
 }
 else{
-	$n_opt="";
-	foreach (${opt4.$itinerario} as $clave4){
-	$n_opt+=1;
-	$n_row=21+$n_opt;
-	 ${optativa.$n_opt} = "$row[$n_row] - $clave4";
+	 $optativa1= $row['optativa1']." - $opt1[0]";
+	 $optativa2= $row['optativa2']." - $opt1[1]";
+	 $optativa3= $row['optativa3']." - $opt1[2]";
+	 $optativa4= $row['optativa4']." - $opt1[3]";
+	 $optativa5= $row['optativa5']." - $opt1[4]";
 	}
-}
+
 	 for ($i=1;$i<6;$i++)
 	 {
-	 	if ($row[26] == $i) {
+	 	if ($row['act1'] == $i) {
 	 		${act.$i} = " X  " . $a1[$i-1];
 	 	}
 	 	else{
@@ -131,16 +133,16 @@ else{
 	 }
 
 	 
-	 $optativa21= "$row[30] - $opt21[0]";
-	 $optativa22= "$row[31] - $opt21[1]";
-	 $optativa23= "$row[32] - $opt21[2]";
-	 $optativa24= "$row[33] - $opt21[3]";
- 	 $optativa25= "$row[56] - $opt21[4]";
- 	 $optativa26= "$row[57] - $opt21[5]";
- 	 $optativa27= "$row[58] - $opt21[6]";
+	 $optativa21= $row['optativa21']." - $opt21[0]";
+	 $optativa22= $row['optativa22']." - $opt21[1]";
+	 $optativa23= $row['optativa23']." - $opt21[2]";
+	 $optativa24= $row['optativa24']." - $opt21[3]";
+ 	 $optativa25= $row['optativa25']." - $opt21[4]";
+ 	 $optativa26= $row['optativa26']." - $opt21[5]";
+ 	 $optativa27= $row['optativa27']." - $opt21[6]";
 	 for ($i=1;$i<6;$i++)
 	 {
-	 	if ($row[34] == $i) {
+	 	if ($row['act21'] == $i) {
 	 		${act2.$i} = " X  " . $a21[$i-1];
 	 	}
 	 	else{
@@ -149,21 +151,21 @@ else{
 	 }
 
 	 
-	 $observaciones= "OBSERVACIONES: ".$row[38];
+	 $observaciones= "OBSERVACIONES: ".$row['observaciones'];
 	 $texto_exencion= "El alumno solicita la exención de la Asignatura Optativa";
 	 $texto_bilinguismo= "El alumno solicita participar en el Programa de Bilinguismo";
-	 $curso = $row[41];
-	 $fecha_total = $row[42];
-	 $transporte = $row[44];
-	 $ruta_este = $row[45];
-	 $ruta_oeste = $row[46];
+	 $curso = $row['curso'];
+	 $fecha_total = $row['fecha'];
+	 $transporte = $row['transporte'];
+	 $ruta_este = $row['ruta_este'];
+	 $ruta_oeste = $row['ruta_oeste'];
 	 $texto_transporte = "Transporte escolar: $ruta_este$ruta_oeste.";
-	 $sexo = $row[47];
-	 if ($row[48] == '' or $row[48] == '0') { $hermanos = ""; } else{ $hermanos = $row[48]; }
+	 $sexo = $row['sexo'];
+	 if ($row['hermanos'] == '' or $row['hermanos'] == '0') { $hermanos = ""; } else{ $hermanos = $row['hermanos']; }
 	 
-	 $nacionalidad = $row[49];
-	 $itinerario = $row[50];
-	 $matematicas4 = $row[51];
+	 $nacionalidad = $row['nacionalidad'];
+	 $itinerario = $row['itinerario'];
+	 $optativas4 = $row['optativas4'];
 }
 $fech = explode(" ",$fecha_total);
 $fecha = $fech[0];
@@ -190,7 +192,7 @@ $texto_moviles="
      Por último anunciar que dado que se ha dejado claro que están prohibidos estos dispositivos en el instituto, informamos que el Centro no se hace responsable ni va a mediar en situaciones donde se produzcan <<desapariciones>> de dichos dispositivos dentro de nuestras instalaciones.";
 
 $final_moviles="
-D./Dª. $papa, con DNI número $row[11], padre/madre/tutor legal del alumno/ a $row[3] $row[2] del curso $curso, teniendo en cuenta la información aportada, es conocedor de la prohibición de la tenencia y uso de los teléfonos móviles, así como de cualquier otro dispositivo electrónico que difunda o grabe imágenes de vídeo/audio.
+D./Dª. $papa, con DNI número ".$row['dnitutor'].", padre/madre/tutor legal del alumno/ a ".$row['nombre']." ".$row['apellidos']." del curso $curso, teniendo en cuenta la información aportada, es conocedor de la prohibición de la tenencia y uso de los teléfonos móviles, así como de cualquier otro dispositivo electrónico que difunda o grabe imágenes de vídeo/audio.
 ";
 $firma_moviles="
 Firmado,
@@ -227,8 +229,8 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(84,5,"APELLIDOS",0,0,"C");
 	$MiPDF->Cell(84,5,"NOMBRE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,5,$row[2],1,0,'C');
-	$MiPDF->Cell(84,5,$row[3],1,0,'C');
+	$MiPDF->Cell(84,5,$row['apellidos'],1,0,'C');
+	$MiPDF->Cell(84,5,$row['nombre'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(40,5,"FECHA NACIMIENTO",0,0,"C");
 	$MiPDF->Cell(26,5,"DNI/NIE",0,0,"C");
@@ -238,8 +240,8 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(20,5,"SEXO",0,0,"C");
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(40,5,$nacimiento,1,0,'C');
-	$MiPDF->Cell(26,5,$row[9],1,0,'C');
-	$MiPDF->Cell(26,5,$row[14],1,0,'C');
+	$MiPDF->Cell(26,5,$row['dni'],1,0,'C');
+	$MiPDF->Cell(26,5,$row['telefono1'],1,0,'C');
 	$MiPDF->Cell(35,5,$nacionalidad,1,0,'C');
 	$MiPDF->Cell(21,5,$hermanos,1,0,'C');
 	$MiPDF->Cell(20,5,$sexo,1,0,'C');
@@ -249,8 +251,8 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(15,5,"C.P.",0,0,"C");
 	$MiPDF->Cell(28,5,"PROVINCIA",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(100,5,$row[7],1,0,'C');
-	$MiPDF->Cell(25,5,$row[8],1,0,'C');
+	$MiPDF->Cell(100,5,$row['domicilio'],1,0,'C');
+	$MiPDF->Cell(25,5,$row['localidad'],1,0,'C');
 	$MiPDF->Cell(15,5,$config['centro_codpostal'],1,0,'C');
 	$MiPDF->Cell(28,5,$config['centro_provincia'],1,0,'C');
 	$MiPDF->Ln ( 8 );
@@ -258,7 +260,7 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(84,5,"CORREO ELECTRÓNICO DE CONTACTO",0,0,"C");
 	$MiPDF->Cell(84,5,"Transporte Escolar",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,5,$row[19],1,0,'C');
+	$MiPDF->Cell(84,5,$row['correo'],1,0,'C');
 	$MiPDF->Cell(84,5,$ruta_est.$ruta_oeste,1,0,'C');
 	
 	$MiPDF->Ln ( 12 );
@@ -268,14 +270,14 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(140,5,"APELLIDOS Y NOMBRE DEL REPRESENTANTE LEGAL 1(con quien este convive)",0,0,"C");
 	$MiPDF->Cell(28,5,"DNI/NIE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(140,5,$row[10],1,0,'C');
-	$MiPDF->Cell(28,5,$row[11],1,0,'C');
+	$MiPDF->Cell(140,5,$row['padre'],1,0,'C');
+	$MiPDF->Cell(28,5,$row['dnitutor'],1,0,'C');
 	$MiPDF->Ln ( 8 );
 	$MiPDF->Cell(140,5,"APELLIDOS Y NOMBRE DEL REPRESENTANTE LEGAL 2",0,0,"C");
 	$MiPDF->Cell(28,5,"DNI/NIE",0,0,"C");
 	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(140,5,$row[12],1,0,'C');
-	$MiPDF->Cell(28,5,$row[13],1,0,'C');
+	$MiPDF->Cell(140,5,$row['madre'],1,0,'C');
+	$MiPDF->Cell(28,5,$row['dnitutor2'],1,0,'C');
 
 	
 	$MiPDF->Ln ( 12 );
@@ -291,10 +293,12 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Cell(46,5,$config['centro_codigo'],1,0,'C');
 	$MiPDF->Ln ( 6 );
 	//echo $itinerario;
-	if ($n_curso == '4') { $extra="4ESO (It. $itinerario)";}elseif ($n_curso == '3') { $extra="3ESO (Matemáticas $matematicas3)";}else{$extra=$curso;}
+	$extra_it="";
+	if($itinerario==1){$extra_it="(".$row['ciencias4'].")";}
+	if(strlen($optativas4)>1){$extra_it.=" - $optativas4";}	
+	if ($n_curso == '4') { $extra="4ESO (It. $itinerario".$extra_it.")";}elseif ($n_curso == '3') { $extra="3ESO (Matemáticas $matematicas3)";}else{$extra=$curso;}
 	
-	if(($n_curso==2 or $n_curso==4) and stristr($religion,"Valores")==TRUE){$religion="Atención Educativa";}
-        $MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
+       $MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
 	$MiPDF->Cell(84,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');
 	$MiPDF->Ln ( 6);
 	$MiPDF->Cell(84,5,$idioma,1,0,'C');
@@ -306,20 +310,24 @@ for($i=1;$i<3;$i++){
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(60,5,$extra,1,0,'C');
 	$opt="";
-	if ($n_curso=="4" and ($itinerario == "1" or $itinerario == "4") ) {
-		$opt = "     $optativa1
-	    $optativa2
+	if ($n_curso=="4") {
+		$opt = "     $optativa1										     $optativa4
+	    $optativa2											    $optativa5
 	    $optativa3";
 	}
 	elseif ($n_curso=="1" ) {
 		$opt = "     $optativa1
 	    $optativa2
 	    $optativa3
-	    $optativa4
-	    $optativa5";
+	    $optativa4";
+	}
+	elseif ($n_curso=="2" ) {
+		$opt = "     $optativa1
+	    $optativa2
+	    $optativa3";
 	}
 	else{
-	$opt = "     $optativa1										     $optativa5
+	$opt = "         $optativa1										     $optativa5
 	    $optativa2											     $optativa6
 	    $optativa3											     $optativa7
 	    $optativa4";
@@ -332,7 +340,7 @@ for($i=1;$i<3;$i++){
 	$firma_padre= "  Firma del representante o Guardador legal 1";
 	$MiPDF->Cell(84,8,$firma_padre,0);	
 	$MiPDF->Cell(84, 8, $firma_centro,0);
-	$MiPDF->Ln ( 20 );
+	$MiPDF->Ln ( 20);
 	$MiPDF->Cell(84, 8, $f_hoy,0);
 	$MiPDF->Cell(84, 8, $sello,0);
 	$MiPDF->Ln ( 9 );

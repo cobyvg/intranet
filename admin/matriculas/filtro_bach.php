@@ -110,10 +110,8 @@ echo "".$tipo20[0]."</label></div>";
 			<option></option>
 			<option>1</option>
 			<option>2</option>
-			<?php if ($curso=="1BACH") { ?>
 			<option>3</option>
 			<option>4</option>	
-			<?php } ?>
 			
 		</select>
 		</div>
@@ -126,7 +124,7 @@ echo "".$tipo20[0]."</label></div>";
 <div class="form-group"><label>Optativas Modalidad </label><select class="form-control"  name="optativ">
 		<?php
 		if ($optativ) {
-			for ($i = 1; $i < 4; $i++) {
+			for ($i = 1; $i < 5; $i++) {
 			foreach(${opt.$n_curso.$i} as $key=>$val){
 			if ($optativ == $key) {
 				echo "<option value='$optativ'>$val</option>";
@@ -137,7 +135,7 @@ echo "".$tipo20[0]."</label></div>";
 		?>
 			<option></option>
 		<?php
-		for ($i = 1; $i < 4; $i++) {
+		for ($i = 1; $i < 5; $i++) {
 			foreach(${opt.$n_curso.$i} as $key=>$val){
 			echo '<option value="'.$key.'">'.$val.'</option>';
 		}			
@@ -332,9 +330,7 @@ else{
 
 <div class="row">
 
-<?php if ($curso=="1BACH") {		
-?>
-<div class="col-sm-6">
+<div class="col-sm-4">
 <div class="form-group">
 	<label >Bilinguismo </label><select class="form-control" name="bilinguism">
 		<?php if ($bilinguism) {
@@ -347,25 +343,28 @@ else{
 		</select>
 </div>
 </div>
-<?php } ?>
-<?php if ($curso=="2BACH") {		
-?>
-<div class="col-sm-6">
+
+<div class="col-sm-4">
 <div class="form-group">
-<label>Idioma 1 </label><select class="form-control"  name="idiom1">
+<label>Optativa 2Bach. 2h</label><select class="form-control"  name="opt_2h">
 		<?php
-		if ($idiom1) {
-			echo "<option>$idiom1</option>";
+		if ($opt_2h) {
+			echo "<option>$opt_2h</option>";
 		}
 		?>
 			<option></option>
-			<option>Inglés</option>
-			<option>Francés</option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>6</option>
 		</select>
-		</div>
-		</div>
-<?php } ?>
-<div class="col-sm-6">
+</div>
+</div>
+
+
+<div class="col-sm-4">
 <div class="form-group">
 	<label >Problemas de Convivencia </label><select class="form-control" name="fechori">
 		<?php if ($fechori) {
@@ -399,10 +398,10 @@ else{
   <input type="radio" name="op_orden" value="grupo_actual"> Grupo actual
 </label>
 <label class="radio-inline">
-  <input type="radio" name="op_orden" value="itinerario1"> Itinerario1
+  <input type="radio" name="op_orden" value="itinerario1"> Itinerario 1 Bach
 </label>
 <label class="radio-inline">
-  <input type="radio" name="op_orden" value="itinerario2"> Itinerario2
+  <input type="radio" name="op_orden" value="itinerario2"> Itinerario 2 Bach
 </label>
 <label class="radio-inline">
   <input type="radio" name="op_orden" value="opt_orden"> Optativas

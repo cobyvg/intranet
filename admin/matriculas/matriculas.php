@@ -882,8 +882,8 @@ exit();
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
-				value="Religión Catolica" required
-				<?php if($religion == 'Religión Catolica'){echo "checked";} ?>>
+				value="Religión Católica" required
+				<?php if($religion == 'Religión Católica'){echo "checked";} ?>>
 			Religión Catolica </label></div>
 			</div>
 
@@ -1147,7 +1147,11 @@ exit();
 			</div>
 			<div class="form-group">
 			<div class="radio"><label> <input type="radio" id="r2"
+<<<<<<< Updated upstream
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Iniciación"
+=======
+				class="itinerario<?php echo $i; ?>" name="optativas4" value="Iniciación Act. Emprend."
+>>>>>>> Stashed changes
 				<?php echo ($optativas4 == 'Iniciación') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[4]; ?>
 			</label></div>

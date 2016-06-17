@@ -159,10 +159,10 @@ ADD  `opt_aut26` INT( 1 ) NOT NULL");
 // 1 BACHILLERATO
 $it1 = array("1"=>"Ciencias e Ingeniería y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jurídicas");
 
-$opt11=array( "CC1" => "Cultura Científica", "TIC1" => "Tecnologías de Información y Comunicación");
-$opt12=array("CC11" => "Cultura Científica", "TIC11" => "Tecnologías de Información y Comunicación");
-$opt13=array("LUN1" => "Literatura Universal","HMC11" => "Historia del Mundo Contemporáneo",);
-$opt14=array("LUN1" => "Literatura Universal","HMC11" => "Historia del Mundo Contemporáneo",);
+$opt11=array( "CC11" => "Cultura Científica 1", "TIC11" => "Tecnologías de Información y Comunicación 1");
+$opt12=array("CC12" => "Cultura Científica 2", "TIC12" => "Tecnologías de Información y Comunicación 2");
+$opt13=array("LUN13" => "Literatura Universal 3","HMC13" => "Historia del Mundo Contemporáneo 3");
+$opt14=array("LUN14" => "Literatura Universal 4","HMC14" => "Historia del Mundo Contemporáneo 4");
 
 // 2 BACHILLERATO
 $it2 = array("1"=>"Ciencias e Ingeniería y Arquitectura", "2"=>"Ciencias y Ciencias de la Salud", "3"=>"Humanidades", "4"=>"Ciencias Sociales y Jurídicas");
@@ -172,10 +172,10 @@ $it22 = array("Bachillerato de Ciencias", "Ciencias y Ciencias de la Salud", "Ma
 $it23 = array("Bachillerato de Humanidades", "Humanidades", "Latín II", "Historia del Arte");
 $it24 = array("Bachillerato de Ciencias Sociales", "Ciencias Sociales y Jurídicas", "Matemáticas de las Ciencias Sociales II", "Geografía");
 
-$opt21=array("TIN21" => "Tecnología Industrial II", "CTM21" => "Ciencias de la Tierra y del Medio Ambiente", "PSI21" => "Psicología", "GEO21" => "Geología", "TIC21" => "TIC II", "AL21" => "Alemán 2º Idioma", "FR21" => "Francés 2º Idioma", "ING21" => "Inglés 2º Idioma", "ELT21" => "Electrotecnia");
-$opt22=array("TIN22" => "Tecnología Industrial II", "CTM22" => "Ciencias de la Tierra y del Medio Ambiente", "PSI22" => "Psicología", "GEO22" => "Geología", "TIC22" => "TIC II", "AL22" => "Alemán 2º Idioma", "FR22" => "Francés 2º Idioma", "ING22" => "Inglés 2º Idioma");
-$opt23=array( "TIC23" => "TIC II", "AL23" => "Alemán 2º Idioma", "FR23" => "Francés 2º Idioma", "ING23" => "Inglés 2º Idioma");
-$opt24=array( "TIC24" => "TIC II", "FAG24" => "Fundamentos de Administracción y Gestión", "AL24" => "Alemán 2º Idioma", "FR24" => "Francés 2º Idioma", "ING24" => "Inglés 2º Idioma");
+$opt21=array("TIN21" => "Tecnología Industrial 1 II", "CTM21" => "Ciencias de la Tierra y del Medio Ambiente 1", "PSI21" => "Psicología 1", "GEO21" => "Geología 1", "TIC21" => "TIC 1 II", "AL21" => "Alemán 2º Idioma 1", "FR21" => "Francés 2º Idioma 1", "ING21" => "Inglés 2º Idioma 1", "ELT21" => "Electrotecnia 1");
+$opt22=array("TIN22" => "Tecnología Industrial 2 II", "CTM22" => "Ciencias de la Tierra y del Medio Ambiente 2", "PSI22" => "Psicología 2", "GEO22" => "Geología 2", "TIC22" => "TIC 2 II", "AL22" => "Alemán 2º Idioma 2", "FR22" => "Francés 2º Idioma 2", "ING22" => "Inglés 2º Idioma 2");
+$opt23=array( "TIC23" => "TIC II 3", "AL23" => "Alemán 2º Idioma 3", "FR23" => "Francés 2º Idioma 3", "ING23" => "Inglés 2º Idioma 3");
+$opt24=array( "TIC24" => "TIC II 4", "FAG24" => "Fundamentos de Administracción y Gestión 4", "AL24" => "Alemán 2º Idioma 4", "FR24" => "Francés 2º Idioma 4", "ING24" => "Inglés 2º Idioma 4");
 
 $opt_aut2=array("opt_aut21" => "Educación Física", "opt_aut22" => "Estadística", "opt_aut23" => "Introducción Ciencias de la Salud", "opt_aut24" => "Alemán 2º Idioma", "opt_aut25" => "Francés 2º Idioma", "opt_aut26" => "Inglés 2º Idioma");
 
@@ -959,8 +959,8 @@ if ($dni or $claveal or $id) {
 			<div
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
-				value="Religión Catolica" required
-				<?php if($religion == 'Religión Catolica'){echo "checked";} ?>>
+				value="Religión Católica" required
+				<?php if($religion == 'Religión Católica'){echo "checked";} ?>>
 			Religión Catolica </label></div>
 			</div>
 
@@ -993,7 +993,7 @@ if ($dni or $claveal or $id) {
 			<div class="radio"><label> <input type="radio" name="religion"
 				value="Valores Éticos" required
 				<?php if($religion == 'Valores Éticos'){echo "checked";} ?>>
-			<?php if($n_curso == 1){?>Educación para la Ciudadanía y los Derechos Humanos<?php } else { ?>Atención Educativa<?php } ?> </label></div>
+			Educación para la Ciudadanía y los Derechos Humanos</label></div>
 			</div>
 			</td>
 		</tr>
@@ -1077,13 +1077,17 @@ if ($dni or $claveal or $id) {
 			<div class="form-group">
 			<div class="radio">
 			<label> 
-			<input type="radio"	value="Griego II" name="optativa2" <?php echo ($optativa2 == 'Griego II') ? 'checked' : ''; ?>>
+			<input type="radio"	value="Griego II" name="optativa2" 
+			<?php echo ($optativa2 == 'Griego II' and $itinerario2 == $i) ? 'checked' : ''; ?>
+			>
 			Griego II 
 			</label>
 			</div>
 			<div class="radio">
 			<label> 
-			<input type="radio"	value="Economía de la Empresa" name="optativa2"	<?php echo ($optativa2 == 'Economía de la Empresa') ? 'checked' : ''; ?>>
+			<input type="radio"	value="Economia de la Empresa" name="optativa2"	
+			<?php echo ($optativa2 == 'Economia de la Empresa' and $itinerario2 == $i) ? 'checked' : ''; ?>
+			>
 			Economía de la Empresa 
 			</label>
 			<br>
@@ -1101,21 +1105,24 @@ if ($dni or $claveal or $id) {
 				Asignaturas específicas de Modalidad en Segundo de Bachillerato (4 horas lectivas)
 			</th>
 		</tr>
+
+
 		<tr>
 		<?php for ($i = 1; $i <= 4; $i++): ?>
-			<td><?php $num_it = count(${opt2.$i}); ?>
+			<td><?php $num1=""; $num_it = count(${opt2.$i}); ?>
 			<?php foreach (${opt2.$i} as $optit_1 => $nombre): ?> <?php $num1 += 1; ?>
 			<div class="form-horizontal">
 				<label class="col-sm-8 control-label">
 				<div class="text-left"><?php echo $nombre; ?></div> </label>
 			<div class="form-group <?php echo ((isset($opt_rep) && $opt_rep == 1) or (stristr($vacios,"optativa2b")==TRUE  and $mod2 == $i)) ? 'has-error"' : '' ; ?>">
 			<div class="col-sm-4">
-				<?php //echo ${optativa2b.$num1};?>
+				<?php //echo ${optativa2b.$num1}." ". $itinerario2."==".$i;?>
 			<select class="form-control" name="<?php echo $optit_1; ?>" id="<?php echo $optit_1; ?>">
 				<option value=""></option>
 				<?php for ($z = 1; $z <= $num_it; $z++): ?>
-				<option value="<?php echo $z; ?>"
-				<?php echo (${optativa2b.$num1} == $z) ? 'selected' : ''; ?>><?php echo $z; ?></option>
+				<option value="<?php echo $z; ?>" <?php echo (${optativa2b.$num1}==$z and $itinerario2==$i) ? 'selected' : ''; ?>>
+					<?php echo $z; ?>
+				</option>
 				<?php endfor; ?>
 			</select>
 			</div>

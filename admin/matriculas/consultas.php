@@ -495,7 +495,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($curso=="1ESO") {
 				echo '<td>';
 				$clg = mysqli_query($db_con,"select * from transito_datos where claveal = '$claveal'");
-				if (mysqli_num_rows($clg)>0) {	echo "<a href='informe_transito.php?claveal=$claveal' target='_blank' data-bs='tooltip' title='Alumno de Primaria con Informe de Tránsito' class='text-info'>$colegio</a>";}
+				if (mysqli_num_rows($clg)>0) {	echo "<a href='informe_transito.php?claveal=$claveal' target='_blank' data-bs='tooltip' title='Alumno de Primaria con Informe de Tránsito' class='text-info'>$colegio</a>";}else{ echo $colegio;}
 				echo '</td>';
 			}
 			if (strstr($religion,"Cat")==TRUE) {
