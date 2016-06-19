@@ -93,12 +93,12 @@ $it22 = array("Bachillerato de Ciencias", "Ciencias y Ciencias de la Salud", "Ma
 $it23 = array("Bachillerato de Humanidades", "Humanidades", "Latín II", "Historia del Arte");
 $it24 = array("Bachillerato de Ciencias Sociales", "Ciencias Sociales y Jurídicas", "Matemáticas de las Ciencias Sociales II", "Geografía");
 
-$opt21=array("TIN21" => "Tecnología Industrial 1 II", "CTM21" => "Ciencias de la Tierra y del Medio Ambiente 1", "PSI21" => "Psicología 1", "GEO21" => "Geología 1", "TIC21" => "TIC 1 II", "AL21" => "Alemán 2º Idioma 1", "FR21" => "Francés 2º Idioma 1", "ING21" => "Inglés 2º Idioma 1", "ELT21" => "Electrotecnia 1");
+$opt21=array("TIN21" => "Tecnología Industrial 1 II", "CTM21" => "Ciencias de la Tierra y del Medio Ambiente 1", "PSI21" => "Psicología 1", "GEO21" => "Geología 1", "TIC21" => "TIC 1 II", "AL21" => "Alemán 2º Idioma 1", "FR21" => "Francés 2º Idioma 1", "ING21" => "Inglés 2º Idioma 1");
 $opt22=array("TIN22" => "Tecnología Industrial 2 II", "CTM22" => "Ciencias de la Tierra y del Medio Ambiente 2", "PSI22" => "Psicología 2", "GEO22" => "Geología 2", "TIC22" => "TIC 2 II", "AL22" => "Alemán 2º Idioma 2", "FR22" => "Francés 2º Idioma 2", "ING22" => "Inglés 2º Idioma 2");
 $opt23=array( "TIC23" => "TIC II 3", "AL23" => "Alemán 2º Idioma 3", "FR23" => "Francés 2º Idioma 3", "ING23" => "Inglés 2º Idioma 3");
 $opt24=array( "TIC24" => "TIC II 4", "FAG24" => "Fundamentos de Administracción y Gestión 4", "AL24" => "Alemán 2º Idioma 4", "FR24" => "Francés 2º Idioma 4", "ING24" => "Inglés 2º Idioma 4");
 
-$opt_aut2=array("opt_aut21" => "Educación Física", "opt_aut22" => "Estadística", "opt_aut23" => "Introducción Ciencias de la Salud", "opt_aut24" => "Alemán 2º Idioma", "opt_aut25" => "Francés 2º Idioma", "opt_aut26" => "Inglés 2º Idioma");
+$opt_aut2=array("opt_aut21" => "Educación Física", "opt_aut22" => "Estadística", "opt_aut23" => "Introducción Ciencias de la Salud", "opt_aut24" => "Alemán 2º Idioma", "opt_aut25" => "Francés 2º Idioma", "opt_aut26" => "Inglés 2º Idioma", "opt_aut27" => "Electrotecnia 1");
 
 
 	 $observaciones= "OBSERVACIONES: ".$observaciones;
@@ -153,7 +153,7 @@ foreach ($pags as $pag_pdf){
 	$titulo2 = "MATRÍCULA DE ". $n_curso."º DE BACHILLERATO";
 	$MiPDF->Multicell ( 0, 4, $titulo2, 0, 'C', 0 );
 
-	$MiPDF->Ln ( 8 );
+	$MiPDF->Ln ( 5 );
 	$MiPDF->SetFont ( 'Times', '', 7 );
 	$MiPDF->Cell(21,6,"Nº MATRÍCULA: ",0);
 	$MiPDF->Cell(24,6,"",1);
@@ -162,7 +162,7 @@ foreach ($pags as $pag_pdf){
 	        ESTA MATRÍCULA ESTÁ CONDICIONADA A LA COMPROBACIÓN DE LOS DATOS,  DE CUYA
 	        VERACIDAD SE RESPONSABILIZA LA PERSONA FIRMANTE. ";
 	$MiPDF->MultiCell(120, 3, $adv,0,'L',0);
-	$MiPDF->Ln ( 5 );
+	$MiPDF->Ln ( 4 );
 	$MiPDF->SetFont ( 'Times', '', 10 );
 	$MiPDF->Cell(5,6,"1",1,0,'C',1);
 	$MiPDF->Cell(163,6,"DATOS PERSONALES DEL ALUMNO",1,0,'C',1);
@@ -286,26 +286,52 @@ foreach ($pags as $pag_pdf){
 			}
 
 	if ($n_curso=="2") {
-		$mod_registro = ${it2.$itinerario2}[3];
-		for ($i = 1; $i < 3; $i++) {		
-			foreach (${opt2.$i} as $key=>$val){
-				if ($optativa2 == $key) {
-				$opt = "$val";				
-				}
-			}
-		}
-// Optativas extra de 2 de bach.
-	$n_z="";
-	$opt_2b = "";
-			foreach ($opt23 as $key=>$val){
+		$mod_registro = ${it2.$itinerario2}[1];
+		$n_z="";
+		$opt_2b = "";
+
+		mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `temp` (
+  		`clave` varchar(64) collate latin1_spanish_ci NOT NULL default '',
+  		`valor` int(1) NOT NULL default '0'
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+		mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `temp2` (
+  		`clave` varchar(64) collate latin1_spanish_ci NOT NULL default '',
+  		`valor` int(1) NOT NULL default '0'
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci");
+
+
+
+
+			foreach (${opt2.$itinerario2} as $key=>$val){
 				$n_z+=1;		
 				$opt_b = mysqli_query($db_con, "select optativa2b$n_z from matriculas_bach where id = '$id'");
 				$o_b = mysqli_fetch_array($opt_b);
-				$reduce = substr($key,0,-3);
-				$opt_2b .= $o_b[0].". ".$val."; ";				
+				mysqli_query($db_con,"insert into temp (clave, valor) VALUES ('$val', '$o_b[0]')");			
+				}
+				$o_p = mysqli_query($db_con,"select * from temp order by valor");
+				while($o_p0 = mysqli_fetch_array($o_p)){
+					$opt .= $o_p0[1].": ".$o_p0[0]."; ";	
+				}
+
+
+		// Optativas extra de 2 de bach.
+				$num_z="";
+				foreach ($opt_aut2 as $key=>$val){
+				$num_z+=1;		
+				$opt_bach = mysqli_query($db_con, "select opt_aut2".$num_z." from matriculas_bach where id = '$id'");
+				$o_bach = mysqli_fetch_array($opt_bach);
+				mysqli_query($db_con,"insert into temp2 (clave, valor) VALUES ('$val', '$o_bach[0]')");
+				}
+				$o_p1 = mysqli_query($db_con,"select * from temp2 order by valor");
+				while($o_p2 = mysqli_fetch_array($o_p1)){
+					$opt_2b .= $o_p2[1].": ".$o_p2[0]."; ";	
 				}
 			}
-		//$opt_o = "\nOptativas de Bachillerato".$opt_2b;
+			mysqli_query($db_con,"drop table temp");
+			mysqli_query($db_con,"drop table temp2");
+
+
+	//$opt_o = "\nOptativas de Bachillerato".$opt_2b;
 	$MiPDF->Cell(78,5,$n_curso."º DE BACH. ( ".$mod_registro." )",1,0,'C');
 	$MiPDF->MultiCell(90,5,$opt,1);
 	if ($curso=="2BACH") {
@@ -314,14 +340,14 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Ln ( 5 );
 	$MiPDF->MultiCell(168,5,$opt_2b,1);
 	}
-	$MiPDF->Ln ( 4 );
+	$MiPDF->Ln ( 3 );
 	$f_hoy = "        En ".$config['centro_localidad'].", a ".$hoy;
 	$sello = "                                  Sello del Centro";
 	$firma_centro = "                                El/La Funcionario/a";
 	$firma_padre= "  Firma del representante o Guardador legal 1";
 	$MiPDF->Cell(84,8,$firma_padre,0);	
 	$MiPDF->Cell(84, 8, $firma_centro,0);
-	$MiPDF->Ln ( 17 );
+	$MiPDF->Ln ( 14 );
 	$MiPDF->Cell(84, 8, $f_hoy,0);
 	$MiPDF->Cell(84, 8, $sello,0);
 	$MiPDF->Ln ( 9 );

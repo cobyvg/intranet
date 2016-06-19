@@ -156,26 +156,13 @@ echo "".$tipo20[0]."</label></div>";
 
 
 		if ($optativ2) {
-			foreach(${opt23} as $key0=>$val0){
-			$n_opt2+=1;
-			  if($n_opt2==$optativ2){
-			echo '<option value="'.$n_opt2.'">'.$val0.'</option>';
-		}
-		}
+			echo '<option value="'.$optativ2.'">'.$optativ2.'</option>';
 		}
 		?>
 			<option></option>
-		<?php
-		$n_opt2="";
+			<option>Economia de la Empresa</option>
+			<option>Griego II</option>
 
-			foreach(${opt23} as $key=>$val){
-			$n_opt2+=1;
-			echo '<option value="'.$n_opt2.'">'.$val.'</option>';
-
-		}
-
-			
-		?>	
 		</select></div></div><?php }
 else{
 	?>
