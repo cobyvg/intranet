@@ -11,7 +11,7 @@ if (isset($_GET['hora'])) $hora = mysqli_real_escape_string($db_con, $_GET['hora
 
 
 $fechahoy = date('Y-m-d H:i:s');
-$dsemana = date('w', $fechahoy);
+$dsemana = strftime('%u', strtotime($fechahoy));
 $diasdif = $diasem - $dsemana;
 
 $fechaselec = strtotime ('+'.$diasdif.' day', strtotime($fechahoy)) ;
@@ -60,32 +60,6 @@ include("menu.php");
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div class="row">
-		
-		<div class="col-sm-12">
-		
-			<?php if (isset($msg_error)): ?>
-			<div class="alert alert-danger">
-				<?php echo $msg_error; ?>
-			</div>
-			<?php endif; ?>
-			
-			<?php if (isset($msg_warning)): ?>
-			<div class="alert alert-warning">
-				<?php echo $msg_warning; ?>
-			</div>
-			<?php endif; ?>
-			
-			<?php if (isset($msg_success)): ?>
-			<div class="alert alert-success">
-				<?php echo $msg_success; ?>
-			</div>
-			<?php endif; ?>
-		
-		</div>
-	
 	</div>
 	
 	
