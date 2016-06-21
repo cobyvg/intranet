@@ -390,14 +390,7 @@ if(isset($_POST['enviar'])){
  </script>
 ';
 		}
-	/*	elseif($incompat=="1"){
-			echo '
-						<script> 
- alert("ATENCIÓN:\n';
-			echo 'Parece que has seleccionado un grupo de asignaturas optativas de modalidad que son incompatibles con las optativas que has cursado en 1º de Bachillerato. Si quieres optar por esta posibilidad ponte en contacto con Jefatura de Estudios.")
- </script>
-';			
-		}*/
+
 		else{
 			if (strlen($claveal) > 3) {$extra = " claveal = '$claveal'";}
 			elseif (strlen($dni) > 3) {$extra = " dni = '$dni'";}
