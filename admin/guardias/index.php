@@ -11,14 +11,8 @@ if (isset($_GET['hora'])) $hora = mysqli_real_escape_string($db_con, $_GET['hora
 
 
 $fechahoy = date('Y-m-d H:i:s');
-<<<<<<< Updated upstream
 $dsemana = strftime('%u', strtotime($fechahoy));
 $diasdif = $diasem - $dsemana;
-
-=======
-$dsemana = date('w');
-$diasdif = $_GET['diasem'] - $dsemana;
->>>>>>> Stashed changes
 $fechaselec = strtotime ('+'.$diasdif.' day', strtotime($fechahoy)) ;
 $fechaselec = date ('Y-m-d' , $fechaselec);
 
