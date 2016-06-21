@@ -528,20 +528,16 @@ include("inc_notas.php");
  ?>
 <?php
 
-if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
+if($imprimir == 1 || strlen($obs2[0]) > 1 || strlen($obs[1])> 1)
 {
 ?>
 <a name="observaciones" id="obs"></a>
 <hr><br /><h3>
  Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</h3>
-<<<<<<< Updated upstream
- <form name='form1' action="" method="POST">
- <textarea class="form-control" name="observaciones1" rows="7"><?php echo $obs2[0];?></textarea>
-=======
+
  <form action="" method="POST">
  <textarea class="form-control autosize hidden-print" name="observaciones1" rows="10"><?php echo $obs2[0];?></textarea>
  <div class="visible-print"><?php echo nl2br($obs2[0]);?></div>
->>>>>>> Stashed changes
  <hr>
 <br />
 <h3>
@@ -555,7 +551,7 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 <input type="submit" name="imp_memoria" value="Enviar datos" class="btn btn-primary hidden-print">
 </form>
 <?php
-if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
+if((strlen($obs2[0]) > 1 || strlen($obs[1])> 1 ))
 {
 ?>
 <br />
@@ -574,39 +570,7 @@ if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
  </div>
  </div>
  </div>
-<<<<<<< Updated upstream
- <script language="JavaScript">
-  function doPrint(){
- document.all.item("noprint").style.visibility='hidden' 
- window.print()
- document.all.item("noprint").style.visibility='visible'
- }
- </script>
- <script type="text/javascript">
-function countLines(strtocount, cols) {
-   var hard_lines = 1;
-   var last = 0;
-   while ( true ) {
-      last = strtocount.indexOf("\n", last+1);
-      hard_lines ++;
-      if ( last == -1 ) break;
-   }
-   var soft_lines = Math.round(strtocount.length / (cols-1));
-   var hard = eval("hard_lines  " + unescape("%3e") + "soft_lines;");
-   if ( hard ) soft_lines = hard_lines;
-   return soft_lines;
-}
-function resizeTextarea(el){
-   el.rows = countLines(el.value, el.cols+1);
-}
 
-resizeTextarea(form1.observaciones1);
-resizeTextarea(form1.observaciones2);
-
- </script>
-=======
-
->>>>>>> Stashed changes
  <?php include("../../pie.php"); ?>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.4/jquery.autosize.min.js"></script>
  <script>$('.autosize').autosize();</script>
