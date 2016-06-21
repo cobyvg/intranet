@@ -42,6 +42,9 @@ include("../../menu.php");
 include("menu.php");
 ?>
 <style type="text/css">
+textarea.form-control {
+	resize: none !important;
+}
 @media print {
 	body {
 		font-size: 10px;
@@ -59,6 +62,15 @@ include("menu.php");
 	}
 	.container {
 		width: 100%;
+	}
+	
+	textarea.form-control {
+		display: block;
+		font-size: 10px;
+		border: 0;
+		margin: 0;
+		padding: 0;
+		height: auto;
 	}
 }
 </style>
@@ -129,7 +141,7 @@ Las observaciones que has redactado han sido guardadas. Puedes añadir y editar e
  $obs2=mysqli_fetch_array($obs1);
  if (empty($obs2[0]) && empty($obs[1]) && date('m')==06) {$boton = "Redactar Observaciones finales para imprimir";$click="onclick=\"window.location.href = 'informe_memoria.php?imprimir=1#observaciones'\"";}
  	else{
-		$boton = "Imprimir Memoria final de Tutoría";$click="onClick=print()";}
+		$boton = "Imprimir Memoria final de Tutoría"; $click="onClick=print();";}
  ?>
   <div style="margin-bottom:0px;">
  <input type="button" class="btn btn-primary hidden-print pull-right" value="<?php echo $boton;?>" <?php echo $click;?>>
@@ -522,13 +534,20 @@ if($imprimir == "1" or strlen($obs2[0]) > "1" or strlen($obs[1])>"1")
 <a name="observaciones" id="obs"></a>
 <hr><br /><h3>
  Observaciones sobre dificultades encontradas en el Grupo<br />(Integración, Motivación, Rendimiento académico, etc.)</h3>
+<<<<<<< Updated upstream
  <form name='form1' action="" method="POST">
  <textarea class="form-control" name="observaciones1" rows="7"><?php echo $obs2[0];?></textarea>
+=======
+ <form action="" method="POST">
+ <textarea class="form-control autosize hidden-print" name="observaciones1" rows="10"><?php echo $obs2[0];?></textarea>
+ <div class="visible-print"><?php echo nl2br($obs2[0]);?></div>
+>>>>>>> Stashed changes
  <hr>
 <br />
 <h3>
  Otras Observaciones</h3>
- <textarea class="form-control" name="observaciones2" rows="7"><?php echo $obs2[1];?></textarea>
+ <textarea class="form-control autosize hidden-print" name="observaciones2" rows="10"><?php echo $obs2[1];?></textarea>
+ <div class="visible-print"><?php echo nl2br($obs2[1]);?></div>
  <br />
 <input type="hidden" name="tutor" value="<?php echo $_SESSION['mod_tutoria']['tutor']; ?>">
 <input type="hidden" name="unidad" value="<?php echo $_SESSION['mod_tutoria']['unidad']; ?>">
@@ -555,6 +574,7 @@ if((strlen($obs2[0]) > "1" or strlen($obs[1])>"1"))
  </div>
  </div>
  </div>
+<<<<<<< Updated upstream
  <script language="JavaScript">
   function doPrint(){
  document.all.item("noprint").style.visibility='hidden' 
@@ -584,6 +604,12 @@ resizeTextarea(form1.observaciones1);
 resizeTextarea(form1.observaciones2);
 
  </script>
+=======
+
+>>>>>>> Stashed changes
  <?php include("../../pie.php"); ?>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.4/jquery.autosize.min.js"></script>
+ <script>$('.autosize').autosize();</script>
+ 
 </body>
 </html>
