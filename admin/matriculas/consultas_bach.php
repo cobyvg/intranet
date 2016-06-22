@@ -552,7 +552,8 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 			else{
 				$not = mysqli_query($db_con, "select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
 				$nota = mysqli_fetch_array($not);
-				
+				$nota[0] = substr($nota[0],0,strlen($nota[0])-1);
+				$nota[1] = substr($nota[1],0,strlen($nota[1])-1);
 				if (date('m')>'05' and date('m')<'09'){
 				$val_notas="";				
 				$tr_not = explode(";", $nota[0]);

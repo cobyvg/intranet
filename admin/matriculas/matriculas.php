@@ -1147,11 +1147,7 @@ exit();
 			</div>
 			<div class="form-group">
 			<div class="radio"><label> <input type="radio" id="r2"
-<<<<<<< Updated upstream
-				class="itinerario<?php echo $i; ?>" name="optativas4" value="Iniciación"
-=======
 				class="itinerario<?php echo $i; ?>" name="optativas4" value="Iniciación Act. Emprend."
->>>>>>> Stashed changes
 				<?php echo ($optativas4 == 'Iniciación') ? 'checked' : '' ; ?>>
 				<?php echo ${it4.$i}[4]; ?>
 			</label></div>

@@ -335,7 +335,7 @@ if (!($orden)) {
 
 	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, optativas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3, ciencias4 ";
 	
-	if ($curso=="3ESO"){$num_opt = "7";}elseif ($curso=="1ESO"){$num_opt = "4";}elseif ($curso=="2ESO"){$num_opt = "3";}else{$num_opt = "5";}
+	if ($curso=="1ESO"){$num_opt = "4";}elseif ($curso=="2ESO"){$num_opt = "3";}elseif ($curso=="3ESO"){$num_opt = "7";}else{$num_opt = "5";}
 	for ($i=1;$i<$num_opt+1;$i++)
 	{
 		$sql.=", optativa$i";
@@ -511,8 +511,13 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if($ruta_oeste){$trans = substr($ruta_oeste, 0, 10).".";}
 			echo '<td> '.$trans.'</td>';
 
+			$an_bd = substr($config['curso_fin'],0,4);
+			$bl="";
+			$bl0 = mysqli_query($db_con,"select * from matriculas_".$an_bd." where claveal = '$claveal' and bilinguismo = 'Si'");
+			if (mysqli_num_rows($bl0)>0) { $bl = '1'; }
+
 			echo '<td><input name="bilinguismo-'. $id .'" type="checkbox" value="Si"';
-			if($bilinguismo=="Si"){echo " checked";}
+			if($bilinguismo=="Si"){echo " checked";}elseif ($bl == '1') { echo " checked";}
 			echo ' /></td>';
 
 			if ($n_curso<3) {
@@ -701,16 +706,18 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		echo "</div></form>";
 		?>
 		<?php
+			
 		if ($curso) {
 
-			if ($curso=="1ESO" OR $curso=="2ESO"){
+			if ($curso=="1ESO" OR $curso=="2ESO" OR $curso=="3ESO"){
 				$exen = mysqli_query($db_con, "select exencion from matriculas where $extra and exencion ='1'");
 				$num_exen = mysqli_num_rows($exen);
 
-				if ($curso=="1ESO" or $curso=="2ESO"){$num_acti = "7";}else{$num_acti = "4";}
+				if ($curso=="1ESO"){$num_acti = "7";}elseif($curso=="2ESO"){$num_acti = "5";} elseif($curso=="3ESO"){$num_acti = "6";}
 				for ($i=1;$i<$num_acti+1;$i++){
 					${acti.$i} = mysqli_query($db_con, "select act1 from matriculas where $extra and act1 = '$i'");
 					${num_act.$i} = mysqli_num_rows(${acti.$i});
+					//echo "select act1 from matriculas where $extra and act1 = '$i': ".${num_act.$i}."<br>";
 				}
 			}
 			$rel = mysqli_query($db_con, "select religion from matriculas where $extra and religion like '%Católica%'");
@@ -732,9 +739,9 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			$pil = mysqli_query($db_con, "select promociona from matriculas where $extra and promociona = '2'");
 			$num_pil = mysqli_num_rows($pil);
 
-			$an_bd = substr($curso_actual,0,4);
-			$repit = mysqli_query($db_con, "select * from matriculas_bach, ".$db.$an_bd.".alma where ".$db.$an_bd.".alma.claveal = matriculas_bach.claveal and matriculas_bach.curso = '$curso' and ".$db.$an_bd.".alma.unidad like '$n_curso%'");
-			$num_repit = mysqli_num_rows($repit);
+			//$an_bd_ant = $an_bd-1;
+			//$repit = mysqli_query($db_con, "select * from matriculas_bach, ".$db.$an_bd.".alma where ".$db.$an_bd.".alma.claveal = matriculas_bach.claveal and matriculas_bach.curso = '$curso' and ".$db.$an_bd.".alma.unidad like '$n_curso%'");
+			//$num_repit = mysqli_num_rows($repit);
 			?>
 		<br />
 		<table class="table table-striped table-bordered" align="center"
@@ -752,7 +759,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				echo "<th>Optativa$i</th>";
 			}
 			if ($curso=="1ESO"){
-				$num_acti = "6";
+				$num_acti = "7";
 				for ($i=1;$i<$num_acti+1;$i++){
 					echo "<th>Act$i</th>";
 				}
@@ -763,10 +770,17 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 					echo "<th>Act$i</th>";
 				}
 			}
-
+			if ($curso=="3ESO"){
+				$num_acti = "6";
+				for ($i=1;$i<$num_acti+1;$i++){
+					echo "<th>Act$i</th>";
+				}
+			}
 			echo "<th>Promociona</th>";
 			echo "<th>PIL</th>";
-			echo "<th>Repite</th>";
+			//if ($curso=="2ESO" OR $curso=="3ESO" OR $curso=="4ESO"){
+			//echo "<th>Repite</th>";
+			//}
 			?>
 			</tr>
 			<tr>
@@ -778,19 +792,38 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($curso=="3ESO" OR $curso=="4ESO"){
 				echo "<td>$num_diver</td>";
 			}
-			if ($curso=="3ESO"){$num_opt = "7";}else{$num_opt = "4";}
+			//if ($curso=="3ESO"){$num_opt = "7";}elseif ($curso=="2ESO"){$num_opt = "3";}elseif ($curso=="1ESO"){$num_opt = "4";}elseif ($curso=="4ESO"){$num_opt = "5";}
 			for ($i=1;$i<$num_opt+1;$i++){
 				echo "<td>${num_opta.$i}</td>";
-		}
-		if ($curso=="1ESO" OR $curso=="2ESO"){
-			if ($curso=="1ESO"){$num_acti = "6";}else{$num_acti = "6";}
-			for ($i=1;$i<$num_acti+1;$i++){
-				echo "<td>${num_act.$i}</td>";
-		}
-		}
+			}
+			
+			if ($curso=="1ESO"){
+				$num_acti = "7";
+				for ($i=1;$i<$num_acti+1;$i++){
+					echo "<td>${num_act.$i}</td>";
+				}
+			}
+
+			if ($curso=="2ESO"){
+				$num_acti = "5";
+				for ($i=1;$i<$num_acti+1;$i++){
+					echo "<td>${num_act.$i}</td>";
+				}
+			}
+			
+			if ($curso=="3ESO"){
+				$num_acti = "6";
+				for ($i=1;$i<$num_acti+1;$i++){
+					echo "<td>${num_act.$i}</td>";
+				}
+			}
+
 		echo "<td>$num_promo</td>";
 		echo "<td>$num_pil</td>";
-		echo "<td>$num_repit</td>";
+
+		//if ($curso=="2ESO" OR $curso=="3ESO" OR $curso=="4ESO"){
+		//echo "<td>$num_repit</td>";
+		//	}
 		?>
 			</tr>
 		</table>
@@ -805,7 +838,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				<td><?php
 				if ($curso=="4ESO") {
 
-					for ($i=1;$i<$num_opt;$i++){
+					for ($i=1;$i<$num_opt-1;$i++){
 						$nombre_optativa = "";
 						$nom_opt.= "<span style='font-weight:bold;color:#9d261d;'>Itinerario $i </span>";
 						foreach (${it4.$i} as $nombre_opt => $valor){
