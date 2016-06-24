@@ -157,13 +157,13 @@ if (isset($_POST['sin_matricula'])) {
 		$hay_tabla = mysqli_query($db_con,"select * from alma_secundaria");
 		if (mysqli_num_rows($hay_tabla)>0) {
 
-		$camb = mysqli_query($db_con, "select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha, colegio from alma_secundaria where claveal not in (select claveal from matriculas_bach) and curso like '4%' order by colegio, unidad, apellidos, nombre");
+		$camb = mysqli_query($db_con, "select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha, colegio, claveal from alma_secundaria where claveal not in (select claveal from matriculas_bach) and curso like '4%' order by colegio, unidad, apellidos, nombre");
 
 		echo '<h3 align="center">Alumnos de '.$curso.' sin matricular de IES adscritos.</h3><br />';
 		echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 		while ($cam = mysqli_fetch_array($camb)) {
 			if(strlen($cam[6])>0){$cole = " ($cam[6])";}else{$cole="";}
-			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] $cole</li>";
+			echo "<li><i class='fa fa-user'></i> &nbsp;$cam[7] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5] $cole</li>";
 
 		}
 		echo "</ul></div><br />";
@@ -172,12 +172,12 @@ if (isset($_POST['sin_matricula'])) {
 	
 	$cur_monterroso = substr($curso, 0, 1);
 	
-	$camb = mysqli_query($db_con, "select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha from alma where claveal not in (select claveal from matriculas_bach) and curso like '$cur_monterroso%' and curso like '%Bach%' order by unidad, apellidos, nombre");
+	$camb = mysqli_query($db_con, "select distinct apellidos, nombre, unidad, telefono, telefonourgencia, fecha, claveal from alma where claveal not in (select claveal from matriculas_bach) and curso like '$cur_monterroso%' and curso like '%Bach%' order by unidad, apellidos, nombre");
 	echo '<h3 align="center">Alumnos de '.$curso.' sin matricular.</h3><br />';
 			echo "<div class='well well-large' style='width:800px;margin:auto;'><ul class='unstyled'>";
 	while ($cam = mysqli_fetch_array($camb)) {
 				
-			echo "<li><i class='fa fa-user'></i> &nbsp;<span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5]</li>";
+			echo "<li><i class='fa fa-user'></i> &nbsp;$cam[6] -- <span style='color:#08c'>$cam[0], $cam[1]</span> --> <strong style='color:#9d261d'>$cam[2]</strong> : $cam[3] - $cam[4] ==> $cam[5]</li>";
 		
 }
 echo "</ul></div><br />";
@@ -442,8 +442,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		}
 		?>
 		<?php
-		echo '<th class="hidden-print" style="align:center">Sí NO 3/4</th>';
-//		echo '<th class="hidden-print">Rev.</th>';
+		echo '<th class="hidden-print" style="align:center">Sí NO</th>';
 		echo '<th class="hidden-print"></th>';
 		?>
 		<th class="hidden-print">Conv.</th>
@@ -545,9 +544,6 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
 						if($promociona == "2"){echo " checked";}
 						echo " />";
-						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
-						if($promociona == "3"){echo " checked";}
-						echo " />";
 			}
 			else{
 				$not = mysqli_query($db_con, "select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
@@ -611,9 +607,7 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
 						if($promociona == "2"){echo " checked";}
 						echo " />";
-						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
-						if($promociona == "3"){echo " checked";}
-						echo " />";
+
 				}
 				// Septiembre
 				elseif (date('m')=='09'){
@@ -624,9 +618,6 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 						echo " />";
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
 						if($promociona == "2"){echo " checked";}
-						echo " />";
-						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
-						if($promociona == "3"){echo " checked";}
 						echo " />";
 					}	
 					
@@ -643,23 +634,17 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
 						if($promociona == "2"){echo " checked";}
 						echo " />";
-						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
-						if($promociona == "3"){echo " checked";}
-						echo " />";
 						//echo "$num_ord";
 				}
 				// Septiembre
 				elseif (date('m')=='09' and $num_ord1>1){
 					echo "<span class='text-muted'> $val_notas&nbsp;</span>";
-					if ($val_notas<3) {$promociona="1";}elseif($val_notas>2 and $val_notas<5) {$promociona="3";}else{$promociona="2";}					
+					if ($val_notas<3) {$promociona="1";}else{$promociona="2";}					
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
 						echo " />";
 						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
 						if($promociona == "2"){echo " checked";}
-						echo " />";
-						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="3" ';
-						if($promociona == "3"){echo " checked";}
 						echo " />";
 						}	
 					}	

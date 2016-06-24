@@ -109,7 +109,7 @@ $fecha = $fech[0];
 $datos_junta = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Ley Orgánica 15/1999, de 13 de Diciembre, de Protección de Datos de Carácter Personal, la Consejería de Educación le informa que los datos personales obtenidos mediante la cumplimentación de este formulario y demás documentación que se adjunta van a ser incorporados, para su tratamiento, al fichero 'Séneca. Datos personales y académicos del alumnado', con la finalidad de recoger los datos personales y académicos del alumnado que cursa estudios en centros dependientes de la Conserjería de Educación, así como de las respectivas unidades familiares.\n De acuerdo con lo previsto en la Ley, puede ejercer los derechos de acceso, rectificación, cancelación y oposición dirigiendo un escrito a la Secretaría General Técnica de la Conserjería de Educación de la Junta de Andalucía en Avda. Juan Antonio de Vizarrón, s/n, Edificio Torretriana 41071 SEVILLA";
 
 // Formulario de la junta	
-for($i=1;$i<3;$i++){
+for($i=1;$i<2;$i++){
 	$MiPDF->Addpage ();
 	#### Cabecera con dirección
 	$MiPDF->SetFont ( 'Times', 'B', 10  );
@@ -241,7 +241,7 @@ for($i=1;$i<3;$i++){
 			}
 	
 	if ($n_curso=="2") {
-		$mod_registro = $it2[1];
+		$mod_registro = ${it2.$itinerario2}[1];
 		$n_z="";
 		$opt_2b = "";
 		$opt2b = "";

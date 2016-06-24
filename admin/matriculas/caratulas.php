@@ -68,7 +68,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $religion = $row['religion'];
 	 $itinerario = $row['itinerario'];
 	 $optativas4 = $row['optativas4'];
-
+	 $matematicas3 = $row['matematicas3'];
 
 	 if ($row['colegio'] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row['otrocolegio']; }else{	 $colegio= "Centro de procedencia:  ".$row['colegio']; }
 	 $correo= "Correo electrónico de padre o madre: ".$row['correo'];
@@ -299,7 +299,7 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	$MiPDF->Ln ( 5 );
 	}
 	elseif($n_curso=='3'){
-	if ($matematicas3=="A") {$mat_3="Matemáticas Académicas (Bachillerato)";}else{$mat_3="Matemáticas Aplicadas (Formación Profesional)";}
+	if ($matematicas3=="A") {$mat_3="Matemáticas Académicas (Bachillerato)";}elseif($matematicas3=="B"){$mat_3="Matemáticas Aplicadas (Formación Profesional)";}
 	$MiPDF->Cell(168,6,$mat_3,1,0,'C',0);
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(84,8,$optativa1,0);
