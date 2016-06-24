@@ -118,7 +118,7 @@ if($val == "B" or $val == "R" or $val == "M" or $val == "N" or $val == "S"){$asi
 if(is_numeric($claveal) and ($val == "B" or $val == "R" or $val == "M" or $val == "N" or $val == "S"))
 {
 		$query = "select estado from textos_alumnos where claveal = '$claveal' and materia = '$asignatura' and curso = '".$config['curso_actual']."'";
-		//echo $query;
+		//echo $query."<br>";
 		$edit = mysqli_query($db_con, $query);
 		$estado0 = mysqli_fetch_array($edit);
 		$estado = $estado0[0];
@@ -126,7 +126,8 @@ if(is_numeric($claveal) and ($val == "B" or $val == "R" or $val == "M" or $val =
 		mysqli_query($db_con, "update textos_alumnos set estado = '$val' where claveal = '$claveal' and materia = '$asignatura'");		
 		}
 		else{
-		mysqli_query($db_con, "insert into textos_alumnos (claveal, materia, estado, fecha, curso) values ('$claveal','$asignatura','$val',now(),'$nivel')");
+		mysqli_query($db_con, "insert into textos_alumnos (claveal, materia, estado, fecha, curso) values ('$claveal','$asignatura','$val',now(),'".$config['curso_actual']."')");
+		//echo "insert into textos_alumnos (claveal, materia, estado, fecha, curso) values ('$claveal','$asignatura','$val',now(),'$nivel')";
 		}
 }
 }

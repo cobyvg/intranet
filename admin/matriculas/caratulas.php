@@ -69,6 +69,7 @@ if ($row = mysqli_fetch_array ( $result )) {
 	 $itinerario = $row['itinerario'];
 	 $optativas4 = $row['optativas4'];
 	 $matematicas3 = $row['matematicas3'];
+	 $ciencias4 = $row['ciencias4'];
 
 	 if ($row['colegio'] == "Otro Centro") { $colegio= "Centro de procedencia:  ".$row['otrocolegio']; }else{	 $colegio= "Centro de procedencia:  ".$row['colegio']; }
 	 $correo= "Correo electrónico de padre o madre: ".$row['correo'];
@@ -245,7 +246,14 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	}
 	else{
 		if($n_curso=='4'){
-	$MiPDF->Cell(168,6,"ITINERARIO $itinerario: ASIGNATURAS OPTATIVAS",1,0,'C',1);
+
+	$extra_it="";
+	if(stristr($itinerario,"1")==TRUE){$extra_it="1 (".$ciencias4.")";}
+	//echo $ciencias4;
+	if(strlen($optativas4)>1){$extra_it.=" - $optativas4";}	
+	//if ($n_curso == '4') { $extra="4ESO (It. $itinerario".$extra_it.")";}
+	
+	$MiPDF->Cell(168,6,"ITINERARIO $extra_it.  ASIGNATURAS OPTATIVAS",1,0,'C',1);
 	$MiPDF->Ln ( 6 );
 		}
 		else{
@@ -285,17 +293,19 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	$MiPDF->Cell(84,8,"$optativas4",0);
 	$MiPDF->Ln ( 5 );
 	}
-	else{
+
 	$MiPDF->Cell(168,8,$optativa1,0);
 	$MiPDF->Ln ( 5 );
-	}
+	
 	$MiPDF->Cell(168,8,$optativa2,0);
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(168,8,$optativa3,0);
-	if ($itinerario=="2" or $itinerario=="3") {
+
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(168,8,$optativa4,0);
-	}
+
+	$MiPDF->Ln ( 5 );
+	$MiPDF->Cell(168,8,$optativa5,0);
 	$MiPDF->Ln ( 5 );
 	}
 	elseif($n_curso=='3'){
