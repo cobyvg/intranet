@@ -80,8 +80,6 @@ $sql = "select distinct asignaturas.nombre, asignaturas.codigo from asignaturas,
 //echo $sql;	
 $as = mysqli_query($db_con, $sql);
 while ($asi = mysqli_fetch_array($as)) {
-	$n_c = mysqli_query($db_con, "select distinct nivel from alma where curso = '$nivel_curso'");
-	$niv_cur = mysqli_fetch_array($n_c);
 	$nomasi = $asi[0];
 	$codasi = $asi[1];
 	$cod_nota = mysqli_query($db_con, "select id from temp, alma where asignatura = '$codasi' and nota < '5' and alma.claveal1 = temp.claveal and unidad = '$unidad_notas'");

@@ -516,16 +516,25 @@ $faltas = "select distinct Fechoria.claveal, count(*), nombre, apellidos from Fe
  ?>
   </div>
   </div>
-  
+
+   <div class="row">
+  <div class="col-sm-12">
  <hr><br /><h3>Informe sobre Actividades Extraescolares del Grupo</h3>
  <?php
 include("inc_actividades.php");
  }
   ?>
+</div>
+</div>
+
+ <div class="row">
+  <div class="col-sm-12">
  <br />
  <?php
 include("inc_notas.php");
  ?>
+</div>
+</div>
 <?php
 
 if($imprimir == 1 || strlen($obs2[0]) > 1 || strlen($obs[1])> 1)

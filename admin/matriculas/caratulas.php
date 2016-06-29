@@ -249,11 +249,12 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 
 	$extra_it="";
 	if(stristr($itinerario,"1")==TRUE){$extra_it="1 (".$ciencias4.")";}
+	else{$extra_it=$itinerario." ";}
 	//echo $ciencias4;
 	if(strlen($optativas4)>1){$extra_it.=" - $optativas4";}	
 	//if ($n_curso == '4') { $extra="4ESO (It. $itinerario".$extra_it.")";}
 	
-	$MiPDF->Cell(168,6,"ITINERARIO $extra_it.  ASIGNATURAS OPTATIVAS",1,0,'C',1);
+	$MiPDF->Cell(168,6,"ITINERARIO $extra_it.",1,0,'C',1);
 	$MiPDF->Ln ( 6 );
 		}
 		else{
@@ -288,24 +289,16 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	}
 	}
 	elseif($n_curso=='4'){
-	if ($itinerario == "3") {
+	$MiPDF->Cell(168,6,"ASIGNATURAS OPTATIVAS",1,0,'C',1);
+	$MiPDF->Ln ( 6 );
 	$MiPDF->Cell(84,8,$optativa1,0);
-	$MiPDF->Cell(84,8,"$optativas4",0);
+	$MiPDF->Cell(84,8,$optativa4,0);
 	$MiPDF->Ln ( 5 );
-	}
-
-	$MiPDF->Cell(168,8,$optativa1,0);
+	$MiPDF->Cell(84,8,$optativa2,0);
+	$MiPDF->Cell(84,8,$optativa5,0);
 	$MiPDF->Ln ( 5 );
-	
-	$MiPDF->Cell(168,8,$optativa2,0);
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(168,8,$optativa3,0);
-
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(168,8,$optativa4,0);
-
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(168,8,$optativa5,0);
+	$MiPDF->Cell(84,8,$optativa3,0);
+	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Ln ( 5 );
 	}
 	elseif($n_curso=='3'){
