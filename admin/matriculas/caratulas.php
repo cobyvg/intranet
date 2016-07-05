@@ -103,7 +103,7 @@ if ($n_curso == '4') {
 	$it43 = array("(Ciclos Formativos y Mundo Laboral)", "Matemáticas Aplicadas", "Tecnología", "Ciencias Aplicadas a la Actividad Profesional", "Iniciación a la Actividad Emprendedora y Empresarial");
 	$opt1=array("Alemán 2º Idioma", "Francés 2º Idioma", "TIC", "Ed. Plástica y Visual", "Música");
 	$opt21 = array("Alemán 2º Idioma","Cambios Sociales y Género", "Francés 2º Idioma","Cultura Clásica", "Taller T.I.C. III", "Taller de Cerámica", "Taller de Teatro");
-	$a21 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Taller T.I.C. II", "Ampliación: Taller de Teatro II");
+	$a21 = array("Actividades de refuerzo de Lengua Castellana ", "Actividades de refuerzo de Matemáticas", "Actividades de refuerzo de Inglés", "Ampliación: Lengua", "Ampliación: Matemáticas", "Ampliación: Inglés");
 }
 
 if ($n_curso < '4'){
@@ -143,17 +143,30 @@ else{
  	 $optativa25= $row['optativa25']." - $opt21[4]";
  	 $optativa26= $row['optativa26']." - $opt21[5]";
  	 $optativa27= $row['optativa27']." - $opt21[6]";
-	 for ($i=1;$i<6;$i++)
+	 
+	 for ($i=1;$i<8;$i++)
 	 {
 	 	if ($row['act21'] == $i) {
 	 		${act2.$i} = " X  " . $a21[$i-1];
+
 	 	}
 	 	else{
 	 		${act2.$i} = "      ".$a21[$i-1];
 	 	}
 	 }
 
-	 
+	 if ($n_curso == '4'){
+	 	for ($i=1;$i<7;$i++)
+	 {
+	 	if ($row['act1'] == $i) {
+			${act2.$i} = " X  " . $a21[$i-1];	
+		 }
+		 else{
+	 		${act2.$i} = "      ".$a21[$i-1];
+	 	}
+	 }
+	}
+
 	 $observaciones= "OBSERVACIONES: ".$row['observaciones'];
 	 $texto_exencion= "El alumno solicita la exención de la Asignatura Optativa";
 	 $texto_bilinguismo= "El alumno solicita participar en el Programa de Bilinguismo";
@@ -262,8 +275,16 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	$MiPDF->Ln ( 6 );
 		}
 	}
+	if($n_curso=='3'){
+	if ($matematicas3=="A") {
+		$mat_3="Matemáticas Académicas (Bachillerato)";}elseif($matematicas3=="B"){$mat_3="Matemáticas Aplicadas (Formación Profesional)";
+		}
+	$MiPDF->Cell(168,6,$mat_3,1,0,'C',0);
+	$MiPDF->Ln ( 5 );
+	}
+
 	// $MyPDF->FillColor();
-	if($n_curso<3){
+	if($n_curso<4){
 	$MiPDF->Cell(84,8,$optativa1,0);
 	$MiPDF->Cell(84,8,$act1,0);
 	$MiPDF->Ln ( 5 );
@@ -273,18 +294,38 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	$MiPDF->Cell(84,8,$optativa3,0);
 	$MiPDF->Cell(84,8,$act3,0);
 	$MiPDF->Ln ( 5 );
+	if ($n_curso=='2') {
+	$MiPDF->Cell(84,8,"",0);
+	}
+	else{
 	$MiPDF->Cell(84,8,$optativa4,0);
+	}
 	$MiPDF->Cell(84,8,$act4,0);
 	$MiPDF->Ln ( 5 );
+
+	if ($n_curso=='1') {
 	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Cell(84,8,$act5,0);
-	$MiPDF->Ln ( 5 );
-	if ($n_curso=='1') {
 	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Cell(84,8,$act6,0);
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Cell(84,8,$act7,0);
+	$MiPDF->Ln ( 5 );
+	}
+	elseif ($n_curso=='2') {
+	$MiPDF->Cell(84,8,"",0);
+	$MiPDF->Cell(84,8,$act5,0);
+	}
+	elseif ($n_curso=='3') {
+	$MiPDF->Cell(84,8,$optativa5,0);
+	$MiPDF->Cell(84,8,$act5,0);
+	$MiPDF->Ln ( 5 );
+	$MiPDF->Cell(84,8,$optativa6,0);
+	$MiPDF->Cell(84,8,$act6,0);
+	$MiPDF->Ln ( 5 );
+	$MiPDF->Cell(84,8,$optativa7,0);
+	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Ln ( 5 );
 	}
 	}
@@ -301,24 +342,8 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Ln ( 5 );
 	}
-	elseif($n_curso=='3'){
-	if ($matematicas3=="A") {$mat_3="Matemáticas Académicas (Bachillerato)";}elseif($matematicas3=="B"){$mat_3="Matemáticas Aplicadas (Formación Profesional)";}
-	$MiPDF->Cell(168,6,$mat_3,1,0,'C',0);
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,8,$optativa1,0);
-	$MiPDF->Cell(84,8,$optativa5,0);
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,8,$optativa2,0);
-	$MiPDF->Cell(84,8,$optativa6,0);
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,8,$optativa3,0);
-	$MiPDF->Cell(84,8,$optativa7,0);
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,8,$optativa4,0);
-	$MiPDF->Cell(84,8,"",0);
-	$MiPDF->Ln ( 5 );
-	}
-	if (substr($curso, 0, 1) == 2 or substr($curso, 0, 1) == 3){
+
+	if (substr($curso, 0, 1) == 2 or substr($curso, 0, 1) == 3 or substr($curso, 0, 1) == 4){
 	$MiPDF->Ln ( 7 );
 	$MiPDF->Cell(168,6,"ASIGNATURAS DE ".$n_curso2."º DE ESO",1,0,'C',1);
 	$MiPDF->Ln ( 6 );
@@ -335,34 +360,36 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	$MiPDF->Cell(84,8,$optativa23,0);
 	$MiPDF->Cell(84,8,$act23,0);
 	$MiPDF->Ln ( 5 );
+	if (substr($curso, 0, 1) == 3){
+	$MiPDF->Cell(84,8,"",0);
+	$MiPDF->Cell(84,8,$act24,0);
+	$MiPDF->Ln ( 5 );
+	}
+	else{
 	$MiPDF->Cell(84,8,$optativa24,0);
 	$MiPDF->Cell(84,8,$act24,0);
-	if ($n_curso=="2") {
 	$MiPDF->Ln ( 5 );
+	}
+
+	if (substr($curso, 0, 1) == 4) {
+	$MiPDF->Cell(84,8,$optativa25,0);
+	$MiPDF->Cell(84,8,$act25,0);
+	$MiPDF->Ln ( 5 );
+	$MiPDF->Cell(84,8,$optativa26,0);
+	$MiPDF->Cell(84,8,$act26,0);
+	$MiPDF->Ln ( 5 );
+	$MiPDF->Cell(84,8,$optativa27,0);
+	$MiPDF->Cell(84,8,"",0);
+		}
+	if (substr($curso, 0, 1) == 2 or substr($curso, 0, 1) == 3) {
 	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Cell(84,8,$act25,0);
 	$MiPDF->Ln ( 5 );
 	$MiPDF->Cell(84,8,"",0);
 	$MiPDF->Cell(84,8,$act26,0);
+		}
 	}
-	}
-	elseif (substr($curso, 0, 1) == 4){
-	$MiPDF->Ln ( 7 );
-	$MiPDF->Cell(168,6,"ASIGNATURAS OPTATIVAS DE ".$n_curso2."º DE ESO",1,0,'C',1);
-	$MiPDF->Ln ( 6 );
-	$MiPDF->Cell(84,8,$optativa21,0);
-	$MiPDF->Cell(84,8,$optativa25,0);
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,8,$optativa22,0);
-	$MiPDF->Cell(84,8,$optativa26,0);
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,8,$optativa23,0);
-	$MiPDF->Cell(84,8,$optativa27,0);
-	$MiPDF->Ln ( 5 );
-	$MiPDF->Cell(84,8,$optativa24,0);
-	$MiPDF->Cell(84,8,"",0);
-	$MiPDF->Ln ( 5 );
-	}
+
 	else{
 	$MiPDF->Ln ( 7 );		
 	}
@@ -383,13 +410,7 @@ $datos_centro = "PROTECCIÓN DE DATOS.\n En cumplimiento de lo dispuesto en la Le
 	else{
 	$MiPDF->Ln ( 8 );		
 	}
-	$MiPDF->SetFont ( 'Times', '', 10 );
-	$MiPDF->Multicell ( 0, 5, $cuerpo3, 0, 'C', 0 );
-	$MiPDF->SetFont ( 'Times', 'B', 7 );
-	$MiPDF->SetTextColor ( 120, 120, 120 );	
-	$MiPDF->SetFillColor(248,248,248);
-	$MiPDF->Ln ( 4 );		
-	$MiPDF->MultiCell(168, 3, $datos_centro,1,'L',1);
+
 	}
    $MiPDF->AutoPrint(true);     
    $MiPDF->Output ();
