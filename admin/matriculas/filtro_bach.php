@@ -213,11 +213,7 @@ else{
 		?>
 			<option></option>
 			<option>SI</option>
-			<option>NO</option>
-		<?php if ($n_curso=="1") {?>
-			<option>3/4</option>
-			<?php }?>
-			
+			<option>NO</option>			
 		</select>
 		</div>
 </div>

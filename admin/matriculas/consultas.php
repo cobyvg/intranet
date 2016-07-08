@@ -255,7 +255,7 @@ $n_curso = substr($curso, 0, 1);
 
 if ($diversificacio=="Si") { $extra.=" and diversificacion = '1'";	}elseif ($diversificacio=="No"){ $extra.=" and diversificacion = '0'"; }
 if ($exencio=="Si") { $extra.=" and exencion = '1'";	}elseif ($exencio=="No") { $extra.=" and exencion = '0'"; }
-if ($promocion=="Promociona") { $extra.=" and promociona = '1'";	}elseif($promocion=="PIL"){ $extra.=" and promociona = '2'"; }elseif($promocion=="Repite"){$extra.=" and promociona = '3'";}
+if ($promocion=="Promociona") { $extra.=" and promociona = '1'";	}elseif($promocion=="Repite"){$extra.=" and promociona = '2'";}
 if ($optativ) { $extra.=" and $optativ = '1'";}
 if ($religio) { $extra.=" and religion = '$religio'";}
 if ($letra_grup) { $extra.=" and letra_grupo = '$letra_grup'";}
@@ -377,10 +377,10 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		echo '<th>Rel.</th>';
 		echo '<th>Transprt</th>';
 		echo '<th>Bil.</th>';
-		if ($n_curso<3) {
+		if ($n_curso==1) {
 			echo '<th>Ex.</th>';
 		}
-		if ($n_curso>2) {
+		if ($n_curso==2 or $n_curso==3) {
 			echo '<th>Div.</th>';
 		}
 		if ($n_curso=="4") {
@@ -402,7 +402,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		<th class="hdden-print">Opciones</th>
 		<?php
 		if ($n_curso>1) {
-			echo '<th class="hdden-print">SI |PIL |NO </th>';
+			echo '<th class="hdden-print">SI |NO </th>';
 		}
 //		echo '<th class="hdden-print">Rev.</th>';
 		echo '<th class="hdden-print">Copia</th>';
@@ -520,14 +520,14 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if($bilinguismo=="Si"){echo " checked";}elseif ($bl == '1') { echo " checked";}
 			echo ' /></td>';
 
-			if ($n_curso<3) {
+			if ($n_curso==1) {
 			 if ($exencion=="0") {$exencion="";}
 			 echo '<td><input name="exencion-'. $id .'" type="checkbox" value="1"';
 			 if($exencion=="1"){echo " checked";}
 			 echo ' /></td>';
 			}
 
-			if ($n_curso>2) {
+			if ($n_curso=="2" or $n_curso=="3") {
 				echo '<td><input name="diversificacion-'. $id .'" type="checkbox" value="1"';
 				if($diversificacion=="1"){echo " checked";}
 				echo ' /></td>';
@@ -586,24 +586,30 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			echo "<i class='$icon' data-bs='tooltip' title='$text_contr'> </i>&nbsp;&nbsp;";
 
 			if ($observaciones) { echo "<i class='fa fa-bookmark' data-bs='tooltip' title='$observaciones' > </i>";}
+			
 			echo '</td>';
 
 			// Promocionan o no
 			if ($n_curso>1) {
 				echo "<td style='background-color:#efeefd' class='hdden-print' nowrap>";
-				if (!($promociona =='') and !($promociona == '0')) {
-					for ($i=1;$i<4;$i++){
+			/*	if (!($promociona =='') and !($promociona == '0')) {
+					for ($i=1;$i<3;$i++){
 						echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'"';
 						if($promociona == $i){echo " checked";}
 						echo " />&nbsp;&nbsp;";
 					}
 				}
-				else{
+				else{*/
 					$val_notas="";
 					$not = mysqli_query($db_con, "select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal='".$claveal."'");
-
 					$nota = mysqli_fetch_array($not);
 					$tr_not = explode(";", $nota[0]);
+
+					$pro_n = mysqli_query($db_con, "select estadomatricula from alma where alma.claveal='".$claveal."'");
+					$pro_nt = mysqli_fetch_array($pro_n);
+					$promo_f = $pro_nt[0];
+
+					if ($promo_f=="Repite") { $promociona="2"; }else{ $promociona="1"; }
 					
 					if (date('m')>'05' and date('m')<'09'){
 					foreach ($tr_not as $val_asig) {
@@ -627,30 +633,20 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 						}
 					}
 					}
-					// Junio
 
-
-					if (date('m')>'05' and date('m')<'09'){
-						//echo " ".$val_notas;
-						if ($val_notas<3) {$promociona="1";}
-						echo "<span class='text-muted'> $val_notas&nbsp;</span>";
-						for ($i=1;$i<4;$i++){
-							echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
-							if($promociona == $i){echo " checked";}
-							echo " />&nbsp;&nbsp;";
-						}
+					$pro_n = mysqli_query($db_con, "select estadomatricula from alma where alma.claveal='".$claveal."'");
+					$pro_nt = mysqli_fetch_array($pro_n);
+					$promo_f = $pro_nt[0];
+					$promociona="";
+					if ($promo_f=="Repite") { $promociona="2"; }else{ $promociona="1"; }
+					
+					for ($i=1;$i<3;$i++){
+						echo '<input type="radio" name = "promociona-'. $id .'" value="'.$promociona.'" ';
+						if($promociona == $i){echo " checked";}
+						echo " />&nbsp;";
 					}
-					// Septiembre
-					elseif (date('m')=='09'){
-						if ($val_notas>2) {$promociona="3";}else{$promociona="1";}
-						echo "<span class='text-muted'> $val_notas&nbsp;</span>";
-						for ($i=1;$i<4;$i++){
-							echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'" ';
-							if($promociona == $i){echo " checked";}
-							echo " />&nbsp;&nbsp;";
-						}
-					}
-				}
+					echo "<span class='text-muted'> $val_notas</span>";
+				//}
 				echo "</td>";
 			}
 //			echo '<td class="hdden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
@@ -729,15 +725,12 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				${num_opta.$i} = mysqli_num_rows(${opta.$i});
 			}
 
-			if ($curso=="3ESO" OR $curso=="4ESO"){
+			if ($curso=="2ESO" OR $curso=="3ESO"){
 				$diver = mysqli_query($db_con, "select diversificacion from matriculas where $extra and diversificacion = '1'");
 				$num_diver = mysqli_num_rows($diver);
 			}
 			$promo = mysqli_query($db_con, "select promociona from matriculas where $extra and promociona = '1'");
 			$num_promo = mysqli_num_rows($promo);
-
-			$pil = mysqli_query($db_con, "select promociona from matriculas where $extra and promociona = '2'");
-			$num_pil = mysqli_num_rows($pil);
 
 			//$an_bd_ant = $an_bd-1;
 			//$repit = mysqli_query($db_con, "select * from matriculas_bach, ".$db.$an_bd.".alma where ".$db.$an_bd.".alma.claveal = matriculas_bach.claveal and matriculas_bach.curso = '$curso' and ".$db.$an_bd.".alma.unidad like '$n_curso%'");
@@ -752,7 +745,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($curso=="1ESO" OR $curso=="2ESO"){
 				echo "<th>Exención</th>";
 			}
-			if ($curso=="3ESO" OR $curso=="4ESO"){
+			if ($curso=="3ESO" OR $curso=="2ESO"){
 				echo "<th>Diversificación</th>";
 			}
 			for ($i=1;$i<$num_opt+1;$i++){
@@ -777,7 +770,6 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 				}
 			}
 			echo "<th>Promociona</th>";
-			echo "<th>PIL</th>";
 			//if ($curso=="2ESO" OR $curso=="3ESO" OR $curso=="4ESO"){
 			//echo "<th>Repite</th>";
 			//}
@@ -789,7 +781,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			if ($curso=="1ESO" OR $curso=="2ESO"){
 				echo "<td>$num_exen</td>";
 			}
-			if ($curso=="3ESO" OR $curso=="4ESO"){
+			if ($curso=="3ESO" OR $curso=="2ESO"){
 				echo "<td>$num_diver</td>";
 			}
 			//if ($curso=="3ESO"){$num_opt = "7";}elseif ($curso=="2ESO"){$num_opt = "3";}elseif ($curso=="1ESO"){$num_opt = "4";}elseif ($curso=="4ESO"){$num_opt = "5";}
@@ -819,7 +811,6 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			}
 
 		echo "<td>$num_promo</td>";
-		echo "<td>$num_pil</td>";
 
 		//if ($curso=="2ESO" OR $curso=="3ESO" OR $curso=="4ESO"){
 		//echo "<td>$num_repit</td>";
@@ -894,8 +885,8 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 		 if (document.form2.curso.value=="2ESO"){ 
 			 document.form2.itinerari.disabled = true; 
 			 document.form2.matematica4.disabled = true;
-			 document.form2.diversificacio.disabled = true;
 			 document.form2.promocion.disabled = false;
+			 document.form2.diversificacio.disabled = false;
 			 document.form2.actividade.disabled = false;
 			 document.form2.exencio.disabled = false;
 			}
@@ -912,7 +903,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			 document.form2.exencio.disabled = true;
 			 document.form2.itinerari.disabled = false; 
 			 document.form2.matematica4.disabled = false;
-			 document.form2.diversificacio.disabled = false;
+			 document.form2.diversificacio.disabled = true;
 			 document.form2.promocion.disabled = false;  
 			}
   </script>
@@ -923,7 +914,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
   	?>
 		<script type="text/javascript">
 function confirmacion2() {
-	var answer = confirm("ATENCIÓN\n Estás a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÖN ORDINARIA. Los alumnos que cumplen con los criterios de Promoción propios de su Nivel han sido marcados en la columna <<SI/NO/PIL>>.\n ES MUY IMPORTANTE que marques con un SÍ aquellos alumnos que promocionan por imperativo legal (PIL) o por decisión del Equipo Educativo a pesar de que no cumplen con los criterios habituales de promoción.\n El resto de los alumnos serán procesados tras la Evaluación Extraordinaria de Septiembre.\n Si estás seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
+	var answer = confirm("ATENCIÓN\n Estás a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÖN ORDINARIA. Los alumnos que cumplen con los criterios de Promoción propios de su Nivel aparecen marcados en la columna como <<SI/NO>>.\n Si estás seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
 	if (answer){
 return true;
 	}
@@ -938,7 +929,7 @@ return false;
   	?>
 		<script type="text/javascript">
 function confirmacion2() {
-	var answer = confirm("ATENCIÓN\n Estás a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÖN EXTRAORDINARIA. Todos los alumnos han sido marcados en la columna <<SI/NO/PIL>> de acuerdo a los criterios regulares de promoción.\n ES MUY IMPORTANTE por lo tanto que marques con un SÍ aquellos alumnos que promocionan por imperativo legal (PIL) o por decisión del Equipo Educativo a pesar de que no cumplen con los criterios regulares de promoción.\n Por motivos de seguridad, se va acrear una copia de respaldo de los datos originales de la matrícula de aquellos alumnos que NO promocionan. Estos datos pueden ser recuperados en todo momento pulsando el botón <<Restaurar>>.\n Si estás seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
+	var answer = confirm("ATENCIÓN\n Estás a punto de procesar los datos de todos los alumnos de este Nivel tomando como referencia las calificaciones de la EVALUACIÖN EXTRAORDINARIA. Todos los alumnos han sido marcados en la columna <<SI/NO>> de acuerdo a los datos de promoción registrados en Séneca.\n Por motivos de seguridad, se va acrear una copia de respaldo de los datos originales de la matrícula de aquellos alumnos que NO promocionan. Estos datos pueden ser recuperados en todo momento pulsando el botón <<Restaurar>>.\n Si estás seguro de lo que haces pulsa Aceptar; de lo contrario pulsa Cancelar.")
 	if (answer){
 return true;
 	}

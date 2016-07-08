@@ -9,41 +9,43 @@
 			$id_submit = $tr[1];
 			$col = $tr[0];
 			if ($col == 'confirmado'){$con.=$id_submit." ";} 
-			if ($col == 'revisado'){$revis.=$id_submit." ";}
+			//if ($col == 'revisado'){$revis.=$id_submit." ";}
 			if ($col == "grupo_actual"){$val=strtoupper($val);}
 		
 			//Promocion	
-			if ($col=='promociona'){
-				if ($val=='2' or $val=='3') {
+			if ($col=='promociona' and date('m')>"06"){
+				$nivel_a = mysqli_query($db_con,"select curso from alma where claveal like (select claveal from matriculas_bach where id = '$id_submit')");
+				$nivel_ahora = mysqli_fetch_array($nivel_a);
+				if ($val=='2' and ($n_curso!==substr($nivel_ahora[0],0,1))) {
+				
 				// Resplado de datos modificados
-				$n_promo = mysqli_query($db_con, "select promociona, repite, claveal from matriculas_bach where id = '$id_submit'");	
+				$n_promo = mysqli_query($db_con, "select promociona, repite, claveal from matriculas_bach where id = '$id_submit'");
 				$n_prom = mysqli_fetch_array($n_promo);
-				//echo $n_prom[0];
-				if (!($n_prom[0]=='2') and !($n_prom[0]=='3') and $n_prom[1]<>1) {
-				//echo $curso;	
+
+				if ($n_prom[1]<>1) {
+				
+
 				if ($curso == "2BACH") {
-					
-				$i2 = mysqli_query($db_con, "select itinierario1 from matriculas_bach where id = '$id_submit'");
-				$i1 = mysqli_fetch_array($i2);
-				if ($i1[0]<1) {
 				// Recolocamos datos porque no promociona.						
 				mysqli_query($db_con, "insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
 				$cambia_datos = "update matriculas_bach set curso = '1BACH' where id = '$id_submit'";
 				mysqli_query($db_con, $cambia_datos);
-				}				
-				}
+ 				}
+
 				elseif($curso == "1BACH"){
-				$a_bd = substr($config['curso_actual'],0,4);
+				$a_bd = substr($config['curso_actual'],0,4)+1;
 				mysqli_query($db_con, "insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
-				$ret_4 = mysqli_query($db_con, "select * from ".$db.$a_bd.".matriculas where claveal = '$n_prom[2]'");
+				$ret_4 = mysqli_query($db_con, "select * from matriculas_".$a_bd." where claveal like (select claveal from matriculas_bach where id = '$id_submit')");
 				$ret = mysqli_fetch_array($ret_4);
+
 				$sql="";				
 				$sql = "insert into matriculas VALUES (''";
-				for ($i = 1; $i < 68; $i++) {
+				for ($i = 1; $i < 69; $i++) {
 					$sql.=", '$ret[$i]'";
 				}
 				$sql.=")";
 				$n_afect = mysqli_query($db_con, $sql);
+
 				mysqli_query($db_con, "delete from matriculas_bach where id='$id_submit'");
 				}
 				}

@@ -120,7 +120,6 @@ echo "".$tipo20[0]."</label></div>";
 		?>
 			<option></option>
 			<option>Promociona</option>
-			<option>PIL</option>
 			<option>Repite</option>
 		</select></div>
 </div>

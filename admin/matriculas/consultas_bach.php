@@ -347,7 +347,6 @@ if (strlen($nombr)>1) {$extra.=" and nombre like '%$nombr%'";}
 
 if ($promocion=="SI") { $extra.=" and promociona = '1'";}
 if ($promocion=="NO") { $extra.=" and promociona = '2'";}
-if ($promocion=="3/4") { $extra.=" and promociona = '3'";}
 
 if ($bilinguism=="Si") { $extra.=" and bilinguismo = 'Si'";}
 if ($bilinguism=="No") { $extra.=" and bilinguismo = ''";}
@@ -536,8 +535,8 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 		// Promocionan o no
 		if ($n_curso) {
 			$val_notas="";
-			echo "<td class='hidden-print' style='background-color:#efeefd;text-align:center;' nowrap>";
-			if (!($promociona =='') and !($promociona == '0')) {
+			echo "<td class='hidden-print' style='background-color:#efeefd;' nowrap>";
+			/*if (!($promociona =='') and !($promociona == '0')) {
 						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
 						if($promociona == "1"){echo " checked";}
 						echo " />";
@@ -545,11 +544,13 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 						if($promociona == "2"){echo " checked";}
 						echo " />";
 			}
-			else{
+			else{*/
+				
 				$not = mysqli_query($db_con, "select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
 				$nota = mysqli_fetch_array($not);
 				$nota[0] = substr($nota[0],0,strlen($nota[0])-1);
 				$nota[1] = substr($nota[1],0,strlen($nota[1])-1);
+
 				if (date('m')>'05' and date('m')<'09'){
 				$val_notas="";				
 				$tr_not = explode(";", $nota[0]);
@@ -595,63 +596,22 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 					}				
 					}
 				}
-				
-			if ($n_curso == "1") {				
-			// Junio
-				if (date('m')>'05' and date('m')<'09'){
-					if ($val_notas==0 and $num_ord>1) {$promociona="1";}
-					echo "<span class='text-muted'> $val_notas&nbsp;</span>";
-						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
-						if($promociona == "1"){echo " checked";}
-						echo " />";
-						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
-						if($promociona == "2"){echo " checked";}
-						echo " />";
 
-				}
-				// Septiembre
-				elseif (date('m')=='09'){
-					echo "<span class='text-muted'> $val_notas&nbsp;</span>";					
-					if ($val_notas>0 and $num_ord1>1) {$promociona="2";}else{$promociona="1";}
-						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
-						if($promociona == "1"){echo " checked";}
-						echo " />";
-						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
-						if($promociona == "2"){echo " checked";}
-						echo " />";
-					}	
-					
-				}
-				else{
-				if ($n_curso == "2") {
-			// Junio
-				if (date('m')>'04' and date('m')<'09'){			
-					echo "<span class='text-muted'> $val_notas&nbsp;</span>";	
-					if ($val_notas<3 and $num_ord>1) {$promociona="1";}
-						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
-						if($promociona == "1"){echo " checked";}
-						echo " />";
-						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
-						if($promociona == "2"){echo " checked";}
-						echo " />";
-						//echo "$num_ord";
-				}
-				// Septiembre
-				elseif (date('m')=='09' and $num_ord1>1){
-					echo "<span class='text-muted'> $val_notas&nbsp;</span>";
-					if ($val_notas<3) {$promociona="1";}else{$promociona="2";}					
-						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
-						if($promociona == "1"){echo " checked";}
-						echo " />";
-						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
-						if($promociona == "2"){echo " checked";}
-						echo " />";
-						}	
-					}	
-				}				
+			$pro_n = mysqli_query($db_con, "select estadomatricula from alma where alma.claveal='".$claveal."'");
+			$pro_nt = mysqli_fetch_array($pro_n);
+			$promo_f = $pro_nt[0];
+			$promociona="";
+			if ($promo_f=="Repite") { $promociona="2"; }else{ $promociona="1"; }
+
+			for ($i=1;$i<3;$i++){
+				echo '<input type="radio" name = "promociona-'. $id .'" value="'.$promociona.'" ';
+					 if($promociona == $i){echo " checked";}
+						echo " />&nbsp;";
+					}
+				echo "<span class='text-muted'> $val_notas</span>";		
 			}
 			echo "</td>";
-		}
+		//}
 //		echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
 //		if($revisado=="1"){echo " checked";}
 //		echo ' /></td>';
