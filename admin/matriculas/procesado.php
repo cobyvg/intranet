@@ -16,9 +16,9 @@
 			if ($col == "grupo_actual"){$val=strtoupper($val);}
 
 			// Promoción
-			if ($col=='promociona' and date('m')>"06"){
+			if ($col=='promociona' and date('m')>"06" and $n_curso>1){
 
-				$nivel_a = mysqli_query($db_con,"select curso from alma where claveal like (select claveal from matriculas where id = '$id_submit') or claveal like (select claveal from matriculas_bach where id = '$id_submit')");
+				$nivel_a = mysqli_query($db_con,"select curso from alma where claveal like (select claveal from matriculas where id = '$id_submit')");
 				$nivel_ahora = mysqli_fetch_array($nivel_a);
 				$c_ahora=substr($nivel_ahora[0],0,1);
 

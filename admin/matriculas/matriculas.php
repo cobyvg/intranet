@@ -580,42 +580,6 @@ exit();
 			</td>
 		</tr>
 
-
-		<?php if(substr($curso, 0, 1) > 1 && $cargo==1): ?>
-		<!-- PROMOCION -->
-		<tr>
-			<th class="active text-center text-uppercase" colspan="4"><strong>Promoción
-			a <?php echo $n_curso; ?>º de ESO</strong></th>
-		</tr>
-		<tr>
-			<td colspan="2">El alumno <strong>promociona</strong> por la
-			siguiente razón:
-
-			<div class="form-group">
-			<div class="radio"><label> <input type="radio" name="promociona"
-				value="1" <?php echo ($promociona == 1)  ? 'checked' : ''; ?>> Tener
-			0, 1 o 2 suspensos </label></div>
-			</div>
-
-			<div class="form-group">
-			<div class="radio"><label> <input type="radio" name="promociona"
-				value="2" <?php echo ($promociona == 2)  ? 'checked' : ''; ?>>
-			Repetir este año <?php echo substr($curso, 0, 1); ?>º de ESO </label>
-			</div>
-			</div>
-			</td>
-			<td colspan="2">El alumno <strong>no promociona</strong> por la
-			siguiente razón:
-
-			<div class="form-group">
-			<div class="radio"><label> <input type="radio" name="promociona"
-				value="3" <?php echo ($promociona == 3)  ? 'checked' : ''; ?>> Tener
-			más de 2 asignaturas suspensas </label></div>
-			</div>
-			</td>
-		</tr>
-		<?php endif; ?>
-
 		<!-- DATOS PERSONALES DEL ALUMNO -->
 		<tr>
 			<th class="active text-center text-uppercase" colspan="4">Datos
@@ -766,7 +730,7 @@ exit();
 				<?php else: ?>
 				<option value="<?php echo $config['centro_denominacion']; ?>"><?php echo $config['centro_denominacion']; ?></option>
 				<?php endif; ?>
-				<option value="Otro Centro">Otro Centro</option>
+				<option value="Otro Centro" <?php echo (isset($colegio) && $colegio == "Otro Centro") ? 'selected' : ''; ?>>Otro Centro</option>
 			</select></div>
 			<div id="form-otrocolegio"
 				class="form-group <?php echo (isset($otrocolegio) && !empty($otrocolegio)) ? '' : 'hidden'; ?>">

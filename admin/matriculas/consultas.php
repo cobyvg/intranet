@@ -335,7 +335,8 @@ if (!($orden)) {
 
 	$sql = "select matriculas.id, matriculas.apellidos, matriculas.nombre, matriculas.curso, letra_grupo, colegio, bilinguismo, diversificacion, act1, confirmado, grupo_actual, observaciones, exencion, religion, itinerario, optativas4, promociona, claveal, ruta_este, ruta_oeste, revisado, foto, enfermedad, divorcio, matematicas3, ciencias4 ";
 	
-	if ($curso=="1ESO"){$num_opt = "4";}elseif ($curso=="2ESO"){$num_opt = "3";}elseif ($curso=="3ESO"){$num_opt = "7";}else{$num_opt = "5";}
+	if ($curso=="1ESO"){$num_opt = count($opt1);}elseif ($curso=="2ESO"){$num_opt = count($opt2);}elseif ($curso=="3ESO"){$num_opt = count($opt3);}else{$num_opt = count($opt4);}
+
 	for ($i=1;$i<$num_opt+1;$i++)
 	{
 		$sql.=", optativa$i";
@@ -589,17 +590,27 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 			
 			echo '</td>';
 
+			// Curso actual
+			$c_a = mysqli_query($db_con, "select curso from alma where alma.claveal='".$claveal."'");
+			$cur_a = mysqli_fetch_array($c_a);
+			$curs_ant = substr($cur_a[0],0,1);
+
 			// Promocionan o no
+
+			$pro_n = mysqli_query($db_con, "select estadomatricula from alma where alma.claveal='".$claveal."'");
+					$pro_nt = mysqli_fetch_array($pro_n);
+					$promo_f = $pro_nt[0];
+					$promociona="";
+					if ($promo_f=="Repite") { $promociona="2"; }else{ $promociona="1"; }
+
+					$rp_cur="";
+					if ($promociona == "1" and $n_curso==$curs_ant) {
+						$rp_cur = "<i class='fa fa-exclamation-circle text-danger' data-bs='tooltip' title='El alumno ha promocionado y su matrícula debe ser restaurada'> </i>";
+					}
+
 			if ($n_curso>1) {
 				echo "<td style='background-color:#efeefd' class='hdden-print' nowrap>";
-			/*	if (!($promociona =='') and !($promociona == '0')) {
-					for ($i=1;$i<3;$i++){
-						echo '<input type="radio" name = "promociona-'. $id .'" value="'.$i.'"';
-						if($promociona == $i){echo " checked";}
-						echo " />&nbsp;&nbsp;";
-					}
-				}
-				else{*/
+
 					$val_notas="";
 					$not = mysqli_query($db_con, "select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal='".$claveal."'");
 					$nota = mysqli_fetch_array($not);
@@ -633,12 +644,6 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 						}
 					}
 					}
-
-					$pro_n = mysqli_query($db_con, "select estadomatricula from alma where alma.claveal='".$claveal."'");
-					$pro_nt = mysqli_fetch_array($pro_n);
-					$promo_f = $pro_nt[0];
-					$promociona="";
-					if ($promo_f=="Repite") { $promociona="2"; }else{ $promociona="1"; }
 					
 					for ($i=1;$i<3;$i++){
 						echo '<input type="radio" name = "promociona-'. $id .'" value="'.$promociona.'" ';
@@ -646,7 +651,6 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 						echo " />&nbsp;";
 					}
 					echo "<span class='text-muted'> $val_notas</span>";
-				//}
 				echo "</td>";
 			}
 //			echo '<td class="hdden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
@@ -654,7 +658,7 @@ No hay alumnos que se ajusten a ese criterio. Prueba de nuevo.
 //			echo ' /></td>';
 			echo "<td class='hdden-print'>";
 			if ($respaldo=='1') {
-				echo $backup;
+				echo $backup." ".$rp_cur;
 			}
 			echo "</td>";
 			echo "<td class='hdden-print'>";
