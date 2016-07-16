@@ -6,6 +6,11 @@ acl_acceso($_SESSION['cargo'], array(1, 2, 6, 7, 8, 'a'));
 $profe = $_SESSION['profi'];
 
 include("../menu.php");
+
+if ($_SESSION['cargo']==1 or $_SESSION['cargo']==8) {
+include("menu.php");
+}
+
 if (isset($_GET['submit0'])) {$submit0 = $_GET['submit0'];}elseif (isset($_POST['submit0'])) {$submit0 = $_POST['submit0'];}else{$submit0="";}
 if (isset($_GET['unidad'])) {$unidad = $_GET['unidad'];}elseif (isset($_POST['unidad'])) {$unidad = $_POST['unidad'];}else{$unidad="";}
 if (isset($_GET['text'])) {$text = $_GET['text'];}elseif (isset($_POST['text'])) {$text = $_POST['text'];}else{$text="";}

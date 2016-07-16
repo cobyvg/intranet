@@ -532,19 +532,26 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 			}
 		}
 
+		// Curso actual
+			$c_a = mysqli_query($db_con, "select curso from alma where alma.claveal='".$claveal."'");
+			$cur_a = mysqli_fetch_array($c_a);
+			$curs_ant = substr($cur_a[0],0,1);
+
 		// Promocionan o no
+		$pro_n = mysqli_query($db_con, "select estadomatricula from alma where alma.claveal='".$claveal."'");
+					$pro_nt = mysqli_fetch_array($pro_n);
+					$promo_f = $pro_nt[0];
+					$promociona="";
+					if ($promo_f=="Repite") { $promociona="2"; }else{ $promociona="1"; }
+
+					$rp_cur="";
+					if ($promociona == "1" and $n_curso==$curs_ant) {
+						$rp_cur = "<i class='fa fa-exclamation-circle text-danger' data-bs='tooltip' title='El alumno ha promocionado y su matrícula debe ser restaurada'> </i>";
+					}
+
 		if ($n_curso) {
 			$val_notas="";
 			echo "<td class='hidden-print' style='background-color:#efeefd;' nowrap>";
-			/*if (!($promociona =='') and !($promociona == '0')) {
-						echo '<input type="radio" name = "promociona-'. $id .'" value="1" ';
-						if($promociona == "1"){echo " checked";}
-						echo " />";
-						echo '&nbsp;&nbsp;<input type="radio" name = "promociona-'. $id .'" value="2" ';
-						if($promociona == "2"){echo " checked";}
-						echo " />";
-			}
-			else{*/
 				
 				$not = mysqli_query($db_con, "select notas3, notas4 from notas, alma where alma.claveal1=notas.claveal and alma.claveal=".$claveal."");
 				$nota = mysqli_fetch_array($not);
@@ -597,12 +604,6 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 					}
 				}
 
-			$pro_n = mysqli_query($db_con, "select estadomatricula from alma where alma.claveal='".$claveal."'");
-			$pro_nt = mysqli_fetch_array($pro_n);
-			$promo_f = $pro_nt[0];
-			$promociona="";
-			if ($promo_f=="Repite") { $promociona="2"; }else{ $promociona="1"; }
-
 			for ($i=1;$i<3;$i++){
 				echo '<input type="radio" name = "promociona-'. $id .'" value="'.$promociona.'" ';
 					 if($promociona == $i){echo " checked";}
@@ -611,18 +612,20 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 				echo "<span class='text-muted'> $val_notas</span>";		
 			}
 			echo "</td>";
-		//}
+
 //		echo '<td class="hidden-print"><input name="revisado-'. $id .'" type="checkbox" value="1"';
 //		if($revisado=="1"){echo " checked";}
 //		echo ' /></td>';
+
 		echo '<td class="hidden-print" style="text-align:right">';
 		$contr = mysqli_query($db_con, "select matriculas_bach.apellidos, alma.apellidos, matriculas_bach.nombre, alma.nombre, matriculas_bach.domicilio, alma.domicilio, matriculas_bach.dni, alma.dni, matriculas_bach.padre, concat(primerapellidotutor,' ',segundoapellidotutor,', ',nombretutor), matriculas_bach.dnitutor, alma.dnitutor, matriculas_bach.telefono1, alma.telefono, matriculas_bach.telefono2, alma.telefonourgencia from matriculas_bach, alma where alma.claveal=matriculas_bach.claveal and id = '$id'");
 		$control = mysqli_fetch_array($contr);
-$text_contr="";
+
+		$text_contr="";
 		for ($i = 0; $i < 16; $i++) {
 			if ($i%2) {
 				if ($i=="5" and strstr($control[$i], $control[$i-1])==TRUE) {}
-	else{
+		else{
 		if ($control[$i]==$control[$i-1]) {$icon="";}else{	
 			if ($control[$i-1]<>0) {
 						$icon="fa fa-info-circle";
@@ -639,7 +642,7 @@ $text_contr="";
 		if ($observaciones) { echo "<i class='fa fa-bookmark' data-bs='tooltip' title='$observaciones' > </i>";}
 
 		if ($respaldo=='1') {
-			echo "&nbsp;".$backup;
+			echo "&nbsp;".$backup."&nbsp;".$rp_cur;
 		}
 		echo "&nbsp;<a href='consultas_bach.php?borrar=1&id=$id&curso=$curso&consulta=1'><i class='fa fa-trash-o' data-bs='tooltip' title='Eliminar alumno de la tabla' onClick='return confirmacion();'> </i></a>";
 		echo "</td>";

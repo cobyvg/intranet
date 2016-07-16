@@ -16,7 +16,9 @@
 			if ($col=='promociona' and date('m')>"06"){
 				$nivel_a = mysqli_query($db_con,"select curso from alma where claveal like (select claveal from matriculas_bach where id = '$id_submit')");
 				$nivel_ahora = mysqli_fetch_array($nivel_a);
-				if ($val=='2' and ($n_curso!==substr($nivel_ahora[0],0,1))) {
+				$c_ahora=substr($nivel_ahora[0],0,1);
+
+				if ($val=='2' and ($n_curso!==$c_ahora)) {
 				
 				// Resplado de datos modificados
 				$n_promo = mysqli_query($db_con, "select promociona, repite, claveal from matriculas_bach where id = '$id_submit'");

@@ -235,7 +235,7 @@ foreach ($pags as $pag_pdf){
 	$MiPDF->Ln ( 8 );
 	
 	if ($curso=="2BACH") {
-	if(stristr($religion,"Valores")==TRUE){$religion="Atención Educativa";}
+	if(stristr($religion,"Valores")==TRUE){$religion="Educación para la Ciudadanía y los Derechos Humanos";}
 	$MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
 	$MiPDF->Cell(84,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');
 	$MiPDF->Ln ( 6);

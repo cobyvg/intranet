@@ -30,6 +30,7 @@ $orientacion = $_POST['orientacion'];
 $bilingue = $_POST['bilingue'];
 $pas = $_POST['pas'];
 $biblio = $_POST['biblio'];
+$dfeie = $_POST['dfeie'];
 $profesor = $_POST['profesor'];
 
 if (isset($_POST['padres'])) {
@@ -291,6 +292,14 @@ $page_header = "Redactar mensaje";
               		</div>
               	</div>
               	<?php endif; ?>
+
+              	 <div class="form-group">
+                	<div class="checkbox">
+                		<label>
+                			<input id="biblio" name="dfeie" type="checkbox" value="1" <?php if($dfeie=='1' and !$claustro) echo 'checked'; ?>> DFEIE
+                		</label>
+                	</div>
+                </div>
 
               	<?php if(stristr($_SESSION['cargo'],'1') == TRUE || stristr($_SESSION['cargo'],'2') == TRUE): ?>
               	<div class="form-group">

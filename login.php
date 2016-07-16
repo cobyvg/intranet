@@ -17,6 +17,8 @@ if (isset($_SESSION['profi'])) {
 
 include('actualizar.php');
 
+include('control_acceso.php');
+
 // Entramos
 if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == "")) {
 	$clave0 = $_POST['clave'];

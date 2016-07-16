@@ -3,8 +3,8 @@ require('../bootstrap.php');
 
 require("../lib/class.phpmailer.php");
 
-
 $profe = $_SESSION['profi'];
+
 if ($config['mod_sms']) {
 	if (isset($_GET['curso'])) {$curso = $_GET['curso'];}elseif (isset($_POST['curso'])) {$curso = $_POST['curso'];}else{unset($curso);}
 
@@ -145,12 +145,14 @@ if ($config['mod_sms']) {
 	?>
 	<?php
 	include("../menu.php");
+	include("menu.php");
 	?>
 <div class="container">
 
 <div class="page-header">
 <h2>SMS <small> Comunicación de Faltas de Asistencia a los Padres </small></h2>
 </div>
+<br>
 <div class="row">
 <?php
 if ($hermanos) {

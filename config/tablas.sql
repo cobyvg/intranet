@@ -419,6 +419,20 @@ CREATE TABLE IF NOT EXISTS `convivencia` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `control_acceso`
+--
+
+DROP TABLE IF EXISTS `control_acceso`;
+CREATE TABLE IF NOT EXISTS `control_acceso` (
+`id` int(11) NOT NULL auto_increment,
+`fecha` date NOT NULL,
+`observaciones` TEXT NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `cursos`
 --
 
@@ -488,7 +502,8 @@ CREATE TABLE IF NOT EXISTS `departamentos` (
   `DNI` varchar(10) collate latin1_spanish_ci default NULL,
   `DEPARTAMENTO` varchar(80) collate latin1_spanish_ci default NULL,
   `CARGO` varchar(5) collate latin1_spanish_ci default NULL,
-  `idea` varchar(12) collate latin1_spanish_ci default NULL
+  `idea` varchar(12) collate latin1_spanish_ci default NULL,
+  `telefono` INT(11) NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------

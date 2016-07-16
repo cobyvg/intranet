@@ -647,3 +647,34 @@ if (! mysqli_num_rows($actua)) {
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Campo turno en tabla guardias', NOW())");
 }
+
+/*
+ @descripcion: Campo Telefono del Profesor en tabla departamentos
+ @fecha: 10 de Julio de 2016
+ */
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Telefono del Profesor'");
+if (! mysqli_num_rows($actua)) {
+	
+	mysqli_query($db_con, "ALTER TABLE `departamentos` ADD `telefono` INT(11) NULL");
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Telefono del Profesor', NOW())");
+}
+
+/*
+ @descripcion: Tabla de accesos para SMS
+ @fecha: 12 de Julio de 2016
+ */
+
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla de Accesos'");
+if (! mysqli_num_rows($actua)) {
+	
+	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `control_acceso` (
+`id` int(11) NOT NULL auto_increment,
+`fecha` date NOT NULL,
+`observaciones` TEXT NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;");
+	
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla de Accesos', NOW())");
+}

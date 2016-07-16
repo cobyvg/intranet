@@ -20,13 +20,19 @@ include ("../menu.php");
 	          </div>';
 	}
 	if (isset($_POST['enviar'])) {
+
 	mysqli_query($db_con, "truncate table FTUTORES" );
 	mysqli_query($db_con, "truncate table cargos " );
 		
 		foreach ( $_POST as $dni => $cargo_profe ) {
 			if ($cargo_profe == "Enviar") {
 				continue;
-			} elseif (strlen ( $cargo_profe ) > "1") {
+			} 
+			elseif (is_numeric($cargo_profe) and strlen ( $cargo_profe ) == "9") {
+				$dni = substr ( $dni, 0, -2 );
+				$n_profe = mysqli_query($db_con, "update departamentos set telefono = '$cargo_profe' where dni='$dni'" );
+			}
+			elseif (strlen ( $cargo_profe ) > "1" and !(is_numeric($cargo_profe))) {
 				$dni = substr ( $dni, 0, -2 );
 				$n_profe = mysqli_query($db_con, "select nombre from departamentos where dni='$dni'" );
 				$n_prof = mysqli_fetch_array ( $n_profe );
@@ -86,7 +92,9 @@ include ("../menu.php");
 		$head .= '<th><span data-bs="tooltip" title="Profesores encargados de atender a los alumnos en el Aula de Convivencia del Centro, si este cuenta con ella.">Conv.</span></th>';
 		if($config['mod_biblioteca']) $head .= '<th><span data-bs="tooltip" title="Profesores que participan en el Plan de Bibliotecas o se encargan de llevar la Biblioteca del Centro">Biblio.</span></th>';
 		$head .= '<th><span data-bs="tooltip" title="Profesor encargado de las Relaciones de Género">Género</span></th>
-				<th>&nbsp;</th>
+				  <th><span data-bs="tooltip" title="Departamento de Formacción, Innovación y Evaluación">DFEIE</span></th>
+				  <th><span data-bs="tooltip" title="Teléfono móvil del Profesor">Tfno. Móvil</span></th>
+				  <th>&nbsp;</th>
 			</tr>
 			</thead>';
 		?>
@@ -97,18 +105,18 @@ include ("../menu.php");
 			Si necesitas información sobre los distintos perfiles de los profesores, puedes conseguirla colocando el cursor del ratón sobre los distintos tipos de perfiles.
 		</p>
 		
-		<div class="table-responsive">
 		<table class="table table-bordered table-striped table-condensed">
 		<?php echo $head;?>
 			<tbody>
 		<?php
-		$carg0 = mysqli_query($db_con, "select distinct nombre, cargo, dni, idea from departamentos order by nombre" );
+		$carg0 = mysqli_query($db_con, "select distinct nombre, cargo, dni, idea, telefono from departamentos order by nombre" );
 		$num_profes = mysqli_num_rows ( $carg0 );
 		while ( $carg1 = mysqli_fetch_array ( $carg0 ) ) {
 			$pro = $carg1 [0];
 			$car = $carg1 [1];
 			$dni = $carg1 [2];
 			$idea = $carg1 [3];
+			$telefono = $carg1 [4];
 			$n_i = $n_i + 10;
 			if ($n_i%"100"=="0") {
 				echo $head;
@@ -270,13 +278,30 @@ include ("../menu.php");
 			<?php } ?>
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
-			?>11"
+			?>12"
 					value="d" id="dato0"
 					<?php
 			if (stristr ( $car, 'd' ) == TRUE) {
 				echo "checked";
 			}
 			?> /></td>
+			<td class="text-center"><input type="checkbox" name="<?php
+			echo $dni;
+			?>13"
+					value="f" id="dato0"
+					<?php
+			if (stristr ( $car, 'f' ) == TRUE) {
+				echo "checked";
+			}
+			?> /></td>
+
+			<td class="text-center">
+			<input type="number" name="<?php
+			echo $dni;
+			?>14" 
+			value="<? echo $telefono; ?>" id="dato0" style="width:100px" min="9" max="9"/>
+			</td>
+
 			<td class="text-center"><a href="cargos.php?borrar=1&dni_profe=<?php echo $dni;?>" data-bb='confirm-delete'><span class="fa fa-trash-o fa-lg fa-fw"></span></a></td>
 			</tr>
 		<?php
@@ -284,7 +309,6 @@ include ("../menu.php");
 		?>
 		</tbody>
 		</table>
-		</div>
 
 	<button type="submit" class="btn btn-primary" name="enviar">Guardar cambios</button>
 	<a class="btn btn-default" href="../xml/index.php">Volver</a>
