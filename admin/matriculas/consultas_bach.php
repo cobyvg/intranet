@@ -567,9 +567,17 @@ if ($n_fechorias >= $fechori1 and $n_fechorias < $fechori2) {
 					foreach ($tr_notas as $key_nota=>$val_nota) {
 						$num_ord+=1;
 					if ($n_curso == "1") {
-						if($key_nota == "1" and ($val_nota<'347' or $val_nota == '397')  and $val_nota !=="" and $val_nota !=="339"){
+						$rp = mysqli_query($db_con,"select  * from matriculas_bach_backup where claveal=".$claveal." and curso='2BACH'");
+						if (mysqli_num_rows($rp)>0) {
+							if($key_nota == "1" and $val_nota<'427' or $val_nota =="439" or $val_nota ==""){
 							$val_notas=$val_notas+1;
 						}
+						}
+						else{
+							if($key_nota == "1" and ($val_nota<'347' or $val_nota == '397')  and $val_nota !=="" and $val_nota !=="339"){
+							$val_notas=$val_notas+1;
+						}
+						}						
 						}
 					if ($n_curso == "2") {
 						if($key_nota == "1" and $val_nota<'427' or $val_nota =="439" or $val_nota ==""){

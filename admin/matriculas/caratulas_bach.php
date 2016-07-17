@@ -187,6 +187,9 @@ for($i=1;$i<2;$i++){
 	$MiPDF->Cell(46,5,$config['centro_localidad'],1,0,'C');
 	$MiPDF->Cell(46,5,$config['centro_codigo'],1,0,'C');
 	$MiPDF->Ln ( 10 );
+
+	if(stristr($religion,"Valores")==TRUE){$religion="Educación para la Ciudadanía";}
+
 	if ($curso=="2BACH") {
 	$MiPDF->Cell(84,6,"IDIOMA EXTRANJERO",0,0,'C');
 	$MiPDF->Cell(84,6,"RELIGIÓN O ALTERNATIVA",0,0,'C');

@@ -4,6 +4,9 @@
 		foreach ($_POST as $key=>$val){
 			$n_curso = substr($curso, 0, 1);
 			$curso_anterior = $n_curso-1;
+
+			$a_bd = substr($config['curso_actual'],0,4)+1;
+
 			//echo "$key --> $val<br>";
 			$tr = explode("-",$key);
 			$id_submit = $tr[1];
@@ -30,12 +33,16 @@
 				if ($curso == "2BACH") {
 				// Recolocamos datos porque no promociona.						
 				mysqli_query($db_con, "insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
-				$cambia_datos = "update matriculas_bach set curso = '1BACH' where id = '$id_submit'";
+				
+				$idm2 = mysqli_query($db_con, "select idioma2 from matriculas_bach_".$a_bd." where claveal = '".$claveal."'");
+  				$idio2 = mysqli_fetch_array($idm2);
+  				$idiom2 = $last['idioma2'];
+
+				$cambia_datos = "update matriculas_bach set curso = '1BACH', promociona='2', idioma2 = '$idiom2' where id = '$id_submit'";
 				mysqli_query($db_con, $cambia_datos);
  				}
 
 				elseif($curso == "1BACH"){
-				$a_bd = substr($config['curso_actual'],0,4)+1;
 				mysqli_query($db_con, "insert into matriculas_bach_backup select * from matriculas_bach where id = '$id_submit'");
 				$ret_4 = mysqli_query($db_con, "select * from matriculas_".$a_bd." where claveal like (select claveal from matriculas_bach where id = '$id_submit')");
 				$ret = mysqli_fetch_array($ret_4);
@@ -49,6 +56,8 @@
 				$n_afect = mysqli_query($db_con, $sql);
 
 				mysqli_query($db_con, "delete from matriculas_bach where id='$id_submit'");
+				$cambia_datos = "update matriculas_bach set promociona='2' where id = '$id_submit'";
+				mysqli_query($db_con, $cambia_datos);
 				}
 				}
 				}
