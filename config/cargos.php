@@ -5,7 +5,7 @@ acl_acceso($_SESSION['cargo'], array(1));
 
 include ("../menu.php");
 ?>
-<div class='container'>
+<div class='container-fluid'>
 
 	<div class="page-header">
 	  <h2>Administración <small> Perfiles de Profesores</small></h2>
@@ -139,7 +139,7 @@ include ("../menu.php");
 				echo "disabled";
 			}
 			?>
-					id="dato0" /></td>
+					 /></td>
 					
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
@@ -149,16 +149,16 @@ include ("../menu.php");
 				echo "checked";
 			}
 			?>
-					id="dato0" /></td>
+					 /></td>
 				<td class="form-inline" nowrap><input type="checkbox" name="<?php
 			echo $dni;
 			?>2"
-					value="2" id="dato0"
+					value="2" 
 					<?php
 			if (stristr ( $car, '2' ) == TRUE) {
 				echo "checked";
 			}
-			?> /> <select class="form-control" style="width: 100px;"
+			?> /> <select class="form-control input-sm" style="width: 100px;"
 					name="<?php
 			echo $dni;
 			?>2t">
@@ -177,7 +177,7 @@ include ("../menu.php");
 			$tipo = "select distinct unidad from alma order by unidad";
 			$tipo1 = mysqli_query($db_con, $tipo );
 			while ( $tipo2 = mysqli_fetch_array ( $tipo1 ) ) {
-				echo "<option>" . $tipo2 [0] . "</option>";
+				echo "<option value=\"" . $tipo2[0] . "\">" . $tipo2 [0] . "</option>";
 			}
 			
 			?>
@@ -185,7 +185,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>3"
-					value="3" id="dato0"
+					value="3" 
 					<?php
 			if (stristr ( $car, '3' ) == TRUE) {
 				echo "checked";
@@ -194,7 +194,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>4"
-					value="4" id="dato0"
+					value="4" 
 					<?php
 			if (stristr ( $car, '4' ) == TRUE) {
 				echo "checked";
@@ -203,7 +203,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>9"
-					value="9" id="dato0"
+					value="9" 
 					<?php
 			if (stristr ( $car, '9' ) == TRUE) {
 				echo "checked";
@@ -212,7 +212,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>5"
-					value="5" id="dato0"
+					value="5" 
 					<?php
 			if (stristr ( $car, '5' ) == TRUE) {
 				echo "checked";
@@ -221,7 +221,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>6"
-					value="6" id="dato0"
+					value="6" 
 					<?php
 			if (stristr ( $car, '6' ) == TRUE) {
 				echo "checked";
@@ -230,7 +230,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>7"
-					value="7" id="dato0"
+					value="7" 
 					<?php
 			if (stristr ( $car, '7' ) == TRUE) {
 				echo "checked";
@@ -239,7 +239,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>8"
-					value="8" id="dato0"
+					value="8" 
 					<?php
 			if (stristr ( $car, '8' ) == TRUE) {
 				echo "checked";
@@ -249,7 +249,7 @@ include ("../menu.php");
 				<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>9"
-					value="a" id="dato0"
+					value="a" 
 					<?php
 			if (stristr ( $car, 'a' ) == TRUE) {
 				echo "checked";
@@ -259,7 +259,7 @@ include ("../menu.php");
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>10"
-					value="b" id="dato0"
+					value="b" 
 					<?php
 			if (stristr ( $car, 'b' ) == TRUE) {
 				echo "checked";
@@ -269,7 +269,7 @@ include ("../menu.php");
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>11"
-					value="c" id="dato0"
+					value="c" 
 					<?php
 			if (stristr ( $car, 'c' ) == TRUE) {
 				echo "checked";
@@ -279,7 +279,7 @@ include ("../menu.php");
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>12"
-					value="d" id="dato0"
+					value="d" 
 					<?php
 			if (stristr ( $car, 'd' ) == TRUE) {
 				echo "checked";
@@ -288,7 +288,7 @@ include ("../menu.php");
 			<td class="text-center"><input type="checkbox" name="<?php
 			echo $dni;
 			?>13"
-					value="f" id="dato0"
+					value="f" 
 					<?php
 			if (stristr ( $car, 'f' ) == TRUE) {
 				echo "checked";
@@ -296,10 +296,7 @@ include ("../menu.php");
 			?> /></td>
 
 			<td class="text-center">
-			<input type="number" name="<?php
-			echo $dni;
-			?>14" 
-			value="<? echo $telefono; ?>" id="dato0" style="width:100px" min="9" max="9"/>
+			<input type="tel" class="form-control input-sm" name="<?php echo $dni; ?>14" value="<? echo $telefono; ?>" style="width:100px" min="9" max="9"/>
 			</td>
 
 			<td class="text-center"><a href="cargos.php?borrar=1&dni_profe=<?php echo $dni;?>" data-bb='confirm-delete'><span class="fa fa-trash-o fa-lg fa-fw"></span></a></td>
