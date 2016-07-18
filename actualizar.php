@@ -656,7 +656,7 @@ if (! mysqli_num_rows($actua)) {
 $actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Telefono del Profesor'");
 if (! mysqli_num_rows($actua)) {
 	
-	mysqli_query($db_con, "ALTER TABLE `departamentos` ADD `telefono` INT(11) NULL");
+	mysqli_query($db_con, "ALTER TABLE `c_profes` ADD `telefono` INT(11) NULL");
 	
 	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Telefono del Profesor', NOW())");
 }

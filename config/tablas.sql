@@ -458,6 +458,7 @@ CREATE TABLE IF NOT EXISTS `c_profes` (
   `idea` varchar(12) collate latin1_spanish_ci NOT NULL default '',
   `correo` varchar(64) collate latin1_spanish_ci default NULL,
   `estado` tinyint(1) NOT NULL default '0',
+  `telefono` INT(11) NULL,
   PRIMARY KEY  (`id`),
   KEY `PROFESOR` (`PROFESOR`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
@@ -502,8 +503,7 @@ CREATE TABLE IF NOT EXISTS `departamentos` (
   `DNI` varchar(10) collate latin1_spanish_ci default NULL,
   `DEPARTAMENTO` varchar(80) collate latin1_spanish_ci default NULL,
   `CARGO` varchar(5) collate latin1_spanish_ci default NULL,
-  `idea` varchar(12) collate latin1_spanish_ci default NULL,
-  `telefono` INT(11) NULL
+  `idea` varchar(12) collate latin1_spanish_ci default NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------

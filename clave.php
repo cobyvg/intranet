@@ -21,6 +21,7 @@ if (isset($_POST['submit'])) {
 	$codigo2 = $_POST['codigo2'];
 	$codigo3 = $_POST['codigo3'];
 	$correo  = $_POST['correo'];
+	$movil  = $_POST['movil'];
 	
 	$codigo2_has_error = 0;
 	$codigo3_has_error = 0;
@@ -52,11 +53,15 @@ if (isset($_POST['submit'])) {
 					$msg_error = "La dirección de correo electrónico no es válida.";
 					$correo_has_error = 1;
 				}
+				elseif (!(is_numeric($movil) and strlen($movil)==9)) {	
+					$msg_error = "El número de teléfono móvil no parece correcto. Escríbelo de nuevo.";
+					$movil_has_error = 1;
+				}
 				else {
 					// Obtenemos el hash de la contraseña
 					$hash = sha1($codigo2);
 					
-					$result = mysqli_query($db_con, "UPDATE c_profes SET pass='$hash', correo='$correo' WHERE profesor='".$_SESSION['profi']."'");
+					$result = mysqli_query($db_con, "UPDATE c_profes SET pass='$hash', correo='$correo', telefono='$movil' WHERE profesor='".$_SESSION['profi']."'");
 					
 					// Comprobamos si se ha relizado la consulta a la base de datos
 					if(!$result) {
@@ -80,7 +85,7 @@ if (isset($_POST['submit'])) {
 	}
 }
 
-$result = mysqli_query($db_con, "SELECT idea, correo FROM c_profes WHERE idea='".$_SESSION['ide']."' LIMIT 1");
+$result = mysqli_query($db_con, "SELECT idea, correo, telefono FROM c_profes WHERE idea='".$_SESSION['ide']."' LIMIT 1");
 $row = mysqli_fetch_assoc($result);
 
 include("menu.php");
@@ -136,6 +141,13 @@ include("menu.php");
 						      <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico" value="<?php echo $row['correo'];?>">
 						    </div>
 						  </div>
+
+						   <div id="form-group-movil" class="form-group">
+						    <label for="movil" class="col-sm-4 control-label">Teléfono móvil</label>
+						    <div class="col-sm-8">
+						      <input type="text" class="form-control" id="movil" name="movil" placeholder="Número de móvil" value="<?php echo $row['telefono'];?>">
+						    </div>
+						  </div>
 							
 							
 							<div class="form-group">
@@ -184,6 +196,9 @@ include("menu.php");
 <?php endif; ?>
 <?php if($correo_has_error): ?>
     <script>$("#form-group-email").addClass( "has-error" );</script>
+<?php endif; ?>
+<?php if($movil_has_error): ?>
+    <script>$("#form-group-movil").addClass( "has-error" );</script>
 <?php endif; ?>
 
 </body>

@@ -30,7 +30,7 @@ include ("../menu.php");
 			} 
 			elseif (is_numeric($cargo_profe) and strlen ( $cargo_profe ) == "9") {
 				$dni = substr ( $dni, 0, -2 );
-				$n_profe = mysqli_query($db_con, "update departamentos set telefono = '$cargo_profe' where dni='$dni'" );
+				$n_profe = mysqli_query($db_con, "update c_profes set telefono = '$cargo_profe' where dni='$dni'" );
 			}
 			elseif (strlen ( $cargo_profe ) > "1" and !(is_numeric($cargo_profe))) {
 				$dni = substr ( $dni, 0, -2 );
@@ -109,7 +109,7 @@ include ("../menu.php");
 		<?php echo $head;?>
 			<tbody>
 		<?php
-		$carg0 = mysqli_query($db_con, "select distinct nombre, cargo, dni, idea, telefono from departamentos order by nombre" );
+		$carg0 = mysqli_query($db_con, "select distinct departamentos.nombre, departamentos.cargo, departamentos.dni, departamentos.idea, c_profes.telefono from departamentos, c_profes where departamentos.idea=c_profes.idea order by departamentos.nombre" );
 		$num_profes = mysqli_num_rows ( $carg0 );
 		while ( $carg1 = mysqli_fetch_array ( $carg0 ) ) {
 			$pro = $carg1 [0];
