@@ -118,7 +118,7 @@ include ("../menu.php");
 			$idea = $carg1 [3];
 			$telefono = $carg1 [4];
 			$n_i = $n_i + 10;
-			if ($n_i%"100"=="0") {
+			if ($n_i % 100 == 0) {
 				echo $head;
 			}
 			?>
