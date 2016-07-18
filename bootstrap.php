@@ -56,7 +56,7 @@ else {
 $db_con = mysqli_connect($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']) or die("<h1>Error " . mysqli_connect_error() . "</h1>"); 
 
 
-if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php') {
+if($_SERVER['SCRIPT_NAME'] != '/intranet/login.php' && $_SERVER['SCRIPT_NAME'] != '/intranet/salir.php') {
 	
 	// COMPROBAMOS LA SESION
 	if ($_SESSION['autentificado'] != 1) {
