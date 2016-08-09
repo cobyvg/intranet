@@ -541,9 +541,7 @@ exit();
 	}
 
 	?> <!-- FORMULARIO MATRICULA -->
-<form method="post"
-	action="matriculas.php<?php if($cargo == "1"){echo "?cargo=1";}?>"
-	id="form1" name="form1">
+<form method="post"	action="matriculas.php"	id="form1" name="form1">
 
 <table align="center" class="table table-bordered">
 	<!-- CABECERA: LOGOTIPO -->
@@ -1425,7 +1423,8 @@ que solicita la matriculación en este centro.</div>
 <?php endif; ?> <?php } ?>
 
 </div>
-<!-- /.container --> <?php include("../../pie.php"); ?> <script>
+<!-- /.container --> <?php include("../../pie.php"); ?> 
+<script>
 	$(function ()  
 	{ 
 		$('#nacimiento').datetimepicker({

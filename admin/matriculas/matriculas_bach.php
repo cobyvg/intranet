@@ -749,9 +749,9 @@ if ($dni or $claveal or $id) {
 				maxlength="120"></div>
 			</td>
 			<td rowspan="2">
-<div
-				class="form-group <?php echo (strstr($vacios,"colegio, ")==TRUE) ? 'has-error' : ''; ?>">
-			<label for="colegio">Centro de procedencia</label> <select
+			<div class="form-group <?php echo (strstr($vacios,"colegio, ")==TRUE) ? 'has-error' : ''; ?>">
+			<label for="colegio">Centro de procedencia</label> 
+			<select
 				class="form-control" id="colegio" name="colegio">
 				<?php if($curso == "1BACH"): 
 				$cole_1=mysqli_query($db_con,"select distinct colegio from alma_secundaria order by colegio");
@@ -882,7 +882,7 @@ if ($dni or $claveal or $id) {
 				<?php $result = mysqli_query($db_con, "SELECT combasi FROM alma WHERE claveal='$claveal'"); ?>
 				<?php $row = mysqli_fetch_array($result); ?>
 				<?php $exp_combasi = explode(':', $row['combasi']); ?>
-				<?php foreach ($combasi as $codasi): ?>
+				<?php foreach ($exp_combasi as $codasi): ?>
 				<?php $result1 = mysqli_query($db_con, "SELECT abrev, nombre FROM asignaturas WHERE codigo='$codasi' AND (abrev = 'ING' OR abrev = 'FRA')"); ?>
 				<?php $row1 = mysqli_fetch_array($result1); ?>
 				<?php if (!(empty($row1['nombre'])) && $n_curso=="2"): ?>
@@ -1100,18 +1100,21 @@ if ($dni or $claveal or $id) {
 		<tr>
 			<td style="border-top: 0; text-align:left; <?php if(stristr($adv, "optativa libre")==TRUE) {echo 'background-color: #F2F5A9;';}?>" colspan="4" >
 			<div class="form-horizontal">
+
 			<?php $num1 = ""; ?>
 			<?php foreach ($opt_aut2 as $opt_2): ?>
 			<?php $num1 += 1; ?>
-			<div class="<?php echo "col-sm-2";?>"><select class="form-control <?php echo (isset($opt_rep2) && $opt_rep2 == 1) ? 'has-error"' : '';?>" id="opt_aut2<?php echo $num1;?>" name="opt_aut2<?php echo $num1;?>">
+			<label class="col-sm-3 control-label">
+			<div class="text-right"><?php echo $opt_2; ?></div>
+			</label>
+			<div class="col-sm-1">
+				<select class="form-control <?php echo (isset($opt_rep2) && $opt_rep2 == 1) ? 'has-error"' : '';?>" id="opt_aut2<?php echo $num1;?>" name="opt_aut2<?php echo $num1;?>">
 				<option value=""></option>
 				<?php for ($z = 1; $z < 8; $z++): ?>
 				<option value="<?php echo $z;?>"<?php echo (${opt_aut2.$num1} == $z) ? 'selected':'';?>><?php echo $z; ?></option>
 				<?php endfor; ?>
 			</select>
-			<label class="col-sm-12 control-label">
-			<div class="text-left"><?php echo $opt_2; ?></div>
-			</label></div>
+			</div>
 			<?php endforeach; ?> 
 			</div>
 			</td>

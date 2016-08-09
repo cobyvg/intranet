@@ -231,6 +231,11 @@ $menu = array(
 						'titulo' => 'Informe sobre Convivencia'
 					),
 					array(
+						'href'   => 'admin/faltas/informe_profesores.php',
+						'titulo' => 'Informe sobre Faltas de Asistencia',
+						'modulo' => $config['mod_asistencia'],
+					),
+					array(
 						'href'   => 'admin/cursos/hor_guardias.php',
 						'titulo' => 'Informe sobre Guardias',
 						'modulo' => $config['mod_horarios'],
