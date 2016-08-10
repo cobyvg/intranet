@@ -36,11 +36,7 @@ include("menu.php");
 				?>
 				<div id="bs-tour-pendientes">
 				<?php include ("pendientes.php"); ?>
-				</div>
-				
-				<?php if (stristr($carg, '1')==TRUE): ?>
-				<?php include('widget_estadisticas.php'); ?>
-				<?php endif; ?>     
+				</div>  
 				
 		        <div class="bs-module">
 		        <?php include("admin/noticias/widget_noticias.php"); ?>

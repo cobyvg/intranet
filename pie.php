@@ -26,8 +26,10 @@
     		<div class="col-sm-6">
     			<p class="form-control-static" style="padding-top: 5px;">Memoria utilizada: <?php echo size_convert(memory_get_peak_usage()).' / '.ini_get('memory_limit').'B'; ?></p>
     		</div>
-    		
-    		<div class="col-sm-6">
+    		<div class="col-sm-3">
+    			<a href="estadisticas_dia.php" class="btn btn-default btn-sm pull-right" style="padding-top: 5px;"><span class="fa fa-pie-chart fa-fw"></span> Estadísticas del día</a>
+    		</div>	
+    		<div class="col-sm-3">
     			<form method="post" class="form-horizontal pull-right" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
     				<div class="form-group">
     				    <label for="view_as_user" class="col-sm-4 control-label" style="padding-top: 5px;">Ver como</label>
