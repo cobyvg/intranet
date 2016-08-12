@@ -29,7 +29,7 @@ if (isset($_POST['fecha_dia'])) {$fecha_dia = $_POST['fecha_dia'];} else{$fecha_
 
 <div class="row"><?		
 // Borramos faltas para luego colocarlas de nuevo.
-$borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and PROFESOR = '$nprofe' and (FALTA = 'F' or FALTA = 'J' or FALTA = 'R')");
+$borra = mysqli_query($db_con, "delete from FALTAS where HORA = '$hora' and FECHA = '$hoy' and (FALTA = 'F' or FALTA = 'J' or FALTA = 'R')");
 $db_pass = trim($clave);
 foreach($_POST as $clave => $valor)
 {
@@ -99,9 +99,23 @@ foreach($_POST as $clave => $valor)
 			$mens_fecha = "No es posible poner Falta a algunos o todos los alumnos del grupo porque están registrados en una Actividad Extraescolar programada.";
 		}
 		else{
+
+			// Comprobamos problema de código en Bachillerato
+			$bch = mysqli_query($db_con,"select curso from alma where unidad = '$unidad'");
+			$cur_bach = mysqli_fetch_array($bch);
+			$curso_bach = $cur_bach[0];
+			if (stristr($curso_bach,"Bach")==TRUE) {
+				$bch_cod = mysqli_query($db_con,"select codigo from asignaturas where nombre like (select nombre from asignaturas where codigo = '$codasi') and curso = '$curso_bach' and abrev not like '%\_%'");
+				$cod_bch = mysqli_fetch_array($bch_cod);
+				$codigo_asignatura = $cod_bch[0];
+			}
+			else{
+				$codigo_asignatura = $codasi;
+			}
+									
 			// Insertamos las faltas de TODOS los alumnos.
 			$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad ,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA )
-VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codasi', '$valor')";
+VALUES ('$claveal',  '$unidad', '$nc',  '$hoy',  '$hora', '$ndia',  '$nprofe',  '$codigo_asignatura', '$valor')";
 				//echo $t0;
 			$t1 = mysqli_query($db_con, $t0) or die("No se han podido insertar los datos");
 			$count += mysqli_affected_rows();

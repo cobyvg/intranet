@@ -76,7 +76,7 @@ while($i < $total - 2)
 					$clavealT = $claveT1[0];
 					$ncT = $claveT1[1];
 					// Comprobamos si se está volviendo a meter una falta que ya ha sido metida.
-					$duplicadosT = "select NC from FALTAS where unidad = '$trozos[3]' and NC = '$ncT' and HORA = '$trozos[5]' and FECHA = '$fecha1' and CODASI = '$trozos[4]' and PROFESOR = '$num_profe' and FALTA = 'F'";
+					$duplicadosT = "select NC from FALTAS where unidad = '$trozos[3]' and NC = '$ncT' and HORA = '$trozos[5]' and FECHA = '$fecha1' and FALTA = 'F'";
 					$duplicadosT0 = mysqli_query($db_con, $duplicadosT);
 					$duplicadosT1 = mysqli_num_rows($duplicadosT0);
 					// O si hay al menos una justicación introducida por el Tutor en ese día
@@ -104,9 +104,23 @@ while($i < $total - 2)
 							$semana = date( mktime(0, 0, 0, $mes, $dia0, $ano));
 							$hoy = getdate($semana);
 							$nombredia = $hoy[wday];
+
+							// Comprobamos problema de código en Bachillerato
+							$bch = mysqli_query($db_con,"select curso from alma where unidad = '$trozos[3]'");
+							$cur_bach = mysqli_fetch_array($bch);
+							$curso_bach = $cur_bach[0];
+							if (stristr($curso_bach,"Bach")==TRUE) {
+								$bch_cod = mysqli_query($db_con,"select codigo from asignaturas where nombre like (select nombre from asignaturas where codigo = '$codasi') and curso = '$curso_bach' and abrev not like '%\_%'");
+								$cod_bch = mysqli_fetch_array($bch_cod);
+								$codigo_asignatura = $cod_bch[0];
+							}
+							else{
+								$codigo_asignatura = $codasi;
+							}
+
 							// Insertamos las faltas de TODOS los alumnos.
 							$t0 = "insert INTO  FALTAS (  CLAVEAL , unidad,  NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA )
-VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombredia',  '$num_profe',  '$codasi', 'F')";
+VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombredia',  '$num_profe',  '$codigo_asignatura', 'F')";
 							mysqli_query($db_con, $t0) or die("No se ha podido insertar datos");
 						}
 						if ($jt1 > 0) {
@@ -141,7 +155,7 @@ VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombre
 						}
 						else {
 							// Si hemos pasado los filtros, hay que comprobar si se está volviendo a meter una falta que ya ha sido metida.
-							$duplicados = "select NC, FALTA from FALTAS where unidad = '$trozos[3]' and NC = '$nc' and HORA = '$trozos[5]' and FECHA = '$fecha1' and CODASI = '$trozos[4]' and FALTA = 'F'";
+							$duplicados = "select NC, FALTA from FALTAS where unidad = '$trozos[3]' and NC = '$nc' and HORA = '$trozos[5]' and FECHA = '$fecha1' and FALTA = 'F'";
 							$duplicados0 = mysqli_query($db_con, $duplicados);
 							$duplicados1 = mysqli_num_rows($duplicados0);
 							// O si hay al menos una justicación introducida por el Tutor en ese día
@@ -169,7 +183,21 @@ VALUES ('$clavealT',  '$trozos[3]',  '$ncT',  '$fecha1',  '$trozos[5]', '$nombre
 									$semana = date( mktime(0, 0, 0, $mes, $dia0, $ano));
 									$hoy = getdate($semana);
 									$nombredia = $hoy[wday];
-									$insert = "insert INTO  FALTAS (  CLAVEAL , unidad ,   NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$trozos[3]', '$nc',  '$fecha1',  '$trozos[5]', '$nombredia',  '$num_profe',  '$trozos[4]', 'F')";
+
+									// Comprobamos problema de código en Bachillerato
+									$bch = mysqli_query($db_con,"select curso from alma where unidad = '$trozos[3]'");
+									$cur_bach = mysqli_fetch_array($bch);
+									$curso_bach = $cru_bach[0];
+									if (stristr($curso_bach,"Bach")==TRUE) {
+										$bch_cod = mysqli_query($db_con,"select codigo from asignaturas where nombre like (select nombre from asignaturas where codigo = '$cod_asig') and curso = '$curso_bach' and abrev not like '%\_%'");
+										$cod_bch = mysqli_fetch_array($bch_cod);
+										$codigo_asignatura = $cod_bch[0];
+									}
+									else{
+										$codigo_asignatura = $cod_asig;
+									}
+
+									$insert = "insert INTO  FALTAS (  CLAVEAL , unidad ,   NC ,  FECHA ,  HORA , DIA,  PROFESOR ,  CODASI ,  FALTA ) VALUES ('$claveal',  '$trozos[3]', '$nc',  '$fecha1',  '$trozos[5]', '$nombredia',  '$num_profe',  '$codigo_asignatura', 'F')";
 									//echo "$insert<br>";
 									mysqli_query($db_con, $insert) or die("No se ha podido insertar datos");
 								}

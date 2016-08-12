@@ -207,7 +207,7 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/cpadres.php">Informe de Faltas para
 			Padres</a></li>
 			<hr>
-			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/profesores.php">Profesores y Registro de Faltas</a></li>
+			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/informe_grupos.php">Informes sobre el Registro de Faltas</a></li>
 		</ul>
 		</li>
 		<?php

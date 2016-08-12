@@ -90,6 +90,7 @@ include("profes.php"); ?>
 	value="Registrar las faltas de asistencia"></div>
 </div>
 </div>
+</div>
 
 <script>
 
