@@ -1,6 +1,10 @@
 <?php
 require('bootstrap.php');
 
+if ($_GET['resetea_mensaje']==1) {
+	mysqli_query($db_con,"update mens_profes set recibidoprofe='1' where profesor='".$_GET['idea_mensaje']."'");
+}
+
 include("menu.php");
 ?>	
 
@@ -30,13 +34,172 @@ include("menu.php");
 			<div class="col-md-5">
 				
 				<?php 
-				if (stristr($carg, '2')==TRUE) {
+				if (acl_permiso($carg, array('2'))) {
 					include("admin/tutoria/inc_pendientes.php");
 				}
 				?>
 				<div id="bs-tour-pendientes">
 				<?php include ("pendientes.php"); ?>
-				</div>  
+				</div>
+				
+				<?php if (acl_permiso($carg, array('1'))): ?>
+				<h4><span class="fa fa-pie-chart fa-fw"></span> Estadísticas del día</h4>
+				<div class="row">
+					<div class="col-sm-20">
+						<h5 class="text-center">
+							<a href="#" data-toggle="modal" data-target="#accesos">
+								<span class="lead"><span id="stats-numprof"></span> <span class="text-muted">(<span id="stats-totalprof"></span>)</span></span><br>
+								<small class="text-uppercase text-muted">Profesores sin entrar</small>
+							</a>
+						</h5>
+						
+						<!-- MODAL ACCESOS -->
+						<div id="accesos" class="modal fade" tabindex="-1" role="dialog">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+										<h4 class="modal-title">Profesores que no han accedido hoy</h4>
+									</div>
+									
+									<div id="stats-accesos-modal" class="modal-body">
+									</div>
+									
+									<div class="modal-footer">
+										<a href="./xml/jefe/informes/accesos.php" class="btn btn-info">Ver accesos</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- FIN MODAL ACCESOS -->
+						
+						
+					</div><!-- /.col-sm-2 -->
+						
+					<div class="col-sm-20">
+						
+						<h5 class="text-center">
+							<a href="#" data-toggle="modal" data-target="#fechoria">
+								<span class="lead"><span id="stats-convivencia"></span></span><br>
+								<small class="text-uppercase text-muted">Problemas convivencia</small>
+							</a>
+						</h5>
+						
+						<!-- MODAL FECHORIAS -->
+						<div id="fechoria" class="modal fade" tabindex="-1" role="dialog">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+										<h4 class="modal-title">Problemas de convivencia</h4>
+									</div>
+									
+									<div id="stats-convivencia-modal" class="modal-body">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- FIN MODAL FECHORIAS -->
+						
+					</div><!-- /.col-sm-2 -->
+						
+						
+					<div class="col-sm-20">
+						
+						<h5 class="text-center">
+							<a href="#" data-toggle="modal" data-target="#expulsiones">
+								<span class="lead"><span id="stats-expulsados"></span> / <span id="stats-reingresos"></span></span><br>
+								<small class="text-uppercase text-muted">Expulsiones Reingresos</small>
+							</a>
+						</h5>
+						
+						<!-- MODAL EXPULSIONES Y REINGRESOS -->
+						<div id="expulsiones" class="modal fade" tabindex="-1" role="dialog">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+										<h4 class="modal-title">Expulsiones y reingresos</h4>
+									</div>
+									
+									<div class="modal-body">
+										<h4 class="text-info">Alumnos expulsados</h4>
+
+										<div id="stats-expulsados-modal"></div>
+										
+										<hr>
+										
+										<h4 class="text-info">Reincorporaciones</h4>
+										
+										<div id="stats-reincorporaciones-modal"></div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- FIN MODAL EXPULSIONES Y REINGRESOS -->
+						
+					</div><!-- /.col-sm-2 -->
+						
+						
+					<div class="col-sm-20">
+						
+						<h5 class="text-center">
+							<a href="#" data-toggle="modal" data-target="#visitas">
+								<span class="lead"><span id="stats-visitas"></span></span><br>
+								<small class="text-uppercase text-muted">Visitas de padres</small>
+							</a>
+						</h5>
+						
+						<!-- MODAL VISITAS PADRES -->
+						<div id="visitas" class="modal fade" tabindex="-1" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+										<h4 class="modal-title">Visitas de padres</h4>
+									</div>
+									
+									<div id="stats-visitas-modal" class="modal-body">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- FIN MODAL VISITAS PADRES -->
+						
+					</div><!-- /.col-sm-2 -->
+						
+						
+					<div class="col-sm-20">
+						
+						<h5 class="text-center">
+							<a href="#" data-toggle="modal" data-target="#noleidos">
+								<span class="lead"><span id="stats-mensajes"></span></span><br>
+								<small class="text-uppercase text-muted">+25 Mensajes sin leer</small>
+							</a>
+						</h5>
+						
+						<!-- MODAL noleidos -->
+						<div id="noleidos" class="modal fade" tabindex="-1" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+										<h4 class="modal-title">Profesores con más de 25 mensajes sin leer</h4>
+									</div>
+									
+									<div id="stats-mensajes-modal" class="modal-body">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- FIN MODAL ACCESOS -->
+						
+					</div><!-- /.col-sm-2 -->				
+				</div>
+				
+				<br>
+				<?php endif; ?>
 				
 		        <div class="bs-module">
 		        <?php include("admin/noticias/widget_noticias.php"); ?>
@@ -78,7 +241,11 @@ include("menu.php");
 		
 	</div><!-- /.container-fluid -->
 
-<?php include("pie.php"); ?>
+	<?php include("pie.php"); ?>
+	
+	<?php if (acl_permiso($carg, array('1'))): ?>
+	<script src="//<?php echo $config['dominio'];?>/intranet/js/estadisticas.js"></script>
+	<?php endif; ?>
 	
 	<script>
 	function notificar_mensajes(nmens) {
@@ -145,134 +312,9 @@ include("menu.php");
 	});
 	</script>
 	
-	<?php if (isset($_GET['tour']) && $_GET['tour']): ?>
-	<script>
-	// Instance the tour
-	var tour = new Tour({
-		
-		onEnd: function() {
-			localStorage.removeItem('tour_current_step');
-		  return window.location.href = '//<?php echo $config['dominio']; ?>/intranet/index.php';
-		},
-		
-		keyboard: true,
-		
-	  steps: [
-	  {
-	    title: "<h1 class=\"text-center\">Primeros pasos</h1>",
-	    content: "<p>Antes de comenzar, realiza un tour por la portada de la Intranet para conocer las características de los módulos que la componen y la información de la que dispone.</p><p>Haz click en <strong>Siguiente</strong> para continuar o haz click en <strong>Omitir</strong> para saltarse el tour.",
-	    container: "body",
-	    template: "<div class='popover tour' style='max-width: 670px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='end'>Omitir</button><button class='btn btn-primary' data-role='next'>Siguiente »</button></div></div>",
-	    orphan: true,
-	    backdrop: true,
-	  },
-	  {
-	    element: "#bs-tour-usermenu",
-	    title: "Menú de usuario",
-	    content: "Desde este menú podrás volver a cambiar la contraseña, correo electrónico y fotografía.",
-	    container: "body",
-	    placement: "bottom",
-	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
-	    backdrop: false,
-	  },
-	  {
-	    element: "#bs-tour-consejeria",
-	    title: "Novedades de la Consejería",
-	    content: "Consulta las últimas novedades de la Consejería de Educación, Cultura y Deporte de la Junta de Andalucía. Este icono solo será visible desde la portada de la Intranet.",
-	    container: "body",
-	    placement: "bottom",
-	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
-	    backdrop: false,
-	  },
-	  {
-	    element: "#bs-tour-mensajes",
-	    title: "Mensajes",
-	    content: "Consulta los últimos mensajes recibidos. Cuando recibas un mensaje, el icono cambiará de color para avisarte. Para leer el mensaje haz click en este icono o dirígete a la portada de la Intranet para ver todos los avisos.",
-	    container: "body",
-	    placement: "bottom",
-	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
-	    backdrop: false,
-	  },
-	  {
-	    element: "#bs-tour-menulateral",
-	    title: "Menú de opciones",
-	    content: "Según tu perfil de trabajo tendrás un menú con las opciones que necesitas en tu día a día.<br>Desde el menú <strong>Consultas</strong> tendrás acceso a la información de los alumnos, horarios, estadísticas y fondos de la Biblioteca del centro.<br>El menú <strong>Trabajo</strong> contiene las acciones de registro de Problemas de Convivencia, Faltas de Asistencia, Informes de tareas, Informes de tutoría, Reservas de aulas y medios audiovisuales, Ausencias, etc.<br>El menú <strong>Departamento</strong> contiene las opciones necesarias para la gestión de tu departamento.<br>Y por último, <strong>Páginas de interes</strong> contiene enlaces a páginas externas de información y recursos educativos.",
-	    container: "body",
-	    placement: "right",
-	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
-	    backdrop: true,
-	  },
-	  {
-	    element: "#bs-tour-ausencias",
-	    title: "Profesores de baja",
-	    content: "Este módulo ofrece información sobre los profesores ausentes en el día. Si el profesor ha registrado tareas para los alumnos aparecerá marcado con el icono chequeado. Para registrar una ausencia debes dirigirte al menú <strong>Trabajo</strong>, <strong>Profesores ausentes</strong>.",
-	    container: "body",
-	    placement: "right",
-	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
-	    backdrop: true,
-	  },
-	  {
-	    element: "#bs-tour-destacadas",
-	    title: "Noticias destacadas",
-	    content: "Este módulo ofrece un listado de las noticias mas importantes. Puede aparecer durante varios días, según lo establezca el Equipo directivo.",
-	    container: "body",
-	    placement: "right",
-	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
-	    backdrop: true,
-	  },
-	  {
-	    element: "#bs-tour-pendientes",
-	    title: "Tareas pendientes",
-	    content: "Aquí aparecerán los avisos de tareas pendientes que debes realizar.",
-	    container: "body",
-	    placement: "bottom",
-	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
-	    backdrop: true,
-	  },
-	  {
-	    element: "#bs-tour-buscar",
-	    title: "Buscar alumnos y noticias",
-	    content: "Este buscador te permite buscar alumnos para consultar su expediente o realizar alguna acción como registrar un Problema de Convivencia o Intervención. Puedes buscar tanto por nombre como apellidos. <br>Si presionas la tecla <kbd>Intro</kbd> buscará coincidencias en las noticias publicadas.",
-	    container: "body",
-	    placement: "left",
-	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
-	    backdrop: true,
-	  },
-	  {
-	    element: "#bs-tour-calendario",
-	    title: "Calendario",
-	    content: "El calendario mostrará información sobre los eventos del Centro, Actividades extraescolares y tus anotaciones personales. Cada evento está identificado con una bola de color; al pasar el ratón por encima aparecerá la descripción del evento. Debajo del calendario aparerán los eventos programados para el día de hoy. Para programar un evento haz click en <strong>Ver calendario</strong> o dirígite al menú <strong>Trabajo</strong>, <strong>Calendario</strong>, <strong>Ver calendario</strong>.",
-	    container: "body",
-	    placement: "left",
-	    <?php if($config['mod_horarios'] and ($n_curso > 0)): ?>
-	    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button></div></div>",
-	    <?php else: ?>
-	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button><button class='btn btn-primary' data-role='end'>Entendido</button></div></div>",
-	    <?php endif; ?>
-	    backdrop: true,
-	  },
-	  <?php if($config['mod_horarios'] and ($n_curso > 0)): ?>
-	  {
-	    element: "#bs-tour-horario",
-	    title: "Horario y cuaderno de notas",
-	    content: "Por último, el horario contiene enlaces para acceder al <strong>Cuaderno de notas</strong> o a la <strong>Gestión de guardias</strong> si se trata de un grupo de alumnos o de una guardia (GU).",
-	    container: "body",
-	    placement: "left",
-	    template: "<div class='popover tour' style='max-width: 600px !important;'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'>« Anterior</button>&nbsp;<button class='btn btn-default' data-role='next'>Siguiente »</button><button class='btn btn-primary' data-role='end'>Entendido</button></div></div>",
-	    backdrop: true,
-	  }
-	  <?php endif; ?>
-	  ],
-	 	});
-	 	
-	 
-	
-	// Initialize the tour
-	tour.init();
-	
-	// Start the tour
-	tour.start(true);
-	</script>
+	<?php if(isset($_GET['tour']) && $_GET['tour']): ?>
+	<script src="//<?php echo $config['dominio'];?>/intranet/js/bootstrap-tour/bootstrap-tour.min.js"></script>
+	<script src="//<?php echo $config['dominio'];?>/intranet/js/bootstrap-tour/intranet-tour.js"></script>
 	<?php endif; ?>
 
 </body>

@@ -23,12 +23,9 @@
     	<a href="#" id="debug_button" style="position: absolute; margin-top: -40px; padding: 5px 10px; background-color: rgba(0,0,0,.8); color: #fff; font-size: 86%; text-transform: uppercase;"><span class="fa fa-dashboard fa-fw"></span> Análisis</a>
     	<div id="debug" class="row" style="display: none;">
     	
-    		<div class="col-sm-6">
+    		<div class="col-sm-9">
     			<p class="form-control-static" style="padding-top: 5px;">Memoria utilizada: <?php echo size_convert(memory_get_peak_usage()).' / '.ini_get('memory_limit').'B'; ?></p>
     		</div>
-    		<div class="col-sm-3">
-    			<a href="estadisticas_dia.php" class="btn btn-default btn-sm pull-right" style="padding-top: 5px;"><span class="fa fa-pie-chart fa-fw"></span> Estadísticas del día</a>
-    		</div>	
     		<div class="col-sm-3">
     			<form method="post" class="form-horizontal pull-right" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
     				<div class="form-group">
@@ -88,9 +85,6 @@
     <?php endif; ?>
     <?php if(isset($PLUGIN_COLORPICKER) && $PLUGIN_COLORPICKER): ?>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/colorpicker/js/bootstrap-colorpicker.min.js"></script>
-    <?php endif; ?>
-    <?php if(isset($_GET['tour']) && $_GET['tour']): ?>
-    <script src="//<?php echo $config['dominio'];?>/intranet/js/bootstrap-tour/bootstrap-tour.min.js"></script>
     <?php endif; ?>
     <script src="//<?php echo $config['dominio'];?>/intranet/js/ajax_alumnos.js"></script>
     
