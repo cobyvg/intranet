@@ -3,6 +3,12 @@ require('../../bootstrap.php');
 
 $PLUGIN_DATATABLES = 1;
 
+?>
+<div id="status-loading" class="text-center">
+    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
+</div>
+<?php
+
 include("../../menu.php");
 include("../../faltas/menu.php");
 
@@ -19,7 +25,7 @@ include("../../faltas/menu.php");
   <p class="help-block">** Entre <mark>paréntesis</mark> el <em>NÚMERO DE ALUMNOS</em> que cursa la asignatura en ese nivel; en <mark>negrita</mark> la <EM>MEDIA POR ALUMNO</EM> de faltas en la Asignatura; en <mark>rojo</mark> las faltas <em>NO JUSTIFICADAS</em>; en <mark>verde</mark> las faltas <em>JUSTIFICADAS</em></p>
   <br>
 
-<div class="row">
+<div id="wrap" class="row" style="display: none;">
   <div class="col-md-10 col-md-offset-1">
 <?php 
 $nm=0;
@@ -122,5 +128,13 @@ include("../../pie.php");
       });
   });
   </script> 
+
+<script>
+function espera() {
+  document.getElementById("wrap").style.display = '';
+  document.getElementById("status-loading").style.display = 'none';        
+}
+window.onload = espera;
+</script>  
 </body>
 </html>

@@ -3,6 +3,12 @@ require('../../bootstrap.php');
 
 $PLUGIN_DATATABLES = 1;
 
+?>
+<div id="status-loading" class="text-center">
+    <br><br><span class="lead"><span class="fa fa-circle-o-notch fa-spin"></span> Cargando datos...<br><small>El proceso puede tomar algún tiempo.</small><br><br></span>
+</div>
+<?php
+
 include("../../menu.php");
 include("../../faltas/menu.php");
 
@@ -13,7 +19,8 @@ include("../../faltas/menu.php");
   <h2>Informe sobre Faltas de Asistencia <small>Profesores</small></h2>
 </div>
 
-<div class="row">
+<div id="wrap" class="row" style="display: none;">
+
 <div class="col-sm-10 col-sm-offset-1">
 <? include("menu_informes.php"); ?>
 
@@ -130,5 +137,14 @@ include("../../pie.php");
       });
   });
   </script> 
+
+<script>
+function espera() {
+  document.getElementById("wrap").style.display = '';
+  document.getElementById("status-loading").style.display = 'none';        
+}
+window.onload = espera;
+</script>
+
 </body>
 </html>

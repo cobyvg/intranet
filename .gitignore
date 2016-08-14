@@ -22,3 +22,5 @@ php.ini
 admin/jefatura/index_prof.php
 admin/jefatura/insertar_prof.php
 pruebas/*
+
+prueba.php
