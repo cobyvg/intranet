@@ -166,7 +166,7 @@ for ($x = 0; $x < $feed->get_item_quantity($items_per_feed); $x++)
 								<li class="hidden-xs">
 									<div style="padding: 3px 20px;">
 										<?php if(file_exists(INTRANET_DIRECTORY . '/xml/fotos_profes/' . $idea . '.jpg')) {
-											$foto_usuario = 'data:image/png;base64,'.base64_encode(file_get_contents(INTRANET_DIRECTORY . '/xml/fotos_profes/' . $idea . '.jpg'));
+											$foto_usuario = '//'.$config['dominio'].'/intranet/xml/fotos_profes/' . $idea . '.jpg';
 										}
 										else {
 										
