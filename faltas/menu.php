@@ -195,18 +195,18 @@ if (strstr($_SERVER['REQUEST_URI'],'index_admin.php')==TRUE) {$activo2 = ' class
 		<ul class="dropdown-menu" role="menu">
 			<li <?php echo $activo1;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/seneca/index.php"> Subir Faltas a S&eacute;neca</a></li>
 			<li <?php echo $activo4;?>><a href="//<?php echo $config['dominio']; ?>/intranet/faltas/seneca/importarSeneca.php">Descargar Faltas de Séneca</a></li>
-			<hr>
+			<li class="divider"></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariototal_faltas.php" target="_blank">Parte de faltas completo (por días)</a></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/horario_semanal.php" target="_blank">Parte de faltas completo (semanal)</a></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/horario_semanal_div.php" target="_blank">Parte de faltas completo Diversificación</a></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/cursos/horariofaltas.php">Horario de Faltas para Profesores</a></li>
-			<hr>
+			<li class="divider"></li>
 			<?php if ($config['mod_sms']) {?>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/sms/sms_cpadres.php">SMS de Faltas para Padres</a></li>
 			<?}?>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/cpadres.php">Informe de Faltas para
 			Padres</a></li>
-			<hr>
+			<li class="divider"></li>
 			<li><a href="//<?php echo $config['dominio']; ?>/intranet/admin/faltas/informe_grupos.php">Informes sobre el Registro de Faltas</a></li>
 		</ul>
 		</li>
