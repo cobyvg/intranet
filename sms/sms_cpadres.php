@@ -27,12 +27,14 @@ if ($config['mod_sms']) {
 		$fechasp31=$fechasp2[0]."-".$fechasp2[1]."-".$fechasp2[2];
 		$nivel_sms = "and curso like '$curso'";
 
+		mysqli_query($db_con,"drop table faltastemp2");
 		$SQLTEMP = "create table faltastemp2 SELECT FALTAS.CLAVEAL, falta, (count(*)) AS numero FROM  FALTAS, alma where alma.claveal=FALTAS.claveal and falta = 'F' and date(FALTAS.fecha) >= '$fechasp1' and date(FALTAS.fecha) <= '$fechasp3' $nivel_sms group by FALTAS.claveal";
 		//echo $SQLTEMP;
 		$resultTEMP= mysqli_query($db_con, $SQLTEMP);
 		mysqli_query($db_con, "ALTER TABLE faltastemp2 ADD INDEX ( claveal ) ");
 
 		$SQL0 = "SELECT distinct CLAVEAL FROM  faltastemp2 where numero > '5'";
+		//echo $SQL0;
 		$result0 = mysqli_query($db_con, $SQL0);
 		
 		while ($row0 = mysqli_fetch_array($result0)){
@@ -62,7 +64,8 @@ if ($config['mod_sms']) {
 				$correo2=mysqli_fetch_array($cor_control);
 				$correo = $correo2[0];
 			}
-			if (strlen(correo)>0) {
+
+			if (strlen($correo)>0) {
 			
 	$mail = new PHPMailer();
 	$mail->Host = "localhost";
@@ -89,7 +92,7 @@ if ($config['mod_sms']) {
 	$mail->AltBody = 'Desde la Jefetura de Estudios del '.$config['centro_denominacion'].' le comunicamos que entre el '.$_POST['fecha12'].' y el '.$_POST['fecha22'].' su hijo/a de ".$unidad." ha faltado al menos 6 horas al Centro sin haber presentado ninguna justificación.<br>Puede conseguir información más detallada en la página del alumno de nuestra web en http://'.$config['dominio'].', o bien contactando con la Jefatura de Estudios del Centro.<br><br><hr>Este correo es informativo. Por favor, no responder a esta dirección de correo. Si necesita mayor información sobre el contenido de este mensaje, póngase en contacto con Jefatura de Estudios.';
 
 	$mail->AddAddress($correo, $nombre_alumno);
-	//$mail->Send();				
+	$mail->Send();				
 			}
 
 // Fin envío de correo.
@@ -99,6 +102,7 @@ if ($config['mod_sms']) {
 
 			if(strlen($mobil2) > 0)
 			{
+
 				// Variables del memnsaje
 	$tr_curso = explode("(",$curso);
 	$niv = $tr_curso[0];
@@ -131,16 +135,15 @@ if ($config['mod_sms']) {
             $sms->send();
 			
             $mobile2 .= $mobil2.",";
-                }
             }
-			//echo $mobile2;
-			if(strlen($sin) > 0){$sin2 .= $sin.";";}
+    	}
+		if(strlen($sin) > 0){$sin2 .= $sin.";";}
 	}
 		// Identificador del mensaje
 		$sms_n = mysqli_query($db_con, "select max(id) from sms");
 		$n_sms =mysqli_fetch_array($sms_n);
 		$extid = $n_sms[0]+1;
-    }
+}
 
 	?>
 	<?php

@@ -663,18 +663,33 @@ if (! mysqli_num_rows($actua)) {
 
 /*
  @descripcion: Tabla de accesos para SMS
- @fecha: 12 de Julio de 2016
+ @fecha: 25 de Agosto de 2016
  */
 
-$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla de Accesos'");
+$actua = mysqli_query($db_con, "SELECT modulo FROM actualizacion WHERE modulo = 'Tabla de Accesos para SMS'");
 if (! mysqli_num_rows($actua)) {
+
+// Borramos tabla de pruebas
+mysqli_query($db_con,"drop table control_acceso");
 	
-	mysqli_query($db_con, "CREATE TABLE IF NOT EXISTS `control_acceso` (
-`id` int(11) NOT NULL auto_increment,
-`fecha` date NOT NULL,
-`observaciones` TEXT NOT NULL,
+// Tablas necesarias para el módulo
+mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `acceso_dias` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `numero` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;");
-	
-	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla de Accesos', NOW())");
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ");	
+
+mysqli_query($db_con,"CREATE TABLE IF NOT EXISTS `acceso` (
+`id` int(11) NOT NULL auto_increment,
+  `profesor` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
+  `fecha` date NOT NULL,
+  `clase` tinyint(1) NOT NULL,
+  `observaciones` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1");
+
+	mysqli_query($db_con, "INSERT INTO actualizacion (modulo, fecha) VALUES ('Tabla de Accesos para SMS', NOW())");
 }
+
+

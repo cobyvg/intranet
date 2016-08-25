@@ -20,6 +20,36 @@ CREATE TABLE IF NOT EXISTS `absentismo` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `acceso_dias`
+--
+
+DROP TABLE IF EXISTS `acceso_dias`;
+CREATE TABLE IF NOT EXISTS `acceso_dias` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `numero` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `acceso`
+-- 
+
+DROP TABLE IF EXISTS `acceso`;
+CREATE TABLE IF NOT EXISTS `acceso` (
+`id` int(11) NOT NULL auto_increment,
+  `profesor` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
+  `fecha` date NOT NULL,
+  `clase` tinyint(1) NOT NULL,
+  `observaciones` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `actividadalumno`
 --
 

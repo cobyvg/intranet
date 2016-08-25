@@ -137,9 +137,7 @@ if (acl_permiso($carg, array('1'))) {
 		exit();
 	}
 	
-	if ($_POST['id'] == 'mensajes') { 
-		$result = mysqli_query($db_con, "SELECT id, apellidos, nombre, unidad, tutor FROM infotut_alumno WHERE F_ENTREV = '".date('Y-m-d')."'");
-		
+	if ($_POST['id'] == 'mensajes') { 		
 		mysqli_query($db_con, "create table mens_tmp select * from mens_profes where recibidoprofe='0' order by id_texto desc limit 5000");
 		mysqli_query($db_con, "delete from mens_tmp where profesor not in (select idea from departamentos)");
 		mysqli_query($db_con, "create table mens_tmp2 SELECT profesor, count(*) as num FROM mens_tmp group by profesor");

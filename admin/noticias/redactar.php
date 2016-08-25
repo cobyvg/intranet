@@ -22,7 +22,6 @@ if (isset($_POST['enviar'])) {
 	$intranet = $_POST['intranet'];
 	$principal = $_POST['principal'];
 	$pagina = $intranet.$principal;
-	
 	if (empty($slug) || empty($content) || empty($fecha_pub)) {
 		$msg_error = "Todos los campos del formulario son obligatorios.";
 	}

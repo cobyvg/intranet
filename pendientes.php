@@ -237,12 +237,6 @@ while($rowcurso3 = mysqli_fetch_array($resultcurso3))
 		$c_asig3=" asignatura = '$asigna23[0]'";
 	}
 
-
-
-/*	$asigna13 = mysqli_query($db_con, $asigna03);
-	$asigna23 = mysqli_fetch_array($asigna13);
-	$c_asig3 = $asigna23[0];
-*/
 	if($c_asig3){
 		$hoy = date('Y-m-d');
 		//echo $hoy;
