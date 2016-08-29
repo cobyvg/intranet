@@ -70,7 +70,7 @@
 		$tr_con4 = explode(" ",$diver);
 		foreach ($tr_con4 as $clave_diver){
 			mysqli_query($db_con, "insert into matriculas_backup select * from matriculas where id = '$clave_diver'");
-			mysqli_query($db_con, "update matriculas set diversificacion = '1', optativa1 = '', optativa2 = '', optativa3 = '', optativa4 = '', optativa5 = '', optativa6 = '', optativa7 = '', act1='', itinerario = '', matematicas4 = '' where id = '$clave_diver'");
+			mysqli_query($db_con, "update matriculas set diversificacion = '1', optativa1 = '', optativa2 = '', optativa3 = '', optativa4 = '', optativa5 = '', optativa6 = '', optativa7 = '', act1='', itinerario = '', optativas4 = '' where id = '$clave_diver'");
 		}
 		$tr_con5 = explode(" ",$revis);
 		foreach ($tr_con5 as $clave_revis){

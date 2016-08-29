@@ -920,8 +920,8 @@ if ($dni or $claveal or $id) {
 				class="form-group <?php echo (strstr($vacios,"religion, ")==TRUE) ? 'has-error' : ''; ?>">
 			<div class="radio"><label> <input type="radio" name="religion"
 				value="Religión Católica" required
-				<?php if($religion == 'Religión Católica'){echo "checked";} ?>>
-			Religión Catolica </label></div>
+				<?php if(stristr($religion,' Cat')==TRUE){echo "checked";} ?>>
+			Religión Católica </label></div>
 			</div>
 
 			<div

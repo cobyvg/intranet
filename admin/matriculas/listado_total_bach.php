@@ -28,11 +28,11 @@ $options_left = array(
 		$num_opc = 5;
 		}
 		else{
-		$sqldatos.="itinerario2, optativa2, optativa2b1, optativa2b2, optativa2b3, optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, optativa2b9, optativa2b10, ";	
+		$sqldatos.="itinerario2, optativa2, optativa2b1, optativa2b2, optativa2b3, optativa2b4, optativa2b5, optativa2b6, optativa2b7, optativa2b8, ";	
 		$num_opc = 14;
 		}
 		$sqldatos .= "religion, bilinguismo FROM matriculas_bach WHERE curso = '$curso' and grupo_actual='".$grupo_actual[0]."' ORDER BY apellidos, nombre";
-
+//echo $sqldatos;
 $lista= mysqli_query($db_con, $sqldatos );
 $nc=0;
 unset($data);
@@ -49,7 +49,7 @@ while($datatmp = mysqli_fetch_array($lista)) {
 $nc+=1;
 
 if ($curso=="2BACH") {
-for ($i = 3; $i < 13; $i++) {
+for ($i = 3; $i < 11; $i++) {
 		if ($datatmp[$i]=="1") {
 			$datatmp[$i]="X";
 		}
@@ -57,7 +57,7 @@ for ($i = 3; $i < 13; $i++) {
 			$datatmp[$i]="";
 		}
 	}		
-		if (strstr($datatmp[13],"Cat")==TRUE) {
+		if (strstr($datatmp['religion'],"Cat")==TRUE) {
 			$religion ="X";
 		}
 		
@@ -65,16 +65,18 @@ for ($i = 3; $i < 13; $i++) {
 	
 	Itinerarios: 1 => Ciencias de la Salud y Tecnológico; 2 => Humanidades y Ciencias Sociales
 	
-	Optativas:
-	Opt.1 = Alemán 2º Idioma; Opt.2 = Francés 2º Idioma; Opt.3 = T.I.C.; Opt.4 = Ciencias de la Tierra y Medioambientales; Opt.5 = Historia de la Música y la Danza; Opt.6 = Literatura Universal; Opt.7 = Educación Física; Opt.8 = Estadística; Opt.9 = Introducción a las Ciencias de la Salud; Opt.10 = Inglés 2º Idioma;
+	Optativas Itin. 1: 1 => Tecnología Industrial; 2 => Ciencias de la Tierra y del Medio Ambiente; 3 => Psicología; 4 => Geología; 5 => TIC II; 6 => Alemán 2º Idioma; 7 => Francés 2º Idioma; 8 => Inglés 2º Idioma;
+	Optativas Itin. 2: 1 => Tecnología Industrial; 2 => Ciencias de la Tierra y del Medio Ambiente; 3 => Psicología; 4 => Geología; 5 => TIC; 6 => Alemán 2º Idioma; 7 => Francés 2º Idioma; 8 => Inglés 2º Idioma;
+	Optativas Itin. 3: 1 => TIC II; 2 => Alemán 2º Idioma; 3 => Francés 2º Idioma; 4 => Inglés 2º Idioma;
+	Optativas Itin. 4: 1 => TIC II; 2 => Fundamentos de Administracción y Gestión; 3 => Alemán 2º Idioma; 4 => Francés 2º Idioma; 5 => Inglés 2º Idioma;
 	';
-	$optas = str_replace("21","",$datatmp[2]);
-	$optas = str_replace("22","",$optas);
+	$optas = $datatmp[2];
+	if (stristr($optas, "Econom")==TRUE) { $optas = "ECO"; }elseif(stristr($optas, "Grieg")==TRUE){ $optas = "GRI"; }
 	$data[] = array(
 				'num'=>$nc,
 				'nombre'=>$datatmp[0].$bil,
 				'c1'=>$religion,
-				'c2'=>$datatmp[1],
+				'c2'=>$datatmp['itinerario2'],
 				'c3'=>$optas,
 				'c4'=>$datatmp[3],
 				'c5'=>$datatmp[4],
@@ -84,8 +86,6 @@ for ($i = 3; $i < 13; $i++) {
 				'c9'=>$datatmp[8],
 				'c10'=>$datatmp[9],
 				'c11'=>$datatmp[10],
-				'c12'=>$datatmp[11],
-				'c13'=>$datatmp[12],
 				);
 	$titles = array(
 				'num'=>'<b>Nº</b>',
@@ -101,33 +101,33 @@ for ($i = 3; $i < 13; $i++) {
 				'c9'=>'6',
 				'c10'=>'7',
 				'c11'=>'8',
-				'c12'=>'9',
-				'c13'=>'10',
 			);
 }
 if ($curso=="1BACH") {
 
-		if (strstr($datatmp[5],"Cat")==TRUE) {
+		if (strstr($datatmp['religion'],"Cat")==TRUE) {
 			$religion ="R. Cat.";
 		}
-		elseif (strstr($datatmp[5],"Isl")==TRUE) {
+		elseif (strstr($datatmp['religion'],"Isl")==TRUE) {
 			$religion ="R. Isl.";
 		}
-		elseif (strstr($datatmp[5],"Eva")==TRUE) {
+		elseif (strstr($datatmp['religion'],"Eva")==TRUE) {
 			$religion ="R. Evan.";
 		}
-		elseif (strstr($datatmp[5],"Valo")==TRUE) {
+		elseif (strstr($datatmp['religion'],"Valo")==TRUE) {
 			$religion ="E. Ciud.";
-		}
-		elseif (strstr($datatmp[5],"Cult")==TRUE) {
-			$religion ="C. Cient.";
 		}
 		$opt = '
 	
-	Itinerarios de 1º de Bachillerato: 1 => Tecnología; 2 => Salud; 3 => Humanidades; 4 => Ciencias Sociales
-	';
-	$optas = str_replace("11","",$datatmp[2]);
-	$optas = str_replace("12","",$optas);
+	Itinerarios de 1º de Bachillerato: 1 => Ciencias e Ingeniería y Arquitectura; 2 => Ciencias y Ciencias de la Salud"; 3 => Humanidades; 4 => Ciencias Sociales y Jurídicas
+	
+	Optativas:
+	CC => Cultura Científica; TIC => Tecnologías de la Información y Comunicación; HMC => Historia del Mundo Contemporáneo.; LUN => Literatura Universal;
+		';
+	$optas = str_replace("1","",$datatmp[2]);
+	$optas = str_replace("2","",$optas);
+	$optas = str_replace("3","",$optas);
+	$optas = str_replace("4","",$optas);
 	$data[] = array(
 				'num'=>$nc,
 				'nombre'=>$datatmp[0].$bil,
@@ -140,7 +140,7 @@ if ($curso=="1BACH") {
 	$titles = array(
 				'num'=>'<b>Nº</b>',
 				'nombre'=>'<b>Alumno</b>',
-				'c1'=>'',
+				'c1'=>'Religión',
 				'c2'=>'It1',
 				'c3'=>'Opt1',
 				'c4'=>'Idioma1',
