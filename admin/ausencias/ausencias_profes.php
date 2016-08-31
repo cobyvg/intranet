@@ -50,7 +50,7 @@ $PLUGIN_DATATABLES = 1;
 				?>
 
 					<tr>
-	  					<td><?php echo mb_strtoupper($profe);?></td>
+	  					<td><a href="index.php?pra=<?php echo $profe;?>#history"><?php echo mb_strtoupper($profe);?></td>
 	  					<td class="text-center"><?php echo "<strong>".$num_total."</strong>";?></td>
 	  					<td class="text-center"><?php echo "<span class='text-danger'>".$dias."</span>";?></td>
 	  					<td class="text-center"><?php echo "<span class='text-warning'>".$horas."</span>";?></td>

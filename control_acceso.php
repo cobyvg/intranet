@@ -346,25 +346,9 @@ while ($row0 = mysqli_fetch_array($result0)){
 			$mail->msgHTML($message);
 			$mail->Subject = $config['centro_denominacion'].' - Mensaje de la '.$profe_envia;
 			$mail->AltBody = $titulo.' '.$contenido;			
-					
-				
-
 			$mail->AddAddress($direccion, $cor_profes);
 			$mail->Send();
 
-			// O bien el mail incorporado
-
-			/*
-			$tema = "Comunicación de Tareas pendientes en el Centro";
-			$profe_envia = "Dirección del ".$config['centro_denominacion'];
-			$mail_from = $config['centro_email'];
-			
-			$titulo = stripslashes(mysqli_real_escape_string($db_con, $tema));
-			$contenido = stripslashes(mysqli_real_escape_string($db_con, $texto));
-			$to = $direccion;
-			$cabeceras = "From: ".$mail_from;
-
-			mail ($to , $titulo , $contenido, $cabeceras);*/
 			}	
 		}
 

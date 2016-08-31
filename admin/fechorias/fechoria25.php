@@ -45,7 +45,7 @@ for ($i=0;$i<$num_a;$i++){
           </div></div><br />';
 	}
 	else{
-
+		
 		$alumno = mysqli_query($db_con, " SELECT distinct FALUMNOS.APELLIDOS, FALUMNOS.NOMBRE, FALUMNOS.unidad, FALUMNOS.nc, FALUMNOS.CLAVEAL, alma.TELEFONO, alma.TELEFONOURGENCIA FROM FALUMNOS, alma WHERE FALUMNOS.claveal = alma.claveal and FALUMNOS.claveal = '$claveal'" );
 		$rowa = mysqli_fetch_array ( $alumno );
 		$apellidos = trim ( $rowa [0] );
@@ -56,7 +56,6 @@ for ($i=0;$i<$num_a;$i++){
 
 		// SMS
 		if ($config['mod_sms']) {
-
 
 			$hora_f = date ( "G" );
 			if (($grave == "grave" or $grave == "muy grave") and (substr ( $tfno, 0, 1 ) == "6" or substr ( $tfno, 0, 1 ) == "7" or substr ( $tfno_u, 0, 1 ) == "6" or substr ( $tfno_u, 0, 1 ) == "7") and $hora_f > '8' and $hora_f < '17') {
@@ -103,7 +102,6 @@ for ($i=0;$i<$num_a;$i++){
 		}
 
 		// FIN SMS
-
 		$dia = explode ( "-", $fecha );
 		$fecha2 = "$dia[2]-$dia[1]-$dia[0]";
 		$query = "insert into Fechoria (CLAVEAL,FECHA,ASUNTO,NOTAS,INFORMA,grave,medida,expulsionaula) values ('" . $claveal . "','" . $fecha2 . "','" . $asunto . "','" . $notas . "','" . $informa . "','" . $grave . "','" . $medida . "','" . $expulsionaula . "')";
@@ -130,7 +128,7 @@ for ($i=0;$i<$num_a;$i++){
 	 }
 	 if (strlen($correo)>0) {
 	 	
-	 	/*
+	 	 include_once(INTRANET_DIRECTORY."/lib/class.phpmailer.php");
 	 	 $mail = new PHPMailer();
 	 	 $mail->Host = "localhost";
 	 	 $mail->From = 'no-reply@'.$config['dominio'];
@@ -157,8 +155,8 @@ for ($i=0;$i<$num_a;$i++){
 
 	 	 $mail->AddAddress($correo, $nombre_alumno);
 	 	 $mail->Send();	
-	 	*/
-	 }
+	 	
+	 	}
 	}
 }
 

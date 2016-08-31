@@ -21,6 +21,7 @@ if (isset($_GET['hora6'])) {$hora6 = $_GET['hora6'];}elseif (isset($_POST['hora6
 $PLUGIN_DATATABLES = 1;
 
 include("../../menu.php");
+include("menu.php");
 ?>
 
 <div class="container">
@@ -329,12 +330,14 @@ Los datos se han actualizado correctamente.
 						<?php endwhile; ?>
 					</tbody>
 				</table>
+					<a name="history"></a>
+
 			</div>
 
 		</div><!-- /.col-sm-7 -->
 		
 	</div><!-- /.row -->
-	
+	<hr><hr>
 	<?php if (isset($pra) && !empty($pra)): ?>
 	<div class="row">
 		
@@ -342,7 +345,7 @@ Los datos se han actualizado correctamente.
 			<?php $exp_profesor = explode(", ", $pra); ?>
 			<?php $nomprof = $exp_profesor[1].' '.$exp_profesor[0]; ?>
 			
-			<a name="history"></a>
+			
 			<legend>Historial de ausencias de <?php echo $nomprof; ?></legend>
 			
 			<div class="table-responsive">
