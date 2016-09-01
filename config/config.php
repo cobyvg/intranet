@@ -78,6 +78,8 @@ if (isset($_POST['config']))
 	$modulo_sms_user	= limpiar_string($_POST['mod_sms_user']);
 	$modulo_sms_pass	= limpiar_string($_POST['mod_sms_pass']);
 	
+	(isset($_POST['mod_notificaciones'])) ? $modulo_notificaciones = 1 : $modulo_notificaciones = 0;
+	
 	(isset($_POST['mod_asistencia'])) ? $modulo_asistencia = 1 : $modulo_asistencia = 0;
 	
 	(isset($_POST['mod_horarios'])) ? $modulo_horarios = 1 : $modulo_horarios = 0;
@@ -145,6 +147,9 @@ if (isset($_POST['config']))
 		fwrite($file, "\$config['mod_sms_id']\t\t\t= '$modulo_sms_id';\r\n");
 		fwrite($file, "\$config['mod_sms_user']\t\t\t= '$modulo_sms_user';\r\n");
 		fwrite($file, "\$config['mod_sms_pass']\t\t\t= '$modulo_sms_pass';\r\n");
+		
+		fwrite($file, "\r\n// MÓDULO: NOTIFICACIONES\r\n");
+		fwrite($file, "\$config['mod_notificaciones']\t= $modulo_notificaciones;\r\n");
 		
 		fwrite($file, "\r\n// MÓDULO: FALTAS DE ASISTENCIA\r\n");
 		fwrite($file, "\$config['mod_asistencia']\t\t= $modulo_asistencia;\r\n");
@@ -448,6 +453,7 @@ include('../menu.php');
 									<li><a href="#mod_centrotic" aria-controls="mod_centrotic" role="tab" data-toggle="tab">Centro TIC</a></li>
 									<li><a href="#mod_documentos" aria-controls="mod_documentos" role="tab" data-toggle="tab">Documentos</a></li>
 									<li><a href="#mod_sms" aria-controls="mod_sms" role="tab" data-toggle="tab">Envío SMS</a></li>
+									<li><a href="#mod_notificaciones" aria-controls="mod_notificaciones" role="tab" data-toggle="tab">Notificaciones</a></li>
 									<li><a href="#mod_asistencia" aria-controls="mod_asistencia" role="tab" data-toggle="tab">Faltas de Asistencia</a></li>
 									<li><a href="#mod_horarios" aria-controls="mod_horarios" role="tab" data-toggle="tab">Horarios</a></li>
 									<li><a href="#mod_matriculacion" aria-controls="mod_matriculacion" role="tab" data-toggle="tab">Matriculación</a></li>
@@ -587,6 +593,21 @@ include('../menu.php');
 							    		<label for="mod_sms_pass">Contraseña</label>
 							    	    <input type="password" class="form-control" id="mod_sms_pass" name="mod_sms_pass" value="<?php echo $config['mod_sms_pass']; ?>">
 							    	</div>
+							    	
+							    </div>
+							    
+							    <!-- MÓDULO: NOTIFICACIONES -->
+							    <div role="tabpanel" class="tab-pane" id="mod_notificaciones">
+							    	
+							    	<div class="form-group">
+							        	<div class="checkbox">
+							        		<label>
+							        			<input type="checkbox" name="mod_notificaciones" value="1" <?php echo (isset($config['mod_notificaciones']) && $config['mod_notificaciones']) ? 'checked' : ''; ?>>
+							        			<strong>Notificar a los profesores con tareas pendientes</strong>
+							        			<p class="help-block">Pone en funcionamiento el envío de SMS o correo electrónico a los profesores que no hayan accedido a la aplicación hace más de 4 días o tengan tareas pendientes: más de 25 mensajes sin leer, informes de tareas o tutoría sin rellenar.</p>
+							        		</label>
+							        	</div>
+							        </div>
 							    	
 							    </div>
 							    
