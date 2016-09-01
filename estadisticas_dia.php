@@ -156,11 +156,11 @@ if (acl_permiso($carg, array('1'))) {
 			array_push($table, $table2);
 		}
 		
-		
+			
+		mysqli_free_result($result);
 		mysqli_query($db_con,"drop table tmp_accesos");
 		mysqli_query($db_con,"drop table mens_tmp");
 		mysqli_query($db_con,"drop table mens_tmp2");
-		mysqli_free_result($result);
 		
 		$output = array('total' => $row, 'mensajes_tabla' => $table);
 		

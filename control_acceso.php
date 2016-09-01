@@ -1,6 +1,5 @@
-<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed'); ?>	
+<?php defined('INTRANET_DIRECTORY') OR exit('No direct script access allowed');
 
-<?php
 
 if (date('G')>='9' and date('G')<='11') {
 
@@ -84,9 +83,7 @@ if ($fiesta<>1 and $fiesta2<>1) {
 			}
 		}
 	}	
-?>	
 
-<?php
 
 if ($fiesta<>1) {
 
@@ -108,12 +105,12 @@ $result = mysqli_query($db_con, "select distinct idea from departamentos order b
 		}
 	}	
 }
-?>	
 
 
-<!-- Informes de Tareas a punto de cumplir -->
 
-<?php
+// Informes de Tareas a punto de cumplir
+
+
 $grupo = "";
 $id = "";
 $claveal = "";
@@ -170,11 +167,9 @@ while ($al_fecha = mysqli_fetch_array($fchs)) {
 			}
 		}
 	}
-?>
 
-<!-- Informes de Tutoría a punto de cumplir -->
+// Informes de Tutoría a punto de cumplir
 
-<?php
 $grupo = "";
 $id = "";
 $claveal = "";
@@ -231,12 +226,9 @@ while ($al_fecha = mysqli_fetch_array($fchs)) {
 			}
 		}
 	}
-?>
 
 
-<!-- ENVÍO DE MENSAJES SMS U OTROS A LOS PROFESORES -->
-
-<?php
+// ENVÍO DE MENSAJES SMS U OTROS A LOS PROFESORES
 
 $pr_sms = mysqli_query($db_con,"select distinct profesor from acceso where date(fecha)='$hoy'");
 while ($p_sms = mysqli_fetch_array($pr_sms)){
@@ -357,4 +349,3 @@ while ($row0 = mysqli_fetch_array($result0)){
 
 	}
 }
-?>

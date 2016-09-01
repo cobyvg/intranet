@@ -147,6 +147,8 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 		$msg_error = "La cuenta de usuario está bloqueada";
 	}
 }
+
+include('control_acceso.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -292,8 +294,6 @@ if (isset($_POST['submit']) and ! ($_POST['idea'] == "" or $_POST['clave'] == ""
 
 	});
 	</script>
-
-<?php include('control_acceso.php');?>
 
 </body>
 </html>
