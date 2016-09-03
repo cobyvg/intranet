@@ -3,9 +3,9 @@
 <ul class="nav nav-pills nav-stacked">
 	
 	<? if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE): ?>
-	<!-- CONFIGURACI覰 -->
-	<li class="nav-header">Configuraci髇</li> 
-	<li><a href="../config/config.php">Configuraci髇 general y m骴ulos</a></li>
+	<!-- CONFIGURACI脫N -->
+	<li class="nav-header">Configuraci贸n</li> 
+	<li><a href="../config/config.php">Configuraci贸n general y m贸dulos</a></li>
 	<? endif;?>
 	
 	<!-- A PRINCIPIO DE CURSO -->
@@ -18,14 +18,14 @@
 	<?php endif; ?>
 	<li><a href="jefe/index_profesores.php">Importar Profesores, Unidades y Materias</a></li>
 	<li><a href="jefe/index_pas.php">Importar Personal no docente</a></li>
-	<li><a href="jefe/index_festivos.php">Importar d韆s festivos</a></li>
+	<li><a href="jefe/index_festivos.php">Importar d铆as festivos</a></li>
 	<li><a href="jefe/rof/index.php">Modificar ROF</a></li>
 	<?php if(isset($config['mod_horarios']) && $config['mod_horarios']): ?>
 	<li><a href="jefe/index_limpia.php">Limpiar Horarios</a></li>
 	<?php endif; ?>
 	
-	<!-- ACTUALIZACI覰 -->
-	<li class="nav-header">Actualizaci髇</li>
+	<!-- ACTUALIZACI脫N -->
+	<li class="nav-header">Actualizaci贸n</li>
 	<li><a href="jefe/index.php">Actualizar Alumnos</a></li>
 	<li><a href="jefe/index_departamentos2.php">Actualizar Profesores y Departamentos</a></li>
 	<li><a href="jefe/horario.php">Actualizar Horarios</a></li>
@@ -35,12 +35,12 @@
 	<!-- PERSONAL DEL CENTRO -->
 	<li class="nav-header">Personal del Centro</li> 
 	<li><a href="../config/cargos.php">Perfiles de los profesores</a></li>
-	<li><a href="jefe/gest_dep.php">Gesti髇 de los Departamentos</a></li>
-	<li><a href="jefe/reset_password.php">Restablecer contrase馻s</a></li>
+	<li><a href="jefe/gest_dep.php">Gesti贸n de los Departamentos</a></li>
+	<li><a href="jefe/reset_password.php">Restablecer contrase帽as</a></li>
 	<?php if(isset($config['mod_horarios']) && $config['mod_horarios']): ?>
 	<li><a href="jefe/horarios/index.php">Crear / Modificar horarios</a></li>
 	<?php endif; ?>
-	<li><a href="jefe/index_hor.php">Sustituci髇 de profesores</a></li>
+	<li><a href="jefe/index_hor.php">Sustituci贸n de profesores</a></li>
 	<li><a href="jefe/index_fotos_profes.php">Subir fotos de profesores</a></li>
 	<li><a href="jefe/informes/accesos.php">Informe de accesos</a></li>
 	
@@ -51,13 +51,13 @@
 	<li><a href="jefe/index_fotos.php">Subir fotos de alumnos</a></li>
 	<li><a href="../admin/libros/indextextos.php">Libros de Texto Gratuitos</a></li>
 	<?php if(isset($config['mod_matriculacion']) && $config['mod_matriculacion']): ?>
-	<li><a href="../admin/matriculas/index.php">Matriculaci髇 de alumnos</a></li>
-	<li><a href="./jefe/index_mayores.php">Alumnos mayores de 18 a駉s</a></li>	
+	<li><a href="../admin/matriculas/index.php">Matriculaci贸n de alumnos</a></li>
+	<li><a href="./jefe/index_mayores.php">Alumnos mayores de 18 a帽os</a></li>	
 	<?php endif; ?>
 	<li><a href="jefe/informes/accesos_alumnos.php">Informe de accesos</a></li>
 	
 	<!-- CALIFICACIONES -->
-	<li class="nav-header">Notas de evaluaci髇</li>
+	<li class="nav-header">Notas de evaluaci贸n</li>
 	<li><a href="jefe/index_notas.php">Importar Calificaciones</a></li>
 	
 	
@@ -76,11 +76,10 @@
 	<?php if(file_exists('jefe/TIC/profesores_moodle.txt')): ?>
 	<li><a href="jefe/TIC/download.php?file=profesores_moodle.txt" target="_blank">Usuarios profesores (Moodle)</a></li>	
 	<?php endif; ?>
-	<?php endif; ?>
-	
+
 	<!-- SISTEMA DE RESERVAS -->
 	<li class="nav-header">Sistema de Reservas</li> 
-	<li><a href="../reservas/gestion_tipo.php">Gesti髇 de reservas</a></li>
+	<li><a href="../reservas/gestion_tipo.php">Gesti贸n de reservas</a></li>
 	
 	<? if ($_SESSION['ide'] == 'admin' or stristr($_SESSION['cargo'],'0')==TRUE):?>
 	<li class="nav-header">Bases de datos</li>
@@ -90,6 +89,6 @@
 	
 	<?php if(isset($config['mod_sms']) && $config['mod_sms']): ?>
 	<li class="nav-header">SMS</li>
-	<li><a href="jefe/index_sms.php">Informaci髇 env韔s SMS</a></li> 
+	<li><a href="jefe/index_sms.php">Informaci贸n env铆os SMS</a></li> 
 	<?php endif; ?>
 </ul>
